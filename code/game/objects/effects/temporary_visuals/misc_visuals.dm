@@ -482,6 +482,17 @@
 	image_icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
 	image_icon_state = "target_box"
 
+/obj/effect/temp_visual/ai_pointer
+	duration = 4 SECONDS
+	randomdir = FALSE
+	icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
+	icon_state = "target_circle"
+
+/obj/effect/temp_visual/ai_sealant
+	duration = 10 SECONDS
+	randomdir = FALSE
+	icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
+	icon_state = "target_box"
 
 /obj/effect/temp_visual/obliteration
 	duration = 2 SECONDS
@@ -511,6 +522,16 @@
 	if(new_filter)
 		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
 		animate(offset = 0, time = 10 SECONDS)
+
+/obj/effect/temp_visual/electrocution
+	name = "electrocution"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "electrocution"
+	duration = 1 SECONDS
+
+/obj/effect/temp_visual/electrocution/Initialize(mapload, set_duration)
+	duration = set_duration
+	. = ..()
 
 /obj/effect/temp_visual/warning
 	name = "warning"

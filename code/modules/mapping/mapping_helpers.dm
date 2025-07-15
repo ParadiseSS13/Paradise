@@ -86,7 +86,7 @@
 	. = ..()
 
 	var/turf/T = get_turf(src)
-	if(istype(T) && T.z == level_name_to_num(MINING))
+	if(istype(T) && (T.z in levels_by_trait(ORE_LEVEL)))
 		var/obj/effect/landmark/river_waypoint/waypoint = new(T)
 		GLOB.river_waypoint_presets += waypoint
 
@@ -158,6 +158,35 @@
 
 /obj/effect/mapping_helpers/airlock/autoname/payload(obj/machinery/door/airlock)
 	airlock.name = get_area_name(airlock, TRUE)
+
+/obj/effect/mapping_helpers/airlock/autoname/syndie_base
+	name = "syndie base airlock autoname helper"
+
+/obj/effect/mapping_helpers/airlock/autoname/syndie_base/payload(obj/machinery/door/airlock)
+	airlock.name = replacetext(get_area_name(airlock, TRUE), "Syndicate Space Base ", "")
+
+// Will cfoam an airlock
+/obj/effect/mapping_helpers/airlock/c_foam
+	name = "airlock c_foam helper"
+	icon_state = "airlock_c_foam_helper" //QWERTODO: Sprite this
+	/// How many times will this helper foam the door? The max level is 5.
+	var/foam_level = 1
+
+/obj/effect/mapping_helpers/airlock/c_foam/payload(obj/machinery/door/airlock/airlock)
+	for(var/loops in 1 to foam_level)
+		airlock.foam_up()
+
+/obj/effect/mapping_helpers/airlock/c_foam/two
+	foam_level = 2
+
+/obj/effect/mapping_helpers/airlock/c_foam/three
+	foam_level = 3
+
+/obj/effect/mapping_helpers/airlock/c_foam/four
+	foam_level = 4
+
+/obj/effect/mapping_helpers/airlock/c_foam/five
+	foam_level = 5
 
 //part responsible for windoors (thanks S34N)
 /obj/effect/mapping_helpers/airlock/windoor

@@ -7,7 +7,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	display_contents_with_number = FALSE
 	max_combined_w_class = 200
-	storage_slots = 21
+	storage_slots = 27
 	resistance_flags = FLAMMABLE
 	can_hold = list(/obj/item/clothing)
 	cant_hold = list(
@@ -30,6 +30,7 @@
 /obj/item/storage/bag/garment/captain/populate_contents()
 	new /obj/item/clothing/head/caphat(src)
 	new /obj/item/clothing/head/caphat/parade(src)
+	new /obj/item/clothing/head/caphat/parade/white(src)
 	new /obj/item/clothing/head/beret/captain(src)
 	new /obj/item/clothing/head/beret/captain/white(src)
 	new /obj/item/clothing/head/crown/fancy(src)
@@ -41,6 +42,9 @@
 	new /obj/item/clothing/suit/armor/vest/capcarapace/coat/white(src)
 	new /obj/item/clothing/neck/cloak/captain_mantle(src)
 	new /obj/item/clothing/under/rank/captain(src)
+	new /obj/item/clothing/under/rank/captain/skirt(src)
+	new /obj/item/clothing/under/rank/captain/white(src)
+	new /obj/item/clothing/under/rank/captain/skirt/white(src)
 	new /obj/item/clothing/under/rank/captain/parade(src)
 	new /obj/item/clothing/under/rank/captain/dress(src)
 	new /obj/item/clothing/gloves/color/captain(src)
@@ -103,9 +107,11 @@
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the research director."
 
 /obj/item/storage/bag/garment/research_director/populate_contents()
-	new /obj/item/clothing/head/beret/sci(src)
+	new /obj/item/clothing/head/rd (src)
+	new /obj/item/clothing/head/beret/rd(src)
 	new /obj/item/clothing/neck/cloak/research_director(src)
-	new /obj/item/clothing/under/rank/rnd/research_director(src)
+	new /obj/item/clothing/under/rank/rnd/rd(src)
+	new /obj/item/clothing/under/rank/rnd/rd/skirt(src)
 	new /obj/item/clothing/suit/storage/labcoat/rd(src)
 	new /obj/item/clothing/neck/cloak/rd_mantle(src)
 	new /obj/item/clothing/suit/storage/labcoat(src)
@@ -123,12 +129,14 @@
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the chief medical officer."
 
 /obj/item/storage/bag/garment/chief_medical_officer/populate_contents()
+	new /obj/item/clothing/head/cmo (src)
+	new /obj/item/clothing/head/beret/cmo (src)
 	new /obj/item/clothing/head/surgery/blue(src)
 	new /obj/item/clothing/head/surgery/green(src)
 	new /obj/item/clothing/head/surgery/purple(src)
 	new /obj/item/clothing/neck/cloak/chief_medical_officer(src)
-	new /obj/item/clothing/under/rank/medical/chief_medical_officer(src)
-	new /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt(src)
+	new /obj/item/clothing/under/rank/medical/cmo(src)
+	new /obj/item/clothing/under/rank/medical/cmo/skirt(src)
 	new /obj/item/clothing/under/rank/medical/scrubs(src)
 	new /obj/item/clothing/under/rank/medical/scrubs/green(src)
 	new /obj/item/clothing/under/rank/medical/scrubs/purple(src)
@@ -342,3 +350,20 @@
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/mask/gas/explorer(src)
+
+/obj/item/storage/bag/garment/smith
+	name = "smith's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the smith."
+
+/obj/item/storage/bag/garment/smith/populate_contents()
+	new /obj/item/clothing/under/rank/cargo/smith(src)
+	new /obj/item/clothing/under/rank/cargo/smith/skirt(src)
+	new /obj/item/clothing/under/rank/cargo/smith/overalls(src)
+	new /obj/item/clothing/suit/apron/smith(src)
+	new /obj/item/clothing/suit/jacket/bomber/smith(src)
+	new /obj/item/clothing/head/soft/smith(src)
+	new /obj/item/clothing/head/beret/smith(src)
+	new /obj/item/clothing/gloves/smithing(src)
+	new /obj/item/clothing/shoes/workboots/smithing(src)
+	new /obj/item/clothing/under/plasmaman/smith(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/smith(src)

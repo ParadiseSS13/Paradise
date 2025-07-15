@@ -83,7 +83,7 @@ CREATE TABLE `characters` (
   `runechat_color` VARCHAR(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#FFFFFF',
   `cyborg_brain_type` ENUM('MMI', 'Robobrain', 'Positronic') NOT NULL DEFAULT 'MMI',
   `pda_ringtone` VARCHAR(16) NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
-  `species_subtype` VARCHAR(45) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'None',
+  `quirks` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -413,9 +413,11 @@ CREATE TABLE `notes` (
   `automated` TINYINT(3) UNSIGNED NULL DEFAULT '0',
   `deleted` TINYINT(4) NOT NULL DEFAULT '0',
   `deletedby` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+  `public` TINYINT(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`),
-  KEY `deleted` (`deleted`)
+  KEY `deleted` (`deleted`),
+  KEY `public` (`public`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -540,11 +542,11 @@ CREATE TABLE `changelog` (
 --
 DROP TABLE IF EXISTS `ip2group`;
 CREATE TABLE `ip2group` (
-  `ip` varchar (18) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
-  `groupstr` varchar (32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`ip`),
-  KEY `groupstr` (`groupstr`)
+	`ip` INT(10) UNSIGNED NOT NULL,
+	`date` TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+	`groupstr` INT(10) UNSIGNED NOT NULL,
+	PRIMARY KEY (`ip`) USING BTREE,
+	INDEX `groupstr` (`groupstr`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

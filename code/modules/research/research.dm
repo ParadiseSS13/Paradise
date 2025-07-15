@@ -278,21 +278,21 @@ research holder datum.
 /datum/tech/materials
 	name = "Materials Research"
 	desc = "Development of new and improved materials."
-	id = "materials"
+	id = TECH_MATERIAL
 	max_level = 7
 	ui_icon = "layer-group"
 
 /datum/tech/engineering
 	name = "Engineering Research"
 	desc = "Development of new and improved engineering parts and methods."
-	id = "engineering"
+	id = TECH_ENGINEERING
 	max_level = 7
 	ui_icon = "tools"
 
 /datum/tech/plasmatech
 	name = "Plasma Research"
 	desc = "Research into the mysterious substance colloqually known as 'plasma'."
-	id = "plasmatech"
+	id = TECH_PLASMA
 	max_level = 7
 	rare = 3
 	ui_icon = "fire"
@@ -300,14 +300,14 @@ research holder datum.
 /datum/tech/powerstorage
 	name = "Power Manipulation Technology"
 	desc = "The various technologies behind the storage and generation of electicity."
-	id = "powerstorage"
+	id = TECH_POWER
 	max_level = 7
 	ui_icon = "bolt"
 
 /datum/tech/bluespace
 	name = "'Bluespace' Research"
 	desc = "Research into the sub-reality known as 'bluespace'."
-	id = "bluespace"
+	id = TECH_BLUESPACE
 	max_level = 7
 	rare = 2
 	ui_icon = "gem"
@@ -315,28 +315,28 @@ research holder datum.
 /datum/tech/biotech
 	name = "Biological Technology"
 	desc = "Research into the deeper mysteries of life and organic substances."
-	id = "biotech"
+	id = TECH_BIO
 	max_level = 7
 	ui_icon = "seedling"
 
 /datum/tech/combat
 	name = "Combat Systems Research"
 	desc = "The development of offensive and defensive systems."
-	id = "combat"
+	id = TECH_COMBAT
 	max_level = 7
 	ui_icon = "shield-alt"
 
 /datum/tech/magnets
 	name = "Electromagnetic Spectrum Research"
 	desc = "Research into the electromagnetic spectrum. No clue how they actually work, though."
-	id = "magnets"
+	id = TECH_MAGNETS
 	max_level = 7
 	ui_icon = "magnet"
 
 /datum/tech/programming
 	name = "Data Theory Research"
 	desc = "The development of new computer and artificial intelligence and data storage systems."
-	id = "programming"
+	id = TECH_PROGRAM
 	max_level = 7
 	ui_icon = "server"
 
@@ -344,7 +344,7 @@ research holder datum.
 /datum/tech/toxins
 	name = "Toxins Research"
 	desc = "Research into plasma based explosive devices. Upgrade through testing explosives in the toxins lab."
-	id = "toxins"
+	id = TECH_TOXINS
 	max_level = 7
 	rare = 2
 	ui_icon = "explosion"
@@ -352,7 +352,7 @@ research holder datum.
 /datum/tech/syndicate
 	name = "Illegal Technologies Research"
 	desc = "The study of technologies that violate standard Nanotrasen regulations."
-	id = "syndicate"
+	id = TECH_SYNDICATE
 	max_level = 0 // Don't count towards maxed research, since it's illegal.
 	rare = 4
 	ui_icon = "user-astronaut"
@@ -360,7 +360,7 @@ research holder datum.
 /datum/tech/abductor
 	name = "Alien Technologies Research"
 	desc = "The study of technologies used by the advanced alien race known as Abductors."
-	id = "abductor"
+	id = TECH_ABDUCTOR
 	rare = 5
 	level = 0
 	ui_icon = "satellite"
@@ -448,16 +448,6 @@ datum/tech/robotics
 	name = default_name
 	desc = default_desc
 	blueprint = null
-
-/obj/item/disk/design_disk/golem_shell
-	name = "golem creation disk"
-	desc = "A gift from the Liberator."
-	icon_state = "datadisk1"
-
-/obj/item/disk/design_disk/golem_shell/Initialize(mapload)
-	. = ..()
-	var/datum/design/golem_shell/G = new
-	blueprint = G
 
 /datum/research/autolathe/syndicate/New()
 	// Used by syndi autolathe in syndie space base ruin. Removes methods of contacting main station.

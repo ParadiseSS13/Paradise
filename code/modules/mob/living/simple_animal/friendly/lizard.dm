@@ -23,12 +23,15 @@
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
 	butcher_results = list(/obj/item/food/meat = 1)
-	can_collar = TRUE
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST | MOB_REPTILE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/eating_sound = 'sound/weapons/bite.ogg'
 	/// Lizards start with a tail
 	var/has_tail = TRUE
+
+/mob/living/simple_animal/lizard/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar)
 
 /mob/living/simple_animal/lizard/handle_automated_action()
 	if(stat == CONSCIOUS && !buckled)
@@ -88,3 +91,13 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
+/mob/living/simple_animal/lizard/wags_his_tail
+	name = "Wags-His-Tail"
+	real_name = "Wags-His-Tail"
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/lizard/wags_his_tail/update_desc()
+	. = ..()
+	desc = "The official mascot of Janitalia."

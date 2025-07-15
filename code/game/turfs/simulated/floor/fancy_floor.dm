@@ -97,6 +97,13 @@
 	base_icon_state = "junglegrass"
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS, SMOOTH_GROUP_JUNGLE_GRASS)
 
+/turf/simulated/floor/grass/jungle/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /// This vairant shows up under normal turfs so fits in the regular 32x32 sprite
 /turf/simulated/floor/grass/no_creep
 	smoothing_flags = null

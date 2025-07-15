@@ -23,7 +23,7 @@
 	if(..())
 		return TRUE
 	var/highscore = 0
-	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
+	for(var/obj/machinery/power/bluespace_tap/T in SSmachines.get_by_type(/obj/machinery/power/bluespace_tap))
 		highscore = max(highscore, T.total_points)
 	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounceic'>"][highscore]</span>")
 	if(highscore >= goal)
@@ -176,6 +176,12 @@
 	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
 
+/obj/machinery/power/bluespace_tap/examine(mob/user)
+	. = ..()
+	. += "An alien looking device that gathers all manner of objects from different dimensions"
+	if(dirty)
+		. += "It's gummed up with filth!"
+
 /obj/machinery/power/bluespace_tap/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
 	. = ..()
 	dirty = FALSE
@@ -291,7 +297,7 @@
 			// Lowest between enough to stabilize our desired mining power and enough to stabilize the highest mining power we could sustain with our current power budget.
 			stabilizer_power =\
 			min(max(mining_power - max(NEAREST_MW(mining_power / 2), NEAREST_MW((mining_power + 30 MW) / 3)), 0), \
-			clamp(desired_mining_power - clamp((30 MW) - desired_mining_power, 0, 15 MW), 0, desired_mining_power / 2))
+			clamp(desired_mining_power - clamp((30 MW) - desired_mining_power, 0, 15 MW), 0, desired_mining_power))
 
 			// Stabilizers take priority so we subtract them from the available total straight away
 			mining_power = mining_power - stabilizer_power

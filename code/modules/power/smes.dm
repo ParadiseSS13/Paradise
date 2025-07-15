@@ -243,7 +243,7 @@
 		if(area)
 			message_admins("SMES deleted at (<a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>[area.name]</a>)")
 			log_game("SMES deleted at ([area.name])")
-			investigate_log("<font color='red'>deleted</font> at ([area.name])", "singulo")
+			investigate_log("<font color='red'>deleted</font> at ([area.name])", INVESTIGATE_SINGULO)
 	if(terminal)
 		disconnect_terminal()
 	return ..()
@@ -293,7 +293,7 @@
 
 			if(output_used < 0.0001)		// Either from no charge or set to 0
 				outputting = FALSE
-				investigate_log("lost power and turned <font color='red'>off</font>", "singulo")
+				investigate_log("lost power and turned <font color='red'>off</font>", INVESTIGATE_SINGULO)
 		else if(output_attempt && charge > 0 && output_level > 0)
 			outputting = TRUE
 		else
@@ -388,6 +388,10 @@
 			update_icon()
 		if("tryoutput")
 			outputting(!output_attempt)
+			if(output_attempt)
+				playsound(loc, 'sound/effects/contactor_on.ogg', 50, FALSE)
+			else
+				playsound(loc, 'sound/effects/contactor_off.ogg', 50, FALSE)
 			update_icon()
 		if("input")
 			var/target = params["target"]
@@ -425,7 +429,7 @@
 		log_smes(usr)
 
 /obj/machinery/power/smes/proc/log_smes(mob/user)
-		investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Charge: [charge] | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [user ? key_name(user) : "outside forces"]", "singulo")
+		investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Charge: [charge] | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [user ? key_name(user) : "outside forces"]", INVESTIGATE_SINGULO)
 
 /obj/machinery/power/smes/proc/inputting(do_input)
 	input_attempt = do_input
@@ -451,6 +455,9 @@
 
 /obj/machinery/power/smes/engineering
 	charge = 0.08e6 // Engineering starts with some charge for singulo
+
+/obj/machinery/power/smes/empty
+	charge = 0
 
 /obj/machinery/power/smes/magical
 	name = "magical power storage unit"

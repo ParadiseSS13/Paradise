@@ -7,6 +7,10 @@
 	var/select_name = "energy"
 	fire_sound = 'sound/weapons/laser.ogg'
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
+	/// Damage multiplier from equipped lenses
+	var/lens_damage_multiplier = 1
+	/// Speed multiplier from equipped lenses.
+	var/lens_speed_multiplier = 1
 
 /obj/item/ammo_casing/energy/laser
 	projectile_type = /obj/item/projectile/beam/laser
@@ -23,6 +27,9 @@
 	e_cost = 83
 	select_name = "kill"
 
+/obj/item/ammo_casing/energy/lasergun/lever_action
+	fire_sound = 'sound/weapons/laser4.ogg'
+
 /obj/item/ammo_casing/energy/laser/hos
 	e_cost = 120
 
@@ -36,6 +43,13 @@
 	pellets = 5
 	variance = 25
 	select_name = "scatter"
+
+/obj/item/ammo_casing/energy/laser/eshotgun
+	projectile_type = /obj/item/projectile/beam/scatter/eshotgun
+	pellets = 6
+	variance = 25
+	select_name = "kill"
+	delay = 1 SECONDS
 
 /obj/item/ammo_casing/energy/laser/heavy
 	projectile_type = /obj/item/projectile/beam/laser/heavylaser
@@ -180,6 +194,21 @@
 	variance = 15
 	randomspread = 1
 	delay = 0
+
+/obj/item/ammo_casing/energy/disabler/fake
+	projectile_type = /obj/item/projectile/beam/disabler/fake
+	e_cost = 100
+
+/obj/item/ammo_casing/energy/disabler/eshotgun
+	projectile_type = /obj/item/projectile/beam/disabler/pellet
+	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	select_name  = "disable"
+	e_cost = 75
+	fire_sound = 'sound/weapons/taser2.ogg'
+	harmful = FALSE
+	delay = 1 SECONDS
+	pellets = 6
+	variance = 25
 
 /// seperate balancing for cyborg, again
 /obj/item/ammo_casing/energy/disabler/cyborg

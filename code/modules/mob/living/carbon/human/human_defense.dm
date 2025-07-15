@@ -407,6 +407,8 @@ emp_act
 	//DAMAGE//
 	for(var/obj/item/organ/external/affecting in damaged)
 		affecting.receive_damage(acidity, 2 * acidity)
+		to_chat(src, "<span class='userdanger'>The acid burns you!</span>")
+		playsound(src, 'sound/weapons/sear.ogg', 50, TRUE)
 
 		if(istype(affecting, /obj/item/organ/external/head))
 			var/obj/item/organ/external/head/head_organ = affecting
@@ -461,25 +463,9 @@ emp_act
 		w_uniform.add_fingerprint(user)
 	return ..()
 
-//Returns TRUE if the attack hit, FALSE if it missed.
-/mob/living/carbon/human/attacked_by__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
-	if(!I || !user)
-		return FALSE
-
-	if(HAS_TRAIT(I, TRAIT_BUTCHERS_HUMANS) && stat == DEAD && user.a_intent == INTENT_HARM)
-		var/obj/item/food/meat/human/newmeat = new /obj/item/food/meat/human(get_turf(loc))
-		newmeat.name = real_name + newmeat.name
-		newmeat.subjectname = real_name
-		newmeat.subjectjob = job
-		newmeat.reagents.add_reagent("nutriment", (nutrition / 15) / 3)
-		reagents.trans_to(newmeat, round((reagents.total_volume) / 3, 1))
-		add_mob_blood(src)
-		--meatleft
-		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [name]</span>")
-		if(!meatleft)
-			add_attack_logs(user, src, "Chopped up into meat")
-			qdel(src)
-			return FALSE
+/mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone)
+	if(!I || !user || QDELETED(src))
+		return
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_selected))
 
@@ -492,16 +478,16 @@ emp_act
 	if(user != src)
 		user.do_attack_animation(src)
 		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration_flat, I.armour_penetration_percentage))
-			return FALSE
+			return
 
 	send_item_attack_message(I, user, hit_area)
 
 	if(!I.force)
-		return FALSE //item force is zero
+		return //item force is zero
 
 	var/armor = run_armor_check(affecting, MELEE, "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration_flat = I.armour_penetration_flat, armour_penetration_percentage = I.armour_penetration_percentage)
 	if(armor == INFINITY)
-		return FALSE
+		return
 
 	var/weapon_sharp = I.sharp
 	// do not roll for random blunt if the target mob is dead for the ease of decaps
@@ -733,6 +719,21 @@ emp_act
 		apply_damage(damage, M.melee_damage_type, affecting, armor)
 		updatehealth("animal attack")
 
+/mob/living/carbon/human/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	. = ..()
+	if(.)
+		var/damage = rand(attacker.melee_damage_lower, attacker.melee_damage_upper)
+		if(check_shields(attacker, damage, "[attacker.name]", MELEE_ATTACK, attacker.armour_penetration_flat, attacker.armour_penetration_percentage))
+			return FALSE
+		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
+		if(!affecting)
+			affecting = get_organ("chest")
+		affecting.add_autopsy_data(attacker.name, damage) // Add the mob's name to the autopsy data
+		var/armor = run_armor_check(affecting, MELEE, armour_penetration_flat = attacker.armour_penetration_flat, armour_penetration_percentage = attacker.armour_penetration_percentage)
+		apply_damage(damage, attacker.melee_damage_type, affecting, armor)
+		updatehealth("basicmob attack")
+
 /mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
 		var/damage = rand(5, 25)
@@ -809,10 +810,10 @@ emp_act
 		O.water_act(volume, temperature, source, method)
 
 
-
-/mob/living/carbon/human/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/mob/living/carbon/human/attack_by(obj/item/I, mob/living/user, params)
 	if(SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
-		return TRUE
+		return FINISH_ATTACK
+
 	return ..()
 
 /mob/living/carbon/human/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)

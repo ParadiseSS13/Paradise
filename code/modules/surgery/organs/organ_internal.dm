@@ -9,6 +9,18 @@
 	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
 	/// An associated list of organ datums that this organ has.
 	var/list/datum/organ/organ_datums
+	/// This contains the hidden RnD levels of an organ to prevent rnd from using it.
+	var/hidden_origin_tech
+	/// What is the level of tech for the hidden tech type?
+	var/hidden_tech_level = 1
+	/// How much is this organ worth in the xenobiology organ analyzer?
+	var/analyzer_price = 10
+	/// what quality is this organ? Only useful for xeno organs
+	var/organ_quality = ORGAN_NORMAL
+	/// Does this organ originate from the xenobiology dissection loop?
+	var/is_xeno_organ = FALSE
+	/// Does this organ give a warning upon being inserted?
+	var/warning = FALSE
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()
@@ -33,6 +45,11 @@
 		remove(owner, TRUE)
 	QDEL_LIST_ASSOC_VAL(organ_datums) // The removal from internal_organ_datums should be handled when the organ is removed
 	. = ..()
+
+/obj/item/organ/internal/examine(mob/user)
+	. = ..()
+	if(is_xeno_organ)
+		. += "<span class='info'>It looks like it would replace \the [slot]."
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
@@ -195,7 +212,7 @@
 	return S
 
 /obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
-	if(parent_organ != parent.limb_name)
+	if(parent_organ != parent.limb_name && parent_organ != "eyes" && parent_organ != "mouth")
 		return FALSE
 	insert(H)
 	return TRUE
@@ -207,6 +224,9 @@
 /obj/item/organ/internal/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
+		if(is_xeno_organ)
+			to_chat(user, "<span class='warning'>It wouldnt be a very good idea to eat this.</span>")
+			return ..()
 		var/obj/item/food/S = prepare_eat()
 		if(S)
 			H.drop_item()
@@ -320,10 +340,7 @@
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
 				if(H.drop_item_to_ground(H.shoes))
-					GLOB.move_manager.move_away(thingy, H, 15, 2)
-					spawn(20)
-						if(thingy)
-							GLOB.move_manager.stop_looping(thingy)
+					GLOB.move_manager.move_away(thingy, H, 15, 2, timeout = 20)
 
 /obj/item/organ/internal/honktumor/cursed
 	unremovable = TRUE
@@ -394,3 +411,9 @@
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_ORGAN_INSERTED_WHILE_DEAD, "[UID()]")
 	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED)
+
+/// Checks that the organ is inside of a host and that they are a valid recipient. Used for abductor glands
+/obj/item/organ/internal/proc/owner_check()
+	if(ishuman(owner) || iscarbon(owner))
+		return TRUE
+	return FALSE

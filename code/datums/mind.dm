@@ -153,6 +153,7 @@
 	transfer_actions(new_character)
 	if(martial_art)
 		for(var/datum/martial_art/MA in known_martial_arts)
+			MA.reset_combos(old_current) // Clear combos on old body
 			if(MA.temporary)
 				MA.remove(current)
 			else
@@ -406,7 +407,7 @@
 		. += "<b><font color='red'>OPERATIVE</b></font>|<a href='byond://?src=[UID()];nuclear=clear'>no</a>"
 		. += "<br><a href='byond://?src=[UID()];nuclear=lair'>To shuttle</a>, <a href='byond://?src=[UID()];common=undress'>undress</a>, <a href='byond://?src=[UID()];nuclear=dressup'>dress up</a>."
 		var/code
-		for(var/obj/machinery/nuclearbomb/bombue in GLOB.machines)
+		for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 			if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
 				code = bombue.r_code
 				break
@@ -1190,7 +1191,7 @@
 
 			if("tellcode")
 				var/code
-				for(var/obj/machinery/nuclearbomb/bombue in GLOB.machines)
+				for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 					if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
 						code = bombue.r_code
 						break
@@ -1764,6 +1765,11 @@
 				return G
 			break
 
+/datum/mind/proc/check_ghost_client()
+	var/mob/dead/observer/G = get_ghost()
+	if(G?.client)
+		return TRUE
+
 /datum/mind/proc/grab_ghost(force)
 	var/mob/dead/observer/G = get_ghost(even_if_they_cant_reenter = force)
 	. = G
@@ -1859,7 +1865,7 @@
 /mob/living/carbon/human/mind_initialize()
 	..()
 	if(!mind.assigned_role)
-		mind.assigned_role = "Assistant"	//defualt
+		mind.assigned_role = "Assistant"	//default
 
 /mob/proc/sync_mind()
 	mind_initialize()  //updates the mind (or creates and initializes one if one doesn't exist)

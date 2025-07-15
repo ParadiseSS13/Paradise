@@ -26,6 +26,22 @@
 	create_reagents(150)
 	GLOB.janitorial_equipment += src
 
+/obj/structure/janitorialcart/full
+
+/obj/structure/janitorialcart/full/Initialize(mapload)
+	. = ..()
+	my_bag = new /obj/item/storage/bag/trash(src)
+	my_mop = new /obj/item/mop(src)
+	my_broom = new /obj/item/push_broom(src)
+	my_spray = new /obj/item/reagent_containers/spray/cleaner(src)
+	my_replacer = new /obj/item/lightreplacer(src)
+	new /obj/item/caution(src)
+	new /obj/item/caution(src)
+	new /obj/item/caution(src)
+	new /obj/item/caution(src)
+	signs = 4
+	reagents.add_reagent("water", 150)
+
 /obj/structure/janitorialcart/Destroy()
 	GLOB.janitorial_equipment -= src
 	QDEL_NULL(my_bag)
@@ -57,6 +73,11 @@
 
 	if(istype(used, /obj/item/reagent_containers))
 		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
+
+	if(my_bag)
+		if(my_bag.can_be_inserted(used))
+			my_bag.handle_item_insertion(used, user)
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -99,7 +120,7 @@
 			put_in_cart(user, used)
 			return
 		item_present = TRUE
-	
+
 	if(istype(used, /obj/item/storage/bag/trash))
 		if(!my_bag)
 			my_bag = used
@@ -270,3 +291,9 @@
 				reagentsImage.icon_state = "cart_reagents4"
 		reagentsImage.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += reagentsImage
+
+/obj/structure/janitorialcart/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)

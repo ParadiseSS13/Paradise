@@ -33,13 +33,14 @@
 	#define REACHABLE_SPACE_ONLY "Reachable Space Only"
 	/// A level used for spawning map areas in tests
 	#define GAME_TEST_LEVEL "Game Test Level"
+	/// Tcomms relays will always extend to this level.
+	#define TCOMM_RELAY_ALWAYS "Tcomm Relay Always"
 
 // Level names
 	#define MAIN_STATION "Main Station"
 	#define CENTCOMM "CentComm"
 	#define TELECOMMS "Telecomms Satellite"
 	#define DERELICT "Derelicted Station"
-	#define MINING "Lavaland"
 	#define EMPTY_AREA "Empty Area"
 	#define EMPTY_AREA_2 "Empty Area 2"
 	#define EMPTY_AREA_3 "Empty Area 3"

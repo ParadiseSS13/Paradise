@@ -423,44 +423,44 @@
 /mob/living/simple_animal/bot/proc/interact(mob/user)
 	show_controls(user)
 
-/mob/living/simple_animal/bot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/mob/living/simple_animal/bot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(emagged)
 			to_chat(user, "<span class='danger'>ERROR</span>")
 		if(open)
 			to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(W, /obj/item/paicard))
 		if(paicard)
 			to_chat(user, "<span class='warning'>A [paicard] is already inserted!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(!allow_pai || key)
 			to_chat(user, "<span class='warning'>[src] is not compatible with [W].</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(locked || open || hijacked)
 			to_chat(user, "<span class='warning'>The personality slot is locked.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		var/obj/item/paicard/card = W
 		if(!card.pai?.mind)
 			to_chat(user, "<span class='warning'>[W] is inactive.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
 			to_chat(user, "<span class='warning'>[W] is unable to establish a connection to [src].</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item())
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		W.forceMove(src)
 		paicard = card
@@ -471,20 +471,19 @@
 		name = paicard.pai.name
 		faction = user.faction
 		add_attack_logs(user, paicard.pai, "Uploaded to [src.bot_name]")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(W, /obj/item/hemostat) && paicard)
 		if(open)
 			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
 		if(do_after(user, 30 * W.toolspeed, target = src))
 			if(paicard)
 				user.visible_message("<span class='notice'>[user] uses [W] to pull [paicard] out of [bot_name]!</span>","<span class='notice'>You pull [paicard] out of [bot_name] with [W].</span>")
 				ejectpai(user)
-				return
-	return ..()
+				return ITEM_INTERACT_COMPLETE
 
 /mob/living/simple_animal/bot/screwdriver_act(mob/living/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -672,14 +671,14 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(mode != BOT_SUMMON && mode != BOT_RESPONDING)
 		access_card.access = prev_access
 
-/mob/living/simple_animal/bot/proc/call_bot(caller, turf/waypoint, message=TRUE)
+/mob/living/simple_animal/bot/proc/call_bot(call_src, turf/waypoint, message=TRUE)
 	bot_reset() // Reset a bot before setting it to call mode.
 	var/area/end_area = get_area(waypoint)
 
 	access_card.access = get_all_accesses() // Give the bot temporary all access
 
 	set_path(get_path_to(src, waypoint, 200, access = access_card.access))
-	calling_ai = caller // Link the AI to the bot!
+	calling_ai = call_src // Link the AI to the bot!
 	ai_waypoint = waypoint
 
 	if(path && length(path)) // Ensures that a valid path is calculated!
@@ -687,7 +686,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			turn_on() // Saves the AI the hassle of having to activate a bot manually.
 		if(client)
 			reset_access_timer_id = addtimer(CALLBACK(src, PROC_REF(bot_reset)), 600, TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
-			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [calling_ai] <b>[caller]</b>. Proceed to <b>[end_area.name]</b>.</span><br>[length(path)-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
+			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [calling_ai] <b>[call_src]</b>. Proceed to <b>[end_area.name]</b>.</span><br>[length(path)-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
 		if(message)
 			to_chat(calling_ai, "<span class='notice'>[bicon(src)] [name] called to [end_area.name]. [length(path)-1] meters to destination.</span>")
 		pathset = TRUE

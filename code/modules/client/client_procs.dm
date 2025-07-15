@@ -414,6 +414,8 @@
 			to_chat(src, message)
 		GLOB.clientmessages.Remove(ckey)
 
+	acquire_dpi()
+
 	if(SSinput.initialized)
 		set_macros()
 
@@ -455,6 +457,7 @@
 		tooltips = new /datum/tooltip(src)
 
 	Master.UpdateTickRate()
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_516))
 
 	// Tell clients about active testmerges
 	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
@@ -978,7 +981,7 @@
 /client/proc/generate_clickcatcher()
 	if(!void)
 		void = new()
-		screen += void
+	screen += void
 
 /client/proc/apply_clickcatcher()
 	generate_clickcatcher()
@@ -1326,6 +1329,27 @@
 	SEND_SOUND(usr, sound(null))
 	to_chat(src, "All sounds stopped.")
 	tgui_panel?.stop_music()
+
+/client/proc/acquire_dpi()
+	set waitfor = FALSE
+
+	// Remove with 516
+	if(byond_version < 516)
+		return
+
+	window_scaling = text2num(winget(src, null, "dpi"))
+
+// This is in its own proc so we can async it out
+/client/proc/nag_516()
+	if(byond_version >= 516)
+		return
+
+	var/choice = alert(src, "Warning - You are currently on BYOND version [byond_version].[byond_build]. Soon, Paradise will start enforcing 516 as the minimum required version, and 515 will no longer work. Please update now to avoid being unable to play in the future.", "BYOND Version Warning", "Update Now", "Ignore for now")
+	if(choice != "Update Now")
+		return
+
+	src << link("https://secure.byond.com/download/")
+
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

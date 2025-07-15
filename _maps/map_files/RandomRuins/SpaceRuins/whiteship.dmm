@@ -6,30 +6,21 @@
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
+"bE" = (
+/obj/effect/spawner/random/pool/whiteship_mob,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/abandoned)
 "cf" = (
 /obj/effect/spawner/random/oil/often,
-/turf/simulated/floor/plating,
-/area/shuttle/abandoned)
-"cA" = (
-/obj/structure/table,
-/obj/item/scalpel{
-	pixel_y = 7
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/obj/effect/spawner/random/pool/whiteship_mob,
+/turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "em" = (
 /obj/effect/spawner/airlock/w_to_e/long/square,
 /turf/simulated/wall/mineral/titanium,
-/area/shuttle/abandoned)
-"eo" = (
-/obj/structure/sign/greencross,
-/turf/simulated/wall/mineral/titanium,
-/area/shuttle/abandoned)
-"ez" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "eE" = (
 /obj/machinery/computer/nonfunctional{
@@ -52,19 +43,6 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"fI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/abandoned)
-"gd" = (
-/obj/machinery/door/airlock/titanium/glass,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/abandoned)
 "hz" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
@@ -78,42 +56,18 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"jn" = (
-/obj/machinery/door/airlock/titanium/glass,
-/turf/simulated/floor/wood,
-/area/shuttle/abandoned)
 "ka" = (
 /turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "kO" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/random/directional/north,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"nC" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/regular,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/abandoned)
-"oh" = (
-/obj/structure/table,
-/obj/item/tank/internals/oxygen{
-	pixel_y = 1;
-	pixel_x = -2
-	},
-/obj/item/tank/internals/oxygen{
-	pixel_x = 3;
-	pixel_y = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue,
+"lp" = (
+/turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
 "qm" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/shuttle/abandoned)
-"qF" = (
-/obj/machinery/economy/vending/coffee,
-/turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "qK" = (
 /obj/structure/table/reinforced,
@@ -138,32 +92,18 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "sk" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/random/directional/south,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
 "sm" = (
 /obj/effect/spawner/random/dirt/often,
 /obj/machinery/door/airlock/titanium,
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"sK" = (
-/obj/structure/table/wood/poker,
-/turf/simulated/floor/wood,
-/area/shuttle/abandoned)
 "tV" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 1
-	},
+/obj/machinery/door/airlock/multi_tile/glass/directional/north,
 /turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"uo" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp/green{
-	pixel_y = 2
-	},
-/turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "ux" = (
 /turf/simulated/floor/plating,
@@ -178,7 +118,7 @@
 "vz" = (
 /obj/effect/spawner/random/dirt/often,
 /obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
+	dir = 5
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
@@ -189,32 +129,14 @@
 /obj/machinery/door/airlock/titanium/glass,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"ws" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/abandoned)
 "wF" = (
 /turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"wN" = (
-/obj/structure/rack,
-/obj/item/stack/sheet/glass{
-	amount = 10;
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/metal{
-	amount = 10
-	},
-/turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "xz" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/pirate,
+/obj/effect/spawner/random/pool/whiteship_mob,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
 "ys" = (
@@ -243,6 +165,10 @@
 /area/shuttle/abandoned)
 "zH" = (
 /obj/machinery/light/small,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "zM" = (
@@ -268,11 +194,6 @@
 /obj/item/salvage/ruin/pirate,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"Ct" = (
-/obj/structure/table/wood/poker,
-/obj/item/deck/cards,
-/turf/simulated/floor/wood,
-/area/shuttle/abandoned)
 "CE" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
@@ -286,63 +207,33 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
+"FK" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/white_ship/medbay,
+/turf/template_noop,
+/area/template_noop)
 "Gs" = (
 /obj/structure/table/reinforced,
 /obj/item/analyzer,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/abandoned)
-"GX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/door/airlock/titanium,
+"HU" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/white_ship/storage,
 /turf/simulated/floor/plating,
-/area/shuttle/abandoned)
-"Jf" = (
-/obj/structure/chair/wood,
-/turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "Kd" = (
 /obj/effect/spawner/random/dirt/often,
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)
-"KX" = (
-/obj/structure/bed,
-/obj/item/bedsheet,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/abandoned)
-"Mj" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/shuttle/abandoned)
 "Mp" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/structure/closet,
 /obj/item/gps/ruin{
 	gpstag = "NT Medical Ship";
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"ML" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 6
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/abandoned)
 "Of" = (
 /turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/abandoned)
-"Pe" = (
-/obj/structure/chair/wood,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
-/turf/simulated/floor/wood,
-/area/shuttle/abandoned)
-"Pi" = (
-/obj/structure/closet/crate/can,
-/turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 "Pu" = (
 /obj/machinery/light/small{
@@ -351,11 +242,9 @@
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"Ro" = (
-/obj/structure/chair/wood{
-	dir = 8
-	},
-/turf/simulated/floor/wood,
+"Qb" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/space_ruin/white_ship/gun_room,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "SS" = (
 /obj/structure/chair/comfy/shuttle{
@@ -367,40 +256,11 @@
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
-"VD" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/abandoned)
-"WJ" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
-	},
-/obj/machinery/atmospherics/portable/canister/air,
-/turf/simulated/floor/plating,
-/area/shuttle/abandoned)
-"WX" = (
-/obj/machinery/sleeper{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/abandoned)
-"Xq" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/structure/closet,
-/turf/simulated/floor/plating,
-/area/shuttle/abandoned)
 "Yr" = (
 /obj/machinery/computer/shuttle/white_ship{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/shuttle/abandoned)
-"YH" = (
-/obj/structure/table/wood/poker,
-/obj/item/gun/energy/laser/retro,
-/turf/simulated/floor/wood,
 /area/shuttle/abandoned)
 
 (1,1,1) = {"
@@ -496,7 +356,7 @@ zO
 zO
 zO
 zO
-zM
+FK
 zM
 "}
 (7,1,1) = {"
@@ -509,8 +369,8 @@ zO
 jk
 vB
 zO
-WX
-cA
+Of
+Of
 zO
 zM
 zM
@@ -520,7 +380,7 @@ zM
 zM
 zO
 AS
-vB
+bE
 wh
 vB
 vB
@@ -537,10 +397,10 @@ zO
 zO
 zO
 zO
-zO
+Qb
 kO
 vB
-gd
+Of
 Of
 Of
 zO
@@ -549,42 +409,42 @@ zM
 "}
 (10,1,1) = {"
 zM
-Fr
-uo
-qF
-Pi
+ux
+ka
+ka
+ka
 zO
 uA
 vB
-eo
-ws
+zO
 Of
-nC
+Of
+Of
 zO
 zM
 "}
 (11,1,1) = {"
 zM
-Fr
+ux
 ka
 ka
 ka
-jn
+ka
 vB
 yF
 zO
-KX
-KX
-oh
+Of
+Of
+Of
 zO
 zM
 "}
 (12,1,1) = {"
 zM
-zO
-Pe
-sK
-YH
+ux
+ka
+ka
+ka
 zO
 vB
 vB
@@ -592,39 +452,39 @@ zO
 zO
 zO
 zO
-zO
+qm
 zM
 "}
 (13,1,1) = {"
 zM
-Fr
-Jf
-Ct
-sK
+ux
+ka
+ka
+ka
 zO
 vB
 vB
 zO
 Mp
-VD
-Xq
-zO
+ux
+ux
+HU
 zM
 "}
 (14,1,1) = {"
 zM
-Fr
-Mj
-Ro
-Ro
+ux
+ka
+ka
+ka
 zO
 vB
 sk
 zO
-Xq
 ux
-Xq
-zO
+ux
+ux
+ux
 zM
 "}
 (15,1,1) = {"
@@ -635,9 +495,9 @@ zO
 zO
 zO
 jk
-ML
-GX
-ez
+vB
+ux
+ux
 ux
 zO
 zO
@@ -653,7 +513,7 @@ sm
 Kd
 vz
 zO
-fI
+ux
 ux
 zO
 zM
@@ -669,8 +529,8 @@ zO
 Vd
 Vd
 em
-WJ
-wN
+ux
+ux
 zO
 zM
 zM
@@ -685,8 +545,8 @@ zO
 Vd
 Vd
 zO
-CE
-CE
+lp
+lp
 zO
 zM
 zM
@@ -701,8 +561,8 @@ zO
 Pu
 at
 zO
-hz
-hz
+lp
+lp
 zO
 zM
 zM

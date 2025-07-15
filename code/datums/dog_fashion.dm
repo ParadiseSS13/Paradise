@@ -304,3 +304,19 @@
 /datum/dog_fashion/head/qm
 	name = "Supplymaster REAL_NAME"
 	desc = "A loyal watchdog for the most secure transportation."
+
+/datum/dog_fashion/head/smith
+	name = "Metalworker REAL_NAME"
+	desc = "Whatever you do, don't let them hold the hot metal in their mouth."
+
+/datum/dog_fashion/head/cmo
+	name = "Head Surgeon REAL_NAME"
+	desc = "The only one you can truly trust to perform surgery efficiently and cleanly."
+
+/datum/dog_fashion/head/rd
+	name = "Director REAL_NAME"
+	desc = "The smartest puppy around."
+
+/datum/dog_fashion/head/miningsoft
+	name = "Spelunker REAL_NAME"
+	desc = "Legions are just like walking chew toys for him."

@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aN" = (
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
@@ -52,7 +52,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "gx" = (
-/obj/structure/spawner/mining/basilisk,
+/obj/structure/spawner/mining/basilisk/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "hG" = (
@@ -65,7 +65,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "jz" = (
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "kb" = (
@@ -128,7 +128,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "qF" = (
-/obj/effect/spawner/random/loot/crate,
+/obj/effect/spawner/random/loot_crate/rarely,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel,
@@ -218,7 +218,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Dt" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "Gx" = (
 /obj/effect/decal/cleanable/blood,
@@ -235,7 +235,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "KW" = (
-/obj/structure/spawner/mining/hivelord,
+/obj/structure/spawner/mining/hivelord/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "Li" = (

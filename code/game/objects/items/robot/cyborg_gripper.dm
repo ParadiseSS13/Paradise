@@ -27,6 +27,8 @@
 	var/can_help_up = FALSE
 	/// The item currently being held.
 	var/obj/item/gripped_item
+	/// Tracks gripper's state, prevents us from spamming actions
+	var/busy = FALSE
 
 /obj/item/gripper/examine(mob/user)
 	. = ..()
@@ -74,29 +76,29 @@
 // This is required to ensure that the forceMove checks on some objects don't rip the gripper out of the borg's inventory and toss it on the floor. That would hurt, a lot!
 /obj/item/gripper/forceMove(atom/destination)
 	return
-	
-/obj/item/gripper/interact_with_atom(atom/target, mob/living/user, list/modifiers)	
+
+/obj/item/gripper/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!target)
 		return ITEM_INTERACT_COMPLETE
 
+	if(busy)
+		return TRUE // prevents us from punching atom we clicked on, don't wanna return interact_complete because we didn't really complete anything
+
 	// Does the gripper already have an item?
 	if(gripped_item)
-		// Pass the attack on to the target. This might delete/relocate gripped_item. If the attackby doesn't resolve or delete the target or gripped_item, afterattack.
-		// We also need to check if it's the old or new attack chain until the migration is complete.
-		if(new_attack_chain)
-			if(!target.item_interaction(user, gripped_item, modifiers))
-				gripped_item.melee_attack_chain(user, target, modifiers)
-		else
-			if(!target.attackby__legacy__attackchain(gripped_item, user, modifiers))
-				gripped_item?.afterattack__legacy__attackchain(target, user, 1, modifiers)
+		busy = TRUE
+
+		// Pass the attack on to the target. This might delete/relocate gripped_item.
+		if(!target.item_interaction(user, gripped_item, modifiers))
+			gripped_item.melee_attack_chain(user, target, modifiers)
 		// Check to see if there is still an item in the gripper (stackable items trigger this).
 		if(!gripped_item && length(contents))
 			gripped_item = contents[1]
-			return ITEM_INTERACT_COMPLETE
 		// If the gripper thinks it has something but it actually doesn't, we fix this.
-		if(gripped_item && !length(contents))
+		else if(gripped_item && !length(contents))
 			gripped_item = null
-			return ITEM_INTERACT_COMPLETE
+
+		busy = FALSE
 
 		return ITEM_INTERACT_COMPLETE
 
@@ -167,15 +169,15 @@
 	return TRUE
 
 /obj/item/gripper/pre_attack(atom/A, mob/living/user, params)
+	// This is required to avoid hypersonic interaction speed.
+	user.changeNext_move(CLICK_CD_MELEE)
 	if(gripped_item)
 		gripped_item.attack(A, user)
 		return TRUE
-	
+
 	if(!ismob(A))
 		return ..()
 
-	// This is required to avoid hypersonic interaction speed.
-	user.changeNext_move(CLICK_CD_MELEE)
 	. = TRUE
 	var/mob/living/target = A
 	// If a human target is horizonal, try to help them up. Unless you're trying to kill them.
@@ -208,7 +210,7 @@
 			return
 
 		// Checks if holder_type exists to prevent picking up animals like mice, because we're about to use the hands that borgs secretly have.
-		if(isanimal(target) && !target.holder_type)
+		if(isanimal_or_basicmob(target) && !target.holder_type)
 			var/list/modifiers = params2list(params)
 			// This enables borgs to get the floating heart icon and mob emote from simple_animals that have petbonus == TRUE.
 			target.attack_hand(user, modifiers)

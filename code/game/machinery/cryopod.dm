@@ -347,7 +347,7 @@
 	for(var/obj/item/I in items)
 		if(istype(I, /obj/item/pda))
 			var/obj/item/pda/P = I
-			QDEL_NULL(P.id)
+			P.id = null
 			qdel(P)
 			continue
 		if(istype(I, /obj/item/storage/backpack/modstorage)) //Best place for me to put it.
@@ -598,6 +598,7 @@
 	log_admin("[key_name(E)] entered a stasis pod.")
 	if(SSticker.mode.tdm_gamemode)
 		SSblackbox.record_feedback("nested tally", "TDM_quitouts", 1, list(SSticker.mode.name, "TDM Cryopods"))
+	occupant.create_log(MISC_LOG, "entered a stasis pod")
 	message_admins("[key_name_admin(E)] entered a stasis pod. (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	add_fingerprint(E)
 	playsound(src, 'sound/machines/podclose.ogg', 5)
@@ -608,6 +609,10 @@
 
 	occupant.forceMove(get_turf(src))
 	occupant.clear_alert("cryopod")
+	log_admin("[key_name(occupant)] exited a stasis pod.")
+	occupant.create_log(MISC_LOG, "exited a stasis pod")
+	if(isAntag(occupant))
+		message_admins("[key_name_admin(occupant)] antag exited a stasis pod after [round((world.time - time_entered )/(1 MINUTES), 0.2)] minutes inside [ADMIN_JMP(src)]" )
 	occupant = null
 	icon_state = base_icon_state
 	name = initial(name)
@@ -679,7 +684,7 @@
 		var/obj/O = person_to_cryo.loc
 		O.force_eject_occupant(person_to_cryo)
 	var/list/free_cryopods = list()
-	for(var/obj/machinery/cryopod/P in GLOB.machines)
+	for(var/obj/machinery/cryopod/P in SSmachines.get_by_type(/obj/machinery/cryopod))
 		if(P.occupant)
 			continue
 		if((ishuman(person_to_cryo) && istype(get_area(P), /area/station/public/sleep)) || istype(P, /obj/machinery/cryopod/robot))

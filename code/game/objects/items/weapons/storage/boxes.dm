@@ -112,16 +112,35 @@
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
-/obj/item/storage/box/survival_syndi
-	icon_state = "syndi_box"
+/obj/item/storage/box/survival_syndie
+	icon_state = "syndie_box"
+	desc = "A sleek, sturdy box."
 
-/obj/item/storage/box/survival_syndi/populate_contents()
+/obj/item/storage/box/survival_syndie/populate_contents()
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/reagent_containers/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
+
+/obj/item/storage/box/survival_syndie/traitor/populate_contents()
+	new /obj/item/clothing/mask/gas/syndicate(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
+	new /obj/item/crowbar/small(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+	new /obj/item/flashlight/flare/glowstick/red(src)
+
+/obj/item/storage/box/survival_syndie/traitor/loot/populate_contents()
+	new /obj/item/crowbar/small(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+	new /obj/item/flashlight/flare/glowstick/red(src)
+
+/obj/item/storage/box/syndie_kit/loot/populate_contents()
+	new /obj/effect/spawner/random/syndie_mob_loot(src)
+
+/obj/item/storage/box/syndie_kit/loot/elite/populate_contents()
+	new /obj/effect/spawner/random/pool/spaceloot/syndicate/armory/elite(src)
 
 //////////////////
 /* Common Boxes */
@@ -550,6 +569,15 @@
 	for(var/I in 1 to 7)
 		new /obj/item/grenade/flashbang(src)
 
+/obj/item/storage/box/stingers
+	name = "box of stinger grenades (WARNING)"
+	desc = "<b>WARNING: These devices are dangerous and can cause significant physical harm with repeated use.</b>"
+	icon_state = "flashbang_box"
+
+/obj/item/storage/box/stingers/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/frag/stinger(src)
+
 /obj/item/storage/box/smoke_grenades
 	name = "smoke grenades"
 	desc = "A box with 7 smoke grenades."
@@ -751,51 +779,93 @@
 
 /obj/item/storage/fancy/shell/tranquilizer
 	name = "ammunition box (Tranquilizer darts)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "tranqbox"
 	shell_type = /obj/item/ammo_casing/shotgun/tranquilizer
 
 /obj/item/storage/fancy/shell/slug
 	name = "ammunition box (Slug)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "slugbox"
 	shell_type = /obj/item/ammo_casing/shotgun
 
 /obj/item/storage/fancy/shell/buck
 	name = "ammunition box (Buckshot)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "buckbox"
 	shell_type = /obj/item/ammo_casing/shotgun/buckshot
 
 /obj/item/storage/fancy/shell/dragonsbreath
 	name = "ammunition box (Dragonsbreath)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "dragonsbox"
 	shell_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 
 /obj/item/storage/fancy/shell/stun
 	name = "ammunition box (Stun shells)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "stunbox"
 	shell_type = /obj/item/ammo_casing/shotgun/stunslug
 
 /obj/item/storage/fancy/shell/beanbag
 	name = "ammunition box (Beanbag shells)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "beanbox"
 	shell_type = /obj/item/ammo_casing/shotgun/beanbag
 
 /obj/item/storage/fancy/shell/rubbershot
 	name = "ammunition box (Rubbershot shells)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "rubberbox"
 	shell_type = /obj/item/ammo_casing/shotgun/rubbershot
 
 /obj/item/storage/fancy/shell/holy
 	name = "ammunition box (Holy Water darts)"
-	desc = "A small box capable of holding seven shotgun shells."
+	desc = "A small box capable of holding eight shotgun shells."
 	icon_state = "holybox"
 	shell_type = /obj/item/ammo_casing/shotgun/holy
+
+/obj/item/storage/fancy/shell/confetti
+	name = "ammunition box (Confettishot)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "partybox"
+	shell_type = /obj/item/ammo_casing/shotgun/confetti
+
+/obj/item/storage/fancy/shell/meteor
+	name = "ammunition box (Meteorslug)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "meteorbox"
+	shell_type = /obj/item/ammo_casing/shotgun/meteorslug
+
+/obj/item/storage/fancy/shell/ion
+	name = "ammunition box (Ionshot)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "ionbox"
+	shell_type = /obj/item/ammo_casing/shotgun/ion
+
+/obj/item/storage/fancy/shell/pulse
+	name = "ammunition box (Proto Pulse Slug)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "pulsebox"
+	shell_type = /obj/item/ammo_casing/shotgun/pulseslug
+
+/obj/item/storage/fancy/shell/incindiary
+	name = "ammunition box (Incendiary slug)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "incendiarybox"
+	shell_type = /obj/item/ammo_casing/shotgun/incendiary
+
+/obj/item/storage/fancy/shell/lasershot
+	name = "ammunition box (Lasershot)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "lasershotbox"
+	shell_type = /obj/item/ammo_casing/shotgun/lasershot
+
+/obj/item/storage/fancy/shell/frag12
+	name = "ammunition box (FRAG-12 slug)"
+	desc = "A small box capable of holding eight shotgun shells."
+	icon_state = "frag12box"
+	shell_type = /obj/item/ammo_casing/shotgun/frag12
 
 ////////////////
 /* Donk Boxes */
@@ -909,6 +979,14 @@
 /obj/item/storage/box/deagle/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol/deagle(src)
 	new /obj/item/ammo_box/magazine/m50(src)
+
+/obj/item/storage/box/marine_armor_export
+	name = "\improper Federation marine armor box"
+	desc = "A box containing a factory-fresh suit of export-grade Trans-Solar Marine Corps combat armor."
+
+/obj/item/storage/box/marine_armor_export/populate_contents()
+	new /obj/item/clothing/suit/armor/federation/marine/export(src)
+	new /obj/item/clothing/head/helmet/federation/marine/export(src)
 
 /obj/item/storage/box/skrell_suit
 	name = "skrellian suit box"
@@ -1158,6 +1236,21 @@
 /obj/item/storage/box/stockparts
 	display_contents_with_number = TRUE
 
+/obj/item/storage/box/smithboards
+	name = "the Liberator's fabricator"
+	desc = "A box containing a gift for golems with the will to create."
+	icon_state = "circuit_box"
+
+/obj/item/storage/box/smithboards/populate_contents()
+	new /obj/item/circuitboard/magma_crucible(src)
+	new /obj/item/circuitboard/casting_basin(src)
+	new /obj/item/circuitboard/casting_basin(src)
+	new /obj/item/circuitboard/power_hammer(src)
+	new /obj/item/circuitboard/lava_furnace(src)
+	new /obj/item/circuitboard/kinetic_assembler(src)
+	new /obj/item/vending_refill/smith(src)
+	new /obj/item/circuitboard/vendor(src)
+
 /// for ruins where it's a bad idea to give access to an autolathe/protolathe, but still want to make stock parts accessible
 /obj/item/storage/box/stockparts/basic
 	name = "box of stock parts"
@@ -1302,6 +1395,31 @@
 /obj/item/storage/box/tacticool_envirosuit/populate_contents()
 	new /obj/item/clothing/under/plasmaman/tacticool(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/tacticool(src)
+
+/obj/item/storage/box/autochef
+	name = "autochef starter kit"
+	desc = "Contains everything you need to build and use an autochef."
+
+/obj/item/storage/box/autochef/populate_contents()
+	new /obj/item/circuitboard/autochef(src)
+	new /obj/item/stack/sheet/metal(src, 5)
+	new /obj/item/stack/cable_coil/five(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/matter_bin(src)
+	new /obj/item/stock_parts/micro_laser(src)
+	new /obj/item/stock_parts/manipulator(src)
+	new /obj/item/autochef_remote(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/paper/autochef_quickstart(src)
+
+/obj/item/storage/box/kitchen_utensils/populate_contents()
+	new /obj/item/kitchen/utensil/fork(src)
+	new /obj/item/kitchen/utensil/fork(src)
+	new /obj/item/kitchen/utensil/spoon(src)
+	new /obj/item/kitchen/utensil/spoon(src)
+	new /obj/item/kitchen/knife(src)
+	new /obj/item/kitchen/knife/cheese(src)
+	new /obj/item/kitchen/knife/pizza_cutter(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

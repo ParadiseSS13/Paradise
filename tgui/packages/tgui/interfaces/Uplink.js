@@ -353,9 +353,8 @@ const CartButtons = (props, context) => {
 
 const ExploitableInfoPage = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const { exploitable } = data;
+  const { exploitable, selected_record } = data;
   // Default to first
-  const [selectedRecord, setSelectedRecord] = useLocalState(context, 'selectedRecord', exploitable[0]);
 
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
@@ -373,15 +372,18 @@ const ExploitableInfoPage = (_properties, context) => {
   };
 
   const crew = SelectMembers(exploitable, searchText);
-
   return (
     <Stack fill>
       <Stack.Item width="30%">
         <Section fill scrollable title="Exploitable Records">
           <Input fluid mb={1} placeholder="Search Crew" onInput={(e, value) => setSearchText(value)} />
           <Tabs vertical>
-            {crew.map((r) => (
-              <Tabs.Tab key={r} selected={r === selectedRecord} onClick={() => setSelectedRecord(r)}>
+            {crew.map((r, index) => (
+              <Tabs.Tab
+                key={index}
+                selected={r.name === selected_record.name}
+                onClick={() => act('view_record', { uid_gen: r.uid_gen })}
+              >
                 {r.name}
               </Tabs.Tab>
             ))}
@@ -389,14 +391,36 @@ const ExploitableInfoPage = (_properties, context) => {
         </Section>
       </Stack.Item>
       <Stack.Item grow>
-        <Section fill scrollable title={selectedRecord.name}>
-          <LabeledList>
-            <LabeledList.Item label="Age">{selectedRecord.age}</LabeledList.Item>
-            <LabeledList.Item label="Fingerprint">{selectedRecord.fingerprint}</LabeledList.Item>
-            <LabeledList.Item label="Rank">{selectedRecord.rank}</LabeledList.Item>
-            <LabeledList.Item label="Sex">{selectedRecord.sex}</LabeledList.Item>
-            <LabeledList.Item label="Species">{selectedRecord.species}</LabeledList.Item>
-          </LabeledList>
+        <Section fill scrollable title={selected_record.name}>
+          <Stack>
+            <Stack.Item>
+              <LabeledList>
+                <LabeledList.Item label="Age">{selected_record.age}</LabeledList.Item>
+                <LabeledList.Item label="Fingerprint">{selected_record.fingerprint}</LabeledList.Item>
+                <LabeledList.Item label="Rank">{selected_record.rank}</LabeledList.Item>
+                <LabeledList.Item label="Sex">{selected_record.sex}</LabeledList.Item>
+                <LabeledList.Item label="Species">{selected_record.species}</LabeledList.Item>
+                <LabeledList.Item label="NT Relation">{selected_record.nt_relation}</LabeledList.Item>
+              </LabeledList>
+            </Stack.Item>
+            {!!selected_record.has_photos &&
+              selected_record.photos.map((p, i) => (
+                <Stack.Item key={i} inline textAlign="center" color="label" ml={0}>
+                  <img
+                    src={p}
+                    style={{
+                      width: '96px',
+                      'margin-top': '1rem',
+                      'margin-bottom': '0.5rem',
+                      '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                      'image-rendering': 'pixelated',
+                    }}
+                  />
+                  <br />
+                  Photo #{i + 1}
+                </Stack.Item>
+              ))}
+          </Stack>
         </Section>
       </Stack.Item>
     </Stack>

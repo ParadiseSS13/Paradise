@@ -411,7 +411,7 @@
 /area/ruin/unpowered/althland_excavation)
 "bE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plating/lavaland_air,
@@ -688,7 +688,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "je" = (
@@ -832,7 +832,7 @@
 /area/ruin/unpowered/althland_excavation)
 "qp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "qw" = (
@@ -1196,7 +1196,7 @@
 "HC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office,
+/obj/structure/chair,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "In" = (
@@ -1318,9 +1318,7 @@
 /area/ruin/unpowered/althland_excavation)
 "Pe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
@@ -1349,7 +1347,7 @@
 /area/lavaland/surface/outdoors)
 "Qk" = (
 /obj/effect/decal/cleanable/glass,
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plating/lavaland_air,
@@ -1498,7 +1496,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_excavation)
 "WH" = (
-/obj/machinery/door/poddoor/multi_tile/three_tile_hor,
+/obj/machinery/door/poddoor/multi_tile/triple/directional/east,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/althland_excavation)
 "Xl" = (

@@ -68,6 +68,7 @@
 	var/datum/reagents/R = new /datum/reagents(50)
 	R.my_atom = tap
 	R.add_reagent(pick(gunk), 50)
+	tap.update_icon()
 
 	var/datum/effect_system/smoke_spread/chem/smoke = new
 	smoke.set_up(R, tap, TRUE)

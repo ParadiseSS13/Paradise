@@ -34,12 +34,12 @@
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
 	holder_type = /obj/item/holder/mouse
-	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/wears_collar)
 	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
 /mob/living/simple_animal/mouse/handle_automated_action()
@@ -60,7 +60,7 @@
 		toast() // mmmm toasty.
 	else
 		visible_message("<span class='warning'>[src] chews through [C].</span>")
-	investigate_log("was chewed through by a mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
+	investigate_log("was chewed through by a mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])",INVESTIGATE_WIRES)
 	C.deconstruct()
 
 /mob/living/simple_animal/mouse/handle_automated_speech()

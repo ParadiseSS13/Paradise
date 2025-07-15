@@ -64,7 +64,7 @@
 		return
 
 	var/datum/sprite_accessory/body_markings/tattoo/temp_tatt = GLOB.marking_styles_list[tattoo_icon]
-	if(!(target.dna.species.sprite_sheet_name in temp_tatt.species_allowed))
+	if(!(target.dna.species.name in temp_tatt.species_allowed))
 		to_chat(user, "<span class= 'notice'>You can't think of a way to make the [tattoo_name] design work on [target == user ? "your" : "[target]'s"] body type.</span>")
 		return
 
@@ -129,8 +129,14 @@
 /obj/item/fluff/bird_painter/attack_self__legacy__attackchain(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		H.s_tone = -115
-		H.regenerate_icons()
+		if(H.dna.species.bodyflags & (HAS_SKIN_TONE | HAS_ICON_SKIN_TONE))
+			H.change_skin_tone(-115, TRUE)
+		else if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
+			var/list/hsl = rgb2hsl(hex2num(copytext(H.skin_colour, 2, 4)), hex2num(copytext(H.skin_colour, 4, 6)), hex2num(copytext(color, 6, 8)))
+			hsl[3] = min(hsl[3], 0.15) // makes their current skin color dark, setting its lightness to max of 15%
+			var/list/rgb = hsl2rgb(arglist(hsl))
+			var/new_color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+			H.change_skin_color(new_color)
 		to_chat(user, "You use [src] on yourself.")
 		qdel(src)
 
@@ -269,7 +275,7 @@
 	C.name = "Sax"
 	C.real_name = "Sax"
 	var/obj/item/clothing/head/det_hat/D = new
-	D.flags |= NODROP
+	D.set_nodrop(TRUE, loc)
 	C.place_on_head(D)
 	C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
 	to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")

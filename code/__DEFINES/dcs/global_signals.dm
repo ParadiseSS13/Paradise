@@ -4,7 +4,7 @@
  * All signals send the source datum of the signal as the first argument
  */
 
-///from base of datum/controller/subsystem/mapping/proc/add_new_zlevel(): (list/args)
+///from base of datum/controller/subsystem/mapping/proc/add_new_zlevel(): (name, linkage, list/traits, transition_tag, level_type, zlevel)
 #define COMSIG_GLOB_NEW_Z "!new_z"
 /// called after a successful var edit somewhere in the world: (list/args)
 #define COMSIG_GLOB_VAR_EDIT "!var_edit"
@@ -24,3 +24,6 @@
 
 /// Used by admin-tooling to remove radiation
 #define COMSIG_ADMIN_DECONTAMINATE "admin_decontaminate"
+
+/// Used when a shelter capsule deploys
+#define COMSIG_GLOB_SHELTER_PLACED "!shelter_placed"

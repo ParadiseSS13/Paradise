@@ -258,7 +258,9 @@ SUBSYSTEM_DEF(ticker)
 	else
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
 
-	SSjobs.DivideOccupations() //Distribute jobs
+	SSjobs.job_selector = new()
+	SSjobs.job_selector.assign_all_roles()
+	SSjobs.job_selector.apply_roles_to_players()
 
 	if(hide_mode)
 		var/list/modes = list()
@@ -688,36 +690,8 @@ SUBSYSTEM_DEF(ticker)
 
 
 /datum/controller/subsystem/ticker/proc/setup_news_feeds()
-	var/datum/feed_channel/newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Station Announcements Log"
-	newChannel.author = "Automated Announcement Listing"
-	newChannel.icon = "bullhorn"
-	newChannel.frozen = TRUE
-	newChannel.admin_locked = TRUE
-	GLOB.news_network.channels += newChannel
-
-	newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Public Station Announcements"
-	newChannel.author = "Automated Announcement Listing"
-	newChannel.icon = "users"
-	newChannel.is_public = TRUE
-	GLOB.news_network.channels += newChannel
-
-	newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Nyx Daily"
-	newChannel.author = "CentComm Minister of Information"
-	newChannel.icon = "meteor"
-	newChannel.frozen = TRUE
-	newChannel.admin_locked = TRUE
-	GLOB.news_network.channels += newChannel
-
-	newChannel = new /datum/feed_channel
-	newChannel.channel_name = "The Gibson Gazette"
-	newChannel.author = "Editor Mike Hammers"
-	newChannel.icon = "star"
-	newChannel.frozen = TRUE
-	newChannel.admin_locked = TRUE
-	GLOB.news_network.channels += newChannel
+	for(var/feed_channel_type in subtypesof(/datum/feed_channel))
+		GLOB.news_network.channels += new feed_channel_type
 
 	for(var/loc_type in subtypesof(/datum/trade_destination))
 		var/datum/trade_destination/D = new loc_type

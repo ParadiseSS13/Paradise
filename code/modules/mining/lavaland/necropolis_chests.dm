@@ -8,6 +8,9 @@
 	icon_closed = "necrocrate"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/structure/closet/crate/necropolis/ex_act(severity) // So vetus explosion won't destroy everything inside
+	return
+
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
@@ -116,7 +119,7 @@
 	id = "hyperaoemod"
 	materials = list(MAT_METAL = 7000, MAT_GLASS = 3000, MAT_SILVER= 3000, MAT_GOLD = 3000, MAT_DIAMOND = 4000)
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining", "Cyborg Upgrades")
 	build_type = PROTOLATHE | MECHFAB
 	requires_whitelist = TRUE
 
@@ -126,7 +129,7 @@
 	id = "repeatermod"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_URANIUM = 8000, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/borg/upgrade/modkit/cooldown/repeater
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining", "Cyborg Upgrades")
 	build_type = PROTOLATHE | MECHFAB
 	requires_whitelist = TRUE
 
@@ -136,7 +139,7 @@
 	id = "resonatormod"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_SILVER= 5000, MAT_URANIUM = 5000)
 	build_path = /obj/item/borg/upgrade/modkit/resonator_blasts
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining", "Cyborg Upgrades")
 	build_type = PROTOLATHE | MECHFAB
 	requires_whitelist = TRUE
 
@@ -147,7 +150,7 @@
 	materials = list(MAT_METAL = 4000, MAT_SILVER = 4000, MAT_GOLD = 4000, MAT_BLUESPACE = 4000)
 	reagents_list = list("blood" = 40)
 	build_path = /obj/item/borg/upgrade/modkit/bounty
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining", "Cyborg Upgrades")
 	build_type = PROTOLATHE | MECHFAB
 	requires_whitelist = TRUE
 
@@ -183,6 +186,7 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 	hide_tail_by_species = list("Unathi", "Tajaran", "Vox", "Vulpkanin")
+	insert_max = 0
 
 /obj/item/clothing/suit/hooded/berserker/Initialize(mapload)
 	. = ..()
@@ -260,8 +264,8 @@
 	user.next_move_modifier *= BERSERK_ATTACK_SPEED_MODIFIER
 	user.add_atom_colour(BERSERK_COLOUR, TEMPORARY_COLOUR_PRIORITY)
 	ADD_TRAIT(user, TRAIT_CHUNKYFINGERS, BERSERK_TRAIT)
-	flags |= NODROP
-	suit.flags |= NODROP
+	set_nodrop(TRUE)
+	suit.set_nodrop(TRUE, loc)
 	berserk_active = TRUE
 	START_PROCESSING(SSobj, src)
 
@@ -280,8 +284,8 @@
 	user.next_move_modifier /= BERSERK_ATTACK_SPEED_MODIFIER
 	user.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, BERSERK_COLOUR)
 	REMOVE_TRAIT(user, TRAIT_CHUNKYFINGERS, BERSERK_TRAIT)
-	flags &= ~NODROP
-	suit.flags &= ~NODROP
+	set_nodrop(FALSE)
+	suit.set_nodrop(FALSE)
 	STOP_PROCESSING(SSobj, src)
 
 /datum/action/item_action/berserk_mode
@@ -392,7 +396,7 @@
 		qdel(src) // Oh no! Oh well a new rod will be made from the STATUS_EFFECT_HIPPOCRATIC_OATH
 		return
 
-	flags |= NODROP // Readd the nodrop
+	set_nodrop(TRUE, loc)
 	var/mob/living/carbon/human/H = owner
 	var/limb_regrown = FALSE
 
@@ -679,7 +683,7 @@
 	for(var/distance in 0 to 8)
 		var/turf/current_dash_target = dash_target
 		current_dash_target = get_step(current_dash_target, user.dir)
-		if(!is_blocked_turf(current_dash_target, TRUE))
+		if(!current_dash_target.is_blocked_turf(exclude_mobs = TRUE))
 			dash_target = current_dash_target
 		else
 			break

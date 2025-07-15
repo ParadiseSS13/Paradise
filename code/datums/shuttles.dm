@@ -39,10 +39,8 @@
 
 /datum/map_template/shuttle/emergency/bar
 	suffix = "bar"
-	name = "NTV Charon (Bar)"
-	description = "A modification of the standard shuttle featuring a bathroom, quality lounge for the heads, and a \
-		small gambling table."
-
+	name = "NTV Bullet (Bar)"
+	description = "A luxuriously outfitted shuttle featuring a full-sized bar, gambling table, and bathroom suite. The Command section is equipped with a spacious drawing room."
 
 /datum/map_template/shuttle/emergency/cyb
 	suffix = "cyb"
@@ -65,11 +63,11 @@
 	suffix = "clown"
 	name = "NCV Snappop(tm)"
 	description = "Hey kids and grownups! Are you bored of DULL and TEDIOUS \
-		shuttle journeys after you're evacuating for probably BORING reasons. \
+		shuttle journeys while you're evacuating for probably BORING reasons? \
 		Well then order the Snappop(tm) today! We've got fun activities for \
 		everyone, an all access cockpit, and no boring security brig! Boo! \
 		Play dress up with your friends! Collect all the bedsheets before \
-		your neighbour does! Check if the AI is watching you with our patent \
+		your neighbor does! Check if the AI is watching you with our patent \
 		pending \"Peeping Tom AI Multitool Detector\" or PEEEEEETUR for \
 		short. Have a fun ride!"
 	admin_notes = "Brig is replaced by anchored greentext book surrounded by \
@@ -98,7 +96,7 @@
 	suffix = "narnar"
 	name = "Shuttle 667"
 	description = "Looks like this shuttle may have wandered into the \
-		darkness between the stars on route to the station. Let's not think \
+		darkness between the stars en route to the station. Let's not think \
 		too hard about where all the bodies came from."
 	admin_notes = "Contains inactive \
 		constructs. Put players in constructs if you want them to move. \
@@ -118,7 +116,7 @@
 	suffix = "raven"
 	name = "NSV Raven"
 	description = "The NSV Raven is a former high-risk salvage frigate, now repurposed into an emergency escape shuttle. \
-	Once first to the scene to pick through warzones for valuable remains, it now serves as an excellent escape option for stations under heavy fire from outside forces. \
+	Formerly first on the scene to pick through war zones for valuable remains, it now serves as an excellent escape option for stations under heavy fire from outside forces. \
 	This escape shuttle boasts shields and numerous anti-personnel turrets guarding its perimeter to fend off meteors and enemy boarding attempts."
 	admin_notes = "Comes with turrets that will target simple mobs."
 
@@ -136,25 +134,33 @@
 	Be careful to stay out of its path. Comes with a beacon to choose where it docks!"
 	admin_notes = "WARNING: This shuttle is designed to crash into the station. It has turrets, similar to the raven. Place down the beacon please. Once the shuttle is loaded, it cannot be unloaded."
 
+/datum/map_template/shuttle/emergency/cherenkov
+	suffix = "cherenkov"
+	name = "NXV Cherenkov"
+	description = "A vessel with a highly experimental supermatter-powered drive that enables it to travel much faster. \
+	To minimize crew exposure to radiation, the vessel's drive section is held far from the crew section by long struts. \
+	Personal Protective Equipment in the form of suits and meson goggles are available for use, and the medbay is equipped with anti-radiation treatment, and surgical equipment for removing any unwanted growths."
+	admin_notes = "The supermatter engine on this shuttle is not a prop, it is fully functional. It is pre-configured into a safe operating mode and should remain stable unless it is tampered with."
+
 /datum/map_template/shuttle/emergency/lance/preload()
 	message_admins("Preloading [name]!")
-	var/obj/docking_port/stationary/CCport
-	CCport = SSshuttle.getDock("emergency_away")
+	var/obj/docking_port/stationary/CCport = SSshuttle.getDock("emergency_away")
 	CCport.setDir(4)
 	CCport.forceMove(locate(136, 107, 1))
 	CCport.height = 50
 	CCport.dheight = 0
 	CCport.width = 19
 	CCport.dwidth = 9
-	var/obj/docking_port/stationary/syndicate
-	syndicate = SSshuttle.getDock("emergency_syndicate")
+	var/obj/docking_port/stationary/syndicate = SSshuttle.getDock("emergency_syndicate")
 	syndicate.setDir(8)
 	syndicate.forceMove(locate(202, 199, 1))
 	syndicate.height = 50
 	syndicate.dheight = 0
 	syndicate.width = 19
 	syndicate.dwidth = 9
-	qdel(SSshuttle.getDock("emergency_home"), TRUE)
+	var/obj/docking_port/stationary/home = SSshuttle.getDock("emergency_home")
+	SSshuttle.stationary_docking_ports -= home
+	qdel(home, TRUE)
 	SSshuttle.emergency_locked_in = TRUE
 
 /datum/map_template/shuttle/ferry/base
@@ -167,7 +173,7 @@
 	name = "\"meat\" ferry"
 	description = "Ahoy! We got all kinds o' meat aft here. Meat from plant \
 		people, people who be dark, not in a racist way, just they're dark \
-		black. Oh and lizard meat too,mighty popular that is. Definitely \
+		black. Oh, and lizard meat too, mighty popular that is. Definitely \
 		100% fresh, just ask this guy here. *person on meatspike moans* See? \
 		Definitely high quality meat, nothin' wrong with it, nothin' added, \
 		definitely no zombifyin' reagents!"
@@ -177,7 +183,7 @@
 /datum/map_template/shuttle/admin/hospital
 	suffix = "hospital"
 	name = "NHV Asclepius"
-	description = "Nanostrasen Hospital ship, for medical assistance during disasters."
+	description = "Nanotrasen Hospital ship, providing medical assistance during disasters."
 
 /datum/map_template/shuttle/admin/admin
 	suffix = "admin"

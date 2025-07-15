@@ -75,6 +75,12 @@
 	else
 		qdel(src)
 
+/obj/structure/reagent_dispensers/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
+
 //Dispensers
 /obj/structure/reagent_dispensers/watertank
 	name = "water tank"
@@ -87,6 +93,12 @@
 	icon_state = "water_high" //I was gonna clean my room...
 	tank_volume = 100000
 
+/obj/structure/reagent_dispensers/watertank/firetank
+	name = "firefighting foam tank"
+	desc = "A firefighting foam tank."
+	icon_state = "firetank"
+	reagent_id = "firefighting_foam"
+	tank_volume = 8000
 
 /obj/structure/reagent_dispensers/oil
 	name = "oil tank"
@@ -275,7 +287,7 @@
 	reagent_id = "beer"
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act(obj/structure/blob/B)
-	explosion(loc, 0, 3, 5, 7, 10)
+	explosion(loc, 0, 3, 5, 7, 10, cause = "Blob caused [src] to explode.")
 	if(!QDELETED(src))
 		qdel(src)
 

@@ -40,6 +40,9 @@
 	sight = SEE_MOBS // So it can see through smoke / charge through walls like the kool aid man.
 	var/datum/effect_system/smoke_spread/bad/smoke
 	loot_drop = /obj/item/crusher_trophy/legionnaire_spine
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/legionnaire
 
 	attack_action_types = list(/datum/action/innate/elite_attack/legionnaire_charge,
 								/datum/action/innate/elite_attack/head_detach,
@@ -289,7 +292,7 @@
 	anchored = TRUE
 	density = FALSE
 	light_range = 4
-	light_color = LIGHT_COLOR_RED
+	light_color = LIGHT_COLOR_FLARE
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/myowner = null
 
 /obj/structure/legionnaire_bonfire/Initialize(mapload)

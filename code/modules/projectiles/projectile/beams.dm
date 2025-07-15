@@ -77,6 +77,12 @@
 	icon_state = "scatterlaser"
 	damage = 5
 
+/obj/item/projectile/beam/scatter/eshotgun
+	damage = 6
+	tile_dropoff = 0.5
+	tile_dropoff_s = 0.5
+	range = 8
+
 /obj/item/projectile/beam/xray
 	name = "xray beam"
 	icon_state = "xray"
@@ -104,6 +110,18 @@
 	damage = 15
 	armour_penetration_flat = -10
 	light_color = LIGHT_COLOR_BLUE
+
+/obj/item/projectile/beam/disabler/fake
+	name = "weakened disabler beam"
+	nodamage = 1
+	damage = 0
+
+/obj/item/projectile/beam/disabler/pellet
+	name = "split disabler beam"
+	icon_state = "scatterdisabler"
+	damage = 10
+	light_color = LIGHT_COLOR_BLUE
+	range = 8
 
 /obj/item/projectile/beam/pulse
 	name = "pulse"

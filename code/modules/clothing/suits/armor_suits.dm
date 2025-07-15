@@ -110,6 +110,12 @@
 	item_state = "bloody_armor"
 	sprite_sheets = null
 
+/obj/item/clothing/suit/armor/vest/press
+	name = "press vest"
+	desc = "A sturdy vest that should keep you protected from the dangers of the station."
+	icon_state = "press_vest"
+	item_state = "armor"
+
 /obj/item/clothing/suit/armor/secjacket
 	name = "security jacket"
 	desc = "A stylish black jacket used by Nanotrasen corporate security. Basic kevlar weave offers minor protection, but far less than a typical Security vest."
@@ -156,6 +162,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	strip_delay = 80
+	insert_max = 2
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -214,6 +221,7 @@
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
 	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/drinks/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/flash, /obj/item/storage/fancy/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen, /obj/item/gun/energy, /obj/item/gun/projectile)
+	insert_max = 3
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -406,6 +414,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
+	insert_max = 2
 	/// The cell reactive armor uses.
 	var/obj/item/stock_parts/cell/emproof/reactive/cell
 	/// Cost multiplier for armor. "Stronger" armors use 200 charge, other armors use 120.
@@ -709,6 +718,7 @@
 	sprite_sheets = null
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
 	flags_2 = RAD_PROTECT_CONTENTS_2
+	insert_max = 5
 
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor"
@@ -746,6 +756,48 @@
 	desc = "Armor worn by the green Thunderdome team."
 	icon_state = "tdgreen"
 	item_state = "tdgreen"
+
+//Federation
+/obj/item/clothing/suit/armor/federation/marine
+	name = "\improper Federation marine combat armor"
+	desc = "A full-body suit of semi-powered assault armor used by the Trans-Solar Marine Corps. Offers excellent protection in all areas without impairing movement."
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+	)
+	icon_state = "fedarmor_marine"
+	item_state = "fedarmor_marine"
+	armor = list(MELEE = 40, BULLET = 45, LASER = 45, ENERGY = 40, BOMB = 100, RAD = 25, FIRE = 200, ACID = 100)
+	w_class = WEIGHT_CLASS_BULKY
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
+					/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
+					/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
+					/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
+	flags = THICKMATERIAL
+	slowdown = 0
+	strip_delay = 12 SECONDS
+
+/obj/item/clothing/suit/armor/federation/marine/officer
+	name = "\improper Federation marine officer's armor"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+	)
+	icon_state = "fedarmor_marine_officer"
+	item_state = "fedarmor_marine_officer"
+	desc = "A full-body suit of semi-powered assault armor used by the Trans-Solar Marine Corps. Offers excellent protection in all areas without impairing movement. This suit has golden stripes instead of the typical white."
+
+/obj/item/clothing/suit/armor/federation/marine/export
+	name = "\improper Federation marine combat armor (E)"
+	desc = "An export-grade suit of semi-powered assault armor commonly sold or given to allies of the Trans-Solar Federation. It has moderately reduced capabilites compared to a standard suit."
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+	)
+	icon_state = "fedarmor_marine"
+	item_state = "fedarmor_marine"
+	armor = list(MELEE = 30, BULLET = 35, LASER = 35, ENERGY = 30, BOMB = 50, RAD = 0, FIRE = 100, ACID = 50)
+
 
 //Non-hardsuit ERT armor.
 /obj/item/clothing/suit/armor/vest/ert

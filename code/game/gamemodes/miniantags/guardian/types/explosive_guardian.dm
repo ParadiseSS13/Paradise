@@ -24,16 +24,23 @@
 		return
 	if(isobj(A) && can_plant(A))
 		if(bomb_cooldown <= world.time && stat == CONSCIOUS)
-			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
+			A.AddComponent( \
+				/datum/component/direct_explosive_trap, \
+				saboteur_ = src, \
+				explosive_check_ = CALLBACK(src, PROC_REF(validate_target)))
 			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
 			to_chat(src, "<span class='danger'>Success! Bomb on [A] armed!</span>")
 			if(summoner)
 				to_chat(summoner, "<span class='warning'>Your guardian has primed [A] to explode!</span>")
 			bomb_cooldown = world.time + default_bomb_cooldown
-			B.spawner = src
-			B.disguise (A)
 		else
 			to_chat(src, "<span class='danger'>Your power is on cooldown! You must wait another [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] seconds before you can place next bomb.</span>")
+
+/mob/living/simple_animal/hostile/guardian/bomb/proc/validate_target(atom/source, mob/living/target)
+	if(target == summoner)
+		add_attack_logs(target, source, "booby trap defused")
+		to_chat(target, "<span class='danger'>You knew this because of your link with your guardian, so you smartly defuse the bomb.</span>")
+		return DIRECT_EXPLOSIVE_TRAP_DEFUSE
 
 /mob/living/simple_animal/hostile/guardian/bomb/proc/can_plant(atom/movable/A)
 	if(ismecha(A))
@@ -45,73 +52,3 @@
 		to_chat(src, "<span class='warning'>You can't disguise disposal units as a bomb!</span>")
 		return FALSE
 	return TRUE
-
-/obj/item/guardian_bomb
-	name = "bomb"
-	desc = "You shouldn't be seeing this!"
-	var/obj/stored_obj
-	var/mob/living/spawner
-
-/obj/item/guardian_bomb/proc/disguise(obj/A)
-	A.forceMove(src)
-	stored_obj = A
-	opacity = A.opacity
-	anchored = A.anchored
-	density = A.density
-	appearance = A.appearance
-	dir = A.dir
-	move_resist = A.move_resist
-	addtimer(CALLBACK(src, PROC_REF(disable)), 600)
-
-/obj/item/guardian_bomb/proc/disable()
-	add_attack_logs(null, stored_obj, "booby trap expired")
-	stored_obj.forceMove(get_turf(src))
-	if(spawner)
-		to_chat(spawner, "<span class='danger'>Failure! Your trap on [stored_obj] didn't catch anyone this time.</span>")
-	qdel(src)
-
-/obj/item/guardian_bomb/proc/detonate(mob/living/user)
-	if(!istype(user))
-		return
-	to_chat(user, "<span class='danger'>[src] was boobytrapped!</span>")
-	if(isguardian(spawner))
-		var/mob/living/simple_animal/hostile/guardian/G = spawner
-		if(user == G.summoner)
-			add_attack_logs(user, stored_obj, "booby trap defused")
-			to_chat(user, "<span class='danger'>You knew this because of your link with your guardian, so you smartly defuse the bomb.</span>")
-			stored_obj.forceMove(get_turf(loc))
-			qdel(src)
-			return
-	add_attack_logs(user, stored_obj, "booby trap TRIGGERED (spawner: [spawner])")
-	to_chat(spawner, "<span class='danger'>Success! Your trap on [src] caught [user]!</span>")
-	stored_obj.forceMove(get_turf(loc))
-	playsound(get_turf(src),'sound/effects/explosion2.ogg', 200, 1)
-	user.ex_act(EXPLODE_HEAVY)
-	user.Stun(3 SECONDS)//A bomb went off in your hands. Actually lets people follow up with it if they bait someone, right now it is unreliable.
-	qdel(src)
-
-/obj/item/guardian_bomb/attackby__legacy__attackchain(obj/item/W, mob/living/user)
-	detonate(user)
-
-/obj/item/guardian_bomb/attack_hand(mob/user)
-	detonate(user)
-
-/obj/item/guardian_bomb/MouseDrop_T(obj/item/I, mob/living/user)
-	detonate(user)
-
-/obj/item/guardian_bomb/AltClick(mob/living/user)
-	detonate(user)
-
-/obj/item/guardian_bomb/MouseDrop(mob/living/user)
-	detonate(user)
-
-/obj/item/guardian_bomb/Bumped(mob/living/user)
-	detonate(user)
-
-/obj/item/guardian_bomb/can_be_pulled(mob/living/user)
-	detonate(user)
-
-/obj/item/guardian_bomb/examine(mob/user)
-	. = stored_obj.examine(user)
-	if(get_dist(user, src) <= 2)
-		. += "<span class='notice'>Looks odd!</span>"

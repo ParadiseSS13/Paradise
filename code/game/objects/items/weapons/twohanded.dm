@@ -99,6 +99,7 @@
 	icon = 'icons/obj/weapons/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	hitsound = "swing_hit"
 	icon_state = "dualsaber0"
 	force = 3
 	throwforce = 5
@@ -128,8 +129,21 @@
 	. = ..()
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
-	AddComponent(/datum/component/two_handed, force_wielded = force_wielded, force_unwielded = force_unwielded, wieldsound = wieldsound, unwieldsound = unwieldsound, wield_callback = CALLBACK(src, PROC_REF(on_wield)), unwield_callback = CALLBACK(src, PROC_REF(on_unwield)), only_sharp_when_wielded = TRUE)
+	AddComponent(/datum/component/parry, \
+		_stamina_constant = 2, \
+		_stamina_coefficient = 0.25, \
+		_parryable_attack_types = ALL_ATTACK_TYPES, \
+		_parry_cooldown = (4 / 3) SECONDS, /* 0.33 seconds of cooldown for 75% uptime */ \
+		_requires_two_hands = TRUE)
+	AddComponent(/datum/component/two_handed, \
+		force_wielded = force_wielded, \
+		force_unwielded = force_unwielded, \
+		wieldsound = wieldsound, \
+		unwieldsound = unwieldsound, \
+		attacksound = 'sound/weapons/blade1.ogg', \
+		wield_callback = CALLBACK(src, PROC_REF(on_wield)), \
+		unwield_callback = CALLBACK(src, PROC_REF(on_unwield)), \
+		only_sharp_when_wielded = TRUE)
 
 /obj/item/dualsaber/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -226,18 +240,13 @@
 /obj/item/dualsaber/blue
 	blade_color = "blue"
 
-
 /obj/item/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
 	if(user && HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='warning'>You lack the grace to wield this!</span>")
 		return COMPONENT_TWOHANDED_BLOCK_WIELD
-
-	hitsound = 'sound/weapons/blade1.ogg'
 	w_class = w_class_on
 
-
 /obj/item/dualsaber/proc/on_unwield()
-	hitsound = "swing_hit"
 	w_class = initial(w_class)
 
 /obj/item/dualsaber/IsReflect()
@@ -521,7 +530,7 @@
 
 /obj/item/butcher_chainsaw/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_BUTCHERS_HUMANS, ROUNDSTART_TRAIT)
+	AddElement(/datum/element/butchers_humans)
 	AddComponent(/datum/component/two_handed, \
 		force_wielded = 40, \
 		force_unwielded = force, \
@@ -562,10 +571,10 @@
 	return ..()
 
 /obj/item/butcher_chainsaw/proc/wield() //you can't disarm an active chainsaw, you crazy person.
-	flags |= NODROP
+	set_nodrop(TRUE, loc)
 
 /obj/item/butcher_chainsaw/proc/unwield()
-	flags &= ~NODROP
+	set_nodrop(FALSE, loc)
 
 // SINGULOHAMMER
 /obj/item/singularityhammer
@@ -869,7 +878,7 @@
 	user.visible_message("<span class='warning'>[user] deploys [W] from [user.p_their()] wrists in a shower of sparks!</span>", "<span class='notice'>You deploy [W] from your wrists!</span>", "<span class='warning'>You hear the shower of sparks!</span>")
 	user.put_in_hands(W)
 	on_cooldown = TRUE
-	flags |= NODROP
+	set_nodrop(TRUE, user)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), 2 MINUTES)
 	if(world.time > next_spark_time)
 		do_sparks(rand(1,6), 1, loc)
@@ -891,7 +900,7 @@
 
 /obj/item/clothing/gloves/color/black/pyro_claws/proc/reboot()
 	on_cooldown = FALSE
-	flags &= ~NODROP
+	set_nodrop(FALSE, loc)
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
 
 /// Max number of atoms a broom can sweep at once

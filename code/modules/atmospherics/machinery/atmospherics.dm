@@ -76,6 +76,10 @@ Pipelines + Other Objects -> Pipe network
 	// Updates all pipe overlays and underlays
 	update_underlays()
 
+/obj/machinery/atmospherics/onShuttleMove(turf/oldT, turf/T1, rotation, mob/calling_mob)
+	. = ..()
+	update_underlays()
+
 /obj/machinery/atmospherics/Destroy()
 	SSair.atmos_machinery -= src
 	SSair.pipenets_to_build -= src
@@ -86,7 +90,7 @@ Pipelines + Other Objects -> Pipe network
 	return ..()
 
 // Icons/overlays/underlays
-/obj/machinery/atmospherics/update_icon()
+/obj/machinery/atmospherics/update_icon(updates=ALL)
 	if(check_icon_cache())
 		..(ALL)
 	else
@@ -239,7 +243,7 @@ Pipelines + Other Objects -> Pipe network
 		"<span class='notice'>You have unfastened [src].</span>",
 		"<span class='italics'>You hear ratcheting.</span>"
 	)
-	investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
+	investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", INVESTIGATE_ATMOS)
 
 	//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 	if(unsafe_wrenching)
@@ -461,5 +465,8 @@ Pipelines + Other Objects -> Pipe network
 	update_icon()
 	if(user)
 		to_chat(user, "<span class='notice'>You set the target pressure of [src] to maximum.</span>")
+
+/obj/machinery/atmospherics/proc/get_machinery_pipelines()
+	return list()
 
 #undef VENT_SOUND_DELAY

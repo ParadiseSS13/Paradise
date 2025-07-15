@@ -22,7 +22,7 @@
 
 /datum/test_puppeteer/proc/spawn_puppet_nearby(carbon_type = /mob/living/carbon/human)
 	for(var/turf/T in RANGE_TURFS(1, puppet.loc))
-		if(!is_blocked_turf(T, exclude_mobs = FALSE))
+		if(!T.is_blocked_turf())
 			return new/datum/test_puppeteer(origin_test, carbon_type, T)
 
 	origin_test.Fail("could not spawn puppeteer near [src]")
@@ -40,7 +40,7 @@
 		T = get_step(puppet, direction)
 	else
 		for(var/turf/nearby in RANGE_TURFS(1, puppet.loc))
-			if(!is_blocked_turf(nearby, exclude_mobs = FALSE))
+			if(!nearby.is_blocked_turf())
 				T = nearby
 
 	if(T)
@@ -51,9 +51,14 @@
 /datum/test_puppeteer/proc/use_item_in_hand()
 	var/obj/item/item = puppet.get_active_hand()
 	if(!item)
+		origin_test.Fail("could not find obj in [puppet] active hand", __FILE__, __LINE__)
 		return
 
-	item.activate_self(puppet)
+	if(item.new_attack_chain)
+		item.activate_self(puppet)
+	else
+		item.attack_self__legacy__attackchain(puppet)
+
 	puppet.next_click = world.time
 	puppet.next_move = world.time
 	return TRUE
@@ -70,7 +75,7 @@
 
 /datum/test_puppeteer/proc/spawn_mob_nearby(mob_type)
 	for(var/turf/T in RANGE_TURFS(1, puppet))
-		if(!is_blocked_turf(T, exclude_mobs = FALSE))
+		if(!T.is_blocked_turf())
 			var/mob/new_mob = origin_test.allocate(mob_type, T)
 			return new_mob
 
@@ -99,6 +104,9 @@
 
 /datum/test_puppeteer/proc/set_intent(new_intent)
 	puppet.a_intent_change(new_intent)
+
+/datum/test_puppeteer/proc/set_zone(new_zone)
+	puppet.zone_selected = new_zone
 
 /datum/test_puppeteer/proc/rejuvenate()
 	puppet.rejuvenate()
@@ -158,3 +166,8 @@
 
 	backpack.remove_item_from_storage(object)
 	puppet.put_in_active_hand(object)
+
+/datum/test_puppeteer/proc/click_on_self()
+	puppet.ClickOn(puppet)
+	puppet.next_click = world.time
+	puppet.next_move = world.time

@@ -549,7 +549,7 @@
 
 /datum/crafting_recipe/sushimat
 	name = "Sushi Mat"
-	result = list(/obj/item/kitchen/sushimat)
+	result = list(/obj/item/reagent_containers/cooking/sushimat)
 	time = 10
 	reqs = list(/obj/item/stack/sheet/wood = 1,
 				/obj/item/stack/cable_coil = 2)
@@ -842,7 +842,7 @@
 	name = "Bonfire"
 	time = 60
 	reqs = list(/obj/item/grown/log = 5)
-	result = list(/obj/structure/bonfire)
+	result = list(/obj/structure/lightable/bonfire)
 	category = CAT_PRIMAL
 	alert_admins_on_craft = TRUE
 
@@ -1386,7 +1386,7 @@
 	result = list(/obj/item/stack/medical/bruise_pack)
 	reqs = list(/obj/item/stack/medical/bruise_pack/improvised = 6,
 				/datum/reagent/medicine/heal_on_apply/styptic_powder = 30,
-				/datum/reagent/medicine/sterilizine = 10)
+				/datum/reagent/medicine/spaceacillin = 10)
 	category = CAT_MISC
 
 /datum/crafting_recipe/ointment
@@ -1396,5 +1396,5 @@
 	reqs = list(/obj/item/stack/sheet/plastic = 2,
 				/datum/reagent/water = 10,
 				/datum/reagent/medicine/heal_on_apply/silver_sulfadiazine = 30,
-				/datum/reagent/medicine/sterilizine = 10)
+				/datum/reagent/medicine/spaceacillin = 10)
 	category = CAT_MISC

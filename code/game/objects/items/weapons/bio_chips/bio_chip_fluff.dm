@@ -19,40 +19,40 @@
 /datum/implant_fluff/adrenaline
 	name = "Cybersun Industries RX-2 Adrenaline Bio-chip"
 	life = "Five days."
-	notes = "One of Cybersun Industries oldest and simplest implants, even in its simplicity it is rumoured to be one of Cybersun Industries best-selling products."
+	notes = "One of Cybersun Industries' oldest and simplest implants, it is rumoured to be among their best-selling products."
 	function = "Subjects injected with this bio-chip can activate an injection of medical cocktails that removes stuns, increases speed, and has mild healing effects."
 
 /datum/implant_fluff/basic_adrenalin
 	name = "Cybersun Industries RX-1 Adrenaline Bio-chip"
 	life = "Five days or after 1 use."
-	notes = "One of Cybersun Industries oldest implants, made smaller because of popular demand, because of the manufacturing cost and the smaller size. Then, more inferior products were used in the implant to decrease the price."
+	notes = "A reduced-size version of Cybersun Industries' hugely popular RX-2 biochip, designed to offer the same robust jolt of energy for the budget-conscious consumer. Single use only."
 	function = "Subjects injected with this bio-chip can activate an injection of medical cocktails that removes stuns, increases speed, and has mild healing effects."
 
 /datum/implant_fluff/proto_adrenaline
 	name = "Cybersun Industries FX-1 Proto-Adrenaline Bio-chip"
-	life = "Destroyed after 1 use."
-	notes = "Originally developed as part of Cybersun's medical line for preventing high-G sickness during space travel, but today it is sold for less legal uses."
-	function = "Subjects injected with this bio-chip can activate an injection of medical cocktails that gets them back up on their feet."
+	life = "5 days, destroyed after 1 use."
+	notes = "An ultra-minimalist version of Cybersun Industries' hugely popular RX-2 biochip, for those operating on a shoestring budget."
+	function = "Injects a mixture of adrenaline, noradrenaline, and cortisol into the subject, giving them a very quick burst of energy that will clear all stunning effects and allow them to rise to their feet. The effect is extremely short lived and lacks any staying power."
 
 /datum/implant_fluff/supercharge
 	name = "Cybersun Industries RX-4 Synthetic Supercharge Bio-chip"
 	life = "Known to last for up to a year."
-	notes = "One of Cybersun Industries simplest implants, it's rumored that synthetic rights groups maintain stockpiles of these."
+	notes = "A complex bio-chip utilizing a multitude of synthetic chemicals invented by Cybersun Industries. It's rumored that synthetic rights groups maintain stockpiles of these."
 	function = "Synthetic subjects injected with this bio-chip can activate an injection of lubricants, coolants, and positronic patching fluid."
 
 /datum/implant_fluff/chem
-	name = "BioTech Solutions MJ-420 Prisoner Management Bio-chip" //ah yes, MJ-420, old coders are FUNNY
+	name = "Bishop Cybernetics Chemical Injection Bio-chip"
 	life = "Deactivates upon death but remains within the body."
-	notes = "Can be loaded with any sort of chemical agent via the common syringe and can hold 50 units. Can only be loaded while still in its original case."
+	notes = "Can be loaded with any sort of chemical agent via syringe and can hold 50 units. Can only be loaded while still in its original case."
 	function = "Contains a small capsule that can contain various chemicals. Upon receiving a specially encoded signal the bio-chip releases the chemicals directly into the blood stream."
 
 /datum/implant_fluff/death_alarm
-	name = "BioTech Solutions MJ-102 Death Alarm Bio-chip"
-	notes = "Alerts crew to crewmember death."
+	name = "Bishop Cybernetics Death Alarm Bio-chip"
+	notes = "Alerts crew to crewmember death. Produced by Bishop Cybernetics in a collaboration with Zeng-Hu Pharmaceuticals."
 	function = "Contains a compact radio signaler that triggers when the host's lifesigns cease."
 
 /datum/implant_fluff/dust
-	name = "Nanotrasen Employee Dust Bio-chip"
+	name = "Cybersun Industries Dust Bio-chip"
 	life = "Unknown, attempts to retrieve a sample of the bio-chip have often led to the destruction of the bio-chip... and user."
 	notes = "Activates upon death or from manual activation by the user."
 	function = "Contains a compact, electrically activated heat source that turns its host to ash upon activation, or their death."
@@ -60,13 +60,13 @@
 /datum/implant_fluff/emp
 	name = "Cybersun Industries RX-22 Electromagnetic Pulse Emitter Bio-chip"
 	life = "Destroyed upon final activation."
-	notes = "An minituarized nuclear squib fit snuggly into a bio-chip."
+	notes = "An miniaturized nuclear squib fit snugly into a bio-chip."
 	function = "Upon detonization the bio-chip will release an EMP affecting the immediate area around the user."
 
 /datum/implant_fluff/explosive
 	name = "Cybersun Industries RX-78 Employee Management Bio-chip"
 	life = "Destroyed upon activation."
-	notes = "Appears to contain a small, dense explosive device wired to a signaller chip, the serial number on the side is scratched out."
+	notes = "Appears to contain a small, dense explosive device wired to a signaller chip. The serial number on the side is scratched out."
 	function = "Contains a compact, electrically detonated explosive that detonates upon receiving a specially encoded signal or upon host death."
 
 /datum/implant_fluff/explosive_macro
@@ -84,13 +84,13 @@
 /datum/implant_fluff/protofreedom
 	name = "Cybersun Industries X-92 Quick Escape Bio-chip"
 	life = "Destroyed after 1 use."
-	notes = "A bio-chip that is illegal in many systems. This is the early prototype version of the RX-92. It's significantly cheaper than it's newer version."
+	notes = "A bio-chip that is illegal in many systems. This is the early prototype version of the RX-92. It's significantly cheaper than its newer version."
 	function = "Uses a mixture of cheap cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restraints."
 
 /datum/implant_fluff/krav_maga
-	name = "Prospero Foreign Industries Krav Maga Neurotrainer"
+	name = "Cybersun Industries Krav Maga Neurotrainer"
 	life = "Will cease functioning 4 hours after death of host."
-	notes = "As a consequence of using a neurotrainer, using this bio-chip will overwrite other martial arts knowledge in the users brain."
+	notes = "As a consequence of using a neurotrainer, using this bio-chip will overwrite other martial arts knowledge in the user's brain."
 	function = "Teaches even the clumsiest host the arts of Krav Maga."
 
 /datum/implant_fluff/mindshield
@@ -101,8 +101,8 @@
 
 /datum/implant_fluff/storage
 	name = "Cybersun Industries RX-16 Collapsible Body Cavity Bio-chip"
-	notes = "Prolonged usage of this bio-chip often results in the users bones being fractured and occassionaly complete organ failure."
-	function = "Allows the user to store two small objects within a cybernetic body cavity."
+	notes = "This bio-chip uses bluespace technology to store items inside the user's body."
+	function = "Allows the user to store two small objects within a bluespace body cavity."
 
 /datum/implant_fluff/tracking
 	name = "Nanotrasen RFID Tracking Bio-chip"
@@ -119,16 +119,17 @@
 /datum/implant_fluff/uplink
 	name = "Syndicate Agent Uplink Bio-chip"
 	life = "Unknown, no collected sample has been active long enough to determine lifespan."
-	notes = "An intricate piece of machinery that interfaces directly with the users brain and which inner workings are a closely guarded syndicate secret."
+	notes = "An intricate piece of machinery that interfaces directly with the user's brain. The inner workings of this implant are a closely guarded Syndicate secret."
 	function = "Allows the user to access a syndicate uplink connected contained within their body, invisible from the outside but provides the same functionality as a regular uplink."
 
 /datum/implant_fluff/sad_trombone
-	name = "BioTech Solutions Comedy Bio-chip"
-	function = "Plays a sad trombone noise upon death of the implantee, allows clowns to entertain the crew even post-mortem."
+	name = "Honk Ltd. Comedy Bio-chip"
+	notes = "A bio-chip manufactured by Bishop Cybernetics that plays a sad trombone noise when the user dies."
+	function = "Plays a sad trombone noise upon death of the implantee."
 
 /datum/implant_fluff/pathfinder
 	name = "Paizo Productions 5-E Pathfinder Implant"
-	life = "Lasts 2-12 months. Known to fail at the worst possible time, space radation may be a factor."
+	life = "Lasts 2-12 months. Known to fail at the worst possible time, space radiation may be a factor."
 	notes = "By use of an internal private GPS signal, allows the pathfinder module to have the MODsuit find the user. Also wirelessly transfers ID information to the suit, to allow doors to open."
 	function = "Allows for the recall of a Modular Outerwear Device by the implant owner at any time."
 
@@ -136,7 +137,7 @@
 	name = "Magillitis Serum Bio-chip"
 	life = "Unknown, no collected sample has been active long enough to determine lifespan."
 	notes = "An experimental serum which causes rapid muscular growth in Hominidae. Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
-	function = "Allows the user to transform into an angry fast and robust gorilla. Very deadly in close quarters."
+	function = "Allows the user to transform into an angry, fast, and robust gorilla. Very deadly in close quarters."
 
 /datum/implant_fluff/stealth
 	name = "Syndicate S3 \"Stealth\" Bio-chip"
@@ -151,6 +152,7 @@
 	function = "An effective biochip designed to redirect large amounts of power in destructive arcs. Attempts to reduce the minimum power drain to allow for weapon and cell charging have failed so far."
 
 /datum/implant_fluff/deathrattle
-	name = "BioTech Solutions \"Dead Ringer\" Death Ratttle Bio-chip"
-	notes = "Alerts implanted crew to crewmember death."
-	function = "Contains a compact radio signaler that triggers when the host's lifesigns cease, only sent to other implanted in the group."
+	name = "Bishop Cybernetics Death Rattle Bio-chip"
+	life = "Destroyed upon activation."
+	notes = "Alerts implanted crew to crewmember death. Produced by Bishop Cybernetics in collaboration with Zeng-Hu Pharmaceuticals."
+	function = "Contains a compact radio signaller that triggers when the host's lifesigns cease. Does not announce location of death, and only announces to other crew with implanted Death Rattles."

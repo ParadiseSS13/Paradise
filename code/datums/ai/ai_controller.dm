@@ -70,6 +70,9 @@ RESTRICT_TYPE(/datum/ai_controller)
 	var/can_idle = TRUE
 	/// What distance should we be checking for interesting things when considering idling/deidling? Defaults to AI_DEFAULT_INTERESTING_DIST
 	var/interesting_dist = AI_DEFAULT_INTERESTING_DIST
+	/// are we currently on failed planning timeout?
+	var/on_failed_planning_timeout = FALSE
+
 
 /datum/ai_controller/New(atom/new_pawn)
 	change_ai_movement_type(ai_movement)
@@ -96,8 +99,17 @@ RESTRICT_TYPE(/datum/ai_controller)
 
 /// Sets the current movement target, with an optional param to override the movement behavior
 /datum/ai_controller/proc/set_movement_target(source, atom/target, datum/ai_movement/new_movement)
+	if(current_movement_target)
+		UnregisterSignal(current_movement_target, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_PREQDELETED))
+	if(!isnull(target) && !isatom(target))
+		stack_trace("[pawn]'s current movement target is [target.type], not an atom")
+		cancel_actions()
+		return
 	movement_target_source = source
 	current_movement_target = target
+	if(!isnull(current_movement_target))
+		RegisterSignal(current_movement_target, COMSIG_MOVABLE_MOVED, PROC_REF(on_movement_target_move))
+		RegisterSignal(current_movement_target, COMSIG_PARENT_PREQDELETED, PROC_REF(on_movement_target_delete))
 	if(new_movement)
 		change_ai_movement_type(new_movement)
 
@@ -155,6 +167,18 @@ RESTRICT_TYPE(/datum/ai_controller)
 	RegisterSignal(pawn, COMSIG_MOB_LOGIN, PROC_REF(on_sentience_gained))
 	RegisterSignal(pawn, COMSIG_PARENT_QDELETING, PROC_REF(on_pawn_qdeleted))
 
+/datum/ai_controller/proc/on_movement_target_move(datum/source)
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
+	check_target_max_distance()
+
+/datum/ai_controller/proc/on_movement_target_delete(atom/source)
+	SIGNAL_HANDLER // COMSIG_PARENT_PREQDELETED
+	set_movement_target(source = type, target = null)
+
+/datum/ai_controller/proc/check_target_max_distance()
+	if(get_dist(current_movement_target, pawn) > max_target_distance)
+		cancel_actions()
+
 /// Sets the AI on or off based on current conditions, call to reset after you've manually disabled it somewhere
 /datum/ai_controller/proc/reset_ai_status()
 	set_ai_status(get_expected_ai_status())
@@ -186,7 +210,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 	if(!pawn_turf)
 		CRASH("AI controller [src] controlling pawn ([pawn]) is not on a turf.")
 #endif
-	if(!length(SSmobs.clients_by_zlevel[pawn_turf.z]))
+	if(!SSmobs.clients_by_zlevel || !length(SSmobs.clients_by_zlevel[pawn_turf.z]) || on_failed_planning_timeout)
 		. = AI_STATUS_OFF
 
 /// Called when the AI controller pawn changes z levels.
@@ -238,9 +262,38 @@ RESTRICT_TYPE(/datum/ai_controller)
 		return FALSE
 	return TRUE
 
+/datum/ai_controller/proc/ai_can_interact()
+	SHOULD_CALL_PARENT(TRUE)
+	return !QDELETED(pawn)
+
+///Interact with objects
+/datum/ai_controller/proc/ai_interact(target, intent, list/modifiers)
+	if(!ai_can_interact())
+		return FALSE
+
+	var/atom/final_target = isdatum(target) ? target : blackboard[target] //incase we got a blackboard key instead
+
+	if(QDELETED(final_target))
+		return FALSE
+	var/params = list2params(modifiers)
+	var/mob/living/living_pawn = pawn
+	if(isnull(intent))
+		living_pawn.ClickOn(final_target, params)
+		return TRUE
+
+	var/old_intent = living_pawn.a_intent
+	living_pawn.a_intent = intent
+	living_pawn.ClickOn(final_target, params)
+	living_pawn.a_intent = old_intent
+	return TRUE
 
 /// Runs any actions that are currently running
 /datum/ai_controller/process(seconds_per_tick)
+	// AI controllers were implemented on /tg/ after the deltatime conversion:
+	// https://github.com/tgstation/tgstation/pull/52981
+	// The practical side-effect of this is that the values we call "seconds_per_tick"
+	// in the AI controller implementation are actually the managing subsystem's `wait`.
+	seconds_per_tick /= (1 SECONDS)
 
 	if(!able_to_run())
 		GLOB.move_manager.stop_looping(pawn) //stop moving
@@ -250,16 +303,6 @@ RESTRICT_TYPE(/datum/ai_controller)
 		idle_behavior.perform_idle_behavior(seconds_per_tick, src) //Do some stupid shit while we have nothing to do
 		return
 
-	if(current_movement_target)
-		if(!isatom(current_movement_target))
-			stack_trace("[pawn]'s current movement target is [current_movement_target], not an atom!")
-			cancel_actions()
-			return
-
-		if(get_dist(pawn, current_movement_target) > max_target_distance) //The distance is out of range
-			cancel_actions()
-			return
-
 	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
 		// Convert the current behaviour action cooldown to realtime seconds from deciseconds.current_behavior
 		// Then pick the max of this and the seconds_per_tick passed to ai_controller.process()
@@ -267,9 +310,9 @@ RESTRICT_TYPE(/datum/ai_controller)
 		var/action_seconds_per_tick = max(current_behavior.get_cooldown(src) * 0.1, seconds_per_tick)
 
 		if(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_MOVEMENT) //Might need to move closer
-			if(!current_movement_target)
-				stack_trace("[pawn] wants to perform action type [current_behavior.type] which requires movement, but has no current movement target!")
-				return // This can cause issues, so don't let these slide.
+			if(isnull(current_movement_target))
+				fail_behavior(current_behavior)
+				return
 
 			// Stops pawns from performing such actions that should require the target to be adjacent.
 			var/atom/movable/moving_pawn = pawn
@@ -400,11 +443,14 @@ RESTRICT_TYPE(/datum/ai_controller)
 	if(!LAZYLEN(current_behaviors))
 		return
 	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
-		var/list/arguments = list(src, FALSE)
-		var/list/stored_arguments = behavior_args[current_behavior.type]
-		if(stored_arguments)
-			arguments += stored_arguments
-		current_behavior.finish_action(arglist(arguments))
+		fail_behavior(current_behavior)
+
+/datum/ai_controller/proc/fail_behavior(datum/ai_behavior/current_behavior)
+	var/list/arguments = list(src, FALSE)
+	var/list/stored_arguments = behavior_args[current_behavior.type]
+	if(stored_arguments)
+		arguments += stored_arguments
+	current_behavior.finish_action(arglist(arguments))
 
 /// Turn the controller on or off based on if you're alive.
 /// We only register to this if the flag is present so don't need to check again.
@@ -449,6 +495,15 @@ RESTRICT_TYPE(/datum/ai_controller)
 		if(iter_behavior.required_distance < minimum_distance)
 			minimum_distance = iter_behavior.required_distance
 	return minimum_distance
+
+/datum/ai_controller/proc/planning_failed()
+	on_failed_planning_timeout = TRUE
+	set_ai_status(get_expected_ai_status())
+	addtimer(CALLBACK(src, PROC_REF(resume_planning)), AI_FAILED_PLANNING_COOLDOWN)
+
+/datum/ai_controller/proc/resume_planning()
+	on_failed_planning_timeout = FALSE
+	set_ai_status(get_expected_ai_status())
 
 /// Returns true if we have a blackboard key with the provided key and it is not qdeleting.
 /datum/ai_controller/proc/blackboard_key_exists(key)

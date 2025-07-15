@@ -98,6 +98,15 @@
 #define COMSIG_ATOM_PREHIT "atom_prehit"
 	#define ATOM_PREHIT_SUCCESS (1<<0)
 	#define ATOM_PREHIT_FAILURE (1<<1)
+///from relay_attackers element: (atom/attacker, attack_flags)
+#define COMSIG_ATOM_ATTACK_ANIMAL "atom_attack_animal"
+#define COMSIG_ATOM_WAS_ATTACKED "atom_was_attacked"
+	///The damage type of the weapon projectile is non-lethal stamina
+	#define ATTACKER_STAMINA_ATTACK (1<<0)
+	///the attacker is shoving the source
+	#define ATTACKER_SHOVING (1<<1)
+	/// The attack is a damaging-type attack
+	#define ATTACKER_DAMAGING_ATTACK (1<<2)
 
 /// Called from atom/Initialize() of target: (atom/target)
 #define COMSIG_ATOM_INITIALIZED_ON "atom_initialized_on"
@@ -114,6 +123,10 @@
 ///called on /living, when pull is attempted, but before it completes, from base of [/mob/living/proc/start_pulling]: (atom/movable/thing, force)
 #define COMSIG_LIVING_TRY_PULL "living_try_pull"
 	#define COMSIG_LIVING_CANCEL_PULL (1 << 0)
+#define COMSIG_ATOM_PULLED "atom_pulled"
+
+///from base of atom/Bumped(atom/bumped_atom)
+#define COMSIG_ATOM_BUMPED "atom_bumped"
 
 ///from base of atom/expose_reagents(): (/list, /datum/reagents, chemholder, volume_modifier)
 #define COMSIG_ATOM_EXPOSE_REAGENTS "atom_expose_reagents"
@@ -142,3 +155,11 @@
 /// On a ranged attack: base of mob/living/carbon/human/RangedAttack (/mob/living/carbon/human)
 #define COMSIG_ATOM_RANGED_ATTACKED "atom_range_attacked"
 
+// Smithing signals
+/// When using a bit on an item that can accept a bit
+#define COMSIG_BIT_ATTACH "bit_attach"
+/// When using a lens on an item that can accept a lens
+#define COMSIG_LENS_ATTACH "lens_attach"
+/// When using an insert on an item that can accept an insert
+#define COMSIG_INSERT_ATTACH "insert_attach"
+#define COMSIG_MINE_EXPOSE_GIBTONITE "mine_expose_gibtonite"

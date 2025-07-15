@@ -525,7 +525,6 @@
 	reinf = TRUE
 	heat_resistance = 1300
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 25, RAD = 100, FIRE = 80, ACID = 100)
-	rad_insulation_beta = RAD_NO_INSULATION
 	max_integrity = 50
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
@@ -818,7 +817,6 @@
 	reinf = TRUE
 	heat_resistance = 32000
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
-	rad_insulation_beta = RAD
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_PLASTITANIUM_WALLS)
@@ -828,6 +826,14 @@
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
 	rad_conversion_amount = 3
+
+/obj/structure/window/full/plastitanium/rad_protect
+	name = "leaded plastitanium window"
+	desc = "An evil looking window of plasma and titanium. It has been infused with lead and offers exceptional radiation resistance."
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation_beta = RAD_BETA_BLOCKER
+	rad_insulation_gamma = RAD_VERY_EXTREME_INSULATION
+	rad_conversion_amount = 0
 
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"

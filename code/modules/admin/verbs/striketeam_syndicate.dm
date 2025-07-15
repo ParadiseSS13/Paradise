@@ -38,7 +38,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	// Find the nuclear auth code
 	var/nuke_code
 	var/temp_code
-	for(var/obj/machinery/nuclearbomb/N in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/N in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 		temp_code = text2num(N.r_code)
 		if(temp_code)//if it's actually a number. It won't convert any non-numericals.
 			nuke_code = N.r_code
@@ -131,7 +131,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(src), ITEM_SLOT_GLOVES)
 
 	equip_to_slot_or_del(new /obj/item/storage/backpack/security(src), ITEM_SLOT_BACK)
-	equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(src), ITEM_SLOT_IN_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/storage/box/survival_syndie(src), ITEM_SLOT_IN_BACKPACK)
 
 	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver(src), ITEM_SLOT_IN_BACKPACK)
 	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), ITEM_SLOT_IN_BACKPACK)

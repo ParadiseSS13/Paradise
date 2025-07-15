@@ -1,3 +1,5 @@
+#define HAIR_TINT_RANGE 10	// range of available tint for our hair
+
 //These are meant for spawning on maps, namely Away Missions.
 
 //If someone can do this in a neater way, be my guest-Kor
@@ -10,40 +12,60 @@
 	anchored = TRUE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
-	var/mob_type = null
-	var/mob_name = "unidentified entity"
-	var/mob_gender = null
-	var/death = TRUE //Kill the mob
-	var/roundstart = TRUE //fires on initialize
-	var/instant = FALSE	//fires on New
-	var/flavour_text = ""	//flavour/fluff about the role, optional.
-	var/description = "A description for this has not been set. This is either an oversight or an admin-spawned spawner not in normal use."	//intended as OOC info about the role
-	var/important_info = ""	//important info such as rules that apply to you, etc. Optional.
-	var/faction = null
-	var/permanent = FALSE	//If true, the spawner will not disappear upon running out of uses.
-	var/random = FALSE		//Don't set a name or gender, just go random
-	var/objectives = null
-	var/uses = 1			//how many times can we spawn from it. set to -1 for infinite.
+	var/mob_type
+	/// Overrides name given to our mob
+	var/mob_name
+	/// Who do we gonna play for
+	var/role_name
+	/// Kill the mob
+	var/death = TRUE
+	/// Fires on initialize
+	var/roundstart = TRUE
+	/// Fires on New
+	var/instant = FALSE
+	/// Flavour/fluff about the role, optional.
+	var/flavour_text = ""
+	/// Intended as OOC info about the role
+	var/description = "A description for this has not been set. This is either an oversight or an admin-spawned spawner not in normal use."
+	/// Important info such as rules that apply to you, etc. Optional.
+	var/important_info = ""
+	/// List of additional factions for our mob
+	var/list/faction = list()
+	/// If true, the spawner will not disappear upon running out of uses.
+	var/permanent = FALSE
+	var/objectives
+	/// How many times can we spawn from it. Set to -1 for infinite.
+	var/uses = 1
 	var/brute_damage = 0
 	var/oxy_damage = 0
 	var/burn_damage = 0
-	var/datum/disease/disease = null //Do they start with a pre-spawned disease?
-	var/mob_color //Change the mob's color
+	/// Do they start with a pre-spawned disease?
+	var/datum/disease/disease
+	/// Change the mob's color
+	var/mob_color
 	var/assignedrole
-	var/banType = ROLE_GHOST
+	var/ban_type = ROLE_GHOST
 	var/ghost_usable = TRUE
-	var/offstation_role = TRUE // If set to true, the role of the user's mind will be set to offstation
-	var/death_cooldown = 0 // How long you have to wait after dying before using it again, in deciseconds. People that join as observers are not included.
-	///If antagbanned people are prevented from using it, only false for the ghost bar spawner.
+	/// If set to true, the role of the user's mind will be set to offstation
+	var/offstation_role = TRUE
+	/// How long you have to wait after dying before using it again. People that join as observers are not included.
+	var/death_cooldown = 0
+	/// If antagbanned people are prevented from using it, only false for the ghost bar spawner.
 	var/restrict_antagban = TRUE
+	/// If people without respawnability are prevented from using it.
+	var/restrict_respawnability = TRUE
+	/// If late-observers with ahud are prevented from using it.
+	var/restrict_ahud = TRUE
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	if(!valid_to_spawn(user))
 		return
-	var/ghost_role = tgui_alert(user, "Become [mob_name]? (Warning, You can no longer be cloned!)", "Respawn", list("Yes", "No"))
+	var/ghost_role = tgui_alert(user, "Become \a [role_name]? (Warning, You can no longer be cloned!)", "Respawn", list("Yes", "No"))
 	if(ghost_role != "Yes")
 		return
 	if(!species_prompt(user))
+		return
+	if(!gender_prompt(user))
 		return
 	if(!loc || !uses && !permanent || QDELETED(src) || QDELETED(user))
 		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
@@ -71,6 +93,9 @@
 /obj/effect/mob_spawn/proc/species_prompt()
 	return TRUE
 
+/obj/effect/mob_spawn/proc/gender_prompt()
+	return TRUE
+
 /obj/effect/mob_spawn/proc/special(mob/M)
 	return
 
@@ -83,15 +108,15 @@
 	if(!uses && !permanent)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return FALSE
-	if((jobban_isbanned(user, banType) || (restrict_antagban && jobban_isbanned(user, ROLE_SYNDICATE))))
+	if((jobban_isbanned(user, ban_type) || (restrict_antagban && jobban_isbanned(user, ROLE_SYNDICATE))))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
 		return FALSE
-	if(!HAS_TRAIT(user, TRAIT_RESPAWNABLE))
+	if(!HAS_TRAIT(user, TRAIT_RESPAWNABLE) && restrict_respawnability)
 		to_chat(user, "<span class='warning'>You currently do not have respawnability!</span>")
 		return FALSE
 	if(isobserver(user))
 		var/mob/dead/observer/O = user
-		if(!O.check_ahud_rejoin_eligibility())
+		if(!O.check_ahud_rejoin_eligibility() && restrict_ahud)
 			to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return FALSE
 	if(time_check(user))
@@ -125,13 +150,10 @@
 /obj/effect/mob_spawn/proc/create(ckey, flavour = TRUE, name, mob/user = usr)
 	log_game("[ckey] became [mob_name]")
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
-	if(!random)
-		M.real_name = mob_name ? mob_name : M.name
-		if(!mob_gender)
-			mob_gender = pick(MALE, FEMALE)
-		M.gender = mob_gender
+	if(mob_name)
+		M.rename_character(M.real_name, mob_name)
 	if(faction)
-		M.faction = list(faction)
+		M.faction |= faction
 	if(disease)
 		M.ForceContractDisease(new disease)
 	if(death)
@@ -141,7 +163,7 @@
 	M.adjustBruteLoss(brute_damage)
 	M.adjustFireLoss(burn_damage)
 	M.color = mob_color
-	equip(M, TRUE)
+	equip(M)
 
 	if(ckey)
 		M.ckey = ckey
@@ -169,19 +191,33 @@
 /obj/effect/mob_spawn/human
 	mob_type = /mob/living/carbon/human
 	//Human specific stuff.
-	var/mob_species = null		//Set species
+	/// Species of our mob. Default is human
+	var/mob_species
+	/// Gender of our mob. Default will randomise between male and female
+	var/mob_gender
+	/// Allows ghost to select a species on mob creation
 	var/allow_species_pick = FALSE
+	/// List of available species to be picked by ghost
 	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona", "Nian")
-	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
+	/// Allows ghost to select a gender on mob creation
+	var/allow_gender_pick = FALSE
+	/// List of available genders to be picked by ghost
+	var/list/pickable_genders = list(MALE, FEMALE)
+	/// If this is a path, it will be instanced in Initialize()
+	var/datum/outfit/outfit = /datum/outfit
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE
+
 	//All of these only affect the ID that the outfit has placed in the ID slot
-	var/id_job = null			//Such as "Clown" or "Chef." This just determines what the ID reads as, not their access
-	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use "Captain" if you want it to be all access.
-	var/id_access_list = null	//Allows you to manually add access to an ID card.
+	/// Such as "Clown" or "Chef." This just determines what the ID reads as, not their access
+	var/id_job
+	/// This is for access. See access.dm for which jobs give what access. Use "Captain" if you want it to be all access.
+	var/id_access
+	/// Allows you to manually add access to an ID card.
+	var/id_access_list
 	assignedrole = "Ghost Role"
 
-	var/husk = null
+	var/husk
 	/// Should we fully dna-scramble these humans?
 	var/dna_scrambled = FALSE
 	//these vars are for lazy mappers to override parts of the outfit
@@ -207,7 +243,11 @@
 	var/suit_store = -1
 	var/hair_style
 	var/facial_hair_style
+	var/hair_color
+	var/facial_hair_color
+	/// If set, should be a value between -185 and 220. Go to `random_skin_tone()` for species-specific numbers' range you'd like to use
 	var/skin_tone
+	var/eyes_color
 
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 
@@ -224,16 +264,31 @@
 	if(allow_species_pick)
 		var/selected_species = tgui_input_list(user, "Select a species", "Species Selection", pickable_species)
 		if(!selected_species)
-			return	TRUE	// You didn't pick, so just continue on with the spawning process as a human
+			return FALSE
 		var/datum/species/S = GLOB.all_species[selected_species]
 		mob_species = S.type
+	return TRUE
+
+/obj/effect/mob_spawn/human/gender_prompt(mob/user)
+	if(allow_gender_pick)
+		var/selected_gender = tgui_input_list(user, "Select a gender", "Gender Selection", pickable_genders)
+		if(!selected_gender)
+			return FALSE
+		mob_gender = selected_gender
 	return TRUE
 
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
 	if(mob_species)
 		H.set_species(mob_species)
-	if(random)
-		H.real_name = random_name(H.gender, H.dna.species)
+	if(mob_gender)
+		H.change_gender(mob_gender)
+		if(mob_gender == FEMALE)
+			H.change_body_type(FEMALE)
+	else if(prob(50))
+		H.change_gender(FEMALE)
+		H.change_body_type(FEMALE)
+	if(!mob_name) // randomise our name if it's not yet overriden
+		H.rename_character(H.real_name, random_name(H.gender, H.dna.species.name))
 
 	if(husk)
 		H.Drain()
@@ -244,26 +299,48 @@
 	H.socks = "Nude"
 	var/obj/item/organ/external/head/D = H.get_organ("head")
 	if(istype(D))
+		if(eyes_color)
+			H.change_eye_color(eyes_color, FALSE)
+
 		if(hair_style)
 			D.h_style = hair_style
 		else
-			D.h_style = random_hair_style(gender, D.dna.species.sprite_sheet_name)
-		D.hair_colour = rand_hex_color()
+			D.h_style = random_hair_style(H.gender, D.dna.species.name)
+
 		if(facial_hair_style)
 			D.f_style = facial_hair_style
+		else if(H.gender != FEMALE) // no beard for women
+			D.f_style = random_facial_hair_style(H.gender, D.dna.species.name)
+
+		if(hair_color)
+			D.hair_colour = hair_color
+			D.sec_hair_colour = tint_color(hair_color, HAIR_TINT_RANGE)
 		else
-			D.f_style = random_facial_hair_style(gender, D.dna.species.sprite_sheet_name)
-		D.facial_colour = rand_hex_color()
-	if(skin_tone)
-		H.s_tone = skin_tone
+			D.hair_colour = random_hair_color(range = HAIR_TINT_RANGE)
+			D.sec_hair_colour = tint_color(D.hair_colour, HAIR_TINT_RANGE)
+
+		if(facial_hair_color)
+			D.facial_colour = facial_hair_color
+			D.sec_facial_colour = tint_color(facial_hair_color, HAIR_TINT_RANGE)
+		else
+			D.facial_colour = tint_color(D.hair_colour, HAIR_TINT_RANGE)
+			D.sec_facial_colour = tint_color(D.hair_colour, HAIR_TINT_RANGE)
+
+	if(!isnull(skin_tone))
+		H.change_skin_tone(skin_tone)
 	else
-		H.s_tone = random_skin_tone()
-		H.skin_colour = rand_hex_color()
+		H.change_skin_tone(random_skin_tone(H.dna.species.name))
+
+	if(istype(D))
+		H.change_skin_color(tint_color(D.hair_colour))
+	else
+		H.change_skin_color(random_hair_color())
 
 	if(dna_scrambled)
 		H.get_dna_scrambled()
 
-	H.update_body(rebuild_base = TRUE)
+	H.update_dna() // saves everything we've set above
+	H.regenerate_icons()
 
 	if(outfit)
 		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "ears", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
@@ -310,10 +387,10 @@
 /obj/effect/mob_spawn/human/corpse
 	roundstart = FALSE
 	instant = TRUE
+	faction = list("spawned_corpse")
 
 /obj/effect/mob_spawn/human/corpse/damaged
 	brute_damage = 1000
-
 
 /obj/effect/mob_spawn/human/alive
 	icon = 'icons/obj/cryogenic2.dmi'
@@ -321,14 +398,12 @@
 	death = FALSE
 	roundstart = FALSE //you could use these for alive fake humans on roundstart but this is more common scenario
 
-
 //////////Alive ones, used as "core" for ghost roles now and in future.//////////
 
 //Space(?) Bar Patron (ghost role).
 /obj/effect/mob_spawn/human/alive/space_bar_patron
 	name = "Bar cryogenics"
 	mob_name = "Bar patron"
-	random = TRUE
 	permanent = TRUE
 	uses = -1
 	outfit = /datum/outfit/spacebartender
@@ -348,24 +423,6 @@
 	shoes = /obj/item/clothing/shoes/black
 	suit = /obj/item/clothing/suit/armor/vest
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
-
-//Lavaland Animal Doctor (ghost role).
-/obj/effect/mob_spawn/human/alive/doctor
-	random = TRUE
-	name = "sleeper"
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	flavour_text = "You are a space doctor!"
-	assignedrole = "Space Doctor"
-	outfit = /datum/outfit/job/doctor
-
-/obj/effect/mob_spawn/human/alive/doctor/equip(mob/living/carbon/human/H)
-	..()
-	// Remove radio and PDA so they wouldn't annoy station crew.
-	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
-	for(var/del_type in del_types)
-		var/obj/item/I = locate(del_type) in H
-		qdel(I)
 
 //Spooky Scary Skeleton...
 /obj/effect/mob_spawn/human/alive/skeleton
@@ -404,8 +461,20 @@
 	uniform = /obj/item/clothing/under/color/grey
 	shoes = /obj/item/clothing/shoes/combat
 
+/obj/effect/mob_spawn/human/corpse/ashwalker
+	name = "Ashwalker"
+	mob_name = "Ashwalker"
+	mob_species = /datum/species/unathi/ashwalker
+	outfit = /datum/outfit/ashwalker
+
 //Assistant Corpse
 /obj/effect/mob_spawn/human/corpse/assistant
+	name = "Assistant"
+	mob_name = "Assistant"
+	id_job = "Assistant"
+	outfit = /datum/outfit/job/assistant
+
+/obj/effect/mob_spawn/human/corpse/random_species/assistant
 	name = "Assistant"
 	mob_name = "Assistant"
 	id_job = "Assistant"
@@ -546,12 +615,37 @@
 	id_job = "Medical Doctor"
 	outfit = /datum/outfit/job/doctor
 
+/obj/effect/mob_spawn/human/corpse/random_species/doctor
+	name = "Doctor"
+	mob_name = "Medical Doctor"
+	id_job = "Medical Doctor"
+	outfit = /datum/outfit/job/doctor
+
 //Engineer corpse.
 /obj/effect/mob_spawn/human/corpse/engineer
 	name = "Engineer"
 	mob_name = "Engineer"
 	id_job = "Engineer"
 	outfit = /datum/outfit/job/engineer
+
+/obj/effect/mob_spawn/human/corpse/random_species/engineer
+	name = "Engineer"
+	mob_name = "Engineer"
+	id_job = "Engineer"
+	outfit = /datum/outfit/job/engineer
+
+/datum/outfit/job/officer/nerfed
+	suit_store = null
+	bio_chips = null
+	l_pocket = null
+	l_ear = null
+	id = null
+
+/obj/effect/mob_spawn/human/corpse/random_species/security_officer
+	name = "Security Officer"
+	mob_name = "Security Officer"
+	id_job = "Security Officer"
+	outfit = /datum/outfit/job/officer/nerfed
 
 //Mime corpse.
 /obj/effect/mob_spawn/human/corpse/mime
@@ -588,6 +682,12 @@
 
 //Scientist corpse.
 /obj/effect/mob_spawn/human/corpse/scientist
+	name = "Scientist"
+	mob_name = "Scientist"
+	id_job = "Scientist"
+	outfit = /datum/outfit/job/scientist
+
+/obj/effect/mob_spawn/human/corpse/random_species/scientist
 	name = "Scientist"
 	mob_name = "Scientist"
 	id_job = "Scientist"
@@ -637,6 +737,7 @@
 		/datum/species/grey,
 		/datum/species/diona,
 	)
+	del_types |= /obj/item/card/id
 
 	return ..()
 
@@ -665,7 +766,11 @@
 
 /obj/effect/mob_spawn/human/alive/zombie/non_infectious/equip(mob/living/carbon/human/H)
 	ADD_TRAIT(H, TRAIT_NON_INFECTIOUS_ZOMBIE, ROUNDSTART_TRAIT)
-	return ..()
+	. = ..()
+	for(var/datum/disease/zombie/zomb in H.viruses)
+		zomb.spread_flags = SPECIAL
+		zomb.visibility_flags = HIDDEN_PANDEMIC // This is how critical diseases block being interacted by the pandemic or copied. I hate it here.
+
 
 /// these mob spawn subtypes trigger immediately (New or Initialize) and are not player controlled... since they're dead, you know?
 /obj/effect/mob_spawn/corpse
@@ -695,3 +800,5 @@
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath_dead"
 	pixel_x = -12
+
+#undef HAIR_TINT_RANGE

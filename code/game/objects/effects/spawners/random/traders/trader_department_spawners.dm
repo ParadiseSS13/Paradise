@@ -1,6 +1,5 @@
 /obj/effect/spawner/random/traders
 	name = "trader item spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "loot"
 	spawn_loot_count = 6
 
@@ -40,8 +39,10 @@
 		/obj/item/stack/sheet/mineral/titanium = 5,
 		/obj/item/stack/sheet/plasteel = 5,
 
-		// Hybrid stuff you could in theory get from mining
-		/obj/item/stack/sheet/titaniumglass = 5,
+		// Rare space ore sheets
+		/obj/item/stack/sheet/mineral/platinum = 5,
+		/obj/item/stack/sheet/mineral/iridium = 5,
+		/obj/item/stack/sheet/mineral/palladium = 5,
 
 		// Rare stuff you can't get from mining
 		/obj/item/stack/sheet/mineral/tranquillite = 5,
@@ -93,9 +94,11 @@
 		// Xenobio
 		/obj/item/slimepotion/sentience = 50, // Low-value, but we want to encourage getting more players back in the round.
 		/obj/item/slimepotion/transference = 50,
+		/obj/item/dissector/alien = 50,
+		/obj/item/regen_mesh = 50,
 
 		// Might as well let AI be interested
-		/obj/item/surveillance_upgrade = 25,
+		/obj/item/ai_upgrade/surveillance_upgrade = 25,
 	)
 
 /obj/effect/spawner/random/traders/medical

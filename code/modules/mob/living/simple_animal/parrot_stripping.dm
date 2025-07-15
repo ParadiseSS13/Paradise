@@ -1,6 +1,5 @@
 GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	/datum/strippable_item/parrot_headset,
-	/datum/strippable_item/pet_collar
 )))
 
 /datum/strippable_item/parrot_headset

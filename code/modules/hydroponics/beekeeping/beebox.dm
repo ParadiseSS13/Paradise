@@ -167,8 +167,10 @@
 		var/obj/item/queen_bee/qb = I
 		if(!user.transfer_item_to(qb, src))
 			return
+		qb.queen.forceMove(src)
 		bees += qb.queen
 		queen_bee = qb.queen
+		queen_bee.beehome = src
 		qb.queen = null
 
 		if(queen_bee)
@@ -204,6 +206,17 @@
 /obj/structure/beebox/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	default_unfasten_wrench(user, I, time = 20)
+
+/obj/structure/beebox/attack_animal(mob/living/simple_animal/M)
+	if(!istype(M, /mob/living/simple_animal/hostile/poison/bees))
+		return ..()
+
+	M.forceMove(src)
+	bees += M
+
+/obj/structure/beebox/relaymove(mob/user)
+	user.forceMove(get_turf(src))
+	bees -= user
 
 /obj/structure/beebox/attack_hand(mob/user)
 	if(ishuman(user))

@@ -1,4 +1,4 @@
-/datum/game_test/attack_chain_mobs/Run()
+/datum/game_test/room_test/attack_chain_mobs/Run()
 	var/datum/test_puppeteer/player = new(src)
 	player.puppet.name = "Player"
 	// To ensure punches do damage without knockdowns
@@ -42,7 +42,7 @@
 	cqc.remove(player.puppet)
 
 	player.set_intent(INTENT_HELP)
-	var/mob/mining_drone = player.spawn_mob_nearby(/mob/living/simple_animal/hostile/mining_drone)
+	var/mob/mining_drone = player.spawn_mob_nearby(/mob/living/basic/mining_drone)
 	var/obj/scanner = player.spawn_obj_in_hand(/obj/item/mining_scanner)
 	player.click_on(mining_drone)
 	TEST_ASSERT_LAST_CHATLOG(player, "drop any collected ore.")
@@ -115,6 +115,6 @@
 	// Even before this test, butchering items included a second attack message
 	TEST_ASSERT_ANY_CHATLOG(player, "You hack off a chunk of meat from Victim")
 
-/datum/game_test/attack_chain_mobs/proc/cancel_attack_chain(datum/source, mob/user)
+/datum/game_test/room_test/attack_chain_mobs/proc/cancel_attack_chain(datum/source, mob/user)
 	to_chat(user, "Attack chain cancelled by signal")
 	return COMPONENT_CANCEL_ATTACK_CHAIN

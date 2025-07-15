@@ -22,7 +22,6 @@
 	var/last_eaten = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
 	var/next_spin_message = 0
-	var/razor_shave_delay = 5 SECONDS
 
 /mob/living/simple_animal/pet/dog/npc_safe(mob/user)
 	return TRUE
@@ -74,7 +73,6 @@
 	butcher_results = list(/obj/item/food/meat/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
-	collar_type = "corgi"
 	hud_type = /datum/hud/corgi
 	///Currently worn item on the head slot
 	var/obj/item/inventory_head = null
@@ -84,13 +82,15 @@
 	var/list/strippable_inventory_slots = list()
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
+	var/razor_shave_delay = 5 SECONDS
+	var/collar_icon_state = "corgi"
+
 
 /mob/living/simple_animal/pet/dog/corgi/Initialize(mapload)
 	. = ..()
-	regenerate_icons()
-
-/mob/living/simple_animal/pet/dog/corgi/add_strippable_element()
+	AddElement(/datum/element/wears_collar, collar_icon_state_ = collar_icon_state)
 	AddElement(/datum/element/strippable, length(strippable_inventory_slots) ? create_strippable_list(strippable_inventory_slots) : GLOB.strippable_corgi_items)
+	regenerate_icons()
 
 /mob/living/simple_animal/pet/dog/corgi/Destroy()
 	QDEL_NULL(inventory_head)
@@ -185,14 +185,14 @@
 			armorval += inventory_back.armor.getRating(type)
 	return armorval * 0.5
 
-/mob/living/simple_animal/pet/dog/corgi/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+/mob/living/simple_animal/pet/dog/corgi/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(istype(O, /obj/item/razor))
 		if(shaved)
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(nofur)
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it doesn't have a fur coat!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		user.visible_message("<span class='notice'>[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
 		if(do_after(user, razor_shave_delay, target = src))
 			user.visible_message("<span class='notice'>[user] shaves [src]'s hair using \the [O].</span>")
@@ -204,9 +204,10 @@
 				icon_state = icon_living
 			else
 				icon_state = icon_dead
-		return
-	..()
-	update_corgi_fluff()
+		update_corgi_fluff()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 //Corgis are supposed to be simpler, so only a select few objects can actually be put
 //to be compatible with them. The objects are below.
@@ -245,7 +246,7 @@
 		item_to_add.forceMove(src)
 		inventory_head = item_to_add
 		update_corgi_fluff()
-		regenerate_icons()
+		update_appearance()
 	else
 		to_chat(user, "<span class='warning'>You set [item_to_add] on [src]'s head, but it falls off!</span>")
 		item_to_add.forceMove(drop_location())
@@ -275,8 +276,9 @@
 		var/datum/dog_fashion/DF = new inventory_back.dog_fashion(src)
 		DF.apply(src)
 
-/mob/living/simple_animal/pet/dog/corgi/regenerate_icons()
-	..()
+/mob/living/simple_animal/pet/dog/corgi/update_overlays()
+	. = ..()
+
 	if(inventory_head)
 		var/image/head_icon
 		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
@@ -295,7 +297,7 @@
 		else
 			head_icon = DF.get_overlay()
 
-		add_overlay(head_icon)
+		. += head_icon
 
 	if(inventory_back)
 		var/image/back_icon
@@ -314,7 +316,8 @@
 			back_icon.transform = turn(back_icon.transform, 180)
 		else
 			back_icon = DF.get_overlay()
-		add_overlay(back_icon)
+
+		. += back_icon
 
 //IAN! SQUEEEEEEEEE~
 /mob/living/simple_animal/pet/dog/corgi/ian
@@ -518,9 +521,8 @@
 	density = FALSE
 	pass_flags = PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	collar_type = "puppy"
-	strippable_inventory_slots = list(/datum/strippable_item/pet_collar) // Puppies do not have a head or back equipment slot.
-
+	strippable_inventory_slots = list() // Puppies do not have a head or back equipment slot.
+	collar_icon_state = "puppy"
 
 /// Tribute to the corgis born in nullspace
 /mob/living/simple_animal/pet/dog/corgi/puppy/void
@@ -552,7 +554,7 @@
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
-	strippable_inventory_slots = list(/datum/strippable_item/corgi_back, /datum/strippable_item/pet_collar) //Lisa already has a cute bow!
+	strippable_inventory_slots = list(/datum/strippable_item/corgi_back) //Lisa already has a cute bow!
 	var/turns_since_scan = 0
 
 /mob/living/simple_animal/pet/dog/corgi/lisa/Life()
@@ -607,7 +609,7 @@
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
 	visible_message("<span class='warning'>[src] makes an odd whining noise.</span>")
-	explosion(get_turf(src), 0, 1, 4, 7)
+	explosion(get_turf(src), 0, 1, 4, 7, cause = "Emagged E-N explosion")
 	death()
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/shootAt(atom/movable/target)
@@ -654,7 +656,10 @@
 	icon_living = "pug"
 	icon_dead = "pug_dead"
 	butcher_results = list(/obj/item/food/meat/pug = 3)
-	collar_type = "pug"
+
+/mob/living/simple_animal/pet/dog/pug/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/wears_collar, collar_icon_state_ = "pug")
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()
 	. = ..()

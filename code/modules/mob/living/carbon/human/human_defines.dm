@@ -20,9 +20,7 @@
 	var/list/m_colours = DEFAULT_MARKING_COLOURS //All colours set to #000000.
 	var/list/m_styles = DEFAULT_MARKING_STYLES //All markings set to None.
 
-	var/s_tone = 0	//Skin tone
-	/// Species Sub-Type - overrites the species_sheet_name when it's not "None", acts the same as a skin tone.
-	var/species_subtype = "None"
+	var/s_tone = 1	//Skin tone
 
 	//Skin colour
 	var/skin_colour = "#000000"

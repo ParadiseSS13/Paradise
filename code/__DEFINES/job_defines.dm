@@ -37,7 +37,7 @@
 #define JOB_ROBOTICIST			(1<<8)
 #define JOB_PARAMEDIC			(1<<9)
 #define JOB_CORONER				(1<<10)
-
+#define JOB_XENOBIOLOGIST		(1<<15)
 
 #define JOBCAT_SUPPORT			(1<<2)
 
@@ -56,3 +56,4 @@
 #define JOB_MIME				(1<<12)
 #define JOB_ASSISTANT			(1<<13)
 #define JOB_EXPLORER			(1<<14)
+#define JOB_SMITH				(1<<15)

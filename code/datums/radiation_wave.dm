@@ -67,7 +67,7 @@
 		weight_right = index < (2 * steps) ? weights[WRAP_INDEX((index + offset), weight_length)] : 0
 		// The weight of the current tile the average of the weights of the tiles we checked for earlier
 		// And is reduced by irradiating things and getting blocked
-		if(weight_left + weight_center + weight_right)
+		if(current_turf && (weight_left + weight_center + weight_right))
 			new_weights += radiate(source, current_turf, (ratio) * (weight_left + weight_center + weight_right) / ((1 + (index > 1 && index < (2 * steps + 1) && steps > 1) + (index > 2 && index < (2 * steps)))), emission_type)
 		else
 			new_weights += 0
@@ -80,9 +80,6 @@
 			offset += 2 * (steps - 1)
 
 	weights = new_weights
-	// With the spread each step being linear waves can spread very far. This limits the distance for performace reasons
-	if(steps > RAD_DECAY_POINT)
-		intensity *= RAD_DECAY_RATE
 
 /// Calls rad act on each relevant atom in the turf and returns the resulting weight for that tile after reduction by insulation
 /datum/radiation_wave/proc/radiate(atom/source, turf/current_turf, weight, emission_type)

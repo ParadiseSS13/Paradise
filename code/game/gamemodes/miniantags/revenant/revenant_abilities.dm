@@ -388,10 +388,12 @@
 /datum/spell/aoe/revenant/haunt_object/proc/attack__legacy__attackchain(mob/living/simple_animal/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
 	var/list/potential_victims = list()
 	for(var/turf/turf_to_search in spiral_range_turfs(aoe_range, get_turf(possessed_object)))
-		for(var/mob/living/carbon/potential_victim in turf_to_search)
+		for(var/mob/living/potential_victim in turf_to_search)
 			if(QDELETED(possessed_object) || !can_see(possessed_object, potential_victim, aoe_range)) // You can't see me
 				continue
 			if(potential_victim.stat != CONSCIOUS) // Don't kill our precious essence-filled sleepy mobs
+				continue
+			if(istype(potential_victim, user) || istype(potential_victim, possessed_object))
 				continue
 			potential_victims.Add(potential_victim)
 
@@ -402,7 +404,7 @@
 		set_outline(possessed_object)
 		return
 
-	var/mob/living/carbon/victim = pick(potential_victims)
+	var/mob/living/victim = pick(potential_victims)
 	possessed_object.throw_at(victim, aoe_range, 2, user, dodgeable = FALSE)
 
 /// Sets the glow on the haunted object, scales up based on throwforce
@@ -481,6 +483,9 @@
 /obj/machinery/power/smes/rev_malfunction(cause_emp = TRUE)
 	return
 
+/obj/machinery/computer/emergency_shuttle/rev_malfunction(cause_emp = TRUE)
+	return
+
 /mob/living/silicon/robot/rev_malfunction(cause_emp = TRUE)
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 1)
 	new /obj/effect/temp_visual/revenant(loc)
@@ -525,6 +530,8 @@
 
 /turf/simulated/floor/defile()
 	..()
+	if(locate(/mob/living/silicon/ai) in src) // Revs don't need a 1-button kill switch on AI cores
+		return
 	if(prob(15))
 		if(intact && floor_tile)
 			new floor_tile(src)

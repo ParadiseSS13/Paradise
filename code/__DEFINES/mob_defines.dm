@@ -16,6 +16,11 @@
 #define ORGAN_DATUM_LUNGS	"lungs"
 #define ORGAN_DATUM_BATTERY "battery"
 
+// Organ quality datums.
+#define ORGAN_DAMAGED 1
+#define ORGAN_NORMAL 2
+#define ORGAN_PRISTINE 3
+
 // For limb resistance flags
 #define CANNOT_BREAK		(1 << 0)
 #define CANNOT_DISMEMBER 	(1 << 1)
@@ -41,7 +46,7 @@
 #define MOB_SPIRIT		(1 << 9)
 #define MOB_PLANT		(1 << 10)
 
-#define AGE_MIN 17			//youngest a character can be
+#define AGE_MIN 20			//youngest a character can be
 #define AGE_MAX 500			//oldest a character can be
 
 /// Mob is standing up, usually associated with lying_angle value of 0.
@@ -241,7 +246,6 @@
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
-#define isanimal(A)			(istype((A), /mob/living/simple_animal))
 #define isdog(A)			(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)			(istype((A), /mob/living/simple_animal/pet/dog/corgi))
 #define ismouse(A)			(istype((A), /mob/living/simple_animal/mouse))
@@ -292,6 +296,7 @@
 
 // Locations
 #define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))
+#define is_mecha_occupant(A)  (istype(A.loc, /obj/mecha))
 
 // Hearing protection
 #define HEARING_PROTECTION_NONE	0
@@ -384,3 +389,8 @@
 #define GRAB_PIXEL_SHIFT_PASSIVE 6
 #define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
 #define GRAB_PIXEL_SHIFT_NECK 16
+
+/// Default minimum body temperature mobs can exist in before taking damage
+#define NPC_DEFAULT_MIN_TEMP 250
+/// Default maximum body temperature mobs can exist in before taking damage
+#define NPC_DEFAULT_MAX_TEMP 350

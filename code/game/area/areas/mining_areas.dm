@@ -64,6 +64,10 @@
 	name = "Mining Station Catwalk"
 	icon_state = "mining"
 
+/area/lavaland/surface/outdoors/outpost/no_boulder
+	name = "Mining Station"
+	icon_state = "mining"
+
 /area/mine/outpost/comms
 	name = "Mining Station Communications"
 	icon_state = "tcomms"
@@ -96,6 +100,10 @@
 /area/mine/outpost/storage
 	name = "Mining Station Storage"
 	icon_state = "storage"
+
+/area/mine/outpost/smith_workshop
+	name = "Smith's Workshop"
+	icon_state = "smith"
 
 /area/mine/outpost/maintenance
 	name = "Mining Station Maintenance"
@@ -155,6 +163,10 @@
 	ambientsounds = MINING_SOUNDS
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
+
+/area/lavaland/surface/gulag_rock
+	name = "Lavaland Wastes"
+	outdoors = TRUE
 
 /area/lavaland/surface/outdoors
 	name = "Lavaland Wastes"

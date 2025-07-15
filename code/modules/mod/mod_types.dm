@@ -1,4 +1,5 @@
 /obj/item/mod/control/pre_equipped
+	starting_frequency = MODLINK_FREQ_NANOTRASEN
 	/// The skin we apply to the suit, defaults to the default_skin of the theme.
 	var/applied_skin
 	/// The MOD core we apply to the suit.
@@ -39,6 +40,7 @@
 		default_pins -= old_module
 
 /obj/item/mod/control/pre_equipped/standard
+	icon_state = "standard-control"
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/welding,
@@ -54,6 +56,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/engineering
+	icon_state = "engineering-control"
 	theme = /datum/mod_theme/engineering
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -69,6 +72,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/atmospheric
+	icon_state = "atmospheric-control"
 	theme = /datum/mod_theme/atmospheric
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -85,6 +89,7 @@
 
 
 /obj/item/mod/control/pre_equipped/advanced
+	icon_state = "advanced-control"
 	theme = /datum/mod_theme/advanced
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -102,6 +107,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/loader
+	icon_state = "loader-control"
 	theme = /datum/mod_theme/loader
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
@@ -115,6 +121,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/mining
+	icon_state = "mining-control"
 	theme = /datum/mod_theme/mining
 	applied_core = /obj/item/mod/core/plasma
 	applied_modules = list(
@@ -132,8 +139,6 @@
 
 /// visit robotics.
 /obj/item/mod/control/pre_equipped/mining/vendor
-	theme = /datum/mod_theme/mining
-	applied_core = /obj/item/mod/core/plasma
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 	)
@@ -144,9 +149,11 @@
 
 /// The asteroid skin, as that one looks more space worthy / older. Good for space ruins.
 /obj/item/mod/control/pre_equipped/mining/asteroid
+	icon_state = "asteroid-control"
 	applied_skin = "asteroid"
 
 /obj/item/mod/control/pre_equipped/medical
+	icon_state = "medical-control"
 	theme = /datum/mod_theme/medical
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -155,6 +162,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/rescue
+	icon_state = "rescue-control"
 	theme = /datum/mod_theme/rescue
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -169,6 +177,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/research
+	icon_state = "research-control"
 	theme = /datum/mod_theme/research
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -179,6 +188,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/security
+	icon_state = "security-control"
 	theme = /datum/mod_theme/security
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -188,6 +198,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/safeguard
+	icon_state = "safeguard-control"
 	theme = /datum/mod_theme/safeguard
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -216,6 +227,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/praetorian
+	icon_state = "praetorian-control"
 	theme = /datum/mod_theme/praetorian
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -228,6 +240,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/magnate
+	icon_state = "magnate-control"
 	theme = /datum/mod_theme/magnate
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	applied_modules = list(
@@ -244,6 +257,7 @@
 	AddElement(/datum/element/high_value_item)
 
 /obj/item/mod/control/pre_equipped/cosmohonk
+	icon_state = "cosmohonk-control"
 	theme = /datum/mod_theme/cosmohonk
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -252,6 +266,8 @@
 	)
 
 /obj/item/mod/control/pre_equipped/traitor
+	icon_state = "syndicate-control"
+	starting_frequency = MODLINK_FREQ_SYNDICATE
 	theme = /datum/mod_theme/syndicate
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -268,10 +284,11 @@
 
 /obj/item/mod/control/pre_equipped/traitor/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/mask/gas/syndicate(bag)
-	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
+	new /obj/item/storage/box/survival_syndie/traitor(bag)
 
 /obj/item/mod/control/pre_equipped/traitor_elite
+	icon_state = "elite-control"
+	starting_frequency = MODLINK_FREQ_SYNDICATE
 	theme = /datum/mod_theme/elite
 	applied_cell = /obj/item/stock_parts/cell/bluespace
 	applied_modules = list(
@@ -289,10 +306,11 @@
 
 /obj/item/mod/control/pre_equipped/traitor_elite/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/mask/gas/syndicate(bag)
-	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
+	new /obj/item/storage/box/survival_syndie/traitor(bag)
 
 /obj/item/mod/control/pre_equipped/nuclear
+	icon_state = "syndicate-control"
+	starting_frequency = MODLINK_FREQ_SYNDICATE
 	theme = /datum/mod_theme/syndicate
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	req_access = list(ACCESS_SYNDICATE)
@@ -313,6 +331,8 @@
 	ADD_TRAIT(chestplate, TRAIT_HYPOSPRAY_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/mod/control/pre_equipped/elite
+	icon_state = "elite-control"
+	starting_frequency = MODLINK_FREQ_SYNDICATE
 	theme = /datum/mod_theme/elite
 	applied_cell = /obj/item/stock_parts/cell/bluespace
 	req_access = list(ACCESS_SYNDICATE)
@@ -334,6 +354,8 @@
 	ADD_TRAIT(chestplate, TRAIT_HYPOSPRAY_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/mod/control/pre_equipped/prototype
+	icon_state = "prototype-control"
+	starting_frequency = MODLINK_FREQ_THETA
 	theme = /datum/mod_theme/prototype
 	req_access = list()
 	applied_modules = list(
@@ -349,6 +371,8 @@
 	)
 
 /obj/item/mod/control/pre_equipped/responsory
+	icon_state = "responsory-control"
+	starting_frequency = MODLINK_FREQ_CENTCOM
 	theme = /datum/mod_theme/responsory
 	applied_cell = /obj/item/stock_parts/cell/bluespace
 	req_access = list(ACCESS_CENT_GENERAL)
@@ -437,6 +461,8 @@
 	additional_module = /obj/item/mod/module/power_kick //JUDGEMENT
 
 /obj/item/mod/control/pre_equipped/apocryphal
+	icon_state = "apocryphal-control"
+	starting_frequency = MODLINK_FREQ_CENTCOM
 	theme = /datum/mod_theme/apocryphal
 	applied_cell = /obj/item/stock_parts/cell/bluespace
 	req_access = list(ACCESS_CENT_SPECOPS)
@@ -474,6 +500,8 @@
 	)
 
 /obj/item/mod/control/pre_equipped/corporate
+	icon_state = "corporate-control"
+	starting_frequency = MODLINK_FREQ_CENTCOM
 	theme = /datum/mod_theme/corporate
 	applied_core = /obj/item/mod/core/infinite
 	req_access = list(ACCESS_CENT_SPECOPS)
@@ -490,6 +518,8 @@
 	)
 
 /obj/item/mod/control/pre_equipped/debug
+	icon_state = "debug-control"
+	starting_frequency = null
 	theme = /datum/mod_theme/debug
 	applied_core = /obj/item/mod/core/infinite
 	/// One of every type of module, for testing if they all work correctly // boy this isn't even 25% the modules
@@ -511,6 +541,8 @@
 	activation_step_time = 0.1 SECONDS // coders are cooler than admins
 
 /obj/item/mod/control/pre_equipped/administrative
+	icon_state = "debug-control"
+	starting_frequency = null
 	theme = /datum/mod_theme/administrative
 	applied_core = /obj/item/mod/core/infinite
 	applied_modules = list(
@@ -529,6 +561,7 @@
 
 //these exist for the prefs menu
 /obj/item/mod/control/pre_equipped/empty
+	starting_frequency = null
 
 /obj/item/mod/control/pre_equipped/empty/syndicate
 	theme = /datum/mod_theme/syndicate

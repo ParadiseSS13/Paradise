@@ -58,3 +58,7 @@
 
 /// This subtree should cancel any further planning, (Including from other subtrees)
 #define SUBTREE_RETURN_FINISH_PLANNING 1
+
+///For JPS pathing, the maximum length of a path we'll try to generate. Should be modularized depending on what we're doing later on
+#define AI_MAX_PATH_LENGTH 30 // 30 is possibly overkill since by default we lose interest after 14 tiles of distance, but this gives wiggle room for weaving around obstacles
+#define AI_BOT_PATH_LENGTH 60

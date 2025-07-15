@@ -159,11 +159,11 @@
 		L.adjustOxyLoss(-1000)
 		L.adjustToxLoss(-1000)
 	else if((ishuman(victim) || isrobot(victim)))
-		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetising, leaving you wanting for more.</span>")
+		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetizing, leaving you wanting for more.</span>")
 		L.adjustBruteLoss(-50)
 		if(!isslaughterdemon(L))
 			L.adjustFireLoss(-50)
-	else if(isanimal(victim))
+	else if(isanimal_or_basicmob(victim))
 		to_chat(L, "<span class='warning'>You devour [victim], but this measly meal barely sates your appetite!</span>")
 		L.adjustBruteLoss(-25)
 		if(!isslaughterdemon(L))
@@ -268,7 +268,7 @@
 
 /datum/spell/bloodcrawl/shadow_crawl
 	name = "Shadow Crawl"
-	desc = "Fade into the shadows, increasing your speed and making you incomprehensible. Will not work in brightened terrane."
+	desc = "Fade into the shadows, increasing your speed and making you incomprehensible. Will not work in lit areas."
 	allowed_type = /turf
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_crawl"

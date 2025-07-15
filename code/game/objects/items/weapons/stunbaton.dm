@@ -26,6 +26,7 @@
 	var/cooldown = 3.5 SECONDS
 	/// the time it takes before the target falls over
 	var/knockdown_delay = 2.5 SECONDS
+	COOLDOWN_DECLARE(stun_cooldown)
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
@@ -215,8 +216,7 @@
 	var/mob/living/target = A
 
 	if(user.a_intent == INTENT_HARM)
-		// Harmbaton!
-		return
+		return // Harmbaton!
 
 	if(!turned_on)
 		user.do_attack_animation(target)
@@ -245,11 +245,11 @@
 	. = ..()
 	if(ishuman(target) && turned_on)
 		var/mob/living/carbon/human/H = target
-		baton_stun(H, user, ignore_shield_check = TRUE)
+		baton_stun(H, user)
 
-/// returning false results in no baton attack animation, returning true results in an animation. If ignore_shield_check is true, the baton will not run check shields, and will hit if not on cooldown.
-/obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE, ignore_shield_check = FALSE)
-	if(cooldown > world.time && !skip_cooldown)
+/// returning false results in no baton attack animation, returning true results in an animation.
+/obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
+	if(!COOLDOWN_FINISHED(src, stun_cooldown) && !skip_cooldown)
 		return FALSE
 
 	var/user_UID = user.UID()
@@ -260,11 +260,10 @@
 		to_chat(user, "<span class='warning'>[src] fizzles weakly as it makes contact. It needs more power!</span>")
 		return FALSE
 
-	cooldown = world.time + initial(cooldown) // tracks the world.time when hitting will be next available.
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		if(!ignore_shield_check && H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
-			playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
+		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
+			user.do_attack_animation(H)
 			return FALSE
 
 		H.Confused(10 SECONDS)
@@ -272,6 +271,7 @@
 		H.apply_damage(stam_damage, STAMINA)
 		H.SetStuttering(10 SECONDS)
 
+	COOLDOWN_START(src, stun_cooldown, cooldown)
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
 	L.apply_status_effect(STATUS_EFFECT_DELAYED, knockdown_delay, CALLBACK(L, TYPE_PROC_REF(/mob/living/, KnockDown), knockdown_duration), COMSIG_LIVING_CLEAR_STUNS)
 	addtimer(CALLBACK(src, PROC_REF(baton_delay), L, user_UID), knockdown_delay)
@@ -279,8 +279,7 @@
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
 	if(user)
-		L.lastattacker = user.real_name
-		L.lastattackerckey = user.ckey
+		L.store_last_attacker(user)
 		L.visible_message(
 			"<span class='danger'>[user] has stunned [L] with [src]!</span>",
 			"<span class='userdanger'>[L == user ? "You stun yourself" : "[user] has stunned you"] with [src]!</span>"
@@ -294,7 +293,7 @@
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 
 /obj/item/melee/baton/proc/thrown_baton_stun(mob/living/carbon/human/L)
-	if(cooldown > world.time)
+	if(!COOLDOWN_FINISHED(src, stun_cooldown))
 		return FALSE
 
 	var/user_UID = thrownby
@@ -305,10 +304,7 @@
 	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, user_UID))
 		return FALSE
 
-	cooldown = world.time + initial(cooldown)
-	if(L.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
-		playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
-		return FALSE
+	COOLDOWN_START(src, stun_cooldown, cooldown)
 	L.Confused(4 SECONDS)
 	L.Jitter(4 SECONDS)
 	L.apply_damage(30, STAMINA)
@@ -319,8 +315,7 @@
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
-	L.lastattacker = user.real_name
-	L.lastattackerckey = user.ckey
+	L.store_last_attacker(user)
 	L.visible_message("<span class='danger'>[src] stuns [L]!</span>")
 	add_attack_logs(user, L, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
@@ -374,7 +369,7 @@
 	QDEL_NULL(sparkler)
 	return ..()
 
-/obj/item/melee/baton/cattleprod/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE, ignore_shield_check = FALSE)
+/obj/item/melee/baton/cattleprod/baton_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
 	if(sparkler.activate())
 		return ..()
 
@@ -420,7 +415,7 @@
 /obj/item/melee/baton/flayerprod/play_hit_sound()
 	playsound(src, 'sound/weapons/egloves.ogg', 25, TRUE, -1, ignore_walls = FALSE)
 
-/obj/item/melee/baton/flayerprod/baton_stun(mob/living/L, mob/user, skip_cooldown, ignore_shield_check = FALSE)
+/obj/item/melee/baton/flayerprod/baton_stun(mob/living/L, mob/user, skip_cooldown)
 	if(..())
 		disable_radio(L)
 		return TRUE

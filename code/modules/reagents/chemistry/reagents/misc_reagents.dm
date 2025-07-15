@@ -125,7 +125,7 @@
 	id = "iron"
 	description = "Pure iron is a metal."
 	reagent_state = SOLID
-	color = "#C8A5DC" // rgb: 200, 165, 220
+	color = "#525152" // rgb: 200, 165, 220
 	taste_description = "metal"
 
 /datum/reagent/iron/on_mob_life(mob/living/M)
@@ -169,8 +169,11 @@
 	description = "A decent lubricant for machines. High in benzene, naptha and other hydrocarbons."
 	reagent_state = LIQUID
 	color = "#3C3C3C"
+	shock_reduction = 25
+	view_true_health = TRUE
+	metabolization_rate = 0.1
 	taste_description = "motor oil"
-	process_flags = ORGANIC | SYNTHETIC
+	process_flags = SYNTHETIC
 	/// What this becomes after burning.
 	var/reagent_after_burning = "ash"
 
@@ -359,8 +362,8 @@
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 		if(!istype(head_organ))
 			return ..()
-		head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.sprite_sheet_name)
-		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.sprite_sheet_name)
+		head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
+		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
 		H.update_hair()
 		H.update_fhair()
 	..()
@@ -383,14 +386,14 @@
 		var/datum/sprite_accessory/tmp_hair_style = GLOB.hair_styles_full_list["Very Long Hair"]
 		var/datum/sprite_accessory/tmp_facial_hair_style = GLOB.facial_hair_styles_list["Very Long Beard"]
 
-		if(head_organ.dna.species.sprite_sheet_name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
+		if(head_organ.dna.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
 			head_organ.h_style = "Very Long Hair"
 		else //Otherwise, give them a random hair style.
-			head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.sprite_sheet_name)
-		if(head_organ.dna.species.sprite_sheet_name in tmp_facial_hair_style.species_allowed) //If 'Very Long Beard' is a style the person's species can have, give it to them.
+			head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
+		if(head_organ.dna.species.name in tmp_facial_hair_style.species_allowed) //If 'Very Long Beard' is a style the person's species can have, give it to them.
 			head_organ.f_style = "Very Long Beard"
 		else //Otherwise, give them a random facial hair style.
-			head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.sprite_sheet_name)
+			head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
 		H.update_hair()
 		H.update_fhair()
 		if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache))
@@ -800,9 +803,18 @@
 
 /datum/reagent/spraytan/proc/set_skin_color(mob/living/carbon/human/H)
 	if(H.dna.species.bodyflags & HAS_SKIN_TONE)
-		H.change_skin_tone(max(H.s_tone - 10, -195))
-
-	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
+		H.change_skin_tone(min(-H.s_tone + 45, 220)) // adjusts our skin tone by 10 - makes it darker
+	else if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
+		switch(H.dna.species.name)
+			if("Human")
+				H.change_skin_tone(max(H.s_tone, 10)) // bronze - `icons/mob/human_races/human_skintones/r_human_bronzed.dmi`
+			if("Vox")
+				H.change_skin_tone(3) // brown - `icons/mob/human_races/vox/r_voxbrn.dmi`
+			if("Nian")
+				H.change_skin_tone(1) // default - `icons/mob/human_races/nian/r_moth.dmi`
+			if("Grey")
+				H.change_skin_tone(4) // red - `icons/mob/human_races/grey/r_grey_red.dmi`
+	else if(H.dna.species.bodyflags & HAS_SKIN_COLOR) // take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")
 
 /datum/reagent/admin_cleaner

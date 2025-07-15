@@ -237,6 +237,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. = ..()
 	recipes = GLOB.diamond_recipes
 
+/obj/item/stack/sheet/mineral/diamond/ten
+	amount = 10
+
 /obj/item/stack/sheet/mineral/diamond/fifty
 	amount = 50
 
@@ -257,6 +260,12 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += "Uranium is extremely dense, radioactive metal. Without undergoing complex enrichment processes, it consists of roughly 99% uranium-238, and roughly 1% fissile uranium-235."
 	. += ""
 	. += "It finds uses in a great number of applications, including medicine, nuclear power generation, radiation shielding, cybernetic and robotic components, as well as weapons."
+
+/obj/item/stack/sheet/mineral/uranium/ten
+	amount = 10
+
+/obj/item/stack/sheet/mineral/uranium/twenty
+	amount = 20
 
 /obj/item/stack/sheet/mineral/uranium/fifty
 	amount = 50
@@ -279,6 +288,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	max_integrity = 100
 	point_value = 20
 
+/obj/item/stack/sheet/mineral/plasma/twenty
+	amount = 20
+
 /obj/item/stack/sheet/mineral/plasma/examine_more(mob/user)
 	. = ..()
 	. += "Plasma, the new oil. A highly sought-after material, and what propelled Nanotrasen from being a small, relatively unknown company to the interstellar megacorporation it is today."
@@ -294,6 +306,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/plasma/Initialize(mapload, new_amount, merge)
 	. = ..()
 	recipes = GLOB.plasma_recipes
+
+/obj/item/stack/sheet/mineral/plasma/ten
+	amount = 10
 
 /obj/item/stack/sheet/mineral/plasma/fifty
 	amount = 50
@@ -313,7 +328,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	var/turf/T = get_turf(src)
 	message_admins("Plasma sheets ignited by [key_name_admin(user)]([ADMIN_QUE(user, "?")]) ([ADMIN_FLW(user, "FLW")]) in ([COORD(T)] - [ADMIN_JMP(T)]")
 	log_game("Plasma sheets ignited by [key_name(user)] in [COORD(T)]")
-	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", "atmos")
+	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", INVESTIGATE_ATMOS)
 	user.create_log(MISC_LOG, "Plasma sheets ignited using [I]", src)
 	fire_act()
 
@@ -341,6 +356,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += ""
 	. += "It is widely used in the production of advanced electronics and chemical catalysts, as well as a few specialised medicines. Also used as a relatively safe store of wealth that is not affected by the economics of cash."
 
+/obj/item/stack/sheet/mineral/gold/twenty
+	amount = 20
+
 /obj/item/stack/sheet/mineral/gold/fifty
 	amount = 50
 
@@ -359,6 +377,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	merge_type = /obj/item/stack/sheet/mineral/silver
 	materials = list(MAT_SILVER = MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
+
+/obj/item/stack/sheet/mineral/silver/twenty
+	amount = 20
 
 /obj/item/stack/sheet/mineral/silver/examine_more(mob/user)
 	. = ..()
@@ -439,6 +460,42 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/tranquillite/Initialize(mapload, new_amount, merge)
 	. = ..()
 	recipes = GLOB.tranquillite_recipes
+
+/obj/item/stack/sheet/mineral/platinum
+	name = "platinum"
+	desc = "Shiny and valuable."
+	icon_state = "sheet-platinum"
+	item_state = "sheet-platinum"
+	singular_name = "platinum"
+	origin_tech = "materials=5"
+	sheettype = "platinum"
+	merge_type = /obj/item/stack/sheet/mineral/platinum
+	materials = list(MAT_PLATINUM = MINERAL_MATERIAL_AMOUNT)
+	point_value = 25
+
+/obj/item/stack/sheet/mineral/palladium
+	name = "palladium"
+	desc = "A valuable space mineral."
+	icon_state = "sheet-palladium"
+	item_state = "sheet-palladium"
+	singular_name = "palladium"
+	origin_tech = "materials=5"
+	sheettype = "palladium"
+	merge_type = /obj/item/stack/sheet/mineral/palladium
+	materials = list(MAT_PALLADIUM = MINERAL_MATERIAL_AMOUNT)
+	point_value = 25
+
+/obj/item/stack/sheet/mineral/iridium
+	name = "iridium"
+	desc = "A dense mineral found in abundance in space and extremely rare on planets."
+	icon_state = "sheet-iridium"
+	item_state = "sheet-iridium"
+	singular_name = "iridium"
+	origin_tech = "materials=5"
+	sheettype = "iridium"
+	merge_type = /obj/item/stack/sheet/mineral/iridium
+	materials = list(MAT_IRIDIUM = MINERAL_MATERIAL_AMOUNT)
+	point_value = 25
 
 /*
  * Titanium

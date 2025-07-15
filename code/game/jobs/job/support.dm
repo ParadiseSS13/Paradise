@@ -28,7 +28,8 @@
 		ACCESS_SUPPLY_SHUTTLE,
 		ACCESS_WEAPONS,
 		ACCESS_TELEPORTER,
-		ACCESS_EXPEDITION
+		ACCESS_EXPEDITION,
+		ACCESS_SMITH
 	)
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/qm
@@ -53,7 +54,9 @@
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
 
-
+/datum/outfit/job/qm/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_PACK_RAT, JOB_TRAIT)
 
 /datum/job/cargo_tech
 	title = "Cargo Technician"
@@ -87,7 +90,47 @@
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
 
+/datum/outfit/job/cargo_tech/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_PACK_RAT, JOB_TRAIT)
 
+/datum/job/smith
+	title = "Smith"
+	flag = JOB_SMITH
+	department_flag = JOBCAT_SUPPORT
+	total_positions = 1
+	spawn_positions = 1
+	job_department_flags = DEP_FLAG_SUPPLY
+	supervisors = "the quartermaster"
+	department_head = list("Quartermaster")
+	selection_color = "#eeddbe"
+	access = list(
+		ACCESS_CARGO_BAY,
+		ACCESS_CARGO,
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_SMITH
+	)
+	alt_titles = list("Metalworker", "Tinkerer")
+	outfit = /datum/outfit/job/smith
+
+/datum/outfit/job/smith
+	name = "Smith"
+	jobtype = /datum/job/smith
+
+	gloves = /obj/item/clothing/gloves/smithing
+	uniform = /obj/item/clothing/under/rank/cargo/smith
+	l_ear = /obj/item/radio/headset/headset_cargo
+	shoes = /obj/item/clothing/shoes/workboots/smithing
+	id = /obj/item/card/id/smith
+	pda = /obj/item/pda/cargo
+
+/datum/outfit/job/smith/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_SMITH, JOB_TRAIT)
 
 /datum/job/mining
 	title = "Shaft Miner"
@@ -130,6 +173,10 @@
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	box = /obj/item/storage/box/survival_mining
+
+/datum/outfit/job/mining/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_BUTCHER, JOB_TRAIT)
 
 /datum/outfit/job/mining/equipped
 	name = "Shaft Miner"
@@ -200,6 +247,10 @@
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	box = /obj/item/storage/box/survival_mining
+
+/datum/outfit/job/explorer/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_BUTCHER, JOB_TRAIT)
 
 //Food
 /datum/job/bartender
@@ -276,18 +327,14 @@
 	id = /obj/item/card/id/chef
 	pda = /obj/item/pda/chef
 	backpack_contents = list(
-		/obj/item/eftpos=1,\
-		/obj/item/paper/chef=1,\
-		/obj/item/book/manual/wiki/chef_recipes=1)
+		/obj/item/eftpos = 1,
+	)
 
 /datum/outfit/job/chef/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	var/datum/martial_art/cqc/under_siege/justacook = new
 	justacook.teach(H) // requires mind
 	ADD_TRAIT(H.mind, TRAIT_TABLE_LEAP, ROUNDSTART_TRAIT)
-	ADD_TRAIT(H.mind, TRAIT_KNOWS_COOKING_RECIPES, ROUNDSTART_TRAIT)
-	if(H.mind)
-		H.mind.AddSpell(new /datum/spell/expert_chef)
 
 /datum/job/hydro
 	title = "Botanist"
@@ -324,7 +371,9 @@
 	satchel = /obj/item/storage/backpack/satchel_hyd
 	dufflebag = /obj/item/storage/backpack/duffel/hydro
 
-
+/datum/outfit/job/hydro/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_GREEN_THUMB, JOB_TRAIT)
 
 //Griff //BS12 EDIT
 
@@ -516,6 +565,10 @@
 		return
 	ADD_TRAIT(H, TRAIT_NEVER_MISSES_DISPOSALS, ROUNDSTART_TRAIT)
 
+/datum/outfit/job/janitor/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_JANITOR, JOB_TRAIT)
+
 //More or less assistants
 /datum/job/librarian
 	title = "Librarian"
@@ -547,7 +600,9 @@
 	id = /obj/item/card/id/librarian
 	pda = /obj/item/pda/librarian
 	backpack_contents = list(
-		/obj/item/videocam/advanced = 1)
+		/obj/item/videocam/advanced = 1,
+		/obj/item/clothing/suit/armor/vest/press = 1
+)
 
 /datum/outfit/job/librarian/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

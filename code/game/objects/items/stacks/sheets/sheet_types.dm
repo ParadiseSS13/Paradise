@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	null,
 	new /datum/stack_recipe_list("office chairs",list(
 		new /datum/stack_recipe("dark office chair", /obj/structure/chair/office/dark, 5, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("light office chair", /obj/structure/chair/office/light, 5, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("light office chair", /obj/structure/chair/office, 5, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 
 	new /datum/stack_recipe_list("comfy chairs", list(
@@ -123,7 +123,11 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("intercom frame", /obj/item/mounted/frame/intercom, 2),
 	new /datum/stack_recipe/barsign_frame("bar sign frame", /obj/machinery/barsign, 4),
 	new /datum/stack_recipe("extinguisher cabinet frame", /obj/item/mounted/frame/extinguisher, 2),
-	null
+	null,
+	new /datum/stack_recipe_list("gym equipment", list(
+		new /datum/stack_recipe("bench press", /obj/structure/weightmachine/weightlifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("chest press", /obj/structure/weightmachine/stacklifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	)),
 ))
 
 /obj/item/stack/sheet/metal
@@ -248,19 +252,25 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("rake", /obj/item/cultivator/rake, 5, time = 1 SECONDS),
 	new /datum/stack_recipe("wooden bucket", /obj/item/reagent_containers/glass/bucket/wooden, 3, time = 1 SECONDS),
 	new /datum/stack_recipe("firebrand", /obj/item/match/firebrand, 2, time = 10 SECONDS),
+	new /datum/stack_recipe("mug", /obj/item/reagent_containers/drinks/mug/wood, 1, time = 0.5 SECONDS),
 	new /datum/stack_recipe("notice board", /obj/item/mounted/noticeboard, 5, time = 5 SECONDS),
 	null,
 	new /datum/stack_recipe("wood floor tile", /obj/item/stack/tile/wood, 1, 4, 20),
 	new /datum/stack_recipe_list("wood structures", list(
 		new /datum/stack_recipe("wood table frame", /obj/structure/table_frame/wood, 2, time = 1 SECONDS),
 		new /datum/stack_recipe("wooden chair", /obj/structure/chair/wood, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("wooden stool", /obj/structure/chair/stool/wood, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("dresser", /obj/structure/dresser, 30, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("wooden marker", /obj/structure/signpost/wood, 2, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("spear rack", /obj/structure/spear_rack, 2, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("dog bed", /obj/structure/bed/dogbed, 10, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("slab bed", /obj/structure/bed/wood, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("wooden door", /obj/structure/mineral_door/wood, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("wooden airlock assembly", /obj/structure/door_assembly/door_assembly_wood, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("wooden airlock assembly", /obj/structure/door_assembly/door_assembly_wood, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("torch sconce", /obj/structure/lightable/torch, 5, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		)),
 	new /datum/stack_recipe_list("pews", list(
 		new /datum/stack_recipe("pew (middle)", /obj/structure/chair/sofa/pew, 5, one_per_turf = TRUE, on_floor = TRUE),
@@ -379,6 +389,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 	new /datum/stack_recipe("rag", /obj/item/reagent_containers/glass/rag, 1),
 	new /datum/stack_recipe("bedsheet", /obj/item/bedsheet, 3),
 	new /datum/stack_recipe("empty sandbag", /obj/item/emptysandbag, 4),
+	new /datum/stack_recipe("punching bag", /obj/structure/punching_bag, 10, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("blindfold", /obj/item/clothing/glasses/sunglasses/blindfold, 3),
 	new /datum/stack_recipe("tattered blindfold", /obj/item/clothing/glasses/sunglasses/blindfold/fake, 2),
@@ -644,6 +655,7 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	turf_type = /turf/simulated/floor/clockwork
 	table_type = /obj/structure/table/reinforced/brass
 	dynamic_icon_state = TRUE
+	materials = list(MAT_BRASS = 2000)
 
 /obj/item/stack/tile/brass/examine_more(mob/user)
 	. = ..()
@@ -720,14 +732,14 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("plastic knife", /obj/item/kitchen/knife/plastic, 1, on_floor = TRUE),
 		)),
 	new /datum/stack_recipe_list("plastic moulds", list(
-		new /datum/stack_recipe("bear mould", /obj/item/kitchen/mould/bear, 1, on_floor = TRUE),
-		new /datum/stack_recipe("worm mould", /obj/item/kitchen/mould/worm, 1, on_floor = TRUE),
-		new /datum/stack_recipe("bean mould", /obj/item/kitchen/mould/bean, 1, on_floor = TRUE),
-		new /datum/stack_recipe("ball mould", /obj/item/kitchen/mould/ball, 1, on_floor = TRUE),
-		new /datum/stack_recipe("cane mould", /obj/item/kitchen/mould/cane, 1, on_floor = TRUE),
-		new /datum/stack_recipe("cash mould", /obj/item/kitchen/mould/cash, 1, on_floor = TRUE),
-		new /datum/stack_recipe("coin mould", /obj/item/kitchen/mould/coin, 1, on_floor = TRUE),
-		new /datum/stack_recipe("sucker mould", /obj/item/kitchen/mould/loli, 1, on_floor = TRUE),
+		new /datum/stack_recipe("bear mould", /obj/item/reagent_containers/cooking/mould/bear, 1, on_floor = TRUE),
+		new /datum/stack_recipe("worm mould", /obj/item/reagent_containers/cooking/mould/worm, 1, on_floor = TRUE),
+		new /datum/stack_recipe("bean mould", /obj/item/reagent_containers/cooking/mould/bean, 1, on_floor = TRUE),
+		new /datum/stack_recipe("ball mould", /obj/item/reagent_containers/cooking/mould/ball, 1, on_floor = TRUE),
+		new /datum/stack_recipe("cane mould", /obj/item/reagent_containers/cooking/mould/cane, 1, on_floor = TRUE),
+		new /datum/stack_recipe("cash mould", /obj/item/reagent_containers/cooking/mould/cash, 1, on_floor = TRUE),
+		new /datum/stack_recipe("coin mould", /obj/item/reagent_containers/cooking/mould/coin, 1, on_floor = TRUE),
+		new /datum/stack_recipe("sucker mould", /obj/item/reagent_containers/cooking/mould/loli, 1, on_floor = TRUE),
 		)),
 	))
 

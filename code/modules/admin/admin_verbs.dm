@@ -23,6 +23,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
 	/client/proc/cmd_admin_open_logging_view,
 	/client/proc/getserverlogs,			/*allows us to fetch server logs (diary) for other days*/
+	/client/proc/get_server_logs_by_round_id,
 	/client/proc/Getmob,				/*teleports a mob to our location*/
 	/client/proc/Getkey,				/*teleports a mob with a certain ckey to our location*/
 	/client/proc/jump_to,				/*Opens a menu for jumping to an Area, Mob, Key or Coordinate*/
@@ -42,6 +43,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/datum/admins/proc/toggleemoji,     /*toggles using emoji in ooc for everyone*/
 	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
+	/client/proc/cmd_staff_say,
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mentor_say,
 	/client/proc/cmd_dev_say,
@@ -54,6 +56,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/view_asays,
 	/client/proc/view_msays,
 	/client/proc/view_devsays,
+	/client/proc/view_staffsays,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
@@ -82,7 +85,7 @@ GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 	/client/proc/play_intercomm_sound,
 	/client/proc/stop_global_admin_sounds,
 	/client/proc/stop_sounds_global,
-	/client/proc/play_web_sound
+	/client/proc/play_sound_tgchat
 	))
 GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/object_talk,
@@ -184,7 +187,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/visualize_interesting_turfs,
 	/client/proc/profile_code,
 	/client/proc/debug_atom_init,
-	/client/proc/debug_bloom
+	/client/proc/debug_bloom,
+	/client/proc/cmd_mass_screenshot,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -223,12 +227,21 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/admin_observe_target,
 	/client/proc/cmd_mentor_say,	/* mentor say*/
 	/client/proc/view_msays,
+	/client/proc/cmd_staff_say,
+	/client/proc/view_staffsays
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
+))
+GLOBAL_LIST_INIT(admin_verbs_dev, list(
+	/client/proc/cmd_dev_say,
+	/client/proc/view_devsays,
+	/client/proc/cmd_staff_say,
+	/client/proc/view_staffsays
 ))
 GLOBAL_LIST_INIT(admin_verbs_proccall, list(
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
-	/client/proc/SDQL2_query
+	/client/proc/SDQL2_query,
+	/client/proc/load_sdql2_query,
 ))
 GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	/client/proc/openAdminTicketUI,
@@ -260,6 +273,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/teleport_interesting_turf,
 	/client/proc/visualize_interesting_turfs,
 	/client/proc/profile_code
+))
+GLOBAL_LIST_INIT(view_logs_verbs, list(
+	/client/proc/getserverlogs,
+	/client/proc/get_server_logs_by_round_id,
 ))
 
 /client/proc/add_admin_verbs()
@@ -309,7 +326,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 		if(holder.rights & R_DEV_TEAM)
-			add_verb(src, /client/proc/cmd_dev_say)
+			add_verb(src, GLOB.admin_verbs_dev)
+		if(holder.rights & R_VIEWLOGS)
+			add_verb(src, GLOB.view_logs_verbs)
 		if(is_connecting_from_localhost())
 			add_verb(src, /client/proc/export_current_character)
 
@@ -342,7 +361,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		GLOB.admin_verbs_proccall,
 		GLOB.admin_verbs_show_debug_verbs,
 		GLOB.admin_verbs_ticket,
-		GLOB.admin_verbs_maintainer
+		GLOB.admin_verbs_maintainer,
+		GLOB.admin_verbs_dev
 	))
 	add_verb(src, /client/proc/show_verbs)
 
@@ -701,11 +721,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		if(null)
 			return 0
 		if("Small Bomb")
-			explosion(epicenter, 1, 2, 3, 3)
+			explosion(epicenter, 1, 2, 3, 3, cause = "[ckey]: Drop Bomb command")
 		if("Medium Bomb")
-			explosion(epicenter, 2, 3, 4, 4)
+			explosion(epicenter, 2, 3, 4, 4, cause = "[ckey]: Drop Bomb command")
 		if("Big Bomb")
-			explosion(epicenter, 3, 5, 7, 5)
+			explosion(epicenter, 3, 5, 7, 5, cause = "[ckey]: Drop Bomb command")
 		if("Custom Bomb")
 			var/devastation_range = tgui_input_number(src, "Devastation range (in tiles):", "Custom Bomb", max_value = 255)
 			if(isnull(devastation_range))
@@ -719,7 +739,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			var/flash_range = tgui_input_number(src, "Flash range (in tiles):", "Custom Bomb", max_value = 255)
 			if(isnull(flash_range))
 				return
-			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)
+			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1, cause = "[ckey]: Drop Bomb command")
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -915,6 +935,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		log_admin("[key_name(usr)] re-adminned themselves.")
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
+		if(istype(mob, /mob/dead/observer))
+			var/mob/dead/observer/O = mob
+			O.update_admin_actions()
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-admin")
 		return
 	else

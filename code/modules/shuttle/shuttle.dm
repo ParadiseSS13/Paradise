@@ -13,11 +13,16 @@
 	anchored = TRUE
 
 	var/id
-	dir = NORTH		//this should point -away- from the dockingport door, ie towards the ship
-	var/width = 0	//size of covered area, perpendicular to dir
-	var/height = 0	//size of covered area, paralell to dir
-	var/dwidth = 0	//position relative to covered area, perpendicular to dir
-	var/dheight = 0	//position relative to covered area, parallel to dir
+	/// This should point *away* from the docking port door, i.e. towards the ship.
+	dir = NORTH
+	/// Size of covered area, perpendicular to direction.
+	var/width = 0
+	/// Size of covered area, parallel to direction.
+	var/height = 0
+	/// Position relative to covered area, perpendicular to direction.
+	var/dwidth = 0
+	/// Position relative to covered area, parallel to direction.
+	var/dheight = 0
 
 	// A timid shuttle will not register itself with the shuttle subsystem
 	// All shuttle templates are timid
@@ -159,6 +164,11 @@
 	var/area_type = /area/space
 
 	var/lock_shuttle_doors = 0
+
+/obj/docking_port/stationary/Initialize(mapload)
+	. = ..()
+	if(!mapload)
+		register()
 
 // Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
 /obj/docking_port/stationary/whiteship
@@ -570,14 +580,13 @@
 	mobile_port.loc = S1.loc
 	mobile_port.dir = S1.dir
 
-	//update mining and labor shuttle ash storm audio
+	//update mining and labor shuttle weather audio
 	if(mobile_port.id in list("mining", "laborcamp"))
-		var/mining_zlevel = level_name_to_num(MINING)
-		var/datum/weather/ash_storm/W = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)
-		if(W)
-			W.update_eligible_areas()
-			W.update_audio()
-
+		for(var/zlvl in levels_by_trait(ORE_LEVEL))
+			var/datum/weather/W = SSweather.get_weather(zlvl, /area/lavaland/surface/outdoors)
+			if(W)
+				W.update_eligible_areas()
+				W.update_audio()
 	mobile_port.unlockPortDoors(S1)
 
 /obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
@@ -908,16 +917,6 @@
 	name = "syndicate infiltrator"
 	width = 18
 
-/obj/docking_port/mobile/free_golem
-	dir = 8
-	dwidth = 8
-	height = 20
-	id = "freegolem"
-	name = "Free Golem Ship"
-	width = 16
-	preferred_direction = WEST
-	port_direction = SOUTH
-
 /obj/docking_port/mobile/whiteship
 	dir = 8
 	id = "whiteship"
@@ -939,8 +938,8 @@
 	var/admin_controlled
 	var/max_connect_range = 7
 	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
-	/// Do we want to search for shuttle destinations as part of Initialize (fixed) or LateInitialize (variable)
-	var/find_destinations_in_late_init = FALSE
+	/// Do we want to search for shuttle destinations as part of Initialize (fixed) or when SSlate_mapping fires (variable)
+	var/find_destinations_in_late_mapping = FALSE
 
 /obj/machinery/computer/shuttle/New(location, obj/item/circuitboard/shuttle/C)
 	..()
@@ -950,12 +949,9 @@
 
 /obj/machinery/computer/shuttle/Initialize(mapload)
 	. = ..()
-	if(find_destinations_in_late_init && mapload) // We only care about this in mapload, if its mid round its fine
-		return INITIALIZE_HINT_LATELOAD
+	if(find_destinations_in_late_mapping && mapload) // We only care about this in mapload, if its mid round its fine
+		return
 
-	connect()
-
-/obj/machinery/computer/shuttle/LateInitialize()
 	connect()
 
 /obj/machinery/computer/shuttle/proc/connect()
@@ -1094,7 +1090,7 @@
 	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
 	possible_destinations = null // Set at runtime
-	find_destinations_in_late_init = TRUE
+	find_destinations_in_late_mapping = TRUE
 
 /obj/machinery/computer/shuttle/admin
 	name = "admin shuttle console"
@@ -1125,25 +1121,6 @@
 	req_access = list(ACCESS_TRADE_SOL)
 	possible_destinations = "trade_sol_base;trade_dock"
 	shuttleId = "trade_sol"
-
-/obj/machinery/computer/shuttle/golem_ship
-	name = "Golem Ship Console"
-	desc = "Used to control the Golem Ship."
-	circuit = /obj/item/circuitboard/shuttle/golem_ship
-	shuttleId = "freegolem"
-	possible_destinations = "freegolem_lavaland;freegolem_space;freegolem_ussp"
-
-/obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
-	if(!isgolem(user) && !isobserver(user))
-		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
-		return
-	..()
-
-/obj/machinery/computer/shuttle/golem_ship/recall
-	name = "golem ship recall terminal"
-	desc = "Used to recall the Golem Ship."
-	possible_destinations = "freegolem_lavaland"
-	resistance_flags = INDESTRUCTIBLE
 
 //#undef DOCKING_PORT_HIGHLIGHT
 

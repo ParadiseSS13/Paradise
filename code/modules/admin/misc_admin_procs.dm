@@ -210,7 +210,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 				"}
 
 			//Simple Animals
-			if(isanimal(M))
+			if(isanimal_or_basicmob(M))
 				body += "<A href='byond://?_src_=holder;makeanimal=[M.UID()]'>Re-Animalize</A> | "
 			else
 				body += "<A href='byond://?_src_=holder;makeanimal=[M.UID()]'>Animalize</A> | "
@@ -365,7 +365,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 	var/result = input(usr, "Select reboot method", "World Reboot", options[1]) as null|anything in options
 
-	if(is_live_server)
+	if(result && is_live_server)
 		if(alert(usr, "WARNING: THIS IS A LIVE SERVER, NOT A LOCAL TEST SERVER. DO YOU STILL WANT TO RESTART","This server is live","Restart","Cancel") != "Restart")
 			return FALSE
 
@@ -516,7 +516,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!check_rights(R_SERVER))
 		return
 
-	if(SSticker.current_state < GAME_STATE_PREGAME)
+	if(SSticker.current_state < GAME_STATE_STARTUP)
 		alert("Unable to start the game as it is not set up.")
 		return
 
@@ -1018,11 +1018,11 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 /**
  * Allows admins to safely pick from SSticker.minds for objectives
- * - caller, mob to ask for results
+ * - caller_mob, mob to ask for results
  * - blacklist, optional list of targets that are not available
  * - default_target, the target to show in the list as default
  */
-/proc/get_admin_objective_targets(mob/caller, list/blacklist, mob/default_target)
+/proc/get_admin_objective_targets(mob/caller_mob, list/blacklist, mob/default_target)
 	if(!islist(blacklist))
 		blacklist = list(blacklist)
 
@@ -1032,12 +1032,12 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 			possible_targets += possible_target.current // Allows for admins to pick off station roles
 
 	if(!length(possible_targets))
-		to_chat(caller, "<span class='warning'>No possible target found.</span>")
+		to_chat(caller_mob, "<span class='warning'>No possible target found.</span>")
 		return
 
 	possible_targets = sortAtom(possible_targets)
 
-	var/mob/new_target = input(caller, "Select target:", "Objective target", default_target) as null|anything in possible_targets
+	var/mob/new_target = input(caller_mob, "Select target:", "Objective target", default_target) as null|anything in possible_targets
 	if(!QDELETED(new_target))
 		return new_target.mind
 
