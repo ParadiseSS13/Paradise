@@ -122,9 +122,9 @@
 		attacker.custom_emote(EMOTE_VISIBLE, "[attacker.friendly_verb_continuous] [src].")
 		return FALSE
 	else
-		var/play_soundeffect = 1
+		var/play_soundeffect = TRUE
 		if(attacker.environment_smash)
-			play_soundeffect = 0
+			play_soundeffect = FALSE
 		var/obj_turf = get_turf(src)  // play from the turf in case the object gets deleted mid attack
 		if(attacker.obj_damage)
 			. = attack_generic(attacker, attacker.obj_damage, attacker.melee_damage_type, MELEE, play_soundeffect, attacker.armour_penetration_flat, attacker.armour_penetration_percentage)

@@ -20,4 +20,4 @@
 	faction = "faithless"
 
 /mob/living/basic/netherworld/faithless/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
-	return 1
+	return TRUE
