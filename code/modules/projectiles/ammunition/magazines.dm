@@ -362,7 +362,7 @@
 	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/apsm10mm
-	name = "stechkin aps magazine (10mm)"
+	name = "Type 230 magazine (10mm)"
 	icon_state = "10mmaps"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = "10mm"
@@ -370,7 +370,7 @@
 	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/apsm10mm/fire
-	name = "stechkin aps magazine (10mm incendiary)"
+	name = "Type 230 magazine (10mm incendiary)"
 	icon_state = "10mmapsI"
 	ammo_type = /obj/item/ammo_casing/c10mm/fire
 	caliber = "10mm"
@@ -378,7 +378,7 @@
 	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/apsm10mm/hp
-	name = "stechkin aps magazine (10mm HP)"
+	name = "Type 230 magazine (10mm HP)"
 	icon_state = "10mmapsH"
 	ammo_type = /obj/item/ammo_casing/c10mm/hp
 	caliber = "10mm"
@@ -386,7 +386,7 @@
 	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/apsm10mm/ap
-	name = "stechkin aps magazine (10mm AP)"
+	name = "Type 230 magazine (10mm AP)"
 	icon_state = "10mmapsA"
 	ammo_type = /obj/item/ammo_casing/c10mm/ap
 	caliber = "10mm"
