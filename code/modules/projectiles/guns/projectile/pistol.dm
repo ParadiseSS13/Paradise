@@ -26,12 +26,12 @@
 /obj/item/gun/projectile/automatic/pistol/update_overlays()
 	. = list()
 	if(suppressed)
-		. += image(icon = icon, icon_state = "suppressor_attached", pixel_x = 15, pixel_y = 6)
+		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 15, pixel_y = 5)
 	if(gun_light)
 		var/flashlight = "uflashlight_attached"
 		if(gun_light.on)
 			flashlight = "uflashlight_attached-on"
-		. += image(icon = icon, icon_state = flashlight, pixel_x = 5, pixel_y = -1)
+		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = flashlight, pixel_x = 5, pixel_y = -2)
 
 /obj/item/gun/projectile/automatic/pistol/ui_action_click()
 	toggle_gunlight()
@@ -55,7 +55,7 @@
 		var/flashlight = "uflashlight_attached"
 		if(gun_light.on)
 			flashlight = "uflashlight_attached-on"
-		. += image(icon = icon, icon_state = flashlight, pixel_x = 5, pixel_y = -1)
+		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = flashlight, pixel_x = 5, pixel_y = -1)
 
 //Enforcer//
 /obj/item/gun/projectile/automatic/pistol/enforcer
@@ -90,12 +90,12 @@
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_overlays()
 	. = list()
 	if(suppressed)
-		. += image(icon = icon, icon_state = "suppressor_attached", pixel_x = 15, pixel_y = 5)
+		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 15, pixel_y = 5)
 	if(gun_light)
 		var/flashlight = "uflashlight_attached"
 		if(gun_light.on)
 			flashlight = "uflashlight_attached-on"
-		. += image(icon = icon, icon_state = flashlight, pixel_x = 5, pixel_y = -2)
+		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = flashlight, pixel_x = 5, pixel_y = -2)
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 	mag_type = /obj/item/ammo_box/magazine/enforcer/lethal

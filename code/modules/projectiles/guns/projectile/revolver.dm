@@ -202,7 +202,7 @@
 /obj/item/gun/projectile/revolver/nagant/update_overlays()
 	. = list()
 	if(suppressed)
-		. += image(icon = icon, icon_state = "suppressor_attached", pixel_x = 15, pixel_y = 6)
+		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 15, pixel_y = 6)
 
 /obj/item/gun/projectile/revolver/overgrown
 	name = "overgrown revolver"

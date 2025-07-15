@@ -173,7 +173,7 @@
 /obj/item/gun/projectile/automatic/mini_uzi/update_overlays()
 	. = list()
 	if(suppressed)
-		. += image(icon = icon, icon_state = "suppressor_attached", pixel_x = 13, pixel_y = 5)
+		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 13, pixel_y = 5)
 
 //////////////////////////////
 // MARK: M-90GL CARBINE
