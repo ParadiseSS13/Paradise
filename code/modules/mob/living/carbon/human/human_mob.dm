@@ -2200,7 +2200,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 					analysis += "<span class='info'>You conclude [src]'s [E.name] is broken.</span>"
 				else
 					analysis += "<span class='info'>You conclude [src]'s [E.name] has a [E.broken_description].</span>"
-		if(!analysis.len)
+		if(!length(analysis))
 			analysis += "<span class='info'>[src] appears to be in perfect health.</span>"
 		to_chat(user, chat_box_healthscan(analysis.Join("<br>")))
 
@@ -2212,7 +2212,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	if(istype(A, /obj/effect/temp_visual/point) || istype(A, /atom/movable/emissive_blocker))
 		return FALSE
-	if(mind && HAS_TRAIT(mind, TRAIT_COFFEE_SNOB))
+	if(mind && HAS_MIND_TRAIT(src, TRAIT_COFFEE_SNOB))
 		var/found_coffee = FALSE
 		for(var/reagent in reagents.reagent_list)
 			if(istype(reagent, /datum/reagent/consumable/drink/coffee))
