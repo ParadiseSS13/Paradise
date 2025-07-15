@@ -40,9 +40,10 @@
 /datum/reagent/space_drugs
 	name = "Space drugs"
 	id = "space_drugs"
-	description = "An illegal chemical compound used as drug."
+	description = "A synthetic compound well-known for its narcotic effects in both organics and synthetics. It is also an important constituent of some chemical reactions."
 	reagent_state = LIQUID
 	color = "#9087A2"
+	process_flags = ORGANIC | SYNTHETIC // These are SPACE drugs! This is the FUTURE! We can get EVERYONE high!
 	metabolization_rate = 0.2
 	addiction_chance = 15
 	addiction_threshold = 10
@@ -58,7 +59,10 @@
 		if((M.mobility_flags & MOBILITY_MOVE) && !M.restrained())
 			step(M, pick(GLOB.cardinal))
 	if(prob(7))
-		M.emote(pick("twitch","drool","moan","giggle"))
+		if(!ismachineperson(M))
+			M.emote(pick("twitch","drool","moan","giggle"))
+		else
+			M.emote(pick("twitch","stare","moan","giggle"))
 	return ..() | update_flags
 
 /datum/reagent/psilocybin
@@ -1124,12 +1128,121 @@
 #undef MEPHEDRONE_BLUR_EFFECT
 #undef MEPHEDRONE_OVERDOSE_BLUR_EFFECT
 
+//MARK: Robot Drugs
+// Made for robots, by robots.
 
-//////////////////////////////
-//		Synth-Drugs			//
-//////////////////////////////
+// Robot weed.
+/datum/reagent/w33d
+	name = "W33D"
+	id = "w33d"
+	description = "A thick, oily concoction designed to mimic the effects of cannabis in synthetics. As a happy coincidence, when it dries out it can also function as servicable filler, sealant, and insulator."
+	reagent_state = LIQUID
+	color = "#abffab"
+	process_flags = SYNTHETIC
+	taste_description = "man, like, totally the best most relaxing thing ever, dude"
 
-//Ultra-Lube: Meth
+/datum/reagent/w33d/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(10))
+		M.AdjustStuttering(rand(0, 6 SECONDS))
+	if(prob(5))
+		M.emote(pick("hsigh", "giggle", "laugh", "smile"))
+	if(prob(5))
+		to_chat(M, "<span class='notice'>[pick("You feel peaceful.", "You whirr softly.", "You feel chill.", "You vibe.")]</span>")
+	if(prob(10))
+		M.AdjustConfused(-10 SECONDS)
+		M.SetWeakened(0, FALSE)
+	if(prob(25))
+		update_flags |= M.adjustBruteLoss(-2, FALSE)
+		update_flags |= M.adjustFireLoss(-2, FALSE)
+	if(prob(4))
+		M.Confused(20 SECONDS)
+	if(volume >= 50 && prob(25))
+		if(prob(10))
+			M.Drowsy(20 SECONDS)
+	return ..() | update_flags
+
+// Robot Krokodil
+/datum/reagent/grokodil
+	name = "Grokodil"
+	id = "grokodil"
+	description = "An experimental compound cooked up in the back alleys of New Canaan, designed to mimic the effects of Krokodil in synthetics. \
+	Unfortunately, this worked a little too well, as it also faithfully replicates the fact that there are serious side-effects. \
+	Overconsumption will cause extreme corrosion and a combonation of endothermic and exothermic reactions that will lead to localized melting and generalized temperature reduction."
+	reagent_state = LIQUID
+	color = "#212121"
+	process_flags = SYNTHETIC
+	overdose_threshold = 20
+	addiction_chance = 10
+	addiction_threshold = 10
+	taste_description = "very poor life choices"
+	allowed_overdose_process = TRUE
+	goal_department = "Science"
+	goal_difficulty = REAGENT_GOAL_HARD
+
+/datum/reagent/grokodil/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.AdjustJitter(-80 SECONDS)
+	if(prob(25))
+		update_flags |= M.adjustBrainLoss(1, FALSE)
+	if(prob(15))
+		M.emote(pick("smile", "grin", "chuckle", "laugh"))
+	if(prob(10))
+		to_chat(M, "<span class='notice'>You feel pretty chill.</span>")
+		M.bodytemperature--
+		M.emote("smile")
+	if(prob(5))
+		to_chat(M, "<span class='notice'>You feel too chill!</span>")
+		M.emote(pick("gasp", "cough"))
+		M.Stun(2 SECONDS, FALSE)
+		update_flags |= M.adjustFireLoss(1, FALSE)
+		update_flags |= M.adjustBrainLoss(1, FALSE)
+		M.bodytemperature -= 20
+	if(prob(2))
+		to_chat(M, "<span class='warning'>Patches of corrosion appear on your chassis!</span>")
+		update_flags |= M.adjustBruteLoss(2, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/grokodil/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(severity == 1)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] looks dazed!</span>")
+			M.Stun(6 SECONDS)
+			do_sparks(5, FALSE, M)
+			M.emote("stare")
+		else if(effect <= 4)
+			M.emote("shiver")
+			M.bodytemperature -= 40
+		else if(effect <= 7)
+			to_chat(M, "<span class='warning'>Your chassis and internals are corroding!</span>")
+			update_flags |= M.adjustBruteLoss(5, FALSE)
+			update_flags |= M.adjustFireLoss(2, FALSE)
+			update_flags |= M.adjustBrainLoss(1, FALSE)
+			M.emote("cry")
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] sways and falls over!</span>")
+			update_flags |= M.adjustBruteLoss(3, FALSE)
+			update_flags |= M.adjustBrainLoss(3, FALSE)
+			M.Weaken(16 SECONDS)
+			M.emote("faint")
+		else if(effect <= 4)
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				H.visible_message("<span class='warning'>Large cracks appear on [M]'s casing and the surrounding area starts to melt!</span>")
+				update_flags |= H.adjustBruteLoss(25, FALSE)
+				update_flags |= H.adjustFireLoss(25, FALSE) // We can't husk a robot. So we substitute with some extra melt damage.
+				H.emote("scream")
+				H.emote("faint")
+		else if(effect <= 7)
+			M.emote("shiver")
+			M.bodytemperature -= 70
+	return list(effect, update_flags)
+
+// Robot Meth.
 /datum/reagent/lube/ultra
 	name = "Ultra-Lube"
 	id = "ultralube"
@@ -1213,7 +1326,7 @@
 	update_flags |= M.adjustBrainLoss(3, FALSE)
 	return list(effect, update_flags)
 
-//Surge: crank
+// Robot Crank.
 /datum/reagent/surge
 	name = "Surge"
 	id = "surge"
@@ -1229,7 +1342,6 @@
 	taste_description = "silicon"
 	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_HARD
-
 
 /datum/reagent/surge/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
