@@ -472,7 +472,6 @@
 	if(panel_open)
 		force_eject = !force_eject
 		to_chat(user, "<span class='notice'>You turn [force_eject ? "on" : "off"] the auto-ejection timer on [src].</span>")
-		return
 
 /obj/machinery/atmospherics/unary/cryo_cell/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
