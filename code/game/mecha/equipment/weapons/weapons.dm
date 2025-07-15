@@ -98,6 +98,18 @@
 	projectile = /obj/item/projectile/beam/laser/heavylaser
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_laser
+	equip_cooldown = 2 SECONDS
+	name = "MESG-02 Laser Scattercannon"
+	desc = "A large-bore energy shotgun, configured to fire a large blast of lethal laser pellets."
+	icon_state = "mecha_laser_shotgun"
+	origin_tech = "materials=4;combat=5;"
+	energy_drain = 35 // This is per shot + 1x cost, so 560 per shot
+	projectile = /obj/item/projectile/beam/scatter/eshotgun
+	projectiles_per_shot = 15
+	variance = 40
+	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
 	equip_cooldown = 4 SECONDS
 	name = "mkIV Ion Heavy Scatter Cannon"

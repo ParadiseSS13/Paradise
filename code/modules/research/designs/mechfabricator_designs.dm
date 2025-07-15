@@ -1058,6 +1058,17 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_disabler_shotgun
+	name = "Exosuit Weapon (MESG-02 Laser Scattercannon)"
+	desc = "Allows for the construction of MESG-02 Laser Scattercannon."
+	id = "mech_ion"
+	build_type = MECHFAB
+	req_tech = list("combat" = 6, "materials" = 5)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_laser
+	materials = list(MAT_METAL=10000,MAT_GOLD=6000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_ion
 	name = "Exosuit Weapon (MKIV Ion Heavy Cannon)"
 	desc = "Allows for the construction of MKIV Ion Heavy Cannon."
