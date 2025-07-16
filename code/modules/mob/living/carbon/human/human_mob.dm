@@ -73,10 +73,73 @@
 	GLOB.human_list -= src
 	UnregisterSignal(src, COMSIG_BODY_TRANSFER_TO)
 
+/datum/hit_feedback
+	var/timeof
+	var/damage
+	var/damage_type
+	var/projectile_type
+	var/target_zone
+
+/datum/hit_feedback/New(timeof, damage, damage_type, projectile_type, target_zone)
+	src.timeof = timeof
+	src.damage = damage
+	src.damage_type = damage_type
+	src.projectile_type = projectile_type
+	src.target_zone = target_zone
+
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
 	status_flags = GODMODE|CANPUSH
+	var/list/hits = list()
+	var/first_hit = 0
+	var/last_hit = 0
+	var/timer_id = TIMER_ID_NULL
 
+/mob/living/carbon/human/dummy/bullet_act(obj/item/projectile/P, def_zone)
+	if(!first_hit)
+		first_hit = world.time
+		visible_message("Started tracking hit at time [first_hit]!")
+	last_hit = world.time
+	var/datum/hit_feedback/packet = new(last_hit, P.damage, P.damage_type, P.type, def_zone)
+	hits.Add(packet)
+	timer_id = addtimer(CALLBACK(src, PROC_REF(check_done)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
+	visible_message("Hit [length(hits)]: [P.damage] dmg from [P.type] at time [last_hit]")
+	return ..()
+
+/mob/living/carbon/human/dummy/proc/check_done()
+	if(!first_hit)
+		return
+	var/delta_now = world.time - last_hit
+	// Tracking window is still open
+	if(delta_now < 3 SECONDS)
+		return
+	// Stop counting, print, and reset
+	if(timer_id != TIMER_ID_NULL) 
+		deltimer(timer_id)
+		timer_id = TIMER_ID_NULL
+	print_summary()
+	first_hit = 0
+	last_hit = 0
+	hits.Cut()
+
+/mob/living/carbon/human/dummy/proc/print_summary()
+	if(!length(hits) || !first_hit || !last_hit)
+		CRASH("Tried to print a summary with no hits/first_hit/last_hit: [hits], [first_hit], [last_hit]")
+	var/N = length(hits)
+	var/delta = 1
+	if(length(hits) > 1)
+		delta = (last_hit - first_hit)/10 // deciseconds -> seconds
+	var/hits_per_sec = N/delta
+	var/total_damage = 0
+	for(var/hit in hits)
+		var/datum/hit_feedback/h = hit
+		total_damage += h.damage
+	var/damage_per_sec = total_damage/delta
+	log_debug("############# Starting hit report #############")
+	log_debug("Counted [N] hits in [delta] sec, start/stop time = [first_hit] - [last_hit] dsec")
+	log_debug("Fire rate = [hits_per_sec] hits/sec")
+	log_debug("Total damage = [total_damage], DPS = [damage_per_sec]")
+	log_debug("############### End hit report ################")
 /mob/living/carbon/human/skrell/Initialize(mapload)
 	. = ..(mapload, /datum/species/skrell)
 
@@ -2201,6 +2264,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 					analysis += "<span class='info'>You conclude [src]'s [E.name] is broken.</span>"
 				else
 					analysis += "<span class='info'>You conclude [src]'s [E.name] has a [E.broken_description].</span>"
+		if(!length(analysis))
+			analysis += "<span class='info'>[src] appears to be in perfect health.</span>"
 		to_chat(user, chat_box_healthscan(analysis.Join("<br>")))
 
 /mob/living/carbon/human/pointed(atom/A as mob|obj|turf in view())
@@ -2211,8 +2276,15 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	if(istype(A, /obj/effect/temp_visual/point) || istype(A, /atom/movable/emissive_blocker))
 		return FALSE
-	if(mind && HAS_TRAIT(mind, TRAIT_COFFEE_SNOB) && reagents.has_reagent("coffee"))
-		changeNext_move(CLICK_CD_POINT / 3)
+	if(mind && HAS_MIND_TRAIT(src, TRAIT_COFFEE_SNOB))
+		var/found_coffee = FALSE
+		for(var/reagent in reagents.reagent_list)
+			if(istype(reagent, /datum/reagent/consumable/drink/coffee))
+				found_coffee = TRUE
+		if(found_coffee)
+			changeNext_move(CLICK_CD_POINT / 3)
+		else
+			changeNext_move(CLICK_CD_POINT)
 	else
 		changeNext_move(CLICK_CD_POINT)
 
