@@ -1,5 +1,5 @@
 // Shuttle on-movement //
-/atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation, mob/calling_mob)
 	var/turf/newT = get_turf(src)
 	if(newT.z != oldT.z)
 		on_changed_z_level(oldT, newT)
@@ -10,7 +10,7 @@
 	abstract_move(T1)
 	return 1
 
-/atom/movable/lighting_object/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/atom/movable/lighting_object/onShuttleMove(turf/oldT, turf/T1, rotation, mob/calling_mob)
 	// lighting objects should not be moved from their parent turfs
 	return 0
 

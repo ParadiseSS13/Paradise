@@ -66,6 +66,19 @@
 
 	take_damage(rand(5,10), BRUTE, MELEE, 1)
 
+/obj/structure/grille/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	. = ..()
+	if(!. || QDELETED(src) || shock(attacker, 70))
+		return
+
+	if(attacker.environment_smash >= ENVIRONMENT_SMASH_STRUCTURES)
+		playsound(src, 'sound/effects/grillehit.ogg', 80, TRUE)
+		obj_break()
+		attacker.visible_message("<span class='danger'>[attacker] smashes through [src]!</span>", "<span class='notice'>You smash through [src].</span>")
+		return
+
+	take_damage(rand(5, 10), BRUTE, MELEE, 1)
+
 /obj/structure/grille/hulk_damage()
 	return 60
 
