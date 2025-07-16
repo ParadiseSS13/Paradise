@@ -47,6 +47,9 @@
 		return
 
 	if(mode == LABEL_MODE_GOAL)
+		if(isturf(target))
+			to_chat(user, "<span class='warning'>You can't just claim a bit of [target] as yours!</span>")
+			return
 		user.visible_message("<span class='notice'>[user] labels [target] as part of a secondary goal for [label].</span>", \
 							"<span class='notice'>You label [target] as part of a secondary goal for [label].</span>")
 		target.AddComponent(/datum/component/label/goal, label)

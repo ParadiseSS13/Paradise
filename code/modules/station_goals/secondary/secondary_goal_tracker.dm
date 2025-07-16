@@ -105,6 +105,10 @@
 		var/datum/component/label/goal/label = current_layer.GetComponent(/datum/component/label/goal)
 		if(istype(label))
 			return !goal_requester || label.person == goal_requester
+		var/datum/component/shelved/shelving = current_layer.GetComponent(/datum/component/shelved)
+		var/obj/shelf = locateUID(shelving?.shelf_uid)
+		if(istype(shelf))
+			current_layer = shelf
 		else
 			current_layer = current_layer.loc
 	return FALSE
