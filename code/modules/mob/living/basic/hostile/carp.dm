@@ -84,7 +84,7 @@
 		update_icon()
 
 /mob/living/basic/carp/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
-	return TRUE	//No drifting in space for space carp!	//original comments do not steal
+	return TRUE	// No drifting in space for space carp!	//original comments do not steal
 
 /mob/living/basic/carp/melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	. = ..()
