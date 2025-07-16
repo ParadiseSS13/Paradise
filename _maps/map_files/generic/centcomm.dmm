@@ -4860,21 +4860,6 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/control)
-"qc" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/multi_tile/glass{
-	name = "Badmin's Bar"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall/indestructible/opsglass,
-/area/ghost_bar)
 "qd" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -8501,7 +8486,6 @@
 /area/centcom/evac)
 "Ck" = (
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Cl" = (
@@ -10403,20 +10387,6 @@
 /obj/structure/railing,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
-"IB" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/door/airlock/multi_tile/glass,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
-/turf/simulated/wall/indestructible/syndicate/no_diagonal,
-/area/ghost_bar)
 "IC" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome Access"
@@ -12377,10 +12347,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
-"OB" = (
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
-/turf/simulated/floor/carpet/arcade,
-/area/ghost_bar)
 "OC" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/machinery/computer/security/telescreen/entertainment{
@@ -66093,7 +66059,7 @@ Jy
 Jy
 Jy
 Jy
-OB
+RK
 RK
 RK
 RK
@@ -72244,7 +72210,7 @@ Td
 Td
 Td
 Td
-IB
+Td
 XK
 Td
 Td
@@ -72770,7 +72736,7 @@ OS
 rU
 RQ
 BS
-qc
+NJ
 PE
 PE
 lE
