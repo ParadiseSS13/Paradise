@@ -51,7 +51,7 @@
 
 
 /datum/secondary_goal_progress/random_kudzu/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
-	// Not in a matching personal crate? Ignore.
+	// Not properly labeled for this goal? Ignore.
 	if(!check_goal_label(AM))
 		return
 

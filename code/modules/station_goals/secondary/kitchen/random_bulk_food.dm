@@ -65,7 +65,7 @@
 	sent_this_shipment = 0
 
 /datum/secondary_goal_progress/random_bulk_food/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
-	// Not in a matching personal crate? Ignore.
+	// Not properly labeled for this goal? Ignore.
 	if(!check_goal_label(AM))
 		return
 
