@@ -158,8 +158,8 @@ checksum = "79296716171880943b8470b5f8d03aa55eb2e645a4874bdbb28adb49162e012c"
 
 [[package]]
 name = "byondapi"
-version = "0.5.14"
-source = "git+https://github.com/spacestation13/byondapi-rs.git#299384dd1f7ceadd9759fe205de02a629193bf79"
+version = "0.6.14"
+source = "git+https://github.com/spacestation13/byondapi-rs.git#6726e9a71be954059c438adbf3505f866c10b835"
 dependencies = [
  "byondapi-macros",
  "byondapi-sys",
@@ -170,8 +170,8 @@ dependencies = [
 
 [[package]]
 name = "byondapi-macros"
-version = "0.2.3"
-source = "git+https://github.com/spacestation13/byondapi-rs.git#299384dd1f7ceadd9759fe205de02a629193bf79"
+version = "0.3.3"
+source = "git+https://github.com/spacestation13/byondapi-rs.git#6726e9a71be954059c438adbf3505f866c10b835"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -181,7 +181,7 @@ dependencies = [
 [[package]]
 name = "byondapi-sys"
 version = "0.12.3"
-source = "git+https://github.com/spacestation13/byondapi-rs.git#299384dd1f7ceadd9759fe205de02a629193bf79"
+source = "git+https://github.com/spacestation13/byondapi-rs.git#6726e9a71be954059c438adbf3505f866c10b835"
 dependencies = [
  "bindgen",
  "doxygen-rs",
@@ -823,9 +823,9 @@ checksum = "c19937216e9d3aa9956d9bb8dfc0b0c8beb6058fc4f7a4dc4d850edf86a237d6"
 
 [[package]]
 name = "libloading"
-version = "0.8.6"
+version = "0.8.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fc2f4eb4bc735547cfed7c0a4922cbd04a4655978c09b54f1f7b228750664c34"
+checksum = "07033963ba89ebaf1584d767badaa2e8fcec21aedea6b8c0346d487d49c28667"
 dependencies = [
  "cfg-if",
  "windows-targets",

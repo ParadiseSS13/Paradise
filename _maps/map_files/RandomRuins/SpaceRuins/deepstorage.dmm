@@ -1515,7 +1515,7 @@
 "hW" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "DS_Tram"
 	},
 /turf/simulated/floor/plating,
@@ -3898,9 +3898,10 @@
 "yb" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/north{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple{
 	id_tag = "DS_BossStorage";
-	name = "warehouse valuables storage blast door"
+	name = "warehouse valuables storage blast door";
+	dir = 4
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/deepstorage)
@@ -4295,7 +4296,7 @@
 /obj/machinery/door/airlock/vault{
 	name = "Auxiliary Power Room"
 	},
-/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "DS_Engineering"
 	},
 /turf/simulated/floor/catwalk,
@@ -4377,8 +4378,9 @@
 	},
 /area/ruin/space/deepstorage)
 "AN" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/north{
-	id_tag = "DS_FrontGate"
+/obj/machinery/door/poddoor/multi_tile/impassable/triple{
+	id_tag = "DS_FrontGate";
+	dir = 4
 	},
 /turf/simulated/floor/catwalk/airless,
 /area/ruin/space/deepstorage)
@@ -5855,7 +5857,7 @@
 "LJ" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/multi_tile/impassable/triple/directional/east{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple{
 	id_tag = "DS_BossStorage";
 	name = "warehouse blast doors"
 	},
@@ -6883,7 +6885,7 @@
 "TK" = (
 /obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/highsecurity,
-/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "DS_Storage"
 	},
 /turf/simulated/floor/plasteel{
@@ -6960,7 +6962,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/ruins/deepstorage,
 /obj/machinery/door/airlock/highsecurity,
-/obj/machinery/door/poddoor/multi_tile/impassable/directional/south{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "DS_Storage"
 	},
 /turf/simulated/floor/plasteel{

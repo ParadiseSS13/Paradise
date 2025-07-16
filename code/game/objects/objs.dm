@@ -236,15 +236,6 @@
 	START_PROCESSING(SSobj, src)
 	STOP_PROCESSING(SSfastprocess, src)
 
-/obj/vv_get_dropdown()
-	. = ..()
-	.["Delete all of type"] = "byond://?_src_=vars;delall=[UID()]"
-	if(!speed_process)
-		.["Make speed process"] = "byond://?_src_=vars;makespeedy=[UID()]"
-	else
-		.["Make normal process"] = "byond://?_src_=vars;makenormalspeed=[UID()]"
-	.["Modify armor values"] = "byond://?_src_=vars;modifyarmor=[UID()]"
-
 /obj/proc/check_uplink_validity()
 	return TRUE
 

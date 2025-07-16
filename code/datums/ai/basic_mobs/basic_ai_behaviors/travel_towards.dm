@@ -34,6 +34,9 @@
 /datum/ai_behavior/travel_towards/adjacent
 	required_distance = 1
 
+/datum/ai_behavior/travel_towards/ventcrawling
+	new_movement_type = /datum/ai_movement/ventcrawl
+
 /**
  * # Travel Towards Atom
  * Travel towards an atom you pass directly from the controller rather than a blackboard key.
