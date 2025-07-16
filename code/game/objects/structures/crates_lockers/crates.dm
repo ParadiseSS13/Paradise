@@ -284,12 +284,19 @@
 
 /obj/structure/closet/crate/secure/personal
 	name = "personal crate"
-	desc = "The crate version of Nanotrasen's famous personal locker, ideal for shipping booze, food, or drugs to CC without letting Cargo consume it. This one has not been configured by CC, and the first card swiped gains control."
+	desc = "The crate version of Nanotrasen's famous personal locker, ideal for shipping booze, food, or drugs to CC without letting Cargo consume it."
 	req_access = list(ACCESS_ALL_PERSONAL_LOCKERS)
 	/// The name of the person this crate is registered to.
 	var/registered_name = null
 	// Unlike most secure crates, personal crates are easily obtained.
 	crate_value = DEFAULT_CRATE_VALUE
+
+/obj/structure/closet/crate/secure/personal/examine(mob/user)
+	. = ..()
+	if(registered_name)
+		. += "Owned by [registered_name]."
+	else
+		. += "This crate has no owner, and can be claimed by swiping your ID card."
 
 /obj/structure/closet/crate/secure/personal/allowed(mob/user)
 	if(..())
@@ -325,7 +332,6 @@
 
 	if(!registered_name)
 		registered_name = id.registered_name
-		desc = "Owned by [id.registered_name]."
 		to_chat(user, "<span class='notice'>Crate reserved</span>")
 		return TRUE
 

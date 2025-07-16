@@ -139,12 +139,9 @@
 			break
 
 		var/obj/structure/closet/crate/secure/personal/PC = new(T)
-		if(SG.requester_name)
-			PC.name = "goal crate ([SG.requester_name] in [SG.department])"
-			PC.desc = "This personal crate has been configured by CC for [SG.requester_name]'s use in completing the secondary goal [SG.name]."
-			PC.registered_name = SG.requester_name
-		else
-			PC.name = "goal crate (Unknown in [SG.department])"
+		PC.name = "goal crate"
+		PC.registered_name = SG.requester_name
+		PC.AddComponent(/datum/component/label/goal, SG.requester_name, SG.department, TRUE)
 		PC.locked = FALSE
 		PC.update_icon()
 
@@ -336,7 +333,7 @@
 			if(department_messages[department][message_piece] > 1)
 				count = " (x[department_messages[department][message_piece]])"
 			rc_message += "[message_piece][count]"
-		send_requests_console_message(rc_message, "Central Command", department, "Stamped with the Central Command rubber stamp.", "Verified by the Central Command receiving department.", RQ_NORMALPRIORITY)
+		send_requests_console_message(rc_message, "Procurement Office", department, "Stamped with the Central Command rubber stamp.", "Verified by the Central Command receiving department.", RQ_NORMALPRIORITY)
 
 	SSeconomy.centcom_message += "[msg]<hr>"
 	manifest = new
@@ -851,6 +848,12 @@
 		manifest.line_items += item
 		SSblackbox.record_feedback("nested tally", "cargo salvage sold", count, list(salvage_name, "count"))
 		SSblackbox.record_feedback("nested tally", "cargo salvage sold", item.credits, list(salvage_name, "credits"))
+
+/datum/economy/simple_seller/shelved_items
+
+/datum/economy/simple_seller/shelved_items/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
+	if(AM.GetComponent(/datum/component/shelved))
+		return COMSIG_CARGO_IS_SECURED
 
 /datum/economy/cargo_shuttle_manifest
 	var/list/items_to_sell = list()

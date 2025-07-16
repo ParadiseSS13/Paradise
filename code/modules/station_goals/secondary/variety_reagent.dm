@@ -46,7 +46,7 @@
 
 /datum/secondary_goal_progress/variety_reagent/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
 	// Not in a matching personal crate? Ignore.
-	if(!check_personal_crate(AM))
+	if(!check_goal_label(AM))
 		return
 
 	// No reagents? Ignore.

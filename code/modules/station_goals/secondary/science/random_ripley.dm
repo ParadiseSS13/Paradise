@@ -57,7 +57,7 @@
 
 /datum/secondary_goal_progress/random_ripley/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
 	// Not labelled for this goal? Ignore.
-	if(!check_personal_crate(AM))
+	if(!check_goal_label(AM))
 		return
 	if(!istype(AM, /obj/mecha/working/ripley))
 		return

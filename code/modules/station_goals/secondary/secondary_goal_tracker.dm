@@ -97,17 +97,17 @@
 /datum/secondary_goal_progress/proc/check_complete(datum/economy/cargo_shuttle_manifest/manifest)
 	return FALSE
 
-/datum/secondary_goal_progress/proc/check_personal_crate(atom/movable/AM)
-	// Accept stuff that is properly labelled with a hand labeller.
-	var/datum/component/label/goal/label = AM.GetComponent(/datum/component/label/goal)
-	if(istype(label))
-		return !goal_requester || label.label_name == goal_requester
-
-	// Accept stuff in matching personal crates.
-	var/obj/structure/closet/crate/secure/personal/PC = get_atom_on_turf(AM, /obj/structure/closet/crate/secure/personal)
-	if(!istype(PC))
-		return FALSE
-	return !goal_requester || PC.registered_name == goal_requester
+/datum/secondary_goal_progress/proc/check_goal_label(atom/movable/AM)
+	// Look for a secondary goal label on this atom or anything it's inside.
+	var/atom/current_layer = AM
+	while(current_layer && isobj(current_layer))
+		// If it has a goal label, check the label's owner.
+		var/datum/component/label/goal/label = current_layer.GetComponent(/datum/component/label/goal)
+		if(istype(label))
+			return !goal_requester || label.person == goal_requester
+		else
+			current_layer = current_layer.loc
+	return FALSE
 
 /datum/secondary_goal_progress/proc/three_way_reward(datum/economy/cargo_shuttle_manifest/manifest, department, department_account, reward, message)
 	SSblackbox.record_feedback("nested tally", "secondary goals", 1, list(goal_name, "payments made"))
