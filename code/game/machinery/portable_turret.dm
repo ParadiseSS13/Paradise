@@ -109,6 +109,8 @@
 		cover.icon_state = "turret_cover"
 		vis_contents += cover
 
+	AddElement(/datum/element/hostile_machine)
+
 /obj/machinery/porta_turret/Destroy()
 	QDEL_NULL(spark_system)
 	QDEL_NULL(cover)
@@ -481,6 +483,18 @@
 	else
 		to_chat(M, "<span class='danger'>That object is useless to you.</span>")
 	return
+
+/mob/living/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	attacker.changeNext_move(CLICK_CD_MELEE)
+	attacker.do_attack_animation(src)
+	if(attacker.melee_damage_upper == 0 || (attacker.melee_damage_type != BRUTE && attacker.melee_damage_type != BURN))
+		return FALSE
+	if(!(stat & BROKEN))
+		visible_message("<span class='danger'>[attacker] [attacker.attack_verb_continuous] [src]!</span>")
+		..()
+	else
+		to_chat(attacker, "<span class='danger'>That object is useless to you.</span>")
+	return TRUE
 
 /obj/machinery/porta_turret/attack_alien(mob/living/carbon/alien/humanoid/M)
 	M.changeNext_move(CLICK_CD_MELEE)

@@ -1360,6 +1360,15 @@
 	new /obj/item/storage/lockbox/medal/hardmode_box(src)
 	new /obj/item/paper/hardmode(src)
 
+/obj/item/storage/box/oxygen_grenades
+	name = "oxygen grenades box"
+	desc = "A box full of oxygen grenades."
+	icon_state = "flashbang_box"
+
+/obj/item/storage/box/oxygen_grenades/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/gas/oxygen(src)
+
 /obj/item/storage/box/foam_grenades
 	name = "foam grenades box"
 	desc = "A box full of foam grenades."
