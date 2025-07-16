@@ -128,7 +128,7 @@
 	overlay_state_inactive = "module_jetpack"
 	overlay_state_active = "module_jetpack_on"
 	/// Do we stop the wearer from gliding in space.
-	var/stabilize = FALSE
+	var/stabilize = TRUE
 	var/thrust_callback
 
 /obj/item/mod/module/jetpack/Initialize(mapload)
