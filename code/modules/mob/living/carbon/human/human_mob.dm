@@ -114,7 +114,7 @@
 	if(delta_now < 3 SECONDS)
 		return
 	// Stop counting, print, and reset
-	if(timer_id != TIMER_ID_NULL) 
+	if(timer_id != TIMER_ID_NULL)
 		deltimer(timer_id)
 		timer_id = TIMER_ID_NULL
 	print_summary()
@@ -140,6 +140,32 @@
 	log_debug("Fire rate = [hits_per_sec] hits/sec")
 	log_debug("Total damage = [total_damage], DPS = [damage_per_sec]")
 	log_debug("############### End hit report ################")
+
+// For adminbus fuckery
+/mob/living/carbon/human/admin
+	real_name = "unknown force"
+	status_flags = GODMODE
+	density = FALSE
+	incorporeal_move = TRUE
+	gender = PLURAL
+	underwear = "Mens Black Alt"
+
+/mob/living/carbon/human/admin/Initialize(mapload, datum/species/new_species)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SILENT_FOOTSTEPS, ROUNDSTART_TRAIT)
+	invisibility = INVISIBILITY_OBSERVER
+	see_invisible = INVISIBILITY_OBSERVER
+	remove_from_all_data_huds()
+	rename_character(real_name, initial(real_name))
+	set_alpha_tracking(170, src)
+
+/mob/living/carbon/human/admin/update_sight()
+	. = ..()
+	see_invisible = INVISIBILITY_OBSERVER
+
+/mob/living/carbon/human/admin/CanPass(obj/item/projectile/P)
+	return TRUE
+
 /mob/living/carbon/human/skrell/Initialize(mapload)
 	. = ..(mapload, /datum/species/skrell)
 
