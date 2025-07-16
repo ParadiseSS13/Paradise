@@ -26,6 +26,7 @@
 	melee_attack_cooldown_max = 2.5 SECONDS
 	melee_damage_lower = 20
 	melee_damage_upper = 30
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attack_sound = 'sound/weapons/genhit3.ogg'
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
 

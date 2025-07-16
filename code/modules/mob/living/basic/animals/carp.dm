@@ -1,6 +1,6 @@
-#define REGENERATION_DELAY 60  // After taking damage, how long it takes for automatic regeneration to begin for megacarps (ty robustin!)
+#define REGENERATION_DELAY 60  // After taking damage, how long it takes for automatic regeneration to begin for megacarps
 
-/mob/living/simple_animal/hostile/carp
+/mob/living/basic/carp
 	name = "space carp"
 	desc = "A ferocious, fang-bearing creature that resembles a fish."
 	icon = 'icons/mob/carp.dmi'
@@ -9,12 +9,11 @@
 	icon_dead = "base_dead"
 	icon_gib = "carp_gib"
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
-	speak_chance = 0
-	turns_per_move = 5
 	butcher_results = list(/obj/item/food/carpmeat = 2)
-	response_help = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm = "hits"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
 	emote_taunt = list("gnashes")
 	taunt_chance = 30
 	speed = 0
@@ -25,14 +24,19 @@
 	obj_damage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	attacktext = "bites"
+	melee_attack_cooldown_min = 1.5 SECONDS
+	melee_attack_cooldown_max = 2.5 SECONDS
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("gnashes")
+	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
 
-	//Space carp aren't affected by atmos.
+	// Space carp aren't affected by atmos.
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	maxbodytemp = 1500
+	minimum_survivable_temperature = 0
+	maximum_survivable_temperature = 1500
 	faction = list("carp", "mining")
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
@@ -40,8 +44,8 @@
 
 	initial_traits = list(TRAIT_FLYING, TRAIT_SHOCKIMMUNE)
 
-	var/random_color = TRUE //if the carp uses random coloring
-	var/rarechance = 1 //chance for rare color variant
+	var/random_color = TRUE // if the carp uses random coloring
+	var/rarechance = 1 // chance for rare color variant
 
 	var/static/list/carp_colors = list(\
 	"lightpurple" = "#c3b9f1", \
@@ -63,12 +67,12 @@
 	"silver" = "#fdfbf3", \
 	)
 
-/mob/living/simple_animal/hostile/carp/Initialize(mapload)
+/mob/living/basic/carp/Initialize(mapload)
 	. = ..()
 	carp_randomify(rarechance)
 	AddComponent(/datum/component/swarming)
 
-/mob/living/simple_animal/hostile/carp/proc/carp_randomify(rarechance)
+/mob/living/basic/carp/proc/carp_randomify(rarechance)
 	if(random_color)
 		var/our_color
 		if(prob(rarechance))
@@ -79,26 +83,26 @@
 			add_atom_colour(carp_colors[our_color], FIXED_COLOUR_PRIORITY)
 		update_icon()
 
-/mob/living/simple_animal/hostile/carp/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
+/mob/living/basic/carp/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE	//No drifting in space for space carp!	//original comments do not steal
 
-/mob/living/simple_animal/hostile/carp/AttackingTarget()
+/mob/living/basic/carp/melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	. = ..()
 	if(. && ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.apply_damage(8, STAMINA)
 
-/mob/living/simple_animal/hostile/carp/death(gibbed)
+/mob/living/basic/carp/death(gibbed)
 	. = ..()
 	if(!random_color || gibbed)
 		return
 	update_icon()
 
-/mob/living/simple_animal/hostile/carp/revive()
+/mob/living/basic/carp/revive()
 	..()
 	update_icon()
 
-/mob/living/simple_animal/hostile/carp/update_overlays()
+/mob/living/basic/carp/update_overlays()
 	. = ..()
 	if(!random_color)
 		return
@@ -106,24 +110,24 @@
 	. += mutable_appearance(icon, "base_[stat == DEAD ? "dead_" : ""]mouth", appearance_flags = RESET_COLOR)
 
 // We do not want mobs moving through space carp, we as such we block it if the mob is not dense
-/mob/living/simple_animal/hostile/carp/CanPass(atom/movable/mover, border_dir)
-	if(isliving(mover) && !istype(mover, /mob/living/simple_animal/hostile/carp) && mover.density == TRUE && stat != DEAD)
+/mob/living/basic/carp/CanPass(atom/movable/mover, border_dir)
+	if(isliving(mover) && !istype(mover, /mob/living/basic/carp) && mover.density == TRUE && stat != DEAD)
 		return FALSE
 	return ..()
 
 // Since it's not dense we let it always hit
-/mob/living/simple_animal/hostile/carp/projectile_hit_check(obj/item/projectile/P)
+/mob/living/basic/carp/projectile_hit_check(obj/item/projectile/P)
 	return stat == DEAD
 
-/mob/living/simple_animal/hostile/carp/holocarp
+/mob/living/basic/carp/holocarp
 	icon_state = "holocarp"
 	icon_living = "holocarp"
-	maxbodytemp = INFINITY
+	maximum_survivable_temperature = INFINITY
 	gold_core_spawnable = NO_SPAWN
-	del_on_death = TRUE
+	basic_mob_flags = DEL_ON_DEATH
 	random_color = FALSE
 
-/mob/living/simple_animal/hostile/carp/megacarp
+/mob/living/basic/carp/megacarp
 	icon = 'icons/mob/alienqueen.dmi'
 	name = "Mega Space Carp"
 	desc = "A ferocious, fang bearing creature that resembles a shark. This one seems especially ticked off."
@@ -146,20 +150,19 @@
 	contains_xeno_organ = TRUE
 	surgery_container = /datum/xenobiology_surgery_container/megacarp
 
-/mob/living/simple_animal/hostile/carp/megacarp/Initialize(mapload)
+/mob/living/basic/carp/megacarp/Initialize(mapload)
 	. = ..()
 	name = "[pick(GLOB.megacarp_first_names)] [pick(GLOB.megacarp_last_names)]"
 	melee_damage_lower += rand(2, 10)
 	melee_damage_upper += rand(10, 20)
 	maxHealth += rand(30, 60)
-	move_to_delay = rand(3, 7)
 
-/mob/living/simple_animal/hostile/carp/megacarp/adjustHealth(amount, updating_health = TRUE)
+/mob/living/basic/carp/megacarp/adjustHealth(amount, updating_health = TRUE)
 	. = ..()
 	if(.)
 		regen_cooldown = world.time + REGENERATION_DELAY
 
-/mob/living/simple_animal/hostile/carp/megacarp/Life()
+/mob/living/basic/carp/megacarp/Life()
 	..()
 	if(regen_cooldown < world.time)
 		heal_overall_damage(4)

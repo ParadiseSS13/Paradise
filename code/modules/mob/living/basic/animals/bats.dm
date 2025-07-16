@@ -23,6 +23,7 @@
 	harm_intent_damage = 8
 	melee_damage_lower = 10
 	melee_damage_upper = 10
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attack_sound = 'sound/weapons/bite.ogg'
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
 

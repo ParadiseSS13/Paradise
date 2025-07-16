@@ -136,7 +136,7 @@
 						/mob/living/basic/bear/black,
 						/mob/living/basic/bear/brown,
 						/mob/living/simple_animal/hostile/poison/bees,
-						/mob/living/simple_animal/hostile/carp
+						/mob/living/basic/carp
 					)
 
 					for(var/counter in 1 to animal_spawncount)
