@@ -154,6 +154,11 @@ RESTRICT_TYPE(/mob/living/basic)
 	/// Footsteps
 	var/step_type
 
+	/// Taunts
+	var/emote_taunt = list()
+	/// Chance to taunt
+	var/taunt_chance = 0
+
 /mob/living/basic/Initialize(mapload)
 	. = ..()
 
@@ -170,6 +175,16 @@ RESTRICT_TYPE(/mob/living/basic)
 		nest.spawned_mobs -= src
 		nest = null
 	return ..()
+
+/mob/living/basic/Life(seconds, times_fired)
+	. = ..()
+	if(ai_controller.blackboard_key_exists(BB_BASIC_MOB_CURRENT_TARGET) && length(emote_taunt) && prob(taunt_chance))
+		var/target_key = BB_BASIC_MOB_CURRENT_TARGET
+		var/atom/target = ai_controller.blackboard[target_key]
+		emote("me", EMOTE_VISIBLE, "[pick(emote_taunt)] at [target].")
+		taunt_chance = max(taunt_chance - 7 , 2)
+	else if (!ai_controller.blackboard_key_exists(BB_BASIC_MOB_CURRENT_TARGET))
+		taunt_chance = initial(taunt_chance)
 
 /mob/living/basic/movement_delay()
 	. = speed
