@@ -43,7 +43,7 @@ SUBSYSTEM_DEF(ticker)
 	var/tipped = FALSE
 	/// What will be the tip of the round?
 	var/selected_tip
-	///Did we broadcast the fact of the round yet?
+	/// Did we broadcast the fact of the round yet?
 	var/facted = FALSE
 	/// What will be the fact of the round?
 	var/selected_fact
