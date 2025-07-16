@@ -45,7 +45,7 @@ SUBSYSTEM_DEF(ticker)
 	var/selected_tip
 	///Did we broadcast the fact of the round yet?
 	var/facted = FALSE
-	///What will be the fact of the round?
+	/// What will be the fact of the round?
 	var/selected_fact
 	/// This is used for calculations for the statpanel
 	var/pregame_timeleft
