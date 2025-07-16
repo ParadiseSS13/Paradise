@@ -117,6 +117,23 @@
 		if(. && !play_soundeffect)
 			playsound(QDELETED(src) ? obj_turf : src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 
+/obj/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	if((attacker.a_intent == INTENT_HELP && attacker.ckey) || attacker.melee_damage_upper == 0)
+		attacker.custom_emote(EMOTE_VISIBLE, "[attacker.friendly_verb_continuous] [src].")
+		return FALSE
+	else
+		var/play_soundeffect = TRUE
+		if(attacker.environment_smash)
+			play_soundeffect = FALSE
+		var/obj_turf = get_turf(src)  // play from the turf in case the object gets deleted mid attack
+		if(attacker.obj_damage)
+			. = attack_generic(attacker, attacker.obj_damage, attacker.melee_damage_type, MELEE, play_soundeffect, attacker.armour_penetration_flat, attacker.armour_penetration_percentage)
+		else
+			. = attack_generic(attacker, rand(attacker.melee_damage_lower, attacker.melee_damage_upper), attacker.melee_damage_type, MELEE, play_soundeffect, attacker.armour_penetration_flat, attacker.armour_penetration_percentage)
+		if(. && !play_soundeffect)
+			playsound(QDELETED(src) ? obj_turf : src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+	return TRUE
+
 /obj/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return TRUE
 
