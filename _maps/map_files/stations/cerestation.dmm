@@ -42608,7 +42608,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
+/obj/machinery/door/airlock/multi_tile/glass,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
@@ -57113,7 +57113,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "kBq" = (
-/obj/machinery/door/airlock/multi_tile/glass/directional/south,
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 8
+	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/structure/cable/orange{
@@ -74694,7 +74696,7 @@
 /area/station/public/quantum/service)
 "orl" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
+/obj/machinery/door/airlock/multi_tile/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -114122,7 +114124,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
+/obj/machinery/door/airlock/multi_tile/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
