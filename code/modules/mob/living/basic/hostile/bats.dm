@@ -37,7 +37,7 @@
 
 /mob/living/basic/scarybat/Initialize(mapload, mob/living/L)
 	. = ..()
-	AddComponent(/datum/component/aggro_emote, emote_list = list("flutters"))
+	AddComponent(/datum/component/aggro_emote, emote_list = list("flutters"), emote_chance = 20)
 	if(istype(L))
 		faction += "\ref[L]"
 
