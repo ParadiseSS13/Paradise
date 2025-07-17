@@ -1131,13 +1131,14 @@
 //MARK: Robot Drugs
 // Made for robots, by robots.
 
-// Robot weed.
+// Robot weed. Mixes the effects of CBD and THC.
 /datum/reagent/w33d
 	name = "W33D"
 	id = "w33d"
-	description = "A thick, oily concoction designed to mimic the effects of cannabis in synthetics. As a happy coincidence, when it dries out it can also function as servicable filler, sealant, and insulator."
+	description = "A thick, oily concoction designed to mimic the effects of cannabis in synthetics. \
+	As a happy coincidence, when it dries out it can also function as servicable filler, sealant, and insulator."
 	reagent_state = LIQUID
-	color = "#abffab"
+	color = "#17dd17"
 	process_flags = SYNTHETIC
 	taste_description = "man, like, totally the best most relaxing thing ever, dude"
 
@@ -1149,14 +1150,16 @@
 		M.emote(pick("hsigh", "giggle", "laugh", "smile"))
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[pick("You feel peaceful.", "You whirr softly.", "You feel chill.", "You vibe.")]</span>")
+	if(prob(4))
+		M.Confused(20 SECONDS)
 	if(prob(10))
 		M.AdjustConfused(-10 SECONDS)
 		M.SetWeakened(0, FALSE)
 	if(prob(25))
-		update_flags |= M.adjustBruteLoss(-2, FALSE)
-		update_flags |= M.adjustFireLoss(-2, FALSE)
-	if(prob(4))
-		M.Confused(20 SECONDS)
+		if(ishuman(M))
+			var/mob/living/carbon/human/dude = M
+			update_flags |= dude.adjustBruteLoss(-2, FALSE, robotic = TRUE)
+			update_flags |= dude.adjustFireLoss(-2, FALSE, robotic = TRUE)
 	if(volume >= 50 && prob(25))
 		if(prob(10))
 			M.Drowsy(20 SECONDS)
@@ -1169,7 +1172,7 @@
 	description = "An experimental compound cooked up in the back alleys of New Canaan, designed to mimic the effects of Krokodil in synthetics. \
 	Unfortunately, this worked a little too well, as it also faithfully replicates the fact that there are serious side-effects. \
 	Overconsumption will cause extreme corrosion and a combonation of endothermic and exothermic reactions that will lead to localized melting and generalized temperature reduction."
-	reagent_state = LIQUID
+	reagent_state = SOLID
 	color = "#212121"
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
@@ -1193,7 +1196,7 @@
 		M.emote("smile")
 	if(prob(5))
 		to_chat(M, "<span class='notice'>You feel too chill!</span>")
-		M.emote(pick("gasp", "cough"))
+		M.emote(pick("shiver", "cross"))
 		M.Stun(2 SECONDS, FALSE)
 		update_flags |= M.adjustFireLoss(1, FALSE)
 		update_flags |= M.adjustBrainLoss(1, FALSE)
@@ -1222,7 +1225,9 @@
 			update_flags |= M.adjustFireLoss(2, FALSE)
 			update_flags |= M.adjustBrainLoss(1, FALSE)
 			M.emote("cry")
-	else if(severity == 2)
+		return list(effect, update_flags)
+
+	if(severity == 2)
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M] sways and falls over!</span>")
 			update_flags |= M.adjustBruteLoss(3, FALSE)
@@ -1230,13 +1235,11 @@
 			M.Weaken(16 SECONDS)
 			M.emote("faint")
 		else if(effect <= 4)
-			if(ishuman(M))
-				var/mob/living/carbon/human/H = M
-				H.visible_message("<span class='warning'>Large cracks appear on [M]'s casing and the surrounding area starts to melt!</span>")
-				update_flags |= H.adjustBruteLoss(25, FALSE)
-				update_flags |= H.adjustFireLoss(25, FALSE) // We can't husk a robot. So we substitute with some extra melt damage.
-				H.emote("scream")
-				H.emote("faint")
+			M.visible_message("<span class='warning'>Large cracks appear on [M]'s casing and the surrounding area starts to melt!</span>")
+			update_flags |= M.adjustBruteLoss(25, FALSE)
+			update_flags |= M.adjustFireLoss(25, FALSE) // We can't husk a robot. So we substitute with some extra melt damage.
+			M.emote("scream")
+			M.emote("faint")
 		else if(effect <= 7)
 			M.emote("shiver")
 			M.bodytemperature -= 70

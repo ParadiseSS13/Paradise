@@ -153,3 +153,21 @@
 	required_reagents = list("thermite" = 3, "uranium" = 1, "fluorosurfactant" = 1, "sacid" = 1)
 	result_amount = 6
 	mix_message = "The mixture congeals into a metallic green gel that crackles with electrical activity."
+
+/datum/chemical_reaction/w33d
+	name = "W33D"
+	id = "w33d"
+	result = "w33d"
+	required_reagents = list("synthanol" = 1, "oil" = 1, "aluminum" = 1)
+	result_amount = 3
+	mix_message = "The mixture bubbles into a vibrant green oil with a musky smell."
+
+/datum/chemical_reaction/grokodil
+	name = "Grokodil"
+	id = "grokodil"
+	result = "grokodil"
+	required_reagents = list("mutadone" = 1, "heparin" = 1, "cleaner" = 1, "phenol" = 1, "w33d" = 1)
+	result_amount = 5
+	mix_message = "A semi-solid black powder crashes out of the solution."
+	min_temp = T0C + 100
+	mix_sound = 'sound/goonstation/misc/fuse.ogg'
