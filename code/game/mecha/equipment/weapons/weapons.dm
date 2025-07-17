@@ -104,9 +104,9 @@
 	desc = "A large-bore energy shotgun, configured to fire a large blast of disabling pellets."
 	icon_state = "mecha_disabler_shotgun"
 	origin_tech = "materials=4;combat=5;"
-	energy_drain = 30 // This is per shot + 1x cost, so 390 per shot
+	energy_drain = 30 // This is per shot + 1x cost, so 300 per shot
 	projectile = /obj/item/projectile/beam/disabler/pellet
-	projectiles_per_shot = 12
+	projectiles_per_shot = 9
 	variance = 40
 	fire_sound = 'sound/weapons/taser2.ogg'
 
