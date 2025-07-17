@@ -56585,7 +56585,7 @@
 	},
 /area/station/maintenance/asmaint)
 "kzP" = (
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic,
+/mob/living/basic/gorilla/cargo_domestic,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"

@@ -636,7 +636,7 @@
 	return isnymph(M) && ..()
 
 /datum/keybinding/emote/simple_animal/gorilla_ooga
-	linked_emote = /datum/emote/living/simple_animal/gorilla/ooga
+	linked_emote = /datum/emote/living/basic_mob/gorilla/ooga
 	name = "Ooga (Gorilla)"
 
 /datum/keybinding/emote/simple_animal/gorilla_ooga/can_use(client/C, mob/M)

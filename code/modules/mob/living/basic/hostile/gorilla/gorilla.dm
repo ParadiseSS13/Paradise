@@ -1,4 +1,4 @@
-/mob/living/simple_animal/hostile/gorilla
+/mob/living/basic/gorilla
 	name = "gorilla"
 	desc = "A ground-dwelling, predominantly herbivorous ape that inhabits the forests of central Africa on Earth."
 	icon = 'icons/mob/gorilla.dmi'
@@ -6,28 +6,30 @@
 	icon_living = "crawling"
 	icon_dead = "dead"
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
-	speak_chance = 80
 	maxHealth = 220
 	health = 220
 	butcher_results = list(/obj/item/food/meat/slab/gorilla = 4)
-	response_help = "prods"
-	response_disarm = "challenges"
-	response_harm = "thumps"
-	attacktext = "pummels"
+	response_help_continuous = "prods"
+	response_help_simple = "prod"
+	response_disarm_continuous = "challenges"
+	response_disarm_simple = "challenge"
+	attack_verb_continuous = "pummels"
+	attack_verb_simple = "pummel"
 	speed = 0.5
 	melee_damage_lower = 15
 	melee_damage_upper = 18
+	melee_attack_cooldown_min = 1.5 SECONDS
+	melee_attack_cooldown_max = 2.5 SECONDS
 	damage_coeff = list(BRUTE = 1, BURN = 1.5, TOX = 1.5, CLONE = 0, STAMINA = 0, OXY = 1.5)
 	obj_damage = 20
 	environment_smash = ENVIRONMENT_SMASH_WALLS | ENVIRONMENT_SMASH_STRUCTURES
 	attack_sound = 'sound/weapons/punch1.ogg'
 	faction = list("hostile", "monkey", "jungle")
-	robust_searching = TRUE
-	minbodytemp = 270
-	maxbodytemp = 350
-	footstep_type = FOOTSTEP_MOB_BAREFOOT
-	stat_attack = UNCONSCIOUS // Sleeping won't save you
+	minimum_survivable_temperature = 270
+	maximum_survivable_temperature = 350
+	step_type = FOOTSTEP_MOB_BAREFOOT
 	a_intent = INTENT_HARM // Angrilla
+	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/gorilla
 	/// Is the gorilla stood up or not?
 	var/is_bipedal = FALSE
 	/// The max number of crates we can carry
@@ -43,14 +45,14 @@
 	/// Chance of doing the throw or stamina damage, along with the flat damage amount
 	var/throw_onhit = 50
 
-/mob/living/simple_animal/hostile/gorilla/Initialize(mapload)
+/mob/living/basic/gorilla/Initialize(mapload)
 	. = ..()
 	var/datum/action/innate/gorilla_toggle/toggle = new
 	toggle.Grant(src)
 	var/static/default_cache = typecacheof(list(/obj/structure/closet/crate)) // Normal crates only please, no weird sized ones
 	carriable_cache = default_cache
 
-/mob/living/simple_animal/hostile/gorilla/Destroy()
+/mob/living/basic/gorilla/Destroy()
 	LAZYCLEARLIST(crates_in_hand)
 	return ..()
 
@@ -63,11 +65,11 @@
 
 /datum/action/innate/gorilla_toggle/Activate()
 	. = ..()
-	var/mob/living/simple_animal/hostile/gorilla/gorilla = owner
+	var/mob/living/basic/gorilla/gorilla = owner
 	if(!istype(gorilla))
 		return
 
-	var/mob/living/simple_animal/hostile/gorilla/cargo_domestic/domesticated = gorilla
+	var/mob/living/basic/gorilla/cargo_domestic/domesticated = gorilla
 	if(istype(domesticated) && LAZYLEN(domesticated.crates_in_hand))
 		to_chat(domesticated, "<span class='warning'>You can't get on all fours while carrying something!</span>")
 		return
@@ -81,7 +83,7 @@
 
 // Gorillas like to dismember limbs from unconscious mobs.
 /// Returns null when the target is not an unconscious carbon mob; a list of limbs (possibly empty) otherwise.
-/mob/living/simple_animal/hostile/gorilla/proc/get_target_bodyparts(atom/hit_target)
+/mob/living/basic/gorilla/proc/get_target_bodyparts(atom/hit_target)
 	if(!ishuman(hit_target))
 		return
 
@@ -98,10 +100,10 @@
 		parts += part
 	return parts
 
-/mob/living/simple_animal/hostile/gorilla/AttackingTarget(atom/attacked_target)
+/mob/living/basic/gorilla/melee_attack(atom/attacked_target)
 	if(client)
-		if(is_type_in_typecache(target, carriable_cache))
-			var/atom/movable/movable_target = target
+		if(is_type_in_typecache(attacked_target, carriable_cache))
+			var/atom/movable/movable_target = attacked_target
 			if(LAZYLEN(crates_in_hand) >= crate_limit)
 				to_chat(src, "<span class='warning'>You are carrying too many crates!</span>")
 				return COMPONENT_CANCEL_ATTACK_CHAIN
@@ -112,15 +114,15 @@
 				to_chat(src, "<span class='warning'>This crate is too heavy!</span>")
 				return COMPONENT_CANCEL_ATTACK_CHAIN
 
-			LAZYADD(crates_in_hand, target)
+			LAZYADD(crates_in_hand, attacked_target)
 			is_bipedal = TRUE
 			update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 			movable_target.forceMove(src)
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
-		var/turf/target_turf = target
+		var/turf/target_turf = attacked_target
 		if(istype(target_turf) && !target_turf.is_blocked_turf() && LAZYLEN(crates_in_hand))
-			drop_random_crate(target)
+			drop_random_crate(attacked_target)
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
 	. = ..()
@@ -130,14 +132,14 @@
 	if(client)
 		oogaooga()
 
-	var/list/parts = get_target_bodyparts(target)
+	var/list/parts = get_target_bodyparts(attacked_target)
 	if(length(parts) && prob(dismember_chance))
 		var/obj/item/organ/external/to_dismember = pick(parts)
 		to_dismember.droplimb()
 		return
 
-	if(isliving(target))
-		var/mob/living/living_target = target
+	if(isliving(attacked_target))
+		var/mob/living/living_target = attacked_target
 		if(prob(throw_onhit))
 			living_target.throw_at(get_edge_target_turf(living_target, dir), rand(1, 2), 7, src)
 			return
@@ -145,7 +147,7 @@
 		living_target.apply_damage(stamina_damage, STAMINA)
 		visible_message("<span class='warning'>[src] knocks [living_target] down!</span>")
 
-/mob/living/simple_animal/hostile/gorilla/update_icon_state()
+/mob/living/basic/gorilla/update_icon_state()
 	. = ..()
 	if(is_dead())
 		icon_state = icon_dead
@@ -156,7 +158,7 @@
 
 	icon_state = initial(icon_state)
 
-/mob/living/simple_animal/hostile/gorilla/update_overlays()
+/mob/living/basic/gorilla/update_overlays()
 	. = ..()
 	if(!LAZYLEN(crates_in_hand))
 		return
@@ -164,31 +166,19 @@
 	. += mutable_appearance(random_crate.icon, random_crate.icon_state)
 	. += mutable_appearance(icon, "standing_overlay")
 
-/mob/living/simple_animal/hostile/gorilla/CanAttack(atom/the_target)
-	var/list/parts = get_target_bodyparts(target)
-	return ..() && !ismonkeybasic(the_target) && (!parts || length(parts) > 3)
-
-/mob/living/simple_animal/hostile/gorilla/CanSmashTurfs(turf/T)
-	return iswallturf(T)
-
-/mob/living/simple_animal/hostile/gorilla/handle_automated_speech(override)
-	if(speak_chance && (override || prob(speak_chance)))
-		playsound(src, 'sound/creatures/gorilla.ogg', 50)
-	return ..()
-
-/mob/living/simple_animal/hostile/gorilla/proc/oogaooga()
+/mob/living/basic/gorilla/proc/oogaooga()
 	if(prob(rand(15, 50)))
 		playsound(src, 'sound/creatures/gorilla.ogg', 50)
 
-/mob/living/simple_animal/hostile/gorilla/special_get_hands_check()
+/mob/living/basic/gorilla/special_get_hands_check()
 	if(LAZYLEN(crates_in_hand))
 		return pick(crates_in_hand)
 
-/mob/living/simple_animal/hostile/gorilla/death(gibbed)
+/mob/living/basic/gorilla/death(gibbed)
 	drop_all_crates(drop_location())
 	return ..()
 
-/mob/living/simple_animal/hostile/gorilla/examine(mob/user)
+/mob/living/basic/gorilla/examine(mob/user)
 	. = ..()
 	var/num_crates = LAZYLEN(crates_in_hand)
 	if(num_crates)
@@ -197,24 +187,24 @@
 			. += "[crate]."
 		. += "</span>"
 
-/mob/living/simple_animal/hostile/gorilla/drop_item_v()
+/mob/living/basic/gorilla/drop_item_v()
 	drop_random_crate(drop_location())
 
 /// Drops one random crates from our crate list.
-/mob/living/simple_animal/hostile/gorilla/proc/drop_random_crate(atom/drop_to)
+/mob/living/basic/gorilla/proc/drop_random_crate(atom/drop_to)
 	var/obj/structure/closet/crate/held_crate = pick(crates_in_hand)
 	held_crate.forceMove(drop_to)
 	LAZYREMOVE(crates_in_hand, held_crate)
 	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
 /// Drops all the crates in our crate list.
-/mob/living/simple_animal/hostile/gorilla/proc/drop_all_crates(atom/drop_to)
+/mob/living/basic/gorilla/proc/drop_all_crates(atom/drop_to)
 	for(var/obj/structure/closet/crate/held_crate as anything in crates_in_hand)
 		held_crate.forceMove(drop_to)
 		LAZYREMOVE(crates_in_hand, held_crate)
 	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic
+/mob/living/basic/gorilla/cargo_domestic
 	name = "cargorilla" // Overriden, normally
 	icon = 'icons/mob/cargorillia.dmi'
 	desc = "Cargo's pet gorilla. He seems to have an 'I love Mom' tattoo."
@@ -222,27 +212,27 @@
 	gold_core_spawnable = NO_SPAWN
 	gender = MALE
 	a_intent = INTENT_HELP
-	unique_pet = TRUE
 	crate_limit = 2
+	unique_mob = TRUE
 	/// The ID card that the gorilla is currently wearing.
 	var/obj/item/card/id/access_card
 
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic/Login()
+/mob/living/basic/gorilla/cargo_domestic/Login()
 	. = ..()
 	// Github copilot wrote the below fluff IDK
 	to_chat(src, "<span class='boldnotice'>You are [name]. You are a domesticated gorilla, and you are Cargo's pet. You are a loyal and hardworking gorilla, and you love your job. You are a good gorilla, and Cargo loves you.</span>")
 	to_chat(src, "<span class='boldnotice'>You can pick up crates by clicking them, and drop them by clicking on an open floor. You can carry [crate_limit] crates at a time.</span>")
 
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic/Initialize(mapload)
+/mob/living/basic/gorilla/cargo_domestic/Initialize(mapload)
 	. = ..()
 	access_card = new /obj/item/card/id/supply/cargo_gorilla(src)
 	ADD_TRAIT(src, TRAIT_PACIFISM, INNATE_TRAIT)
 
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic/Destroy()
+/mob/living/basic/gorilla/cargo_domestic/Destroy()
 	QDEL_NULL(access_card)
 	return ..()
 
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic/get_access()
+/mob/living/basic/gorilla/cargo_domestic/get_access()
 	. = ..()
 	. |= access_card.GetAccess()
 
@@ -251,7 +241,7 @@
 	registered_name = "Cargorilla"
 	desc = "A card used to provide ID and determine access across the station. A gorilla-sized ID for a gorilla-sized cargo technician."
 
-/mob/living/simple_animal/hostile/gorilla/rampaging
+/mob/living/basic/gorilla/rampaging
 	name = "Rampaging Gorilla"
 	desc = "A gorilla that has gone wild. Run!"
 	speed = 0
@@ -266,7 +256,23 @@
 	stamina_damage = 40
 	throw_onhit = 80
 
-/mob/living/simple_animal/hostile/gorilla/rampaging/Initialize(mapload)
+/mob/living/basic/gorilla/rampaging/Initialize(mapload)
 	. = ..()
 	add_overlay(mutable_appearance('icons/effects/effects.dmi', "electricity"))  // I wanna be Winston
 
+/datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/gorilla
+	blackboard = list(
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_TARGET_MINIMUM_STAT = UNCONSCIOUS
+	)
+
+	planning_subtrees = list(
+		/datum/ai_planning_subtree/simple_find_target,
+		/datum/ai_planning_subtree/attack_obstacle_in_path,
+		/datum/ai_planning_subtree/basic_melee_attack_subtree,
+		/datum/ai_planning_subtree/random_speech/gorilla,
+	)
+
+/datum/ai_planning_subtree/random_speech/gorilla
+	speech_chance = 6
+	sound = list('sound/creatures/gorilla.ogg')

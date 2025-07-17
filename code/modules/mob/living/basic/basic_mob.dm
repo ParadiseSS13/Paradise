@@ -145,6 +145,9 @@ RESTRICT_TYPE(/mob/living/basic)
 	/// Upper bound for melee attack cooldown
 	var/melee_attack_cooldown_max = 2 SECONDS
 
+	/// Is this mob unique?
+	var/unique_mob = FALSE
+
 	/// Loot this mob drops on death.
 	var/list/loot = list()
 

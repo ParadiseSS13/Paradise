@@ -221,7 +221,7 @@ GLOBAL_LIST_INIT(wabbajack_hostile_animals, list(
 	"bat" = /mob/living/simple_animal/hostile/scarybat,
 	"goat" = /mob/living/simple_animal/hostile/retaliate/goat,
 	"tomato" = /mob/living/simple_animal/hostile/killertomato,
-	"gorilla" = /mob/living/simple_animal/hostile/gorilla,
+	"gorilla" = /mob/living/basic/gorilla,
 	"kangaroo" = /mob/living/simple_animal/hostile/retaliate/kangaroo,
 ))
 
