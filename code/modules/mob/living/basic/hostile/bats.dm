@@ -27,9 +27,6 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
 
-	emote_taunt = list("flutters")
-	taunt_chance = 20
-
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minimum_survivable_temperature = 0
 
@@ -40,6 +37,7 @@
 
 /mob/living/basic/scarybat/Initialize(mapload, mob/living/L)
 	. = ..()
+	AddComponent(/datum/component/aggro_emote, emote_list = list("flutters"))
 	if(istype(L))
 		faction += "\ref[L]"
 

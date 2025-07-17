@@ -38,6 +38,10 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	step_type = FOOTSTEP_MOB_CLAW
 
+/mob/living/basic/bear/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/aggro_emote, emote_list = list("roars"))
+
 /mob/living/basic/bear/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE	// No drifting in space for space bears!
 

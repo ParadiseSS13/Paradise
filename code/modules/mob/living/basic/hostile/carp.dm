@@ -14,8 +14,6 @@
 	response_help_simple = "pet"
 	response_disarm_continuous = "gently pushes aside"
 	response_disarm_simple = "gently push aside"
-	emote_taunt = list("gnashes")
-	taunt_chance = 30
 	speed = 0
 	maxHealth = 25
 	health = 25
@@ -71,6 +69,7 @@
 	. = ..()
 	carp_randomify(rarechance)
 	AddComponent(/datum/component/swarming)
+	AddComponent(/datum/component/aggro_emote, emote_list = list("gnashes"))
 
 /mob/living/basic/carp/proc/carp_randomify(rarechance)
 	if(random_color)
