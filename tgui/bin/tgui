@@ -217,7 +217,7 @@ if [[ ${1} == "--ci" ]]; then
   # Furthermore, they are only included in CI builds because these files change so rarely.
   # However, when they do change, the CI must fail if the build outputs weren't updated.
   yarn run build:helpers
-  # The following script can't trivially included into the rspack configuration,
+  # The following script can't be trivially included into the rspack configuration,
   # because its entrypoint is a CSS file, which is not supported by webpack and subsequently rspack.
   yarn run build:style
   task-validate-build
