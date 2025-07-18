@@ -570,7 +570,7 @@ SUBSYSTEM_DEF(ticker)
 		if(length(random_facts))
 			n = pick(random_facts)
 
-	if(n)
+	if(length(n))
 		to_chat(world, "<span class='green'><b>Fact of the round: </b>[html_encode(n)]</span>")
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
