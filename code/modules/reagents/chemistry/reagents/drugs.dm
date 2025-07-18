@@ -318,7 +318,7 @@
 		M.bodytemperature--
 		M.emote("smile")
 	if(prob(5))
-		to_chat(M, "<span class='notice'>You feel too chill!</span>")
+		to_chat(M, "<span class='warning'>You feel too chill!</span>")
 		M.emote(pick("yawn", "drool"))
 		M.Stun(2 SECONDS, FALSE)
 		update_flags |= M.adjustToxLoss(1, FALSE)
@@ -349,7 +349,10 @@
 			M.emote("cry")
 	else if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] sways and falls over!</span>")
+			M.visible_message(
+				"<span class='warning'>[M] sways and falls over!</span>",
+				"<span class='warning'>You sway and fall over!</span>"
+			)
 			update_flags |= M.adjustToxLoss(3, FALSE)
 			update_flags |= M.adjustBrainLoss(3, FALSE)
 			M.Weaken(16 SECONDS)
@@ -357,7 +360,10 @@
 		else if(effect <= 4)
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
-				H.visible_message("<span class='warning'>[M]'s skin is rotting away!</span>")
+				H.visible_message(
+					"<span class='danger'>[M]'s skin is rotting away!</span>",
+					"<span class='userdanger'>Your skin is rotting away!</span>"
+				)
 				update_flags |= H.adjustBruteLoss(25, FALSE)
 				H.emote("scream")
 				H.become_husk("krokodil_overdose")
@@ -1229,13 +1235,19 @@
 
 	if(severity == 2)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] sways and falls over!</span>")
+			M.visible_message(
+				"<span class='warning'>[M] sways and falls over!</span>",
+				"<span class='warning'>You sway and fall over!</span>"
+			)
 			update_flags |= M.adjustBruteLoss(3, FALSE)
 			update_flags |= M.adjustBrainLoss(3, FALSE)
 			M.Weaken(16 SECONDS)
 			M.emote("faint")
 		else if(effect <= 4)
-			M.visible_message("<span class='danger'>Large cracks appear on [M]'s casing and the surrounding area starts to melt!</span>")
+			M.visible_message(
+				"<span class='danger'>Large cracks appear on [M]'s casing and the surrounding area starts to melt!</span>",
+				"<span class='userdanger'>Large cracks appear on your casing and the surrounding area starts to melt!</span>"
+			)
 			update_flags |= M.adjustBruteLoss(25, FALSE)
 			update_flags |= M.adjustFireLoss(25, FALSE) // We can't husk a robot. So we substitute with some extra melt damage.
 			M.emote("scream")
