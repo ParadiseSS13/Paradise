@@ -13,7 +13,6 @@ import { useBackend } from '../../backend';
  *
  * Allows clearing the notice through the `cleartemp` TGUI act
  * @param {object} _properties
- * @param {object} context
  */
 export const TemporaryNotice = (_properties) => {
   const { act, data } = useBackend();
