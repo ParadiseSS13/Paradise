@@ -991,7 +991,7 @@
 	plant_hud_set_weed()
 
 /obj/machinery/hydroponics/proc/spawnplant() // why would you put Lazarus Reagent in a hydro tray you monster I bet you also feed them blood
-	var/list/livingplants = list(/mob/living/simple_animal/hostile/tree, /mob/living/simple_animal/hostile/killertomato)
+	var/list/livingplants = list(/mob/living/simple_animal/hostile/tree, /mob/living/basic/killertomato)
 	var/chosen = pick(livingplants)
 	var/mob/living/simple_animal/hostile/C = new chosen(get_turf(src))
 	C.faction = list("plants")

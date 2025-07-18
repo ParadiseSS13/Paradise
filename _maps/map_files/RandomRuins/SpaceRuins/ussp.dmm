@@ -2299,7 +2299,7 @@
 	},
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/cleanable/blood/splatter,
-/mob/living/simple_animal/hostile/feral_cat{
+/mob/living/basic/feral_cat{
 	faction = list("cat","carp");
 	name = "Experiment 432-A"
 	},
