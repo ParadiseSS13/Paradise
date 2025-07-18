@@ -3,5 +3,5 @@ import { AtmosScan } from '../common/AtmosScan';
 
 export const pda_atmos_scan = (props) => {
   const { data } = useBackend();
-  return <AtmosScan data={data} />;
+  return <AtmosScan aircontents={data.aircontents} />;
 };

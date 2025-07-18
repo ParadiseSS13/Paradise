@@ -40,7 +40,7 @@ export const ActiveConversation = (props) => {
         </>
       }
     >
-      {filter((im) => im.target === active_convo)(messages).map((im, i) => (
+      {filter(messages, (im) => im.target === active_convo).map((im, i) => (
         <Box textAlign={im.sent ? 'right' : 'left'} position="relative" mb={1} key={i}>
           <Icon
             fontSize={2.5}
@@ -94,7 +94,7 @@ export const ActiveConversation = (props) => {
           </>
         }
       >
-        {filter((im) => im.target === active_convo)(messages).map((im, i) => (
+        {filter(messages, (im) => im.target === active_convo).map((im, i) => (
           <Box
             key={i}
             color={im.sent ? '#4d9121' : '#cd7a0d'}

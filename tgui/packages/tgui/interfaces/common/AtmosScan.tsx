@@ -14,13 +14,27 @@ const getItemColor = (value, min2, min1, max1, max2) => {
   return 'good';
 };
 
-export const AtmosScan = (props) => {
-  const { aircontents } = props.data;
+type AirContent = {
+  entry: string;
+  units: string;
+  val: string;
+  bad_high: number;
+  poor_high: number;
+  poor_low: number;
+  bad_low: number;
+};
+
+type AtmosScanProps = {
+  aircontents: AirContent[];
+};
+
+export const AtmosScan = (props: AtmosScanProps) => {
+  const { aircontents } = props;
 
   return (
     <Box>
       <LabeledList>
-        {filter((i) => i.val !== '0' || i.entry === 'Pressure' || i.entry === 'Temperature')(aircontents).map(
+        {filter(aircontents, (i) => i.val !== '0' || i.entry === 'Pressure' || i.entry === 'Temperature').map(
           (item) => (
             <LabeledList.Item
               key={item.entry}
