@@ -1195,7 +1195,7 @@
 		M.bodytemperature--
 		M.emote("smile")
 	if(prob(5))
-		to_chat(M, "<span class='notice'>You feel too chill!</span>")
+		to_chat(M, "<span class='warning'>You feel too chill!</span>")
 		M.emote(pick("shiver", "cross"))
 		M.Stun(2 SECONDS, FALSE)
 		update_flags |= M.adjustFireLoss(1, FALSE)
@@ -1235,7 +1235,7 @@
 			M.Weaken(16 SECONDS)
 			M.emote("faint")
 		else if(effect <= 4)
-			M.visible_message("<span class='warning'>Large cracks appear on [M]'s casing and the surrounding area starts to melt!</span>")
+			M.visible_message("<span class='danger'>Large cracks appear on [M]'s casing and the surrounding area starts to melt!</span>")
 			update_flags |= M.adjustBruteLoss(25, FALSE)
 			update_flags |= M.adjustFireLoss(25, FALSE) // We can't husk a robot. So we substitute with some extra melt damage.
 			M.emote("scream")
