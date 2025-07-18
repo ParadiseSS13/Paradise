@@ -212,6 +212,14 @@ if [[ ${1} == "--ci" ]]; then
   task-test "${@}"
   task-lint
   task-rspack --mode=production
+  # The following two scripts aren't included in the rspack configuration,
+  # because they do not import other files, and consequently, they do not need a bundler.
+  # Furthermore, they are only included in CI builds because these files change so rarely.
+  # However, when they do change, the CI must fail if the build outputs weren't updated.
+  yarn run build:helpers
+  # The following script can't be trivially included into the rspack configuration,
+  # because its entrypoint is a CSS file, which is not supported by webpack and subsequently rspack.
+  yarn run build:style
   task-validate-build
   exit 0
 fi
