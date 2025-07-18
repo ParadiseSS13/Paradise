@@ -2,9 +2,18 @@ import { Box, Button, LabeledList, NoticeBox, Section, Table } from 'tgui-core/c
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { BooleanLike } from 'tgui-core/react';
+
+type LawManagerData = {
+  isAdmin: BooleanLike;
+  isSlaved: BooleanLike;
+  isMalf: BooleanLike;
+  isAIMalf: BooleanLike;
+  view: BooleanLike;
+};
 
 export const LawManager = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<LawManagerData>();
   const { isAdmin, isSlaved, isMalf, isAIMalf, view } = data;
 
   return (
@@ -24,8 +33,40 @@ export const LawManager = (props) => {
   );
 };
 
+type Law = {
+  law: string;
+  index: number;
+  state: number;
+  ref: string;
+};
+
+type Channel = {
+  channel: string;
+};
+
+type LawManagementViewData = {
+  has_zeroth_laws: number;
+  zeroth_laws: Law[];
+  has_ion_laws: number;
+  ion_laws: Law[];
+  ion_law_nr: BooleanLike;
+  has_inherent_laws: number;
+  inherent_laws: Law[];
+  has_supplied_laws: number;
+  supplied_laws: Law[];
+  channels: Channel[];
+  channel: string;
+  isMalf: BooleanLike;
+  isAdmin: BooleanLike;
+  zeroth_law: BooleanLike;
+  ion_law: string;
+  inherent_law: string;
+  supplied_law: string;
+  supplied_law_position: number;
+};
+
 const LawManagementView = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<LawManagementViewData>();
   const {
     has_zeroth_laws,
     zeroth_laws,
@@ -48,10 +89,10 @@ const LawManagementView = (props) => {
   } = data;
   return (
     <>
-      {!!has_zeroth_laws && <LawTable title="ERR_NULL_VALUE" laws={zeroth_laws} ctx={context} />}
-      {!!has_ion_laws && <LawTable title={ion_law_nr} laws={ion_laws} ctx={context} />}
-      {!!has_inherent_laws && <LawTable title="Inherent" laws={inherent_laws} ctx={context} />}
-      {!!has_supplied_laws && <LawTable title="Supplied" laws={supplied_laws} ctx={context} />}
+      {!!has_zeroth_laws && <LawTable title="ERR_NULL_VALUE" laws={zeroth_laws} isMalf={isMalf} />}
+      {!!has_ion_laws && <LawTable title={`${ion_law_nr}`} laws={ion_laws} isMalf={isMalf} />}
+      {!!has_inherent_laws && <LawTable title="Inherent" laws={inherent_laws} isMalf={isMalf} />}
+      {!!has_supplied_laws && <LawTable title="Supplied" laws={supplied_laws} isMalf={isMalf} />}
       <Section title="Statement Settings">
         <LabeledList>
           <LabeledList.Item label="Statement Channel">
@@ -128,8 +169,19 @@ const LawManagementView = (props) => {
   );
 };
 
+type Lawset = {
+  name: string;
+  header: string;
+  ref: string;
+  laws: LawManagementViewData;
+};
+
+type LawsetsViewData = {
+  law_sets: Lawset[];
+};
+
 const LawsetsView = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<LawsetsViewData>();
   const { law_sets } = data;
   return (
     <Box>
@@ -177,18 +229,24 @@ const LawsetsView = (props) => {
   );
 };
 
-const LawTable = (props) => {
-  const { act, data } = useBackend(props.ctx);
-  const { isMalf } = data;
+type LawTableProps = {
+  isMalf: BooleanLike;
+  laws: Law[];
+  title: string;
+};
+
+const LawTable = (props: LawTableProps) => {
+  const { act, data } = useBackend();
+  const { isMalf, laws, title } = props;
   return (
-    <Section title={props.title + ' Laws'}>
+    <Section title={title + ' Laws'}>
       <Table>
         <Table.Row header>
           <Table.Cell width="10%">Index</Table.Cell>
           <Table.Cell width="69%">Law</Table.Cell>
           <Table.Cell width="21%">State?</Table.Cell>
         </Table.Row>
-        {props.laws.map((l) => (
+        {laws.map((l) => (
           <Table.Row key={l.law}>
             <Table.Cell>{l.index}</Table.Cell>
             <Table.Cell>{l.law}</Table.Cell>
