@@ -1,13 +1,24 @@
 import { map, sortBy } from 'common/collections';
 import { useState } from 'react';
-import { Box, Button, ColorBox, Flex, Icon, LabeledList, ProgressBar, Section, Table } from 'tgui-core/components';
+import {
+  Box,
+  Button,
+  ColorBox,
+  Flex,
+  Icon,
+  LabeledList,
+  ProgressBar,
+  Section,
+  Table,
+  Tooltip,
+} from 'tgui-core/components';
 import { Chart } from 'tgui-core/components';
-import { flow } from 'tgui-core/fp';
 import { toFixed } from 'tgui-core/math';
 import { decodeHtmlEntities } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { BooleanLike } from 'tgui-core/react';
 const PEAK_DRAW = 600000;
 
 export const PowerMonitor = (props) => {
@@ -20,10 +31,25 @@ export const PowerMonitor = (props) => {
   );
 };
 
+type APC = {
+  Name: string;
+  Equipment: string;
+  Lights: string;
+  Environment: string;
+  CellPct: number;
+  CellStatus: string;
+  Load: number;
+};
+
+type PowerMonitorMainData = {
+  powermonitor: string;
+  select_monitor: BooleanLike;
+};
+
 // This constant is so it can be thrown
 // into PDAs with minimal effort
 export const PowerMonitorMainContent = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<PowerMonitorMainData>();
   const { powermonitor, select_monitor } = data;
   return (
     <Box m={0}>
@@ -33,14 +59,23 @@ export const PowerMonitorMainContent = (props) => {
   );
 };
 
+type PowerMonitor = {
+  Area: string;
+  uid: string;
+};
+
+type SelectionViewData = {
+  powermonitors: PowerMonitor[];
+};
+
 const SelectionView = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<SelectionViewData>();
   const { powermonitors } = data;
 
   return (
     <Section title="Select Power Monitor">
       {powermonitors.map((p) => (
-        <Box key={p}>
+        <Box key={p.uid}>
           <Button
             content={p.Area}
             icon="arrow-right"
@@ -56,37 +91,57 @@ const SelectionView = (props) => {
   );
 };
 
+type DataHistory = {
+  supply: number[];
+  demand: number[];
+};
+
+type DataViewData = {
+  powermonitor: string;
+  history: DataHistory;
+  apcs: APC[];
+  select_monitor: BooleanLike;
+  no_powernet: BooleanLike;
+};
+
 const DataView = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<DataViewData>();
   const { powermonitor, history, apcs, select_monitor, no_powernet } = data;
 
   let body;
   if (no_powernet) {
     body = (
       <Box color="bad" textAlign="center">
-        <Icon name="exclamation-triangle" size="2" my="0.5rem" />
+        <Icon name="exclamation-triangle" size={2} my="0.5rem" />
         <br />
         Warning: The monitor is not connected to power grid via cable!
       </Box>
     );
   } else {
-    const [sortByField, setSortByField] = useState(null);
+    const [sortByField, setSortByField] = useState('name');
     const supply = history.supply[history.supply.length - 1] || 0;
     const demand = history.demand[history.demand.length - 1] || 0;
     const supplyData = history.supply.map((value, i) => [i, value]);
     const demandData = history.demand.map((value, i) => [i, value]);
     const maxValue = Math.max(PEAK_DRAW, ...history.supply, ...history.demand);
     // Process area data
-    const parsedApcs = flow([
-      map((apc, i) => ({
-        ...apc,
-        // Generate a unique id
-        id: apc.name + i,
-      })),
-      sortByField === 'name' && sortBy((apc) => apc.Name),
-      sortByField === 'charge' && sortBy((apc) => -apc.CellPct),
-      sortByField === 'draw' && sortBy((apc) => -apc.Load),
-    ])(apcs);
+    let parsedApcs: (APC & { id: string })[] = apcs.map((apc, i) => ({
+      ...apc,
+      // Generate a unique id
+      id: apc.Name + i,
+    }));
+
+    switch (sortByField) {
+      case 'name':
+        parsedApcs = sortBy(parsedApcs, (apc) => apc.Name);
+        break;
+      case 'charge':
+        parsedApcs = sortBy(parsedApcs, (apc) => -apc.CellPct);
+        break;
+      case 'draw':
+        parsedApcs = sortBy(parsedApcs, (apc) => -apc.Load);
+        break;
+    }
 
     body = (
       <>
@@ -132,38 +187,30 @@ const DataView = (props) => {
           <Box inline mr={2} color="label">
             Sort by:
           </Box>
-          <Button.Checkbox
-            checked={sortByField === 'name'}
-            content="Name"
-            onClick={() => setSortByField(sortByField !== 'name' && 'name')}
-          />
+          <Button.Checkbox checked={sortByField === 'name'} content="Name" onClick={() => setSortByField('name')} />
           <Button.Checkbox
             checked={sortByField === 'charge'}
             content="Charge"
-            onClick={() => setSortByField(sortByField !== 'charge' && 'charge')}
+            onClick={() => setSortByField('charge')}
           />
-          <Button.Checkbox
-            checked={sortByField === 'draw'}
-            content="Draw"
-            onClick={() => setSortByField(sortByField !== 'draw' && 'draw')}
-          />
+          <Button.Checkbox checked={sortByField === 'draw'} content="Draw" onClick={() => setSortByField('draw')} />
         </Box>
         <Table>
           <Table.Row header>
             <Table.Cell>Area</Table.Cell>
             <Table.Cell collapsing>Charge</Table.Cell>
             <Table.Cell textAlign="right">Draw</Table.Cell>
-            <Table.Cell collapsing title="Equipment">
-              Eqp
+            <Table.Cell collapsing>
+              <Tooltip content="Equipment">Eqp</Tooltip>
             </Table.Cell>
-            <Table.Cell collapsing title="Lighting">
-              Lgt
+            <Table.Cell collapsing>
+              <Tooltip content="Lighting">Lgt</Tooltip>
             </Table.Cell>
-            <Table.Cell collapsing title="Environment">
-              Env
+            <Table.Cell collapsing>
+              <Tooltip content="Environment">Env</Tooltip>
             </Table.Cell>
           </Table.Row>
-          {parsedApcs.map((area, i) => (
+          {map(parsedApcs, (area, i) => (
             <Table.Row key={area.id} className="Table__row candystripe">
               <Table.Cell>{decodeHtmlEntities(area.Name)}</Table.Cell>
               <Table.Cell className="Table__cell text-right text-nowrap">
@@ -200,17 +247,28 @@ const DataView = (props) => {
 
 const AreaCharge = (props) => {
   const { charging, charge } = props;
+  let icon_name = '';
+  switch (charge) {
+    case 'N':
+      if (charge > 50) icon_name = 'battery-half';
+      else icon_name = 'battery-quarter';
+      break;
+    case 'C':
+      icon_name = 'bolt';
+      break;
+    case 'F':
+      icon_name = 'battery-full';
+      break;
+    case 'M':
+      icon_name = 'slash';
+      break;
+  }
   return (
     <>
       <Icon
         width="18px"
         textAlign="center"
-        name={
-          (charging === 'N' && (charge > 50 ? 'battery-half' : 'battery-quarter')) ||
-          (charging === 'C' && 'bolt') ||
-          (charging === 'F' && 'battery-full') ||
-          (charging === 'M' && 'slash')
-        }
+        name={icon_name}
         color={
           (charging === 'N' && (charge > 50 ? 'yellow' : 'red')) ||
           (charging === 'C' && 'yellow') ||
@@ -248,5 +306,9 @@ const AreaStatusColorBox = (props) => {
       break;
   }
   const tooltipText = (active ? 'On' : 'Off') + ` [${auto ? 'auto' : 'manual'}]`;
-  return <ColorBox color={active ? 'good' : 'bad'} content={auto ? undefined : 'M'} title={tooltipText} />;
+  return (
+    <Tooltip content={tooltipText}>
+      <ColorBox color={active ? 'good' : 'bad'} content={auto ? undefined : 'M'} />
+    </Tooltip>
+  );
 };
