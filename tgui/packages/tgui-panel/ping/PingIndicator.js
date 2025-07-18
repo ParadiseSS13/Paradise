@@ -11,7 +11,7 @@ import { toFixed } from 'tgui-core/math';
 
 import { selectPing } from './selectors';
 
-export const PingIndicator = (props, context) => {
+export const PingIndicator = (props) => {
   const ping = useSelector(selectPing);
   const color = Color.lookup(ping.networkQuality, [
     new Color(220, 40, 40),

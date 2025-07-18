@@ -7,7 +7,6 @@ import { useBackend } from '../../backend';
  *
  * Also gives an option to log off (calls `login_logout` TGUI action)
  * @param {object} _properties
- * @param {object} context
  */
 export const LoginInfo = (_properties) => {
   const { act, data } = useBackend();

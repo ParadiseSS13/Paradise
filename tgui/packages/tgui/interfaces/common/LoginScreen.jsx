@@ -24,7 +24,6 @@ import { useBackend } from '../../backend';
  * The normal login button is only available when `loginState.id` is not null.
  * The AI, robot and admin login buttons are only visible if the user is one
  * @param {object} _properties
- * @param {object} context
  */
 export const LoginScreen = (_properties) => {
   const { act, data } = useBackend();

@@ -10,14 +10,14 @@ export const AugmentMenu = (props) => {
     <Window width={700} height={660} theme="malfunction">
       <Window.Content scrollable>
         <Stack vertical>
-          <Abilities context={context} />
+          <Abilities />
         </Stack>
       </Window.Content>
     </Window>
   );
 };
 
-const Abilities = ({ context }) => {
+const Abilities = () => {
   const { act, data } = useBackend();
   const { usable_swarms, ability_tabs, known_abilities } = data;
   const [selectedTab, setSelectedTab] = useState(ability_tabs[0]);

@@ -5,7 +5,7 @@ import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 
-export const ChemHeater = (_props, _context) => {
+export const ChemHeater = (_props) => {
   return (
     <Window width={350} height={275}>
       <Window.Content>
