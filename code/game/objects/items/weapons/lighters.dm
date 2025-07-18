@@ -6,7 +6,7 @@
 	lefthand_file = 'icons/mob/inhands/lighter_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lighter_righthand.dmi'
 	icon_state = "lighter-g"
-	item_state = "lighter-g"
+	inhand_icon_state = "lighter-g"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0
 	flags = CONDUCT
@@ -142,7 +142,7 @@
 	icon_state = "[base_icon_state ? "[base_icon_state]" : initial(icon_state)][lighter_color ? "-[lighter_color]" : ""][lit ? "-on" : ""]"
 
 /obj/item/lighter/update_overlays()
-	item_state = "[base_icon_state ? "[base_icon_state]" : initial(item_state)][lighter_color ? "-[lighter_color]" : ""][lit ? "-on" : ""]"
+	inhand_icon_state = "[base_icon_state ? "[base_icon_state]" : initial(inhand_icon_state)][lighter_color ? "-[lighter_color]" : ""][lit ? "-on" : ""]"
 
 /obj/item/lighter/get_heat()
 	return lit * 1500
@@ -153,7 +153,7 @@
 	name = "zippo lighter"
 	desc = "A premium cigarette lighter, for cool and distinguished individuals."
 	icon_state = "zippo"
-	item_state = "zippo"
+	inhand_icon_state = "zippo"
 	is_a_zippo = TRUE
 	throwforce = 4
 
@@ -218,19 +218,19 @@
 	name = "gold engraved zippo"
 	desc = "An engraved golden Zippo lighter with the letters \"NT\" engraved on the sides."
 	icon_state = "zippo-nt"
-	item_state = "zippo-gold"
+	inhand_icon_state = "zippo-gold"
 
 /obj/item/lighter/zippo/blue
 	name = "blue zippo lighter"
 	desc = "A zippo lighter made of some blue metal."
 	icon_state = "zippo-blue"
-	item_state = "zippo-blue"
+	inhand_icon_state = "zippo-blue"
 
 /obj/item/lighter/zippo/black
 	name = "black zippo lighter"
 	desc = "A black zippo lighter."
 	icon_state = "zippo-black"
-	item_state = "zippo-black"
+	inhand_icon_state = "zippo-black"
 
 /obj/item/lighter/zippo/engraved
 	name = "engraved zippo lighter"
@@ -241,7 +241,7 @@
 	name = "Gonzo Fist zippo"
 	desc = "A Zippo lighter with the iconic Gonzo Fist on a matte black finish."
 	icon_state = "zippo-gonzo"
-	item_state = "zippo-red"
+	inhand_icon_state = "zippo-red"
 
 // MARK: MATCHES
 
@@ -283,7 +283,7 @@
 		damtype = "fire"
 		force = 3
 		hitsound = 'sound/items/welder.ogg'
-		item_state = "cigon"
+		inhand_icon_state = "cigon"
 		name = "lit match"
 		desc = "A match. This one is lit."
 		attack_verb = list("burnt","singed")
@@ -298,7 +298,7 @@
 		damtype = "brute"
 		force = initial(force)
 		icon_state = "match_burnt"
-		item_state = "cigoff"
+		inhand_icon_state = "cigoff"
 		name = "burnt match"
 		desc = "A match. This one has seen better days."
 		attack_verb = list("flicked")

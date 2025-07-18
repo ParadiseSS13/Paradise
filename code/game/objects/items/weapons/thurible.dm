@@ -2,10 +2,9 @@
 	name = "thurible"
 	desc = "A religious artifact used to burn and spread incense when swung from the attached chain."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
+	icon_state = "thurible"
 	lefthand_file = 'icons/mob/inhands/religion_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/religion_righthand.dmi'
-	icon_state = "thurible"
-	item_state = "thurible"
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
@@ -46,10 +45,8 @@
 /obj/item/thurible/update_appearance()
 	if(lit)
 		icon_state = "thurible-lit"
-		item_state = "thurible-lit"
 	else
 		icon_state = "thurible"
-		item_state = "thurible"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.r_hand == src || H.l_hand == src)

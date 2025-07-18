@@ -3,7 +3,7 @@
 	name = "circuit board"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "id_mod"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	origin_tech = "programming=2"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_GLASS=200)

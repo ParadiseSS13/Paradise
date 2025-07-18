@@ -5,7 +5,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	flags = HEADBANGPROTECT
 	flags_cover = HEADCOVERSEYES
-	item_state = "helmetmaterials"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	flags_inv = HIDEEARS|HIDEEYES
 	cold_protection = HEAD
@@ -82,7 +81,6 @@
 	name = "bulletproof helmet"
 	desc = "A durable combat helmet reinforced with strike plates and cushioning to protect against high-velocity kinetic impacts and the concussive force of explosions. Does little to stop energy weapons or melee hits."
 	icon_state = "bulletproof"
-	item_state = "bulletproof"
 	armor = list(MELEE = 10, BULLET = 50, LASER = 5, ENERGY = 5, BOMB = 45, RAD = 0, FIRE = 50, ACID = 50)
 	dog_fashion = null
 
@@ -90,7 +88,7 @@
 	name = "riot helmet"
 	desc = "A large, bulky helmet reinforced with impact plates and shock-absorbing gel to protect against melee attacks. The helmet is treated with a fire and acid-resistant surface coating, and the attached plexiglass visor should prevent things from jumping on your face."
 	icon_state = "riot"
-	item_state = "helmet"
+	inhand_icon_state = "helmet"
 	armor = list(MELEE = 50, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 200, ACID = 200)
 	flags_inv = HIDEEARS
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
@@ -101,7 +99,6 @@
 	name = "medieval helmet"
 	desc = "A majestic knightly helm made of steel. Protects well against melee attacks, but don't try taking a bullet with it."
 	icon_state = "knight_green"
-	item_state = "knight_green"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	dog_fashion = null
@@ -130,11 +127,9 @@
 	name = "\improper SWAT helmet"
 	desc = "A menacing black combat helmet used by police assault units. Provides moderate protection against all threats."
 	icon_state = "swat"
-	item_state = "swat"
-
+	inhand_icon_state = "swat_hel"
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, RAD = 10, FIRE = 50, ACID = 50)
 	flags = BLOCKHAIR
-
 	flags_inv = HIDEEARS|HIDEEYES
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -147,15 +142,14 @@
 	name = "blood-red helmet"
 	desc = "An extremely robust, space-worthy helmet without a visor to allow for goggle usage underneath. Property of Gorlex Marauders."
 	icon_state = "helmetsyndi"
-	item_state = "helmet"
+	inhand_icon_state = "helmet"
 
 /obj/item/clothing/head/helmet/thunderdome
 	name = "\improper Thunderdome helmet"
 	desc = "<i>'Let the battle commence!'</i>"
 	icon_state = "thunderdome"
-	flags = null
-	item_state = "thunderdome"
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
+	flags = null
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -171,7 +165,6 @@
 	armor = list(MELEE = 15, BULLET = 0, LASER = 15, ENERGY = 5, BOMB = 5, RAD = 0, FIRE = INFINITY, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	icon_state = "roman"
-	item_state = "roman"
 	strip_delay = 100
 	dog_fashion = /datum/dog_fashion/head/roman
 
@@ -183,7 +176,6 @@
 	name = "centurion helmet"
 	desc = "A lovingly-crafted helmet based off those used by Roman centurions. Provides light protection against melee and laser impacts, is completely fireproof, and has a fancy crest on top!"
 	icon_state = "roman_c"
-	item_state = "roman_c"
 
 /obj/item/clothing/head/helmet/roman/legionaire/fake
 	desc = "A shoddily-crafted cosplay helmet made of plastic. This particular specimen has what appears to be the head of a broom crudely taped to the top."
@@ -194,7 +186,6 @@
 	desc = "Ave, Imperator, morituri te salutant."
 	icon_state = "gladiator"
 	flags = BLOCKHAIR
-	item_state = "gladiator"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	toggle_message = "You attach the face shield to the"
 	alt_toggle_message = "You remove the face shield from the"
@@ -209,7 +200,6 @@
 	desc = "They have chosen their own end."
 	icon_state = "redtaghelm"
 	flags = null
-	item_state = "redtaghelm"
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 0, ACID = 50)
 	// Offer about the same protection as a hardhat.
 	flags_inv = HIDEEARS|HIDEEYES
@@ -220,7 +210,6 @@
 	desc = "They'll need more men."
 	icon_state = "bluetaghelm"
 	flags = null
-	item_state = "bluetaghelm"
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 0, ACID = 50)
 	// Offer about the same protection as a hardhat.
 	flags_inv = HIDEEARS|HIDEEYES
@@ -230,31 +219,23 @@
 	name = "blob hat"
 	desc = "A collectable hat handed out at the latest Blob Family Reunion."
 	icon_state = "blobhat"
-	item_state = "blobhat"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/helmet.dmi')
 
 /obj/item/clothing/head/helmet/riot/knight/blue
 	icon_state = "knight_blue"
-	item_state = "knight_blue"
 
 /obj/item/clothing/head/helmet/riot/knight/yellow
 	icon_state = "knight_yellow"
-	item_state = "knight_yellow"
 
 /obj/item/clothing/head/helmet/riot/knight/red
 	icon_state = "knight_red"
-	item_state = "knight_red"
 
 /obj/item/clothing/head/helmet/riot/knight/templar
 	name = "crusader helmet"
 	desc = "A cheap metal helmet that looks straight out of a poorly-funded documentary about the crusades. Might stop a crude melee weapon. The asbestos-lined padding <b>does</b> provide great protection from fire and acid, however..."
 	icon_state = "knight_templar"
-	item_state = "knight_templar"
 	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, RAD = 0, FIRE = 200, ACID = 200)
 
 /obj/item/clothing/head/helmet/skull
@@ -264,17 +245,13 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	icon_state = "skull"
-	item_state = "skull"
 	strip_delay = 100
-	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
-	)
+	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"
 	desc = "A helmet made from durathread and leather."
 	icon_state = "durathread"
-	item_state = "durathread"
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 35, ACID = 50)
 	strip_delay = 60
@@ -317,7 +294,6 @@
 	name = "paranormal emergency response team helmet"
 	desc = "An antique steel helmet that looks straight out of a poorly-funded documentary about the Crusades. Where the hell did they even find this?"
 	icon_state = "knight_templar"
-	item_state = "knight_templar"
 
 //Engineer
 /obj/item/clothing/head/helmet/ert/engineer
@@ -342,7 +318,6 @@
 	name = "\improper Federation marine combat helmet"
 	desc = "A powered combat helmet used by the Trans-Solar Marine Corps. Provides excellent protection in all areas, while a modern OCULUS array augments the wearer's vision."
 	icon_state = "fedhelmet_marine"
-	item_state = "fedhelmet_marine"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
@@ -365,7 +340,6 @@
 	name = "\improper Federation marine combat helmet (E)"
 	desc = "An export-grade combat helmet commonly given or sold to allies of the Trans-Solar Federation. The OCULUS system has been removed, and its protection is generally inferior to its in-service counterpart."
 	icon_state = "fedhelmet_marine"
-	item_state = "fedhelmet_marine"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
@@ -388,7 +362,6 @@
 	name = "\improper Federation marine officer's combat helmet"
 	desc = "A powered combat helmet used by officers of the Trans-Solar Marine Corps. Provides excellent protection in all areas, while a next-gen OCULUS array augments the wearer's vision."
 	icon_state = "fedhelmet_marine_officer"
-	item_state = "fedhelmet_marine_officer"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',

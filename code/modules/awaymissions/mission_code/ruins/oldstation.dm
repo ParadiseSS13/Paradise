@@ -66,13 +66,9 @@
 /obj/item/clothing/head/helmet/space/void/old
 	name = "Antique Engineering Void Helmet"
 	desc = "An old helmet meant for EVA engineering work. Any insignia it had has long since worn away. While old and dusty, it still gets the job done."
-	icon_state = "void-red"
-	item_state = "void"
 
 /obj/item/clothing/suit/space/void/old
 	name = "Antique Engineering Void Suit"
-	icon_state = "void-red"
-	item_state = "void"
 	desc = "An old softsuit meant for engineering work. Any insignia it had has long since worn away. Age has degraded the suit making it difficult to move around in."
 	slowdown = 4
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
@@ -85,13 +81,10 @@
 /obj/item/clothing/suit/armor/vest/old
 	name = "degrading armor vest"
 	desc = "Older generation Type 1 armored vest. Due to degradation over time the vest is far less maneuverable to move in."
-	icon_state = "armor"
-	item_state = "armor"
 	slowdown = 1
 
 /obj/item/gun/energy/laser/retro/old
 	name = "degrading L-1 laser gun"
-	icon_state = "retro"
 	desc = "A first-generation lasergun developed by Maiman Photonics. It has a unique rechargable internal cell that cannot be removed. \
 	Due to degredation over time, the battery cannot hold as much charge as it used to. You really hope someone has developed a better laser gun while you were in cryo."
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/old)
@@ -198,7 +191,6 @@
 	name = "prototype RIG hardsuit helmet"
 	desc = "Early prototype RIG hardsuit helmet, designed to quickly shift over a user's head. Design constraints of the helmet mean it has no inbuilt cameras, thus it restricts the users visability."
 	icon_state = "hardsuit0-ancient"
-	item_state = "anc_helm"
 	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	item_color = "ancient"
 	resistance_flags = FIRE_PROOF
@@ -209,7 +201,6 @@
 	name = "prototype RIG hardsuit"
 	desc = "Prototype powered RIG hardsuit. Provides excellent protection from the elements of space while being comfortable to move around in, thanks to the powered locomotives. Remains very bulky however."
 	icon_state = "hardsuit-ancient"
-	item_state = "anc_hardsuit"
 	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	slowdown = 3
 	resistance_flags = FIRE_PROOF

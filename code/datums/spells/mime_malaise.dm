@@ -16,7 +16,6 @@
 	catchphrase = null
 	on_use_sound = null
 	icon_state = "fleshtostone"
-	item_state = "fleshtostone"
 
 /obj/item/melee/touch_attack/mime_malaise/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()

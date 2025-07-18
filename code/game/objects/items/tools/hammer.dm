@@ -3,7 +3,6 @@
 	desc = "A useful tool to many throughout history. Slightly better than a weighted rock."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "hammer"
-	item_state = "hammer"
 	belt_icon = "hammer"
 	usesound = 'sound/magic/fellowship_armory.ogg'
 	flags = CONDUCT

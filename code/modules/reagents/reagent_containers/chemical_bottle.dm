@@ -6,11 +6,8 @@
 	desc = "A small bottle."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle"
-	item_state = "atoxinbottle"
-	amount_per_transfer_from_this = 10
+	inhand_icon_state = "bottle"
 	possible_transfer_amounts = list(5, 10, 15, 25, 30, 40, 50)
-	container_type = OPENCONTAINER
-	volume = 50
 
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)

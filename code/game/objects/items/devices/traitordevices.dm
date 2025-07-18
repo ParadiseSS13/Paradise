@@ -3,7 +3,7 @@
 	desc = "Fog of war that fits your pocket. Flicking the switch and extending the antenna will scramble nearby radio comms, making outgoing messages hard to understand."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
-	item_state = "jammer"
+	inhand_icon_state = "jammer"
 	w_class = WEIGHT_CLASS_TINY
 	actions_types = list(/datum/action/item_action/toggle_radio_jammer)
 	new_attack_chain = TRUE
@@ -37,12 +37,12 @@
 	desc = "A strange syndicate version of a cult veil shifter. Warranty voided if exposed to EMP."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-tele-4"
+	inhand_icon_state = "electronic"
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 4
 	throw_range = 10
 	flags = CONDUCT
-	item_state = "electronic"
 	origin_tech = "magnets=3;combat=3;syndicate=3"
 	new_attack_chain = TRUE
 	var/list/icons_charges = list(
@@ -343,12 +343,12 @@
 	desc = "A dangerous syndicate device focused on crowd control and escapes. Causes brain damage, confusion, and other nasty effects to those surrounding the user."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "batterer"
+	inhand_icon_state = "electronic"
 	throwforce = 5
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 10
 	flags = CONDUCT
-	item_state = "electronic"
 	origin_tech = "magnets=3;combat=3;syndicate=3"
 	new_attack_chain = TRUE
 
@@ -495,12 +495,12 @@
 	desc = "The Syndicate seem to have modified this T-ray scanner for a more nefarious purpose, allowing it to detect all loyal Nanotrasen crew."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-scanner"
+	inhand_icon_state = "electronic"
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 4
 	throw_range = 10
 	flags = CONDUCT
-	item_state = "electronic"
 	new_attack_chain = TRUE
 	/// Split points for range_messages.
 	var/list/ranges = list(5, 15, 30)

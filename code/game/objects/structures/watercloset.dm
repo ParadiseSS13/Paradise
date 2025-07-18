@@ -506,7 +506,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/shower, 16, -5, 0, 0)
 	desc = "Rubber ducky you're so fine, you make bathtime lots of fuuun. Rubber ducky I'm awfully fooooond of yooooouuuu~"	//thanks doohl
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "rubberducky"
-	item_state = "rubberducky"
+	inhand_icon_state = "rubberducky"
 	honk_sounds = list('sound/items/squeaktoy.ogg')
 	attack_verb = list("quacked", "squeaked")
 
@@ -690,7 +690,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/sink/kitchen/old, 18, -4, 0, 0
 	desc = "A self-adhering shower fixture. Simply stick to a wall, no plumber needed!"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "shower"
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 
 /obj/item/mounted/shower/try_build(turf/on_wall, mob/user, proximity_flag)
 	//overriding this because we don't care about other items on the wall, but still need to do adjacent checks

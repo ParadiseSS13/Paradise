@@ -3,8 +3,7 @@
 	desc = "It's a baseball hat in a tasteless grey colour."
 	icon = 'icons/obj/clothing/head/softcap.dmi'
 	icon_state = "greysoft"
-	item_state = 'icons/mob/clothing/head/softcap.dmi'
-	icon_override = 'icons/mob/clothing/head/softcap.dmi'
+	worn_icon = 'icons/mob/clothing/head/softcap.dmi'
 	item_color = "grey"
 	var/flipped = FALSE
 	actions_types = list(/datum/action/item_action/flip_cap)

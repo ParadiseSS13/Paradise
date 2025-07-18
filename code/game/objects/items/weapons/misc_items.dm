@@ -27,7 +27,7 @@
 	name = "cane"
 	desc = "A cane used by a true gentlemen. Or a clown."
 	icon_state = "cane"
-	item_state = "stick"
+	inhand_icon_state = "stick"
 	flags = CONDUCT
 	force = 5.0
 	throwforce = 7.0
@@ -139,10 +139,10 @@
 	desc = "A wrapped item."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "gift3"
+	inhand_icon_state = "gift"
+	w_class = WEIGHT_CLASS_BULKY
 	var/size = 3.0
 	var/obj/item/gift = null
-	item_state = "gift"
-	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/gift/emp_act(severity)
 	..()

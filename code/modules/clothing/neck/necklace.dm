@@ -2,7 +2,6 @@
 	name = "necklace"
 	desc = "A simple necklace."
 	icon_state = "necklace"
-	item_state = "necklace"
 	item_color = "necklace"
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -10,26 +9,23 @@
 	name = "large necklace"
 	desc = "A large necklace."
 	icon_state = "necklacelong"
-	item_state = "necklacelong"
 	item_color = "necklacelong"
 
 /obj/item/clothing/neck/necklace/dope
 	name = "gold necklace"
 	desc = "Damn, it feels good to be a gangster."
 	icon_state = "bling"
-	item_state = "bling"
 	item_color = "bling"
 
 /obj/item/clothing/neck/necklace/locket
 	name = "gold locket"
 	desc = "A gold locket that seems to have space for a photo within."
 	icon_state = "locketgold"
-	item_state = "locketgold"
 	item_color = "locketgold"
 	var/base_icon
 	var/open
 	/// Item inside locket.
-	var/obj/item/held 
+	var/obj/item/held
 
 /obj/item/clothing/neck/necklace/locket/Destroy()
 	QDEL_NULL(held)
@@ -75,5 +71,4 @@
 	name = "silver locket"
 	desc = "A silver locket that seems to have space for a photo within."
 	icon_state = "locketsilver"
-	item_state = "locketsilver"
 	item_color = "locketsilver"

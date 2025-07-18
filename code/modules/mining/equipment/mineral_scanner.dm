@@ -1,10 +1,10 @@
 /**********************Mining Scanner**********************/
 /obj/item/mining_scanner
-	desc = "A scanner that checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear material scanners for optimal results."
 	name = "manual mining scanner"
+	desc = "A scanner that checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear material scanners for optimal results."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "mining1"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
@@ -20,7 +20,6 @@
 		current_cooldown = world.time + cooldown
 		mineral_scan_pulse(get_turf(user))
 
-
 //Debug item to identify all ore spread quickly
 /obj/item/mining_scanner/admin
 
@@ -31,10 +30,10 @@
 	qdel(src)
 
 /obj/item/t_scanner/adv_mining_scanner
-	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. This one has an extended range."
 	name = "advanced automatic mining scanner"
+	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. This one has an extended range."
 	icon_state = "mining0"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT

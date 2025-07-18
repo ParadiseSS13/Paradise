@@ -15,11 +15,10 @@
 	reagents_add = list("banana" = 0.1, "potassium" = 0.1, "vitamin" = 0.04, "plantmatter" = 0.02)
 
 /obj/item/food/grown/banana
-	seed = /obj/item/seeds/banana
 	name = "banana"
 	desc = "It's an excellent prop for a clown."
 	icon_state = "banana"
-	item_state = "banana"
+	seed = /obj/item/seeds/banana
 	trash = /obj/item/grown/bananapeel
 	filling_color = "#FFFF00"
 	bitesize = 5
@@ -44,11 +43,11 @@
 	return OXYLOSS
 
 /obj/item/grown/bananapeel
-	seed = /obj/item/seeds/banana
 	name = "banana peel"
 	desc = "A peel from a banana."
 	icon_state = "banana_peel"
-	item_state = "banana_peel"
+	inhand_icon_state = "banana_peel"
+	seed = /obj/item/seeds/banana
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0
 	throw_speed = 3

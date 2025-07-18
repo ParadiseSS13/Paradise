@@ -1,7 +1,7 @@
 /obj/item/robot_parts
 	name = "robot parts"
 	icon = 'icons/obj/robot_parts.dmi'
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	var/list/part = null

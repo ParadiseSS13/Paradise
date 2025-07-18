@@ -5,11 +5,9 @@
 	name = "hypospray"
 	desc = "The DeForest Medical Corporation hypospray is a sterile, air-needle autoinjector for rapid administration of drugs to patients."
 	icon = 'icons/obj/hypo.dmi'
-	item_state = "hypo"
 	icon_state = "hypo"
+	inhand_icon_state = "hypo"
 	belt_icon = "hypospray"
-	amount_per_transfer_from_this = 5
-	volume = 30
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
@@ -182,7 +180,7 @@
 	name = "empty autoinjector"
 	desc = "A rapid and safe way to inject chemicals into humanoids. This one is empty."
 	icon_state = "autoinjector"
-	item_state = "autoinjector"
+	inhand_icon_state = "autoinjector"
 	belt_icon = "autoinjector"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
@@ -191,7 +189,6 @@
 	ignore_hypospray_immunity = TRUE
 	penetrate_everything = TRUE // Autoinjectors bypass everything.
 	container_type = DRAWABLE
-	flags = null
 
 /obj/item/reagent_containers/hypospray/autoinjector/mob_act(mob/target, mob/living/user)
 	if(!reagents.total_volume)

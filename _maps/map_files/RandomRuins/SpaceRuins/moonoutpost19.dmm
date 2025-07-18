@@ -2017,8 +2017,8 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/moonbase19)
@@ -5089,8 +5089,8 @@
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -5235,8 +5235,8 @@
 /obj/structure/alien/weeds/node,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
@@ -5682,8 +5682,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
@@ -5719,8 +5719,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -7871,13 +7871,13 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 8
@@ -8150,8 +8150,8 @@
 /obj/effect/decal/cleanable/greenglow,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
@@ -9325,8 +9325,8 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
@@ -9352,8 +9352,8 @@
 	},
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)

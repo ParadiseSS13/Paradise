@@ -14,7 +14,7 @@
 	name = "pen"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
-	item_state = "pen"
+	inhand_icon_state = "pen"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_EARS
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
@@ -207,6 +207,7 @@
 // E-DAGGER
 
 /obj/item/pen/edagger
+	inhand_icon_state = null
 	origin_tech = "combat=3;syndicate=1"
 	var/active = FALSE
 	var/brightness_on = 2
@@ -301,10 +302,8 @@
 /obj/item/pen/edagger/update_icon_state()
 	if(active)
 		icon_state = "edagger"
-		item_state = "edagger"
 	else
 		icon_state = initial(icon_state) //looks like a normal pen when off.
-		item_state = initial(item_state)
 
 /obj/item/proc/on_write(obj/item/paper/P, mob/user)
 	return

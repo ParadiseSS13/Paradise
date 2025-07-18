@@ -2,7 +2,6 @@
 	name = "power-fist"
 	desc = "A metal gauntlet with a piston-powered ram ontop for that extra 'ompfh' in your punch."
 	icon_state = "powerfist"
-	item_state = "powerfist"
 	flags = CONDUCT
 	attack_verb = list("whacked", "fisted", "power-punched")
 	force = 12
@@ -16,7 +15,6 @@
 	var/fisto_setting = 1
 	/// Base pressure in kpa used by the powerfist per hit
 	var/gasperfist = 17.5
-
 	var/obj/item/tank/internals/tank = null //Tank used for the gauntlet's piston-ram.
 
 /obj/item/melee/powerfist/Destroy()

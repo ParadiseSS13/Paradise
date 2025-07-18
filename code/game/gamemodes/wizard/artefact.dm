@@ -77,10 +77,11 @@
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast city."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
-	item_state = "render"
+	inhand_icon_state = "knife"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	force = 15
 	throwforce = 10
-	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/charged = 1
 	var/spawn_type = /obj/singularity/narsie/wizard
@@ -95,7 +96,6 @@
 		user.visible_message("<span class='userdanger'>[src] hums with power as [user] deals a blow to [activate_descriptor] itself!</span>")
 	else
 		to_chat(user, "<span class='danger'>The unearthly energies that powered the blade are now dormant.</span>")
-
 
 /obj/effect/rend
 	name = "tear in the fabric of reality"
@@ -153,7 +153,6 @@
 	activate_descriptor = "depression"
 	rend_desc = "Gently wafting with the sounds of endless laughter."
 	icon_state = "clownrender"
-
 
 /obj/item/veilrender/crabrender
 	name = "crab render"
@@ -255,10 +254,9 @@ GLOBAL_LIST_EMPTY(multiverse)
 	name = "multiverse sword"
 	desc = "A weapon capable of conquering the universe and beyond. Activate it to summon copies of yourself from others dimensions to fight by your side."
 	icon = 'icons/obj/weapons/energy_melee.dmi'
+	icon_state = "energy_katana"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon_state = "energy_katana"
-	item_state = "energy_katana"
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
@@ -643,12 +641,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 	desc = "A fishing pike that appears to be imbued with a peculiar energy."
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "harpoon"
-	item_state = "harpoon"
 	cooldown_between_uses = 200 //Half the time
 	probability_evil = 100
 	duplicate_self = 1
 	sword_type = /obj/item/multisword/pike
-
 
 /////////////////////////////////////////Necromantic Stone///////////////////
 
@@ -657,7 +653,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 	desc = "A shard capable of resurrecting humans as skeleton thralls."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "necrostone"
-	item_state = "electronic"
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	origin_tech = "bluespace=4;materials=4"
 	w_class = WEIGHT_CLASS_TINY
 	///List of mobs transformed into skeletons by the stone
@@ -837,7 +834,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 	desc = "A shard capable of resurrecting humans as creatures of Vile Heresy. Even the Wizard Federation fears it.."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "nyacrostone"
-	item_state = "electronic"
 	origin_tech = "bluespace=4;materials=4"
 	heresy = TRUE
 	unlimited = TRUE
@@ -915,7 +911,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 	name = "Oblivion Enforcer's robes"
 	desc = "A set of armored, radiation-proof robes worn by Oblivion Enforcers."
 	icon_state = "oblivionarmor"
-	item_state = "oblivionarmor"
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	hoodtype = /obj/item/clothing/head/hooded/oblivion
 	allowed = list(/obj/item/supermatter_halberd, /obj/item/nuke_core/supermatter_sliver)
@@ -942,7 +937,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 	name = "Oblivion Enforcer's mask"
 	desc = "The mask of an Oblivion Enforcer. Don't forget to turn it on before giving your one-liners!"
 	icon_state = "oblivionmask"
-	item_state = "oblivionmask"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/mask.dmi',

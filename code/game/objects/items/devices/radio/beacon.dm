@@ -3,7 +3,7 @@
 	desc = "A beacon used by a teleporter."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
-	item_state = "signaler"
+	inhand_icon_state = "signaler"
 	origin_tech = "bluespace=1"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT

@@ -13,11 +13,9 @@
 	name = "\improper Corporate Judo Belt"
 	desc = "Teaches the wearer NT Corporate Judo."
 	icon = 'icons/obj/clothing/belts.dmi'
-	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
-	icon_state = "judobelt"
-	item_state = "judo"
+	icon_state = "judo"
 	w_class = WEIGHT_CLASS_BULKY
+	layer_over_suit = TRUE
 	storage_slots = 3
 	max_combined_w_class = 7
 	var/datum/martial_art/judo/style

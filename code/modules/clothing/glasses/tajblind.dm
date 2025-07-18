@@ -7,13 +7,12 @@
 	desc = "A sleek, high-tech Tajaran veil, adapted from ancient designs and important to their culture and spirituality.<br>\
 			<span class='notice'>Can switch between three modes: Sight-blocking veiled mode, transparent natural sight mode and colorblindness correction mode.</span>"
 	icon_state = "tajblind"
-	item_state = "tajblind"
+	inhand_icon_state = "blindfold"
 	actions_types = list(/datum/action/item_action/toggle)
 	color_view = MATRIX_STANDARD
 	correct_wires = TRUE
 	var/list/modes = list(MODE_OFF = MODE_NATURAL, MODE_NATURAL = MODE_CORRECTION, MODE_CORRECTION = MODE_OFF)
 	var/selected_mode = MODE_CORRECTION
-
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
@@ -58,7 +57,6 @@
 /obj/item/clothing/glasses/hud/tajblind/meson
 	name = "\improper Tajaran engineering meson veil"
 	icon_state = "tajblind_engi"
-	item_state = "tajblind_engi"
 
 /obj/item/clothing/glasses/hud/tajblind/meson/Initialize(mapload)
 	. = ..()
@@ -77,12 +75,10 @@
 /obj/item/clothing/glasses/hud/tajblind/meson/cargo
 	name = "\improper Tajaran mining meson veil"
 	icon_state = "tajblind_cargo"
-	item_state = "tajblind_cargo"
 
 /obj/item/clothing/glasses/hud/tajblind/sci
 	name = "\improper Tajaran scientific veil"
 	icon_state = "tajblind_sci"
-	item_state = "tajblind_sci"
 	scan_reagents = 1
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/toggle_research_scanner)
 
@@ -97,7 +93,6 @@
 /obj/item/clothing/glasses/hud/tajblind/med
 	name = "\improper Tajaran medical veil"
 	icon_state = "tajblind_med"
-	item_state = "tajblind_med"
 	hud_types = DATA_HUD_MEDICAL_ADVANCED
 
 /obj/item/clothing/glasses/hud/tajblind/med/Initialize(mapload)
@@ -107,7 +102,6 @@
 /obj/item/clothing/glasses/hud/tajblind/sec
 	name = "\improper Tajaran security veil"
 	icon_state = "tajblind_sec"
-	item_state = "tajblind_sec"
 	hud_types = DATA_HUD_SECURITY_ADVANCED
 
 /obj/item/clothing/glasses/hud/tajblind/sec/Initialize(mapload)
@@ -126,7 +120,6 @@
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson
 	name = "shaded Tajaran engineering meson veil"
 	icon_state = "tajblind_engi"
-	item_state = "tajblind_engi"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/Initialize(mapload)
 	. = ..()
@@ -142,16 +135,13 @@
 	if(user)
 		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
-
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/cargo
 	name = "shaded Tajaran mining meson veil"
 	icon_state = "tajblind_cargo"
-	item_state = "tajblind_cargo"
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sci
 	name = "shaded Tajaran scientific veil"
 	icon_state = "tajblind_sci"
-	item_state = "tajblind_sci"
 	scan_reagents = 1
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/toggle_research_scanner)
 
@@ -166,7 +156,6 @@
 /obj/item/clothing/glasses/hud/tajblind/shaded/med
 	name = "shaded Tajaran medical veil"
 	icon_state = "tajblind_med"
-	item_state = "tajblind_med"
 	hud_types = DATA_HUD_MEDICAL_ADVANCED
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/med/Initialize(mapload)
@@ -176,7 +165,6 @@
 /obj/item/clothing/glasses/hud/tajblind/shaded/sec
 	name = "shaded Tajaran security veil"
 	icon_state = "tajblind_sec"
-	item_state = "tajblind_sec"
 	see_in_dark = 1
 	hud_types = DATA_HUD_SECURITY_ADVANCED
 

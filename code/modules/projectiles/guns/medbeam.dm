@@ -3,9 +3,8 @@
 	desc = "Delivers volatile medical nanites in a focused beam. Don't cross the beams!"
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
-	item_state = "chronogun"
-	w_class = WEIGHT_CLASS_NORMAL
-
+	worn_icon_state = null
+	inhand_icon_state = null
 	var/mob/living/current_target
 	var/last_check = 0
 	var/check_delay = 10 //Check los as often as possible, max resolution is SSobj tick though

@@ -1,7 +1,7 @@
 /obj/item/mounted/frame/display
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
-	item_state = "syringe_kit"
+	inhand_icon_state = "syringe_kit"
 	materials = list(MAT_METAL=6000, MAT_GLASS=2000)
 	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
 	metal_sheets_refunded = 3

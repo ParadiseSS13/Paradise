@@ -15,7 +15,6 @@
 	desc = "A powerful blade made of darkened metal. An aura of barely-perceptible red light seems to surround it."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "blood_blade"
-	item_state = "blood_blade"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 30
 	throwforce = 10
@@ -28,7 +27,6 @@
 /obj/item/melee/cultblade/Initialize(mapload)
 	. = ..()
 	icon_state = GET_CULT_DATA(sword_icon, "blood_blade")
-	item_state = GET_CULT_DATA(sword_icon, "blood_blade")
 
 /obj/item/melee/cultblade/examine(mob/user)
 	. = ..()
@@ -76,7 +74,6 @@
 	name = "runed bola"
 	desc = "A bola, crafted of dark metal and sinuous cords. The inscriptions covering the weights prevent it from striking the Faithful."
 	icon_state = "bola_cult"
-	item_state = "bola_cult"
 	breakouttime = 45
 	knockdown_duration = 2 SECONDS
 
@@ -107,14 +104,11 @@
 
 /obj/item/clothing/head/hooded/culthood/alt
 	icon_state = "cult_hoodalt"
-	item_state = "cult_hoodalt"
-
 
 /obj/item/clothing/suit/hooded/cultrobes
 	name = "cult robes"
 	desc = "A set of armored robes worn by the followers of a cult."
 	icon_state = "cultrobes"
-	item_state = "cultrobes"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/culthood
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
@@ -124,14 +118,12 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/alt
 	icon_state = "cultrobesalt"
-	item_state = "cultrobesalt"
 	hoodtype = /obj/item/clothing/head/hooded/culthood/alt
 
 /obj/item/clothing/head/helmet/space/cult
 	name = "cult helmet"
 	desc = "A space worthy helmet used by the followers of a cult."
 	icon_state = "cult_helmet"
-	item_state = "cult_helmet"
 	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 35, ACID = 150)
 	magical = TRUE
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
@@ -139,7 +131,6 @@
 /obj/item/clothing/suit/space/cult
 	name = "cult armor"
 	icon_state = "cult_armour"
-	item_state = "cult_armour"
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
@@ -152,7 +143,6 @@
 	name = "empowered cultist robes"
 	desc = "An imposing set of armored robes, heavily reinforced with dark metal. Strange sigils and glyphs cover the suit, crackling with unholy power."
 	icon_state = "cult_armour"
-	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 20, BOMB = 50, RAD = 20, FIRE = 50, ACID = 75)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -194,7 +184,6 @@
 	name = "flagellant's robes"
 	desc = "A set of blood-soaked robes inscribed with unholy sigils. Wearing them greatly increases movement speed, but the cursed fabrics will take an additional tithe when the wearer is hit."
 	icon_state = "flagellantrobe"
-	item_state = "flagellantrobe"
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -227,7 +216,6 @@
 	name = "flagellant's robes"
 	desc = "A blood-soaked hood inscribed with unholy sigils. The interior is covered in small barbs, reminding you of your duty."
 	icon_state = "flagellanthood"
-	item_state = "flagellanthood"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
@@ -267,7 +255,6 @@
 	name = "zealot's blindfold"
 	desc = "A thick blindfold made of dark cloth. The runes and sigils sewn into the fabric amplify the vision of the faithful."
 	icon_state = "blindfold"
-	item_state = "blindfold"
 	see_in_dark = 8
 	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
 	flash_protect = FLASH_PROTECTION_FLASH
@@ -401,7 +388,6 @@
 	name = "ghostly cult robes"
 	desc = "A set of ethereal armored robes worn by the undead followers of a cult."
 	icon_state = "cultrobesalt"
-	item_state = "cultrobesalt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(MELEE = 50, BULLET = 20, LASER = 50, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
@@ -431,7 +417,6 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "mirror_shield"
-	item_state = "mirror_shield"
 	force = 5
 	throwforce = 15
 	throw_speed = 1
@@ -671,10 +656,7 @@
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood
 	name = "blood bolt barrage"
 	desc = "A crackling orb of blood-red energy, straining for the chance to kill. Simply point at the target, and let it loose."
-	item_state = "disintegrate"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	color = "#ff0000"
+	color = COLOR_RED
 	guns_left = 24
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	fire_sound = 'sound/magic/wand_teleport.ogg'
@@ -684,7 +666,6 @@
 	if(user.holy_check())
 		return
 	..()
-
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood
@@ -720,7 +701,6 @@
 	desc = "A solid orb of crystalized blood, likely taken unwillingly. The orb can be used to transfer vitae between the faithful."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "summoning_orb"
-	item_state = "summoning_orb"
 	var/blood = 50
 
 /obj/item/portal_amulet

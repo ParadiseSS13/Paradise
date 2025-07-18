@@ -3,8 +3,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 /obj/item/assembly/signaler
 	name = "remote signaling device"
 	desc = "Used to remotely activate devices. Allows for syncing when using a signaler on another."
-	icon_state = "signaller"
-	item_state = "signaler"
+	icon_state = "signaler"
 	materials = list(MAT_METAL = 400, MAT_GLASS = 120)
 	origin_tech = "magnets=1;bluespace=1"
 	wires = ASSEMBLY_WIRE_RECEIVE | ASSEMBLY_WIRE_PULSE | ASSEMBLY_WIRE_RADIO_PULSE | ASSEMBLY_WIRE_RADIO_RECEIVE

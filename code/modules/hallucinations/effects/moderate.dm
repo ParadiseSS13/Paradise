@@ -62,7 +62,7 @@
 		"\improper C4" = list('icons/obj/grenade.dmi', "plastic-explosive0"),
 		"\improper L6 SAW" = list('icons/obj/guns/projectile.dmi', "l6closed100"),
 		"chainsaw" = list('icons/obj/weapons/melee.dmi', "chainsaw0"),
-		"combat shotgun" = list('icons/obj/guns/projectile.dmi', "cshotgun"),
+		"combat shotgun" = list('icons/obj/guns/projectile.dmi', "shotgun_combat"),
 		"double-bladed energy sword" = list('icons/obj/weapons/energy_melee.dmi', "dualsaberred1"),
 		"energy sword" = list('icons/obj/weapons/energy_melee.dmi', "swordred"),
 		"fireaxe" = list('icons/obj/weapons/melee.dmi', "fireaxe1"),

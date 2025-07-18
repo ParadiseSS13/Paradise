@@ -173,7 +173,6 @@
 	name = "Krav Maga gloves"
 	desc = "These gloves can teach you to perform Krav Maga using nanochips for as long as you're wearing them."
 	icon_state = "fightgloves"
-	item_state = "fightgloves"
 	dyeable = FALSE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
@@ -199,7 +198,7 @@
 	name = "Combat gloves plus"
 	desc = "These combat gloves have been upgraded with nanochips that teach the wearer Krav Maga."
 	icon_state = "combat"
-	item_state = "swat_gl"
+	inhand_icon_state = "swat_gl"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	strip_delay = 8 SECONDS

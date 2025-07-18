@@ -118,9 +118,9 @@
 	desc = "A box of ammo?"
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "10mmbox" // placeholder icon
+	inhand_icon_state = "syringe_kit"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	item_state = "syringe_kit"
 	materials = list(MAT_METAL = 30000)
 	throwforce = 2
 	w_class = WEIGHT_CLASS_TINY

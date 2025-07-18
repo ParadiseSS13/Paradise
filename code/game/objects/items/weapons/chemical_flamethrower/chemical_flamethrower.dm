@@ -49,7 +49,6 @@
 
 /obj/item/chemical_flamethrower/update_icon_state()
 	icon_state = "chem_flame[max_canisters == 2 ? "_2" : ""][syndicate ? "_s" : ""]"
-	item_state = icon_state
 
 /obj/item/chemical_flamethrower/update_overlays()
 	. = ..()

@@ -3,14 +3,12 @@
 	name = "emergency response team helmet"
 	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility."
 	icon_state = "hardsuit0-ert_commander"
-	item_state = "helm-command"
 	item_color = "ert_commander"
 	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	resistance_flags = FIRE_PROOF
 	var/obj/machinery/camera/portable/camera
 	var/has_camera = TRUE
 	strip_delay = 130
-
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
@@ -19,7 +17,7 @@
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
-		)
+	)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize(mapload)
 	if(loc)
@@ -55,7 +53,7 @@
 	name = "emergency response team suit"
 	desc = "A powered combat hardsuit produced by Citadel Armories. Decently armored, environmentally sealed, and fire-resistant."
 	icon_state = "ert_commander"
-	item_state = "suit-command"
+	inhand_icon_state = "suit-command"
 	slowdown = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
@@ -79,14 +77,13 @@
 	name = "emergency response team commander helmet"
 	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one has blue Command stripes."
 	icon_state = "hardsuit0-ert_commander"
-	item_state = "helm-command"
 	item_color = "ert_commander"
 
 /obj/item/clothing/suit/space/hardsuit/ert/commander
 	name = "emergency response team commander suit"
 	desc = "A powered combat hardsuit produced by Citadel Armories. Decently armored, environmentally sealed, and fire-resistant. This one is covered in blue Command livery."
 	icon_state = "ert_commander"
-	item_state = "suit-command"
+	inhand_icon_state = "suit-command"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/commander
 
 //Security
@@ -94,14 +91,13 @@
 	name = "emergency response team security helmet"
 	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one has red Security stripes."
 	icon_state = "hardsuit0-ert_security"
-	item_state = "syndicate-helm-black-red"
 	item_color = "ert_security"
 
 /obj/item/clothing/suit/space/hardsuit/ert/security
 	name = "emergency response team security suit"
 	desc = "A powered combat hardsuit produced by Citadel Armories. Decently armored, environmentally sealed, and fire-resistant. This one is covered in red Security livery."
 	icon_state = "ert_security"
-	item_state = "syndicate-black-red"
+	inhand_icon_state = "syndicate-black-red"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/security
 
 /obj/item/clothing/suit/space/hardsuit/ert/security/Initialize(mapload)
@@ -115,7 +111,6 @@
 	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one has orange Engineering stripes, and additional lead plating for improved radiation protection."
 	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 150, FIRE = 200, ACID = 200)
 	icon_state = "hardsuit0-ert_engineer"
-	item_state = "helm-orange"
 	item_color = "ert_engineer"
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
@@ -130,7 +125,7 @@
 	name = "emergency response team engineer suit"
 	desc = "A powered combat hardsuit produced by Citadel Armories. Decently armored, environmentally sealed, and fire-resistant. This one is covered in orange Engineering livery, and has additional lead inserts for added radiation protection."
 	icon_state = "ert_engineer"
-	item_state = "suit-orange"
+	inhand_icon_state = "suit-orange"
 	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 150, FIRE = 200, ACID = 200)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
 
@@ -216,7 +211,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	desc = "A helmet worn by marines of the Trans-Solar Federation's Marine Special Operations Command. Armored, space ready, and fireproof."
 	icon_state = "hardsuit0-solgovmarine"
-	item_state = "hardsuit0-solgovmarine"
 	item_color = "solgovmarine"
 	armor = list(MELEE = 25, BULLET = 75, LASER = 10, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 
@@ -225,7 +219,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	desc = "A suit worn by marines of the Trans-Solar Federation's Marine Special Operations Command. Armored, space ready, and fireproof."
 	icon_state = "ert_solgov_marine"
-	item_state = "ert_solgov_marine"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov
 	slowdown = 0
 	armor = list(MELEE = 25, BULLET = 75, LASER = 10, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
@@ -234,12 +227,10 @@
 	name = "\improper MARSOC officer's helmet"
 	desc = "A helmet worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. Has gold highlights to denote the wearer's rank. Armored, space ready, and fireproof."
 	icon_state = "hardsuit0-solgovcommand"
-	item_state = "hardsuit0-solgovcommand"
 	item_color = "solgovcommand"
 
 /obj/item/clothing/suit/space/hardsuit/ert/solgov/command
 	name = "\improper MARSOC officer's hardsuit"
 	desc = "A suit worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. Has gold highlights to denote the wearer's rank. Armored, space ready, and fireproof."
 	icon_state = "ert_solgov_command"
-	item_state = "ert_solgov_command"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov/command

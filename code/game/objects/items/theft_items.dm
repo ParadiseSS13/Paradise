@@ -9,7 +9,7 @@
 	desc = "Extremely radioactive. Wear goggles."
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "plutonium_core"
-	item_state = "plutoniumcore"
+	inhand_icon_state = "plutoniumcore"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags_2 = RAD_NO_CONTAMINATE_2 //This is made from radioactive material so cannot really be contaminated
 	var/cooldown = 0
@@ -49,7 +49,7 @@
 	desc = "A solid container for radioactive objects."
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "core_container_empty"
-	item_state = "metal"
+	inhand_icon_state = "syringe_kit"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Don't want people trying to break it open with acid, then destroying the core.
 	var/obj/item/nuke_core/plutonium/core
 	var/dented = FALSE
@@ -196,8 +196,7 @@
 			return FALSE
 		forceMove(tongs)
 		tongs.sliver = src
-		tongs.icon_state = "supermatter_tongs_loaded"
-		tongs.item_state = "supermatter_tongs_loaded"
+		tongs.update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>You carefully pick up [src] with [tongs].</span>")
 	else if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter) || HAS_TRAIT(I, TRAIT_SUPERMATTER_IMMUNE)) // we don't want it to dust
 		return
@@ -266,8 +265,7 @@
 	I.sliver.forceMove(src)
 	sliver = I.sliver
 	I.sliver = null
-	I.icon_state = "supermatter_tongs"
-	I.item_state = "supermatter_tongs"
+	I.update_icon(UPDATE_ICON_STATE)
 	icon_state = "supermatter_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
 	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
@@ -290,8 +288,7 @@
 	sliver.forceMove(I)
 	I.sliver = sliver
 	sliver = null
-	I.icon_state = "supermatter_tongs_loaded"
-	I.item_state = "supermatter_tongs_loaded"
+	I.update_icon(UPDATE_ICON_STATE)
 	icon_state = "core_container_cracked_empty"
 	to_chat(user, "<span class='notice'>You carefully pick up [I.sliver] with [I].</span>")
 
@@ -355,7 +352,6 @@
 	icon_state = "supermatter_tongs"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	item_state = "supermatter_tongs"
 	toolspeed = 0.75
 	damtype = BURN
 	var/obj/item/nuke_core/supermatter_sliver/sliver
@@ -363,6 +359,9 @@
 /obj/item/retractor/supermatter/Destroy()
 	QDEL_NULL(sliver)
 	return ..()
+
+/obj/item/retractor/supermatter/update_icon_state()
+	icon_state = "[initial(icon_state)][sliver ? "_loaded" : ""]"
 
 /obj/item/retractor/supermatter/afterattack__legacy__attackchain(atom/O, mob/user, proximity)
 	. = ..()
@@ -376,8 +375,7 @@
 		sliver.forceMove(loc)
 		visible_message("<span class='notice'>[sliver] falls out of [src] as it hits the ground.</span>")
 		sliver = null
-		icon_state = "supermatter_tongs"
-		item_state = "supermatter_tongs"
+		update_icon(UPDATE_ICON_STATE)
 	return ..()
 
 /obj/item/retractor/supermatter/proc/Consume(atom/movable/AM, mob/living/user)
@@ -406,8 +404,7 @@
 			"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well.</span>",
 			"<span class='hear'>Everything suddenly goes silent.</span>")
 		user.dust()
-		icon_state = "supermatter_tongs"
-		item_state = "supermatter_tongs"
 	radiation_pulse(src, 2000, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	QDEL_NULL(sliver)
+	update_icon(UPDATE_ICON_STATE)

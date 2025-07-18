@@ -124,7 +124,6 @@
 	desc = "A fistfull of death."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "alien_acid"
-	item_state = null
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	force = 0

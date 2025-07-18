@@ -3,13 +3,13 @@
 	desc = "A scroll for moving around."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"
-	var/uses = 4
+	inhand_icon_state = "paper"
 	w_class = WEIGHT_CLASS_SMALL
-	item_state = "paper"
 	throw_speed = 4
 	throw_range = 20
 	origin_tech = "bluespace=6"
 	resistance_flags = FLAMMABLE
+	var/uses = 4
 
 /obj/item/teleportation_scroll/apprentice
 	name = "lesser scroll of teleportation"

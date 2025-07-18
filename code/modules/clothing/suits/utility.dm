@@ -13,7 +13,7 @@
 	name = "emergency firesuit"
 	desc = "A suit that protects against fire and heat."
 	icon_state = "fire"
-	item_state = "fire_suit"
+	inhand_icon_state = "fire_suit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.50
@@ -33,9 +33,9 @@
 
 /obj/item/clothing/suit/fire/firefighter
 	icon = 'icons/obj/clothing/suits/utility.dmi'
-	icon_override = 'icons/mob/clothing/suits/utility.dmi'
+	worn_icon = 'icons/mob/clothing/suits/utility.dmi'
 	icon_state = "firefighter"
-	item_state = "firefighter"
+	inhand_icon_state = null
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suits/utility.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suits/utility.dmi',
@@ -50,7 +50,6 @@
 	name = "firesuit"
 	desc = "An expensive firesuit that protects against even the most deadly of station fires. Designed to protect even if the wearer is set aflame."
 	icon_state = "firefighter_atmos"
-	item_state = "firefighter_atmos"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /*
@@ -72,7 +71,6 @@
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = NONE
-
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
@@ -82,7 +80,6 @@
 	name = "bomb suit"
 	desc = "A suit designed for safety when handling explosives."
 	icon_state = "bombsuit"
-	item_state = "bombsuit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
@@ -99,19 +96,14 @@
 	put_on_delay = 70
 	resistance_flags = NONE
 	dyeable = FALSE
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/head/bomb_hood/security
 	icon_state = "bombsuitsec"
-	item_state = "bombsuitsec"
 
 
 /obj/item/clothing/suit/bomb_suit/security
 	icon_state = "bombsuitsec"
-	item_state = "bombsuitsec"
 	allowed = list(/obj/item/gun/energy,/obj/item/melee/baton,/obj/item/restraints/handcuffs)
 
 /*
@@ -121,8 +113,7 @@
 	name = "radiation hood"
 	icon = 'icons/obj/clothing/head/utility.dmi'
 	icon_state = "radhood"
-	item_state = 'icons/mob/clothing/head/utility.dmi'
-	icon_override = 'icons/mob/clothing/head/utility.dmi'
+	worn_icon = 'icons/mob/clothing/head/utility.dmi'
 	desc = "A hood with radiation protective properties. Label: Made with lead, do not eat insulation"
 	flags = BLOCKHAIR|THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
@@ -148,9 +139,8 @@
 	name = "radiation suit"
 	desc = "A suit that protects against radiation. Label: Made with lead, do not eat insulation."
 	icon = 'icons/obj/clothing/suits/utility.dmi'
-	icon_override = 'icons/mob/clothing/suits/utility.dmi'
 	icon_state = "radsuit"
-	item_state = "radsuit"
+	worn_icon = 'icons/mob/clothing/suits/utility.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.50

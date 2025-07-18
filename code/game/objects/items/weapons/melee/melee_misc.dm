@@ -8,7 +8,6 @@
 	name = "chain of command"
 	desc = "A tool used by great men to placate the frothing masses."
 	icon_state = "chain"
-	item_state = "chain"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	force = 10
@@ -18,7 +17,6 @@
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
 	hitsound = 'sound/weapons/slash.ogg' //pls replace
 
-
 /obj/item/melee/chainofcommand/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] is strangling [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
@@ -27,7 +25,6 @@
 	name = "captain's saber"
 	desc = "An elegant weapon, for a more civilized age."
 	icon_state = "saber"
-	item_state = "saber"
 	flags = CONDUCT
 	force = 15
 	throwforce = 10
@@ -96,7 +93,6 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "snakesfang"
-	item_state = "snakesfang"
 	flags = CONDUCT
 	force = 25
 	throwforce = 10
@@ -248,7 +244,6 @@
 	name = "ice pick"
 	desc = "Used for chopping ice. Also excellent for mafia esque murders."
 	icon_state = "icepick"
-	item_state = "icepick"
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
@@ -258,7 +253,6 @@
 	name = "candy cane sword"
 	desc = "A large candy cane with a sharpened point. Definitely too dangerous for schoolchildren."
 	icon_state = "candy_sword"
-	item_state = "candy_sword"
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
@@ -268,7 +262,6 @@
 	name = "flyswatter"
 	desc = "Useful for killing insects of all sizes."
 	icon_state = "flyswatter"
-	item_state = "flyswatter"
 	force = 1
 	throwforce = 1
 	attack_verb = list("swatted", "smacked")
@@ -304,7 +297,6 @@
 	desc = "An enchanted blade with a series of runes along the side."
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "spellblade"
-	item_state = "spellblade"
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25

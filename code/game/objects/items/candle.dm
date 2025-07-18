@@ -7,8 +7,8 @@
 	desc = "In Greek myth, Prometheus stole fire from the Gods and gave it to humankind. The jewelry he kept for himself."
 	icon = 'icons/obj/candle.dmi'
 	icon_state = "candle1"
-	item_state = "candle1"
 	w_class = WEIGHT_CLASS_TINY
+	light_color = "#E09D37"
 	var/wax = 200
 	/// Index for the icon state
 	var/wax_index = TALL_CANDLE
@@ -16,7 +16,6 @@
 	var/infinite = FALSE
 	var/start_lit = FALSE
 	var/flickering = FALSE
-	light_color = "#E09D37"
 
 /obj/item/candle/New()
 	..()

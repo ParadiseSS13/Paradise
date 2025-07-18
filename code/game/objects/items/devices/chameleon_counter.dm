@@ -2,9 +2,10 @@
 	name = "chameleon counterfeiter"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "cham_counter"
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "syndicate=1;magnets=3"
 	var/can_use = TRUE
@@ -12,7 +13,9 @@
 	var/saved_desc
 	var/saved_icon
 	var/saved_icon_state
-	var/saved_item_state
+	var/saved_worn_icon
+	var/saved_worn_icon_state
+	var/saved_inhand_icon_state
 	var/saved_overlays
 	var/saved_underlays
 	var/dummy_active = FALSE
@@ -33,7 +36,9 @@
 	saved_desc = target.desc
 	saved_icon = target.icon
 	saved_icon_state = target.icon_state
-	saved_item_state = target.item_state
+	saved_worn_icon = target.worn_icon
+	saved_worn_icon_state = target.worn_icon_state
+	saved_inhand_icon_state = target.inhand_icon_state
 	saved_overlays = target.overlays
 	saved_underlays = target.underlays
 
@@ -56,7 +61,9 @@
 	desc = saved_desc
 	icon = saved_icon
 	icon_state = saved_icon_state
-	item_state = saved_item_state
+	worn_icon = saved_worn_icon
+	worn_icon_state = saved_icon_state
+	inhand_icon_state = saved_inhand_icon_state
 	overlays = saved_overlays
 	underlays = saved_underlays
 	dummy_active = TRUE
@@ -66,7 +73,9 @@
 	desc = initial(desc)
 	icon = initial(icon)
 	icon_state = initial(icon_state)
-	item_state = initial(item_state)
+	worn_icon = initial(worn_icon)
+	worn_icon_state = initial(worn_icon_state)
+	inhand_icon_state = initial(inhand_icon_state)
 	overlays = initial(overlays)
 	underlays = initial(underlays)
 	dummy_active = FALSE

@@ -150,7 +150,7 @@
 	var/choice_icons = bible_variants[choice]
 
 	icon_state = choice_icons["state"]
-	item_state = choice_icons["inhand"]
+	inhand_icon_state = choice_icons["inhand"]
 	customisable = FALSE
 
 	// Carpet symbol icons are currently broken, so commented out until it's fixed
@@ -169,11 +169,6 @@
 					T.dir = carpet_dir*/
 
 	SSblackbox.record_feedback("text", "religion_book", 1, "[choice]", 1)
-
-	if(SSticker)
-		SSticker.Bible_name = name
-		SSticker.Bible_icon_state = icon_state
-		SSticker.Bible_item_state = item_state
 
 /obj/item/storage/bible/proc/radial_check(mob/user)
 	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY) || !ishuman(user))

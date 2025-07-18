@@ -10,7 +10,7 @@
 	desc = "A toolbox painted bright green. Looking at it makes you feel uneasy."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "green"
-	item_state = "artistic_toolbox"
+	inhand_icon_state = "artistic_toolbox"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
 	w_class = WEIGHT_CLASS_GIGANTIC
@@ -52,7 +52,7 @@
 
 /obj/item/his_grace/update_icon_state()
 	icon_state = ascended ? "gold" : "green"
-	item_state = ascended ? "toolbox_gold" : "artistic_toolbox"
+	inhand_icon_state = ascended ? "toolbox_gold" : "artistic_toolbox"
 
 /obj/item/his_grace/update_overlays()
 	. = ..()
@@ -297,8 +297,6 @@
 	if(ascended)
 		return
 	desc = "A legendary toolbox and a distant artifact from The Age of Three Powers. On its three latches engraved are the words \"The Sun\", \"The Moon\", and \"The Stars\". The entire toolbox has the words \"The World\" engraved into its sides."
-	icon_state = "his_grace_ascended"
-	item_state = "toolbox_gold"
 	ascended = TRUE
 	SSblackbox.record_feedback("amount", "his_grace_ascended", 1)
 	update_icon()

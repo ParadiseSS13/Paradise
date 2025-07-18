@@ -1,12 +1,12 @@
 /obj/item/envelope
 	name = "broken letter"
 	desc = "We just got a letter, we just got a letter, we just got a letter -- I wonder who it's from?"
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "mail_misc"
+	inhand_icon_state = "paper"
 	force = 0
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "mail_misc"
-	item_state = "paper"
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 
@@ -235,7 +235,6 @@
 	throwforce = 0
 	icon = 'icons/obj/device.dmi'
 	icon_state = "mail_scanner"
-	item_state = "mail_scanner"
 	lefthand_file = 'icons/mob/inhands/items/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items/devices_righthand.dmi'
 	flags = CONDUCT

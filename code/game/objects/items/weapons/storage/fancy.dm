@@ -88,10 +88,10 @@
  */
 
 /obj/item/storage/fancy/egg_box
+	name = "egg box"
 	icon_state = "eggbox"
 	icon_type = "egg"
-	item_state = "eggbox"
-	name = "egg box"
+	inhand_icon_state = "eggbox"
 	storage_slots = 12
 	can_hold = list(/obj/item/food/egg)
 
@@ -109,7 +109,7 @@
 	icon = 'icons/obj/candle.dmi'
 	icon_state = "candlebox0"
 	icon_type = "candle"
-	item_state = "candlebox5"
+	inhand_icon_state = "syringe_kit"
 	storage_slots = 5
 	throwforce = 2
 	slot_flags = ITEM_SLOT_BELT
@@ -184,7 +184,7 @@
 	desc = "A small box of Almost But Not Quite Plasma Premium Matches."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
-	item_state = "matchbox"
+	inhand_icon_state = "matchbox"
 	base_icon_state = "matchbox"
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
@@ -224,7 +224,7 @@
 	desc = "The most popular brand of Space Cigarettes, sponsors of the Space Olympics."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cigpacket"
-	item_state = "cigpacket"
+	inhand_icon_state = "cigpacket"
 	belt_icon = "patch_pack"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
@@ -238,6 +238,10 @@
 		/obj/item/lighter/zippo)
 	icon_type = "cigarette"
 	var/cigarette_type = /obj/item/clothing/mask/cigarette
+
+/obj/item/storage/fancy/cigarettes/Initialize(mapload)
+	. = ..()
+	inhand_icon_state = icon_state
 
 /obj/item/storage/fancy/cigarettes/populate_contents()
 	for(var/I in 1 to storage_slots)
@@ -299,14 +303,13 @@
 	name = "\improper DromedaryCo packet"
 	desc = "A packet of six imported DromedaryCo cancer sticks. A label on the packaging reads, \"Wouldn't a slow death make a change?\""
 	icon_state = "Dpacket"
-	item_state = "Dpacket"
-
+	inhand_icon_state = "Dpacket"
 
 /obj/item/storage/fancy/cigarettes/syndicate
 	name = "\improper Syndicate Cigarettes"
 	desc = "A packet of six evil-looking cigarettes, A label on the packaging reads, \"Donk Co\"."
 	icon_state = "syndiepacket"
-	item_state = "syndiepacket"
+	inhand_icon_state = "syndiepacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
 
 /obj/item/storage/fancy/cigarettes/syndicate/Initialize(mapload)
@@ -318,71 +321,70 @@
 	name = "cigarette packet"
 	desc = "An obscure brand of cigarettes."
 	icon_state = "syndiepacket"
-	item_state = "syndiepacket"
+	inhand_icon_state = "syndiepacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
 
 /obj/item/storage/fancy/cigarettes/cigpack_med
 	name = "\improper Medical Marijuana Packet"
 	desc = "A prescription packet containing six medical marijuana cigarettes. Made using a strain of cannabis engineered to maximise CBD content and eliminate THC, much to the chagrin of stoners everywhere."
 	icon_state = "medpacket"
-	item_state = "medpacket"
+	inhand_icon_state = "medpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/medical_marijuana
-
 
 /obj/item/storage/fancy/cigarettes/cigpack_uplift
 	name = "\improper Uplift Smooth packet"
 	desc = "Your favorite brand, now menthol flavored."
 	icon_state = "upliftpacket"
-	item_state = "upliftpacket"
+	inhand_icon_state = "upliftpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/menthol
 
 /obj/item/storage/fancy/cigarettes/cigpack_robust
 	name = "\improper Robust packet"
 	desc = "Smoked by the robust."
 	icon_state = "robustpacket"
-	item_state = "robustpacket"
+	inhand_icon_state = "robustpacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold
 	name = "\improper Robust Gold packet"
 	desc = "Smoked by the truly robust."
 	icon_state = "robustgpacket"
-	item_state = "robustgpacket"
+	inhand_icon_state = "robustgpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/robustgold
 
 /obj/item/storage/fancy/cigarettes/cigpack_carp
 	name = "\improper Carp Classic packet"
 	desc = "Since 2313."
 	icon_state = "carppacket"
-	item_state = "carppacket"
+	inhand_icon_state = "carppacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
 	name = "\improper Midori Tabako packet"
 	desc = "Whilst you cannot decipher what the strange runes on the packet say, it bears the unmistakable scent of cannabis."
 	icon_state = "midoripacket"
-	item_state = "midoripacket"
+	inhand_icon_state = "midoripacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/rollie
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
 	name ="\improper Shady Jim's Super Slims"
 	desc = "Is your weight slowing you down? Having trouble running away from gravitational singularities? Can't stop stuffing your mouth? Smoke Shady Jim's Super Slims and watch all that fat burn away. Guaranteed results!"
 	icon_state = "shadyjimpacket"
-	item_state = "shadyjimpacket"
+	inhand_icon_state = "shadyjimpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/shadyjims
 
 /obj/item/storage/fancy/cigarettes/cigpack_random
 	name ="\improper Embellished Enigma packet"
 	desc = "For the true connoisseur of exotic flavors."
 	icon_state = "shadyjimpacket"
-	item_state = "shadyjimpacket"
+	inhand_icon_state = "shadyjimpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/random
 
 /obj/item/storage/fancy/rollingpapers
 	name = "rolling paper pack"
 	desc = "A pack of Nanotrasen brand rolling papers."
-	w_class = WEIGHT_CLASS_TINY
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cig_paper_pack"
-	item_state = "cig_paper_pack"
+	inhand_icon_state = "cig_paper_pack"
+	w_class = WEIGHT_CLASS_TINY
 	storage_slots = 10
 	icon_type = "rolling paper"
 	can_hold = list(/obj/item/rollingpaper)
@@ -404,13 +406,13 @@
  */
 
 /obj/item/storage/fancy/vials
+	name = "vial storage box"
 	icon = 'icons/obj/vialbox.dmi'
 	icon_state = "vialbox6"
+	inhand_icon_state = "syringe_kit"
 	icon_type = "vial"
-	name = "vial storage box"
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
-
 
 /obj/item/storage/fancy/vials/populate_contents()
 	for(var/I in 1 to storage_slots)
@@ -422,7 +424,6 @@
 	desc = "A locked box for keeping things away from children."
 	icon = 'icons/obj/vialbox.dmi'
 	icon_state = "vialbox0"
-	item_state = "syringe_kit"
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/reagent_containers/glass/bottle)
 	max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.

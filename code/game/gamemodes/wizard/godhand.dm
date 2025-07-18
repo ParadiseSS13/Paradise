@@ -1,14 +1,10 @@
 /obj/item/melee/touch_attack
 	name = "outstretched hand"
 	desc = "High Five?"
-	var/catchphrase = "High Five!"
-	var/on_use_sound = null
-	var/datum/spell/touch/attached_spell
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "disintegrate"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	item_state = null
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	force = 0
@@ -18,6 +14,9 @@
 	new_attack_chain = TRUE
 	/// Has it been blocked by antimagic? If so, abort.
 	var/blocked_by_antimagic = FALSE
+	var/catchphrase = "High Five!"
+	var/on_use_sound = null
+	var/datum/spell/touch/attached_spell
 
 /obj/item/melee/touch_attack/New(spell)
 	attached_spell = spell
@@ -63,9 +62,6 @@
 	desc = "This hand of mine glows with an awesome power!"
 	catchphrase = "EI NATH!!"
 	on_use_sound = 'sound/magic/disintegrate.ogg'
-	icon_state = "disintegrate"
-	item_state = "disintegrate"
-
 
 /obj/item/melee/touch_attack/disintegrate/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -79,10 +75,9 @@
 /obj/item/melee/touch_attack/fleshtostone
 	name = "petrifying touch"
 	desc = "That's the bottom line, because flesh to stone said so!"
+	icon_state = "fleshtostone"
 	catchphrase = "STAUN EI!!"
 	on_use_sound = 'sound/magic/fleshtostone.ogg'
-	icon_state = "fleshtostone"
-	item_state = "fleshtostone"
 
 /obj/item/melee/touch_attack/fleshtostone/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -99,8 +94,6 @@
 	desc = "The power to sew your foes into a doom cut from the fabric of fate."
 	catchphrase = "MAHR-XET 'ABL"
 	on_use_sound = 'sound/magic/smoke.ogg'
-	icon_state = "disintegrate"
-	item_state = "disintegrate"
 	color = COLOR_PURPLE
 
 /obj/item/melee/touch_attack/plushify/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -112,14 +105,11 @@
 	L.plushify()
 	handle_delete(user)
 
-
 /obj/item/melee/touch_attack/fake_disintegrate
 	name = "toy plastic hand"
 	desc = "This hand of mine glows with an awesome power! Ok, maybe just batteries."
 	catchphrase = "EI NATH!!"
 	on_use_sound = 'sound/magic/disintegrate.ogg'
-	icon_state = "disintegrate"
-	item_state = "disintegrate"
 	needs_permit = FALSE
 
 /obj/item/melee/touch_attack/fake_disintegrate/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -134,10 +124,9 @@
 /obj/item/melee/touch_attack/cluwne
 	name = "cluwne touch"
 	desc = "It's time to start clowning around."
+	icon_state = "cluwnecurse"
 	catchphrase = "NWOLC EGNEVER"
 	on_use_sound = 'sound/misc/sadtrombone.ogg'
-	icon_state = "cluwnecurse"
-	item_state = "cluwnecurse"
 
 /obj/item/melee/touch_attack/cluwne/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()

@@ -312,7 +312,7 @@
 	name = "cutting board"
 	desc = "Good for making sandwiches on, too."
 	icon_state = "cutting_board"
-	item_state = "cutting_board"
+	inhand_icon_state = "clipboard" // huh
 	preposition = "On"
 	materials = list(MAT_WOOD = 5)
 

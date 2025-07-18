@@ -5,10 +5,10 @@
 	desc = "A nasty looking shard of glass."
 	icon = 'icons/obj/shards.dmi'
 	icon_state = "large"
+	inhand_icon_state = "shard-glass"
 	w_class = WEIGHT_CLASS_TINY
 	force = 5
 	throwforce = 10
-	item_state = "shard-glass"
 	materials = list(MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("stabbed", "slashed", "sliced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'

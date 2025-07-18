@@ -2,7 +2,6 @@
 	name = "breath mask"
 	desc = "A close-fitting mask that can be connected to an air supply."
 	icon_state = "breath"
-	item_state = "breath"
 	flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH
 	can_toggle = TRUE
@@ -34,7 +33,6 @@
 	name = "medical mask"
 	desc = "A close-fitting sterile mask that can be connected to an air supply."
 	icon_state = "medical"
-	item_state = "medical"
 	permeability_coefficient = 0.01
 	put_on_delay = 10
 
@@ -42,7 +40,6 @@
 	name = "vox breath mask"
 	desc = "A weirdly-shaped breath mask."
 	icon_state = "voxmask"
-	item_state = "voxmask"
 	permeability_coefficient = 0.01
 	species_restricted = list("Vox")
 	actions_types = list()
@@ -51,7 +48,6 @@
 	name = "vox respirator"
 	desc = "A weirdly-shaped breath mask, this one seems to designed for a vox beak."
 	icon_state = "voxmask2"
-	item_state = "voxmask2"
 
 /obj/item/clothing/mask/breath/vox/attack_self__legacy__attackchain(mob/user)
 	return

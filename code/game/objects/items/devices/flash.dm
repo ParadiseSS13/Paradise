@@ -3,7 +3,7 @@
 	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "flash"
-	item_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
+	inhand_icon_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
 	belt_icon = "flash"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
@@ -226,9 +226,10 @@
 	icon = 'icons/obj/items.dmi'
 	desc = "A polaroid camera. 10 photos left."
 	icon_state = "camera"
-	item_state = "camera"
+	worn_icon_state = "camera"
+	inhand_icon_state = "camera"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = ITEM_SLOT_BELT
+	slot_flags = ITEM_SLOT_NECK
 	can_overcharge = FALSE
 	var/flash_max_charges = 5
 	var/flash_cur_charges = 5
@@ -267,7 +268,7 @@
 	name = "memorizer"
 	desc = "If you see this, you're not likely to remember it any time soon." // Why doesn't this at least delete your notes smh
 	icon_state = "memorizer"
-	item_state = "nullrod"
+	inhand_icon_state = "nullrod"
 
 /obj/item/flash/armimplant
 	name = "photon projector"

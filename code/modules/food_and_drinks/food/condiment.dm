@@ -124,7 +124,7 @@
 	name = "sugar sack"
 	desc = "Tasty spacey sugar!"
 	icon_state = "sugar"
-	item_state = "sugar"
+	inhand_icon_state = "carton"
 	list_reagents = list("sugar" = 50)
 	possible_states = list()
 
@@ -165,7 +165,7 @@
 	name = "space milk"
 	desc = "It's milk. White and nutritious goodness!"
 	icon_state = "milk"
-	item_state = "carton"
+	inhand_icon_state = "contvapour"
 	list_reagents = list("milk" = 50)
 	possible_states = list()
 
@@ -173,7 +173,7 @@
 	name = "flour sack"
 	desc = "A big bag of flour. Good for baking!"
 	icon_state = "flour"
-	item_state = "flour"
+	inhand_icon_state = "flour"
 	list_reagents = list("flour" = 30)
 	possible_states = list()
 
@@ -188,7 +188,7 @@
 	name = "soy milk"
 	desc = "It's soy milk. White and nutritious goodness!"
 	icon_state = "soymilk"
-	item_state = "carton"
+	inhand_icon_state = "contvapour"
 	list_reagents = list("soymilk" = 50)
 	possible_states = list()
 
@@ -196,7 +196,7 @@
 	name = "rice sack"
 	desc = "A big bag of rice. Good for cooking!"
 	icon_state = "rice"
-	item_state = "flour"
+	inhand_icon_state = "carton"
 	list_reagents = list("rice" = 30)
 	possible_states = list()
 

@@ -2,7 +2,8 @@
 	name = "shotgun"
 	desc = "A traditional shotgun with wood furniture and a four-shell capacity underneath."
 	icon_state = "shotgun"
-	item_state = "shotgun"
+	worn_icon_state = null
+	inhand_icon_state = null
 	lefthand_file = 'icons/mob/inhands/64x64_guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_guns_righthand.dmi'
 	inhand_x_dimension = 64
@@ -10,9 +11,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	flags = CONDUCT
-	can_holster = FALSE
 	slot_flags = ITEM_SLOT_BACK
-	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	weapon_weight = WEAPON_HEAVY
@@ -37,7 +36,6 @@
 		to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
 		A.update_icon()
 		update_icon()
-
 
 /obj/item/gun/projectile/shotgun/process_chamber()
 	return ..(FALSE, FALSE)
@@ -86,7 +84,6 @@
 	name = "\improper M500 riot shotgun"
 	desc = "A sturdy shotgun by Starstrike Arms, featuring a longer magazine and a fixed tactical stock designed for non-lethal riot control."
 	icon_state = "riotshotgun"
-	item_state = "riotshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
 	sawn_desc = "Come with me if you want to live."
 	sawn_state = SAWN_INTACT
@@ -132,17 +129,14 @@
 		post_sawoff()
 		return 1
 
-
 /obj/item/gun/projectile/shotgun/riot/proc/post_sawoff()
 	w_class = WEIGHT_CLASS_NORMAL
 	current_skin = "riotshotgun_sawn"
-	item_state = "riotshotgun_sawn"			//phil235 is it different with different skin?
 	slot_flags &= ~ITEM_SLOT_BACK    //you can't sling it on your back
 	slot_flags |= ITEM_SLOT_BELT     //but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 	sawn_state = SAWN_OFF
 	magazine.max_ammo = 3
 	update_appearance()
-
 
 /obj/item/gun/projectile/shotgun/riot/proc/unsaw(obj/item/A, mob/user)
 	if(sawn_state == SAWN_INTACT)
@@ -177,7 +171,6 @@
 /obj/item/gun/projectile/shotgun/riot/proc/post_unsaw()
 	w_class = initial(w_class)
 	current_skin = "riotshotgun"
-	item_state = initial(item_state)
 	slot_flags &= ~ITEM_SLOT_BELT
 	slot_flags |= ITEM_SLOT_BACK
 	sawn_state = SAWN_INTACT
@@ -205,18 +198,17 @@
 	name = "\improper Mosin Nagant"
 	desc = "An ancient design commonly used by the conscript forces of the USSP. Chambered in 7.62mm. Has a bayonet lug for attaching a knife."
 	icon_state = "moistnugget"
-	item_state = "moistnugget"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
-	var/bolt_open = FALSE
 	can_bayonet = TRUE
 	knife_x_offset = 27
 	knife_y_offset = 13
 	execution_speed = 7 SECONDS
+	var/bolt_open = FALSE
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, 1)
@@ -285,9 +277,11 @@
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage
 	name = "arcane barrage"
 	desc = "Pew Pew Pew."
-	fire_sound = 'sound/weapons/emitter.ogg'
 	icon_state = "arcane_barrage"
-	item_state = "arcane_barrage"
+	inhand_icon_state = "disintegrate"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	fire_sound = 'sound/weapons/emitter.ogg'
 	slot_flags = null
 	flags = NOBLUDGEON | DROPDEL | ABSTRACT
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
@@ -312,8 +306,7 @@
 /obj/item/gun/projectile/shotgun/automatic/combat
 	name = "\improper M600 combat shotgun"
 	desc = "A semi automatic shotgun by Starstrike Arms, with tactical furniture and a six-shell magazine capacity."
-	icon_state = "cshotgun"
-	item_state = "shotgun_combat"
+	icon_state = "shotgun_combat"
 	origin_tech = "combat=6"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_BULKY
@@ -335,11 +328,11 @@
 	name = "\improper XM800 cycler shotgun"
 	desc = "A prototype shotgun by Starstrike Arms with two separate magazine tubes, allowing you to quickly toggle between ammo types."
 	icon_state = "cycler"
-	inhand_x_dimension = 32
-	inhand_y_dimension = 32
+	inhand_icon_state = "bulldog"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
-	item_state = "bulldog"
+	inhand_x_dimension = 32
+	inhand_y_dimension = 32
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube
 	w_class = WEIGHT_CLASS_HUGE

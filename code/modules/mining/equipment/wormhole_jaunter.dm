@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	desc = "A single use device harnessing outdated wormhole technology, Nanotrasen has since turned its eyes to bluespace for more accurate teleportation. \
 		The wormholes it creates are unpleasant to travel through, to say the least. If attached to your belt, it'll automatically activate should you fall into a chasm."
 	icon_state = "Jaunter"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -100,7 +100,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	icon = 'icons/obj/lighting.dmi'
 	desc = "A single-use extraction flare that will let you create a portal to any beacon on the station. You must choose the destination beforehand, else it will target a random beacon. The portal is generated 5 seconds after activation, and has 1 use."
 	icon_state = "flare-contractor"
-	item_state = "flare"
+	inhand_icon_state = "flare"
 	var/destination
 
 /obj/item/wormhole_jaunter/contractor/examine(mob/user)
@@ -242,7 +242,6 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	name = "wormhole weaver"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "wormhole_weaver"
-	item_state = "electronic"
 	desc = "This peculiar device is a prototype from a discontinued project. It was designed as an alternative to jaunters, offering more precise teleportation. However, as a prototype, it drains its entire battery with a single wormhole and can only target the beacons included in the kit."
 	/// Where are we teleporting to?
 	var/destination

@@ -8,7 +8,7 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 	desc = "It looks like you're writing a letter. Want some help?"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "clipboard"
-	item_state = "clipboard"
+	inhand_icon_state = "clipboard"
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	var/obj/item/pen/containedpen

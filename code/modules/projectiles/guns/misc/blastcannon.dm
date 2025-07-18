@@ -2,14 +2,12 @@
 	name = "pipe gun"
 	desc = "A pipe welded onto a gun stock, with a mechanical trigger. The pipe has an opening near the top, and there seems to be a spring loaded wheel in the hole."
 	icon_state = "empty_blastcannon"
-	var/icon_state_loaded = "loaded_blastcannon"
-	item_state = "blastcannon_empty"
-	w_class = WEIGHT_CLASS_NORMAL
+	inhand_icon_state = "blastcannon_empty"
 	force = 10
 	fire_sound = 'sound/weapons/blastcannon.ogg'
 	needs_permit = FALSE
 	clumsy_check = FALSE
-
+	var/icon_state_loaded = "loaded_blastcannon"
 	var/obj/item/transfer_valve/bomb
 
 /obj/item/gun/blastcannon/Destroy()

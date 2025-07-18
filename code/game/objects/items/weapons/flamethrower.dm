@@ -3,7 +3,7 @@
 	desc = "You are a firestarter!"
 	icon = 'icons/obj/flamethrower.dmi'
 	icon_state = "flamethrowerbase"
-	item_state = "flamethrower_0"
+	inhand_icon_state = "flamethrower_0"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	flags = CONDUCT
@@ -27,13 +27,11 @@
 	var/create_with_tank = FALSE
 	var/igniter_type = /obj/item/assembly/igniter
 
-
 /obj/item/flamethrower/Destroy()
 	QDEL_NULL(weldtool)
 	QDEL_NULL(igniter)
 	QDEL_NULL(ptank)
 	return ..()
-
 
 /obj/item/flamethrower/process()
 	if(!lit || !igniter)
@@ -47,12 +45,8 @@
 	if(isturf(location)) //start a fire if possible
 		igniter.flamethrower_process(location)
 
-
 /obj/item/flamethrower/update_icon_state()
-	if(lit)
-		item_state = "flamethrower_1"
-	else
-		item_state = "flamethrower_0"
+	inhand_icon_state = "flamethrower_[lit]"
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_inv_l_hand()
@@ -273,13 +267,11 @@
 		if(M.client && M.machine == src)
 			attack_self__legacy__attackchain(M)
 
-
 /obj/item/flamethrower/proc/default_ignite(turf/target, release_amount = 0.05)
 	//Transfer 5% of current tank air contents to turf
 	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(release_amount)
 	target.blind_release_air(air_transfer)
 	target.hotspot_expose(PLASMA_UPPER_TEMPERATURE, min(CELL_VOLUME, CELL_VOLUME * air_transfer.total_moles()))
-
 
 /obj/item/flamethrower/Initialize(mapload)
 	. = ..()

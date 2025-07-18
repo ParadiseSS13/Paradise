@@ -45,7 +45,8 @@
 	name = "anesthetic tank"
 	desc = "A tank with an N2O/O2 gas mix."
 	icon_state = "anesthetic"
-	item_state = "an_tank"
+	worn_icon_state = "an_tank"
+	inhand_icon_state = "an_tank"
 	distribute_pressure = ONE_ATMOSPHERE
 
 /obj/item/tank/internals/anesthetic/populate_gas()
@@ -91,7 +92,6 @@
 	name = "plasma internals tank"
 	desc = "A tank of plasma gas designed specifically for use as internals, particularly for plasma-based lifeforms. If you're not a Plasmaman, you probably shouldn't use this."
 	icon_state = "plasma_fr"
-	item_state = "plasma_fr"
 
 /obj/item/tank/internals/plasmaman/populate_gas()
 	air_contents.set_toxins((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
@@ -102,7 +102,6 @@
 
 /obj/item/tank/internals/plasmaman/belt
 	icon_state = "plasmaman_tank_belt"
-	item_state = "plasmaman_tank_belt"
 	slot_flags = ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	force = 5
@@ -200,7 +199,6 @@
 	name = "air tank"
 	desc = "Mixed anyone?"
 	icon_state = "air"
-	item_state = "air"
 	distribute_pressure = ONE_ATMOSPHERE
 
 /obj/item/tank/internals/air/populate_gas()
@@ -214,7 +212,6 @@
 	name = "gas tank"
 	desc = "A generic tank used for storing and transporting gasses. Can be used for internals."
 	icon_state = "generic"
-	item_state = "generic"
 
 /obj/item/tank/internals/generic/populate_gas()
 	return

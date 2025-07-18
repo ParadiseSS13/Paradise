@@ -104,8 +104,10 @@
  */
 /obj/item/kitchen/knife
 	name = "kitchen knife"
-	icon_state = "knife"
 	desc = "A general purpose Chef's Knife made by SpaceCook Incorporated. Guaranteed to stay sharp for years to come."
+	icon_state = "knife"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	flags = CONDUCT
 	force = 10
 	w_class = WEIGHT_CLASS_SMALL
@@ -117,8 +119,6 @@
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sharp = TRUE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	var/bayonet = FALSE	//Can this be attached to a gun?
 
 /obj/item/kitchen/knife/Initialize(mapload)
@@ -148,7 +148,6 @@
 	name = "glass shiv"
 	desc = "A haphazard sharp object wrapped in cloth, just like great-great-great-great grandma used to make."
 	icon = 'icons/obj/weapons/melee.dmi'
-	item_state = "glass_shiv"
 	icon_state = "glass_shiv"
 
 /obj/item/kitchen/knife/shiv/carrot
@@ -156,7 +155,6 @@
 	desc = "Unlike other carrots, you should probably keep this far away from your eyes."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "carrotshiv"
-	item_state = "carrotshiv"
 	force = 8
 	throwforce = 12 //fuck git
 	materials = list()
@@ -166,8 +164,8 @@
 
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
-	icon_state = "butch"
 	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown-by-products."
+	icon_state = "butch"
 	flags = CONDUCT
 	force = 15
 	throwforce = 8
@@ -177,7 +175,7 @@
 /obj/item/kitchen/knife/butcher/meatcleaver
 	name = "meat cleaver"
 	icon_state = "mcleaver"
-	item_state = "butch"
+	inhand_icon_state = "butch"
 	force = 25
 	throwforce = 15
 
@@ -187,9 +185,10 @@
 
 /obj/item/kitchen/knife/combat
 	name = "combat knife"
-	icon_state = "combatknife"
-	item_state = "knife"
 	desc = "A military combat utility survival knife."
+	icon_state = "combatknife"
+	worn_icon_state = "knife"
+	inhand_icon_state = "knife"
 	force = 20
 	throwforce = 20
 	origin_tech = "materials=3;combat=4"
@@ -198,25 +197,23 @@
 
 /obj/item/kitchen/knife/combat/survival
 	name = "survival knife"
-	icon_state = "survivalknife"
 	desc = "A hunting grade survival knife."
+	icon_state = "survivalknife"
 	force = 15
 	throwforce = 15
 
 /obj/item/kitchen/knife/combat/survival/bone
 	name = "bone dagger"
-	item_state = "bone_dagger"
-	icon_state = "bone_dagger"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	desc = "A sharpened bone. The bare minimum in survival."
+	icon_state = "bone_dagger"
+	inhand_icon_state = "bone_dagger"
 	materials = list()
 
 /obj/item/kitchen/knife/combat/cyborg
 	name = "cyborg knife"
+	desc = "A cyborg-mounted plasteel knife. Extremely sharp and durable."
 	icon = 'icons/obj/items_cyborg.dmi'
 	icon_state = "knife"
-	desc = "A cyborg-mounted plasteel knife. Extremely sharp and durable."
 	origin_tech = null
 
 /obj/item/kitchen/knife/cheese

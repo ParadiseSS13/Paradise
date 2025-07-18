@@ -1,10 +1,8 @@
 /obj/item/vending_refill
 	name = "resupply canister"
-	var/machine_name = "Generic"
-
 	icon = 'icons/obj/vending_restock.dmi'
 	icon_state = "refill_snack"
-	item_state = "restock_unit"
+	inhand_icon_state = "restock_unit"
 	desc = "A vending machine restock cart."
 	usesound = 'sound/items/deconstruct.ogg'
 	flags = CONDUCT
@@ -14,7 +12,7 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 70, ACID = 30)
-
+	var/machine_name = "Generic"
 	// Built automatically from the corresponding vending machine.
 	// If null, considered to be full upon being restocked.
 	var/list/products

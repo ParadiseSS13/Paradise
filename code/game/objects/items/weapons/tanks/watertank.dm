@@ -4,7 +4,8 @@
 	desc = "A S.U.N.S.H.I.N.E. brand watertank backpack with nozzle to water plants."
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "waterbackpack"
-	item_state = "waterbackpack"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	slowdown = 1
@@ -110,14 +111,12 @@
 	desc = "A mister nozzle attached to a water tank."
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "mister"
-	item_state = "mister"
 	w_class = WEIGHT_CLASS_BULKY
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
 	volume = 500
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
-
 	var/obj/item/watertank/tank
 
 /obj/item/reagent_containers/spray/mister/Initialize(mapload)
@@ -161,7 +160,6 @@
 	name = "backpack water tank"
 	desc = "A janitorial watertank backpack with nozzle to clean dirt and graffiti."
 	icon_state = "waterbackpackjani"
-	item_state = "waterbackpackjani"
 
 /obj/item/watertank/janitor/New()
 	..()
@@ -172,7 +170,6 @@
 	desc = "A janitorial spray nozzle attached to a watertank, designed to clean up large messes."
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "misterjani"
-	item_state = "misterjani"
 	spray_maxrange = 4
 	spray_currentrange = 4
 	amount_per_transfer_from_this = 10
@@ -199,7 +196,8 @@
 	name = "backpack firefighter tank"
 	desc = "A refridgerated and pressurized backpack tank with extinguisher nozzle, intended to fight fires. Swaps between extinguisher, nanofrost launcher, and metal foam dispenser for breaches. Nanofrost converts plasma in the air to nitrogen, but only if it is combusting at the time."
 	icon_state = "waterbackpackatmos"
-	item_state = "waterbackpackatmos"
+	worn_icon_state = "waterbackpackatmos"
+	inhand_icon_state = "waterbackpackatmos"
 	volume = 500
 
 /obj/item/watertank/atmos/New()
@@ -221,7 +219,7 @@
 	desc = "A heavy duty nozzle attached to a firefighter's backpack tank."
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "atmos_nozzle_1"
-	item_state = "nozzleatmos"
+	inhand_icon_state = "nozzleatmos"
 	has_safety = FALSE
 	safety_active = FALSE
 	reagent_capacity = 500

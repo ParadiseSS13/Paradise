@@ -410,7 +410,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	icon = initial(I.icon)
 	desc = initial(I.desc)
 	icon_state = initial(I.icon_state)
-	item_state = initial(I.item_state)
+	inhand_icon_state = initial(I.inhand_icon_state)
 	lefthand_file = initial(I.lefthand_file)
 	righthand_file = initial(I.righthand_file)
 	slot_flags = initial(I.slot_flags)

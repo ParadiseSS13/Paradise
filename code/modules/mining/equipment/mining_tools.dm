@@ -8,7 +8,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 15
 	throwforce = 10
-	item_state = "pickaxe"
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL = 2000) //one sheet, but where can you make them?
 	origin_tech = "materials=2;engineering=3"
@@ -43,6 +42,7 @@
 	name = "compact pickaxe"
 	desc = "A smaller, compact version of the standard pickaxe."
 	icon_state = "minipick"
+	inhand_icon_state = "pickaxe"
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
@@ -52,7 +52,6 @@
 	name = "bone pickaxe"
 	desc = "Do it yourself pickaxe."
 	icon_state = "bone_pickaxe"
-	item_state = "bone_pickaxe"
 	origin_tech = "materials=1;engineering=2"
 	toolspeed = 0.7
 	force = 16
@@ -62,7 +61,6 @@
 	name = "silver-plated pickaxe"
 	desc = "A silver-plated pickaxe that mines slightly faster than standard-issue."
 	icon_state = "spickaxe"
-	item_state = "spickaxe"
 	origin_tech = "materials=3;engineering=4"
 	toolspeed = 0.5 //mines faster than a normal pickaxe, bought from mining vendor
 	force = 17
@@ -72,7 +70,6 @@
 	name = "golden pickaxe"
 	desc = "A gold-plated pickaxe that mines faster than standard-issue."
 	icon_state = "gpickaxe"
-	item_state = "gpickaxe"
 	origin_tech = "materials=4;engineering=4"
 	toolspeed = 0.4
 	force = 18
@@ -82,7 +79,6 @@
 	name = "diamond-tipped pickaxe"
 	desc = "A pickaxe with a diamond pick head. Extremely robust at cracking rock walls and digging up dirt."
 	icon_state = "dpickaxe"
-	item_state = "dpickaxe"
 	origin_tech = "materials=5;engineering=4"
 	toolspeed = 0.3
 	force = 19
@@ -92,7 +88,7 @@
 	name = "mining drill"
 	desc = "An electric mining drill for the especially scrawny."
 	icon_state = "handdrill"
-	item_state = "jackhammer"
+	inhand_icon_state = "jackhammer"
 	digsound = list('sound/weapons/drill.ogg')
 	toolspeed = 0.6 //available from roundstart, faster than a pickaxe.
 	hitsound = 'sound/weapons/drill.ogg'
@@ -121,7 +117,6 @@
 	name = "sonic jackhammer"
 	desc = "Cracks rocks with sonic blasts, and doubles as a demolition power tool for smashing walls."
 	icon_state = "jackhammer"
-	item_state = "jackhammer"
 	origin_tech = "materials=6;powerstorage=4;engineering=5;magnets=4"
 	digsound = list('sound/weapons/sonic_jackhammer.ogg')
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
@@ -138,7 +133,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 8
 	throwforce = 4
-	item_state = "shovel"
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 200)
 	origin_tech = "materials=2;engineering=2"
@@ -155,7 +149,6 @@
 	name = "spade"
 	desc = "A small tool for digging and moving dirt."
 	icon_state = "spade"
-	item_state = "spade"
 	belt_icon = "spade"
 	force = 5
 	throwforce = 7

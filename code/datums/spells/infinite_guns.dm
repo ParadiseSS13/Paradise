@@ -36,9 +36,6 @@
 	desc = "A small flame, ready to launch from your hand."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "match_unathi"
-	item_state = "disintegrate"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	color = "#e1ff00" // red + yellow = orange
 	guns_left = 20
 	fire_sound = 'sound/magic/Fireball.ogg'

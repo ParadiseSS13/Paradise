@@ -392,8 +392,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	desc = "A mobile AI upload. The transmitter is extremely powerful, but will burn out after one use. Make it count."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "dvorak_upload"
+	inhand_icon_state = "camera_bug"
 	w_class = WEIGHT_CLASS_TINY
-	item_state = "camera_bug"
 	origin_tech = "syndicate=4;programming=6"
 	/// Integrated AI upload
 	var/obj/machinery/computer/aiupload/dvorak/integrated_console

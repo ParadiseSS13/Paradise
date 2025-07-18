@@ -70,7 +70,6 @@
 	var/archives_icon_state_off = "archives_off"
 
 	var/runed_metal_icon_state = "sheet-runed"
-	var/runed_metal_item_state = "sheet-runed"
 
 	var/airlock_runed_icon_file = 'icons/obj/doors/airlocks/cult/runed/cult.dmi'
 	var/airlock_runed_overlays_file = 'icons/obj/doors/airlocks/cult/runed/cult-overlays.dmi'
@@ -131,7 +130,6 @@
 	archives_icon_state_off = "hell_archives_off"
 
 	runed_metal_icon_state = "sheet_runed_hell"
-	runed_metal_item_state = "sheet_runed_hell"
 
 	airlock_runed_icon_file = 'icons/obj/doors/airlocks/cult/runed/hell.dmi'
 	airlock_runed_overlays_file = 'icons/obj/doors/airlocks/cult/runed/hell-overlays.dmi'
@@ -191,7 +189,6 @@
 	archives_icon_state_off = "reaper_archives_off"
 
 	runed_metal_icon_state = "sheet_runed_reaper"
-	runed_metal_item_state = "sheet_runed_reaper"
 
 	airlock_runed_icon_file = 'icons/obj/doors/airlocks/cult/runed/reaper.dmi'
 	airlock_runed_overlays_file = 'icons/obj/doors/airlocks/cult/runed/reaper-overlays.dmi'

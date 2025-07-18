@@ -1,39 +1,34 @@
 /obj/item/clothing/under/costume
 	icon = 'icons/obj/clothing/under/costumes.dmi'
-
+	worn_icon = 'icons/mob/clothing/under/costumes.dmi'
 	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/under/costumes.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/costumes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/costumes.dmi'
-		)
+	)
 
 /obj/item/clothing/under/costume/captain_fly
 	name = "rogue captains uniform"
 	desc = "For the man who doesn't care because he's still free."
 	icon_state = "captain_fly"
-	item_state = "captain_fly"
 	item_color = "captain_fly"
 
 /obj/item/clothing/under/costume/patriotsuit
 	name = "Patriotic Suit"
 	desc = "Motorcycle not included."
 	icon_state = "ek"
-	item_state = "ek"
 	item_color = "ek"
 
 /obj/item/clothing/under/costume/flappers
 	name = "flappers"
 	desc = "Nothing like the roarin' '20s, flapping the night away on the dance floor."
 	icon_state = "flapper"
-	item_state = "flapper"
 	item_color = "flapper"
 
 /obj/item/clothing/under/costume/gladiator
 	name = "gladiator uniform"
 	desc = "Are you not entertained? Is that not why you are here?"
 	icon_state = "gladiator"
-	item_state = "gladiator"
 	item_color = "gladiator"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	resistance_flags = NONE
@@ -58,7 +53,6 @@
 	name = "maid uniform"
 	desc = "A simple maid uniform for housekeeping."
 	icon_state = "janimaid"
-	item_state = "janimaid"
 	item_color = "janimaid"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -78,7 +72,6 @@
 	name = "maid costume"
 	desc = "Maid in China."
 	icon_state = "meido"
-	item_state = "meido"
 	item_color = "meido"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -87,7 +80,6 @@
 	desc = "They fall just short of majestic."
 	icon_state = "noble_clothes"
 	item_color = "noble_clothes"
-	item_state = "noble_clothes"
 
 /obj/item/clothing/under/costume/officeruniform
 	name = "clown officer's uniform"
@@ -114,21 +106,18 @@
 	name = "pirate outfit"
 	desc = "Yarr."
 	icon_state = "pirate"
-	item_state = "pirate"
 	item_color = "pirate"
 
 /obj/item/clothing/under/costume/pirate_rags
 	name = "pirate rags"
 	desc = "an old ragged set of clothing."
 	icon_state = "piraterags"
-	item_state = "piraterags"
 	item_color = "piraterags"
 
 /obj/item/clothing/under/costume/psyjump
 	name = "psychic amp jumpsuit"
 	desc = "A suit made of strange materials."
 	icon_state = "psyamp"
-	item_state = "psyamp"
 	item_color = "psyamp"
 
 /// Don't modify the path, used by a fluff item
@@ -137,12 +126,10 @@
 	desc = "A thick, layered grey undersuit lined with power cables. Feels a little like wearing an electrical storm."
 	icon = 'icons/obj/clothing/under/costumes.dmi'
 	icon_state = "psysuit"
-	item_state = "psysuit"
+	worn_icon = 'icons/mob/clothing/under/costumes.dmi'
 	item_color = "psysuit"
-
 	//it is what it is
 	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/under/costumes.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/costumes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/costumes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/costumes.dmi'
@@ -152,15 +139,14 @@
 	name = "redcoat uniform"
 	desc = "Looks old."
 	icon_state = "redcoat"
-	item_state = "redcoat"
 	item_color = "redcoat"
 
 /obj/item/clothing/under/costume/roman
 	name = "roman armor"
 	desc = "An ancient Roman armor. Made of metallic strips and leather straps."
 	icon_state = "roman"
+	inhand_icon_state = "armor"
 	item_color = "roman"
-	item_state = "armor"
 	strip_delay = 100
 	resistance_flags = NONE
 
@@ -168,7 +154,6 @@
 	name = "old soviet uniform"
 	desc = "For the Motherland!"
 	icon_state = "soviet"
-	item_state = "soviet"
 	item_color = "soviet"
 
 /obj/item/clothing/under/costume/tourist_suit
@@ -181,27 +166,23 @@
 	name = "yellow performer's outfit"
 	desc = "Just looking at this makes you want to sing."
 	icon_state = "ysing"
-	item_state = "ysing"
 	item_color = "ysing"
 
 /obj/item/clothing/under/costume/singerb
 	name = "blue performer's outfit"
 	desc = "Just looking at this makes you want to sing."
 	icon_state = "bsing"
-	item_state = "bsing"
 	item_color = "bsing"
 
 /obj/item/clothing/under/costume/cuban_suit
 	name = "rhumba outfit"
 	desc = "A satin shirt and high-waisted pants, worn by dancers in the Rhumba style. It smells oddly like... sulfur?"
 	icon_state = "cuban_suit"
-	item_state = "cuban_suit"
 	item_color = "cuban_suit"
 
 /obj/item/clothing/under/costume/kilt
 	name = "kilt"
 	desc = "Includes shoes and plaid."
 	icon_state = "kilt"
-	item_state = "kilt"
 	item_color = "kilt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|FEET

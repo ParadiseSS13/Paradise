@@ -3,7 +3,7 @@
 	desc = "Used to make big holes in rocks. Only works on rocks!"
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "mining-charge-2"
-	item_state = "charge_indust"
+	inhand_icon_state = "charge_indust"
 	det_time = 5
 	origin_tech = "materials=1"
 	notify_admins = FALSE // no need to make adminlogs on lavaland, while they are "safe" to use
@@ -129,7 +129,7 @@
 	name = "mining charge"
 	desc = "A mining charge. This one seems less powerful than industrial. Only works on rocks!"
 	icon_state = "mining-charge-1"
-	item_state = "charge_lesser"
+	inhand_icon_state = "charge_lesser"
 	smoke_amount = 1
 	boom_sizes = list(1, 2, 3)
 
@@ -137,7 +137,7 @@
 	name = "experimental mining charge"
 	desc = "A mining charge. This one seems much more powerful than normal!"
 	icon_state = "mining-charge-3"
-	item_state = "charge_mega"
+	inhand_icon_state = "charge_mega"
 	smoke_amount = 5
 	boom_sizes = list(4, 6, 8)
 
