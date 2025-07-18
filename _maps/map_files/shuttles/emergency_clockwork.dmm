@@ -1,0 +1,1664 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"al" = (
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"at" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 1;
+	icon_state = "computer_clockwork"
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"aA" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/clockwork/reebe,
+/area/shuttle/escape)
+"aL" = (
+/obj/machinery/computer/crew{
+	dir = 8;
+	icon_state = "computer_clockwork"
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"bb" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/space)
+"bk" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"bC" = (
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"bO" = (
+/obj/structure/chair/sofa/pew/clockwork{
+	dir = 4
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"cq" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/storage/firstaid/regular,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"cr" = (
+/obj/structure/chair/sofa/pew/clockwork,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"cD" = (
+/obj/machinery/door/airlock/external{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	id_tag = "emergency_away";
+	name = "Arrival Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/space)
+"dl" = (
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_y = 28
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"dv" = (
+/obj/structure/chair/brass,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/escape)
+"dw" = (
+/obj/machinery/computer/crew{
+	icon_state = "computer_clockwork"
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"dB" = (
+/obj/structure/table/reinforced/brass,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
+	},
+/obj/item/storage/firstaid/regular,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"dE" = (
+/obj/structure/bed,
+/obj/item/bedsheet/clockwork,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"dV" = (
+/obj/machinery/computer/communications{
+	icon_state = "computer_clockwork"
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"eI" = (
+/obj/machinery/light/clockwork{
+	dir = 8
+	},
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"fk" = (
+/obj/structure/chair/brass{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/escape)
+"fv" = (
+/obj/structure/chair/sofa/pew/clockwork/left{
+	dir = 4
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"gc" = (
+/obj/machinery/computer/secure_data{
+	icon_state = "computer_clockwork"
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"ge" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"gr" = (
+/obj/machinery/optable,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"io" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced/clockwork{
+	dir = 1
+	},
+/turf/simulated/floor/clockwork/reebe,
+/area/shuttle/escape)
+"jm" = (
+/obj/structure/chair/sofa/pew/clockwork/right,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"jw" = (
+/obj/machinery/mech_bay_recharge_port,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"lR" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/obj/item/reagent_containers/iv_bag/blood/o_minus,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"mw" = (
+/turf/template_noop,
+/area/template_noop)
+"mJ" = (
+/obj/machinery/light/clockwork/small{
+	dir = 1
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"nk" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/space)
+"nz" = (
+/obj/structure/chair/brass{
+	dir = 4
+	},
+/obj/machinery/light/clockwork,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"ob" = (
+/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder{
+	dir = 1
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"og" = (
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_y = -28
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"pJ" = (
+/obj/docking_port/mobile/emergency{
+	dwidth = 15;
+	height = 21;
+	width = 35;
+	name = "Clockwork Shuttle"
+	},
+/obj/machinery/door/airlock/clockwork/glass{
+	hackProof = 1;
+	id_tag = "s_docking_airlock"
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"pR" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/restraints/handcuffs,
+/obj/item/flash,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"qd" = (
+/obj/machinery/door/airlock/clockwork/glass,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"qi" = (
+/obj/machinery/door/airlock/clockwork/glass,
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"qs" = (
+/obj/structure/chair/brass,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"rN" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 24
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"rW" = (
+/obj/machinery/computer/security{
+	icon_state = "computer_clockwork"
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"sm" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/screwdriver/brass{
+	pixel_y = -5
+	},
+/obj/structure/reagent_dispensers/fueltank/chem{
+	pixel_x = 32
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -32
+	},
+/obj/item/clothing/glasses/welding{
+	pixel_y = 5;
+	pixel_x = -4
+	},
+/obj/item/weldingtool/experimental/brass{
+	pixel_y = 5
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"sF" = (
+/obj/structure/chair/brass{
+	dir = 4
+	},
+/obj/machinery/light/clockwork{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"tn" = (
+/turf/simulated/wall/clockwork,
+/area/shuttle/escape)
+"tE" = (
+/obj/structure/chair/brass{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"tP" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"un" = (
+/obj/structure/clockwork/wall_gear,
+/obj/machinery/light/clockwork/floor,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"ut" = (
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"uD" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/clockwork/component/replicant_alloy/replication_plate,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"uV" = (
+/obj/machinery/door/airlock/clockwork/glass{
+	hackProof = 1;
+	id_tag = "s_docking_airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"va" = (
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"wg" = (
+/obj/structure/chair/sofa/pew/clockwork/left,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"wF" = (
+/obj/structure/table/reinforced/brass,
+/obj/machinery/recharger,
+/obj/machinery/light/clockwork{
+	dir = 1
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"wU" = (
+/obj/structure/chair/brass{
+	dir = 1
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"xl" = (
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"xs" = (
+/obj/structure/closet/crate/internals,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"zx" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"zQ" = (
+/obj/machinery/light/clockwork{
+	dir = 8
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Ah" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/storage/firstaid/adv{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/firstaid/adv,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"AW" = (
+/obj/machinery/computer/operating/clockwork{
+	dir = 1
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Ct" = (
+/obj/machinery/door/airlock/clockwork,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"CK" = (
+/obj/machinery/computer/emergency_shuttle{
+	icon_state = "computer_clockwork"
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Db" = (
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/escape)
+"Dd" = (
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Do" = (
+/turf/space,
+/area/space)
+"Ex" = (
+/obj/structure/table/reinforced/brass,
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"EQ" = (
+/obj/structure/chair/brass{
+	dir = 8
+	},
+/obj/machinery/light/clockwork,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"FN" = (
+/obj/structure/chair/sofa/pew/clockwork{
+	dir = 8
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Hj" = (
+/obj/structure/window/reinforced/clockwork/fulltile,
+/obj/structure/grille/ratvar,
+/turf/simulated/floor/clockwork/reebe,
+/area/shuttle/escape)
+"HG" = (
+/obj/machinery/door/airlock/clockwork/glass{
+	hackProof = 1;
+	id_tag = "s_docking_airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"HP" = (
+/obj/machinery/light/clockwork/small,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"IS" = (
+/obj/machinery/computer/med_data{
+	dir = 8;
+	icon_state = "computer_clockwork"
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"IU" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -28
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Jj" = (
+/obj/machinery/door/airlock/clockwork/glass{
+	hackProof = 1;
+	id_tag = "s_docking_airlock"
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Jp" = (
+/obj/structure/chair/brass{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"JI" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Kr" = (
+/obj/machinery/computer/atmos_alert{
+	dir = 4;
+	icon_state = "computer_clockwork"
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Ks" = (
+/obj/machinery/light/clockwork{
+	dir = 4
+	},
+/obj/machinery/iv_drip,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Lr" = (
+/obj/structure/marker_beacon/dock_marker,
+/turf/space,
+/area/space)
+"Lw" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/paper_bin{
+	pixel_y = 4
+	},
+/obj/item/pen/multi/fountain,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/escape)
+"LY" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/crowbar/brass,
+/obj/item/wrench/brass,
+/obj/item/wirecutters/brass{
+	pixel_y = -5
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Nv" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/storage/surgical_tray{
+	pixel_y = 8
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"NJ" = (
+/obj/machinery/light/clockwork{
+	dir = 4
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"NV" = (
+/obj/machinery/light/clockwork{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Oa" = (
+/obj/structure/chair/brass,
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Ot" = (
+/obj/machinery/light/clockwork{
+	dir = 1
+	},
+/obj/machinery/iv_drip,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Py" = (
+/obj/structure/chair/sofa/pew/clockwork/right{
+	dir = 4
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Qk" = (
+/obj/structure/table/reinforced/brass,
+/obj/structure/closet/fireaxecabinet{
+	pixel_x = 32
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
+	},
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"QN" = (
+/obj/structure/chair/sofa/pew/clockwork/right{
+	dir = 8
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"QT" = (
+/obj/item/storage/firstaid/o2,
+/obj/structure/table/reinforced/brass,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = 28
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"QX" = (
+/obj/structure/chair/brass,
+/obj/machinery/light/clockwork{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Sh" = (
+/obj/machinery/light/clockwork{
+	dir = 4
+	},
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Te" = (
+/obj/machinery/sleeper/clockwork{
+	dir = 2
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"TR" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/salvage/ruin/tablet,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/escape)
+"VC" = (
+/obj/structure/table/reinforced/brass,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/machinery/light/clockwork{
+	dir = 1
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Xy" = (
+/obj/machinery/light/clockwork,
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"XD" = (
+/obj/machinery/computer/station_alert{
+	dir = 4;
+	icon_state = "computer_clockwork"
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"Yt" = (
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/escape)
+"Yu" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/storage/fancy/donut_box,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/escape)
+"YL" = (
+/obj/structure/chair/sofa/pew/clockwork/left{
+	dir = 8
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+"YW" = (
+/obj/structure/sign/vacuum/external,
+/turf/simulated/wall/indestructible/riveted,
+/area/space)
+"Zx" = (
+/obj/structure/table/reinforced/brass,
+/obj/item/storage/fancy/donut_box,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = -28
+	},
+/turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"ZS" = (
+/obj/structure/bed,
+/obj/item/bedsheet/clockwork,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_y = 28
+	},
+/turf/simulated/floor/clockwork,
+/area/shuttle/escape)
+
+(1,1,1) = {"
+Lr
+Do
+Do
+Do
+Do
+Lr
+Do
+Do
+Do
+Lr
+nk
+nk
+nk
+nk
+nk
+cD
+YW
+cD
+nk
+bb
+bb
+bb
+nk
+cD
+YW
+cD
+nk
+nk
+bb
+bb
+nk
+nk
+nk
+nk
+nk
+Lr
+Do
+Do
+Do
+Lr
+Do
+Do
+Lr
+"}
+(2,1,1) = {"
+Do
+Do
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+tn
+tn
+tn
+uV
+tn
+pJ
+tn
+Hj
+Hj
+Hj
+tn
+Jj
+tn
+Jj
+tn
+tn
+tn
+tn
+tn
+mw
+mw
+mw
+mw
+mw
+mw
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(3,1,1) = {"
+Do
+Do
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+tn
+tn
+Jp
+sF
+va
+tn
+dl
+zQ
+ge
+ge
+jw
+tn
+dl
+zQ
+bC
+Py
+bO
+bO
+fv
+tn
+tn
+tn
+mw
+mw
+mw
+mw
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(4,1,1) = {"
+Do
+Do
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+tn
+tn
+Zx
+va
+va
+va
+Hj
+bC
+Db
+Db
+bC
+bC
+Hj
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+Py
+fv
+tn
+tn
+tn
+mw
+mw
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(5,1,1) = {"
+Do
+Do
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+tn
+Oa
+va
+va
+va
+va
+Hj
+bC
+Db
+Db
+bC
+at
+Hj
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+ut
+bC
+tn
+mw
+mw
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(6,1,1) = {"
+Lr
+Do
+mw
+mw
+mw
+mw
+mw
+tn
+tn
+tn
+tn
+QX
+va
+va
+va
+va
+Hj
+bC
+Db
+Db
+sm
+tn
+tn
+tP
+un
+bC
+bC
+bC
+un
+bC
+bC
+bC
+un
+Xy
+tn
+tn
+tn
+Do
+Do
+Do
+Do
+Do
+Lr
+"}
+(7,1,1) = {"
+Do
+Do
+mw
+tn
+Hj
+Hj
+Hj
+tn
+Kr
+XD
+tn
+Oa
+va
+va
+va
+va
+Hj
+zx
+bC
+LY
+tn
+tn
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+al
+io
+aA
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(8,1,1) = {"
+Do
+Do
+mw
+tn
+wF
+pR
+bk
+IU
+bC
+EQ
+tn
+Ex
+tE
+va
+tE
+tE
+tn
+Hj
+qd
+Hj
+tn
+eI
+bC
+wg
+bC
+wg
+bC
+wg
+bC
+wg
+bC
+bC
+bC
+bC
+al
+io
+aA
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(9,1,1) = {"
+Do
+Do
+tn
+tn
+Dd
+bC
+bC
+bC
+bC
+bC
+tn
+tn
+Hj
+qi
+Hj
+tn
+tn
+NV
+bC
+bC
+bC
+bC
+bC
+cr
+bC
+cr
+bC
+cr
+bC
+cr
+bC
+bC
+bC
+bC
+al
+io
+aA
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(10,1,1) = {"
+Do
+Do
+Hj
+gc
+wU
+bC
+dv
+Yt
+fk
+og
+tn
+cq
+bC
+bC
+bC
+eI
+tn
+bC
+bC
+bC
+bC
+bC
+bC
+jm
+bC
+jm
+bC
+jm
+bC
+jm
+bC
+bC
+bC
+bC
+ob
+tn
+tn
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(11,1,1) = {"
+Lr
+Do
+Hj
+rW
+bC
+bC
+dv
+Yu
+fk
+bC
+Ct
+bC
+Db
+Db
+Db
+bC
+qi
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+bC
+al
+bC
+bC
+Hj
+mw
+Do
+Do
+Do
+Do
+Do
+Lr
+"}
+(12,1,1) = {"
+Do
+Do
+Hj
+CK
+wU
+bC
+dv
+Lw
+fk
+HP
+tn
+mJ
+Db
+Db
+Db
+bC
+Hj
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+bC
+uD
+bC
+bC
+Hj
+mw
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(13,1,1) = {"
+Lr
+Do
+Hj
+dV
+bC
+bC
+dv
+TR
+fk
+bC
+Ct
+bC
+Db
+Db
+Db
+bC
+qi
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+Db
+bC
+al
+bC
+bC
+Hj
+mw
+Do
+Do
+Do
+Do
+Do
+Lr
+"}
+(14,1,1) = {"
+Do
+Do
+Hj
+dw
+wU
+bC
+dv
+Yt
+fk
+bC
+tn
+Qk
+bC
+bC
+bC
+Sh
+tn
+bC
+bC
+bC
+bC
+bC
+bC
+wg
+bC
+wg
+bC
+wg
+bC
+wg
+bC
+bC
+bC
+bC
+ob
+tn
+tn
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(15,1,1) = {"
+Do
+Do
+tn
+tn
+Dd
+bC
+bC
+bC
+bC
+bC
+tn
+tn
+Hj
+qi
+Hj
+tn
+tn
+NV
+bC
+bC
+bC
+bC
+bC
+cr
+bC
+cr
+bC
+cr
+bC
+cr
+bC
+bC
+bC
+bC
+al
+io
+aA
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(16,1,1) = {"
+Do
+Do
+mw
+tn
+VC
+JI
+bk
+rN
+bC
+nz
+tn
+dB
+bC
+bC
+bC
+xs
+tn
+Hj
+qd
+Hj
+tn
+Sh
+bC
+jm
+bC
+jm
+bC
+jm
+bC
+jm
+bC
+bC
+bC
+bC
+al
+io
+aA
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(17,1,1) = {"
+Do
+Do
+mw
+tn
+Hj
+Hj
+Hj
+tn
+IS
+aL
+tn
+qs
+bC
+bC
+bC
+wU
+Hj
+Te
+bC
+bC
+tn
+tn
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+al
+io
+aA
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(18,1,1) = {"
+Lr
+Do
+mw
+mw
+mw
+mw
+mw
+tn
+tn
+tn
+tn
+qs
+bC
+Db
+Db
+wU
+Hj
+Ah
+Db
+Db
+bC
+tn
+tn
+tP
+un
+bC
+bC
+bC
+un
+bC
+bC
+bC
+un
+Xy
+tn
+tn
+tn
+Do
+Do
+Do
+Do
+Do
+Lr
+"}
+(19,1,1) = {"
+Do
+Do
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+tn
+qs
+bC
+Db
+Db
+wU
+Hj
+Te
+Db
+Db
+bC
+AW
+Hj
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+xl
+bC
+tn
+mw
+mw
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(20,1,1) = {"
+Do
+Do
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+tn
+tn
+QT
+bC
+bC
+bC
+Hj
+Ot
+Db
+Db
+bC
+gr
+Hj
+bC
+bC
+bC
+bC
+bC
+bC
+bC
+YL
+QN
+tn
+tn
+tn
+mw
+mw
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(21,1,1) = {"
+Do
+Do
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+tn
+tn
+bC
+NJ
+bC
+tn
+ZS
+Ks
+dE
+lR
+Nv
+tn
+dl
+NJ
+bC
+YL
+FN
+FN
+QN
+tn
+tn
+tn
+mw
+mw
+mw
+mw
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(22,1,1) = {"
+Do
+Do
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+tn
+tn
+tn
+HG
+tn
+Hj
+tn
+Hj
+Hj
+Hj
+tn
+Hj
+tn
+Hj
+tn
+tn
+tn
+tn
+tn
+mw
+mw
+mw
+mw
+mw
+mw
+Do
+Do
+Do
+Do
+Do
+Do
+"}
+(23,1,1) = {"
+Lr
+Do
+Do
+Do
+Do
+Lr
+Do
+Do
+Do
+Do
+Lr
+Do
+Do
+Do
+Do
+Lr
+Do
+Do
+Do
+Do
+Lr
+Do
+Do
+Do
+Do
+Lr
+Do
+Do
+Do
+Do
+Lr
+Do
+Do
+Do
+Do
+Lr
+Do
+Do
+Do
+Lr
+Do
+Do
+Lr
+"}
