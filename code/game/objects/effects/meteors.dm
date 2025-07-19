@@ -79,6 +79,11 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	var/dropamt = 2
 
 /obj/effect/meteor/Move(atom/destination)
+	// Nullspace is scary.
+	if(isnull(loc) || isnull(destination))
+		qdel(src)
+		return FALSE
+
 	// Quietly delete if we reach our goal or somehow leave the Z level.
 	if(z != z_original || loc == dest || destination.z != z_original || destination == dest)
 		qdel(src)
@@ -114,17 +119,14 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 		// Ram into the wall.
 		ram_wall(target)
 
-	if(obj_integrity <= 0 || QDELETED(src))
-		return FALSE
-
 	if(!target)
 		// We broke the turf, find it again.
 		target = locate(target_x, target_y, target_z)
 
-	ram_turf_contents(target)
-
 	if(obj_integrity <= 0 || QDELETED(src))
-		return FALSE
+		return target
+
+	ram_turf_contents(target)
 
 	if(!target)
 		// We broke the turf, find it again.
@@ -136,7 +138,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	if(timerid)
 		deltimer(timerid)
 	GLOB.meteor_list -= src
-	GLOB.move_manager.stop_looping(src) //this cancels the GLOB.move_manager.force_move() proc
+	GLOB.move_manager.stop_looping(src) //this cancels the GLOB.move_manager.home_onto() proc
 	return ..()
 
 /obj/effect/meteor/Initialize(mapload, target)
@@ -387,7 +389,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	meteorsound = 'sound/effects/bamf.ogg'
 	meteordrop = list(/obj/item/stack/ore/plasma)
 
-/obj/effect/meteor/tunguska/forceMove(atom/destination)
+/obj/effect/meteor/tunguska/Move(atom/destination)
 	. = ..()
 	if(.)
 		new /obj/effect/temp_visual/revenant(get_turf(src))

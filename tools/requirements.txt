@@ -1,7 +1,7 @@
-pygit2>=1.13.1
-bidict>=0.22.1
-Pillow>=10.3.0
-json5>=0.9.14
+pygit2==1.16
+bidict==0.22.1
+Pillow==10.4.0
+json5==0.9.14
 
 # changelogs
 PyYaml>=6.0.1 # maplint also
