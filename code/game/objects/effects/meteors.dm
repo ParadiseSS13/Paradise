@@ -78,40 +78,59 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	var/list/meteordrop = list(/obj/item/stack/ore/iron)
 	var/dropamt = 2
 
-/obj/effect/meteor/forceMove(atom/destination)
+/obj/effect/meteor/Move(atom/destination)
 	// Quietly delete if we reach our goal or somehow leave the Z level.
 	if(z != z_original || loc == dest || destination.z != z_original || destination == dest)
 		qdel(src)
 		return FALSE
 
+	// Dead meteors hit no atoms.
 	if(obj_integrity <= 0 || QDELETED(src))
 		return FALSE
 
-	var/destination_x = destination.x
-	var/destination_y = destination.y
-	var/destination_z = destination.z
+	if(abs(destination.y - y) == 1 && abs(destination.x - x) == 1)
+		// Hit one of the turfs beside the diagonal.
+		crunch(locate(destination.x, y, z))
 
-	if(iswallturf(destination))
+		// Dead meteors hit no atoms.
+		if(obj_integrity <= 0 || QDELETED(src))
+			return FALSE
+
+	// Hit the target tile and move to it (even if we made it change).
+	forceMove(crunch(destination))
+
+	// Dead meteors don't move, either.
+	if(obj_integrity <= 0 || QDELETED(src))
+		return FALSE
+	return TRUE
+
+/obj/effect/meteor/proc/crunch(turf/target)
+	// Keep track of the target coordinates so we can find the turf again if it changes.
+	var/target_x = target.x
+	var/target_y = target.y
+	var/target_z = target.z
+
+	if(iswallturf(target))
 		// Ram into the wall.
-		ram_wall(destination)
+		ram_wall(target)
 
 	if(obj_integrity <= 0 || QDELETED(src))
 		return FALSE
 
-	if(!destination)
+	if(!target)
 		// We broke the turf, find it again.
-		destination = locate(destination_x, destination_y, destination_z)
+		target = locate(target_x, target_y, target_z)
 
-	ram_turf_contents(destination)
+	ram_turf_contents(target)
 
-	if(QDELETED(src))
+	if(obj_integrity <= 0 || QDELETED(src))
 		return FALSE
 
-	if(!destination)
+	if(!target)
 		// We broke the turf, find it again.
-		destination = locate(destination_x, destination_y, destination_z)
+		target = locate(target_x, target_y, target_z)
 
-	return ..(destination) //process movement...
+	return target
 
 /obj/effect/meteor/Destroy()
 	if(timerid)
@@ -215,7 +234,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 /obj/effect/meteor/proc/chase_target(atom/chasing, delay = 1)
 	set waitfor = FALSE
 	if(chasing)
-		GLOB.move_manager.force_move(src, chasing, delay)
+		GLOB.move_manager.home_onto(src, chasing, delay)
 
 /obj/effect/meteor/proc/meteor_effect()
 	if(heavy)
