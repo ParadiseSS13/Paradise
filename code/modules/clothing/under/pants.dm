@@ -47,12 +47,6 @@
 	icon_state = "jeansyoungfolks"
 	item_color = "jeansyoungfolks"
 
-/obj/item/clothing/under/pants/jeanshorts
-	name = "jean shorts"
-	desc = "The trendy shorts your mother never let you wear. Now in space!"
-	icon_state = "jeanshorts"
-	item_color = "jeanshorts"
-
 /obj/item/clothing/under/pants/white
 	name = "white pants"
 	desc = "Plain white pants. Boring."
@@ -135,3 +129,9 @@
 /obj/item/clothing/under/pants/shorts/grey
 	icon_state = "greyshorts"
 	item_color = "greyshorts"
+
+/obj/item/clothing/under/pants/shorts/jeanshorts
+	name = "jean shorts"
+	desc = "The trendy shorts your mother never let you wear. Now in space!"
+	icon_state = "jeanshorts"
+	item_color = "jeanshorts"
