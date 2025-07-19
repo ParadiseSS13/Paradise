@@ -7,8 +7,8 @@
 
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS
-	button_overlay_icon = 'icons/mob/actions/actions_slime.dmi'
-	button_background_icon_state = "bg_alien"
+	button_icon = 'icons/mob/actions/actions_slime.dmi'
+	background_icon_state = "bg_alien"
 	var/needs_growth = NO_GROWTH_NEEDED
 
 /datum/action/innate/slime/IsAvailable()
@@ -42,7 +42,7 @@
 
 /datum/action/innate/slime/feed
 	name = "Feed"
-	button_overlay_icon_state = "slimeeat"
+	button_icon_state = "slimeeat"
 
 
 /datum/action/innate/slime/feed/Activate()
@@ -144,7 +144,7 @@
 
 /datum/action/innate/slime/evolve
 	name = "Evolve"
-	button_overlay_icon_state = "slimegrow"
+	button_icon_state = "slimegrow"
 	needs_growth = GROWTH_NEEDED
 
 /datum/action/innate/slime/evolve/Activate()
@@ -205,7 +205,7 @@
 
 /datum/action/innate/slime/reproduce
 	name = "Reproduce"
-	button_overlay_icon_state = "slimesplit"
+	button_icon_state = "slimesplit"
 	needs_growth = GROWTH_NEEDED
 
 /datum/action/innate/slime/reproduce/Activate()
