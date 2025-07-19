@@ -419,7 +419,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	if(istype(O, /obj/item/card/emag))
 		to_chat(user, "<span class='warning'>You are more likely to damage this with an emag, than achieve something useful.</span>")
 		return
-	var/time_to_die = integrated_console.attackby__legacy__attackchain(O, user, params)
+	var/time_to_die = integrated_console.item_interaction(user, O, params2list(params))
 	if(time_to_die)
 		to_chat(user, "<span class='danger'>[src]'s relay begins to overheat...</span>")
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
