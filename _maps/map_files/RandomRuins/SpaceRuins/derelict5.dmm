@@ -180,7 +180,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "yq" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/template_noop)
 "yY" = (

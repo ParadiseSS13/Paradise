@@ -98,10 +98,10 @@
 	action_icon_state = "vampire_bats"
 	gain_desc = "You have gained the ability to shapeshift into bat form. This is a weak form with no abilities, only useful for stealth."
 
-	shapeshift_type = /mob/living/simple_animal/hostile/scarybat/adminvampire
-	current_shapes = list(/mob/living/simple_animal/hostile/scarybat/adminvampire)
+	shapeshift_type = /mob/living/basic/scarybat/adminvampire
+	current_shapes = list(/mob/living/basic/scarybat/adminvampire)
 	current_casters = list()
-	possible_shapes = list(/mob/living/simple_animal/hostile/scarybat/adminvampire)
+	possible_shapes = list(/mob/living/basic/scarybat/adminvampire)
 
 /datum/spell/shapeshift/hellhound
 	name = "Lesser Hellhound Form"

@@ -1120,7 +1120,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "gL" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/template_noop)
 "jI" = (
@@ -1144,7 +1144,7 @@
 /area/ruin/space/onehalf/dorms_med)
 "kV" = (
 /obj/item/stack/rods,
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/space/nearstation)
 "xr" = (

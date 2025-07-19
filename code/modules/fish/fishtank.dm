@@ -546,7 +546,7 @@
 					to_chat(M, "<span class='warning'>There are no fish in [src]!</span>")
 		else
 			return ..()
-	else if(istype(M, /mob/living/simple_animal/hostile/bear))
+	else if(istype(M, /mob/living/basic/bear))
 		if(M.a_intent == INTENT_HELP)							//Bears can try to fish in open tanks on help intent
 			if(lid_switch)									//Can't fish in a closed tank. Fishbowls are ALWAYS open.
 				M.visible_message("<span class='notice'>[M.name] scrapes it's claws along [src]'s lid.</span>", "<span class='notice'>The lid is closed, so you scrape your claws against [src]'s lid.</span>")

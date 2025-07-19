@@ -133,10 +133,10 @@
 						/mob/living/simple_animal/lizard,
 						/mob/living/simple_animal/mouse,
 						/mob/living/simple_animal/pet/dog/pug,
-						/mob/living/simple_animal/hostile/bear/black,
-						/mob/living/simple_animal/hostile/bear/brown,
+						/mob/living/basic/bear/black,
+						/mob/living/basic/bear/brown,
 						/mob/living/simple_animal/hostile/poison/bees,
-						/mob/living/simple_animal/hostile/carp
+						/mob/living/basic/carp
 					)
 
 					for(var/counter in 1 to animal_spawncount)

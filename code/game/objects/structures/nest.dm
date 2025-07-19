@@ -75,5 +75,5 @@
 	spawn_mob_options = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast, /mob/living/simple_animal/hostile/asteroid/goldgrub)
 
 /obj/structure/nest/carppuppy
-	spawn_mob_options = list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/pet/dog/corgi/puppy/void)
+	spawn_mob_options = list(/mob/living/basic/carp, /mob/living/simple_animal/pet/dog/corgi/puppy/void)
 	spawn_trigger_distance = 3

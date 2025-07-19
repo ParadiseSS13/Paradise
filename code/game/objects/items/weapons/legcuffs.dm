@@ -123,7 +123,7 @@
 				H.update_inv_legcuffed()
 				SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		else
-			if(istype(entered, /mob/living/simple_animal/hostile/bear))
+			if(istype(entered, /mob/living/basic/bear))
 				entered.apply_damage(trap_damage * 2.5, BRUTE)
 			else
 				entered.apply_damage(trap_damage * 1.75, BRUTE)

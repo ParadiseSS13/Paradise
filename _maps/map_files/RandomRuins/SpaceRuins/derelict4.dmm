@@ -220,7 +220,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "Z" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/template_noop)
 
