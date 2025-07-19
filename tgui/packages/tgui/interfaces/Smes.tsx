@@ -7,8 +7,25 @@ import { Window } from '../layouts';
 // Common power multiplier
 const POWER_MUL = 1e3;
 
+type SmesData = {
+  capacityPercent: number;
+  capacity: number;
+  charge: number;
+  inputAttempt: number;
+  inputting: number;
+  inputLevel: number;
+  inputLevelMax: number;
+  inputAvailable: number;
+  outputPowernet: number;
+  outputAttempt: number;
+  outputting: number;
+  outputLevel: number;
+  outputLevelMax: number;
+  outputUsed: number;
+};
+
 export const Smes = (props) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<SmesData>();
   const {
     capacityPercent,
     capacity,
@@ -28,7 +45,7 @@ export const Smes = (props) => {
   const inputState = (capacityPercent >= 100 && 'good') || (inputting && 'average') || 'bad';
   const outputState = (outputting && 'good') || (charge > 0 && 'average') || 'bad';
   return (
-    <Window width={340} height={345}>
+    <Window width={340} height={360}>
       <Window.Content>
         <Stack fill vertical>
           <Section title="Stored Energy">
@@ -60,7 +77,7 @@ export const Smes = (props) => {
                 </Box>
               </LabeledList.Item>
               <LabeledList.Item label="Target Input">
-                <Stack inline width="100%">
+                <Stack width="100%">
                   <Stack.Item>
                     <Button
                       icon="fast-backward"
@@ -147,7 +164,7 @@ export const Smes = (props) => {
                 </Box>
               </LabeledList.Item>
               <LabeledList.Item label="Target Output">
-                <Stack inline width="100%">
+                <Stack width="100%">
                   <Stack.Item>
                     <Button
                       icon="fast-backward"
