@@ -2,7 +2,7 @@
 
 /obj/structure/janitorialcart
 	name = "janitorial cart"
-	desc = "This is the alpha and omega of sanitation."
+	desc = "Святой грааль уборки, начало и конец."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cart"
 	anchored = FALSE

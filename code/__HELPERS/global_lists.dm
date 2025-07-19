@@ -78,6 +78,10 @@
 	for(var/gear_type in subtypesof(/datum/gear))
 		var/datum/gear/gear = gear_type
 
+		// SS220 EDIT - START
+		if(gear.removed_from_loadout)
+			continue
+		// SS220 EDIT - END
 		if(gear == initial(gear.main_typepath))
 			continue
 

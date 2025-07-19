@@ -26,19 +26,19 @@
 /obj/machinery/economy/vending/syndicigs
 	name = "\improper Suspicious Cigarette Machine"
 	desc = "Smoke 'em if you've got 'em."
-	slogan_list = list("Space cigs taste good like a cigarette should.",
-					"I'd rather toolbox than switch.",
-					"Smoke!",
-					"Don't believe the reports - smoke today!")
+	slogan_list = list("Космосигареты хороши на вкус, какими они и должны быть.",
+					"Курение убивает, но не сегодня!",
+					"Курите!",
+					"Не верьте исследованиям - курите сегодня!")
 
-	ads_list = list("Probably not bad for you!",
-					"Don't believe the scientists!",
-					"It's good for you!",
-					"Don't quit, buy more!",
-					"Smoke!",
-					"Nicotine heaven.",
-					"Best cigarettes since 2150.",
-					"Award-winning cigs.")
+	ads_list = list("Наверняка не вредно!",
+					"Не верьте ученым!",
+					"На здоровье!",
+					"Не бросайте курить, купите ещё!",
+					"Курите!",
+					"Никотиновый рай.",
+					"Лучшие сигареты с 2150 года.",
+					"Сигареты с множеством наград.")
 
 	category = VENDOR_TYPE_RECREATION
 	vend_delay = 34
@@ -51,19 +51,19 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/syndicate, 32
 /obj/machinery/economy/vending/syndisnack
 	name = "\improper Getmore Chocolate Corp"
 	desc = "A modified snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars."
-	slogan_list = list("Try our new nougat bar!",
-					"Twice the calories for half the price!")
+	slogan_list = list("Попробуйте наш новый батончик с нугой!",
+					"Вдвое больше калорий за полцены!")
 
-	ads_list = list("The healthiest!",
-					"Award-winning chocolate bars!",
-					"Mmm! So good!",
-					"Oh my god it's so juicy!",
-					"Have a snack.",
-					"Snacks are good for you!",
-					"Have some more Getmore!",
-					"Best quality snacks straight from mars.",
-					"We love chocolate!",
-					"Try our new jerky!")
+	ads_list = list("Самые полезные!",
+					"Удостоенные наград шоколадные плитки!",
+					"Ммм! Как вкусно!",
+					"Боже мой, какой сочный!",
+					"Перекуси!",
+					"Закуски полезны для вас!",
+					"Запаситесь закусками Getmore!",
+					"Самые качественные закуски прямо с Марса.",
+					"Мы любим шоколад!",
+					"Попробуйте наше новое вяленое мясо!")
 
 	icon_state = "snack"
 	icon_lightmask = "nutri"
@@ -108,17 +108,17 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/syndicate, 32
 	icon_state = "liberationstation"
 	icon_lightmask = "liberationstation"
 	req_access = list(ACCESS_SECURITY)
-	slogan_list = list("Liberation Station: Your one-stop shop for all things second amendment!",
-					"Be a patriot today, pick up a gun!",
-					"Quality weapons for cheap prices!",
-					"Better dead than red!")
+	slogan_list = list("Liberation Station: Ваш универсальный магазин для всех вещей, связанных со второй поправкой!",
+					"Будь сегодня патриотом, возьми оружие!",
+					"Качественное оружие по низким ценам!",
+					"Лучше мёртвый, чем красный!")
 
-	ads_list = list("Float like an astronaut, sting like a bullet!",
-					"Express your second amendment today!",
-					"Guns don't kill people, but you can!",
-					"Who needs responsibilities when you have guns?")
+	ads_list = list("Пари как космонавт, жаль как пуля!",
+					"Воспользуйтесь второй поправкой уже сегодня!",
+					"Оружие не убивает людей, но вы можете!",
+					"Кому нужна ответственность, когда есть оружие?")
 
-	vend_reply = "Remember the name: Liberation Station!"
+	vend_reply = "Запомни нас: Liberation Station!"
 	products = list(/obj/item/gun/projectile/automatic/pistol/deagle/gold = 2,
 					/obj/item/gun/projectile/automatic/pistol/deagle/camo = 2,
 					/obj/item/gun/projectile/automatic/pistol/m1911 = 2,

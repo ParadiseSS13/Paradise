@@ -9,7 +9,7 @@
 
 
 /area/space
-	icon_state = "space"
+	icon_state = "Космос"
 	requires_power = FALSE
 	always_unpowered = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
@@ -55,7 +55,7 @@
 //SYNDICATES
 
 /area/syndicate_mothership
-	name = "\improper Syndicate Forward Base"
+	name = "Передовая База Синдиката"
 	icon_state = "syndie-ship"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
@@ -63,7 +63,7 @@
 	ambientsounds = HIGHSEC_SOUNDS
 
 /area/syndicate_mothership/jail
-	name = "\improper Syndicate Jail"
+	name = "Тюрьма Синдиката"
 
 /area/cordon
 	name = "CORDON"

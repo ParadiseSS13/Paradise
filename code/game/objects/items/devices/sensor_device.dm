@@ -1,6 +1,6 @@
 /obj/item/sensor_device
 	name = "handheld crew monitor"
-	desc = "A miniature machine that tracks suit sensors across the station."
+	desc = "Миниатюрное устройство, отслеживающее сенсоры костюмов на станции."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "scanner"
 	w_class = WEIGHT_CLASS_SMALL

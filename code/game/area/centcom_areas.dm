@@ -70,7 +70,7 @@
 //EXTRA
 
 /area/tdome
-	name = "\improper Thunderdome"
+	name = "Тандердом"
 	icon_state = "thunder"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
@@ -78,31 +78,31 @@
 
 
 /area/tdome/arena_source
-	name = "\improper Thunderdome Arena Template"
+	name = "Тандердом - Шаблон Арены"
 	icon_state = "thunder"
 
 /area/tdome/arena
-	name = "\improper Thunderdome Arena"
+	name = "Тандердом - Арена"
 	icon_state = "thunder"
 
 /area/tdome/tdomeadmin
-	name = "\improper Thunderdome (Admin.)"
+	name = "Тандердом - Комната Управления"
 	icon_state = "purple"
 
 /area/tdome/tdomeobserve
-	name = "\improper Thunderdome (Observer.)"
+	name = "Тандердом - Трибуны"
 	icon_state = "purple"
 
 // Other Areas on centcom z level
 
 /area/abductor_ship
-	name = "\improper Abductor Ship"
+	name = "Корабль Абдукторов"
 	icon_state = "yellow"
 	requires_power = FALSE
 	has_gravity = TRUE
 
 /area/wizard_station
-	name = "\improper Wizard's Den"
+	name = "Логово Волшебника"
 	icon_state = "yellow"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
@@ -115,29 +115,29 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/ninja/outpost
-	name = "\improper SpiderClan Outpost"
+	name = "Аванпост Клана Паука"
 
 /area/ninja/holding
-	name = "\improper SpiderClan Holding Facility"
+	name = "Убежище Клана Паука"
 
 /area/trader_station
-	name = "Trade Base"
+	name = "Торговая Станция"
 	icon_state = "yellow"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /area/trader_station/sol
-	name = "Trading Satellite"
+	name = "Торговая Станция ТСФ"
 
 /area/ghost_bar
-	name = "Ghost Bar"
+	name = "Призрачный Бар"
 	icon_state = "observatory"
 	requires_power = FALSE
 	has_gravity = TRUE
 	hide_attacklogs = TRUE
 
 /area/backrooms
-	name = "Backrooms"
+	name = "Закулисье"
 	icon_state = "yellow"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED

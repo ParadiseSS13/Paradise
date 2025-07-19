@@ -9,7 +9,7 @@ GLOBAL_LIST_INIT(ruin_prototypes, list(/area/ruin,
 //Parent types
 
 /area/ruin
-	name = "\improper Unexplored Location"
+	name = "Неразведанная Локация"
 	icon_state = "away"
 	has_gravity = TRUE
 	there_can_be_many = TRUE

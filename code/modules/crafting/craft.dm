@@ -21,6 +21,7 @@
 						CAT_NONE, //Tribal subcategories
 						// Food subcategories
 						list(
+							CAT_MISCFOOD, // SS220 ADDITION
 							CAT_CAKE,
 							CAT_SUSHI,
 							CAT_SANDWICH

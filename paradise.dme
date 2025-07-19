@@ -173,6 +173,8 @@
 #include "code\__DEFINES\dcs\movable_signals.dm"
 #include "code\__DEFINES\dcs\moveloop_signals.dm"
 #include "code\__DEFINES\dcs\obj_signals.dm"
+#include "code\__DEFINES\modular_ss220\_ss220.dm"
+#include "code\__DEFINES\modular_ss220\pronouns.dm"
 #include "code\__HELPERS\_logging.dm"
 #include "code\__HELPERS\_string_lists.dm"
 #include "code\__HELPERS\AnimationLibrary.dm"
@@ -3255,3 +3257,6 @@
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
 // END_INCLUDE
+
+// SS220
+#include "modular_ss220\modular_ss220.dme"

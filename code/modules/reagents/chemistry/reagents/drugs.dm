@@ -265,6 +265,14 @@
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
 	M.AdjustKnockDown(-2 SECONDS)
+	// SS220 EDIT START
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/datum/organ/heart/datum_heart = H.get_int_organ_datum(ORGAN_DATUM_HEART)
+		if(datum_heart)
+			var/obj/item/organ/internal/heart/mob_heart = datum_heart.linked_organ
+			mob_heart.receive_damage(calculate_heart_damage(), TRUE)
+	// SS220 EDIT END
 	return ..() | update_flags
 
 /datum/reagent/pump_up/overdose_process(mob/living/M, severity)
@@ -914,7 +922,7 @@
 		L.visible_message(
 			"<span class='danger'>[L] suddenly snaps back from their inhumans speeds, coughing up a spray of blood!</span>",
 			"<span class='danger'>As you snap back to normal speed you cough up a worrying amount of blood. You feel like you've just been run over by a power loader.</span>")
-		L.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
+		L.custom_emote(EMOTE_VISIBLE, "кашляет кровью!")
 		L.bleed(25)
 		L.apply_damage(max(current_cycle * 2 / 3, 60), STAMINA)
 		L.KnockDown((current_cycle * 2 / 15) SECONDS) // a minute is a 4 second knockdown, 2 is 8, etc
@@ -1068,7 +1076,7 @@
 
 
 	if(prob(5))
-		L.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
+		L.custom_emote(EMOTE_VISIBLE, "кашляет кровью!")
 		L.bleed(5)
 
 	if(prob(10))

@@ -196,7 +196,7 @@ RESTRICT_TYPE(/datum/team/cult)
 
 	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, ascend), VARSET_CALLBACK(src, cult_ascendant, TRUE)), 20 SECONDS)
 	if(!no_announcements)
-		GLOB.major_announcement.Announce("Picking up extradimensional activity related to the Cult of [GET_CULT_DATA(entity_name, "Nar'Sie")] from your station. Data suggests that about [ascend_percent * 100]% of the station has been converted. Security staff are authorized to use lethal force freely against cultists. Non-security staff should be prepared to defend themselves and their work areas from hostile cultists. Self defense permits non-security staff to use lethal force as a last resort, but non-security staff should be defending their work areas, not hunting down cultists. Dead crewmembers must be revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
+		GLOB.major_announcement.Announce("Мы фиксируем активность из другого измерения, связаную с культом [GET_CULT_DATA(entity_name, "Nar'Sie")] на вашей станции. Согласно нашей информации, [ascend_percent * 100]% экипажа станции были порабощены культом. Сотрудники службы безопасности наделены правом беспрепятственно применять летальную силу против культистов. Остальному экипажу надлежит приготовиться защищать себя и свои отделы, не ведя охоту на культистов. Погибшие члены экипажа должны быть реанимированы и деконвертированы, как только ситуация будет взята под контроль.", "Отдел по делам Высших Измерений", 'sound/AI/commandreport.ogg')
 
 /datum/team/cult/proc/cult_fall()
 	is_in_transition = TRUE
@@ -208,14 +208,14 @@ RESTRICT_TYPE(/datum/team/cult)
 
 	addtimer(CALLBACK(src, PROC_REF(all_members_timer), TYPE_PROC_REF(/datum/antagonist/cultist, descend), VARSET_CALLBACK(src, cult_ascendant, FALSE)), 20 SECONDS)
 	if(!no_announcements)
-		GLOB.major_announcement.Announce("Paranormal activity has returned to minimal levels. \
-									Security staff should minimize lethal force against cultists, using non-lethals where possible. \
-									All dead cultists should be taken to medbay or robotics for immediate revival and deconversion. \
-									Non-security staff may defend themselves, but should prioritize leaving any areas with cultists and reporting the cultists to security. \
-									Self defense permits non-security staff to use lethal force as a last resort. Hunting down cultists may make you liable for a manslaughter charge. \
-									Any access granted in response to the paranormal threat should be reset. \
-									Any and all security gear that was handed out should be returned. Finally, all weapons (including improvised) should be removed from the crew.",
-									"Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
+		GLOB.major_announcement.Announce("Уровень паранормальной активности снизился до прежнего минимального значения. \
+									Сотрудники службы безопасности должны свести к минимуму применение летальной силы против культистов, используя, по возможности, нелетальные средства. \
+									Все погибшие культисты должны быть доставлены в медбей или робототехнику для немедленной реанимации и деконвертации. \
+									Сотрудники, не относящиеся к службе безопасности, имеют право на самооборону, но в первую очередь они должны покинуть зоны, где есть культисты, и сообщить о них в службу безопасности. \
+									Самооборона позволяет сотрудникам, не относящимся к службе безопасности, применять летальную силу в случае крайней необходимости. Охота на культистов может повлечь за собой ответственность перед законом. \
+									Любые доступы, предоставленные в ответ на паранормальную угрозу, должны быть сброшены. \
+									Все выданные средства для защиты должны быть возвращены, всё оружие (включая самодельное) у экипажа должно быть изъято.",
+									"Отдел по делам Высших Измерений", 'sound/AI/commandreport.ogg')
 /**
  * This is a magic fuckin proc that takes a proc_ref, and calls it on all the human cultists.
  * Created so that we don't make 1000 timers, and I'm too lazy to make a proc for all of these.

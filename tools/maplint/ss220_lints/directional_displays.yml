@@ -1,0 +1,34 @@
+help: 'Use the specific directional subtypes for this status display.'
+/obj/machinery/status_display:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - dir
+=/obj/machinery/status_display:
+  banned: true
+=/obj/machinery/status_display/directional:
+  banned: true
+=/obj/machinery/status_display/supply_display:
+  banned: true
+=/obj/machinery/status_display/supply_display/directional:
+  banned: true
+
+/obj/machinery/ai_status_display:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - dir
+=/obj/machinery/ai_status_display:
+  banned: true
+=/obj/machinery/ai_status_display/directional:
+  banned: true
+
+/obj/machinery/computer/security/telescreen/entertainment:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - dir
+=/obj/machinery/computer/security/telescreen/entertainment:
+  banned: true
+=/obj/machinery/computer/security/telescreen/entertainment/directional:
+  banned: true

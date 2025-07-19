@@ -160,7 +160,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// If set to TRUE, the robot can see the types and precice quantities of reagents in transparent containers, the % amount of different reagents in opaque containers, and can identify different blood types.
 	var/has_advanced_reagent_vision = FALSE
 
-	/// Integer used to determine self-mailing location, used only by drones and saboteur robots.
+	/// Integer used to determine self-mailing location, used only by drones and saboteur robots..
 	var/mail_destination = 1
 	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
 	var/datum/ui_module/destination_tagger/mail_setter

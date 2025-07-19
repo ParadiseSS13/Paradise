@@ -2,7 +2,7 @@
 
 /obj/item/mop
 	name = "mop"
-	desc = "The world of janitalia wouldn't be complete without a mop."
+	desc = "Есть два правила: не мусорить, не срать. Вперёд боец, в бой!"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "mop"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
