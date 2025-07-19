@@ -43,8 +43,3 @@ dbpnoise = "0.1.2"
 redis = { version = "0.21.4" }
 flume = { version = "0.10" }
 notify-rust = "4.11.7"
-
-[features]
-default = ["byond-515"]
-byond-515 = ["byondapi/byond-515-1621"]
-byond-516 = ["byondapi/byond-516-1651"]
