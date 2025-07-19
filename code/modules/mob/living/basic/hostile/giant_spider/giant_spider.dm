@@ -66,7 +66,7 @@
 /mob/living/basic/giant_spider/proc/create_web()
 	var/T = loc
 	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
-	if(!do_after_once(src, 4 SECONDS, target = loc, attempt_cancel_message = "You stop spinning a web."))
+	if(!do_after_once(src, 4 SECONDS, target = loc, attempt_cancel_message = "You stop spinning a web.", interaction_key = "spider_web_create"))
 		return
 	new /obj/structure/spider/stickyweb(T)
 
@@ -122,7 +122,7 @@
 
 	if(cocoon_target)
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>")
-		if(!do_after_once(src, 5 SECONDS, target = cocoon_target, attempt_cancel_message = "You stop wrapping [cocoon_target]."))
+		if(!do_after_once(src, 5 SECONDS, target = cocoon_target, attempt_cancel_message = "You stop wrapping [cocoon_target].", interaction_key = "spider_web_wrap"))
 			return
 		if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src, cocoon_target) <= 1)
 			var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
@@ -165,7 +165,7 @@
 		to_chat(src, "<span class='warning'>You are too hungry to do this!</span>")
 		return
 	visible_message("<span class='notice'>[src] begins to lay a cluster of eggs.</span>")
-	if(!do_after_once(src, 4 SECONDS, target = loc, attempt_cancel_message = "You stop laying eggs."))
+	if(!do_after_once(src, 4 SECONDS, target = loc, attempt_cancel_message = "You stop laying eggs.", interaction_key = "spider_egg_lay"))
 		return
 	var/obj/structure/spider/eggcluster/C = new /obj/structure/spider/eggcluster(loc)
 	C.faction = faction.Copy()

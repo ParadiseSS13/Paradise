@@ -70,6 +70,11 @@ RESTRICT_TYPE(/datum/ai_controller)
 	var/can_idle = TRUE
 	/// What distance should we be checking for interesting things when considering idling/deidling? Defaults to AI_DEFAULT_INTERESTING_DIST
 	var/interesting_dist = AI_DEFAULT_INTERESTING_DIST
+	/// TRUE if we're able to run, FALSE if we aren't
+	/// Should not be set manually, override get_able_to_run() instead
+	/// Make sure you hook update_able_to_run() in setup_able_to_run() to whatever parameters changing that you added
+	/// Otherwise we will not pay attention to them changing
+	var/able_to_run = FALSE
 	/// are we currently on failed planning timeout?
 	var/on_failed_planning_timeout = FALSE
 
@@ -166,6 +171,8 @@ RESTRICT_TYPE(/datum/ai_controller)
 	RegisterSignal(pawn, COMSIG_MOB_STATCHANGE, PROC_REF(on_stat_changed))
 	RegisterSignal(pawn, COMSIG_MOB_LOGIN, PROC_REF(on_sentience_gained))
 	RegisterSignal(pawn, COMSIG_PARENT_QDELETING, PROC_REF(on_pawn_qdeleted))
+	update_able_to_run()
+	setup_able_to_run()
 
 /datum/ai_controller/proc/on_movement_target_move(datum/source)
 	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
@@ -254,13 +261,30 @@ RESTRICT_TYPE(/datum/ai_controller)
 	if(destroy)
 		qdel(src)
 
-/// Returns TRUE if the ai controller can actually run at the moment.
-/datum/ai_controller/proc/able_to_run()
+/datum/ai_controller/proc/setup_able_to_run()
+	// paused_until is handled by PauseAi() manually
+	RegisterSignals(pawn, list(SIGNAL_ADDTRAIT(TRAIT_AI_PAUSED), SIGNAL_REMOVETRAIT(TRAIT_AI_PAUSED)), PROC_REF(update_able_to_run))
+
+/datum/ai_controller/proc/clear_able_to_run()
+	UnregisterSignal(pawn, list(SIGNAL_ADDTRAIT(TRAIT_AI_PAUSED), SIGNAL_REMOVETRAIT(TRAIT_AI_PAUSED)))
+
+/datum/ai_controller/proc/update_able_to_run()
+	SIGNAL_HANDLER
+	var/run_flags = get_able_to_run()
+	if(run_flags & AI_UNABLE_TO_RUN)
+		able_to_run = FALSE
+		GLOB.move_manager.stop_looping(pawn) //stop moving
+	else
+		able_to_run = TRUE
+	set_ai_status(get_expected_ai_status(), run_flags)
+
+/// Returns TRUE if the ai controller can actually run at the moment, FALSE otherwise
+/datum/ai_controller/proc/get_able_to_run()
 	if(HAS_TRAIT(pawn, TRAIT_AI_PAUSED))
-		return FALSE
+		return AI_UNABLE_TO_RUN
 	if(world.time < paused_until)
-		return FALSE
-	return TRUE
+		return AI_UNABLE_TO_RUN
+	return NONE
 
 /datum/ai_controller/proc/ai_can_interact()
 	SHOULD_CALL_PARENT(TRUE)
@@ -295,7 +319,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 	// in the AI controller implementation are actually the managing subsystem's `wait`.
 	seconds_per_tick /= (1 SECONDS)
 
-	if(!able_to_run())
+	if(!able_to_run)
 		GLOB.move_manager.stop_looping(pawn) //stop moving
 		return //this should remove them from processing in the future through event-based stuff.
 
@@ -457,6 +481,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 /datum/ai_controller/proc/on_stat_changed(mob/living/source, new_stat)
 	SIGNAL_HANDLER // COMSIG_MOB_STATCHANGE
 	reset_ai_status()
+	update_able_to_run()
 
 /datum/ai_controller/proc/on_sentience_gained()
 	SIGNAL_HANDLER // COMSIG_MOB_LOGIN

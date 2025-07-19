@@ -12,9 +12,9 @@
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
-		/datum/ai_planning_subtree/random_speech/insect,
 		/datum/ai_planning_subtree/find_unwebbed_turf,
 		/datum/ai_planning_subtree/spin_web,
+		/datum/ai_planning_subtree/random_speech/insect,
 	)
 
 /datum/ai_controller/basic_controller/giant_spider/nurse
@@ -22,12 +22,12 @@
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
-		/datum/ai_planning_subtree/random_speech/insect,
 		/datum/ai_planning_subtree/lay_eggs,
 		/datum/ai_planning_subtree/find_unwrapped_target,
 		/datum/ai_planning_subtree/wrap_target,
 		/datum/ai_planning_subtree/find_unwebbed_turf,
 		/datum/ai_planning_subtree/spin_web,
+		/datum/ai_planning_subtree/random_speech/insect,
 	)
 
 /datum/ai_controller/basic_controller/giant_spider/changeling
@@ -195,24 +195,25 @@
 /datum/ai_planning_subtree/wrap_target
 	/// Key where the web spinning action is stored
 	var/action_key = BB_SPIDER_WRAP_ACTION
-	/// Key where the target turf is stored
+	/// Key where the target is stored
 	var/target_key = BB_SPIDER_WRAP_TARGET
 
 /datum/ai_planning_subtree/wrap_target/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	if(controller.blackboard_key_exists(action_key) && controller.blackboard_key_exists(target_key))
-		controller.queue_behavior(/datum/ai_behavior/spin_web, action_key, target_key)
+		controller.queue_behavior(/datum/ai_behavior/wrap_target, action_key, target_key)
 		return SUBTREE_RETURN_FINISH_PLANNING
 
-/// Move to an unwebbed nearby turf and web it up
+/// Move to an unwrapped item and wrap it
 /datum/ai_behavior/wrap_target
 	action_cooldown = 15 SECONDS // We don't want them doing this too quickly
 	required_distance = 0
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/wrap_target/setup(datum/ai_controller/controller, action_key, target_key)
-	var/datum/action/innate/web_giant_spider/web_action = controller.blackboard[action_key]
-	var/turf/target_turf = controller.blackboard[target_key]
-	if(!web_action || !target_turf)
+	var/datum/action/innate/wrap_giant_spider/wrap_action = controller.blackboard[action_key]
+	var/atom/target = controller.blackboard[target_key]
+	var/turf/target_turf = get_turf(target)
+	if(!wrap_action || !target_turf)
 		return FALSE
 
 	set_movement_target(controller, target_turf)
@@ -240,19 +241,20 @@
 
 /// Attempt to lay eggs if we're fed
 /datum/ai_behavior/lay_eggs
-	action_cooldown = 15 SECONDS // We don't want them doing this too quickly
-	required_distance = 0
-	behavior_flags =  AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
+	action_cooldown = 45 SECONDS
+	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/lay_eggs/setup(datum/ai_controller/controller, action_key)
-	var/datum/action/innate/web_giant_spider/web_action = controller.blackboard[action_key]
-	var/mob/living/basic/giant_spider/nurse/spider = controller
-	if(!web_action || !spider.fed)
+	var/datum/action/innate/lay_eggs_giant_spider/egg_action = controller.blackboard[action_key]
+	if(!egg_action)
 		return FALSE
 	return ..()
 
 /datum/ai_behavior/lay_eggs/perform(seconds_per_tick, datum/ai_controller/controller, action_key)
 	var/datum/action/innate/lay_eggs_giant_spider/egg_action = controller.blackboard[action_key]
+	var/mob/living/basic/giant_spider/nurse/spider = controller.pawn
+	if(spider.fed < 1)
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 	if(egg_action?.Trigger())
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED

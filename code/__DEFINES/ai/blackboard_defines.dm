@@ -168,7 +168,7 @@
 /// Key where we store the web-spinning ability
 #define BB_SPIDER_WEB_ACTION "BB_spider_web_action"
 /// Our wrapping target
-#define BB_SPIDER_WRAP_TARGET "BB_spider_web_target"
+#define BB_SPIDER_WRAP_TARGET "BB_spider_wrap_target"
 /// Key where we define the wrapping ability
 #define BB_SPIDER_WRAP_ACTION "BB_spider_wrap_action"
 /// Key where we define the egg laying ability
