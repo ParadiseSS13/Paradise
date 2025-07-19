@@ -206,37 +206,13 @@
 
 /datum/move_loop/move/move()
 	var/atom/old_loc = moving.loc
-	moving.Move(get_step(moving, direction), direction, FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE), !(flags & MOVEMENT_LOOP_NO_MOMENTUM_CHANGE))
+	if(flags & MOVEMENT_LOOP_FORCE_MOVE)
+		moving.forceMove(get_step(moving, direction))
+	else
+		moving.Move(get_step(moving, direction), direction, FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE), !(flags & MOVEMENT_LOOP_NO_MOMENTUM_CHANGE))
 	// We cannot rely on the return value of Move(), we care about teleports and it doesn't
 	// Moving also can be null on occasion, if the move deleted it and therefor us
 	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
-
-
-/**
- * Like move(), but we don't care about collision at all
- *
- * Returns TRUE if the loop sucessfully started, or FALSE if it failed
- *
- * Arguments:
- * moving - The atom we want to move
- * direction - The direction we want to move in
- * delay - How many deci-seconds to wait between fires. Defaults to the lowest value, 0.1
- * timeout - Time in deci-seconds until the moveloop self expires. Defaults to infinity
- * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
- * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
- * flags - Set of bitflags that effect move loop behavior in some way. Check __DEFINES/movement_defines.dm
- *
-**/
-/datum/move_manager/proc/force_move_dir(moving, direction, delay, timeout, subsystem, priority, flags, datum/extra_info)
-	return add_to_loop(moving, subsystem, /datum/move_loop/move/force, priority, flags, extra_info, delay, timeout, direction)
-
-/datum/move_loop/move/force
-
-/datum/move_loop/move/force/move()
-	var/atom/old_loc = moving.loc
-	moving.forceMove(get_step(moving, direction))
-	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
-
 
 /datum/move_loop/has_target
 	///The thing we're moving in relation to, either at or away from
@@ -267,34 +243,6 @@
 /datum/move_loop/has_target/proc/handle_no_target()
 	SIGNAL_HANDLER
 	qdel(src)
-
-
-/**
- * Used for force-move loops, similar to move_towards_legacy() but not quite the same
- *
- * Returns TRUE if the loop sucessfully started, or FALSE if it failed
- *
- * Arguments:
- * moving - The atom we want to move
- * chasing - The atom we want to move towards
- * delay - How many deci-seconds to wait between fires. Defaults to the lowest value, 0.1
- * timeout - Time in deci-seconds until the moveloop self expires. Defaults to infinity
- * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
- * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
- * flags - Set of bitflags that effect move loop behavior in some way. Check __DEFINES/movement_defines.dm
- *
-**/
-/datum/move_manager/proc/force_move(moving, chasing, delay, timeout, subsystem, priority, flags, datum/extra_info)
-	return add_to_loop(moving, subsystem, /datum/move_loop/has_target/force_move, priority, flags, extra_info, delay, timeout, chasing)
-
-///Used for force-move loops
-/datum/move_loop/has_target/force_move
-
-/datum/move_loop/has_target/force_move/move()
-	var/atom/old_loc = moving.loc
-	moving.forceMove(get_step(moving, get_dir(moving, target)))
-	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
-
 
 /**
  * Used for following jps defined paths. The proc signature here's a bit long, I'm sorry
@@ -442,7 +390,11 @@
 
 	var/turf/next_step = movement_path[1]
 	var/atom/old_loc = moving.loc
-	moving.Move(next_step, get_dir(moving, next_step), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
+
+	if(flags & MOVEMENT_LOOP_FORCE_MOVE)
+		moving.forceMove(next_step)
+	else
+		moving.Move(next_step, get_dir(moving, next_step), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
 	. = (old_loc != moving?.loc) ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
 
 	// this check if we're on exactly the next tile may be overly brittle for dense objects who may get bumped slightly
@@ -511,7 +463,10 @@
 		return
 	var/atom/old_loc = moving.loc
 	var/turf/next = get_step_to(moving, target)
-	moving.Move(next, get_dir(moving, next), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
+	if(flags & MOVEMENT_LOOP_FORCE_MOVE)
+		moving.forceMove(next)
+	else
+		moving.Move(next, get_dir(moving, next), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
 	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
 
 /**
@@ -545,7 +500,10 @@
 		return
 	var/atom/old_loc = moving.loc
 	var/turf/next = get_step_away(moving, target)
-	moving.Move(next, get_dir(moving, next), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
+	if(flags & MOVEMENT_LOOP_FORCE_MOVE)
+		moving.forceMove(next)
+	else
+		moving.Move(next, get_dir(moving, next), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
 	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
 
 
@@ -647,7 +605,10 @@
 	if(y_ticker >= 1)
 		y_ticker = MODULUS(x_ticker, 1)
 	var/atom/old_loc = moving.loc
-	moving.Move(moving_towards, get_dir(moving, moving_towards), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
+	if(flags & MOVEMENT_LOOP_FORCE_MOVE)
+		moving.forceMove(moving_towards)
+	else
+		moving.Move(moving_towards, get_dir(moving, moving_towards), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
 
 	//YOU FOUND THEM! GOOD JOB
 	if(home && get_turf(moving) == get_turf(target))
@@ -729,7 +690,10 @@
 /datum/move_loop/has_target/move_towards_budget/move()
 	var/turf/target_turf = get_step_towards(moving, target)
 	var/atom/old_loc = moving.loc
-	moving.Move(target_turf, get_dir(moving, target_turf), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
+	if(flags & MOVEMENT_LOOP_FORCE_MOVE)
+		moving.forceMove(target_turf)
+	else
+		moving.Move(target_turf, get_dir(moving, target_turf), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
 	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
 
 /**
@@ -802,7 +766,10 @@
 		var/testdir = pick(potential_dirs)
 		var/turf/moving_towards = get_step(moving, testdir)
 		var/atom/old_loc = moving.loc
-		moving.Move(moving_towards, testdir, FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
+		if(flags & MOVEMENT_LOOP_FORCE_MOVE)
+			moving.forceMove(moving_towards)
+		else
+			moving.Move(moving_towards, testdir, FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
 		if(old_loc != moving?.loc)  //If it worked, we're done
 			return MOVELOOP_SUCCESS
 		potential_dirs -= testdir
@@ -831,7 +798,10 @@
 /datum/move_loop/move_to_rand/move()
 	var/atom/old_loc = moving.loc
 	var/turf/next = get_step_rand(moving)
-	moving.Move(next, get_dir(moving, next), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
+	if(flags & MOVEMENT_LOOP_FORCE_MOVE)
+		moving.forceMove(next)
+	else
+		moving.Move(next, get_dir(moving, next), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
 	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
 
 /**
