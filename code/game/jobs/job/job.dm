@@ -296,7 +296,13 @@
 	var/datum/job/J = SSjobs.GetJobType(jobtype)
 	if(!J)
 		J = SSjobs.GetJob(H.job)
-	id.assignment = H.mind.role_alt_title ? H.mind.role_alt_title : J.title
+	if(H.mind.role_alt_title)
+		id.assignment = H.mind.role_alt_title
+	else if(J)
+		id.assignment = J.title
+	else
+		id.assignment = H.job // ERTs and other things without job datums
+
 	if(!H.mind.initial_account)
 		return
 	id.associated_account_number = H.mind.initial_account.account_number
