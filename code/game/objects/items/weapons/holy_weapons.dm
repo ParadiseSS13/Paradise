@@ -398,7 +398,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon = 'icons/obj/weapons/melee.dmi'
-	icon_state = "chainsaw1"
+	icon_state = "chainsaw_on"
 	item_state = "mounted_chainsaw"
 	w_class = WEIGHT_CLASS_HUGE
 	flags = NODROP | ABSTRACT
