@@ -24,6 +24,8 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	SIGNAL_HANDLER  // COMSIG_CARGO_CHECK_SELL
 	if(istype(thing, /obj/item/reagent_containers))
 		var/obj/item/reagent_containers/C = thing
+		if(!thing.reagents?.has_reagent("blood"))
+			return
 		if(check_viruses(C.reagents.reagent_list))
 			return COMSIG_CARGO_SELL_PRIORITY
 		return COMSIG_CARGO_SELL_WRONG

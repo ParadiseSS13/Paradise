@@ -45,13 +45,15 @@
 		message_parts += "Suitable task found. Task details:"
 	message_parts += ""
 	message_parts += report_message
+	message_parts += ""
+	message_parts += "All requested materials must be properly labeled for transport, or be inside a properly-labeled container. You can configure a hand labeler to create suitable labels by by swiping your ID card on it."
 	if(should_send_crate)
-		message_parts += "You must submit this in a locked personal crate. One will be sent to your Cargo department. More can be ordered if needed."
-	send_requests_console_message(message_parts, "Central Command", department, "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_HIGHPRIORITY)
+		message_parts += "For your convenience, a pre-labeled personal crate will be sent to your cargo department."
+	send_requests_console_message(message_parts, "Procurement Office", department, "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_HIGHPRIORITY)
 	if(department !=  "Captain's Desk")
-		send_requests_console_message(message_parts, "Central Command", "Captain's Desk", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
+		send_requests_console_message(message_parts, "Procurement Office", "Captain's Desk", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
 	if(department !=  "Bridge")
-		send_requests_console_message(message_parts, "Central Command", "Bridge", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
+		send_requests_console_message(message_parts, "Procurement Office", "Bridge", "Stamped with the Central Command rubber stamp.", "Verified by A.L.I.C.E (CentCom AI)", RQ_NORMALPRIORITY)
 
 /proc/init_secondary_goal_grab_bags()
 	SSticker.mode.secondary_goal_grab_bags = list()

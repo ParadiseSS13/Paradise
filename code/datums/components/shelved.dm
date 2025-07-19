@@ -226,6 +226,8 @@
 	var/original_layer
 	/// A copy of the shelved object's original appearance flags, to restore after removing from the shelf.
 	var/original_appearance_flags
+	/// Are we currently being moved by a shuttle? Prevents us from falling off the shelf in transport.
+	var/shuttle_moving = FALSE
 
 /datum/component/shelved/Initialize(atom/shelf)
 	if(!isobj(parent))
@@ -241,6 +243,7 @@
 	. = ..()
 	RegisterSignal(parent, COMSIG_ITEM_PICKUP, PROC_REF(on_item_pickup))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_movable_moved))
+	RegisterSignal(parent, COMSIG_MOVABLE_ON_SHUTTLE_MOVE, PROC_REF(on_movable_shuttle_moved))
 	var/obj/shelf = locateUID(shelf_uid)
 	if(shelf)
 		RegisterSignal(shelf, COMSIG_MOVABLE_SHOVE_IMPACT, PROC_REF(on_movable_shove_impact))
@@ -255,10 +258,18 @@
 	SIGNAL_HANDLER // COMSIG_ITEM_PICKUP
 	qdel(src)
 
+/datum/component/shelved/proc/on_movable_shuttle_moved()
+	SIGNAL_HANDLER // COMSIG_MOVABLE_ON_SHUTTLE_MOVE,
+	shuttle_moving = TRUE
+
 /// Generic handler for if anything moves us off our original shelf position, such as atmos pressure.
 /datum/component/shelved/proc/on_movable_moved()
 	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
-	qdel(src)
+	if(shuttle_moving)
+		// Ignore this movement, since we should be moving with the shelf.
+		shuttle_moving = FALSE
+	else
+		qdel(src)
 
 /datum/component/shelved/UnregisterFromParent()
 	. = ..()
