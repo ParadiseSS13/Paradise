@@ -1,7 +1,6 @@
 import { filter, sortBy } from 'common/collections';
 import { useState } from 'react';
 import { Box, Button, Dropdown, Input, LabeledList, Modal, Section, Stack, Table } from 'tgui-core/components';
-import { flow } from 'tgui-core/fp';
 import { createSearch } from 'tgui-core/string';
 
 import { useBackend, useSharedState } from '../backend';
@@ -156,14 +155,20 @@ const CataloguePane = (props) => {
 
   const { contentsModalTitle, setContentsModalTitle } = props;
 
-  const packSearch = createSearch(searchText, (crate) => crate.name);
   const { selectedAccount, setSelectedAccount } = props;
 
-  const cratesToShow = flow([
-    (o) => filter(o, (pack) => pack.cat === categories.filter((c) => c.name === category)[0].category || searchText),
-    searchText && ((o) => filter(o, packSearch)),
-    (o) => sortBy(o, (pack) => pack.name.toLowerCase()),
-  ])(supply_packs);
+  const cratesToShow = (() => {
+    let crates = supply_packs;
+    if (searchText) {
+      crates = filter(
+        crates,
+        createSearch(searchText, (crate) => crate.name)
+      );
+    } else {
+      crates = filter(crates, (pack) => pack.cat === categories.filter((c) => c.name === category)[0].category);
+    }
+    return sortBy(crates, (pack) => pack.name.toLowerCase());
+  })();
 
   let titleText = 'Crate Catalogue';
   if (searchText) {

@@ -129,9 +129,7 @@ const RatingTools = (properties) => {
 
   const { selected_rating } = data;
 
-  let ratingVals = Array(10)
-    .fill()
-    .map((_, n) => 1 + n);
+  let ratingVals = [...Array(10)].map((_, i) => i + 1);
   return (
     <Stack>
       {ratingVals.map((rating_num, index) => (

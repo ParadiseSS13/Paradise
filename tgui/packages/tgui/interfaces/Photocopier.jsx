@@ -15,7 +15,7 @@ export const Photocopier = (props) => {
               <Stack.Item width="2em" bold>
                 {data.copynumber}
               </Stack.Item>
-              <Stack.Item float="right">
+              <Stack.Item style={{ float: 'right' }}>
                 <Button icon="minus" textAlign="center" content="" onClick={() => act('minus')} />
                 <Button icon="plus" textAlign="center" content="" onClick={() => act('add')} />
               </Stack.Item>
@@ -64,22 +64,14 @@ const Actions = (props) => {
   const { issilicon } = data;
   return (
     <>
-      <Button fluid icon="copy" float="center" textAlign="center" content="Copy" onClick={() => act('copy')} />
-      <Button
-        fluid
-        icon="file-import"
-        float="center"
-        textAlign="center"
-        content="Scan"
-        onClick={() => act('scandocument')}
-      />
+      <Button fluid icon="copy" textAlign="center" content="Copy" onClick={() => act('copy')} />
+      <Button fluid icon="file-import" textAlign="center" content="Scan" onClick={() => act('scandocument')} />
       {!!issilicon && (
         <>
           <Button
             fluid
             icon="file"
             color="green"
-            float="center"
             textAlign="center"
             content="Print Text"
             onClick={() => act('ai_text')}
@@ -88,7 +80,6 @@ const Actions = (props) => {
             fluid
             icon="image"
             color="green"
-            float="center"
             textAlign="center"
             content="Print Image"
             onClick={() => act('ai_pic')}

@@ -26,9 +26,9 @@ export const AtmosAlertConsole = (props) => {
               </li>
             ))}
             {Object.keys(areaModes).length === 0 && <li className="color-good">All Areas Filtering</li>}
-            {Object.keys(areaModes).map((label) => (
-              <li key={alert} className="color-good">
-                {label} mode is {areaModes[label]}
+            {Object.entries(areaModes).map(([area, mode]) => (
+              <li key={area} className="color-good">
+                {area} mode is {mode}
               </li>
             ))}
           </ul>

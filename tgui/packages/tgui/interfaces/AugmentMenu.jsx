@@ -51,8 +51,8 @@ const Abilities = () => {
         : `0 / ${ability.max_level}`;
 
     return (
-      <Stack.Item key={ability.name} direction="row">
-        <Stack>
+      <Stack.Item key={ability.name}>
+        <Stack vertical={false}>
           <Button
             height="20px"
             width="35px"
@@ -147,8 +147,8 @@ const Upgrades = ({ act, abilityTabs, knownAbilities, usableSwarms }) => {
       .find((ability) => ability.ability_path === knownAbility.ability_path);
 
     return (
-      <Stack.Item key={knownAbility.name} direction="row">
-        <Stack>
+      <Stack.Item key={knownAbility.name}>
+        <Stack vertical={false}>
           <Button
             height="20px"
             width="35px"

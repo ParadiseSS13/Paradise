@@ -1,4 +1,4 @@
-import { Button, LabeledList, Section } from 'tgui-core/components';
+import { Box, Button, LabeledList, Section } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -28,9 +28,11 @@ export const BotClean = (props) => {
             onClick={() => act('area')}
           />
           {area !== null && (
-            <LabeledList mb={1}>
-              <LabeledList.Item label="Locked Area">{area}</LabeledList.Item>
-            </LabeledList>
+            <Box mb={1}>
+              <LabeledList>
+                <LabeledList.Item label="Locked Area">{area}</LabeledList.Item>
+              </LabeledList>
+            </Box>
           )}
         </Section>
         {painame && (

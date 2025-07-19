@@ -1,7 +1,6 @@
 import { filter, sortBy } from 'common/collections';
 import { useState } from 'react';
 import { Box, Button, Input, LabeledList, Section, Stack, Tabs } from 'tgui-core/components';
-import { flow } from 'tgui-core/fp';
 import { BooleanLike } from 'tgui-core/react';
 import { createSearch, decodeHtmlEntities } from 'tgui-core/string';
 
@@ -144,19 +143,21 @@ const ItemsPage = (_properties) => {
   const [uplinkItems, setUplinkItems] = useState(cats[0].items);
 
   const [searchText, setSearchText] = useState('');
-  const SelectEquipment = (items: UplinkItem[], searchText = '') => {
-    const EquipmentSearch = createSearch(searchText, (item: UplinkItem) => {
-      let is_hijack = item.hijack_only === 1 ? '|' + 'hijack' : '';
-      return item.name + '|' + item.desc + '|' + item.cost + 'tc' + is_hijack;
-    });
-    return flow([
-      // Make sure it has a name
-      (items: UplinkItem[]) => filter(items, (item) => !!item.name),
-      // Search for anything
-      (items: UplinkItem[]) => searchText && filter(items, EquipmentSearch),
-      // Sort by name
-      (items: UplinkItem[]) => sortBy(items, (item) => !!item.name),
-    ])(items);
+  const SelectEquipment = (items: TUplinkItem[], searchText = '') => {
+    items = filter(items, (item) => !!item.name);
+    if (searchText) {
+      items = filter(
+        items,
+        createSearch(searchText, (item) => {
+          let key = `${item.name}|${item.desc}|${item.cost}tc`;
+          if (item.hijack_only) {
+            key += '|hijack';
+          }
+          return key;
+        })
+      );
+    }
+    return sortBy(items, (item) => item.name);
   };
   const handleSearch = (value) => {
     setSearchText(value);
@@ -292,8 +293,8 @@ const Advert = (_properties) => {
             .map((number) => cats[number.cat].items[number.item])
             .filter((item) => item !== undefined && item !== null)
             .map((item, index) => (
-              <Stack.Item key={index} p={1} mb={1} ml={1} width={34} backgroundColor={'rgba(255, 0, 0, 0.15)'}>
-                <UplinkItem grow i={item} />
+              <Stack.Item key={index} p={1} mb={1} ml={1} width={34} backgroundColor={'rgba(255, 0, 0, 0.15)'} grow>
+                <UplinkItem i={item} />
               </Stack.Item>
             ))}
         </Stack>
@@ -426,15 +427,14 @@ const ExploitableInfoPage = (_properties) => {
 
   // Search for peeps
   const SelectMembers = (people: Exploitable[], searchText = ''): Exploitable[] => {
-    const MemberSearch = createSearch(searchText, (member: Exploitable) => member.name);
-    return flow([
-      // Null member filter
-      (members: Exploitable[]) => filter(members, (member) => !!member.name),
-      // Optional search term
-      (members: Exploitable[]) => searchText && filter(members, MemberSearch),
-      // Slightly expensive, but way better than sorting in BYOND
-      (members: Exploitable[]) => sortBy(members, (member) => member.name),
-    ])(people);
+    let members = filter(people, (member) => !!member.name);
+    if (searchText) {
+      members = filter(
+        members,
+        createSearch(searchText, (member) => member.name)
+      );
+    }
+    return sortBy(members, (member) => member.name);
   };
 
   const crew = SelectMembers(exploitable, searchText);

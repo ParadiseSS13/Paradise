@@ -1,7 +1,6 @@
 import { filter, sortBy } from 'common/collections';
 import { useState } from 'react';
 import { Box, Button, Input, LabeledList, Section } from 'tgui-core/components';
-import { flow } from 'tgui-core/fp';
 import { createSearch } from 'tgui-core/string';
 
 import { useBackend } from '../../backend';
@@ -24,15 +23,14 @@ const SelectionView = (props) => {
 
   // Search for peeps
   const SelectMembers = (people, searchText = '') => {
-    const MemberSearch = createSearch(searchText, (member) => member.Name);
-    return flow([
-      // Null member filter
-      filter((member) => member?.Name),
-      // Optional search term
-      searchText && filter(MemberSearch),
-      // Slightly expensive, but way better than sorting in BYOND
-      sortBy((member) => member.Name),
-    ])(recordsList);
+    let members = filter(recordsList, (member) => member?.Name);
+    if (searchText) {
+      members = filter(
+        members,
+        createSearch(searchText, (member) => member.Name)
+      );
+    }
+    return sortBy(members, (member) => member.Name);
   };
 
   const formattedRecords = SelectMembers(recordsList, searchText);

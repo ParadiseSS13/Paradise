@@ -1,7 +1,6 @@
 import { filter, sortBy } from 'common/collections';
 import { useState } from 'react';
 import { Box, Button, Input, Section, Stack, Tabs } from 'tgui-core/components';
-import { flow } from 'tgui-core/fp';
 import { createSearch } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
@@ -60,13 +59,14 @@ const Abilities = (props) => {
       return [];
     }
 
-    const AbilitySearch = createSearch(searchText, (ability) => {
-      return ability.name + '|' + ability.description;
-    });
-
-    return flow([filter((ability) => ability?.name), filter(AbilitySearch), sortBy((ability) => ability?.name)])(
-      abilities
-    );
+    abilities = filter(abilities, (ability) => !!ability?.name);
+    if (searchText) {
+      abilities = filter(
+        abilities,
+        createSearch(searchText, (ability) => ability.name + '|' + ability.description)
+      );
+    }
+    return sortBy(abilities, (ability) => ability?.name);
   };
 
   const handleSearch = (value) => {
