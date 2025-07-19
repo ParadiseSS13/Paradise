@@ -42303,7 +42303,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/mob/living/simple_animal/hostile/retaliate/araneus,
+/mob/living/basic/giant_spider/araneus,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},

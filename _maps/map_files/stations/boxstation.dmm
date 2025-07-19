@@ -2970,7 +2970,7 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
 "amv" = (
-/mob/living/simple_animal/hostile/retaliate/araneus,
+/mob/living/basic/giant_spider/araneus,
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
 "amy" = (

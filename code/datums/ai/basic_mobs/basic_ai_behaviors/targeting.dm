@@ -56,6 +56,13 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 
 	for(var/atom/pot_target in potential_targets)
 		if(targeting_strategy.can_attack(living_mob, pot_target))//Can we attack it?
+			var/invalid = FALSE
+			for(var/atom/blacklisted in controller.blackboard[BB_BASIC_MOB_TARGET_BLACKLIST])
+				if(pot_target == blacklisted)
+					invalid = TRUE
+					break
+			if(invalid)
+				continue
 			filtered_targets += pot_target
 			continue
 

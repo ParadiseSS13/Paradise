@@ -14,3 +14,6 @@
 			return FALSE
 		living_pawn.Move(destination_turf, move_dir)
 	return TRUE
+
+/datum/idle_behavior/idle_random_walk/less_walking
+	walk_chance = 10

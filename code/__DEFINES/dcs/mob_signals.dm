@@ -211,6 +211,11 @@
 	///cancel post eating
 	#define COMSIG_MOB_TERMINATE_EAT (1<<0)
 
+/// Sent from /proc/do_after if someone starts a do_after action bar.
+#define COMSIG_DO_AFTER_BEGAN "mob_do_after_began"
+/// Sent from /proc/do_after once a do_after action completes, whether via the bar filling or via interruption.
+#define COMSIG_DO_AFTER_ENDED "mob_do_after_ended"
+
 // ghost signals
 
 /// from observer_base/do_observe(): (mob/now_followed)
