@@ -53819,7 +53819,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/feral_cat{
+/mob/living/basic/feral_cat{
 	dir = 1
 	},
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
@@ -57567,7 +57567,7 @@
 "kKL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random/directional/north,
-/mob/living/simple_animal/hostile/feral_cat{
+/mob/living/basic/feral_cat{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -61502,7 +61502,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/feral_cat{
+/mob/living/basic/feral_cat{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -92217,7 +92217,7 @@
 /area/station/maintenance/starboard)
 "soS" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/feral_cat{
+/mob/living/basic/feral_cat{
 	dir = 8
 	},
 /obj/effect/spawner/random/food_trash,
@@ -107365,7 +107365,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/feral_cat,
+/mob/living/basic/feral_cat,
 /obj/effect/spawner/random/food_trash,
 /turf/simulated/floor/plasteel{
 	dir = 4;

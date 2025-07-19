@@ -286,7 +286,7 @@
 	invocation_type = "shout"
 	summon_amt = 10
 
-	summon_type = list(/mob/living/simple_animal/hostile/creature)
+	summon_type = list(/mob/living/basic/creature)
 	cast_sound = 'sound/magic/summonitems_generic.ogg'
 	aoe_range = 3
 
