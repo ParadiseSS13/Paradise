@@ -29,20 +29,24 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	anchored = TRUE
 	var/z_original = 0
 	var/notify = TRUE
-	var/move_delay = 1
+	var/move_delay = 0.5
 	var/atom/start
 	var/atom/end
 	/// The minimum amount of damage dealt to walls, relative to their max HP.
 	var/wall_damage_min_fraction = 0.9
 	/// The maximum amount of damage dealt to walls, relative to their max HP. Values over 1 are useful for adjusting the probability of destroying the wall.
 	var/wall_damage_max_fraction = 1.4
+	/// Rods should usually not change their orientation, as they're *immovable*. But if it's a wizard spell, or if an admin spawns one, we should probably let it re-orient to follow its movement.
+	var/fixed_dir = FALSE
 
-/obj/effect/immovablerod/New(atom/_start, atom/_end, delay)
+/obj/effect/immovablerod/New(atom/_start, atom/_end, delay = 0.5)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_EDGE_TRANSITIONS, ROUNDSTART_TRAIT)
 	start = _start
 	end = _end
 	loc = start
+	if(end)
+		setDir(get_dir(start, end))
 	z_original = z
 	move_delay = delay
 	if(notify)
@@ -54,7 +58,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /obj/effect/immovablerod/proc/head_towards_dest()
 	if(end?.z == z_original)
-		GLOB.move_manager.move_towards(src, end, move_delay, timeout=1 MINUTES)
+		GLOB.move_manager.move_towards(src, end, move_delay, home=ismovable(end), timeout=1 MINUTES)
 
 /obj/effect/immovablerod/Topic(href, href_list)
 	if(href_list["follow"])
@@ -79,15 +83,20 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(!istype(newloc))
 		return ..()
 
-	if(!direction)
-		direction = get_dir(src, newloc)
-	setDir(direction)
+	if(!fixed_dir)
+		if(!direction)
+			direction = get_dir(src, newloc)
+		setDir(direction)
+
 	forceMove(newloc)
 
 	if(z == newloc.z && abs(x - newloc.x) == 1 && abs(y - newloc.y) == 1)
 		clong(locate(x, newloc.y, z))
 	clong(newloc)
 
+	return TRUE
+
+/obj/effect/immovablerod/Process_Spacemove(movement_dir, continuous_move)
 	return TRUE
 
 /obj/effect/immovablerod/proc/clong(turf/victim)
@@ -137,11 +146,17 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/event
 	wall_damage_min_fraction = 0.33
 	wall_damage_max_fraction = 1.33
+	fixed_dir = TRUE
 	// The base chance to "damage" the floor when passing. This is not guaranteed to cause a full on hull breach.
 	// Chance to expose the tile to space is like 60% of this value.
 	var/floor_rip_chance = 40
 	// Chance to damage the floor if we didn't rip it.
 	var/floor_graze_chance = 50
+
+/obj/effect/immovablerod/event/New()
+	. = ..()
+	// You might think we should set this to match the direction the rod is moving. But it's not. The rod is immovable. The *station* is moving. The rod don't care which direction the station came from. It's an immovable rod. It can't turn to face the station.
+	setDir(pick(NORTH, EAST))
 
 /obj/effect/immovablerod/event/Move()
 	. = ..()
@@ -162,6 +177,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	return AddComponent(/datum/component/deadchat_control/immovable_rod, mode, list(), cooldown)
 
 /obj/effect/immovablerod/smite
+	fixed_dir = TRUE
 	/// The target that we're gonna aim for between start and end
 	var/obj/effect/portal/exit
 
@@ -174,10 +190,10 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(get_turf(src) == get_turf(end))
 		// our exit condition: get outta there kowalski
 		var/target_turf = get_ranged_target_turf(src, dir, rand(1, 10))
-		start = loc
-		walk(src, 0)
+		setDir(get_dir(src, exit))
 		exit = new /obj/effect/portal(target_turf, lifespan = 2 SECONDS)
-		walk_towards(src, exit, move_delay)
+		GLOB.move_manager.stop_looping(src)
+		GLOB.move_manager.move_towards(src, exit, move_delay, timeout = 2 SECONDS)
 	else if(locate(exit) in get_turf(src))
 		QDEL_NULL(exit)
 		qdel(src)
@@ -190,4 +206,5 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
  */
 /obj/effect/immovablerod/proc/walk_in_direction(direction)
 	end = get_edge_target_turf(src, direction)
-	walk_towards(src, end, move_delay)
+	GLOB.move_manager.stop_looping(src)
+	GLOB.move_manager.move_towards(src, end, move_delay, timeout = 1 MINUTES)
