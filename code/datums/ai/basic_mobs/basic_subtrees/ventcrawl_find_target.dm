@@ -22,7 +22,10 @@
 	var/list/vents = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(range, controller.pawn))
 		if(!v.welded)
-			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in v.parent.other_atmosmch)
+			var/datum/pipeline/P = v.returnPipenet()
+			if(!P)
+				return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in P.other_atmosmch)
 				if(temp_vent.welded) // no point considering a vent we can't even use
 					continue
 				vents.Add(temp_vent)
