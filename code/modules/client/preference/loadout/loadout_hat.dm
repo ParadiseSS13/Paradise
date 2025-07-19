@@ -288,3 +288,12 @@
 /datum/gear/hat/cool_bandana
 	display_name = "Badass Bandana"
 	path = /obj/item/clothing/head/cool_bandana
+
+/datum/gear/hat/rabbitears
+	display_name = "Rabbit ears"
+	path = /obj/item/clothing/head/rabbitears
+
+/datum/gear/hat/kittyears
+	display_name = "Kitty ears"
+	path = /obj/item/clothing/head/kitty
+
