@@ -231,7 +231,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 		if(ispath(thing_to_spawn))
 			new thing_to_spawn(get_turf(src))
 
-/obj/effect/meteor/proc/chase_target(atom/chasing, delay = 1)
+/obj/effect/meteor/proc/chase_target(atom/chasing, delay = 0.5)
 	set waitfor = FALSE
 	if(chasing)
 		GLOB.move_manager.home_onto(src, chasing, delay)
