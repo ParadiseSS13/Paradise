@@ -77,3 +77,9 @@
 	var/unused = 0
 	///overlays which go unused for this amount of time get cleaned up
 	var/cache_expiration = 2 MINUTES
+
+/// Cover overlay for portable turrets
+/obj/effect/overlay/turret
+	layer = HIGH_OBJ_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	vis_flags = VIS_INHERIT_ID
