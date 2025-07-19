@@ -68,3 +68,5 @@
 		)
 	autohiss_exempt = list("Orluum")
 
+/datum/species/drask/do_compressor_grind(mob/living/carbon/human/H)
+	new /obj/item/soap(H.loc)

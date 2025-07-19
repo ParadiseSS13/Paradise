@@ -137,3 +137,6 @@
 	species_traits = list(NO_HAIR, NOT_SELECTABLE)
 	pod = TRUE
 	inherent_factions = list("plants", "vines")
+
+/datum/species/diona/do_compressor_grind(mob/living/carbon/human/H)
+	new /obj/item/food/salad(H.loc)

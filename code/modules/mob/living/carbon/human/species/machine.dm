@@ -220,3 +220,6 @@
 								)
 		var/error_message = pick(error_messages)
 		to_chat(H, "<span class='boldwarning'>[error_message]</span>")
+
+/datum/species/machine/do_compressor_grind(mob/living/carbon/human/H)
+	new /obj/item/stack/sheet/mineral/titanium(H.loc)
