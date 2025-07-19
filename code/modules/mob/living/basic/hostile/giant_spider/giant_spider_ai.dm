@@ -270,7 +270,7 @@
 /// Attempt to follow the owner
 /datum/ai_behavior/follow_owner
 	required_distance = 0
-	behavior_flags =  AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
+	behavior_flags =  AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION | AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM
 
 /datum/ai_behavior/follow_owner/setup(datum/ai_controller/controller, target_key)
 	. = ..()

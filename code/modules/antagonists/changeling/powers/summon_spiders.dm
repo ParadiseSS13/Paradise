@@ -95,33 +95,30 @@
 			current_order = FOLLOW_RETALIATE
 		if("Escort Aggressively")
 			current_order = FOLLOW_AGGRESSIVE
-		if("Guard")
+		if("Idle")
 			current_order = IDLE_RETALIATE
-		if("Guard Aggressively")
+		if("Idle Aggressively")
 			current_order = IDLE_AGGRESSIVE
 	spider_order(user)
 
 /mob/living/basic/giant_spider/hunter/infestation_spider/proc/spider_order(mob/user)
 	switch(current_order)
-		if(IDLE_AGGRESSIVE)
+		if(FOLLOW_AGGRESSIVE)
 			to_chat(user, "<span class='notice'>We order the giant spider to follow us but attack anyone on sight.</span>")
 			ai_controller = new /datum/ai_controller/basic_controller/giant_spider/changeling()
 			ai_controller.set_blackboard_key(BB_BASIC_MOB_TARGET_BLACKLIST, list(user))
 			ai_controller.set_blackboard_key(BB_CURRENT_PET_TARGET, user)
-		if(FOLLOW_AGGRESSIVE)
+		if(FOLLOW_RETALIATE)
 			to_chat(user, "<span class='notice'>We order the giant spider to follow us and to remain calm, only attacking if it is attacked.</span>")
-			current_order = FOLLOW_RETALIATE
 			ai_controller = new /datum/ai_controller/basic_controller/giant_spider/changeling_retaliate()
 			ai_controller.set_blackboard_key(BB_BASIC_MOB_TARGET_BLACKLIST, list(user))
 			ai_controller.set_blackboard_key(BB_CURRENT_PET_TARGET, user)
-		if(FOLLOW_RETALIATE)
+		if(IDLE_RETALIATE)
 			to_chat(user, "<span class='notice'>We order the giant spider to remain idle and calm, only attacking if it is attacked.</span>")
-			current_order = IDLE_RETALIATE
 			ai_controller = new /datum/ai_controller/basic_controller/giant_spider/changeling_retaliate()
 			ai_controller.set_blackboard_key(BB_BASIC_MOB_TARGET_BLACKLIST, list(user))
-		if(IDLE_RETALIATE)
+		if(IDLE_AGGRESSIVE)
 			to_chat(user, "<span class='notice'>We order the giant spider to remain idle, but ready to attack anyone on sight.</span>")
-			current_order = IDLE_AGGRESSIVE
 			ai_controller = new /datum/ai_controller/basic_controller/giant_spider/changeling()
 			ai_controller.set_blackboard_key(BB_BASIC_MOB_TARGET_BLACKLIST, list(user))
 
