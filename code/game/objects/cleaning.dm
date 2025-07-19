@@ -31,7 +31,7 @@
 	else if(ismob(src))
 		// Mobs always get cleaned directly, because humans have clothing that needs cleaning, and because it'd just feel weird to automatically clean under them.
 		is_dirty = TRUE
-	else if(src.blood_DNA)
+	else if(blood_DNA)
 		is_dirty = TRUE
 	else
 		for(var/obj/effect/decal/cleanable/C in src)
