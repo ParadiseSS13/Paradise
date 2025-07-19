@@ -598,12 +598,13 @@
 	var/y = moving.y
 	var/z = moving.z
 
-	moving_towards = locate(x + round(x_ticker) * x_sign, y + round(y_ticker) * y_sign, z)
+	// There's a small amount of leeway in the tickers here so that we don't miss our final target due to floating point errors.
+	moving_towards = locate(x + round(x_ticker + 0.01) * x_sign, y + round(y_ticker + 0.01) * y_sign, z)
 	//The tickers serve as good methods of tracking remainder
 	if(x_ticker >= 1)
 		x_ticker = MODULUS(x_ticker, 1) //I swear to god if you somehow go up by one then one in a tick I'm gonna go mad
 	if(y_ticker >= 1)
-		y_ticker = MODULUS(x_ticker, 1)
+		y_ticker = MODULUS(y_ticker, 1)
 	var/atom/old_loc = moving.loc
 	if(flags & MOVEMENT_LOOP_FORCE_MOVE)
 		moving.forceMove(moving_towards)
@@ -619,7 +620,7 @@
 
 /datum/move_loop/has_target/move_towards/proc/handle_move(source, atom/OldLoc, Dir, Forced = FALSE)
 	SIGNAL_HANDLER
-	if(moving.loc == moving_towards && home) //If we didn't go where we should have, update slope to account for the deviation
+	if(moving.loc != moving_towards && home) //If we didn't go where we should have, update slope to account for the deviation
 		update_slope()
 
 /datum/move_loop/has_target/move_towards/handle_no_target()
