@@ -9911,11 +9911,11 @@
 "aOn" = (
 /obj/docking_port/stationary{
 	dir = 8;
-	dwidth = 4;
-	height = 11;
+	dwidth = 11;
+	height = 23;
 	id = "trade_dock";
 	name = "port bay 4 at NSS Kerberos";
-	width = 9
+	width = 23
 	},
 /turf/space,
 /area/space)
