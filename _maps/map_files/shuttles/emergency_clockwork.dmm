@@ -137,7 +137,7 @@
 /turf/simulated/floor/clockwork,
 /area/shuttle/escape)
 "pq" = (
-/obj/machinery/computer/crew{
+/obj/machinery/computer/aifixer{
 	icon_state = "computer_clockwork"
 	},
 /turf/simulated/floor/clockwork,
