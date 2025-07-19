@@ -18,15 +18,11 @@
 #endif
 
 /proc/__detect_rustlib()
-	var/version_suffix = "515"
-	if(world.byond_build >= 1651)
-		version_suffix = "516"
-
 	if(world.system_type == UNIX)
 #ifdef CIBUILDING
 		// CI override, use librustlibs_ci.so if possible.
-		if(fexists("./tools/ci/librustlibs_ci_[version_suffix].so"))
-			return __rustlib = "tools/ci/librustlibs_ci_[version_suffix].so"
+		if(fexists("./tools/ci/librustlibs_ci.so"))
+			return __rustlib = "tools/ci/librustlibs_ci.so"
 #endif
 		// First check if it's built in the usual place.
 		// Linx doesnt get the version suffix because if youre using linux you can figure out what server version youre running for
@@ -39,14 +35,16 @@
 		return __rustlib = "librustlibs[RUSTLIBS_SUFFIX].so"
 	else
 		// First check if it's built in the usual place.
+		if(fexists("./rust/target/i686-pc-windows-msvc/debug/rustlibs.dll"))
+			return __rustlib = "./rust/target/i686-pc-windows-msvc/debug/rustlibs.dll"
 		if(fexists("./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"))
 			return __rustlib = "./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"
 		// Then check in the current directory.
-		if(fexists("./rustlibs_[version_suffix][RUSTLIBS_SUFFIX].dll"))
-			return __rustlib = "./rustlibs_[version_suffix][RUSTLIBS_SUFFIX].dll"
+		if(fexists("./rustlibs[RUSTLIBS_SUFFIX].dll"))
+			return __rustlib = "./rustlibs[RUSTLIBS_SUFFIX].dll"
 
 		// And elsewhere.
-		var/assignment_confirmed = (__rustlib = "rustlibs_[version_suffix][RUSTLIBS_SUFFIX].dll")
+		var/assignment_confirmed = (__rustlib = "rustlibs[RUSTLIBS_SUFFIX].dll")
 		// This being spanned over multiple lines is kinda scuffed, but its needed because of https://www.byond.com/forum/post/2072419
 		return assignment_confirmed
 
@@ -189,6 +187,38 @@
 
 /proc/rustlibs_redis_publish(channel, message)
 	return RUSTLIB_CALL(redis_publish, channel, message)
+
+
+// MARK: Toast
+/// (Windows only) Triggers a desktop notification with the specified title and body
+/proc/rustlibs_create_toast(title, body) 
+	return RUSTLIB_CALL(create_toast, title, body)
+
+
+// MARK: HTTP
+#define RUSTLIBS_HTTP_METHOD_GET "get"
+#define RUSTLIBS_HTTP_METHOD_PUT "put"
+#define RUSTLIBS_HTTP_METHOD_DELETE "delete"
+#define RUSTLIBS_HTTP_METHOD_PATCH "patch"
+#define RUSTLIBS_HTTP_METHOD_HEAD "head"
+#define RUSTLIBS_HTTP_METHOD_POST "post"
+
+/proc/rustlibs_http_send_request(datum/http_request/request)
+	return RUSTLIB_CALL(http_submit_async_request, request)
+
+/proc/rustlibs_http_check_request(datum/http_request/request)
+	return RUSTLIB_CALL(http_check_job, request)
+
+/proc/rustlibs_http_start_client(datum/http_request)
+	return RUSTLIB_CALL(http_start_client)
+
+/proc/rustlibs_http_shutdown_client(datum/http_request)
+	return RUSTLIB_CALL(http_shutdown_client)
+
+// MARK: Jobs
+#define RUSTLIBS_JOB_NO_RESULTS_YET "NO RESULTS YET"
+#define RUSTLIBS_JOB_NO_SUCH_JOB "NO SUCH JOB"
+#define RUSTLIBS_JOB_ERROR "JOB PANICKED"
 
 #undef RUSTLIB_CALL
 

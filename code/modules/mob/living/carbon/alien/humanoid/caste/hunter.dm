@@ -8,6 +8,7 @@
 	var/leap_on_click = FALSE
 	/// Are we on leap cooldown?
 	var/on_leap_cooldown = FALSE
+	surgery_container = /datum/xenobiology_surgery_container/alien/hunter
 
 /mob/living/carbon/alien/humanoid/hunter/Initialize(mapload)
 	. = ..()

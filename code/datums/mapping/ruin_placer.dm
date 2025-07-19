@@ -27,6 +27,18 @@
 		var/height_border = base_padding + round(ruin.height / 2) + padding
 
 		for(var/z_level in z_levels)
+			var/blocked_on_level = FALSE
+			var/datum/space_level/current_level = GLOB.space_manager.get_zlev(z_level)
+			for(var/blocked_ruin_id in ruin.never_spawn_on_the_same_level)
+				if(blocked_on_level)
+					break
+				for(var/ruin_id in current_level.our_ruin_list)
+					if(blocked_ruin_id == ruin_id)
+						blocked_on_level = TRUE
+						break
+			if(blocked_on_level)
+				continue
+
 			var/placement_tries = PLACEMENT_TRIES
 			while(placement_tries > 0)
 				CHECK_TICK
@@ -52,13 +64,12 @@
 				bottom_left.y_pos -= padding
 				top_right.x_pos += padding
 				top_right.y_pos += padding
-				var/list/affected_turfs = block(bottom_left.x_pos, bottom_left.y_pos, z_level, top_right.x_pos, top_right.y_pos, z_level)
 
 				// One sanity check just in case
 				if(!ruin.fits_in_map_bounds(central_turf, centered = TRUE))
 					valid = FALSE
 
-				for(var/turf/check in affected_turfs)
+				for(var/turf/check in block(bottom_left.x_pos, bottom_left.y_pos, z_level, top_right.x_pos, top_right.y_pos, z_level))
 					var/area/new_area = get_area(check)
 					if(!(istype(new_area, area_whitelist)) || check.flags & NO_RUINS)
 						valid = FALSE
@@ -67,14 +78,6 @@
 				if(!valid)
 					continue
 
-				for(var/turf/T in affected_turfs)
-					for(var/obj/structure/spawner/nest in T)
-						qdel(nest)
-					for(var/mob/living/simple_animal/monster in T)
-						qdel(monster)
-					for(var/obj/structure/flora/ash/plant in T)
-						qdel(plant)
-
 				var/loaded = ruin.load(central_turf, centered = TRUE)
 				if(!loaded)
 					stack_trace("ruin [ruin.suffix] failed to load at [COORD(central_turf)] after valid bounds check")
@@ -82,6 +85,7 @@
 					T.flags |= NO_RUINS
 				new /obj/effect/landmark/ruin(central_turf, ruin)
 				ruin.loaded++
+				current_level.our_ruin_list += ruin.id
 
 				log_world("Ruin \"[ruin.name]\" placed at ([central_turf.x], [central_turf.y], [central_turf.z])")
 
@@ -136,6 +140,7 @@
 			continue
 		ruins_available[R] = R.placement_weight
 
+	forced_ruins = sortTim(forced_ruins, GLOBAL_PROC_REF(cmp_ruin_placement_cost))
 	while(length(forced_ruins))
 		var/datum/map_template/ruin/ruin = forced_ruins[length(forced_ruins)]
 		var/datum/ruin_placement/placement = new(ruin, base_padding_ = base_padding)

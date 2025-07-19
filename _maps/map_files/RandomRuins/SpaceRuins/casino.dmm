@@ -330,7 +330,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/casino/maints)
 "iw" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -507,7 +507,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/powered/casino/floor)
 "mP" = (
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
+/obj/machinery/door/airlock/multi_tile/glass,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/powered/casino/arrivals)
 "mW" = (
@@ -846,7 +846,7 @@
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/space/powered/casino/docked_ships)
 "wY" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 1
 	},
 /obj/effect/spawner/random/pool/casino_mob,

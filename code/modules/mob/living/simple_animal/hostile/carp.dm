@@ -143,6 +143,9 @@
 
 	var/regen_cooldown = 0
 
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/megacarp
+
 /mob/living/simple_animal/hostile/carp/megacarp/Initialize(mapload)
 	. = ..()
 	name = "[pick(GLOB.megacarp_first_names)] [pick(GLOB.megacarp_last_names)]"

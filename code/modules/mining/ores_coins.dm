@@ -189,6 +189,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	refined_type = /obj/item/stack/sheet/mineral/diamond
 	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/stack/ore/diamond/ten
+	amount = 10
+
 /obj/item/stack/ore/platinum
 	name = "platinum ore"
 	desc = "Rock formation containing platinum."

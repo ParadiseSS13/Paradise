@@ -11,7 +11,7 @@ crate-type = ["cdylib"]
 [dependencies]
 atomic_float = "1.0.0"
 bitflags = "2.5.0"
-byondapi = { git = "https://github.com/spacestation13/byondapi-rs.git", version = "0.5.14", default-features = false }
+byondapi = { git = "https://github.com/spacestation13/byondapi-rs.git", version = "0.6.14" }
 eyre = "0.6.12"
 rand = { version = "0.8.5", features = ["small_rng"] }
 scc = "2.1.1"
@@ -34,6 +34,7 @@ serde_json = { version = "1.0" }
 walkdir = "2.5.0"
 # regex
 regex = "1.10.5"
+ureq = "2.12"
 png = "0.17.16"
 chrono = "0.4.39"
 toml = "0.8.20"
@@ -41,8 +42,4 @@ dbpnoise = "0.1.2"
 # redis - DO NOT CHANGE FROM 0.21.4 - also dont touch flume either please k thx. if you mess with these you make redis unstable
 redis = { version = "0.21.4" }
 flume = { version = "0.10" }
-
-[features]
-default = ["byond-515"]
-byond-515 = ["byondapi/byond-515-1621"]
-byond-516 = ["byondapi/byond-516-1651"]
+notify-rust = "4.11.7"

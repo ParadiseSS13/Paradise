@@ -227,7 +227,6 @@
 	item_state = "cigpacket"
 	belt_icon = "patch_pack"
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 2
 	slot_flags = ITEM_SLOT_BELT
 	storage_slots = 6
 	max_combined_w_class = 6
@@ -324,7 +323,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_med
 	name = "\improper Medical Marijuana Packet"
-	desc = "A prescription packet containing six marijuana cigarettes."
+	desc = "A prescription packet containing six medical marijuana cigarettes. Made using a strain of cannabis engineered to maximise CBD content and eliminate THC, much to the chagrin of stoners everywhere."
 	icon_state = "medpacket"
 	item_state = "medpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/medical_marijuana
@@ -358,7 +357,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
 	name = "\improper Midori Tabako packet"
-	desc = "You can't understand the runes, but the packet smells funny."
+	desc = "Whilst you cannot decipher what the strange runes on the packet say, it bears the unmistakable scent of cannabis."
 	icon_state = "midoripacket"
 	item_state = "midoripacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/rollie
