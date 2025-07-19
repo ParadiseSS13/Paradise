@@ -92,6 +92,13 @@
 	suffix = "meta"
 	name = "Emergency shuttle (Metastation)"
 
+/datum/map_template/shuttle/emergency/clockwork
+	suffix = "clockwork"
+	name = "Clockwork Shuttle"
+	description = "A shuttle constructed mostly from brass and clockwork. \
+	A large portion of the shuttle is dominated by a chapel that appears to be dedicated to the worship of Ratvar, the Clockwork Justicular."
+	admin_notes = "Contains 4 inactive clockwork marauder constructs. Put players into the constructs if you want them to move."
+
 /datum/map_template/shuttle/emergency/narnar
 	suffix = "narnar"
 	name = "Shuttle 667"
