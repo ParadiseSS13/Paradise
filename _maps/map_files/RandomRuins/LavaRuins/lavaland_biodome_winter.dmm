@@ -149,7 +149,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aH" = (
-/mob/living/simple_animal/hostile/skeleton/arctic,
+/mob/living/basic/skeleton/arctic,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aI" = (
@@ -178,7 +178,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aO" = (
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
+/obj/machinery/door/airlock/multi_tile/glass,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
@@ -341,7 +341,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "vf" = (
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
+/obj/machinery/door/airlock/multi_tile/glass,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_cabin)
@@ -381,7 +381,7 @@
 /area/ruin/powered/snow_biodome)
 "Ez" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
+/obj/machinery/door/airlock/multi_tile/glass,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "FP" = (

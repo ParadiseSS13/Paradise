@@ -5,7 +5,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bO" = (
-/mob/living/simple_animal/hostile/skeleton,
+/mob/living/basic/skeleton,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bQ" = (

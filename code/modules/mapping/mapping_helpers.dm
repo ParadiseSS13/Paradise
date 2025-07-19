@@ -159,6 +159,12 @@
 /obj/effect/mapping_helpers/airlock/autoname/payload(obj/machinery/door/airlock)
 	airlock.name = get_area_name(airlock, TRUE)
 
+/obj/effect/mapping_helpers/airlock/autoname/syndie_base
+	name = "syndie base airlock autoname helper"
+
+/obj/effect/mapping_helpers/airlock/autoname/syndie_base/payload(obj/machinery/door/airlock)
+	airlock.name = replacetext(get_area_name(airlock, TRUE), "Syndicate Space Base ", "")
+
 // Will cfoam an airlock
 /obj/effect/mapping_helpers/airlock/c_foam
 	name = "airlock c_foam helper"
