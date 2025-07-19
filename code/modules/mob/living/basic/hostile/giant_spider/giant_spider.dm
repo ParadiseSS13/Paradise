@@ -93,10 +93,9 @@
 	var/fed = 0
 
 /mob/living/basic/giant_spider/nurse/proc/wrap_target()
-	var/cocoon_target
+	var/atom/cocoon_target
 	if(!client)
-		cocoon_target = find_cocoon_target()
-
+		cocoon_target = ai_controller.blackboard[BB_SPIDER_WRAP_TARGET]
 	if(!cocoon_target && client)
 		var/list/choices = list()
 		for(var/mob/living/L in view(1, src))
@@ -104,7 +103,7 @@
 				continue
 			if(L.stat != DEAD)
 				continue
-			if(istype(L, /mob/living/simple_animal/hostile/poison/giant_spider))
+			if(istype(L, /mob/living/basic/giant_spider))
 				continue
 			if(Adjacent(L))
 				choices += L
@@ -123,7 +122,6 @@
 
 	if(cocoon_target)
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>")
-		walk(src, 0)
 		if(!do_after_once(src, 5 SECONDS, target = cocoon_target, attempt_cancel_message = "You stop wrapping [cocoon_target]."))
 			return
 		if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src, cocoon_target) <= 1)
@@ -142,7 +140,7 @@
 					M.loc = C
 					large_cocoon = TRUE
 			for(var/mob/living/L in C.loc)
-				if(istype(L, /mob/living/simple_animal/hostile/poison/giant_spider))
+				if(istype(L, /mob/living/basic/giant_spider))
 					continue
 				if(L.stat != DEAD)
 					continue
@@ -179,8 +177,9 @@
 /mob/living/basic/giant_spider/nurse/proc/find_cocoon_target()
 	// Prioritize food
 	var/list/food = list()
+	var/list/can_see = view(src, 10)
 	for(var/mob/living/C in can_see)
-		if(C.stat && !istype(C, /mob/living/simple_animal/hostile/poison/giant_spider) && !C.anchored)
+		if(C.stat && !istype(C, /mob/living/basic/giant_spider) && !C.anchored)
 			food += C
 	if(length(food))
 		return pick(food)
@@ -206,3 +205,28 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 	venom_per_bite = 10
+
+/mob/living/basic/giant_spider/araneus
+	name = "Sergeant Araneus"
+	real_name = "Sergeant Araneus"
+	voice_name = "unidentifiable voice"
+	desc = "A fierce companion for any person of power, this spider has been carefully trained by Nanotrasen specialists. Its beady, staring eyes send shivers down your spine."
+	faction = list("spiders")
+	icon_state = "guard"
+	icon_living = "guard"
+	icon_dead = "guard_dead"
+	icon_gib = "guard_dead"
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
+	maxHealth = 250
+	health = 250
+	harm_intent_damage = 3
+	melee_damage_lower = 15
+	melee_damage_upper = 20
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 2, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+	gender = FEMALE
+	ai_controller = /datum/ai_controller/basic_controller/giant_spider/retaliate
+
+/mob/living/basic/giant_spider/araneus/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/ai_retaliate)
+	AddElement(/datum/element/pet_bonus, "chitters!")

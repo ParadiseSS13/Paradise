@@ -64273,7 +64273,7 @@
 /area/station/science/research)
 "oyY" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/hostile/retaliate/araneus,
+/mob/living/basic/giant_spider/araneus,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)

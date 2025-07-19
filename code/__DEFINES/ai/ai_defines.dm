@@ -11,6 +11,9 @@
 /// The AI is currently in idle mode.
 #define AI_STATUS_IDLE "ai_idle"
 
+///bypass canceling our actions on set_ai_status()
+#define AI_PREVENT_CANCEL_ACTIONS (1<<2)
+
 // How far should we, by default, be looking for interesting things to de-idle?
 #define AI_DEFAULT_INTERESTING_DIST 10
 #define AI_SIMPLE_INTERESTING_DIST 15

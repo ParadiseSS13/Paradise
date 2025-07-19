@@ -47,6 +47,8 @@
 #define BB_BASIC_MOB_RETALIATE_LIST "BB_BASIC_MOB_SHITLIST"
 ///Blackboard key for a whitelist typecache of "things we can target while trying to move"
 #define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
+/// Key for blacklisted things that the mob should not target
+#define BB_BASIC_MOB_TARGET_BLACKLIST "BB_targeting_blacklist"
 
 //Hunting BB keys
 
@@ -165,6 +167,8 @@
 #define BB_SPIDER_WEB_TARGET "BB_spider_web_target"
 /// Key where we store the web-spinning ability
 #define BB_SPIDER_WEB_ACTION "BB_spider_web_action"
+/// Our wrapping target
+#define BB_SPIDER_WRAP_TARGET "BB_spider_web_target"
 /// Key where we define the wrapping ability
 #define BB_SPIDER_WRAP_ACTION "BB_spider_wrap_action"
 /// Key where we define the egg laying ability

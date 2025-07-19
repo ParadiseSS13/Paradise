@@ -30,8 +30,9 @@
 	if(do_after(user, 4 SECONDS, FALSE, target = user, hidden = TRUE)) // Takes 4 seconds to spawn a spider
 		spider_counter++
 		user.visible_message("<span class='danger'>[user] vomits up an arachnid!</span>")
-		var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/S = new(user.loc)
+		var/mob/living/basic/giant_spider/hunter/infestation_spider/S = new(user.loc)
 		S.owner_UID = user.UID()
+		S.ai_controller.set_blackboard_key(BB_BASIC_MOB_TARGET_BLACKLIST, list(user))
 		S.faction |= list("spiders", "\ref[owner]") // Makes them friendly only to the owner & other spiders
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 		is_operating = FALSE
@@ -40,26 +41,24 @@
 	return FALSE
 
 /// Child of giant_spider because this should do everything the spider does and more
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider
+/mob/living/basic/giant_spider/hunter/infestation_spider
 	/// References to the owner changeling
 	var/mob/owner_UID
 	/// Handles the spider's behavior
 	var/current_order = IDLE_AGGRESSIVE
-	var/list/enemies = list()
 	sentience_type = SENTIENCE_OTHER
 	venom_per_bite = 3
-	speak_chance = 0
-	wander = 0
 	gold_core_spawnable = NO_SPAWN
+	ai_controller = /datum/ai_controller/basic_controller/giant_spider/changeling
 	/// To check and gib the spider when dead, then remove only one of the counter for the changeling owner
 	var/gibbed = FALSE
 
 //These two below are needed to both gib the spider always, and even if it was gibbed only remove 1 from the counter of spider_counter instead of death's gib calling death again and removing 2
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/gib()
+/mob/living/basic/giant_spider/hunter/infestation_spider/gib()
 	gibbed = TRUE
 	return ..()
 
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/death(gibbed)
+/mob/living/basic/giant_spider/hunter/infestation_spider/death(gibbed)
 	var/mob/owner_mob = locateUID(owner_UID)
 	if(!ismob(owner_mob))
 		return ..(TRUE)
@@ -71,7 +70,7 @@
 		gib()
 	return ..(TRUE)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/examine(mob/user)
+/mob/living/basic/giant_spider/hunter/infestation_spider/examine(mob/user)
 	. = ..()
 	if(user.UID() != owner_UID)
 		return
@@ -85,113 +84,46 @@
 		if(IDLE_RETALIATE)
 			. += "<span class='notice'>The giant spider will remain idle and calm, only attacking if it is attacked.</span>"
 
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/AltShiftClick(mob/user)
+/mob/living/basic/giant_spider/hunter/infestation_spider/AltShiftClick(mob/user)
 	. = ..()
 	if(user.UID() != owner_UID)
 		return
+	var/list/possible_orders = list("Escort", "Escort Aggressively", "Idle", "Idle Aggressively")
+	var/new_order = tgui_input_list(user, "How do you want your spiders to behave?", "Spider Orders", possible_orders)
+	switch(new_order)
+		if("Escort")
+			current_order = FOLLOW_RETALIATE
+		if("Escort Aggressively")
+			current_order = FOLLOW_AGGRESSIVE
+		if("Guard")
+			current_order = IDLE_RETALIATE
+		if("Guard Aggressively")
+			current_order = IDLE_AGGRESSIVE
 	spider_order(user)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/proc/spider_order(mob/user)
-	enemies = list()
+/mob/living/basic/giant_spider/hunter/infestation_spider/proc/spider_order(mob/user)
 	switch(current_order)
 		if(IDLE_AGGRESSIVE)
 			to_chat(user, "<span class='notice'>We order the giant spider to follow us but attack anyone on sight.</span>")
-			current_order = FOLLOW_AGGRESSIVE
+			ai_controller = new /datum/ai_controller/basic_controller/giant_spider/changeling()
+			ai_controller.set_blackboard_key(BB_BASIC_MOB_TARGET_BLACKLIST, list(user))
+			ai_controller.set_blackboard_key(BB_CURRENT_PET_TARGET, user)
 		if(FOLLOW_AGGRESSIVE)
 			to_chat(user, "<span class='notice'>We order the giant spider to follow us and to remain calm, only attacking if it is attacked.</span>")
 			current_order = FOLLOW_RETALIATE
+			ai_controller = new /datum/ai_controller/basic_controller/giant_spider/changeling_retaliate()
+			ai_controller.set_blackboard_key(BB_BASIC_MOB_TARGET_BLACKLIST, list(user))
+			ai_controller.set_blackboard_key(BB_CURRENT_PET_TARGET, user)
 		if(FOLLOW_RETALIATE)
 			to_chat(user, "<span class='notice'>We order the giant spider to remain idle and calm, only attacking if it is attacked.</span>")
 			current_order = IDLE_RETALIATE
+			ai_controller = new /datum/ai_controller/basic_controller/giant_spider/changeling_retaliate()
+			ai_controller.set_blackboard_key(BB_BASIC_MOB_TARGET_BLACKLIST, list(user))
 		if(IDLE_RETALIATE)
 			to_chat(user, "<span class='notice'>We order the giant spider to remain idle, but ready to attack anyone on sight.</span>")
 			current_order = IDLE_AGGRESSIVE
-	handle_automated_movement()
-
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/handle_automated_movement() //Hacky and ugly.
-	. = ..()
-	var/list/around = view(src, vision_range)
-	switch(current_order)
-		if(IDLE_AGGRESSIVE)
-			Find_Enemies(around)
-			GLOB.move_manager.stop_looping(src)
-		if(FOLLOW_AGGRESSIVE)
-			Find_Enemies(around)
-			for(var/mob/living/carbon/C in around)
-				if(!faction_check_mob(C))
-					continue
-				if(Adjacent(C))
-					return TRUE
-				Goto(C, 0.5 SECONDS, 1)
-		if(FOLLOW_RETALIATE)
-			for(var/mob/living/carbon/C in around)
-				if(!faction_check_mob(C))
-					continue
-				if(Adjacent(C))
-					return TRUE
-				Goto(C, 0.5 SECONDS, 1)
-		if(IDLE_RETALIATE)
-			GLOB.move_manager.stop_looping(src)
-
-	for(var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/H in around)
-		if(faction_check_mob(H) && !attack_same && !H.attack_same)
-			H.enemies |= enemies
-
-	return TRUE
-
-// Bellow is the way the spiders react and retaliate when in an idle/aggresive mode.
-
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/ListTargets()
-	if(!length(enemies))
-		return list()
-	var/list/see = ..()
-	see &= enemies // Remove all entries that aren't in enemies
-	return see
-
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/proc/Find_Enemies(around)
-	enemies = list() // Reset enemies list, only focus on the ones around you, spiders don't have grudges
-	for(var/mob/living/A in around)
-		if(A == src)
-			continue
-		if(!isliving(A))
-			continue
-		var/mob/living/M = A
-		if(!faction_check_mob(M))
-			enemies |= M
-
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attack_by(obj/item/W, mob/living/user, params)
-	if(..())
-		return FINISH_ATTACK
-	if(W.force == 0)
-		return FINISH_ATTACK
-	if(!faction_check_mob(user))
-		enemies |= user
-
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/bullet_act(obj/item/projectile/P)
-	. = ..()
-	if(!faction_check_mob(P.firer))
-		enemies |= P.firer
-
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attack_alien(mob/living/carbon/alien/user)
-	. = ..()
-	if(user.a_intent == INTENT_HELP)
-		return
-	if(!faction_check_mob(user))
-		enemies |= user
-
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attack_animal(mob/living/simple_animal/M)
-	. = ..()
-	if(M.a_intent == INTENT_HELP)
-		return
-	if(!faction_check_mob(M))
-		enemies |= M
-
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/attack_hand(mob/living/carbon/human/H)
-	. = ..()
-	if(H.a_intent == INTENT_HELP)
-		return
-	if(!faction_check_mob(H))
-		enemies |= H
+			ai_controller = new /datum/ai_controller/basic_controller/giant_spider/changeling()
+			ai_controller.set_blackboard_key(BB_BASIC_MOB_TARGET_BLACKLIST, list(user))
 
 #undef IDLE_AGGRESSIVE
 #undef FOLLOW_AGGRESSIVE

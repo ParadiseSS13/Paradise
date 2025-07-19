@@ -93828,7 +93828,7 @@
 /obj/structure/bed/dogbed{
 	name = "Araneus' bed"
 	},
-/mob/living/simple_animal/hostile/retaliate/araneus,
+/mob/living/basic/giant_spider/araneus,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "sGP" = (

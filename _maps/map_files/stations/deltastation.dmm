@@ -67039,7 +67039,7 @@
 	},
 /area/station/hallway/primary/port/north)
 "kTO" = (
-/mob/living/simple_animal/hostile/retaliate/araneus,
+/mob/living/basic/giant_spider/araneus,
 /obj/structure/bed/dogbed{
 	name = "Araneus's lair"
 	},
