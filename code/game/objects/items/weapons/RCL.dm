@@ -11,6 +11,7 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=4;materials=2"
+	new_attack_chain = TRUE
 	var/max_amount = 90
 	var/active = FALSE
 	var/obj/structure/cable/last = null
@@ -20,36 +21,39 @@
 	. = ..()
 	AddComponent(/datum/component/two_handed)
 
-/obj/item/rcl/attackby__legacy__attackchain(obj/item/W, mob/user)
-	if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = W
-		if(!loaded)
-			if(user.drop_item())
-				loaded = W
-				loaded.forceMove(src)
-				loaded.max_amount = max_amount //We store a lot.
-			else
-				to_chat(user, "<span class='warning'>[user.get_active_hand()] is stuck to your hand!</span>")
-				return
-		else
-			if(loaded.amount < max_amount)
-				var/amount = min(loaded.amount + C.get_amount(), max_amount)
-				C.use(amount - loaded.amount)
-				loaded.amount = amount
-			else
-				return
-		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, "<span class='notice'>You add the cables to [src]. It now contains [loaded.amount].</span>")
+/obj/item/rcl/examine(mob/user)
+	. = ..()
+	if(loaded)
+		. += "<span class='notice'>It contains [loaded.amount]/[max_amount] cables.</span>"
 	else
-		..()
+		. += "<span class='warning'>It's empty!</span>"
+
+/obj/item/rcl/activate_self(mob/user)
+	if(..())
+		return
+
+	active = HAS_TRAIT(src, TRAIT_WIELDED)
+	if(!active)
+		last = null
+		return ITEM_INTERACT_COMPLETE
+
+	if(!last)
+		for(var/obj/structure/cable/C in get_turf(user))
+			if(C.d1 == 0 || C.d2 == 0)
+				last = C
+				break
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/rcl/screwdriver_act(mob/user, obj/item/I)
 	if(!loaded)
+		to_chat(user, "<span class='warning'>There's no cable to remove!</span>")
 		return
+
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, FALSE, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You loosen the securing screws on the side, allowing you to lower the guiding edge and retrieve the wires.</span>")
+
+	to_chat(user, "<span class='notice'>You loosen the securing screws on the side, allowing you to lower the guiding edge and retrieve the cable.</span>")
 	while(loaded.amount > 30) //There are only two kinds of situations: "nodiff" (60,90), or "diff" (31-59, 61-89)
 		var/diff = loaded.amount % 30
 		if(diff)
@@ -64,22 +68,36 @@
 	loaded = null
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/rcl/examine(mob/user)
-	. = ..()
-	if(loaded)
-		. += "<span class='notice'>It contains [loaded.amount]/[max_amount] cables.</span>"
+/obj/item/rcl/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stack/cable_coil))
+		return ..()
 
-/obj/item/rcl/Destroy()
-	QDEL_NULL(loaded)
-	last = null
-	active = FALSE
-	return ..()
+	var/obj/item/stack/cable_coil/cable = used
+	if(!loaded)
+		if(!user.drop_item())
+			to_chat(user, "<span class='warning'>[user.get_active_hand()] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		loaded = used
+		loaded.forceMove(src)
+		loaded.max_amount = max_amount // We store a lot.
+	else
+		if(loaded.amount >= max_amount)
+			to_chat(user, "<span class='warning'>You cannot fit any more cable on [src]!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		var/amount = min(loaded.amount + cable.get_amount(), max_amount)
+		cable.use(amount - loaded.amount)
+		loaded.amount = amount
+	update_icon(UPDATE_ICON_STATE)
+	to_chat(user, "<span class='notice'>You add the cables to [src]. It now contains [loaded.amount].</span>")
 
 /obj/item/rcl/update_icon_state()
 	if(!loaded)
 		icon_state = "rcl-0"
 		item_state = "rcl-0"
 		return
+
 	switch(loaded.amount)
 		if(61 to INFINITY)
 			icon_state = "rcl-30"
@@ -94,15 +112,16 @@
 			icon_state = "rcl-0"
 			item_state = "rcl-0"
 
-/obj/item/rcl/proc/is_empty(mob/user, loud = 1)
+/obj/item/rcl/proc/is_empty(mob/user, loud = TRUE)
 	update_icon(UPDATE_ICON_STATE)
 	if(!loaded || !loaded.amount)
 		if(loud)
-			to_chat(user, "<span class='notice'>The last of the cables unreel from [src].</span>")
+			to_chat(user, "<span class='warning'>The last of the cables unreel from [src]!</span>")
 		if(loaded)
 			qdel(loaded)
 			loaded = null
 		return TRUE
+
 	return FALSE
 
 /obj/item/rcl/dropped(mob/wearer)
@@ -110,42 +129,42 @@
 	active = FALSE
 	last = null
 
-/obj/item/rcl/attack_self__legacy__attackchain(mob/user)
-	..()
-	active = HAS_TRAIT(src, TRAIT_WIELDED)
-	if(!active)
-		last = null
-	else if(!last)
-		for(var/obj/structure/cable/C in get_turf(user))
-			if(C.d1 == 0 || C.d2 == 0)
-				last = C
-				break
-
 /obj/item/rcl/on_mob_move(direct, mob/user)
 	if(active && isturf(user.loc))
 		trigger(user)
 
 /obj/item/rcl/proc/trigger(mob/user)
-	if(is_empty(user, 0))
-		to_chat(user, "<span class='warning'>\The [src] is empty!</span>")
+	if(is_empty(user, FALSE))
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
+
 	if(last)
-		if(get_dist(last, user) == 1) //hacky, but it works
+		if(get_dist(last, user) == 1) // Hacky, but it works.
 			var/turf/T = get_turf(user)
 			if(!isturf(T) || T.intact || !T.can_have_cabling())
 				last = null
 				return
+
+			// Did we just walk backwards? Well, that's the one direction we CAN'T complete a stub.
 			if(get_dir(last, user) == last.d2)
-				//Did we just walk backwards? Well, that's the one direction we CAN'T complete a stub.
 				last = null
 				return
+
 			loaded.cable_join(last, user)
+			// If we've run out, display message and exit.
 			if(is_empty(user))
-				return //If we've run out, display message and exit
+				return
+
 		else
 			last = null
 	last = loaded.place_turf(get_turf(loc), user, turn(user.dir, 180))
 	is_empty(user) //If we've run out, display message
+
+/obj/item/rcl/Destroy()
+	QDEL_NULL(loaded)
+	last = null
+	active = FALSE
+	return ..()
 
 /obj/item/rcl/pre_loaded/New() //Comes preloaded with cable, for testing stuff
 	..()
