@@ -680,10 +680,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(isitem(examined))
 		var/obj/item/I = examined
 		if(I.in_storage)
+			while(isstorage(I.loc)) // grab the top level storage item
+				I = I.loc
 			if(get(I, /mob/living) == src)
-				loc_str = "inside [p_their()] [I.loc.name]..."
+				if(istype(I, /obj/item/storage/hidden_implant)) // Don't annnounce items in a bluespace pocket.
+					return
+				loc_str = "inside [p_their()] [I.name]..."
 			else
-				loc_str = "inside [I.loc]..."
+				loc_str = "inside [I]..."
 
 			examining_stored_item = TRUE
 
@@ -697,7 +701,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			examining_worn_item = TRUE
 
 	var/can_see_str = "<span class='subtle'>\The [src] looks at [examined].</span>"
-	if(examining_worn_item)
+	if(examining_worn_item || examining_stored_item)
 		can_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
 
 	var/cannot_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
@@ -1293,34 +1297,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			target -= target[length(target)]//remove the last log
 
 	target += new_log
-
-/mob/vv_get_dropdown()
-	. = ..()
-	.["Show player panel"] = "byond://?_src_=vars;mob_player_panel=[UID()]"
-
-	.["Give Spell"] = "byond://?_src_=vars;give_spell=[UID()]"
-	.["Give Martial Art"] = "byond://?_src_=vars;givemartialart=[UID()]"
-	.["Give Disease"] = "byond://?_src_=vars;give_disease=[UID()]"
-	.["Toggle Godmode"] = "byond://?_src_=vars;godmode=[UID()]"
-	.["Toggle Build Mode"] = "byond://?_src_=vars;build_mode=[UID()]"
-
-	.["Make 2spooky"] = "byond://?_src_=vars;make_skeleton=[UID()]"
-	.["Hallucinate"] = "byond://?_src_=vars;hallucinate=[UID()]"
-
-	.["Assume Direct Control"] = "byond://?_src_=vars;direct_control=[UID()]"
-	.["Offer Control to Ghosts"] = "byond://?_src_=vars;offer_control=[UID()]"
-	.["Drop Everything"] = "byond://?_src_=vars;drop_everything=[UID()]"
-
-	.["Regenerate Icons"] = "byond://?_src_=vars;regenerateicons=[UID()]"
-	.["Add Language"] = "byond://?_src_=vars;addlanguage=[UID()]"
-	.["Remove Language"] = "byond://?_src_=vars;remlanguage=[UID()]"
-	.["Add Organ"] = "byond://?_src_=vars;addorgan=[UID()]"
-	.["Remove Organ"] = "byond://?_src_=vars;remorgan=[UID()]"
-
-	.["Add Verb"] = "byond://?_src_=vars;addverb=[UID()]"
-	.["Remove Verb"] = "byond://?_src_=vars;remverb=[UID()]"
-
-	.["Gib"] = "byond://?_src_=vars;gib=[UID()]"
 
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()

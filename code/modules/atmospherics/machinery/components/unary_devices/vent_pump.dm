@@ -46,6 +46,7 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon
 	releasing = FALSE
+	external_pressure_bound = 0
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on
 	on = TRUE

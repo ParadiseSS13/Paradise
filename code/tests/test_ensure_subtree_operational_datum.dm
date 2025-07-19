@@ -5,16 +5,16 @@
 
 /// Unit Test that ensure that if we add a specific planning subtree to a basic mob's planning tree, that we also have the operational datum needed for it (component/element).
 /// This can be extended to other "mandatory" operational datums for certain subtrees to work.
-/datum/game_test/ensure_subtree_operational_datum
+/datum/game_test/room_test/ensure_subtree_operational_datum
 	/// Associated list of mobs that we need to test this on. Key is the typepath of the mob, value is a list of the planning subtree and the operational datums that are required for it.
 	var/list/testable_mobs = list()
 
-/datum/game_test/ensure_subtree_operational_datum/Run()
+/datum/game_test/room_test/ensure_subtree_operational_datum/Run()
 	gather_testable_mobs()
 	test_applicable_mobs()
 
 /// First, look for all mobs that have a planning subtree that requires an element, then add it to the list for stuff to test afterwards. Done like this to not have one mumbo proc that's hard to read.
-/datum/game_test/ensure_subtree_operational_datum/proc/gather_testable_mobs()
+/datum/game_test/room_test/ensure_subtree_operational_datum/proc/gather_testable_mobs()
 	for(var/mob/living/basic/checkable_mob as anything in subtypesof(/mob/living/basic))
 		var/datum/ai_controller/testable_controller = initial(checkable_mob.ai_controller)
 		if(isnull(testable_controller))
@@ -37,7 +37,7 @@
 			)
 
 /// Then, test the mobs that we've found
-/datum/game_test/ensure_subtree_operational_datum/proc/test_applicable_mobs()
+/datum/game_test/room_test/ensure_subtree_operational_datum/proc/test_applicable_mobs()
 	for(var/mob/living/basic/checkable_mob as anything in testable_mobs)
 		var/list/checkable_mob_data = testable_mobs[checkable_mob]
 		checkable_mob = allocate(checkable_mob)

@@ -961,14 +961,6 @@
 /atom/movable/proc/stop_deadchat_plays()
 	DeleteComponent(/datum/component/deadchat_control)
 
-/atom/movable/vv_get_dropdown()
-	. = ..()
-	if(!GetComponent(/datum/component/deadchat_control))
-		.["Give deadchat control"] = "byond://?_src_=vars;grantdeadchatcontrol=[UID()]"
-	else
-		.["Remove deadchat control"] = "byond://?_src_=vars;removedeadchatcontrol=[UID()]"
-
-
 //Update the screentip to reflect what we're hovering over
 /atom/movable/MouseEntered(location, control, params)
 	if(invisibility > usr.see_invisible)

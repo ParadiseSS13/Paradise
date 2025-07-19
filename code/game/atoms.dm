@@ -505,7 +505,7 @@
  *
  * Arguments:
  * - updates: A set of bitflags dictating what should be updated. Defaults to [ALL]
- * 
+ *
  * Supported bitflags: UPDATE_NAME, UPDATE_DESC, UPDATE_ICON
  */
 /atom/proc/update_appearance(updates=ALL)
@@ -540,7 +540,7 @@
  *
  * Arguments:
  * - updates: A set of bitflags dictating what should be updated. Defaults to [ALL]
- * 
+ *
  * Supported bitflags: UPDATE_ICON_STATE, UPDATE_OVERLAYS
  */
 /atom/proc/update_icon(updates=ALL)
@@ -1257,25 +1257,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/proc/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	return
-
-/atom/vv_edit_var(var_name, var_value)
-	. = ..()
-	switch(var_name)
-		if("light_power", "light_range", "light_color")
-			update_light()
-		if("color")
-			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
-
-/atom/vv_get_dropdown()
-	. = ..()
-	.["Manipulate Colour Matrix"] = "byond://?_src_=vars;manipcolours=[UID()]"
-	var/turf/curturf = get_turf(src)
-	if(curturf)
-		.["Jump to turf"] = "byond://?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
-	.["Add reagent"] = "byond://?_src_=vars;addreagent=[UID()]"
-	.["Edit reagents"] = "byond://?_src_=vars;editreagents=[UID()]"
-	.["Trigger explosion"] = "byond://?_src_=vars;explode=[UID()]"
-	.["Trigger EM pulse"] = "byond://?_src_=vars;emp=[UID()]"
 
 /atom/proc/AllowDrop()
 	return FALSE

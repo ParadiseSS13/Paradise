@@ -1,4 +1,4 @@
-/datum/game_test/attack_chain_stunbaton/Run()
+/datum/game_test/room_test/attack_chain_stunbaton/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/datum/test_puppeteer/target = player.spawn_puppet_nearby()
 	player.spawn_obj_in_hand(/obj/item/melee/baton/loaded)
