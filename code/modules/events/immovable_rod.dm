@@ -54,7 +54,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /obj/effect/immovablerod/proc/head_towards_dest()
 	if(end?.z == z_original)
-		walk_towards(src, end, move_delay)
+		GLOB.move_manager.move_towards(src, end, move_delay, timeout=1 MINUTES)
 
 /obj/effect/immovablerod/Topic(href, href_list)
 	if(href_list["follow"])
@@ -81,21 +81,28 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 	if(!direction)
 		direction = get_dir(src, newloc)
-	forceMove(newloc)
 	setDir(direction)
+	forceMove(newloc)
 
+	if(z == newloc.z && abs(x - newloc.x) == 1 && abs(y - newloc.y) == 1)
+		clong(locate(x, newloc.y, z))
+	clong(newloc)
+
+	return TRUE
+
+/obj/effect/immovablerod/proc/clong(turf/victim)
 	if(prob(10))
 		playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
 		audible_message("CLANG")
 
-	clong_turf(newloc)
-	if(isnull(newloc))
+	smash_turf(victim)
+	if(isnull(victim))
 		// The turf is dead, long live the turf!
-		newloc = loc
+		victim = loc
 
 	while(TRUE)
 		var/hit_something_dense = FALSE
-		for(var/atom/victim as anything in newloc)
+		for(var/atom/obstacle as anything in victim)
 			clong_thing(victim)
 			if(victim.density)
 				hit_something_dense = TRUE
@@ -104,7 +111,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		if(!hit_something_dense || prob(25))
 			break
 
-/obj/effect/immovablerod/proc/clong_turf(turf/victim)
+/obj/effect/immovablerod/proc/smash_turf(turf/victim)
 	if(!victim.density)
 		return
 
@@ -141,8 +148,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(loc == end)
 		qdel(src)
 
-/obj/effect/immovablerod/event/clong_turf(turf/victim)
-	if(!isfloorturf(victim))
+/obj/effect/immovablerod/event/smash_turf(turf/simulated/floor/victim)
+	if(!istype(victim))
 		return ..()
 
 	var/turf/simulated/floor/T = victim
