@@ -309,6 +309,7 @@
 #include "code\controllers\configuration\sections\redis_configuration.dm"
 #include "code\controllers\configuration\sections\ruin_configuration.dm"
 #include "code\controllers\configuration\sections\system_configuration.dm"
+#include "code\controllers\configuration\sections\tgui_configuration.dm"
 #include "code\controllers\configuration\sections\url_configuration.dm"
 #include "code\controllers\configuration\sections\vote_configuration.dm"
 #include "code\controllers\subsystem\SSacid.dm"

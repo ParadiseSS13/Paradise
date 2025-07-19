@@ -4,7 +4,8 @@
  * @license MIT
  */
 
-import { Button, Collapsible, Section } from '../components';
+import { Button, Collapsible, Section } from 'tgui-core/components';
+
 import { BoxWithSampleText } from './common';
 
 export const meta = {
@@ -12,7 +13,7 @@ export const meta = {
   render: () => <Story />,
 };
 
-const Story = (props, context) => {
+const Story = (props) => {
   return (
     <Section>
       <Collapsible title="Collapsible Demo" buttons={<Button icon="cog" />}>

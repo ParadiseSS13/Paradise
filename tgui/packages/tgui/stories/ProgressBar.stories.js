@@ -4,16 +4,16 @@
  * @license MIT
  */
 
-import { useLocalState } from '../backend';
-import { Box, Button, ProgressBar, Section } from '../components';
+import { useState } from 'react';
+import { Box, Button, ProgressBar, Section } from 'tgui-core/components';
 
 export const meta = {
   title: 'ProgressBar',
   render: () => <Story />,
 };
 
-const Story = (props, context) => {
-  const [progress, setProgress] = useLocalState(context, 'progress', 0.5);
+const Story = (props) => {
+  const [progress, setProgress] = useState(0.5);
   return (
     <Section>
       <ProgressBar

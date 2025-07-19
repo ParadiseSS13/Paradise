@@ -377,7 +377,7 @@
 		else
 			status_list += "<span class='notice'>You feel fatigued.</span>"
 
-	to_chat(src, chat_box_examine(status_list.Join("\n")))
+	to_chat(src, chat_box_examine(status_list.Join("<br>")))
 
 	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
