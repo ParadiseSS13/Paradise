@@ -12,9 +12,9 @@
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
+		/datum/ai_planning_subtree/random_speech/insect,
 		/datum/ai_planning_subtree/find_unwebbed_turf,
 		/datum/ai_planning_subtree/spin_web,
-		/datum/ai_planning_subtree/random_speech/insect,
 	)
 
 /datum/ai_controller/basic_controller/giant_spider/nurse
@@ -22,12 +22,12 @@
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
+		/datum/ai_planning_subtree/random_speech/insect,
 		/datum/ai_planning_subtree/lay_eggs,
 		/datum/ai_planning_subtree/find_unwrapped_target,
-		/datum/ai_planning_subtree/wrap_target,
 		/datum/ai_planning_subtree/find_unwebbed_turf,
+		/datum/ai_planning_subtree/wrap_target,
 		/datum/ai_planning_subtree/spin_web,
-		/datum/ai_planning_subtree/random_speech/insect,
 	)
 
 /datum/ai_controller/basic_controller/giant_spider/changeling
@@ -127,7 +127,7 @@
 
 /// Move to an unwebbed nearby turf and web it up
 /datum/ai_behavior/spin_web
-	action_cooldown = 15 SECONDS // We don't want them doing this too quickly
+	action_cooldown = 10 SECONDS // We don't want them doing this too quickly
 	required_distance = 0
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
@@ -173,7 +173,7 @@
 
 	// Prioritize food
 	var/list/food = list()
-	var/list/can_see = view(10, spider)
+	var/list/can_see = view(scan_range, spider)
 	for(var/mob/living/C in can_see)
 		if(C.stat && !istype(C, /mob/living/basic/giant_spider) && !C.anchored)
 			food += C
@@ -206,7 +206,7 @@
 /// Move to an unwrapped item and wrap it
 /datum/ai_behavior/wrap_target
 	action_cooldown = 15 SECONDS // We don't want them doing this too quickly
-	required_distance = 0
+	required_distance = 1
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/wrap_target/setup(datum/ai_controller/controller, action_key, target_key)
@@ -235,7 +235,8 @@
 	var/action_key = BB_SPIDER_EGG_LAYING_ACTION
 
 /datum/ai_planning_subtree/lay_eggs/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
-	if(controller.blackboard_key_exists(action_key))
+	var/mob/living/basic/giant_spider/nurse/spider = controller.pawn
+	if(controller.blackboard_key_exists(action_key) && spider.fed > 0)
 		controller.queue_behavior(/datum/ai_behavior/lay_eggs, action_key)
 		return SUBTREE_RETURN_FINISH_PLANNING
 
@@ -252,9 +253,6 @@
 
 /datum/ai_behavior/lay_eggs/perform(seconds_per_tick, datum/ai_controller/controller, action_key)
 	var/datum/action/innate/lay_eggs_giant_spider/egg_action = controller.blackboard[action_key]
-	var/mob/living/basic/giant_spider/nurse/spider = controller.pawn
-	if(spider.fed < 1)
-		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 	if(egg_action?.Trigger())
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED

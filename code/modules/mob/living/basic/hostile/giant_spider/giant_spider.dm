@@ -154,7 +154,6 @@
 				break
 			if(large_cocoon)
 				C.icon_state = pick("cocoon_large1", "cocoon_large2", "cocoon_large3")
-	cocoon_target = null
 
 /mob/living/basic/giant_spider/nurse/proc/lay_spider_eggs()
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
