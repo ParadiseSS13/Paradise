@@ -547,32 +547,27 @@
 
 ///Used as a alternative to GLOB.move_manager.home_onto
 /datum/move_loop/has_target/move_towards
-	///The turf we want to move into, used for course correction
-	var/turf/moving_towards
-	///Should we try and stay on the path, or is deviation alright
+	/// Should we track our target, so we won't end up in the wrong place if it moves or if something knocks us off course?
 	var/home = FALSE
-	///When this gets larger then 1 we move a turf
-	var/x_ticker = 0
-	var/y_ticker = 0
-	///The rate at which we move, between 0 and 1
-	var/x_rate = 1
-	var/y_rate = 1
-	//We store the signs of x and y seperately, because byond will round negative numbers down
-	//So doing all our operations with absolute values then multiplying them is easier
-	var/x_sign = 0
-	var/y_sign = 0
+	// This tracks our location with sub-tile precision, allowing us to move along a smooth line. We assume that we started at the center of the tile, so that our shifts along the shorter axis are centered in the movement path, rather than biased towards the start or end. It also makes floating point errors less problematic, because neither 0.4999 nor 0.5001 will cross a tile boundary.
+	var/precise_x
+	var/precise_y
+	/// The speed at which we move along each axis, between -1 and 1
+	var/x_speed
+	var/y_speed
 
 /datum/move_loop/has_target/move_towards/setup(delay, timeout, atom/chasing, home = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE
 	src.home = home
+	precise_x = moving.x + 0.5
+	precise_y = moving.y + 0.5
 
-	if(home)
-		if(ismovable(target))
-			RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(update_slope)) //If it can move, update your slope when it does
-		RegisterSignal(moving, COMSIG_MOVABLE_MOVED, PROC_REF(handle_move))
-	update_slope()
+	if(home && ismovable(target))
+		// If we're following something that can move, make sure we keep moving towards it.
+		RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(update_angle))
+	update_angle()
 
 /datum/move_loop/has_target/move_towards/compare_loops(datum/move_loop/loop_type, priority, flags, extra_info, delay, timeout, atom/chasing, home = FALSE)
 	if(..() && home == src.home)
@@ -583,45 +578,63 @@
 	if(home)
 		if(ismovable(target))
 			UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
-		if(moving)
-			UnregisterSignal(moving, COMSIG_MOVABLE_MOVED)
 	return ..()
 
 /datum/move_loop/has_target/move_towards/move()
-	//Move our tickers forward a step, we're guaranteed at least one step forward because of how the code is written
-	if(x_rate) //Did you know that rounding by 0 throws a divide by 0 error?
-		x_ticker = FLOOR(x_ticker + x_rate, x_rate)
-	if(y_rate)
-		y_ticker = FLOOR(y_ticker + y_rate, y_rate)
-
-	var/x = moving.x
-	var/y = moving.y
-	var/z = moving.z
-
-	// There's a small amount of leeway in the tickers here so that we don't miss our final target due to floating point errors.
-	moving_towards = locate(x + round(x_ticker + 0.01) * x_sign, y + round(y_ticker + 0.01) * y_sign, z)
-	//The tickers serve as good methods of tracking remainder
-	if(x_ticker >= 1)
-		x_ticker = MODULUS(x_ticker, 1) //I swear to god if you somehow go up by one then one in a tick I'm gonna go mad
-	if(y_ticker >= 1)
-		y_ticker = MODULUS(y_ticker, 1)
-	var/atom/old_loc = moving.loc
-	if(flags & MOVEMENT_LOOP_FORCE_MOVE)
-		moving.forceMove(moving_towards)
-	else
-		moving.Move(moving_towards, get_dir(moving, moving_towards), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
-
-	//YOU FOUND THEM! GOOD JOB
-	if(home && get_turf(moving) == get_turf(target))
-		x_rate = 0
-		y_rate = 0
+	var/old_turf = get_turf(moving)
+	if(!old_turf)
+		// If we aren't anywhere, we should stop moving.
+		qdel(src)
 		return
-	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
 
-/datum/move_loop/has_target/move_towards/proc/handle_move(source, atom/OldLoc, Dir, Forced = FALSE)
-	SIGNAL_HANDLER
-	if(moving.loc != moving_towards && home) //If we didn't go where we should have, update slope to account for the deviation
-		update_slope()
+	// If we're not where we expect to be along either axis, we re-center ourselves within the correct tile along that axis.
+	var/off_course = FALSE
+	if(floor(precise_x) != moving.x)
+		precise_x = moving.x + 0.5
+		off_course = TRUE
+	if(floor(precise_y) != moving.y)
+		precise_y = moving.y + 0.5
+		off_course = TRUE
+	// And if we're homing, get back on course.
+	if(home && off_course)
+		update_angle()
+
+	// Update our position based on our current speed.
+	// We will always move at least one tile, because one of these is always 1 or -1.
+	precise_x += x_speed
+	precise_y += y_speed
+
+	var/next_turf = locate(floor(precise_x), floor(precise_y), moving.z)
+	if(flags & MOVEMENT_LOOP_FORCE_MOVE)
+		moving.forceMove(next_turf)
+	else
+		moving.Move(next_turf, get_dir(old_turf, next_turf), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
+
+	var/turf/here = get_turf(moving)
+	if(!here)
+		// If we aren't anywhere, we should stop moving.
+		qdel(src)
+		return
+
+	// If we didn't move the way we expected, re-center ourselves along the relevant axis/axes.
+	off_course = FALSE
+	if(here.x != floor(precise_x))
+		precise_x = here.x + 0.5
+		off_course = TRUE
+	if(here.y != floor(precise_y))
+		precise_y = here.y + 0.5
+		off_course = TRUE
+
+	// If we're homing, get back on course.
+	if(home && off_course)
+		update_angle()
+	else if(get_turf(moving) == get_turf(target))
+		// YOU FOUND IT! GOOD JOB!
+		x_speed = 0
+		y_speed = 0
+
+	// If we moved at all, that's a win.
+	return old_turf != here ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
 
 /datum/move_loop/has_target/move_towards/handle_no_target()
 	if(home)
@@ -629,46 +642,37 @@
 	target = null
 
 /**
- * Recalculates the slope between our object and the target, sets our rates to it
+ * Recalculates the angle we're moving at, so that we get a smooth movement line, rather than awkwardly bending from orthogonal to diagonal (or vice versa) at some point.
  *
- * The math below is reminiscent of something like y = mx + b
- * Except we don't need to care about axis, since we do all our movement in steps of 1
- * Because of that all that matters is we only move one tile at a time
- * So we take the smaller delta, divide it by the larger one, and get smaller step per large step
- * Then we set the large step to 1, and we're done. This way we're guaranteed to never move more then a tile at once
- * And we can have nice lines
+ * The way we set the angle is by adjusting the speed we move in each direction.
+ * We always move at full speed along the longer axis towards our target.
+ * For the other axis, we calculate the right speed to reach our target at the same time we did on the longer axis.
+ * The net result is that every time we move, we approach the target along the longer axis, but we only move along the shorter axis at regular intervals, creating as smooth a line as possible.
 **/
-/datum/move_loop/has_target/move_towards/proc/update_slope()
-	SIGNAL_HANDLER
+/datum/move_loop/has_target/move_towards/proc/update_angle()
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
 
-	//You'll notice this is rise over run, except we flip the formula upside down depending on the larger number
-	//This is so we never move more then one tile at once
-	var/delta_y = target.y - moving.y
 	var/delta_x = target.x - moving.x
-	//It's more convienent to store delta x and y as absolute values
-	//and modify them right at the end then it is to deal with rounding errors
-	x_sign = (delta_x > 0) ? 1 : -1
-	y_sign = (delta_y > 0) ? 1 : -1
-	delta_x = abs(delta_x)
-	delta_y = abs(delta_y)
+	var/delta_y = target.y - moving.y
+	if(delta_x == 0 && delta_y == 0)
+		// We ain't goin nowhere.
+		x_speed = 0
+		y_speed = 0
+		return
 
-	if(delta_x >= delta_y)
-		if(delta_x == 0) //Just go up/down
-			x_rate = 0
-			y_rate = 1
-			return
-		x_rate = 1
-		y_rate = delta_y / delta_x //rise over run, you know the deal
+	if(abs(delta_x) >= abs(delta_y))
+		// We need to move farther in the X direction, so always move along X.
+		x_speed = sign(delta_x)
+		// Move along Y often enough to smoothly reach the target.
+		y_speed = delta_y / abs(delta_x)
 	else
-		if(delta_y == 0) //Just go right/left
-			x_rate = 1
-			y_rate = 0
-			return
-		x_rate = delta_x / delta_y //Keep the larger step size at 1
-		y_rate = 1
+		// We need to move farther in the Y direction, so always move along Y.
+		y_speed = sign(delta_y)
+		// Move along X often enough to smoothly reach the target.
+		x_speed = delta_x / abs(delta_y)
 
 /**
- * Wrapper for GLOB.move_manager.home_onto, not reccomended, as its movement ends up being a bit stilted
+ * Alternative to GLOB.move_manager.home_onto. Not reccomended, as it ends up putting a kink in the movement path if it's not directly along one of the 8 directions.
  *
  * Returns TRUE if the loop sucessfully started, or FALSE if it failed
  *
