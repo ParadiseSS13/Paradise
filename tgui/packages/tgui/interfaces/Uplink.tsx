@@ -143,7 +143,7 @@ const ItemsPage = (_properties) => {
   const [uplinkItems, setUplinkItems] = useState(cats[0].items);
 
   const [searchText, setSearchText] = useState('');
-  const SelectEquipment = (items: TUplinkItem[], searchText = '') => {
+  const SelectEquipment = (items: UplinkItem[], searchText = '') => {
     items = filter(items, (item) => !!item.name);
     if (searchText) {
       items = filter(
