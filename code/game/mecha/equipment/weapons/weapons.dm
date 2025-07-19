@@ -76,7 +76,7 @@
 	origin_tech = "magnets=3;combat=3;engineering=3"
 	energy_drain = 30
 	projectile = /obj/item/projectile/beam
-	fire_sound = 'sound/weapons/gunshots/gunshot_mech_laser_light.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_mech_laser_heavy.ogg'
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler
