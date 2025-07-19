@@ -55,6 +55,10 @@
 	/// To check and gib the spider when dead, then remove only one of the counter for the changeling owner
 	var/gibbed = FALSE
 
+/mob/living/basic/giant_spider/hunter/infestation_spider/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/ai_retaliate)
+
 //These two below are needed to both gib the spider always, and even if it was gibbed only remove 1 from the counter of spider_counter instead of death's gib calling death again and removing 2
 /mob/living/basic/giant_spider/hunter/infestation_spider/gib()
 	gibbed = TRUE
