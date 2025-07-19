@@ -45,8 +45,8 @@ export const AIFixer = (props) => {
     }
 
     return (
-      <Window scrollable>
-        <Window.Content>
+      <Window>
+        <Window.Content scrollable>
           <Stack fill vertical>
             <Stack.Item>
               <Section title={data.occupant}>

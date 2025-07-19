@@ -293,8 +293,8 @@ const Advert = (_properties) => {
             .map((number) => cats[number.cat].items[number.item])
             .filter((item) => item !== undefined && item !== null)
             .map((item, index) => (
-              <Stack.Item key={index} p={1} mb={1} ml={1} width={34} backgroundColor={'rgba(255, 0, 0, 0.15)'}>
-                <UplinkItem grow i={item} />
+              <Stack.Item key={index} p={1} mb={1} ml={1} width={34} backgroundColor={'rgba(255, 0, 0, 0.15)'} grow>
+                <UplinkItem i={item} />
               </Stack.Item>
             ))}
         </Stack>
