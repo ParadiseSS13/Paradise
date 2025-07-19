@@ -643,7 +643,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	if(!client)
 		var/list/result = A.examine(src)
-		to_chat(src, chat_box_examine(result.Join("\n")))
+		to_chat(src, chat_box_examine(result.Join("<br>")))
 		return
 
 	var/list/result
