@@ -478,6 +478,7 @@
 #include "code\datums\ai\basic_mobs\basic_subtrees\target_retaliate.dm"
 #include "code\datums\ai\basic_mobs\basic_subtrees\tip_reaction.dm"
 #include "code\datums\ai\basic_mobs\basic_subtrees\use_mob_ability.dm"
+#include "code\datums\ai\basic_mobs\basic_subtrees\ventcrawl_find_target.dm"
 #include "code\datums\ai\basic_mobs\basic_subtrees\ventcrawl_subtree.dm"
 #include "code\datums\ai\basic_mobs\hunting_behavior\find_and_hunt_target.dm"
 #include "code\datums\ai\basic_mobs\hunting_behavior\find_hunt_target.dm"

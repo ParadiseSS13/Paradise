@@ -16,10 +16,15 @@
 	)
 
 /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/ventcrawler
+	blackboard = list (
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_VENT_SEARCH_RANGE = 10
+	)
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
+		/datum/ai_planning_subtree/ventcrawl_find_target,
 		/datum/ai_planning_subtree/ventcrawl,
 	)
 

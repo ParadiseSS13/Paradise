@@ -23,6 +23,7 @@
 	attack_verb_continuous = "slams"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	faction = list("plants", "jungle")
+	ventcrawler = VENTCRAWLER_ALWAYS
 
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minimum_survivable_temperature = 150
