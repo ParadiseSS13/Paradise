@@ -385,7 +385,7 @@ const Story = (properties) => {
         ) : (
           <>
             {!!story.has_photo && (
-              <PhotoThumbnail name={'story_photo_' + story.uid + '.png'} float="right" ml="0.5rem" />
+              <PhotoThumbnail name={'story_photo_' + story.uid + '.png'} style={{ float: 'right' }} ml="0.5rem" />
             )}
             {(story.body_short || story.body).split('\n').map((p, index) => (
               <Box key={index}>{p || <br />}</Box>
@@ -587,7 +587,7 @@ const createStoryModalBodyOverride = (modal) => {
           <LabeledList.Item label="Preview" verticalAlign="top">
             <Section noTopPadding title={title} maxHeight="13.5rem" overflow="auto">
               <Box mt="0.5rem">
-                {!!photo && <PhotoThumbnail name={'inserted_photo_' + photo.uid + '.png'} float="right" />}
+                {!!photo && <PhotoThumbnail name={'inserted_photo_' + photo.uid + '.png'} style={{ float: 'right' }} />}
                 {body.split('\n').map((p, index) => (
                   <Box key={index}>{p || <br />}</Box>
                 ))}
@@ -676,7 +676,7 @@ const wantedNoticeModalBodyOverride = (modal) => {
               tooltipPosition="top"
               onClick={() => act(photo ? 'eject_photo' : 'attach_photo')}
             />
-            {!!photo && <PhotoThumbnail name={'inserted_photo_' + photo.uid + '.png'} float="right" />}
+            {!!photo && <PhotoThumbnail name={'inserted_photo_' + photo.uid + '.png'} style={{ float: 'right' }} />}
           </LabeledList.Item>
           {isAdmin && (
             <LabeledList.Item label="CentComm Lock" verticalAlign="top">

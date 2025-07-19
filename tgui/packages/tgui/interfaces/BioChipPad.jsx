@@ -26,11 +26,11 @@ export const BioChipPad = (props) => {
               <Box bold mb={2}>
                 <img
                   src={`data:image/jpeg;base64,${implant.image}`}
-                  ml={0}
-                  mr={2}
                   style={{
                     verticalAlign: 'middle',
                     width: '32px',
+                    marginLeft: 0,
+                    marginRight: 2,
                   }}
                 />
                 {implant.name}

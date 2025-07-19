@@ -120,14 +120,14 @@ export const MagnetController = (props) => {
                 icon="trash"
                 confirmIcon="trash"
                 confirmContent=""
-                float="right"
+                style={{ float: 'right' }}
                 tooltip="Reset Path"
                 tooltipPosition="left"
                 onClick={() => act('path_clear')}
               />
               <Button
                 icon="file-import"
-                float="right"
+                style={{ float: 'right' }}
                 tooltip="Manually input path"
                 tooltipPosition="left"
                 onClick={() => modalOpen('path_custom_input')}
