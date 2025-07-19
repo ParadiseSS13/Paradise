@@ -28,6 +28,8 @@
 	var/efficiency
 	/// Timer that we use to remove people that are in us for too long
 	var/removal_timer
+	/// Auto-eject the occupant after 1 minute
+	var/force_eject = TRUE
 
 	light_color = LIGHT_COLOR_WHITE
 
@@ -38,6 +40,8 @@
 			. += "<span class='warning'>You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!</span>"
 		else
 			. += "<span class='notice'>You see [occupant.name] inside.</span>"
+		if(!force_eject)
+			. += "<span class='warning'>The auto-eject light is off!</span>"
 	. += "<span class='notice'>The Cryogenic cell chamber is effective at treating those with genetic damage, but all other damage types at a moderate rate.</span>"
 	. += "<span class='notice'>Mostly using cryogenic chemicals, such as cryoxadone for it's medical purposes, requires that the inside of the cell be kept cool at all times. Hooking up a freezer and cooling the pipeline will do this nicely.</span>"
 	. += "<span class='notice'><b>Click-drag</b> someone to a cell to place them in it, <b>Alt-Click</b> it to remove it.</span>"
@@ -459,8 +463,17 @@
 	add_fingerprint(usr)
 	update_icon(UPDATE_OVERLAYS)
 	M.ExtinguishMob()
-	removal_timer = addtimer(CALLBACK(src, PROC_REF(auto_eject)), 1 MINUTES, TIMER_STOPPABLE)
+	if(force_eject)
+		removal_timer = addtimer(CALLBACK(src, PROC_REF(auto_eject)), 1 MINUTES, TIMER_STOPPABLE)
 	return TRUE
+
+/obj/machinery/atmospherics/unary/cryo_cell/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(panel_open)
+		force_eject = !force_eject
+		to_chat(user, "<span class='notice'>You turn [force_eject ? "on" : "off"] the auto-ejection timer on [src].</span>")
 
 /obj/machinery/atmospherics/unary/cryo_cell/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
