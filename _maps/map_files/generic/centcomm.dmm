@@ -3025,7 +3025,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "kY" = (
-/obj/item/storage/fancy/cigarettes{
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
 	pixel_y = 6
 	},
 /obj/item/clothing/mask/cigarette/cigar/cohiba{
@@ -6270,7 +6270,7 @@
 /obj/item/restraints/handcuffs/cable/red,
 /obj/item/kitchen/knife,
 /obj/item/storage/box/mousetraps,
-/obj/item/storage/fancy/cigarettes,
+/obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/item/pen,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
@@ -7478,14 +7478,25 @@
 	id = "ADMINLOCKDOWN";
 	name = "Lockdown"
 	},
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
+	pixel_x = 11;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/admin)
 "AL" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes/syndicate,
-/obj/item/reagent_containers/drinks/cans/adminbooze,
-/obj/item/reagent_containers/drinks/cans/badminbrew,
-/obj/item/reagent_containers/drinks/cans/madminmalt,
+/obj/item/reagent_containers/drinks/cans/adminbooze{
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/drinks/cans/madminmalt{
+	pixel_y = 8;
+	pixel_x = 9
+	},
+/obj/item/reagent_containers/drinks/cans/badminbrew{
+	pixel_x = -9;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/admin)
 "AM" = (
