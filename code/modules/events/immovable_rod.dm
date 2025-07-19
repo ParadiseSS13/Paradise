@@ -45,7 +45,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	start = _start
 	end = _end
 	loc = start
-	if(end)
+	if(end && !fixed_dir)
 		setDir(get_dir(start, end))
 	z_original = z
 	move_delay = delay
@@ -112,8 +112,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	while(TRUE)
 		var/hit_something_dense = FALSE
 		for(var/atom/obstacle as anything in victim)
-			clong_thing(victim)
-			if(victim.density)
+			clong_thing(obstacle)
+			if(obstacle.density)
 				hit_something_dense = TRUE
 
 		// Keep hitting stuff until there's nothing dense or we randomly go through it.
