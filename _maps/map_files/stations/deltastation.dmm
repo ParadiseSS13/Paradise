@@ -12117,7 +12117,7 @@
 /area/station/supply/office)
 "aWu" = (
 /obj/effect/turf_decal/stripes/line,
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+/mob/living/basic/gorilla/cargo_domestic{
 	name = "Forklift"
 	},
 /turf/simulated/floor/plasteel,
