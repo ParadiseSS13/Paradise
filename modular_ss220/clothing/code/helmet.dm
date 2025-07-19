@@ -35,6 +35,23 @@
 		"Nucleation"		=	'modular_ss220/clothing/icons/mob/helmet.dmi',
 		)
 
+/obj/item/clothing/head/helmet/space/deathsquad/beret/bandana
+	name = "officer bandana"
+	desc = "An armored bandana commonly used by special operations officers."
+	icon = 'icons/obj/clothing/masks.dmi'
+	icon_override = null
+	icon_state = "bandred_up"
+
+	sprite_sheets = list(
+			"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+			"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+			"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+			"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+			"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+			"Skrell" = 'icons/mob/clothing/species/skrell/mask.dmi',
+			"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
+			)
+
 /obj/item/clothing/head/helmet/bike_helmet/replica
 	desc = "Крутой шлем. На вид хлипкий..."
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
