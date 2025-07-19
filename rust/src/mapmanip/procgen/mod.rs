@@ -1,4 +1,4 @@
-use std::collections::{HashMap, HashSet};
+use std::{collections::{HashMap, HashSet}, iter::Map};
 
 use super::core::GridMap;
 
@@ -10,14 +10,20 @@ use serde::{Deserialize, Serialize};
 
 mod geometry;
 
-const MAP_TILE_IGNORE: i32 = -1;
-const MAP_TILE_WALL: i32 = -2;
-const MAP_TILE_FLOOR: i32 = -3;
-const MAP_TILE_RESERVED_FLOOR: i32 = -4;
+#[derive(Clone, PartialEq, Eq, PartialOrd, Ord)]
+struct MapTileVal(i8);
+
+// positive values are reserved for indexes into the list of available room configurations
+const MAP_TILE_IGNORE: MapTileVal = MapTileVal(-1);
+const MAP_TILE_WALL: MapTileVal = MapTileVal(-2);
+const MAP_TILE_FLOOR: MapTileVal = MapTileVal(-3);
+const MAP_TILE_RESERVED_FLOOR: MapTileVal = MapTileVal(-4);
+
 const MAPMANIP_MARKER_PREFIX: &str = "/obj/effect/map_effect/marker/mapmanip";
 const SCALE: i32 = 3;
+const MAX_ROOM_PLACEMENT_TRIES: i32 = 200;
 
-const SAFE_VERTICAL_HALL: &[i32; 9] = &[
+const SAFE_VERTICAL_HALL: &[MapTileVal; 9] = &[
     MAP_TILE_WALL,
     MAP_TILE_FLOOR,
     MAP_TILE_WALL,
@@ -29,7 +35,7 @@ const SAFE_VERTICAL_HALL: &[i32; 9] = &[
     MAP_TILE_WALL,
 ];
 
-const SAFE_HORIZONTAL_HALL: &[i32; 9] = &[
+const SAFE_HORIZONTAL_HALL: &[MapTileVal; 9] = &[
     MAP_TILE_WALL,
     MAP_TILE_WALL,
     MAP_TILE_WALL,
@@ -79,7 +85,9 @@ pub(crate) struct MazegenHauberkSettings {
     room_configs: MazeRoomConfigs,
 }
 
-type CellGrid = Vec<Vec<i32>>;
+type CellGrid = Vec<Vec<MapTileVal>>;
+
+type RegionGrid = Vec<Vec<i8>>;
 
 /// A struct representing the data used to procedurally generate a maze with the
 /// "Hauberk" algorithm by Bob Nystrom described at
@@ -165,9 +173,9 @@ struct MazegenHauberk {
     grid: CellGrid,
     width: i32,
     height: i32,
-    regions: CellGrid,
+    regions: RegionGrid,
     rooms: Vec<Rect>,
-    current_region: i32,
+    current_region: i8,
 }
 
 impl MazegenHauberk {
@@ -191,8 +199,9 @@ impl MazegenHauberk {
 
         for a in room.x1..room.x2 {
             for b in room.y1..room.y2 {
-                let val = self.grid[a as usize][b as usize];
-                if val == MAP_TILE_IGNORE || val >= 0 {
+                let val = &self.grid[a as usize][b as usize];
+                // positive values are other rooms
+                if val == &MAP_TILE_IGNORE || val.0 >= 0 {
                     return false;
                 }
             }
@@ -211,7 +220,7 @@ impl MazegenHauberk {
         }
 
         room_config_idxes.shuffle(rng);
-        for _ in 0..=200 {
+        for _ in 0..=MAX_ROOM_PLACEMENT_TRIES {
             if room_config_idxes.is_empty() {
                 break;
             }
@@ -228,7 +237,7 @@ impl MazegenHauberk {
                 continue;
             }
 
-            self.create_room(new_room, *idx as i32);
+            self.create_room(new_room, *idx as i8);
             room_config_idxes.pop();
         }
     }
@@ -273,13 +282,13 @@ impl MazegenHauberk {
             let connector = connectors.choose(rng).unwrap();
             self.carve(connector);
 
-            let regions: Vec<i32> = connector_regions[connector]
+            let regions: Vec<i8> = connector_regions[connector]
                 .iter()
                 .map(|region| merged[region])
                 .collect();
 
             let dest = regions.first().unwrap();
-            let sources: Vec<&i32> = regions[1..].iter().collect();
+            let sources: Vec<&i8> = regions[1..].iter().collect();
 
             for i in 0..=self.current_region {
                 if sources.contains(&&merged[&i]) {
@@ -294,7 +303,7 @@ impl MazegenHauberk {
                     return false;
                 }
 
-                let local_regions: HashSet<i32> =
+                let local_regions: HashSet<i8> =
                     HashSet::from_iter(connector_regions[pos].iter().map(|region| merged[region]));
                 if local_regions.len() > 1 {
                     return true;
@@ -328,8 +337,8 @@ impl MazegenHauberk {
                         if self.out_of_bounds(target_x, target_y) {
                             continue;
                         }
-                        let val = self.grid[target_x as usize][target_y as usize];
-                        if val != MAP_TILE_WALL && val != MAP_TILE_IGNORE {
+                        let val = &self.grid[target_x as usize][target_y as usize];
+                        if val != &MAP_TILE_WALL && val != &MAP_TILE_IGNORE {
                             exits += 1;
                         }
                     }
@@ -366,7 +375,7 @@ impl MazegenHauberk {
         self.regions[pos.x as usize][pos.y as usize] = self.current_region;
     }
 
-    fn create_room(&mut self, room: Rect, idx: i32) {
+    fn create_room(&mut self, room: Rect, idx: i8) {
         self.start_region();
         for x in room.x1..room.x2 {
             for y in room.y1..room.y2 {
@@ -375,7 +384,7 @@ impl MazegenHauberk {
             }
         }
         self.rooms.push(room);
-        self.grid[room.x1 as usize][room.y1 as usize] = idx;
+        self.grid[room.x1 as usize][room.y1 as usize] = MapTileVal(idx);
     }
 
     /// Implementation of the "growing tree" algorithm from here:
@@ -445,14 +454,14 @@ impl MazegenHauberk {
     }
 
     /// Get the grid values of the 3x3 cell area with (x, y) at the center.
-    fn get_neighborhood(&self, x: i32, y: i32) -> Vec<i32> {
+    fn get_neighborhood(&self, x: i32, y: i32) -> Vec<MapTileVal> {
         let mut result = vec![];
         for dy in -1..=1 {
             for dx in -1..=1 {
                 let x2 = x + dx;
                 let y2 = y + dy;
                 if x2 >= 0 && x2 < self.width && y2 >= 0 && y2 < self.height {
-                    result.push(self.grid[x2 as usize][y2 as usize]);
+                    result.push(self.grid[x2 as usize][y2 as usize].clone());
                 } else {
                     result.push(MAP_TILE_IGNORE);
                 }
@@ -483,8 +492,7 @@ pub(crate) fn mapmanip_mazegen_hauberk(
             if let Some(tile) = map.grid.get(&Coord3::new(x, y, 1)) {
                 if let Some(area) = tile.get_area() {
                     if !area.path.starts_with(&settings.allowed_area) {
-                        data.grid[(x / SCALE) as usize][(y / SCALE) as usize] =
-                            MAP_TILE_IGNORE;
+                        data.grid[(x / SCALE) as usize][(y / SCALE) as usize] = MAP_TILE_IGNORE;
                     }
                 }
             }
@@ -499,19 +507,19 @@ pub(crate) fn mapmanip_mazegen_hauberk(
     // as reserved by hallway submaps.
     for x in 0..width {
         for y in 0..height {
-            let root_val = data.grid[x as usize][y as usize];
-            if root_val >= 0 {
+            let root_val = &data.grid[x as usize][y as usize];
+            if root_val.0 >= 0 {
                 let root_tile = map
                     .grid
                     .get_mut(&Coord3::new((x * 3) + 1, (y * 3) + 1, 1))
                     .unwrap();
                 root_tile.prefabs.push(Prefab::from_path(
-                    settings.room_configs[root_val as usize].marker.clone(),
+                    settings.room_configs[root_val.0 as usize].marker.clone(),
                 ));
                 continue;
             }
 
-            if !(root_val == MAP_TILE_FLOOR || root_val == MAP_TILE_RESERVED_FLOOR) {
+            if !(root_val == &MAP_TILE_FLOOR || root_val == &MAP_TILE_RESERVED_FLOOR) {
                 continue;
             }
 
