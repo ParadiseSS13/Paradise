@@ -149,7 +149,9 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 
 	/turf = list(
 		"bluespace_speed_trait" = TRAIT_BLUESPACE_SPEED,
-		"TRAIT_RUSTY" = TRAIT_RUSTY
+		"TRAIT_RUSTY" = TRAIT_RUSTY,
+		/// A web is being spun on this turf presently
+		"TRAIT_SPINNING_WEB_TURF" = TRAIT_SPINNING_WEB_TURF
 	),
 
 	/obj/effect = list(

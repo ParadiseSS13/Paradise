@@ -159,3 +159,13 @@
 #define BB_INCURSION_HOME_PORTAL "BB_INCURSION_HOME_PORTAL"
 #define BB_INCURSION_HOME_PORTAL_TARGET "BB_INCURSION_HOME_PORTAL_TARGET"
 #define BB_PROWL_TARGET "BB_PROWL_TARGET"
+
+// Giant Spiders
+/// Our webbing target
+#define BB_SPIDER_WEB_TARGET "BB_spider_web_target"
+/// Key where we store the web-spinning ability
+#define BB_SPIDER_WEB_ACTION "BB_spider_web_action"
+/// Key where we define the wrapping ability
+#define BB_SPIDER_WRAP_ACTION "BB_spider_wrap_action"
+/// Key where we define the egg laying ability
+#define BB_SPIDER_EGG_LAYING_ACTION "BB_spider_egg_laying_action"
