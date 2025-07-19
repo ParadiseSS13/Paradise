@@ -65,14 +65,14 @@
 	e_cost = (100 / 3) * 2 // 15 * 12.5 damage = 187.5 damage. Almost as much as a base laser gun, but takes longer to get all the shots out.
 
 /obj/item/ammo_casing/energy/laser/pulse
-	projectile_type = /obj/item/projectile/beam/pulse/hitscan
+	projectile_type = /obj/item/projectile/beam/pulse
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
 	e_cost = 200
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/pulse.ogg'
 
 /obj/item/ammo_casing/energy/laser/scatter/pulse
-	projectile_type = /obj/item/projectile/beam/pulse/hitscan
+	projectile_type = /obj/item/projectile/beam/pulse
 	e_cost = 200
 	select_name = "ANNIHILATE"
 	fire_sound = 'sound/weapons/pulse.ogg'
