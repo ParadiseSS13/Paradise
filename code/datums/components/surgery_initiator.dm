@@ -82,7 +82,7 @@
 		return
 	if(!IS_HORIZONTAL(L) && !can_start_on_stander)
 		return
-	if(IS_HORIZONTAL(L) && !on_operable_surface(L) && !isanimal(L))
+	if(IS_HORIZONTAL(L) && !on_operable_surface(L) && !(isanimal(L) || isbasicmob(L)))
 		return
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
