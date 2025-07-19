@@ -252,6 +252,11 @@
 	path = /obj/item/clothing/head/beret/med
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Geneticist", "Coroner", "Paramedic")
 
+/datum/gear/hat/beret_job/para
+	display_name = "Beret, EMT"
+	path = /obj/item/clothing/head/beret/paramedic
+	allowed_roles = list("Chief Medical Officer", "Paramedic")
+
 /datum/gear/hat/beret_job/cmo
 	display_name = "Beret, chief medical officer"
 	path = /obj/item/clothing/head/beret/cmo

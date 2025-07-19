@@ -195,6 +195,17 @@
 	desc = "A white beret with a green cross finely threaded into it. It has that sterile smell about it."
 	icon_state = "beret_med"
 
+/obj/item/clothing/head/beret/paramedic
+	name = "paramedic's beret"
+	desc = "A blue beret with a white medical insignia emblazoned on it. Save lives with style."
+	icon_state = "beret_paramedic"
+	dog_fashion = /datum/dog_fashion/head/paramedic
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
 //Cargo
 /obj/item/clothing/head/beret/qm
 	name = "quartermaster's beret"

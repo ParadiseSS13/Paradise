@@ -120994,7 +120994,6 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/structure/closet/paramedic,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},

@@ -320,3 +320,7 @@
 /datum/dog_fashion/head/miningsoft
 	name = "Spelunker REAL_NAME"
 	desc = "Legions are just like walking chew toys for him."
+
+/datum/dog_fashion/head/paramedic
+	name = "EMT REAL_NAME"
+	desc = "They will always find help when you need it."

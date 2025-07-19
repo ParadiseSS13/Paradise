@@ -139,6 +139,13 @@
 	item_color = "janitorpurple"
 	dog_fashion = /datum/dog_fashion/head/softcap
 
+/obj/item/clothing/head/soft/paramedic
+	name = "\improper EMT cap"
+	desc = "It's a blue baseball hat with a white medical shield."
+	icon_state = "paramedicsoft"
+	item_color = "paramedic"
+	dog_fashion = /datum/dog_fashion/head/paramedic
+
 /obj/item/clothing/head/soft/sec
 	name = "security cap"
 	desc = "It's baseball hat in tasteful red colour."
