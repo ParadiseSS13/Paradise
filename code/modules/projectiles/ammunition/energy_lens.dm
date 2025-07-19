@@ -102,7 +102,7 @@
 
 /obj/item/ammo_casing/energy/immolator/strong
 	projectile_type = /obj/item/projectile/beam/immolator/strong
-	fire_sound = 'sound/weapons/gunshots/gunshot_laser_sniper.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_laser_heavy.ogg'
 	e_cost = 125
 	select_name = "precise"
 
