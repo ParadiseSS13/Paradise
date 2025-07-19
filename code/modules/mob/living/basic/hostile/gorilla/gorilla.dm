@@ -213,7 +213,6 @@
 	gender = MALE
 	a_intent = INTENT_HELP
 	crate_limit = 2
-	unique_mob = TRUE
 	/// The ID card that the gorilla is currently wearing.
 	var/obj/item/card/id/access_card
 
