@@ -173,3 +173,5 @@
 #define BB_SPIDER_WRAP_ACTION "BB_spider_wrap_action"
 /// Key where we define the egg laying ability
 #define BB_SPIDER_EGG_LAYING_ACTION "BB_spider_egg_laying_action"
+/// Key used by changelings who control spiders
+#define BB_CHANGELING_SPIDER_ORDER "BB_changeling_spider_order"

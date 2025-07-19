@@ -32,18 +32,11 @@
 
 /datum/ai_controller/basic_controller/giant_spider/changeling
 	planning_subtrees = list(
-		/datum/ai_planning_subtree/simple_find_target,
-		/datum/ai_planning_subtree/attack_obstacle_in_path,
-		/datum/ai_planning_subtree/basic_melee_attack_subtree,
-		/datum/ai_planning_subtree/follow_owner,
-	)
-
-/datum/ai_controller/basic_controller/giant_spider/changeling_retaliate
-	planning_subtrees = list(
+		/datum/ai_planning_subtree/simple_find_target/cling_spider,
 		/datum/ai_planning_subtree/target_retaliate,
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
-		/datum/ai_planning_subtree/follow_owner,
+		/datum/ai_planning_subtree/cling_spider_follow,
 	)
 
 /// Used by Araneus, who only attacks those who attack first. He is house-trained and will not web up the HoS office.
@@ -257,29 +250,37 @@
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
+/// Spider only attacks when it has the valid order.
+/datum/ai_planning_subtree/simple_find_target/cling_spider
+
+/datum/ai_planning_subtree/simple_find_target/cling_spider/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
+	if(controller.blackboard[BB_CHANGELING_SPIDER_ORDER] == 1 || controller.blackboard[BB_CHANGELING_SPIDER_ORDER] == 3)
+		return
+	return ..()
+
 /// Spider follows who created it
-/datum/ai_planning_subtree/follow_owner
+/datum/ai_planning_subtree/cling_spider_follow
 	/// Key where the owner is stored
 	var/target_key = BB_CURRENT_PET_TARGET
 
-/datum/ai_planning_subtree/follow_owner/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
-	if(controller.blackboard_key_exists(target_key))
-		controller.queue_behavior(/datum/ai_behavior/follow_owner, target_key)
+/datum/ai_planning_subtree/cling_spider_follow/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
+	if(controller.blackboard_key_exists(target_key) && controller.blackboard[BB_CHANGELING_SPIDER_ORDER] < 2)
+		controller.queue_behavior(/datum/ai_behavior/cling_spider_follow, target_key)
 		return SUBTREE_RETURN_FINISH_PLANNING
 
 /// Attempt to follow the owner
-/datum/ai_behavior/follow_owner
+/datum/ai_behavior/cling_spider_follow
 	required_distance = 0
 	behavior_flags =  AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION | AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM
 
-/datum/ai_behavior/follow_owner/setup(datum/ai_controller/controller, target_key)
+/datum/ai_behavior/cling_spider_follow/setup(datum/ai_controller/controller, target_key)
 	. = ..()
 	var/atom/target = controller.blackboard[target_key]
 	if(QDELETED(target))
 		return FALSE
 	set_movement_target(controller, target)
 
-/datum/ai_behavior/follow_owner/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+/datum/ai_behavior/cling_spider_follow/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
 	var/atom/target = controller.blackboard[target_key]
 	if(QDELETED(target))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED

@@ -1,6 +1,6 @@
-#define IDLE_AGGRESSIVE 0
-#define FOLLOW_AGGRESSIVE 1
-#define FOLLOW_RETALIATE 2
+#define FOLLOW_AGGRESSIVE 0
+#define FOLLOW_RETALIATE 1
+#define IDLE_AGGRESSIVE 2
 #define IDLE_RETALIATE 3
 
 /datum/action/changeling/spiders
@@ -33,6 +33,8 @@
 		var/mob/living/basic/giant_spider/hunter/infestation_spider/S = new(user.loc)
 		S.owner_UID = user.UID()
 		S.ai_controller.set_blackboard_key(BB_BASIC_MOB_TARGET_BLACKLIST, list(user))
+		S.ai_controller.set_blackboard_key(BB_CURRENT_PET_TARGET, user)
+		S.ai_controller.set_blackboard_key(BB_CHANGELING_SPIDER_ORDER, IDLE_AGGRESSIVE)
 		S.faction |= list("spiders", "\ref[owner]") // Makes them friendly only to the owner & other spiders
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 		is_operating = FALSE
@@ -105,22 +107,16 @@
 	switch(current_order)
 		if(FOLLOW_AGGRESSIVE)
 			to_chat(user, "<span class='notice'>We order the giant spider to follow us but attack anyone on sight.</span>")
-			ai_controller = new /datum/ai_controller/basic_controller/giant_spider/changeling()
-			ai_controller.set_blackboard_key(BB_BASIC_MOB_TARGET_BLACKLIST, list(user))
-			ai_controller.set_blackboard_key(BB_CURRENT_PET_TARGET, user)
+			ai_controller.set_blackboard_key(BB_CHANGELING_SPIDER_ORDER, FOLLOW_AGGRESSIVE)
 		if(FOLLOW_RETALIATE)
 			to_chat(user, "<span class='notice'>We order the giant spider to follow us and to remain calm, only attacking if it is attacked.</span>")
-			ai_controller = new /datum/ai_controller/basic_controller/giant_spider/changeling_retaliate()
-			ai_controller.set_blackboard_key(BB_BASIC_MOB_TARGET_BLACKLIST, list(user))
-			ai_controller.set_blackboard_key(BB_CURRENT_PET_TARGET, user)
+			ai_controller.set_blackboard_key(BB_CHANGELING_SPIDER_ORDER, FOLLOW_RETALIATE)
 		if(IDLE_RETALIATE)
 			to_chat(user, "<span class='notice'>We order the giant spider to remain idle and calm, only attacking if it is attacked.</span>")
-			ai_controller = new /datum/ai_controller/basic_controller/giant_spider/changeling_retaliate()
-			ai_controller.set_blackboard_key(BB_BASIC_MOB_TARGET_BLACKLIST, list(user))
+			ai_controller.set_blackboard_key(BB_CHANGELING_SPIDER_ORDER, IDLE_RETALIATE)
 		if(IDLE_AGGRESSIVE)
 			to_chat(user, "<span class='notice'>We order the giant spider to remain idle, but ready to attack anyone on sight.</span>")
-			ai_controller = new /datum/ai_controller/basic_controller/giant_spider/changeling()
-			ai_controller.set_blackboard_key(BB_BASIC_MOB_TARGET_BLACKLIST, list(user))
+			ai_controller.set_blackboard_key(BB_CHANGELING_SPIDER_ORDER, IDLE_AGGRESSIVE)
 
 #undef IDLE_AGGRESSIVE
 #undef FOLLOW_AGGRESSIVE
