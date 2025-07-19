@@ -121,7 +121,7 @@
 	var/old_loc = moving.loc
 
 	owner?.processing_move_loop_flags = flags
-	var/result = move() //Result is an enum value. Enums defined in __DEFINES/movement.dm
+	var/result = move() //Result is an enum value. Enums defined in __DEFINES/movement_defines.dm
 	if(moving)
 		var/direction = get_dir(old_loc, moving.loc)
 		SEND_SIGNAL(moving, COMSIG_MOVABLE_MOVED_FROM_LOOP, src, old_dir, direction)
@@ -183,7 +183,7 @@
  * timeout - Time in deci-seconds until the moveloop self expires. Defaults to infinity
  * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
  * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
- * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
+ * flags - Set of bitflags that effect move loop behavior in some way. Check __DEFINES/movement_defines.dm
  *
 **/
 /datum/move_manager/proc/move(moving, direction, delay, timeout, subsystem, priority, flags, datum/extra_info)
@@ -224,7 +224,7 @@
  * timeout - Time in deci-seconds until the moveloop self expires. Defaults to infinity
  * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
  * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
- * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
+ * flags - Set of bitflags that effect move loop behavior in some way. Check __DEFINES/movement_defines.dm
  *
 **/
 /datum/move_manager/proc/force_move_dir(moving, direction, delay, timeout, subsystem, priority, flags, datum/extra_info)
@@ -281,7 +281,7 @@
  * timeout - Time in deci-seconds until the moveloop self expires. Defaults to infinity
  * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
  * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
- * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
+ * flags - Set of bitflags that effect move loop behavior in some way. Check __DEFINES/movement_defines.dm
  *
 **/
 /datum/move_manager/proc/force_move(moving, chasing, delay, timeout, subsystem, priority, flags, datum/extra_info)
@@ -315,7 +315,7 @@
  * timeout - Time in deci-seconds until the moveloop self expires. Defaults to infinity
  * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
  * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
- * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
+ * flags - Set of bitflags that effect move loop behavior in some way. Check __DEFINES/movement_defines.dm
  *
 **/
 /datum/move_manager/proc/jps_move(moving,
@@ -493,7 +493,7 @@
  * timeout - Time in deci-seconds until the moveloop self expires. Defaults to infinity
  * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
  * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
- * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
+ * flags - Set of bitflags that effect move loop behavior in some way. Check __DEFINES/movement_defines.dm
  *
 **/
 /datum/move_manager/proc/move_to(moving, chasing, min_dist, delay, timeout, subsystem, priority, flags, datum/extra_info)
@@ -527,7 +527,7 @@
  * timeout - Time in deci-seconds until the moveloop self expires. Defaults to infinity
  * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
  * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
- * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
+ * flags - Set of bitflags that effect move loop behavior in some way. Check __DEFINES/movement_defines.dm
  *
 **/
 /datum/move_manager/proc/move_away(moving, chasing, max_dist, delay, timeout, subsystem, priority, flags, datum/extra_info)
@@ -562,7 +562,7 @@
  * timeout - Time in deci-seconds until the moveloop self expires. Defaults to INFINITY
  * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
  * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
- * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
+ * flags - Set of bitflags that effect move loop behavior in some way. Check __DEFINES/movement_defines.dm
  *
 **/
 /datum/move_manager/proc/move_towards(moving, chasing, delay, home, timeout, subsystem, priority, flags, datum/extra_info)
@@ -581,7 +581,7 @@
  * timeout - Time in deci-seconds until the moveloop self expires. Defaults to INFINITY
  * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
  * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
- * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
+ * flags - Set of bitflags that effect move loop behavior in some way. Check __DEFINES/movement_defines.dm
  *
 **/
 /datum/move_manager/proc/home_onto(moving, chasing, delay, timeout, subsystem, priority, flags, datum/extra_info)
@@ -717,7 +717,7 @@
  * timeout - Time in deci-seconds until the moveloop self expires. Defaults to infinity
  * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
  * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
- * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
+ * flags - Set of bitflags that effect move loop behavior in some way. Check __DEFINES/movement_defines.dm
  *
 **/
 /datum/move_manager/proc/move_towards_legacy(moving, chasing, delay, timeout, subsystem, priority, flags, datum/extra_info)
@@ -744,7 +744,7 @@
  * timeout - Time in deci-seconds until the moveloop self expires. This should be considered extremely non-optional as it will completely stun out the movement loop <i>forever</i> if unset.
  * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
  * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
- * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
+ * flags - Set of bitflags that effect move loop behavior in some way. Check __DEFINES/movement_defines.dm
  */
 /datum/move_manager/proc/freeze(moving, halted_turf, delay, timeout, subsystem, priority, flags, datum/extra_info)
 	return add_to_loop(moving, subsystem, /datum/move_loop/freeze, priority, flags, extra_info, delay, timeout, halted_turf)
@@ -767,7 +767,7 @@
  * timeout - Time in deci-seconds until the moveloop self expires. Defaults to infinity
  * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
  * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
- * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
+ * flags - Set of bitflags that effect move loop behavior in some way. Check __DEFINES/movement_defines.dm
  *
 **/
 /datum/move_manager/proc/move_rand(moving, directions, delay, timeout, subsystem, priority, flags, datum/extra_info)
@@ -819,7 +819,7 @@
  * timeout - Time in deci-seconds until the moveloop self expires. Defaults to infinity
  * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
  * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
- * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
+ * flags - Set of bitflags that effect move loop behavior in some way. Check __DEFINES/movement_defines.dm
  *
 **/
 /datum/move_manager/proc/move_to_rand(moving, delay, timeout, subsystem, priority, flags, datum/extra_info)
@@ -847,7 +847,7 @@
  * timeout - Time in deci-seconds until the moveloop self expires. Defaults to infinity
  * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
  * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
- * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
+ * flags - Set of bitflags that effect move loop behavior in some way. Check __DEFINES/movement_defines.dm
  *
 **/
 /datum/move_manager/proc/ventcrawl(moving, chasing, delay, timeout, subsystem, priority, flags, skip_first = TRUE, datum/extra_info)
