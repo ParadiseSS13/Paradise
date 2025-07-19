@@ -4,7 +4,6 @@
 		icon = 'icons/effects/effects.dmi'
 		icon_state = "shield-old"
 		density = TRUE
-		opacity = FALSE
 		anchored = TRUE
 		move_resist = INFINITY
 		resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -13,12 +12,9 @@
 
 /obj/machinery/shield/Initialize(mapload)
 	. = ..()
-	dir = pick(NORTH, SOUTH, EAST, WEST)
 	recalculate_atmos_connectivity()
 
 /obj/machinery/shield/Destroy()
-	opacity = FALSE
-	density = FALSE
 	recalculate_atmos_connectivity()
 	return ..()
 

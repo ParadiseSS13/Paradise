@@ -68,14 +68,18 @@
 
 	/// Is the lighting on this turf inited
 	var/tmp/lighting_corners_initialised = FALSE
-	/// List of light sources affecting this turf.
-	var/tmp/list/datum/light_source/affecting_lights
 	/// The lighting Object affecting us
-	var/tmp/atom/movable/lighting_object/lighting_object
-	/// A list of our lighting corners.
-	var/tmp/list/datum/lighting_corner/corners
-	/// Not to be confused with opacity, this will be TRUE if there's any opaque atom on the tile.
-	var/tmp/has_opaque_atom = FALSE
+	var/tmp/datum/lighting_object/lighting_object
+	/// Lighting Corner datums.
+	var/tmp/datum/lighting_corner/lighting_corner_NE
+	var/tmp/datum/lighting_corner/lighting_corner_SE
+	var/tmp/datum/lighting_corner/lighting_corner_SW
+	var/tmp/datum/lighting_corner/lighting_corner_NW
+
+	/// Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.
+	var/directional_opacity = NONE
+	/// Lazylist of movable atoms providing opacity sources.
+	var/list/atom/movable/opacity_sources
 
 	/// The general behavior of atmos on this tile.
 	var/atmos_mode = ATMOS_MODE_SEALED
@@ -129,11 +133,11 @@
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
 		add_overlay(/obj/effect/fullbright)
 
-	if(light_power && light_range)
+	if(light_range && light_power)
 		update_light()
 
 	if(opacity)
-		has_opaque_atom = TRUE
+		directional_opacity = ALL_CARDINALS
 
 	initialize_milla()
 
@@ -239,11 +243,6 @@
 		if(!O.lastarea)
 			O.lastarea = get_area(O.loc)
 
-	// If an opaque movable atom moves around we need to potentially update visibility.
-	if(A.opacity)
-		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
-		reconsider_lights()
-
 	if((!(A) || !(src in A.locs)))
 		return
 
@@ -316,13 +315,14 @@
 		return src
 
 	set_light(0)
-	var/old_opacity = opacity
-	var/old_dynamic_lighting = dynamic_lighting
-	var/old_affecting_lights = affecting_lights
 	var/old_lighting_object = lighting_object
 	var/old_blueprint_data = blueprint_data
 	var/old_obscured = obscured
-	var/old_corners = corners
+	var/old_lighting_corner_NE = lighting_corner_NE
+	var/old_lighting_corner_SE = lighting_corner_SE
+	var/old_lighting_corner_SW = lighting_corner_SW
+	var/old_lighting_corner_NW = lighting_corner_NW
+	var/old_directional_opacity = directional_opacity
 
 	BeforeChange()
 	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
@@ -353,24 +353,26 @@
 	W.blueprint_data = old_blueprint_data
 	W.pressure_overlay = old_pressure_overlay
 
-	recalc_atom_opacity()
+	lighting_corner_NE = old_lighting_corner_NE
+	lighting_corner_SE = old_lighting_corner_SE
+	lighting_corner_SW = old_lighting_corner_SW
+	lighting_corner_NW = old_lighting_corner_NW
+
+	if(!W.dynamic_lighting)
+		W.lighting_build_overlay()
+	else
+		W.lighting_clear_overlay()
 
 	if(SSlighting.initialized)
-		recalc_atom_opacity()
-		lighting_object = old_lighting_object
-		affecting_lights = old_affecting_lights
-		corners = old_corners
-		if(old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
-			reconsider_lights()
+		W.lighting_object = old_lighting_object
+		directional_opacity = old_directional_opacity
+		recalculate_directional_opacity()
 
-		if(dynamic_lighting != old_dynamic_lighting)
-			if(IS_DYNAMIC_LIGHTING(src))
-				lighting_build_overlay()
-			else
-				lighting_clear_overlay()
+		if(lighting_object && !lighting_object.needs_update)
+			lighting_object.update()
 
-		for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-			S.update_starlight()
+		for(var/turf/space/space_tile in RANGE_TURFS(1, src))
+			space_tile.update_starlight()
 
 	obscured = old_obscured
 
@@ -609,7 +611,7 @@
 		add_blueprints(AM)
 
 /turf/proc/empty(turf_type = /turf/space)
-	// Remove all atoms except observers, landmarks, docking ports, and (un)`simulated` atoms (lighting overlays)
+	// Remove all atoms except observers, landmarks, docking ports
 	var/turf/T0 = src
 	for(var/X in T0.GetAllContents())
 		var/atom/A = X

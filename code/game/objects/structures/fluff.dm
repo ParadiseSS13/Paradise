@@ -6,8 +6,6 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "minibar"
 	anchored = TRUE
-	density = FALSE
-	opacity = FALSE
 	var/deconstructible = TRUE
 
 /obj/structure/fluff/wrench_act(mob/living/user, obj/item/I)
