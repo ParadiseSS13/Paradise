@@ -189,6 +189,12 @@
 	return RUSTLIB_CALL(redis_publish, channel, message)
 
 
+// MARK: Toast
+/// (Windows only) Triggers a desktop notification with the specified title and body
+/proc/rustlibs_create_toast(title, body) 
+	return RUSTLIB_CALL(create_toast, title, body)
+
+
 // MARK: HTTP
 #define RUSTLIBS_HTTP_METHOD_GET "get"
 #define RUSTLIBS_HTTP_METHOD_PUT "put"
