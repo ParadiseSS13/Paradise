@@ -830,7 +830,7 @@ SLIME SCANNER
 		message += "<span class='notice'>Wind: ([round(milla[MILLA_INDEX_WIND_X], 0.001)], [round(milla[MILLA_INDEX_WIND_Y], 0.001)])</span>"
 		message += "<span class='notice'>Fuel burnt last tick: [milla[MILLA_INDEX_FUEL_BURNT]] moles</span>"
 
-	to_chat(user, chat_box_examine(message.Join("\n")))
+	to_chat(user, chat_box_examine(message.Join("<br>")))
 	return TRUE
 
 ////////////////////////////////////////
