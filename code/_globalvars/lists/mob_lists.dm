@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(migo_sounds, list(
 	'sound/goonstation/misc/airraid_loop.ogg', 'sound/misc/interference.ogg', 'sound/misc/notice1.ogg', 'sound/misc/notice2.ogg', 'sound/misc/sadtrombone.ogg', 'sound/misc/slip.ogg',
 	'sound/weapons/armbomb.ogg', 'sound/weapons/chainsaw.ogg', 'sound/weapons/emitter.ogg', 'sound/weapons/emitter2.ogg', 'sound/weapons/blade1.ogg', 'sound/weapons/bladeslice.ogg',
 	'sound/weapons/blastcannon.ogg', 'sound/weapons/blaster.ogg', 'sound/weapons/bulletflyby3.ogg', 'sound/weapons/circsawhit.ogg', 'sound/weapons/cqchit2.ogg', 'sound/weapons/drill.ogg',
-	'sound/weapons/genhit1.ogg', 'sound/weapons/gunshots/gunshot_silenced.ogg', 'sound/weapons/gunshots/gunshot.ogg', 'sound/weapons/handcuffs.ogg', 'sound/weapons/homerun.ogg',
+	'sound/weapons/genhit1.ogg', 'sound/weapons/gunshots/gunshot_silenced_1.ogg', 'sound/weapons/gunshots/gunshot_stech.ogg', 'sound/weapons/handcuffs.ogg', 'sound/weapons/homerun.ogg',
 	'sound/weapons/kenetic_accel.ogg','sound/machines/fryer/deep_fryer_emerge.ogg', 'sound/machines/airlock_alien_prying.ogg', 'sound/machines/airlock_close.ogg',
 	'sound/machines/airlockforced.ogg', 'sound/machines/airlock_open.ogg', 'sound/machines/alarm.ogg', 'sound/machines/blender.ogg', 'sound/machines/boltsdown.ogg',
 	'sound/machines/boltsup.ogg', 'sound/machines/buzz-sigh.ogg', 'sound/machines/buzz-two.ogg', 'sound/machines/chime.ogg', 'sound/machines/defib_charge.ogg',

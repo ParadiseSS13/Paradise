@@ -82,7 +82,7 @@
 
 /obj/item/gun/projectile/automatic/proc/empty_alarm()
 	if(!chambered && !get_ammo() && !alarmed)
-		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 40, 1)
+		playsound(loc, 'sound/weapons/empty_alarm.ogg', 40, 1)
 		update_icon()
 		alarmed = 1
 
@@ -96,7 +96,9 @@
 	item_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
-	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_saber.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/saber_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/saber_unload.ogg'
 
 //////////////////////////////
 // MARK: C-20R SMG
@@ -108,7 +110,9 @@
 	item_state = "c20r"
 	origin_tech = "combat=5;materials=2;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/smgm45
-	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_c20r.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/c20r_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/c20r_unload.ogg'
 	fire_delay = 2
 	burst_size = 2
 	can_bayonet = TRUE
@@ -136,9 +140,9 @@
 	item_state = "wt550"
 	w_class = WEIGHT_CLASS_BULKY
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
-	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
-	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_pdw.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/pdw_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/pdw_unload.ogg'
 	fire_delay = 2
 	can_suppress = FALSE
 	burst_size = 1
@@ -160,7 +164,9 @@
 	icon_state = "mini-uzi"
 	origin_tech = "combat=4;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
-	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_uzi.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/uzi_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/uzi_unload.ogg'
 	burst_size = 2
 	can_holster = TRUE // it's a mini-uzi after all
 
@@ -174,9 +180,9 @@
 	item_state = "m90-4"
 	origin_tech = "combat=5;materials=2;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m556
-	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
-	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_m90.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/m90_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/m90_unload.ogg'
 	can_suppress = FALSE
 	var/obj/item/gun/projectile/revolver/grenadelauncher/underbarrel
 	burst_size = 3
@@ -272,9 +278,9 @@
 	slot_flags = 0
 	origin_tech = "combat=6;engineering=4"
 	mag_type = /obj/item/ammo_box/magazine/m556/arg
-	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
-	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_m26.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/m26_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/m26_unload.ogg'
 	can_suppress = FALSE
 	burst_size = 3
 	fire_delay = 1
@@ -289,9 +295,9 @@
 	item_state = "ak814"
 	origin_tech = "combat=5;materials=3"
 	mag_type = /obj/item/ammo_box/magazine/ak814
-	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
-	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_ak.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/ak_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/ak_unload.ogg'
 	can_suppress = FALSE
 	can_bayonet = TRUE
 	knife_x_offset = 26
@@ -310,9 +316,9 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
-	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
-	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun_automatic.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/bulldog_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/bulldog_unload.ogg'
 	can_suppress = FALSE
 	burst_size = 1
 	fire_delay = 0
@@ -366,8 +372,8 @@
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/laser
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
-	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/ik_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/ik_unload.ogg'
 	actions_types = list()
 	can_suppress = FALSE
 	burst_size = 1
@@ -405,8 +411,8 @@
 	origin_tech = "combat=3;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/laser
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
-	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/ik_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/ik_unload.ogg'
 	can_suppress = FALSE
 	burst_size = 1
 	actions_types = list()

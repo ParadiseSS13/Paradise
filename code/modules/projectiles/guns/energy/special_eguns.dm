@@ -153,7 +153,7 @@
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "riotgun"
 	item_state = "c20r"
-	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_riotgun.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
 	cell_type = /obj/item/stock_parts/cell/potato
@@ -245,7 +245,7 @@
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
 	needs_permit = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
-	fire_sound = 'sound/weapons/laser.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_laser_light.ogg'
 	usesound = 'sound/items/welder.ogg'
 	toolspeed = 1
 	container_type = OPENCONTAINER
@@ -520,7 +520,7 @@
 		cell.charge -= PLASMA_CHARGE_USE_PER_SECOND / 5 //2.5 per second, 25 every 10 seconds
 		if(cell.charge <= PLASMA_CHARGE_USE_PER_SECOND * 10 && !warned)
 			warned = TRUE
-			playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 75, 1)
+			playsound(loc, 'sound/weapons/empty_alarm.ogg', 75, 1)
 			atom_say("Caution, charge low. Forced discharge in under 10 seconds.")
 		if(cell.charge <= PLASMA_DISCHARGE_LIMIT)
 			discharge()

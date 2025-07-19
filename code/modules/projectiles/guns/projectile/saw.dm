@@ -8,9 +8,9 @@
 	origin_tech = "combat=6;engineering=3;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/mm762x51
 	weapon_weight = WEAPON_HEAVY
-	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
-	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_l6.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/l6_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/l6_unload.ogg'
 	var/cover_open = FALSE
 	actions_types = list()
 	can_suppress = FALSE

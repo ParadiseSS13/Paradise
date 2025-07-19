@@ -5,8 +5,8 @@
 	icon_state = "saber"
 	item_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/toy/smg
-	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
-	suppressed_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_saber.ogg'
+	suppressed_sound = 'sound/weapons/gunshots/gunshot_silenced_1.ogg'
 	force = 0
 	throwforce = 0
 	burst_size = 3
@@ -23,8 +23,8 @@
 	item_state = "gun"
 	w_class = WEIGHT_CLASS_SMALL
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
-	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
-	suppressed_sound = 'sound/weapons/gunshots/gunshot.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_enforcer.ogg'
+	suppressed_sound = 'sound/weapons/gunshots/gunshot_silenced_1.ogg'
 	burst_size = 1
 	fire_delay = 0
 	can_holster = TRUE

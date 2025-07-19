@@ -1554,7 +1554,7 @@
 
 /obj/item/toy/russian_revolver/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] quickly loads six bullets into [src]'s cylinder and points it at [user.p_their()] head before pulling the trigger! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
+	playsound(loc, 'sound/weapons/gunshots/gunshot_357.ogg', 50, 1)
 	return BRUTELOSS
 
 /obj/item/toy/russian_revolver/New()
@@ -1600,7 +1600,7 @@
 		var/zone = "head"
 		if(!(user.has_organ(zone))) // If they somehow don't have a head.
 			zone = "chest"
-		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
+		playsound(src, 'sound/weapons/gunshots/gunshot_357.ogg', 50, 1)
 		user.visible_message("<span class='danger'>[src] goes off!</span>")
 		post_shot(user)
 		if(cursed_shot)

@@ -441,7 +441,7 @@
 	..()
 
 /mob/living/simple_animal/bot/ed209/proc/set_weapon()  //used to update the projectile type and firing sound
-	shoot_sound = 'sound/weapons/laser.ogg'
+	shoot_sound = 'sound/weapons/gunshots/gunshot_laser_light.ogg'
 	if(emagged)
 		if(lasercolor)
 			projectile = /obj/item/projectile/beam/disabler

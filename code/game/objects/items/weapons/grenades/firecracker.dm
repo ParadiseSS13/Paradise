@@ -3,7 +3,7 @@
 	desc = "A firework that's great at making a lot of noise."
 	det_time = 2 SECONDS
 	/// The effect that will be randomly played at intervals.
-	var/sound_effect = 'sound/weapons/gunshots/gunshot_strong.ogg'
+	var/sound_effect = 'sound/weapons/gunshots/gunshot_pdw.ogg'
 	/// The minimum number of times it will fire.
 	var/min_pops = 5
 	/// The maximum number of times it fires.
@@ -35,11 +35,11 @@
 
 	/// The sounds which this grenade can select.
 	var/static/list/possible_sounds = list(
-		"revolver" = 'sound/weapons/gunshots/gunshot_strong.ogg',
+		"revolver" = 'sound/weapons/gunshots/gunshot_357.ogg',
 		"armblade" = 'sound/weapons/armblade.ogg',
-		"laser" = 'sound/weapons/laser.ogg',
+		"laser" = 'sound/weapons/gunshots/gunshot_laser_light.ogg',
 		"sniper" = 'sound/weapons/gunshots/gunshot_sniper.ogg',
-		"pistol" = 'sound/weapons/gunshots/gunshot_pistol.ogg',
+		"pistol" = 'sound/weapons/gunshots/gunshot_stech.ogg',
 		"blob" = 'sound/effects/splat.ogg',
 		"bite" = 'sound/weapons/bite.ogg',
 		"chainsaw" = 'sound/weapons/chainsaw.ogg'

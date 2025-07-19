@@ -272,7 +272,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/apply(mob/living/M, mob/user)
 	if(..())
-		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, TRUE)
+		playsound(loc, 'sound/weapons/empty_alarm.ogg', 20, TRUE)
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure
 	name = "\improper Anti-Plague Sequence Alpha autoinjector"
@@ -285,7 +285,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/apply(mob/living/M, mob/user)
 	if(..())
-		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, TRUE) //Sucker for sounds, also gets zombies attention.
+		playsound(loc, 'sound/weapons/empty_alarm.ogg', 20, TRUE) //Sucker for sounds, also gets zombies attention.
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/zombiecure2
 	name = "\improper Anti-Plague Sequence Beta autoinjector"

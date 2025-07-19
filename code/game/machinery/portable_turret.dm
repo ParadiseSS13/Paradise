@@ -147,21 +147,21 @@
 		if(/obj/item/gun/energy/taser)
 			lethal_is_configurable = FALSE
 			eprojectile = /obj/item/projectile/beam
-			eshot_sound = 'sound/weapons/laser.ogg'
+			eshot_sound = 'sound/weapons/gunshots/gunshot_laser_light.ogg'
 
 		if(/obj/item/gun/energy/gun)
 			eprojectile = /obj/item/projectile/beam	//If it has, going to kill mode
-			eshot_sound = 'sound/weapons/laser.ogg'
+			eshot_sound = 'sound/weapons/gunshots/gunshot_laser_light.ogg'
 			egun = 1
 
 		if(/obj/item/gun/energy/gun/nuclear)
 			eprojectile = /obj/item/projectile/beam	//If it has, going to kill mode
-			eshot_sound = 'sound/weapons/laser.ogg'
+			eshot_sound = 'sound/weapons/gunshots/gunshot_laser_light.ogg'
 			egun = 1
 
 		if(/obj/item/gun/energy/gun/turret)
 			eprojectile = /obj/item/projectile/beam	//If it has, going to copypaste mode
-			eshot_sound = 'sound/weapons/laser.ogg'
+			eshot_sound = 'sound/weapons/gunshots/gunshot_laser_light.ogg'
 			egun = 1
 
 		if(/obj/item/gun/energy/pulse/turret)
@@ -1128,8 +1128,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	// So, nothing, not even emagging them, makes them switch bullet type.
 	// So, its best to always have their projectile and eprojectile settings be the same. That way, you know what they will shoot.
 	// Otherwise, you end up with situations where one of the two bullet types will never be used.
-	shot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
-	eshot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+	shot_sound = 'sound/weapons/gunshots/gunshot_l6.ogg'
+	eshot_sound = 'sound/weapons/gunshots/gunshot_l6.ogg'
 
 	icon_state = "syndieturret0"
 	var/icon_state_initial = "syndieturret0"
@@ -1244,8 +1244,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3
 	icon_state = "syndieturret0"
-	shot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
-	eshot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+	shot_sound = 'sound/weapons/gunshots/gunshot_c20r.ogg'
+	eshot_sound = 'sound/weapons/gunshots/gunshot_c20r.ogg'
 	health = 100
 	syndicate = TRUE
 	installation = null

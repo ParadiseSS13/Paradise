@@ -65,7 +65,7 @@
 	icon_state = "piratespaceranged"
 	icon_living = "piratespaceranged"
 	icon_dead = "piratemelee_dead" // Does not actually exist. del_on_death.
-	projectilesound = 'sound/weapons/laser.ogg'
+	projectilesound = 'sound/weapons/gunshots/gunshot_laser_light.ogg'
 	ranged = TRUE
 	rapid = 2
 	turns_per_move = 5

@@ -10,7 +10,7 @@
 	var/obj/item/ammo_box/magazine/magazine
 	var/can_tactical = FALSE //check to see if the gun can tactically reload
 	/// The sound it will make when the gun suppression is TRUE
-	var/suppressed_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
+	var/suppressed_sound = 'sound/weapons/gunshots/gunshot_silenced_1.ogg'
 
 /obj/item/gun/projectile/Initialize(mapload)
 	. = ..()

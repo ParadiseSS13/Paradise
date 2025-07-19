@@ -50,5 +50,5 @@
 /obj/item/ammo_casing/energy/c3dbullet
 	projectile_type = /obj/item/projectile/bullet/midbullet3
 	select_name = "spraydown"
-	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_l6.ogg'
 	e_cost = 20

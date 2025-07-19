@@ -254,7 +254,7 @@
 	. = ..()
 	if(!COOLDOWN_FINISHED(src, pump_cooldown))
 		return
-	playsound(user, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
+	playsound(user, 'sound/weapons/gun_interactions/shotgun_energy_pump.ogg', 60, TRUE)
 	COOLDOWN_START(src, pump_cooldown, pump_time)
 
 /obj/item/gun/energy/gun/shotgun/examine_more(mob/user)

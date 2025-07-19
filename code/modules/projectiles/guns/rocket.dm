@@ -10,7 +10,8 @@
 	force = 15
 	flags = CONDUCT
 	origin_tech = "combat=6;syndicate=7"
-	fire_sound = 'sound/weapons/blastcannon.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_rpg.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/rpg_load.ogg'
 	fire_delay = 40
 	recoil = 2
 	var/missile_speed = 2

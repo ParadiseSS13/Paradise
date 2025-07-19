@@ -411,7 +411,7 @@
 	var/turf/T = pick(possible_turfs)
 	forceMove(T)
 
-	var/gun_sound = pick('sound/weapons/gunshots/gunshot_pistol.ogg', 'sound/weapons/gunshots/gunshot_strong.ogg')
+	var/gun_sound = pick('sound/weapons/gunshots/gunshot_stech.ogg', 'sound/weapons/gunshots/gunshot_357.ogg')
 	var/scream_sound = pick('sound/goonstation/voice/female_scream.ogg', 'sound/goonstation/voice/male_scream.ogg')
 	var/scream_pitch = rand(9, 11) / 10
 	var/num_hits = rand(7, 8)

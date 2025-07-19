@@ -18,9 +18,9 @@
 	/// Sound played when a projectile is fired.
 	var/fire_sound = "gunshot"
 	/// Sound played when inserting a new magazine.
-	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
+	var/magin_sound = 'sound/weapons/gun_interactions/pdw_reload.ogg'
 	/// Sound played when ejecting a magazine.
-	var/magout_sound = 'sound/weapons/gun_interactions/smg_magout.ogg'
+	var/magout_sound = 'sound/weapons/gun_interactions/pdw_unload.ogg'
 	/// The fire sound that shows in chat messages: laser blast, gunshot, etc.
 	var/fire_sound_text = "gunshot"
 	/// Whether or not a message is displayed when fired.

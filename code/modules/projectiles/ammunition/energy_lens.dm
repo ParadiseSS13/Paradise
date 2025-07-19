@@ -5,7 +5,7 @@
 	projectile_type = /obj/item/projectile/energy
 	var/e_cost = 100 //The amount of energy a cell needs to expend to create this shot.
 	var/select_name = "energy"
-	fire_sound = 'sound/weapons/laser.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_laser_light.ogg'
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	/// Damage multiplier from equipped lenses
 	var/lens_damage_multiplier = 1
@@ -28,7 +28,7 @@
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/lasergun/lever_action
-	fire_sound = 'sound/weapons/laser4.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_laser_light.ogg'
 
 /obj/item/ammo_casing/energy/laser/hos
 	e_cost = 120
@@ -40,12 +40,14 @@
 
 /obj/item/ammo_casing/energy/laser/scatter
 	projectile_type = /obj/item/projectile/beam/scatter
+	fire_sound = 'sound/weapons/gunshots/gunshot_laser_heavy.ogg'
 	pellets = 5
 	variance = 25
 	select_name = "scatter"
 
 /obj/item/ammo_casing/energy/laser/eshotgun
 	projectile_type = /obj/item/projectile/beam/scatter/eshotgun
+	fire_sound = 'sound/weapons/gunshots/gunshot_laser_heavy.ogg'
 	pellets = 6
 	variance = 25
 	select_name = "kill"
@@ -57,7 +59,7 @@
 /obj/item/ammo_casing/energy/laser/heavy
 	projectile_type = /obj/item/projectile/beam/laser/heavylaser
 	select_name = "anti-vehicle"
-	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_laser_sniper.ogg'
 
 /obj/item/ammo_casing/energy/laser/sparker
 	projectile_type = /obj/item/projectile/beam/laser/sparker
@@ -92,15 +94,15 @@
 	projectile_type = /obj/item/projectile/beam/xray
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	e_cost = 100
-	fire_sound = 'sound/weapons/laser3.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_laser_xray.ogg'
 
 /obj/item/ammo_casing/energy/immolator
 	projectile_type = /obj/item/projectile/beam/immolator
-	fire_sound = 'sound/weapons/laser3.ogg'
 	e_cost = 125
 
 /obj/item/ammo_casing/energy/immolator/strong
 	projectile_type = /obj/item/projectile/beam/immolator/strong
+	fire_sound = 'sound/weapons/gunshots/gunshot_laser_sniper.ogg'
 	e_cost = 125
 	select_name = "precise"
 
@@ -110,6 +112,7 @@
 
 /obj/item/ammo_casing/energy/immolator/scatter
 	projectile_type = /obj/item/projectile/beam/immolator/weak
+	fire_sound = 'sound/weapons/gunshots/gunshot_laser_xray.ogg'
 	e_cost = 125
 	pellets = 6
 	variance = 25
@@ -320,7 +323,7 @@
 /obj/item/ammo_casing/energy/clown
 	projectile_type = /obj/item/projectile/clown
 	muzzle_flash_effect = null
-	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_ak.ogg'
 	select_name = "clown"
 
 /obj/item/ammo_casing/energy/emitter

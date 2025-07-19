@@ -184,7 +184,7 @@
 
 				stored_ammo += R
 				R.loc = src
-				playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
+				playsound(src, 'sound/weapons/gun_interactions/shotgun_shell_insert.ogg', 50, 1)
 				update_mat_value()
 				return 1
 
@@ -216,7 +216,7 @@
 	if(num_loaded)
 		if(!silent)
 			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
-		playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
+		playsound(src, 'sound/weapons/gun_interactions/shotgun_shell_insert.ogg', 50, 1)
 		A.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 

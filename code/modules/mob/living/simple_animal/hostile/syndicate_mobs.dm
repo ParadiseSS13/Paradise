@@ -16,8 +16,8 @@
 #define RANGED_WEAPON_SR_IDLE "sr-idle"
 
 #define SOUND_MOD 'sound/mecha/mechmove03.ogg'
-#define SOUND_SMG 'sound/weapons/gunshots/gunshot_smg.ogg'
-#define SOUND_AR 'sound/weapons/gunshots/gunshot_rifle.ogg'
+#define SOUND_SMG 'sound/weapons/gunshots/gunshot_c20r.ogg'
+#define SOUND_AR 'sound/weapons/gunshots/gunshot_m90.ogg'
 #define SOUND_SR 'sound/weapons/gunshots/gunshot_sniper.ogg'
 
 #define SYNDICATE "syndicate"

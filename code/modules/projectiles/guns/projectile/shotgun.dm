@@ -14,7 +14,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
-	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_riotgun.ogg'
 	weapon_weight = WEAPON_HEAVY
 	var/pump_time = 1 SECONDS // To prevent spammage
 	COOLDOWN_DECLARE(pump_cooldown)
@@ -59,7 +59,7 @@
 /obj/item/gun/projectile/shotgun/proc/pump(mob/M)
 	if(QDELETED(M))
 		return
-	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
+	playsound(M, 'sound/weapons/gun_interactions/shotgun_pump.ogg', 60, TRUE)
 	pump_unload()
 	pump_reload()
 
@@ -88,6 +88,7 @@
 	icon_state = "riotshotgun"
 	item_state = "riotshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
+	fire_sound = 'sound/weapons/gunshots/gunshot_riotgun.ogg'
 	sawn_desc = "Come with me if you want to live."
 	sawn_state = SAWN_INTACT
 
@@ -211,7 +212,7 @@
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
-	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_mosin.ogg'
 	var/bolt_open = FALSE
 	can_bayonet = TRUE
 	knife_x_offset = 27
@@ -316,6 +317,7 @@
 	item_state = "shotgun_combat"
 	origin_tech = "combat=6"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
+	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun_combat.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	execution_speed = 5 SECONDS
 

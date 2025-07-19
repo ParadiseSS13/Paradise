@@ -7,8 +7,8 @@
 	weapon_weight = WEAPON_HEAVY
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
 	fire_sound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
-	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/sniper_heavy_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/sniper_heavy_unload.ogg'
 	fire_delay = 40
 	burst_size = 1
 	origin_tech = "combat=7"

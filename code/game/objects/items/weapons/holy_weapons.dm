@@ -334,7 +334,7 @@
 		to_chat(user, "<span class='notice'>You have no reason to replace a perfectly good soulstone with a new one.</span>")
 		return
 	to_chat(user, "<span class='notice'>You load a new soulstone into the possessed blade.</span>")
-	playsound(user, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
+	playsound(user, 'sound/weapons/gun_interactions/shotgun_pump.ogg', 60, TRUE)
 	obj_integrity = max_integrity
 	for(var/mob/living/simple_animal/shade/sword/sword_shade in contents)
 		sword_shade.health = sword_shade.maxHealth

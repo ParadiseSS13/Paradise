@@ -232,7 +232,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 			if("pageturn")
 				soundin = pick('sound/effects/pageturn1.ogg', 'sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg')
 			if("gunshot")
-				soundin = pick('sound/weapons/gunshots/gunshot.ogg', 'sound/weapons/gunshots/gunshot2.ogg','sound/weapons/gunshots/gunshot3.ogg','sound/weapons/gunshots/gunshot4.ogg')
+				soundin = pick('sound/weapons/gunshots/gunshot_1911.ogg', 'sound/weapons/gunshots/gunshot_m26.ogg','sound/weapons/gunshots/gunshot_saber.ogg','sound/weapons/gunshots/gunshot_riotgun.ogg')
 			if("casingdrop")
 				soundin = pick('sound/weapons/gun_interactions/casingfall1.ogg', 'sound/weapons/gun_interactions/casingfall2.ogg', 'sound/weapons/gun_interactions/casingfall3.ogg')
 			if("computer_ambience")

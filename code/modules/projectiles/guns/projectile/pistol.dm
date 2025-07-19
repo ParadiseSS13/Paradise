@@ -7,9 +7,9 @@
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	can_holster = TRUE
 	mag_type = /obj/item/ammo_box/magazine/m10mm
-	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
-	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_stech.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/stech_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/stech_unload.ogg'
 	can_suppress = TRUE
 	burst_size = 1
 	fire_delay = 0
@@ -26,6 +26,9 @@
 	icon_state = "m1911"
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
+	fire_sound = 'sound/weapons/gunshots/gunshot_1911.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/1911_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/1911_unload.ogg'
 	can_suppress = FALSE
 
 //Enforcer//
@@ -35,6 +38,9 @@
 	icon_state = "enforcer_grey"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/enforcer
+	fire_sound = 'sound/weapons/gunshots/gunshot_enforcer.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/enforcer_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/enforcer_unload.ogg'
 	can_suppress = TRUE
 	unique_reskin = TRUE
 	can_flashlight = TRUE
@@ -79,9 +85,9 @@
 	icon_state = "deagle"
 	force = 14.0
 	mag_type = /obj/item/ammo_box/magazine/m50
-	fire_sound = 'sound/weapons/gunshots/gunshot_pistolH.ogg'
-	magin_sound = 'sound/weapons/gun_interactions/hpistol_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/hpistol_magout.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_deagle.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/deagle_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/deagle_unload.ogg'
 	can_suppress = FALSE
 
 /obj/item/gun/projectile/automatic/pistol/deagle/gold
@@ -102,6 +108,9 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/apsm10mm
+	fire_sound = 'sound/weapons/gunshots/gunshot_type_230.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/type_230_reload.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/type_230_unload.ogg'
 	can_suppress = FALSE
 	burst_size = 3
 	fire_delay = 2

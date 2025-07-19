@@ -146,7 +146,7 @@
 			break
 		if(!use_ammo(ammo_usage))
 			to_chat(user, "<span class='warning'>You hear a click!</span>")
-			playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
+			playsound(user, 'sound/weapons/gunshots/gunshot_flamethrower_empty.ogg', 100, TRUE)
 			break // Whoops! No ammo!
 
 		if(T == previousturf)

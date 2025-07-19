@@ -20,7 +20,7 @@
 /datum/component/ranged_attacks/Initialize(
 	casing_type,
 	projectile_type,
-	projectile_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg',
+	projectile_sound = 'sound/weapons/gunshots/gunshot_stech.ogg',
 	burst_shots,
 	burst_intervals = 0.2 SECONDS,
 	cooldown_time = 3 SECONDS,

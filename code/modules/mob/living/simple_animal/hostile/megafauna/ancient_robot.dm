@@ -663,7 +663,7 @@ Difficulty: Hard
 	minbodytemp = 0
 	check_friendly_fire = 1
 	ranged = TRUE
-	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
+	projectilesound = 'sound/weapons/gunshots/gunshot_pdw.ogg'
 	projectiletype = /obj/item/projectile/bullet/ancient_robot_bullet
 	attacktext = "stomps on"
 	armour_penetration_percentage = 50

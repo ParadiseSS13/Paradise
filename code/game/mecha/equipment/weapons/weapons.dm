@@ -76,7 +76,7 @@
 	origin_tech = "magnets=3;combat=3;engineering=3"
 	energy_drain = 30
 	projectile = /obj/item/projectile/beam
-	fire_sound = 'sound/weapons/laser.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_mech_laser_light.ogg'
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler
@@ -96,7 +96,7 @@
 	origin_tech = "magnets=4;combat=4;engineering=3"
 	energy_drain = 60
 	projectile = /obj/item/projectile/beam/laser/heavylaser
-	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_mech_laser_heavy.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
 	equip_cooldown = 4 SECONDS
@@ -134,7 +134,7 @@
 	origin_tech = "materials=3;combat=5;magnets=2;syndicate=2"
 	energy_drain = 80
 	projectile = /obj/item/projectile/beam/xray
-	fire_sound = 'sound/weapons/laser3.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_laser_xray.ogg'
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray/triple
@@ -150,7 +150,7 @@
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 80
 	projectile = /obj/item/projectile/beam/immolator
-	fire_sound = 'sound/weapons/laser3.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_laser_xray.ogg'
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse
@@ -281,7 +281,7 @@
 	icon_state = "mecha_carbine"
 	origin_tech = "materials=4;combat=4"
 	projectile = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
-	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_mech_smg.ogg'
 	projectiles = 24
 	projectile_energy_cost = 15
 	harmful = TRUE
@@ -289,7 +289,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
 	equip_cooldown = 1.5 SECONDS
 	name = "\improper S.H.H. \"Quietus\" Carbine"
-	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_silenced_2.ogg'
 	icon_state = "mecha_mime"
 	projectile = /obj/item/projectile/bullet/mime/nonlethal
 	projectiles = 20
@@ -306,7 +306,7 @@
 	icon_state = "mecha_scatter"
 	origin_tech = "combat=4"
 	projectile = /obj/item/projectile/bullet/midbullet2
-	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_mech_shotgun.ogg'
 	projectiles = 40
 	projectile_energy_cost = 25
 	projectiles_per_shot = 4
@@ -325,7 +325,7 @@
 	icon_state = "mecha_uac2"
 	origin_tech = "combat=4"
 	projectile = /obj/item/projectile/bullet/weakbullet3
-	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_mech_rifle.ogg'
 	projectiles = 300
 	projectile_energy_cost = 20
 	projectiles_per_shot = 3
@@ -343,7 +343,7 @@
 	icon_state = "mecha_missilerack_six"
 	origin_tech = "combat=5;materials=4;engineering=4"
 	projectile = /obj/item/projectile/missile/light
-	fire_sound = 'sound/effects/bang.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_mech_rocket.ogg'
 	projectiles = 6
 	projectile_energy_cost = 1000
 	var/missile_speed = 2
@@ -354,6 +354,7 @@
 	name = "\improper SRX-13 Heavy Missile Launcher"
 	icon_state = "mecha_missilerack"
 	projectile = /obj/item/projectile/missile
+	fire_sound = 'sound/weapons/gunshots/gunshot_mech_rocket_heavy.ogg'
 	projectiles = 9
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
@@ -362,7 +363,7 @@
 	icon_state = "mecha_grenadelnchr"
 	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/grenade/flashbang
-	fire_sound = 'sound/effects/bang.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_grenade_launcher.ogg'
 	projectiles = 6
 	missile_speed = 1.5
 	projectile_energy_cost = 800
@@ -403,7 +404,7 @@
 	icon_state = "mecha_grenadelnchr"
 	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/grenade/chem_grenade/cleaner
-	fire_sound = 'sound/effects/bang.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_grenade_launcher.ogg'
 	equip_cooldown = 6 SECONDS
 	projectiles = 6
 	missile_speed = 1.5
@@ -527,7 +528,7 @@
 	energy_drain = 30
 	origin_tech = "materials=3;plasmatech=4;engineering=3"
 	projectile = /obj/item/projectile/plasma/adv/mech
-	fire_sound = 'sound/weapons/laser.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_mech_laser_heavy.ogg'
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M)
@@ -541,7 +542,7 @@
 	icon_state = "mining_launcher"
 	origin_tech = "combat=5;materials=4;engineering=4"
 	projectile = /obj/item/projectile/bullet/reusable/mining_bomb/mecha
-	fire_sound = 'sound/effects/bang.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_grenade_launcher.ogg'
 	energy_drain = 150 // cost a lot, but powerful miner tool
 	equip_cooldown = 2 SECONDS
 

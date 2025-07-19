@@ -5,7 +5,7 @@
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
-	fire_sound = 'sound/weapons/gunshots/gunshot_strong.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_357.ogg'
 	can_holster = TRUE
 	execution_speed = 5 SECONDS
 
@@ -101,7 +101,7 @@
 		return
 	process_chamber()
 	update_icon()
-	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
+	playsound(src, 'sound/weapons/gunshots/gunshot_357.ogg', 50, TRUE)
 	user.visible_message("<span class='danger'>[src] goes off!</span>")
 	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
 	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
@@ -230,7 +230,7 @@
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
-	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun_double.ogg'
 	sawn_desc = "Omar's coming!"
 	can_holster = FALSE
 	unique_reskin = TRUE
@@ -325,7 +325,7 @@
 	force = 10
 	slot_flags = null
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
-	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun_double.ogg'
 	sawn_desc = "I'm just here for the gasoline."
 	unique_reskin = FALSE
 	var/sling = FALSE
@@ -376,7 +376,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/cane
 	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
-	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_silenced_1.ogg'
 	suppressed = TRUE
 	needs_permit = FALSE //its just a cane beepsky.....
 

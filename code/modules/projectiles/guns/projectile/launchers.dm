@@ -7,7 +7,7 @@
 	icon_state = "dbshotgun_sawn"
 	item_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_grenade_launcher.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 	can_holster = FALSE  // Not your normal revolver
 
