@@ -90,6 +90,7 @@
 #include "translations/_translations.dme"
 #include "uplink_items/_uplink_items.dme"
 #include "verbs/_verbs.dme"
+#include "vote/_vote.dme"
 #include "whitelist/_whitelist.dme"
 #include "world_view_bigger/_world_view_bigger.dme"
 
