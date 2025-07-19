@@ -50,6 +50,7 @@
 	},
 
 	"editor.formatOnSave": true,
+	"files.insertFinalNewline": true,
 	"gitlens.advanced.blame.customArguments": [
 		"--ignore-revs-file",
 		"${workspaceRoot}/.git-blame-ignore-revs"

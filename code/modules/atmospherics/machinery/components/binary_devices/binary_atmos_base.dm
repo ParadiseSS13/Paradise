@@ -131,6 +131,9 @@
 	else if(A == node2)
 		return parent2
 
+/obj/machinery/atmospherics/binary/get_machinery_pipelines()
+	return list(parent1, parent2)
+
 /obj/machinery/atmospherics/binary/is_pipenet_split()
 	return TRUE
 

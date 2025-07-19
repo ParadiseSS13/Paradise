@@ -90,8 +90,9 @@
 		return
 	update_icon()
 
+/// We don't wanna end up getting ex_act() multiple times because we are located at multiple tiles
 /obj/machinery/door/ex_act()
-	if(width > 1 && fillers)
+	if(width > 1)
 		if(!COOLDOWN_FINISHED(src, explosion_cooldown))
 			return
 		COOLDOWN_START(src, explosion_cooldown, 1 SECONDS)
@@ -106,6 +107,7 @@
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)
+	. = ..()
 	if(operating || emagged || foam_level)
 		return
 	if(ismob(AM))
@@ -441,9 +443,9 @@
 
 /obj/machinery/door/proc/get_airlock_turfs()
 	var/list/airlock_turfs = list(get_turf(src))
-	if(width > 1 && fillers)
-		for(var/obj/F in fillers)
-			airlock_turfs |= get_turf(F)
+	if(width > 1)
+		for(var/i in 1 to width - 1)
+			airlock_turfs |= get_step(airlock_turfs[i], turn(dir, 90))
 	return airlock_turfs
 
 /obj/machinery/door/proc/check_for_mobs()
@@ -560,12 +562,12 @@
 
 	QDEL_LIST_CONTENTS(fillers)
 
-	if(dir in list(EAST, WEST))
+	if(dir in list(SOUTH, NORTH))
 		bound_width = width * world.icon_size
 		bound_height = world.icon_size
 		bound_y = 0
 		pixel_y = 0
-		if(dir == WEST)
+		if(dir == NORTH)
 			bound_x = -(width - 1) * world.icon_size
 			pixel_x = -(width - 1) * world.icon_size
 		else
@@ -577,7 +579,7 @@
 		bound_height = width * world.icon_size
 		bound_x = 0
 		pixel_x = 0
-		if(dir == SOUTH)
+		if(dir == WEST)
 			bound_y = -(width - 1) * world.icon_size
 			pixel_y = -(width - 1) * world.icon_size
 		else
@@ -587,20 +589,16 @@
 	LAZYINITLIST(fillers)
 
 	var/obj/last_filler = src
-	for(var/i in 1 to width)
+	for(var/i in 1 to width - 1)
 		var/obj/airlock_filler_object/filler
 
-		if(length(fillers) < i)
-			filler = new(src)
-			filler.pair_airlock(src)
-			fillers.Add(filler)
-		else
-			filler = fillers[i]
-
-		filler.loc = get_step(last_filler, dir)
+		filler = new(src)
+		filler.pair_airlock(src)
+		filler.loc = get_step(last_filler, turn(dir, 90))
 		filler.density = density
 		filler.set_opacity(opacity)
 
+		fillers += filler
 		last_filler = filler
 
 /obj/machinery/door/proc/set_fillers_density(density)

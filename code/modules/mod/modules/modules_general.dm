@@ -128,7 +128,7 @@
 	overlay_state_inactive = "module_jetpack"
 	overlay_state_active = "module_jetpack_on"
 	/// Do we stop the wearer from gliding in space.
-	var/stabilize = FALSE
+	var/stabilize = TRUE
 	var/thrust_callback
 
 /obj/item/mod/module/jetpack/Initialize(mapload)
@@ -214,7 +214,6 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/flashlight)
 	cooldown_time = 0.5 SECONDS
-	overlay_state_inactive = "module_light"
 	overlay_state_active = "module_light_on"
 	light_color = COLOR_WHITE
 	///The light power for the mod

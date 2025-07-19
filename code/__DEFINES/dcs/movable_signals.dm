@@ -86,3 +86,11 @@
 
 ///signal sent out by an atom when it is no longer pulling something : (atom/pulling)
 #define COMSIG_ATOM_NO_LONGER_PULLING "movable_no_longer_pulling"
+
+///from base of /atom/movable/point_at: (atom/A, obj/effect/temp_visual/point/point)
+#define COMSIG_MOVABLE_POINTED "movable_pointed"
+
+///signal sent out by /datum/component/tether when durability/line of sight fails : (atom/tethered)
+#define COMSIG_TETHER_DESTROYED "tether_snap"
+///a signal sent to /datum/component/tether by the tethered object to stop the tethering : (atom/tethered)
+#define COMSIG_TETHER_STOP "tether_stop"

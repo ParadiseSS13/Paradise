@@ -111,10 +111,10 @@
 		/obj/item/mod/module/plate_compression,
 		/obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen,
 		/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
-		/obj/item/stack/sheet/mineral/gold{amount = 20},
-		/obj/item/stack/sheet/mineral/plasma{amount = 20},
-		/obj/item/stack/sheet/mineral/silver{amount = 20},
-		/obj/item/stack/sheet/mineral/uranium{amount = 20},
+		/obj/item/stack/sheet/mineral/gold/twenty,
+		/obj/item/stack/sheet/mineral/plasma/twenty,
+		/obj/item/stack/sheet/mineral/silver/twenty,
+		/obj/item/stack/sheet/mineral/uranium/twenty,
 		/obj/item/stamp/chameleon,
 		/obj/item/storage/backpack/duffel/syndie/med/surgery,
 		/obj/item/storage/backpack/satchel_flat,
@@ -146,10 +146,10 @@
 		/obj/item/mod/module/plate_compression,
 		/obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen,
 		/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
-		/obj/item/stack/sheet/mineral/gold{amount = 20},
-		/obj/item/stack/sheet/mineral/plasma{amount = 20},
-		/obj/item/stack/sheet/mineral/silver{amount = 20},
-		/obj/item/stack/sheet/mineral/uranium{amount = 20},
+		/obj/item/stack/sheet/mineral/gold/twenty,
+		/obj/item/stack/sheet/mineral/plasma/twenty,
+		/obj/item/stack/sheet/mineral/silver/twenty,
+		/obj/item/stack/sheet/mineral/uranium/twenty,
 		/obj/item/stamp/chameleon,
 		/obj/item/storage/backpack/duffel/syndie/med/surgery,
 		/obj/item/storage/backpack/satchel_flat,
@@ -175,7 +175,7 @@
 		/obj/item/mod/module/visor/thermal,
 		/obj/item/pen/edagger,
 		/obj/item/pinpointer/advpinpointer,
-		/obj/item/stack/sheet/mineral/diamond{amount = 10},
+		/obj/item/stack/sheet/mineral/diamond/ten,
 		/obj/item/storage/belt/sheath/snakesfang,
 		/obj/item/storage/box/syndidonkpockets,
 		/obj/item/storage/box/syndie_kit/stechkin,
@@ -197,7 +197,7 @@
 		/obj/item/mod/module/visor/thermal,
 		/obj/item/pen/edagger,
 		/obj/item/pinpointer/advpinpointer,
-		/obj/item/stack/sheet/mineral/diamond{amount = 10},
+		/obj/item/stack/sheet/mineral/diamond/ten,
 		/obj/item/storage/belt/sheath/snakesfang,
 		/obj/item/storage/box/syndidonkpockets,
 		/obj/item/storage/box/syndie_kit/stechkin,
@@ -363,3 +363,43 @@
 
 /obj/effect/spawner/random/pool/spaceloot/mechtransport/storage4
 	loot = list(/obj/item/mecha_parts/core)
+
+/obj/effect/spawner/random/pool/spaceloot/whiteship_robotics
+	name = "whiteship robotics implant"
+	guaranteed = TRUE
+	point_value = 15
+	spawn_random_offset = TRUE
+	spawn_random_offset_max_pixels = 8
+
+	loot = list(
+		/obj/item/organ/internal/cyberimp/chest/nutriment,
+		/obj/item/organ/internal/cyberimp/brain/wire_interface,
+		/obj/item/organ/internal/cyberimp/arm/toolset,
+		/obj/item/organ/internal/eyes/cybernetic/meson,
+	)
+
+
+/obj/effect/spawner/random/pool/spaceloot/whiteship_armoury_shotgun_ammo
+	name = "whiteship shotgun ammo"
+	guaranteed = TRUE
+	spawn_loot_chance = 33
+	point_value = 10 // Do you have a shotgun?
+
+	loot = list(
+		/obj/item/storage/fancy/shell/confetti,
+		/obj/item/storage/fancy/shell/ion,
+		/obj/item/storage/fancy/shell/incindiary,
+		/obj/item/storage/fancy/shell/dragonsbreath,
+		/obj/item/storage/fancy/shell/rubbershot,
+	)
+
+/obj/effect/spawner/random/pool/spaceloot/whiteship_armoury_c_foam
+	name = "whiteship c_foam"
+	icon_state = "stetchkin"
+	guaranteed = TRUE
+	spawn_loot_chance = 20 // 1/5 chance after a 1/3 chance for this layout.
+	point_value = 40
+
+	loot = list(
+		/obj/item/gun/projectile/c_foam_launcher
+	)

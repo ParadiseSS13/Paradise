@@ -13,11 +13,16 @@
 	anchored = TRUE
 
 	var/id
-	dir = NORTH		//this should point -away- from the dockingport door, ie towards the ship
-	var/width = 0	//size of covered area, perpendicular to dir
-	var/height = 0	//size of covered area, paralell to dir
-	var/dwidth = 0	//position relative to covered area, perpendicular to dir
-	var/dheight = 0	//position relative to covered area, parallel to dir
+	/// This should point *away* from the docking port door, i.e. towards the ship.
+	dir = NORTH
+	/// Size of covered area, perpendicular to direction.
+	var/width = 0
+	/// Size of covered area, parallel to direction.
+	var/height = 0
+	/// Position relative to covered area, perpendicular to direction.
+	var/dwidth = 0
+	/// Position relative to covered area, parallel to direction.
+	var/dheight = 0
 
 	// A timid shuttle will not register itself with the shuttle subsystem
 	// All shuttle templates are timid
@@ -159,6 +164,11 @@
 	var/area_type = /area/space
 
 	var/lock_shuttle_doors = 0
+
+/obj/docking_port/stationary/Initialize(mapload)
+	. = ..()
+	if(!mapload)
+		register()
 
 // Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
 /obj/docking_port/stationary/whiteship
@@ -906,16 +916,6 @@
 	id = "syndicate"
 	name = "syndicate infiltrator"
 	width = 18
-
-/obj/docking_port/mobile/free_golem
-	dir = 8
-	dwidth = 8
-	height = 20
-	id = "freegolem"
-	name = "Free Golem Ship"
-	width = 16
-	preferred_direction = WEST
-	port_direction = SOUTH
 
 /obj/docking_port/mobile/whiteship
 	dir = 8

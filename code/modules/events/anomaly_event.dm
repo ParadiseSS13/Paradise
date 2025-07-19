@@ -25,7 +25,7 @@
 		var/list/candidate_turfs = get_area_turfs(impact_area)
 		while(length(candidate_turfs))
 			var/turf/candidate = pick_n_take(candidate_turfs)
-			if(!is_blocked_turf(candidate,TRUE))
+			if(!candidate.is_blocked_turf(exclude_mobs = TRUE))
 				target_turf = candidate
 				break
 		if(target_turf)

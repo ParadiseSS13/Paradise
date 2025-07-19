@@ -359,7 +359,8 @@
 		implement_speed_mod = allowed_tools[implement_type] / 100.0
 
 	// They also have some interesting ways that surgery success/fail prob get evaluated, maybe worth looking at
-	speed_mod /= (get_location_modifier(target) * 1 + surgery.speed_modifier) * implement_speed_mod
+	if(!istype(surgery, /datum/surgery/dissect))
+		speed_mod /= (get_location_modifier(target) * 1 + surgery.speed_modifier) * implement_speed_mod
 	var/modded_time = time * speed_mod
 
 	if(slowdown_immune(user))
@@ -367,7 +368,8 @@
 
 	if(implement_type)	// If this is set, we aren't in an allow_hand or allow_any_item step.
 		prob_success = allowed_tools[implement_type]
-	prob_success *= get_location_modifier(target)
+	if(!istype(surgery, /datum/surgery/dissect))
+		prob_success *= get_location_modifier(target)
 
 	if(!do_after(user, modded_time, target = target))
 		surgery.step_in_progress = FALSE

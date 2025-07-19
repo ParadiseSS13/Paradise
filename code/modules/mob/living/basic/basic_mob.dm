@@ -20,6 +20,7 @@ RESTRICT_TYPE(/mob/living/basic)
 	desc = "If you can see this, make an issue report on GitHub."
 	healable = TRUE
 	icon = 'icons/mob/animal.dmi'
+	hud_type = /datum/hud/simple_animal
 
 	var/basic_mob_flags
 
@@ -30,6 +31,8 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/icon_living
 	/// Icon when the animal is dead.
 	var/icon_dead
+	/// Icon when the animal is resting
+	var/icon_resting
 	/// We only try to show a gibbing animation if this exists.
 	var/icon_gib
 	/// The sound played on death
@@ -48,6 +51,8 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/gold_core_spawnable = NO_SPAWN
 	/// Holding var for determining who own/controls a sentient simple animal (for sentience potions).
 	var/mob/living/carbon/human/master_commander = null
+	/// Sentience type, for slime potions
+	var/sentience_type = SENTIENCE_ORGANIC
 
 	/// Higher speed is slower, negative speed is faster
 	var/speed = 1
@@ -127,14 +132,27 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/melee_damage_upper = 0
 	/// How much damage this simple animal does to objects, if any
 	var/obj_damage = 0
+	/// What can this mob break?
+	var/environment_smash = ENVIRONMENT_SMASH_NONE
 	/// Flat armour reduction, occurs after percentage armour penetration.
 	var/armour_penetration_flat = 0
 	/// Percentage armour reduction, happens before flat armour reduction.
 	var/armour_penetration_percentage = 0
 	/// Damage type of a simple mob's melee attack, should it do damage.
 	var/melee_damage_type = BRUTE
-	/// How often can you melee attack?
-	var/melee_attack_cooldown = 2 SECONDS
+	/// Lower bound for melee attack cooldown
+	var/melee_attack_cooldown_min = 2 SECONDS
+	/// Upper bound for melee attack cooldown
+	var/melee_attack_cooldown_max = 2 SECONDS
+
+	/// Loot this mob drops on death.
+	var/list/loot = list()
+
+	/// Compatibility with mob spawners
+	var/datum/component/spawner/nest
+
+	/// Footsteps
+	var/step_type
 
 /mob/living/basic/Initialize(mapload)
 	. = ..()
@@ -144,6 +162,14 @@ RESTRICT_TYPE(/mob/living/basic)
 
 	apply_atmos_requirements()
 	apply_temperature_requirements()
+	if(step_type)
+		AddComponent(/datum/component/footstep, step_type)
+
+/mob/living/basic/Destroy()
+	if(nest)
+		nest.spawned_mobs -= src
+		nest = null
+	return ..()
 
 /mob/living/basic/movement_delay()
 	. = speed
@@ -196,6 +222,7 @@ RESTRICT_TYPE(/mob/living/basic)
 /mob/living/basic/proc/early_melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	face_atom(target)
 	if(!ignore_cooldown)
+		var/melee_attack_cooldown = rand(melee_attack_cooldown_min, melee_attack_cooldown_max)
 		changeNext_move(melee_attack_cooldown)
 	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target, Adjacent(target), modifiers) & COMPONENT_HOSTILE_NO_ATTACK)
 		return FALSE
@@ -231,6 +258,10 @@ RESTRICT_TYPE(/mob/living/basic)
 	. = ..()
 	if(!.)
 		return FALSE
+	if(nest)
+		nest.spawned_mobs -= src
+		nest = null
+	drop_loot()
 	if(!gibbed)
 		if(death_sound)
 			playsound(get_turf(src), death_sound, 200, 1)
@@ -299,3 +330,58 @@ RESTRICT_TYPE(/mob/living/basic)
 	else
 		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
 		return TRUE
+
+
+/mob/living/basic/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	. = ..()
+	if(.)
+		var/damage = rand(attacker.melee_damage_lower, attacker.melee_damage_upper)
+		return attack_threshold_check(damage, attacker.melee_damage_type)
+
+/mob/living/basic/on_lying_down(new_lying_angle)
+	..()
+	if(icon_resting && stat != DEAD)
+		icon_state = icon_resting
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //simple mobs cannot crawl (unless they can)
+
+/mob/living/basic/on_standing_up()
+	..()
+	if(icon_resting && stat != DEAD)
+		icon_state = icon_living
+
+// Health/Damage adjustment, cribbed straight from simplemobs
+
+/mob/living/basic/adjustHealth(amount, updating_health = TRUE)
+	. = ..()
+	if(!ckey && stat == CONSCIOUS)
+		if(ai_controller?.ai_status == AI_STATUS_IDLE)
+			ai_controller.set_ai_status(AI_STATUS_ON)
+
+/mob/living/basic/adjustBruteLoss(amount, updating_health = TRUE)
+	if(damage_coeff[BRUTE])
+		return adjustHealth(amount * damage_coeff[BRUTE], updating_health)
+
+/mob/living/basic/adjustFireLoss(amount, updating_health = TRUE)
+	if(damage_coeff[BURN])
+		return adjustHealth(amount * damage_coeff[BURN], updating_health)
+
+/mob/living/basic/adjustOxyLoss(amount, updating_health = TRUE)
+	if(damage_coeff[OXY])
+		return adjustHealth(amount * damage_coeff[OXY], updating_health)
+
+/mob/living/basic/adjustToxLoss(amount, updating_health = TRUE)
+	if(damage_coeff[TOX])
+		return adjustHealth(amount * damage_coeff[TOX], updating_health)
+
+/mob/living/basic/adjustCloneLoss(amount, updating_health = TRUE)
+	if(damage_coeff[CLONE])
+		return adjustHealth(amount * damage_coeff[CLONE], updating_health)
+
+/mob/living/basic/adjustStaminaLoss(amount, updating_health = TRUE)
+	if(damage_coeff[STAMINA])
+		return ..(amount * damage_coeff[STAMINA], updating_health)
+
+/mob/living/basic/proc/drop_loot()
+	if(length(loot))
+		for(var/item in loot)
+			new item(get_turf(src))

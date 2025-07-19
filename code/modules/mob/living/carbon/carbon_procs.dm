@@ -133,7 +133,7 @@
 				adjustToxLoss(-3)
 
 		T = get_step(T, dir)
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			break
 
 /mob/living/carbon/gib()
@@ -172,21 +172,52 @@
 		for(var/victim in shocking_queue)
 			var/mob/living/carbon/C = victim
 			C.electrocute_act(shock_damage * 0.75, src, 1, flags)
-	//Stun
-	var/should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
-	if(should_stun)
-		Stun(1 SECONDS)
-	//Jitter and other fluff.
-	AdjustJitter(2000 SECONDS)
-	AdjustStuttering(4 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_stun), 1 SECONDS)
+
+	// Minor shock - Jitters and Stutters
+	var/jitter_amount = 0
+	if(shock_damage >= SHOCK_MINOR)
+		jitter_amount = shock_damage
+		AdjustStuttering(4 SECONDS)
+
+	// Moderate shock - Stun, knockdown, funny effect
+	var/should_stun = FALSE
+	var/stun_dur = 0 SECONDS
+	if(shock_damage >= SHOCK_MODERATE)
+		should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
+		if(should_stun)
+			stun_dur = max((shock_damage / 50) * 1 SECONDS, 4 SECONDS)
+			Stun(stun_dur)
+		if(shock_damage >= SHOCK_FLASH) // Arc flash explosion is instant, don't wait for the secondary shock and bypass the effect
+			stun_dur = 0
+		else
+			var/obj/effect/temp_visual/electrocution/shock_effect = new /obj/effect/temp_visual/electrocution(loc, stun_dur)
+			shock_effect.setDir(dir)
+		emote("scream")
+		AdjustStuttering(4 SECONDS)
+
+	// Major Shock - YEET
+	var/throw_distance = 0
+	var/throw_dir = null
+	if(shock_damage >= SHOCK_MAJOR)
+		do_sparks(3, TRUE, src)
+		AdjustStuttering(4 SECONDS)
+		if(isatom(source))
+			var/atom/shock_source = source
+			throw_dir = get_dir(shock_source.loc, src)
+			throw_distance = round(shock_damage / 10)
+
+	addtimer(CALLBACK(src, PROC_REF(secondary_shock), jitter_amount, should_stun, throw_dir, throw_distance), stun_dur)
 	return shock_damage
 
-///Called slightly after electrocute act to reduce jittering and apply a secondary knockdown.
-/mob/living/carbon/proc/secondary_shock(should_stun)
-	AdjustJitter(-2000 SECONDS, bound_lower = 20 SECONDS) //Still jittery, but vastly less
+/// Called after electrocute_act to apply secondary effects
+/mob/living/carbon/proc/secondary_shock(jitter_amount, should_stun, throw_dir, throw_distance)
+	if(jitter_amount)
+		AdjustJitter(jitter_amount)
 	if(should_stun)
 		KnockDown(6 SECONDS)
+	if(throw_dir && throw_distance && !HAS_TRAIT(src, TRAIT_MAGPULSE)) // Don't yeet if they're wearing magboots
+		var/turf/general_direction = get_edge_target_turf(src, throw_dir)
+		src.throw_at(general_direction, throw_distance, throw_distance)
 
 /mob/living/carbon/swap_hand()
 	if(SEND_SIGNAL(src, COMSIG_MOB_SWAPPING_HANDS, get_active_hand()) == COMPONENT_BLOCK_SWAP)
@@ -510,8 +541,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	var/ventcrawl_delay = 0 SECONDS
 #else
 	var/ventcrawl_delay = 4.5 SECONDS
-	if(!client)
-		return
 #endif
 	if(ismorph(src))
 		if(!do_after(src, ventcrawl_delay, target = src, hidden = TRUE))
@@ -1425,3 +1454,78 @@ so that different stomachs can handle things in different ways VB*/
 
 /mob/living/carbon/proc/get_thermal_protection() // Xenos got nothin
 	return 0
+
+/mob/living/carbon/vv_get_dropdown()
+	. = ..()
+
+	VV_DROPDOWN_OPTION(VV_HK_GIVEMARTIALART, "Give Martial Art")
+	VV_DROPDOWN_OPTION(VV_HK_ADDORGAN, "Add Organ")
+	VV_DROPDOWN_OPTION(VV_HK_REMORGAN, "Remove Organ")
+
+/mob/living/carbon/vv_do_topic(list/href_list)
+	. = ..()
+
+	if(!.)
+		return
+
+	if(href_list[VV_HK_GIVEMARTIALART])
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
+
+		var/list/artpaths = subtypesof(/datum/martial_art)
+		var/list/artnames = list()
+		for(var/i in artpaths)
+			var/datum/martial_art/M = i
+			artnames[initial(M.name)] = M
+
+		var/result = tgui_input_list(usr, "Choose the martial art to teach", "JUDO CHOP", artnames)
+		if(!usr)
+			return
+		if(QDELETED(src))
+			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
+			return
+
+		if(result)
+			var/chosenart = artnames[result]
+			var/datum/martial_art/MA = new chosenart
+			MA.teach(src)
+
+		href_list["datumrefresh"] = UID()
+	else if(href_list[VV_HK_ADDORGAN])
+		if(!check_rights(R_SPAWN))
+			return
+
+		var/new_organ = tgui_input_list(usr, "Please choose an organ to add.", "Organ", subtypesof(/obj/item/organ))
+		if(!new_organ)
+			return
+
+		if(QDELETED(src))
+			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
+			return
+
+		if(locateUID(new_organ) in internal_organs)
+			to_chat(usr, "<span class='notice'>Mob already has that organ.</span>")
+			return
+		var/obj/item/organ/internal/organ = new new_organ
+		organ.insert(src)
+		message_admins("[key_name_admin(usr)] has given [key_name_admin(src)] the organ [new_organ]")
+		log_admin("[key_name(usr)] has given [key_name(src)] the organ [new_organ]")
+
+	else if(href_list[VV_HK_REMORGAN])
+		if(!check_rights(R_SPAWN))	return
+
+		var/obj/item/organ/internal/rem_organ = tgui_input_list(usr, "Please choose an organ to remove.", "Organ", internal_organs)
+
+		if(QDELETED(src))
+			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
+			return
+
+		if(!(rem_organ in internal_organs))
+			to_chat(usr, "<span class='notice'>Mob does not have that organ.</span>")
+			return
+
+		to_chat(usr, "<span class='notice'>Removed [rem_organ] from [src].</span>")
+		rem_organ.remove(src)
+		message_admins("[key_name_admin(usr)] has removed the organ [rem_organ] from [key_name_admin(src)]")
+		log_admin("[key_name(usr)] has removed the organ [rem_organ] from [key_name(src)]")
+		qdel(rem_organ)

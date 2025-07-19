@@ -153,6 +153,7 @@
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/taperecorder(src)
 	new /obj/item/storage/bag/garment/nanotrasen_representative(src)
+	new /obj/item/clipboard/station_report(src)
 
 /obj/structure/closet/secure_closet/security/cargo
 

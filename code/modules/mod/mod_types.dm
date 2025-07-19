@@ -40,6 +40,7 @@
 		default_pins -= old_module
 
 /obj/item/mod/control/pre_equipped/standard
+	icon_state = "standard-control"
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/welding,
@@ -53,8 +54,12 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack
 	)
+	default_pins = list(
+		/obj/item/mod/module/jetpack,
+	)
 
 /obj/item/mod/control/pre_equipped/engineering
+	icon_state = "engineering-control"
 	theme = /datum/mod_theme/engineering
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -70,6 +75,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/atmospheric
+	icon_state = "atmospheric-control"
 	theme = /datum/mod_theme/atmospheric
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -86,6 +92,7 @@
 
 
 /obj/item/mod/control/pre_equipped/advanced
+	icon_state = "advanced-control"
 	theme = /datum/mod_theme/advanced
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -103,6 +110,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/loader
+	icon_state = "loader-control"
 	theme = /datum/mod_theme/loader
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
@@ -116,6 +124,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/mining
+	icon_state = "mining-control"
 	theme = /datum/mod_theme/mining
 	applied_core = /obj/item/mod/core/plasma
 	applied_modules = list(
@@ -133,8 +142,6 @@
 
 /// visit robotics.
 /obj/item/mod/control/pre_equipped/mining/vendor
-	theme = /datum/mod_theme/mining
-	applied_core = /obj/item/mod/core/plasma
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 	)
@@ -145,9 +152,11 @@
 
 /// The asteroid skin, as that one looks more space worthy / older. Good for space ruins.
 /obj/item/mod/control/pre_equipped/mining/asteroid
+	icon_state = "asteroid-control"
 	applied_skin = "asteroid"
 
 /obj/item/mod/control/pre_equipped/medical
+	icon_state = "medical-control"
 	theme = /datum/mod_theme/medical
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -156,6 +165,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/rescue
+	icon_state = "rescue-control"
 	theme = /datum/mod_theme/rescue
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -170,6 +180,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/research
+	icon_state = "research-control"
 	theme = /datum/mod_theme/research
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -180,6 +191,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/security
+	icon_state = "security-control"
 	theme = /datum/mod_theme/security
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -187,8 +199,13 @@
 		/obj/item/mod/module/dispenser/mirage,
 		/obj/item/mod/module/jetpack,
 	)
+	default_pins = list(
+		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/dispenser/mirage,
+	)
 
 /obj/item/mod/control/pre_equipped/safeguard
+	icon_state = "safeguard-control"
 	theme = /datum/mod_theme/safeguard
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -200,6 +217,7 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/dispenser/mirage,
 	)
 
 /obj/item/mod/control/pre_equipped/safeguard/gamma
@@ -212,11 +230,9 @@
 		/obj/item/mod/module/holster,
 		/obj/item/mod/module/energy_shield/gamma,
 	)
-	default_pins = list(
-		/obj/item/mod/module/jetpack/advanced,
-	)
 
 /obj/item/mod/control/pre_equipped/praetorian
+	icon_state = "praetorian-control"
 	theme = /datum/mod_theme/praetorian
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -229,6 +245,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/magnate
+	icon_state = "magnate-control"
 	theme = /datum/mod_theme/magnate
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	applied_modules = list(
@@ -238,21 +255,25 @@
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
 	)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
 
 /obj/item/mod/control/pre_equipped/magnate/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 
 /obj/item/mod/control/pre_equipped/cosmohonk
+	icon_state = "cosmohonk-control"
 	theme = /datum/mod_theme/cosmohonk
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/waddle,
 		/obj/item/mod/module/bikehorn,
 	)
+	default_pins = list(
+		/obj/item/mod/module/bikehorn,
+	)
 
 /obj/item/mod/control/pre_equipped/traitor
+	icon_state = "syndicate-control"
 	starting_frequency = MODLINK_FREQ_SYNDICATE
 	theme = /datum/mod_theme/syndicate
 	applied_cell = /obj/item/stock_parts/cell/super
@@ -273,6 +294,7 @@
 	new /obj/item/storage/box/survival_syndie/traitor(bag)
 
 /obj/item/mod/control/pre_equipped/traitor_elite
+	icon_state = "elite-control"
 	starting_frequency = MODLINK_FREQ_SYNDICATE
 	theme = /datum/mod_theme/elite
 	applied_cell = /obj/item/stock_parts/cell/bluespace
@@ -294,6 +316,7 @@
 	new /obj/item/storage/box/survival_syndie/traitor(bag)
 
 /obj/item/mod/control/pre_equipped/nuclear
+	icon_state = "syndicate-control"
 	starting_frequency = MODLINK_FREQ_SYNDICATE
 	theme = /datum/mod_theme/syndicate
 	applied_cell = /obj/item/stock_parts/cell/hyper
@@ -315,6 +338,7 @@
 	ADD_TRAIT(chestplate, TRAIT_HYPOSPRAY_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/mod/control/pre_equipped/elite
+	icon_state = "elite-control"
 	starting_frequency = MODLINK_FREQ_SYNDICATE
 	theme = /datum/mod_theme/elite
 	applied_cell = /obj/item/stock_parts/cell/bluespace
@@ -337,9 +361,9 @@
 	ADD_TRAIT(chestplate, TRAIT_HYPOSPRAY_IMMUNE, ROUNDSTART_TRAIT)
 
 /obj/item/mod/control/pre_equipped/prototype
+	icon_state = "prototype-control"
 	starting_frequency = MODLINK_FREQ_THETA
 	theme = /datum/mod_theme/prototype
-	req_access = list()
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/welding,
@@ -353,6 +377,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/responsory
+	icon_state = "responsory-control"
 	starting_frequency = MODLINK_FREQ_CENTCOM
 	theme = /datum/mod_theme/responsory
 	applied_cell = /obj/item/stock_parts/cell/bluespace
@@ -366,6 +391,10 @@
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/ert_camera,
+	)
+	default_pins = list(
+		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/magboot/advanced,
 	)
 	/// The insignia type, insignias show what sort of member of the ERT you're dealing with.
 	var/insignia_type = /obj/item/mod/module/insignia
@@ -442,6 +471,7 @@
 	additional_module = /obj/item/mod/module/power_kick //JUDGEMENT
 
 /obj/item/mod/control/pre_equipped/apocryphal
+	icon_state = "apocryphal-control"
 	starting_frequency = MODLINK_FREQ_CENTCOM
 	theme = /datum/mod_theme/apocryphal
 	applied_cell = /obj/item/stock_parts/cell/bluespace
@@ -480,6 +510,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/corporate
+	icon_state = "corporate-control"
 	starting_frequency = MODLINK_FREQ_CENTCOM
 	theme = /datum/mod_theme/corporate
 	applied_core = /obj/item/mod/core/infinite
@@ -497,6 +528,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/debug
+	icon_state = "debug-control"
 	starting_frequency = null
 	theme = /datum/mod_theme/debug
 	applied_core = /obj/item/mod/core/infinite
@@ -515,10 +547,12 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/bikehorn,
+		/obj/item/mod/module/jetpack/advanced,
 	)
 	activation_step_time = 0.1 SECONDS // coders are cooler than admins
 
 /obj/item/mod/control/pre_equipped/administrative
+	icon_state = "debug-control"
 	starting_frequency = null
 	theme = /datum/mod_theme/administrative
 	applied_core = /obj/item/mod/core/infinite
