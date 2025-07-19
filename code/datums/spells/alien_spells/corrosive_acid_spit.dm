@@ -66,7 +66,7 @@
 		C.visible_message("<span class='alertalien'>[C] touches [target] and a fireball erupts on contact!</span>")
 		C.add_plasma(-100)
 	else
-		var/static/list/resin_objects = list(/obj/structure/alien/resin, /obj/structure/alien/egg, /obj/structure/bed/nest, /obj/structure/bed/revival_nest)
+		var/static/list/resin_objects = list(/obj/structure/alien/resin, /obj/structure/alien/egg, /obj/structure/bed/nest)
 		for(var/resin_type in resin_objects)
 			if(!istype(target, resin_type))
 				continue
