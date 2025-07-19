@@ -41,9 +41,6 @@
 	if(istype(L))
 		faction += "\ref[L]"
 
-/mob/living/basic/scarybat/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
-	return ..()
-
 /mob/living/basic/scarybat/melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	. = ..()
 	var/mob/living/L = target

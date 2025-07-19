@@ -50,7 +50,7 @@
 
 /obj/item/toy/plushie/carpplushie/dehy_carp/proc/make_carp()
 	// Make space carp
-	var/mob/living/basic/carp/C = new /mob/living/basic/carp(get_turf(src))
+	var/mob/living/basic/carp/C = new(get_turf(src))
 	// Make carp non-hostile to user, yes this means
 	C.faction |= list("syndicate", "\ref[owner]")
 	qdel(src)
