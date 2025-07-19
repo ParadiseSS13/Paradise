@@ -118,6 +118,8 @@
 		skipface |= wear_mask.flags_inv & HIDEFACE
 		skipeyes |= wear_mask.flags_inv & HIDEEYES
 
+	. = list()
+
 	var/msg = "<span class='notice'>This is "
 	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 		msg = "<span class='notice'>This is the <span class='warning'>shambling corpse</span> of "
@@ -126,7 +128,8 @@
 
 	// Show what you are
 	msg += examine_what_am_i(skipgloves, skipsuitstorage, skipjumpsuit, skipshoes, skipmask, skipears, skipeyes, skipface)
-	msg += "\n"
+
+	. += "[msg]</span>"
 
 	// All the things wielded/worn that can be reasonably described with a common template:
 	var/list/message_parts = examine_visible_clothing(skipgloves, skipsuitstorage, skipjumpsuit, skipshoes, skipmask, skipears, skipeyes, skipface)
@@ -160,13 +163,15 @@
 				if(limb_name)
 					submsg += " [preposition] [p_their()] [limb_name]"
 				if(item.blood_DNA)
-					submsg = "<span class='warning'>[submsg]!</span>\n"
+					submsg = "<span class='warning'>[submsg]!</span>"
 				else
-					submsg = "[submsg].\n"
-				msg += submsg
+					submsg = "[submsg]."
+				. += submsg
 		else
 			// add any extra info on the limbs themselves
-			msg += examine_handle_individual_limb(limb_name)
+			var/handle_individual_limb = examine_handle_individual_limb(limb_name)
+			if(handle_individual_limb != "")
+				. += handle_individual_limb
 
 	// hallucinating?
 	if(hallucinating && prob(50))
@@ -192,49 +197,49 @@
 	)
 		// Pick a random hallucination description
 		var/random_text = pick(hallucination_texts)
-		msg += "<span class='warning'>[random_text]</span>\n"
+		. += "<span class='warning'>[random_text]</span>"
 
 	//handcuffed?
 	if(handcuffed)
 		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable/zipties))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with zipties!</span>\n"
+			. += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with zipties!</span>"
 		else if(istype(handcuffed, /obj/item/restraints/handcuffs/twimsts))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with twimsts cuffs!</span>\n"
+			. += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with twimsts cuffs!</span>"
 		else if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with cable!</span>\n"
+			. += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with cable!</span>"
 		else
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!</span>\n"
+			. += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!</span>"
 
 	//legcuffed?
 	if(legcuffed)
 		if(istype(legcuffed, /obj/item/restraints/legcuffs/beartrap))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] ensnared in a beartrap!</span>\n"
+			. += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] ensnared in a beartrap!</span>"
 		else
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!</span>\n"
+			. += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!</span>"
 
 	for(var/obj/item/abstract_item in abstract_items)
 		var/text = abstract_item.customised_abstract_text(src)
 		if(!text)
 			continue
-		msg += "[text]\n"
+		. += "[text]"
 
 	for(var/obj/item/grab/grab in grab_items)
 		switch(grab.state)
 			if(GRAB_AGGRESSIVE)
-				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] holding [grab.affecting]'s hands!</span>\n"
+				. += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] holding [grab.affecting]'s hands!</span>"
 			if(GRAB_NECK)
-				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] holding [grab.affecting]'s neck!</span>\n"
+				. += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] holding [grab.affecting]'s neck!</span>"
 			if(GRAB_KILL)
-				msg += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] strangling [grab.affecting]!</span>\n"
+				. += "<span class='boldwarning'>[p_they(TRUE)] [p_are()] strangling [grab.affecting]!</span>"
 
 	//Jitters
 	switch(AmountJitter())
 		if(600 SECONDS to INFINITY)
-			msg += "<span class='warning'><b>[p_they(TRUE)] [p_are()] convulsing violently!</b></span>\n"
+			. += "<span class='warning'><b>[p_they(TRUE)] [p_are()] convulsing violently!</b></span>"
 		if(400 SECONDS to 600 SECONDS)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] extremely jittery.</span>\n"
+			. += "<span class='warning'>[p_they(TRUE)] [p_are()] extremely jittery.</span>"
 		if(200 SECONDS to 400 SECONDS)
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] twitching ever so slightly.</span>\n"
+			. += "<span class='warning'>[p_they(TRUE)] [p_are()] twitching ever so slightly.</span>"
 
 
 	var/appears_dead = FALSE
@@ -250,94 +255,106 @@
 			appears_dead = TRUE
 
 		if(suiciding)
-			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
+			. += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>"
 		if(!just_sleeping)
-			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive"
+			msg = "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive"
 			if(get_int_organ(/obj/item/organ/internal/brain) && !client) // body has no online player inside - let's look for ghost
 				if(!check_ghost_client()) // our ghost is offline or no ghost attached to body
 					msg += "; there are no signs of life"
 				if(!get_ghost() && !key) // no ghost attached to body
 					msg += " and [p_their()] soul has departed"
-			msg += "...</span>\n"
+			msg += "...</span>"
+			. += msg
 
 	if(!get_int_organ(/obj/item/organ/internal/brain))
-		msg += "<span class='deadsay'>It appears that [p_their()] brain is missing...</span>\n"
+		. += "<span class='deadsay'>It appears that [p_their()] brain is missing...</span>"
 
-	msg += "<span class='warning'>"
+	var/list/warning_block = list()
 
 	// Stuff at the start of the block
-	msg += examine_start_damage_block(skipgloves, skipsuitstorage, skipjumpsuit, skipshoes, skipmask, skipears, skipeyes, skipface)
+	var/start_damage_block = examine_start_damage_block(skipgloves, skipsuitstorage, skipjumpsuit, skipshoes, skipmask, skipears, skipeyes, skipface)
+	if(start_damage_block != "")
+		warning_block += start_damage_block
 
 	// Show how badly they're damaged
-	msg += examine_damage_flavor()
+	var/damage_flavor = examine_damage_flavor()
+	if(damage_flavor != "")
+		warning_block += damage_flavor
 
 	if(fire_stacks > 0)
-		msg += "[p_they(TRUE)] [p_are()] covered in something flammable.\n"
+		warning_block += "[p_they(TRUE)] [p_are()] covered in something flammable."
 	if(fire_stacks < 0)
-		msg += "[p_they(TRUE)] look[p_s()] a little soaked.\n"
+		warning_block += "[p_they(TRUE)] look[p_s()] a little soaked."
 
 	switch(wetlevel)
 		if(1)
-			msg += "[p_they(TRUE)] look[p_s()] a bit damp.\n"
+			warning_block += "[p_they(TRUE)] look[p_s()] a bit damp."
 		if(2)
-			msg += "[p_they(TRUE)] look[p_s()] a little bit wet.\n"
+			warning_block += "[p_they(TRUE)] look[p_s()] a little bit wet."
 		if(3)
-			msg += "[p_they(TRUE)] look[p_s()] wet.\n"
+			warning_block += "[p_they(TRUE)] look[p_s()] wet."
 		if(4)
-			msg += "[p_they(TRUE)] look[p_s()] very wet.\n"
+			warning_block += "[p_they(TRUE)] look[p_s()] very wet."
 		if(5)
-			msg += "[p_they(TRUE)] look[p_s()] absolutely soaked.\n"
+			warning_block += "[p_they(TRUE)] look[p_s()] absolutely soaked."
 
 	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 		if(ismachineperson(src))
-			msg += "[p_their(TRUE)] power indicator is flashing red.\n"
+			warning_block += "[p_their(TRUE)] power indicator is flashing red."
 		else
-			msg += "[p_they(TRUE)] [p_are()] severely malnourished.\n"
+			warning_block += "[p_they(TRUE)] [p_are()] severely malnourished."
 
 	if(HAS_TRAIT(src, TRAIT_FAT))
-		msg += "[p_they(TRUE)] [p_are()] morbidly obese.\n"
+		warning_block += "[p_they(TRUE)] [p_are()] morbidly obese."
 		if(user.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
-			msg += "[p_they(TRUE)] [p_are()] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"  // guh
+			warning_block += "[p_they(TRUE)] [p_are()] plump and delicious looking - Like a fat little piggy. A tasty piggy."  // guh
 
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
-		msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"
+		warning_block += "[p_they(TRUE)] [p_are()] quite chubby."
 
 	if(blood_volume < BLOOD_VOLUME_SAFE)
-		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
+		warning_block += "[p_they(TRUE)] [p_have()] pale skin."
 
 	if(reagents.has_reagent("teslium"))
-		msg += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!\n"
+		warning_block += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!"
 
 	// add in anything else we want at the end of this block
-	msg += examine_extra_damage_flavor()
+	var/extra_damage_flavor = examine_extra_damage_flavor()
+	if(extra_damage_flavor != "")
+		warning_block += extra_damage_flavor
 
-	msg += "</span>"
+	if(length(warning_block))
+		. += "<span class='warning'>[warning_block.Join(" ")]</span>"
+
+	var/list/notice_block = list()
 
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS || just_sleeping)
-			msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"
+			. += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep."
 		else if(getBrainLoss() >= 60)
-			msg += "[p_they(TRUE)] [p_are()] staring forward with a blank expression.\n"
+			. += "[p_they(TRUE)] [p_are()] staring forward with a blank expression."
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
-			msg += examine_show_ssd()
+			var/show_ssd = examine_show_ssd()
+			if(show_ssd != "")
+				. += show_ssd
 
 	// add anything else in here before huds
-	msg += examine_extra_general_flavor(user)
+	. += examine_extra_general_flavor(user)
 
 	if(print_flavor_text() && !skipface)
 		if(get_organ("head"))
 			var/obj/item/organ/external/head/H = get_organ("head")
 			if(!(H.status & ORGAN_DISFIGURED))
-				msg += "[print_flavor_text()]\n"
+				. += "[print_flavor_text()]"
 
-	msg += "</span>"
+	if(length(notice_block))
+		. += "<span classs='notice'>[notice_block.Join(" ")]</span>"
+
 	if(pose)
 		if(findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0)
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
-		msg += "\n[p_they(TRUE)] [pose]"
-
-	. = list(msg)
+		. += "<span class='notice'>[p_they(TRUE)] [pose]</span>"
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
