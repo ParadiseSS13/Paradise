@@ -245,7 +245,7 @@ const TypesAndAccess: React.FC = () => {
                 region: ref,
               })
             }
-            grantableList={regions.map((region) => region.regid)}
+            grantableList={[]}
           />
         )}
       </Stack.Item>
