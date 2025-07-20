@@ -31,6 +31,7 @@
 #include "code/papershredder.dm"
 #include "code/plastic_chair.dm"
 #include "code/platform.dm"
+#include "code/plushies/crewman.dm"
 #include "code/plushies/hampters.dm"
 #include "code/plushies/macvulpix.dm"
 #include "code/portable_turret.dm"
