@@ -11,7 +11,7 @@ GLOBAL_VAR_INIT(spores_active, 0)
 	var/spore_delay = 0
 
 /obj/structure/blob/factory/Destroy()
-	for(var/mob/living/simple_animal/hostile/blob/blobspore/spore in spores)
+	for(var/mob/living/basic/blob/blobspore/spore in spores)
 		if(spore.factory == src)
 			spore.factory = null
 	spores = null
@@ -24,7 +24,7 @@ GLOBAL_VAR_INIT(spores_active, 0)
 		return
 	flick("blob_factory_glow", src)
 	spore_delay = world.time + 10 SECONDS
-	var/mob/living/simple_animal/hostile/blob/blobspore/BS = new/mob/living/simple_animal/hostile/blob/blobspore(src.loc, src)
+	var/mob/living/basic/blob/blobspore/BS = new/mob/living/basic/blob/blobspore(src.loc, src)
 	if(overmind)
 		overmind.add_mob_to_overmind(BS)
 
