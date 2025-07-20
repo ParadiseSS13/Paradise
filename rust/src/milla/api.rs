@@ -594,6 +594,49 @@ pub(crate) fn internal_create_hotspot(
     Ok(())
 }
 
+/// BYOND API for a heat source creating a hotspot on a tile.
+#[byondapi::bind]
+fn milla_extinguish_hotspot(
+    turf: ByondValue,
+) -> eyre::Result<ByondValue> {
+    logging::setup_panic_handler();
+    let (x, y, z) = byond_xyz(&turf)?.coordinates();
+
+    internal_extinguish_hotspot(
+        x as i32 - 1,
+        y as i32 - 1,
+        z as i32 - 1,
+    )?;
+    Ok(ByondValue::null())
+}
+
+/// Rust version of a heat source creating a hotspot.
+pub(crate) fn internal_extinguish_hotspot(
+    x: i32,
+    y: i32,
+    z: i32,
+) -> Result<()> {
+    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+    let active = buffers.get_active().read().unwrap();
+    let maybe_z_level = active.0[z as usize].try_write();
+    if maybe_z_level.is_err() {
+        return Err(eyre!(
+            "Tried to write during asynchronous, read-only atmos. Use a /datum/milla_safe/..."
+        ));
+    }
+    let mut z_level = maybe_z_level.unwrap();
+    let tile = z_level.get_tile_mut(ZLevel::maybe_get_index(x, y).ok_or(eyre!(
+        "Bad coordinates ({}, {}, {})",
+        x + 1,
+        y + 1,
+        z + 1
+    ))?);
+
+    tile.hotspot_temperature = 0.0;
+    tile.hotspot_volume = 0.0;
+    Ok(())
+}
+
 /// BYOND API for tracking the pressure of all nearby tiles next tick.
 #[byondapi::bind]
 fn milla_track_pressure_tiles(

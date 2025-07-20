@@ -637,14 +637,22 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         // THEN we can add in the new thermal energy.
         thermal_energy += PLASMA_BURN_ENERGY * plasma_burnt;
         // Recalculate temperature for any subsequent reactions.
-        // (or we would, but this is the last reaction)
-        //cached_temperature = thermal_energy / cached_heat_capacity;
+        cached_temperature = thermal_energy / cached_heat_capacity;
 
         my_next_tile.fuel_burnt += plasma_burnt;
     }
 
     if hotspot_step {
-        adjust_hotspot(my_next_tile, thermal_energy - initial_thermal_energy);
+        // Conduct some temperature to the tile.
+        let mut conduction = 0.0;
+        let tile_temperature = my_next_tile.temperature();
+        let temperature_difference = cached_temperature - tile_temperature;
+        if temperature_difference > 0.0 {
+            let excess_thermal_energy = temperature_difference * cached_heat_capacity;
+            conduction  = excess_thermal_energy * HOTSPOT_CONDUCTION;
+            my_next_tile.thermal_energy += conduction;
+        }
+        adjust_hotspot(my_next_tile, thermal_energy - initial_thermal_energy - conduction);
     } else {
         my_next_tile.thermal_energy += thermal_energy - initial_thermal_energy;
     }
