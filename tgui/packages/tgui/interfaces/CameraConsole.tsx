@@ -1,4 +1,4 @@
-import { filter, sort } from 'common/collections';
+import { filter, sort, sortBy } from 'common/collections';
 import { useState } from 'react';
 import { Button, ByondUi, Input, Section, Stack } from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
@@ -50,7 +50,7 @@ const selectCameras = (cameras: Camera[], searchText = ''): Camera[] => {
     const testSearch = createSearch(searchText, (camera: Camera) => camera.name);
     queriedCameras = filter(queriedCameras, testSearch);
   }
-  queriedCameras = sort(queriedCameras);
+  queriedCameras = sortBy(queriedCameras, (camera: Camera) => camera.name);
 
   return queriedCameras;
 };
