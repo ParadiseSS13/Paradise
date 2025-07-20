@@ -138,7 +138,7 @@ export const ComplexModal = (props) => {
   } else if (type === 'boolean') {
     modalFooter = (
       <Box mt="0.5rem">
-        <Button icon="times" color="bad" style={{ float: 'left' }} mb="0">
+        <Button icon="times" color="bad" style={{ float: 'left' }} mb="0" onClick={() => modalAnswer(id, 0)}>
           {data.modal.no_text}
         </Button>
         <Button icon="check" color="good" style={{ float: 'right' }} m="0" onClick={() => modalAnswer(id, 1)}>
