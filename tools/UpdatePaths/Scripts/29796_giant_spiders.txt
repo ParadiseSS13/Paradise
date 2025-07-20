@@ -1,0 +1,1 @@
+/mob/living/simple_animal/hostile/poison/giant_spider/@SUBTYPES : /mob/living/basic/giant_spider/@SUBTYPES{@OLD}
