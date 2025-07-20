@@ -46,7 +46,11 @@ function setupApp() {
   setGlobalStore(store);
 
   setupGlobalEvents();
-  setupHotKeys();
+  setupHotKeys({
+    keyUpVerb: 'Key_Up',
+    keyDownVerb: 'Key_Down',
+    verbParamsFn: (verb, keyCode) => `${verb} "${keyCode}"`,
+  });
   captureExternalLinks();
 
   // Re-render UI on store updates
