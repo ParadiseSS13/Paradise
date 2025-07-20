@@ -8,7 +8,7 @@
 /datum/ai_behavior/find_hunt_target/corpses
 
 /datum/ai_behavior/find_hunt_target/corpses/valid_dinner(mob/living/source, mob/living/dinner, radius)
-	if (!isliving(dinner) || dinner.stat != DEAD)
+	if(!isliving(dinner) || dinner.stat != DEAD)
 		return FALSE
 	return can_see(source, dinner, radius)
 

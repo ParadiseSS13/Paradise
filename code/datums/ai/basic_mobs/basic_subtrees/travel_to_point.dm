@@ -8,7 +8,7 @@
 /datum/ai_planning_subtree/travel_to_point/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	. = ..()
 	var/atom/target = controller.blackboard[location_key]
-	if (QDELETED(target))
+	if(QDELETED(target))
 		return
 	controller.queue_behavior(travel_behaviour, location_key)
 	return SUBTREE_RETURN_FINISH_PLANNING

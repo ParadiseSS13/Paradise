@@ -93,7 +93,7 @@
 
 /mob/living/basic/blob/blobspore/melee_attack(mob/living/carbon/human/target, list/modifiers, ignore_cooldown)
 	. = ..()
-	if (!ishuman(target) || target.stat != DEAD)
+	if(!ishuman(target) || target.stat != DEAD)
 		return
 	zombify(target)
 
