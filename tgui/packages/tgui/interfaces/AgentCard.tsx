@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, DmIcon, Icon, ImageButton, LabeledList, Section, Slider, Stack, Tabs } from 'tgui-core/components';
+import { Button, Icon, ImageButton, LabeledList, Section, Slider, Stack, Tabs } from 'tgui-core/components';
 import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend, useSharedState } from '../backend';
@@ -35,7 +35,7 @@ const InfoInput = ({ label, value, onCommit, onClick, onRClick, tooltip }) => (
   <LabeledList.Item label={label}>
     <Stack fill mb={-0.5}>
       <Stack.Item grow>
-        <Button.Input fluid textAlign="center" content={value || unset} onCommit={onCommit} />
+        <Button.Input fluid textAlign="center" value={value || unset} onCommit={onCommit} />
       </Stack.Item>
       <Stack.Item>
         <Button
@@ -130,7 +130,7 @@ export const AgentCardInfo = (props) => {
               label="Name"
               value={registered_name}
               tooltip={tooltipTextCopy}
-              onCommit={(e, value) => act('change_name', { name: value })}
+              onCommit={(value) => act('change_name', { name: value })}
               onClick={() => act('change_name', { option: 'Primary' })}
               onRClick={(event) => {
                 event.preventDefault();
@@ -155,7 +155,7 @@ export const AgentCardInfo = (props) => {
             <LabeledList.Item label="Age">
               <Slider
                 width="100%"
-                minValue={17}
+                minValue={20}
                 value={age || 0}
                 maxValue={300}
                 onChange={(e, value) => act('change_age', { age: value })}
@@ -164,31 +164,28 @@ export const AgentCardInfo = (props) => {
             <LabeledList.Item label="Rank">
               <Stack fill mb={-0.5}>
                 <Stack.Item grow>
-                  <Button fluid onClick={() => act('change_occupation')} textAlign="middle">
+                  <Button fluid onClick={() => act('change_occupation')} textAlign="center">
                     {assignment ? assignment : '[UNSET]'}
                   </Button>
                 </Stack.Item>
                 <Stack.Item>
-                  <Button
+                  <ImageButton
+                    fluid
+                    imageSize={21}
+                    color={"transparent"}
                     tooltip={'Change HUD icon'}
                     tooltipPosition={'bottom-end'}
+                    dmIcon={'icons/mob/hud/job_assets.dmi'}
+                    dmIconState={job_icon}
                     onClick={() => act('change_occupation', { option: 'Primary' })}
-                  >
-                    <DmIcon
-                      icon={'icons/mob/hud/job_assets.dmi'}
-                      icon_state={job_icon}
-                      verticalAlign="bottom"
-                      my="2px"
-                      width="16px"
-                    />{' '}
-                  </Button>
+                   />
                 </Stack.Item>
               </Stack>
             </LabeledList.Item>
             <InfoInput
               label="Fingerprint"
               value={fingerprint_hash}
-              onCommit={(e, value) => act('change_fingerprints', { new_fingerprints: value })}
+              onCommit={(value) => act('change_fingerprints', { new_fingerprints: value })}
               onClick={() => act('change_fingerprints', { option: 'Primary' })}
               onRClick={(event) => {
                 event.preventDefault();
@@ -208,7 +205,7 @@ export const AgentCardInfo = (props) => {
                     />
                   </Stack.Item>
                 ))}
-                <Stack.Item grow>
+                <Stack.Item>
                   <Button fluid icon="file-signature" onClick={() => act('change_blood_type', { option: 'Primary' })} />
                 </Stack.Item>
               </Stack>
@@ -216,7 +213,7 @@ export const AgentCardInfo = (props) => {
             <InfoInput
               label="DNA"
               value={dna_hash}
-              onCommit={(e, value) => act('change_dna_hash', { new_dna: value })}
+              onCommit={(value) => act('change_dna_hash', { new_dna: value })}
               onClick={() => act('change_dna_hash', { option: 'Primary' })}
               onRClick={(event) => {
                 event.preventDefault();
@@ -227,7 +224,7 @@ export const AgentCardInfo = (props) => {
             <InfoInput
               label="Account"
               value={associated_account_number || 0}
-              onCommit={(e, value) => act('change_money_account', { new_account: value })}
+              onCommit={(value) => act('change_money_account', { new_account: value })}
               onClick={() => act('change_money_account', { option: 'Primary' })}
               onRClick={(event) => {
                 event.preventDefault();
@@ -288,7 +285,7 @@ export const AgentCardAppearances = (props) => {
   const { appearances, id_icon } = data;
   return (
     <Stack.Item grow>
-      <Section fill scrollable title={'Card Appearance'}>
+      <Section fitted fill scrollable title={'Card Appearance'}>
         {appearances.map((appearance) => (
           <ImageButton
             key={appearance}
