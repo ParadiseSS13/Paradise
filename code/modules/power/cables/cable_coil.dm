@@ -331,8 +331,10 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		color = COLOR_RED
 	else if(colorC == "rainbow")
 		color = color_rainbow()
-	else if(colorC == "orange") //byond only knows 16 colors by name, and orange isn't one of them
+	else if(colorC == "orange") // byond only knows 16 colors by name, and orange isn't one of them
 		color = COLOR_ORANGE
+	else if(colorC == "pink")
+		color = COLOR_PINK // nor is pink.. thanks byond
 	else
 		color = colorC
 
@@ -395,8 +397,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	return // icon_state should always be a full cable
 
 /obj/item/stack/cable_coil/cyborg/attack_self__legacy__attackchain(mob/user)
-	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
-	color = cablecolor
+	var/cablecolor = tgui_input_list(usr, "Pick a cable color.", "Cable Color", list("red","yellow","green","blue","pink","orange","cyan","white"))
+	cable_color(cablecolor)
 	update_icon()
 
 #undef HEALPERCABLE
