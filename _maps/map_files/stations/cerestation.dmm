@@ -23018,7 +23018,7 @@
 	},
 /area/station/security/permabrig)
 "drC" = (
-/mob/living/simple_animal/hostile/retaliate/poison/snake{
+/mob/living/basic/snake{
 	name = "Sssylvester"
 	},
 /turf/simulated/floor/plasteel{
@@ -23943,7 +23943,7 @@
 	},
 /area/station/medical/virology)
 "dzO" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/basic/pet/sloth/paperwork,
 /obj/structure/bed/dogbed{
 	name = "Paperwork's bed"
 	},
@@ -24555,7 +24555,7 @@
 	},
 /area/station/command/office/rd)
 "dGz" = (
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/simulated/floor/grass/jungle,
 /area/station/hallway/secondary/garden)
 "dGH" = (
@@ -36725,7 +36725,7 @@
 /area/station/engineering/atmos)
 "gtD" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/penguin/baby,
+/mob/living/basic/pet/penguin/baby,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
@@ -104682,7 +104682,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/misc_lab)
 "uWB" = (
-/mob/living/simple_animal/bunny{
+/mob/living/basic/bunny{
 	desc = "It's Spaghetti, the official bnuy of Atmospherics. Appropriately named after the jumbled mess of piping.";
 	name = "Spaghetti"
 	},

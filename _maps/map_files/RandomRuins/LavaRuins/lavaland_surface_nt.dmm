@@ -2710,7 +2710,7 @@
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed/dogbed/brad,
-/mob/living/simple_animal/cockroach/brad,
+/mob/living/basic/cockroach/brad,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)

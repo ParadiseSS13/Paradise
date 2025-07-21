@@ -46972,7 +46972,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft)
 "dvv" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/basic/pet/sloth/paperwork,
 /turf/simulated/floor/carpet,
 /area/station/legal/lawoffice)
 "dvD" = (
@@ -63300,7 +63300,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "lpS" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "lqc" = (
@@ -87521,7 +87521,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "xtZ" = (
-/mob/living/simple_animal/pet/penguin/baby,
+/mob/living/basic/pet/penguin/baby,
 /turf/simulated/floor/carpet,
 /area/station/maintenance/asmaint)
 "xuw" = (

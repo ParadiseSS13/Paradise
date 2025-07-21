@@ -33125,7 +33125,7 @@
 	},
 /area/station/hallway/supply/port)
 "dre" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
 "drL" = (
@@ -53569,7 +53569,7 @@
 	},
 /area/station/command/office/cmo)
 "kKp" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/station/supply/warehouse)
 "kLd" = (
@@ -56393,7 +56393,7 @@
 	},
 /area/station/hallway/primary/aft/south)
 "lIe" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
@@ -76005,7 +76005,7 @@
 	},
 /area/station/engineering/equipmentstorage)
 "sMM" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/basic/pet/sloth/paperwork,
 /turf/simulated/floor/carpet,
 /area/station/legal/lawoffice)
 "sMZ" = (

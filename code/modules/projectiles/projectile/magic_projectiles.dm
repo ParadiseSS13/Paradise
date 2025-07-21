@@ -239,8 +239,8 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 	"pug" = /mob/living/simple_animal/pet/dog/pug,
 	"turkey" = /mob/living/simple_animal/turkey,
 	"seal" = /mob/living/simple_animal/seal,
-	"bunny" = /mob/living/simple_animal/bunny,
-	"penguin" = /mob/living/simple_animal/pet/penguin/emperor,
+	"bunny" = /mob/living/basic/bunny,
+	"penguin" = /mob/living/basic/pet/penguin/emperor,
 ))
 
 /proc/wabbajack(mob/living/M, force_borg = FALSE, force_animal = FALSE)

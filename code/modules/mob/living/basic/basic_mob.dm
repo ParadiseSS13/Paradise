@@ -145,6 +145,10 @@ RESTRICT_TYPE(/mob/living/basic)
 	/// Upper bound for melee attack cooldown
 	var/melee_attack_cooldown_max = 2 SECONDS
 
+	/// Can this mob hide?
+	var/can_hide = FALSE
+	/// Allows a mob to pass unbolted doors while hidden
+	var/pass_door_while_hidden = FALSE
 	/// Loot this mob drops on death.
 	var/list/loot = list()
 
@@ -164,6 +168,9 @@ RESTRICT_TYPE(/mob/living/basic)
 	apply_temperature_requirements()
 	if(step_type)
 		AddComponent(/datum/component/footstep, step_type)
+	if(can_hide)
+		var/datum/action/innate/hide/hide = new()
+		hide.Grant(src)
 
 /mob/living/basic/Destroy()
 	if(nest)

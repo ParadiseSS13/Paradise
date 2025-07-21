@@ -875,7 +875,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/bunny/syndi,
+/mob/living/basic/bunny/syndi,
 /turf/simulated/floor/engine,
 /area/ruin/space/syndicakefactory)
 "Ho" = (
