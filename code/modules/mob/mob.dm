@@ -665,7 +665,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		client.recent_examines[ref_to_atom] = world.time + EXAMINE_MORE_WINDOW // set to when we should not examine something
 		broadcast_examine(A)
 
-	to_chat(src, chat_box_examine(result.Join("<br>")), MESSAGE_TYPE_INFO, confidential = TRUE)
+	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 /// Tells nearby mobs about our examination.
 /mob/proc/broadcast_examine(atom/examined)

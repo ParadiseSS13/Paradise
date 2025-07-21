@@ -170,17 +170,16 @@
 	return msg
 
 /mob/living/carbon/human/examine_extra_general_flavor(mob/user)
-	var/list/out = list()
-
+	var/msg = ""
 	switch(decaylevel)
 		if(1)
-			out += "[p_they(TRUE)] [p_are()] starting to smell."
+			msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"
 		if(2)
-			out += "[p_they(TRUE)] [p_are()] bloated and smells disgusting."
+			msg += "[p_they(TRUE)] [p_are()] bloated and smells disgusting.\n"
 		if(3)
-			out += "[p_they(TRUE)] [p_are()] rotting and blackened, the skin sloughing off. The smell is indescribably foul."
+			msg += "[p_they(TRUE)] [p_are()] rotting and blackened, the skin sloughing off. The smell is indescribably foul.\n"
 		if(4)
-			out += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only [isslimeperson(src) ? "congealed slime" : "bones"] remaining of what used to be a person."
+			msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only [isslimeperson(src) ? "congealed slime" : "bones"] remaining of what used to be a person.\n"
 
 	// only humans get employment records
 	if(hasHUD(user, EXAMINE_HUD_SKILLS))
@@ -194,9 +193,10 @@
 			if(skills)
 				var/char_limit = 40
 				if(length(skills) <= char_limit)
-					out += "<span class='deptradio'>Employment records:</span> [skills]"
+					msg += "<span class='deptradio'>Employment records:</span> [skills]\n"
 				else
-					out += "<span class='deptradio'>Employment records: [copytext_preserve_html(skills, 1, char_limit-3)]...</span><a href='byond://?src=[UID()];employment_more=1'>More...</a>"
+					msg += "<span class='deptradio'>Employment records: [copytext_preserve_html(skills, 1, char_limit-3)]...</span><a href='byond://?src=[UID()];employment_more=1'>More...</a>\n"
+
 
 	if(hasHUD(user, EXAMINE_HUD_MEDICAL_READ))
 		var/perpname = get_visible_name(TRUE)
@@ -212,9 +212,9 @@
 
 		var/medical_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>" : "\[[medical]\]"
 		var/mental_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='byond://?src=[UID()];mental=1'>\[[mental]\]</a>" : "\[[mental]\]"
-		out += "<span class='deptradio'>Physical status: </span>[medical_status]"
-		out += "<span class='deptradio'>Mental Status: </span>[mental_status]"
-		out += "<span class='deptradio'>Medical records:</span> <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Add comment\]</a>"
+		msg += "<span class='deptradio'>Physical status: </span>[medical_status]\n"
+		msg += "<span class='deptradio'>Mental Status: </span>[mental_status]\n"
+		msg += "<span class='deptradio'>Medical records:</span> <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
 		var/perpname = get_visible_name(TRUE)
@@ -236,9 +236,9 @@
 								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
 
 			var/criminal_status = hasHUD(user, EXAMINE_HUD_SECURITY_WRITE) ? "<a href='byond://?src=[UID()];criminal=1'>\[[criminal]\]</a>" : "\[[criminal]\]"
-			out += "<span class='deptradio'>Criminal status:</span> [criminal_status]"
-			out += "<span class='deptradio'>Security records:</span> <a href='byond://?src=[UID()];secrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
-			out += "<span class='deptradio'>Latest entry:</span> [commentLatest]"
+			msg += "<span class='deptradio'>Criminal status:</span> [criminal_status]\n"
+			msg += "<span class='deptradio'>Security records:</span> <a href='byond://?src=[UID()];secrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
+			msg += "<span class='deptradio'>Latest entry:</span> [commentLatest]\n"
 
 	if(hasHUD(user, EXAMINE_HUD_MALF_READ))
 		var/perpname = get_visible_name(TRUE)
@@ -252,9 +252,9 @@
 							malf = E.fields["ai_target"]
 
 			var/malf_status = hasHUD(user, EXAMINE_HUD_MALF_WRITE) ? "<a href='byond://?src=[UID()];ai=`'>\[[malf]\]</a>" : "\[[malf]\]"
-			out += "<span class='deptradio'>Target Status:</span> [malf_status]"
+			msg += "<span class='deptradio'>Target Status:</span> [malf_status]\n"
 
-	return out.Join("<br>")
+	return msg
 
 /mob/living/carbon/human/examine_get_brute_message()
 	return !ismachineperson(src) ? "bruising" : "denting"

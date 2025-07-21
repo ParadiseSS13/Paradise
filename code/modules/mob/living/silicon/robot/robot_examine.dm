@@ -1,72 +1,59 @@
 /mob/living/silicon/robot/examine(mob/user)
 	. = ..()
 
-	// this is not necessarily the best way to organize information but since
-	// most of the proc already worked in this order this is what i'm doing
-	var/list/notice_block = list()
-	var/list/warning_block = list()
-	var/list/deadsay_block = list()
-
+	var/msg = "<span class='notice'>"
 	if(module)
-		notice_block += "It has loaded a [module.name]."
+		msg += "It has loaded a [module.name].\n"
 	var/obj/act_module = get_active_hand()
 	if(act_module)
-		notice_block += "It is holding [bicon(act_module)] \a [act_module]."
-
-
+		msg += "It is holding [bicon(act_module)] \a [act_module].\n"
+	msg += "<span class='warning'>"
 	if(getBruteLoss())
 		if(getBruteLoss() < maxHealth*0.5)
-			warning_block += "It looks slightly dented."
+			msg += "It looks slightly dented.\n"
 		else
-			warning_block += "<B>It looks severely dented!</B>"
+			msg += "<B>It looks severely dented!</B>\n"
 	if(getFireLoss())
 		if(getFireLoss() < maxHealth*0.5)
-			warning_block += "It looks slightly charred."
+			msg += "It looks slightly charred.\n"
 		else
-			warning_block += "<B>It looks severely burnt and heat-warped!</B>"
+			msg += "<B>It looks severely burnt and heat-warped!</B>\n"
 	if(health < -maxHealth*0.5)
-		warning_block += "It looks barely operational."
+		msg += "It looks barely operational.\n"
 	if(fire_stacks < 0)
-		warning_block += "It's covered in water."
+		msg += "It's covered in water.\n"
 	else if(fire_stacks > 0)
-		warning_block += "It's coated in something flammable."
+		msg += "It's coated in something flammable.\n"
+	msg += "</span>"
 
 	if(opened)
-		warning_block += "Its cover is open and the power cell is [cell ? "installed" : "missing"]."
+		msg += "<span class='warning'>Its cover is open and the power cell is [cell ? "installed" : "missing"].</span>\n"
 	else
-		notice_block += "Its cover is closed[locked ? "" : ", and looks unlocked"]."
+		msg += "Its cover is closed[locked ? "" : ", and looks unlocked"].\n"
 
 	if(cell && cell.charge <= 0)
-		warning_block += "Its battery indicator is blinking red!"
+		msg += "<span class='warning'>Its battery indicator is blinking red!</span>\n"
 
 	switch(stat)
 		if(CONSCIOUS)
 			if(!client)
-				notice_block += "It appears to be in stand-by mode." //afk
+				msg += "It appears to be in stand-by mode.\n" //afk
 		if(UNCONSCIOUS)
-			warning_block += "It doesn't seem to be responding."
+			msg += "<span class='warning'>It doesn't seem to be responding.</span>\n"
 		if(DEAD)
 			if(!suiciding)
-				deadsay_block += "It looks like its internal subsystems are beyond repair and require replacing."
+				msg += "<span class='deadsay'>It looks like its internal subsystems are beyond repair and require replacing.</span>\n"
 			else
-				warning_block += "It looks like its system is corrupted beyond repair. There is no hope of recovery."
-
-	if(length(notice_block))
-		. += "<span class='notice'>[notice_block.Join("<br>")]</span>"
-
-	if(length(deadsay_block))
-		. += "<span class='deadsay'>[deadsay_block.Join("<br>")]</span>"
-
-	if(length(warning_block))
-		. += "<span class='warning'>[warning_block.Join("<br>")]</span>"
+				msg += "<span class='warning'>It looks like its system is corrupted beyond repair. There is no hope of recovery.</span>\n"
+	msg += "</span>"
 
 	if(print_flavor_text())
-		. += print_flavor_text()
+		msg += "\n[print_flavor_text()]\n"
 
-	// pose always seems to go at the end so that's what we're doing here
 	if(pose)
 		if(findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0)
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
-		. += "<span class='notice'>It [pose]</span>"
+		msg += "\nIt [pose]"
 
+	. += msg
 	user.showLaws(src)

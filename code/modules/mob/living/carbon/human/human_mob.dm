@@ -114,7 +114,7 @@
 	if(delta_now < 3 SECONDS)
 		return
 	// Stop counting, print, and reset
-	if(timer_id != TIMER_ID_NULL)
+	if(timer_id != TIMER_ID_NULL) 
 		deltimer(timer_id)
 		timer_id = TIMER_ID_NULL
 	print_summary()
@@ -739,7 +739,7 @@
 						skills = E.fields["notes"]
 						break
 				if(skills)
-					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span><br>")
+					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
 
 	if(href_list["ai"])
 		try_set_malf_status(usr)
