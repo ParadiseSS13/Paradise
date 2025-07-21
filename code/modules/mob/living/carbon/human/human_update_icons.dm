@@ -597,7 +597,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 			if(length(w_uniform.accessories))	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE. // oh my god kys whoever made this if statement jfc :gun:
 				for(var/obj/item/clothing/accessory/A in w_uniform.accessories)
-					var/tie_icon = A.worn_icon || A.sprite_sheets[dna.species.sprite_sheet_name] || 'icons/mob/accessories.dmi'
+					var/tie_icon = A.worn_icon || listgetindex(A.sprite_sheets, dna.species.sprite_sheet_name) || 'icons/mob/accessories.dmi'
 					var/tie_color = A.item_color || A.icon_state
 					standing.overlays += image(tie_icon, tie_color)
 			overlays_standing[UNIFORM_LAYER] = standing
