@@ -15,11 +15,13 @@
 	. = ..()
 	dir = pick(NORTH, SOUTH, EAST, WEST)
 	recalculate_atmos_connectivity()
+	GLOB.tesla_containment += src
 
 /obj/machinery/shield/Destroy()
 	opacity = FALSE
 	density = FALSE
 	recalculate_atmos_connectivity()
+	GLOB.tesla_containment -= src
 	return ..()
 
 /obj/machinery/shield/Move()
@@ -489,12 +491,14 @@
 	gen_secondary = B
 	if(A && B)
 		needs_power = TRUE
+	GLOB.tesla_containment += src
 
 /obj/machinery/shieldwall/Destroy()
 	gen_primary?.remove_active_shield(src, dir)
 	gen_secondary?.remove_active_shield(src, turn(dir, 180))
 	gen_primary = null
 	gen_secondary = null
+	GLOB.tesla_containment -= src
 	return ..()
 
 /obj/machinery/shieldwall/attack_hand(mob/user)
