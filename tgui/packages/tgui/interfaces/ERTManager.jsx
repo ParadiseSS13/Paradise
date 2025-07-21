@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, Icon, Input, LabeledList, Section, Stack, Tabs } from 'tgui-core/components';
+import { Box, Button, Icon, Input, LabeledList, Section, Stack, Tabs, TextArea } from 'tgui-core/components';
 import { decodeHtmlEntities } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
@@ -24,7 +24,7 @@ export const ERTManager = (props) => {
   const [tabIndex, setTabIndex] = useState(0);
 
   return (
-    <Window width={360} height={505}>
+    <Window width={360} height={510}>
       <Window.Content>
         <Stack fill vertical>
           <ERTOverview />
@@ -323,11 +323,10 @@ const DenyERT = (props) => {
   return (
     <Stack.Item grow>
       <Section fill>
-        <Input
-          placeholder="Enter ERT denial reason here,\nMultiline input is accepted."
+        <TextArea
+          placeholder="Enter ERT denial reason here. Shift-Enter to add a new line."
           rows={19}
           fluid
-          multiline={1}
           value={text}
           onChange={(value) => setText(value)}
         />
