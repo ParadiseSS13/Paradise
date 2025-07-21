@@ -148,7 +148,7 @@ const SendERT = (props) => {
               <Button
                 key={'sec' + a}
                 selected={data.sec === a}
-                content={a}
+                content={String(a)}
                 onClick={() =>
                   act('set_sec', {
                     set_sec: a,
@@ -162,7 +162,7 @@ const SendERT = (props) => {
               <Button
                 key={'med' + a}
                 selected={data.med === a}
-                content={a}
+                content={String(a)}
                 onClick={() =>
                   act('set_med', {
                     set_med: a,
@@ -176,7 +176,7 @@ const SendERT = (props) => {
               <Button
                 key={'eng' + a}
                 selected={data.eng === a}
-                content={a}
+                content={String(a)}
                 onClick={() =>
                   act('set_eng', {
                     set_eng: a,
@@ -190,7 +190,7 @@ const SendERT = (props) => {
               <Button
                 key={'par' + a}
                 selected={data.par === a}
-                content={a}
+                content={String(a)}
                 onClick={() =>
                   act('set_par', {
                     set_par: a,
@@ -204,7 +204,7 @@ const SendERT = (props) => {
               <Button
                 key={'jan' + a}
                 selected={data.jan === a}
-                content={a}
+                content={String(a)}
                 onClick={() =>
                   act('set_jan', {
                     set_jan: a,
@@ -218,7 +218,7 @@ const SendERT = (props) => {
               <Button
                 key={'cyb' + a}
                 selected={data.cyb === a}
-                content={a}
+                content={String(a)}
                 onClick={() =>
                   act('set_cyb', {
                     set_cyb: a,
