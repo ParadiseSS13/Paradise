@@ -121,7 +121,7 @@
 	var/old_loc = moving.loc
 
 	owner?.processing_move_loop_flags = flags
-	var/result = move() //Result is an enum value. Enums defined in __DEFINES/movement_defines.dm
+	var/result = move() // Result is an enum value. Enums defined in __DEFINES/movement_defines.dm
 	if(moving)
 		var/direction = get_dir(old_loc, moving.loc)
 		SEND_SIGNAL(moving, COMSIG_MOVABLE_MOVED_FROM_LOOP, src, old_dir, direction)

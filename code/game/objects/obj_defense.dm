@@ -33,7 +33,7 @@
 	var/damage_multiplier = (100 - armor_protection) / 100
 	return round(damage_amount * damage_multiplier, DAMAGE_PRECISION)
 
-///returns the amount of damage required to destroy this object in a single hit.
+/// returns the amount of damage required to destroy this object in a single hit.
 /obj/proc/calculate_oneshot_damage(damage_type, damage_flag = 0, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	if(obj_integrity <= 0)
 		return 0
@@ -45,7 +45,7 @@
 	var/armor_protection = 0
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
-	if(armor_protection)        //Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
+	if(armor_protection)        // Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
 		armor_protection = clamp((armor_protection * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat, min(armor_protection, 0), 100)
 
 	var/damage_multiplier = (100 - armor_protection) / 100

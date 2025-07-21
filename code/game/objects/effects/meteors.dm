@@ -67,7 +67,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	icon_state = "small"
 	density = TRUE
 	max_integrity = 400 * OBJ_INTEGRITY_TO_WALL_DAMAGE
-	var/explosion_strength = EXPLODE_HEAVY //Level of ex_act to be called on hit.
+	var/explosion_strength = EXPLODE_HEAVY // Level of ex_act to be called on hit.
 	var/dest
 	pass_flags = PASSTABLE
 	var/heavy = FALSE

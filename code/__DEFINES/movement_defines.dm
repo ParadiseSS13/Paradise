@@ -24,7 +24,7 @@
 #define MOVEMENT_LOOP_NO_DIR_UPDATE (1<<3)
 ///Controls how the loop will set momentum_change in its Move call.
 #define MOVEMENT_LOOP_NO_MOMENTUM_CHANGE (1<<4)
-///Should we forceMove instead of Move?
+/// Should we forceMove instead of Move?
 #define MOVEMENT_LOOP_FORCE_MOVE (1<<5)
 
 // Movement loop status flags
