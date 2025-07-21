@@ -3624,7 +3624,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/mob/living/simple_animal/lizard/wags_his_tail,
+/mob/living/basic/lizard/wags_his_tail,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "aNu" = (
@@ -37609,7 +37609,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "hxa" = (
-/mob/living/simple_animal/lizard{
+/mob/living/basic/lizard{
 	name = "Greentext"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -96185,7 +96185,7 @@
 	},
 /area/station/security/storage)
 "teq" = (
-/mob/living/simple_animal/lizard{
+/mob/living/basic/lizard{
 	name = "Valid"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{

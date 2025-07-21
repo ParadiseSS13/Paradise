@@ -5499,7 +5499,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/disposal)
 "azk" = (
-/mob/living/simple_animal/lizard/wags_his_tail,
+/mob/living/basic/lizard/wags_his_tail,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "azl" = (

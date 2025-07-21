@@ -50783,7 +50783,7 @@
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
-/mob/living/simple_animal/lizard/wags_his_tail,
+/mob/living/basic/lizard/wags_his_tail,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "jso" = (
@@ -103308,7 +103308,7 @@
 	},
 /area/station/maintenance/port2)
 "uGG" = (
-/mob/living/simple_animal/lizard,
+/mob/living/basic/lizard,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/fore2)
 "uGM" = (
@@ -107840,7 +107840,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/lizard{
+/mob/living/basic/lizard{
 	name = "Greentext"
 	},
 /turf/simulated/floor/plasteel,

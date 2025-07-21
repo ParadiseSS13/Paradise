@@ -2538,7 +2538,7 @@
 /area/station/command/office/hos)
 "akL" = (
 /obj/structure/flora/rock/jungle,
-/mob/living/simple_animal/lizard{
+/mob/living/basic/lizard{
 	name = "Greentext"
 	},
 /turf/simulated/floor/grass,
@@ -88447,7 +88447,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/lizard/wags_his_tail,
+/mob/living/basic/lizard/wags_his_tail,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "xPE" = (

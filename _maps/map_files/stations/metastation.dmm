@@ -88906,7 +88906,7 @@
 /area/shuttle/arrival/station)
 "xBG" = (
 /obj/effect/spawner/random/dirt/often,
-/mob/living/simple_animal/lizard/wags_his_tail,
+/mob/living/basic/lizard/wags_his_tail,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "xBX" = (

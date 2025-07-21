@@ -221,7 +221,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unathi_breacher/engineering)
 "ri" = (
-/mob/living/simple_animal/lizard{
+/mob/living/basic/lizard{
 	name = "Lil' Fella"
 	},
 /obj/structure/cable{
