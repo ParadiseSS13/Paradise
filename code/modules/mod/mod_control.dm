@@ -91,6 +91,10 @@
 	var/datum/action/item_action/chameleon_change/modsuit/chameleon_action
 	/// Is the control unit disquised?
 	var/current_disguise = FALSE
+	/// The MODlink datum, letting us call people from the suit.
+	var/datum/mod_link/mod_link
+	/// The starting MODlink frequency, overridden on subtypes that want it to be something.
+	var/starting_frequency = null
 
 /obj/item/mod/control/serialize()
 	var/list/data = ..()
@@ -157,10 +161,19 @@
 		module = new module(src)
 		install(module)
 	ADD_TRAIT(src, TRAIT_ADJACENCY_TRANSPARENT, ROUNDSTART_TRAIT)
+	START_PROCESSING(SSobj, src)
+	mod_link = new(
+		src,
+		starting_frequency,
+		CALLBACK(src, PROC_REF(get_wearer)),
+		CALLBACK(src, PROC_REF(can_call)),
+		CALLBACK(src, PROC_REF(make_link_visual)),
+		CALLBACK(src, PROC_REF(get_link_visual)),
+		CALLBACK(src, PROC_REF(delete_link_visual))
+	)
 
 /obj/item/mod/control/Destroy()
-	if(active)
-		STOP_PROCESSING(SSobj, src)
+	STOP_PROCESSING(SSobj, src)
 	for(var/obj/item/mod/module/module as anything in modules)
 		uninstall(module, deleting = TRUE)
 	for(var/obj/item/part as anything in mod_parts)
@@ -179,6 +192,7 @@
 		QDEL_NULL(boots)
 	if(core)
 		QDEL_NULL(core)
+	QDEL_NULL(mod_link)
 	QDEL_NULL(wires)
 	wearer = null
 	selected_module = null
@@ -206,6 +220,7 @@
 			. += "You could remove [core] with a <b>wrench</b>."
 		else
 			. += "You could use a <b>MOD core</b> on it to install one."
+	. += "You could copy/set link frequency with a <b>multitool</b>."
 
 /obj/item/mod/control/examine_more(mob/user)
 	. = ..()
@@ -214,9 +229,13 @@
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)
 		seconds_electrified--
+	if(mod_link.link_call)
+		subtract_charge((DEFAULT_CHARGE_DRAIN * 0.25))
+	if(!active)
+		return
 	if(get_charge() <= 10 && active && !activating) //Sometimes we get power being funky, this should fix it.
 		power_off()
-		return PROCESS_KILL
+		return
 	var/malfunctioning_charge_drain = 0
 	if(malfunctioning)
 		malfunctioning_charge_drain = rand(1, 20)
@@ -258,6 +277,14 @@
 		if(ismecha(M.loc))
 			return
 
+		if(ismodcontrol(over_object))
+			var/obj/item/mod/control/target = over_object
+			bag?.dump_storage(M, target.bag)
+			return
+		if(isstorage(over_object))
+			bag?.dump_storage(M, over_object)
+			return
+
 		if(!M.restrained() && !M.stat)
 			playsound(loc, "rustle", 50, TRUE, -5)
 
@@ -274,6 +301,14 @@
 				bag?.open(usr)
 
 			add_fingerprint(M)
+
+/obj/item/mod/control/wirecutter_act(mob/living/user, obj/item/I)
+	if(open)
+		if(seconds_electrified && get_charge() && shock(user))
+			return TRUE
+		wires.Interact(user)
+		return TRUE
+	return ..()
 
 /obj/item/mod/control/wrench_act(mob/living/user, obj/item/wrench)
 	if(..())
@@ -293,6 +328,54 @@
 		update_charge_alert()
 		return TRUE
 	return ..()
+
+/obj/item/mod/control/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(open)
+		if(seconds_electrified && get_charge() && shock(user))
+			return TRUE
+		wires.Interact(user)
+		return TRUE
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/M = I
+	var/obj/item/linked_thing = locateUID(M.buffer_uid)
+
+	if(!linked_thing)
+		to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+		M.buffer_uid = UID()
+		return TRUE
+	if(ismodcontrol(linked_thing))
+		var/obj/item/mod/control/chosen_control = linked_thing
+		var/response = tgui_alert(user, "Would you like to copy the frequency to the multitool or imprint the frequency to [src]?", "MODlink Frequency", list("Copy", "Imprint"))
+		if(!user.is_holding(I))
+			return FALSE
+		switch(response)
+			if("Copy")
+				to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+				M.buffer_uid = UID()
+				return TRUE
+			if("Imprint")
+				mod_link.frequency = chosen_control.mod_link.frequency
+				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
+				return TRUE
+	else
+		var/obj/item/clothing/neck/link_scryer/chosen_scryer = linked_thing
+		var/response = tgui_alert(user, "Would you like to copy the frequency to the multitool or imprint the frequency to [src]?", "MODlink Frequency", list("Copy", "Imprint"))
+		if(!user.is_holding(I))
+			return FALSE
+		switch(response)
+			if("Copy")
+				to_chat(user, "<span class='notice'>You save the frequency of [src] to the buffer.</span>")
+				M.buffer_uid = UID()
+				return TRUE
+			if("Imprint")
+				mod_link.frequency = chosen_scryer.mod_link.frequency
+				to_chat(user, "<span class='notice'>You imprint the frequency to [src].</span>")
+				return TRUE
+
 
 /obj/item/mod/control/screwdriver_act(mob/living/user, obj/item/screwdriver)
 	if(..())
@@ -366,11 +449,6 @@
 		user.drop_item()
 		attacking_core.install(src)
 		update_charge_alert()
-		return TRUE
-	else if(istype(attacking_item, /obj/item/multitool) && open)
-		if(seconds_electrified && get_charge() && shock(user))
-			return TRUE
-		wires.Interact(user)
 		return TRUE
 	else if(open && attacking_item.GetID())
 		update_access(user, attacking_item.GetID())
@@ -522,6 +600,7 @@
 		retract(null, part)
 	if(active)
 		finish_activation(on = FALSE)
+		mod_link?.end_call()
 	var/mob/old_wearer = wearer
 	unset_wearer()
 	old_wearer.drop_item()
@@ -604,6 +683,10 @@
 	old_module.on_uninstall(deleting = deleting)
 	QDEL_LIST_ASSOC_VAL(old_module.pinned_to)
 	old_module.mod = null
+
+/// Intended for callbacks, don't use normally, just get wearer by itself.
+/obj/item/mod/control/proc/get_wearer()
+	return wearer
 
 /obj/item/mod/control/proc/update_access(mob/user, obj/item/card/id/card)
 	if(!allowed(user))
@@ -775,3 +858,13 @@
 	. = ..()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.extinguish_light(force)
+
+/obj/item/mod/control/hear_talk(mob/living/user, list/message_pieces)
+	if(bag)
+		for(var/obj/object in bag)
+			object.hear_talk(user, message_pieces)
+
+/obj/item/mod/control/hear_message(mob/living/user, msg)
+	if(bag)
+		for(var/obj/object in bag)
+			object.hear_message(user, msg)

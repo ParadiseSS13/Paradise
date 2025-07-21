@@ -15,6 +15,8 @@
 	var/health = 100 	//A mob's health
 	/// Healable by medical stacks?
 	var/healable = FALSE
+	/// The action emote which is displayed after the mob's name upon death.
+	var/deathmessage = ""
 
 	//Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
 	VAR_PROTECTED/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
@@ -104,11 +106,17 @@
 	/// Famous last words -- if succumbing, what the user's last words were
 	var/last_words
 
+	/// Does this mob talk with a BIG VOICE. 0 off, 1 single use, 2 multi-use
+	var/big_voice = 0
+
 	///This variable is the chance for a mob to automatically dodge a bullet. Useful for admins, and applied to some mobs by default, such as the malfunctioning drone mobs.
 	var/advanced_bullet_dodge_chance = 0
 
 	/// List of traits that should be applied on Initialize
 	var/list/initial_traits = list()
+
+	/// Sets our icon to `null` when `gib()` is used
+	var/gib_nullifies_icon = TRUE
 
 	/*
 	Taste Vars
@@ -119,3 +127,12 @@
 	var/last_taste_text
 	///If a creature gets to be super special and have extra range on their chat messages
 	var/extra_message_range = 0
+
+	/// Points to what specialized dissection information a mob gets.
+	var/datum/xenobiology_surgery_container/surgery_container
+
+	/// Does this creature contain a xeno organ we can harvest?
+	var/contains_xeno_organ = FALSE
+
+	/// The toggle for if this creature should ignore the rolls for generic organs upon dissection
+	var/ignore_generic_organs = FALSE

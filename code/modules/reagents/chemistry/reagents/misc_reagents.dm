@@ -125,7 +125,7 @@
 	id = "iron"
 	description = "Pure iron is a metal."
 	reagent_state = SOLID
-	color = "#C8A5DC" // rgb: 200, 165, 220
+	color = "#525152" // rgb: 200, 165, 220
 	taste_description = "metal"
 
 /datum/reagent/iron/on_mob_life(mob/living/M)
@@ -803,9 +803,18 @@
 
 /datum/reagent/spraytan/proc/set_skin_color(mob/living/carbon/human/H)
 	if(H.dna.species.bodyflags & HAS_SKIN_TONE)
-		H.change_skin_tone(max(H.s_tone - 10, -195))
-
-	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
+		H.change_skin_tone(min(-H.s_tone + 45, 220)) // adjusts our skin tone by 10 - makes it darker
+	else if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
+		switch(H.dna.species.name)
+			if("Human")
+				H.change_skin_tone(max(H.s_tone, 10)) // bronze - `icons/mob/human_races/human_skintones/r_human_bronzed.dmi`
+			if("Vox")
+				H.change_skin_tone(3) // brown - `icons/mob/human_races/vox/r_voxbrn.dmi`
+			if("Nian")
+				H.change_skin_tone(1) // default - `icons/mob/human_races/nian/r_moth.dmi`
+			if("Grey")
+				H.change_skin_tone(4) // red - `icons/mob/human_races/grey/r_grey_red.dmi`
+	else if(H.dna.species.bodyflags & HAS_SKIN_COLOR) // take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")
 
 /datum/reagent/admin_cleaner

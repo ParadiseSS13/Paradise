@@ -50,6 +50,7 @@
 	RegisterSignal(M, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract_to_linked_implant))
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/M, special = 0)
+	UnregisterSignal(M, COMSIG_MOB_WILLINGLY_DROP)
 	Retract()
 	. = ..()
 
@@ -106,7 +107,7 @@
 
 	holder = item
 
-	holder.flags |= NODROP
+	holder.set_nodrop(TRUE, owner)
 	holder.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	holder.slot_flags = null
 	holder.w_class = WEIGHT_CLASS_HUGE

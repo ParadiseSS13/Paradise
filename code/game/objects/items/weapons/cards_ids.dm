@@ -546,6 +546,12 @@
 	icon_state = "research"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/xenobiology
+	name = "Xenobiology ID"
+	registered_name = "Xenobiologist"
+	icon_state = "xenobiologist"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_EVA, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_TELEPORTER)
+
 /obj/item/card/id/roboticist
 	name = "Roboticist ID"
 	registered_name = "Roboticist"
@@ -792,7 +798,7 @@
 	name = "Free Golem ID"
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
 	icon_state = "research"
-	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY) //access to robots/mechs
+	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY, ACCESS_SMITH) //access to robots/mechs
 	can_id_flash = FALSE //So you do not flash it the first time you use it.
 	var/registered = FALSE
 

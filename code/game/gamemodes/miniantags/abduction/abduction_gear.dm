@@ -85,7 +85,7 @@ CONTENTS:
 	combat_armor = getArmor(arglist(combat_armor))
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
-	flags ^= NODROP
+	set_nodrop(NODROP_TOGGLE, loc)
 	if(ismob(loc))
 		to_chat(loc, "<span class='notice'>Your vest is now [flags & NODROP ? "locked" : "unlocked"].</span>")
 
@@ -171,7 +171,7 @@ CONTENTS:
 		COOLDOWN_START(src, abductor_adrenaline, combat_cooldown)
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
 		if(C.vest == src)
 			C.vest = null
 			break

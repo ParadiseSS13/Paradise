@@ -88,6 +88,45 @@
 
 	return f_style
 
+// it might be made species related, but it is pretty okay now
+/proc/random_hair_color(tint = TRUE, range)
+	if(prob(1))
+		return rand_hex_color() // sPaCe PuNk
+	var/list/color_options = list(
+		// gray, black, blue - 5 total
+		COLOR_GRAY15,
+		COLOR_GRAY40,
+		COLOR_SILVER,
+		COLOR_DARK_BLUE_GRAY,
+		COLOR_WALL_GUNMETAL,
+		// yellow, red, orange - 5 total
+		COLOR_YELLOW_GRAY,
+		COLOR_WARM_YELLOW,
+		COLOR_DARK_ORANGE,
+		COLOR_PALE_ORANGE,
+		COLOR_SUN,
+		// brownish. there is not much of them so they are repeated - 5 total
+		COLOR_CHESTNUT,
+		COLOR_CHESTNUT,
+		COLOR_BEASTY_BROWN,
+		COLOR_BEASTY_BROWN,
+		COLOR_BROWN_ORANGE,
+	)
+	if(tint) // returns a tint of selected color
+		return tint_color(pick(color_options), range)
+	return pick(color_options)
+
+/// Returns a purely random tint for specific color
+/proc/tint_color(color, range = 25)
+	if(!is_color_text(color)) // if it's not a hex color
+		return color // just leave it as it is
+
+	var/R = clamp(color2R(color) + rand(-range, range), 0, 255)
+	var/G = clamp(color2G(color) + rand(-range, range), 0, 255)
+	var/B = clamp(color2B(color) + rand(-range, range), 0, 255)
+
+	return rgb(R, G, B)
+
 /proc/random_head_accessory(species = "Human")
 	var/ha_style = "None"
 	var/list/valid_head_accessories = list()
@@ -177,60 +216,14 @@
 	else
 		return current_species.get_random_name(gender)
 
+/// Randomises skin tone, specifically for each species that has a skin tone. Otherwise keeps a default of 1
 /proc/random_skin_tone(species = "Human")
-	if(species == "Human" || species == "Drask")
-		switch(pick(60;"caucasian", 15;"afroamerican", 10;"african", 10;"latino", 5;"albino"))
-			if("caucasian")		. = -10
-			if("afroamerican")	. = -115
-			if("african")		. = -165
-			if("latino")		. = -55
-			if("albino")		. = 34
-			else				. = rand(-185, 34)
-		return min(max(. + rand(-25, 25), -185), 34)
-	else if(species == "Vox")
-		. = rand(1, 6)
-	else if(species == "Nian")
-		. = rand(1, 4)
-	else
-		. = 1
-
-/proc/skintone2racedescription(tone, species = "Human")
-	if(species == "Human")
-		switch(tone)
-			if(30 to INFINITY)		return "albino"
-			if(20 to 30)			return "pale"
-			if(5 to 15)				return "light skinned"
-			if(-10 to 5)			return "white"
-			if(-25 to -10)			return "tan"
-			if(-45 to -25)			return "darker skinned"
-			if(-65 to -45)			return "brown"
-			if(-INFINITY to -65)	return "black"
-			else					return "unknown"
-	else if(species == "Vox")
-		switch(tone)
-			if(2)					return "plum"
-			if(3)					return "brown"
-			if(4)					return "gray"
-			if(5)					return "emerald"
-			if(6)					return "azure"
-			if(7)					return "crimson"
-			if(8)					return "nebula"
-			else					return "lime"
-	else
-		return "unknown"
-
-/proc/age2agedescription(age)
-	switch(age)
-		if(0 to 1)			return "infant"
-		if(1 to 3)			return "toddler"
-		if(3 to 13)			return "child"
-		if(13 to 19)		return "teenager"
-		if(19 to 30)		return "young adult"
-		if(30 to 45)		return "adult"
-		if(45 to 60)		return "middle-aged"
-		if(60 to 70)		return "aging"
-		if(70 to INFINITY)	return "elderly"
-		else				return "unknown"
+	var/datum/species/species_selected = GLOB.all_species[species]
+	if(species_selected?.bodyflags & HAS_SKIN_TONE)
+		return rand(1, 220)
+	else if(species_selected?.bodyflags & HAS_ICON_SKIN_TONE)
+		return rand(1, length(species_selected.icon_skin_tones))
+	return 1
 
 /proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list(), user_name)
 	var/status = criminal_status
@@ -393,8 +386,9 @@
  *	This will create progress bar that lasts for 5 seconds. If the user doesn't move or otherwise do something that would cause the checks to fail in those 5 seconds, do_stuff() would execute.
  *	The Proc returns TRUE upon success (the progress bar reached the end), or FALSE upon failure (the user moved or some other check failed)
  *	param {boolean} hidden - By default, any action 1 second or longer shows a cog over the user while it is in progress. If hidden is set to TRUE, the cog will not be shown.
+ *	If allow_sleeping_or_dead is true, dead and sleeping mobs will continue. Good if you want to show a progress bar to the user but it doesn't need them to do anything, like modsuits.
  */
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving = 0, must_be_held = 0, list/extra_checks = list(), use_default_checks = TRUE, allow_moving_target = FALSE, hidden = FALSE)
+/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving = 0, must_be_held = 0, list/extra_checks = list(), use_default_checks = TRUE, allow_moving_target = FALSE, hidden = FALSE, allow_sleeping_or_dead = FALSE)
 	if(!user)
 		return FALSE
 	var/atom/Tloc = null
@@ -443,7 +437,7 @@
 				. = FALSE
 				break
 
-		if(!user || user.stat || check_for_true_callbacks(extra_checks))
+		if(!user || (user.stat && !allow_sleeping_or_dead) || check_for_true_callbacks(extra_checks))
 			. = FALSE
 			break
 
@@ -564,6 +558,10 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		return null
 	if(ismob(A))
 		return A
+	if(istype(A, /obj/structure/blob/core))
+		var/obj/structure/blob/core/blob = A
+		if(blob.overmind)
+			return blob.overmind
 
 	. = null
 	for(var/mob/M in A)
@@ -606,9 +604,9 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		var/mob/living/carbon/human/H = thing
 		H.sec_hud_set_security_status()
 
-/proc/update_all_mob_malf_hud(new_status)
+/proc/update_all_mob_malf_hud()
 	for(var/mob/living/carbon/human/H in GLOB.human_list)
-		H.malf_hud_set_status(new_status)
+		H.malf_hud_set_status()
 
 /proc/getviewsize(view)
 	var/viewX
@@ -724,3 +722,74 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 /// rounds value to limited symbols after the period for organ damage and other values
 /proc/round_health(health)
 	return round(health, 0.01)
+
+/// Takes in an associated list (key `/datum/action` typepaths, value is the AI
+/// blackboard key) and handles granting the action and adding it to the mob's
+/// AI controller blackboard. This is only useful in instances where you don't
+/// want to store the reference to the action on a variable on the mob. You can
+/// set the value to null if you don't want to add it to the blackboard (like in
+/// player controlled instances). Is also safe with null AI controllers. Assumes
+/// that the action will be initialized and held in the mob itself, which is
+/// typically standard.
+/mob/proc/grant_actions_by_list(list/input)
+	if(length(input) <= 0)
+		return
+
+	for(var/action in input)
+		var/datum/action/ability = new action(src)
+		ability.Grant(src)
+
+		var/blackboard_key = input[action]
+		if(isnull(blackboard_key))
+			continue
+
+		ai_controller?.set_blackboard_key(blackboard_key, ability)
+
+/**
+ * [/proc/ran_zone] but only returns bodyzones that the mob actually has.
+ *
+ * * `blacklisted_parts` allows you to specify zones that will not be chosen.
+ *   e.g.: list(`BODY_ZONE_CHEST`, `BODY_ZONE_R_LEG`). **Blacklisting
+ *   `BODY_ZONE_CHEST` is really risky since it's the only bodypart guaranteed
+ *   to always exist. Only do that if you're certain they have limbs, otherwise
+ *   we'll crash!**
+ *
+ * * [/proc/ran_zone] has a base `prob(80)` to return the `base_zone` (or if null,
+ *   `BODY_ZONE_CHEST`) vs something in our generated list of limbs. This
+ *   probability is overriden when either blacklisted_parts contains
+ *   BODY_ZONE_CHEST and we aren't passed a base_zone (since the default
+ *   fallback for ran_zone would be the chest in that scenario), or if
+ *   even_weights is enabled. You can also manually adjust this probability by
+ *   altering `base_probability`.
+ *
+ * * even_weights - ran_zone has a 40% chance (after the prob(80) mentioned
+ *   above) of picking a limb, vs the torso & head which have an additional 10%
+ *   chance. Setting even_weights to TRUE will make it just a straight up pick()
+ *   between all possible bodyparts.
+ */
+/mob/proc/get_random_valid_zone(base_zone, base_probability = 80, list/blacklisted_parts, even_weights, bypass_warning)
+	return BODY_ZONE_CHEST // Pass the default of check_zone to be safe.
+
+/mob/living/carbon/human/get_random_valid_zone(base_zone, base_probability = 80, list/blacklisted_parts, even_weights, bypass_warning)
+	var/list/limbs = list()
+	for(var/obj/item/organ/limb as anything in bodyparts)
+		var/limb_zone = limb.parent_organ // cache the parent organ since we're gonna check it a ton.
+		if(limb_zone in blacklisted_parts)
+			continue
+		if(even_weights)
+			limbs[limb_zone] = 1
+			continue
+		if(limb_zone == BODY_ZONE_CHEST || limb_zone == BODY_ZONE_HEAD)
+			limbs[limb_zone] = 1
+		else
+			limbs[limb_zone] = 4
+
+	if(base_zone && !(check_zone(base_zone) in limbs))
+		base_zone = null // check if the passed zone is infact valid
+
+	var/chest_blacklisted
+	if(BODY_ZONE_CHEST in blacklisted_parts)
+		chest_blacklisted = TRUE
+		if(bypass_warning && length(limbs))
+			CRASH("limbs is empty and the chest is blacklisted. this may not be intended!")
+	return (((chest_blacklisted && !base_zone) || even_weights) ? pickweight(limbs) : ran_zone(base_zone, base_probability, limbs))

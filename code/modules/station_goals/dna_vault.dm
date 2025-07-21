@@ -52,7 +52,7 @@
 /datum/station_goal/dna_vault/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/dna_vault/V in GLOB.machines)
+	for(var/obj/machinery/dna_vault/V in SSmachines.get_by_type(/obj/machinery/dna_vault))
 		if(length(V.animals) >= animal_count && length(V.plants) >= plant_count && length(V.dna) >= human_count && is_station_contact(V.z))
 			return TRUE
 	return FALSE
@@ -94,10 +94,10 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 		to_chat(user, "<span class='notice'>Plant data added to local storage.</span>")
 
 	//animals
-	if(isanimal(target) || is_type_in_typecache(target, GLOB.non_simple_animals))
-		if(isanimal(target))
-			var/mob/living/simple_animal/A = target
-			if(!A.healable)//simple approximation of being animal not a robot or similar
+	if(isanimal_or_basicmob(target) || is_type_in_typecache(target, GLOB.non_simple_animals))
+		if(isanimal_or_basicmob(target))
+			var/mob/living/A = target
+			if(!A.healable) // simple approximation of being animal not a robot or similar
 				to_chat(user, "<span class='warning'>No compatible DNA detected</span>")
 				return
 		if(animals[target.type])

@@ -787,7 +787,7 @@
 							msg = job
 						else
 							msg += ", [job]"
-					add_note(M.last_known_ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
+					add_note(M.last_known_ckey, "Banned from [msg] - [reason]", null, usr.ckey, 0, public = TRUE)
 					message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes</span>", 1)
 
 					// Reload their job ban holder (refresh this round)
@@ -810,7 +810,7 @@
 								msg = job
 							else
 								msg += ", [job]"
-						add_note(M.last_known_ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
+						add_note(M.last_known_ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0, public = TRUE)
 						message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg]</span>", 1)
 
 						// Reload their job ban holder (refresh this round)
@@ -1349,6 +1349,12 @@
 			return
 
 		usr.client.view_devsays()
+
+	else if(href_list["staffsays"])
+		if(!check_rights(R_ADMIN | R_DEV_TEAM))
+			return
+
+		usr.client.view_staffsays()
 
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
@@ -2093,10 +2099,9 @@
 					P.master_commander = H
 					P.universal_speak = TRUE
 					P.universal_understand = TRUE
-					P.set_can_collar(TRUE)
+					P.AddElement(/datum/element/wears_collar)
 					P.faction = list("neutral")
-					var/obj/item/petcollar/C = new
-					P.add_collar(C)
+					var/obj/item/petcollar/C = new(P)
 					var/obj/item/card/id/I = H.wear_id
 					if(I)
 						var/obj/item/card/id/D = new /obj/item/card/id(C)
@@ -2164,10 +2169,11 @@
 		switch(punishment)
 			// These smiting types are valid for all living mobs
 			if("Lightning bolt")
-				M.electrocute_act(5, "Lightning Bolt", flags = SHOCK_NOGLOVES)
+				M.electrocute_act(50, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
-				M.adjustFireLoss(75)
-				M.Weaken(10 SECONDS)
+				var/turf/simulated/T = get_turf(M)
+				new /obj/effect/temp_visual/thunderbolt(T)
+				M.adjustFireLoss(30)
 				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
 				logmsg = "a lightning bolt."
 			if("Fire Death")
@@ -3118,12 +3124,12 @@
 			if("blackout")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Black Out")
 				message_admins("[key_name_admin(usr)] broke all lights", 1)
-				for(var/obj/machinery/light/L in GLOB.machines)
+				for(var/obj/machinery/light/L in SSmachines.get_by_type(/obj/machinery/light))
 					L.break_light_tube()
 			if("whiteout")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fix All Lights")
 				message_admins("[key_name_admin(usr)] fixed all lights", 1)
-				for(var/obj/machinery/light/L in GLOB.machines)
+				for(var/obj/machinery/light/L in SSmachines.get_by_type(/obj/machinery/light))
 					L.fix()
 					L.switchcount = 0
 			if("floorlava")
@@ -3294,16 +3300,6 @@
 				for(var/sig in GLOB.lawchanges)
 					dat += "[sig]<BR>"
 				usr << browse(dat, "window=lawchanges;size=800x500")
-			if("list_job_debug")
-				var/dat = "<b>Job Debug info.</b><hr>"
-				if(SSjobs)
-					for(var/line in SSjobs.job_debug)
-						dat += "[line]<BR>"
-					dat+= "*******<BR><BR>"
-					for(var/datum/job/job in SSjobs.occupations)
-						if(!job)	continue
-						dat += "job: [job.title], current_positions: [job.current_positions], total_positions: [job.total_positions] <BR>"
-					usr << browse(dat, "window=jobdebug;size=600x500")
 			if("showailaws")
 				output_ai_laws()
 			if("showgm")

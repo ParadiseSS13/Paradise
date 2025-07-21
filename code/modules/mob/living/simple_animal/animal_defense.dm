@@ -1,8 +1,3 @@
-/mob/living/simple_animal/item_interaction(mob/living/user, obj/item/O, list/modifiers)
-	if(can_collar && istype(O, /obj/item/petcollar) && !pcollar)
-		add_collar(O, user)
-		return ITEM_INTERACT_COMPLETE
-
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
 	..()
 	switch(M.a_intent)
@@ -128,3 +123,9 @@
 		else
 			visual_effect_icon = ATTACK_EFFECT_SMASH
 	..()
+
+/mob/living/simple_animal/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	. = ..()
+	if(.)
+		var/damage = rand(attacker.melee_damage_lower, attacker.melee_damage_upper)
+		return attack_threshold_check(damage, attacker.melee_damage_type)

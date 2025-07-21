@@ -88,7 +88,7 @@
 		/obj/item/melee/skateboard/pro = 5,
 		/obj/item/reagent_containers/glass/beaker/bluespace = 5,
 		/obj/item/seeds/firelemon = 5,
-		/obj/item/stack/ore/diamond{amount = 10} = 5,
+		/obj/item/stack/ore/diamond/ten = 5,
 
 		/obj/effect/spawner/random/loot/coins = 2,
 		/obj/effect/spawner/random/loot/outfit/clown = 2,
@@ -105,7 +105,7 @@
 		/obj/item/pickaxe/drill = 2,
 		/obj/item/pickaxe/drill/diamonddrill = 2,
 		/obj/item/pickaxe/drill/jackhammer = 2,
-		/obj/item/stack/ore/bluespace_crystal{amount = 5} = 2,
+		/obj/item/stack/ore/bluespace_crystal/five = 2,
 		/obj/item/toy/balloon = 2,
 		/obj/item/toy/katana = 2,
 		/obj/item/toy/syndicateballoon = 2,
@@ -133,4 +133,13 @@
 		/obj/effect/spawner/random/bluespace_tap/food_common = 6,
 		/obj/effect/spawner/random/bluespace_tap/food_uncommon = 3,
 		/obj/effect/spawner/random/bluespace_tap/food_rare,
+	)
+
+/obj/effect/spawner/random/syndie_mob_loot
+	loot = list(
+		/obj/item/reagent_containers/patch/styptic,
+		/obj/item/reagent_containers/patch/silver_sulf,
+		/obj/item/food/syndicake,
+		/obj/item/food/donkpocket,
+		/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 	)

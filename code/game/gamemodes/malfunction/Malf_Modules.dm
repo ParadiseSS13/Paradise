@@ -14,6 +14,13 @@
 	var/uses //If we have multiple uses of the same power
 	var/auto_use_uses = TRUE //If we automatically use up uses on each activation
 	antimagic_flags = NONE
+	/// Is this spell an AI program?
+	var/datum/ai_program/program
+
+/datum/spell/ai_spell/New()
+	. = ..()
+	if(program)
+		desc += " Costs [program.nanite_cost] Nanites to use."
 
 /datum/spell/ai_spell/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -45,6 +52,12 @@
 			closest_camera = C
 			continue
 	return closest_camera
+
+/datum/spell/ai_spell/proc/desc_update()
+	desc = initial(desc)
+	if(program)
+		desc += " Costs [program.nanite_cost] Nanites to use."
+	action.desc = desc
 
 /datum/spell/ai_spell/proc/camera_beam(target, icon_state, icon, time)
 	var/obj/machinery/camera/C = find_nearest_camera(target)
@@ -342,7 +355,7 @@
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/ai_module/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
-	for(var/obj/machinery/porta_turret/ai_turret/turret in GLOB.machines)
+	for(var/obj/machinery/porta_turret/ai_turret/turret in SSmachines.get_by_type(/obj/machinery/porta_turret/ai_turret))
 		var/turf/T = get_turf(turret)
 		if(is_station_level(T.z))
 			turret.health += 30
@@ -431,7 +444,7 @@
 	uses = 1
 
 /datum/spell/ai_spell/break_fire_alarms/cast(list/targets, mob/user)
-	for(var/obj/machinery/firealarm/F in GLOB.machines)
+	for(var/obj/machinery/firealarm/F in SSmachines.get_by_type(/obj/machinery/firealarm))
 		if(!is_station_level(F.z))
 			continue
 		F.emagged = TRUE
@@ -456,7 +469,7 @@
 	uses = 1
 
 /datum/spell/ai_spell/break_air_alarms/cast(list/targets, mob/user)
-	for(var/obj/machinery/alarm/AA in GLOB.machines)
+	for(var/obj/machinery/alarm/AA in SSmachines.get_by_type(/obj/machinery/alarm))
 		if(!is_station_level(AA.z))
 			continue
 		AA.emagged = TRUE
@@ -710,7 +723,7 @@
 		to_chat(src, "<span class='warning'>You don't have camera vision of this location!</span>")
 		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
 		return FALSE
-	if(is_blocked_turf(deploylocation))
+	if(deploylocation.is_blocked_turf())
 		to_chat(src, "<span class='warning'>That area must be clear of objects!</span>")
 		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
 		return FALSE

@@ -40,7 +40,6 @@
 	med_hud_set_health()
 	med_hud_set_status()
 
-
 /mob/living/Destroy()
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
@@ -66,6 +65,12 @@
 		if(ranged_ability && prev_client)
 			ranged_ability.remove_mousepointer(prev_client)
 	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
+
+/// Legacy method for simplemobs to handle turning off their AI.
+/// Unrelated to and unused for AI controllers, which handle their
+/// AI cooperation with signals.
+/mob/living/proc/sentience_act()
+	return
 
 /mob/living/proc/OpenCraftingMenu()
 	return
@@ -212,12 +217,38 @@
 		stop_pulling()
 	var/current_dir
 	if(isliving(AM))
-		current_dir = AM.dir
+		var/mob/living/living_mob = AM
+		if(!living_mob.buckled)
+			current_dir = AM.dir
 	if(AM.Move(get_step(AM.loc, t), t, glide_size))
 		Move(get_step(loc, t), t)
 	if(current_dir)
 		AM.setDir(current_dir)
 	now_pushing = FALSE
+
+/mob/living/examine(mob/user)
+	. = ..()
+	if(stat != DEAD)
+		return
+	if(!user.reagent_vision())
+		return
+	var/datum/surgery/dissection
+	for(var/datum/surgery/dissect/D in surgeries)
+		dissection = D
+	if(dissection)
+		. += "<span class='notice'>You detect the next dissection step will be: [dissection.get_surgery_step()]</span>"
+	if(surgery_container && !contains_xeno_organ)
+		. += "<span class='warning'>[src] looks like [p_they()] [p_have()] had [p_their()] organs dissected!</span>"
+
+
+/mob/living/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	if(length(surgeries))
+		if(user.a_intent == INTENT_HELP)
+			for(var/datum/surgery/S in surgeries)
+				if(S.next_step(user, src))
+					return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /mob/living/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
 	return TRUE // Unless you're a mule, something's trying to run you over.
@@ -260,7 +291,13 @@
 		stop_pulling()
 
 /mob/living/stop_pulling()
-	..()
+	if(pulling)
+		var/atom/pullee = pulling
+		..()
+		for(var/log_pulltype in GLOB.log_pulltypes)
+			if(istype(pullee, log_pulltype))
+				create_log(MISC_LOG, "Stopped pulling", pullee)
+				break
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
 
@@ -350,6 +387,8 @@
 
 /mob/living/acid_act(acidpwr, acid_volume)
 	take_organ_damage(acidpwr * min(1, acid_volume * 0.1))
+	to_chat(src, "<span class='userdanger'>The acid burns you!</span>")
+	playsound(src, 'sound/weapons/sear.ogg', 50, TRUE)
 	return 1
 
 /mob/living/welder_act(mob/user, obj/item/I)
@@ -807,7 +846,7 @@
 
 //Checks for anything other than eye protection that would stop flashing. Overridden in carbon.dm and human.dm
 /mob/living/proc/can_be_flashed(intensity = 1, override_blindness_check = 0)
-	if(check_eye_prot() >= intensity || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))))
+	if((check_eye_prot() >= intensity) || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND))) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
 		return FALSE
 
 	return TRUE
@@ -907,8 +946,12 @@
 	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results && I.sharp) //can we butcher it?
 		to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-		if(do_mob(user, src, 8 SECONDS) && Adjacent(I))
-			harvest(user)
+		if(user.mind && HAS_TRAIT(user.mind, TRAIT_BUTCHER))
+			if(do_mob(user, src, 3 SECONDS) && Adjacent(I))
+				harvest(user)
+		else
+			if(do_mob(user, src, 8 SECONDS) && Adjacent(I))
+				harvest(user)
 		return TRUE
 
 /mob/living/proc/harvest(mob/living/user)
@@ -1008,6 +1051,12 @@
 	AM.pulledby = src
 	if(pullin)
 		pullin.update_icon(UPDATE_ICON_STATE)
+	SEND_SIGNAL(AM, COMSIG_ATOM_PULLED, src)
+
+	for(var/log_pulltype in GLOB.log_pulltypes)
+		if(istype(AM, log_pulltype))
+			create_log(MISC_LOG, "Started pulling", AM)
+			break
 
 /mob/living/proc/check_pull()
 	if(pulling && !pulling.Adjacent(src))
@@ -1102,6 +1151,68 @@
 	for(var/atom/A in src)
 		if(A.light_range > 0)
 			A.extinguish_light(force)
+
+/mob/living/vv_get_header()
+	. = ..()
+	. += {"
+		<br><font size='1'>
+			BRUTE:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=brute'>[getBruteLoss()]</a>
+			FIRE:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=fire'>[getFireLoss()]</a>
+			TOXIN:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=toxin'>[getToxLoss()]</a>
+			OXY:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=oxygen'>[getOxyLoss()]</a>
+			CLONE:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=clone'>[getCloneLoss()]</a>
+			BRAIN:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=brain'>[getBrainLoss()]</a>
+			STAMINA:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=stamina'>[getStaminaLoss()]</a>
+		</font>
+	"}
+
+/mob/living/vv_do_topic(list/href_list)
+	. = ..()
+
+	if(!.)
+		return
+
+	if(href_list["adjustDamage"])
+		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))	return
+
+		var/Text = href_list["adjustDamage"]
+		var/amount =	tgui_input_number(usr, "Deal how much damage to mob? (Negative values here heal)", "Adjust [Text]loss") 
+
+		if(QDELETED(src))
+			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
+			return
+
+		switch(Text)
+			if("brute")
+				if(ishuman(src))
+					var/mob/living/carbon/human/H = src
+					H.adjustBruteLoss(amount, robotic = TRUE)
+				else
+					adjustBruteLoss(amount)
+			if("fire")
+				if(ishuman(src))
+					var/mob/living/carbon/human/H = src
+					H.adjustFireLoss(amount, robotic = TRUE)
+				else
+					adjustFireLoss(amount)
+			if("toxin")
+				adjustToxLoss(amount)
+			if("oxygen")
+				adjustOxyLoss(amount)
+			if("brain")
+				adjustBrainLoss(amount)
+			if("clone")
+				adjustCloneLoss(amount)
+			if("stamina")
+				adjustStaminaLoss(amount)
+			else
+				to_chat(usr, "<span class='notice'>You caused an error. DEBUG: Text:[Text] Mob:[src]</span>")
+				return
+
+		if(amount != 0)
+			log_admin("[key_name(usr)] dealt [amount] amount of [Text] damage to [src]")
+			message_admins("[key_name_admin(usr)] dealt [amount] amount of [Text] damage to [src]")
+			href_list["datumrefresh"] = UID()
 
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -1222,3 +1333,18 @@
 
 /mob/living/proc/sec_hud_set_ID()
 	return
+
+/// Proc for giving a mob a new 'friend', generally used for AI control and
+/// targeting. Returns false if already friends or null if qdeleted.
+/mob/living/proc/befriend(mob/living/new_friend)
+	SHOULD_CALL_PARENT(TRUE)
+	if(QDELETED(new_friend))
+		return
+	var/friend_ref = new_friend.UID()
+	if(faction.Find(friend_ref))
+		return FALSE
+	faction |= friend_ref
+	ai_controller?.insert_blackboard_key_lazylist(BB_FRIENDS_LIST, new_friend)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_BEFRIENDED, new_friend)
+	return TRUE

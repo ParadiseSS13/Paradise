@@ -468,7 +468,7 @@
 	else
 		if(dx > 0)	direction = EAST
 		else		direction = WEST
-	dir = direction
+	setDir(direction)
 
 /atom/movable/screen/click_catcher
 	icon = 'icons/mob/screen_gen.dmi'

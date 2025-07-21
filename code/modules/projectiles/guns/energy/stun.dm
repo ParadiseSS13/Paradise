@@ -106,6 +106,21 @@
 
 	return ..()
 
+/obj/item/gun/energy/disabler/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth. It looks like [user.p_theyre()] trying to shirk [user.p_their()] responsibilities!</span>")
+	sleep(25)
+	if(user.is_holding(src))
+		if(can_shoot())
+			playsound(loc, fire_sound, 50, TRUE, -1)
+			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+			cell.use(shot.e_cost)
+			update_icon()
+		else
+			playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
+	else
+		user.visible_message("<span class='suicide'>[user] fumbles [src]! [user.p_they(TRUE)] can't even get this right!</span>")
+	return SHAME
+
 //////////////////////////////
 // MARK: DISABLER SMG
 //////////////////////////////
@@ -130,7 +145,7 @@
 
 /obj/item/gun/energy/disabler/smg/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/automatic_fire, 0.15 SECONDS, allow_akimbo = FALSE)
+	AddComponent(/datum/component/automatic_fire, 0.20 SECONDS, allow_akimbo = FALSE)
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"

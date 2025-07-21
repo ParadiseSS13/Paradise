@@ -32,7 +32,6 @@
 		// Command (Solo command, not department heads)
 		"Blueshield" = "comradio",
 		"Captain" = "comradio",
-		"Head of Personnel" = "comradio",
 		"Nanotrasen Representative" = "comradio",
 		// Engineeering
 		"Atmospheric Technician" = "engradio",
@@ -97,11 +96,14 @@
 		"Scientist" = "sciradio",
 		"Xenoarcheologist" = "sciradio",
 		"Xenobiologist" = "sciradio",
+		"Slime Cultivator" = "sciradio",
+		"Slime Rancher" = "sciradio",
 		// Security
 		"Detective" = "secradio",
 		"Forensic Technician" = "secradio",
 		"Head of Security" = "secradio",
 		"Human Resources Agent" = "secradio",
+		"Inspector" = "secradio",
 		"Internal Affairs Agent" = "secradio",
 		"Magistrate" = "secradio",
 		"Security Officer" = "secradio",
@@ -118,6 +120,7 @@
 		"Salvage Technician" = "supradio",
 		"Scavenger" = "supradio",
 		// Service
+		"Head of Personnel" = "srvradio",
 		"Bartender" = "srvradio",
 		"Beautician" = "srvradio",
 		"Botanical Researcher" = "srvradio",

@@ -17,6 +17,8 @@
 	var/Uses = 1
 	/// The mob who last injected the extract with plasma, water or blood. Used for logging.
 	var/mob/living/injector_mob
+	/// The gun type associated with the extract
+	var/obj/item/gun/energy/associated_gun_type
 
 /obj/item/slime_extract/attackby__legacy__attackchain(obj/item/O, mob/user)
 	if(istype(O, /obj/item/slimepotion/enhancer))
@@ -41,86 +43,107 @@
 /obj/item/slime_extract/gold
 	name = "gold slime extract"
 	icon_state = "gold slime extract"
+	associated_gun_type = /obj/item/gun/energy/gun/shotgun
 
 /obj/item/slime_extract/silver
 	name = "silver slime extract"
 	icon_state = "silver slime extract"
+	associated_gun_type = /obj/item/gun/energy/disabler/smg
 
 /obj/item/slime_extract/metal
 	name = "metal slime extract"
 	icon_state = "metal slime extract"
+	associated_gun_type = /obj/item/gun/energy/gun/mini
 
 /obj/item/slime_extract/purple
 	name = "purple slime extract"
 	icon_state = "purple slime extract"
+	associated_gun_type = /obj/item/gun/energy/disabler
 
 /obj/item/slime_extract/darkpurple
 	name = "dark purple slime extract"
 	icon_state = "dark purple slime extract"
+	associated_gun_type = /obj/item/gun/energy/laser
 
 /obj/item/slime_extract/orange
 	name = "orange slime extract"
 	icon_state = "orange slime extract"
+	associated_gun_type = /obj/item/gun/energy/gun/mini
 
 /obj/item/slime_extract/yellow
 	name = "yellow slime extract"
 	icon_state = "yellow slime extract"
+	associated_gun_type = /obj/item/gun/energy/ionrifle/carbine
 
 /obj/item/slime_extract/red
 	name = "red slime extract"
 	icon_state = "red slime extract"
+	associated_gun_type = /obj/item/gun/energy/plasma_pistol
 
 /obj/item/slime_extract/blue
 	name = "blue slime extract"
 	icon_state = "blue slime extract"
+	associated_gun_type = /obj/item/gun/energy/disabler
 
 /obj/item/slime_extract/darkblue
 	name = "dark blue slime extract"
 	icon_state = "dark blue slime extract"
+	associated_gun_type = /obj/item/gun/energy/gun
 
 /obj/item/slime_extract/pink
 	name = "pink slime extract"
 	icon_state = "pink slime extract"
+	associated_gun_type = /obj/item/gun/energy/gun/blueshield
 
 /obj/item/slime_extract/green
 	name = "green slime extract"
 	icon_state = "green slime extract"
+	associated_gun_type = /obj/item/gun/projectile/automatic/laserrifle
 
 /obj/item/slime_extract/lightpink
 	name = "light pink slime extract"
 	icon_state = "light pink slime extract"
+	associated_gun_type = /obj/item/gun/energy/arc_revolver
 
 /obj/item/slime_extract/black
 	name = "black slime extract"
 	icon_state = "black slime extract"
+	associated_gun_type = /obj/item/gun/energy/lasercannon
 
 /obj/item/slime_extract/oil
 	name = "oil slime extract"
 	icon_state = "oil slime extract"
+	associated_gun_type = /obj/item/gun/energy/immolator
 
 /obj/item/slime_extract/adamantine
 	name = "adamantine slime extract"
 	icon_state = "adamantine slime extract"
+	associated_gun_type = /obj/item/gun/energy/gun/nuclear
 
 /obj/item/slime_extract/bluespace
 	name = "bluespace slime extract"
 	icon_state = "bluespace slime extract"
+	associated_gun_type = /obj/item/gun/energy/sparker
 
 /obj/item/slime_extract/pyrite
 	name = "pyrite slime extract"
 	icon_state = "pyrite slime extract"
+	associated_gun_type = /obj/item/gun/energy/gun/mini
 
 /obj/item/slime_extract/cerulean
 	name = "cerulean slime extract"
 	icon_state = "cerulean slime extract"
+	associated_gun_type = /obj/item/gun/energy/gun/shotgun
 
 /obj/item/slime_extract/sepia
 	name = "sepia slime extract"
 	icon_state = "sepia slime extract"
+	associated_gun_type = /obj/item/gun/energy/laser/retro
 
 /obj/item/slime_extract/rainbow
 	name = "rainbow slime extract"
 	icon_state = "rainbow slime extract"
+	associated_gun_type = /obj/item/gun/energy/lwap
 
 ////Slime-derived potions///
 
@@ -210,7 +233,7 @@
 	if(being_used || !ismob(target))
 		return FALSE
 	var/mob/M = target
-	if(!isanimal(M) || M.mind) //only works on animals that aren't player controlled
+	if(!isanimal_or_basicmob(M) || M.mind) // only works on animals that aren't player controlled
 		to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
 		return FALSE
 	if(M.stat)
@@ -253,7 +276,7 @@
 		SM.faction = user.faction
 		SM.master_commander = user
 		SM.sentience_act()
-		SM.set_can_collar(TRUE)
+		SM.AddElement(/datum/element/wears_collar)
 		to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 		to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 		if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
@@ -322,7 +345,7 @@
 	SM.universal_speak = TRUE
 	SM.faction = user.faction
 	SM.sentience_act() //Same deal here as with sentience
-	SM.set_can_collar(TRUE)
+	SM.AddElement(/datum/element/wears_collar)
 	user.death()
 	to_chat(SM, "<span class='notice'>In a quick flash, you feel your consciousness flow into [SM]!</span>")
 	to_chat(SM, "<span class='warning'>You are now [SM]. Your allegiances, alliances, and roles are still the same as they were prior to consciousness transfer!</span>")

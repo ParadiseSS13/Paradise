@@ -112,16 +112,35 @@
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
-/obj/item/storage/box/survival_syndi
-	icon_state = "syndi_box"
+/obj/item/storage/box/survival_syndie
+	icon_state = "syndie_box"
+	desc = "A sleek, sturdy box."
 
-/obj/item/storage/box/survival_syndi/populate_contents()
+/obj/item/storage/box/survival_syndie/populate_contents()
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/reagent_containers/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
+
+/obj/item/storage/box/survival_syndie/traitor/populate_contents()
+	new /obj/item/clothing/mask/gas/syndicate(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
+	new /obj/item/crowbar/small(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+	new /obj/item/flashlight/flare/glowstick/red(src)
+
+/obj/item/storage/box/survival_syndie/traitor/loot/populate_contents()
+	new /obj/item/crowbar/small(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+	new /obj/item/flashlight/flare/glowstick/red(src)
+
+/obj/item/storage/box/syndie_kit/loot/populate_contents()
+	new /obj/effect/spawner/random/syndie_mob_loot(src)
+
+/obj/item/storage/box/syndie_kit/loot/elite/populate_contents()
+	new /obj/effect/spawner/random/pool/spaceloot/syndicate/armory/elite(src)
 
 //////////////////
 /* Common Boxes */
@@ -550,6 +569,15 @@
 	for(var/I in 1 to 7)
 		new /obj/item/grenade/flashbang(src)
 
+/obj/item/storage/box/stingers
+	name = "box of stinger grenades (WARNING)"
+	desc = "<b>WARNING: These devices are dangerous and can cause significant physical harm with repeated use.</b>"
+	icon_state = "flashbang_box"
+
+/obj/item/storage/box/stingers/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/frag/stinger(src)
+
 /obj/item/storage/box/smoke_grenades
 	name = "smoke grenades"
 	desc = "A box with 7 smoke grenades."
@@ -952,6 +980,14 @@
 	new /obj/item/gun/projectile/automatic/pistol/deagle(src)
 	new /obj/item/ammo_box/magazine/m50(src)
 
+/obj/item/storage/box/marine_armor_export
+	name = "\improper Federation marine armor box"
+	desc = "A box containing a factory-fresh suit of export-grade Trans-Solar Marine Corps combat armor."
+
+/obj/item/storage/box/marine_armor_export/populate_contents()
+	new /obj/item/clothing/suit/armor/federation/marine/export(src)
+	new /obj/item/clothing/head/helmet/federation/marine/export(src)
+
 /obj/item/storage/box/skrell_suit
 	name = "skrellian suit box"
 	desc = "A box containing a skrell-designed medical spacesuit."
@@ -1200,6 +1236,21 @@
 /obj/item/storage/box/stockparts
 	display_contents_with_number = TRUE
 
+/obj/item/storage/box/smithboards
+	name = "the Liberator's fabricator"
+	desc = "A box containing a gift for golems with the will to create."
+	icon_state = "circuit_box"
+
+/obj/item/storage/box/smithboards/populate_contents()
+	new /obj/item/circuitboard/magma_crucible(src)
+	new /obj/item/circuitboard/casting_basin(src)
+	new /obj/item/circuitboard/casting_basin(src)
+	new /obj/item/circuitboard/power_hammer(src)
+	new /obj/item/circuitboard/lava_furnace(src)
+	new /obj/item/circuitboard/kinetic_assembler(src)
+	new /obj/item/vending_refill/smith(src)
+	new /obj/item/circuitboard/vendor(src)
+
 /// for ruins where it's a bad idea to give access to an autolathe/protolathe, but still want to make stock parts accessible
 /obj/item/storage/box/stockparts/basic
 	name = "box of stock parts"
@@ -1308,6 +1359,15 @@
 		new /obj/item/grenade/megafauna_hardmode(src)
 	new /obj/item/storage/lockbox/medal/hardmode_box(src)
 	new /obj/item/paper/hardmode(src)
+
+/obj/item/storage/box/oxygen_grenades
+	name = "oxygen grenades box"
+	desc = "A box full of oxygen grenades."
+	icon_state = "flashbang_box"
+
+/obj/item/storage/box/oxygen_grenades/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/gas/oxygen(src)
 
 /obj/item/storage/box/foam_grenades
 	name = "foam grenades box"

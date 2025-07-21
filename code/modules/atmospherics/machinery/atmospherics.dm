@@ -76,7 +76,7 @@ Pipelines + Other Objects -> Pipe network
 	// Updates all pipe overlays and underlays
 	update_underlays()
 
-/obj/machinery/atmospherics/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/obj/machinery/atmospherics/onShuttleMove(turf/oldT, turf/T1, rotation, mob/calling_mob)
 	. = ..()
 	update_underlays()
 
@@ -90,7 +90,7 @@ Pipelines + Other Objects -> Pipe network
 	return ..()
 
 // Icons/overlays/underlays
-/obj/machinery/atmospherics/update_icon()
+/obj/machinery/atmospherics/update_icon(updates=ALL)
 	if(check_icon_cache())
 		..(ALL)
 	else
@@ -465,5 +465,8 @@ Pipelines + Other Objects -> Pipe network
 	update_icon()
 	if(user)
 		to_chat(user, "<span class='notice'>You set the target pressure of [src] to maximum.</span>")
+
+/obj/machinery/atmospherics/proc/get_machinery_pipelines()
+	return list()
 
 #undef VENT_SOUND_DELAY

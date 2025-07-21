@@ -328,6 +328,7 @@
 	surgery.step_in_progress = TRUE
 
 	var/speed_mod = 1
+	var/fail_mod = 1
 	var/advance = FALSE
 	var/retry = FALSE
 	var/prob_success = 100
@@ -349,6 +350,8 @@
 
 	if(tool)
 		speed_mod = tool.toolspeed
+		for(var/obj/item/smithed_item/tool_bit/bit in tool.attached_bits)
+			fail_mod -= (bit.failure_rate / 100)
 
 	// Using an unoptimal tool slows down your surgery
 	var/implement_speed_mod = 1
@@ -356,7 +359,8 @@
 		implement_speed_mod = allowed_tools[implement_type] / 100.0
 
 	// They also have some interesting ways that surgery success/fail prob get evaluated, maybe worth looking at
-	speed_mod /= (get_location_modifier(target) * 1 + surgery.speed_modifier) * implement_speed_mod
+	if(!istype(surgery, /datum/surgery/dissect))
+		speed_mod /= (get_location_modifier(target) * 1 + surgery.speed_modifier) * implement_speed_mod
 	var/modded_time = time * speed_mod
 
 	if(slowdown_immune(user))
@@ -364,7 +368,8 @@
 
 	if(implement_type)	// If this is set, we aren't in an allow_hand or allow_any_item step.
 		prob_success = allowed_tools[implement_type]
-	prob_success *= get_location_modifier(target)
+	if(!istype(surgery, /datum/surgery/dissect))
+		prob_success *= get_location_modifier(target)
 
 	if(!do_after(user, modded_time, target = target))
 		surgery.step_in_progress = FALSE
@@ -373,6 +378,7 @@
 	var/chem_check_result = chem_check(target)
 	var/pain_mod = deal_pain(user, target, target_zone, tool, surgery)
 	prob_success *= pain_mod
+	prob_success *= fail_mod
 
 	var/step_result
 
@@ -401,6 +407,9 @@
 			surgery.complete(target)
 
 	surgery.step_in_progress = FALSE
+	if(tool)
+		for(var/obj/item/smithed_item/tool_bit/bit in tool.attached_bits)
+			bit.damage_bit()
 	if(advance)
 		INVOKE_ASYNC(src, PROC_REF(play_success_sound), user, target, target_zone, tool, surgery)
 		return SURGERY_INITIATE_SUCCESS

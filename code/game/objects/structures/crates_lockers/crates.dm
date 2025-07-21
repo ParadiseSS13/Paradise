@@ -358,6 +358,12 @@
 	icon_opened = "trashcart_open"
 	icon_closed = "trashcart"
 
+/obj/structure/closet/crate/trashcart/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
+
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
 	name = "medical crate"
@@ -618,17 +624,6 @@
 	new /obj/item/reagent_containers/cooking/bowl(src)
 	new /obj/item/reagent_containers/cooking/bowl(src)
 
-//crates of gear in the free golem ship
-/obj/structure/closet/crate/golemgear/populate_contents()
-	new /obj/item/storage/backpack/industrial(src)
-	new /obj/item/shovel(src)
-	new /obj/item/pickaxe(src)
-	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
-	new /obj/item/storage/bag/ore(src)
-	new /obj/item/clothing/glasses/meson(src)
-	new /obj/item/card/id/golem(src)
-	new /obj/item/flashlight/lantern(src)
-
 #define RECURSION_PANIC_AMOUNT 10
 
 /obj/structure/closet/crate/surplus
@@ -687,7 +682,9 @@
 	for(var/item in bought_items)
 		var/obj/purchased = new item(src)
 		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
-	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")
+	var/item_list = jointext(sortList(itemlog), ", ")
+	log_game("[key_name(user)] purchased a surplus crate with [item_list]")
+	user.create_log(MISC_LOG, "Surplus crate purchase with spawned items [item_list]")
 
 /obj/structure/closet/crate/surplus/proc/generate_refund(amount)
 	var/changing_amount = amount

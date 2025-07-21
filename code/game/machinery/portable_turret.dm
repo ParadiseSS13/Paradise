@@ -17,7 +17,8 @@
 	layer = ABOVE_OBJ_LAYER
 	var/raised = FALSE			//if the turret cover is "open" and the turret is raised
 	var/raising= FALSE			//if the turret is currently opening or closing its cover
-	var/health = 80			//the turret's health
+	/// The turret's health. The last 50 health is reserved for a broken state, so functional health default is 80.
+	var/health = 130
 	var/locked = TRUE			//if the turret's behaviour control access is locked
 	var/controllock = FALSE		//if the turret responds to control panels. TRUE = does NOT respond
 
@@ -73,6 +74,8 @@
 	var/initial_eprojectile = null
 	/// What non-lethal mode projectile with the turret start with?
 	var/initial_projectile = null
+	/// What lens is fitted to the turret/gun?
+	var/obj/item/smithed_item/lens/fitted_lens
 
 
 /obj/machinery/porta_turret/Initialize(mapload)
@@ -88,9 +91,23 @@
 	spark_system.attach(src)
 
 	setup()
+	AddElement(/datum/element/hostile_machine)
 
 /obj/machinery/porta_turret/Destroy()
 	QDEL_NULL(spark_system)
+	if(prob(35)) // Half chance of drops than proper deconstruction
+		if(installation)
+			var/obj/item/gun/energy/Gun = new installation(loc)
+			Gun.cell.charge = gun_charge
+			if(fitted_lens)
+				Gun.current_lens = fitted_lens
+				fitted_lens.forceMove(Gun)
+				Gun.current_lens.on_attached(Gun)
+			Gun.update_icon()
+		if(prob(50))
+			new /obj/item/stack/sheet/metal(loc, rand(1, 4))
+		if(prob(50))
+			new /obj/item/assembly/prox_sensor(loc)
 	return ..()
 
 /obj/machinery/porta_turret/centcom/Initialize(mapload)
@@ -381,6 +398,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(installation)
 			var/obj/item/gun/energy/Gun = new installation(loc)
 			Gun.cell.charge = gun_charge
+			if(fitted_lens)
+				Gun.current_lens = fitted_lens
+				fitted_lens.forceMove(Gun)
+				Gun.current_lens.on_attached(Gun)
 			Gun.update_icon()
 		if(prob(50))
 			new /obj/item/stack/sheet/metal(loc, rand(1,4))
@@ -389,6 +410,18 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	else
 		to_chat(user, "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>")
 	qdel(src) // qdel
+
+/obj/machinery/porta_turret/screwdriver_act(mob/living/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return FALSE
+
+	if(!fitted_lens)
+		to_chat(user, "<span class='notice'>[src] has no attached lenses.</span>")
+		return
+	to_chat(user, "<span class='notice'>You remove the lens from [src]</span>")
+	user.put_in_hands(fitted_lens)
+	fitted_lens = null
+	return TRUE
 
 /obj/machinery/porta_turret/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if((stat & BROKEN) && !syndicate)
@@ -404,6 +437,17 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		else
 			to_chat(user, "<span class='notice'>Access denied.</span>")
 
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/smithed_item/lens))
+		if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/smithed_item/lens/new_lens = used
+		if(fitted_lens)
+			to_chat(user, "<span class='notice'>You swap the fitted lens in [src].</span>")
+			user.put_in_hands(fitted_lens)
+		fitted_lens = new_lens
 		return ITEM_INTERACT_COMPLETE
 
 	if(user.a_intent == INTENT_HELP)
@@ -431,6 +475,18 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	else
 		to_chat(M, "<span class='danger'>That object is useless to you.</span>")
 	return
+
+/mob/living/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	attacker.changeNext_move(CLICK_CD_MELEE)
+	attacker.do_attack_animation(src)
+	if(attacker.melee_damage_upper == 0 || (attacker.melee_damage_type != BRUTE && attacker.melee_damage_type != BURN))
+		return FALSE
+	if(!(stat & BROKEN))
+		visible_message("<span class='danger'>[attacker] [attacker.attack_verb_continuous] [src]!</span>")
+		..()
+	else
+		to_chat(attacker, "<span class='danger'>That object is useless to you.</span>")
+	return TRUE
 
 /obj/machinery/porta_turret/attack_alien(mob/living/carbon/alien/humanoid/M)
 	M.changeNext_move(CLICK_CD_MELEE)
@@ -461,8 +517,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration_flat, armour_penetration_percentage)
-	if(stat & BROKEN)
-		return
 	if(!raised && !raising)
 		damage_amount = damage_amount / 8
 		if(damage_amount < 5)
@@ -471,8 +525,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	health -= damage_amount
 	if(damage_amount > 5 && prob(45) && spark_system && damage_flag != FIRE)
 		spark_system.start()
-	if(health <= 0)
+	if(health <= 50 && !(stat & BROKEN))
 		die()	//the death process :(
+	if(health <= 0)
+		Destroy()
 
 /obj/machinery/porta_turret/bullet_act(obj/item/projectile/Proj)
 	if(Proj.damage_type == STAMINA)
@@ -518,7 +574,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			take_damage(initial(health) * 8 / 3)
 
 /obj/machinery/porta_turret/proc/die()	//called when the turret dies, ie, health <= 0
-	health = 0
+	health = 50
 	stat |= BROKEN	//enables the BROKEN bit
 	if(spark_system)
 		spark_system.start()	//creates some sparks because they look cool
@@ -759,7 +815,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 
 	if(!emagged)	//if it hasn't been emagged, cooldown before shooting again
-		if((last_fired + shot_delay > world.time) || !raised)
+		var/delay_modifier = 1
+		if(fitted_lens)
+			delay_modifier = fitted_lens.fire_rate_mult
+		if((last_fired + (shot_delay / delay_modifier) > world.time) || !raised)
 			return
 		last_fired = world.time
 
@@ -779,9 +838,16 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			A = new projectile(loc)
 			playsound(loc, shot_sound, 75, 1)
 
+	var/lens_power_mult = 1
+	if(fitted_lens)
+		A.damage = A.damage * fitted_lens.damage_mult
+		A.stamina = A.damage * fitted_lens.damage_mult
+		A.speed = A.speed / fitted_lens.laser_speed_mult
+		lens_power_mult = fitted_lens.power_mult
+
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
-	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))
+	use_power(lens_power_mult * (reqpower * (2 * (emagged || lethal)) * (2 * emagged)))
 
 	if(istype(A))
 		A.original = target
@@ -816,7 +882,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/centcom/pulse
 	name = "pulse turret"
-	health = 200
+	health = 250
 	enabled = TRUE
 	lethal = TRUE
 	lethal_is_configurable = FALSE
@@ -868,6 +934,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/finish_name="turret"	//the name applied to the product turret
 	var/installation = null		//the gun type installed
 	var/gun_charge = 0			//the gun charge of the gun type installed
+	/// The lens attached to the gun used
+	var/obj/item/smithed_item/lens/gun_lens
 
 /obj/machinery/porta_turret_construct/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	//this is a bit unwieldy but self-explanatory
@@ -925,6 +993,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					return ITEM_INTERACT_COMPLETE
 				installation = used.type //installation becomes used.type
 				gun_charge = E.cell.charge //the gun's charge is stored in gun_charge
+				gun_lens = E.current_lens
 				to_chat(user, "<span class='notice'>You add [used] to the turret.</span>")
 
 				if(istype(E, /obj/item/gun/energy/laser/tag/blue))
@@ -1018,6 +1087,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		Turret.name = finish_name
 		Turret.installation = installation
 		Turret.gun_charge = gun_charge
+		gun_lens.forceMove(Turret)
+		Turret.fitted_lens = gun_lens
 		Turret.enabled = FALSE
 		Turret.setup()
 
@@ -1129,7 +1200,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	return 10 //Syndicate turrets shoot everything not in their faction
 
 /obj/machinery/porta_turret/syndicate/pod
-	health = 40
+	health = 90
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3
 
@@ -1160,12 +1231,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/syndicate/assault_pod
 	name = "machine gun turret (4.6x30mm)"
 	desc = "Syndicate exterior defense turret chambered for 4.6x30mm rounds. Designed to be fitted to assault pods, it uses low calliber bullets to save space."
-	health = 100
+	health = 150
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3
 
 /obj/machinery/porta_turret/syndicate/pod/nuke_ship_interior
-	health = 100
+	health = 150
 
 /obj/machinery/porta_turret/inflatable_turret
 	name = "Syndicate Pop-Up Turret"
@@ -1175,7 +1246,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	icon_state = "syndieturret0"
 	shot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	eshot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
-	health = 50
+	health = 100
 	syndicate = TRUE
 	installation = null
 	always_up = TRUE

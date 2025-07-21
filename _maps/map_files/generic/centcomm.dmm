@@ -780,8 +780,9 @@
 /turf/simulated/floor/carpet/purple,
 /area/wizard_station)
 "cV" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_ver{
-	name = "Syndicate Base Blast Door"
+/obj/machinery/door/poddoor/multi_tile/impassable{
+	name = "Syndicate Base Blast Door";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -982,16 +983,12 @@
 	},
 /area/holodeck/source_basketball)
 "dH" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plating,
 /area/centcom)
 "dI" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plating,
 /area/centcom)
 "dJ" = (
@@ -1065,9 +1062,7 @@
 /area/holodeck/source_basketball)
 "eb" = (
 /obj/effect/decal/cleanable/blood,
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plating,
 /area/centcom)
 "ec" = (
@@ -1281,10 +1276,7 @@
 /turf/simulated/floor/pod/dark,
 /area/syndicate_mothership)
 "eW" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2126,6 +2118,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
+"hR" = (
+/obj/machinery/economy/vending/dinnerware,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "hS" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/plasteel{
@@ -3064,9 +3062,10 @@
 /turf/simulated/wall/indestructible/opsglass,
 /area/syndicate_mothership/jail)
 "lh" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable{
 	id_tag = "nukeop_base";
-	name = "Syndicate Base Docking Area Blast Door"
+	name = "Syndicate Base Docking Area Blast Door";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
@@ -3736,9 +3735,7 @@
 /obj/machinery/door/window/reinforced/reversed{
 	name = "Tactical Toilet"
 	},
-/obj/structure/toilet{
-	pixel_y = 13
-	},
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "np" = (
@@ -4231,8 +4228,9 @@
 	},
 /area/centcom/specops)
 "oQ" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
-	name = "Trading Satellite Central Access"
+/obj/machinery/door/poddoor/multi_tile/impassable/quad{
+	name = "Trading Satellite Central Access";
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/trader_station/sol)
@@ -4315,10 +4313,7 @@
 /turf/simulated/wall/r_wall,
 /area/start)
 "pi" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror/magic/nuclear{
 	pixel_x = 28
 	},
@@ -4582,6 +4577,12 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_thunderdomecourt)
+"qk" = (
+/obj/machinery/cooking/deepfryer/upgraded,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "ql" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/drinks/mug/med,
@@ -5364,6 +5365,22 @@
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
+"sH" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "sK" = (
 /turf/simulated/floor/plasteel/stairs/left,
 /area/syndicate_mothership)
@@ -5913,10 +5930,7 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "uJ" = (
@@ -6041,6 +6055,7 @@
 	pixel_x = -2;
 	pixel_y = 1
 	},
+/obj/item/dissector,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "vl" = (
@@ -6229,6 +6244,8 @@
 "vM" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
+/obj/item/organ/internal/heart/xenobiology/cursed_bananium,
+/obj/item/organ/internal/heart/xenobiology/bananium,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "vN" = (
@@ -6446,6 +6463,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
+/obj/item/dissector/alien,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "wA" = (
@@ -6459,10 +6477,7 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
 "wE" = (
@@ -6506,9 +6521,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "wI" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/structure/window/reinforced/tinted,
 /obj/machinery/door/window{
 	dir = 8;
@@ -6525,23 +6538,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ghost_bar)
 "wN" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -8;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = -8
-	},
-/obj/item/kitchen/knife,
-/obj/item/reagent_containers/condiment/enzyme{
-	pixel_y = 5
-	},
-/obj/machinery/reagentgrinder{
-	desc = "Used to grind things up into raw materials and liquids.";
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/glass/beaker/large,
+/obj/structure/closet/crate/cookware,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6631,9 +6628,7 @@
 /turf/simulated/floor/carpet,
 /area/admin)
 "xa" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/structure/window/reinforced/tinted{
 	dir = 1
 	},
@@ -6988,10 +6983,7 @@
 	},
 /area/centcom/evac)
 "yI" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = 32
 	},
@@ -7154,10 +7146,7 @@
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "zw" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = 32
 	},
@@ -7239,7 +7228,9 @@
 /area/centcom/specops)
 "zP" = (
 /obj/machinery/light/small,
-/obj/machinery/economy/vending/dinnerware,
+/obj/machinery/smartfridge/foodcart{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7271,9 +7262,8 @@
 /turf/simulated/floor/wood,
 /area/syndicate_mothership)
 "zY" = (
-/obj/machinery/smartfridge/foodcart{
-	dir = 4
-	},
+/obj/structure/table/reinforced,
+/obj/machinery/cooking/stovetop,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7638,6 +7628,12 @@
 /obj/machinery/economy/vending/tool/free,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"Bn" = (
+/obj/machinery/icemachine,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "Bo" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/drinkingglasses,
@@ -7925,10 +7921,7 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Cp" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7952,9 +7945,7 @@
 /area/admin)
 "Ct" = (
 /obj/effect/decal/cleanable/blood,
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "Cu" = (
@@ -8152,7 +8143,10 @@
 	},
 /area/tdome/tdomeadmin)
 "Dk" = (
-/obj/machinery/cooking/oven/upgraded,
+/obj/structure/table/reinforced,
+/obj/item/storage/bag/tray,
+/obj/item/kitchen/rollingpin,
+/obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -8342,10 +8336,7 @@
 /turf/simulated/floor/engine,
 /area/admin)
 "DS" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -32
-	},
-/obj/item/kirbyplants/large,
+/obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -8356,9 +8347,7 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 1
 	},
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/machinery/door/window{
 	dir = 8;
 	name = "Toilet";
@@ -8664,6 +8653,11 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/reagentgrinder{
+	desc = "Used to grind things up into raw materials and liquids.";
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/glass/beaker/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -8806,10 +8800,7 @@
 /obj/structure/curtain/open/shower/security,
 /obj/item/soap/syndie,
 /obj/item/bikehorn/rubberducky/captainducky,
-/obj/machinery/shower{
-	dir = 1;
-	pixel_y = -2
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "FB" = (
@@ -9393,9 +9384,7 @@
 	},
 /area/syndicate_mothership)
 "Hy" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
 "Hz" = (
@@ -9430,10 +9419,7 @@
 	},
 /area/ghost_bar)
 "HE" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = -2
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
@@ -9940,6 +9926,12 @@
 "Jn" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/suppy)
+"Jo" = (
+/obj/machinery/chem_master/condimaster,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "Jq" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/shell/beanbag,
@@ -10205,7 +10197,7 @@
 /area/ghost_bar)
 "Kb" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple{
 	id_tag = "sec";
 	name = "CentCom Security"
 	},
@@ -10245,7 +10237,7 @@
 /area/centcom/specops)
 "Ki" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple{
 	id_tag = "CC";
 	name = "Thunderdome Access"
 	},
@@ -10517,9 +10509,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
 "Lc" = (
-/obj/structure/toilet{
-	pixel_y = 13
-	},
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "Le" = (
@@ -10686,9 +10676,7 @@
 	},
 /area/ghost_bar)
 "LG" = (
-/obj/structure/sink{
-	pixel_y = 24
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -11277,7 +11265,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "Nz" = (
-/obj/structure/filingcabinet/security,
+/obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -11653,10 +11641,7 @@
 /area/space/nearstation/centcom)
 "OL" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 1;
-	pixel_y = -2
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/window/basic{
 	dir = 1
 	},
@@ -12104,7 +12089,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Qh" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/four_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/quad{
 	name = "Special Operations Engineering Storage";
 	id_tag = "SpecopsEngineering"
 	},
@@ -12158,9 +12143,10 @@
 /area/centcom/specops)
 "Qs" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple{
 	id_tag = "CCTELE";
-	name = "Specops Teleporter"
+	name = "Specops Teleporter";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -12335,9 +12321,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "QZ" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/structure/window/reinforced/tinted{
 	dir = 1
 	},
@@ -12606,7 +12590,7 @@
 	},
 /area/centcom/control)
 "RW" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple{
 	id_tag = "specopsoffice";
 	name = "Privacy Shield"
 	},
@@ -13313,6 +13297,15 @@
 	icon_state = "dark"
 	},
 /area/ghost_bar)
+"US" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "UT" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
@@ -13375,6 +13368,16 @@
 	icon_state = "red"
 	},
 /area/centcom/evac)
+"Vh" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cooking/grill/upgraded,
+/obj/item/stack/sheet/wood{
+	amount = 30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "Vi" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
@@ -13476,7 +13479,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "VD" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_hor{
+/obj/machinery/door/poddoor/multi_tile/impassable{
 	id_tag = "CCDOCK2";
 	name = "Special Operations Secondary Dock"
 	},
@@ -13554,6 +13557,12 @@
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/grass/no_creep,
 /area/shuttle/escape)
+"VR" = (
+/obj/machinery/processor,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "VS" = (
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
 	dir = 8;
@@ -13576,6 +13585,12 @@
 	icon_state = "brown"
 	},
 /area/shuttle/escape)
+"VW" = (
+/obj/machinery/cooking/ice_cream_mixer/upgraded,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "VX" = (
 /obj/item/bikehorn/rubberducky,
 /obj/structure/window/basic{
@@ -14016,9 +14031,10 @@
 	},
 /area/centcom/evac)
 "Xh" = (
-/obj/machinery/door/poddoor/multi_tile/impassable/two_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable{
 	id_tag = "specopsoffice";
-	name = "Privacy Shield"
+	name = "Privacy Shield";
+	dir = 4
 	},
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
@@ -14044,9 +14060,10 @@
 /area/shuttle/escape)
 "Xn" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/multi_tile/impassable/three_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/triple{
 	id_tag = "SpecopsFerry";
-	name = "Special Operations Ferry Hangar"
+	name = "Special Operations Ferry Hangar";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
@@ -14214,8 +14231,8 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/specops)
 "XR" = (
-/obj/machinery/processor,
 /obj/structure/sign/poster/official/fruit_bowl/directional/north,
+/obj/machinery/cooking/oven/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -14765,11 +14782,19 @@
 	icon_state = "darkred"
 	},
 /area/centcom/specops)
+"ZE" = (
+/obj/machinery/atmospherics/refill_station/nitrogen,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "ZF" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
+/obj/machinery/door/poddoor/multi_tile/impassable/quad{
 	id_tag = "ASSAULT";
-	name = "Assault Armor"
+	name = "Assault Armor";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -34065,7 +34090,7 @@ Ji
 Ra
 Xz
 RD
-Of
+ZE
 Ra
 Ra
 Ra
@@ -35356,7 +35381,7 @@ uX
 uX
 uX
 cC
-Xz
+US
 Zr
 NZ
 ic
@@ -74692,10 +74717,10 @@ Sh
 Bc
 Me
 XR
-wN
+es
 Dk
 zY
-xU
+es
 zP
 Me
 Jy
@@ -74948,12 +74973,12 @@ Me
 Me
 Me
 Me
-Me
-Me
-Me
-Me
-Me
-Me
+qk
+es
+Vh
+sH
+es
+Bn
 Me
 Jy
 RX
@@ -75204,13 +75229,13 @@ ps
 ps
 ps
 ps
-ps
-ps
-ps
-ps
-ps
-ps
 Me
+VW
+es
+es
+es
+es
+es
 Me
 gS
 xY
@@ -75460,14 +75485,14 @@ ps
 ps
 ps
 ps
-OK
-OK
-ps
-ps
-ps
-ps
 ps
 Me
+VR
+es
+xU
+Jo
+wN
+hR
 Me
 Me
 Me
@@ -75717,15 +75742,15 @@ ps
 ps
 ps
 OK
-aN
-aN
-OK
 ps
-ps
-ps
-ps
-ps
-ps
+Me
+Me
+Me
+Me
+Me
+Me
+Me
+Me
 ps
 ps
 Me
@@ -75974,13 +75999,13 @@ OK
 ps
 ps
 OK
-aN
-aN
-aN
-aN
+OK
 ps
-OK
-OK
+ps
+ps
+ps
+ps
+ps
 ps
 ps
 ps
@@ -76232,11 +76257,11 @@ OK
 OK
 aN
 aN
-aN
-aN
-aN
-aN
-aN
+OK
+OK
+OK
+OK
+OK
 OK
 OK
 OK

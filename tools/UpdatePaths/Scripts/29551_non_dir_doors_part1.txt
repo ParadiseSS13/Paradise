@@ -1,0 +1,9 @@
+/obj/machinery/door/poddoor/multi_tile/directional/north : /obj/machinery/door/poddoor{@OLD}
+/obj/machinery/door/poddoor/multi_tile/directional/east : /obj/machinery/door/poddoor{@OLD}
+/obj/machinery/door/poddoor/multi_tile/directional/west : /obj/machinery/door/poddoor{@OLD}
+/obj/machinery/door/poddoor/multi_tile/directional/south : /obj/machinery/door/poddoor{@OLD}
+
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/north : /obj/machinery/door/poddoor/impassable{@OLD}
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/east : /obj/machinery/door/poddoor/impassable{@OLD}
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/west : /obj/machinery/door/poddoor/impassable{@OLD}
+/obj/machinery/door/poddoor/multi_tile/impassable/directional/south : /obj/machinery/door/poddoor/impassable{@OLD}

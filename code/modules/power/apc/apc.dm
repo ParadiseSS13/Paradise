@@ -20,12 +20,8 @@
 	move_resist = INFINITY
 
 	/*** APC construction vars***/
-	// These exist here and not as defines in `apc_defines.dm` so they can be modified for `test_apc_construction.dm`. I hate that these timers exist at all.
-	var/apc_cover_replacement_time = 2 SECONDS
-	var/apc_frame_replacement_time = 5 SECONDS
-	var/apc_frame_welding_time = 5 SECONDS
-	var/apc_electronics_installation_time = 1 SECONDS
-	var/apc_electronics_crowbar_time = 5 SECONDS
+	// These exist here and not as defines in `apc_defines.dm` so they can be modified for `test_apc_construction.dm`.
+	var/apc_frame_welding_time = 2 SECONDS
 	var/apc_terminal_wiring_time = 2 SECONDS
 
 	// set so that APCs aren't found as powernet nodes //Hackish, Horrible, was like this before I changed it :(
@@ -335,18 +331,39 @@
 	// Adding APC electronics.
 	if(istype(used, /obj/item/apc_electronics) && opened)
 		if(has_electronics())
-			to_chat(user, "<span class='warning'>[src] already contains APC electronics!</span>")
-			return ITEM_INTERACT_COMPLETE
+			if(user.mind && HAS_TRAIT(user.mind, TRAIT_ELECTRICAL_SPECIALIST))
+				if(stat & BROKEN)
+					to_chat(user, "<span class='warning'>[src] is damaged! You must repair the frame before you can install [used]!</span>")
+					return ITEM_INTERACT_COMPLETE
+				if(malfhack)
+					malfai = null
+					malfhack = FALSE
+					user.visible_message(\
+						"<span class='notice'>[name] has discarded the strangely programmed APC electronics from [src]!</span>",
+						"<span class='notice'>You discarded the strangely programmed board.</span>",
+						"<span class='warning'>You hear metallic levering.</span>"
+						)
+				else
+					user.visible_message(
+							"<span class='notice'>[user] exchanges out broken the APC electronics inside [src]!</span>",
+							"<span class='notice'>You carefully remove the charred electronics, replacing it with a functional board.</span>",
+							"<span class='warning'>You hear metallic levering and a crack, followed by a gentle click.</span>")
+				playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+				qdel(used)
+				electronics_state = APC_ELECTRONICS_INSTALLED
+				locked = FALSE
+				stat &= ~MAINT
+				update_icon()
+				return ITEM_INTERACT_COMPLETE
+			else
+				to_chat(user, "<span class='warning'>[src] already contains APC electronics!</span>")
+				return ITEM_INTERACT_COMPLETE
 
 		if(stat & BROKEN)
 			to_chat(user, "<span class='warning'>[src] is damaged! You must repair the frame before you can install [used]!</span>")
 			return ITEM_INTERACT_COMPLETE
 
 		if(!has_electronics())
-			to_chat(user, "<span class='notice'>You start to add [used] to [src].</span>")
-			if(!do_after(user, apc_electronics_installation_time, target = src))
-				return ITEM_INTERACT_COMPLETE
-
 			user.visible_message(
 				"<span class='notice'>[user] installs [used] into [src].</span>",
 				"<span class='notice'>You install [used] into [src].</span>"
@@ -359,7 +376,7 @@
 			qdel(used)
 		return ITEM_INTERACT_COMPLETE
 
-	// APC frame repair.
+	// APC frame repair. Instant, but you consume 2 metal instead of doing it for free.
 	if(istype(used, /obj/item/mounted/frame/apc_frame) && opened)
 		if(!(stat & BROKEN || opened == APC_COVER_OFF || obj_integrity < max_integrity))
 			to_chat(user, "<span class='warning'>[src] has no damage to fix!</span>")
@@ -367,10 +384,6 @@
 
 		// Only cover is broken, no need to remove any components.
 		if(!(stat & BROKEN) && opened == APC_COVER_OFF)
-			to_chat(user, "<span class='notice'>You begin to replace the missing cover of [src].</span>")
-			if(!do_after(user, apc_cover_replacement_time, target = src))
-				return ITEM_INTERACT_COMPLETE
-
 			user.visible_message(
 				"<span class='notice'>[user] replaces the missing cover of [src].</span>",
 				"<span class='notice'>You replace the missing cover of [src].</span>"
@@ -380,12 +393,8 @@
 			update_icon()
 			return ITEM_INTERACT_COMPLETE
 
-		if(has_electronics())
+		if(has_electronics() && user.mind && !HAS_TRAIT(user.mind, TRAIT_ELECTRICAL_SPECIALIST))
 			to_chat(user, "<span class='warning'>You cannot repair [src] until you remove the electronics!</span>")
-			return ITEM_INTERACT_COMPLETE
-
-		to_chat(user, "<span class='notice'>You begin to replace the damaged APC frame...</span>")
-		if(!do_after(user, apc_frame_replacement_time, target = src))
 			return ITEM_INTERACT_COMPLETE
 
 		user.visible_message(

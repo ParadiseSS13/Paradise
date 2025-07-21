@@ -477,6 +477,10 @@
 	linked_emote = /datum/emote/living/carbon/human/quill
 	name = "Quill"
 
+/datum/keybinding/emote/carbon/human/caw
+	linked_emote = /datum/emote/living/carbon/human/caw
+	name = "Caw"
+
 /datum/keybinding/emote/carbon/human/warble
 	linked_emote = /datum/emote/living/carbon/human/warble
 	name = "Warble"
@@ -504,6 +508,10 @@
 /datum/keybinding/emote/carbon/human/hiss
 	linked_emote = /datum/emote/living/carbon/human/hiss
 	name = "Hiss (Unathi)"
+
+/datum/keybinding/emote/carbon/human/thump
+	linked_emote = /datum/emote/living/carbon/human/thump
+	name = "Tail Thump"
 
 /datum/keybinding/emote/carbon/human/creak
 	linked_emote = /datum/emote/living/carbon/human/creak

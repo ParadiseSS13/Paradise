@@ -51,6 +51,12 @@ As the Research Director, you can spy on and even forge PDA communications with 
 As a Scientist, you can maximize the number of uses you get out of a slime by feeding it slime steroid, created from purple slimes, while alive. You can then apply extract enhancer, created from cerulean slimes, on each extract.
 As a Scientist, you can disable anomalies by scanning them with an analyzer, then send a signal on the frequency it gives you with a remote signaling device. This will leave behind an anomaly core, which can be used to construct nifty gadgets!
 As a Scientist, researchable stock parts can seriously improve the efficiency and speed of machines around the station. In some cases, it can even unlock new functions.
+As a Scientist, upgrading the Destructive Analyzer allows it to recycle a bit of materials after breaking down an item.
+As a Scientist or Engineer, you can enhance the AI's programs by building processing and network nodes! Even if they are standalone machines without many upgrades, the silicons are sure to appreciate the improvements!
+As a Xenobiologist, the organ extractor can be used in place of a dissector tool when extracting organs to retrieve a functional organ immediately. Who needs slimes?
+Xenobiologists are granted teleporter access, allowing them immediate transportation to corpses otherwise unable to be brought to the science department. Make sure you can find your way back!
+Not all alien organs are created equal. The quality of extracted organs can amplify or suppress its effects, and sometimes this even grants special effects!
+As a Xenobiologist, get out of your basement and actually do some field work to get those organs you lazy bums!
 As a Roboticist, keep an ear out for anomaly announcements. If you get your hands on a bluespace anomaly core, you can build a Phazon mech!
 As a Roboticist, you can repair your cyborgs with a welding tool. If they have taken burn damage, you can remove their battery, expose the wiring with a screwdriver and replace their wires with a cable coil.
 As a Roboticist, you can use a multitool on an empty cyborg shell to alter various settings, including whether it will connect to the AI.
@@ -58,6 +64,9 @@ As a Roboticist, you can augment people with cyborg limbs. Augmented limbs can e
 As the AI, you can click on people's names to look at them. This only works if there are cameras that can see them, they aren't wearing agent IDs, or aren't using digital camouflage as changelings.
 As the AI, you can quickly open and close doors by holding shift while clicking them, bolt them when holding ctrl, and even shock them while holding alt.
 As the AI, you can take pictures with your camera and upload them to newscasters.
+As the AI, if you dislike which programs you have spent your initial memory and bandwidth on, there is a program reset disk located near your core. Ask the Captain or Research Director for assistance!
+As the AI, you have a fairly diverse list of programs available to use. They can do anything from heal injured crew, to seal off breaches with metal foam, to even generate a revenue stream!
+As the AI, your Nanite Repair and Power Shunt programs initially do not work on IPCs. Gaining and enhancing the Universal Adapter program will allow you to better support your machine crew!
 As a Cyborg, choose your module carefully, as only a cyborg reset module will let you repick it.
 As a Cyborg, you are immune to most forms of stunning, and excel at almost everything far better than humans. However, flashes can easily stunlock you and there are many tasks you cannot perform as your grippers will not allow you to.
 As a Cyborg, you are impervious to fires and heat. If you are rogue, you can release plasma fires everywhere and walk through them without a care in the world!
@@ -123,6 +132,11 @@ As a Cargo Technician, you can order contraband items from the supply shuttle co
 As a Cargo Technician, you can earn more cargo points by shipping back crates from maintenance, plasma sheets, rare seeds from hydroponics, technology disks from R&D, and more!
 As a Shaft Miner, the north side of Lavaland has a lot more rare minerals than on the south, but is a lot more dangerous.
 As a Shaft Miner, always have a GPS on you, so a fellow miner or cyborg can come to save you if you die.
+As the Smith, examining is your friend! Your trained eye can tell if something is too hot to touch, how many strikes it takes to complete something, and how to use and configure your machines and casts!
+As the Smith, you start with a Rapid Crate Sender in your locker. Using it and some metal to make a locker can save you a lot of time walking back and forth to the ORM!
+As the Smith, your apron and bomber jacket can carry more plates than normal, allowing for unique modification combinations not available to most others!
+As an Explorer, you may find rare ore exclusive to space-bound asteroids. This ore is quite valuable, as it is worth many points to smelt, and can be used to create advanced modifications by the smith!
+As an Explorer, the whiteship's docking area signaller can be alt-clicked to send the ship to any available port. Create a port and use the signaller to instantly call the ship to you from anywhere!
 As a Traitor, the cryptographic sequencer (emag) can not only open doors, but also lockers, crates, APCs and more. It can hack cyborgs, and even cause bots to go berserk. Use it on the right machines, and you can even order more traitor gear or contact the Syndicate. Experiment!
 As a Traitor, subverting the AI to serve you can make it an extremely powerful ally. However, be careful of the wording in the laws you give it, as it may use your poorly written laws against you!
 As a Traitor, the Captain and the Head of Security are two of the most difficult to kill targets on the station. If either one is your target, plan carefully.
@@ -152,6 +166,7 @@ As the Blob, removing strong blobs, resource nodes, factories, and nodes will gi
 As the Blob, talking will send a message to all other overminds, allowing you to direct attacks and coordinate.
 As a Changeling, the Extract DNA sting counts for your genome absorb objective, but does not let you respec your powers.
 As a Changeling, you can absorb someone by strangling them and using the Absorb verb; this gives you the ability to rechoose your powers, the DNA of whoever you absorbed, the memory of the absorbed, and some samples of things the absorbed said.
+As a mindflayer, make sure to target the torso of IPCs to feed, since their brains are in their chest.
 As a Cultist, do not cause too much chaos before your objective is completed. If the shuttle gets called too soon, you may not have enough time to win.
 As a Cultist, your team starts off very weak, but if necessary can quickly convert everything they have into raw power. Make sure you have the numbers and equipment to support going loud, or the cult will fall flat on its face.
 As a Cultist, the Blood Boil rune will deal massive amounts of burn damage to non-cultists and set them on fire. However, two cultists have to be standing at the rune for its duration.
@@ -191,7 +206,6 @@ When hacking doors, cutting and mending a "test light wire" will restore power t
 When crafting most items, you can either manually combine parts or use the crafting menu.
 Suit storage units not only remove blood and dirt from clothing, but also radiation!
 Sleeping in a bed can heal minor amounts of brute and burn damage. It can also cure the common cold.
-The Experimentor has a chance to spawn hostile mobs. Be ready to run for your life when using it.
 Space ruins can contain all kinds of interesting goodies, even a wand that can raise the dead!
 Having a mindshield, or having an agent ID card will make officer Beepsky consider you less arrest-worthy.
 You can make lasertag turrets, for the ultimate lasertag tournament.
@@ -200,3 +214,7 @@ You can hide paper in vents, but you have to use a screwdriver to open it first.
 While the Standard Operating Procedures aren't fully rules, they are there for safety and professional reasons.
 Killing the Wizard usually ends the round, unless they are a lich or Space Wizard Federation is RAGING.
 The admins are not omnipotent and can miss things that happen during the chaos of a round. If someone is breaking the rules, you can press F1 or use the Ahelp verb to notify them. Even if there are no admins online, the Ahelp will be recorded. It also gets sent to a special channel on the Paradise Discord.
+Luxury bluespace shelters protect you from all weather on Lavaland, even acid rain!
+The doppler radar on the mining station can be upgraded by R&D to predict the time and type of the next weather pattern.
+Unlike other energy weapons, the SPRK-12 pistol is not only immune to EMPs, but fully recharges when hit by one!
+Volcanic activity can be just as helpful as harmful. Those boulders are full of precious minerals!

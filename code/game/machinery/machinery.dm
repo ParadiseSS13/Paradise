@@ -38,7 +38,7 @@
 
 /obj/machinery/Initialize(mapload)
 	. = ..()
-	GLOB.machines += src
+	SSmachines.register_machine(src)
 
 	var/area/machine_area = get_area(src)
 	if(machine_area)
@@ -81,7 +81,7 @@
 /obj/machinery/Destroy()
 	change_power_mode(NO_POWER_USE) //we want to clear our static power usage on the local powernet
 	machine_powernet?.unregister_machine(src)
-	GLOB.machines.Remove(src)
+	SSmachines.unregister_machine(src)
 	if(!speed_process)
 		STOP_PROCESSING(SSmachines, src)
 	else
@@ -440,7 +440,7 @@
 				if(B.reagents.maximum_volume <= A.reagents.maximum_volume)
 					continue
 				W.remove_from_storage(B, src)
-				W.handle_item_insertion(A, TRUE)
+				W.handle_item_insertion(A, user, TRUE)
 				component_parts -= A
 				component_parts += B
 				B.loc = null

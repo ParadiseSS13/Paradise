@@ -76,10 +76,7 @@
 	},
 /area/ruin/space/syndicate_listening_station/asteroid)
 "hQ" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -442,9 +439,7 @@
 /area/ruin/space/syndicate_listening_station)
 "Go" = (
 /obj/structure/chair/office/dark,
-/mob/living/simple_animal/hostile/syndicate{
-	name = "Syndicate Communications Officer"
-	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "Gy" = (
@@ -468,7 +463,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
 "Ie" = (
-/obj/structure/spawner/mining/basilisk,
+/obj/structure/spawner/mining/basilisk/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
 "Il" = (
@@ -494,9 +489,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "KM" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/north,
 /obj/item/soap/syndie,
 /obj/item/bikehorn/rubberducky,
 /obj/structure/curtain/open/shower/security,
@@ -655,9 +648,7 @@
 	},
 /area/ruin/space/syndicate_listening_station/asteroid)
 "Xm" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/mineral/silver,
 /area/ruin/space/syndicate_listening_station)
 "Xz" = (

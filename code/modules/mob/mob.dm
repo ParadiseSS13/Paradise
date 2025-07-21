@@ -258,7 +258,8 @@
 //set del_on_fail to have it delete W if it fails to equip
 //set disable_warning to disable the 'you are unable to equip that' warning.
 /mob/proc/equip_to_slot_if_possible(obj/item/W, slot, del_on_fail = FALSE, disable_warning = FALSE, initial = FALSE)
-	if(!istype(W)) return 0
+	if(!istype(W))
+		return FALSE
 
 	if(!W.mob_can_equip(src, slot, disable_warning))
 		if(del_on_fail)
@@ -267,10 +268,10 @@
 			if(!disable_warning)
 				to_chat(src, "<span class='warning'>You are unable to equip that.</span>")//Only print if del_on_fail is false
 
-		return 0
+		return FALSE
 
 	equip_to_slot(W, slot, initial) //This proc should not ever fail.
-	return 1
+	return TRUE
 
 //This is an UNSAFE proc. It merely handles the actual job of equipping. All the checks on whether you can or can't eqip need to be done before! Use mob_can_equip() for that task.
 //In most cases you will want to use equip_to_slot_if_possible()
@@ -671,20 +672,24 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(examined == src)
 		return
 
-	// Only ones who can see both examining mob and examined item
-	var/list/can_see_examine = viewers(examined) & viewers(2, src)
-
 	// If TRUE, the usr's view() for the examined object too
 	var/examining_worn_item = FALSE
+	var/examining_stored_item = FALSE
 	var/loc_str = "at something off in the distance."
 
 	if(isitem(examined))
 		var/obj/item/I = examined
 		if(I.in_storage)
+			while(isstorage(I.loc)) // grab the top level storage item
+				I = I.loc
 			if(get(I, /mob/living) == src)
-				loc_str = "inside [p_their()] [I.loc.name]..."
+				if(istype(I, /obj/item/storage/hidden_implant)) // Don't annnounce items in a bluespace pocket.
+					return
+				loc_str = "inside [p_their()] [I.name]..."
 			else
-				loc_str = "inside [I.loc]..."
+				loc_str = "inside [I]..."
+
+			examining_stored_item = TRUE
 
 		else if(I.loc == src)
 			// Hide items in pockets.
@@ -696,16 +701,21 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			examining_worn_item = TRUE
 
 	var/can_see_str = "<span class='subtle'>\The [src] looks at [examined].</span>"
-	if(examining_worn_item)
+	if(examining_worn_item || examining_stored_item)
 		can_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
 
 	var/cannot_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
 
-	for(var/mob/M as anything in can_see_examine)
+	var/list/can_see_target = hearers(examined)
+	// Don't broadcast if we can't see the item.
+	if(!(examining_stored_item || examining_worn_item) && !(src in can_see_target))
+		return
+
+	for(var/mob/M as anything in viewers(2, src))
 		if(!M.client || M.stat != CONSCIOUS ||HAS_TRAIT(M, TRAIT_BLIND))
 			continue
 
-		if(examining_worn_item || (M == src))
+		if(examining_worn_item || (M == src) || (M in can_see_target))
 			to_chat(M, can_see_str)
 		else
 			to_chat(M, cannot_see_str)
@@ -902,6 +912,18 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		onclose(usr, "[name]")
 	if(href_list["flavor_change"])
 		update_flavor_text()
+	if(href_list["station_report"])
+		var/obj/item/clipboard/station_report/report = GLOB.station_report
+		if(!istype(report))
+			to_chat(src, "<span class='notice'>Nobody wrote a station report this shift!</span>")
+		else if(!report.toppaper)
+			to_chat(src, "<span class='notice'>Nobody wrote a station report this shift!</span>")
+		else if(istype(report.toppaper, /obj/item/paper_bundle))
+			var/obj/item/paper_bundle/report_page = report.toppaper
+			report_page.show_content(src)
+		else if(istype(report.toppaper, /obj/item/paper))
+			var/obj/item/paper/report_page = report.toppaper
+			report_page.show_content(src)
 
 	if(usr != src)
 		return TRUE
@@ -1275,34 +1297,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			target -= target[length(target)]//remove the last log
 
 	target += new_log
-
-/mob/vv_get_dropdown()
-	. = ..()
-	.["Show player panel"] = "byond://?_src_=vars;mob_player_panel=[UID()]"
-
-	.["Give Spell"] = "byond://?_src_=vars;give_spell=[UID()]"
-	.["Give Martial Art"] = "byond://?_src_=vars;givemartialart=[UID()]"
-	.["Give Disease"] = "byond://?_src_=vars;give_disease=[UID()]"
-	.["Toggle Godmode"] = "byond://?_src_=vars;godmode=[UID()]"
-	.["Toggle Build Mode"] = "byond://?_src_=vars;build_mode=[UID()]"
-
-	.["Make 2spooky"] = "byond://?_src_=vars;make_skeleton=[UID()]"
-	.["Hallucinate"] = "byond://?_src_=vars;hallucinate=[UID()]"
-
-	.["Assume Direct Control"] = "byond://?_src_=vars;direct_control=[UID()]"
-	.["Offer Control to Ghosts"] = "byond://?_src_=vars;offer_control=[UID()]"
-	.["Drop Everything"] = "byond://?_src_=vars;drop_everything=[UID()]"
-
-	.["Regenerate Icons"] = "byond://?_src_=vars;regenerateicons=[UID()]"
-	.["Add Language"] = "byond://?_src_=vars;addlanguage=[UID()]"
-	.["Remove Language"] = "byond://?_src_=vars;remlanguage=[UID()]"
-	.["Add Organ"] = "byond://?_src_=vars;addorgan=[UID()]"
-	.["Remove Organ"] = "byond://?_src_=vars;remorgan=[UID()]"
-
-	.["Add Verb"] = "byond://?_src_=vars;addverb=[UID()]"
-	.["Remove Verb"] = "byond://?_src_=vars;remverb=[UID()]"
-
-	.["Gib"] = "byond://?_src_=vars;gib=[UID()]"
 
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()

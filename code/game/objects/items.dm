@@ -182,6 +182,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/bit_failure_rate = 0
 	/// Efficiency modifier for tools that use energy or fuel
 	var/bit_efficiency_mod = 1
+	/// Productivity modifier for tools
+	var/bit_productivity_mod = 1
 
 	///////////////////////////
 	// MARK: item hover FX
@@ -1066,3 +1068,15 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /// Changes the speech verb when wearing this item if a value is returned
 /obj/item/proc/change_speech_verb()
 	return
+
+/obj/item/proc/set_nodrop(set_value, user)
+	switch(set_value)
+		if(TRUE)
+			flags |= NODROP
+		if(FALSE)
+			flags &= ~NODROP
+		if(NODROP_TOGGLE)
+			flags ^= NODROP
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		C.update_hands_hud()

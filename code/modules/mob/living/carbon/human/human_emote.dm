@@ -660,6 +660,20 @@
 	sound = "sound/effects/voxrustle.ogg"
 	species_type_whitelist_typecache = list(/datum/species/vox)
 
+/datum/emote/living/carbon/human/caw
+	key = "caw"
+	key_third_person = "caws"
+	message = "cawws!"
+	message_param = "cawws at %t!"
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+	// Credit to zeroisnotnull (opengameart.org) for the original sound.
+	species_type_whitelist_typecache = list(/datum/species/vox)
+	muzzled_noises = list("frustrated")
+	vary = TRUE
+
+/datum/emote/living/carbon/human/caw/get_sound(mob/living/user)
+	return pick("sound/effects/voxfcaw.ogg", "sound/effects/voxrcaw.ogg")
+
 /datum/emote/living/carbon/human/warble
 	key = "warble"
 	key_third_person = "warbles"
@@ -732,6 +746,16 @@
 	// Credit to Jamius (freesound.org) for the sound.
 	sound = "sound/effects/unathihiss.ogg"
 	muzzled_noises = list("weak hissing")
+
+/datum/emote/living/carbon/human/thump
+	key = "thump"
+	key_third_person = "thumps"
+	message = "thumps their tail."
+	message_param = "thumps their tail at %t."
+	species_type_whitelist_typecache = list(/datum/species/unathi)
+	emote_type = EMOTE_AUDIBLE
+	// Credit to TylerAM (freesound.org) for the sound.
+	sound = "sound/effects/unathitailthump.ogg"
 
 /datum/emote/living/carbon/human/creak
 	key = "creak"

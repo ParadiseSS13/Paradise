@@ -118,7 +118,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/template_noop)
 "lJ" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/vault,
@@ -320,18 +320,14 @@
 /turf/simulated/floor/wood,
 /area/template_noop)
 "Ir" = (
-/obj/structure/chair/office{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/vault,
 /area/template_noop)
 "Kr" = (
 /obj/item/soap/syndie,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = -4;
-	pixel_x = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"

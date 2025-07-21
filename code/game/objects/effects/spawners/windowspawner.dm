@@ -127,3 +127,9 @@
 	icon_state = "plastitaniumwindow_spawner"
 	window_to_spawn_full = /obj/structure/window/full/plastitanium
 	useGrille = TRUE
+
+/obj/effect/spawner/window/plastitanium/rad_protect
+	name = "leaded plastitanium window spawner"
+	icon_state = "leaded_plastitaniumwindow_spawner"
+	window_to_spawn_full = /obj/structure/window/full/plastitanium/rad_protect
+	useGrille = TRUE

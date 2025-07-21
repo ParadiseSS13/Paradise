@@ -318,23 +318,29 @@
 	return TRUE
 
 
-/mob/living/carbon/human/proc/change_skin_color(colour = "#000000")
-	if(colour == skin_colour || !(dna.species.bodyflags & HAS_SKIN_COLOR))
+/mob/living/carbon/human/proc/change_skin_color(color = "#000000")
+	if(!is_color_text(color) || color == skin_colour || !(dna.species.bodyflags & HAS_SKIN_COLOR))
 		return
 
-	skin_colour = colour
+	skin_colour = color
 
 	force_update_limbs()
 	return TRUE
 
-/mob/living/carbon/human/proc/change_skin_tone(tone)
-	if(s_tone == tone || !((dna.species.bodyflags & HAS_SKIN_TONE) || (dna.species.bodyflags & HAS_ICON_SKIN_TONE)))
+/// Tone must be between -185 and 220. commonly used in 1 to 220, see `random_skin_tone()` for species-specific values
+/mob/living/carbon/human/proc/change_skin_tone(tone, override = FALSE)
+	if(!isnum(tone) || !((dna.species.bodyflags & HAS_SKIN_TONE) || (dna.species.bodyflags & HAS_ICON_SKIN_TONE)))
 		return
 
-	s_tone = tone
+	if(tone in -185 to 220)
+		if(dna.species.bodyflags & HAS_ICON_SKIN_TONE || override)
+			s_tone = tone
+		else
+			s_tone = 35 - tone
+		force_update_limbs()
+		return TRUE
 
-	force_update_limbs()
-	return TRUE
+	CRASH("Skin tone values must be between -185 and 220!")
 
 /mob/living/carbon/human/proc/change_hair_gradient(style, offset_raw, color, alpha)
 	var/obj/item/organ/external/head/H = get_organ("head")

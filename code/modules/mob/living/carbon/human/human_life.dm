@@ -109,20 +109,22 @@
 	for(var/mutation_type in active_mutations)
 		var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
 		mutation.on_life(src)
-
-	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
+	var/gene_bonus
+	if(mind && HAS_TRAIT(mind, TRAIT_GENETIC_BUDGET))
+		gene_bonus = 5
+	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1 - gene_bonus)
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
 			adjustFireLoss(min(10, instability * 0.67))
 			to_chat(src, "<span class='danger'>You feel like your skin is burning and bubbling off!</span>")
-		if(gene_stability < GENETIC_DAMAGE_STAGE_2)
+		if(gene_stability < GENETIC_DAMAGE_STAGE_2  - gene_bonus)
 			if(prob(instability * 0.83))
 				adjustCloneLoss(min(8, instability * 0.05))
 				to_chat(src, "<span class='danger'>You feel as if your body is warping.</span>")
 			if(prob(instability * 0.1))
 				adjustToxLoss(min(10, instability * 0.67))
 				to_chat(src, "<span class='danger'>You feel weak and nauseous.</span>")
-			if(gene_stability < GENETIC_DAMAGE_STAGE_3 && prob(1))
+			if(gene_stability < (GENETIC_DAMAGE_STAGE_3  - gene_bonus) && prob(1))
 				to_chat(src, "<span class='biggerdanger'>You feel incredibly sick... Something isn't right!</span>")
 				spawn(300)
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
@@ -625,7 +627,7 @@
 	var/guaranteed_death_threshold = health + (getOxyLoss() * 0.5) - (getFireLoss() * 0.67) - (getBruteLoss() * 0.67)
 
 	var/obj/item/organ/internal/brain = get_int_organ(/obj/item/organ/internal/brain)
-	if(brain?.damage >= brain.max_damage || (guaranteed_death_threshold) <= -500)
+	if(brain?.damage >= brain?.max_damage || guaranteed_death_threshold <= -500)
 		death()
 		return
 
@@ -895,8 +897,9 @@
 			if(HAS_TRAIT(H, TRAIT_NOBREATH))
 				continue //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
-			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
-				continue //too cool for puke
+			if(H.mind && HAS_TRAIT(H.mind, TRAIT_CORPSE_RESIST))
+				to_chat(H, "<span class='warning'>You smell something rotting nearby.</span>")
+				continue
 			to_chat(H, "<span class='warning'>You smell something foul...</span>")
 			H.fakevomit()
 
