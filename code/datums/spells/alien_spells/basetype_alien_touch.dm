@@ -42,6 +42,9 @@
 	/// Beepsky shouldn't be arresting you over this
 	needs_permit = FALSE
 
+/obj/item/melee/touch_attack/alien/customised_abstract_text()
+	return
+
 /obj/item/melee/touch_attack/alien/proc/plasma_check(plasma, mob/living/carbon/user)
 	var/plasma_current = user.get_plasma()
 	if(plasma_current < plasma)
