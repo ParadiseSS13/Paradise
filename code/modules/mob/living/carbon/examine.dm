@@ -38,33 +38,32 @@
  * Add specific damage flavor here.
  */
 /mob/living/carbon/proc/examine_damage_flavor()
-
-	var/msg = ""
+	var/list/msgs = list()
 
 	var/damage = getBruteLoss() //no need to calculate each of these twice
 
 	if(damage)
 		var/brute_message = examine_get_brute_message()
 		if(damage < 60)
-			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] [brute_message].\n"
+			msgs += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] [brute_message]."
 		else
-			msg += "<b>[p_they(TRUE)] [p_have()] severe [brute_message]!</b>\n"
+			msgs += "<b>[p_they(TRUE)] [p_have()] severe [brute_message]!</b>"
 
 	damage = getFireLoss()
 	if(damage)
 		if(damage < 60)
-			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] burns.\n"
+			msgs += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] burns."
 		else
-			msg += "<b>[p_they(TRUE)] [p_have()] severe burns!</b>\n"
+			msgs += "<b>[p_they(TRUE)] [p_have()] severe burns!</b>"
 
 	damage = getCloneLoss()
 	if(damage)
 		if(damage < 60)
-			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] cellular damage.\n"
+			msgs += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] cellular damage."
 		else
-			msg += "<b>[p_they(TRUE)] [p_have()] severe cellular damage.</b>\n"
+			msgs += "<b>[p_they(TRUE)] [p_have()] severe cellular damage.</b>"
 
-	return msg
+	return msgs.Join("<br>")
 
 /**
  * Add any extra info which should be within the "damage" block, the big warning span.
