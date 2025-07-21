@@ -34,7 +34,9 @@
 	var/energy_to_lower = -20
 	var/obj/singularity/energy_ball/parent_energy_ball
 	/// Turf where the tesla will move to if it's loose
-	var/turf/target_turf
+	var/turf/movement_goal
+	/// The next spot the tesla will zoom to and stop at on its way to movement_goal
+	var/turf/move_target
 	/// Direction we have to go to go towards the target turf
 	var/movement_dir
 	/// Variable that defines whether it has a field generator close enough
@@ -127,96 +129,86 @@
 				dust_mobs(C)
 		return
 
-	if(!target_turf || loc == target_turf)
-		find_the_basket()
+	if(loc == movement_goal)
+		// When reaching our target, clear it out, but wait for a moment before picking a new one.
+		movement_goal = null
 		return
 
-	var/turf/move_target = next_move_target()
+	if(!movement_goal)
+		// If we don't have a target, pick one.
+		find_the_basket()
+		move_target = null
+
+	if(loc != move_target && !isnull(move_target))
+		return
+
+	// Pick a short-term goal.
+	move_target = next_move_target()
+
+	if(move_target)
+		// Fire an energy beam at it, then start moving.
+		INVOKE_ASYNC(src, PROC_REF(arc_and_move))
+
+/obj/singularity/energy_ball/proc/next_move_target()
+	if(!isturf(loc) || !isturf(movement_goal))
+		return null
+
+	var/x_diff = movement_goal.x - x
+	var/y_diff = movement_goal.y - y
+	if(abs(x_diff) <= steps_per_move && abs(y_diff) <= steps_per_move)
+		// We're close, go there directly.
+		return movement_goal
+
+	var/target_x
+	var/target_y
+	if(abs(x_diff) >= abs(y_diff))
+		// 8 tiles along X.
+		target_x = x + 8 * sign(x_diff)
+		// Scale back Y movement to match the difference in distance along the axes.
+		target_y = y + 8 * y_diff / abs(x_diff)
+	else
+		// 8 tiles along Y.
+		target_y = y + 8 * sign(y_diff)
+		// Scale back X movement to match the difference in distance along the axes.
+		target_x = x + 8 * x_diff / abs(y_diff)
+
+	return locate(target_x, target_y, z)
+
+/obj/singularity/energy_ball/proc/arc_and_move()
+	// Initial beam.
 	movement_beam(move_target, 1.5 SECONDS)
 	sleep(0.5 SECONDS)
-	// MORE POWER
+
+	// MORE POWER!
 	movement_beam(move_target, 1 SECONDS)
 	sleep(0.5 SECONDS)
-	GLOB.move_manager.home_onto(src, move_target, 0, 10)
+
+	// Follow that arc!
+	GLOB.move_manager.stop_looping(src)
+	GLOB.move_manager.move_towards(src, move_target, 0.5, 10)
 
 /obj/singularity/energy_ball/proc/on_atom_entered(datum/source, atom/movable/entered)
 	var/mob/living/living_entered = entered
 	if(istype(living_entered))
 		living_entered.dust()
 
-/datum/move_with_corner
-	var/turf/start
-	var/turf/end
-	var/turf/corner
-	var/pre_corner_x_unit
-	var/pre_corner_y_unit
-	var/pre_corner_dist
-	var/post_corner_x_unit
-	var/post_corner_y_unit
-	var/post_corner_dist
-
-/datum/move_with_corner/New(atom/start_in, atom/end_in)
-	start = start_in
-	end = end_in
-	pre_corner_x_unit = (end.x > start.x) ? 1 : -1
-	pre_corner_y_unit = (end.y > start.y) ? 1 : -1
-	if(start.x == end.x)
-		// Moving along y
-		corner = end
-		pre_corner_x_unit = 0
-		pre_corner_dist = abs(start.y - end.y)
-		return
-	if(start.y == end.y)
-		// Moving along x
-		corner = end
-		pre_corner_y_unit = 0
-		pre_corner_dist = abs(start.x - end.x)
-		return
-
-	pre_corner_dist = min(abs(start.x-end.x), abs(start.y-end.y))
-	corner = locate(start.x + pre_corner_x_unit * pre_corner_dist, start.y + pre_corner_y_unit * pre_corner_dist, start.z)
-
-	if(start.x + pre_corner_x_unit * pre_corner_dist == end.x)
-		// x finished first, move along y
-		post_corner_x_unit = 0
-		post_corner_dist = abs(start.y - end.y) - pre_corner_dist
-	else
-		// y finished first, move along x
-		post_corner_y_unit = 0
-		post_corner_dist = abs(start.x - end.x) - pre_corner_dist
-
-/datum/move_with_corner/proc/get_early_end(dist)
-	if(dist <= pre_corner_dist)
-		return locate(start.x + pre_corner_x_unit * dist, start.y + pre_corner_y_unit * dist, start.z)
-	else if(dist == pre_corner_dist)
-		return corner
-	else if(dist >= pre_corner_dist + post_corner_dist)
-		return end
-
-	var/remaining_dist = dist - pre_corner_dist
-	return locate(corner.x + remaining_dist * post_corner_x_unit, corner.y + remaining_dist * post_corner_y_unit, corner.z)
-
-/obj/singularity/energy_ball/proc/next_move_target()
-	var/datum/move_with_corner/path = new(loc, target_turf)
-	return path.get_early_end(steps_per_move)
-
 /obj/singularity/energy_ball/proc/movement_beam(turf/move_target, duration)
-	var/datum/move_with_corner/path = new(loc, move_target)
-
-	loc.Beam(path.corner, "lightning[rand(1, 12)]", 'icons/effects/effects.dmi', duration, INFINITY)
-	if(path.corner != move_target)
-		path.corner.Beam(move_target, "lightning[rand(1, 12)]", 'icons/effects/effects.dmi', duration, INFINITY)
+	loc.Beam(move_target, "lightning[rand(1, 12)]", 'icons/effects/effects.dmi', duration, INFINITY)
 
 /obj/singularity/energy_ball/proc/find_the_basket()
 	var/area/where_to_move = pick(all_possible_areas) // Grabs a random area that isn't restricted
 	var/turf/target_area_turfs = get_area_turfs(where_to_move) // Grabs the turfs from said area
-	target_turf = pick(target_area_turfs) // Grabs a single turf from the entire list
+	movement_goal = pick(target_area_turfs) // Grabs a single turf from the entire list
 
 /obj/singularity/energy_ball/Move(target, direction)
 	// Energy balls move through everything, make it a forceMove.
 	if(miniball)
 		return ..()
 	forceMove(target, direction)
+	return TRUE
+
+// Energy balls do not drift in space.
+/obj/singularity/energy_ball/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /obj/singularity/energy_ball/proc/handle_energy()
