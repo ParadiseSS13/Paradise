@@ -727,16 +727,18 @@
 	name = "\improper Federation marine combat armor"
 	desc = "A full-body suit of semi-powered assault armor used by the Trans-Solar Marine Corps. Offers excellent protection in all areas without impairing movement."
 	icon_state = "fedarmor_marine"
-	armor = list(MELEE = 40, BULLET = 45, LASER = 45, ENERGY = 40, BOMB = 100, RAD = 25, FIRE = 200, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 45, LASER = 45, ENERGY = 40, BOMB = 100, RAD = 25, FIRE = INFINITY, ACID = 100)
 	w_class = WEIGHT_CLASS_BULKY
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
 					/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
 					/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
 					/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
-	flags = THICKMATERIAL
+	flags = THICKMATERIAL | STOPSPRESSUREDMAGE
 	slowdown = 0
 	strip_delay = 12 SECONDS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')

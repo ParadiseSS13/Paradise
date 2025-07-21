@@ -837,6 +837,10 @@ SUBSYSTEM_DEF(ticker)
 			for(var/atom/blob_overmind in SSticker.mode.blob_overminds)
 				if(blob_overmind.admin_spawned)
 					return TRUE
+		if(INCURSION_DEMONS)
+			for(var/obj/portal in SSticker.mode.incursion_portals)
+				if(portal.admin_spawned)
+					return TRUE
 
 /datum/controller/subsystem/ticker/proc/biohazard_count(biohazard)
 	switch(biohazard)
@@ -852,6 +856,8 @@ SUBSYSTEM_DEF(ticker)
 			return count_xenomorps()
 		if(BIOHAZARD_BLOB)
 			return length(SSticker.mode.blob_overminds)
+		if(INCURSION_DEMONS)
+			return length(SSticker.mode.incursion_portals)
 
 	CRASH("biohazard_count got unexpected [biohazard]")
 
@@ -868,6 +874,8 @@ SUBSYSTEM_DEF(ticker)
 		if(BIOHAZARD_XENO)
 			return count > 5
 		if(BIOHAZARD_BLOB)
+			return count > 0
+		if(INCURSION_DEMONS)
 			return count > 0
 
 	return FALSE

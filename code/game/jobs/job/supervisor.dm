@@ -470,7 +470,7 @@
 	return new /datum/spell_targeting/self
 
 /datum/spell/big_voice/cast(list/targets, mob/living/user)
-	var/say_message = tgui_input_text(user, "Message:", "Speak With Authority")
+	var/say_message = tgui_input_text(user, "Message:", "Speak With Authority", encode = FALSE)
 	if(isnull(say_message))
 		revert_cast()
 	else

@@ -327,13 +327,17 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
 	)
-	flags = BLOCKHAIR
+	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES
+	cold_protection = HEAD
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	heat_protection = HEAD
+	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	flash_protect = FLASH_PROTECTION_WELDER
-	armor = list(MELEE = 40, BULLET = 45, LASER = 45, ENERGY = 40, BOMB = 100, RAD = 25, FIRE = 200, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 45, LASER = 45, ENERGY = 40, BOMB = 100, RAD = 25, FIRE = INFINITY, ACID = 100)
 	strip_delay = 130
 
 /obj/item/clothing/head/helmet/federation/marine/export
@@ -352,6 +356,10 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES
+	cold_protection = HEAD
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	heat_protection = HEAD
+	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	see_in_dark = 0
 	lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	flash_protect = FLASH_PROTECTION_NONE
@@ -371,12 +379,16 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
 	)
-	flags = BLOCKHAIR
+	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES
+	cold_protection = HEAD
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	heat_protection = HEAD
+	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	see_in_dark = 8
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	flash_protect = FLASH_PROTECTION_WELDER
-	armor = list(MELEE = 40, BULLET = 45, LASER = 45, ENERGY = 40, BOMB = 100, RAD = 25, FIRE = 200, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 45, LASER = 45, ENERGY = 40, BOMB = 100, RAD = 25, FIRE = INFINITY, ACID = 100)
 	strip_delay = 130
