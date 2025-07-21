@@ -562,16 +562,16 @@ SUBSYSTEM_DEF(ticker)
 		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
 
 /datum/controller/subsystem/ticker/proc/send_fact_of_the_round()
-	var/n
+	var/factoid
 	if(selected_fact)
-		n = selected_fact
+		factoid = selected_fact
 	else
 		var/list/random_facts = file2list("strings/facts.txt")
 		if(length(random_facts))
-			n = pick(random_facts)
+			factoid = pick(random_facts)
 
-	if(length(n))
-		to_chat(world, "<span class='green'><b>Fact of the round: </b>[html_encode(n)]</span>")
+	if(length(factoid))
+		to_chat(world, "<span class='green'><b>Fact of the round: </b>[html_encode(factoid)]</span>")
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
