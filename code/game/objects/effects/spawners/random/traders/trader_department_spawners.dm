@@ -99,6 +99,10 @@
 
 		// Might as well let AI be interested
 		/obj/item/ai_upgrade/surveillance_upgrade = 25,
+		/obj/item/ai_upgrade/expanded_storage = 10,
+		/obj/item/ai_upgrade/expanded_network = 10,
+		/obj/item/ai_upgrade/expanded_tank = 10,
+		/obj/item/ai_upgrade/expanded_fabricator = 10,
 	)
 
 /obj/effect/spawner/random/traders/medical

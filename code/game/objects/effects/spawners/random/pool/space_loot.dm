@@ -56,6 +56,10 @@
 		/obj/item/storage/toolbox/syndicate,
 		/obj/item/suppressor,
 		/obj/item/toy/syndicateballoon,
+		/obj/item/ai_upgrade/expanded_storage,
+		/obj/item/ai_upgrade/expanded_network,
+		/obj/item/ai_upgrade/expanded_tank,
+		/obj/item/ai_upgrade/expanded_fabricator,
 	)
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot

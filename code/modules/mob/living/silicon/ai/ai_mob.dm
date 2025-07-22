@@ -71,6 +71,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	// AI Powers
 	var/datum/program_picker/program_picker
 	var/datum/spell/ai_spell/choose_program/program_action
+	/// Base rate of nanite regen
+	var/nanite_regen = 1
 	/// Whether or not the AI has unlocked universal adapter
 	var/universal_adapter = FALSE
 	/// How effective is the adapter?
@@ -324,7 +326,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Nanites:", "[program_picker.nanites] / [program_picker.max_nanites]")
-	status_tab_data[++status_tab_data.len] = list("Nanite Manufacture Rate:", "[(1 + 0.5 * program_picker.bandwidth)]")
+	status_tab_data[++status_tab_data.len] = list("Nanite Manufacture Rate:", "[(nanite_regen + 0.5 * program_picker.bandwidth)]")
 	if(stat)
 		status_tab_data[++status_tab_data.len] = list("System status:", "Nonfunctional")
 		return
@@ -431,7 +433,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		qdel(src)
 		return
 	// Regenerate nanites for abilities only when powered.
-	powered_ai.program_picker.nanites = min(100, powered_ai.program_picker.nanites + (1 + 0.5 * powered_ai.program_picker.bandwidth))
+	powered_ai.program_picker.nanites = min(100, powered_ai.program_picker.nanites + (nanite_regen + 0.5 * powered_ai.program_picker.bandwidth))
 	if(!powered_ai.anchored)
 		loc = powered_ai.loc
 		change_power_mode(NO_POWER_USE)
