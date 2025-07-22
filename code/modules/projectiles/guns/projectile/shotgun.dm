@@ -1,6 +1,7 @@
 /obj/item/gun/projectile/shotgun
 	name = "shotgun"
 	desc = "A traditional shotgun with wood furniture and a four-shell capacity underneath."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "shotgun"
 	item_state = "shotgun"
 	lefthand_file = 'icons/mob/inhands/64x64_guns_lefthand.dmi'

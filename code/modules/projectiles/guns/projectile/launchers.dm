@@ -4,6 +4,7 @@
 /obj/item/gun/projectile/revolver/grenadelauncher//this is only used for underbarrel grenade launchers at the moment, but admins can still spawn it if they feel like being assholes
 	desc = "A break-action grenade launcher."
 	name = "grenade launcher"
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "dbshotgun_sawn"
 	item_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
