@@ -637,6 +637,7 @@
 /obj/item/ammo_box/magazine/detective/speedcharger
 	name = "DL-88 charge pack"
 	desc = "One-use charge pack for the DL-88 energy revolver."
+	icon = 'icons/obj/ammo.dmi'
 	icon_state = "handgun_ammo_battery"
 	materials = list(MAT_METAL = 20000)
 	var/charge = 1000
