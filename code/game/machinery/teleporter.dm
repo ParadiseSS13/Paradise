@@ -485,7 +485,8 @@
 
 /obj/machinery/teleport/perma
 	name = "permanent teleporter"
-	desc = "A teleporter with the target pre-set on the circuit board. The permently aligned transmitter allows it to be more power efficient than a regular teleporter station at the cost of flexibility."
+	desc = "A teleporter with the target pre-set on the circuit board. The permently aligned transmitter allows it to be more power efficient than a regular teleporter station at the cost of flexibility. \
+	Built-in safeties prevent it from teleporting during a recalibration, so you will never get thrown into space."
 	icon_state = "tele0"
 	density = FALSE
 	layer = HOLOPAD_LAYER
@@ -501,12 +502,12 @@
 /obj/machinery/teleport/perma/Initialize(mapload)
 	. = ..()
 	initialize_parts()
-	update_lighting()
-
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+	update_lighting()
 
 /obj/machinery/teleport/perma/proc/initialize_parts()
 	component_parts = list()
@@ -525,17 +526,15 @@
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		A -= M.rating * 10
 	tele_delay = max(A, 0)
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/teleport/perma/proc/on_atom_entered(datum/source, atom/movable/entered)
 	if(stat & (BROKEN|NOPOWER))
 		return
+
 	if(!is_teleport_allowed(z))
-		to_chat(entered, "<span class='notice'>You can't use this here.</span>")
+		to_chat(entered, "<span class='warning'>ERROR: bluespace interference in this location is blocking teleportation!</span>")
 		return
 
-	if(entered.anchored)
-		return
 	if(entered == src)
 		return
 
@@ -599,6 +598,8 @@
 	. = ..()
 	if(target_beacon_type)
 		target = locate(target_beacon_type)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+	update_lighting()
 
 /obj/machinery/teleport/perma/initialize_parts()
 	tele_delay = 0 // Act like a fully upgraded tele, no T4 stock parts to plunder.
