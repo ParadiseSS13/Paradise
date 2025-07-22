@@ -172,13 +172,13 @@ export const AgentCardInfo = (props) => {
                   <ImageButton
                     fluid
                     imageSize={21}
-                    color={"transparent"}
+                    color={'transparent'}
                     tooltip={'Change HUD icon'}
                     tooltipPosition={'bottom-end'}
                     dmIcon={'icons/mob/hud/job_assets.dmi'}
                     dmIconState={job_icon}
                     onClick={() => act('change_occupation', { option: 'Primary' })}
-                   />
+                  />
                 </Stack.Item>
               </Stack>
             </LabeledList.Item>
