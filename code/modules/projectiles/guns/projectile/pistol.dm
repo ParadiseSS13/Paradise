@@ -105,6 +105,7 @@
 /obj/item/gun/projectile/automatic/pistol/deagle
 	name = "\improper Desert Eagle"
 	desc = "A robust .50 AE handgun."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "deagle"
 	force = 14.0
 	mag_type = /obj/item/ammo_box/magazine/m50
