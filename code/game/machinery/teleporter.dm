@@ -498,6 +498,7 @@
 	var/target
 	var/tele_delay = 3 SECONDS
 	var/teleport_cost = 1000 // 1/5 cost of a non permanent tele.
+	var/admin_usage = FALSE // If TRUE, this will work on the CC Z-level.
 
 /obj/machinery/teleport/perma/Initialize(mapload)
 	. = ..()
@@ -531,13 +532,17 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 
-	if(!is_teleport_allowed(z))
-		to_chat(entered, "<span class='warning'>ERROR: bluespace interference in this location is blocking teleportation!</span>")
+	if(!is_teleport_allowed(z) && !admin_usage)
+		if(ismob(entered))
+			to_chat(entered, "You can't use this here.")
 		return
 
 	if(entered == src)
 		return
 
+	teleport(entered)
+
+/obj/machinery/teleport/perma/proc/teleport(atom/movable/entered as mob|obj)
 	if(target && !recalibrating && !panel_open && !blockAI(entered) && (teleports_this_cycle <= MAX_ALLOWED_TELEPORTS_PER_PROCESS) && !iseffect(entered))
 		do_teleport(entered, target)
 		use_power(teleport_cost)
