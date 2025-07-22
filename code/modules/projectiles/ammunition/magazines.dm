@@ -1,4 +1,5 @@
 /obj/item/ammo_box/magazine
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "enforcer" // placeholder icon
 
 ////////////////INTERNAL MAGAZINES//////////////////////
