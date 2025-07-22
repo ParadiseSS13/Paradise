@@ -433,7 +433,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		qdel(src)
 		return
 	// Regenerate nanites for abilities only when powered.
-	powered_ai.program_picker.nanites = min(100, powered_ai.program_picker.nanites + (nanite_regen + 0.5 * powered_ai.program_picker.bandwidth))
+	powered_ai.program_picker.nanites = min(powered_ai.program_picker.max_nanites, powered_ai.program_picker.nanites + (powered_ai.nanite_regen + 0.5 * powered_ai.program_picker.bandwidth))
 	if(!powered_ai.anchored)
 		loc = powered_ai.loc
 		change_power_mode(NO_POWER_USE)
