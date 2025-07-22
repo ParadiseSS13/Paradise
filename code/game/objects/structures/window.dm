@@ -206,6 +206,14 @@
 		deconstruct(FALSE)
 		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='warning'>You smash through [src].</span>", "<span class='warning'>You hear glass breaking.</span>")
 
+/obj/structure/window/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	if(!can_be_reached(attacker))
+		return
+	. = ..()
+	if(. && attacker.environment_smash >= env_smash_level)
+		deconstruct(FALSE)
+		attacker.visible_message("<span class='danger'>[attacker] smashes through [src]!</span>", "<span class='warning'>You smash through [src].</span>", "<span class='warning'>You hear glass breaking.</span>")
+
 /obj/structure/window/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(!can_be_reached(user))
 		return 1 //skip the afterattack
