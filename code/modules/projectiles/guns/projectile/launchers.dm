@@ -56,6 +56,7 @@
 /obj/item/gun/projectile/automatic/speargun
 	name = "kinetic speargun"
 	desc = "A weapon favored by carp hunters. Fires specialized spears using kinetic energy."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "speargun"
 	item_state = "speargun"
 	w_class = WEIGHT_CLASS_BULKY

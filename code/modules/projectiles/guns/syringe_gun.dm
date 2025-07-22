@@ -1,6 +1,7 @@
 /obj/item/gun/syringe
 	name = "syringe gun"
 	desc = "A spring loaded rifle designed to fit syringes, used to incapacitate unruly patients from a distance. Not compatible with DNA-Injectors."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "syringegun"
 	item_state = "syringegun"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -110,6 +111,7 @@
 /obj/item/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"
 	desc = "A syndicate rapid syringe gun based on an archived Nanotrasen prototype. Capable of storing and filling syringes from an internal reservoir. It has a large flap on the side that you can dump a box or bag of syringes into, and a port for filling it with liquid."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "rapidsyringegun"
 	max_syringes = 14  // full two boxes worth
 	/// Maximum size of the internal reservoir
