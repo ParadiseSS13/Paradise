@@ -1,1 +1,0 @@
-/obj/item/@SUBTYPES{item_state=@ANY} : /obj/item/@SUBTYPES{@OLD;item_state=@SKIP;worn_icon_state=@OLD:item_state;inhand_icon_state=@OLD:item_state}
