@@ -8,7 +8,7 @@
 	name = "Type 230 Machine Pistol"
 	reference = "APS"
 	desc = "A compact machine pistol, chambered in 10mm Auto with a detachable 20-round box magazine. Perfect for dual wielding or as backup."
-	item = /obj/item/gun/projectile/automatic/pistol/aps
+	item = /obj/item/gun/projectile/automatic/pistol/type_230
 	cost = 40
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 

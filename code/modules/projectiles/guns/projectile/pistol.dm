@@ -2,10 +2,11 @@
 /obj/item/gun/projectile/automatic/pistol
 	name = "stechkin pistol"
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
+	icon = 'icons/tgmc/objects/guns.dmi'
 	icon_state = "pistol"
 	item_state = "pistol"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	can_holster = TRUE
@@ -26,12 +27,12 @@
 /obj/item/gun/projectile/automatic/pistol/update_overlays()
 	. = list()
 	if(suppressed)
-		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 15, pixel_y = 5)
+		. += image(icon = 'icons/tgmc/objects/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 15, pixel_y = 5)
 	if(gun_light)
 		var/flashlight = "uflashlight_attached"
 		if(gun_light.on)
 			flashlight = "uflashlight_attached-on"
-		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = flashlight, pixel_x = 5, pixel_y = -2)
+		. += image(icon = 'icons/tgmc/objects/attachments.dmi', icon_state = flashlight, pixel_x = 5, pixel_y = -2)
 
 /obj/item/gun/projectile/automatic/pistol/ui_action_click()
 	toggle_gunlight()
@@ -42,8 +43,8 @@
 	desc = "A classic .45 handgun with a small magazine capacity."
 	icon_state = "m1911"
 	item_state = "m1911"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = FALSE
@@ -55,7 +56,7 @@
 		var/flashlight = "uflashlight_attached"
 		if(gun_light.on)
 			flashlight = "uflashlight_attached-on"
-		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = flashlight, pixel_x = 5, pixel_y = -1)
+		. += image(icon = 'icons/tgmc/objects/attachments.dmi', icon_state = flashlight, pixel_x = 5, pixel_y = -1)
 
 //Enforcer//
 /obj/item/gun/projectile/automatic/pistol/enforcer
@@ -63,8 +64,8 @@
 	desc = "A 9mm sidearm commonly used by Nanotrasen Asset Protection."
 	icon_state = "enforcer_grey"
 	item_state = "enforcer_grey"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/enforcer
 	can_suppress = TRUE
@@ -90,12 +91,12 @@
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_overlays()
 	. = list()
 	if(suppressed)
-		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 15, pixel_y = 5)
+		. += image(icon = 'icons/tgmc/objects/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 15, pixel_y = 5)
 	if(gun_light)
 		var/flashlight = "uflashlight_attached"
 		if(gun_light.on)
 			flashlight = "uflashlight_attached-on"
-		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = flashlight, pixel_x = 5, pixel_y = -2)
+		. += image(icon = 'icons/tgmc/objects/attachments.dmi', icon_state = flashlight, pixel_x = 5, pixel_y = -2)
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 	mag_type = /obj/item/ammo_box/magazine/enforcer/lethal
@@ -122,14 +123,14 @@
 	icon_state = "deaglecamo"
 	item_state = "deagleg"
 
-//APS Pistol//
-/obj/item/gun/projectile/automatic/pistol/aps
+//Type 230 Machine Pistol//
+/obj/item/gun/projectile/automatic/pistol/type_230
 	name = "\improper Type 230 Machine Pistol"
 	desc = "A compact submachine gun produced by the USSP-based Rocino Armaments Collective. Chambered in 10mm."
-	icon_state = "aps"
-	item_state = "aps"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	icon_state = "type_230"
+	item_state = "type_230"
+	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/apsm10mm

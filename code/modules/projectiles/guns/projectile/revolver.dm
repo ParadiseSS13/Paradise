@@ -2,10 +2,11 @@
 	name = "\improper .357 magnum revolver"
 	desc = "A powerful revolver commonly used by the Syndicate. Uses .357 magnum ammo."
 	materials = list()
+	icon = 'icons/tgmc/objects/guns.dmi'
 	icon_state = "revolver"
 	item_state = "revolver"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/gunshot_strong.ogg'
@@ -116,6 +117,7 @@
 /obj/item/gun/projectile/revolver/fingergun
 	name = "finger gun"
 	desc = "Bang bang bang!"
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "fingergun"
 	force = 0
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
@@ -172,29 +174,31 @@
 /obj/item/gun/projectile/revolver/mateba
 	name = "\improper Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of several unrelated militaries. Uses .357 ammo."	//>10mm hole >.357
+	icon = 'icons/tgmc/objects/guns.dmi'
 	icon_state = "mateba"
 	item_state = "mateba"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 
 /obj/item/gun/projectile/revolver/golden
 	name = "\improper Golden revolver"
 	desc = "This ain't no game, ain't never been no show, And I'll gladly gun down the oldest lady you know. Uses .357 ammo."
-	icon = 'icons/obj/guns/projectile64.dmi'
+	icon = 'icons/tgmc/objects/guns64.dmi'
 	icon_state = "goldrevolver"
 	item_state = "goldrevolver"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	fire_sound = 'sound/weapons/resonator_blast.ogg'
 	recoil = 8
 
 /obj/item/gun/projectile/revolver/nagant
 	name = "\improper Nagant revolver"
 	desc = "An old model of revolver that originated in Russia, now used by the USSP. Able to be suppressed. Uses 7.62x38mmR ammo."
+	icon = 'icons/tgmc/objects/guns.dmi'
 	icon_state = "nagant"
 	item_state = "nagant"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	origin_tech = "combat=3"
 	can_suppress = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
@@ -207,6 +211,7 @@
 /obj/item/gun/projectile/revolver/overgrown
 	name = "overgrown revolver"
 	desc = "A bulky revolver that seems to be made out of a plant."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "pea_shooter"
 	item_state = "peashooter"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
@@ -236,6 +241,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel
 	name = "\improper CM150 double-barreled shotgun"
 	desc = "A true classic, by Starstrike Arms."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "dbshotgun"
 	item_state = null
 	lefthand_file = 'icons/mob/inhands/64x64_guns_lefthand.dmi'
