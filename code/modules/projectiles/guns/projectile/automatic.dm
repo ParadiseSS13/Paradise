@@ -107,6 +107,7 @@
 /obj/item/gun/projectile/automatic/c20r
 	name = "\improper C-20R SMG"
 	desc = "A two-round burst .45 SMG, designated 'C-20R'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "c20r"
 	item_state = "c20r"
 	origin_tech = "combat=5;materials=2;syndicate=6"
@@ -135,6 +136,7 @@
 /obj/item/gun/projectile/automatic/wt550
 	name = "\improper WT-550 PDW"
 	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "wt550"
 	item_state = "wt550"
 	w_class = WEIGHT_CLASS_BULKY
@@ -181,6 +183,7 @@
 /obj/item/gun/projectile/automatic/m90
 	name = "\improper M-90GL Carbine"
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90GL'. Has an attached underbarrel grenade launcher which can be toggled on and off."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "m90"
 	item_state = "m90-4"
 	origin_tech = "combat=5;materials=2;syndicate=6"
@@ -261,6 +264,7 @@
 /obj/item/gun/projectile/automatic/tommygun
 	name = "\improper Thompson SMG"
 	desc = "A genuine 'Chicago Typewriter'."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "tommygun"
 	item_state = "shotgun"
 	w_class = WEIGHT_CLASS_HUGE
@@ -278,6 +282,7 @@
 /obj/item/gun/projectile/automatic/ar
 	name = "\improper M26A2 assault rifle"
 	desc = "A robust assault rifle used by Trans-Solar Federation forces. Chambered in 5.56mm."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "arg"
 	item_state = "arg"
 	slot_flags = 0
@@ -296,6 +301,7 @@
 /obj/item/gun/projectile/automatic/ak814
 	name = "\improper AK-814 assault rifle"
 	desc = "A modern AK assault rifle favored by elite Soviet soldiers. Chambered in 7.62x54mm."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "ak814"
 	item_state = "ak814"
 	origin_tech = "combat=5;materials=3"
@@ -316,6 +322,7 @@
 /obj/item/gun/projectile/automatic/shotgun/bulldog
 	name = "\improper AS-14 'Bulldog' Shotgun"
 	desc = "A compact semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "bulldog"
 	item_state = "bulldog"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -371,6 +378,7 @@
 /obj/item/gun/projectile/automatic/lasercarbine
 	name = "\improper IK-M2 laser carbine"
 	desc = "A compact Warp-Tac Industries fully automatic laser carbine that uses disposable laser cartridges rather than an internal power cell. Utilized by Nanotrasen's response teams for combat operations."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "lasercarbine"
 	item_state = "lasercarbine"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -410,6 +418,7 @@
 /obj/item/gun/projectile/automatic/laserrifle
 	name = "\improper IK-M1 laser rifle"
 	desc = "A sleek, Warp-Tac Industries laser rifle that uses disposable laser cartridges rather than an internal power cell. Sold to Nanotrasen's private security forces."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "laserrifle"
 	item_state = "lasercarbine"
 	w_class = WEIGHT_CLASS_BULKY
