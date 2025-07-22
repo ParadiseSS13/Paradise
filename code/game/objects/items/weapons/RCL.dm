@@ -32,14 +32,17 @@
 			return ITEM_INTERACT_COMPLETE
 		loaded = coil
 		loaded.max_amount = max_amount //We store a lot.
-	else if(loaded.amount < max_amount)
+	else
+		if(loaded.amount >= max_amount)
+			to_chat(user, "<span class='warning'>You cannot fit any more cable on [src]!</span>")
+			return ITEM_INTERACT_COMPLETE
+
 		var/amount = min(loaded.amount + coil.get_amount(), max_amount)
 		coil.use(amount - loaded.amount)
 		loaded.amount = amount
-
-	refresh_icon(user)
-	to_chat(user, "<span class='notice'>You add the cables to [src]. It now contains [loaded.amount].</span>")
-	return ITEM_INTERACT_COMPLETE
+		refresh_icon(user)
+		to_chat(user, "<span class='notice'>You add the cables to [src]. It now contains [loaded.amount].</span>")
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/rcl/proc/refresh_icon(mob/user)
 	update_icon(UPDATE_ICON_STATE)
@@ -48,9 +51,10 @@
 
 /obj/item/rcl/screwdriver_act(mob/user, obj/item/I)
 	if(!loaded)
+		to_chat(user, "<span class='warning'>There's no cable to remove!</span>")
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, FALSE, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You loosen the securing screws on the side, allowing you to lower the guiding edge and retrieve the wires.</span>")
 	while(loaded.amount > 30) //There are only two kinds of situations: "nodiff" (60,90), or "diff" (31-59, 61-89)
@@ -71,6 +75,8 @@
 	. = ..()
 	if(loaded)
 		. += "<span class='notice'>It contains [loaded.amount]/[max_amount] cables.</span>"
+	else
+		. += "<span class='warning'>It's empty!</span>"
 
 /obj/item/rcl/Destroy()
 	QDEL_NULL(loaded)
@@ -101,7 +107,7 @@
 	refresh_icon(user)
 	if(!loaded || !loaded.amount)
 		if(loud)
-			to_chat(user, "<span class='notice'>The last of the cables unreel from [src].</span>")
+			to_chat(user, "<span class='warning'>The last of the cables unreel from [src]!</span>")
 		if(loaded)
 			qdel(loaded)
 			loaded = null
@@ -132,7 +138,7 @@
 
 /obj/item/rcl/proc/trigger(mob/user)
 	if(is_empty(user, 0))
-		to_chat(user, "<span class='warning'>\The [src] is empty!</span>")
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
 	if(last)
 		if(get_dist(last, user) == 1) //hacky, but it works
