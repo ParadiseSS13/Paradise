@@ -1,5 +1,4 @@
-// Hellhound
-/mob/living/simple_animal/hostile/hellhound
+/mob/living/basic/hellhound
 	// Sprites by FoS: https://www.paradisestation.org/forum/profile/335-fos
 	name = "lesser hellhound"
 	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. A firey, lava-like substance drips from it."
@@ -8,55 +7,46 @@
 	icon_dead = "hellhound_dead"
 	icon_resting = "hellhound_rest"
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	maxbodytemp = INFINITY
 	melee_damage_lower = 10 // slightly higher than araneus
 	melee_damage_upper = 30
+	melee_attack_cooldown_min = 1.5 SECONDS
+	melee_attack_cooldown_max = 2.5 SECONDS
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	a_intent = INTENT_HARM
-	environment_smash = 1
-	speak_chance = 0
 	speed = 0
 	maxHealth = 250 // same as sgt araneus
 	health = 250
 	obj_damage = 50
-	robust_searching = TRUE
-	stat_attack = UNCONSCIOUS
-	attacktext = "savages"
+	attack_verb_continuous = "savages"
+	attack_verb_simple = "savage"
 	attack_sound = 'sound/effects/bite.ogg'
 	speak_emote = list("growls")
 	see_in_dark = 9
 	universal_understand = TRUE
-	wander = FALSE
-	var/life_regen_cycles = 0
-	var/life_regen_cycle_trigger = 10 // heal once for every X number of cycles spent resting
-	var/life_regen_amount = -10 // negative, because negative = healing
-	var/smoke_lastuse = 0
-	var/smoke_freq = 300 // 30 seconds
-	footstep_type = FOOTSTEP_MOB_CLAW
+	ai_controller = /datum/ai_controller/basic_controller/simple/hellhound
+	step_type = FOOTSTEP_MOB_CLAW
+	faction = list("nether")
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, STAM = 0, OXY = 1)
+	gold_core_spawnable = HOSTILE_SPAWN
 	contains_xeno_organ = TRUE
-	ignore_generic_organs = TRUE
 	surgery_container = /datum/xenobiology_surgery_container/hound
+	/// How many cycles has the hellhound rested
+	var/life_regen_cycles = 0
+	/// Trigger number for health regen
+	var/life_regen_cycle_trigger = 10
+	/// How much is healed when regenerating
+	var/life_regen_amount = -10 // negative, because negative = healing
+	/// When did the hellhound last use smoke
+	var/smoke_lastuse = 0
+	/// How often can the hellhound use smoke
+	var/smoke_freq = 30 SECONDS
 
-/mob/living/simple_animal/hostile/hellhound/Initialize(mapload)
+/mob/living/basic/hellhound/Initialize(mapload)
 	. = ..()
-	var/datum/action/innate/demon_whisper/whisper_action = new
-	whisper_action.Grant(src)
-	ADD_TRAIT(src, TRAIT_NOBREATH, SPECIES_TRAIT)
+	AddElement(/datum/element/ai_retaliate)
 
-/mob/living/simple_animal/hostile/hellhound/handle_automated_action()
-	if(!..())
-		return
-	if(IS_HORIZONTAL(src))
-		if(!wants_to_rest())
-			custom_emote(EMOTE_VISIBLE, "growls, and gets up.")
-			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, 1)
-			stand_up()
-	else if(wants_to_rest())
-		custom_emote(EMOTE_VISIBLE, "lays down, and starts to lick their wounds.")
-		lay_down()
-
-/mob/living/simple_animal/hostile/hellhound/examine(mob/user)
+/mob/living/basic/hellhound/examine(mob/user)
 	. = ..()
 	if(stat != DEAD)
 		var/list/msgs = list()
@@ -77,34 +67,31 @@
 				msgs += "<span class='notice'>It is currently resting.</span>"
 		. += msgs.Join("<BR>")
 
-/mob/living/simple_animal/hostile/hellhound/Life(seconds, times_fired)
+/mob/living/basic/hellhound/Move(atom/newloc, direct, glide_size_override, update_dir)
 	. = ..()
-	if(stat != DEAD && IS_HORIZONTAL(src) && (getBruteLoss() || getFireLoss()))
-		if(life_regen_cycles >= life_regen_cycle_trigger)
-			life_regen_cycles = 0
-			to_chat(src, "<span class='notice'>You lick your wounds, helping them close.</span>")
-			adjustBruteLoss(life_regen_amount)
-			adjustFireLoss(life_regen_amount)
-		else
-			life_regen_cycles++
+	if(IS_HORIZONTAL(src))
+		stand_up()
 
-/mob/living/simple_animal/hostile/hellhound/proc/wants_to_rest()
-	if(target)
-		return FALSE
-	if(getBruteLoss() || getFireLoss())
-		return TRUE
-	return FALSE
+/mob/living/basic/hellhound/Life(seconds, times_fired)
+	. = ..()
+	if(stat != DEAD && (getBruteLoss() || getFireLoss()))
+		if(IS_HORIZONTAL(src))
+			if(life_regen_cycles >= life_regen_cycle_trigger)
+				life_regen_cycles = 0
+				to_chat(src, "<span class='notice'>You lick your wounds, helping them close.</span>")
+				adjustBruteLoss(life_regen_amount)
+				adjustFireLoss(life_regen_amount)
+			else
+				life_regen_cycles++
+	if(ai_controller.blackboard_key_exists(BB_BASIC_MOB_CURRENT_TARGET))
+		stand_up()
 
-/mob/living/simple_animal/hostile/hellhound/attacked_by(obj/item/attacker, mob/living/user)
-	if(..())
-		return FINISH_ATTACK
+/mob/living/basic/hellhound/apply_damage(damage, damagetype, def_zone, blocked, sharp, used_weapon, spread_damage)
+	. = ..()
+	if(stat != DEAD && IS_HORIZONTAL(src))
+		stand_up()
 
-	if(target && isliving(target))
-		var/mob/living/L = target
-		if(L.stat != CONSCIOUS)
-			target = user
-
-/mob/living/simple_animal/hostile/hellhound/greater
+/mob/living/basic/hellhound/greater
 	name = "greater hellhound"
 	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. Greater hounds are far stronger than their lesser kin, and should be engaged with extreme caution."
 	icon_state = "hellhoundgreater"
@@ -114,13 +101,12 @@
 	health = 400
 	force_threshold = 5 // no punching
 	universal_speak = TRUE
-	smoke_freq = 200
+	smoke_freq = 20 SECONDS
 	life_regen_cycle_trigger = 5
 	melee_damage_lower = 20
 	melee_damage_upper = 30
-	environment_smash = 2
 
-/mob/living/simple_animal/hostile/hellhound/greater/Initialize(mapload)
+/mob/living/basic/hellhound/greater/Initialize(mapload)
 	. = ..()
 	// Movement
 	AddSpell(new /datum/spell/ethereal_jaunt/shift)
@@ -140,16 +126,16 @@
 	var/datum/spell/aoe/conjure/creature/summonspell = new
 	summonspell.base_cooldown = 1
 	summonspell.invocation_type = "none"
-	summonspell.summon_type = list(/mob/living/simple_animal/hostile/hellhound)
+	summonspell.summon_type = list(/mob/living/basic/hellhound)
 	summonspell.summon_amt = 1
 	AddSpell(summonspell)
 
-/mob/living/simple_animal/hostile/hellhound/greater/AttackingTarget()
+/mob/living/basic/hellhound/greater/melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	. = ..()
 	if(. && ishuman(target) && (!client || a_intent == INTENT_HARM))
 		special_aoe()
 
-/mob/living/simple_animal/hostile/hellhound/greater/proc/special_aoe()
+/mob/living/basic/hellhound/greater/proc/special_aoe()
 	if(world.time < (smoke_lastuse + smoke_freq))
 		return
 	smoke_lastuse = world.time
@@ -157,10 +143,9 @@
 	smoke.set_up(10, FALSE, loc)
 	smoke.start()
 
-/mob/living/simple_animal/hostile/hellhound/tear
+/mob/living/basic/hellhound/tear
 	name = "frenzied hellhound"
 	maxHealth = 300
 	health = 300
 	melee_damage_lower = 30
 	melee_damage_upper = 50
-	faction = list("rift")

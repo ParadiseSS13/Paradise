@@ -372,6 +372,17 @@
 	drink_desc = "The perfect blend of coffee, milk, and chocolate."
 	taste_description = "chocolatey coffee"
 
+/datum/reagent/consumable/drink/coffee/cafe_latte/pumpkin_latte
+	name = "Pumpkin Latte"
+	id = "pumpkin_latte"
+	description = "A mix of pumpkin juice and coffee."
+	color = "#F4A460"
+	nutriment_factor = 3 * REAGENTS_METABOLISM
+	drink_icon = "pumpkin_latte"
+	drink_name = "Pumpkin Latte"
+	drink_desc = "A mix of coffee and pumpkin juice."
+	taste_description = "overpriced hipster spices"
+
 /datum/reagent/consumable/drink/tea
 	name = "Tea"
 	id = "tea"
@@ -488,17 +499,6 @@
 	drink_name = "Blue Cherry Shake"
 	drink_desc = "An exotic blue milkshake."
 	taste_description = "blues"
-
-/datum/reagent/consumable/drink/pumpkin_latte
-	name = "Pumpkin Latte"
-	id = "pumpkin_latte"
-	description = "A mix of pumpkin juice and coffee."
-	color = "#F4A460"
-	nutriment_factor = 3 * REAGENTS_METABOLISM
-	drink_icon = "pumpkin_latte"
-	drink_name = "Pumpkin Latte"
-	drink_desc = "A mix of coffee and pumpkin juice."
-	taste_description = "overpriced hipster spices"
 
 /datum/reagent/consumable/drink/gibbfloats
 	name = "Gibb Floats"
