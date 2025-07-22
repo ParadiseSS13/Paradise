@@ -1,6 +1,7 @@
 /obj/item/gun/projectile
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason"
 	name = "projectile gun"
+	icon = 'icons/tgmc/objects/guns.dmi'
 	icon_state = "pistol"
 	origin_tech = "combat=2;materials=2"
 	w_class = WEIGHT_CLASS_NORMAL
