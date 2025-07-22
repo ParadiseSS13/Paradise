@@ -253,7 +253,7 @@
 	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && is_rubber())
-		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
+		. += image('icons/tgmc/objects/ammo.dmi', icon_state = "enforcer-r")
 
 /obj/item/ammo_box/magazine/enforcer/examine(mob/user)
 	. = ..()
