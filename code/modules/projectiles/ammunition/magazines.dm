@@ -202,6 +202,7 @@
 /obj/item/ammo_box/magazine/m10mm
 	name = "pistol magazine (10mm)"
 	desc = "A gun magazine."
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "9x19p"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c10mm
@@ -211,24 +212,28 @@
 
 /obj/item/ammo_box/magazine/m10mm/fire
 	name = "pistol magazine (10mm incendiary)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "9x19pI"
 	desc = "A gun magazine. Loaded with rounds which ignite the target."
 	ammo_type = /obj/item/ammo_casing/c10mm/fire
 
 /obj/item/ammo_box/magazine/m10mm/hp
 	name = "pistol magazine (10mm HP)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "9x19pH"
 	desc= "A gun magazine. Loaded with hollow-point rounds, extremely effective against unarmored targets, but nearly useless against protective clothing."
 	ammo_type = /obj/item/ammo_casing/c10mm/hp
 
 /obj/item/ammo_box/magazine/m10mm/ap
 	name = "pistol magazine (10mm AP)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "9x19pA"
 	desc= "A gun magazine. Loaded with rounds which penetrate armour, but are less effective against normal targets"
 	ammo_type = /obj/item/ammo_casing/c10mm/ap
 
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "45"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
@@ -237,6 +242,7 @@
 
 /obj/item/ammo_box/magazine/enforcer
 	name = "handgun magazine (9mm rubber)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "enforcer"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8
@@ -331,6 +337,7 @@
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "uzi9mm"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
@@ -363,6 +370,7 @@
 
 /obj/item/ammo_box/magazine/apsm10mm
 	name = "Type 230 magazine (10mm)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "10mmaps"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = "10mm"
@@ -371,6 +379,7 @@
 
 /obj/item/ammo_box/magazine/apsm10mm/fire
 	name = "Type 230 magazine (10mm incendiary)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "10mmapsI"
 	ammo_type = /obj/item/ammo_casing/c10mm/fire
 	caliber = "10mm"
@@ -379,6 +388,7 @@
 
 /obj/item/ammo_box/magazine/apsm10mm/hp
 	name = "Type 230 magazine (10mm HP)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "10mmapsH"
 	ammo_type = /obj/item/ammo_casing/c10mm/hp
 	caliber = "10mm"
@@ -387,6 +397,7 @@
 
 /obj/item/ammo_box/magazine/apsm10mm/ap
 	name = "Type 230 magazine (10mm AP)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "10mmapsA"
 	ammo_type = /obj/item/ammo_casing/c10mm/ap
 	caliber = "10mm"
