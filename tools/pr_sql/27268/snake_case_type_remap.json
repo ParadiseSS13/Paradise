@@ -282,8 +282,8 @@
 	{ "original": "/obj/item/food/sushi_TobikoEgg", "replace": "/obj/item/food/sushi_tobiko_egg" },
 	{ "original": "/obj/item/food/sushi_Unagi", "replace": "/obj/item/food/sushi_unagi" },
 	{
-		"original": "/obj/item/gun/projectile/automatic/pistol/type_230",
-		"replace": "/obj/item/gun/projectile/automatic/pistol/type_230"
+		"original": "/obj/item/gun/projectile/automatic/pistol/APS",
+		"replace": "/obj/item/gun/projectile/automatic/pistol/aps"
 	},
 	{ "original": "/obj/item/paper/Court", "replace": "/obj/item/paper/court" },
 	{ "original": "/obj/item/paper/Toxin", "replace": "/obj/item/paper/toxin" },
