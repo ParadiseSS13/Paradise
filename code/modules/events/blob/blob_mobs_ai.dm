@@ -41,4 +41,4 @@
 	var/mob/living/basic/blob/blobspore/spore = controller.pawn
 	if(spore.is_zombie)
 		return
-	. = ..()
+	return ..()
