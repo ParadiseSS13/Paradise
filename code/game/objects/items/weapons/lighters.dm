@@ -283,7 +283,7 @@
 		damtype = "fire"
 		force = 3
 		hitsound = 'sound/items/welder.ogg'
-		item_state = "cigon"
+		item_state = "cig_on"
 		name = "lit match"
 		desc = "A match. This one is lit."
 		attack_verb = list("burnt","singed")
@@ -298,7 +298,7 @@
 		damtype = "brute"
 		force = initial(force)
 		icon_state = "match_burnt"
-		item_state = "cigoff"
+		item_state = "cig_off"
 		name = "burnt match"
 		desc = "A match. This one has seen better days."
 		attack_verb = list("flicked")
