@@ -143,7 +143,6 @@
 	desc = "A pair of restraints fashioned from long strands of flesh."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sinewcuff"
-	item_state = "sinewcuff"
 	belt_icon = null
 	breakouttime = 30 SECONDS
 	cuffsound = 'sound/weapons/cablecuff.ogg'
@@ -155,7 +154,6 @@
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."
 	icon_state = "cablecuff"
-	item_state = "cablecuff"
 	cuffed_state = "cablecuff"
 	belt_icon = "cablecuff"
 	origin_tech = "engineering=2"
@@ -237,7 +235,6 @@
 	name = "twimsts cuffs"
 	desc = "Liquorice twist candy made into cable cuffs, tasty but it can't actually hold anyone."
 	icon_state = "cablecuff"
-	item_state = "cablecuff"
 	cuffed_state = "cablecuff"
 	belt_icon = "cablecuff"
 	color = "#E31818"

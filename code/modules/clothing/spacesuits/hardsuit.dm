@@ -3,7 +3,6 @@
 	name = "hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
 	icon_state = null
-	item_state = "eng_helm"
 	max_integrity = 300
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, RAD = 150, FIRE = 50, ACID = 150)
 	var/basestate = "hardsuit"
@@ -29,13 +28,6 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
-		)
-	sprite_sheets_obj = list(
-		"Unathi" = 'icons/obj/clothing/species/unathi/hats.dmi',
-		"Tajaran" = 'icons/obj/clothing/species/tajaran/hats.dmi',
-		"Skrell" = 'icons/obj/clothing/species/skrell/hats.dmi',
-		"Vox" = 'icons/obj/clothing/species/vox/hats.dmi',
-		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload)
@@ -139,7 +131,7 @@
 	name = "hardsuit"
 	desc = "A special space suit for environments that might pose hazards beyond just the vacuum of space. Provides more protection than a standard space suit."
 	icon_state = null
-	item_state = "eng_hardsuit"
+	inhand_icon_state = "eng_hardsuit"
 	max_integrity = 300
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, RAD = 150, FIRE = 50, ACID = 150)
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
@@ -155,13 +147,6 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
-		)
-	sprite_sheets_obj = list(
-		"Unathi" = 'icons/obj/clothing/species/unathi/suits.dmi',
-		"Tajaran" = 'icons/obj/clothing/species/tajaran/suits.dmi',
-		"Skrell" = 'icons/obj/clothing/species/skrell/suits.dmi',
-		"Vox" = 'icons/obj/clothing/species/vox/suits.dmi',
-		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
 		)
 
 	var/obj/item/clothing/head/helmet/space/hardsuit/helmet
@@ -254,7 +239,6 @@
 	desc = "A dual-mode advanced helmet designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
 	alt_desc = "A dual-mode advanced helmet designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit1-syndi"
-	item_state = "syndie_helm"
 	item_color = "syndi"
 	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = 50, ACID = 450)
 	on = TRUE
@@ -333,7 +317,7 @@
 	desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
 	alt_desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit1-syndi"
-	item_state = "syndie_hardsuit"
+	inhand_icon_state = "syndie_hardsuit"
 	item_color = "syndi"
 	origin_tech = "engineering=6;syndicate=4"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -392,7 +376,6 @@
 	name = "eagle suit"
 	desc = "An advanced, light suit, fabricated from a mixture of synthetic feathers and space-resistant material. A gun holster appears to be integrated into the suit."
 	icon_state = "freedom"
-	item_state = "freedom"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom
 	sprite_sheets = null
 
@@ -403,7 +386,6 @@
 	name = "eagle helmet"
 	desc = "An advanced, space-proof helmet. It appears to be modeled after an old-world eagle."
 	icon_state = "griffinhat"
-	item_state = "griffinhat"
 	sprite_sheets = null
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom/update_icon_state()
@@ -414,7 +396,6 @@
 	name = "\improper Soviet hardsuit helmet"
 	desc = "A military hardsuit helmet bearing the red star of the U.S.S.P."
 	icon_state = "hardsuit0-soviet"
-	item_state = "hardsuit0-soviet"
 	item_color = "soviet"
 	armor = list(MELEE = 35, BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 10, RAD = 50, FIRE = 75, ACID = 75)
 
@@ -422,7 +403,7 @@
 	name = "\improper Soviet hardsuit"
 	desc = "A soviet military hardsuit designed for maximum speed and mobility. Proudly displays the U.S.S.P flag on the chest."
 	icon_state = "hardsuit-soviet"
-	item_state = "hardsuit-soviet"
+	inhand_icon_state = null
 	slowdown = 0.5
 	armor = list(MELEE = 35, BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 10, RAD = 50, FIRE = 75, ACID = 75)
 	allowed = list(/obj/item/gun, /obj/item/flashlight, /obj/item/tank/internals, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
@@ -433,56 +414,19 @@
 	name = "\improper Soviet command hardsuit helmet"
 	desc = "A military hardsuit helmet with a red command stripe."
 	icon_state = "hardsuit0-soviet-commander"
-	item_state = "hardsuit0-soviet-commander"
 	item_color = "soviet-commander"
 
 /obj/item/clothing/suit/space/hardsuit/soviet/commander
 	name = "\improper Soviet command hardsuit"
 	desc = "A soviet military command hardsuit designed for maximum speed and mobility."
 	icon_state = "hardsuit-soviet-commander"
-	item_state = "hardsuit-soviet-commander"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/soviet/commander
-
-//Security
-// /obj/item/clothing/head/helmet/space/hardsuit/security
-// 	name = "security hardsuit helmet"
-// 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
-// 	icon_state = "hardsuit0-sec"
-// 	item_state = "sec_helm"
-// 	item_color = "sec"
-// 	armor = list(MELEE = 25, BULLET = 10, LASER = 20, ENERGY = 5, BOMB = 5, RAD = 50, FIRE = 150, ACID = 150)
-
-// /obj/item/clothing/suit/space/hardsuit/security
-// 	name = "security hardsuit"
-// 	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
-// 	icon_state = "hardsuit-sec"
-// 	item_state = "sec_hardsuit"
-// 	armor = list(MELEE = 25, BULLET = 10, LASER = 20, ENERGY = 5, BOMB = 5, RAD = 50, FIRE = 150, ACID = 150)
-// 	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank/internals,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
-// 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security
-
-// /obj/item/clothing/head/helmet/space/hardsuit/security/hos
-// 	name = "head of security's hardsuit helmet"
-// 	desc = "A special bulky helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
-// 	icon_state = "hardsuit0-hos"
-// 	item_color = "hos"
-// 	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
-
-// /obj/item/clothing/suit/space/hardsuit/security/hos
-// 	name = "head of security's hardsuit"
-// 	desc = "A special bulky suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
-// 	icon_state = "hardsuit-hos"
-// 	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
-// 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
-// 	jetpack = /obj/item/tank/jetpack/suit
-
 
 //Singuloth armor
 /obj/item/clothing/head/helmet/space/hardsuit/singuloth
 	name = "singuloth knight's helmet"
 	desc = "This is an adamantium helmet from the chapter of the Singuloth Knights. It shines with a holy aura."
 	icon_state = "hardsuit0-singuloth"
-	item_state = "singuloth_helm"
 	item_color = "singuloth"
 	armor = list(MELEE = 35, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 15, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	flags_2 = RAD_PROTECT_CONTENTS_2
@@ -492,10 +436,8 @@
 	name = "singuloth knight's armor"
 	desc = "This is a ceremonial armor from the chapter of the Singuloth Knights. It's made of pure forged adamantium."
 	icon_state = "hardsuit-singuloth"
-	item_state = "singuloth_hardsuit"
 	flags = STOPSPRESSUREDMAGE
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	armor = list(MELEE = 35, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 15, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/singuloth
 	sprite_sheets = null
-

@@ -12,7 +12,7 @@
 	desc = "PRESENTS!!!! eek!"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "gift1"
-	item_state = "gift1"
+	inhand_icon_state = "gift"
 	resistance_flags = FLAMMABLE
 	scatter_distance = 10
 

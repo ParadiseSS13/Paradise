@@ -13,7 +13,7 @@
 	name = "\improper X-260 taser"
 	desc = "A less-lethal pistol that fires electrodes to incapacitate targets."
 	icon_state = "taser"
-	item_state = null	//so the human update icon uses the icon_state instead.
+	inhand_icon_state = null
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode)
 	ammo_x_offset = 3
@@ -70,7 +70,7 @@
 	name = "disabler"
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse."
 	icon_state = "disabler"
-	item_state = null
+	inhand_icon_state = null
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 2
@@ -164,7 +164,7 @@
 	name = "u-ION Silencer"
 	desc = "Nanotrasen's take on silenced weapons. A quiet lethal disabler, designed to make the death look like a natural cause."
 	icon_state = "tesla"
-	item_state = "tesla"
+	inhand_icon_state = "tesla"
 	origin_tech = "combat=6;syndicate=2"
 	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/silencer_ammo)
@@ -190,13 +190,11 @@
 /obj/item/gun/energy/arc_revolver
 	name = "arc revolver"
 	desc = "A high-tech revolver that fires internal, 3D printed shock cartridges in a revolving cylinder. \
-	The cartridges can be recharged using conventional rechargers. These shots charge whatever they hit, causing arcs of electricity to form between them."
+		The cartridges can be recharged using conventional rechargers. These shots charge whatever they hit, causing arcs of electricity to form between them."
 	icon_state = "stunrevolver"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	origin_tech = "combat=4;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/arc_revolver)
-	can_flashlight = FALSE
-	shaded_charge = FALSE
 	can_holster = TRUE
 
 /obj/item/gun/energy/arc_revolver/examine_more(mob/user)

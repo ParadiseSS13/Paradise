@@ -2,7 +2,7 @@
 	name = "syringe gun"
 	desc = "A spring loaded rifle designed to fit syringes, used to incapacitate unruly patients from a distance. Not compatible with DNA-Injectors."
 	icon_state = "syringegun"
-	item_state = "syringegun"
+	inhand_icon_state = "syringegun"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=2;biotech=3"
 	throw_speed = 3
@@ -97,7 +97,7 @@
 	name = "dart pistol"
 	desc = "A small spring-loaded sidearm that functions identically to a syringe gun. Not compatible with DNA-Injectors."
 	icon_state = "syringe_pistol"
-	item_state = "gun" //Smaller inhand
+	inhand_icon_state = "gun" // Smaller inhand
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=2;syndicate=2;biotech=3"
 	force = 2 //Also very weak because it's smaller
@@ -405,7 +405,7 @@
 	name = "blowgun"
 	desc = "Fire syringes at a short distance."
 	icon_state = "blowgun"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // you fire it with your mouth
 
 /obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)

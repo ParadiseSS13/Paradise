@@ -3,11 +3,13 @@
 	desc = "It's a gun. It's pretty terrible, though."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "revolver_bright"
-	item_state = "gun"
+	worn_icon_state = "gun"
+	inhand_icon_state = "gun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -67,10 +69,6 @@
 	var/current_skin = null
 	/// List of reskin options.
 	var/list/options = list()
-
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
-
 	/// Whether or not the gun has a flashlight.
 	var/obj/item/flashlight/gun_light = null
 	/// Whether or not a flashlight can be attached to the gun.

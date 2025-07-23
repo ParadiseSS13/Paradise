@@ -3,7 +3,7 @@
 	icon = 'icons/misc/beach.dmi'
 	desc = "An inflatable ball of fun, enjoyed on many beaches."
 	icon_state = "ball"
-	item_state = "beachball"
+	inhand_icon_state = "beachball"
 	density = FALSE
 	anchored = FALSE
 	w_class = WEIGHT_CLASS_NORMAL
@@ -30,7 +30,7 @@
 	desc = "Take me out to the ball game."
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "baseball"
-	item_state = "baseball"
+	inhand_icon_state = "baseball"
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/beach_ball/dodgeball
@@ -38,7 +38,7 @@
 	desc = "Used for playing the most violent and degrading of childhood games. This one is connected to the laser tag armour system."
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "dodgeball"
-	item_state = "dodgeball"
+	inhand_icon_state = "dodgeball"
 	dribbleable = TRUE
 	var/list/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
 
@@ -56,7 +56,7 @@
 	desc = "Here's your chance, do your dance at the Space Jam."
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "basketball"
-	item_state = "basketball"
+	inhand_icon_state = "basketball"
 	dribbleable = TRUE
 	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pockets
 

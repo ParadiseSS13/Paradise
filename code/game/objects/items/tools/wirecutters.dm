@@ -70,7 +70,7 @@
 	desc = "A pair of tacticool wirecutters fitted with contoured grips and a picatinny rail. The blades are also sharper than normal."
 	icon_state = "cutters_sec"
 	belt_icon = "wirecutters_sec"
-	item_state = "cutters_red" //shh
+	inhand_icon_state = "cutters_red" //shh
 	attack_verb = list("reformed", "robusted", "102'd") //102: battery in space law
 	force = 9 //same as seclites
 	toolspeed = 0.75
@@ -121,7 +121,7 @@
 	name = "jaws of life"
 	desc = "A compact and powerful industrial tool with a modular head. This one has a set of large cutting blades attached."
 	icon_state = "jaws_cutter"
-	item_state = "jawsoflife"
+	inhand_icon_state = "jawsoflife"
 	belt_icon = "jaws"
 	origin_tech = "materials=2;engineering=2"
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)

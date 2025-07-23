@@ -31,22 +31,16 @@
 	update_icon()
 
 /obj/item/flag/update_icon_state()
-	updateFlagIcon()
-	item_state = icon_state
-	if(rolled)
-		icon_state = "[icon_state]_rolled"
-		custom_fire_overlay = "fire_rolled"
-	else
-		custom_fire_overlay = initial(custom_fire_overlay)
-	if(resistance_flags & ON_FIRE)
-		item_state = "[item_state]_fire"
+	icon_state = "[get_flag_icon()][rolled ? "_rolled" : ""]"
+	inhand_icon_state = "[get_flag_icon()][resistance_flags & ON_FIRE ? "_fire" : ""]"
+	custom_fire_overlay = "[initial(custom_fire_overlay)][rolled ? "_rolled" : ""]"
 	if(ismob(loc))
-		var/mob/M = loc
-		M.update_inv_r_hand()
-		M.update_inv_l_hand()
+		var/mob/mob = loc
+		mob.update_inv_r_hand()
+		mob.update_inv_l_hand()
 
-/obj/item/flag/proc/updateFlagIcon()
-	icon_state = initial(icon_state)
+/obj/item/flag/proc/get_flag_icon()
+	return initial(icon_state)
 
 /obj/item/flag/nt
 	name = "\improper Nanotrasen flag"
@@ -294,8 +288,8 @@
 	boobytrap = null
 	burn()
 
-/obj/item/flag/chameleon/updateFlagIcon()
-	icon_state = updated_icon_state
+/obj/item/flag/chameleon/get_flag_icon()
+	return updated_icon_state
 
 /obj/item/flag/chameleon/depot/New()
 	..()

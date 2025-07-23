@@ -63,7 +63,6 @@
 	name = "contractor balloon"
 	desc = "A black and gold balloon carried only by legendary Syndicate agents."
 	icon_state = "contractorballoon"
-	item_state = "contractorballoon"
 
 /datum/rep_purchase/item/zippo
 	name = "Contractor Zippo Lighter"
@@ -76,7 +75,7 @@
 	name = "contractor zippo lighter"
 	desc = "An unique black and gold zippo commonly carried by elite Syndicate agents."
 	icon_state = "zippo-contractor"
-	item_state = "zippo-black"
+	inhand_icon_state = "zippo-black"
 
 /**
   * # Rep Purchase MARK: Actions

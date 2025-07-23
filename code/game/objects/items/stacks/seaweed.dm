@@ -4,7 +4,6 @@
 	singular_name = "seaweed sheet"
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "seaweed"
-	item_state = "seaweed"
 	w_class = WEIGHT_CLASS_TINY
 	attack_verb = list("slapped")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'

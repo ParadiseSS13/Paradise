@@ -6,16 +6,35 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	icon = 'icons/obj/items.dmi'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
-
-	// Set in the Initialise depending on the item size. Unless it's overriden by a specific item
+	max_integrity = 200
+	can_be_hit = FALSE
+	suicidal_hands = TRUE
+	/// Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	move_resist = null
-	/// used in item_attack.dm to make an item not show an attack message to viewers
-	var/discrete = FALSE
-	/// The icon state used to display the item in your inventory. If null then the icon_state value itself will be used
-	var/item_state = null
-	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
+	/* Species-specific sprites, concept stolen from Paradise//vg/.
+	ex:
+	sprite_sheets = list(
+		"Tajaran" = 'icons/cat/are/bad'
+		)
+	If index term exists, this sprite sheet will be used.
+	*/
+	/// This should NEVER have a "Human" inside - use `worn_icon` instead.
+	var/list/sprite_sheets
+	/// Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
+	var/list/sprite_sheets_inhand
+
+	/// Icon file for mob worn overlays. Can be ignored if sprite_sheets/sprite_sheets_inhand is set
+	var/icon/worn_icon
+	/// Icon state for mob worn overlays, if null the `icon_state`'s will be used
+	var/worn_icon_state
+
+	/// Icon state for mob inhand overlays, if null the `icon_state`'s value will be used. If you set this manually, verify that such icon actually exists
+	var/inhand_icon_state
+	/// Icon file for left hand inhand overlays
+	var/icon/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	/// Icon file for right inhand overlays
+	var/icon/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	/// Dimension X of the lefthand_file and righthand_file var
 	/// eg: 32x32 sprite, 64x64 sprite, etc.
 	var/inhand_x_dimension = 32
@@ -23,11 +42,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// eg: 32x32 sprite, 64x64 sprite, etc.
 	var/inhand_y_dimension = 32
 
-	max_integrity = 200
-
-	can_be_hit = FALSE
-	suicidal_hands = TRUE
-
+	/// used in item_attack.dm to make an item not show an attack message to viewers
+	var/discrete = FALSE
 	/// Sound played when you hit something with the item
 	var/hitsound
 	/// Played when the item is used, for example tools
@@ -150,21 +166,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/tool_volume = 50
 	/// If this item is a tool, the speed multiplier. Smaller numbers are faster.
 	var/toolspeed = 1
-
-	/* Species-specific sprites, concept stolen from Paradise//vg/.
-	ex:
-	sprite_sheets = list(
-		"Tajaran" = 'icons/cat/are/bad'
-		)
-	If index term exists and icon_override is not set, this sprite sheet will be used.
-	*/
-	var/list/sprite_sheets
-	/// Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
-	var/list/sprite_sheets_inhand
-	/// Used to override hardcoded clothing dmis in human clothing proc.
-	var/icon_override
-	/// Used to override hardcoded clothing inventory object dmis in human clothing proc.
-	var/sprite_sheets_obj
 
 	//Tooltip vars
 

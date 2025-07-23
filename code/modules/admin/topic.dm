@@ -3167,16 +3167,22 @@
 						continue
 					W.icon = 'icons/obj/guns/projectile.dmi'
 					W.icon_state = "revolver"
-					W.item_state = "gun"
+					W.worn_icon_state = "gun"
+					W.inhand_icon_state = "gun"
+					W.lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+					W.righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 				message_admins("[key_name_admin(usr)] made every item look like a gun")
 			if("schoolgirl") // nyaa~ How much are you paying attention in reviews?
 				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				for(var/obj/item/clothing/under/W in world)
-					W.icon_state = "schoolgirl"
-					W.item_state = "w_suit"
-					W.item_color = "schoolgirl"
+					W.icon_state = /obj/item/clothing/under/dress/schoolgirl::icon_state
+					W.worn_icon = /obj/item/clothing/under/dress/schoolgirl::worn_icon
+					W.sprite_sheets = /obj/item/clothing/under/dress/schoolgirl::sprite_sheets
+					W.worn_icon_state = /obj/item/clothing/under/dress/schoolgirl::worn_icon_state
+					W.inhand_icon_state = /obj/item/clothing/under/dress/schoolgirl::inhand_icon_state
+					W.item_color = /obj/item/clothing/under/dress/schoolgirl::item_color
 				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
 				SEND_SOUND(world, sound('sound/AI/animes.ogg'))
 			if("eagles")//SCRAW

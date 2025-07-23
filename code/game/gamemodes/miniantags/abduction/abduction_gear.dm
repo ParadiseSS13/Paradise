@@ -49,7 +49,6 @@ CONTENTS:
 	name = "agent headgear"
 	desc = "Abduct with style - spiky style. Prevents digital tracking."
 	icon_state = "alienhelmet"
-	item_state = "alienhelmet"
 	blockTracking = 1
 	origin_tech = "materials=7;magnets=4;abductor=3"
 	flags = BLOCKHAIR
@@ -64,7 +63,8 @@ CONTENTS:
 	desc = "A vest outfitted with advanced stealth technology. It has two modes - combat and stealth."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "vest_stealth"
-	item_state = "armor"
+	worn_icon_state = "armor"
+	inhand_icon_state = "armor"
 	blood_overlay_type = "armor"
 	origin_tech = "magnets=7;biotech=4;powerstorage=4;abductor=4"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = 115, ACID = 115)
@@ -181,7 +181,6 @@ CONTENTS:
 	name = "abductor silencer"
 	desc = "A compact device used to shut down communications equipment."
 	icon_state = "silencer"
-	item_state = "silencer"
 	origin_tech = "materials=4;programming=7;abductor=3"
 
 /obj/item/abductor/silencer/attack__legacy__attackchain(mob/living/M, mob/user)
@@ -224,7 +223,7 @@ CONTENTS:
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	restricted_species = list(/datum/species/abductor)
 	icon_state = "alienpistol"
-	item_state = "alienpistol"
+	inhand_icon_state = "alienpistol"
 	origin_tech = "combat=4;magnets=7;powerstorage=3;abductor=3"
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	can_holster = TRUE
@@ -232,16 +231,15 @@ CONTENTS:
 /obj/item/abductor_baton
 	name = "advanced baton"
 	desc = "A quad-mode baton used for incapacitation and restraining of specimens."
-	var/mode = BATON_STUN
 	icon = 'icons/obj/abductor.dmi'
+	icon_state = "wonderprodStun"
+	worn_icon_state = "tele_baton"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon_state = "wonderprodStun"
-	item_state = "wonderprod"
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=4;combat=4;biotech=7;abductor=4"
-	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/toggle_mode)
+	var/mode = BATON_STUN
 
 /obj/item/abductor_baton/proc/toggle(mob/living/user = usr)
 	mode = (mode+1)%BATON_MODES
@@ -264,16 +262,12 @@ CONTENTS:
 	switch(mode)
 		if(BATON_STUN)
 			icon_state = "wonderprodStun"
-			item_state = "wonderprodStun"
 		if(BATON_SLEEP)
 			icon_state = "wonderprodSleep"
-			item_state = "wonderprodSleep"
 		if(BATON_CUFF)
 			icon_state = "wonderprodCuff"
-			item_state = "wonderprodCuff"
 		if(BATON_PROBE)
 			icon_state = "wonderprodProbe"
-			item_state = "wonderprodProbe"
 
 /obj/item/abductor_baton/attack__legacy__attackchain(mob/target, mob/living/user)
 	if(!isabductor(user))
@@ -412,11 +406,11 @@ CONTENTS:
 /obj/item/radio/headset/abductor
 	name = "alien headset"
 	desc = "An advanced alien headset designed to monitor communications of human space stations. Why does it have a microphone? No one knows."
-	flags = EARBANGPROTECT
-	origin_tech = "magnets=2;abductor=3"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "abductor_headset"
-	item_state = "abductor_headset"
+	worn_icon_state = "abductor_headset"
+	flags = EARBANGPROTECT
+	origin_tech = "magnets=2;abductor=3"
 	ks2type = /obj/item/encryptionkey/heads/captain
 
 /obj/item/radio/headset/abductor/Initialize(mapload)
@@ -433,7 +427,7 @@ CONTENTS:
 	name = "science tool"
 	desc = "A dual-mode tool for retrieving specimens and scanning appearances. Scanning can be done through cameras."
 	icon_state = "gizmo_scan"
-	item_state = "gizmo"
+	inhand_icon_state = "gizmo"
 	origin_tech = "engineering=7;magnets=4;bluespace=4;abductor=3"
 	var/mode = GIZMO_SCAN
 	var/mob/living/marked = null
@@ -518,7 +512,7 @@ CONTENTS:
 	name = "mental interface device"
 	desc = "A dual-mode tool for directly communicating with sentient brains. It can be used to send a direct message to a target, or to send a command to a test subject with a charged gland."
 	icon_state = "mind_device_message"
-	item_state = "silencer"
+	inhand_icon_state = "silencer"
 	var/mode = MIND_DEVICE_MESSAGE
 
 /obj/item/abductor/mind_device/attack_self__legacy__attackchain(mob/user)
@@ -693,7 +687,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "A belt used by abductor agents."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "belt"
-	item_state = "security"
+	worn_icon_state = "security"
+	inhand_icon_state = "security"
 
 /obj/item/storage/belt/military/abductor/full/populate_contents()
 	new /obj/item/screwdriver/abductor(src)
@@ -798,7 +793,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "For killing alien insects, obviously."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "flyswatter_abductor"
-	item_state = "flyswatter_abductor"
 	origin_tech = "abductor=1"
 	force = 2 // Twice as powerful thanks to alien technology!
 	throwforce = 2
@@ -808,7 +802,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "An alien spray bottle contaning alien-brand non-foaming space cleaner! It only accepts space cleaner."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cleaner_abductor"
-	item_state = "cleaner_abductor"
 	volume = 500
 	spray_maxrange = 3
 	spray_currentrange = 3
@@ -819,7 +812,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "A belt used to hold out-of-this-world cleaning supplies! Used by abductors to keep their ships clean."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "janibelt_abductor"
-	item_state = "security"
+	worn_icon_state = "security"
+	inhand_icon_state = "security"
 	storage_slots = 7
 	can_hold = list(
 		/obj/item/grenade/chem_grenade/cleaner,

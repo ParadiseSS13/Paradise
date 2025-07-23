@@ -3,7 +3,6 @@
 	desc = "A spray bottle, with an unscrewable top."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cleaner"
-	item_state = "cleaner"
 	belt_icon = "space_cleaner"
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
@@ -136,7 +135,6 @@
 	name = "advanced space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	icon_state = "adv_cleaner"
-	item_state = "adv_cleaner"
 	volume = 500
 	spray_maxrange = 3
 	spray_currentrange = 3
@@ -188,7 +186,6 @@
 	desc = "Manufactured by UhangInc, used to blind and down an opponent quickly."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "pepperspray"
-	item_state = "pepperspray"
 	belt_icon = null
 	volume = 40
 	spray_maxrange = 4
@@ -201,7 +198,6 @@
 	desc = "A seemingly innocent sunflower...with a twist."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "sunflower"
-	item_state = "sunflower"
 	belt_icon = null
 	amount_per_transfer_from_this = 1
 	volume = 10
@@ -218,7 +214,6 @@
 	desc = "A utility used to spray large amounts of reagents in a given area."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "chemsprayer"
-	item_state = "chemsprayer"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	spray_maxrange = 7
@@ -280,7 +275,6 @@
 	desc = "Kills those pesky weeds!"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbgone"
-	item_state = "plantbgone"
 	belt_icon = null
 	volume = 100
 	list_reagents = list("glyphosate" = 100)
@@ -292,7 +286,6 @@
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	icon_state = "syndie_spraycan"
-	item_state = "syndie_spraycan"
 	container_type = AMOUNT_VISIBLE
 	spray_maxrange = 2
 	spray_currentrange = 2

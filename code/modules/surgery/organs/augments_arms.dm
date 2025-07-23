@@ -491,10 +491,9 @@
 		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
 		even from a few steps away. However, results against anything more durable will heavily vary."
 	icon = 'icons/obj/weapons/energy_melee.dmi'
+	icon_state = "razorwire"
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
-	icon_state = "razorwire"
-	item_state = "razorwire"
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
 	force = 18
@@ -509,7 +508,6 @@
 	. = ..()
 	var/random_colour = pick("razorwire", "razorwire_teal", "razorwire_yellow", "razorwire_purple", "razorwire_green")
 	icon_state = random_colour
-	item_state = random_colour
 	update_icon()
 	razorwire_skin_options["Reliable Red"] = "razorwire"
 	razorwire_skin_options["Troubling Teal"] = "razorwire_teal"
@@ -550,7 +548,6 @@
 
 	if(choice && reskin_radial_check(M))
 		icon_state = razorwire_skin_options[choice]
-		item_state = razorwire_skin_options[choice]
 		update_icon()
 		M.update_inv_r_hand()
 		M.update_inv_l_hand()
@@ -584,15 +581,12 @@
 /obj/item/gun/projectile/revolver/doublebarrel/shell_launcher
 	name = "shell launch system"
 	desc = "A mounted cannon seated comfortably in a forearm compartment. This humanitarian device is capable of firing essentially any shotgun shell."
-	icon_state = "shell_cannon_weapon"
+	icon_state = "shell_cannon"
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
-	item_state = "shell_cannon"
-	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_LIGHT
-	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/shell_cannon
 	unique_reskin = FALSE
 	can_sawoff = FALSE
@@ -712,7 +706,6 @@
 	name = "vortex feedback arm"
 	desc = "A modification to a users arm, allowing them to use a vortex core energy feedback, to parry, reflect, and even empower projectile attacks. Rumors that it runs on the user's blood are unconfirmed."
 	icon_state = "v1_arm"
-	item_state = "v1_arm"
 	icon = 'icons/obj/items.dmi'
 	sprite_sheets_inhand = list("Drask" = 'icons/mob/clothing/species/drask/held.dmi', "Vox" = 'icons/mob/clothing/species/vox/held.dmi')
 	force = 20 //bonk, not sharp
@@ -892,7 +885,6 @@
 /obj/item/melee/mantis_blade/syndicate
 	name = "'Naginata' mantis blade"
 	icon_state = "syndie_mantis"
-	item_state = "syndie_mantis"
 	force = 15
 	armour_penetration_percentage = 30
 
@@ -903,7 +895,6 @@
 /obj/item/melee/mantis_blade/nt
 	name = "'Scylla' mantis blade"
 	icon_state = "mantis"
-	item_state = "mantis"
 	force = 12
 
 /obj/item/melee/mantis_blade/nt/Initialize(mapload)

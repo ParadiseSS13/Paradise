@@ -813,7 +813,6 @@
 				tongs.sliver = sliver
 				sliver.forceMove(tongs)
 				tongs.icon_state = "supermatter_tongs_loaded"
-				tongs.item_state = "supermatter_tongs_loaded"
 				to_chat(H, "<span class='notice'>You pick up [sliver] with [tongs]!</span>")
 
 		return ITEM_INTERACT_COMPLETE

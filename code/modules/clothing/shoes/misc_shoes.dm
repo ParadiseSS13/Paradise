@@ -8,10 +8,9 @@
 /obj/item/clothing/shoes/combat
 	name = "combat boots"
 	desc = "High speed, low drag combat boots."
+	icon_state = "jackboots"
 	w_class = WEIGHT_CLASS_NORMAL
 	can_cut_open = 1
-	icon_state = "jackboots"
-	item_state = "jackboots"
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 0, FIRE = 115, ACID = 50)
 	strip_delay = 70
 	resistance_flags = NONE
@@ -87,7 +86,7 @@
 	name = "clown shoes"
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! <span class='notice'>Ctrl-click to toggle the waddle dampeners!</span>"
 	icon_state = "clown"
-	item_state = "clown_shoes"
+	inhand_icon_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
 	// "Dyeable" in this case is a bit of an understatement, washing these
@@ -193,10 +192,10 @@
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"
 	desc = "Nanotrasen-issue Security combat boots for combat scenarios or combat situations. All combat, all the time."
-	can_cut_open = 1
 	icon_state = "jackboots"
-	item_state = "jackboots"
+	inhand_icon_state = "jackboots"
 	item_color = "hosred"
+	can_cut_open = 1
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE
@@ -264,9 +263,7 @@
 	name = "boots"
 	desc = "A pair of boots usually worn by cultists."
 	icon_state = "cult"
-	item_state = "cult"
 	item_color = "cult"
-
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
@@ -284,14 +281,12 @@
 	name = "bunny slippers"
 	desc = "Fluffy!"
 	icon_state = "slippers"
-	item_state = "slippers"
 	dyeable = FALSE
 
 /obj/item/clothing/shoes/slippers_worn
 	name = "worn bunny slippers"
 	desc = "Fluffy..."
 	icon_state = "slippers_worn"
-	item_state = "slippers_worn"
 	dyeable = FALSE
 
 /obj/item/clothing/shoes/laceup
@@ -305,7 +300,6 @@
 	name = "roman sandals"
 	desc = "Sandals with buckled leather straps on it."
 	icon_state = "roman"
-	item_state = "roman"
 	strip_delay = 100
 	put_on_delay = 100
 	dyeable = FALSE
@@ -320,23 +314,19 @@
 	name = "griffon boots"
 	desc = "A pair of costume boots fashioned after bird talons."
 	icon_state = "griffinboots"
-	item_state = "griffinboots"
 	dyeable = FALSE
-
 
 /obj/item/clothing/shoes/fluff/noble_boot
 	name = "noble boots"
 	desc = "The boots are economically designed to balance function and comfort, so that you can step on peasants without having to worry about blisters. The leather also resists unwanted blood stains."
 	icon_state = "noble_boot"
 	item_color = "noble_boot"
-	item_state = "noble_boot"
 	dyeable = FALSE
 
 /obj/item/clothing/shoes/furboots
 	name = "fur boots"
 	desc = "Warm, furry boots."
 	icon_state = "furboots"
-	item_state = "furboots"
 	dyeable = FALSE
 
 /obj/item/clothing/shoes/sandal/white
@@ -356,8 +346,8 @@
 	desc = "Moldering clown flip flops. They're neon green for some reason."
 	icon = 'icons/goonstation/objects/clothing/feet.dmi'
 	icon_state = "cursedclown"
-	item_state = "cclown_shoes"
-	icon_override = 'icons/goonstation/mob/clothing/feet.dmi'
+	worn_icon = 'icons/goonstation/mob/clothing/feet.dmi'
+	inhand_icon_state = "cclown_shoes"
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -373,8 +363,8 @@
 	desc = "Moldering clown flip flops. They're neon green for some reason."
 	icon = 'icons/goonstation/objects/clothing/feet.dmi'
 	icon_state = "cursedclown"
-	item_state = "cclown_shoes"
-	icon_override = 'icons/goonstation/mob/clothing/feet.dmi'
+	worn_icon = 'icons/goonstation/mob/clothing/feet.dmi'
+	inhand_icon_state = "cclown_shoes"
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	dyeable = FALSE
@@ -447,7 +437,6 @@
 	name = "cloth footwraps"
 	desc = "A roll of treated canvas used for wrapping claws or paws."
 	icon_state = "clothwrap"
-	item_state = "clothwrap"
 	force = 0
 	w_class = WEIGHT_CLASS_SMALL
 	dyeable = FALSE
@@ -456,7 +445,6 @@
 	name = "jump boots"
 	desc = "A specialized pair of combat boots with a built-in propulsion system for rapid forward movement."
 	icon_state = "jetboots"
-	item_state = "jetboots"
 	item_color = "hosred"
 	resistance_flags = FIRE_PROOF
 	actions_types = list(/datum/action/item_action/bhop)
@@ -464,7 +452,6 @@
 	can_cut_open = FALSE
 	knife_slot = TRUE
 	dyeable = FALSE
-
 	var/jumpdistance = 5 //-1 from to see the actual distance, e.g 4 goes over 3 tiles
 	var/jumpspeed = 3
 	var/recharging_rate = 6 SECONDS //default 6 seconds between each dash
@@ -496,7 +483,6 @@
 	name = "rubber ducky shoes"
 	desc = "These shoes are made for quacking, and that's just what they'll do."
 	icon_state = "ducky"
-	item_state = "ducky"
 
 /obj/item/clothing/shoes/ducky/Initialize(mapload)
 	. = ..()

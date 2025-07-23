@@ -26,7 +26,9 @@
 	// update icons
 	icon = initial(target_obj.icon)
 	icon_state = initial(target_obj.icon_state)
-	item_state = initial(target_obj.item_state)
+	worn_icon = initial(target_obj.worn_icon)
+	worn_icon_state = initial(target_obj.worn_icon_state)
+	inhand_icon_state = initial(target_obj.inhand_icon_state)
 	sprite_sheets = target_obj.sprite_sheets
 	item_color = target_obj.item_color
 	desc = target_obj.desc

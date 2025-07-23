@@ -3,7 +3,6 @@
 	desc = "The second-most important part of bureaucracy, after the pen of course."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper_bin1"
-	item_state = "sheet-metal"
 	throwforce = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 3

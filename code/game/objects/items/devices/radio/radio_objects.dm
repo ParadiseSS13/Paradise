@@ -23,12 +23,12 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio
-	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"
+	icon = 'icons/obj/radio.dmi'
+	icon_state = "walkietalkie"
+	inhand_icon_state = "radio"
 	dog_fashion = /datum/dog_fashion/back
 	suffix = "\[3\]"
-	icon_state = "walkietalkie"
-	item_state = "walkietalkie"
 	/// boolean for radio enabled or not
 	var/on = TRUE
 	var/last_transmission

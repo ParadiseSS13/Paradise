@@ -32,7 +32,6 @@
 	name = "corn cob"
 	desc = "A reminder of meals gone by."
 	icon_state = "corncob"
-	item_state = "corncob"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0
 	throw_speed = 3
@@ -59,11 +58,10 @@
 	rarity = 10
 
 /obj/item/grown/snapcorn
-	seed = /obj/item/seeds/corn/snapcorn
 	name = "snap corn"
 	desc = "A cob with snap pops."
 	icon_state = "snapcorn"
-	item_state = "corncob"
+	seed = /obj/item/seeds/corn/snapcorn
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0
 	throw_speed = 3

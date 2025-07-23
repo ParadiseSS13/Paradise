@@ -136,7 +136,6 @@
 	desc = "A grotesque blade made of bone and flesh that cleaves through people like a hot knife through butter."
 	hitsound = 'sound/weapons/armblade.ogg'
 	icon_state = "arm_blade"
-	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
@@ -199,10 +198,9 @@
 /obj/item/gun/magic/tentacle
 	name = "tentacle"
 	desc = "A fleshy tentacle that can stretch out and grab things or people."
+	icon_state = "tentacle"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon_state = "tentacle"
-	item_state = "tentacle"
 	flags = ABSTRACT | NODROP | NOBLUDGEON | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = /obj/item/ammo_casing/magic/tentacle

@@ -179,9 +179,9 @@
 /obj/item/grenade/barrier
 	name = "barrier grenade"
 	desc = "Instant cover."
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "wallbang"
-	item_state = "flashbang"
+	worn_icon_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
 	var/mode = SINGLE
 
@@ -286,10 +286,11 @@
 /obj/item/grenade/barrier/dropwall
 	name = "dropwall shield generator"
 	desc = "This generator designed by Shellguard Munitions's spartan division is used to deploy a temporary cover that blocks projectiles and explosions from a direction, while allowing projectiles to pass freely from behind."
-	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall"
-	item_state = "grenade"
+	worn_icon_state = "grenade"
+	inhand_icon_state = "grenade"
+	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
 	mode = AUTO
 	var/generator_type = /obj/structure/dropwall_generator
 	var/uptime = DROPWALL_UPTIME
@@ -415,13 +416,12 @@
 	if(loops < 12)
 		addtimer(CALLBACK(src, PROC_REF(timer_overlay_proc), loops + 1), DROPWALL_UPTIME / 12)
 
-
 /obj/item/used_dropwall
 	name = "broken dropwall generator"
 	desc = "This dropwall has ran out of charge, but some materials could possibly be reclaimed."
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_dead"
-	item_state = "grenade"
+	inhand_icon_state = "grenade"
 	materials = list(MAT_METAL = 500, MAT_GLASS = 300) //plasma burned up for power or something, plus not that much to reclaim
 
 /obj/item/storage/box/syndie_kit/dropwall
@@ -464,9 +464,9 @@
 /obj/item/grenade/turret
 	name = "Pop-Up Turret grenade"
 	desc = "Inflates into a Pop-Up turret, shoots everyone on sight who wasn't the primer."
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "wallbang"
-	item_state = "flashbang"
+	worn_icon_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	var/owner_uid
 
 /obj/item/grenade/turret/attack_self__legacy__attackchain(mob/user)

@@ -257,14 +257,12 @@
 	desc = "A very cold grenade."
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "gluon"
-	item_state = "grenade"
 	var/freeze_range = 4
 	var/stamina_damage = 60
 	var/body_adjustment = -230
 	var/reagent_volume = 15
 	/// Mob that threw the grenade.
 	var/mob/living/thrower
-
 
 /obj/item/grenade/cryogrenade_mod/Destroy()
 	thrower = null

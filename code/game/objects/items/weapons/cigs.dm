@@ -20,7 +20,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "cigarette"
 	desc = "A roll of tobacco and nicotine."
 	icon_state = "cigoff"
-	item_state = "cigoff"
 	throw_speed = 0.5
 	slot_flags = ITEM_SLOT_MASK
 	w_class = WEIGHT_CLASS_TINY
@@ -252,7 +251,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()
 	icon_state = icon_on
-	item_state = icon_on
 	if(iscarbon(loc))
 		var/mob/living/carbon/C = loc
 		if(C.wear_mask == src) // Don't update if it's just in their hand
@@ -356,7 +354,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_off = "spliffoff"
 	type_butt = /obj/item/cigbutt/roach
 	throw_speed = 0.5
-	item_state = "spliffoff"
 	list_reagents = list("thc" = 40, "cbd" = 20)
 
 /obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
@@ -438,7 +435,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "\improper Premium Cigar"
 	desc = "A brown roll of tobacco and... well, you're not quite sure. This thing's huge!"
 	icon_state = "cigaroff"
-	item_state = "cigaroff"
 	icon_on = "cigaron"
 	icon_off = "cigaroff"
 	throw_speed = 0.5
@@ -548,7 +544,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "smoking pipe"
 	desc = "A pipe, for smoking. Probably made of meershaum or something."
 	icon_state = "pipeoff"
-	item_state = "pipeoff"
 	icon_on = "pipeon"  //Note - these are in masks.dmi
 	icon_off = "pipeoff"
 	fancy_lighters = list(/obj/item/match, /obj/item/lighter/zippo)
@@ -587,7 +582,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		lit = TRUE
 		damtype = "fire"
 		icon_state = icon_on
-		item_state = icon_on
 		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/process()
@@ -600,7 +594,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 			to_chat(M, "<span class='notice'>Your [name] goes out, and you empty the ash.</span>")
 			lit = FALSE
 			icon_state = icon_off
-			item_state = icon_off
 			M.update_inv_wear_mask()
 		STOP_PROCESSING(SSobj, src)
 		return
@@ -614,7 +607,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	lit = FALSE
 	first_puff = TRUE
 	icon_state = icon_off
-	item_state = icon_off
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/die()
@@ -624,7 +616,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "corn cob pipe"
 	desc = "A nicotine delivery system popularized by folksy backwoodsmen and kept popular in the modern age and beyond by space hipsters."
 	icon_state = "cobpipeoff"
-	item_state = "cobpipeoff"
 	icon_on = "cobpipeon"  //Note - these are in masks.dmi
 	icon_off = "cobpipeoff"
 	smoketime = 0 //there is nothing to smoke initially

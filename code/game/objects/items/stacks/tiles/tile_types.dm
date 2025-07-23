@@ -1,18 +1,16 @@
 /obj/item/stack/tile
 	name = "broken tile"
-	singular_name = "broken tile"
 	desc = "A broken tile. This should not exist."
 	icon = 'icons/obj/tiles.dmi'
 	icon_state = "tile"
-	item_state = "tile"
-	w_class = WEIGHT_CLASS_NORMAL
+	inhand_icon_state = "tile"
+	singular_name = "broken tile"
 	force = 1
 	throwforce = 1
 	throw_speed = 5
 	throw_range = 20
 	max_amount = 60
 	flags = CONDUCT
-	origin_tech = "materials=1"
 	var/turf_type = null
 	var/mineralType = null
 	scatter_distance = 3

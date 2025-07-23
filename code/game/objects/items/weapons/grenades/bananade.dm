@@ -7,7 +7,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "banana"
-	item_state = "grenade"
 	var/deliveryamt = 8
 	var/spawner_type = /obj/item/grown/bananapeel
 

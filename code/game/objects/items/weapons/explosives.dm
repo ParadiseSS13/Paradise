@@ -2,7 +2,8 @@
 	name = "plastic explosive"
 	desc = "Used to put holes in specific areas without too much extra hole."
 	icon_state = "plastic-explosive0"
-	item_state = "plastic-explosive"
+	base_icon_state = "plastic-explosive"
+	inhand_icon_state = "plastic-explosive"
 	flags = NOBLUDGEON
 	det_time = 10
 	display_timer = FALSE
@@ -20,7 +21,7 @@
 
 /obj/item/grenade/plastic/Initialize(mapload)
 	. = ..()
-	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
+	plastic_overlay = mutable_appearance(icon, "[base_icon_state]2", HIGH_OBJ_LAYER)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
 	)
@@ -158,9 +159,9 @@
 
 /obj/item/grenade/plastic/update_icon_state()
 	if(nadeassembly)
-		icon_state = "[item_state]1"
+		icon_state = "[base_icon_state]1"
 	else
-		icon_state = "[item_state]0"
+		icon_state = "[base_icon_state]0"
 
 //////////////////////////
 ///// The Explosives /////
@@ -215,7 +216,7 @@
 	name = "X4"
 	desc = "A specialized shaped high explosive breaching charge. Designed to be safer for the user, and less so, for the wall."
 	icon_state = "plasticx40"
-	item_state = "plasticx4"
+	base_icon_state = "plasticx4"
 	shaped = TRUE
 	ex_heavy = 2
 	ex_breach = TRUE
@@ -251,7 +252,7 @@
 	desc = "A wall breaching charge, containing fuel, metal oxide and metal powder mixed in just the right way. One hell of a combination. Effective against walls, ineffective against airlocks..."
 	det_time = 2
 	icon_state = "t4breach0"
-	item_state = "t4breach"
+	base_icon_state = "t4breach"
 
 /obj/item/grenade/plastic/c4/thermite/prime()
 	var/turf/location

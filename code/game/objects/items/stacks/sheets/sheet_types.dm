@@ -133,8 +133,8 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 /obj/item/stack/sheet/metal
 	name = "metal"
 	desc = "Sheets made out of steel."
-	singular_name = "metal sheet"
 	icon_state = "sheet-metal"
+	singular_name = "metal sheet"
 	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT)
 	throwforce = 10.0
 	flags = CONDUCT
@@ -203,10 +203,9 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 
 /obj/item/stack/sheet/plasteel
 	name = "plasteel"
-	singular_name = "plasteel sheet"
 	desc = "This sheet is an alloy of iron and plasma."
 	icon_state = "sheet-plasteel"
-	item_state = "sheet-plasteel"
+	singular_name = "plasteel sheet"
 	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 80)
 	resistance_flags = FIRE_PROOF
@@ -293,11 +292,10 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 /obj/item/stack/sheet/wood
 	name = "wooden planks"
 	desc = "One can only guess that this is a bunch of wood."
-	gender = PLURAL
-	singular_name = "wood plank"
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-wood"
-	item_state = "sheet-wood"
+	gender = PLURAL
+	singular_name = "wood plank"
 	origin_tech = "materials=1;biotech=1"
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 0)
@@ -336,10 +334,9 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 /obj/item/stack/sheet/bamboo
 	name = "bamboo cuttings"
 	desc = "Finely cut bamboo sticks."
-	singular_name = "cut bamboo stick"
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-bamboo"
-	item_state = "sheet-bamboo"
+	singular_name = "cut bamboo stick"
 	resistance_flags = FLAMMABLE
 	sheettype = "bamboo"
 	merge_type = /obj/item/stack/sheet/bamboo
@@ -398,10 +395,9 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 /obj/item/stack/sheet/cloth
 	name = "cloth"
 	desc = "Is it cotton? Linen? Denim? Burlap? Canvas? You can't tell."
-	singular_name = "cloth roll"
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-cloth"
-	item_state = "sheet-cloth"
+	singular_name = "cloth roll"
 	origin_tech = "materials=2"
 	resistance_flags = FLAMMABLE
 	force = 0
@@ -432,10 +428,9 @@ GLOBAL_LIST_INIT(durathread_recipes, list (
 /obj/item/stack/sheet/durathread
 	name = "durathread"
 	desc = "A fabric sown from incredibly durable threads, known for its usefulness in armor production."
-	singular_name = "durathread roll"
-	icon_state = "sheet-durathread"
-	item_state = "sheet-durathread"
 	icon = 'icons/obj/stacks/organic.dmi'
+	icon_state = "sheet-durathread"
+	singular_name = "durathread roll"
 	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
@@ -519,11 +514,9 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 /obj/item/stack/sheet/cardboard
 	name = "cardboard"
 	desc = "Large sheets of card, like boxes folded flat."
-	singular_name = "cardboard sheet"
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "sheet-card"
-	item_state = "sheet-card"
-	origin_tech = "materials=1"
+	singular_name = "cardboard sheet"
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cardboard
 
@@ -540,11 +533,10 @@ GLOBAL_LIST_INIT(soil_recipes, list (
 
 /obj/item/stack/sheet/soil
 	name = "soil"
-	desc = "A clump of fertile soil which can be used to make a plot."
 	singular_name = "soil clump"
+	desc = "A clump of fertile soil which can be used to make a plot."
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-soil"
-	item_state = "sheet-soil"
 	origin_tech = "materials=1"
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/soil
@@ -569,9 +561,8 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 /obj/item/stack/sheet/runed_metal
 	name = "runed metal"
 	desc = "Sheets of cold metal with shifting inscriptions writ upon them."
-	singular_name = "runed metal sheet"
 	icon_state = "sheet-runed"
-	item_state = "sheet-runed"
+	singular_name = "runed metal sheet"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
 
@@ -584,7 +575,6 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 /obj/item/stack/sheet/runed_metal/Initialize(mapload, new_amount, merge)
 	. = ..()
 	icon_state = GET_CULT_DATA(runed_metal_icon_state, initial(icon_state))
-	item_state = GET_CULT_DATA(runed_metal_item_state, initial(item_state))
 	recipes = GLOB.cult_recipes
 
 /obj/item/stack/sheet/runed_metal/attack_self__legacy__attackchain(mob/living/user)
@@ -643,10 +633,9 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 /obj/item/stack/tile/brass
 	name = "brass"
 	desc = "Sheets made out of brass."
-	singular_name = "brass sheet"
-	icon_state = "sheet-brass"
-	item_state = "sheet-brass"
 	icon = 'icons/obj/stacks/minerals.dmi'
+	icon_state = "sheet-brass"
+	singular_name = "brass sheet"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
 	max_amount = 50
@@ -684,16 +673,11 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 //////////////////////////////
 /obj/item/stack/sheet/bone
 	name = "bones"
+	desc = "Someone's been drinking their milk."
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "bone"
-	item_state = "bone"
 	singular_name = "bone"
-	desc = "Someone's been drinking their milk."
 	force = 7
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 1
-	throw_range = 3
 	origin_tech = "materials=2;biotech=2"
 
 //////////////////////////////
@@ -746,9 +730,8 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 /obj/item/stack/sheet/plastic
 	name = "plastic"
 	desc = "Compress dinosaur over millions of years, then refine, split and mold, and voila! You have plastic."
-	singular_name = "plastic sheet"
 	icon_state = "sheet-plastic"
-	item_state = "sheet-plastic"
+	singular_name = "plastic sheet"
 	throwforce = 7
 	origin_tech = "materials=1;biotech=1"
 	materials = list(MAT_PLASTIC = MINERAL_MATERIAL_AMOUNT)
@@ -780,8 +763,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 /obj/item/stack/sheet/saltpetre_crystal
 	name = "saltpetre crystal"
 	desc = "A bunch of saltpetre crystals. Can be ground to get liquid saltpetre that can be used to dope hydroponics trays and soil plots."
-	singular_name = "saltpetre crystal"
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-saltpetre"
-	item_state = "sheet-saltpetre"
+	singular_name = "saltpetre crystal"
 	origin_tech = "materials=1;biotech=1"

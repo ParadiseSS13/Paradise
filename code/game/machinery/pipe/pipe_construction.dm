@@ -78,21 +78,19 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 
 /obj/item/pipe
 	name = "pipe"
-	var/pipe_type = 0
-	var/pipename
-	var/list/connect_types = list(CONNECT_TYPE_NORMAL) //1=regular, 2=supply, 3=scrubber
-	force = 7
 	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "simple"
-	item_state = "buildpipe"
-	w_class = WEIGHT_CLASS_NORMAL
-	level = 2
+	inhand_icon_state = "buildpipe"
+	force = 7
 	/// Will the constructed pipe be flipped
 	var/flipped = FALSE
 	/// The label that will be put on the constructed pipe when this is wrenched down
 	var/label = null
 	/// The type of the pipe that will be created when this is wrenched down
 	var/makes_type = null
+	var/pipe_type = 0
+	var/pipename
+	var/list/connect_types = list(CONNECT_TYPE_NORMAL) //1=regular, 2=supply, 3=scrubber
 
 /obj/item/pipe/Initialize(mapload, new_pipe_type, new_dir, obj/machinery/atmospherics/make_from)
 	. = ..()
@@ -382,7 +380,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 	desc = "A meter that can be laid on pipes."
 	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "meter"
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
 	var/label = null
 
@@ -411,7 +409,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 	desc = "A sensor that can be hooked to a computer."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor0"
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
 	var/label = null
 

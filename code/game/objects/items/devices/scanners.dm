@@ -17,12 +17,13 @@ SLIME SCANNER
 	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
-	var/on = FALSE
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	item_state = "electronic"
 	materials = list(MAT_METAL = 300)
 	origin_tech = "magnets=1;engineering=1"
+	var/on = FALSE
 
 /obj/item/t_scanner/Destroy()
 	if(on)
@@ -71,7 +72,7 @@ SLIME SCANNER
 		flick_overlay(t_ray_images, list(viewer.client), flick_time)
 
 ////////////////////////////////////////
-// MARK:	Health analyser
+// MARK:	Health analyzer
 ////////////////////////////////////////
 #define SIMPLE_HEALTH_SCAN 0
 #define DETAILED_HEALTH_SCAN 1
@@ -139,7 +140,8 @@ SLIME SCANNER
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
-	item_state = "healthanalyzer"
+	worn_icon_state = "healthanalyzer"
+	inhand_icon_state = "healthanalyzer"
 	belt_icon = "health_analyzer"
 	flags = CONDUCT | NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
@@ -445,7 +447,7 @@ SLIME SCANNER
 	desc = "A hand-held scanner able to diagnose robotic injuries and the condition of machinery."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "robotanalyzer"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
@@ -592,7 +594,7 @@ SLIME SCANNER
 	desc = "A hand-held environmental scanner which reports current gas levels."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "atmos"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
@@ -841,7 +843,7 @@ SLIME SCANNER
 	desc = "A hand-held reagent scanner which identifies chemical agents and blood types."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "spectrometer"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
@@ -919,7 +921,7 @@ SLIME SCANNER
 	name = "slime scanner"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "adv_spectrometer_s"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	origin_tech = "biotech=2"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
@@ -976,7 +978,8 @@ SLIME SCANNER
 	desc = "A handheld scanner capable of deep-scanning an entire body."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "bodyanalyzer_0"
-	item_state = "healthanalyser"
+	worn_icon_state = "healthanalyzer"
+	inhand_icon_state = "healthanalyzer"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 5

@@ -1,10 +1,9 @@
 /obj/item/grenade/gas
 	name = "plasma fire grenade"
 	desc = "A compressed plasma grenade, used to start horrific plasma fires."
-	origin_tech = "materials=3;magnets=4;syndicate=3"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
-	item_state = "grenade"
+	origin_tech = "materials=3;magnets=4;syndicate=3"
 	var/spawn_contents = LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS
 	var/spawn_amount = 100
 
@@ -35,7 +34,6 @@
 	name = "gluon grenade"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "gluon"
-	item_state = "grenade"
 	var/freeze_range = 4
 	var/rad_damage = 1400
 	var/stamina_damage = 30

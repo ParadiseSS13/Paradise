@@ -35,7 +35,6 @@
 	desc = "A translucent balloon. There's nothing in it."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "waterballoon-e"
-	item_state = "waterballoon-e"
 
 /obj/item/toy/balloon/New()
 	..()
@@ -103,20 +102,13 @@
 /obj/item/toy/balloon/update_icon_state()
 	if(src.reagents.total_volume >= 1)
 		icon_state = "waterballoon"
-		item_state = "waterballoon"
 	else
 		icon_state = "waterballoon-e"
-		item_state = "waterballoon-e"
 
 /obj/item/toy/syndicateballoon
 	name = "syndicate balloon"
 	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
-	throwforce = 0
-	throw_speed = 4
-	throw_range = 20
-	force = 0
 	icon_state = "syndballoon"
-	item_state = "syndballoon"
 	w_class = WEIGHT_CLASS_BULKY
 	var/lastused = null
 
@@ -163,7 +155,7 @@
 	desc = "Blink. Blink. Blink. Ages 8 and up."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
-	item_state = "signaler"
+	inhand_icon_state = "signaler"
 
 /*
  * Fake singularity
@@ -181,10 +173,9 @@
 	name = "toy sword"
 	desc = "A cheap, plastic replica of an energy sword. Realistic sounds! Ages 8 and up."
 	icon = 'icons/obj/weapons/energy_melee.dmi'
+	icon_state = "sword0"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon_state = "sword0"
-	item_state = "sword0"
 	var/active = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "struck", "hit")
@@ -197,13 +188,11 @@
 		to_chat(user, "<span class='notice'>You extend the plastic blade with a quick flick of your wrist.</span>")
 		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
 		icon_state = "swordblue"
-		item_state = "swordblue"
 		w_class = WEIGHT_CLASS_BULKY
 	else
 		to_chat(user, "<span class='notice'>You push the plastic blade back down into the handle.</span>")
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
 		icon_state = "sword0"
-		item_state = "sword0"
 		w_class = WEIGHT_CLASS_SMALL
 
 	if(ishuman(user))
@@ -328,7 +317,6 @@
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "katana"
-	item_state = "katana"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
@@ -457,7 +445,7 @@
 	desc = "A toy for therapeutic and recreational purposes."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "therapyred"
-	item_state = "egg4"
+	inhand_icon_state = "egg4"
 	w_class = WEIGHT_CLASS_TINY
 	var/cooldown = 0
 	resistance_flags = FLAMMABLE
@@ -477,27 +465,27 @@
 	cooldown = world.time
 
 /obj/item/toy/therapy/red
-	item_state = "egg4" // It's the red egg in items_left/righthand
+	inhand_icon_state = "egg4" // It's the red egg in items_left/righthand
 	item_color = "red"
 
 /obj/item/toy/therapy/purple
-	item_state = "egg1" // It's the magenta egg in items_left/righthand
+	inhand_icon_state = "egg1" // It's the magenta egg in items_left/righthand
 	item_color = "purple"
 
 /obj/item/toy/therapy/blue
-	item_state = "egg2" // It's the blue egg in items_left/righthand
+	inhand_icon_state = "egg2" // It's the blue egg in items_left/righthand
 	item_color = "blue"
 
 /obj/item/toy/therapy/yellow
-	item_state = "egg5" // It's the yellow egg in items_left/righthand
+	inhand_icon_state = "egg5" // It's the yellow egg in items_left/righthand
 	item_color = "yellow"
 
 /obj/item/toy/therapy/orange
-	item_state = "egg4" // It's the red one again, lacking an orange item_state and making a new one is pointless
+	inhand_icon_state = "egg4" // It's the red one again, lacking an orange inhand and making a new one is pointless
 	item_color = "orange"
 
 /obj/item/toy/therapy/green
-	item_state = "egg3" // It's the green egg in items_left/righthand
+	inhand_icon_state = "egg3" // It's the green egg in items_left/righthand
 	item_color = "green"
 
 /*
@@ -777,7 +765,6 @@
 	name = "grey plushie"
 	desc = "A plushie of a grey wearing a sweatshirt. As a part of the 'The Alien' series, the doll features a sweater, an oversized head, and cartoonish eyes."
 	icon_state = "plushie_grey"
-	item_state = "plushie_grey"
 	var/hug_cooldown = FALSE //Defaults the plushie to being off coolodown. Sets the hug_cooldown var.
 	var/scream_cooldown = FALSE //Defaults the plushie to being off cooldown. Sets the scream_cooldown var.
 	var/singed = FALSE
@@ -794,7 +781,6 @@
 		return
 	singed = TRUE
 	icon_state = "grey_singed"
-	item_state = "grey_singed"//If the plushie gets wet the sprite changes to a singed version.
 	desc = "A ruined plushie of a grey. It looks like someone ran it under some water."
 
 /obj/item/toy/plushie/greyplushie/proc/reset_screamdown()
@@ -817,7 +803,6 @@
 	name = "vox plushie"
 	desc = "A stitched-together vox, fresh from the skipjack. Press its belly to hear it skree!"
 	icon_state = "plushie_vox"
-	item_state = "plushie_vox"
 	rare_hug_sound = 'sound/voice/shriek1.ogg'
 	rare_hug_word = "Skreee!"
 
@@ -825,7 +810,6 @@
 	name = "IPC plushie"
 	desc = "An adorable IPC plushie, straight from New Canaan. Arguably more durable than the real deal. Toaster functionality included."
 	icon_state = "plushie_ipc"
-	item_state = "plushie_ipc"
 
 /obj/item/toy/plushie/ipcplushie/attack_by(obj/item/attacking, mob/user, params)
 	if(..())
@@ -843,31 +827,26 @@
 	name = "lizard plushie"
 	desc = "An adorable stuffed toy that resembles a lizardperson."
 	icon_state = "plushie_lizard"
-	item_state = "plushie_lizard"
 
 /obj/item/toy/plushie/snakeplushie
 	name = "snake plushie"
 	desc = "An adorable stuffed toy that resembles a snake. Not to be mistaken for the real thing."
 	icon_state = "plushie_snake"
-	item_state = "plushie_snake"
 
 /obj/item/toy/plushie/nukeplushie
 	name = "operative plushie"
 	desc = "An stuffed toy that resembles a syndicate nuclear operative. The tag claims operatives to be purely fictitious."
 	icon_state = "plushie_nuke"
-	item_state = "plushie_nuke"
 
 /obj/item/toy/plushie/slimeplushie
 	name = "slime plushie"
 	desc = "An adorable stuffed toy that resembles a slime. It is practically just a hacky sack."
 	icon_state = "plushie_slime"
-	item_state = "plushie_slime"
 
 /obj/item/toy/plushie/nianplushie
 	name = "nian plushie"
 	desc = "A silky nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian"
-	item_state = "plushie_nian"
 	rare_hug_sound = 'sound/voice/scream_moth.ogg'
 	rare_hug_word = "Buzzzz!"
 
@@ -875,109 +854,91 @@
 	name = "monarch nian plushie"
 	desc = "A monarch nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_monarch"
-	item_state = "plushie_nian_monarch"
 
 /obj/item/toy/plushie/nianplushie/luna
 	name = "luna nian plushie"
 	desc = "A luna nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_luna"
-	item_state = "plushie_nian_luna"
 
 /obj/item/toy/plushie/nianplushie/atlas
 	name = "atlas nian plushie"
 	desc = "An atlas nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_atlas"
-	item_state = "plushie_nian_atlas"
 
 /obj/item/toy/plushie/nianplushie/reddish
 	name = "reddish nian plushie"
 	desc = "A reddish nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_reddish"
-	item_state = "plushie_nian_reddish"
 
 /obj/item/toy/plushie/nianplushie/royal
 	name = "royal nian plushie"
 	desc = "A royal nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_royal"
-	item_state = "plushie_nian_royal"
 
 /obj/item/toy/plushie/nianplushie/gothic
 	name = "gothic nian plushie"
 	desc = "A gothic nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_gothic"
-	item_state = "plushie_nian_gothic"
 
 /obj/item/toy/plushie/nianplushie/lovers
 	name = "lovers nian plushie"
 	desc = "A lovers nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_lovers"
-	item_state = "plushie_nian_lovers"
 
 /obj/item/toy/plushie/nianplushie/whitefly
 	name = "whitefly nian plushie"
 	desc = "A whitefly nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_whitefly"
-	item_state = "plushie_nian_whitefly"
 
 /obj/item/toy/plushie/nianplushie/punished
 	name = "punished nian plushie"
 	desc = "A punnished nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_punished"
-	item_state = "plushie_nian_punished"
 
 /obj/item/toy/plushie/nianplushie/firewatch
 	name = "firewatch nian plushie"
 	desc = "A firewtach nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_firewatch"
-	item_state = "plushie_nian_firewatch"
 
 /obj/item/toy/plushie/nianplushie/deadhead
 	name = "deathshead nian plushie"
 	desc = "A deathshead nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_deadhead"
-	item_state = "plushie_nian_deadhead"
 
 /obj/item/toy/plushie/nianplushie/poison
 	name = "poison nian plushie"
 	desc = "A poison nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_poison"
-	item_state = "plushie_nian_poison"
 
 /obj/item/toy/plushie/nianplushie/ragged
 	name = "ragged nian plushie"
 	desc = "A ragged nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_ragged"
-	item_state = "plushie_nian_ragged"
 
 /obj/item/toy/plushie/nianplushie/snow
 	name = "snow nian plushie"
 	desc = "A snow nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_snow"
-	item_state = "plushie_nian_snow"
 
 /obj/item/toy/plushie/nianplushie/clockwork
 	name = "clockwork nian plushie"
 	desc = "A clockwork nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_clockwork"
-	item_state = "plushie_nian_clockwork"
 
 /obj/item/toy/plushie/nianplushie/moonfly
 	name = "moonfly nian plushie"
 	desc = "A moonfly nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_moonfly"
-	item_state = "plushie_nian_moonfly"
 
 /obj/item/toy/plushie/nianplushie/rainbow
 	name = "rainbow nian plushie"
 	desc = "A rainbow nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
 	icon_state = "plushie_nian_rainbow"
-	item_state = "plushie_nian_rainbow"
 
 /obj/item/toy/plushie/shark
 	name = "shark plushie"
 	desc = "A plushie depicting a somewhat cartoonish shark. The tag calls it a 'hákarl', noting that it was made by an obscure furniture manufacturer in old Scandinavia."
 	icon_state = "blahaj"
-	item_state = "blahaj"
 	attack_verb = list("gnawed", "gnashed", "chewed")
 
 /obj/item/toy/plushie/abductor
@@ -1284,9 +1245,9 @@
 	desc = "it says \"Sternside Changs #1 fan\" on it. "
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "foamblade"
+	inhand_icon_state = "arm_blade"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	item_state = "arm_blade"
 	attack_verb = list("pricked", "absorbed", "gored")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
@@ -1296,7 +1257,7 @@
 	desc = "A replica toolbox that rumbles when you turn the key."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "green"
-	item_state = "artistic_toolbox"
+	inhand_icon_state = "artistic_toolbox"
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
 	hitsound = 'sound/weapons/smash.ogg'
@@ -1344,7 +1305,7 @@
 	desc = "FOR THE REVOLU- Oh wait, that's just a toy."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "flash"
-	item_state = "flashtool"
+	inhand_icon_state = "flashtool"
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/toy/flash/attack(mob/living/target, mob/living/carbon/human/user)
@@ -1534,16 +1495,15 @@
 	desc = "For fun and games!"
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "russian_revolver"
-	item_state = "gun"
+	worn_icon_state = "gun"
+	inhand_icon_state = "gun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	hitsound = "swing_hit"
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
-	throw_speed = 4
 	throw_range = 5
 	force = 5
 	origin_tech = "combat=1"

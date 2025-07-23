@@ -174,10 +174,10 @@
 /obj/item/mining_drone_cube
 	name = "mining drone cube"
 	desc = "Compressed mining drone, ready for deployment. Just press the button to activate!"
-	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "minedronecube"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/mining_drone_cube/attack_self__legacy__attackchain(mob/user)
 	user.visible_message("<span class='warning'>\The [src] suddenly expands into a fully functional mining drone!</span>", \

@@ -54,10 +54,6 @@
 	remove_prescription(user)
 	return TRUE
 
-/obj/item/clothing/glasses/update_icon_state()
-	if(..())
-		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
-
 /obj/item/clothing/glasses/visor_toggling()
 	..()
 	if(visor_vars_to_toggle & VISOR_VISIONFLAGS)
@@ -90,18 +86,9 @@
 	name = "optical meson scanner"
 	desc = "Used for seeing walls, floors, and stuff through anything."
 	icon_state = "meson"
-	item_state = "meson"
+	inhand_icon_state = "meson"
 	origin_tech = "magnets=1;engineering=2"
 	prescription_upgradable = TRUE
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
-
 	var/active_on_equip = TRUE
 
 /obj/item/clothing/glasses/meson/equipped(mob/user, slot, initial)
@@ -126,6 +113,7 @@
 	name = "meson HUD sunglasses"
 	desc = "Sunglasses with an inbuilt scanner that can see through both walls and flooring."
 	icon_state = "sunhudmeson"
+	inhand_icon_state = "sunglasses"
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
 	hide_examine = TRUE
@@ -135,9 +123,8 @@
 
 /obj/item/clothing/glasses/meson/gar
 	name = "gar mesons"
-	icon_state = "garm"
-	item_state = "garm"
 	desc = "Do the impossible, see the invisible!"
+	icon_state = "garm"
 	force = 10
 	throwforce = 10
 	throw_speed = 4
@@ -149,7 +136,6 @@
 	name = "eye replacement implant"
 	desc = "An implanted replacement for a left eye with meson vision capabilities."
 	icon_state = "cybereye-green"
-	item_state = "eyepatch"
 	flags = NODROP
 	flags_cover = null
 	prescription_upgradable = FALSE
@@ -158,18 +144,11 @@
 	name = "science goggles"
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
 	icon_state = "purple"
-	item_state = "glasses"
 	origin_tech = "magnets=2;engineering=1"
 	prescription_upgradable = TRUE
 	scan_reagents = TRUE // You can see reagents while wearing science goggles
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = INFINITY)
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
@@ -180,7 +159,6 @@
 	name = "night vision science goggles"
 	desc = "Now you can science in darkness."
 	icon_state = "nvpurple"
-	item_state = "glasses"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
@@ -188,28 +166,15 @@
 	name = "janitorial goggles"
 	desc = "These'll keep the soap out of your eyes."
 	icon_state = "purple"
-	item_state = "glasses"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/night
 	name = "night vision goggles"
 	desc = "You can totally see in the dark now!"
 	icon_state = "night"
-	item_state = "glasses"
 	origin_tech = "materials=4;magnets=4;plasmatech=4;engineering=4"
 	see_in_dark = 8
 	prescription_upgradable = TRUE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/night/syndicate_fake
 	name = "suspicious night vision goggles"
@@ -221,50 +186,29 @@
 	name = "eyepatch"
 	desc = "Yarr."
 	icon_state = "eyepatch"
-	item_state = "eyepatch"
+	inhand_icon_state = "blindfold"
 	prescription_upgradable = TRUE
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/monocle
 	name = "monocle"
 	desc = "Such a dapper eyepiece!"
 	icon_state = "monocle"
-	item_state = "headset" // lol
+	inhand_icon_state = "headset" // lol
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	prescription_upgradable = TRUE
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/material
 	name = "optical material scanner"
 	desc = "Very confusing glasses."
 	icon_state = "material"
-	item_state = "glasses"
 	origin_tech = "magnets=3;engineering=3"
 	vision_flags = SEE_OBJS
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/material/cyber
 	name = "eye replacement implant"
 	desc = "An implanted replacement for a left eye with material vision capabilities."
 	icon_state = "cybereye-blue"
-	item_state = "eyepatch"
 	flags = NODROP
 	flags_cover = null
 
@@ -273,7 +217,6 @@
 	desc = "These odd glasses use a form of neutron-based imaging to completely negate the effects of light and darkness."
 	origin_tech = null
 	vision_flags = 0
-
 	flags = NODROP
 	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 
@@ -281,97 +224,50 @@
 	name = "prescription glasses"
 	desc = "Made by Nerd. Co."
 	icon_state = "glasses"
-	item_state = "glasses"
 	prescription = TRUE
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/regular/hipster
 	name = "prescription glasses"
 	desc = "Made by Uncool. Co."
 	icon_state = "hipster_glasses"
-	item_state = "hipster_glasses"
 
 /obj/item/clothing/glasses/goggles
 	name = "goggles"
 	desc = "Just some basic goggles, rather fashionable."
 	icon_state = "goggles"
-	item_state = "goggles"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/threedglasses
 	name = "\improper 3D glasses"
 	desc = "A long time ago, people used these glasses to makes images from screens threedimensional."
 	icon_state = "3d"
-	item_state = "3d"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/gglasses
 	name = "green glasses"
 	desc = "Forest green glasses, like the kind you'd wear when hatching a nasty scheme."
 	icon_state = "gglasses"
-	item_state = "gglasses"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
 	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/sunglasses
 	name = "sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
 	icon_state = "sun"
-	item_state = "sunglasses"
+	inhand_icon_state = "sunglasses"
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
 	prescription_upgradable = TRUE
 	dog_fashion = /datum/dog_fashion/head
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
-
 	hide_examine = TRUE
 
 /obj/item/clothing/glasses/sunglasses_fake
 	name = "cheap sunglasses"
 	desc = "Cheap, plastic sunglasses. They don't even have UV protection."
 	icon_state = "sun"
-	item_state = "sunglasses"
+	inhand_icon_state = "sunglasses"
 	see_in_dark = 0
 	flash_protect = FLASH_PROTECTION_NONE
 	tint = FLASH_PROTECTION_NONE
 	prescription_upgradable = TRUE
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/sunglasses/noir
 	name = "noir sunglasses"
@@ -423,17 +319,10 @@
 	name = "sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
 	icon_state = "sun"
-	item_state = "sunglasses"
+	inhand_icon_state = "sunglasses"
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/sunglasses/lasers
 	name = "high-tech sunglasses"
@@ -450,18 +339,12 @@
 	name = "welding goggles"
 	desc = "Protects the eyes from welders, approved by the mad scientist association."
 	icon_state = "welding-g"
-	item_state = "welding-g"
+	inhand_icon_state = "blindfold"
 	actions_types = list(/datum/action/item_action/toggle)
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = FLASH_PROTECTION_WELDER
 	can_toggle = TRUE
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/welding/attack_self__legacy__attackchain(mob/user)
 	weldingvisortoggle(user)
@@ -470,7 +353,7 @@
 	name = "superior welding goggles"
 	desc = "Welding goggles made from more expensive materials, strangely smells like potatoes."
 	icon_state = "rwelding-g"
-	item_state = "rwelding-g"
+	inhand_icon_state = "glasses"
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = FLASH_PROTECTION_NONE
 
@@ -478,7 +361,7 @@
 	name = "blindfold"
 	desc = "Covers the eyes, preventing sight."
 	icon_state = "blindfold"
-	item_state = "blindfold"
+	inhand_icon_state = "blindfold"
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 3				//to make them blind
 	prescription_upgradable = FALSE
@@ -495,24 +378,15 @@
 /obj/item/clothing/glasses/sunglasses/big
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Larger than average enhanced shielding blocks many flashes."
 	icon_state = "bigsunglasses"
-	item_state = "bigsunglasses"
 
 /obj/item/clothing/glasses/thermal
 	name = "optical thermal scanner"
 	desc = "Thermals in the shape of glasses."
 	icon_state = "thermal"
-	item_state = "glasses"
 	origin_tech = "magnets=3"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = FLASH_PROTECTION_SENSITIVE
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
 
 /obj/item/clothing/glasses/thermal/emp_act(severity)
 	thermal_overload()
@@ -528,17 +402,14 @@
 	name = "optical thermal eyepatch"
 	desc = "An eyepatch with built-in thermal optics."
 	icon_state = "eyepatch"
-	item_state = "eyepatch"
 
 /obj/item/clothing/glasses/thermal/jensen
 	name = "optical thermal implant"
 	desc = "A set of implantable lenses designed to augment your vision."
 	icon_state = "thermalimplants"
-	item_state = "syringe_kit"
 
 /obj/item/clothing/glasses/thermal/cyber
 	name = "eye replacement implant"
 	desc = "An implanted replacement for a left eye with thermal vision capabilities."
 	icon_state = "cybereye-red"
-	item_state = "eyepatch"
 	flags = NODROP

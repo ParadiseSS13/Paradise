@@ -3,14 +3,11 @@
 	desc = "A katana infused with a strong energy."
 	icon = 'icons/obj/weapons/energy_melee.dmi'
 	icon_state = "energy_katana"
-	item_state = "energy_katana"
-	force = 40
 	throwforce = 20
 	armour_penetration_percentage = 50
 	armour_penetration_flat = 10
 	var/cooldown = 0 // Because spam aint cool, yo.
 	var/datum/effect_system/spark_spread/spark_system
-
 
 /obj/item/katana/energy/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	playsound(user, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
@@ -39,7 +36,6 @@
 				returnToOwner(H, 0, 1)
 				return
 	..()*/
-
 
 /obj/item/katana/energy/proc/returnToOwner(mob/living/carbon/human/user, doSpark = 1, caught = 0)
 	if(!istype(user))

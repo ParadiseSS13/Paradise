@@ -27,12 +27,6 @@ SUBSYSTEM_DEF(ticker)
 	var/login_music
 	/// List of all minds in the game. Used for objective tracking
 	var/list/datum/mind/minds = list()
-	/// icon_state the chaplain has chosen for his bible
-	var/Bible_icon_state
-	/// item_state the chaplain has chosen for his bible
-	var/Bible_item_state
-	/// Name of the bible
-	var/Bible_name
 	/// Name of the bible deity
 	var/Bible_deity_name
 	/// Cult static info, used for things like sprites. Someone should refactor the sprites out of it someday and just use SEPERATE ICONS DEPNDING ON THE TYPE OF CULT... like a sane person

@@ -62,7 +62,6 @@
 /obj/item/melee/razorwire/harbinger/Initialize(mapload)
 	. = ..()
 	icon_state = "razorwire"
-	item_state = "razorwire"
 	update_icon()
 
 /obj/item/organ/internal/cyberimp/arm/razorwire/harbinger

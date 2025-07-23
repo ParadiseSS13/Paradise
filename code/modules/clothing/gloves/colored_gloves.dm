@@ -5,7 +5,7 @@
 	name = "insulated gloves"
 	desc = "A pair of rubber-lined industrial gloves. They'll protect the wearer from electrical shocks."
 	icon_state = "yellow"
-	item_state = "ygloves"
+	inhand_icon_state = "ygloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	item_color = "yellow"
@@ -20,15 +20,15 @@
 	name = "budget insulated gloves"
 	desc = "A pair of knock-off insulated gloves. They might stop a shock, but it'll be a gamble."
 	icon_state = "yellow"
-	item_state = "ygloves"
+	inhand_icon_state = "ygloves"
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
 	permeability_coefficient = 0.05
-	item_color="yellow"
+	item_color = "yellow"
 	resistance_flags = NONE
 
 /obj/item/clothing/gloves/color/fyellow/Initialize(mapload)
 	. = ..()
-	siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
+	siemens_coefficient = pick(0, 0.5, 0.5, 0.5, 0.5, 0.75, 1.5)
 
 /obj/item/clothing/gloves/color/fyellow/old
 	name = "worn out insulated gloves"
@@ -36,14 +36,14 @@
 
 /obj/item/clothing/gloves/color/fyellow/old/Initialize(mapload)
 	. = ..()
-	siemens_coefficient = pick(0,0,0,0.5,0.5,0.5,0.75)
+	siemens_coefficient = pick(0, 0, 0, 0.5, 0.5, 0.5, 0.75)
 
 /obj/item/clothing/gloves/color/black
 	name = "black gloves"
 	desc = "A pair of black gloves made of fire-resistant fabric."
 	icon_state = "black"
-	item_state = "bgloves"
-	item_color="black"
+	inhand_icon_state = "bgloves"
+	item_color = "black"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
@@ -85,14 +85,12 @@
 	name = "orange gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "orange"
-	item_state = "orangegloves"
-	item_color="orange"
+	item_color = "orange"
 
 /obj/item/clothing/gloves/color/red
 	name = "red gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "red"
-	item_state = "redgloves"
 	item_color = "red"
 
 /obj/item/clothing/gloves/color/red/insulated
@@ -106,7 +104,6 @@
 	name = "rainbow gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "rainbow"
-	item_state = "rainbowgloves"
 	item_color = "rainbow"
 
 /obj/item/clothing/gloves/color/rainbow/clown
@@ -116,49 +113,45 @@
 	name = "blue gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "blue"
-	item_state = "bluegloves"
-	item_color="blue"
+	inhand_icon_state = "bluegloves"
+	item_color = "blue"
 
 /obj/item/clothing/gloves/color/purple
 	name = "purple gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "purple"
-	item_state = "purplegloves"
-	item_color="purple"
+	item_color = "purple"
 
 /obj/item/clothing/gloves/color/green
 	name = "green gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "green"
-	item_state = "greengloves"
-	item_color="green"
+	item_color = "green"
 
 /obj/item/clothing/gloves/color/grey
 	name = "grey gloves"
 	desc = "A pair of gloves, they don't look special in any way."
-	icon_state = "gray"
-	item_state = "graygloves"
-	item_color = "grey"
+	icon_state = "gray" // <-----
+	inhand_icon_state = "bgloves"
+	item_color = "grey" // <-----
 
 /obj/item/clothing/gloves/color/light_brown
 	name = "light brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "lightbrown"
-	item_state = "lightbrowngloves"
-	item_color="light brown"
+	item_color = "light brown"
 
 /obj/item/clothing/gloves/color/brown
 	name = "brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "brown"
-	item_state = "browngloves"
-	item_color="brown"
+	item_color = "brown"
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
 	desc = "A pair of thin sterile gloves made from latex. The material's thin enough that fingerprints can still be transferred to objects you touch."
 	icon_state = "latex"
-	item_state = "lgloves"
+	inhand_icon_state = "lgloves"
 	siemens_coefficient = 0.30
 	permeability_coefficient = 0.01
 	item_color = "white"
@@ -169,7 +162,6 @@
 	name = "nitrile gloves"
 	desc = "A pair of high-quality sterile gloves made from thick nitrile material. "
 	icon_state = "nitrile"
-	item_state = "nitrilegloves"
 	transfer_prints = FALSE
 	item_color = "medical"
 
@@ -177,8 +169,8 @@
 	name = "white gloves"
 	desc = "A pair of white silk gloves for individuals of class and discerning taste."
 	icon_state = "white"
-	item_state = "wgloves"
-	item_color="mime"
+	inhand_icon_state = "lgloves"
+	item_color = "mime"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
@@ -186,12 +178,10 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
 		)
 
-
 /obj/item/clothing/gloves/color/captain
 	name = "captain's gloves"
 	desc = "A pair of very expensive gloves made of reinforced blue & gold fabric. They're insulated against both electrical shocks and extreme temperatures."
 	icon_state = "captain"
-	item_state = "captain"
 	item_color = "captain"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
@@ -212,6 +202,5 @@
 	desc = "These gloves are warm and furry."
 	name = "fur gloves"
 	icon_state = "furglovesico"
-	item_state = "furgloves"
 	transfer_prints = TRUE
 	dyeable = FALSE

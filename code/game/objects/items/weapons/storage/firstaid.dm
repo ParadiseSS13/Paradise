@@ -58,7 +58,7 @@
 	name = "fire first-aid kit"
 	desc = "A medical kit that contains several medical patches and pills for treating burns. Contains one epinephrine syringe for emergency use and a health analyzer."
 	icon_state = "ointment"
-	item_state = "firstaid-ointment"
+	inhand_icon_state = "firstaid-ointment"
 	med_bot_skin = "ointment"
 
 /obj/item/storage/firstaid/fire/Initialize(mapload)
@@ -79,7 +79,7 @@
 	name = "toxin first aid kit"
 	desc = "A medical kit designed to counter poisoning by common toxins. Contains three pills and syringes, and a health analyzer to determine the health of the patient."
 	icon_state = "antitoxin"
-	item_state = "firstaid-toxin"
+	inhand_icon_state = "firstaid-toxin"
 	med_bot_skin = "tox"
 
 /obj/item/storage/firstaid/toxin/Initialize(mapload)
@@ -99,7 +99,7 @@
 	name = "oxygen deprivation first aid kit"
 	desc = "A first aid kit that contains four pills of salbutamol, which is able to counter injuries caused by suffocation. Also contains a health analyzer to determine the health of the patient."
 	icon_state = "o2"
-	item_state = "firstaid-o2"
+	inhand_icon_state = "firstaid-o2"
 	med_bot_skin = "o2"
 
 /obj/item/storage/firstaid/o2/populate_contents()
@@ -116,7 +116,7 @@
 	name = "brute trauma treatment kit"
 	desc = "A medical kit that contains several medical patches and pills for treating brute injuries. Contains one epinephrine syringe for emergency use and a health analyzer."
 	icon_state = "brute"
-	item_state = "firstaid-brute"
+	inhand_icon_state = "firstaid-brute"
 	med_bot_skin = "brute"
 
 /obj/item/storage/firstaid/brute/Initialize(mapload)
@@ -137,7 +137,7 @@
 	name = "advanced first-aid kit"
 	desc = "Contains advanced medical treatments."
 	icon_state = "advfirstaid"
-	item_state = "firstaid-advanced"
+	inhand_icon_state = "firstaid-advanced"
 	med_bot_skin = "adv"
 
 /obj/item/storage/firstaid/adv/populate_contents()
@@ -156,7 +156,7 @@
 	name = "machine repair kit"
 	desc = "A kit that contains supplies to repair IPCs on the go."
 	icon_state = "machinefirstaid"
-	item_state = "firstaid-machine"
+	inhand_icon_state = "firstaid-machine"
 	med_bot_skin = "machine"
 
 /obj/item/storage/firstaid/machine/populate_contents()
@@ -265,7 +265,7 @@
 	desc = "It's an airtight container for storing medication."
 	icon_state = "pill_canister"
 	icon = 'icons/obj/chemical.dmi'
-	item_state = "contsolid"
+	inhand_icon_state = "contsolid"
 	belt_icon = "pill_bottle"
 	use_sound = "pillbottle"
 	w_class = WEIGHT_CLASS_SMALL

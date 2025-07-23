@@ -43,7 +43,6 @@
 	desc = "Some sort of bizarre assembly."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "ed209_frame"
-	item_state = "ed209_frame"
 	var/build_step = 0
 	var/created_name = "\improper ED-209 Security Robot" //To preserve the name if it's a unique securitron I guess
 	var/lasercolor = ""
@@ -210,22 +209,16 @@
 /obj/item/ed209_assembly/update_icon_state()
 	switch(build_step)
 		if(1)
-			item_state = "ed209_leg"
 			icon_state = "ed209_leg"
 		if(2)
-			item_state = "ed209_legs"
 			icon_state = "ed209_legs"
 		if(3,4)
-			item_state = "[lasercolor]ed209_shell"
 			icon_state = "[lasercolor]ed209_shell"
 		if(5)
-			item_state = "[lasercolor]ed209_hat"
 			icon_state = "[lasercolor]ed209_hat"
 		if(6,7)
-			item_state = "[lasercolor]ed209_prox"
 			icon_state = "[lasercolor]ed209_prox"
 		if(8,9)
-			item_state = "[lasercolor]ed209_taser"
 			icon_state = "[lasercolor]ed209_taser"
 
 //Floorbot assemblies
@@ -437,7 +430,9 @@
 	desc = "Some sort of bizarre assembly made from a proximity sensor, helmet, and signaler."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "helmet_signaler"
-	item_state = "helmet"
+	inhand_icon_state = "helmet"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	var/created_name = "Securitron" //To preserve the name if it's a unique securitron I guess
 	var/build_step = 0
 	var/robot_arm = /obj/item/robot_parts/l_arm
@@ -560,7 +555,6 @@
 	desc = "Some sort of bizarre assembly."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "griefsky_assembly"
-	item_state = "griefsky_assembly"
 	var/build_step = 0
 	var/toy_step = 0
 

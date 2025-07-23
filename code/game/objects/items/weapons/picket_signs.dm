@@ -2,7 +2,6 @@
 	name = "blank picket sign"
 	desc = "It's blank."
 	icon_state = "picket"
-	item_state = "picket"
 	force = 5
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("bashed","smacked")

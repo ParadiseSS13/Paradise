@@ -2,7 +2,7 @@
 	name = "\improper L6 SAW"
 	desc = "A next-generation medium machine gun designed by Aussec Armory for CQB use aboard ships and stations. Chambered in 7.62x51mm Federal."
 	icon_state = "l6closed100"
-	item_state = "l6closedmag"
+	inhand_icon_state = "l6closedmag"
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = 0
 	origin_tech = "combat=6;engineering=3;syndicate=6"
@@ -11,12 +11,12 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
-	var/cover_open = FALSE
 	actions_types = list()
 	can_suppress = FALSE
 	burst_size = 1
 	spread = 7
 	fire_delay = 0
+	var/cover_open = FALSE
 
 /obj/item/gun/projectile/automatic/l6_saw/Initialize(mapload)
 	. = ..()
@@ -29,8 +29,8 @@
 	update_icon()
 
 /obj/item/gun/projectile/automatic/l6_saw/update_icon_state()
-	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(0)/12.5, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
-	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
+	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE) / 12.5, 1) * 25 : "-empty"][suppressed ? "-suppressed" : ""]"
+	inhand_icon_state = "l6[cover_open ? "open" : "closed"][magazine ? "mag" : ""]"
 
 /obj/item/gun/projectile/automatic/l6_saw/afterattack__legacy__attackchain(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
 	if(cover_open)
@@ -53,8 +53,11 @@
 		magazine = null
 		playsound(src, magout_sound, 50, 1)
 		update_icon()
+		if(user.hand)
+			user.update_inv_r_hand()
+		else
+			user.update_inv_l_hand()
 		to_chat(user, "<span class='notice'>You remove the magazine from [src].</span>")
-
 
 /obj/item/gun/projectile/automatic/l6_saw/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box/magazine))

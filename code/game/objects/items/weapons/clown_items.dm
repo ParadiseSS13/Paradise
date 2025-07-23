@@ -14,8 +14,7 @@
 	desc = "A horn off of a bicycle."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bike_horn"
-	item_state = "bike_horn"
-	hitsound = null
+	inhand_icon_state = "bike_horn"
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
 	var/list/honk_sounds = list('sound/items/bikehorn.ogg' = 1)
@@ -38,7 +37,7 @@
 	name = "golden bike horn"
 	desc = "Golden? Clearly, its made with bananium! Honk!"
 	icon_state = "gold_horn"
-	item_state = "gold_horn"
+	inhand_icon_state = "gold_horn"
 	var/cooldown = 0
 
 /obj/item/bikehorn/golden/attack__legacy__attackchain(mob/M, mob/user)
@@ -70,7 +69,7 @@
 	desc = "When you just can't get those laughs coming the natural way!"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "clown_recorder"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 180, MAT_GLASS = 90)

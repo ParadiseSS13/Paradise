@@ -11,7 +11,8 @@
 	desc = "An experimental portable teleportation station developed by Nanotrasen, small enough to be carried in a pocket."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hand_tele"
-	item_state = "electronic"
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3

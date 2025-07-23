@@ -101,7 +101,7 @@
 	name = "hand drill"
 	desc = "A powerful, hand-held drill fitted with a long-lasting battery. It has a screwdriver head attached."
 	icon_state = "drill_screw"
-	item_state = "drill"
+	inhand_icon_state = "drill"
 	belt_icon = "hand_drill"
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2" //done for balance reasons, making them high value for research, but harder to get

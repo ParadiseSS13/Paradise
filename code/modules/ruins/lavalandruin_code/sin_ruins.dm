@@ -185,9 +185,9 @@
 	desc = "Their success will be yours."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
-	item_state = "knife"
+	worn_icon_state = "knife"
+	inhand_icon_state = "knife"
 	force = 18
-	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	new_attack_chain = TRUE

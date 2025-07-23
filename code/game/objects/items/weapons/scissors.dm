@@ -2,7 +2,7 @@
 	name = "Scissors"
 	desc = "Those are scissors. Don't run with them!"
 	icon_state = "scissor"
-	item_state = "scissor"
+	inhand_icon_state = "scissor"
 	force = 5
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_SMALL
@@ -14,7 +14,6 @@
 	name = "Barber's Scissors"
 	desc = "A pair of scissors used by a barber."
 	icon_state = "bscissor"
-	item_state = "scissor"
 	attack_verb = list("beautifully sliced", "artistically cut", "smoothly stabbed", "quickly jabbed")
 	toolspeed = 0.75
 

@@ -43,7 +43,6 @@
 	name = "paper dispenser"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper_bin1"
-	item_state = "sheet-metal"
 
 /obj/item/form_printer/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	return

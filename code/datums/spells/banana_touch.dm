@@ -16,7 +16,6 @@
 	catchphrase = "NWOLC YRGNA"
 	on_use_sound = 'sound/items/AirHorn.ogg'
 	icon_state = "banana_touch"
-	item_state = "banana_touch"
 	var/is_apprentice_spell = FALSE
 
 /datum/spell/touch/banana/apprentice

@@ -7,10 +7,8 @@
 /obj/item/gun/throw/crossbow
 	name = "powered crossbow"
 	desc = "A modern twist on an old classic. Pick up that can."
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "crossbow"
-	item_state = "crossbow-solid"
+	inhand_icon_state = "crossbow-solid"
 	fire_sound_text = "a solid thunk"
 	fire_delay = 25
 
@@ -166,9 +164,8 @@
 	name = "bolt"
 	desc = "It's got a tip for you - get the point?"
 	icon_state = "bolt"
-	item_state = "bolt"
+	inhand_icon_state = "rods"
 	throwforce = 20
-	w_class = WEIGHT_CLASS_NORMAL
 	sharp = TRUE
 
 /obj/item/arrow/proc/removed() //Helper for metal rods falling apart.

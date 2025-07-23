@@ -301,11 +301,8 @@
 	flags = NODECONSTRUCT
 	item_chair = null
 
+// wait a minute
 /obj/item/clothing/gloves/boxing/hologlove
-	name = "boxing gloves"
-	desc = "Because you really needed another excuse to punch your crewmates."
-	icon_state = "boxing"
-	item_state = "boxing"
 
 /obj/structure/holowindow
 	name = "reinforced window"
@@ -334,11 +331,10 @@
 /obj/item/holo/claymore
 	name = "claymore"
 	desc = "What are you standing around staring at this for? Get to killing!"
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "claymore"
-	item_state = "claymore"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	force = 40
 	throwforce = 10
@@ -349,14 +345,11 @@
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
-
 /obj/item/holo/claymore/blue
 	icon_state = "claymoreblue"
-	item_state = "claymoreblue"
 
 /obj/item/holo/claymore/red
 	icon_state = "claymorered"
-	item_state = "claymorered"
 
 /obj/item/holo/esword
 	name = "holographic energy sword"

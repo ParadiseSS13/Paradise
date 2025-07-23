@@ -1,15 +1,14 @@
 /obj/item/clothing/under/color
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
-	dyeable = TRUE
 	icon = 'icons/obj/clothing/under/color.dmi'
-
+	worn_icon = 'icons/mob/clothing/under/color.dmi'
+	dyeable = TRUE
 	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/under/color.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/color.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/color.dmi'
-		)
+	)
 
 /obj/item/clothing/under/color/jumpskirt
 	desc = "A standard issue colored jumpskirt. Variety is the spice of life!"
@@ -28,33 +27,33 @@
 	var/obj/item/clothing/under/color/C = pick(subtypesof(/obj/item/clothing/under/color) - typesof(/obj/item/clothing/under/color/jumpskirt) - excluded)
 	name = initial(C.name)
 	icon_state = initial(C.icon_state)
-	item_state = initial(C.item_state)
+	inhand_icon_state = initial(C.inhand_icon_state)
 	item_color = initial(C.item_color)
 
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
 	icon_state = "black"
-	item_state = "bl_suit"
+	inhand_icon_state = "bl_suit"
 	item_color = "black"
 	resistance_flags = NONE
 
 /obj/item/clothing/under/color/jumpskirt/black
 	name = "black jumpskirt"
 	icon_state = "blackjumpskirt"
-	item_state = "bl_suit"
+	inhand_icon_state = "bl_suit"
 	item_color = "blackskirt"
 	resistance_flags = NONE // I am going to assume this is here for a reason
 
 /obj/item/clothing/under/color/blue
 	name = "blue jumpsuit"
 	icon_state = "blue"
-	item_state = "b_suit"
+	inhand_icon_state = "b_suit"
 	item_color = "blue"
 
 /obj/item/clothing/under/color/jumpskirt/blue
 	name = "blue jumpskirt"
 	icon_state = "bluejumpskirt"
-	item_state = "b_suit"
+	inhand_icon_state = "b_suit"
 	item_color = "blueskirt"
 
 /obj/item/clothing/under/color/blue/dodgeball
@@ -63,20 +62,20 @@
 /obj/item/clothing/under/color/green
 	name = "green jumpsuit"
 	icon_state = "green"
-	item_state = "g_suit"
+	inhand_icon_state = "g_suit"
 	item_color = "green"
 
 /obj/item/clothing/under/color/jumpskirt/green
 	name = "green jumpskirt"
 	icon_state = "greenjumpskirt"
-	item_state = "g_suit"
+	inhand_icon_state = "g_suit"
 	item_color = "greenskirt"
 
 /obj/item/clothing/under/color/grey
 	name = "grey jumpsuit"
 	desc = "A tasteful grey jumpsuit that reminds you of the good old days."
 	icon_state = "grey"
-	item_state = "gy_suit"
+	inhand_icon_state = "gy_suit"
 	item_color = "grey"
 
 /obj/item/clothing/under/color/grey/greytide
@@ -86,35 +85,35 @@
 	name = "grey jumpskirt"
 	desc = "A tasteful grey jumpskirt that reminds you of the good old days."
 	icon_state = "greyjumpskirt"
-	item_state = "gy_suit"
+	inhand_icon_state = "gy_suit"
 	item_color = "greyskirt"
 
 /obj/item/clothing/under/color/grey/glorf
 	name = "ancient jumpsuit"
 	desc = "A terribly ragged and frayed grey jumpsuit. It looks like it hasn't been washed in over a decade."
 	icon_state = "ancient"
-	item_state = "gy_suit"
+	inhand_icon_state = "gy_suit"
 	item_color = "ancient"
 
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"
 	desc = "Don't wear this near paranoid security officers."
 	icon_state = "orange"
-	item_state = "o_suit"
+	inhand_icon_state = "o_suit"
 	item_color = "orange"
 
 /obj/item/clothing/under/color/jumpskirt/orange
 	name = "orange jumpskirt"
 	desc = "Don't wear this near paranoid security officers."
 	icon_state = "orangejumpskirt"
-	item_state = "o_suit"
+	inhand_icon_state = "o_suit"
 	item_color = "orangeskirt"
 
 /obj/item/clothing/under/color/orange/prison
 	name = "orange jumpsuit"
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
 	icon_state = "prisoner"
-	item_state = "prisoner"
+	inhand_icon_state = "prisoner"
 	item_color = "prisoner"
 	has_sensor = 2
 	sensor_mode = SENSOR_COORDS
@@ -123,7 +122,7 @@
 	name = "orange jumpskirt"
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
 	icon_state = "prisonerjumpskirt"
-	item_state = "prisoner"
+	inhand_icon_state = "prisoner"
 	item_color = "prisonerskirt"
 	has_sensor = 2
 	sensor_mode = SENSOR_COORDS
@@ -132,26 +131,26 @@
 	name = "pink jumpsuit"
 	desc = "Just looking at this makes you feel <i>fabulous</i>."
 	icon_state = "pink"
-	item_state = "p_suit"
+	inhand_icon_state = "p_suit"
 	item_color = "pink"
 
 /obj/item/clothing/under/color/jumpskirt/pink
 	name = "pink jumpskirt"
 	desc = "Just looking at this makes you feel <i>fabulous</i>."
 	icon_state = "pinkjumpskirt"
-	item_state = "p_suit"
+	inhand_icon_state = "p_suit"
 	item_color = "pinkskirt"
 
 /obj/item/clothing/under/color/red
 	name = "red jumpsuit"
 	icon_state = "red"
-	item_state = "r_suit"
+	inhand_icon_state = "r_suit"
 	item_color = "red"
 
 /obj/item/clothing/under/color/jumpskirt/red
 	name = "red jumpskirt"
 	icon_state = "redjumpskirt"
-	item_state = "r_suit"
+	inhand_icon_state = "r_suit"
 	item_color = "redskirt"
 
 /obj/item/clothing/under/color/red/dodgeball
@@ -160,25 +159,21 @@
 /obj/item/clothing/under/color/white
 	name = "white jumpsuit"
 	icon_state = "white"
-	item_state = "w_suit"
 	item_color = "white"
 
 /obj/item/clothing/under/color/jumpskirt/white
 	name = "white jumpskirt"
 	icon_state = "whitejumpskirt"
-	item_state = "w_suit"
 	item_color = "whiteskirt"
 
 /obj/item/clothing/under/color/yellow
 	name = "yellow jumpsuit"
 	icon_state = "yellow"
-	item_state = "y_suit"
 	item_color = "yellow"
 
 /obj/item/clothing/under/color/jumpskirt/yellow
 	name = "yellow jumpskirt"
 	icon_state = "yellowjumpskirt"
-	item_state = "y_suit"
 	item_color = "yellowskirt"
 
 /obj/item/clothing/under/color/psyche
@@ -210,13 +205,13 @@
 /obj/item/clothing/under/color/purple
 	name = "purple jumpsuit"
 	icon_state = "purple"
-	item_state = "p_suit"
+	inhand_icon_state = "p_suit"
 	item_color = "purple"
 
 /obj/item/clothing/under/color/jumpskirt/purple
 	name = "purple jumpskirt"
 	icon_state = "purplejumpskirt"
-	item_state = "p_suit"
+	inhand_icon_state = "p_suit"
 	item_color = "purpleskirt"
 
 /// for jani ert
@@ -308,26 +303,26 @@
 	name = "rainbow"
 	desc = "rainbow."
 	icon_state = "rainbow"
-	item_state = "rainbow"
+	inhand_icon_state = "rainbow"
 	item_color = "rainbow"
 
 /obj/item/clothing/under/color/jumpskirt/rainbow
 	name = "rainbow jumpskirt"
 	desc = "Rainbow."
 	icon_state = "rainbowjumpskirt"
-	item_state = "rainbow"
+	inhand_icon_state = "rainbow"
 	item_color = "rainbowskirt"
 
 /obj/item/clothing/under/color/red/jersey
 	name = "red team jersey"
 	desc = "The jersey of the Nanotrasen Phi-ghters!"
 	icon_state = "redjersey"
-	item_state = "r_suit"
+	inhand_icon_state = "r_suit"
 	item_color = "redjersey"
 
 /obj/item/clothing/under/color/blue/jersey
 	name = "blue team jersey"
 	desc = "The jersey of the Nanotrasen Pi-rates!"
 	icon_state = "bluejersey"
-	item_state = "b_suit"
+	inhand_icon_state = "b_suit"
 	item_color = "bluejersey"

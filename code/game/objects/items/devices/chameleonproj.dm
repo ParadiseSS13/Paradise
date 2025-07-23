@@ -4,7 +4,8 @@
 	icon_state = "shield0"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	item_state = "electronic"
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -120,7 +121,7 @@
 /obj/effect/dummy/chameleon/attack_by(obj/item/attacking, mob/user, params)
 	if(..())
 		return FINISH_ATTACK
-	for(var/mob/M in src)	
+	for(var/mob/M in src)
 		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
 	master.disrupt()
 
@@ -185,7 +186,6 @@
 	name = "cyborg chameleon projector"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
-	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	var/active = FALSE
 	var/activation_cost = 300

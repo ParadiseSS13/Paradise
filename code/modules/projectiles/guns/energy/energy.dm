@@ -15,7 +15,8 @@
 	name = "\improper EG-7 energy gun"
 	desc = "A hybrid fire energy gun manufactured by Shellguard Munitions Co. It has a mounting point for a flashlight. The fire selector has two settings: 'disable', and 'kill'."
 	icon_state = "energy"
-	item_state = null	//so the human update icon uses the icon_state instead.
+	worn_icon_state = null
+	inhand_icon_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	origin_tech = "combat=4;magnets=3"
 	modifystate = 2
@@ -128,9 +129,8 @@
 /obj/item/gun/energy/gun/blueshield
 	name = "\improper EG-14 advanced energy revolver"
 	desc = "An advanced, pistol sized energy gun. It looks stylish, and the design makes it slightly better at bludgeoning. The fire selector has two settings: 'disable', and 'kill'."
-	cell_type = /obj/item/stock_parts/cell/hos_gun
 	icon_state = "bsgun"
-	item_state = null
+	cell_type = /obj/item/stock_parts/cell/hos_gun
 	force = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
@@ -156,7 +156,8 @@
 	name = "\improper PDW-9 energy pistol"
 	desc = "A military-grade energy pistol favored by mercenaries and militia forces. The fire selector has two settings: 'disable', and 'kill'."
 	icon_state = "pdw9pistol"
-	item_state = "gun"
+	worn_icon_state = "gun"
+	inhand_icon_state = "gun"
 
 /obj/item/gun/energy/gun/blueshield/pdw9/examine_more(mob/user)
 	..()
@@ -173,7 +174,6 @@
 	name = "\improper AG(H)-22 hybrid turret gun"
 	desc = "A heavy hybrid energy cannon made for mounted emplacements. The fire selector has two settings: 'stun', and 'kill'."
 	icon_state = "turretlaser"
-	item_state = "turretlaser"
 	slot_flags = null
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
@@ -206,7 +206,6 @@
 	name = "advanced energy gun"
 	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell."
 	icon_state = "nucgun"
-	item_state = null
 	origin_tech = "combat=4;magnets=4;powerstorage=4"
 	var/fail_tick = 0
 	charge_delay = 5
@@ -239,7 +238,6 @@
 	name = "ES-9 Energy Scatterbeam"
 	desc = "A hybrid fire energy shotgun manufactured by Shellguard Munitions Co. The pump changes the modes between 'disable' and 'kill'."
 	icon_state = "eshotgun"
-	item_state = null
 	origin_tech = "combat=5;magnets=5"
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
