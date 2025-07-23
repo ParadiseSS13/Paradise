@@ -1224,3 +1224,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /// Is this species able to be legion infested?
 /datum/species/proc/can_be_legion_infested()
 	return TRUE
+
+/// Prototype for additional behaviour when a specific species is ground by a compressor.
+/datum/species/proc/do_compressor_grind(mob/living/carbon/human)
+	return
