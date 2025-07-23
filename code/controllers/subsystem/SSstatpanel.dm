@@ -6,7 +6,10 @@ SUBSYSTEM_DEF(statpanels)
 	flags = SS_NO_INIT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	var/list/currentrun = list()
+	/// Stuff shown to everyone.
 	var/list/global_data
+	/// Stuff shown to all admins.
+	var/list/admin_data
 	var/list/mc_data
 
 	/// How many subsystem fires between most tab updates
@@ -35,10 +38,24 @@ SUBSYSTEM_DEF(statpanels)
 			list("Players in Lobby:", "[length(GLOB.new_player_mobs)]")
 		)
 
+		admin_data = list()
+		if(SSticker?.current_state == GAME_STATE_PREGAME)
+			global_data += list(list("Time To Start:", SSticker.ticker_going ? deciseconds_to_time_stamp(SSticker.pregame_timeleft) : "DELAYED"))
+
+			var/players_ready = 0
+			admin_data += list(list("Players Ready:", "?"))
+			var/players_ready_index = length(admin_data)
+			for(var/mob/new_player/player in GLOB.player_list)
+				admin_data += list(list("[player.key]", player.ready ? "(Ready)" : "(Not ready)"))
+				if(player.ready)
+					players_ready++
+
+			admin_data[players_ready_index][2] = "[players_ready]"
+
 		if(SSshuttle.emergency)
 			var/eta = SSshuttle.emergency.getModeStr()
 			if(eta)
-				global_data[++global_data.len] = list("[eta]", "[SSshuttle.emergency.getTimerStr()]")
+				global_data += list(list("[eta]", "[SSshuttle.emergency.getTimerStr()]"))
 		src.currentrun = GLOB.clients.Copy()
 		mc_data = null
 
