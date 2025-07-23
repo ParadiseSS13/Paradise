@@ -649,7 +649,7 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
         let temperature_difference = cached_temperature - tile_temperature;
         if temperature_difference > 0.0 {
             let excess_thermal_energy = temperature_difference * cached_heat_capacity;
-            conduction  = excess_thermal_energy * HOTSPOT_CONDUCTION;
+            conduction = excess_thermal_energy * HOTSPOT_CONDUCTION;
             my_next_tile.thermal_energy += conduction;
         }
         adjust_hotspot(my_next_tile, thermal_energy - initial_thermal_energy - conduction);
