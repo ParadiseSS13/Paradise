@@ -35848,7 +35848,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
+/obj/machinery/door/airlock/multi_tile/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -74346,7 +74346,7 @@
 "oll" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/multi_tile/glass/directional/east{
+/obj/machinery/door/airlock/multi_tile/glass{
 	name = "Cryogenic Dormitories"
 	},
 /obj/structure/cable{
@@ -84720,7 +84720,9 @@
 /area/station/medical/medbay)
 "sAq" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes,
+/obj/item/storage/fancy/cigarettes/cigpack_our_brand{
+	pixel_y = 2
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "sAs" = (
