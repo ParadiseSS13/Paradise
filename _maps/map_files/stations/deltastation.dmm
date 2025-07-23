@@ -84727,7 +84727,9 @@
 /area/station/medical/medbay)
 "sAq" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes,
+/obj/item/storage/fancy/cigarettes/cigpack_our_brand{
+	pixel_y = 2
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "sAs" = (
