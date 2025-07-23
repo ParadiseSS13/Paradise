@@ -36,7 +36,7 @@
 			var/obj/item/safe_thing = null
 
 			if(!H.get_organ(BODY_ZONE_HEAD))
-				user.visible_message("<span class='warning'>With a blank stare, [user] drips something where [H]'s eyes should be, but the body has no head to be found. Perhaps [user] is as dead inside as their patient.</span>", \
+				user.visible_message("<span class='warning'>With a blank stare, [user] drips something where [H]'s eyes should be, but the body has no head to be found. Perhaps [user] is as dead inside as [user.p_their()] patient.</span>", \
 				"<span class='warning'>You mindlessly drip something into [H]'s eyes, not realizing that [H.p_their()] head is missing. It's hard to tell which of you is more dead inside.</span>")
 				reagents.remove_any(amount_per_transfer_from_this)
 				return
