@@ -110,6 +110,9 @@
 /proc/create_hotspot(turf/T, hotspot_temperature, hotspot_volume)
 	return RUSTLIB_CALL(milla_create_hotspot, T, hotspot_temperature, hotspot_volume)
 
+/proc/extinguish_hotspot(turf/T)
+	RUSTLIB_CALL(milla_extinguish_hotspot, T)
+
 /proc/track_pressure_tiles(atom/A, radius)
 	var/turf/T = get_turf(A)
 	if(istype(T))
