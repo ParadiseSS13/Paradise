@@ -136,3 +136,8 @@
 
 	/// The toggle for if this creature should ignore the rolls for generic organs upon dissection
 	var/ignore_generic_organs = FALSE
+
+	/// Can this mob hide?
+	var/can_hide = FALSE
+	/// Allows a mob to pass unbolted doors while hidden
+	var/pass_door_while_hidden = FALSE

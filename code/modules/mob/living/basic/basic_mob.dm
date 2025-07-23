@@ -145,10 +145,6 @@ RESTRICT_TYPE(/mob/living/basic)
 	/// Upper bound for melee attack cooldown
 	var/melee_attack_cooldown_max = 2 SECONDS
 
-	/// Can this mob hide?
-	var/can_hide = FALSE
-	/// Allows a mob to pass unbolted doors while hidden
-	var/pass_door_while_hidden = FALSE
 	/// Loot this mob drops on death.
 	var/list/loot = list()
 

@@ -2400,6 +2400,7 @@
 #include "code\modules\mob\living\login.dm"
 #include "code\modules\mob\living\stat_states.dm"
 #include "code\modules\mob\living\taste.dm"
+#include "code\modules\mob\living\basic\basic_emotes.dm"
 #include "code\modules\mob\living\basic\basic_mob.dm"
 #include "code\modules\mob\living\basic\friendly\basic_pet.dm"
 #include "code\modules\mob\living\basic\friendly\bunny.dm"

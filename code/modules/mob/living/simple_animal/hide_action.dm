@@ -7,34 +7,20 @@
 	button_overlay_icon_state = "mouse_gray_sleep"
 
 /datum/action/innate/hide/Activate()
-	if(istype(owner, /mob/living/simple_animal))
-		var/mob/living/simple_animal/simplemob = owner
+	if(istype(owner, /mob/living))
+		var/mob/living/hiding_mob = owner
 
 		if(owner.layer != layer_to_change_to)
 			owner.layer = layer_to_change_to
 			owner.visible_message("<span class='notice'><b>[owner] scurries to the ground!</b></span>", "<span class='notice'>You are now hiding.</span>")
-			if(istype(simplemob) && simplemob.pass_door_while_hidden || isdrone(simplemob))
-				simplemob.pass_flags |= PASSDOOR
+			if(istype(hiding_mob) && hiding_mob.pass_door_while_hidden || isdrone(hiding_mob))
+				hiding_mob.pass_flags |= PASSDOOR
 			return
 
-		simplemob.layer = layer_to_change_from
+		hiding_mob.layer = layer_to_change_from
 		owner.visible_message("<span class='notice'>[owner] slowly peeks up from the ground...</span>", "<span class='notice'>You have stopped hiding.</span>")
-		if(istype(simplemob) && simplemob.pass_door_while_hidden || isdrone(simplemob))
-			simplemob.pass_flags &= ~PASSDOOR
-	else if(istype(owner, /mob/living/basic))
-		var/mob/living/basic/basic_mob = owner
-
-		if(owner.layer != layer_to_change_to)
-			owner.layer = layer_to_change_to
-			owner.visible_message("<span class='notice'><b>[owner] scurries to the ground!</b></span>", "<span class='notice'>You are now hiding.</span>")
-			if(istype(basic_mob) && basic_mob.pass_door_while_hidden || isdrone(basic_mob))
-				basic_mob.pass_flags |= PASSDOOR
-			return
-
-		basic_mob.layer = layer_to_change_from
-		owner.visible_message("<span class='notice'>[owner] slowly peeks up from the ground...</span>", "<span class='notice'>You have stopped hiding.</span>")
-		if(istype(basic_mob) && basic_mob.pass_door_while_hidden || isdrone(basic_mob))
-			basic_mob.pass_flags &= ~PASSDOOR
+		if(istype(hiding_mob) && hiding_mob.pass_door_while_hidden || isdrone(hiding_mob))
+			hiding_mob.pass_flags &= ~PASSDOOR
 
 /datum/action/innate/hide/alien_larva_hide
 	desc = "Allows to hide beneath tables or certain items. Toggled on or off."
