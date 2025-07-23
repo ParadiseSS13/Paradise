@@ -173,7 +173,7 @@
 		/datum/job/smith = /obj/item/organ/internal/cyberimp/arm/toolset,
 		/datum/job/chaplain = /obj/item/organ/internal/cyberimp/brain/anti_drop,
 		/datum/job/chemist = /obj/item/organ/internal/liver/cybernetic,
-		/datum/job/chief_engineer = /obj/item/organ/internal/cyberimp/cybernetic/shield,
+		/datum/job/chief_engineer = /obj/item/organ/internal/eyes/cybernetic/shield,
 		/datum/job/cmo = /obj/item/organ/internal/cyberimp/chest/reviver,
 		/datum/job/clown = /obj/item/organ/internal/cyberimp/brain/anti_stam, //HONK!
 		/datum/job/chef = /obj/item/organ/internal/cyberimp/chest/nutriment/plus,
