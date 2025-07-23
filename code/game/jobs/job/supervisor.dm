@@ -44,6 +44,7 @@
 	backpack = /obj/item/storage/backpack/captain
 	satchel = /obj/item/storage/backpack/satchel_cap
 	dufflebag = /obj/item/storage/backpack/duffel/captain
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/eyes/hud/skill)
 
 /datum/outfit/job/captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -127,6 +128,7 @@
 	)
 
 	bio_chips = list()
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/eyes/hud/skill)
 
 /datum/job/nanotrasenrep
 	title = "Nanotrasen Representative"

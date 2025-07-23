@@ -55,7 +55,7 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
-
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/eyes/hud/medical)
 
 /datum/outfit/job/cmo/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
