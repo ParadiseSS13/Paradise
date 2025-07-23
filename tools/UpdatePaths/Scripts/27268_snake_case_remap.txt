@@ -22,7 +22,7 @@
 /mob/living/simple_animal/pet/dog/fox/Syndifox/@SUBTYPES : /mob/living/simple_animal/pet/dog/fox/syndifox/@SUBTYPES{@OLD}
 /mob/living/simple_animal/hostile/bear/Hudson/@SUBTYPES : /mob/living/simple_animal/hostile/bear/hudson/@SUBTYPES{@OLD}
 /mob/living/simple_animal/pet/dog/fox/Renault/@SUBTYPES : /mob/living/simple_animal/pet/dog/fox/renault/@SUBTYPES{@OLD}
-/obj/item/gun/projectile/automatic/pistol/type_230/@SUBTYPES : /obj/item/gun/projectile/automatic/pistol/type_230/@SUBTYPES{@OLD}
+/obj/item/gun/projectile/automatic/pistol/APS/@SUBTYPES : /obj/item/gun/projectile/automatic/pistol/aps/@SUBTYPES{@OLD}
 /datum/mapGeneratorModule/border/syndieWalls/@SUBTYPES : /datum/map_generator_module/border/syndie_walls/@SUBTYPES{@OLD}
 /mob/living/simple_animal/pet/dog/corgi/Lisa/@SUBTYPES : /mob/living/simple_animal/pet/dog/corgi/lisa/@SUBTYPES{@OLD}
 /mob/living/simple_animal/mouse/white/Brain/@SUBTYPES : /mob/living/simple_animal/mouse/white/brain/@SUBTYPES{@OLD}
