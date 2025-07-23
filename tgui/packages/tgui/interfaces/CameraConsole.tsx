@@ -127,8 +127,7 @@ export const CameraConsoleContent = (props) => {
               className={classes([
                 'Button',
                 'Button--fluid',
-                'Button--color--transparent',
-                activeCamera && camera.name === activeCamera.name && 'Button--selected',
+                activeCamera && camera.name === activeCamera.name ? 'Button--selected' : 'Button--color--transparent',
               ])}
               onClick={() =>
                 act('switch_camera', {
