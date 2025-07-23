@@ -69,3 +69,23 @@
 			visible_message("<span class='notice'>[M] punches [src], but doesn't leave a dent.</span>", \
 						"<span class='notice'>[M] punches [src], but doesn't leave a dent.</span>")
 	return FALSE
+
+/mob/living/silicon/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	. = ..()
+	if(.)
+		var/damage = rand(attacker.melee_damage_lower, attacker.melee_damage_upper)
+		damage = run_armor(damage, attacker.melee_damage_type, MELEE, 0, attacker.armour_penetration_flat, attacker.armour_penetration_percentage)
+		switch(attacker.melee_damage_type)
+			if(BRUTE)
+				adjustBruteLoss(damage)
+			if(BURN)
+				adjustFireLoss(damage)
+			if(TOX)
+				adjustToxLoss(damage)
+			if(OXY)
+				adjustOxyLoss(damage)
+			if(CLONE)
+				adjustCloneLoss(damage)
+			if(STAMINA)
+				adjustStaminaLoss(damage)
+		updatehealth()

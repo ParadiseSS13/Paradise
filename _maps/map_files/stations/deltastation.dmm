@@ -15929,6 +15929,7 @@
 	pixel_y = -3
 	},
 /obj/item/storage/box/handcuffs,
+/obj/item/storage/box/stingers,
 /obj/item/storage/box/flashbangs{
 	pixel_x = -2;
 	pixel_y = -2
@@ -35847,7 +35848,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
+/obj/machinery/door/airlock/multi_tile/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -74345,7 +74346,7 @@
 "oll" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/multi_tile/glass/directional/east{
+/obj/machinery/door/airlock/multi_tile/glass{
 	name = "Cryogenic Dormitories"
 	},
 /obj/structure/cable{

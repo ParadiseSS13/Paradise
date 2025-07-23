@@ -640,6 +640,7 @@
 
 #define BIOHAZARD_BLOB	"Blob"
 #define BIOHAZARD_XENO	"Xenomorphs"
+#define INCURSION_DEMONS "Demon Incursion"
 
 #define MAX_ALLOWED_TELEPORTS_PER_PROCESS 20
 
@@ -745,10 +746,10 @@ do { \
 #define BANK_PIN_MAX 99999
 
 /// Defines for hidden organ techs
-#define TECH_MATERIAL "material"
+#define TECH_MATERIAL "materials"
 #define TECH_ENGINEERING "engineering"
-#define TECH_PLASMA "plasma"
-#define TECH_POWER "power"
+#define TECH_PLASMA "plasmatech"
+#define TECH_POWER "powerstorage"
 #define TECH_BLUESPACE "bluespace"
 #define TECH_BIO "biotech"
 #define TECH_COMBAT "combat"
