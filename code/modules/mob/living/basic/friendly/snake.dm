@@ -48,7 +48,7 @@
 	. = ..()
 	if(. && isliving(target))
 		var/mob/living/L = target
-		if(L.reagents && !poison_per_bite == 0)
+		if(L.reagents && poison_per_bite > 0)
 			L.reagents.add_reagent(poison_type, poison_per_bite)
 
 /// Snakes are primarily concerned with getting those tasty, tasty mice, but aren't afraid to strike back at those who attack them
@@ -68,7 +68,7 @@
 
 /datum/ai_planning_subtree/random_speech/snake
 	speech_chance = 5
-	speak = list("hsssss","sssSSsssss...","hiisssss")
+	speak = list("hsssss", "sssSSsssss...", "hiisssss")
 	sound = list('sound/creatures/snake_hissing1.ogg', 'sound/creatures/snake_hissing2.ogg')
 	emote_hear = list("hisses.")
 	emote_see = list("slithers around.", "glances.", "stares.")
