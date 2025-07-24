@@ -139,12 +139,6 @@ Mapping for Paradise station can be daunting to new contributors. Here's a compr
 </details>
 
 <details>
-<summary><a href="#"><img src="https://img.shields.io/badge/licence-CC_3.0_BY--SA-lightblue?style=for-the-badge" alt="Creative Commons 3.0 BY-SA"></a></summary>
-
->All other non-code assets, including icons and sound files, are licensed under the [Creative Commons 3.0 BY-SA license](https://creativecommons.org/licenses/by-sa/3.0/), unless otherwise specified within the folder or file.
-</details>
-
-<details>
 
 <summary><a href="#"><img src="https://img.shields.io/badge/licence-CC_4.0_BY--NC-blue?style=for-the-badge" alt="Creative Commons 4.0 BY-NC" align="centre"></a></summary>
 
@@ -152,3 +146,11 @@ Mapping for Paradise station can be daunting to new contributors. Here's a compr
 >
 >Further files or folders may also fall under this license, and any such instances will be specified within the folder or file.
 </details>
+
+<details>
+<summary><a href="#"><img src="https://img.shields.io/badge/licence-CC_3.0_BY--SA-lightblue?style=for-the-badge" alt="Creative Commons 3.0 BY-SA"></a></summary>
+
+>All other non-code assets, including icons and sound files, are licensed under the [Creative Commons 3.0 BY-SA license](https://creativecommons.org/licenses/by-sa/3.0/), unless otherwise specified within the folder or file.
+</details>
+
+
