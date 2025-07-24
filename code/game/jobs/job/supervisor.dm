@@ -463,7 +463,7 @@
 
 /datum/spell/big_voice
 	name = "Speak with Authority"
-	desc = "Speak with a COMMANDING AUTHORITY against those you govorn."
+	desc = "Speak with a COMMANDING AUTHORITY against those you govern."
 	base_cooldown = 1 MINUTES
 	action_background_icon_state = "bg_default"
 	action_icon = 'icons/obj/clothing/accessories.dmi'
