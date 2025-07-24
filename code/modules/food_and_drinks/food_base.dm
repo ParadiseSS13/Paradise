@@ -13,6 +13,7 @@
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 	var/filling_color = "#FFFFFF" //Used by sandwiches.
 	var/junkiness = 0  //for junk food. used to lower human satiety.
 	var/bitesize = 2
@@ -161,51 +162,47 @@
 /obj/item/food/proc/Post_Consume(mob/living/M)
 	return
 
-/obj/item/food/attack_self__legacy__attackchain(mob/user)
-	return
-
-/obj/item/food/attack__legacy__attackchain(mob/M, mob/user, def_zone)
+/obj/item/food/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM && force)
-		return ..()
+		return NONE
+
 	if(reagents && !reagents.total_volume)	// Shouldn't be needed but it checks to see if it has anything left in it.
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		qdel(src)
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
+	if(iscarbon(target))
+		var/mob/living/carbon/C = target
 		if(C.eat(src, user))
 			bitecount++
 			On_Consume(C, user)
-			return TRUE
-	return FALSE
+		return ITEM_INTERACT_COMPLETE
 
-/obj/item/food/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(is_pen(W))
-		rename_interactive(user, W, use_prefix = FALSE, prompt = "What would you like to name this dish?")
-		return
-	if(isstorage(W))
-		..() // -> item/attackby(, params)
+	return NONE
 
-	else if(istype(W,/obj/item/kitchen/utensil))
+/obj/item/food/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
+		rename_interactive(user, used, use_prefix = FALSE, prompt = "What would you like to name this dish?")
+		return ITEM_INTERACT_COMPLETE
 
-		var/obj/item/kitchen/utensil/U = W
+	if(isstorage(used))
+		return NONE
 
+	if(istype(used, /obj/item/kitchen/utensil))
+		var/obj/item/kitchen/utensil/U = used
 		if(length(U.contents) >= U.max_contents)
 			to_chat(user, "<span class='warning'>You cannot fit anything else on your [U].")
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		user.visible_message( \
-			"[user] scoops up some [name] with [U]!", \
-			"<span class='notice'>You scoop up some [name] with [U]!" \
+		user.visible_message(
+			"<span class='notice'>[user] scoops up some [name] with [U]!</span>",
+			"<span class='notice'>You scoop up some [name] with [U]!</span>"
 		)
-
 		bitecount++
 		U.overlays.Cut()
 		var/image/I = new(U.icon, "loadedfood")
 		I.color = filling_color
 		U.overlays += I
-
 		var/obj/item/food/collected = new type
 		collected.name = name
 		collected.loc = U
@@ -223,9 +220,9 @@
 					TrashItem = trash
 				TrashItem.forceMove(loc)
 			qdel(src)
-		return TRUE
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+	
+	return NONE
 
 /obj/item/food/proc/generate_trash(atom/location)
 	if(trash)
@@ -321,32 +318,38 @@
 	add_fingerprint(user)
 	I.forceMove(src)
 
-/obj/item/food/sliceable/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/item/food/sliceable/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if((slices_num <= 0 || !slices_num) || !slice_path)
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
+
+	if(!used.sharp)
+		return NONE
 
 	var/inaccurate = TRUE
-	if(I.sharp)
-		if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/scalpel))
-			inaccurate = FALSE
-	else
-		return ..()
+	if(istype(used, /obj/item/kitchen/knife) || istype(used, /obj/item/scalpel))
+		inaccurate = FALSE
+
 	if(!isturf(loc) || !(locate(/obj/structure/table) in loc) && \
 			!(locate(/obj/machinery/optable) in loc) && !(locate(/obj/item/storage/bag/tray) in loc))
 		to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
-		return TRUE
-	var/slices_lost = 0
+		return ITEM_INTERACT_COMPLETE
+
 	var/initial_volume = 0 // the total some of reagents this food had initially
 	for(var/ingredient in list_reagents)
 		initial_volume += list_reagents[ingredient]
 	// we want to account for how much has been eaten already, reduce slices by how is left vs. how much food we started with
 	slices_num = clamp(slices_num * (reagents.total_volume / initial_volume), 1, slices_num)
+	var/slices_lost
 	if(!inaccurate)
-		user.visible_message("<span class='notice'>[user] slices [src]!</span>",
-		"<span class='notice'>You slice [src]!</span>")
+		user.visible_message(
+			"<span class='notice'>[user] slices [src].</span>",
+			"<span class='notice'>You slice [src].</span>"
+		)
 	else
-		user.visible_message("<span class='notice'>[user] crudely slices [src] with [I]!</span>",
-			"<span class='notice'>You crudely slice [src] with your [I]</span>!")
+		user.visible_message(
+			"<span class='notice'>[user] crudely slices [src] with [used], destroying some in the process!</span>",
+			"<span class='notice'>You crudely slice [src] with your [used], destroying some in the process!</span>!"
+		)
 		slices_lost = rand(1, min(1, round(slices_num / 2)))
 	var/reagents_per_slice = reagents.total_volume/slices_num
 	for(var/i in 1 to (slices_num - slices_lost))
@@ -354,7 +357,7 @@
 		reagents.trans_to(slice,reagents_per_slice)
 		slice.scatter_atom()
 	qdel(src)
-	return ..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/badrecipe
 	name = "burned mess"

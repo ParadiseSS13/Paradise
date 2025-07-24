@@ -6,31 +6,30 @@ do {\
 	qdel(src);\
 } while(FALSE)
 
-/obj/item/food/sliced/bread/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/sandwich)
-		return
+/obj/item/food/sliced/bread/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/food) && !(used.flags & NODROP))
+		MAKE_CUSTOM_FOOD(used, user, /obj/item/food/customizable/sandwich)
+		return ITEM_INTERACT_COMPLETE
 	..()
 
-/obj/item/food/bun/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/burger)
-		return
+/obj/item/food/bun/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/food) && !(used.flags & NODROP))
+		MAKE_CUSTOM_FOOD(used, user, /obj/item/food/customizable/burger)
+		return ITEM_INTERACT_COMPLETE
 	..()
 
-/obj/item/food/sliceable/flatdough/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/pizza)
-		return
+/obj/item/food/sliceable/flatdough/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+
+	if(istype(used, /obj/item/food) && !(used.flags & NODROP))
+		MAKE_CUSTOM_FOOD(used, user, /obj/item/food/customizable/pizza)
+		return ITEM_INTERACT_COMPLETE
 	..()
 
-
-/obj/item/food/boiledspaghetti/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
-		MAKE_CUSTOM_FOOD(W, user, /obj/item/food/customizable/pasta)
-		return
+/obj/item/food/boiledspaghetti/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/food) && !(used.flags & NODROP))
+		MAKE_CUSTOM_FOOD(used, user, /obj/item/food/customizable/pasta)
+		return ITEM_INTERACT_COMPLETE
 	..()
-
 
 /obj/item/trash/plate/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/food) && !(W.flags & NODROP))
@@ -326,17 +325,16 @@ do {\
 	tastes = list("bun" = 4)
 
 
-/obj/item/food/customizable/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	..()
+/obj/item/food/customizable/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/kitchen/utensil) || is_pen(used))
+		return ..()
 
-	if(istype(I, /obj/item/kitchen/utensil) || is_pen(I))
-		return
+	if(!istype(used, /obj/item/food))
+		to_chat(user, "<span class='warning'>[used] isn't exactly something that you would want to eat.</span>")
+		return ITEM_INTERACT_COMPLETE
 
-	if(!istype(I, /obj/item/food))
-		to_chat(user, "<span class='warning'>[I] isn't exactly something that you would want to eat.</span>")
-		return
-
-	add_ingredient(I, user)
+	add_ingredient(used, user)
+	return ITEM_INTERACT_COMPLETE
 
 /**
  * Tries to add one ingredient and it's ingredients, if any and applicable, to this snack
