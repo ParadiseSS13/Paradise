@@ -1,5 +1,8 @@
 // stuff for the telecomms sat (telecomms_returns.dmm)
 
+/// Turrets pop up in 1 second, animation is for 0.5 seconds, so we have to call for sleep() twice in order to make it 1 second and not fuck up the flick
+#define POPUP_ANIM_TIME 0.5 SECONDS
+
 GLOBAL_LIST_EMPTY(telecomms_bots)
 GLOBAL_LIST_EMPTY(telecomms_doomsday_device)
 GLOBAL_LIST_EMPTY(telecomms_trap_tank)
@@ -194,7 +197,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	name = "turret"
 	desc = "Looks like the cover to a turret. Not deploying, however?"
 	icon = 'icons/obj/turrets.dmi'
-	icon_state = "turretCover"
+	icon_state = "turret_cover"
+	layer = /obj/machinery/syndicatebomb/doomsday::layer + 0.1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	anchored = TRUE
 	/// Has someone stolen loot from the ruins core room? If they try to leave without killing dvorak, they are punished.
@@ -209,15 +213,13 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	return ..()
 
 /obj/structure/telecomms_doomsday_device/proc/start_the_party(ruin_cheese_attempted = FALSE)
-	invisibility = 90
 	var/obj/machinery/syndicatebomb/doomsday/kaboom = new /obj/machinery/syndicatebomb/doomsday(get_turf(src))
 	kaboom.icon_state = "death-bomb-active"
-	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
 	for(var/obj/structure/telecomms_trap_tank/TTT in GLOB.telecomms_trap_tank)
 		TTT.explode()
-	flick_holder.layer = kaboom.layer + 0.1
-	flick("popup", flick_holder)
-	sleep(1 SECONDS)
+	sleep(POPUP_ANIM_TIME)
+	flick("popup", src)
+	sleep(POPUP_ANIM_TIME)
 	for(var/obj/structure/telecomms_shield_cover/shield in urange(15, get_turf(src)))
 		shield.activate()
 	if(ruin_cheese_attempted)
@@ -237,7 +239,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 		qdel(CT)
 	kaboom.activate()
 	kaboom.icon_state = "death-bomb-active" // something funny goes on with icons here
-	qdel(flick_holder)
 	qdel(src)
 
 /obj/machinery/syndicatebomb/doomsday
@@ -300,19 +301,19 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	name = "turret"
 	desc = "Looks like the cover to a turret. Not deploying, however?"
 	icon = 'icons/obj/turrets.dmi'
-	icon_state = "turretCover"
+	icon_state = "turret_cover"
+	layer = /obj/machinery/shieldgen/telecomms::layer + 0.1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	anchored = TRUE
+	/// Trap we create on activation
+	var/obj/machinery/shieldgen/telecomms/trap
 
 /obj/structure/telecomms_shield_cover/proc/activate()
-	invisibility = 90
-	var/obj/machinery/shieldgen/telecomms/trap = new /obj/machinery/shieldgen/telecomms(get_turf(src))
-	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
-	flick_holder.layer = trap.layer + 0.1
-	flick("popup", flick_holder)
-	sleep(1 SECONDS)
+	trap = new(get_turf(src))
+	sleep(POPUP_ANIM_TIME)
+	flick("popup", src)
+	sleep(POPUP_ANIM_TIME)
 	trap.shields_up()
-	qdel(flick_holder)
 	qdel(src)
 
 /turf/simulated/floor/catwalk/airless
@@ -607,3 +608,5 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 /obj/structure/environmental_storytelling_holopad/core_room
 	things_to_say = list("OKAY. TIME TO GO.", "GO MY SECURITY BORGS, WHAT TIDERS F-FEAR!", "I have a DOOMSDAY DEVICE AND I AM NOT AFRAID TO SHOVE IT UP YOUR-")
 	soundblock = "core"
+
+#undef POPUP_ANIM_TIME
