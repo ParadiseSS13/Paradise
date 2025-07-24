@@ -324,7 +324,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	aggressive = TRUE
 	aggressive_tilt_chance = 100 //It will tip on you, and it will be funny.
 
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg
+/mob/living/basic/hivebot/strong/malfborg
 	name = "Security cyborg"
 	desc = "Oh god they still have access to these!"
 	icon = 'icons/mob/robots.dmi'
@@ -332,38 +332,40 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	health = 200
 	maxHealth = 200
 	faction = list("malf_drone")
-	ranged = TRUE
-	rapid = 2
+	is_ranged = TRUE
 	speed = 0.5
-	projectiletype = /obj/item/projectile/beam/disabler/weak
-	projectilesound = 'sound/weapons/taser2.ogg'
+	projectile_type = /obj/item/projectile/beam/disabler/weak
+	projectile_sound = 'sound/weapons/taser2.ogg'
+	ranged_burst_count = 2
 	gold_core_spawnable = NO_SPAWN // Could you imagine xenobio with this? lmao.
 	a_intent = INTENT_HARM
 	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
+	ai_controller = /datum/ai_controller/basic_controller/simple/simple_skirmisher
 
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg/Initialize(mapload)
+/mob/living/basic/hivebot/strong/malfborg/Initialize(mapload)
 	. = ..()
 	baton = new(src)
 
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg/Destroy()
+/mob/living/basic/hivebot/strong/malfborg/Destroy()
 	QDEL_NULL(baton)
 	return ..()
 
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg/AttackingTarget()
+/mob/living/basic/hivebot/strong/malfborg/melee_attack(atom/target, list/modifiers, ignore_cooldown)
+	. = ..()
 	if(QDELETED(target))
 		return
 	face_atom(target)
 	baton.melee_attack_chain(src, target)
 	return TRUE
 
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
+/mob/living/basic/hivebot/strong/malfborg/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!used_item && !isturf(A))
 		used_item = baton
 	..()
 
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg/emp_act(severity)
+/mob/living/basic/hivebot/strong/malfborg/emp_act(severity)
 	. = ..()
-	target = null
+	ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 	adjustBruteLoss(50)
 
 /obj/structure/displaycase/dvoraks_treat
