@@ -15,8 +15,8 @@ fn rl_git_revparse(rev: ByondValue) -> eyre::Result<ByondValue> {
     let rev_bytes = BStr::new(&rev_str);
 
     let repo_check_result = REPOSITORY.with(|repo| -> Option<String> {
-        let repo2 = repo.as_ref().ok()?;
-        let object = repo2.rev_parse_single(rev_bytes).ok()?;
+        let repo_ref = repo.as_ref().ok()?;
+        let object = repo_ref.rev_parse_single(rev_bytes).ok()?;
         Some(object.to_string())
     });
 
@@ -38,8 +38,8 @@ fn rl_git_commit_date(rev: ByondValue, ts_format: ByondValue) -> eyre::Result<By
     let ts_format_str: String = ts_format.get_string()?;
 
     let repo_check_result = REPOSITORY.with(|repo| -> Option<String> {
-        let repo = repo.as_ref().ok()?;
-        let rev = repo.rev_parse_single(rev_bytes).ok()?;
+        let repo_ref = repo.as_ref().ok()?;
+        let rev = repo_ref.rev_parse_single(rev_bytes).ok()?;
         let object = rev.object().ok()?;
         let commit = object.try_into_commit().ok()?;
         let commit_time = commit.time().ok()?;
