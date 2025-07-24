@@ -455,7 +455,10 @@
 
 /// A mob moving on a tile with a projectile is hit by it.
 /obj/item/projectile/proc/on_atom_entered(datum/source, atom/movable/entered)
-	if(isliving(entered) && entered.density && !checkpass(PASSMOB) && !(entered in permutated) && (entered.loc == loc))
+	if(!isliving(entered))
+		return
+	var/mob/living_entered = entered
+	if(((living_entered.density || !living_entered.projectile_hit_check(src))) && !checkpass(PASSMOB) && !(living_entered in permutated) && (living_entered.loc == loc))
 		Bump(entered, 1)
 
 /obj/item/projectile/Destroy()
