@@ -40,6 +40,7 @@
 	contains_xeno_organ = TRUE
 	ignore_generic_organs = TRUE
 	surgery_container = /datum/xenobiology_surgery_container/revenant
+	faction = list("revenant")
 
 	/// The revenant's idle icon
 	var/icon_idle = "revenant_idle"
