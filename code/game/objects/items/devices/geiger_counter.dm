@@ -34,6 +34,7 @@
 	var/last_tick_amount_gamma = 0
 	var/fail_to_receive = 0
 	var/current_warning = 1
+	new_attack_chain = TRUE
 
 /obj/item/geiger_counter/Initialize(mapload)
 	. = ..()
@@ -150,26 +151,39 @@
 			current_tick_amount_gamma += amount
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/geiger_counter/attack_self__legacy__attackchain(mob/user)
+/obj/item/geiger_counter/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
+
 	scanning = !scanning
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>[bicon(src)] You switch [scanning ? "on" : "off"] [src].</span>")
 
-/obj/item/geiger_counter/afterattack__legacy__attackchain(atom/target, mob/user)
-	. = ..()
-	if(user.a_intent == INTENT_HELP)
-		if(!emagged)
-			user.visible_message("<span class='notice'>[user] scans [target] with [src].</span>", "<span class='notice'>You scan [target]'s radiation levels with [src]...</span>")
-			addtimer(CALLBACK(src, PROC_REF(scan), target, user), 20, TIMER_UNIQUE) // Let's not have spamming GetAllContents
-		else
-			user.visible_message("<span class='notice'>[user] scans [target] with [src].</span>", "<span class='danger'>You project [src]'s stored radiation into [target]!</span>")
-			target.base_rad_act(src, radiation_count_alpha, ALPHA_RAD)
-			target.base_rad_act(src, radiation_count_beta, BETA_RAD)
-			target.base_rad_act(src, radiation_count_gamma, GAMMA_RAD)
-			radiation_count_alpha = 0
-			radiation_count_beta = 0
-			radiation_count_gamma = 0
-		return TRUE
+/obj/item/geiger_counter/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(geiger_act(target, user))
+		return ITEM_INTERACT_COMPLETE
+	return ..()
+
+/obj/item/geiger_counter/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(geiger_act(target, user))
+		return ITEM_INTERACT_COMPLETE
+	return ..()
+
+/obj/item/geiger_counter/proc/geiger_act(atom/target, mob/living/user)
+	if(user.a_intent != INTENT_HELP || isstorage(target))
+		return FALSE
+	if(!emagged)
+		user.visible_message("<span class='notice'>[user] scans [target] with [src].</span>", "<span class='notice'>You scan [target]'s radiation levels with [src]...</span>")
+		addtimer(CALLBACK(src, PROC_REF(scan), target, user), 20, TIMER_UNIQUE) // Let's not have spamming GetAllContents
+	else
+		user.visible_message("<span class='notice'>[user] scans [target] with [src].</span>", "<span class='danger'>You project [src]'s stored radiation into [target]!</span>")
+		target.base_rad_act(src, radiation_count_alpha, ALPHA_RAD)
+		target.base_rad_act(src, radiation_count_beta, BETA_RAD)
+		target.base_rad_act(src, radiation_count_gamma, GAMMA_RAD)
+		radiation_count_alpha = 0
+		radiation_count_beta = 0
+		radiation_count_gamma = 0
+	return TRUE
 
 /obj/item/geiger_counter/proc/scan(atom/A, mob/user)
 	var/rad_strength = get_rad_contamination(A)
@@ -186,8 +200,8 @@
 	else
 		to_chat(user, "<span class='notice'>[bicon(src)] Target is free of radioactive contamination.</span>")
 
-/obj/item/geiger_counter/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER && emagged)
+/obj/item/geiger_counter/screwdriver_act(mob/living/user, obj/item/I)
+	if(emagged)
 		if(scanning)
 			to_chat(user, "<span class='warning'>Turn off [src] before you perform this action!</span>")
 			return FALSE
@@ -229,24 +243,22 @@
 
 
 /obj/item/geiger_counter/cyborg
-	var/mob/listeningTo
 
-/obj/item/geiger_counter/cyborg/equipped(mob/user)
-	. = ..()
-	if(listeningTo == user)
-		return
-	if(listeningTo)
-		UnregisterSignal(listeningTo, COMSIG_ATOM_RAD_ACT)
-	RegisterSignal(user, COMSIG_ATOM_RAD_ACT, PROC_REF(redirect_rad_act))
-	listeningTo = user
+/obj/item/geiger_counter/cyborg/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
+
+	if(scanning)
+		RegisterSignal(user, COMSIG_ATOM_RAD_ACT, PROC_REF(redirect_rad_act))
+	else
+		UnregisterSignal(user, COMSIG_ATOM_RAD_ACT)
 
 /obj/item/geiger_counter/cyborg/proc/redirect_rad_act(datum/source, amount, emission_type)
 	base_rad_act(source, amount, emission_type)
 
-/obj/item/geiger_counter/cyborg/dropped()
+/obj/item/geiger_counter/cyborg/dropped(mob/user)
 	. = ..()
-	if(listeningTo)
-		UnregisterSignal(listeningTo, COMSIG_ATOM_RAD_ACT)
+	UnregisterSignal(user, COMSIG_ATOM_RAD_ACT)
 
 #undef RAD_LEVEL_NORMAL
 #undef RAD_LEVEL_MODERATE
