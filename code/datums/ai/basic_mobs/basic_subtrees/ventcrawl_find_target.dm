@@ -24,11 +24,11 @@
 		if(!v.welded)
 			var/datum/pipeline/P = v.returnPipenet()
 			if(!P)
-				return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+				continue
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in P.other_atmosmch)
 				if(temp_vent.welded) // no point considering a vent we can't even use
 					continue
-				vents.Add(temp_vent)
+				vents |= temp_vent
 	if(!length(vents))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 	var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
@@ -38,7 +38,7 @@
 			continue
 		if(current_target_turf.is_blocked_turf(exclude_mobs = TRUE, source_atom = controller.pawn))
 			continue
-		potential_targets.Add(current_target_turf)
+		potential_targets |= current_target_turf
 	if(!length(potential_targets))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 	controller.set_blackboard_key(BB_VENTCRAWL_FINAL_TARGET, pick(potential_targets))
