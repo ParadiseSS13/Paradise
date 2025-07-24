@@ -1015,6 +1015,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/suit/storage/iaa/blackjacket/armored
 	cost = 3
 
+/datum/uplink_item/badass/syndie_garments
+	name = "Syndicate Garment Bag"
+	desc = "A customised garment bag filled with all kinds of Syndicate attire, for the fashionable agent's needs. Proclaim your allegiance with style!"
+	reference = "GRMT"
+	item = /obj/item/storage/bag/garment/syndie
+	cost = 5
+
 ////////////////////////////////////////
 // MARK: BUNDLES AND TELECRYSTALS
 ////////////////////////////////////////

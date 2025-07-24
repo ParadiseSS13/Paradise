@@ -399,7 +399,6 @@
 		var/list/subs = subcategories[viewing_category]
 		. = viewing_subcategory % length(subs) + 1
 
-
 //Previous can go fuck itself
 /datum/personal_crafting/proc/prev_cat(readonly = TRUE)
 	if(!readonly)
