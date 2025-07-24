@@ -10,14 +10,20 @@ thread_local! {
 }
 
 #[byondapi::bind]
-fn rl_git_revparse(rev: ByondValue) -> eyre::Result<ByondValue> {
+fn rl_git_commit_date(rev: ByondValue, ts_format: ByondValue) -> eyre::Result<ByondValue> {
     let rev_str: String = rev.get_string()?;
-    let rev_bytes = BStr::new(&rev_str);
+    let rev_bytes: &BStr = BStr::new(&rev_str);
+
+    let ts_format_str: String = ts_format.get_string()?;
 
     let repo_check_result = REPOSITORY.with(|repo| -> Option<String> {
         let repo_ref = repo.as_ref().ok()?;
-        let object = repo_ref.rev_parse_single(rev_bytes).ok()?;
-        Some(object.to_string())
+        let rev = repo_ref.rev_parse_single(rev_bytes).ok()?;
+        let object = rev.object().ok()?;
+        let commit = object.try_into_commit().ok()?;
+        let commit_time = commit.time().ok()?;
+        let datetime = Utc.timestamp_opt(commit_time.seconds, 0).latest()?;
+        Some(datetime.format(&ts_format_str).to_string())
     });
 
     match repo_check_result {
