@@ -104,7 +104,7 @@
 	if(!SPT_PROB(relay_chance, seconds_per_tick))
 		return
 
-	if (controller.blackboard_key_exists(BB_HIVE_PARTNER))
+	if(controller.blackboard_key_exists(BB_HIVE_PARTNER))
 		controller.queue_behavior(/datum/ai_behavior/relay_message, BB_HIVE_PARTNER)
 		return SUBTREE_RETURN_FINISH_PLANNING
 	controller.queue_behavior(/datum/ai_behavior/find_and_set/hive_partner, BB_HIVE_PARTNER, /mob/living/basic/hivebot)
