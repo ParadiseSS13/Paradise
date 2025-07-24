@@ -6643,6 +6643,12 @@
 	icon_state = "darkredcorners"
 	},
 /area/station/security/prison)
+"brF" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "brI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -8763,6 +8769,15 @@
 	icon_state = "browncorner"
 	},
 /area/station/supply/office)
+"bKZ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/storage)
 "bLd" = (
 /obj/structure/closet/wardrobe/xenos,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -10228,6 +10243,9 @@
 /obj/item/fish/goldfish,
 /turf/simulated/floor/grass,
 /area/station/hallway/secondary/exit)
+"bYM" = (
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/abandonedbar)
 "bYT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -21829,6 +21847,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft)
+"etf" = (
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/abandonedservers)
 "eto" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -27787,7 +27808,7 @@
 /area/station/ai_monitored/storage/eva)
 "fyV" = (
 /obj/effect/mapping_helpers/turfs/rust/maybe,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/station/maintenance/abandonedservers)
 "fyW" = (
 /obj/structure/cable{
@@ -27960,6 +27981,12 @@
 /obj/structure/flora/ausbushes/grassybush,
 /turf/simulated/floor/grass,
 /area/station/public/park)
+"fBf" = (
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "fBk" = (
 /obj/structure/table,
 /obj/structure/sign/poster/contraband/random/directional/west,
@@ -40748,6 +40775,12 @@
 	icon_state = "darkgrey"
 	},
 /area/station/security/storage)
+"iek" = (
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/storage)
 "iep" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -44053,7 +44086,7 @@
 /area/station/engineering/transmission_laser)
 "iLC" = (
 /obj/effect/spawner/random/fungus/maybe,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/station/maintenance/abandonedservers)
 "iLD" = (
 /obj/structure/railing{
@@ -54840,6 +54873,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"kTG" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/storage)
 "kTJ" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -103542,6 +103581,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
+"uCi" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/sign/pods{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/storage)
 "uCm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/hydroponics/soil,
@@ -119669,6 +119715,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/medical/chemistry)
+"xPZ" = (
+/obj/structure/girder,
+/obj/structure/sign/pods{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "xQf" = (
 /turf/simulated/wall,
 /area/station/maintenance/electrical)
@@ -120730,6 +120783,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine)
+"ybx" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "yby" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -135249,23 +135309,23 @@ aZS
 aZS
 aZS
 aZS
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+xzz
 aZS
 aZS
 aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-vbN
-sZB
-sZB
+hEW
+hEW
+hEW
+hEW
+hEW
 oso
 fcb
 fcb
@@ -135504,25 +135564,25 @@ jnP
 aZS
 jnP
 jnP
-aZS
-jnP
-jnP
-aZS
-jnP
 jnP
 aZS
 jnP
 jnP
 jnP
-aZS
 jnP
 jnP
-aZS
+jnP
+jnP
+jnP
+jnP
+jnP
 jnP
 eZo
 eZo
 eZo
 tCh
+bKZ
+vbN
 pff
 xgJ
 vcP
@@ -135763,23 +135823,23 @@ aZS
 aZS
 aZS
 aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-aZS
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
 jnP
 eNa
 ety
 uuH
 uHS
+kTG
+iek
 fcb
 eJg
 sZB
@@ -136028,15 +136088,15 @@ jnP
 jnP
 jnP
 jnP
-aZS
 jnP
 jnP
-aZS
 jnP
 eZo
 eZo
 eZo
 tCh
+kTG
+uCi
 fcb
 eJg
 sZB
@@ -136285,9 +136345,9 @@ jnP
 jnP
 jnP
 jnP
+xzz
 aZS
-jnP
-jnP
+aZS
 aZS
 fpO
 fpO
@@ -176999,7 +177059,7 @@ ofz
 cyF
 rZc
 vkZ
-ybH
+xPZ
 wTf
 het
 kdx
@@ -177253,10 +177313,10 @@ cYo
 vgb
 bKT
 fyV
-bAR
-dlb
-bAR
-hST
+dZk
+dZk
+dZk
+bYM
 hST
 lKD
 euu
@@ -177509,11 +177569,11 @@ mqR
 nSm
 mKj
 xgt
-mqR
-xFv
-oVd
-xFv
-hST
+etf
+lxp
+fBf
+lxp
+bYM
 kJn
 vRu
 vRu
@@ -177766,11 +177826,11 @@ mqR
 mqR
 dlM
 iLC
-mqR
-xFv
-lBf
-xFv
-hST
+qsn
+brF
+brF
+ybx
+bYM
 eGU
 vRu
 fhh
@@ -178023,11 +178083,11 @@ jnP
 jnP
 jnP
 jnP
-jnP
-xFv
-leK
-xFv
-hST
+qsn
+bAR
+dlb
+bAR
+bYM
 lyn
 pYO
 ktc
@@ -178280,11 +178340,11 @@ jnP
 jnP
 jnP
 jnP
-jnP
-jnP
-jnP
-jnP
-hST
+qsn
+xFv
+oVd
+xFv
+bYM
 gyH
 nhE
 idj
@@ -178537,11 +178597,11 @@ jnP
 jnP
 jnP
 jnP
-jnP
-jnP
-jnP
-jnP
-hST
+qsn
+xFv
+lBf
+xFv
+bYM
 ham
 ham
 hST
@@ -178794,10 +178854,10 @@ jnP
 jnP
 jnP
 jnP
-jnP
-jnP
-jnP
-jnP
+aZS
+xFv
+leK
+xFv
 aZS
 aZS
 aZS
@@ -179051,11 +179111,11 @@ jnP
 jnP
 jnP
 jnP
+aZS
 jnP
 jnP
 jnP
-jnP
-jnP
+aZS
 jnP
 aZS
 aZS
@@ -179308,11 +179368,11 @@ jnP
 jnP
 jnP
 jnP
+aZS
 jnP
 jnP
 jnP
-jnP
-jnP
+aZS
 jnP
 aZS
 jnP
@@ -179565,11 +179625,11 @@ jnP
 jnP
 jnP
 jnP
+xzz
 jnP
 jnP
 jnP
-jnP
-jnP
+xzz
 jnP
 wXf
 jnP
