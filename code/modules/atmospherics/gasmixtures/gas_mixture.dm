@@ -676,7 +676,6 @@ What are the archived variables for?
 	var/temperature = null
 	for(var/datum/gas_mixture/G as anything in mixtures)
 		if(!istype(G))
-			stack_trace("share_many_airs had [G] in mixtures ([json_encode(mixtures)])")
 			continue
 		total_volume += G.volume
 

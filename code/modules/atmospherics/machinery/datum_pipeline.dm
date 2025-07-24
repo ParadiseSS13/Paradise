@@ -200,15 +200,20 @@
 
 	for(var/i=1;i<=length(PL);i++)
 		var/datum/pipeline/P = PL[i]
-		if(!P)
-			return
+		if(!P || QDELETED(P))
+			continue
 		GL += P.air
 		GL += P.other_airs
+
 		for(var/obj/machinery/atmospherics/binary/valve/V in P.other_atmosmch)
+			if(QDELETED(V))
+				continue
 			if(V.open)
 				PL |= V.parent1
 				PL |= V.parent2
 		for(var/obj/machinery/atmospherics/trinary/tvalve/T in P.other_atmosmch)
+			if(QDELETED(T))
+				continue
 			if(!T.state)
 				if(src != T.parent2) // otherwise dc'd side connects to both other sides!
 					PL |= T.parent1
@@ -218,6 +223,8 @@
 					PL |= T.parent1
 					PL |= T.parent2
 		for(var/obj/machinery/atmospherics/unary/portables_connector/C in P.other_atmosmch)
+			if(QDELETED(C))
+				continue
 			if(C.connected_device)
 				GL += C.portableConnectorReturnAir()
 
