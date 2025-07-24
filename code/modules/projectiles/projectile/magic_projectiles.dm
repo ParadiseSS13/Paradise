@@ -52,7 +52,7 @@
 	nodamage = 0
 	immolate = 6
 
-	//explosion values
+	// explosion values
 	var/exp_devastate = -1
 	var/exp_heavy = 0
 	var/exp_light = 2
