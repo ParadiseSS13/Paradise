@@ -5,6 +5,7 @@ use git2::Repository;
 // The methods in this file have the rl prefix for rustlibs as gix likes to make its own dll exports
 // That makes things reallyyyyyyyyy messy
 
+
 #[byondapi::bind]
 fn rl_git_revparse(rev: ByondValue) -> eyre::Result<ByondValue> {
     let rev_str: String = rev.get_string()?;
