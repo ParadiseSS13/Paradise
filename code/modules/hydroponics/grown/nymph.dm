@@ -19,8 +19,12 @@
 	icon_state = "mushy"
 	bitesize_mod = 2
 
-/obj/item/food/grown/nymph_pod/attack_self__legacy__attackchain(mob/user)
+/obj/item/food/grown/nymph_pod/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	new /mob/living/simple_animal/diona(get_turf(user))
-	to_chat(user, "<span class='notice'>You crack open [src] letting the nymph out.</span>")
+	to_chat(user, "<span class='notice'>You crack open [src], letting the nymph out.</span>")
 	user.drop_item()
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
