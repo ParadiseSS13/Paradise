@@ -663,19 +663,15 @@ const DNAModifierMainRejuvenators = () => {
           </LabeledList.Item>
         </LabeledList>
       ) : (
-        <Stack fill vertical>
-          <Stack.Item grow align="center">
-            <Stack vertical align="center" textAlign="center">
-              <Stack.Item>
-                <Icon.Stack>
-                  <Icon name="flask" size={5} mt={25} mx={-4} />
-                  <Icon name="slash" color="red" size={5} mt={25} mx={-5} />
-                </Icon.Stack>
-              </Stack.Item>
-              <Stack.Item textAlign="center" mt={35}>
-                <h3>No Beaker Loaded</h3>
-              </Stack.Item>
-            </Stack>
+        <Stack fill vertical align="center" justify="center">
+          <Stack.Item>
+            <Icon.Stack>
+              <Icon name="flask" size={5} color="silver" />
+              <Icon name="slash" size={5} color="red" />
+            </Icon.Stack>
+          </Stack.Item>
+          <Stack.Item bold color="label" mb="2rem">
+            <h3>No Beaker Loaded</h3>
           </Stack.Item>
         </Stack>
       )}
