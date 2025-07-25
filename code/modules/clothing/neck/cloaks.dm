@@ -48,7 +48,7 @@
 
 /obj/item/clothing/neck/cloak/syndicate
 	name = "suspicious cloak"
-	desc = "It's a half-cloak that can be worn around your neck in a pretty suspicious, yet stylish color scheme."
+	desc = "A half-cloak worn around the neck, featuring a color scheme that's both suspicious and stylish."
 	icon_state = "syndiecloak"
 
 //Mantles.
