@@ -30,11 +30,10 @@ def main():
 
         for variable_name in typepath.var_names(modified=True):
             modded = typepath.var_decl(variable_name, False)
-            if(modded == None):
-                print("Something went wrong!!!")
-                sys.exit(1)
-                return
-            if path.parent == "/":
+            if(modded):
+                all_failures.append(Failure(typepath.source_loc.file_path, typepath.source_loc.line, f"{RED}Failed to read {path.rel}::{variable_name}.{NC} This is probably not your fault."))
+                continue
+            if path.parent.is_root:
                 continue
             parent_typepath = dme.type_decl(path.parent)
             original = parent_typepath.var_decl(variable_name, True)
@@ -45,7 +44,7 @@ def main():
                 if(modded.name in ["dir", "pixel_x", "pixel_y"] and path.parent.stem in ["directional", "offset"]):
                     continue
                 # Make an exception for subsystems, as they are much less OOP dependent.
-                if(path.rel.startswith("/datum/controller/subsystem")):
+                if(path.child_of("/datum/controller/subsystem")):
                     continue
                 # And make an exception for this fucked up edge case. wtf.
                 if(path.rel == "/obj" and variable_name == "layer"):
