@@ -1,6 +1,6 @@
 use byondapi::value::ByondValue;
 use chrono::{DateTime, TimeZone, Utc};
-use gix::{bstr::BStr, open::Error as OpenError, Repository};
+use git2::Repository;
 
 // The methods in this file have the rl prefix for rustlibs as gix likes to make its own dll exports
 // That makes things reallyyyyyyyyy messy
@@ -15,9 +15,9 @@ fn rl_git_revparse(rev: ByondValue) -> eyre::Result<ByondValue> {
 }
 
 fn internal_rl_git_revparse(rev_str: String) -> Option<String> {
-    let repo = gix::open(".").ok()?;
-    let rev_bytes = BStr::new(&rev_str);
-    Some(repo.rev_parse_single(rev_bytes).ok()?.to_string())
+    let repo = Repository::open(".").ok()?;
+    let rev = repo.revparse_single(rev_str.as_str()).ok()?;
+    Some(rev.id().to_string())
 }
 
 #[byondapi::bind]
@@ -32,11 +32,9 @@ fn rl_git_commit_date(rev: ByondValue, ts_format: ByondValue) -> eyre::Result<By
 }
 
 fn internal_rl_get_commit_date(rev_str: String) -> Option<DateTime<Utc>> {
-    let repo = gix::open(".").ok()?;
-    let rev_bytes: &BStr = BStr::new(&rev_str);
-    let rev = repo.rev_parse_single(rev_bytes).ok()?;
-    let object = rev.object().ok()?;
-    let commit = object.try_into_commit().ok()?;
-    let commit_time = commit.time().ok()?;
-    Utc.timestamp_opt(commit_time.seconds, 0).latest()
+    let repo = Repository::open(".").ok()?;
+    let rev = repo.revparse_single(rev_str.as_str()).ok()?;
+    let commit = rev.as_commit()?;
+    let commit_time = commit.time();
+    Utc.timestamp_opt(commit_time.seconds(), 0).latest()
 }
