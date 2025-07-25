@@ -17,8 +17,6 @@ def print_error(message: str, filename: str, line_number: int):
     else:
         print(f"{filename}:{line_number}: {message}")
 
-
-
 def main():
     print("identical_variables started")
     exit_code = 0
