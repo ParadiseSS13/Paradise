@@ -11,8 +11,8 @@ export const pda_games = (props) => {
       case 'Minesweeper':
         return (
           <Icon.Stack>
-            <Icon ml="0" mt="10px" name="flag" size="6" color="gray" rotation={30} />
-            <Icon ml="9px" mt="23px" name="bomb" size="3" color="black" />
+            <Icon ml="4px" mt="10px" name="flag" size="6" color="gray" rotation={30} />
+            <Icon ml="20px" mt="4px" name="bomb" size="3" color="black" />
           </Icon.Stack>
         );
       default:
@@ -23,7 +23,13 @@ export const pda_games = (props) => {
   return (
     <Box>
       {games.map((game) => (
-        <Button key={game.name} width="33%" textAlign="center" translucent onClick={() => act('play', { id: game.id })}>
+        <Button
+          key={game.name}
+          width="33%"
+          textAlign="center"
+          color="transparent"
+          onClick={() => act('play', { id: game.id })}
+        >
           {GetAppImage(game.name)}
           <Box>{game.name}</Box>
         </Button>
