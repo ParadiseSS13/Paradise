@@ -1,8 +1,6 @@
 from avulto import DME
 from collections import namedtuple
-import glob
 import os
-import re
 import sys
 import time
 
