@@ -200,7 +200,7 @@
 
 	for(var/i=1;i<=length(PL);i++)
 		var/datum/pipeline/P = PL[i]
-		if(!P || QDELETED(P))
+		if(!istype(P) || QDELETED(P) || isnull(P.air))
 			continue
 		GL += P.air
 		GL += P.other_airs
