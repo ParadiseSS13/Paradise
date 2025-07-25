@@ -25,6 +25,10 @@
 		P.parent = null
 	for(var/obj/machinery/atmospherics/A in other_atmosmch)
 		A.nullifyPipenet(src)
+
+	other_airs.Cut()
+	members.Cut()
+	other_atmosmch.Cut()
 	return ..()
 
 /datum/pipeline/process()//This use to be called called from the pipe networks
