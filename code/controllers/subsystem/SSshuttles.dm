@@ -482,14 +482,15 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/set_trader_shuttle(datum/map_template/shuttle/trader/template)
 	var/obj/docking_port/mobile/trader/trade_shuttle = getShuttle("trader")
 	if(trade_shuttle)
-		if(trade_shuttle.get_docked().id != "trader_base")
+		var/obj/docking_port/stationary/docked_id = trade_shuttle.get_docked()
+		if(docked_id.id != "trader_base")
 			CRASH("Attempted to load a new trade shuttle while the existing one was not at its home base.")
 		// Dispose of the old shuttle.
 		trade_shuttle.jumpToNullSpace()
 
 	var/obj/docking_port/mobile/trader/dock = getDock("trader_base")
 	if(!dock)
-		CRASH("Unable to load trading shuttle, no trading dock found.)
+		CRASH("Unable to load trading shuttle, no trading dock found.")
 
 	// Load in the new shuttle.
 	trade_shuttle = load_template(template)

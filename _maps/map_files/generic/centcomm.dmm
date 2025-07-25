@@ -5584,6 +5584,7 @@
 	name = "Docking Port"
 	},
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "ua" = (
