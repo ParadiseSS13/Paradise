@@ -1,6 +1,5 @@
 /obj/item/ammo_box/magazine
-	icon = 'icons/tgmc/objects/ammo.dmi'
-	icon_state = "enforcer" // placeholder icon
+	icon_state = "75" // placeholder icon
 
 ////////////////INTERNAL MAGAZINES//////////////////////
 /obj/item/ammo_box/magazine/internal
@@ -203,6 +202,7 @@
 /obj/item/ammo_box/magazine/m10mm
 	name = "pistol magazine (10mm)"
 	desc = "A gun magazine."
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "9x19p"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c10mm
@@ -230,6 +230,7 @@
 
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "45"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
@@ -238,6 +239,7 @@
 
 /obj/item/ammo_box/magazine/enforcer
 	name = "handgun magazine (9mm rubber)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "enforcer"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8
@@ -269,7 +271,6 @@
 
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "46x30mmt"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = "4.6x30mm"
@@ -333,6 +334,7 @@
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "uzi9mm"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
@@ -341,7 +343,6 @@
 
 /obj/item/ammo_box/magazine/smgm9mm
 	name = "\improper SMG magazine (9mm)"
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "smg9mm"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
@@ -366,6 +367,7 @@
 
 /obj/item/ammo_box/magazine/apsm10mm
 	name = "Type 230 magazine (10mm)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "10mmaps"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = "10mm"
@@ -398,7 +400,6 @@
 
 /obj/item/ammo_box/magazine/smgm45
 	name = "\improper SMG magazine (.45)"
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "c20r45"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c45
@@ -408,7 +409,6 @@
 
 /obj/item/ammo_box/magazine/tommygunm45
 	name = "drum magazine (.45)"
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "drum45"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
@@ -416,7 +416,6 @@
 
 /obj/item/ammo_box/magazine/m50
 	name = "handgun magazine (.50ae)"
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "50ae"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/a50
@@ -426,7 +425,6 @@
 
 /obj/item/ammo_box/magazine/m75
 	name = "specialized magazine (.75)"
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "75"
 	ammo_type = /obj/item/ammo_casing/caseless/a75
 	caliber = "75"
@@ -435,7 +433,6 @@
 
 /obj/item/ammo_box/magazine/m556
 	name = "toploader magazine (5.56mm)"
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "5.56m"
 	origin_tech = "combat=5;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/a556
@@ -446,13 +443,11 @@
 /obj/item/ammo_box/magazine/m556/arg
 	name = "\improper M26 assault rifle magazine (5.56mm)"
 	desc = "A Standardized Equipment model magazine for the M26 assault rifle."
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "arg"
 
 /obj/item/ammo_box/magazine/ak814
 	name = "AK magazine (5.45x39mm)"
 	desc = "A universal magazine for an AK style rifle."
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "ak814"
 	origin_tech = "combat=5;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/a545
@@ -463,7 +458,6 @@
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g slugs)"
 	desc = "A drum magazine."
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "m12gsl"
 	ammo_type = /obj/item/ammo_casing/shotgun
 	origin_tech = "combat=3;syndicate=1"
@@ -510,7 +504,6 @@
 /obj/item/ammo_box/magazine/m12g/xtr_lrg
 	name = "\improper XL shotgun magazine (12g slugs)"
 	desc = "An extra large drum magazine."
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "m12gXlSl"
 	w_class = WEIGHT_CLASS_NORMAL
 	ammo_type = /obj/item/ammo_casing/shotgun
@@ -538,7 +531,6 @@
 
 /obj/item/ammo_box/magazine/toy/smg
 	name = "foam force SMG magazine"
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "smg9mm"
 	max_ammo = 20
 	multi_sprite_step = 4
@@ -548,6 +540,7 @@
 
 /obj/item/ammo_box/magazine/toy/pistol
 	name = "foam force pistol magazine"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "9x19p"
 	max_ammo = 8
 	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
@@ -557,6 +550,7 @@
 
 /obj/item/ammo_box/magazine/toy/enforcer
 	name = "\improper Enforcer foam magazine"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "enforcer"
 	max_ammo = 8
 	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
@@ -580,7 +574,6 @@
 
 /obj/item/ammo_box/magazine/toy/m762
 	name = "donksoft box magazine"
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "a762"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	max_ammo = 50
@@ -592,7 +585,6 @@
 /obj/item/ammo_box/magazine/laser
 	name = "laser carbine projector magazine"
 	desc = "Fits experimental laser ammo casings. Compatible with laser rifles and carbines."
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "laser"
 	ammo_type = /obj/item/ammo_casing/caseless/laser
 	origin_tech = "combat=3"
@@ -613,7 +605,6 @@
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "c20r45"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	max_ammo = 20
@@ -626,7 +617,6 @@
 /obj/item/ammo_box/magazine/detective/speedcharger
 	name = "DL-88 charge pack"
 	desc = "One-use charge pack for the DL-88 energy revolver."
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "handgun_ammo_battery"
 	materials = list(MAT_METAL = 20000)
 	var/charge = 1000
@@ -661,7 +651,6 @@
 /obj/item/ammo_box/magazine/c_foam
 	name = "\improper C-Foam canister"
 	desc = "A canister containing inert foam for the C-Foam launcher."
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "foam_canister"
 	ammo_type = /obj/item/ammo_casing/caseless/c_foam
 	max_ammo = 12

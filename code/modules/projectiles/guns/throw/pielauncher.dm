@@ -1,7 +1,6 @@
 /obj/item/gun/throw/piecannon
 	name = "pie cannon"
 	desc = "A projectile weapon that fires pies."
-	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "piecannon1"
 	w_class = WEIGHT_CLASS_HUGE
 	throw_speed = 2

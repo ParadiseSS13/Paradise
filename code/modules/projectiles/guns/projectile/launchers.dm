@@ -36,7 +36,6 @@
 /obj/item/gun/projectile/automatic/gyropistol
 	name = "\improper MX2000 gyrojet pistol"
 	desc = "A prototype pistol designed by Sunburst Heavy Industries, intended to fire self-propelled rockets."
-	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "gyropistol"
 	fire_sound = 'sound/effects/explosion1.ogg'
 	origin_tech = "combat=5"
@@ -57,7 +56,6 @@
 /obj/item/gun/projectile/automatic/speargun
 	name = "kinetic speargun"
 	desc = "A weapon favored by carp hunters. Fires specialized spears using kinetic energy."
-	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "speargun"
 	item_state = "speargun"
 	w_class = WEIGHT_CLASS_BULKY

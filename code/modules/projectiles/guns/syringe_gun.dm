@@ -110,7 +110,6 @@
 /obj/item/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"
 	desc = "A syndicate rapid syringe gun based on an archived Nanotrasen prototype. Capable of storing and filling syringes from an internal reservoir. It has a large flap on the side that you can dump a box or bag of syringes into, and a port for filling it with liquid."
-	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "rapidsyringegun"
 	max_syringes = 14  // full two boxes worth
 	/// Maximum size of the internal reservoir

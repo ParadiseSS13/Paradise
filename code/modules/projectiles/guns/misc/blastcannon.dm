@@ -1,7 +1,6 @@
 /obj/item/gun/blastcannon
 	name = "pipe gun"
 	desc = "A pipe welded onto a gun stock, with a mechanical trigger. The pipe has an opening near the top, and there seems to be a spring loaded wheel in the hole."
-	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "empty_blastcannon"
 	var/icon_state_loaded = "loaded_blastcannon"
 	item_state = "blastcannon_empty"

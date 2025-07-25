@@ -9,7 +9,6 @@
 	desc = "A modern twist on an old classic. Pick up that can."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "crossbow"
 	item_state = "crossbow-solid"
 	fire_sound_text = "a solid thunk"

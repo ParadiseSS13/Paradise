@@ -174,7 +174,6 @@
 /obj/item/gun/projectile/revolver/mateba
 	name = "\improper Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of several unrelated militaries. Uses .357 ammo."	//>10mm hole >.357
-	icon = 'icons/tgmc/objects/guns.dmi'
 	icon_state = "mateba"
 	item_state = "mateba"
 	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
@@ -183,7 +182,6 @@
 /obj/item/gun/projectile/revolver/golden
 	name = "\improper Golden revolver"
 	desc = "This ain't no game, ain't never been no show, And I'll gladly gun down the oldest lady you know. Uses .357 ammo."
-	icon = 'icons/tgmc/objects/guns64.dmi'
 	icon_state = "goldrevolver"
 	item_state = "goldrevolver"
 	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
@@ -194,7 +192,6 @@
 /obj/item/gun/projectile/revolver/nagant
 	name = "\improper Nagant revolver"
 	desc = "An old model of revolver that originated in Russia, now used by the USSP. Able to be suppressed. Uses 7.62x38mmR ammo."
-	icon = 'icons/tgmc/objects/guns.dmi'
 	icon_state = "nagant"
 	item_state = "nagant"
 	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'

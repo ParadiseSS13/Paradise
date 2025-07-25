@@ -1,7 +1,6 @@
 /obj/item/gun/projectile/automatic/l6_saw
 	name = "\improper L6 SAW"
 	desc = "A next-generation medium machine gun designed by Aussec Armory for CQB use aboard ships and stations. Chambered in 7.62x51mm Federal."
-	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "l6closed100"
 	item_state = "l6closedmag"
 	w_class = WEIGHT_CLASS_HUGE
