@@ -1,58 +1,37 @@
 use byondapi::value::ByondValue;
-use chrono::{TimeZone, Utc};
-use gix::{bstr::BStr, open::Error as OpenError, Repository};
-
-// The methods in this file have the rl prefix for rustlibs as gix likes to make its own dll exports
-// That makes things reallyyyyyyyyy messy
-
-thread_local! {
-    static REPOSITORY: Result<Repository, OpenError> = gix::open(".");
-}
+use chrono::{DateTime, TimeZone, Utc};
+use git2::Repository;
 
 #[byondapi::bind]
-fn rl_git_revparse(rev: ByondValue) -> eyre::Result<ByondValue> {
+fn git_revparse(rev: ByondValue) -> eyre::Result<ByondValue> {
     let rev_str: String = rev.get_string()?;
-    let rev_bytes = BStr::new(&rev_str);
-
-    let repo_check_result = REPOSITORY.with(|repo| -> Option<String> {
-        let repo_ref = repo.as_ref().ok()?;
-        let object = repo_ref.rev_parse_single(rev_bytes).ok()?;
-        Some(object.to_string())
-    });
-
-    match repo_check_result {
-        Some(res) => {
-            return Ok(ByondValue::new_str(res)?);
-        }
-        None => {
-            return Ok(ByondValue::null());
-        }
+    if let Some(rev_id) = internal_git_revparse(rev_str) {
+        return Ok(ByondValue::new_str(rev_id)?);
     }
+    Ok(ByondValue::null())
+}
+
+fn internal_git_revparse(rev_str: String) -> Option<String> {
+    let repo = Repository::open(".").ok()?;
+    let rev = repo.revparse_single(rev_str.as_str()).ok()?;
+    Some(rev.id().to_string())
 }
 
 #[byondapi::bind]
-fn rl_git_commit_date(rev: ByondValue, ts_format: ByondValue) -> eyre::Result<ByondValue> {
+fn git_commit_date(rev: ByondValue, ts_format: ByondValue) -> eyre::Result<ByondValue> {
     let rev_str: String = rev.get_string()?;
-    let rev_bytes: &BStr = BStr::new(&rev_str);
-
     let ts_format_str: String = ts_format.get_string()?;
 
-    let repo_check_result = REPOSITORY.with(|repo| -> Option<String> {
-        let repo_ref = repo.as_ref().ok()?;
-        let rev = repo_ref.rev_parse_single(rev_bytes).ok()?;
-        let object = rev.object().ok()?;
-        let commit = object.try_into_commit().ok()?;
-        let commit_time = commit.time().ok()?;
-        let datetime = Utc.timestamp_opt(commit_time.seconds, 0).latest()?;
-        Some(datetime.format(&ts_format_str).to_string())
-    });
-
-    match repo_check_result {
-        Some(res) => {
-            return Ok(ByondValue::new_str(res)?);
-        }
-        None => {
-            return Ok(ByondValue::null());
-        }
+    if let Some(datetime) = internal_get_commit_date(rev_str) {
+        return Ok(ByondValue::new_str(datetime.format(&ts_format_str).to_string())?);
     }
+    Ok(ByondValue::null())
+}
+
+fn internal_get_commit_date(rev_str: String) -> Option<DateTime<Utc>> {
+    let repo = Repository::open(".").ok()?;
+    let rev = repo.revparse_single(rev_str.as_str()).ok()?;
+    let commit = rev.as_commit()?;
+    let commit_time = commit.time();
+    Utc.timestamp_opt(commit_time.seconds(), 0).latest()
 }

@@ -140,10 +140,10 @@
 
 // MARK: Git
 /proc/rustlibs_git_revparse(rev)
-	return RUSTLIB_CALL(rl_git_revparse, rev)
+	return RUSTLIB_CALL(git_revparse, rev)
 
 /proc/rustlibs_git_commit_date(rev, format = "%F")
-	return RUSTLIB_CALL(rl_git_commit_date, rev, format)
+	return RUSTLIB_CALL(git_commit_date, rev, format)
 
 // MARK: Logging
 /proc/rustlibs_log_write(fname, text)
