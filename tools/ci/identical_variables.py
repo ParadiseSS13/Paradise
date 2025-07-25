@@ -60,7 +60,7 @@ def main():
     end = time.time()
     print(f"identical_variables tests completed in {end - start:.2f}s\n")
 
-    # sys.exit(exit_code)
+    sys.exit(exit_code)
 
 if __name__ == "__main__":
     main()
