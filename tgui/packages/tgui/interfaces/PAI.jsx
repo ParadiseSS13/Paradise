@@ -4,12 +4,12 @@ import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { routingError } from '../routes';
 
-const RequirePAIInterface = require.context('./pai', false, /\.js$/);
+const RequirePAIInterface = require.context('./pai', false, /\.jsx$/);
 
 const GetApp = (name) => {
   let appModule;
   try {
-    appModule = RequirePAIInterface(`./${name}.js`);
+    appModule = RequirePAIInterface(`./${name}.jsx`);
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
       return routingError('notFound', name);
