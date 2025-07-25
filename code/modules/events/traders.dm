@@ -89,8 +89,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			success_spawn = TRUE
 	if(success_spawn)
 		var/template = new T.ship_template()
-		var/obj/docking_port/mobile/trade_shuttle = SSshuttle.load_template(template)
-		SSshuttle.set_trader_shuttle(trade_shuttle)
+		SSshuttle.set_trader_shuttle(template)
 		GLOB.minor_announcement.Announce("A trading shuttle from [T.trader_location] has been granted docking permission at [station_name()] arrivals port 4.", "Trader Shuttle Docking Request Accepted", 'sound/AI/tradergranted.ogg')
 		// Get the list of spawn locations for company specific items, spawn gear
 		for(var/obj/effect/landmark/spawner/tradergearminor/A in GLOB.landmarks_list)
