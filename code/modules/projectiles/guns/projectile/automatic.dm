@@ -171,7 +171,7 @@
 	can_holster = TRUE // it's a mini-uzi after all
 
 /obj/item/gun/projectile/automatic/mini_uzi/update_overlays()
-	. = list()
+	. = ..()
 	if(suppressed)
 		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 13, pixel_y = 5)
 
