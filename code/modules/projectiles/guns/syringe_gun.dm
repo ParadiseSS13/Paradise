@@ -1,7 +1,6 @@
 /obj/item/gun/syringe
 	name = "syringe gun"
 	desc = "A spring loaded rifle designed to fit syringes, used to incapacitate unruly patients from a distance. Not compatible with DNA-Injectors."
-	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "syringegun"
 	item_state = "syringegun"
 	w_class = WEIGHT_CLASS_NORMAL
