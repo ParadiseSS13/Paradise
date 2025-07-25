@@ -152,5 +152,3 @@ Mapping for Paradise station can be daunting to new contributors. Here's a compr
 
 >All other non-code assets, including icons and sound files, are licensed under the [Creative Commons 3.0 BY-SA license](https://creativecommons.org/licenses/by-sa/3.0/), unless otherwise specified within the folder or file.
 </details>
-
-
