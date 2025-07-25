@@ -495,9 +495,6 @@ SUBSYSTEM_DEF(shuttle)
 	// Load in the new shuttle.
 	trade_shuttle = load_template(template)
 	var/result = trade_shuttle.canDock(dock)
-	// truthy value means that it cannot dock for some reason
-	// but we can ignore the someone else docked error because
-	// nothing is at the trader dock until this spawns
 	if(result == SHUTTLE_SOMEONE_ELSE_DOCKED)
 		trade_shuttle.jumpToNullSpace()
 		CRASH("A non-trader shuttle is blocking the trading dock.")
