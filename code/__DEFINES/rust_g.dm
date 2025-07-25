@@ -82,7 +82,3 @@
 #define rustg_sql_connected(handle) RUSTG_CALL(RUST_G, "sql_connected")(handle)
 #define rustg_sql_disconnect_pool(handle) RUSTG_CALL(RUST_G, "sql_disconnect_pool")(handle)
 #define rustg_sql_check_query(job_id) RUSTG_CALL(RUST_G, "sql_check_query")("[job_id]")
-
-// Toast Operations //
-
-#define rustg_create_toast(title, body) RUSTG_CALL(RUST_G, "create_toast")(title, body)

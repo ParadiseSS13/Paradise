@@ -1,26 +1,28 @@
 
 /obj/machinery/porta_turret/tag
-	// Reasonable defaults, in case someone manually spawns us
-	var/lasercolor = "r"	//Something to do with lasertag turrets, blame Sieve for not adding a comment.
-	installation = /obj/item/gun/energy/laser/tag/red
 	targetting_is_configurable = FALSE
 	lethal_is_configurable = FALSE
-	shot_delay = 30
-	iconholder = 1
+	shot_delay = 3 SECONDS
+	iconholder = TRUE
 	has_cover = FALSE
 	always_up = TRUE
 	raised = TRUE
 	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE)
-
-/obj/machinery/porta_turret/tag/red
-
-/obj/machinery/porta_turret/tag/blue
-	lasercolor = "b"
-	installation = /obj/item/gun/energy/laser/tag/blue
+	/// Team that we are assigned to
+	var/team_color
 
 /obj/machinery/porta_turret/tag/Initialize(mapload)
 	. = ..()
-	icon_state = "[lasercolor]grey_target_prism"
+	icon_state = "[team_color]_off"
+	base_icon_state = team_color
+
+/obj/machinery/porta_turret/tag/red
+	team_color = "red"
+	installation = /obj/item/gun/energy/laser/tag/red
+
+/obj/machinery/porta_turret/tag/blue
+	team_color = "blue"
+	installation = /obj/item/gun/energy/laser/tag/blue
 
 /obj/machinery/porta_turret/tag/weapon_setup(obj/item/gun/energy/E)
 	return
@@ -34,35 +36,15 @@
 	)
 	return data
 
-/obj/machinery/porta_turret/tag/update_icon_state()
-	if(!anchored)
-		icon_state = "turretCover"
-		return
-	if(stat & BROKEN)
-		icon_state = "[lasercolor]destroyed_target_prism"
-	else
-		if(has_power())
-			if(enabled)
-				if(iconholder)
-					//lasers have a orange icon
-					icon_state = "[lasercolor]orange_target_prism"
-				else
-					//almost everything has a blue icon
-					icon_state = "[lasercolor]target_prism"
-			else
-				icon_state = "[lasercolor]grey_target_prism"
-		else
-			icon_state = "[lasercolor]grey_target_prism"
-
 /obj/machinery/porta_turret/tag/bullet_act(obj/item/projectile/P)
 	..()
 	if(!disabled)
-		if(lasercolor == "b")
+		if(team_color == "blue")
 			if(istype(P, /obj/item/projectile/beam/lasertag/redtag))
 				disabled  = TRUE
 				spawn(100)
 					disabled  = FALSE
-		else if(lasercolor == "r")
+		else if(team_color == "red")
 			if(istype(P, /obj/item/projectile/beam/lasertag/bluetag))
 				disabled  = TRUE
 				spawn(100)
@@ -77,14 +59,13 @@
 
 	var/target_suit
 	var/target_weapon
-	switch(lasercolor)
-		if("b")
+	switch(team_color)
+		if("blue")
 			target_suit = /obj/item/clothing/suit/redtag
 			target_weapon = /obj/item/gun/energy/laser/tag/red
-		if("r")
+		if("red")
 			target_suit = /obj/item/clothing/suit/bluetag
 			target_weapon = /obj/item/gun/energy/laser/tag/blue
-
 
 	if(target_suit)//Lasertag turrets target the opposing team, how great is that? -Sieve
 		if((istype(L.r_hand, target_weapon)) || (istype(L.l_hand, target_weapon)))
