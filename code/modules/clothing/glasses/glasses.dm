@@ -339,7 +339,7 @@
 
 /obj/item/clothing/glasses/syndie
 	name = "suspicious glasses"
-	desc = "Suspicious-looking, stylish glasses. They don't look like they could protect you from a flash, however they have a slot around their lenses that something could easily be inserted in."
+	desc = "Suspicious-looking, stylish glasses. They don't look like they could protect you from a flash, however they have a slot around their lenses where something could easily be inserted."
 	icon_state = "syndieglasses"
 	item_state = "syndieglasses"
 
