@@ -182,6 +182,7 @@
 /obj/item/gun/projectile/revolver/golden
 	name = "\improper Golden revolver"
 	desc = "This ain't no game, ain't never been no show, And I'll gladly gun down the oldest lady you know. Uses .357 ammo."
+	icon = 'icons/tgmc/objects/guns64.dmi'
 	icon_state = "goldrevolver"
 	item_state = "goldrevolver"
 	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
