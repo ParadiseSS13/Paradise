@@ -133,7 +133,7 @@
 	if(!awakening)
 		return ..()
 
-	to_chat(user, "<span class='warning'>The tomato is squirming and shaking too to do anything with it!</span>")
+	to_chat(user, "<span class='warning'>The tomato is squirming and shaking too much to do anything with it!</span>")
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/grown/tomato/killer/activate_self(mob/user)
