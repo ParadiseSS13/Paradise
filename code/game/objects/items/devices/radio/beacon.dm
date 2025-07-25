@@ -16,6 +16,7 @@
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE //set if allowed to teleport to even if on zlevel2
 	var/wormhole_weaver = FALSE // special beacons for wormwhole weaver
+	var/broadcast_to_teleport_hubs = TRUE
 
 /obj/item/beacon/Initialize(mapload)
 	. = ..()
