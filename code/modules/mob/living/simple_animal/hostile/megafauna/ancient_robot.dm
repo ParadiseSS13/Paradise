@@ -803,7 +803,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	playsound(src, 'sound/effects/meteorimpact.ogg', 60, TRUE, 2, TRUE) //turned way down from bubblegum levels due to 4 legs
-	return .. ()
+	return ..()
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/mob_negates_gravity()
 	return TRUE
