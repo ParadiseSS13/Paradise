@@ -353,7 +353,7 @@
 
 /obj/item/clothing/glasses/syndie_sun
 	name = "suspicious shaded glasses"
-	desc = "Suspicious-looking, dark red, stylish glasses. They seem to have an additional eye-shielding layer on their lenses."
+	desc = "Suspicious-looking, dark red, stylish glasses. They appear to have an additional eye-shielding layer over the lenses."
 	icon_state = "syndieglasses_sun"
 	item_state = "syndieglasses_sun"
 
