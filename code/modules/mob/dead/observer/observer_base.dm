@@ -13,11 +13,9 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "ghost"
 	layer = GHOST_LAYER
-	plane = GAME_PLANE
 	stat = DEAD
 	density = FALSE
 	alpha = 127
-	move_resist = INFINITY	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
 	blocks_emissive = FALSE // Ghosts are transparent, duh
 	hud_type = /datum/hud/ghost

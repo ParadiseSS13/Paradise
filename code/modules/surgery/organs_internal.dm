@@ -23,8 +23,6 @@
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
-	requires_organic_bodypart = TRUE
-	requires_bodypart = TRUE
 
 /datum/surgery/organ_manipulation/soft
 	possible_locs = list(BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
@@ -46,7 +44,6 @@
 		/datum/surgery_step/proxy/manipulate_organs,
 		/datum/surgery_step/generic/cauterize
 	)
-	requires_organic_bodypart = TRUE
 
 /datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
@@ -76,7 +73,6 @@
 
 // Intermediate steps for branching organ manipulation.
 /datum/surgery/intermediate/manipulate
-	requires_bodypart = TRUE
 
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 

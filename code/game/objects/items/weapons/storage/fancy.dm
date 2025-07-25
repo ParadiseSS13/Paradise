@@ -315,7 +315,6 @@
 	name = "[new_name] cigarette packet"
 
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate
-	name = "cigarette packet"
 	desc = "An obscure brand of cigarettes."
 	icon_state = "syndiepacket"
 	item_state = "syndiepacket"
@@ -422,10 +421,7 @@
 	desc = "A locked box for keeping things away from children."
 	icon = 'icons/obj/vialbox.dmi'
 	icon_state = "vialbox0"
-	item_state = "syringe_kit"
-	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/reagent_containers/glass/bottle)
-	max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 6
 	req_access = list(ACCESS_VIROLOGY)
 
@@ -466,8 +462,6 @@
 	name = "aquatic starter kit"
 	desc = "It's a starter kit box for an aquarium."
 	icon_state = "AquaticKit"
-	throw_speed = 2
-	throw_range = 8
 	med_bot_skin = "fish"
 
 /obj/item/storage/firstaid/aquatic_kit/full

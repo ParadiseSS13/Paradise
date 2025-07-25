@@ -2,8 +2,6 @@
 	name = "Banana Grenade"
 	desc = "HONK! brand Bananas. In a special applicator for rapid slipping of wide areas."
 	icon_state = "banana"
-	item_state = "grenade"
-	w_class = WEIGHT_CLASS_SMALL
 	force = 2.0
 	var/stage = 0
 	var/state = 0

@@ -22,7 +22,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigoff"
 	item_state = "cigoff"
 	throw_speed = 0.5
-	slot_flags = ITEM_SLOT_MASK
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = null
@@ -355,7 +354,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_on = "spliffon"
 	icon_off = "spliffoff"
 	type_butt = /obj/item/cigbutt/roach
-	throw_speed = 0.5
 	item_state = "spliffoff"
 	list_reagents = list("thc" = 40, "cbd" = 20)
 
@@ -371,7 +369,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon = 'icons/obj/clothing/masks.dmi'
 	icon_state = "cigbutt"
 	w_class = WEIGHT_CLASS_TINY
-	throwforce = 0
 	scatter_distance = 10
 
 /obj/item/cigbutt/Initialize(mapload)
@@ -441,7 +438,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	item_state = "cigaroff"
 	icon_on = "cigaron"
 	icon_off = "cigaroff"
-	throw_speed = 0.5
 	fancy_lighters = list(/obj/item/match, /obj/item/lighter/zippo)
 	type_butt = /obj/item/cigbutt/cigarbutt
 	smoketime = 300

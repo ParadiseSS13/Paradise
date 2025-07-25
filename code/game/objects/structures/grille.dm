@@ -1,7 +1,6 @@
 /obj/structure/grille
 	desc = "A flimsy framework of metal rods."
 	name = "grille"
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "grille"
 	density = TRUE
 	anchored = TRUE

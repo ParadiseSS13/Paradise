@@ -13,7 +13,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=5"
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
 	hitsound = 'sound/weapons/slash.ogg' //pls replace
@@ -93,8 +92,6 @@
 /obj/item/melee/snakesfang
 	name = "snakesfang"
 	desc = "A uniquely curved, black and red sword. Extra-edgy and cutting-edge."
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "snakesfang"
 	item_state = "snakesfang"
 	flags = CONDUCT
@@ -127,8 +124,6 @@
 /obj/item/melee/breach_cleaver
 	name = "breach cleaver"
 	desc = "Massive, heavy, and utterly impractical. This sharpened chunk of steel is too big and too heavy to be called a sword."
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	base_icon_state = "breach_cleaver"
 	icon_state = "breach_cleaver0"
 	flags = CONDUCT
@@ -261,7 +256,6 @@
 	item_state = "candy_sword"
 	force = 10
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("slashed", "stabbed", "sliced", "caned")
 
 /obj/item/melee/flyswatter
@@ -550,7 +544,6 @@
 	plane = GRAVITY_PULSE_PLANE
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	duration = 0.5 SECONDS
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT // Let us not have this visual block clicks
 	/// Who we are orbiting
 	var/target
 	/// A funky color matrix to recolor the slash to

@@ -84,7 +84,6 @@
 	jobtype = /datum/job/cargo_tech
 
 	uniform = /obj/item/clothing/under/rank/cargo/tech
-	shoes = /obj/item/clothing/shoes/black
 	l_pocket = /obj/item/mail_scanner
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
@@ -179,7 +178,6 @@
 	ADD_TRAIT(H.mind, TRAIT_BUTCHER, JOB_TRAIT)
 
 /datum/outfit/job/mining/equipped
-	name = "Shaft Miner"
 
 	suit = /obj/item/clothing/suit/hooded/explorer
 	mask = /obj/item/clothing/mask/gas/explorer
@@ -273,7 +271,6 @@
 	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	id = /obj/item/card/id/bartender
@@ -321,7 +318,6 @@
 	uniform = /obj/item/clothing/under/rank/civilian/chef
 	suit = /obj/item/clothing/suit/chef
 	belt = /obj/item/storage/belt/chef
-	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/chefhat
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/chef
@@ -362,7 +358,6 @@
 	suit = /obj/item/clothing/suit/apron
 	belt = /obj/item/storage/belt/botany/full
 	gloves = /obj/item/clothing/gloves/botanic_leather
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/storage/bag/plants/portaseeder
 	pda = /obj/item/pda/botanist
@@ -497,7 +492,6 @@
 	suit = /obj/item/clothing/suit/suspenders
 	back = /obj/item/storage/backpack/mime
 	gloves = /obj/item/clothing/gloves/color/white
-	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/beret
 	mask = /obj/item/clothing/mask/gas/mime
 	l_ear = /obj/item/radio/headset/headset_service
@@ -553,7 +547,6 @@
 	jobtype = /datum/job/janitor
 
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/janitor
 	pda = /obj/item/pda/janitor
@@ -592,7 +585,6 @@
 	jobtype = /datum/job/librarian
 
 	uniform = /obj/item/clothing/under/rank/civilian/librarian
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/barcodescanner
