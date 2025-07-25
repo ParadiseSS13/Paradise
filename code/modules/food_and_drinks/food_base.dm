@@ -342,13 +342,13 @@
 	var/slices_lost
 	if(!inaccurate)
 		user.visible_message(
-			"<span class='notice'>[user] slices [src].</span>",
-			"<span class='notice'>You slice [src].</span>"
+			"<span class='notice'>[user] slices [src] with [used].</span>",
+			"<span class='notice'>You slice [src] with [used].</span>"
 		)
 	else
 		user.visible_message(
 			"<span class='notice'>[user] crudely slices [src] with [used], destroying some in the process!</span>",
-			"<span class='notice'>You crudely slice [src] with your [used], destroying some in the process!</span>"
+			"<span class='notice'>You crudely slice [src] with [used], destroying some in the process!</span>"
 		)
 		slices_lost = rand(1, min(1, round(slices_num / 2)))
 	var/reagents_per_slice = reagents.total_volume/slices_num

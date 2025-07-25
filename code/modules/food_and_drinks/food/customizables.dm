@@ -48,7 +48,7 @@ do {\
 /obj/item/trash/bowl/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/food) && !(I.flags & NODROP))
 		var/obj/item/food/customizable/soup/S = new(get_turf(user))
-		S.attackby__legacy__attackchain(I, user, params)
+		S.item_interaction(I, user, params)
 		qdel(src)
 	else
 		..()
