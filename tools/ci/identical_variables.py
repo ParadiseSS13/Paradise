@@ -22,7 +22,7 @@ def main():
     exit_code = 0
     start = time.time()
 
-    dme = DME.from_file("paradise.dme", parse_procs=True)
+    dme = DME.from_file("paradise.dme")
     all_failures = []
 
     for path in dme.subtypesof("/"):
