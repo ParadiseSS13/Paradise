@@ -112,7 +112,7 @@
 	tastes = list("sweetness" = 3, "liquorice" = 2)
 
 /obj/item/food/twimsts/activate_self(mob/user)
-	if (..())
+	if(..())
 		return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/restraints/handcuffs/twimsts/L = new /obj/item/restraints/handcuffs/twimsts
