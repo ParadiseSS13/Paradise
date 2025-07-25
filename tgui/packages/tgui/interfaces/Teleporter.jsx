@@ -21,7 +21,7 @@ export const Teleporter = (props) => {
     advanced_beacon_locking,
   } = data;
   return (
-    <Window width={350} height={270}>
+    <Window width={350} height={325}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item grow>
