@@ -32,7 +32,7 @@
 	bitesize_mod = 2
 
 /obj/item/food/grown/carrot/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(!I.sharp)
+	if(!used.sharp)
 		return NONE
 
 	to_chat(user, "<span class='notice'>You sharpen [src] into a shiv with [used].</span>")
