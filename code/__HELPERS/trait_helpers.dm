@@ -258,6 +258,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_UNKNOWN "unknown" // The person with this trait always appears as 'unknown'.
 #define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
 #define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
+#define TRAIT_WIRE_BLIND "wire_blind" // This doesn't block someone from seeing wires or recalling their position, but randomizes name / function to the user
 
 /// Whether or not the user is in a MODlink call, prevents making more calls
 #define TRAIT_IN_CALL "in_call"
