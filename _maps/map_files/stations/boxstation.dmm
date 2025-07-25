@@ -8975,10 +8975,13 @@
 /area/station/maintenance/fpmaint2)
 "aFV" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes,
-/obj/item/ashtray/glass,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
+	},
+/obj/item/ashtray/glass,
+/obj/item/storage/fancy/cigarettes/cigpack_our_brand{
+	pixel_x = 11;
+	pixel_y = 3
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/fpmaint2)
@@ -17965,12 +17968,13 @@
 /area/station/hallway/primary/port/west)
 "bkc" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/cigarettes{
-	pixel_y = 2
-	},
 /obj/item/lighter{
-	pixel_x = 4;
-	pixel_y = 2
+	pixel_x = 8;
+	pixel_y = 5
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_solar_rays{
+	pixel_x = -2;
+	pixel_y = 3
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/hallway/secondary/entry/lounge)
@@ -65414,7 +65418,7 @@
 	pixel_x = 12;
 	pixel_y = 2
 	},
-/obj/item/storage/fancy/cigarettes{
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
 	pixel_x = 14
 	},
 /mob/living/simple_animal/parrot/poly,

@@ -6,28 +6,8 @@
 	nodamage = 1
 	armour_penetration_percentage = 100
 	flag = MAGIC
-	/// determines what type of antimagic can block the spell projectile
-	var/antimagic_flags = MAGIC_RESISTANCE
-	/// determines the drain cost on the antimagic item
-	var/antimagic_charge_cost = 1
-
-/obj/item/projectile/magic/prehit(atom/target)
-	if(isliving(target))
-		var/mob/living/victim = target
-		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost))
-			visible_message("<span class='warning'>[src] fizzles on contact with [victim]!</span>")
-			damage = 0
-			nodamage = 1
-			return FALSE
-	return ..()
-
-/obj/item/projectile/magic/on_hit(atom/target, blocked, hit_zone)
-	if(isliving(target))
-		var/mob/living/victim = target
-		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost)) // Yes we have to check this twice welcome to bullet hell code
-			return FALSE
-	return ..()
-
+	antimagic_flags = MAGIC_RESISTANCE
+	antimagic_charge_cost = 1
 
 /obj/item/projectile/magic/death
 	name = "bolt of death"
@@ -46,21 +26,6 @@
 	impact_light_range = 2.5
 	impact_light_color_override = LIGHT_COLOR_PURPLE
 
-/obj/item/projectile/magic/fireball
-	name = "bolt of fireball"
-	icon_state = "fireball"
-	damage = 10
-	damage_type = BRUTE
-	nodamage = 0
-	immolate = 6
-
-	//explosion values
-	var/exp_devastate = -1
-	var/exp_heavy = 0
-	var/exp_light = 2
-	var/exp_flash = 3
-	var/exp_fire = 2
-
 /obj/item/projectile/magic/death/on_hit(mob/living/carbon/target)
 	. = ..()
 	if(!.)
@@ -78,6 +43,21 @@
 		target.death(FALSE)
 
 		target.visible_message("<span class='danger'>[target] topples backwards as the death bolt impacts [target.p_them()]!</span>")
+
+/obj/item/projectile/magic/fireball
+	name = "bolt of fireball"
+	icon_state = "fireball"
+	damage = 10
+	damage_type = BRUTE
+	nodamage = 0
+	immolate = 6
+
+	// explosion values
+	var/exp_devastate = -1
+	var/exp_heavy = 0
+	var/exp_light = 2
+	var/exp_flash = 3
+	var/exp_fire = 2
 
 /obj/item/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
@@ -99,13 +79,13 @@
 
 /obj/item/projectile/magic/fireball/on_hit(target)
 	. = ..()
-	if(!.)
-		return .
-	var/turf/T = get_turf(target)
-	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, cause = name)
+	if(ismob(target))
+		if(!.)
+			return .
+	explosion(get_turf(target), exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, cause = name)
 	if(ismob(target)) //multiple flavors of pain
 		var/mob/living/M = target
-		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
+		M.adjustFireLoss(10) // between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
 
 
 /obj/item/projectile/magic/fireball/infernal

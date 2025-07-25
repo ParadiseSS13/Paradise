@@ -564,7 +564,7 @@
 /obj/structure/chair/comfy/beige{
 	dir = 1
 	},
-/obj/item/storage/fancy/cigarettes/dromedaryco{
+/obj/item/storage/fancy/cigarettes/cigpack_our_brand{
 	pixel_x = -26
 	},
 /obj/item/lighter/zippo/engraved{
