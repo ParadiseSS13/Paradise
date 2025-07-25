@@ -483,7 +483,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/obj/docking_port/mobile/trader/trade_shuttle = getShuttle("trader")
 	if(trade_shuttle)
 		var/obj/docking_port/stationary/docked_id = trade_shuttle.get_docked()
-		if(docked_id.id != "trader_base")
+		if(docked_id?.id != "trader_base")
 			CRASH("Attempted to load a new trade shuttle while the existing one was not at its home base.")
 		// Dispose of the old shuttle.
 		trade_shuttle.jumpToNullSpace()
