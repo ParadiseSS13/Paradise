@@ -11,7 +11,7 @@ export const ChemDispenser = (props) => {
   const { act, data } = useBackend();
   const { chemicals } = data;
   return (
-    <Window width={400} height={400 + chemicals.length * 8}>
+    <Window width={400} height={400 + Math.ceil(chemicals.length / 3) * 24}>
       <Window.Content>
         <Stack fill vertical>
           <ChemDispenserSettings />
