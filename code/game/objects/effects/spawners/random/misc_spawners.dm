@@ -215,8 +215,8 @@
 	icon_state = "Carp"
 	spawn_loot_chance = 50
 	loot = list(
-		/mob/living/simple_animal/hostile/carp = 4,
-		/mob/living/simple_animal/hostile/carp/megacarp = 1
+		/mob/living/basic/carp = 4,
+		/mob/living/basic/carp/megacarp = 1
 	)
 
 /obj/effect/spawner/random/rarely_meteor_strike
