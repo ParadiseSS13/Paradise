@@ -300,3 +300,12 @@
 
 /area/ruin/space/rocky_motel/asteroid
 	icon_state = "away"
+
+/area/ruin/space/space_relay
+	name = "Nanotrasen Bluespace Relay"
+	icon_state = "space_relay"
+
+/area/ruin/space/space_relay/Initialize(mapload)
+	name = "Nanotrasen Bluespace Relay #[rand(1, 1000)]" //Give it a random relay name
+	return ..()
+

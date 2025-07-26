@@ -61,7 +61,7 @@
 		"\improper ARG" = list('icons/obj/guns/projectile.dmi', "arg-30"),
 		"\improper C4" = list('icons/obj/grenade.dmi', "plastic-explosive0"),
 		"\improper L6 SAW" = list('icons/obj/guns/projectile.dmi', "l6closed100"),
-		"chainsaw" = list('icons/obj/weapons/melee.dmi', "chainsaw0"),
+		"chainsaw" = list('icons/obj/weapons/melee.dmi', "chainsaw"),
 		"combat shotgun" = list('icons/obj/guns/projectile.dmi', "cshotgun"),
 		"double-bladed energy sword" = list('icons/obj/weapons/energy_melee.dmi', "dualsaberred1"),
 		"energy sword" = list('icons/obj/weapons/energy_melee.dmi', "swordred"),
@@ -81,7 +81,7 @@
 
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -195,7 +195,7 @@
 	// Let's check if we can spawn somewhere first
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view, target))
-		if(isfloorturf(T) && !is_blocked_turf(T))
+		if(isfloorturf(T) && !T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -257,7 +257,8 @@
 
 	var/list/vents = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/vent in oview(world.view, target))
-		if(!is_blocked_turf(vent) && !vent.welded)
+		var/turf/vent_turf = get_turf(vent)
+		if(!vent_turf.is_blocked_turf() && !vent.welded)
 			vents += vent
 	if(!length(vents))
 		qdel(src)
@@ -320,7 +321,7 @@
 
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view, target))
-		if(isfloorturf(T) && !is_blocked_turf(T))
+		if(isfloorturf(T) && !T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -512,7 +513,7 @@
 
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view / 2, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		return INITIALIZE_HINT_QDEL

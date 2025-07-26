@@ -188,6 +188,7 @@
 
 /obj/effect/spawner/random/space_pirate
 	name = "random space pirate spawner"
+	icon_state = "pirate"
 	loot = list(
 		/mob/living/simple_animal/hostile/pirate,
 		/mob/living/simple_animal/hostile/pirate/ranged,
@@ -198,3 +199,57 @@
 	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "fancy_table"
 	loot_type_path = /obj/structure/table/wood/fancy
+
+/obj/effect/spawner/random/relay_beacon
+	name = "relay_beacon"
+	icon_state = "circuit_board"
+
+	loot = list(
+		/obj/machinery/bluespace_beacon = 4,
+		/obj/structure/broken_bluespace_beacon = 6,
+	)
+
+/obj/effect/spawner/random/maybe_carp
+	name = "maybe carp"
+	icon = 'icons/effects/spawner_icons.dmi'
+	icon_state = "Carp"
+	spawn_loot_chance = 50
+	loot = list(
+		/mob/living/basic/carp = 4,
+		/mob/living/basic/carp/megacarp = 1
+	)
+
+/obj/effect/spawner/random/rarely_meteor_strike
+	name = "rarely meteor strike"
+	icon_state = "meteor"
+	spawn_loot_chance = 6
+	loot = list(
+		/obj/effect/abstract/meteor_strike
+	)
+
+/obj/effect/abstract/meteor_strike/Initialize(mapload)
+	. = ..()
+	explosion(loc, pick(0, 0, 1), rand(1, 3), rand(3, 6), 4, 0, 0, 5, cause = "A spaceruin suffered a meteor strike")
+
+/obj/effect/spawner/random/random_pacman
+	name = "random pacman"
+	icon_state = "pacman"
+	loot = list(
+		/obj/machinery/power/port_gen/pacman = 17,
+		/obj/machinery/power/port_gen/pacman/super = 4,
+		/obj/machinery/power/port_gen/pacman/mrs = 2,
+		/obj/machinery/power/port_gen/pacman/upgraded = 4,
+		/obj/machinery/power/port_gen/pacman/super/upgraded = 2,
+		/obj/machinery/power/port_gen/pacman/mrs/upgraded = 1,
+		/obj/structure/machine_frame = 10,
+	)
+
+/obj/effect/spawner/random/pacman_fuel
+	name = "random pacman fuel"
+	icon_state = "pacman"
+	spawn_loot_chance = 90
+	loot = list(
+		/obj/item/stack/sheet/mineral/plasma/ten = 14,
+		/obj/item/stack/sheet/mineral/uranium/ten = 5,
+		/obj/item/stack/sheet/mineral/diamond/ten = 1,
+	)

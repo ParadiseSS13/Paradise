@@ -37,7 +37,7 @@
 
 /datum/spell/projectile/honk_missile
 	name = "Honk Missile"
-	desc = "This spell fires several, slow moving, magic bikehorns at nearby targets."
+	desc = "This spell fires several, slow moving, magic bike horns at nearby targets."
 
 	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
@@ -256,7 +256,7 @@
 	invocation = "NOUK FHUNMM SACP RISSKA"
 	invocation_type = "shout"
 
-	summon_type = list(/mob/living/simple_animal/hostile/carp)
+	summon_type = list(/mob/living/basic/carp)
 
 	cast_sound = 'sound/magic/summon_karp.ogg'
 	aoe_range = 1

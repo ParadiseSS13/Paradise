@@ -98,10 +98,10 @@
 	action_icon_state = "vampire_bats"
 	gain_desc = "You have gained the ability to shapeshift into bat form. This is a weak form with no abilities, only useful for stealth."
 
-	shapeshift_type = /mob/living/simple_animal/hostile/scarybat/adminvampire
-	current_shapes = list(/mob/living/simple_animal/hostile/scarybat/adminvampire)
+	shapeshift_type = /mob/living/basic/scarybat/adminvampire
+	current_shapes = list(/mob/living/basic/scarybat/adminvampire)
 	current_casters = list()
-	possible_shapes = list(/mob/living/simple_animal/hostile/scarybat/adminvampire)
+	possible_shapes = list(/mob/living/basic/scarybat/adminvampire)
 
 /datum/spell/shapeshift/hellhound
 	name = "Lesser Hellhound Form"
@@ -112,14 +112,14 @@
 	action_icon_state = "glare"
 	gain_desc = "You have gained the ability to shapeshift into lesser hellhound form. This is a combat form with different abilities, tough but not invincible. It can regenerate itself over time by resting."
 
-	shapeshift_type = /mob/living/simple_animal/hostile/hellhound
-	current_shapes = list(/mob/living/simple_animal/hostile/hellhound)
+	shapeshift_type = /mob/living/basic/hellhound
+	current_shapes = list(/mob/living/basic/hellhound)
 	current_casters = list()
-	possible_shapes = list(/mob/living/simple_animal/hostile/hellhound)
+	possible_shapes = list(/mob/living/basic/hellhound)
 
 /datum/spell/shapeshift/hellhound/greater
 	name = "Greater Hellhound Form"
-	shapeshift_type = /mob/living/simple_animal/hostile/hellhound/greater
-	current_shapes = list(/mob/living/simple_animal/hostile/hellhound/greater)
+	shapeshift_type = /mob/living/basic/hellhound/greater
+	current_shapes = list(/mob/living/basic/hellhound/greater)
 	current_casters = list()
-	possible_shapes = list(/mob/living/simple_animal/hostile/hellhound/greater)
+	possible_shapes = list(/mob/living/basic/hellhound/greater)

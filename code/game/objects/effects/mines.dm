@@ -144,11 +144,13 @@
 	new /obj/effect/hallucination/delusion(get_turf(victim), victim, 'icons/mob/mob.dmi', "daemon")
 
 	var/obj/item/chainsaw/doomslayer/chainsaw = new(victim.loc)
-	chainsaw.flags |= NODROP | DROPDEL
+	chainsaw.flags |= DROPDEL
+	chainsaw.set_nodrop(TRUE, victim)
 	victim.drop_l_hand()
 	victim.drop_r_hand()
 	victim.put_in_hands(chainsaw)
-	chainsaw.attack_self__legacy__attackchain(victim)
+	chainsaw.activate_self(victim)
+	victim.regenerate_icons()
 	victim.reagents.add_reagent("adminordrazine", 25)
 
 	victim.flash_screen_color(red_splash, 10)

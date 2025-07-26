@@ -104,6 +104,13 @@
 	item_color = "cargo"
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
 
+/obj/item/clothing/head/soft/mining
+	name = "mining cap"
+	desc = "It's an brown hard peaked baseball hat with a purple miner shield."
+	icon_state = "miningsoft"
+	item_color = "mining"
+	dog_fashion = /datum/dog_fashion/head/miningsoft
+
 /obj/item/clothing/head/soft/expedition
 	name = "expedition cap"
 	desc = "It's a baseball hat in the brown and blue markings of the expedition team."
@@ -131,6 +138,13 @@
 	icon_state = "janitorpurplesoft"
 	item_color = "janitorpurple"
 	dog_fashion = /datum/dog_fashion/head/softcap
+
+/obj/item/clothing/head/soft/paramedic
+	name = "\improper EMT cap"
+	desc = "It's a blue baseball hat with a white medical shield."
+	icon_state = "paramedicsoft"
+	item_color = "paramedic"
+	dog_fashion = /datum/dog_fashion/head/paramedic
 
 /obj/item/clothing/head/soft/sec
 	name = "security cap"

@@ -6,26 +6,25 @@
 		"Human" = 'icons/mob/clothing/under/medical.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/medical.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/medical.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/medical.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/under/medical.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/medical.dmi'
 		)
 
-/obj/item/clothing/under/rank/medical/chief_medical_officer
-	name = "chief medical officer's jumpsuit"
-	desc = "It's a jumpsuit worn by those with the experience to be \"Chief Medical Officer\". It provides minor biological protection."
+/obj/item/clothing/under/rank/medical/cmo
+	name = "chief medical officer's uniform"
+	desc = "It's a blue dress shirt and black slacks worn by those with the experience to be \"Chief Medical Officer\". It provides minor biological protection."
 	icon_state = "cmo"
 	item_state = "cmo"
 	item_color = "cmo"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
-/obj/item/clothing/under/rank/medical/chief_medical_officer/skirt
-	name = "chief medical officer's jumpskirt"
-	desc = "It's a jumpskirt worn by those with the experience to be \"Chief Medical Officer\". It provides minor biological protection."
-	icon_state = "cmof"
-	item_color = "cmof"
+/obj/item/clothing/under/rank/medical/cmo/skirt
+	name = "chief medical officer's skirt"
+	desc = "It's a blue dress shirt and black skirt worn by those with the experience to be \"Chief Medical Officer\". It provides minor biological protection."
+	icon_state = "cmo_skirt"
+	item_color = "cmo_skirt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	dyeable = TRUE
-	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/medical/doctor
 	name = "medical doctor's jumpsuit"
@@ -130,12 +129,19 @@
 
 /obj/item/clothing/under/rank/medical/paramedic
 	name = "paramedic's jumpsuit"
-	desc = "It's made of a special fiber that provides minor protection against biohazards and radiation. It has a cross on the chest denoting that the wearer is trained medical personnel."
+	desc = "It's made of a special fiber that provides minor protection against biohazards and radiation. It has a cross on the back denoting that the wearer is trained medical personnel."
 	icon_state = "paramedic"
 	item_state = "paramedic"
 	item_color = "paramedic"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 5, FIRE = 0, ACID = 0)
+
+/obj/item/clothing/under/rank/medical/paramedic/skirt
+	name = "paramedic's jumpskirt"
+	desc = "It's made of a special fiber that provides minor protection against biohazards and radiation. It has a cross on the back denoting that the wearer is trained medical personnel."
+	icon_state = "paramedic_skirt"
+	item_state = "paramedic_skirt"
+	item_color = "paramedic_skirt"
 
 /obj/item/clothing/under/rank/medical/psych
 	name = "psychiatrist's jumpsuit"

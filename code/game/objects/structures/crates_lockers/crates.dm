@@ -358,6 +358,12 @@
 	icon_opened = "trashcart_open"
 	icon_closed = "trashcart"
 
+/obj/structure/closet/crate/trashcart/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
+
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
 	name = "medical crate"
@@ -617,17 +623,6 @@
 	// Prep bowls
 	new /obj/item/reagent_containers/cooking/bowl(src)
 	new /obj/item/reagent_containers/cooking/bowl(src)
-
-//crates of gear in the free golem ship
-/obj/structure/closet/crate/golemgear/populate_contents()
-	new /obj/item/storage/backpack/industrial(src)
-	new /obj/item/shovel(src)
-	new /obj/item/pickaxe(src)
-	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
-	new /obj/item/storage/bag/ore(src)
-	new /obj/item/clothing/glasses/meson(src)
-	new /obj/item/card/id/golem(src)
-	new /obj/item/flashlight/lantern(src)
 
 #define RECURSION_PANIC_AMOUNT 10
 

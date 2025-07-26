@@ -44,14 +44,16 @@
 
 	outfit = /datum/outfit/job/rd
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Science), basic job duties, and act professionally (roleplay)."
+	standard_paycheck = CREW_PAY_HIGH
 
 /datum/outfit/job/rd
 	name = "Research Director"
 	jobtype = /datum/job/rd
 
-	uniform = /obj/item/clothing/under/rank/rnd/research_director
+	uniform = /obj/item/clothing/under/rank/rnd/rd
 	suit = /obj/item/clothing/suit/storage/labcoat/rd
 	shoes = /obj/item/clothing/shoes/brown
+	head = /obj/item/clothing/head/rd
 	l_ear = /obj/item/radio/headset/heads/rd
 	id = /obj/item/card/id/rd
 	l_hand = /obj/item/clipboard
@@ -63,6 +65,10 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
+
+/datum/outfit/job/rd/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_CRAFTY, JOB_TRAIT)
 
 /datum/job/scientist
 	title = "Scientist"
@@ -80,9 +86,8 @@
 		ACCESS_RESEARCH,
 		ACCESS_TOX_STORAGE,
 		ACCESS_TOX,
-		ACCESS_XENOBIOLOGY
 	)
-	alt_titles = list("Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
+	alt_titles = list("Anomalist", "Plasma Researcher", "Chemical Researcher")
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 300)
 	// All science-y guys get bonuses for maxing out their tech.
@@ -91,6 +96,7 @@
 	)
 
 	outfit = /datum/outfit/job/scientist
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/scientist
 	name = "Scientist"
@@ -106,6 +112,65 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
+
+/datum/outfit/job/scientist/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_CRAFTY, JOB_TRAIT)
+
+/datum/job/xenobiologist
+	title = "Xenobiologist"
+	flag = JOB_XENOBIOLOGIST
+	department_flag = JOBCAT_MEDSCI
+	total_positions = 2
+	spawn_positions = 2
+	job_department_flags = DEP_FLAG_SCIENCE
+	supervisors = "the research director"
+	department_head = list("Research Director")
+	selection_color = "#ffeeff"
+	access = list(
+		ACCESS_MAINT_TUNNELS,
+		ACCESS_MINERAL_STOREROOM,
+		ACCESS_RESEARCH,
+		ACCESS_XENOBIOLOGY,
+		ACCESS_EVA,
+		ACCESS_MINING,
+		ACCESS_MINING_STATION,
+		ACCESS_EXTERNAL_AIRLOCKS,
+		ACCESS_TELEPORTER,
+	)
+	alt_titles = list("Xenoarcheologist", "Slime Cultivator", "Slime Rancher")
+	minimal_player_age = 3
+	exp_map = list(EXP_TYPE_CREW = 300)
+	// All science-y guys get bonuses for maxing out their tech.
+	required_objectives = list(
+		/datum/job_objective/scan_organs,
+	)
+
+	outfit = /datum/outfit/job/xenobiologist
+	standard_paycheck = CREW_PAY_MEDIUM
+
+/datum/outfit/job/xenobiologist
+	name = "Xenobiologist"
+	jobtype = /datum/job/xenobiologist
+
+	uniform = /obj/item/clothing/under/rank/rnd/scientist
+	suit = /obj/item/clothing/suit/storage/labcoat/science
+	shoes = /obj/item/clothing/shoes/white
+	gloves = /obj/item/clothing/gloves/color/latex/nitrile
+	glasses = /obj/item/clothing/glasses/science
+	l_ear = /obj/item/radio/headset/headset_sci
+	id = /obj/item/card/id/xenobiology
+	pda = /obj/item/pda/toxins
+
+	backpack = /obj/item/storage/backpack/science
+	satchel = /obj/item/storage/backpack/satchel_tox
+	dufflebag = /obj/item/storage/backpack/duffel/science
+
+	backpack_contents = list(
+		/obj/item/healthanalyzer = 1,
+		/obj/item/storage/box/bodybags = 1,
+		/obj/item/clipboard = 1,
+	)
 
 /datum/job/roboticist
 	title = "Roboticist"
@@ -135,6 +200,7 @@
 	)
 
 	outfit = /datum/outfit/job/roboticist
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/roboticist
 	name = "Roboticist"
@@ -151,3 +217,7 @@
 	backpack = /obj/item/storage/backpack/robotics
 	satchel = /obj/item/storage/backpack/satchel_robo
 	dufflebag = /obj/item/storage/backpack/duffel/robotics
+
+/datum/outfit/job/roboticist/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_CYBORG_SPECIALIST, JOB_TRAIT)

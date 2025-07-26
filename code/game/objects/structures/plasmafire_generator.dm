@@ -30,7 +30,7 @@
 /obj/structure/plasmafire_generator/shadow
 	var/enabled = FALSE
 
-/obj/structure/plasmafire_generator/shadow/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/obj/structure/plasmafire_generator/shadow/onShuttleMove(turf/oldT, turf/T1, rotation, mob/calling_mob)
 	if(T1.z != 1)
 		enabled = TRUE
 	return ..()

@@ -499,6 +499,7 @@
 
 /proc/call_link(mob/user, datum/mod_link/calling_link)
 	if(!calling_link.frequency)
+		to_chat(user, "<span class='warning'>The frequency isn't set!</span>")
 		return
 	var/list/callers = list()
 	for(var/id in GLOB.mod_link_ids)

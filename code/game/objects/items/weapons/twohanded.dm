@@ -435,147 +435,6 @@
 		mounted_head = null
 	qdel(src)
 
-// DIY CHAINSAW
-/obj/item/chainsaw
-	name = "chainsaw"
-	desc = "A versatile power tool. Useful for limbing trees and delimbing humans."
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon = 'icons/obj/weapons/melee.dmi'
-	icon_state = "gchainsaw_off"
-	flags = CONDUCT
-	force = 13
-	var/force_on = 24
-	w_class = WEIGHT_CLASS_HUGE
-	throwforce = 13
-	throw_speed = 2
-	throw_range = 4
-	materials = list(MAT_METAL = 13000)
-	origin_tech = "materials=3;engineering=4;combat=2"
-	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
-	hitsound = "swing_hit"
-	sharp = TRUE
-	actions_types = list(/datum/action/item_action/startchainsaw)
-	var/on = FALSE
-
-/obj/item/chainsaw/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
-
-
-/obj/item/chainsaw/attack_self__legacy__attackchain(mob/user)
-	on = !on
-	to_chat(user, "As you pull the starting cord dangling from [src], [on ? "it begins to whirr." : "the chain stops moving."]")
-	if(on)
-		playsound(loc, 'sound/weapons/chainsawstart.ogg', 50, 1)
-	force = on ? force_on : initial(force)
-	throwforce = on ? force_on : initial(throwforce)
-	icon_state = "gchainsaw_[on ? "on" : "off"]"
-
-	if(hitsound == "swing_hit")
-		hitsound = 'sound/weapons/chainsaw.ogg'
-	else
-		hitsound = "swing_hit"
-
-	if(src == user.get_active_hand()) //update inhands
-		user.update_inv_l_hand()
-		user.update_inv_r_hand()
-	update_action_buttons()
-
-/obj/item/chainsaw/attack_hand(mob/user)
-	. = ..()
-	force = on ? force_on : initial(force)
-	throwforce = on ? force_on : initial(throwforce)
-
-/obj/item/chainsaw/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
-	. = ..()
-	force = on ? force_on : initial(force)
-	throwforce = on ? force_on : initial(throwforce)
-
-/obj/item/chainsaw/doomslayer
-	name = "OOOH BABY"
-	desc = "<span class='warning'>VRRRRRRR!!!</span>"
-	armour_penetration_percentage = 100
-	force_on = 30
-
-/obj/item/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		owner.visible_message("<span class='danger'>Ranged attacks just make [owner] angrier!</span>")
-		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
-		return TRUE
-	return FALSE
-
-
-///CHAINSAW///
-/obj/item/butcher_chainsaw
-	name = "chainsaw"
-	desc = "Perfect for felling trees or fellow spacemen."
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon = 'icons/obj/weapons/melee.dmi'
-	base_icon_state = "chainsaw"
-	icon_state = "chainsaw0"
-	force = 15
-	throwforce = 15
-	throw_speed = 1
-	throw_range = 5
-	w_class = WEIGHT_CLASS_BULKY // can't fit in backpacks
-	hitsound = null // Handled in the snowflaked attack proc
-	armour_penetration_percentage = 50
-	armour_penetration_flat = 10
-	origin_tech = "materials=6;syndicate=4"
-	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
-	sharp = TRUE
-	flags_2 = RANDOM_BLOCKER_2
-
-/obj/item/butcher_chainsaw/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/butchers_humans)
-	AddComponent(/datum/component/two_handed, \
-		force_wielded = 40, \
-		force_unwielded = force, \
-		icon_wielded = "[base_icon_state]1", \
-		wieldsound = 'sound/weapons/chainsawstart.ogg', \
-		wield_callback = CALLBACK(src, PROC_REF(wield)), \
-		unwield_callback = CALLBACK(src, PROC_REF(unwield)))
-
-/obj/item/butcher_chainsaw/update_icon_state()
-	icon_state = "[base_icon_state]0"
-
-/obj/item/butcher_chainsaw/attack__legacy__attackchain(mob/living/target, mob/living/user)
-	. = ..()
-	if(HAS_TRAIT(src, TRAIT_WIELDED))
-		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, TRUE, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
-		if(isnull(.)) //necessary check, successful attacks return null, without it target will drop any shields they may have before they get a chance to block
-			target.KnockDown(8 SECONDS)
-
-/obj/item/butcher_chainsaw/afterattack__legacy__attackchain(mob/living/target, mob/living/user, proximity)
-	if(!proximity) //only works on adjacent targets, no telekinetic chainsaws
-		return
-	if(!HAS_TRAIT(src, TRAIT_WIELDED))
-		return
-	if(isrobot(target)) //no buff from attacking robots
-		return
-	if(!isliving(target)) //no buff from attacking inanimate objects
-		return
-	if(user.reagents.get_reagent_amount("mephedrone") > 15) // No patrick, you do not get to be chainsaw stun immune and bullet immune at once
-		return
-	if(target.stat != DEAD) //no buff from attacking dead targets
-		user.apply_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING)
-
-/obj/item/butcher_chainsaw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //It's a chainsaw, you try blocking bullets with it
-	else if(owner.has_status_effect(STATUS_EFFECT_CHAINSAW_SLAYING))
-		final_block_chance = 80 //Need to be ready to ruuuummbllleeee
-	return ..()
-
-/obj/item/butcher_chainsaw/proc/wield() //you can't disarm an active chainsaw, you crazy person.
-	flags |= NODROP
-
-/obj/item/butcher_chainsaw/proc/unwield()
-	flags &= ~NODROP
-
 // SINGULOHAMMER
 /obj/item/singularityhammer
 	name = "singularity hammer"
@@ -878,7 +737,7 @@
 	user.visible_message("<span class='warning'>[user] deploys [W] from [user.p_their()] wrists in a shower of sparks!</span>", "<span class='notice'>You deploy [W] from your wrists!</span>", "<span class='warning'>You hear the shower of sparks!</span>")
 	user.put_in_hands(W)
 	on_cooldown = TRUE
-	flags |= NODROP
+	set_nodrop(TRUE, user)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), 2 MINUTES)
 	if(world.time > next_spark_time)
 		do_sparks(rand(1,6), 1, loc)
@@ -900,7 +759,7 @@
 
 /obj/item/clothing/gloves/color/black/pyro_claws/proc/reboot()
 	on_cooldown = FALSE
-	flags &= ~NODROP
+	set_nodrop(FALSE, loc)
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
 
 /// Max number of atoms a broom can sweep at once

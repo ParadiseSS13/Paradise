@@ -133,7 +133,7 @@
 	var/list/possible_turfs = get_adjacent_open_turfs(target)
 	shuffle_inplace(possible_turfs)
 	for(var/turf/possible_turf as anything in possible_turfs)
-		if(!is_blocked_turf(possible_turf))
+		if(!possible_turf.is_blocked_turf())
 			set_movement_target(controller, possible_turf)
 			return TRUE
 	return FALSE
@@ -145,3 +145,9 @@
 	controller.set_blackboard_key(BB_DEER_RESTING, world.time + 15 SECONDS)
 	controller.set_blackboard_key(BB_DEER_NEXT_REST_TIMER, world.time + rand(minimum_time, maximum_time))
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
+
+/datum/ai_behavior/return_home/incursion_portal
+	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
+
+/datum/ai_behavior/return_home/incursion_portal/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	return AI_BEHAVIOR_SUCCEEDED

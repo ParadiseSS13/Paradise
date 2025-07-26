@@ -8,7 +8,7 @@
 	icon_state = "lighter-g"
 	item_state = "lighter-g"
 	w_class = WEIGHT_CLASS_TINY
-	throwforce = 4
+	throwforce = 0
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = null
@@ -155,6 +155,7 @@
 	icon_state = "zippo"
 	item_state = "zippo"
 	is_a_zippo = TRUE
+	throwforce = 4
 
 /obj/item/lighter/zippo/turn_on_lighter(mob/living/user)
 	. = ..()
@@ -282,7 +283,7 @@
 		damtype = "fire"
 		force = 3
 		hitsound = 'sound/items/welder.ogg'
-		item_state = "cigon"
+		item_state = "cig_on"
 		name = "lit match"
 		desc = "A match. This one is lit."
 		attack_verb = list("burnt","singed")
@@ -297,7 +298,7 @@
 		damtype = "brute"
 		force = initial(force)
 		icon_state = "match_burnt"
-		item_state = "cigoff"
+		item_state = "cig_off"
 		name = "burnt match"
 		desc = "A match. This one has seen better days."
 		attack_verb = list("flicked")

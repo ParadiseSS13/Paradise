@@ -18,9 +18,9 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 
 // Pull info from the rust DLL
 /datum/code_revision/New()
-	commit_hash = rustg_git_revparse("HEAD")
+	commit_hash = rustlibs_git_revparse("HEAD")
 	if(commit_hash)
-		commit_date = rustg_git_commit_date(commit_hash)
+		commit_date = rustlibs_git_commit_date(commit_hash)
 
 // Pull info from TGS
 /datum/code_revision/proc/load_tgs_info()
@@ -121,4 +121,4 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	// And the clients for good measure
 	msg += "<b>Client (your) BYOND Version:</b> [byond_version].[byond_build]"
 
-	to_chat(usr, msg.Join("<br>"))
+	to_chat(usr, chat_box_examine(msg.Join("<br>")))

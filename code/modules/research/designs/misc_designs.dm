@@ -124,7 +124,7 @@
 
 /datum/design/emergency_oxygen
 	name = "Empty Emergency Oxygen Tank"
-	desc = "Used for emergencies. Onl contains very little oxygen once filled up."
+	desc = "Used for emergencies. Only contains very little oxygen once filled up."
 	id = "emergencyoxygen"
 	req_tech = list("toxins" = 3)
 	build_type = PROTOLATHE
@@ -160,6 +160,17 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL=3000, MAT_GLASS=500)
 	build_path = /obj/item/tank/internals/oxygen/empty
+	category = list("Miscellaneous")
+
+/datum/design/oxygen_grenade
+	name = "Oxygen Grenade"
+	desc = "When triggered, releases a stream of pure O2 gas from the grenade."
+	id = "oxygen_Grenade"
+	req_tech = list("combat" = 3, "engineering" = 6, "toxins" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 500) //Same as Advanced Release Grenade
+	reagents_list = list("oxygen" = 50) //One small beaker at least, to make it require Chem Dispenser
+	build_path = /obj/item/grenade/gas/oxygen
 	category = list("Miscellaneous")
 
 /datum/design/autochef_remote

@@ -216,7 +216,7 @@
 	/// Used for deleting gun after hitting something
 	var/hit_something = FALSE
 	/// True if we're shooting our shot -- used to track shooting to prevent deleting mid shot
-	var/shooting_right_now = FALSE 
+	var/shooting_right_now = FALSE
 
 /obj/item/gun/magic/tentacle/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
 	shooting_right_now = TRUE
@@ -292,7 +292,7 @@
 
 /obj/item/projectile/tentacle/fire(setAngle)
 	if(firer)
-		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY)
 	..()
 
 /mob/proc/tentacle_stab(mob/living/carbon/C)
@@ -411,7 +411,7 @@
 /datum/action/changeling/weapon/shield
 	name = "Organic Shield"
 	desc = "We reform one of our arms into a hard shield. Costs 20 chemicals."
-	helptext = "Organic tissue cannot resist damage forever, with the shield breaking after it is hit 6 times. Automatically parries. Cannot be used while in lesser form."
+	helptext = "Organic tissue cannot resist damage forever, with the shield breaking after it is hit 6 times. Can be used to parry attacks and projectiles. Cannot be used while in lesser form."
 	button_overlay_icon_state = "organic_shield"
 	chemical_cost = 20
 	dna_cost = 2
@@ -541,7 +541,7 @@
 
 	// snowflake checks my beloved
 	// this will become tooltype checks I swear
-	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/chainsaw) && !istype(I, /obj/item/butcher_chainsaw))
+	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/chainsaw))
 		return
 
 	user.visible_message(
