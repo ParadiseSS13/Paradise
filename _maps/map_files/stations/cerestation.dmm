@@ -7595,6 +7595,22 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/fore)
+"bkg" = (
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#505050"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/secondary/entry/north)
 "bkh" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -10952,7 +10968,7 @@
 	autolink_id = "engsm_btn_int";
 	name = "Supermatter Access Button";
 	pixel_y = 24;
-	req_one_access = list(10, 24)
+	req_one_access = list(10,24)
 	},
 /obj/machinery/computer/sm_monitor,
 /obj/structure/disposalpipe/segment{
@@ -18791,6 +18807,21 @@
 	icon_state = "bar"
 	},
 /area/station/service/theatre)
+"cJW" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#505050"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/secondary/entry/north)
 "cKa" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -20881,7 +20912,7 @@
 	group_id = "tunnelbats";
 	max_per_spawner = 1;
 	name = "bat spawner";
-	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	path_to_spawn = /mob/living/basic/scarybat;
 	total_amount = 20
 	},
 /turf/simulated/floor/plating{
@@ -22571,6 +22602,15 @@
 	},
 /turf/simulated/wall,
 /area/station/hallway/primary/fore/north)
+"dnc" = (
+/obj/structure/disposalpipe/segment{
+	color = "#505050";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/secondary/entry/north)
 "dnw" = (
 /obj/structure/chair{
 	dir = 1
@@ -27329,7 +27369,7 @@
 	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_y = 24;
-	req_one_access = list(10, 24)
+	req_one_access = list(10,24)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
@@ -35755,21 +35795,6 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/station/service/library)
-"ghI" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment{
-	color = "#505050"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/secondary/entry/north)
 "ghT" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "cargolockdown";
@@ -39003,15 +39028,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/port)
-"gUy" = (
-/obj/structure/disposalpipe/segment{
-	color = "#505050";
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/secondary/entry/north)
 "gUz" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -42611,15 +42627,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/fsmaint)
-"hHR" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/secondary/entry/east)
 "hHT" = (
 /obj/machinery/light{
 	dir = 8
@@ -42845,22 +42852,6 @@
 	icon_state = "dark"
 	},
 /area/station/service/hydroponics)
-"hJG" = (
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment{
-	color = "#505050"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/secondary/entry/north)
 "hJQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -43567,7 +43558,7 @@
 	int_door_link_id = "engsm_door_int";
 	ext_button_link_id = "engsm_btn_ext";
 	int_button_link_id = "engsm_btn_int";
-	req_one_access = list(10, 24)
+	req_one_access = list(10,24)
 	},
 /obj/structure/cable/orange{
 	icon_state = "1-8"
@@ -44315,7 +44306,7 @@
 	group_id = "tunnelbats";
 	max_per_spawner = 1;
 	name = "bat spawner";
-	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	path_to_spawn = /mob/living/basic/scarybat;
 	total_amount = 20
 	},
 /turf/simulated/floor/plating{
@@ -45750,7 +45741,6 @@
 /area/station/maintenance/port)
 "inW" = (
 /obj/machinery/firealarm/directional/east,
-/obj/structure/closet/paramedic,
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable/orange{
 	icon_state = "0-2"
@@ -52635,11 +52625,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/hallway)
-"jIv" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/public/quantum/docking)
 "jIw" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -53319,7 +53304,7 @@
 	group_id = "tunnelbats";
 	max_per_spawner = 1;
 	name = "bat spawner";
-	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	path_to_spawn = /mob/living/basic/scarybat;
 	total_amount = 20
 	},
 /turf/simulated/floor/plating,
@@ -58971,7 +58956,7 @@
 	group_id = "tunnelbats";
 	max_per_spawner = 1;
 	name = "bat spawner";
-	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	path_to_spawn = /mob/living/basic/scarybat;
 	total_amount = 20
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -59530,6 +59515,15 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/starboard)
+"lgt" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/secondary/entry/east)
 "lgv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -66002,7 +65996,7 @@
 	group_id = "tunnelbats";
 	max_per_spawner = 1;
 	name = "bat spawner";
-	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	path_to_spawn = /mob/living/basic/scarybat;
 	total_amount = 20
 	},
 /obj/machinery/light/small{
@@ -69659,6 +69653,11 @@
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
+"noC" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/public/quantum/docking)
 "noD" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -105168,7 +105167,7 @@
 	autolink_id = "engsm_btn_ext";
 	name = "Supermatter Access Button";
 	pixel_y = -24;
-	req_one_access = list(10, 24)
+	req_one_access = list(10,24)
 	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -108733,6 +108732,20 @@
 	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
+"vLS" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/orange{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/secondary/entry/north)
 "vLT" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -115686,7 +115699,7 @@
 	group_id = "tunnelbats";
 	max_per_spawner = 1;
 	name = "bat spawner";
-	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	path_to_spawn = /mob/living/basic/scarybat;
 	total_amount = 20
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -116442,20 +116455,6 @@
 	dir = 8
 	},
 /area/station/hallway/primary/port/north)
-"xrK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/orange{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/secondary/entry/north)
 "xrZ" = (
 /turf/simulated/wall,
 /area/station/security/interrogation)
@@ -165372,7 +165371,7 @@ cJi
 kUj
 roh
 wlD
-xrK
+vLS
 kUL
 onN
 aOR
@@ -165628,7 +165627,7 @@ pQa
 pQa
 pQa
 dPF
-gUy
+dnc
 jLe
 pHf
 pQa
@@ -165881,8 +165880,8 @@ fIL
 khH
 khH
 cvq
-hJG
-ghI
+bkg
+cJW
 tPd
 aVY
 lBb
@@ -166665,7 +166664,7 @@ rAB
 wMQ
 opl
 djw
-hHR
+lgt
 eId
 hUU
 hUU
@@ -166916,9 +166915,9 @@ lmS
 lmS
 uKB
 vqp
-jIv
+noC
 vqp
-jIv
+noC
 pLr
 kQP
 ckW

@@ -194,11 +194,11 @@
 	wabbajack(change)
 
 GLOBAL_LIST_INIT(wabbajack_hostile_animals, list(
-	"carp" = /mob/living/simple_animal/hostile/carp,
-	"bear" = /mob/living/simple_animal/hostile/bear,
+	"carp" = /mob/living/basic/carp,
+	"bear" = /mob/living/basic/bear,
 	"mushroom" = /mob/living/simple_animal/hostile/mushroom,
 	"statue" = /mob/living/simple_animal/hostile/statue,
-	"bat" = /mob/living/simple_animal/hostile/scarybat,
+	"bat" = /mob/living/basic/scarybat,
 	"goat" = /mob/living/simple_animal/hostile/retaliate/goat,
 	"tomato" = /mob/living/simple_animal/hostile/killertomato,
 	"gorilla" = /mob/living/simple_animal/hostile/gorilla,
