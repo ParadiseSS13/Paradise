@@ -39453,7 +39453,7 @@
 /area/station/ai_monitored/storage/eva)
 "hOI" = (
 /obj/structure/bed/dogbed/runtime,
-/mob/living/simple_animal/hostile/retaliate/kangaroo{
+/mob/living/basic/kangaroo{
 	name = "Darwin"
 	},
 /obj/machinery/firealarm/directional/south,

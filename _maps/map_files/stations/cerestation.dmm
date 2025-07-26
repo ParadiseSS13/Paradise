@@ -115511,7 +115511,7 @@
 	},
 /area/station/security/brig)
 "xfB" = (
-/mob/living/simple_animal/hostile/retaliate/kangaroo{
+/mob/living/basic/kangaroo{
 	name = "Darwin"
 	},
 /obj/structure/disposalpipe/segment,
