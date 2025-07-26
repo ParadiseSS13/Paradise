@@ -540,8 +540,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Orbits the specified movable atom."
 	set category = null
 
-	// this usr check is apparently necessary for security
-	if(!isobserver(usr))
+	// this check is apparently necessary for security
+	if(!isobserver(src))
 		return
 
 	return do_manual_follow(target)
