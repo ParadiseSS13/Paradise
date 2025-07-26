@@ -256,7 +256,7 @@
 	invocation = "NOUK FHUNMM SACP RISSKA"
 	invocation_type = "shout"
 
-	summon_type = list(/mob/living/simple_animal/hostile/carp)
+	summon_type = list(/mob/living/basic/carp)
 
 	cast_sound = 'sound/magic/summon_karp.ogg'
 	aoe_range = 1

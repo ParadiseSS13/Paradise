@@ -381,7 +381,7 @@
 
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
 	shoes = /obj/item/clothing/shoes/black
-	head = /obj/item/clothing/head/soft/blue
+	head = /obj/item/clothing/head/soft/paramedic
 	mask = /obj/item/clothing/mask/cigarette
 	l_ear = /obj/item/radio/headset/headset_med/para
 	id = /obj/item/card/id/paramedic
