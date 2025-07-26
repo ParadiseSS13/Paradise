@@ -1,10 +1,10 @@
-import { Component } from 'inferno';
-import { Box, Button, Flex, Icon, Tooltip } from '.';
-import { useBackend } from '../backend';
-import { LabeledList } from './LabeledList';
-import { Slider } from './Slider';
-import { resolveAsset } from '../assets';
+import { Component, createContext, useContext } from 'react';
+import { Box, Button, Flex, Icon, LabeledList, Slider, Tooltip } from 'tgui-core/components';
 
+import { resolveAsset } from '../assets';
+import { useBackend } from '../backend';
+
+const MapContext = createContext({ zoom: 1 });
 const MAP_SIZE = 510;
 /** At zoom = 1 */
 const PIXELS_PER_TURF = 2;
@@ -103,16 +103,8 @@ export class NanoMap extends Component {
     };
   }
 
-  getChildContext() {
-    return {
-      map: {
-        zoom: this.state.zoom,
-      },
-    };
-  }
-
   render() {
-    const { config } = useBackend(this.context);
+    const { config } = useBackend();
     const { dragging, offsetX, offsetY, zoom = 1 } = this.state;
     const { children } = this.props;
 
@@ -121,17 +113,17 @@ export class NanoMap extends Component {
     const newStyle = {
       width: mapSize,
       height: mapSize,
-      'margin-top': offsetY * zoom + 'px',
-      'margin-left': offsetX * zoom + 'px',
-      'overflow': 'hidden',
-      'position': 'relative',
+      marginTop: offsetY * zoom + 'px',
+      marginLeft: offsetX * zoom + 'px',
+      overflow: 'hidden',
+      position: 'relative',
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      'background-size': 'cover',
-      'background-repeat': 'no-repeat',
-      'text-align': 'center',
-      'cursor': dragging ? 'move' : 'auto',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      textAlign: 'center',
+      cursor: dragging ? 'move' : 'auto',
     };
     const mapStyle = {
       width: '100%',
@@ -140,26 +132,25 @@ export class NanoMap extends Component {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-      'image-rendering': 'pixelated',
+      imageRendering: 'pixelated',
     };
 
     return (
-      <Box className="NanoMap__container">
-        <Box style={newStyle} onMouseDown={this.handleDragStart}>
-          <img src={resolveAsset(mapUrl)} style={mapStyle} />
-          <Box>{children}</Box>
+      <MapContext.Provider value={{ zoom }}>
+        <Box className="NanoMap__container">
+          <Box style={newStyle} onMouseDown={this.handleDragStart}>
+            <img src={resolveAsset(mapUrl)} style={mapStyle} />
+            <Box>{children}</Box>
+          </Box>
+          <NanoMapZoomer zoom={zoom} onZoom={this.handleZoom} onReset={this.handleReset} />
         </Box>
-        <NanoMapZoomer zoom={zoom} onZoom={this.handleZoom} onReset={this.handleReset} />
-      </Box>
+      </MapContext.Provider>
     );
   }
 }
 
-const NanoMapMarker = (props, context) => {
-  const {
-    map: { zoom },
-  } = context;
+const NanoMapMarker = (props) => {
+  const { zoom } = useContext(MapContext);
   const { x, y, icon, tooltip, color, children, ...rest } = props;
   const pixelsPerTurfAtZoom = PIXELS_PER_TURF * zoom;
   // For some reason the X and Y are offset by 1
@@ -187,10 +178,8 @@ const NanoMapMarker = (props, context) => {
 
 NanoMap.Marker = NanoMapMarker;
 
-const NanoMapMarkerIcon = (props, context) => {
-  const {
-    map: { zoom },
-  } = context;
+const NanoMapMarkerIcon = (props) => {
+  const { zoom } = useContext(MapContext);
   const { icon, color, ...rest } = props;
   const markerSize = PIXELS_PER_TURF * zoom + 4 / Math.ceil(zoom / 4);
   return (
@@ -212,11 +201,11 @@ const NanoMapMarkerIcon = (props, context) => {
 
 NanoMap.MarkerIcon = NanoMapMarkerIcon;
 
-const NanoMapZoomer = (props, context) => {
+const NanoMapZoomer = (props) => {
   return (
     <Box className="NanoMap__zoomer">
       <LabeledList>
-        <LabeledList.Item label="Zoom" labelStyle={{ 'vertical-align': 'middle' }}>
+        <LabeledList.Item label="Zoom" verticalAlign="middle">
           <Flex direction="row">
             <Slider
               minValue={1}
@@ -226,7 +215,13 @@ const NanoMapZoomer = (props, context) => {
               value={props.zoom}
               onDrag={(e, v) => props.onZoom(e, v)}
             />
-            <Button ml="0.5em" float="right" icon="sync" tooltip="Reset View" onClick={(e) => props.onReset?.(e)} />
+            <Button
+              ml="0.5em"
+              style={{ float: 'right' }}
+              icon="sync"
+              tooltip="Reset View"
+              onClick={(e) => props.onReset?.(e)}
+            />
           </Flex>
         </LabeledList.Item>
       </LabeledList>

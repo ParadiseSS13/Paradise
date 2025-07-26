@@ -1,21 +1,21 @@
-/* eslint-disable react/state-in-constructor */
 /**
  * @file
  * @copyright 2023 itsmeow
  * @license MIT
  */
 
-import { Loader } from './common/Loader';
-import { useBackend, useLocalState } from '../backend';
-import { Autofocus, Box, Flex, Section, Stack, Pointer, NumberInput, Tooltip } from '../components';
-import { Window } from '../layouts';
-import { clamp } from 'common/math';
 import { hexToHsva, HsvaColor, hsvaToHex, hsvaToHslString, hsvaToRgba, rgbaToHsva, validHex } from 'common/color';
-import { Interaction, Interactive } from 'tgui/components/Interactive';
-import { classes } from 'common/react';
-import { Component, FocusEvent, FormEvent, InfernoNode } from 'inferno';
-import { logger } from 'tgui/logging';
+import { FocusEvent, FormEvent, ReactNode, useEffect, useRef, useState } from 'react';
+import { Autofocus, Box, LabeledList, NumberInput, Section, Stack, Tooltip } from 'tgui-core/components';
+import { clamp } from 'tgui-core/math';
+import { classes } from 'tgui-core/react';
+
+import { useBackend } from '../backend';
+import { Pointer } from '../components';
+import { Interaction, Interactive } from '../components/Interactive';
+import { Window } from '../layouts';
 import { InputButtons } from './common/InputButtons';
+import { Loader } from './common/Loader';
 
 type ColorPickerData = {
   autofocus: boolean;
@@ -28,14 +28,10 @@ type ColorPickerData = {
   default_color: string;
 };
 
-export const ColorPickerModal = (_, context) => {
-  const { data } = useBackend<ColorPickerData>(context);
+export const ColorPickerModal = (_) => {
+  const { data } = useBackend<ColorPickerData>();
   const { timeout, message, title, autofocus, default_color = '#000000' } = data;
-  let [selectedColor, setSelectedColor] = useLocalState<HsvaColor>(
-    context,
-    'color_picker_choice',
-    hexToHsva(default_color)
-  );
+  let [selectedColor, setSelectedColor] = useState<HsvaColor>(hexToHsva(default_color));
 
   return (
     <Window height={400} title={title} width={600} theme="generic">
@@ -43,7 +39,7 @@ export const ColorPickerModal = (_, context) => {
       <Window.Content>
         <Stack fill vertical>
           {message && (
-            <Stack.Item m={1}>
+            <Stack.Item>
               <Section fill>
                 <Box color="label" overflow="hidden">
                   {message}
@@ -66,10 +62,15 @@ export const ColorPickerModal = (_, context) => {
   );
 };
 
-export const ColorSelector = (
-  { color, setColor, defaultColor }: { color: HsvaColor; setColor; defaultColor: string },
-  context
-) => {
+export const ColorSelector = ({
+  color,
+  setColor,
+  defaultColor,
+}: {
+  color: HsvaColor;
+  setColor;
+  defaultColor: string;
+}) => {
   const handleChange = (params: Partial<HsvaColor>) => {
     setColor((current: HsvaColor) => {
       return Object.assign({}, current, params);
@@ -78,8 +79,8 @@ export const ColorSelector = (
   const rgb = hsvaToRgba(color);
   const hexColor = hsvaToHex(color);
   return (
-    <Flex direction="row">
-      <Flex.Item mr={2}>
+    <Stack>
+      <Stack.Item mr={2}>
         <Stack vertical>
           <Stack.Item>
             <div className="react-colorful">
@@ -103,131 +104,87 @@ export const ColorSelector = (
             </Tooltip>
           </Stack.Item>
         </Stack>
-      </Flex.Item>
-      <Flex.Item grow fontSize="15px" lineHeight="24px">
-        <Stack vertical>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item>
-                <Box textColor="label">Hex:</Box>
-              </Stack.Item>
-              <Stack.Item grow height="24px">
-                <HexColorInput
-                  fluid
-                  color={hsvaToHex(color).substring(1)}
-                  onChange={(value) => {
-                    logger.info(value);
-                    setColor(hexToHsva(value));
-                  }}
-                  prefixed
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Divider />
-          <Stack.Item>
-            <Stack>
-              <Stack.Item width="25px">
-                <Box textColor="label">H:</Box>
-              </Stack.Item>
-              <Stack.Item grow>
-                <Hue hue={color.h} onChange={handleChange} />
-              </Stack.Item>
-              <Stack.Item>
-                <TextSetter value={color.h} callback={(_, v) => handleChange({ h: v })} max={360} unit="°" />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item width="25px">
-                <Box textColor="label">S:</Box>
-              </Stack.Item>
-              <Stack.Item grow>
-                <Saturation color={color} onChange={handleChange} />
-              </Stack.Item>
-              <Stack.Item>
-                <TextSetter value={color.s} callback={(_, v) => handleChange({ s: v })} unit="%" />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item width="25px">
-                <Box textColor="label">V:</Box>
-              </Stack.Item>
-              <Stack.Item grow>
-                <Value color={color} onChange={handleChange} />
-              </Stack.Item>
-              <Stack.Item>
-                <TextSetter value={color.v} callback={(_, v) => handleChange({ v: v })} unit="%" />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Divider />
-          <Stack.Item>
-            <Stack>
-              <Stack.Item width="25px">
-                <Box textColor="label">R:</Box>
-              </Stack.Item>
-              <Stack.Item grow>
-                <RGBSlider color={color} onChange={handleChange} target="r" />
-              </Stack.Item>
-              <Stack.Item>
-                <TextSetter
-                  value={rgb.r}
-                  callback={(_, v) => {
-                    rgb.r = v;
-                    handleChange(rgbaToHsva(rgb));
-                  }}
-                  max={255}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item width="25px">
-                <Box textColor="label">G:</Box>
-              </Stack.Item>
-              <Stack.Item grow>
-                <RGBSlider color={color} onChange={handleChange} target="g" />
-              </Stack.Item>
-              <Stack.Item>
-                <TextSetter
-                  value={rgb.g}
-                  callback={(_, v) => {
-                    rgb.g = v;
-                    handleChange(rgbaToHsva(rgb));
-                  }}
-                  max={255}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item>
-            <Stack>
-              <Stack.Item width="25px">
-                <Box textColor="label">B:</Box>
-              </Stack.Item>
-              <Stack.Item grow>
-                <RGBSlider color={color} onChange={handleChange} target="b" />
-              </Stack.Item>
-              <Stack.Item>
-                <TextSetter
-                  value={rgb.b}
-                  callback={(_, v) => {
-                    rgb.b = v;
-                    handleChange(rgbaToHsva(rgb));
-                  }}
-                  max={255}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-        </Stack>
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+      <Stack.Item grow fontSize="15px" lineHeight="24px" className="ColorPicker--Inputs">
+        <LabeledList>
+          <LabeledList.Item label="HEX">
+            <HexColorInput
+              fluid
+              prefixed
+              color={hsvaToHex(color).substring(1)}
+              onChange={(value) => {
+                setColor(hexToHsva(value));
+              }}
+            />
+          </LabeledList.Item>
+          <LabeledList.Divider />
+          <LabeledList.Item
+            label="H"
+            buttons={<TextSetter value={color.h} callback={(v) => handleChange({ h: v })} max={360} unit="°" />}
+          >
+            <Hue hue={color.h} onChange={handleChange} />
+          </LabeledList.Item>
+          <LabeledList.Item
+            label="S"
+            buttons={<TextSetter value={color.s} callback={(v) => handleChange({ s: v })} unit="%" />}
+          >
+            <Saturation color={color} onChange={handleChange} />
+          </LabeledList.Item>
+          <LabeledList.Item
+            label="V"
+            buttons={<TextSetter value={color.v} callback={(v) => handleChange({ v: v })} unit="%" />}
+          >
+            <Value color={color} onChange={handleChange} />
+          </LabeledList.Item>
+          <LabeledList.Divider />
+          <LabeledList.Item
+            label="R"
+            buttons={
+              <TextSetter
+                value={rgb.r}
+                callback={(v) => {
+                  rgb.r = v;
+                  handleChange(rgbaToHsva(rgb));
+                }}
+                max={255}
+              />
+            }
+          >
+            <RGBSlider color={color} onChange={handleChange} target="r" />
+          </LabeledList.Item>
+          <LabeledList.Item
+            label="G"
+            buttons={
+              <TextSetter
+                value={rgb.g}
+                callback={(v) => {
+                  rgb.g = v;
+                  handleChange(rgbaToHsva(rgb));
+                }}
+                max={255}
+              />
+            }
+          >
+            <RGBSlider color={color} onChange={handleChange} target="g" />
+          </LabeledList.Item>
+          <LabeledList.Item
+            label="B"
+            buttons={
+              <TextSetter
+                value={rgb.b}
+                callback={(v) => {
+                  rgb.b = v;
+                  handleChange(rgbaToHsva(rgb));
+                }}
+                max={255}
+              />
+            }
+          >
+            <RGBSlider color={color} onChange={handleChange} target="b" />
+          </LabeledList.Item>
+        </LabeledList>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -251,7 +208,7 @@ const TextSetter = ({
       step={1}
       minValue={min}
       maxValue={max}
-      onChange={callback}
+      onDrag={callback}
       unit={unit}
     />
   );
@@ -281,7 +238,7 @@ interface HexColorInputProps extends Omit<ColorInputBaseProps, 'escape' | 'valid
 /** Adds "#" symbol to the beginning of the string */
 const prefix = (value: string) => '#' + value;
 
-export const HexColorInput = (props: HexColorInputProps): InfernoNode => {
+export const HexColorInput = (props: HexColorInputProps): ReactNode => {
   const { prefixed, alpha, color, fluid, onChange, ...rest } = props;
 
   /** Escapes all non-hexadecimal characters including "#" */
@@ -295,10 +252,10 @@ export const HexColorInput = (props: HexColorInputProps): InfernoNode => {
       {...rest}
       fluid={fluid}
       color={color}
-      onChange={onChange}
       escape={escape}
-      format={prefixed ? prefix : undefined}
       validate={validate}
+      format={prefixed ? prefix : undefined}
+      onChange={onChange}
     />
   );
 };
@@ -315,54 +272,43 @@ interface ColorInputBaseProps {
   format?: (value: string) => string;
 }
 
-export class ColorInput extends Component {
-  props: ColorInputBaseProps;
-  state: { localValue: string };
-
-  constructor(props: ColorInputBaseProps) {
-    super();
-    this.props = props;
-    this.state = { localValue: this.props.escape(this.props.color) };
-  }
+export function ColorInput(props: ColorInputBaseProps) {
+  const { fluid, color, escape, format, validate, onChange } = props;
+  const localValue = useRef<string>(escape(color));
 
   // Trigger `onChange` handler only if the input value is a valid color
-  handleInput = (e: FormEvent<HTMLInputElement>) => {
-    const inputValue = this.props.escape(e.currentTarget.value);
-    this.setState({ localValue: inputValue });
-  };
+  function handleInput(event: FormEvent<HTMLInputElement>) {
+    const inputValue = escape(event.currentTarget.value);
+    localValue.current = inputValue;
+  }
 
   // Take the color from props if the last typed color (in local state) is not valid
-  handleBlur = (e: FocusEvent<HTMLInputElement>) => {
-    if (e.currentTarget) {
-      if (!this.props.validate(e.currentTarget.value)) {
-        this.setState({ localValue: this.props.escape(this.props.color) }); // return to default;
+  function handleBlur(event: FocusEvent<HTMLInputElement>) {
+    if (event.currentTarget) {
+      if (!validate(event.currentTarget.value)) {
+        localValue.current = escape(color); // return to default;
       } else {
-        this.props.onChange(this.props.escape ? this.props.escape(e.currentTarget.value) : e.currentTarget.value);
+        onChange(escape ? escape(event.currentTarget.value) : event.currentTarget.value);
       }
     }
-  };
+  }
 
-  componentDidUpdate(prevProps, prevState): void {
-    if (prevProps.color !== this.props.color) {
-      // Update the local state when `color` property value is changed
-      this.setState({ localValue: this.props.escape(this.props.color) });
+  useEffect(() => {
+    if (color !== localValue.current) {
+      localValue.current = color;
     }
-  }
+  }, [color, escape]);
 
-  render() {
-    return (
-      <Box className={classes(['Input', this.props.fluid && 'Input--fluid'])}>
-        <div className="Input__baseline">.</div>
-        <input
-          className="Input__input"
-          value={this.props.format ? this.props.format(this.state.localValue) : this.state.localValue}
-          spellCheck="false" // the element should not be checked for spelling errors
-          onInput={this.handleInput}
-          onBlur={this.handleBlur}
-        />
-      </Box>
-    );
-  }
+  return (
+    <input
+      className="Input"
+      style={{ width: fluid ? '100%' : 'auto' }}
+      value={format ? format(localValue.current) : localValue.current}
+      spellCheck="false" // the element should not be checked for spelling errors
+      onInput={handleInput}
+      onBlur={handleBlur}
+    />
+  );
 }
 
 const SaturationValue = ({ hsva, onChange }) => {
@@ -381,12 +327,11 @@ const SaturationValue = ({ hsva, onChange }) => {
     });
   };
 
-  const containerStyle = {
-    'background-color': `${hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 })} !important`,
-  };
-
   return (
-    <div className="react-colorful__saturation_value" style={containerStyle}>
+    <div
+      className="react-colorful__saturation_value"
+      style={{ backgroundColor: `${hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 })}` }}
+    >
       <Interactive
         onMove={handleMove}
         onKey={handleKey}
@@ -472,7 +417,7 @@ const Saturation = ({
     <div className={nodeClassName}>
       <Interactive
         style={{
-          'background': `linear-gradient(to right, ${hsvaToHslString({
+          background: `linear-gradient(to right, ${hsvaToHslString({
             h: color.h,
             s: 0,
             v: color.v,
@@ -521,7 +466,7 @@ const Value = ({
     <div className={nodeClassName}>
       <Interactive
         style={{
-          'background': `linear-gradient(to right, ${hsvaToHslString({
+          background: `linear-gradient(to right, ${hsvaToHslString({
             h: color.h,
             s: color.s,
             v: 0,
