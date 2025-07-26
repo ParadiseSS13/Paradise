@@ -20,7 +20,7 @@ type ChameleonSkin = {
 
 export const Chameleon = (props) => {
   return (
-    <Window width={431} height={500} theme="syndicate">
+    <Window width={440} height={500} theme="syndicate">
       <Window.Content>
         <ChameleonAppearances />
       </Window.Content>
