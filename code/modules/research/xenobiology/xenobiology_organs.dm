@@ -855,7 +855,7 @@
 	hidden_origin_tech = TECH_TOXINS
 	hidden_tech_level = 6
 
-/obj/item/organ/internal/kidneys/xenobiology/shivering/on_life()
+/obj/item/organ/internal/kidneys/xenobiology/sweating/on_life()
 	. = ..()
 	if(owner.get_temperature() > owner.dna?.species.heat_level_1 - 40)
 		switch(organ_quality)
@@ -1354,15 +1354,15 @@
 /datum/spell/shapeshift/megacarp/New(quality)
 	. = ..()
 	if(quality == ORGAN_PRISTINE)
-		shapeshift_type = /mob/living/simple_animal/hostile/carp/megacarp/xeno_organ
-		current_shapes = list(/mob/living/simple_animal/hostile/carp/megacarp/xeno_organ)
+		shapeshift_type = /mob/living/basic/carp/megacarp/xeno_organ
+		current_shapes = list(/mob/living/basic/carp/megacarp/xeno_organ)
 		current_casters = list()
-		possible_shapes = list(/mob/living/simple_animal/hostile/carp/megacarp/xeno_organ)
+		possible_shapes = list(/mob/living/basic/carp/megacarp/xeno_organ)
 	else
-		shapeshift_type = /mob/living/simple_animal/hostile/carp/xeno_organ
-		current_shapes = list(/mob/living/simple_animal/hostile/carp/xeno_organ)
+		shapeshift_type = /mob/living/basic/carp/xeno_organ
+		current_shapes = list(/mob/living/basic/carp/xeno_organ)
 		current_casters = list()
-		possible_shapes = list(/mob/living/simple_animal/hostile/carp/xeno_organ)
+		possible_shapes = list(/mob/living/basic/carp/xeno_organ)
 
 /datum/spell/shapeshift/megacarp/Shapeshift(mob/living/carbon/human/M)
 	M.visible_message("<span class='danger'>[M] screams in agony as scales and fins erupt out of [M.p_their()] flesh!</span>",
@@ -1372,7 +1372,7 @@
 		return
 	return ..()
 
-/mob/living/simple_animal/hostile/carp/xeno_organ
+/mob/living/basic/carp/xeno_organ
 	maxHealth = 100
 	health = 100
 	gold_core_spawnable = NO_SPAWN
@@ -1380,7 +1380,7 @@
 	universal_understand = TRUE
 	pass_flags = PASSTABLE
 
-/mob/living/simple_animal/hostile/carp/megacarp/xeno_organ
+/mob/living/basic/carp/megacarp/xeno_organ
 	maxHealth = 175
 	health = 175
 	gold_core_spawnable = NO_SPAWN
