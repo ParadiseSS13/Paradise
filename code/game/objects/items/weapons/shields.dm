@@ -31,7 +31,7 @@
 	origin_tech = "materials=3;combat=4"
 	attack_verb = list("shoved", "bashed")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
-	var/list/allowed_bashers = list(/obj/item/melee/baton, /obj/item/kitchen/knife/combat)
+	var/list/allowed_bashers = list(/obj/item/melee/baton, /obj/item/kitchen/knife/combat, /obj/item/melee/classic_baton/telescopic)
 
 /obj/item/shield/riot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_type_in_list(W, allowed_bashers))
