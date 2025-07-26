@@ -30,7 +30,7 @@ export const Chameleon = (props) => {
 
 const selectSkins = (skins, searchText = '') => {
   const testSearch = createSearch(searchText, (skin: ChameleonSkin) => skin.name);
-  return skins;
+  return skins.filter(testSearch);
 };
 
 export const ChameleonAppearances = (props) => {
