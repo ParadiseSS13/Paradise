@@ -18,7 +18,6 @@ export const VotePanel = (props) => {
               <Button
                 mb={1}
                 fluid
-                color="transparent"
                 lineHeight={3}
                 multiLine={choice}
                 content={choice + (show_counts ? ' (' + (counts[choice] || 0) + ')' : '')}
