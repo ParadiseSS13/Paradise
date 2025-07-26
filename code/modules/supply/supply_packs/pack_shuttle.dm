@@ -132,6 +132,10 @@
 	return TRUE
 
 // these, otoh, have some pretty silly features, and are hidden behind emag
+/datum/supply_packs/abstract/shuttle/clockwork
+	cost = 3000
+	hidden = TRUE
+	template = /datum/map_template/shuttle/emergency/clockwork
 
 /datum/supply_packs/abstract/shuttle/narnar
 	cost = 3000
