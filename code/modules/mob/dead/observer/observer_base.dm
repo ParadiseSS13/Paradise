@@ -811,11 +811,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/mob/living/carbon/human/new_char = new(get_turf(src))
 	client.prefs.active_character.copy_to(new_char)
-	if(mind)
-		mind.active = TRUE
-		mind.transfer_to(new_char)
-	else
-		new_char.key = key
+	mind = null
+	new_char.key = key
 
 	return new_char
 
