@@ -41,9 +41,8 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
     };
   }
 
-  handleSearchChange = (e: Event) => {
-    const target = e.target as HTMLInputElement;
-    this.setState({ searchText: target.value });
+  handleSearchChange = (value: string) => {
+    this.setState({ searchText: value });
   };
 
   override render() {
@@ -94,7 +93,7 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
               <Stack.Item>
                 <Stack fill>
                   <Stack.Item grow>
-                    <Input fluid value={this.state.searchText} onChange={(e) => this.handleSearchChange} />
+                    <Input fluid value={this.state.searchText} onChange={(e) => this.handleSearchChange(e)} />
                   </Stack.Item>
                   <Stack.Item>
                     <Button icon="sync" tooltip="Update Reagent Amounts" onClick={() => act('update_total')} />
@@ -139,7 +138,6 @@ const PresentReagentRow = ({
                 uid,
               })
             }
-            mr="0.5em"
           />
           <Button
             className="condensed-button"

@@ -20,7 +20,7 @@ type ChameleonSkin = {
 
 export const Chameleon = (props) => {
   return (
-    <Window width={431} height={500} theme="syndicate">
+    <Window width={440} height={500} theme="syndicate">
       <Window.Content>
         <ChameleonAppearances />
       </Window.Content>
@@ -30,7 +30,7 @@ export const Chameleon = (props) => {
 
 const selectSkins = (skins, searchText = '') => {
   const testSearch = createSearch(searchText, (skin: ChameleonSkin) => skin.name);
-  return skins;
+  return skins.filter(testSearch);
 };
 
 export const ChameleonAppearances = (props) => {

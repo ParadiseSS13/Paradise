@@ -152,15 +152,21 @@ export const MessengerList = (props) => {
             <Button icon="trash" color="bad" onClick={() => act('Clear', { option: 'All' })}>
               Delete All Conversations
             </Button>
-            <Button icon="bell" onClick={() => act('Ringtone')}>
-              Set Custom Ringtone
-            </Button>
-            <Dropdown
-              selected={ringtone}
-              width="100px"
-              options={Object.keys(ringtone_list)}
-              onSelected={(value) => act('Available_Ringtones', { selected_ringtone: value })}
-            />
+            <Stack>
+              <Stack.Item>
+                <Button icon="bell" onClick={() => act('Ringtone')}>
+                  Set Custom Ringtone
+                </Button>
+              </Stack.Item>
+              <Stack.Item grow={1}>
+                <Dropdown
+                  selected={ringtone}
+                  fluid
+                  options={Object.keys(ringtone_list)}
+                  onSelected={(value) => act('Available_Ringtones', { selected_ringtone: value })}
+                />
+              </Stack.Item>
+            </Stack>
           </LabeledList.Item>
         </LabeledList>
         {(!toff && (

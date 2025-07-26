@@ -99,4 +99,5 @@ export const RADIO_PREFIXES = {
   '.b ': 'Binary',
   '.и ': 'Binary',
   ':и ': 'Binary',
+  '; ': 'Radio',
 } as const;

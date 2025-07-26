@@ -20,7 +20,7 @@ export const pda_minesweeper = (props) => {
       <Stack.Item>
         <Button
           fluid
-          translucent
+          color="transparent"
           fontSize={2}
           lineHeight={1.75}
           icon={currentWindow === 'Game' ? 'book' : 'gamepad'}
