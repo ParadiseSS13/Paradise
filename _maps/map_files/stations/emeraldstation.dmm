@@ -42224,7 +42224,7 @@
 	},
 /area/station/public/fitness)
 "itU" = (
-/mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne,
+/mob/living/basic/clown/goblin/cluwne,
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/station/engineering/atmos/asteroid)
 "itV" = (
