@@ -174,9 +174,14 @@
 	tastes = list("walking mushroom" = 1, "motion" = 1)
 	can_distill = FALSE
 
-/obj/item/food/grown/mushroom/walkingmushroom/attack_self__legacy__attackchain(mob/user)
+/obj/item/food/grown/mushroom/walkingmushroom/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(isspaceturf(user.loc))
-		return
+		to_chat(user, "<span class='warning'>You need a solid floor to plant [src] on!</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	var/mob/living/simple_animal/hostile/mushroom/M = new /mob/living/simple_animal/hostile/mushroom(user.loc)
 	M.maxHealth += round(seed.endurance / 4)
 	M.melee_damage_lower += round(seed.potency / 20)
@@ -248,12 +253,18 @@
 	tastes = list("warmth" = 1, "light" = 1, "glowshroom" = 1)
 	wine_power = 0.5
 
-/obj/item/food/grown/mushroom/glowshroom/attack_self__legacy__attackchain(mob/user)
+/obj/item/food/grown/mushroom/glowshroom/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(isspaceturf(user.loc))
-		return FALSE
+		to_chat(user, "<span class='warning'>You need a solid floor or wall to plant [src] on!</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You need more space to plant [src].</span>")
-		return FALSE
+		to_chat(user, "<span class='warning'>You need more space to plant [src]!</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	var/count = 0
 	var/maxcount = 1
 	for(var/tempdir in GLOB.cardinal)
@@ -263,13 +274,13 @@
 	for(var/obj/structure/glowshroom/G in user.loc)
 		count++
 	if(count >= maxcount)
-		to_chat(user, "<span class='warning'>There are too many shrooms here to plant [src].</span>")
-		return FALSE
+		to_chat(user, "<span class='warning'>There are too many shrooms here to plant [src]!</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	new effect_path(user.loc, seed)
 	to_chat(user, "<span class='notice'>You plant [src].</span>")
 	qdel(src)
-	return TRUE
-
+	return ITEM_INTERACT_COMPLETE
 
 // Glowcap
 /obj/item/seeds/glowshroom/glowcap

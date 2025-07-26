@@ -114,9 +114,15 @@
 	tastes = list("burning lemon" = 1)
 	wine_flavor = "fire"
 
-/obj/item/food/grown/firelemon/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/food/grown/firelemon/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	var/area/A = get_area(user)
-	user.visible_message("<span class='warning'>[user] primes [src]!</span>", "<span class='userdanger'>You prime [src]!</span>")
+	user.visible_message(
+		"<span class='warning'>[user] primes [src]!</span>",
+		"<span class='userdanger'>You prime [src]!</span>"
+	)
 	investigate_log("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].", INVESTIGATE_BOMB)
 	add_attack_logs(user, src, "primed a combustible lemon for detonation", ATKLOG_FEW)
 	log_game("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].")
@@ -126,6 +132,7 @@
 	icon_state = "firelemon_active"
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 	addtimer(CALLBACK(src, PROC_REF(prime)), rand(10, 60))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/grown/firelemon/burn()
 	prime()

@@ -37,18 +37,17 @@
 	bitesize = 100
 	distill_reagent = "sbiten"
 
+/obj/item/food/grown/potato/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.sharp)
+		return NONE
 
-/obj/item/food/grown/potato/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(W.sharp)
-		to_chat(user, "<span class='notice'>You cut the potato into wedges with [W].</span>")
-		var/obj/item/food/grown/potato/wedges/Wedges = new /obj/item/food/grown/potato/wedges
-		if(!remove_item_from_storage(user))
-			user.unequip(src)
-		user.put_in_hands(Wedges)
-		qdel(src)
-	else
-		return ..()
-
+	to_chat(user, "<span class='notice'>You cut the potato into wedges with [used].</span>")
+	var/obj/item/food/grown/potato/wedges/W = new /obj/item/food/grown/potato/wedges
+	if(!remove_item_from_storage(user))
+		user.unequip(src)
+	user.put_in_hands(W)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 // Sweet Potato
 /obj/item/seeds/potato/sweet
