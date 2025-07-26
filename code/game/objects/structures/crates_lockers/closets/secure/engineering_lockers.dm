@@ -30,8 +30,8 @@
 	new /obj/item/clothing/accessory/medal/engineering(src)
 	new /obj/item/holosign_creator/atmos(src)
 	new /obj/item/rcd/preloaded(src)
-	new /obj/item/organ/internal/cyberimp/brain/wire_interface(src)
 	new /obj/item/storage/bag/construction(src)
+	new /obj/item/gun/energy/gun/mini(src)
 
 
 /obj/structure/closet/secure_closet/engineering_electrical
