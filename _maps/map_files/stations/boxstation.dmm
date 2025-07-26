@@ -14008,6 +14008,10 @@
 /obj/structure/closet/wardrobe/xenos,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"aXx" = (
+/obj/structure/closet/wardrobe/grey,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "aXA" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -24396,13 +24400,13 @@
 	},
 /area/station/medical/paramedic)
 "bHL" = (
-/obj/structure/closet/paramedic,
 /obj/machinery/light,
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/structure/closet/secure_closet/paramedic,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
@@ -58845,13 +58849,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "jje" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "arrival"
-	},
+/turf/simulated/wall,
 /area/station/hallway/secondary/entry/south)
 "jjs" = (
 /obj/effect/decal/cleanable/ash,
@@ -60753,6 +60751,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"kfG" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/south)
 "kgc" = (
 /obj/item/reagent_containers/drinks/cans/badminbrew,
 /turf/simulated/floor/plating,
@@ -67130,7 +67137,6 @@
 	},
 /area/station/science/break_room)
 "nmO" = (
-/obj/structure/closet/secure_closet/paramedic,
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
@@ -70230,9 +70236,6 @@
 	icon_state = "dark"
 	},
 /area/station/science/server)
-"oID" = (
-/turf/simulated/wall,
-/area/station/hallway/secondary/entry/south)
 "oJc" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -77057,10 +77060,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"rXn" = (
-/obj/structure/closet/wardrobe/grey,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "rYm" = (
 /obj/structure/girder,
 /turf/simulated/floor/plasteel,
@@ -97670,7 +97669,7 @@ aab
 aaa
 cqY
 aXu
-rXn
+aXx
 pYy
 jyO
 uWH
@@ -101799,7 +101798,7 @@ eBd
 bMb
 pNe
 jXy
-jje
+kfG
 qJd
 vwz
 bDC
@@ -102836,7 +102835,7 @@ bnS
 bnS
 wDj
 blQ
-oID
+jje
 hTL
 hgO
 ukh
