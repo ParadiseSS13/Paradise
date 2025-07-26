@@ -74902,19 +74902,12 @@
 /area/station/science/genetics)
 "oun" = (
 /obj/machinery/light/small,
-/mob/living/simple_animal/hostile/bear{
+/mob/living/basic/bear{
 	dir = 1
 	},
 /obj/effect/spawner/random/blood,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
-"ouu" = (
-/obj/structure/closet/paramedic,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
-/area/station/medical/paramedic)
 "ouE" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 4
@@ -76610,7 +76603,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "phr" = (
-/mob/living/simple_animal/hostile/bear,
+/mob/living/basic/bear,
 /obj/effect/spawner/random/blood,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
@@ -78217,7 +78210,7 @@
 /turf/simulated/floor/grass,
 /area/station/science/lobby)
 "pPJ" = (
-/mob/living/simple_animal/hostile/bear{
+/mob/living/basic/bear{
 	dir = 1
 	},
 /obj/effect/spawner/random/blood,
@@ -89169,7 +89162,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/bear,
+/mob/living/basic/bear,
 /obj/effect/spawner/random/blood,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
@@ -143466,7 +143459,7 @@ dFO
 cGF
 iWE
 dfv
-ouu
+nCA
 nBa
 shb
 dfv

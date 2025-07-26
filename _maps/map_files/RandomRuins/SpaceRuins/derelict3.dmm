@@ -18,7 +18,7 @@
 /area/ruin/space/unpowered)
 "l" = (
 /obj/structure/lattice,
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/space/nearstation)
 "m" = (
@@ -26,11 +26,11 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "n" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/template_noop)
 "s" = (
-/mob/living/simple_animal/hostile/carp/megacarp,
+/mob/living/basic/carp/megacarp,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "w" = (
@@ -40,7 +40,7 @@
 /area/ruin/space/unpowered)
 "x" = (
 /obj/structure/lattice,
-/mob/living/simple_animal/hostile/carp/megacarp,
+/mob/living/basic/carp/megacarp,
 /turf/template_noop,
 /area/space/nearstation)
 "F" = (
@@ -52,7 +52,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "O" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "X" = (
