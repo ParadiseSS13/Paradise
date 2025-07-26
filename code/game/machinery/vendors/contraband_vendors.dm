@@ -44,7 +44,8 @@
 	vend_delay = 34
 	icon_state = "cigs"
 	icon_lightmask = "cigs"
-	products = list(/obj/item/storage/fancy/cigarettes/syndicate = 10, /obj/item/lighter/random = 5)
+	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 10,
+					/obj/item/lighter/random = 5)
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/syndicate, 32, 32)
 

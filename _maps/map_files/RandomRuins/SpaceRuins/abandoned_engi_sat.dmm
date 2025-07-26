@@ -19,7 +19,7 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "aR" = (
-/mob/living/simple_animal/hostile/carp/megacarp,
+/mob/living/basic/carp/megacarp,
 /turf/template_noop,
 /area/template_noop)
 "bi" = (
@@ -583,7 +583,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/abandoned_engi_sat)
 "rn" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/template_noop)
 "rr" = (

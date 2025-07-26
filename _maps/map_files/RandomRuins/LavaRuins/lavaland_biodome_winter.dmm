@@ -249,7 +249,7 @@
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
 "bJ" = (
-/mob/living/simple_animal/hostile/bear/polar,
+/mob/living/basic/bear/polar,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
 "bM" = (
