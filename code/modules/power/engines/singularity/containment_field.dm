@@ -20,12 +20,14 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	GLOB.tesla_containment += src
 
 /obj/machinery/field/containment/Destroy()
 	if(FG1)// These checks are mostly in case a field is spawned in by accident.
 		FG1.fields -= src
 	if(FG2)
 		FG2.fields -= src
+	GLOB.tesla_containment -= src
 	return ..()
 
 /obj/machinery/field/containment/attack_hand(mob/user)
