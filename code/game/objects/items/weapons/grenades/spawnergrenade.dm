@@ -51,7 +51,7 @@
 	name = "feral cat delivery grenade"
 	desc = "This grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, \
 	will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
-	spawner_type = /mob/living/simple_animal/hostile/feral_cat
+	spawner_type = /mob/living/basic/feral_cat
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 	flash_viewers = FALSE

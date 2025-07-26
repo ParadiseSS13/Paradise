@@ -321,7 +321,7 @@
 	},
 /area/ruin/space/powered)
 "bl" = (
-/mob/living/simple_animal/hostile/creature{
+/mob/living/basic/creature{
 	health = 150;
 	name = "Experiment 17e"
 	},
