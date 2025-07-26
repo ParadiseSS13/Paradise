@@ -163,7 +163,7 @@
 	stack_threshold = 3
 	max_stacks = 3
 	reset_ticks_on_stack = TRUE
-	var/mob/living/simple_animal/hostile/asteroid/big_legion/latest_attacker
+	var/mob/living/basic/mining/big_legion/latest_attacker
 
 /datum/status_effect/stacking/ground_pound/on_creation(mob/living/new_owner, stacks_to_apply, mob/living/attacker)
 	. = ..()
@@ -179,7 +179,7 @@
 
 /datum/status_effect/stacking/ground_pound/stacks_consumed_effect()
 	flick("legion-smash", latest_attacker)
-	addtimer(CALLBACK(latest_attacker, TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/big_legion, throw_mobs)), 1 SECONDS)
+	addtimer(CALLBACK(latest_attacker, TYPE_PROC_REF(/mob/living/basic/mining/big_legion, throw_mobs)), 1 SECONDS)
 
 /datum/status_effect/stacking/ground_pound/on_remove()
 	latest_attacker = null

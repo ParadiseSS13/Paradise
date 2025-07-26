@@ -53,7 +53,7 @@
 	max_mobs = 3
 	icon = 'icons/mob/nest.dmi'
 	spawn_text = "crawls out of"
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goldgrub, /mob/living/simple_animal/hostile/asteroid/goliath, /mob/living/simple_animal/hostile/asteroid/hivelord, /mob/living/simple_animal/hostile/asteroid/basilisk)
+	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goldgrub, /mob/living/simple_animal/hostile/asteroid/goliath, /mob/living/basic/mining/hivelord, /mob/living/basic/mining/basilisk)
 	faction = list("mining")
 
 /obj/structure/spawner/mining/goldgrub
@@ -72,18 +72,18 @@
 /obj/structure/spawner/mining/hivelord
 	name = "hivelord den"
 	desc = "A den housing a nest of hivelords."
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord)
+	mob_types = list(/mob/living/basic/mining/hivelord)
 
 /obj/structure/spawner/mining/hivelord/space
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord/space)
+	mob_types = list(/mob/living/basic/mining/hivelord/space)
 
 /obj/structure/spawner/mining/basilisk
 	name = "basilisk den"
 	desc = "A den housing a nest of basilisks, bring a coat."
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk)
+	mob_types = list(/mob/living/basic/mining/basilisk)
 
 /obj/structure/spawner/mining/basilisk/space
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/space)
+	mob_types = list(/mob/living/basic/mining/basilisk/space)
 
 /obj/structure/spawner/sentient
 	var/role_name = "A sentient mob"

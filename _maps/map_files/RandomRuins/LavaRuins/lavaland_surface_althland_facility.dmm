@@ -190,7 +190,7 @@
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "fv" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
@@ -348,7 +348,7 @@
 /obj/effect/decal/remains/human,
 /obj/structure/sign/poster/official/air2/directional/south,
 /obj/item/clothing/under/rank/cargo/miner,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "kR" = (
@@ -688,7 +688,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/turfs/burn,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "zv" = (
@@ -717,7 +717,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
 "zO" = (
@@ -974,7 +974,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/althland_processing)
@@ -1125,7 +1125,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/mob/living/basic/mining/hivelord/legion,
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	invisibility = 101
