@@ -2,11 +2,11 @@ import os
 import sys
 import time
 from dataclasses import dataclass
-from collections import namedtuple, defaultdict
+from collections import defaultdict
+from typing import Any
 
-from avulto import DMM, DME, DMI, Dir, Path as p, paths, ProcDecl, TypeDecl
+from avulto import DME, Path as p, ProcDecl, TypeDecl
 from avulto.ast import NodeKind
-from avulto import exceptions
 
 
 RED = "\033[0;31m"
@@ -21,7 +21,7 @@ class AttackChainCall:
     var_name: str
     var_type: p | None
     call_name: str
-    source_info: any
+    source_info: Any
     legacy: bool
 
     def make_error_message(self):
