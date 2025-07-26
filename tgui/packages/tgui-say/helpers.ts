@@ -53,7 +53,18 @@ const CHANNEL_REGEX = /^[:.][\wА-Яа-яёЁ]\s/;
 
 /** Tests for a channel prefix, returning it or none */
 export function getPrefix(value: string): keyof typeof RADIO_PREFIXES | undefined {
-  if (!value || value.length < 3 || !CHANNEL_REGEX.test(value)) {
+  if (!value) {
+    return;
+  }
+
+  if (value.length < 3) {
+    if (value.slice(0, 2) === '; ') {
+      return '; ';
+    }
+    return;
+  }
+
+  if (!CHANNEL_REGEX.test(value)) {
     return;
   }
 

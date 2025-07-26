@@ -150,7 +150,7 @@ export function TguiSay() {
     if (newPrefix && newPrefix !== currentPrefix) {
       setButtonContent(RADIO_PREFIXES[newPrefix]);
       setCurrentPrefix(newPrefix);
-      newValue = newValue.slice(3);
+      newValue = newValue.slice(newPrefix.length);
       iterator.set('Say');
 
       if (newPrefix === ':b ') {
