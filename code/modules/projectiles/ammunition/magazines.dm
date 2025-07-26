@@ -1,5 +1,5 @@
 /obj/item/ammo_box/magazine
-	icon_state = "enforcer" // placeholder icon
+	icon_state = "75" // placeholder icon
 
 ////////////////INTERNAL MAGAZINES//////////////////////
 /obj/item/ammo_box/magazine/internal
@@ -202,6 +202,7 @@
 /obj/item/ammo_box/magazine/m10mm
 	name = "pistol magazine (10mm)"
 	desc = "A gun magazine."
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "9x19p"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c10mm
@@ -229,25 +230,27 @@
 
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "45"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
 	max_ammo = 8
-	multi_sprite_step = 1
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/enforcer
 	name = "handgun magazine (9mm rubber)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "enforcer"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8
-	multi_sprite_step = 1
 	caliber = "9mm"
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/enforcer/update_overlays()
 	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && is_rubber())
-		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
+		. += image('icons/tgmc/objects/ammo.dmi', icon_state = "enforcer-r")
 
 /obj/item/ammo_box/magazine/enforcer/examine(mob/user)
 	. = ..()
@@ -331,11 +334,12 @@
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "uzi9mm"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
 	max_ammo = 32
-	multi_sprite_step = 4
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/smgm9mm
 	name = "\improper SMG magazine (9mm)"
@@ -362,36 +366,37 @@
 	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/apsm10mm
-	name = "stechkin aps magazine (10mm)"
+	name = "Type 230 magazine (10mm)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "10mmaps"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = "10mm"
 	max_ammo = 20
-	multi_sprite_step = 5
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/apsm10mm/fire
-	name = "stechkin aps magazine (10mm incendiary)"
+	name = "Type 230 magazine (10mm incendiary)"
 	icon_state = "10mmapsI"
 	ammo_type = /obj/item/ammo_casing/c10mm/fire
 	caliber = "10mm"
 	max_ammo = 20
-	multi_sprite_step = 5
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/apsm10mm/hp
-	name = "stechkin aps magazine (10mm HP)"
+	name = "Type 230 magazine (10mm HP)"
 	icon_state = "10mmapsH"
 	ammo_type = /obj/item/ammo_casing/c10mm/hp
 	caliber = "10mm"
 	max_ammo = 20
-	multi_sprite_step = 5
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/apsm10mm/ap
-	name = "stechkin aps magazine (10mm AP)"
+	name = "Type 230 magazine (10mm AP)"
 	icon_state = "10mmapsA"
 	ammo_type = /obj/item/ammo_casing/c10mm/ap
 	caliber = "10mm"
 	max_ammo = 20
-	multi_sprite_step = 5
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/smgm45
 	name = "\improper SMG magazine (.45)"
@@ -535,6 +540,7 @@
 
 /obj/item/ammo_box/magazine/toy/pistol
 	name = "foam force pistol magazine"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "9x19p"
 	max_ammo = 8
 	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
@@ -544,18 +550,19 @@
 
 /obj/item/ammo_box/magazine/toy/enforcer
 	name = "\improper Enforcer foam magazine"
+	icon = 'icons/tgmc/objects/ammo.dmi'
 	icon_state = "enforcer"
 	max_ammo = 8
-	multi_sprite_step = 1
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/toy/enforcer/update_overlays()
 	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && is_riot())
-		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-rd")
+		. += image('icons/tgmc/objects/ammo.dmi', icon_state = "enforcer-rd")
 	else if(ammo)
-		. += image('icons/obj/ammo.dmi', icon_state = "enforcer-bd")
+		. += image('icons/tgmc/objects/ammo.dmi', icon_state = "enforcer-bd")
 
 /obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart
 	var/ammo = ammo_count()

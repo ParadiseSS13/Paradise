@@ -55,7 +55,7 @@ And then we create the spawners we want, all subtypes of
 /obj/effect/spawner/random/pool/space_loot/tier3
 	point_value = 100
 	loot = list(
-		/obj/item/gun/projectile/automatic/pistol/APS = 2,
+		/obj/item/gun/projectile/automatic/pistol/type_230 = 2,
 		/obj/item/gun/projectile/automatic/l6_saw = 1,
 	)
 ```

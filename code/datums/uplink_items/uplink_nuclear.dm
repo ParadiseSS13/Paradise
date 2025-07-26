@@ -5,10 +5,10 @@
 ////////////////////////////////////////
 
 /datum/uplink_item/dangerous/aps
-	name = "Stechkin APS Pistol"
+	name = "Type 230 Machine Pistol"
 	reference = "APS"
-	desc = "The automatic machine pistol version of the FK-69 'Stechkin' chambered in 10mm Auto with a detachable 20-round box magazine. Perfect for dual wielding or as backup."
-	item = /obj/item/gun/projectile/automatic/pistol/aps
+	desc = "A compact machine pistol, chambered in 10mm Auto with a detachable 20-round box magazine. Perfect for dual wielding or as backup."
+	item = /obj/item/gun/projectile/automatic/pistol/type_230
 	cost = 40
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -165,32 +165,32 @@
 ////////////////////////////////////////
 
 /datum/uplink_item/ammo/aps
-	name = "Stechkin APS - 10mm Magazine"
-	desc = "An additional 20-round 10mm magazine for use in the Stechkin APS machine pistol, loaded with rounds that are cheap but around half as effective as .357"
+	name = "Type 230 - 10mm Magazine"
+	desc = "An additional 20-round 10mm magazine for use in the Type 230 machine pistol, loaded with rounds that are cheap but around half as effective as .357"
 	reference = "10MMAPS"
 	item = /obj/item/ammo_box/magazine/apsm10mm
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/apsap
-	name = "Stechkin APS - 10mm Armour Piercing Magazine"
-	desc = "An additional 20-round 10mm magazine for use in the Stechkin APS machine pistol, loaded with rounds that are less effective at injuring the target but penetrate protective gear."
+	name = "Type 230 - 10mm Armour Piercing Magazine"
+	desc = "An additional 20-round 10mm magazine for use in the Type 230 machine pistol, loaded with rounds that are less effective at injuring the target but penetrate protective gear."
 	reference = "10MMAPSAP"
 	item = /obj/item/ammo_box/magazine/apsm10mm/ap
 	cost = 15
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/apsfire
-	name = "Stechkin APS - 10mm Incendiary Magazine"
-	desc = "An additional 20-round 10mm magazine for use in the Stechkin APS machine pistol, loaded with incendiary rounds which ignite the target."
+	name = "Type 230 - 10mm Incendiary Magazine"
+	desc = "An additional 20-round 10mm magazine for use in the Type 230 machine pistol, loaded with incendiary rounds which ignite the target."
 	reference = "10MMAPSFIRE"
 	item = /obj/item/ammo_box/magazine/apsm10mm/fire
 	cost = 15
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/apshp
-	name = "Stechkin APS - 10mm Hollow Point Magazine"
-	desc = "An additional 20-round 10mm magazine for use in the Stechkin APS machine pistol, loaded with rounds which are more damaging but ineffective against armour."
+	name = "Type 230 - 10mm Hollow Point Magazine"
+	desc = "An additional 20-round 10mm magazine for use in the Type 230 machine pistol, loaded with rounds which are more damaging but ineffective against armour."
 	reference = "10MMAPSHP"
 	item = /obj/item/ammo_box/magazine/apsm10mm/hp
 	cost = 20

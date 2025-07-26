@@ -1,6 +1,7 @@
 /obj/item/gun/projectile/bow
 	name = "bow"
 	desc = "A sturdy bow made out of wood and reinforced with iron."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "bow_unloaded"
 	item_state = "bow"
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
