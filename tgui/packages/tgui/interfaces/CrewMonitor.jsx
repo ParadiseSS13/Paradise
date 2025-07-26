@@ -192,7 +192,7 @@ const HighlightedMarker = (props) => {
   const { color, ...rest } = props;
   return (
     <NanoMap.Marker {...rest}>
-      <span class={`highlighted-marker color-border-${color}`} />
+      <span class={`highlighted-marker`} style={{ borderColor: `var(--color-${color})` }} />
     </NanoMap.Marker>
   );
 };
