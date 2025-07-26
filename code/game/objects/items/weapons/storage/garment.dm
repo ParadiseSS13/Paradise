@@ -137,6 +137,7 @@
 	new /obj/item/clothing/neck/cloak/chief_medical_officer(src)
 	new /obj/item/clothing/under/rank/medical/cmo(src)
 	new /obj/item/clothing/under/rank/medical/cmo/skirt(src)
+	new /obj/item/clothing/under/rank/medical/cmo/turtleneck(src)
 	new /obj/item/clothing/under/rank/medical/scrubs(src)
 	new /obj/item/clothing/under/rank/medical/scrubs/green(src)
 	new /obj/item/clothing/under/rank/medical/scrubs/purple(src)

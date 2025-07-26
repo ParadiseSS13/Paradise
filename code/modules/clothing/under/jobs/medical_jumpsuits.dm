@@ -26,6 +26,14 @@
 	item_color = "cmo_skirt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/obj/item/clothing/under/rank/medical/cmo/turtleneck
+	name = "chief medical officer's turtleneck"
+	desc = "A fancy turtleneck designed to keep the wearer warm in a cold medical bay."
+	icon_state = "cmoturtle"
+	item_state = "cmoturtle"
+	item_color = "cmoturtle"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
 /obj/item/clothing/under/rank/medical/doctor
 	name = "medical doctor's jumpsuit"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. It has a cross on the chest denoting that the wearer is trained medical personnel."
