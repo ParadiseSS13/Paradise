@@ -46,7 +46,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/spider/stickyweb/proc/on_atom_exit(datum/source, atom/exiter)
-	if(istype(exiter, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(exiter))
+	if(istype(exiter, /mob/living/basic/giant_spider) || isterrorspider(exiter))
 		return
 	if(isliving(exiter) && prob(50))
 		to_chat(exiter, "<span class='danger'>You get stuck in [src] for a moment.</span>")
@@ -183,8 +183,8 @@
 				qdel(src)
 				return
 			if(!grow_as)
-				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider) - /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider)
-			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
+				grow_as = pick(typesof(/mob/living/basic/giant_spider) - /mob/living/basic/giant_spider/hunter/infestation_spider)
+			var/mob/living/basic/giant_spider/S = new grow_as(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
 			if(HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))

@@ -525,6 +525,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 // turf trait sources
 #define FLOOR_EFFECT_TRAIT "floor_effect_trait"
 
+/// A web is being spun on this turf presently
+#define TRAIT_SPINNING_WEB_TURF "spinning_web_turf"
+
 //***** EFFECT TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.
 #define TRAIT_EFFECT_CAN_TELEPORT "trait_effect_can_teleport"
