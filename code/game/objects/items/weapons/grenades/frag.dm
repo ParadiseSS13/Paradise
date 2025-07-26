@@ -27,7 +27,7 @@
 	shrapnel_contained = 50
 	embedded_type = /obj/item/projectile/bullet/pellet/rubber/stinger
 
-/obj/item/grenade/frag/prime()
+/obj/item/grenade/frag/stinger/prime()
 	update_mob()
 	explosion(loc, 0, 0, 0, 0, DEFAULT_SHRAPNEL_RANGE + 2, cause = name, breach = FALSE)
 	create_shrapnel(loc, shrapnel_contained, shrapnel_type = embedded_type)
