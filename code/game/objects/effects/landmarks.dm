@@ -659,14 +659,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/watcher
-	mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
+	mobtype = /mob/living/basic/mining/basilisk/watcher
 
 /obj/effect/landmark/mob_spawner/watcher/Initialize(mapload)
 	if(prob(1))
 		if(prob(25)) /// 75% chance to get a magmawing watcher, and 25% chance to get a icewing watcher (1/133, 1/400 respectively)
-			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
+			mobtype = /mob/living/basic/mining/basilisk/watcher/icewing
 		else
-			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
+			mobtype = /mob/living/basic/mining/basilisk/watcher/magmawing
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/goldgrub

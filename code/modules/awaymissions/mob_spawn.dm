@@ -790,7 +790,7 @@
 	qdel(src)
 
 /obj/effect/mob_spawn/corpse/watcher
-	mob_type = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
+	mob_type = /mob/living/basic/mining/basilisk/watcher
 	icon = 'icons/mob/lavaland/watcher.dmi'
 	icon_state = "watcher_dead"
 	pixel_x = -12

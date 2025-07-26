@@ -9,7 +9,7 @@
 	faction = list("mining")
 	max_mobs = 3
 	max_integrity = 250
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril)
+	mob_types = list(/mob/living/basic/mining/basilisk/watcher/tendril)
 
 	move_resist = INFINITY // just killing it tears a massive hole in the ground, let's not move it
 	anchored = TRUE
