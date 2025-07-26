@@ -651,11 +651,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/legion
-	mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion
+	mobtype = /mob/living/basic/mining/hivelord/legion
 
 /obj/effect/landmark/mob_spawner/legion/Initialize(mapload)
 	if(prob(5))
-		mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
+		mobtype = /mob/living/basic/mining/hivelord/legion/dwarf
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/watcher

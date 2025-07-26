@@ -129,6 +129,14 @@
 /// gibtonite wall we need to run away from
 #define BB_MINEBOT_GIBTONITE_RUN "BB_MINEBOT_GIBTONITE_RUN"
 
+// Legion
+/// Corpse we have consumed
+#define BB_LEGION_CORPSE "legion_corpse"
+/// Things our target recently said
+#define BB_LEGION_RECENT_LINES "legion_recent_lines"
+/// The creator of our legion skull
+#define BB_LEGION_BROOD_CREATOR "legion_brood_creator"
+
 /// Blackboard field for the most recent command the pet was given
 #define BB_ACTIVE_PET_COMMAND "BB_ACTIVE_PET_COMMAND"
 

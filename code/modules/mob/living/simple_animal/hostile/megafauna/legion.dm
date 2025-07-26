@@ -106,7 +106,7 @@ Difficulty: Medium
 	if(. && ishuman(target))
 		var/mob/living/L = target
 		if(L.stat == UNCONSCIOUS)
-			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new(loc)
+			var/mob/living/basic/mining/hivelordbrood/legion/A = new(loc)
 			A.infest(L)
 
 /mob/living/simple_animal/hostile/megafauna/legion/OpenFire(the_target)
@@ -135,21 +135,21 @@ Difficulty: Medium
 			SLEEP_CHECK_DEATH(beam_time + 2 SECONDS)
 			firing_laser = FALSE
 		else if(prob(40))
-			var/mob/living/simple_animal/hostile/asteroid/big_legion/A = new(loc)
-			A.GiveTarget(target)
-			A.friends = friends
+			var/mob/living/basic/mining/big_legion/A = new(loc)
+			A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
+			A.ai_controller.set_blackboard_key(BB_FRIENDS_LIST, friends)
 			A.faction = faction
 			visible_message("<span class='danger'>A monstrosity emerges from [src]</span>",
 			"<span class='userdanger'>You summon a big [A]!</span>")
 			ranged_cooldown = world.time + 5 SECONDS
 		else
-			var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/A
+			var/mob/living/basic/mining/hivelord/legion/A
 			if(enraged)
-				A = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/advanced/tendril(loc)
+				A = new /mob/living/basic/mining/hivelord/legion/advanced/tendril(loc)
 			else
-				A = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril(loc)
-			A.GiveTarget(target)
-			A.friends = friends
+				A = new /mob/living/basic/mining/hivelord/legion/tendril(loc)
+			A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
+			A.ai_controller.set_blackboard_key(BB_FRIENDS_LIST, friends)
 			A.faction = faction
 			visible_message("<span class='danger'>A [A] emerges from [src]!</span>",
 			"<span class='userdanger'>You summon a [A]!</span>")
@@ -217,19 +217,19 @@ Difficulty: Medium
 		M.Scale(resize, resize)
 		transform = M
 		if(amount > 0 && (enraged || prob(33)))
-			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A
+			var/mob/living/basic/mining/hivelordbrood/A
 			if(enraged)
-				A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced(loc)
+				A = new /mob/living/basic/mining/hivelordbrood/legion/advanced(loc)
 			else
-				A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(loc)
+				A = new /mob/living/basic/mining/hivelordbrood/legion(loc)
 			if(!enraged || prob(33))
-				A.GiveTarget(target)
+				A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
 			else
 				for(var/mob/living/carbon/human/H in range(7, src))
 					if(H.stat == DEAD)
-						A.GiveTarget(H)
+						A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, H)
 						break
-			A.friends = friends
+			A.ai_controller.set_blackboard_key(BB_FRIENDS_LIST, friends)
 			A.faction = faction
 
 /obj/item/gps/internal/legion

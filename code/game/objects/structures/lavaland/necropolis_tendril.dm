@@ -21,7 +21,7 @@
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril)
 
 /obj/structure/spawner/lavaland/legion
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril)
+	mob_types = list(/mob/living/basic/mining/hivelord/legion/tendril)
 
 GLOBAL_LIST_EMPTY(tendrils)
 

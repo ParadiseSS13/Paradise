@@ -342,9 +342,8 @@
 /obj/item/crusher_trophy/legionnaire_spine/on_mark_detonation(mob/living/target, mob/living/user)
 	if(!prob(bonus_value) || target.stat == DEAD)
 		return
-	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(user.loc)
-	A.GiveTarget(target)
-	A.friends += user
+	var/mob/living/basic/mining/hivelordbrood/legion/A = new /mob/living/basic/mining/hivelordbrood/legion(user.loc)
+	A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
 	A.faction = user.faction.Copy()
 
 /obj/item/crusher_trophy/legionnaire_spine/attack_self__legacy__attackchain(mob/user)
@@ -356,8 +355,7 @@
 		to_chat(LivingUser, "<b>You need to wait longer to use this again.</b>")
 		return
 	LivingUser.visible_message("<span class='warning'>[LivingUser] shakes the [src] and summons a legion skull!</span>")
-	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/LegionSkull = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(LivingUser.loc)
-	LegionSkull.friends += LivingUser
+	var/mob/living/basic/mining/hivelordbrood/legion/LegionSkull = new /mob/living/basic/mining/hivelordbrood/legion(LivingUser.loc)
 	LegionSkull.faction = LivingUser.faction.Copy()
 	next_use_time = world.time + 4 SECONDS
 

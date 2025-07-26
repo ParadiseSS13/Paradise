@@ -37,7 +37,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "p" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord/space,
+/mob/living/basic/mining/hivelord/space,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "t" = (
