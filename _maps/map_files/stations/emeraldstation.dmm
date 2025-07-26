@@ -121823,7 +121823,7 @@
 	},
 /area/station/supply/storage)
 "ylD" = (
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+/mob/living/basic/gorilla/cargo_domestic{
 	name = "Forklift"
 	},
 /obj/structure/cable{

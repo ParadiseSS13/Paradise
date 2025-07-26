@@ -125,8 +125,8 @@
 
 /obj/structure/closet/critter/gorilla
 	name = "gorilla crate"
-	content_mob = /mob/living/simple_animal/hostile/gorilla
+	content_mob = /mob/living/basic/gorilla
 
 /obj/structure/closet/critter/gorilla/cargo
 	name = "cargorilla crate"
-	content_mob = /mob/living/simple_animal/hostile/gorilla/cargo_domestic
+	content_mob = /mob/living/basic/gorilla/cargo_domestic
