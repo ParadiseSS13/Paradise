@@ -2594,7 +2594,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "gR" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/space/nearstation)
 "gS" = (

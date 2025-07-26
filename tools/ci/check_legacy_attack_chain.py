@@ -90,6 +90,8 @@ class AttackChainCallWalker:
 
     def visit_Var(self, node, source_info):
         self.local_vars[str(node.name)] = node.declared_type
+        if node.value:
+            self.visit_Expr(node.value, source_info)
 
     def visit_Expr(self, node, source_info):
         if node.kind == NodeKind.CALL:

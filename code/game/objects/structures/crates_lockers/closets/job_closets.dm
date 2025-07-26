@@ -88,31 +88,3 @@
 	new /obj/item/cartridge/janitor(src)
 	new /obj/item/reagent_containers/glass/bucket(src)
 	new /obj/item/reagent_containers/glass/bucket(src)
-
-//Paramedic
-
-/obj/structure/closet/paramedic
-	name = "paramedic wardrobe"
-	desc = "It's a storage unit for paramedic equipment."
-	icon_state = "generic"
-	closed_door_sprite = "blue"
-
-
-
-/obj/structure/closet/paramedic/populate_contents()
-	new /obj/item/clothing/under/rank/medical/paramedic(src)
-	new /obj/item/clothing/under/rank/medical/paramedic(src)
-	new /obj/item/radio/headset/headset_med(src)
-	new /obj/item/radio/headset/headset_med(src)
-	new /obj/item/clothing/head/soft/blue(src)
-	new /obj/item/clothing/head/soft/blue(src)
-	new /obj/item/clothing/gloves/color/latex(src)
-	new /obj/item/clothing/gloves/color/latex(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/suit/storage/paramedic(src)
-	new /obj/item/clothing/suit/storage/paramedic(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/clothing/suit/storage/labcoat/emt(src)
-	new /obj/item/clothing/suit/storage/labcoat/emt(src)
