@@ -35,7 +35,7 @@
 
 	return ..()
 
-/datum/game_mode/vampire/announce()
+/datum/game_mode/vampire/changeling/announce()
 	to_chat(world, "<b>The current game mode is - Vampires+Changelings!</b>")
 	to_chat(world, "<b>Some of your co-workers are vampires, and others might not even be your coworkers!</b>")
 
