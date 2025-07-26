@@ -855,7 +855,7 @@
 	hidden_origin_tech = TECH_TOXINS
 	hidden_tech_level = 6
 
-/obj/item/organ/internal/kidneys/xenobiology/shivering/on_life()
+/obj/item/organ/internal/kidneys/xenobiology/sweating/on_life()
 	. = ..()
 	if(owner.get_temperature() > owner.dna?.species.heat_level_1 - 40)
 		switch(organ_quality)
