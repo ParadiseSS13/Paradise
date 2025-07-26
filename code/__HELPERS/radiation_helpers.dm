@@ -9,7 +9,6 @@
 		/mob/dead,
 		/obj/effect,
 		/obj/docking_port,
-		/atom/movable/lighting_object,
 		/obj/item/projectile,
 		/atom/movable/emissive_blocker,
 	))
@@ -54,7 +53,6 @@
 		/mob/dead,
 		/obj/effect,
 		/obj/docking_port,
-		/atom/movable/lighting_object,
 		/obj/item/projectile,
 		/atom/movable/emissive_blocker,
 	))
@@ -110,7 +108,6 @@
 		/mob/dead,
 		/obj/effect,
 		/obj/docking_port,
-		/atom/movable/lighting_object,
 		/obj/item/projectile,
 		/atom/movable/emissive_blocker,
 	))
