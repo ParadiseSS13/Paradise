@@ -1,29 +1,27 @@
-/mob/living/simple_animal/possessed_object
+/mob/living/basic/possessed_object
 	name = "possessed object"
 	var/spirit_name = "mysterious force" // What we call ourselves in attack messages.
 	mob_biotypes = MOB_SPIRIT
 	health = 50
 	maxHealth = 50
-
 	pass_flags = PASSTABLE 	// Floating past tables is pretty damn spooky.
 	status_flags = null 	// No canpush to prevent grabs ...
 	density = FALSE 		//  ... But a density of 0 means we won't be blocking anyone's way.
 	healable = FALSE			// Animated with SPACE NECROMANCY, mere mortal medicines cannot heal such an object.
-	wander = FALSE				// These things probably ought to never be AI controlled, but in the event they are probably shouldn't wander.
-
 	universal_speak = TRUE	// Tell the humans spooky things about the afterlife
+	ai_controller = null // We don't give this mob a controller, as usually they're player controlled. Rev versions get a special controller.
 	speak_emote = list("mumbles", "moans", "whispers", "laments", "screeches")
-
 	no_spin_thrown = TRUE
-	del_on_death = TRUE
+	basic_mob_flags = DEL_ON_DEATH
 	weather_immunities = list("ash")
-
 	/// The probability % of us escaping if stuffed into a bag/toolbox/etc
 	var/escape_chance = 10
 	/// What is the actual item we are "possessing"
 	var/obj/item/possessed_item
+	/// Is this item possessed by a revenant?
+	var/revenant_possessed = FALSE
 
-/mob/living/simple_animal/possessed_object/examine(mob/user)
+/mob/living/basic/possessed_object/examine(mob/user)
 	. = possessed_item.examine(user)
 	if(health > (maxHealth / 30))
 		. += "<span class='warning'>[src] appears to be floating without any support!</span>"
@@ -31,17 +29,17 @@
 		. += "<span class='warning'>[src] appears to be having trouble staying afloat!</span>"
 
 
-/mob/living/simple_animal/possessed_object/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
+/mob/living/basic/possessed_object/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
 	..()
 	animate_ghostly_presence(src, -1, 20, 1) // Restart the floating animation after the attack animation, as it will be cancelled.
 
 
-/mob/living/simple_animal/possessed_object/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE) // Silly motherfuckers think they can pull things.
+/mob/living/basic/possessed_object/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE) // Silly motherfuckers think they can pull things.
 	if(show_message)
 		to_chat(src, "<span class='warning'>You are unable to pull [AM]!</span>")
 
 
-/mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
+/mob/living/basic/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
 	var/response = tgui_alert(src, "End your possession of this object? (It will not stop you from respawning later)", "Are you sure you want to ghost?", list("Ghost", "Stay in body"))
 	if(response != "Ghost")
 		return
@@ -50,7 +48,7 @@
 	ghost.timeofdeath = world.time
 	death(0) // Turn back into a regular object.
 
-/mob/living/simple_animal/possessed_object/death(gibbed)
+/mob/living/basic/possessed_object/death(gibbed)
 	if(can_die())
 		ghostize(TRUE)
 		// if gibbed, the item goes with the ghost
@@ -62,7 +60,7 @@
 
 	return ..()
 
-/mob/living/simple_animal/possessed_object/Life(seconds, times_fired)
+/mob/living/basic/possessed_object/Life(seconds, times_fired)
 	..()
 
 	if(!possessed_item) // If we're a donut and someone's eaten us, for instance.
@@ -86,12 +84,12 @@
 		if(possessed_item.loc != src) //safety so the item doesn't somehow become detatched from us while doing this
 			possessed_item.forceMove(src)
 
-/mob/living/simple_animal/possessed_object/Login()
+/mob/living/basic/possessed_object/Login()
 	..()
 	to_chat(src, "<span class='notice'><b>Your spirit has entered [src] and possessed it.</b><br>You are able to do most things a humanoid would be able to do with a [src] in their hands.<br>If you want to end your ghostly possession, use the '<b>ghost</b>' verb, it won't penalize your ability to respawn.</span>")
 
 
-/mob/living/simple_animal/possessed_object/Initialize(mapload)
+/mob/living/basic/possessed_object/Initialize(mapload)
 	. = ..()
 
 	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
@@ -114,27 +112,31 @@
 	throwforce = possessed_item.throwforce
 	armour_penetration_flat = possessed_item.armour_penetration_flat
 	armour_penetration_percentage = possessed_item.armour_penetration_percentage
+	melee_damage_lower = max(0, possessed_item.force - 5)
+	melee_damage_upper = possessed_item.force + 5
 
 	visible_message("<span class='notice'>[src] rises into the air and begins to float!</span>") // Inform those around us that shit's gettin' spooky.
 	animate_ghostly_presence(src, -1, 20, 1)
 
 
-/mob/living/simple_animal/possessed_object/get_active_hand() // So that our attacks count as attacking with the item we've possessed.
+/mob/living/basic/possessed_object/get_active_hand() // So that our attacks count as attacking with the item we've possessed.
+	if(revenant_possessed)
+		return ..()
 	return possessed_item
 
 
-/mob/living/simple_animal/possessed_object/IsAdvancedToolUser() // So we can shoot guns (Mostly ourselves), among other things.
+/mob/living/basic/possessed_object/IsAdvancedToolUser() // So we can shoot guns (Mostly ourselves), among other things.
 	return TRUE
 
 
-/mob/living/simple_animal/possessed_object/get_access() // If we've possessed an ID card we've got access to lots of fun things!
+/mob/living/basic/possessed_object/get_access() // If we've possessed an ID card we've got access to lots of fun things!
 	if(istype(possessed_item, /obj/item/card/id))
 		var/obj/item/card/id/possessed_id = possessed_item
 		. = possessed_id.access
 
 
-/mob/living/simple_animal/possessed_object/ClickOn(atom/A, params)
-	if(client.click_intercept)
+/mob/living/basic/possessed_object/ClickOn(atom/A, params)
+	if(client && client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 
@@ -153,11 +155,15 @@
 			forceMove(possessed_item.loc)
 			possessed_item.forceMove(src)
 		else // If we're inside a toolbox or something, we are inside the item rather than the item inside us. This is so people can see the item in the toolbox.
-			forceMove( possessed_item )
+			forceMove(possessed_item)
 
 	update_icon()
 
-/mob/living/simple_animal/possessed_object/update_icon(update_pixel_xy = 0)
+/mob/living/basic/possessed_object/melee_attack(atom/target, list/modifiers, ignore_cooldown)
+	. = ..()
+	animate_ghostly_presence(src, -1, 20, 1)
+
+/mob/living/basic/possessed_object/update_icon(update_pixel_xy = 0)
 	name = possessed_item.name // Take on all the attributes of the item we've possessed.
 	real_name = name
 	desc = possessed_item.desc
@@ -173,13 +179,32 @@
 	set_opacity(possessed_item.opacity)
 	return ..(NONE)
 
-/mob/living/simple_animal/possessed_object/item_interaction(mob/living/user, obj/item/O, list/modifiers)
+/mob/living/basic/possessed_object/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(istype(O, /obj/item/nullrod))
 		visible_message("<span type='notice'>[O] dispels the spooky aura!</span>")
 		death()
 
 		return ITEM_INTERACT_COMPLETE
 
-/mob/living/simple_animal/possessed_object/throw_impact(atom/hit_atom, throwingdatum)
-	//Don't call parent here as the mob isn't doing the hitting, technically
+/mob/living/basic/possessed_object/throw_impact(atom/hit_atom, throwingdatum)
+	// Don't call parent here as the mob isn't doing the hitting, technically
 	return possessed_item.throw_impact(hit_atom, throwingdatum)
+
+/mob/living/basic/possessed_object/revenant
+	maxHealth = 100
+	health = 100
+	melee_attack_cooldown_min = 4 SECONDS
+	melee_attack_cooldown_max = 5 SECONDS
+	faction = list("revenant")
+	speed = -1
+	a_intent = INTENT_HARM
+	attack_sound = 'sound/weapons/punch1.ogg'
+	escape_chance = 100
+	revenant_possessed = TRUE
+
+/mob/living/basic/possessed_object/revenant/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/swarming)
+	throwforce = min(possessed_item.throwforce + 5, 15) // Damage it should do? throwforce+5 or 15, whichever is lower
+	melee_damage_lower = min(possessed_item.throwforce + 5, 15)
+	melee_damage_upper = melee_damage_lower
