@@ -83,7 +83,7 @@ export const ListInputModal = (props) => {
   };
   const filteredItems = items.filter((item) => item?.toLowerCase().includes(searchQuery.toLowerCase()));
   // Dynamically changes the window height based on the message.
-  const windowHeight = 330 + Math.ceil(message.length / 3);
+  const windowHeight = 350 + Math.ceil(message.length / 3);
   // Grabs the cursor when no search bar is visible.
   if (!searchBarVisible) {
     setTimeout(() => document!.getElementById(selected.toString())?.focus(), 1);
