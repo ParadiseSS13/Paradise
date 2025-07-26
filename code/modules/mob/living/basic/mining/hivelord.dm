@@ -58,12 +58,12 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	friendly_verb_continuous = "buzzes near"
 	friendly_verb_simple = "buzz near"
-	speed = 3
+	speed = 2
 	maxHealth = 1
 	health = 1
 	harm_intent_damage = 5
-	melee_damage_lower = 2
-	melee_damage_upper = 2
+	melee_damage_lower = 10
+	melee_damage_upper = 10
 	attack_verb_continuous = "slashes"
 	attack_verb_simple = "slash"
 	speak_emote = list("telepathically cries")
