@@ -42967,7 +42967,7 @@
 /turf/simulated/floor/bluegrid,
 /area/station/aisat/hall)
 "iAo" = (
-/mob/living/simple_animal/hostile/scarybat,
+/mob/living/basic/scarybat,
 /obj/structure/closet/crate{
 	name = "Gold Crate"
 	},
@@ -53620,7 +53620,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "kHI" = (
-/mob/living/simple_animal/hostile/scarybat,
+/mob/living/basic/scarybat,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
@@ -69778,7 +69778,7 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
 "nUb" = (
-/mob/living/simple_animal/hostile/scarybat,
+/mob/living/basic/scarybat,
 /obj/effect/decal/cleanable/confetti,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random/directional/west,

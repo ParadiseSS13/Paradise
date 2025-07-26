@@ -74902,7 +74902,7 @@
 /area/station/science/genetics)
 "oun" = (
 /obj/machinery/light/small,
-/mob/living/simple_animal/hostile/bear{
+/mob/living/basic/bear{
 	dir = 1
 	},
 /obj/effect/spawner/random/blood,
@@ -76610,7 +76610,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "phr" = (
-/mob/living/simple_animal/hostile/bear,
+/mob/living/basic/bear,
 /obj/effect/spawner/random/blood,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
@@ -78217,7 +78217,7 @@
 /turf/simulated/floor/grass,
 /area/station/science/lobby)
 "pPJ" = (
-/mob/living/simple_animal/hostile/bear{
+/mob/living/basic/bear{
 	dir = 1
 	},
 /obj/effect/spawner/random/blood,
@@ -89169,7 +89169,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/bear,
+/mob/living/basic/bear,
 /obj/effect/spawner/random/blood,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)

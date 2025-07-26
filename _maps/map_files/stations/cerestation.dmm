@@ -20881,7 +20881,7 @@
 	group_id = "tunnelbats";
 	max_per_spawner = 1;
 	name = "bat spawner";
-	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	path_to_spawn = /mob/living/basic/scarybat;
 	total_amount = 20
 	},
 /turf/simulated/floor/plating{
@@ -44315,7 +44315,7 @@
 	group_id = "tunnelbats";
 	max_per_spawner = 1;
 	name = "bat spawner";
-	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	path_to_spawn = /mob/living/basic/scarybat;
 	total_amount = 20
 	},
 /turf/simulated/floor/plating{
@@ -53319,7 +53319,7 @@
 	group_id = "tunnelbats";
 	max_per_spawner = 1;
 	name = "bat spawner";
-	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	path_to_spawn = /mob/living/basic/scarybat;
 	total_amount = 20
 	},
 /turf/simulated/floor/plating,
@@ -58971,7 +58971,7 @@
 	group_id = "tunnelbats";
 	max_per_spawner = 1;
 	name = "bat spawner";
-	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	path_to_spawn = /mob/living/basic/scarybat;
 	total_amount = 20
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -66002,7 +66002,7 @@
 	group_id = "tunnelbats";
 	max_per_spawner = 1;
 	name = "bat spawner";
-	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	path_to_spawn = /mob/living/basic/scarybat;
 	total_amount = 20
 	},
 /obj/machinery/light/small{
@@ -115686,7 +115686,7 @@
 	group_id = "tunnelbats";
 	max_per_spawner = 1;
 	name = "bat spawner";
-	path_to_spawn = /mob/living/simple_animal/hostile/scarybat;
+	path_to_spawn = /mob/living/basic/scarybat;
 	total_amount = 20
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{

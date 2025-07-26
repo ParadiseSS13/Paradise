@@ -51533,7 +51533,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/scarybat,
+/mob/living/basic/scarybat,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -77597,7 +77597,7 @@
 	req_one_access = list(33,41)
 	},
 /obj/effect/spawner/random/maintenance,
-/mob/living/simple_animal/hostile/scarybat,
+/mob/living/basic/scarybat,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -78210,7 +78210,7 @@
 /obj/structure/bed,
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/mob_spawn/human/corpse/skeleton,
-/mob/living/simple_animal/hostile/scarybat,
+/mob/living/basic/scarybat,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
