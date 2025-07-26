@@ -129,12 +129,19 @@
 
 /obj/item/clothing/under/rank/medical/paramedic
 	name = "paramedic's jumpsuit"
-	desc = "It's made of a special fiber that provides minor protection against biohazards and radiation. It has a cross on the chest denoting that the wearer is trained medical personnel."
+	desc = "It's made of a special fiber that provides minor protection against biohazards and radiation. It has a cross on the back denoting that the wearer is trained medical personnel."
 	icon_state = "paramedic"
 	item_state = "paramedic"
 	item_color = "paramedic"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 5, FIRE = 0, ACID = 0)
+
+/obj/item/clothing/under/rank/medical/paramedic/skirt
+	name = "paramedic's jumpskirt"
+	desc = "It's made of a special fiber that provides minor protection against biohazards and radiation. It has a cross on the back denoting that the wearer is trained medical personnel."
+	icon_state = "paramedic_skirt"
+	item_state = "paramedic_skirt"
+	item_color = "paramedic_skirt"
 
 /obj/item/clothing/under/rank/medical/psych
 	name = "psychiatrist's jumpsuit"
