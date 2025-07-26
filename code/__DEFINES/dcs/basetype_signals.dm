@@ -31,3 +31,5 @@
 #define COMSIG_TURF_ON_SHUTTLE_MOVE "turf_on_shuttle_move"
 ///from base of turf/proc/get_decals(): (list/datum/element/decal/decals)
 #define COMSIG_ATOM_GET_DECALS "atom_get_decals"
+///from base of atom/movable/onShuttleMove(): (turf/new_turf)
+#define COMSIG_MOVABLE_ON_SHUTTLE_MOVE "movable_on_shuttle_move"
