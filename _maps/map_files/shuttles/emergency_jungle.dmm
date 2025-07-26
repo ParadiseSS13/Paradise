@@ -264,7 +264,7 @@
 /area/shuttle/escape)
 "bn" = (
 /obj/structure/flora/junglebush,
-/mob/living/simple_animal/hostile/retaliate/poison/snake,
+/mob/living/basic/snake,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "bo" = (
@@ -546,7 +546,7 @@
 	pixel_x = 28
 	},
 /obj/structure/flora/junglebush,
-/mob/living/simple_animal/hostile/retaliate/poison/snake,
+/mob/living/basic/snake,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "cu" = (
@@ -739,12 +739,12 @@
 /area/shuttle/escape)
 "xd" = (
 /obj/structure/flora/junglebush,
-/mob/living/simple_animal/hostile/retaliate/poison/snake,
+/mob/living/basic/snake,
 /obj/machinery/light/small,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "Av" = (
-/mob/living/simple_animal/bunny,
+/mob/living/basic/bunny,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "BA" = (
@@ -799,7 +799,7 @@
 /obj/structure/chair/sofa/bamboo{
 	dir = 8
 	},
-/mob/living/simple_animal/bunny,
+/mob/living/basic/bunny,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "LW" = (
@@ -843,7 +843,7 @@
 /area/shuttle/escape)
 "SO" = (
 /obj/structure/flora/grass/jungle,
-/mob/living/simple_animal/hostile/retaliate/poison/snake,
+/mob/living/basic/snake,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "TY" = (

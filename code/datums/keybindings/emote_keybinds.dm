@@ -683,6 +683,10 @@
 /datum/keybinding/emote/simple_animal/pet/cat/can_use(client/C, mob/M)
 	return iscat(M) && ..()
 
+/datum/keybinding/emote/simple_animal/lizard/whicker
+	linked_emote = /datum/emote/lizard/whicker
+	name = "Whicker (Lizard)"
+
 /datum/keybinding/custom
 	category = KB_CATEGORY_EMOTE_CUSTOM
 	var/default_emote_text = "Insert custom me emote text."

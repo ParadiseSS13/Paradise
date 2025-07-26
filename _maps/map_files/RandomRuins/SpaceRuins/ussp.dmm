@@ -4815,7 +4815,7 @@
 	},
 /area/ruin/space/derelict/hallway/primary)
 "mZ" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

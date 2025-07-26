@@ -359,7 +359,7 @@
 			return
 
 		owner.visible_message("<span class='notice'>[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty.</span>")
-		var/mob/living/simple_animal/hostile/retaliate/poison/snake/healSnake = new(owner.loc)
+		var/mob/living/basic/snake/healSnake = new(owner.loc)
 		var/list/chems = list("bicaridine", "perfluorodecalin", "kelotane")
 		healSnake.poison_type = pick(chems)
 		healSnake.name = "Asclepius's Snake"

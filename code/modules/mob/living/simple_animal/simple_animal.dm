@@ -83,9 +83,6 @@
 
 	/// Higher speed is slower, negative speed is faster
 	var/speed = 1
-	var/can_hide = FALSE
-	/// Allows a mob to pass unbolted doors while hidden
-	var/pass_door_while_hidden = FALSE
 
 	/// If the mob can be renamed
 	var/unique_pet = FALSE
