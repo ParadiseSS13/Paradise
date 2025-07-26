@@ -4,9 +4,16 @@
 }
 
 .volume-cell {
-  min-width: 3em;
+  width: 5em;
   text-align: right;
   vertical-align: middle;
+}
+
+.volume-label {
+  min-width: 5em;
+  max-width: 5em;
+  text-overflow: ellipsis;
+  overflow-x: clip;
 }
 
 .volume-cell:hover .volume-label,
