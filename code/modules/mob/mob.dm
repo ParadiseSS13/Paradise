@@ -996,6 +996,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/get_status_tab_items()
 	SHOULD_CALL_PARENT(TRUE)
 	var/list/status_tab_data = list()
+	if(check_rights(R_ADMIN, 0, src))
+		status_tab_data = SSstatpanels.admin_data.Copy()
 	return status_tab_data
 
 // facing verbs
