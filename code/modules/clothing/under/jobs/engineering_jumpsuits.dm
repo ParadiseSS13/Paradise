@@ -27,6 +27,12 @@
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
+/obj/item/clothing/under/rank/engineering/chief_engineer/turtleneck
+	desc = "A fancy turtleneck designed to keep the wearer warm in a cold engineering lobby."
+	icon_state = "CEturtle"
+	item_state = "CEturtle"
+	item_color = "CEturtle"
+
 /obj/item/clothing/under/rank/engineering/atmospheric_technician
 	name = "atmospheric technician's jumpsuit"
 	desc = "It's a jumpsuit worn by atmospheric technicians."

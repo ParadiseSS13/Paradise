@@ -173,3 +173,9 @@
 	item_state = "gy_suit"
 	item_color = "hos_formal"
 
+/obj/item/clothing/under/rank/security/head_of_security/turtleneck
+	desc = "A fancy turtleneck designed to keep the wearer warm in a security lobby."
+	icon_state = "hosturtle"
+	item_state = "hosturtle"
+	item_color = "hosturtle"
+

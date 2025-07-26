@@ -32,6 +32,12 @@
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
+/obj/item/clothing/under/rank/rnd/rd/turtleneck
+	desc = "A fancy turtleneck designed to keep the wearer warm in a cold research lobby."
+	icon_state = "rdturtle"
+	item_state = "rdturtle"
+	item_color = "rdturtle"
+
 /obj/item/clothing/under/rank/rnd/scientist
 	name = "scientist's jumpsuit"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. It has markings that denote the wearer as a scientist."
