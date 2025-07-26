@@ -228,12 +228,11 @@
 	if(!can_buy(60))
 		return
 
-	var/mob/living/simple_animal/hostile/blob/blobbernaut/blobber = new /mob/living/simple_animal/hostile/blob/blobbernaut (get_turf(B))
+	var/mob/living/basic/blob/blobbernaut/blobber = new /mob/living/basic/blob/blobbernaut (get_turf(B))
 	if(blobber)
 		qdel(B)
 	add_mob_to_overmind(blobber)
-	blobber.AIStatus = AI_OFF
-	blobber.LoseTarget()
+	blobber.ai_controller.ai_status = AI_STATUS_OFF
 	spawn()
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blobbernaut?", ROLE_BLOB, TRUE, 10 SECONDS, source = blobber, role_cleanname = "blobbernaut")
 		if(length(candidates) && !QDELETED(blobber))
@@ -244,7 +243,7 @@
 				to_chat(blobber, "<span class='biggerdanger'>You are a blobbernaut! You must assist all blob lifeforms in their mission to consume everything!</span>")
 				to_chat(blobber, "<span class='danger'>You heal while standing on blob structures, however you will decay slowly if you are damaged outside of the blob.</span>")
 		if(!blobber.ckey)
-			blobber.AIStatus = AI_ON
+			blobber.ai_controller.ai_status = AI_STATUS_ON
 	return
 
 
@@ -365,10 +364,10 @@
 	if(!length(surrounding_turfs))
 		return
 
-	for(var/mob/living/simple_animal/hostile/blob/blobspore/BS in GLOB.alive_mob_list)
+	for(var/mob/living/basic/blob/blobspore/BS in GLOB.alive_mob_list)
 		if(isturf(BS.loc) && get_dist(BS, T) <= 35)
-			BS.LoseTarget()
-			BS.Goto(pick(surrounding_turfs), BS.move_to_delay)
+			BS.ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
+			BS.ai_controller.set_blackboard_key(BB_TRAVEL_DESTINATION, pick(surrounding_turfs))
 	return
 
 /mob/camera/blob/verb/split_consciousness()
@@ -411,7 +410,7 @@
 		return
 	else
 		to_chat(usr, "You broadcast with your minions, <B>[speak_text]</B>")
-	for(var/mob/living/simple_animal/hostile/blob_minion in blob_mobs)
+	for(var/mob/living/basic/blob_minion in blob_mobs)
 		if(blob_minion.stat == CONSCIOUS)
 			blob_minion.say(speak_text)
 
@@ -469,7 +468,7 @@
 	for(var/obj/structure/blob/BL in GLOB.blobs)
 		BL.adjustcolors(blob_reagent_datum.color)
 
-	for(var/mob/living/simple_animal/hostile/blob/BLO in GLOB.blob_minions)
+	for(var/mob/living/basic/blob/BLO in GLOB.blob_minions)
 		BLO.adjustcolors(blob_reagent_datum.complementary_color)
 
 	to_chat(src, "Your reagent is now: <b><font color=\"[blob_reagent_datum.color]\">[blob_reagent_datum.name]</b></font> - [blob_reagent_datum.description]")

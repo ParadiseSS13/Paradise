@@ -144,6 +144,10 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/melee_attack_cooldown_min = 2 SECONDS
 	/// Upper bound for melee attack cooldown
 	var/melee_attack_cooldown_max = 2 SECONDS
+	/// Can this mob ignite?
+	var/can_be_on_fire = FALSE
+	/// How much fire damage does a mob take?
+	var/fire_damage = 2
 
 	/// Loot this mob drops on death.
 	var/list/loot = list()
@@ -186,6 +190,14 @@ RESTRICT_TYPE(/mob/living/basic)
 
 /mob/living/basic/proc/apply_temperature_requirements()
 	AddElement(/datum/element/body_temperature, minimum_survivable_temperature, maximum_survivable_temperature, unsuitable_cold_damage, unsuitable_heat_damage)
+
+/mob/living/basic/handle_fire()
+	if(!can_be_on_fire)
+		return FALSE
+	. = ..()
+	if(!.)
+		return
+	adjustFireLoss(fire_damage) // Slowly start dying from being on fire
 
 /mob/living/basic/vv_edit_var(vname, vval)
 	switch(vname)
