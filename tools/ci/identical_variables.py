@@ -30,8 +30,8 @@ def main():
 
         for variable_name in typepath.var_names(modified=True):
             modded = typepath.var_decl(variable_name, False)
-            if(modded):
-                all_failures.append(Failure(typepath.source_loc.file_path, typepath.source_loc.line, f"{RED}Failed to read {path.rel}::{variable_name}.{NC} This is probably not your fault."))
+            if(not modded):
+                all_failures.append(Failure(typepath.source_loc.file_path, typepath.source_loc.line, f"{RED}Avulto failed to read {path.rel}::{variable_name}.{NC} This is probably not your fault."))
                 continue
             if path.parent.is_root:
                 continue
