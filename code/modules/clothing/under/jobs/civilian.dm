@@ -49,7 +49,7 @@
 	item_state = "oldman"
 	item_color = "oldman"
 
-/obj/item/clothing/under/rank/civillian/hop/turtleneck
+/obj/item/clothing/under/rank/civilian/hop/turtleneck
 	name = "head of personnel's turtleneck"
 	desc = "A fancy turtleneck designed to keep the wearer warm in a cold office."
 	icon_state = "hop_turtle"
