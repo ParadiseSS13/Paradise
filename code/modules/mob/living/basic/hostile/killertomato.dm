@@ -21,7 +21,6 @@
 	melee_attack_cooldown_max = 2.5 SECONDS
 	attack_verb_simple = "slam"
 	attack_verb_continuous = "slams"
-	attack_sound = 'sound/weapons/punch1.ogg'
 	faction = list("plants", "jungle")
 	ventcrawler = VENTCRAWLER_ALWAYS
 
