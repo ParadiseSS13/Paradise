@@ -20,6 +20,12 @@
 /datum/gear/uniform/suit
 	main_typepath = /datum/gear/uniform/suit
 
+/datum/gear/uniform/turtleneck
+	main_typepath = /datum/gear/uniform/turtleneck
+
+/datum/gear/uniform/turtleneck/job
+	main_typepath = /datum/gear/uniform/turtleneck/job
+
 //there's a lot more colors than I thought there were @_@
 
 /datum/gear/uniform/suit/jumpsuitblack
@@ -245,6 +251,11 @@
 	path = /obj/item/clothing/under/rank/engineering/chief_engineer/skirt
 	allowed_roles = list("Chief Engineer")
 
+/datum/gear/uniform/turtleneck/job/ce
+	display_name = "Turtleneck, ce"
+	path = /obj/item/clothing/under/rank/engineering/chief_engineer/turtleneck
+	allowed_roles = list("Chief Engineer")
+
 //Research
 /datum/gear/uniform/skirt/job/sci
 	display_name = "Skirt, scientist"
@@ -260,6 +271,12 @@
 	display_name = "Skirt, rd"
 	path = /obj/item/clothing/under/rank/rnd/rd/skirt
 	allowed_roles = list("Research Director")
+
+/datum/gear/uniform/turtleneck/job/rd
+	display_name = "Turtleneck, rd"
+	path = /obj/item/clothing/under/rank/rnd/rd/turtleneck
+	allowed_roles = list("Research Director")
+
 
 //Medical
 /datum/gear/uniform/skirt/job/chem
@@ -287,6 +304,11 @@
 	path = /obj/item/clothing/under/rank/medical/cmo/skirt
 	allowed_roles = list("Chief Medical Officer")
 
+/datum/gear/uniform/turtleneck/job/cmo
+	display_name = "Skirt, cmo"
+	path = /obj/item/clothing/under/rank/medical/cmo/turtleneck
+	allowed_roles = list("Chief Medical Officer")
+
 //Supply
 /datum/gear/uniform/skirt/job/cargo
 	display_name = "Skirt, cargo"
@@ -308,11 +330,21 @@
 	path = /obj/item/clothing/under/rank/cargo/qm/skirt
 	allowed_roles = list("Quartermaster")
 
+/datum/gear/uniform/turtleneck/job/qm
+	display_name = "Turtleneck, quartermaster"
+	path = /obj/item/clothing/under/rank/cargo/qm/turtleneck
+	allowed_roles = list("Quartermaster")
+
 //Security
 /datum/gear/uniform/skirt/job/warden
 	display_name = "Skirt, warden"
 	path = /obj/item/clothing/under/rank/security/warden/skirt
 	allowed_roles = list("Head of Security", "Warden")
+
+/datum/gear/uniform/turtleneck/job/warden
+	display_name = "Turtleneck, warden"
+	path = /obj/item/clothing/under/rank/security/warden/turtleneck
+	allowed_roles = list("Warden")
 
 /datum/gear/uniform/skirt/job/security
 	display_name = "Skirt, security"
@@ -322,6 +354,11 @@
 /datum/gear/uniform/skirt/job/head_of_security
 	display_name = "Skirt, hos"
 	path = /obj/item/clothing/under/rank/security/head_of_security/skirt
+	allowed_roles = list("Head of Security")
+
+/datum/gear/uniform/turtleneck/job/head_of_security
+	display_name = "Turtleneck, hos"
+	path = /obj/item/clothing/under/rank/security/head_of_security/turtleneck
 	allowed_roles = list("Head of Security")
 
 //Service
@@ -345,6 +382,11 @@
 	path = /obj/item/clothing/under/rank/civilian/hop/skirt
 	allowed_roles = list("Head of Personnel")
 
+/datum/gear/uniform/turtleneck/job/head_of_personnel
+	display_name = "Turtleneck, hop"
+	path = /obj/item/clothing/under/rank/civilian/hop/turtleneck
+	allowed_roles = list("Head of Personnel")
+
 //Command and dignitary
 /datum/gear/uniform/skirt/captain
 	display_name = "Skirt, captain"
@@ -366,6 +408,10 @@
 	path = /obj/item/clothing/under/rank/procedure/blueshield/skirt
 	allowed_roles = list("Blueshield")
 
+/datum/gear/uniform/turtleneck/job/blueshield
+	display_name = "Turtleneck, blueshield"
+	path = /obj/item/clothing/under/rank/procedure/blueshield/turtleneck
+	allowed_roles = list("Blueshield")
 
 /datum/gear/uniform/medical
 	main_typepath = /datum/gear/uniform/medical

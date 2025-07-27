@@ -47,6 +47,13 @@
 	item_state = "qm_whimsy"
 	item_color = "qm_whimsy"
 
+/obj/item/clothing/under/rank/cargo/qm/turtleneck
+	name = "quartermaster's turtleneck"
+	desc = "A fancy turtleneck designed to keep the wearer warm in a cold cargo bay."
+	icon_state = "qm_turtle"
+	item_state = "qm_turtle"
+	item_color = "qm_turtle"
+
 /obj/item/clothing/under/rank/cargo/tech
 	name = "cargo technician's jumpsuit"
 	desc = "A standard issue jumpsuit for cargo technicians. Snazzy!"
