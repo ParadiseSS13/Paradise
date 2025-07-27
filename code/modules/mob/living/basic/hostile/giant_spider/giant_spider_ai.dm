@@ -199,7 +199,6 @@
 /// Move to an unwrapped item and wrap it
 /datum/ai_behavior/wrap_target
 	action_cooldown = 15 SECONDS // We don't want them doing this too quickly
-	required_distance = 1
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/wrap_target/setup(datum/ai_controller/controller, action_key, target_key)
