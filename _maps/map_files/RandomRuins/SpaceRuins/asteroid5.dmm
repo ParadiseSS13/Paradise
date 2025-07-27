@@ -23,7 +23,7 @@
 /turf/simulated/mineral/random/low_chance/space,
 /area/ruin/space/unpowered)
 "S" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/template_noop)
 "U" = (

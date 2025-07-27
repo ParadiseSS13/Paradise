@@ -130,7 +130,6 @@
 	icon_state = "organ4"
 	dead_icon = null
 	origin_tech = null
-	tough = TRUE
 	is_xeno_organ = TRUE
 
 /obj/item/organ/internal/eyes/cybernetic/xenobiology
@@ -234,11 +233,8 @@
 	desc = "Draw from special glands in your body to produce a small but dazzling flame!"
 	base_cooldown = 3 MINUTES
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
-	invocation_type = "none"
 	action_icon_state = "fireball0"
 	sound = 'sound/magic/fireball.ogg'
-	active = FALSE
 	antimagic_flags = NONE
 
 	selection_activated_message = "<span class='notice'>You take in a deep breath, readying to breathe fire!</span>"
@@ -293,9 +289,7 @@
 	desc = "Detach some of your sinew-ous bands to create a durable restraint"
 	action_icon = 'icons/obj/mining.dmi'
 	action_icon_state = "sinewcuff"
-	invocation_type = "none"
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 	base_cooldown = 5 MINUTES
 	var/quality = ORGAN_NORMAL
 	var/cooldown = 0
@@ -455,9 +449,7 @@
 	desc = "Silently sting an unsuspecting victim with a mild cocktail of poisons"
 	action_icon_state = "sting_blind"
 	action_background_icon_state = "bg_changeling"
-	invocation_type = "none"
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 	base_cooldown = 5 MINUTES
 	antimagic_flags = NONE
 	var/quality = ORGAN_NORMAL
@@ -531,7 +523,6 @@
 	desc = "Bend your bones an ligaments in unnatural ways to slip under things you would normally never be able to."
 	base_cooldown = 5 MINUTES
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 	invocation_type = null
 	action_icon_state = "contort_body"
 	action_background_icon_state = "bg_changeling"
@@ -539,7 +530,6 @@
 	sound = null
 	antimagic_flags = NONE
 	var/duration_time = 30 SECONDS
-	active = FALSE
 	var/quality
 
 /datum/spell/contort/create_new_targeting()
@@ -598,12 +588,9 @@
 	name = "Call to Blood"
 	desc = "Draw upon dark energies to absorb nearby blood, healing you in the process."
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
-	invocation_type = "none"
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_icon_state = "blood_charge"
 	sound = null
-	active = FALSE
 	base_cooldown = 30 SECONDS
 	antimagic_flags = NONE
 	var/quality
@@ -698,13 +685,10 @@
 	desc = "Dig a tendril though the floor to grab at an item, throwing it towards you."
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
-	invocation_type = "none"
 	action_icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	action_icon_state = "Goliath_tentacle_stationary"
 	action_background_icon_state = "bg_default"
 	sound = null
-	active = FALSE
 	antimagic_flags = NONE
 	var/quality
 
@@ -760,7 +744,6 @@
 	analyzer_price = 40
 	hidden_origin_tech = TECH_BLUESPACE
 	hidden_tech_level = 6
-	status = ORGAN_ROBOT
 
 /obj/item/organ/internal/eyes/cybernetic/xenobiology/glowing/Initialize(mapload)
 	. = ..()
@@ -787,11 +770,8 @@
 	desc = "Touch someone to destabilize their location in bluespace for a moment."
 	base_cooldown = 2 MINUTES
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
-	invocation_type = "none"
 	action_icon_state = "spell_teleport"
 	sound = null
-	active = FALSE
 	sound1 = 'sound/magic/blink.ogg'
 	sound2 = 'sound/magic/blink.ogg'
 	antimagic_flags = NONE
@@ -855,7 +835,7 @@
 	hidden_origin_tech = TECH_TOXINS
 	hidden_tech_level = 6
 
-/obj/item/organ/internal/kidneys/xenobiology/shivering/on_life()
+/obj/item/organ/internal/kidneys/xenobiology/sweating/on_life()
 	. = ..()
 	if(owner.get_temperature() > owner.dna?.species.heat_level_1 - 40)
 		switch(organ_quality)
@@ -904,7 +884,6 @@
 	desc = "This organ holds a deceptive stinger tucked inside of itself, dripping with potent venom."
 	analyzer_price = 60
 	terror = TRUE
-	hidden_origin_tech = TECH_COMBAT
 	hidden_tech_level = 7
 
 /obj/item/organ/internal/lungs/xenobiology/mirror
@@ -928,13 +907,10 @@
 	name = "create mirror"
 	desc = "Regurgitate a slick, mirrored surface where you are standing. Disgusting."
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
-	invocation_type = "none"
 	action_icon = 'icons/mob/actions/actions_elites.dmi'
 	action_icon_state = "herald_mirror"
 	action_background_icon_state = "bg_default"
 	sound = 'sound/effects/splat.ogg'
-	active = FALSE
 	base_cooldown = 3 MINUTES
 	antimagic_flags = NONE
 	var/quality
@@ -1279,8 +1255,6 @@
 	name = "Detonate"
 	desc = "Build up energy in your core, allowing for a fiery detonation!"
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
-	invocation_type = "none"
 	action_icon_state = "genetic_incendiary"
 	action_background_icon_state = "bg_flayer"
 	max_charge_time = 10 SECONDS
@@ -1354,15 +1328,15 @@
 /datum/spell/shapeshift/megacarp/New(quality)
 	. = ..()
 	if(quality == ORGAN_PRISTINE)
-		shapeshift_type = /mob/living/simple_animal/hostile/carp/megacarp/xeno_organ
-		current_shapes = list(/mob/living/simple_animal/hostile/carp/megacarp/xeno_organ)
+		shapeshift_type = /mob/living/basic/carp/megacarp/xeno_organ
+		current_shapes = list(/mob/living/basic/carp/megacarp/xeno_organ)
 		current_casters = list()
-		possible_shapes = list(/mob/living/simple_animal/hostile/carp/megacarp/xeno_organ)
+		possible_shapes = list(/mob/living/basic/carp/megacarp/xeno_organ)
 	else
-		shapeshift_type = /mob/living/simple_animal/hostile/carp/xeno_organ
-		current_shapes = list(/mob/living/simple_animal/hostile/carp/xeno_organ)
+		shapeshift_type = /mob/living/basic/carp/xeno_organ
+		current_shapes = list(/mob/living/basic/carp/xeno_organ)
 		current_casters = list()
-		possible_shapes = list(/mob/living/simple_animal/hostile/carp/xeno_organ)
+		possible_shapes = list(/mob/living/basic/carp/xeno_organ)
 
 /datum/spell/shapeshift/megacarp/Shapeshift(mob/living/carbon/human/M)
 	M.visible_message("<span class='danger'>[M] screams in agony as scales and fins erupt out of [M.p_their()] flesh!</span>",
@@ -1372,7 +1346,7 @@
 		return
 	return ..()
 
-/mob/living/simple_animal/hostile/carp/xeno_organ
+/mob/living/basic/carp/xeno_organ
 	maxHealth = 100
 	health = 100
 	gold_core_spawnable = NO_SPAWN
@@ -1380,7 +1354,7 @@
 	universal_understand = TRUE
 	pass_flags = PASSTABLE
 
-/mob/living/simple_animal/hostile/carp/megacarp/xeno_organ
+/mob/living/basic/carp/megacarp/xeno_organ
 	maxHealth = 175
 	health = 175
 	gold_core_spawnable = NO_SPAWN
@@ -1504,14 +1478,12 @@
 	desc = "Grow and detach a new head from yourself to send towards your enemies. Cast again to destroy any existing heads."
 	base_cooldown = 5 MINUTES
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 	invocation_type = "*scream"
 	action_icon = 'icons/mob/actions/actions_elites.dmi'
 	action_icon_state = "head_detach"
 	action_background_icon_state = "bg_default"
 	sound = 'sound/effects/blood1.ogg'
 	sound = null
-	active = FALSE
 	antimagic_flags = NONE
 	var/quality
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/xenobiology/newhead

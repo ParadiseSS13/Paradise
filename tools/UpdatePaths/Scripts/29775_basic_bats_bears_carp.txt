@@ -1,0 +1,3 @@
+/mob/living/simple_animal/hostile/scarybat/@SUBTYPES : /mob/living/basic/scarybat/@SUBTYPES{@OLD}
+/mob/living/simple_animal/hostile/bear/@SUBTYPES : /mob/living/basic/bear/@SUBTYPES{@OLD}
+/mob/living/simple_animal/hostile/carp/@SUBTYPES : /mob/living/basic/carp/@SUBTYPES{@OLD}

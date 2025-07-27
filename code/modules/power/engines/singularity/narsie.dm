@@ -8,7 +8,6 @@
 	pixel_y = -85
 	current_size = 9 //It moves/eats like a max-size singulo, aside from range. --NEO
 	dissipate = FALSE
-	move_self = TRUE
 	grav_pull = 5
 	consume_range = 6
 	gender = FEMALE
@@ -24,7 +23,6 @@
 	pixel_x = -236
 	pixel_y = -256
 	current_size = 12
-	move_self = TRUE //Do we move on our own?
 	grav_pull = 10
 	consume_range = 12 //How many tiles out do we eat
 

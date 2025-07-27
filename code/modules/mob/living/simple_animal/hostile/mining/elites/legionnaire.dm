@@ -33,8 +33,6 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	throw_message = "doesn't affect the sturdiness of"
 	speed = 0.5 //Since it is mainly melee, this *should* be right
-	move_to_delay = 3
-	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/hallucinations/wail.ogg'
 	deathmessage = "'s arms reach out before it falls apart onto the floor, lifeless."
 	sight = SEE_MOBS // So it can see through smoke / charge through walls like the kool aid man.
@@ -290,7 +288,6 @@
 	max_integrity = 100
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	anchored = TRUE
-	density = FALSE
 	light_range = 4
 	light_color = LIGHT_COLOR_FLARE
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/myowner = null
@@ -318,7 +315,6 @@
 
 //The visual effect which appears in front of legionnaire when he goes to charge.
 /obj/effect/temp_visual/dragon_swoop/legionnaire
-	duration = 10
 
 /obj/effect/temp_visual/dragon_swoop/legionnaire/Initialize(mapload)
 	. = ..()

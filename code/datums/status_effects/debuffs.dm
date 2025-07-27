@@ -3,7 +3,6 @@
 /// does minor damage over time unless holding His Grace
 /datum/status_effect/his_wrath
 	id = "his_wrath"
-	duration = -1
 	tick_interval = 4
 	alert_type = /atom/movable/screen/alert/status_effect/his_wrath
 
@@ -27,7 +26,6 @@
 /// is a cult ghost and can't use manifest runes, can see ghosts and dies if too far from summoner
 /datum/status_effect/cultghost
 	id = "cult_ghost"
-	duration = -1
 	alert_type = null
 	var/damage = 7.5
 	var/source_UID
@@ -80,7 +78,6 @@
 
 /datum/status_effect/saw_bleed
 	id = "saw_bleed"
-	duration = -1 //removed under specific conditions
 	tick_interval = 6
 	alert_type = null
 	var/mutable_appearance/bleed_overlay
@@ -1004,7 +1001,6 @@
 /datum/status_effect/cryo_beam
 	id = "cryo beam"
 	alert_type = null
-	duration = -1 //Kill it, get out of sight, or be killed. Jump boots are *required*
 	tick_interval = 0.5 SECONDS
 	var/damage = 0.75
 	var/source_UID
@@ -1030,8 +1026,6 @@
 /datum/status_effect/bubblegum_curse
 	id = "bubblegum curse"
 	alert_type = /atom/movable/screen/alert/status_effect/bubblegum_curse
-	duration = -1 //Kill it. There is no other option.
-	tick_interval = 1 SECONDS
 	/// The damage the status effect does per tick.
 	var/damage = 0.75
 	var/source_UID
@@ -1474,7 +1468,6 @@
 
 /datum/status_effect/temporal_slash_finisher
 	id = "temporal_slash_finisher"
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 	tick_interval = 0.25 SECONDS
 	/// How many times the user has been cut. Each cut adds a damage value below

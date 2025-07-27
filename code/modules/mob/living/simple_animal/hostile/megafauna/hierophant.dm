@@ -806,7 +806,6 @@ Difficulty: Hard
 	icon_state = "hierophant_tele_off"
 	light_range = 2
 	layer = LOW_OBJ_LAYER
-	anchored = TRUE
 
 /obj/effect/hierophant/ex_act()
 	return
@@ -838,4 +837,3 @@ Difficulty: Hard
 	icon_state = null
 	gpstag = "Zealous Signal"
 	desc = "Heed its words."
-	invisibility = 100
