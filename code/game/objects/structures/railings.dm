@@ -10,6 +10,7 @@
 	climbable = TRUE
 	layer = ABOVE_MOB_LAYER
 	flags = ON_BORDER
+	max_integrity = 50
 	var/currently_climbed = FALSE
 	var/mover_dir = null
 

@@ -1052,7 +1052,7 @@
 	desc = "Allows for the construction of LBX AC 10."
 	id = "mech_scattershot"
 	build_type = MECHFAB
-	req_tech = list("combat" = 4)
+	req_tech = list("combat" = 4, "syndicate" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	materials = list(MAT_METAL=10000)
 	construction_time = 10 SECONDS

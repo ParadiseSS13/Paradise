@@ -43,7 +43,6 @@
 	spawn_loot_chance = 16
 
 /obj/effect/spawner/random/cobweb
-	icon = 'icons/effects/random_spawners.dmi'
 
 /obj/effect/spawner/random/cobweb/left
 	name = "cobweb left 100% chance"

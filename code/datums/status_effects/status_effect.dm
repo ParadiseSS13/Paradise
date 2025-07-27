@@ -182,11 +182,9 @@
 
 /datum/status_effect/stacking
 	id = "stacking_base"
-	duration = -1 //removed under specific conditions
 	alert_type = null
 	var/stacks = 0 //how many stacks are accumulated, also is # of stacks that target will have when first applied
 	var/delay_before_decay //deciseconds until ticks start occuring, which removes stacks (first stack will be removed at this time plus tick_interval)
-	tick_interval = 10 //deciseconds between decays once decay starts
 	var/stack_decay = 1 //how many stacks are lost per tick (decay trigger)
 	var/stack_threshold //special effects trigger when stacks reach this amount
 	var/max_stacks //stacks cannot exceed this amount

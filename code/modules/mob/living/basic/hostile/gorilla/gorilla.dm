@@ -209,7 +209,6 @@
 	icon = 'icons/mob/cargorillia.dmi'
 	desc = "Cargo's pet gorilla. He seems to have an 'I love Mom' tattoo."
 	faction = list("neutral", "monkey", "jungle")
-	gold_core_spawnable = NO_SPAWN
 	gender = MALE
 	a_intent = INTENT_HELP
 	crate_limit = 2

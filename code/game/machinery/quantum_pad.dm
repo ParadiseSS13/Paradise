@@ -12,44 +12,14 @@
 	var/teleport_cooldown = 400 //30 seconds base due to base parts
 	var/teleport_speed = 50
 	var/last_teleport //to handle the cooldown
-	var/teleporting = FALSE //if it's in the process of teleporting
+	// Is the pad currently doing a teleportation?
+	var/teleporting = FALSE
+	// Power consumption multiplier.
 	var/power_efficiency = 1
+	// The pad this quantum pad will teleport to.
 	var/obj/machinery/quantumpad/linked_pad = null
+	// Pre-linked pad target, for mapped-in quantum pads.
 	var/preset_target = null
-
-/obj/machinery/quantumpad/cere/cargo_arrivals
-	preset_target = /obj/machinery/quantumpad/cere/arrivals_cargo
-/obj/machinery/quantumpad/cere/cargo_security
-	preset_target = /obj/machinery/quantumpad/cere/security_cargo
-/obj/machinery/quantumpad/cere/security_cargo
-	preset_target = /obj/machinery/quantumpad/cere/cargo_security
-/obj/machinery/quantumpad/cere/security_science
-	preset_target = /obj/machinery/quantumpad/cere/science_security
-/obj/machinery/quantumpad/cere/science_security
-	preset_target = /obj/machinery/quantumpad/cere/security_science
-/obj/machinery/quantumpad/cere/science_arrivals
-	preset_target = /obj/machinery/quantumpad/cere/arrivals_science
-/obj/machinery/quantumpad/cere/arrivals_science
-	preset_target = /obj/machinery/quantumpad/cere/science_arrivals
-/obj/machinery/quantumpad/cere/arrivals_cargo
-	preset_target = /obj/machinery/quantumpad/cere/cargo_arrivals
-/obj/machinery/quantumpad/cere/security_medbay
-	preset_target = /obj/machinery/quantumpad/cere/medbay_security
-/obj/machinery/quantumpad/cere/medbay_security
-	preset_target = /obj/machinery/quantumpad/cere/security_medbay
-/obj/machinery/quantumpad/cere/medbay_science
-	preset_target = /obj/machinery/quantumpad/cere/science_medbay
-/obj/machinery/quantumpad/cere/science_medbay
-	preset_target = /obj/machinery/quantumpad/cere/medbay_science
-/obj/machinery/quantumpad/cere/arrivals_service
-	preset_target = /obj/machinery/quantumpad/cere/service_arrivals
-/obj/machinery/quantumpad/cere/service_arrivals
-	preset_target = /obj/machinery/quantumpad/cere/arrivals_service
-/obj/machinery/quantumpad/cere/cargo_service
-	preset_target = /obj/machinery/quantumpad/cere/service_cargo
-/obj/machinery/quantumpad/cere/service_cargo
-	preset_target = /obj/machinery/quantumpad/cere/cargo_service
-
 
 /obj/machinery/quantumpad/Initialize(mapload)
 	. = ..()
@@ -63,16 +33,6 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-
-/obj/machinery/quantumpad/cere/Initialize(mapload)
-	. = ..()
-	linked_pad = locate(preset_target)
-
-/obj/machinery/quantumpad/cere/PopulateParts()
-	// No parts in Cere telepads, just hardcode the efficiencies
-	power_efficiency = 4
-	teleport_speed = 10
-	teleport_cooldown = 0
 
 /obj/machinery/quantumpad/Destroy()
 	linked_pad = null
