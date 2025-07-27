@@ -33,7 +33,6 @@
 
 /datum/supply_packs/vending/engivend
 	name = "Engineering Vendor Supply Crate"
-	cost = 50
 	contains = list(/obj/item/vending_refill/engivend,
 					/obj/item/vending_refill/youtool)
 	containername = "engineering supply crate"
@@ -125,7 +124,6 @@
 	name = "Field Generator Crate"
 	contains = list(/obj/machinery/field/generator,
 					/obj/machinery/field/generator)
-	cost = 100
 	containername = "field generator crate"
 
 /datum/supply_packs/engineering/engine/sing_gen
@@ -145,14 +143,12 @@
 	contains = list(/obj/machinery/power/tesla_coil,
 					/obj/machinery/power/tesla_coil,
 					/obj/machinery/power/tesla_coil)
-	cost = 100
 	containername = "tesla coil crate"
 
 /datum/supply_packs/engineering/engine/grounding
 	name = "Grounding Rod Crate"
 	contains = list(/obj/machinery/power/grounding_rod,
 					/obj/machinery/power/grounding_rod)
-	cost = 100
 	containername = "grounding rod crate"
 
 /datum/supply_packs/engineering/engine/collector
@@ -160,7 +156,6 @@
 	contains = list(/obj/machinery/power/rad_collector,
 					/obj/machinery/power/rad_collector,
 					/obj/machinery/power/rad_collector)
-	cost = 100
 	containername = "collector crate"
 
 /datum/supply_packs/engineering/engine/particle_accelerator
@@ -219,9 +214,7 @@
 	name = "Supermatter Shard Crate"
 	contains = list(/obj/machinery/atmospherics/supermatter_crystal/shard)
 	cost = 750 //So cargo thinks twice before killing themselves with it
-	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "supermatter shard crate"
-	access = ACCESS_CE
 
 /* Commented out as the TEG is fully problematic. If the syndie base is changed to be dependant on another powersource, we can look at a rework.
 /datum/supply_packs/engineering/engine/teg

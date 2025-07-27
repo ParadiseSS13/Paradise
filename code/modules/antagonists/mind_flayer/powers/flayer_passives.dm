@@ -127,7 +127,6 @@
 	gain_text = "Faraday cage operational."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 2
-	base_cost = 30
 	static_upgrade_increase = 30
 
 /datum/mindflayer_passive/emp_resist/on_apply()
@@ -147,7 +146,6 @@
 	purchase_text = "Become immune to basic shocks."
 	gain_text = "The outer layer of our chassis gets slightly thicker."
 	power_type = FLAYER_PURCHASABLE_POWER
-	max_level = 1
 
 /datum/mindflayer_passive/shock_resist/on_apply()
 	..()
@@ -245,7 +243,6 @@
 	name = "Reinforced Joints"
 	purchase_text = "Prevents your limbs from falling off due to damage."
 	gain_text = "Artificial skeletal structure reinforced."
-	max_level = 1
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 50
 
@@ -260,7 +257,6 @@
 	name = "Telescopic Eyes"
 	purchase_text = "Allows you to expand your sight range, as if you were using a scope."
 	gain_text = "Precise optics control engaged."
-	max_level = 1
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 40
 	var/obj/item/organ/internal/eyes/optical_sensor/user_eyes
@@ -283,7 +279,6 @@
 	name = "Perfect Symbiosis"
 	purchase_text = "Become a living siphon that drains victim's energy incredibly quickly."
 	gain_text = "This vessel serves us well."
-	max_level = 1
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 400
 	stage = FLAYER_CAPSTONE_STAGE

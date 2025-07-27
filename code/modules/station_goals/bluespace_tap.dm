@@ -82,7 +82,6 @@
 	max_integrity = 300
 	pixel_x = -32	//shamelessly stolen from dna vault
 	pixel_y = -32
-	power_state = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1

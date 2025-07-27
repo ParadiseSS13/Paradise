@@ -8,7 +8,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=5"
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
 	hitsound = 'sound/weapons/slash.ogg' //pls replace
@@ -36,7 +35,6 @@
 	item_state = "candy_sword"
 	force = 10
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("slashed", "stabbed", "sliced", "caned")
 
 // MARK: FLYSWATTER

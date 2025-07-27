@@ -148,7 +148,6 @@
 /obj/item/ammo_casing/mm762x51/bleeding
 	name = "7.62x51mm 'Shredder' round"
 	desc = "A 7.62x51mm 'Shredder' cartridge, with a heavily serrated tip intended to cause massive bleeding."
-	icon_state = "762-casing"
 	projectile_type = /obj/item/projectile/bullet/saw/bleeding
 
 /obj/item/ammo_casing/mm762x51/hollow

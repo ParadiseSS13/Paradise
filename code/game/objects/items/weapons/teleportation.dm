@@ -12,7 +12,6 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hand_tele"
 	item_state = "electronic"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
