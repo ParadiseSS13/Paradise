@@ -2,13 +2,11 @@
 /mob/living/basic/mining/basilisk
 	name = "basilisk"
 	desc = "A territorial beast, covered in a thick shell that absorbs energy. Its stare causes victims to freeze from the inside."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Basilisk"
 	icon_living = "Basilisk"
 	icon_aggro = "Basilisk_alert"
 	icon_dead = "Basilisk_dead"
 	icon_gib = "syndicate_gib"
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	throw_blocked_message = "does nothing against the hard shell of"
 	speed = 3
 	maxHealth = 200
@@ -19,7 +17,6 @@
 	melee_damage_upper = 12
 	attack_verb_continuous = "bites into"
 	attack_verb_simple = "bite into"
-	a_intent = INTENT_HARM
 	speak_emote = list("chitters")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	gold_core_spawnable = HOSTILE_SPAWN
@@ -41,10 +38,6 @@
 /obj/item/projectile/temp/basilisk
 	name = "freezing blast"
 	icon_state = "ice_2"
-	damage = 0
-	damage_type = BURN
-	nodamage = TRUE
-	flag = ENERGY
 	temperature = 50
 
 /obj/item/projectile/temp/basilisk/on_hit(atom/target, blocked)
@@ -82,9 +75,7 @@
 	melee_damage_upper = 15
 	attack_verb_continuous = "impales"
 	attack_verb_simple = "impale"
-	a_intent = INTENT_HARM
 	speak_emote = list("telepathically cries")
-	attack_sound = 'sound/weapons/bladeslice.ogg'
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing
 	loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
@@ -125,14 +116,12 @@
 	name = "scorching blast"
 	icon_state = "lava"
 	damage = 5
-	damage_type = BURN
 	nodamage = FALSE
-	temperature = 500 //Heats you up!
+	temperature = 500 // Heats you up!
 	immolate = 1
 
 /obj/item/projectile/temp/basilisk/icewing
 	damage = 5
-	damage_type = BURN
 	nodamage = FALSE
 
 /obj/item/projectile/temp/basilisk/icewing/on_hit(atom/target, blocked = FALSE)

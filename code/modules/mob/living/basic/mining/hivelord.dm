@@ -1,7 +1,6 @@
 /mob/living/basic/mining/hivelord
 	name = "hivelord"
 	desc = "A levitating swarm of tiny creatures which act as a single individual. When threatened or hunting they rapidly replicate additional short-lived bodies."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Hivelord"
 	icon_living = "Hivelord"
 	icon_aggro = "Hivelord_alert"
@@ -13,8 +12,6 @@
 	maxHealth = 75
 	health = 75
 	harm_intent_damage = 5
-	melee_damage_lower = 0
-	melee_damage_upper = 0
 	attack_verb_continuous = "lashes out at"
 	attack_verb_simple = "lash out at"
 	speak_emote = list("telepathically cries")
@@ -49,7 +46,6 @@
 /mob/living/basic/mining/hivelordbrood
 	name = "hivelord brood"
 	desc = "A fragment of the original Hivelord, rallying behind its original. One isn't much of a threat, but..."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Hivelordbrood"
 	icon_living = "Hivelordbrood"
 	icon_aggro = "Hivelordbrood"
@@ -149,21 +145,16 @@
 /mob/living/basic/mining/hivelord/legion
 	name = "legion"
 	desc = "You can still see what was once a person under the shifting mass of corruption."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "legion"
 	icon_living = "legion"
 	icon_aggro = "legion"
 	icon_dead = "legion"
-	icon_gib = "syndicate_gib"
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	mouse_opacity = MOUSE_OPACITY_ICON
 	obj_damage = 60
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	attack_verb_continuous = "lashes out at"
-	attack_verb_simple = "lash out at"
 	speak_emote = list("echoes")
-	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_blocked_message = "bounces harmlessly off of"
 	crusher_loot = /obj/item/crusher_trophy/legion_skull
 	loot = list(/obj/item/organ/internal/regenerative_core/legion)
@@ -209,23 +200,18 @@
 /mob/living/basic/mining/hivelordbrood/legion
 	name = "legion"
 	desc = "One of many."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "legion_head"
 	icon_living = "legion_head"
 	icon_aggro = "legion_head"
 	icon_dead = "legion_head"
-	icon_gib = "syndicate_gib"
 	maxHealth = 5
 	health = 5
-	harm_intent_damage = 5
 	melee_damage_lower = 12
 	melee_damage_upper = 12
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bites"
 	speak_emote = list("echoes")
-	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_blocked_message = "is shrugged off by"
-	basic_mob_flags = DEL_ON_DEATH
 	var/can_infest_dead = FALSE
 
 /mob/living/basic/mining/hivelordbrood/legion/melee_attack(mob/living/carbon/human/target, list/modifiers, ignore_cooldown)
@@ -282,7 +268,6 @@
 	maxHealth = 350
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	layer = MOB_LAYER
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
