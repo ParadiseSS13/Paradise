@@ -35,6 +35,13 @@
 	icon_state = "ward_turtle"
 	item_state = "ward_turtle"
 	item_color = "ward_turtle"
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/security.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/security.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/security.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/security.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/security.dmi'
+		)
 
 
 /obj/item/clothing/under/rank/security/officer
@@ -187,4 +194,10 @@
 	icon_state = "hos_turtle"
 	item_state = "hos_turtle"
 	item_color = "hos_turtle"
-
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/security.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/security.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/security.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/security.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/security.dmi'
+		)
