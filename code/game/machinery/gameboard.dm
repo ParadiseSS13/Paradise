@@ -1,6 +1,5 @@
 /obj/machinery/gameboard
 	name = "Virtual Gameboard"
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gboard_on"
 	desc = "A holographic table allowing the crew to have fun(TM) on boring shifts! One player per board."
 	density = TRUE

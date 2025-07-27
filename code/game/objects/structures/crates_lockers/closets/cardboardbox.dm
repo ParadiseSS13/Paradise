@@ -10,7 +10,6 @@
 	integrity_failure = 0
 	open_sound = 'sound/machines/cardboard_box.ogg'
 	close_sound = 'sound/machines/cardboard_box.ogg'
-	open_sound_volume = 35
 	close_sound_volume = 35
 	material_drop = /obj/item/stack/sheet/cardboard
 	/// How fast a mob can move inside this box.

@@ -43,9 +43,6 @@
 	name = "Coffee"
 	real_name = "Coffee"
 	desc = "It's Coffee, the other pet!"
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "stomps"
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
@@ -58,5 +55,4 @@
 	icon_dead = "evilcrab_dead"
 	response_help = "pokes"
 	response_disarm = "shoves"
-	response_harm = "stomps"
 	gold_core_spawnable = HOSTILE_SPAWN

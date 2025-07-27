@@ -4,7 +4,6 @@
 	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
-	use_sound = "rustle"
 	storage_slots = 50
 	max_combined_w_class = 50
 	can_hold = list(/obj/item/dice)
@@ -124,7 +123,6 @@
 /obj/item/dice/d20/fate
 	name = "\improper Die of Fate"
 	desc = "A die with twenty sides. You can feel unearthly energies radiating from it. Using this might be VERY risky."
-	icon_state = "d20"
 	var/reusable = TRUE
 	var/used = FALSE
 
@@ -418,7 +416,6 @@
 /obj/item/storage/box/dice
 	name = "Box of dice"
 	desc = "ANOTHER ONE!? FUCK!"
-	icon_state = "box"
 
 /obj/item/storage/box/dice/populate_contents()
 	new /obj/item/dice/d2(src)

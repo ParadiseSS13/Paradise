@@ -39,8 +39,6 @@
 	icon_state = "logs"
 	force = 5
 	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 2
 	throw_range = 3
 	origin_tech = "materials=1"
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
@@ -130,7 +128,6 @@
 	var/heat_factor = 1000 // How much does this heat up the air?
 	var/light_strength = 6
 	light_color = "#ED9200"
-	density = FALSE
 	anchored = TRUE
 	new_attack_chain = TRUE
 
@@ -229,8 +226,6 @@
 	desc = "For grilling, broiling, charring, smoking, heating, roasting, toasting, simmering, searing, melting, and occasionally burning things."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "bonfire"
-	density = FALSE
-	anchored = TRUE
 	buckle_lying = FALSE
 
 /obj/structure/lightable/bonfire/dense
@@ -289,7 +284,6 @@
 	..()
 
 /obj/structure/lightable/torch/lava_bridge
-	anchored = TRUE
 
 /obj/structure/lightable/torch/lava_bridge/Initialize(mapload)
 	. = ..()

@@ -1,6 +1,5 @@
 /datum/supply_packs/misc
 	name = "HEADER"
-	group = SUPPLY_MISC
 
 /datum/supply_packs/misc/mule
 	name = "MULEbot Crate"
@@ -526,7 +525,6 @@
 
 /datum/supply_packs/misc/vending/clothingvendor/cargo
 	name = "Cargo Clothing Vendors Crate"
-	cost = 50
 	contains = list(/obj/item/vending_refill/cargodrobe,
 					/obj/item/vending_refill/exploredrobe,
 					/obj/item/vending_refill/minedrobe)
