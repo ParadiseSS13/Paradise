@@ -15,13 +15,10 @@
 	You have more health than any other terror spider and deal extremely high damage to anything you attack. \
 	You can also lay eggs at an incredibly fast rate. \
 	You can also break through practically anything, so the crew will have zero hope of containing you. Have fun!"
-	ai_target_method = TS_DAMAGE_SIMPLE
 	maxHealth = 1000
 	health = 1000
 	melee_damage_lower = 30
 	melee_damage_upper = 60
-	ventcrawler = VENTCRAWLER_NUDE
-	idle_ventcrawl_chance = 0
 	ai_playercontrol_allowtype = 0
 	canlay = 1000
 	spider_tier = TS_TIER_5

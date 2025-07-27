@@ -1,7 +1,6 @@
 /mob/living/simple_animal/pet/sloth
 	name = "sloth"
 	desc = "An adorable, sleepy creature."
-	icon = 'icons/mob/pets.dmi'
 	icon_state = "sloth"
 	icon_living = "sloth"
 	icon_dead = "sloth_dead"
@@ -18,8 +17,6 @@
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
 	gold_core_spawnable = FRIENDLY_SPAWN
-	melee_damage_lower = 0
-	melee_damage_upper = 0
 	health = 50
 	maxHealth = 50
 	speed = 2

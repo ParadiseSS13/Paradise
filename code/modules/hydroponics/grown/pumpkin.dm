@@ -56,7 +56,6 @@
 	desc = "The pumpkin's toxic sibling."
 	icon_state = "blumpkin"
 	filling_color = "#87CEFA"
-	bitesize_mod = 2
 	tastes = list("blumpkin" = 1)
 	wine_power = 0.5
 	carved_type = /obj/item/clothing/head/hardhat/pumpkinhead/blumpkin

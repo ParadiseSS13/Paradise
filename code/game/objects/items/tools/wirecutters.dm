@@ -9,7 +9,6 @@
 	force = 6
 	throwforce = 5
 	throw_speed = 3
-	throw_range = 7
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 370)
 	origin_tech = "materials=1;engineering=1"
@@ -19,7 +18,6 @@
 	drop_sound = 'sound/items/handling/wirecutter_drop.ogg'
 	pickup_sound =  'sound/items/handling/wirecutter_pickup.ogg'
 	sharp = TRUE
-	toolspeed = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WIRECUTTER
 	var/random_color = TRUE
@@ -107,7 +105,6 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/wirecutters/cyborg
-	name = "wirecutters"
 	desc = "A pair of integrated wirecutters used by construction and engineering robots."
 	toolspeed = 0.5
 

@@ -1,8 +1,6 @@
 /obj/structure/transit_tube_construction
 	name = "transit tube segment"
 	desc = "An uninstalled piece of a transit tube network."
-	anchored = FALSE
-	density = FALSE
 
 	icon = 'icons/obj/pipes/transit_tube_rpd.dmi'
 
@@ -140,4 +138,3 @@
 	installed_type = /obj/structure/transit_tube/station/dispenser
 	base_icon_state = "transit_dispenser_station"
 	icon_state = "transit_dispenser_station"
-	is_station =  TRUE

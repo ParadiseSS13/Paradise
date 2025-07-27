@@ -10,8 +10,6 @@
 	var/rigged = FALSE
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
-	open_sound_volume = 35
-	close_sound_volume = 50
 	var/obj/item/paper/manifest/manifest
 	/// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
@@ -172,7 +170,6 @@
 	max_integrity = 500
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
-	broken = FALSE
 	locked = TRUE
 	can_be_emaged = TRUE
 	crate_value = 25 // rarer and cannot be crafted, bonus credits for exporting them

@@ -5,7 +5,6 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	desc = "Controls a stacking machine... in theory."
-	density = FALSE
 	anchored = TRUE
 	var/obj/machinery/mineral/stacking_machine/machine
 
