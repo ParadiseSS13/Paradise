@@ -191,8 +191,6 @@
 	attack_verb_simple = "hit"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	speak_emote = list("gurgles")
-	minimum_survivable_temperature = 0
-	maximum_survivable_temperature = 360
 	force_threshold = 10
 	mob_size = MOB_SIZE_LARGE
 	pressure_resistance = 50
