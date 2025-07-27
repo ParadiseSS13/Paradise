@@ -1545,8 +1545,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
  * * casted_magic_flags (optional) A bitfield with the types of magic resistance being checked (see flags at: /datum/component/anti_magic)
  * * charge_cost (optional) The cost of charge to block a spell that will be subtracted from the protection used
 **/
-/mob/proc/can_block_magic(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1)
-	if(casted_magic_flags == NONE) // magic with the NONE flag is immune to blocking
+/mob/proc/can_block_magic(casted_magic_flags, charge_cost = 1)
+	if(!casted_magic_flags || casted_magic_flags == NONE) // magic with the NONE flag is immune to blocking
 		return FALSE
 
 	// A list of all things which are providing anti-magic to us
