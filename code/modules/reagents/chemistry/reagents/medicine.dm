@@ -953,7 +953,7 @@
 		if(BM.stat == DEAD)
 			BM.revive()
 			BM.loot.Cut() //no abusing Lazarus Reagent for farming unlimited resources
-			BM.visible_message("<span class='warning'>[SM] seems to rise from the dead!</span>")
+			BM.visible_message("<span class='warning'>[BM] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))

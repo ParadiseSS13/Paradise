@@ -254,6 +254,16 @@ RESTRICT_TYPE(/mob/living/basic)
 				create_debug_log("woke up, trigger reason: [reason]")
 	med_hud_set_status()
 
+/mob/living/basic/revive()
+	..()
+	density = initial(density)
+	health = maxHealth
+	icon = initial(icon)
+	icon_state = icon_living
+	density = initial(density)
+	if(TRAIT_FLYING in initial_traits)
+		ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
+
 /mob/living/basic/death(gibbed)
 	. = ..()
 	if(!.)
