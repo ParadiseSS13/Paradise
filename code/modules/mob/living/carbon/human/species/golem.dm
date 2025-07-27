@@ -581,6 +581,7 @@
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/drinks/bottle/bottleofbanana(H), ITEM_SLOT_RIGHT_POCKET)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), ITEM_SLOT_LEFT_POCKET)
 	H.AddElement(/datum/element/waddling)
+	H.AddComponent(/datum/component/slippery, H, 8 SECONDS, 100, 0, FALSE, TRUE, "slip", TRUE)
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
 	. = ..()
