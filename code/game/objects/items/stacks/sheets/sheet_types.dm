@@ -464,7 +464,6 @@ GLOBAL_LIST_INIT(durathread_recipes, list (
 	desc = "A bundle of raw durathread ready to be spun on the loom."
 	singular_name = "raw durathread ball"
 	icon_state = "sheet-durathreadraw"
-	icon = 'icons/obj/stacks/organic.dmi'
 	merge_type = /obj/item/stack/sheet/cotton/durathread
 	pull_effort = 70
 	loom_result = /obj/item/stack/sheet/durathread
