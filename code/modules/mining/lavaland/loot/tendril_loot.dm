@@ -435,7 +435,6 @@
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 
 /obj/effect/immortality_talisman
-	icon = 'icons/effects/effects.dmi'
 	var/can_destroy = FALSE
 
 /obj/effect/immortality_talisman/Initialize(mapload)

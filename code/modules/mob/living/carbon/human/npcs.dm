@@ -5,7 +5,6 @@
 	species_restricted = list("Monkey")
 	species_exception = list(/datum/species/monkey)
 
-	icon = 'icons/obj/clothing/under/misc.dmi'
 	sprite_sheets = list("Monkey" = 'icons/mob/clothing/under/misc.dmi')
 
 /mob/living/carbon/human/monkey/punpun/Initialize(mapload)
