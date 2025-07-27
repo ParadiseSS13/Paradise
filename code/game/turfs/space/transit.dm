@@ -1,7 +1,5 @@
 /turf/space/transit
-	plane = PLANE_SPACE
 	icon_state = "black"
-	dir = SOUTH
 
 /turf/space/transit/Initialize(mapload)
 	. = ..()
@@ -10,7 +8,6 @@
 
 /// moving to the north
 /turf/space/transit/north
-	dir = SOUTH  // south because the space tile is scrolling south
 
 /// moving to the south
 /turf/space/transit/south

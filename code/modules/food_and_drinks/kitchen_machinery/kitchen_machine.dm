@@ -4,7 +4,6 @@
 /obj/machinery/kitchen_machine
 	name = "Base Kitchen Machine"
 	desc = "If you are seeing this, a coder/mapper messed up. Please report it."
-	layer = 2.9
 	density = TRUE
 	anchored = TRUE
 	idle_power_consumption = 5

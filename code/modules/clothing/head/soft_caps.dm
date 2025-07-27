@@ -40,28 +40,24 @@
 	desc = "It's a baseball hat in a tasteless red colour."
 	icon_state = "redsoft"
 	item_color = "red"
-	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/blue
 	name = "blue cap"
 	desc = "It's a baseball hat in a tasteless blue colour."
 	icon_state = "bluesoft"
 	item_color = "blue"
-	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/green
 	name = "green cap"
 	desc = "It's a baseball hat in a tasteless green colour."
 	icon_state = "greensoft"
 	item_color = "green"
-	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/yellow
 	name = "yellow cap"
 	desc = "It's a baseball hat in a tasteless yellow colour."
 	icon_state = "yellowsoft"
 	item_color = "yellow"
-	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/orange
 	name = "orange cap"
@@ -74,28 +70,24 @@
 	desc = "It's a baseball hat in a tasteless white colour."
 	icon_state = "whitesoft"
 	item_color = "white"
-	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/purple
 	name = "purple cap"
 	desc = "It's a baseball hat in a tasteless purple colour."
 	icon_state = "purplesoft"
 	item_color = "purple"
-	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/black
 	name = "black cap"
 	desc = "It's a baseball hat in a tasteless black colour."
 	icon_state = "blacksoft"
 	item_color = "black"
-	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/rainbow
 	name = "rainbow cap"
 	desc = "It's a baseball hat in a bright rainbow of colors."
 	icon_state = "rainbowsoft"
 	item_color = "rainbow"
-	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/cargo
 	name = "cargo cap"
@@ -130,14 +122,12 @@
 	desc = "It's a grey baseball hat with a purple custodial shield."
 	icon_state = "janitorgreysoft"
 	item_color = "janitorgrey"
-	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/janitorpurple
 	name = "purple janitor's cap"
 	desc = "It's a purple baseball hat with a mint service shield."
 	icon_state = "janitorpurplesoft"
 	item_color = "janitorpurple"
-	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/paramedic
 	name = "\improper EMT cap"
@@ -153,7 +143,6 @@
 	item_color = "sec"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 60
-	dog_fashion = /datum/dog_fashion/head/softcap
 
 /obj/item/clothing/head/soft/sec/corp
 	name = "corporate security cap"

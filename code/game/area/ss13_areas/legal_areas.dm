@@ -6,7 +6,6 @@
 
 /area/station/legal/courtroom/gallery
 	name = "\improper Courtroom Gallery"
-	icon_state = "courtroom"
 	request_console_name = "Courtroom"
 
 /area/station/legal/lawoffice

@@ -3,7 +3,6 @@
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 
 	base_cooldown = 200
-	clothes_req = TRUE
 	invocation = "FORTI GY AMA"
 	invocation_type = "shout"
 	cooldown_min = 60 //35 deciseconds reduction per rank
@@ -86,7 +85,6 @@
 	desc = "This spell causes you to turn into a hulk and gain laser vision for a short while."
 
 	base_cooldown = 400
-	clothes_req = TRUE
 	invocation = "BIRUZ BENNAR"
 	invocation_type = "shout"
 	message = "<span class='notice'>You feel strong! You feel a pressure building behind your eyes!</span>"
@@ -113,7 +111,6 @@
 	base_cooldown = 120
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
 	cooldown_min = 20 //25 deciseconds reduction per rank
 
 	smoke_type = SMOKE_COUGHING
@@ -128,7 +125,6 @@
 	name = "Disable Tech"
 	desc = "This spell disables all weapons, cameras and most other technology in range."
 	base_cooldown = 40 SECONDS
-	clothes_req = TRUE
 	invocation = "NEC CANTIO"
 	invocation_type = "shout"
 	cooldown_min = 200 //50 deciseconds reduction per rank
@@ -143,9 +139,7 @@
 	desc = "This spell randomly teleports you a short distance."
 
 	base_cooldown = 20
-	clothes_req = TRUE
 	invocation = "none"
-	invocation_type = "none"
 	cooldown_min = 5 //4 deciseconds reduction per rank
 
 
@@ -170,7 +164,6 @@
 	desc = "This spell teleports you to a type of area of your selection."
 
 	base_cooldown = 600
-	clothes_req = TRUE
 	invocation = "SCYAR NILA"
 	invocation_type = "shout"
 	cooldown_min = 200 //100 deciseconds reduction per rank
@@ -189,7 +182,6 @@
 	desc = "This spell teleports you back to your teacher."
 
 	base_cooldown = 30 SECONDS
-	clothes_req = TRUE
 	invocation = "SCYAR TESO"
 	invocation_type = "shout"
 	cooldown_min = 10 SECONDS
@@ -235,11 +227,9 @@
 	name = "Stop Time"
 	desc = "This spell stops time for everyone except for you, allowing you to move freely while your enemies and even projectiles are frozen."
 	base_cooldown = 50 SECONDS
-	clothes_req = TRUE
 	invocation = "TOKI WO TOMARE"
 	invocation_type = "shout"
 	cooldown_min = 100
-	summon_amt = 1
 	delay = 0
 	action_icon_state = "time"
 
@@ -252,7 +242,6 @@
 	desc = "This spell conjures a simple carp."
 
 	base_cooldown = 1200
-	clothes_req = TRUE
 	invocation = "NOUK FHUNMM SACP RISSKA"
 	invocation_type = "shout"
 
@@ -268,7 +257,6 @@
 	base_cooldown = 600
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
 
 	summon_type = list(/obj/structure/constructshell)
 
@@ -340,7 +328,6 @@
 	action_icon_state = "fireball0"
 	sound = 'sound/magic/fireball.ogg'
 
-	active = FALSE
 
 /datum/spell/fireball/apprentice
 	centcom_cancast = FALSE
@@ -390,13 +377,11 @@
 	fireball_type = /obj/item/projectile/homing/magic/homing_fireball
 
 	selection_activated_message = "<span class='notice'>You prepare to cast your greater homing fireball spell! <B>Left-click to cast at a target!</B></span>"
-	base_cooldown = 6 SECONDS
 
 /datum/spell/aoe/repulse
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
 	base_cooldown = 40 SECONDS
-	clothes_req = TRUE
 	invocation = "GITTAH WEIGH"
 	invocation_type = "shout"
 	cooldown_min = 150
@@ -476,7 +461,6 @@
 	name = "Corpse Explosion"
 	desc = "Fills a corpse with energy, causing it to explode violently."
 	base_cooldown = 5 SECONDS
-	clothes_req = TRUE
 	invocation = "JAH ITH BER"
 	invocation_type = "whisper"
 	selection_activated_message = "<span class='notice'>You prepare to detonate a corpse. Click on a target to cast the spell.</span>"

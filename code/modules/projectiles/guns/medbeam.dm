@@ -4,7 +4,6 @@
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
 	item_state = "chronogun"
-	w_class = WEIGHT_CLASS_NORMAL
 
 	var/mob/living/current_target
 	var/last_check = 0
@@ -145,7 +144,6 @@
 
 /obj/item/gun/medbeam/damaged
 	name = "damaged beamgun"
-	desc = "Delivers volatile medical nanites in a focused beam. Don't cross the beams!"
 	///How hot the beamgun is, if it hits max heat it will break
 	var/current_heat = 0
 	///How much heat the beamgun needs to break

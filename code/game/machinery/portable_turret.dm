@@ -14,10 +14,8 @@
 	icon_state = "standard_off"
 	base_icon_state = "standard"
 	anchored = TRUE
-	density = FALSE
 	idle_power_consumption = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_consumption = 300	//when active, this turret takes up constant 300 Equipment power
-	power_channel = PW_CHANNEL_EQUIPMENT	//drains power from the EQUIPMENT channel
 	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, rad = 0, fire = 90, acid = 90)
 	///this will be visible when above doors/firelocks/blastdoors to prevent cheese
 	layer = ABOVE_OBJ_LAYER
@@ -880,12 +878,7 @@
 	name = "\improper Centcomm turret"
 	enabled = FALSE
 	ailock = TRUE
-	check_synth	 = FALSE
-	check_access = TRUE
-	check_arrest = TRUE
-	check_records = TRUE
 	check_weapons = TRUE
-	check_anomalies = TRUE
 	region_max = REGION_CENTCOMM // Non-turretcontrolled turrets at CC can have their access customized to check for CC accesses.
 	deployment_override = TRUE
 
@@ -1154,9 +1147,7 @@
 	targetting_is_configurable = FALSE
 	check_arrest = FALSE
 	check_records = FALSE
-	check_weapons = FALSE
 	check_access = FALSE
-	check_anomalies = TRUE
 	check_synth	= TRUE
 	ailock = TRUE
 	var/area/syndicate_depot/core/depotarea
@@ -1207,8 +1198,6 @@
 /obj/machinery/porta_turret/syndicate/exterior
 	name = "machine gun turret (7.62)"
 	desc = "Syndicate exterior defense turret chambered for 7.62 rounds. Designed to down intruders with heavy calliber bullets."
-	projectile = /obj/item/projectile/bullet
-	eprojectile = /obj/item/projectile/bullet
 
 /obj/machinery/porta_turret/syndicate/turret_outpost
 	name = "machine gun turret (5.56x45mm)"
@@ -1259,9 +1248,7 @@
 	targetting_is_configurable = FALSE
 	check_arrest = FALSE
 	check_records = FALSE
-	check_weapons = FALSE
 	check_access = FALSE
-	check_anomalies = TRUE
 	check_synth	= TRUE
 	ailock = TRUE
 	var/owner_uid
