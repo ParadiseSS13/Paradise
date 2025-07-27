@@ -58,7 +58,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	density = TRUE
 	flags = CONDUCT
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 80, ACID = 50)
-	max_integrity = 250
 	integrity_failure = 100
 	cares_about_temperature = TRUE
 
@@ -76,7 +75,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	pressure_resistance = 7 * ONE_ATMOSPHERE
 	var/temperature_resistance = 1000 + T0C
 	volume = 1000
-	power_state = NO_POWER_USE
 	interact_offline = TRUE
 	var/release_log = ""
 	var/current_pressure_appearance

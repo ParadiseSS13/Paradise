@@ -2,7 +2,6 @@
 
 /obj/machinery/computer/prisoner
 	name = "labor camp points manager"
-	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "security_key"
 	icon_screen = "explosive"
 	req_access = list(ACCESS_BRIG)

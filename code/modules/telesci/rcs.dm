@@ -14,9 +14,7 @@
 	flags = CONDUCT
 	force = 10.0
 	throwforce = 10.0
-	throw_speed = 2
 	throw_range = 5
-	toolspeed = 1
 	usesound = 'sound/weapons/flash.ogg'
 	origin_tech = "bluespace=3"
 	/// Power cell (10000W)

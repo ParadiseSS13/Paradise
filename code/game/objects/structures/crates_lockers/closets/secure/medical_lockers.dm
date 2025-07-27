@@ -197,6 +197,8 @@
 	new /obj/item/key/ambulance(src)
 	new /obj/item/handheld_defibrillator(src)
 	new /obj/item/storage/bag/garment/paramedic(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/storage/firstaid/adv(src)

@@ -8975,10 +8975,13 @@
 /area/station/maintenance/fpmaint2)
 "aFV" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes,
-/obj/item/ashtray/glass,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
+	},
+/obj/item/ashtray/glass,
+/obj/item/storage/fancy/cigarettes/cigpack_our_brand{
+	pixel_x = 11;
+	pixel_y = 3
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/fpmaint2)
@@ -14005,6 +14008,10 @@
 /obj/structure/closet/wardrobe/xenos,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"aXx" = (
+/obj/structure/closet/wardrobe/grey,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "aXA" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -17970,12 +17977,13 @@
 /area/station/hallway/primary/port/west)
 "bkc" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/cigarettes{
-	pixel_y = 2
-	},
 /obj/item/lighter{
-	pixel_x = 4;
-	pixel_y = 2
+	pixel_x = 8;
+	pixel_y = 5
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_solar_rays{
+	pixel_x = -2;
+	pixel_y = 3
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/hallway/secondary/entry/lounge)
@@ -24392,13 +24400,13 @@
 	},
 /area/station/medical/paramedic)
 "bHL" = (
-/obj/structure/closet/paramedic,
 /obj/machinery/light,
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/structure/closet/secure_closet/paramedic,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
@@ -51529,7 +51537,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/scarybat,
+/mob/living/basic/scarybat,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -58841,13 +58849,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "jje" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "arrival"
-	},
+/turf/simulated/wall,
 /area/station/hallway/secondary/entry/south)
 "jjs" = (
 /obj/effect/decal/cleanable/ash,
@@ -60749,6 +60751,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"kfG" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/south)
 "kgc" = (
 /obj/item/reagent_containers/drinks/cans/badminbrew,
 /turf/simulated/floor/plating,
@@ -65302,7 +65313,7 @@
 	pixel_x = 12;
 	pixel_y = 2
 	},
-/obj/item/storage/fancy/cigarettes{
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
 	pixel_x = 14
 	},
 /mob/living/simple_animal/parrot/poly,
@@ -67126,7 +67137,6 @@
 	},
 /area/station/science/break_room)
 "nmO" = (
-/obj/structure/closet/secure_closet/paramedic,
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
@@ -70226,9 +70236,6 @@
 	icon_state = "dark"
 	},
 /area/station/science/server)
-"oID" = (
-/turf/simulated/wall,
-/area/station/hallway/secondary/entry/south)
 "oJc" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -77053,10 +77060,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"rXn" = (
-/obj/structure/closet/wardrobe/grey,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "rYm" = (
 /obj/structure/girder,
 /turf/simulated/floor/plasteel,
@@ -77593,7 +77596,7 @@
 	req_one_access = list(33,41)
 	},
 /obj/effect/spawner/random/maintenance,
-/mob/living/simple_animal/hostile/scarybat,
+/mob/living/basic/scarybat,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -78206,7 +78209,7 @@
 /obj/structure/bed,
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/mob_spawn/human/corpse/skeleton,
-/mob/living/simple_animal/hostile/scarybat,
+/mob/living/basic/scarybat,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -97666,7 +97669,7 @@ aab
 aaa
 cqY
 aXu
-rXn
+aXx
 pYy
 jyO
 uWH
@@ -101795,7 +101798,7 @@ eBd
 bMb
 pNe
 jXy
-jje
+kfG
 qJd
 vwz
 bDC
@@ -102832,7 +102835,7 @@ bnS
 bnS
 wDj
 blQ
-oID
+jje
 hTL
 hgO
 ukh
