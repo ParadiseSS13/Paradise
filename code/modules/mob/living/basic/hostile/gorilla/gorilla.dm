@@ -23,10 +23,8 @@
 	damage_coeff = list(BRUTE = 1, BURN = 1.5, TOX = 1.5, CLONE = 0, STAMINA = 0, OXY = 1.5)
 	obj_damage = 20
 	environment_smash = ENVIRONMENT_SMASH_WALLS | ENVIRONMENT_SMASH_STRUCTURES
-	attack_sound = 'sound/weapons/punch1.ogg'
 	faction = list("hostile", "monkey", "jungle")
 	minimum_survivable_temperature = 270
-	maximum_survivable_temperature = 350
 	step_type = FOOTSTEP_MOB_BAREFOOT
 	a_intent = INTENT_HARM // Angrilla
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/gorilla
