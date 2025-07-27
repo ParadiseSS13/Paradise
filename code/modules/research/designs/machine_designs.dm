@@ -107,7 +107,6 @@
 	desc = "The circuit board for an Industrial Suit Storage Unit."
 	id = "issu"
 	req_tech = list("engineering" = 5, "materials" = 4)
-	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/suit_storage_unit/industrial
 	category = list("Engineering Machinery")

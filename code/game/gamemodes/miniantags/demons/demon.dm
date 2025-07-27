@@ -6,11 +6,9 @@
 	response_help  = "thinks better of touching"
 	response_disarm = "flails at"
 	response_harm   = "punches"
-	speed = 1
 	a_intent = INTENT_HARM
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	stop_automated_movement = TRUE
-	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	death_sound = 'sound/misc/demon_dies.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)

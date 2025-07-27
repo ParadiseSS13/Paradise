@@ -328,9 +328,11 @@
 
 /obj/item/storage/bag/garment/paramedic/populate_contents()
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
-	new /obj/item/clothing/head/soft/blue(src)
+	new /obj/item/clothing/under/rank/medical/paramedic/skirt(src)
+	new /obj/item/clothing/head/soft/paramedic(src)
+	new /obj/item/clothing/head/beret/paramedic(src)
 	new /obj/item/clothing/suit/storage/labcoat/emt(src)
-	new /obj/item/clothing/suit/storage/paramedic(src)
+	new /obj/item/clothing/suit/storage/hazardvest/paramedic(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)

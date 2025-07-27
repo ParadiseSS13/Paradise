@@ -240,9 +240,7 @@
 	icon_state = "entertainment_console"
 	icon_screen = "entertainment_off"
 	light_color = "#FFEEDB"
-	light_range_on = 0
 	network = list("news")
-	luminosity = 0
 	circuit = null
 	/// Icon utilised when feeds_on is true
 	var/icon_screen_on = "entertainment"

@@ -48,7 +48,6 @@
 	projectile_type = /obj/item/projectile/beam/scatter/eshotgun
 	pellets = 6
 	variance = 25
-	select_name = "kill"
 	delay = 1 SECONDS
 
 /obj/item/ammo_casing/energy/laser/eshotgun/cyborg
@@ -91,7 +90,6 @@
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/item/projectile/beam/xray
 	muzzle_flash_color = LIGHT_COLOR_GREEN
-	e_cost = 100
 	fire_sound = 'sound/weapons/laser3.ogg'
 
 /obj/item/ammo_casing/energy/immolator
@@ -101,7 +99,6 @@
 
 /obj/item/ammo_casing/energy/immolator/strong
 	projectile_type = /obj/item/projectile/beam/immolator/strong
-	e_cost = 125
 	select_name = "precise"
 
 /obj/item/ammo_casing/energy/immolator/strong/cyborg
@@ -110,7 +107,6 @@
 
 /obj/item/ammo_casing/energy/immolator/scatter
 	projectile_type = /obj/item/projectile/beam/immolator/weak
-	e_cost = 125
 	pellets = 6
 	variance = 25
 	select_name = "scatter"
@@ -204,11 +200,7 @@
 
 /obj/item/ammo_casing/energy/disabler/eshotgun
 	projectile_type = /obj/item/projectile/beam/disabler/pellet
-	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
-	select_name  = "disable"
 	e_cost = 75
-	fire_sound = 'sound/weapons/taser2.ogg'
-	harmful = FALSE
 	delay = 1 SECONDS
 	pellets = 6
 	variance = 25
@@ -237,7 +229,6 @@
 	projectile_type = /obj/item/projectile/beam/wormhole
 	muzzle_flash_color = "#33CCFF"
 	delay = 10
-	e_cost = 100
 	fire_sound = 'sound/weapons/pulse3.ogg'
 	var/obj/item/gun/energy/wormhole_projector/gun = null
 	select_name = "blue"
@@ -327,7 +318,6 @@
 	projectile_type = /obj/item/projectile/beam/emitter
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	fire_sound = 'sound/weapons/emitter.ogg'
-	e_cost = 100
 	delay = 2 SECONDS // Lasers fire twice every second for 40 dps, this fires every 2 seconds for 15 dps. Seems fair, since every cyborg will have this with more shots?
 	select_name = "emitter"
 

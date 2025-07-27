@@ -1,6 +1,4 @@
 /obj/item/projectile/hivebotbullet
-	damage = 10
-	damage_type = BRUTE
 
 /mob/living/simple_animal/hostile/hivebot
 	name = "Hivebot"
@@ -31,7 +29,6 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/hostile/hivebot/range
-	name = "Hivebot"
 	desc = "A smallish robot, this one is armed!"
 	ranged = TRUE
 	retreat_distance = 5

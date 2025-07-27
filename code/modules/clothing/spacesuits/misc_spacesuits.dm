@@ -5,7 +5,6 @@
 	item_state = "capspacehelmet"
 	desc = "A special helmet designed for only the most fashionable of military figureheads."
 	flags_inv = HIDEFACE
-	permeability_coefficient = 0.01
 	armor = list(MELEE = 35, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 50, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 
 	sprite_sheets = list(
@@ -27,7 +26,6 @@
 	desc = "A bulky, heavy-duty piece of exclusive Nanotrasen armor. YOU are in charge!"
 	icon_state = "caparmor"
 	item_state = "capspacesuit"
-	w_class = WEIGHT_CLASS_BULKY
 	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
 	armor = list(MELEE = 35, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 50, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 
@@ -64,7 +62,6 @@
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	strip_delay = 130
 	dog_fashion = /datum/dog_fashion/back/deathsquad
-	dyeable = FALSE
 
 /obj/item/clothing/suit/space/deathsquad/Initialize(mapload)
 	. = ..()
@@ -99,8 +96,6 @@
 	flags_inv = 0
 	slowdown = 0
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	flags_2 = RAD_PROTECT_CONTENTS_2
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/space/deathsquad/officer/solgov
@@ -210,7 +205,6 @@
 /obj/item/clothing/suit/space/eva
 	name = "EVA suit"
 	icon_state = "spacenew"
-	item_state = "s_suit"
 	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 50, ACID = 95)
 
@@ -230,7 +224,6 @@
 /obj/item/clothing/head/helmet/space/eva
 	name = "EVA helmet"
 	icon_state = "spacenew"
-	item_state = "s_helmet"
 	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 50, ACID = 95)

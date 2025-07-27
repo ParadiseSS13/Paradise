@@ -4,7 +4,6 @@
 	icon_state = "start"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	has_gravity = TRUE
 	ambientsounds = null // No ambient sounds in the lobby
 
 
