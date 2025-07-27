@@ -15,4 +15,3 @@
 /obj/item/suppressor/specialoffer
 	name = "cheap suppressor"
 	desc = "A foreign knock-off suppressor, it feels flimsy, cheap, and brittle. Still fits all weapons."
-	icon_state = "suppressor"

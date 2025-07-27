@@ -252,7 +252,6 @@
 /obj/item/gun/projectile/automatic/tommygun
 	name = "\improper Thompson SMG"
 	desc = "A genuine 'Chicago Typewriter'."
-	icon_state = "tommygun"
 	item_state = "shotgun"
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = 0

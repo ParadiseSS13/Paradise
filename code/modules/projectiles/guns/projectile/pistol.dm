@@ -13,7 +13,6 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
-	can_suppress = TRUE
 	can_flashlight = TRUE
 	burst_size = 1
 	fire_delay = 0
@@ -42,12 +41,9 @@
 	desc = "A classic .45 handgun with a small magazine capacity."
 	icon_state = "m1911"
 	item_state = "m1911"
-	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = FALSE
-	can_flashlight = TRUE
 
 /obj/item/gun/projectile/automatic/pistol/update_overlays()
 	. = list()
@@ -63,12 +59,9 @@
 	desc = "A 9mm sidearm commonly used by Nanotrasen Asset Protection."
 	icon_state = "enforcer_grey"
 	item_state = "enforcer_grey"
-	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/enforcer
 	unique_reskin = TRUE
-	can_flashlight = TRUE
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/Initialize(mapload)
 	. = ..()

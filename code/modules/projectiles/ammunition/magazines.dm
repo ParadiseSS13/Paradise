@@ -364,25 +364,16 @@
 	name = "Type 230 magazine (10mm incendiary)"
 	icon_state = "10mmapsI"
 	ammo_type = /obj/item/ammo_casing/c10mm/fire
-	caliber = "10mm"
-	max_ammo = 20
-	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/apsm10mm/hp
 	name = "Type 230 magazine (10mm HP)"
 	icon_state = "10mmapsH"
 	ammo_type = /obj/item/ammo_casing/c10mm/hp
-	caliber = "10mm"
-	max_ammo = 20
-	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/apsm10mm/ap
 	name = "Type 230 magazine (10mm AP)"
 	icon_state = "10mmapsA"
 	ammo_type = /obj/item/ammo_casing/c10mm/ap
-	caliber = "10mm"
-	max_ammo = 20
-	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/smgm45
 	name = "\improper SMG magazine (.45)"
@@ -410,7 +401,6 @@
 
 /obj/item/ammo_box/magazine/m75
 	name = "specialized magazine (.75)"
-	icon_state = "75"
 	ammo_type = /obj/item/ammo_casing/caseless/a75
 	caliber = "75"
 	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
