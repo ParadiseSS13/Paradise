@@ -15,7 +15,6 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/effect/clockwork
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 // An "overlay" used by clockwork walls and floors to appear normal to mesons.
 /obj/effect/clockwork/overlay
@@ -168,7 +167,6 @@
 	randomsinglesprite = TRUE
 	icon_state = "shard_large"
 	base_icon_state = "shard_large"
-	scatter_distance = 9
 
 /obj/item/clockwork/alloy_shards/medium
 	w_class = WEIGHT_CLASS_TINY
@@ -224,7 +222,6 @@
 	name = "blind eye"
 	desc = "A heavy brass eye, its red iris fallen dark."
 	icon_state = "blind_eye"
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clockwork/component/belligerent_eye/lens_gem
 	name = "lens gem"
@@ -244,7 +241,6 @@
 	name = "onyx prism"
 	desc = "An onyx prism with a small aperture. It's very heavy."
 	icon_state = "onyx_prism"
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clockwork/component/geis_capacitor
 	name = "geis capacitor"
@@ -255,7 +251,6 @@
 	name = "fallen armor"
 	desc = "Lifeless chunks of armor. They're designed in a strange way and won't fit on you."
 	icon_state = "fallen_armor"
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clockwork/component/geis_capacitor/antennae
 	name = "mania motor antennae"
@@ -271,13 +266,11 @@
 	name = "smashed anima fragment"
 	desc = "Shattered chunks of metal. Damaged beyond repair and completely unusable."
 	icon_state = "smashed_anime_fragment"
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clockwork/component/replicant_alloy/replication_plate
 	name = "replication plate"
 	desc = "A flat, heavy disc of metal with a triangular formation on its surface."
 	icon_state = "replication_plate"
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clockwork/component/hierophant_ansible
 	name = "hierophant ansible"
@@ -288,7 +281,6 @@
 	name = "obelisk prism"
 	desc = "A prism that occasionally glows brightly. It seems not-quite there."
 	icon_state = "obelisk_prism"
-	w_class = WEIGHT_CLASS_NORMAL
 
 //Ratvarian spear
 /obj/item/spear/ratvarian_spear

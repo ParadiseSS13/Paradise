@@ -155,14 +155,6 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 // Modsuits
 #define ismodcontrol(A) istype(A, /obj/item/mod/control)
 
-// Meteors
-GLOBAL_LIST_INIT(turfs_pass_meteor, typecacheof(list(
-	/turf/simulated/floor/plating/asteroid,
-	/turf/space
-)))
-
-#define ispassmeteorturf(A) (is_type_in_typecache(A, GLOB.turfs_pass_meteor))
-
 #define is_screen_atom(A) istype(A, /atom/movable/screen)
 
 #define is_multi_tile_object(atom) (atom?.bound_width > world.icon_size || atom?.bound_height > world.icon_size)

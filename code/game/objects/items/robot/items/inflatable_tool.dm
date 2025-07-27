@@ -1,6 +1,4 @@
 /obj/item/inflatable/cyborg
-	name = "inflatable wall"
-	desc = "A folded membrane which rapidly expands into a large cubical shape on activation."
 	var/power_use = 400
 	var/structure_type = /obj/structure/inflatable
 	/// How long it takes to inflate

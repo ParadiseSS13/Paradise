@@ -213,7 +213,6 @@
 	reagent_state = LIQUID
 	color = "#757547"
 	taste_description = "puke"
-	harmless = FALSE
 
 /datum/reagent/fishwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
@@ -233,8 +232,6 @@
 	name = "Toilet Water"
 	id = "toiletwater"
 	description = "Filthy water scoured from a nasty toilet bowl. Absolutely disgusting."
-	reagent_state = LIQUID
-	color = "#757547"
 	taste_description = "the inside of a toilet... or worse"
 
 /datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //For shennanigans
@@ -370,7 +367,6 @@
 	name = "Unholy Water"
 	id = "unholywater"
 	description = "Something that shouldn't exist on this plane of existence."
-	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 	metabolization_rate = 1
 	taste_description = "sulfur"
 
@@ -466,7 +462,6 @@
 	description = "A sticky compound that creates tar on contact with surfaces."
 	reagent_state = LIQUID
 	color = "#4B4B4B"
-	harmless = FALSE
 	taste_description = "processed sludge"
 
 /datum/reagent/tar_compound/reaction_turf(turf/simulated/T, volume)

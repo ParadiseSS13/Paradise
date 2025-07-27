@@ -89,35 +89,22 @@
  // Wise words. - Bxil
 /obj/machinery/door/poddoor/multi_tile
 	name = "large pod door"
-	layer = CLOSED_BLASTDOOR_LAYER
-	closingLayer = CLOSED_BLASTDOOR_LAYER
-
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door/poddoor/multi_tile, 0, 0)
-
-/obj/machinery/door/poddoor/multi_tile/double
 	icon = 'icons/obj/doors/blastdoor_1x2.dmi'
+	layer = CLOSED_BLASTDOOR_LAYER
 	width = 2
-
-MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/poddoor/multi_tile/double, 32)
 
 /obj/machinery/door/poddoor/multi_tile/triple
 	icon = 'icons/obj/doors/blastdoor_1x3.dmi'
 	width = 3
 
-MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/poddoor/multi_tile/triple, 64)
-
 /obj/machinery/door/poddoor/multi_tile/quad
 	icon = 'icons/obj/doors/blastdoor_1x4.dmi'
 	width = 4
-
-MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/poddoor/multi_tile/quad, 96)
 
 /obj/machinery/door/poddoor/multi_tile/impassable
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	move_resist = INFINITY
-
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door/poddoor/multi_tile/impassable, 0, 0)
 
 /obj/machinery/door/poddoor/multi_tile/impassable/hostile_lockdown()
 	return
@@ -129,20 +116,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door/poddoor/multi_tile/impassable, 0
 	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
 	return
 
-/obj/machinery/door/poddoor/multi_tile/impassable/double
-	icon = 'icons/obj/doors/blastdoor_1x2.dmi'
-	width = 2
-
-MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/poddoor/multi_tile/impassable/double, 32)
-
 /obj/machinery/door/poddoor/multi_tile/impassable/triple
 	icon = 'icons/obj/doors/blastdoor_1x3.dmi'
 	width = 3
 
-MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/poddoor/multi_tile/impassable/triple, 64)
-
 /obj/machinery/door/poddoor/multi_tile/impassable/quad
 	icon = 'icons/obj/doors/blastdoor_1x4.dmi'
 	width = 4
-
-MAPPING_DIRECTIONAL_HELPERS_MULTITILE(/obj/machinery/door/poddoor/multi_tile/impassable/quad, 96)
