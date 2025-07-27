@@ -41,6 +41,11 @@
 	item_state = "plantbgone"
 	belt_icon = null
 	volume = 100
+	container_type = OPENCONTAINER
+	slot_flags = ITEM_SLOT_BELT
+	throwforce = 0
+	w_class = WEIGHT_CLASS_SMALL
+	throw_speed = 3
 	throw_range = 10
 	list_reagents = list("atrazine" = 100)
 
@@ -57,6 +62,11 @@
 	item_state = "plantbgone"
 	belt_icon = null
 	volume = 100
+	container_type = OPENCONTAINER
+	slot_flags = ITEM_SLOT_BELT
+	throwforce = 0
+	w_class = WEIGHT_CLASS_SMALL
+	throw_speed = 3
 	throw_range = 10
 	list_reagents = list("pestkiller" = 100)
 
@@ -134,6 +144,7 @@
 	icon_state = "scythe0"
 	force = 13
 	throwforce = 5
+	throw_speed = 2
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
@@ -237,9 +248,13 @@
 /obj/item/reagent_containers/glass/bottle/nutrient
 	name = "jug of nutrient"
 	desc = "A decent sized plastic jug."
+	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug"
 	item_state = "plastic_jug"
+	w_class = WEIGHT_CLASS_TINY
+	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(1,2,5,10,20,40,80)
+	container_type = OPENCONTAINER
 	volume = 80
 	hitsound = 'sound/weapons/jug_empty_impact.ogg'
 	mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
@@ -292,6 +307,7 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	name = "jug of E-Z-Nutrient"
 	desc = "Contains a basic fertilizer with no special traits."
+	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_ez"
 	list_reagents = list("eznutrient" = 80)
 
@@ -304,19 +320,25 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z
 	name = "jug of Left 4 Zed"
 	desc = "Contains a fertilizer that limits plant yields to no more than one and causes significant mutations in plants."
+	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_l4z"
 	list_reagents = list("left4zednutrient" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
 	name = "jug of Robust Harvest"
 	desc = "Contains a fertilizer that increases the yield of a plant by 30% while causing no mutations."
+	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_rh"
 	list_reagents = list("robustharvestnutrient" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/empty
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "plastic_jug"
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer
+	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_k"
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/Initialize(mapload)
 	. = ..()
@@ -325,11 +347,13 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller
 	name = "jug of weed killer"
 	desc = "Contains a herbicide."
+	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_wk"
 	list_reagents = list("atrazine" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller
 	name = "jug of pest spray"
 	desc = "Contains a pesticide."
+	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_pk"
 	list_reagents = list("pestkiller" = 80)

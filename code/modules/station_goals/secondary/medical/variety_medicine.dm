@@ -1,5 +1,6 @@
 /datum/station_goal/secondary/variety_reagent/medchem
 	name = "Variety of Medicine"
+	progress_type = /datum/secondary_goal_progress/variety_reagent
 	department = "Chemistry"
 	generic_name_plural = "medicines"
 	weight = 1

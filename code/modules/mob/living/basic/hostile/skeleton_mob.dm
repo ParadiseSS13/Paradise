@@ -29,6 +29,7 @@
 	faction = list("skeleton")
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	basic_mob_flags = DEL_ON_DEATH
+	speed = 1
 	step_type = FOOTSTEP_MOB_SHOE
 	gold_core_spawnable = HOSTILE_SPAWN
 	loot = list(/obj/effect/decal/remains/human)
@@ -58,11 +59,14 @@
 /mob/living/basic/skeleton/warden
 	name = "skeleton warden"
 	desc = "The remains of a warden."
+	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "skeleton_warden"
 	icon_living = "skeleton_warden"
 	loot = list(/obj/effect/decal/cleanable/shreds, /mob/living/basic/skeleton/angered_warden)
 	maxHealth = 300
 	health = 300
+	melee_damage_lower = 15
+	melee_damage_upper = 15
 	death_message = null
 	gold_core_spawnable = NO_SPAWN
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/skeleton_warden
@@ -73,10 +77,12 @@
 /mob/living/basic/skeleton/angered_warden
 	name = "angered skeleton warden" // round 2
 	desc = "An angry skeleton."
+	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "skeleton_warden_alt"
 	icon_living = "skeleton_warden_alt"
 	attack_verb_simple = "claw"
 	attack_verb_continuous = "claws"
+	attack_sound = 'sound/hallucinations/growl1.ogg'
 	maxHealth = 200
 	health = 200
 	speed = -1

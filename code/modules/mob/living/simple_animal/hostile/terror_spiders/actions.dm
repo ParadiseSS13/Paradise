@@ -56,6 +56,7 @@
 
 /datum/action/innate/terrorspider/mother/royaljelly
 	name = "Lay Royal Jelly"
+	button_overlay_icon = 'icons/mob/actions/actions.dmi'
 	button_overlay_icon_state = "spiderjelly"
 
 /datum/action/innate/terrorspider/mother/royaljelly/Activate()
@@ -93,6 +94,7 @@
 
 /datum/action/innate/terrorspider/queen/queensense
 	name = "Hive Sense"
+	button_overlay_icon = 'icons/mob/actions/actions.dmi'
 	button_overlay_icon_state = "mindswap"
 
 /datum/action/innate/terrorspider/queen/queensense/Activate()
@@ -156,7 +158,11 @@
 /obj/structure/spider/terrorweb
 	name = "terror web"
 	desc = "It's stringy and sticky!"
+	icon = 'icons/effects/effects.dmi'
+	anchored = TRUE // prevents people dragging it
+	density = FALSE // prevents it blocking all movement
 	max_integrity = 20 // two welders, or one laser shot (15 for the normal spider webs)
+	icon_state = "stickyweb1"
 	creates_cover = TRUE
 	var/creator_ckey = null
 

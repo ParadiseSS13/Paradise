@@ -8,6 +8,7 @@
 	icon_state = "lighter-g"
 	item_state = "lighter-g"
 	w_class = WEIGHT_CLASS_TINY
+	throwforce = 0
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = null
@@ -377,6 +378,7 @@
 	desc = "A little flame of your own, currently located dangerously in your mouth."
 	icon_state = "match_unathi"
 	attack_verb = null
+	force = 0
 	flags = DROPDEL | ABSTRACT
 	origin_tech = null
 	lit = TRUE

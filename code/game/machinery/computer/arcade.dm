@@ -1,6 +1,7 @@
 /obj/machinery/computer/arcade
 	name = "random arcade"
 	desc = "random arcade machine."
+	icon = 'icons/obj/computer.dmi'
 	icon_state = "arcade"
 	icon_keyboard = null
 	icon_screen = "invaders"
@@ -50,6 +51,7 @@
 /obj/machinery/computer/arcade/battle
 	name = "arcade machine"
 	desc = "Does not support Pinball."
+	icon = 'icons/obj/computer.dmi'
 	icon_state = "battle_arcade"
 	icon_screen = "battle"
 	circuit = /obj/item/circuitboard/arcade/battle
@@ -278,6 +280,7 @@
 /obj/machinery/computer/arcade/orion_trail
 	name = "The Orion Trail"
 	desc = "Learn how our ancestors got to Orion, and have fun in the process!"
+	icon_state = "arcade"
 	icon_screen = "orion"
 	circuit = /obj/item/circuitboard/arcade/orion_trail
 	var/busy = FALSE //prevent clickspam that allowed people to ~speedrun~ the game.
@@ -971,6 +974,7 @@
 	desc = "Premier corporate security forces for all spaceports found along the Orion Trail."
 	faction = list("orion")
 	loot = list()
+	del_on_death = TRUE
 
 /obj/item/orion_ship
 	name = "model settler ship"

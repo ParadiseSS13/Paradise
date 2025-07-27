@@ -214,6 +214,7 @@
 	mine_time = 6 SECONDS
 	color = COLOR_ANCIENT_ROCK
 	layer = MAP_EDITOR_TURF_LAYER
+	real_layer = TURF_LAYER
 	should_reset_color = FALSE
 	baseturf = /turf/simulated/floor/plating/asteroid/ancient
 
@@ -302,6 +303,8 @@
 	)
 
 /turf/simulated/mineral/random/high_chance/space
+	color = COLOR_YELLOW
+	mineralChance = 25
 	mineralSpawnChanceList = list(
 		/datum/ore/silver = 50,
 		/datum/ore/plasma = 50,
@@ -364,6 +367,8 @@
 	)
 
 /turf/simulated/mineral/random/low_chance/space
+	color = COLOR_VIOLET
+	mineralChance = 6
 	mineralSpawnChanceList = list(
 		/datum/ore/iron = 40,
 		/datum/ore/plasma = 15,
@@ -435,4 +440,7 @@
 	preset_ore_type = /datum/ore/bananium
 
 /turf/simulated/mineral/volcanic/lava_land_surface
+	environment_type = "basalt"
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/lava/mapping_lava
+	defer_change = 1

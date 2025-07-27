@@ -1,6 +1,7 @@
 /datum/game_mode/extended
 	name = "extended"
 	config_tag = "extended"
+	required_players = 0
 	single_antag_positions = list()
 
 /datum/game_mode/extended/announce()

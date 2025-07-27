@@ -31,6 +31,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	//The following vars are set here for the benefit of mapping - they are reset when the cable is spawned
 	alpha = 128	//is set to 255 when spawned
+	plane = GAME_PLANE //is set to FLOOR_PLANE when spawned
 	layer = LOW_OBJ_LAYER //isset to WIRE_LAYER when spawned
 
 	/// The direction of endpoint one of this cable

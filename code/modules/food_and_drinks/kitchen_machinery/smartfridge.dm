@@ -7,6 +7,7 @@
 	name = "\improper SmartFridge"
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "smartfridge"
+	layer = 2.9
 	density = TRUE
 	anchored = TRUE
 	idle_power_consumption = 5
@@ -547,6 +548,7 @@
 /obj/machinery/smartfridge/seeds
 	name = "\improper Seed Storage"
 	desc = "When you need seeds fast!"
+	icon = 'icons/obj/vending.dmi'
 	icon_state = "seeds"
 	board_type = /obj/machinery/smartfridge/seeds
 
@@ -607,6 +609,7 @@
 	desc = "A storage unit for circuits."
 	icon_state = "circuits"
 	icon_lightmask = "circuits"
+	visible_contents = TRUE
 	board_type = /obj/machinery/smartfridge/secure/circuits
 
 /obj/machinery/smartfridge/secure/circuits/Initialize(mapload)
@@ -679,6 +682,7 @@
 /obj/machinery/smartfridge/medbay
 	name = "\improper Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
+	icon_state = "smartfridge" //To fix the icon in the map editor.
 	board_type = /obj/machinery/smartfridge/medbay
 
 /obj/machinery/smartfridge/medbay/Initialize(mapload)
@@ -718,6 +722,7 @@
 /obj/machinery/smartfridge/secure/medbay
 	name = "\improper Secure Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
+	icon_state = "smartfridge" //To fix the icon in the map editor.
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY)
 	board_type = /obj/machinery/smartfridge/secure/medbay
 
@@ -741,6 +746,7 @@
 /obj/machinery/smartfridge/secure/chemistry
 	name = "\improper Smart Chemical Storage"
 	desc = "A refrigerated storage unit for medicine and chemical storage."
+	icon_state = "smartfridge" //To fix the icon in the map editor.
 	board_type = /obj/machinery/smartfridge/secure/chemistry
 	req_access = list(ACCESS_CHEMISTRY)
 
@@ -788,6 +794,7 @@
 	icon_state = "disktoaster"
 	icon_lightmask = "disktoaster"
 	pass_flags = PASSTABLE
+	visible_contents = TRUE
 	board_type = /obj/machinery/smartfridge/disks
 
 /obj/machinery/smartfridge/disks/Initialize(mapload)

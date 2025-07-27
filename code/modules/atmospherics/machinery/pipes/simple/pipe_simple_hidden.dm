@@ -1,8 +1,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden
 	icon_state = "intact"
+	level = 1
 	alpha = 128		//set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
 	// these are inherited, but it's nice to have them explicit here
 	plane = FLOOR_PLANE
+	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers
 	name = "Scrubbers pipe"

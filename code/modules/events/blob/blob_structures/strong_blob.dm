@@ -1,6 +1,8 @@
 /obj/structure/blob/shield
 	name = "strong blob"
+	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_shield"
+	desc = "Some blob creature thingy."
 	max_integrity = 150
 	brute_resist = 0.25
 	explosion_block = 3
@@ -8,6 +10,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 90, ACID = 90)
 
 /obj/structure/blob/shield/core
+	point_return = 0
 
 /obj/structure/blob/shield/check_integrity()
 	var/old_compromised_integrity = compromised_integrity

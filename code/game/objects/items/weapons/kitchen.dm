@@ -27,12 +27,14 @@
 	righthand_file = 'icons/mob/inhands/utensil_righthand.dmi'
 	force = 5.0
 	w_class = WEIGHT_CLASS_TINY
+	throwforce = 0.0
 	throw_speed = 3
 	throw_range = 5
 	flags = CONDUCT
 	attack_verb = list("attacked", "stabbed", "poked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
+	sharp = FALSE
 	var/max_contents = 1
 
 /obj/item/kitchen/utensil/New()
@@ -166,6 +168,7 @@
 	name = "butcher's cleaver"
 	icon_state = "butch"
 	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown-by-products."
+	flags = CONDUCT
 	force = 15
 	throwforce = 8
 	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -239,6 +242,8 @@
 	force = 8.0
 	throwforce = 10.0
 	throw_speed = 3
+	throw_range = 7
+	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 
 /* Trays moved to /obj/item/storage/bag */
@@ -256,6 +261,7 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 3
+	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
 
 /obj/item/reagent_containers/cooking/mould/make_mini()
@@ -309,6 +315,7 @@
 /obj/item/kitchen/cutter
 	name = "generic circular cutter"
 	desc = "A generic circular cutter for cookies and other things."
+	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "circular_cutter"
 	force = 5
 	throwforce = 5

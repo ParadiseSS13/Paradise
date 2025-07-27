@@ -1,5 +1,6 @@
 /obj/item/paper/autochef_quickstart
 	name = "Quickstart Guide: Autochef"
+	icon_state = "paper"
 	info = {"<b>You and Your Autochef: Quickstart</b><br />
 <br />
 To use your autochef, it must be linked to all the tools and items you want it to use.

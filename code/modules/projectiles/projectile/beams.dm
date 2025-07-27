@@ -42,6 +42,7 @@
 	impact_type = /obj/effect/projectile/impact/laser
 	impact_effect_type = null
 	hitscan_light_intensity = 3
+	hitscan_light_range = 0.75
 	hitscan_light_color_override = LIGHT_COLOR_DARKRED
 	muzzle_flash_intensity = 6
 	muzzle_flash_range = 2
@@ -139,6 +140,7 @@
 	tracer_type = /obj/effect/projectile/tracer/pulse
 	impact_type = /obj/effect/projectile/impact/pulse
 	hitscan_light_intensity = 3
+	hitscan_light_range = 0.75
 	hitscan_light_color_override = LIGHT_COLOR_DARKBLUE
 	muzzle_flash_intensity = 6
 	muzzle_flash_range = 2
@@ -173,6 +175,7 @@
 	impact_type = /obj/effect/projectile/impact/laser/emitter
 	impact_effect_type = null
 	hitscan_light_intensity = 3
+	hitscan_light_range = 0.75
 	hitscan_light_color_override = LIGHT_COLOR_GREEN
 	muzzle_flash_intensity = 6
 	muzzle_flash_range = 2
@@ -191,6 +194,7 @@
 	nodamage = 1
 	damage = 0
 	damage_type = STAMINA
+	flag = "laser"
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
 	log_override = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
@@ -206,6 +210,8 @@
 	return 1
 
 /obj/item/projectile/beam/lasertag/omni
+	name = "laser tag beam"
+	icon_state = "omnilaser"
 
 /obj/item/projectile/beam/lasertag/redtag
 	icon_state = "laser"
@@ -240,6 +246,7 @@
 	impact_type = /obj/effect/projectile/impact/laser
 	impact_effect_type = null
 	hitscan_light_intensity = 3
+	hitscan_light_range = 0.75
 	hitscan_light_color_override = LIGHT_COLOR_FIRE
 	muzzle_flash_intensity = 6
 	muzzle_flash_range = 2
@@ -253,6 +260,7 @@
 	icon_state = "purple_laser"
 	damage = 200
 	armour_penetration_percentage = 100
+	damage_type = BURN
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PURPLE
 

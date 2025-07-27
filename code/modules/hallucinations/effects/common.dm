@@ -4,6 +4,7 @@
   * A generic hallucination that causes the target to trip if they cross it.
   */
 /obj/effect/hallucination/tripper
+	anchored = TRUE
 	/// Chance to trip when crossing.
 	var/trip_chance = 100
 	/// Stun to add when crossed.

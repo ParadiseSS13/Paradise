@@ -13,6 +13,7 @@
 	item_state = "classic_baton"
 	slot_flags = ITEM_SLOT_BELT
 	force = 12 //9 hit crit
+	w_class = WEIGHT_CLASS_NORMAL
 	// Settings
 	/// Whether the baton can stun silicon mobs
 	var/affect_silicon = FALSE
@@ -153,6 +154,7 @@
 	desc = "A compact yet robust personal defense weapon. Can be concealed when folded."
 	icon_state = "telebaton_0" // For telling what it is when mapping
 	item_state = null
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	on = FALSE
 	/// Force when concealed

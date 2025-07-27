@@ -4,6 +4,7 @@
 	desc = "A shooting target."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "target_h"
+	density = FALSE
 	var/hp = 1800
 
 /obj/item/target/Destroy()

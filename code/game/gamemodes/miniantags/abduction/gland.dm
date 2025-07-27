@@ -119,6 +119,7 @@
 	cooldown_high = 1200
 	uses = -1
 	icon_state = "slime"
+	mind_control_uses = 1
 	mind_control_duration = 2400
 
 /obj/item/organ/internal/heart/gland/slime/insert(mob/living/carbon/M, special = 0)
@@ -138,6 +139,7 @@
 	cooldown_high = 700
 	uses = -1
 	icon_state = "mindshock"
+	mind_control_uses = 1
 	mind_control_duration = 6000
 
 /obj/item/organ/internal/heart/gland/mindshock/trigger()
@@ -178,6 +180,7 @@
 	uses = 1
 	icon_state = "vent"
 	mind_control_uses = 4
+	mind_control_duration = 1800
 
 /obj/item/organ/internal/heart/gland/ventcrawling/trigger()
 	to_chat(owner, "<span class='notice'>You feel very stretchy.</span>")
@@ -189,6 +192,8 @@
 	cooldown_high = 2400
 	uses = 1
 	icon_state = "viral"
+	mind_control_uses = 1
+	mind_control_duration = 1800
 
 /obj/item/organ/internal/heart/gland/viral/trigger()
 	to_chat(owner, "<span class='warning'>You feel sick.</span>")
@@ -225,6 +230,7 @@
 	uses = 10
 	icon_state = "emp"
 	mind_control_uses = 3
+	mind_control_duration = 1800
 
 /obj/item/organ/internal/heart/gland/emp/trigger()
 	to_chat(owner, "<span class='warning'>You feel a spike of pain in your head.</span>")
@@ -245,10 +251,12 @@
 	S.master_commander = owner
 
 /obj/item/organ/internal/heart/gland/egg
+	cooldown_low = 300
 	cooldown_high = 400
 	uses = -1
 	icon_state = "egg"
 	mind_control_uses = 2
+	mind_control_duration = 1800
 
 /obj/item/organ/internal/heart/gland/egg/trigger()
 	owner.visible_message("<span class='alertalien'>[owner] [pick(EGG_LAYING_MESSAGES)]</span>")
@@ -318,6 +326,7 @@
 	cooldown_high = 1800
 	origin_tech = "materials=4;biotech=4;plasmatech=6;abductor=3"
 	uses = -1
+	mind_control_uses = 1
 	mind_control_duration = 800
 
 /obj/item/organ/internal/heart/gland/plasma/trigger()

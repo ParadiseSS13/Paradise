@@ -1,5 +1,6 @@
 /obj/effect/spawner/random/bluespace_tap
 	name = "bluespace harvester reward spawner"
+	spawn_loot_count = 1
 
 // Common clothing pool
 /obj/effect/spawner/random/bluespace_tap/clothes_common
@@ -208,6 +209,7 @@
 // Common food pool
 /obj/effect/spawner/random/bluespace_tap/food_common
 	name = "common fancy food"
+	spawn_loot_count = 1
 	loot = list(
 		/obj/item/food/wingfangchu,
 		/obj/item/food/hotdog,
@@ -243,6 +245,7 @@
 // Uncommon food pool
 /obj/effect/spawner/random/bluespace_tap/food_uncommon
 	name = "uncommon fancy food"
+	spawn_loot_count = 1
 	loot = list(
 		/obj/item/food/sliceable/cheesecake,
 		/obj/item/food/sliceable/bananacake,
@@ -275,6 +278,7 @@
 // Rare food pool
 /obj/effect/spawner/random/bluespace_tap/food_rare
 	name = "rare fancy food"
+	spawn_loot_count = 1
 	loot = list(
 		/obj/item/food/monkeysdelight,
 		/obj/item/food/dionaroast,

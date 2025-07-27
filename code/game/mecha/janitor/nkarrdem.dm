@@ -5,6 +5,7 @@
 	initial_icon = "nkarrdem"
 	step_in = 3
 	turnsound = 'sound/mecha/mechmove01.ogg'
+	stepsound = 'sound/mecha/mechstep.ogg'
 	max_temperature = 10000
 	max_integrity = 110
 	max_equip = 4

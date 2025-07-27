@@ -7,6 +7,7 @@
 	max_integrity = 300
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 0, BOMB = 30, RAD = 0, FIRE = 60, ACID = 60)
 	density = TRUE
+	anchored = FALSE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	buckle_lying = FALSE
 	can_buckle = TRUE

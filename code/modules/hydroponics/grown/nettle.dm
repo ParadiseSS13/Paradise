@@ -40,6 +40,7 @@
 	force = 15
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	throwforce = 5
+	w_class = WEIGHT_CLASS_NORMAL // Two nettle/deathnettle fit in a pneumatic cannon. They fit in plant bags.
 	throw_speed = 1
 	throw_range = 3
 	origin_tech = "combat=3"

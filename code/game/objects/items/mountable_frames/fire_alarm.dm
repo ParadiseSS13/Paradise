@@ -5,6 +5,7 @@
 	icon_state = "firealarm_frame"
 
 	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
+	metal_sheets_refunded = 2
 
 /obj/item/mounted/frame/firealarm/do_build(turf/on_wall, mob/user)
 	new /obj/machinery/firealarm(get_turf(src), get_dir(user, on_wall), 1)

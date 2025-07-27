@@ -431,6 +431,7 @@
   * Changes the target's appearance to something else temporarily.
   */
 /obj/effect/hallucination/self_delusion
+	duration = 15 SECONDS
 
 /obj/effect/hallucination/self_delusion/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
@@ -454,6 +455,7 @@
   * Changes the appearance of all humans around the target.
   */
 /obj/effect/hallucination/delusion
+	duration = 15 SECONDS
 
 /obj/effect/hallucination/delusion/Initialize(mapload, mob/living/carbon/target, override_icon, override_icon_state)
 	. = ..()

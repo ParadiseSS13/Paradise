@@ -2,6 +2,8 @@
 #define RIGHT_SHEILD TRUE
 
 /mob/living/simple_animal/hostile/guardian/protector
+	melee_damage_lower = 15
+	melee_damage_upper = 15
 	range = 15 //worse for it due to how it leashes
 	damage_transfer = 0.4
 	playstyle_string = "As a <b>Protector</b> type you cause your summoner to leash to you instead of you leashing to them and have two modes; Combat Mode, where you do and take medium damage, and Protection Mode, where you do and take almost no damage, but move slightly slower, as well as have a protective shield. Nobody can walk through your shield, but you can still move your shield through them."
@@ -110,6 +112,7 @@
 /obj/effect/guardianshield
 	name = "guardian's shield"
 	desc = "A guardian's defensive wall."
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield-grey"
 	can_be_hit = TRUE
 	var/mob/living/simple_animal/hostile/guardian/protector/linked_guardian

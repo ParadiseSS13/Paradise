@@ -9,6 +9,7 @@
 	icon_state = "impact_laser"
 
 /obj/effect/projectile/impact/laser/blue
+	name = "laser impact"
 	icon_state = "impact_blue"
 
 /obj/effect/projectile/impact/disabler

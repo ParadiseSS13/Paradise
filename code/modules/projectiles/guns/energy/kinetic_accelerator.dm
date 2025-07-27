@@ -7,6 +7,7 @@
 	cell_type = /obj/item/stock_parts/cell/emproof
 	needs_permit = FALSE
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
+	weapon_weight = WEAPON_LIGHT
 	can_flashlight = TRUE
 	can_be_lensed = FALSE
 	flight_x_offset = 15
@@ -203,6 +204,7 @@
 	name = "kinetic force"
 	icon_state = null
 	damage = 40
+	damage_type = BRUTE
 	flag = BOMB
 	range = 3
 
@@ -383,6 +385,7 @@
 /obj/item/borg/upgrade/modkit/range
 	name = "range increase"
 	desc = "Increases the range of a kinetic accelerator when installed."
+	modifier = 1
 	cost = 24 //so you can fit four plus a tracer cosmetic
 
 /obj/item/borg/upgrade/modkit/range/modify_projectile(obj/item/projectile/kinetic/K)
@@ -528,6 +531,7 @@
 	name = "resonator blast"
 	desc = "Causes kinetic accelerator shots to leave and detonate resonator blasts."
 	denied_type = /obj/item/borg/upgrade/modkit/resonator_blasts
+	cost = 30
 	modifier = 0.25 //A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
 
 /obj/item/borg/upgrade/modkit/resonator_blasts/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
@@ -544,6 +548,7 @@
 	desc = "Killing or assisting in killing a creature permanently increases your damage against that type of creature."
 	denied_type = /obj/item/borg/upgrade/modkit/bounty
 	modifier = 1.25
+	cost = 30
 	var/maximum_bounty = 25
 	var/list/bounties_reaped = list()
 

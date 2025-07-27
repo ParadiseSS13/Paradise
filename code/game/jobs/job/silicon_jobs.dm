@@ -2,6 +2,7 @@
 	title = "AI"
 	flag = JOB_AI
 	department_flag = JOBCAT_ENGSEC
+	total_positions = 0 // Not used for AI, see is_position_available below and modules/mob/living/silicon/ai/latejoin.dm
 	spawn_positions = 1
 	selection_color = "#ccffcc"
 	supervisors = "your laws"

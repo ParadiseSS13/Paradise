@@ -14,6 +14,7 @@
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "dust"
 	density = TRUE
+	anchored = TRUE
 	var/strength = 2 //ex_act severity number
 	var/life = 2 //how many things we hit before qdel(src)
 	var/atom/goal = null

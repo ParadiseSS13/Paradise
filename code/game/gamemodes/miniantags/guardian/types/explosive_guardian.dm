@@ -1,4 +1,6 @@
 /mob/living/simple_animal/hostile/guardian/bomb
+	melee_damage_lower = 15
+	melee_damage_upper = 15
 	damage_transfer = 0.6
 	range = 13
 	playstyle_string = "As an <b>Explosive</b> type, you have only moderate close combat abilities, but are capable of converting any adjacent item into a disguised bomb via alt click even when not manifested."

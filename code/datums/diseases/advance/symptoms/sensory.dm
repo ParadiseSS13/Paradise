@@ -22,6 +22,7 @@ Bonus
 	stage_speed = -4
 	transmittable = -3
 	level = 5
+	severity = 0
 
 /datum/symptom/mind_restoration/Activate(datum/disease/advance/A)
 	..()

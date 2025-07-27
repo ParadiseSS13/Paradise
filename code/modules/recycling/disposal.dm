@@ -24,6 +24,7 @@
 	density = TRUE
 	on_blueprints = TRUE
 	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 90, ACID = 30)
+	max_integrity = 200
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	resistance_flags = FIRE_PROOF
 	active_power_consumption = 600
@@ -824,6 +825,7 @@
 	name = "disposal pipe"
 	desc = "An underfloor disposal pipe."
 	anchored = TRUE
+	density = FALSE
 
 	on_blueprints = TRUE
 	level = 1			// underfloor only
@@ -1474,6 +1476,7 @@
 ////////////////////////////////////////
 /obj/structure/disposalpipe/broken
 	icon_state = "pipe-b"
+	dpdir = 0		// broken pipes have dpdir=0 so they're not found as 'real' pipes
 					// i.e. will be treated as an empty turf
 	desc = "A broken piece of disposal pipe."
 

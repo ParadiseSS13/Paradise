@@ -6,10 +6,12 @@
 	icon_state = "carp"
 	icon_gib = "carp_gib"
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	speak_chance = 0
 	turns_per_move = 5
 	butcher_results = list(/obj/item/food/carpmeat = 1)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
+	response_harm = "hits"
 	speed = 0
 	maxHealth = 25
 	health = 25

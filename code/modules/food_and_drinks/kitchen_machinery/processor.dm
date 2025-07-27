@@ -3,6 +3,7 @@
 	desc = "Used for turning ingredients into other ingredients."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "processor"
+	layer = 2.9
 	density = TRUE
 	anchored = TRUE
 	idle_power_consumption = 5

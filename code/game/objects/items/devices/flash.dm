@@ -5,8 +5,10 @@
 	icon_state = "flash"
 	item_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
 	belt_icon = "flash"
+	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
+	throw_range = 7
 	flags = CONDUCT
 	materials = list(MAT_METAL = 300, MAT_GLASS = 300)
 	origin_tech = "magnets=2;combat=1"

@@ -301,10 +301,12 @@
 	base_cooldown = 1200
 
 	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 	antimagic_flags = NONE
 
 	selection_activated_message		= "<span class='notice'>Your mind grow cold. Click on a target to cast the spell.</span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind returns to normal.</span>"
+	invocation_type = "none"
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 	action_icon_state = "genetic_cryo"
@@ -388,6 +390,8 @@
 	base_cooldown = 300
 
 	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
+	invocation_type = "none"
 	antimagic_flags = NONE
 
 	action_icon_state = "genetic_eat"
@@ -534,6 +538,8 @@
 	base_cooldown = 60
 
 	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
+	invocation_type = "none"
 	antimagic_flags = NONE
 
 	action_icon_state = "genetic_jump"
@@ -654,10 +660,12 @@
 	base_cooldown = 1800
 
 	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 
 	selection_activated_message		= "<span class='notice'>You body becomes unstable. Click on a target to cast transform into them.</span>"
 	selection_deactivated_message	= "<span class='notice'>Your body calms down again.</span>"
 
+	invocation_type = "none"
 	antimagic_flags = NONE
 
 	action_icon_state = "genetic_poly"
@@ -705,6 +713,8 @@
 	base_cooldown = 18 SECONDS
 	clothes_req = FALSE
 	human_req = TRUE
+	stat_allowed = CONSCIOUS
+	invocation_type = "none"
 	antimagic_flags = MAGIC_RESISTANCE_MIND
 
 	action_icon_state = "genetic_empath"
@@ -813,6 +823,8 @@
 	base_cooldown = 1800
 
 	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
+	invocation_type = "none"
 	antimagic_flags = NONE
 
 	action_icon_state = "genetic_morph"
@@ -1002,6 +1014,8 @@
 	base_cooldown = 0
 
 	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
+	invocation_type = "none"
 	antimagic_flags = MAGIC_RESISTANCE_MIND
 
 	action_icon_state = "genetic_project"
@@ -1036,7 +1050,9 @@
 	desc = "Offer people a chance to share their thoughts!"
 	base_cooldown = 0
 	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
 	antimagic_flags = MAGIC_RESISTANCE_MIND
+	invocation_type = "none"
 	action_icon_state = "genetic_mindscan"
 	var/list/expanded_minds = list()
 
@@ -1119,8 +1135,11 @@
 /datum/spell/remoteview
 	name = "Remote View"
 	desc = "Spy on people from any range!"
+	base_cooldown = 10 SECONDS
 
 	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
+	invocation_type = "none"
 	antimagic_flags = MAGIC_RESISTANCE_MIND
 
 	action_icon_state = "genetic_view"

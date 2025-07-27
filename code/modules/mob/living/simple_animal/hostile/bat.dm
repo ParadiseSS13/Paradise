@@ -7,11 +7,15 @@
 	icon_dead = "bat_dead"
 	icon_gib = "bat_dead"
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	speak_chance = 0
 	turns_per_move = 3
 	butcher_results = list(/obj/item/food/meat = 1)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
+	response_harm = "hits"
 	speed = 4
+	maxHealth = 20
+	health = 20
 	mob_size = MOB_SIZE_TINY
 	harm_intent_damage = 8
 	melee_damage_lower = 10
@@ -56,8 +60,10 @@
 	speed = 1
 	harm_intent_damage = 25
 	maxHealth = 300
+	melee_damage_lower = 10
 	melee_damage_upper = 30
 	a_intent = INTENT_HARM
 	pass_flags = PASSTABLE
 	universal_speak = TRUE
+	universal_understand = TRUE
 	gold_core_spawnable = NO_SPAWN //badmin only

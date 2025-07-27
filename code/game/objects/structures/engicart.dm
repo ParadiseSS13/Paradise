@@ -4,6 +4,7 @@
 	icon = 'icons/obj/engicart.dmi'
 	icon_state = "cart"
 	face_while_pulling = FALSE
+	anchored = FALSE
 	density = TRUE
 	new_attack_chain = TRUE
 	var/obj/item/stack/sheet/glass/my_glass = null

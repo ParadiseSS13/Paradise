@@ -72,6 +72,7 @@
 	icon_state = "energy_ball"
 	pixel_x = -32
 	pixel_y = -32
+	anchored = TRUE
 	var/cycles = 0
 	var/beepsound = 'sound/items/timer.ogg'
 	var/deliberate = FALSE

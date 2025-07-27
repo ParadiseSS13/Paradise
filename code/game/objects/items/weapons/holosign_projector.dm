@@ -5,8 +5,11 @@
 	icon_state = "signmaker"
 	item_state = "electronic"
 	belt_icon = "holosign_creator"
+	force = 0
 	w_class = WEIGHT_CLASS_SMALL
+	throwforce = 0
 	throw_speed = 3
+	throw_range = 7
 	origin_tech = "magnets=1;programming=3"
 	flags = NOBLUDGEON
 	var/list/signs = list()
@@ -113,6 +116,7 @@
 	icon_state = "signmaker_engi"
 	belt_icon = null
 	holosign_type = /obj/structure/holosign/barrier/atmos
+	creation_time = 0
 	max_signs = 3
 
 /obj/item/holosign_creator/cyborg

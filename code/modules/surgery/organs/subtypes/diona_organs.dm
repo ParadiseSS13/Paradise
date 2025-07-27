@@ -42,11 +42,13 @@
 	convertable_children = list(/obj/item/organ/external/foot/right/diona)
 
 /obj/item/organ/external/foot/diona
+	name = "left foot"
 	max_damage = 20
 	min_broken_damage = 10
 	amputation_point = "branch"
 
 /obj/item/organ/external/foot/right/diona
+	name = "right foot"
 	max_damage = 20
 	min_broken_damage = 10
 	amputation_point = "branch"

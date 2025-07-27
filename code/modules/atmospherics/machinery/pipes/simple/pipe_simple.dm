@@ -7,6 +7,7 @@
 
 	volume = 70
 
+	dir = SOUTH
 	initialize_directions = SOUTH|NORTH
 
 	var/obj/machinery/atmospherics/node1

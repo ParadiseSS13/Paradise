@@ -5,6 +5,7 @@
 /obj/item/gavelhammer
 	name = "gavel hammer"
 	desc = "Order, order! No bombs in my courthouse."
+	icon = 'icons/obj/items.dmi'
 	icon_state = "gavelhammer"
 	force = 5.0
 	throwforce = 6.0
@@ -20,6 +21,7 @@
 /obj/item/gavelblock
 	name = "gavel block"
 	desc = "Smack it with a gavel hammer when the assistants get rowdy."
+	icon = 'icons/obj/items.dmi'
 	icon_state = "gavelblock"
 	force = 2.0
 	throwforce = 2.0

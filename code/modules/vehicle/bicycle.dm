@@ -1,6 +1,7 @@
 /obj/vehicle/bike
 	name = "bicycle"
 	desc = "Two wheels of FURY!"
+	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "bicycle"
 	vehicle_move_delay = 1
 	var/mutable_appearance/bicycle_overlay

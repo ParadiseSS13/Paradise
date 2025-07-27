@@ -62,11 +62,14 @@
 	product = /obj/item/food/grown/trumpet
 	lifespan = 80
 	production = 5
+	endurance = 10
 	maturation = 12
 	yield = 4
+	potency = 20
 	growthstages = 4
 	weed_rate = 2
 	weed_chance = 10
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_grow = "spacemanstrumpet-grow"
 	icon_dead = "spacemanstrumpet-dead"
 	mutatelist = null
@@ -157,7 +160,9 @@
 	desc = "It's beautiful! A certain person might beat you to death if you trample these."
 	icon_state = "sunflower"
 	damtype = "fire"
+	force = 0
 	slot_flags = ITEM_SLOT_HEAD
+	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 3
@@ -174,6 +179,7 @@
 	species = "moonflower"
 	plantname = "Moonflowers"
 	icon_grow = "moonflower-grow"
+	icon_dead = "sunflower-dead"
 	product = /obj/item/food/grown/moonflower
 	mutatelist = list()
 	reagents_add = list("moonshine" = 0.2, "vitamin" = 0.02, "plantmatter" = 0.02)
@@ -198,6 +204,7 @@
 	species = "novaflower"
 	plantname = "Novaflowers"
 	icon_grow = "novaflower-grow"
+	icon_dead = "sunflower-dead"
 	product = /obj/item/grown/novaflower
 	mutatelist = list()
 	reagents_add = list("condensedcapsaicin" = 0.25, "capsaicin" = 0.3, "plantmatter" = 0)
@@ -209,7 +216,9 @@
 	desc = "These beautiful flowers have a crisp smokey scent, like a summer bonfire."
 	icon_state = "novaflower"
 	damtype = "fire"
+	force = 0
 	slot_flags = ITEM_SLOT_HEAD
+	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 3

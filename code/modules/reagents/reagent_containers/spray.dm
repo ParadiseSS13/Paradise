@@ -8,10 +8,13 @@
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
+	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
+	throw_range = 7
 	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
 	var/spray_currentrange = 3 //the range of tiles the sprayer will reach when in fixed mode.
+	amount_per_transfer_from_this = 5
 	volume = 250
 	possible_transfer_amounts = null
 	var/delay = CLICK_CD_RANGE * 2
@@ -153,6 +156,7 @@
 				visible_message("<span class='warning'>[src] identifies and removes a filthy substance.</span>")
 
 /obj/item/reagent_containers/spray/cleaner/drone
+	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	spray_maxrange = 3
 	spray_currentrange = 3
@@ -188,6 +192,7 @@
 	belt_icon = null
 	volume = 40
 	spray_maxrange = 4
+	amount_per_transfer_from_this = 5
 	list_reagents = list("condensedcapsaicin" = 40)
 
 //water flower
@@ -214,6 +219,7 @@
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "chemsprayer"
 	item_state = "chemsprayer"
+	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	spray_maxrange = 7
 	spray_currentrange = 7

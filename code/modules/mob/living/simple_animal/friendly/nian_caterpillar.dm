@@ -18,6 +18,7 @@
 	maxHealth = 50
 	health = 50
 	speed = 0.75
+	stop_automated_movement = FALSE
 	turns_per_move = 4
 
 	// What they sound like

@@ -26,6 +26,7 @@
 					/obj/item/storage/box/iv_bags,
 					/obj/item/vending_refill/medical)
 	cost = 400
+	containertype = /obj/structure/closet/crate/medical
 	containername = "medical supplies crate"
 
 /datum/supply_packs/medical/firstaid
@@ -118,6 +119,7 @@
 
 /datum/supply_packs/medical/vending/clothingvendor
 	name = "Medical Clothing Vendors Crate"
+	cost = 100
 	contains = list(/obj/item/vending_refill/medidrobe,
 					/obj/item/vending_refill/chemdrobe,
 					/obj/item/vending_refill/virodrobe)

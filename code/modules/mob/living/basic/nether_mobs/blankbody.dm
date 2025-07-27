@@ -11,6 +11,7 @@
 	melee_damage_upper = 10
 	attack_verb_continuous = "punches"
 	attack_verb_simple = "punch"
+	attack_sound = 'sound/weapons/bladeslice.ogg'
 	melee_attack_cooldown_min = 0.5 SECONDS
 	melee_attack_cooldown_max = 1.5 SECONDS
 	speak_emote = list("screams")

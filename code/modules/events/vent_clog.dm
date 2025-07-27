@@ -1,4 +1,5 @@
 /datum/event/vent_clog
+	announceWhen	= 0
 	startWhen		= 5
 	endWhen			= 35
 	var/interval 	= 2

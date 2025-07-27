@@ -65,6 +65,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
+	throw_speed = 2
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -630,6 +631,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	icon = 'icons/obj/robot_component.dmi' // Cyborgs radio icons should look like the component.
 	icon_state = "radio"
 	has_loudspeaker = TRUE
+	loudspeaker = FALSE
 	canhear_range = 0
 	dog_fashion = null
 	freqlock = TRUE // don't let cyborgs change the default channel of their internal radio away from common
@@ -763,10 +765,13 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/off
 	listening = FALSE
+	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/radio/phone
+	broadcasting = FALSE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "red_phone"
+	listening = TRUE
 	name = "phone"
 	dog_fashion = null
 

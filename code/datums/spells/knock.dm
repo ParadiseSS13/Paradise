@@ -2,6 +2,7 @@
 	name = "Knock"
 	desc = "This spell opens nearby doors and does not require wizard garb."
 
+	base_cooldown = 100
 	clothes_req = FALSE
 	invocation = "AULIE OXIN FIERA"
 	invocation_type = "whisper"

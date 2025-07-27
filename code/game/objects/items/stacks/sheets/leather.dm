@@ -68,6 +68,7 @@ GLOBAL_LIST_INIT(lizard_recipes, list(
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-hide"
 	origin_tech = "materials=2"
+	max_amount = 50
 
 /obj/item/stack/sheet/animalhide/xeno
 	name = "alien hide"
@@ -179,10 +180,12 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 /obj/item/stack/sheet/animalhide/goliath_hide
 	name = "goliath hide plates"
 	desc = "Pieces of a goliath's rocky hide, these might be able to make your miner equipment such as suits, plasmaman helmets, borgs and Ripley class exosuits a bit more durable to attack from the local fauna."
+	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "goliath_hide"
 	item_state = "goliath_hide"
 	singular_name = "hide plate"
 	flags = NOBLUDGEON
+	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 	dynamic_icon_state = TRUE
 	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
@@ -241,6 +244,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	item_state = "armor_plate"
 	singular_name = "armor plate"
 	flags = NOBLUDGEON
+	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 
 /obj/item/stack/sheet/animalhide/armor_plate/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
@@ -267,10 +271,12 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 /obj/item/stack/sheet/animalhide/ashdrake
 	name = "ash drake hide"
 	desc = "The strong, scaled hide of an ash drake. Can be attached to the mech itself, greatly enhancing its protective characteristics. Unfortunately, only working class exosuits have notches for such armor."
+	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "dragon_hide"
 	item_state = "dragon_hide"
 	singular_name = "drake plate"
 	flags = NOBLUDGEON
+	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 	dynamic_icon_state = TRUE
 

@@ -177,6 +177,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 
 /datum/announcement_configuration/ptl
 	default_title = ANNOUNCE_KIND_PTL
+	add_log = FALSE
 	sound = sound('sound/misc/notice2.ogg')
 	style = "major"
 

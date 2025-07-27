@@ -132,6 +132,7 @@
 /obj/item/food/monstermeat/bearmeat
 	name = "bear meat"
 	desc = "A very manly slab of meat."
+	icon_state = "bearmeat"
 	filling_color = "#DB0000"
 	bitesize = 3
 	list_reagents = list("protein" = 12, "methamphetamine" = 5, "vitamin" = 2)
@@ -257,6 +258,7 @@
 	desc = "A juicy cooked patty, ready to be slapped between two buns."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "patty"
+	bitesize = 3
 	list_reagents = list("protein" = 3)
 
 /obj/item/food/meat/patty_raw
@@ -264,6 +266,7 @@
 	desc = "A raw patty ready to be grilled into a juicy and delicious burger."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "patty_raw"
+	bitesize = 3
 	list_reagents = list("protein" = 2)
 
 /obj/item/food/meat/patty_raw/examine(mob/user)
@@ -311,6 +314,7 @@
 /obj/item/food/meat/raw_meatball
 	name = "raw meatball"
 	desc = "Some ground meat shaped into a ball."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "meatball_raw"
 	filling_color = "#DB4444"
 	list_reagents = list("protein" = 4, "vitamin" = 1)
@@ -578,6 +582,7 @@
 	desc = "A hard boiled egg."
 	icon = 'icons/obj/food/breakfast.dmi'
 	icon_state = "egg"
+	filling_color = "#FFFFFF"
 	list_reagents = list("nutriment" = 2, "egg" = 5, "vitamin" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 

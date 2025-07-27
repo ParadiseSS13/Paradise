@@ -114,6 +114,7 @@
 
 /obj/item/paper/camera_bug
 	name = "\improper Camera Bug Guide"
+	icon_state = "paper"
 	info = {"<b>Instructions on your new invasive camera utility</b><br>
 	<br>
 	This camera bug can access all default cameras on the station, along with the hidden cameras provided in this kit.<br>

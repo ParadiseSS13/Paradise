@@ -264,6 +264,7 @@
 	return TRUE
 
 /datum/spell/horror
+	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	var/datum/action/innate/cult/blood_spell/attached_action
 
@@ -375,6 +376,7 @@
 	flags = ABSTRACT | DROPDEL
 
 	w_class = WEIGHT_CLASS_HUGE
+	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
 	/// Does it have a source, AKA bloody empowerment.

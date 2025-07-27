@@ -25,6 +25,7 @@
 /obj/effect/mob_spawn/human/alive/spacebase_syndicate
 	name = "Syndicate Researcher sleeper"
 	role_name = "syndicate researcher"
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper_s"
 	important_info = "Do not work against traitors or nukies. Do not leave the base."
 	description = "Experiment with deadly chems, plants, viruses, etc in peace."

@@ -291,6 +291,7 @@
 	name = "carp hood"
 	desc = "A hood attached to a carp costume."
 	icon_state = "carp_casual"
+	body_parts_covered = HEAD
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	flags = BLOCKHAIR
@@ -348,6 +349,7 @@
 	name = "salmon hood"
 	desc = "A hood attached to a salmon suit."
 	icon_state = "salmon"
+	body_parts_covered = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
@@ -367,6 +369,7 @@
 	name = "bee hood"
 	desc = "A hood attached to a bee costume."
 	icon_state = "bee"
+	body_parts_covered = HEAD
 	flags = THICKMATERIAL|BLOCKHAIR
 	flags_inv = HIDEEARS
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
@@ -411,6 +414,7 @@
 	name = "winter hood"
 	desc = "A hood attached to a heavy winter jacket."
 	icon_state = "winterhood"
+	body_parts_covered = HEAD
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags = BLOCKHAIR
@@ -697,6 +701,7 @@
 	name = "black hood"
 	desc = "A hood attached to a hoodie."
 	icon_state = "blackhood"
+	body_parts_covered = HEAD
 	cold_protection = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
@@ -720,6 +725,7 @@
 	name = "Martian Institute of Technology hoodie"
 	desc = "A hoodie proudly worn by students and graduates alike, has the letters 'MIT' on the back."
 	icon_state = "mit_hoodie"
+	hoodtype = /obj/item/clothing/head/hooded/hood
 
 /obj/item/clothing/suit/hooded/hoodie/cut
 	name = "Canaan University of Technology hoodie"
@@ -743,6 +749,7 @@
 	name = "Tharsis Polytech hoodie"
 	desc = "A dark hoodie with the Tharsis Polytech logo on the back."
 	icon_state = "tp_hoodie"
+	hoodtype = /obj/item/clothing/head/hooded/hood
 
 /obj/item/clothing/suit/straight_jacket
 	name = "straight jacket"
@@ -908,6 +915,7 @@
 	icon_state = "secgreatcoat"
 	item_state = "secgreatcoat"
 	w_class = WEIGHT_CLASS_NORMAL
+	ignore_suitadjust = TRUE
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -997,8 +1005,10 @@
 	desc = "A vintage classic, loved by rockers, rebels, and punks alike."
 	icon_state = "motojacket_open"
 	item_state = "motojacket_open"
+	ignore_suitadjust = FALSE
 	suit_adjusted = TRUE
 	actions_types = list(/datum/action/item_action/zipper)
+	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -1024,8 +1034,13 @@
 	icon_state = "bomber"
 	item_state = "bomber"
 	icon_override = 'icons/mob/clothing/suits/coat.dmi'
+	ignore_suitadjust = FALSE
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
+	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	actions_types = list(/datum/action/item_action/zipper)
+	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suits/coat.dmi',
@@ -1367,6 +1382,7 @@
 	desc = "The hands float by themselves, so it's extra spooky."
 	icon_state = "ghost_sheet"
 	item_state = "ghost_sheet"
+	throwforce = 0
 	throw_speed = 1
 	throw_range = 2
 	w_class = WEIGHT_CLASS_TINY

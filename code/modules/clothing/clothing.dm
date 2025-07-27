@@ -1,5 +1,6 @@
 /obj/item/clothing
 	name = "clothing"
+	max_integrity = 200
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
 	/// Only these species can wear this kit.
@@ -175,6 +176,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "block"
+	slot_flags = ITEM_SLOT_BOTH_EARS
 
 /obj/item/clothing/ears/offear/New(obj/O)
 	. = ..()
@@ -190,6 +192,7 @@
 /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
+	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = ITEM_SLOT_EYES
 	materials = list(MAT_GLASS = 250)
@@ -242,6 +245,7 @@
 	name = "gloves"
 	///Carn: for grammarically correct text-parsing
 	gender = PLURAL
+	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
@@ -537,7 +541,9 @@
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_MASK
+	strip_delay = 4 SECONDS
 	put_on_delay = 4 SECONDS
+	dyeable = FALSE
 
 	var/adjusted_flags = null
 
@@ -621,6 +627,7 @@
 	dyeing_key = DYE_REGISTRY_SHOES
 
 	permeability_coefficient = 0.50
+	slowdown = SHOES_SLOWDOWN
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
@@ -748,6 +755,7 @@
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	slot_flags = ITEM_SLOT_OUTER_SUIT
+	dyeable = FALSE
 
 	var/fire_resist = T0C + 100
 	var/blood_overlay_type = "suit"
@@ -951,13 +959,16 @@
 	name = "space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
+	w_class = WEIGHT_CLASS_NORMAL
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "s_helmet"
 	permeability_coefficient = 0.01
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 50, FIRE = 200, ACID = 115)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	flash_protect = FLASH_PROTECTION_WELDER
 	strip_delay = 50

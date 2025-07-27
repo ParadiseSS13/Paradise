@@ -6,6 +6,7 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	icon_state = "frame"
 	name = "AI display"
 	anchored = TRUE
+	density = FALSE
 
 	/// Current mode
 	var/mode = AI_DISPLAY_MODE_BLANK

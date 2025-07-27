@@ -17,6 +17,7 @@
 	butcher_results = list(/obj/item/food/monstermeat/spidermeat = 2, /obj/item/food/monstermeat/spiderleg = 8)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
+	response_harm   = "hits"
 	maxHealth = 200
 	health = 200
 	obj_damage = 60
@@ -100,6 +101,7 @@
 	maxHealth = 120
 	health = 120
 	melee_damage_lower = 10
+	melee_damage_upper = 20
 	venom_per_bite = 10
 	move_to_delay = 5
 

@@ -17,7 +17,9 @@
 /obj/item/organ/internal/brain/unathi
 	icon = 'icons/obj/species_organs/unathi.dmi'
 	desc = "A smallish looking brain."
+	icon_state = "brain2"
 	mmi_icon = 'icons/obj/species_organs/unathi.dmi'
+	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/kidneys/unathi
 	name = "unathi kidneys"

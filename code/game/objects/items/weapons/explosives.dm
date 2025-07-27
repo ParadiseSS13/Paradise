@@ -7,6 +7,7 @@
 	det_time = 10
 	display_timer = FALSE
 	origin_tech = "syndicate=1"
+	toolspeed = 1
 	var/atom/target = null
 	var/image_overlay = null
 	var/obj/item/assembly/nadeassembly = null

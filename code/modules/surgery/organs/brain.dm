@@ -2,6 +2,8 @@
 	name = "brain"
 	max_damage = 120
 	icon_state = "brain2"
+	force = 1.0
+	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	throw_speed = 3
 	throw_range = 5

@@ -10,8 +10,11 @@
 	icon_state = "ore_redemption"
 	density = TRUE
 	anchored = TRUE
+	input_dir = NORTH
+	output_dir = SOUTH
 	req_access = list(ACCESS_MINERAL_STOREROOM)
 	speed_process = TRUE
+	layer = BELOW_OBJ_LAYER
 	// Settings
 	/// The access number required to claim points from the machine.
 	var/req_access_claim = ACCESS_MINING_STATION

@@ -80,6 +80,7 @@
 	item_state = "render"
 	force = 15
 	throwforce = 10
+	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/charged = 1
 	var/spawn_type = /obj/singularity/narsie/wizard
@@ -102,6 +103,7 @@
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	density = TRUE
+	anchored = TRUE
 	var/spawn_path = /mob/living/basic/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
 
@@ -833,7 +835,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/necromantic_stone/nya
 	name = "nya-cromantic stone"
 	desc = "A shard capable of resurrecting humans as creatures of Vile Heresy. Even the Wizard Federation fears it.."
+	icon = 'icons/obj/wizard.dmi'
 	icon_state = "nyacrostone"
+	item_state = "electronic"
+	origin_tech = "bluespace=4;materials=4"
 	heresy = TRUE
 	unlimited = TRUE
 

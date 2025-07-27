@@ -698,6 +698,7 @@
 		/obj/item/grenade/chem_grenade = 2
 	)
 	parts = list(/obj/item/stock_parts/matter_bin = 1, /obj/item/grenade/chem_grenade = 2)
+	time = 30
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 	alert_admins_on_craft = TRUE
@@ -730,6 +731,7 @@
 /datum/crafting_recipe/bonearmor
 	name = "Bone Armor"
 	result = list(/obj/item/clothing/suit/armor/bone)
+	time = 30
 	reqs = list(/obj/item/stack/sheet/bone = 6)
 	category = CAT_PRIMAL
 
@@ -760,6 +762,7 @@
 /datum/crafting_recipe/skullhelm
 	name = "Skull Helmet"
 	result = list(/obj/item/clothing/head/helmet/skull)
+	time = 30
 	reqs = list(/obj/item/stack/sheet/bone = 4)
 	category = CAT_PRIMAL
 
@@ -806,6 +809,7 @@
 /datum/crafting_recipe/bonespear
 	name = "Bone Spear"
 	result = list(/obj/item/spear/bonespear)
+	time = 30
 	reqs = list(/obj/item/stack/sheet/bone = 4,
 				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
@@ -845,12 +849,14 @@
 /// Category resorting incoming
 /datum/crafting_recipe/rake
 	name = "Rake"
+	time = 30
 	reqs = list(/obj/item/stack/sheet/wood = 5)
 	result = list(/obj/item/cultivator/rake)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/woodbucket
 	name = "Wooden Bucket"
+	time = 30
 	reqs = list(/obj/item/stack/sheet/wood = 3)
 	result = list(/obj/item/reagent_containers/glass/bucket/wooden)
 	category = CAT_PRIMAL
@@ -868,6 +874,7 @@
 /datum/crafting_recipe/ghettojetpack
 	name = "Improvised Jetpack"
 	result = list(/obj/item/tank/jetpack/improvised)
+	time = 30
 	reqs = list(/obj/item/tank/internals/oxygen = 2, /obj/item/extinguisher = 1, /obj/item/pipe = 3, /obj/item/stack/cable_coil = MAXCOIL)
 	category = CAT_MISC
 	tools = list(TOOL_WRENCH, TOOL_WELDER, TOOL_WIRECUTTER)
@@ -942,18 +949,24 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/singleeye)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/pen, /obj/item/toy/crayon/blue)
+	category = CAT_DECORATIONS
+	subcategory = CAT_DECORATION
 
 /datum/crafting_recipe/paper_craft/googlyeyes
 	name = "Paper Googly Eye"
 	result = list(/obj/item/decorations/sticky_decorations/flammable/googlyeyes)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/pen)
+	category = CAT_DECORATIONS
+	subcategory = CAT_DECORATION
 
 /datum/crafting_recipe/paper_craft/clock
 	name = "Paper Clock"
 	result = list(/obj/item/decorations/sticky_decorations/flammable/paperclock)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/pen)
+	category = CAT_DECORATIONS
+	subcategory = CAT_DECORATION
 
 /datum/crafting_recipe/paper_craft/jack_o_lantern
 	name = "Paper Jack o'Lantern"
@@ -962,6 +975,7 @@
 	pathtools = list(/obj/item/pen,
 					/obj/item/toy/crayon/orange,
 					/obj/item/toy/crayon/green)//pen ink is black
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/ghost
@@ -969,6 +983,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/ghost)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/pen)//it's white paper why need a white crayon?
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/spider
@@ -977,6 +992,7 @@
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/pen,
 					/obj/item/toy/crayon/red)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/spiderweb
@@ -984,6 +1000,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/spiderweb)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list()
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/skull
@@ -991,6 +1008,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/skull)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/pen)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/skeleton
@@ -998,6 +1016,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/skeleton)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/pen)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/cauldron
@@ -1005,6 +1024,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/cauldron)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/pen)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/snowman
@@ -1013,6 +1033,7 @@
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/pen,
 					/obj/item/toy/crayon/orange)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/christmas_stocking
@@ -1020,6 +1041,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/christmas_stocking)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/red)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/christmas_tree
@@ -1030,6 +1052,7 @@
 					/obj/item/toy/crayon/yellow,
 					/obj/item/toy/crayon/blue,
 					/obj/item/toy/crayon/green)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/snowflake
@@ -1037,6 +1060,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/snowflake)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list()
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/candy_cane
@@ -1044,6 +1068,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/candy_cane)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/red)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/mistletoe
@@ -1052,6 +1077,7 @@
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/red,
 					/obj/item/toy/crayon/green)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/holly
@@ -1060,88 +1086,107 @@
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/red,
 					/obj/item/toy/crayon/green)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/tinsel_white
 	name = "Paper Tinsel White"
+	time = 10
 	result = list(/obj/item/decorations/sticky_decorations/flammable/tinsel)
 	reqs = list(/obj/item/paper = 1,
 				/obj/item/stack/tape_roll = 2)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list()
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/tinsel_red
 	name = "Red Paper Tinsel"
+	time = 10
 	result = list(/obj/item/decorations/sticky_decorations/flammable/tinsel/red)
 	reqs = list(/obj/item/paper = 1,
 				/obj/item/stack/tape_roll = 2)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/red)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/tinsel_blue
 	name = "Blue Paper Tinsel"
+	time = 10
 	result = list(/obj/item/decorations/sticky_decorations/flammable/tinsel/blue)
 	reqs = list(/obj/item/paper = 1,
 				/obj/item/stack/tape_roll = 2)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/blue)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/tinsel_yellow
 	name = "Yellow Paper Tinsel"
+	time = 10
 	result = list(/obj/item/decorations/sticky_decorations/flammable/tinsel/yellow)
 	reqs = list(/obj/item/paper = 1,
 				/obj/item/stack/tape_roll = 2)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/yellow)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/tinsel_purple
 	name = "Purple Paper Tinsel"
+	time = 10
 	result = list(/obj/item/decorations/sticky_decorations/flammable/tinsel/purple)
 	reqs = list(/obj/item/paper = 1,
 				/obj/item/stack/tape_roll = 2)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/purple)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/tinsel_green
 	name = "Green Paper Tinsel"
+	time = 10
 	result = list(/obj/item/decorations/sticky_decorations/flammable/tinsel/green)
 	reqs = list(/obj/item/paper = 1,
 				/obj/item/stack/tape_roll = 2)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/green)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/tinsel_orange
 	name = "Orange Paper Tinsel"
+	time = 10
 	result = list(/obj/item/decorations/sticky_decorations/flammable/tinsel/orange)
 	reqs = list(/obj/item/paper = 1,
 				/obj/item/stack/tape_roll = 2)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/orange)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/tinsel_black
 	name = "Black Paper Tinsel"
+	time = 10
 	result = list(/obj/item/decorations/sticky_decorations/flammable/tinsel/black)
 	reqs = list(/obj/item/paper = 1,
 				/obj/item/stack/tape_roll = 2)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/pen)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/tinsel_halloween
 	name = "Halloween style Paper Tinsel"
+	time = 10
 	result = list(/obj/item/decorations/sticky_decorations/flammable/tinsel/halloween)
 	reqs = list(/obj/item/paper = 1,
 				/obj/item/stack/tape_roll = 2)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/pen,
 					/obj/item/toy/crayon/orange)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/arrowed_heart
@@ -1149,6 +1194,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/arrowed_heart)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/red)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/heart_chain
@@ -1159,6 +1205,7 @@
 				/obj/item/stack/cable_coil = 2)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/red)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/four_leaf_clover
@@ -1166,6 +1213,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/four_leaf_clover)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/green)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/pot_of_gold
@@ -1179,15 +1227,18 @@
 				/obj/item/toy/crayon/green,
 				/obj/item/toy/crayon/blue,
 				/obj/item/toy/crayon/purple)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/leprechaun_hat
 	name = "Paper Leprechaun Hat"
+	time = 10
 	result = list(/obj/item/decorations/sticky_decorations/flammable/leprechaun_hat)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/pen,
 				/obj/item/toy/crayon/yellow,
 				/obj/item/toy/crayon/green)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/easter_bunny
@@ -1197,6 +1248,7 @@
 	pathtools = list(/obj/item/pen,
 				/obj/item/toy/crayon/blue,
 				/obj/item/toy/crayon/purple)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/easter_egg_blue
@@ -1204,6 +1256,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/easter_egg)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/blue)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/easter_egg_yellow
@@ -1211,6 +1264,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/easter_egg/yellow)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/yellow)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/easter_egg_red
@@ -1218,6 +1272,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/easter_egg/red)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/red)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/easter_egg_purple
@@ -1225,6 +1280,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/easter_egg/purple)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/purple)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/paper_craft/easter_egg_orange
@@ -1232,6 +1288,7 @@
 	result = list(/obj/item/decorations/sticky_decorations/flammable/easter_egg/orange)
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/toy/crayon/orange)
+	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/metal_angel_statue
@@ -1325,6 +1382,7 @@
 
 /datum/crafting_recipe/gauze
 	name = "Treated gauze"
+	time = 3 SECONDS
 	result = list(/obj/item/stack/medical/bruise_pack)
 	reqs = list(/obj/item/stack/medical/bruise_pack/improvised = 6,
 				/datum/reagent/medicine/heal_on_apply/styptic_powder = 30,
@@ -1333,6 +1391,7 @@
 
 /datum/crafting_recipe/ointment
 	name = "Ointment"
+	time = 3 SECONDS
 	result = list(/obj/item/stack/medical/ointment)
 	reqs = list(/obj/item/stack/sheet/plastic = 2,
 				/datum/reagent/water = 10,

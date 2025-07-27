@@ -32,6 +32,7 @@ Difficulty: Medium
 	light_color = "#E4C7C5"
 	speak_emote = list("roars")
 	speed = 3
+	move_to_delay = 3
 	projectiletype = /obj/item/projectile/kinetic/miner
 	projectilesound = 'sound/weapons/kenetic_accel.ogg'
 	ranged = TRUE
@@ -66,6 +67,7 @@ Difficulty: Medium
 	icon_state = null
 	gpstag = "Resonant Signal"
 	desc = "The sweet blood, oh, it sings to me."
+	invisibility = 100
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()

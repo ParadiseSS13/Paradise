@@ -247,6 +247,7 @@
 	item_state = "defibnt"
 	paddle_type = /obj/item/shockpaddles/advanced
 	combat = TRUE
+	safety = TRUE
 	hardened = TRUE // EMP-proof (on the component), but not emag-proof.
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Objective item, better not have it destroyed.
 	heart_attack_probability = 10
@@ -292,9 +293,11 @@
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
+	force = 0
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = INDESTRUCTIBLE
+	toolspeed = 1
 	base_icon_state = "defibpaddles"
 	/// Amount of power used on a shock.
 	var/revivecost = 1000
@@ -421,10 +424,12 @@
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
+	force = 0
 	w_class = WEIGHT_CLASS_BULKY
 	var/revivecost = 1000
 	var/safety = TRUE
 	flags = NODROP
+	toolspeed = 1
 
 /obj/item/borg_defib/Initialize(mapload)
 	. = ..()

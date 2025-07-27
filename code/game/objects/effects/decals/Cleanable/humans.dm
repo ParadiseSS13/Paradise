@@ -7,6 +7,7 @@
 	desc = "It's thick and gooey. Perhaps it's the chef's cooking?"
 	var/drydesc = "It's dry and crusty. Someone is not doing their job."
 	gender = PLURAL
+	density = FALSE
 	layer = TURF_LAYER
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "mfloor1"
@@ -22,6 +23,7 @@
 	var/off_floor = FALSE
 	var/image/weightless_image
 	var/weightless_icon = 'icons/effects/blood_weightless.dmi'
+	inertia_move_delay = 5 // so they dont collide with who emitted them
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	if(C == src)
@@ -205,6 +207,7 @@
 /obj/effect/decal/cleanable/blood/drip
 	name = "drips of blood"
 	desc = "A drop of blood in an ocean of mess."
+	gender = PLURAL
 	icon = 'icons/effects/drip.dmi'
 	icon_state = "1"
 	random_icon_states = list("1", "2", "3", "4", "5")
@@ -218,9 +221,11 @@
 /// not a child of blood on purpose
 /obj/effect/decal/cleanable/trail_holder
 	name = "blood"
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
 	desc = "Your instincts say you shouldn't be following these."
 	gender = PLURAL
+	density = FALSE
 	layer = TURF_LAYER
 	random_icon_states = null
 	blood_DNA = list()
@@ -253,6 +258,10 @@
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
 	desc = "They look bloody and gruesome."
+	gender = PLURAL
+	density = FALSE
+	layer = TURF_LAYER
+	icon = 'icons/effects/blood.dmi'
 	icon_state = "mgibbl5"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	no_clear = TRUE

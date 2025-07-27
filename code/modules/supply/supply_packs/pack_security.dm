@@ -106,6 +106,7 @@
 ///// Armory stuff
 
 /datum/supply_packs/security/armory
+	name = "HEADER"
 	containertype = /obj/structure/closet/crate/secure/weapon
 	access = ACCESS_ARMORY
 	announce_beacons = list("Security" = list("Warden", "Head of Security's Desk"))

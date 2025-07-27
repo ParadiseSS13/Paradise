@@ -34,7 +34,9 @@
 	icon_state = "corncob"
 	item_state = "corncob"
 	w_class = WEIGHT_CLASS_TINY
+	throwforce = 0
 	throw_speed = 3
+	throw_range = 7
 
 /obj/item/grown/corncob/attackby__legacy__attackchain(obj/item/grown/W, mob/user, params)
 	if(W.sharp)
@@ -63,7 +65,9 @@
 	icon_state = "snapcorn"
 	item_state = "corncob"
 	w_class = WEIGHT_CLASS_TINY
+	throwforce = 0
 	throw_speed = 3
+	throw_range = 7
 	var/snap_pops = 1
 
 /obj/item/grown/snapcorn/add_juice()

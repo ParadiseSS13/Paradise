@@ -4,6 +4,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "docs_generic"
 	item_state = "paper"
+	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 1
 	throw_speed = 1
@@ -27,6 +28,7 @@
 
 /obj/item/documents/syndicate/red
 	name = "'Red' secret documents"
+	desc = "Documents printed on special copy-protected paper. They detail sensitive Syndicate operational intelligence."
 	icon_state = "docs_red"
 
 /obj/item/documents/syndicate/red/examine(mob/user)
@@ -35,6 +37,7 @@
 
 /obj/item/documents/syndicate/blue
 	name = "'Blue' secret documents"
+	desc = "Documents printed on special copy-protected paper. They detail sensitive Syndicate operational intelligence."
 	icon_state = "docs_blue"
 
 /obj/item/documents/syndicate/blue/examine(mob/user)
@@ -43,6 +46,7 @@
 
 /obj/item/documents/syndicate/yellow
 	name = "'Yellow' secret documents"
+	desc = "Documents printed on special copy-protected paper. They detail sensitive Syndicate operational intelligence."
 	icon_state = "docs_yellow"
 	resistance_flags = NONE
 
@@ -77,6 +81,7 @@
 	name = "\improper D.V.O.R.A.K Blackbox Disk"
 	desc = "This disk contains a full record of all information that passed through D.V.O.R.A.K's systems during its uptime, not to mention what may have gone wrong. NT might be interested in this."
 	icon = 'icons/obj/module.dmi'
+	w_class = WEIGHT_CLASS_TINY
 	item_state = "card-id"
 	icon_state = "holodisk"
 	drop_sound = 'sound/items/handling/disk_drop.ogg'

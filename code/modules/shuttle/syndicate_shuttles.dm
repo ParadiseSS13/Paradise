@@ -84,6 +84,8 @@
 	desc = "Used to designate a precise transit location for the SST shuttle."
 	shuttleId = "sst"
 	shuttlePortId = "sst_custom"
+	bubble_icon = "syndibot"
+	view_range = 13
 	x_offset = 0
 	y_offset = 0
 
@@ -92,6 +94,8 @@
 	desc = "Used to designate a precise transit location for the SIT shuttle."
 	shuttleId = "sit"
 	shuttlePortId = "sit_custom"
+	bubble_icon = "syndibot"
+	view_range = 13
 	x_offset = 0
 	y_offset = 0
 

@@ -91,6 +91,7 @@
 /// subtree to mark trees as territories
 /datum/ai_planning_subtree/find_and_hunt_target/mark_territory
 	target_key = BB_DEER_TREE_TARGET
+	finding_behavior = /datum/ai_behavior/find_hunt_target
 	hunting_behavior = /datum/ai_behavior/hunt_target/mark_territory
 	hunt_targets = list(/obj/structure/flora/tree)
 	hunt_range = 7

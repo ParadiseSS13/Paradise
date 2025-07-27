@@ -27,6 +27,7 @@
 
 /obj/item/reagent_containers/drinks/bottle/random_drink
 	name = "unlabelled drink"
+	icon = 'icons/obj/drinks.dmi'
 
 /obj/item/reagent_containers/drinks/bottle/random_drink/Initialize(mapload)
 	. = ..()

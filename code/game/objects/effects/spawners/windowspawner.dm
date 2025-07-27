@@ -114,10 +114,13 @@
 	name = "pod window spawner"
 	icon_state = "podwindow_spawner"
 	window_to_spawn_full = /obj/structure/window/full/shuttle/survival_pod
+	useGrille = TRUE
 
 /obj/effect/spawner/window/shuttle/survival_pod/tinted
 	name = "tinted pod window spawner"
+	icon_state = "podwindow_spawner"
 	window_to_spawn_full = /obj/structure/window/full/shuttle/survival_pod/tinted
+	useGrille = TRUE
 
 /obj/effect/spawner/window/plastitanium
 	name = "plastitanium window spawner"
@@ -129,3 +132,4 @@
 	name = "leaded plastitanium window spawner"
 	icon_state = "leaded_plastitaniumwindow_spawner"
 	window_to_spawn_full = /obj/structure/window/full/plastitanium/rad_protect
+	useGrille = TRUE

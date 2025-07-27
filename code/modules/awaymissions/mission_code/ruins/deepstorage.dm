@@ -3,6 +3,7 @@
 /mob/living/simple_animal/hostile/megafauna/fleshling
 	name = "Fleshling"
 	desc = "A sinister mass of flesh molded into a grotesque shape. Nothing about it looks like the result of natural evolution. It looks agitated and clearly doesn't want you to leave here alive."
+	health = 1000
 	icon = 'icons/mob/fleshling.dmi'
 	icon_state = "fleshling"
 	icon_living = "fleshling"
@@ -15,9 +16,12 @@
 	pixel_x = -16
 	melee_damage_lower = 20
 	melee_damage_upper = 20
+	wander = TRUE
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
+	sentience_type = SENTIENCE_BOSS
+	a_intent = INTENT_HARM
 	deathmessage = "collapses into a pile of gibs. From the looks of it this is the deadest it can get... "
 	butcher_results = list(/obj/item/regen_mesh)
 	/// Is the boss charging right now?
@@ -242,6 +246,7 @@
 /obj/machinery/deepstorage_teleporter
 	name = "package teleporter"
 	desc = "It's tuned to maintain one-way teleportation."
+	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "controller"
 	density = TRUE
 	anchored = TRUE

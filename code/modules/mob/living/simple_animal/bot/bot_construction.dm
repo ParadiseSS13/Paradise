@@ -8,7 +8,9 @@
 	icon_state = "bucket_proxy"
 	force = 3
 	throwforce = 5
+	throw_speed = 2
 	throw_range = 5
+	w_class = WEIGHT_CLASS_NORMAL
 	var/created_name = "Cleanbot"
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
@@ -234,7 +236,9 @@
 	icon_state = "toolbox_tiles"
 	force = 3
 	throwforce = 10
+	throw_speed = 2
 	throw_range = 5
+	w_class = WEIGHT_CLASS_NORMAL
 	var/created_name = "Floorbot"
 	var/toolbox = /obj/item/storage/toolbox/mechanical
 	var/toolbox_color = "" //Blank for blue, r for red, y for yellow, etc.
@@ -353,6 +357,7 @@
 	desc = "A first aid kit with a robot arm permanently grafted to it."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "firstaid_arm"
+	w_class = WEIGHT_CLASS_NORMAL
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
 	var/build_step = 0
 	var/created_name = "Medibot" //To preserve the name if it's a unique medbot I guess
@@ -629,6 +634,7 @@
 	desc = "A clown box with a robot arm permanently grafted to it."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "honkbot_arm"
+	w_class = WEIGHT_CLASS_NORMAL
 	req_one_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
 	var/build_step = 0
 	var/created_name = "Honkbot" //To preserve the name if it's a unique medbot I guess

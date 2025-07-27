@@ -10,6 +10,7 @@
 	icon = 'icons/obj/barsigns.dmi'
 	icon_state = "off"
 	req_access = list(ACCESS_BAR)
+	max_integrity = 200
 	integrity_failure = 160
 	idle_power_consumption = 5
 	active_power_consumption = 25

@@ -10,6 +10,7 @@
 	maturation = 5
 	production = 1
 	yield = 2
+	potency = 10
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy)
@@ -124,6 +125,7 @@
 	yield = 5
 	potency = 50
 	growthstages = 3
+	growing_icon = 'icons/obj/hydroponics/growing.dmi'
 	icon_dead = "bamboo-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = null

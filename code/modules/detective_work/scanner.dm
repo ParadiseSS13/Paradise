@@ -7,6 +7,7 @@
 	desc = "Used to remotely scan objects and biomass for DNA and fingerprints. Can print a report of the findings."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "detective_scanner"
+	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "electronic"
 	flags = CONDUCT | NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT

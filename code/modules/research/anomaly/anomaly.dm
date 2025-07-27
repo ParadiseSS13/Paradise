@@ -48,6 +48,7 @@
 /obj/item/assembly/signaler/anomaly/bluespace
 	name = "bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	icon_state = "anomaly_core"
 	anomaly_type = /obj/effect/anomaly/bluespace
 	origin_tech = "bluespace=7"
 
@@ -73,6 +74,7 @@
 	desc = "An experimental suit of armour, awaiting installation of an anomaly core."
 	icon_state = "reactiveoff"
 	icon = 'icons/obj/clothing/suits.dmi'
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/reactive_armour_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	var/static/list/anomaly_armour_types = list(

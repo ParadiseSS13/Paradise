@@ -96,6 +96,7 @@
 
 /datum/holiday/april_fools
 	name = APRIL_FOOLS
+	begin_day = 1
 	begin_month = APRIL
 	end_day = 8 //7 days extra so everyone can enjoy the festivities
 
@@ -111,6 +112,7 @@
 
 /datum/holiday/labor
 	name = "Labor Day"
+	begin_day = 1
 	begin_month = MAY
 
 /datum/holiday/firefighter
@@ -122,6 +124,7 @@
 
 /datum/holiday/doctor
 	name = "Doctor's Day"
+	begin_day = 1
 	begin_month = JULY
 
 /datum/holiday/ufo
@@ -190,6 +193,7 @@
 
 /datum/holiday/vegan
 	name = "Vegan Day"
+	begin_day = 1
 	begin_month = NOVEMBER
 
 /datum/holiday/kindness

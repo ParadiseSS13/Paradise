@@ -35,7 +35,9 @@
 	name = "advanced automatic mining scanner"
 	icon_state = "mining0"
 	item_state = "analyzer"
+	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
+	slot_flags = ITEM_SLOT_BELT
 	var/cooldown = 35
 	var/current_cooldown = 0
 	var/range = 7

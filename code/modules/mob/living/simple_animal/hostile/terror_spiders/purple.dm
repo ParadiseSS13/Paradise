@@ -22,6 +22,7 @@
 	icon_dead = "terror_purple_dead"
 	maxHealth = 200
 	health = 200
+	melee_damage_lower = 15
 	melee_damage_upper = 25
 	spider_tier = TS_TIER_2
 	move_to_delay = 5 // at 20ticks/sec, this is 4 tile/sec movespeed, same as a human. Faster than a normal spider, so it can intercept attacks on queen.

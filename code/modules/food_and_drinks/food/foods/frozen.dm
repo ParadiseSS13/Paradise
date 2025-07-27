@@ -60,16 +60,26 @@
 
 /obj/item/food/frozen/icecream/icecreamcone
 	name = "ice cream cone"
+	desc = "Delicious ice cream."
+	icon_state = "icecream_cone"
+	volume = 50
+	bitesize = 3
 	list_reagents = list("nutriment" = 3, "sugar" = 7, "ice" = 2)
 
 /obj/item/food/frozen/icecream/wafflecone
 	name = "ice cream in a waffle cone"
+	desc = "Delicious ice cream."
 	icon_state = "icecream_cone_waffle"
+	volume = 50
+	bitesize = 3
 	list_reagents = list("nutriment" = 3, "sugar" = 7, "ice" = 2)
 
 /obj/item/food/frozen/icecream/icecreamcup
 	name = "chocolate ice cream cone"
+	desc = "Delicious ice cream."
 	icon_state = "icecream_cone_chocolate"
+	volume = 50
+	bitesize = 3
 	list_reagents = list("nutriment" = 5, "chocolate" = 8, "ice" = 2)
 
 /obj/item/food/wafflecone
@@ -143,6 +153,7 @@
 /obj/item/food/frozen/snowcone
 	name = "flavorless snowcone"
 	desc = "It's just shaved ice. Still fun to chew on."
+	icon_state = "flavorless_sc"
 	trash = /obj/item/reagent_containers/drinks/sillycup
 	list_reagents = list("water" = 10, "ice" = 5)
 	tastes = list("cold water" = 1)
@@ -287,6 +298,7 @@
 	icon_state = "topsicle_banana"
 	list_reagents = list("vitamin" = 4, "sugar" = 6, "banana" = 4)
 	tastes = list("bananas" = 1, "tofu" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/frozen/popsicle/berrytop
 	name = "berry topsicle"
@@ -294,6 +306,7 @@
 	icon_state = "topsicle_berry"
 	list_reagents = list("vitamin" = 4, "sugar" = 6, "berryjuice" = 4)
 	tastes = list("berries" = 1, "tofu" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/frozen/popsicle/pineappletop
 	name = "pineapple topsicle"
@@ -301,6 +314,7 @@
 	icon_state = "topsicle_pineapple"
 	list_reagents = list("vitamin" = 4, "sugar" = 6, "pineapplejuice" = 4)
 	tastes = list("pineapples" = 1, "tofu" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/frozen/popsicle/licoricecream
 	name = "licorice creamsicle"
@@ -308,6 +322,7 @@
 	icon_state = "licorice_creamsicle"
 	list_reagents = list("nutriment" = 4, "cream" = 2, "vanilla" = 1, "sugar" = 4, "salt" = 1)
 	tastes = list("salty licorice" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/frozen/popsicle/orangecream
 	name = "orange creamsicle"
@@ -315,6 +330,7 @@
 	icon_state = "creamsicle_o"
 	list_reagents = list("orangejuice" = 4, "cream" = 2, "vanilla" = 2, "sugar" = 4)
 	tastes = list("ice cream" = 1, "oranges" = 1, "vanilla" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/frozen/popsicle/berrycream
 	name = "berry creamsicle"
@@ -322,6 +338,7 @@
 	icon_state = "creamsicle_m"
 	list_reagents = list("berryjuice" = 4, "cream" = 2, "vanilla" = 2, "sugar" = 4)
 	tastes = list("ice cream" = 1, "berries" = 1, "vanilla" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/frozen/popsicle/frozenpineapple
 	name = "frozen pineapple pop"
@@ -329,6 +346,7 @@
 	icon_state = "pineapple_pop"
 	list_reagents = list("pineapplejuice" = 4, "sugar" = 4, "nutriment" = 2, "vitamin" = 2)
 	tastes = list("cold pineapple" = 1, "chocolate" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/frozen/popsicle/sea_salt
 	name = "sea salt ice-cream bar"
@@ -336,10 +354,12 @@
 	icon_state = "sea_salt_pop"
 	list_reagents = list("salt" = 1, "nutriment" = 2, "cream" = 2, "vanilla" = 2, "sugar"= 4,)
 	tastes = list("salt" = 1, "sweet" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/frozen/popsicle/ant
 	name = "ant popsicle"
 	desc = "A colony of ants suspended in hardened sugar. Those things are dead, right?"
 	icon_state = "ant_pop"
+	trash = /obj/item/trash/popsicle_stick
 	list_reagents = list("nutriment" = 1, "vitamin" = 1, "sugar" = 5, "ants" = 3)
 	tastes = list("candy" = 1, "ants" = 2)

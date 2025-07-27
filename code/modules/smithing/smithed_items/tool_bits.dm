@@ -145,6 +145,7 @@
 	name = "adminium bit"
 	desc = "A hyper-advanced bit restricted to central command officials."
 	speed_mod = -1
+	efficiency_mod = 1
 	failure_rate = -20
 	durability = 300
 	quality = /datum/smith_quality/masterwork

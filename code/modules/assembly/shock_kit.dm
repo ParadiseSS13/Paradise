@@ -7,6 +7,7 @@
 	var/obj/item/electropack/part2 = null
 	var/status = FALSE
 	w_class = WEIGHT_CLASS_HUGE
+	flags = CONDUCT
 
 /obj/item/assembly/shock_kit/Destroy()
 	QDEL_NULL(part1)

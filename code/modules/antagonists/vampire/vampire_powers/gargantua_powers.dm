@@ -191,6 +191,7 @@
 /obj/effect/temp_visual/demonic_snare
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "immobilized"
+	duration = 1 SECONDS
 
 /datum/spell/vampire/charge
 	name = "Charge (30)"

@@ -1,6 +1,7 @@
 /obj/machinery/smithing/lava_furnace
 	name = "lava furnace"
 	desc = "A furnace that uses the innate heat of lavaland to reheat metal that has not been fully reshaped."
+	icon = 'icons/obj/machines/large_smithing_machines.dmi'
 	icon_state = "furnace_off"
 	operation_sound = 'sound/surgery/cautery1.ogg'
 	/// How much the device heats the component

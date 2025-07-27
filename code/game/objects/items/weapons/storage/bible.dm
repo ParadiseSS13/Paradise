@@ -6,6 +6,7 @@
 	icon_state ="bible"
 	throw_speed = 1
 	throw_range = 5
+	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF
 	drop_sound = 'sound/items/handling/book_drop.ogg'
 	pickup_sound =  'sound/items/handling/book_pickup.ogg'
@@ -52,7 +53,9 @@
 	return TRUE // Don't run the fart emote
 
 /obj/item/storage/bible/booze
+	name = "bible"
 	desc = "To be applied to the head repeatedly."
+	icon_state ="bible"
 
 /obj/item/storage/bible/booze/populate_contents()
 	new /obj/item/reagent_containers/drinks/bottle/beer(src)
@@ -183,4 +186,5 @@
 /obj/item/storage/bible/syndi
 	name = "suspicious bible"
 	desc = "For treading the line between cultist, contraband, and a hostile corporation."
+	customisable = FALSE
 	icon_state = "syndi"

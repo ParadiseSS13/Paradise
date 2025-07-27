@@ -7,10 +7,12 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "toyhammer"
 	slot_flags = ITEM_SLOT_BELT
+	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
 	throw_range = 15
 	attack_verb = list("banned")
+	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 
@@ -33,6 +35,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 2
 	throwforce = 1
+	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -55,7 +58,9 @@
 	force = 40
 	throwforce = 10
 	sharp = TRUE
+	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
@@ -89,6 +94,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	needs_permit = TRUE
@@ -113,6 +119,7 @@
 	item_state = "harpoon"
 	force = 20
 	throwforce = 15
+	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("jabbed","stabbed","ripped")
 
 /obj/item/wirerod
@@ -123,6 +130,7 @@
 	flags = CONDUCT
 	force = 9
 	throwforce = 10
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=1150, MAT_GLASS=75)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
 
@@ -176,6 +184,7 @@
 	desc = "A one-handed spear brought over from the Kidan homeworld."
 	icon_state = "kidanspear"
 	item_state = "kidanspear"
+	force = 10
 	throwforce = 15
 
 /obj/item/melee/baseball_bat

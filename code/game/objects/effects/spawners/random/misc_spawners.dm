@@ -196,6 +196,7 @@
 
 /obj/effect/spawner/random/fancy_table
 	name = "fancy table spawner"
+	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "fancy_table"
 	loot_type_path = /obj/structure/table/wood/fancy
 

@@ -9,6 +9,7 @@
 	lifespan = 150
 	endurance = 35
 	yield = 5
+	growthstages = 6
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list()

@@ -21,6 +21,7 @@
 	name = "emergency locker"
 	desc = "A wall mounted locker with emergency supplies."
 	icon_state = "emerg"
+	door_anim_time = 0
 	icon_closed = "emerg"
 	icon_opened = "emerg_open"
 

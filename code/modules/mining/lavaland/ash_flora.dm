@@ -145,6 +145,7 @@
 	harvest_message_low = "You pick a cactus fruit."
 	harvest_message_med = "You pick several cactus fruit." //shouldn't show up, because you can't get more than two
 	harvest_message_high = "You pick a pair of cactus fruit."
+	regrowth_time_low = 4800
 	regrowth_time_high = 7200
 
 /obj/structure/flora/ash/cacti/Initialize(mapload)
@@ -164,6 +165,7 @@
 	density = TRUE
 	resistance_flags = FIRE_PROOF
 	harvest = /obj/item/stack/ore/glass/basalt
+	harvest_time = 6 SECONDS
 	harvest_amount_low = 10
 	harvest_amount_high = 20
 	harvest_message_low = "You finish mining the rock."
@@ -193,6 +195,8 @@
 	desc = "Some shavings from a tall mushroom. With enough, might serve as a bowl."
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_shavings"
+	w_class = WEIGHT_CLASS_TINY
+	resistance_flags = FLAMMABLE
 	max_integrity = 100
 	seed = /obj/item/seeds/lavaland/polypore
 	wine_power = 0.2
@@ -312,6 +316,7 @@
 	name = "Mushroom Bowl"
 	result = list(/obj/item/reagent_containers/drinks/mushroom_bowl)
 	reqs = list(/obj/item/food/grown/ash_flora/shavings = 5)
+	time = 30
 	category = CAT_PRIMAL
 
 /obj/item/reagent_containers/drinks/mushroom_bowl

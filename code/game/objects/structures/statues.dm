@@ -4,6 +4,7 @@
 	icon = 'icons/obj/statue.dmi'
 	icon_state = ""
 	density = TRUE
+	anchored = FALSE
 	max_integrity = 100
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
@@ -377,6 +378,7 @@
 	return ..()
 
 /obj/structure/statue/cyberiad/center
+	icon_state = "center"
 	density = FALSE
 	layer = ABOVE_ALL_MOB_LAYER
 

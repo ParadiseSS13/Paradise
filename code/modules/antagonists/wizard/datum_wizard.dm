@@ -4,6 +4,7 @@
 	roundend_category = "wizards"
 	job_rank = ROLE_WIZARD
 	special_role = SPECIAL_ROLE_WIZARD
+	give_objectives = TRUE
 	antag_hud_name = "hudwizard"
 	antag_hud_type = ANTAG_HUD_WIZ
 	clown_gain_text = "Your new magical powers has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."

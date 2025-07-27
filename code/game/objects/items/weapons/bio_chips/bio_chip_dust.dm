@@ -3,6 +3,7 @@
 /obj/item/bio_chip/dust
 	name = "duster bio-chip"
 	desc = "A remote controlled bio-chip that will dust the user upon activation (or death of user)."
+	icon = 'icons/obj/bio_chips.dmi'
 	icon_state = "dust"
 	actions_types = list(/datum/action/item_action/hands_free/activate/always)
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ONCE | BIOCHIP_TRIGGER_NOT_WHEN_GIBBED

@@ -6,6 +6,7 @@
 	anchored = TRUE
 	idle_power_consumption = 5
 	active_power_consumption = 60
+	power_channel = PW_CHANNEL_EQUIPMENT
 	pass_flags = PASSTABLE
 	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1

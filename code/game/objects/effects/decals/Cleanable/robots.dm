@@ -5,6 +5,8 @@
 	icon_state = "gib1"
 	basecolor = "#030303"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gib7")
+	bloodiness = BLOOD_AMOUNT_PER_DECAL
+	mergeable_decal = FALSE
 
 /obj/effect/decal/cleanable/blood/gibs/robot/can_bloodcrawl_in()
 	return FALSE

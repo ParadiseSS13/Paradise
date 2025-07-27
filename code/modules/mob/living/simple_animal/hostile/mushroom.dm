@@ -5,6 +5,8 @@
 	icon_living = "mushroom_color"
 	icon_dead = "mushroom_dead"
 	mob_biotypes = MOB_ORGANIC | MOB_PLANT
+	speak_chance = 0
+	turns_per_move = 1
 	maxHealth = 10
 	health = 10
 	butcher_results = list(/obj/item/food/hugemushroomslice = 1)
@@ -21,6 +23,8 @@
 	faction = list("mushroom", "jungle")
 	environment_smash = 0
 	stat_attack = DEAD
+	mouse_opacity = MOUSE_OPACITY_ICON
+	speed = 1
 	ventcrawler = VENTCRAWLER_ALWAYS
 	robust_searching = TRUE
 	speak_emote = list("squeaks")

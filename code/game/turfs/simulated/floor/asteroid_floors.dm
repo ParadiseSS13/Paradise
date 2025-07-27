@@ -10,6 +10,7 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/simulated/floor/plating/asteroid //Because caves do whacky shit to revert to normal
 	var/floor_variance = 20 //probability floor has a different icon state
@@ -114,6 +115,7 @@
 	icon_plating = "basalt"
 	environment_type = "basalt"
 	floor_variance = 15
+	digResult = /obj/item/stack/ore/glass/basalt
 
 /// lava underneath
 /turf/simulated/floor/plating/asteroid/basalt/lava
@@ -214,6 +216,7 @@
 	qdel(src)
 
 /turf/simulated/floor/plating/asteroid/snow
+	gender = PLURAL
 	name = "snow"
 	desc = "Looks cold."
 	icon = 'icons/turf/snow.dmi'

@@ -13,6 +13,9 @@
 	role_name = "lifebringer"
 	icon = 'icons/obj/lavaland/spawners.dmi'
 	icon_state = "terrarium"
+	density = TRUE
+	roundstart = FALSE
+	death = FALSE
 	mob_species = /datum/species/diona/pod
 	description = "You are a diona on Lavaland with access to a full botany setup. Perfect to mess around with plants in peace."
 	flavour_text = "You are a sentient ecosystem, an example of the mastery over life that your creators possessed. Your masters, benevolent as they were, created uncounted \

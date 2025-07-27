@@ -14,6 +14,7 @@
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/helmet
+	dyeable = FALSE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
@@ -68,6 +69,7 @@
 /obj/item/clothing/head/helmet/material
 	name = "material visor helmet"
 	desc = "A helmet with a built-in material scanning visor."
+	icon_state = "helmetmaterials"
 	vision_flags = SEE_OBJS
 
 /obj/item/clothing/head/helmet/night
@@ -133,7 +135,10 @@
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, RAD = 10, FIRE = 50, ACID = 50)
 	flags = BLOCKHAIR
 
+	flags_inv = HIDEEARS|HIDEEYES
+	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	strip_delay = 80
 	dog_fashion = null
@@ -152,7 +157,9 @@
 	item_state = "thunderdome"
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
 	flags_2 = RAD_PROTECT_CONTENTS_2
+	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	strip_delay = 80
 	dog_fashion = null
@@ -205,6 +212,7 @@
 	item_state = "redtaghelm"
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 0, ACID = 50)
 	// Offer about the same protection as a hardhat.
+	flags_inv = HIDEEARS|HIDEEYES
 	dog_fashion = null
 
 /obj/item/clothing/head/helmet/bluetaghelm
@@ -215,6 +223,7 @@
 	item_state = "bluetaghelm"
 	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 0, ACID = 50)
 	// Offer about the same protection as a hardhat.
+	flags_inv = HIDEEARS|HIDEEYES
 	dog_fashion = null
 
 /obj/item/clothing/head/blob
@@ -252,6 +261,7 @@
 	name = "skull helmet"
 	desc = "An intimidating tribal helmet, it looks sick as hell."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = HEADCOVERSEYES
 	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	icon_state = "skull"
 	item_state = "skull"
@@ -265,7 +275,9 @@
 	desc = "A helmet made from durathread and leather."
 	icon_state = "durathread"
 	item_state = "durathread"
+	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 35, ACID = 50)
+	strip_delay = 60
 
 /obj/item/clothing/head/helmet/street_judge
 	name = "judge's helmet"
@@ -342,6 +354,7 @@
 	)
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = HEADCOVERSEYES
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	flash_protect = FLASH_PROTECTION_WELDER
@@ -351,6 +364,8 @@
 /obj/item/clothing/head/helmet/federation/marine/export
 	name = "\improper Federation marine combat helmet (E)"
 	desc = "An export-grade combat helmet commonly given or sold to allies of the Trans-Solar Federation. The OCULUS system has been removed, and its protection is generally inferior to its in-service counterpart."
+	icon_state = "fedhelmet_marine"
+	item_state = "fedhelmet_marine"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
@@ -360,10 +375,14 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
 	)
+	flags = BLOCKHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = HEADCOVERSEYES
 	see_in_dark = 0
 	lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	flash_protect = FLASH_PROTECTION_NONE
 	armor = list(MELEE = 30, BULLET = 35, LASER = 35, ENERGY = 30, BOMB = 50, RAD = 0, FIRE = 100, ACID = 50)
+	strip_delay = 130
 
 /obj/item/clothing/head/helmet/federation/marine/officer
 	name = "\improper Federation marine officer's combat helmet"
@@ -379,5 +398,12 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
 	)
+	flags = BLOCKHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = HEADCOVERSEYES
+	see_in_dark = 8
 	vision_flags = SEE_MOBS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	flash_protect = FLASH_PROTECTION_WELDER
 	armor = list(MELEE = 40, BULLET = 45, LASER = 45, ENERGY = 40, BOMB = 100, RAD = 25, FIRE = 200, ACID = 100)
+	strip_delay = 130

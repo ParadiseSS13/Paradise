@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=2;biotech=3"
 	materials = list(MAT_METAL = 600, MAT_GLASS = 200)
+	toolspeed = 1
 	var/obj/item/bio_chip/imp
 	var/obj/item/bio_chip/implant_type
 

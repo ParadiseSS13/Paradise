@@ -19,10 +19,13 @@
 	pixel_x = -32
 	pixel_y = -32
 	current_size = STAGE_TWO
+	move_self = TRUE
 	grav_pull = 0
+	density = TRUE
 	energy = 0
 	dissipate = FALSE
 	dissipate_delay = 5
+	dissipate_strength = 1
 	warps_projectiles = FALSE
 	var/list/orbiting_balls = list()
 	var/miniball = FALSE

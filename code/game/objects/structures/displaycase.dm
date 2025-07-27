@@ -225,6 +225,7 @@
 
 /obj/structure/displaycase_chassis
 	anchored = TRUE
+	density = FALSE
 	name = "display case chassis"
 	desc = "The wooden base of a display case."
 	icon = 'icons/obj/stationobjs.dmi'

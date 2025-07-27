@@ -118,7 +118,9 @@
 
 /obj/item/organ/internal/brain/kidan
 	icon = 'icons/obj/species_organs/kidan.dmi'
+	icon_state = "brain2"
 	mmi_icon = 'icons/obj/species_organs/kidan.dmi'
+	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/kidan
 	name = "kidan lungs"

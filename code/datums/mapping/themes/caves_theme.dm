@@ -81,6 +81,8 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 	name = "Blocked Burrows"
 	perlin_accuracy = 90
 	perlin_stamp_size = 7
+	perlin_lower_range = 0
+	perlin_upper_range = 0.3
 
 /datum/caves_theme/burrows/on_change(turf/T)
 	if(prob(7))
@@ -136,6 +138,7 @@ GLOBAL_LIST_INIT(caves_default_flora_spawns, list(
 /datum/caves_theme/deeprock
 	name = "Deadly Deeprock"
 	perlin_stamp_size = 12
+	perlin_lower_range = 0
 	perlin_upper_range = 0.2
 	var/oasis_padding = 50
 	var/list/oasis_centroids = list()

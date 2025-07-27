@@ -18,6 +18,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	Use a <b>crowbar</b> on the belt to dislodge it.<span>"
 	layer = CONVEYOR_LAYER 		// so they appear under stuff but not below stuff like vents
 	anchored = TRUE
+	move_force = MOVE_FORCE_DEFAULT
 	var/operating = FALSE	//NB: this can be TRUE while the belt doesn't go
 	var/forwards			// The direction the conveyor sends you in
 	var/backwards			// hopefully self-explanatory
@@ -534,6 +535,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	dir = SOUTHEAST
 
 /obj/machinery/conveyor/south
+	dir = SOUTH
 
 /obj/machinery/conveyor/southwest
 	dir = SOUTHWEST

@@ -14,7 +14,9 @@
 	max_integrity = 500
 
 	density = TRUE
+	anchored = TRUE
 
+	pixel_x = 0
 	pixel_y = -64
 
 	// Variables go below here
@@ -82,6 +84,7 @@
 	dir = NORTH
 
 /obj/machinery/power/transmission_laser/east
+	pixel_x = 0
 	pixel_y = 0
 	dir = EAST
 
@@ -505,6 +508,7 @@
 	name = "Shimmering beam"
 	icon = 'icons/goonstation/effects/pt_beam.dmi'
 	icon_state = "ptl_beam"
+	anchored = TRUE
 
 	/// Used to deal with atoms stepping on us while firing
 	var/obj/machinery/power/transmission_laser/host

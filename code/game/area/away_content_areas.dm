@@ -9,9 +9,11 @@
 
 /area/awaymission/example
 	name = "\improper Strange Station"
+	icon_state = "away"
 
 /area/awaymission/desert
 	name = "Mars"
+	icon_state = "away"
 
 /area/awaymission/beach
 	name = "Beach"

@@ -7,6 +7,9 @@
 	desc = "An electric stovetop with four burners."
 	icon_state = "stove"
 	density = FALSE
+	anchored = TRUE
+	layer = BELOW_OBJ_LAYER
+	cooking = FALSE
 	pass_flags = PASSTABLE
 	allowed_containers = list(
 		/obj/item/reagent_containers/cooking/pot,

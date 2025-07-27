@@ -8,7 +8,9 @@
 	icon = 'icons/obj/cryogenics.dmi'
 	icon_state = "pod0"
 	density = TRUE
+	anchored = TRUE
 	layer = ABOVE_WINDOW_LAYER
+	plane = GAME_PLANE
 	interact_offline = TRUE
 	max_integrity = 350
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 30, ACID = 30)

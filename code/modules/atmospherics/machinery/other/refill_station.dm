@@ -5,10 +5,12 @@
 	name = "refill station"
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "filler_oxygen"
+	anchored = TRUE
 	density = TRUE
 	resistance_flags = NONE
 	idle_power_consumption = 1
 	active_power_consumption = 5
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	/// The desired pressure the refill station should be outputting into a holding tank.
 	target_pressure = MAX_TARGET_PRESSURE
 	can_unwrench_while_on = FALSE

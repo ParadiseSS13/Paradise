@@ -14,6 +14,7 @@
 	anchored = FALSE
 	plane = SMOKE_PLANE
 	layer = FLY_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/steps = 0
 	var/lifetime = 10 SECONDS_TO_LIFE_CYCLES
 	var/direction
@@ -143,6 +144,7 @@
 
 /obj/effect/particle_effect/smoke/steam
 	color = COLOR_OFF_WHITE
+	lifetime = 10 SECONDS_TO_LIFE_CYCLES
 	causes_coughing = TRUE
 
 /obj/effect/particle_effect/smoke/steam/smoke_mob(mob/living/carbon/breather)

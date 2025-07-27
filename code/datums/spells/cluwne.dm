@@ -4,6 +4,7 @@
 	hand_path = /obj/item/melee/touch_attack/cluwne
 
 	base_cooldown = 1 MINUTES
+	clothes_req = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "cluwne"

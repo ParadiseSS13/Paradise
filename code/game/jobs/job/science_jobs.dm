@@ -205,6 +205,7 @@
 	uniform = /obj/item/clothing/under/rank/rnd/roboticist
 	suit = /obj/item/clothing/suit/storage/labcoat/robowhite
 	belt = /obj/item/storage/belt/utility/full
+	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_sci
 	id = /obj/item/card/id/roboticist
 	pda = /obj/item/pda/roboticist

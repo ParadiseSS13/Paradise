@@ -9,6 +9,7 @@
 	name = "rolled-up poster"
 	desc = "The poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. Its vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
 	icon = 'icons/obj/contraband.dmi'
+	force = 0
 	resistance_flags = FLAMMABLE
 	var/poster_type
 	var/obj/structure/sign/poster/poster_structure
@@ -52,6 +53,7 @@
 	name = "poster"
 	desc = "A large piece of space-resistant printed paper."
 	icon = 'icons/obj/contraband.dmi'
+	anchored = TRUE
 	var/original_name
 	var/random_basetype
 	var/ruined = FALSE
@@ -205,6 +207,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/random, 32, 32)
 /obj/structure/sign/poster/contraband
 	poster_item_name = "contraband poster"
 	poster_item_desc = "This poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. Its vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	poster_item_icon_state = "rolled_poster"
 
 /obj/structure/sign/poster/contraband/random
 	name = "random contraband poster"

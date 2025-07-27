@@ -2,6 +2,7 @@
 	name = "Lightning Bolt"
 	desc = "Throws a lightning bolt at your enemies. Classic. When clicked will start to charge in power. Then click on a mob to send the bolt before it overloads with power."
 	base_cooldown	= 30 SECONDS
+	clothes_req = TRUE
 	invocation = "UN'LTD P'WAH!"
 	invocation_type = "shout"
 	cooldown_min = 3 SECONDS

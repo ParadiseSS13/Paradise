@@ -12,6 +12,7 @@
 	icon = 'icons/obj/pipes/transit_tube_station.dmi'
 	icon_state = "closed_station0"
 	base_icon_state = "station0"
+	exit_delay = 1
 	enter_delay = 2
 	density = TRUE
 	uninstalled_type = /obj/structure/transit_tube_construction/station

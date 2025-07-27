@@ -22,6 +22,7 @@
 
 /obj/machinery/atmospherics/unary/tank/air
 	name = "Pressure Tank (Air)"
+	icon_state = "air_map"
 
 /obj/machinery/atmospherics/unary/tank/air/Initialize(mapload)
 	. = ..()

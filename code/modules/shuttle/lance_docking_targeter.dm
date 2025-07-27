@@ -107,6 +107,7 @@
 	name = "lance docking port"
 	id = "emergency_home"
 	height = 50
+	dheight = 0
 	width = 19
 	dwidth = 9
 
@@ -114,3 +115,4 @@
 	icon_state = null
 	gpstag = "Lance Docking Beacon"
 	desc = "It is not reccomended to stand here."
+	invisibility = 100

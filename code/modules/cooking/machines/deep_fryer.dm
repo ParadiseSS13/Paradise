@@ -8,6 +8,10 @@
 	name = "deep fryer"
 	desc = "A deep fryer that can hold two baskets."
 	icon_state = "deep_fryer"
+	density = TRUE
+	anchored = TRUE
+	layer = BELOW_OBJ_LAYER
+	cooking = FALSE
 	allowed_containers = list(
 		/obj/item/reagent_containers/cooking/deep_basket,
 	)

@@ -21,6 +21,7 @@
 
 //This is the icon for fire on turfs.
 /obj/effect/hotspot
+	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'icons/goonstation/effects/fire.dmi'
 	icon_state = "1"

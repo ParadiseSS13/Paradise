@@ -159,6 +159,7 @@
 	id = "radium"
 	description = "Radium is an alkaline earth metal. It is extremely radioactive."
 	process_flags = ORGANIC | SYNTHETIC
+	reagent_state = SOLID
 	color = "#C7C7C7" // rgb: 199,199,199
 	penetrates_skin = TRUE
 	taste_description = "the colour blue and regret"
@@ -240,6 +241,7 @@
 	name = "Uranium"
 	id = "uranium"
 	description = "A silvery-white metallic chemical element in the actinide series, weakly radioactive."
+	reagent_state = SOLID
 	color = "#B8B8C0" // rgb: 184, 184, 192
 	taste_mult = 0
 	taste_description = "the inside of a reactor"
@@ -338,6 +340,7 @@
 	description = "Fluorosulfuric acid is a an extremely corrosive super-acid."
 	color = "#5050FF"
 	acidpwr = 42
+	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/acid/facid/on_mob_life(mob/living/M)
@@ -913,6 +916,7 @@
 	name = "Lipolicide"
 	id = "lipolicide"
 	description = "A compound found in many seedy dollar stores in the form of a weight-loss tonic."
+	reagent_state = SOLID
 	color = "#D1DED1"
 	metabolization_rate = 0.2
 	taste_description = "battery acid"
@@ -1100,6 +1104,7 @@
 	name = "Atrazine"
 	id = "atrazine"
 	description = "A herbicidal compound used for destroying unwanted plants."
+	reagent_state = LIQUID
 	color = "#773E73" //RGB: 47 24 45
 	lethality = 2 //Atrazine, however, is definitely toxic
 	goal_department = "Science"
@@ -1249,6 +1254,7 @@
 	name = "Ants"
 	id = "ants"
 	description = "A sample of a lost breed of Space Ants (formicidae bastardium tyrannus), they are well-known for ravaging the living shit out of pretty much anything."
+	reagent_state = SOLID
 	color = "#993333"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "<span class='warning'>ANTS OH GOD</span>"

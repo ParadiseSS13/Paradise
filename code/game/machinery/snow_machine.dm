@@ -3,6 +3,7 @@
 	desc = "Just add water and you too can have your own winter wonderland! Carol singers not included."
 	icon_state = "snow_machine_off"
 	density = TRUE
+	anchored = FALSE
 	layer = OBJ_LAYER
 	var/active = FALSE
 	var/power_used_this_cycle = 0

@@ -126,6 +126,7 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	desc = "This limb has a rubbery fleshtone covering with visible seams."
 	icon = 'icons/mob/human_races/cyberlimbs/zenghu/zenghu_main.dmi'
 	sprite_sheets = list("Vox" = 'icons/mob/human_races/vox/cyberlimbs/wardtakahashi.dmi')
+	has_subtypes = 2
 
 /datum/robolimb/shellguard
 	company = "Shellguard Munitions Standard Series"

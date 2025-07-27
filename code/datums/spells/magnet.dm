@@ -5,6 +5,7 @@
 	base_cooldown	= 30 SECONDS
 	clothes_req = FALSE
 	invocation = "UN'LTD P'WAH!"
+	invocation_type = "none"
 	cooldown_min = 3 SECONDS
 	charge_sound = new /sound('sound/magic/lightning_chargeup.ogg', channel = 7)
 	max_charge_time = 10 SECONDS

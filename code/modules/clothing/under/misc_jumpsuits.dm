@@ -1,6 +1,7 @@
 /obj/item/clothing/under/misc
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
 	dyeable = TRUE
+	icon = 'icons/obj/clothing/under/misc.dmi'
 
 	sprite_sheets = list(
 		"Human" = 'icons/mob/clothing/under/misc.dmi',

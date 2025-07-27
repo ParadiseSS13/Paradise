@@ -19,6 +19,8 @@
 	icon_state = "terror_widow"
 	icon_living = "terror_widow"
 	icon_dead = "terror_widow_dead"
+	maxHealth = 120 // same health as hunter spider, aka, pretty weak.. but its bite will kill you!
+	health = 120
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	web_type = /obj/structure/spider/terrorweb/black

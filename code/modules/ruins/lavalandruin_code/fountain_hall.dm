@@ -4,6 +4,7 @@
 	icon = 'icons/obj/hand_of_god_structures.dmi'
 	icon_state = "sacrificealtar"
 	anchored = TRUE
+	density = FALSE
 	can_buckle = TRUE
 
 /obj/structure/sacrificealtar/attack_hand(mob/living/user)

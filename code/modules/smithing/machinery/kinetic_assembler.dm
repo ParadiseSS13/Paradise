@@ -4,6 +4,7 @@
 	icon = 'icons/obj/machines/smithing_machines.dmi'
 	icon_state = "assembler"
 	max_integrity = 100
+	pixel_x = 0	// 1x1
 	pixel_y = 0
 	bound_height = 32
 	bound_width = 32
@@ -247,6 +248,7 @@
 	icon = 'icons/obj/machines/smithing_machines.dmi'
 	icon_state = "assembler"
 	max_integrity = 100
+	pixel_x = 0	// 1x1
 	pixel_y = 0
 	bound_height = 32
 	bound_width = 32

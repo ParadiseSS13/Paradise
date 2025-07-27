@@ -7,6 +7,7 @@
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
+	close_sound_volume = 50
 	max_integrity = 70
 
 /obj/structure/closet/cabinet/wizard
@@ -33,10 +34,12 @@
 	name = "administrative supply closet"
 	desc = "It's a storage unit for things that have no right being here."
 	icon_state = "syndicate1"
+	anchored = FALSE
 
 /obj/structure/closet/gimmick/soviet
 	name = "soviet surplus closet"
 	desc = "A storage unit for surplus USSP equipment."
+	icon_state = "syndicate1"
 
 /obj/structure/closet/gimmick/soviet/populate_contents()
 	new /obj/item/clothing/head/sovietsidecap(src)

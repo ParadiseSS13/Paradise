@@ -81,6 +81,10 @@ do {\
 		add_overlay(top_image)
 
 /obj/item/food/customizable/sandwich
+	name = "sandwich"
+	desc = "A sandwich! A timeless classic."
+	icon_state = "sandwichcustom"
+	baseicon = "sandwichcustom"
 	basename = "sandwich"
 
 /obj/item/food/customizable/pizza

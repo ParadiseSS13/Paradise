@@ -7,6 +7,7 @@
 	selection_deactivated_message	= "<span class='notice'><B>You swallow your prepared neurotoxin.</B></span>"
 	var/neurotoxin_type = /obj/item/projectile/bullet/neurotoxin
 	action_icon_state = "alien_neurotoxin_0"
+	active = FALSE
 
 /datum/spell/alien_spell/neurotoxin/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
@@ -35,6 +36,7 @@
 	return TRUE
 
 /datum/spell/alien_spell/neurotoxin/death_to_xenos
+	name = "Neurotoxin spit"
 	desc = "This ability allows you to fire some neurotoxin. Knocks aliens down."
 	neurotoxin_type = /obj/item/projectile/bullet/anti_alien_toxin
 	base_cooldown = 2 SECONDS

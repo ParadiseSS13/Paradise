@@ -7,6 +7,7 @@
 	icon_dead = "sovietmelee_dead" // Does not actually exist. del_on_death.
 	icon_gib = "sovietmelee_gib" // Does not actually exist. del_on_death.
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
+	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"
 	response_disarm = "shoves the"
@@ -22,6 +23,7 @@
 	a_intent = INTENT_HARM
 	unsuitable_atmos_damage = 15
 	faction = list("soviet")
+	status_flags = CANPUSH
 	loot = list(/obj/effect/mob_spawn/human/corpse/soviet,
 		/obj/item/kitchen/knife,
 		/obj/item/salvage/loot/soviet)
@@ -68,6 +70,7 @@
 	a_intent = INTENT_HARM
 	unsuitable_atmos_damage = 15
 	faction = list("soviet")
+	status_flags = CANPUSH
 	loot = list(
 		/obj/effect/mob_spawn/human/corpse/soviet_nian,
 		/obj/item/melee/energy/sword/pirate,

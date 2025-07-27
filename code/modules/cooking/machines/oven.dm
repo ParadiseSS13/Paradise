@@ -16,6 +16,10 @@
 	name = "oven"
 	desc = "A cozy oven for baking food."
 	icon_state = "oven"
+	density = TRUE
+	anchored = TRUE
+	layer = BELOW_OBJ_LAYER
+	cooking = FALSE
 	var/opened = FALSE
 
 	var/on_fire = FALSE //if the oven has caught fire or not.

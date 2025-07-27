@@ -97,6 +97,7 @@
 /datum/sprite_accessory/head_accessory/none
 	name = "None"
 	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Kidan", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox")
+	icon_state = "accessory_none"
 
 /* BODY MARKINGS */
 
@@ -113,6 +114,7 @@
 
 /datum/sprite_accessory/body_markings/tail
 	species_allowed = list()
+	icon_state = "accessory_none"
 	marking_location = "tail"
 	tails_allowed = null
 

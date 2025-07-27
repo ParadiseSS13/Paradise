@@ -3,6 +3,8 @@
 	desc = "Gambling for the antisocial."
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "slots-off"
+	anchored = TRUE
+	density = TRUE
 
 	var/plays = 0
 	var/working = FALSE

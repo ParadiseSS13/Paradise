@@ -20,6 +20,7 @@
 /obj/item/book/manual
 	//While piracy is a heinious deed, we don't want people uploading programmatic books into the player book DB for obvious reasons
 	copyright = TRUE
+	protected = FALSE //No reason players shouldn't write in regular manuals
 	name = "Book Manual"
 	desc = "Please make a report on the github if you somehow get ahold of one of these in-game."
 	summary = "This is a manual procured by Nanotrasen, it contains important information!"
@@ -580,6 +581,7 @@
 	name = "APLU \"Ripley\" Construction and Operation Manual"
 	desc = "A small guidebook on how to operate a Ripley powerloader exosuit. It's filled with disclaimers and pre-signed waivers."
 	summary = "Standard operational practices and construction requirements for operation of the Ripley mk. 3 powerloader system."
+	icon_state ="book"
 	author = "Hephaestus Industries"
 	title = "APLU \"Ripley\" Construction and Operation Manual"
 
@@ -836,6 +838,7 @@
 /obj/item/book/manual/wiki
 	name = "Wiki Book Manual"
 	desc = "This REALLY shouldn't exist in-game, please contact a coder."
+	copyright = TRUE
 	protected = TRUE //We absolutely do not want players editing these books, it might fuck up the iframes in them :)
 	pages = null //we don't want people opening this book until it fully initializes
 	//Wiki Iframes need a decent bit of room, this will be enough to make the readable without having to expand the window immediately

@@ -3,7 +3,9 @@
 ****************************************************/
 /obj/item/organ/external
 	name = "external"
+	min_broken_damage = 30
 	max_damage = 0
+	dir = SOUTH
 	organ_tag = "limb"
 
 	blocks_emissive = FALSE

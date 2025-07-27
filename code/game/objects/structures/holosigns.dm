@@ -78,6 +78,7 @@
 	icon_state = "holo_firelock"
 	density = FALSE
 	layer = ABOVE_MOB_LAYER
+	anchored = TRUE
 	alpha = 150
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation_beta = RAD_LIGHT_INSULATION
@@ -102,6 +103,7 @@
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"
 	desc = "A fragile energy field that blocks movement. Excels at blocking lethal projectiles."
+	density = TRUE
 	max_integrity = 10
 	allow_walk = FALSE
 

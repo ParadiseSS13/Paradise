@@ -2,6 +2,7 @@
 	name = "heart"
 	icon_state = "heart-on"
 	organ_tag = "heart"
+	parent_organ = "chest"
 	slot = "heart"
 	origin_tech = "biotech=5"
 	dead_icon = "heart-off"

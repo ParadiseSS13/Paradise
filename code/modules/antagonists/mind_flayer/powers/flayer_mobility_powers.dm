@@ -128,6 +128,7 @@
 	action_icon_state = "pd_cablehop"
 	upgrade_info = "Double the health of the barrier by reinforcing it with ICE."
 	category = FLAYER_CATEGORY_DESTROYER
+	power_type = FLAYER_UNOBTAINABLE_POWER
 	base_cost = 100
 	current_cost = 100
 	max_level = 2
@@ -181,6 +182,7 @@
 	icon = 'icons/effects/vampire_effects.dmi'
 	density = TRUE
 	anchored = TRUE
+	opacity = FALSE
 	alpha = 200
 	var/upgraded_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, RAD = 50, FIRE = 50, ACID = 50)
 

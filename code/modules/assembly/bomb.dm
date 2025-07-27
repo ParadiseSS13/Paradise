@@ -3,6 +3,8 @@
 	icon = 'icons/obj/tank.dmi'
 	item_state = "assembly"
 	throwforce = 5
+	w_class = WEIGHT_CLASS_NORMAL
+	throw_speed = 2
 	throw_range = 4
 	flags = CONDUCT //Copied this from old code, so this may or may not be necessary
 	var/status = FALSE   //FALSE - not readied //TRUE - bomb finished with welder

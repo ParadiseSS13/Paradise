@@ -13,6 +13,7 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5,10,20,30,50,70)
 	volume = 70
+	container_type = OPENCONTAINER
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 /obj/item/reagent_containers/glass/paint/interact_with_atom(atom/target, mob/living/user, list/modifiers)

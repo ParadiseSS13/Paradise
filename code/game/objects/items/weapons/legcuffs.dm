@@ -5,6 +5,8 @@
 	icon_state = "handcuff"
 	cuffed_state = "legcuff"
 	flags = CONDUCT
+	throwforce = 0
+	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=3;combat=3"
 	slowdown = 7
 	breakouttime = 30 SECONDS

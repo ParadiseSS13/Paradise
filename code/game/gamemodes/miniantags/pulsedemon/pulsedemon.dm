@@ -21,6 +21,7 @@
 	emote_hear = list("vibrates", "sizzles")
 	speak_emote = list("modulates")
 
+	icon = 'icons/mob/animal.dmi'
 	icon_state = "pulsedem"
 	icon_living = "pulsedem"
 	icon_dead = "pulsedem"
@@ -37,13 +38,16 @@
 	speed = -0.3
 	mob_size = MOB_SIZE_TINY
 	density = FALSE
+	del_on_death = TRUE
 
 	attacktext = "electrocutes"
 	attack_sound = "sparks"
+	a_intent = INTENT_HARM
 	harm_intent_damage = 0
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	pass_flags = PASSDOOR
+	stop_automated_movement = TRUE
 	has_unlimited_silicon_privilege = TRUE
 	// this makes the demon able to speak through holopads, due to the overriden say, PD cannot speak normally regardless
 	universal_speak = TRUE

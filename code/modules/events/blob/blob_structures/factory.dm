@@ -2,6 +2,7 @@ GLOBAL_VAR_INIT(spores_active, 0)
 #define MAX_GLOBAL_SPORES 25
 /obj/structure/blob/factory
 	name = "factory blob"
+	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_factory"
 	max_integrity = 200
 	point_return = 18

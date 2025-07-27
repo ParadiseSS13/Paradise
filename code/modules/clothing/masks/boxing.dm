@@ -5,6 +5,7 @@
 	item_state = "balaclava"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
+	w_class = WEIGHT_CLASS_SMALL
 	can_toggle = TRUE
 	actions_types = list(/datum/action/item_action/adjust)
 	adjusted_flags = ITEM_SLOT_HEAD
@@ -28,6 +29,7 @@
 	item_state = "luchag"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
+	w_class = WEIGHT_CLASS_SMALL
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',

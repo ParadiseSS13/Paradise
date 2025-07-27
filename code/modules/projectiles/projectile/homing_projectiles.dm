@@ -1,5 +1,6 @@
 /obj/item/projectile/homing
 	name = "smart bullet"
+	icon_state = "bullet"
 	var/homing_active = TRUE
 
 /obj/item/projectile/homing/pixel_move(trajectory_multiplier)

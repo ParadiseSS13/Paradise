@@ -5,6 +5,7 @@
 	icon_state = "pdapainter"
 	density = TRUE
 	anchored = TRUE
+	max_integrity = 200
 	var/obj/item/pda/storedpda = null
 	/// List of possible PDA colors to choose from
 	var/list/colorlist = list()

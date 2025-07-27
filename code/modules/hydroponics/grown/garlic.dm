@@ -19,3 +19,4 @@
 	filling_color = "#C0C9A0"
 	bitesize_mod = 2
 	tastes = list("garlic" = 1)
+	wine_power = 0.1

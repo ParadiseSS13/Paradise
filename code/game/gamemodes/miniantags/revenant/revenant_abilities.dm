@@ -153,6 +153,7 @@
 			to_chat(M, "<span class='revennotice'><b>An alien voice resonates from all around...</b></span><i> [msg]</I>")
 
 /datum/spell/aoe/revenant
+	name = "Spell"
 	clothes_req = FALSE
 	action_background_icon_state = "bg_revenant"
 	/// How long it reveals the revenant in deciseconds
@@ -318,8 +319,10 @@
 	action_icon_state = "haunt"
 	base_cooldown = 60 SECONDS
 	unlock_amount = 150
+	cast_amount = 50
 	stun = 3 SECONDS
 	reveal = 10 SECONDS
+	aoe_range = 7
 	/// The maximum number of objects to haunt
 	var/max_targets = 7
 	/// A list of all attack timers started by this spell being cast

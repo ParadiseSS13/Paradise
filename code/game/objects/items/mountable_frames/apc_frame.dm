@@ -5,6 +5,7 @@
 	icon_state = "apc_frame"
 
 	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
+	metal_sheets_refunded = 2
 
 /obj/item/mounted/frame/apc_frame/try_build(turf/on_wall, mob/user)
 	if(!..())

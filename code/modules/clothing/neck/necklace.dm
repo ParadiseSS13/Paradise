@@ -1,8 +1,10 @@
 /obj/item/clothing/neck/necklace
+	name = "necklace"
 	desc = "A simple necklace."
 	icon_state = "necklace"
 	item_state = "necklace"
 	item_color = "necklace"
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/neck/necklace/long
 	name = "large necklace"

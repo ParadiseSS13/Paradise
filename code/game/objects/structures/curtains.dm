@@ -8,6 +8,7 @@
 	face_while_pulling = FALSE
 	layer = SHOWER_CLOSED_LAYER
 	opacity = TRUE
+	density = FALSE
 	new_attack_chain = TRUE
 	var/assembled = TRUE
 	var/overlay_color = "#ffffff"

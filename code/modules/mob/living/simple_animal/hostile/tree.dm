@@ -7,10 +7,12 @@
 	icon_dead = "pine_1"
 	icon_gib = "pine_1"
 	mob_biotypes = MOB_ORGANIC | MOB_PLANT
+	speak_chance = 0
 	turns_per_move = 5
 	response_help = "brushes the"
 	response_disarm = "pushes the"
 	response_harm = "hits the"
+	speed = 1
 	maxHealth = 250
 	health = 250
 	mob_size = MOB_SIZE_LARGE

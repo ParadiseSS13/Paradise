@@ -32,7 +32,9 @@
 	name = "potato wedges"
 	desc = "Slices of neatly cut potato."
 	icon_state = "potato_wedges"
+	filling_color = "#E9967A"
 	tastes = list("potato" = 1)
+	bitesize = 100
 	distill_reagent = "sbiten"
 
 

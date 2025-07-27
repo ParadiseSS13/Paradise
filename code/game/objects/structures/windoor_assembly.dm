@@ -16,7 +16,10 @@
 	name = "windoor assembly"
 	icon_state = "l_windoor_assembly01"
 	desc = "A small glass and wire assembly for windoors."
+	anchored = FALSE
+	density = FALSE
 	dir = NORTH
+	max_integrity = 300
 	var/ini_dir
 	var/obj/item/airlock_electronics/electronics
 	var/created_name

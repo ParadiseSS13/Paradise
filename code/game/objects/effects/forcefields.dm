@@ -1,7 +1,9 @@
 /obj/effect/forcefield
 	desc = "A space wizard's magic wall."
 	name = "FORCEWALL"
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "m_shield"
+	opacity = FALSE
 	density = TRUE
 	var/lifetime = 30 SECONDS
 
@@ -56,6 +58,7 @@
 	return !blocks_atmos
 
 /obj/structure/forcefield/mime
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "5"
 	name = "invisible wall"
 	alpha = 1

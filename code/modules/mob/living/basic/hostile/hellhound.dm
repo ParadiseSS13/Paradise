@@ -104,6 +104,7 @@
 	smoke_freq = 20 SECONDS
 	life_regen_cycle_trigger = 5
 	melee_damage_lower = 20
+	melee_damage_upper = 30
 
 /mob/living/basic/hellhound/greater/Initialize(mapload)
 	. = ..()

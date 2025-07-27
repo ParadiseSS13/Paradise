@@ -482,6 +482,8 @@
 	base_cooldown = 600
 
 	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
+	invocation_type = "none"
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
 	action_icon_state = "genetic_incendiary"

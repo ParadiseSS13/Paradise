@@ -134,8 +134,10 @@
 	render_target = "*snap[id]"
 
 /obj/effect/frosty_breath
+	icon = 'icons/effects/effects.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_MOB_LAYER
+	anchored = TRUE
 
 /obj/effect/frosty_breath/Initialize(mapload, mob/living/carbon/C)
 	. = ..()

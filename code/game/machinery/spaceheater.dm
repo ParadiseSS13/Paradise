@@ -3,6 +3,7 @@
 	desc = "A free-standing mobile space heater for heating rooms, featuring a temperature adjustment dial and an easy-swap power cell holder which are hidden behind a screwed-on panel."
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "sheater0"
+	anchored = FALSE
 	density = TRUE
 	max_integrity = 250
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 100, FIRE = 80, ACID = 10)

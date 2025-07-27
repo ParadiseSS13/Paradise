@@ -3,8 +3,10 @@
 	desc = "Teaches you the arts of Krav Maga in 5 short instructional videos beamed directly into your eyeballs."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
+	activated = BIOCHIP_ACTIVATED_ACTIVE
 	origin_tech = "materials=2;biotech=4;combat=5;syndicate=4"
 	implant_data = /datum/implant_fluff/krav_maga
+	implant_state = "implant-default"
 
 	var/datum/martial_art/krav_maga/style = new
 

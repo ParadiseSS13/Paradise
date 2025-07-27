@@ -77,6 +77,7 @@
 	desc = "A 9mm pistol cartridge, commonly used in handguns and submachine guns."
 	caliber = "9mm"
 	projectile_type = /obj/item/projectile/bullet/weakbullet3
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c9mm/ap
@@ -100,6 +101,7 @@
 	desc = "A 4.6x30mm PDW cartridge, commonly used in submachine guns and small-caliber rifles."
 	caliber = "4.6x30mm"
 	projectile_type = /obj/item/projectile/bullet/weakbullet3
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c46x30mm/ap
@@ -237,6 +239,7 @@
 	projectile_type = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
 	pellets = 4
 	variance = 35
+	muzzle_flash_color = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/shotgun/ion
 	name = "ion shell"
@@ -487,6 +490,7 @@
 /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
 	name = "riot foam sniper dart"
 	desc = "For the bigger brother of the crowd control toy. Ages 18 and up."
+	caliber = "foam_force_sniper"
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/sniper/riot
 	icon_state = "foamdartsniper_riot"
 
@@ -514,6 +518,7 @@
 	caliber = "laser"
 	projectile_type = /obj/item/projectile/beam/laser/ik //Subtype that breaks on firing if emp'd
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
 	icon_state = "lasercasing"
@@ -523,4 +528,6 @@
 	desc = "You shouldn't see this! Make an issue report on Github!"
 	caliber = "c_foam"
 	projectile_type = /obj/item/projectile/c_foam
+	muzzle_flash_strength = MUZZLE_FLASH_RANGE_WEAK
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_WEAK
 	muzzle_flash_color = LIGHT_COLOR_DARKRED

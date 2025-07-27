@@ -138,6 +138,7 @@
 	item_state =  "jetpack-void"
 
 /obj/item/tank/jetpack/void/grey
+	name = "Void Jetpack (Oxygen)"
 	icon_state = "jetpack-void-grey"
 	item_state = "jetpack-void-grey"
 
@@ -149,6 +150,8 @@
 /obj/item/tank/jetpack/oxygen
 	name = "Jetpack (Oxygen)"
 	desc = "A tank of compressed oxygen for use as propulsion in zero-gravity areas. Use with caution."
+	icon_state = "jetpack"
+	item_state = "jetpack"
 
 /obj/item/tank/jetpack/oxygen/harness
 	name = "jet harness (oxygen)"

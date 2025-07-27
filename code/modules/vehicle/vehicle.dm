@@ -6,6 +6,7 @@
 	icon_state = null
 	density = TRUE
 	appearance_flags = LONG_GLIDE
+	anchored = FALSE
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	max_integrity = 300

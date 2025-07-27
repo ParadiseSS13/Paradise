@@ -330,6 +330,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "hole"
 	density = TRUE
+	anchored = TRUE
 
 /obj/effect/gateway/singularity_act()
 	return

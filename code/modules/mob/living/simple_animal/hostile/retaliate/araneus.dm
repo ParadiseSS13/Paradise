@@ -1,6 +1,7 @@
 /mob/living/simple_animal/hostile/retaliate/araneus
 	name = "Sergeant Araneus"
 	real_name = "Sergeant Araneus"
+	voice_name = "unidentifiable voice"
 	desc = "A fierce companion for any person of power, this spider has been carefully trained by Nanotrasen specialists. Its beady, staring eyes send shivers down your spine."
 	faction = list("spiders")
 	icon_state = "guard"
@@ -13,6 +14,7 @@
 	emote_hear = list("chitters")
 	maxHealth = 250
 	health = 250
+	harm_intent_damage = 3
 	melee_damage_lower = 15
 	melee_damage_upper = 20
 	unique_pet = TRUE

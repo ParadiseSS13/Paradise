@@ -1,7 +1,9 @@
 /obj/item/grenade/syndieminibomb
 	name = "\improper Syndicate minibomb"
 	desc = "A Syndicate-manufactured high-explosive grenade used to sow destruction and chaos."
+	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
+	item_state = "grenade"
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 	var/explosion_cause = "Syndicate minibomb"
 

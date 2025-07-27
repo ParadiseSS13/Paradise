@@ -14,6 +14,7 @@
 	alien_slash_damage = 30 //Empress do higher slashing damage to people
 
 /mob/living/carbon/alien/humanoid/empress/large
+	name = "alien empress"
 	caste = "e"
 	icon = 'icons/mob/alienhuge.dmi'
 	icon_state = "empress_s"

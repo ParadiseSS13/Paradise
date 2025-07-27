@@ -110,6 +110,7 @@
 /obj/effect/glowing_rune
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "small_rune_1"
+	anchored = TRUE
 	plane = FLOOR_PLANE
 	layer = SIGIL_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

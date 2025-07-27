@@ -1,4 +1,5 @@
 /datum/spell/aoe
+	name = "Spell"
 	create_attack_logs = FALSE
 	create_custom_logs = TRUE
 	/// How far does it effect

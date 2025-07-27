@@ -1,5 +1,6 @@
 /obj/structure/blob/resource
 	name = "resource blob"
+	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_resource"
 	max_integrity = 60
 	point_return = 12

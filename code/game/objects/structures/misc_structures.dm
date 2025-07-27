@@ -10,6 +10,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost"
 	anchored = TRUE
+	density = FALSE
 	new_attack_chain = TRUE
 	var/writing = ""
 
@@ -83,6 +84,7 @@
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "teleconsole"
 	anchored = TRUE
+	density = FALSE
 
 /obj/structure/ninjatele/attack_hand(mob/user as mob)
 	if(user.mind.special_role=="Ninja")

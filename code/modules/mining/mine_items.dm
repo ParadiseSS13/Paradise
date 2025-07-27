@@ -3,6 +3,7 @@
 //this item is intended to give the effect of entering the mine, so that light gradually fades
 /obj/effect/light_emitter
 	name = "Light emitter"
+	anchored = TRUE
 	invisibility = 101
 	var/set_luminosity = 8
 	var/set_cap = 0
@@ -21,6 +22,7 @@
 
 /obj/structure/closet/wardrobe/miner
 	name = "mining wardrobe"
+	icon_state = "generic"
 	closed_door_sprite = "mixed"
 
 /obj/structure/closet/wardrobe/miner/populate_contents()
@@ -88,5 +90,6 @@
 	desc = "A mining car. This one doesn't work on rails, but has to be dragged."
 	name = "mining car (not for rails)"
 	icon_state = "miningcar"
+	density = TRUE
 	icon_opened = "miningcar_open"
 	icon_closed = "miningcar"

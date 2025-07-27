@@ -22,6 +22,7 @@
 	maxHealth = 150
 	health = 150
 	melee_damage_lower = 10
+	melee_damage_upper = 20
 	web_type = /obj/structure/spider/terrorweb/green
 	var/feedings_to_lay = 2
 

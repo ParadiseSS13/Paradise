@@ -17,6 +17,7 @@
 	btype = 1
 
 /obj/effect/spawner/newbomb/radio
+	btype = 0
 
 
 /obj/effect/spawner/newbomb/New()

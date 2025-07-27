@@ -102,6 +102,9 @@
 	desc = "A generic vending machine."
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "generic"
+	layer = BELOW_OBJ_LAYER
+	anchored = TRUE
+	density = TRUE
 	face_while_pulling = TRUE
 	max_integrity = 300
 	integrity_failure = 100
@@ -169,6 +172,7 @@
 
 	// Things that can go wrong
 	/// Allows people to access a vendor that's normally access restricted.
+	emagged = FALSE
 	/// Shocks people like an airlock
 	var/seconds_electrified = 0
 	/// Fire items at customers! We're broken!

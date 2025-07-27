@@ -8,6 +8,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 180, MAT_GLASS = 90)
 	force = 2
+	throwforce = 0
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	/// If its currently recording
@@ -272,6 +273,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL = 40, MAT_GLASS = 10)
 	force = 1
+	throwforce = 0
 	drop_sound = 'sound/items/handling/tape_drop.ogg'
 	pickup_sound = 'sound/items/handling/tape_pickup.ogg'
 	var/max_capacity = 600

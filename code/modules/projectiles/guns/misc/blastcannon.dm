@@ -4,6 +4,7 @@
 	icon_state = "empty_blastcannon"
 	var/icon_state_loaded = "loaded_blastcannon"
 	item_state = "blastcannon_empty"
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 10
 	fire_sound = 'sound/weapons/blastcannon.ogg'
 	needs_permit = FALSE
@@ -98,6 +99,7 @@
 	name = "blast wave"
 	icon_state = "blastwave"
 	damage = 0
+	nodamage = FALSE
 	forcedodge = -1
 	range = 150
 	var/heavyr = 0

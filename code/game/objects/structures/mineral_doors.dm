@@ -212,7 +212,9 @@
 	open_sound = 'sound/effects/doorcreaky.ogg'
 	close_sound = 'sound/effects/doorcreaky.ogg'
 	sheetType = /obj/item/stack/sheet/wood
+	hardness = 1
 	resistance_flags = FLAMMABLE
+	max_integrity = 200
 	rad_insulation_beta = RAD_VERY_LIGHT_INSULATION
 
 /obj/structure/mineral_door/wood/Initialize(mapload)

@@ -1,5 +1,6 @@
 /obj/effect/spawner/random/tech_storage
 	name = "generic circuit board spawner"
+	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "circuit_board"
 	spawn_loot_split = TRUE
 	spawn_loot_split_pixel_offsets = 3

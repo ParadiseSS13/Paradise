@@ -64,6 +64,7 @@
 	mutatelist = null
 	reagents_add = list("enzyme"= 0.1, "nutriment" = 0.1, "bungojuice" = 0.1)
 	growthstages = 4
+	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "bungotree-grow"
 	icon_dead = "bungotree-dead"
 
@@ -81,4 +82,5 @@
 	name = "bungo pit"
 	icon_state = "bungopit"
 	desc = "A large seed from a bungo fruit."
+	w_class = WEIGHT_CLASS_TINY
 	tastes = list("acrid bitterness" = 1)

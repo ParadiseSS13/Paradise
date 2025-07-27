@@ -37,6 +37,7 @@
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	body_part = LOWER_TORSO
 	vital = TRUE
+	parent_organ = "chest"
 	amputation_point = "lumbar"
 	gendered_icon = TRUE
 
@@ -45,7 +46,10 @@
 	name = "left arm"
 	icon_name = "l_arm"
 	max_damage = 50
+	min_broken_damage = 30
+	w_class = WEIGHT_CLASS_NORMAL
 	body_part = ARM_LEFT
+	parent_organ = "chest"
 	amputation_point = "left shoulder"
 	can_grasp = 1
 	convertable_children = list(/obj/item/organ/external/hand)
@@ -74,6 +78,8 @@
 	name = "left leg"
 	icon_name = "l_leg"
 	max_damage = 50
+	min_broken_damage = 30
+	w_class = WEIGHT_CLASS_NORMAL
 	body_part = LEG_LEFT
 	icon_position = LEFT
 	parent_organ = "groin"
@@ -222,7 +228,9 @@
 	name = "head"
 	max_damage = 75
 	min_broken_damage = 35
+	w_class = WEIGHT_CLASS_NORMAL
 	body_part = HEAD
+	parent_organ = "chest"
 	amputation_point = "neck"
 	gendered_icon = TRUE
 	encased = "skull"

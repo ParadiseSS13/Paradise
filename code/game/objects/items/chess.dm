@@ -4,6 +4,7 @@
 	name = "Chess Piece"
 	desc = "A generic chess piece used in a game of chess."
 	icon = 'icons/obj/chess.dmi'
+	w_class = WEIGHT_CLASS_NORMAL
 
 //Black chess pieces.
 

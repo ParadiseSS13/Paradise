@@ -3,6 +3,7 @@
 	desc = "A small device designed to quickly reload revolvers. Seven round capacity."
 	materials = list()
 	ammo_type = /obj/item/ammo_casing/a357
+	max_ammo = 7
 	multi_sprite_step = 1 // see: /obj/item/ammo_box/update_icon()
 	icon_state = "357"
 
@@ -11,6 +12,7 @@
 	desc = "An ammunition box filled with .357 magnum rounds, commonly used in high-caliber revolvers."
 	w_class = WEIGHT_CLASS_NORMAL
 	ammo_type = /obj/item/ammo_casing/a357
+	max_ammo = 7
 	multi_sprite_step = 1
 	icon_state = "357_box"
 
@@ -25,6 +27,7 @@
 /obj/item/ammo_box/c10mm
 	name = "ammo box (10mm)"
 	desc = "An ammunition box filled with 10mm pistol cartridges, commonly used in Syndicate handguns."
+	icon_state = "10mmbox"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	max_ammo = 20
@@ -111,6 +114,7 @@
 	icon_state = "slugloader"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/shotgun
+	max_ammo = 7
 	materials = list(MAT_METAL=28000)
 	multi_sprite_step = 1
 
@@ -125,6 +129,7 @@
 	desc = "A specialized speedloader for swiftly reloading shotguns. This one is meant for Confetti shot."
 	icon_state = "partyloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/confetti
+	multi_sprite_step = 1
 
 /obj/item/ammo_box/shotgun/dragonsbreath
 	name = "shotgun speedloader (Dragonsbreath)"
@@ -179,8 +184,10 @@
 /obj/item/ammo_box/foambox/sniper
 	name = "ammo box (Foam Sniper Darts)"
 	desc = "An ammunition box full of sniper darts for toy weapons."
+	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "foambox_sniper"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper
+	max_ammo = 40
 	materials = list(MAT_METAL = 900)
 
 /obj/item/ammo_box/foambox/sniper/riot
@@ -194,4 +201,5 @@
 	desc = "A revolver speedloader for a cap gun. Cannot chamber live ammunition."
 	icon_state = "357"
 	ammo_type = /obj/item/ammo_casing/cap
+	max_ammo = 7
 	multi_sprite_step = 1

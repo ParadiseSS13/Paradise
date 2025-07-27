@@ -1,4 +1,5 @@
 /datum/spawn_pool/whiteship_mobs
+	available_points = 0
 
 /obj/effect/spawner/random/pool/whiteship_mob
 	icon_state = "giftbox"

@@ -102,6 +102,7 @@
 	name = "screened niqab"
 	desc = "A niqab with an eye mesh for additional concealment. The wearer can see you, but you can't see them."
 	icon_state = "abaya_hood"
+	body_parts_covered = HEAD
 	cold_protection = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS | HIDEMASK | HIDEFACE | HIDEEYES

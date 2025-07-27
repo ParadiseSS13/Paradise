@@ -264,5 +264,6 @@
 		beings. They can, however, still struggle after an initial burst of inertia."
 	complexity = 0
 	prebuilt = TRUE
+	stat_required = CONSCIOUS //Still conscious here so we don't forget about it if the above is changed
 	incapacitated_required = FALSE
 	mob_stun_time = 10 SECONDS

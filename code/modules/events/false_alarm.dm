@@ -1,4 +1,5 @@
 /datum/event/falsealarm
+	announceWhen	= 0
 	endWhen			= 1
 	var/static/list/possible_event_types = list(
 		/datum/event/alien_infestation,

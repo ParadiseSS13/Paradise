@@ -277,12 +277,15 @@
 
 /datum/vampire_passive/vision/advanced
 	gain_desc = "Your vampiric vision now allows you to see everything in the dark!"
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	see_in_dark = 3
+	vision_flags = SEE_MOBS
 
 /datum/vampire_passive/vision/full
 	gain_desc = "Your vampiric vision has reached its full strength!"
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	see_in_dark = 6
+	vision_flags = SEE_MOBS
 
 /datum/vampire_passive/full
 	gain_desc = "You have reached your full potential. You are no longer weak to the effects of anything holy."
@@ -290,7 +293,11 @@
 /datum/spell/vampire/raise_vampires
 	name = "Raise Vampires"
 	desc = "Summons deadly vampires from bluespace."
+	base_cooldown = 100
+	clothes_req = FALSE
+	human_req = TRUE
 	invocation = "none"
+	invocation_type = "none"
 	cooldown_min = 20
 	action_icon_state = "revive_thrall"
 	sound = 'sound/magic/wandodeath.ogg'

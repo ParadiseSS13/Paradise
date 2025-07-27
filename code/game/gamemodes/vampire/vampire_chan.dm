@@ -4,6 +4,8 @@
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Chaplain", "Internal Affairs Agent", "Nanotrasen Career Trainer", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Solar Federation General", "Research Director", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Quartermaster")
 	species_to_mindflayer = list("Machine")
+	required_players = 15
+	required_enemies = 1
 	recommended_enemies = 3
 	secondary_enemies_scaling = 0.025
 	vampire_penalty = 0.4 // Cut out 40% of the vampires since we'll replace some with changelings

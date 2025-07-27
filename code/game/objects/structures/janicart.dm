@@ -5,6 +5,7 @@
 	desc = "This is the alpha and omega of sanitation."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cart"
+	anchored = FALSE
 	density = TRUE
 	face_while_pulling = FALSE
 	container_type = OPENCONTAINER

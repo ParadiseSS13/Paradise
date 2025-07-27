@@ -17,6 +17,8 @@
 	butcher_results = list(/obj/item/food/monstermeat/bearmeat = 5, /obj/item/clothing/head/bearpelt = 1)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
+	response_harm = "hits"
+	stop_automated_movement_when_pulled = FALSE
 	maxHealth = 60
 	health = 60
 	obj_damage = 60

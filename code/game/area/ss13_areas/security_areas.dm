@@ -129,6 +129,8 @@
 	icon_state = "checkpoint1"
 
 /area/station/security/checkpoint/secondary
+	name = "\improper Security Checkpoint"
+	icon_state = "checkpoint1"
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Security"
 

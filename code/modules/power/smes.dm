@@ -457,6 +457,7 @@
 	charge = 0.08e6 // Engineering starts with some charge for singulo
 
 /obj/machinery/power/smes/empty
+	charge = 0
 
 /obj/machinery/power/smes/magical
 	name = "magical power storage unit"

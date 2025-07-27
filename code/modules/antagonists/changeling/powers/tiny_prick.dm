@@ -1,6 +1,7 @@
 /datum/action/changeling/sting
 	name = "Tiny Prick"
 	desc = "Stabby stabby."
+	power_type = CHANGELING_UNOBTAINABLE_POWER
 	category = /datum/changeling_power_category/stings
 	var/sting_icon = null
 	/// A middle click override used to intercept changeling stings performed on a target.

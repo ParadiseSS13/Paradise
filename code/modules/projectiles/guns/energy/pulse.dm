@@ -16,8 +16,10 @@
 	icon_state = "pulse"
 	item_state = null
 	w_class = WEIGHT_CLASS_BULKY
+	can_holster = FALSE
 	force = 10
 	modifystate = TRUE
+	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse, /obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 	cell_type = /obj/item/stock_parts/cell/pulse
@@ -135,6 +137,7 @@
 	desc = "A compact pulse core in a classic handgun frame for Nanotrasen officers. It's not the size of the gun that matters, it's the size of the hole it puts through people."
 	icon_state = "m1911"
 	item_state = "gun"
+	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/infinite
 
 /obj/item/gun/energy/pulse/pistol/m1911/examine(mob/user)
@@ -167,7 +170,9 @@
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/pulse)
 	weapon_weight = WEAPON_MEDIUM
+	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
+	ammo_x_offset = 2
 
 /obj/item/gun/energy/pulse/turret/examine(mob/user)
 	. = ..()

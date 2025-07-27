@@ -284,6 +284,7 @@
 	id = "smoke_powder_smoke"
 	required_reagents = list("smoke_powder" = 1)
 	min_temp = T0C + 100
+	result_amount = 1
 	mix_sound = null
 
 /datum/chemical_reaction/sonic_powder

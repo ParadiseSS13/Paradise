@@ -1,4 +1,5 @@
 /obj/effect/mapping_helpers/airlock/windoor/access
+	layer = DOOR_HELPER_LAYER
 	icon_state = "access_windoor"
 	var/access
 

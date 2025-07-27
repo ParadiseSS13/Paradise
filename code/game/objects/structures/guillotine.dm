@@ -19,6 +19,7 @@
 	icon_state = "guillotine_raised"
 	can_buckle = TRUE
 	anchored = TRUE
+	density = FALSE
 	buckle_lying = FALSE
 	layer = ABOVE_MOB_LAYER
 	var/blade_status = GUILLOTINE_BLADE_RAISED

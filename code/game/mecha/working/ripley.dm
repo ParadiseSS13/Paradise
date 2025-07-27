@@ -149,6 +149,7 @@
 	max_temperature = 65000
 	max_integrity = 250
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	lights_power = 7
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, RAD = 70, FIRE = 100, ACID = 100)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
@@ -172,6 +173,7 @@
 	opacity=0
 	max_temperature = 65000
 	max_integrity = 300
+	lights_power = 7
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 70, RAD = 0, FIRE = 100, ACID = 100)
 	wreckage = /obj/structure/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
@@ -219,6 +221,7 @@
 
 /obj/mecha/working/ripley/mining/old
 	desc = "An old, dusty mining ripley."
+	name = "APLU \"Miner\""
 	obj_integrity = 75 //Low starting health
 
 /obj/mecha/working/ripley/mining/old/add_cell()

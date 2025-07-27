@@ -4,7 +4,9 @@
 /obj/effect/spawner/random
 	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "loot"
+	layer = OBJ_LAYER
 	/// Stops persistent lootdrop spawns from being shoved into lockers
+	anchored = TRUE
 	/// A list of possible items to spawn e.g. list(/obj/item, /obj/structure, /obj/effect)
 	var/list/loot
 	/// The subtypes AND type to combine with the loot list

@@ -6,6 +6,7 @@
 	icon_state = "glass_empty"
 	item_state = "drinking_glass"
 	amount_per_transfer_from_this = 10
+	volume = 50
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	materials = list(MAT_GLASS = 100)

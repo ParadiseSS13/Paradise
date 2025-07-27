@@ -1,5 +1,6 @@
 #define XENO_TOTAL_LAYERS 6
 /mob/living/carbon/alien/humanoid
+	name = "alien"
 	icon_state = "alien_s"
 
 	butcher_results = list(/obj/item/food/monstermeat/xenomeat = 5, /obj/item/stack/sheet/animalhide/xeno = 1)

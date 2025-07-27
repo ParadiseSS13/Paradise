@@ -7,6 +7,8 @@
 	attack_verb = list("whacked", "fisted", "power-punched")
 	force = 12
 	throwforce = 10
+	throw_range = 7
+	w_class = WEIGHT_CLASS_NORMAL
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 40)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=5;powerstorage=3;syndicate=3"

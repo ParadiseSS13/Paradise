@@ -1,12 +1,14 @@
 /obj/item/reagent_containers/glass/rag
 	name = "damp rag"
 	desc = "For cleaning up messes, you suppose."
+	w_class = WEIGHT_CLASS_TINY
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "rag"
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = null
 	volume = 5
 	flags = NOBLUDGEON
+	container_type = OPENCONTAINER
 	has_lid = FALSE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/wipespeed = 30

@@ -90,6 +90,7 @@
 	boots_type = /obj/item/clothing/shoes/magboots
 	suit_type = /obj/item/mod/control/pre_equipped/engineering
 	req_access = list(ACCESS_ENGINE_EQUIP)
+	board_type = /obj/item/circuitboard/suit_storage_unit/industrial
 
 /obj/machinery/suit_storage_unit/industrial/engine/secure
 	secure = TRUE
@@ -100,6 +101,7 @@
 	boots_type = /obj/item/clothing/shoes/magboots/advance
 	suit_type = /obj/item/mod/control/pre_equipped/advanced
 	req_access = list(ACCESS_CE)
+	board_type = /obj/item/circuitboard/suit_storage_unit/industrial
 
 /obj/machinery/suit_storage_unit/industrial/ce/secure
 	secure = TRUE

@@ -25,7 +25,9 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "newscaster_off"
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
+	max_integrity = 200
 	integrity_failure = 50
+	light_range = 0
 	anchored = TRUE
 	/// The current screen index in the UI.
 	var/screen = NEWSCASTER_HEADLINES

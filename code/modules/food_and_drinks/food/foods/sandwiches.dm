@@ -12,6 +12,7 @@
 	icon_state = "burger"
 
 /obj/item/food/burger/plain
+	name = "burger"
 	desc = "The cornerstone of every nutritious breakfast."
 	icon_state = "hburger"
 	filling_color = "#D63C3C"
@@ -109,6 +110,7 @@
 	name = "mime burger"
 	desc = "Its taste defies language."
 	icon_state = "mimeburger"
+	filling_color = "#FFFFFF"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bun" = 4, "silence" = 2)
@@ -168,6 +170,8 @@
 	name = "white pretty patty"
 	desc = "Delicious titanium!"
 	icon_state = "ppatty-mime"
+	filling_color = "#FFFFFF"
+	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "white" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -177,6 +181,7 @@
 	desc = "Perfect for hiding the fact that it's burnt to a crisp."
 	icon_state = "ppatty-red"
 	filling_color = "#D63C3C"
+	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "red" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -186,6 +191,7 @@
 	desc = "Contains 0% juice."
 	icon_state = "ppatty-orange"
 	filling_color = "#FFA500"
+	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "orange" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -195,6 +201,7 @@
 	desc = "Bright to the last bite."
 	icon_state = "ppatty-yellow"
 	filling_color = "#FFFF00"
+	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "yellow" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -204,6 +211,7 @@
 	desc = "It's not tainted meat, it's painted meat!"
 	icon_state = "ppatty-green"
 	filling_color = "#00FF00"
+	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "green" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -213,6 +221,7 @@
 	desc = "Is this blue rare?"
 	icon_state = "ppatty-blue"
 	filling_color = "#0000FF"
+	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "blue" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -222,6 +231,7 @@
 	desc = "Regal and low class at the same time."
 	icon_state = "ppatty-purple"
 	filling_color = "#800080"
+	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "purple" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -241,6 +251,7 @@
 	desc = "It's shockingly good, if you live off of electricity that is."
 	icon_state = "empoweredburger"
 	filling_color = "#FFFF00"
+	bitesize = 2
 	list_reagents = list("nutriment" = 5, "protein" = 1, "plasma" = 2)
 	tastes = list("bun" = 2, "pure electricity" = 5)
 	goal_difficulty = FOOD_GOAL_HARD
@@ -250,6 +261,7 @@
 	desc = "Pretty much what you'd expect..."
 	icon_state = "ratburger"
 	filling_color = "#808080"
+	bitesize = 2
 	list_reagents = list("nutriment" = 5, "protein" = 1)
 	tastes = list("bun" = 2, "dead rat" = 5)
 
@@ -403,6 +415,7 @@
 /obj/item/food/wrap
 	name = "egg wrap"
 	desc = "The precursor to Pigs in a Blanket."
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "wrap"
 	list_reagents = list("nutriment" = 5)
 	tastes = list("egg" = 1)
@@ -425,6 +438,7 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "peanut_butter_jelly_sandwich"
 	filling_color = "#9E3A78"
+	bitesize = 2
 	tastes = list("peanut butter" = 3, "jelly" = 3, "bread" = 2)
 
 /obj/item/food/peanut_butter_jelly/slime
@@ -454,6 +468,7 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "peanut_butter_banana_sandwich"
 	filling_color = "#D9BE29"
+	bitesize = 2
 	list_reagents = list("nutriment" = 5, "protein" = 2)
 	tastes = list("peanutbutter" = 3, "banana" = 3, "bread" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL

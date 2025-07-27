@@ -3,6 +3,7 @@ GLOBAL_LIST_EMPTY(dynamic_forced_rulesets)
 /datum/game_mode/dynamic
 	name = "Dynamic"
 	config_tag = "dynamic"
+	required_players = 0
 	/// Non-implied rulesets in play
 	var/list/datum/ruleset/rulesets = list()
 	/// Implied rulesets that are in play

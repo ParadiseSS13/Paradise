@@ -44,6 +44,7 @@
 	key = "collapse"
 	key_third_person = "collapses"
 	message = "collapses!"
+	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/collapse/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -185,6 +186,8 @@
 	message = "points."
 	message_param = "points at %t."
 	hands_use_check = TRUE
+	target_behavior = EMOTE_TARGET_BHVR_USE_PARAMS_ANYWAY
+	emote_target_type = EMOTE_TARGET_ANY
 
 /datum/emote/living/point/act_on_target(mob/user, target)
 	if(!target)
@@ -299,6 +302,7 @@
 /datum/emote/living/nightmare
 	key = "nightmare"
 	message = "writhes in their sleep."
+	emote_type = EMOTE_VISIBLE
 	stat_allowed = UNCONSCIOUS
 	max_stat_allowed = UNCONSCIOUS
 	unintentional_stat_allowed = UNCONSCIOUS

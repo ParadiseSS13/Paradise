@@ -885,11 +885,15 @@
 
 /obj/item/food/donut/jelly/slimejelly
 	name = "slime jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
 	extra_reagent = "slimejelly"
 	goal_difficulty = FOOD_GOAL_HARD
 
 /obj/item/food/donut/jelly/cherryjelly
 	name = "cherry jelly donut"
+	desc = "You jelly?"
+	icon_state = "jdonut1"
 	extra_reagent = "cherryjelly"
 
 /obj/item/food/donut/apple
@@ -903,13 +907,20 @@
 
 /obj/item/food/donut/apple/jelly
 	name = "jelly apple donut"
+	desc = "Goes great with a shot of cinnamon schnapps."
 	icon_state = "jelly_green"
 	extra_reagent = "berryjuice"
 
 /obj/item/food/donut/apple/jelly/cherry
+	name = "jelly apple donut"
+	desc = "Goes great with a shot of cinnamon schnapps."
+	icon_state = "jelly_green"
 	extra_reagent = "cherryjelly"
 
 /obj/item/food/donut/apple/jelly/slime
+	name = "jelly apple donut"
+	desc = "Goes great with a shot of cinnamon schnapps."
+	icon_state = "jelly_green"
 	extra_reagent = "slimejelly"
 
 /obj/item/food/donut/pink
@@ -917,17 +928,26 @@
 	desc = "Goes great with a soy latte."
 	icon_state = "donut_pink"
 	list_reagents = list("nutriment" = 3, "sugar" = 2, "berryjuice" = 3)
+	filling_color = "#D2691E"
 	tastes = list("donut" = 1, "berries" = 1)
 	randomized_sprinkles = FALSE
 
 /obj/item/food/donut/pink/jelly
+	name = "jelly pink donut"
+	desc = "Goes great with a soy latte."
 	icon_state = "jelly_pink"
 	extra_reagent = "berryjuice"
 
 /obj/item/food/donut/pink/jelly/cherry
+	name = "jelly pink donut"
+	desc = "Goes great with a soy latte."
+	icon_state = "jelly_pink"
 	extra_reagent = "cherryjelly"
 
 /obj/item/food/donut/pink/jelly/slime
+	name = "jelly pink donut"
+	desc = "Goes great with a soy latte."
+	icon_state = "jelly_pink"
 	extra_reagent = "slimejelly"
 
 /obj/item/food/donut/blumpkin
@@ -935,18 +955,26 @@
 	desc = "Goes great with a mug of soothing drunken blumpkin."
 	icon_state = "donut_blue"
 	list_reagents = list("nutriment" = 3, "sugar" = 2, "blumpkinjuice" = 2)
+	filling_color = "#D2691E"
 	tastes = list("donut" = 1, "blumpkin" = 1)
 	randomized_sprinkles = FALSE
 
 /obj/item/food/donut/blumpkin/jelly
 	name = "jelly blumpkin donut"
+	desc = "Goes great with a mug of soothing drunken blumpkin."
 	icon_state = "jelly_blue"
 	extra_reagent = "berryjuice"
 
 /obj/item/food/donut/blumpkin/jelly/cherry
+	name = "jelly blumpkin donut"
+	desc = "Goes great with a mug of soothing drunken blumpkin."
+	icon_state = "jelly_blue"
 	extra_reagent = "cherryjelly"
 
 /obj/item/food/donut/blumpkin/jelly/slime
+	name = "jelly blumpkin donut"
+	desc = "Goes great with a mug of soothing drunken blumpkin."
+	icon_state = "jelly_blue"
 	extra_reagent = "slimejelly"
 
 /obj/item/food/donut/caramel
@@ -954,18 +982,26 @@
 	desc = "Goes great with a mug of hot cocoa."
 	icon_state = "donut_beige"
 	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	filling_color = "#D2691E"
 	tastes = list("donut" = 1, "buttery sweetness" = 1)
 	randomized_sprinkles = FALSE
 
 /obj/item/food/donut/caramel/jelly
 	name = "jelly caramel donut"
+	desc = "Goes great with a mug of hot cocoa."
 	icon_state = "jelly_beige"
 	extra_reagent = "berryjuice"
 
 /obj/item/food/donut/caramel/jelly/cherry
+	name = "jelly caramel donut"
+	desc = "Goes great with a mug of hot cocoa."
+	icon_state = "jelly_beige"
 	extra_reagent = "cherryjelly"
 
 /obj/item/food/donut/caramel/jelly/slime
+	name = "jelly caramel donut"
+	desc = "Goes great with a mug of hot cocoa."
+	icon_state = "jelly_beige"
 	extra_reagent = "slimejelly"
 
 /obj/item/food/donut/chocolate
@@ -973,18 +1009,26 @@
 	desc = "Goes great with a glass of warm milk."
 	icon_state = "donut_choc"
 	list_reagents = list("nutriment" = 3, "sugar" = 2, "hot_coco" = 3)
+	filling_color = "#D2691E"
 	tastes = list("donut" = 1, "bitterness" = 1)
 	randomized_sprinkles = FALSE
 
 /obj/item/food/donut/chocolate/jelly
 	name = "jelly chocolate donut"
+	desc = "Goes great with a glass of warm milk."
 	icon_state = "jelly_choc"
 	extra_reagent = "berryjuice"
 
 /obj/item/food/donut/chocolate/jelly/cherry
+	name = "jelly chocolate donut"
+	desc = "Goes great with a glass of warm milk."
+	icon_state = "jelly_choc"
 	extra_reagent = "cherryjelly"
 
 /obj/item/food/donut/chocolate/jelly/slime
+	name = "jelly chocolate donut"
+	desc = "Goes great with a glass of warm milk."
+	icon_state = "jelly_choc"
 	extra_reagent = "slimejelly"
 
 /obj/item/food/donut/matcha
@@ -992,18 +1036,26 @@
 	desc = "Goes great with a cup of tea."
 	icon_state = "donut_olive"
 	list_reagents = list("nutriment" = 3, "sugar" = 2, "teapowder" = 2)
+	filling_color = "#D2691E"
 	tastes = list("donut" = 1, "matcha" = 1)
 	randomized_sprinkles = FALSE
 
 /obj/item/food/donut/matcha/jelly
 	name = "jelly matcha donut"
+	desc = "Goes great with a cup of tea."
 	icon_state = "jelly_olive"
 	extra_reagent = "berryjuice"
 
 /obj/item/food/donut/matcha/jelly/cherry
+	name = "jelly matcha donut"
+	desc = "Goes great with a cup of tea."
+	icon_state = "jelly_olive"
 	extra_reagent = "cherryjelly"
 
 /obj/item/food/donut/matcha/jelly/slime
+	name = "jelly matcha donut"
+	desc = "Goes great with a cup of tea."
+	icon_state = "jelly_olive"
 	extra_reagent = "slimejelly"
 
 /obj/item/food/donut/bungo
@@ -1011,18 +1063,26 @@
 	desc = "Goes great with a mason jar of hippie's delight."
 	icon_state = "donut_yellow"
 	list_reagents = list("nutriment" = 3, "sugar" = 2, "bungojuice" = 3)
+	filling_color = "#D2691E"
 	tastes = list("donut" = 1, "tropical sweetness" = 1, "an acidic, poisonous tang" = 1)
 	randomized_sprinkles = FALSE
 
 /obj/item/food/donut/bungo/jelly
 	name = "jelly bungo donut"
+	desc = "Goes great with a mason jar of hippie's delight."
 	icon_state = "jelly_yellow"
 	extra_reagent = "berryjuice"
 
 /obj/item/food/donut/bungo/jelly/cherry
+	name = "jelly bungo donut"
+	desc = "Goes great with a mason jar of hippie's delight."
+	icon_state = "jelly_yellow"
 	extra_reagent = "cherryjelly"
 
 /obj/item/food/donut/bungo/jelly/slime
+	name = "jelly bungo donut"
+	desc = "Goes great with a mason jar of hippie's delight."
+	icon_state = "jelly_yellow"
 	extra_reagent = "slimejelly"
 
 /obj/item/food/donut/spaceman
@@ -1030,18 +1090,26 @@
 	desc = "Goes great with a cold beaker of malk."
 	icon_state = "donut_purple"
 	list_reagents = list("nutriment" = 3, "sugar" = 2)
+	filling_color = "#D2691E"
 	tastes = list("donut" = 1, "violets" = 1)
 	randomized_sprinkles = FALSE
 
 /obj/item/food/donut/spaceman/jelly
 	name = "jelly spaceman's donut"
+	desc = "Goes great with a cold beaker of malk."
 	icon_state = "jelly_purple"
 	extra_reagent = "berryjuice"
 
 /obj/item/food/donut/spaceman/jelly/cherry
+	name = "jelly spaceman's donut"
+	desc = "Goes great with a cold beaker of malk."
+	icon_state = "jelly_purple"
 	extra_reagent = "cherryjelly"
 
 /obj/item/food/donut/spaceman/jelly/slime
+	name = "jelly spaceman's donut"
+	desc = "Goes great with a cold beaker of malk."
+	icon_state = "jelly_purple"
 	extra_reagent = "slimejelly"
 
 /obj/item/food/donut/meat
@@ -1049,6 +1117,7 @@
 	desc = "Tastes as gross as it looks."
 	icon_state = "donut_meat"
 	list_reagents = list("nutriment" = 3, "protein" = 3, "ketchup" = 3)
+	filling_color = "#D2691E"
 	tastes = list("meat" = 1, "ketchup" = 1)
 	randomized_sprinkles = FALSE
 
@@ -1063,6 +1132,7 @@
 	icon = 'icons/obj/food/breakfast.dmi'
 	icon_state = "pancake"
 	filling_color = "#E7D8AB"
+	bitesize = 2
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
 	tastes = list("sweet cake" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
@@ -1088,6 +1158,7 @@
 	icon_state = "berry_pancake"
 	list_reagents = list("nutriment" = 3, "sugar" = 3, "berryjuice" = 3)
 	tastes = list("sweet cake" = 2, "berries" = 2)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/pancake/choc_chip_pancake
 	name = "choc-chip pancake"
@@ -1095,6 +1166,7 @@
 	icon_state = "choc_chip_pancake"
 	list_reagents = list("nutriment" = 3, "sugar" = 3, "cocoa" = 3)
 	tastes = list("sweet cake" = 2, "chocolate" = 3)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 //////////////////////
 //		Misc		//
@@ -1232,6 +1304,7 @@
 	icon_state = "bluecherry_cupcake"
 	filling_color = "#0d1694"
 	tastes = list("cake" = 3, "bluecherry" = 1)
+	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/honey_bun
 	name = "honey bun"

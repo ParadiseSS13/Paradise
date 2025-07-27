@@ -67,6 +67,7 @@
 	speed = 0
 	maxHealth = 200
 	health = 200
+	unsuitable_atmos_damage = 2 // 4 actually
 	damage_coeff = list(BRUTE = 0.9, BURN = 0.9, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) // Imitates our armor
 	melee_damage_lower = 30
 	melee_damage_upper = 30

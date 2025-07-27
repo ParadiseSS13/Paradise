@@ -1,4 +1,5 @@
 /datum/keybinding/client
+	category = KB_CATEGORY_UNSORTED
 
 /datum/keybinding/client/admin_help
 	name = "Admin Help"

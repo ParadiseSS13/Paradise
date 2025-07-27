@@ -4,6 +4,7 @@
 	icon = 'icons/obj/weapons/energy_melee.dmi'
 	icon_state = "energy_katana"
 	item_state = "energy_katana"
+	force = 40
 	throwforce = 20
 	armour_penetration_percentage = 50
 	armour_penetration_flat = 10

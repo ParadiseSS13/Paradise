@@ -1,9 +1,11 @@
 /obj/item/reagent_containers/patch
 	name = "chemical patch"
 	desc = "A chemical patch for touch based applications."
+	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bandaid1"
 	possible_transfer_amounts = null
 	visible_transfer_rate = FALSE
+	volume = 30
 	temperature_min = 270
 	temperature_max = 350
 	var/instant_application = FALSE

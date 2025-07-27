@@ -23,6 +23,7 @@
 
 /datum/surgery/heal
 	abstract = TRUE  // don't need this popping up
+	requires_organic_bodypart = TRUE
 	/// A subtype of /datum/surgery_step/heal that this will invoke.
 	var/healing_step_type
 	possible_locs = list(BODY_ZONE_CHEST)
@@ -179,6 +180,7 @@
 
 /datum/surgery_step/heal/brute
 	name = "tend wounds"
+	damage_name_pretty = "wounds"
 	brute_damage_healed = 5
 	brute_damage_healmod = 0.07
 

@@ -6,6 +6,7 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	roundend_category = "traitors"
 	job_rank = ROLE_TRAITOR
 	special_role = SPECIAL_ROLE_TRAITOR
+	give_objectives = TRUE
 	antag_hud_name = "hudsyndicate"
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	clown_gain_text = "Your syndicate training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."

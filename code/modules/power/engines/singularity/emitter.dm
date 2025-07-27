@@ -11,6 +11,7 @@
 	density = TRUE
 	req_access = list(ACCESS_ENGINE_EQUIP)
 
+	power_state = NO_POWER_USE
 	idle_power_consumption = 10
 	active_power_consumption = 300
 

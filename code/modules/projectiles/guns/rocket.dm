@@ -8,6 +8,7 @@
 	throw_speed = 2
 	throw_range = 3
 	force = 15
+	flags = CONDUCT
 	origin_tech = "combat=6;syndicate=7"
 	fire_sound = 'sound/weapons/blastcannon.ogg'
 	fire_delay = 40

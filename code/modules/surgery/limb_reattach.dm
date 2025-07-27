@@ -7,6 +7,7 @@
 	name = "Amputation"
 	steps = list(/datum/surgery_step/generic/amputate)
 	possible_locs = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
+	requires_organic_bodypart = TRUE
 	cancel_on_organ_change = FALSE  // don't stop the surgery when removing limbs
 
 /datum/surgery/amputation/can_start(mob/user, mob/living/carbon/target)
@@ -80,6 +81,7 @@
 
 
 /datum/surgery_step/limb
+	can_infect = FALSE
 
 /datum/surgery_step/limb/attach
 	name = "attach limb"

@@ -323,6 +323,7 @@ Difficulty: Very Hard
 /obj/effect/temp_visual/at_shield
 	name = "anti-toolbox field"
 	desc = "A shimmering forcefield protecting the colossus."
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "at_shield2"
 	layer = FLY_LAYER
 	light_range = 2
@@ -362,6 +363,9 @@ Difficulty: Very Hard
 	damage = 25
 	armour_penetration_percentage = 100
 	speed = 2
+	eyeblur = 0
+	damage_type = BRUTE
+	pass_flags = PASSTABLE
 
 /obj/item/projectile/colossus/on_hit(atom/target, blocked = 0)
 	. = ..()
@@ -378,6 +382,7 @@ Difficulty: Very Hard
 	icon_state = null
 	gpstag = "Angelic Signal"
 	desc = "Get in the fucking robot."
+	invisibility = 100
 
 #undef RANDOM_SHOTS
 #undef BLAST

@@ -91,6 +91,7 @@
 	name = "large pod door"
 	icon = 'icons/obj/doors/blastdoor_1x2.dmi'
 	layer = CLOSED_BLASTDOOR_LAYER
+	closingLayer = CLOSED_BLASTDOOR_LAYER
 	width = 2
 
 /obj/machinery/door/poddoor/multi_tile/triple
@@ -103,8 +104,10 @@
 
 /obj/machinery/door/poddoor/multi_tile/impassable
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
+	icon = 'icons/obj/doors/blastdoor_1x2.dmi'
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	move_resist = INFINITY
+	width = 2
 
 /obj/machinery/door/poddoor/multi_tile/impassable/hostile_lockdown()
 	return

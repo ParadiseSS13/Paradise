@@ -10,6 +10,7 @@
 	permeability_coefficient = 0.05
 	item_color = "yellow"
 	resistance_flags = NONE
+	dyeable = TRUE
 
 /obj/item/clothing/gloves/color/yellow/fake
 	siemens_coefficient = 1
@@ -213,3 +214,4 @@
 	icon_state = "furglovesico"
 	item_state = "furgloves"
 	transfer_prints = TRUE
+	dyeable = FALSE

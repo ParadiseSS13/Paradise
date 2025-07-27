@@ -96,6 +96,8 @@
 	name = ""
 	desc = ""
 	resistance_flags = INDESTRUCTIBLE | FREEZE_PROOF
+	density = FALSE
+	anchored = TRUE
 	var/can_move = TRUE
 	var/obj/item/chameleon/master = null
 

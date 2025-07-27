@@ -39,6 +39,7 @@
 	desc = "A soft armor vest suitable for stopping minor impacts."
 	icon_state = "armor-combat"
 	item_state = "bulletproof"
+	blood_overlay_type = "armor"
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
@@ -47,6 +48,8 @@
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 	)
+	icon_state = "armor"
+	item_state = "armor"
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
 /obj/item/clothing/suit/armor/vest/security/attackby__legacy__attackchain(obj/item/I, mob/user, params)
@@ -111,6 +114,7 @@
 	name = "press vest"
 	desc = "A sturdy vest that should keep you protected from the dangers of the station."
 	icon_state = "press_vest"
+	item_state = "armor"
 
 /obj/item/clothing/suit/armor/secjacket
 	name = "security jacket"
@@ -188,6 +192,7 @@
 	name = "warden's armored jacket"
 	desc = "A comfortable armored jacket fitted with Level II plate inserts for moderate protection. This one has silver livery on the shoulders to denote rank."
 	icon_state = "warden_jacket"
+	item_state = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|HANDS
@@ -210,6 +215,8 @@
 	name = "captain's carapace"
 	desc = "A fancy blue & gold dragonscale armor vest fitted with Level III and IV armor panelling. Offers excellent protection against melee attacks, kinetic impacts, and laser discharges. "
 	icon_state = "captain_carapace"
+	item_state = "armor"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 450)
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
@@ -275,6 +282,7 @@
 	name = "security riot suit"
 	desc = "A full-body suit of riot gear that provides excellent protection against blunt force trauma, fire, and corrosive substances, but little protection otherwise. This suit is covered in red Security stripes."
 	icon_state = "riot-sec"
+	item_state = "swat_suit"
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
@@ -310,6 +318,7 @@
 	desc = "A comfortable and low-profile vest made of durathread, reinforced with panels of tanned leather. Offers decent protection against laser discharges, but won't be stopping a bullet any time soon."
 	icon_state = "durathread"
 	item_state = "durathread"
+	strip_delay = 60
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 35, ACID = 50)
@@ -336,6 +345,8 @@
 	name = "security bulletproof armor"
 	desc = "A full-body suit of armor fitted with Level IV ballistic inserts and panelling. Will stop most low-caliber kinetic rounds and resist the concussive force of explosions somewhat, but it does little against melee and energy attacks. This suit is covered in red Security stripes."
 	icon_state = "bulletproof-sec"
+	item_state = "armor"
+	blood_overlay_type = "armor"
 
 /obj/item/clothing/suit/armor/swat
 	name = "SWAT armor"
@@ -382,6 +393,8 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 	)
 	icon_state = "detective-armor"
+	item_state = "armor"
+	blood_overlay_type = "armor"
 	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/reagent_containers/spray/pepper,/obj/item/flashlight,/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/detective_scanner,/obj/item/taperecorder)
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
@@ -763,6 +776,7 @@
 					/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
 					/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
 	flags = THICKMATERIAL
+	slowdown = 0
 	strip_delay = 12 SECONDS
 
 /obj/item/clothing/suit/armor/federation/marine/officer
@@ -780,6 +794,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 	)
+	icon_state = "fedarmor_marine"
+	item_state = "fedarmor_marine"
 	armor = list(MELEE = 30, BULLET = 35, LASER = 35, ENERGY = 30, BOMB = 50, RAD = 0, FIRE = 100, ACID = 50)
 
 
@@ -788,6 +804,7 @@
 	name = "emergency response team armor"
 	desc = "A mid-quality protective vest produced by Citadel Armories. Additional polymer paneling over the chest and shoulders offers moderately improved energy protection compared to standard kevlar vests."
 	icon_state = "ertarmor_cmd"
+	item_state = "armor"
 	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 10, RAD = 0, FIRE = 50, ACID = 50)
 
 //Commander
@@ -884,6 +901,7 @@
 	armor = list(MELEE = 25, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 75, ACID = 75)
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+	body_parts_covered = HEAD
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 

@@ -15,6 +15,7 @@
 	desc = "A remote control for a door."
 	req_access = list(ACCESS_BRIG)
 	anchored = TRUE    		// can't pick it up
+	density = FALSE       		// can walk through it.
 	layer = WALL_OBJ_LAYER
 	var/id = null     		// id of door it controls.
 	var/releasetime = 0		// when world.timeofday reaches it - release the prisoner
@@ -26,6 +27,7 @@
 	var/printed = 0
 	var/datum/data/record/prisoner
 	maptext_height = 26
+	maptext_width = 32
 	maptext_y = -1
 	var/occupant = CELL_NONE
 	var/crimes = CELL_NONE

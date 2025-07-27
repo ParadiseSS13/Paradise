@@ -7,6 +7,7 @@
 	hud_type = /datum/hud/simple_animal
 
 	universal_understand = TRUE
+	universal_speak = FALSE
 	status_flags = CANPUSH
 	healable = TRUE
 	gib_nullifies_icon = FALSE // prevents players from having transparent icon when their body is gibbed

@@ -13,6 +13,7 @@
 	name = "Paradise Punch"
 	id = "paradise_punch"
 	description = "Tastes just how you'd think Paradise would if you could bottle it."
+	reagent_state = LIQUID
 	color = "#cc0044"
 	taste_description = "paradise"
 
@@ -21,6 +22,7 @@
 	name = "Apple-pocalypse"
 	id = "apple-pocalypse"
 	description = "If doomsday came in fruit form, it'd probably be apples."
+	reagent_state = LIQUID
 	color = "#44FF44"
 	taste_description = "doomsday"
 
@@ -36,6 +38,7 @@
 	name = "Berry Banned"
 	id = "berry_banned"
 	description = "Reason for ban: Excessive Flavor."
+	reagent_state = LIQUID
 	color = "#FF44FF"
 	taste_description = "a permaban"
 
@@ -64,6 +67,7 @@
 	name = "Berry Banned"
 	id = "berry_banned2"
 	description = "Reason for ban: Excessive Flavor."
+	reagent_state = LIQUID
 	color = "#FF44FF"
 	taste_description = "a permaban"
 
@@ -85,6 +89,7 @@
 	name = "Blackeye Brew"
 	id = "blackeye_brew"
 	description = "Creamy, smooth flavor, just like the bald heads of the masses. Supposedly aged for 30 years."
+	reagent_state = LIQUID
 	color = "#4d2600"
 	taste_description = "greytide"
 
@@ -108,6 +113,7 @@
 	name = "Grape Granade"
 	id = "grape_granade"
 	description = "Exploding with grape flavor and a favorite among ERT members system-wide."
+	reagent_state = LIQUID
 	color = "#9933ff"
 	taste_description = "old people"
 
@@ -126,6 +132,7 @@
 	name = "Meteor Malt"
 	id = "meteor_malt"
 	description = "Soft drinks have been detected on collision course with your tastebuds."
+	reagent_state = LIQUID
 	color = "#cc9900"
 	taste_description = "flying space rocks"
 

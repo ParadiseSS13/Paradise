@@ -67,6 +67,7 @@
 	round_time = 60 * 50
 
 /datum/news_announcement/random_junk/found_ssd
+	channel_name = "Nyx Daily"
 	author = "Doctor Eric Hanfield"
 	headline = "Employees found SSD"
 	message = {"Several people have been found unconscious at their terminals. It is thought that it was due
@@ -76,6 +77,7 @@
 	round_time = 60 * 90
 
 /datum/news_announcement/lotus_tree
+	channel_name = "Nyx Daily"
 	author = "Reporter Leland H. Howards"
 	headline = "Explosion on Civilian Transport"
 	message = {"The newly-christened civilian transport Lotus Tree suffered two very large explosions near the
@@ -87,6 +89,7 @@
 	round_time = 60 * 30
 
 /datum/news_announcement/food_riots/breaking_news
+	channel_name = "Nyx Daily"
 	author = "Reporter Ro'kii Ar-Raqis"
 	headline = "Food Riots in Tenebrae Lupus"
 	message = {"Breaking news: Food riots have broken out throughout the Refuge asteroid colony in the Tenebrae
@@ -97,6 +100,7 @@
 	round_time = 60 * 10
 
 /datum/news_announcement/food_riots/more
+	channel_name = "Nyx Daily"
 	author = "Reporter Ro'kii Ar-Raqis"
 	headline = "Food Riots Continue Amid NT Withdrawl"
 	message = {"More on the Refuge food riots: The Refuge Council has condemned Nanotrasen's withdrawal from

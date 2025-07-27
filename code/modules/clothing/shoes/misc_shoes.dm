@@ -2,6 +2,7 @@
 	name = "mime shoes"
 	icon_state = "mime"
 	item_color = "mime"
+	dyeable = TRUE
 
 /// basic syndicate combat boots for nuke ops and mob corpses
 /obj/item/clothing/shoes/combat
@@ -39,11 +40,13 @@
 	desc = "A pair of magic, black shoes."
 	icon_state = "black"
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
+	dyeable = FALSE
 
 /obj/item/clothing/shoes/sandal/magic
 	name = "magical sandals"
 	desc = "A pair of sandals imbued with magic."
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
+	dyeable = FALSE
 
 /obj/item/clothing/shoes/galoshes
 	name = "galoshes"
@@ -90,6 +93,7 @@
 	// "Dyeable" in this case is a bit of an understatement, washing these
 	// with a crayon will give them the appearance and name of normal
 	// shoes, but the functionality of clown shoes.
+	dyeable = TRUE
 
 	var/enabled_waddle = TRUE
 
@@ -204,10 +208,12 @@
 	can_cut_open = 0
 	icon_state = "jacksandal"
 	item_color = "jacksandal"
+	dyeable = FALSE
 
 /obj/item/clothing/shoes/jackboots/noisy
 	name = "heavy jackboots"
 	desc = "Outdated heavier versions of the standard Nanotrasen-issue Security combat boots. Pick up that can."
+	dyeable = FALSE
 
 /obj/item/clothing/shoes/jackboots/noisy/Initialize(mapload)
 	. = ..()
@@ -230,6 +236,7 @@
 	heat_protection = FEET|LEGS
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 	knife_slot = TRUE
+	dyeable = FALSE
 
 /obj/item/clothing/shoes/workboots/smithing
 	name = "smithing boots"
@@ -240,6 +247,7 @@
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET|LEGS
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
+	dyeable = FALSE
 
 /obj/item/clothing/shoes/winterboots
 	name = "winter boots"
@@ -440,6 +448,8 @@
 	desc = "A roll of treated canvas used for wrapping claws or paws."
 	icon_state = "clothwrap"
 	item_state = "clothwrap"
+	force = 0
+	w_class = WEIGHT_CLASS_SMALL
 	dyeable = FALSE
 
 /obj/item/clothing/shoes/bhop
@@ -451,6 +461,7 @@
 	resistance_flags = FIRE_PROOF
 	actions_types = list(/datum/action/item_action/bhop)
 	permeability_coefficient = 0.05
+	can_cut_open = FALSE
 	knife_slot = TRUE
 	dyeable = FALSE
 

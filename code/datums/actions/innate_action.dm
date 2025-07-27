@@ -1,5 +1,6 @@
 //Preset for general and toggled actions
 /datum/action/innate
+	check_flags = 0
 	var/active = FALSE
 
 /datum/action/innate/Trigger(left_click)

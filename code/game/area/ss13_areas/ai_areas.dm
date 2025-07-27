@@ -37,6 +37,7 @@
 
 /area/station/turret_protected/aisat/interior
 	name = "\improper AI Satellite Antechamber"
+	icon_state = "ai"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/station/turret_protected/aisat/interior/secondary

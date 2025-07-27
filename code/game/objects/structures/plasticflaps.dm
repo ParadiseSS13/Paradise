@@ -3,6 +3,7 @@
 	desc = "Completely impassable - or are they?"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "plasticflaps"
+	density = FALSE
 	anchored = TRUE
 	layer = 4
 	armor = list(melee = 100, bullet = 80, laser = 80, energy = 100, bomb = 50, rad = 100, fire = 50, acid = 50)

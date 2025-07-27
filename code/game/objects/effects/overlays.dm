@@ -39,10 +39,12 @@
 
 /obj/effect/overlay/sparkles
 	name = "sparkles"
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "shieldsparkles"
 
 /obj/effect/overlay/adminoverlay
 	name = "adminoverlay"
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "admin"
 	layer = 4.1
 
@@ -61,6 +63,7 @@
 
 /// Door overlay for animating closets
 /obj/effect/overlay/closet_door
+	anchored = TRUE
 	plane = FLOAT_PLANE
 	layer = FLOAT_LAYER
 	vis_flags = VIS_INHERIT_ID
@@ -68,6 +71,7 @@
 
 /obj/effect/overlay/vis
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	anchored = TRUE
 	vis_flags = VIS_INHERIT_DIR
 	///When detected to be unused it gets set to world.time, after a while it gets removed
 	var/unused = 0

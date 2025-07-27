@@ -13,11 +13,15 @@
 	desc = "This device can rapidly dispense atmospherics and disposals piping, manipulate loose piping, and recycle any detached pipes it is applied to."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rpd"
+	opacity = FALSE
+	density = FALSE
+	anchored = FALSE
 	flags = CONDUCT
 	force = 10
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF

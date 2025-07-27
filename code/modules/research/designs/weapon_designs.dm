@@ -382,6 +382,7 @@
 	desc = "A large chemical canister, designed for use with a chemical flamethrower."
 	id = "chemical_canister_extended"
 	req_tech = list("materials" = 5, "plasmatech" = 4)
+	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000)
 	reagents_list = list("fuel" = 40)
 	build_path = /obj/item/chemical_canister/extended
@@ -392,6 +393,7 @@
 	desc = "A chemical canister designed to accept pyrotechnics."
 	id = "chemical_canister_pyro"
 	req_tech = list("materials" = 4, "plasmatech" = 6)
+	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 7500)
 	reagents_list = list("fuel" = 30)
 	build_path = /obj/item/chemical_canister/pyrotechnics

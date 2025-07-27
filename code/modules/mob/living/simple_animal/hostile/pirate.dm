@@ -10,6 +10,7 @@
 	turns_per_move = 3
 	death_sound = 'sound/creatures/piratedeath.ogg'
 	response_help = "pushes the"
+	response_disarm = "shoves"
 	response_harm = "slashes"
 	speed = 0
 	maxHealth = 100
@@ -63,6 +64,7 @@
 	name = "Pirate Gunner"
 	icon_state = "piratespaceranged"
 	icon_living = "piratespaceranged"
+	icon_dead = "piratemelee_dead" // Does not actually exist. del_on_death.
 	projectilesound = 'sound/weapons/laser.ogg'
 	ranged = TRUE
 	rapid = 2

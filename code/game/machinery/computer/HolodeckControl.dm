@@ -241,6 +241,7 @@
 	footstep = FOOTSTEP_CARPET
 	barefootstep = FOOTSTEP_CARPET_BAREFOOT
 	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/holofloor/carpet/Initialize(mapload)
 	. = ..()
@@ -301,9 +302,14 @@
 	item_chair = null
 
 /obj/item/clothing/gloves/boxing/hologlove
+	name = "boxing gloves"
+	desc = "Because you really needed another excuse to punch your crewmates."
+	icon_state = "boxing"
+	item_state = "boxing"
 
 /obj/structure/holowindow
 	name = "reinforced window"
+	icon = 'icons/obj/structures.dmi'
 	icon_state = "rwindow"
 	desc = "A window."
 	density = TRUE
@@ -363,6 +369,7 @@
 	force = 3.0
 	throw_speed = 1
 	throw_range = 5
+	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	armour_penetration_percentage = 50
 	var/active = FALSE

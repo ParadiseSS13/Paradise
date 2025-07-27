@@ -6,6 +6,8 @@
 	icon = 'icons/turf/floors/ripple.dmi'
 	icon_state = "ripple-0"
 	base_icon_state = "ripple"
+	anchored = TRUE
+	density = FALSE
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_RIPPLE)
 	canSmoothWith = list(SMOOTH_GROUP_RIPPLE)
@@ -26,6 +28,7 @@
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
 	icon_state = "hierophant_wall_temp-0"
 	base_icon_state = "hierophant_wall_temp"
+	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_HIERO_WALL)
 	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)
 	color = rgb(255, 0, 0)

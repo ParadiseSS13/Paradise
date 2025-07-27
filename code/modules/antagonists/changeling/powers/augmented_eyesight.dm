@@ -3,7 +3,9 @@
 	desc = "Creates more light sensing rods in our eyes, allowing our vision to penetrate most blocking objects. Protects our vision from flashes while inactive."
 	helptext = "Grants us x-ray vision or flash protection. We will become a lot more vulnerable to flash-based devices while x-ray vision is active."
 	button_overlay_icon_state = "augmented_eyesight"
+	chemical_cost = 0
 	dna_cost = 4
+	active = FALSE
 	power_type = CHANGELING_PURCHASABLE_POWER
 	category = /datum/changeling_power_category/utility
 

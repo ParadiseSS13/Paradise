@@ -25,6 +25,7 @@ GLOBAL_LIST_EMPTY(field_generator_fields)
 	desc = "A large thermal battery that projects a high amount of energy when powered."
 	icon = 'icons/obj/machines/field_generator.dmi'
 	icon_state = "Field_Gen"
+	anchored = FALSE
 	density = TRUE
 	power_state = NO_POWER_USE
 	max_integrity = 500

@@ -7,6 +7,8 @@
 	icon_state = "synthesizer"
 	idle_power_consumption = 8 //5 with default parts
 	active_power_consumption = 13 //10 with default parts
+	anchored = FALSE
+	density = FALSE
 	pass_flags = PASSTABLE
 	var/static/list/collectable_items = list(/obj/item/trash/waffles,
 		/obj/item/trash/plate,

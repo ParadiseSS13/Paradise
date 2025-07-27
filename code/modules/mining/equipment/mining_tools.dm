@@ -18,6 +18,7 @@
 	sharp = TRUE
 	var/excavation_amount = 100
 	usesound = 'sound/effects/picaxe1.ogg'
+	toolspeed = 1
 
 /obj/item/pickaxe/Initialize(mapload)
 	. = ..()
@@ -120,6 +121,7 @@
 	name = "sonic jackhammer"
 	desc = "Cracks rocks with sonic blasts, and doubles as a demolition power tool for smashing walls."
 	icon_state = "jackhammer"
+	item_state = "jackhammer"
 	origin_tech = "materials=6;powerstorage=4;engineering=5;magnets=4"
 	digsound = list('sound/weapons/sonic_jackhammer.ogg')
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
@@ -137,6 +139,7 @@
 	force = 8
 	throwforce = 4
 	item_state = "shovel"
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 200)
 	origin_tech = "materials=2;engineering=2"
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")

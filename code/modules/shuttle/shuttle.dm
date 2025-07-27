@@ -1102,10 +1102,15 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin
 	name = "Admin shuttle navigation computer"
 	desc = "Used to designate a precise transit location for the admin shuttle."
+	icon_screen = "navigation"
+	icon_keyboard = "med_key"
 	shuttleId = "admin"
 	shuttlePortId = "admin_custom"
 	view_range = 14
+	x_offset = 0
+	y_offset = 0
 	resistance_flags = INDESTRUCTIBLE
+	access_mining = TRUE
 
 /obj/machinery/computer/shuttle/trade
 	name = "Freighter Console"

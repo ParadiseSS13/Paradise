@@ -12,6 +12,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	mob_size = MOB_SIZE_TINY
+	response_help  = "pokes"
 	response_disarm = "shoos"
 	response_harm   = "splats"
 	density = FALSE

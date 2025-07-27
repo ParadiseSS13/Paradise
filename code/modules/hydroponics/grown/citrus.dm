@@ -25,7 +25,10 @@
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
 
 /obj/item/food/grown/citrus/lime
+	seed = /obj/item/seeds/lime
 	name = "lime"
+	desc = "It's so sour, your face will twist."
+	icon_state = "lime"
 	filling_color = "#00FF00"
 	tastes = list("lime" = 1)
 

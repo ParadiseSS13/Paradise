@@ -414,6 +414,7 @@
 /datum/language/common
 	name = "Galactic Common"
 	desc = "Originally a carefully crafted fusion of various Human and Skrell dialects, Galactic Common is the most commonly spoken language in the Sector, and incorporates influences from nearly every known sapient species."
+	speech_verb = "says"
 	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
 	key = "9"
@@ -424,6 +425,7 @@
 /datum/language/human
 	name = "Sol Common"
 	desc = "An artifical language designed by the Trans-Solar Federation for ease of use and concise communication."
+	speech_verb = "says"
 	exclaim_verbs = list("snaps", "shouts", "barks")
 	whisper_verb = "whispers"
 	colour = "solcom"
@@ -538,6 +540,7 @@
 /datum/language/ling
 	name = "Changeling"
 	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
+	speech_verb = "says"
 	colour = "changeling"
 	key = "g"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
@@ -647,8 +650,11 @@
 	speech_verb = "transmits"
 	ask_verb = "transmits"
 	exclaim_verbs = list("transmits")
+	colour = "say_quote"
 	key = "d"
+	flags = RESTRICTED | HIVEMIND | NOBABEL
 	drone_only = TRUE
+	follow = TRUE
 
 /datum/language/drone
 	name = "Drone"

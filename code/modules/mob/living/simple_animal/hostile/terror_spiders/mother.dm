@@ -17,10 +17,14 @@
 	You can also produce royal jelly for other spiders to consume for faster health regeneration. \
 	Both of these require you to expend your own regeneration, though you gain much more from webbing corpses than other spiders. \
 	While you can open powered doors and bust open vents like a brown spider, you have low health and deal low damage, so you should avoid fights wherever possible."
+	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_mother"
 	icon_living = "terror_mother"
 	icon_dead = "terror_mother_dead"
+	maxHealth = 120 // same combat stats as an unboosted T1 gray. Very weak in combat.
+	health = 120
 	melee_damage_lower = 10
+	melee_damage_upper = 20
 	regen_points_per_tick = 2
 	regen_points_max = 400 // enough to lay 4 jellies, if fully charged
 	regen_points_per_kill = 200 // >2x normal, since they're food reprocessors

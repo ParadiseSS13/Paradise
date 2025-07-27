@@ -14,6 +14,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
+	mob_size = MOB_SIZE_SMALL
 	animal_species = /mob/living/simple_animal/pet/cat
 	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
 	butcher_results = list(/obj/item/food/meat = 3)
@@ -178,6 +179,7 @@
 
 /mob/living/simple_animal/pet/cat/proc_cat
 	name = "Proc"
+	gender = MALE
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 

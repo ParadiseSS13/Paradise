@@ -9,6 +9,7 @@
 	force = 1
 	w_class = WEIGHT_CLASS_TINY
 	container_type = INJECTABLE | DRAWABLE
+	throwforce = 0
 	throw_speed = 3
 	throw_range = 6
 	origin_tech = "biotech=3"
@@ -37,6 +38,7 @@
 
 /obj/item/slime_extract/grey
 	name = "grey slime extract"
+	icon_state = "grey slime extract"
 
 /obj/item/slime_extract/gold
 	name = "gold slime extract"
@@ -408,6 +410,7 @@
 /obj/item/slimepotion/slime/mutator
 	name = "slime mutator"
 	desc = "A potent chemical mix that will increase the chance of a slime mutating."
+	icon_state = "bottle3"
 
 /obj/item/slimepotion/slime/mutator/is_valid_potion_receiver(atom/target, mob/user)
 	if(!..())
@@ -498,6 +501,7 @@
 /obj/item/slimepotion/oil_slick
 	name = "slime oil potion"
 	desc = "A potent chemical mix that will remove the slowdown from any item by reducing friction. Doesn't mix well with water."
+	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle4"
 	origin_tech = "biotech=5"
 
@@ -563,6 +567,7 @@
 		apply_potion(over_object, usr)
 
 /obj/effect/timestop
+	anchored = TRUE
 	name = "chronofield"
 	desc = "ZA WARUDO!"
 	icon = 'icons/effects/160x160.dmi'
@@ -638,11 +643,14 @@
 	singular_name = "floor tile"
 	desc = "Through a series of micro-teleports, these tiles allow you to move things that would otherwise slow you down."
 	icon_state = "tile-bluespace"
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
 	materials = list(MAT_METAL=500)
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
+	flags = CONDUCT
+	max_amount = 60
 	turf_type = /turf/simulated/floor/bluespace
 
 
@@ -661,11 +669,14 @@
 	singular_name = "floor tile"
 	desc = "Time seems to flow very slowly around these tiles."
 	icon_state = "tile-sepia"
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
 	materials = list(MAT_METAL=500)
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
+	flags = CONDUCT
+	max_amount = 60
 	turf_type = /turf/simulated/floor/sepia
 
 /obj/item/areaeditor/blueprints/slime

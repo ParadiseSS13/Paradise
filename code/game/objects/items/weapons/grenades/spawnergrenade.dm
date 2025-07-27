@@ -1,7 +1,9 @@
 /obj/item/grenade/spawnergrenade
 	name = "delivery grenade"
 	desc = "Upon detonation, this will unleash an unspecified anomaly into the vicinity."
+	icon = 'icons/obj/grenade.dmi'
 	icon_state = "delivery"
+	item_state = "grenade"
 	origin_tech = "materials=3;magnets=4"
 	var/spawner_type = null // must be an object path
 	var/deliveryamt = 1 // amount of type to deliver
@@ -33,6 +35,7 @@
 /obj/item/grenade/spawnergrenade/manhacks
 	name = "viscerator delivery grenade"
 	desc = "This grenade contains 5 viscerators, tiny flying drones with lethally sharp blades. Upon detonation, they will be deployed and begin searching the area for targets."
+	spawner_type = /mob/living/simple_animal/hostile/viscerator
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 

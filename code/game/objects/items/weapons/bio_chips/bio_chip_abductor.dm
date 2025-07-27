@@ -3,6 +3,7 @@
 	desc = "Returns you to the mothership."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "implant"
+	activated = BIOCHIP_ACTIVATED_ACTIVE
 	origin_tech = "materials=2;biotech=7;magnets=4;bluespace=4;abductor=5"
 	implant_data = /datum/implant_fluff/abductor
 	implant_state = "implant-alien"

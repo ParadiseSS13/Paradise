@@ -6,6 +6,7 @@
 	max_amount = 6
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
+	throw_range = 7
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
 	parent_stack = TRUE

@@ -278,6 +278,7 @@
 /obj/effect/abstract/chasm_storage
 	name = "chasm depths"
 	desc = "The bottom of a hole. You shouldn't be able to interact with this."
+	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/effect/abstract/chasm_storage/Entered(atom/movable/arrived)

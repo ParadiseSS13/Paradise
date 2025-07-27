@@ -3,6 +3,7 @@
 
 /obj/machinery/r_n_d/server
 	name = "\improper R&D Server"
+	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "RD-server-off"
 	/// ID to autolink to, used in mapload
 	var/autolink_id = null

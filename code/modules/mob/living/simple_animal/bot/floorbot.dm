@@ -2,8 +2,10 @@
 /mob/living/simple_animal/bot/floorbot
 	name = "\improper Floorbot"
 	desc = "A little floor repairing robot, he looks so excited!"
+	icon = 'icons/obj/aibots.dmi'
 	icon_state = "floorbot"
 	density = FALSE
+	anchored = FALSE
 	health = 25
 	maxHealth = 25
 

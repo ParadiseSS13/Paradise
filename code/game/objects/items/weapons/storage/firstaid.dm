@@ -12,6 +12,7 @@
 	name = "generic first-aid kit"
 	desc = "If you can see this, make a bug report on GitHub, something went wrong!"
 	icon_state = "genericfirstaid"
+	throw_speed = 2
 	throw_range = 8
 	req_one_access =list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
 	var/treatment_brute = "salglu_solution"
@@ -175,6 +176,7 @@
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
+	treatment_tox = "charcoal"
 	req_one_access = list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
 	syndicate_aligned = TRUE

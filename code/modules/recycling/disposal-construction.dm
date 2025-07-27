@@ -7,7 +7,10 @@
 	desc = "A huge pipe segment used for constructing disposal systems."
 	icon = 'icons/obj/pipes/disposal.dmi'
 	icon_state = "conpipe-s"
+	anchored = FALSE
+	density = FALSE
 	pressure_resistance = 5*ONE_ATMOSPHERE
+	level = 2
 	max_integrity = 200
 	var/ptype = PIPE_DISPOSALS_STRAIGHT //Use the defines
 	var/base_state

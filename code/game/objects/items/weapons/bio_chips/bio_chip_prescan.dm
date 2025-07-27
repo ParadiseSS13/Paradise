@@ -1,6 +1,7 @@
 /obj/item/bio_chip/grey_autocloner
 	name = "technocracy cloning bio-chip"
 	desc = "Allows for advanced instantanious cloning!"
+	icon_state = "generic"
 	origin_tech = "materials=3;combat=5;syndicate=2"
 	activated = FALSE
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY

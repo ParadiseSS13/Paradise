@@ -120,6 +120,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 /obj/structure/gunrack
 	name = "gun rack"
 	desc = "A rack for stowing firearms."
+	icon = 'icons/obj/structures.dmi'
 	icon_state = "gunrack"
 	layer = TABLE_LAYER
 	density = TRUE

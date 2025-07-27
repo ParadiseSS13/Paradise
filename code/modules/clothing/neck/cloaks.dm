@@ -4,6 +4,7 @@
 	name = "grey cloak"
 	desc = "It's a cloak that can be worn around your neck in a pretty dull color."
 	icon_state = "cloak"
+	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = UPPER_TORSO | ARMS
 
 /obj/item/clothing/neck/cloak/head_of_security

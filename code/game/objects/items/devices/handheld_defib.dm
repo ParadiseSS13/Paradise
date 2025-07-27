@@ -2,6 +2,8 @@
 	name = "handheld defibrillator"
 	desc = "Used to restart stopped hearts."
 	icon = 'icons/obj/medical.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "defib-on"
 	item_state = "defib"
 	belt_icon = "defib"

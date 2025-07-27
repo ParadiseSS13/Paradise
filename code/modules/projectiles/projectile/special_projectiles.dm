@@ -24,6 +24,7 @@
 	icon_state= "bolter"
 	damage = 50
 	alwayslog = TRUE
+	flag = "bullet"
 
 /obj/item/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
 	..()
@@ -35,6 +36,8 @@
 	desc = "USE A WEEL GUN."
 	icon_state= "bolter"
 	alwayslog = TRUE
+	damage = 60
+	flag = "bullet"
 
 /obj/item/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
 	..()
@@ -104,7 +107,9 @@
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
 	damage = 0
+	damage_type = BRUTE
 	nodamage = 1
+	flag = "bullet"
 
 /obj/item/projectile/meteor/Bump(atom/A)
 	if(A == firer)
@@ -138,16 +143,20 @@
 /obj/item/projectile/energy/floramut
 	name = "alpha somatoray"
 	icon_state = "energy"
+	damage = 0
 	damage_type = TOX
 	nodamage = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
+	flag = "energy"
 
 /obj/item/projectile/energy/florayield
 	name = "beta somatoray"
 	icon_state = "energy2"
+	damage = 0
 	damage_type = TOX
 	nodamage = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
+	flag = "energy"
 
 /obj/item/projectile/energy/mindflayer
 	name = "flayer ray"
@@ -225,6 +234,7 @@
 /obj/item/projectile/plasma
 	name = "plasma blast"
 	icon_state = "plasmacutter"
+	damage_type = BRUTE
 	damage = 5
 	range = 3
 	dismemberment = 20
@@ -235,6 +245,7 @@
 	impact_type = /obj/effect/projectile/impact/plasma_cutter
 	impact_effect_type = null
 	hitscan_light_intensity = 3
+	hitscan_light_range = 0.75
 	hitscan_light_color_override = LIGHT_COLOR_CYAN
 	muzzle_flash_intensity = 6
 	muzzle_flash_range = 2
@@ -274,6 +285,7 @@
 /obj/item/projectile/energy/teleport
 	name = "teleportation burst"
 	icon_state = "bluespace"
+	damage = 0
 	nodamage = 1
 	alwayslog = TRUE
 	var/obj/item/beacon/teleport_target
@@ -296,7 +308,10 @@
 /obj/item/projectile/energy/demonic_grappler
 	name = "demonic grappler"
 	icon_state = "bluespace"
+	damage = 0
+	damage_type = BURN
 	nodamage = 1
+	flag = "energy"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
 /obj/item/projectile/energy/demonic_grappler/on_hit(atom/target, blocked = 0)
@@ -327,6 +342,7 @@
 	icon_state = "ornament-1"
 	hitsound = 'sound/effects/glasshit.ogg'
 	damage = 7
+	damage_type = BRUTE
 
 /obj/item/projectile/ornament/New()
 	icon_state = pick("ornament-1", "ornament-2")

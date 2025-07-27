@@ -2,6 +2,7 @@
 	var/hand_path = /obj/item/melee/touch_attack
 	var/obj/item/melee/touch_attack/attached_hand = null
 	var/on_remove_message = TRUE
+	invocation_type = "none" //you scream on connecting, not summoning
 
 /datum/spell/touch/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -53,6 +54,7 @@
 	hand_path = /obj/item/melee/touch_attack/disintegrate
 
 	base_cooldown = 600
+	clothes_req = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "gib"
@@ -63,6 +65,7 @@
 	hand_path = /obj/item/melee/touch_attack/fleshtostone
 
 	base_cooldown = 600
+	clothes_req = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "statue"
@@ -73,6 +76,7 @@
 	hand_path = /obj/item/melee/touch_attack/plushify
 
 	base_cooldown = 600
+	clothes_req = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "plush"

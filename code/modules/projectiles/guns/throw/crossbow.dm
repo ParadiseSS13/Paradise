@@ -168,6 +168,7 @@
 	icon_state = "bolt"
 	item_state = "bolt"
 	throwforce = 20
+	w_class = WEIGHT_CLASS_NORMAL
 	sharp = TRUE
 
 /obj/item/arrow/proc/removed() //Helper for metal rods falling apart.
