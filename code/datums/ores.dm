@@ -77,7 +77,6 @@
 
 /datum/ore/bluespace
 	drop_type = /obj/item/stack/ore/bluespace_crystal
-	drop_min = 1
 	drop_max = 1
 	scan_icon_state = "rock_BScrystal"
 

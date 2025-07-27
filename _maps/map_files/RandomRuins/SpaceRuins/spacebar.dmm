@@ -513,7 +513,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "sq" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/space/nearstation)
 "st" = (
@@ -871,7 +871,7 @@
 	},
 /area/ruin/space/powered/bar)
 "PA" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/template_noop)
 "QG" = (

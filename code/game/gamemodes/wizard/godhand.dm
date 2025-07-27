@@ -11,8 +11,6 @@
 	item_state = null
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	force = 0
-	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
 	new_attack_chain = TRUE
@@ -63,7 +61,6 @@
 	desc = "This hand of mine glows with an awesome power!"
 	catchphrase = "EI NATH!!"
 	on_use_sound = 'sound/magic/disintegrate.ogg'
-	icon_state = "disintegrate"
 	item_state = "disintegrate"
 
 
@@ -99,7 +96,6 @@
 	desc = "The power to sew your foes into a doom cut from the fabric of fate."
 	catchphrase = "MAHR-XET 'ABL"
 	on_use_sound = 'sound/magic/smoke.ogg'
-	icon_state = "disintegrate"
 	item_state = "disintegrate"
 	color = COLOR_PURPLE
 
@@ -118,7 +114,6 @@
 	desc = "This hand of mine glows with an awesome power! Ok, maybe just batteries."
 	catchphrase = "EI NATH!!"
 	on_use_sound = 'sound/magic/disintegrate.ogg'
-	icon_state = "disintegrate"
 	item_state = "disintegrate"
 	needs_permit = FALSE
 

@@ -11,8 +11,6 @@
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list(BODY_ZONE_CHEST)
-	requires_organic_bodypart = TRUE
-	requires_bodypart = TRUE
 
 /datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/mob/living/carbon/human/H = user
@@ -36,8 +34,6 @@
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list(BODY_ZONE_CHEST)
-	requires_organic_bodypart = TRUE
-	requires_bodypart = TRUE
 
 /datum/surgery/organ_extraction_boneless/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/mob/living/carbon/human/H = user
@@ -122,7 +118,6 @@
 	)
 	possible_locs = list(BODY_ZONE_CHEST)
 	requires_organic_bodypart = FALSE
-	requires_bodypart = TRUE
 
 /datum/surgery_step/internal/extract_organ/synth
 	name = "remove cell"

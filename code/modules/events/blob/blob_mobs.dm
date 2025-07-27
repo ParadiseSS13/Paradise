@@ -17,7 +17,6 @@
 	maximum_survivable_temperature = 360
 	universal_speak = TRUE // So mobs can understand them when a blob uses Blob Broadcast
 	sentience_type = SENTIENCE_OTHER
-	gold_core_spawnable = NO_SPAWN
 	can_be_on_fire = TRUE
 	fire_damage = 3
 	var/mob/camera/blob/overmind = null
@@ -196,7 +195,6 @@
 	maximum_survivable_temperature = 360
 	force_threshold = 10
 	mob_size = MOB_SIZE_LARGE
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	pressure_resistance = 50
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE

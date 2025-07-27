@@ -12,6 +12,7 @@
 	var/obj/item/beacon/Beacon
 	var/enabled = TRUE
 	var/cc_beacon = FALSE //can be teleported to even if on zlevel2
+	var/broadcast_to_teleport_hubs = TRUE
 
 /obj/machinery/bluespace_beacon/Initialize(mapload)
 	. = ..()
@@ -25,6 +26,7 @@
 	Beacon.syndicate = syndicate
 	Beacon.area_bypass = area_bypass
 	Beacon.cc_beacon = cc_beacon
+	Beacon.broadcast_to_teleport_hubs = broadcast_to_teleport_hubs
 	if(!T.transparent_floor)
 		hide(T.intact)
 

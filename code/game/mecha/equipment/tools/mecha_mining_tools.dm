@@ -131,7 +131,6 @@
 	equip_cooldown = 10
 	drill_delay = 4
 	drill_level = DRILL_HARDENED
-	force = 15
 
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner
