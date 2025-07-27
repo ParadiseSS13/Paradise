@@ -12,7 +12,6 @@
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "c_foam_launcher"
 	item_state = "c_foam_launcher"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;syndicate=1;materials=3"
 	needs_permit = FALSE
 

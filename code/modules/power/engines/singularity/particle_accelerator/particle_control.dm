@@ -10,15 +10,9 @@
 /obj/machinery/particle_accelerator/control_box
 	name = "Particle Accelerator Control Console"
 	desc = "This part controls the density of the particles."
-	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_box"
 	reference = "control_box"
-	anchored = FALSE
-	density = TRUE
-	power_state = NO_POWER_USE
 	idle_power_consumption = 500
-	active_power_consumption = 10000
-	construction_state = 0
 	active = FALSE
 	dir = 1
 	var/strength_upper_limit = 2

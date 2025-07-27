@@ -373,7 +373,6 @@
 /obj/item/food/cereal
 	name = "box of cereal"
 	desc = "A box of cereal."
-	icon = 'icons/obj/food/food.dmi'
 	icon_state = "cereal_box"
 	list_reagents = list("nutriment" = 3)
 

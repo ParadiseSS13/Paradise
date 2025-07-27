@@ -15,5 +15,4 @@
 /obj/item/suppressor/specialoffer
 	name = "cheap suppressor"
 	desc = "A foreign knock-off suppressor, it feels flimsy, cheap, and brittle. Still fits all weapons."
-	icon = 'icons/tgmc/objects/attachments.dmi'
 	icon_state = "suppressor"

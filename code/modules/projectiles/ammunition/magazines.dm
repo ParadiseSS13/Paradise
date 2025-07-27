@@ -14,7 +14,6 @@
 	name = "revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/a357
 	caliber = "357"
-	max_ammo = 7
 
 
 /obj/item/ammo_box/magazine/internal/cylinder/ammo_count(countempties = 1)
@@ -71,18 +70,14 @@
 	name = "nagant revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/n762
 	caliber = "n762"
-	max_ammo = 7
 
 /obj/item/ammo_box/magazine/internal/cylinder/cap
 	name = "cap gun revolver cylinder"
-	desc = "Oh god, this shouldn't be here!"
 	ammo_type = /obj/item/ammo_casing/cap
 	caliber = "cap"
-	max_ammo = 7
 
 /obj/item/ammo_box/magazine/internal/overgrown
 	name = "overgrown pistol magazine"
-	desc = "Oh god, this shouldn't be here!"
 	ammo_type = /obj/item/ammo_casing/overgrown
 	max_ammo = 8
 
@@ -107,14 +102,12 @@
 /obj/item/ammo_box/magazine/internal/shot/tube
 	name = "dual feed shotgun internal tube"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
-	max_ammo = 4
 
 /obj/item/ammo_box/magazine/internal/shot/lethal
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
 /obj/item/ammo_box/magazine/internal/shot/com
 	name = "combat shotgun internal magazine"
-	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/shot/malf
@@ -153,7 +146,6 @@
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi/fifteen
-	ammo_type = /obj/item/ammo_casing/a40mm
 	max_ammo = 15
 
 /obj/item/ammo_box/magazine/internal/speargun
@@ -176,11 +168,9 @@
 
 /obj/item/ammo_box/magazine/internal/boltaction
 	name = "bolt action rifle internal magazine"
-	desc = "Oh god, this shouldn't be here!"
 	ammo_type = /obj/item/ammo_casing/a762
 	caliber = "a762"
 	max_ammo = 5
-	multiload = 1
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 	max_ammo =1
@@ -189,7 +179,6 @@
 /obj/item/ammo_box/magazine/internal/shot/toy
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	caliber = "foam_force"
-	max_ammo = 4
 
 /obj/item/ammo_box/magazine/internal/shot/toy/crossbow
 	max_ammo = 5
@@ -323,9 +312,6 @@
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
 
 /obj/item/ammo_box/magazine/wt550m9/empty
-	name = "wt550 magazine (4.6x30mm)"
-	icon_state = "46x30mmt"
-	ammo_type = /obj/item/ammo_casing/c46x30mm
 
 /obj/item/ammo_box/magazine/wt550m9/empty/Initialize(mapload)
 	. = ..()
@@ -420,7 +406,6 @@
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/a50
 	caliber = ".50"
-	max_ammo = 7
 	multi_sprite_step = 1
 
 /obj/item/ammo_box/magazine/m75
@@ -506,7 +491,6 @@
 	desc = "An extra large drum magazine."
 	icon_state = "m12gXlSl"
 	w_class = WEIGHT_CLASS_NORMAL
-	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 16
 
 /obj/item/ammo_box/magazine/m12g/xtr_lrg/buckshot
@@ -580,7 +564,6 @@
 	multi_sprite_step = 10
 
 /obj/item/ammo_box/magazine/toy/m762/riot
-	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/laser
 	name = "laser carbine projector magazine"
@@ -611,7 +594,6 @@
 	multi_sprite_step = 2
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot
-	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 // yes this doesn't really belong here but nowhere else works
 /obj/item/ammo_box/magazine/detective/speedcharger

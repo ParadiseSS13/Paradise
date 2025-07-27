@@ -10,7 +10,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	can_holster = TRUE
-	mag_type = /obj/item/ammo_box/magazine/m10mm
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
@@ -68,7 +67,6 @@
 	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/enforcer
-	can_suppress = TRUE
 	unique_reskin = TRUE
 	can_flashlight = TRUE
 
@@ -133,7 +131,6 @@
 	icon_state = "type_230"
 	item_state = "type_230"
 	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "combat=3;materials=2;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/apsm10mm
 	can_suppress = FALSE
 	burst_size = 3

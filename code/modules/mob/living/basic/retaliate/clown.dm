@@ -20,11 +20,7 @@
 	melee_damage_upper = 10
 	melee_attack_cooldown_min = 1.5 SECONDS
 	melee_attack_cooldown_max = 2.5 SECONDS
-	attack_verb_simple = "attack"
-	attack_verb_continuous = "attacks"
 	attack_sound = 'sound/items/bikehorn.ogg'
-	obj_damage = 0
-	environment_smash = 0
 	minimum_survivable_temperature = 270
 	maximum_survivable_temperature = 370
 	unsuitable_heat_damage = 15	//amount of damage applied if animal's body temperature is higher than maxbodytemp
