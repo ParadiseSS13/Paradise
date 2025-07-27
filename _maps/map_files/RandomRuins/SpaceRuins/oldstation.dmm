@@ -83,7 +83,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/ancientstation/hivebot)
 "ap" = (
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/ancientstation/hivebot)
 "aq" = (
@@ -222,7 +222,7 @@
 "aM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -522,7 +522,7 @@
 /area/ruin/ancientstation)
 "bI" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitecorner"
@@ -716,7 +716,7 @@
 /area/ruin/ancientstation/engi)
 "co" = (
 /obj/effect/decal/cleanable/blood/oil,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/ancientstation/hivebot)
 "cs" = (
@@ -742,7 +742,7 @@
 /obj/effect/decal/remains/robot{
 	icon_state = "gib2"
 	},
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/ancientstation/hivebot)
 "cw" = (
@@ -850,11 +850,11 @@
 /obj/effect/decal/remains/robot{
 	icon_state = "gib5"
 	},
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/ancientstation/hivebot)
 "cL" = (
-/mob/living/simple_animal/hostile/hivebot/strong,
+/mob/living/basic/hivebot/strong,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/ancientstation/hivebot)
 "cM" = (
@@ -872,7 +872,7 @@
 /area/ruin/ancientstation/atmo)
 "cP" = (
 /obj/effect/decal/cleanable/blood/oil,
-/mob/living/simple_animal/hostile/hivebot/strong,
+/mob/living/basic/hivebot/strong,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/ancientstation/hivebot)
 "cQ" = (
@@ -1007,7 +1007,7 @@
 "dm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -1054,7 +1054,7 @@
 /obj/effect/decal/remains/robot{
 	icon_state = "gibup"
 	},
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/ancientstation/hivebot)
 "dt" = (
@@ -1147,7 +1147,7 @@
 /area/ruin/ancientstation/rnd)
 "dH" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
 "dI" = (
@@ -1162,7 +1162,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -1175,7 +1175,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants/large/dead,
-/mob/living/simple_animal/hostile/hivebot/strong,
+/mob/living/basic/hivebot/strong,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "dL" = (
@@ -1411,7 +1411,7 @@
 "ew" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "ex" = (
@@ -1426,7 +1426,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
 "ez" = (
@@ -1534,7 +1534,7 @@
 /area/ruin/ancientstation)
 "eN" = (
 /obj/machinery/door/firedoor,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -1991,7 +1991,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot/strong,
+/mob/living/basic/hivebot/strong,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -2411,7 +2411,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/betanorth)
 "hg" = (
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -2432,7 +2432,7 @@
 	},
 /area/ruin/ancientstation/rnd)
 "hj" = (
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -2474,7 +2474,7 @@
 "hn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot/strong,
+/mob/living/basic/hivebot/strong,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "ho" = (
@@ -2557,7 +2557,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -2618,7 +2618,7 @@
 /area/ruin/ancientstation/hydroponics)
 "hE" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -2717,7 +2717,7 @@
 /area/ruin/ancientstation/rnd)
 "hT" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot/strong,
+/mob/living/basic/hivebot/strong,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -2847,7 +2847,7 @@
 "ih" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -3078,7 +3078,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -3626,13 +3626,13 @@
 /area/ruin/ancientstation/thetacorridor)
 "kL" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot/strong,
+/mob/living/basic/hivebot/strong,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/rnd)
 "kM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
@@ -3650,13 +3650,13 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "kP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot/strong,
+/mob/living/basic/hivebot/strong,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/rnd)
 "kR" = (
@@ -3675,7 +3675,7 @@
 /area/ruin/ancientstation/thetacorridor)
 "kS" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "kT" = (
@@ -3780,7 +3780,7 @@
 "lh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm/directional/south,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "li" = (
@@ -3849,7 +3849,7 @@
 	in_use = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -3879,7 +3879,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
@@ -4001,7 +4001,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/atmo)
 "lK" = (
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -4366,7 +4366,7 @@
 /area/ruin/ancientstation/atmo)
 "qj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -5425,7 +5425,7 @@
 /area/ruin/ancientstation/thetacorridor)
 "CN" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -5445,7 +5445,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -5715,7 +5715,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -6084,7 +6084,7 @@
 /area/space/nearstation)
 "LB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -6195,7 +6195,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "MP" = (
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/cobweb/right/frequent,
 /turf/simulated/floor/plating,
@@ -6338,7 +6338,7 @@
 	},
 /area/ruin/ancientstation/engi)
 "OW" = (
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 8
@@ -6464,7 +6464,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -6539,7 +6539,7 @@
 	},
 /area/ruin/ancientstation/comm)
 "Ru" = (
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
@@ -6898,7 +6898,7 @@
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -6977,7 +6977,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -7073,7 +7073,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/betanorth)
 "Xq" = (
-/mob/living/simple_animal/hostile/hivebot,
+/mob/living/basic/hivebot,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
