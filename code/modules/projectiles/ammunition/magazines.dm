@@ -1,5 +1,5 @@
 /obj/item/ammo_box/magazine
-	icon_state = "75" // placeholder icon
+	icon_state = null
 
 ////////////////INTERNAL MAGAZINES//////////////////////
 /obj/item/ammo_box/magazine/internal
