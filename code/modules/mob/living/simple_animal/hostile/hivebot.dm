@@ -54,10 +54,9 @@
 		return FALSE
 	do_sparks(3, 1, src)
 
-/mob/living/simple_animal/hostile/hivebot/tele//this still needs work
+/mob/living/simple_animal/hostile/hivebot/tele
 	name = "Beacon"
 	desc = "Some odd beacon thing."
-	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "def_radar-off"
 	icon_living = "def_radar-off"
 	health = 200
