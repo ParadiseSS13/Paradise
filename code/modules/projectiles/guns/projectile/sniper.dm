@@ -185,7 +185,6 @@
 //toy magazine
 /obj/item/ammo_box/magazine/toy/sniper_rounds
 	name = "donksoft Sniper magazine"
-
 	icon_state = ".50mag"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
 	max_ammo = 6
