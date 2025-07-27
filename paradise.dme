@@ -2404,6 +2404,7 @@
 #include "code\modules\mob\living\basic\hostile\hellhound.dm"
 #include "code\modules\mob\living\basic\hostile\hellhound_ai.dm"
 #include "code\modules\mob\living\basic\hostile\hivebot.dm"
+#include "code\modules\mob\living\basic\hostile\hivebot_ai.dm"
 #include "code\modules\mob\living\basic\hostile\skeleton_mob.dm"
 #include "code\modules\mob\living\basic\nether_mobs\blankbody.dm"
 #include "code\modules\mob\living\basic\nether_mobs\faithless.dm"

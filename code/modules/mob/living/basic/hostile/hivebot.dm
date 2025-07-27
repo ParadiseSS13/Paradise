@@ -59,105 +59,42 @@
 		return FALSE
 	do_sparks(3, 1, src)
 
-/datum/ai_controller/basic_controller/hivebot
-	blackboard = list(
-		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
-	)
+/mob/living/basic/hivebot/tele // Hivebot Telebeacon
+	name = "Beacon"
+	desc = "Some odd beacon thing."
+	icon = 'icons/mob/hivebot.dmi'
+	icon_state = "def_radar-off"
+	icon_living = "def_radar-off"
+	health = 200
+	maxHealth = 200
+	status_flags = 0
+	anchored = TRUE
+	ai_controller = /datum/ai_controller/basic_controller/beacon
+	/// The total number of hivebots to spawn
+	var/bot_amt = 10
 
-	ai_movement = /datum/ai_movement/basic_avoidance
-	idle_behavior = /datum/idle_behavior/idle_random_walk
-	planning_subtrees = list(
-		/datum/ai_planning_subtree/simple_find_target,
-		/datum/ai_planning_subtree/basic_melee_attack_subtree,
-		/datum/ai_planning_subtree/attack_obstacle_in_path,
-		/datum/ai_planning_subtree/hive_communicate,
-	)
-
-/datum/ai_controller/basic_controller/hivebot/ranged
-	planning_subtrees = list(
-		/datum/ai_planning_subtree/simple_find_target,
-		/datum/ai_planning_subtree/basic_ranged_attack_subtree/hivebot,
-		/datum/ai_planning_subtree/attack_obstacle_in_path,
-		/datum/ai_planning_subtree/hive_communicate,
-	)
-
-/datum/ai_controller/basic_controller/hivebot/ranged/rapid
-	planning_subtrees = list(
-		/datum/ai_planning_subtree/simple_find_target,
-		/datum/ai_planning_subtree/basic_ranged_attack_subtree/hivebot_rapid,
-		/datum/ai_planning_subtree/attack_obstacle_in_path,
-		/datum/ai_planning_subtree/hive_communicate,
-	)
-
-/datum/ai_planning_subtree/basic_ranged_attack_subtree/hivebot_rapid
-	ranged_attack_behavior = /datum/ai_behavior/basic_ranged_attack/hivebot_rapid
-
-/datum/ai_planning_subtree/basic_ranged_attack_subtree/hivebot
-	ranged_attack_behavior = /datum/ai_behavior/basic_ranged_attack/hivebot
-
-/datum/ai_planning_subtree/hive_communicate
-	/// chance to go and relay message
-	var/relay_chance = 10
-
-/datum/ai_planning_subtree/hive_communicate/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
-
-	if(!SPT_PROB(relay_chance, seconds_per_tick))
-		return
-
-	if(controller.blackboard_key_exists(BB_HIVE_PARTNER))
-		controller.queue_behavior(/datum/ai_behavior/relay_message, BB_HIVE_PARTNER)
-		return SUBTREE_RETURN_FINISH_PLANNING
-	controller.queue_behavior(/datum/ai_behavior/find_and_set/hive_partner, BB_HIVE_PARTNER, /mob/living/basic/hivebot)
-
-/datum/ai_behavior/find_and_set/hive_partner
-
-/datum/ai_behavior/find_and_set/hive_partner/search_tactic(datum/ai_controller/controller, locate_path, search_range)
-	var/mob/living/living_pawn = controller.pawn
-	var/list/hive_partners = list()
-	for(var/mob/living/target in oview(10, living_pawn))
-		if(!istype(target, locate_path))
-			continue
-		if(target.stat == DEAD)
-			continue
-		hive_partners += target
-
-	if(length(hive_partners))
-		return pick(hive_partners)
-
-/// behavior that allow us to go communicate with other hivebots
-/datum/ai_behavior/relay_message
-	/// length of the message we will relay
-	var/length_of_message = 4
-	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT| AI_BEHAVIOR_REQUIRE_REACH | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
-
-/datum/ai_behavior/relay_message/setup(datum/ai_controller/controller, target_key)
+/mob/living/basic/hivebot/tele/Initialize(mapload)
 	. = ..()
-	var/mob/living/target = controller.blackboard[target_key]
-	// It stopped existing
-	if(QDELETED(target))
-		return FALSE
-	set_movement_target(controller, target)
+	var/datum/effect_system/smoke_spread/smoke = new
+	smoke.set_up(5, FALSE, loc)
+	smoke.start()
+	visible_message("<span class='danger'>[src] warps in!</span>")
+	playsound(src.loc, 'sound/effects/empulse.ogg', 25, 1)
 
-/datum/ai_behavior/relay_message/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
-	var/mob/living/target = controller.blackboard[target_key]
-	var/mob/living/living_pawn = controller.pawn
-
-	if(QDELETED(target))
-		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
-	var/message_relayed = ""
-	for(var/i in 1 to length_of_message)
-		message_relayed += prob(50) ? "1" : "0"
-	living_pawn.say(message_relayed)
-	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
-
-/datum/ai_behavior/relay_message/finish_action(datum/ai_controller/controller, succeeded, target_key)
-	. = ..()
-	controller.clear_blackboard_key(target_key)
-
-/datum/ai_behavior/basic_ranged_attack/hivebot
-	action_cooldown = 3 SECONDS
-	avoid_friendly_fire = TRUE
-
-/datum/ai_behavior/basic_ranged_attack/hivebot_rapid
-	action_cooldown = 1 SECONDS
-	avoid_friendly_fire = TRUE
+/mob/living/basic/hivebot/tele/proc/warpbots()
+	icon_state = "def_radar"
+	visible_message("<span class='warning'>[src] turns on!</span>")
+	while(bot_amt > 0)
+		bot_amt--
+		if(bot_amt > 3)
+			var/mob/living/basic/hivebot/H = new /mob/living/basic/hivebot(get_turf(src))
+			H.faction = faction
+		else if(bot_amt > 0)
+			var/mob/living/basic/hivebot/range/R = new /mob/living/basic/hivebot/range(get_turf(src))
+			R.faction = faction
+		else
+			var/mob/living/basic/hivebot/rapid/F = new /mob/living/basic/hivebot/rapid(get_turf(src))
+			F.faction = faction
+	spawn(100)
+		qdel(src)
+	return
