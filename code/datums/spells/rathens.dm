@@ -2,7 +2,6 @@
 	name = "Rathen's Secret"
 	desc = "Summons a powerful shockwave around you that tears the appendix out of enemies, and occasionally removes their limbs."
 	base_cooldown = 50 SECONDS
-	clothes_req = TRUE
 	invocation = "APPEN NATH!"
 	invocation_type = "shout"
 	cooldown_min = 20 SECONDS

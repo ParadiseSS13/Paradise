@@ -12,9 +12,6 @@
 	fire_delay = 40
 	burst_size = 1
 	origin_tech = "combat=7"
-	can_unsuppress = TRUE
-	can_suppress = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BACK
 	actions_types = list()
 	execution_speed = 4 SECONDS

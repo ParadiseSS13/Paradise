@@ -2,9 +2,7 @@
 
 /area/ruin/unpowered/bmp_ship
 	name = "\improper BMP Asteroids"
-	icon_state = "away"
 	report_alerts = FALSE
-	requires_power = TRUE
 
 /area/ruin/unpowered/bmp_ship/aft
 	name = "\improper BMP Aft Block"

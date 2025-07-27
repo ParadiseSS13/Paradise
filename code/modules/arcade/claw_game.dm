@@ -3,8 +3,6 @@ GLOBAL_VAR(claw_game_html)
 /obj/machinery/economy/arcade/claw
 	name = "Claw Game"
 	desc = "One of the most infuriating ways to win a toy."
-	icon = 'icons/obj/arcade.dmi'
-	icon_state = "clawmachine_1_on"
 	token_price = 5
 	window_name = "Claw Game"
 	var/machine_image = "_1"
