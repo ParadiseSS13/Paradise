@@ -43,7 +43,6 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/security.dmi'
 		)
 
-
 /obj/item/clothing/under/rank/security/officer
 	name = "security officer's jumpsuit"
 	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection."
