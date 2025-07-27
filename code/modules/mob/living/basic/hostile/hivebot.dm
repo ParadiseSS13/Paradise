@@ -1,6 +1,4 @@
 /obj/item/projectile/hivebotbullet
-	damage = 10
-	damage_type = BRUTE
 
 /mob/living/basic/hivebot
 	name = "Hivebot"
@@ -34,7 +32,6 @@
 	projectile_sound = 'sound/weapons/gunshots/gunshot.ogg'
 
 /mob/living/basic/hivebot/range
-	name = "Hivebot"
 	desc = "A smallish robot, this one is armed!"
 	is_ranged = TRUE
 	ai_controller = /datum/ai_controller/basic_controller/hivebot/ranged
@@ -62,7 +59,6 @@
 /mob/living/basic/hivebot/tele // Hivebot Telebeacon
 	name = "Beacon"
 	desc = "Some odd beacon thing."
-	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "def_radar-off"
 	icon_living = "def_radar-off"
 	health = 200

@@ -332,7 +332,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	health = 200
 	maxHealth = 200
 	faction = list("malf_drone")
-	is_ranged = TRUE
 	speed = 0.5
 	projectile_type = /obj/item/projectile/beam/disabler/weak
 	projectile_sound = 'sound/weapons/taser2.ogg'
