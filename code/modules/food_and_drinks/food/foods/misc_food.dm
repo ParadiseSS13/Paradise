@@ -86,7 +86,6 @@
 	icon_state = "aesirsalad"
 	list_reagents = list("nutriment" = 8, "omnizine" = 8, "vitamin" = 6)
 	tastes = list("divinity" = 1, "lettuce" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/antipasto
 	name = "antipasto salad"
@@ -94,7 +93,6 @@
 	icon_state = "antipasto_salad"
 	list_reagents = list("nutriment" = 12, "protein" = 6, "vitamin" = 6)
 	tastes = list("lettuce" = 2, "salami" = 2, "mozzarella cheese" = 2, "tomatoes" = 2, "dressing" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/caesar
 	name = "Caesar salad"
@@ -102,7 +100,6 @@
 	icon_state = "caesar_salad"
 	list_reagents = list("nutriment" = 12, "vitamin" = 6)
 	tastes = list("healthy greens" = 2, "olive dressing" = 2, "feta cheese" = 2, "pita bread" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/fruit
 	name = "fruit salad"
@@ -110,7 +107,6 @@
 	icon_state = "fruitsalad"
 	list_reagents = list("nutriment" = 9, "vitamin" = 4)
 	tastes = list("fruit" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/greek
 	name = "Greek salad"
@@ -118,7 +114,6 @@
 	icon_state = "greek_salad"
 	list_reagents = list("nutriment" = 13, "vitamin" = 14)
 	tastes = list("healthy greens" = 2, "olive dressing" = 1, "feta cheese" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/citrusdelight
 	name = "citrus delight"
@@ -126,7 +121,6 @@
 	icon_state = "citrusdelight"
 	list_reagents = list("nutriment" = 11, "vitamin" = 7)
 	tastes = list("sourness" = 1, "leaves" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/jungle
 	name = "jungle salad"
@@ -134,7 +128,6 @@
 	icon_state = "junglesalad"
 	list_reagents = list("banana" = 5, "nutriment" = 11, "vitamin" = 7)
 	tastes = list("fruit" = 1, "the jungle" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/kale
 	name = "kale salad"
@@ -142,7 +135,6 @@
 	icon_state = "kale_salad"
 	list_reagents = list("nutriment" = 12, "vitamin" = 12)
 	tastes = list("healthy greens" = 2, "olive dressing" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/potato
 	name = "potato salad"
@@ -150,7 +142,6 @@
 	icon_state = "potato_salad"
 	list_reagents = list("nutriment" = 10, "protein" = 4)
 	tastes = list("potato" = 2, "egg" = 2, "mayonnaise" = 2)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/melonfruitbowl
 	name = "melon fruit bowl"
@@ -159,7 +150,6 @@
 	trash = null
 	list_reagents = list("nutriment" = 6, "vitamin" = 4)
 	tastes = list("melon" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/herb
 	name = "herb salad"
@@ -168,7 +158,6 @@
 	filling_color = "#76B87F"
 	list_reagents = list("nutriment" = 8, "vitamin" = 2)
 	tastes = list("lettuce" = 1, "apple" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/salad/valid
 	name = "valid salad"
@@ -177,7 +166,6 @@
 	filling_color = "#76B87F"
 	list_reagents = list("nutriment" = 8, "salglu_solution" = 5, "vitamin" = 2)
 	tastes = list("fried potato" = 1, "lettuce" = 1, "meat" = 1, "valids" = 1)
-	goal_difficulty = FOOD_GOAL_NORMAL
 
 
 //////////////////////

@@ -13,7 +13,6 @@
 	density = FALSE
 	max_integrity = 300
 	resistance_flags = FIRE_PROOF
-	heat_proof = FALSE
 	glass = TRUE
 	explosion_block = 1
 	safe = FALSE
@@ -373,7 +372,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/structure/firelock_frame
@@ -381,7 +379,6 @@
 	desc = "A partially completed firelock."
 	icon = 'icons/obj/doors/doorfire.dmi'
 	icon_state = "frame1"
-	anchored = FALSE
 	density = TRUE
 	cares_about_temperature = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT

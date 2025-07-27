@@ -5,7 +5,6 @@
 	desc = "The HT-451, a torque rotation-based, waste disposal unit for small matter. This one seems remarkably clean."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "toilet00"
-	density = FALSE
 	anchored = TRUE
 	var/open = FALSE			//if the lid is up
 	var/cistern = FALSE			//if the cistern bit is open
@@ -237,7 +236,6 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 	desc = "The HU-452, an experimental urinal."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "urinal"
-	density = FALSE
 	anchored = TRUE
 	new_attack_chain = TRUE
 
@@ -301,7 +299,6 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 	desc = "The HS-451. Installed in the 2550s by the Nanotrasen Hygiene Division."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "shower"
-	density = FALSE
 	anchored = TRUE
 	power_state = NO_POWER_USE
 	///Is the shower on or off?
@@ -310,7 +307,6 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 	var/current_temperature = SHOWER_NORMAL
 	///What sound will be played on loop when the shower is on and pouring water.
 	var/datum/looping_sound/showering/soundloop
-	new_attack_chain = TRUE
 
 MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/shower, 16, -5, 0, 0)
 
@@ -351,7 +347,6 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/shower, 16, -5, 0, 0)
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mist"
 	layer = FLY_LAYER
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/machinery/shower/attack_hand(mob/M)

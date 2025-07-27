@@ -26,7 +26,6 @@
 	icon_state = "tube-construct-stage1"
 	anchored = TRUE
 	layer = FLY_LAYER
-	max_integrity = 200
 	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 50)
 	/// Construction stage
 	var/stage = LIGHT_CONSTRUCT_EMPTY_FRAME
@@ -174,8 +173,6 @@
 	name = "small light fixture frame"
 	desc = "A small light fixture under construction."
 	icon_state = "bulb-construct-stage1"
-	anchored = TRUE
-	layer = FLY_LAYER
 	fixture_type = "bulb"
 	sheets_refunded = 1
 	construct_type = /obj/machinery/light/small/built
@@ -184,7 +181,6 @@
 	name = "floor light fixture frame"
 	desc = "A floor light fixture under construction."
 	icon_state = "floor-construct-stage1"
-	anchored = TRUE
 	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
 	fixture_type = "floor"
@@ -194,11 +190,7 @@
 /obj/machinery/light_construct/clockwork/small
 	name = "small brass light fixture frame"
 	desc = "A small brass light fixture under construction."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "clockwork_bulb-construct-stage1"
-	anchored = TRUE
-	layer = 5
-	stage = 1
 	fixture_type = "clockwork_bulb"
 	sheets_refunded = 1
 	construct_type = /obj/machinery/light/clockwork/small/built
@@ -207,7 +199,6 @@
 	name = "brass floor light fixture frame"
 	desc = "A brass floor light fixture under construction."
 	icon_state = "clockwork_floor-construct-stage1"
-	anchored = TRUE
 	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
 	fixture_type = "clockwork_floor"

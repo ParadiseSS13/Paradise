@@ -1,7 +1,6 @@
 /mob/living/basic/kangaroo
 	name = "Kangaroo"
 	real_name = "Kangaroo"
-	voice_name = "unidentifiable voice"
 	desc = "A large marsupial herbivore. It has powerful hind legs, with nails that resemble long claws."
 	icon_state = "kangaroo" // Credit: FoS
 	icon_living = "kangaroo"
@@ -14,7 +13,6 @@
 	maxHealth = 150
 	health = 150
 	butcher_results = list(/obj/item/food/meat/kangaroo = 6)
-	harm_intent_damage = 3
 	melee_damage_lower = 5 // avg damage 12.5 without kick, (12.5+12.5+60)/3=25 with kick
 	melee_damage_upper = 20
 	melee_attack_cooldown_min = 1.5 SECONDS
