@@ -37,7 +37,13 @@
 
 /mob/living/basic/clown/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/ai_retaliate)
+	AddComponent(/datum/component/ai_retaliate_advanced, CALLBACK(src, PROC_REF(retaliate_callback)))
+
+/mob/living/basic/clown/proc/retaliate_callback(mob/living/attacker)
+	if(!istype(attacker))
+		return
+	for(var/mob/living/basic/clown/harbringer in oview(src, 7))
+		harbringer.ai_controller.insert_blackboard_key_lazylist(BB_BASIC_MOB_RETALIATE_LIST, attacker)
 
 /mob/living/basic/clown/goblin
 	icon = 'icons/mob/animal.dmi'
