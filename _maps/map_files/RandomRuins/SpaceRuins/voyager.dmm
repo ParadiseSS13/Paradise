@@ -32,7 +32,7 @@
 /turf/template_noop,
 /area/template_noop)
 "R" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/template_noop)
 "S" = (

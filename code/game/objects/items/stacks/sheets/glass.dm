@@ -33,7 +33,6 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	materials = list(MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 100)
 	resistance_flags = ACID_PROOF
-	origin_tech = "materials=1"
 	created_window = /obj/structure/window/basic
 	full_window = /obj/structure/window/full/basic
 	merge_type = /obj/item/stack/sheet/glass

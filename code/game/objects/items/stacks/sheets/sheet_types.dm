@@ -139,7 +139,6 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	throwforce = 10.0
 	flags = CONDUCT
 	resistance_flags = FIRE_PROOF
-	origin_tech = "materials=1"
 	merge_type = /obj/item/stack/sheet/metal
 	point_value = 2
 	table_type = /obj/structure/table
@@ -465,6 +464,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list (
 	desc = "A bundle of raw durathread ready to be spun on the loom."
 	singular_name = "raw durathread ball"
 	icon_state = "sheet-durathreadraw"
+	icon = 'icons/obj/stacks/organic.dmi'
 	merge_type = /obj/item/stack/sheet/cotton/durathread
 	pull_effort = 70
 	loom_result = /obj/item/stack/sheet/durathread
@@ -522,7 +522,6 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "sheet-card"
 	item_state = "sheet-card"
-	origin_tech = "materials=1"
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cardboard
 
@@ -544,7 +543,6 @@ GLOBAL_LIST_INIT(soil_recipes, list (
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-soil"
 	item_state = "sheet-soil"
-	origin_tech = "materials=1"
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/soil
 
@@ -689,10 +687,6 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	singular_name = "bone"
 	desc = "Someone's been drinking their milk."
 	force = 7
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 1
-	throw_range = 3
 	origin_tech = "materials=2;biotech=2"
 
 //////////////////////////////

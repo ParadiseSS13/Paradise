@@ -8,7 +8,6 @@
 
 /obj/item/projectile/energy/electrode
 	name = "electrode"
-	icon_state = "spark"
 	color = "#FFFF00"
 	nodamage = 1
 	weaken = 10 SECONDS
@@ -48,7 +47,6 @@
 	icon_state = "cbbolt"
 	damage = 15
 	damage_type = TOX
-	nodamage = FALSE
 	stamina = 60
 	eyeblur = 20 SECONDS
 	knockdown = 2 SECONDS
@@ -64,7 +62,6 @@
 	icon_state = "bluespace"
 	impact_effect_type = /obj/effect/temp_visual/bsg_kaboom
 	damage = BSG_BASE_DAMAGE
-	damage_type = BURN
 	armour_penetration_flat = 50
 	range = 9
 	knockdown = 4 SECONDS //This is going to knock you off your feet
@@ -129,7 +126,6 @@
 	name = "plasma bolt"
 	icon_state = "plasma_light"
 	damage = 12.5
-	damage_type = BURN
 
 /obj/item/projectile/homing/charged_plasma
 	name = "charged plasma bolt"
@@ -139,7 +135,6 @@
 	flag = "energy"
 	armour_penetration_flat = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
 	shield_buster = TRUE
-	reflectability = REFLECTABILITY_PHYSICAL //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard. Carp still can reflect though, screw you.
 	var/reached_target = FALSE
 
 /obj/item/projectile/homing/charged_plasma/pixel_move(trajectory_multiplier)
@@ -164,7 +159,6 @@
 	name = "arc emitter"
 	icon_state = "plasma_light"
 	damage = ARC_REVOLVER_BASE_DAMAGE
-	damage_type = BURN
 	var/charge_number = null
 
 /obj/item/projectile/energy/arc_revolver/on_hit(atom/target)
