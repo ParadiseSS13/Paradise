@@ -202,25 +202,15 @@
 	maxHealth = 120
 	health = 120
 	melee_damage_lower = 10
-	melee_damage_upper = 20
 	venom_per_bite = 10
 
 /mob/living/basic/giant_spider/araneus
 	name = "Sergeant Araneus"
 	real_name = "Sergeant Araneus"
-	voice_name = "unidentifiable voice"
 	desc = "A fierce companion for any person of power, this spider has been carefully trained by Nanotrasen specialists. Its beady, staring eyes send shivers down your spine."
 	faction = list("spiders")
-	icon_state = "guard"
-	icon_living = "guard"
-	icon_dead = "guard_dead"
-	icon_gib = "guard_dead"
-	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	maxHealth = 250
 	health = 250
-	harm_intent_damage = 3
-	melee_damage_lower = 15
-	melee_damage_upper = 20
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 2, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	gender = FEMALE
 	ai_controller = /datum/ai_controller/basic_controller/giant_spider/retaliate
