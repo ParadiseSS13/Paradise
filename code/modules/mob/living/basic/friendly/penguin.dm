@@ -23,7 +23,6 @@
 
 /mob/living/basic/pet/penguin/emperor
 	name = "Emperor penguin"
-	real_name = "penguin"
 	desc = "Emperor of all he surveys."
 	icon_state = "penguin"
 	icon_living = "penguin"
@@ -33,7 +32,6 @@
 
 /mob/living/basic/pet/penguin/eldrich
 	name = "Albino penguin"
-	real_name = "penguin"
 	desc = "Found in the depths of mountains."
 	response_help_continuous = "taps"
 	response_help_simple = "tap"
@@ -55,14 +53,12 @@
 
 /mob/living/basic/pet/penguin/baby
 	name = "Penguin chick"
-	real_name = "penguin"
 	desc = "Can't fly and can barely waddles, but the prince of all chicks."
 	icon_state = "penguin_baby"
 	icon_living = "penguin_baby"
 	icon_dead = "penguin_baby_dead"
 	density = FALSE
 	pass_flags = PASSMOB
-	mob_size = MOB_SIZE_SMALL
 
 /datum/ai_controller/basic_controller/penguin
 	blackboard = list(

@@ -25,8 +25,6 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST | MOB_REPTILE
 	mob_size = MOB_SIZE_SMALL
 	gold_core_spawnable = FRIENDLY_SPAWN
-	obj_damage = 0
-	environment_smash = ENVIRONMENT_SMASH_NONE
 
 	ai_controller = /datum/ai_controller/basic_controller/snake
 	/// How much poison?

@@ -16,7 +16,6 @@
 	response_harm_simple = "kick"
 	ai_controller = /datum/ai_controller/basic_controller/sloth
 	gold_core_spawnable = FRIENDLY_SPAWN
-	melee_damage_lower = 0
 	melee_damage_upper = 5
 	health = 50
 	maxHealth = 50

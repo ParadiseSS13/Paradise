@@ -11,7 +11,6 @@
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bite"
 	attack_sound = 'sound/effects/bite.ogg'
-	obj_damage = 0
 	melee_damage_lower = 1
 	melee_damage_upper = 2
 	ai_controller = /datum/ai_controller/basic_controller/lizard

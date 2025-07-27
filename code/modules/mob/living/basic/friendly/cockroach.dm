@@ -12,8 +12,6 @@
 	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	mob_size = MOB_SIZE_TINY
 	ai_controller = /datum/ai_controller/basic_controller/cockroach
-	response_help_continuous = "pokes"
-	response_help_simple = "poke"
 	response_disarm_continuous = "shoos"
 	response_disarm_simple = "shoo"
 	response_harm_continuous = "splats"
