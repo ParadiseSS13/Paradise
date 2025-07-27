@@ -107,7 +107,6 @@
 
 /obj/item/ammo_box/magazine/mm762x51
 	name = "box magazine (7.62x51mm FMJ)"
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "a762"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/mm762x51
@@ -140,7 +139,6 @@
 /obj/item/ammo_casing/mm762x51
 	name = "7.62x51mm round"
 	desc = "A 7.62x51mm full-metal jacket rifle cartridge, commonly used in general-purpose machine guns."
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "762-casing"
 	caliber = "mm762x51"
 	projectile_type = /obj/item/projectile/bullet/saw

@@ -47,7 +47,6 @@
 //Normal Boolets
 /obj/item/ammo_box/magazine/sniper_rounds
 	name = "sniper rounds (.50)"
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = ".50mag"
 	origin_tech = "combat=6;syndicate=2"
 	ammo_type = /obj/item/ammo_casing/point50
@@ -186,7 +185,7 @@
 //toy magazine
 /obj/item/ammo_box/magazine/toy/sniper_rounds
 	name = "donksoft Sniper magazine"
-	icon = 'icons/obj/ammo.dmi'
+
 	icon_state = ".50mag"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
 	max_ammo = 6
