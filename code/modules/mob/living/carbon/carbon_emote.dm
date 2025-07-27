@@ -143,13 +143,6 @@
 	hands_use_check = TRUE
 	target_behavior = EMOTE_TARGET_BHVR_NUM
 
-/datum/emote/living/carbon/sign/run_emote(mob/user, params, type_override, intentional)
-	var/fingers = text2num(params)
-	if(fingers > 10)
-		to_chat(user, "<span class='warning'>You don't have enough fingers!</span>")
-		return TRUE
-	return ..()
-
 /datum/emote/living/carbon/faint
 	key = "faint"
 	key_third_person = "faints"

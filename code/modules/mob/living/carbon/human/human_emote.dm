@@ -517,7 +517,19 @@
 	message_param = "raises %t fingers."
 	param_desc = "number(0-10)"
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
-	hands_use_check = TRUE
+
+/datum/emote/living/carbon/sign/signal/run_emote(mob/user, params, type_override, intentional)
+	var/fingers = round(text2num(params), 1)
+
+	if(fingers > 10)
+		to_chat(user, "<span class='warning'>You don't have enough fingers!</span>")
+		return TRUE
+	else if(fingers < 0)
+		to_chat(user, "<span class='warning'>You're not entirely sure how to raise negative fingers.")
+		return TRUE
+
+	params = fingers
+	return ..()
 
 /////////
 // Species-specific emotes
