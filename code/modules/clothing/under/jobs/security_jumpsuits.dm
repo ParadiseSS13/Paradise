@@ -29,6 +29,12 @@
 	item_state = "warden_corporate_skirt"
 	item_color = "warden_corporate_skirt"
 
+/obj/item/clothing/under/rank/security/warden/turtleneck
+	icon_state = "wardturtle"
+	item_state = "wardturtle"
+	item_color = "wardturtle"
+
+
 /obj/item/clothing/under/rank/security/officer
 	name = "security officer's jumpsuit"
 	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection."

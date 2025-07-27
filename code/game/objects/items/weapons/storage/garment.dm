@@ -47,7 +47,6 @@
 	new /obj/item/clothing/under/rank/captain/skirt/white(src)
 	new /obj/item/clothing/under/rank/captain/parade(src)
 	new /obj/item/clothing/under/rank/captain/dress(src)
-	new /obj/item/clothing/under/rank/captain/turtleneck(src)
 	new /obj/item/clothing/gloves/color/captain(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/shoes/laceup(src)
@@ -271,6 +270,7 @@
 	new /obj/item/clothing/under/rank/security/warden/corporate(src)
 	new /obj/item/clothing/under/rank/security/warden/skirt(src)
 	new /obj/item/clothing/under/rank/security/warden/skirt/corporate(src)
+	new /obj/item/clothing/under/rank/security/warden/turtleneck
 	new /obj/item/clothing/mask/gas/sechailer/swat/warden(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/security/warden(src)

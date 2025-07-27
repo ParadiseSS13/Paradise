@@ -30,12 +30,6 @@
 	icon_state = "captain_skirt_white"
 	item_color = "captain_skirt_white"
 
-/obj/item/clothing/under/rank/captain/turtleneck
-	desc = "A fancy turtleneck designed to keep the wearer warm in a cold station."
-	icon_state = "capturtle"
-	item_state = "capturtle"
-	item_color = "capturtle"
-
 /obj/item/clothing/under/rank/captain/dress
 	name = "captain's dress"
 	desc = "Feminine fashion for the style conscious captain."
