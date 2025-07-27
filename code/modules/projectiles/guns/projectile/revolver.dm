@@ -119,6 +119,8 @@
 	desc = "Bang bang bang!"
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "fingergun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	force = 0
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
 	origin_tech = ""
@@ -176,8 +178,6 @@
 	desc = "A retro high-powered autorevolver typically used by officers of several unrelated militaries. Uses .357 ammo."	//>10mm hole >.357
 	icon_state = "mateba"
 	item_state = "mateba"
-	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 
 /obj/item/gun/projectile/revolver/golden
 	name = "\improper Golden revolver"
@@ -185,8 +185,6 @@
 	icon = 'icons/tgmc/objects/guns64.dmi'
 	icon_state = "goldrevolver"
 	item_state = "goldrevolver"
-	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	fire_sound = 'sound/weapons/resonator_blast.ogg'
 	recoil = 8
 
@@ -195,8 +193,6 @@
 	desc = "An old model of revolver that originated in Russia, now used by the USSP. Able to be suppressed. Uses 7.62x38mmR ammo."
 	icon_state = "nagant"
 	item_state = "nagant"
-	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	origin_tech = "combat=3"
 	can_suppress = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762

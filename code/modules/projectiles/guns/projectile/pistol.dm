@@ -107,6 +107,8 @@
 	desc = "A robust .50 AE handgun."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "deagle"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	force = 14.0
 	mag_type = /obj/item/ammo_box/magazine/m50
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistolH.ogg'
@@ -130,8 +132,6 @@
 	desc = "A compact submachine gun produced by the USSP-based Rocino Armaments Collective. Chambered in 10mm."
 	icon_state = "type_230"
 	item_state = "type_230"
-	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/apsm10mm
