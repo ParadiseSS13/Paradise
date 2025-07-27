@@ -29,9 +29,9 @@
 /obj/item/clothing/under/rank/medical/cmo/turtleneck
 	name = "chief medical officer's turtleneck"
 	desc = "A fancy turtleneck designed to keep the wearer warm in a cold medical bay."
-	icon_state = "cmoturtle"
-	item_state = "cmoturtle"
-	item_color = "cmoturtle"
+	icon_state = "cmo_turtle"
+	item_state = "cmo_turtle"
+	item_color = "cmo_turtle"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/medical/doctor

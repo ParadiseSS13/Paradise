@@ -30,9 +30,11 @@
 	item_color = "warden_corporate_skirt"
 
 /obj/item/clothing/under/rank/security/warden/turtleneck
-	icon_state = "wardturtle"
-	item_state = "wardturtle"
-	item_color = "wardturtle"
+	name = "warden's turtleneck"
+	desc = "A fancy turtleneck designed to keep the wearer warm in a cold prison"
+	icon_state = "ward_turtle"
+	item_state = "ward_turtle"
+	item_color = "ward_turtle"
 
 
 /obj/item/clothing/under/rank/security/officer
@@ -180,8 +182,9 @@
 	item_color = "hos_formal"
 
 /obj/item/clothing/under/rank/security/head_of_security/turtleneck
+	name = "head of security's turtleneck"
 	desc = "A fancy turtleneck designed to keep the wearer warm in a security lobby."
-	icon_state = "hosturtle"
-	item_state = "hosturtle"
-	item_color = "hosturtle"
+	icon_state = "hos_turtle"
+	item_state = "hos_turtle"
+	item_color = "hos_turtle"
 

@@ -34,9 +34,9 @@
 
 /obj/item/clothing/under/rank/rnd/rd/turtleneck
 	desc = "A fancy turtleneck designed to keep the wearer warm in a cold research lobby."
-	icon_state = "rdturtle"
-	item_state = "rdturtle"
-	item_color = "rdturtle"
+	icon_state = "rd_turtle"
+	item_state = "rd_turtle"
+	item_color = "rd_turtle"
 
 /obj/item/clothing/under/rank/rnd/scientist
 	name = "scientist's jumpsuit"

@@ -85,10 +85,11 @@
 	displays_id = FALSE
 
 /obj/item/clothing/under/rank/procedure/blueshield/turtleneck
+	name = "blueshield's turtleneck"
 	desc = "A fancy turtleneck designed to keep the wearer warm in a cold bridge."
-	icon_state = "bsturtle"
-	item_state = "bsturtle"
-	item_color = "bsturtle"
+	icon_state = "bs_turtle"
+	item_state = "bs_turtle"
+	item_color = "bs_turtle"
 
 /obj/item/clothing/under/rank/procedure/iaa
 	name = "Internal Affairs uniform"
