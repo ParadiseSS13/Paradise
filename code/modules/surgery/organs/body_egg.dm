@@ -3,7 +3,6 @@
 	desc = "All slimy and yuck."
 	icon_state = "innards"
 	origin_tech = "biotech=5"
-	parent_organ = "chest"
 	slot = "parasite_egg"
 
 /obj/item/organ/internal/body_egg/on_find(mob/living/finder)

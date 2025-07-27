@@ -1,7 +1,6 @@
 /// Spawners for the Syndicate depot ruin.
 /obj/effect/spawner/random/syndicate
 	name = "Syndicate Area Spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 
 // Turrets
 

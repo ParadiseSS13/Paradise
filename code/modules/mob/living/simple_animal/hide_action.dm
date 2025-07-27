@@ -27,7 +27,6 @@
 	button_background_icon_state = "bg_alien"
 	button_overlay_icon_state = "alien_hide"
 	layer_to_change_to = ABOVE_NORMAL_TURF_LAYER
-	layer_to_change_from = MOB_LAYER
 
 /datum/action/innate/hide/drone_hide
 	button_overlay_icon_state = "repairbot"

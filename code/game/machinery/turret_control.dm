@@ -8,7 +8,6 @@
 	icon = 'icons/obj/machines/turret_control.dmi'
 	icon_state = "control_standby"
 	anchored = TRUE
-	density = FALSE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/enabled = FALSE
 	var/lethal = FALSE
@@ -49,11 +48,8 @@
 
 	check_arrest = FALSE
 	check_records = FALSE
-	check_weapons = FALSE
 	check_access = FALSE
-	check_anomalies = TRUE
 	check_synth	= TRUE
-	check_borgs = FALSE
 	ailock = TRUE
 
 	syndicate = TRUE
