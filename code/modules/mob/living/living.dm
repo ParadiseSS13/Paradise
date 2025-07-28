@@ -1176,7 +1176,7 @@
 		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))	return
 
 		var/Text = href_list["adjustDamage"]
-		var/amount =	tgui_input_number(usr, "Deal how much damage to mob? (Negative values here heal)", "Adjust [Text]loss") 
+		var/amount =	tgui_input_number(usr, "Deal how much damage to mob? (Negative values here heal)", "Adjust [Text]loss", min_value = -10000, max_value=10000)
 
 		if(QDELETED(src))
 			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
