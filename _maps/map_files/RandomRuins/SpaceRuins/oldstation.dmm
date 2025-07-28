@@ -5599,13 +5599,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
-"ET" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/loreconsole{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/ancientstation/powered)
 "Fg" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -9463,7 +9456,7 @@ az
 fe
 kk
 ko
-ET
+kk
 bC
 qu
 az

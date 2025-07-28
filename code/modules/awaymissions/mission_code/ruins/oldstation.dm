@@ -529,8 +529,8 @@ Crew were awoken from cryostasis [GLOB.current_date_string].
 **SIGNIFICANT EVENTS OF NOTE**
 
 1. The primary radiation detectors were taken offline after [GLOB.game_year - 2445] years due to power failure.
-   Secondary radiation detectors showed no residual radiation on station.
-   Deduction: primarily detector was malfunctioning and was producing a radiation signal when there was none.
+	Secondary radiation detectors showed no residual radiation on station.
+	Deduction: primarily detector was malfunctioning and was producing a radiation signal when there was none.
 2. A data burst from a nearby Nanotrasen Space Station was received, this data burst contained research data that has been uploaded to our RnD labs.
 3. Unknown invasion force has occupied Theta station."})
 

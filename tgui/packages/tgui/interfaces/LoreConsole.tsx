@@ -5,7 +5,7 @@ import { Window } from '../layouts';
 import { processedText } from '../process';
 
 type LoreEntry = {
-  title: string;
+  title?: string;
   body: string;
 };
 
@@ -52,7 +52,7 @@ export const LoreConsole = (props) => {
           </Stack.Item>
         )}
         <Stack.Item>
-          <h1>{entry.title}</h1>
+          <h1>{entry.title && entry.title}</h1>
           <div className="LoreConsole__entryText" dangerouslySetInnerHTML={processedText(entry.body)} />
         </Stack.Item>
       </Stack>
