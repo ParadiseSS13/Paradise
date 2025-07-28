@@ -325,6 +325,14 @@
 	allowed_roles = list("Head of Security")
 
 //Service
+/datum/gear/uniform/service
+	main_typepath = /datum/gear/uniform/service
+
+/datum/gear/uniform/service/hydroponics_alt
+	display_name = "Uniform, botanist brown"
+	path = /obj/item/clothing/under/rank/civilian/hydroponics/alt
+	allowed_roles = list("Botanist")
+
 /datum/gear/uniform/skirt/job/clown
 	display_name = "Skirt, clown"
 	path = /obj/item/clothing/under/rank/civilian/clown/skirt

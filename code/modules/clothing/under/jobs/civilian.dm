@@ -132,12 +132,17 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/rank/civilian/hydroponics
-	desc = "It's a jumpsuit designed to protect against minor plant-related hazards."
+	desc = "It's a jumpsuit designed to protect against minor plant-related hazards. This one has blue markings."
 	name = "botanist's jumpsuit"
 	icon_state = "hydroponics"
 	item_state = "g_suit"
 	item_color = "hydroponics"
 	permeability_coefficient = 0.50
+
+/obj/item/clothing/under/rank/civilian/hydroponics/alt
+	desc = "It's a jumpsuit designed to protect against minor plant-related hazards. This one has brown markings."
+	name = "hydroponicist's jumpsuit"
+	icon_state = "hydroponics_alt"
 
 /obj/item/clothing/under/rank/civilian/janitor
 	name = "janitor's jumpsuit"
