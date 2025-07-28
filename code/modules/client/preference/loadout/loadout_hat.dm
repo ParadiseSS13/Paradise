@@ -87,13 +87,13 @@
 	path = /obj/item/clothing/head/soft/janitorpurple
 	allowed_roles = list("Janitor")
 
-/datum/gear/hat/capjanigrey
-	display_name = "Cap, botanist blue"
+/datum/gear/hat/caphydroblue
+	display_name = "Cap, hydroponics blue"
 	path = /obj/item/clothing/head/soft/hydroponics
 	allowed_roles = list("Botanist")
 
-/datum/gear/hat/capjanigrey
-	display_name = "Cap, botanist brown"
+/datum/gear/hat/caphydrobrown
+	display_name = "Cap, hydroponics brown"
 	path = /obj/item/clothing/head/soft/hydroponics_alt
 	allowed_roles = list("Botanist")
 
@@ -213,12 +213,12 @@
 	allowed_roles = list("Janitor")
 
 /datum/gear/hat/beret_job/hydroponics
-	display_name = "Beret, botanist blue"
+	display_name = "Beret, hydroponics blue"
 	path = /obj/item/clothing/head/beret/hydroponics
 	allowed_roles = list("Botanist")
 
 /datum/gear/hat/beret_job/hydroponics_alt
-	display_name = "Beret, botanist brown"
+	display_name = "Beret, hydroponics brown"
 	path = /obj/item/clothing/head/beret/hydroponics_alt
 	allowed_roles = list("Botanist")
 
