@@ -51,7 +51,6 @@
 /mob/living/basic/soviet/nian
 	name = "Soviet Nian"
 	desc = "Buzz!"
-	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "sovietnian"
 	icon_living = "sovietnian"
 	obj_damage = 60
@@ -61,7 +60,6 @@
 	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/blade1.ogg'
 	minimum_survivable_temperature = 0
-	a_intent = INTENT_HARM
 	loot = list(
 		/obj/effect/mob_spawn/human/corpse/soviet_nian,
 		/obj/item/melee/energy/sword/pirate,

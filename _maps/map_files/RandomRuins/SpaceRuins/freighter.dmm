@@ -547,7 +547,7 @@
 /area/ruin/space/powered)
 "Mu" = (
 /obj/machinery/light,
-/mob/living/basic/soviet_nian,
+/mob/living/basic/soviet/nian,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "MX" = (
@@ -655,7 +655,7 @@
 /area/ruin/space/powered)
 "SL" = (
 /obj/structure/railing,
-/mob/living/basic/soviet_nian,
+/mob/living/basic/soviet/nian,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "Tf" = (
@@ -669,7 +669,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "UZ" = (
-/mob/living/basic/soviet_nian,
+/mob/living/basic/soviet/nian,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "WF" = (
