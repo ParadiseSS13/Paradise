@@ -130,7 +130,6 @@
 /obj/item/clothing/under/rank/medical/paramedic/skirt
 	name = "paramedic's jumpskirt"
 	icon_state = "paramedic_skirt"
-	item_state = "paramedic_skirt"
 	item_color = "paramedic_skirt"
 
 /obj/item/clothing/under/rank/medical/psych
