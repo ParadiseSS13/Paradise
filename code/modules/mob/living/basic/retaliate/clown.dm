@@ -34,6 +34,9 @@
 /mob/living/basic/clown/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/ai_retaliate_advanced, CALLBACK(src, PROC_REF(retaliate_callback)))
+	add_language("Galactic Common")
+	add_language("Clownish")
+	set_default_language(GLOB.all_languages["Galactic Common"])
 
 /mob/living/basic/clown/proc/retaliate_callback(mob/living/attacker)
 	if(!istype(attacker))
