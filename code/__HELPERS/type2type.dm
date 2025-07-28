@@ -34,7 +34,7 @@
 		num_list += text2num(x)
 	return num_list
 
-//Splits the text of a file at seperator and returns them in a list.
+//Splits the text of a file at separator and returns them in a list.
 /proc/file2list(filename, separator = "\n", no_empty = TRUE)
 	var/list/result = list()
 	for(var/line in splittext(return_file_text(filename), separator))
@@ -132,28 +132,23 @@
 		if(BLEND_SUBTRACT) return ICON_SUBTRACT
 		else               return ICON_OVERLAY
 
-//Converts a rights bitfield into a string
-/proc/rights2text(rights,seperator="")
-	if(rights & R_BUILDMODE)	. += "[seperator]+BUILDMODE"
-	if(rights & R_ADMIN)		. += "[seperator]+ADMIN"
-	if(rights & R_BAN)			. += "[seperator]+BAN"
-	if(rights & R_EVENT)		. += "[seperator]+EVENT"
-	if(rights & R_SERVER)		. += "[seperator]+SERVER"
-	if(rights & R_DEBUG)		. += "[seperator]+DEBUG"
-	if(rights & R_POSSESS)		. += "[seperator]+POSSESS"
-	if(rights & R_PERMISSIONS)	. += "[seperator]+PERMISSIONS"
-	if(rights & R_STEALTH)		. += "[seperator]+STEALTH"
-	if(rights & R_REJUVINATE)	. += "[seperator]+REJUVINATE"
-	if(rights & R_VAREDIT)		. += "[seperator]+VAREDIT"
-	if(rights & R_SOUNDS)		. += "[seperator]+SOUND"
-	if(rights & R_SPAWN)		. += "[seperator]+SPAWN"
-	if(rights & R_PROCCALL)		. += "[seperator]+PROCCALL"
-	if(rights & R_MOD)			. += "[seperator]+MODERATOR"
-	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
-	if(rights & R_VIEWRUNTIMES)	. += "[seperator]+VIEWRUNTIMES"
-	if(rights & R_MAINTAINER)	. += "[seperator]+MAINTAINER"
-	if(rights & R_DEV_TEAM)		. += "[seperator]+DEV_TEAM"
-	if(rights & R_VIEWLOGS)		. += "[seperator]+VIEWLOGS"
+///Converts a rights bitfield into a string
+/proc/rights2text(rights,separator="")
+	. = ""
+	for(var/bit in GLOB.admin_permission_names)
+		if(rights & bit)
+			. += "[separator]+[GLOB.admin_permission_names[bit]]"
+
+///Converts the full permissions details of a DB-ranked admin to a HTML-colored string
+/proc/ranked_rights2text(rank_rights, extra_rights, removed_rights, separator="")
+	. = ""
+	for(var/bit in GLOB.admin_permission_names)
+		if(removed_rights & bit)
+			. += "[separator]<span style='color: #FF5555'>-[GLOB.admin_permission_names[bit]]</span>"
+		else if(extra_rights & bit)
+			. += "[separator]<span style='color: #5555FF'>+[GLOB.admin_permission_names[bit]]</span>"
+		else if(rank_rights & bit)
+			. += "[separator]<span style='color: #FF55FF'>+[GLOB.admin_permission_names[bit]]</span>"
 
 /proc/ui_style2icon(ui_style)
 	switch(ui_style)

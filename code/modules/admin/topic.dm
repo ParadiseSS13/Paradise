@@ -242,6 +242,42 @@
 			DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid)
 
 
+	else if(href_list["editrank"])
+		if(!check_rights(R_PERMISSIONS))
+			message_admins("[key_name_admin(usr)] attempted to edit the admin permissions without sufficient rights.")
+			log_admin("[key_name(usr)] attempted to edit the admin permissions without sufficient rights.")
+			return
+
+		var/rank = input("Please select a rank", "Rank to edit", null, null) as null|anything in (get_db_ranks() | "*New Rank*")
+		if(!rank)
+			return
+		if(rank == "*New Rank*")
+			rank = input("Please input a new rank", "New custom rank", null, null) as null|text
+			if(!rank)
+				return
+			var/rank_id = create_db_rank(rank)
+			if(!rank_id)
+				to_chat(usr, "<span class='warning'>A rank named [rank] already esists.</span>")
+				return
+
+		while(TRUE)
+			var/action = input("What do you want to do to [rank]?", "Editing rank [rank]", null, null) as null|anything in list("List Permissions", "Toggle Permission", "Delete Rank (must be unused)")
+			if(!action)
+				return
+			if(action == "List Permissions")
+				to_chat(usr, "<span class='notice'>Rank [rank] has the permissions: [rights2text(get_db_rank_permissions(rank), " ")]</span>")
+				continue
+			if(action == "Toggle Permission")
+				var/list/permissionlist = list()
+				for(var/i=1, i<=R_MAXPERMISSION, i<<=1)		//that <<= is shorthand for i = i << 1. Which is a left bitshift
+					permissionlist[rights2text(i)] = i
+				var/permission = input("Select a permission to turn on/off", "Editing rank [rank]", null, null) as null|anything in permissionlist
+				toggle_db_rank_permission(rank, permissionlist[permission])
+				edit_admin_permissions()
+				continue
+			delete_db_rank(rank)
+			return
+
 	else if(href_list["editrights"])
 		if(!check_rights(R_PERMISSIONS))
 			message_admins("[key_name_admin(usr)] attempted to edit the admin permissions without sufficient rights.")
@@ -268,45 +304,76 @@
 		var/datum/admins/D = GLOB.admin_datums[adm_ckey]
 
 		if(task == "remove")
-			if(alert("Are you sure you want to remove [adm_ckey]?","Message","Yes","Cancel") == "Yes")
-				if(!D)	return
+			if(alert("Are you sure you want to remove [adm_ckey]'s admin rank?","Message","Yes","Cancel") == "Yes")
+				if(!GLOB.configuration.admin.use_database_admins && !D)
+					return
 				GLOB.admin_datums -= adm_ckey
-				D.disassociate()
+				if(D)
+					D.disassociate()
 
-				updateranktodb(adm_ckey, "player")
+				if(GLOB.configuration.admin.use_database_admins)
+					var/clear_custom_permissions = alert("Do you also want to clear any custom permissions [adm_ckey] may have?","Message","Yes","No") == "Yes"
+					remove_db_admin(adm_ckey, clear_custom_permissions)
+					reload_one_admin(adm_ckey)
+					edit_admin_permissions()
+					return
 				message_admins("[key_name_admin(usr)] removed [adm_ckey] from the admins list")
 				log_admin("[key_name(usr)] removed [adm_ckey] from the admins list")
-				log_admin_rank_modification(adm_ckey, "Removed")
 
 		else if(task == "rank")
 			var/new_rank
-			if(length(GLOB.admin_ranks))
-				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in (GLOB.admin_ranks|"*New Rank*")
+			var/display_rank
+			if(GLOB.configuration.admin.use_database_admins)
+				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in (get_db_ranks() | "*New Rank*")
+			else if(length(GLOB.admin_ranks))
+				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in (GLOB.admin_ranks | "*New Rank*")
 			else
 				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in list("Mentor", "Trial Admin", "Game Admin", "Developer", "*New Rank*")
 
 			var/rights = 0
 			if(D)
 				rights = D.rights
+			var/rank_id
 			switch(new_rank)
 				if(null,"") return
 				if("*New Rank*")
-					new_rank = input("Please input a new rank", "New custom rank", null, null) as null|text
+					new_rank = input("Please input a new rank", "Admin rank for [adm_ckey]", null, null) as null|text
 					if(!GLOB.configuration.admin.use_database_admins)
 						new_rank = ckeyEx(new_rank)
 					if(!new_rank)
 						to_chat(usr, "<font color='red'>Error: Topic 'editrights': Invalid rank</font>")
 						return
-					if(!GLOB.configuration.admin.use_database_admins)
+					if(GLOB.configuration.admin.use_database_admins)
+						rank_id = create_db_rank(new_rank)
+						if(!rank_id)
+							to_chat(usr, "<span class='warning'>A rank named [new_rank] already esists.</span>")
+							return
+						display_rank = input("Give them a custom title?", "Admin rank for [adm_ckey]", null, null) as null|text
+					else
 						if(length(GLOB.admin_ranks))
 							if(new_rank in GLOB.admin_ranks)
 								rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
 							else
 								GLOB.admin_ranks[new_rank] = 0			//add the new rank to admin_ranks
 				else
-					if(!GLOB.configuration.admin.use_database_admins)
+					if(GLOB.configuration.admin.use_database_admins)
+						rank_id = get_db_rank_id(new_rank)
+						if(!rank_id)
+							to_chat(usr, "<span class='warning'>Rank '[new_rank] not found.</span>")
+							return
+						display_rank = input("Give them a custom title?", "Admin rank for [adm_ckey]", null, null) as null|text
+					else
 						new_rank = ckeyEx(new_rank)
 						rights = GLOB.admin_ranks[new_rank]				//we input an existing rank, use its rights
+
+			if(GLOB.configuration.admin.use_database_admins)
+				var/clear_custom_permissions = alert("Do you also want to remove any custom permissions [adm_ckey] may have?","Message","Yes","No") == "Yes"
+				if(display_rank == "")
+					display_rank = null
+				set_db_rank(adm_ckey, rank_id, display_rank, clear_custom_permissions)
+				reload_one_admin(adm_ckey)
+				edit_admin_permissions()
+				return
 
 			if(D)
 				D.disassociate()								//remove adminverbs and unlink from client
@@ -318,13 +385,12 @@
 			var/client/C = GLOB.directory[adm_ckey]						//find the client with the specified ckey (if they are logged in)
 			D.associate(C)											//link up with the client and add verbs
 
-			updateranktodb(adm_ckey, new_rank)
 			message_admins("[key_name_admin(usr)] edited the admin rank of [adm_ckey] to [new_rank]")
 			log_admin("[key_name(usr)] edited the admin rank of [adm_ckey] to [new_rank]")
-			log_admin_rank_modification(adm_ckey, new_rank)
 
 		else if(task == "permissions")
-			if(!D)	return
+			if(!D && !GLOB.configuration.admin.use_database_admins)
+				return
 			while(TRUE)
 				var/list/permissionlist = list()
 				for(var/i=1, i<=R_MAXPERMISSION, i<<=1)		//that <<= is shorthand for i = i << 1. Which is a left bitshift
@@ -332,6 +398,11 @@
 				var/new_permission = input("Select a permission to turn on/off", adm_ckey + "'s Permissions", null, null) as null|anything in permissionlist
 				if(!new_permission)
 					return
+				if(GLOB.configuration.admin.use_database_admins)
+					toggle_db_permission(adm_ckey, permissionlist[new_permission])
+					reload_one_admin(adm_ckey)
+					edit_admin_permissions()
+					continue
 				var/oldrights = D.rights
 				var/toggleresult = "ON"
 				D.rights ^= permissionlist[new_permission]
@@ -340,7 +411,6 @@
 
 				message_admins("[key_name_admin(usr)] toggled the [new_permission] permission of [adm_ckey] to [toggleresult]")
 				log_admin("[key_name(usr)] toggled the [new_permission] permission of [adm_ckey] to [toggleresult]")
-				log_admin_permission_modification(adm_ckey, permissionlist[new_permission])
 
 
 		edit_admin_permissions()

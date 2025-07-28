@@ -10,7 +10,7 @@ GLOBAL_PROTECT(href_token)
 		. += "[rand(10)]"
 
 /datum/admins
-	var/rank = "Temporary Admin"
+	var/rank = "No Rank"
 	var/client/owner
 	/// Bitflag containing the current rights this admin holder is assigned to
 	var/rights = 0
@@ -27,7 +27,7 @@ GLOBAL_PROTECT(href_token)
 	/// Our index into GLOB.antagonist_teams, so that admins can have pretty tabs in the Check Teams menu.
 	var/team_switch_tab_index = 1
 
-/datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
+/datum/admins/New(initial_rank, initial_rights, ckey)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounceooc'>Admin rank creation blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to create a new admin rank via advanced proc-call")
@@ -37,8 +37,10 @@ GLOBAL_PROTECT(href_token)
 		error("Admin datum created without a ckey argument. Datum has been deleted")
 		qdel(src)
 		return
-	rank = initial_rank
-	rights = initial_rights
+	if(initial_rank)
+		rank = initial_rank
+	if(initial_rights)
+		rights = initial_rights
 	href_token = GenerateToken()
 	GLOB.admin_datums[ckey] = src
 

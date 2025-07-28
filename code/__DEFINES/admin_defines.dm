@@ -41,7 +41,7 @@
 #define R_MAINTAINER	(1<<17)
 #define R_DEV_TEAM		(1<<18)
 #define R_VIEWLOGS		(1<<19)
-// Update the following two defines if you add more
+// Update the following two defines and GLOB.admin_permission_names if you add more
 
 #define R_MAXPERMISSION (1<<19) // This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 

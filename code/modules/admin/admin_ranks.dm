@@ -48,6 +48,60 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 	testing(msg)
 	#endif
 
+/proc/reload_one_admin(admin_ckey)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Admin reload blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to reload an admin via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to reload an admin via advanced proc-call")
+		return
+
+	// Make sure it's actually in ckey format.
+	admin_ckey = ckey(admin_ckey)
+	var/datum/admins/admin_datum = GLOB.admin_datums[admin_ckey]
+	if(admin_datum)
+		admin_datum.disassociate()
+		qdel(admin_datum)
+		world.SetConfig("APP/admin", admin_ckey, null)
+
+	var/datum/db_query/get_admin = SSdbcore.NewQuery({"
+		SELECT
+			-- Use the display_rank if set, otherwise the name of their permissions_rank.
+			IFNULL(admin.display_rank, admin_ranks.name),
+			-- Permissions start with their admin rank permissions (if any)
+			(IFNULL(admin_ranks.default_permissions, 0)
+			-- Then add in any extra permissions they've been granted.
+			 | admin.extra_permissions)
+			-- And exclude any permissions they've had removed.
+			 & ~admin.removed_permissions
+		FROM admin
+		-- We want all admins, and admin_ranks where available.
+		LEFT OUTER JOIN admin_ranks
+		ON admin.permissions_rank = admin_ranks.id
+		WHERE admin.ckey=:admin_ckey"}, list(
+			"admin_ckey" = admin_ckey
+		))
+	if(!get_admin.warn_execute())
+		qdel(get_admin)
+		return
+
+	if(get_admin.NextRow())
+		var/rank = get_admin.item[1]
+		var/rights = get_admin.item[2]
+		if(rights == 0)
+			// If you have no rights, you don't get an admin datum.
+			qdel(get_admin)
+			message_admins("<span class='notice'>Admin permissions for [admin_ckey] have been reloaded.</span>")
+			return
+		admin_datum = new(rank, rights, admin_ckey)
+
+		if(admin_datum.rights & R_DEBUG || admin_datum.rights & R_VIEWRUNTIMES) // Grants profiler access to anyone with R_DEBUG or R_VIEWRUNTIMES
+			world.SetConfig("APP/admin", admin_ckey, "role=admin")
+
+		//find the client for a ckey if they are connected and associate them with the new admin datum
+		admin_datum.associate(GLOB.directory[admin_ckey])
+	qdel(get_admin)
+	message_admins("<span class='notice'>Admin permissions for [admin_ckey] have been reloaded.</span>")
+
 /proc/load_admins(run_async = FALSE)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>Admin reload blocked: Advanced ProcCall detected.</span>")
@@ -93,18 +147,32 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 			load_admins()
 			return
 
-		var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, admin_rank, level, flags FROM admin")
-		if(!query.warn_execute(async=run_async))
-			qdel(query)
+		var/datum/db_query/get_admins = SSdbcore.NewQuery({"
+			SELECT
+				admin.ckey, 
+				-- Use the display_rank if set, otherwise the name of their permissions_rank.
+				IFNULL(admin.display_rank, admin_ranks.name),
+				-- Permissions start with their admin rank permissions (if any)
+				(IFNULL(admin_ranks.default_permissions, 0)
+				-- Then add in any extra permissions they've been granted.
+				 | admin.extra_permissions)
+				-- And exclude any permissions they've had removed.
+				 & ~admin.removed_permissions
+			FROM admin
+			-- We want all admins, and admin_ranks where available.
+			LEFT OUTER JOIN admin_ranks
+			ON admin.permissions_rank = admin_ranks.id"})
+		if(!get_admins.warn_execute(async=run_async))
+			qdel(get_admins)
 			return
 
-		while(query.NextRow())
-			var/ckey = query.item[1]
-			var/rank = query.item[2]
-			if(rank == "Removed")	continue	//This person was de-adminned. They are only in the admin list for archive purposes.
-
-			var/rights = query.item[4]
-			if(istext(rights))	rights = text2num(rights)
+		while(get_admins.NextRow())
+			var/ckey = get_admins.item[1]
+			var/rank = get_admins.item[2]
+			var/rights = get_admins.item[3]
+			if(rights == 0)
+				// If you have no rights, you don't get an admin datum.
+				continue
 			var/datum/admins/D = new /datum/admins(rank, rights, ckey)
 
 			if(D.rights & R_DEBUG || D.rights & R_VIEWRUNTIMES) // Grants profiler access to anyone with R_DEBUG or R_VIEWRUNTIMES
@@ -112,8 +180,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 			//find the client for a ckey if they are connected and associate them with the new admin datum
 			D.associate(GLOB.directory[ckey])
-
-		qdel(query)
+		qdel(get_admins)
 
 		if(!GLOB.admin_datums)
 			log_world("The database query in load_admins() resulted in no admins being added to the list. Reverting to legacy system.")

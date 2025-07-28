@@ -70,3 +70,28 @@ GLOBAL_LIST_EMPTY(seeds_cached_base64_icons)
 
 /// Assoc list of all RND techs with ID to name
 GLOBAL_LIST_EMPTY(rnd_tech_id_to_name)
+
+/// Assoc list of admin permission names
+GLOBAL_LIST_INIT(admin_permission_names, alist(
+	R_BUILDMODE = "BUILDMODE",
+	R_ADMIN = "ADMIN",
+	R_BAN = "BAN",
+	R_EVENT = "EVENT",
+	R_SERVER = "SERVER",
+	R_DEBUG = "DEBUG",
+	R_POSSESS = "POSSESS",
+	R_PERMISSIONS = "PERMISSIONS",
+	R_STEALTH = "STEALTH",
+	R_REJUVINATE = "REJUVINATE",
+	R_VAREDIT = "VAREDIT",
+	R_SOUNDS = "SOUNDS",
+	R_SPAWN = "SPAWN",
+	R_MOD = "MOD",
+	R_MENTOR = "MENTOR",
+	R_PROCCALL = "PROCCALL",
+	R_VIEWRUNTIMES = "VIEWRUNTIMES",
+	R_MAINTAINER = "MAINTAINER",
+	R_DEV_TEAM = "DEV_TEAM",
+	R_VIEWLOGS = "VIEWLOGS",
+))
+GLOBAL_PROTECT(admin_permission_names)

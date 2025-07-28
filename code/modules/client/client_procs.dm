@@ -605,13 +605,9 @@
 
 	qdel(query)
 
-	var/admin_rank = "Player"
 	// Admins don't get slammed by this, I guess
-	if(holder)
-		admin_rank = holder.rank
-	else
-		if(check_randomizer(connectiontopic))
-			return
+	if(!holder && check_randomizer(connectiontopic))
+		return
 
 	var/client_address = address
 	if(!client_address) // Localhost can sometimes have no address set
@@ -625,10 +621,9 @@
 			return // Return here because if we somehow didnt pull a number from an INT column, EVERYTHING is breaking
 
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
-		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE player SET lastseen=NOW(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
+		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE player SET lastseen=NOW(), ip=:sql_ip, computerid=:sql_cid WHERE id=:sql_id", list(
 			"sql_ip" = client_address,
 			"sql_cid" = computer_id,
-			"sql_ar" = admin_rank,
 			"sql_id" = sql_id
 		))
 
@@ -642,11 +637,10 @@
 
 	else
 		//New player!! Need to insert all the stuff
-		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
+		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
 			"ip" = client_address,
 			"cid" = computer_id,
-			"rank" = admin_rank
 		))
 		if(!query_insert.warn_execute())
 			qdel(query_insert)
