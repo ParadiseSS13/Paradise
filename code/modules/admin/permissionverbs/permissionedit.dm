@@ -194,7 +194,7 @@
 			qdel(insert_new_admin)
 			return
 		qdel(insert_new_admin)
-		message_admins("<span class='notice'>Admin ranks updated by [usr]: [target_key] (NEW ADMIN) is now a [rank_name][display_note].</span>")
+		message_admins("<span class='notice'>Admin ranks updated by [usr.ckey]: [target_key] (NEW ADMIN) is now a [rank_name][display_note].</span>")
 
 		var/logtxt = "Added new admin [target_key] to rank [rank_name][display_note]"
 		var/datum/db_query/add_log = SSdbcore.NewQuery("INSERT INTO admin_log (`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (Now() , :uckey, :uip, :logtxt)", list(
@@ -217,7 +217,7 @@
 				qdel(update_admin_rank)
 				return
 			qdel(update_admin_rank)
-			message_admins("<span class='notice'>Admin ranks updated by [usr]: [target_key] is now a [rank_name][display_note].</span>")
+			message_admins("<span class='notice'>Admin ranks updated by [usr.ckey]: [target_key] is now a [rank_name][display_note].</span>")
 			var/logtxt = "Edited the rank of [target_key] to [rank_name][display_note]"
 
 			if(clear_custom_permissions)
@@ -229,7 +229,7 @@
 					return
 				qdel(clear_permissions)
 				logtxt += " and cleared their custom permissions"
-				message_admins("<span class='notice'>Admin permissions updated by [usr]: [target_key] no longer has any custom permissions.</span>")
+				message_admins("<span class='notice'>Admin permissions updated by [usr.ckey]: [target_key] no longer has any custom permissions.</span>")
 
 			var/datum/db_query/add_log = SSdbcore.NewQuery("INSERT INTO admin_log (`datetime` ,`adminckey` ,`adminip` ,`log` ) VALUES (Now() , :uckey, :uip, :logtxt)", list(
 				"uckey" = usr.ckey,
@@ -298,7 +298,7 @@
 			qdel(remove_removal)
 			return
 		qdel(remove_removal)
-		message_admins("<span class='notice'>Admin permissions updated by [usr]: [target_key] is no longer excluded from having [rights2text(permission_bit)].</span>")
+		message_admins("<span class='notice'>Admin permissions updated by [usr.ckey]: [target_key] is no longer excluded from having [rights2text(permission_bit)].</span>")
 
 		var/logtxt = "Un-excluded permission [rights2text(permission_bit)] (flag = [permission_bit]) from admin [target_key]"
 		var/datum/db_query/create_log = SSdbcore.NewQuery({"
@@ -322,7 +322,7 @@
 			qdel(remove_extra)
 			return
 		qdel(remove_extra)
-		message_admins("<span class='notice'>Admin permissions updated by [usr]: [target_key] no longer has the extra permission [rights2text(permission_bit)].</span>")
+		message_admins("<span class='notice'>Admin permissions updated by [usr.ckey]: [target_key] no longer has the extra permission [rights2text(permission_bit)].</span>")
 
 		var/logtxt = "Removed extra permission [rights2text(permission_bit)] (flag = [permission_bit]) from admin [target_key]"
 		var/datum/db_query/create_log = SSdbcore.NewQuery({"
@@ -346,7 +346,7 @@
 			qdel(create_removal)
 			return
 		qdel(create_removal)
-		message_admins("<span class='notice'>Admin permissions updated by [usr]: [target_key] is now excluded from having [rights2text(permission_bit)].</span>")
+		message_admins("<span class='notice'>Admin permissions updated by [usr.ckey]: [target_key] is now excluded from having [rights2text(permission_bit)].</span>")
 
 		var/logtxt = "Excluded permission [rights2text(permission_bit)] (flag = [permission_bit]) from admin [target_key]"
 		var/datum/db_query/create_log = SSdbcore.NewQuery({"
@@ -369,7 +369,7 @@
 		qdel(add_extra)
 		return
 	qdel(add_extra)
-	message_admins("<span class='notice'>Admin permissions updated by [usr]: [target_key] has been granted the extra permission [rights2text(permission_bit)].</span>")
+	message_admins("<span class='notice'>Admin permissions updated by [usr.ckey]: [target_key] has been granted the extra permission [rights2text(permission_bit)].</span>")
 
 	var/logtxt = "Added extra permission [rights2text(permission_bit)] (flag = [permission_bit]) to admin [target_key]"
 	var/datum/db_query/create_log = SSdbcore.NewQuery({"
@@ -420,7 +420,7 @@
 		qdel(remove_admin)
 		return
 	qdel(remove_admin)
-	message_admins("<span class='notice'>Admin ranks updated by [usr]: [target_key] no longer has any admin rank.</span>")
+	message_admins("<span class='notice'>Admin ranks updated by [usr.ckey]: [target_key] no longer has any admin rank.</span>")
 	var/logtxt = "Removed the admin rank of [target_key]"
 
 	if(clear_custom_permissions)
@@ -431,7 +431,7 @@
 			qdel(clear_permissions)
 			return
 		qdel(clear_permissions)
-		message_admins("<span class='notice'>Admin permissions updated by [usr]: [target_key] no longer has any custom permissions.</span>")
+		message_admins("<span class='notice'>Admin permissions updated by [usr.ckey]: [target_key] no longer has any custom permissions.</span>")
 		logtxt += " and cleared their custom permissions"
 
 	var/datum/db_query/create_log = SSdbcore.NewQuery({"
@@ -458,7 +458,7 @@
 	add_rank.warn_execute()
 	qdel(add_rank)
 
-	message_admins("<span class='notice'>Admin ranks updated by [usr]: new rank [rank_name] created.</span>")
+	message_admins("<span class='notice'>Admin ranks updated by [usr.ckey]: new rank [rank_name] created.</span>")
 	var/logtxt = "Created the admin rank [rank_name]"
 	var/datum/db_query/create_log = SSdbcore.NewQuery({"
 		INSERT INTO admin_log (`datetime` ,`adminckey` ,`adminip` ,`log`)
@@ -502,7 +502,7 @@
 		return
 	qdel(delete_rank)
 
-	message_admins("<span class='notice'>Admin ranks updated by [usr]: unused rank [rank_name] deleted.</span>")
+	message_admins("<span class='notice'>Admin ranks updated by [usr.ckey]: unused rank [rank_name] deleted.</span>")
 	var/logtxt = "Deleted the unused admin rank [rank_name]"
 	var/datum/db_query/create_log = SSdbcore.NewQuery({"
 		INSERT INTO admin_log (`datetime` ,`adminckey` ,`adminip` ,`log`)
@@ -554,7 +554,7 @@
 			qdel(create_removal)
 			return
 		qdel(create_removal)
-		message_admins("<span class='notice'>Admin ranks updated by [usr]: [rank_name] no longer has [rights2text(permission_bit)]. An admin reload is required to apply this change.</span>")
+		message_admins("<span class='notice'>Admin ranks updated by [usr.ckey]: [rank_name] no longer has [rights2text(permission_bit)]. An admin reload is required to apply this change.</span>")
 
 		var/logtxt = "Removed permission [rights2text(permission_bit)] (flag = [permission_bit]) from admin rank [rank_name]"
 		var/datum/db_query/create_log = SSdbcore.NewQuery({"
@@ -577,7 +577,7 @@
 		qdel(grant_permission)
 		return
 	qdel(grant_permission)
-	message_admins("<span class='notice'>Admin ranks updated by [usr]: [rank_name] has been given [rights2text(permission_bit)]. An admin reload is required to apply this change.</span>")
+	message_admins("<span class='notice'>Admin ranks updated by [usr.ckey]: [rank_name] has been given [rights2text(permission_bit)]. An admin reload is required to apply this change.</span>")
 
 	var/logtxt = "Added permission [rights2text(permission_bit)] (flag = [permission_bit]) to admin rank [rank_name]"
 	var/datum/db_query/create_log = SSdbcore.NewQuery({"
