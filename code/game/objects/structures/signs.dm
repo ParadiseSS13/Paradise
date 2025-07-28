@@ -54,7 +54,6 @@
 	name = "sign"
 	desc = ""
 	icon = 'icons/obj/decals.dmi'
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
@@ -381,8 +380,6 @@
 	icon_state = "explosives"
 
 /obj/structure/sign/explosives/alt
-	name = "\improper HIGH EXPLOSIVES"
-	desc = "A warning sign which reads 'HIGH EXPLOSIVES'."
 	icon_state = "explosives2"
 
 /obj/structure/sign/magboots

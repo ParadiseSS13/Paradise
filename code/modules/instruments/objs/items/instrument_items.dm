@@ -105,8 +105,6 @@
 /obj/item/instrument/saxophone/spectral
 	name = "spectral saxophone"
 	desc = "This spooky sound will be sure to leave mortals in bones."
-	icon_state = "saxophone"
-	item_state = "saxophone"
 	force = 0
 	attack_verb = list("played", "jazzed", "saxxed", "mourned", "dooted", "spooked")
 
@@ -128,8 +126,6 @@
 /obj/item/instrument/trombone/spectral
 	name = "spectral trombone"
 	desc = "A skeleton's favorite instrument. Apply directly on the mortals."
-	icon_state = "trombone"
-	item_state = "trombone"
 	force = 0
 	attack_verb = list("played", "jazzed", "tromboned", "mourned", "dooted", "spooked")
 
@@ -186,7 +182,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	force = 0
 	throw_speed = 3
-	throw_range = 7
 	hitsound = 'sound/items/bikehorn.ogg'
 	allowed_instrument_ids = list("bikehorn", "honk")
 

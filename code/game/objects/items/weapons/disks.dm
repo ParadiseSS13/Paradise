@@ -8,7 +8,6 @@
 
 /obj/item/disk/data
 	name = "Cloning Data Disk"
-	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
 	var/datum/dna2_record/buf = null
 	var/read_only = FALSE //Well,it's still a floppy disk
 

@@ -1,37 +1,18 @@
-@use 'sass:color';
-@use 'sass:meta';
+.theme-changeling:root {
+  --changeling-hue: 275;
 
-@use '../colors.scss' with (
-  $primary: #563d6b,
-  $fg-map-keys: (),
-  $bg-map-keys: ()
-);
-@use '../base.scss' with (
-  $color-bg: #2e2633,
-  $color-bg-grad-spread: 6%,
-  $border-radius: 2px
-);
-
-.theme-changeling {
-  // Atomic classes
-  @include meta.load-css('../atomic/color.scss');
+  // Base
+  --color-base: hsl(var(--changeling-hue), 15%, 17%);
+  --color-primary: hsl(var(--changeling-hue), 27.5%, 37.5%);
+  --color-secondary: hsl(340, 65%, 37.5%);
+  --color-border-primary: hsla(227.5, 30%, 40%, 0.75);
+  --base-gradient-spread: 6;
 
   // Components
-  @include meta.load-css(
-    '../components/Button.scss',
-    $with: ('color-default': colors.$primary, 'color-selected': #188552)
-  );
-  @include meta.load-css(
-    '../components/ImageButton.scss',
-    $with: ('color-default': darken(colors.$primary, 20%), 'color-selected': #188552)
-  );
-  @include meta.load-css('../components/Section.scss');
-  @include meta.load-css('../components/Tabs.scss', $with: ('tab-color-selected': colors.$primary));
-
-  // Layouts
-  @include meta.load-css('../layouts/Layout.scss');
-  @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #352d3b));
+  --button-background-selected: hsl(150, 70%, 30%);
+  --tab-background-selected: hsl(var(--changeling-hue), 15%, 25%);
+  --titlebar-background: hsl(from var(--color-base) h s calc(l + 5));
+  --tooltip-background-lightness: 25;
 
   .Layout__content {
     background-image: none;

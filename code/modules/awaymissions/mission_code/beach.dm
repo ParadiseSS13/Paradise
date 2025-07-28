@@ -1,9 +1,7 @@
 /obj/effect/waterfall
 	name = "waterfall effect"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "extinguish"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	anchored = TRUE
 	invisibility = 101
 
 	var/water_frequency = 15
@@ -27,7 +25,6 @@
 
 /turf/simulated/floor/beach/away
 	name = "Beach"
-	icon = 'icons/misc/beach.dmi'
 	var/water_overlay_image = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
@@ -45,10 +42,6 @@
 	icon_state = "desert"
 	mouse_opacity = MOUSE_OPACITY_ICON
 	baseturf = /turf/simulated/floor/beach/away/sand
-	footstep = FOOTSTEP_SAND
-	barefootstep = FOOTSTEP_SAND
-	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/beach/away/sand/Initialize(mapload)
 	. = ..()			//adds some aesthetic randomness to the beach sand
@@ -116,7 +109,6 @@
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
 	temperature = LAVALAND_TEMPERATURE
-	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
 /// for boundary "walls"
@@ -156,7 +148,6 @@
 	layer = MOB_LAYER + 0.1
 	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = list(SMOOTH_GROUP_BEACH_WATER)
-	anchored = TRUE
 
 /turf/simulated/floor/beach/away/water/drop/dense
 	density = TRUE

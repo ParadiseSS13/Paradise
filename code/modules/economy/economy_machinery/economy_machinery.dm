@@ -7,7 +7,6 @@
 	desc = "A base economy machine."
 	anchored = TRUE
 	density = TRUE
-	new_attack_chain = TRUE
 
 	///Can this machine access restricted money accounts?
 	var/restricted_bypass = FALSE

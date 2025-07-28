@@ -1,6 +1,7 @@
-import { decodeHtmlEntities } from 'common/string';
+import { Section, Stack } from 'tgui-core/components';
+import { decodeHtmlEntities } from 'tgui-core/string';
+
 import { useBackend } from '../backend';
-import { Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 type NoticeData = {
@@ -13,8 +14,8 @@ type Paper = {
   ref: string;
 };
 
-export const Noticeboard = (props, context) => {
-  const { act, data } = useBackend<NoticeData>(context);
+export const Noticeboard = (props) => {
+  const { act, data } = useBackend<NoticeData>();
   const { papers } = data;
   return (
     <Window width={600} height={300} theme={'noticeboard'}>

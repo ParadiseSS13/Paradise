@@ -32,7 +32,6 @@
 	desc = "A console used by released prisoners to move the shuttle."
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
-	density = FALSE
 	var/inserted_id_uid
 	var/obj/item/radio/intercom/announcer
 
@@ -165,7 +164,6 @@
 	desc = "A console used by prisoners to check the progress on their quotas. Simply swipe a prisoner ID."
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
-	density = FALSE
 
 /obj/machinery/mineral/labor_points_checker/attack_hand(mob/user)
 	. = ..()

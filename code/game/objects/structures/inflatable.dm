@@ -3,7 +3,6 @@
 	desc = "A folded membrane which rapidly expands into a large cubical shape on activation."
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_wall"
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/inflatable/examine(mob/user)
 	. = ..()
@@ -84,7 +83,6 @@
 /obj/item/inflatable/door
 	name = "inflatable door"
 	desc = "A folded membrane which rapidly expands into a simple door on activation."
-	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_door"
 
 /obj/item/inflatable/door/attack_self__legacy__attackchain(mob/user)
@@ -161,7 +159,6 @@
 /obj/item/inflatable/torn
 	name = "torn inflatable wall"
 	desc = "A folded membrane which rapidly expands into a large cubical shape on activation. It is too torn to be usable."
-	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_wall_torn"
 
 /obj/item/inflatable/torn/attack_self__legacy__attackchain(mob/user)
@@ -171,7 +168,6 @@
 /obj/item/inflatable/door/torn
 	name = "torn inflatable door"
 	desc = "A folded membrane which rapidly expands into a simple door on activation. It is too torn to be usable."
-	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_door_torn"
 
 /obj/item/inflatable/door/torn/attack_self__legacy__attackchain(mob/user)

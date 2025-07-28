@@ -3,8 +3,6 @@
 /obj/effect/mob_spawn/human/alive/old
 	name = "old cryogenics pod"
 	desc = "A humming cryo pod. You can barely recognise a security uniform underneath the built up ice. The machine is attempting to wake up its occupant."
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
 	description = "Work as a team with your fellow survivors aboard a ruined, ancient space station."
 	assignedrole = "Ancient Crew"
 	allow_gender_pick = TRUE

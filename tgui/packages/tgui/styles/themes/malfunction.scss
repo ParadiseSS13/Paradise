@@ -1,54 +1,20 @@
-/**
- * Copyright (c) 2020 Aleksej Komarov
- * SPDX-License-Identifier: MIT
- */
-
-@use 'sass:color';
-@use 'sass:meta';
-
-@use '../colors.scss' with (
-  $primary: #910101,
-  $fg-map-keys: (),
-  $bg-map-keys: ()
-);
-@use '../base.scss' with (
-  $color-bg: #1b3443,
-  $color-bg-grad-spread: 6%
-);
-
-.theme-malfunction {
-  // Atomic classes
-  @include meta.load-css('../atomic/color.scss');
+.theme-malfunction:root {
+  // Base
+  --color-base: hsl(205, 42.5%, 20%);
+  --color-primary: hsl(0, 90%, 35%);
+  --color-border-primary: hsl(from var(--color-primary) h s l / 0.75);
+  --secondary-saturation: 50;
+  --secondary-lightness-adjustment: 3;
+  --base-gradient-spread: 6;
 
   // Components
-  @include meta.load-css(
-    '../components/Button.scss',
-    $with: (
-      'color-default': colors.$primary,
-      'color-disabled': #363636,
-      'color-selected': #1e5881,
-      'color-caution': #be6209,
-      'color-danger': #9a9d00
-    )
-  );
-  @include meta.load-css(
-    '../components/ImageButton.scss',
-    $with: ('color-default': darken(colors.$primary, 20%), 'color-disabled': #363636, 'color-selected': #1e5881)
-  );
-  @include meta.load-css('../components/Input.scss', $with: ('border-color': #910101));
-  @include meta.load-css('../components/NoticeBox.scss', $with: ('background-color': #1a3f57));
-  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #910101));
-  @include meta.load-css(
-    '../components/ProgressBar.scss',
-    $with: ('background-color': rgba(0, 0, 0, 0.5), 'color-disabled': #363636)
-  );
-  @include meta.load-css('../components/Section.scss');
-  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': #235577));
-
-  // Layouts
-  @include meta.load-css('../layouts/Layout.scss');
-  @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #1a3f57));
+  --button-background-selected: hsl(205, 60%, 30%);
+  --button-background-caution: hsl(30, 70%, 40%);
+  --button-background-danger: hsl(62.5, 100%, 30%);
+  --notice-box-background: hsl(205, 55%, 22.5%);
+  --notice-box-color: var(--color-text-fixed-white);
+  --progress-bar-background: hsla(0, 0%, 0%, 0.5);
+  --tooltip-background-lightness: 25;
 
   .Layout__content {
     background-image: none;

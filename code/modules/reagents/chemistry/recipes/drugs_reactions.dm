@@ -143,7 +143,6 @@
 	id = "conductivelube"
 	result = "conductivelube"
 	required_reagents = list("teslium" = 1, "lube" = 1, "aluminum" = 1)
-	result_amount = 3
 	mix_message = "The mixture darkens and starts sparking."
 
 /datum/chemical_reaction/surge

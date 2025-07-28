@@ -9,7 +9,6 @@
 	icon_state = "rsf"
 	item_state = "rsf"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
-	w_class = WEIGHT_CLASS_NORMAL
 	var/atom/currently_dispensing
 	var/power_mode = POWER_NONE
 
@@ -31,12 +30,12 @@
 							"Paper" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper"),
 							"Pen" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen"),
 							"Dice Pack" = image(icon = 'icons/obj/dice.dmi', icon_state = "dicebag"),
-							"Cigarette" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "cigon"),
+							"Cigarette" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "cig_on"),
 							"Newdles" = image(icon = 'icons/obj/food/food.dmi', icon_state = "chinese3"),
 							"Donut" = image(icon = 'icons/obj/food/bakedgoods.dmi', icon_state = "donut1"),
 							"Chicken Soup" = image(icon = 'icons/obj/drinks.dmi', icon_state = "soupcan"),
 							"Tofu Burger" = image(icon = 'icons/obj/food/burgerbread.dmi', icon_state = "tofuburger"),
-							"Cigar" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "cigaroff"),
+							"Cigar" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "cigar_off"),
 							"Smoked Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-smoked"),
 							"Edam Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-edam"),
 							"Blue Cheese" = image(icon = 'icons/obj/food/food.dmi', icon_state = "cheesewheel-blue"),
