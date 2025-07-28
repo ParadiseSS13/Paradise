@@ -12,7 +12,6 @@
 /obj/structure/closet/gmcloset
 	name = "formal closet"
 	desc = "It's a storage unit for formal clothing."
-	icon_state = "generic"
 	closed_door_sprite = "black"
 
 /obj/structure/closet/gmcloset/populate_contents()
@@ -39,7 +38,6 @@
 /obj/structure/closet/chefcloset
 	name = "chef's closet"
 	desc = "It's a storage unit for foodservice garments."
-	icon_state = "generic"
 	closed_door_sprite = "black"
 
 
@@ -67,7 +65,6 @@
 /obj/structure/closet/jcloset
 	name = "custodial closet"
 	desc = "It's a storage unit for janitorial clothes and gear."
-	icon_state = "generic"
 	closed_door_sprite = "mixed"
 
 

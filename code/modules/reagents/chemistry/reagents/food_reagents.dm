@@ -23,7 +23,6 @@
 	name = "Nutriment"
 	id = "nutriment"
 	description = "A questionable mixture of various pure nutrients commonly found in processed foods."
-	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
 	var/brute_heal = 1
@@ -79,9 +78,6 @@
 	name = "Vitamin"
 	id = "vitamin"
 	description = "All the best vitamins, minerals, and carbohydrates the body needs in pure form."
-	reagent_state = SOLID
-	color = "#664330" // rgb: 102, 67, 48
-	brute_heal = 1
 	burn_heal = 1
 
 /datum/reagent/consumable/nutriment/vitamin/on_mob_life(mob/living/M)
@@ -93,7 +89,6 @@
 	name = "Sugar"
 	id = "sugar"
 	description = "The organic compound commonly known as table sugar and sometimes called saccharose. This white, odorless, crystalline powder has a pleasing, sweet taste."
-	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 255, 255, 255
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	overdose_threshold = 200 // Hyperglycaemic shock
@@ -282,7 +277,6 @@
 	name = "Salt"
 	id = "sodiumchloride"
 	description = "Sodium chloride, common table salt."
-	reagent_state = SOLID
 	color = "#B1B0B0"
 	harmless = FALSE
 	overdose_threshold = 100
@@ -299,14 +293,12 @@
 	name = "Black Pepper"
 	id = "blackpepper"
 	description = "A powder ground from peppercorns. *AAAACHOOO*"
-	reagent_state = SOLID
 	taste_description = "pepper"
 
 /datum/reagent/consumable/cocoa
 	name = "Cocoa Powder"
 	id = "cocoa"
 	description = "A fatty, bitter paste made from cocoa beans."
-	reagent_state = SOLID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#5F3A13"
 	taste_description = "bitter cocoa"
@@ -315,7 +307,6 @@
 	name = "Vanilla"
 	id = "vanilla"
 	description = "A fatty, bitter paste made from vanilla pods."
-	reagent_state = SOLID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#FEFEFE"
 	taste_description = "bitter vanilla"
@@ -400,7 +391,6 @@
 	name = "Dry Ramen"
 	id = "dry_ramen"
 	description = "Space age food, since August 25, 1958. Contains dried noodles, vegetables, and chemicals that boil in contact with water."
-	reagent_state = SOLID
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "dry ramen coated with what might just be your tears"
 
@@ -435,7 +425,6 @@
 	name = "Flour"
 	id = "flour"
 	description = "This is what you rub all over yourself to pretend to be a ghost."
-	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 0, 0, 0
 	taste_description = "flour"
 
@@ -447,7 +436,6 @@
 	name = "Rice"
 	id = "rice"
 	description = "Enjoy the great taste of nothing."
-	reagent_state = SOLID
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#FFFFFF" // rgb: 0, 0, 0
 	taste_description = "rice"
@@ -577,7 +565,6 @@
 	color = "#21170E"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "tea"
-	harmless = TRUE
 
 /datum/reagent/consumable/mugwort/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -624,7 +611,6 @@
 	name = "Cheese"
 	id = "cheese"
 	description = "Some cheese. Pour it out to make it solid."
-	reagent_state = SOLID
 	color = "#FFFF00"
 	taste_description = "cheese"
 
@@ -662,7 +648,6 @@
 	name = "Weird cheese"
 	id = "weird_cheese"
 	description = "Hell, I don't even know if this IS cheese. Whatever it is, it ain't normal. If you want to, pour it out to make it solid."
-	reagent_state = SOLID
 	color = "#50FF00"
 	addiction_chance = 1
 	addiction_chance_additional = 10
@@ -683,7 +668,6 @@
 	name = "Cheese Curds"
 	id = "cheese_curds"
 	description = "Some mushed up cheese curds. You're not quite sure why you did this."
-	reagent_state = SOLID
 	color = "#FFFF00"
 	taste_description = "salty cheese"
 
@@ -707,7 +691,6 @@
 	name = "Bread"
 	id = "bread"
 	description = "Bread! Yep, bread."
-	reagent_state = SOLID
 	color = "#9C5013"
 	taste_description = "bread"
 
@@ -785,7 +768,6 @@
 	name = "Mashed potatoes"
 	id = "mashedpotatoes"
 	description = "A starchy food paste made from boiled potatoes."
-	reagent_state = SOLID
 	color = "#D6D9C1"
 	taste_description = "potatoes"
 
@@ -932,7 +914,6 @@
 	name = "Soap"
 	id = "soapreagent"
 	description = "Soap, fit to clean the mouth of a sailor."
-	reagent_state = SOLID
 	color = "#FFFFFF"
 	taste_description = "soap"
 

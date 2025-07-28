@@ -91,9 +91,6 @@
 /obj/structure/alien/resin/wall
 	name = "resin wall"
 	desc = "Thick resin solidified into a wall."
-	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
-	icon_state = "resin_wall-0"
-	base_icon_state = "resin_wall"
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
 
@@ -105,16 +102,12 @@
 */
 /obj/structure/alien/resin/door
 	name = "resin door"
-	density = TRUE
-	anchored = TRUE
-	opacity = TRUE
 
 	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
 	icon_state = "resin"
 	base_icon_state = "resin"
 	max_integrity = 60
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
-	damage_deflection = 0
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation_beta = RAD_MEDIUM_INSULATION
 	rad_insulation_gamma = RAD_LIGHT_INSULATION
@@ -234,7 +227,6 @@
 	name = "resin floor"
 	desc = "A thick resin surface covers the floor."
 	anchored = TRUE
-	density = FALSE
 	plane = FLOOR_PLANE
 	icon = 'icons/obj/smooth_structures/alien/weeds.dmi'
 	icon_state = "weeds"
@@ -373,7 +365,6 @@
 	icon_state = null
 	anchored = TRUE
 	layer = ABOVE_WINDOW_LAYER
-	plane = GAME_PLANE
 
 	max_integrity = 15
 	var/obj/structure/alien/weeds/weed
@@ -428,9 +419,6 @@
 /obj/structure/alien/weeds/node
 	name = "resin node"
 	desc = "A large bulbous node pumping resin into the surface bellow it."
-	icon = 'icons/obj/smooth_structures/alien/weeds.dmi'
-	icon_state = "weeds"
-	base_icon_state = "weeds"
 	light_range = 1
 	var/node_range = NODERANGE
 
@@ -459,9 +447,7 @@
 	name = "egg"
 	desc = "A large mottled egg."
 	icon_state = "egg_growing"
-	density = FALSE
 	anchored = TRUE
-	max_integrity = 100
 	integrity_failure = 5
 	layer = MOB_LAYER
 	flags_2 = CRITICAL_ATOM_2

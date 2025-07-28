@@ -103,7 +103,6 @@
 
 /obj/item/pda/heads/blueshield
 	default_cartridge = /obj/item/cartridge/hos
-	icon_state = "pda-h"
 	default_pen = /obj/item/pen/fancy
 
 /obj/item/pda/heads/ert

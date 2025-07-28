@@ -13,10 +13,8 @@
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list(BODY_ZONE_CHEST)
-	requires_organic_bodypart = TRUE
 
 /datum/surgery/implant_removal/synth
-	name = "Bio-chip Removal"
 	steps = list(
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,

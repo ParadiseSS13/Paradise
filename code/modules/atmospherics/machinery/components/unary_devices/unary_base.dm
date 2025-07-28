@@ -1,5 +1,4 @@
 /obj/machinery/atmospherics/unary
-	dir = SOUTH
 	initialize_directions = SOUTH
 	layer = TURF_LAYER+0.1
 	/// The current air contents of this device

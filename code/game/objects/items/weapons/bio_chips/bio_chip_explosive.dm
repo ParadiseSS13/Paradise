@@ -98,7 +98,6 @@
 /obj/item/bio_chip/explosive/macro
 	name = "macrobomb bio-chip"
 	desc = "And boom goes the weasel. And everything else nearby."
-	icon_state = "explosive"
 	origin_tech = "materials=3;combat=5;biotech=4;syndicate=5"
 	weak = 16
 	medium = 8
