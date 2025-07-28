@@ -870,6 +870,7 @@
 	contraband = list(/obj/item/toy/figure/crew/botanist = 1)
 
 	prices = list(/obj/item/clothing/under/rank/civilian/hydroponics = 50,
+				/obj/item/clothing/under/rank/civilian/hydroponics/alt = 50,
 				/obj/item/reagent_containers/glass/bucket = 15,
 				/obj/item/clothing/suit/apron = 50,
 				/obj/item/clothing/suit/apron/overalls = 50,
@@ -877,6 +878,10 @@
 				/obj/item/clothing/suit/jacket/bomber/hydro = 75,
 				/obj/item/clothing/suit/storage/labcoat/hydro = 75,
 				/obj/item/clothing/mask/bandana/botany = 20,
+				/obj/item/clothing/head/beret/hydroponics = 20,
+				/obj/item/clothing/head/beret/hydroponics_alt = 20,
+				/obj/item/clothing/head/soft/hydroponics = 20,
+				/obj/item/clothing/head/soft/hydroponics_alt = 20,
 				/obj/item/clothing/accessory/armband/hydro = 20,
 				/obj/item/clothing/accessory/armband/service = 20,
 				/obj/item/storage/backpack/botany = 50,
