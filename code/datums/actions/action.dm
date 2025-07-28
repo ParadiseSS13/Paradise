@@ -341,7 +341,7 @@
 
 /// Updates our buttons if our target's icon was updated
 /datum/action/proc/on_target_icon_update(datum/source, updates, updated)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_ATOM_UPDATED_ICON
 
 	var/update_flag = NONE
 	var/forced = FALSE
