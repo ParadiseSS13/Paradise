@@ -20,7 +20,6 @@ Bonus
 	name = "Necrotizing Fasciitis"
 	stealth = -3
 	resistance = -4
-	stage_speed = 0
 	transmittable = -4
 	level = 6
 	severity = 5

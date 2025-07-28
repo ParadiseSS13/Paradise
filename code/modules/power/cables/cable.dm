@@ -31,7 +31,6 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	//The following vars are set here for the benefit of mapping - they are reset when the cable is spawned
 	alpha = 128	//is set to 255 when spawned
-	plane = GAME_PLANE //is set to FLOOR_PLANE when spawned
 	layer = LOW_OBJ_LAYER //isset to WIRE_LAYER when spawned
 
 	/// The direction of endpoint one of this cable
@@ -125,7 +124,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/generate_power_message()
 	if(powernet && (powernet.available_power > 0))
-		return chat_box_examine("<span class='notice'>Total power: [DisplayPower(powernet.available_power)]\nLoad: [DisplayPower(powernet.power_demand)]\nExcess power: [DisplayPower(get_surplus())]</span>")
+		return chat_box_examine("<span class='notice'>Total power: [DisplayPower(powernet.available_power)]<br>Load: [DisplayPower(powernet.power_demand)]<br>Excess power: [DisplayPower(get_surplus())]</span>")
 	else
 		return "<span class='warning'>The cable is not powered.</span>"
 

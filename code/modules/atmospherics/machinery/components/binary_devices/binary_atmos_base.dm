@@ -1,5 +1,4 @@
 /obj/machinery/atmospherics/binary
-	dir = SOUTH
 	initialize_directions = SOUTH|NORTH
 	power_state = IDLE_POWER_USE
 
@@ -15,7 +14,6 @@
 	var/datum/pipeline/parent1
 	var/datum/pipeline/parent2
 
-	new_attack_chain = TRUE
 
 /obj/machinery/atmospherics/binary/New()
 	..()
@@ -130,6 +128,9 @@
 		return parent1
 	else if(A == node2)
 		return parent2
+
+/obj/machinery/atmospherics/binary/get_machinery_pipelines()
+	return list(parent1, parent2)
 
 /obj/machinery/atmospherics/binary/is_pipenet_split()
 	return TRUE

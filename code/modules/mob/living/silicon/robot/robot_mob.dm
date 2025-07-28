@@ -7,11 +7,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	real_name = "Cyborg"
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
-	maxHealth = 100
-	health = 100
 	bubble_icon = "robot"
 	universal_understand = TRUE
 	deathgasp_on_death = TRUE
+	appearance_flags = LONG_GLIDE | PIXEL_SCALE | KEEP_TOGETHER | TILE_BOUND
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	hud_type = /datum/hud/robot
 
@@ -891,7 +890,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/InCritical()
 	return low_power_mode
 
-/mob/living/silicon/robot/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+/mob/living/silicon/robot/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	if(!(class in alarms_listened_for))
 		return
 	if(alarmsource.z != z)
@@ -900,7 +899,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 	queueAlarm(text("--- [class] alarm detected in [A.name]!"), class)
 
-/mob/living/silicon/robot/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+/mob/living/silicon/robot/alarm_cancelled(source, class, area/A, obj/origin, cleared)
 	if(cleared)
 		if(!(class in alarms_listened_for))
 			return
@@ -941,6 +940,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return ITEM_INTERACT_COMPLETE
 		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 		being_charged = TRUE
+		to_chat(src, "<span class='notice'>[user] begins to manually charge your internal cell.</span>")
 		while(do_after(user, 0.5 SECONDS, target = src))
 			var/cell_difference = cell.maxcharge - cell.charge
 			if(donor.charge >= 500 && cell_difference >= 500)
@@ -1832,6 +1832,22 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(ourapc.malfai && !(src in ourapc.malfai.connected_robots))
 		return FALSE
 	return TRUE
+
+/mob/living/silicon/robot/update_transform()
+	var/matrix/ntransform = matrix(transform)
+	var/final_pixel_y = pixel_y
+	var/final_dir = dir
+	var/changed = 0
+
+	if(resize != RESIZE_DEFAULT_SIZE)
+		changed++
+		ntransform.Scale(resize)
+		ntransform.Translate(0, (resize - 1) * 16) // Pixel Y shift: 1.25 = 4, 1.5 = 8, 2 -> 16, 3 -> 32, 4 -> 48, 5 -> 64
+		resize = RESIZE_DEFAULT_SIZE
+
+	if(changed)
+		floating = FALSE
+		animate(src, transform = ntransform, time = (lying_prev == 0 || lying_angle == 0) ? 2 : 0, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
 
 /mob/living/silicon/robot/plushify(plushie_override, curse_time)
 	if(curse_time == -1)

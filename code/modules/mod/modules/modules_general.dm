@@ -83,7 +83,6 @@
 	max_w_class = WEIGHT_CLASS_SMALL
 	removable = FALSE
 	max_combined_w_class = 21
-	max_items = 7
 
 /obj/item/mod/module/storage/bluespace
 	name = "MOD bluespace storage module"
@@ -128,7 +127,7 @@
 	overlay_state_inactive = "module_jetpack"
 	overlay_state_active = "module_jetpack_on"
 	/// Do we stop the wearer from gliding in space.
-	var/stabilize = FALSE
+	var/stabilize = TRUE
 	var/thrust_callback
 
 /obj/item/mod/module/jetpack/Initialize(mapload)
@@ -426,7 +425,6 @@
 /obj/item/mod/module/dna_lock/emp_shield
 	name = "MOD DN-MP shield lock"
 	desc = "This syndicate module is a combination EMP shield and DNA lock. Provides the best of both worlds, with the weakness of niether."
-	icon_state = "dnalock"
 	origin_tech = "materials=6;bluespace=5;syndicate=3"
 	complexity = 3
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5

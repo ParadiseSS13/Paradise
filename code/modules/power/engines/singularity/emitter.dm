@@ -11,7 +11,6 @@
 	density = TRUE
 	req_access = list(ACCESS_ENGINE_EQUIP)
 
-	power_state = NO_POWER_USE
 	idle_power_consumption = 10
 	active_power_consumption = 300
 
@@ -50,6 +49,7 @@
 	sparks = new
 	sparks.attach(src)
 	sparks.set_up(5, 1, src)
+	AddElement(/datum/element/hostile_machine)
 
 /obj/machinery/power/emitter/cherenkov
 	icon_state = "emitter_+a"

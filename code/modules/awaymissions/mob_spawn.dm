@@ -9,7 +9,6 @@
 /obj/effect/mob_spawn
 	name = "Unknown"
 	density = TRUE
-	anchored = TRUE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	var/mob_type
@@ -52,6 +51,10 @@
 	var/death_cooldown = 0
 	/// If antagbanned people are prevented from using it, only false for the ghost bar spawner.
 	var/restrict_antagban = TRUE
+	/// If people without respawnability are prevented from using it.
+	var/restrict_respawnability = TRUE
+	/// If late-observers with ahud are prevented from using it.
+	var/restrict_ahud = TRUE
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
 	if(!valid_to_spawn(user))
@@ -107,12 +110,12 @@
 	if((jobban_isbanned(user, ban_type) || (restrict_antagban && jobban_isbanned(user, ROLE_SYNDICATE))))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
 		return FALSE
-	if(!HAS_TRAIT(user, TRAIT_RESPAWNABLE))
+	if(!HAS_TRAIT(user, TRAIT_RESPAWNABLE) && restrict_respawnability)
 		to_chat(user, "<span class='warning'>You currently do not have respawnability!</span>")
 		return FALSE
 	if(isobserver(user))
 		var/mob/dead/observer/O = user
-		if(!O.check_ahud_rejoin_eligibility())
+		if(!O.check_ahud_rejoin_eligibility() && restrict_ahud)
 			to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return FALSE
 	if(time_check(user))
@@ -666,13 +669,10 @@
 	outfit = /datum/outfit/job/mining/suit
 
 /datum/outfit/job/mining/suit
-	name = "Shaft Miner"
 	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	uniform = /obj/item/clothing/under/rank/cargo/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
-	l_ear = /obj/item/radio/headset/headset_cargo/mining
-	id = /obj/item/card/id/shaftminer
 	l_pocket = /obj/item/reagent_containers/patch/styptic
 	r_pocket = /obj/item/flashlight/seclite
 

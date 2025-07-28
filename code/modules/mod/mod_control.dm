@@ -21,7 +21,6 @@
 		/datum/action/item_action/mod/panel,
 		/datum/action/item_action/mod/module,
 	)
-	resistance_flags = NONE
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	siemens_coefficient = 0.5
@@ -275,6 +274,14 @@
 			return
 
 		if(ismecha(M.loc))
+			return
+
+		if(ismodcontrol(over_object))
+			var/obj/item/mod/control/target = over_object
+			bag?.dump_storage(M, target.bag)
+			return
+		if(isstorage(over_object))
+			bag?.dump_storage(M, over_object)
 			return
 
 		if(!M.restrained() && !M.stat)

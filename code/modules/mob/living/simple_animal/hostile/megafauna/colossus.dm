@@ -80,29 +80,29 @@ Difficulty: Very Hard
 
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
-	button_overlay_icon = 'icons/mob/actions/actions.dmi'
-	button_overlay_icon_state = "sniper_zoom"
+	button_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now firing in a spiral.</span>"
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/aoe_attack
 	name = "All Directions"
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "at_shield2"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "at_shield2"
 	chosen_message = "<span class='colossus'>You are now firing in all directions.</span>"
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/shotgun
 	name = "Shotgun Fire"
-	button_overlay_icon = 'icons/obj/guns/projectile.dmi'
-	button_overlay_icon_state = "shotgun"
+	button_icon = 'icons/obj/guns/projectile.dmi'
+	button_icon_state = "shotgun"
 	chosen_message = "<span class='colossus'>You are now firing shotgun shots where you aim.</span>"
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/alternating_cardinals
 	name = "Alternating Shots"
-	button_overlay_icon = 'icons/obj/guns/projectile.dmi'
-	button_overlay_icon_state = "pistol"
+	button_icon = 'icons/obj/guns/projectile.dmi'
+	button_icon_state = "pistol"
 	chosen_message = "<span class='colossus'>You are now firing in alternating cardinal directions.</span>"
 	chosen_attack_num = 4
 
@@ -323,7 +323,6 @@ Difficulty: Very Hard
 /obj/effect/temp_visual/at_shield
 	name = "anti-toolbox field"
 	desc = "A shimmering forcefield protecting the colossus."
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "at_shield2"
 	layer = FLY_LAYER
 	light_range = 2
@@ -363,9 +362,6 @@ Difficulty: Very Hard
 	damage = 25
 	armour_penetration_percentage = 100
 	speed = 2
-	eyeblur = 0
-	damage_type = BRUTE
-	pass_flags = PASSTABLE
 
 /obj/item/projectile/colossus/on_hit(atom/target, blocked = 0)
 	. = ..()
@@ -382,7 +378,6 @@ Difficulty: Very Hard
 	icon_state = null
 	gpstag = "Angelic Signal"
 	desc = "Get in the fucking robot."
-	invisibility = 100
 
 #undef RANDOM_SHOTS
 #undef BLAST

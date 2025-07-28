@@ -7,14 +7,12 @@
 	desc = "A revolting, pulsating pile of flesh."
 	speak_emote = list("gurgles")
 	emote_hear = list("gurgles")
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "morph"
 	icon_living = "morph"
 	icon_dead = "morph_dead"
 	speed = 1.5
 	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
-	status_flags = CANPUSH
 	pass_flags = PASSTABLE
 	move_resist = MOVE_FORCE_STRONG // Fat being
 	ventcrawler = VENTCRAWLER_ALWAYS
@@ -24,7 +22,6 @@
 	minbodytemp = 0
 	maxHealth = 150
 	health = 150
-	environment_smash = 1
 	obj_damage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15
@@ -148,7 +145,7 @@
 /mob/living/simple_animal/hostile/morph/proc/add_food(amount)
 	gathered_food += amount
 	for(var/datum/action/spell_action/action in actions)
-		action.UpdateButtons()
+		action.build_all_button_icons()
 
 
 /mob/living/simple_animal/hostile/morph/proc/assume()
@@ -158,8 +155,8 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 5
 	speed = MORPHED_SPEED
-	ambush_spell.UpdateButtons()
-	pass_airlock_spell.UpdateButtons()
+	ambush_spell.build_all_button_icons()
+	pass_airlock_spell.build_all_button_icons()
 	move_resist = MOVE_FORCE_DEFAULT // They become more fragile and easier to move
 
 /mob/living/simple_animal/hostile/morph/proc/restore()
@@ -174,7 +171,7 @@
 	if(ambush_prepared)
 		to_chat(src, "<span class='warning'>The ambush potential has faded as you take your true form.</span>")
 	failed_ambush()
-	pass_airlock_spell.UpdateButtons()
+	pass_airlock_spell.build_all_button_icons()
 	move_resist = MOVE_FORCE_STRONG // Return to their fatness
 
 
@@ -186,7 +183,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/failed_ambush()
 	ambush_prepared = FALSE
-	ambush_spell.UpdateButtons()
+	ambush_spell.build_all_button_icons()
 	mimic_spell.perfect_disguise = FALSE // Reset the perfect disguise
 	remove_status_effect(/datum/status_effect/morph_ambush)
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)

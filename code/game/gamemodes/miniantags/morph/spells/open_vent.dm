@@ -2,7 +2,6 @@
 	name = "Open Vents"
 	desc = "Spit out acidic puke on nearby vents or scrubbers. Will take a little while for the acid to take effect. Not usable from inside a vent."
 	action_icon_state = "acid_vent"
-	base_cooldown = 10 SECONDS
 	hunger_cost = 10
 
 /datum/spell/morph_spell/open_vent/create_new_targeting()

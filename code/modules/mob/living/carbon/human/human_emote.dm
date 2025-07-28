@@ -34,7 +34,6 @@
 /datum/emote/living/carbon/human/airguitar
 	key = "airguitar"
 	message = "is strumming the air and headbanging like a safari chimp."
-	emote_type = EMOTE_VISIBLE
 	hands_use_check = TRUE
 
 /datum/emote/living/carbon/human/clap
@@ -116,7 +115,6 @@
 	hands_use_check = TRUE
 	sound = 'sound/weapons/slap.ogg'
 	emote_type = EMOTE_AUDIBLE
-	volume = 50
 
 /datum/emote/living/carbon/human/palm
 	key = "palm"
@@ -161,7 +159,6 @@
 	message_postfix = "at %t!"
 	muzzled_noises = list("very loud")
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
-	only_forced_audio = FALSE
 	vary = TRUE
 	age_based = TRUE
 	cooldown = 5 SECONDS
@@ -437,7 +434,6 @@
 /datum/emote/living/carbon/human/highfive/rps
 	key = "rps"
 	param_desc = "r,p,s"
-	hands_use_check = TRUE
 	status = STATUS_EFFECT_RPS
 	action_name = "play rock-paper-scissors with"
 	target_behavior = EMOTE_TARGET_BHVR_IGNORE
@@ -515,9 +511,7 @@
 	key = "signal"
 	key_third_person = "signals"
 	message_param = "raises %t fingers."
-	param_desc = "number(0-10)"
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
-	hands_use_check = TRUE
 
 /////////
 // Species-specific emotes
@@ -826,7 +820,6 @@
 	// CC0
 	// https://freesound.org/people/greenvwbeetle/sounds/244653/
 	sound = 'sound/effects/mob_effects/slime_pop.ogg'
-	volume = 50
 
 /datum/emote/living/carbon/human/howl
 	key = "howl"

@@ -1,5 +1,4 @@
 /mob/living/silicon
-	gender = NEUTER
 	voice_name = "synthesized voice"
 	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = TRUE
@@ -129,10 +128,10 @@
 /mob/living/silicon/proc/get_radio()
 	return
 
-/mob/living/silicon/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+/mob/living/silicon/proc/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	return
 
-/mob/living/silicon/proc/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+/mob/living/silicon/proc/alarm_cancelled(source, class, area/A, obj/origin, cleared)
 	return
 
 /mob/living/silicon/proc/queueAlarm(message, type, incoming = TRUE)

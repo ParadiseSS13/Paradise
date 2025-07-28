@@ -127,7 +127,6 @@
 	gain_text = "Faraday cage operational."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 2
-	base_cost = 30
 	static_upgrade_increase = 30
 
 /datum/mindflayer_passive/emp_resist/on_apply()
@@ -147,7 +146,6 @@
 	purchase_text = "Become immune to basic shocks."
 	gain_text = "The outer layer of our chassis gets slightly thicker."
 	power_type = FLAYER_PURCHASABLE_POWER
-	max_level = 1
 
 /datum/mindflayer_passive/shock_resist/on_apply()
 	..()
@@ -245,7 +243,6 @@
 	name = "Reinforced Joints"
 	purchase_text = "Prevents your limbs from falling off due to damage."
 	gain_text = "Artificial skeletal structure reinforced."
-	max_level = 1
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 50
 
@@ -260,7 +257,6 @@
 	name = "Telescopic Eyes"
 	purchase_text = "Allows you to expand your sight range, as if you were using a scope."
 	gain_text = "Precise optics control engaged."
-	max_level = 1
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 40
 	var/obj/item/organ/internal/eyes/optical_sensor/user_eyes
@@ -272,7 +268,7 @@
 		return // TODO, add a refund proc?
 	user_eyes.AddComponent(/datum/component/scope, item_action_type = /datum/action/item_action/organ_action/toggle, flags = SCOPE_CLICK_MIDDLE)
 	for(var/datum/action/action in user_eyes.actions)
-		action.button_background_icon_state = "bg_flayer"
+		action.background_icon_state = "bg_flayer"
 		action.Grant(owner)
 
 /datum/mindflayer_passive/telescopic_eyes/on_remove()
@@ -283,7 +279,6 @@
 	name = "Perfect Symbiosis"
 	purchase_text = "Become a living siphon that drains victim's energy incredibly quickly."
 	gain_text = "This vessel serves us well."
-	max_level = 1
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 400
 	stage = FLAYER_CAPSTONE_STAGE
@@ -346,7 +341,7 @@
 	if(!internal_jammer)
 		internal_jammer = new /obj/item/jammer(owner) //Shove it in the flayer's chest
 		for(var/datum/action/action in internal_jammer.actions)
-			action.button_background_icon_state = "bg_flayer"
+			action.background_icon_state = "bg_flayer"
 			action.Grant(owner)
 
 	internal_jammer.range = 15 + ((level - 1) * 5) //Base range of the jammer is 15, each level adds 5 tiles for a max of 25 if you want to be REALLY annoying

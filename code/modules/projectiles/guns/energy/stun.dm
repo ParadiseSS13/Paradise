@@ -39,7 +39,6 @@
 	icon_state = "advtaser"
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler)
 	origin_tech = "combat=4"
-	ammo_x_offset = 2
 	flight_x_offset = 15
 	shaded_charge = FALSE
 	can_holster = TRUE
@@ -73,7 +72,6 @@
 	item_state = null
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
-	ammo_x_offset = 2
 	can_flashlight = TRUE
 	flight_x_offset = 15
 	flight_y_offset = 10
@@ -133,7 +131,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/smg)
 	shaded_charge = TRUE
 	can_holster = FALSE
-	fire_delay = 0
 
 /obj/item/gun/energy/disabler/smg/examine_more(mob/user)
 	..()
@@ -145,7 +142,7 @@
 
 /obj/item/gun/energy/disabler/smg/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/automatic_fire, 0.15 SECONDS, allow_akimbo = FALSE)
+	AddComponent(/datum/component/automatic_fire, 0.20 SECONDS, allow_akimbo = FALSE)
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"
@@ -192,11 +189,8 @@
 	desc = "A high-tech revolver that fires internal, 3D printed shock cartridges in a revolving cylinder. \
 	The cartridges can be recharged using conventional rechargers. These shots charge whatever they hit, causing arcs of electricity to form between them."
 	icon_state = "stunrevolver"
-	item_state = "gun"
 	origin_tech = "combat=4;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/arc_revolver)
-	can_flashlight = FALSE
-	shaded_charge = FALSE
 	can_holster = TRUE
 
 /obj/item/gun/energy/arc_revolver/examine_more(mob/user)

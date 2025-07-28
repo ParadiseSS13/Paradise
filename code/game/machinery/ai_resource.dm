@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 
 
 /obj/machinery/ai_node/Initialize(mapload)
-	..()
+	. = ..()
 	GLOB.ai_nodes += src
 
 /obj/machinery/ai_node/examine(mob/user)
@@ -220,8 +220,6 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 /obj/machinery/ai_node/processing_node
 	name = "processing node"
 	desc = "A rack of processors with a manual on/off switch. While running, it grants an AI memory."
-	icon = 'icons/obj/machines/ai_machinery.dmi'
-	icon_state = "processor-off"
 	resource_key = "memory"
 	icon_base = "processor"
 
@@ -241,7 +239,6 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 /obj/machinery/ai_node/network_node
 	name = "network node"
 	desc = "A rack of servers with a manual on/off switch. While running, it grants an AI bandwidth."
-	icon = 'icons/obj/machines/ai_machinery.dmi'
 	icon_state = "network-off"
 	resource_key = "bandwidth"
 	icon_base = "network"
@@ -269,7 +266,6 @@ GLOBAL_LIST_EMPTY(ai_nodes)
 /obj/machinery/computer/ai_resource
 	name = "AI Resource Control Console"
 	desc = "Used to reassign memory and bandwidth between multiple AI units."
-	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "rd_key"
 	icon_screen = "ai_resource"
 	req_access = list(ACCESS_RD)

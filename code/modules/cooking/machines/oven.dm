@@ -16,10 +16,6 @@
 	name = "oven"
 	desc = "A cozy oven for baking food."
 	icon_state = "oven"
-	density = TRUE
-	anchored = TRUE
-	layer = BELOW_OBJ_LAYER
-	cooking = FALSE
 	var/opened = FALSE
 
 	var/on_fire = FALSE //if the oven has caught fire or not.
@@ -158,7 +154,7 @@
 	build_path = /obj/machinery/cooking/oven
 	board_type = "machine"
 	icon_state = "service"
-	origin_tech = list(TECH_BIO = 1)
+	origin_tech = "biotech=1"
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stack/sheet/glass = 1,

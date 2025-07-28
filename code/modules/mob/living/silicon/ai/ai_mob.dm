@@ -41,7 +41,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	icon = 'icons/mob/ai.dmi'//
 	icon_state = "ai"
 	move_resist = MOVE_FORCE_NORMAL
-	density = TRUE
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
 	d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED
 	mob_size = MOB_SIZE_LARGE
@@ -897,7 +896,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	Bot.call_bot(src, waypoint)
 
-/mob/living/silicon/ai/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+/mob/living/silicon/ai/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	if(!(class in alarms_listened_for))
 		return
 	if(alarmsource.z != z)
@@ -924,7 +923,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(viewalerts)
 		ai_alerts()
 
-/mob/living/silicon/ai/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+/mob/living/silicon/ai/alarm_cancelled(source, class, area/A, obj/origin, cleared)
 	if(cleared)
 		if(!(class in alarms_listened_for))
 			return

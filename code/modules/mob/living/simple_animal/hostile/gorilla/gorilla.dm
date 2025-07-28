@@ -24,7 +24,6 @@
 	faction = list("hostile", "monkey", "jungle")
 	robust_searching = TRUE
 	minbodytemp = 270
-	maxbodytemp = 350
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	stat_attack = UNCONSCIOUS // Sleeping won't save you
 	a_intent = INTENT_HARM // Angrilla
@@ -57,8 +56,8 @@
 /datum/action/innate/gorilla_toggle
 	name = "Toggle Stand"
 	desc = "Toggles between crawling and standing up."
-	button_overlay_icon = 'icons/mob/actions/actions_animal.dmi'
-	button_overlay_icon_state = "gorilla_toggle"
+	button_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_icon_state = "gorilla_toggle"
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/gorilla_toggle/Activate()
@@ -219,7 +218,6 @@
 	icon = 'icons/mob/cargorillia.dmi'
 	desc = "Cargo's pet gorilla. He seems to have an 'I love Mom' tattoo."
 	faction = list("neutral", "monkey", "jungle")
-	gold_core_spawnable = NO_SPAWN
 	gender = MALE
 	a_intent = INTENT_HELP
 	unique_pet = TRUE

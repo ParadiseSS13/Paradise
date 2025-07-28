@@ -72,10 +72,15 @@
 	/// Boolean detailing if this job has been banned because of a gamemode restriction i.e. The revolution has won, no more command
 	var/job_banned_gamemode = FALSE
 
+	/// Standard paycheck amount for this job
+	var/standard_paycheck = CREW_PAY_ASSISTANT
+
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H)
 
+	H.mind.initial_account.payday_amount = standard_paycheck
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	return
@@ -296,7 +301,13 @@
 	var/datum/job/J = SSjobs.GetJobType(jobtype)
 	if(!J)
 		J = SSjobs.GetJob(H.job)
-	id.assignment = H.mind.role_alt_title ? H.mind.role_alt_title : J.title
+	if(H.mind.role_alt_title)
+		id.assignment = H.mind.role_alt_title
+	else if(J)
+		id.assignment = J.title
+	else
+		id.assignment = H.job // ERTs and other things without job datums
+
 	if(!H.mind.initial_account)
 		return
 	id.associated_account_number = H.mind.initial_account.account_number

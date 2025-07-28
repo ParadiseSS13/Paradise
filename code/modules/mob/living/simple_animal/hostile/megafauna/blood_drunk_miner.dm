@@ -32,7 +32,6 @@ Difficulty: Medium
 	light_color = "#E4C7C5"
 	speak_emote = list("roars")
 	speed = 3
-	move_to_delay = 3
 	projectiletype = /obj/item/projectile/kinetic/miner
 	projectilesound = 'sound/weapons/kenetic_accel.ogg'
 	ranged = TRUE
@@ -67,7 +66,6 @@ Difficulty: Medium
 	icon_state = null
 	gpstag = "Resonant Signal"
 	desc = "The sweet blood, oh, it sings to me."
-	invisibility = 100
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()
@@ -75,22 +73,22 @@ Difficulty: Medium
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Dash To Target"
-	button_overlay_icon = 'icons/mob/actions/actions.dmi'
-	button_overlay_icon_state = "sniper_zoom"
+	button_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now dashing to your target.</span>"
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/kinetic_accelerator
 	name = "Fire Kinetic Accelerator"
-	button_overlay_icon = 'icons/obj/guns/energy.dmi'
-	button_overlay_icon_state = "kineticgun"
+	button_icon = 'icons/obj/guns/energy.dmi'
+	button_icon_state = "kineticgun"
 	chosen_message = "<span class='colossus'>You are now shooting your kinetic accelerator.</span>"
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/transform_weapon
 	name = "Transform Weapon"
-	button_overlay_icon = 'icons/obj/lavaland/artefacts.dmi'
-	button_overlay_icon_state = "cleaving_saw"
+	button_icon = 'icons/obj/lavaland/artefacts.dmi'
+	button_icon_state = "cleaving_saw"
 	chosen_message = "<span class='colossus'>You are now transforming your weapon.</span>"
 	chosen_attack_num = 3
 

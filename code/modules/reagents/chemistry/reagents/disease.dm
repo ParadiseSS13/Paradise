@@ -2,7 +2,6 @@
 	name = "Spider eggs"
 	id = "spidereggs"
 	description = "A fine dust containing spider eggs. Oh gosh."
-	reagent_state = SOLID
 	color = "#FFFFFF"
 	taste_mult = 0
 
@@ -53,7 +52,6 @@
 	name = "Jagged Crystals"
 	id = "jagged_crystals"
 	description = "Rapid chemical decomposition has warped these crystals into twisted spikes."
-	reagent_state = SOLID
 	color = "#FA0000" // rgb: 250, 0, 0
 	taste_mult = 0
 
@@ -116,7 +114,6 @@
 	name = "Space heartworms"
 	id = "heartworms"
 	description = "Aww, gross! These things can't be good for your heart. They're gunna eat it!"
-	reagent_state = SOLID
 	color = "#925D6C"
 	taste_mult = 0
 
