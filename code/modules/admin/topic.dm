@@ -272,6 +272,8 @@
 				for(var/i=1, i<=R_MAXPERMISSION, i<<=1)		//that <<= is shorthand for i = i << 1. Which is a left bitshift
 					permissionlist[rights2text(i)] = i
 				var/permission = input("Select a permission to turn on/off", "Editing rank [rank]", null, null) as null|anything in permissionlist
+				if(!permission)
+					continue
 				toggle_db_rank_permission(rank, permissionlist[permission])
 				edit_admin_permissions()
 				continue
@@ -289,8 +291,10 @@
 		var/task = href_list["editrights"]
 		if(task == "add")
 			var/new_ckey = ckey(clean_input("New admin's ckey","Admin ckey", null))
-			if(!new_ckey)	return
-			if(new_ckey in GLOB.admin_datums)
+			if(!new_ckey)
+				return
+			var/datum/admins/existing_datum = GLOB.admin_datums[new_ckey]
+			if(existing_datum && existing_datum.rank != "!LOCALHOST!")
 				to_chat(usr, "<font color='red'>Error: Topic 'editrights': [new_ckey] is already an admin</font>")
 				return
 			adm_ckey = new_ckey
