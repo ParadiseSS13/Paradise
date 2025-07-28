@@ -306,6 +306,8 @@ SUBSYSTEM_DEF(economy)
 			amount_to_pay -= deduction
 		amount_to_pay = max(amount_to_pay, 0)
 		account.pay_check_deductions = null
+		if(!amount_to_pay)
+			continue
 		station_db.credit_account(account, amount_to_pay, "Payday", "NAS Trurl Payroll", FALSE)
 		if(account.account_type == ACCOUNT_TYPE_PERSONAL)
 			if(LAZYLEN(account.associated_nanobank_programs))

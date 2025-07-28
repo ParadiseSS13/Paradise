@@ -4,11 +4,7 @@
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
 	icon_state = "reinforced_wall-0"
 	base_icon_state = "reinforced_wall"
-	smoothing_flags = SMOOTH_BITMASK
-	opacity = TRUE
-	density = TRUE
 	explosion_block = 2
-	rad_insulation_beta = RAD_BETA_BLOCKER
 	rad_insulation_gamma = RAD_VERY_EXTREME_INSULATION
 	damage_cap = 600
 	hardness = 10

@@ -1,7 +1,6 @@
 /obj/effect/mine
 	name = "dummy mine"
 	desc = "I better stay away from that thing."
-	density = FALSE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "uglyminearmed"
 	var/triggered = FALSE
@@ -113,7 +112,6 @@
 	desc = "pick me up."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "electricity2"
-	density = FALSE
 	var/duration = 0
 
 /obj/effect/mine/pickup/New()
@@ -149,7 +147,8 @@
 	victim.drop_l_hand()
 	victim.drop_r_hand()
 	victim.put_in_hands(chainsaw)
-	chainsaw.attack_self__legacy__attackchain(victim)
+	chainsaw.activate_self(victim)
+	victim.regenerate_icons()
 	victim.reagents.add_reagent("adminordrazine", 25)
 
 	victim.flash_screen_color(red_splash, 10)

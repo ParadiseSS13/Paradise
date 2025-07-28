@@ -17,7 +17,6 @@
 	name = "radiation shutters"
 	desc = "Lead-lined shutters with a radiation hazard symbol. Whilst this won't stop you getting irradiated, especially by a supermatter crystal, it will stop radiation travelling as far."
 	icon = 'icons/obj/doors/shutters_radiation.dmi'
-	icon_state = "closed"
 	rad_insulation_beta = RAD_BETA_BLOCKER
 	rad_insulation_gamma = RAD_VERY_EXTREME_INSULATION
 

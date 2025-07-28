@@ -37,7 +37,6 @@
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/common
 	name = "syndicate depot loot, common"
-	icon_state = "loot"
 	point_value = 10
 	loot = list(
 		// Loot schema: costumes, toys, useless gimmick items

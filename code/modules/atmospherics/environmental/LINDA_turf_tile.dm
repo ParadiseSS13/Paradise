@@ -241,7 +241,6 @@
 	return list(milla_atmos_airtight, milla_superconductivity)
 
 /obj/effect/wind
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'icons/effects/tile_effects.dmi'
 	icon_state = "wind"

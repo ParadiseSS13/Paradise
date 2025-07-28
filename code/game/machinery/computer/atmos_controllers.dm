@@ -9,12 +9,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define SENSOR_N2O			(1<<6)
 
 /obj/machinery/atmospherics/air_sensor
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor1"
-	resistance_flags = FIRE_PROOF
 	name = "gas sensor"
 
-	anchored = TRUE
 	var/state = 0
 	var/bolts = TRUE
 
@@ -105,7 +102,6 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 /obj/machinery/computer/general_air_control
 	name = "air sensor monitor"
-	icon = 'icons/obj/computer.dmi'
 	icon_screen = "tank"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/air_management
@@ -666,7 +662,6 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 // Central atmos control //
 /obj/machinery/computer/atmoscontrol
 	name = "central atmospherics computer"
-	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "atmos_key"
 	icon_screen = "tank"
 	light_color = LIGHT_COLOR_CYAN

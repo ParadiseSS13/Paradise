@@ -6,7 +6,6 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	icon = 'icons/obj/fulton.dmi'
 	icon_state = "extraction_pack"
 	flags = NOBLUDGEON
-	w_class = WEIGHT_CLASS_NORMAL
 	new_attack_chain = TRUE
 	var/obj/structure/extraction_point/beacon
 	var/list/beacon_networks = list("station")
@@ -177,7 +176,6 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	icon = 'icons/obj/fulton.dmi'
 	icon_state = "extraction_point"
 	anchored = TRUE
-	density = FALSE
 	var/beacon_network = "station"
 
 /obj/structure/extraction_point/Initialize(mapload)

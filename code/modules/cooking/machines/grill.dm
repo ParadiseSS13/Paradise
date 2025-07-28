@@ -18,7 +18,6 @@
 	icon_state = "blank"
 	vis_flags = VIS_INHERIT_ID
 	mouse_opacity = 0
-	invisibility = 0
 
 // TODO: add back special attack for grill for v2
 // Yes, that's a v2 thing, I'm not doing it right now
@@ -27,8 +26,6 @@
 	desc = "A deep pit of charcoal for cooking food. A slot on the side of the machine takes wood and converts it into charcoal."
 	icon_state = "grill"
 	density = FALSE
-	anchored = TRUE
-	layer = BELOW_OBJ_LAYER
 	pass_flags = PASSTABLE
 	interact_offline = TRUE
 	active_power_consumption = 50 // uses more wood than power

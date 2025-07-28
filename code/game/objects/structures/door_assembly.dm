@@ -2,7 +2,6 @@
 	name = "airlock assembly"
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "construction"
-	anchored = FALSE
 	density = TRUE
 	max_integrity = 200
 	cares_about_temperature = TRUE
