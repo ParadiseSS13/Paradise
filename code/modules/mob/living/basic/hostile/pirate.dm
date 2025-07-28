@@ -62,6 +62,7 @@
 	projectile_type = /obj/item/projectile/beam
 	projectile_sound = 'sound/weapons/laser.ogg'
 	ranged_burst_count = 2
+	ranged_burst_interval = 0.5 // Same fire rate as people!
 	ai_controller = /datum/ai_controller/basic_controller/simple/pirate/ranged
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate,
 				/obj/item/gun/energy/laser,
