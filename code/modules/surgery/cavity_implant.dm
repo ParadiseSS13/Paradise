@@ -67,7 +67,6 @@
 		/datum/surgery/intermediate/bleeding
 	)
 
-	insert_self_after = TRUE
 
 /datum/surgery_step/proxy/cavity_manipulation/robotic
 	name = "Robotic Cavity Manipulation (proxy)"

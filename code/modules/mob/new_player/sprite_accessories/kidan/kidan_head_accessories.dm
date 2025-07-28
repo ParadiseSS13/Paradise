@@ -2,7 +2,6 @@
 	icon = 'icons/mob/sprite_accessories/kidan/kidan_head_accessories.dmi'
 	species_allowed = list("Kidan")
 	over_hair = 1
-	do_colouration = 1
 
 /datum/sprite_accessory/head_accessory/kidan/perked_antennae
 	name = "Perked-up Antennae"

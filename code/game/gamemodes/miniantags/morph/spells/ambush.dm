@@ -38,7 +38,6 @@
 
 /datum/status_effect/morph_ambush
 	id = "morph_ambush"
-	duration = -1
 	tick_interval = MORPH_AMBUSH_PERFECTION_TIME
 	alert_type = /atom/movable/screen/alert/status_effect/morph_ambush
 

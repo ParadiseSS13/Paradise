@@ -94,7 +94,6 @@
 //////SYNDICATE BORG
 /obj/item/antag_spawner/nuke_ops/borg_tele
 	name = "syndicate cyborg teleporter"
-	desc = "A single-use teleporter designed to quickly reinforce operatives in the field."
 	var/switch_roles = FALSE
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/assault
@@ -243,7 +242,6 @@
 	desc = "A magically infused bottle of clown love, distilled from \
 		countless hugging attacks. Used in funny rituals to attract \
 		adorable creatures."
-	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vialtickles"
 	veil_msg = "<span class='warning'>You sense an adorable presence \
 		lurking just beyond the veil...</span>"
@@ -255,11 +253,9 @@
 	desc = "A magically infused bottle of pure darkness, distilled from \
 		ground up shadowling bones. Used in dark rituals to attract \
 		dark creatures."
-	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vialshadows"
 	veil_msg = "<span class='warning'>You sense a dark presence \
 		lurking in the shadows...</span>"
-	objective_verb = "Kill"
 	demon_type = /mob/living/simple_animal/demon/shadow
 
 ///////////MORPH

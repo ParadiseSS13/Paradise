@@ -4,13 +4,9 @@
 /obj/item/reagent_containers/glass/bottle
 	name = "bottle"
 	desc = "A small bottle."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle"
 	item_state = "atoxinbottle"
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5, 10, 15, 25, 30, 40, 50)
-	container_type = OPENCONTAINER
-	volume = 50
 
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
@@ -250,7 +246,6 @@
 /obj/item/reagent_containers/glass/bottle/thermite
 	name = "thermite bottle"
 	desc = "A small bottle of thermite, a substance that burns extremely hot."
-	icon_state = "bottle"
 	list_reagents = list("thermite" = 50)
 
 ////////////////////Traitor Poison Bottle//////////////////////////////

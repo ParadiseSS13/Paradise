@@ -2,7 +2,6 @@
 	name = "mountable frame"
 	desc = "Place it on a wall."
 	origin_tech = "materials=1;engineering=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 	///amount of metal sheets returned upon the frame being wrenched
