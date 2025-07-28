@@ -15,7 +15,7 @@
 	/// If true, command will not appear in radial menu and can only be accessed through speech
 	var/hidden = FALSE
 	/// Speech strings to listen out for
-	var/list/speech_commands = list()
+	VAR_PROTECTED/list/speech_commands = list()
 	/// Shown above the mob's head when it hears you
 	var/command_feedback
 	/// How close a mob needs to be to a target to respond to a command
@@ -26,10 +26,14 @@
 	var/targeting_strategy_key = BB_PET_TARGETING_STRATEGY
 	/// our pointed reaction we play
 	var/pointed_reaction
+	/// The regex for finding our commands in speech
+	VAR_PRIVATE/regex/command_regex
 
 /datum/pet_command/New(mob/living/parent)
 	. = ..()
 	parent_uid = parent.UID()
+	if(length(speech_commands))
+		command_regex = regex("\\b([speech_commands.Join("|")])\\b", "i")
 
 /// Register a new guy we want to listen to
 /datum/pet_command/proc/add_new_friend(mob/living/tamer)
@@ -73,11 +77,8 @@
  * if check_verbosity is true, skip the match if there spoken_text is way longer than the match
  */
 /datum/pet_command/proc/find_command_in_text(spoken_text, check_verbosity = FALSE)
-	for(var/command as anything in speech_commands)
-		if(!findtext(spoken_text, command))
-			continue
-		if(check_verbosity && length(spoken_text) > length(command) + MAX_NAME_LEN)
-			continue
+	var/valid_length = check_verbosity ? length(spoken_text) > MAX_NAME_LEN : TRUE
+	if(command_regex.Find(spoken_text) && valid_length)
 		return TRUE
 	return FALSE
 
@@ -173,7 +174,6 @@
 	parent.ai_controller.cancel_actions()
 	if(!look_for_target(friend, potential_target) || !set_command_target(parent, potential_target))
 		return FALSE
-	parent.visible_message("<span class='warning'>[parent] follows [friend]'s gesture towards [potential_target] [pointed_reaction]!</span>")
+	var/suffix = pointed_reaction ? " [pointed_reaction]" : ""
+	parent.visible_message("<span class='warning'>[parent] follows [friend]'s gesture towards [potential_target][suffix]!</span>")
 	return TRUE
-
-
