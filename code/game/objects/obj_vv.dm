@@ -124,5 +124,5 @@
 			return
 
 		message_admins("[key_name_admin(usr)] is modifying the access of [src]")
-		var/datum/ui_module/obj_access_modifier/ui = new(target=src)
+		var/datum/ui_module/obj_access_modifier/ui = new(target = src)
 		ui.ui_interact(usr)
