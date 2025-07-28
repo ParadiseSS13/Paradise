@@ -7,6 +7,7 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	desc = "A single use device harnessing outdated wormhole technology, Nanotrasen has since turned its eyes to bluespace for more accurate teleportation. \
 		The wormholes it creates are unpleasant to travel through, to say the least. If attached to your belt, it'll automatically activate should you fall into a chasm."
 	icon_state = "Jaunter"
+	worn_icon_state = "electronic"
 	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
