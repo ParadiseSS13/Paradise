@@ -10486,9 +10486,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
-"aQx" = (
-/turf/simulated/floor/plating,
-/area/station/security/permabrig)
 "aQM" = (
 /obj/structure/sign/magboots{
 	pixel_x = -32
@@ -23998,7 +23995,7 @@
 /obj/item/screwdriver,
 /obj/item/seeds/bamboo,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/fsmaint)
 "bPB" = (
 /obj/machinery/door/airlock/security/glass,
 /obj/machinery/door/firedoor,
@@ -30800,10 +30797,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
-"coI" = (
-/obj/structure/closet/firecloset,
-/turf/simulated/floor/plating,
-/area/station/security/permabrig)
 "coP" = (
 /obj/machinery/economy/vending/detdrobe,
 /obj/machinery/light{
@@ -35848,7 +35841,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
+/obj/machinery/door/airlock/multi_tile/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -60751,7 +60744,7 @@
 "ieH" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/fsmaint)
 "ieS" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
@@ -61357,7 +61350,7 @@
 "itB" = (
 /obj/structure/mopbucket/full,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/fsmaint)
 "itD" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
@@ -70266,7 +70259,7 @@
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/fsmaint)
 "mtV" = (
 /obj/structure/shelf/service,
 /obj/item/storage/box/lights/mixed,
@@ -74346,7 +74339,7 @@
 "oll" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/multi_tile/glass/directional/east{
+/obj/machinery/door/airlock/multi_tile/glass{
 	name = "Cryogenic Dormitories"
 	},
 /obj/structure/cable{
@@ -74909,19 +74902,12 @@
 /area/station/science/genetics)
 "oun" = (
 /obj/machinery/light/small,
-/mob/living/simple_animal/hostile/bear{
+/mob/living/basic/bear{
 	dir = 1
 	},
 /obj/effect/spawner/random/blood,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
-"ouu" = (
-/obj/structure/closet/paramedic,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
-/area/station/medical/paramedic)
 "ouE" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 4
@@ -76617,7 +76603,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "phr" = (
-/mob/living/simple_animal/hostile/bear,
+/mob/living/basic/bear,
 /obj/effect/spawner/random/blood,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
@@ -77805,10 +77791,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/atmos/control)
-"pHd" = (
-/obj/structure/closet/emcloset,
-/turf/simulated/floor/plating,
-/area/station/security/permabrig)
 "pHg" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/mineral/titanium,
@@ -78228,7 +78210,7 @@
 /turf/simulated/floor/grass,
 /area/station/science/lobby)
 "pPJ" = (
-/mob/living/simple_animal/hostile/bear{
+/mob/living/basic/bear{
 	dir = 1
 	},
 /obj/effect/spawner/random/blood,
@@ -78994,7 +78976,7 @@
 /obj/item/reagent_containers/glass/bottle/ammonia,
 /obj/structure/shelf,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/fsmaint)
 "qjT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -84727,7 +84709,9 @@
 /area/station/medical/medbay)
 "sAq" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes,
+/obj/item/storage/fancy/cigarettes/cigpack_our_brand{
+	pixel_y = 2
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "sAs" = (
@@ -89178,7 +89162,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/bear,
+/mob/living/basic/bear,
 /obj/effect/spawner/random/blood,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
@@ -94749,12 +94733,6 @@
 	dir = 1;
 	icon_state = "red"
 	},
-/area/station/security/permabrig)
-"wDf" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "wDi" = (
 /obj/structure/table/reinforced,
@@ -143481,7 +143459,7 @@ dFO
 cGF
 iWE
 dfv
-ouu
+nCA
 nBa
 shb
 dfv
@@ -152661,11 +152639,11 @@ aaa
 aaa
 aaa
 aaa
-ygH
-aJx
-aJx
-aJx
-aJx
+tMo
+eNt
+eNt
+eNt
+eNt
 mlx
 aVw
 lqk
@@ -152918,11 +152896,11 @@ aaa
 aaa
 abj
 abj
-ygH
+tMo
 ieH
-wDf
+jau
 itB
-aJx
+eNt
 wCT
 aVw
 lkD
@@ -153175,10 +153153,10 @@ aaa
 aaa
 aaa
 aaa
-ygH
-coI
-aQx
-aQx
+tMo
+uNz
+bwA
+bwA
 mtL
 aKU
 wdd
@@ -153432,11 +153410,11 @@ aaa
 aaa
 aaa
 aaa
-ygH
+tMo
 bPz
-aQx
-aQx
-aJx
+bwA
+bwA
+eNt
 lYC
 vea
 fJH
@@ -153689,11 +153667,11 @@ aaa
 aaa
 aaa
 aaa
-ygH
-ygH
-pHd
+tMo
+tMo
+now
 qjO
-aJx
+eNt
 cRn
 jQx
 sbH
@@ -153947,10 +153925,10 @@ aaa
 aaa
 aaa
 aaa
-ygH
-ygH
-aJx
-aJx
+tMo
+tMo
+eNt
+eNt
 oYa
 dlP
 bxx

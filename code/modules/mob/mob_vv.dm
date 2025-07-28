@@ -1,6 +1,9 @@
+/mob/vv_modify_name_link()
+	return "byond://?_src_=vars;rename=TRUE;[VV_HK_TARGET]=[UID()]"
+
 /mob/vv_get_header()
 	. = ..()
-	. += "<br><font size='1'><a href='byond://?_src_=vars;datumedit=[UID()];varnameedit=ckey'>[ckey ? ckey : "No ckey"]</a> / <a href='byond://?_src_=vars;rename=TRUE;[VV_HK_TARGET]=[UID()]'>[real_name ? real_name : "No real name"]</a></font>"
+	. += "<br><font size='1'><a href='byond://?_src_=vars;datumedit=[UID()];varnameedit=ckey'>[ckey ? ckey : "No ckey"]</a> / <a href='byond://?_src_=vars;datumedit=[UID()];varnameedit=real_name'>[real_name ? real_name : "No real name"]</a></font>"
 
 /mob/vv_get_dropdown()
 	. = ..()

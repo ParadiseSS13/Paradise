@@ -1,15 +1,16 @@
 /** Window sizes in pixels */
-export enum WINDOW_SIZES {
-  small = 30,
-  medium = 50,
-  large = 70,
-  width = 275,
+export enum WindowSize {
+  Small = 30,
+  Medium = 50,
+  Large = 70,
+  Width = 275,
 }
 
 /** Line lengths for autoexpand */
-export enum LINE_LENGTHS {
-  small = 26,
-  medium = 54,
+export enum LineLength {
+  Small = 26,
+  Medium = 54,
+  Large = 82,
 }
 
 /**
@@ -98,4 +99,5 @@ export const RADIO_PREFIXES = {
   '.b ': 'Binary',
   '.и ': 'Binary',
   ':и ': 'Binary',
+  '; ': 'Radio',
 } as const;

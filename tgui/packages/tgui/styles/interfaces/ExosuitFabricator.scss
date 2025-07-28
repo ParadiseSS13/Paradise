@@ -1,18 +1,3 @@
-@use '../colors.scss';
-
-.Exofab {
-  .Dropdown__control {
-    margin-bottom: -1px;
-  }
-  .Dropdown__selected-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 80%;
-    display: inline-block;
-    margin-bottom: -3px;
-  }
-}
-
 .Exofab__materials {
   height: 100%;
   overflow: auto;
@@ -24,11 +9,11 @@
 
 .Exofab__material {
   &:not(.Exofab__material--line) {
-    margin-bottom: 0.25rem;
+    margin-bottom: var(--space-s);
 
     .Button {
       width: 28px;
-      margin-right: 0.5rem;
+      margin-right: var(--space-m);
     }
   }
 
@@ -40,7 +25,7 @@
   }
 
   &--name {
-    color: colors.$label;
+    color: var(--color-label);
     text-transform: capitalize;
   }
 
@@ -61,23 +46,23 @@
     }
 
     .Button:first-of-type {
-      margin-left: 0.25rem;
+      margin-left: var(--space-s);
     }
   }
 
   &--time {
     text-align: center;
-    color: colors.$label;
+    color: var(--color-label);
   }
 
   &--deficit {
     text-align: center;
-    color: colors.$bad;
+    color: var(--color-bad);
     font-weight: bold;
 
     & > div:not(.Divider) {
       display: inline-block;
-      margin-bottom: -0.75rem;
+      margin-bottom: calc(-1 * var(--space-s));
     }
   }
 
@@ -85,7 +70,7 @@
     height: calc(100% - 31px);
   }
   .Exofab__material--amount {
-    margin-right: 0.25rem;
+    margin-right: var(--space-s);
   }
 }
 
@@ -93,23 +78,23 @@
   &--cost {
     display: inline-block;
     vertical-align: middle;
-    margin-top: 0.25rem;
+    margin-top: var(--space-s);
 
     & > div {
       display: inline-block;
     }
     .Exofab__material {
-      margin-left: 0.25rem;
+      margin-left: var(--space-s);
     }
   }
 
   &--time {
     display: inline-block;
-    margin-left: 0.5rem;
-    color: colors.$label;
+    margin-left: var(--space-m);
+    color: var(--color-label);
 
     i {
-      margin-right: 0.25rem;
+      margin-right: var(--space-s);
     }
   }
 }
@@ -136,12 +121,4 @@
     display: flex;
     justify-content: flex-end;
   }
-}
-
-.Exofab__dropdown {
-  line-height: 14px;
-  font-size: 12px;
-  width: 225px;
-  height: 85%;
-  margin-top: 1.5px;
 }

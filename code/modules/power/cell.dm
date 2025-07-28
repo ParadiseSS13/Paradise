@@ -3,13 +3,11 @@
 	desc = "A rechargeable electrochemical power cell."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "cell"
-	item_state = "cell"
+	item_state = "cell1"
 	origin_tech = "powerstorage=1"
 	force = 5
 	throwforce = 5
-	throw_speed = 2
 	throw_range = 5
-	w_class = WEIGHT_CLASS_SMALL
 	/// Battery's current state of charge (kilojoules)
 	var/charge = 0
 	/// Battery's maximum state of charge (kilojoules)
@@ -259,6 +257,7 @@
 	name = "super-capacity power cell"
 	origin_tech = "powerstorage=3;materials=3"
 	icon_state = "scell"
+	item_state = "cell2"
 	maxcharge = 20000
 	materials = list(MAT_GLASS = 300)
 	rating = 4
@@ -271,6 +270,7 @@
 	name = "hyper-capacity power cell"
 	origin_tech = "powerstorage=4;engineering=4;materials=4"
 	icon_state = "hpcell"
+	item_state = "cell2"
 	maxcharge = 30000
 	materials = list(MAT_GLASS = 400)
 	rating = 5
@@ -284,6 +284,7 @@
 	desc = "A rechargeable transdimensional power cell."
 	origin_tech = "powerstorage=5;bluespace=4;materials=4;engineering=4"
 	icon_state = "bscell"
+	item_state = "cell3"
 	maxcharge = 40000
 	materials = list(MAT_GLASS = 600)
 	rating = 6
@@ -304,6 +305,7 @@
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"
 	icon_state = "icell"
+	item_state = "cell4"
 	origin_tech =  "powerstorage=7"
 	maxcharge = 30000
 	materials = list(MAT_GLASS=1000)
@@ -318,6 +320,7 @@
 	desc = "An alien power cell that produces energy seemingly out of nowhere."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cell"
+	item_state = "cella"
 	maxcharge = 50000
 	rating = 12
 	ratingdesc = FALSE
@@ -330,11 +333,11 @@
 	desc = "A rechargeable starch based power cell."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "potato"
+	item_state = "cellp"
 	origin_tech = "powerstorage=1;biotech=1"
 	charge = 100
 	maxcharge = 300
 	materials = list()
-	rating = 1
 	grown_battery = TRUE //it has the overlays for wires
 
 /obj/item/stock_parts/cell/high/slime
@@ -343,6 +346,7 @@
 	origin_tech = "powerstorage=5;biotech=4"
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "yellow slime extract"
+	item_state = "cellsl"
 	materials = list()
 	rating = 5 //self-recharge makes these desirable
 	self_recharge = 1 // Infused slime cores self-recharge, over time

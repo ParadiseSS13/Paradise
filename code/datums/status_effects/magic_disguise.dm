@@ -1,6 +1,5 @@
 /datum/status_effect/magic_disguise
 	id = "magic_disguise"
-	duration = -1
 	tick_interval = -1
 	alert_type = /atom/movable/screen/alert/status_effect/magic_disguise
 	status_type = STATUS_EFFECT_REPLACE

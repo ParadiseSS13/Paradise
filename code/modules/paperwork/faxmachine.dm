@@ -8,7 +8,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"
 	desc = "Because just talking to your coworkers is too efficient."
-	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
 	var/receive_anim = "faxsend"
@@ -21,8 +20,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/long_range_enabled = FALSE
 	req_one_access = list(ACCESS_INTERNAL_AFFAIRS, ACCESS_HEADS, ACCESS_ARMORY)
 
-	idle_power_consumption = 30
-	active_power_consumption = 200
 
 	/// ID card inserted into the machine, used to log in with
 	var/obj/item/card/id/scan = null

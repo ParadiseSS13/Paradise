@@ -91,7 +91,6 @@
 /// subtree to mark trees as territories
 /datum/ai_planning_subtree/find_and_hunt_target/mark_territory
 	target_key = BB_DEER_TREE_TARGET
-	finding_behavior = /datum/ai_behavior/find_hunt_target
 	hunting_behavior = /datum/ai_behavior/hunt_target/mark_territory
 	hunt_targets = list(/obj/structure/flora/tree)
 	hunt_range = 7
@@ -145,3 +144,9 @@
 	controller.set_blackboard_key(BB_DEER_RESTING, world.time + 15 SECONDS)
 	controller.set_blackboard_key(BB_DEER_NEXT_REST_TIMER, world.time + rand(minimum_time, maximum_time))
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
+
+/datum/ai_behavior/return_home/incursion_portal
+	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
+
+/datum/ai_behavior/return_home/incursion_portal/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	return AI_BEHAVIOR_SUCCEEDED

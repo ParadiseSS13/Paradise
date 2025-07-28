@@ -643,7 +643,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	if(!client)
 		var/list/result = A.examine(src)
-		to_chat(src, chat_box_examine(result.Join("\n")))
+		to_chat(src, chat_box_examine(result.Join("<br>")))
 		return
 
 	var/list/result
@@ -680,10 +680,14 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(isitem(examined))
 		var/obj/item/I = examined
 		if(I.in_storage)
+			while(isstorage(I.loc)) // grab the top level storage item
+				I = I.loc
 			if(get(I, /mob/living) == src)
-				loc_str = "inside [p_their()] [I.loc.name]..."
+				if(istype(I, /obj/item/storage/hidden_implant)) // Don't annnounce items in a bluespace pocket.
+					return
+				loc_str = "inside [p_their()] [I.name]..."
 			else
-				loc_str = "inside [I.loc]..."
+				loc_str = "inside [I]..."
 
 			examining_stored_item = TRUE
 
@@ -697,7 +701,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			examining_worn_item = TRUE
 
 	var/can_see_str = "<span class='subtle'>\The [src] looks at [examined].</span>"
-	if(examining_worn_item)
+	if(examining_worn_item || examining_stored_item)
 		can_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
 
 	var/cannot_see_str = "<span class='subtle'>\The [src] looks [loc_str]</span>"
@@ -1541,8 +1545,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
  * * casted_magic_flags (optional) A bitfield with the types of magic resistance being checked (see flags at: /datum/component/anti_magic)
  * * charge_cost (optional) The cost of charge to block a spell that will be subtracted from the protection used
 **/
-/mob/proc/can_block_magic(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1)
-	if(casted_magic_flags == NONE) // magic with the NONE flag is immune to blocking
+/mob/proc/can_block_magic(casted_magic_flags, charge_cost = 1)
+	if(!casted_magic_flags || casted_magic_flags == NONE) // magic with the NONE flag is immune to blocking
 		return FALSE
 
 	// A list of all things which are providing anti-magic to us

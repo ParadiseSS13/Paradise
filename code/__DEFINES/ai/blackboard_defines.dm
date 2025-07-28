@@ -45,6 +45,8 @@
 #define BB_TEMPORARILY_IGNORE_FACTION "BB_TEMPORARILY_IGNORE_FACTIONS"
 ///List of mobs who have damaged us
 #define BB_BASIC_MOB_RETALIATE_LIST "BB_BASIC_MOB_SHITLIST"
+///Blackboard key for a whitelist typecache of "things we can target while trying to move"
+#define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
 
 //Hunting BB keys
 
@@ -145,7 +147,7 @@
 // Misc
 
 /// For /datum/ai_behavior/find_potential_targets, what if any field are we using currently
-#define BB_FIND_TARGETS_FIELD(type) "bb_find_targets_field_[type]"
+#define BB_FIND_TARGETS_FIELD(type) "BB_FIND_TARGETS_FIELD_[type]"
 
 /// key that tells the wall we will mine
 #define BB_TARGET_MINERAL_WALL "BB_TARGET_MINERAL_WALL"
@@ -153,3 +155,7 @@
 #define BB_ORE_TARGET "BB_ORE_TARGET"
 /// which ore types we will not eat
 #define BB_ORE_IGNORE_TYPES "BB_ORE_IGNORE_TYPES"
+
+#define BB_INCURSION_HOME_PORTAL "BB_INCURSION_HOME_PORTAL"
+#define BB_INCURSION_HOME_PORTAL_TARGET "BB_INCURSION_HOME_PORTAL_TARGET"
+#define BB_PROWL_TARGET "BB_PROWL_TARGET"

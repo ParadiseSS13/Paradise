@@ -35,6 +35,7 @@
 	outfit = /datum/outfit/job/qm
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Supply), basic job duties, and act professionally (roleplay)."
 	exp_map = list(EXP_TYPE_SUPPLY = 1200)
+	standard_paycheck = CREW_PAY_HIGH
 
 /datum/outfit/job/qm
 	name = "Quartermaster"
@@ -78,13 +79,13 @@
 	)
 	alt_titles = list("Mail Carrier", "Courier")
 	outfit = /datum/outfit/job/cargo_tech
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/cargo_tech
 	name = "Cargo Technician"
 	jobtype = /datum/job/cargo_tech
 
 	uniform = /obj/item/clothing/under/rank/cargo/tech
-	shoes = /obj/item/clothing/shoes/black
 	l_pocket = /obj/item/mail_scanner
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
@@ -116,6 +117,7 @@
 	)
 	alt_titles = list("Metalworker", "Tinkerer")
 	outfit = /datum/outfit/job/smith
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/smith
 	name = "Smith"
@@ -150,6 +152,7 @@
 	)
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/mining
 	name = "Shaft Miner"
@@ -179,7 +182,6 @@
 	ADD_TRAIT(H.mind, TRAIT_BUTCHER, JOB_TRAIT)
 
 /datum/outfit/job/mining/equipped
-	name = "Shaft Miner"
 
 	suit = /obj/item/clothing/suit/hooded/explorer
 	mask = /obj/item/clothing/mask/gas/explorer
@@ -232,6 +234,7 @@
 	)
 	alt_titles = list("Salvage Technician", "Scavenger")
 	outfit = /datum/outfit/job/explorer
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/explorer
 	name = "Explorer"
@@ -265,6 +268,7 @@
 	selection_color = "#dddddd"
 	access = list(ACCESS_BAR, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/bartender
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/bartender
 	name = "Bartender"
@@ -273,7 +277,6 @@
 	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	id = /obj/item/card/id/bartender
@@ -313,6 +316,7 @@
 	)
 	alt_titles = list("Cook","Culinary Artist","Butcher")
 	outfit = /datum/outfit/job/chef
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/chef
 	name = "Chef"
@@ -321,7 +325,6 @@
 	uniform = /obj/item/clothing/under/rank/civilian/chef
 	suit = /obj/item/clothing/suit/chef
 	belt = /obj/item/storage/belt/chef
-	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/chefhat
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/chef
@@ -353,6 +356,7 @@
 	)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
 	outfit = /datum/outfit/job/hydro
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/hydro
 	name = "Botanist"
@@ -362,7 +366,6 @@
 	suit = /obj/item/clothing/suit/apron
 	belt = /obj/item/storage/belt/botany/full
 	gloves = /obj/item/clothing/gloves/botanic_leather
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/storage/bag/plants/portaseeder
 	pda = /obj/item/pda/botanist
@@ -393,6 +396,7 @@
 		ACCESS_THEATRE
 	)
 	outfit = /datum/outfit/job/clown
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/clown
 	name = "Clown"
@@ -488,6 +492,7 @@
 		ACCESS_THEATRE
 	)
 	outfit = /datum/outfit/job/mime
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/mime
 	name = "Mime"
@@ -497,7 +502,6 @@
 	suit = /obj/item/clothing/suit/suspenders
 	back = /obj/item/storage/backpack/mime
 	gloves = /obj/item/clothing/gloves/color/white
-	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/beret
 	mask = /obj/item/clothing/mask/gas/mime
 	l_ear = /obj/item/radio/headset/headset_service
@@ -547,13 +551,13 @@
 	)
 	alt_titles = list("Custodial Technician")
 	outfit = /datum/outfit/job/janitor
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/janitor
 	name = "Janitor"
 	jobtype = /datum/job/janitor
 
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/janitor
 	pda = /obj/item/pda/janitor
@@ -586,13 +590,13 @@
 	)
 	alt_titles = list("Journalist")
 	outfit = /datum/outfit/job/librarian
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/librarian
 	name = "Librarian"
 	jobtype = /datum/job/librarian
 
 	uniform = /obj/item/clothing/under/rank/civilian/librarian
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/barcodescanner

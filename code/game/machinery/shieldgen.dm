@@ -4,12 +4,10 @@
 		icon = 'icons/effects/effects.dmi'
 		icon_state = "shield-old"
 		density = TRUE
-		opacity = FALSE
 		anchored = TRUE
 		move_resist = INFINITY
 		resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		flags_2 = RAD_NO_CONTAMINATE_2
-		max_integrity = 200
 
 /obj/machinery/shield/Initialize(mapload)
 	. = ..()
@@ -124,8 +122,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
 	density = TRUE
-	opacity = FALSE
-	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(ACCESS_ENGINE)
 	var/const/max_health = 100
@@ -311,9 +307,7 @@
 /obj/machinery/shieldwallgen
 	name = "Shield Generator"
 	desc = "A shield generator."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "Shield_Gen"
-	anchored = FALSE
 	density = TRUE
 	req_access = list(ACCESS_TELEPORTER)
 	flags = CONDUCT

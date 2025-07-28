@@ -16,22 +16,22 @@ fi
 
 # Build it for CI
 cargo build --release --target $LINUX_TARGET
-cp target/$LINUX_TARGET/release/librustlibs.so ../tools/ci/librustlibs_ci_515.so
-cargo clean
-cargo build --release --target $LINUX_TARGET --no-default-features --features byond-516
-cp target/$LINUX_TARGET/release/librustlibs.so ../tools/ci/librustlibs_ci_516.so
+cp target/$LINUX_TARGET/release/librustlibs.so ../tools/ci/librustlibs_ci.so
+#cargo clean
+#cargo build --release --target $LINUX_TARGET --no-default-features --features byond-516
+#cp target/$LINUX_TARGET/release/librustlibs.so ../tools/ci/librustlibs_ci_516.so
 
 # Build it for Windows
 cargo build --release --target $WINDOWS_TARGET
-cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs_515.dll
-cargo clean
-cargo build --release --target $WINDOWS_TARGET --no-default-features --features byond-516
-cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs_516.dll
+cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs.dll
+#cargo clean
+#cargo build --release --target $WINDOWS_TARGET --no-default-features --features byond-516
+#cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs_516.dll
 
 # Build the para-specific version
 export RUSTFLAGS='-C target-cpu=znver5'
 cargo build --release --target=$WINDOWS_TARGET
-cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs_515_prod.dll
-cargo clean
-cargo build --release --target=$WINDOWS_TARGET --no-default-features --features byond-516
-cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs_516_prod.dll
+cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs_prod.dll
+#cargo clean
+#cargo build --release --target=$WINDOWS_TARGET --no-default-features --features byond-516
+#cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs_516_prod.dll

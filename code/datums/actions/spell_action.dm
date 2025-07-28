@@ -1,6 +1,5 @@
 //Preset for spells
 /datum/action/spell_action
-	check_flags = 0
 	background_icon_state = "bg_spell"
 	var/recharge_text_color = "#FFFFFF"
 

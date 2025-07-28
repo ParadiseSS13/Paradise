@@ -88,7 +88,6 @@
 /datum/action/item_action/mod/pinned_module
 	desc = "Activate the module."
 	button_icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
-	background_icon = 'icons/mob/actions/actions_mod.dmi'
 	button_icon_state = "module"
 	/// Module we are linked to.
 	var/obj/item/mod/module/module

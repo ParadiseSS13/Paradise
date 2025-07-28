@@ -34,9 +34,6 @@
 /datum/action/item_action/toggle_firemode
 	name = "Toggle Firemode"
 
-/datum/action/item_action/startchainsaw
-	name = "Pull The Starting Cord"
-
 /datum/action/item_action/print_report
 	name = "Print Report"
 
@@ -301,7 +298,6 @@
 /datum/action/item_action/bhop
 	name = "Activate Jump Boots"
 	desc = "Activates the jump boot's internal propulsion system, allowing the user to dash over 4-wide gaps."
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "jetboot"
 
 /datum/action/item_action/gravity_jump
