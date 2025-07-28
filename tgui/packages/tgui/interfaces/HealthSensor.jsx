@@ -33,7 +33,7 @@ export const HealthSensor = (props) => {
                 value={alarm_health}
                 format={(value) => toFixed(value, 1)}
                 width="80px"
-                onDrag={(value) =>
+                onChange={(value) =>
                   act('alarm_health', {
                     alarm_health: value,
                   })
