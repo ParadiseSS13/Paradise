@@ -85,6 +85,12 @@
 /// key holding a range to look for vents (recommended: 10)
 #define BB_VENT_SEARCH_RANGE "BB_VENT_SEARCH_RANGE"
 
+// Ranged
+/// Minimum range to keep target within
+#define BB_RANGED_SKIRMISH_MIN_DISTANCE "BB_ranged_skirmish_min_distance"
+/// Maximum range to keep target within
+#define BB_RANGED_SKIRMISH_MAX_DISTANCE "BB_ranged_skirmish_max_distance"
+
 // Tipped blackboards
 
 /// Bool that means a basic mob will start reacting to being tipped in its planning

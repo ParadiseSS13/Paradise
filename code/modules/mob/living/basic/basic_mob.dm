@@ -154,6 +154,19 @@ RESTRICT_TYPE(/mob/living/basic)
 	/// Footsteps
 	var/step_type
 
+	/// Does this type do range attacks?
+	var/is_ranged = FALSE
+	/// How many shots in a burst?
+	var/ranged_burst_count = 1
+	/// How fast do we fire between bursts?
+	var/ranged_burst_interval = 0.2 SECONDS
+	/// What casing type is the projectile?
+	var/casing_type
+	/// What projectile do we shoot?
+	var/projectile_type
+	/// What sound does it make when firing?
+	var/projectile_sound
+
 /mob/living/basic/Initialize(mapload)
 	. = ..()
 
@@ -164,6 +177,8 @@ RESTRICT_TYPE(/mob/living/basic)
 	apply_temperature_requirements()
 	if(step_type)
 		AddComponent(/datum/component/footstep, step_type)
+	if(is_ranged)
+		AddComponent(/datum/component/ranged_attacks, casing_type = casing_type, projectile_type = projectile_type, projectile_sound = projectile_sound, burst_shots = ranged_burst_count, burst_intervals = ranged_burst_interval)
 
 /mob/living/basic/Destroy()
 	if(nest)

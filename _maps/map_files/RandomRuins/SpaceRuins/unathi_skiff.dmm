@@ -47,7 +47,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/bar)
 "ec" = (
-/mob/living/simple_animal/hostile/drakehound_breacher,
+/mob/living/basic/drakehound_breacher,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unathi_breacher/engineering)
@@ -168,7 +168,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/drakehound_breacher,
+/mob/living/basic/drakehound_breacher,
 /obj/effect/turf_decal/siding,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/unathi_breacher/bridge)
@@ -237,7 +237,7 @@
 /area/template_noop)
 "rv" = (
 /obj/structure/chair/stool/bar,
-/mob/living/simple_animal/hostile/drakehound_breacher,
+/mob/living/basic/drakehound_breacher,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/bar)
 "rx" = (
@@ -367,7 +367,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/hostile/drakehound_breacher,
+/mob/living/basic/drakehound_breacher,
 /obj/effect/turf_decal/siding{
 	dir = 1
 	},
@@ -554,13 +554,13 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/unathi_breacher/hold)
 "QS" = (
-/mob/living/simple_animal/hostile/drakehound_breacher,
+/mob/living/basic/drakehound_breacher,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unathi_breacher/dorms)
 "RI" = (
 /obj/item/stack/rods,
 /obj/structure/table_frame,
-/mob/living/simple_animal/hostile/drakehound_breacher,
+/mob/living/basic/drakehound_breacher,
 /turf/template_noop,
 /area/template_noop)
 "Sg" = (

@@ -190,8 +190,8 @@
 	name = "random space pirate spawner"
 	icon_state = "pirate"
 	loot = list(
-		/mob/living/simple_animal/hostile/pirate,
-		/mob/living/simple_animal/hostile/pirate/ranged,
+		/mob/living/basic/pirate,
+		/mob/living/basic/pirate/ranged,
 	)
 
 /obj/effect/spawner/random/fancy_table
