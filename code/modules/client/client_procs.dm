@@ -637,7 +637,7 @@
 
 	else
 		//New player!! Need to insert all the stuff
-		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
+		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid) VALUES (null, :ckey, Now(), Now(), :ip, :cid)", list(
 			"ckey" = ckey,
 			"ip" = client_address,
 			"cid" = computer_id,
