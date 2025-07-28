@@ -1,7 +1,5 @@
 /obj/item/gun/magic/staff
 	inhand_icon_state = null
-	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = /obj/item/ammo_casing/magic
 	flags_2 = NO_MAT_REDEMPTION_2

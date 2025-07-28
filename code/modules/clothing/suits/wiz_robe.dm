@@ -126,7 +126,6 @@
 	name = "magus robe"
 	desc = "A set of armoured robes that seem to radiate a dark power."
 	icon_state = "magusblue"
-	inhand_icon_state = "b_suit"
 
 /obj/item/clothing/suit/wizrobe/magusred
 	name = "magus robe"

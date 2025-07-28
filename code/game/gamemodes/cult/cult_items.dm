@@ -249,7 +249,6 @@
 	name = "zealot's blindfold"
 	desc = "A thick blindfold made of dark cloth. The runes and sigils sewn into the fabric amplify the vision of the faithful."
 	icon_state = "blindfold"
-	see_in_dark = 8
 	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
 	flash_protect = FLASH_PROTECTION_FLASH
 	prescription = TRUE

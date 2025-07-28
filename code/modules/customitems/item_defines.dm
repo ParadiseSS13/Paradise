@@ -1227,7 +1227,6 @@
 	desc = "Designed to cover as little of face as possible while still being a functional gasmask."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "spartan_mask"
-	inhand_icon_state = "sechailer"
 	species_restricted = list("Vox")
 
 //////////// Shoes ////////////

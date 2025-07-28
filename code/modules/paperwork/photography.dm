@@ -12,7 +12,6 @@
 /obj/item/camera_film
 	name = "film cartridge"
 	desc = "A camera film cartridge. Insert it into a camera to reload it."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "film"
 	inhand_icon_state = "electropack"
 	w_class = WEIGHT_CLASS_TINY
@@ -167,7 +166,6 @@
 /obj/item/camera
 	name = "camera"
 	desc = "A polaroid camera."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "camera"
 	worn_icon_state = "camera"
 	inhand_icon_state = "camera"

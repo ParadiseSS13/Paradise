@@ -4,7 +4,6 @@
 	icon = 'icons/obj/clothing/under/captain.dmi'
 	icon_state = "captain"
 	worn_icon = 'icons/mob/clothing/under/captain.dmi'
-	inhand_icon_state = "bl_suit"
 	item_color = "captain"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/captain.dmi',

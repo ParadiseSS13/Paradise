@@ -1,7 +1,6 @@
 /obj/item/clothing/under/rank/cargo
 	icon = 'icons/obj/clothing/under/cargo.dmi'
 	worn_icon = 'icons/mob/clothing/under/cargo.dmi'
-	inhand_icon_state = "bl_suit"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/cargo.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/cargo.dmi',

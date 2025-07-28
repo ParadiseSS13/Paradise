@@ -21,7 +21,6 @@
 	origin_tech = null
 	clumsy_check = FALSE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses magic instead
-	can_holster = FALSE // Nothing here is a gun, and therefore shouldn't really fit into a holster
 
 /obj/item/gun/magic/afterattack__legacy__attackchain(atom/target, mob/living/user, flag)
 	if(no_den_usage)
