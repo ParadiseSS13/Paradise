@@ -24,11 +24,10 @@
 	icon_state = "blank"
 	painter_category = DECAL_PAINTER_CATEGORY_SQUARE
 
-#define TURF_DECAL_COLOR_HELPER(color_name, tile_color, tile_alpha)		\
+#define TURF_DECAL_COLOR_HELPER(color_name, tile_color)					\
 	/obj/effect/turf_decal/border/##color_name {						\
 		icon_state = "bordercolor";										\
 		color = ##tile_color;											\
-		alpha = ##tile_alpha											\
 	}																	\
 	/obj/effect/turf_decal/border/##color_name/corner {					\
 		icon_state = "bordercolorcorner"								\
@@ -42,7 +41,6 @@
 	/obj/effect/turf_decal/trimline/##color_name {						\
 		icon_state = "trimline_box";									\
 		color = ##tile_color;											\
-		alpha = ##tile_alpha;											\
 		painter_category = DECAL_PAINTER_CATEGORY_THIN					\
 	}																	\
 	/obj/effect/turf_decal/trimline/##color_name/line {					\
@@ -95,20 +93,20 @@
 		icon_state = "trimline_shrink_ccw"								\
 	}
 
-TURF_DECAL_COLOR_HELPER(neutral, null, 255)
-TURF_DECAL_COLOR_HELPER(black, "#444547", 255)
-TURF_DECAL_COLOR_HELPER(department/service, "#8dcd72", 255)
-TURF_DECAL_COLOR_HELPER(department/medbay, "#72a7cd", 255)
-TURF_DECAL_COLOR_HELPER(department/science, "#c794db", 255)
-TURF_DECAL_COLOR_HELPER(department/robotics, "#62416f", 255)
-TURF_DECAL_COLOR_HELPER(department/engineering, "#cdb272", 255)
-TURF_DECAL_COLOR_HELPER(department/supply, "#b99367", 255)
-TURF_DECAL_COLOR_HELPER(department/command, "#4f7ea0", 255)
-TURF_DECAL_COLOR_HELPER(department/security, "#a0514f", 255)
-TURF_DECAL_COLOR_HELPER(department/virology, "#67a04f", 255)
-TURF_DECAL_COLOR_HELPER(organization/syndicate, "#9d2300", 255)
-TURF_DECAL_COLOR_HELPER(organization/nanotrasen, "#24366f", 255)
-TURF_DECAL_COLOR_HELPER(misc/toxins, "#ff7300", 255)
+TURF_DECAL_COLOR_HELPER(neutral, null)
+TURF_DECAL_COLOR_HELPER(black, "#444547")
+TURF_DECAL_COLOR_HELPER(department/service, "#8dcd72")
+TURF_DECAL_COLOR_HELPER(department/medbay, "#72a7cd")
+TURF_DECAL_COLOR_HELPER(department/science, "#c794db")
+TURF_DECAL_COLOR_HELPER(department/robotics, "#62416f")
+TURF_DECAL_COLOR_HELPER(department/engineering, "#cdb272")
+TURF_DECAL_COLOR_HELPER(department/supply, "#b99367")
+TURF_DECAL_COLOR_HELPER(department/command, "#4f7ea0")
+TURF_DECAL_COLOR_HELPER(department/security, "#a0514f")
+TURF_DECAL_COLOR_HELPER(department/virology, "#67a04f")
+TURF_DECAL_COLOR_HELPER(organization/syndicate, "#9d2300")
+TURF_DECAL_COLOR_HELPER(organization/nanotrasen, "#24366f")
+TURF_DECAL_COLOR_HELPER(misc/toxins, "#ff7300")
 
 /obj/effect/turf_decal/alphanumeric
 	icon = 'icons/turf/alphanum_decals.dmi'
