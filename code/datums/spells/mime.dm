@@ -67,7 +67,6 @@
 	invocation_emote_self = "<span class='notice'>You form a blockade in front of yourself.</span>"
 	base_cooldown = 60 SECONDS
 	sound =  null
-	clothes_req = FALSE
 
 	action_icon_state = "mime_bigwall"
 	action_background_icon_state = "bg_mime"

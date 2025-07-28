@@ -324,7 +324,7 @@
 		EQUIPMENT("Whisky", /obj/item/reagent_containers/drinks/bottle/whiskey, 100),
 		EQUIPMENT("Beer", /obj/item/reagent_containers/drinks/bottle/beer, 50),
 		EQUIPMENT("Absinthe", /obj/item/reagent_containers/drinks/bottle/absinthe/premium, 250),
-		EQUIPMENT("Cigarettes", /obj/item/storage/fancy/cigarettes, 100),
+		EQUIPMENT("Cigarettes", /obj/item/storage/fancy/cigarettes/cigpack_robust, 100),
 		EQUIPMENT("Medical Marijuana", /obj/item/storage/fancy/cigarettes/cigpack_med, 250),
 		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
 		EQUIPMENT("Box of matches", /obj/item/storage/fancy/matches, 50),

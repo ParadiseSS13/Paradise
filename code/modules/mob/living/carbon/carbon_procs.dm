@@ -377,7 +377,7 @@
 		else
 			status_list += "<span class='notice'>You feel fatigued.</span>"
 
-	to_chat(src, chat_box_examine(status_list.Join("\n")))
+	to_chat(src, chat_box_examine(status_list.Join("<br>")))
 
 	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
@@ -548,7 +548,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	else
 		if(!do_after(src, ventcrawl_delay, target = src))
 			return
-	if(!vent_found.can_crawl_through())
+	if(!vent_found.can_crawl_through() || QDELETED(vent_found))
 		to_chat(src, "<span class='warning'>You can't vent crawl through that!</span>")
 		return
 

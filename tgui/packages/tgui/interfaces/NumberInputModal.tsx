@@ -1,25 +1,27 @@
-import { Loader } from './common/Loader';
-import { InputButtons } from './common/InputButtons';
-import { KEY_ENTER, KEY_ESCAPE } from '../../common/keycodes';
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, RestrictedInput, Section, Stack } from '../components';
+import { useState } from 'react';
+import { Box, Button, RestrictedInput, Section, Stack } from 'tgui-core/components';
+import { KEY_ENTER, KEY_ESCAPE } from 'tgui-core/keycodes';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { InputButtons } from './common/InputButtons';
+import { Loader } from './common/Loader';
 
 type NumberInputData = {
   init_value: number;
   large_buttons: boolean;
-  max_value: number | null;
+  max_value: number;
   message: string;
-  min_value: number | null;
+  min_value: number;
   timeout: number;
   title: string;
   round_value: boolean;
 };
 
-export const NumberInputModal = (props, context) => {
-  const { act, data } = useBackend<NumberInputData>(context);
+export const NumberInputModal = (props) => {
+  const { act, data } = useBackend<NumberInputData>();
   const { init_value, large_buttons, message = '', timeout, title } = data;
-  const [input, setInput] = useLocalState(context, 'input', init_value);
+  const [input, setInput] = useState(init_value);
   const onChange = (value: number) => {
     if (value === input) {
       return;
@@ -68,8 +70,8 @@ export const NumberInputModal = (props, context) => {
 };
 
 /** Gets the user input and invalidates if there's a constraint. */
-const InputArea = (props, context) => {
-  const { act, data } = useBackend<NumberInputData>(context);
+const InputArea = (props) => {
+  const { act, data } = useBackend<NumberInputData>();
   const { min_value, max_value, init_value, round_value } = data;
   const { input, onClick, onChange } = props;
   const split_value = Math.round(input !== min_value ? Math.max(input / 2, min_value) : max_value / 2);
@@ -92,9 +94,9 @@ const InputArea = (props, context) => {
           allowFloats={!round_value}
           minValue={min_value}
           maxValue={max_value}
-          onChange={(_, value) => onChange(value)}
-          onEnter={(_, value) => act('submit', { entry: value })}
           value={input}
+          onChange={onChange}
+          onEnter={(value) => act('submit', { entry: value })}
         />
       </Stack.Item>
       <Stack.Item>

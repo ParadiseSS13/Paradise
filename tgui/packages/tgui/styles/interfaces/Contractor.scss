@@ -1,7 +1,5 @@
 .Contractor {
-  * {
-    font-family: 'Courier New', Courier, monospace;
-  }
+  --font-family: 'Courier New', Courier, monospace;
 
   .Section__titleText {
     display: inline-block;
@@ -31,8 +29,6 @@
 
   & > img {
     width: 96px;
-    -ms-interpolation-mode: nearest-neighbor; // TODO: Remove with 516
-    image-rendering: pixelated;
   }
 
   & > .Button {

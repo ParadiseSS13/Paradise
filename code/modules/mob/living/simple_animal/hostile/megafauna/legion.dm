@@ -49,7 +49,6 @@ Difficulty: Medium
 	enraged_loot = /obj/item/disk/fauna_research/legion
 	vision_range = 13
 	elimination = TRUE
-	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
 	appearance_flags = 512
 	contains_xeno_organ = TRUE
@@ -236,4 +235,3 @@ Difficulty: Medium
 	icon_state = null
 	gpstag = "Echoing Signal"
 	desc = "The message repeats."
-	invisibility = 100

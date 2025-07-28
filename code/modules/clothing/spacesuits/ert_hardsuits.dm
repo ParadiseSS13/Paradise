@@ -78,15 +78,10 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ert/commander
 	name = "emergency response team commander helmet"
 	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one has blue Command stripes."
-	icon_state = "hardsuit0-ert_commander"
-	item_state = "helm-command"
-	item_color = "ert_commander"
 
 /obj/item/clothing/suit/space/hardsuit/ert/commander
 	name = "emergency response team commander suit"
 	desc = "A powered combat hardsuit produced by Citadel Armories. Decently armored, environmentally sealed, and fire-resistant. This one is covered in blue Command livery."
-	icon_state = "ert_commander"
-	item_state = "suit-command"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/commander
 
 //Security
@@ -141,7 +136,6 @@
 	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = INFINITY, FIRE = 200, ACID = 200)
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
-	slowdown = 0
 
 //Medical
 /obj/item/clothing/head/helmet/space/hardsuit/ert/medical
@@ -181,7 +175,6 @@
 	icon_state = "hardsuit0-ert_paranormal"
 	item_color = "ert_paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
@@ -196,7 +189,6 @@
 	icon_state = "hardsuit-paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
-	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -227,7 +219,6 @@
 	icon_state = "ert_solgov_marine"
 	item_state = "ert_solgov_marine"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov
-	slowdown = 0
 	armor = list(MELEE = 25, BULLET = 75, LASER = 10, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov/command

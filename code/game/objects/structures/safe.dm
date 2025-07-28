@@ -20,7 +20,6 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe
 	name = "safe"
 	desc = "A huge chunk of metal with a dial embedded in it. Fine print on the dial reads \"Scarborough Arms tumbler safe, guaranteed thermite resistant, explosion resistant, and assistant resistant.\""
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "safe"
 	anchored = TRUE
 	density = TRUE

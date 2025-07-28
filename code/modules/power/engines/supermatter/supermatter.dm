@@ -97,7 +97,6 @@
 	icon = 'icons/obj/supermatter.dmi'
 	icon_state = "darkmatter"
 	density = TRUE
-	anchored = TRUE
 	layer = ABOVE_MOB_LAYER + 0.01
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2 | IMMUNE_TO_SHUTTLECRUSH_2 | NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
@@ -1001,8 +1000,6 @@
 				l_color = "#ddd6cf")
 
 /obj/effect/warp_effect/supermatter
-	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PIXEL_SCALE|LONG_GLIDE // no tile bound so you can see it around corners and so
 	icon = 'icons/effects/light_352.dmi'
 	icon_state = "light"
 	pixel_x = -176
