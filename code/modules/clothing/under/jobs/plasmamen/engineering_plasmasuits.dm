@@ -18,7 +18,6 @@
 	item_color = "atmos_envirosuit"
 
 /obj/item/clothing/under/plasmaman/atmospherics/contortionist
-	name = "atmospherics plasma envirosuit"
 	desc = "An airtight suit designed to be used by plasmemen for squeezing through narrow vents."
 	resistance_flags = FIRE_PROOF
 

@@ -41,7 +41,6 @@
 	name = "health scanner HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
 	icon_state = "healthhud"
-	origin_tech = "magnets=3;biotech=2"
 	hud_types = DATA_HUD_MEDICAL_ADVANCED
 
 /obj/item/clothing/glasses/hud/health/night
@@ -110,7 +109,6 @@
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
-	prescription_upgradable = TRUE
 	hide_examine = TRUE
 
 /obj/item/clothing/glasses/hud/security/sunglasses/jensenshades
@@ -150,7 +148,6 @@
 	see_in_dark = 1 // None of these three can be converted to booleans. Do not try it.
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
-	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/hud/janitor
 	name = "janitor HUD"

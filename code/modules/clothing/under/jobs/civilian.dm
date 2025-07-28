@@ -89,7 +89,6 @@
 
 /obj/item/clothing/under/rank/civilian/clown/skirt
 	name = "clown skirt"
-	desc = "<i>'HONK!'</i>"
 	icon_state = "clown_skirt"
 	item_color = "clown_skirt"
 
@@ -110,7 +109,6 @@
 
 /obj/item/clothing/under/rank/civilian/mime/skirt
 	name = "mime's skirt"
-	desc = "It's not very colourful."
 	icon_state = "mime_skirt"
 	item_color = "mime_skirt"
 	dyeable = TRUE

@@ -92,7 +92,6 @@
 	name = "ancient jumpsuit"
 	desc = "A terribly ragged and frayed grey jumpsuit. It looks like it hasn't been washed in over a decade."
 	icon_state = "ancient"
-	inhand_icon_state = "gy_suit"
 	item_color = "ancient"
 
 /obj/item/clothing/under/color/orange
@@ -110,7 +109,6 @@
 	item_color = "orangeskirt"
 
 /obj/item/clothing/under/color/orange/prison
-	name = "orange jumpsuit"
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
 	icon_state = "prisoner"
 	inhand_icon_state = "prisoner"
@@ -119,7 +117,6 @@
 	sensor_mode = SENSOR_COORDS
 
 /obj/item/clothing/under/color/jumpskirt/orange/prison
-	name = "orange jumpskirt"
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
 	icon_state = "prisonerjumpskirt"
 	inhand_icon_state = "prisoner"
@@ -317,12 +314,10 @@
 	name = "red team jersey"
 	desc = "The jersey of the Nanotrasen Phi-ghters!"
 	icon_state = "redjersey"
-	inhand_icon_state = "r_suit"
 	item_color = "redjersey"
 
 /obj/item/clothing/under/color/blue/jersey
 	name = "blue team jersey"
 	desc = "The jersey of the Nanotrasen Pi-rates!"
 	icon_state = "bluejersey"
-	inhand_icon_state = "b_suit"
 	item_color = "bluejersey"

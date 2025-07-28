@@ -11,10 +11,8 @@ GLOBAL_LIST_EMPTY(status_displays)
 	icon_state = "frame"
 	name = "status display"
 	anchored = TRUE
-	density = FALSE
 	idle_power_consumption = 10
 	maptext_height = 26
-	maptext_width = 32
 	maptext_y = -1
 
 	/// Status display mode

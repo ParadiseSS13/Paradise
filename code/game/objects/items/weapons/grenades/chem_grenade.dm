@@ -8,7 +8,6 @@
 	icon_state = "chemg"
 	var/bomb_state = "chembomb"
 	var/payload_name = null // used for spawned grenades
-	w_class = WEIGHT_CLASS_SMALL
 	force = 2
 	var/prime_sound = 'sound/items/screwdriver2.ogg'
 	var/stage = EMPTY
@@ -393,7 +392,6 @@
 	desc = "A custom made pyrotechnical grenade. It heats up and ignites its contents upon detonation."
 	icon_state = "pyrog"
 	origin_tech = "combat=4;engineering=4"
-	affected_area = 3
 	ignition_temp = 500 // This is enough to expose a hotspot.
 
 /// Intended for weaker, but longer lasting effects. Could have some interesting uses.

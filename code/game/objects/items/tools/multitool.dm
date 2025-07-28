@@ -13,16 +13,11 @@
 	icon_state = "multitool"
 	belt_icon = "multitool"
 	flags = CONDUCT
-	force = 0
-	w_class = WEIGHT_CLASS_NORMAL
-	throwforce = 0
-	throw_range = 7
 	throw_speed = 3
 	drop_sound = 'sound/items/handling/multitool_drop.ogg'
 	pickup_sound =  'sound/items/handling/multitool_pickup.ogg'
 	materials = list(MAT_METAL = 300, MAT_GLASS = 140)
 	origin_tech = "magnets=1;engineering=2"
-	toolspeed = 1
 	tool_behaviour = TOOL_MULTITOOL
 	hitsound = 'sound/weapons/tap.ogg'
 	new_attack_chain = TRUE
@@ -169,7 +164,6 @@
 	return OBLITERATION
 
 /obj/item/multitool/cyborg
-	name = "multitool"
 	desc = "An integrated multitool used for electrical maintenance, typically found in construction and engineering robots."
 	toolspeed = 0.5
 

@@ -10,7 +10,6 @@ GLOBAL_LIST_EMPTY(air_injectors)
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF //really helpful in building gas chambers for xenomorphs
 
 	can_unwrench = TRUE
-	can_unwrench_while_on = TRUE
 
 	name = "air injector"
 	desc = "Has a valve and pump attached to it."

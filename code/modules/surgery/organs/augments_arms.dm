@@ -613,7 +613,6 @@
 	name = "shell launch system internal magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
 	max_ammo = 1
-	multiload = FALSE
 
 /obj/item/organ/internal/cyberimp/arm/shell_launcher
 	name = "shell launch system implant"
@@ -712,7 +711,6 @@
 	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interrupted", "gored")
 	hitsound = 'sound/effects/bang.ogg'
 	light_power = 3
-	light_range = 0
 	light_color = "#9933ff"
 	hit_reaction_chance = -1
 	flags = ABSTRACT
@@ -837,7 +835,6 @@
 	name = "mantis blade"
 	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action. \
 	When both blades are equipped, they enable the user to perform double attacks."
-	icon = 'icons/obj/weapons/melee.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'

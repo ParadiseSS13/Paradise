@@ -264,7 +264,6 @@
 	return TRUE
 
 /datum/spell/horror
-	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	var/datum/action/innate/cult/blood_spell/attached_action
 

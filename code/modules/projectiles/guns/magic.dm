@@ -9,7 +9,6 @@
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	fire_sound = 'sound/weapons/emitter.ogg'
 	fire_sound_text = "energy blast"
-	flags = CONDUCT
 	w_class = WEIGHT_CLASS_HUGE
 	var/max_charges = 6
 	var/charges = 0

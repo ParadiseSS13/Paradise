@@ -216,13 +216,10 @@
 	)
 
 /obj/item/storage/belt/medical/surgery
-	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 17
-	use_to_pickup = TRUE
 	name = "surgical belt"
 	desc = "Can hold various surgical tools."
 	storage_slots = 9
-	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/scalpel,
 		/obj/item/hemostat,
@@ -365,7 +362,6 @@
 	inhand_icon_state = "webbing"
 	storage_slots = 15
 	max_combined_w_class = 25
-	use_item_overlays = FALSE
 	layer_over_suit = TRUE
 	w_class_override = list(
 		/obj/item/crowbar,
@@ -699,7 +695,6 @@
 	desc = "A dorky fannypack for keeping small items in."
 	icon_state = "fannypack_leather"
 	storage_slots = 3
-	max_w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
@@ -828,7 +823,6 @@
 	inhand_icon_state = "utility"
 	storage_slots = 14
 	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
@@ -850,7 +844,6 @@
 	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 18
-	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	allow_quick_empty = TRUE
 	can_hold = list(
 		/obj/item/grenade/smokebomb,
@@ -956,7 +949,6 @@
 	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 20
-	use_item_overlays = FALSE
 	layer_over_suit = TRUE
 	can_hold = list(
 		/obj/item/crowbar,
@@ -995,7 +987,8 @@
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
-		/obj/item/stack/marker_beacon)
+		/obj/item/stack/marker_beacon,
+		/obj/item/grenade/plastic/miningcharge)
 
 /obj/item/storage/belt/mining/vendor/Initialize(mapload)
 	. = ..()

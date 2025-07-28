@@ -126,8 +126,6 @@
 	icon_state = "alien_acid"
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	force = 0
-	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
 	var/datum/action/changeling/biodegrade/parent_action

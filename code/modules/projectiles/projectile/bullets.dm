@@ -1,9 +1,6 @@
 /obj/item/projectile/bullet
 	name = "bullet"
-	icon_state = "bullet"
 	damage = 60
-	damage_type = BRUTE
-	flag = "bullet"
 	hitsound_wall = "ricochet"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 
@@ -102,9 +99,6 @@
 /obj/item/projectile/bullet/pellet/rubber/stinger
 	name = "stingball"
 	damage = 1
-	stamina = 12.5
-	icon_state = "bullet-r"
-	armour_penetration_flat = -10
 
 /obj/item/projectile/bullet/pellet/assassination
 	damage = 12

@@ -97,7 +97,6 @@
 	name = "blast wave"
 	icon_state = "blastwave"
 	damage = 0
-	nodamage = FALSE
 	forcedodge = -1
 	range = 150
 	var/heavyr = 0

@@ -12,7 +12,6 @@
 	icon_state = "ore"
 	lefthand_file = 'icons/mob/inhands/ore_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/ore_righthand.dmi'
-	max_amount = 50
 	singular_name = "ore chunk"
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
@@ -52,7 +51,6 @@
 	name = "sand pile"
 	desc = "A coarse, dust mainly composed of quartz and silica-rich rock. Among its many uses, it can be refined into glass when fired at high tempratures."
 	icon_state = "sand"
-	origin_tech = "materials=1"
 	singular_name = "sand pile"
 	points = 1
 	refined_type = /obj/item/stack/sheet/glass
@@ -108,14 +106,12 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/stack/ore/glass/basalt/ancient
 	name = "ancient sand"
 	desc = "Basultic sand mined from an exceptionally old and compacted formation."
-	icon_state = "volcanic_sand"
 	singular_name = "ancient sand pile"
 
 /obj/item/stack/ore/iron
 	name = "iron ore"
 	desc = "Exceptionally common ore that can be refined into iron and steel."
 	icon_state = "iron_ore"
-	origin_tech = "materials=1"
 	singular_name = "iron ore chunk"
 	points = 1
 	refined_type = /obj/item/stack/sheet/metal

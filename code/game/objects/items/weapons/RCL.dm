@@ -4,50 +4,54 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcl-0"
 	inhand_icon_state = "rcl-0"
-	opacity = FALSE
 	force = 5 //Plastic is soft
 	throwforce = 5
 	throw_speed = 1
-	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=4;materials=2"
 	var/max_amount = 90
 	var/active = FALSE
 	var/obj/structure/cable/last = null
 	var/obj/item/stack/cable_coil/loaded = null
+	new_attack_chain = TRUE
 
 /obj/item/rcl/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed)
 
-/obj/item/rcl/attackby__legacy__attackchain(obj/item/W, mob/user)
-	if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = W
-		if(!loaded)
-			if(user.drop_item())
-				loaded = W
-				loaded.forceMove(src)
-				loaded.max_amount = max_amount //We store a lot.
-			else
-				to_chat(user, "<span class='warning'>[user.get_active_hand()] is stuck to your hand!</span>")
-				return
-		else
-			if(loaded.amount < max_amount)
-				var/amount = min(loaded.amount + C.get_amount(), max_amount)
-				C.use(amount - loaded.amount)
-				loaded.amount = amount
-			else
-				return
-		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, "<span class='notice'>You add the cables to [src]. It now contains [loaded.amount].</span>")
+/obj/item/rcl/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/stack/cable_coil))
+		return ..()
+
+	var/obj/item/stack/cable_coil/coil = used
+	if(!loaded)
+		if(!user.transfer_item_to(coil, src))
+			to_chat(user, "<span class='warning'>[coil] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
+		loaded = coil
+		loaded.max_amount = max_amount //We store a lot.
 	else
-		..()
+		if(loaded.amount >= max_amount)
+			to_chat(user, "<span class='warning'>You cannot fit any more cable on [src]!</span>")
+			return ITEM_INTERACT_COMPLETE
+
+		var/amount = min(loaded.amount + coil.get_amount(), max_amount)
+		coil.use(amount - loaded.amount)
+		loaded.amount = amount
+		refresh_icon(user)
+		to_chat(user, "<span class='notice'>You add the cables to [src]. It now contains [loaded.amount].</span>")
+		return ITEM_INTERACT_COMPLETE
+
+/obj/item/rcl/proc/refresh_icon(mob/user)
+	update_icon(UPDATE_ICON_STATE)
+	user.update_inv_l_hand()
+	user.update_inv_r_hand()
 
 /obj/item/rcl/screwdriver_act(mob/user, obj/item/I)
 	if(!loaded)
+		to_chat(user, "<span class='warning'>There's no cable to remove!</span>")
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, FALSE, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You loosen the securing screws on the side, allowing you to lower the guiding edge and retrieve the wires.</span>")
 	while(loaded.amount > 30) //There are only two kinds of situations: "nodiff" (60,90), or "diff" (31-59, 61-89)
@@ -62,12 +66,14 @@
 	loaded.forceMove(user.loc)
 	user.put_in_hands(loaded)
 	loaded = null
-	update_icon(UPDATE_ICON_STATE)
+	refresh_icon(user)
 
 /obj/item/rcl/examine(mob/user)
 	. = ..()
 	if(loaded)
 		. += "<span class='notice'>It contains [loaded.amount]/[max_amount] cables.</span>"
+	else
+		. += "<span class='warning'>It's empty!</span>"
 
 /obj/item/rcl/Destroy()
 	QDEL_NULL(loaded)
@@ -92,10 +98,10 @@
 	inhand_icon_state = "rcl[loaded.amount ? "" : "-0"]"
 
 /obj/item/rcl/proc/is_empty(mob/user, loud = 1)
-	update_icon(UPDATE_ICON_STATE)
+	refresh_icon(user)
 	if(!loaded || !loaded.amount)
 		if(loud)
-			to_chat(user, "<span class='notice'>The last of the cables unreel from [src].</span>")
+			to_chat(user, "<span class='warning'>The last of the cables unreel from [src]!</span>")
 		if(loaded)
 			qdel(loaded)
 			loaded = null
@@ -107,8 +113,10 @@
 	active = FALSE
 	last = null
 
-/obj/item/rcl/attack_self__legacy__attackchain(mob/user)
-	..()
+/obj/item/rcl/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
+
 	active = HAS_TRAIT(src, TRAIT_WIELDED)
 	if(!active)
 		last = null
@@ -124,7 +132,7 @@
 
 /obj/item/rcl/proc/trigger(mob/user)
 	if(is_empty(user, 0))
-		to_chat(user, "<span class='warning'>\The [src] is empty!</span>")
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
 	if(last)
 		if(get_dist(last, user) == 1) //hacky, but it works

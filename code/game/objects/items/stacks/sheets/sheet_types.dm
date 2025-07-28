@@ -139,7 +139,6 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	throwforce = 10.0
 	flags = CONDUCT
 	resistance_flags = FIRE_PROOF
-	origin_tech = "materials=1"
 	merge_type = /obj/item/stack/sheet/metal
 	point_value = 2
 	table_type = /obj/structure/table
@@ -460,7 +459,6 @@ GLOBAL_LIST_INIT(durathread_recipes, list (
 	desc = "A bundle of raw durathread ready to be spun on the loom."
 	singular_name = "raw durathread ball"
 	icon_state = "sheet-durathreadraw"
-	icon = 'icons/obj/stacks/organic.dmi'
 	merge_type = /obj/item/stack/sheet/cotton/durathread
 	pull_effort = 70
 	loom_result = /obj/item/stack/sheet/durathread
@@ -537,7 +535,6 @@ GLOBAL_LIST_INIT(soil_recipes, list (
 	desc = "A clump of fertile soil which can be used to make a plot."
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-soil"
-	origin_tech = "materials=1"
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/soil
 

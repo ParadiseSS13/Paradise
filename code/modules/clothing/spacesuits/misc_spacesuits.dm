@@ -5,7 +5,6 @@
 	icon_state = "capspace"
 	inhand_icon_state = "capspacehelmet"
 	flags_inv = HIDEFACE
-	permeability_coefficient = 0.01
 	armor = list(MELEE = 35, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 50, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
@@ -26,7 +25,6 @@
 	desc = "A bulky, heavy-duty piece of exclusive Nanotrasen armor. YOU are in charge!"
 	icon_state = "caparmor"
 	inhand_icon_state = "capspacesuit"
-	w_class = WEIGHT_CLASS_BULKY
 	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
 	armor = list(MELEE = 35, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 50, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
@@ -59,7 +57,6 @@
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	strip_delay = 130
 	dog_fashion = /datum/dog_fashion/back/deathsquad
-	dyeable = FALSE
 
 /obj/item/clothing/suit/space/deathsquad/Initialize(mapload)
 	. = ..()
@@ -91,8 +88,6 @@
 	flags_inv = 0
 	slowdown = 0
 	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	flags_2 = RAD_PROTECT_CONTENTS_2
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/space/deathsquad/officer/solgov

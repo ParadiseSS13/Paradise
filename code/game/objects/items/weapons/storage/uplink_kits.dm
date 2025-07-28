@@ -500,7 +500,6 @@
 	new /obj/item/reagent_containers/syringe/pancuronium(src)
 
 /obj/item/storage/box/syndie_kit/nuke
-	name = "box"  //Bit of stealth, since you spawn with it
 	desc = "It's just an ordinary box."
 	icon_state = "box"
 
@@ -510,7 +509,6 @@
 	new /obj/item/paper/guides/antag/nuke_instructions(src)
 
 /obj/item/storage/box/syndie_kit/supermatter
-	name = "box"
 	desc = "It's just an ordinary box."
 	icon_state = "box"
 

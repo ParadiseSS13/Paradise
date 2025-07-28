@@ -4,8 +4,6 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "mail_misc"
 	inhand_icon_state = "paper"
-	force = 0
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
@@ -231,8 +229,6 @@
 /obj/item/mail_scanner
 	name = "mail scanner"
 	desc = "A portable mail scanner, this device allows you to log mail deliveries in exchange for financial compensation."
-	force = 0
-	throwforce = 0
 	icon = 'icons/obj/device.dmi'
 	icon_state = "mail_scanner"
 	lefthand_file = 'icons/mob/inhands/items/devices_lefthand.dmi'

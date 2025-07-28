@@ -9,7 +9,6 @@
 	hitsound = 'sound/items/handling/salvagepickup.ogg'
 	pickup_sound = 'sound/items/handling/salvagepickup.ogg'
 	drop_sound = 'sound/items/handling/salvagedrop.ogg'
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/salvage/examine(mob/user)
 	. = ..()

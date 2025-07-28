@@ -16,7 +16,6 @@
 	attack_verb = list("stabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/screwdriver.ogg'
-	toolspeed = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
 	pickup_sound =  'sound/items/handling/screwdriver_pickup.ogg'
@@ -33,7 +32,6 @@
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/screwdriver/nuke
-	name = "screwdriver"
 	desc = "A specialized screwdriver with an ultra-thin flathead tip, meant for accessing very specific machinery."
 	icon_state = "screwdriver_nuke"
 	belt_icon = "screwdriver_nuke"

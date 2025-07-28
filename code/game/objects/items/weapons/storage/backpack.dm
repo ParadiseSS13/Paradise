@@ -94,8 +94,6 @@
 	name = "Santa's Gift Bag"
 	desc = "Space Santa uses this to deliver toys to all the nice children in space on Christmas! Wow, it's pretty big!"
 	icon_state = "giftbag0"
-	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 400 // can store a ton of shit!
 
 /obj/item/storage/backpack/cultpack
@@ -163,7 +161,6 @@
 	name = "atmospherics backpack"
 	desc = "It's a fireproof backpack for Atmospherics Staff."
 	icon_state = "atmospack"
-	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/explorer
 	name = "explorer bag"
@@ -720,7 +717,6 @@
 	desc = "Not recommended for wizardly consumption. Recommended for mundane consumption!"
 	icon_state = "holyflask"
 	color = "#DC0000"
-	volume = 100
 	list_reagents = list("dragonsbreath" = 80, "hell_water" = 20)
 
 /obj/item/reagent_containers/drinks/bottle/immortality

@@ -72,7 +72,7 @@
 /turf/template_noop,
 /area/ruin/space/derelict/teleporter)
 "hg" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/template_noop)
 "ic" = (
@@ -346,7 +346,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "HL" = (
-/mob/living/simple_animal/hostile/carp/megacarp,
+/mob/living/basic/carp/megacarp,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)

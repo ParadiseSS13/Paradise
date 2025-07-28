@@ -181,7 +181,6 @@
 /datum/robot_component/binary_communication
 	name = "binary communication device"
 	external_type = /obj/item/robot_parts/robot_component/binary_communication_device
-	max_damage = 30
 
 /datum/robot_component/camera
 	name = "camera"
@@ -199,7 +198,6 @@
 /datum/robot_component/diagnosis_unit
 	name = "self-diagnosis unit"
 	external_type = /obj/item/robot_parts/robot_component/diagnosis_unit
-	max_damage = 30
 
 /mob/living/silicon/robot/proc/initialize_components()
 	// This only initializes the components, it doesn't set them to installed.

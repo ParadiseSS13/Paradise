@@ -34,9 +34,7 @@
 	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. This one has an extended range."
 	icon_state = "mining0"
 	inhand_icon_state = "analyzer"
-	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = ITEM_SLOT_BELT
 	var/cooldown = 35
 	var/current_cooldown = 0
 	var/range = 7

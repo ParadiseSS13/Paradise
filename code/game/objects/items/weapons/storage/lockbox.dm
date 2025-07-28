@@ -5,7 +5,6 @@
 	inhand_icon_state = "syringe_kit"
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
-	max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 4
 	req_access = list(ACCESS_ARMORY)
 	var/locked = TRUE

@@ -38,16 +38,10 @@
 	name = "combat vest"
 	desc = "A soft armor vest suitable for stopping minor impacts."
 	icon_state = "armor-combat"
-	blood_overlay_type = "armor"
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
 	desc = "A Level II soft armor vest used by Nanotrasen corporate security. Offers light protection against kinetic impacts and lasers, and has a clip for a holobadge."
-	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-	)
-	icon_state = "armor"
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
 /obj/item/clothing/suit/armor/vest/security/attackby__legacy__attackchain(obj/item/I, mob/user, params)
@@ -95,10 +89,6 @@
 	name = "blueshield's security armor"
 	desc = "A Level II soft armor vest used by Nanotrasen's Blueshield bodyguard corps. Provides identical protection to standard Security soft vests."
 	icon_state = "blueshield"
-	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-	)
 
 /obj/item/clothing/suit/armor/vest/bloody
 	name = "bloodied security armor"
@@ -182,7 +172,6 @@
 	name = "warden's armored jacket"
 	desc = "A comfortable armored jacket fitted with Level II plate inserts for moderate protection. This one has silver livery on the shoulders to denote rank."
 	icon_state = "warden_jacket"
-	inhand_icon_state = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|HANDS
@@ -205,7 +194,6 @@
 	name = "captain's carapace"
 	desc = "A fancy blue & gold dragonscale armor vest fitted with Level III and IV armor panelling. Offers excellent protection against melee attacks, kinetic impacts, and laser discharges. "
 	icon_state = "captain_carapace"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 450)
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
@@ -301,7 +289,6 @@
 	name = "durathread vest"
 	desc = "A comfortable and low-profile vest made of durathread, reinforced with panels of tanned leather. Offers decent protection against laser discharges, but won't be stopping a bullet any time soon."
 	icon_state = "durathread"
-	strip_delay = 60
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 35, ACID = 50)
@@ -338,7 +325,6 @@
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50,RAD = 10, FIRE = INFINITY, ACID = INFINITY)
 	strip_delay = 12 SECONDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "ablative armor vest"
@@ -368,10 +354,6 @@
 	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/reagent_containers/spray/pepper,/obj/item/flashlight,/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/detective_scanner,/obj/item/taperecorder)
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
-	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-	)
 
 //Reactive armor
 /obj/item/clothing/suit/armor/reactive
@@ -731,29 +713,23 @@
 	w_class = WEIGHT_CLASS_BULKY
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
 					/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
 					/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
 					/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
 	flags = THICKMATERIAL | STOPSPRESSUREDMAGE
-	slowdown = 0
 	strip_delay = 12 SECONDS
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/suit/armor/federation/marine/officer
 	name = "\improper Federation marine officer's armor"
 	icon_state = "fedarmor_marine_officer"
 	desc = "A full-body suit of semi-powered assault armor used by the Trans-Solar Marine Corps. Offers excellent protection in all areas without impairing movement. This suit has golden stripes instead of the typical white."
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/suit/armor/federation/marine/export
 	name = "\improper Federation marine combat armor (E)"
 	desc = "An export-grade suit of semi-powered assault armor commonly sold or given to allies of the Trans-Solar Federation. It has moderately reduced capabilites compared to a standard suit."
 	armor = list(MELEE = 30, BULLET = 35, LASER = 35, ENERGY = 30, BOMB = 50, RAD = 0, FIRE = 100, ACID = 50)
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 //Non-hardsuit ERT armor.
 /obj/item/clothing/suit/armor/vest/ert
@@ -852,7 +828,6 @@
 	armor = list(MELEE = 25, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 75, ACID = 75)
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
-	body_parts_covered = HEAD
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 

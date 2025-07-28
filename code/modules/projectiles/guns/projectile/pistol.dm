@@ -2,15 +2,12 @@
 /obj/item/gun/projectile/automatic/pistol
 	name = "stechkin pistol"
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
-	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	can_holster = TRUE
-	mag_type = /obj/item/ammo_box/magazine/m10mm
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
-	can_suppress = TRUE
 	burst_size = 1
 	fire_delay = 0
 	execution_speed = 4 SECONDS
@@ -35,7 +32,6 @@
 	icon_state = "enforcer_grey"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/enforcer
-	can_suppress = TRUE
 	unique_reskin = TRUE
 	can_flashlight = TRUE
 
@@ -100,7 +96,6 @@
 	desc = "A deadly automatic pistol produced by the USSP's State Armory. Uses 10mm ammo."
 	icon_state = "aps"
 	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "combat=3;materials=2;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/apsm10mm
 	can_suppress = FALSE
 	burst_size = 3

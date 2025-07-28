@@ -4,7 +4,6 @@
 /obj/item/reagent_containers/glass/bottle
 	name = "bottle"
 	desc = "A small bottle."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle"
 	inhand_icon_state = "bottle"
 	possible_transfer_amounts = list(5, 10, 15, 25, 30, 40, 50)
@@ -247,7 +246,6 @@
 /obj/item/reagent_containers/glass/bottle/thermite
 	name = "thermite bottle"
 	desc = "A small bottle of thermite, a substance that burns extremely hot."
-	icon_state = "bottle"
 	list_reagents = list("thermite" = 50)
 
 ////////////////////Traitor Poison Bottle//////////////////////////////

@@ -16,10 +16,8 @@
 	icon_state = "pen"
 	inhand_icon_state = "pen"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_EARS
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=10)
 	var/colour = "black"	//what colour the ink is!
 	pressure_resistance = 2
@@ -47,7 +45,6 @@
 
 /obj/item/pen/invisible
 	desc = "It's an invisible pen marker."
-	icon_state = "pen"
 	colour = "white"
 
 /obj/item/pen/multi
@@ -180,7 +177,6 @@
 	desc = "A fancy metal pen. An inscription on one side reads, \"L.L. - L.R.\""
 	icon_state = "fancypen"
 	container_type = (DRAINABLE | TRANSPARENT) //cannot be refilled, but pax can be extracted for use in other items with syringe
-	origin_tech = "engineering=4;syndicate=2"
 	transfer_amount = 25 // 4 Dosages instead of 2
 
 /obj/item/pen/sleepy/love/Initialize(mapload)

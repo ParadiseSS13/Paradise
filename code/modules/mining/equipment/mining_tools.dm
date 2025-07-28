@@ -17,7 +17,6 @@
 	sharp = TRUE
 	var/excavation_amount = 100
 	usesound = 'sound/effects/picaxe1.ogg'
-	toolspeed = 1
 
 /obj/item/pickaxe/Initialize(mapload)
 	. = ..()
@@ -133,7 +132,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 8
 	throwforce = 4
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 200)
 	origin_tech = "materials=2;engineering=2"
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")

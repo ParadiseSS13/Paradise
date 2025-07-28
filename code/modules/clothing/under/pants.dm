@@ -104,9 +104,7 @@
 /obj/item/clothing/under/pants/shorts
 	name = "athletic shorts"
 	desc = "95% Polyester, 5% Spandex!"
-	gender = PLURAL
 	body_parts_covered = LOWER_TORSO
-	displays_id = FALSE
 
 /obj/item/clothing/under/pants/shorts/red
 	icon_state = "redshorts"

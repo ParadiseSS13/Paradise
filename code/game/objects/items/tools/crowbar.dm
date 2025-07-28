@@ -9,13 +9,11 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 5
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 300)
 	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
 	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
-	toolspeed = 1
 
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_CROWBAR
@@ -111,7 +109,6 @@
 /obj/item/crowbar/power
 	name = "jaws of life"
 	desc = "A compact and powerful industrial tool with a modular head. This one has a set of prying jaws attached, which are strong enough to pry open powered airlocks."
-	flags = CONDUCT
 	icon_state = "jaws_pry"
 	inhand_icon_state = "jawsoflife"
 	belt_icon = "jaws"
@@ -120,7 +117,6 @@
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 15
 	toolspeed = 0.25
-	w_class = WEIGHT_CLASS_NORMAL
 	var/airlock_open_time = 100 // Time required to open powered airlocks
 
 /obj/item/crowbar/power/Initialize(mapload)

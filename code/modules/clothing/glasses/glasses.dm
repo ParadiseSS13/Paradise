@@ -227,7 +227,6 @@
 	prescription = TRUE
 
 /obj/item/clothing/glasses/regular/hipster
-	name = "prescription glasses"
 	desc = "Made by Uncool. Co."
 	icon_state = "hipster_glasses"
 
@@ -264,9 +263,6 @@
 	desc = "Cheap, plastic sunglasses. They don't even have UV protection."
 	icon_state = "sun"
 	inhand_icon_state = "sunglasses"
-	see_in_dark = 0
-	flash_protect = FLASH_PROTECTION_NONE
-	tint = FLASH_PROTECTION_NONE
 	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/sunglasses/noir
@@ -354,7 +350,6 @@
 	desc = "Welding goggles made from more expensive materials, strangely smells like potatoes."
 	icon_state = "rwelding-g"
 	inhand_icon_state = "glasses"
-	flash_protect = FLASH_PROTECTION_WELDER
 	tint = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/glasses/sunglasses/blindfold

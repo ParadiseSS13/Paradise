@@ -107,7 +107,6 @@
 	name = "syndicate headset"
 	desc = "A syndicate headset that can be used to hear all radio frequencies. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
-	origin_tech = "syndicate=3"
 	icon_state = "syndie_headset"
 	worn_icon_state = "syndie_headset"
 

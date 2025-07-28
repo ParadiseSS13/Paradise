@@ -12,7 +12,6 @@
 /obj/item/bikehorn
 	name = "bike horn"
 	desc = "A horn off of a bicycle."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "bike_horn"
 	inhand_icon_state = "bike_horn"
 	throwforce = 3
@@ -74,7 +73,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 180, MAT_GLASS = 90)
 	force = 2
-	throwforce = 0
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	actions_types = list(/datum/action/item_action/laugh_track)

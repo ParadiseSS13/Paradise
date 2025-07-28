@@ -220,7 +220,6 @@
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/cyborg
 	desc = "One and done!"
-	icon_state = "crossbowlarge"
 	origin_tech = null
 	materials = list()
 
@@ -468,7 +467,6 @@
 	icon_state = "toxgun"
 	inhand_icon_state = "toxgun"
 	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi') //This apperently exists, and I have the sprites so sure.
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/weak_plasma, /obj/item/ammo_casing/energy/charged_plasma)
 	shaded_charge = TRUE
@@ -626,7 +624,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
-	can_holster = FALSE
 	slot_flags = ITEM_SLOT_BACK
 	cell_type = /obj/item/stock_parts/cell/bsg
 	shaded_charge = TRUE
@@ -1087,7 +1084,6 @@
 	desc = "A broadhead spike made out of a weird silvery metal."
 	projectile_type = /obj/item/projectile/bullet/spike
 	muzzle_flash_effect = null
-	e_cost = 100
 	select_name = "spike"
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 
@@ -1126,7 +1122,6 @@
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast
 	variance = 70
 	pellets = 8
-	e_cost = 100
 	delay = 1.2 SECONDS //and delay has to be stored here on energy guns
 	select_name = "vortex blast"
 	fire_sound = 'sound/weapons/wave.ogg'

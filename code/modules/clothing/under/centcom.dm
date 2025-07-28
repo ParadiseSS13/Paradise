@@ -24,7 +24,6 @@
 	icon_state = "deathsquad"
 	inhand_icon_state = "bl_suit"
 	item_color = "deathsquad"
-	sensor_mode = SENSOR_OFF // You think the Deathsquad wants to be seen?
 	random_sensor = FALSE
 
 /obj/item/clothing/under/rank/centcom/ert/chaplain

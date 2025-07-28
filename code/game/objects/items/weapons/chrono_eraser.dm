@@ -47,7 +47,6 @@
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
 	inhand_icon_state = "chronogun"
-	w_class = WEIGHT_CLASS_NORMAL
 	flags = NODROP | DROPDEL
 	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
 	can_charge = FALSE
@@ -142,7 +141,6 @@
 /obj/item/ammo_casing/energy/chrono_beam
 	name = "eradication beam"
 	projectile_type = /obj/item/projectile/energy/chrono_beam
-	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	muzzle_flash_color = null
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "chronobolt"
@@ -153,7 +151,6 @@
 	desc = "An aura of time-bluespace energy."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "chronofield"
-	density = FALSE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	move_resist = INFINITY

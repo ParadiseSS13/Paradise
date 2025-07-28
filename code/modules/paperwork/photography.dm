@@ -23,7 +23,6 @@
 ********/
 /obj/item/photo
 	name = "photo"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "photo"
 	inhand_icon_state = "paper"
 	w_class = WEIGHT_CLASS_TINY
@@ -529,7 +528,6 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	desc = "A digital camera."
 	digital = TRUE
 	var/list/datum/picture/saved_pictures = list()
-	pictures_left = 30
 	var/max_storage = 10
 
 /obj/item/camera/digital/examine(mob/user)
@@ -609,10 +607,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 /obj/item/videocam
 	name = "video camera"
-	icon = 'icons/obj/items.dmi'
 	desc = "This video camera can send live feeds to the entertainment network. You must hold to use it."
 	icon_state = "videocam"
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	var/on = FALSE
 	var/obj/machinery/camera/camera

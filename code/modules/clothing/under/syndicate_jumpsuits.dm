@@ -41,7 +41,6 @@
 	item_color = "tactical_suit"
 
 /obj/item/clothing/under/syndicate/silicon_cham
-	name = "tactical turtleneck"
 	desc = "A non-descript and slightly suspicious looking turtleneck with digital camouflage cargo pants. <b>This one has extra cybernetic modifications.</b>"
 	blockTracking = TRUE
 

@@ -17,7 +17,6 @@
 	var/used = FALSE
 
 /obj/item/clothing/suit/hooded/hoodie/fluff
-	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/suit/hooded/fluff
 	w_class = WEIGHT_CLASS_SMALL
@@ -32,15 +31,12 @@
 	desc = "A cheap plastic tattoo application pen."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "tatgun"
-	force = 0
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
 	var/tattoo_icon = "Tiger-stripe Tattoo" // body_accessory.dmi, new icons defined in sprite_accessories.dm
 	var/tattoo_r = 1 // RGB values for the body markings
 	var/tattoo_g = 1
 	var/tattoo_b = 1
-	toolspeed = 1
 	usesound = 'sound/items/welder2.ogg'
 
 /obj/item/fluff/tattoo_gun/attack__legacy__attackchain(mob/living/carbon/M as mob, mob/user as mob)
@@ -163,7 +159,6 @@
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 	force = 5
-	sharp = FALSE
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
@@ -308,8 +303,6 @@
 	icon_state = "wingler_comb"
 	attack_verb = list("combed")
 	hitsound = 'sound/weapons/tap.ogg'
-	force = 0
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/fluff/wingler_comb/attack_self__legacy__attackchain(mob/user)
@@ -415,8 +408,6 @@
 	desc = "Some spraypaint and a stencil, perfect for painting flames onto a welding helmet!"
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
-	force = 0
-	throwforce = 0
 
 /obj/item/fluff/cardgage_helmet_kit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
@@ -438,8 +429,6 @@
 	desc = "A modkit that can make most helmets look like a Shellguard Helmet."
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
-	force = 0
-	throwforce = 0
 
 /obj/item/fluff/merchant_sallet_modkit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
@@ -482,8 +471,6 @@
 	desc = "A modkit that can be used to turn certain vests and labcoats into lightweight webbing."
 	icon_state = "modkit"
 	w_class = 2
-	force = 0
-	throwforce = 0
 
 /obj/item/fluff/k3_webbing_modkit/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
@@ -670,7 +657,6 @@
 /obj/item/clothing/head/pirate/fluff/stumpy
 	name = "The Sobriety Skullcap"
 	desc = "A hat suited for the king of the pirates."
-	icon_state = "pirate"
 
 /obj/item/clothing/head/pirate/fluff/stumpy/Initialize(mapload)
 	. = ..()
@@ -759,7 +745,6 @@
 /obj/item/clothing/suit/fluff
 	icon = 'icons/obj/custom_items.dmi'
 	actions_types = list()
-	ignore_suitadjust = 1
 	adjust_flavour = null
 	sprite_sheets = null
 
@@ -832,7 +817,6 @@
 /obj/item/clothing/suit/fluff/cheeky_sov_coat
 	name = "Srusu's Greatcoat"
 	desc = "A heavy wool Soviet-style greatcoat. A name is written in fancy handwriting on the inside tag: Srusu Rskuzu"
-	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "cheeky_sov_coat"
 
 /// Denthamos: Henry Grandpa Gadow
@@ -883,7 +867,6 @@
 /obj/item/clothing/suit/fluff/kluys
 	name = "Nano Fibre Jacket"
 	desc = "A Black Suit made out of nanofibre. The newest of cyberpunk fashion using hightech liquid to solid materials."
-	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "Kluysfluff1"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
@@ -930,7 +913,6 @@
 /obj/item/clothing/suit/fluff/stobarico_greatcoat
 	name = "\improper F.U.R.R.Y's Nanotrasen Greatcoat"
 	desc = "A greatcoat with Nanotrasen colors."
-	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "stobarico_jacket"
 
 
@@ -989,7 +971,6 @@
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	ignore_suitadjust = 0
 	actions_types = list(/datum/action/item_action/toggle)
-	suit_adjusted = 0
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/suit/storage/fluff/k3_webbing/adjustsuit(mob/user)
@@ -1015,7 +996,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xantholne_wintercoat"
 	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/xantholne
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
 /// Xantholne: Meex Zwichsnicrur
@@ -1024,9 +1004,6 @@
 	desc = "A black hood attached to a stripped winter coat."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xantholne_winterhood"
-	body_parts_covered = HEAD
-	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
 
 /// Xydonus: Rsik Ugsharki Atan | Based off of the bomber jacket, but with a hood slapped on (for allowed suit storage)
 /obj/item/clothing/suit/hooded/hoodie/fluff/xydonus
@@ -1036,7 +1013,6 @@
 	icon_state = "xydonus_jacket"
 	ignore_suitadjust = 0
 	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/xydonus
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 
@@ -1045,9 +1021,6 @@
 	desc = "A hood with some horns <i>glued</i> to them, or something like that. Custom fit for a Unathi's head shape."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xydonus_bomberhood"
-	body_parts_covered = HEAD
-	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
 
 /// Pineapple Salad: Dan Jello
 /obj/item/clothing/suit/fluff/pineapple
@@ -1063,8 +1036,6 @@
 	icon_state = "ps_hairgel"
 	attack_verb = list("smacked")
 	hitsound = 'sound/weapons/tap.ogg'
-	force = 0
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/fluff/pinapplehairgel/attack_self__legacy__attackchain(mob/user)
@@ -1091,9 +1062,6 @@
 	desc = "A custom made winter coat hood. Looks comfy."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shesicoat_hood2"
-	body_parts_covered = HEAD
-	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
 
 /// AffectedArc07: DTX
 /obj/item/clothing/suit/jacket/dtx
@@ -1101,12 +1069,8 @@
 	desc = "Looks like something only a nerd would buy. Has a tag inside reading <i>Property of DTX</i>."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "dtxbomber"
-	ignore_suitadjust = 0
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	actions_types = list(/datum/action/item_action/zipper)
-	adjust_flavour = "unzip"
 	sprite_sheets = null
 
 //////////// Uniforms ////////////
@@ -1339,7 +1303,6 @@
 	desc = "Put it on. The mask, it's gonna make you stronger!"
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "superior_mask"
-	body_parts_covered = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 
@@ -1431,7 +1394,6 @@
 	desc = "A cheap nylon windbreaker, according to the tag it was manufactured in New Chiba, Earth.<br>The color reminds you of a television tuned to a dead channel."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "elliot_windbreaker_open"
-	adjust_flavour = "unzip"
 	suit_adjusted = 1
 	sprite_sheets = null
 
@@ -1504,8 +1466,6 @@
 	icon_state = "hand_mirror"
 	attack_verb = list("smacked")
 	hitsound = 'sound/weapons/tap.ogg'
-	force = 0
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/fluff/zekemirror/attack_self__legacy__attackchain(mob/user)
@@ -1626,7 +1586,6 @@
 /obj/item/clothing/suit/fluff/vetcoat
 	name = "Veteran Coat"
 	desc = "An old, yet well-kept Nanotrasen uniform. Very few of its kind are still produced."
-	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "alchemistcoatblack"
 	inhand_icon_state = "alchemistcoat"
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
@@ -1792,8 +1751,6 @@
 /obj/item/clothing/accessory/pin/reward/coding
 	name = "Coding Contribution Pin"
 	desc = "A commemorative pin to reward contributions of coding."
-	icon_state = "pin_coding"
-	item_color = "pin_coding"
 
 /obj/item/clothing/accessory/pin/reward/mapping
 	name = "Mapping Contribution Pin"

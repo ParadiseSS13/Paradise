@@ -87,7 +87,11 @@
 	icon_state = "beret_officer"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 60
-	dog_fashion = /datum/dog_fashion/head/beret/sec
+	dog_fashion = /datum/dog_fashion/head/beret/sec	
+
+/obj/item/clothing/head/beret/sec/corporate
+	name = "corporate security beret"
+	icon_state = "beret_corporate_officer"
 
 /obj/item/clothing/head/beret/warden
 	name = "warden's beret"
@@ -192,6 +196,17 @@
 	name = "medical beret"
 	desc = "A white beret with a green cross finely threaded into it. It has that sterile smell about it."
 	icon_state = "beret_med"
+
+/obj/item/clothing/head/beret/paramedic
+	name = "paramedic's beret"
+	desc = "A blue beret with a white medical insignia emblazoned on it. Save lives with style."
+	icon_state = "beret_paramedic"
+	dog_fashion = /datum/dog_fashion/head/paramedic
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
 
 //Cargo
 /obj/item/clothing/head/beret/qm

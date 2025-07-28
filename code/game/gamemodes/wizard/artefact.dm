@@ -103,7 +103,6 @@
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	density = TRUE
-	anchored = TRUE
 	var/spawn_path = /mob/living/basic/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
 
@@ -148,7 +147,7 @@
 /obj/item/veilrender/honkrender
 	name = "honk render"
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast circus."
-	spawn_type = /mob/living/simple_animal/hostile/retaliate/clown
+	spawn_type = /mob/living/basic/clown
 	spawn_amt = 10
 	activate_descriptor = "depression"
 	rend_desc = "Gently wafting with the sounds of endless laughter."
@@ -832,9 +831,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/necromantic_stone/nya
 	name = "nya-cromantic stone"
 	desc = "A shard capable of resurrecting humans as creatures of Vile Heresy. Even the Wizard Federation fears it.."
-	icon = 'icons/obj/wizard.dmi'
 	icon_state = "nyacrostone"
-	origin_tech = "bluespace=4;materials=4"
 	heresy = TRUE
 	unlimited = TRUE
 

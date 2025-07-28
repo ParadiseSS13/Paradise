@@ -5,7 +5,6 @@
 	name = " "
 	var/base_name = " "
 	desc = " "
-	icon = 'icons/obj/chemical.dmi'
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50)
 	volume = 50
@@ -121,7 +120,6 @@
 /obj/item/reagent_containers/glass/beaker
 	name = "beaker"
 	desc = "A simple glass beaker, nothing special."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	inhand_icon_state = "beaker"
 	belt_icon = "beaker"
@@ -227,9 +225,7 @@
 	icon_state = "beakerlarge"
 	materials = list(MAT_GLASS=2500)
 	volume = 100
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100)
-	container_type = OPENCONTAINER
 
 /obj/item/reagent_containers/glass/beaker/vial
 	name = "vial"
@@ -238,9 +234,7 @@
 	belt_icon = "vial"
 	materials = list(MAT_GLASS=250)
 	volume = 25
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25)
-	container_type = OPENCONTAINER
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/drugs
@@ -250,7 +244,6 @@
 	amount_per_transfer_from_this = 2
 	possible_transfer_amounts = null
 	volume = 10
-	container_type = OPENCONTAINER
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/noreact
@@ -258,10 +251,7 @@
 	desc = "A cryostasis beaker that allows for chemical storage without reactions."
 	icon_state = "beakernoreact"
 	materials = list(MAT_METAL=3000)
-	volume = 50
-	amount_per_transfer_from_this = 10
 	origin_tech = "materials=2;engineering=3;plasmatech=3"
-	container_type = OPENCONTAINER
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 /obj/item/reagent_containers/glass/beaker/noreact/Initialize(mapload)
@@ -274,9 +264,7 @@
 	icon_state = "beakerbluespace"
 	materials = list(MAT_GLASS=3000)
 	volume = 300
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
-	container_type = OPENCONTAINER
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 

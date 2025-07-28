@@ -60,7 +60,6 @@
 	name = "plasma tank"
 	desc = "Contains dangerous plasma. Do not inhale. Warning: extremely flammable."
 	icon_state = "plasma"
-	flags = CONDUCT
 	slot_flags = null	//they have no straps!
 	force = 8
 
@@ -129,7 +128,6 @@
 	name = "emergency oxygen tank"
 	desc = "Used for emergencies. Contains very little oxygen, so try to conserve it until you actually need it."
 	icon_state = "emergency"
-	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 	w_class = WEIGHT_CLASS_SMALL
@@ -211,7 +209,6 @@
 /obj/item/tank/internals/generic
 	name = "gas tank"
 	desc = "A generic tank used for storing and transporting gasses. Can be used for internals."
-	icon_state = "generic"
 
 /obj/item/tank/internals/generic/populate_gas()
 	return

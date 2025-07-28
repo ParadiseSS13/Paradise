@@ -8,7 +8,6 @@
 	///when another of the same type is made on the same tile will they merge --- YES=TRUE; NO=FLASE
 	var/mergeable_decal = TRUE
 	///prevents Ambient Occlusion effects around it ; Set to GAME_PLANE in Initialize() if on a wall
-	plane = FLOOR_PLANE
 	///for blood n vomit in zero G --- IN GRAVITY=TRUE; NO GRAVITY=FALSE
 	var/gravity_check = TRUE
 	hud_possible = list(JANI_HUD)

@@ -4,8 +4,6 @@
 /obj/item/grenade/bananade
 	name = "bananade"
 	desc = "A yellow grenade."
-	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "banana"
 	var/deliveryamt = 8
 	var/spawner_type = /obj/item/grown/bananapeel

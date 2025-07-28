@@ -8,7 +8,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slices", "cuts", "stabs", "jabs")
-	toolspeed = 1
 
 /obj/item/scissors/barber
 	name = "Barber's Scissors"

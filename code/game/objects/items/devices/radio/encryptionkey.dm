@@ -40,7 +40,6 @@
 
 /obj/item/encryptionkey/soviet
 	name = "soviet encryption key"
-	icon_state = "cypherkey"
 	channels = list("Special Ops" = 1)
 	origin_tech = "syndicate=4"
 

@@ -145,8 +145,6 @@
 // Krav Maga gloves
 /obj/item/clothing/gloves/color/black/krav_maga
 	can_be_cut = FALSE
-	resistance_flags = NONE
-	dyeable = TRUE
 	var/datum/martial_art/krav_maga/style
 
 /obj/item/clothing/gloves/color/black/krav_maga/Initialize(mapload)
@@ -202,11 +200,6 @@
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	strip_delay = 8 SECONDS
-	cold_protection = HANDS
-	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
-	heat_protection = HANDS
-	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
-	resistance_flags = NONE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = 50)
 
 /obj/item/clothing/gloves/color/black/krav_maga/combat/examine_more(mob/user)

@@ -12,7 +12,6 @@
 /obj/item/storage/belt/judobelt
 	name = "\improper Corporate Judo Belt"
 	desc = "Teaches the wearer NT Corporate Judo."
-	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "judo"
 	w_class = WEIGHT_CLASS_BULKY
 	layer_over_suit = TRUE

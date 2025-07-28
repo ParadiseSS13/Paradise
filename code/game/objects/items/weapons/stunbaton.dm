@@ -389,7 +389,6 @@
 	icon_state = "swarmprod"
 	base_icon = "swarmprod"
 	inhand_icon_state = "swarmprod"
-	force = 10
 	throwforce = 0 // Just in case
 	knockdown_duration = 6 SECONDS
 	knockdown_delay = 0 SECONDS

@@ -8,7 +8,6 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	amount_per_transfer_from_this = 10
-	volume = 50
 	materials = list(MAT_GLASS = 100)
 	max_integrity = 20
 	resistance_flags = ACID_PROOF

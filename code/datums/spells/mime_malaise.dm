@@ -6,7 +6,6 @@
 	hand_path = /obj/item/melee/touch_attack/mime_malaise
 
 	base_cooldown = 300
-	clothes_req = TRUE
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	action_icon_state = "mime_curse"
 

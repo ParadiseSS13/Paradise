@@ -39,7 +39,6 @@
 	icon_state = "advtaser"
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler)
 	origin_tech = "combat=4"
-	ammo_x_offset = 2
 	flight_x_offset = 15
 	shaded_charge = FALSE
 	can_holster = TRUE
@@ -73,7 +72,6 @@
 	inhand_icon_state = null
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
-	ammo_x_offset = 2
 	can_flashlight = TRUE
 	flight_x_offset = 15
 	flight_y_offset = 10
@@ -133,7 +131,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/smg)
 	shaded_charge = TRUE
 	can_holster = FALSE
-	fire_delay = 0
 
 /obj/item/gun/energy/disabler/smg/examine_more(mob/user)
 	..()
@@ -192,7 +189,6 @@
 	desc = "A high-tech revolver that fires internal, 3D printed shock cartridges in a revolving cylinder. \
 		The cartridges can be recharged using conventional rechargers. These shots charge whatever they hit, causing arcs of electricity to form between them."
 	icon_state = "stunrevolver"
-	inhand_icon_state = "gun"
 	origin_tech = "combat=4;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/arc_revolver)
 	can_holster = TRUE

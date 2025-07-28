@@ -260,7 +260,6 @@
 	desc = "The blade grants the wielder nearly limitless power...if they can figure out how to turn it on, that is."
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "spellblade"
-	hitsound = 'sound/weapons/rapierhit.ogg'
 
 /obj/item/nullrod/scythe/talking
 	name = "possessed blade"
@@ -268,7 +267,6 @@
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "talking_sword"
 	attack_verb = list("chopped", "sliced", "cut")
-	hitsound = 'sound/weapons/rapierhit.ogg'
 	force = 12
 	can_be_hit = TRUE // be a shit and you can get your ass beat
 	max_integrity = 100
@@ -379,7 +377,7 @@
 	name = "chainsaw hand"
 	desc = "Good? Bad? You're the guy with the chainsaw hand."
 	icon = 'icons/obj/weapons/melee.dmi'
-	icon_state = "chainsaw1"
+	icon_state = "chainsaw_on"
 	inhand_icon_state = "mounted_chainsaw"
 	w_class = WEIGHT_CLASS_HUGE
 	flags = NODROP | ABSTRACT
@@ -466,7 +464,6 @@
 /obj/item/nullrod/claymore/bostaff
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
-	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "bostaff0"
 	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'

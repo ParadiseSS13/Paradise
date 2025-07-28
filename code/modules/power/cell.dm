@@ -6,9 +6,7 @@
 	origin_tech = "powerstorage=1"
 	force = 5
 	throwforce = 5
-	throw_speed = 2
 	throw_range = 5
-	w_class = WEIGHT_CLASS_SMALL
 	/// Battery's current state of charge (kilojoules)
 	var/charge = 0
 	/// Battery's maximum state of charge (kilojoules)
@@ -336,7 +334,6 @@
 	charge = 100
 	maxcharge = 300
 	materials = list()
-	rating = 1
 	grown_battery = TRUE //it has the overlays for wires
 
 /obj/item/stock_parts/cell/high/slime

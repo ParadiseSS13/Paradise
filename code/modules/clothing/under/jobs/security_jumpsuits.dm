@@ -151,12 +151,10 @@
 	name = "warden's suit"
 	desc = "A formal security suit for the warden with blue desginations and '/Warden/' stiched into the shoulders."
 	icon_state = "warden_formal"
-	inhand_icon_state = "gy_suit"
 	item_color = "warden_formal"
 
 /obj/item/clothing/under/rank/security/formal/head_of_security
 	name = "head of security's suit"
 	desc = "A security suit decorated for those few with the dedication to achieve the position of Head of Security."
 	icon_state = "hos_formal"
-	inhand_icon_state = "gy_suit"
 	item_color = "hos_formal"

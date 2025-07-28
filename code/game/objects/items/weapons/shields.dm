@@ -24,7 +24,6 @@
 	slot_flags = ITEM_SLOT_BACK
 	force = 10
 	throwforce = 5
-	throw_speed = 2
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_GLASS=7500, MAT_METAL=1000)

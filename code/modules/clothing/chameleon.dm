@@ -325,16 +325,13 @@
 	name = "optical meson scanner"
 	desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting condition."
 	icon_state = "meson"
-	resistance_flags = NONE
 	prescription_upgradable = TRUE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
-
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 	)
-
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/glasses/chameleon/Initialize(mapload)
@@ -362,12 +359,10 @@
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = FLASH_PROTECTION_SENSITIVE
-	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/chameleon/night
 	origin_tech = "magnets=3;syndicate=1"
 	see_in_dark = 8
-	prescription_upgradable = TRUE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /obj/item/clothing/glasses/hud/security/chameleon
@@ -457,7 +452,6 @@
 	worn_icon = 'icons/mob/clothing/head/softcap.dmi'
 	icon_state = "greysoft"
 	item_color = "grey"
-	dyeable = FALSE
 
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -499,7 +493,6 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
-	dyeable = FALSE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -534,8 +527,6 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/clothing/mask/chameleon/voice_change
-	name = "gas mask"
-	desc = "A face-covering mask that can be connected to an air supply. While good for concealing your identity, it isn't good for blocking gas flow."
 	icon_state = "swat"
 
 	var/obj/item/voice_changer/voice_changer
@@ -578,10 +569,6 @@
 	chameleon_action.emp_randomise()
 
 /obj/item/clothing/shoes/chameleon/noslip
-	name = "black shoes"
-	icon_state = "black"
-	item_color = "black"
-	desc = "A pair of black shoes."
 	no_slip = TRUE
 
 /obj/item/clothing/shoes/chameleon/noslip/broken/Initialize(mapload)
@@ -589,7 +576,6 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/storage/backpack/chameleon
-	name = "backpack"
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/back.dmi'
@@ -642,7 +628,6 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/radio/headset/chameleon
-	name = "radio headset"
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/radio/headset/chameleon/Initialize(mapload)
@@ -710,7 +695,6 @@
 /obj/item/clothing/neck/chameleon
 	name = "black tie"
 	desc = "A neosilk clip-on tie."
-	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "blacktie"
 	resistance_flags = NONE
 

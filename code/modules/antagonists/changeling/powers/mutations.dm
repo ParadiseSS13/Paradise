@@ -12,7 +12,6 @@
 	desc = "Go tell a coder if you see this."
 	helptext = "Yell at coderbus"
 	chemical_cost = 1000
-	power_type = CHANGELING_UNOBTAINABLE_POWER
 	var/silent = FALSE
 	var/weapon_type
 	var/weapon_name_simple
@@ -65,7 +64,6 @@
 	desc = "Go tell a coder if you see this."
 	helptext = "Yell at coderbus"
 	chemical_cost = 1000
-	power_type = CHANGELING_UNOBTAINABLE_POWER
 	var/helmet_type = /obj/item
 	var/suit_type = /obj/item
 	var/suit_name_simple = "    "
@@ -140,7 +138,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 	force = 25
-	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
 	var/datum/action/changeling/weapon/parent_action
@@ -202,7 +199,6 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	flags = ABSTRACT | NODROP | NOBLUDGEON | DROPDEL
-	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = /obj/item/ammo_casing/magic/tentacle
 	fire_sound = 'sound/effects/splat.ogg'
 	force = 0
@@ -276,9 +272,7 @@
 /obj/item/projectile/tentacle
 	name = "tentacle"
 	icon_state = "tentacle_end"
-	pass_flags = PASSTABLE
 	damage = 0
-	damage_type = BRUTE
 	range = 8
 	hitsound = 'sound/weapons/thudswoosh.ogg'
 	reflectability = REFLECTABILITY_NEVER //Let us not reflect this ever. It's not quite a bullet, and a cling should never wrap its tentacle around itself, it controls its body well
@@ -539,7 +533,7 @@
 
 	// snowflake checks my beloved
 	// this will become tooltype checks I swear
-	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/chainsaw) && !istype(I, /obj/item/butcher_chainsaw))
+	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/chainsaw))
 		return
 
 	user.visible_message(

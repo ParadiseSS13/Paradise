@@ -94,7 +94,6 @@
 	inhand_icon_state = "pen"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_EARS
-	flags = CONDUCT
 	brightness_on = 2
 	var/colour = "blue" // Ink color
 
@@ -111,7 +110,6 @@
 	name = "low-power flashlight"
 	desc = "A miniature lamp, that might be used by small robots."
 	icon_state = "penlight"
-	flags = CONDUCT
 	brightness_on = 2
 	w_class = WEIGHT_CLASS_TINY
 
@@ -123,7 +121,6 @@
 	inhand_icon_state = "lamp"
 	brightness_on = 5
 	w_class = WEIGHT_CLASS_BULKY
-	flags = CONDUCT
 	materials = list()
 	on = TRUE
 	light_color = "#fff4bb"
@@ -329,7 +326,6 @@
 	gender = PLURAL
 	name = "glowing slime extract"
 	desc = "A glowing ball of what appears to be amber."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "slime-on"
 	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_TINY
@@ -405,7 +401,6 @@
 	icon_state = null
 	light_color = null
 	brightness_on = 0
-	light_range = 0
 	light_power = 10
 	alpha = 0
 	layer = 0
@@ -418,6 +413,5 @@
 	name = "eyelight"
 	desc = "This shouldn't exist outside of someone's head, how are you seeing this?"
 	light_range = 15
-	light_power = 1
 	flags = CONDUCT | DROPDEL
 	actions_types = list()

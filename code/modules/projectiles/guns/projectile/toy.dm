@@ -110,7 +110,6 @@
 	name = "donksoft LMG"
 	desc = "A heavily modified toy light machine gun, designated 'L6 SAW'. Ages 8 and up."
 	icon = 'icons/obj/guns/toy.dmi'
-	can_suppress = FALSE
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/m762
 	origin_tech = "combat=5;engineering=3;syndicate=3"
@@ -124,9 +123,7 @@
 /obj/item/gun/projectile/shotgun/toy/tommygun
 	name = "tommy gun"
 	desc = "Looks almost like the real thing! Great for practicing Drive-bys. Ages 8 and up."
-	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "tommygun"
-	inhand_icon_state = "shotgun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	inhand_x_dimension = 32

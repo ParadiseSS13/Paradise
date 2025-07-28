@@ -365,9 +365,7 @@
 	icon_state = "cone"
 	force = 1.0
 	throwforce = 3.0
-	throw_speed = 2
 	throw_range = 5
-	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("warned", "cautioned", "smashed")
 	resistance_flags = NONE
 	dog_fashion = /datum/dog_fashion/head/cone
@@ -429,11 +427,8 @@
 	)
 
 /obj/item/clothing/head/papersack/smiley
-	name = "paper sack hat"
 	desc = "A paper sack with crude holes cut out for eyes and a sketchy smile drawn on the front. Not creepy at all."
 	icon_state = "papersack_smile"
-	flags = BLOCKHAIR
-	flags_inv = HIDEFACE|HIDEEARS
 
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'

@@ -10,7 +10,6 @@
 	inhand_y_dimension = 64
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
-	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
@@ -86,7 +85,6 @@
 	icon_state = "riotshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot
 	sawn_desc = "Come with me if you want to live."
-	sawn_state = SAWN_INTACT
 
 /obj/item/gun/projectile/shotgun/riot/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
@@ -309,7 +307,6 @@
 	icon_state = "shotgun_combat"
 	origin_tech = "combat=6"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
-	w_class = WEIGHT_CLASS_BULKY
 	execution_speed = 5 SECONDS
 
 /// Service Malfunction Borg Combat Shotgun Variant
@@ -333,7 +330,6 @@
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
-	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube
 	w_class = WEIGHT_CLASS_HUGE
 	var/toggled = 0

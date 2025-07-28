@@ -2,7 +2,6 @@
 	name = "arcane tome"
 	desc = "An old, dusty tome with frayed edges and a sinister-looking cover."
 	icon_state = "tome"
-	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -134,7 +133,6 @@
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
-	slowdown = 1
 	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 35, ACID = 150)
 	magical = TRUE
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
@@ -145,7 +143,6 @@
 	icon_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 20, BOMB = 50, RAD = 20, FIRE = 50, ACID = 75)
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 
@@ -154,7 +151,6 @@
 	desc = "An armored hood, heavily reinforced with dark metal. The inscriptions covering the interior fill you with confidence and determination."
 	icon_state = "cult_hoodalt"
 	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
-	body_parts_covered = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
@@ -184,9 +180,7 @@
 	name = "flagellant's robes"
 	desc = "A set of blood-soaked robes inscribed with unholy sigils. Wearing them greatly increases movement speed, but the cursed fabrics will take an additional tithe when the wearer is hit."
 	icon_state = "flagellantrobe"
-	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, RAD = -25, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -552,10 +546,8 @@
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	base_icon_state = "bloodspear"
 	icon_state = "bloodspear0"
-	slot_flags = 0
 	force = 17
 	throwforce = 30
-	throw_speed = 2
 	armour_penetration_percentage = 50
 	attack_verb = list("attacked", "impaled", "stabbed", "torn", "gored")
 	sharp = TRUE
@@ -628,7 +620,6 @@
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
 	desc = "Recall the blood spear to your hand."
-	button_background_icon_state = "bg_cult"
 	button_overlay_icon_state = "bloodspear"
 	default_button_position = "11:31,4:-2"
 	var/obj/item/cult_spear/spear
@@ -782,8 +773,6 @@
 	name = "eldritch portal"
 	desc = "An evil portal made by dark magics. Surprisingly stable."
 	icon_state = "portal1"
-	failchance = 0
-	precision = FALSE
 	var/obj/effect/cult_portal_exit/exit = null
 
 /obj/effect/portal/cult/Initialize(mapload, target, creator, lifespan)

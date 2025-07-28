@@ -13,7 +13,6 @@
 	icon_state = "hand_tele"
 	worn_icon_state = "electronic"
 	inhand_icon_state = "electronic"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5

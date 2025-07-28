@@ -138,7 +138,6 @@
 	inhand_icon_state = "jetpack-void"
 
 /obj/item/tank/jetpack/void/grey
-	name = "Void Jetpack (Oxygen)"
 	icon_state = "jetpack-void-grey"
 	inhand_icon_state = "jetpack-void-grey"
 

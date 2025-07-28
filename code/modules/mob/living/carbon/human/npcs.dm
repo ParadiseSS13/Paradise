@@ -1,7 +1,6 @@
 /obj/item/clothing/under/punpun
 	name = "fancy uniform"
 	desc = "It looks like it was tailored for a monkey."
-	icon = 'icons/obj/clothing/under/misc.dmi'
 	icon_state = "punpun"
 	worn_icon = 'icons/mob/clothing/under/misc.dmi'
 	item_color = "punpun"

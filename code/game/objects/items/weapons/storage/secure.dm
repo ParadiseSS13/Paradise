@@ -12,9 +12,6 @@
 // -----------------------------
 /obj/item/storage/secure
 	name = "secstorage"
-	w_class = WEIGHT_CLASS_NORMAL
-	max_w_class = WEIGHT_CLASS_SMALL
-	max_combined_w_class = 14
 	var/icon_locking = "secureb"
 	var/icon_sparking = "securespark"
 	var/icon_opened = "secure0"
@@ -203,14 +200,12 @@
 /obj/item/storage/secure/briefcase
 	name = "secure briefcase"
 	desc = "A large briefcase with a digital locking system."
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "secure"
 	inhand_icon_state = "sec-case"
 	flags = CONDUCT
 	hitsound = "swing_hit"
 	use_sound = 'sound/effects/briefcase.ogg'
 	force = 8
-	throw_speed = 2
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -249,7 +244,6 @@
 
 /obj/item/storage/secure/safe
 	name = "secure safe"
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "safe"
 	icon_opened = "safe0"
 	icon_locking = null
@@ -258,7 +252,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	max_w_class = 8
 	anchored = TRUE
-	density = FALSE
 	cant_hold = list(/obj/item/storage/secure/briefcase)
 
 /obj/item/storage/secure/safe/attack_hand(mob/user as mob)

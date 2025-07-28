@@ -27,7 +27,6 @@
 
 /obj/item/documents/syndicate/red
 	name = "'Red' secret documents"
-	desc = "Documents printed on special copy-protected paper. They detail sensitive Syndicate operational intelligence."
 	icon_state = "docs_red"
 
 /obj/item/documents/syndicate/red/examine(mob/user)
@@ -36,7 +35,6 @@
 
 /obj/item/documents/syndicate/blue
 	name = "'Blue' secret documents"
-	desc = "Documents printed on special copy-protected paper. They detail sensitive Syndicate operational intelligence."
 	icon_state = "docs_blue"
 
 /obj/item/documents/syndicate/blue/examine(mob/user)
@@ -45,7 +43,6 @@
 
 /obj/item/documents/syndicate/yellow
 	name = "'Yellow' secret documents"
-	desc = "Documents printed on special copy-protected paper. They detail sensitive Syndicate operational intelligence."
 	icon_state = "docs_yellow"
 	resistance_flags = NONE
 

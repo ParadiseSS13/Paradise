@@ -87,7 +87,6 @@
 	energy_drain = 30
 	projectile = /obj/item/projectile/beam/disabler
 	fire_sound = 'sound/weapons/taser2.ogg'
-	harmful = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	equip_cooldown = 1 SECONDS
@@ -357,13 +356,10 @@
 	projectiles = 9
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
-	equip_cooldown = 6 SECONDS
 	name = "\improper SGL-6 Flashbang Launcher"
 	icon_state = "mecha_grenadelnchr"
 	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/grenade/flashbang
-	fire_sound = 'sound/effects/bang.ogg'
-	projectiles = 6
 	missile_speed = 1.5
 	projectile_energy_cost = 800
 	var/det_time = 20
@@ -381,7 +377,8 @@
 		F.prime()
 	do_after_cooldown()
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang//Because I am a heartless bastard -Sieve
+//Because I am a heartless bastard -Sieve
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang
 	equip_cooldown = 9 SECONDS
 	name = "\improper SOB-3 Clusterbang Launcher"
 	desc = "A weapon for combat exosuits. Launches primed clusterbangs. You monster."
@@ -389,7 +386,6 @@
 	projectiles = 3
 	projectile = /obj/item/grenade/clusterbuster
 	projectile_energy_cost = 1600 //getting off cheap seeing as this is 3 times the flashbangs held in the grenade launcher.
-	size=1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/get_equip_info()//Limited version of the clusterbang launcher that can't reload
 	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;[chassis.selected==src?"<b>":"<a href='byond://?src=[chassis.UID()];select_equip=\ref[src]'>"][name][chassis.selected==src?"</b>":"</a>"]\[[projectiles]\]"
@@ -403,11 +399,7 @@
 	icon_state = "mecha_grenadelnchr"
 	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/grenade/chem_grenade/cleaner
-	fire_sound = 'sound/effects/bang.ogg'
-	equip_cooldown = 6 SECONDS
-	projectiles = 6
 	missile_speed = 1.5
-	projectile_energy_cost = 1000
 	size = 1
 	/// Time until grenade detonates
 	var/det_time = 2 SECONDS
@@ -495,7 +487,6 @@
 	fire_sound = 'sound/weapons/whip.ogg'
 	projectiles = 10
 	missile_speed = 1
-	missile_range = 30
 	projectile_energy_cost = 50
 	harmful = FALSE
 

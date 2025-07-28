@@ -393,7 +393,6 @@
 	name = "plasma syringe cannon"
 	desc = "A syringe gun integrated into a medical cyborg's chassis. Fires heavy-duty plasma syringes tipped in poison."
 	icon_state = "rapidsyringegun"
-	throw_speed = 3
 	throw_range = 7
 	force = 4
 	fire_sound = 'sound/items/syringeproj.ogg'

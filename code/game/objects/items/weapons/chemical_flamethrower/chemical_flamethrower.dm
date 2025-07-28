@@ -10,7 +10,6 @@
 	throwforce = 10
 	throw_speed = 1
 	throw_range = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BACK
 	materials = list(MAT_METAL = 5000)
 	resistance_flags = FIRE_PROOF

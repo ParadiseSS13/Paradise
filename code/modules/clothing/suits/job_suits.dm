@@ -1,16 +1,6 @@
 /*
  * Job related
  */
-//Paramedic
-/obj/item/clothing/suit/storage/paramedic
-	name = "paramedic vest"
-	desc = "A hazard vest used in the recovery of bodies."
-	icon_state = "paramedic-vest"
-	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
-	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 5, FIRE = 50, ACID = 50)
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
-
 //Botanist
 /obj/item/clothing/suit/apron
 	name = "apron"
@@ -184,6 +174,12 @@
 	icon_state = "hazard_staff"
 	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/paper, /obj/item/clipboard, /obj/item/analyzer, /obj/item/screwdriver, /obj/item/radio, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/rcd, /obj/item/rpd, /obj/item/rcs, /obj/item/dest_tagger)
 
+/obj/item/clothing/suit/storage/hazardvest/paramedic
+	name = "\improper EMT hazard vest"
+	desc = "A high-visibility vest used by medical response personnel. Designed to easily identify paramedics."
+	icon_state = "hazard_paramedic"
+	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/robotanalyzer)
+
 /obj/item/clothing/suit/storage/hazardvest/qm
 	name = "warehouse supervisor hazard vest"
 	desc = "A high-visibilty vest used in work zones. Designed to easily identify the supply supervisor."
@@ -332,7 +328,6 @@
 	icon_state = "trainercoat"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
-	ignore_suitadjust = TRUE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',

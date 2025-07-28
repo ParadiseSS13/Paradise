@@ -11,6 +11,8 @@
  *		Candle Box
  *		Crayon Box
  *		Cigarette Box
+ *		Vial Box
+ *		Aquatic Starter Kit
  */
 
 /obj/item/storage/fancy
@@ -43,10 +45,7 @@
 	update_icon()
 	return ..()
 
-/*
- * Donut Box
- */
-
+// MARK: Donut Box
 /obj/item/storage/fancy/donut_box
 	name = "donut box"
 	desc = "\"To do, or do nut, the choice is obvious.\""
@@ -83,9 +82,8 @@
 		return TRUE
 	return ..()
 
-/*
- * Egg Box
- */
+// MARK: Egg Box
+
 
 /obj/item/storage/fancy/egg_box
 	name = "egg box"
@@ -99,10 +97,7 @@
 	for(var/I in 1 to storage_slots)
 		new /obj/item/food/egg(src)
 
-/*
- * Candle Box
- */
-
+// MARK: Candle Box
 /obj/item/storage/fancy/candle_box
 	name = "Candle pack"
 	desc = "A pack of red candles."
@@ -130,10 +125,8 @@
 	for(var/I in 1 to storage_slots)
 		new /obj/item/candle/eternal(src)
 
-/*
- * Crayon Box
- */
 
+// MARK: Crayon Box
 /obj/item/storage/fancy/crayons
 	name = "box of crayons"
 	desc = "A box of crayons for all your rune drawing needs."
@@ -216,15 +209,13 @@
 		if(0)
 			icon_state = "[base_icon_state]_e"
 
-////////////
-//CIG PACK//
-////////////
+//	MARK: Cigarette Pack
 /obj/item/storage/fancy/cigarettes
-	name = "cigarette packet"
-	desc = "The most popular brand of Space Cigarettes, sponsors of the Space Olympics."
+	name = "generic cigarette packet"
+	desc = "An abstract brand of cigarette that should not exist. Make a GitHub report if you see this."
 	icon = 'icons/obj/cigarettes.dmi'
-	icon_state = "cigpacket"
-	inhand_icon_state = "cigpacket"
+	icon_state = "robust_packet"
+	inhand_icon_state = "robust_packet"
 	belt_icon = "patch_pack"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
@@ -237,18 +228,20 @@
 		/obj/item/clothing/mask/cigarette/pipe,
 		/obj/item/lighter/zippo)
 	icon_type = "cigarette"
+	var/cigarette_slogan = "The preferred brand of coders and developers."
 	var/cigarette_type = /obj/item/clothing/mask/cigarette
 
-/obj/item/storage/fancy/cigarettes/Initialize(mapload)
+/obj/item/storage/fancy/cigarettes/examine(mob/user)
 	. = ..()
-	inhand_icon_state = icon_state
+	if(cigarette_slogan)
+		. += "<span class='notice'>\"[cigarette_slogan]\"</span>"
 
 /obj/item/storage/fancy/cigarettes/populate_contents()
 	for(var/I in 1 to storage_slots)
 		new cigarette_type(src)
 
 /obj/item/storage/fancy/cigarettes/update_icon_state()
-	icon_state = "[initial(icon_state)][length(contents)]"
+	icon_state = "[initial(icon_state)]_[length(contents)]"
 
 /obj/item/storage/fancy/cigarettes/attack__legacy__attackchain(mob/living/carbon/M, mob/living/user)
 	if(!ismob(M))
@@ -299,84 +292,117 @@
 		return TRUE
 	return ..()
 
-/obj/item/storage/fancy/cigarettes/dromedaryco
-	name = "\improper DromedaryCo packet"
-	desc = "A packet of six imported DromedaryCo cancer sticks. A label on the packaging reads, \"Wouldn't a slow death make a change?\""
-	icon_state = "Dpacket"
-	inhand_icon_state = "Dpacket"
-
-/obj/item/storage/fancy/cigarettes/syndicate
-	name = "\improper Syndicate Cigarettes"
-	desc = "A packet of six evil-looking cigarettes, A label on the packaging reads, \"Donk Co\"."
-	icon_state = "syndiepacket"
-	inhand_icon_state = "syndiepacket"
-	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
-
-/obj/item/storage/fancy/cigarettes/syndicate/Initialize(mapload)
-	. = ..()
-	var/new_name = pick("evil", "suspicious", "ominous", "donk-flavored", "robust", "sneaky")
-	name = "[new_name] cigarette packet"
-
-/obj/item/storage/fancy/cigarettes/cigpack_syndicate
-	name = "cigarette packet"
-	desc = "An obscure brand of cigarettes."
-	icon_state = "syndiepacket"
-	inhand_icon_state = "syndiepacket"
-	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
-
-/obj/item/storage/fancy/cigarettes/cigpack_med
-	name = "\improper Medical Marijuana Packet"
-	desc = "A prescription packet containing six medical marijuana cigarettes. Made using a strain of cannabis engineered to maximise CBD content and eliminate THC, much to the chagrin of stoners everywhere."
-	icon_state = "medpacket"
-	inhand_icon_state = "medpacket"
-	cigarette_type = /obj/item/clothing/mask/cigarette/medical_marijuana
-
-/obj/item/storage/fancy/cigarettes/cigpack_uplift
-	name = "\improper Uplift Smooth packet"
-	desc = "Your favorite brand, now menthol flavored."
-	icon_state = "upliftpacket"
-	inhand_icon_state = "upliftpacket"
-	cigarette_type = /obj/item/clothing/mask/cigarette/menthol
-
-/obj/item/storage/fancy/cigarettes/cigpack_robust
-	name = "\improper Robust packet"
-	desc = "Smoked by the robust."
-	icon_state = "robustpacket"
-	inhand_icon_state = "robustpacket"
-
-/obj/item/storage/fancy/cigarettes/cigpack_robustgold
-	name = "\improper Robust Gold packet"
-	desc = "Smoked by the truly robust."
-	icon_state = "robustgpacket"
-	inhand_icon_state = "robustgpacket"
-	cigarette_type = /obj/item/clothing/mask/cigarette/robustgold
-
 /obj/item/storage/fancy/cigarettes/cigpack_carp
 	name = "\improper Carp Classic packet"
-	desc = "Since 2313."
-	icon_state = "carppacket"
-	inhand_icon_state = "carppacket"
+	desc = "Smoked mainly by spacers. The somewhat fishy notes are an acquired taste. \
+	Has a light, low-tar smoke specifically designed to reduce stress on scrubber systems."
+	icon_state = "carp_packet"
+	inhand_icon_state = "carp_packet"
+	cigarette_slogan = "Carp smokers would rather bite you than switch, since 2313."
+
+/obj/item/storage/fancy/cigarettes/dromedaryco
+	name = "\improper DromedaryCo packet"
+	desc = "An infamous brand, DromedaryCo cigarettes are unfiltered, tarry, and have a very harsh flavour. \
+	Not for beginner smokers. Enjoyed mainly by gruff types with equally gruff voices."
+	icon_state = "D_packet"
+	inhand_icon_state = "D_packet"
+	cigarette_slogan = "Wouldn't a slow death make a change?"
+
+/obj/item/storage/fancy/cigarettes/cigpack_random
+	name ="\improper Embellished Enigma packet"
+	desc = "True to the name, Enigmas are impossible to pin down. \
+	No two cigarettes are alike as each one is infused with unique flavours and substances, so every time is just like your first time."
+	icon_state = "enigma_packet"
+	inhand_icon_state = "enigma_packet"
+	cigarette_slogan = "For the true connoisseur of exotic flavors."
+	cigarette_type = /obj/item/clothing/mask/cigarette/random
+
+/obj/item/storage/fancy/cigarettes/cigpack_random/examine(mob/user)
+	. = ..()
+	. += "<span class = 'warning'>Warning: Not all substances used have undergone regulatory testing, smoke at your own risk. \
+	The Embellished Enigma Tobacco Company does not accept liability for proper or negligent use of its products. Consult your doctor before use.</span>"
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
 	name = "\improper Midori Tabako packet"
 	desc = "Whilst you cannot decipher what the strange runes on the packet say, it bears the unmistakable scent of cannabis."
-	icon_state = "midoripacket"
-	inhand_icon_state = "midoripacket"
+	icon_state = "midori_packet"
+	inhand_icon_state = "midori_packet"
+	cigarette_slogan = ""
 	cigarette_type = /obj/item/clothing/mask/cigarette/rollie
 
+/obj/item/storage/fancy/cigarettes/cigpack_our_brand
+	name = "\improper Our Brand packet" // This brand name is an obscure reference to The Master and Margarita by Ivan Bezdomny.
+	desc = "The one, official brand of cigarette manufactured by the Vostran Iron Republic - one of the main constitient nations of the USSP. \
+	Exported across the known Orion Spur by members of the USSP's trading bloc and vendors affiliated with the Nian Merchant Guild. \
+	The flavour is acrid, the smoke is thin and wispy, yet harsh on the throat. The only redeeming features are the high nicotine content and the low price."
+	icon_state = "our_brand_packet"
+	inhand_icon_state = "our_brand_packet"
+	cigarette_slogan = "Smoke, for the Union!"
+
+/obj/item/storage/fancy/cigarettes/cigpack_robust
+	name = "\improper Robust packet"
+	desc = "Nanotrasen's in-house brand of cigarettes. Cheap quality, wispy smoke, has a somewhat harsh flavour."
+	cigarette_slogan = "Smoked by the robust."
+
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold
+	name = "\improper Robust Gold packet"
+	desc = "Nanotrasen's premium cigarette offering. Has a smooth, drawn-out flavour and a dense smoke. Contains real gold."
+	icon_state = "robust_g_packet"
+	inhand_icon_state = "robust_g_packet"
+	cigarette_slogan = "Smoked by the <b>truly</b> robust."
+	cigarette_type = /obj/item/clothing/mask/cigarette/robustgold
+
+/obj/item/storage/fancy/cigarettes/cigpack_candy
+	name = "\improper Robust Junior packet"
+	desc = "A packet of nicotine-free* candy cigarettes, manufactured by Robust Tobacco."
+	cigarette_slogan = "Unsure about smoking? Want to bring your children safely into the family tradition? Look no more with this special packet! Includes 100% nicotine-free* candy cigarettes."
+	cigarette_type = /obj/item/clothing/mask/cigarette/candy
+
+/obj/item/storage/fancy/cigarettes/cigpack_candy/examine(mob/user)
+	. = ..()
+	. += "<span class = 'warning'>*Warning: Do not expose to high temperatures or naked flames, contains additives that will form nicotine at high temperatures.</span>"
+
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
-	name ="\improper Shady Jim's Super Slims"
-	desc = "Is your weight slowing you down? Having trouble running away from gravitational singularities? Can't stop stuffing your mouth? Smoke Shady Jim's Super Slims and watch all that fat burn away. Guaranteed results!"
-	icon_state = "shadyjimpacket"
-	inhand_icon_state = "shadyjimpacket"
+	name ="\improper Shady Jim's Super Slims packet"
+	desc = "Despite the doubious appearance, these cigarettes do exactly what they say on the box. The smoke tastes like cheap berry juice and battery acid, with a bitter chemical aftertaste."
+	icon_state = "shady_jim_packet"
+	inhand_icon_state = "shady_jim_packet"
+	cigarette_slogan = "Is your weight slowing you down? Having trouble running away from gravitational singularities? Can't stop stuffing your mouth? \
+	Smoke Shady Jim's Super Slims and watch all that fat burn away. Guaranteed results!"
 	cigarette_type = /obj/item/clothing/mask/cigarette/shadyjims
 
-/obj/item/storage/fancy/cigarettes/cigpack_random
-	name ="\improper Embellished Enigma packet"
-	desc = "For the true connoisseur of exotic flavors."
-	icon_state = "shadyjimpacket"
-	inhand_icon_state = "shadyjimpacket"
-	cigarette_type = /obj/item/clothing/mask/cigarette/random
+/obj/item/storage/fancy/cigarettes/cigpack_solar_rays
+	name = "\improper Solar Rays packet"
+	desc = "A popular brand within the Trans-Solar Federation, they have a smooth, slightly cinnamon flavour. \
+	Whilst not actually state-owned, these cigarettes lean heavily into patriotic marketing, and are included in federal ration packs as a morale booster."
+	icon_state = "solar_packet"
+	inhand_icon_state = "solar_packet"
+	cigarette_slogan = "Smoked by true patriots."
+
+/obj/item/storage/fancy/cigarettes/cigpack_uplift
+	name = "\improper Uplift Smooth packet"
+	desc = "One of the most popular brands in the Orion Sector, flavoured with menthol to give a smooth cooling sensation with every puff."
+	icon_state = "uplift_packet"
+	inhand_icon_state = "uplift_packet"
+	cigarette_slogan = "Sit back and relax with the soft cooling embrace that only an Uplift can provide."
+	cigarette_type = /obj/item/clothing/mask/cigarette/menthol
+
+/obj/item/storage/fancy/cigarettes/cigpack_med
+	name = "medical marijuana packet"
+	desc = "A prescription packet containing six fully legal medical marijuana cigarettes. \
+	Made using a strain of cannabis engineered to maximise CBD content and eliminate THC, much to the chagrin of stoners everywhere."
+	icon_state = "med_packet"
+	inhand_icon_state = "med_packet"
+	cigarette_slogan = "All the medical benefits, with none of the high!"
+	cigarette_type = /obj/item/clothing/mask/cigarette/medical_marijuana
+
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate
+	name = "suspicious cigarette packet"
+	desc = "An obscure brand of evil-looking cigarettes. Smells like Donk pockets."
+	icon_state = "syndie_packet"
+	inhand_icon_state = "syndie_packet"
+	cigarette_slogan = "Strong flavour, dense smoke, infused with omnizine."
+	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
 
 /obj/item/storage/fancy/rollingpapers
 	name = "rolling paper pack"
@@ -401,10 +427,8 @@
 	if(!length(contents))
 		. += "[icon_state]_empty"
 
-/*
- * Vial Box
- */
 
+// MARK: Vial Box
 /obj/item/storage/fancy/vials
 	name = "vial storage box"
 	icon = 'icons/obj/vialbox.dmi'
@@ -424,9 +448,7 @@
 	desc = "A locked box for keeping things away from children."
 	icon = 'icons/obj/vialbox.dmi'
 	icon_state = "vialbox0"
-	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/reagent_containers/glass/bottle)
-	max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 6
 	req_access = list(ACCESS_VIROLOGY)
 
@@ -460,15 +482,11 @@
 	new /obj/item/reagent_containers/glass/bottle/zombiecure3(src)
 	new /obj/item/reagent_containers/glass/bottle/zombiecure4(src)
 
-
-///Aquatic Starter Kit
-
+// MARK: Aquatic Starter Kit
 /obj/item/storage/firstaid/aquatic_kit
 	name = "aquatic starter kit"
 	desc = "It's a starter kit box for an aquarium."
 	icon_state = "AquaticKit"
-	throw_speed = 2
-	throw_range = 8
 	med_bot_skin = "fish"
 
 /obj/item/storage/firstaid/aquatic_kit/full

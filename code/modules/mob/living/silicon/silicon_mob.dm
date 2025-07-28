@@ -1,5 +1,4 @@
 /mob/living/silicon
-	gender = NEUTER
 	voice_name = "synthesized voice"
 	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = TRUE

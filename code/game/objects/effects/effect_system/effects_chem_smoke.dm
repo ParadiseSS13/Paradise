@@ -5,8 +5,6 @@
 /obj/effect/particle_effect/chem_smoke
 	icon = 'icons/goonstation/effects/64x64.dmi'
 	icon_state = "smoke"
-	density = FALSE
-	opacity = FALSE
 	layer = ABOVE_MOB_LAYER
 	animate_movement = NO_STEPS
 	var/matrix/first = matrix()

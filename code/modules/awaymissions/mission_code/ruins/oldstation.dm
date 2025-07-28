@@ -13,7 +13,6 @@
 /obj/item/card/id/away/old
 	name = "A perfectly retrograde identification card"
 	desc = "A perfectly retrograde identification card. Looks like it could use some flavor."
-	icon = 'icons/obj/card.dmi'
 	icon_state = "retro"
 	access = list(ACCESS_THETA_STATION)
 
@@ -88,18 +87,14 @@
 	desc = "A first-generation lasergun developed by Maiman Photonics. It has a unique rechargable internal cell that cannot be removed. \
 	Due to degredation over time, the battery cannot hold as much charge as it used to. You really hope someone has developed a better laser gun while you were in cryo."
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/old)
-	ammo_x_offset = 3
 
 /obj/item/ammo_casing/energy/lasergun/old
-	projectile_type = /obj/item/projectile/beam/laser
 	e_cost = 200
-	select_name = "kill"
 
 /obj/item/gun/energy/e_gun/old
 	name = "\improper NT-EW-P:01 prototype energy gun"
 	desc = "A long-lost prototype energy gun developed by Nanotrasen's Theta R&D team. The fire selector has two settings: 'stun', and 'kill'."
 	icon_state = "protolaser"
-	ammo_x_offset = 2
 	ammo_type = list(/obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/electrode/old)
 
 /obj/item/gun/energy/e_gun/old/examine(mob/user)
@@ -425,7 +420,6 @@
 // MARK: ENGINES
 //////////////////////////////
 /obj/structure/shuttle/engine/large
-	name = "engine"
 	opacity = TRUE
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
@@ -435,7 +429,6 @@
 	appearance_flags = LONG_GLIDE
 
 /obj/structure/shuttle/engine/huge
-	name = "engine"
 	icon = 'icons/obj/3x3.dmi'
 	icon_state = "huge_engine"
 	desc = "An extremely large bluespace engine used to propel extremely large ships."
@@ -451,13 +444,11 @@
 /area/ruin/ancientstation
 	name = "Charlie Station Main Corridor"
 	icon_state = "green"
-	has_gravity = TRUE
 
 /area/ruin/ancientstation/powered
 	name = "Powered Tile"
 	icon_state = "teleporter"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/ruin/ancientstation/atmo
 	name = "Beta Station Atmospherics"
@@ -492,7 +483,6 @@
 
 /area/ruin/ancientstation/thetacorridor
 	name = "Theta Station Main Corridor"
-	icon_state = "green"
 
 /area/ruin/ancientstation/proto
 	name = "Theta Station Prototype Lab"

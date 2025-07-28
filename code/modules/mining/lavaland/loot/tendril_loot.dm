@@ -5,7 +5,6 @@
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
 	max_combined_w_class = 60
-	max_w_class = WEIGHT_CLASS_NORMAL
 	var/obj/item/shared_storage/red
 	var/obj/item/shared_storage/blue
 
@@ -28,8 +27,6 @@
 	bag?.update_viewers()
 
 /obj/item/shared_storage/red
-	name = "paradox bag"
-	desc = "Somehow, it's in two places at once."
 
 /obj/item/shared_storage/red/New()
 	..()
@@ -159,7 +156,6 @@
 	icon_state = "oar"
 	inhand_icon_state = "rods"
 	force = 12
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /datum/crafting_recipe/oar
@@ -356,10 +352,8 @@
 	name = "hook"
 	icon_state = "hook"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
-	pass_flags = PASSTABLE
 	damage = 25
 	armour_penetration_percentage = 100
-	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
 	weaken = 1 SECONDS
 	knockdown = 6 SECONDS
@@ -444,8 +438,6 @@
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 
 /obj/effect/immortality_talisman
-	icon_state = "blank"
-	icon = 'icons/effects/effects.dmi'
 	var/can_destroy = FALSE
 
 /obj/effect/immortality_talisman/Initialize(mapload)

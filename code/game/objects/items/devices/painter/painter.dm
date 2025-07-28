@@ -92,6 +92,7 @@
 	if(!proximity)
 		return
 	if(selected_module.paint_atom(target, user))
+		target.add_hiddenprint(user)
 		playsound(src, usesound, 30, TRUE)
 
 /**

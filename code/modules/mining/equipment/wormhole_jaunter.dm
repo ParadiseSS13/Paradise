@@ -8,7 +8,6 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 		The wormholes it creates are unpleasant to travel through, to say the least. If attached to your belt, it'll automatically activate should you fall into a chasm."
 	icon_state = "Jaunter"
 	inhand_icon_state = "electronic"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
@@ -76,7 +75,6 @@ GLOBAL_LIST_EMPTY(wormhole_effect)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "bhole3"
 	desc = "A stable hole in the universe made by a wormhole jaunter. Turbulent doesn't even begin to describe how rough passage through one of these is, but at least it will always get you somewhere near a beacon."
-	failchance = 0
 
 /obj/effect/portal/jaunt_tunnel/can_teleport(atom/movable/M)
 	if(!emagged && ismegafauna(M))

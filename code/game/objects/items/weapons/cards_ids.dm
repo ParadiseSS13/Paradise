@@ -369,13 +369,11 @@
 	add_fingerprint(user)
 
 /obj/item/card/id/silver
-	name = "identification card"
 	desc = "A silver card which shows honour and dedication."
 	icon_state = "silver"
 	inhand_icon_state = "silver_id"
 
 /obj/item/card/id/gold
-	name = "identification card"
 	desc = "A golden card which shows power and might."
 	icon_state = "gold"
 	inhand_icon_state = "gold_id"
@@ -595,7 +593,6 @@
 
 /obj/item/card/id/captains_spare/assigned
 	name = "Captain ID"
-	registered_name = "Captain"
 	icon_state = "captain"
 
 /obj/item/card/id/hop

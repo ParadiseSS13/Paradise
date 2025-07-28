@@ -8,7 +8,6 @@
 	icon_state = "lighter-g"
 	inhand_icon_state = "lighter-g"
 	w_class = WEIGHT_CLASS_TINY
-	throwforce = 0
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = null
@@ -283,7 +282,7 @@
 		damtype = "fire"
 		force = 3
 		hitsound = 'sound/items/welder.ogg'
-		inhand_icon_state = "cigon"
+		inhand_icon_state = "cig_on"
 		name = "lit match"
 		desc = "A match. This one is lit."
 		attack_verb = list("burnt","singed")
@@ -298,7 +297,7 @@
 		damtype = "brute"
 		force = initial(force)
 		icon_state = "match_burnt"
-		inhand_icon_state = "cigoff"
+		inhand_icon_state = "cig_off"
 		name = "burnt match"
 		desc = "A match. This one has seen better days."
 		attack_verb = list("flicked")
@@ -378,7 +377,6 @@
 	desc = "A little flame of your own, currently located dangerously in your mouth."
 	icon_state = "match_unathi"
 	attack_verb = null
-	force = 0
 	flags = DROPDEL | ABSTRACT
 	origin_tech = null
 	lit = TRUE

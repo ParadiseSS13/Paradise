@@ -14,7 +14,6 @@
 	inhand_icon_state = "classic_baton"
 	slot_flags = ITEM_SLOT_BELT
 	force = 12 //9 hit crit
-	w_class = WEIGHT_CLASS_NORMAL
 	// Settings
 	/// Whether the baton can stun silicon mobs
 	var/affect_silicon = FALSE

@@ -88,7 +88,6 @@
 /obj/structure/barricade/wooden
 	name = "wooden barricade"
 	desc = "This space is blocked off by a wooden barricade."
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "woodenbarricade"
 	bar_material = WOOD
 	stacktype = /obj/item/stack/sheet/wood

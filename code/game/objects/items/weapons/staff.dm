@@ -21,7 +21,6 @@
 /obj/item/staff/broom
 	name = "broom"
 	desc = "Used for sweeping, and flying into the night while cackling. Black cat not included."
-	icon = 'icons/obj/wizard.dmi'
 	icon_state = "broom"
 
 /obj/item/staff/broom/Initialize(mapload)
@@ -64,5 +63,4 @@
 /obj/item/staff/broom/horsebroom
 	name = "broomstick horse"
 	desc = "Saddle up!"
-	icon = 'icons/obj/wizard.dmi'
 	icon_state = "horsebroom"

@@ -1,12 +1,6 @@
 /obj/item/clothing/under/misc
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
-	icon = 'icons/obj/clothing/under/misc.dmi'
 	dyeable = TRUE
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi'
-	)
 
 /obj/item/clothing/under/misc/pj/red
 	name = "red pj's"

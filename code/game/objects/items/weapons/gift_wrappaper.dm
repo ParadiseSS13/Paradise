@@ -10,7 +10,6 @@
 /obj/item/a_gift
 	name = "gift"
 	desc = "PRESENTS!!!! eek!"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "gift1"
 	inhand_icon_state = "gift"
 	resistance_flags = FLAMMABLE

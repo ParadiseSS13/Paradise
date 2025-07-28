@@ -6,7 +6,6 @@
 	hitsound = "swing_hit"
 	use_sound = 'sound/effects/briefcase.ogg'
 	force = 8
-	throw_speed = 2
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL

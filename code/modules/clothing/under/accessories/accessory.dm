@@ -5,7 +5,6 @@
 	icon_state = ""
 	item_color = ""
 	slot_flags = ITEM_SLOT_ACCESSORY
-	w_class = WEIGHT_CLASS_SMALL
 	var/slot = ACCESSORY_SLOT_DECOR
 	/// the suit the accessory may be attached to
 	var/obj/item/clothing/under/has_suit = null

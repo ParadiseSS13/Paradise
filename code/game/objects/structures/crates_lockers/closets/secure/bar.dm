@@ -8,7 +8,6 @@
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
-	close_sound_volume = 50
 
 /obj/structure/closet/secure_closet/bar/populate_contents()
 	for(var/i in 1 to 10)
