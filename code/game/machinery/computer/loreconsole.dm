@@ -7,7 +7,6 @@
 	body = body_
 
 /obj/machinery/computer/loreconsole
-	name = "computer"
 	circuit = /obj/item/circuitboard/nonfunctional
 	icon_keyboard = "lore_key"
 	icon_screen = "loreconsole"
