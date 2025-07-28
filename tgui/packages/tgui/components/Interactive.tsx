@@ -12,8 +12,19 @@
  * SOFTWARE.
  */
 
-import { clamp } from 'common/math';
-import { Component, InfernoNode, createRef, RefObject } from 'inferno';
+import { type CSSProperties, memo, type ReactNode, useEffect, useMemo, useRef } from 'react';
+import { clamp } from 'tgui-core/math';
+
+// prettier-ignore
+const useEventCallback = <T, >(handler?: (value: T) => void) => {
+  const callbackRef = useRef(handler);
+  const fn = useRef((value: T) => {
+    callbackRef.current && callbackRef.current(value);
+  });
+  callbackRef.current = handler;
+
+  return fn.current;
+};
 
 export interface Interaction {
   left: number;
@@ -35,104 +46,94 @@ const getRelativePosition = (node: HTMLDivElement, event: MouseEvent): Interacti
   };
 };
 
-export interface InteractiveProps {
+interface InteractiveProps {
   onMove: (interaction: Interaction) => void;
   onKey: (offset: Interaction) => void;
-  children: InfernoNode[];
-  style?: any;
+  children: ReactNode;
+  style?: CSSProperties;
 }
 
-export class Interactive extends Component {
-  containerRef: RefObject<HTMLDivElement>;
-  props: InteractiveProps;
+const InteractiveBase = ({ onMove, onKey, style, ...rest }: InteractiveProps) => {
+  const container = useRef<HTMLDivElement>(null);
+  const onMoveCallback = useEventCallback<Interaction>(onMove);
+  const onKeyCallback = useEventCallback<Interaction>(onKey);
 
-  constructor(props: InteractiveProps) {
-    super();
-    this.props = props;
-    this.containerRef = createRef();
-  }
+  const [handleMoveStart, handleKeyDown, toggleDocumentEvents] = useMemo(() => {
+    const handleMoveStart = ({ nativeEvent }: React.MouseEvent) => {
+      const el = container.current;
+      if (!el) return;
 
-  handleMoveStart = (event: MouseEvent) => {
-    const el = this.containerRef?.current;
-    if (!el) return;
+      // Prevent text selection
+      nativeEvent.preventDefault();
+      el.focus();
+      onMoveCallback(getRelativePosition(el, nativeEvent));
+      toggleDocumentEvents(true);
+    };
 
-    // Prevent text selection
-    event.preventDefault();
-    el.focus();
-    this.props.onMove(getRelativePosition(el, event));
-    this.toggleDocumentEvents(true);
-  };
+    const handleMove = (event: MouseEvent) => {
+      // Prevent text selection
+      event.preventDefault();
 
-  handleMove = (event: MouseEvent) => {
-    // Prevent text selection
-    event.preventDefault();
+      // If user moves the pointer outside of the window or iframe bounds and release it there,
+      // `mouseup`/`touchend` won't be fired. In order to stop the picker from following the cursor
+      // after the user has moved the mouse/finger back to the document, we check `event.buttons`
+      // and `event.touches`. It allows us to detect that the user is just moving his pointer
+      // without pressing it down
+      const isDown = event.buttons > 0;
 
-    // If user moves the pointer outside of the window or iframe bounds and release it there,
-    // `mouseup`/`touchend` won't be fired. In order to stop the picker from following the cursor
-    // after the user has moved the mouse/finger back to the document, we check `event.buttons`
-    // and `event.touches`. It allows us to detect that the user is just moving his pointer
-    // without pressing it down
-    const isDown = event.buttons > 0;
+      if (isDown && container.current) {
+        onMoveCallback(getRelativePosition(container.current, event));
+      } else {
+        toggleDocumentEvents(false);
+      }
+    };
 
-    if (isDown && this.containerRef?.current) {
-      this.props.onMove(getRelativePosition(this.containerRef.current, event));
-    } else {
-      this.toggleDocumentEvents(false);
-    }
-  };
+    const handleMoveEnd = () => toggleDocumentEvents(false);
 
-  handleMoveEnd = () => {
-    this.toggleDocumentEvents(false);
-  };
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+      const keyCode = event.which || event.keyCode;
 
-  handleKeyDown = (event: KeyboardEvent) => {
-    const keyCode = event.which || event.keyCode;
+      // Ignore all keys except arrow ones
+      if (keyCode < 37 || keyCode > 40) return;
+      // Do not scroll page by arrow keys when document is focused on the element
+      event.preventDefault();
+      // Send relative offset to the parent component.
+      // We use codes (37←, 38↑, 39→, 40↓) instead of keys ('ArrowRight', 'ArrowDown', etc)
+      // to reduce the size of the library
+      onKeyCallback({
+        left: keyCode === 39 ? 0.05 : keyCode === 37 ? -0.05 : 0,
+        top: keyCode === 40 ? 0.05 : keyCode === 38 ? -0.05 : 0,
+      });
+    };
 
-    // Ignore all keys except arrow ones
-    if (keyCode < 37 || keyCode > 40) return;
-    // Do not scroll page by arrow keys when document is focused on the element
-    event.preventDefault();
-    // Send relative offset to the parent component.
-    // We use codes (37←, 38↑, 39→, 40↓) instead of keys ('ArrowRight', 'ArrowDown', etc)
-    // to reduce the size of the library
-    this.props.onKey({
-      left: keyCode === 39 ? 0.05 : keyCode === 37 ? -0.05 : 0,
-      top: keyCode === 40 ? 0.05 : keyCode === 38 ? -0.05 : 0,
-    });
-  };
+    const toggleDocumentEvents = (state?: boolean) => {
+      const el = container.current;
+      const parentWindow = getParentWindow(el);
 
-  toggleDocumentEvents(state?: boolean) {
-    const el = this.containerRef?.current;
-    const parentWindow = getParentWindow(el);
+      // Add or remove additional pointer event listeners
+      const toggleEvent = state ? parentWindow.addEventListener : parentWindow.removeEventListener;
+      toggleEvent('mousemove', handleMove);
+      toggleEvent('mouseup', handleMoveEnd);
+    };
 
-    // Add or remove additional pointer event listeners
-    const toggleEvent = state ? parentWindow.addEventListener : parentWindow.removeEventListener;
-    toggleEvent('mousemove', this.handleMove);
-    toggleEvent('mouseup', this.handleMoveEnd);
-  }
+    return [handleMoveStart, handleKeyDown, toggleDocumentEvents];
+  }, [onKeyCallback, onMoveCallback]);
 
-  componentDidMount() {
-    this.toggleDocumentEvents(true);
-  }
+  // Remove window event listeners before unmounting
+  useEffect(() => toggleDocumentEvents, [toggleDocumentEvents]);
 
-  componentWillUnmount() {
-    this.toggleDocumentEvents(false);
-  }
+  return (
+    <div
+      {...rest}
+      style={style}
+      onMouseDown={handleMoveStart}
+      className="react-colorful__interactive"
+      ref={container}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="slider"
+    />
+  );
+};
 
-  render() {
-    return (
-      <div
-        {...this.props}
-        style={this.props.style}
-        ref={this.containerRef}
-        onMouseDown={this.handleMoveStart}
-        className="react-colorful__interactive"
-        onKeyDown={this.handleKeyDown}
-        tabIndex={0}
-        role="slider"
-      >
-        {this.props.children}
-      </div>
-    );
-  }
-}
+export const Interactive = memo(InteractiveBase);

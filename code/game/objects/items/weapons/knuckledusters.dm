@@ -66,7 +66,6 @@
 	name = "engraved knuckleduster"
 	desc = "Perfect for giving that Greytider a golden, painful lesson."
 	icon_state = "knuckleduster_nt"
-	force = 10
 	throwforce = 5
 	origin_tech = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Steal objectives shouldnt be easy to destroy.

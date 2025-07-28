@@ -20,7 +20,6 @@
 	var/revealing = FALSE
 	var/reveal_time = 10 SECONDS
 	base_cooldown = 20 SECONDS
-	level_max = 4
 
 /datum/spell/pulse_demon/New()
 	. = ..()
@@ -35,7 +34,7 @@
 		desc = "[initial(desc)][spell_level == level_max ? "" : " It costs [format_si_suffix(upgrade_cost)] APC\s to upgrade. <b>Alt-Click</b> this spell to upgrade it."]"
 	action.name = name
 	action.desc = desc
-	action.UpdateButtons()
+	action.build_all_button_icons()
 
 /datum/spell/pulse_demon/can_cast(mob/living/simple_animal/demon/pulse_demon/user, charge_check, show_message)
 	if(!..())
@@ -195,7 +194,6 @@
 	unlock_cost = 8
 	cast_cost = 1000 KJ
 	upgrade_cost = 4
-	level_max = 4
 	requires_area = TRUE
 	revealing = TRUE
 	base_cooldown = 60 SECONDS
@@ -278,8 +276,8 @@
 
 /datum/spell/pulse_demon/toggle/proc/do_toggle(varstate, mob/user)
 	if(action)
-		action.button_background_icon_state = varstate ? action_background_icon_state : "[action_background_icon_state]_disabled"
-		action.UpdateButtons()
+		action.background_icon_state = varstate ? action_background_icon_state : "[action_background_icon_state]_disabled"
+		action.build_all_button_icons()
 	if(user)
 		to_chat(user, "<span class='notice'>You will [varstate ? "now" : "no longer"] [base_message]</span>")
 	return varstate
@@ -379,9 +377,7 @@
 	desc = "Toggle whether to use 200 KJ of energy to bypass electric-resistant victims immunity when attacking."
 	base_message = "use strong shocks when attacking."
 	action_icon_state = "pd_strong_shocks"
-	locked = TRUE
 	unlock_cost = 4
-	cast_cost = 0
 	level_max = 0
 
 /datum/spell/pulse_demon/toggle/penetrating_shock/create_new_targeting()

@@ -17,7 +17,6 @@
 	butcher_results = list(/obj/item/food/monstermeat/spidermeat = 2, /obj/item/food/monstermeat/spiderleg = 8)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
-	response_harm   = "hits"
 	maxHealth = 200
 	health = 200
 	obj_damage = 60
@@ -101,7 +100,6 @@
 	maxHealth = 120
 	health = 120
 	melee_damage_lower = 10
-	melee_damage_upper = 20
 	venom_per_bite = 10
 	move_to_delay = 5
 
@@ -165,8 +163,8 @@
 
 /datum/action/innate/web_giant_spider
 	name = "Lay Web"
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "stickyweb1"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "stickyweb1"
 
 /datum/action/innate/web_giant_spider/Activate()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/user = owner
@@ -174,8 +172,8 @@
 
 /datum/action/innate/wrap_giant_spider
 	name = "Wrap"
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "cocoon_large1"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "cocoon_large1"
 
 /datum/action/innate/wrap_giant_spider/Activate()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/user = owner
@@ -183,8 +181,8 @@
 
 /datum/action/innate/lay_eggs_giant_spider
 	name = "Lay Eggs"
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "eggs"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "eggs"
 
 /datum/action/innate/lay_eggs_giant_spider/Activate()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/user = owner

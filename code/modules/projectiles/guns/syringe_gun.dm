@@ -3,9 +3,7 @@
 	desc = "A spring loaded rifle designed to fit syringes, used to incapacitate unruly patients from a distance. Not compatible with DNA-Injectors."
 	icon_state = "syringegun"
 	item_state = "syringegun"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=2;biotech=3"
-	throw_speed = 3
 	throw_range = 7
 	force = 4
 	materials = list(MAT_METAL=2000)

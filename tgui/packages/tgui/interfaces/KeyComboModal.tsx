@@ -1,7 +1,8 @@
-import { isEscape, KEY } from 'common/keys';
+import { useState } from 'react';
+import { Autofocus, Box, Button, Section, Stack } from 'tgui-core/components';
+import { isEscape, KEY } from 'tgui-core/keys';
 
-import { useBackend, useLocalState } from '../backend';
-import { Autofocus, Box, Button, Section, Stack } from '../components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { InputButtons } from './common/InputButtons';
 import { Loader } from './common/Loader';
@@ -66,11 +67,11 @@ const formatKeyboardEvent = (event): string => {
   return text;
 };
 
-export const KeyComboModal = (props, context) => {
-  const { act, data } = useBackend<KeyInputData>(context);
+export const KeyComboModal = (props) => {
+  const { act, data } = useBackend<KeyInputData>();
   const { init_value, large_buttons, message = '', title, timeout } = data;
-  const [input, setInput] = useLocalState(context, 'input', init_value);
-  const [binding, setBinding] = useLocalState(context, 'binding', true);
+  const [input, setInput] = useState(init_value);
+  const [binding, setBinding] = useState(true);
 
   const handleKeyPress = (event) => {
     if (!binding) {

@@ -18,7 +18,6 @@
 	maxHealth = 50
 	health = 50
 	speed = 0.75
-	stop_automated_movement = FALSE
 	turns_per_move = 4
 
 	// What they sound like
@@ -133,8 +132,8 @@
 /datum/action/innate/nian_caterpillar_emerge
 	name = "Evolve"
 	desc = "Weave a cocoon around yourself to evolve into a greater form. The worme."
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "cocoon1"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "cocoon1"
 
 /datum/action/innate/nian_caterpillar_emerge/proc/emerge(obj/structure/moth_cocoon/C)
 	for(var/mob/living/carbon/human/H in C)

@@ -71,7 +71,6 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	var/spider_max_steps = 15 // after we take X turns trying to do something, give up!
 
 	// Speech
-	speak_chance = 0 // quiet but deadly
 	speak_emote = list("hisses")
 	emote_hear = list("hisses")
 

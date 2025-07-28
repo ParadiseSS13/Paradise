@@ -6,7 +6,6 @@
 		To earth, who can tell?"
 
 	invisibility = INVISIBILITY_OBSERVER
-	anchored = TRUE
 	layer = MASSIVE_OBJ_LAYER
 	color = "#ff0000" // text color
 	var/text_size = 3 // larger values clip when the displayed text is larger than 2 digits.

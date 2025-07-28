@@ -2,7 +2,7 @@
 	name = "Biodegrade"
 	desc = "Dissolves restraints or other objects preventing free movement if we are restrained. Prepares hand to vomit acid on other objects, doesn't work on living targets. Costs 30 chemicals."
 	helptext = "This is obvious to nearby people, and can destroy standard restraints and closets, and break you out of grabs."
-	button_overlay_icon_state = "biodegrade"
+	button_icon_state = "biodegrade"
 	chemical_cost = 30 //High cost to prevent spam
 	dna_cost = 4
 	req_human = TRUE
@@ -127,8 +127,6 @@
 	item_state = null
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	force = 0
-	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
 	var/datum/action/changeling/biodegrade/parent_action

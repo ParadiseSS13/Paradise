@@ -91,7 +91,6 @@
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "plasma assembly crate"
 	access = ACCESS_TOX_STORAGE
-	group = SUPPLY_SCIENCE
 
 /datum/supply_packs/science/shieldwalls
 	name = "Shield Generators Crate"

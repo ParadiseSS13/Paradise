@@ -10,11 +10,9 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 300)
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("attacked", "hammered", "smashed", "bludgeoned", "whacked")
-	toolspeed = 1
 
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_HAMMER

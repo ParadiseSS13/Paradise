@@ -4,7 +4,6 @@
 	It can be installed into a cyborg shell, AI core, mech, spiderbot, or an Integrated Robotic Chassis' chest cavity."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=2;programming=3;engineering=2"
 
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
@@ -80,7 +79,7 @@
 				alien = 0
 
 			if(radio_action)
-				radio_action.UpdateButtons()
+				radio_action.build_all_button_icons()
 			SSblackbox.record_feedback("amount", "mmis_filled", 1)
 		else
 			to_chat(user, "<span class='warning'>You can't drop [B]!</span>")
@@ -179,7 +178,7 @@
 /obj/item/mmi/proc/become_occupied(new_icon)
 	icon_state = new_icon
 	if(radio)
-		radio_action.UpdateButtons()
+		radio_action.build_all_button_icons()
 
 /obj/item/mmi/examine(mob/user)
 	. = ..()
@@ -213,8 +212,8 @@
 	return ..()
 
 /datum/action/generic/configure_mmi_radio/apply_button_overlay(atom/movable/screen/movable/action_button/current_button)
-	button_overlay_icon = mmi.icon
-	button_overlay_icon_state = mmi.icon_state
+	button_icon = mmi.icon
+	button_icon_state = mmi.icon_state
 	..()
 
 /obj/item/mmi/emp_act(severity)
