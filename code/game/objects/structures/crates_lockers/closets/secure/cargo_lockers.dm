@@ -14,7 +14,6 @@
 
 /obj/structure/closet/wardrobe/miner
 	name = "mining wardrobe"
-	icon_state = "generic"
 	closed_door_sprite = "mixed"
 
 /obj/structure/closet/wardrobe/miner/populate_contents()
