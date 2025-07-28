@@ -331,7 +331,7 @@
 				qdel(M)
 		pinned_to = list()
 		return
-	var/datum/action/item_action/mod/pinned_module/new_action = new(Target = mod, custom_icon = src.icon, custom_icon_state = src.icon_state, linked_module = src, user = user)
+	var/datum/action/item_action/mod/pinned_module/new_action = new(Target = mod, linked_module = src, user = user)
 	to_chat(user, "[new_action] is now pinned to the UI!")
 
 

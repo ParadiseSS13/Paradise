@@ -208,7 +208,7 @@ const TextSetter = ({
       step={1}
       minValue={min}
       maxValue={max}
-      onDrag={callback}
+      onChange={callback}
       unit={unit}
     />
   );
