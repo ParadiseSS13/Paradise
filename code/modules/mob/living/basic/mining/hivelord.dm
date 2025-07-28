@@ -165,6 +165,11 @@
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
 
+/mob/living/basic/mining/hivelord/legion/Initialize(mapload)
+	. = ..()
+	add_language("Galactic Common")
+	set_default_language(GLOB.all_languages["Galactic Common"])
+
 /mob/living/basic/mining/hivelord/legion/dwarf
 	name = "dwarf legion"
 	desc = "You can still see what was once a dwarf under the shifting mass of corruption."
@@ -174,7 +179,7 @@
 	icon_dead = "dwarf_legion"
 	maxHealth = 60
 	health = 60
-	speed = 2 //faster!
+	speed = 2 // faster!
 	crusher_drop_mod = 20
 	dwarf_mob = TRUE
 
