@@ -133,13 +133,13 @@
 	name = "botanist's cap"
 	desc = "It's a green baseball hat with a blue service shield."
 	icon_state = "hydroponicssoft"
-	item_color = "hydroponicsblue"
+	item_color = "hydroponics"
 
 /obj/item/clothing/head/soft/hydroponics_alt
 	name = "hydroponics cap"
 	desc = "It's a green baseball hat with a brown service shield."
-	icon_state = "hydroponicssoft_alt"
-	item_color = "hydroponicsbrown"
+	icon_state = "hydroponics_altsoft"
+	item_color = "hydroponics_alt"
 
 /obj/item/clothing/head/soft/paramedic
 	name = "\improper EMT cap"

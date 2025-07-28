@@ -143,6 +143,7 @@
 	desc = "It's a jumpsuit designed to protect against minor plant-related hazards. This one has brown markings."
 	name = "hydroponicist's jumpsuit"
 	icon_state = "hydroponics_alt"
+	item_color = "hydroponics_alt"
 
 /obj/item/clothing/under/rank/civilian/janitor
 	name = "janitor's jumpsuit"
