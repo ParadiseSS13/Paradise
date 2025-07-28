@@ -199,7 +199,7 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 
 /// Find the last name of a mob from a passed string with regex
 /proc/last_name(given_name)
-	var/static/regex/lasttname = new("\[^\\s-\]+$") //First word before whitespace or "-"
+	var/static/regex/lasttname = new("\[^\\s-\]+$") //Last word after whitespace or "-"
 	lasttname.Find(given_name)
 	return lasttname.match
 
