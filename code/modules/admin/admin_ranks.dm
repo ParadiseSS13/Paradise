@@ -70,9 +70,9 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 			-- Permissions start with their admin rank permissions (if any)
 			(IFNULL(admin_ranks.default_permissions, 0)
 			-- Then add in any extra permissions they've been granted.
-			 | admin.extra_permissions)
+			| admin.extra_permissions)
 			-- And exclude any permissions they've had removed.
-			 & ~admin.removed_permissions
+			& ~admin.removed_permissions
 		FROM admin
 		-- We want all admins, and admin_ranks where available.
 		LEFT OUTER JOIN admin_ranks
@@ -155,9 +155,9 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 				-- Permissions start with their admin rank permissions (if any)
 				(IFNULL(admin_ranks.default_permissions, 0)
 				-- Then add in any extra permissions they've been granted.
-				 | admin.extra_permissions)
+				| admin.extra_permissions)
 				-- And exclude any permissions they've had removed.
-				 & ~admin.removed_permissions
+				& ~admin.removed_permissions
 			FROM admin
 			-- We want all admins, and admin_ranks where available.
 			LEFT OUTER JOIN admin_ranks

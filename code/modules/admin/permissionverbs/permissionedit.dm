@@ -154,8 +154,8 @@
 		return
 
 	var/datum/db_query/get_rank_name = SSdbcore.NewQuery("SELECT name FROM admin_ranks WHERE id = :new_rank", list(
-        "new_rank" = new_rank
-    ))
+		"new_rank" = new_rank
+	))
 	if(!get_rank_name.warn_execute())
 		qdel(get_rank_name)
 		return
@@ -519,8 +519,8 @@
 		return
 
 	var/datum/db_query/get_rank_details = SSdbcore.NewQuery("SELECT id, default_permissions FROM admin_ranks WHERE name = :rank_name", list(
-        "rank_name" = rank_name
-    ))
+		"rank_name" = rank_name
+	))
 	if(!get_rank_details.warn_execute())
 		qdel(get_rank_details)
 		return
@@ -609,8 +609,8 @@
 	if(!db_available())
 		return
 	var/datum/db_query/get_rank_id = SSdbcore.NewQuery("SELECT id FROM admin_ranks WHERE name = :rank_name", list(
-        "rank_name" = rank_name
-    ))
+		"rank_name" = rank_name
+	))
 	if(!get_rank_id.warn_execute())
 		qdel(get_rank_id)
 		return
@@ -625,8 +625,8 @@
 	if(!db_available())
 		return
 	var/datum/db_query/get_rank_permissions = SSdbcore.NewQuery("SELECT default_permissions FROM admin_ranks WHERE name = :rank_name", list(
-        "rank_name" = rank_name
-    ))
+		"rank_name" = rank_name
+	))
 	if(!get_rank_permissions.warn_execute())
 		qdel(get_rank_permissions)
 		return
