@@ -329,7 +329,7 @@
 	main_typepath = /datum/gear/uniform/service
 
 /datum/gear/uniform/service/hydroponics_alt
-	display_name = "Uniform, hydroponics brown"
+	display_name = "Jumpsuit, hydroponics brown"
 	path = /obj/item/clothing/under/rank/civilian/hydroponics/alt
 	allowed_roles = list("Botanist")
 
