@@ -58,6 +58,7 @@
 	var/amputation_point // Descriptive string used in amputation.
 	var/can_grasp
 	var/can_stand
+	var/malfdamage
 
 	var/splinted_count = 0 //Time when this organ was last splinted
 	///If this organ's max HP is reduced by the IPC magnetic joints implant
@@ -876,7 +877,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return !(status & (ORGAN_MUTATED|ORGAN_DEAD))
 
 /obj/item/organ/external/proc/is_malfunctioning()
-	return (is_robotic() && (brute_dam + burn_dam) >= 35 && prob(brute_dam + burn_dam) && !tough)
+	return (is_robotic() && (brute_dam + burn_dam) >= malfdamage && prob(brute_dam + burn_dam) && !tough)
 
 /obj/item/organ/external/remove(mob/living/user, ignore_children)
 
