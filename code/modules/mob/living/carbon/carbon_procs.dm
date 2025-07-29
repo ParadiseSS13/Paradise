@@ -1011,6 +1011,19 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	update_inv_handcuffed()
 	update_hands_hud()
 
+// Called to escape a cryocell
+/mob/living/carbon/proc/cryo_resist(obj/machinery/atmospherics/unary/cryo_cell/cell)
+	var/effective_breakout_time = 1 MINUTES
+	if(stat != UNCONSCIOUS)
+		effective_breakout_time = 5 SECONDS
+
+	if(has_status_effect(STATUS_EFFECT_EXIT_CRYOCELL))
+		to_chat(src, "<span class='notice'>You are already trying to exit [cell].</span>")
+		return
+
+	apply_status_effect(STATUS_EFFECT_EXIT_CRYOCELL)
+	cell.attempt_escape(src, effective_breakout_time)
+
 /mob/living/carbon/get_standard_pixel_y_offset()
 	if(IS_HORIZONTAL(src))
 		if(buckled)

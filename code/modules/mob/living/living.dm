@@ -730,6 +730,10 @@
 
 ///proc extender of [/mob/living/verb/resist] meant to make the process queable if the server is overloaded when the verb is called
 /mob/living/proc/run_resist()
+	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		var/obj/C = loc
+		C.container_resist(src)
+		return
 	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)

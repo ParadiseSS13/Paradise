@@ -378,6 +378,21 @@
 		var/mutable_appearance/lid = mutable_appearance(icon = icon, icon_state = "lid[on]", layer = occupant_overlay.layer + 0.01)
 		. += lid
 
+/obj/machinery/atmospherics/unary/cryo_cell/proc/attempt_escape(mob/living/carbon/user, effective_breakout_time)
+	if(effective_breakout_time)
+		user.visible_message("<span class='warning'>[user] attempts to trigger the release on [src]!</span>", "<span class='notice'>You attempt to trigger the release on [src]...</span>")
+		to_chat(user, "<span class='notice'>You attempt to trigger the release on [src]. (This will take around [DisplayTimeText(effective_breakout_time)].)</span>")
+
+	if(!do_after(user, effective_breakout_time, FALSE, user, hidden = TRUE, allow_sleeping_or_dead = TRUE))
+		user.remove_status_effect(STATUS_EFFECT_EXIT_CRYOCELL)
+		to_chat(user, "<span class='warning'>You fail to trigger the release on [src]!</span>")
+		return
+
+	user.remove_status_effect(STATUS_EFFECT_EXIT_CRYOCELL)
+	go_out()
+
+/obj/machinery/atmospherics/unary/cryo_cell/container_resist(mob/living/carbon/C)
+	C.cryo_resist(src)
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
 	if(air_contents.total_moles() < 10)
@@ -423,6 +438,7 @@
 	if(ishuman(occupant) && occupant.bodytemperature < occupant.dna.species.cold_level_1) // Hacky fix for people taking burn damage after being ejected. Xenos also fit in these and they don't have dna
 		occupant.bodytemperature = occupant.dna.species.cold_level_1
 
+	occupant.clear_alert("cryogenics")
 	occupant = null
 	update_icon(UPDATE_OVERLAYS)
 	deltimer(removal_timer)
@@ -465,6 +481,8 @@
 	M.ExtinguishMob()
 	if(force_eject)
 		removal_timer = addtimer(CALLBACK(src, PROC_REF(auto_eject)), 1 MINUTES, TIMER_STOPPABLE)
+	else
+		M.throw_alert("cryogenics", /atom/movable/screen/alert/restrained/cryocell)
 	return TRUE
 
 /obj/machinery/atmospherics/unary/cryo_cell/multitool_act(mob/living/user, obj/item/I)
