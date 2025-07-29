@@ -109,7 +109,6 @@
 			hittarget_living.adjustBruteLoss(200)
 			new /obj/effect/decal/cleanable/blood/splatter(get_turf(hittarget_living))
 
-			// log_combat(src, hittarget_living, "rammed into", null, "injuring all passengers and killing the [hittarget_living]")
 			dump_mobs(TRUE)
 			playsound(src, 'sound/effects/clowncar/car_crash.ogg', 100)
 			return
