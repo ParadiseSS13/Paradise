@@ -376,6 +376,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	module_actions.Cut()
 	return ..()
 
+/mob/living/silicon/robot/update_runechat_msg_location()
+	if(istgvehicle(loc))
+		runechat_msg_location = loc.UID()
+	else
+		return ..()
+
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return

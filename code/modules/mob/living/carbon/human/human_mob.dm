@@ -2032,6 +2032,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/update_runechat_msg_location()
 	if(ismecha(loc))
 		runechat_msg_location = loc.UID()
+	else if(istgvehicle(loc))
+		runechat_msg_location = loc.UID()
 	else
 		return ..()
 

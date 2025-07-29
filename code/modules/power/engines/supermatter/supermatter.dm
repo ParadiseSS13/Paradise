@@ -857,6 +857,7 @@
 		Bumped(A)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/Consume(atom/movable/AM)
+	SEND_SIGNAL(AM, COMSIG_SUPERMATTER_CONSUMED, src)
 	if(isliving(AM))
 		var/mob/living/user = AM
 		if(user.status_flags & GODMODE)
