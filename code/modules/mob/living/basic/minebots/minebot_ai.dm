@@ -172,7 +172,7 @@
 
 	living_pawn.face_atom(target)
 
-	RegisterSignal(target, COMSIG_MINE_EXPOSE_GIBTONITE, PROC_REF(on_mine_expose_gibtonite))
+	RegisterSignal(target, COMSIG_MINE_EXPOSE_GIBTONITE, PROC_REF(on_mine_expose_gibtonite), override = TRUE)
 
 	living_pawn.RangedAttack(target)
 	living_pawn.a_intent = old_intent
