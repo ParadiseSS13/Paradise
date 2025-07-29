@@ -154,12 +154,19 @@
 /obj/item/gun/projectile/automatic/mini_uzi
 	name = "\improper 'Type U3' Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
+	icon = 'icons/tgmc/objects/guns.dmi'
 	icon_state = "mini-uzi"
+	item_state = "mini-uzi"
 	origin_tech = "combat=4;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 	burst_size = 2
 	can_holster = TRUE // it's a mini-uzi after all
+
+/obj/item/gun/projectile/automatic/mini_uzi/update_overlays()
+	. = ..()
+	if(suppressed)
+		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 13, pixel_y = 5)
 
 //////////////////////////////
 // MARK: M-90GL CARBINE
@@ -245,7 +252,6 @@
 /obj/item/gun/projectile/automatic/tommygun
 	name = "\improper Thompson SMG"
 	desc = "A genuine 'Chicago Typewriter'."
-	icon_state = "tommygun"
 	item_state = "shotgun"
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = 0

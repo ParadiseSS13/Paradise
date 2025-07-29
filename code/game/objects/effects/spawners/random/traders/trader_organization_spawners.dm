@@ -82,7 +82,7 @@
 	spawn_loot_count = 2 //Lots of dangerous stuff here - reduced amount
 	loot = list(
 		/obj/item/gun/projectile/revolver/nagant = 5,
-		/obj/item/gun/projectile/automatic/pistol/aps = 3,
+		/obj/item/gun/projectile/automatic/pistol/type_230 = 3,
 		/obj/item/gun/projectile/shotgun/boltaction = 5,
 		/obj/item/clothing/suit/space/hardsuit/soviet = 4,
 		/obj/item/clothing/glasses/thermal/eyepatch = 5,

@@ -4,7 +4,7 @@
 /obj/item/suppressor
 	name = "universal suppressor"
 	desc = "A universal syndicate small-arms suppressor for maximum espionage."
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/tgmc/objects/attachments.dmi'
 	icon_state = "suppressor"
 	item_state = "suppressor"
 	w_class = WEIGHT_CLASS_SMALL
