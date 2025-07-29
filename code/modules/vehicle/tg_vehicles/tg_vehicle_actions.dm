@@ -299,7 +299,7 @@
 /datum/action/vehicle/sealed/climb_out
 	name = "Climb Out"
 	desc = "Climb out of your vehicle!"
-	button_overlay_icon_state = "car_eject"
+	button_icon_state = "car_eject"
 
 /datum/action/vehicle/sealed/climb_out/Trigger(trigger_flags)
 	if(..() && istype(vehicle_entered_target))
@@ -308,7 +308,7 @@
 /datum/action/vehicle/sealed/remove_key
 	name = "Remove key"
 	desc = "Take your key out of the vehicle's ignition."
-	button_overlay_icon_state = "car_removekey"
+	button_icon_state = "car_removekey"
 
 /datum/action/vehicle/sealed/remove_key/Trigger(trigger_flags)
 	vehicle_entered_target.remove_key(owner)
@@ -317,7 +317,7 @@
 /datum/action/vehicle/sealed/horn
 	name = "Honk Horn"
 	desc = "Honk your classy horn."
-	button_overlay_icon_state = "car_horn"
+	button_icon_state = "car_horn"
 	var/horn_sound = 'sound/items/airhorn.ogg'
 	var/horn_cooldown = 60
 	var/last_horn = 0
@@ -336,7 +336,7 @@
 /datum/action/vehicle/sealed/headlights
 	name = "Toggle Headlights"
 	desc = "Turn on your brights!"
-	button_overlay_icon_state = "car_headlights"
+	button_icon_state = "car_headlights"
 
 /datum/action/vehicle/sealed/headlights/Trigger(trigger_flags)
 	to_chat(owner, "<span class=notice'>You flip the switch for the vehicle's headlights.</span>")
@@ -351,7 +351,7 @@
 /datum/action/vehicle/sealed/dump_kidnapped_mobs
 	name = "Dump Kidnapped Mobs"
 	desc = "Dump all objects and people in your car on the floor."
-	button_overlay_icon_state = "car_dump"
+	button_icon_state = "car_dump"
 
 /datum/action/vehicle/sealed/dump_kidnapped_mobs/Trigger(trigger_flags)
 	vehicle_entered_target.visible_message("<span class='warning'>[vehicle_target] starts dumping the people inside of it.</span>")
@@ -361,7 +361,7 @@
 /datum/action/vehicle/sealed/roll_the_dice
 	name = "Press Colorful Button"
 	desc = "Press one of those colorful buttons on your display panel!"
-	button_overlay_icon_state = "car_rtd"
+	button_icon_state = "car_rtd"
 
 /datum/action/vehicle/sealed/roll_the_dice/Trigger(trigger_flags)
 	if(!istype(vehicle_entered_target, /obj/tgvehicle/sealed/car/clowncar))
@@ -372,7 +372,7 @@
 /datum/action/vehicle/sealed/cannon
 	name = "Toggle Siege Mode"
 	desc = "Destroy them with their own fodder!"
-	button_overlay_icon_state = "car_cannon"
+	button_icon_state = "car_cannon"
 
 /datum/action/vehicle/sealed/cannon/Trigger(trigger_flags)
 	if(!istype(vehicle_entered_target, /obj/tgvehicle/sealed/car/clowncar))
@@ -384,7 +384,7 @@
 /datum/action/vehicle/sealed/thank
 	name = "Thank the Clown Car Driver"
 	desc = "They're just doing their job."
-	button_overlay_icon_state = "car_thanktheclown"
+	button_icon_state = "car_thanktheclown"
 	COOLDOWN_DECLARE(thank_time_cooldown)
 
 /datum/action/vehicle/sealed/thank/Trigger(trigger_flags)
