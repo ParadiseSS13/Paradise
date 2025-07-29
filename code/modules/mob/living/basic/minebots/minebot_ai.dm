@@ -172,7 +172,11 @@
 
 	living_pawn.face_atom(target)
 
-	RegisterSignal(target, COMSIG_MINE_EXPOSE_GIBTONITE, PROC_REF(on_mine_expose_gibtonite))
+	var/turf/simulated/mineral/mineral_target = target
+	if(istype(mineral_target) && istype(mineral_target.ore, /datum/ore/gibtonite))
+		// Duplicate signals can occur when a minebot previously tried to mine a
+		// turf and failed (e.g. something else was hit by the kpa projectile)
+		RegisterSignal(mineral_target, COMSIG_MINE_EXPOSE_GIBTONITE, PROC_REF(on_mine_expose_gibtonite), override = TRUE)
 
 	living_pawn.RangedAttack(target)
 	living_pawn.a_intent = old_intent
@@ -182,6 +186,7 @@
 /datum/ai_behavior/minebot_mine_turf/proc/on_mine_expose_gibtonite(datum/source, mob/living/instigator)
 	SIGNAL_HANDLER // COMSIG_MINE_EXPOSE_GIBTONITE
 
+	UnregisterSignal(source, COMSIG_MINE_EXPOSE_GIBTONITE)
 	instigator.emote("me", EMOTE_VISIBLE, "yelps!")
 	instigator.ai_controller.set_blackboard_key(BB_MINEBOT_GIBTONITE_RUN, source)
 

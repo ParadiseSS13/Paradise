@@ -8,7 +8,7 @@
 	command_name = "Stay"
 	command_desc = "Command your pet to stay idle in this location."
 	speech_commands = list("sit", "stay", "stop")
-	command_feedback = "sits"
+	command_feedback = "sits."
 
 /datum/pet_command/idle/execute_action(datum/ai_controller/controller)
 	return SUBTREE_RETURN_FINISH_PLANNING // This cancels further AI planning
