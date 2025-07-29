@@ -38008,7 +38008,6 @@
 "cJC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/dispenser,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "cJD" = (
@@ -40011,6 +40010,7 @@
 /area/station/engineering/hardsuitstorage)
 "cRw" = (
 /obj/machinery/light,
+/obj/structure/dispenser,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "cRy" = (
@@ -70581,8 +70581,8 @@
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
 "oSr" = (
