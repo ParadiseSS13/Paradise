@@ -106,7 +106,7 @@ type AirlockElectronicsData = {
   regions: AccessRegion[];
 };
 
-const ChooseAccess = (props) => {
+export const ChooseAccess = (props) => {
   const { act, data } = useBackend<AirlockElectronicsData>();
   const { selected_accesses, one_access, regions } = data;
   return (
