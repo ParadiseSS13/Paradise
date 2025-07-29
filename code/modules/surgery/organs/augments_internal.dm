@@ -380,8 +380,8 @@
 /datum/action/item_action/organ_action/toggle/sensory_enhancer
 	name = "Activate Qani-Laaca System"
 	desc = "Activates your Qani-Laaca computer and grants you its powers. LMB: Short, safer activation. ALT/MIDDLE: Longer, more powerful, more dangerous activation."
-	button_overlay_icon = 'icons/obj/surgery.dmi'
-	button_overlay_icon_state = "sandy"
+	button_icon = 'icons/obj/surgery.dmi'
+	button_icon_state = "sandy"
 	/// Keeps track of how much mephedrone we inject into people on activation
 	var/injection_amount = 10
 

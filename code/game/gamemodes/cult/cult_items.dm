@@ -634,7 +634,7 @@
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
 	desc = "Recall the blood spear to your hand."
-	button_overlay_icon_state = "bloodspear"
+	button_icon_state = "bloodspear"
 	default_button_position = "11:31,4:-2"
 	var/obj/item/cult_spear/spear
 	var/cooldown = 0

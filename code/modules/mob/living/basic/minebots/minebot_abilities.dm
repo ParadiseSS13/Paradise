@@ -1,10 +1,10 @@
 /datum/action/innate/minedrone
 	check_flags = AB_CHECK_CONSCIOUS
-	button_background_icon_state = "bg_default"
+	background_icon_state = "bg_default"
 
 /datum/action/innate/minedrone/toggle_light
 	name = "Toggle Light"
-	button_overlay_icon_state = "mech_lights_off"
+	button_icon_state = "mech_lights_off"
 
 /datum/action/innate/minedrone/toggle_light/Activate()
 	var/mob/living/basic/mining_drone/user = owner
@@ -18,7 +18,7 @@
 
 /datum/action/innate/minedrone/toggle_meson_vision
 	name = "Toggle Meson Vision"
-	button_overlay_icon_state = "meson"
+	button_icon_state = "meson"
 
 /datum/action/innate/minedrone/toggle_meson_vision/Activate()
 	var/mob/living/user = owner
@@ -41,7 +41,7 @@
 
 /datum/action/innate/minedrone/dump_ore
 	name = "Dump Ore"
-	button_overlay_icon_state = "mech_eject"
+	button_icon_state = "mech_eject"
 
 /datum/action/innate/minedrone/dump_ore/Activate()
 	var/mob/living/basic/mining_drone/user = owner

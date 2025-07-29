@@ -9,8 +9,7 @@
 		"prizeorbs.png" = 'icons/obj/arcade_images/prizeorbs.png'
 	)
 	parents = list(
-		"page.css" = 'code/modules/arcade/page.css',
-		"Button.scss" = 'tgui/packages/tgui/styles/components/Button.scss'
+		"page.css" = 'code/modules/arcade/page.css'
 	)
 
 /datum/asset/group/claw_game
