@@ -11773,7 +11773,8 @@
 /area/station/maintenance/fpmaint2)
 "aPZ" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 1 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
@@ -49985,7 +49986,8 @@
 /area/station/engineering/break_room)
 "ePc" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 4 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
@@ -56372,7 +56374,8 @@
 /area/station/security/permabrig)
 "hVu" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 3 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
@@ -59432,6 +59435,13 @@
 	icon_state = "cafeteria"
 	},
 /area/station/science/break_room)
+"jxK" = (
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod 2 Airlock";
+	id_tag = "emergency_home"
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry/north)
 "jyo" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/slime,
@@ -99939,7 +99949,7 @@ aLf
 aMt
 aNy
 ygg
-aPZ
+jxK
 kmm
 foj
 ksJ

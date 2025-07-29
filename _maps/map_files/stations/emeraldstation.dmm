@@ -27961,8 +27961,9 @@
 /turf/simulated/floor/grass,
 /area/station/public/park)
 "fBf" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod"
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod 2 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
@@ -40755,8 +40756,9 @@
 	},
 /area/station/security/storage)
 "iek" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod"
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod 3 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
@@ -57276,8 +57278,9 @@
 	},
 /area/station/medical/virology)
 "luf" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod"
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod 4 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
