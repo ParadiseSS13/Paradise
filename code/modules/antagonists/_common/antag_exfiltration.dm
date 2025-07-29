@@ -221,7 +221,6 @@
 
 /obj/item/wormhole_jaunter/extraction/mindflayer
 	name = "nanite telepad"
-	icon = 'icons/obj/lighting.dmi'
 	desc = "A swarm of mindflayer nanites in the shape of a telepad that will create a single-use portal that will let you escape the station. One way trip."
 	icon_state = "flayer_telepad_base"
 	setup_type = /obj/effect/temp_visual/exfiltration/mindflayer
@@ -275,7 +274,6 @@
 /obj/effect/temp_visual/exfiltration/mindflayer
 	name = "mindflayer telepad"
 	desc = "A swarm of mindflayer nanites in the shape of a telepad that will create a single-use portal."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flayer_telepad_deploy"
 	activation_sound = 'sound/mecha/skyfall_power_up.ogg'
 	start_lit = FALSE
@@ -438,7 +436,6 @@
 /obj/effect/portal/advanced/exfiltration
 	name = "exfiltration portal"
 	icon_state = "portal-syndicate"
-	ignore_tele_proof_area_setting = TRUE
 	one_use = TRUE
 	/// The mind of the exfiltrating antag.
 	var/datum/mind/antag_mind = null

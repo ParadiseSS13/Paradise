@@ -267,10 +267,7 @@
 	action_icon = 'icons/obj/lighting.dmi'
 	action_icon_state = "flayer_telepad_base"
 	power_type = FLAYER_PURCHASABLE_POWER
-	category = FLAYER_CATEGORY_GENERAL
 	base_cooldown = 2 SECONDS
-	base_cost = 0
-	stage = 1
 	var/used = FALSE
 
 /datum/spell/flayer/self/extraction/cast(list/targets, mob/user)

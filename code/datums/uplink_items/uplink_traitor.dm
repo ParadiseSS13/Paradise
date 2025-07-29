@@ -571,7 +571,6 @@
 	desc = "A special flare used to call in an extraction portal. The portal takes time to generate, and will only work in certain rooms that it is pre-calibrated for. The Syndicate withholds the right to deny a portal to agents with certain objectives."
 	reference = "EXTF"
 	item = /obj/item/wormhole_jaunter/extraction
-	cost = 0
 	limited_stock = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
