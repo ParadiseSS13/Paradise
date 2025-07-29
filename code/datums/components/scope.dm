@@ -276,4 +276,4 @@
 /datum/action/zoom
 	name = "Toggle Scope"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
-	button_overlay_icon_state = "sniper_zoom"
+	button_icon_state = "sniper_zoom"
