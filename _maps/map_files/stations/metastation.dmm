@@ -27698,7 +27698,6 @@
 	},
 /area/station/hallway/primary/central/south)
 "cGZ" = (
-/obj/machinery/iv_drip,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -47328,11 +47327,14 @@
 /obj/item/taperecorder{
 	pixel_x = -3
 	},
-/obj/item/storage/fancy/cigarettes,
 /obj/item/flash,
 /obj/item/reagent_containers/spray/pepper,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 9;
+	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -66322,7 +66324,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/north,
-/obj/machinery/power/apc/directional/north,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
@@ -69366,14 +69367,14 @@
 /area/station/hallway/secondary/entry/lounge)
 "qrO" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/cigarettes{
-	pixel_y = 2
-	},
 /obj/item/lighter{
 	pixel_x = 4;
 	pixel_y = 2
 	},
 /obj/machinery/firealarm/directional/west,
+/obj/item/storage/fancy/cigarettes/cigpack_solar_rays{
+	pixel_x = -6
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/hallway/secondary/entry/lounge)
 "qrT" = (
@@ -81955,7 +81956,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/structure/closet/paramedic,
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"

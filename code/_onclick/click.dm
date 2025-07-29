@@ -108,6 +108,10 @@
 		var/obj/mecha/M = loc
 		return M.click_action(A, src, params)
 
+	if(isclowncar(loc) && !modifiers["shift"])
+		var/obj/tgvehicle/sealed/car/clowncar/cc = loc
+		return cc.fire_cannon_at(A, src, params)
+
 	if(restrained())
 		RestrainedClickOn(A)
 		return
@@ -471,7 +475,6 @@
 	setDir(direction)
 
 /atom/movable/screen/click_catcher
-	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "catcher"
 	plane = CLICKCATCHER_PLANE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE

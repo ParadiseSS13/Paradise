@@ -79,8 +79,8 @@
 /datum/action/innate/unathi_ignite
 	name = "Ignite"
 	desc = "A fire forms in your mouth, fierce enough to... light a cigarette. Requires you to drink welding fuel beforehand."
-	button_overlay_icon = 'icons/obj/cigarettes.dmi'
-	button_overlay_icon_state = "match_unathi"
+	button_icon = 'icons/obj/cigarettes.dmi'
+	button_icon_state = "match_unathi"
 	var/cooldown = 0
 	var/cooldown_duration = 20 SECONDS
 	var/welding_fuel_used = 3 //one sip, with less strict timing
@@ -120,7 +120,6 @@
 	blurb = "These reptillian creatures appear to be related to the Unathi, but seem significantly less evolved. \
 	They roam the wastes of Lavaland, worshipping a dead city and capturing unsuspecting miners."
 
-	language = "Sinta'unathi"
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80

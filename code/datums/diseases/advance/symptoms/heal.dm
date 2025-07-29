@@ -61,7 +61,6 @@ Bonus
 	stealth = -1
 	resistance = -1
 	stage_speed = -1
-	transmittable = -4
 	level = 3
 	var/list/cured_diseases = list()
 

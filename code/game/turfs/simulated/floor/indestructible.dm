@@ -48,7 +48,6 @@
 /turf/simulated/floor/indestructible/necropolis
 	name = "necropolis floor"
 	desc = "It's regarding you suspiciously."
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "necro1"
 	baseturf = /turf/simulated/floor/indestructible/necropolis
 	oxygen = LAVALAND_OXYGEN
@@ -93,7 +92,6 @@
 	atmos_environment = null
 
 /turf/simulated/floor/indestructible/hierophant
-	name = "floor"
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
 	icon_state = "floor"
 	oxygen = LAVALAND_OXYGEN

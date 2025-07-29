@@ -79,8 +79,6 @@
 	name = "mass driver frame"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver_frame"
-	density = FALSE
-	anchored = FALSE
 	var/build = 0
 
 /obj/machinery/mass_driver_frame/item_interaction(mob/living/user, obj/item/used, list/modifiers)

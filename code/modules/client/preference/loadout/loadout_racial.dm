@@ -14,7 +14,6 @@
 /datum/gear/racial
 	sort_category = "Racial"
 	main_typepath = /datum/gear/racial
-	cost = 1
 
 /datum/gear/racial/taj
 	display_name = "Tajaran veil"

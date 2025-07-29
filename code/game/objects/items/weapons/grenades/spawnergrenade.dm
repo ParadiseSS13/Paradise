@@ -1,9 +1,7 @@
 /obj/item/grenade/spawnergrenade
 	name = "delivery grenade"
 	desc = "Upon detonation, this will unleash an unspecified anomaly into the vicinity."
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "delivery"
-	item_state = "grenade"
 	origin_tech = "materials=3;magnets=4"
 	var/spawner_type = null // must be an object path
 	var/deliveryamt = 1 // amount of type to deliver
@@ -35,7 +33,6 @@
 /obj/item/grenade/spawnergrenade/manhacks
 	name = "viscerator delivery grenade"
 	desc = "This grenade contains 5 viscerators, tiny flying drones with lethally sharp blades. Upon detonation, they will be deployed and begin searching the area for targets."
-	spawner_type = /mob/living/simple_animal/hostile/viscerator
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 
@@ -43,7 +40,7 @@
 	name = "carp delivery grenade"
 	desc = "This grenade contains 5 dehydrated space carp in a similar manner to dehydrated monkeys, which, upon detonation, \
 	will be rehydrated by a small reservoir of water contained within the grenade. These space carp will then attack anything in sight."
-	spawner_type = /mob/living/simple_animal/hostile/carp
+	spawner_type = /mob/living/basic/carp
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 

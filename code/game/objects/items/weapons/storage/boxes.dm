@@ -396,7 +396,6 @@
 	name = "monkey cube box"
 	desc = "Drymate brand monkey cubes. Just add water!"
 	icon_state = "monkey_box"
-	storage_slots = 7
 	can_hold = list(/obj/item/food/monkeycube)
 	var/monkey_cube_type = /obj/item/food/monkeycube
 
@@ -1069,7 +1068,6 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "paperbag_None"
 	item_state = "paperbag_None"
-	resistance_flags = FLAMMABLE
 	foldable = null
 	var/design = NODESIGN
 
@@ -1301,7 +1299,6 @@
 /obj/item/storage/box/wizard/hardsuit
 	name = "battlemage armour bundle"
 	desc = "This box contains a bundle of Battlemage Armour."
-	icon_state = "wizard_box"
 
 /obj/item/storage/box/wizard/hardsuit/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/wizard(src)
@@ -1359,6 +1356,15 @@
 		new /obj/item/grenade/megafauna_hardmode(src)
 	new /obj/item/storage/lockbox/medal/hardmode_box(src)
 	new /obj/item/paper/hardmode(src)
+
+/obj/item/storage/box/oxygen_grenades
+	name = "oxygen grenades box"
+	desc = "A box full of oxygen grenades."
+	icon_state = "flashbang_box"
+
+/obj/item/storage/box/oxygen_grenades/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/gas/oxygen(src)
 
 /obj/item/storage/box/foam_grenades
 	name = "foam grenades box"

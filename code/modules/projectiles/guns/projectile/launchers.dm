@@ -1,14 +1,17 @@
 //KEEP IN MIND: These are different from gun/grenadelauncher. These are designed to shoot premade rocket and grenade projectiles, not flashbangs or chemistry casings etc.
 //Put handheld rocket launchers here if someone ever decides to make something so hilarious ~Paprika
 
-/obj/item/gun/projectile/revolver/grenadelauncher//this is only used for underbarrel grenade launchers at the moment, but admins can still spawn it if they feel like being assholes
+//this is only used for underbarrel grenade launchers at the moment, but admins can still spawn it if they feel like being assholes
+/obj/item/gun/projectile/revolver/grenadelauncher
 	desc = "A break-action grenade launcher."
 	name = "grenade launcher"
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "dbshotgun_sawn"
 	item_state = "gun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
-	w_class = WEIGHT_CLASS_NORMAL
 	can_holster = FALSE  // Not your normal revolver
 
 /obj/item/gun/projectile/revolver/grenadelauncher/attackby__legacy__attackchain(obj/item/A, mob/user, params)

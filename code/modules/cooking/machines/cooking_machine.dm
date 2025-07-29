@@ -6,7 +6,6 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 	icon = 'icons/obj/cooking/machines.dmi'
 	density = TRUE
 	anchored = TRUE
-	layer = BELOW_OBJ_LAYER
 	idle_power_consumption = 5
 	active_power_consumption = 100
 

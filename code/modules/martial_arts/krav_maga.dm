@@ -13,7 +13,7 @@
 
 /datum/action/neutral_stance
 	name = "Neutral Stance - You relax, cancelling your last Krav Maga stance attack."
-	button_overlay_icon_state = "neutralstance"
+	button_icon_state = "neutralstance"
 
 /datum/action/neutral_stance/Trigger(left_click)
 	var/mob/living/carbon/human/H = owner
@@ -27,7 +27,7 @@
 
 /datum/action/neck_chop
 	name = "Neck Chop - Injures the neck, stopping the victim from speaking for a while."
-	button_overlay_icon_state = "neckchop"
+	button_icon_state = "neckchop"
 
 /datum/action/neck_chop/Trigger(left_click)
 	var/mob/living/carbon/human/H = owner //This is a janky solution, but I want to refactor krav anyway and un-jank this (written in may 2023)
@@ -45,7 +45,7 @@
 	H.mind.martial_art.in_stance = TRUE
 /datum/action/leg_sweep
 	name = "Leg Sweep - Trips the victim, rendering them prone and unable to move for a short time."
-	button_overlay_icon_state = "legsweep"
+	button_icon_state = "legsweep"
 
 /datum/action/leg_sweep/Trigger(left_click)
 	var/mob/living/carbon/human/H = owner
@@ -70,7 +70,7 @@
 
 /datum/action/lung_punch//referred to internally as 'quick choke'
 	name = "Lung Punch - Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time."
-	button_overlay_icon_state = "lungpunch"
+	button_icon_state = "lungpunch"
 
 /datum/action/lung_punch/Trigger(left_click)
 	var/mob/living/carbon/human/H = owner
@@ -145,8 +145,6 @@
 // Krav Maga gloves
 /obj/item/clothing/gloves/color/black/krav_maga
 	can_be_cut = FALSE
-	resistance_flags = NONE
-	dyeable = TRUE
 	var/datum/martial_art/krav_maga/style
 
 /obj/item/clothing/gloves/color/black/krav_maga/Initialize(mapload)
@@ -203,11 +201,6 @@
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	strip_delay = 8 SECONDS
-	cold_protection = HANDS
-	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
-	heat_protection = HANDS
-	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
-	resistance_flags = NONE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = 50)
 
 /obj/item/clothing/gloves/color/black/krav_maga/combat/examine_more(mob/user)

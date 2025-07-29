@@ -154,10 +154,6 @@
 /mob/living/carbon/human/vox/Initialize(mapload)
 	. = ..(mapload, /datum/species/vox)
 
-/mob/living/carbon/human/vox/compressor_grind(turf/location)
-	new /obj/item/food/fried_vox(loc)
-	return ..()
-
 /mob/living/carbon/human/skeleton/Initialize(mapload)
 	. = ..(mapload, /datum/species/skeleton)
 
@@ -185,10 +181,6 @@
 /mob/living/carbon/human/diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona)
 
-/mob/living/carbon/human/diona/compressor_grind()
-	new /obj/item/food/salad(loc)
-	return ..()
-
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona/pod)
 
@@ -197,10 +189,6 @@
 
 /mob/living/carbon/human/machine/created
 	name = "Integrated Robotic Chassis"
-
-/mob/living/carbon/human/machine/compressor_grind()
-	new /obj/item/stack/sheet/mineral/titanium(loc)
-	return ..()
 
 /mob/living/carbon/human/machine/created/Initialize(mapload)
 	. = ..()
@@ -223,10 +211,6 @@
 
 /mob/living/carbon/human/drask/Initialize(mapload)
 	. = ..(mapload, /datum/species/drask)
-
-/mob/living/carbon/human/drask/compressor_grind(turf/location)
-	new /obj/item/soap(loc)
-	return ..()
 
 /mob/living/carbon/human/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
@@ -2047,6 +2031,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/update_runechat_msg_location()
 	if(ismecha(loc))
 		runechat_msg_location = loc.UID()
+	else if(istgvehicle(loc))
+		runechat_msg_location = loc.UID()
 	else
 		return ..()
 
@@ -2263,6 +2249,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 					analysis += "<span class='info'>You conclude [src]'s [E.name] is broken.</span>"
 				else
 					analysis += "<span class='info'>You conclude [src]'s [E.name] has a [E.broken_description].</span>"
+		if(!length(analysis))
+			analysis += "<span class='info'>[src] appears to be in perfect health.</span>"
 		to_chat(user, chat_box_healthscan(analysis.Join("<br>")))
 
 /mob/living/carbon/human/pointed(atom/A as mob|obj|turf in view())
@@ -2273,12 +2261,24 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	if(istype(A, /obj/effect/temp_visual/point) || istype(A, /atom/movable/emissive_blocker))
 		return FALSE
-	if(mind && HAS_TRAIT(mind, TRAIT_COFFEE_SNOB) && reagents.has_reagent("coffee"))
-		changeNext_move(CLICK_CD_POINT / 3)
+	if(mind && HAS_MIND_TRAIT(src, TRAIT_COFFEE_SNOB))
+		var/found_coffee = FALSE
+		for(var/reagent in reagents.reagent_list)
+			if(istype(reagent, /datum/reagent/consumable/drink/coffee))
+				found_coffee = TRUE
+		if(found_coffee)
+			changeNext_move(CLICK_CD_POINT / 3)
+		else
+			changeNext_move(CLICK_CD_POINT)
 	else
 		changeNext_move(CLICK_CD_POINT)
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_pointed), A))
+
+/// Default behavior when getting ground up in a compressor
+/mob/living/carbon/human/compressor_grind()
+	dna.species.do_compressor_grind(src)
+	. = ..()
 
 /mob/living/carbon/human/get_strippable_items(datum/source, list/items)
 	items |= GLOB.strippable_human_items

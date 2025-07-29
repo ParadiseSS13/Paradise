@@ -76,7 +76,7 @@
 	if(QDELETED(src) || uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		return
 	desc = "[initial(desc)] It has [uses] use\s remaining."
-	UpdateButtons()
+	build_all_button_icons()
 
 /datum/spell/ai_spell/proc/check_camera_vision(mob/user, atom/target)
 	var/turf/target_turf = get_turf(target)
@@ -207,7 +207,7 @@
 					else //Adding uses to an existing module
 						action.uses += initial(action.uses)
 						action.desc = "[initial(action.desc)] It has [action.uses] use\s remaining."
-						action.UpdateButtons()
+						action.build_all_button_icons()
 						temp = "Additional use[action.uses > 1 ? "s" : ""] added to [action.name]!"
 			processing_time -= AM.cost
 
@@ -490,7 +490,6 @@
 	desc = "Overheats a machine, causing a moderately-sized explosion after a short time."
 	action_icon_state = "overload_machine"
 	uses = 4
-	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	selection_activated_message = "<span class='notice'>You tap into the station's powernet. Click on a machine to detonate it, or use the ability again to cancel.</span>"
 	selection_deactivated_message = "<span class='notice'>You release your hold on the powernet.</span>"
@@ -935,7 +934,6 @@
 	name = "Roll Over"
 	action_icon_state = "roll_over"
 	desc = "Allows you to roll over in the direction of your choosing, crushing anything in your way."
-	auto_use_uses = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	selection_activated_message = "<span class='notice'>Your inner servos shift as you prepare to roll around. Click adjacent tiles to roll into them!</span>"
 	selection_deactivated_message = "<span class='notice'>You disengage your rolling protocols.</span>"

@@ -10486,9 +10486,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
-"aQx" = (
-/turf/simulated/floor/plating,
-/area/station/security/permabrig)
 "aQM" = (
 /obj/structure/sign/magboots{
 	pixel_x = -32
@@ -23998,7 +23995,7 @@
 /obj/item/screwdriver,
 /obj/item/seeds/bamboo,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/fsmaint)
 "bPB" = (
 /obj/machinery/door/airlock/security/glass,
 /obj/machinery/door/firedoor,
@@ -26406,6 +26403,9 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/air,
+/obj/structure/sign/vacuum{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "bYa" = (
@@ -26699,6 +26699,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "bZs" = (
@@ -27821,10 +27822,6 @@
 	dir = 6
 	},
 /turf/simulated/floor/plating/airless,
-/area/station/engineering/control)
-"cdd" = (
-/obj/structure/sign/vacuum,
-/turf/simulated/wall/r_wall,
 /area/station/engineering/control)
 "cde" = (
 /obj/machinery/light{
@@ -30800,10 +30797,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
-"coI" = (
-/obj/structure/closet/firecloset,
-/turf/simulated/floor/plating,
-/area/station/security/permabrig)
 "coP" = (
 /obj/machinery/economy/vending/detdrobe,
 /obj/machinery/light{
@@ -35624,11 +35617,8 @@
 /area/station/engineering/control)
 "cDz" = (
 /obj/machinery/light/small,
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
-/area/station/engineering/control)
-"cDA" = (
-/obj/structure/sign/vacuum,
-/turf/simulated/wall,
 /area/station/engineering/control)
 "cDB" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -35661,6 +35651,9 @@
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
+	},
+/obj/structure/sign/vacuum{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
@@ -35848,7 +35841,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/multi_tile/glass/directional/east,
+/obj/machinery/door/airlock/multi_tile/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -52386,13 +52379,6 @@
 /turf/simulated/wall,
 /area/station/security/armory/secure)
 "esw" = (
-/obj/machinery/access_button{
-	autolink_id = "enginen_btn_ext";
-	name = "exterior access button";
-	pixel_x = 20;
-	pixel_y = 20;
-	req_access = list(10,13)
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -54355,6 +54341,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
+/obj/structure/sign/vacuum{
+	pixel_y = 32
+	},
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "fiF" = (
@@ -55233,9 +55223,8 @@
 	},
 /area/station/maintenance/apmaint)
 "fEo" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	autolink_id = "enginen_vent"
-	},
+/obj/machinery/atmospherics/unary/vent_pump/high_volume,
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "fEw" = (
@@ -58640,13 +58629,6 @@
 /turf/simulated/floor/plating,
 /area/station/turret_protected/ai)
 "hhD" = (
-/obj/machinery/access_button{
-	autolink_id = "engines_btn_ext";
-	name = "exterior access button";
-	pixel_x = 20;
-	pixel_y = 20;
-	req_access = list(10,13)
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
@@ -59875,18 +59857,13 @@
 	},
 /area/station/security/permabrig)
 "hLU" = (
-/obj/machinery/airlock_controller/air_cycler{
-	ext_button_link_id = "enginen_btn_ext";
-	ext_door_link_id = "enginen_door_ext";
-	int_button_link_id = "enginen_btn_int";
-	int_door_link_id = "enginen_door_int";
-	pixel_y = -25;
-	vent_link_id = "enginen_vent";
-	req_access = list(10,13)
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/machinery/airlock_controller/air_cycler/directional/south,
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "hMa" = (
@@ -60751,7 +60728,7 @@
 "ieH" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/fsmaint)
 "ieS" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
@@ -61357,7 +61334,7 @@
 "itB" = (
 /obj/structure/mopbucket/full,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/fsmaint)
 "itD" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
@@ -63700,16 +63677,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "jvn" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/external/glass{
-	id_tag = "enginen_door_ext";
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/access_button/offset/northwest,
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "jvr" = (
@@ -63986,9 +63959,9 @@
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "jEI" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	autolink_id = "engines_vent";
 	dir = 1
 	},
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "jEV" = (
@@ -64718,13 +64691,6 @@
 	},
 /area/station/security/main)
 "jTH" = (
-/obj/machinery/access_button{
-	autolink_id = "engines_btn_int";
-	name = "interior access button";
-	pixel_x = -20;
-	pixel_y = 20;
-	req_access = list(10,13)
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -67433,6 +67399,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
+/obj/structure/sign/vacuum{
+	pixel_y = -32
+	},
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "lcg" = (
@@ -68916,19 +68886,15 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "lPV" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/external/glass{
-	id_tag = "enginen_door_int";
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/access_button/offset/north,
+/obj/effect/map_effect/dynamic_airlock/door/interior,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "lQd" = (
@@ -70266,7 +70232,7 @@
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/fsmaint)
 "mtV" = (
 /obj/structure/shelf/service,
 /obj/item/storage/box/lights/mixed,
@@ -74346,7 +74312,7 @@
 "oll" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/multi_tile/glass/directional/east{
+/obj/machinery/door/airlock/multi_tile/glass{
 	name = "Cryogenic Dormitories"
 	},
 /obj/structure/cable{
@@ -74909,19 +74875,12 @@
 /area/station/science/genetics)
 "oun" = (
 /obj/machinery/light/small,
-/mob/living/simple_animal/hostile/bear{
+/mob/living/basic/bear{
 	dir = 1
 	},
 /obj/effect/spawner/random/blood,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
-"ouu" = (
-/obj/structure/closet/paramedic,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
-/area/station/medical/paramedic)
 "ouE" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 4
@@ -76617,7 +76576,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "phr" = (
-/mob/living/simple_animal/hostile/bear,
+/mob/living/basic/bear,
 /obj/effect/spawner/random/blood,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
@@ -77805,10 +77764,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/atmos/control)
-"pHd" = (
-/obj/structure/closet/emcloset,
-/turf/simulated/floor/plating,
-/area/station/security/permabrig)
 "pHg" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/mineral/titanium,
@@ -78228,7 +78183,7 @@
 /turf/simulated/floor/grass,
 /area/station/science/lobby)
 "pPJ" = (
-/mob/living/simple_animal/hostile/bear{
+/mob/living/basic/bear{
 	dir = 1
 	},
 /obj/effect/spawner/random/blood,
@@ -78994,7 +78949,7 @@
 /obj/item/reagent_containers/glass/bottle/ammonia,
 /obj/structure/shelf,
 /turf/simulated/floor/plating,
-/area/station/security/permabrig)
+/area/station/maintenance/fsmaint)
 "qjT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -84727,7 +84682,9 @@
 /area/station/medical/medbay)
 "sAq" = (
 /obj/structure/table,
-/obj/item/storage/fancy/cigarettes,
+/obj/item/storage/fancy/cigarettes/cigpack_our_brand{
+	pixel_y = 2
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "sAs" = (
@@ -85842,19 +85799,15 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
 "sYU" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/external/glass{
-	id_tag = "engines_door_int";
-	name = "Engineering External Access"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/access_button/offset/southeast,
+/obj/effect/map_effect/dynamic_airlock/door/interior,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "sYY" = (
@@ -86522,16 +86475,12 @@
 	},
 /area/station/service/hydroponics)
 "tlz" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/external/glass{
-	id_tag = "engines_door_ext";
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/access_button/offset/south,
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "tlB" = (
@@ -89178,7 +89127,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/bear,
+/mob/living/basic/bear,
 /obj/effect/spawner/random/blood,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
@@ -90842,18 +90791,13 @@
 /turf/simulated/floor/carpet/purple,
 /area/station/medical/psych)
 "uVM" = (
-/obj/machinery/airlock_controller/air_cycler{
-	ext_button_link_id = "engines_btn_ext";
-	ext_door_link_id = "engines_door_ext";
-	int_button_link_id = "engines_btn_int";
-	int_door_link_id = "engines_door_int";
-	pixel_y = 25;
-	vent_link_id = "engines_vent";
-	req_access = list(10,13)
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/airlock_controller/air_cycler/directional/north,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "uVQ" = (
@@ -94750,12 +94694,6 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
-"wDf" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/station/security/permabrig)
 "wDi" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/random/maintenance,
@@ -95633,13 +95571,6 @@
 	},
 /area/station/maintenance/fore)
 "wVM" = (
-/obj/machinery/access_button{
-	autolink_id = "enginen_btn_int";
-	name = "interior access button";
-	pixel_x = -20;
-	pixel_y = -20;
-	req_access = list(10,13)
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -122898,7 +122829,7 @@ bIq
 bXU
 fEo
 lbV
-cdd
+bXU
 tFc
 cib
 cib
@@ -122914,7 +122845,7 @@ cib
 cib
 cib
 dWi
-cdd
+bXU
 fiA
 jEI
 cHA
@@ -123153,7 +123084,7 @@ mNB
 gNB
 bGz
 bXU
-cdd
+bXU
 lPV
 bXU
 ceV
@@ -123173,7 +123104,7 @@ cjP
 ceV
 bXU
 sYU
-cDA
+bQr
 cHA
 cFY
 gXQ
@@ -143481,7 +143412,7 @@ dFO
 cGF
 iWE
 dfv
-ouu
+nCA
 nBa
 shb
 dfv
@@ -152661,11 +152592,11 @@ aaa
 aaa
 aaa
 aaa
-ygH
-aJx
-aJx
-aJx
-aJx
+tMo
+eNt
+eNt
+eNt
+eNt
 mlx
 aVw
 lqk
@@ -152918,11 +152849,11 @@ aaa
 aaa
 abj
 abj
-ygH
+tMo
 ieH
-wDf
+jau
 itB
-aJx
+eNt
 wCT
 aVw
 lkD
@@ -153175,10 +153106,10 @@ aaa
 aaa
 aaa
 aaa
-ygH
-coI
-aQx
-aQx
+tMo
+uNz
+bwA
+bwA
 mtL
 aKU
 wdd
@@ -153432,11 +153363,11 @@ aaa
 aaa
 aaa
 aaa
-ygH
+tMo
 bPz
-aQx
-aQx
-aJx
+bwA
+bwA
+eNt
 lYC
 vea
 fJH
@@ -153689,11 +153620,11 @@ aaa
 aaa
 aaa
 aaa
-ygH
-ygH
-pHd
+tMo
+tMo
+now
 qjO
-aJx
+eNt
 cRn
 jQx
 sbH
@@ -153947,10 +153878,10 @@ aaa
 aaa
 aaa
 aaa
-ygH
-ygH
-aJx
-aJx
+tMo
+tMo
+eNt
+eNt
 oYa
 dlP
 bxx

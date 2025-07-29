@@ -199,7 +199,6 @@
 
 /obj/item/radio/headset/bot
 	requires_tcomms = FALSE
-	canhear_range = 0
 
 /obj/item/radio/headset/bot/recalculateChannels()
 	var/mob/living/simple_animal/bot/B = loc

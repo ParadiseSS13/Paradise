@@ -1,10 +1,11 @@
 import { range } from 'common/collections';
-import { BooleanLike } from 'common/react';
+import { ReactNode } from 'react';
+import { Box, Button, Icon, Image, Stack } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
+
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { Box, Button, Icon, Stack } from '../components';
 import { Window } from '../layouts';
-import { InfernoNode } from 'inferno';
 
 const ROWS = 5;
 const COLUMNS = 9;
@@ -24,7 +25,7 @@ const getGridSpotKey = (spot: [number, number]): GridSpotKey => {
   return `${spot[0]}/${spot[1]}`;
 };
 
-const CornerText = (props: { align: 'left' | 'right'; children: string }): InfernoNode => {
+const CornerText = (props: { align: 'left' | 'right'; children: string }): ReactNode => {
   const { align, children } = props;
 
   return (
@@ -32,8 +33,8 @@ const CornerText = (props: { align: 'left' | 'right'; children: string }): Infer
       style={{
         position: 'absolute',
         left: align === 'left' ? '6px' : '48px', // spacing letters is hard, but it looks good like this
-        'text-align': align,
-        'text-shadow': '2px 2px 2px #000',
+        textAlign: align,
+        textShadow: '2px 2px 2px #000',
         top: '2px',
       }}
     >
@@ -90,7 +91,7 @@ const SLOTS: Record<
     displayName: string;
     gridSpot: GridSpotKey;
     image?: string;
-    additionalComponent?: InfernoNode;
+    additionalComponent?: ReactNode;
   }
 > = {
   eyes: {
@@ -238,7 +239,7 @@ const ALTERNATIVE_SLOTS: Record<
     displayName: string;
     gridSpot: GridSpotKey;
     image?: string;
-    additionalComponent?: InfernoNode;
+    additionalComponent?: ReactNode;
   }
 > = {
   eyes: {
@@ -421,8 +422,8 @@ type StripMenuData = {
   show_mode: number;
 };
 
-export const StripMenu = (props, context) => {
-  const { act, data } = useBackend<StripMenuData>(context);
+export const StripMenu = (props) => {
+  const { act, data } = useBackend<StripMenuData>();
 
   const gridSpots = new Map<GridSpotKey, string>();
   if (data.show_mode === 0) {
@@ -467,7 +468,7 @@ export const StripMenu = (props, context) => {
         height={390}
         theme="nologo"
       >
-        <Window.Content style={{ 'background-color': 'rgba(0, 0, 0, 0.5)' }}>
+        <Window.Content style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
           <Stack fill>
             <Stack.Item bold grow textAlign="center" align="center" color="average">
               No slots
@@ -485,7 +486,7 @@ export const StripMenu = (props, context) => {
       height={390}
       theme="nologo"
     >
-      <Window.Content style={{ 'background-color': 'rgba(0, 0, 0, 0.5)' }}>
+      <Window.Content style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
         <Stack fill vertical>
           {range(0, ROWS).map((row) => (
             <Stack.Item key={row}>
@@ -518,15 +519,13 @@ export const StripMenu = (props, context) => {
                     tooltip = slot.displayName;
                   } else if ('name' in item) {
                     content = (
-                      <Box
-                        as="img"
+                      <Image
                         src={`data:image/jpeg;base64,${item.icon}`}
                         height="100%"
                         width="100%"
                         style={{
-                          '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                          'image-rendering': 'pixelated',
-                          'vertical-align': 'middle',
+                          imageRendering: 'pixelated',
+                          verticalAlign: 'middle',
                         }}
                       />
                     );
@@ -541,7 +540,7 @@ export const StripMenu = (props, context) => {
                         mt={2.5}
                         color="white"
                         style={{
-                          'text-align': 'center',
+                          textAlign: 'center',
                           height: '100%',
                           width: '100%',
                         }}
@@ -581,7 +580,6 @@ export const StripMenu = (props, context) => {
                             });
                           }}
                           fluid
-                          translucent={get_button_transparency(item)}
                           color={get_button_color(item)}
                           tooltip={tooltip}
                           style={{
@@ -589,12 +587,11 @@ export const StripMenu = (props, context) => {
                             width: '100%',
                             height: '100%',
                             padding: 0,
-                            'background-color': disable_background_hover(item),
+                            backgroundColor: disable_background_hover(item),
                           }}
                         >
                           {slot.image && (
-                            <Box
-                              as="img"
+                            <Image
                               src={resolveAsset(slot.image)}
                               opacity={0.7}
                               style={{
@@ -632,7 +629,7 @@ export const StripMenu = (props, context) => {
                                       position: 'absolute',
                                       bottom: 0,
                                       right: `${buttonOffset}em`,
-                                      'z-index': 2 + index,
+                                      zIndex: 2 + index,
                                     }}
                                   >
                                     <Icon name={ALTERNATE_ACTIONS[actionKey].icon} />

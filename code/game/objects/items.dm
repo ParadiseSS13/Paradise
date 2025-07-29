@@ -70,10 +70,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/list/actions = list()
 	/// List of paths of action datums to give to the item on New().
 	var/list/actions_types = list()
-	/// List of icons-sheets for a given action to override the icon.
-	var/list/action_icon = list()
-	/// List of icon states for a given action to override the icon_state.
-	var/list/action_icon_state = list()
 
 	/// What materials the item yields when broken down. Some methods will not recover everything (autolathes only recover metal and glass, for example).
 	var/list/materials = list()
@@ -215,7 +211,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/Initialize(mapload)
 	. = ..()
 	for(var/path in actions_types)
-		new path(src, action_icon[path], action_icon_state[path])
+		new path(src)
 	if(isstorage(loc)) //marks all items in storage as being such
 		in_storage = TRUE
 
@@ -1028,9 +1024,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/should_stack_with(obj/item/other)
 	return type == other.type && name == other.name
 
-/obj/item/proc/update_action_buttons(status_only = FALSE, force = FALSE)
+/obj/item/proc/update_action_buttons(update_flags = ALL, force = FALSE)
 	for(var/datum/action/current_action as anything in actions)
-		current_action.UpdateButtons(status_only, force)
+		current_action.build_all_button_icons(update_flags, force)
 
 /**
   * Handles the bulk of cigarette lighting interactions. You must call `light()` to actually light the cigarette.

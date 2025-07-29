@@ -116,6 +116,5 @@
 
 /mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/hostile
 	AIStatus = AI_ON
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 
 #undef MARAUDER_SHIELD_MAX
