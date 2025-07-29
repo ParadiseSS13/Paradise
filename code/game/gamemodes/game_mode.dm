@@ -250,7 +250,7 @@
 	for(var/tech_id in SSeconomy.tech_levels)
 		SSblackbox.record_feedback("tally", "cargo max tech level sold", SSeconomy.tech_levels[tech_id], tech_id)
 
-	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [get_webhook_name()] has ended - [surviving_total] survivors, [ghosts] ghosts.")
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "Round [GLOB.round_id] of [get_webhook_name()] has ended - [surviving_total] survivors, [ghosts] ghosts.")
 	if(SSredis.connected)
 		// Send our presence to required channels
 		var/list/presence_data = list()
