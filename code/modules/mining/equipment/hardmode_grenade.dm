@@ -26,7 +26,6 @@
 	<font size =\"1\"><i>By participating in this experiment you waive all rights for compensation of death on the job.</font></i>
 "}
 
-
 /obj/item/disk/fauna_research
 	name = "empty HRD-MDE project disk"
 	desc = "A disk used by the HRD-MDE project. Seems empty?"

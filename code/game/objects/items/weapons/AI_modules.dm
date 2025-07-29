@@ -8,10 +8,10 @@ AI MODULES
 
 /obj/item/ai_module
 	name = "AI Module"
+	desc = "An AI Module for transmitting encrypted instructions to the AI."
 	icon = 'icons/obj/module_ai.dmi'
 	icon_state = "standard_low"
-	item_state = "electronic"
-	desc = "An AI Module for transmitting encrypted instructions to the AI."
+	inhand_icon_state = "electronic"
 	flags = CONDUCT
 	force = 5.0
 	w_class = WEIGHT_CLASS_SMALL

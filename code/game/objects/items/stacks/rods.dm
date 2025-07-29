@@ -25,7 +25,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	singular_name = "metal rod"
 	icon = 'icons/obj/stacks/minerals.dmi'
 	icon_state = "rods-5"
-	item_state = "rods"
+	inhand_icon_state = "rods"
 	flags = CONDUCT
 	force = 9.0
 	throwforce = 10.0

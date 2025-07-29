@@ -3,7 +3,6 @@
 	name = "chain of command"
 	desc = "A tool used by great men to placate the frothing masses."
 	icon_state = "chain"
-	item_state = "chain"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	force = 10
@@ -21,7 +20,6 @@
 	name = "ice pick"
 	desc = "Used for chopping ice. Also excellent for mafia esque murders."
 	icon_state = "icepick"
-	item_state = "icepick"
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
@@ -32,7 +30,6 @@
 	name = "candy cane sword"
 	desc = "A large candy cane with a sharpened point. Definitely too dangerous for schoolchildren."
 	icon_state = "candy_sword"
-	item_state = "candy_sword"
 	force = 10
 	throwforce = 7
 	attack_verb = list("slashed", "stabbed", "sliced", "caned")
@@ -42,7 +39,6 @@
 	name = "flyswatter"
 	desc = "Useful for killing insects of all sizes."
 	icon_state = "flyswatter"
-	item_state = "flyswatter"
 	force = 1
 	throwforce = 1
 	attack_verb = list("swatted", "smacked")

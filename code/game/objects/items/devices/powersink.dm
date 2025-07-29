@@ -9,7 +9,7 @@
 	desc = "A nulling power sink which drains energy from electrical systems."
 	icon = 'icons/goonstation/objects/powersink.dmi'
 	icon_state = "powersink0"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	throwforce = 5
@@ -22,7 +22,6 @@
 	var/max_power = 6e8		// maximum power that can be drained before exploding
 	var/mode = 0		// 0 = off, 1=clamped (off), 2=operating
 	var/admins_warned = FALSE // stop spam, only warn the admins once that we are about to boom
-
 	var/obj/structure/cable/attached		// the attached cable
 
 /obj/item/powersink/Destroy()

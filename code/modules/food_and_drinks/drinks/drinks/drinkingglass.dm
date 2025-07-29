@@ -4,10 +4,10 @@
 	name = "glass"
 	desc = "Your standard drinking glass."
 	icon_state = "glass_empty"
-	item_state = "drinking_glass"
-	amount_per_transfer_from_this = 10
+	inhand_icon_state = "drinking_glass"
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
+	amount_per_transfer_from_this = 10
 	materials = list(MAT_GLASS = 100)
 	max_integrity = 20
 	resistance_flags = ACID_PROOF

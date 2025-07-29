@@ -3,7 +3,8 @@
 	desc = "A handy pocket card used to extract an artificial intelligence for transport."
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "aicard" // aicard-full
-	item_state = "electronic"
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	flags = NOBLUDGEON

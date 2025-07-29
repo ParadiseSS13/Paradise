@@ -4,7 +4,6 @@
 	name = "\improper Antique Void Helmet"
 	desc = "An old space helmet with a wide plexiglass visor. It lacks any modern HUD systems and provides negligible armor protection. The interior smells like mothballs."
 	icon_state = "void-red"
-	item_state = "void"
 	flags_inv = HIDEMASK|HIDEEARS
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_VOID_HELMET
@@ -18,7 +17,6 @@
 /obj/item/clothing/suit/space/void
 	name = "\improper Antique Void Suit"
 	icon_state = "void-red"
-	item_state = "void"
 	desc = "An antique space suit commonly used for extravehicular repairs many years ago. Painfully outdated, it provides next to nothing beyond protection from the vaccuum of space."
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_VOID_SUIT
@@ -59,7 +57,6 @@
 
 /obj/item/clothing/suit/space/void/ltblue
 	icon_state = "void-light_blue"
-
 
 //Captian's Suit, like the other captian's suit, but looks better, at the cost of armor
 /obj/item/clothing/head/helmet/space/void/captain

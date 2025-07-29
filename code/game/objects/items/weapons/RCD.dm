@@ -221,7 +221,6 @@
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
-	item_state = "rcd"
 	flags = CONDUCT | NOBLUDGEON
 	throwforce = 10
 	throw_speed = 3
@@ -708,7 +707,6 @@
 /obj/item/rcd/combat
 	name = "combat RCD"
 	icon_state = "crcd"
-	item_state = "crcd"
 	max_matter = 500
 	matter = 500
 	can_rwall = TRUE
@@ -718,7 +716,7 @@
 	desc = "Highly compressed matter for the RCD."
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "rcd"
-	item_state = "rcdammo"
+	inhand_icon_state = "rcdammo"
 	origin_tech = "materials=3"
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
 	new_attack_chain = TRUE

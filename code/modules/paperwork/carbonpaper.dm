@@ -3,7 +3,6 @@
 	var/copied = 0
 	var/iscopy = 0
 
-
 /obj/item/paper/carbon/update_icon_state()
 	if(iscopy)
 		if(info)

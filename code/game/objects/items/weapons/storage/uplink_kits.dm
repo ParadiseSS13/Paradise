@@ -437,8 +437,7 @@
 	if(prob(25))	//an omen of success to come?
 		B.deity_name = "Success"
 		B.icon_state = "greentext"
-		B.item_state = "greentext"
-
+		B.inhand_icon_state = "greentext"
 
 /obj/item/storage/box/syndie_kit/cutouts
 	name = "Fortified Artistic Box"

@@ -141,7 +141,7 @@
 				return 1
 	else if(stage == WIRED && is_type_in_list(I, allowed_containers))
 
-		if(length(beakers) == 0) 
+		if(length(beakers) == 0)
 			container_type = TRANSPARENT // Allows to see reagents in player's made bombs
 		if(length(beakers) == 2)
 			to_chat(user, "<span class='notice'>[src] can not hold more containers.</span>")

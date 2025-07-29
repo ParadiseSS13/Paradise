@@ -1,11 +1,10 @@
 /obj/item/clothing/gloves/ring
 	name = "iron ring"
 	desc = "A band that goes around your finger. It's considered gauche to wear more than one."
-	gender = "neuter" // not plural anymore
-	transfer_prints = TRUE
-	icon_state = "ironring"
-	item_state = ""
 	icon = 'icons/obj/clothing/rings.dmi'
+	icon_state = "ironring"
+	gender = NEUTER // not plural anymore
+	transfer_prints = TRUE
 	var/fluff_material = FALSE	//If true, will ignore the material when examining
 	var/material = "iron"
 	var/stud = 0

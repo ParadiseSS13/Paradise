@@ -136,7 +136,6 @@
 
 /obj/item/projectile/bullet/midbullet3/overgrown
 	icon = 'icons/obj/ammo.dmi'
-	item_state = "peashooter_bullet"
 	icon_state = "peashooter_bullet"
 	damage = 25
 

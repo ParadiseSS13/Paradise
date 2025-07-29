@@ -2,11 +2,11 @@
 #define TTV_TANK_ICON_STATES list("anesthetic", "emergency", "emergency_double", "emergency_engi", "emergency_sleep", "jetpack", "jetpack_black", "jetpack_void", "oxygen", "oxygen_f", "oxygen_fr", "plasma")
 
 /obj/item/transfer_valve
-	icon = 'icons/obj/assemblies.dmi'
 	name = "tank transfer valve"
-	icon_state = "valve_1"
-	item_state = "ttv"
 	desc = "Regulates the transfer of air between two tanks."
+	icon = 'icons/obj/assemblies.dmi'
+	icon_state = "valve_1"
+	inhand_icon_state = "ttv"
 	var/obj/item/tank/tank_one = null
 	var/obj/item/tank/tank_two = null
 	var/obj/item/assembly/attached_device = null

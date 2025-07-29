@@ -3,10 +3,9 @@
 	desc = "A standard U.S.S.P military uniform."
 	icon = 'icons/obj/clothing/under/ussp.dmi'
 	icon_state = "soviet"
+	worn_icon = 'icons/mob/clothing/under/ussp.dmi'
 	item_color = "soviet"
-	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/under/ussp.dmi'
-		)
+	sprite_sheets = null
 
 /obj/item/clothing/under/new_soviet/sovietofficer
 	name = "\improper Soviet officer uniform"

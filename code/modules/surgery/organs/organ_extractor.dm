@@ -3,7 +3,6 @@
 	desc = "A device that can remove organs from a target, and store them inside. Stored organs can be implanted into the user. Synthesizes chemicals to keep the organ fresh."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "organ_extractor"
-	item_state = ""
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "biotech=6;materials=5;syndicate=2"
 	var/obj/item/organ/internal/storedorgan

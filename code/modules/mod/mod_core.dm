@@ -3,7 +3,7 @@
 	desc = "A non-functional MOD core. Inform the admins if you see this."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	icon_state = "mod-core"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/items/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items/devices_righthand.dmi'
 	/// MOD unit we are powering.

@@ -2,7 +2,7 @@
 	name = "headphones"
 	desc = "Unce unce unce unce."
 	icon_state = "headphones0"
-	item_state = "headphones0"
+	inhand_icon_state = "headphones"
 	actions_types = list(/datum/action/item_action/change_headphones_song, /datum/action/item_action/toggle_music_notes)
 	var/datum/song/headphones/song
 	var/on = FALSE
@@ -47,11 +47,11 @@
 	return song.ui_act(action, params)
 
 /obj/item/clothing/ears/headphones/update_icon_state()
+	icon_state = "headphones[on]"
 	var/mob/living/carbon/human/user = loc
 	if(istype(user))
 		user.update_action_buttons_icon()
 		user.update_inv_ears()
-	icon_state = item_state = "headphones[on]"
 
 /obj/item/clothing/ears/headphones/item_action_slot_check(slot)
 	if(slot & ITEM_SLOT_BOTH_EARS)

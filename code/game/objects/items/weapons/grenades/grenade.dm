@@ -1,10 +1,11 @@
 /obj/item/grenade
 	name = "grenade"
 	desc = "A hand held grenade with an adjustable timer."
-	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "grenade"
-	item_state = "grenade"
+	worn_icon_state = "grenade"
+	inhand_icon_state = "grenade"
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 20
 	flags = CONDUCT

@@ -262,7 +262,6 @@
 	/// Mob that threw the grenade.
 	var/mob/living/thrower
 
-
 /obj/item/grenade/cryogrenade_mod/Destroy()
 	thrower = null
 	return ..()

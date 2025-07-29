@@ -13,18 +13,18 @@ CONTENTS:
 	desc = "A helmet made out of a box."
 	icon = 'icons/obj/clothing/head/cardborg.dmi'
 	icon_state = "cardborg_h"
-	item_state = "cardborg_h"
-	icon_override = 'icons/mob/clothing/head/cardborg.dmi'
+	inhand_icon_state = "cardborg_h"
+	worn_icon = 'icons/mob/clothing/head/cardborg.dmi'
 	dog_fashion = /datum/dog_fashion/head/cardborg
-	sprite_sheets = list(
-	"Grey" = 'icons/mob/clothing/species/grey/head/cardborg.dmi',
-	"Vox" = 'icons/mob/clothing/species/vox/head/cardborg.dmi'
-	)
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEEARS
 	flags_cover = HEADCOVERSEYES
 	/// You appear to be this when examined instead of your mob's actual species. Also used to verify the helmet and suit are in a matching set.
 	species_disguise = "High-tech robot"
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/head/cardborg.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head/cardborg.dmi',
+	)
 	/// All the borg skins that this can disguise you as.
 	var/list/available_disguises = list("Standard")
 
@@ -40,7 +40,6 @@ CONTENTS:
 	name = "red cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted red."
 	icon_state = "cardborg_h_security"
-	item_state = "cardborg_h_security"
 	dog_fashion = /datum/dog_fashion/head/cardborg/security
 	available_disguises = list("secborg", "Security", "securityrobot", "bloodhound", "Standard-Secy", "Noble-SEC", "Cricket-SEC", "heavySec")
 	species_disguise = "High-tech security robot"
@@ -49,7 +48,6 @@ CONTENTS:
 	name = "orange cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted orange."
 	icon_state = "cardborg_h_engineering"
-	item_state = "cardborg_h_engineering"
 	dog_fashion = /datum/dog_fashion/head/cardborg/engineering
 	available_disguises = list("Engineering", "engineerrobot", "landmate", "Standard-Engi", "Noble-ENG", "Cricket-ENGI")
 	species_disguise = "High-tech engineering robot"
@@ -58,7 +56,6 @@ CONTENTS:
 	name = "brown cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted brown."
 	icon_state = "cardborg_h_mining"
-	item_state = "cardborg_h_mining"
 	dog_fashion = /datum/dog_fashion/head/cardborg/mining
 	available_disguises = list("Miner_old", "droid-miner", "Miner", "Standard-Mine", "Noble-DIG", "Cricket-MINE", "lavaland", "squatminer", "coffinMiner")
 	species_disguise = "High-tech mining robot"
@@ -67,7 +64,6 @@ CONTENTS:
 	name = "green cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted green."
 	icon_state = "cardborg_h_service"
-	item_state = "cardborg_h_service"
 	dog_fashion = /datum/dog_fashion/head/cardborg/service
 	available_disguises = list("Service", "toiletbot", "Brobot", "maximillion", "Service2", "Standard-Serv", "Noble-SRV", "Cricket-SERV")
 	species_disguise = "High-tech service robot"
@@ -76,7 +72,6 @@ CONTENTS:
 	name = "blue cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted blue."
 	icon_state = "cardborg_h_medical"
-	item_state = "cardborg_h_medical"
 	dog_fashion = /datum/dog_fashion/head/cardborg/medical
 	available_disguises = list("Medbot", "surgeon", "droid-medical", "medicalrobot", "Standard-Medi", "Noble-MED", "Cricket-MEDI", "qualified_doctor")
 	species_disguise = "High-tech medical robot"
@@ -85,7 +80,6 @@ CONTENTS:
 	name = "purple cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted purple."
 	icon_state = "cardborg_h_janitor"
-	item_state = "cardborg_h_janitor"
 	dog_fashion = /datum/dog_fashion/head/cardborg/janitor
 	available_disguises = list("JanBot2", "janitorrobot", "mopgearrex", "Standard-Jani", "Noble-CLN", "Cricket-JANI", "custodiborg")
 	species_disguise = "High-tech janitor robot"
@@ -94,7 +88,6 @@ CONTENTS:
 	name = "white cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted white."
 	icon_state = "cardborg_h_xeno"
-	item_state = "cardborg_h_xeno"
 	dog_fashion = /datum/dog_fashion/head/cardborg/xeno
 	available_disguises = list("xenoborg-state-a")
 	species_disguise = "High-tech alien-hunting robot"
@@ -103,7 +96,6 @@ CONTENTS:
 	name = "black cardborg helmet"
 	desc = "A helmet made out of a box. This one has been spray-painted black."
 	icon_state = "cardborg_h_deathbot"
-	item_state = "cardborg_h_deathbot"
 	dog_fashion = /datum/dog_fashion/head/cardborg/deathbot
 	available_disguises = list("nano_bloodhound", "syndie_bloodhound", "syndi-medi", "syndi-engi", "ertgamma", "spidersyndi", "syndieheavy")
 	species_disguise = "High-tech killer robot"
@@ -116,8 +108,8 @@ CONTENTS:
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them."
 	icon = 'icons/obj/clothing/suits/cardborg.dmi'
 	icon_state = "cardborg"
-	item_state = "cardborg"
-	icon_override = 'icons/mob/clothing/suits/cardborg.dmi'
+	inhand_icon_state = "cardborg"
+	worn_icon = 'icons/mob/clothing/suits/cardborg.dmi'
 	dog_fashion = /datum/dog_fashion/back
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags_inv = HIDEJUMPSUIT
@@ -135,56 +127,48 @@ CONTENTS:
 	name = "red cardborg suit"
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them. This one has been spray-painted red."
 	icon_state = "cardborg_security"
-	item_state = "cardborg_security"
 	species_disguise = "High-tech security robot"
 
 /obj/item/clothing/suit/cardborg/engineering
 	name = "orange cardborg suit"
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them. This one has been spray-painted orange."
 	icon_state = "cardborg_engineering"
-	item_state = "cardborg_engineering"
 	species_disguise = "High-tech engineering robot"
 
 /obj/item/clothing/suit/cardborg/mining
 	name = "brown cardborg suit"
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them. This one has been spray-painted brown."
 	icon_state = "cardborg_mining"
-	item_state = "cardborg_mining"
 	species_disguise = "High-tech mining robot"
 
 /obj/item/clothing/suit/cardborg/service
 	name = "green cardborg suit"
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them. This one has been spray-painted green."
 	icon_state = "cardborg_service"
-	item_state = "cardborg_service"
 	species_disguise = "High-tech service robot"
 
 /obj/item/clothing/suit/cardborg/medical
 	name = "blue cardborg suit"
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them. This one has been spray-painted blue."
 	icon_state = "cardborg_medical"
-	item_state = "cardborg_medical"
 	species_disguise = "High-tech medical robot"
 
 /obj/item/clothing/suit/cardborg/janitor
 	name = "purple cardborg suit"
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them. This one has been spray-painted purple."
 	icon_state = "cardborg_janitor"
-	item_state = "cardborg_janitor"
 	species_disguise = "High-tech janitor robot"
 
 /obj/item/clothing/suit/cardborg/xeno
 	name = "white cardborg suit"
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them. This one has been spray-painted white."
 	icon_state = "cardborg_xeno"
-	item_state = "cardborg_xeno"
 	species_disguise = "High-tech alien-hunting robot"
 
 /obj/item/clothing/suit/cardborg/deathbot
 	name = "black cardborg suit"
 	desc = "A full-body suit made out of ordinary cardboard boxes with various holes cut into them. This one has been spray-painted black."
 	icon_state = "cardborg_deathbot"
-	item_state = "cardborg_deathbot"
 	species_disguise = "High-tech killer robot"
 
 /*
