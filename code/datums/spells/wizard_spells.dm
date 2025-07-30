@@ -340,8 +340,8 @@
 /datum/spell/fireball/update_spell_icon()
 	if(!action)
 		return
-	action.button_overlay_icon_state = "fireball[active]"
-	action.UpdateButtons()
+	action.button_icon_state = "fireball[active]"
+	action.build_all_button_icons()
 
 /datum/spell/fireball/cast(list/targets, mob/living/user = usr)
 	var/target = targets[1] //There is only ever one target for fireball
