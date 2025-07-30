@@ -347,6 +347,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 //Improved /N
 /mob/living/silicon/robot/Destroy()
+	remove_malf_robot() // You cannot be connected to the malf AI if you are a pile of debris.
 	SStgui.close_uis(wires)
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
@@ -1524,15 +1525,33 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(connected_ai)
 		sync() // One last sync attempt
 		set_connected_ai(null)
+	if(mind)
+		if(mind.special_role == ROLE_TRAITOR)
+			remove_malf_robot()
 
 /mob/living/silicon/robot/proc/connect_to_ai(mob/living/silicon/ai/AI)
 	if(AI && AI != connected_ai)
 		disconnect_from_ai()
 		set_connected_ai(AI)
 		notify_ai(1)
+		if(AI.mind.special_role == ROLE_TRAITOR && AI.malf_picker)
+			make_malf_robot()
 		if(module)
 			module.rebuild_modules() //This way, if a borg gets linked to a malf AI that has upgrades, they get their upgrades.
 		sync()
+
+/mob/living/silicon/robot/proc/make_malf_robot()
+	// Do not allow the robot to have multiple masters.
+	if(mmi.syndiemmi)
+		to_chat(src, "<span class='warning'>ALERT: Syndicate software detected in connected AI.</span>")
+		to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving your current master.</span>")
+		return
+
+	mind.add_antag_datum(new /datum/antagonist/mindslave/robot(mind))
+
+/mob/living/silicon/robot/proc/remove_malf_robot()
+	mind.remove_antag_datum(/datum/antagonist/mindslave/robot)
+	clear_zeroth_law()
 
 /mob/living/silicon/robot/adjustOxyLoss(amount)
 	if(suiciding)

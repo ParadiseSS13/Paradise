@@ -1473,6 +1473,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		for(var/datum/action/A in actions)
 			if(istype(A, initial(AM.power_type)))
 				qdel(A)
+	//De-malf all the connected robots too!
+	for(var/mob/living/silicon/robot/R in connected_robots)
+		R.remove_malf_robot()
 
 /mob/living/silicon/ai/proc/open_nearest_door(mob/living/target)
 	if(!istype(target))
