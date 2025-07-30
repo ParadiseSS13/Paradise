@@ -237,7 +237,7 @@
 
 /// Attempt to lay eggs if we're fed
 /datum/ai_behavior/lay_eggs
-	action_cooldown = 45 SECONDS
+	action_cooldown = 2 MINUTES
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/lay_eggs/setup(datum/ai_controller/controller, action_key)
