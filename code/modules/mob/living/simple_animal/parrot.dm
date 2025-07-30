@@ -126,11 +126,13 @@
 	))
 
 	AddElement(/datum/element/wears_collar)
-	AddElement(/datum/element/strippable, GLOB.strippable_parrot_items)
 
 /mob/living/simple_animal/parrot/Destroy()
 	GLOB.hear_radio_list -= src
 	return ..()
+
+/mob/living/simple_animal/parrot/get_strippable_items(datum/source, list/items)
+	items |= GLOB.strippable_parrot_items
 
 /mob/living/simple_animal/parrot/death(gibbed)
 	if(can_die())

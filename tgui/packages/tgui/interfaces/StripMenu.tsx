@@ -460,6 +460,25 @@ export const StripMenu = (props) => {
     return 'none';
   };
 
+  if (gridSpots.size === 0) {
+    return (
+      <Window
+        title={`Stripping ${data.name}`}
+        width={getColumnsAmount(data.show_mode) * 64 + 6 * (getColumnsAmount(data.show_mode) + 1)}
+        height={390}
+        theme="nologo"
+      >
+        <Window.Content style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+          <Stack fill>
+            <Stack.Item bold grow textAlign="center" align="center" color="average">
+              No slots
+            </Stack.Item>
+          </Stack>
+        </Window.Content>
+      </Window>
+    );
+  }
+
   return (
     <Window
       title={`Stripping ${data.name}`}
