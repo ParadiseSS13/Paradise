@@ -42,17 +42,17 @@
 	can_flashlight = TRUE
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon_state()
-	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_overlays()
 	. = ..()
 	if(suppressed)
-		. += image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "enforcer_supp", pixel_x = 5)
+		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 15, pixel_y = 5)
 	if(gun_light)
-		var/flashlight = "Enforcer_light"
+		var/flashlight = "uflashlight_attached"
 		if(gun_light.on)
-			flashlight = "Enforcer_light-on"
-		. += image(icon = 'icons/obj/guns/projectile.dmi', icon_state = flashlight, pixel_x = 0)
+			flashlight = "uflashlight_attached-on"
+		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = flashlight, pixel_x = 5, pixel_y = -2)
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/ui_action_click()
 	toggle_gunlight()
