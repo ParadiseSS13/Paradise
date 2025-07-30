@@ -40263,9 +40263,6 @@
 "glz" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
@@ -74240,10 +74237,6 @@
 /area/station/maintenance/fore)
 "sfP" = (
 /obj/machinery/hologram/holopad,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/fsmaint2)
 "sfS" = (
