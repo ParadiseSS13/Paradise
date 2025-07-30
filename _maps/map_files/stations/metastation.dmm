@@ -37998,7 +37998,6 @@
 	},
 /area/station/service/chapel)
 "fxC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
@@ -43687,6 +43686,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
 "hyD" = (
@@ -51910,8 +51912,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -54376,7 +54376,6 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/machinery/power/apc/reinforced/directional/west,
 /obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/solar_maintenance/fore_starboard)
@@ -56579,6 +56578,9 @@
 "lRY" = (
 /obj/machinery/power/apc/reinforced/directional/north,
 /obj/effect/turf_decal/stripes/end,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/turbine)
 "lSc" = (
@@ -71576,7 +71578,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
@@ -73518,6 +73519,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
@@ -76832,10 +76836,6 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/orange{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/reinforced/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -78201,7 +78201,6 @@
 /obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/reinforced/directional/north,
 /obj/effect/turf_decal/stripes/end,
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plating,
@@ -84799,6 +84798,16 @@
 	icon_state = "whitepurple"
 	},
 /area/station/maintenance/aft2)
+"vZB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/turbine)
 "vZH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -130646,7 +130655,7 @@ wiZ
 asJ
 oPX
 nbw
-hyl
+vZB
 vwr
 omk
 cso
@@ -131418,7 +131427,7 @@ yiJ
 cLr
 nbw
 aRQ
-bkY
+aRQ
 cjq
 cEC
 bkZ
