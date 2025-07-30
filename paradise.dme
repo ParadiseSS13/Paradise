@@ -2409,7 +2409,7 @@
 #include "code\modules\mob\living\basic\basic_mob.dm"
 #include "code\modules\mob\living\basic\hostile\creature.dm"
 #include "code\modules\mob\living\basic\hostile\feral_cat.dm"
-#include "code\modules\mob\living\basic\hostile\killertomato.dm
+#include "code\modules\mob\living\basic\hostile\killertomato.dm"
 #include "code\modules\mob\living\basic\farm_animals\pig.dm"
 #include "code\modules\mob\living\basic\farm_animals\deer_ai.dm"
 #include "code\modules\mob\living\basic\farm_animals\deer.dm"
