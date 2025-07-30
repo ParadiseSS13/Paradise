@@ -1017,7 +1017,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/badass/syndie_garments
 	name = "Syndicate Garment Bag"
+<<<<<<< Updated upstream
 	desc = "A customised garment bag filled with all kinds of Syndicate attire, for the fashionable agent's needs. Proclaim your allegiance with style!"
+=======
+	desc = "A customised garment bag filled with Syndicate attire, for the arrogant agent's needs. Proclaim your allegiance with style!"
+>>>>>>> Stashed changes
 	reference = "GRMT"
 	item = /obj/item/storage/bag/garment/syndie
 	cost = 5
