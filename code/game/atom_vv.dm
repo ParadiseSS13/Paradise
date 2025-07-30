@@ -17,6 +17,8 @@
 	VV_DROPDOWN_OPTION(VV_HK_EDITREAGENTS, "Edit reagents")
 	VV_DROPDOWN_OPTION(VV_HK_EXPLODE, "Trigger explosion")
 	VV_DROPDOWN_OPTION(VV_HK_EMP, "Trigger EM pulse")
+	if(istype(ai_controller))
+		VV_DROPDOWN_OPTION(VV_HK_DEBUG_AI_CONTROLLER, "Debug AI Controller")
 
 /atom/proc/vv_modify_name_link()
 	return "byond://?_src_=vars;datumedit=[UID()];varnameedit=name"
@@ -100,3 +102,14 @@
 		message_admins("[key_name_admin(usr)] is manipulating the colour matrix for [src]")
 		var/datum/ui_module/colour_matrix_tester/CMT = new(target=src)
 		CMT.ui_interact(usr)
+
+	if(href_list[VV_HK_DEBUG_AI_CONTROLLER])
+		if(!check_rights(R_DEBUG|R_DEV_TEAM))
+			return
+
+		if(!istype(ai_controller))
+			to_chat(usr, "Could not find atom [href_list[VV_HK_DEBUG_AI_CONTROLLER]] with AI controller")
+			return
+
+		var/datum/ui_module/ai_controller_debugger/debugger = new(ai_controller)
+		debugger.ui_interact(usr)

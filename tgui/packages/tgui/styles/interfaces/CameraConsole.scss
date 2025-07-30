@@ -1,53 +1,53 @@
 @use '../base.scss';
 
-$background-color: rgba(0, 0, 0, 0.33) !default;
+.CameraConsole {
+  &__toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--camera-toolbar-height);
+    line-height: var(--camera-toolbar-height);
+    margin: var(--space-s) var(--space-xl) 0;
 
-.CameraConsole__left {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: base.em(220px);
-}
+    &--right {
+      left: unset;
+      margin: var(--space-sm) var(--space-m) 0;
+    }
+  }
 
-.CameraConsole__right {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: base.em(220px);
-  right: 0;
-  background-color: $background-color;
-}
+  &__left {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: base.em(220px);
+  }
 
-.CameraConsole__toolbar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2em;
-  line-height: 2em;
-  margin: 0.25em 1em 0;
-}
+  &__right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: base.em(220px);
+    right: 0;
+    background-color: var(--color-section);
 
-.CameraConsole__toolbarRight {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 2em;
-  line-height: 2em;
-  margin: 0.33em 0.5em 0;
-}
+    &:root {
+      --camera-toolbar-height: 2em;
+    }
+  }
 
-.CameraConsole__map {
-  position: absolute;
-  top: base.em(26px);
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0.5em;
-  text-align: center;
+  &__map {
+    position: absolute;
+    top: base.em(26px);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: var(--space-m);
+    text-align: center;
 
-  .NoticeBox {
-    margin-top: calc(50% - 2em);
+    .NoticeBox {
+      margin-top: calc(50% - 2em);
+    }
   }
 }
