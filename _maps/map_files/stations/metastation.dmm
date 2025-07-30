@@ -6617,9 +6617,6 @@
 /area/station/maintenance/fore2)
 "aST" = (
 /obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
@@ -7037,9 +7034,6 @@
 	pixel_y = 32
 	},
 /obj/machinery/computer/station_alert,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -7489,9 +7483,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/expedition)
 "aWX" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -10812,6 +10803,9 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "blo" = (
@@ -33041,9 +33035,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "dON" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -33977,21 +33968,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
-"eek" = (
-/obj/structure/cable/orange{
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint2)
 "eew" = (
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
@@ -51257,9 +51233,6 @@
 	},
 /area/station/procedure/trainer_office)
 "kdq" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -75678,9 +75651,6 @@
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
 "sJr" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -136530,7 +136500,7 @@ lIo
 pLF
 mhE
 shb
-eek
+vDE
 iEq
 enp
 aaa
