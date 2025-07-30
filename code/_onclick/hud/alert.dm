@@ -819,6 +819,11 @@ so as to remain in compliance with the most up-to-date laws."
 	name = "Legcuffed"
 	desc = "You're legcuffed, which slows you down considerably. Click the alert to free yourself."
 
+/atom/movable/screen/alert/restrained/cryocell
+	name = "Cryogenics"
+	desc = "You're inside a freezing cold medical cell. Click the alert to free yourself."
+	icon_state = "asleep"
+
 /atom/movable/screen/alert/restrained/Click()
 	if(!isliving(usr) || !..())
 		return
