@@ -26,7 +26,6 @@
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
-	requires_organic_bodypart = TRUE
 
 /datum/surgery/treat_burns
 	name = "Treat Severe Burns"
@@ -239,8 +238,6 @@
 		/obj/item/reagent_containers/glass/bucket = 50
 	)
 
-	can_infect = FALSE
-	blood_level = SURGERY_BLOODSPREAD_NONE
 
 	time = 2.4 SECONDS
 

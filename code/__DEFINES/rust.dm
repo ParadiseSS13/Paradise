@@ -2,6 +2,7 @@
 // Current modules:
 // - MILLA, an asynchronous replacement for BYOND atmos
 // - Mapmanip, a parse-time DMM file reader and modifier
+// - A bunch of imports from rustg
 
 // Default automatic library detection.
 // Look for it in the build location first, then in `.`, then in standard places.
@@ -137,6 +138,13 @@
 	else
 		CRASH(output["content"])
 
+// MARK: Git
+/proc/rustlibs_git_revparse(rev)
+	return RUSTLIB_CALL(git_revparse, rev)
+
+/proc/rustlibs_git_commit_date(rev, format = "%F")
+	return RUSTLIB_CALL(git_commit_date, rev, format)
+
 // MARK: Logging
 /proc/rustlibs_log_write(fname, text)
 	return RUSTLIB_CALL(log_write, fname, text)
@@ -187,6 +195,12 @@
 
 /proc/rustlibs_redis_publish(channel, message)
 	return RUSTLIB_CALL(redis_publish, channel, message)
+
+
+// MARK: Toast
+/// (Windows only) Triggers a desktop notification with the specified title and body
+/proc/rustlibs_create_toast(title, body) 
+	return RUSTLIB_CALL(create_toast, title, body)
 
 
 // MARK: HTTP

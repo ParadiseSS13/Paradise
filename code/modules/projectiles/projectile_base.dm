@@ -7,11 +7,9 @@
 	name = "projectile"
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bullet"
-	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	flags = ABSTRACT
-	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
@@ -135,6 +133,11 @@
 	/// Can our ricochet autoaim hit our firer?
 	var/ricochet_shoots_firer = TRUE
 
+	/// determines what type of antimagic can block the spell projectile
+	var/antimagic_flags
+	/// determines the drain cost on the antimagic item
+	var/antimagic_charge_cost
+
 /obj/item/projectile/New()
 	return ..()
 
@@ -160,12 +163,23 @@
 	qdel(src)
 
 /obj/item/projectile/proc/prehit(atom/target)
+	if(isliving(target))
+		var/mob/living/victim = target
+		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost))
+			visible_message("<span class='warning'>[src] fizzles on contact with [victim]!</span>")
+			damage = 0
+			nodamage = 1
+			return FALSE
 	return TRUE
 
 /obj/item/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
 	var/turf/target_loca = get_turf(target)
 	var/hitx
 	var/hity
+	if(isliving(target))
+		var/mob/living/victim = target
+		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost)) // Yes we have to check this twice welcome to bullet hell code
+			return FALSE
 	if(target == original)
 		hitx = target.pixel_x + p_x - 16
 		hity = target.pixel_y + p_y - 16

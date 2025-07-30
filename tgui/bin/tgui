@@ -45,10 +45,10 @@ task-install() {
   yarn install
 }
 
-## Runs webpack
-task-webpack() {
+## Runs rspack
+task-rspack() {
   cd "${base_dir}"
-  yarn run webpack-cli "${@}"
+  yarn run rspack "${@}"
 }
 
 ## Runs a development server
@@ -68,17 +68,12 @@ task-lint() {
 
 task-test() {
   cd "${base_dir}"
-  yarn run jest
+  yarn run vitest
 }
 
 task-prettier() {
   cd "${base_dir}"
   npx prettier --check packages "${@}"
-}
-
-task-polyfill() {
-  cd "${base_dir}"
-  yarn tgui-polyfill:build
 }
 
 ## Mr. Proper
@@ -93,7 +88,7 @@ task-clean() {
   ## Yarn artifacts
   rm -rf .yarn/cache
   rm -rf .yarn/unplugged
-  rm -rf .yarn/webpack
+  rm -rf .yarn/rspack
   rm -rf .yarn/build-state.yml
   rm -rf .yarn/install-state.gz
   rm -f .pnp.*
@@ -144,7 +139,7 @@ task-rebuild-conflicted-bundle() {
   echo "----------------------"
   echo "tgui: rebuilding a conflicted tgui bundle, ${file_path}"
   task-install
-  task-webpack --mode=production
+  task-rspack --mode=production
   echo "tgui: committing new bundle"
 	git commit -am "TGUI Bundle Rebuild"
   exit 0
@@ -197,7 +192,7 @@ fi
 ## Analyze the bundle
 if [[ ${1} == '--analyze' ]]; then
   task-install
-  task-webpack --mode=production --analyze
+  task-rspack --mode=production --analyze
   exit 0
 fi
 
@@ -216,7 +211,15 @@ if [[ ${1} == "--ci" ]]; then
   task-prettier
   task-test "${@}"
   task-lint
-  task-webpack --mode=production
+  task-rspack --mode=production
+  # The following two scripts aren't included in the rspack configuration,
+  # because they do not import other files, and consequently, they do not need a bundler.
+  # Furthermore, they are only included in CI builds because these files change so rarely.
+  # However, when they do change, the CI must fail if the build outputs weren't updated.
+  yarn run build:helpers
+  # The following script can't be trivially included into the rspack configuration,
+  # because its entrypoint is a CSS file, which is not supported by webpack and subsequently rspack.
+  yarn run build:style
   task-validate-build
   exit 0
 fi
@@ -228,22 +231,14 @@ if [[ ${1} == '--prettier' ]]; then
   exit 0
 fi
 
-## Run prettier
-if [[ ${1} == '--tgui-polyfill' ]]; then
-  shift 1
-  task-install
-  task-polyfill "${@}"
-  exit 0
-fi
-
-## Make a production webpack build
+## Make a production rspack build
 if [[ -z ${1} ]]; then
   task-install
   task-lint --fix
-  task-webpack --mode=production
+  task-rspack --mode=production
   exit 0
 fi
 
-## Run webpack with custom flags
+## Run rspack with custom flags
 task-install
-task-webpack "${@}"
+task-rspack "${@}"

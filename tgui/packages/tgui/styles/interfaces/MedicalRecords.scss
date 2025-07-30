@@ -1,6 +1,4 @@
-@use '../base.scss';
 @use '../colors.scss';
-@use '../functions.scss' as *;
 
 .MedicalRecords__list {
   tr > td {
@@ -8,35 +6,35 @@
   }
 
   tr:not(:first-child) {
+    cursor: var(--cursor-pointer);
     height: 24px;
     line-height: 24px;
-    cursor: pointer;
+    transition: background-color var(--transition-time-fast);
 
-    transition: background-color 50ms;
     &:hover,
     &:focus {
-      background-color: rgba(base.$color-bg, 1);
+      background-color: var(--color-base);
     }
   }
 }
 
 .MedicalRecords__listRow--deceased {
-  background-color: colors.bg(#890e26);
+  background-color: colors.bg(hsl(350, 80%, 30%));
 }
 
 .MedicalRecords__listRow--ssd {
-  background-color: colors.bg(#008091);
+  background-color: colors.bg(hsl(185, 100%, 30%));
 }
 
 .MedicalRecords__listRow--physically_unfit {
-  background-color: colors.bg(#b38f00);
+  background-color: colors.bg(hsl(50, 100%, 35%));
 }
 
 .MedicalRecords__listRow--disabled {
-  background-color: colors.bg(#251496);
+  background-color: colors.bg(hsl(250, 75%, 35%));
 }
 
 // The color behind a medibot row for when its disabled (0 represents false).
 .MedicalRecords__listMedbot--0 {
-  background-color: colors.bg(#321717);
+  background-color: colors.bg(hsl(0, 37.5%, 15%));
 }

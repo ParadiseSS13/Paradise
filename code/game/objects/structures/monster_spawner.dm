@@ -10,7 +10,7 @@
 
 	var/max_mobs = 5
 	var/spawn_time = 300 //30 seconds default
-	var/mob_types = list(/mob/living/simple_animal/hostile/carp)
+	var/mob_types = list(/mob/living/basic/carp)
 	var/spawn_text = "emerges from"
 	var/faction = list("hostile")
 	var/spawner_type = /datum/component/spawner
@@ -41,7 +41,7 @@
 	max_integrity = 150
 	max_mobs = 15
 	spawn_time = 150
-	mob_types = list(/mob/living/simple_animal/hostile/skeleton)
+	mob_types = list(/mob/living/basic/skeleton)
 	spawn_text = "climbs out of"
 	faction = list("skeleton")
 

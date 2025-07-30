@@ -86,7 +86,6 @@ Difficulty: Hard
 	icon_state = null
 	gpstag = "Bloody Signal"
 	desc = "You're not quite sure how a signal can be bloody."
-	invisibility = 100
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize(mapload)
 	. = ..()
@@ -98,29 +97,29 @@ Difficulty: Hard
 
 /datum/action/innate/megafauna_attack/triple_charge
 	name = "Triple Charge"
-	button_overlay_icon = 'icons/mob/actions/actions.dmi'
-	button_overlay_icon_state = "sniper_zoom"
+	button_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now triple charging at the target you click on.</span>"
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/hallucination_charge
 	name = "Hallucination Charge"
-	button_overlay_icon = 'icons/effects/bubblegum.dmi'
-	button_overlay_icon_state = "smack ya one"
+	button_icon = 'icons/effects/bubblegum.dmi'
+	button_icon_state = "smack ya one"
 	chosen_message = "<span class='colossus'>You are now charging with hallucinations at the target you click on.</span>"
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/hallucination_surround
 	name = "Surround Target"
-	button_overlay_icon = 'icons/turf/walls/wall.dmi'
-	button_overlay_icon_state = "wall-0"
+	button_icon = 'icons/turf/walls/wall.dmi'
+	button_icon_state = "wall-0"
 	chosen_message = "<span class='colossus'>You are now surrounding the target you click on with hallucinations.</span>"
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/blood_warp
 	name = "Blood Warp"
-	button_overlay_icon = 'icons/effects/blood.dmi'
-	button_overlay_icon_state = "floor1"
+	button_icon = 'icons/effects/blood.dmi'
+	button_icon_state = "floor1"
 	chosen_message = "<span class='colossus'>You are now warping to blood around your clicked position.</span>"
 	chosen_attack_num = 4
 
@@ -500,7 +499,6 @@ Difficulty: Hard
 	name = "thick blood"
 	desc = "Thick, splattered blood."
 	random_icon_states = list("gib3", "gib5", "gib6")
-	bloodiness = 20
 
 /obj/effect/decal/cleanable/blood/gibs/bubblegum/can_bloodcrawl_in()
 	return TRUE
@@ -660,7 +658,6 @@ Difficulty: Hard
 	projectilesound = 'sound/effects/splat.ogg'
 	deathmessage = null
 	death_sound = 'sound/hallucinations/veryfar_noise.ogg'
-	ranged = TRUE
 	ranged_cooldown_time = 10
 	enraged_loot = /obj/item/disk/fauna_research/bubblegum
 

@@ -11,7 +11,6 @@
 	name = "area power controller"
 	desc = "A control terminal for the area electrical systems."
 	icon_state = "apc0"
-	max_integrity = 200
 	integrity_failure = 50
 	resistance_flags = FIRE_PROOF
 	req_access = list(ACCESS_ENGINE_EQUIP)
@@ -1196,4 +1195,3 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/power/apc/reinforced/critical, 24, 24
 	item_state = "electronic"
 	flags = CONDUCT
 	usesound = 'sound/items/deconstruct.ogg'
-	toolspeed = 1

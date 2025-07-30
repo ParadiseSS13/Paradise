@@ -100,7 +100,6 @@
 	name = "blue cheese wedge"
 	desc = "A wedge of pungent blue cheese. The flavor is... intense."
 	icon_state = "cheesewedge-blue"
-	bitesize = 2
 	list_reagents = list("nutriment" = 1, "vitamin" = 1, "cheese" = 3)
 	tastes = list("strong cheese" = 2, "salt" = 1, "bitter mold" = 1)
 
@@ -117,7 +116,6 @@
 	name = "camembert cheese slice"
 	desc = "A piece of camembert. It's soft and gooey."
 	icon_state = "cheesewedge-camembert"
-	bitesize = 2
 	list_reagents = list("nutriment" = 2, "vitamin" = 2, "cheese" = 4)
 	tastes = list("mild cheese" = 3, "gooeyness" = 1)
 
@@ -285,9 +283,7 @@
 		return ..()
 
 /obj/item/food/rawcookies/chocochips
-	name = "raw cookies"
 	desc = "Ready for oven! They have little pieces of chocolate all over them"
-	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "unbaked_cookies_choco"
 	list_reagents = list("nutriment" = 5, "sugar" = 5, "chocolate" = 5)
 	tastes = list("dough" = 1, "sugar" = 1, "chocolate" = 1)
