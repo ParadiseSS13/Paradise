@@ -32,10 +32,9 @@
 		user.visible_message("<span class='danger'>[user] vomits up an arachnid!</span>")
 		var/mob/living/basic/giant_spider/hunter/infestation_spider/S = new(user.loc)
 		S.owner_UID = user.UID()
-		S.ai_controller.set_blackboard_key(BB_BASIC_MOB_TARGET_BLACKLIST, list(user))
 		S.ai_controller.set_blackboard_key(BB_CURRENT_PET_TARGET, user)
 		S.ai_controller.set_blackboard_key(BB_CHANGELING_SPIDER_ORDER, IDLE_AGGRESSIVE)
-		S.faction |= list("spiders", "\ref[owner]") // Makes them friendly only to the owner & other spiders
+		S.befriend(user)
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 		is_operating = FALSE
 		return TRUE

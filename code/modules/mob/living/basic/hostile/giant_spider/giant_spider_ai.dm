@@ -10,20 +10,20 @@
 	ai_traits = AI_FLAG_STOP_MOVING_WHEN_PULLED | AI_FLAG_PAUSE_DURING_DO_AFTER
 
 	planning_subtrees = list(
+		/datum/ai_planning_subtree/random_speech/insect,
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
-		/datum/ai_planning_subtree/random_speech/insect,
 		/datum/ai_planning_subtree/find_unwebbed_turf,
 		/datum/ai_planning_subtree/spin_web,
 	)
 
 /datum/ai_controller/basic_controller/giant_spider/nurse
 	planning_subtrees = list(
+		/datum/ai_planning_subtree/random_speech/insect,
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
-		/datum/ai_planning_subtree/random_speech/insect,
 		/datum/ai_planning_subtree/lay_eggs,
 		/datum/ai_planning_subtree/find_unwrapped_target,
 		/datum/ai_planning_subtree/find_unwebbed_turf,
@@ -32,6 +32,9 @@
 	)
 
 /datum/ai_controller/basic_controller/giant_spider/changeling
+	blackboard = list(
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic/not_friends,
+	)
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/simple_find_target/cling_spider,
 		/datum/ai_planning_subtree/target_retaliate,
@@ -43,14 +46,14 @@
 /// Used by Araneus, who only attacks those who attack first. He is house-trained and will not web up the HoS office.
 /datum/ai_controller/basic_controller/giant_spider/retaliate
 	planning_subtrees = list(
+		/datum/ai_planning_subtree/random_speech/insect,
 		/datum/ai_planning_subtree/target_retaliate,
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
-		/datum/ai_planning_subtree/random_speech/insect,
 	)
 
 /datum/ai_planning_subtree/random_speech/insect
-	speech_chance = 5
+	speech_chance = 2
 	sound = list('sound/creatures/chitter.ogg')
 	emote_hear = list("chitters.")
 

@@ -58,13 +58,6 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 		if(ismob(pot_target) && living_mob.faction_check_mob(pot_target))
 			continue
 		if(targeting_strategy.can_attack(living_mob, pot_target))//Can we attack it?
-			var/invalid = FALSE
-			for(var/atom/blacklisted in controller.blackboard[BB_BASIC_MOB_TARGET_BLACKLIST])
-				if(pot_target == blacklisted)
-					invalid = TRUE
-					break
-			if(invalid)
-				continue
 			filtered_targets += pot_target
 			continue
 
