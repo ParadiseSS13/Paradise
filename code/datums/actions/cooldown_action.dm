@@ -2,7 +2,6 @@
 
 /// Preset for an action that has a cooldown.
 /datum/action/cooldown
-	check_flags = NONE
 	transparent_when_unavailable = FALSE
 
 	/// The actual next time this ability can be used
