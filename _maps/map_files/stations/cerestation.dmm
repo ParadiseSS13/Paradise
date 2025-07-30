@@ -15148,7 +15148,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
-/obj/structure/cable/orange{
+/obj/structure/cable{
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -21888,7 +21888,7 @@
 	},
 /area/station/security/execution)
 "dqI" = (
-/obj/structure/cable/orange{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -37450,9 +37450,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/tech_storage,
 /obj/machinery/door/airlock/engineering,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -48546,7 +48543,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable/orange{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -55153,7 +55150,7 @@
 "kOr" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/comms,
-/obj/structure/cable/orange{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -55768,7 +55765,7 @@
 /obj/machinery/door/airlock/highsecurity{
 	name = "Secure Technical Storage"
 	},
-/obj/structure/cable/orange{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -63059,10 +63056,10 @@
 /area/station/security/prisonershuttle)
 "mzx" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable/orange{
+/obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/structure/cable/orange{
+/obj/structure/cable{
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -72913,7 +72910,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/northeast)
 "oMX" = (
-/obj/structure/cable/orange{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -77863,7 +77860,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/structure/cable/orange{
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -84470,7 +84467,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/orange{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -88292,10 +88289,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/structure/cable/orange{
+/obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/structure/cable/orange{
+/obj/structure/cable{
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
@@ -111843,7 +111840,7 @@
 /area/station/hallway/secondary/garden)
 "xuF" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable/orange{
+/obj/structure/cable{
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -115193,7 +115190,7 @@
 "yil" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/orange{
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
