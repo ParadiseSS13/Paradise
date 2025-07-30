@@ -4,6 +4,7 @@
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
 	)
 	ai_movement = /datum/ai_movement/basic_avoidance
+	movement_delay = 1 SECONDS
 	idle_behavior = /datum/idle_behavior/idle_random_walk/less_walking
 
 	ai_traits = AI_FLAG_STOP_MOVING_WHEN_PULLED | AI_FLAG_PAUSE_DURING_DO_AFTER
@@ -177,6 +178,8 @@
 	for(var/obj/O in can_see)
 		if(O.anchored)
 			continue
+		if(istype(O, /obj/structure/spider))
+			continue // Don't web up spider structures or spiderlings
 		if(isitem(O) || isstructure(O) || ismachinery(O))
 			objects += O
 	if(length(objects))
