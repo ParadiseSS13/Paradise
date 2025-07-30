@@ -240,7 +240,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Chainsaw"
 	desc = "A high powered chainsaw for cutting up ...you know...."
 	reference = "CH"
-	item = /obj/item/butcher_chainsaw
+	item = /obj/item/chainsaw/syndie
 	cost = 65
 	surplus = 0 // This has caused major problems with un-needed chainsaw massacres. Bwoink bait.
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
@@ -787,7 +787,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "MSTV"
 	item = /obj/item/mod/module/visor/thermal
 	cost = 15 // Don't forget, you need to get a modsuit to go with this
-	surplus = 10 //You don't need more than
 
 /datum/uplink_item/suits/night
 	name = "MODsuit Night Visor Module"
@@ -795,7 +794,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "MSNV"
 	item = /obj/item/mod/module/visor/night
 	cost = 5 // It's night vision, rnd pumps out those goggles for anyone man.
-	surplus = 10 //You don't need more than one
 
 /datum/uplink_item/suits/plate_compression
 	name = "MODsuit Plate Compression Module"
@@ -833,7 +831,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "FNAF"
 	item = /obj/item/mod/module/springlock/bite_of_87
 	cost = 5
-	surplus = 10
 
 /datum/uplink_item/suits/hidden_holster
 	name = "Hidden Holster Module"
@@ -841,7 +838,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "HHM"
 	item = /obj/item/mod/module/holster/hidden
 	cost = 5
-	surplus = 10
 
 /datum/uplink_item/suits/smoke_grenade
 	name = "Smoke Grenade Module"
@@ -849,7 +845,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SGM"
 	item = /obj/item/mod/module/dispenser/smoke
 	cost = 10
-	surplus = 10
 
 ////////////////////////////////////////
 // MARK: IMPLANTS

@@ -8,7 +8,6 @@
 	action_icon_state = "spacetime"
 
 	base_cooldown = 30 SECONDS
-	clothes_req = TRUE
 	invocation = "none"
 	centcom_cancast = FALSE //Prevent people from getting to centcom
 	cooldown_min = 30 SECONDS //No reduction, just more range.
@@ -75,7 +74,6 @@
 /obj/effect/cross_action
 	name = "cross me"
 	desc = "for crossing."
-	anchored = TRUE
 
 /obj/effect/cross_action/spacetime_dist
 	name = "spacetime distortion"

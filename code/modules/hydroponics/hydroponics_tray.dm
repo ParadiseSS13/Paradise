@@ -93,8 +93,6 @@
 	create_reagents(300) // This should get cleared every time it is filled, barring admemery
 
 /obj/machinery/hydroponics/constructable
-	name = "hydroponics tray"
-	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray3"
 
 /obj/machinery/hydroponics/constructable/Initialize(mapload)
@@ -1027,7 +1025,6 @@
 /// Not actually hydroponics at all! Honk!
 /obj/machinery/hydroponics/soil
 	name = "soil"
-	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "soil"
 	density = FALSE
 	power_state = NO_POWER_USE

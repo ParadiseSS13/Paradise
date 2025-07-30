@@ -18,7 +18,6 @@
 	desc = "A compact and lightweight laser carbine manufactured by Shellguard Munitions Co. Considered the most widely used laserarm in the Orion sector, it only fires lethal rounds and requires a recharger to reload."
 	icon_state = "laser"
 	item_state = "laser"
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
@@ -165,9 +164,7 @@
 	item_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
-	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BACK
-	can_holster = FALSE
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/accelerator)
 	ammo_x_offset = 3
@@ -217,9 +214,7 @@
 	item_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 12
-	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BACK
-	can_holster = FALSE
 	weapon_weight = WEAPON_HEAVY
 	origin_tech = "combat=6;magnets=6;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/sniper, /obj/item/ammo_casing/energy/laser/sniper/pierce)
@@ -392,7 +387,6 @@
 	item_state = "laser"
 	w_class = WEIGHT_CLASS_BULKY
 	shaded_charge = TRUE
-	can_holster = FALSE
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/emitter)
 	ammo_x_offset = 3

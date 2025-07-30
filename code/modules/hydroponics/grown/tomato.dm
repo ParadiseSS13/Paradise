@@ -84,7 +84,6 @@
 	species = "bluespacetomato"
 	plantname = "Bluespace Tomato Plants"
 	product = /obj/item/food/grown/tomato/blue/bluespace
-	yield = 2
 	mutatelist = list()
 	genes = list(/datum/plant_gene/trait/squash, /datum/plant_gene/trait/slip, /datum/plant_gene/trait/teleport, /datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list("lube" = 0.2, "singulo" = 0.2, "vitamin" = 0.04, "plantmatter" = 0.1)

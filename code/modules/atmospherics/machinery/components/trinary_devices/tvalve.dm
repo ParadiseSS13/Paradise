@@ -26,7 +26,6 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/flipped/bypass
 	icon_state = "map_tvalvem1"
-	flipped = TRUE
 	state = TVALVE_STATE_SIDE
 
 /obj/machinery/atmospherics/trinary/tvalve/update_icon(animation)
@@ -122,7 +121,6 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/flipped/bypass
 	icon_state = "map_tvalvem1"
-	flipped = TRUE
 	state = TVALVE_STATE_SIDE
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/power_change()

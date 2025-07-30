@@ -5,7 +5,6 @@
 	icon_living = "tomato"
 	icon_dead = "tomato_dead"
 	mob_biotypes = MOB_ORGANIC | MOB_PLANT
-	speak_chance = 0
 	turns_per_move = 5
 	maxHealth = 30
 	health = 30

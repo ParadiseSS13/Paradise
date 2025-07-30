@@ -12,7 +12,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor
 	name = "floor"
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "dont_use_this_floor"
 	plane = FLOOR_PLANE
 	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default

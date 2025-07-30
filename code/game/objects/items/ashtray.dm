@@ -18,7 +18,7 @@
 			var/obj/item/clothing/mask/cigarette/cig = I
 			if(cig.lit)
 				visible_message("[user] crushes [cig] in [src], putting it out.")
-				var/obj/item/butt = new cig.type_butt(src)
+				var/obj/item/butt = new cig.butt_type(src)
 				cig.transfer_fingerprints_to(butt)
 				qdel(cig)
 			else
