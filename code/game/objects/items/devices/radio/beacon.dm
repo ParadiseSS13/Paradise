@@ -7,7 +7,6 @@
 	origin_tech = "bluespace=1"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	throw_speed = 2
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -16,6 +15,7 @@
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE //set if allowed to teleport to even if on zlevel2
 	var/wormhole_weaver = FALSE // special beacons for wormwhole weaver
+	var/broadcast_to_teleport_hubs = TRUE
 
 /obj/item/beacon/Initialize(mapload)
 	. = ..()
@@ -65,7 +65,6 @@
 		qdel(src)
 
 /obj/item/beacon/syndicate/bundle
-	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Activate to select a bundle</i>."
 	var/list/static/bundles = list(
 		"Spy" = /obj/item/storage/box/syndie_kit/bundle/spy,
@@ -112,7 +111,6 @@
 	user.put_in_hands(bundle)
 
 /obj/item/beacon/syndicate/power_sink
-	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Warning: Activating this device will send a power sink to your location</i>."
 
 /obj/item/beacon/syndicate/power_sink/attack_self__legacy__attackchain(mob/user)
@@ -124,7 +122,6 @@
 		qdel(src)
 
 /obj/item/beacon/syndicate/bomb
-	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance explosive to your location</i>."
 	origin_tech = "bluespace=5;syndicate=5"
 	var/bomb = /obj/machinery/syndicatebomb

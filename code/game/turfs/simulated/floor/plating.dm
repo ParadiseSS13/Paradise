@@ -6,9 +6,6 @@
 	floor_tile = null
 	var/unfastened = FALSE
 	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	smoothing_groups = list(SMOOTH_GROUP_TURF)
 	real_layer = PLATING_LAYER
 
@@ -158,7 +155,6 @@
 		TerraformTurf(baseturf, keep_icon = FALSE)
 
 /turf/simulated/floor/plating/airless
-	icon_state = "plating"
 	name = "airless plating"
 	oxygen = 0
 	nitrogen = 0
@@ -182,9 +178,6 @@
 	heat_capacity = 325000
 	floor_tile = /obj/item/stack/rods
 	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
@@ -335,7 +328,6 @@
 
 /turf/simulated/floor/engine/vacuum
 	name = "vacuum floor"
-	icon_state = "engine"
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
@@ -359,7 +351,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/plating/snow/ex_act(severity)
 	return
@@ -374,7 +365,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/snow/ex_act(severity)
 	return
@@ -486,7 +476,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	var/environment_type = "basalt"
 	var/turf_type = /turf/simulated/floor/plating/false_asteroid
 	var/floor_variance = 20 //probability floor has a different icon state

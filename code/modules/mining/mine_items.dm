@@ -3,7 +3,6 @@
 //this item is intended to give the effect of entering the mine, so that light gradually fades
 /obj/effect/light_emitter
 	name = "Light emitter"
-	anchored = TRUE
 	invisibility = 101
 	var/set_luminosity = 8
 	var/set_cap = 0
@@ -22,30 +21,28 @@
 
 /obj/structure/closet/wardrobe/miner
 	name = "mining wardrobe"
-	icon_state = "generic"
 	closed_door_sprite = "mixed"
 
 /obj/structure/closet/wardrobe/miner/populate_contents()
+	new /obj/item/clothing/under/rank/cargo/miner(src)
+	new /obj/item/clothing/under/rank/cargo/miner(src)
+	new /obj/item/clothing/under/rank/cargo/miner/skirt(src)
+	new /obj/item/clothing/under/rank/cargo/miner/skirt(src)
+	new /obj/item/clothing/shoes/workboots/mining(src)
+	new /obj/item/clothing/shoes/workboots/mining(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/suit/jacket/bomber/mining(src)
+	new /obj/item/clothing/suit/jacket/bomber/mining(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/mining(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/mining(src)
+	new /obj/item/clothing/under/plasmaman/mining(src)
+	new /obj/item/clothing/under/plasmaman/mining(src)
 	new /obj/item/storage/backpack/duffel(src)
 	new /obj/item/storage/backpack/explorer(src)
 	new /obj/item/storage/backpack/satchel/explorer(src)
-	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
-	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
-	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
-	new /obj/item/clothing/shoes/workboots/mining(src)
-	new /obj/item/clothing/shoes/workboots/mining(src)
-	new /obj/item/clothing/shoes/workboots/mining(src)
-	new /obj/item/clothing/gloves/color/black(src)
-	new /obj/item/clothing/gloves/color/black(src)
-	new /obj/item/clothing/gloves/color/black(src)
-	new /obj/item/clothing/suit/jacket/bomber/mining(src)
-	new /obj/item/clothing/suit/jacket/bomber/mining(src)
-	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
-	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/mining(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/mining(src)
-	new /obj/item/clothing/under/plasmaman/mining(src)
-	new /obj/item/clothing/under/plasmaman/mining(src)
 
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
@@ -91,6 +88,5 @@
 	desc = "A mining car. This one doesn't work on rails, but has to be dragged."
 	name = "mining car (not for rails)"
 	icon_state = "miningcar"
-	density = TRUE
 	icon_opened = "miningcar_open"
 	icon_closed = "miningcar"

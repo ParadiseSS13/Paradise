@@ -56,7 +56,6 @@
 	name = "Abstract object"
 	invisibility = INVISIBILITY_ABSTRACT
 	layer = TURF_LAYER
-	density = FALSE
 	icon = null
 	icon_state = null
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, RAD = 100, FIRE = 100, ACID = 100)
@@ -158,7 +157,6 @@
 
 /// These effects can be added to anything to hold particles, which is useful because Byond only allows a single particle per atom
 /obj/effect/abstract/particle_holder
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_ALL_MOB_LAYER
 	vis_flags = VIS_INHERIT_PLANE

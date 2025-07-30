@@ -17,7 +17,6 @@
 	Specialized egg types have a limit on how many can be laid, and you need to remain alive for some time before you can lay the strongest eggs. \
 	You have high health and are armored, with weaker attacks being unable to harm you. While your melee attacks only deal moderate damage, you additionally have access to a powerful ranged acid attack. \
 	You can also open both powered doors and welded vents, and your webs are airtight - being capable of blocking off exposure to space."
-	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_queen"
 	icon_living = "terror_queen"
 	icon_dead = "terror_queen_dead"
@@ -25,8 +24,6 @@
 	health = 200
 	regen_points_per_tick = 3
 	melee_damage_lower = 10
-	melee_damage_upper = 20
-	ventcrawler = VENTCRAWLER_NUDE
 	ai_break_lights = FALSE
 	ai_spins_webs = FALSE
 	ai_ventcrawls = FALSE

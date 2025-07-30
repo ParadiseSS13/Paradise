@@ -32,7 +32,7 @@
 	var/f_style = "Shaved"				//Facial hair type
 	var/f_colour = "#000000"			//Facial hair color
 	var/f_sec_colour = "#000000"		//Secondary facial hair color
-	var/s_tone = 0						//Skin tone
+	var/s_tone = 1						//Skin tone
 	var/s_colour = "#000000"			//Skin color
 	var/e_colour = "#000000"			//Eye color
 	var/alt_head = "None"				//Alt head style.
@@ -619,7 +619,9 @@
 	socks = random_socks(body_type, species)
 	if(length(GLOB.body_accessory_by_species[species]))
 		body_accessory = random_body_accessory(species, S.optional_body_accessory)
-	if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
+	if(S.bodyflags & HAS_SKIN_TONE)
+		s_tone = 35 - random_skin_tone(species)
+	else if(S.bodyflags & HAS_ICON_SKIN_TONE)
 		s_tone = random_skin_tone(species)
 	h_style = random_hair_style(gender, species, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)
@@ -1259,6 +1261,22 @@
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-tox"), ICON_OVERLAY)
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
+			if(JOB_XENOBIOLOGIST)
+				clothes_s = new /icon('icons/mob/clothing/under/rnd.dmi', "science_s")
+				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_tox_open"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "nitrilegloves"), ICON_OVERLAY)
+				if(prob(50))
+					clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "sterile"), ICON_OVERLAY)
+				if(prob(1))
+					clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "metroid"), ICON_OVERLAY)
+				switch(backbag)
+					if(2)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)
+					if(3)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel-tox"), ICON_OVERLAY)
+					if(4)
+						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 			if(JOB_CHEMIST)
 				clothes_s = new /icon('icons/mob/clothing/under/medical.dmi', "chemistry_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
@@ -1357,8 +1375,8 @@
 			if(JOB_PARAMEDIC)
 				clothes_s = new /icon('icons/mob/clothing/under/medical.dmi', "paramedic_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "cigoff"), ICON_OVERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head/softcap.dmi', "bluesoft"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "cig_off"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/head/softcap.dmi', "paramedicsoft"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "medicalpack"), ICON_OVERLAY)
@@ -1430,7 +1448,7 @@
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "bgloves"), ICON_OVERLAY)
 				if(prob(1))
-					clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "cigaron"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "cigar_on"), ICON_OVERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "detective"), ICON_OVERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "detective"), ICON_OVERLAY)
 				has_gloves = TRUE

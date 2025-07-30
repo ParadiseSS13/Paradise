@@ -102,9 +102,6 @@
 	desc = "A generic vending machine."
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "generic"
-	layer = BELOW_OBJ_LAYER
-	anchored = TRUE
-	density = TRUE
 	face_while_pulling = TRUE
 	max_integrity = 300
 	integrity_failure = 100
@@ -172,7 +169,6 @@
 
 	// Things that can go wrong
 	/// Allows people to access a vendor that's normally access restricted.
-	emagged = FALSE
 	/// Shocks people like an airlock
 	var/seconds_electrified = 0
 	/// Fire items at customers! We're broken!
@@ -519,6 +515,8 @@
 	. = TRUE
 	if(tilted)
 		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
+		return
+	if(seconds_electrified != 0 && shock(user, 100))
 		return
 	default_deconstruction_crowbar(user, I)
 
@@ -1032,6 +1030,10 @@
 		var/damage = squish_damage
 		var/picked_angle = pick(90, 270)
 		var/should_crit = !from_combat && crit
+		var/turf/turf = get_turf(victim)
+		for(var/obj/thing in turf)
+			if(thing.flags & ON_BORDER) // Crush directional windows, flipped tables and windoors.
+				thing.deconstruct(FALSE, TRUE)
 		if(!crit && !from_combat)
 			// only deal this extra bit of damage if they wouldn't otherwise be taking the double damage from critting
 			damage *= self_knockover_factor
@@ -1041,6 +1043,8 @@
 			tilted = TRUE
 			anchored = FALSE
 			layer = ABOVE_MOB_LAYER
+			return TRUE
+		return FALSE
 
 	var/should_throw_at_target = TRUE
 

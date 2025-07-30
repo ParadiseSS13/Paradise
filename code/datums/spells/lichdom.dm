@@ -105,7 +105,7 @@
 	if(action)
 		action.name = name
 		action.desc = desc
-		UpdateButtons()
+		build_all_button_icons()
 
 	target.name = "ensouled [target.name]"
 	target.desc += "<br><span class='warning'>A terrible aura surrounds this item, its very existence is offensive to life itself...</span>"
