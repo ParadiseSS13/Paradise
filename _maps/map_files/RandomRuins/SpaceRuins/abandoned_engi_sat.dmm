@@ -7,11 +7,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
-"aA" = (
-/obj/effect/mapping_helpers/turfs/rust,
-/obj/effect/spawner/airlock/w_to_e,
-/turf/simulated/wall/r_wall,
-/area/ruin/space/abandoned_engi_sat)
 "aN" = (
 /obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel{
@@ -419,6 +414,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
+"lg" = (
+/obj/effect/map_effect/dynamic_airlock/door/interior,
+/obj/machinery/access_button/offset/northwest,
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_engi_sat)
 "lu" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -507,7 +511,7 @@
 	protected = 0
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/abandoned_engi_sat)
 "nn" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -581,6 +585,12 @@
 "qu" = (
 /obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
+/area/ruin/space/abandoned_engi_sat)
+"qV" = (
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/obj/machinery/access_button/offset/north,
+/obj/machinery/door/airlock/external/glass,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/abandoned_engi_sat)
 "rn" = (
 /mob/living/basic/carp,
@@ -708,6 +718,11 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/effect/map_effect/dynamic_airlock/door,
+/obj/machinery/airlock_controller/air_cycler/directional/north,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "uU" = (
@@ -818,7 +833,7 @@
 	protected = 0
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/abandoned_engi_sat)
 "yE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -892,7 +907,7 @@
 	protected = 0
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/abandoned_engi_sat)
 "BR" = (
 /obj/structure/table,
@@ -1532,7 +1547,7 @@
 /obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
-/obj/machinery/atmospherics/pipe/simple/visible{
+/obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -2487,8 +2502,8 @@ cm
 oL
 MK
 qu
-et
-aA
+lg
+qu
 LP
 LP
 LP
@@ -2555,7 +2570,7 @@ Bu
 qu
 yt
 qu
-et
+qV
 qu
 LP
 LP

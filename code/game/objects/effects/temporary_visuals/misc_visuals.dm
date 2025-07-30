@@ -2,7 +2,6 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = null
 	duration = 5
-	randomdir = FALSE
 	layer = MOB_LAYER - 0.1
 	color = "#C80000"
 	var/splatter_type = "splatter"
@@ -50,8 +49,6 @@
 /obj/effect/temp_visual/dir_setting/speedbike_trail
 	name = "speedbike trails"
 	icon_state = "ion_fade"
-	duration = 10
-	randomdir = FALSE
 	layer = MOB_LAYER - 0.2
 
 /obj/effect/temp_visual/dir_setting/ninja
@@ -169,7 +166,6 @@
 	icon_state = "3"
 	light_range = LIGHT_RANGE_FIRE
 	light_color = LIGHT_COLOR_FIRE
-	duration = 10
 	layer = MASSIVE_OBJ_LAYER
 	alpha = 250
 	blend_mode = BLEND_ADD
@@ -229,7 +225,6 @@
 	name = "kinetic explosion"
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "kinetic_blast"
-	layer = ABOVE_MOB_LAYER
 	duration = 4
 
 /obj/effect/temp_visual/pka_explosion
@@ -274,7 +269,6 @@
 	name = "bleed"
 	icon = 'icons/effects/bleed.dmi'
 	icon_state = "bleed0"
-	duration = 10
 	var/shrink = TRUE
 
 /obj/effect/temp_visual/bleed/Initialize(mapload, atom/size_calc_target)
@@ -525,9 +519,7 @@
 
 /obj/effect/temp_visual/electrocution
 	name = "electrocution"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "electrocution"
-	duration = 1 SECONDS
 
 /obj/effect/temp_visual/electrocution/Initialize(mapload, set_duration)
 	duration = set_duration

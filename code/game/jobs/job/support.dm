@@ -86,7 +86,6 @@
 	jobtype = /datum/job/cargo_tech
 
 	uniform = /obj/item/clothing/under/rank/cargo/tech
-	shoes = /obj/item/clothing/shoes/black
 	l_pocket = /obj/item/mail_scanner
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
@@ -183,7 +182,6 @@
 	ADD_TRAIT(H.mind, TRAIT_BUTCHER, JOB_TRAIT)
 
 /datum/outfit/job/mining/equipped
-	name = "Shaft Miner"
 
 	suit = /obj/item/clothing/suit/hooded/explorer
 	mask = /obj/item/clothing/mask/gas/explorer
@@ -279,7 +277,6 @@
 	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	id = /obj/item/card/id/bartender
@@ -328,7 +325,6 @@
 	uniform = /obj/item/clothing/under/rank/civilian/chef
 	suit = /obj/item/clothing/suit/chef
 	belt = /obj/item/storage/belt/chef
-	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/chefhat
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/chef
@@ -370,7 +366,6 @@
 	suit = /obj/item/clothing/suit/apron
 	belt = /obj/item/storage/belt/botany/full
 	gloves = /obj/item/clothing/gloves/botanic_leather
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/storage/bag/plants/portaseeder
 	pda = /obj/item/pda/botanist
@@ -461,15 +456,15 @@
 //action given to antag clowns
 /datum/action/innate/toggle_clumsy
 	name = "Toggle Clown Clumsy"
-	button_overlay_icon_state = "clown"
+	button_icon_state = "clown"
 
 /datum/action/innate/toggle_clumsy/Activate()
 	var/mob/living/carbon/human/H = owner
 	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
 	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = TRUE
-	button_background_icon_state = "bg_spell"
-	UpdateButtons()
+	background_icon_state = "bg_spell"
+	build_all_button_icons()
 	to_chat(H, "<span class='notice'>You start acting clumsy to throw suspicions off. Focus again before using weapons.</span>")
 
 /datum/action/innate/toggle_clumsy/Deactivate()
@@ -477,8 +472,8 @@
 	H.dna.SetSEState(GLOB.clumsyblock, FALSE)
 	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = FALSE
-	button_background_icon_state = "bg_default"
-	UpdateButtons()
+	background_icon_state = "bg_default"
+	build_all_button_icons()
 	to_chat(H, "<span class='notice'>You focus and can now use weapons regularly.</span>")
 
 /datum/job/mime
@@ -507,7 +502,6 @@
 	suit = /obj/item/clothing/suit/suspenders
 	back = /obj/item/storage/backpack/mime
 	gloves = /obj/item/clothing/gloves/color/white
-	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/beret
 	mask = /obj/item/clothing/mask/gas/mime
 	l_ear = /obj/item/radio/headset/headset_service
@@ -564,7 +558,6 @@
 	jobtype = /datum/job/janitor
 
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/janitor
 	pda = /obj/item/pda/janitor
@@ -604,7 +597,6 @@
 	jobtype = /datum/job/librarian
 
 	uniform = /obj/item/clothing/under/rank/civilian/librarian
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/barcodescanner

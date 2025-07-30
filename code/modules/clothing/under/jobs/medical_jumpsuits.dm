@@ -138,7 +138,6 @@
 
 /obj/item/clothing/under/rank/medical/paramedic/skirt
 	name = "paramedic's jumpskirt"
-	desc = "It's made of a special fiber that provides minor protection against biohazards and radiation. It has a cross on the back denoting that the wearer is trained medical personnel."
 	icon_state = "paramedic_skirt"
 	item_state = "paramedic_skirt"
 	item_color = "paramedic_skirt"
