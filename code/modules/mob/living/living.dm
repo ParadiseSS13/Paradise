@@ -12,6 +12,9 @@
 	for(var/initial_trait in initial_traits)
 		ADD_TRAIT(src, initial_trait, INNATE_TRAIT)
 
+	AddElement(/datum/element/strippable)
+	RegisterSignal(src, COMSIG_STRIPPABLE_REQUEST_ITEMS, PROC_REF(get_strippable_items))
+
 // Used to determine the forces dependend on the mob size
 // Will only change the force if the force was not set in the mob type itself
 /mob/living/proc/determine_move_and_pull_forces()
@@ -730,6 +733,10 @@
 
 ///proc extender of [/mob/living/verb/resist] meant to make the process queable if the server is overloaded when the verb is called
 /mob/living/proc/run_resist()
+	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		var/obj/C = loc
+		C.container_resist(src)
+		return
 	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)
@@ -1348,3 +1355,7 @@
 
 	SEND_SIGNAL(src, COMSIG_LIVING_BEFRIENDED, new_friend)
 	return TRUE
+
+/mob/living/proc/get_strippable_items(datum/source, list/items)
+	SIGNAL_HANDLER // COMSIG_STRIPPABLE_REQUEST_ITEMS
+	return

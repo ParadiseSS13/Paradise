@@ -1,7 +1,8 @@
-import { BooleanLike } from '../../common/react';
-import { InfernoNode } from 'inferno';
+import { ReactNode } from 'react';
+import { Button, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
+
 import { useBackend } from '../backend';
-import { Button, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 
 interface PathogenSymptom {
@@ -20,7 +21,7 @@ interface PathogenStrain {
   diseaseAgent: string;
   possibleTreatments?: string;
   transmissionRoute?: string;
-  symptoms?: PathogenSymptom[];
+  symptoms: PathogenSymptom[];
   isAdvanced: BooleanLike;
 }
 
@@ -30,12 +31,12 @@ interface PanDEMICData {
   beakerContainsBlood: BooleanLike;
   beakerContainsVirus: BooleanLike;
   selectedStrainIndex: number;
-  strains?: PathogenStrain[];
-  resistances?: string[];
+  strains: PathogenStrain[];
+  resistances: string[];
 }
 
-export const PanDEMIC = (props, context) => {
-  const { data } = useBackend<PanDEMICData>(context);
+export const PanDEMIC = (props) => {
+  const { data } = useBackend<PanDEMICData>();
   const { beakerLoaded, beakerContainsBlood, beakerContainsVirus, resistances = [] } = data;
 
   let emptyPlaceholder;
@@ -65,8 +66,8 @@ export const PanDEMIC = (props, context) => {
   );
 };
 
-const CommonCultureActions = (props, context) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
+const CommonCultureActions = (props) => {
+  const { act, data } = useBackend<PanDEMICData>();
   const { beakerLoaded } = data;
   return (
     <>
@@ -83,8 +84,8 @@ const CommonCultureActions = (props, context) => {
   );
 };
 
-const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number }, context) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
+const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number }) => {
+  const { act, data } = useBackend<PanDEMICData>();
   const { beakerContainsVirus } = data;
   const {
     commonName,
@@ -100,7 +101,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
   const bloodInformation = (
     <>
       <LabeledList.Item label="Blood DNA">
-        {!bloodDNA ? 'Undetectable' : <span style={{ 'font-family': "'Courier New', monospace" }}>{bloodDNA}</span>}
+        {!bloodDNA ? 'Undetectable' : <span style={{ fontFamily: "'Courier New', monospace" }}>{bloodDNA}</span>}
       </LabeledList.Item>
       <LabeledList.Item label="Blood Type">
         {
@@ -130,7 +131,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
               strain_index: props.strainIndex,
             })
           }
-          style={{ 'margin-left': 'auto' }}
+          style={{ marginLeft: 'auto' }}
         />
       );
     } else {
@@ -139,7 +140,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
           icon="pen"
           content="Name Disease"
           onClick={() => act('name_strain', { strain_index: props.strainIndex })}
-          style={{ 'margin-left': 'auto' }}
+          style={{ marginLeft: 'auto' }}
         />
       );
     }
@@ -148,7 +149,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
   return (
     <LabeledList>
       <LabeledList.Item label="Common Name" className="common-name-label">
-        <Stack horizontal align="center">
+        <Stack align="center">
           {commonName ?? 'Unknown'}
           {nameButtons}
         </Stack>
@@ -162,16 +163,13 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
   );
 };
 
-const StrainInformationSection = (
-  props: {
-    strain: PathogenStrain;
-    strainIndex: number;
-    sectionTitle?: string;
-    sectionButtons?: InfernoNode | InfernoNode[];
-  },
-  context
-) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
+const StrainInformationSection = (props: {
+  strain: PathogenStrain;
+  strainIndex: number;
+  sectionTitle?: string;
+  sectionButtons?: ReactNode;
+}) => {
+  const { act, data } = useBackend<PanDEMICData>();
   let synthesisCooldown = !!data.synthesisCooldown;
   const appliedSectionButtons = (
     <>
@@ -195,8 +193,8 @@ const StrainInformationSection = (
   );
 };
 
-const CultureInformationSection = (props, context) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
+const CultureInformationSection = (props) => {
+  const { act, data } = useBackend<PanDEMICData>();
   const { selectedStrainIndex, strains } = data;
   const selectedStrain = strains[selectedStrainIndex - 1];
 
@@ -222,7 +220,7 @@ const CultureInformationSection = (props, context) => {
   return (
     <Stack.Item grow>
       <Section title="Culture Information" fill buttons={sectionButtons}>
-        <Flex direction="column" style={{ 'height': '100%' }}>
+        <Flex direction="column" style={{ height: '100%' }}>
           <Flex.Item>
             <Tabs>
               {strains.map((strain, i) => (
@@ -275,7 +273,7 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
           ))}
           <Table.Row className="table-spacer" />
           <Table.Row>
-            <Table.Cell style={{ 'font-weight': 'bold' }}>Total</Table.Cell>
+            <Table.Cell style={{ fontWeight: 'bold' }}>Total</Table.Cell>
             <Table.Cell>{sum(symptoms.map((s) => s.stealth))}</Table.Cell>
             <Table.Cell>{sum(symptoms.map((s) => s.resistance))}</Table.Cell>
             <Table.Cell>{sum(symptoms.map((s) => s.stageSpeed))}</Table.Cell>
@@ -289,13 +287,13 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
 
 const VaccineSynthesisIcons = ['flask', 'vial', 'eye-dropper'];
 
-const ResistancesSection = (props, context) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
+const ResistancesSection = (props) => {
+  const { act, data } = useBackend<PanDEMICData>();
   const { synthesisCooldown, beakerContainsVirus, resistances } = data;
   return (
     <Stack.Item>
       <Section title="Antibodies" fill>
-        <Stack horizontal wrap>
+        <Stack wrap>
           {resistances.map((r, i) => (
             <Stack.Item key={i}>
               <Button
