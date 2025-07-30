@@ -198,7 +198,6 @@
 	faction = list("revenant")
 	speed = -1
 	a_intent = INTENT_HARM
-	attack_sound = 'sound/weapons/punch1.ogg'
 	escape_chance = 100
 	revenant_possessed = TRUE
 
