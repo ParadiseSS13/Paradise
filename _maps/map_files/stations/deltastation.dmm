@@ -96178,7 +96178,7 @@
 	volume_rate = 200
 	},
 /turf/space,
-/area/space/nearstation)
+/area/station/engineering/controlroom)
 "xhz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
