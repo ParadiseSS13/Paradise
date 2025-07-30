@@ -870,6 +870,26 @@
 	desc = "An evil-looking ID issued to members of the Syndicate."
 	icon_state = "syndie"
 
+/obj/item/card/id/vv_get_dropdown()
+	. = ..()
+
+	VV_DROPDOWN_OPTION(VV_HK_MODIFY_ID_CARD, "Modify ID Card")
+
+/obj/item/card/id/vv_do_topic(list/href_list)
+	. = ..()
+
+	if(!.)
+		return
+
+	if(href_list[VV_HK_MODIFY_ID_CARD])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/turf/T = get_turf(src)
+		message_admins("[key_name_admin(usr)] is modifying the ID card [src] [ADMIN_COORDJMP(T)]")
+		var/datum/ui_module/id_card_modifier/ui = new(target = src)
+		ui.ui_interact(usr)
+
 // Decals
 /obj/item/id_decal
 	name = "identification card decal"

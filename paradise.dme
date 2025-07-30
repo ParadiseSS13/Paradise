@@ -3180,11 +3180,8 @@
 #include "code\modules\tgui\states.dm"
 #include "code\modules\tgui\tgui_datum.dm"
 #include "code\modules\tgui\tgui_window.dm"
-<<<<<<< HEAD
 #include "code\modules\tgui\modules\access_modifier.dm"
-=======
 #include "code\modules\tgui\modules\ai_controller_debugger.dm"
->>>>>>> upstream/master
 #include "code\modules\tgui\modules\appearance_changer.dm"
 #include "code\modules\tgui\modules\atmos_control.dm"
 #include "code\modules\tgui\modules\colour_matrix_tester.dm"
@@ -3193,6 +3190,7 @@
 #include "code\modules\tgui\modules\ert_manager.dm"
 #include "code\modules\tgui\modules\generic_crew_manifest.dm"
 #include "code\modules\tgui\modules\ghost_hud_panel.dm"
+#include "code\modules\tgui\modules\id_card_modifier.dm"
 #include "code\modules\tgui\modules\law_manager.dm"
 #include "code\modules\tgui\modules\module_base.dm"
 #include "code\modules\tgui\modules\power_monitor.dm"

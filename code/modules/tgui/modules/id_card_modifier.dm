@@ -1,29 +1,29 @@
-RESTRICT_TYPE(/datum/ui_module/obj_access_modifier)
+RESTRICT_TYPE(/datum/ui_module/id_card_modifier)
 
-/datum/ui_module/obj_access_modifier
+/datum/ui_module/id_card_modifier
 	name = "Access Modifier"
-	var/obj/target_obj
+	var/obj/item/card/id/card
 
-/datum/ui_module/obj_access_modifier/New(datum/_host, obj/target)
+/datum/ui_module/id_card_modifier/New(datum/_host, obj/item/card/id/target)
 	..()
-	if(!(isobj(target)))
+	if(!istype(target))
 		stack_trace("Attempted to create an access modifier on a non-/obj")
 		qdel(src)
 		return
 
-	target_obj = target
+	card = target
 
-/datum/ui_module/obj_access_modifier/ui_state(mob/user)
+/datum/ui_module/id_card_modifier/ui_state(mob/user)
 	return GLOB.admin_state
 
-/datum/ui_module/obj_access_modifier/ui_interact(mob/user, datum/tgui/ui)
+/datum/ui_module/id_card_modifier/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ObjAccessModifier", name)
+		ui = new(user, src, "IdCardModifier", name)
 		ui.autoupdate = FALSE
 		ui.open()
 
-/datum/ui_module/obj_access_modifier/ui_data(mob/user)
+/datum/ui_module/id_card_modifier/ui_data(mob/user)
 	var/list/data = list(
 		"one_access" = length(target_obj.req_one_access),
 		"selected_accesses" = length(target_obj.req_one_access) ? target_obj.req_one_access : target_obj.req_access
@@ -31,12 +31,12 @@ RESTRICT_TYPE(/datum/ui_module/obj_access_modifier)
 
 	return data
 
-/datum/ui_module/obj_access_modifier/ui_static_data(mob/user)
+/datum/ui_module/id_card_modifier/ui_static_data(mob/user)
 	var/list/data = list()
 	data["regions"] = get_accesslist_static_data(REGION_GENERAL, REGION_MISC)
 	return data
 
-/datum/ui_module/obj_access_modifier/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/datum/ui_module/id_card_modifier/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
