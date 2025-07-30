@@ -13,7 +13,6 @@
 	icon_state = "control_box"
 	reference = "control_box"
 	idle_power_consumption = 500
-	active = FALSE
 	dir = 1
 	var/strength_upper_limit = 2
 	var/interface_control = 1
