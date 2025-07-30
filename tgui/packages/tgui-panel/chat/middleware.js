@@ -4,14 +4,15 @@
  * @license MIT
  */
 
-import DOMPurify from 'dompurify';
 import { storage } from 'common/storage';
+import DOMPurify from 'dompurify';
+
 import {
-  loadSettings,
-  updateSettings,
   addHighlightSetting,
+  loadSettings,
   removeHighlightSetting,
   updateHighlightSetting,
+  updateSettings,
 } from '../settings/actions';
 import { selectSettings } from '../settings/selectors';
 import {
@@ -23,10 +24,10 @@ import {
   moveChatPageLeft,
   moveChatPageRight,
   rebuildChat,
-  toggleAcceptedType,
-  updateMessageCount,
   removeChatPage,
   saveChatToDisk,
+  toggleAcceptedType,
+  updateMessageCount,
 } from './actions';
 import { MAX_PERSISTED_MESSAGES, MESSAGE_SAVE_INTERVAL } from './constants';
 import { createMessage, serializeMessage } from './model';

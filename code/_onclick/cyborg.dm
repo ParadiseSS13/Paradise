@@ -49,6 +49,9 @@
 	if(incapacitated())
 		return
 
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
+
 	if(next_move >= world.time)
 		return
 

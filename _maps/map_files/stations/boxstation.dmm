@@ -39978,9 +39978,8 @@
 	dir = 4
 	},
 /obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	autolink_id = "eng_vent"
-	},
+/obj/machinery/atmospherics/unary/vent_pump/high_volume,
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/hardsuitstorage)
 "cRp" = (
@@ -42718,6 +42717,7 @@
 /obj/structure/sign/vacuum/external{
 	pixel_x = -32
 	},
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/hardsuitstorage)
 "dcn" = (
@@ -48649,15 +48649,10 @@
 	},
 /area/station/engineering/gravitygenerator)
 "ehs" = (
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_x = -25;
-	vent_link_id = "eng_vent";
-	ext_door_link_id = "eng_door_ext";
-	int_door_link_id = "eng_door_int";
-	ext_button_link_id = "eng_btn_ext";
-	int_button_link_id = "eng_btn_int";
-	req_access = list(10,13)
-	},
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/airlock_controller/air_cycler/directional/west,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/engineering/hardsuitstorage)
 "ehu" = (
@@ -54318,15 +54313,6 @@
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/secondary/exit)
-"gSJ" = (
-/obj/machinery/access_button{
-	autolink_id = "eng_btn_int";
-	pixel_x = -22;
-	pixel_y = -20;
-	req_access = list(10,13)
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/hardsuitstorage)
 "gSP" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -56746,14 +56732,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "ifY" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "eng_door_ext";
-	locked = 1;
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plating,
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/access_button/offset/southwest,
+/turf/simulated/floor/plating/airless,
 /area/station/engineering/hardsuitstorage)
 "igq" = (
 /obj/structure/chair/sofa/left{
@@ -59796,6 +59778,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
+/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/hardsuitstorage)
 "jHr" = (
@@ -66935,19 +66918,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
-"neP" = (
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
-	dir = 4
-	},
-/obj/structure/lattice,
-/obj/machinery/access_button{
-	autolink_id = "eng_btn_ext";
-	pixel_x = -22;
-	pixel_y = 20;
-	req_access = list(10,13)
-	},
-/turf/space,
-/area/space/nearstation)
 "nfe" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -75517,13 +75487,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "rhU" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "eng_door_int";
-	locked = 1;
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/effect/map_effect/dynamic_airlock/door/interior,
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/access_button/offset/west,
 /turf/simulated/floor/plating,
 /area/station/engineering/hardsuitstorage)
 "riu" = (
@@ -115992,12 +115958,12 @@ pxP
 cXS
 cYv
 uVt
-gSJ
+uVt
 rhU
 dcl
 ehs
 ifY
-neP
+djb
 djb
 djb
 dib
