@@ -521,7 +521,7 @@
 		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
 			return TRUE
 
-	//Mob level intercept
+	// Mob level intercept
 	if(click_interceptor)
 		if(call(click_interceptor, "InterceptClickOn")(src, params, A))
 			return TRUE
