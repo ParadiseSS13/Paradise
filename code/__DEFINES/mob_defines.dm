@@ -394,3 +394,8 @@
 #define NPC_DEFAULT_MIN_TEMP 250
 /// Default maximum body temperature mobs can exist in before taking damage
 #define NPC_DEFAULT_MAX_TEMP 350
+
+/// Acts as a default faction for most violent creatures
+#define FACTION_HOSTILE "hostile"
+/// Acts as a default faction for most peaceful creatures
+#define FACTION_NEUTRAL "neutral"

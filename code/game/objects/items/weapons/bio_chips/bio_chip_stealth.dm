@@ -68,7 +68,7 @@
 	on_cooldown = FALSE
 	build_all_button_icons()
 
-/datum/action/item_action/agent_box/IsAvailable()
+/datum/action/item_action/agent_box/IsAvailable(show_message = TRUE)
 	if(..() && !on_cooldown)
 		return TRUE
 	return FALSE

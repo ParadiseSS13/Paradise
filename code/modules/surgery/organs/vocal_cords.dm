@@ -103,7 +103,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	..()
 	cords = target
 
-/datum/action/item_action/organ_action/colossus/IsAvailable()
+/datum/action/item_action/organ_action/colossus/IsAvailable(show_message = TRUE)
 	if(world.time < cords.next_command)
 		return FALSE
 	if(!owner)

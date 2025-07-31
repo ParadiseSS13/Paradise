@@ -167,9 +167,6 @@
 	button_icon_state = "demon_comms"
 	background_icon_state = "bg_demon"
 
-/datum/action/innate/demon_whisper/IsAvailable()
-	return ..()
-
 /datum/action/innate/demon_whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
 	var/list/validtargets = list()
 	for(var/mob/living/M in view(user.client.maxview(), get_turf(user)))

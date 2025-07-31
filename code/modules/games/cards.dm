@@ -888,7 +888,7 @@
 	name = "Remove a card - Remove a single card from the hand."
 	button_icon_state = "remove_card"
 
-/datum/action/item_action/remove_card/IsAvailable()
+/datum/action/item_action/remove_card/IsAvailable(show_message = TRUE)
 	var/obj/item/cardhand/C = target
 	if(length(C.cards) <= 1)
 		return FALSE

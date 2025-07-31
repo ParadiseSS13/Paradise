@@ -4,7 +4,7 @@
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS
 	buttontooltipstyle = "cult"
 
-/datum/action/innate/cult/IsAvailable()
+/datum/action/innate/cult/IsAvailable(show_message = TRUE)
 	if(!IS_CULTIST(owner))
 		return FALSE
 	return ..()
@@ -66,7 +66,7 @@
 	name = "Spiritual Communion"
 	desc = "Conveys a message from the spirit realm that all cultists can hear."
 
-/datum/action/innate/cult/comm/spirit/IsAvailable()
+/datum/action/innate/cult/comm/spirit/IsAvailable(show_message = TRUE)
 	return TRUE
 
 /datum/action/innate/cult/comm/spirit/cultist_commune(mob/living/user, message)
@@ -95,7 +95,7 @@
 	button_icon_state = GET_CULT_DATA(tome_icon, "tome")
 	..()
 
-/datum/action/innate/cult/check_progress/IsAvailable()
+/datum/action/innate/cult/check_progress/IsAvailable(show_message = TRUE)
 	return IS_CULTIST(owner) || isobserver(owner)
 
 /datum/action/innate/cult/check_progress/Activate()

@@ -66,7 +66,7 @@
 	button_icon_state = "reset"
 	var/cooldown_timer
 
-/datum/action/guardian/reset_guardian/IsAvailable()
+/datum/action/guardian/reset_guardian/IsAvailable(show_message = TRUE)
 	if(cooldown_timer)
 		return FALSE
 	return TRUE

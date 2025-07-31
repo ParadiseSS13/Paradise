@@ -115,7 +115,7 @@
 	desc = "Recall yourself, and anyone nearby, to an attuned hierophant beacon at any time.<br>If the beacon is still attached, will detach it."
 	button_icon_state = "vortex_recall"
 
-/datum/action/item_action/vortex_recall/IsAvailable()
+/datum/action/item_action/vortex_recall/IsAvailable(show_message = TRUE)
 	if(istype(target, /obj/item/hierophant_club))
 		var/obj/item/hierophant_club/H = target
 		if(H.teleporting)
@@ -221,7 +221,7 @@
 /datum/action/item_action/jetpack_stabilization
 	name = "Toggle Jetpack Stabilization"
 
-/datum/action/item_action/jetpack_stabilization/IsAvailable()
+/datum/action/item_action/jetpack_stabilization/IsAvailable(show_message = TRUE)
 	var/obj/item/tank/jetpack/J = target
 	if(!istype(J) || !J.on)
 		return FALSE
@@ -319,7 +319,7 @@
 /datum/action/item_action/organ_action
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/item_action/organ_action/IsAvailable()
+/datum/action/item_action/organ_action/IsAvailable(show_message = TRUE)
 	var/obj/item/organ/internal/I = target
 	if(!I.owner)
 		return FALSE
@@ -360,7 +360,7 @@
 /datum/action/item_action/accessory
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 
-/datum/action/item_action/accessory/IsAvailable()
+/datum/action/item_action/accessory/IsAvailable(show_message = TRUE)
 	. = ..()
 	if(!.)
 		return FALSE
