@@ -6061,7 +6061,7 @@
 	},
 /area/ruin/space/derelict/arrival)
 "qA" = (
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+/mob/living/basic/giant_spider/hunter,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "qB" = (
@@ -6865,7 +6865,7 @@
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "Ae" = (
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+/mob/living/basic/giant_spider/hunter,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "Bx" = (
