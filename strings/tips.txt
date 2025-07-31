@@ -210,7 +210,6 @@ Space ruins can contain all kinds of interesting goodies, even a wand that can r
 Having a mindshield, or having an agent ID card will make officer Beepsky consider you less arrest-worthy.
 You can make lasertag turrets, for the ultimate lasertag tournament.
 Blob structures take half damage from brute damage. Use lasers.
-You can hide paper in vents, but you have to use a screwdriver to open it first.
 While the Standard Operating Procedures aren't fully rules, they are there for safety and professional reasons.
 Killing the Wizard usually ends the round, unless they are a lich or Space Wizard Federation is RAGING.
 The admins are not omnipotent and can miss things that happen during the chaos of a round. If someone is breaking the rules, you can press F1 or use the Ahelp verb to notify them. Even if there are no admins online, the Ahelp will be recorded. It also gets sent to a special channel on the Paradise Discord.
