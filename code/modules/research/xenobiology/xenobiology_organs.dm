@@ -248,8 +248,8 @@
 /datum/spell/drake_breath/update_spell_icon()
 	if(!action)
 		return
-	action.button_overlay_icon_state = "fireball[active]"
-	action.UpdateButtons()
+	action.button_icon_state = "fireball[active]"
+	action.build_all_button_icons()
 
 /datum/spell/drake_breath/cast(list/targets, mob/living/user)
 	. = ..()
@@ -1030,8 +1030,8 @@
 /datum/action/innate/migo_noise
 	name = "Make some noise!"
 	desc = "Your organ YEARNS to make noises of all kinds. Let it loose for a moment!"
-	button_overlay_icon = 'icons/mob/animal.dmi'
-	button_overlay_icon_state = "mi-go"
+	button_icon = 'icons/mob/animal.dmi'
+	button_icon_state = "mi-go"
 	var/cooldown = 0
 
 	COOLDOWN_DECLARE(migo_cooldown)
