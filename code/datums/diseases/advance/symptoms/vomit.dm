@@ -102,7 +102,6 @@ Bonus
 	name = "Projectile Vomiting"
 	stealth = -2
 	resistance = 1
-	stage_speed = -2
 	level = 5
 	severity = 4
 
