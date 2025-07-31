@@ -1,8 +1,10 @@
 import os
+from pathlib import Path
 import sys
 import time
 
 from avulto import DME, Path as p
+from avulto.ast import SourceLoc
 
 
 RED = "\033[0;31m"
@@ -119,19 +121,9 @@ BURNDOWN_LIST = {
         "/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion",
         "/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced",
         "/mob/living/simple_animal/hostile/asteroid/hivelordbrood/space",
-        "/mob/living/simple_animal/hostile/bear",
-        "/mob/living/simple_animal/hostile/bear/black",
-        "/mob/living/simple_animal/hostile/bear/brown",
-        "/mob/living/simple_animal/hostile/bear/hudson",
-        "/mob/living/simple_animal/hostile/bear/polar",
         "/mob/living/simple_animal/hostile/blob",
         "/mob/living/simple_animal/hostile/blob/blobbernaut",
         "/mob/living/simple_animal/hostile/blob/blobspore",
-        "/mob/living/simple_animal/hostile/carp",
-        "/mob/living/simple_animal/hostile/carp/holocarp",
-        "/mob/living/simple_animal/hostile/carp/megacarp",
-        "/mob/living/simple_animal/hostile/carp/megacarp/xeno_organ",
-        "/mob/living/simple_animal/hostile/carp/xeno_organ",
         "/mob/living/simple_animal/hostile/clockwork_construct",
         "/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder",
         "/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/hostile",
@@ -149,15 +141,10 @@ BURNDOWN_LIST = {
         "/mob/living/simple_animal/hostile/construct/wraith",
         "/mob/living/simple_animal/hostile/construct/wraith/hostile",
         "/mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum",
-        "/mob/living/simple_animal/hostile/creature",
         "/mob/living/simple_animal/hostile/deathsquid",
         "/mob/living/simple_animal/hostile/deathsquid/joke",
         "/mob/living/simple_animal/hostile/drakehound_breacher",
-        "/mob/living/simple_animal/hostile/feral_cat",
         "/mob/living/simple_animal/hostile/floor_cluwne",
-        "/mob/living/simple_animal/hostile/gorilla",
-        "/mob/living/simple_animal/hostile/gorilla/cargo_domestic",
-        "/mob/living/simple_animal/hostile/gorilla/rampaging",
         "/mob/living/simple_animal/hostile/guardian",
         "/mob/living/simple_animal/hostile/guardian/assassin",
         "/mob/living/simple_animal/hostile/guardian/beam",
@@ -171,19 +158,12 @@ BURNDOWN_LIST = {
         "/mob/living/simple_animal/hostile/guardian/punch/sealpunch",
         "/mob/living/simple_animal/hostile/guardian/ranged",
         "/mob/living/simple_animal/hostile/headslug",
-        "/mob/living/simple_animal/hostile/hivebot",
-        "/mob/living/simple_animal/hostile/hivebot/range",
-        "/mob/living/simple_animal/hostile/hivebot/rapid",
-        "/mob/living/simple_animal/hostile/hivebot/strong",
-        "/mob/living/simple_animal/hostile/hivebot/strong/malfborg",
-        "/mob/living/simple_animal/hostile/hivebot/tele",
         "/mob/living/simple_animal/hostile/illusion",
         "/mob/living/simple_animal/hostile/illusion/cult",
         "/mob/living/simple_animal/hostile/illusion/escape",
         "/mob/living/simple_animal/hostile/illusion/escape/cult",
         "/mob/living/simple_animal/hostile/illusion/escape/stealth",
         "/mob/living/simple_animal/hostile/illusion/mirage",
-        "/mob/living/simple_animal/hostile/killertomato",
         "/mob/living/simple_animal/hostile/lightgeist",
         "/mob/living/simple_animal/hostile/malf_drone",
         "/mob/living/simple_animal/hostile/megafauna",
@@ -218,10 +198,6 @@ BURNDOWN_LIST = {
         "/mob/living/simple_animal/hostile/poison/bees",
         "/mob/living/simple_animal/hostile/poison/bees/queen",
         "/mob/living/simple_animal/hostile/poison/bees/syndi",
-        "/mob/living/simple_animal/hostile/poison/giant_spider",
-        "/mob/living/simple_animal/hostile/poison/giant_spider/hunter",
-        "/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider",
-        "/mob/living/simple_animal/hostile/poison/giant_spider/nurse",
         "/mob/living/simple_animal/hostile/poison/terror_spider",
         "/mob/living/simple_animal/hostile/poison/terror_spider/black",
         "/mob/living/simple_animal/hostile/poison/terror_spider/brown",
@@ -236,13 +212,9 @@ BURNDOWN_LIST = {
         "/mob/living/simple_animal/hostile/poison/terror_spider/red",
         "/mob/living/simple_animal/hostile/poison/terror_spider/white",
         "/mob/living/simple_animal/hostile/retaliate",
-        "/mob/living/simple_animal/hostile/retaliate/araneus",
         "/mob/living/simple_animal/hostile/retaliate/carp",
         "/mob/living/simple_animal/hostile/retaliate/carp/koi",
         "/mob/living/simple_animal/hostile/retaliate/carp/koi/honk",
-        "/mob/living/simple_animal/hostile/retaliate/clown",
-        "/mob/living/simple_animal/hostile/retaliate/clown/goblin",
-        "/mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne",
         "/mob/living/simple_animal/hostile/retaliate/ghost",
         "/mob/living/simple_animal/hostile/retaliate/goat",
         "/mob/living/simple_animal/hostile/retaliate/goat/chef",
@@ -251,8 +223,6 @@ BURNDOWN_LIST = {
         "/mob/living/simple_animal/hostile/retaliate/poison/snake",
         "/mob/living/simple_animal/hostile/retaliate/skeleton",
         "/mob/living/simple_animal/hostile/retaliate/zombie",
-        "/mob/living/simple_animal/hostile/scarybat",
-        "/mob/living/simple_animal/hostile/scarybat/adminvampire",
         "/mob/living/simple_animal/hostile/soviet",
         "/mob/living/simple_animal/hostile/soviet/ranged",
         "/mob/living/simple_animal/hostile/soviet/ranged/mosin",
@@ -346,12 +316,17 @@ BURNDOWN_LIST = {
 }
 
 
-def format_error(source_loc, message):
-    if os.getenv("GITHUB_ACTIONS") == "true":
-        return f"::error file={source_loc.file_path},line={source_loc.line},title=Simplemob Additions::{source_loc.file_path}:{source_loc.line}: {RED}{message}{NC}"
-
+def format_error(source_loc: SourceLoc | Path, message):
+    if isinstance(source_loc, SourceLoc):
+        if os.getenv("GITHUB_ACTIONS") == "true":
+            return f"::error file={source_loc.file_path},line={source_loc.line},title=Simplemob Additions::{source_loc.file_path}:{source_loc.line}: {RED}{message}{NC}"
+        else:
+            return f"{source_loc.file_path}:{source_loc.line}: {RED}{message}{NC}"
     else:
-        return f"{source_loc.file_path}:{source_loc.line}: {RED}{message}{NC}"
+        if os.getenv("GITHUB_ACTIONS") == "true":
+            return f"::error file={source_loc},title=Simplemob Additions::{source_loc}: {RED}{message}{NC}"
+        else:
+            return f"{source_loc}: {RED}{message}{NC}"
 
 
 if __name__ == "__main__":
@@ -373,10 +348,23 @@ if __name__ == "__main__":
             print(
                 format_error(
                     type_decl.source_loc,
-                    f"unexpected simplemob addition {type_decl.path}. ",
+                    f"unexpected simplemob addition {type_decl.path}.",
                 )
             )
         print("Please implement all new mobs as /mob/living/basic mobs.")
+
+    unexpected = BURNDOWN_LIST - simplemobs
+    if unexpected:
+        exit_code = 1
+        print("the following paths were allowed but not found:")
+        for pth in sorted(unexpected):
+            print(
+                format_error(
+                    Path(__file__).relative_to(dme.filepath.resolve().parent),
+                    f"stale path {pth}.",
+                )
+            )
+        print("Please remove the offending paths from check_simplemob_additions.py.")
 
     end = time.time()
     print(f"check_simplemob_additions tests completed in {end - start:.2f}s\n")
