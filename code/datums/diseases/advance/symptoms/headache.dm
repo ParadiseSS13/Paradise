@@ -20,8 +20,6 @@ BONUS
 
 	name = "Headache"
 	stealth = 2
-	resistance = 0
-	stage_speed = 0
 	transmittable = 3
 	level = 1
 	severity = 1

@@ -19,7 +19,6 @@ Bonus
 
 	name = "Shivering"
 	stealth = 1
-	resistance = 0
 	stage_speed = 2
 	transmittable = 3
 	level = 2

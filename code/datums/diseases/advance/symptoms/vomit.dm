@@ -23,7 +23,6 @@ Bonus
 
 	name = "Vomiting"
 	stealth = -3
-	resistance = 0
 	stage_speed = -2
 	transmittable = 1
 	level = 3

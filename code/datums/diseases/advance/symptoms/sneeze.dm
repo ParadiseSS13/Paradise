@@ -20,7 +20,6 @@ Bonus
 
 	name = "Sneezing"
 	stealth = -2
-	resistance = 0
 	stage_speed = 2
 	transmittable = 5
 	level = 1
