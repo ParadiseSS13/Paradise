@@ -65656,7 +65656,6 @@
 	c_tag = "Arrivals Hallway";
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
 /obj/machinery/economy/atm/directional/east,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -86578,9 +86577,6 @@
 "wKe" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8

@@ -77844,9 +77844,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "pGc" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -96637,9 +96634,6 @@
 "xjf" = (
 /obj/structure/cable{
 	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
