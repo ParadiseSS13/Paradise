@@ -19,7 +19,6 @@ Bonus
 
 	name = "Hallucigen"
 	stealth = -2
-	resistance = 0
 	stage_speed = -4
 	transmittable = 1
 	level = 5

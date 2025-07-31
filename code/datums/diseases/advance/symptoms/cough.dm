@@ -19,7 +19,6 @@ BONUS
 
 	name = "Cough"
 	stealth = 2
-	resistance = 0
 	stage_speed = 1
 	transmittable = 2
 	level = 1

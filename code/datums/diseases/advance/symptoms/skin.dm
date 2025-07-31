@@ -18,7 +18,6 @@ BONUS
 
 	name = "Vitiligo"
 	stealth = -3
-	resistance = 0
 	stage_speed = 1
 	transmittable = 2
 	level = 4

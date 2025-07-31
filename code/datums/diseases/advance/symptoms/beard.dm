@@ -18,7 +18,6 @@ BONUS
 
 	name = "Facial Hypertrichosis"
 	stealth = -1
-	resistance = 0
 	stage_speed = 2
 	transmittable = -1
 	level = 4

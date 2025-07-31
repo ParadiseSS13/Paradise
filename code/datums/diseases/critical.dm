@@ -88,7 +88,6 @@
 	cure_chance = 10
 	stage_prob = 5
 	severity = VIRUS_HARMFUL
-	disease_flags = VIRUS_CURABLE
 	required_organs = list(ORGAN_DATUM_HEART)
 
 /datum/disease/critical/heart_failure/stage_act()
