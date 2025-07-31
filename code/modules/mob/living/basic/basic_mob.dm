@@ -179,7 +179,7 @@ RESTRICT_TYPE(/mob/living/basic)
 		AddComponent(/datum/component/footstep, step_type)
 	if(is_ranged)
 		AddComponent(/datum/component/ranged_attacks, casing_type = casing_type, projectile_type = projectile_type, projectile_sound = projectile_sound, burst_shots = ranged_burst_count, burst_intervals = ranged_burst_interval)
-
+    
 /mob/living/basic/Destroy()
 	if(nest)
 		nest.spawned_mobs -= src

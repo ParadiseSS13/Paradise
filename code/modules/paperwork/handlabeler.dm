@@ -20,6 +20,9 @@
 		. += "<span class='notice'>The label is currently set to \"[label]\".</span>"
 
 /obj/item/hand_labeler/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(iseffect(target))
+		to_chat(user, "<span class='warning'>\The [target] doesn't seem solid enough to label!</span>")
+		return ITEM_INTERACT_COMPLETE
 	if(!mode == LABEL_MODE_OFF)
 		apply_label(target, user)
 		return ITEM_INTERACT_COMPLETE
@@ -44,8 +47,8 @@
 		return
 
 	if(mode == LABEL_MODE_GOAL)
-		if(istype(target, /obj/item))
-			to_chat(user, "<span class='warning'>Put it in a personal crate instead!</span>")
+		if(isturf(target))
+			to_chat(user, "<span class='warning'>You can't just claim a bit of [target] as yours!</span>")
 			return
 		user.visible_message("<span class='notice'>[user] labels [target] as part of a secondary goal for [label].</span>", \
 							"<span class='notice'>You label [target] as part of a secondary goal for [label].</span>")
