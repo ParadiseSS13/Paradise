@@ -5,7 +5,11 @@
 /obj/item/gun/projectile/revolver/grenadelauncher
 	desc = "A break-action grenade launcher."
 	name = "grenade launcher"
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "dbshotgun_sawn"
+	item_state = "gun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	can_holster = FALSE  // Not your normal revolver

@@ -388,9 +388,13 @@
  *	param {boolean} hidden - By default, any action 1 second or longer shows a cog over the user while it is in progress. If hidden is set to TRUE, the cog will not be shown.
  *	If allow_sleeping_or_dead is true, dead and sleeping mobs will continue. Good if you want to show a progress bar to the user but it doesn't need them to do anything, like modsuits.
  */
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving = 0, must_be_held = 0, list/extra_checks = list(), use_default_checks = TRUE, allow_moving_target = FALSE, hidden = FALSE, allow_sleeping_or_dead = FALSE)
+/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving = 0, must_be_held = 0, list/extra_checks = list(), interaction_key = null, use_default_checks = TRUE, allow_moving_target = FALSE, hidden = FALSE, allow_sleeping_or_dead = FALSE)
 	if(!user)
 		return FALSE
+
+	if(interaction_key)
+		var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
+		LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
 	var/atom/Tloc = null
 	if(target)
 		Tloc = target.loc
@@ -415,6 +419,7 @@
 		if(!hidden && delay >= 1 SECONDS)
 			cog = new(user)
 
+	SEND_SIGNAL(user, COMSIG_DO_AFTER_BEGAN)
 	var/endtime = world.time + delay
 	var/starttime = world.time
 	. = TRUE
@@ -462,6 +467,14 @@
 	if(progress)
 		qdel(progbar)
 		cog?.remove()
+		if(interaction_key)
+			var/reduced_interaction_count = (LAZYACCESS(user.do_afters, interaction_key) || 0) - 1
+			if(reduced_interaction_count > 0) // Not done yet!
+				LAZYSET(user.do_afters, interaction_key, reduced_interaction_count)
+				return
+			// all out, let's clear er out fully
+			LAZYREMOVE(user.do_afters, interaction_key)
+		SEND_SIGNAL(user, COMSIG_DO_AFTER_ENDED)
 
 // Upon any of the callbacks in the list returning TRUE, the proc will return TRUE.
 /proc/check_for_true_callbacks(list/extra_checks)
@@ -472,7 +485,7 @@
 
 #define DOAFTERONCE_MAGIC "Magic~~"
 GLOBAL_LIST_EMPTY(do_after_once_tracker)
-/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.", special_identifier, hidden = FALSE)
+/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.", special_identifier, hidden = FALSE, interaction_key = null)
 	if(!user || !target)
 		return
 
@@ -482,7 +495,7 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
 		return FALSE
 	GLOB.do_after_once_tracker[cache_key] = TRUE
-	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, extra_checks = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key, hidden)))
+	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, extra_checks = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key, hidden)), interaction_key = interaction_key)
 	GLOB.do_after_once_tracker[cache_key] = FALSE
 
 /proc/do_after_once_checks(cache_key)
