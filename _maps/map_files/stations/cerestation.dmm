@@ -22008,9 +22008,6 @@
 	},
 /area/station/hallway/spacebridge/scidock)
 "dmY" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/door/airlock/maintenance/external{
 	name = "External Airlock Access"
@@ -59018,14 +59015,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/station/medical/psych)
-"lky" = (
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/machinery/door/airlock/engineering{
-	name = "Command Asteroid Security Area Substation"
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/plating,
-/area/space)
 "lkA" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/carbon/human/monkey,
@@ -93359,18 +93348,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/disposal/external/southeast)
-"sGp" = (
-/obj/structure/disposalpipe/segment{
-	color = "#954535"
-	},
-/obj/structure/disposalpipe/segment{
-	color = "#954535"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/port/south)
 "sGq" = (
 /obj/machinery/computer/atmos_alert{
 	dir = 4
@@ -135867,7 +135844,7 @@ mFM
 gsG
 mFM
 mFM
-sGp
+mFM
 yjd
 mFM
 wGo
@@ -169733,7 +169710,7 @@ aRx
 rNK
 rNK
 rNK
-lky
+rNK
 rNK
 rNK
 rNK

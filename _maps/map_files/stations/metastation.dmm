@@ -51067,12 +51067,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
-"kaS" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/fsmaint2)
 "kbk" = (
 /obj/effect/landmark/start/roboticist,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -88125,10 +88119,6 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/theatre)
-"xip" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/solar_maintenance/fore_starboard)
 "xiy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -133884,7 +133874,7 @@ sEv
 vTm
 iNA
 tdx
-kaS
+enp
 rga
 jhK
 mhE
@@ -135683,7 +135673,7 @@ ogY
 gDl
 gDl
 asU
-xip
+gDl
 sFR
 kYt
 mhE
