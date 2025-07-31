@@ -30,12 +30,12 @@ const diffMap = {
 };
 
 type AccessListProps = {
-  sectionButtons: React.JSX.Element;
-  usedByRcd: BooleanLike;
-  rcdButtons: React.JSX.Element;
+  sectionButtons?: React.JSX.Element;
+  usedByRcd?: BooleanLike;
+  rcdButtons?: React.JSX.Element;
   accesses: AccessRegion[];
-  selectedList: number[];
-  grantableList: number[];
+  selectedList?: number[];
+  grantableList?: number[];
   accessMod: (ref: number) => void;
   denyAll: () => void;
   grantAll: () => void;
@@ -46,8 +46,8 @@ type AccessListProps = {
 export const AccessList = (props: AccessListProps) => {
   const {
     sectionButtons = null,
-    usedByRcd,
-    rcdButtons,
+    usedByRcd = false,
+    rcdButtons = null,
     accesses = [],
     selectedList = [],
     grantableList = [],
