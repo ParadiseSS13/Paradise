@@ -12,6 +12,8 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 	assignedrole = "Ghost Bar Occupant"
 	death_cooldown = 1 MINUTES
 	restrict_antagban = FALSE
+	restrict_respawnability = FALSE
+	restrict_ahud = FALSE
 
 /obj/effect/mob_spawn/human/alive/ghost_bar/create(ckey, flavour = TRUE, name, mob/user = usr) // So divorced from the normal proc it's just being overriden
 	var/datum/character_save/save_to_load
@@ -79,7 +81,10 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 	H.mind.special_role = assignedrole
 	H.mind.offstation_role = TRUE
 	ADD_TRAIT(H, TRAIT_PACIFISM, GHOST_ROLE)
-	ADD_TRAIT(H, TRAIT_RESPAWNABLE, GHOST_ROLE)
+	if(isobserver(user))
+		var/mob/dead/observer/ghost = user
+		if(ghost.can_reenter_corpse)
+			ADD_TRAIT(H, TRAIT_RESPAWNABLE, GHOST_ROLE)
 
 	H.key = ckey
 	H.dna.species.after_equip_job(/datum/job/assistant, H)

@@ -1,7 +1,8 @@
-import { BooleanLike } from '../../common/react';
-import { InfernoNode } from 'inferno';
+import { ReactNode } from 'react';
+import { Button, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
+
 import { useBackend } from '../backend';
-import { Button, Dropdown, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from '../components';
 import { Window } from '../layouts';
 import { Operating } from '../interfaces/common/Operating';
 
@@ -58,8 +59,8 @@ interface PanDEMICData {
   symptom_names: string[];
 }
 
-export const PanDEMIC = (props, context) => {
-  const { data } = useBackend<PanDEMICData>(context);
+export const PanDEMIC = (props) => {
+  const { data } = useBackend<PanDEMICData>();
   const { beakerLoaded, beakerContainsBlood, beakerContainsVirus, calibrating, resistances = [] } = data;
 
   let emptyPlaceholder;
@@ -90,8 +91,8 @@ export const PanDEMIC = (props, context) => {
   );
 };
 
-const CommonCultureActions = (props, context) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
+const CommonCultureActions = (props) => {
+  const { act, data } = useBackend<PanDEMICData>();
   const { beakerLoaded, canCalibrate } = data;
   return (
     <>
@@ -109,8 +110,8 @@ const CommonCultureActions = (props, context) => {
   );
 };
 
-const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number }, context) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
+const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number }) => {
+  const { act, data } = useBackend<PanDEMICData>();
   const { beakerContainsVirus, analysisTime, analysisTimeDelta, accumulatedError, analyzing } = data;
   const {
     commonName,
@@ -132,7 +133,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
   const bloodInformation = (
     <>
       <LabeledList.Item label="Blood DNA">
-        {!bloodDNA ? 'Undetectable' : <span style={{ 'font-family': "'Courier New', monospace" }}>{bloodDNA}</span>}
+        {!bloodDNA ? 'Undetectable' : <span style={{ fontFamily: "'Courier New', monospace" }}>{bloodDNA}</span>}
       </LabeledList.Item>
       <LabeledList.Item label="Blood Type">
         {
@@ -152,23 +153,21 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
 
   let nameButtons;
   if (isAdvanced) {
-    nameButtons = (
-      <Stack align="right">
-        {commonName !== undefined && commonName !== null && commonName !== 'Unknown' ? (
-          <Button
-            icon="print"
-            content="Print Release Forms"
-            disabled={!known}
-            onClick={() =>
-              act('print_release_forms', {
-                strain_index: props.strainIndex,
-              })
-            }
-            style={{ 'margin-left': 'auto' }}
-          />
-        ) : (
-          ''
-        )}
+    if (commonName !== undefined && commonName !== null && commonName !== 'Unknown') {
+      nameButtons = (
+        <Button
+          icon="print"
+          content="Print Release Forms"
+          onClick={() =>
+            act('print_release_forms', {
+              strain_index: props.strainIndex,
+            })
+          }
+          style={{ marginLeft: 'auto' }}
+        />
+      );
+    } else {
+      nameButtons = (
         <Button
           icon="pen"
           content={
@@ -178,7 +177,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
           }
           disabled={!known}
           onClick={() => act('name_strain', { strain_index: props.strainIndex })}
-          style={{ 'margin-left': 'auto' }}
+          style={{ marginLeft: 'auto' }}
         />
       </Stack>
     );
@@ -264,16 +263,13 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
   );
 };
 
-const StrainInformationSection = (
-  props: {
-    strain: PathogenStrain;
-    strainIndex: number;
-    sectionTitle?: string;
-    sectionButtons?: InfernoNode | InfernoNode[];
-  },
-  context
-) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
+const StrainInformationSection = (props: {
+  strain: PathogenStrain;
+  strainIndex: number;
+  sectionTitle?: string;
+  sectionButtons?: ReactNode;
+}) => {
+  const { act, data } = useBackend<PanDEMICData>();
   let synthesisCooldown = !!data.synthesisCooldown;
   const appliedSectionButtons = (
     <>
@@ -297,8 +293,8 @@ const StrainInformationSection = (
   );
 };
 
-const CultureInformationSection = (props, context) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
+const CultureInformationSection = (props) => {
+  const { act, data } = useBackend<PanDEMICData>();
   const { selectedStrainIndex, strains } = data;
   const selectedStrain = strains[selectedStrainIndex - 1];
 
@@ -324,7 +320,7 @@ const CultureInformationSection = (props, context) => {
   return (
     <Stack.Item grow>
       <Section title="Culture Information" fill buttons={sectionButtons}>
-        <Flex direction="column" style={{ 'height': '100%' }}>
+        <Flex direction="column" style={{ height: '100%' }}>
           <Flex.Item>
             <Tabs>
               {strains.map((strain, i) => (
@@ -415,13 +411,13 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
 
 const VaccineSynthesisIcons = ['flask', 'vial', 'eye-dropper'];
 
-const ResistancesSection = (props, context) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
+const ResistancesSection = (props) => {
+  const { act, data } = useBackend<PanDEMICData>();
   const { synthesisCooldown, beakerContainsVirus, resistances } = data;
   return (
     <Stack.Item>
       <Section title="Antibodies" fill>
-        <Stack horizontal wrap>
+        <Stack wrap>
           {resistances.map((r, i) => (
             <Stack.Item key={i}>
               <Button

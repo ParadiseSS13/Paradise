@@ -1,5 +1,4 @@
 /obj/machinery/atmospherics/unary/passive_vent/high_volume/shadow
-	on = FALSE
 
 /obj/machinery/atmospherics/unary/passive_vent/high_volume/shadow/process_atmos()
 	if(!on)
@@ -15,7 +14,6 @@
 	name = "gas filter (Co2 Outlet)"
 	dir = 1
 	filter_type = 3
-	on = FALSE
 	target_pressure = 99999
 
 /obj/machinery/atmospherics/trinary/filter/shadow/on_changed_z_level(turf/old_turf, turf/new_turf)

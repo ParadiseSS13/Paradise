@@ -1,7 +1,7 @@
 /datum/action/changeling/humanform
 	name = "Human form"
 	desc = "We change into a human. Costs 5 chemicals."
-	button_overlay_icon_state = "human_form"
+	button_icon_state = "human_form"
 	chemical_cost = 5
 	req_dna = 1
 
@@ -22,7 +22,7 @@
 	user.dna = chosen_dna.Clone()
 	user.real_name = chosen_dna.real_name
 	domutcheck(user, MUTCHK_FORCED)
-	user.flavor_text = ""
+	user.flavor_text = chosen_dna.flavor_text
 	user.dna.UpdateSE()
 	user.dna.UpdateUI()
 	user.sync_organ_dna(1)

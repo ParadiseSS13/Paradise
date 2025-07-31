@@ -93,8 +93,6 @@
 	create_reagents(300) // This should get cleared every time it is filled, barring admemery
 
 /obj/machinery/hydroponics/constructable
-	name = "hydroponics tray"
-	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray3"
 
 /obj/machinery/hydroponics/constructable/Initialize(mapload)
@@ -503,7 +501,7 @@
 		visible_message("<span class='warning'>The pests seem to behave oddly...</span>")
 		for(var/i in 1 to 3)
 			var/obj/structure/spider/spiderling/S = new(get_turf(src))
-			S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter
+			S.grow_as = /mob/living/basic/giant_spider/hunter
 	else
 		to_chat(user, "<span class='warning'>The pests seem to behave oddly, but quickly settle down...</span>")
 
@@ -936,6 +934,10 @@
 		update_state()
 		plant_hud_set_status()
 		plant_hud_set_health()
+	else if(user.mind && HAS_TRAIT(user.mind, TRAIT_GREEN_THUMB) && weedlevel > 0)
+		user.visible_message("[user] uproots the weeds.", "<span class='notice'>You pluck the weeds from [src] with your hands.</span>")
+		adjustWeeds(-10)
+		update_state()
 	else
 		examine(user)
 
@@ -987,7 +989,7 @@
 	plant_hud_set_weed()
 
 /obj/machinery/hydroponics/proc/spawnplant() // why would you put Lazarus Reagent in a hydro tray you monster I bet you also feed them blood
-	var/list/livingplants = list(/mob/living/simple_animal/hostile/tree, /mob/living/simple_animal/hostile/killertomato)
+	var/list/livingplants = list(/mob/living/simple_animal/hostile/tree, /mob/living/basic/killertomato)
 	var/chosen = pick(livingplants)
 	var/mob/living/simple_animal/hostile/C = new chosen(get_turf(src))
 	C.faction = list("plants")
@@ -1023,7 +1025,6 @@
 /// Not actually hydroponics at all! Honk!
 /obj/machinery/hydroponics/soil
 	name = "soil"
-	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "soil"
 	density = FALSE
 	power_state = NO_POWER_USE

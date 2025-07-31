@@ -225,10 +225,8 @@
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible
-	name = "Hardened Neural Jumpstarter implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces. This one is compatible with the CNS Rebooter implant."
 	slot = "brain_antisleep"
-	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/clown_voice
 	name = "Comical implant"
@@ -382,9 +380,8 @@
 /datum/action/item_action/organ_action/toggle/sensory_enhancer
 	name = "Activate Qani-Laaca System"
 	desc = "Activates your Qani-Laaca computer and grants you its powers. LMB: Short, safer activation. ALT/MIDDLE: Longer, more powerful, more dangerous activation."
-	button_overlay_icon = 'icons/obj/surgery.dmi'
-	button_overlay_icon_state = "sandy"
-	check_flags = AB_CHECK_CONSCIOUS
+	button_icon = 'icons/obj/surgery.dmi'
+	button_icon_state = "sandy"
 	/// Keeps track of how much mephedrone we inject into people on activation
 	var/injection_amount = 10
 
@@ -452,7 +449,6 @@
 	implant_overlay = null
 	implant_color = null
 	slot = "brain_antistun"
-	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=4;combat=6;biotech=6;powerstorage=2;syndicate=3"
 	stealth_level = 4 //Only surgery or a body scanner with the highest tier of stock parts can detect this.
 
@@ -502,10 +498,8 @@
 /datum/spell/hackerman_deck
 	name = "Activate Ranged Hacking"
 	desc = "Click on any machine to hack them. Has a short range of only three tiles."
-	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
 	antimagic_flags = NONE
 	selection_activated_message = "You warm up your Binyat deck, there's an idle buzzing at the back of your mind as it awaits a target."
 	selection_deactivated_message = "Your hacking deck makes an almost disappointed sounding buzz at the back of your mind as it powers down."
@@ -594,7 +588,6 @@
 	desc = "implants for the organs in your torso."
 	icon_state = "chest_implant"
 	implant_overlay = "chest_implant_overlay"
-	parent_organ = "chest"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment
 	name = "Nutriment pump implant"

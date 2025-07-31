@@ -477,6 +477,10 @@
 	linked_emote = /datum/emote/living/carbon/human/quill
 	name = "Quill"
 
+/datum/keybinding/emote/carbon/human/caw
+	linked_emote = /datum/emote/living/carbon/human/caw
+	name = "Caw"
+
 /datum/keybinding/emote/carbon/human/warble
 	linked_emote = /datum/emote/living/carbon/human/warble
 	name = "Warble"
@@ -632,7 +636,7 @@
 	return isnymph(M) && ..()
 
 /datum/keybinding/emote/simple_animal/gorilla_ooga
-	linked_emote = /datum/emote/living/simple_animal/gorilla/ooga
+	linked_emote = /datum/emote/living/basic_mob/gorilla/ooga
 	name = "Ooga (Gorilla)"
 
 /datum/keybinding/emote/simple_animal/gorilla_ooga/can_use(client/C, mob/M)

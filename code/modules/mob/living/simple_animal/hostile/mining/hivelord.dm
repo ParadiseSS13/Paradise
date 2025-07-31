@@ -7,23 +7,18 @@
 	icon_aggro = "Hivelord_alert"
 	icon_dead = "Hivelord_dead"
 	icon_gib = "syndicate_gib"
-	mob_biotypes = MOB_ORGANIC
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 14
 	ranged = TRUE
 	vision_range = 5
-	aggro_vision_range = 9
 	speed = 3
 	maxHealth = 75
 	health = 75
 	harm_intent_damage = 5
-	melee_damage_lower = 0
-	melee_damage_upper = 0
 	attacktext = "lashes out at"
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "falls right through the strange body of the"
-	ranged_cooldown = 0
 	ranged_cooldown_time = 20
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
@@ -32,6 +27,8 @@
 	pass_flags = PASSTABLE
 	butcher_results = list(/obj/item/organ/internal/regenerative_core = 1)
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/hivelord
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
@@ -56,6 +53,12 @@
 	if(!.)
 		return FALSE
 	mouse_opacity = MOUSE_OPACITY_ICON
+
+/mob/living/simple_animal/hostile/asteroid/hivelord/space
+	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/space
+
+/mob/living/simple_animal/hostile/asteroid/hivelord/space/Process_Spacemove(movement_dir, continuous_move)
+	return TRUE
 
 //A fragile but rapidly produced creature
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood
@@ -92,6 +95,11 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(death)), 100)
 	AddComponent(/datum/component/swarming)
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/space
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/space/Process_Spacemove(movement_dir, continuous_move)
+	return TRUE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood
 	name = "blood brood"
@@ -154,20 +162,16 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion
 	name = "legion"
 	desc = "You can still see what was once a person under the shifting mass of corruption."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "legion"
 	icon_living = "legion"
 	icon_aggro = "legion"
 	icon_dead = "legion"
-	icon_gib = "syndicate_gib"
 	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	mouse_opacity = MOUSE_OPACITY_ICON
 	obj_damage = 60
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	attacktext = "lashes out at"
 	speak_emote = list("echoes")
-	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "bounces harmlessly off of"
 	crusher_loot = /obj/item/crusher_trophy/legion_skull
 	loot = list(/obj/item/organ/internal/regenerative_core/legion)
@@ -178,7 +182,6 @@
 	robust_searching = TRUE
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
-
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
 	name = "dwarf legion"
@@ -215,24 +218,16 @@
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
 	name = "legion"
 	desc = "One of many."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "legion_head"
 	icon_living = "legion_head"
 	icon_aggro = "legion_head"
 	icon_dead = "legion_head"
-	icon_gib = "syndicate_gib"
-	friendly = "buzzes near"
-	vision_range = 10
-	maxHealth = 1
 	health = 5
-	harm_intent_damage = 5
 	melee_damage_lower = 12
 	melee_damage_upper = 12
 	attacktext = "bites"
 	speak_emote = list("echoes")
-	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "is shrugged off by"
-	del_on_death = TRUE
 	stat_attack = UNCONSCIOUS
 	robust_searching = TRUE
 	var/can_infest_dead = FALSE
@@ -290,14 +285,13 @@
 	maxHealth = 350
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	wander = TRUE
-	layer = MOB_LAYER
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
 	sentience_type = SENTIENCE_BOSS
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	speed = 0
+	butcher_results = list(/obj/item/regen_mesh)
 
 /mob/living/simple_animal/hostile/asteroid/big_legion/AttackingTarget()
 	if(!isliving(target))

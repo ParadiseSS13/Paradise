@@ -1,6 +1,5 @@
 /obj/structure/blob/core
 	name = "blob core"
-	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
 	max_integrity = 400
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 75, ACID = 90)

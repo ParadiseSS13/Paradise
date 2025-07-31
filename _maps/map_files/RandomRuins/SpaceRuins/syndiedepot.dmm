@@ -313,7 +313,7 @@
 	},
 /area/syndicate_depot/core)
 "aZ" = (
-/obj/machinery/door/poddoor/multi_tile/double/directional/east,
+/obj/machinery/door/poddoor/multi_tile,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

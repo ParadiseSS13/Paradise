@@ -6,7 +6,6 @@
 	hand_path = /obj/item/melee/touch_attack/banana
 
 	base_cooldown = 30 SECONDS
-	clothes_req = TRUE
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	action_icon_state = "clown"
 

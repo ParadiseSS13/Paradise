@@ -4,7 +4,7 @@
 	set desc = "View/retrieve logfiles."
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_VIEWLOGS))
 		return
 
 	access_file_by_browsing_path(usr, "data/logs/")
@@ -15,7 +15,7 @@
 	set desc = "View/retrieve logfiles for a given round."
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_VIEWLOGS))
 		return
 
 	var/round_id = input(usr, "Enter a round ID.", "Enter Round ID", "[GLOB.round_id]") as null|text

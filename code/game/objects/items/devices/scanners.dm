@@ -144,9 +144,7 @@ SLIME SCANNER
 	flags = CONDUCT | NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 3
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=200)
 	origin_tech = "magnets=1;biotech=1"
 	/// Can be SIMPLE_HEALTH_SCAN (damage is only shown as a single % value), or DETAILED_HEALTH_SCAN (shows the % value and also damage for every specific limb).
@@ -459,7 +457,6 @@ SLIME SCANNER
 	item_state = "analyzer"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 3
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 5
 	throw_range = 10
@@ -608,9 +605,7 @@ SLIME SCANNER
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL = 210, MAT_GLASS = 140)
 	origin_tech = "magnets=1;engineering=1"
 	var/cooldown = FALSE
@@ -843,7 +838,7 @@ SLIME SCANNER
 		message += "<span class='notice'>Wind: ([round(milla[MILLA_INDEX_WIND_X], 0.001)], [round(milla[MILLA_INDEX_WIND_Y], 0.001)])</span>"
 		message += "<span class='notice'>Fuel burnt last tick: [milla[MILLA_INDEX_FUEL_BURNT]] moles</span>"
 
-	to_chat(user, chat_box_examine(message.Join("\n")))
+	to_chat(user, chat_box_examine(message.Join("<br>")))
 	return TRUE
 
 ////////////////////////////////////////
@@ -858,7 +853,6 @@ SLIME SCANNER
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=300, MAT_GLASS=200)
@@ -938,9 +932,7 @@ SLIME SCANNER
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
 /obj/item/slime_scanner/attack__legacy__attackchain(mob/living/M, mob/living/user)
@@ -994,7 +986,6 @@ SLIME SCANNER
 	item_state = "healthanalyser"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 3
 	throw_speed = 5
 	throw_range = 10
 	origin_tech = "magnets=6;biotech=6"
@@ -1018,7 +1009,6 @@ SLIME SCANNER
 	desc = "Scan an entire body to prepare for field surgery. Consumes power for each scan."
 
 /obj/item/bodyanalyzer/borg/syndicate
-	scan_time = 5 SECONDS
 	scan_cd = 20 SECONDS
 
 /obj/item/bodyanalyzer/New()

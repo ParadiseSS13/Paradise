@@ -290,7 +290,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/maroon
 	name = "Maroon"
-	martyr_compatible = FALSE
 	delayed_objective_text = "Your objective is to make sure another crewmember doesn't leave on the Escape Shuttle. You will receive further information in a few minutes."
 
 /datum/objective/maroon/update_explanation_text()
@@ -316,7 +315,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /// I want braaaainssss
 /datum/objective/debrain
 	name = "Debrain"
-	martyr_compatible = FALSE
 	delayed_objective_text = "Your objective is to steal another crewmember's brain. You will receive further information in a few minutes."
 
 /datum/objective/debrain/is_invalid_target(datum/mind/possible_target)
@@ -384,7 +382,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/hijack
 	name = "Hijack"
-	martyr_compatible = FALSE //Technically you won't get both anyway.
 	explanation_text = "Hijack the shuttle by escaping on it with no loyalist Nanotrasen crew on board and free. \
 	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive. \
 	Alternatively, hack the shuttle console multiple times (by alt clicking on it) until the shuttle directions are corrupted."
@@ -401,7 +398,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/hijackclone
 	name = "Hijack (with clones)"
 	explanation_text = "Hijack the shuttle by ensuring only you (or your copies) escape."
-	martyr_compatible = FALSE
 	needs_target = FALSE
 
 // This objective should only be given to a single owner, because the "copies" can only copy one person.
@@ -436,7 +432,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Hijack the shuttle by alt-clicking on the shuttle console. Do not let the crew wipe you off of it! \
 	Crew and agents can be on the shuttle when you do this, and may try to wipe you! \
 	Using the doomsday device successfully is also an option."
-	martyr_compatible = FALSE
 	needs_target = FALSE
 
 /datum/objective/block/check_completion()
@@ -574,7 +569,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal
 	name = "Steal Item"
-	martyr_compatible = FALSE
 	delayed_objective_text = "Your objective is to steal a high-value item. You will receive further information in a few minutes."
 	var/theft_area
 	var/datum/theft_objective/steal_target

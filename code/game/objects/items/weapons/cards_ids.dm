@@ -369,13 +369,11 @@
 	add_fingerprint(user)
 
 /obj/item/card/id/silver
-	name = "identification card"
 	desc = "A silver card which shows honour and dedication."
 	icon_state = "silver"
 	item_state = "silver_id"
 
 /obj/item/card/id/gold
-	name = "identification card"
 	desc = "A golden card which shows power and might."
 	icon_state = "gold"
 	item_state = "gold_id"
@@ -546,6 +544,12 @@
 	icon_state = "research"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/xenobiology
+	name = "Xenobiology ID"
+	registered_name = "Xenobiologist"
+	icon_state = "xenobiologist"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_EVA, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_TELEPORTER)
+
 /obj/item/card/id/roboticist
 	name = "Roboticist ID"
 	registered_name = "Roboticist"
@@ -590,7 +594,6 @@
 
 /obj/item/card/id/captains_spare/assigned
 	name = "Captain ID"
-	registered_name = "Captain"
 	icon_state = "captain"
 
 /obj/item/card/id/hop

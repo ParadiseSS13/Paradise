@@ -34,7 +34,7 @@
 /turf/simulated/floor/plating/burnt/airless,
 /area/ruin/unpowered)
 "ap" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/template_noop)
 "ar" = (

@@ -7,7 +7,6 @@
 	hud_type = /datum/hud/simple_animal
 
 	universal_understand = TRUE
-	universal_speak = FALSE
 	status_flags = CANPUSH
 	healable = TRUE
 	gib_nullifies_icon = FALSE // prevents players from having transparent icon when their body is gibbed
@@ -110,7 +109,6 @@
 	var/list/loot = list()
 	/// Causes mob to be deleted on death, useful for mobs that spawn lootable corpses
 	var/del_on_death = FALSE
-	var/deathmessage = ""
 	/// The sound played on death
 	var/death_sound = null
 
@@ -482,7 +480,7 @@
 	if(changed)
 		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT)
 
-/mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
+/mob/living/simple_animal/sentience_act() // Called when a simple animal gains sentience via gold slime potion
 	toggle_ai(AI_OFF)
 	can_have_ai = FALSE
 

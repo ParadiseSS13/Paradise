@@ -8,8 +8,6 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 /obj/machinery/pandemic
 	name = "PanD.E.M.I.C 2200"
 	desc = "Used to work with viruses."
-	density = TRUE
-	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "pandemic0"
 	idle_power_consumption = 20

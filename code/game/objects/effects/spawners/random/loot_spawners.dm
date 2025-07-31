@@ -1,17 +1,14 @@
 /obj/effect/spawner/random/loot
 	name = "random loot spawner"
-	icon_state = "loot"
 
 /obj/effect/spawner/random/loot/contraband_posters
 	name = "5x contraband posters spawner"
 	spawn_loot_count = 5
-	spawn_loot_double = TRUE
 	loot = list(/obj/item/poster/random_contraband)
 
 /obj/effect/spawner/random/loot/cryo_beakers
 	name = "3x cryo beaker spawner"
 	spawn_loot_count = 3
-	spawn_loot_double = TRUE
 	loot = list(/obj/item/reagent_containers/glass/beaker/bluespace)
 
 /obj/effect/spawner/random/loot/good_times
@@ -51,7 +48,6 @@
 
 /obj/effect/spawner/random/loot/coins
 	name = "coins spawner"
-	spawn_loot_double = TRUE
 	loot = list(
 		/obj/item/coin/silver = 3,
 		/obj/item/coin/iron = 3,
@@ -88,7 +84,7 @@
 		/obj/item/melee/skateboard/pro = 5,
 		/obj/item/reagent_containers/glass/beaker/bluespace = 5,
 		/obj/item/seeds/firelemon = 5,
-		/obj/item/stack/ore/diamond{amount = 10} = 5,
+		/obj/item/stack/ore/diamond/ten = 5,
 
 		/obj/effect/spawner/random/loot/coins = 2,
 		/obj/effect/spawner/random/loot/outfit/clown = 2,
@@ -105,7 +101,7 @@
 		/obj/item/pickaxe/drill = 2,
 		/obj/item/pickaxe/drill/diamonddrill = 2,
 		/obj/item/pickaxe/drill/jackhammer = 2,
-		/obj/item/stack/ore/bluespace_crystal{amount = 5} = 2,
+		/obj/item/stack/ore/bluespace_crystal/five = 2,
 		/obj/item/toy/balloon = 2,
 		/obj/item/toy/katana = 2,
 		/obj/item/toy/syndicateballoon = 2,
