@@ -11,10 +11,6 @@
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
 	layer_offset = GAS_SCRUBBER_OFFSET
 	can_unwrench = TRUE
-
-	/// Is the vent open to put a piece of paper in it
-	var/open = FALSE // A living relic of papercult
-
 	var/area/initial_loc
 
 	/// If false, siphons instead of releasing air
@@ -187,20 +183,6 @@
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
-/obj/machinery/atmospherics/unary/vent_pump/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/paper))
-		if(!welded)
-			if(open)
-				user.drop_item(used)
-				used.forceMove(src)
-			if(!open)
-				to_chat(user, "You can't shove that down there when it is closed")
-		else
-			to_chat(user, "The vent is welded.")
-		return ITEM_INTERACT_COMPLETE
-
-	return ..()
-
 /obj/machinery/atmospherics/unary/vent_pump/multitool_act(mob/living/user, obj/item/I)
 	if(!ismultitool(I))
 		return
@@ -208,16 +190,6 @@
 	var/obj/item/multitool/M = I
 	M.buffer_uid = UID()
 	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
-
-/obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/living/user, obj/item/I)
-	if(welded)
-		return
-	to_chat(user, "<span class='notice'>You start screwing the vent [open ? "shut" : "open"].</span>")
-	if(do_after(user, 20 * I.toolspeed, target = src))
-		I.play_tool_sound(src)
-		user.visible_message("<span class='notice'>[user] screws the vent [open ? "shut" : "open"].</span>", "<span class='notice'>You screw the vent [open ? "shut" : "open"].</span>", "You hear a screwdriver.")
-		open = !open
-	return TRUE
 
 /obj/machinery/atmospherics/unary/vent_pump/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -234,15 +206,6 @@
 			user.visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
 				"<span class='notice'>You unweld [src]!</span>")
 		update_icon()
-
-
-/obj/machinery/atmospherics/unary/vent_pump/attack_hand()
-	if(!welded)
-		if(open)
-			for(var/obj/item/W in src)
-				if(istype(W, /obj/item/pipe))
-					continue
-				W.forceMove(get_turf(src))
 
 /obj/machinery/atmospherics/unary/vent_pump/power_change()
 	if(!..())
