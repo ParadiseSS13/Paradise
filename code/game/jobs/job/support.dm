@@ -209,6 +209,9 @@
 	name = "Shaft Miner (Equipment + MODsuit)"
 	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	mask = /obj/item/clothing/mask/breath
+	suit = null
+	backpack = null
+	allow_backbag_choice = FALSE
 
 /datum/job/explorer
 	title = "Explorer"
