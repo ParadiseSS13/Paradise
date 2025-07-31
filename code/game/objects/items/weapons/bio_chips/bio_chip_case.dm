@@ -4,7 +4,6 @@
 	icon = 'icons/obj/bio_chips.dmi'
 	icon_state = "implantcase"
 	item_state = "implantcase"
-	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=2"

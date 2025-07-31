@@ -23,7 +23,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cig"
 	lefthand_file = 'icons/mob/inhands/smoking_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/smoking_righthand.dmi'
-	slot_flags = ITEM_SLOT_MASK
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = null
@@ -435,7 +434,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/cigbutt/syndie
 	name = "suspicious cigarette butt"
 	desc = "A manky old cigarette butt with an evil look about it."
-	icon = 'icons/obj/clothing/smoking.dmi'
 	icon_state = "syndie_cig_butt"
 
 /obj/item/cigbutt/Initialize(mapload)

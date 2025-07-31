@@ -14,7 +14,6 @@
 /obj/item/gun/energy/gun
 	name = "\improper EG-7 energy gun"
 	desc = "A hybrid fire energy gun manufactured by Shellguard Munitions Co. It has a mounting point for a flashlight. The fire selector has two settings: 'disable', and 'kill'."
-	icon_state = "energy"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	origin_tech = "combat=4;magnets=3"
@@ -58,7 +57,6 @@
 	desc = "A pistol-sized energy gun with a built-in flashlight. The power cell is smaller too. Issued for self-defence purposes. The fire selector has two settings: 'disable', and 'kill'."
 	icon_state = "mini"
 	w_class = WEIGHT_CLASS_SMALL
-	ammo_x_offset = 2
 	charge_sections = 3
 	inhand_charge_sections = 3
 	can_flashlight = FALSE // Can't attach or detach the flashlight, and override it's icon update
@@ -134,9 +132,7 @@
 	force = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
-	shaded_charge = TRUE
 	can_holster = TRUE
-	execution_speed = 5 SECONDS
 
 /obj/item/gun/energy/gun/blueshield/examine_more(mob/user)
 	..()
@@ -180,7 +176,6 @@
 	weapon_weight = WEAPON_HEAVY
 	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
-	ammo_x_offset = 2
 	shaded_charge = FALSE
 	execution_speed = 8 SECONDS
 
@@ -268,7 +263,6 @@
 /obj/item/gun/energy/gun/shotgun/cyborg
 	name = "Energy Scatterbeam"
 	desc = "An energy emitter that fires spread-fire laser shells."
-	icon_state = "eshotgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/eshotgun/cyborg)
 
 /obj/item/gun/energy/gun/shotgun/newshot()

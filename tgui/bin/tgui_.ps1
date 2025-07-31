@@ -40,9 +40,9 @@ function task-install {
   yarn install
 }
 
-## Runs webpack
-function task-webpack {
-  yarn run webpack-cli @Args
+## Runs rspack
+function task-rspack {
+  yarn run rspack @Args
 }
 
 ## Runs a development server
@@ -66,10 +66,6 @@ function task-prettier {
   npx prettier --check packages @Args
 }
 
-function task-polyfill {
-  yarn tgui-polyfill:build
-}
-
 ## Mr. Proper
 function task-clean {
   ## Build artifacts
@@ -81,7 +77,7 @@ function task-clean {
   ## Yarn artifacts
   Remove-Quiet -Recurse -Force ".yarn\cache"
   Remove-Quiet -Recurse -Force ".yarn\unplugged"
-  Remove-Quiet -Recurse -Force ".yarn\webpack"
+  Remove-Quiet -Recurse -Force ".yarn\rspack"
   Remove-Quiet -Force ".yarn\build-state.yml"
   Remove-Quiet -Force ".yarn\install-state.gz"
   Remove-Quiet -Force ".yarn\install-target"
@@ -105,9 +101,13 @@ function task-validate-build {
 
 ## Installs merge drivers and git hooks
 function task-install-git-hooks () {
-    Set-Location $global:basedir
-    git config --replace-all merge.tgui-merge-bundle.driver "tgui/bin/tgui --merge=bundle %P %A"
-    Write-Output "tgui: Merge drivers have been successfully installed!"
+  Set-Location $global:basedir
+  git config --replace-all merge.tgui-merge-bundle.driver "tgui/bin/tgui --merge=bundle %P %A"
+  Write-Output "tgui: Merge drivers have been successfully installed!"
+}
+
+function task-editor-sdk () {
+  yarn dlx @yarnpkg/sdks vscode
 }
 
 ## Main
@@ -148,7 +148,7 @@ if ($Args.Length -gt 0) {
   ## Analyze the bundle
   if ($Args[0] -eq "--analyze") {
     task-install
-    task-webpack --mode=production --analyze
+    task-rspack --mode=production --analyze
     exit 0
   }
 
@@ -168,7 +168,7 @@ if ($Args.Length -gt 0) {
     task-prettier
     task-test @Rest
     task-lint
-    task-webpack --mode=production
+    task-rspack --mode=production
     task-validate-build
     exit 0
   }
@@ -180,23 +180,20 @@ if ($Args.Length -gt 0) {
     exit 0
   }
 
-  ## ## Run prettier
-  if ($Args[0] -eq "--tgui-polyfill") {
-    $Rest = $Args | Select-Object -Skip 1
-    task-install
-    task-polyfill @Rest
+  if ($Args[0] -eq "--sdks") {
+    task-editor-sdk
     exit 0
   }
 }
 
-## Make a production webpack build
+## Make a production rspack build
 if ($Args.Length -eq 0) {
   task-install
   task-lint --fix
-  task-webpack --mode=production
+  task-rspack --mode=production
   exit 0
 }
 
-## Run webpack with custom flags
+## Run rspack with custom flags
 task-install
-task-webpack @Args
+task-rspack @Args

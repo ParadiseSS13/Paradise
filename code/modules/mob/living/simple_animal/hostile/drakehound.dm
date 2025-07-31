@@ -9,7 +9,6 @@
 	speak_chance = 1
 	turns_per_move = 3
 	response_help = "pushes the"
-	response_disarm = "shoves"
 	response_harm = "slashes"
 	speed = 0
 	maxHealth = 100

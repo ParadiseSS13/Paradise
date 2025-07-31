@@ -41,7 +41,6 @@ GLOBAL_DATUM_INIT(firealarm_soundloop, /datum/looping_sound/firealarm, new(list(
 	mid_sounds = list('sound/machines/kitchen/microwave_mid1.ogg' = 10, 'sound/machines/kitchen/microwave_mid2.ogg' = 1)
 	mid_length = 15
 	end_sound = 'sound/machines/kitchen/microwave_end.ogg'
-	volume = 100
 
 /datum/looping_sound/kitchen/deep_fryer
 	start_sound = 'sound/machines/kitchen/deep_fryer_immerse.ogg'

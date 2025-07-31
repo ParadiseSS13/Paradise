@@ -27698,7 +27698,6 @@
 	},
 /area/station/hallway/primary/central/south)
 "cGZ" = (
-/obj/machinery/iv_drip,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -64276,7 +64275,7 @@
 /area/station/science/research)
 "oyY" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/hostile/retaliate/araneus,
+/mob/living/basic/giant_spider/araneus,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -81957,7 +81956,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/structure/closet/paramedic,
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"

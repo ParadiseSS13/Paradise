@@ -9,7 +9,6 @@
 	action_icon_state = "camera_bug"
 	base_cost = 50
 	static_upgrade_increase = 15
-	stage = 1
 	max_level = 4
 	upgrade_info = "Upgrades increase the amount of computers you can hack by 6."
 	/// An internal camera bug
@@ -66,7 +65,6 @@
 	desc = "Allows for the configuration of our vocal modulator to sound like a different person. We can amplify our voice slightly as well."
 	action_icon = 'icons/obj/clothing/masks.dmi'
 	action_icon_state = "voice_modulator"
-	power_type = FLAYER_UNOBTAINABLE_POWER
 	category = FLAYER_CATEGORY_INTRUDER
 	base_cooldown = 1 SECONDS
 	base_cost = 40
