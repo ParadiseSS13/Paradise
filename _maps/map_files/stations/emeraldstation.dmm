@@ -115092,7 +115092,7 @@
 /area/station/hallway/primary/central/south)
 "wTx" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/killertomato,
+/mob/living/basic/killertomato,
 /obj/item/shovel/spade,
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/starboard)
@@ -121790,7 +121790,7 @@
 	},
 /area/station/supply/storage)
 "ylD" = (
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+/mob/living/basic/gorilla/cargo_domestic{
 	name = "Forklift"
 	},
 /obj/structure/cable{

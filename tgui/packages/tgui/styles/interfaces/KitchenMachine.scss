@@ -1,6 +1,6 @@
 .Ingredient__Table {
   tr:nth-child(even) {
-    background-color: hsl(from var(--color-base) h s calc(l + var(--adjust-color)));
+    background-color: hsla(from var(--color-base) h s calc(l + var(--adjust-color)) / 0.5);
   }
 
   td {
