@@ -1,0 +1,16 @@
+.materials-table tr > *:nth-child(2),
+.materials-table tr > *:nth-child(3) {
+  text-align: center;
+}
+
+.materials-table tr td,
+.materials-table tr th {
+  padding: 0;
+}
+
+.materials-table tr:first-child td {
+  position: sticky;
+  top: 0;
+
+  background-color: hsla(from var(--color-section) h s 7 / 1);
+}

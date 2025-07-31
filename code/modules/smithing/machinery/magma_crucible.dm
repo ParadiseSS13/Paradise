@@ -123,6 +123,16 @@
 		pouring = FALSE
 		update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/magma_crucible/attack_ghost(mob/dead/observer/user)
+	if(..())
+		return TRUE
+	ui_interact(user)
+
+/obj/machinery/magma_crucible/attack_hand(mob/user)
+	if(..())
+		return TRUE
+	ui_interact(user)
+
 /obj/machinery/magma_crucible/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -145,3 +155,22 @@
 			continue
 		msgs += "[M.name]: [floor(M.amount / MINERAL_MATERIAL_AMOUNT)] sheets."
 	to_chat(user, chat_box_regular(msgs.Join("<br>")))
+
+/obj/machinery/magma_crucible/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/magma_crucible/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "MaterialContainer", name)
+		ui.open()
+
+/obj/machinery/magma_crucible/ui_data(mob/user)
+	..()
+	var/datum/component/material_container/material_container = GetComponent(/datum/component/material_container)
+	return material_container.get_ui_data(user)
+
+/obj/machinery/magma_crucible/ui_static_data(mob/user)
+	..()
+	var/datum/component/material_container/material_container = GetComponent(/datum/component/material_container)
+	return material_container.get_ui_static_data(user)
