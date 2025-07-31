@@ -299,7 +299,13 @@ export function ColorInput(props: ColorInputBaseProps) {
   }, [color, escape]);
 
   return (
-    <Input fluid={fluid} value={format ? format(localValue) : localValue} onChange={handleChange} onBlur={handleBlur} />
+    <Input
+      fluid={fluid}
+      value={format ? format(localValue) : localValue}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      fontFamily="monospace"
+    />
   );
 }
 
