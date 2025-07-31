@@ -226,11 +226,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 		SSai_controllers.ai_controllers_by_zlevel[old_turf.z] -= src
 	if(new_turf)
 		SSai_controllers.ai_controllers_by_zlevel[new_turf.z] += src
-		var/new_level_clients = length(SSmobs.clients_by_zlevel[new_turf.z])
-		if(new_level_clients)
-			set_ai_status(AI_STATUS_IDLE)
-		else
-			set_ai_status(AI_STATUS_OFF)
+		reset_ai_status()
 
 /// Abstract proc for initializing the pawn to the new controller
 /datum/ai_controller/proc/try_possess_pawn(atom/new_pawn)
