@@ -37436,7 +37436,6 @@
 /area/station/engineering/engine/supermatter)
 "flH" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
