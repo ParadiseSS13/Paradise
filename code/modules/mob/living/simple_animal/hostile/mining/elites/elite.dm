@@ -102,15 +102,15 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /datum/action/innate/elite_attack
 	name = "Elite Attack"
-	button_overlay_icon = 'icons/mob/actions/actions_elites.dmi'
-	button_overlay_icon_state = ""
-	button_background_icon_state = "bg_default"
+	button_icon = 'icons/mob/actions/actions_elites.dmi'
+	button_icon_state = ""
+	background_icon_state = "bg_default"
 	///The displayed message into chat when this attack is selected
 	var/chosen_message
 	///The internal attack ID for the elite's OpenFire() proc to use
 	var/chosen_attack_num = 0
 
-/datum/action/innate/elite_attack/CreateButton()
+/datum/action/innate/elite_attack/create_button()
 	var/atom/movable/screen/movable/action_button/button = ..()
 	button.maptext = ""
 	button.maptext_x = 8
@@ -124,11 +124,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		STOP_PROCESSING(SSfastprocess, src)
 		qdel(src)
 		return
-	UpdateButtons()
+	build_all_button_icons()
 
-/datum/action/innate/elite_attack/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+/datum/action/innate/elite_attack/build_button_icon(atom/movable/screen/movable/action_button/button, update_flags, force)
 	. = ..()
-	if(status_only)
+	if(update_flags & UPDATE_BUTTON_STATUS)
 		return
 	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
 	var/timeleft = max(elite_owner.ranged_cooldown - world.time, 0)

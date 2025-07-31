@@ -51,8 +51,10 @@ export const TelescienceConsole = (properties) => {
                     maxValue={360}
                     disabled={working}
                     value={current_bearing}
-                    onDrag={(value) => setDummyRot(value)}
-                    onChange={(value) => act('setbear', { bear: value })}
+                    onChange={(value) => {
+                      setDummyRot(value);
+                      act('setbear', { bear: value });
+                    }}
                   />
                   <Icon ml={1} size={1} name="arrow-up" rotation={dummyRot} />
                 </Box>
