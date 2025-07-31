@@ -455,6 +455,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define DOGGO_SPACESUIT "doggo_spacesuit"
 #define FLOORCLUWNE "floorcluwne"
 #define LOCKDOWN_TRAIT "lockdown"
+#define VEHICLE_TRAIT "vehicle"
 #define STAT_TRAIT "stat_trait"
 #define TRANSFORMING_TRAIT "transforming"
 #define BUCKLING_TRAIT "buckled"
@@ -466,6 +467,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define HOLO_CIGAR "holo_cigar"
 #define GLADIATOR "gladiator"
 #define PULSEDEMON_TRAIT "pulse_demon"
+#define TRAIT_CLOWN_CAR_SQUISHED "squished_by_car"
 /// Mentor observing
 #define MENTOR_OBSERVING "mobserving"
 #define TIPPED_OVER "tipped_over"
