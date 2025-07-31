@@ -40,8 +40,7 @@
 	}																	\
 	/obj/effect/turf_decal/trimline/##color_name {						\
 		icon_state = "trimline_box";									\
-		color = ##tile_color;											\
-		painter_category = DECAL_PAINTER_CATEGORY_THIN					\
+		color = ##tile_color											\
 	}																	\
 	/obj/effect/turf_decal/trimline/##color_name/line {					\
 		icon_state = "trimline"											\
