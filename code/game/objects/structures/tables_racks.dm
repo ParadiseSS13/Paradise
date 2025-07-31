@@ -806,7 +806,6 @@
 	framestack = /obj/item/stack/tile/brass
 	buildstack = /obj/item/stack/tile/brass
 	framestackamount = 1
-	buildstackamount = 1
 	smoothing_groups = list(SMOOTH_GROUP_BRASS_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
 	canSmoothWith = list(SMOOTH_GROUP_BRASS_TABLES)
 
@@ -1016,7 +1015,6 @@
 /obj/item/rack_parts
 	name = "rack parts"
 	desc = "Parts of a rack."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
 	flags = CONDUCT
 	materials = list(MAT_METAL=2000)

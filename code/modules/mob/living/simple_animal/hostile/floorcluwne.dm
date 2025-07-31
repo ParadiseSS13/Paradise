@@ -15,7 +15,6 @@
 	maxHealth = 200
 	health = 200
 	speed = -1
-	attacktext = "attacks"
 	anchored = TRUE
 	attack_sound = 'sound/items/bikehorn.ogg'
 	del_on_death = TRUE

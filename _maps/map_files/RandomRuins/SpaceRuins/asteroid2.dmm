@@ -24,7 +24,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "V" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/template_noop)
 

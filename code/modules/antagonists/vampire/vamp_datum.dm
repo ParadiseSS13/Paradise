@@ -30,7 +30,6 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
 	blurb_text_color = COLOR_RED
-	blurb_text_outline_width = 0
 	blurb_r = 255
 	blurb_g = 221
 	blurb_b = 138
@@ -302,7 +301,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	check_vampire_upgrade(TRUE)
 	for(var/datum/spell/S in powers)
 		if(S.action)
-			S.action.UpdateButtons()
+			S.action.build_all_button_icons()
 
 /**
  * Safely subtract vampire's bloodusable. Clamped between 0 and bloodtotal.

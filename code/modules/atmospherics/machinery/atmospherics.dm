@@ -11,8 +11,6 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF
-	max_integrity = 200
-	plane = GAME_PLANE
 	power_state = NO_POWER_USE
 	power_channel = PW_CHANNEL_ENVIRONMENT
 	on_blueprints = TRUE

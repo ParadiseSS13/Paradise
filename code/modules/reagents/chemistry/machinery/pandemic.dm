@@ -1,8 +1,6 @@
 /obj/machinery/computer/pandemic
 	name = "PanD.E.M.I.C 2200"
 	desc = "Used to work with viruses."
-	density = TRUE
-	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "pandemic0"
 	circuit = /obj/item/circuitboard/pandemic

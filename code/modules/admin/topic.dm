@@ -1722,20 +1722,24 @@
 		show_player_panel(M)
 
 	else if(href_list["adminplayerobservefollow"])
+		if(isnewplayer(usr))
+			to_chat(usr, "<span class='warning'>You cannot follow anyone from the lobby!</span>")
+			return
+
 		var/client/C = usr.client
 		if(!isobserver(usr))
-			if(!check_rights(R_ADMIN|R_MOD)) // Need to be mod or admin to aghost
+			if(!check_rights(R_ADMIN|R_MOD, show_msg=FALSE)) // Need to be mod or admin to aghost
+				to_chat(usr, "<span class='warning'>You must be an observer to follow someone!</span>")
 				return
 			C.admin_ghost()
-		var/mob/M = locateUID(href_list["adminplayerobservefollow"])
 
-		if(!ismob(M))
+		var/mob/target = locateUID(href_list["adminplayerobservefollow"])
+		if(!ismob(target))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
-		var/mob/dead/observer/A = C.mob
-		sleep(2)
-		A.ManualFollow(M)
+		var/mob/dead/observer/ghost = C.mob
+		ghost.ManualFollow(target)
 
 	else if(href_list["check_antagonist"])
 		check_antagonists()

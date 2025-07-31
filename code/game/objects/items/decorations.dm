@@ -218,7 +218,6 @@
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = ""
 	density = TRUE
-	anchored = FALSE
 	max_integrity = 100
 
 /obj/structure/decorative_structures/wrench_act(mob/user, obj/item/I)

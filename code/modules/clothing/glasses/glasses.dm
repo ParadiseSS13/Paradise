@@ -180,7 +180,6 @@
 	name = "night vision science goggles"
 	desc = "Now you can science in darkness."
 	icon_state = "nvpurple"
-	item_state = "glasses"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
@@ -292,7 +291,6 @@
 		)
 
 /obj/item/clothing/glasses/regular/hipster
-	name = "prescription glasses"
 	desc = "Made by Uncool. Co."
 	icon_state = "hipster_glasses"
 	item_state = "hipster_glasses"
@@ -361,9 +359,6 @@
 	desc = "Cheap, plastic sunglasses. They don't even have UV protection."
 	icon_state = "sun"
 	item_state = "sunglasses"
-	see_in_dark = 0
-	flash_protect = FLASH_PROTECTION_NONE
-	tint = FLASH_PROTECTION_NONE
 	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
@@ -471,7 +466,6 @@
 	desc = "Welding goggles made from more expensive materials, strangely smells like potatoes."
 	icon_state = "rwelding-g"
 	item_state = "rwelding-g"
-	flash_protect = FLASH_PROTECTION_WELDER
 	tint = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/glasses/sunglasses/blindfold

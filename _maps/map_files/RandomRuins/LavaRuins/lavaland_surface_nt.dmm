@@ -1714,8 +1714,9 @@
 	},
 /area/mine/outpost/hallway/west)
 "jQ" = (
-/obj/machinery/door/airlock/multi_tile/glass/directional/north{
-	name = "Main Airlock"
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Main Airlock";
+	dir = 4
 	},
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
@@ -3963,7 +3964,7 @@
 /area/mine/outpost/production)
 "vP" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/multi_tile/glass/directional/east{
+/obj/machinery/door/airlock/multi_tile/glass{
 	name = "Main Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
