@@ -1512,7 +1512,3 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	attack_info.last_attacker_ckey = attacker.ckey
 	if(istype(weapon))
 		attack_info.last_attacker_weapon = "[weapon] ([weapon.type])"
-
-/// Called after the atom is 'tamed' for type-specific operations, Usually called by the tameable component but also other things.
-/atom/proc/tamed(mob/living/tamer, obj/item/food)
-	return

@@ -1,16 +1,16 @@
-///This component lets you make specific mobs tameable by feeding them
+/// This component lets you make specific mobs tameable by feeding them
 /datum/component/tameable
-	///If true, this atom can only be domesticated by one person
+	/// If true, this atom can only be domesticated by one person
 	var/unique
-	///Starting success chance for taming.
+	/// Starting success chance for taming.
 	var/tame_chance
-	///Added success chance after every failed tame attempt.
+	/// Added success chance after every failed tame attempt.
 	var/bonus_tame_chance
-	///Current chance to tame on interaction
+	/// Current chance to tame on interaction
 	var/current_tame_chance
 
 /datum/component/tameable/Initialize(food_types, tame_chance, bonus_tame_chance, unique = TRUE)
-	if(!isatom(parent)) //yes, you could make a tameable toolbox.
+	if(!ismob(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	if(tame_chance)
@@ -32,7 +32,7 @@
 		return
 
 	var/inform_tamer = FALSE
-	if(prob(current_tame_chance)) //note: lack of feedback message is deliberate, keep them guessing unless they're an expert!
+	if(prob(current_tame_chance)) // note: lack of feedback message is deliberate, keep them guessing unless they're an expert!
 		on_tame(source, attacker, food, inform_tamer)
 	else
 		current_tame_chance += bonus_tame_chance
@@ -45,8 +45,8 @@
 	var/living_parent_id = living_parent.UID()
 	return living_parent.faction.Find(living_parent_id)
 
-///Ran once taming succeeds
-/datum/component/tameable/proc/on_tame(atom/source, mob/living/tamer, obj/item/food, inform_tamer = FALSE)
+/// Ran once taming succeeds
+/datum/component/tameable/proc/on_tame(mob/source, mob/living/tamer, obj/item/food, inform_tamer = FALSE)
 	SIGNAL_HANDLER
 	source.tamed(tamer, food)//Run custom behavior if needed
 

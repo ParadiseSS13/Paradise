@@ -25,7 +25,7 @@
 /obj/item/gun/projectile/automatic/pistol/APS/@SUBTYPES : /obj/item/gun/projectile/automatic/pistol/aps/@SUBTYPES{@OLD}
 /datum/mapGeneratorModule/border/syndieWalls/@SUBTYPES : /datum/map_generator_module/border/syndie_walls/@SUBTYPES{@OLD}
 /mob/living/simple_animal/pet/dog/corgi/Lisa/@SUBTYPES : /mob/living/simple_animal/pet/dog/corgi/lisa/@SUBTYPES{@OLD}
-/mob/living/basic/mouse/white/Brain/@SUBTYPES : /mob/living/basic/mouse/white/brain/@SUBTYPES{@OLD}
+/mob/living/simple_animal/mouse/white/Brain/@SUBTYPES : /mob/living/basic/simple_animal/white/brain/@SUBTYPES{@OLD}
 /mob/living/simple_animal/pet/dog/corgi/Ian/@SUBTYPES : /mob/living/simple_animal/pet/dog/corgi/ian/@SUBTYPES{@OLD}
 /area/station/security/prison/cell_block/A/@SUBTYPES : /area/station/security/prison/cell_block/a/@SUBTYPES{@OLD}
 /obj/item/food/sliceable/SmokedSalmon_maki/@SUBTYPES : /obj/item/food/sliceable/smoked_salmon_maki/@SUBTYPES{@OLD}
