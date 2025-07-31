@@ -2421,7 +2421,6 @@
 #include "code\modules\mob\living\basic\hostile\carp.dm"
 #include "code\modules\mob\living\basic\hostile\drakehound.dm"
 #include "code\modules\mob\living\basic\hostile\pirate.dm"
-#include "code\modules\mob\living\basic\hostile\skeleton_mob.dm"
 #include "code\modules\mob\living\basic\hostile\soviet.dm"
 #include "code\modules\mob\living\basic\hostile\hivebot.dm"
 #include "code\modules\mob\living\basic\hostile\hivebot_ai.dm"
