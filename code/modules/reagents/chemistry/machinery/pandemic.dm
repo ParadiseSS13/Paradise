@@ -12,6 +12,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	icon_state = "pandemic0"
 	idle_power_consumption = 20
 	resistance_flags = ACID_PROOF
+	density = TRUE
 	/// The base analysis time which is later modified by samples of uniqute stages and symptom prediction
 	var/base_analaysis_time = ANALYSIS_TIME_BASE
 	/// Amount of time it would take to analyze the current disease, before guessing symptoms. -1 means either no disease or that it doesn't require analysis.
@@ -35,6 +36,15 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	var/wait = null
 	var/selected_strain_index = 1
 	var/obj/item/reagent_containers/beaker = null
+	/// The current symptom predictions
+	var/list/predictions = list(
+	"No Prediction",
+	"No Prediction",
+	"No Prediction",
+	"No Prediction",
+	"No Prediction",
+	"No Prediction"
+	)
 
 /obj/machinery/pandemic/Initialize(mapload)
 	. = ..()
@@ -201,16 +211,16 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	analyzing = TRUE
 	analyzed_ID = disease_ID
 	var/symptom_names = list()
-	var/symptom_guesses = list()
+	var/predicted_symptoms = list()
 	var/correct_prediction_count = 0
 	for(var/symptom in symptoms)
 		symptom_names += list(symptom["name"])
-		symptom_guesses += list(symptom["guess"])
-	for(var/name in symptom_guesses)
-		if(!name || name == "No Prediction")
+	for(var/name in predictions)
+		if(!name || name == "No Prediction" || (name in predicted_symptoms))
 			continue
 		if(name in symptom_names)
 			correct_prediction_count++
+			predicted_symptoms += name
 		else
 			accumulated_error["[z]"] += 3 MINUTES
 	// Correct symptom symptom_guesses reduce the final analysis time by up to half of the base time.
@@ -387,8 +397,14 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 			selected_strain_index = strain_index;
 		if("analyze_strain")
 			analyze(params["strain_id"], params["symptoms"])
+		if("set_prediction")
+			set_predictions(text2num(params["pred_index"]), params["pred_value"])
+			SStgui.update_uis(src)
 		else
 			return FALSE
+
+/obj/machinery/pandemic/proc/set_predictions(index, value)
+	predictions[index] = value
 
 /obj/machinery/pandemic/ui_state(mob/user)
 	return GLOB.default_state
@@ -428,6 +444,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		"analysisTimeDelta" = analysis_time_delta + accumulated_error["[z]"],
 		"analyzing" = analyzing,
 		"symptom_names" = symptom_list,
+		"predictions" = predictions,
 	)
 
 	return data
@@ -489,7 +506,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 			"bloodType" = Blood.data["blood_type"],
 			"diseaseAgent" = blood_disease.agent,
 			"possibleTreatments" = known ? blood_disease.cure_text : "Unknown strain",
-			"RequiredCures" = blood_disease.get_required_cures(),
+			"RequiredCures" = "[blood_disease.get_required_cures()]",
 			"Stabilized" = blood_disease.is_stabilized(),
 			"StrainTracker" = blood_disease.get_tracker(),
 			"transmissionRoute" = known ? blood_disease.spread_text : "Unknown strain",

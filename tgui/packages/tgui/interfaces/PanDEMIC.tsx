@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
-import { Button, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from 'tgui-core/components';
+import { Button, Dropdown, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from 'tgui-core/components';
 import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
-import { Window } from '../layouts';
 import { Operating } from '../interfaces/common/Operating';
+import { Window } from '../layouts';
 
 interface BaseStats {
   stealth: number;
@@ -34,10 +34,10 @@ interface PathogenStrain {
   diseaseAgent: string;
   possibleTreatments?: string;
   transmissionRoute?: string;
-  symptoms?: PathogenSymptom[];
-  baseStats?: BaseStats;
+  symptoms: PathogenSymptom[];
+  baseStats: BaseStats;
   isAdvanced: BooleanLike;
-  RequiredCures: Number;
+  RequiredCures: string;
   Stabilized: BooleanLike;
   StrainTracker: string;
 }
@@ -47,22 +47,22 @@ interface PanDEMICData {
   beakerLoaded: BooleanLike;
   beakerContainsBlood: BooleanLike;
   beakerContainsVirus: BooleanLike;
-  calibrating: BooleanLike;
+  calibrating: boolean;
   canCalibrate: BooleanLike;
   selectedStrainIndex: number;
-  strains?: PathogenStrain[];
-  resistances?: string[];
+  strains: PathogenStrain[];
+  resistances: string[];
   analysisTimeDelta: number;
   analysisTime: number;
   accumulatedError: number;
-  analyzing: BooleanLike;
+  analyzing: boolean;
   symptom_names: string[];
+  predictions: string[];
 }
 
 export const PanDEMIC = (props) => {
   const { data } = useBackend<PanDEMICData>();
   const { beakerLoaded, beakerContainsBlood, beakerContainsVirus, calibrating, resistances = [] } = data;
-
   let emptyPlaceholder;
   if (!beakerLoaded) {
     emptyPlaceholder = <>No container loaded.</>;
@@ -179,88 +179,88 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
           onClick={() => act('name_strain', { strain_index: props.strainIndex })}
           style={{ marginLeft: 'auto' }}
         />
-      </Stack>
-    );
-  }
-  let analyzeButton;
-  let removeDataButton;
-  if (isAdvanced) {
-    analyzeButton = (
-      <Button
-        content="Analyze"
-        disabled={analysisTimeDelta < 0 || analyzing}
-        onClick={() => act('analyze_strain', { strain_id: props.strain.diseaseID, symptoms: props.strain.symptoms })}
-      />
-    );
-    removeDataButton = (
-      <Button.Confirm
-        icon={'trash-alt'}
-        confirmIcon="eraser"
-        content="Delete Data"
-        confirmContent="Delete Data"
-        disabled={!props.strain.known}
-        onClick={() => act('remove_from_database', { strain_id: props.strain.strainFullID })}
-      />
-    );
-  }
+      );
+    }
+    let analyzeButton;
+    let removeDataButton;
+    if (isAdvanced) {
+      analyzeButton = (
+        <Button
+          content="Analyze"
+          disabled={analysisTimeDelta < 0 || analyzing}
+          onClick={() => act('analyze_strain', { strain_id: props.strain.diseaseID, symptoms: props.strain.symptoms })}
+        />
+      );
+      removeDataButton = (
+        <Button.Confirm
+          icon={'trash-alt'}
+          confirmIcon="eraser"
+          content="Delete Data"
+          confirmContent="Delete Data"
+          disabled={!props.strain.known}
+          onClick={() => act('remove_from_database', { strain_id: props.strain.strainFullID })}
+        />
+      );
+    }
 
-  return (
-    <Stack vertical>
-      <Stack horizontal align="left">
-        {nameButtons}
-        {analyzeButton}
-        {removeDataButton}
-      </Stack>
-      <LabeledList>
-        <LabeledList.Item label="Common Name" className="common-name-label">
-          {commonName ?? 'Unknown'}
-        </LabeledList.Item>
-        {
-          <LabeledList.Item label="Analysis Time">
-            {analyzing
-              ? (analysisTime < 6000 ? '0' : '') +
-                Math.floor(analysisTime / 600) +
-                ':' +
-                (Math.floor((analysisTime / 10) % 60) < 10 ? '0' : '') +
-                Math.floor((analysisTime / 10) % 60)
-              : analysisTimeDelta >= 0
-                ? (analysisTimeDelta < 6000 ? '0' : '') +
-                  Math.floor(analysisTimeDelta / 600) +
+    return (
+      <Stack vertical>
+        <Stack align="left">
+          {nameButtons}
+          {analyzeButton}
+          {removeDataButton}
+        </Stack>
+        <LabeledList>
+          <LabeledList.Item label="Common Name" className="common-name-label">
+            {commonName ?? 'Unknown'}
+          </LabeledList.Item>
+          {
+            <LabeledList.Item label="Analysis Time">
+              {analyzing
+                ? (analysisTime < 6000 ? '0' : '') +
+                  Math.floor(analysisTime / 600) +
                   ':' +
-                  (Math.floor((analysisTimeDelta / 10) % 60) < 10 ? '0' : '') +
-                  Math.floor((analysisTimeDelta / 10) % 60)
-                : analysisTimeDelta === -1
-                  ? 'Strain Data Is Present In Database'
-                  : 'Multiple Strains Detected. Analysis Impossible'}
+                  (Math.floor((analysisTime / 10) % 60) < 10 ? '0' : '') +
+                  Math.floor((analysisTime / 10) % 60)
+                : analysisTimeDelta >= 0
+                  ? (analysisTimeDelta < 6000 ? '0' : '') +
+                    Math.floor(analysisTimeDelta / 600) +
+                    ':' +
+                    (Math.floor((analysisTimeDelta / 10) % 60) < 10 ? '0' : '') +
+                    Math.floor((analysisTimeDelta / 10) % 60)
+                  : analysisTimeDelta === -1
+                    ? 'Strain Data Is Present In Database'
+                    : 'Multiple Strains Detected. Analysis Impossible'}
+            </LabeledList.Item>
+          }
+          <LabeledList.Item label="Time From Accumulated Error">
+            {(accumulatedError < 6000 ? '0' : '') +
+              Math.floor(accumulatedError / 600) +
+              ':' +
+              (Math.floor((accumulatedError / 10) % 60) < 10 ? '0' : '') +
+              Math.floor((accumulatedError / 10) % 60)}
           </LabeledList.Item>
-        }
-        <LabeledList.Item label="Time From Accumulated Error">
-          {(accumulatedError < 6000 ? '0' : '') +
-            Math.floor(accumulatedError / 600) +
-            ':' +
-            (Math.floor((accumulatedError / 10) % 60) < 10 ? '0' : '') +
-            Math.floor((accumulatedError / 10) % 60)}
-        </LabeledList.Item>
 
-        {description && <LabeledList.Item label="Description">{description}</LabeledList.Item>}
-        <LabeledList.Item label="Strain ID">{strainID}</LabeledList.Item>
-        <LabeledList.Item label="Sample Stage">{sample_stage}</LabeledList.Item>
-        <LabeledList.Item label="Disease Agent">{diseaseAgent}</LabeledList.Item>
-        {bloodInformation}
-        <LabeledList.Item label="Spread Vector">{transmissionRoute ?? 'None'}</LabeledList.Item>
-        <LabeledList.Item label="Possible Cures">{possibleTreatments ?? 'None'}</LabeledList.Item>
-        <LabeledList.Item label="Required Cures">{RequiredCures ?? 'None'}</LabeledList.Item>
-        {isAdvanced ? <LabeledList.Item label="Stabilized">{Stabilized === 1 ? 'Yes' : 'No'}</LabeledList.Item> : ''}
-        {isAdvanced ? (
-          <LabeledList.Item label="Tracked Strain">
-            {StrainTracker && StrainTracker !== '' ? StrainTracker : 'None'}
-          </LabeledList.Item>
-        ) : (
-          ''
-        )}
-      </LabeledList>
-    </Stack>
-  );
+          {description && <LabeledList.Item label="Description">{description}</LabeledList.Item>}
+          <LabeledList.Item label="Strain ID">{strainID}</LabeledList.Item>
+          <LabeledList.Item label="Sample Stage">{sample_stage}</LabeledList.Item>
+          <LabeledList.Item label="Disease Agent">{diseaseAgent}</LabeledList.Item>
+          {bloodInformation}
+          <LabeledList.Item label="Spread Vector">{transmissionRoute ?? 'None'}</LabeledList.Item>
+          <LabeledList.Item label="Possible Cures">{possibleTreatments ?? 'None'}</LabeledList.Item>
+          <LabeledList.Item label="Required Cures">{RequiredCures ?? 'None'}</LabeledList.Item>
+          {isAdvanced ? <LabeledList.Item label="Stabilized">{Stabilized === 1 ? 'Yes' : 'No'}</LabeledList.Item> : ''}
+          {isAdvanced ? (
+            <LabeledList.Item label="Tracked Strain">
+              {StrainTracker && StrainTracker !== '' ? StrainTracker : 'None'}
+            </LabeledList.Item>
+          ) : (
+            ''
+          )}
+        </LabeledList>
+      </Stack>
+    );
+  }
 };
 
 const StrainInformationSection = (props: {
@@ -349,11 +349,10 @@ const sum = (values: number[]) => {
   return values.reduce((r, value) => r + value, 0);
 };
 
-const StrainSymptomsSection = (props: { className?: string; strain: PathogenStrain }, context) => {
-  const { act, data } = useBackend<PanDEMICData>(context);
-  const { symptom_names, analyzing, analysisTimeDelta } = data;
+const StrainSymptomsSection = (props: { className?: string; strain: PathogenStrain }) => {
+  const { act, data } = useBackend<PanDEMICData>();
+  const { predictions, symptom_names, analyzing, analysisTimeDelta } = data;
   const { baseStats, symptoms, known } = props.strain;
-
   return (
     <Flex.Item grow>
       <Section title="Infection Symptoms" fill className={props.className}>
@@ -374,9 +373,9 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
                 <Dropdown
                   options={symptom_names.sort((a, b) => a.localeCompare(b))}
                   width="180px"
-                  selected={'No Prediction'}
+                  selected={predictions[index]}
                   disabled={analyzing || analysisTimeDelta === -2}
-                  onSelected={(val) => (symptom.guess = val)}
+                  onSelected={(val) => act('set_prediction', { pred_index: index + 1, pred_value: val })}
                 />
               )}
               <Table.Cell>{symptom.resistance}</Table.Cell>
@@ -395,7 +394,7 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
           </Table.Row>
 
           <Table.Row>
-            <Table.Cell style={{ 'font-weight': 'bold' }}>Total</Table.Cell>
+            <Table.Cell bold>Total</Table.Cell>
             <Table.Cell>{known ? sum(symptoms.map((s) => s.stealth)) + baseStats.stealth : 'UNKNOWN'}</Table.Cell>
             <Table.Cell>{known ? sum(symptoms.map((s) => s.resistance)) + baseStats.resistance : 'UNKNOWN'}</Table.Cell>
             <Table.Cell>{known ? sum(symptoms.map((s) => s.stageSpeed)) + baseStats.stageSpeed : 'UNKNOWN'}</Table.Cell>
