@@ -272,8 +272,7 @@
 /// The mouse AI controller
 /datum/ai_controller/basic_controller/mouse
 	blackboard = list( // Always cowardly
-		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic, // Use this to find people to run away from
-		BB_PET_TARGETING_STRATEGY = /datum/targeting_strategy/basic/not_friends,
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic/of_size/larger, // Use this to find people to run away from
 		BB_BASIC_MOB_FLEE_DISTANCE = 3,
 	)
 
