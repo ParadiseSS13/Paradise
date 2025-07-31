@@ -868,7 +868,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "alr" = (
-/mob/living/simple_animal/mouse/brown/tom,
+/mob/living/basic/mouse/brown/tom,
 /turf/simulated/floor/greengrid,
 /area/station/command/vault)
 "alG" = (
@@ -17178,7 +17178,7 @@
 /area/station/maintenance/security/fore)
 "dut" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/mouse/white/brain,
+/mob/living/basic/mouse/white/brain,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/disposalpipe/segment{
 	dir = 4
