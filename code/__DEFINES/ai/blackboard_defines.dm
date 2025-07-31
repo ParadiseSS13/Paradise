@@ -85,6 +85,12 @@
 /// key holding a range to look for vents (recommended: 10)
 #define BB_VENT_SEARCH_RANGE "BB_VENT_SEARCH_RANGE"
 
+// Ranged
+/// Minimum range to keep target within
+#define BB_RANGED_SKIRMISH_MIN_DISTANCE "BB_ranged_skirmish_min_distance"
+/// Maximum range to keep target within
+#define BB_RANGED_SKIRMISH_MAX_DISTANCE "BB_ranged_skirmish_max_distance"
+
 // Tipped blackboards
 
 /// Bool that means a basic mob will start reacting to being tipped in its planning
@@ -143,6 +149,9 @@
 /// List of strings used to apologize for attacking friends.
 #define BB_OWNER_FRIENDLY_FIRE_APOLOGIES "BB_FF_APOLOGIES"
 
+// Hivebot keys
+/// the hivebot partner we will go communicate with
+#define BB_HIVE_PARTNER "BB_HIVE_PARTNER"
 
 // Misc
 
@@ -161,3 +170,18 @@
 #define BB_PROWL_TARGET "BB_PROWL_TARGET"
 
 #define BB_TRAVEL_DESTINATION "BB_TRAVEL_DESTINATION"
+
+// Giant Spiders
+/// Our webbing target
+#define BB_SPIDER_WEB_TARGET "BB_spider_web_target"
+/// Key where we store the web-spinning ability
+#define BB_SPIDER_WEB_ACTION "BB_spider_web_action"
+/// Our wrapping target
+#define BB_SPIDER_WRAP_TARGET "BB_spider_wrap_target"
+/// Key where we define the wrapping ability
+#define BB_SPIDER_WRAP_ACTION "BB_spider_wrap_action"
+/// Key where we define the egg laying ability
+#define BB_SPIDER_EGG_LAYING_ACTION "BB_spider_egg_laying_action"
+/// Key used by changelings who control spiders
+#define BB_CHANGELING_SPIDER_ORDER "BB_changeling_spider_order"
+
