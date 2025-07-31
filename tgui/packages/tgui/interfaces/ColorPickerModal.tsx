@@ -5,8 +5,8 @@
  */
 
 import { hexToHsva, HsvaColor, hsvaToHex, hsvaToHslString, hsvaToRgba, rgbaToHsva, validHex } from 'common/color';
-import { FocusEvent, FormEvent, ReactNode, useEffect, useRef, useState } from 'react';
-import { Autofocus, Box, LabeledList, NumberInput, Section, Stack, Tooltip } from 'tgui-core/components';
+import { ReactNode, useEffect, useState } from 'react';
+import { Autofocus, Box, Input, LabeledList, NumberInput, Section, Stack, Tooltip } from 'tgui-core/components';
 import { clamp } from 'tgui-core/math';
 import { classes } from 'tgui-core/react';
 
@@ -274,40 +274,32 @@ interface ColorInputBaseProps {
 
 export function ColorInput(props: ColorInputBaseProps) {
   const { fluid, color, escape, format, validate, onChange } = props;
-  const localValue = useRef<string>(escape(color));
+  const [localValue, setLocalValue] = useState<string>(escape(color));
 
-  // Trigger `onChange` handler only if the input value is a valid color
-  function handleInput(event: FormEvent<HTMLInputElement>) {
-    const inputValue = escape(event.currentTarget.value);
-    localValue.current = inputValue;
+  // do not escape dirty input
+  function handleChange(value: string) {
+    setLocalValue(value);
   }
 
   // Take the color from props if the last typed color (in local state) is not valid
-  function handleBlur(event: FocusEvent<HTMLInputElement>) {
-    if (event.currentTarget) {
-      if (!validate(event.currentTarget.value)) {
-        localValue.current = escape(color); // return to default;
-      } else {
-        onChange(escape ? escape(event.currentTarget.value) : event.currentTarget.value);
-      }
+  function handleBlur(value: string) {
+    if (!validate(value)) {
+      setLocalValue(escape(color)); // return to default;
+    } else {
+      const escapedValue = escape(value);
+      setLocalValue(escapedValue);
+      onChange(escapedValue);
     }
   }
 
   useEffect(() => {
-    if (color !== localValue.current) {
-      localValue.current = color;
+    if (color !== localValue) {
+      setLocalValue(escape(color));
     }
   }, [color, escape]);
 
   return (
-    <input
-      className="Input"
-      style={{ width: fluid ? '100%' : 'auto' }}
-      value={format ? format(localValue.current) : localValue.current}
-      spellCheck="false" // the element should not be checked for spelling errors
-      onInput={handleInput}
-      onBlur={handleBlur}
-    />
+    <Input fluid={fluid} value={format ? format(localValue) : localValue} onChange={handleChange} onBlur={handleBlur} />
   );
 }
 
