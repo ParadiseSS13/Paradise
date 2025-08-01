@@ -10,6 +10,7 @@
     "highlight.js": "^11.10.0",
     "jest": "^29.7.0",
     "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21",
     "marked": "^4.3.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -17,6 +18,7 @@
     "tgui-dev-server": "workspace:*"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.20",
     "@types/marked": "4.3.2",
     "@types/react": "^19.1.3",
     "@types/react-dom": "^19.1.3",
