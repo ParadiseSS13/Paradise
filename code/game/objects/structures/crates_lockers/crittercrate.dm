@@ -112,7 +112,7 @@
 
 /obj/structure/closet/critter/nian_caterpillar
 	name = "nian caterpillar crate"
-	content_mob = /mob/living/simple_animal/nian_caterpillar
+	content_mob = /mob/living/basic/nian_caterpillar
 
 /obj/structure/closet/critter/deer
 	name = "deer crate"
