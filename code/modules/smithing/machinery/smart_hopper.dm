@@ -38,7 +38,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 	// Try to link to magma crucible on initialize. Link to the first crucible it can find.
-	for(var/obj/machinery/magma_crucible/crucible in view(2, src))
+	for(var/obj/machinery/magma_crucible/crucible in view(3, src))
 		linked_crucible = crucible
 		linked_crucible.linked_machines |= src
 		return
