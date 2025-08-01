@@ -11,7 +11,7 @@
 	var/shapeshift_type
 	var/list/current_shapes = list()
 	var/list/current_casters = list()
-	var/list/possible_shapes = list(/mob/living/simple_animal/mouse,
+	var/list/possible_shapes = list(/mob/living/basic/mouse,
 		/mob/living/simple_animal/pet/dog/corgi,
 		/mob/living/simple_animal/bot/ed209,
 		/mob/living/simple_animal/hostile/construct/armoured)

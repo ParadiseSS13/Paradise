@@ -13,7 +13,7 @@
 	INVOKE_ASYNC(src, PROC_REF(make_blob))
 
 /datum/event/blob/proc/make_blob()
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, TRUE, source = /mob/living/basic/mouse/blobinfected)
 	if(!length(candidates))
 		return kill()
 
@@ -22,7 +22,7 @@
 		message_admins("Warning: No suitable vents detected for spawning blob mouse. Force picking from station vents regardless of state!")
 		vents = get_valid_vent_spawns(unwelded_only = FALSE, min_network_size = 0)
 	var/obj/vent = pick(vents)
-	var/mob/living/simple_animal/mouse/blobinfected/B = new(vent.loc)
+	var/mob/living/basic/mouse/blobinfected/B = new(vent.loc)
 	var/mob/M = pick(candidates)
 	B.key = M.key
 	dust_if_respawnable(M)
