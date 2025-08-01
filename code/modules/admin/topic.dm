@@ -313,7 +313,7 @@
 					return
 				GLOB.admin_datums -= adm_ckey
 				if(D)
-					D.disassociate()
+					qdel(D)
 
 				if(GLOB.configuration.admin.use_database_admins)
 					var/clear_custom_permissions = alert("Do you also want to clear any custom permissions [adm_ckey] may have?","Message","Yes","No") == "Yes"
@@ -380,11 +380,8 @@
 				return
 
 			if(D)
-				D.disassociate()								//remove adminverbs and unlink from client
-				D.rank = new_rank								//update the rank
-				D.rights = rights								//update the rights based on admin_ranks (default: 0)
-			else
-				D = new /datum/admins(new_rank, rights, adm_ckey)
+				qdel(D)
+			D = new /datum/admins(new_rank, rights, adm_ckey)
 
 			var/client/C = GLOB.directory[adm_ckey]						//find the client with the specified ckey (if they are logged in)
 			D.associate(C)											//link up with the client and add verbs

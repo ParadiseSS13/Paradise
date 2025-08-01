@@ -88,7 +88,7 @@
 		var/list/sorted_ckeys = list()
 		for(var/adm_ckey in GLOB.admin_datums)
 			sorted_ckeys += adm_ckey
-		sortTim(sorted_ckeys)
+		sortTim(sorted_ckeys, cmp = GLOBAL_PROC_REF(cmp_text_asc))
 
 		for(var/adm_ckey in sorted_ckeys)
 			var/datum/admins/D = GLOB.admin_datums[adm_ckey]
