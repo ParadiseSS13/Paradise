@@ -4,7 +4,6 @@
 	icon = 'icons/obj/machines/magma_crucible.dmi'
 	icon_state = "crucible"
 	max_integrity = 300
-	pixel_x = 0	// 3x3
 	pixel_y = -32
 	anchored = TRUE
 	density = TRUE
