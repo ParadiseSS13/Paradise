@@ -623,7 +623,7 @@
 /area/ruin/space/wreck_cargoship)
 "yG" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/retaliate/poison/snake{
+/mob/living/basic/snake{
 	name = "Rattlesnake Hardie";
 	desc = "A relatively menacing looking snake. Despite their intimidating look, they have cute collar attached to their neck. You can't help but think that name sounds familiar from somewhere."
 	},

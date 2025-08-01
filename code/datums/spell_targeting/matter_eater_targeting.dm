@@ -16,7 +16,7 @@
 		/mob/living/simple_animal/slime,
 		/mob/living/simple_animal/chick,
 		/mob/living/simple_animal/chicken,
-		/mob/living/simple_animal/lizard,
+		/mob/living/basic/lizard,
 		/mob/living/basic/cow,
 		/mob/living/simple_animal/spiderbot
 	)
