@@ -268,7 +268,7 @@
 			N.adjustHealth(-2)
 			N.taste(reagents)
 		else if(iscaterpillar(M))
-			var/mob/living/simple_animal/nian_caterpillar/W = M
+			var/mob/living/basic/nian_caterpillar/W = M
 			W.taste(reagents)
 			W.consume(src)
 
