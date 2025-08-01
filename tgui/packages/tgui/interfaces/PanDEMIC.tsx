@@ -1,9 +1,22 @@
 import { ReactNode } from 'react';
-import { Button, Dropdown, Flex, LabeledList, NoticeBox, Section, Stack, Table, Tabs } from 'tgui-core/components';
+import {
+  Button,
+  Dimmer,
+  Dropdown,
+  Flex,
+  Icon,
+  LabeledList,
+  Modal,
+  NoticeBox,
+  ProgressBar,
+  Section,
+  Stack,
+  Table,
+  Tabs,
+} from 'tgui-core/components';
 import { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
-import { Operating } from '../interfaces/common/Operating';
 import { Window } from '../layouts';
 
 interface BaseStats {
@@ -42,27 +55,34 @@ interface PathogenStrain {
   StrainTracker: string;
 }
 
+interface Contribution {
+  factor: string;
+  amount: number;
+  maxAmount: number;
+}
 interface PanDEMICData {
   synthesisCooldown: BooleanLike;
   beakerLoaded: BooleanLike;
   beakerContainsBlood: BooleanLike;
   beakerContainsVirus: BooleanLike;
-  calibrating: boolean;
-  canCalibrate: BooleanLike;
   selectedStrainIndex: number;
   strains: PathogenStrain[];
   resistances: string[];
-  analysisTimeDelta: number;
+  analysisDuration: number;
   analysisTime: number;
-  accumulatedError: number;
+  canAnalyze: boolean;
   analyzing: boolean;
+  reporting: boolean;
+  analysisDifficulty: number;
+  analysisContributions: Contribution[];
+  totalContribution: number;
   symptom_names: string[];
   predictions: string[];
 }
 
 export const PanDEMIC = (props) => {
   const { data } = useBackend<PanDEMICData>();
-  const { beakerLoaded, beakerContainsBlood, beakerContainsVirus, calibrating, resistances = [] } = data;
+  const { reporting, analyzing, beakerLoaded, beakerContainsBlood, beakerContainsVirus, resistances = [] } = data;
   let emptyPlaceholder;
   if (!beakerLoaded) {
     emptyPlaceholder = <>No container loaded.</>;
@@ -76,7 +96,7 @@ export const PanDEMIC = (props) => {
     <Window width={700} height={640}>
       <Window.Content>
         <Stack fill vertical>
-          <Operating operating={calibrating} name="PanD.E.M.I.C" />
+          <AnalysisDimmer operating={analyzing || reporting} name="PanD.E.M.I.C" />
           {emptyPlaceholder && !beakerContainsVirus ? (
             <Section title="Container Information" buttons={<CommonCultureActions fill vertical />}>
               <NoticeBox>{emptyPlaceholder}</NoticeBox>
@@ -91,12 +111,60 @@ export const PanDEMIC = (props) => {
   );
 };
 
+const AnalysisDimmer = (props) => {
+  const { operating } = props;
+  const { act, data } = useBackend<PanDEMICData>();
+  const { analyzing, analysisTime, analysisDuration, analysisDifficulty, totalContribution, analysisContributions } =
+    data;
+  const analysisReport = (
+    <>
+      <LabeledList.Item label="Analysis Difficulty">{Math.ceil(analysisDifficulty)}</LabeledList.Item>
+
+      {analysisContributions.map((contribution, i) => (
+        <LabeledList.Item key={i} label={contribution.factor}>
+          {Math.floor(contribution.amount)}
+        </LabeledList.Item>
+      ))}
+      <LabeledList.Item label="Total">{Math.floor(totalContribution)}</LabeledList.Item>
+      <LabeledList.Item label="Analysis Result">
+        {analysisDifficulty - totalContribution < 0 ? 'Disease Analyzed Successfully' : 'Analysis Failed'}
+      </LabeledList.Item>
+    </>
+  );
+  if (operating) {
+    if (analyzing) {
+      return (
+        <Dimmer>
+          <Flex mb="30px">
+            <Flex.Item bold color="silver" textAlign="center">
+              <Icon name="spinner" spin size={4} mb="15px" />
+              <br />
+              Analyzing {Math.floor(100 - (100 * analysisTime) / analysisDuration)}%
+            </Flex.Item>
+          </Flex>
+        </Dimmer>
+      );
+    }
+    return (
+      <Modal backgroundColor="rgba(0, 0, 0, 1)">
+        <Section title="Analysis Results" backgroundColor="rgba(0, 0, 0, 1)" bold>
+          <Stack vertical>
+            <LabeledList>{analysisReport}</LabeledList>
+            <Button textAlign="center" onClick={() => act('close_report')}>
+              Close
+            </Button>
+          </Stack>
+        </Section>
+      </Modal>
+    );
+  }
+};
+
 const CommonCultureActions = (props) => {
   const { act, data } = useBackend<PanDEMICData>();
-  const { beakerLoaded, canCalibrate } = data;
+  const { beakerLoaded } = data;
   return (
     <>
-      <Button icon="disk" content="Calibrate" disabled={!canCalibrate} onClick={() => act('calibrate')} />
       <Button icon="eject" content="Eject" disabled={!beakerLoaded} onClick={() => act('eject_beaker')} />
       <Button.Confirm
         icon="trash-alt"
@@ -112,7 +180,7 @@ const CommonCultureActions = (props) => {
 
 const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number }) => {
   const { act, data } = useBackend<PanDEMICData>();
-  const { beakerContainsVirus, analysisTime, analysisTimeDelta, accumulatedError, analyzing } = data;
+  const { analysisDifficulty, analysisContributions, beakerContainsVirus, analyzing, canAnalyze } = data;
   const {
     commonName,
     description,
@@ -151,6 +219,35 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
     return <LabeledList>{bloodInformation}</LabeledList>;
   }
 
+  const analysisInformation = (
+    <>
+      <LabeledList.Item label="Analysis Difficulty">{Math.ceil(analysisDifficulty)}</LabeledList.Item>
+      {analysisContributions.map((contribution, i) =>
+        contribution.factor === 'Symptom Prediction Data' ? (
+          ''
+        ) : (
+          <LabeledList.Item key={i} label={contribution.factor}>
+            <ProgressBar
+              maxValue={Math.min(contribution.maxAmount, analysisDifficulty)}
+              minValue={0}
+              value={contribution.amount}
+              ranges={{
+                good: [Math.min(contribution.maxAmount, analysisDifficulty) * 0.66, Infinity],
+                average: [
+                  Math.min(contribution.maxAmount, analysisDifficulty) * 0.33,
+                  Math.min(contribution.maxAmount, analysisDifficulty) * 0.66,
+                ],
+                bad: [-Infinity, Math.min(contribution.maxAmount, analysisDifficulty) * 0.33],
+              }}
+            >
+              {contribution.amount}
+            </ProgressBar>
+          </LabeledList.Item>
+        )
+      )}
+    </>
+  );
+
   let nameButtons;
   if (isAdvanced) {
     if (commonName !== undefined && commonName !== null && commonName !== 'Unknown') {
@@ -187,7 +284,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
       analyzeButton = (
         <Button
           content="Analyze"
-          disabled={analysisTimeDelta < 0 || analyzing}
+          disabled={!canAnalyze || analyzing}
           onClick={() => act('analyze_strain', { strain_id: props.strain.diseaseID, symptoms: props.strain.symptoms })}
         />
       );
@@ -214,35 +311,9 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
           <LabeledList.Item label="Common Name" className="common-name-label">
             {commonName ?? 'Unknown'}
           </LabeledList.Item>
-          {
-            <LabeledList.Item label="Analysis Time">
-              {analyzing
-                ? (analysisTime < 6000 ? '0' : '') +
-                  Math.floor(analysisTime / 600) +
-                  ':' +
-                  (Math.floor((analysisTime / 10) % 60) < 10 ? '0' : '') +
-                  Math.floor((analysisTime / 10) % 60)
-                : analysisTimeDelta >= 0
-                  ? (analysisTimeDelta < 6000 ? '0' : '') +
-                    Math.floor(analysisTimeDelta / 600) +
-                    ':' +
-                    (Math.floor((analysisTimeDelta / 10) % 60) < 10 ? '0' : '') +
-                    Math.floor((analysisTimeDelta / 10) % 60)
-                  : analysisTimeDelta === -1
-                    ? 'Strain Data Is Present In Database'
-                    : 'Multiple Strains Detected. Analysis Impossible'}
-            </LabeledList.Item>
-          }
-          <LabeledList.Item label="Time From Accumulated Error">
-            {(accumulatedError < 6000 ? '0' : '') +
-              Math.floor(accumulatedError / 600) +
-              ':' +
-              (Math.floor((accumulatedError / 10) % 60) < 10 ? '0' : '') +
-              Math.floor((accumulatedError / 10) % 60)}
-          </LabeledList.Item>
-
           {description && <LabeledList.Item label="Description">{description}</LabeledList.Item>}
           <LabeledList.Item label="Strain ID">{strainID}</LabeledList.Item>
+          {canAnalyze ? analysisInformation : ''}
           <LabeledList.Item label="Sample Stage">{sample_stage}</LabeledList.Item>
           <LabeledList.Item label="Disease Agent">{diseaseAgent}</LabeledList.Item>
           {bloodInformation}
@@ -320,26 +391,24 @@ const CultureInformationSection = (props) => {
   return (
     <Stack.Item grow>
       <Section title="Culture Information" fill buttons={sectionButtons}>
-        <Flex direction="column" style={{ height: '100%' }}>
-          <Flex.Item>
-            <Tabs>
-              {strains.map((strain, i) => (
-                <Tabs.Tab
-                  key={i}
-                  icon="virus"
-                  selected={selectedStrainIndex - 1 === i}
-                  onClick={() => act('switch_strain', { strain_index: i + 1 })}
-                >
-                  {strain.commonName ?? 'Unknown'}
-                </Tabs.Tab>
-              ))}
-            </Tabs>
-          </Flex.Item>
-          <StrainInformationSection strain={selectedStrain} strainIndex={selectedStrainIndex} />
-          {selectedStrain.symptoms?.length > 0 && (
-            <StrainSymptomsSection className="remove-section-bottom-padding" strain={selectedStrain} />
-          )}
-        </Flex>
+        <Flex.Item>
+          <Tabs>
+            {strains.map((strain, i) => (
+              <Tabs.Tab
+                key={i}
+                icon="virus"
+                selected={selectedStrainIndex - 1 === i}
+                onClick={() => act('switch_strain', { strain_index: i + 1 })}
+              >
+                {strain.commonName ?? 'Unknown'}
+              </Tabs.Tab>
+            ))}
+          </Tabs>
+        </Flex.Item>
+        <StrainInformationSection strain={selectedStrain} strainIndex={selectedStrainIndex} />
+        {selectedStrain.symptoms?.length > 0 && (
+          <StrainSymptomsSection className="remove-section-bottom-padding" strain={selectedStrain} />
+        )}
       </Section>
     </Stack.Item>
   );
@@ -351,7 +420,7 @@ const sum = (values: number[]) => {
 
 const StrainSymptomsSection = (props: { className?: string; strain: PathogenStrain }) => {
   const { act, data } = useBackend<PanDEMICData>();
-  const { predictions, symptom_names, analyzing, analysisTimeDelta } = data;
+  const { predictions, symptom_names, analyzing, analysisDuration } = data;
   const { baseStats, symptoms, known } = props.strain;
   return (
     <Flex.Item grow>
@@ -374,7 +443,7 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
                   options={symptom_names.sort((a, b) => a.localeCompare(b))}
                   width="180px"
                   selected={predictions[index]}
-                  disabled={analyzing || analysisTimeDelta === -2}
+                  disabled={analyzing || analysisDuration === -2}
                   onSelected={(val) => act('set_prediction', { pred_index: index + 1, pred_value: val })}
                 />
               )}

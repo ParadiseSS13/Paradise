@@ -1,4 +1,7 @@
-#define ANALYSIS_TIME_BASE (90 MINUTES)
+#define ANALYSIS_DIFFICULTY_BASE 100
+#define ANALYSIS_DURATION_BASE (0.5 MINUTES)
+#define STAGE_CONTRIBUTION 40
+#define GENE_CONTRIBUTION 60
 
 /// list of known advanced disease ids. If an advanced disease isn't here it will display as unknown disease on scanners
 /// Initialized with the id of the flu and cold samples from the virologist's fridge in the pandemic's init
@@ -13,20 +16,29 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	idle_power_consumption = 20
 	resistance_flags = ACID_PROOF
 	density = TRUE
+	anchored = TRUE
 	/// The base analysis time which is later modified by samples of uniqute stages and symptom prediction
-	var/base_analaysis_time = ANALYSIS_TIME_BASE
-	/// Amount of time it would take to analyze the current disease, before guessing symptoms. -1 means either no disease or that it doesn't require analysis.
-	var/analysis_time_delta = -1
-	/// The time at which the analysis of a disease will be done. Calculated at the begnining of analysis using analysis_time_delta and symptoms symptom_guesses.
+	var/analysis_difficulty_base = ANALYSIS_DIFFICULTY_BASE
+	/// How difficult the disease is to analyze. This sets the requirements for how much you need to contribute with things like stages and symptom predictions
+	var/analysis_difficulty = 0
+	/// The contribution of various factors towards analysis. The "max" values are only for the UI
+	var/analysis_contributions = list(
+		"Stage Data" = list("amount" = 0, "max" = 5 * STAGE_CONTRIBUTION),
+		"Viral Gene Data" = list("amount" = 0, "max" = 2 * GENE_CONTRIBUTION),
+		"Symptom Prediction Data" = list("amount" = 0, "max" = 0.5 * ANALYSIS_DIFFICULTY_BASE)
+		)
+	/// The time at which the analysis of a disease will be done. Calculated at the begnining of analysis using analysis_difficulty and symptoms symptom_guesses.
 	var/analysis_time
-	/// Amount of time to add to the analysis time. resets upon successful analysis of a disease or by calibrating.
-	var/static/accumulated_error = list()
-	/// List of virus strains and stages already used for calibration.
-	var/static/list/used_calibration = list()
-	/// Whether the machine is calibrating
-	var/calibrating = FALSE
+	/// How much time analysis will take. Depends on components
+	var/analysis_duration
+	/// Is the current analysis successful
+	var/analysis_success = FALSE
 	/// Whether the PANDEMIC is currently analyzing an advanced disease
 	var/analyzing = FALSE
+	/// Whether to keep the report screen up. This is so it can stay persistent while the UI is closed
+	var/reporting = FALSE
+	/// Can our sample be analyzed
+	var/valid_sample = FALSE
 	/// ID of the disease being analyzed
 	var/analyzed_ID = ""
 	/// List of all symptoms. Gets filled in Initialize().
@@ -38,20 +50,20 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	var/obj/item/reagent_containers/beaker = null
 	/// The current symptom predictions
 	var/list/predictions = list(
-	"No Prediction",
-	"No Prediction",
-	"No Prediction",
-	"No Prediction",
-	"No Prediction",
-	"No Prediction"
-	)
+		"No Prediction",
+		"No Prediction",
+		"No Prediction",
+		"No Prediction",
+		"No Prediction",
+		"No Prediction"
+		)
 
 /obj/machinery/pandemic/Initialize(mapload)
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/pandemic(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	RefreshParts()
 
 	GLOB.pandemics |= src
@@ -65,16 +77,19 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	// We init the list for the Z level here so that we can know it is loaded when we do.
 	if(!(z in GLOB.known_advanced_diseases))
 		GLOB.known_advanced_diseases += list("[z]" = list("4:origin", "24:origin"))
-	if(!(z in accumulated_error))
-		accumulated_error += list("[z]" = 0)
-		used_calibration += list("[z]" = list())
 	update_icon()
 
 /obj/machinery/pandemic/RefreshParts()
-	var/total_rating = 0
+	var/manip_rating = 0
+	var/laser_rating = 0
 	for(var/obj/item/stock_parts/manipulator/manip in component_parts)
-		total_rating += manip.rating
-	base_analaysis_time = ANALYSIS_TIME_BASE * (6 / (total_rating + 4))
+		manip_rating += manip.rating
+	for(var/obj/item/stock_parts/micro_laser/laser in component_parts)
+		laser_rating += laser.rating
+
+	analysis_difficulty_base = ANALYSIS_DIFFICULTY_BASE * (9 / (manip_rating + 8))
+	analysis_duration = ANALYSIS_DURATION_BASE * (1 / laser_rating)
+	find_analysis_requirements()
 
 /obj/machinery/pandemic/Destroy()
 	GLOB.pandemics -= src
@@ -145,9 +160,13 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	return B
 
 /// Find the time it would take to analyze the current disease before any symptom predictions are made
-/obj/machinery/pandemic/proc/find_analysis_time_delta()
+/obj/machinery/pandemic/proc/find_analysis_requirements()
+	if(!beaker)
+		return
+	analysis_contributions["Stage Data"]["amount"] = 0
+	analysis_contributions["Viral Gene Data"]["amount"] = 0
+	valid_sample = TRUE
 	var/strains = 0
-	var/stage_amount = 0
 	var/list/stages = list()
 	var/current_strain = ""
 	var/stealth_init = FALSE
@@ -169,11 +188,11 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 			if(to_analyze.strain != current_strain || current_strain == "")
 				strains++
 				if(strains > 1)
-					analysis_time_delta = - 2
+					valid_sample = FALSE
 					SStgui.update_uis(src, TRUE)
 					return
 				current_strain = to_analyze.strain
-			// Figure out the stealth value. We only need to do this once
+			// Calculate the stealth and resistance values. We only need to do this once
 			if(!stealth_init)
 				for(var/datum/symptom/S in to_analyze.symptoms)
 					stealth += S.stealth
@@ -184,31 +203,28 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 				stealth_init = TRUE
 			// If we found a unique stage count it
 			if(!(to_analyze.stage in stages))
-				stage_amount++
+				analysis_contributions["Stage Data"]["amount"] += STAGE_CONTRIBUTION
 				stages += to_analyze.stage
 
 	if(gene_sample && gene_sample.data)
 		for(var/key in gene_sample.data)
 			for(var/strain_id in gene_sample.data[key])
 				if(strain_id == current_strain)
-					stage_amount += 2
+					analysis_contributions["Viral Gene Data"]["amount"] += GENE_CONTRIBUTION
 					break
 
-	var/power_level = max(stealth + resistance, 0)
+	var/power_level = (stealth + resistance)
 	// Make sure we don't runtime if empty
 	if(max_stages)
-		analysis_time_delta = base_analaysis_time * (1 - stage_amount / (stage_amount + clamp(power_level, 1, max_stages)))
+		analysis_difficulty = analysis_difficulty_base * (1.1 ** power_level)
 	else
-		analysis_time_delta = base_analaysis_time
+		analysis_difficulty = analysis_difficulty_base
 	SStgui.update_uis(src, TRUE)
-
-/obj/machinery/pandemic/proc/stop_analysis()
-	analysis_time_delta = -1
-	analyzing = FALSE
-	analyzed_ID = ""
 
 /obj/machinery/pandemic/proc/analyze(disease_ID, symptoms)
 	analyzing = TRUE
+	reporting = TRUE
+	analysis_time = world.time + analysis_duration
 	analyzed_ID = disease_ID
 	var/symptom_names = list()
 	var/predicted_symptoms = list()
@@ -221,44 +237,22 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		if(name in symptom_names)
 			correct_prediction_count++
 			predicted_symptoms += name
-		else
-			accumulated_error["[z]"] += 3 MINUTES
 	// Correct symptom symptom_guesses reduce the final analysis time by up to half of the base time.
-	analysis_time = max(0, analysis_time_delta - base_analaysis_time * correct_prediction_count / (2 * length(symptoms))) + world.time
-	return
+	analysis_contributions["Symptom Prediction Data"]["max"] = analysis_difficulty / 2
+	analysis_contributions["Symptom Prediction Data"]["amount"] = analysis_difficulty * correct_prediction_count / (2 * length(symptoms))
 
-/obj/machinery/pandemic/proc/calibrate()
-	if(!accumulated_error["[z]"])
-		return
-	var/error_reduction
-	for(var/datum/disease/advance/virus in GetViruses())
-		// We can't calibrate using the same strain and stage combination twice
-		if(!(used_calibration["[z]"]["[virus.strain]_[virus.stage]"]))
-			used_calibration["[z]"] += list("[virus.strain]_[virus.stage]" = TRUE)
-			error_reduction += max(accumulated_error["[z]"] / 5, 3 MINUTES)
-	if(error_reduction)
-		calibrating = TRUE
-		SStgui.update_uis(src)
-		spawn(10 SECONDS)
-			accumulated_error["[z]"] = max(accumulated_error["[z]"] - error_reduction, 0)
-			calibrating = FALSE
-			SStgui.update_uis(src)
-	// Reset the list of used viruses if we are fully calibrated
-	if(!accumulated_error["[z]"])
-		used_calibration["[z]"] = list()
+	var/total_contribution = 0
+	for(var/factor in analysis_contributions)
+		total_contribution += analysis_contributions[factor]["amount"]
+
+	return (analysis_difficulty - total_contribution) <= 0
 
 /obj/machinery/pandemic/process()
-	if(analyzing)
-		if(analysis_time_delta < 0)
-			analyzing = FALSE
-			return
-
-		if(analysis_time + accumulated_error["[z]"] < world.time)
+	if(analyzing && analysis_time < world.time)
+		analyzing = FALSE
+		if(analysis_success)
 			GLOB.known_advanced_diseases["[z]"] += analyzed_ID
-			analyzing = FALSE
-			analysis_time_delta = -1
-			accumulated_error["[z]"] = 0
-			SStgui.update_uis(src, TRUE)
+		SStgui.update_uis(src, TRUE)
 
 /obj/machinery/pandemic/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -337,10 +331,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 			if(params["strain_id"] in GLOB.known_advanced_diseases["[z]"])
 				GLOB.known_advanced_diseases["[z]"] -= params["strain_id"]
 				SStgui.update_uis(src, TRUE)
-		if("calibrate")
-			calibrate()
 		if("eject_beaker")
-			stop_analysis()
 			eject_beaker()
 			update_static_data(ui.user)
 		if("destroy_eject_beaker")
@@ -396,10 +387,12 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 				return
 			selected_strain_index = strain_index;
 		if("analyze_strain")
-			analyze(params["strain_id"], params["symptoms"])
+			analysis_success = analyze(params["strain_id"], params["symptoms"])
 		if("set_prediction")
 			set_predictions(text2num(params["pred_index"]), params["pred_value"])
 			SStgui.update_uis(src)
+		if("close_report")
+			reporting = FALSE
 		else
 			return FALSE
 
@@ -417,32 +410,43 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 
 /obj/machinery/pandemic/ui_data(mob/user)
 	var/datum/reagent/blood/Blood = null
+	var/can_analyze = valid_sample
+	var/contribution_list = list()
+	var/contribution_sum = 0
 	if(beaker)
 		var/datum/reagents/R = beaker.reagents
 		for(var/datum/reagent/blood/B in R.reagent_list)
 			if(B)
 				Blood = B
 				break
-	var/can_calibrate = FALSE
-	if(Blood && accumulated_error["[z]"] > 0)
+	if(Blood)
 		if(Blood.data && Blood.data["viruses"])
 			for(var/datum/disease/advance/virus in Blood.data["viruses"])
-				if((virus.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]) && !used_calibration["[z]"]["[virus.strain]_[virus.stage]"])
-					can_calibrate = TRUE
+				if((virus.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]))
+					can_analyze = FALSE
 					break
+	for(var/factor in analysis_contributions)
+		contribution_list += list(list(
+			"factor" = factor,
+			"amount" = analysis_contributions[factor]["amount"],
+			"maxAmount" = analysis_contributions[factor]["max"],
+		))
+		contribution_sum += analysis_contributions[factor]["amount"]
 
 	var/list/data = list(
 		"synthesisCooldown" = wait ? TRUE : FALSE,
 		"beakerLoaded" = beaker ? TRUE : FALSE,
 		"beakerContainsBlood" = Blood ? TRUE : FALSE,
 		"beakerContainsVirus" = length(Blood?.data["viruses"]) != 0,
-		"calibrating" = calibrating,
-		"canCalibrate" = can_calibrate,
 		"selectedStrainIndex" = selected_strain_index,
-		"analysisTime" = (analysis_time + accumulated_error["[z]"]) > world.time ? analysis_time + accumulated_error["[z]"] - world.time : 0,
-		"accumulatedError" = accumulated_error["[z]"],
-		"analysisTimeDelta" = analysis_time_delta + accumulated_error["[z]"],
+		"analysisTime" = analysis_time > world.time ? analysis_time - world.time : 0,
+		"analysisDuration" = analysis_duration,
+		"analysisDifficulty" = analysis_difficulty,
+		"analysisContributions" = contribution_list,
+		"totalContribution" = contribution_sum,
+		"canAnalyze" =  can_analyze,
 		"analyzing" = analyzing,
+		"reporting" = reporting,
 		"symptom_names" = symptom_list,
 		"predictions" = predictions,
 	)
@@ -527,7 +531,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 			if(resistance_disease)
 				resistances += list(resistance_disease.name)
 	data["resistances"] = resistances
-	data["analysis_time_delta"] = analysis_time_delta
+	data["analysis_difficulty"] = analysis_difficulty
 
 /obj/machinery/pandemic/proc/eject_beaker()
 	beaker.forceMove(loc)
@@ -628,7 +632,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		icon_state = "pandemic1"
 		var/datum/reagent/blood/inserted = locate() in beaker.reagents.reagent_list
 		if(inserted && inserted.data && inserted.data["viruses"])
-			find_analysis_time_delta()
+			find_analysis_requirements()
 			for(var/datum/disease/advance/virus in inserted.data["viruses"])
 				log_admin("[key_name(user)] inserted disease [virus] of strain [virus.strain] with the following symptoms: [english_list(virus.symptoms)] into [src] at these coords x: [x] y: [y] z: [z]")
 		SStgui.update_uis(src, TRUE)
@@ -646,4 +650,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 /obj/machinery/pandemic/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
 
-#undef ANALYSIS_TIME_BASE
+#undef ANALYSIS_DIFFICULTY_BASE
+#undef ANALYSIS_DURATION_BASE
+#undef STAGE_CONTRIBUTION
+#undef GENE_CONTRIBUTION

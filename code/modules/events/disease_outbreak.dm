@@ -93,7 +93,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 
 	// Generate payload. 2-3 symptoms that actually do something
 	A.symptoms += A.GenerateSymptomsBySeverity(max_severity - 1, max_severity, 1)
-	A.symptoms += A.GenerateSymptomsBySeverity(max_severity - 3, max_severity, rand(1, 2))
+	A.symptoms += A.GenerateSymptomsBySeverity(max_severity - 3, max_severity - 1, rand(1, 2))
 
 	var/symptom_list = transmissable_symptoms.Copy()
 
