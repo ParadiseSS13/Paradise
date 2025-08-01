@@ -1329,7 +1329,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/mob/living/simple_animal/hostile/pirate/ranged,
+/mob/living/basic/pirate/ranged,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2153,7 +2153,7 @@
 /area/ruin/unpowered/bmp_ship/aft)
 "hE" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/basic/pirate,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/bmp_ship/midship)
 "qM" = (
@@ -2165,7 +2165,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/bmp_ship/midship)
 "uK" = (
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/basic/pirate,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2177,7 +2177,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/basic/pirate,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

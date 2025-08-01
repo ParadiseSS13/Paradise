@@ -316,7 +316,7 @@
 /obj/effect/decal/cleanable/shreds{
 	pixel_y = -10
 	},
-/mob/living/simple_animal/hostile/pirate/ranged,
+/mob/living/basic/pirate/ranged,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "xE" = (
@@ -360,7 +360,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "zM" = (
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/basic/pirate,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/mech_transport)
 "zP" = (
@@ -543,7 +543,7 @@
 	pixel_y = -32;
 	name = "secure supplies blast door control"
 	},
-/mob/living/simple_animal/hostile/pirate/ranged,
+/mob/living/basic/pirate/ranged,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/mech_transport)
 "Nq" = (
@@ -702,7 +702,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/mech_transport)
 "Yq" = (
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/basic/pirate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/mech_transport)
 "Zn" = (

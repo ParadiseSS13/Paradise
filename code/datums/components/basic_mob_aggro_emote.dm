@@ -12,11 +12,17 @@
 	var/subtract_chance
 	/// Minimum chance to play an emote
 	var/minimum_chance
+	/// Aggro sound
+	var/aggro_sound
+	/// Volume for the sound
+	var/aggro_volume
 
 /datum/component/aggro_emote/Initialize(
 	target_key = BB_BASIC_MOB_CURRENT_TARGET,
 	living_only = FALSE,
 	list/emote_list,
+	aggro_sound = null,
+	aggro_volume = 70,
 	emote_chance = 30,
 	minimum_chance = 2,
 	subtract_chance = 7,
@@ -27,7 +33,8 @@
 	var/atom/atom_parent = parent
 	if(!atom_parent.ai_controller)
 		return COMPONENT_INCOMPATIBLE
-
+	src.aggro_sound = aggro_sound
+	src.aggro_volume = aggro_volume
 	src.target_key = target_key
 	src.emote_list = emote_list
 	src.emote_chance = emote_chance
@@ -54,4 +61,7 @@
 	var/mob/living/mob_parent = source
 	if(!istype(mob_parent))
 		return
-	mob_parent.emote("me", EMOTE_VISIBLE, "[pick(emote_list)] at [new_target].")
+	if(emote_list)
+		mob_parent.emote("me", EMOTE_VISIBLE, "[pick(emote_list)] at [new_target].")
+	if(aggro_sound)
+		playsound(mob_parent.loc, aggro_sound, aggro_volume, TRUE)

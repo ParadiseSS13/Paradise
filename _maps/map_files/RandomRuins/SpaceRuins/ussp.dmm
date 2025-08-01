@@ -272,7 +272,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/soviet/ranged/mosin,
+/mob/living/basic/soviet/ranged/mosin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aN" = (
@@ -2150,7 +2150,7 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
 	},
-/mob/living/simple_animal/hostile/soviet/ranged/mosin,
+/mob/living/basic/soviet/ranged/mosin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/arrival)
 "fF" = (
@@ -2855,7 +2855,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "hC" = (
 /obj/structure/chair/stool,
-/mob/living/simple_animal/hostile/soviet,
+/mob/living/basic/soviet,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "hD" = (
@@ -3982,7 +3982,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/soviet,
+/mob/living/basic/soviet,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "kF" = (
@@ -6881,7 +6881,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "Ci" = (
-/mob/living/simple_animal/hostile/pirate/ranged,
+/mob/living/basic/pirate/ranged,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
@@ -6910,7 +6910,7 @@
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal,
 /area/ruin/space/derelict/crew_quarters)
 "PR" = (
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/basic/pirate,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
@@ -6931,7 +6931,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/soviet,
+/mob/living/basic/soviet,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
 "Ye" = (
@@ -6942,7 +6942,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/hostile/pirate/ranged,
+/mob/living/basic/pirate/ranged,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
