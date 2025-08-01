@@ -50,7 +50,8 @@
 			FROM admin
 			-- We want all admins, and admin_ranks where available.
 			LEFT OUTER JOIN admin_ranks
-			ON admin.permissions_rank = admin_ranks.id"})
+			ON admin.permissions_rank = admin_ranks.id
+			ORDER BY admin_ranks.name ASC, admin.ckey ASC"})
 		if(!get_admins.warn_execute())
 			qdel(get_admins)
 			return
