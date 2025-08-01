@@ -4,12 +4,8 @@
 	icon = 'icons/obj/machines/magma_crucible.dmi'
 	icon_state = "crucible"
 	max_integrity = 300
-	pixel_x = -32	// 3x3
+	pixel_x = 0	// 3x3
 	pixel_y = -32
-	bound_width = 96
-	bound_x = -32
-	bound_height = 96
-	bound_y = -32
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
@@ -27,6 +23,11 @@
 /obj/machinery/magma_crucible/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PALLADIUM, MAT_IRIDIUM, MAT_PLATINUM, MAT_BRASS), INFINITY, FALSE, list(/obj/item/stack, /obj/item/smithed_item), null, null)
+	AddComponent(/datum/component/multitile, list(
+		list(1,				1,	1),
+		list(MACH_CENTER,	1,	1),
+		list(1,				1,	1),
+	))
 	// Stock parts
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/magma_crucible(null)
