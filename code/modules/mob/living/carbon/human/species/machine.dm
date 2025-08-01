@@ -138,7 +138,7 @@
 /datum/action/innate/change_monitor
 	name = "Change Monitor"
 	check_flags = AB_CHECK_CONSCIOUS
-	button_icon_state = "scan_mode"
+	button_overlay_icon_state = "scan_mode"
 
 /datum/action/innate/change_monitor/Activate()
 	var/mob/living/carbon/human/H = owner

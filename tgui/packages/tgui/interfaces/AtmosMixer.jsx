@@ -38,7 +38,7 @@ export const AtmosMixer = (props) => {
                 minValue={0}
                 maxValue={max_pressure}
                 value={pressure}
-                onChange={(value) =>
+                onDrag={(value) =>
                   act('custom_pressure', {
                     pressure: value,
                   })
@@ -84,7 +84,6 @@ const NodeControls = (props) => {
         unit="%"
         width={6.1}
         lineHeight={1.5}
-        step={1}
         stepPixelSize={10}
         minValue={0}
         maxValue={100}

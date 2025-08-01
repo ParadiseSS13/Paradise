@@ -171,7 +171,6 @@ const Products = (props) => {
             width="32px"
             minValue={1}
             maxValue={10}
-            step={1}
             stepPixelSize={7}
             onChange={(value) => setVendAmount(value)}
           />

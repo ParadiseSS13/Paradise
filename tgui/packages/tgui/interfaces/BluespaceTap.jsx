@@ -123,9 +123,9 @@ export const BluespaceTap = (props) => {
                     <Stack.Item mx={1}>
                       <NumberInput
                         disabled={emagged}
-                        minValue={0}
+                        minvalue={0}
                         value={desiredMiningPower}
-                        maxValue={Infinity}
+                        maxvalue={Infinity}
                         step={1}
                         onChange={(value) =>
                           act('set', {

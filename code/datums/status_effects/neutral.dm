@@ -402,6 +402,3 @@
 
 /datum/status_effect/action_status_effect/unbuckle
 	id = "unbuckle"
-
-/datum/status_effect/action_status_effect/exit_cryocell
-	id = "exit_cryocell"

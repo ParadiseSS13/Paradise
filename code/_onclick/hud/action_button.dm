@@ -10,13 +10,6 @@
 	/// The HUD this action button belongs to
 	var/datum/hud/our_hud
 
-	/// The overlay we have overtop our button
-	var/mutable_appearance/button_overlay
-	/// The icon state of our active overlay, used to prevent re-applying identical overlays
-	var/active_overlay_icon_state
-	/// The icon state of our active underlay, used to prevent re-applying identical underlays
-	var/active_underlay_icon_state
-
 	/// Where we are currently placed on the hud. SCRN_OBJ_DEFAULT asks the linked action what it thinks
 	var/location = SCRN_OBJ_DEFAULT
 	/// A unique bitflag, combined with the name of our linked action this lets us persistently remember any user changes to our position
@@ -219,9 +212,10 @@
 	closeToolTip(usr)
 	return ..()
 
-/mob/proc/update_action_buttons_icon(update_flags = ALL, force = FALSE)
-	for(var/datum/action/current_action as anything in actions)
-		current_action.build_all_button_icons(update_flags, force)
+/mob/proc/update_action_buttons_icon(status_only = FALSE)
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtons(status_only)
 
 //This is the proc used to update all the action buttons.
 /mob/proc/update_action_buttons(reload_screen)
@@ -233,7 +227,7 @@
 
 	for(var/datum/action/action as anything in actions)
 		var/atom/movable/screen/movable/action_button/button = action.viewers[hud_used]
-		action.build_all_button_icons()
+		action.UpdateButtons()
 		if(reload_screen)
 			client.screen += button
 			client.update_active_keybindings()

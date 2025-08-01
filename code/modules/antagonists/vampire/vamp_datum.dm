@@ -301,7 +301,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	check_vampire_upgrade(TRUE)
 	for(var/datum/spell/S in powers)
 		if(S.action)
-			S.action.build_all_button_icons()
+			S.action.UpdateButtons()
 
 /**
  * Safely subtract vampire's bloodusable. Clamped between 0 and bloodtotal.

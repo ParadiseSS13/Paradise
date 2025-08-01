@@ -1098,13 +1098,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
-"uH" = (
-/obj/machinery/door/airlock/silver,
-/obj/effect/mapping_helpers/airlock/access/all/syndicate,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_depot/core)
 "BU" = (
 /obj/structure/sign/poster/official/high_class_martini/directional/north,
 /turf/simulated/floor/plasteel{
@@ -3029,7 +3022,7 @@ at
 aQ
 aD
 aD
-uH
+bH
 bS
 ce
 cr

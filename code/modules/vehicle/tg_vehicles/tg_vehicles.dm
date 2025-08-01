@@ -18,8 +18,6 @@
 	var/max_occupants = 1
 	////Maximum amount of drivers
 	var/max_drivers = 1
-	/// Whether the vehicle is currently able to move
-	var/canmove = TRUE
 	/**
 	  * If the driver needs a certain item in hand (or inserted, for vehicles) to drive this. For vehicles, this must be duplicated on their riding component subtype
 	  * [/datum/component/riding/var/keytype] variable because only a few specific checks are handled here with this var, and the majority of it is on the riding component
@@ -28,18 +26,14 @@
 	var/key_type
 	///The inserted key, needed on some vehicles to start the engine
 	var/obj/item/key/inserted_key
+	/// Whether the vehicle is currently able to move
+	var/can_move = TRUE
 	var/list/autogrant_actions_passenger //plain list of typepaths
 	var/list/autogrant_actions_controller //assoc list "[bitflag]" = list(typepaths)
 	var/list/mob/occupant_actions //assoc list mob = list(type = action datum assigned to mob)
 	///This vehicle will follow us when we move (like atrailer duh)
 	var/obj/tgvehicle/trailer
 	var/are_legs_exposed = FALSE
-	/// Sound played when entering a vehicle
-	var/enter_sound
-	/// Sound played when exiting a vehicle
-	var/exit_sound
-
-	new_attack_chain = TRUE
 
 /obj/tgvehicle/Initialize(mapload)
 	. = ..()
@@ -57,8 +51,6 @@
 /obj/tgvehicle/Exited(atom/movable/gone, direction)
 	if(gone == inserted_key)
 		inserted_key = null
-	if(exit_sound)
-		playsound(src, exit_sound, 70, TRUE)
 	return ..()
 
 /obj/tgvehicle/examine(mob/user)
@@ -145,7 +137,7 @@
 	return
 
 /obj/tgvehicle/relaymove(mob/living/user, direction)
-	if(!canmove)
+	if(!can_move)
 		return FALSE
 	if(is_driver(user))
 		return relaydrive(user, direction)
@@ -200,7 +192,7 @@
 	add_occupant(M)
 	return ..()
 
-/obj/tgvehicle/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+/obj/tgvehicle/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!key_type || is_key(inserted_key) || !is_key(I))
 		return ..()
 	if(user.drop_item())
@@ -211,12 +203,15 @@
 		inserted_key = I
 	else
 		to_chat(user, "<span class='warning'>[I] seems to be stuck to your hand!</span>")
+	if(inserted_key) //just in case there's an invalid key
+		inserted_key.forceMove(drop_location())
+	inserted_key = I
 
 /obj/tgvehicle/AltClick(mob/user)
 	if(!inserted_key)
 		return ..()
-	if(!is_occupant(user) || !(occupants[user] & VEHICLE_CONTROL_DRIVE))
-		to_chat(user, "<span class='warning'>You must be driving the [src] to remove [src]'s key!</span>")
+	if(!is_occupant(user))
+		to_chat(user, "<span class='warning'>You must be riding the [src] to remove [src]'s key!</span>")
 		return
 	to_chat(user, "<span class='notice'>You remove [inserted_key] from [src].</span>")
 	inserted_key.forceMove(drop_location())

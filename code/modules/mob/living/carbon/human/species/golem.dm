@@ -155,7 +155,7 @@
 	name = "Ignite"
 	desc = "Set yourself aflame, bringing yourself closer to exploding!"
 	check_flags = AB_CHECK_CONSCIOUS
-	button_icon_state = "sacredflame"
+	button_overlay_icon_state = "sacredflame"
 
 /datum/action/innate/golem_ignite/Activate()
 	if(ishuman(owner))
@@ -504,7 +504,6 @@
 /datum/action/innate/unstable_teleport
 	name = "Unstable Teleport"
 	check_flags = AB_CHECK_CONSCIOUS
-	button_icon_state = "blink"
 	var/activated = FALSE // To prevent spamming
 	var/cooldown = 150
 	var/last_teleport = 0
@@ -546,9 +545,9 @@
 		H.unbuckle(force = TRUE)
 	do_teleport(H, picked)
 	last_teleport = world.time
-	build_all_button_icons() //action icon looks unavailable
+	UpdateButtons() //action icon looks unavailable
 	sleep(cooldown + 5)
-	build_all_button_icons() //action icon looks available again
+	UpdateButtons() //action icon looks available again
 
 /datum/unarmed_attack/golem/bluespace
 	attack_verb = "bluespace punch"

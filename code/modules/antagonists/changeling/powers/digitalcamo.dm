@@ -2,7 +2,7 @@
 	name = "Digital Camouflage"
 	desc = "By evolving the ability to distort our form and proportions, we defeat common algorithms used to detect lifeforms on cameras."
 	helptext = "We cannot be tracked by camera while using this skill."
-	button_icon_state = "digital_camo"
+	button_overlay_icon_state = "digital_camo"
 	dna_cost = 2
 	power_type = CHANGELING_PURCHASABLE_POWER
 	category = /datum/changeling_power_category/utility

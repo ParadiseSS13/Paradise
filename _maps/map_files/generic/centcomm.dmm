@@ -12180,7 +12180,7 @@
 	},
 /area/centcom/control)
 "Qy" = (
-/mob/living/basic/creature{
+/mob/living/simple_animal/hostile/creature{
 	name = "Experiment 35b"
 	},
 /obj/item/candle/eternal/wizard,

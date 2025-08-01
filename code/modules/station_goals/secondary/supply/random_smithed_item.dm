@@ -113,8 +113,8 @@
 	return TRUE
 
 /datum/secondary_goal_progress/random_smithed_item/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
-	// Not properly labeled for this goal? Ignore.
-	if(!check_goal_label(AM))
+	// Not in a matching personal crate? Ignore.
+	if(!check_personal_crate(AM))
 		return
 
 	if(!istype(AM, /obj/item/smithed_item))

@@ -1,1 +1,0 @@
-/mob/living/simple_animal/hostile/gorilla/@SUBTYPES : /mob/living/basic/gorilla/@SUBTYPES{@OLD}

@@ -175,7 +175,7 @@
 		name = "[initial(name)] ([cast_amount]E)"
 	action.name = name
 	action.desc = desc
-	action.build_all_button_icons()
+	action.UpdateButtons()
 
 /datum/spell/aoe/revenant/revert_cast(mob/user)
 	. = ..()
@@ -212,7 +212,7 @@
 	user.reveal(reveal)
 	user.stun(stun)
 	if(action)
-		action.build_all_button_icons()
+		action.UpdateButtons()
 	return TRUE
 
 //Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.

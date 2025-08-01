@@ -1,6 +1,6 @@
 //Preset for spells
 /datum/action/spell_action
-	background_icon_state = "bg_spell"
+	button_background_icon_state = "bg_spell"
 	var/recharge_text_color = "#FFFFFF"
 
 /datum/action/spell_action/New(Target)
@@ -9,11 +9,12 @@
 	S.action = src
 	name = S.name
 	desc = S.desc
-	button_icon = S.action_icon
-	button_icon_state = S.action_icon_state
-	background_icon = S.action_background_icon
-	background_icon_state = S.action_background_icon_state
-	build_all_button_icons()
+	button_overlay_icon = S.action_icon
+	button_background_icon = S.action_background_icon
+	button_overlay_icon_state = S.action_icon_state
+	button_background_icon_state = S.action_background_icon_state
+	UpdateButtons()
+
 
 /datum/action/spell_action/Destroy()
 	var/datum/spell/S = target
@@ -52,17 +53,17 @@
 	if(!istype(S))
 		return ..()
 
-	unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', icon_state = "template")
-	unavailable_effect.appearance_flags = RESET_COLOR | RESET_ALPHA
-	unavailable_effect.color = "#000000"
-	unavailable_effect.plane = FLOAT_PLANE + 1
-	unavailable_effect.alpha = S.cooldown_handler.get_cooldown_alpha()
+	var/alpha = S.cooldown_handler.get_cooldown_alpha()
 
+	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
+	img.alpha = alpha
+	img.appearance_flags = RESET_COLOR | RESET_ALPHA
+	img.color = "#000000"
+	img.plane = FLOAT_PLANE + 1
+	button.add_overlay(img)
 	// Make a holder for the charge text
-	var/image/count_down_holder = mutable_appearance('icons/effects/effects.dmi', icon_state = "nothing", appearance_flags = RESET_COLOR | RESET_ALPHA)
+	var/image/count_down_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
+	count_down_holder.plane = FLOAT_PLANE + 1.1
 	var/text = S.cooldown_handler.cooldown_info()
-	count_down_holder.maptext_y = 4
 	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
-	unavailable_effect.add_overlay(count_down_holder)
-
-	button.overlays |= unavailable_effect
+	button.add_overlay(count_down_holder)

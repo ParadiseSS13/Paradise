@@ -212,7 +212,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	custom_handler?.spend_spell_cost(user, src)
 
 	if(action)
-		action.build_all_button_icons()
+		action.UpdateButtons()
 
 /datum/spell/proc/invocation(mob/user) //spelling the spell out and setting it on recharge/reducing charges amount
 	switch(invocation_type)
@@ -350,7 +350,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	cast(targets, user = user)
 	after_cast(targets, user)
 	if(action)
-		action.build_all_button_icons()
+		action.UpdateButtons()
 
 /**
  * Will write additional logs if create_custom_logs is TRUE and the caster has a ckey. Override this
@@ -421,11 +421,11 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	custom_handler?.revert_cast(user, src)
 
 	if(action)
-		action.build_all_button_icons()
+		action.UpdateButtons()
 
-/datum/spell/proc/build_all_button_icons()
+/datum/spell/proc/UpdateButtons()
 	if(action)
-		action.build_all_button_icons()
+		action.UpdateButtons()
 
 /datum/spell/proc/adjust_var(mob/living/target = usr, type, amount) //handles the adjustment of the var when the spell is used. has some hardcoded types
 	switch(type)

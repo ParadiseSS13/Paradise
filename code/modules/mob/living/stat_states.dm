@@ -82,7 +82,7 @@
 	if(mind)
 		for(var/S in mind.spell_list)
 			var/datum/spell/spell = S
-			spell.build_all_button_icons()
+			spell.UpdateButtons()
 
 	return TRUE
 

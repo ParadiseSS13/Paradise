@@ -301,7 +301,8 @@
 // deck datum actions
 /datum/action/item_action/draw_card
 	name = "Draw - Draw one card"
-	button_icon_state = "draw"
+	button_overlay_icon_state = "draw"
+	use_itemicon = FALSE
 
 /datum/action/item_action/draw_card/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
@@ -311,7 +312,8 @@
 
 /datum/action/item_action/deal_card
 	name = "Deal - deal one card to a person next to you"
-	button_icon_state = "deal_card"
+	button_overlay_icon_state = "deal_card"
+	use_itemicon = FALSE
 
 /datum/action/item_action/deal_card/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
@@ -321,7 +323,8 @@
 
 /datum/action/item_action/deal_card_multi
 	name = "Deal multiple card - Deal multiple card to a person next to you"
-	button_icon_state = "deal_card_multi"
+	button_overlay_icon_state = "deal_card_multi"
+	use_itemicon = FALSE
 
 /datum/action/item_action/deal_card_multi/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
@@ -331,7 +334,8 @@
 
 /datum/action/item_action/shuffle
 	name = "Shuffle - shuffle the deck"
-	button_icon_state = "shuffle"
+	button_overlay_icon_state = "shuffle"
+	use_itemicon = FALSE
 
 /datum/action/item_action/shuffle/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
@@ -886,7 +890,8 @@
 
 /datum/action/item_action/remove_card
 	name = "Remove a card - Remove a single card from the hand."
-	button_icon_state = "remove_card"
+	button_overlay_icon_state = "remove_card"
+	use_itemicon = FALSE
 
 /datum/action/item_action/remove_card/IsAvailable()
 	var/obj/item/cardhand/C = target
@@ -904,7 +909,8 @@
 
 /datum/action/item_action/discard
 	name = "Discard - Place one or more cards from your hand in front of you."
-	button_icon_state = "discard"
+	button_overlay_icon_state = "discard"
+	use_itemicon = FALSE
 
 /datum/action/item_action/discard/Trigger(left_click)
 	if(istype(target, /obj/item/cardhand))

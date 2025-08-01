@@ -53974,7 +53974,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/mob/living/basic/feral_cat{
+/mob/living/simple_animal/hostile/feral_cat{
 	dir = 1
 	},
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
@@ -56733,7 +56733,7 @@
 	},
 /area/station/maintenance/asmaint)
 "kzP" = (
-/mob/living/basic/gorilla/cargo_domestic,
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -57728,7 +57728,7 @@
 "kKL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random/directional/north,
-/mob/living/basic/feral_cat{
+/mob/living/simple_animal/hostile/feral_cat{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -61707,7 +61707,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/feral_cat{
+/mob/living/simple_animal/hostile/feral_cat{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -92517,7 +92517,7 @@
 /area/station/maintenance/starboard)
 "soS" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/feral_cat{
+/mob/living/simple_animal/hostile/feral_cat{
 	dir = 8
 	},
 /obj/effect/spawner/random/food_trash,
@@ -94143,7 +94143,7 @@
 /obj/structure/bed/dogbed{
 	name = "Araneus' bed"
 	},
-/mob/living/basic/giant_spider/araneus,
+/mob/living/simple_animal/hostile/retaliate/araneus,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "sGP" = (
@@ -107648,7 +107648,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/feral_cat,
+/mob/living/simple_animal/hostile/feral_cat,
 /obj/effect/spawner/random/food_trash,
 /turf/simulated/floor/plasteel{
 	dir = 4;

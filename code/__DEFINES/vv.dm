@@ -45,7 +45,6 @@
 #define VV_HK_EDITREAGENTS "editreagents"
 #define VV_HK_EXPLODE "explode"
 #define VV_HK_EMP "emp"
-#define VV_HK_DEBUG_AI_CONTROLLER "debug_ai_controller"
 
 // /obj
 #define VV_HK_DELALL "delall"

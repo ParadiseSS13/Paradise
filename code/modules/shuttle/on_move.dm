@@ -1,6 +1,5 @@
 // Shuttle on-movement //
 /atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation, mob/calling_mob)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_ON_SHUTTLE_MOVE, T1)
 	var/turf/newT = get_turf(src)
 	if(newT.z != oldT.z)
 		on_changed_z_level(oldT, newT)

@@ -2986,7 +2986,7 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
 "amv" = (
-/mob/living/basic/giant_spider/araneus,
+/mob/living/simple_animal/hostile/retaliate/araneus,
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
 "amy" = (
@@ -27880,7 +27880,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/basic/gorilla/cargo_domestic{
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
 	name = "Forklift"
 	},
 /turf/simulated/floor/plasteel,
@@ -32143,6 +32143,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/storage)
+"cmY" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/obj/structure/lattice,
+/obj/machinery/access_button{
+	autolink_id = "eng_btn_ext";
+	pixel_x = -22;
+	pixel_y = 20;
+	req_access = list(10,13)
+	},
+/turf/space,
+/area/space/nearstation)
 "cmZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/caution/red,
@@ -39978,8 +39991,9 @@
 	dir = 4
 	},
 /obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/machinery/atmospherics/unary/vent_pump/high_volume,
-/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	autolink_id = "eng_vent"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/hardsuitstorage)
 "cRp" = (
@@ -42717,7 +42731,6 @@
 /obj/structure/sign/vacuum/external{
 	pixel_x = -32
 	},
-/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/hardsuitstorage)
 "dcn" = (
@@ -48649,10 +48662,15 @@
 	},
 /area/station/engineering/gravitygenerator)
 "ehs" = (
-/obj/effect/map_effect/dynamic_airlock,
-/obj/machinery/airlock_controller/air_cycler/directional/west,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/machinery/airlock_controller/air_cycler{
+	pixel_x = -25;
+	vent_link_id = "eng_vent";
+	ext_door_link_id = "eng_door_ext";
+	int_door_link_id = "eng_door_int";
+	ext_button_link_id = "eng_btn_ext";
+	int_button_link_id = "eng_btn_int";
+	req_access = list(10,13)
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/hardsuitstorage)
 "ehu" = (
@@ -56732,10 +56750,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "ifY" = (
-/obj/effect/map_effect/dynamic_airlock/door/exterior,
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/access_button/offset/southwest,
-/turf/simulated/floor/plating/airless,
+/obj/machinery/door/airlock/external{
+	id_tag = "eng_door_ext";
+	locked = 1;
+	name = "Engineering External Access"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
 /area/station/engineering/hardsuitstorage)
 "igq" = (
 /obj/structure/chair/sofa/left{
@@ -59778,7 +59800,6 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/effect/map_effect/dynamic_airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/hardsuitstorage)
 "jHr" = (
@@ -75487,9 +75508,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "rhU" = (
-/obj/effect/map_effect/dynamic_airlock/door/interior,
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/access_button/offset/west,
+/obj/machinery/door/airlock/external{
+	id_tag = "eng_door_int";
+	locked = 1;
+	name = "Engineering External Access"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/engineering/hardsuitstorage)
 "riu" = (
@@ -76028,6 +76053,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
+"rxV" = (
+/obj/machinery/access_button{
+	autolink_id = "eng_btn_int";
+	pixel_x = -22;
+	pixel_y = -20;
+	req_access = list(10,13)
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/hardsuitstorage)
 "rxW" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -115958,12 +115992,12 @@ pxP
 cXS
 cYv
 uVt
-uVt
+rxV
 rhU
 dcl
 ehs
 ifY
-djb
+cmY
 djb
 djb
 dib

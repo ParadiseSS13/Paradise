@@ -174,7 +174,6 @@
 	diag_hud_set_botmode()
 
 	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
-	RemoveElement(/datum/element/strippable)
 
 /mob/living/simple_animal/bot/Destroy()
 	if(paicard)

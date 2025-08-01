@@ -13,7 +13,7 @@
 			given_action.Grant(src)
 
 /datum/action/innate/admin
-	button_icon = 'icons/mob/actions/actions_admin.dmi'
+	button_overlay_icon = 'icons/mob/actions/actions_admin.dmi'
 	var/rights_required = R_ADMIN
 
 /datum/action/innate/admin/Trigger()
@@ -29,12 +29,11 @@
 /datum/action/innate/admin/ticket
 	name = "Adminhelps"
 	desc = "There are 0 open tickets."
-	button_icon_state = "adminhelp"
-	var/mutable_appearance/button_text
+	button_overlay_icon_state = "adminhelp"
 	var/ticket_amt = 0
 
 /datum/action/innate/admin/ticket/New(Target)
-	button_icon_state = "nohelp"
+	button_overlay_icon_state = "nohelp"
 	. = ..()
 	register_ticket_signals()
 
@@ -49,26 +48,24 @@
 	ticket_amt = _ticket_amt
 	desc = "There are [ticket_amt] open tickets."
 	if(ticket_amt > 0)
-		button_icon_state = initial(button_icon_state)
+		button_overlay_icon_state = initial(button_overlay_icon_state)
 	else
-		button_icon_state = "nohelp"
-	build_all_button_icons(force = TRUE)
+		button_overlay_icon_state = "nohelp"
+	UpdateButtons()
 
-/datum/action/innate/admin/ticket/apply_button_overlay(atom/movable/screen/movable/action_button/button, force)
+/datum/action/innate/admin/ticket/UpdateButton(atom/movable/screen/movable/action_button/button, status_only, force)
 	. = ..()
-	// TODO: We need a generic way to handle button text for actions bc this is atrocious
-	// Yes cutting and adding the overlay each time is required
-	button.cut_overlay(button_text)
-	button_text = mutable_appearance('icons/effects/effects.dmi', icon_state = "nothing")
-	button_text.appearance_flags = RESET_COLOR | RESET_ALPHA
-	button_text.plane = FLOAT_PLANE + 1
-	button_text.maptext_x = 2
-	button_text.maptext = ticket_amt > 0 ? "<span class='maptext'>[ticket_amt]</span>" : ""
-	button.add_overlay(button_text)
+	if(ticket_amt <= 0)
+		return
+	var/image/maptext_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
+	maptext_holder.plane = FLOAT_PLANE + 1.1
+	maptext_holder.maptext = "<span class='maptext'>[ticket_amt]</span>"
+	maptext_holder.maptext_x = 2
+	button.add_overlay(maptext_holder)
 
 /datum/action/innate/admin/ticket/mentor
 	name = "Mentorhelps"
-	button_icon_state = "mentorhelp"
+	button_overlay_icon_state = "mentorhelp"
 	rights_required = R_MENTOR|R_ADMIN
 
 /datum/action/innate/admin/ticket/mentor/register_ticket_signals()
