@@ -1,8 +1,6 @@
 /obj/item/envelope
 	name = "broken letter"
 	desc = "We just got a letter, we just got a letter, we just got a letter -- I wonder who it's from?"
-	force = 0
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "mail_misc"
@@ -231,8 +229,6 @@
 /obj/item/mail_scanner
 	name = "mail scanner"
 	desc = "A portable mail scanner, this device allows you to log mail deliveries in exchange for financial compensation."
-	force = 0
-	throwforce = 0
 	icon = 'icons/obj/device.dmi'
 	icon_state = "mail_scanner"
 	item_state = "mail_scanner"

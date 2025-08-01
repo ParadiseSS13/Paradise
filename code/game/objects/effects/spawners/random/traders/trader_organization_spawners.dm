@@ -82,7 +82,7 @@
 	spawn_loot_count = 2 //Lots of dangerous stuff here - reduced amount
 	loot = list(
 		/obj/item/gun/projectile/revolver/nagant = 5,
-		/obj/item/gun/projectile/automatic/pistol/aps = 3,
+		/obj/item/gun/projectile/automatic/pistol/type_230 = 3,
 		/obj/item/gun/projectile/shotgun/boltaction = 5,
 		/obj/item/clothing/suit/space/hardsuit/soviet = 4,
 		/obj/item/clothing/glasses/thermal/eyepatch = 5,
@@ -306,7 +306,6 @@
 
 /obj/effect/spawner/random/traders/merchantguild_major
 	name = "12. merchant guild large gear"
-	spawn_loot_count = 6 //Low-risk items, flavorful knick knacks - higher stock
 	loot = list(
 		/obj/item/clothing/suit/pimpcoat = 5,
 		/obj/item/dualsaber/toy = 5,

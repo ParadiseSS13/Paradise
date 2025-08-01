@@ -1,7 +1,5 @@
 /turf/simulated/floor/vault
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "rockvault"
-	smoothing_flags = NONE
 
 /turf/simulated/floor/vault/lavaland_air
 	oxygen = LAVALAND_OXYGEN
@@ -17,7 +15,6 @@
 	smoothing_flags = NONE
 
 /turf/simulated/floor/bluegrid
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "bcircuit"
 
 /turf/simulated/floor/bluegrid/telecomms
@@ -29,11 +26,9 @@
 	name = "server base"
 
 /turf/simulated/floor/greengrid
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "gcircuit"
 
 /turf/simulated/floor/greengrid/airless
-	icon_state = "gcircuit"
 	name = "airless floor"
 	oxygen = 0
 	nitrogen = 0
@@ -44,7 +39,6 @@
 	name = "floor"
 
 /turf/simulated/floor/redgrid
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "rcircuit"
 
 /turf/simulated/floor/beach
@@ -53,7 +47,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
@@ -312,7 +305,6 @@
 /turf/simulated/floor/backrooms_carpet
 	name = "backrooms carpet"
 	desc = "An old, musty carpet. It smells faintly mildewy."
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "backrooms_carpet"
 	baseturf = /turf/simulated/floor/backrooms_carpet
 

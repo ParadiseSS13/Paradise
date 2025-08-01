@@ -41,8 +41,8 @@
 		if(!check_rights(R_DEBUG, 0))
 			return
 
-		admin_delete(src)
-		href_list["datumrefresh"] = UID()
+		admin_delete(target)
+		return
 	if(href_list[VV_HK_MARK_OBJECT])
 		if(!check_rights(0))	return
 
@@ -50,7 +50,7 @@
 			to_chat(usr, "<span class='notice'>This can only be done to instances of type /datum.</span>")
 			return
 
-		src.holder.marked_datum = target
+		holder.marked_datum = target
 		href_list["datumrefresh"] = target.UID()
 	if(href_list[VV_HK_PROC_CALL])
 		if(!check_rights(R_PROCCALL))
@@ -75,7 +75,7 @@
 		if(!usr || result == "---Components---" || result == "---Elements---")
 			return
 
-		if(QDELETED(src))
+		if(QDELETED(target))
 			to_chat(usr, "<span class='notice'>That thing doesn't exist anymore!</span>", confidential = TRUE)
 			return
 
@@ -110,7 +110,7 @@
 			return
 		if(!usr || path == "---Components---" || path == "---Elements---")
 			return
-		if(QDELETED(src))
+		if(QDELETED(target))
 			to_chat(usr, "<span class='notice'>That thing doesn't exist anymore!</span>")
 			return
 		var/list/targets_to_remove_from = list(target)

@@ -250,7 +250,6 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 1.5
-	throw_range = 7
 	anchored = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list()

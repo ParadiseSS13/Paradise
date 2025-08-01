@@ -7,7 +7,6 @@
 	requires_power = FALSE
 
 /area/ruin/space/unpowered
-	always_unpowered = FALSE
 
 /area/ruin/space/unpowered/no_grav
 	has_gravity = FALSE
@@ -65,7 +64,6 @@
 
 /area/ruin/space/djstation/solars
 	name = "\improper Soviet DJ Station Solars"
-	icon_state = "DJ"
 
 //Methlab
 /area/ruin/space/methlab

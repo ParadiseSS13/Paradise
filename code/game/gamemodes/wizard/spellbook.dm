@@ -97,19 +97,16 @@
 /datum/spellbook_entry/blind
 	name = "Blind"
 	spell_type = /datum/spell/blind
-	category = "Offensive"
 	cost = 1
 
 /datum/spellbook_entry/lightningbolt
 	name = "Lightning Bolt"
 	spell_type = /datum/spell/charge_up/bounce/lightning
-	category = "Offensive"
 	cost = 1
 
 /datum/spellbook_entry/cluwne
 	name = "Curse of the Cluwne"
 	spell_type = /datum/spell/touch/cluwne
-	category = "Offensive"
 
 /datum/spellbook_entry/banana_touch
 	name = "Banana Touch"
@@ -124,53 +121,43 @@
 /datum/spellbook_entry/horseman
 	name = "Curse of the Horseman"
 	spell_type = /datum/spell/horsemask
-	category = "Offensive"
 
 /datum/spellbook_entry/disintegrate
 	name = "Disintegrate"
 	spell_type = /datum/spell/touch/disintegrate
-	category = "Offensive"
 
 /datum/spellbook_entry/corpse_explosion
 	name = "Corpse Explosion"
 	spell_type = /datum/spell/corpse_explosion
-	category = "Offensive"
 
 /datum/spellbook_entry/fireball
 	name = "Fireball"
 	spell_type = /datum/spell/fireball
-	category = "Offensive"
 
 /datum/spellbook_entry/summon_toolbox
 	name = "Homing Toolbox"
 	spell_type = /datum/spell/fireball/toolbox
-	category = "Offensive"
 	cost = 1
 
 /datum/spellbook_entry/fleshtostone
 	name = "Flesh to Stone"
 	spell_type = /datum/spell/touch/flesh_to_stone
-	category = "Offensive"
 
 /datum/spellbook_entry/plushify
 	name = "Plushify"
 	spell_type = /datum/spell/touch/plushify
-	category = "Offensive"
 
 /datum/spellbook_entry/mutate
 	name = "Mutate"
 	spell_type = /datum/spell/genetic/mutate
-	category = "Offensive"
 
 /datum/spellbook_entry/rod_form
 	name = "Rod Form"
 	spell_type = /datum/spell/rod_form
-	category = "Offensive"
 
 /datum/spellbook_entry/infinite_guns
 	name = "Lesser Summon Guns"
 	spell_type = /datum/spell/infinite_guns
-	category = "Offensive"
 
 //Defensive
 /datum/spellbook_entry/disabletech
@@ -189,7 +176,6 @@
 	name = "Rathen's Secret"
 	spell_type = /datum/spell/rathens
 	category = "Defensive"
-	cost = 2
 
 /datum/spellbook_entry/repulse
 	name = "Repulse"
@@ -360,7 +346,6 @@
 /datum/spellbook_entry/summon/slience_ghosts
 	name = "Silence Ghosts"
 	desc = "Tired of people talking behind your back, and spooking you? Why not silence them, and make the dead deader."
-	cost = 2
 	is_ragin_restricted = TRUE //Salt needs to flow here, to be honest
 
 /datum/spellbook_entry/summon/slience_ghosts/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
@@ -496,7 +481,6 @@
 	Capable of producing magic tarot cards of the 22 major arcana, both normal and reversed. Each card has a different effect. \
 	Throw the card at someone to use it on them, or use it in hand to apply it to yourself. Unlimited uses, 12 second cooldown, can have up to 5 cards in the world."
 	item_path = /obj/item/tarot_generator/wizard
-	cost = 2
 	category = "Artefacts"
 
 //Weapons and Armors
@@ -711,7 +695,6 @@
 	desc = "The legendary book of spells of the wizard."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "spellbook"
-	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 	var/uses = 10
