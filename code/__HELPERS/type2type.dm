@@ -144,7 +144,7 @@
 	. = ""
 	for(var/bit in GLOB.admin_permission_names)
 		if(removed_rights & bit)
-			. += "[separator]<span style='color: #FF5555'>-[GLOB.admin_permission_names[bit]]</span>"
+			. += "[separator]<span style='color: #FF5555'><s>-[GLOB.admin_permission_names[bit]]</s></span>"
 		else if(extra_rights & bit)
 			. += "[separator]<span style='color: #5555FF'>+[GLOB.admin_permission_names[bit]]</span>"
 		else if(rank_rights & bit)
