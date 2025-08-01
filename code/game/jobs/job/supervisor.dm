@@ -469,7 +469,6 @@
 	action_icon = 'icons/obj/clothing/accessories.dmi'
 	action_icon_state = "gold"
 	sound = null
-	invocation_type = "none"
 	invocation = null
 	clothes_req = FALSE
 

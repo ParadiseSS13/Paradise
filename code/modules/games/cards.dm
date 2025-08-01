@@ -21,8 +21,6 @@
 
 	throw_speed = 3
 	throw_range = 10
-	throwforce = 0
-	force = 0
 
 	var/list/cards = list()
 	/// How often the deck can be shuffled.

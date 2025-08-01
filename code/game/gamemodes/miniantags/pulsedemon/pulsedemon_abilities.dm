@@ -20,7 +20,6 @@
 	var/revealing = FALSE
 	var/reveal_time = 10 SECONDS
 	base_cooldown = 20 SECONDS
-	level_max = 4
 
 /datum/spell/pulse_demon/New()
 	. = ..()
@@ -195,7 +194,6 @@
 	unlock_cost = 8
 	cast_cost = 1000 KJ
 	upgrade_cost = 4
-	level_max = 4
 	requires_area = TRUE
 	revealing = TRUE
 	base_cooldown = 60 SECONDS
@@ -379,9 +377,7 @@
 	desc = "Toggle whether to use 200 KJ of energy to bypass electric-resistant victims immunity when attacking."
 	base_message = "use strong shocks when attacking."
 	action_icon_state = "pd_strong_shocks"
-	locked = TRUE
 	unlock_cost = 4
-	cast_cost = 0
 	level_max = 0
 
 /datum/spell/pulse_demon/toggle/penetrating_shock/create_new_targeting()

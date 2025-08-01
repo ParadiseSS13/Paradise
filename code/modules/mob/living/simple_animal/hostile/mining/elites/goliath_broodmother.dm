@@ -36,7 +36,6 @@
 	speed = 2
 	move_to_delay = 5
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
-	mouse_opacity = MOUSE_OPACITY_ICON
 	deathmessage = "explodes into gore!"
 	loot_drop = /obj/item/crusher_trophy/broodmother_tongue
 	contains_xeno_organ = TRUE
@@ -186,7 +185,6 @@
 	speed = 2
 	move_to_delay = 5
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
-	mouse_opacity = MOUSE_OPACITY_ICON
 	deathmessage = "falls to the ground."
 	status_flags = CANPUSH
 	var/mob/living/simple_animal/hostile/asteroid/elite/broodmother/mother = null

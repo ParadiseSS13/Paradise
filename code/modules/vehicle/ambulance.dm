@@ -55,7 +55,6 @@
 	start_length = 0
 	mid_sounds = list('sound/items/weeoo1.ogg' = 1)
 	mid_length = 14
-	volume = 100
 
 
 /obj/vehicle/ambulance/post_buckle_mob(mob/living/M)

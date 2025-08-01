@@ -20,11 +20,7 @@
 	melee_damage_upper = 10
 	melee_attack_cooldown_min = 1.5 SECONDS
 	melee_attack_cooldown_max = 2.5 SECONDS
-	attack_verb_simple = "attack"
-	attack_verb_continuous = "attacks"
 	attack_sound = 'sound/items/bikehorn.ogg'
-	obj_damage = 0
-	environment_smash = 0
 	minimum_survivable_temperature = 270
 	maximum_survivable_temperature = 370
 	unsuitable_heat_damage = 15	//amount of damage applied if animal's body temperature is higher than maxbodytemp
@@ -37,7 +33,13 @@
 
 /mob/living/basic/clown/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/ai_retaliate)
+	AddComponent(/datum/component/ai_retaliate_advanced, CALLBACK(src, PROC_REF(retaliate_callback)))
+
+/mob/living/basic/clown/proc/retaliate_callback(mob/living/attacker)
+	if(!istype(attacker))
+		return
+	for(var/mob/living/basic/clown/harbringer in oview(src, 7))
+		harbringer.ai_controller.insert_blackboard_key_lazylist(BB_BASIC_MOB_RETALIATE_LIST, attacker)
 
 /mob/living/basic/clown/goblin
 	icon = 'icons/mob/animal.dmi'

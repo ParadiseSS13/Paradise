@@ -300,7 +300,6 @@
 	item = /obj/item/ammo_box/magazine/mm762x51
 	cost = 60
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	surplus = 0
 
 /datum/uplink_item/ammo/sniper
 	cost = 15
@@ -356,7 +355,6 @@
 	item = /obj/item/ammo_box/foambox/riot
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	surplus = 0
 
 ////////////////////////////////////////
 // MARK: EXPLOSIVES
@@ -669,22 +667,17 @@
 	reference = "NSB"
 	cost = 55
 	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
-	surplus = 0
 	hijack_only = FALSE
 
 /datum/uplink_item/explosives/emp_bomb/nuke
 	reference = "NSBEMP"
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
-	surplus = 0
-	can_discount = FALSE
 
 /datum/uplink_item/explosives/atmosfiregrenades/nuke
 	reference = "NAPG"
 	cost = 60
 	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
-	surplus = 0
-	hijack_only = TRUE
 
 /datum/uplink_item/stealthy_tools/chameleon/nuke
 	reference = "NCHAM"

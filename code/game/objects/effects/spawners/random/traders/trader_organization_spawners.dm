@@ -306,7 +306,6 @@
 
 /obj/effect/spawner/random/traders/merchantguild_major
 	name = "12. merchant guild large gear"
-	spawn_loot_count = 6 //Low-risk items, flavorful knick knacks - higher stock
 	loot = list(
 		/obj/item/clothing/suit/pimpcoat = 5,
 		/obj/item/dualsaber/toy = 5,

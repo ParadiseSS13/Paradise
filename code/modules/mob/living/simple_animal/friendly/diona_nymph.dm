@@ -38,13 +38,11 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 
 	speed = 0
-	stop_automated_movement = FALSE
 	turns_per_move = 4
 
 	var/list/donors = list()
 	holder_type = /obj/item/holder/diona
 
-	a_intent = INTENT_HELP
 	var/evolve_donors = 5 //amount of blood donors needed before evolving
 	var/awareness_donors = 3 //amount of blood donors needed for understand language
 	var/nutrition_need = 500 //amount of nutrition needed before evolving

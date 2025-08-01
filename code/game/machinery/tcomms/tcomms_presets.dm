@@ -15,13 +15,11 @@
 /obj/machinery/tcomms/relay/engineering
 	network_id = "ENGINEERING-RELAY"
 	autolink_id = "STATION-CORE"
-	active = FALSE
 
 // RUSKIE RELAY //
 /obj/machinery/tcomms/relay/ruskie
 	network_id = "RUSKIE-RELAY"
 	autolink_id = "STATION-CORE"
-	active = FALSE
 	hidden_link = TRUE
 
 // CC RELAY //

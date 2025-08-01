@@ -101,7 +101,6 @@
 	icon_state = "default"
 	name = "Alert"
 	desc = "Something seems to have gone wrong with this alert, so report this bug please."
-	mouse_opacity = MOUSE_OPACITY_ICON
 	/// How long before this alert automatically clears itself (in deciseconds). If zero, remains until cleared.
 	var/timeout = 0
 	/// Some alerts may have different icon states based on severity, this adjusts that.

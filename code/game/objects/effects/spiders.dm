@@ -4,7 +4,6 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "stickyweb1"
 	anchored = TRUE
-	density = FALSE
 	max_integrity = 15
 	cares_about_temperature = TRUE
 	var/mob/living/carbon/human/master_commander = null
@@ -33,7 +32,6 @@
 		take_damage(5, BURN, 0, 0)
 
 /obj/structure/spider/stickyweb
-	icon_state = "stickyweb1"
 
 /obj/structure/spider/stickyweb/Initialize(mapload)
 	. = ..()
@@ -229,7 +227,6 @@
 /obj/effect/decal/cleanable/spiderling_remains
 	name = "spiderling remains"
 	desc = "Green squishy mess."
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenshatter"
 
 /obj/structure/spider/cocoon

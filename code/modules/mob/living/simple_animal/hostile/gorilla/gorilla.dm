@@ -24,7 +24,6 @@
 	faction = list("hostile", "monkey", "jungle")
 	robust_searching = TRUE
 	minbodytemp = 270
-	maxbodytemp = 350
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	stat_attack = UNCONSCIOUS // Sleeping won't save you
 	a_intent = INTENT_HARM // Angrilla
@@ -219,7 +218,6 @@
 	icon = 'icons/mob/cargorillia.dmi'
 	desc = "Cargo's pet gorilla. He seems to have an 'I love Mom' tattoo."
 	faction = list("neutral", "monkey", "jungle")
-	gold_core_spawnable = NO_SPAWN
 	gender = MALE
 	a_intent = INTENT_HELP
 	unique_pet = TRUE

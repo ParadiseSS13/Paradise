@@ -302,7 +302,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	desc = "Looks like the cover to a turret. Not deploying, however?"
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "turret_cover"
-	layer = /obj/machinery/shieldgen/telecomms::layer + 0.1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	anchored = TRUE
 	/// Trap we create on activation
@@ -333,7 +332,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	health = 200
 	maxHealth = 200
 	faction = list("malf_drone")
-	ranged = TRUE
 	rapid = 2
 	speed = 0.5
 	projectiletype = /obj/item/projectile/beam/disabler/weak
@@ -432,7 +430,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/effect/spawner/random/telecomms_core_table
 	name = "telecomms core table spawner"
-	spawn_loot_count = 1
 	loot = list(
 		/obj/item/rcd/combat,
 		/obj/item/gun/medbeam,
@@ -478,7 +475,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	anchored = TRUE
 	layer = HOLOPAD_LAYER
 	plane = FLOOR_PLANE
-	max_integrity = 300
 	/// Have we been activated? If we have, we do not activate again.
 	var/activated = FALSE
 	/// Tied effect to kill when we die.

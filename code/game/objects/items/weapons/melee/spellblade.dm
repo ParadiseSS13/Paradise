@@ -250,7 +250,6 @@
 	plane = GRAVITY_PULSE_PLANE
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	duration = 0.5 SECONDS
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT // Let us not have this visual block clicks
 	/// Who we are orbiting
 	var/target
 	/// A funky color matrix to recolor the slash to

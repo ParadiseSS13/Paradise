@@ -283,7 +283,6 @@
 
 /datum/action/innate/camera_jump/shuttle_docker
 	name = "Jump to Location"
-	button_overlay_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/shuttle_docker/Activate()
 	if(QDELETED(target) || !isliving(target))

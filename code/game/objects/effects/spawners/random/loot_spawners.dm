@@ -1,17 +1,14 @@
 /obj/effect/spawner/random/loot
 	name = "random loot spawner"
-	icon_state = "loot"
 
 /obj/effect/spawner/random/loot/contraband_posters
 	name = "5x contraband posters spawner"
 	spawn_loot_count = 5
-	spawn_loot_double = TRUE
 	loot = list(/obj/item/poster/random_contraband)
 
 /obj/effect/spawner/random/loot/cryo_beakers
 	name = "3x cryo beaker spawner"
 	spawn_loot_count = 3
-	spawn_loot_double = TRUE
 	loot = list(/obj/item/reagent_containers/glass/beaker/bluespace)
 
 /obj/effect/spawner/random/loot/good_times
@@ -51,7 +48,6 @@
 
 /obj/effect/spawner/random/loot/coins
 	name = "coins spawner"
-	spawn_loot_double = TRUE
 	loot = list(
 		/obj/item/coin/silver = 3,
 		/obj/item/coin/iron = 3,
