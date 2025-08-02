@@ -20,10 +20,8 @@
 
 
 /obj/item/toy
-	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
-	force = 0
 	new_attack_chain = TRUE
 
 
@@ -111,10 +109,6 @@
 /obj/item/toy/syndicateballoon
 	name = "syndicate balloon"
 	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
-	throwforce = 0
-	throw_speed = 4
-	throw_range = 20
-	force = 0
 	icon_state = "syndballoon"
 	item_state = "syndballoon"
 	w_class = WEIGHT_CLASS_BULKY
@@ -304,7 +298,6 @@
 	force = 0
 	throwforce = 0
 	throw_speed = 3
-	throw_range = 5
 	origin_tech = null
 	attack_verb = list("attacked", "struck", "hit")
 	brightness_on = 0
@@ -334,7 +327,6 @@
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	force = 5
 	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
@@ -358,7 +350,6 @@
 	throwforce = 5.0
 	throw_speed = 10
 	throw_range = 30
-	w_class = WEIGHT_CLASS_TINY
 
 
 /obj/item/toy/snappop/virus/throw_impact(atom/hit_atom)
@@ -477,7 +468,6 @@
 	cooldown = world.time
 
 /obj/item/toy/therapy/red
-	item_state = "egg4" // It's the red egg in items_left/righthand
 	item_color = "red"
 
 /obj/item/toy/therapy/purple
@@ -493,7 +483,6 @@
 	item_color = "yellow"
 
 /obj/item/toy/therapy/orange
-	item_state = "egg4" // It's the red one again, lacking an orange item_state and making a new one is pointless
 	item_color = "orange"
 
 /obj/item/toy/therapy/green
@@ -1541,9 +1530,7 @@
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
-	throw_speed = 4
 	throw_range = 5
 	force = 5
 	origin_tech = "combat=1"

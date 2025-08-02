@@ -43,7 +43,6 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist
-	name = "atmospheric technician's jumpsuit"
 	desc = "A light jumpsuit useful for squeezing through narrow vents."
 	resistance_flags = FIRE_PROOF
 

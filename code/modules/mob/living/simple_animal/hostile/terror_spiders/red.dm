@@ -17,13 +17,8 @@
 	Your brute strength also allows you to force open powered doors and your webs are stronger and take longer for the crew to destroy. \
 	However, you move much slower than most other spiders."
 	ai_target_method = TS_DAMAGE_BRUTE
-	icon_state = "terror_red"
-	icon_living = "terror_red"
-	icon_dead = "terror_red_dead"
 	maxHealth = 200
 	health = 200
-	melee_damage_lower = 15
-	melee_damage_upper = 20
 	move_to_delay = 10 // at 20ticks/sec, this is 2 tile/sec movespeed
 	speed = 2 // movement_delay() gives 4.5, or 0.45s between steps, which = about 2.2 tiles/second. Player is slightly faster than AI, but cannot move on diagonals.
 	spider_opens_doors = 2

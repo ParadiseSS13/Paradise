@@ -15,7 +15,6 @@
 
 	move_resist = INFINITY
 	anchored = TRUE
-	density = FALSE
 
 	var/faction = list("hostile")	// If you spawn auto-attacking mobs, make sure that their faction and the nest's is the same
 	var/spawn_byproduct = list(/obj/item/stack/ore/glass, /obj/item/stack/ore/iron)	// When mobs spawn, these items also spawn on top of the tunnel

@@ -9,9 +9,6 @@
 	desc = "So generic, it might as well have no description at all."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "tank1"
-	density = FALSE
-	anchored = FALSE
-	pass_flags = 0
 
 	var/tank_type = ""			// Type of aquarium, used for icon updating
 	var/water_capacity = 0		// Number of units the tank holds (varies with tank type)
@@ -33,22 +30,16 @@
 	name = "fish bowl"
 	desc = "A small bowl capable of housing a single fish, commonly found on desks. This one has a tiny treasure chest in it!"
 	icon_state = "bowl1"
-	density = FALSE				// Small enough to not block stuff
-	anchored = FALSE			// Small enough to move even when filled
 	pass_flags = PASSTABLE // Just like at the county fair, you can't seem to throw the ball in to win the goldfish, and it's small enough to pull onto a table
 	tank_type = "bowl"
 	water_capacity = 50			// Not very big, therefore it can't hold much
 	max_fish = 1				// What a lonely fish
 
-	has_lid = FALSE
 	max_integrity = 15				// Not very sturdy
-	shard_count = 0				// No salvageable shards
 
 /obj/machinery/fishtank/tank
 	name = "fish tank"
 	desc = "A large glass tank designed to house aquatic creatures. Contains an integrated water circulation system."
-	icon = 'icons/obj/fish_items.dmi'
-	icon_state = "tank1"
 	density = TRUE
 	anchored = TRUE
 	pass_flags = null
@@ -68,7 +59,6 @@
 	icon_state = "wall1"
 	density = TRUE
 	anchored = TRUE
-	pass_flags = 0				// This thing is the size of a wall, you can't throw past it.
 
 	tank_type = "wall"
 	water_capacity = 500		// This thing fills an entire tile, it holds a lot.
