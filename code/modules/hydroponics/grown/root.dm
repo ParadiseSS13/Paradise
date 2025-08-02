@@ -29,16 +29,17 @@
 	desc = "Slices of neatly cut carrot."
 	icon_state = "carrot_wedges"
 
-/obj/item/food/grown/carrot/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(I.sharp)
-		to_chat(user, "<span class='notice'>You sharpen the carrot into a shiv with [I].</span>")
-		var/obj/item/kitchen/knife/shiv/carrot/Shiv = new ()
-		if(!remove_item_from_storage(user))
-			user.unequip(src)
-		user.put_in_hands(Shiv)
-		qdel(src)
-	else
-		return ..()
+/obj/item/food/grown/carrot/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.sharp)
+		return NONE
+
+	to_chat(user, "<span class='notice'>You sharpen [src] into a shiv with [used].</span>")
+	var/obj/item/kitchen/knife/shiv/carrot/shiv = new ()
+	if(!remove_item_from_storage(user))
+		user.unequip(src)
+	user.put_in_hands(shiv)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 
 // Parsnip
