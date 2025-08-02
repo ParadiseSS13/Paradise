@@ -35207,8 +35207,9 @@
 	},
 /area/station/hallway/primary/central/north)
 "ejj" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod"
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod 1 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/west)
@@ -49013,7 +49014,8 @@
 /area/station/security/permabrig)
 "jfm" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Four"
+	name = "Escape Pod 4 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/engimaint)
@@ -63758,8 +63760,9 @@
 /turf/space,
 /area/space/nearstation)
 "onD" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod"
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod 2 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
@@ -68977,8 +68980,9 @@
 	},
 /area/station/supply/break_room)
 "qid" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod Three"
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod 3 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
