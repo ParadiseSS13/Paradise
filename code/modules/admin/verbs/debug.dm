@@ -888,7 +888,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	set name = "Allow Browser Inspect"
 	set desc = "Allow browser debugging via inspect"
 
-	if(!check_rights(R_MAINTAINER) || !isclient(src))
+	if(!check_rights(R_DEBUG) || !isclient(src))
 		return
 
 	if(byond_version < 516)
