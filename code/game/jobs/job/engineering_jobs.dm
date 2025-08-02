@@ -58,6 +58,7 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/engineer
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/brain/wire_interface)
 
 /datum/outfit/job/chief_engineer/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()

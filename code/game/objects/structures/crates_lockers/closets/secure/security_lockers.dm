@@ -60,7 +60,6 @@
 	new /obj/item/gun/energy/gun/hos(src)
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/reagent_containers/drinks/mug/hos(src)
-	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
 	new /obj/item/clothing/accessory/medal/security(src)
 	new /obj/item/reagent_containers/drinks/flask/barflask(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
