@@ -280,7 +280,7 @@
 
 /obj/item/stock_parts/cell/potato
 	name = "potato battery"
-	desc = "A rechargeable starch-based power cell. The charge capacity depends on the potency of the potato used to create it."
+	desc = "A rechargeable starch-based power cell. The charge capacity depends on the potency of the plant used to create it."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "potato"
 	item_state = "cellp"
