@@ -11,12 +11,9 @@
 
 /obj/machinery/shield/Initialize(mapload)
 	. = ..()
-	dir = pick(NORTH, SOUTH, EAST, WEST)
 	recalculate_atmos_connectivity()
 
 /obj/machinery/shield/Destroy()
-	opacity = FALSE
-	density = FALSE
 	recalculate_atmos_connectivity()
 	return ..()
 

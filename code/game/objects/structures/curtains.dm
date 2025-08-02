@@ -135,7 +135,7 @@
 /obj/structure/curtain/update_overlays()
 	. = ..()
 	if(!assembled)
-		opacity = FALSE
+		set_opacity(FALSE)
 		return
 
 	if(opacity)

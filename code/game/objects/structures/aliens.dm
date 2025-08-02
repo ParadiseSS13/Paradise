@@ -102,7 +102,6 @@
 */
 /obj/structure/alien/resin/door
 	name = "resin door"
-
 	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
 	icon_state = "resin"
 	base_icon_state = "resin"
@@ -187,7 +186,7 @@
 		playsound(loc, close_sound, 50, 1)
 		flick("[initial_state]closing", src)
 	density = !density
-	opacity = !opacity
+	set_opacity(!opacity)
 	state_open = !state_open
 	addtimer(CALLBACK(src, PROC_REF(operate_update), bumped_open), 1 SECONDS)
 
