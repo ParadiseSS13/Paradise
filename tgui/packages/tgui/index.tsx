@@ -7,6 +7,7 @@
 // Themes
 import './styles/main.scss';
 import './styles/themes/abductor.scss';
+import './styles/themes/amberpos.scss';
 import './styles/themes/cardtable.scss';
 import './styles/themes/changeling.scss';
 import './styles/themes/departments.scss';
