@@ -1,3 +1,7 @@
+#define PART_FLAGS "part_flags"
+#define SPRITE_SHEETS_OVERRIDE "sprite_sheets_override"
+#define SPRITE_SHEETS_DEFAULT "sprite_sheets_default"
+
 /// MODsuits, trade-off between armor and utility
 /obj/item/mod
 	name = "Base MOD"
@@ -94,6 +98,8 @@
 	var/datum/mod_link/mod_link
 	/// The starting MODlink frequency, overridden on subtypes that want it to be something.
 	var/starting_frequency = null
+	/// Used when we set up new skins for a modsuit
+	var/list/part_data = list()
 
 /obj/item/mod/control/serialize()
 	var/list/data = ..()
@@ -130,13 +136,33 @@
 	new_core?.install(src)
 	helmet = new /obj/item/clothing/head/mod(src)
 	mod_parts += helmet
+	part_data[helmet] = list(
+		PART_FLAGS = HELMET_FLAGS,
+		SPRITE_SHEETS_OVERRIDE = HELMET_SPRITE_SHEETS,
+		SPRITE_SHEETS_DEFAULT = /obj/item/clothing/head/mod::sprite_sheets,
+	)
 	chestplate = new /obj/item/clothing/suit/mod(src)
 	chestplate.allowed += theme.allowed_suit_storage
 	mod_parts += chestplate
+	part_data[chestplate] = list(
+		PART_FLAGS = CHESTPLATE_FLAGS,
+		SPRITE_SHEETS_OVERRIDE = CHESTPLATE_SPRITE_SHEETS,
+		SPRITE_SHEETS_DEFAULT = /obj/item/clothing/suit/mod::sprite_sheets,
+	)
 	gauntlets = new /obj/item/clothing/gloves/mod(src)
 	mod_parts += gauntlets
+	part_data[gauntlets] = list(
+		PART_FLAGS = GAUNTLETS_FLAGS,
+		SPRITE_SHEETS_OVERRIDE = GAUNTLETS_SPRITE_SHEETS,
+		SPRITE_SHEETS_DEFAULT = /obj/item/clothing/gloves/mod::sprite_sheets,
+	)
 	boots = new /obj/item/clothing/shoes/mod(src)
 	mod_parts += boots
+	part_data[boots] = list(
+		PART_FLAGS = BOOTS_FLAGS,
+		SPRITE_SHEETS_OVERRIDE = BOOTS_SPRITE_SHEETS,
+		SPRITE_SHEETS_DEFAULT = /obj/item/clothing/shoes/mod::sprite_sheets,
+	)
 	var/list/all_parts = mod_parts + src
 	for(var/obj/item/part as anything in all_parts)
 		part.name = "[theme.name] [part.name]"
@@ -193,6 +219,7 @@
 		QDEL_NULL(core)
 	QDEL_NULL(mod_link)
 	QDEL_NULL(wires)
+	part_data = null
 	wearer = null
 	selected_module = null
 	bag = null
@@ -573,8 +600,6 @@
 	SEND_SIGNAL(src, COMSIG_MOD_WEARER_SET, wearer)
 	RegisterSignal(wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 	update_charge_alert()
-	for(var/obj/item/clothing/C in mod_parts)
-		C.refit_for_species(wearer.dna.species.sprite_sheet_name)
 	update_mod_overlays()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.on_equip()
@@ -758,18 +783,13 @@
 	var/list/used_skin = theme.skins[new_skin]
 	var/list/skin_updating = mod_parts + src
 	for(var/obj/item/part as anything in skin_updating)
-		part.icon = used_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
+		part.icon = used_skin[MOD_ICON_OVERRIDE] || initial(part.icon)
+		part.icon_override = used_skin[MOD_WORN_ICON_OVERRIDE] || initial(part.icon_override)
 		part.icon_state = "[skin]-[part.base_icon_state]"
 	for(var/obj/item/clothing/part as anything in mod_parts)
-		var/used_category
-		if(part == helmet)
-			used_category = HELMET_FLAGS
-		if(part == chestplate)
-			used_category = CHESTPLATE_FLAGS
-		if(part == gauntlets)
-			used_category = GAUNTLETS_FLAGS
-		if(part == boots)
-			used_category = BOOTS_FLAGS
+		part.sprite_sheets = get_nested_value(used_skin, MOD_SPRITE_SHEETS_OVERRIDE, get_nested_value(part_data, part, SPRITE_SHEETS_OVERRIDE)) \
+			|| get_nested_value(part_data, part, SPRITE_SHEETS_DEFAULT)
+		var/used_category = get_nested_value(part_data, part, PART_FLAGS)
 		var/list/category = used_skin[used_category]
 		part.flags = category[UNSEALED_CLOTHING] || NONE
 		part.visor_flags = category[SEALED_CLOTHING] || NONE
@@ -867,3 +887,7 @@
 	if(bag)
 		for(var/obj/object in bag)
 			object.hear_message(user, msg)
+
+#undef PART_FLAGS
+#undef SPRITE_SHEETS_OVERRIDE
+#undef SPRITE_SHEETS_DEFAULT
