@@ -339,7 +339,7 @@
 
 /// 10 pulse shots
 /obj/item/stock_parts/cell/energy_gun/pulse/pistol
-	name = "pulse pistol power cell"
+	name = "pulse pistol internal power cell"
 	maxcharge = 2000
 
 /obj/item/stock_parts/cell/emproof
