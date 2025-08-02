@@ -275,7 +275,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	max_mod_capacity = 65
 	can_bayonet = FALSE
-	can_flashlight = TRUE
 	flight_y_offset = 10
 	can_holster = TRUE
 	empty_state = "kineticpistol_empty"
