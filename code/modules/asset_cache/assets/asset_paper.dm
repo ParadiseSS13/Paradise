@@ -1,6 +1,7 @@
 /datum/asset/simple/paper
-	// TODO: revrite stamp code to not rely on hardcoded stamp url or make TGUI for paper
+	//TODO: Move paper to TGUI. Period.
 	keep_local_name = TRUE
+	legacy = TRUE
 	assets = list(
 		"large_stamp-clown.png" = 'icons/paper_icons/large_stamp-clown.png',
 		"large_stamp-deny.png"= 'icons/paper_icons/large_stamp-deny.png',
