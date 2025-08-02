@@ -857,11 +857,14 @@
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/Initialize(mapload)
 	starting_items = list(
 		/obj/item/reagent_containers/syringe/antiviral = 4,
+		/obj/item/reagent_containers/glass/bottle/tracking_agar = 1,
+		/obj/item/reagent_containers/glass/bottle/stable_agar = 1,
 		/obj/item/reagent_containers/glass/bottle/cold = 1,
 		/obj/item/reagent_containers/glass/bottle/flu_virion = 1,
 		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
 		/obj/item/reagent_containers/glass/bottle/plasma = 1,
 		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1,
+		/obj/item/reagent_containers/glass/bottle/sterilizine,
 		/obj/item/storage/lockbox/vials = 2
 	)
 	. = ..()
@@ -877,6 +880,8 @@
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate/Initialize(mapload)
 	starting_items = list(
 		/obj/item/reagent_containers/syringe/antiviral = 4,
+		/obj/item/reagent_containers/glass/bottle/tracking_agar = 1,
+		/obj/item/reagent_containers/glass/bottle/stable_agar = 1,
 		/obj/item/reagent_containers/glass/bottle/cold = 1,
 		/obj/item/reagent_containers/glass/bottle/flu_virion = 1,
 		/obj/item/reagent_containers/glass/bottle/mutagen = 1,

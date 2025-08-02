@@ -12,6 +12,7 @@
 	item_color = "plasmaman"
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_PLASMAMEN
+	permeability_coefficient = 0.6
 
 	var/next_extinguish = 0
 	var/extinguish_cooldown = 10 SECONDS

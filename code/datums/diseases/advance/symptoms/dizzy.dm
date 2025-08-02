@@ -20,11 +20,11 @@ Bonus
 
 	name = "Dizziness"
 	stealth = 2
-	resistance = -2
-	stage_speed = -3
+	stage_speed = -1
 	transmittable = -1
 	level = 4
 	severity = 2
+	treatments = list("antihol" , "ephedrine")
 
 /datum/symptom/dizzy/Activate(datum/disease/advance/A)
 	..()

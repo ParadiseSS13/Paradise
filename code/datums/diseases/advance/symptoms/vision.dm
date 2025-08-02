@@ -18,12 +18,13 @@ Bonus
 /datum/symptom/visionloss
 
 	name = "Hyphema"
-	stealth = -1
-	resistance = -4
-	stage_speed = -4
-	transmittable = -3
+	stealth = 2
+	resistance = 1
+	stage_speed = -1
+	transmittable = -4
 	level = 5
 	severity = 4
+	treatments = ("oculine")
 
 /datum/symptom/visionloss/Activate(datum/disease/advance/A)
 	..()

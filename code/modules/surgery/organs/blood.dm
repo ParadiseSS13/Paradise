@@ -1,5 +1,5 @@
 /****************************************************
-				BLOOD SYSTEM
+				MARK: BLOOD SYSTEM
 ****************************************************/
 
 #define EXOTIC_BLEED_MULTIPLIER 4 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
@@ -134,7 +134,7 @@
 	bleed_rate = 0
 
 /****************************************************
-				BLOOD TRANSFERS
+				MARK: BLOOD TRANSFERS
 ****************************************************/
 
 //Gets blood from mob to a container or other mob, preserving all data in it.
@@ -153,6 +153,8 @@
 
 	blood_volume -= amount
 
+	SEND_SIGNAL(AM, COMSIG_MOB_REAGENT_EXCHANGE, src)
+
 	var/list/blood_data = get_blood_data(blood_id)
 
 	if(iscarbon(AM))
@@ -162,7 +164,7 @@
 				if(blood_data["viruses"])
 					for(var/thing in blood_data["viruses"])
 						var/datum/disease/D = thing
-						if((D.spread_flags & SPECIAL) || (D.spread_flags & NON_CONTAGIOUS))
+						if((D.spread_flags & SPREAD_SPECIAL) || (D.spread_flags & SPREAD_NON_CONTAGIOUS))
 							continue
 						C.ForceContractDisease(D)
 				if(!(blood_data?["blood_type"] in get_safe_blood(C.dna.blood_type)) || C.dna.species.name != blood_data["species"] && (blood_data["species_only"] || C.dna.species.own_species_blood))

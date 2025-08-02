@@ -22,26 +22,29 @@ Bonus
 /datum/symptom/vomit
 
 	name = "Vomiting"
-	stealth = -2
-	resistance = -1
+	stealth = -3
+	stage_speed = -2
 	transmittable = 1
 	level = 3
-	severity = 4
+	severity = 3
+	treatments = list("calomel" , "charcoal", "pen_acid")
 
 /datum/symptom/vomit/Activate(datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB / 2))
+	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/M = A.affected_mob
-		switch(A.stage)
-			if(1, 2, 3, 4)
-				to_chat(M, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
-			else
-				Vomit(M)
-
+		if(A.progress > 20 && prob(A.progress))
+			Vomit(M, A.progress)
+		else
+			switch(A.progress)
+				if(0 to 59)
+					to_chat(M, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
+				if(60 to INFINITY)
+					to_chat(M, "<span class='warning'>[pick("You feel extremely nauseous!", "You barely manage to not throw up!")]</span>")
 	return
 
-/datum/symptom/vomit/proc/Vomit(mob/living/carbon/M)
-	M.vomit(20)
+/datum/symptom/vomit/proc/Vomit(mob/living/carbon/M, progress)
+	M.vomit(20 * (progress / 100))
 
 /*
 //////////////////////////////////////
@@ -66,12 +69,14 @@ Bonus
 /datum/symptom/vomit/blood
 
 	name = "Blood Vomiting"
-	stage_speed = -1
+	stealth = -2
+	resistance = 2
+	stage_speed = -3
 	level = 4
 	severity = 5
 
-/datum/symptom/vomit/blood/Vomit(mob/living/carbon/M)
-	M.vomit(0, 1)
+/datum/symptom/vomit/blood/Vomit(mob/living/carbon/M, progress)
+	M.vomit(35 * ((progress / 100) ** 2), TRUE, TRUE, distance = 1)
 
 
 /*
@@ -95,7 +100,10 @@ Bonus
 /datum/symptom/vomit/projectile
 
 	name = "Projectile Vomiting"
-	level = 4
+	stealth = -2
+	resistance = 1
+	level = 5
+	severity = 4
 
-/datum/symptom/vomit/projectile/Vomit(mob/living/carbon/M)
-	M.vomit(6,0,FALSE,5,1)
+/datum/symptom/vomit/projectile/Vomit(mob/living/carbon/M, progress)
+	M.vomit(10 * ((progress / 100) ** 2), FALSE, TRUE, 6, 1)

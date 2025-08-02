@@ -17,12 +17,12 @@ Bonus
 
 /datum/symptom/deafness
 	name = "Deafness"
-	stealth = -1
-	resistance = -2
+	stealth = 1
 	stage_speed = -1
 	transmittable = -3
 	level = 4
 	severity = 3
+	treatments = list("oculine")
 
 /datum/symptom/deafness/Activate(datum/disease/advance/A)
 	..()

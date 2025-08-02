@@ -264,7 +264,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "bp" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "br" = (

@@ -3,13 +3,13 @@
 	form = "Infection"
 	max_stages = 4
 	spread_text = "On contact"
-	spread_flags = CONTACT_GENERAL
+	spread_flags = SPREAD_CONTACT_GENERAL
 	cure_text = "Ethanol"
 	cures = list("ethanol")
 	agent = "Excess Lepidopticides"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
 	desc = "If left untreated subject will regurgitate butterflies."
-	severity = MINOR
+	severity = VIRUS_MINOR
 
 /datum/disease/anxiety/stage_act()
 	if(!..())

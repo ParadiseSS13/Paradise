@@ -19,11 +19,11 @@ Bonus
 
 	name = "Hallucigen"
 	stealth = -2
-	resistance = -3
-	stage_speed = -3
-	transmittable = -1
+	stage_speed = -4
+	transmittable = 1
 	level = 5
 	severity = 3
+	treatments = list("synaptazine" , "ephedrine")
 
 /datum/symptom/hallucigen/Activate(datum/disease/advance/A)
 	..()

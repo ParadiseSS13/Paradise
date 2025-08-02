@@ -18,12 +18,13 @@ Bonus
 /datum/symptom/weakness
 
 	name = "Weakness"
-	stealth = -1
-	resistance = -1
+	stealth = -2
+	resistance = 1
 	stage_speed = -2
-	transmittable = -2
+	transmittable = -1
 	level = 3
-	severity = 3
+	severity = 4
+	treatments = list("synaptazine", "ephedrine",  "coffee" , "tea")
 
 /datum/symptom/weakness/Activate(datum/disease/advance/A)
 	..()

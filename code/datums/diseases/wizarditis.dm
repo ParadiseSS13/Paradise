@@ -9,7 +9,7 @@
 	agent = "Rincewindus Vulgaris"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
-	severity = MINOR
+	severity = VIRUS_MINOR
 	/// A mapping of `num2text(ITEM_SLOT_XYZ)` -> item path
 	var/list/magic_fashion = list()
 

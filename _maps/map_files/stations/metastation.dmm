@@ -21015,7 +21015,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "ccp" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreen"
@@ -26941,13 +26941,6 @@
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"cDD" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/asmaint)
 "cDE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -34137,6 +34130,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"dRd" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "dRt" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/preopen{
@@ -37196,16 +37193,6 @@
 	icon_state = "white"
 	},
 /area/station/medical/virology)
-"eRG" = (
-/mob/living/simple_animal/pet/cat/var_cat,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/bed/dogbed/runtime{
-	name = "Var's bed"
-	},
-/turf/simulated/floor/wood,
-/area/station/maintenance/asmaint)
 "eRM" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
@@ -46581,6 +46568,10 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"inr" = (
+/obj/structure/chair/office,
+/turf/simulated/floor/wood,
+/area/station/public/vacant_office)
 "inv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -49108,24 +49099,6 @@
 	name = "reinforced stairs"
 	},
 /area/station/science/test_chamber)
-"jim" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_y = 4;
-	pixel_x = -5
-	},
-/obj/item/pen{
-	pixel_x = 8;
-	pixel_y = 5
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkgreen"
-	},
-/area/station/procedure/trainer_office)
 "jiK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -61426,6 +61399,13 @@
 	icon_state = "white"
 	},
 /area/station/medical/surgery/observation)
+"nut" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/asmaint)
 "nuz" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -61858,10 +61838,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
-"nDk" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
 "nDt" = (
 /obj/item/toy/figure/crew/syndie{
 	pixel_x = -8;
@@ -61930,12 +61906,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
-"nEy" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
-/turf/simulated/floor/wood,
-/area/station/public/vacant_office)
 "nEz" = (
 /obj/effect/spawner/airlock/s_to_n,
 /obj/effect/spawner/window/reinforced/grilled,
@@ -63491,19 +63461,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/reception)
-"ogE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
 "ogH" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
@@ -66792,6 +66749,16 @@
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
+"pvT" = (
+/mob/living/simple_animal/pet/cat/var_cat,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/bed/dogbed/runtime{
+	name = "Var's bed"
+	},
+/turf/simulated/floor/wood,
+/area/station/maintenance/asmaint)
 "pwg" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -77267,6 +77234,13 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
+"tms" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/asmaint)
 "tmt" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
@@ -77529,6 +77503,12 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
+"tpn" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/station/public/vacant_office)
 "tpq" = (
 /obj/structure/lattice,
 /obj/structure/sign/electricshock{
@@ -77709,6 +77689,24 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
+"ttp" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_y = 4;
+	pixel_x = -5
+	},
+/obj/item/pen{
+	pixel_x = 8;
+	pixel_y = 5
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkgreen"
+	},
+/area/station/procedure/trainer_office)
 "ttz" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
@@ -83131,10 +83129,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
-"vvH" = (
-/obj/structure/chair/office,
-/turf/simulated/floor/wood,
-/area/station/public/vacant_office)
 "vvU" = (
 /obj/machinery/keycard_auth{
 	pixel_y = -4;
@@ -86098,6 +86092,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"wCN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "wDG" = (
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
@@ -89758,13 +89765,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
-"xRO" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/asmaint)
 "xRR" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -102162,7 +102162,7 @@ oJl
 eoq
 bHf
 bHf
-nEy
+tpn
 eoq
 bHf
 bFp
@@ -102421,7 +102421,7 @@ vsf
 dNc
 vsf
 xyi
-vvH
+inr
 eyr
 bFp
 mbZ
@@ -107041,7 +107041,7 @@ xIX
 aEB
 mUd
 aGZ
-jim
+ttp
 bou
 xIX
 bgW
@@ -126918,7 +126918,7 @@ aZi
 oUb
 cPc
 oBQ
-eRG
+pvT
 uEh
 cPc
 aaa
@@ -127177,7 +127177,7 @@ xGF
 ihF
 gaZ
 ihF
-nDk
+dRd
 aaa
 aaa
 aaa
@@ -127434,7 +127434,7 @@ voe
 gaZ
 jzw
 pSZ
-nDk
+dRd
 aaa
 aaa
 aaa
@@ -127683,9 +127683,9 @@ kqz
 ifD
 cPc
 bME
-ogE
+wCN
 csW
-xRO
+tms
 cPc
 cPc
 pCj
@@ -127941,7 +127941,7 @@ cPc
 xGF
 cIM
 cEG
-cDD
+nut
 dcC
 cPc
 iCd
