@@ -334,13 +334,11 @@
 /// 25 pulse shots
 /obj/item/stock_parts/cell/pulse/carbine
 	name = "pulse carbine internal power cell"
-	desc = "If you can see this, make an issue report to GitHub."
 	maxcharge = 5000
 
 /// 10 pulse shots
 /obj/item/stock_parts/cell/pulse/pistol
 	name = "pulse pistol power cell"
-	desc = "If you can see this, make an issue report to GitHub."
 	maxcharge = 2000
 
 /obj/item/stock_parts/cell/emproof
