@@ -52,7 +52,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "gx" = (
-/obj/structure/spawner/mining/basilisk,
+/obj/structure/spawner/mining/basilisk/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "hG" = (
@@ -235,7 +235,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "KW" = (
-/obj/structure/spawner/mining/hivelord,
+/obj/structure/spawner/mining/hivelord/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "Li" = (

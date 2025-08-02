@@ -71,7 +71,7 @@
 
 /obj/item/clothing/shoes/magboots/atmos
 	name = "atmospheric magboots"
-	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
+	desc = "Magnetic boots, made to withstand gusts of space wind over 500k mph."
 	icon_state = "atmosmagboots0"
 	magboot_state = "atmosmagboots"
 
@@ -187,7 +187,7 @@
 
 /obj/item/clothing/shoes/magboots/gravity
 	name = "gravitational boots"
-	desc = "These experimental boots try to get around the restrictions of magboots by installing miniture gravitational generators in the soles. Sadly, power hungry, and needs a gravitational anomaly core."
+	desc = "These experimental boots try to get around the restrictions of magboots by installing miniature gravitational generators in the soles. Sadly, power hungry, and needs a gravitational anomaly core."
 	icon_state = "gravboots0"
 	origin_tech = "materials=6;magnets=6;engineering=6"
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/gravity_jump) //In other news, combining magboots with jumpboots is a mess

@@ -64,6 +64,10 @@
 	name = "Mining Station Catwalk"
 	icon_state = "mining"
 
+/area/lavaland/surface/outdoors/outpost/no_boulder
+	name = "Mining Station"
+	icon_state = "mining"
+
 /area/mine/outpost/comms
 	name = "Mining Station Communications"
 	icon_state = "tcomms"

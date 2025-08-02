@@ -168,12 +168,8 @@
 			to_chat(user, "<span class='warning'>There's already a container inside.</span>")
 		else if(panel_open)
 			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
-		else
-			if(!user.drop_item())
-				return ITEM_INTERACT_COMPLETE
-
-			beaker =  used
-			beaker.loc = src
+		else if(user.transfer_item_to(used, src))
+			beaker = used
 			update_icon(UPDATE_ICON_STATE)
 			SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE
@@ -225,8 +221,7 @@
 			to_chat(user, "<span class='warning'>Cannot refine into a reagent!</span>")
 			return ITEM_INTERACT_COMPLETE
 
-	if(user.drop_item())
-		used.loc = src
+	if(user.transfer_item_to(used, src))
 		holdingitems += used
 		SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE

@@ -277,6 +277,14 @@
 		if(ismecha(M.loc))
 			return
 
+		if(ismodcontrol(over_object))
+			var/obj/item/mod/control/target = over_object
+			bag?.dump_storage(M, target.bag)
+			return
+		if(isstorage(over_object))
+			bag?.dump_storage(M, over_object)
+			return
+
 		if(!M.restrained() && !M.stat)
 			playsound(loc, "rustle", 50, TRUE, -5)
 
@@ -293,6 +301,14 @@
 				bag?.open(usr)
 
 			add_fingerprint(M)
+
+/obj/item/mod/control/wirecutter_act(mob/living/user, obj/item/I)
+	if(open)
+		if(seconds_electrified && get_charge() && shock(user))
+			return TRUE
+		wires.Interact(user)
+		return TRUE
+	return ..()
 
 /obj/item/mod/control/wrench_act(mob/living/user, obj/item/wrench)
 	if(..())
@@ -842,3 +858,13 @@
 	. = ..()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.extinguish_light(force)
+
+/obj/item/mod/control/hear_talk(mob/living/user, list/message_pieces)
+	if(bag)
+		for(var/obj/object in bag)
+			object.hear_talk(user, message_pieces)
+
+/obj/item/mod/control/hear_message(mob/living/user, msg)
+	if(bag)
+		for(var/obj/object in bag)
+			object.hear_message(user, msg)

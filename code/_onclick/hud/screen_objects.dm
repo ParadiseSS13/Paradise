@@ -460,22 +460,30 @@
 	. = ..()
 	if(!handcuff_overlay)
 		var/state = (slot_id == ITEM_SLOT_RIGHT_HAND) ? "markus" : "gabrielle"
-		handcuff_overlay = image("icon"='icons/mob/screen_gen.dmi', "icon_state"=state)
+		handcuff_overlay = image(icon = 'icons/mob/screen_gen.dmi', icon_state = state)
 
-	if(hud && hud.mymob)
-		if(iscarbon(hud.mymob))
-			var/mob/living/carbon/C = hud.mymob
-			if(C.handcuffed)
-				. += handcuff_overlay
+	if(!hud || !hud.mymob)
+		return
 
-			var/obj/item/organ/external/hand = C.get_organ("[slot_id == ITEM_SLOT_LEFT_HAND ? "l" : "r"]_hand")
-			if(!isalien(C) && (!hand || !hand.is_usable()))
-				. += blocked_overlay
+	if(iscarbon(hud.mymob))
+		var/mob/living/carbon/C = hud.mymob
+		if(C.handcuffed)
+			. += handcuff_overlay
 
-		if(slot_id == ITEM_SLOT_LEFT_HAND && hud.mymob.hand)
+		var/obj/item/organ/external/hand = C.get_organ("[slot_id == ITEM_SLOT_LEFT_HAND ? "l" : "r"]_hand")
+		if(!isalien(C) && (!hand || !hand.is_usable()))
+			. += blocked_overlay
+
+	if(slot_id == ITEM_SLOT_LEFT_HAND)
+		if(hud.mymob.hand)
 			. += "hand_active"
-		else if(slot_id == ITEM_SLOT_RIGHT_HAND && !hud.mymob.hand)
+		if(hud.mymob.l_hand && (hud.mymob.l_hand.flags & NODROP) && !(hud.mymob.l_hand.flags & ABSTRACT))
+			. += "locked_l"
+	else if(slot_id == ITEM_SLOT_RIGHT_HAND)
+		if(!hud.mymob.hand)
 			. += "hand_active"
+		if(hud.mymob.r_hand && (hud.mymob.r_hand?.flags & NODROP) && !(hud.mymob.r_hand.flags & ABSTRACT))
+			. += "locked"
 
 /atom/movable/screen/inventory/hand/Click()
 	// At this point in client Click() code we have passed the 1/10 sec check and little else

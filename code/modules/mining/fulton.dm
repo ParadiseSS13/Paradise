@@ -73,6 +73,9 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			return ITEM_INTERACT_COMPLETE
 		if(A.anchored || (A.move_resist > max_force_fulton))
 			return ITEM_INTERACT_COMPLETE
+		if(ismegafauna(A))
+			to_chat(user, "<span class='warning'>[src] is too heavy to retrieve!</span>")
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You start attaching the pack to [A]...</span>")
 		if(do_after(user, 50, target = A))
 			to_chat(user, "<span class='notice'>You attach the pack to [A] and activate it.</span>")

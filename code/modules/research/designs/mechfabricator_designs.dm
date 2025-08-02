@@ -1323,6 +1323,16 @@
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrades")
 
+/datum/design/borg_upgrade_holo_stretcher
+	name = "Cyborg Upgrade (Holo Stretcher Rack Upgrade)"
+	id = "borg_upgrade_holo_stretcher"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/holo_stretcher
+	req_tech = list("magnets" = 5, "powerstorage" = 4)
+	materials = list(MAT_METAL = 1000, MAT_SILVER = 500, MAT_GLASS = 500, MAT_DIAMOND = 200)
+	construction_time = 12 SECONDS
+	category = list("Cyborg Upgrades")
+
 // IPC
 
 /datum/design/ipc_head

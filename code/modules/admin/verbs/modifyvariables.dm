@@ -613,9 +613,9 @@ GLOBAL_PROTECT(VVmaint_only)
 			return null
 		sleep(1)
 
-	click_intercept = null
+	picker.quit()
 	return picker.picked
-	
+
 
 /client/proc/modify_variables(atom/O, param_var_name = null, autodetect_class = 0)
 	if(!check_rights(R_VAREDIT))

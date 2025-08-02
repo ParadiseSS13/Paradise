@@ -349,26 +349,26 @@
 
 /obj/item/rcd/suicide_act(mob/living/user)
 	user.Immobilize(10 SECONDS) // You cannot move.
-	flags |= NODROP				// You cannot drop. You commit to die.
+	set_nodrop(TRUE, user)
 	if(mode == MODE_DECON)
 		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		var/datum/rcd_act/remove_user/act = new()
 		if(!act.try_act(user, src, user))
-			flags &= ~NODROP
+			set_nodrop(FALSE, user)
 			return SHAME
 		user.visible_message("<span class='suicide'>[user] deconstructs [user.p_themselves()] with [src]!</span>")
 		for(var/obj/item/W in user)	// Do not delete all their stuff.
 			user.drop_item_to_ground(W)			// Dump everything on the floor instead.
-		flags &= ~NODROP			// NODROP must be removed so the RCD doesn't get dusted along with them. Having this come after the unequipping puts the RCD on top of the pile of stuff.
+		set_nodrop(FALSE, user)
 		user.dust()					// (held items fall to the floor when dusting).
 		return OBLITERATION
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	if(!interact_with_atom(get_turf(src), user, TRUE))
-		flags &= ~NODROP
+		set_nodrop(FALSE, user)
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
-	flags &= ~NODROP
+	set_nodrop(FALSE, user)
 	user.gib()
 	return OBLITERATION
 

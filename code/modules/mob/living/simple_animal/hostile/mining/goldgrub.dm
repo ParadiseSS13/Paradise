@@ -26,6 +26,8 @@
 	deathmessage = "spits up the contents of its stomach before dying!"
 	status_flags = CANPUSH
 	search_objects = 1
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/goldgrub
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
 						/obj/item/stack/ore/uranium)
 
@@ -34,6 +36,8 @@
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize(mapload)
 	. = ..()
+	faction |= "goldgrub"
+
 	var/i = rand(1,3)
 	while(i)
 		loot += pick(/obj/item/stack/ore/silver, /obj/item/stack/ore/gold, /obj/item/stack/ore/uranium, /obj/item/stack/ore/diamond)

@@ -16,8 +16,8 @@
 
 	user.Beam(target, icon_state = "sendbeam", time = 2 SECONDS, beam_color = "#f180bd")
 	target.add_plasma(50)
-	to_chat(user, "<span class='noticealien'>You have transfered 50 plasma to [target].</span>")
-	to_chat(target, "<span class='noticealien'>[user] has transfered 50 plasma to you!</span>")
+	to_chat(user, "<span class='noticealien'>You have transferred 50 plasma to [target].</span>")
+	to_chat(target, "<span class='noticealien'>[user] has transferred 50 plasma to you!</span>")
 	return TRUE
 
 /datum/spell/alien_spell/syphon_plasma

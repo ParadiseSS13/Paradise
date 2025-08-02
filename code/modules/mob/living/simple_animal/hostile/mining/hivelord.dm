@@ -32,6 +32,8 @@
 	pass_flags = PASSTABLE
 	butcher_results = list(/obj/item/organ/internal/regenerative_core = 1)
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/hivelord
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
@@ -56,6 +58,12 @@
 	if(!.)
 		return FALSE
 	mouse_opacity = MOUSE_OPACITY_ICON
+
+/mob/living/simple_animal/hostile/asteroid/hivelord/space
+	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/space
+
+/mob/living/simple_animal/hostile/asteroid/hivelord/space/Process_Spacemove(movement_dir, continuous_move)
+	return TRUE
 
 //A fragile but rapidly produced creature
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood
@@ -92,6 +100,11 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(death)), 100)
 	AddComponent(/datum/component/swarming)
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/space
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/space/Process_Spacemove(movement_dir, continuous_move)
+	return TRUE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood
 	name = "blood brood"
@@ -178,7 +191,6 @@
 	robust_searching = TRUE
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
-
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
 	name = "dwarf legion"
@@ -298,6 +310,7 @@
 	sentience_type = SENTIENCE_BOSS
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	speed = 0
+	butcher_results = list(/obj/item/regen_mesh)
 
 /mob/living/simple_animal/hostile/asteroid/big_legion/AttackingTarget()
 	if(!isliving(target))

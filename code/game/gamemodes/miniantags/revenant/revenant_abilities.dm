@@ -483,6 +483,9 @@
 /obj/machinery/power/smes/rev_malfunction(cause_emp = TRUE)
 	return
 
+/obj/machinery/computer/emergency_shuttle/rev_malfunction(cause_emp = TRUE)
+	return
+
 /mob/living/silicon/robot/rev_malfunction(cause_emp = TRUE)
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 1)
 	new /obj/effect/temp_visual/revenant(loc)

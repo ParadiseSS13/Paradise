@@ -121,4 +121,4 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	// And the clients for good measure
 	msg += "<b>Client (your) BYOND Version:</b> [byond_version].[byond_build]"
 
-	to_chat(usr, msg.Join("<br>"))
+	to_chat(usr, chat_box_examine(msg.Join("<br>")))

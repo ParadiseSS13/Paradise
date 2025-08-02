@@ -63,6 +63,8 @@
 	. = ..()
 	if(panel_open)
 		icon_state = "assembler_wires"
+	else
+		icon_state = "assembler"
 
 /obj/machinery/smithing/kinetic_assembler/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	. = ..()
@@ -117,6 +119,9 @@
 			return
 
 /obj/machinery/smithing/kinetic_assembler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
+		return ..()
+
 	if(operating)
 		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
 		return ITEM_INTERACT_COMPLETE
@@ -291,8 +296,10 @@
 	. = ..()
 	if(panel_open)
 		icon_state = "assembler_wires"
+	else
+		icon_state = "assembler"
 
-/obj/machinery/smithing/kinetic_assembler/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+/obj/machinery/smithing/scientific_assembler/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 
@@ -303,6 +310,9 @@
 		icon_state = "assembler_wires"
 
 /obj/machinery/smithing/scientific_assembler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
+		return ..()
+
 	if(operating)
 		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
 		return ITEM_INTERACT_COMPLETE

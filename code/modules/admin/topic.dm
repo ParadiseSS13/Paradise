@@ -787,7 +787,7 @@
 							msg = job
 						else
 							msg += ", [job]"
-					add_note(M.last_known_ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
+					add_note(M.last_known_ckey, "Banned from [msg] - [reason]", null, usr.ckey, 0, public = TRUE)
 					message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes</span>", 1)
 
 					// Reload their job ban holder (refresh this round)
@@ -810,7 +810,7 @@
 								msg = job
 							else
 								msg += ", [job]"
-						add_note(M.last_known_ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
+						add_note(M.last_known_ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0, public = TRUE)
 						message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg]</span>", 1)
 
 						// Reload their job ban holder (refresh this round)
@@ -2169,10 +2169,11 @@
 		switch(punishment)
 			// These smiting types are valid for all living mobs
 			if("Lightning bolt")
-				M.electrocute_act(5, "Lightning Bolt", flags = SHOCK_NOGLOVES)
+				M.electrocute_act(50, "Lightning Bolt", flags = SHOCK_NOGLOVES)
 				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
-				M.adjustFireLoss(75)
-				M.Weaken(10 SECONDS)
+				var/turf/simulated/T = get_turf(M)
+				new /obj/effect/temp_visual/thunderbolt(T)
+				M.adjustFireLoss(30)
 				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
 				logmsg = "a lightning bolt."
 			if("Fire Death")

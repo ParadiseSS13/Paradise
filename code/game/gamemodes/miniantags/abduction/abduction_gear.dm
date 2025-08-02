@@ -85,7 +85,7 @@ CONTENTS:
 	combat_armor = getArmor(arglist(combat_armor))
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
-	flags ^= NODROP
+	set_nodrop(NODROP_TOGGLE, loc)
 	if(ismob(loc))
 		to_chat(loc, "<span class='notice'>Your vest is now [flags & NODROP ? "locked" : "unlocked"].</span>")
 

@@ -36,7 +36,9 @@
 
 	if(!weapon_ref)
 		create_new_weapon()
-	weapon_ref.flags |= (ABSTRACT | NODROP) // Just in case the item doesn't start with both of these, or somehow loses them.
+	// Just in case the item doesn't start with both of these, or somehow loses them.
+	weapon_ref.flags |= ABSTRACT
+	weapon_ref.set_nodrop(TRUE, user)
 
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || (user.get_active_hand() && !user.drop_item()))
 		flayer.send_swarm_message("We cannot manifest [weapon_ref] into our active hand...")

@@ -71,7 +71,7 @@
 			to_chat(user, "<span class='notice'>[src] currently has no tank attached to it.</span>")
 			return
 		to_chat(user, "<span class='notice'>As you detach [thetank] from [src], the fist unlocks.</span>")
-		flags &= ~NODROP
+		set_nodrop(FALSE, user)
 		tank.forceMove(get_turf(user))
 		user.put_in_hands(tank)
 		tank = null
@@ -84,8 +84,7 @@
 		to_chat(user, "<span class='notice'>As you hook [thetank] up to [src], the fist locks into place around your arm.</span>")
 		tank = thetank
 		thetank.forceMove(src)
-		flags |= NODROP
-
+		set_nodrop(TRUE, user)
 
 /obj/item/melee/powerfist/attack__legacy__attackchain(mob/living/target, mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))

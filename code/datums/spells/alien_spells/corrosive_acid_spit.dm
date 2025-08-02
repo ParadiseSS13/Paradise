@@ -8,7 +8,7 @@
 
 /obj/item/melee/touch_attack/alien/corrosive_acid
 	name = "Corrosive acid"
-	desc = "A fistfull of death."
+	desc = "A fistful of death."
 	icon_state = "alien_acid"
 
 /obj/item/melee/touch_attack/alien/corrosive_acid/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -35,7 +35,7 @@
 
 /datum/spell/touch/alien_spell/burning_touch
 	name = "Blazing touch"
-	desc = "Boil acid within your hand to burn through anything you touch with it, deals a lot of damage to aliens and destroys resin structures instantly."
+	desc = "Boil acid within your hand to burn through anything you touch with it, dealing a lot of damage to aliens and destroying resin structures instantly."
 	hand_path = "/obj/item/melee/touch_attack/alien/burning_touch"
 	action_icon_state = "alien_acid"
 	plasma_cost = 100
