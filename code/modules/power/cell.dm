@@ -309,35 +309,36 @@
 	desc = "If you can see this, make an issue report to GitHub."
 	maxcharge = 1000
 
-/obj/item/stock_parts/cell/lever_gun
-	name = "lever action rifle internal power cell"
-	desc = "If you can see this, make an issue report to GitHub."
-	maxcharge = 150
-
-/obj/item/stock_parts/cell/lmg
-	name = "cyborg LMG internal power cell"
-	desc = "If you can see this, make an issue report to GitHub."
-	maxcharge = 600
-
-/obj/item/stock_parts/cell/hos_gun
+/obj/item/stock_parts/cell/energy_gun/hos_gun
 	name = "\improper X-01 multiphase energy gun internal power cell"
-	desc = "If you can see this, make an issue report to GitHub."
 	maxcharge = 1200
 
+/obj/item/stock_parts/cell/energy_gun/lever_action
+	name = "lever action rifle internal power cell"
+	maxcharge = 150
+
+/obj/item/stock_parts/cell/energy_gun/lmg
+	name = "cyborg LMG internal power cell"
+	maxcharge = 600
+
+/obj/item/stock_parts/cell/energy_gun/bsg
+	name = "\improper B.S.G internal power cell"
+	maxcharge = 40000
+	chargerate = 2600 // about 30 seconds to charge with a default recharger
+
 /// 200 pulse shots
-/obj/item/stock_parts/cell/pulse
+/obj/item/stock_parts/cell/energy_gun/pulse
 	name = "pulse rifle internal power cell"
-	desc = "If you can see this, make an issue report to GitHub."
 	maxcharge = 40000
 	chargerate = 1500
 
 /// 25 pulse shots
-/obj/item/stock_parts/cell/pulse/carbine
+/obj/item/stock_parts/cell/energy_gun/pulse/carbine
 	name = "pulse carbine internal power cell"
 	maxcharge = 5000
 
 /// 10 pulse shots
-/obj/item/stock_parts/cell/pulse/pistol
+/obj/item/stock_parts/cell/energy_gun/pulse/pistol
 	name = "pulse pistol power cell"
 	maxcharge = 2000
 
@@ -366,12 +367,6 @@
 	name = "spider-clan power cell"
 	desc = "A standard ninja-suit power cell."
 	maxcharge = 10000
-
-/obj/item/stock_parts/cell/bsg
-	name = "\improper B.S.G internal power cell"
-	desc = "If you can see this, make an issue report to GitHub."
-	maxcharge = 40000
-	chargerate = 2600 // about 30 seconds to charge with a default recharger
 
 /obj/item/stock_parts/cell/flayerprod
 	name = "mindflayer prod internal power cell"
