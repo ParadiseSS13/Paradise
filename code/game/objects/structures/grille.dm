@@ -1,5 +1,5 @@
 /obj/structure/grille
-	desc = "A flimsy framework of metal rods."
+	desc = "A robust framework of metal rods, commonly used for reinforcing high-security windows and for protection against space debris."
 	name = "grille"
 	icon_state = "grille"
 	density = TRUE
