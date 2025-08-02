@@ -156,9 +156,9 @@
 ///Ore Bag - Lets you pick up ores and drop them from the suit.
 /obj/item/mod/module/orebag
 	name = "MOD ore bag module"
-	desc = "An integrated ore storage system installed into the suit, \
-		this utilizes precise electromagnets and storage compartments to automatically collect and deposit ore. \
-		It's recommended by Cybersun Industries to actually deposit that ore at local refineries."
+	desc = "An integrated ore storage system installed into the suit, developed in-house by Nanotrasen for its plasma mining operations.\
+		Utilizing precise electromagnets and modular storage compartments, the module automatically collects and sorts extracted ores. \
+		Nanotrasen reminds users of the system to actually deposit that ore at local refineries."
 	icon_state = "ore"
 	module_type = MODULE_USABLE
 	complexity = 1
