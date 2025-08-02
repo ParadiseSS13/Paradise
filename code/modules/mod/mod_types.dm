@@ -1,5 +1,4 @@
 /obj/item/mod/control/pre_equipped
-	starting_frequency = MODLINK_FREQ_NANOTRASEN
 	/// The skin we apply to the suit, defaults to the default_skin of the theme.
 	var/applied_skin
 	/// The MOD core we apply to the suit.
