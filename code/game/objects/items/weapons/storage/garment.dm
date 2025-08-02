@@ -370,8 +370,6 @@
 	new /obj/item/clothing/under/plasmaman/smith(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/smith(src)
 
-<<<<<<< Updated upstream
-=======
 /obj/item/storage/bag/garment/smith
 	name = "smith's garment bag"
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the smith."
@@ -389,22 +387,17 @@
 	new /obj/item/clothing/under/plasmaman/smith(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/smith(src)
 
->>>>>>> Stashed changes
 /obj/item/storage/bag/garment/syndie
 	name = "suspicious garment bag"
 	icon_state = "garment_bag_syndie"
 	desc = "A bag for storing extra clothes and shoes. Judging by the colors, this one belongs to someone with malicious intent."
 
 /obj/item/storage/bag/garment/syndie/populate_contents()
-<<<<<<< Updated upstream
 	new /obj/item/clothing/under/syndicate/tacticool(src)
-=======
->>>>>>> Stashed changes
 	new /obj/item/clothing/under/syndicate(src)
 	new /obj/item/clothing/under/syndicate/combat(src)
 	new /obj/item/clothing/under/syndicate/greyman(src)
 	new /obj/item/clothing/under/syndicate/sniper(src)
-<<<<<<< Updated upstream
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/clothing/mask/balaclava(src)
 	new /obj/item/clothing/suit/storage/iaa/blackjacket(src)
@@ -414,14 +407,5 @@
 	new /obj/item/clothing/neck/cloak/syndicate(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/gloves/fingerless(src)
-=======
-	new /obj/item/clothing/under/syndicate/tacticool(src)
-	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/clothing/suit/jacket/bomber/syndicate(src)
-	new /obj/item/clothing/suit/storage/iaa/blackjacket(src)
-	new /obj/item/clothing/head/beret/syndicate(src)
-	new /obj/item/clothing/neck/cloak/syndicate(src)
-	new /obj/item/clothing/gloves/color/black(src)
->>>>>>> Stashed changes
 	new /obj/item/clothing/shoes/combat(src)
 	new /obj/item/clothing/shoes/laceup(src)
