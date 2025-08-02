@@ -824,7 +824,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!ai_number)
 		messages += "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
 
-	to_chat(usr, chat_box_examine(messages.Join("\n")))
+	to_chat(usr, chat_box_examine(messages.Join("<br>")))
 
 	log_admin("[key_name(usr)] checked the AI laws")
 	message_admins("[key_name_admin(usr)] checked the AI laws")

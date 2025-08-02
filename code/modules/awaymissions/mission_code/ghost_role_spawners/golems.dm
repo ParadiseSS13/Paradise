@@ -203,7 +203,6 @@
 
 /obj/effect/mob_spawn/human/alive/golem/adamantine
 	name = "dust-caked free golem shell"
-	desc = "A humanoid shape, empty, lifeless, and full of potential."
 	assignedrole = "Free Golem"
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine

@@ -3,7 +3,6 @@
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the south side, and its output port is on the north side."
 	icon = 'icons/obj/atmospherics/circulator.dmi'
 	icon_state = "circ8-off"
-	anchored = TRUE
 	density = TRUE
 	can_unwrench = TRUE
 

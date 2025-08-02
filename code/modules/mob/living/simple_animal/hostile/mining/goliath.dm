@@ -9,7 +9,6 @@
 	icon_dead = "Goliath_dead"
 	icon_gib = "syndicate_gib"
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
-	mouse_opacity = MOUSE_OPACITY_ICON
 	move_to_delay = 40
 	ranged = TRUE
 	ranged_cooldown_time = 120
@@ -26,7 +25,6 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
 	vision_range = 5
-	aggro_vision_range = 9
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
@@ -82,9 +80,7 @@
 
 //Lavaland Goliath
 /mob/living/simple_animal/hostile/asteroid/goliath/beast
-	name = "goliath"
 	desc = "A hulking, armor-plated beast with long tendrils arching from its back."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath"
 	icon_living = "goliath"
 	icon_aggro = "goliath"

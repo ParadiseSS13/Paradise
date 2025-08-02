@@ -221,6 +221,10 @@
 	display_name = "Skirt, black"
 	path = /obj/item/clothing/under/dress/blackskirt
 
+/datum/gear/uniform/skirt/blue_tango
+	display_name = "blue tango dress"
+	path = /obj/item/clothing/under/dress/blacktango/blue
+
 /datum/gear/uniform/skirt/job
 	main_typepath = /datum/gear/uniform/skirt/job
 	subtype_selection_cost = FALSE
@@ -267,6 +271,11 @@
 	display_name = "Skirt, virologist"
 	path = /obj/item/clothing/under/rank/medical/virologist/skirt
 	allowed_roles = list("Virologist")
+
+/datum/gear/uniform/skirt/job/para
+	display_name = "Skirt, paramedic"
+	path = /obj/item/clothing/under/rank/medical/paramedic/skirt
+	allowed_roles = list("Chief Medical Officer", "Paramedic")
 
 /datum/gear/uniform/skirt/job/med
 	display_name = "Skirt, medical"

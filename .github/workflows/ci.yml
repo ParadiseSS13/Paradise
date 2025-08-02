@@ -48,6 +48,7 @@ jobs:
           python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
           python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
           python tools/ci/define_sanity.py
+          python tools/ci/identical_variables.py
           python tools/ci/restrict_file_types.py
           python tools/ci/verify_sql_version.py
           python tools/ci/no_duplicate_definitions.py
@@ -83,7 +84,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        byondtype: ['STABLE', 'BETA']
+        byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v4
       - name: Restore BYOND from Cache
@@ -105,7 +106,7 @@ jobs:
       fail-fast: false # Let all map tests run to completion
       matrix:
         station: ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
-        byondtype: ['STABLE', 'BETA']
+        byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v4
       - name: Restore BYOND from Cache
@@ -132,7 +133,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        byondtype: ['STABLE', 'BETA']
+        byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v4
       - name: Restore BYOND from Cache

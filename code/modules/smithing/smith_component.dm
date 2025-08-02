@@ -1,7 +1,5 @@
 /obj/item/smithed_item/component
 	name = "Debug smithed component"
-	icon = 'icons/obj/smithing.dmi'
-	icon_state = "debug"
 	desc = "Debug smithed component part. If you see this, notify the development team."
 	/// What type of part is it
 	var/part_type

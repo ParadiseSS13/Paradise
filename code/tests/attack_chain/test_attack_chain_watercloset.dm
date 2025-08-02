@@ -1,4 +1,4 @@
-/datum/game_test/attack_chain_toilet/Run()
+/datum/game_test/room_test/attack_chain_toilet/Run()
 	var/datum/test_puppeteer/player = new(src)
 
 	var/obj/structure/toilet/toilet = player.spawn_obj_nearby(/obj/structure/toilet, EAST)
@@ -19,14 +19,14 @@
 	player.use_item_in_hand()
 	player.put_away(flamethrower)
 
-	var/obj/item/crowbar = player.spawn_obj_in_hand(/obj/item/crowbar)
+	player.spawn_obj_in_hand(/obj/item/crowbar)
 	player.click_on(toilet)
 	TEST_ASSERT_LAST_CHATLOG(player, "You lift")
 	player.puppet.swap_hand()
 	player.click_on(toilet)
 	player.click_on(toilet)
 	TEST_ASSERT_LAST_CHATLOG(player, "The cistern is empty")
-	var/obj/item/storage/box = player.spawn_obj_in_hand(/obj/item/storage/box)
+	player.spawn_obj_in_hand(/obj/item/storage/box)
 	player.click_on(toilet)
 	TEST_ASSERT_LAST_CHATLOG(player, "You carefully")
 	player.click_on(toilet)
@@ -35,7 +35,7 @@
 	player.click_on(toilet)
 	TEST_ASSERT_LAST_CHATLOG(player, "You replace")
 
-/datum/game_test/attack_chain_shower/Run()
+/datum/game_test/room_test/attack_chain_shower/Run()
 	var/datum/test_puppeteer/player = new(src)
 
 	var/obj/machinery/shower = player.spawn_obj_nearby(/obj/machinery/shower, EAST)
@@ -65,7 +65,7 @@
 	player.put_away(welder)
 	qdel(player)
 
-/datum/game_test/attack_chain_sink/Run()
+/datum/game_test/room_test/attack_chain_sink/Run()
 	var/datum/test_puppeteer/player = new(src)
 
 	var/obj/structure/sink = player.spawn_obj_nearby(/obj/structure/sink, SOUTH)

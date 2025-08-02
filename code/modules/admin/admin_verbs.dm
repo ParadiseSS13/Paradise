@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 	/client/proc/play_intercomm_sound,
 	/client/proc/stop_global_admin_sounds,
 	/client/proc/stop_sounds_global,
-	/client/proc/play_web_sound
+	/client/proc/play_sound_tgchat
 	))
 GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/object_talk,
@@ -1305,3 +1305,23 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 
 	B.to_backup_disk(get_turf(usr))
 
+/proc/ghost_follow_uid(mob/user, uid)
+	var/client/client = user.client
+	if(!isobserver(user))
+		if(!check_rights(R_ADMIN|R_MOD)) // Need to be mod or admin to aghost
+			return
+		user.client.admin_ghost()
+	var/datum/target = locateUID(uid)
+	if(QDELETED(target))
+		to_chat(user, "<span class='warning'>This datum has been deleted!</span>")
+		return
+
+	if(istype(target, /datum/mind))
+		var/datum/mind/mind = target
+		if(!ismob(mind.current))
+			to_chat(user, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			return
+		target = mind.current
+
+	var/mob/dead/observer/A = client.mob
+	A.ManualFollow(target)
