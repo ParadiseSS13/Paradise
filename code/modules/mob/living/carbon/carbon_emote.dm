@@ -140,8 +140,6 @@
 	message = "signs."
 	message_param = "signs the number %t."
 	param_desc = "number(0-10)"
-	// Humans get their own proc since they have fingers
-	mob_type_blacklist_typecache = list(/mob/living/carbon/human)
 	hands_use_check = TRUE
 	target_behavior = EMOTE_TARGET_BHVR_NUM
 
