@@ -260,7 +260,7 @@
 //Defile: Corrupts nearby stuff, unblesses floor tiles.
 /datum/spell/aoe/revenant/defile
 	name = "Defile"
-	desc = "Twists and corrupts the nearby area as well as dispelling holy auras on floors."
+	desc = "Twists and corrupts the nearby area as well as dispelling holy auras on floors. The presence of the living empowers the effects."
 	base_cooldown = 15 SECONDS
 	stun = 1 SECONDS
 	reveal = 4 SECONDS
@@ -280,7 +280,22 @@
 	for(var/turf/T in targets)
 		T.defile()
 		for(var/atom/A in T.contents)
+			if(istype(A, /obj/structure/window)) // we want to handle glass seperately
+				continue
 			A.defile()
+		for(var/mob/living/carbon/human/living in T.contents)
+			if(!living.mind || living.stat == DEAD) // shouldnt work on dead or mindless mobs
+				continue
+			var/obj/effect/warp_effect/supermatter/warp = new(T)
+			warp.pixel_x += 16
+			warp.pixel_y += 16
+			animate(warp, time = 0.9 SECONDS, transform = matrix().Scale(0.2,0.2))
+			for(var/obj/structure/window/W in range(2, living))
+				W.defile()
+			addtimer(CALLBACK(src, PROC_REF(delete_pulse), warp), 1 SECONDS)
+
+/datum/spell/aoe/revenant/defile/proc/delete_pulse(warp)
+	qdel(warp)
 
 //Malfunction: Makes bad stuff happen to robots and machines.
 /datum/spell/aoe/revenant/malfunction
@@ -524,6 +539,10 @@
 
 /obj/structure/closet/defile()
 	open()
+
+/obj/structure/morgue/defile()
+	if(!connected && prob(25))
+		toggle_tray()
 
 /turf/simulated/floor/defile()
 	..()
