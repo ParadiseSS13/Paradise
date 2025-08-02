@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 	/client/proc/play_intercomm_sound,
 	/client/proc/stop_global_admin_sounds,
 	/client/proc/stop_sounds_global,
-	/client/proc/play_web_sound
+	/client/proc/play_sound_tgchat
 	))
 GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/object_talk,
@@ -274,6 +274,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/visualize_interesting_turfs,
 	/client/proc/profile_code
 ))
+GLOBAL_LIST_INIT(view_logs_verbs, list(
+	/client/proc/getserverlogs,
+	/client/proc/get_server_logs_by_round_id,
+))
 
 /client/proc/add_admin_verbs()
 	if(holder)
@@ -323,6 +327,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				control_freak = 0
 		if(holder.rights & R_DEV_TEAM)
 			add_verb(src, GLOB.admin_verbs_dev)
+		if(holder.rights & R_VIEWLOGS)
+			add_verb(src, GLOB.view_logs_verbs)
 		if(is_connecting_from_localhost())
 			add_verb(src, /client/proc/export_current_character)
 

@@ -11,6 +11,8 @@
 		"Mining" = /obj/machinery/door/airlock/multi_tile/supply,
 		"Public" = /obj/machinery/door/airlock/multi_tile,
 		"Security" = /obj/machinery/door/airlock/multi_tile/security,
+		"Medical" = /obj/machinery/door/airlock/multi_tile/medical,
+		"Research" = /obj/machinery/door/airlock/multi_tile/research,
 	)
 
 // Special behavior for multi-tile airlocks

@@ -1662,8 +1662,8 @@
 /area/awaymission/bmp_ship/fore)
 "fd" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/space/nasavoid,
-/obj/item/clothing/head/helmet/space/nasavoid,
+/obj/item/clothing/suit/space/void,
+/obj/item/clothing/head/helmet/space/void,
 /obj/item/clothing/mask/gas/explorer,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -4218,7 +4218,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/clothing/head/helmet/space/nasavoid/ltblue,
+/obj/item/clothing/head/helmet/space/void/ltblue,
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/buffer)
 "ux" = (
@@ -5116,8 +5116,8 @@
 /area/awaymission/bmp_ship/kitchen)
 "Dj" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/space/nasavoid/yellow,
-/obj/item/clothing/head/helmet/space/nasavoid/yellow,
+/obj/item/clothing/suit/space/void/yellow,
+/obj/item/clothing/head/helmet/space/void/yellow,
 /obj/item/clothing/mask/gas/explorer,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -5227,7 +5227,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/bmp_ship/armory)
 "DP" = (
-/obj/item/clothing/suit/space/nasavoid/ltblue,
+/obj/item/clothing/suit/space/void/ltblue,
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/buffer)
 "DT" = (
@@ -6745,8 +6745,8 @@
 	},
 /obj/item/tank/internals/oxygen,
 /obj/item/clothing/mask/gas,
-/obj/item/clothing/suit/space/nasavoid/captain,
-/obj/item/clothing/head/helmet/space/nasavoid/captain,
+/obj/item/clothing/suit/space/void/captain,
+/obj/item/clothing/head/helmet/space/void/captain,
 /obj/item/clothing/accessory/medal/heart,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/bmp_ship/fore)

@@ -178,7 +178,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 672208
+sql_version = 682208
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -471,7 +471,8 @@ job_slot_amounts = [
   {name = "Medical Intern", lowpop = 0, highpop = 0},
   {name = "Virologist", lowpop = 1, highpop = 1}, # Science
   {name = "Roboticist", lowpop = 2, highpop = 2},
-  {name = "Scientist", lowpop = 6, highpop = 7},
+  {name = "Scientist", lowpop = 4, highpop = 5},
+  {name = "Xenobiologist", lowpop = 2, highpop = 2},
   {name = "Student Scientist", lowpop = 0, highpop = 0}, # Security
   {name = "Detective", lowpop = 1, highpop = 1},
   {name = "Security Officer", lowpop = 8, highpop = 9},

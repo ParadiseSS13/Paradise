@@ -118,7 +118,7 @@
 
 /// Returns a purely random tint for specific color
 /proc/tint_color(color, range = 25)
-	if(!istext(color) || length(color) < 7 || copytext(color, 1, 2) != "#") // if it's not a hex color
+	if(!is_color_text(color)) // if it's not a hex color
 		return color // just leave it as it is
 
 	var/R = clamp(color2R(color) + rand(-range, range), 0, 255)
@@ -218,54 +218,12 @@
 
 /// Randomises skin tone, specifically for each species that has a skin tone. Otherwise keeps a default of 1
 /proc/random_skin_tone(species = "Human")
-	switch(species)
-		if("Human")
-			return rand(1, 13)
-		if("Drask")
-			return rand(1, 220)
-		if("Nian")
-			return rand(1, 4)
-		if("Vox")
-			return rand(1, 8)
+	var/datum/species/species_selected = GLOB.all_species[species]
+	if(species_selected?.bodyflags & HAS_SKIN_TONE)
+		return rand(1, 220)
+	else if(species_selected?.bodyflags & HAS_ICON_SKIN_TONE)
+		return rand(1, length(species_selected.icon_skin_tones))
 	return 1
-
-/proc/skintone2racedescription(tone, species = "Human")
-	if(species == "Human")
-		switch(tone)
-			if(30 to INFINITY)		return "albino"
-			if(20 to 30)			return "pale"
-			if(5 to 15)				return "light skinned"
-			if(-10 to 5)			return "white"
-			if(-25 to -10)			return "tan"
-			if(-45 to -25)			return "darker skinned"
-			if(-65 to -45)			return "brown"
-			if(-INFINITY to -65)	return "black"
-			else					return "unknown"
-	else if(species == "Vox")
-		switch(tone)
-			if(2)					return "plum"
-			if(3)					return "brown"
-			if(4)					return "gray"
-			if(5)					return "emerald"
-			if(6)					return "azure"
-			if(7)					return "crimson"
-			if(8)					return "nebula"
-			else					return "lime"
-	else
-		return "unknown"
-
-/proc/age2agedescription(age)
-	switch(age)
-		if(0 to 1)			return "infant"
-		if(1 to 3)			return "toddler"
-		if(3 to 13)			return "child"
-		if(13 to 19)		return "teenager"
-		if(19 to 30)		return "young adult"
-		if(30 to 45)		return "adult"
-		if(45 to 60)		return "middle-aged"
-		if(60 to 70)		return "aging"
-		if(70 to INFINITY)	return "elderly"
-		else				return "unknown"
 
 /proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list(), user_name)
 	var/status = criminal_status
@@ -600,6 +558,10 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 		return null
 	if(ismob(A))
 		return A
+	if(istype(A, /obj/structure/blob/core))
+		var/obj/structure/blob/core/blob = A
+		if(blob.overmind)
+			return blob.overmind
 
 	. = null
 	for(var/mob/M in A)
@@ -760,3 +722,74 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 /// rounds value to limited symbols after the period for organ damage and other values
 /proc/round_health(health)
 	return round(health, 0.01)
+
+/// Takes in an associated list (key `/datum/action` typepaths, value is the AI
+/// blackboard key) and handles granting the action and adding it to the mob's
+/// AI controller blackboard. This is only useful in instances where you don't
+/// want to store the reference to the action on a variable on the mob. You can
+/// set the value to null if you don't want to add it to the blackboard (like in
+/// player controlled instances). Is also safe with null AI controllers. Assumes
+/// that the action will be initialized and held in the mob itself, which is
+/// typically standard.
+/mob/proc/grant_actions_by_list(list/input)
+	if(length(input) <= 0)
+		return
+
+	for(var/action in input)
+		var/datum/action/ability = new action(src)
+		ability.Grant(src)
+
+		var/blackboard_key = input[action]
+		if(isnull(blackboard_key))
+			continue
+
+		ai_controller?.set_blackboard_key(blackboard_key, ability)
+
+/**
+ * [/proc/ran_zone] but only returns bodyzones that the mob actually has.
+ *
+ * * `blacklisted_parts` allows you to specify zones that will not be chosen.
+ *   e.g.: list(`BODY_ZONE_CHEST`, `BODY_ZONE_R_LEG`). **Blacklisting
+ *   `BODY_ZONE_CHEST` is really risky since it's the only bodypart guaranteed
+ *   to always exist. Only do that if you're certain they have limbs, otherwise
+ *   we'll crash!**
+ *
+ * * [/proc/ran_zone] has a base `prob(80)` to return the `base_zone` (or if null,
+ *   `BODY_ZONE_CHEST`) vs something in our generated list of limbs. This
+ *   probability is overriden when either blacklisted_parts contains
+ *   BODY_ZONE_CHEST and we aren't passed a base_zone (since the default
+ *   fallback for ran_zone would be the chest in that scenario), or if
+ *   even_weights is enabled. You can also manually adjust this probability by
+ *   altering `base_probability`.
+ *
+ * * even_weights - ran_zone has a 40% chance (after the prob(80) mentioned
+ *   above) of picking a limb, vs the torso & head which have an additional 10%
+ *   chance. Setting even_weights to TRUE will make it just a straight up pick()
+ *   between all possible bodyparts.
+ */
+/mob/proc/get_random_valid_zone(base_zone, base_probability = 80, list/blacklisted_parts, even_weights, bypass_warning)
+	return BODY_ZONE_CHEST // Pass the default of check_zone to be safe.
+
+/mob/living/carbon/human/get_random_valid_zone(base_zone, base_probability = 80, list/blacklisted_parts, even_weights, bypass_warning)
+	var/list/limbs = list()
+	for(var/obj/item/organ/limb as anything in bodyparts)
+		var/limb_zone = limb.parent_organ // cache the parent organ since we're gonna check it a ton.
+		if(limb_zone in blacklisted_parts)
+			continue
+		if(even_weights)
+			limbs[limb_zone] = 1
+			continue
+		if(limb_zone == BODY_ZONE_CHEST || limb_zone == BODY_ZONE_HEAD)
+			limbs[limb_zone] = 1
+		else
+			limbs[limb_zone] = 4
+
+	if(base_zone && !(check_zone(base_zone) in limbs))
+		base_zone = null // check if the passed zone is infact valid
+
+	var/chest_blacklisted
+	if(BODY_ZONE_CHEST in blacklisted_parts)
+		chest_blacklisted = TRUE
+		if(bypass_warning && length(limbs))
+			CRASH("limbs is empty and the chest is blacklisted. this may not be intended!")
+	return (((chest_blacklisted && !base_zone) || even_weights) ? pickweight(limbs) : ran_zone(base_zone, base_probability, limbs))

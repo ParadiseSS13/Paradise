@@ -34,6 +34,8 @@
 	var/pre_attack_icon = "Goliath_preattack"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 	footstep_type = FOOTSTEP_MOB_HEAVY
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/goliath
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
 	. = ..()
@@ -192,3 +194,8 @@
 	icon_state = "Goliath_tentacle_retract"
 	deltimer(timerid)
 	timerid = QDEL_IN(src, 7)
+
+/mob/living/simple_animal/hostile/asteroid/goliath/space
+
+/mob/living/simple_animal/hostile/asteroid/goliath/space/Process_Spacemove(movement_dir, continuous_move)
+	return TRUE

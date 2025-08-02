@@ -52,6 +52,7 @@ jobs:
           python tools/ci/verify_sql_version.py
           python tools/ci/no_duplicate_definitions.py
           python tools/ci/check_icons.py
+          python tools/ci/check_random_spawner_prefabs.py
           python -m tools.ci.check_map_sizes
           python -m tools.ci.check_legacy_attack_chain
           python -m tools.maplint.source --github
@@ -84,7 +85,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        byondtype: ['BETA']
+        byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v4
       - name: Restore BYOND from Cache
@@ -106,7 +107,7 @@ jobs:
       fail-fast: false # Let all map tests run to completion
       matrix:
         station: ['boxstation', 'deltastation', 'metastation']
-        byondtype: ['BETA']
+        byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v4
       - name: Restore BYOND from Cache
@@ -117,7 +118,7 @@ jobs:
         run: |
           sudo dpkg --add-architecture i386
           sudo apt update || true
-          sudo apt install zlib1g-dev:i386
+          sudo apt install -y zlib1g-dev:i386
           tools/ci/install_rustg.sh
       - name: Compile & Run Unit Tests
         run: |
@@ -133,7 +134,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        byondtype: ['BETA']
+        byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v4
       - name: Restore BYOND from Cache
@@ -149,7 +150,7 @@ jobs:
         run: |
           sudo dpkg --add-architecture i386
           sudo apt update || true
-          sudo apt install zlib1g-dev:i386
+          sudo apt install -y zlib1g-dev:i386
           tools/ci/install_rustg.sh
       - name: Compile & Run Unit Tests
         run: |
@@ -160,13 +161,13 @@ jobs:
           tools/ci/run_server.sh
 
 # TODO: Add back when we have a Windows runner (never)
-  # windows_dll_tests:
-  #   name: Windows RUSTG Validation
-  #   runs-on: self-hosted
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/setup-python@v5
-  #       with:
-  #         python-version: '3.8.2' # Script was made for 3.8.2
-  #         architecture: 'x86' # This MUST be x86
-  #     - run: python tools/ci/validate_rustg_windows.py
+# windows_dll_tests:
+#   name: Windows RUSTG Validation
+#   runs-on: self-hosted
+#   steps:
+#     - uses: actions/checkout@v4
+#     - uses: actions/setup-python@v5
+#       with:
+#         python-version: '3.8.2' # Script was made for 3.8.2
+#         architecture: 'x86' # This MUST be x86
+#     - run: python tools/ci/validate_rustg_windows.py

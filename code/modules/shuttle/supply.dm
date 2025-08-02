@@ -108,8 +108,8 @@
 		for(var/atom/A in T.contents)
 			if(!A.simulated)
 				continue
-			if(istype(A, /obj/machinery/light))
-				continue //hacky but whatever, shuttles need three spots each for this shit
+			if(istype(A, /obj/machinery/light) || istype(A, /obj/machinery/conveyor))
+				continue // Objects we're fine with spawning crates on.
 			contcount++
 
 		if(contcount)

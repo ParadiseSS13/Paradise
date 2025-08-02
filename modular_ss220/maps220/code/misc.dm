@@ -83,7 +83,7 @@
 			user.verbs |= /mob/living/carbon/human/proc/immortality
 
 		if("Покой")
-			for(var/mob/living/simple_animal/hostile/faithless/F in GLOB.mob_living_list)
+			for(var/mob/living/basic/netherworld/faithless/F in GLOB.mob_living_list)
 				F.death()
 			become_shadow = FALSE
 

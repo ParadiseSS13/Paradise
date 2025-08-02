@@ -331,8 +331,33 @@
 	// Adding APC electronics.
 	if(istype(used, /obj/item/apc_electronics) && opened)
 		if(has_electronics())
-			to_chat(user, "<span class='warning'>[src] already contains APC electronics!</span>")
-			return ITEM_INTERACT_COMPLETE
+			if(user.mind && HAS_TRAIT(user.mind, TRAIT_ELECTRICAL_SPECIALIST))
+				if(stat & BROKEN)
+					to_chat(user, "<span class='warning'>[src] is damaged! You must repair the frame before you can install [used]!</span>")
+					return ITEM_INTERACT_COMPLETE
+				if(malfhack)
+					malfai = null
+					malfhack = FALSE
+					user.visible_message(\
+						"<span class='notice'>[name] has discarded the strangely programmed APC electronics from [src]!</span>",
+						"<span class='notice'>You discarded the strangely programmed board.</span>",
+						"<span class='warning'>You hear metallic levering.</span>"
+						)
+				else
+					user.visible_message(
+							"<span class='notice'>[user] exchanges out broken the APC electronics inside [src]!</span>",
+							"<span class='notice'>You carefully remove the charred electronics, replacing it with a functional board.</span>",
+							"<span class='warning'>You hear metallic levering and a crack, followed by a gentle click.</span>")
+				playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+				qdel(used)
+				electronics_state = APC_ELECTRONICS_INSTALLED
+				locked = FALSE
+				stat &= ~MAINT
+				update_icon()
+				return ITEM_INTERACT_COMPLETE
+			else
+				to_chat(user, "<span class='warning'>[src] already contains APC electronics!</span>")
+				return ITEM_INTERACT_COMPLETE
 
 		if(stat & BROKEN)
 			to_chat(user, "<span class='warning'>[src] is damaged! You must repair the frame before you can install [used]!</span>")
@@ -368,7 +393,7 @@
 			update_icon()
 			return ITEM_INTERACT_COMPLETE
 
-		if(has_electronics())
+		if(has_electronics() && user.mind && !HAS_TRAIT(user.mind, TRAIT_ELECTRICAL_SPECIALIST))
 			to_chat(user, "<span class='warning'>You cannot repair [src] until you remove the electronics!</span>")
 			return ITEM_INTERACT_COMPLETE
 

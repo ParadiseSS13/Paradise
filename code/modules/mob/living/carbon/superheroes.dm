@@ -218,7 +218,7 @@
 	if(istype(head_organ))
 		head_organ.h_style = "Bald"
 		head_organ.f_style = "Shaved"
-	target.s_tone = 35
+	target.change_skin_tone(1)
 	// No `update_dna=0` here because the character is being over-written
 	target.change_eye_color(1,1,1)
 	for(var/obj/item/W in target.get_all_slots())

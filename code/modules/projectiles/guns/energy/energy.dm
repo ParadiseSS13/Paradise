@@ -265,6 +265,19 @@
 	. += "This scatter-beam technology allows for more energy output per trigger pull, however the increased heat on the focusing lens has resulted in a decreased fire rate compared to the standard fare. \
 	It is a Nanotrasen officer's best friend, allowing them to stop crime one trigger pull at a time."
 
+/obj/item/gun/energy/gun/shotgun/cyborg
+	name = "Energy Scatterbeam"
+	desc = "An energy emitter that fires spread-fire laser shells."
+	icon_state = "eshotgun"
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/eshotgun/cyborg)
+
+/obj/item/gun/energy/gun/shotgun/newshot()
+	..()
+	robocharge()
+
+/obj/item/gun/energy/emitter/gun/shotgun/emp_act()
+	return
+
 // MARK: FAKE ENERGY GUN
 /obj/item/gun/energy/gun/fake
 	name = "replica EG-7 energy gun"

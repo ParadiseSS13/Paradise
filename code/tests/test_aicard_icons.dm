@@ -1,4 +1,4 @@
-/datum/game_test/aicard_icons/Run()
+/datum/game_test/room_test/aicard_icons/Run()
 	var/mob/living/silicon/ai/ai_box = allocate(/mob/living/silicon/ai)
 	var/obj/item/aicard/int_card = allocate(/obj/item/aicard)
 

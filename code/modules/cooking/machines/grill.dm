@@ -197,7 +197,7 @@
 	build_path = /obj/machinery/cooking/grill
 	board_type = "machine"
 	icon_state = "service"
-	origin_tech = list(TECH_BIO = 1)
+	origin_tech = "biotech=1"
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 2,
 		/obj/item/stock_parts/matter_bin = 2,

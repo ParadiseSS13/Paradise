@@ -168,3 +168,20 @@
 	siemens_coeff = 1
 	quality = /datum/smith_quality/masterwork
 	material = /datum/smith_material/platinum
+
+/obj/item/smithed_item/insert/AltClick(mob/user, modifiers)
+	if(!HAS_TRAIT(user.mind, TRAIT_SMITH))
+		return
+	if(do_after_once(user, 3 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE))
+		var/compiled_message = "<span class='notice'>\
+		You determine the following properties on [src]: <br>\
+		Brute Armor mod: [brute_armor] <br>\
+		Burn Armor mod: [burn_armor] <br>\
+		Laser Armor mod: [laser_armor] <br>\
+		Explosive Resistance mod: [explosive_armor] <br>\
+		Movement Speed mod: [movement_speed_mod] <br>\
+		Heat Insulation mod: [heat_insulation] <br>\
+		Siemens Coefficient mod: [siemens_coeff] <br>\
+		Radiation Resistance mod: [radiation_armor] <br>\
+		</span>"
+		to_chat(user, compiled_message)

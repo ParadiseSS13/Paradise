@@ -158,6 +158,7 @@
 		if(GIBTONITE_UNSTRUCK)
 			playsound(src,'sound/effects/hit_on_shattered_glass.ogg', 50, TRUE)
 			explosive_reaction(source, user, triggered_by_explosion)
+			SEND_SIGNAL(source, COMSIG_MINE_EXPOSE_GIBTONITE, user)
 			return MINERAL_PREVENT_DIG
 		if(GIBTONITE_ACTIVE)
 			detonate(source)

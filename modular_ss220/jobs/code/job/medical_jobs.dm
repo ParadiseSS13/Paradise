@@ -28,6 +28,10 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
+/datum/outfit/job/doctor/intern/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	REMOVE_TRAIT(H.mind, TRAIT_MED_EXAMINE, JOB_TRAIT)
+
 /datum/outfit/job/doctor/intern/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 

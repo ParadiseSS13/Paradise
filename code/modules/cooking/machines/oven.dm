@@ -158,7 +158,7 @@
 	build_path = /obj/machinery/cooking/oven
 	board_type = "machine"
 	icon_state = "service"
-	origin_tech = list(TECH_BIO = 1)
+	origin_tech = "biotech=1"
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stack/sheet/glass = 1,

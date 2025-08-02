@@ -257,7 +257,7 @@
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
-	if((get_blood_id() != "blood") && (get_blood_id() != "slimejelly"))//is it blood or welding fuel?
+	if((get_blood_id() != "blood") && (get_blood_id() != "slimejelly") && (get_blood_id() != "tomatojuice"))//is it blood or welding fuel?
 		return
 	if(!T)
 		T = get_turf(src)

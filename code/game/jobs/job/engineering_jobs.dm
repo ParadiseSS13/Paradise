@@ -59,6 +59,10 @@
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/engineer
 
+/datum/outfit/job/chief_engineer/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_ELECTRICAL_SPECIALIST, JOB_TRAIT)
+
 /datum/job/engineer
 	title = "Station Engineer"
 	flag = JOB_ENGINEER
@@ -102,6 +106,10 @@
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/engineer
 
+/datum/outfit/job/engineer/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_ELECTRICAL_SPECIALIST, JOB_TRAIT)
+
 /datum/job/engineer/trainee	// SS220 ADDITION - new jobs
 
 /datum/job/atmos
@@ -144,3 +152,6 @@
 	dufflebag = /obj/item/storage/backpack/duffel/atmos
 	box = /obj/item/storage/box/engineer
 
+/datum/outfit/job/atmos/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_FIRE_FIGHTER, JOB_TRAIT)

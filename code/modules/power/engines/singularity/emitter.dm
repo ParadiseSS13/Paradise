@@ -50,6 +50,7 @@
 	sparks = new
 	sparks.attach(src)
 	sparks.set_up(5, 1, src)
+	AddElement(/datum/element/hostile_machine)
 
 /obj/machinery/power/emitter/cherenkov
 	icon_state = "emitter_+a"

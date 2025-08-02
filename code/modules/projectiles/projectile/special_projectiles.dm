@@ -305,6 +305,24 @@
 	add_attack_logs(firer, target, "Shot with a [type] [teleport_target ? "(Destination: [teleport_target])" : ""]")
 	return ..()
 
+/obj/item/projectile/energy/demonic_grappler
+	name = "demonic grappler"
+	icon_state = "bluespace"
+	damage = 0
+	damage_type = BURN
+	nodamage = 1
+	flag = "energy"
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+
+/obj/item/projectile/energy/demonic_grappler/on_hit(atom/target, blocked = 0)
+	if(isliving(target))
+		var/turf/source_turf = get_turf(firer)
+		do_teleport(target, source_turf)
+	else
+		var/turf/miss_turf = get_step(target, get_dir(target, firer))
+		do_teleport(firer, miss_turf)
+	return ..()
+
 /obj/item/projectile/snowball
 	name = "snowball"
 	icon_state = "snowball"

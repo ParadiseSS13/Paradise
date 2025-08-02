@@ -8,6 +8,9 @@
 	if(modifiers["middle"]) // Let ghosts point without teleporting
 		return
 
+	if(modifiers["shift"]) // Let ghosts examine without teleporting
+		return
+
 	if(can_reenter_corpse && mind && mind.current)
 		if(A == mind.current || (mind.current in A)) // double click your corpse or whatever holds it
 			reenter_corpse()						// (cloning scanner, body bag, closet, mech, etc)

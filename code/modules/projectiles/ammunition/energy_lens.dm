@@ -27,6 +27,9 @@
 	e_cost = 83
 	select_name = "kill"
 
+/obj/item/ammo_casing/energy/lasergun/lever_action
+	fire_sound = 'sound/weapons/laser4.ogg'
+
 /obj/item/ammo_casing/energy/laser/hos
 	e_cost = 120
 
@@ -47,6 +50,9 @@
 	variance = 25
 	select_name = "kill"
 	delay = 1 SECONDS
+
+/obj/item/ammo_casing/energy/laser/eshotgun/cyborg
+	e_cost = 500
 
 /obj/item/ammo_casing/energy/laser/heavy
 	projectile_type = /obj/item/projectile/beam/laser/heavylaser

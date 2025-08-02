@@ -701,7 +701,7 @@
 /area/ruin/powered/scpfacility)
 "Ff" = (
 /obj/effect/decal/cleanable/dust,
-/mob/living/simple_animal/hostile/faithless,
+/mob/living/basic/netherworld/faithless,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 4

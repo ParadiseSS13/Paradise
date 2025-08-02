@@ -49,12 +49,6 @@
 /datum/map_template/ruin/lavaland/nt
 	prefix = "_maps/map_files220/RandomRuins/LavaRuins/"
 
-/datum/map_template/ruin/lavaland/nt/get_cost()
-	return 0
-
-/datum/map_template/ruin/lavaland/legiongate/get_cost()
-	return 0
-
 /datum/map_template/ruin/lavaland/hierophant
 	always_place = FALSE
 

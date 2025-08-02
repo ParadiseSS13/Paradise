@@ -60,9 +60,6 @@
 	allow_duplicates = FALSE
 	always_place = TRUE
 
-/datum/map_template/ruin/space/whiteship/get_cost()
-	return 0
-
 /datum/map_template/ruin/space/voxraiders_1
 	name = "Vox Raiders"
 	id = "Vox_Raiders"

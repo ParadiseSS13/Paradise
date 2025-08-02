@@ -24,6 +24,10 @@
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
 
+/datum/outfit/job/scientist/student/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	REMOVE_TRAIT(H.mind, TRAIT_CRAFTY, JOB_TRAIT)
+
 /datum/outfit/job/scientist/student/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 

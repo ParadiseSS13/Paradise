@@ -66,7 +66,7 @@
 
 /datum/uplink_item/dangerous/combat_defib
 	name = "Combat Defibrillator Module"
-	desc = "A lifesaving device turned dangerous weapon. Click on someone with the paddles on harm intent to instantly stop their heart. Can be used as a regular defib as well. Installs in a modsuit."
+	desc = "A lifesaving device turned dangerous weapon. Click on someone with the paddles on harm intent to instantly stop their heart. Can be used as a regular defib as well. Installs in a MODsuit."
 	reference = "CD"
 	item = /obj/item/mod/module/defibrillator/combat
 	cost = 60
@@ -135,7 +135,7 @@
 /datum/uplink_item/support/reinforcement/assault_borg
 	name = "Syndicate Assault Cyborg"
 	desc = "A cyborg designed and programmed for systematic extermination of non-Syndicate personnel. \
-			Comes equipped with a self-resupplying LMG, a grenade launcher, energy sword, emag, pinpointer, flash and crowbar."
+			Comes equipped with a self-resupplying LMG, a grenade launcher, energy sword, emag, pinpointer, flash, and crowbar."
 	reference = "SAC"
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/assault
 	refund_path = /obj/item/antag_spawner/nuke_ops/borg_tele/assault
@@ -144,7 +144,7 @@
 /datum/uplink_item/support/reinforcement/medical_borg
 	name = "Syndicate Medical Cyborg"
 	desc = "A combat medical cyborg. Has limited offensive potential, but makes more than up for it with its support capabilities. \
-			It comes equipped with a nanite hypospray, a medical beamgun, combat defibrillator, full surgical kit including an energy saw, an emag, pinpointer and flash. \
+			It comes equipped with a nanite hypospray, a medical beamgun, combat defibrillator, full surgical kit including an energy saw, an emag, pinpointer, and flash. \
 			Thanks to its organ storage bag, it can perform surgery as well as any humanoid."
 	reference = "SMC"
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/medical
@@ -230,7 +230,7 @@
 
 /datum/uplink_item/ammo/bulldog_ammobag
 	name = "Bulldog - 12g Ammo Duffel Bag"
-	desc = "A duffel bag filled with nine 8 round drum magazines. (6 Slug, 2 Buckshot, 1 Dragon's Breath)"
+	desc = "A duffel bag filled with nine 8-round drum magazines. (6 Slug, 2 Buckshot, 1 Dragon's Breath)"
 	reference = "12ADB"
 	item = /obj/item/storage/backpack/duffel/syndie/shotgun
 	cost = 60 // normally 90
@@ -238,7 +238,7 @@
 
 /datum/uplink_item/ammo/bulldog_xl_magsbag
 	name = "Bulldog - 12g Extra-Large Magazine Duffel Bag"
-	desc = "A duffel bag containing five XL 16 round drum magazines. (3 Slug, 1 Buckshot, 1 Dragon's Breath)."
+	desc = "A duffel bag containing five XL 16-round drum magazines. (3 Slug, 1 Buckshot, 1 Dragon's Breath)."
 	reference = "12XLDB"
 	item = /obj/item/storage/backpack/duffel/syndie/shotgun_xl_mags
 	// same price for more ammo, but you're likely to lose more ammo if you drop your bulldog. High risk, high reward.
@@ -327,8 +327,8 @@
 	item = /obj/item/ammo_box/magazine/sniper_rounds/soporific
 
 /datum/uplink_item/ammo/sniper/haemorrhage
-	name = "Sniper - .50 Haemorrhage Magazine"
-	desc = "A 5-round magazine of haemorrhage ammo designed for use with .50 sniper rifles; causes heavy bleeding \
+	name = "Sniper - .50 Hemorrhage Magazine"
+	desc = "A 5-round magazine of hemorrhage ammo designed for use with .50 sniper rifles; causes heavy bleeding \
 			in the target."
 	reference = "50B"
 	item = /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage
@@ -441,7 +441,7 @@
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"
-	desc = "The syndicate medkit is a suspicious black and red. Included is a combat stimulant injector for rapid healing, a medical HUD for quick identification of injured comrades, \
+	desc = "The Syndicate medkit is a suspicious black and red. Included is a combat stimulant injector for rapid healing, a medical HUD for quick identification of injured comrades, \
 	and other medical supplies helpful for a medical field operative."
 	reference = "SCMK"
 	item = /obj/item/storage/firstaid/tactical
@@ -467,7 +467,7 @@
 
 /datum/uplink_item/device_tools/syndicate_detonator
 	name = "Syndicate Detonator"
-	desc = "The Syndicate Detonator is a companion device to the Syndicate Bomb. Simply press the included button and an encrypted radio frequency will instruct all live syndicate bombs to detonate. \
+	desc = "The Syndicate Detonator is a companion device to the Syndicate Bomb. Simply press the included button and an encrypted radio frequency will instruct all live Syndicate bombs to detonate. \
 	Useful for when speed matters or you wish to synchronize multiple bomb blasts. Be sure to stand clear of the blast radius before using the detonator."
 	reference = "SD"
 	item = /obj/item/syndicatedetonator
@@ -532,7 +532,7 @@
 
 /datum/uplink_item/suits/shielded
 	name = "Energy Shield Module"
-	desc = "A personal, protective forcefield typically seen in military applications. \
+	desc = "A personal, protective force field typically seen in military applications. \
 		This advanced deflector shield is essentially a scaled down version of those seen on starships, \
 		and the power cost can be an easy indicator of this. However, it is capable of blocking nearly any incoming attack, \
 		though with its' low amount of separate charges, the user remains mortal."
@@ -640,7 +640,7 @@
 /datum/uplink_item/bundles_tc/medical
 	name = "Medical Bundle"
 	desc = "The support specialist: Aid your fellow operatives with this medical bundle. Contains a tactical medkit, \
-			a medical beam gun and a pair of syndicate magboots."
+			a medical beam gun and a pair of Syndicate magboots."
 	reference = "MEDB"
 	item = /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
 	cost = 80 // normally 105
@@ -698,7 +698,7 @@
 	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT)
 
 /datum/uplink_item/explosives/detomatix/nuclear
-	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crewmembers who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer. It has a chance to detonate your PDA. This version comes with a program to toggle your nuclear shuttle blast doors remotely."
+	desc = "When inserted into a personal digital assistant, this cartridge gives you five opportunities to detonate PDAs of crew members who have their message feature enabled. The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer. It has a chance to detonate your PDA. This version comes with a program to toggle your nuclear shuttle blast doors remotely."
 	item = /obj/item/cartridge/syndicate/nuclear
 	reference = "DEPCN"
 	excludefrom = list()
@@ -718,7 +718,7 @@
 
 /datum/uplink_item/badass/confetti_party_pack
 	name = "Nuclear party pack"
-	desc = "A dufflebag filled with hilarious equipment! Comes with free confetti grenades and a cap gun!"
+	desc = "A duffel bag filled with hilarious equipment! Comes with free confetti grenades and a cap gun!"
 	item = /obj/item/storage/backpack/duffel/syndie/party
 	reference = "SPP"
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

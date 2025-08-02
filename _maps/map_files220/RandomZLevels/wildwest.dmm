@@ -1252,7 +1252,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/poddoor/multi_tile/triple{
 	id_tag = "ww_pod";
-	dir = 1
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
@@ -4395,7 +4395,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wildwest/wildwest_refine)
 "RM" = (
-/mob/living/simple_animal/hostile/hellhound/greater{
+/mob/living/basic/hellhound/greater{
 	faction = list("wildwest")
 	},
 /turf/simulated/floor{
@@ -4754,7 +4754,7 @@
 	},
 /area/awaymission/wildwest/wildwest_refine)
 "Vf" = (
-/mob/living/simple_animal/hostile/hellhound{
+/mob/living/basic/hellhound{
 	faction = list("wildwest")
 	},
 /turf/simulated/floor{

@@ -1,11 +1,11 @@
-#define ENGI_AREAS list("Atmospherics", "Engineering", "Chief Engineer's Desk", "Engineering Control Room", "Tech Storage", "Зона Для Строительства")
+#define ENGI_AREAS list("Atmospherics", "Engineering", "Chief Engineer's Desk", "Фойе Двигателя", "Tech Storage", "Зона Для Строительства")
 #define SEC_AREAS list("Warden", "Security", "Detective", "Head of Security's Desk", "Prisoner Processing", "Internal Affairs Office", "Magistrate", "Зал Суда")
 #define SERVICE_AREAS list("Bar", "Kitchen", "Chapel", "Библиотека", "Hydroponics", "Janitorial", "Arrival Shuttle", "Crew Quarters")
-#define MED_AREAS list("Virology", "Chief Medical Officer's Desk", "Медицинский Отдел", "Psychiatrist", "Chemistry", "Paramedic", "Morgue")
+#define MED_AREAS list("Virology", "Chief Medical Officer's Desk", "Медицинский Отдел", "Psychiatrist", "Chemistry", "Paramedic", "Morgue", "Комната Отдыха Медицинского Отдела")
 #define COM_AREAS list("Blueshield", "NT Representative", "Head of Personnel's Desk", "Captain's Desk", "Bridge", "Офис Профессионального Тренера НТ")
 #define SCI_AREAS list("Robotics", "Science", "Research Director's Desk", "Genetics", "Xenobiology")
-#define SUPPLY_AREAS list("Cargo Bay", "Mining Dock", "Mining Outpost", "Quartermaster's Desk", "Mining", "Expedition", "Smith")
-#define OTHER_AREAS list("Arrival Shuttle", "Crew Quarters", "Tool Storage", "EVA", "Labor Camp", "AI")
+#define SUPPLY_AREAS list("Cargo Bay", "Mining Dock", "Mining Outpost", "Quartermaster's Desk", "Mining", "Expedition", "Smith", "Комната Отдыха Карго")
+#define OTHER_AREAS list("Шаттл Прибытия", "Crew Quarters", "Tool Storage", "EVA", "Labor Camp", "AI")
 
 /datum/game_test/requests_console
 

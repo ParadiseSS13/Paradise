@@ -29,6 +29,10 @@
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/engineer
 
+/datum/outfit/job/engineer/trainee/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	REMOVE_TRAIT(H.mind, TRAIT_ELECTRICAL_SPECIALIST, JOB_TRAIT)
+
 /datum/outfit/job/engineer/trainee/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 

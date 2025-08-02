@@ -242,5 +242,5 @@
   * Arguments:
   * * caller - The person trying to call the extraction.
   */
-/datum/objective/contract/proc/can_start_extraction_process(mob/living/carbon/human/caller)
-	return get_area(caller) == extraction_zone && get_area(target.current) == extraction_zone
+/datum/objective/contract/proc/can_start_extraction_process(mob/living/carbon/human/extraction_caller)
+	return get_area(extraction_caller) == extraction_zone && get_area(target.current) == extraction_zone

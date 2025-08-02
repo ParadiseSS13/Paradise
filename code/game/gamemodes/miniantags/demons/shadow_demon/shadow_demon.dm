@@ -232,7 +232,7 @@
 		var/mob/living/simple_animal/demon/shadow/current_demon = firer
 		if(istype(current_demon))
 			current_demon.block_shadow_crawl()
-		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1, beam_type = /obj/effect/ebeam/floor)
+		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/floor)
 	return ..()
 
 /obj/item/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)

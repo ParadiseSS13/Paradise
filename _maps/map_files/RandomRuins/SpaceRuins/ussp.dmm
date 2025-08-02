@@ -1775,7 +1775,7 @@
 	layer = 2.9;
 	name = "Security Wing Lockdown"
 	},
-/obj/machinery/door/airlock/multi_tile/glass/directional/east{
+/obj/machinery/door/airlock/multi_tile/glass{
 	name = "Security Wing"
 	},
 /turf/simulated/floor/plasteel{

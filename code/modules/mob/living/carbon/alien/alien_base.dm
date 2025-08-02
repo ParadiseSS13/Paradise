@@ -22,6 +22,9 @@
 	ventcrawler = VENTCRAWLER_ALWAYS
 	var/death_message = "издаёт ослабевший истошный визг, из её пасти пузырится зелёная кровь..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
+	ignore_generic_organs = TRUE
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/alien
 
 /mob/living/carbon/alien/Initialize(mapload)
 	. = ..()
@@ -30,6 +33,10 @@
 	for(var/organ_path in get_caste_organs())
 		var/obj/item/organ/internal/organ = new organ_path()
 		organ.insert(src)
+
+/mob/living/carbon/alien/death(gibbed)
+	move_resist = null
+	return ..()
 
 /// returns the list of type paths of the organs that we need to insert into
 /// this particular xeno upon its creation

@@ -53,7 +53,7 @@ GLOBAL_LIST_EMPTY(staffsays)
 	if(!check_rights(R_DEV_TEAM | R_ADMIN))
 		return
 
-	display_says(GLOB.staffsays, "devsay")
+	display_says(GLOB.staffsays, "staffsay")
 
 /client/proc/display_says(list/say_list, title)
 

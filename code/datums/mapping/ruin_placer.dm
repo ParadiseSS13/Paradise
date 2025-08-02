@@ -64,13 +64,12 @@
 				bottom_left.y_pos -= padding
 				top_right.x_pos += padding
 				top_right.y_pos += padding
-				var/list/affected_turfs = block(bottom_left.x_pos, bottom_left.y_pos, z_level, top_right.x_pos, top_right.y_pos, z_level)
 
 				// One sanity check just in case
 				if(!ruin.fits_in_map_bounds(central_turf, centered = TRUE))
 					valid = FALSE
 
-				for(var/turf/check in affected_turfs)
+				for(var/turf/check in block(bottom_left.x_pos, bottom_left.y_pos, z_level, top_right.x_pos, top_right.y_pos, z_level))
 					var/area/new_area = get_area(check)
 					if(!(istype(new_area, area_whitelist)) || check.flags & NO_RUINS)
 						valid = FALSE
@@ -78,14 +77,6 @@
 
 				if(!valid)
 					continue
-
-				for(var/turf/T in affected_turfs)
-					for(var/obj/structure/spawner/nest in T)
-						qdel(nest)
-					for(var/mob/living/simple_animal/monster in T)
-						qdel(monster)
-					for(var/obj/structure/flora/ash/plant in T)
-						qdel(plant)
 
 				var/loaded = ruin.load(central_turf, centered = TRUE)
 				if(!loaded)
@@ -149,7 +140,7 @@
 			continue
 		ruins_available[R] = R.placement_weight
 
-	forced_ruins = sortTim(forced_ruins, GLOBAL_PROC_REF(cmp_ruin_placement_size)) // SS220 EDIT - sort ruins by size
+	forced_ruins = sortTim(forced_ruins, GLOBAL_PROC_REF(cmp_ruin_placement_cost))
 	while(length(forced_ruins))
 		var/datum/map_template/ruin/ruin = forced_ruins[length(forced_ruins)]
 		var/datum/ruin_placement/placement = new(ruin, base_padding_ = base_padding)

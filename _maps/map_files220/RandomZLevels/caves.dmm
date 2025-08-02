@@ -720,7 +720,7 @@
 /obj/structure/stone_tile/slab/cracked{
 	icon_state = "cracked_center3"
 	},
-/mob/living/simple_animal/hostile/skeleton,
+/mob/living/basic/skeleton,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/awaymission/caves)
@@ -3409,7 +3409,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "sz" = (
-/mob/living/simple_animal/hostile/skeleton,
+/mob/living/basic/skeleton,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "sA" = (
@@ -3722,7 +3722,7 @@
 /obj/structure/stone_tile/slab/cracked{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/skeleton,
+/mob/living/basic/skeleton,
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/awaymission/caves)
 "ug" = (
@@ -4737,7 +4737,7 @@
 /area/awaymission/caves)
 "zO" = (
 /obj/structure/stone_tile/slab,
-/mob/living/simple_animal/hostile/skeleton,
+/mob/living/basic/skeleton,
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/awaymission/caves)
 "zT" = (
@@ -6474,7 +6474,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "Ju" = (
-/mob/living/simple_animal/hostile/skeleton,
+/mob/living/basic/skeleton,
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/awaymission/caves)
 "Jv" = (
@@ -8875,7 +8875,7 @@
 /obj/structure/stone_tile/slab/cracked{
 	icon_state = "cracked_tile19"
 	},
-/mob/living/simple_animal/hostile/skeleton,
+/mob/living/basic/skeleton,
 /turf/simulated/floor/engine/cult/lavaland_air,
 /area/awaymission/caves)
 "WN" = (
@@ -8955,7 +8955,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/caves/build)
 "Xe" = (
-/mob/living/simple_animal/hostile/hellhound,
+/mob/living/basic/hellhound,
 /obj/effect/spawner/random/blood/often,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/engine/cult/lavaland_air,

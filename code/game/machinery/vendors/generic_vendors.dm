@@ -1236,7 +1236,6 @@
 					/obj/item/storage/fancy/cigarettes/cigpack_carp = 6,
 					/obj/item/storage/fancy/cigarettes/dromedaryco = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
-					/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_robust = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 6,
@@ -1244,9 +1243,10 @@
 					/obj/item/reagent_containers/patch/nicotine = 10,
 					/obj/item/storage/fancy/matches = 10,
 					/obj/item/lighter/random = 4,
-					/obj/item/lighter/zippo = 2)
+					/obj/item/lighter/zippo = 2,
+					/obj/item/storage/fancy/rollingpapers = 5)
 
-	contraband = list(/obj/item/storage/fancy/rollingpapers = 5)
+	contraband = list(/obj/item/storage/fancy/cigarettes/cigpack_midori = 6)
 
 	prices = list(/obj/item/clothing/mask/cigarette/cigar = 100,
 				/obj/item/storage/fancy/cigarettes = 25,

@@ -71,6 +71,11 @@
 	name = "Violence Free Area"
 	desc = "Violence Free Area."
 
+/turf/simulated/floor/plasteel/goonplaque/cerestation
+	name = "Farragus Commission Plaque"
+	desc = "\"AMS Farragus, Commissioned on 13 April 2472 by the Althland Mining Company. Acquired and recommissioned as NSS Farragus by Nanotrasen on 3 January 2485.\"<br><br>\
+	Scratched in beneath is a crude image of a mime and a security officer. The security officer is hitting an invisible wall with a baton. The mime is silently laughing."
+
 //TODO: Make subtypes for all normal turf icons
 /turf/simulated/floor/plasteel/white
 	icon_state = "white"

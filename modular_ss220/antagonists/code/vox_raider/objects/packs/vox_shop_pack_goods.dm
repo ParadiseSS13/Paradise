@@ -129,63 +129,63 @@
 	)
 
 /datum/vox_pack/goods/space
-	name = "Космический Старый Костюм \"NasaVoid\" - Красный"
+	name = "Космический Старый Костюм \"Void\" - Красный"
 	desc = "Мясу понравится этот товар."
 	reference = "G_SP"
 	cost = 200
 	contains = list(
-		/obj/item/clothing/head/helmet/space/nasavoid,
-		/obj/item/clothing/suit/space/nasavoid,
+		/obj/item/clothing/head/helmet/space/void,
+		/obj/item/clothing/suit/space/void,
 	)
 
 /datum/vox_pack/goods/space/green
-	name = "Космический Старый Костюм \"NasaVoid\" - Зеленый"
+	name = "Космический Старый Костюм \"Void\" - Зеленый"
 	desc = "Мясу понравится этот товар."
 	reference = "G_SP_G"
 	cost = 200
 	contains = list(
-		/obj/item/clothing/head/helmet/space/nasavoid/green,
-		/obj/item/clothing/suit/space/nasavoid/green,
+		/obj/item/clothing/head/helmet/space/void/green,
+		/obj/item/clothing/suit/space/void/green,
 	)
 
 /datum/vox_pack/goods/space/ntblue
-	name = "Космический Старый Костюм \"NasaVoid\" - NT Синий"
+	name = "Космический Старый Костюм \"Void\" - NT Синий"
 	desc = "Мясу понравится этот товар."
 	reference = "G_SP_NTB"
 	cost = 250
 	contains = list(
-		/obj/item/clothing/head/helmet/space/nasavoid/ntblue,
-		/obj/item/clothing/suit/space/nasavoid/ntblue,
+		/obj/item/clothing/head/helmet/space/void/ntblue,
+		/obj/item/clothing/suit/space/void/ntblue,
 	)
 
 /datum/vox_pack/goods/space/purple
-	name = "Космический Старый Костюм \"NasaVoid\" - Фиолетовый"
+	name = "Космический Старый Костюм \"Void\" - Фиолетовый"
 	desc = "Мясу понравится этот товар."
 	reference = "G_SP_P"
 	cost = 200
 	contains = list(
-		/obj/item/clothing/head/helmet/space/nasavoid/purple,
-		/obj/item/clothing/suit/space/nasavoid/purple,
+		/obj/item/clothing/head/helmet/space/void/purple,
+		/obj/item/clothing/suit/space/void/purple,
 	)
 
 /datum/vox_pack/goods/space/yellow
-	name = "Космический Старый Костюм \"NasaVoid\" - Желтый"
+	name = "Космический Старый Костюм \"Void\" - Желтый"
 	desc = "Мясу понравится этот товар."
 	reference = "G_SP_Y"
 	cost = 200
 	contains = list(
-		/obj/item/clothing/head/helmet/space/nasavoid/yellow,
-		/obj/item/clothing/suit/space/nasavoid/yellow,
+		/obj/item/clothing/head/helmet/space/void/yellow,
+		/obj/item/clothing/suit/space/void/yellow,
 	)
 
 /datum/vox_pack/goods/space/ltblue
-	name = "Космический Старый Костюм \"NasaVoid\" - Светло-синий"
+	name = "Космический Старый Костюм \"Void\" - Светло-синий"
 	desc = "Мясу понравится этот товар."
 	reference = "G_SP_LTB"
 	cost = 200
 	contains = list(
-		/obj/item/clothing/head/helmet/space/nasavoid/ltblue,
-		/obj/item/clothing/suit/space/nasavoid/ltblue,
+		/obj/item/clothing/head/helmet/space/void/ltblue,
+		/obj/item/clothing/suit/space/void/ltblue,
 	)
 
 /datum/vox_pack/goods/telescopic

@@ -238,6 +238,7 @@
 		/obj/item/fix_o_vein,
 		/obj/item/surgicaldrill,
 		/obj/item/cautery,
+		/obj/item/dissector
 	)
 
 /obj/item/storage/belt/medical/surgery/loaded/populate_contents()
@@ -310,6 +311,7 @@
 		/obj/item/grenade/barrier,
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
+		/obj/item/grenade/frag/stinger,
 		/obj/item/reagent_containers/spray/pepper,
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,

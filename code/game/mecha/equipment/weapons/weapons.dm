@@ -239,10 +239,7 @@
 			if(isobj(H.shoes) && !(H.shoes.flags & NODROP))
 				var/thingy = H.shoes
 				H.drop_item_to_ground(thingy)
-				GLOB.move_manager.move_away(thingy, chassis, 15, 2)
-				spawn(20)
-					if(thingy)
-						GLOB.move_manager.stop_looping(thingy)
+				GLOB.move_manager.move_away(thingy, chassis, 15, 2, timeout=20)
 	for(var/obj/mecha/combat/reticence/R in oview(6, chassis))
 		R.occupant_message("[capitalize(R.declent_ru(NOMINATIVE))] защищает вас от ХОНКа [chassis.declent_ru(GENITIVE)] ценой части энергии.")
 		R.use_power(R.get_charge() / 4)

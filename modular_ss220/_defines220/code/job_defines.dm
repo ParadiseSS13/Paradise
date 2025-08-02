@@ -26,8 +26,8 @@
 
 // ====================================
 //			JOBCAT_MEDSCI
-// Начинаются с JOB_CORONER		(1<<10)
-#define JOB_INTERN				(JOB_CORONER<<1)
+// Начинаются с JOB_XENOBIOLOGIST	(1<<11)
+#define JOB_INTERN				(JOB_XENOBIOLOGIST<<1)
 #define JOB_STUDENT				(JOB_INTERN<<1)
 #define JOB_MECHANIC			(JOB_STUDENT<<1)
 

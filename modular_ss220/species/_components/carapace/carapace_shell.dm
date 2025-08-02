@@ -21,10 +21,10 @@
 	var/broken_stage = 0
 	var/last_time_action = 0
 
-/datum/component/carapace_shell/Initialize(mob/living/carbon/human/caller, treshold_1 = 30, treshold_2 = 60, treshold_3 = 90, threshold_cold = 0, threshold_heat = 400, temp_progression = 30, heal_cooldown = 10 MINUTES)
-	if(!istype(caller))
+/datum/component/carapace_shell/Initialize(mob/living/carbon/human/user, treshold_1 = 30, treshold_2 = 60, treshold_3 = 90, threshold_cold = 0, threshold_heat = 400, temp_progression = 30, heal_cooldown = 10 MINUTES)
+	if(!istype(user))
 		return
-	H = caller
+	H = user
 
 	state_1_threshold = treshold_1
 	state_2_threshold = treshold_2

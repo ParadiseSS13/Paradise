@@ -27,6 +27,10 @@
 	)
 	//box = /obj/item/storage/box/survival_security/cadet
 
+/datum/outfit/job/officer/cadet/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	remove_verb(H, /mob/living/carbon/human/proc/sop_legal)
+	remove_verb(H, /mob/living/carbon/human/proc/space_law)
 
 /datum/outfit/job/officer/cadet/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()

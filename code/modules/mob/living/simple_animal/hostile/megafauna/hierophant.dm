@@ -43,6 +43,7 @@ Difficulty: Hard
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	icon_state = "hierophant"
 	icon_living = "hierophant"
+	icon_dead = "hierophant_dead"
 	friendly = "stares down"
 	icon = 'icons/mob/lavaland/hierophant_new.dmi'
 	faction = list("boss") //asteroid mobs? get that shit out of my beautiful square house
@@ -62,13 +63,11 @@ Difficulty: Hard
 	internal_gps = /obj/item/gps/internal/hierophant
 	medal_type = BOSS_MEDAL_HIEROPHANT
 	score_type = HIEROPHANT_SCORE
-	del_on_death = TRUE
 	death_sound = 'sound/magic/repulse.ogg'
 	enraged_loot = /obj/item/disk/fauna_research/hierophant
-	attack_action_types = list(/datum/action/innate/megafauna_attack/blink,
-							/datum/action/innate/megafauna_attack/chaser_swarm,
-							/datum/action/innate/megafauna_attack/cross_blasts,
-							/datum/action/innate/megafauna_attack/blink_spam)
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/hierophant
 
 	var/burst_range = 3 //range on burst aoe
 	var/beam_range = 5 //range on cross blast beams
@@ -463,6 +462,8 @@ Difficulty: Hard
 		set_stat(CONSCIOUS) // deathgasp wont run if dead, stupid
 		for(var/turf/simulated/wall/indestructible/hierophant/T in GLOB.hierophant_walls)
 			T.collapse()
+		icon = 'icons/mob/lavaland/corpses.dmi'
+		DeleteComponent(/datum/component/boss_music)
 		..(/* force_grant = stored_nearby */)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Destroy()

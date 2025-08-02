@@ -16,7 +16,7 @@
 	var/flags = 0                               // Various language flags.
 	var/native                                  // If set, non-native speakers will have trouble speaking.
 	var/list/syllables                          // Used when scrambling text for a non-speaker.
-	var/list/space_chance = 55                  // Likelihood of getting a space in the random scramble string.
+	var/space_chance = 55                  // Likelihood of getting a space in the random scramble string.
 	var/follow = 0                              // Applies to HIVEMIND languages - should a follow link be included for dead mobs?
 	var/english_names = 0                       // Do we want English names by default, no matter what?
 	var/list/scramble_cache = list()

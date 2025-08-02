@@ -187,27 +187,35 @@
 	color = COLOR_BLACK
 	flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
+	new_attack_chain = TRUE
 	var/conversion_time = 7 SECONDS
 
-/obj/item/melee/swarm_hand/afterattack__legacy__attackchain(atom/target, mob/living/user, proximity_flag, click_parameters)
-	. = ..()
-	if(!isrobot(target))
-		return
-	var/mob/living/silicon/robot/borg = target
-	target.visible_message(
-		"<span class='danger'>[user] puts [user.p_their()] hands on [target] and begins transferring energy!</span>",
+/obj/item/melee/swarm_hand/pre_attack(atom/A, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(!isrobot(A))
+		to_chat(user, "<span class='warning'>[src] will have no effect against this target!</span>")
+		return FINISH_ATTACK
+
+	var/mob/living/silicon/robot/borg = A
+	borg.visible_message(
+		"<span class='danger'>[user] puts [user.p_their()] hands on [borg] and begins transferring energy!</span>",
 		"<span class='userdanger'>[user] puts [user.p_their()] hands on you and begins transferring energy!</span>")
 	if(borg.emagged || !borg.is_emaggable)
 		to_chat(user, "<span class='notice'>Your override attempt fails before it can even begin.</span>")
 		qdel(src)
-		return
+		return FINISH_ATTACK
+
 	if(!do_mob(user, borg, conversion_time, hidden = TRUE))
 		to_chat(user, "<span class='notice'>Your concentration breaks.</span>")
 		qdel(src)
-		return
+		return FINISH_ATTACK
+
 	to_chat(user, "<span class='notice'>The mass of swarms vanish into the cyborg's internals. Success.</span>")
 	INVOKE_ASYNC(src, PROC_REF(emag_borg), borg, user)
 	qdel(src)
+	return FINISH_ATTACK
 
 /obj/item/melee/swarm_hand/proc/emag_borg(mob/living/silicon/robot/borg, mob/living/user)
 	if(QDELETED(borg) || QDELETED(user))

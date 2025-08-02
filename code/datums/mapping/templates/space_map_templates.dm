@@ -102,11 +102,10 @@
 /datum/map_template/ruin/space/derelict4
 	id = "derelict4"
 	suffix = "derelict4.dmm"
-	name = "Derelict 4"
-	description = "Centcom ferries have never crashed, will never crash, \
-		there is no current investigation into a crashed ferry, and we \
-		will not let Internal Affairs trample over high security information \
-		in the name of this baseless witchhunt."
+	name = "Crashed Transport Shuttle"
+	description = "Spacecraft regularly travel through the system, some heading to the Nanotrasen installations orbiting Lavaland, but most are simply passing through. \
+	Whilst the shipping lanes are relatively well-serviced and monitored, accidents still happen, and space is large enough that help may not come fast enough, assuming you can even let out a distress call."
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/derelict5
 	id = "derelict5"
