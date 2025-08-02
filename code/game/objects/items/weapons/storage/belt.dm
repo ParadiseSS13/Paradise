@@ -703,6 +703,22 @@
 		W.charges = W.max_charges
 	update_icon()
 
+/obj/item/storage/belt/plague_talisman
+	name = "\improper Runic Belt"
+	desc = "A belt designed to hold safely contain Plague Talismans. Better hope it doesn't start dripping..."
+	icon_state = "soulstonebelt"
+	item_state = "soulstonebelt"
+	storage_slots = 5
+	use_item_overlays = TRUE
+	can_hold = list(
+		/obj/item/plague_talisman
+	)
+
+/obj/item/storage/belt/plague_talisman/populate_contents()
+	for(var/count in 1 to storage_slots)
+		new /obj/item/plague_talisman(src)
+	update_icon()
+
 /obj/item/storage/belt/fannypack
 	name = "fannypack"
 	desc = "A dorky fannypack for keeping small items in."

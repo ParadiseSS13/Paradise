@@ -19,6 +19,15 @@
 	var/cure_stage = 0
 	/// Cooldown until the virus can advance to the next stage
 	COOLDOWN_DECLARE(stage_timer)
+	/// What disease are we passing along to datum/antagonist/zombie
+	var/plague_disease
+	/// Activate the immediate zombie rot loop
+	var/instant_zombie
+
+/datum/disease/zombie/New(chosen_plague, plague_zomb)
+	if(plague_zomb)
+		plague_disease = chosen_plague
+		instant_zombie = TRUE
 
 /datum/disease/zombie/stage_act()
 	if(stage == 8)
@@ -126,7 +135,14 @@
 		affected_mob.update_hands_hud()
 		H.update_body()
 	if(affected_mob.mind && !affected_mob.mind.has_antag_datum(/datum/antagonist/zombie))
-		affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
+		if(HAS_TRAIT(affected_mob, TRAIT_PLAGUE_ZOMBIE))
+			var/datum/antagonist/zombie/plague = new /datum/antagonist/zombie(plague_disease)
+			plague.silent = TRUE //to prevent the second box from appearing
+			plague.wiki_page_name = null
+			affected_mob.mind.add_antag_datum(plague)
+		else
+			affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
+
 	return TRUE
 
 
@@ -162,3 +178,13 @@
 	affected_mob.med_hud_set_health()
 	affected_mob.med_hud_set_status()
 	return ..()
+
+/datum/disease/zombie/wizard
+		spread_flags = NON_CONTAGIOUS
+		bypasses_immunity = TRUE
+		spread_text = "Non Contagious"
+		cure_text = "Anti-magic"
+
+// this should not be curable. Prevents things like rez wands from un-zombifying your zombs.
+/datum/disease/zombie/wizard/cure()
+	return

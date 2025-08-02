@@ -432,6 +432,18 @@
 	if(.)
 		user.mind.AddSpell(new /datum/spell/aoe/conjure/construct(null))
 
+/datum/spellbook_entry/item/plague_talisman
+	name = "Five Plague Talismans"
+	desc = "Special engraved runes, used to raise the dead into plague-ridden, animated corpses."
+	item_path = /obj/item/storage/belt/plague_talisman
+	category = "Artefacts"
+	cost = 1
+
+/datum/spellbook_entry/item/plague_talisman/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	. = ..()
+	if(.)
+		user.add_language("Zombie")
+
 /datum/spellbook_entry/item/wands
 	name = "Wand Assortment"
 	desc = "A collection of wands that allow for a wide variety of utility. Wands do not recharge, so be conservative in use. Comes in a handy belt."
