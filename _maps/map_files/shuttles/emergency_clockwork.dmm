@@ -258,9 +258,6 @@
 /turf/simulated/floor/clockwork,
 /area/shuttle/escape)
 "Bw" = (
-/obj/machinery/light/clockwork{
-	dir = 1
-	},
 /obj/machinery/iv_drip,
 /turf/simulated/floor/clockwork,
 /area/shuttle/escape)
