@@ -252,6 +252,7 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
 	)
 
+
 //NT Career Trainer
 /obj/item/clothing/head/beret/nct/black
 	name = "\improper NT Career Trainer's beret"
@@ -292,3 +293,19 @@
 	icon_state = "beret_solgovcelite"
 	item_color = "solgovcelite"
 	resistance_flags = FIRE_PROOF
+
+//Traitor
+/obj/item/clothing/head/beret/syndicate
+	name = "syndicate beret"
+<<<<<<< Updated upstream
+	desc = "A dark grey beret with the Syndicate’s unmistakable 'S' logo emblazoned on it. Wearing this just for the looks might not be the wisest idea..."
+=======
+	desc = "A dark grey beret with the syndicate's unmistakable 'S' logo emblazoned on it. Wearing this for the looks might not be a good idea..."
+>>>>>>> Stashed changes
+	icon_state = "beret_syndie"
+	item_color = "beret_syndie"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)

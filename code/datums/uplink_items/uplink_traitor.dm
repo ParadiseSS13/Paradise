@@ -702,8 +702,6 @@
 	if(..() != UPLINK_SPECIAL_SPAWNING)
 		return FALSE
 
-	new /obj/structure/closet/crate/surplus(loc, U, crate_value, cost, user)
-
 // -----------------------------------
 // PRICES OVERRIDEN FOR NUCLEAR AGENTS
 // -----------------------------------

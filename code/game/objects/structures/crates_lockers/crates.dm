@@ -679,9 +679,11 @@
 		danger_counter = 0
 
 	U.purchase_log += "<BIG>[bicon(src)]</BIG>"
+	bought_items += /obj/item/storage/bag/garment/syndie // Guaranteed to spawn with drip (doesn't affect balance, it's only a bunch of fancy clothing)
 	for(var/item in bought_items)
 		var/obj/purchased = new item(src)
 		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
+		itemlog += purchased.name // To make the item more readable for the log compared to just uplink_item.item
 	var/item_list = jointext(sortList(itemlog), ", ")
 	log_game("[key_name(user)] purchased a surplus crate with [item_list]")
 	user.create_log(MISC_LOG, "Surplus crate purchase with spawned items [item_list]")

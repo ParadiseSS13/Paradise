@@ -46,6 +46,15 @@
 	desc = "Worn by the Head of Personnel. It smells faintly of bureaucracy."
 	icon_state = "hopcloak"
 
+/obj/item/clothing/neck/cloak/syndicate
+	name = "suspicious cloak"
+<<<<<<< Updated upstream
+	desc = "A half-cloak worn around the neck, featuring a color scheme that's both suspicious and stylish."
+=======
+	desc = "It's a half-cloak that can be worn around your neck in a pretty suspicious, yet stylish color scheme."
+>>>>>>> Stashed changes
+	icon_state = "syndiecloak"
+
 //Mantles.
 
 /obj/item/clothing/neck/cloak/mantle
