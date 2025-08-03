@@ -6,7 +6,6 @@
 	density = TRUE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
-	max_integrity = 300
 	cares_about_temperature = TRUE
 	/// How much this dispenser can hold (In units)
 	var/tank_volume = 1000
@@ -75,11 +74,16 @@
 	else
 		qdel(src)
 
+/obj/structure/reagent_dispensers/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
+
 //Dispensers
 /obj/structure/reagent_dispensers/watertank
 	name = "water tank"
 	desc = "A water tank."
-	icon_state = "water"
 
 /obj/structure/reagent_dispensers/watertank/high
 	name = "high-capacity water tank"
@@ -256,7 +260,6 @@
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "water_cooler"
 	tank_volume = 500
-	reagent_id = "water"
 	anchored = TRUE
 	var/paper_cups = 25 //Paper cups left from the cooler
 

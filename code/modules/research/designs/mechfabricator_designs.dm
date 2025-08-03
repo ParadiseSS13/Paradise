@@ -1052,9 +1052,20 @@
 	desc = "Allows for the construction of LBX AC 10."
 	id = "mech_scattershot"
 	build_type = MECHFAB
-	req_tech = list("combat" = 4)
+	req_tech = list("combat" = 4, "syndicate" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	materials = list(MAT_METAL=10000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_disabler_shotgun
+	name = "Exosuit Weapon (MESG-01 Disabler Scattercannon)"
+	desc = "Allows for the construction of MESG-01 Disabler Scattercannon."
+	id = "mech_ion"
+	build_type = MECHFAB
+	req_tech = list("combat" = 6, "materials" = 5)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_disabler
+	materials = list(MAT_METAL=10000,MAT_SILVER=6000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
@@ -1320,6 +1331,16 @@
 	build_path = /obj/item/borg/upgrade/rsf_executive
 	req_tech = list("materials" = 2, "biotech" = 3)
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000, MAT_GOLD = 2000)
+	construction_time = 12 SECONDS
+	category = list("Cyborg Upgrades")
+
+/datum/design/borg_upgrade_holo_stretcher
+	name = "Cyborg Upgrade (Holo Stretcher Rack Upgrade)"
+	id = "borg_upgrade_holo_stretcher"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/holo_stretcher
+	req_tech = list("magnets" = 5, "powerstorage" = 4)
+	materials = list(MAT_METAL = 1000, MAT_SILVER = 500, MAT_GLASS = 500, MAT_DIAMOND = 200)
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrades")
 

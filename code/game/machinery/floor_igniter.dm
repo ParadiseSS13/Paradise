@@ -1,7 +1,6 @@
 /obj/machinery/igniter
 	name = "igniter"
 	desc = "It's useful for igniting plasma."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "igniter1"
 	plane = FLOOR_PLANE
 	max_integrity = 300
@@ -76,7 +75,6 @@
 /obj/machinery/sparker
 	name = "Mounted igniter"
 	desc = "A wall-mounted ignition device."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "migniter"
 	resistance_flags = FIRE_PROOF
 	var/id = null

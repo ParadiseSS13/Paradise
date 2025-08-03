@@ -110,6 +110,11 @@
 	icon_state = "oldbar"
 	apc_starts_off = TRUE
 
+/area/station/maintenance/abandonedservers
+	name = "Maintenance Server Room"
+	icon_state = "oldserver"
+	apc_starts_off = TRUE
+
 /area/station/maintenance/library
 	name = "Abandoned Library"
 	icon_state = "library"

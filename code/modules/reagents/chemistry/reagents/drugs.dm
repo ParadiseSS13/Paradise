@@ -9,7 +9,6 @@
 	name = "Lithium"
 	id = "lithium"
 	description = "A chemical element."
-	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "metal"
 
@@ -64,7 +63,7 @@
 /datum/reagent/psilocybin
 	name = "Psilocybin"
 	id = "psilocybin"
-	description = "A strong psycotropic derived from certain species of mushroom."
+	description = "A strong psychotropic derived from certain species of mushroom."
 	color = "#E700E7" // rgb: 231, 0, 231
 	taste_description = "visions"
 
@@ -248,7 +247,6 @@
 	name = "Pump Up"
 	id = "pump_up"
 	description = "An awful smelling mixture which acts as a makeshift stimulant"
-	reagent_state = SOLID
 	color = COLOR_HALF_TRANSPARENT_BLACK
 	taste_description = "poorly mixed coffee"
 	metabolization_rate = 1
@@ -443,7 +441,6 @@
 	name = "Bath Salts"
 	id = "bath_salts"
 	description = "Sometimes packaged as a refreshing bathwater additive, these crystals are definitely not for human consumption."
-	reagent_state = SOLID
 	color = "#FAFAFA"
 	overdose_threshold = 20
 	addiction_chance = 15
@@ -617,7 +614,7 @@
 /datum/reagent/happiness
 	name = "Happiness"
 	id = "happiness"
-	description = "Fills you with ecstasic numbness and causes minor brain damage. If overdosed, causes sudden mood swings and spikes in heart rate."
+	description = "Fills you with ecstatic numbness and causes minor brain damage. If overdosed, causes sudden mood swings and spikes in heart rate."
 	reagent_state = LIQUID
 	color = "#f2ff00"
 	overdose_threshold = 20
@@ -801,7 +798,7 @@
 /datum/reagent/rotatium
 	name = "Rotatium"
 	id = "rotatium"
-	description = "A constantly swirling, oddly colourful fluid. Causes the consumer's sense of direction and hand-eye coordination to become wild."
+	description = "A constantly swirling, oddly colorful fluid. Causes the consumer's sense of direction and hand-eye coordination to become wild."
 	reagent_state = LIQUID
 	color = "#AC88CA" //RGB: 172, 136, 202
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
@@ -1134,7 +1131,6 @@
 	name = "Ultra-Lube"
 	id = "ultralube"
 	description = "Ultra-Lube is an enhanced lubricant which induces effect similar to Methamphetamine in synthetic users by drastically reducing internal friction and increasing cooling capabilities."
-	reagent_state = LIQUID
 	color = "#1BB1FF"
 	process_flags = SYNTHETIC
 	overdose_threshold = 20

@@ -479,7 +479,7 @@
 	},
 /area/ruin/space/djstation)
 "bp" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office,
 /mob/living/simple_animal/hostile/soviet/ranged/mosin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
@@ -564,7 +564,7 @@
 /obj/structure/chair/comfy/beige{
 	dir = 1
 	},
-/obj/item/storage/fancy/cigarettes/dromedaryco{
+/obj/item/storage/fancy/cigarettes/cigpack_our_brand{
 	pixel_x = -26
 	},
 /obj/item/lighter/zippo/engraved{

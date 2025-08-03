@@ -269,7 +269,7 @@ SUBSYSTEM_DEF(statpanels)
 		if(ismob(thing) || length(thing.overlays) > 2)
 			generated_string = costly_icon2asset(thing, parent)
 		else
-			generated_string = icon2asset(thing, parent)
+			generated_string = icon2asset(thing, parent, thing.icon_state)
 
 		newly_seen[thing] = generated_string
 		if(TICK_CHECK)

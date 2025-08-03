@@ -4,9 +4,7 @@
 /obj/effect/spawner/random
 	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "loot"
-	layer = OBJ_LAYER
 	/// Stops persistent lootdrop spawns from being shoved into lockers
-	anchored = TRUE
 	/// A list of possible items to spawn e.g. list(/obj/item, /obj/structure, /obj/effect)
 	var/list/loot
 	/// The subtypes AND type to combine with the loot list
@@ -180,7 +178,7 @@
 
 /obj/effect/spawner/random/proc/has_unblocked_line(destination)
 	for(var/turf/potential_blockage as anything in get_line(get_turf(src), destination))
-		if(!is_blocked_turf(potential_blockage, exclude_mobs = TRUE))
+		if(!potential_blockage.is_blocked_turf(exclude_mobs = TRUE))
 			continue
 		return FALSE
 	return TRUE

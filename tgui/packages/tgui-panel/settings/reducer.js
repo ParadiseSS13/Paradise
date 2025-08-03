@@ -4,19 +4,20 @@
  * @license MIT
  */
 
+import { storage } from 'common/storage';
+
 import {
+  addHighlightSetting,
   changeSettingsTab,
   loadSettings,
   openChatSettings,
-  toggleSettings,
-  updateSettings,
-  addHighlightSetting,
   removeHighlightSetting,
+  toggleSettings,
   updateHighlightSetting,
+  updateSettings,
 } from './actions';
+import { FONTS, MAX_HIGHLIGHT_SETTINGS, SETTINGS_TABS } from './constants';
 import { createDefaultHighlightSetting } from './model';
-import { SETTINGS_TABS, FONTS, MAX_HIGHLIGHT_SETTINGS } from './constants';
-import { storage } from 'common/storage';
 
 const defaultHighlightSetting = createDefaultHighlightSetting();
 

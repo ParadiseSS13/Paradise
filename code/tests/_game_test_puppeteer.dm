@@ -22,7 +22,7 @@
 
 /datum/test_puppeteer/proc/spawn_puppet_nearby(carbon_type = /mob/living/carbon/human)
 	for(var/turf/T in RANGE_TURFS(1, puppet.loc))
-		if(!is_blocked_turf(T, exclude_mobs = FALSE))
+		if(!T.is_blocked_turf())
 			return new/datum/test_puppeteer(origin_test, carbon_type, T)
 
 	origin_test.Fail("could not spawn puppeteer near [src]")
@@ -40,7 +40,7 @@
 		T = get_step(puppet, direction)
 	else
 		for(var/turf/nearby in RANGE_TURFS(1, puppet.loc))
-			if(!is_blocked_turf(nearby, exclude_mobs = FALSE))
+			if(!nearby.is_blocked_turf())
 				T = nearby
 
 	if(T)
@@ -75,7 +75,7 @@
 
 /datum/test_puppeteer/proc/spawn_mob_nearby(mob_type)
 	for(var/turf/T in RANGE_TURFS(1, puppet))
-		if(!is_blocked_turf(T, exclude_mobs = FALSE))
+		if(!T.is_blocked_turf())
 			var/mob/new_mob = origin_test.allocate(mob_type, T)
 			return new_mob
 

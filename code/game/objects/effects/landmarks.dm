@@ -42,11 +42,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/spawner/tradergearminor
 	name = "traderstart_specificgear_minor"
-	icon_state = "questionmark"
 
 /obj/effect/landmark/spawner/tradergearmajor
 	name = "traderstart_specificgear_major"
-	icon_state = "questionmark"
 
 /obj/effect/landmark/spawner/ert
 	name = "Response Team"
@@ -280,7 +278,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/start/assistant
 	name = "Assistant"
-	icon_state = "Assistant"
 
 /obj/effect/landmark/start/atmospheric
 	name = "Life Support Specialist"
@@ -420,6 +417,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/start/scientist
 	name = "Scientist"
+	icon_state = "Sci"
+
+/obj/effect/landmark/start/xenobiologist
+	name = "Xenobiologist"
 	icon_state = "Sci"
 
 /obj/effect/landmark/start/security_officer

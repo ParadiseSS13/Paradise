@@ -7,7 +7,7 @@
 
 //technically not an antag but a special role none the less
 /obj/item/clothing/under/plasmaman/centcom
-	name = "centeral command plasma envirosuit"
+	name = "central command plasma envirosuit"
 	desc = "A gold trimed envirosuit issued to plasmamen representing the \"N.A.S. Trurl\". Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
 	icon_state = "centcom_envirosuit"
 	item_state = "centcom_envirosuit"

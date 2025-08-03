@@ -173,7 +173,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 67
+sql_version = 68
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -458,7 +458,8 @@ job_slot_amounts = [
   {name = "Medical Doctor", lowpop = 5, highpop = 6},
   {name = "Virologist", lowpop = 1, highpop = 1}, # Science
   {name = "Roboticist", lowpop = 2, highpop = 2},
-  {name = "Scientist", lowpop = 6, highpop = 7}, # Security
+  {name = "Scientist", lowpop = 4, highpop = 5},
+  {name = "Xenobiologist", lowpop = 2, highpop = 2}, # Security
   {name = "Detective", lowpop = 1, highpop = 1},
   {name = "Security Officer", lowpop = 8, highpop = 9},
   {name = "Warden", lowpop = 1, highpop = 1},
@@ -639,6 +640,7 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining1.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining2.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining3.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/bluespace_relay_beacon.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/casino.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/clockwork_monastery.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/debris1.dmm",
@@ -730,6 +732,7 @@ active_lava_ruins = [
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_dead_ratvar.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_elite_tumor.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_fountain_hall.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_mining_telecomms.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_monster_nest.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pizzaparty.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_puzzle.dmm",

@@ -14,6 +14,7 @@ use eyre::eyre;
 use eyre::Context;
 use eyre::ContextCompat;
 use itertools::Itertools;
+use procgen::{MazegenHauberkSettings, mapmanip_mazegen_hauberk};
 use rand::prelude::IteratorRandom;
 use rand::seq::SliceRandom;
 use serde::{Deserialize, Serialize};
@@ -23,6 +24,7 @@ use tools::insert_submap;
 use crate::logging::setup_panic_handler;
 
 mod core;
+mod procgen;
 mod tools;
 
 #[cfg(test)]
@@ -47,6 +49,7 @@ pub enum MapManipulation {
         submaps_can_repeat: bool,
     },
     RandomOrientation,
+    MazegenHauberk(MazegenHauberkSettings),
 }
 
 #[derive(Debug)]
@@ -118,6 +121,9 @@ pub fn mapmanip(
             )),
             MapManipulation::RandomOrientation => {
                 mapmanip_orientation_randomize(&mut map).wrap_err("randomize orientation failure")
+            }
+            MapManipulation::MazegenHauberk(settings) => {
+                mapmanip_mazegen_hauberk(&mut map, settings)
             }
         }
         .wrap_err(format!("mapmanip fail; manip n is: {n}/{config_len}"))?;
@@ -234,40 +240,70 @@ fn rotate_cable(dir_i: i32, rotation: &MapRotation) -> i32 {
     }
 }
 
-fn directional_mapper_rotate(path: String, rotation: &MapRotation) -> String {
+fn directional_rotate(path: String, rotation: &MapRotation) -> String {
     match rotation {
         MapRotation::None => path,
         MapRotation::Clockwise90 => {
-            if path.ends_with("/directional/north") {
-                path.replace("/directional/north", "/directional/east")
-            } else if path.ends_with("/directional/south") {
-                path.replace("/directional/south", "/directional/west")
-            } else if path.ends_with("/directional/east") {
-                path.replace("/directional/east", "/directional/south")
+            if path.ends_with("/north") {
+                path.replace("/north", "/east")
+            } else if path.ends_with("/south") {
+                path.replace("/south", "/west")
+            } else if path.ends_with("/east") {
+                path.replace("/east", "/south")
+            } else if path.ends_with("/west") {
+                path.replace("/west", "/north")
+            } else if path.ends_with("/northeast") {
+                path.replace("/northeast", "/southeast")
+            } else if path.ends_with("/northwest") {
+                path.replace("/northwest", "/northeast")
+            } else if path.ends_with("/southeast") {
+                path.replace("/southeast", "/southwest")
+            } else if path.ends_with("/southwest") {
+                path.replace("/southwest", "/northwest")
             } else {
-                path.replace("/directional/west", "/directional/north")
+                path
             }
         }
         MapRotation::Clockwise180 => {
-            if path.ends_with("/directional/north") {
-                path.replace("/directional/north", "/directional/south")
-            } else if path.ends_with("/directional/south") {
-                path.replace("/directional/south", "/directional/north")
-            } else if path.ends_with("/directional/east") {
-                path.replace("/directional/east", "/directional/west")
+            if path.ends_with("/north") {
+                path.replace("/north", "/south")
+            } else if path.ends_with("/south") {
+                path.replace("/south", "/north")
+            } else if path.ends_with("/east") {
+                path.replace("/east", "/west")
+            } else if path.ends_with("/west") {
+                path.replace("/west", "/east")
+            } else if path.ends_with("/northeast") {
+                path.replace("/northeast", "/southwest")
+            } else if path.ends_with("/northwest") {
+                path.replace("/northwest", "/southeast")
+            } else if path.ends_with("/southeast") {
+                path.replace("/southeast", "/northwest")
+            } else if path.ends_with("/southwest") {
+                path.replace("/southwest", "/northeast")
             } else {
-                path.replace("/directional/west", "/directional/east")
+                path
             }
         }
         MapRotation::Clockwise270 => {
-            if path.ends_with("/directional/north") {
-                path.replace("/directional/north", "/directional/west")
-            } else if path.ends_with("/directional/south") {
-                path.replace("/directional/south", "/directional/east")
-            } else if path.ends_with("/directional/east") {
-                path.replace("/directional/east", "/directional/north")
+            if path.ends_with("/north") {
+                path.replace("/north", "/west")
+            } else if path.ends_with("/south") {
+                path.replace("/south", "/east")
+            } else if path.ends_with("/east") {
+                path.replace("/east", "/north")
+            } else if path.ends_with("/west") {
+                path.replace("/west", "/south")
+            } else if path.ends_with("/northeast") {
+                path.replace("/northeast", "/northwest")
+            } else if path.ends_with("/northwest") {
+                path.replace("/northwest", "/southwest")
+            } else if path.ends_with("/southeast") {
+                path.replace("/southeast", "/northeast")
+            } else if path.ends_with("/southwest") {
+                path.replace("/southwest", "/southeast")
             } else {
-                path.replace("/directional/west", "/directional/south")
+                path
             }
         }
     }
@@ -342,8 +378,8 @@ fn mapmanip_orientation_randomize(map: &mut GridMap) -> eyre::Result<()> {
 
     for t in map.grid.values_mut() {
         t.prefabs.iter_mut().for_each(|f| {
-            if f.path.contains("/directional/") {
-                f.path = directional_mapper_rotate(f.path.to_string(), rotation);
+            if f.path.contains("/directional/") || f.path.contains("/offset/") {
+                f.path = directional_rotate(f.path.to_string(), rotation);
             } else if f.path.starts_with("/obj/structure/cable") {
                 let cable_dirs = f
                     .vars

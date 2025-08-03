@@ -4,7 +4,7 @@
 	set desc = "View/retrieve logfiles."
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_VIEWLOGS))
 		return
 
 	access_file_by_browsing_path(usr, "data/logs/")
@@ -15,7 +15,7 @@
 	set desc = "View/retrieve logfiles for a given round."
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_VIEWLOGS))
 		return
 
 	var/round_id = input(usr, "Enter a round ID.", "Enter Round ID", "[GLOB.round_id]") as null|text
@@ -40,9 +40,11 @@
 
 		// convert unix timestamp in seconds to byond timestamp in deciseconds
 		var/round_datetime = (query.item[1] - BYOND_EPOCH_UNIX) * 10
-		round_path = "data/logs/[time2text(round_datetime, "YYYY/MM-Month/DD-Day")]/round-[round_id]/"
+		round_path = "data/logs/[time2text(round_datetime, "YYYY/MM-Month/DD-Day", 0)]/round-[round_id]/"
 		qdel(query)
 
+	if(!fexists(round_path))
+		log_debug("Logs for round `[round_id]` not found in path `[round_path]`.")
 	access_file_by_browsing_path(usr, round_path)
 
 /proc/access_file_by_browsing_path(mob/user, path)

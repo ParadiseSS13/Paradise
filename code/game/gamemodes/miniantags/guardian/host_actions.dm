@@ -5,8 +5,8 @@
  */
 /datum/action/guardian
 	name = "Generic guardian host action"
-	button_overlay_icon = 'icons/mob/guardian.dmi'
-	button_overlay_icon_state = "base"
+	button_icon = 'icons/mob/guardian.dmi'
+	button_icon_state = "base"
 	var/mob/living/simple_animal/hostile/guardian/guardian
 
 /datum/action/guardian/Grant(mob/M, mob/living/simple_animal/hostile/guardian/G)
@@ -24,7 +24,7 @@
 /datum/action/guardian/communicate
 	name = "Communicate"
 	desc = "Communicate telepathically with your guardian."
-	button_overlay_icon_state = "communicate"
+	button_icon_state = "communicate"
 
 /datum/action/guardian/communicate/Trigger(left_click)
 	var/input = tgui_input_text(owner, "Enter a message to tell your guardian:", "Message")
@@ -50,7 +50,7 @@
 /datum/action/guardian/recall
 	name = "Recall Guardian"
 	desc = "Forcibly recall your guardian."
-	button_overlay_icon_state = "recall"
+	button_icon_state = "recall"
 
 /datum/action/guardian/recall/Trigger(left_click)
 	guardian.Recall()
@@ -63,7 +63,7 @@
 /datum/action/guardian/reset_guardian
 	name = "Replace Guardian Player"
 	desc = "Replace your guardian's player with a ghost. This can only be done once."
-	button_overlay_icon_state = "reset"
+	button_icon_state = "reset"
 	var/cooldown_timer
 
 /datum/action/guardian/reset_guardian/IsAvailable()
@@ -82,7 +82,7 @@
 
 	// Do this immediately, so the user can't spam a bunch of polls.
 	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 5 MINUTES)
-	UpdateButtons()
+	build_all_button_icons()
 
 	to_chat(owner, "<span class='danger'>Searching for a replacement ghost...</span>")
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as [guardian.real_name]?", ROLE_GUARDIAN, FALSE, 15 SECONDS, source = guardian)
@@ -184,7 +184,7 @@
  */
 /datum/action/guardian/reset_guardian/proc/reset_cooldown()
 	cooldown_timer = null
-	UpdateButtons()
+	build_all_button_icons()
 
 /**
  * Grants all existing `/datum/action/guardian` type actions to the src mob.

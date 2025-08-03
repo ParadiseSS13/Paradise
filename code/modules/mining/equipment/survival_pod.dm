@@ -2,7 +2,6 @@
 	name = "\improper Emergency Shelter"
 	icon_state = "away"
 	requires_power = FALSE
-	has_gravity = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	ambientsounds = MINING_SOUNDS
 
@@ -94,8 +93,6 @@
 	icon = 'icons/obj/smooth_structures/windows/pod_window.dmi'
 	icon_state = "pod_window-0"
 	base_icon_state = "pod_window"
-	smoothing_flags = SMOOTH_BITMASK
-	glass_type = /obj/item/stack/sheet/titaniumglass
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 	canSmoothWith = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 
@@ -174,7 +171,6 @@
 //Sleeper
 /obj/machinery/sleeper/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
-	icon_state = "sleeper-open"
 	density = FALSE
 
 /obj/machinery/sleeper/survival_pod/Initialize(mapload)
@@ -247,7 +243,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 //Bed
 /obj/structure/bed/pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
-	icon_state = "bed"
 
 //Survival Storage Unit
 /obj/machinery/smartfridge/survival_pod
@@ -372,7 +367,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	name = "tubes"
 	anchored = TRUE
 	layer = MOB_LAYER - 0.2
-	density = FALSE
 
 /obj/structure/tubes/wrench_act(mob/living/user, obj/item/W)
 	. = TRUE

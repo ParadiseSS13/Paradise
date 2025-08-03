@@ -544,6 +544,14 @@
 	build_path = /obj/item/storage/lockbox/vials
 	category = list("initial", "Medical")
 
+/datum/design/roller_bed
+	name = "Roller Bed"
+	id = "roller_bed"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000)
+	build_path = /obj/item/roller
+	category = list("initial", "Medical")
+
 /datum/design/beanbag_slug
 	name = "Beanbag Slug"
 	id = "beanbag_slug"

@@ -264,8 +264,8 @@
 	user.next_move_modifier *= BERSERK_ATTACK_SPEED_MODIFIER
 	user.add_atom_colour(BERSERK_COLOUR, TEMPORARY_COLOUR_PRIORITY)
 	ADD_TRAIT(user, TRAIT_CHUNKYFINGERS, BERSERK_TRAIT)
-	flags |= NODROP
-	suit.flags |= NODROP
+	set_nodrop(TRUE)
+	suit.set_nodrop(TRUE, loc)
 	berserk_active = TRUE
 	START_PROCESSING(SSobj, src)
 
@@ -284,8 +284,8 @@
 	user.next_move_modifier /= BERSERK_ATTACK_SPEED_MODIFIER
 	user.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, BERSERK_COLOUR)
 	REMOVE_TRAIT(user, TRAIT_CHUNKYFINGERS, BERSERK_TRAIT)
-	flags &= ~NODROP
-	suit.flags &= ~NODROP
+	set_nodrop(FALSE)
+	suit.set_nodrop(FALSE)
 	STOP_PROCESSING(SSobj, src)
 
 /datum/action/item_action/berserk_mode
@@ -396,7 +396,7 @@
 		qdel(src) // Oh no! Oh well a new rod will be made from the STATUS_EFFECT_HIPPOCRATIC_OATH
 		return
 
-	flags |= NODROP // Readd the nodrop
+	set_nodrop(TRUE, loc)
 	var/mob/living/carbon/human/H = owner
 	var/limb_regrown = FALSE
 
@@ -683,7 +683,7 @@
 	for(var/distance in 0 to 8)
 		var/turf/current_dash_target = dash_target
 		current_dash_target = get_step(current_dash_target, user.dir)
-		if(!is_blocked_turf(current_dash_target, TRUE))
+		if(!current_dash_target.is_blocked_turf(exclude_mobs = TRUE))
 			dash_target = current_dash_target
 		else
 			break

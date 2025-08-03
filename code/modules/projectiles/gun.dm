@@ -7,7 +7,6 @@
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -161,7 +160,7 @@
 					"<span class='danger'>You fire [src]!</span>",
 					"<span class='danger'>You hear \a [fire_sound_text]!</span>"
 				)
-	if(chambered.muzzle_flash_effect)
+	if(chambered?.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
 		effect.alpha = min(255, muzzle_strength * 255)
 		if(chambered.muzzle_flash_color)

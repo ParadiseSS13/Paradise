@@ -5,7 +5,6 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	desc = "A machine used for recycling dead monkeys into monkey cubes."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
-	layer = 2.9
 	density = TRUE
 	anchored = TRUE
 	idle_power_consumption = 5

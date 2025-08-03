@@ -14,6 +14,13 @@
 	var/uses //If we have multiple uses of the same power
 	var/auto_use_uses = TRUE //If we automatically use up uses on each activation
 	antimagic_flags = NONE
+	/// Is this spell an AI program?
+	var/datum/ai_program/program
+
+/datum/spell/ai_spell/New()
+	. = ..()
+	if(program)
+		desc += " Costs [program.nanite_cost] Nanites to use."
 
 /datum/spell/ai_spell/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -46,6 +53,12 @@
 			continue
 	return closest_camera
 
+/datum/spell/ai_spell/proc/desc_update()
+	desc = initial(desc)
+	if(program)
+		desc += " Costs [program.nanite_cost] Nanites to use."
+	action.desc = desc
+
 /datum/spell/ai_spell/proc/camera_beam(target, icon_state, icon, time)
 	var/obj/machinery/camera/C = find_nearest_camera(target)
 	if(!istype(C))
@@ -63,7 +76,7 @@
 	if(QDELETED(src) || uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		return
 	desc = "[initial(desc)] It has [uses] use\s remaining."
-	UpdateButtons()
+	build_all_button_icons()
 
 /datum/spell/ai_spell/proc/check_camera_vision(mob/user, atom/target)
 	var/turf/target_turf = get_turf(target)
@@ -194,7 +207,7 @@
 					else //Adding uses to an existing module
 						action.uses += initial(action.uses)
 						action.desc = "[initial(action.desc)] It has [action.uses] use\s remaining."
-						action.UpdateButtons()
+						action.build_all_button_icons()
 						temp = "Additional use[action.uses > 1 ? "s" : ""] added to [action.name]!"
 			processing_time -= AM.cost
 
@@ -477,7 +490,6 @@
 	desc = "Overheats a machine, causing a moderately-sized explosion after a short time."
 	action_icon_state = "overload_machine"
 	uses = 4
-	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	selection_activated_message = "<span class='notice'>You tap into the station's powernet. Click on a machine to detonate it, or use the ability again to cancel.</span>"
 	selection_deactivated_message = "<span class='notice'>You release your hold on the powernet.</span>"
@@ -710,7 +722,7 @@
 		to_chat(src, "<span class='warning'>You don't have camera vision of this location!</span>")
 		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
 		return FALSE
-	if(is_blocked_turf(deploylocation))
+	if(deploylocation.is_blocked_turf())
 		to_chat(src, "<span class='warning'>That area must be clear of objects!</span>")
 		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
 		return FALSE
@@ -922,7 +934,6 @@
 	name = "Roll Over"
 	action_icon_state = "roll_over"
 	desc = "Allows you to roll over in the direction of your choosing, crushing anything in your way."
-	auto_use_uses = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	selection_activated_message = "<span class='notice'>Your inner servos shift as you prepare to roll around. Click adjacent tiles to roll into them!</span>"
 	selection_deactivated_message = "<span class='notice'>You disengage your rolling protocols.</span>"

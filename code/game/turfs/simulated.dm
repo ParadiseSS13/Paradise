@@ -110,6 +110,7 @@
 			else
 				wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
 		wet_overlay.plane = FLOOR_OVERLAY_PLANE
+		wet_overlay.appearance_flags = RESET_TRANSFORM
 		overlays += wet_overlay
 	if(time == INFINITY)
 		return

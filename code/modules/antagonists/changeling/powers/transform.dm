@@ -1,7 +1,7 @@
 /datum/action/changeling/transform
 	name = "Transform"
 	desc = "We take on the appearance and voice of one we have absorbed. Costs 5 chemicals."
-	button_overlay_icon_state = "transform"
+	button_icon_state = "transform"
 	chemical_cost = 5
 	power_type = CHANGELING_INNATE_POWER
 	req_dna = 1
@@ -26,6 +26,6 @@
 		user.update_handcuffed()
 	cling.update_languages()
 	var/datum/action/changeling/augmented_eyesight/eyesight = locate() in user.actions
-	eyesight.update_eyes(user)
+	eyesight?.update_eyes(user)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE

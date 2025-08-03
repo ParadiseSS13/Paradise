@@ -4,7 +4,6 @@
 	icon = 'icons/obj/smooth_structures/lattice.dmi'
 	icon_state = "lattice-255"
 	base_icon_state = "lattice"
-	density = FALSE
 	anchored = TRUE
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 50)
 	max_integrity = 50
@@ -13,7 +12,7 @@
 	var/number_of_rods = 1
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_LATTICE)
-	canSmoothWith = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_TURF, SMOOTH_GROUP_WINDOW_FULLTILE)
+	canSmoothWith = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_TURF, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_CATWALK)
 
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
@@ -62,7 +61,6 @@
 	icon_state = "catwalk-0"
 	base_icon_state = "catwalk"
 	number_of_rods = 2
-	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_CATWALK)
 

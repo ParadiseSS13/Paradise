@@ -209,8 +209,7 @@
 	if(istype(A, /obj/item/ammo_casing))
 		var/obj/item/ammo_casing/AC = A
 		if(give_round(AC, replace_spent))
-			user.drop_item()
-			AC.loc = src
+			user.transfer_item_to(AC, src)
 			num_loaded++
 		else
 			to_chat(user, "<span class='notice'>You are unable to fit [AC] into \the [src].</span>")

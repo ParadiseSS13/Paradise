@@ -37,7 +37,7 @@
 			if(!destination)
 				continue
 			for(var/turf/simulated/floor/F in destination.contents)
-				if(!is_blocked_turf(F))
+				if(!F.is_blocked_turf())
 					turfs += F
 			if(length(turfs))
 				spawn_area_type = area_type

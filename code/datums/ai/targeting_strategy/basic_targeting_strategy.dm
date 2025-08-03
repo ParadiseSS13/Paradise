@@ -73,6 +73,12 @@
 			return FALSE
 		return TRUE
 
+	if(istype(the_target, /obj/machinery/power/emitter)) // Targetting emitters
+		var/obj/machinery/power/emitter/E = the_target
+		if(!E.active) // Don't attack if the emitter isn't active
+			return FALSE
+		return TRUE
+
 	return FALSE
 
 /// Returns true if the mob and target share factions
@@ -80,3 +86,6 @@
 	if(controller.blackboard[BB_ALWAYS_IGNORE_FACTION] || controller.blackboard[BB_TEMPORARILY_IGNORE_FACTION])
 		return FALSE
 	return living_mob.faction_check_mob(the_target, exact_match = check_factions_exactly)
+
+/datum/targeting_strategy/basic/always_check_factions
+	check_factions_exactly = TRUE

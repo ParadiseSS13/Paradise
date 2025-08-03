@@ -30,7 +30,6 @@
 	hallucination_icon = 'icons/mob/terrorspider.dmi'
 	hallucination_icon_state = "terror_green"
 	duration = 30 SECONDS
-	damage = 25
 
 /obj/effect/hallucination/chaser/attacker/terror_spider/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
@@ -95,7 +94,7 @@
 
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -124,7 +123,7 @@
 	// Find a spot for the scientist to spawn
 	var/list/locs = list()
 	for(var/turf/T in orange(1, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	locs -= get_turf(agent)
 	if(!length(locs))
@@ -278,7 +277,7 @@
 
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view / 2, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -357,7 +356,7 @@
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view / 2, target))
 		var/light_amount = T.get_lumcount()
-		if(!is_blocked_turf(T) && light_amount <= 0.5)
+		if(!T.is_blocked_turf() && light_amount <= 0.5)
 			locs += T
 	if(!length(locs))
 		return INITIALIZE_HINT_QDEL
@@ -433,7 +432,6 @@
 	hallucination_icon = 'icons/mob/human.dmi'
 	hallucination_icon_state = "zombie2_s"
 	duration = 45 SECONDS
-	damage = 25
 	/// The hallucination that spawned us.
 	var/obj/effect/hallucination/blob/owning_hallucination = null
 	/// Whether or not the target has been zombified already.
@@ -483,7 +481,6 @@
   * Fires a penetrator round at the target. On hit, knockdown + stam loss + hallucinated blood splatter for a bit.
   */
 /obj/effect/hallucination/sniper
-	duration = 15 SECONDS
 
 /obj/effect/hallucination/sniper/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
@@ -528,7 +525,6 @@
 	START_PROCESSING(SSprojectiles, bullet)
 
 /obj/effect/hallucination/sniper_bloodsplatter
-	duration = 15 SECONDS
 	hallucination_icon = 'icons/effects/blood.dmi'
 	hallucination_icon_state = "mfloor1"
 	hallucination_color = "#A10808"

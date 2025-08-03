@@ -14,7 +14,7 @@
 
 	action.name = "[initial(name)] ([V.iscloaking ? "Deactivate" : "Activate"])"
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_NAME)
-	UpdateButtons()
+	build_all_button_icons()
 
 /datum/spell/vampire/self/cloak/cast(list/targets, mob/user = usr)
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
@@ -209,7 +209,6 @@
 	alpha = 120
 	color = "#545454"
 	density = TRUE
-	opacity = FALSE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
 
@@ -285,7 +284,6 @@
 	name = "Eternal Darkness"
 	desc = "When toggled, you shroud the area around you in darkness and slowly lower the body temperature of people nearby. Energy projectiles will dim in its radius."
 	gain_desc = "You have gained the ability to shroud the area around you in darkness, only the strongest of lights can pierce your unholy powers."
-	base_cooldown = 10 SECONDS
 	action_icon_state = "eternal_darkness"
 	required_blood = 5
 	var/shroud_power = -6
