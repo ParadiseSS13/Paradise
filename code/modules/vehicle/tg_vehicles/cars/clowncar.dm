@@ -15,6 +15,8 @@
 	var/headlight_colors = list(COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_LIME, COLOR_BLUE_LIGHT, COLOR_CYAN, COLOR_PURPLE)
 	/// Cooldown time inbetween [/obj/tgvehicle/sealed/car/clowncar/proc/roll_the_dice()] usages
 	var/dice_cooldown_time = 15 SECONDS
+	/// Are we disguised as a singularity?
+	var/singulomode = FALSE
 	/// Current status of the cannon, alternates between CLOWN_CANNON_INACTIVE, CLOWN_CANNON_BUSY and CLOWN_CANNON_READY
 	var/cannonmode = CLOWN_CANNON_INACTIVE
 	/// Does the driver require the clown role to drive it
@@ -212,6 +214,7 @@
 			visible_message("<span class='warning'>[user] presses one of the colorful buttons on [src], and the clown car turns on its singularity disguise system.</span>")
 			icon = 'icons/obj/singularity.dmi'
 			icon_state = "singularity_s1"
+			singulomode = TRUE
 			addtimer(CALLBACK(src, PROC_REF(reset_icon)), 10 SECONDS)
 		if(4)
 			visible_message("<span class='warning'>[user] presses one of the colorful buttons on [src], and the clown car spews out a cloud of confetti all over the place.</span>")
@@ -232,6 +235,9 @@
 /obj/tgvehicle/sealed/car/clowncar/proc/reset_icon()
 	icon = initial(icon)
 	icon_state = initial(icon_state)
+	singulomode = FALSE
+	if(cannonmode)
+		icon_state = "clowncar_fire"
 
 /// Deploys oil when the clowncar moves in oil deploy mode
 /obj/tgvehicle/sealed/car/clowncar/proc/cover_in_oil()
@@ -249,15 +255,17 @@
 		to_chat(user, "<span class='notice'>Please wait for the vehicle to finish its current action first.</span>")
 		return
 	if(cannonmode) // cannon active, deactivate
-		flick("clowncar_fromfire", src)
-		icon_state = "clowncar"
+		if(!singulomode)
+			flick("clowncar_fromfire", src)
+			icon_state = "clowncar"
 		addtimer(CALLBACK(src, PROC_REF(deactivate_cannon)), 2 SECONDS)
 		playsound(src, 'sound/effects/clowncar/clowncar_cannonmode2.ogg', 75)
 		visible_message("<span class='warning'>[src] starts going back into mobile mode.</span>")
 	else
 		canmove = FALSE // anchor and activate cannon
-		flick("clowncar_tofire", src)
-		icon_state = "clowncar_fire"
+		if(!singulomode)
+			flick("clowncar_tofire", src)
+			icon_state = "clowncar_fire"
 		visible_message("<span class='warning'>[src] opens up and reveals a large cannon.</span>")
 		addtimer(CALLBACK(src, PROC_REF(activate_cannon)), 2 SECONDS)
 		playsound(src, 'sound/effects/clowncar/clowncar_cannonmode1.ogg', 75)
@@ -288,7 +296,8 @@
 		return
 	var/mob/living/unlucky_sod = pick(return_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED))
 	mob_exit(unlucky_sod, silent = TRUE)
-	flick("clowncar_recoil", src)
+	if(!singulomode)
+		flick("clowncar_recoil", src)
 	playsound(src, pick('sound/effects/clowncar/carcannon1.ogg', 'sound/effects/clowncar/carcannon2.ogg', 'sound/effects/clowncar/carcannon3.ogg'), 75)
 	unlucky_sod.throw_at(target, 10, 2)
 	COOLDOWN_START(src, cannon_cooldown, cannon_fire_delay)
