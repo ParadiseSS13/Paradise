@@ -80,7 +80,7 @@
 	GM.set_oxygen(MOLES_O2STANDARD)
 	GM.set_nitrogen(MOLES_N2STANDARD)
 	GM.set_temperature(T20C)
- 	return GM
+	return GM
 		
 /datum/spell/bloodcrawl/proc/block_hands(mob/living/carbon/C)
 	if(C.l_hand || C.r_hand)
