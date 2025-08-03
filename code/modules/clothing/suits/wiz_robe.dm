@@ -44,7 +44,6 @@
 		)
 
 /obj/item/clothing/head/wizard/fake
-	name = "wizard hat"
 	desc = "It has WIZZARD written across it in sequins. Comes with a cool beard."
 	icon_state = "wizard-fake"
 	gas_transfer_coefficient = 1
@@ -52,7 +51,6 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	magical = FALSE
 	resistance_flags = FLAMMABLE
-	dog_fashion = /datum/dog_fashion/head/blue_wizard
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
@@ -151,10 +149,8 @@
 	item_state = "psyamp"
 
 /obj/item/clothing/suit/wizrobe/fake
-	name = "wizard robe"
 	desc = "A rather dull, blue robe meant to mimick real wizard robes."
 	icon_state = "wizard-fake"
-	item_state = "wizrobe"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
@@ -162,9 +158,6 @@
 	magical = FALSE
 
 /obj/item/clothing/head/wizard/marisa/fake
-	name = "witch hat"
-	desc = "Strange-looking hat-wear, makes you want to cast fireballs."
-	icon_state = "marisa"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
@@ -172,10 +165,6 @@
 	magical = FALSE
 
 /obj/item/clothing/suit/wizrobe/marisa/fake
-	name = "witch robe"
-	desc = "Magic is all about the spell power, ZE!"
-	icon_state = "marisa"
-	item_state = "marisarobe"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
@@ -189,8 +178,6 @@
 	desc = "Not all wizards are afraid of getting up close and personal."
 	icon_state = "hardsuit-wiz"
 	item_state = "wiz_hardsuit"
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard
 	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 	slowdown = 0
@@ -213,8 +200,6 @@
 
 /obj/item/clothing/suit/space/hardsuit/wizard/arch
 	desc = "For the arch wizard in need of additional protection."
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard/arch
 
 /obj/item/clothing/suit/space/hardsuit/wizard/arch/setup_shielding()
@@ -226,8 +211,6 @@
 	icon_state = "hardsuit0-wiz"
 	item_state = "wiz_helm"
 	item_color = "wiz"
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 	actions_types = list() //No inbuilt light
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -238,5 +221,3 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/wizard/arch
 	desc = "A truly protective helmet."
-	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT

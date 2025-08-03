@@ -259,7 +259,7 @@
 #define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
 #define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
 #define iscat(A) 			(istype((A), /mob/living/simple_animal/pet/cat))
-#define isgorilla(A) 		(istype((A), /mob/living/simple_animal/hostile/gorilla))
+#define isgorilla(A) 		(istype((A), /mob/living/basic/gorilla))
 #define ismorph(A)			(istype((A), /mob/living/simple_animal/hostile/morph))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
@@ -296,6 +296,7 @@
 
 // Locations
 #define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))
+#define is_mecha_occupant(A)  (istype(A.loc, /obj/mecha))
 
 // Hearing protection
 #define HEARING_PROTECTION_NONE	0

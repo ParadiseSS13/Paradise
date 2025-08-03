@@ -1393,7 +1393,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/recharge_station/upgraded,
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg,
+/mob/living/basic/hivebot/strong/malfborg,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault";
@@ -2471,7 +2471,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/recharge_station/upgraded,
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg,
+/mob/living/basic/hivebot/strong/malfborg,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault";

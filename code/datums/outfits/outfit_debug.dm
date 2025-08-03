@@ -23,7 +23,6 @@
 	pda = /obj/item/pda/centcom
 
 	internals_slot = ITEM_SLOT_SUIT_STORE
-	toggle_helmet = TRUE
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/surgery/debug,
@@ -55,7 +54,6 @@
 	desc = "Lets you listen to <b>everything</b>. Use in hand to toggle voice changing. Alt-click to change your fake name."
 	icon_state = "com_cypherkey"
 	channels = list("Response Team" = 1, "Special Ops" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Supply" = 1, "Service" = 1, "Procedure" = 1) // just in case
-	syndie = TRUE
 	change_voice = FALSE
 
 /obj/item/encryptionkey/syndicate/all_channels/Initialize(mapload)
@@ -98,7 +96,6 @@
 	desc = "Diagnostic, Hydroponic, Medical, Security, and Skills HUD. Built-in advanced reagent scanner. Alt-click to toggle X-ray vision."
 	icon_state = "nvgmeson"
 	hud_debug = TRUE
-	flags_cover = GLASSESCOVERSEYES
 	flash_protect = FLASH_PROTECTION_WELDER
 	scan_reagents_advanced = TRUE
 
@@ -147,8 +144,6 @@
 	desc = "Spawn a human by aiming at a turf and clicking. Use in hand to change type."
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "nothingwand"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	var/datum/species/selected_species
 	var/activate_mind = FALSE
@@ -263,7 +258,6 @@
 //
 
 /obj/item/storage/box/debug
-	w_class = WEIGHT_CLASS_NORMAL
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 1000
 	storage_slots = 99

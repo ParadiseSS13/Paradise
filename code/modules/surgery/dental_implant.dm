@@ -37,7 +37,7 @@
 	user.drop_item()
 	tool.forceMove(target)
 
-	var/datum/action/item_action/hands_free/activate_pill/P = new(tool, tool.icon, tool.icon_state)
+	var/datum/action/item_action/hands_free/activate_pill/P = new(tool)
 	P.name = "Activate Pill ([tool.name])"
 	P.Grant(target)
 
@@ -46,6 +46,11 @@
 
 /datum/action/item_action/hands_free/activate_pill
 	name = "Activate Pill"
+
+/datum/action/item_action/hands_free/activate_pill/New(Target, obj/item/tool)
+	button_icon = tool.icon
+	button_icon_state = tool.icon_state
+	return ..()
 
 /datum/action/item_action/hands_free/activate_pill/Trigger(left_click = TRUE)
 	if(!..(left_click, FALSE))
