@@ -136,7 +136,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	user.ranged_ability = src
 	ranged_ability_user = user
 	user.client.click_intercept = new /datum/click_intercept/proc_holder(user.client, user.ranged_ability)
-	add_mousepointer(user.client)
+	add_mousepointer(user)
 	active = TRUE
 	if(msg)
 		to_chat(user, msg)
@@ -162,7 +162,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	if(user.client)
 		qdel(user.client.click_intercept)
 		user.client.click_intercept = null
-		remove_mousepointer(user.client)
+		remove_mousepointer(user)
 		if(msg)
 			to_chat(user, msg)
 	update_spell_icon()
