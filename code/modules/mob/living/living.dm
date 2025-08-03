@@ -62,7 +62,6 @@
 	return ..()
 
 /mob/living/ghostize(can_reenter_corpse = 1)
-	var/prev_client = client
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
 
