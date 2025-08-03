@@ -104,7 +104,7 @@
 		return
 
 	if(is_used())
-		to_chat(user, "<span class='warning'>This sample kit is already used</span>")
+		to_chat(user, "<span class='warning'>This sample kit is already used.</span>")
 		return
 
 	add_fingerprint(user)
