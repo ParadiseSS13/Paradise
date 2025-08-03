@@ -123,18 +123,18 @@
 		/obj/item/stock_parts/matter_bin/bluespace,
 
 		// Power cells
-		/obj/item/cell
-		/obj/item/stock_parts/high,
-		/obj/item/cell/high/plus,
+		/obj/item/stock_parts/cell,
+		/obj/item/stock_parts/cell/high,
+		/obj/item/stock_parts/cell/high/plus,
 		/obj/item/stock_parts/cell/super,
 		/obj/item/stock_parts/cell/hyper,
 		/obj/item/stock_parts/cell/bluespace,
-		/obj/item/cell/bluespace/charging,
-		/obj/item/bluespace/trapped,
-		/obj/item/cell/infinite,
-		/obj/item/cell/infinite/abductor,
-		/obj/item/cell/high/slime,
-		/obj/item/cell/potato
+		/obj/item/stock_parts/cell/bluespace/charging,
+		/obj/item/stock_parts/cell/bluespace/trapped,
+		/obj/item/stock_parts/cell/infinite,
+		/obj/item/stock_parts/cell/infinite/abductor,
+		/obj/item/stock_parts/cell/high/slime,
+		/obj/item/stock_parts/cell/potato
 	)
 
 /obj/effect/spawner/random/stock_parts/Initialize(mapload)
