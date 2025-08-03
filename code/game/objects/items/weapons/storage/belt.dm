@@ -1049,6 +1049,8 @@
 	desc = "An apron with various pockets for holding all your cooking tools and equipment."
 	icon_state = "chefbelt"
 	item_state = "chefbelt"
+	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	storage_slots = 10
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 25
@@ -1070,3 +1072,7 @@
 		/obj/item/food,
 		/obj/item/reagent_containers/condiment,
 		/obj/item/reagent_containers/glass/beaker)
+	sprite_sheets = list(
+		"Kidan" = 'icons/mob/clothing/species/kidan/belt.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/belt.dmi'
+	)
