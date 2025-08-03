@@ -269,7 +269,7 @@
 			status_tab_data[++status_tab_data.len] = list("Usable Blood:", "[V.bloodusable]")
 
 /mob/living/carbon/human/ex_act(severity)
-	if(status_flags & GODMODE)
+	if(status_flags & GODMODE || HAS_TRAIT(src, TRAIT_EXPLOSION_PROOF))
 		return FALSE
 
 	var/brute_loss = 0
