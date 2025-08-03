@@ -51,7 +51,6 @@
 #define PASSEMOTES		(1<<4) //Mob has holders inside of it that need to see emotes.
 #define GODMODE			(1<<5)
 #define TERMINATOR_FORM (1<<6)
-#define EXPLOSION_PROOF (1<<7)
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
