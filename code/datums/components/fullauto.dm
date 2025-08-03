@@ -165,7 +165,7 @@
 		return
 	autofire_stat = AUTOFIRE_STAT_FIRING
 
-	clicker.mob.add_mousepointer(MP_AUTO_GUN_PRIORITY, 'icons/effects/mouse_pointers/weapon_pointer.dmi')
+	clicker.mob.add_mousepointer(MP_AUTO_GUN_PRIORITY, 'icons/mouse_icons/weapon_pointer.dmi')
 
 	if(mouse_status == AUTOFIRE_MOUSEUP) // See mouse_status definition for the reason for this.
 		RegisterSignal(clicker, COMSIG_CLIENT_MOUSEUP, PROC_REF(on_mouse_up))

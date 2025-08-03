@@ -1059,11 +1059,9 @@
 					if(isliving(parent.mob))
 						if(toggles3 & PREFTOGGLE_3_SHOW_ITEM_ON_MOUSE)
 							var/obj/item/I = parent.mob.get_active_hand()
-							I.update_mp_icon()
+							I.update_mp_icon(parent.mob)
 						else
 							parent.mob.remove_mousepointer(MP_ITEM_PRIORITY)
-
-
 
 				if("be_special")
 					var/r = href_list["role"]

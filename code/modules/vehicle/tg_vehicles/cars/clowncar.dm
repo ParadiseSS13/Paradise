@@ -265,7 +265,7 @@
 
 /// Finalizes cannon activation
 /obj/tgvehicle/sealed/car/clowncar/proc/activate_cannon()
-	var/mouse_pointer = 'icons/effects/mouse_pointers/weapon_pointer.dmi'
+	var/mouse_pointer = 'icons/mouse_icons/weapon_pointer.dmi'
 	cannonmode = CLOWN_CANNON_READY
 	for(var/mob/living/driver as anything in return_controllers_with_flag(VEHICLE_CONTROL_DRIVE))
 		REMOVE_TRAIT(driver, TRAIT_HANDS_BLOCKED, VEHICLE_TRAIT)

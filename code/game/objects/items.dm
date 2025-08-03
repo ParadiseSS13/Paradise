@@ -1101,7 +1101,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/generate_mp_icon()
 	PRIVATE_PROC(TRUE)
-	var/icon/base = icon('icons/effects/mouse_pointers/base_item.dmi', "all")
+	var/icon/base = icon('icons/mouse_icons/base_item.dmi', "all")
 	var/icon/item_icon
 	if(length(overlays)) // if you have underlays get fucked i guess lol
 		UNTIL(!(flags_2 & OVERLAY_QUEUED_2)) // Until overlays done queuing

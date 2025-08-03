@@ -693,8 +693,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(I)
 		SEND_SIGNAL(I, COMSIG_CARBON_TOGGLE_THROW, in_throw_mode)
 
-#define THROW_MODE_ICON 'icons/effects/cult_target.dmi'
-
 /mob/living/carbon/proc/throw_mode_off()
 	in_throw_mode = FALSE
 	if(throw_icon) //in case we don't have the HUD and we use the hotkey
@@ -706,9 +704,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	in_throw_mode = TRUE
 	if(throw_icon)
 		throw_icon.icon_state = "act_throw_on"
-	add_mousepointer(MP_THROW_MODE_PRIORITY, THROW_MODE_ICON)
-
-#undef THROW_MODE_ICON
+	add_mousepointer(MP_THROW_MODE_PRIORITY, 'icons/mouse_icons/cult_target.dmi')
 
 /mob/proc/throw_item(atom/target)
 	return
