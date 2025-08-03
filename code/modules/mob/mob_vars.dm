@@ -254,11 +254,8 @@
 	/// For storing what do_after's something has, key = string, value = amount of interactions of that type happening.
 	var/list/do_afters
 
-<<<<<<< HEAD
 	///gunshot residue for det work
 	var/gunshot_residue
-=======
 	/// For storing what do_after's something has, key = string, value = amount of interactions of that type happening.
 	var/list/do_afters
->>>>>>> master
 	new_attack_chain = TRUE
