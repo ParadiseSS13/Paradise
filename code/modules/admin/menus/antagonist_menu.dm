@@ -149,25 +149,7 @@ RESTRICT_TYPE(/datum/ui_module/admin/antagonist_menu)
 		if("pm")
 			ui.user.client.cmd_admin_pm(params["ckey"], null)
 		if("follow")
-			var/client/C = ui.user.client
-			if(!isobserver(ui.user))
-				if(!check_rights(R_ADMIN|R_MOD)) // Need to be mod or admin to aghost
-					return
-				C.admin_ghost()
-			var/datum/target = locateUID(params["datum_uid"])
-			if(QDELETED(target))
-				to_chat(ui.user, "<span class='warning'>This datum has been deleted!</span>")
-				return
-
-			if(istype(target, /datum/mind))
-				var/datum/mind/mind = target
-				if(!ismob(mind.current))
-					to_chat(ui.user, "<span class='warning'>This can only be used on instances of type /mob</span>")
-					return
-				target = mind.current
-
-			var/mob/dead/observer/A = C.mob
-			A.ManualFollow(target)
+			ghost_follow_uid(ui.user, params["datum_uid"])
 		if("obs")
 			var/client/C = ui.user.client
 			var/datum/mind/mind = locateUID(params["mind_uid"])

@@ -542,11 +542,11 @@ CREATE TABLE `changelog` (
 --
 DROP TABLE IF EXISTS `ip2group`;
 CREATE TABLE `ip2group` (
-  `ip` varchar (18) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
-  `groupstr` varchar (32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`ip`),
-  KEY `groupstr` (`groupstr`)
+	`ip` INT(10) UNSIGNED NOT NULL,
+	`date` TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+	`groupstr` INT(10) UNSIGNED NOT NULL,
+	PRIMARY KEY (`ip`) USING BTREE,
+	INDEX `groupstr` (`groupstr`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

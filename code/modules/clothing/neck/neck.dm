@@ -1,7 +1,6 @@
 /obj/item/clothing/neck/tie
 	name = "tie"
 	desc = "A neosilk clip-on tie."
-	w_class = WEIGHT_CLASS_SMALL
 	var/under_suit = FALSE
 
 /obj/item/clothing/neck/tie/blue

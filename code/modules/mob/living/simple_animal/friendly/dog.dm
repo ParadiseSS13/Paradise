@@ -73,13 +73,10 @@
 	butcher_results = list(/obj/item/food/meat/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
-	hud_type = /datum/hud/corgi
 	///Currently worn item on the head slot
 	var/obj/item/inventory_head = null
 	///Currently worn item on the back slot
 	var/obj/item/inventory_back = null
-	///Item slots that are available for this corgi to equip stuff into
-	var/list/strippable_inventory_slots = list()
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
 	var/razor_shave_delay = 5 SECONDS
@@ -89,13 +86,15 @@
 /mob/living/simple_animal/pet/dog/corgi/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/wears_collar, collar_icon_state_ = collar_icon_state)
-	AddElement(/datum/element/strippable, length(strippable_inventory_slots) ? create_strippable_list(strippable_inventory_slots) : GLOB.strippable_corgi_items)
 	regenerate_icons()
 
 /mob/living/simple_animal/pet/dog/corgi/Destroy()
 	QDEL_NULL(inventory_head)
 	QDEL_NULL(inventory_back)
 	return ..()
+
+/mob/living/simple_animal/pet/dog/corgi/get_strippable_items(datum/source, list/items)
+	items |= GLOB.strippable_corgi_items
 
 /mob/living/simple_animal/pet/dog/corgi/handle_atom_del(atom/A)
 	if(A == inventory_head)
@@ -327,9 +326,6 @@
 	desc = "It's the HoP's beloved corgi."
 	var/turns_since_scan = 0
 	var/obj/movement_target
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 	var/age = 0
@@ -513,16 +509,16 @@
 
 /mob/living/simple_animal/pet/dog/corgi/puppy
 	name = "corgi puppy"
-	real_name = "corgi"
 	desc = "It's a corgi puppy!"
 	icon_state = "puppy"
 	icon_living = "puppy"
 	icon_dead = "puppy_dead"
 	density = FALSE
 	pass_flags = PASSMOB
-	mob_size = MOB_SIZE_SMALL
-	strippable_inventory_slots = list() // Puppies do not have a head or back equipment slot.
 	collar_icon_state = "puppy"
+
+/mob/living/simple_animal/pet/dog/corgi/puppy/get_strippable_items(datum/source, list/items)
+	return
 
 /// Tribute to the corgis born in nullspace
 /mob/living/simple_animal/pet/dog/corgi/puppy/void
@@ -551,15 +547,24 @@
 	icon_state = "lisa"
 	icon_living = "lisa"
 	icon_dead = "lisa_dead"
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
-	strippable_inventory_slots = list(/datum/strippable_item/corgi_back) //Lisa already has a cute bow!
+	var/datum/strippable_item/corgi_back/corgi_strippable_back
 	var/turns_since_scan = 0
+
+/mob/living/simple_animal/pet/dog/corgi/lisa/Initialize(mapload)
+	. = ..()
+	// Lisa already has a cute bow, so she only needs the back slot
+	corgi_strippable_back = new
+
+/mob/living/simple_animal/pet/dog/corgi/lisa/Destroy()
+	. = ..()
+	QDEL_NULL(corgi_strippable_back)
 
 /mob/living/simple_animal/pet/dog/corgi/lisa/Life()
 	..()
 	make_babies()
+
+/mob/living/simple_animal/pet/dog/corgi/lisa/get_strippable_items(datum/source, list/items)
+	items[STRIPPABLE_ITEM_BACK] = corgi_strippable_back
 
 /mob/living/simple_animal/pet/dog/corgi/lisa/handle_automated_movement()
 	. = ..()
@@ -571,7 +576,6 @@
 /mob/living/simple_animal/pet/dog/corgi/exoticcorgi
 	name = "Exotic Corgi"
 	desc = "As cute as it is colorful!"
-	icon = 'icons/mob/pets.dmi'
 	icon_state = "corgigrey"
 	icon_living = "corgigrey"
 	icon_dead = "corgigrey_dead"
@@ -651,7 +655,6 @@
 	name = "pug"
 	real_name = "pug"
 	desc = "It's a pug."
-	icon = 'icons/mob/pets.dmi'
 	icon_state = "pug"
 	icon_living = "pug"
 	icon_dead = "pug_dead"

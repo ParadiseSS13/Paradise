@@ -15,7 +15,6 @@
 	maxbodytemp = 360
 	universal_speak = TRUE //So mobs can understand them when a blob uses Blob Broadcast
 	sentience_type = SENTIENCE_OTHER
-	gold_core_spawnable = NO_SPAWN
 	can_be_on_fire = TRUE
 	fire_damage = 3
 	var/mob/camera/blob/overmind = null
@@ -64,7 +63,6 @@
 	melee_damage_lower = 2
 	melee_damage_upper = 4
 	obj_damage = 20
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "hits"
 	attack_sound = 'sound/weapons/genhit1.ogg'
 	initial_traits = list(TRAIT_FLYING)
@@ -189,11 +187,8 @@
 	attacktext = "hits"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	speak_emote = list("gurgles")
-	minbodytemp = 0
-	maxbodytemp = 360
 	force_threshold = 10
 	mob_size = MOB_SIZE_LARGE
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	pressure_resistance = 50
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -211,8 +206,8 @@
 
 /datum/action/innate/communicate_overmind_blob
 	name = "Speak with the overmind"
-	button_overlay_icon = 'icons/mob/guardian.dmi'
-	button_overlay_icon_state = "communicate"
+	button_icon = 'icons/mob/guardian.dmi'
+	button_icon_state = "communicate"
 
 /datum/action/innate/communicate_overmind_blob/Activate()
 	var/mob/living/simple_animal/hostile/blob/blobbernaut/user = owner

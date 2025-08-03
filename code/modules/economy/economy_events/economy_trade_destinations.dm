@@ -16,6 +16,9 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 /datum/trade_destination/proc/get_custom_eventstring(event_type)
 	return null
 
+/datum/trade_destination/proc/get_custom_eventtitle(event_type)
+	return null
+
 //distance is measured in AU and co-relates to travel time
 /datum/trade_destination/centcomm
 	name = "CentComm"
@@ -41,6 +44,11 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 		[pick("mind-machine interfacing","neuroscience","nano-augmentation","genetics")]. Nanotrasen is expected to announce a co-exploitation deal within the fortnight."
 	return null
 
+/datum/trade_destination/anansi/get_custom_eventtitle(event_type)
+	if(event_type == RANDOM_STORY_RESEARCH_BREAKTHROUGH)
+		return "Major Breakthrough on NSS Anansi"
+	return null
+
 /datum/trade_destination/icarus
 	name = "NMV Icarus"
 	description = "Corvette assigned to patrol the station's local space."
@@ -62,6 +70,11 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	if(event_type == RANDOM_STORY_RESEARCH_BREAKTHROUGH)
 		return "Thanks to research conducted on the OAV Redolant, Osiris Atmospherics wishes to announce a major breakthrough in the field of \
 		[pick("plasma research","high energy flux capacitance","super-compressed materials","theoretical particle physics")]. Nanotrasen is expected to announce a co-exploitation deal within the fortnight."
+	return null
+
+/datum/trade_destination/redolant/get_custom_eventtitle(event_type)
+	if(event_type == RANDOM_STORY_RESEARCH_BREAKTHROUGH)
+		return "Major Breakthrough on OAV Redolant"
 	return null
 
 /datum/trade_destination/beltway

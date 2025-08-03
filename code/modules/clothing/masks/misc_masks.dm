@@ -4,7 +4,6 @@
 	icon_state = "muzzle"
 	item_state = "muzzle"
 	flags_cover = MASKCOVERSMOUTH
-	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
 	put_on_delay = 2 SECONDS
 	/// How long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
@@ -91,10 +90,8 @@
 	desc = "A muzzle designed to prevent biting."
 	icon_state = "muzzle_secure"
 	item_state = "muzzle_secure"
-	resist_time = 0 SECONDS
 	mute = MUZZLE_MUTE_NONE
 	security_lock = TRUE
-	locked = FALSE
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 	sprite_sheets = list(
@@ -235,7 +232,6 @@
 	item_state = "pig"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
-	w_class = WEIGHT_CLASS_SMALL
 
 
 /obj/item/clothing/mask/horsehead
@@ -245,7 +241,6 @@
 	item_state = "horsehead"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
-	w_class = WEIGHT_CLASS_SMALL
 	var/voicechange = FALSE
 	var/temporaryname = " the Horse"
 	var/originalname = ""
@@ -343,7 +338,6 @@
 	icon_state = "fawkes"
 	item_state = "fawkes"
 	flags_inv = HIDEFACE
-	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/mask/gas/clown_hat/pennywise
 	name = "\improper Pennywise mask"
@@ -351,7 +345,6 @@
 	icon_state = "pennywise_mask"
 	item_state = "pennywise_mask"
 
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
 // Bandanas
 /obj/item/clothing/mask/bandana
@@ -360,7 +353,6 @@
 	flags_inv = HIDEFACE
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = ITEM_SLOT_MASK
 	adjusted_flags = ITEM_SLOT_HEAD
 	icon_state = "bandbotany"
 	dyeable = TRUE
@@ -483,7 +475,6 @@
 /obj/item/clothing/mask/bandana/botany
 	name = "botany bandana"
 	desc = "It's a green bandana with some fine nanotech lining."
-	icon_state = "bandbotany"
 
 /obj/item/clothing/mask/bandana/skull
 	name = "skull bandana"

@@ -8,7 +8,6 @@
 	anchored = TRUE
 	flags = ON_BORDER
 	flags_2 = RAD_PROTECT_CONTENTS_2
-	flags_ricochet = RICOCHET_HARD
 	receive_ricochet_chance_mod = 0.5
 	can_be_unanchored = TRUE
 	max_integrity = 25
@@ -205,6 +204,14 @@
 	if(. && M.environment_smash >= env_smash_level)
 		deconstruct(FALSE)
 		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='warning'>You smash through [src].</span>", "<span class='warning'>You hear glass breaking.</span>")
+
+/obj/structure/window/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	if(!can_be_reached(attacker))
+		return
+	. = ..()
+	if(. && attacker.environment_smash >= env_smash_level)
+		deconstruct(FALSE)
+		attacker.visible_message("<span class='danger'>[attacker] smashes through [src]!</span>", "<span class='warning'>You smash through [src].</span>", "<span class='warning'>You hear glass breaking.</span>")
 
 /obj/structure/window/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(!can_be_reached(user))
@@ -538,7 +545,6 @@
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
 	desc = "It looks rather strong and frosted over. Looks like it might take a few less hits then a normal reinforced window."
-	icon_state = "twindow"
 	max_integrity = 30
 
 /obj/structure/window/reinforced/polarized
@@ -826,6 +832,14 @@
 	rad_insulation_beta = RAD_NO_INSULATION
 	rad_insulation_gamma = RAD_GAMMA_FULL_WINDOW
 	rad_conversion_amount = 3
+
+/obj/structure/window/full/plastitanium/rad_protect
+	name = "leaded plastitanium window"
+	desc = "An evil looking window of plasma and titanium. It has been infused with lead and offers exceptional radiation resistance."
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation_beta = RAD_BETA_BLOCKER
+	rad_insulation_gamma = RAD_VERY_EXTREME_INSULATION
+	rad_conversion_amount = 0
 
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"

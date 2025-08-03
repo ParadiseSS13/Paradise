@@ -240,7 +240,6 @@ CONTENTS:
 	item_state = "wonderprod"
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=4;combat=4;biotech=7;abductor=4"
-	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/toggle_mode)
 
 /obj/item/abductor_baton/proc/toggle(mob/living/user = usr)
@@ -629,7 +628,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien wrench"
 	desc = "A polarized wrench. It causes anything placed between the jaws to turn."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "wrench"
 	belt_icon = null
 	usesound = 'sound/effects/empulse.ogg'
 	toolspeed = 0.1
@@ -639,7 +637,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien welding tool"
 	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "welder"
 	belt_icon = null
 	toolspeed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
@@ -653,7 +650,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien crowbar"
 	desc = "A hard-light crowbar. It appears to pry by itself, without any effort required."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "crowbar"
 	belt_icon = null
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	toolspeed = 0.1
@@ -664,7 +660,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien wirecutters"
 	desc = "Extremely sharp wirecutters, made out of a silvery-green metal."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "cutters"
 	belt_icon = null
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
@@ -678,7 +673,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien multitool"
 	desc = "An omni-technological interface."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "multitool"
 	belt_icon = null
 	toolspeed = 0.1
 	w_class = WEIGHT_CLASS_SMALL
@@ -775,7 +769,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	mopcap = 100
 	origin_tech = "materials=3;engineering=3;abductor=2"
 	refill_rate = 50
-	refill_reagent = "water"
 	mopspeed = 10
 
 /obj/item/soap/syndie/abductor
@@ -852,7 +845,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "This looks similar to contraptions from earth. Could aliens be stealing our technology?"
 	icon = 'icons/obj/abductor.dmi'
 	buildstacktype = /obj/item/stack/sheet/mineral/abductor
-	icon_state = "bed"
 
 /obj/structure/table_frame/abductor
 	name = "alien table frame"
@@ -873,7 +865,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	base_icon_state = "alien_table"
 	buildstack = /obj/item/stack/sheet/mineral/abductor
 	framestack = /obj/item/stack/sheet/mineral/abductor
-	buildstackamount = 1
 	framestackamount = 1
 	smoothing_groups = list(SMOOTH_GROUP_ABDUCTOR_TABLES)
 	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_TABLES)

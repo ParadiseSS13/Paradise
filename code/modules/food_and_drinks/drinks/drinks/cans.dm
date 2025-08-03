@@ -270,7 +270,6 @@
 /obj/item/reagent_containers/drinks/cans/bottler/glass_bottle
 	name = "glass bottle"
 	desc = "A glass bottle suitable for beverages."
-	icon_state = "glass_bottle"
 	is_glass = TRUE
 
 /obj/item/reagent_containers/drinks/cans/bottler/plastic_bottle

@@ -133,7 +133,6 @@
 /obj/effect/temp_visual/sonar_ping
 	duration = 3 SECONDS
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	anchored = TRUE
 	randomdir = FALSE
 	/// The image shown to modsuit users
 	var/image/modsuit_image
@@ -255,9 +254,7 @@
 /obj/item/grenade/cryogrenade_mod
 	name = "cryogenic grenade"
 	desc = "A very cold grenade."
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "gluon"
-	item_state = "grenade"
 	var/freeze_range = 4
 	var/stamina_damage = 60
 	var/body_adjustment = -230

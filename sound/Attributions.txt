@@ -8,4 +8,10 @@ machines/triple_beep.ogg is taken from /tg/station. Source (https://github.com/t
 
 misc/server_alert.ogg is taken from https://freesound.org/people/rhodesmas/sounds/380264/ and compressed to .ogg, under the CC-BY 3.0 license. Sound modified by Carthusia
 
+Pig Oink by qubodup (cut down version of below for sound/creatures/pig.ogg) -- https://freesound.org/s/442906/ -- License: Creative Commons 0
+
+Angry Pig Oinking by Jofae (full version of above for sound/creatures/pig.ogg)-- https://freesound.org/s/352698/ -- License: Creative Commons 0
+
+Moo 3 - Moo Moo the Cow by manofham (sound/creatures/cow.ogg)-- https://freesound.org/s/700380/ -- License: Creative Commons 0
+
 effects/voxfcaw.ogg and effects/voxrcaw.ogg are processed versions of https://opengameart.org/content/crow-caw from zeroisnotnull under CC0 1.0
