@@ -65,7 +65,9 @@
 
 /obj/machinery/dnaforensics/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current sample. <b>Click while holding a sample</b> to insert a sample. <b>Click with an empty hand</b> to operate.</span>"
+	. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current sample.</span>"
+	. += "<span class='notice'><b>Click while holding a sample</b> to insert a sample.</span>"
+	. += "<span class='notice'><b>Click with an empty hand</b> to operate.</span>"
 
 /obj/machinery/dnaforensics/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob)
 	if(swab)
@@ -80,7 +82,7 @@
 		update_icon()
 		return
 	else
-		to_chat(user, "<span class='notice'>This is not a compatable sample!</span>")
+		to_chat(user, "<span class='notice'>This is not a compatible sample!</span>")
 	..()
 
 /obj/machinery/dnaforensics/attack_hand(mob/user)
@@ -93,9 +95,10 @@
 	to_chat(user, "<span class='notice'>The scanner begins to hum and analyze the contents of the tube containing [swab].</span>")
 
 	if(!do_after(user, 2.5 SECONDS, src) || !swab)
-		to_chat(user, "<span class='notice'>You have stopped analyzing [swab]</span>")
+		to_chat(user, "<span class='notice'>You have stopped analyzing [swab].</span>")
 		scanning = FALSE
 		update_appearance(UPDATE_ICON)
+		return
 
 	to_chat(user, "<span class='notice'>Printing report...</span>")
 	var/obj/item/paper/report = new(get_turf(src))
@@ -109,14 +112,14 @@
 		//dna data itself
 		var/data = "No analysis data available."
 		if(!isnull(bloodswab.dna))
-			data = "Spectrometric analysis on the provided sample determined the presence of DNA. DNA String(s) found: [bloodswab.dna.len].<br><br>"
+			data = "Spectrometric analysis on the provided sample determined the presence of DNA. DNA String(s) found: [length(bloodswab.dna)].<br><br>"
 			for(var/blood in bloodswab.dna)
 				data += "<span class='notice'>Blood type: [bloodswab.dna[blood]]<br>\nDNA: [blood]<br><br></span>"
 		else
 			data += "\nNo DNA found.<br>"
 		report.info = "<b>Report number: [report_num] по \n[src]</b><br>"
 		report.info += "<b>\nAnalyzed object:</b><br>[bloodswab.name]<br>[bloodswab.desc]<br><br>" + data
-		report.forceMove(src.loc)
+		report.forceMove(get_turf(src))
 		report.update_icon()
 		scanning = FALSE
 		update_appearance(UPDATE_ICON)
@@ -127,7 +130,7 @@
 	if(!swab)
 		to_chat(remover, "<span class='warning'>There is no sample inside the scanner!</span>")
 		return
-	to_chat(remover, "<span class='notice'>you removed out [swab] from the scanner.</span>")
+	to_chat(remover, "<span class='notice'>You remove [swab] from the scanner.</span>")
 	swab.forceMove(get_turf(src))
 	remover.put_in_hands(swab)
 	swab = null
@@ -169,7 +172,7 @@
 // This is the output of the stringpercent(print) proc, and means about 80% of
 // the print must be there for it to be complete.  (Prints are 32 digits)
 /obj/machinery/microscope
-	name = "\improper Microscope"
+	name = "microscope"
 	desc = "A microscope capable of magnifying images up to 3000 times."
 	icon = 'icons/obj/forensics/forensics.dmi'
 	icon_state = "microscope"
@@ -177,7 +180,7 @@
 	density = TRUE
 	new_attack_chain = FALSE
 	var/obj/item/sample = null
-	var/report_num = FALSE
+	var/report_num = 0
 	var/fingerprint_complete = 6
 
 /obj/machinery/microscope/Initialize(mapload)
@@ -204,7 +207,6 @@
 		W.forceMove(src)
 		sample = W
 		update_appearance(UPDATE_ICON_STATE)
-
 		return
 	..()
 
@@ -217,7 +219,7 @@
 	add_fingerprint(user)
 	to_chat(user, "<span class='notice'>The microscope buzzes while you analyze [sample].</span>")
 
-	if(!do_after(user, 25, src) || !sample)
+	if(!do_after(user, 2.5 SECONDS, src) || !sample)
 		to_chat(user, "<span class='notice'>You stop analyzing [sample].</span>")
 		return
 

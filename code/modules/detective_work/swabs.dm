@@ -41,12 +41,12 @@
 		return
 	if(do_after(user, 2 SECONDS, target = user))
 		if(!H.dna || !H.dna.unique_enzymes)
-			to_chat(user, "<span class='warning'>Looks like he has no DNA!</span>")
+			to_chat(user, "<span class='warning'>Looks like [H.p_they()] [H.p_have()] no DNA!</span>")
 			inuse = FALSE
 			return
 
 		if(user != H && user.a_intent != INTENT_HELP && !IS_HORIZONTAL(H))
-			user.visible_message("<span class='danger'>[user] trying to take a sample from [H], but they resist.</span>")
+			user.visible_message("<span class='danger'>[user] tries to take a sample from [H], but [H.p_they()] resist[H.p_s()].</span>")
 			inuse = FALSE
 			return
 		var/target_dna
@@ -109,7 +109,7 @@
 
 	add_fingerprint(user)
 	inuse = TRUE
-	to_chat(user, "<span class='notice'>You start collecting evidence.</span>")
+	to_chat(user, "<span class='notice'>You start collecting evidence...</span>")
 	if(do_after(user, 2 SECONDS, target = user))
 		var/list/choices = list()
 		var/list/found_blood = list()

@@ -95,7 +95,7 @@
 	. = ..()
 	if(supplied)
 		copy_evidence(supplied)
-		name = "[initial(name)] (\the [supplied])"
+		name = "[initial(name)] ([supplied])"
 
 /obj/item/sample/print/New(newloc, atom/supplied)
 	. = ..()
@@ -116,7 +116,7 @@
 	return TRUE
 
 /obj/item/sample/print/merge_evidence(obj/item/sample/supplied, mob/user)
-	if(!length(supplied.evidence))
+	if(!supplied || !length(supplied.evidence))
 		return FALSE
 	for(var/print in supplied.evidence)
 		if(evidence[print])
@@ -199,7 +199,7 @@
 	if(user.zone_selected == "r_hand" || user.zone_selected == "l_hand")
 		var/has_hand = (H.has_organ("r_hand") || H.has_organ("l_hand"))
 		if(!has_hand)
-			to_chat(user, "<span class='warning'>But [H] has no hands.</span>")
+			to_chat(user, "<span class='warning'>[H] has no hands!</span>")
 			return FALSE
 		if(!do_after(user, 2 SECONDS, target = user))
 			return FALSE
@@ -241,10 +241,10 @@
 		return
 	if(can_take_sample(user, A))
 		take_sample(user,A)
-		. = TRUE
-	else
-		to_chat(user, "<span class='warning'>You cannot find [evidence_type] on [A].</span>")
-		. = ..()
+		return TRUE
+	
+	to_chat(user, "<span class='warning'>You cannot find [evidence_type] on [A].</span>")
+	return ..()
 
 /obj/item/forensics/sample_kit/MouseDrop(atom/over)
 	if(ismob(src.loc))
@@ -257,4 +257,4 @@
 	evidence_type = "prints"
 
 /obj/item/forensics/sample_kit/powder/can_take_sample(mob/user, atom/supplied)
-	return (length(supplied.fingerprints))
+	return length(supplied.fingerprints)

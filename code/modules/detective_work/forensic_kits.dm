@@ -32,7 +32,7 @@
 // Crime scene kit
 /obj/item/storage/briefcase/crimekit
 	name = "crime scene kit"
-	desc = "Stainless steel coated case containing everything a detective could need. Feels heavy."
+	desc = "Stainless-steel-coated case containing everything a detective could need. Feels heavy."
 	icon = 'icons/obj/forensics/forensics.dmi'
 	icon_state = "case"
 	lefthand_file = 'icons/obj/forensics/items_lefthand.dmi'
