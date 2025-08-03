@@ -350,8 +350,8 @@
 	if(HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))
 		SSmobs.xenobiology_mobs--
 	if(del_on_death)
-		if(istgvehicle(loc))
-			forceMove(get_turf(loc))
+		// Moves them to their turf to prevent rendering problems
+		forceMove(get_turf(src))
 		//Prevent infinite loops if the mob Destroy() is overridden in such
 		//a manner as to cause a call to death() again
 		del_on_death = FALSE
