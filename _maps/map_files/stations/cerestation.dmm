@@ -90934,16 +90934,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/service/hydroponics)
-"rXI" = (
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred";
-	dir = 1
-	},
-/area/station/hallway/secondary/exit)
 "rXJ" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/spawner/random/dirt/frequent,
