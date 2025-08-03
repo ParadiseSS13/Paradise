@@ -44189,7 +44189,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 6
 	},
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "diw" = (
@@ -56742,6 +56742,11 @@
 /obj/machinery/access_button/offset/southwest,
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/hardsuitstorage)
+"igi" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "igq" = (
 /obj/structure/chair/sofa/left{
 	dir = 4
@@ -65534,6 +65539,13 @@
 /obj/item/seeds/banana,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
+"msF" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "msN" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/chair/comfy/teal{
@@ -79230,6 +79242,13 @@
 /obj/item/target/syndicate,
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
+"tfi" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 5
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "tfv" = (
 /obj/machinery/shower/directional/west,
 /obj/effect/turf_decal/delivery/white/hollow,
@@ -85066,6 +85085,13 @@
 	icon_state = "caution"
 	},
 /area/station/public/dorms)
+"wfZ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 9
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "wgt" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/glass,
@@ -88474,6 +88500,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
+"xPT" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 10
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "xQB" = (
 /obj/effect/spawner/window/reinforced/tinted,
 /obj/structure/disposalpipe/segment{
@@ -125754,7 +125787,7 @@ cDf
 cKj
 cAv
 cxO
-cQp
+msF
 cZS
 jYu
 nZP
@@ -125782,7 +125815,7 @@ aab
 aaa
 aaa
 aab
-aaa
+aab
 vHd
 saB
 jmM
@@ -126011,7 +126044,7 @@ cDf
 fEv
 uOG
 cxO
-cQp
+msF
 cZS
 olG
 pRS
@@ -126039,7 +126072,7 @@ aab
 aaa
 aaa
 aab
-aaa
+aab
 wza
 xkm
 bfm
@@ -126268,7 +126301,7 @@ cDf
 fEv
 usZ
 cxO
-cQp
+msF
 cZS
 cSs
 cSw
@@ -126525,7 +126558,7 @@ cDf
 sWc
 cep
 cxO
-cQp
+msF
 cZS
 cSw
 cTw
@@ -126553,7 +126586,7 @@ aab
 aaa
 aaa
 aab
-cQp
+msF
 wza
 ocf
 dnv
@@ -126782,7 +126815,7 @@ ckS
 vzf
 ctZ
 cxO
-cQp
+msF
 cZS
 cZS
 cZS
@@ -126801,16 +126834,16 @@ cZS
 cZS
 cZS
 diu
-djE
-xzG
+igi
+tfi
 diu
-djE
-djE
-djE
-djE
-djE
-djE
-gNQ
+igi
+igi
+igi
+igi
+igi
+igi
+wfZ
 fPY
 wyD
 wyD
@@ -127039,25 +127072,25 @@ cep
 cjq
 cep
 cxO
-cNE
-djE
-djE
-djE
-djE
-djE
-djE
-djE
-djE
-djE
-djE
-djE
-djE
-djE
-djE
-djE
-djE
-djE
-gNQ
+xPT
+igi
+igi
+igi
+igi
+igi
+igi
+igi
+igi
+igi
+igi
+igi
+igi
+igi
+igi
+igi
+igi
+igi
+wfZ
 dgS
 eQU
 eQU
