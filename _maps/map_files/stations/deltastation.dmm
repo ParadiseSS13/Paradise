@@ -12114,7 +12114,7 @@
 /area/station/supply/office)
 "aWu" = (
 /obj/effect/turf_decal/stripes/line,
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+/mob/living/basic/gorilla/cargo_domestic{
 	name = "Forklift"
 	},
 /turf/simulated/floor/plasteel,
@@ -67005,7 +67005,7 @@
 	},
 /area/station/hallway/primary/port/north)
 "kTO" = (
-/mob/living/simple_animal/hostile/retaliate/araneus,
+/mob/living/basic/giant_spider/araneus,
 /obj/structure/bed/dogbed{
 	name = "Araneus's lair"
 	},
