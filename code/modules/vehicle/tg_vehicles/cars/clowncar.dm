@@ -269,15 +269,14 @@
 	cannonmode = CLOWN_CANNON_READY
 	for(var/mob/living/driver as anything in return_controllers_with_flag(VEHICLE_CONTROL_DRIVE))
 		REMOVE_TRAIT(driver, TRAIT_HANDS_BLOCKED, VEHICLE_TRAIT)
-		if(driver.client.mouse_pointer_icon == initial(driver.client.mouse_pointer_icon))
-			driver.client.mouse_pointer_icon = mouse_pointer
+		driver.add_mousepointer(MP_CLOWN_CAR_PRIORITY, mouse_pointer)
 
 /// Finalizes cannon deactivation
 /obj/tgvehicle/sealed/car/clowncar/proc/deactivate_cannon()
 	canmove = TRUE
 	cannonmode = CLOWN_CANNON_INACTIVE
 	for(var/mob/living/driver as anything in return_controllers_with_flag(VEHICLE_CONTROL_DRIVE))
-		driver.client.mouse_pointer_icon = initial(driver.client.mouse_pointer_icon)
+		driver.remove_mousepointer(MP_CLOWN_CAR_PRIORITY)
 		ADD_TRAIT(driver, TRAIT_HANDS_BLOCKED, VEHICLE_TRAIT)
 
 /// Fires the cannon where the user clicks

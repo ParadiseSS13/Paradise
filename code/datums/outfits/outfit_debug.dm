@@ -195,9 +195,9 @@
 	var/active_hand = user.get_active_hand()
 	var/inactive_hand = user.get_inactive_hand()
 	if(active_hand == src)
-		user.client.mouse_pointer_icon = generate_mp_icon()
+		user.add_mousepointer(MP_ITEM_PRIORITY, generate_mp_icon())
 	else if(!inactive_hand || !active_hand)
-		user.client.mouse_pointer_icon = null
+		user.remove_mousepointer(MP_ITEM_PRIORITY)
 
 /obj/item/proc/generate_mp_icon() // todo, maybe cache this.
 	var/icon/base = icon('icons/effects/mouse_pointers/base_item.dmi', "all")

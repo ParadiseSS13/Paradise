@@ -5,24 +5,17 @@
 	armor = list(melee = 30, bullet = 30, laser = 15, energy = 20, bomb = 20, rad = 0, fire = 100)
 	destruction_sleep_duration = 4 SECONDS
 
-/obj/mecha/combat/moved_inside(mob/living/carbon/human/H as mob)
+/obj/mecha/combat/moved_inside(mob/living/carbon/human/H)
 	if(..())
-		if(H.client)
-			H.client.mouse_pointer_icon = file("icons/mecha/mecha_mouse.dmi")
-		return 1
-	else
-		return 0
+		H.add_mousepointer(MP_MECHA_PRIORITY, 'icons/mecha/mecha_mouse.dmi')
+		return TRUE
 
-/obj/mecha/combat/mmi_moved_inside(obj/item/mmi/mmi_as_oc as obj, mob/user as mob)
+/obj/mecha/combat/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user as mob)
 	if(..())
-		if(occupant.client)
-			occupant.client.mouse_pointer_icon = file("icons/mecha/mecha_mouse.dmi")
-		return 1
-	else
-		return 0
-
+		occupant.add_mousepointer(MP_MECHA_PRIORITY, 'icons/mecha/mecha_mouse.dmi')
+		return TRUE
 
 /obj/mecha/combat/go_out()
-	if(occupant && occupant.client)
-		occupant.client.mouse_pointer_icon = initial(occupant.client.mouse_pointer_icon)
+	if(occupant)
+		occupant.remove_mousepointer(MP_MECHA_PRIORITY)
 	..()

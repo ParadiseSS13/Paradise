@@ -255,3 +255,5 @@
 	var/list/do_afters
 
 	new_attack_chain = TRUE
+
+	var/list/mousepointers = list()
