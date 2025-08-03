@@ -1635,11 +1635,12 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 /mob/proc/update_mousepointer()
 	if(!client)
 		return
-	var/lowest_pointer = null
 	var/lowest_prio = INFINITY
 	for(var/prio in mousepointers)
 		prio = text2num(prio)
 		if(prio < lowest_prio)
 			lowest_prio = prio
-			lowest_pointer = mousepointers[prio]
-	client.mouse_pointer_icon = lowest_pointer
+	if(lowest_prio == INFINITY)
+		client.mouse_pointer_icon = null
+		return
+	client.mouse_pointer_icon = mousepointers["[lowest_prio]"]

@@ -516,6 +516,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 	if(!silent)
 		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
+	INVOKE_ASYNC(src, PROC_REF(update_mp_icon), user)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
@@ -570,6 +571,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
 		else if(slot & ITEM_SLOT_BOTH_HANDS)
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
+	INVOKE_ASYNC(src, PROC_REF(update_mp_icon), user)
 
 /obj/item/proc/item_action_slot_check(slot, mob/user)
 	return TRUE
@@ -1076,3 +1078,35 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.update_hands_hud()
+
+/obj/item/proc/on_hands_swap(mob/user)
+	update_mp_icon(loc)
+
+/obj/item/update_icon(updates)
+	. = ..()
+	if(ismob(loc))
+		INVOKE_ASYNC(src, PROC_REF(update_mp_icon), loc)
+
+/obj/item/proc/update_mp_icon(mob/user)
+	if(!ismob(user) || !user.client)
+		return
+	if(!(user.client.prefs.toggles3 & PREFTOGGLE_3_SHOW_ITEM_ON_MOUSE))
+		return
+	var/active_hand = user.get_active_hand()
+	var/inactive_hand = user.get_inactive_hand()
+	if(active_hand == src)
+		user.add_mousepointer(MP_ITEM_PRIORITY, generate_mp_icon())
+	else if(!inactive_hand || !active_hand)
+		user.remove_mousepointer(MP_ITEM_PRIORITY)
+
+/obj/item/proc/generate_mp_icon()
+	PRIVATE_PROC(TRUE)
+	var/icon/base = icon('icons/effects/mouse_pointers/base_item.dmi', "all")
+	var/icon/item_icon
+	if(length(overlays)) // if you have underlays get fucked i guess lol
+		UNTIL(!(flags_2 & OVERLAY_QUEUED_2)) // Until overlays done queuing
+		item_icon = getFlatIcon(src)
+	else
+		item_icon = icon(icon, icon_state)
+	base.Blend(item_icon, ICON_UNDERLAY, 33, 1)
+	return base
