@@ -25262,7 +25262,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/transit_tube/station/dispenser{
+/obj/structure/transit_tube/station/dispenser/flipped{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
