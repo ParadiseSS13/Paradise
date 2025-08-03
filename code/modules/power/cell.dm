@@ -253,7 +253,7 @@
 
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell"
-	desc = "A self-recarging power cell. It draws an unlimited quantity of energy from seemingly nowhere."
+	desc = "A self-recarging power cell. It produces endless amounts of energy seemingly out of nowhere."
 	icon_state = "icell"
 	item_state = "cell4"
 	origin_tech =  "powerstorage=7"
@@ -261,18 +261,20 @@
 	materials = list(MAT_GLASS=1000)
 	rating = 6
 	chargerate = 30000
+	self_recharge = TRUE
 
 /obj/item/stock_parts/cell/infinite/use()
 	return TRUE
 
 /obj/item/stock_parts/cell/infinite/abductor
 	name = "void core"
-	desc = "An alien power cell that produces energy seemingly out of nowhere."
+	desc = "An alien power cell of unknown design. It produces endless amounts of energy seemingly out of nowhere."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cell"
 	item_state = "cella"
 	maxcharge = 50000
 	rating = 12
+	chargerate = 50000
 	ratingdesc = FALSE
 
 /obj/item/stock_parts/cell/infinite/abductor/update_overlays()
