@@ -175,11 +175,11 @@
 
 /obj/item/dropped(mob/user, silent)
 	. = ..()
-	update_mp_icon(user)
+	INVOKE_ASYNC(src, PROC_REF(update_mp_icon), user)
 
 /obj/item/equipped(mob/user, slot, initial)
 	. = ..()
-	update_mp_icon(user)
+	INVOKE_ASYNC(src, PROC_REF(update_mp_icon), user)
 
 /obj/item/proc/on_hands_swap(mob/user)
 	update_mp_icon(loc)
