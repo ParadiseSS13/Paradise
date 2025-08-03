@@ -285,6 +285,8 @@ RESTRICT_TYPE(/mob/living/basic)
 	if(HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))
 		SSmobs.xenobiology_mobs--
 	if(basic_mob_flags & DEL_ON_DEATH)
+		if(istgvehicle(loc))
+			forceMove(get_turf(loc))
 		// From simplemob implementation; prevent infinite loops if the mob
 		// Destroy() is overridden in such a manner as to cause a call to
 		// death() again. One hopes this isn't still necessary but whatevs
