@@ -173,6 +173,43 @@
 	activate_mind = !activate_mind
 	to_chat(user, "<span class='notice'>Any humans spawned will [activate_mind ? "" : "not "]spawn with an initialized mind.</span>")
 
+/obj/item/dropped(mob/user, silent)
+	. = ..()
+	update_mp_icon(user)
+
+/obj/item/equipped(mob/user, slot, initial)
+	. = ..()
+	update_mp_icon(user)
+
+/obj/item/proc/on_hands_swap(mob/user)
+	update_mp_icon(loc)
+
+/obj/item/update_icon(updates)
+	. = ..()
+	if(ismob(loc))
+		INVOKE_ASYNC(src, PROC_REF(update_mp_icon), loc)
+
+/obj/item/proc/update_mp_icon(mob/user)
+	if(!ismob(user) || !user.client)
+		return
+	var/active_hand = user.get_active_hand()
+	var/inactive_hand = user.get_inactive_hand()
+	if(active_hand == src)
+		user.client.mouse_pointer_icon = generate_mp_icon()
+	else if(!inactive_hand || !active_hand)
+		user.client.mouse_pointer_icon = null
+
+/obj/item/proc/generate_mp_icon() // todo, maybe cache this.
+	var/icon/base = icon('icons/effects/mouse_pointers/base_item.dmi', "all")
+	var/icon/item_icon
+	if(length(overlays)) // if you have underlays get fucked i guess
+		UNTIL(!(flags_2 & OVERLAY_QUEUED_2)) // Until overlays done queuing
+		item_icon = getFlatIcon(src)
+	else
+		item_icon = icon(icon, icon_state)
+	base.Blend(item_icon, ICON_UNDERLAY, 33, 1)
+	return base
+
 /obj/item/rcd/combat/admin
 	name = "AVD-CNED RCD"
 	max_matter = INFINITY

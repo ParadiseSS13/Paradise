@@ -224,6 +224,8 @@
 		return
 	hand = !hand
 	update_hands_hud()
+	r_hand?.on_hands_swap(src)
+	l_hand?.on_hands_swap(src)
 	SEND_SIGNAL(src, COMSIG_CARBON_SWAP_HANDS)
 
 
