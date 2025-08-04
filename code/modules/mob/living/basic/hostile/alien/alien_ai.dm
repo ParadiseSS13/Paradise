@@ -6,6 +6,7 @@
 	)
 
 	planning_subtrees = list(
+		/datum/ai_planning_subtree/random_speech/alien,
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
@@ -14,6 +15,15 @@
 	movement_delay = 0.8 SECONDS
 
 /datum/ai_controller/basic_controller/alien/sentinel
+	planning_subtrees = list(
+		/datum/ai_planning_subtree/random_speech/alien,
+		/datum/ai_planning_subtree/simple_find_target,
+		/datum/ai_planning_subtree/maintain_distance,
+		/datum/ai_planning_subtree/basic_melee_attack_subtree/opportunistic,
+		/datum/ai_planning_subtree/ranged_skirmish/alien,
+	)
+
+/datum/ai_controller/basic_controller/alien/corgi
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/maintain_distance,
@@ -28,6 +38,7 @@
 	idle_behavior = /datum/idle_behavior/idle_random_walk/plant_weeds/queen
 
 	planning_subtrees = list(
+		/datum/ai_planning_subtree/random_speech/alien,
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/maintain_distance,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/opportunistic,
@@ -79,3 +90,7 @@
 		egg_cooldown = initial(egg_cooldown)
 		alien_pawn.lay_eggs()
 
+/datum/ai_planning_subtree/random_speech/alien
+	speech_chance = 2
+	sound = list('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg')
+	emote_hear = list("hisses.")
