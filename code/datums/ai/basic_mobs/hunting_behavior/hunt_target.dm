@@ -63,7 +63,6 @@
 	behavior_intent = INTENT_HELP
 
 /datum/ai_behavior/hunt_target/interact_with_target/clean
-	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH
 	always_reset_target = TRUE
 	hunt_cooldown = 2 SECONDS
 	behavior_intent = INTENT_HELP

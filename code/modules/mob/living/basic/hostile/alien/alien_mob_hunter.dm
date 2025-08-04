@@ -23,6 +23,7 @@
 	melee_damage_upper = 25
 	attack_verb_continuous = "slashes"
 	attack_verb_simple = "slash"
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 
 	bubble_icon = "alien"
 	a_intent = INTENT_HARM
