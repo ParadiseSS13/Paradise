@@ -246,6 +246,22 @@
 	icon_state = "gglasses"
 	prescription_upgradable = TRUE
 
+/obj/item/clothing/glasses/syndie
+	name = "suspicious glasses"
+	desc = "Suspicious-looking, stylish glasses. They don't look like they could protect you from a flash, however they have a slot around their lenses where something could easily be inserted."
+	icon_state = "syndieglasses"
+	prescription_upgradable = TRUE
+
+/obj/item/clothing/glasses/syndie_sun
+	name = "suspicious shaded glasses"
+	desc = "Suspicious-looking, dark red, stylish glasses. They appear to have an additional eye-shielding layer over the lenses."
+	icon_state = "syndieglasses_sun"
+	inhand_icon_state = "sunglasses"
+	see_in_dark = 1
+	flash_protect = FLASH_PROTECTION_FLASH
+	tint = FLASH_PROTECTION_FLASH
+	prescription_upgradable = TRUE
+
 /obj/item/clothing/glasses/sunglasses
 	name = "sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
