@@ -12,8 +12,8 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi')
-
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+	)
 
 /obj/item/clothing/suit/space/syndicate
 	name = "red space suit"
@@ -29,8 +29,8 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
-
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+	)
 
 //Green syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/green
