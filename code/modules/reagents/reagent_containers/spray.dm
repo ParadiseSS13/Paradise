@@ -10,10 +10,13 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	var/adjustable = 1 //1 to use the normal adjustment function, 0 to not
-	var/adjust_verb = "turn the nozzle"
-	var/spray_maxrange = 2 //sprayer alternates between assigning this and spray_minrange to spray_currentrange via attack_self.
-	var/spray_currentrange = 2 //the range of tiles the sprayer will reach when in fixed mode.
+	// TRUE if spray amount and range can be toggled via `attack_self()`.
+	var/adjustable = TRUE
+	var/adjust_action = "turn the nozzle"
+	//sprayer alternates between assigning this and `spray_minrange` to `spray_currentrange` via `attack_self()`.
+	var/spray_maxrange = 2
+	//the range of tiles the sprayer will reach when in fixed mode.
+	var/spray_currentrange = 2
 	var/spray_minrange = 1
 	volume = 250
 	amount_per_transfer_from_this = 10
@@ -97,8 +100,8 @@
 	if(!adjustable)
 		return FINISH_ATTACK
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	spray_currentrange = (spray_currentrange == spray_minrange ? spray_maxrange : spray_minrange)
-	to_chat(user, "<span class='notice'>You [adjust_verb]. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
+	spray_currentrange = (amount_per_transfer_from_this == 10 ? spray_maxrange : spray_minrange)
+	to_chat(user, "<span class='notice'>You [adjust_action]. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 /obj/item/reagent_containers/spray/examine(mob/user)
 	. = ..()
@@ -155,7 +158,7 @@
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	spray_maxrange = 3
 	spray_currentrange = 3
-	adjustable = 0
+	adjustable = FALSE
 	amount_per_transfer_from_this = 5
 	volume = 50
 	list_reagents = list("cleaner" = 50)
@@ -167,7 +170,7 @@
 	name = "lube spray"
 	spray_maxrange = 3
 	spray_currentrange = 3
-	adjustable = 0
+	adjustable = FALSE
 	list_reagents = list("lube" = 250)
 
 /obj/item/reagent_containers/spray/cyborg_lube/cyborg_recharge(coeff, emagged)
@@ -203,7 +206,7 @@
 	icon_state = "sunflower"
 	item_state = "sunflower"
 	belt_icon = null
-	adjustable = 0
+	adjustable = FALSE
 	amount_per_transfer_from_this = 1
 	volume = 10
 	list_reagents = list("water" = 10)
@@ -219,7 +222,7 @@
 	spray_maxrange = 7
 	spray_currentrange = 7
 	spray_minrange = 4
-	adjust_verb = "adjust the output switch"
+	adjust_action = "adjust the output switch"
 	volume = 600
 	origin_tech = "combat=3;materials=3;engineering=3"
 

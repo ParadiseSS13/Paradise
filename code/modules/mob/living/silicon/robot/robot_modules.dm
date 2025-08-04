@@ -437,7 +437,7 @@
 	name = "Polyacid spray"
 	spray_maxrange = 3
 	spray_currentrange = 3
-	adjustable = 0
+	adjustable = FALSE
 	list_reagents = list("facid" = 250)
 
 /obj/item/reagent_containers/spray/cyborg_facid/cyborg_recharge(coeff, emagged)
