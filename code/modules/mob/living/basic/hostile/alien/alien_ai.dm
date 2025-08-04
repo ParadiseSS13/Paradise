@@ -18,7 +18,7 @@
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/maintain_distance,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/opportunistic,
-		/datum/ai_planning_subtree/basic_ranged_attack_subtree/alien,
+		/datum/ai_planning_subtree/ranged_skirmish/alien,
 	)
 
 /datum/ai_controller/basic_controller/alien/drone
@@ -31,7 +31,7 @@
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/maintain_distance,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/opportunistic,
-		/datum/ai_planning_subtree/basic_ranged_attack_subtree/alien,
+		/datum/ai_planning_subtree/ranged_skirmish/alien,
 	)
 
 /datum/ai_controller/basic_controller/alien/maid
@@ -45,12 +45,10 @@
  * Alien projectile
  * Try to avoid friendly fire, and has a 3 second delay.
  */
-/datum/ai_planning_subtree/basic_ranged_attack_subtree/alien
-	ranged_attack_behavior = /datum/ai_behavior/basic_ranged_attack/alien
+/datum/ai_planning_subtree/ranged_skirmish/alien
+	attack_behavior = /datum/ai_behavior/ranged_skirmish/avoid_friendly/alien
 
-/datum/ai_behavior/basic_ranged_attack/alien
-	action_cooldown = 3 SECONDS
-	required_distance = 6
+/datum/ai_behavior/ranged_skirmish/avoid_friendly/alien
 	avoid_friendly_fire = TRUE
 
 /datum/idle_behavior/idle_random_walk/plant_weeds

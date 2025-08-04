@@ -14,7 +14,7 @@
 	is_ranged = TRUE
 	projectile_type = /obj/item/projectile/neurotox
 	projectile_sound = 'sound/weapons/pierce.ogg'
-	ranged_cooldown = 1 SECONDS
+	ranged_cooldown = 3 SECONDS
 
 
 /mob/living/basic/alien/queen/large
