@@ -605,11 +605,11 @@ redis_connstring = "redis://127.0.0.1/"
 # This section contains configuration for all space ruins and lava ruins
 
 # Enable space z-level generation.
-enable_space = true
+enable_space = false
 # Enable lavaland generation.
-enable_lavaland = true
+enable_lavaland = false
 # Globally enable and disable placing of all ruins across lavaland and space.
-enable_ruins = true
+enable_ruins = false
 # Minimum number of extra space zlevels to generate
 minimum_space_zlevels = 2
 # Maximum number of extra space zlevels to generate

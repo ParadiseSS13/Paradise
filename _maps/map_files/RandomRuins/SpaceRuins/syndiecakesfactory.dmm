@@ -393,7 +393,7 @@
 /area/ruin/space/syndicakefactory)
 "qx" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien/sentinel{
+/mob/living/basic/alien/sentinel{
 	animal_species = /mob/living/simple_animal/pet/dog;
 	attack_sound = 'sound/weapons/bite.ogg';
 	attacktext = "bites";
@@ -1102,7 +1102,7 @@
 /turf/simulated/floor/engine/airless,
 /area/ruin/space/syndicakefactory)
 "OU" = (
-/mob/living/simple_animal/hostile/alien/sentinel{
+/mob/living/basic/alien/sentinel{
 	animal_species = /mob/living/simple_animal/pet/dog;
 	attack_sound = 'sound/weapons/bite.ogg';
 	attacktext = "bites";
@@ -1298,7 +1298,7 @@
 	},
 /area/ruin/space/syndicakefactory)
 "YR" = (
-/mob/living/simple_animal/hostile/alien/sentinel{
+/mob/living/basic/alien/sentinel{
 	animal_species = /mob/living/simple_animal/pet/dog;
 	attack_sound = 'sound/weapons/bite.ogg';
 	attacktext = "bites";

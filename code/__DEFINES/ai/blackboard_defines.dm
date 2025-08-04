@@ -155,6 +155,9 @@
 
 // Misc
 
+/// Target define for cleaning
+#define BB_CLEAN_TARGET "BB_clean_target"
+
 /// For /datum/ai_behavior/find_potential_targets, what if any field are we using currently
 #define BB_FIND_TARGETS_FIELD(type) "BB_FIND_TARGETS_FIELD_[type]"
 
