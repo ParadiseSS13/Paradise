@@ -35037,6 +35037,7 @@
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cRS" = (
@@ -39243,7 +39244,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
@@ -39693,10 +39693,10 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
-/obj/effect/landmark/start/scientist,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "dnz" = (
@@ -67196,13 +67196,13 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/effect/landmark/start/scientist,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "kmy" = (

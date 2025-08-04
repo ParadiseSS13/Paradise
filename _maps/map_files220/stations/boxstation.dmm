@@ -45798,10 +45798,10 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/landmark/start/scientist,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
@@ -94908,10 +94908,10 @@
 	},
 /area/station/medical/surgery/secondary)
 "urf" = (
-/obj/effect/landmark/start/scientist,
 /obj/structure/chair{
 	dir = 8
 	},
+/obj/effect/landmark/start/xenobiologist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
