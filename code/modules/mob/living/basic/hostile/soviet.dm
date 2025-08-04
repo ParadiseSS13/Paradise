@@ -37,6 +37,7 @@
 	icon_living = "sovietranged"
 	is_ranged = TRUE
 	casing_type = /obj/item/ammo_casing/a357
+	ranged_cooldown = 4 SECONDS
 	projectile_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	loot = list(/obj/effect/mob_spawn/human/corpse/soviet/ranged, /obj/item/gun/projectile/revolver/mateba)
 	ai_controller = /datum/ai_controller/basic_controller/simple/soviet/ranged
@@ -84,7 +85,7 @@
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/opportunistic,
 		/datum/ai_planning_subtree/maintain_distance,
-		/datum/ai_planning_subtree/ranged_skirmish/soviet,
+		/datum/ai_planning_subtree/ranged_skirmish/avoid_friendly,
 	)
 
 /datum/ai_planning_subtree/random_speech/soviet
@@ -100,10 +101,3 @@
 		"With sweat we strengthen the state!",
 		"From each, according to ability!",
 		"We forge tomorrow with our hands!")
-
-/datum/ai_planning_subtree/ranged_skirmish/soviet
-	attack_behavior = /datum/ai_behavior/ranged_skirmish/avoid_friendly/soviet
-
-/datum/ai_behavior/ranged_skirmish/avoid_friendly/soviet
-	action_cooldown = 4 SECONDS
-

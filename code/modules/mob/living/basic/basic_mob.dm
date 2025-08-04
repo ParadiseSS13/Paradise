@@ -160,6 +160,8 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/ranged_burst_count = 1
 	/// How fast do we fire between bursts?
 	var/ranged_burst_interval = 0.2 SECONDS
+	/// Time between bursts
+	var/ranged_cooldown = 2 SECONDS
 	/// What casing type is the projectile?
 	var/casing_type
 	/// What projectile do we shoot?
@@ -178,7 +180,7 @@ RESTRICT_TYPE(/mob/living/basic)
 	if(step_type)
 		AddComponent(/datum/component/footstep, step_type)
 	if(is_ranged)
-		AddComponent(/datum/component/ranged_attacks, casing_type = casing_type, projectile_type = projectile_type, projectile_sound = projectile_sound, burst_shots = ranged_burst_count, burst_intervals = ranged_burst_interval)
+		AddComponent(/datum/component/ranged_attacks, casing_type = casing_type, projectile_type = projectile_type, projectile_sound = projectile_sound, burst_shots = ranged_burst_count, burst_intervals = ranged_burst_interval, cooldown_time = ranged_cooldown)
 
 /mob/living/basic/Destroy()
 	if(nest)

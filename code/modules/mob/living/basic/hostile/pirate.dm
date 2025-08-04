@@ -115,11 +115,5 @@
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/opportunistic,
 		/datum/ai_planning_subtree/maintain_distance,
-		/datum/ai_planning_subtree/ranged_skirmish/pirate,
+		/datum/ai_planning_subtree/ranged_skirmish/avoid_friendly,
 	)
-
-/datum/ai_planning_subtree/ranged_skirmish/pirate
-	attack_behavior = /datum/ai_behavior/ranged_skirmish/avoid_friendly/pirate
-
-/datum/ai_behavior/ranged_skirmish/avoid_friendly/pirate
-	action_cooldown = 1 SECONDS
