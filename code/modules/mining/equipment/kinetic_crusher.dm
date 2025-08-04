@@ -179,6 +179,13 @@
 	else
 		set_light(0)
 
+/obj/item/kinetic_crusher/extinguish_light(force = FALSE)
+	if(light_on)
+		light_on = FALSE
+		set_light(0)
+		update_icon()
+		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+
 /obj/item/kinetic_crusher/update_icon_state()
 	item_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
