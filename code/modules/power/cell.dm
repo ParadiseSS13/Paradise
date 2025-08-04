@@ -35,7 +35,7 @@
 	charge = !isnull(starting_charge) ? starting_charge : maxcharge
 	if(ratingdesc)
 		// State of charge is in kJ so we multiply it by 1000 to get Joules
-		desc += " This one has a power rating of [DisplayJoules(maxcharge * 1000)], and you should not swallow it."
+		desc += "<span class='notice'>It can store [DisplayJoules(maxcharge * 1000)]. Doctors recommend that you do not swallow it.</span>"
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/Destroy()
@@ -97,7 +97,7 @@
 	if(rigged)
 		. += "<span class='danger'>This power cell seems to be faulty!</span>"
 	else
-		. += "The charge meter reads [round(percent() )]%."
+		. += "<span class='notice'>The charge meter reads [round(percent())]%.</span>"
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
