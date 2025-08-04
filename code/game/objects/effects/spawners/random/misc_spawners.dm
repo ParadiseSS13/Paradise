@@ -131,7 +131,6 @@
 		/obj/item/stock_parts/cell/bluespace,
 		/obj/item/stock_parts/cell/bluespace/charging,
 		/obj/item/stock_parts/cell/bluespace/trapped,
-		/obj/item/stock_parts/cell/infinite,
 		/obj/item/stock_parts/cell/infinite/abductor,
 		/obj/item/stock_parts/cell/high/slime,
 		/obj/item/stock_parts/cell/potato
