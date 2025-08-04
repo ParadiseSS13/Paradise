@@ -16,6 +16,8 @@
 	projectile_sound = 'sound/weapons/pierce.ogg'
 	ranged_cooldown = 3 SECONDS
 
+/mob/living/basic/alien/queen/lavaland
+	maximum_survivable_temperature = INFINITY
 
 /mob/living/basic/alien/queen/large
 	name = "alien empress"
@@ -27,3 +29,6 @@
 	maxHealth = 400
 	health = 400
 	mob_size = MOB_SIZE_LARGE
+
+/mob/living/basic/alien/queen/large/lavaland
+	maximum_survivable_temperature = INFINITY

@@ -38,3 +38,6 @@
 
 /mob/living/basic/alien/maid/can_clean()
 	return TRUE
+
+/mob/living/basic/alien/maid/lavaland
+	maximum_survivable_temperature = INFINITY

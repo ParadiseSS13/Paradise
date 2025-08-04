@@ -65,3 +65,6 @@
 		return
 	visible_message("<span class='alertalien'>[src] has laid an egg!</span>")
 	new /obj/structure/alien/egg(loc)
+
+/mob/living/basic/alien/lavaland
+	maximum_survivable_temperature = INFINITY

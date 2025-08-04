@@ -7,3 +7,6 @@
 	melee_damage_upper = 15
 
 	ai_controller = /datum/ai_controller/basic_controller/alien/drone
+
+/mob/living/basic/alien/drone/lavaland
+	maximum_survivable_temperature = INFINITY

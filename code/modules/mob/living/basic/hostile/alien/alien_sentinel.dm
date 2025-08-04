@@ -32,3 +32,6 @@
 	deathmessage = "";
 
 	ai_controller = /datum/ai_controller/basic_controller/alien/corgi
+
+/mob/living/basic/alien/sentinel/lavaland
+	maximum_survivable_temperature = INFINITY
