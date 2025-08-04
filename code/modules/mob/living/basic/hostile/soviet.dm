@@ -84,7 +84,7 @@
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/opportunistic,
 		/datum/ai_planning_subtree/maintain_distance,
-		/datum/ai_planning_subtree/basic_ranged_attack_subtree/soviet,
+		/datum/ai_planning_subtree/ranged_skirmish/soviet,
 	)
 
 /datum/ai_planning_subtree/random_speech/soviet
@@ -101,9 +101,9 @@
 		"From each, according to ability!",
 		"We forge tomorrow with our hands!")
 
-/datum/ai_planning_subtree/basic_ranged_attack_subtree/soviet
-	ranged_attack_behavior = /datum/ai_behavior/basic_ranged_attack/soviet
+/datum/ai_planning_subtree/ranged_skirmish/soviet
+	attack_behavior = /datum/ai_behavior/ranged_skirmish/avoid_friendly/soviet
 
-/datum/ai_behavior/basic_ranged_attack/soviet
+/datum/ai_behavior/ranged_skirmish/avoid_friendly/soviet
 	action_cooldown = 4 SECONDS
-	avoid_friendly_fire = TRUE
+

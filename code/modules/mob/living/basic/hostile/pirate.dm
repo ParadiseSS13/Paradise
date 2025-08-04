@@ -62,7 +62,7 @@
 	projectile_type = /obj/item/projectile/beam
 	projectile_sound = 'sound/weapons/laser.ogg'
 	ranged_burst_count = 2
-	ranged_burst_interval = 0.5 // Same fire rate as people!
+	ranged_burst_interval = 0.5 SECONDS // Same fire rate as people!
 	ai_controller = /datum/ai_controller/basic_controller/simple/pirate/ranged
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate,
 				/obj/item/gun/energy/laser,
@@ -115,12 +115,11 @@
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/opportunistic,
 		/datum/ai_planning_subtree/maintain_distance,
-		/datum/ai_planning_subtree/basic_ranged_attack_subtree/pirate,
+		/datum/ai_planning_subtree/ranged_skirmish/pirate,
 	)
 
-/datum/ai_planning_subtree/basic_ranged_attack_subtree/pirate
-	ranged_attack_behavior = /datum/ai_behavior/basic_ranged_attack/pirate
+/datum/ai_planning_subtree/ranged_skirmish/pirate
+	attack_behavior = /datum/ai_behavior/ranged_skirmish/avoid_friendly/pirate
 
-/datum/ai_behavior/basic_ranged_attack/pirate
+/datum/ai_behavior/ranged_skirmish/avoid_friendly/pirate
 	action_cooldown = 1 SECONDS
-	avoid_friendly_fire = TRUE
