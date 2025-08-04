@@ -7,7 +7,7 @@
 	desc = "A break-action grenade launcher."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "dbshotgun_sawn"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher

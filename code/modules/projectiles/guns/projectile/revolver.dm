@@ -4,7 +4,7 @@
 	materials = list()
 	icon = 'icons/tgmc/objects/guns.dmi'
 	icon_state = "revolver"
-	item_state = "revolver"
+	inhand_icon_state = "revolver"
 	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
@@ -177,14 +177,14 @@
 	name = "\improper Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of several unrelated militaries. Uses .357 ammo."	//>10mm hole >.357
 	icon_state = "mateba"
-	item_state = "mateba"
+	inhand_icon_state = "mateba"
 
 /obj/item/gun/projectile/revolver/golden
 	name = "\improper Golden revolver"
 	desc = "This ain't no game, ain't never been no show, And I'll gladly gun down the oldest lady you know. Uses .357 ammo."
 	icon = 'icons/tgmc/objects/guns64.dmi'
 	icon_state = "goldrevolver"
-	item_state = "goldrevolver"
+	inhand_icon_state = "goldrevolver"
 	fire_sound = 'sound/weapons/resonator_blast.ogg'
 	recoil = 8
 
@@ -192,7 +192,7 @@
 	name = "\improper Nagant revolver"
 	desc = "An old model of revolver that originated in Russia, now used by the USSP. Able to be suppressed. Uses 7.62x38mmR ammo."
 	icon_state = "nagant"
-	item_state = "nagant"
+	inhand_icon_state = "nagant"
 	origin_tech = "combat=3"
 	can_suppress = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762

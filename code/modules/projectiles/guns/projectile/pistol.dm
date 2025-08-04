@@ -4,7 +4,7 @@
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
 	icon = 'icons/tgmc/objects/guns.dmi'
 	icon_state = "pistol"
-	item_state = "pistol"
+	inhand_icon_state = "pistol"
 	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -40,7 +40,7 @@
 	name = "\improper M1911"
 	desc = "A classic .45 handgun with a small magazine capacity."
 	icon_state = "m1911"
-	item_state = "m1911"
+	inhand_icon_state = "m1911"
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = FALSE
@@ -58,7 +58,7 @@
 	name = "\improper NF10 'Enforcer' pistol"
 	desc = "A 9mm sidearm commonly used by Nanotrasen Asset Protection."
 	icon_state = "enforcer_grey"
-	item_state = "enforcer_grey"
+	inhand_icon_state = "enforcer_grey"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/enforcer
 	unique_reskin = TRUE
@@ -122,7 +122,7 @@
 	name = "\improper Type 230 Machine Pistol"
 	desc = "A compact submachine gun produced by the USSP-based Rocino Armaments Collective. Chambered in 10mm."
 	icon_state = "type_230"
-	item_state = "type_230"
+	inhand_icon_state = "type_230"
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/apsm10mm
 	can_suppress = FALSE
