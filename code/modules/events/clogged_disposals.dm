@@ -32,7 +32,7 @@
 		// Hostile mobs
 		/mob/living/basic/space_bear = 5,
 		/mob/living/basic/carp = 5,
-		/mob/living/simple_animal/hostile/hivebot = 5,
+		/mob/living/basic/hivebot = 5,
 		/mob/living/basic/scarybat = 5,
 		/mob/living/basic/giant_spider/hunter = 5,
 		/mob/living/simple_animal/hostile/alien = 2,
