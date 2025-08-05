@@ -19,7 +19,7 @@
 
 /datum/holiday/xmas/proc/spawnTree()
 	for(var/obj/structure/flora/tree/pine/xmas in world)
-		var/mob/living/simple_animal/hostile/tree/evil_tree = new /mob/living/simple_animal/hostile/tree(xmas.loc)
+		var/mob/living/basic/tree/evil_tree = new /mob/living/basic/tree(xmas.loc)
 		evil_tree.icon_state = xmas.icon_state
 		evil_tree.icon_living = evil_tree.icon_state
 		evil_tree.icon_dead = evil_tree.icon_state

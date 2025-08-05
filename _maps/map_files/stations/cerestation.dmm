@@ -8082,7 +8082,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/retaliate/skeleton{
+/mob/living/basic/retaliate_skeleton{
 	desc = "Doot"
 	},
 /turf/simulated/floor/plating,
