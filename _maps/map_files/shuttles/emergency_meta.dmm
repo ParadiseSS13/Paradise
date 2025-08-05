@@ -348,17 +348,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
-"bd" = (
-/obj/item/radio/intercom{
-	name = "Station Intercom (General)";
-	pixel_y = -28
-	},
-/obj/machinery/light,
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/escape)
 "be" = (
 /obj/structure/table,
 /obj/item/healthanalyzer,
@@ -371,7 +360,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/economy/vending/wallmed/directional/east,
+/obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "bh" = (
@@ -761,7 +750,6 @@
 	pixel_y = -28
 	},
 /obj/machinery/atmospherics/portable/canister/oxygen,
-/obj/machinery/light,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -772,6 +760,7 @@
 /obj/item/clipboard,
 /obj/item/folder/yellow,
 /obj/item/pen,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -798,6 +787,16 @@
 /area/shuttle/escape)
 "Rk" = (
 /turf/simulated/floor/mineral/plastitanium/red/brig,
+/area/shuttle/escape)
+"Tu" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/item/radio/intercom{
+	name = "Station Intercom (General)";
+	pixel_y = -28
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -984,7 +983,7 @@ aM
 ab
 aW
 au
-aL
+Tu
 ab
 bt
 bE
@@ -1000,7 +999,7 @@ aL
 ac
 av
 au
-bd
+aM
 ab
 ab
 ab

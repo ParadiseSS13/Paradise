@@ -15,6 +15,7 @@
 /// camera AI can take pictures with
 /obj/item/camera/siliconcam/ai_camera
 	name = "AI photo camera"
+	see_cult = FALSE
 
 /// camera cyborgs can take pictures with
 /obj/item/camera/siliconcam/robot_camera

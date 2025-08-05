@@ -27,8 +27,9 @@
 	GLOB.navigation_computers += src
 	if(access_station)
 		jumpto_ports += list("nav_z[level_name_to_num(MAIN_STATION)]" = 1)
-	if(access_mining && GLOB.configuration.ruins.enable_lavaland)
-		jumpto_ports += list("nav_z[level_name_to_num(MINING)]" = 1)
+	if(access_mining)
+		for(var/zlvl in levels_by_trait(ORE_LEVEL))
+			jumpto_ports += list("nav_z[zlvl]" = 1)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/Destroy()
 	GLOB.navigation_computers -= src
@@ -256,8 +257,8 @@
 
 /datum/action/innate/shuttledocker_rotate
 	name = "Rotate"
-	button_overlay_icon = 'icons/mob/actions/actions_mecha.dmi'
-	button_overlay_icon_state = "mech_cycle_equip_off"
+	button_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_icon_state = "mech_cycle_equip_off"
 
 /datum/action/innate/shuttledocker_rotate/Activate()
 	if(QDELETED(target) || !isliving(target))
@@ -269,8 +270,8 @@
 
 /datum/action/innate/shuttledocker_place
 	name = "Place"
-	button_overlay_icon = 'icons/mob/actions/actions_mecha.dmi'
-	button_overlay_icon_state = "mech_zoom_off"
+	button_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_icon_state = "mech_zoom_off"
 
 /datum/action/innate/shuttledocker_place/Activate()
 	if(QDELETED(target) || !isliving(target))
@@ -282,7 +283,6 @@
 
 /datum/action/innate/camera_jump/shuttle_docker
 	name = "Jump to Location"
-	button_overlay_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/shuttle_docker/Activate()
 	if(QDELETED(target) || !isliving(target))
@@ -294,7 +294,7 @@
 	playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
 
 	var/list/L = list()
-	for(var/V in SSshuttle.stationary)
+	for(var/V in SSshuttle.stationary_docking_ports)
 		if(!V)
 			continue
 		var/obj/docking_port/stationary/S = V

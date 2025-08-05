@@ -59,7 +59,7 @@
 
 /obj/item/card/emag/magic_key/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!isairlock(target))
-		return ITEM_INTERACT_COMPLETE
+		return NONE
 	var/obj/machinery/door/D = target
 	D.locked = FALSE
 	D.update_icon()
@@ -369,13 +369,11 @@
 	add_fingerprint(user)
 
 /obj/item/card/id/silver
-	name = "identification card"
 	desc = "A silver card which shows honour and dedication."
 	icon_state = "silver"
 	item_state = "silver_id"
 
 /obj/item/card/id/gold
-	name = "identification card"
 	desc = "A golden card which shows power and might."
 	icon_state = "gold"
 	item_state = "gold_id"
@@ -514,19 +512,19 @@
 	name = "Security ID"
 	registered_name = "Officer"
 	icon_state = "security"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_EVIDENCE, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 
 /obj/item/card/id/detective
 	name = "Detective ID"
 	registered_name = "Detective"
 	icon_state = "detective"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_EVIDENCE, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
 
 /obj/item/card/id/warden
 	name = "Warden ID"
 	registered_name = "Warden"
 	icon_state = "warden"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_EVIDENCE, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 
 /obj/item/card/id/internalaffairsagent
 	name = "Internal Affairs Agent ID"
@@ -546,6 +544,12 @@
 	icon_state = "research"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/xenobiology
+	name = "Xenobiology ID"
+	registered_name = "Xenobiologist"
+	icon_state = "xenobiologist"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_EVA, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_TELEPORTER)
+
 /obj/item/card/id/roboticist
 	name = "Roboticist ID"
 	registered_name = "Roboticist"
@@ -558,11 +562,17 @@
 	icon_state = "cargo"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/smith
+	name = "Smith ID"
+	registered_name = "Smith"
+	icon_state = "smith"
+	access = list(ACCESS_CARGO_BAY, ACCESS_CARGO, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_SMITH)
+
 /obj/item/card/id/quartermaster
 	name = "Quartermaster ID"
 	registered_name = "Quartermaster"
 	icon_state = "quartermaster"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_SMITH)
 
 /obj/item/card/id/shaftminer
 	name = "Shaftminer ID"
@@ -584,7 +594,6 @@
 
 /obj/item/card/id/captains_spare/assigned
 	name = "Captain ID"
-	registered_name = "Captain"
 	icon_state = "captain"
 
 /obj/item/card/id/hop
@@ -602,7 +611,7 @@
 	name = "Head of Security ID"
 	registered_name = "HoS"
 	icon_state = "HoS"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_EVIDENCE, ACCESS_ARMORY, ACCESS_COURT,
 						ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
 						ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
 						ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_EXPEDITION, ACCESS_WEAPONS)
@@ -656,7 +665,7 @@
 	registered_name = "Blueshield"
 	icon_state = "blueshield"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
-						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
+						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_EVIDENCE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
 						ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
 						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_INTERNAL_AFFAIRS,
 						ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
@@ -667,7 +676,7 @@
 	registered_name = "Magistrate"
 	icon_state = "magistrate"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
-						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
+						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_EVIDENCE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
 						ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
 						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_INTERNAL_AFFAIRS,
 						ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
@@ -786,7 +795,7 @@
 	name = "Free Golem ID"
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
 	icon_state = "research"
-	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY) //access to robots/mechs
+	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_XENOBIOLOGY, ACCESS_SMITH) //access to robots/mechs
 	can_id_flash = FALSE //So you do not flash it the first time you use it.
 	var/registered = FALSE
 
@@ -855,6 +864,11 @@
 						ACCESS_CHANGE_IDS, ACCESS_MINISAT)
 	trainee = I.registered_name
 	icon_state = "nct_chip_active"
+
+/obj/item/card/id/syndicate_fake // Syndicate ID drip with none of the access theft or anti-tracking.
+	name = "\improper Syndicate ID card"
+	desc = "An evil-looking ID issued to members of the Syndicate."
+	icon_state = "syndie"
 
 // Decals
 /obj/item/id_decal

@@ -20,10 +20,8 @@
 
 
 /obj/item/toy
-	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
-	force = 0
 	new_attack_chain = TRUE
 
 
@@ -111,10 +109,6 @@
 /obj/item/toy/syndicateballoon
 	name = "syndicate balloon"
 	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
-	throwforce = 0
-	throw_speed = 4
-	throw_range = 20
-	force = 0
 	icon_state = "syndballoon"
 	item_state = "syndballoon"
 	w_class = WEIGHT_CLASS_BULKY
@@ -304,7 +298,6 @@
 	force = 0
 	throwforce = 0
 	throw_speed = 3
-	throw_range = 5
 	origin_tech = null
 	attack_verb = list("attacked", "struck", "hit")
 	brightness_on = 0
@@ -334,7 +327,6 @@
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	force = 5
 	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
@@ -358,7 +350,6 @@
 	throwforce = 5.0
 	throw_speed = 10
 	throw_range = 30
-	w_class = WEIGHT_CLASS_TINY
 
 
 /obj/item/toy/snappop/virus/throw_impact(atom/hit_atom)
@@ -477,7 +468,6 @@
 	cooldown = world.time
 
 /obj/item/toy/therapy/red
-	item_state = "egg4" // It's the red egg in items_left/righthand
 	item_color = "red"
 
 /obj/item/toy/therapy/purple
@@ -493,7 +483,6 @@
 	item_color = "yellow"
 
 /obj/item/toy/therapy/orange
-	item_state = "egg4" // It's the red one again, lacking an orange item_state and making a new one is pointless
 	item_color = "orange"
 
 /obj/item/toy/therapy/green
@@ -830,7 +819,7 @@
 /obj/item/toy/plushie/ipcplushie/attack_by(obj/item/attacking, mob/user, params)
 	if(..())
 		return FINISH_ATTACK
-	if(istype(attacking, /obj/item/food/breadslice))
+	if(istype(attacking, /obj/item/food/sliced/bread))
 		new /obj/item/food/toast(get_turf(loc))
 		to_chat(user, "<span class='notice'>You insert bread into the toaster.</span>")
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
@@ -1111,11 +1100,11 @@
 /obj/item/toy/plushie/borgplushie/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!istype(used, /obj/item/borg/upgrade/reset))
 		return ..()
-	
+
 	if(!plushie_module_selected)
 		to_chat(user, "<span class='warning'>[src] is already in standard mode!</span>")
 		return ITEM_INTERACT_COMPLETE
-	
+
 	borg_plushie_overlay = "plushie_borgassist"
 	update_icon()
 	to_chat(user, "<span class='notice'>The fabric on [src] changes color, reverting it back to standard mode.</span>")
@@ -1232,7 +1221,7 @@
 	visible_message("<span class='danger'>[src] explodes!</span>")
 	if(grenade)
 		explosive_betrayal(grenade)
-	explosion(get_turf(src), -1, 0, 1, 1, flame_range = 1)
+	explosion(get_turf(src), -1, 0, 1, 1, flame_range = 1, cause = "Plasmaman plushie caught on fire")
 	if(!QDELETED(src))
 		qdel(src)
 
@@ -1541,9 +1530,7 @@
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
-	throw_speed = 4
 	throw_range = 5
 	force = 5
 	origin_tech = "combat=1"
@@ -1622,6 +1609,7 @@
 	name = "cursed russian revolver"
 	desc = "To play with this revolver requires wagering your very soul."
 	cursed_shot = TRUE
+
 /*
  * Rubber Chainsaw
  */
@@ -1631,21 +1619,16 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon = 'icons/obj/weapons/melee.dmi'
-	icon_state = "chainsaw0"
+	icon_state = "chainsaw"
 	base_icon_state = "chainsaw"
-	force = 0
-	throwforce = 0
-	throw_speed = 4
-	throw_range = 20
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 
 /obj/item/toy/chainsaw/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, wieldsound = 'sound/weapons/chainsawstart.ogg', icon_wielded = "[base_icon_state]1")
-
+	AddComponent(/datum/component/two_handed, wieldsound = 'sound/weapons/chainsawstart.ogg', icon_wielded = "[base_icon_state]_on")
 
 /obj/item/toy/chainsaw/update_icon_state()
-	icon_state = "[base_icon_state]0"
+	icon_state = base_icon_state
 
 /*
  * Cat Toy

@@ -3,8 +3,6 @@
 	name = "acid"
 	desc = "Burbling corrosive stuff."
 	icon_state = "acid"
-	density = FALSE
-	opacity = FALSE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	layer = ABOVE_NORMAL_TURF_LAYER
 	var/turf/target
@@ -67,8 +65,6 @@
 			var/acid_used = min(acid_level * 0.05, 20)
 			if(L.acid_act(10, acid_used, "feet"))
 				acid_level = max(0, acid_level - acid_used * 10)
-				playsound(L, 'sound/weapons/sear.ogg', 50, TRUE)
-				to_chat(L, "<span class='userdanger'>[src] burns you!</span>")
 
 //xenomorph corrosive acid
 /obj/effect/acid/alien

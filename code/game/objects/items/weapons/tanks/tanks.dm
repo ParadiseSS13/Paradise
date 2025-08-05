@@ -4,7 +4,6 @@
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
-	w_class = WEIGHT_CLASS_NORMAL
 	pressure_resistance = ONE_ATMOSPHERE * 5
 	force = 5
 	throwforce = 10
@@ -250,7 +249,7 @@
 
 //		to_chat(world, "<span class='notice'>Exploding Pressure: [pressure] kPa, intensity: [range]</span>")
 
-		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5))
+		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cause = "Exploding tank rupture")
 		if(istype(loc,/obj/item/transfer_valve))
 			qdel(loc)
 		else

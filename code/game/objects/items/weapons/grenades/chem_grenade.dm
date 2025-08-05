@@ -6,10 +6,8 @@
 	name = "grenade casing"
 	desc = "A do it yourself grenade casing!"
 	icon_state = "chemg"
-	item_state = "grenade"
 	var/bomb_state = "chembomb"
 	var/payload_name = null // used for spawned grenades
-	w_class = WEIGHT_CLASS_SMALL
 	force = 2
 	var/prime_sound = 'sound/items/screwdriver2.ogg'
 	var/stage = EMPTY
@@ -142,6 +140,9 @@
 				to_chat(user, "You remove the label from [src].")
 				return 1
 	else if(stage == WIRED && is_type_in_list(I, allowed_containers))
+
+		if(length(beakers) == 0) 
+			container_type = TRANSPARENT // Allows to see reagents in player's made bombs
 		if(length(beakers) == 2)
 			to_chat(user, "<span class='notice'>[src] can not hold more containers.</span>")
 			return
@@ -151,6 +152,9 @@
 				user.drop_item()
 				I.forceMove(src)
 				beakers += I
+				// Saving reagents to show them via scanners
+				reagents.reagent_list.Add(I.reagents.reagent_list)
+				reagents.update_total()
 			else
 				to_chat(user, "<span class='notice'>[I] is empty.</span>")
 
@@ -388,7 +392,6 @@
 	desc = "A custom made pyrotechnical grenade. It heats up and ignites its contents upon detonation."
 	icon_state = "pyrog"
 	origin_tech = "combat=4;engineering=4"
-	affected_area = 3
 	ignition_temp = 500 // This is enough to expose a hotspot.
 
 /// Intended for weaker, but longer lasting effects. Could have some interesting uses.

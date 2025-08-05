@@ -9,14 +9,13 @@
 	weather_message = "<span class='userdanger'><i>You feel waves of heat wash over you! Find shelter!</i></span>"
 	weather_overlay = "ash_storm"
 	weather_duration_lower = 600
-	weather_duration_upper = 1500
 	weather_color = "green"
 	weather_sound = 'sound/misc/bloblarm.ogg'
 
 	end_duration = 100
 	end_message = "<span class='notice'>The air seems to be cooling off again.</span>"
 	var/pre_maint_all_access
-	area_type = /area
+	area_types = list(/area)
 	protected_areas = list(
 		/area/station/maintenance,
 		/area/station/turret_protected/ai_upload,
@@ -55,7 +54,7 @@
 		return
 
 	if(prob(max(0, 100 - ARMOUR_VALUE_TO_PERCENTAGE(resist))))
-		L.rad_act(400)
+		L.base_rad_act(L ,400 , BETA_RAD)
 		if(HAS_TRAIT(H, TRAIT_GENELESS))
 			return
 		randmuti(H) // Applies bad mutation

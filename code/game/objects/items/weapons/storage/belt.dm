@@ -63,26 +63,8 @@
 	return is_equipped()
 
 /obj/item/storage/belt/MouseDrop(obj/over_object, src_location, over_location)
-	var/mob/M = usr
-	if(!is_screen_atom(over_object))
-		return ..()
+	..()
 	playsound(loc, "rustle", 50, TRUE, -5)
-	if(!M.restrained() && !M.stat && can_use())
-		switch(over_object.name)
-			if("r_hand")
-				if(M.unequip(src))
-					if(M.r_hand)
-						M.drop_item_to_ground(src)
-					else
-						M.put_in_r_hand(src)
-			if("l_hand")
-				if(M.unequip(src))
-					if(M.l_hand)
-						M.drop_item_to_ground(src)
-					else
-						M.put_in_l_hand(src)
-		add_fingerprint(usr)
-		return
 
 /obj/item/storage/belt/deserialize(list/data)
 	..()
@@ -91,8 +73,6 @@
 /obj/item/storage/belt/utility
 	name = "tool-belt" //Carn: utility belt is nicer, but it bamboozles the text parsing.
 	desc = "Can hold various tools."
-	icon_state = "utilitybelt"
-	item_state = "utility"
 	use_item_overlays = TRUE
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 18
@@ -114,7 +94,8 @@
 		/obj/item/holosign_creator,
 		/obj/item/stack/nanopaste,
 		/obj/item/robotanalyzer,
-		/obj/item/rpd/bluespace
+		/obj/item/rpd/bluespace,
+		/obj/item/hammer
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()
@@ -238,13 +219,10 @@
 	)
 
 /obj/item/storage/belt/medical/surgery
-	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 17
-	use_to_pickup = TRUE
 	name = "surgical belt"
 	desc = "Can hold various surgical tools."
 	storage_slots = 9
-	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/scalpel,
 		/obj/item/hemostat,
@@ -255,6 +233,7 @@
 		/obj/item/fix_o_vein,
 		/obj/item/surgicaldrill,
 		/obj/item/cautery,
+		/obj/item/dissector
 	)
 
 /obj/item/storage/belt/medical/surgery/loaded/populate_contents()
@@ -304,6 +283,16 @@
 		/obj/item/reagent_containers/spray/pestspray
 		)
 
+/obj/item/storage/belt/botany/full/populate_contents()
+	new /obj/item/plant_analyzer(src)
+	new /obj/item/cultivator(src)
+	new /obj/item/shovel/spade(src)
+	new /obj/item/hatchet(src)
+	new /obj/item/reagent_containers/spray/pestspray(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/wrench(src)
+	update_icon()
+
 /obj/item/storage/belt/security
 	name = "security belt"
 	desc = "Can hold security gear like handcuffs and flashes."
@@ -314,8 +303,10 @@
 	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/radio,
+		/obj/item/grenade/barrier,
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
+		/obj/item/grenade/frag/stinger,
 		/obj/item/reagent_containers/spray/pepper,
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
@@ -332,7 +323,8 @@
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/clothing/mask/gas/sechailer,
-		/obj/item/detective_scanner)
+		/obj/item/detective_scanner,
+	)
 
 /obj/item/storage/belt/security/full/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)
@@ -368,6 +360,29 @@
 	use_item_overlays = FALSE
 	layer_over_suit = TRUE
 
+/obj/item/storage/belt/federation_webbing
+	name = "\improper Federation combat webbing"
+	desc = "A tactical chest rig used by soldiers and marines of the Trans-Solar Federation. It's covered in pouches and attachment points."
+	icon_state = "federationwebbing"
+	item_state = "federationwebbing"
+	storage_slots = 15
+	max_combined_w_class = 25
+	layer_over_suit = TRUE
+	w_class_override = list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool,
+		/obj/item/rcd,
+		/obj/item/rcd_ammo,
+		/obj/item/ammo_box,
+		/obj/item/melee/baton,
+		/obj/item/melee/classic_baton,
+		/obj/item/kitchen/knife
+	)
+
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
 	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away."
@@ -401,7 +416,6 @@
 	desc = "A syndicate belt designed to be used by boarding parties. Its style is modelled after the hardsuits they wear."
 	icon_state = "militarybelt"
 	item_state = "military"
-	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 18
 	resistance_flags = FIRE_PROOF
 	use_item_overlays = TRUE // Will show the tools on the sprite
@@ -695,7 +709,6 @@
 	icon_state = "fannypack_leather"
 	item_state = "fannypack_leather"
 	storage_slots = 3
-	max_w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
@@ -840,7 +853,6 @@
 	item_state = "holdingbelt"
 	storage_slots = 14
 	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
@@ -863,7 +875,6 @@
 	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 18
-	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	allow_quick_empty = TRUE
 	can_hold = list(
 		/obj/item/grenade/smokebomb,
@@ -977,7 +988,6 @@
 	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 20
-	use_item_overlays = FALSE
 	layer_over_suit = TRUE
 	can_hold = list(
 		/obj/item/crowbar,
@@ -1016,7 +1026,8 @@
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
-		/obj/item/stack/marker_beacon)
+		/obj/item/stack/marker_beacon,
+		/obj/item/grenade/plastic/miningcharge)
 
 /obj/item/storage/belt/mining/vendor/Initialize(mapload)
 	. = ..()
@@ -1046,8 +1057,8 @@
 		/obj/item/kitchen/utensil,
 		/obj/item/kitchen/knife,
 		/obj/item/kitchen/rollingpin,
-		/obj/item/kitchen/mould,
-		/obj/item/kitchen/sushimat,
+		/obj/item/reagent_containers/cooking/mould,
+		/obj/item/reagent_containers/cooking/sushimat,
 		/obj/item/kitchen/cutter,
 		/obj/item/assembly/mousetrap,
 		/obj/item/reagent_containers/spray/pestspray,

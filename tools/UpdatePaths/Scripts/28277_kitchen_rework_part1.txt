@@ -1,0 +1,8 @@
+/obj/item/kitchen/sushimat : /obj/item/reagent_containers/cooking/sushimat{@OLD}
+/obj/item/mixing_bowl : /obj/item/reagent_containers/cooking/bowl{@OLD}
+/obj/machinery/cooker/deepfryer/@SUBTYPES : /obj/machinery/cooking/deepfryer/@SUBTYPES
+/obj/machinery/kitchen_machine/candy_maker/@SUBTYPES : /obj/machinery/cooking/ice_cream_mixer/@SUBTYPES
+/obj/machinery/kitchen_machine/grill/@SUBTYPES : /obj/structure/table, /obj/machinery/cooking/grill/@SUBTYPES
+/obj/machinery/kitchen_machine/oven/@SUBTYPES : /obj/machinery/cooking/oven/@SUBTYPES
+/obj/item/book/manual/wiki/chef_recipes : @DELETE
+/obj/item/circuitboard/oven : /obj/item/circuitboard/cooking/oven

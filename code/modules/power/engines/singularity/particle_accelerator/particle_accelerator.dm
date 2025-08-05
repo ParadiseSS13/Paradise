@@ -64,7 +64,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = null
-	anchored = FALSE
 	density = TRUE
 	max_integrity = 500
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 90, ACID = 80)
@@ -120,7 +119,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	. = ..()
 	if(master && master.active)
 		master.toggle_power()
-		investigate_log("was moved whilst active; it <font color='red'>powered down</font>.","singulo")
+		investigate_log("was moved whilst active; it <font color='red'>powered down</font>.",INVESTIGATE_SINGULO)
 
 /obj/machinery/particle_accelerator/control_box/blob_act(obj/structure/blob/B)
 	if(prob(50))
@@ -222,7 +221,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	name = "Particle Accelerator"
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
-	anchored = FALSE
 	density = TRUE
 	power_state = NO_POWER_USE
 
@@ -241,17 +239,18 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		return
 	dir = turn(dir, 270)
 
-/obj/machinery/particle_accelerator/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(!iscoil(W))
+/obj/machinery/particle_accelerator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!iscoil(used))
 		return ..()
 	if(construction_state == ACCELERATOR_WRENCHED)
-		var/obj/item/stack/cable_coil/C = W
+		var/obj/item/stack/cable_coil/C = used
 		if(C.use(1))
 			playsound(loc, C.usesound, 50, 1)
-			user.visible_message("[user] adds wires to [src].", \
-				"You add some wires.")
+			user.visible_message("[user] adds wires to [src].", "You add some wires.")
 			construction_state = ACCELERATOR_WIRED
 	update_icon()
+
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/particle_accelerator/screwdriver_act(mob/user, obj/item/I)
 	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)

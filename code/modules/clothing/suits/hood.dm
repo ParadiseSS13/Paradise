@@ -6,6 +6,7 @@
 	var/hoodtype = /obj/item/clothing/head/hooded/winterhood //so the chaplain hoodie or other hoodies can override this
 	/// If this variable is true, the hood can not be removed if the hood is nodrop
 	var/respects_nodrop = FALSE
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/hooded/Initialize(mapload)
 	. = ..()
@@ -48,9 +49,7 @@
 		H.update_inv_wear_suit()
 	else
 		hood.forceMove(src)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/suit/hooded/dropped()
 	..()
@@ -70,9 +69,7 @@
 				suit_adjusted = 1
 				icon_state = "[initial(icon_state)]_hood"
 				H.update_inv_wear_suit()
-				for(var/X in actions)
-					var/datum/action/A = X
-					A.UpdateButtons()
+				update_action_buttons()
 	else
 		if((hood?.flags & NODROP) && respects_nodrop)
 			if(ishuman(loc))
@@ -105,7 +102,6 @@
 	name = "screened niqab"
 	desc = "A niqab with an eye mesh for additional concealment. The wearer can see you, but you can't see them."
 	icon_state = "abaya_hood"
-	body_parts_covered = HEAD
 	cold_protection = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS | HIDEMASK | HIDEFACE | HIDEEYES

@@ -6,7 +6,6 @@
 	item_state = ""
 	item_color = ""
 	slot_flags = ITEM_SLOT_ACCESSORY
-	w_class = WEIGHT_CLASS_SMALL
 	var/slot = ACCESSORY_SLOT_DECOR
 	/// the suit the accessory may be attached to
 	var/obj/item/clothing/under/has_suit = null
@@ -262,8 +261,9 @@
 	icon_state = "plasma"
 	item_color = "plasma"
 	materials = list(MAT_PLASMA = 1000)
+	cares_about_temperature = TRUE
 
-/obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, temperature, volume)
+/obj/item/clothing/accessory/medal/plasma/temperature_expose(temperature, volume)
 	..()
 	if(temperature > T0C + 200)
 		burn_up()

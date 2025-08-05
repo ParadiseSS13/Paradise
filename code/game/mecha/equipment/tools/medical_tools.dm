@@ -2,8 +2,8 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical
 
-/obj/item/mecha_parts/mecha_equipment/medical/New()
-	..()
+/obj/item/mecha_parts/mecha_equipment/medical/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 
@@ -34,7 +34,6 @@
 	icon_state = "sleeper"
 	origin_tech = "engineering=3;biotech=3;plasmatech=2"
 	energy_drain = 20
-	range = MECHA_MELEE
 	equip_cooldown = 20
 	var/mob/living/carbon/patient = null
 	var/inject_amount = 10
@@ -254,8 +253,8 @@
 	equip_cooldown = 10
 	origin_tech = "materials=3;biotech=4;magnets=4"
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/New()
-	..()
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/Initialize(mapload)
+	. = ..()
 	create_reagents(max_volume)
 	reagents.set_reacting(FALSE)
 	syringes = new
@@ -519,7 +518,6 @@
 	name = "rescue jaw"
 	desc = "Emergency rescue jaws, designed to help first responders reach their patients. Opens doors and removes obstacles."
 	icon_state = "mecha_clamp"	//can work, might use a blue resprite later but I think it works for now
-	origin_tech = "materials=2;engineering=2"	//kind of sad, but identical to jaws of life
 	equip_cooldown = 15
 	energy_drain = 10
 	var/dam_force = 20
@@ -559,5 +557,46 @@
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/working/ripley/firefighter))	//Odys or firefighters
 		if(length(M.equipment) < M.max_equip)
+			return TRUE
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam
+	name = "exosuit medical beamgun"
+	desc = "Equipment for medical exosuits. A mounted medical nanite projector which will treat patients with a focused beam. Unlike its handheld counterpart, it is incapable of healing internal injuries."
+	icon_state = "mecha_medigun"
+	energy_drain = 20
+	range = MECHA_MELEE | MECHA_RANGED
+	origin_tech = "combat=5;materials=6;powerstorage=6;biotech=6"
+	var/obj/item/gun/medbeam/mech/medigun
+	materials = list(MAT_METAL = 15000, MAT_GLASS = 8000, MAT_PLASMA = 3000, MAT_GOLD = 8000, MAT_DIAMOND = 2000)
+
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/Initialize(mapload)
+	. = ..()
+	medigun = new(src)
+
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/Destroy()
+	QDEL_NULL(medigun)
+	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/process()
+	if(..())
+		return
+	medigun.process()
+
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/action(atom/target)
+	medigun.process_fire(target, loc)
+
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/detach()
+	if(medigun)
+		medigun.LoseTarget()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/can_attach(obj/mecha/medical/M)
+	if(..())
+		for(var/obj/item/beamgun in M)
+			if(istype(beamgun, /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam))
+				return FALSE	//One beamgun per mech
+		if(istype(M))
 			return TRUE
 	return FALSE

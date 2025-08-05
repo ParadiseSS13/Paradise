@@ -6,11 +6,10 @@
 	icon_opened = "crate_open"
 	icon_closed = "crate"
 	climbable = TRUE
+	enable_door_overlay = FALSE
 	var/rigged = FALSE
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
-	open_sound_volume = 35
-	close_sound_volume = 50
 	var/obj/item/paper/manifest/manifest
 	/// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
@@ -171,7 +170,6 @@
 	max_integrity = 500
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
-	broken = FALSE
 	locked = TRUE
 	can_be_emaged = TRUE
 	crate_value = 25 // rarer and cannot be crafted, bonus credits for exporting them
@@ -205,7 +203,7 @@
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/AM in src)
 		qdel(AM)
-	explosion(get_turf(src), 0, 1, 5, 5)
+	explosion(get_turf(src), 0, 1, 5, 5, cause = "Tamper-proof secure crate")
 	qdel(src)
 
 /obj/structure/closet/crate/secure/can_open()
@@ -283,12 +281,19 @@
 
 /obj/structure/closet/crate/secure/personal
 	name = "personal crate"
-	desc = "The crate version of Nanotrasen's famous personal locker, ideal for shipping booze, food, or drugs to CC without letting Cargo consume it. This one has not been configured by CC, and the first card swiped gains control."
+	desc = "The crate version of Nanotrasen's famous personal locker, ideal for shipping booze, food, or drugs to CC without letting Cargo consume it."
 	req_access = list(ACCESS_ALL_PERSONAL_LOCKERS)
 	/// The name of the person this crate is registered to.
 	var/registered_name = null
 	// Unlike most secure crates, personal crates are easily obtained.
 	crate_value = DEFAULT_CRATE_VALUE
+
+/obj/structure/closet/crate/secure/personal/examine(mob/user)
+	. = ..()
+	if(registered_name)
+		. += "Owned by [registered_name]."
+	else
+		. += "This crate has no owner, and can be claimed by swiping your ID card."
 
 /obj/structure/closet/crate/secure/personal/allowed(mob/user)
 	if(..())
@@ -324,7 +329,6 @@
 
 	if(!registered_name)
 		registered_name = id.registered_name
-		desc = "Owned by [id.registered_name]."
 		to_chat(user, "<span class='notice'>Crate reserved</span>")
 		return TRUE
 
@@ -356,6 +360,12 @@
 	icon_state = "trashcart"
 	icon_opened = "trashcart_open"
 	icon_closed = "trashcart"
+
+/obj/structure/closet/crate/trashcart/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
 
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
@@ -589,16 +599,33 @@
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)
 
-//crates of gear in the free golem ship
-/obj/structure/closet/crate/golemgear/populate_contents()
-	new /obj/item/storage/backpack/industrial(src)
-	new /obj/item/shovel(src)
-	new /obj/item/pickaxe(src)
-	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
-	new /obj/item/storage/bag/ore(src)
-	new /obj/item/clothing/glasses/meson(src)
-	new /obj/item/card/id/golem(src)
-	new /obj/item/flashlight/lantern(src)
+/obj/structure/closet/crate/cookware
+	name = "cookware crate"
+	icon_state = "cookware"
+	icon_opened = "cookware_open"
+	icon_closed = "cookware"
+
+/obj/structure/closet/crate/cookware/populate_contents()
+	// Ice cream mixer containers
+	new /obj/item/reagent_containers/cooking/icecream_bowl(src)
+	// Oven containers
+	new /obj/item/reagent_containers/cooking/oven(src)
+	// Stovetop containers
+	new /obj/item/reagent_containers/cooking/pan(src)
+	new /obj/item/reagent_containers/cooking/pan(src)
+	new /obj/item/reagent_containers/cooking/pot(src)
+	new /obj/item/reagent_containers/cooking/pot(src)
+	// Deepfryer containers
+	new /obj/item/reagent_containers/cooking/deep_basket(src)
+	new /obj/item/reagent_containers/cooking/deep_basket(src)
+	// Cutting board
+	new /obj/item/reagent_containers/cooking/board(src)
+	// Grill containers
+	new /obj/item/reagent_containers/cooking/grill_grate(src)
+	new /obj/item/reagent_containers/cooking/grill_grate(src)
+	// Prep bowls
+	new /obj/item/reagent_containers/cooking/bowl(src)
+	new /obj/item/reagent_containers/cooking/bowl(src)
 
 #define RECURSION_PANIC_AMOUNT 10
 
@@ -655,10 +682,14 @@
 		danger_counter = 0
 
 	U.purchase_log += "<BIG>[bicon(src)]</BIG>"
+	bought_items += /obj/item/storage/bag/garment/syndie // Guaranteed to spawn with drip (doesn't affect balance, it's only a bunch of fancy clothing)
 	for(var/item in bought_items)
 		var/obj/purchased = new item(src)
 		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
-	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")
+		itemlog += purchased.name // To make the item more readable for the log compared to just uplink_item.item
+	var/item_list = jointext(sortList(itemlog), ", ")
+	log_game("[key_name(user)] purchased a surplus crate with [item_list]")
+	user.create_log(MISC_LOG, "Surplus crate purchase with spawned items [item_list]")
 
 /obj/structure/closet/crate/surplus/proc/generate_refund(amount)
 	var/changing_amount = amount

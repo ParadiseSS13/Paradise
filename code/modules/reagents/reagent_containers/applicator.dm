@@ -11,6 +11,7 @@
 	container_type = REFILLABLE | AMOUNT_VISIBLE
 	temperature_min = 270
 	temperature_max = 350
+	var/delay = 10
 	var/ignore_flags = FALSE
 	var/applied_amount = 8 // How much it applies
 	var/applying = FALSE // So it can't be spammed.
@@ -72,8 +73,6 @@
 	if(applying)
 		to_chat(user, "<span class='warning'>You're already applying [src].</span>")
 		return
-	if(!iscarbon(M))
-		return
 
 	if(ignore_flags || M.can_inject(user, TRUE))
 		if(M == user)
@@ -83,7 +82,7 @@
 		if(M.reagents)
 			applying = TRUE
 			update_icon(UPDATE_ICON_STATE)
-			while(do_after(user, 10, target = M))
+			while(do_after(user, delay, target = M))
 				measured_health = M.health
 				apply_to(M, user, 1, FALSE)
 				if(measured_health == M.health)
@@ -96,11 +95,16 @@
 		update_icon()
 		user.changeNext_move(CLICK_CD_MELEE)
 
-/obj/item/reagent_containers/applicator/attack__legacy__attackchain(mob/living/M, mob/user)
-	return apply(M, user)
+/obj/item/reagent_containers/applicator/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!iscarbon(target))
+		return ..()
+	apply(target, user)
+	return ITEM_INTERACT_COMPLETE
 
-/obj/item/reagent_containers/applicator/attack_self__legacy__attackchain(mob/user)
-	return apply(user, user)
+/obj/item/reagent_containers/applicator/activate_self(mob/user)
+	if(..() || !iscarbon(user))
+		return
+	apply(user, user)
 
 /obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/M, mob/user, multiplier = 1, show_message = TRUE)
 	var/total_applied_amount = applied_amount * multiplier

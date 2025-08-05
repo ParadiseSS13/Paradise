@@ -148,7 +148,10 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 	if(holder)
 		holder.disassociate()
 		qdel(holder)
-	return 1
+	if(istype(mob, /mob/dead/observer))
+		var/mob/dead/observer/O = mob
+		O.update_admin_actions()
+	return TRUE
 
 //This proc checks whether subject has at least ONE of the rights specified in rights_required.
 /proc/check_rights_for(client/subject, rights_required)

@@ -30,8 +30,7 @@
 		GLOB.active_jammers |= src
 	else
 		GLOB.active_jammers -= src
-	for(var/datum/action/item_action/toggle_radio_jammer/A in actions)
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/teleporter
 	name = "syndicate teleporter"
@@ -243,7 +242,6 @@
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"
-	icon_state = "paper"
 	info = {"<b>Instructions on your new prototype syndicate teleporter</b><br>
 	<br>
 	This teleporter will teleport the user 4-8 meters in the direction they are facing. Unlike the cult veil shifter, you can not drag people with you.<br>
@@ -393,7 +391,7 @@
 			to_chat(user, "<span class='danger'>The mind batterer has been burnt out!</span>")
 			times_used--
 			return
-		if(!do_after_once(user, 2 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "You think it's best to save this for later."))
+		if(!do_after_once(user, 2 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "You think it's best to save this for later.", hidden = TRUE))
 			times_used--
 			return
 		to_chat(user, "<span class='notice'>You trigger [src]. It has [max_uses-times_used] charges left.</span>")

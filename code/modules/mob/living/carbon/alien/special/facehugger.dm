@@ -13,6 +13,7 @@
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	layer = MOB_LAYER
 	max_integrity = 100
+	cares_about_temperature = TRUE
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
 	var/sterile = FALSE
@@ -60,7 +61,7 @@
 		if(sterile)
 			. += "<span class='boldannounceic'>It looks like the proboscis has been removed.</span>"
 
-/obj/item/clothing/mask/facehugger/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/item/clothing/mask/facehugger/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		Die()
@@ -138,7 +139,7 @@
 		target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK, FALSE, TRUE)
 		if(!sterile)
 			M.KnockDown(impregnation_time + 2 SECONDS)
-			flags |= NODROP //You can't take it off until it dies... or figures out you're an IPC.
+			set_nodrop(TRUE, loc) //You can't take it off until it dies... or figures out you're an IPC.
 
 	GoIdle() //so it doesn't jump the people that tear it off
 	var/obj/structure/bed/nest/our_nest = M.buckled
@@ -148,7 +149,7 @@
 	return TRUE
 
 /obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target)
-	flags &= ~NODROP
+	set_nodrop(FALSE, loc)
 
 	if(!target || target.stat == DEAD || loc != target) //was taken off or something
 		return

@@ -131,7 +131,7 @@
 			boom_warning = FALSE
 
 	if(H.bodytemperature > 850 && H.on_fire && prob(25))
-		explosion(get_turf(H), 1, 2, 4, flame_range = 5)
+		explosion(get_turf(H), 1, 2, 4, flame_range = 5, cause = "Burning Plasma golem")
 		msg_admin_attack("Plasma Golem ([H.name]) exploded with radius 1, 2, 4 (flame_range: 5) at ([H.x],[H.y],[H.z]). User Ckey: [key_name_admin(H)]", ATKLOG_FEW)
 		log_game("Plasma Golem ([H.name]) exploded with radius 1, 2, 4 (flame_range: 5) at ([H.x],[H.y],[H.z]). User Ckey: [key_name_admin(H)]", ATKLOG_FEW)
 		if(H)
@@ -155,7 +155,7 @@
 	name = "Ignite"
 	desc = "Set yourself aflame, bringing yourself closer to exploding!"
 	check_flags = AB_CHECK_CONSCIOUS
-	button_overlay_icon_state = "sacredflame"
+	button_icon_state = "sacredflame"
 
 /datum/action/innate/golem_ignite/Activate()
 	if(ishuman(owner))
@@ -342,9 +342,15 @@
 	prefix = "Uranium"
 	special_names = list("Oxide", "Rod", "Meltdown")
 
-/datum/species/golem/uranium/handle_life(mob/living/carbon/human/H)
-	radiation_pulse(H, 20)
-	..()
+/datum/species/golem/uranium/on_species_gain(mob/living/carbon/human/H)
+	. = ..()
+	var/datum/component/inherent_radioactivity/radioactivity = H.AddComponent(/datum/component/inherent_radioactivity, 40, 0, 0)
+	START_PROCESSING(SSradiation, radioactivity)
+
+/datum/species/golem/uranium/on_species_loss(mob/living/carbon/human/H)
+	. = ..()
+	var/datum/component/inherent_radioactivity/rads = H.GetComponent(/datum/component/inherent_radioactivity)
+	rads.RemoveComponent()
 
 //Ventcrawler
 /datum/species/golem/plastic
@@ -498,8 +504,7 @@
 /datum/action/innate/unstable_teleport
 	name = "Unstable Teleport"
 	check_flags = AB_CHECK_CONSCIOUS
-	button_overlay_icon_state = "blink"
-	button_overlay_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "blink"
 	var/activated = FALSE // To prevent spamming
 	var/cooldown = 150
 	var/last_teleport = 0
@@ -541,9 +546,9 @@
 		H.unbuckle(force = TRUE)
 	do_teleport(H, picked)
 	last_teleport = world.time
-	UpdateButtons() //action icon looks unavailable
+	build_all_button_icons() //action icon looks unavailable
 	sleep(cooldown + 5)
-	UpdateButtons() //action icon looks available again
+	build_all_button_icons() //action icon looks available again
 
 /datum/unarmed_attack/golem/bluespace
 	attack_verb = "bluespace punch"

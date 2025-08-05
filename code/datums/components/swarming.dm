@@ -27,6 +27,10 @@
 	return ..()
 
 /datum/component/swarming/proc/join_swarm(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	if(isliving(arrived))
+		var/mob/living/our_mob = arrived
+		if(our_mob.stat == DEAD)
+			return
 	var/datum/component/swarming/other_swarm = arrived.GetComponent(/datum/component/swarming)
 	if(!other_swarm)
 		return

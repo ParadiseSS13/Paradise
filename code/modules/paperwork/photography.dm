@@ -11,7 +11,6 @@
 *******/
 /obj/item/camera_film
 	name = "film cartridge"
-	icon = 'icons/obj/items.dmi'
 	desc = "A camera film cartridge. Insert it into a camera to reload it."
 	icon_state = "film"
 	item_state = "electropack"
@@ -24,7 +23,6 @@
 ********/
 /obj/item/photo
 	name = "photo"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "photo"
 	item_state = "paper"
 	w_class = WEIGHT_CLASS_TINY
@@ -168,7 +166,6 @@
 *********/
 /obj/item/camera
 	name = "camera"
-	icon = 'icons/obj/items.dmi'
 	desc = "A polaroid camera."
 	icon_state = "camera"
 	item_state = "camera"
@@ -187,6 +184,8 @@
 	var/icon_off = "camera_off"
 	var/size = 3
 	var/see_ghosts = FALSE //for the spoop of it
+	/// Cult portals and unconcealed runes have a minor form of invisibility
+	var/see_cult = TRUE
 	var/current_photo_num = 1
 	var/digital = FALSE
 	/// Should camera light up the scene
@@ -291,6 +290,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				atoms.Add(A)
 				continue
 
+			// AI can't see unconcealed runes or cult portals
+			if(A.invisibility == INVISIBILITY_RUNES && see_cult)
+				atoms.Add(A)
+				continue
 			if(A.invisibility)
 				if(see_ghosts && isobserver(A))
 					var/mob/dead/observer/O = A
@@ -523,7 +526,6 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	desc = "A digital camera."
 	digital = TRUE
 	var/list/datum/picture/saved_pictures = list()
-	pictures_left = 30
 	var/max_storage = 10
 
 /obj/item/camera/digital/examine(mob/user)
@@ -598,21 +600,21 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /**************
 *video camera *
 ***************/
+/// The amount of time after being turned off that the camera is too hot to turn back on.
 #define CAMERA_STATE_COOLDOWN 2 SECONDS
 
 /obj/item/videocam
 	name = "video camera"
-	icon = 'icons/obj/items.dmi'
 	desc = "This video camera can send live feeds to the entertainment network. You must hold to use it."
 	icon_state = "videocam"
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	var/on = FALSE
-	var/video_cooldown = 0
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
 	var/canhear_range = 7
+
+	COOLDOWN_DECLARE(video_cooldown)
 
 /obj/item/videocam/proc/camera_state(mob/living/carbon/user)
 	if(!on)
@@ -625,27 +627,22 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		on = FALSE
 		icon_state = icon_off
 		camera.c_tag = null
+		camera.turn_off(null, 0)
 		QDEL_NULL(camera)
 	visible_message("<span class='notice'>The video camera has been turned [on ? "on" : "off"].</span>")
-	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
+	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.telescreens)
 		if(on)
 			TV.feeds_on++
 		else
 			TV.feeds_on--
 		TV.update_icon(UPDATE_OVERLAYS)
-	video_cooldown = world.time + CAMERA_STATE_COOLDOWN
+	COOLDOWN_START(src, video_cooldown, CAMERA_STATE_COOLDOWN)
 
 /obj/item/videocam/attack_self__legacy__attackchain(mob/user)
-	if(world.time < video_cooldown)
+	if(!COOLDOWN_FINISHED(src, video_cooldown))
 		to_chat(user, "<span class='warning'>[src] is overheating, give it some time.</span>")
 		return
 	camera_state(user)
-
-/obj/item/videocam/dropped()
-	. = ..()
-	if(!on)
-		return
-	camera_state()
 
 /obj/item/videocam/examine(mob/user)
 	. = ..()
@@ -657,15 +654,15 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	if(camera && on)
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)
-		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
-			if(T.watchers[M] == camera)
-				T.atom_say(msg)
+		for(var/obj/machinery/computer/security/telescreen/entertainment/T in GLOB.telescreens)
+			if(usr && (usr.unique_datum_id in T.watchers))
+				T.atom_say("[M.name]: [msg]")  // Uses appearance for identifying speaker, not voice
 
 /obj/item/videocam/hear_message(mob/M as mob, msg)
 	if(camera && on)
-		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
-			if(T.watchers[M] == camera)
-				T.atom_say(msg)
+		for(var/obj/machinery/computer/security/telescreen/entertainment/T in GLOB.telescreens)
+			if(usr && (usr.unique_datum_id in T.watchers))
+				T.atom_say("*[M.name] [msg]")  // Uses appearance for identifying speaker, not voice
 
 /obj/item/videocam/advanced
 	name = "advanced video camera"

@@ -124,6 +124,12 @@
 
 	return data
 
+/datum/ui_module/crew_monitor/mod
+	name = "Crew monitor (Modsuit)"
+
+/datum/ui_module/crew_monitor/mod/ui_state(mob/user)
+	return GLOB.deep_inventory_state
+
 /datum/ui_module/crew_monitor/ghost
 	name = "Crew monitor (Observer)"
 	is_advanced = TRUE

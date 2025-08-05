@@ -37,7 +37,7 @@ Difficulty: Hard
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	icon_state = "bubblegum"
 	icon_living = "bubblegum"
-	icon_dead = ""
+	icon_dead = "bubblegum_dead"
 	friendly = "stares down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("gurgles")
@@ -52,9 +52,11 @@ Difficulty: Hard
 	melee_queue_distance = 20 // as far as possible really, need this because of blood warp
 	ranged = TRUE
 	pixel_x = -32
-	del_on_death = TRUE
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum/crusher)
-	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
+	difficulty_ore_modifier = 3
+	crusher_loot = list(/obj/item/crusher_trophy/demon_claws)
+	loot = list(/obj/item/clothing/suit/space/hostile_environment,
+				/obj/item/clothing/head/helmet/space/hostile_environment,
+				/obj/item/melee/spellblade/random)
 	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
 	var/charging = FALSE
 	var/enrage_till = 0
@@ -69,8 +71,12 @@ Difficulty: Hard
 	internal_gps = /obj/item/gps/internal/bubblegum
 	medal_type = BOSS_MEDAL_BUBBLEGUM
 	score_type = BUBBLEGUM_SCORE
-	deathmessage = "sinks into a pool of blood, fleeing the battle. You've won, for now... "
+	deathmessage = "sinks into a pile of grotesque viscera, fleeing the battle. You've won, for now... "
 	death_sound = 'sound/misc/enter_blood.ogg'
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/bubblegum
+
 	attack_action_types = list(/datum/action/innate/megafauna_attack/triple_charge,
 							/datum/action/innate/megafauna_attack/hallucination_charge,
 							/datum/action/innate/megafauna_attack/hallucination_surround,
@@ -80,7 +86,6 @@ Difficulty: Hard
 	icon_state = null
 	gpstag = "Bloody Signal"
 	desc = "You're not quite sure how a signal can be bloody."
-	invisibility = 100
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize(mapload)
 	. = ..()
@@ -92,29 +97,29 @@ Difficulty: Hard
 
 /datum/action/innate/megafauna_attack/triple_charge
 	name = "Triple Charge"
-	button_overlay_icon = 'icons/mob/actions/actions.dmi'
-	button_overlay_icon_state = "sniper_zoom"
+	button_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now triple charging at the target you click on.</span>"
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/hallucination_charge
 	name = "Hallucination Charge"
-	button_overlay_icon = 'icons/effects/bubblegum.dmi'
-	button_overlay_icon_state = "smack ya one"
+	button_icon = 'icons/effects/bubblegum.dmi'
+	button_icon_state = "smack ya one"
 	chosen_message = "<span class='colossus'>You are now charging with hallucinations at the target you click on.</span>"
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/hallucination_surround
 	name = "Surround Target"
-	button_overlay_icon = 'icons/turf/walls/wall.dmi'
-	button_overlay_icon_state = "wall-0"
+	button_icon = 'icons/turf/walls/wall.dmi'
+	button_icon_state = "wall-0"
 	chosen_message = "<span class='colossus'>You are now surrounding the target you click on with hallucinations.</span>"
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/blood_warp
 	name = "Blood Warp"
-	button_overlay_icon = 'icons/effects/blood.dmi'
-	button_overlay_icon_state = "floor1"
+	button_icon = 'icons/effects/blood.dmi'
+	button_icon_state = "floor1"
 	chosen_message = "<span class='colossus'>You are now warping to blood around your clicked position.</span>"
 	chosen_attack_num = 4
 
@@ -147,17 +152,26 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
 	qdel(second_life_portal)
 	if(enraged && !second_life)
+		del_on_death = TRUE
 		var/obj/structure/closet/crate/necropolis/bubblegum/bait/jebait = new /obj/structure/closet/crate/necropolis/bubblegum/bait(get_turf(src))
 		var/obj/effect/bubblegum_trigger/great_chest_ahead = new /obj/effect/bubblegum_trigger(jebait, ListTargets())
 		new /obj/effect/landmark/spawner/bubblegum_exit(get_turf(src))
 		great_chest_ahead.forceMove(jebait)
 	if(second_life)
+		del_on_death = FALSE
 		var/area/A = get_area(src)
 		for(var/mob/M in A)
 			to_chat(M, "<span class='colossus'><b>YOU FUCK... I... I'll... get you later. Enjoy the last few days of your life...</b></span>")
 		new /obj/effect/bubblegum_exit(get_turf(src))
+	name = "Fleshy Mass"
+	desc = "Whatever this is, doesn't actually look like it comes from bubblegum, but many other entities. just thinking about how many creatures met their end to make this pile makes you shudder."
+	icon = 'icons/mob/lavaland/corpses.dmi'
 	return ..()
 
+/mob/living/simple_animal/hostile/megafauna/bubblegum/drop_loot()
+	if(enraged && !second_life)
+		return //The jebait chest already drops
+	return ..()
 /mob/living/simple_animal/hostile/megafauna/bubblegum/OpenFire(atom/A)
 	if(second_life)
 		Shoot(A)
@@ -485,7 +499,6 @@ Difficulty: Hard
 	name = "thick blood"
 	desc = "Thick, splattered blood."
 	random_icon_states = list("gib3", "gib5", "gib6")
-	bloodiness = 20
 
 /obj/effect/decal/cleanable/blood/gibs/bubblegum/can_bloodcrawl_in()
 	return TRUE
@@ -630,6 +643,9 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/try_bloodattack()
 	return
 
+/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/drop_loot()
+	return
+
 /mob/living/simple_animal/hostile/megafauna/bubblegum/round_2
 	desc = "Oh they are PISSED. And quite injured too..."
 	health = 750
@@ -642,7 +658,6 @@ Difficulty: Hard
 	projectilesound = 'sound/effects/splat.ogg'
 	deathmessage = null
 	death_sound = 'sound/hallucinations/veryfar_noise.ogg'
-	ranged = TRUE
 	ranged_cooldown_time = 10
 	enraged_loot = /obj/item/disk/fauna_research/bubblegum
 
@@ -653,6 +668,8 @@ Difficulty: Hard
 		break
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
 	for(var/mob/living/carbon/human/H in range(20))
+		if(stat == DEAD)
+			continue
 		to_chat(H, "<span class='colossus'><b>MY HANDS WILL RELISH ENDING YOU... HERE AND NOW!</b></span>")
 		FindTarget(list(H), 1)
 

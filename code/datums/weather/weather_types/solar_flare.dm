@@ -14,7 +14,7 @@
 
 	end_duration = 10 // wind_down() does not do anything for this event, so we just trigger end() semi-immediately
 	end_message = null
-	area_type = /area // read generate_area_list() as well below
+	area_types = list(/area) // read generate_area_list() as well below
 	protected_areas = list(/area/shuttle/arrival/station)
 	target_trait = REACHABLE_SPACE_ONLY
 	immunity_type = "burn"
@@ -39,7 +39,7 @@
 	SSsun.solar_gen_rate = initial(SSsun.solar_gen_rate) * 40
 
 /datum/weather/solar_flare/can_weather_act(mob/living/L)
-	if(isanimal(L)) //while this might break immersion, I don't want to spam the server with calling this on simplemobs
+	if(isanimal_or_basicmob(L)) //while this might break immersion, I don't want to spam the server with calling this on simplemobs
 		return FALSE
 	if(isdrone(L)) //same with poor maint drones who just wanna have fun
 		return FALSE

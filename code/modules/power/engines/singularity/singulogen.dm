@@ -4,7 +4,6 @@
 	desc = "An odd device which produces a Gravitational Singularity when set up."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "TheSingGen"
-	anchored = FALSE
 	density = TRUE
 	power_state = NO_POWER_USE
 	resistance_flags = FIRE_PROOF
@@ -15,7 +14,7 @@
 	var/turf/T = get_turf(src)
 	if(src.energy >= 200)
 		message_admins("A [creation_type] has been created at [x], [y], [z] (<A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-		investigate_log("A [creation_type] has been created at [x], [y], [z]","singulo")
+		investigate_log("A [creation_type] has been created at [x], [y], [z]",INVESTIGATE_SINGULO)
 
 		var/obj/singularity/S = new creation_type(T, 50)
 		transfer_fingerprints_to(S)

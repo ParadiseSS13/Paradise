@@ -12,7 +12,6 @@
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	ranged = TRUE
-	obj_damage = 30
 	vision_range = 6
 	aggro_vision_range = 18
 	environment_smash = ENVIRONMENT_SMASH_NONE  //This is to prevent elites smashing up the mining station (entirely), we'll make sure they can smash minerals fine below.
@@ -103,15 +102,15 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /datum/action/innate/elite_attack
 	name = "Elite Attack"
-	button_overlay_icon = 'icons/mob/actions/actions_elites.dmi'
-	button_overlay_icon_state = ""
-	button_background_icon_state = "bg_default"
+	button_icon = 'icons/mob/actions/actions_elites.dmi'
+	button_icon_state = ""
+	background_icon_state = "bg_default"
 	///The displayed message into chat when this attack is selected
 	var/chosen_message
 	///The internal attack ID for the elite's OpenFire() proc to use
 	var/chosen_attack_num = 0
 
-/datum/action/innate/elite_attack/CreateButton()
+/datum/action/innate/elite_attack/create_button()
 	var/atom/movable/screen/movable/action_button/button = ..()
 	button.maptext = ""
 	button.maptext_x = 8
@@ -125,11 +124,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		STOP_PROCESSING(SSfastprocess, src)
 		qdel(src)
 		return
-	UpdateButtons()
+	build_all_button_icons()
 
-/datum/action/innate/elite_attack/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
+/datum/action/innate/elite_attack/build_button_icon(atom/movable/screen/movable/action_button/button, update_flags, force)
 	. = ..()
-	if(status_only)
+	if(update_flags & UPDATE_BUTTON_STATUS)
 		return
 	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
 	var/timeleft = max(elite_owner.ranged_cooldown - world.time, 0)
@@ -162,7 +161,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	light_color = LIGHT_COLOR_BLOOD_MAGIC
 	light_range = 3
 	anchored = TRUE
-	density = FALSE
 	var/activity = TUMOR_INACTIVE
 	var/boosted = FALSE
 	var/times_won = 0
@@ -425,14 +423,17 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
+	new_attack_chain = TRUE
 
-/obj/item/tumor_shard/afterattack__legacy__attackchain(atom/target, mob/user, proximity_flag)
-	. = ..()
-	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite) && proximity_flag)
+/obj/item/tumor_shard/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(target)
+
+	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite))
 		var/mob/living/simple_animal/hostile/asteroid/elite/E = target
 		if(E.stat != DEAD || E.sentience_type != SENTIENCE_BOSS || !E.key)
 			user.visible_message("It appears [E] is unable to be revived right now. Perhaps try again later.")
-			return
+			return ITEM_INTERACT_COMPLETE
 		E.faction = list("\ref[user]")
 		E.friends += user
 		E.revive()
@@ -453,6 +454,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	else
 		to_chat(user, "<span class='notice'>[src] only works on the corpse of a sentient lavaland elite.</span>")
 
+	return ITEM_INTERACT_COMPLETE
+
 /obj/effect/temp_visual/elite_tumor_wall
 	name = "magic wall"
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
@@ -463,7 +466,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)
 	duration = 5 SECONDS
 	layer = BELOW_MOB_LAYER
-	plane = GAME_PLANE
 	color = rgb(255,0,0)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	light_color = LIGHT_COLOR_PURE_RED
@@ -494,7 +496,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	icon_state = null
 	gpstag = "Cancerous Signal"
 	desc = "Ghosts in a fauna? That's cancerous!"
-	invisibility = 100
 
 #undef TUMOR_INACTIVE
 #undef TUMOR_ACTIVE

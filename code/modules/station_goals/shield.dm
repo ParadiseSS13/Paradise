@@ -109,7 +109,7 @@
 	var/list/data = list()
 
 	data["satellites"] = list()
-	for(var/obj/machinery/satellite/S in GLOB.machines)
+	for(var/obj/machinery/satellite/S in SSmachines.get_by_type(/obj/machinery/satellite))
 		var/turf/T = get_turf(S)
 		data["satellites"] += list(list(
 			"id" = S.id,
@@ -173,7 +173,7 @@
 			offset_y = new_offset_y
 
 /obj/machinery/computer/sat_control/proc/toggle(id)
-	for(var/obj/machinery/satellite/S in GLOB.machines)
+	for(var/obj/machinery/satellite/S in SSmachines.get_by_type(/obj/machinery/satellite))
 		if(S.id == id && atoms_share_level(src, S))
 			if(!S.toggle())
 				notice = "You can only activate satellites which are in space"
@@ -191,7 +191,7 @@
 		notice = "Throwing simulated meteors ([G.thrown]/100)..."
 		notice_color = "white"
 		return
-	
+
 	var/total_meteors = length(G.defended) + length(G.collisions)
 	if(total_meteors == 0)
 		notice = "No simulation yet."
@@ -250,11 +250,8 @@
 /obj/machinery/satellite/update_icon_state()
 	icon_state = active ? "sat_active" : "sat_inactive"
 
-/obj/machinery/satellite/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/multitool))
-		to_chat(user, "<span class='notice'>// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[emagged ? "DEBUG_MODE //" : ""]</span>")
-	else
-		return ..()
+/obj/machinery/satellite/multitool_act(mob/living/user, obj/item/I)
+	to_chat(user, "<span class='notice'>// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[emagged ? "DEBUG_MODE //" : ""]</span>")
 
 /obj/machinery/satellite/meteor_shield
 	name = "Meteor Shield Satellite"

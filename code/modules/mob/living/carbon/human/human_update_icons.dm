@@ -107,12 +107,14 @@ Please contact me on #coderbus IRC. ~Carn x
 	. = overlays_standing[cache_index]
 	if(.)
 		add_overlay(.)
+	SEND_SIGNAL(src, COMSIG_CARBON_APPLY_OVERLAY, cache_index, .)
 
 /mob/living/carbon/human/proc/remove_overlay(cache_index)
 	var/I = overlays_standing[cache_index]
 	if(I)
 		cut_overlay(I)
 		overlays_standing[cache_index] = null
+	SEND_SIGNAL(src, COMSIG_CARBON_REMOVE_OVERLAY, cache_index, I)
 
 
 GLOBAL_LIST_EMPTY(damage_icon_parts)
@@ -217,6 +219,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			else
 				base_icon.Blend(temp, ICON_OVERLAY)
 
+
 		if(!skeleton)
 			if(isgolem(src))
 				var/datum/species/golem/G = src.dna.species
@@ -296,7 +299,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(chest_organ && m_styles["body"])
 		var/body_marking = m_styles["body"]
 		var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
-		if(body_marking_style && body_marking_style.species_allowed && (dna.species.name in body_marking_style.species_allowed))
+		if(body_marking_style && body_marking_style.species_allowed && (dna.species.sprite_sheet_name in body_marking_style.species_allowed))
 			var/icon/b_marking_s = icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 			if(body_marking_style.do_colouration)
 				b_marking_s.Blend(m_colours["body"], ICON_ADD)
@@ -419,7 +422,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	var/species_name = ""
 	if(dna.species.name in list("Drask", "Grey", "Vox", "Kidan"))
-		species_name = "_[lowertext(dna.species.name)]"
+		species_name = "_[lowertext(dna.species.sprite_sheet_name)]"
 
 	var/icon/hands_mask = icon('icons/mob/body_accessory.dmi', "accessory_none_s") //Needs a blank icon, not actually related to markings at all
 
@@ -461,7 +464,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(head_organ.f_style)
 		var/datum/sprite_accessory/facial_hair/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
 		if(facial_hair_style && facial_hair_style.species_allowed)
-			if((head_organ.dna.species.name in facial_hair_style.species_allowed) || (head_organ.dna.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
+			if((head_organ.dna.species.sprite_sheet_name in facial_hair_style.species_allowed) || (head_organ.dna.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
 				var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 				if(istype(head_organ.dna.species, /datum/species/slime)) // I am el worstos
 					facial_s.Blend("[skin_colour]A0", ICON_AND)
@@ -1332,6 +1335,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					accessory_s.Blend(skin_colour, body_accessory.blend_mode)
 				if(tail_marking_icon && (body_accessory.name in tail_marking_style.tails_allowed))
 					accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
+
 			if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 				var/icon/under = new/icon("icon" = 'icons/mob/body_accessory.dmi', "icon_state" = "accessory_none_s")
@@ -1370,6 +1374,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					tail_s.Blend(skin_colour, ICON_ADD)
 				if(tail_marking_icon && !tail_marking_style.tails_allowed)
 					tail_s.Blend(tail_marking_icon, ICON_OVERLAY)
+
 			if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 				var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "blank")
@@ -1409,13 +1414,16 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/icon/accessory_s = new/icon("icon" = body_accessory.get_animated_icon(), "icon_state" = body_accessory.get_animated_icon_state())
 		if(dna.species.bodyflags & HAS_SKIN_COLOR)
 			accessory_s.Blend(skin_colour, body_accessory.blend_mode)
+
 		if(tail_marking_icon && (body_accessory.name in tail_marking_style.tails_allowed))
 			accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
 		if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 			// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 			var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "Vulpkanin_tail_delay")
+
 			if(body_accessory.allowed_species && (dna.species.name in body_accessory.allowed_species))
 				under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[dna.species.name]_tail_delay")
+
 			under.Insert(new/icon(accessory_s, dir=SOUTH), dir=SOUTH)
 			under.Insert(new/icon(accessory_s, dir=EAST), dir=EAST)
 			under.Insert(new/icon(accessory_s, dir=WEST), dir=WEST)
@@ -1559,6 +1567,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/proc/force_update_limbs()
 	for(var/obj/item/organ/external/O in bodyparts)
+		O.dna.species = dna.species
 		O.sync_colour_to_human(src)
 	update_body()
 

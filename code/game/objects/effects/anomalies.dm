@@ -8,7 +8,6 @@
 	name = "anomaly"
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
 	icon_state = "bhole3"
-	density = FALSE
 	light_range = 3
 	var/movechance = ANOMALY_MOVECHANCE
 	var/obj/item/assembly/signaler/anomaly/aSignal = /obj/item/assembly/signaler/anomaly
@@ -94,16 +93,15 @@
 	// Else, anomaly core gets deleted by qdel(src).
 	qdel(src)
 
-/obj/effect/anomaly/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/analyzer))
+/obj/effect/anomaly/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/analyzer))
 		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code].</span>")
+		return ITEM_INTERACT_COMPLETE
 
 /obj/effect/anomaly/grav
 	name = "gravitational anomaly"
 	icon_state = "shield2"
-	density = FALSE
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE
-	layer = OBJ_LAYER // Mobs will appear above this
 	var/boing = FALSE
 	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/anomaly/grav
@@ -473,7 +471,6 @@
 
 /obj/effect/anomaly/bhole
 	name = "vortex anomaly"
-	icon_state = "bhole3"
 	desc = "That's a nice station you have there. It'd be a shame if something happened to it."
 	aSignal = /obj/item/assembly/signaler/anomaly/vortex
 	/// The timer that will give us an extra proccall of ripping the floors up

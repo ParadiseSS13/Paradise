@@ -2,11 +2,10 @@
 	name = "traitor_vampire"
 	config_tag = "traitorvamp"
 	traitors_possible = 3 //hard limit on traitors if scaling is turned off
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Career Trainer", "Nanotrasen Navy Officer", "Special Operations Officer", "Trans-Solar Federation General")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Magistrate", "Internal Affairs Agent", "Nanotrasen Career Trainer", "Nanotrasen Navy Officer", "Special Operations Officer", "Trans-Solar Federation General",  "Research Director", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Quartermaster")
 	restricted_jobs = list("Cyborg")
 	secondary_restricted_jobs = list("AI", "Chaplain")
 	required_players = 10
-	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
 	secondary_enemies_scaling = 0.025
 	species_to_mindflayer = list("Machine")

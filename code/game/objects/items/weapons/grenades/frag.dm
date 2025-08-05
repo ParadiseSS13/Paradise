@@ -4,7 +4,6 @@
 	name = "fragmentation grenade"
 	desc = "A grenade with a specially designed casing that will launch lethal fragments in all directions upon detonation. Fire in the hole!"
 	icon_state = "frag"
-	item_state = "grenade"
 	origin_tech = "materials=3;magnets=4"
 	/// How much shrapnel the grenade will launch.
 	var/shrapnel_contained = 20
@@ -13,7 +12,21 @@
 
 /obj/item/grenade/frag/prime()
 	update_mob()
-	explosion(loc, 0, 1, DEFAULT_SHRAPNEL_RANGE, breach = FALSE)
+	explosion(loc, 0, 1, DEFAULT_SHRAPNEL_RANGE, cause = name, breach = FALSE)
+	create_shrapnel(loc, shrapnel_contained, shrapnel_type = embedded_type)
+	qdel(src)
+
+/obj/item/grenade/frag/stinger
+	name = "stingball grenade"
+	desc = "A specialized less-lethal hand grenade used for police action. Launches hard rubber balls in all directions upon detonation."
+	icon_state = "stinger"
+	modifiable_timer = FALSE
+	shrapnel_contained = 50
+	embedded_type = /obj/item/projectile/bullet/pellet/rubber/stinger
+
+/obj/item/grenade/frag/stinger/prime()
+	update_mob()
+	explosion(loc, 0, 0, 0, 0, DEFAULT_SHRAPNEL_RANGE + 2, cause = name, breach = FALSE)
 	create_shrapnel(loc, shrapnel_contained, shrapnel_type = embedded_type)
 	qdel(src)
 
@@ -72,5 +85,9 @@
 	. = ..()
 	icon_state = pick("shrapnel1", "shrapnel2", "shrapnel3")
 	scatter_atom()
+
+/obj/item/shrapnel/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	qdel(src)
+	return TRUE
 
 #undef DEFAULT_SHRAPNEL_RANGE

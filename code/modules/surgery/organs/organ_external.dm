@@ -3,9 +3,7 @@
 ****************************************************/
 /obj/item/organ/external
 	name = "external"
-	min_broken_damage = 30
 	max_damage = 0
-	dir = SOUTH
 	organ_tag = "limb"
 
 	blocks_emissive = FALSE
@@ -176,13 +174,6 @@
 		C.update_body()
 		C.updatehealth()
 		C.UpdateDamageIcon()
-		if(limb_name == BODY_ZONE_HEAD)
-			var/obj/item/organ/external/head/H = C.get_organ(BODY_ZONE_HEAD)
-			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
-			if(robohead.is_monitor) //Ensures that if an IPC gets a head that's got a human hair wig attached to their body, the hair won't wipe.
-				H.h_style = "Bald"
-				H.f_style = "Shaved"
-				C.m_styles["head"] = "None"
 		user.visible_message(
 			"<span class='notice'>[user] has attached [C]'s [src] to the [amputation_point].</span>",
 			"<span class='notice'>You have attached [C]'s [src] to the [amputation_point].</span>")
@@ -394,7 +385,7 @@ This function completely restores a damaged organ to perfect condition.
 	surgeryize()
 	if(is_robotic())	//Robotic organs stay robotic.
 		status = ORGAN_ROBOT
-	else if(HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS))
+	else if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS_ORGAN))
 		status = ORGAN_DEAD
 	else
 		status = 0
@@ -402,7 +393,7 @@ This function completely restores a damaged organ to perfect condition.
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
-	if(!HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS)) // zombies's wounds don't close. Because thats cool.
+	if(!HAS_TRAIT(src, TRAIT_I_WANT_BRAINS_ORGAN)) // zombies's wounds don't close. Because thats cool.
 		open = ORGAN_CLOSED //Closing all wounds.
 
 	// handle internal organs
@@ -933,7 +924,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>\The [victim]'s [name] explodes violently!</span>",\
 			"<span class='userdanger'>Your [name] explodes!</span>",\
 			"<span class='danger'>You hear an explosion!</span>")
-		explosion(get_turf(victim), -1, -1, 2, 3)
+		explosion(get_turf(victim), -1, -1, 2, 3, cause = "Sabotaged robotic limb")
 		do_sparks(5, 0, victim)
 		qdel(src)
 

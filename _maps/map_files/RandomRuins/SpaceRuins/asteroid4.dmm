@@ -6,7 +6,7 @@
 /turf/simulated/mineral,
 /area/ruin/space/unpowered)
 "c" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
 /area/ruin/space/unpowered)
 "d" = (
 /turf/simulated/floor/plating/asteroid/airless,
@@ -55,7 +55,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "Q" = (
-/turf/simulated/mineral/random/low_chance,
+/turf/simulated/mineral/random/low_chance/space,
 /area/ruin/space/unpowered)
 
 (1,1,1) = {"

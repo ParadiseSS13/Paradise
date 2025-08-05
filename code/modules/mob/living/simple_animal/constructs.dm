@@ -141,7 +141,7 @@
 /mob/living/simple_animal/hostile/construct/armoured/bullet_act(obj/item/projectile/P)
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		if(P.damage_type == BRUTE || P.damage_type == BURN)
-			adjustBruteLoss(P.damage * 0.6) // 21 hit with security laser gun
+			adjustBruteLoss(P.damage * 0.8) // 16 hit with security laser gun
 			P.on_hit(src)
 			return FALSE
 	return ..()
@@ -340,7 +340,6 @@
 	obj_damage = 20 // Bit better at breaking stuff than cult ghosts, but only *barely*
 	retreat_distance = 4 // AI proteons will rapidly move in and out of combat to avoid conflict, but will still target and follow you.
 	attacktext = "pinches"
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES // No you can not break down all the walls of the station
 	attack_sound = 'sound/weapons/punch2.ogg'
 	playstyle_string = "<b>You are a Proteon. Your abilities in combat are outmatched by most combat constructs, but you are still fast and nimble. Run metal and supplies, and cooperate with your fellow cultists.</b>"
 	construct_type = "proteon"

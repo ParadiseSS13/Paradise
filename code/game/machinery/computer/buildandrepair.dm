@@ -15,7 +15,6 @@
 	var/list/req_components = null
 
 /obj/item/circuitboard/computer
-	board_type = "computer"
 
 /obj/item/circuitboard/machine
 	board_type = "machine"
@@ -45,7 +44,6 @@
 	board_name = "Message Monitor"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/message_monitor
-	origin_tech = "programming=2"
 
 /obj/item/circuitboard/camera
 	board_name = "Camera Monitor"
@@ -82,7 +80,6 @@
 
 /obj/item/circuitboard/camera/telescreen
 	board_name = "Telescreen"
-	icon_state = "security"
 	build_path = /obj/machinery/computer/security/telescreen
 
 /obj/item/circuitboard/camera/engine
@@ -102,12 +99,10 @@
 
 /obj/item/circuitboard/camera/prison
 	board_name = "Prison Monitor"
-	icon_state = "security"
 	build_path = /obj/machinery/computer/security/telescreen/prison
 
 /obj/item/circuitboard/camera/interrogation
 	board_name = "Interrogation Monitor"
-	icon_state = "security"
 	build_path = /obj/machinery/computer/security/telescreen/interrogation
 
 /obj/item/circuitboard/camera/minisat
@@ -132,7 +127,6 @@
 
 /obj/item/circuitboard/camera/wooden_tv
 	board_name = "Wooden TV"
-	icon_state = "security"
 	build_path = /obj/machinery/computer/security/wooden_tv
 
 /obj/item/circuitboard/camera/mining
@@ -211,7 +205,6 @@
 
 /obj/item/circuitboard/card/minor
 	board_name = "Dept ID Computer"
-	icon_state = "command"
 	build_path = /obj/machinery/computer/card/minor
 	var/target_dept = TARGET_DEPT_GENERIC
 
@@ -246,7 +239,6 @@
 
 /obj/item/circuitboard/card/centcom
 	board_name = "CentComm ID Computer"
-	icon_state = "command"
 	build_path = /obj/machinery/computer/card/centcom
 
 /obj/item/circuitboard/teleporter
@@ -336,9 +328,7 @@
 
 /obj/item/circuitboard/powermonitor/secret
 	board_name = "Outdated Power Monitor"
-	icon_state = "engineering"
 	build_path = /obj/machinery/computer/monitor/secret
-	origin_tech = "programming=2;powerstorage=2"
 
 /obj/item/circuitboard/prisoner
 	board_name = "Prisoner Management"
@@ -402,6 +392,12 @@
 	build_path = /obj/machinery/computer/mech_bay_power_console
 	origin_tech = "programming=3;powerstorage=3"
 
+/obj/item/circuitboard/ai_resource_console
+	board_name = "AI Resource Management Console"
+	icon_state = "science"
+	build_path = /obj/machinery/computer/ai_resource
+	origin_tech = "programming=4"
+
 /obj/item/circuitboard/ordercomp
 	board_name = "Supply Ordering Console"
 	icon_state = "supply"
@@ -435,7 +431,6 @@
 
 /obj/item/circuitboard/labor_shuttle/one_way
 	board_name = "Prisoner Shuttle Console"
-	icon_state = "security"
 	build_path = /obj/machinery/computer/shuttle/labor/one_way
 
 /obj/item/circuitboard/ferry
@@ -459,22 +454,18 @@
 
 /obj/item/circuitboard/shuttle/syndicate
 	board_name = "Syndicate Shuttle"
-	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle/syndicate
 
 /obj/item/circuitboard/shuttle/syndicate/recall
 	board_name = "Syndicate Shuttle Recall Terminal"
-	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle/syndicate/recall
 
 /obj/item/circuitboard/shuttle/syndicate/drop_pod
 	board_name = "Syndicate Drop Pod"
-	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle/syndicate/drop_pod
 
 /obj/item/circuitboard/shuttle/golem_ship
 	board_name = "Golem Ship"
-	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle/golem_ship
 
 /obj/item/circuitboard/holodeck_control
@@ -493,7 +484,6 @@
 	board_name = "Area Air Control"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/area_atmos
-	origin_tech = "programming=2"
 
 /obj/item/circuitboard/telesci_console
 	board_name = "Telepad Control Console"
@@ -562,13 +552,17 @@
 
 /obj/structure/computerframe
 	name = "computer frame"
-	icon = 'icons/obj/stock_parts.dmi'
-	icon_state = "comp_frame_1"
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "computer_frame"
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 100
 	var/state = STATE_EMPTY
 	var/obj/item/circuitboard/circuit = null
+
+/obj/structure/computerframe/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/computerframe/examine(mob/user)
 	. = ..()
@@ -618,8 +612,9 @@
 	if(state == STATE_GLASS)
 		new /obj/item/stack/sheet/glass(location, 2)
 
-/obj/structure/computerframe/update_icon_state()
-	icon_state = "comp_frame_[state]"
+/obj/structure/computerframe/update_overlays()
+	..()
+	. += "comp_frame_[state]"
 
 /obj/structure/computerframe/welder_act(mob/user, obj/item/I)
 	if(state != STATE_EMPTY)

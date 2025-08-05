@@ -737,7 +737,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(alert(src, "Are you sure you want to do this? It will laaag.", "Confirmation", "Yes", "No") == "No")
 				return
 
-		explosion(O, devastation, heavy, light, flash, null, null,flames)
+		explosion(O, devastation, heavy, light, flash, null, null,flames, cause = "[ckey]: Explosion command")
 		log_admin("[key_name(usr)] created an explosion ([devastation],[heavy],[light],[flames]) at ([O.x],[O.y],[O.z])")
 		message_admins("[key_name_admin(usr)] created an explosion ([devastation],[heavy],[light],[flames]) at ([O.x],[O.y],[O.z])")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "EXPL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -898,7 +898,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Admin"
 	set name = "Toggle Deny Shuttle"
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
+		alert("The game hasn't started yet!")
 		return
 
 	if(!check_rights(R_ADMIN))
@@ -1134,7 +1135,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!input)
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PREGAME)
 		return
 
 	SSticker.selected_tip = input
@@ -1159,7 +1160,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	holder.modify_goals()
 
 /datum/admins/proc/modify_goals()
-	if(!SSticker || !SSticker.mode)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>")
 		return
 

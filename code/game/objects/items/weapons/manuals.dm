@@ -20,7 +20,6 @@
 /obj/item/book/manual
 	//While piracy is a heinious deed, we don't want people uploading programmatic books into the player book DB for obvious reasons
 	copyright = TRUE
-	protected = FALSE //No reason players shouldn't write in regular manuals
 	name = "Book Manual"
 	desc = "Please make a report on the github if you somehow get ahold of one of these in-game."
 	summary = "This is a manual procured by Nanotrasen, it contains important information!"
@@ -31,6 +30,7 @@
 /obj/item/book/manual/detective
 	name = "The Film Noir: Proper Procedures for Investigations"
 	desc = "A gumshoe's guide to find out whodunnit, howdunnit, and wheredunnit."
+	summary = "A how-to manual for basic forensic procedures and detective work."
 	icon_state ="bookDetective"
 	author = "Nanotrasen"
 	title = "The Film Noir: Proper Procedures for Investigations"
@@ -71,6 +71,7 @@
 /obj/item/book/manual/engineering_particle_accelerator
 	name = "Particle Accelerator User's Guide"
 	desc = "An engineer's guide to shooting relativistic particles out of a big gun."
+	summary = "A quick-assembly manual for the setup of high-intensity particle accelerator systems."
 	icon_state ="bookParticleAccelerator"
 	author = "Engineering Encyclopedia"
 	title = "Particle Accelerator User's Guide"
@@ -115,6 +116,7 @@
 /obj/item/book/manual/supermatter_engine
 	name = "Supermatter Engine Anomaly Reference"
 	desc = "An engineer's best tool for dealing with their worst frenemy: The Supermatter and its anomalous behavior."
+	summary = "A quick-reference booklet on Supermatter anomalies and their effects."
 	icon_state = "bookParticleAccelerator"
 	author = "Vroo-Looum-Kloo"
 	title = "Supermatter Engine Anomaly Reference"
@@ -154,7 +156,8 @@
 
 /obj/item/book/manual/atmospipes
 	name = "Pipes and You: Getting To Know Your Scary Tools"
-	desc = "A plumber's guide on how to efficiently plumb and clean out old drone shells."
+	desc = "A plumber's guide on how to properly identify a pipe."
+	summary = "A handy encyclopedia on the many different flavors of pipe and device available to Atomspherics."
 	icon_state = "pipingbook"
 	author = "Maria Crash, Senior Atmospherics Technician"
 	title = "Pipes and You: Getting To Know Your Scary Tools"
@@ -241,7 +244,8 @@
 
 /obj/item/book/manual/evaguide
 	name = "EVA Gear and You: Not Spending All Day Inside"
-	desc = "An enterprising explorer's expedition explainer. Helmet not included!"
+	desc = "An outdated guidebook outlining the ups and downs of various pieces of EVA gear. Considering it references hardsuits, it must be a decade old at the least."
+	summary = "A beginner's guide to the pros and cons of various suit classes."
 	icon_state = "evabook"
 	author = "Maria Crash, Senior Atmospherics Technician"
 	title = "EVA Gear and You: Not Spending All Day Inside"
@@ -302,6 +306,7 @@
 /obj/item/book/manual/engineering_singularity_safety
 	name = "Singularity Safety in Special Circumstances"
 	desc = "A sufficiently succinct suppliment to securing singularities."
+	summary = "An easily digestable field guide for singularity-related emergencies."
 	icon_state ="bookEngineeringSingularitySafety"
 	author = "Engineering Encyclopedia"
 	title = "Singularity Safety in Special Circumstances"
@@ -350,6 +355,7 @@
 /obj/item/book/manual/medical_cloning
 	name = "Introduction to Cloning"
 	desc = "A guide covering the basics of cloning."
+	summary = "A step-by-step guide to each part of the cloning process."
 	icon_state = "bookCloning"
 	author = "Bioarchitect for the Pillars of Creation" //this is a valid nian name, right?
 	title = "Introduction to Cloning"
@@ -426,6 +432,7 @@
 /obj/item/book/manual/zombie_manual
 	name = "Plague and You: Curing the Apocalypse"
 	desc = "A guide covering the basics of curing zombies."
+	summary = "A step-by-step guide to combatting each phase of the zombie virus."
 	icon_state = "bookCloning"
 	author = "Cleanses-The-Plague"
 	title = "Plague and You: Curing the Apocalypse"
@@ -571,9 +578,9 @@
 
 /obj/item/book/manual/ripley_build_and_repair
 	name = "APLU \"Ripley\" Construction and Operation Manual"
-	desc = "A guide from a little-known corporation on how to operate a heavy lifter mech. It's filled with disclaimers and pre-signed waivers."
-	icon_state ="book"
-	author = "Weyland-Yutani Corp"
+	desc = "A small guidebook on how to operate a Ripley powerloader exosuit. It's filled with disclaimers and pre-signed waivers."
+	summary = "Standard operational practices and construction requirements for operation of the Ripley mk. 3 powerloader system."
+	author = "Hephaestus Industries"
 	title = "APLU \"Ripley\" Construction and Operation Manual"
 
 	pages = list({"<html><meta charset='utf-8'>
@@ -588,7 +595,7 @@
 				</head>
 				<body>
 				<center>
-				<b style='font-size: 12px;'>Weyland-Yutani - Building Better Worlds</b>
+				<b style='font-size: 12px;'>Hephaestus Industries - Forging the Tools of Tomorrow</b>
 				<h1>Autonomous Power Loader Unit \"Ripley\"</h1>
 				</center>
 				<h2>Specifications:</h2>
@@ -647,6 +654,7 @@
 /obj/item/book/manual/research_and_development
 	name = "Research and Development 101"
 	desc = "The mad scientist's second best friend, after coffee."
+	summary = "Construction & operational instructions for all standard Nanotrasen research machinery."
 	icon_state = "rdbook"
 	author = "Dr. L. Ight"
 	title = "Research and Development 101"
@@ -698,6 +706,7 @@
 /obj/item/book/manual/barman_recipes
 	name = "Barman Recipes"
 	desc = "A coffee-stained guide to mixing drinks."
+	summary = "A quick-access reference to several common alcoholic beverages."
 	icon_state = "barbook"
 	author = "Sir John Rose"
 	title = "Barman Recipes"
@@ -741,6 +750,7 @@
 /obj/item/book/manual/nuclear
 	name = "Fission Mailed: Nuclear Sabotage 101"
 	desc = "A blood-spattered book filled with block text, educating the reader on how to detonate nuclear bombs."
+	summary = "Reference material for the activation and detonation of nuclear devices. All material classified Level-1 PYTHON."
 	icon_state ="bookNuclear"
 	author = "Syndicate"
 	protected = TRUE
@@ -772,12 +782,13 @@
 			Good luck. Remember the order:<br>
 			<b>Disk, Code, Safety, Timer, Disk, RUN!</b><br>
 			Intelligence Analysts believe that normal Nanotrasen procedure is for the Captain to secure the nuclear authorisation disk.<br>
-			Good luck!
+			Speed and strength, operative.
 			</html>"})
 
 /obj/item/book/manual/hydroponics_pod_people
 	name = "The Human Harvest - From seed to market"
 	desc = "Blurry pictures of people coming out of pods are taped to the cover."
+	summary = "A handy-dandy guide to growing plant-people for fun and profit!"
 	icon_state ="bookHydroponicsPodPeople"
 	author = "Farmer John"
 	title = "The Human Harvest - From seed to market"
@@ -825,7 +836,6 @@
 /obj/item/book/manual/wiki
 	name = "Wiki Book Manual"
 	desc = "This REALLY shouldn't exist in-game, please contact a coder."
-	copyright = TRUE
 	protected = TRUE //We absolutely do not want players editing these books, it might fuck up the iframes in them :)
 	pages = null //we don't want people opening this book until it fully initializes
 	//Wiki Iframes need a decent bit of room, this will be enough to make the readable without having to expand the window immediately
@@ -862,22 +872,16 @@
 /obj/item/book/manual/wiki/robotics_cyborgs
 	name = "Cyborgs for Dummies"
 	desc = "Precise instructions on how to construct your very own robotic friend."
+	summary = "Standard construction and maintenance procedures for Nanotrasen silicon units."
 	icon_state = "borgbook"
 	author = "XISC"
 	title = "Cyborgs for Dummies"
 	wiki_article_title = "Guide_to_Robotics"
 
-/obj/item/book/manual/wiki/chef_recipes
-	name = "Chef Recipes"
-	desc = "Knives, Ovens, and You: A guide to cooking."
-	icon_state = "cook_book"
-	author = "Nanotrasen"
-	title = "Chef Recipes"
-	wiki_article_title = "Guide_to_Food_and_Drinks#Food"
-
 /obj/item/book/manual/wiki/engineering_construction
 	name = "Station Repairs and Construction"
 	desc = "A guide on how to fix things without duct tape."
+	summary = "A comprehensive reference for the construction and maintenance of most on-station equipment."
 	icon_state ="bookEngineering"
 	author = "Engineering Encyclopedia"
 	title = "Station Repairs and Construction"
@@ -886,6 +890,7 @@
 /obj/item/book/manual/wiki/faxes
 	name = "Guide to Faxes"
 	desc = "Nanotrasen's own manual on how to write faxes."
+	summary = "A comprehensive reference on protocol for the writing and sending of faxes."
 	icon_state ="bookEngineering"
 	author = "Nanotrasen"
 	title = "Faxes and You!"
@@ -894,6 +899,7 @@
 /obj/item/book/manual/wiki/hydroponics
 	name = "General Hydroponics"
 	desc = "A guide outlining the principles of hydroponics."
+	summary = "A comprehensive reference on the identification and growth of various usable plants."
 	icon_state ="bookHydroponicsGeneral"
 	author = "Nanotrasen"
 	title = "General Hydroponics"
@@ -902,6 +908,7 @@
 /obj/item/book/manual/wiki/botanist
 	name = "The Station Botanist Handbook"
 	desc = "A handbook with instructions and tips for station botanists."
+	summary = "A quick reference guide to the responsibilities and tasks of the station's Botany contingent."
 	icon_state ="bookHydroponicsBotanist"
 	author = "Nanotrasen"
 	title = "The Station Botanist Handbook"
@@ -917,6 +924,17 @@
 	author = "Nanotrasen"
 	title = "Space Law"
 	wiki_article_title = "Space_law"
+
+/obj/item/book/manual/wiki/security_space_law/imaginary
+	name = "Imaginary Space Law Manual"
+	desc = "A set of memorized Nanotrasen guidelines for keeping law and order on their space stations."
+	flags = DROPDEL | ABSTRACT | NOBLUDGEON
+	imaginary = TRUE
+
+/obj/item/book/manual/wiki/security_space_law/imaginary/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SKIP_EXAMINE, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_NO_STRIP, INNATE_TRAIT)
 
 /obj/item/book/manual/wiki/security_space_law/black
 	name = "Space Law - Limited Edition"
@@ -947,6 +965,17 @@
 	author = "Nanotrasen"
 	title = "Legal Standard Operating Procedures"
 	wiki_article_title = "Legal_Standard_Operating_Procedure"
+
+/obj/item/book/manual/wiki/sop_legal/imaginary
+	name = "Imaginary Legal SOP Manual"
+	desc = "A set of memorized Nanotrasen guidelines aiming at the safe conduct of all legal activities."
+	flags = DROPDEL | ABSTRACT | NOBLUDGEON
+	imaginary = TRUE
+
+/obj/item/book/manual/wiki/sop_legal/imaginary/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SKIP_EXAMINE, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_NO_STRIP, INNATE_TRAIT)
 
 /obj/item/book/manual/wiki/sop_supply
 	name = "Supply Standard Operating Procedures"

@@ -2,8 +2,6 @@
 
 /obj/machinery/computer/operating
 	name = "operating computer"
-	density = TRUE
-	anchored = TRUE
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
 	circuit = /obj/item/circuitboard/operating
@@ -111,6 +109,12 @@
 			if(silly.bodytemperature < silly.minbodytemp)
 				occupantData["temperatureSuitability"] = -3
 			else if(silly.bodytemperature > silly.maxbodytemp)
+				occupantData["temperatureSuitability"] = 3
+		else if(isbasicmob(occupant))
+			var/mob/living/basic/basicmob = occupant
+			if(basicmob.bodytemperature < basicmob.minimum_survivable_temperature)
+				occupantData["temperatureSuitability"] = -3
+			else if(basicmob.bodytemperature > basicmob.maximum_survivable_temperature)
 				occupantData["temperatureSuitability"] = 3
 		// Blast you, imperial measurement system
 		occupantData["btCelsius"] = occupant.bodytemperature - T0C

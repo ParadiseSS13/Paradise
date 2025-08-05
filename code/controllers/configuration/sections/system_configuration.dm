@@ -30,6 +30,8 @@
 	var/list/region_map = list()
 	/// Send a system toast on init completion?
 	var/toast_on_init_complete = FALSE
+	/// The URL for a ss13-yt-wrap server (https://github.com/Absolucy/ss13-yt-wrap) to use.
+	var/ytdlp_url = null
 
 /datum/configuration_section/system_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
@@ -50,6 +52,7 @@
 	CONFIG_LOAD_STR(internal_ip, data["internal_ip"])
 
 	CONFIG_LOAD_STR(override_map, data["override_map"])
+	CONFIG_LOAD_STR(ytdlp_url, data["ytdlp_url"])
 
 	// Load region overrides
 	if(islist(data["regional_servers"]))

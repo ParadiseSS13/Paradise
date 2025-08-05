@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	return returns
 
 
-/mob/living/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, automatic = FALSE)
+/mob/living/say(message, verb = null, sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, automatic = FALSE, bigvoice = FALSE)
 	if(client)
 		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
@@ -139,6 +139,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	message = trim_left(message)
 
+	if(big_voice)
+		message = "<span class='reallybig'>[message]</span>"
+
 	//parse the language code and consume it
 	var/list/message_pieces = list()
 	if(ignore_languages)
@@ -166,7 +169,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return TRUE
 
 	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
-	verb = say_quote(message, first_piece.speaking)
+	if(isnull(verb))
+		verb = say_quote(message, first_piece.speaking)
 
 	if(is_muzzled())
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
@@ -284,6 +288,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 			if(get_turf(M) in hearturfs)
 				listening |= M
+
+	SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
 
 	var/list/speech_bubble_recipients = list()
 	var/speech_bubble_test = say_test(message)

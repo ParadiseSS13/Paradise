@@ -30,7 +30,6 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
 	blurb_text_color = COLOR_RED
-	blurb_text_outline_width = 0
 	blurb_r = 255
 	blurb_g = 221
 	blurb_b = 138
@@ -109,11 +108,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 		return
 	add_attack_logs(owner.current, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
 	owner.current.visible_message("<span class='danger'>[owner.current] grabs [H]'s neck harshly and sinks in [owner.current.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [H.p_their()] blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
-	if(!iscarbon(owner.current))
-		H.LAssailant = null
-	else
-		H.LAssailant = owner
-	while(do_mob(owner.current, H, suck_rate))
+	while(do_mob(owner.current, H, suck_rate, hidden = TRUE))
 		owner.current.do_attack_animation(H, ATTACK_EFFECT_BITE)
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
@@ -306,7 +301,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	check_vampire_upgrade(TRUE)
 	for(var/datum/spell/S in powers)
 		if(S.action)
-			S.action.UpdateButtons()
+			S.action.build_all_button_icons()
 
 /**
  * Safely subtract vampire's bloodusable. Clamped between 0 and bloodtotal.

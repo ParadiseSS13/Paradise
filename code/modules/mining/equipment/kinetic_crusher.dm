@@ -9,7 +9,6 @@
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "crusher"
 	item_state = "crusher0"
-	force = 0 //You can't hit stuff unless wielded
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	throwforce = 5
@@ -189,10 +188,7 @@
 		. += "[icon_state]_uncharged"
 	if(light_on)
 		. += "[icon_state]_lit"
-	spawn(1)
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtons()
+	update_action_buttons()
 
 //destablizing force
 /obj/item/projectile/destabilizer
@@ -200,7 +196,6 @@
 	icon_state = "pulse1"
 	nodamage = TRUE
 	damage = 0 //We're just here to mark people. This is still a melee weapon.
-	damage_type = BRUTE
 	flag = BOMB
 	range = 6
 	log_override = TRUE
@@ -437,7 +432,6 @@
 	icon_state = "demon_claws"
 	gender = PLURAL
 	denied_type = /obj/item/crusher_trophy/demon_claws
-	bonus_value = 10
 	var/static/list/damage_heal_order = list(BRUTE, BURN, OXY)
 
 /obj/item/crusher_trophy/demon_claws/effect_desc()

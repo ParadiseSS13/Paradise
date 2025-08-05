@@ -39,7 +39,8 @@
 		..()
 		return
 	var/inject_target = pick("chest","head")
-	L.attack_animal(src)
+	if(!L.attack_animal(src))
+		return
 	L.KnockDown(10 SECONDS)
 	L.apply_damage(30, STAMINA)
 	if(L.can_inject(null, FALSE, inject_target, FALSE) || (HAS_TRAIT(L, TRAIT_HANDS_BLOCKED) && HAS_TRAIT(L, TRAIT_IMMOBILIZED)))

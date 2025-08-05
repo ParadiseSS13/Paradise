@@ -4,7 +4,6 @@
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "Contain_F"
 	anchored = TRUE
-	density = FALSE
 	move_resist = INFINITY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_2 = RAD_NO_CONTAMINATE_2
@@ -35,9 +34,9 @@
 		shock_field(user)
 		return 1
 
-/obj/machinery/field/containment/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/machinery/field/containment/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	shock(user)
-	return TRUE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/field/containment/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

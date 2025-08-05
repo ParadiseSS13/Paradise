@@ -211,6 +211,11 @@
 	delay = 5 SECONDS
 	start_effect_type = /obj/effect/temp_visual/rcd_effect/reverse
 
+/datum/rcd_act/remove_user/can_act(atom/A, obj/item/rcd/rcd)
+	if(!..())
+		return FALSE
+	return A == rcd.loc
+
 /obj/item/rcd
 	name = "rapid-construction-device (RCD)"
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
@@ -218,14 +223,11 @@
 	icon_state = "rcd"
 	item_state = "rcd"
 	flags = CONDUCT | NOBLUDGEON
-	force = 0
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 30000)
 	origin_tech = "engineering=4;materials=2"
-	toolspeed = 1
 	flags_2 = NO_MAT_REDEMPTION_2
 	req_access = list(ACCESS_ENGINE)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
@@ -272,6 +274,8 @@
 
 /obj/item/rcd/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 	if(!length(possible_actions))
 		possible_actions = list()
 		for(var/action_type in subtypesof(/datum/rcd_act))
@@ -342,27 +346,26 @@
 
 /obj/item/rcd/suicide_act(mob/living/user)
 	user.Immobilize(10 SECONDS) // You cannot move.
-	flags |= NODROP				// You cannot drop. You commit to die.
-	var/turf/suicide_tile = get_turf(src)
+	set_nodrop(TRUE, user)
 	if(mode == MODE_DECON)
 		user.visible_message("<span class='suicide'>[user] points [src] at [user.p_their()] chest and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 		var/datum/rcd_act/remove_user/act = new()
-		if(!act.try_act(suicide_tile, src, user))
-			flags &= ~NODROP
+		if(!act.try_act(user, src, user))
+			set_nodrop(FALSE, user)
 			return SHAME
 		user.visible_message("<span class='suicide'>[user] deconstructs [user.p_themselves()] with [src]!</span>")
 		for(var/obj/item/W in user)	// Do not delete all their stuff.
 			user.drop_item_to_ground(W)			// Dump everything on the floor instead.
-		flags &= ~NODROP			// NODROP must be removed so the RCD doesn't get dusted along with them. Having this come after the unequipping puts the RCD on top of the pile of stuff.
+		set_nodrop(FALSE, user)
 		user.dust()					// (held items fall to the floor when dusting).
 		return OBLITERATION
 
 	user.visible_message("<span class='suicide'>[user] puts the barrel of [src] into [user.p_their()] mouth and pulls the trigger. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	if(!interact_with_atom(suicide_tile, user, TRUE))
-		flags &= ~NODROP
+	if(!interact_with_atom(get_turf(src), user, TRUE))
+		set_nodrop(FALSE, user)
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] explodes as [src] builds a structure inside [user.p_them()]!</span>")
-	flags &= ~NODROP
+	set_nodrop(FALSE, user)
 	user.gib()
 	return OBLITERATION
 
@@ -415,6 +418,9 @@
 	SStgui.update_uis(src)
 
 /obj/item/rcd/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/smithed_item/tool_bit))
+		SEND_SIGNAL(src, COMSIG_BIT_ATTACH, used, user)
+		return ..()
 	if(!istype(used, /obj/item/rcd_ammo))
 		return ..()
 	var/obj/item/rcd_ammo/ammo = used
@@ -632,6 +638,7 @@
  * * amount - the amount of matter to use
  */
 /obj/item/rcd/use(amount)
+	amount = amount * bit_efficiency_mod
 	if(matter < amount)
 		return FALSE
 	matter -= amount
@@ -692,7 +699,7 @@
  * Called in `/obj/item/rcd/proc/detonate_pulse()` via callback.
  */
 /obj/item/rcd/proc/detonate_pulse_explode()
-	explosion(src, 0, 0, 3, 1, flame_range = 1)
+	explosion(src, 0, 0, 3, 1, flame_range = 1, cause = "RCD Explosion")
 	qdel(src)
 
 /obj/item/rcd/preloaded
@@ -712,9 +719,6 @@
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "rcd"
 	item_state = "rcdammo"
-	opacity = FALSE
-	density = FALSE
-	anchored = FALSE
 	origin_tech = "materials=3"
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
 	new_attack_chain = TRUE

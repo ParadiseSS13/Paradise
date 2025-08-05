@@ -12,7 +12,6 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hand_tele"
 	item_state = "electronic"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
@@ -53,7 +52,7 @@
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
 	var/list/L = list()
-	for(var/obj/machinery/computer/teleporter/com in GLOB.machines)
+	for(var/obj/machinery/computer/teleporter/com in SSmachines.get_by_type(/obj/machinery/computer/teleporter))
 		if(com.target)
 			if(com.power_station && com.power_station.teleporter_hub && com.power_station.engaged)
 				L["[com.id] (Active)"] = com.target

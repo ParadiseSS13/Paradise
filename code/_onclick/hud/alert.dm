@@ -101,7 +101,6 @@
 	icon_state = "default"
 	name = "Alert"
 	desc = "Something seems to have gone wrong with this alert, so report this bug please."
-	mouse_opacity = MOUSE_OPACITY_ICON
 	/// How long before this alert automatically clears itself (in deciseconds). If zero, remains until cleared.
 	var/timeout = 0
 	/// Some alerts may have different icon states based on severity, this adjusts that.
@@ -502,6 +501,12 @@ so as to remain in compliance with the most up-to-date laws."
 	timeout = 600
 	var/atom/target = null
 
+/atom/movable/screen/alert/programs_reset
+	name = "Programs Reset"
+	desc = "Your programs have been reset by a Program Reset Disk!"
+	icon_state = "silicon_generic_alert"
+	timeout = 30 SECONDS
+
 /atom/movable/screen/alert/hackingapc/Destroy()
 	target = null
 	return ..()
@@ -813,6 +818,11 @@ so as to remain in compliance with the most up-to-date laws."
 /atom/movable/screen/alert/restrained/legcuffed
 	name = "Legcuffed"
 	desc = "You're legcuffed, which slows you down considerably. Click the alert to free yourself."
+
+/atom/movable/screen/alert/restrained/cryocell
+	name = "Cryogenics"
+	desc = "You're inside a freezing cold medical cell. Click the alert to free yourself."
+	icon_state = "asleep"
 
 /atom/movable/screen/alert/restrained/Click()
 	if(!isliving(usr) || !..())

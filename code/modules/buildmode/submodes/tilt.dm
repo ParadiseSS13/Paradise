@@ -25,23 +25,23 @@
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 
 /datum/buildmode_mode/tilting/change_settings(mob/user)
-	crush_damage = input(user, "Crush Damage", "Damage", initial(crush_damage)) as num|null
-	crit_chance = input(user, "Crit Chance (out of 100)", "Crit chance", 0) as num|null
+	crush_damage = tgui_input_number(user, "Crush Damage", "Damage", initial(crush_damage))
+	crit_chance = tgui_input_number(user, "Crit Chance (out of 100)", "Crit chance", 0)
 	if(crit_chance > 0)
-		var/forced_crit_path = input(user, "Force a specific crit?", "Forced Crit", null) as null|anything in GLOB.tilt_crits
+		var/forced_crit_path = tgui_input_list(user, "Force a specific crit?", "Forced Crit", list(GLOB.tilt_crits))
 		if(forced_crit_path)
 			forced_crit = GLOB.tilt_crits[forced_crit_path]
-	weaken_time = input(user, "How long to weaken (in seconds)?", "Weaken Time", 4) as num|null
+	weaken_time = tgui_input_number(user, "How long to weaken (in seconds)?", "Weaken Time", 4)
 	weaken_time = weaken_time SECONDS
-	knockdown_time = input(user, "How long to knockdown (in seconds)?", "Knockdown Time", 12) as num|null
+	knockdown_time = tgui_input_number(user, "How long to knockdown (in seconds)?", "Knockdown Time", 12)
 	knockdown_time = knockdown_time SECONDS
-	ignore_gravity = alert(user, "Ignore gravity?", "Ignore gravity", "Yes", "No") == "Yes"
-	should_rotate = alert(user, "Should it rotate on falling?", "Should rotate", "Yes", "No") == "Yes"
+	ignore_gravity = tgui_alert(user, "Ignore gravity?", "Ignore gravity", "Yes", "No") == "Yes"
+	should_rotate = tgui_alert(user, "Should it rotate on falling?", "Should rotate", "Yes", "No") == "Yes"
 	if(should_rotate)
-		rotation_angle = input(user, "Which angle to rotate at? (if empty, defaults to 90 degrees in either direction)", "Rotation angle", 0) as num|null
-		rightable = alert(user, "Should it be rightable with alt-click?", "Rightable", "Yes", "No") == "Yes"
+		rotation_angle = tgui_input_number(user, "Which angle to rotate at? (if empty, defaults to 90 degrees in either direction)", "Rotation angle", 0)
+		rightable = tgui_alert(user, "Should it be rightable with alt-click?", "Rightable", "Yes", "No") == "Yes"
 		if(rightable)
-			block_interactions_until_righted = alert(user, "Should it block interactions until righted (by alt-clicking)?", "Block interactions", "Yes", "No") == "Yes"
+			block_interactions_until_righted = tgui_alert(user, "Should it block interactions until righted (by alt-clicking)?", "Block interactions", "Yes", "No") == "Yes"
 
 /datum/buildmode_mode/tilting/handle_click(mob/user, params, atom/movable/object)
 	var/list/pa = params2list(params)

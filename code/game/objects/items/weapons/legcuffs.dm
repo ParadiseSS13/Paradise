@@ -5,8 +5,6 @@
 	icon_state = "handcuff"
 	cuffed_state = "legcuff"
 	flags = CONDUCT
-	throwforce = 0
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=3;combat=3"
 	slowdown = 7
 	breakouttime = 30 SECONDS
@@ -108,7 +106,7 @@
 	if(!armed || !isturf(loc) || !istype(entered))
 		return
 
-	if((iscarbon(entered) || isanimal(entered)) && !HAS_TRAIT(entered, TRAIT_FLYING))
+	if((iscarbon(entered) || isanimal_or_basicmob(entered)) && !HAS_TRAIT(entered, TRAIT_FLYING))
 		spring_trap(entered)
 
 		if(ishuman(entered))
@@ -123,7 +121,7 @@
 				H.update_inv_legcuffed()
 				SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		else
-			if(istype(entered, /mob/living/simple_animal/hostile/bear))
+			if(istype(entered, /mob/living/basic/bear))
 				entered.apply_damage(trap_damage * 2.5, BRUTE)
 			else
 				entered.apply_damage(trap_damage * 1.75, BRUTE)
@@ -224,7 +222,7 @@
 	L.update_inv_l_hand()
 	spinning = TRUE
 	for(var/i in 1 to max_spins)
-		if(!do_mob(L, L, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), L))))
+		if(!do_mob(L, L, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), L)), hidden = TRUE))
 			reset_values(L)
 			break
 		throw_range += range_increment

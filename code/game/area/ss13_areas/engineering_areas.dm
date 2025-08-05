@@ -7,12 +7,10 @@
 /area/station/engineering/atmos/control
 	name = "Atmospherics Control Room"
 	icon_state = "atmosctrl"
-	request_console_flags = RC_ASSIST | RC_SUPPLY
 	request_console_name = "Atmospherics"
 
 /area/station/engineering/atmos/distribution
 	name = "Atmospherics Distribution Loop"
-	icon_state = "atmos"
 
 /area/station/engineering/atmos/storage
 	name = "Atmospherics Hardsuit Storage"
@@ -31,7 +29,6 @@
 /area/station/engineering/atmos/asteroid_filtering
 	name = "Asteroid Filtering"
 	icon_state = "asteroid_atmos"
-	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/station/engineering/atmos/asteroid_core
 	name = "Asteroid Molten Core"
@@ -93,6 +90,10 @@
 	name = "\improper AI Minisat Tranit Tube"
 	icon_state = "ai"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/station/engineering/engine_foyer
+	name = "Engine foyer"
+	icon_state = "engine_hallway"
 
 // engine areas
 

@@ -1,812 +1,1398 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/template_noop,
-/area/template_noop)
-"b" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
-"c" = (
-/obj/structure/grille,
+"bI" = (
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"d" = (
-/turf/simulated/wall/r_wall,
-/area/ruin/space/unpowered)
-"e" = (
-/obj/structure/table/reinforced,
-/obj/item/stock_parts/cell/hyper,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"f" = (
-/obj/structure/computerframe,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"g" = (
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"h" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"i" = (
-/obj/machinery/door/airlock/external,
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"j" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"k" = (
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"l" = (
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"m" = (
-/obj/structure/table/reinforced,
-/obj/item/folder,
-/obj/item/radio,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"n" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/mob/living/simple_animal/hostile/syndicate/melee/autogib,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"o" = (
-/obj/machinery/porta_turret/syndicate/exterior,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered)
-"p" = (
-/obj/structure/filingcabinet,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"q" = (
-/obj/machinery/light,
-/mob/living/simple_animal/hostile/syndicate/melee/autogib,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"r" = (
+/area/ruin/space/turreted_outpost)
+"bT" = (
 /obj/structure/rack,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+/obj/item/toy/nuke,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"ch" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
-/area/ruin/space/unpowered)
-"s" = (
-/obj/item/rack_parts,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
 	},
-/area/ruin/space/unpowered)
-"t" = (
-/obj/item/rack_parts,
-/obj/machinery/light{
-	dir = 1
+/turf/template_noop,
+/area/ruin/space/turreted_outpost/solars)
+"cx" = (
+/obj/structure/rack,
+/obj/item/camera_bug,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"cI" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"dy" = (
+/obj/structure/railing{
+	dir = 5
 	},
-/area/ruin/space/unpowered)
-"u" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"dR" = (
+/obj/structure/rack,
+/obj/item/tank/internals/emergency_oxygen/engi/syndi,
+/obj/item/clothing/mask/gas/syndicate,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"eh" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"fp" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/power/tracker,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/template_noop,
+/area/ruin/space/turreted_outpost/solars)
+"fV" = (
+/obj/structure/railing/cap/reversed{
+	dir = 4
+	},
+/obj/structure/railing/cap/normal,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"gA" = (
+/obj/machinery/power/solar,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/turreted_outpost/solars)
+"hz" = (
+/obj/structure/rack,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/stetchkin,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"ia" = (
 /obj/machinery/door/airlock/public/glass,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"v" = (
-/obj/machinery/door/airlock,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"w" = (
-/obj/machinery/power/apc/off_station/directional/south,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"x" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
-/area/ruin/space/unpowered)
-"y" = (
-/obj/structure/dispenser/oxygen,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/effect/mapping_helpers/airlock/autoname,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"iq" = (
+/obj/effect/spawner/airlock/w_to_e/long/square,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/turreted_outpost)
+"ju" = (
+/obj/structure/bed,
+/obj/item/bedsheet/syndie,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"kK" = (
+/obj/machinery/power/solar_control/autostart,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
 	},
-/area/ruin/space/unpowered)
-"z" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/head/ushanka,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkredfull"
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"kN" = (
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/turreted_outpost)
+"li" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"ml" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/area/ruin/space/unpowered)
-"A" = (
-/obj/structure/table/reinforced,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"mP" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"mZ" = (
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 32
 	},
-/obj/item/salvage/loot/syndicate,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"B" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"pi" = (
+/obj/structure/railing/cap/reversed,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"px" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/radio,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"C" = (
-/obj/machinery/economy/vending/clothing,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"D" = (
+/obj/machinery/computer/security/telescreen/entertainment/television,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"pA" = (
 /obj/structure/rack,
-/obj/item/ammo_box/c9mm,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/ruin/space/unpowered)
-"E" = (
-/obj/structure/bed,
-/obj/item/bedsheet/orange,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"F" = (
-/obj/structure/rack,
-/obj/item/clothing/head/helmet/swat,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/ruin/space/unpowered)
-"G" = (
-/obj/structure/rack,
-/obj/item/crowbar/red,
-/obj/item/paper/crumpled,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/ruin/space/unpowered)
-"H" = (
-/obj/structure/chair,
-/mob/living/simple_animal/hostile/syndicate/melee/autogib,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"I" = (
-/obj/structure/chair/comfy/beige{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"J" = (
-/obj/structure/bed,
-/obj/item/bedsheet/orange,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"K" = (
-/obj/structure/rack,
-/obj/item/grenade/chem_grenade/teargas,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/unpowered)
-"L" = (
-/obj/structure/table/reinforced,
-/obj/item/paper/crumpled,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkredfull"
-	},
-/area/ruin/space/unpowered)
-"M" = (
-/obj/structure/table/reinforced,
-/obj/machinery/light,
-/obj/item/camera_bug,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"N" = (
-/obj/structure/table/reinforced,
+/obj/item/toy/syndicateballoon,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"pP" = (
+/obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/paper_bin,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"O" = (
-/obj/structure/table/reinforced,
 /obj/item/pen/blue,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"P" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/bottle/vodka{
-	pixel_x = -4;
+/obj/item/storage/fancy/cigarettes/cigpack_syndicate{
+	pixel_x = 11;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/drinks/bottle/vodka{
-	pixel_x = 3
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"qa" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/space/turreted_outpost)
+"qy" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"Q" = (
-/obj/structure/rack,
-/obj/item/storage/belt/military,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"qK" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/ruin/space/unpowered)
-"R" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"rL" = (
 /obj/structure/rack,
-/obj/item/clothing/head/helmet/riot,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
-/area/ruin/space/unpowered)
-"S" = (
-/obj/structure/table/wood,
-/obj/item/food/rawcutlet,
-/obj/machinery/light{
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"sh" = (
+/obj/item/stock_parts/cell/hyper,
+/obj/machinery/cell_charger,
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"so" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"sp" = (
+/obj/structure/railing/cap/normal{
+	dir = 4
+	},
+/obj/structure/railing/cap/reversed{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"sX" = (
+/obj/machinery/economy/vending/snack/free,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"tm" = (
+/obj/structure/railing,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"tw" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"tT" = (
+/obj/machinery/power/terminal{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
-"T" = (
-/obj/item/rack_parts,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
-/area/ruin/space/unpowered)
-"Z" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"uc" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/food/syndicake,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"va" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"vg" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"wR" = (
+/obj/machinery/door/airlock/hatch{
+	name = "Bathroom"
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/turreted_outpost)
+"wW" = (
+/obj/structure/chair/comfy/red,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"xd" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"xB" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"zR" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/template_noop,
+/area/ruin/space/turreted_outpost/solars)
+"zV" = (
+/obj/machinery/power/solar,
+/obj/structure/cable/yellow,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "solarpanel"
+	},
+/area/ruin/space/turreted_outpost/solars)
+"AB" = (
+/obj/machinery/economy/vending/coffee/free,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"AC" = (
+/obj/item/storage/toolbox/syndicate,
+/obj/structure/table/glass/reinforced/plastitanium,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"AK" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/clipboard,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"Bc" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"Bl" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"BH" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"BK" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/modsuit,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"Cp" = (
+/obj/structure/railing/cap/normal{
+	dir = 1
+	},
+/obj/structure/railing/cap/reversed{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"CH" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"Db" = (
+/obj/structure/railing/cap/reversed{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"DZ" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"Ez" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/area/ruin/space/unpowered)
+/turf/simulated/floor/plating,
+/area/ruin/space/turreted_outpost)
+"ER" = (
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"EV" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"Fz" = (
+/obj/structure/chair/comfy/red,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/modsuit,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"Gd" = (
+/turf/simulated/wall/indestructible/riveted,
+/area/ruin/space/turreted_outpost/vault)
+"Hb" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"Hr" = (
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"HH" = (
+/obj/structure/table/wood,
+/obj/item/food/syndicake,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"Ia" = (
+/obj/structure/reagent_dispensers/oil,
+/obj/item/reagent_containers/drinks/oilcan/full,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"IE" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/radio,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"Ja" = (
+/obj/machinery/economy/vending/cigarette/free,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"Jd" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"JD" = (
+/obj/structure/rack,
+/obj/item/ammo_box/c10mm,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"JX" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/turreted_outpost)
+"Kd" = (
+/obj/structure/sink/directional/west,
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/turreted_outpost)
+"Kk" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"LU" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/turreted_outpost)
+"Mw" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"ME" = (
+/obj/structure/railing{
+	dir = 9
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"Np" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/template_noop,
+/area/ruin/space/turreted_outpost/solars)
+"NR" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/toilet/directional/north,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/turreted_outpost)
+"Oc" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/smes/engineering,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"Oq" = (
+/obj/structure/rack,
+/obj/item/storage/belt/military,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"Ou" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/turreted_outpost)
+"OU" = (
+/obj/machinery/shower/directional/north,
+/obj/structure/curtain/open/shower/security,
+/obj/item/soap/syndie,
+/obj/item/bikehorn/rubberducky,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/space/turreted_outpost)
+"Pg" = (
+/obj/structure/rack,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"QB" = (
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"QZ" = (
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"Ri" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/rack,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"Se" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/lighter/zippo{
+	pixel_x = -10;
+	pixel_y = 7
+	},
+/obj/item/salvage/loot/syndicate,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"St" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/drinks/drinkingglass/syndicate_bomb,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"SF" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"SI" = (
+/obj/machinery/economy/vending/cola/free,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"SV" = (
+/obj/machinery/computer/monitor,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"Tv" = (
+/obj/structure/foamedmetal,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost/vault)
+"TD" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/autoname,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"TV" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"Ub" = (
+/obj/structure/chair/comfy/red{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"UL" = (
+/turf/template_noop,
+/area/template_noop)
+"WC" = (
+/obj/structure/rack,
+/obj/item/toy/plushie/nukeplushie,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"WE" = (
+/obj/machinery/porta_turret/syndicate/turret_outpost,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "rockvault"
+	},
+/area/ruin/space/turreted_outpost)
+"WR" = (
+/obj/structure/railing/cap/normal{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"WY" = (
+/obj/structure/rack,
+/obj/machinery/light,
+/obj/item/storage/firstaid/adv,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"XK" = (
+/obj/structure/railing/cap/normal{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
+"XP" = (
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"Yb" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space/nearstation)
+"Yi" = (
+/obj/machinery/power/apc/off_station/directional/north,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost)
+"Yr" = (
+/obj/machinery/power/apc/off_station/directional/north,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"YB" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/turreted_outpost/vault)
+"ZQ" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/turreted_outpost)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+UL
+UL
+UL
+UL
+UL
+ME
+Bl
+ZQ
+Yb
+Yb
+Yb
+Yb
+Yb
+Yb
+Yb
+Yb
+Yb
+Yb
+ME
+Bl
+ZQ
+UL
 "}
 (2,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-a
-a
-a
-a
-a
-a
-a
-a
+UL
+UL
+UL
+UL
+UL
+tw
+WE
+Db
+bI
+bI
+bI
+bI
+bI
+bI
+bI
+bI
+bI
+bI
+XK
+WE
+tm
+UL
 "}
 (3,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-b
-b
-a
-b
-a
-a
-a
-a
+UL
+UL
+UL
+UL
+UL
+dy
+WR
+bI
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+bI
+pi
+Hr
+UL
 "}
 (4,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-l
-l
-l
-l
-l
-l
-l
-l
-b
-b
-a
-a
-a
+UL
+UL
+UL
+UL
+UL
+Yb
+bI
+qa
+qa
+Tv
+Tv
+Tv
+Tv
+Tv
+Tv
+Tv
+Tv
+qa
+qa
+bI
+Yb
+UL
 "}
 (5,1,1) = {"
-a
-a
-a
-a
-a
-a
-l
-o
-d
-d
-d
-d
-d
-d
-o
-l
-b
-b
-a
-a
+UL
+UL
+UL
+UL
+UL
+Yb
+bI
+qa
+Tv
+Tv
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Tv
+Tv
+qa
+bI
+Yb
+UL
 "}
 (6,1,1) = {"
-a
-a
-a
-a
-a
-a
-l
-d
-d
-T
-Z
-F
-Z
-d
-d
-l
-b
-a
-a
-a
+UL
+UL
+UL
+UL
+UL
+Yb
+bI
+qa
+Tv
+Gd
+Gd
+Oq
+JD
+hz
+JD
+Gd
+Gd
+Tv
+qa
+bI
+Yb
+UL
 "}
 (7,1,1) = {"
-a
-a
-b
-b
-b
-b
-l
-d
-r
-x
-x
-x
-x
-r
-d
-l
-b
-a
-a
-a
+UL
+UL
+UL
+UL
+UL
+Yb
+bI
+qa
+Tv
+Gd
+dR
+vg
+vg
+vg
+vg
+pA
+Gd
+Tv
+qa
+bI
+Yb
+UL
 "}
 (8,1,1) = {"
-a
-a
-a
-a
-b
-a
-l
-d
-s
-x
-Z
-Z
-x
-s
-d
-l
-b
-b
-a
-a
+UL
+UL
+UL
+UL
+UL
+Yb
+bI
+qa
+Tv
+Gd
+Yr
+SF
+Pg
+DZ
+vg
+bT
+Gd
+Tv
+qa
+bI
+Yb
+UL
 "}
 (9,1,1) = {"
-a
-a
-a
-b
-b
-a
-l
-d
-t
-x
-D
-G
-x
-Q
-d
-l
-a
-a
-a
-a
+UL
+UL
+UL
+UL
+UL
+Yb
+bI
+qa
+Tv
+Gd
+Ri
+vg
+rL
+DZ
+vg
+WY
+Gd
+Tv
+qa
+bI
+Yb
+UL
 "}
 (10,1,1) = {"
-a
-a
-b
-b
-b
-a
-l
-d
-r
-x
-x
-x
-x
-R
-d
-l
-b
-a
-a
-a
+ME
+Bl
+ZQ
+UL
+UL
+Yb
+bI
+qa
+Tv
+Gd
+DZ
+vg
+YB
+vg
+vg
+WC
+Gd
+Tv
+qa
+bI
+Yb
+UL
 "}
 (11,1,1) = {"
-a
-a
-b
-a
-b
-a
-l
-d
-d
-y
-x
-x
-K
-d
-d
-l
-b
-a
-a
-a
+tw
+WE
+tm
+Yb
+Yb
+Yb
+bI
+qa
+Tv
+Gd
+Gd
+cx
+YB
+vg
+XP
+Gd
+Gd
+Tv
+qa
+bI
+Yb
+UL
 "}
 (12,1,1) = {"
-a
-a
-a
-c
-c
-c
-c
-c
-d
-d
-u
-u
-d
-d
-o
-l
-b
-a
-a
-a
+dy
+mP
+Cp
+bI
+bI
+bI
+bI
+qa
+Tv
+Tv
+Gd
+Gd
+YB
+vg
+Gd
+Gd
+Tv
+Tv
+qa
+bI
+Yb
+UL
 "}
 (13,1,1) = {"
-a
-a
-a
-c
-d
-d
-d
-d
-d
-z
-g
-g
-L
-d
-l
-b
-b
-b
-a
-a
+UL
+Yb
+Mw
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+ia
+li
+qa
+qa
+qa
+qa
+qa
+bI
+Yb
+UL
 "}
 (14,1,1) = {"
-a
-a
-a
-c
-d
-e
-m
-p
-d
-A
-g
-g
-M
-d
-l
-b
-a
-a
-a
-a
+UL
+Yb
+Mw
+qa
+sh
+AC
+Ia
+qa
+OU
+LU
+Kd
+qa
+so
+QB
+QB
+IE
+qa
+Mw
+bI
+fV
+Bl
+ZQ
 "}
 (15,1,1) = {"
-a
-a
-a
-c
-d
-f
-n
-q
-d
-B
-g
-H
-N
-d
-l
-a
-a
-a
-a
-a
+UL
+Yb
+Mw
+qa
+SV
+BK
+va
+qa
+NR
+kN
+kN
+qa
+mZ
+QB
+QB
+uc
+qa
+Mw
+Yb
+tw
+WE
+tm
 "}
 (16,1,1) = {"
-a
-a
-a
-c
-d
-f
-g
-g
-u
-g
-g
-g
-O
-d
-c
-c
-b
-b
-b
-a
+UL
+Yb
+Mw
+qa
+kK
+Jd
+Bc
+qa
+qa
+qa
+wR
+qa
+Yi
+QB
+wW
+AK
+qa
+Mw
+Yb
+dy
+mP
+Hr
 "}
 (17,1,1) = {"
-a
-a
-b
-c
-d
-f
-g
-g
-d
-d
-d
-d
-d
-d
-d
-c
-b
-a
-a
-a
+UL
+Yb
+Mw
+qa
+Oc
+xB
+TV
+TD
+Hb
+Hb
+Hb
+Hb
+Kk
+QB
+QB
+pP
+qa
+Mw
+Yb
+UL
+UL
+UL
 "}
 (18,1,1) = {"
-a
-a
-a
-c
-d
-g
-g
-g
-v
-g
-g
-I
-P
-S
-d
-c
-b
-b
-a
-a
+UL
+Yb
+Mw
+qa
+tT
+eh
+QB
+qa
+px
+QB
+QB
+QB
+QB
+QB
+QB
+Se
+qa
+Mw
+Yb
+UL
+UL
+UL
 "}
 (19,1,1) = {"
-a
-a
-b
-c
-d
-h
-g
-w
-d
-C
-g
-g
-g
-g
-d
-c
-a
-a
-a
-a
+UL
+Yb
+Mw
+qa
+cI
+CH
+ER
+qa
+sX
+QB
+Fz
+St
+Ub
+QB
+qa
+qa
+qa
+Mw
+Yb
+UL
+UL
+UL
 "}
 (20,1,1) = {"
-a
-b
-a
-c
-d
-i
-i
-d
-d
-d
-g
-g
-g
-g
-d
-c
-a
-a
-a
-a
+UL
+Yb
+Mw
+qa
+Ez
+JX
+iq
+qa
+Ja
+QB
+wW
+HH
+Ub
+qK
+qa
+Mw
+Mw
+Mw
+Yb
+UL
+UL
+UL
 "}
 (21,1,1) = {"
-a
-b
-b
-c
-d
-j
-k
-d
-l
-d
-E
-J
-J
-J
-d
-c
-a
-a
-a
-a
+UL
+Yb
+QZ
+qa
+Ou
+JX
+qa
+SI
+QB
+QB
+QB
+QB
+QB
+QB
+qa
+Mw
+Yb
+Yb
+Yb
+UL
+UL
+UL
 "}
 (22,1,1) = {"
-a
-a
-b
-c
-d
-k
-k
-d
-l
-d
-d
-d
-d
-d
-d
-c
-b
-b
-a
-a
+UL
+Yb
+Mw
+qa
+Ez
+JX
+qa
+AB
+QB
+ju
+ju
+ju
+ju
+ju
+qa
+Mw
+Yb
+UL
+UL
+UL
+UL
+UL
 "}
 (23,1,1) = {"
-a
-b
-b
-c
-d
-i
-i
-d
-c
-c
-c
-c
-c
-c
-c
-c
-a
-b
-a
-a
+UL
+Yb
+Mw
+qa
+ml
+bI
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+qa
+Mw
+Yb
+UL
+UL
+UL
+UL
+UL
 "}
 (24,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+ME
+Bl
+sp
+bI
+BH
+qy
+qy
+xd
+qy
+xd
+qy
+EV
+bI
+bI
+bI
+fV
+Bl
+ZQ
+UL
+UL
+UL
+UL
+"}
+(25,1,1) = {"
+tw
+WE
+tm
+Yb
+Yb
+Yb
+Yb
+zR
+Yb
+zR
+Yb
+zR
+Yb
+Yb
+Yb
+tw
+WE
+tm
+UL
+UL
+UL
+UL
+"}
+(26,1,1) = {"
+dy
+mP
+Hr
+UL
+UL
+UL
+gA
+Np
+zV
+zR
+gA
+Np
+zV
+UL
+UL
+dy
+mP
+Hr
+UL
+UL
+UL
+UL
+"}
+(27,1,1) = {"
+UL
+UL
+UL
+UL
+UL
+UL
+gA
+Np
+zV
+zR
+gA
+Np
+zV
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+"}
+(28,1,1) = {"
+UL
+UL
+UL
+UL
+UL
+UL
+gA
+Np
+zV
+zR
+gA
+Np
+zV
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+"}
+(29,1,1) = {"
+UL
+UL
+UL
+UL
+UL
+UL
+gA
+ch
+zV
+zR
+gA
+ch
+zV
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+"}
+(30,1,1) = {"
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+Yb
+fp
+Yb
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+"}
+(31,1,1) = {"
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+Yb
+Yb
+Yb
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
+UL
 "}

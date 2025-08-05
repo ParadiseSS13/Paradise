@@ -1,0 +1,1 @@
+/mob/living/simple_animal/cow/@SUBTYPES : /mob/living/basic/cow/@SUBTYPES{@OLD}

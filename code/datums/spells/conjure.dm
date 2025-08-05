@@ -1,5 +1,5 @@
 /datum/spell/aoe/conjure
-	desc = "This spell conjures objs of the specified types in range."
+	desc = "This spell conjures objects of the specified types in range."
 
 	var/list/summon_type = list() //determines what exactly will be summoned
 	//should be text, like list("/mob/simple_animal/bot/ed209")

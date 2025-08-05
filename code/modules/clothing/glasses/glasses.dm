@@ -3,6 +3,9 @@
 	if(prescription_upgradable && prescription)
 		upgrade_prescription()
 
+	if(hide_examine)
+		ADD_TRAIT(src, TRAIT_HIDE_EXAMINE, INNATE_TRAIT)
+
 /obj/item/clothing/glasses/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(!prescription_upgradable || user.stat || user.restrained() || !ishuman(user))
 		return ..()
@@ -125,6 +128,7 @@
 	icon_state = "sunhudmeson"
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
+	hide_examine = TRUE
 
 /obj/item/clothing/glasses/meson/prescription
 	prescription = TRUE
@@ -176,7 +180,6 @@
 	name = "night vision science goggles"
 	desc = "Now you can science in darkness."
 	icon_state = "nvpurple"
-	item_state = "glasses"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
@@ -206,6 +209,12 @@
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
+
+/obj/item/clothing/glasses/night/syndicate_fake
+	name = "suspicious night vision goggles"
+	desc = "A dark red tacticool goggles anyone would go operate with."
+	icon_state = "securityhudnight"
+	color = "#d62d20" // I want it to color the on mob's sprite as well, but i don't know how to actually.
 
 /obj/item/clothing/glasses/eyepatch
 	name = "eyepatch"
@@ -282,7 +291,6 @@
 		)
 
 /obj/item/clothing/glasses/regular/hipster
-	name = "prescription glasses"
 	desc = "Made by Uncool. Co."
 	icon_state = "hipster_glasses"
 	item_state = "hipster_glasses"
@@ -327,6 +335,37 @@
 		)
 	prescription_upgradable = TRUE
 
+/obj/item/clothing/glasses/syndie
+	name = "suspicious glasses"
+	desc = "Suspicious-looking, stylish glasses. They don't look like they could protect you from a flash, however they have a slot around their lenses where something could easily be inserted."
+	icon_state = "syndieglasses"
+	item_state = "syndieglasses"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
+		)
+	prescription_upgradable = TRUE
+
+/obj/item/clothing/glasses/syndie_sun
+	name = "suspicious shaded glasses"
+	desc = "Suspicious-looking, dark red, stylish glasses. They appear to have an additional eye-shielding layer over the lenses."
+	icon_state = "syndieglasses_sun"
+	item_state = "syndieglasses_sun"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
+		)
+	see_in_dark = 1
+	flash_protect = FLASH_PROTECTION_FLASH
+	tint = FLASH_PROTECTION_FLASH
+	prescription_upgradable = TRUE
+
 /obj/item/clothing/glasses/sunglasses
 	name = "sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
@@ -343,15 +382,13 @@
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
+	hide_examine = TRUE
 
 /obj/item/clothing/glasses/sunglasses_fake
 	name = "cheap sunglasses"
 	desc = "Cheap, plastic sunglasses. They don't even have UV protection."
 	icon_state = "sun"
 	item_state = "sunglasses"
-	see_in_dark = 0
-	flash_protect = FLASH_PROTECTION_NONE
-	tint = FLASH_PROTECTION_NONE
 	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
@@ -459,7 +496,6 @@
 	desc = "Welding goggles made from more expensive materials, strangely smells like potatoes."
 	icon_state = "rwelding-g"
 	item_state = "rwelding-g"
-	flash_protect = FLASH_PROTECTION_WELDER
 	tint = FLASH_PROTECTION_NONE
 
 /obj/item/clothing/glasses/sunglasses/blindfold

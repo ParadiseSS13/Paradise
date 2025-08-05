@@ -47,8 +47,12 @@
 		temperature -= heat/heat_capacity
 		sharer.temperature += heat/sharer.heat_capacity
 
-/turf/simulated/proc/update_visuals()
-	var/datum/gas_mixture/air = get_readonly_air()
+/turf/simulated/proc/update_visuals(use_initial_air = FALSE)
+	var/datum/gas_mixture/air
+	if(use_initial_air)
+		air = get_initial_air()
+	else
+		air = get_readonly_air()
 	var/new_overlay_type = tile_graphic(air)
 	if(new_overlay_type == atmos_overlay_type)
 		return
@@ -177,6 +181,10 @@
 	var/list/air = list(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
 	milla_data = connectivity[1] + list(atmos_mode, SSmapping.environments[atmos_environment]) +  air + connectivity[2]
 
+/turf/simulated/Initialize_Atmos(milla_tick)
+	..()
+	update_visuals(TRUE)
+
 /turf/proc/recalculate_atmos_connectivity()
 	var/datum/milla_safe/recalculate_atmos_connectivity/milla = new()
 	milla.invoke_async(src)
@@ -233,12 +241,19 @@
 	return list(milla_atmos_airtight, milla_superconductivity)
 
 /obj/effect/wind
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'icons/effects/tile_effects.dmi'
 	icon_state = "wind"
 	layer = MASSIVE_OBJ_LAYER
 	blend_mode = BLEND_OVERLAY
+
+	// See comment on attempt_init.
+	initialized = TRUE
+
+// Wind has nothing it needs to initialize, and it's not surprising if it gets both created and qdeleted during an init freeze. Prevent that from causing an init sanity error.
+/obj/effect/wind/attempt_init(...)
+	initialized = TRUE
+	return
 
 #undef INDEX_NORTH
 #undef INDEX_EAST

@@ -46,7 +46,7 @@
 
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing(times_fired)
-	if(times_fired % 2 == 1)
+	if(ISODD(times_fired))
 		var/datum/milla_safe/carbon_breathe/milla = new()
 		milla.invoke_async(src)
 	else

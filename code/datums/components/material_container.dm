@@ -391,6 +391,30 @@
 	sheet_type = /obj/item/stack/ore/bluespace_crystal/refined
 	ore_type = /obj/item/stack/ore/bluespace_crystal
 
+/datum/material/brass
+	name = "Brass"
+	id = MAT_BRASS
+	sheet_type = /obj/item/stack/tile/brass
+	ore_type = /obj/item/stack/ore/brass
+
+/datum/material/palladium
+	name = "Palladium"
+	id = MAT_PALLADIUM
+	sheet_type = /obj/item/stack/sheet/mineral/palladium
+	ore_type = /obj/item/stack/ore/palladium
+
+/datum/material/platinum
+	name = "Platinum"
+	id = MAT_PLATINUM
+	sheet_type = /obj/item/stack/sheet/mineral/platinum
+	ore_type = /obj/item/stack/ore/platinum
+
+/datum/material/iridium
+	name = "Iridium"
+	id = MAT_IRIDIUM
+	sheet_type = /obj/item/stack/sheet/mineral/iridium
+	ore_type = /obj/item/stack/ore/iridium
+
 /datum/material/bananium
 	name = "Bananium"
 	id = MAT_BANANIUM

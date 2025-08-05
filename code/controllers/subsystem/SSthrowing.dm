@@ -254,6 +254,9 @@ SUBSYSTEM_DEF(throwing)
 	else
 		thrownthing.newtonian_move(init_dir)
 
+	// Attempt to reset glide size once throw ends
+	thrownthing.set_glide_size(initial(thrownthing.glide_size))
+
 	if(target)
 		thrownthing.throw_impact(target, src)
 		if(QDELETED(thrownthing)) //throw_impact can delete things, such as glasses smashing

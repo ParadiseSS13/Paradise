@@ -8,13 +8,10 @@
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
 	var/spray_currentrange = 3 //the range of tiles the sprayer will reach when in fixed mode.
-	amount_per_transfer_from_this = 5
 	volume = 250
 	possible_transfer_amounts = null
 	var/delay = CLICK_CD_RANGE * 2
@@ -23,10 +20,14 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
-/obj/item/reagent_containers/spray/afterattack__legacy__attackchain(atom/A, mob/user)
+/obj/item/reagent_containers/spray/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	return interact_with_atom(target, user, modifiers)
+
+/obj/item/reagent_containers/spray/normal_act(atom/A, mob/living/user)
+	. = TRUE
 	if(isstorage(A) || ismodcontrol(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
 	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
-		return
+		return FALSE
 
 	if(loc != user)
 		return
@@ -86,7 +87,9 @@
 	chem_puff.RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/obj/effect/decal/chempuff, loop_ended))
 	chem_puff.RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, TYPE_PROC_REF(/obj/effect/decal/chempuff, check_move))
 
-/obj/item/reagent_containers/spray/attack_self__legacy__attackchain(mob/user)
+/obj/item/reagent_containers/spray/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
@@ -126,11 +129,6 @@
 	amount_per_transfer_from_this = 10
 	list_reagents = list("cleaner" = 250)
 
-/obj/item/reagent_containers/spray/cleaner/attack_self__legacy__attackchain(mob/user)
-	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
-	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
-
 /obj/item/reagent_containers/spray/cleaner/advanced
 	name = "advanced space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
@@ -155,7 +153,6 @@
 				visible_message("<span class='warning'>[src] identifies and removes a filthy substance.</span>")
 
 /obj/item/reagent_containers/spray/cleaner/drone
-	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	spray_maxrange = 3
 	spray_currentrange = 3
@@ -191,7 +188,6 @@
 	belt_icon = null
 	volume = 40
 	spray_maxrange = 4
-	amount_per_transfer_from_this = 5
 	list_reagents = list("condensedcapsaicin" = 40)
 
 //water flower
@@ -206,8 +202,10 @@
 	volume = 10
 	list_reagents = list("water" = 10)
 
-/obj/item/reagent_containers/spray/waterflower/attack_self__legacy__attackchain(mob/user) //Don't allow changing how much the flower sprays
-	return
+/obj/item/reagent_containers/spray/waterflower/Initialize(mapload)
+	. = ..()
+	// Don't allow changing how much the flower sprays
+	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 
 //chemsprayer
 /obj/item/reagent_containers/spray/chemsprayer
@@ -216,7 +214,6 @@
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "chemsprayer"
 	item_state = "chemsprayer"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	spray_maxrange = 7
 	spray_currentrange = 7
@@ -262,7 +259,9 @@
 
 
 
-/obj/item/reagent_containers/spray/chemsprayer/attack_self__legacy__attackchain(mob/user)
+/obj/item/reagent_containers/spray/chemsprayer/activate_self(mob/user)
+	if(..())
+		return
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	to_chat(user, "<span class='notice'>You adjust the output switch. You'll now use [amount_per_transfer_from_this] units per spray.</span>")

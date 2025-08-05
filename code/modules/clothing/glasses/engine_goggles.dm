@@ -75,9 +75,7 @@
 			H.update_sight()
 
 	update_icon(UPDATE_ICON_STATE)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/glasses/meson/engine/attack_self__legacy__attackchain(mob/user)
 	toggle_mode(user, TRUE)

@@ -133,10 +133,10 @@
 						/mob/living/simple_animal/lizard,
 						/mob/living/simple_animal/mouse,
 						/mob/living/simple_animal/pet/dog/pug,
-						/mob/living/simple_animal/hostile/bear/black,
-						/mob/living/simple_animal/hostile/bear/brown,
+						/mob/living/basic/bear/black,
+						/mob/living/basic/bear/brown,
 						/mob/living/simple_animal/hostile/poison/bees,
-						/mob/living/simple_animal/hostile/carp
+						/mob/living/basic/carp
 					)
 
 					for(var/counter in 1 to animal_spawncount)
@@ -185,7 +185,7 @@
 /obj/item/relic/proc/explode_callback(mob/user)
 	if(loc == user)
 		visible_message("<span class='notice'>[src]'s top opens, releasing a powerful blast!</span>")
-		explosion(user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), flame_range = 2)
+		explosion(user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), flame_range = 2, cause = "Exploding relic")
 		warn_admins(user, "Explosion")
 		qdel(src)
 

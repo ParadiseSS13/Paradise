@@ -18,7 +18,6 @@
 	maxHealth = 50
 	health = 50
 	speed = 0.75
-	stop_automated_movement = FALSE
 	turns_per_move = 4
 
 	// What they sound like
@@ -41,7 +40,6 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 
 	holder_type = /obj/item/holder/nian_caterpillar
-	can_collar = TRUE
 
 	/// Evolution action.
 	var/datum/action/innate/nian_caterpillar_emerge/evolve_action = new()
@@ -51,6 +49,7 @@
 /mob/living/simple_animal/nian_caterpillar/Initialize(mapload)
 	. = ..()
 	real_name = name
+	AddElement(/datum/element/wears_collar)
 	add_language("Tkachi")
 	evolve_action.Grant(src)
 
@@ -124,17 +123,17 @@
 	else
 		get_scooped(M)
 
-/mob/living/simple_animal/nian_caterpillar/attacked_by__legacy__attackchain(obj/item/I, mob/living/user, def_zone)
+/mob/living/simple_animal/nian_caterpillar/attacked_by(obj/item/I, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
 		gib() // Commit die.
-	else
-		..()
 
 /datum/action/innate/nian_caterpillar_emerge
 	name = "Evolve"
 	desc = "Weave a cocoon around yourself to evolve into a greater form. The worme."
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "cocoon1"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "cocoon1"
 
 /datum/action/innate/nian_caterpillar_emerge/proc/emerge(obj/structure/moth_cocoon/C)
 	for(var/mob/living/carbon/human/H in C)

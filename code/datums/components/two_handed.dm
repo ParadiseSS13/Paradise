@@ -105,7 +105,6 @@
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 	RegisterSignal(parent, COMSIG_ACTIVATE_SELF, PROC_REF(on_attack_self))
-	RegisterSignal(parent, COMSIG_ATTACK, PROC_REF(on_attack))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_update_icon))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
@@ -227,6 +226,9 @@
 	if(wieldsound)
 		playsound(parent_item.loc, wieldsound, 50, TRUE)
 
+	if(attacksound)
+		parent_item.hitsound = attacksound
+
 	// Let's reserve the other hand
 	offhand_item = new(user)
 	offhand_item.name = "[parent_item.name] - offhand"
@@ -301,6 +303,9 @@
 	if(unwieldsound)
 		playsound(parent_item.loc, unwieldsound, 50, TRUE)
 
+	if(attacksound)
+		parent_item.hitsound = initial(parent_item.hitsound)
+
 	// Remove the object in the offhand
 	if(offhand_item)
 		UnregisterSignal(offhand_item, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING))
@@ -316,15 +321,6 @@
 /datum/component/two_handed/proc/check_unwielded()
 	SIGNAL_HANDLER // COMSIG_TWOHANDED_WIELDED_TRY_WIELD_INTERACT
 	return wielded ? FALSE : TRUE;
-
-/**
- * on_attack triggers on attack with the parent item
- */
-/datum/component/two_handed/proc/on_attack(obj/item/source, mob/living/target, mob/living/user)
-	SIGNAL_HANDLER  // COMSIG_ATTACK
-	if(wielded && attacksound)
-		var/obj/item/parent_item = parent
-		playsound(parent_item.loc, attacksound, 50, TRUE)
 
 /**
  * on_update_icon triggers on call to update parent items icon
@@ -414,7 +410,7 @@
 	name = "offhand"
 	icon_state = "offhand"
 	w_class = WEIGHT_CLASS_HUGE
-	flags = ABSTRACT | NODROP
+	flags = ABSTRACT | NODROP | SKIP_TRANSFORM_REEQUIP
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/wielded = FALSE // Off Hand tracking of wielded status
 

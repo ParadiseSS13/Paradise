@@ -93,7 +93,7 @@
 /obj/machinery/camera/tracking_head/proc/explode_the_camera()
 	if(QDELETED(src))
 		return
-	explosion(loc, -1, -1, 2, flame_range = 4)
+	explosion(loc, -1, -1, 2, flame_range = 4, cause = "Exploding DVORAK Camera")
 	qdel(src)
 
 /obj/effect/camera_head

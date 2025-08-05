@@ -353,3 +353,7 @@
 	out["sleep_count"] = fire_sleep_count
 	out["custom"] = list() // Override as needed on child
 	return out
+
+/// Allows a subsystem to report what it was doing in case of a silent crash.
+/datum/controller/subsystem/proc/last_task()
+	return "No task specified."

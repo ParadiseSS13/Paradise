@@ -109,6 +109,7 @@
 		return
 	climbers -= user
 	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
+	return TRUE
 
 /obj/structure/proc/remove_climber(mob/living/climber)
 	SIGNAL_HANDLER // COMSIG_PARENT_QDELETING

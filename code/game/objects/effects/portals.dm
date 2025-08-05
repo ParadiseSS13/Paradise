@@ -68,7 +68,7 @@
 	return
 
 /obj/effect/portal/proc/on_atom_entered(datum/source, atom/movable/entered, old_loc)
-	if(isobserver(entered))
+	if(isobserver(entered) || entered.flags_2 & HOLOGRAM_2)
 		return
 
 	if(target && (get_turf(old_loc) == get_turf(target)))
@@ -163,6 +163,9 @@
 		do_sparks(5, 0, loc)
 	qdel(src)
 
+/obj/effect/portal/newtonian_move(direction, instant, start_delay)
+	return TRUE
+
 #define UNSTABLE_TIME_DELAY 2 SECONDS
 
 /obj/effect/portal/hand_tele
@@ -205,8 +208,6 @@
 	name = "advanced portal"
 	desc = "A portal capable of bypassing bluespace interference."
 	icon_state = "portal1"
-	failchance = 0
-	precision = 0
 	ignore_tele_proof_area_setting = TRUE
 
 #undef EFFECT_COOLDOWN

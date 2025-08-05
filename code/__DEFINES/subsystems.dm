@@ -50,18 +50,21 @@
 #define INIT_ORDER_PROFILER	101
 #define INIT_ORDER_QUEUE 100 // Load this quickly so people cant queue skip
 #define INIT_ORDER_TITLE 99 // Load this quickly so people dont see a blank lobby screen
-#define INIT_ORDER_GARBAGE 22
-#define INIT_ORDER_DBCORE 21
-#define INIT_ORDER_REDIS 20 // Make sure we dont miss any events
-#define INIT_ORDER_BLACKBOX 19
-#define INIT_ORDER_CLEANUP 18
-#define INIT_ORDER_INPUT 17
-#define INIT_ORDER_SOUNDS 16
-#define INIT_ORDER_INSTRUMENTS 15
-#define INIT_ORDER_RESEARCH 14 // SoonTM
-#define INIT_ORDER_STATION 13 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
-#define INIT_ORDER_EVENTS 12
-#define INIT_ORDER_JOBS 11
+#define INIT_ORDER_GARBAGE 25
+#define INIT_ORDER_DBCORE 24
+#define INIT_ORDER_REDIS 23 // Make sure we dont miss any events
+#define INIT_ORDER_BLACKBOX 22
+#define INIT_ORDER_CLEANUP 21
+#define INIT_ORDER_INPUT 20
+#define INIT_ORDER_SOUNDS 19
+#define INIT_ORDER_INSTRUMENTS 18
+#define INIT_ORDER_RESEARCH 17 // SoonTM
+#define INIT_ORDER_VIS 16
+#define INIT_ORDER_STATION 15 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
+#define INIT_ORDER_EVENTS 14
+#define INIT_ORDER_JOBS 13
+#define INIT_ORDER_AI_MOVEMENT 12
+#define INIT_ORDER_AI_CONTROLLERS 11
 #define INIT_ORDER_TICKER 10
 #define INIT_ORDER_MAPPING 9
 #define INIT_ORDER_EARLY_ASSETS 8
@@ -98,10 +101,13 @@
 #define FIRE_PRIORITY_TICKETS		10
 #define FIRE_PRIORITY_RESEARCH		10 // SoonTM
 #define FIRE_PRIORITY_AMBIENCE		10
+#define FIRE_PRIORITY_VIS			10
 #define FIRE_PRIORITY_GARBAGE		15
 #define FIRE_PRIORITY_AIR			20
 #define FIRE_PRIORITY_NPC			20
 #define FIRE_PRIORITY_CAMERA		20
+#define FIRE_PRIORITY_NPC_MOVEMENT	21
+#define FIRE_PRIORITY_NPC_ACTIONS	22
 #define FIRE_PRIORITY_PATHFINDING	23
 #define FIRE_PRIORITY_PROCESS		25
 #define FIRE_PRIORITY_THROWING		25

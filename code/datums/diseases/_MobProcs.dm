@@ -60,6 +60,9 @@
 	if(!CanContractDisease(D))
 		return 0
 
+	if(src.mind && HAS_TRAIT(src.mind, TRAIT_GERMOPHOBE) && prob(85))
+		return 0
+
 	var/obj/item/clothing/Cl = null
 	var/passed = 1
 
@@ -170,3 +173,6 @@
 	if(. == -1)
 		if(D.viable_mobtypes.Find(/mob/living/carbon/human))
 			return 1 //this is stupid as fuck but because monkeys are only half the time actually subtypes of humans they need this
+
+/mob/compressor_grind()
+	gib()

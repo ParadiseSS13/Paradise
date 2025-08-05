@@ -4,7 +4,6 @@
 /obj/machinery/power/port_gen
 	name = "Placeholder Generator"	//seriously, don't use this. It can't be anchored without VV magic.
 	desc = "A portable generator for emergency backup power."
-	icon = 'icons/obj/power.dmi'
 	icon_state = "portgen0_0"
 	density = TRUE
 	anchored = FALSE
@@ -78,5 +77,5 @@
 	stat &= ~EMPED
 
 /obj/machinery/power/port_gen/proc/explode()
-	explosion(loc, -1, 3, 5, -1)
+	explosion(loc, -1, 3, 5, -1, cause = "Exploding [name]")
 	qdel(src)

@@ -7,8 +7,6 @@
 	icon_state = "syndicate-bomb"
 	desc = "A large and menacing device. Can be bolted down with a wrench."
 
-	anchored = FALSE
-	density = FALSE
 	layer = BELOW_MOB_LAYER //so people can't hide it and it's REALLY OBVIOUS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_2 = CRITICAL_ATOM_2
@@ -114,21 +112,24 @@
 	else
 		. = timer_set
 
-/obj/machinery/syndicatebomb/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/assembly/signaler))
+/obj/machinery/syndicatebomb/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/assembly/signaler))
 		if(open_panel)
 			wires.Interact(user)
-	else if(istype(I, /obj/item/bombcore))
+
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/bombcore))
 		if(!payload)
 			if(!user.drop_item())
-				return
-			payload = I
+				return ITEM_INTERACT_COMPLETE
+			payload = used
 			to_chat(user, "<span class='notice'>You place [payload] into [src].</span>")
 			payload.forceMove(src)
 		else
 			to_chat(user, "<span class='notice'>[payload] is already loaded into [src], you'll have to remove it first.</span>")
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/syndicatebomb/wrench_act(mob/user, obj/item/I)
 	if(!can_unanchor)
@@ -316,7 +317,6 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bombcore"
 	item_state = "eshield0"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "syndicate=5;combat=6"
 	resistance_flags = FLAMMABLE //Burnable (but the casing isn't)
 	var/adminlog = null
@@ -338,7 +338,7 @@
 	if(adminlog)
 		message_admins(adminlog)
 		log_game(adminlog)
-	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log)
+	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log, cause = "[name]: bombcore explosion")
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
 	qdel(src)
@@ -415,7 +415,7 @@
 	qdel(src)
 
 /obj/item/bombcore/badmin/summon/clown
-	summon_path = /mob/living/simple_animal/hostile/retaliate/clown
+	summon_path = /mob/living/basic/clown
 	amt_summon 	= 100
 
 /obj/item/bombcore/badmin/summon/clown/defuse()
@@ -660,7 +660,7 @@
 		to_chat(user, "<span class='alert'>Nothing happens.</span>")
 		return
 
-	for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
+	for(var/obj/machinery/syndicatebomb/B in SSmachines.get_by_type(/obj/machinery/syndicatebomb))
 		if(B.active)
 			B.detonation_timer = world.time + BUTTON_DELAY
 			detonated++

@@ -22,10 +22,12 @@ body:
   - type: checkboxes
     id: not_an_exploit
     attributes:
-      label: Exploit Reports
-      description: "[If your issue is an ingame exploit that allows players to gain an unfair advantage, or an issue which could affect server stability or security, please file it at this link so that it is safe from prying eyes.](https://www.paradisestation.org/forum/179-exploit-reports/)"
+      label: ⚠️ Could this issue be an exploit? ⚠️
+      description: "[If your issue is an ingame exploit that allows players to gain an unfair advantage, or could affect server stability or security, please file it on the forum here.](https://www.paradisestation.org/forum/179-exploit-reports/)"
       options:
-        - label: I confirm this issue is not an exploit. (Required)
+        - label: I confirm this issue does not give players an unfair advantage. (Required)
+          required: true
+        - label: I confirm this issue does not affect server stability or security. (Required)
           required: true
 
   - type: input

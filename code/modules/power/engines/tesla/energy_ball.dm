@@ -19,13 +19,10 @@
 	pixel_x = -32
 	pixel_y = -32
 	current_size = STAGE_TWO
-	move_self = TRUE
 	grav_pull = 0
-	density = TRUE
 	energy = 0
 	dissipate = FALSE
 	dissipate_delay = 5
-	dissipate_strength = 1
 	warps_projectiles = FALSE
 	var/list/orbiting_balls = list()
 	var/miniball = FALSE
@@ -261,11 +258,11 @@
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/C = user
-	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "singulo")
+	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", INVESTIGATE_SINGULO)
 	C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
 		"<span class='userdanger'>As you mentally focus on the energy ball you feel the contents of your skull become overcharged. That was shockingly stupid.</span>")
 	var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
-	C.ghostize(0)
+	C.ghostize()
 	if(B)
 		B.remove(C)
 		qdel(B)

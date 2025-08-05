@@ -4,13 +4,12 @@
 	name = "glowshroom"
 	desc = "Mycena Bregprox, a species of mushroom that glows in the dark."
 	anchored = TRUE
-	opacity = FALSE
-	density = FALSE
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "glowshroomf"
 	base_icon_state = "glowshroom" //replaced in New
 	layer = ABOVE_NORMAL_TURF_LAYER
 	max_integrity = 30
+	cares_about_temperature = TRUE
 	var/floor = 0
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
 
@@ -107,7 +106,7 @@
 	if(damage_type == BURN && damage_amount)
 		playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/structure/glowshroom/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/glowshroom/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)

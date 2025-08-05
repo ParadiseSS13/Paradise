@@ -15,7 +15,6 @@
 	desc = "A remote control for a door."
 	req_access = list(ACCESS_BRIG)
 	anchored = TRUE    		// can't pick it up
-	density = FALSE       		// can walk through it.
 	layer = WALL_OBJ_LAYER
 	var/id = null     		// id of door it controls.
 	var/releasetime = 0		// when world.timeofday reaches it - release the prisoner
@@ -27,7 +26,6 @@
 	var/printed = 0
 	var/datum/data/record/prisoner
 	maptext_height = 26
-	maptext_width = 32
 	maptext_y = -1
 	var/occupant = CELL_NONE
 	var/crimes = CELL_NONE
@@ -130,7 +128,7 @@
 			targets += M
 			RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
 
-	for(var/obj/machinery/flasher/F in GLOB.machines)
+	for(var/obj/machinery/flasher/F in SSmachines.get_by_type(/obj/machinery/flasher))
 		if(F.id == id)
 			targets += F
 			RegisterSignal(F, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
@@ -140,7 +138,7 @@
 			targets += C
 			RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
 
-	for(var/obj/machinery/treadmill_monitor/T in GLOB.machines)
+	for(var/obj/machinery/treadmill_monitor/T in SSmachines.get_by_type(/obj/machinery/treadmill_monitor))
 		if(T.id == id)
 			targets += T
 			RegisterSignal(T, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))

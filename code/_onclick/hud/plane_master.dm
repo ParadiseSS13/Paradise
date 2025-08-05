@@ -21,13 +21,11 @@
 	name = "floor plane master"
 	plane = FLOOR_PLANE
 	appearance_flags = PLANE_MASTER
-	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/game_world
 	name = "game world plane master"
 	plane = GAME_PLANE
 	appearance_flags = PLANE_MASTER
-	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/game_world/backdrop(mob/mymob)
 	. = ..() //if you delete it so help me god
@@ -55,11 +53,19 @@
 	name = "point plane master"
 	plane = POINT_PLANE
 	appearance_flags = PLANE_MASTER //should use client color
-	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/point/backdrop(mob/mymob)
 	if(istype(mymob) && mymob.client && mymob.client.prefs)
 		alpha = (mymob.client.prefs.toggles2 & PREFTOGGLE_2_THOUGHT_BUBBLE) ? 255 : 0
+
+/atom/movable/screen/plane_master/cogbar
+	name = "cogbar plane master"
+	plane = COGBAR_PLANE
+	appearance_flags = PLANE_MASTER //should use client color
+
+/atom/movable/screen/plane_master/cogbar/backdrop(mob/mymob)
+	if(istype(mymob) && mymob.client?.prefs)
+		alpha = (mymob.client.prefs.toggles3 & PREFTOGGLE_3_COGBAR_ANIMATIONS) ? 255 : 0
 
 /**
   * Things placed on this mask the lighting plane. Doesn't render directly.
@@ -81,7 +87,6 @@
 	name = "space plane master"
 	plane = PLANE_SPACE
 	appearance_flags = PLANE_MASTER
-	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/parallax
 	name = "parallax plane master"
@@ -103,18 +108,15 @@
 	plane = GRAVITY_PULSE_PLANE
 	blend_mode = BLEND_ADD
 	render_target = GRAVITY_PULSE_RENDER_TARGET
-	appearance_flags = PLANE_MASTER | NO_CLIENT_COLOR
 
 /atom/movable/screen/plane_master/smoke
 	name = "point plane master"
 	plane = SMOKE_PLANE
 	appearance_flags = PLANE_MASTER
-	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/lamps
 	name = "lamps plane master"
 	plane = LIGHTING_LAMPS_PLANE
-	blend_mode = BLEND_OVERLAY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	render_target = LIGHTING_LAMPS_RENDER_TARGET
 
@@ -132,6 +134,7 @@
 
 /atom/movable/screen/plane_master/exposure/backdrop(mob/mymob)
 	remove_filter("blur_exposure")
+	alpha = 0
 	if(!istype(mymob) || !(mymob?.client?.prefs?.light & LIGHT_NEW_LIGHTING))
 		return
 	var/enabled = mymob?.client?.prefs?.light & LIGHT_EXPOSURE
@@ -139,8 +142,6 @@
 	if(enabled)
 		alpha = 255
 		add_filter("blur_exposure", 1, gauss_blur_filter(size = 20)) // by refs such blur is heavy, but tests were okay and this allow us more flexibility with setup. Possible point for improvements
-	else
-		alpha = 0
 
 /atom/movable/screen/plane_master/lamps_selfglow
 	name = "lamps selfglow plane master"

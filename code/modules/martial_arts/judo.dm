@@ -12,9 +12,6 @@
 /obj/item/storage/belt/judobelt
 	name = "\improper Corporate Judo Belt"
 	desc = "Teaches the wearer NT Corporate Judo."
-	icon = 'icons/obj/clothing/belts.dmi'
-	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	icon_state = "judobelt"
 	item_state = "judo"
 	w_class = WEIGHT_CLASS_BULKY

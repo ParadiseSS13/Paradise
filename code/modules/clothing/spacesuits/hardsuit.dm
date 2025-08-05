@@ -1,7 +1,6 @@
 //Baseline hardsuits
 /obj/item/clothing/head/helmet/space/hardsuit
 	name = "hardsuit helmet"
-	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
 	icon_state = null
 	item_state = "eng_helm"
 	max_integrity = 300
@@ -65,9 +64,7 @@
 		set_light(brightness_on)
 	else
 		set_light(0)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/head/helmet/space/hardsuit/extinguish_light(force = FALSE)
 	if(on)
@@ -100,10 +97,7 @@
 	if(msg && ishuman(wearer))
 		wearer.show_message("<b><span class='robot'>[msg]</span></b>", 1)
 
-/obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
-	. = ..()
-	if(amount <= RAD_BACKGROUND_RADIATION)
-		return
+/obj/item/clothing/head/helmet/space/hardsuit/rad_act(atom/source, amount, emission_type)
 	current_tick_amount += amount
 
 /obj/item/clothing/head/helmet/space/hardsuit/process()
@@ -150,7 +144,6 @@
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
 	siemens_coefficient = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet)
-	dyeable = FALSE
 
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
 	sprite_sheets = list(
@@ -310,9 +303,7 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.head_update(src, forced = 1)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/toggle_hardsuit_mode(mob/user) //Helmet Toggles Suit Mode
 	if(linkedsuit)
@@ -361,7 +352,6 @@
 	icon_state = "hardsuit0-syndielite"
 	item_color = "syndielite"
 	armor = list(MELEE = 75, BULLET = 75, LASER = 50, ENERGY = 15, BOMB = 60, RAD = 115, FIRE = INFINITY, ACID = INFINITY)
-	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
@@ -372,7 +362,6 @@
 	item_color = "syndielite"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
 	armor = list(MELEE = 75, BULLET = 75, LASER = 50, ENERGY = 15, BOMB = 60, RAD = 115, FIRE = INFINITY, ACID = INFINITY)
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 

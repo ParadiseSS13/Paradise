@@ -132,7 +132,9 @@
 
 	if(isitem(result))
 		if(isstack(result) && istype(result, user.get_inactive_hand()))
-			result.merge(user.get_inactive_hand())
+			// Make sure the result hasn't already gotten sucked into another stack while initializing
+			if(!QDELETED(result))
+				result.merge(user.get_inactive_hand())
 		user.put_in_hands(result)
 
 	// BubbleWrap - so newly formed boxes are empty

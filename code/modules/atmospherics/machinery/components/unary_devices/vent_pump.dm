@@ -46,6 +46,7 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon
 	releasing = FALSE
+	external_pressure_bound = 0
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on
 	on = TRUE
@@ -186,17 +187,17 @@
 	pipe_image.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
-/obj/machinery/atmospherics/unary/vent_pump/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/paper))
+/obj/machinery/atmospherics/unary/vent_pump/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/paper))
 		if(!welded)
 			if(open)
-				user.drop_item(W)
-				W.forceMove(src)
+				user.drop_item(used)
+				used.forceMove(src)
 			if(!open)
 				to_chat(user, "You can't shove that down there when it is closed")
 		else
 			to_chat(user, "The vent is welded.")
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

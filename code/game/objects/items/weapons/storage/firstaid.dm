@@ -12,7 +12,6 @@
 	name = "generic first-aid kit"
 	desc = "If you can see this, make a bug report on GitHub, something went wrong!"
 	icon_state = "genericfirstaid"
-	throw_speed = 2
 	throw_range = 8
 	req_one_access =list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
 	var/treatment_brute = "salglu_solution"
@@ -177,12 +176,10 @@
 	name = "first-aid kit"
 	desc = "I hope you've got insurance."
 	icon_state = "bezerk"
-	max_w_class = WEIGHT_CLASS_NORMAL
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
-	req_one_access =list(ACCESS_SYNDICATE)
+	req_one_access = list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
 	syndicate_aligned = TRUE
 
@@ -193,6 +190,7 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/emergency_nuclear(src)
 	new /obj/item/storage/pill_bottle/painkillers(src)
 	new /obj/item/clothing/glasses/hud/health/night(src)
+	new /obj/item/healthanalyzer/advanced(src)
 
 /obj/item/storage/firstaid/tactical/empty/populate_contents()
 	return
@@ -312,7 +310,7 @@
 			return
 		applying_meds = TRUE
 		for(var/obj/item/reagent_containers/P in contents)
-			if(P.attack__legacy__attackchain(M, user))
+			if(P.mob_act(M, user))
 				applying_meds = FALSE
 			else
 				applying_meds = FALSE
@@ -361,7 +359,7 @@
 			C.visible_message("<span class='danger'>[C] [rapid_intake_message]</span>")
 			if(do_mob(C, C, 100)) // 10 seconds
 				for(var/obj/item/reagent_containers/pill/P in contents)
-					P.attack__legacy__attackchain(C, C)
+					P.interact_with_atom(C, C)
 				C.visible_message("<span class='danger'>[C] [rapid_post_instake_message]</span>")
 			return
 

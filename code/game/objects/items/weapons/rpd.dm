@@ -13,15 +13,11 @@
 	desc = "This device can rapidly dispense atmospherics and disposals piping, manipulate loose piping, and recycle any detached pipes it is applied to."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rpd"
-	opacity = FALSE
-	density = FALSE
-	anchored = FALSE
 	flags = CONDUCT
 	force = 10
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
@@ -40,6 +36,7 @@
 	var/primary_sound = 'sound/machines/click.ogg'
 	var/alt_sound = null
 	var/auto_wrench_toggle = TRUE
+	var/pipe_label = null
 
 	//Lists of things
 	var/list/mainmenu = list(
@@ -115,6 +112,7 @@
 		else if(!iconrotation) //If user selected a rotation
 			P.dir = user.dir
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	P.label = pipe_label
 	automatic_wrench_down(user, P)
 	activate_rpd(TRUE)
 
@@ -266,6 +264,8 @@
 			mode = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("auto_wrench_toggle")
 			auto_wrench_toggle = !auto_wrench_toggle
+		if("set_label")
+			pipe_label = params[action]
 
 //RPD radial menu
 /obj/item/rpd/proc/check_menu(mob/living/user)
@@ -342,13 +342,13 @@
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
 	if(ranged) //woosh beam if bluespaced at a distance
-		if(get_dist(src, T) >= (user.client.maxview() + 2))
+		if(get_dist(src, T) >= (user.client.maxview() / 2))
 			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to place pipes with a BRPD via a camera console. (Attempted range exploit)")
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 			to_chat(user, "<span class='notice'>ERROR: \The [T] is out of [src]'s range!</span>")
 			return
 
-		if(!(user in viewers(12, T))) // Checks if the user can see the target turf
+		if(!(user in hearers(12, T))) // Checks if user can hear the target turf, cause viewers doesnt work for it.
 			to_chat(user, "<span class='warning'>[src] needs full visibility to determine the dispensing location.</span>")
 			playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE)
 			return

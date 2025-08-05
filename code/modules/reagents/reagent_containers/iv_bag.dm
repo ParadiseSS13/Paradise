@@ -16,6 +16,11 @@
 	var/label_text
 	var/mode = IV_INJECT
 	var/mob/living/carbon/human/injection_target
+	var/injection_action_delay = 3 SECONDS
+
+/obj/item/reagent_containers/iv_bag/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_TETHER_DESTROYED, PROC_REF(tether_snapped))
 
 /obj/item/reagent_containers/iv_bag/Destroy()
 	end_processing()
@@ -32,8 +37,10 @@
 	..()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/attack_self__legacy__attackchain(mob/user)
-	..()
+/obj/item/reagent_containers/iv_bag/activate_self(mob/user)
+	if(..())
+		return
+
 	mode = !mode
 	update_icon(UPDATE_OVERLAYS)
 
@@ -49,12 +56,34 @@
 	injection_target = target
 	RegisterSignal(injection_target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	START_PROCESSING(SSobj, src)
+	update_iv_type()
 
-/obj/item/reagent_containers/iv_bag/proc/end_processing()
+/obj/item/reagent_containers/iv_bag/proc/update_iv_type()
+	var/target = injection_target
+	injection_target = null
+	SEND_SIGNAL(src, COMSIG_TETHER_STOP)
+	injection_target = target
+	if(!injection_target)
+		return
+	if(istype(loc, /obj/machinery/iv_drip))
+		injection_target.AddComponent(/datum/component/tether, src, 2, 50, "iv_tether", "tubing")
+	else
+		injection_target.AddComponent(/datum/component/tether, src, 1, 5, "iv_tether", "tubing")
+
+/obj/item/reagent_containers/iv_bag/proc/end_processing(send_signal = TRUE)
 	if(injection_target)
 		UnregisterSignal(injection_target, COMSIG_PARENT_EXAMINE)
 	injection_target = null
 	STOP_PROCESSING(SSobj, src)
+	if(send_signal)
+		SEND_SIGNAL(src, COMSIG_TETHER_STOP)
+
+/obj/item/reagent_containers/iv_bag/proc/tether_snapped()
+	if(!injection_target)
+		return
+	to_chat(injection_target, "<span class='userdanger'>[src]'s needle is ripped out of you!</span>")
+	injection_target.apply_damage(3, BRUTE, pick("r_arm", "l_arm"))
+	end_processing(FALSE)
 
 /obj/item/reagent_containers/iv_bag/process()
 	if(QDELETED(injection_target))
@@ -63,12 +92,6 @@
 
 	if(amount_per_transfer_from_this > 10) // Prevents people from switching to illegal transfer values while the IV is already in someone, i.e. anything over 10
 		visible_message("<span class='danger'>The IV bag's needle pops out of [injection_target]'s arm. The transfer amount is too high!</span>")
-		end_processing()
-		return
-
-	if(get_dist(get_turf(src), get_turf(injection_target)) > 1)
-		to_chat(injection_target, "<span class='userdanger'>[src]'s needle is ripped out of you!</span>")
-		injection_target.apply_damage(3, BRUTE, pick("r_arm", "l_arm"))
 		end_processing()
 		return
 
@@ -87,17 +110,13 @@
 				injection_target.reagents.trans_id_to(src, reagent.id, amount_per_transfer_from_this / 10)
 			update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
-	return
-
-/obj/item/reagent_containers/iv_bag/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity)
-		return
+/obj/item/reagent_containers/iv_bag/mob_act(mob/target, mob/living/user)
+	. = TRUE
 	if(!target.reagents)
-		return
+		return FALSE
 
-	if(isliving(target))
-		var/mob/living/L = target
+	var/mob/living/L = target
+	if(istype(L))
 		if(injection_target) // Removing the needle
 			if(L != injection_target)
 				to_chat(user, "<span class='notice'>[src] is already inserted into [injection_target]'s arm!")
@@ -105,7 +124,7 @@
 			if(L != user)
 				L.visible_message("<span class='danger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>", \
 								"<span class='userdanger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>")
-				if(!do_mob(user, L))
+				if(!do_mob(user, L, injection_action_delay))
 					return
 			L.visible_message("<span class='danger'>[user] removes [src]'s needle from [L]'s arm!</span>", \
 								"<span class='userdanger'>[user] removes [src]'s needle from [L]'s arm!</span>")
@@ -119,13 +138,18 @@
 			if(L != user)
 				L.visible_message("<span class='danger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>", \
 									"<span class='userdanger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>")
-				if(!do_mob(user, L))
+				if(!do_mob(user, L, injection_action_delay))
 					return
 			L.visible_message("<span class='danger'>[user] inserts [src]'s needle into [L]'s arm!</span>", \
 									"<span class='userdanger'>[user] inserts [src]'s needle into [L]'s arm!</span>")
 			begin_processing(L)
 
-	else if(target.is_refillable() && is_drainable()) // Transferring from IV bag to other containers
+/obj/item/reagent_containers/iv_bag/normal_act(atom/target, mob/living/user)
+	. = TRUE
+	if(!target.reagents)
+		return FALSE
+
+	if(target.is_refillable() && is_drainable()) // Transferring from IV bag to other containers
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>[src] is empty.</span>")
 			return
@@ -157,9 +181,10 @@
 			if(IV_INJECT)
 				. += "inject"
 
-/obj/item/reagent_containers/iv_bag/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(is_pen(I))
-		rename_interactive(user, I)
+/obj/item/reagent_containers/iv_bag/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
+		rename_interactive(user, used)
+		return ITEM_INTERACT_COMPLETE
 
 // PRE-FILLED IV BAGS BELOW
 

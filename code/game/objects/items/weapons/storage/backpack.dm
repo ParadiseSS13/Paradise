@@ -15,7 +15,6 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
-	resistance_flags = NONE
 	max_integrity = 300
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
@@ -76,7 +75,7 @@
 
 					return
 
-				investigate_log("has become a singularity. Caused by [user.key]","singulo")
+				investigate_log("has become a singularity. Caused by [user.key]",INVESTIGATE_SINGULO)
 				user.visible_message("<span class='warning'>[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='danger'> You hear the sound of scientific evil brewing!</span>")
 				qdel(W)
 				var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
@@ -91,15 +90,13 @@
 
 /obj/item/storage/backpack/holding/singularity_act(current_size)
 	var/dist = max((current_size - 2), 1)
-	explosion(loc, dist, (dist * 2), (dist * 4))
+	explosion(loc, dist, (dist * 2), (dist * 4), cause = "Bag of Holding (singularity_act)")
 
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"
 	desc = "Space Santa uses this to deliver toys to all the nice children in space on Christmas! Wow, it's pretty big!"
 	icon_state = "giftbag0"
 	item_state = "giftbag0"
-	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 400 // can store a ton of shit!
 
 /obj/item/storage/backpack/cultpack
@@ -175,7 +172,6 @@
 	desc = "It's a fireproof backpack for Atmospherics Staff."
 	icon_state = "atmospack"
 	item_state = "atmospack"
-	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/explorer
 	name = "explorer bag"
@@ -430,7 +426,7 @@
 			if(zip_time)
 				slowdown = 1
 			if(antidrop_on_zip)
-				flags ^= NODROP
+				set_nodrop(NODROP_TOGGLE, user)
 			update_icon(UPDATE_ICON_STATE)
 			return
 
@@ -439,7 +435,7 @@
 		for(var/obj/item/storage/container in src)
 			container.hide_from_all() // Hide everything inside the bag too
 		if(antidrop_on_zip)
-			flags |= NODROP
+			set_nodrop(TRUE, user)
 		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/backpack/duffel/update_icon_state()
@@ -782,14 +778,13 @@
 	desc = "Not recommended for wizardly consumption. Recommended for mundane consumption!"
 	icon_state = "holyflask"
 	color = "#DC0000"
-	volume = 100
 	list_reagents = list("dragonsbreath" = 80, "hell_water" = 20)
 
 /obj/item/reagent_containers/drinks/bottle/immortality
 	name = "drop of immortality"
 	desc = "Drinking this will make you immortal. For a moment or two, at least."
 	icon_state = "holyflask"
-	color = "#C8A5DC"
+	color = "#437fb8"
 	volume = 5
 	list_reagents = list("adminordrazine" = 5)
 

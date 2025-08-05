@@ -2,7 +2,6 @@
 	name = "atmoalter"
 	anchored = FALSE
 	layer = BELOW_OBJ_LAYER
-	power_state = NO_POWER_USE
 	max_integrity = 250
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 60, ACID = 30)
 	var/datum/gas_mixture/air_contents = new
@@ -120,12 +119,12 @@
 	update_icon()
 	return TRUE
 
-/obj/machinery/atmospherics/portable/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/tank))
+/obj/machinery/atmospherics/portable/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/tank))
 		if(!(stat & BROKEN))
 			if(!user.drop_item())
-				return
-			var/obj/item/tank/T = W
+				return ITEM_INTERACT_COMPLETE
+			var/obj/item/tank/T = used
 			user.drop_item()
 			if(holding_tank)
 				to_chat(user, "<span class='notice'>[holding_tank ? "In one smooth motion you pop [holding_tank] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
@@ -133,7 +132,7 @@
 			T.loc = src
 			holding_tank = T
 			update_icon()
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/machinery/atmospherics/portable/wrench_act(mob/user, obj/item/I)
@@ -157,9 +156,9 @@
 		else
 			to_chat(user, "<span class='notice'>Nothing happens.</span>")
 
-/obj/machinery/atmospherics/portable/attacked_by__legacy__attackchain(obj/item/I, mob/user)
-	if(I.force < 10 && !(stat & BROKEN))
+/obj/machinery/atmospherics/portable/attacked_by(obj/item/attacker, mob/living/user)
+	if(attacker.force < 10 && !(stat & BROKEN))
 		take_damage(0)
 	else
 		add_fingerprint(user)
-		..()
+		return ..()

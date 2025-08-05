@@ -4,8 +4,6 @@
 	var/allow_overlap = FALSE
 	var/auto_process = TRUE
 	var/qdel_in_time = 10
-	var/fadetype = "ion_fade"
-	var/fade = TRUE
 	var/nograv_required = FALSE
 
 /datum/effect_system/trail_follow/set_up(atom/atom)
@@ -42,9 +40,6 @@
 		if(!has_gravity(oldposition) || !nograv_required)
 			var/obj/effect/E = new effect_type(oldposition)
 			set_dir(E)
-			if(fade)
-				flick(fadetype, E)
-				E.icon_state = ""
 			if(qdel_in_time)
 				QDEL_IN(E, qdel_in_time)
 	oldposition = get_turf(holder)
@@ -125,7 +120,7 @@
 		for(var/mob/M in viewers(8, location))
 			to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
 
-		explosion(location, devastation, heavy, light, flash)
+		explosion(location, devastation, heavy, light, flash, cause = "Reagents Explosion")
 
 /datum/effect_system/reagents_explosion/proc/holder_damage(atom/holder)
 	if(holder)

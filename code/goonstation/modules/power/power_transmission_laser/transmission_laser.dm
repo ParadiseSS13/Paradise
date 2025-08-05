@@ -14,9 +14,7 @@
 	max_integrity = 500
 
 	density = TRUE
-	anchored = TRUE
 
-	pixel_x = 0
 	pixel_y = -64
 
 	// Variables go below here
@@ -84,7 +82,6 @@
 	dir = NORTH
 
 /obj/machinery/power/transmission_laser/east
-	pixel_x = 0
 	pixel_y = 0
 	dir = EAST
 
@@ -430,7 +427,7 @@
 				var/flashmod = max(cos(look_angle - angle_to_bore), 0)
 				someone.flash_eyes(min(round(output_level/ EYE_DAMAGE_THRESHOLD), 3) * flashmod, TRUE, TRUE)
 		if(output_level > RAD_THRESHOLD) // Starts causing weak, quickly dissipating radiation pulses around the bore when power is high enough
-			radiation_pulse(get_front_turf(), (output_level / RAD_THRESHOLD) * 50, RAD_DISTANCE_COEFFICIENT)
+			radiation_pulse(get_front_turf(), (output_level / RAD_THRESHOLD) * 200, GAMMA_RAD)
 
 
 	charge -= output_level
@@ -508,7 +505,6 @@
 	name = "Shimmering beam"
 	icon = 'icons/goonstation/effects/pt_beam.dmi'
 	icon_state = "ptl_beam"
-	anchored = TRUE
 
 	/// Used to deal with atoms stepping on us while firing
 	var/obj/machinery/power/transmission_laser/host

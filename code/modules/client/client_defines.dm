@@ -232,3 +232,6 @@
 
 	/// Cache of MD5'd UIDs. This is to stop clients from poking at object UIDs and being exploity with them
 	var/list/m5_uid_cache = list()
+
+	/// If this client has any windows scaling applied
+	var/window_scaling

@@ -70,8 +70,10 @@
 				reagent = new reagent_prototype.type()
 				reagent.holder = target.reagents
 				reagent.on_new()
-				if(ishuman(target) && target.reagents.can_metabolize(target, reagent))
-					reagent.on_mob_add(target)
+				if(ishuman(target)) 
+					var/mob/living/carbon/human/human = target
+					if(human.can_metabolize(reagent))
+						reagent.on_mob_add(human)
 				target.reagents.reagent_list += reagent
 
 			reagent.volume = new_volume

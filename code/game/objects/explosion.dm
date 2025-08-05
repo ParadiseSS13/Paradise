@@ -8,7 +8,7 @@
 #define FREQ_UPPER 40 //The upper limit for the randomly selected frequency.
 #define FREQ_LOWER 25 //The lower of the above.
 
-/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0, silent = 0, smoke = 1, cause = null, breach = TRUE)
+/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0, silent = 0, smoke = 1, cause = "Unknown Cause!", breach = TRUE)
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
@@ -49,8 +49,8 @@
 		var/list/cached_exp_block = list()
 
 		if(adminlog)
-			message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in area [epicenter.loc.name] [cause ? "(Cause: [cause])" : ""] [ADMIN_COORDJMP(epicenter)] ")
-			log_game("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in area [epicenter.loc.name] [cause ? "(Cause: [cause])" : ""] [COORD(epicenter)] ")
+			message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in area [epicenter.loc.name] (Cause: [cause]) [ADMIN_COORDJMP(epicenter)] ")
+			log_game("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in area [epicenter.loc.name] (Cause: [cause]) [COORD(epicenter)] ")
 
 		var/x0 = epicenter.x
 		var/y0 = epicenter.y

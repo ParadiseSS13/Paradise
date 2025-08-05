@@ -4,18 +4,20 @@
  * @license MIT
  */
 
+import { storage } from 'common/storage';
+
 import {
+  addHighlightSetting,
   changeSettingsTab,
   loadSettings,
   openChatSettings,
-  toggleSettings,
-  updateSettings,
-  addHighlightSetting,
   removeHighlightSetting,
+  toggleSettings,
   updateHighlightSetting,
+  updateSettings,
 } from './actions';
+import { FONTS, MAX_HIGHLIGHT_SETTINGS, SETTINGS_TABS } from './constants';
 import { createDefaultHighlightSetting } from './model';
-import { SETTINGS_TABS, FONTS, MAX_HIGHLIGHT_SETTINGS } from './constants';
 
 const defaultHighlightSetting = createDefaultHighlightSetting();
 
@@ -44,6 +46,9 @@ const initialState = {
   statFontFamily: FONTS[0],
   statTabsStyle: 'default',
   // End of Stat Panel settings
+
+  // Chat persistence setting - default is false, but use stored value if available
+  chatSaving: storage.get('chat-saving-enabled') === true,
 };
 
 export const settingsReducer = (state = initialState, action) => {

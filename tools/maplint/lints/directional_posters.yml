@@ -1,0 +1,364 @@
+help: "Use the specific directional subtypes for this poster. Run 28861_directional_posters.txt to fix this."
+/obj/structure/sign/poster:
+  banned_variables:
+   - pixel_x
+   - pixel_y
+   - dir
+=/obj/structure/sign/poster:
+  banned: TRUE
+=/obj/structure/sign/poster/ripped:
+  banned: TRUE
+=/obj/structure/sign/poster/ripped/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/random:
+  banned: TRUE
+=/obj/structure/sign/poster/random/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/random:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/random/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/free_tonto:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/free_tonto/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/atmosia_independence:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/atmosia_independence/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/fun_police:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/fun_police/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/lusty_xenomorph:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/lusty_xenomorph/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/syndicate_recruitment:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/syndicate_recruitment/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/clown:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/clown/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/smoke:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/smoke/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/grey_tide:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/grey_tide/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/missing_gloves:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/missing_gloves/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/hacking_guide:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/hacking_guide/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/rip_badger:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/rip_badger/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/ambrosia_vulgaris:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/ambrosia_vulgaris/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/donut_corp:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/donut_corp/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/eat:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/eat/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/tools:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/tools/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/power:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/power/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/power_people:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/power_people/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/communist_state:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/communist_state/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/lamarr:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/lamarr/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/borg_fancy_1:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/borg_fancy_1/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/borg_fancy_2:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/borg_fancy_2/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/kss13:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/kss13/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/rebels_unite:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/rebels_unite/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/c20r:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/c20r/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/have_a_puff:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/have_a_puff/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/revolver:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/revolver/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/d_day_promo:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/d_day_promo/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/syndicate_pistol:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/syndicate_pistol/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/energy_swords:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/energy_swords/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/red_rum:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/red_rum/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/cc64k_ad:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/cc64k_ad/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/punch_shit:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/punch_shit/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/the_griffin:
+  banned: TRUE
+=/obj/structure/sign/poster/contraband/the_griffin/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official:
+  banned: TRUE
+=/obj/structure/sign/poster/official/random:
+  banned: TRUE
+=/obj/structure/sign/poster/official/random/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/here_for_your_safety:
+  banned: TRUE
+=/obj/structure/sign/poster/official/here_for_your_safety/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/nanotrasen_logo:
+  banned: TRUE
+=/obj/structure/sign/poster/official/nanotrasen_logo/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/cleanliness:
+  banned: TRUE
+=/obj/structure/sign/poster/official/cleanliness/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/help_others:
+  banned: TRUE
+=/obj/structure/sign/poster/official/help_others/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/build:
+  banned: TRUE
+=/obj/structure/sign/poster/official/build/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/bless_this_spess:
+  banned: TRUE
+=/obj/structure/sign/poster/official/bless_this_spess/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/science:
+  banned: TRUE
+=/obj/structure/sign/poster/official/science/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/ian:
+  banned: TRUE
+=/obj/structure/sign/poster/official/ian/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/obey:
+  banned: TRUE
+=/obj/structure/sign/poster/official/obey/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/walk:
+  banned: TRUE
+=/obj/structure/sign/poster/official/walk/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/state_laws:
+  banned: TRUE
+=/obj/structure/sign/poster/official/state_laws/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/love_ian:
+  banned: TRUE
+=/obj/structure/sign/poster/official/love_ian/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/space_cops:
+  banned: TRUE
+=/obj/structure/sign/poster/official/space_cops/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/ue_no:
+  banned: TRUE
+=/obj/structure/sign/poster/official/ue_no/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/get_your_legs:
+  banned: TRUE
+=/obj/structure/sign/poster/official/get_your_legs/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/do_not_question:
+  banned: TRUE
+=/obj/structure/sign/poster/official/do_not_question/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/work_for_a_future:
+  banned: TRUE
+=/obj/structure/sign/poster/official/work_for_a_future/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/soft_cap_pop_art:
+  banned: TRUE
+=/obj/structure/sign/poster/official/soft_cap_pop_art/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/safety_internals:
+  banned: TRUE
+=/obj/structure/sign/poster/official/safety_internals/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/safety_eye_protection:
+  banned: TRUE
+=/obj/structure/sign/poster/official/safety_eye_protection/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/safety_report:
+  banned: TRUE
+=/obj/structure/sign/poster/official/safety_report/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/report_crimes:
+  banned: TRUE
+=/obj/structure/sign/poster/official/report_crimes/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/ion_rifle:
+  banned: TRUE
+=/obj/structure/sign/poster/official/ion_rifle/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/foam_force_ad:
+  banned: TRUE
+=/obj/structure/sign/poster/official/foam_force_ad/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/cohiba_robusto_ad:
+  banned: TRUE
+=/obj/structure/sign/poster/official/cohiba_robusto_ad/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/anniversary_vintage_reprint:
+  banned: TRUE
+=/obj/structure/sign/poster/official/anniversary_vintage_reprint/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/fruit_bowl:
+  banned: TRUE
+=/obj/structure/sign/poster/official/fruit_bowl/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/pda_ad:
+  banned: TRUE
+=/obj/structure/sign/poster/official/pda_ad/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/enlist:
+  banned: TRUE
+=/obj/structure/sign/poster/official/enlist/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/nanomichi_ad:
+  banned: TRUE
+=/obj/structure/sign/poster/official/nanomichi_ad/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/twelve_gauge:
+  banned: TRUE
+=/obj/structure/sign/poster/official/twelve_gauge/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/high_class_martini:
+  banned: TRUE
+=/obj/structure/sign/poster/official/high_class_martini/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/the_owl:
+  banned: TRUE
+=/obj/structure/sign/poster/official/the_owl/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/spiders:
+  banned: TRUE
+=/obj/structure/sign/poster/official/spiders/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/kill_syndicate:
+  banned: TRUE
+=/obj/structure/sign/poster/official/kill_syndicate/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/air1:
+  banned: TRUE
+=/obj/structure/sign/poster/official/air1/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/air2:
+  banned: TRUE
+=/obj/structure/sign/poster/official/air2/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/dig:
+  banned: TRUE
+=/obj/structure/sign/poster/official/dig/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/religious:
+  banned: TRUE
+=/obj/structure/sign/poster/official/religious/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/healthy:
+  banned: TRUE
+=/obj/structure/sign/poster/official/healthy/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/darkpurpl:
+  banned: TRUE
+=/obj/structure/sign/poster/official/darkpurpl/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/root:
+  banned: TRUE
+=/obj/structure/sign/poster/official/root/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/core:
+  banned: TRUE
+=/obj/structure/sign/poster/official/core/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/metal:
+  banned: TRUE
+=/obj/structure/sign/poster/official/metal/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/kpop:
+  banned: TRUE
+=/obj/structure/sign/poster/official/kpop/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/graydays:
+  banned: TRUE
+=/obj/structure/sign/poster/official/graydays/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/unathicrush:
+  banned: TRUE
+=/obj/structure/sign/poster/official/unathicrush/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/unathismash:
+  banned: TRUE
+=/obj/structure/sign/poster/official/unathismash/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/star:
+  banned: TRUE
+=/obj/structure/sign/poster/official/star/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/soul:
+  banned: TRUE
+=/obj/structure/sign/poster/official/soul/directional:
+  banned: TRUE
+=/obj/structure/sign/poster/official/choir:
+  banned: TRUE
+=/obj/structure/sign/poster/official/choir/directional:
+  banned: TRUE

@@ -123,7 +123,8 @@
 		COMSIG_PARENT_EXAMINE,
 		COMSIG_ATOM_UPDATE_OVERLAYS,
 		COMSIG_TURF_ON_SHUTTLE_MOVE,
-		COMSIG_ATOM_DECALS_ROTATING
+		COMSIG_ATOM_DECALS_ROTATING,
+		COMSIG_ATOM_GET_DECALS
 	))
 	SSdcs.UnregisterSignal(source, COMSIG_ATOM_DIR_CHANGE)
 	source.update_appearance(UPDATE_OVERLAYS)
@@ -131,25 +132,10 @@
 		INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item/, update_slot_icon))
 	return ..()
 
-/datum/element/decal/proc/apply_overlay(atom/source)
+/datum/element/decal/proc/apply_overlay(atom/source, list/overlays)
 	SIGNAL_HANDLER  // COMSIG_ATOM_UPDATE_OVERLAYS
 
-	source.add_overlay(pic)
-	// TODO: Fix this disgusting hack
-	//
-	// `COMSIG_ATOM_UPDATE_OVERLAYS` is sent at the end of
-	// /atom/proc/update_icon's stanza for updating overlays, instead
-	// somewhere useful, like, during it. /tg/ handles this by sending
-	// a list of overlays with the signal, allowing receivers to add to
-	// the list, instead of returning their own.
-	//
-	// This is much saner and more flexible, but would require refactoring
-	// many many uses of update_overlay() across the code base, which is left
-	// as an exercise for the next poor sap to touch this code (probably me).
-	if(source.managed_overlays && !islist(source.managed_overlays))
-		source.managed_overlays = list(source.managed_overlays, pic)
-	else
-		LAZYDISTINCTADD(source.managed_overlays, pic)
+	overlays += pic
 
 /datum/element/decal/proc/clean_react(datum/source, clean_types)
 	SIGNAL_HANDLER  // COMSIG_COMPONENT_CLEAN_ACT

@@ -19,7 +19,6 @@
 	jobtype = /datum/job/syndicateofficer
 
 	uniform = /obj/item/clothing/under/syndicate
-	back = /obj/item/storage/backpack
 	head = /obj/item/clothing/head/beret
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/magboots/elite
@@ -28,7 +27,7 @@
 	l_ear = /obj/item/radio/headset/syndicate/alt/syndteam
 	pda = /obj/item/pinpointer/advpinpointer
 	id = /obj/item/card/id/syndicate/command
-	box = /obj/item/storage/box/survival_syndi
+	box = /obj/item/storage/box/survival_syndie
 	backpack_contents = list(
 		/obj/item/flashlight = 1,
 		/obj/item/ammo_box/magazine/m50 = 2,

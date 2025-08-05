@@ -1,0 +1,13 @@
+help: Multitile airlocks might have pixel offset after Initialize, use them only with directions of SOUTH or EAST
+/obj/machinery/door/poddoor/multi_tile:
+  banned_variables:
+    dir:
+      allow: [2, 4]
+    pixel_x:
+    pixel_y:
+/obj/machinery/door/airlock/multi_tile:
+  banned_variables:
+    dir:
+      allow: [2, 4]
+    pixel_x:
+    pixel_y:

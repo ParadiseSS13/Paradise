@@ -110,12 +110,13 @@
 		spawn(100)
 			stat &= ~BROKEN
 
-/obj/machinery/power/treadmill/attackby__legacy__attackchain(obj/item/W, mob/user)
-	if(default_unfasten_wrench(user, W, time = 60))
+/obj/machinery/power/treadmill/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_unfasten_wrench(user, used, time = 60))
 		on_anchor_changed()
 		speed = 0
 		update_icon()
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 #undef BASE_MOVE_DELAY
@@ -132,9 +133,7 @@
 	icon_state = "frame"
 	desc = "Monitors treadmill use."
 	anchored = TRUE
-	density = FALSE
 	maptext_height = 26
-	maptext_width = 32
 	maptext_y = -1
 
 	var/on = FALSE					// if we should be metering or not
@@ -150,7 +149,7 @@
 /obj/machinery/treadmill_monitor/Initialize(mapload)
 	. = ..()
 	if(id)
-		for(var/obj/machinery/power/treadmill/T in GLOB.machines)
+		for(var/obj/machinery/power/treadmill/T in SSmachines.get_by_type(/obj/machinery/power/treadmill))
 			if(T.id == id)
 				treadmill = T
 				break

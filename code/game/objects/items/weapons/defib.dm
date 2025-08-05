@@ -157,15 +157,21 @@
 		remove_paddles(user)
 
 	update_icon(UPDATE_OVERLAYS)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/defibrillator/equipped(mob/user, slot)
 	..()
 	if(slot != ITEM_SLOT_BACK)
 		remove_paddles(user)
 		update_icon(UPDATE_OVERLAYS)
+
+/obj/item/defibrillator/on_mob_move(dir, mob/user)
+	if(paddles_on_defib)
+		return
+
+	if(paddles.loc != user)
+		remove_paddles(paddles.loc)
+
 
 /obj/item/defibrillator/item_action_slot_check(slot, mob/user)
 	if(slot == ITEM_SLOT_BACK)
@@ -241,7 +247,6 @@
 	item_state = "defibnt"
 	paddle_type = /obj/item/shockpaddles/advanced
 	combat = TRUE
-	safety = TRUE
 	hardened = TRUE // EMP-proof (on the component), but not emag-proof.
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Objective item, better not have it destroyed.
 	heart_attack_probability = 10
@@ -287,11 +292,9 @@
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
-	force = 0
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = INDESTRUCTIBLE
-	toolspeed = 1
 	base_icon_state = "defibpaddles"
 	/// Amount of power used on a shock.
 	var/revivecost = 1000
@@ -373,6 +376,25 @@
 		defib.update_icon(UPDATE_OVERLAYS)
 		update_icon(UPDATE_ICON_STATE)
 
+/obj/item/shockpaddles/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
+
+	// This should be True, because action give calls drop() before this proc
+	if(defib.paddles_on_defib)
+		//Detach the paddles into the user's hands
+		defib.paddles.forceMove(receiver)
+		defib.paddles_on_defib = FALSE
+	else if(receiver.is_in_active_hand(defib.paddles))
+		//Remove from their hands and back onto the defib unit
+		defib.remove_paddles(receiver)
+
+	defib.update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE)
+
+	// We call this to check if the receiver is outside the defib range
+	// Otherwise, it can be placed anywhere on the map
+	on_mob_move(null, receiver)
+
+
 /obj/item/shockpaddles/on_mob_move(dir, mob/user)
 	if(defib)
 		if(!isturf(user.loc))
@@ -399,12 +421,10 @@
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
-	force = 0
 	w_class = WEIGHT_CLASS_BULKY
 	var/revivecost = 1000
 	var/safety = TRUE
 	flags = NODROP
-	toolspeed = 1
 
 /obj/item/borg_defib/Initialize(mapload)
 	. = ..()

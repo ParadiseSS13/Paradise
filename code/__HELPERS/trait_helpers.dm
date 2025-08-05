@@ -130,6 +130,9 @@
 #define HAS_MIND_TRAIT(target, trait) (istype(target, /datum/mind) ? HAS_TRAIT(target, trait) : (target.mind ? HAS_TRAIT(target.mind, trait) : FALSE))
 /// Gives a unique trait source for any given datum
 #define UNIQUE_TRAIT_SOURCE(target) "unique_source_[target.UID()]"
+/// Returns a list of trait sources for this trait. Only useful for wacko cases and internal futzing
+/// You should not be using this
+#define GET_TRAIT_SOURCES(target, trait) (target.status_traits?[trait] || list())
 
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
@@ -139,6 +142,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESPAWNABLE		"can_respawn_as_ghost_roles"
 #define TRAIT_BEING_OFFERED     "offered"
 #define TRAIT_BLIND 			"blind"
+#define TRAIT_PARAPLEGIC		"paraplegic"
 #define TRAIT_MUTE				"mute"
 #define TRAIT_DEAF				"deaf"
 #define TRAIT_NEARSIGHT			"nearsighted"
@@ -255,6 +259,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
 #define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
 
+/// Whether or not the user is in a MODlink call, prevents making more calls
+#define TRAIT_IN_CALL "in_call"
+
+/// Trait given when a mob has been tipped
+#define TRAIT_MOB_TIPPED "mob_tipped"
+/// Trait given to mobs that have the basic eating element
+#define TRAIT_MOB_EATER "mob_eater"
+#define TRAIT_XENOBIO_SPAWNED "xenobio_spawned"
+
+/// Trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
+#define TRAIT_AI_PAUSED "trait_ai_paused"
+
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
 #define TRAIT_TABLE_LEAP "table_leap" // Lets bartender and chef mount tables faster
@@ -274,7 +290,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SUPERMATTER_IMMUNE "supermatter_immune"
 
 //***** ITEM TRAITS *****//
-#define TRAIT_BUTCHERS_HUMANS "butchers_humans"
 #define TRAIT_CMAGGED "cmagged"
 /// An item that is being wielded.
 #define TRAIT_WIELDED "wielded"
@@ -286,6 +301,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SILENT_INSERTION "silent_insertion"
 /// Makes an item active, this is generally used by energy based weapons or toggle based items.
 #define TRAIT_ITEM_ACTIVE "item_active"
+/// Forbids running broadcast_examine() in examinate().
+#define TRAIT_HIDE_EXAMINE "hide_examine"
 
 /// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
 #define TRAIT_SURGICAL			"surgical_tool"
@@ -313,6 +330,78 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Prevents seeing this item on examine when on a mob, or seeing it in the strip menu. It's like ABSTRACT, without making the item fail to interact in several ways. The item can still be stripped however, combine with no_strip unless you have a reason not to.
 #define TRAIT_SKIP_EXAMINE "skip_examine"
+
+/// A general trait for tracking whether a zombie owned the organ or limb
+#define TRAIT_I_WANT_BRAINS_ORGAN "zombie_organ"
+
+/// Trait given by /datum/element/relay_attacker
+#define TRAIT_RELAYING_ATTACKER "relaying_attacker"
+
+/// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
+#define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
+
+//****** ORGAN TRAITS *****//
+
+/// Does this person produce loud runechat
+#define TRAIT_LOUD "loud"
+
+//***** JOB TRAITS *****//
+
+// med traits
+
+/// allows user to do_after to give bone and IB locations
+#define TRAIT_MED_EXAMINE "med_examine"
+/// Grants a 85% chance to NOT catch a disease when contract() is called. You'll probably still catch it though with exposure
+#define TRAIT_GERMOPHOBE "germophobe"
+/// user wont vomit around corpses
+#define TRAIT_CORPSE_RESIST "corpse_resist"
+/// user will take 25% less tox damage
+#define TRAIT_QUICK_HEATER "quick_heater"
+/// user can drive the ambulance cart to push people out of the way
+#define TRAIT_SPEED_DEMON "speed_demon"
+
+// sci traits
+
+/// user can craft things from the crafting menu in 1/4 time
+#define TRAIT_CRAFTY "crafty"
+/// User is alloted a higher genetics budget
+#define TRAIT_GENETIC_BUDGET "genetic_budget"
+/// allows the user to quick-charge borgs by using a battery on them
+#define TRAIT_CYBORG_SPECIALIST "cyborg_specialist"
+
+// service traits
+
+/// Allows user to pick weeds with their bare hands
+#define TRAIT_GREEN_THUMB "green_thumb"
+/// Allows user to use mops faster, and have galoshes slow less
+#define TRAIT_JANITOR "janitor"
+
+// Engi traits
+
+/// Allows user to to quick-repair unlocked APCs with a frame and board, and quick-swap cells.alist
+#define TRAIT_ELECTRICAL_SPECIALIST "electrical_specialist"
+/// Allows user to spray extinguishers further, and gives precisions  = 1 during spray
+#define TRAIT_FIRE_FIGHTER "fire_fighter"
+
+// cargo traits
+
+/// allows the user to stuff more items in lockers/crates and wrap them faster
+#define TRAIT_PACK_RAT "pack_rat"
+/// Allows the user to ????
+#define TRAIT_SMITH "tait_smith"
+/// Allows faster butchering times
+#define TRAIT_BUTCHER "butcher"
+
+// sec traits
+
+/// Gives the user a new tab for being able to open up space law/sop book pages
+#define TRAIT_JUDICIAL "judicial"
+
+// command traits
+
+/// Allows user to drink coffee to point rapidly to get others to do what you want
+#define TRAIT_COFFEE_SNOB "coffee_snob"
+
 
 //****** OBJ TRAITS *****//
 
@@ -352,6 +441,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define EYES_OF_GOD "eyes_of_god"
 #define GHOSTED		"isghost"
 #define GHOST_ROLE	"ghost_role"
+#define ORGAN_TRAIT "organ"
+#define JOB_TRAIT "job_trait"
 
 // unique trait sources
 #define STATUE_MUTE "statue"
@@ -364,6 +455,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define DOGGO_SPACESUIT "doggo_spacesuit"
 #define FLOORCLUWNE "floorcluwne"
 #define LOCKDOWN_TRAIT "lockdown"
+#define VEHICLE_TRAIT "vehicle"
 #define STAT_TRAIT "stat_trait"
 #define TRANSFORMING_TRAIT "transforming"
 #define BUCKLING_TRAIT "buckled"
@@ -375,8 +467,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define HOLO_CIGAR "holo_cigar"
 #define GLADIATOR "gladiator"
 #define PULSEDEMON_TRAIT "pulse_demon"
+#define TRAIT_CLOWN_CAR_SQUISHED "squished_by_car"
 /// Mentor observing
 #define MENTOR_OBSERVING "mobserving"
+#define TIPPED_OVER "tipped_over"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
@@ -432,6 +526,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 // turf trait sources
 #define FLOOR_EFFECT_TRAIT "floor_effect_trait"
+
+/// A web is being spun on this turf presently
+#define TRAIT_SPINNING_WEB_TURF "spinning_web_turf"
 
 //***** EFFECT TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.

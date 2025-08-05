@@ -8,7 +8,6 @@
 	strip_delay = 7 SECONDS
 	put_on_delay = 7 SECONDS
 	resistance_flags = FIRE_PROOF
-	no_slip = FALSE
 	var/magboot_state = "magboots"
 	var/magpulse = FALSE
 	var/slowdown_active = 2
@@ -53,9 +52,7 @@
 		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
 	user.update_inv_shoes()	//so our mob-overlays update
 	user.update_gravity(user.mob_has_gravity())
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 	check_mag_pulse(user, removing = (user.get_item_by_slot(ITEM_SLOT_SHOES) != src))
 
 /obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user, removing = FALSE)
@@ -73,7 +70,7 @@
 
 /obj/item/clothing/shoes/magboots/atmos
 	name = "atmospheric magboots"
-	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
+	desc = "Magnetic boots, made to withstand gusts of space wind over 500k mph."
 	icon_state = "atmosmagboots0"
 	magboot_state = "atmosmagboots"
 
@@ -189,7 +186,7 @@
 
 /obj/item/clothing/shoes/magboots/gravity
 	name = "gravitational boots"
-	desc = "These experimental boots try to get around the restrictions of magboots by installing miniture gravitational generators in the soles. Sadly, power hungry, and needs a gravitational anomaly core."
+	desc = "These experimental boots try to get around the restrictions of magboots by installing miniature gravitational generators in the soles. Sadly, power hungry, and needs a gravitational anomaly core."
 	icon_state = "gravboots0"
 	origin_tech = "materials=6;magnets=6;engineering=6"
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/gravity_jump) //In other news, combining magboots with jumpboots is a mess

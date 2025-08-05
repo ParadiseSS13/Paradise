@@ -97,10 +97,14 @@
 	if(!is_special_character(src) || !mind.is_original_mob(src))
 		if(zeroth_law_borg)
 			laws.set_zeroth_law(zeroth_law_borg.law)
+			var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
+			H.add_hud_to(src)
 		else if(zeroth_law)
 			laws.set_zeroth_law(zeroth_law.law)
 		else
 			laws.clear_zeroth_laws()
+			var/datum/atom_hud/data/human/malf_ai/H = GLOB.huds[DATA_HUD_MALF_AI]
+			H.remove_hud_from(src)
 
 /mob/living/silicon/ai/sync_zeroth(datum/ai_law/zeroth_law, datum/ai_law/zeroth_law_borg)
 	if(zeroth_law)

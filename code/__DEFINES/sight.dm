@@ -48,3 +48,8 @@
 #define VISOR_VISIONFLAGS	(1<<2) //all following flags only matter for glasses
 #define VISOR_DARKNESSVIEW	(1<<3)
 #define VISOR_INVISVIEW		(1<<4)
+
+// Should AI eyes be counted for get_mobs_in_view?
+#define AI_EYE_EXCLUDE 0
+#define AI_EYE_REQUIRE_HEAR 1
+#define AI_EYE_INCLUDE 2

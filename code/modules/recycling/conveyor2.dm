@@ -18,7 +18,6 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	Use a <b>crowbar</b> on the belt to dislodge it.<span>"
 	layer = CONVEYOR_LAYER 		// so they appear under stuff but not below stuff like vents
 	anchored = TRUE
-	move_force = MOVE_FORCE_DEFAULT
 	var/operating = FALSE	//NB: this can be TRUE while the belt doesn't go
 	var/forwards			// The direction the conveyor sends you in
 	var/backwards			// hopefully self-explanatory
@@ -57,28 +56,27 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	update_move_direction()
 
 // attack with item, place item on conveyor
-/obj/machinery/conveyor/attackby__legacy__attackchain(obj/item/I, mob/user)
+/obj/machinery/conveyor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(stat & BROKEN)
 		return ..()
 
-	if(istype(I, /obj/item/conveyor_switch_construct))
-		var/obj/item/conveyor_switch_construct/S = I
+	if(istype(used, /obj/item/conveyor_switch_construct))
+		var/obj/item/conveyor_switch_construct/S = used
 		if(S.id == id)
 			return ..()
 		for(var/obj/machinery/conveyor_switch/CS in GLOB.conveyor_switches)
 			if(CS.id == id)
 				CS.conveyors -= src
 		id = S.id
-		to_chat(user, "<span class='notice'>You link [I] with [src].</span>")
-		return
+		to_chat(user, "<span class='notice'>You link [used] with [src].</span>")
+		return ITEM_INTERACT_COMPLETE
 
 	if(user.a_intent == INTENT_HELP)
 		if(user.drop_item())
-			I.forceMove(loc)
-		return
+			used.forceMove(loc)
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
-
 
 /obj/machinery/conveyor/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -536,7 +534,6 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	dir = SOUTHEAST
 
 /obj/machinery/conveyor/south
-	dir = SOUTH
 
 /obj/machinery/conveyor/southwest
 	dir = SOUTHWEST

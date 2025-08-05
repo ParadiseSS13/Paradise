@@ -26,7 +26,6 @@
 	mob_size = MOB_SIZE_LARGE
 	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
 	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
-	mouse_opacity = MOUSE_OPACITY_ICON
 	dodging = FALSE // This needs to be false until someone fixes megafauna pathing so they dont lag-switch teleport at you (09-15-2023)
 	initial_traits = list(TRAIT_FLYING)
 	var/list/crusher_loot
@@ -44,6 +43,8 @@
 	var/enraged = FALSE
 	/// Path of the hardmode loot disk, if applicable.
 	var/enraged_loot
+	/// How much ore should killing this give
+	var/difficulty_ore_modifier = 1
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
@@ -53,6 +54,7 @@
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
 		attack_action.Grant(src)
+	generate_random_loot()
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(hoverboard_deactivation))
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
@@ -78,6 +80,9 @@
 
 /mob/living/simple_animal/hostile/megafauna/death(gibbed)
 	GLOB.alive_megafauna_list -= UID()
+	// lets normalize the icons a bit
+	pixel_x = 0
+	pixel_y = 0
 	// this happens before the parent call because `del_on_death` may be set
 	if(can_die() && !admin_spawned)
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
@@ -91,8 +96,37 @@
 			SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
 	return ..()
 
+/mob/living/simple_animal/hostile/megafauna/drop_loot()
+	var/obj/structure/closet/crate/necropolis/loot_drop = new(get_turf(src))
+	for(var/item in loot)
+		new item(loot_drop)
+	spawn_ore_reward(loot_drop)
+
+/// If the megafauna has a pool of random loot items to pick from, override this proc to have it be set on initialization
+/mob/living/simple_animal/hostile/megafauna/proc/generate_random_loot()
+	return
+
+/// Handling the ore part of the mega reward, the higher the difficulty_ore_modifier the more ore will spawn
+/mob/living/simple_animal/hostile/megafauna/proc/spawn_ore_reward(atom/spawn_location)
+	var/list/common_ore = list(
+		/obj/item/stack/ore/uranium,
+		/obj/item/stack/ore/silver,
+		/obj/item/stack/ore/gold,
+		/obj/item/stack/ore/plasma,
+		/obj/item/stack/ore/titanium)
+	var/list/rare_ore = list(
+		/obj/item/stack/ore/diamond,
+		/obj/item/stack/ore/bluespace_crystal)
+
+	for(var/ore in common_ore)
+		var/obj/item/stack/O = new ore(spawn_location)
+		O.amount = roll(difficulty_ore_modifier * 2, 4 + difficulty_ore_modifier)
+	for(var/ore in rare_ore)
+		var/obj/item/stack/O = new ore(spawn_location)
+		O.amount = roll(difficulty_ore_modifier, 4 + difficulty_ore_modifier)
+
 /mob/living/simple_animal/hostile/megafauna/proc/spawn_crusher_loot()
-	loot = crusher_loot
+	loot += crusher_loot
 
 /mob/living/simple_animal/hostile/megafauna/AttackingTarget()
 	if(recovery_time >= world.time)
@@ -111,7 +145,7 @@
 	if(!istype(get_area(src), /area/shuttle)) //I'll be funny and make non teleported enrage mobs not lose enrage. Harder to pull off, and also funny when it happens accidently. Or if one gets on the escape shuttle.
 		unrage()
 
-/mob/living/simple_animal/hostile/megafauna/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/mob/living/simple_animal/hostile/megafauna/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller_mob)
 	var/turf/oldloc = loc
 	. = ..()
 	if(!.)
@@ -120,7 +154,7 @@
 	message_admins("Megafauna [src] \
 		([ADMIN_FLW(src,"FLW")]) \
 		moved via shuttle from ([oldloc.x], [oldloc.y], [oldloc.z]) to \
-		([newloc.x], [newloc.y], [newloc.z])[caller ? " called by [ADMIN_LOOKUP(caller)]" : ""]")
+		([newloc.x], [newloc.y], [newloc.z])[caller_mob ? " called by [ADMIN_LOOKUP(caller_mob)]" : ""]")
 
 /mob/living/simple_animal/hostile/megafauna/proc/devour(mob/living/L)
 	if(!L)
@@ -145,16 +179,18 @@
 			adjustBruteLoss(50)
 
 /mob/living/simple_animal/hostile/megafauna/proc/SetRecoveryTime(buffer_time)
-	recovery_time = world.time + buffer_time
+	recovery_time = world.time + 2.5 DECISECONDS
 	ranged_cooldown = world.time + buffer_time
 
 /// This proc is called by the HRD-MDE grenade to enrage the megafauna. This should increase the megafaunas attack speed if possible, give it new moves, or disable weak moves. This should be reverseable, and reverses on zlvl change.
 /mob/living/simple_animal/hostile/megafauna/proc/enrage()
 	if(enraged || ((health / maxHealth) * 100 <= 80))
 		return
+	difficulty_ore_modifier += 4 // Hardmode only helps the station more and gives you bragging rights, no special items for hardmode
 	enraged = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/proc/unrage()
+	difficulty_ore_modifier -= 4
 	enraged = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/DestroySurroundings()
@@ -180,8 +216,8 @@
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
-	button_overlay_icon = 'icons/mob/actions/actions_animal.dmi'
-	button_overlay_icon_state = ""
+	button_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_icon_state = ""
 	var/mob/living/simple_animal/hostile/megafauna/M
 	var/chosen_message
 	var/chosen_attack_num = 0

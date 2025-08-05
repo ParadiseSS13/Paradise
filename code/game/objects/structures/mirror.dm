@@ -4,12 +4,13 @@
 	desc = "Mirror mirror on the wall, who's the most robust of them all?"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mirror"
-	density = FALSE
 	anchored = TRUE
 	max_integrity = 200
 	integrity_failure = 100
 	var/list/ui_users = list()
 	var/broken_icon_state = "mirror_broke"
+
+/obj/structure/mirror/organ
 
 /obj/structure/mirror/Initialize(mapload, newdir = SOUTH, building = FALSE)
 	. = ..()
@@ -52,6 +53,10 @@
 			desc = "Oh no, seven years of bad luck!"
 		broken = TRUE
 		GLOB.mirrors -= src
+
+/obj/structure/mirror/organ/obj_break(damage_flag, mapload)
+	playsound(src, "shatter", 70, TRUE)
+	qdel(src)
 
 /obj/structure/mirror/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -138,7 +143,8 @@
 				AC.flags = APPEARANCE_ALL
 				AC.whitelist = race_list
 				ui_users[user] = AC
-			AC.ui_interact(user)
+			if(user.Adjacent(src))
+				AC.ui_interact(user)
 
 		if("Voice")
 			var/voice_choice = tgui_input_list(user, "Perhaps...", "Voice effects", list("Comic Sans", "Wingdings", "Swedish", "Chav", "Mute"))

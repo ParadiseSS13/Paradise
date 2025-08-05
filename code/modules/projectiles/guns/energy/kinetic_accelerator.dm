@@ -7,8 +7,8 @@
 	cell_type = /obj/item/stock_parts/cell/emproof
 	needs_permit = FALSE
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
-	weapon_weight = WEAPON_LIGHT
 	can_flashlight = TRUE
+	can_be_lensed = FALSE
 	flight_x_offset = 15
 	flight_y_offset = 9
 	var/overheat_time = 16
@@ -33,8 +33,8 @@
 			. += "<b>[get_remaining_mod_capacity()]%</b> mod capacity remaining."
 			for(var/A in get_modkits())
 				var/obj/item/borg/upgrade/modkit/M = A
+				. |= "<span class='notice'>You can use a crowbar on it to remove it's installed mod kits.</span>"
 				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
-				. += "<span class='notice'>You can use a crowbar on it to remove it's installed mod kits.</span>"
 
 /obj/item/gun/energy/kinetic_accelerator/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/borg/upgrade/modkit) && max_mod_capacity)
@@ -203,7 +203,6 @@
 	name = "kinetic force"
 	icon_state = null
 	damage = 40
-	damage_type = BRUTE
 	flag = BOMB
 	range = 3
 
@@ -323,11 +322,14 @@
 
 /obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = TRUE
+	if(istype(loc, /obj/item/gun/energy/kinetic_accelerator)) //Could be in another KA too.
+		message_admins("[key_name_admin(user)] attempted to install a modkit into a kinetic accelerator while it is installed in an accelerator. Could be a double click, or an exploit attempt.")
+		return FALSE
 	if(minebot_upgrade)
-		if(minebot_exclusive && !istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
+		if(minebot_exclusive && !istype(KA.loc, /mob/living/basic/mining_drone))
 			to_chat(user, "<span class='notice'>The modkit you're trying to install is only rated for minebot use.</span>")
 			return FALSE
-	else if(istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
+	else if(istype(KA.loc, /mob/living/basic/mining_drone))
 		to_chat(user, "<span class='notice'>The modkit you're trying to install is not rated for minebot use.</span>")
 		return FALSE
 	if(denied_type)
@@ -381,7 +383,6 @@
 /obj/item/borg/upgrade/modkit/range
 	name = "range increase"
 	desc = "Increases the range of a kinetic accelerator when installed."
-	modifier = 1
 	cost = 24 //so you can fit four plus a tracer cosmetic
 
 /obj/item/borg/upgrade/modkit/range/modify_projectile(obj/item/projectile/kinetic/K)
@@ -527,7 +528,6 @@
 	name = "resonator blast"
 	desc = "Causes kinetic accelerator shots to leave and detonate resonator blasts."
 	denied_type = /obj/item/borg/upgrade/modkit/resonator_blasts
-	cost = 30
 	modifier = 0.25 //A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
 
 /obj/item/borg/upgrade/modkit/resonator_blasts/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
@@ -544,7 +544,6 @@
 	desc = "Killing or assisting in killing a creature permanently increases your damage against that type of creature."
 	denied_type = /obj/item/borg/upgrade/modkit/bounty
 	modifier = 1.25
-	cost = 30
 	var/maximum_bounty = 25
 	var/list/bounties_reaped = list()
 

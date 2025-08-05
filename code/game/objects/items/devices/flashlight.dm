@@ -9,6 +9,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	actions_types = list(/datum/action/item_action/toggle_light)
+	light_color = "#ffffd0"
 	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
 	var/togglesound = 'sound/weapons/empty.ogg'
@@ -37,9 +38,7 @@
 	on = !on
 	playsound(user, togglesound, 100, 1)
 	update_brightness()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 	return TRUE
 
 /obj/item/flashlight/attack__legacy__attackchain(mob/living/M as mob, mob/living/user as mob)
@@ -94,7 +93,6 @@
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_EARS
-	flags = CONDUCT
 	brightness_on = 2
 	var/colour = "blue" // Ink color
 
@@ -112,7 +110,6 @@
 	desc = "A miniature lamp, that might be used by small robots."
 	icon_state = "penlight"
 	item_state = ""
-	flags = CONDUCT
 	brightness_on = 2
 	w_class = WEIGHT_CLASS_TINY
 
@@ -124,9 +121,9 @@
 	item_state = "lamp"
 	brightness_on = 5
 	w_class = WEIGHT_CLASS_BULKY
-	flags = CONDUCT
 	materials = list()
 	on = TRUE
+	light_color = "#fff4bb"
 
 /obj/item/flashlight/lamp/examine(mob/user)
 	. = ..()
@@ -137,6 +134,7 @@
 	desc = "A classic green-shaded desk lamp."
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
+	light_color = "#AAFFAA"
 
 /obj/item/flashlight/lamp/green/off
 	on = FALSE
@@ -153,6 +151,7 @@
 	desc = "Only a clown would think to make a ghetto banana-shaped lamp. Even has a goofy pullstring."
 	icon_state = "bananalamp"
 	item_state = "bananalamp"
+	light_color = "#f7ff57"
 
 // FLARES
 
@@ -310,17 +309,6 @@
 	fuel_lower = 30
 	fuel_upp = 90
 
-/obj/item/flashlight/flare/glowstick/random
-	name = "random colored glowstick"
-	icon_state = "random_glowstick"
-	color = null
-
-/obj/item/flashlight/flare/glowstick/random/Initialize(mapload)
-	. = ..()
-	var/T = pick(typesof(/obj/item/flashlight/flare/glowstick) - /obj/item/flashlight/flare/glowstick/random - /obj/item/flashlight/flare/glowstick/emergency)
-	new T(loc)
-	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
-
 /obj/item/flashlight/flare/extinguish_light(force = FALSE)
 	if(force)
 		fuel = 0
@@ -335,8 +323,6 @@
 	brightness_on = 7
 	icon_state = "torch"
 	item_state = "torch"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	light_color = LIGHT_COLOR_ORANGE
 	on_damage = 10
 
@@ -344,7 +330,6 @@
 	gender = PLURAL
 	name = "glowing slime extract"
 	desc = "A glowing ball of what appears to be amber."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "slime-on"
 	item_state = "slime"
 	w_class = WEIGHT_CLASS_TINY
@@ -421,7 +406,6 @@
 	icon_state = null
 	light_color = null
 	brightness_on = 0
-	light_range = 0
 	light_power = 10
 	alpha = 0
 	layer = 0
@@ -434,6 +418,5 @@
 	name = "eyelight"
 	desc = "This shouldn't exist outside of someone's head, how are you seeing this?"
 	light_range = 15
-	light_power = 1
 	flags = CONDUCT | DROPDEL
 	actions_types = list()

@@ -8,29 +8,23 @@
 	icon_state = null
 	container_type = OPENCONTAINER
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
-	visible_transfer_rate = TRUE
 	volume = 50
-	resistance_flags = NONE
 	var/consume_sound = 'sound/items/drink.ogg'
 	var/chugging = FALSE
 
-/obj/item/reagent_containers/drinks/attack_self__legacy__attackchain(mob/user)
-	return
-
-/obj/item/reagent_containers/drinks/attack__legacy__attackchain(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/drinks/mob_act(mob/target, mob/living/user)
+	. = TRUE
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
-		return FALSE
+		return
 
 	if(!is_drainable())
 		to_chat(user, "<span class='warning'>You need to open [src] first!</span>")
-		return FALSE
+		return
 
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		if(C.drink(src, user))
-			return TRUE
-	return FALSE
+	if(iscarbon(target))
+		var/mob/living/carbon/C = target
+		C.drink(src, user)
 
 /obj/item/reagent_containers/drinks/MouseDrop(atom/over_object) //CHUG! CHUG! CHUG!
 	if(!iscarbon(over_object))
@@ -54,40 +48,38 @@
 				break
 		chugging = FALSE
 
-/obj/item/reagent_containers/drinks/afterattack__legacy__attackchain(obj/target, mob/user, proximity)
-	if(!proximity)
-		return
+/obj/item/reagent_containers/drinks/normal_act(obj/target, mob/living/user) // The 2 if checks are forced true to preserve tapping behaviour.
 	if(chugging)
-		return
+		return TRUE
 
 	if(target.is_refillable() && is_drainable()) //Something like a glass. Player probably wants to transfer TO it.
+		. = TRUE
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>[src] is empty.</span>")
-			return FALSE
+			return
 
 		if(target.reagents.holder_full())
 			to_chat(user, "<span class='warning'>[target] is full.</span>")
-			return FALSE
+			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You transfer [trans] units of the solution to [target].</span>")
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
+		. = TRUE
 		if(!is_refillable())
 			to_chat(user, "<span class='warning'>[src]'s tab isn't open!</span>")
-			return FALSE
+			return
 		if(!target.reagents.total_volume)
 			to_chat(user, "<span class='warning'>[target] is empty.</span>")
-			return FALSE
+			return
 
 		if(reagents.holder_full())
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
-			return FALSE
+			return
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
-
-	return FALSE
 
 /obj/item/reagent_containers/drinks/examine(mob/user)
 	. = ..()
@@ -112,15 +104,12 @@
 	name = "pewter cup"
 	desc = "Everyone gets a trophy."
 	icon_state = "pewter_cup"
-	w_class = WEIGHT_CLASS_TINY
 	force = 1
 	throwforce = 1
-	amount_per_transfer_from_this = 5
 	materials = list(MAT_METAL=100)
 	possible_transfer_amounts = null
 	volume = 5
 	flags = CONDUCT
-	container_type = OPENCONTAINER
 	resistance_flags = FIRE_PROOF
 
 /obj/item/reagent_containers/drinks/trophy/gold_cup
@@ -277,7 +266,10 @@
 	. = ..()
 	reagents.set_reacting(FALSE)
 
-/obj/item/reagent_containers/drinks/shaker/attack_self__legacy__attackchain(mob/user)
+/obj/item/reagent_containers/drinks/shaker/activate_self(mob/user)
+	if(..())
+		return
+
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>You won't shake an empty shaker now, will you?</span>")
 		return
@@ -319,7 +311,6 @@
 	volume = 60
 
 /obj/item/reagent_containers/drinks/flask/barflask
-	name = "flask"
 	desc = "For those who can't be bothered to hang out at the bar to drink."
 	icon_state = "barflask"
 
@@ -377,7 +368,6 @@
 /obj/item/reagent_containers/drinks/bag/goonbag
 	name = "goon from a Blue Toolbox special edition"
 	desc = "Wine from the land down under, where the dingos roam and the roos do wander."
-	icon_state = "goonbag"
 	list_reagents = list("wine" = 70)
 
 /obj/item/reagent_containers/drinks/oilcan

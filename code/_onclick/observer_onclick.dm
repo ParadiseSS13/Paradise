@@ -8,6 +8,9 @@
 	if(modifiers["middle"]) // Let ghosts point without teleporting
 		return
 
+	if(modifiers["shift"]) // Let ghosts examine without teleporting
+		return
+
 	if(can_reenter_corpse && mind && mind.current)
 		if(A == mind.current || (mind.current in A)) // double click your corpse or whatever holds it
 			reenter_corpse()						// (cloning scanner, body bag, closet, mech, etc)
@@ -83,7 +86,7 @@
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the health_scan var.
 		return FALSE
 	if(user.client)
-		if(user.gas_scan && atmos_scan(user=user, target=src, silent=TRUE))
+		if(user.gas_scan && src.return_analyzable_air() && atmos_scan(user=user, target=src, silent=TRUE))
 			return TRUE
 
 // health + machine analyzer for ghosts

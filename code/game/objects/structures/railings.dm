@@ -5,10 +5,12 @@
 	icon_state = "railing"
 	density = TRUE
 	anchored = TRUE
+	flags_2 = RAD_NO_CONTAMINATE_2
 	pass_flags_self = LETPASSTHROW | PASSTAKE
 	climbable = TRUE
 	layer = ABOVE_MOB_LAYER
 	flags = ON_BORDER
+	max_integrity = 50
 	var/currently_climbed = FALSE
 	var/mover_dir = null
 

@@ -11,7 +11,6 @@
 /area/station/supply/sorting
 	name = "\improper Delivery Office"
 	icon_state = "cargomail"
-	sound_environment = SOUND_AREA_STANDARD_STATION
 	request_console_flags = RC_SUPPLY
 	request_console_name = "Cargo Bay"
 
@@ -34,6 +33,10 @@
 	icon_state = "cargobay"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	request_console_flags = RC_SUPPLY
+
+/area/station/supply/smith_office
+	name = "Smith's Office"
+	icon_state = "smith"
 
 /area/station/supply/qm
 	name = "\improper Quartermaster's Office"

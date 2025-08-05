@@ -12,7 +12,6 @@
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril)
 
 	move_resist = INFINITY // just killing it tears a massive hole in the ground, let's not move it
-	anchored = TRUE
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 
 	var/obj/effect/light_emitter/tendril/emitted_light
@@ -36,6 +35,8 @@ GLOBAL_LIST_EMPTY(tendrils)
 		if(ismineralturf(F))
 			var/turf/simulated/mineral/M = F
 			M.ChangeTurf(M.turf_type, FALSE, FALSE, TRUE)
+		var/turf/no_lava = F
+		no_lava.flags |= NO_LAVA_GEN
 
 /obj/structure/spawner/lavaland/deconstruct(disassembled)
 	new /obj/effect/collapse(loc)
@@ -67,7 +68,6 @@ GLOBAL_LIST_EMPTY(tendrils)
 	layer = TABLE_LAYER
 	icon = 'icons/mob/nest.dmi'
 	icon_state = "tendril"
-	anchored = TRUE
 	density = TRUE
 	var/obj/effect/light_emitter/tendril/emitted_light
 

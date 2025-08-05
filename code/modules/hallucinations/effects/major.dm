@@ -30,7 +30,6 @@
 	hallucination_icon = 'icons/mob/terrorspider.dmi'
 	hallucination_icon_state = "terror_green"
 	duration = 30 SECONDS
-	damage = 25
 
 /obj/effect/hallucination/chaser/attacker/terror_spider/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
@@ -68,15 +67,15 @@
 	target.visible_message("<span class='warning'>[target] trips over nothing.</span>",
 						"<span class='userdanger'>You get stuck in [src]!</span>")
 
-/obj/effect/hallucination/tripper/spider_web/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/effect/hallucination/tripper/spider_web/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(user != target)
-		return
-
+		return ITEM_INTERACT_COMPLETE
 	step_towards(target, get_turf(src))
 	target.Weaken(4 SECONDS)
-	target.visible_message("<span class='warning'>[target] flails [target.p_their()] [I.name] as if striking something, only to trip!</span>",
-						"<span class='userdanger'>[src] vanishes as you strike it with [I], causing you to stumble forward!</span>")
+	target.visible_message("<span class='warning'>[target] flails [target.p_their()] [used.name] as if striking something, only to trip!</span>",
+						"<span class='userdanger'>[src] vanishes as you strike it with [used], causing you to stumble forward!</span>")
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /**
   * # Hallucination - Abduction
@@ -95,7 +94,7 @@
 
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -124,7 +123,7 @@
 	// Find a spot for the scientist to spawn
 	var/list/locs = list()
 	for(var/turf/T in orange(1, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	locs -= get_turf(agent)
 	if(!length(locs))
@@ -278,7 +277,7 @@
 
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view / 2, target))
-		if(!is_blocked_turf(T))
+		if(!T.is_blocked_turf())
 			locs += T
 	if(!length(locs))
 		qdel(src)
@@ -357,19 +356,19 @@
 	var/list/locs = list()
 	for(var/turf/T in oview(world.view / 2, target))
 		var/light_amount = T.get_lumcount()
-		if(!is_blocked_turf(T) && light_amount <= 0.5)
+		if(!T.is_blocked_turf() && light_amount <= 0.5)
 			locs += T
 	if(!length(locs))
 		return INITIALIZE_HINT_QDEL
 	var/turf/T = get_turf(pick(locs))
-	color = pick(COLOR_BLACK, 
-		COLOR_RIPPING_TENDRILS, 
-		COLOR_BOILING_OIL, 
-		COLOR_ENVENOMED_FILAMENTS, 
+	color = pick(COLOR_BLACK,
+		COLOR_RIPPING_TENDRILS,
+		COLOR_BOILING_OIL,
+		COLOR_ENVENOMED_FILAMENTS,
 		COLOR_LEXORIN_JELLY,
-		COLOR_KINETIC_GELATIN, 
-		COLOR_CRYOGENIC_LIQUID, 
-		COLOR_SORIUM, 
+		COLOR_KINETIC_GELATIN,
+		COLOR_CRYOGENIC_LIQUID,
+		COLOR_SORIUM,
 		COLOR_TESLIUM_PASTE)
 	create_blob(T, core = TRUE)
 	target.playsound_local(T, 'sound/effects/splat.ogg', 50, 1)
@@ -433,7 +432,6 @@
 	hallucination_icon = 'icons/mob/human.dmi'
 	hallucination_icon_state = "zombie2_s"
 	duration = 45 SECONDS
-	damage = 25
 	/// The hallucination that spawned us.
 	var/obj/effect/hallucination/blob/owning_hallucination = null
 	/// Whether or not the target has been zombified already.
@@ -476,3 +474,101 @@
 	I.color = blob.color
 	target.client.images += I
 	blob.target_blob_head = I
+
+/**
+  * # Hallucination - Sniper
+  *
+  * Fires a penetrator round at the target. On hit, knockdown + stam loss + hallucinated blood splatter for a bit.
+  */
+/obj/effect/hallucination/sniper
+
+/obj/effect/hallucination/sniper/Initialize(mapload, mob/living/carbon/target)
+	. = ..()
+	// Make sure the target has a client. Otherwise, stop the hallucination
+	if(!target.client)
+		qdel(src)
+		return
+	// Find a start spot for the sniper bullet
+	var/list/possible_turfs = list()
+	for(var/turf/T in RANGE_EDGE_TURFS(13, target.loc))
+		possible_turfs += T
+	if(!length(possible_turfs))
+		log_debug("Unable to find possible turf for [src].")
+		qdel(src)
+		return
+	var/turf/shot_loc = get_turf(pick(possible_turfs))
+	fire_bullet(shot_loc, target)
+
+/obj/effect/hallucination/sniper/proc/fire_bullet(turf/shot_loc, mob/living/carbon/target)
+	// Fire the bullet
+	var/obj/item/projectile/bullet/sniper/penetrator/hallucination/bullet = new(shot_loc)
+	bullet.hallucinator = target
+	bullet.def_zone = BODY_ZONE_HEAD
+	bullet.suppressed = TRUE
+
+	// Turn right away
+	var/matrix/M = new
+	var/angle = round(get_angle(shot_loc, target))
+	M.Turn(angle)
+	bullet.transform = M
+
+	// Handle who can see the bullet
+	bullet.bullet_image = image(bullet.icon, bullet, bullet.icon_state, OBJ_LAYER, bullet.dir)
+	bullet.bullet_image.transform = M
+	target.client.images += bullet.bullet_image
+
+	// Start flying
+	bullet.trajectory = new(bullet.x, bullet.y, bullet.z, bullet.pixel_x, bullet.pixel_y, angle, SSprojectiles.global_pixel_speed)
+	bullet.last_projectile_move = world.time
+	bullet.has_been_fired = TRUE
+	target.playsound_local(target.loc, 'sound/weapons/gunshots/gunshot_sniper.ogg', 50)
+	START_PROCESSING(SSprojectiles, bullet)
+
+/obj/effect/hallucination/sniper_bloodsplatter
+	hallucination_icon = 'icons/effects/blood.dmi'
+	hallucination_icon_state = "mfloor1"
+	hallucination_color = "#A10808"
+
+/obj/effect/hallucination/sniper_bloodsplatter/Initialize(mapload, mob/living/carbon/target)
+	var/list/b_data = target.get_blood_data(target.get_blood_id())
+	if(b_data && !isnull(b_data["blood_color"]))
+		hallucination_color = b_data["blood_color"]
+	. = ..()
+	hallucination_icon_state = pick("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
+
+
+/obj/item/projectile/bullet/sniper/penetrator/hallucination
+	nodamage = TRUE
+	invisibility = INVISIBILITY_MAXIMUM // You no see boolet
+	/// The hallucinator
+	var/mob/living/carbon/hallucinator = null
+	/// Handles only the victim seeing it
+	var/image/bullet_image = null
+
+/obj/item/projectile/bullet/sniper/penetrator/hallucination/on_hit(atom/target, blocked, hit_zone)
+	if(!isliving(target))
+		return
+	if(target != hallucinator)
+		return
+	var/mob/living/hit_target = target
+	var/organ_hit_text = ""
+	if(hit_target.has_limbs)
+		organ_hit_text = " in \the [parse_zone(def_zone)]"
+	hit_target.playsound_local(loc, hitsound, 5, TRUE)
+	hit_target.apply_damage(60, STAMINA, def_zone)
+	hit_target.KnockDown(2 SECONDS)
+	new /obj/effect/hallucination/sniper_bloodsplatter(get_turf(src), hit_target)
+	to_chat(hit_target, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
+
+/obj/item/projectile/bullet/sniper/penetrator/hallucination/Bump(atom/A, yes)
+	if(!yes) // prevents double bumps.
+		return
+	var/turf/target_turf = get_turf(A)
+	prehit(A)
+	var/mob/living/hit_target = A
+	if(hit_target == hallucinator)
+		hit_target.bullet_act(src, def_zone)
+	loc = target_turf
+	if(A)
+		permutated += A
+	return 0

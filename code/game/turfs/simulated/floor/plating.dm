@@ -6,9 +6,6 @@
 	floor_tile = null
 	var/unfastened = FALSE
 	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	smoothing_groups = list(SMOOTH_GROUP_TURF)
 	real_layer = PLATING_LAYER
 
@@ -113,6 +110,8 @@
 
 		return ITEM_INTERACT_COMPLETE
 
+	return ..()
+
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
 	if(!I.tool_use_check(user, 0))
 		return
@@ -156,7 +155,6 @@
 		TerraformTurf(baseturf, keep_icon = FALSE)
 
 /turf/simulated/floor/plating/airless
-	icon_state = "plating"
 	name = "airless plating"
 	oxygen = 0
 	nitrogen = 0
@@ -180,9 +178,6 @@
 	heat_capacity = 325000
 	floor_tile = /obj/item/stack/rods
 	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
@@ -315,6 +310,13 @@
 	toxins = 10
 	atmos_mode = ATMOS_MODE_NO_DECAY
 
+/turf/simulated/floor/engine/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
 		if(floor_tile)
@@ -326,7 +328,6 @@
 
 /turf/simulated/floor/engine/vacuum
 	name = "vacuum floor"
-	icon_state = "engine"
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
@@ -350,7 +351,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/plating/snow/ex_act(severity)
 	return
@@ -365,7 +365,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/snow/ex_act(severity)
 	return
@@ -464,3 +463,24 @@
 /turf/simulated/floor/plating/nitrogen
 	oxygen = 0
 	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
+/// Used in situations like the anomalous crystal where we want
+/// floors that look and act like asteroid floors but aren't.
+/// This doesn't allow you to dig sand out of it but whatever.
+/turf/simulated/floor/plating/false_asteroid
+	gender = PLURAL
+	name = "volcanic floor"
+	baseturf = /turf/simulated/floor/plating/false_asteroid
+	icon_state = "basalt"
+	icon_plating = "basalt"
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	var/environment_type = "basalt"
+	var/turf_type = /turf/simulated/floor/plating/false_asteroid
+	var/floor_variance = 20 //probability floor has a different icon state
+
+/turf/simulated/floor/plating/false_asteroid/AfterChange(ignore_air, keep_cabling)
+	. = ..()
+	if(prob(floor_variance))
+		icon_plating = "[environment_type][rand(0,12)]"

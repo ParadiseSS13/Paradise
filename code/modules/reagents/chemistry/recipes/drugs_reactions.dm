@@ -20,7 +20,7 @@
 /datum/chemical_reaction/crank/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	fireflash(holder.my_atom, 1)
-	explosion(T, 0, 0, 2)
+	explosion(T, 0, 0, 2, cause = "Crank reaction")
 
 /datum/chemical_reaction/krokodil
 	name = "Krokodil"
@@ -81,7 +81,7 @@
 /datum/chemical_reaction/mephedrone/on_reaction(datum/reagents/holder) //Will make it harder for botany, need a chem heater or will suffer, and mixing in plants wont work
 	var/turf/T = get_turf(holder.my_atom)
 	fireflash(holder.my_atom, 3, 500)
-	explosion(T, 0, 0, 2, 2, flame_range = 2)
+	explosion(T, 0, 0, 2, 2, flame_range = 2, cause = "Mephedrone reaction")
 
 /datum/chemical_reaction/jenkem
 	name = "Jenkem"
@@ -143,7 +143,6 @@
 	id = "conductivelube"
 	result = "conductivelube"
 	required_reagents = list("teslium" = 1, "lube" = 1, "aluminum" = 1)
-	result_amount = 3
 	mix_message = "The mixture darkens and starts sparking."
 
 /datum/chemical_reaction/surge

@@ -253,7 +253,7 @@
 
 	M.visible_message("<span class='notice'>[M] starts entering a cryptic series of characters on [U].</span>",\
 					"<span class='notice'>You start entering an extraction signal to your handlers on [U]...</span>")
-	if(do_after(M, EXTRACTION_PHASE_PREPARE, target = M))
+	if(do_after(M, EXTRACTION_PHASE_PREPARE, target = M, hidden = TRUE))
 		if(!U.Adjacent(M) || extraction_deadline > world.time)
 			return
 		var/obj/effect/contractor_flare/F = new(get_turf(M))
@@ -423,11 +423,10 @@
 	M.update_icons()
 
 	// Supply them with some chow. How generous is the Syndicate?
-	var/obj/item/food/breadslice/food = new(get_turf(M))
+	var/obj/item/food/sliced/bread/food = new(get_turf(M))
 	food.name = "stale bread"
 	food.desc = "Looks like your captors care for their prisoners as much as their bread."
 	food.trash = null
-	food.reagents.add_reagent("nutriment", 5) // It may be stale, but it still has to be nutritive enough for the whole duration!
 	if(prob(10))
 		// Mold adds a bit of spice to it
 		food.name = "moldy bread"
@@ -535,7 +534,7 @@
 /datum/syndicate_contract/proc/handle_target_return(mob/living/M)
 	var/list/turf/possible_turfs = list()
 	for(var/turf/T in contract.extraction_zone.contents)
-		if(!isspaceturf(T) && !is_blocked_turf(T))
+		if(!isspaceturf(T) && !T.is_blocked_turf())
 			possible_turfs += T
 
 	var/turf/destination = length(possible_turfs) ? pick(possible_turfs) : pick(GLOB.latejoin)

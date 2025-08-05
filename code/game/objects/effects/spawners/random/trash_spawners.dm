@@ -1,7 +1,6 @@
 /// Food trash spawner, for when you specifically want it to look like someone
 /// didn't clean up after themselves after lunch.
 /obj/effect/spawner/random/food_trash
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "tray"
 	name = "Food trash spawner"
 	loot = list(
@@ -36,7 +35,6 @@
 	SSblackbox.record_feedback("tally", "random_spawners", 1, "[/obj/item/trash]")
 
 /obj/effect/spawner/random/trash
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "trash"
 
 	name = "Trash spawner"

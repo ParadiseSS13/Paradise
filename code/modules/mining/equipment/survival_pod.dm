@@ -2,7 +2,6 @@
 	name = "\improper Emergency Shelter"
 	icon_state = "away"
 	requires_power = FALSE
-	has_gravity = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	ambientsounds = MINING_SOUNDS
 
@@ -73,13 +72,18 @@
 			log_admin("[key_name(usr)] activated a bluespace capsule away from the mining level at [T.x], [T.y], [T.z]")
 		template.load(deploy_location, centered = TRUE)
 		new /obj/effect/particle_effect/smoke(get_turf(src))
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SHELTER_PLACED, T)
 		qdel(src)
 
 /obj/item/survivalcapsule/luxury
 	name = "luxury bluespace shelter capsule"
-	desc = "An exorbitantly expensive luxury suite stored within a pocket of bluespace."
+	desc = "An exorbitantly expensive luxury suite stored within a pocket of bluespace. It is made of durable materials more capable of withstanding harsh weather over standard capsules."
 	origin_tech = "engineering=3;bluespace=4"
 	template_id = "shelter_beta"
+
+// for things that shouldnt affect specifically the luxury pods
+/area/survivalpod/luxurypod
+	name = "\improper Luxury Shelter"
 
 //Pod turfs and objects
 
@@ -89,8 +93,6 @@
 	icon = 'icons/obj/smooth_structures/windows/pod_window.dmi'
 	icon_state = "pod_window-0"
 	base_icon_state = "pod_window"
-	smoothing_flags = SMOOTH_BITMASK
-	glass_type = /obj/item/stack/sheet/titaniumglass
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 	canSmoothWith = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 
@@ -169,7 +171,6 @@
 //Sleeper
 /obj/machinery/sleeper/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
-	icon_state = "sleeper-open"
 	density = FALSE
 
 /obj/machinery/sleeper/survival_pod/Initialize(mapload)
@@ -184,14 +185,23 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
+	update_icon()
+
+/obj/machinery/sleeper/survival_pod/update_overlays()
+	. = ..()
+	. += emissive_appearance(icon, "[icon_state]_lightmask")
 
 //NanoMed
 /obj/machinery/economy/vending/wallmed/survival_pod
-	name = "survival pod medical supply"
+	name = "survival pod emergency medical supply"
 	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
-	req_access = list()
 
-	products = list(/obj/item/stack/medical/splint = 2)
+	products = list(/obj/item/stack/medical/bruise_pack = 1,
+				/obj/item/stack/medical/ointment = 1,
+				/obj/item/reagent_containers/syringe/charcoal = 1,
+				/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 2,
+				/obj/item/stack/medical/splint = 1,
+	)
 	contraband = list()
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod, 32, 32)
@@ -204,6 +214,17 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	anchored = TRUE
 	density = TRUE
 	pixel_y = -32
+	light_power = 1.4
+	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_color = "#79dcc4"
+
+/obj/item/gps/computer/Initialize(mapload)
+	. = ..()
+	update_icon()
+
+/obj/item/gps/computer/update_overlays()
+	. = ..()
+	. += emissive_appearance(icon, "[icon_state]_lightmask")
 
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -222,7 +243,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 //Bed
 /obj/structure/bed/pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
-	icon_state = "bed"
 
 //Survival Storage Unit
 /obj/machinery/smartfridge/survival_pod
@@ -230,9 +250,9 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	desc = "A heated storage unit."
 	icon_state = "donkvendor"
 	icon = 'icons/obj/lavaland/donkvendor.dmi'
-	light_range = 8
-	light_power = 1.2
-	light_color = "#DDFFD3"
+	light_range_on = 3
+	light_power_on = 1
+	light_color = "#79dcc4"
 	max_n_of_items = 10
 	pixel_y = -4
 	flags = NODECONSTRUCT
@@ -258,7 +278,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	return
 
 /obj/machinery/smartfridge/survival_pod/update_overlays()
-	return list()
+	underlays.Cut()
+	underlays += emissive_appearance(icon, "[icon_state]_lightmask")
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
 	return isitem(O)
@@ -346,7 +367,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	name = "tubes"
 	anchored = TRUE
 	layer = MOB_LAYER - 0.2
-	density = FALSE
 
 /obj/structure/tubes/wrench_act(mob/living/user, obj/item/W)
 	. = TRUE

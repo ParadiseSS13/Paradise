@@ -18,6 +18,7 @@
 #define DISABILITY_FLAG_DIZZY       (1<<9)
 #define DISABILITY_FLAG_CHAV        (1<<10)
 #define DISABILITY_FLAG_DEAF        (1<<11)
+#define DISABILITY_FLAG_PARAPLEGIC	(1<<12)
 
 ///////////////////////////////////////
 // MUTATIONS

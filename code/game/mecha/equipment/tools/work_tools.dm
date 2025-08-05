@@ -131,13 +131,12 @@
 	desc = "Equipment for engineering exosuits. A rapid-firing high capacity fire extinguisher."
 	icon_state = "mecha_exting"
 	equip_cooldown = 5
-	energy_drain = 0
 	range = MECHA_MELEE | MECHA_RANGED
 
-/obj/item/mecha_parts/mecha_equipment/extinguisher/New()
+/obj/item/mecha_parts/mecha_equipment/extinguisher/Initialize(mapload)
+	. = ..()
 	create_reagents(1000)
 	reagents.add_reagent("water", 1000)
-	..()
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/action(atom/target) //copypasted from extinguisher. TODO: Rewrite from scratch.
 	if(!action_checks(target) || get_dist(chassis, target)>3)
@@ -206,12 +205,11 @@
 	flags_2 = NO_MAT_REDEMPTION_2
 	var/mode = MECH_RCD_MODE_DECONSTRUCT
 	var/can_rwall = 0
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
-/obj/item/mecha_parts/mecha_equipment/rcd/New()
+/obj/item/mecha_parts/mecha_equipment/rcd/Initialize(mapload)
+	. = ..()
 	GLOB.rcd_list += src
-	..()
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Destroy()
 	GLOB.rcd_list -= src
@@ -335,10 +333,10 @@
 	var/obj/item/stack/cable_coil/cable
 	var/max_cable = 1000
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/New()
+/obj/item/mecha_parts/mecha_equipment/cable_layer/Initialize(mapload)
+	. = ..()
 	cable = new(src)
 	cable.amount = 0
-	..()
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/can_attach(obj/mecha/working/M)
 	if(..())

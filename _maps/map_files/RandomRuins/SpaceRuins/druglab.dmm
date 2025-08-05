@@ -29,12 +29,20 @@
 /area/ruin/space/methlab)
 "g" = (
 /obj/effect/decal/cleanable/blood,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "h" = (
 /obj/machinery/door/airlock/external{
 	name = "Crackden Airlock"
 	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 8
+	},
+/obj/machinery/access_button/offset/south,
+/obj/effect/map_effect/dynamic_airlock/door/interior,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "i" = (
@@ -48,6 +56,8 @@
 /obj/machinery/door/airlock/external{
 	name = "Plain Airlock"
 	},
+/obj/machinery/access_button/offset/southeast,
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "l" = (
@@ -93,15 +103,6 @@
 /obj/machinery/chem_master,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
-"s" = (
-/obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/plating,
-/area/ruin/space/methlab)
-"t" = (
-/obj/machinery/power/port_gen/pacman,
-/obj/structure/cable,
-/turf/simulated/floor/plating,
-/area/ruin/space/methlab)
 "u" = (
 /obj/machinery/chem_dispenser,
 /turf/simulated/floor/plating,
@@ -124,8 +125,48 @@
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
+"A" = (
+/obj/item/grenade/chem_grenade/drugs,
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/plating,
+/area/ruin/space/methlab)
+"B" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/methlab)
+"C" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plating,
+/area/ruin/space/methlab)
 "K" = (
-/turf/simulated/mineral/random/high_chance,
+/turf/simulated/mineral/random/high_chance/space,
+/area/ruin/space/methlab)
+"L" = (
+/obj/machinery/airlock_controller/air_cycler/directional/north,
+/obj/effect/map_effect/dynamic_airlock,
+/turf/simulated/floor/plating,
+/area/ruin/space/methlab)
+"M" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/atmospherics/portable/canister/air,
+/turf/simulated/floor/plating,
+/area/ruin/space/methlab)
+"N" = (
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/ruin/space/methlab)
+"Z" = (
+/obj/item/grenade/chem_grenade/drugs,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8
+	},
+/obj/effect/map_effect/dynamic_airlock,
+/turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 
 (1,1,1) = {"
@@ -245,7 +286,7 @@ b
 d
 j
 j
-s
+C
 j
 j
 y
@@ -263,7 +304,7 @@ b
 e
 j
 p
-t
+N
 K
 K
 b
@@ -315,11 +356,11 @@ b
 b
 K
 g
-i
+A
+B
 j
 j
-j
-x
+q
 b
 a
 a
@@ -334,7 +375,7 @@ b
 b
 h
 b
-q
+M
 b
 b
 b
@@ -350,7 +391,7 @@ a
 a
 b
 b
-i
+Z
 b
 b
 b
@@ -368,7 +409,7 @@ a
 b
 b
 b
-j
+L
 b
 b
 b

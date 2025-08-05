@@ -82,16 +82,17 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/abductor/gland_dispenser/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/organ/internal/heart/gland))
+/obj/machinery/abductor/gland_dispenser/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/organ/internal/heart/gland))
 		if(!user.drop_item())
-			return
-		W.forceMove(src)
+			return ITEM_INTERACT_COMPLETE
+		used.forceMove(src)
 		for(var/i in 1 to length(gland_colors))
-			if(gland_types[i] == W.type)
+			if(gland_types[i] == used.type)
 				amounts[i]++
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/abductor/gland_dispenser/proc/Dispense(count)
 	if(amounts[count]>0)

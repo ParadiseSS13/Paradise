@@ -7,12 +7,20 @@
 		down to the exact coordinates. This information is fed to a central database viewable from the device itself, \
 		though using it to help people is up to you."
 	icon_state = "gps"
-	module_type = MODULE_ACTIVE
+	module_type = MODULE_USABLE
 	complexity = 1
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
 	incompatible_modules = list(/obj/item/mod/module/gps)
 	cooldown_time = 0.5 SECONDS
-	device = /obj/item/gps/mod
+	allow_flags = MODULE_ALLOW_INACTIVE
+	var/obj/item/gps/mod/gps
+
+/obj/item/mod/module/gps/Initialize(mapload)
+	. = ..()
+	gps = new(src)
+
+/obj/item/mod/module/gps/on_use()
+	gps.attack_self__legacy__attackchain(mod.wearer)
 
 ///Hydraulic Clamp - Lets you pick up and drop crates.
 /obj/item/mod/module/clamp
@@ -148,9 +156,9 @@
 ///Ore Bag - Lets you pick up ores and drop them from the suit.
 /obj/item/mod/module/orebag
 	name = "MOD ore bag module"
-	desc = "An integrated ore storage system installed into the suit, \
-		this utilizes precise electromagnets and storage compartments to automatically collect and deposit ore. \
-		It's recommended by Cybersun Industries to actually deposit that ore at local refineries."
+	desc = "An integrated ore storage system installed into the suit, developed in-house by Nanotrasen for its plasma mining operations.\
+		Utilizing precise electromagnets and modular storage compartments, the module automatically collects and sorts extracted ores. \
+		Nanotrasen reminds users of the system to actually deposit that ore at local refineries."
 	icon_state = "ore"
 	module_type = MODULE_USABLE
 	complexity = 1
@@ -320,8 +328,10 @@
 		keep_turfs = typecacheof(list(
 			/turf/simulated/floor/lava,
 			/turf/simulated/floor/indestructible/hierophant,
-			/turf/simulated/floor/indestructible/necropolis
-			))
+			/turf/simulated/floor/indestructible/necropolis,
+			/turf/simulated/floor/indestructible/boss,
+			/turf/simulated/floor/vault/lavaland_air,
+		))
 
 /obj/item/mod/module/ash_accretion/Destroy()
 	QDEL_NULL(armor_mod_2)
@@ -493,7 +503,6 @@
 	range = 6
 	flag = "bomb"
 	light_range = 1
-	light_power = 1
 	light_color = LIGHT_COLOR_ORANGE
 	ammo_type = /obj/structure/mining_bomb
 
@@ -510,7 +519,6 @@
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF|LAVA_PROOF
 	light_range = 1
-	light_power = 1
 	light_color = LIGHT_COLOR_ORANGE
 	/// Time to prime the explosion
 	var/prime_time = 0.5 SECONDS

@@ -95,12 +95,14 @@ pub(crate) fn tick_z_level(
     // Initialize the new frame as a copy of the old one.
     next.copy_from(&prev);
 
-    simulate::find_walls(&mut next);
-    simulate::update_wind(&prev, &mut next);
-    simulate::flow_air(&prev, &mut next)?;
-    simulate::post_process(&prev, &mut next, &environments, new_interesting_tiles, z)?;
+    if !prev.frozen {
+        simulate::find_walls(&mut next);
+        simulate::update_wind(&prev, &mut next);
+        simulate::flow_air(&prev, &mut next)?;
+        simulate::post_process(&prev, &mut next, &environments, new_interesting_tiles, z)?;
 
-    next.active_pressure_chunks.clear();
+        next.active_pressure_chunks.clear();
+    }
 
     Ok(())
 }
@@ -109,7 +111,7 @@ pub(crate) fn tick_z_level(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::constants::*;
+    use crate::milla::constants::*;
 
     fn set_with_defaults<F>(legend: F) -> impl Fn(char) -> Tile
     where

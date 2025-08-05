@@ -57,9 +57,7 @@
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibgauntlets0" //Inhands handled by the module overlays
 	flags = NODROP
-	force = 0
 	w_class = WEIGHT_CLASS_BULKY
-	toolspeed = 1
 	var/defib_cooldown = 5 SECONDS
 	var/safety = TRUE
 	/// Whether or not the paddles are on cooldown. Used for tracking icon states.
@@ -103,7 +101,6 @@
 		straight to a victims heart to disable them, or maybe even outright stop their heart with enough power."
 	complexity = 1
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 400 // 2000 charge. Since you like causing heart attacks, don't you?
-	module_type = MODULE_ACTIVE
 	overlay_state_inactive = "module_defibrillator_combat"
 	overlay_state_active = "module_defibrillator_combat_active"
 	device = /obj/item/mod_defib/syndicate
@@ -115,19 +112,22 @@
 	toolspeed = 2
 	defib_cooldown = 2.5 SECONDS
 
-///Crew Monitor - Deploys or retracts a built-in handheld crew monitor
 /obj/item/mod/module/monitor
 	name = "MOD crew monitor module"
 	desc = "A module installed into the wrist of the suit, this presents a display of crew sensor data."
-	icon_state = "scanner"
-	module_type = MODULE_ACTIVE
+	icon_state = "monitor"
+	module_type = MODULE_USABLE
 	complexity = 1
-	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
-	device = /obj/item/sensor_device/mod
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/monitor)
 	cooldown_time = 0.5 SECONDS
+	allow_flags = MODULE_ALLOW_INACTIVE
+	var/datum/ui_module/crew_monitor/mod/crew_monitor
 
-/obj/item/sensor_device/mod
-	name = "MOD crew monitor"
-	desc = "A miniature machine built into a modsuit that tracks suit sensors across the station."
-	flags = NODROP
+
+/obj/item/mod/module/monitor/Initialize(mapload)
+	. = ..()
+	crew_monitor = new(src)
+
+/obj/item/mod/module/monitor/on_use()
+	crew_monitor.ui_interact(mod.wearer)

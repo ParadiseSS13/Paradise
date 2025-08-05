@@ -1,3 +1,4 @@
+#define NEAREST_MW(power)((power) - (power) % (1 MW))
 //Station goal stuff goes here
 /datum/station_goal/bluespace_tap
 	name = "Bluespace Harvester"
@@ -22,7 +23,7 @@
 	if(..())
 		return TRUE
 	var/highscore = 0
-	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
+	for(var/obj/machinery/power/bluespace_tap/T in SSmachines.get_by_type(/obj/machinery/power/bluespace_tap))
 		highscore = max(highscore, T.total_points)
 	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounceic'>"][highscore]</span>")
 	if(highscore >= goal)
@@ -81,7 +82,6 @@
 	max_integrity = 300
 	pixel_x = -32	//shamelessly stolen from dna vault
 	pixel_y = -32
-	power_state = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
@@ -174,6 +174,12 @@
 	radio.listening = FALSE
 	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
+
+/obj/machinery/power/bluespace_tap/examine(mob/user)
+	. = ..()
+	. += "An alien looking device that gathers all manner of objects from different dimensions"
+	if(dirty)
+		. += "It's gummed up with filth!"
 
 /obj/machinery/power/bluespace_tap/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
 	. = ..()
@@ -273,36 +279,38 @@
 
 	// Round down to the nearest MW if above a MW
 	if(mining_power > 1 MW)
-		mining_power = mining_power - mining_power % (1 MW)
+		mining_power = NEAREST_MW(mining_power)
 
-	// Always try to use all available power for mining if emagged
+	// Always try to use all available power for mining if emagged and disable the stabilizers
 	if(emagged)
 		desired_mining_power = mining_power
+		stabilizer_power = 0
 
 	/*
 	* Stabilizers activate above 15MW of mining power
-	* Stabilizers consume up to 1MW for each 1MW of mining power, consuming less between 15 and 30MW of mining power
-	* If stabilizers have priority they will always consume enough power to stabilize the BSH, limiting mining
-	* Emagging disables stabilizers
+	* Stabilizers consume up to 1MW for each 1MW of mining power, consuming less between 15MW and 30MW of mining power
+	* If stabilizers have priority they will always consume enough power to stabilize the BSH, limiting mining power
 	*/
-	if(stabilizer_priority)
-		// stabilizer power is what we need to stabilize the current mining level, but no more than half the available power.
-		stabilizer_power = \
-		clamp(\
-		desired_mining_power - clamp(30 MW - desired_mining_power, 0, 15 MW), \
-		0, \
-		mining_power / 2) \
-		* (stabilizers && !emagged)
-	else
-		// stabilizer power is however much power we have left, but no more than we need to stabilize our desired mining power.
-		stabilizer_power = \
-		clamp(mining_power - desired_mining_power, \
-		0, \
-		desired_mining_power - clamp(30 MW - desired_mining_power, 0, 15 MW)) \
-		* (stabilizers && !emagged)
+	else if(stabilizers)
+		if(stabilizer_priority)
+			// Lowest between enough to stabilize our desired mining power and enough to stabilize the highest mining power we could sustain with our current power budget.
+			stabilizer_power =\
+			min(max(mining_power - max(NEAREST_MW(mining_power / 2), NEAREST_MW((mining_power + 30 MW) / 3)), 0), \
+			clamp(desired_mining_power - clamp((30 MW) - desired_mining_power, 0, 15 MW), 0, desired_mining_power))
 
-	// Actual mining power is what the desired mining power we set, unless we don't have enough power to satisfty that.
-	mining_power = min(desired_mining_power, mining_power - stabilizer_power)
+			// Stabilizers take priority so we subtract them from the available total straight away
+			mining_power = mining_power - stabilizer_power
+		else
+			// stabilizer power is however much power we have left, but no more than we need to stabilize our desired mining power.
+			stabilizer_power = \
+			clamp(mining_power - desired_mining_power, \
+			0, \
+			desired_mining_power - clamp(30 MW - desired_mining_power, 0, 15 MW))
+	else
+		stabilizer_power = 0
+
+	// Now that we know our actual power budget we can finally set our mining power
+	mining_power = min(mining_power, desired_mining_power)
 
 	consume_direct_power(mining_power + stabilizer_power)
 
@@ -349,7 +357,7 @@
 	* Prob treats values less than 0 as 0.
 	*/
 
-	if(prob((mining_power - clamp(30 MW - mining_power, 0, 15 MW) - stabilizer_power)  / (10 MW)) + (emagged * 5))
+	if(prob((mining_power - clamp(30 MW - mining_power, 0, 15 MW) - stabilizer_power)  / (10 MW) + (emagged * 5)))
 		var/area/our_area = get_area(src)
 		if((!spawning || !length(active_nether_portals)))
 			GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [our_area.name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : auto_shutdown ? "Emergency shutdown initiated." : "Automatic shutdown disabled."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
@@ -448,7 +456,7 @@
 	radio.autosay("<b>Power spike detected during Bluespace Harvester Operation. Large bluespace payload inbound.</b>", name, "Engineering")
 	// Build location list cache once
 	var/list/possible_spawns = list()
-	var/list/random_spawns = GLOB.nukedisc_respawn
+	var/list/random_spawns = GLOB.maints_loot_spawns
 	// Build list of spawn positions
 	for(var/turf/current_target_turf in view(3, src))
 		possible_spawns.Add(current_target_turf)
@@ -476,7 +484,7 @@
 /obj/machinery/power/bluespace_tap/proc/find_spawn_location(random = FALSE)
 	var/list/possible_spawns = list()
 	if(random)
-		possible_spawns = GLOB.nukedisc_respawn
+		possible_spawns = GLOB.maints_loot_spawns
 	else
 		// Build list of spawn positions
 		for(var/turf/current_target_turf in view(3, src))
@@ -616,3 +624,4 @@
 
 #undef POINTS_PER_W
 #undef BASE_POINTS
+#undef NEAREST_MW

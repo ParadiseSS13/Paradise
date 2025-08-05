@@ -81,6 +81,3 @@
 
 	for(var/target in signal_procs)
 		UnregisterSignal(target, signal_procs[target])
-
-/datum/nothing
-	// Placeholder object, used for ispath checks. Has to be defined to prevent errors, but shouldn't ever be created.

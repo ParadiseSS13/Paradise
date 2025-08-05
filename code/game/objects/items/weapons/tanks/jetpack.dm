@@ -79,9 +79,7 @@
 	else
 		turn_off(user)
 		to_chat(user, "<span class='notice'>You turn the jetpack off.</span>")
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/tank/jetpack/proc/turn_on(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_JETPACK_ACTIVATED, user) & JETPACK_ACTIVATION_FAILED)
@@ -140,7 +138,6 @@
 	item_state =  "jetpack-void"
 
 /obj/item/tank/jetpack/void/grey
-	name = "Void Jetpack (Oxygen)"
 	icon_state = "jetpack-void-grey"
 	item_state = "jetpack-void-grey"
 
@@ -152,8 +149,6 @@
 /obj/item/tank/jetpack/oxygen
 	name = "Jetpack (Oxygen)"
 	desc = "A tank of compressed oxygen for use as propulsion in zero-gravity areas. Use with caution."
-	icon_state = "jetpack"
-	item_state = "jetpack"
 
 /obj/item/tank/jetpack/oxygen/harness
 	name = "jet harness (oxygen)"

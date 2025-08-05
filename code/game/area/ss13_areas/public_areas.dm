@@ -89,15 +89,12 @@
 	icon_state = "hall_space"
 
 /area/station/hallway/spacebridge/security
-	icon_state = "hall_space"
 	name = "\improper Security Space Bridge"
 
 /area/station/hallway/spacebridge/security/west
-	icon_state = "hall_space"
 	name = "\improper Security West Space Bridge"
 
 /area/station/hallway/spacebridge/security/south
-	icon_state = "hall_space"
 	name = "\improper Security South Space Bridge"
 
 /area/station/hallway/spacebridge/dockmed
@@ -153,6 +150,26 @@
 /area/station/hallway/secondary/bridge
 	name = "\improper Command Hallway"
 	icon_state = "hallC"
+
+// Hallways for departments
+
+/area/station/hallway/supply
+	name = "\improper Cargo Hallway"
+	icon_state = "cargo_hallway"
+
+/area/station/hallway/supply/fore
+	name = "\improper Fore Cargo Hallway"
+
+/area/station/hallway/supply/starboard
+	name = "\improper Starboard Cargo Hallway"
+
+/area/station/hallway/supply/aft
+	name = "\improper Aft Cargo Hallway"
+
+/area/station/hallway/supply/port
+	name = "\improper Port Cargo Hallway"
+
+
 // Other public areas
 
 
@@ -169,7 +186,6 @@
 
 /area/station/public/sleep/secondary
 	name = "\improper Secondary Cryogenic Dormitories"
-	icon_state = "Sleep"
 
 /area/station/public/locker
 	name = "\improper Locker Room"
@@ -235,7 +251,6 @@
 
 /area/station/public/storage/emergency/port
 	name = "Port Emergency Storage"
-	icon_state = "emergencystorage"
 
 /area/station/public/storage/office
 	name = "Office Supplies"
@@ -249,6 +264,9 @@
 
 /area/station/public/quantum/security
 	name = "Security Quantum Pad"
+
+/area/station/public/quantum/engineering
+	name = "Engineering Quantum Pad"
 
 /area/station/public/quantum/docking
 	name = "Docking Quantum Pad"

@@ -401,6 +401,7 @@ impl From<&InterestingTile> for Vec<ByondValue> {
 pub(crate) struct ZLevel {
     tiles: Box<[Tile; MAP_SIZE * MAP_SIZE]>,
     pub(crate) active_pressure_chunks: HashSet<(u8, u8)>,
+    pub(crate) frozen: bool,
 }
 
 impl ZLevel {
@@ -412,6 +413,7 @@ impl ZLevel {
         ZLevel {
             tiles: unbuilt.into_boxed_slice().try_into().unwrap(),
             active_pressure_chunks: HashSet::new(),
+			frozen: false,
         }
     }
 
@@ -455,6 +457,7 @@ impl ZLevel {
             self.tiles[i].copy_from(&other.tiles[i]);
         }
         self.active_pressure_chunks = other.active_pressure_chunks.clone();
+		self.frozen = other.frozen;
     }
 }
 
