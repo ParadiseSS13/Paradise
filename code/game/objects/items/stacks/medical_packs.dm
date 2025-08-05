@@ -488,7 +488,7 @@
 	healverb = "grafting"
 	heal_brute = 0
 	heal_burn = 10
-	 ///This var determines if the sterile packaging of the mesh has been opened.
+	/// This var determines if the sterile packaging of the mesh has been opened.
 	var/is_open = TRUE
 
 /obj/item/stack/medical/suture/regen_mesh/Initialize(mapload, new_amount, merge)
