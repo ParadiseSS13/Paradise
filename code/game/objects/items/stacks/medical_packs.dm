@@ -419,7 +419,14 @@
 	while(do_after(user, mend_time, target = target))
 		if(!target.can_inject(user, TRUE))
 			break
-		if(!apply_to(target, user, current_limb))
+		var/cut_open = FALSE
+		if(stop_bleeding)
+			for(var/obj/item/organ/external/E in target.bodyparts)
+				if(E.open >= ORGAN_ORGANIC_OPEN)
+					cut_open = TRUE
+					to_chat(user, "<span class='warning'>[target]'s [E.name] is cut open, you'll need more than some [name] to stop their bleeding.</span>")
+					break
+		if(!apply_to(target, user, current_limb, !cut_open))
 			break
 		if(is_zero_amount(TRUE))
 			break
@@ -439,14 +446,14 @@
 	applying = FALSE
 	user.changeNext_move(CLICK_CD_MELEE)
 
-/obj/item/stack/medical/suture/proc/apply_to(mob/living/carbon/human/target, mob/user, obj/item/organ/external/current_limb)
+/obj/item/stack/medical/suture/proc/apply_to(mob/living/carbon/human/target, mob/user, obj/item/organ/external/current_limb, allow_stop_bleeding = TRUE)
 	if(!use(1))
 		return FALSE
 
 	current_limb.heal_damage(heal_brute, heal_burn, FALSE, FALSE, updating_health = TRUE)
 
-	// target.apply_damage_type(-heal_amount, heal_type)
-	target.suppress_bloodloss(stop_bleeding)
+	if(stop_bleeding && !target.bleedsuppress && allow_stop_bleeding)
+		target.suppress_bloodloss(stop_bleeding)
 	return TRUE
 
 /obj/item/stack/medical/suture/proc/most_damaged_limb(mob/living/carbon/human/target)
