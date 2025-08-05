@@ -12,7 +12,6 @@
 	icon_resting = "panther_rest"
 	icon_gib = "panther_dead"
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
-	turns_per_move = 3
 	butcher_results = list(/obj/item/food/meat = 3)
 	faction = list("hostile", "jungle")
 	response_help_continuous = "pets"
