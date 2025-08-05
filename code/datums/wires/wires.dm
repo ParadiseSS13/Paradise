@@ -138,7 +138,7 @@
 			"cut" = is_color_cut(color), // Whether the wire is cut or not. Used to display "cut" or "mend".
 			"attached" = is_attached(color) // Whether or not a signaler is attached to this wire.
 		))
-	if(HAS_TRAIT(user, TRAIT_WIRE_BLIND)) //If the wires are here and your brain thinks they're there and your computer tells you over here, do you recall which one you pulsed?
+	if(HAS_TRAIT(user, TRAIT_WIRE_BLIND)) // If the wires are here and your brain thinks they're there and your computer tells you over here, do you recall which one you pulsed?
 		wires_list = shuffle(wires_list)
 	data["wires"] = wires_list
 
