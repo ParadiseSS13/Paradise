@@ -133,7 +133,7 @@
 		/obj/item/stock_parts/cell/bluespace/trapped,
 		/obj/item/stock_parts/cell/infinite/abductor,
 		/obj/item/stock_parts/cell/high/slime,
-		/obj/item/stock_parts/cell/potato
+		/obj/item/stock_parts/cell/potato,
 	)
 
 /obj/effect/spawner/random/stock_parts/Initialize(mapload)
