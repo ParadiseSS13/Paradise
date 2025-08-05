@@ -16,6 +16,8 @@
 /datum/event/disposals_clog/start()
 	var/list/possible_trash = typecacheof(/obj/item/trash)
 	var/obj/machinery/disposal/bin
+	if(!length(bins))
+		return // No bins to fire the event from
 	for(var/i in 1 to 6)
 		bin = pick_n_take(bins)
 		var/trash_amount = rand(4, 8)
