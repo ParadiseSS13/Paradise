@@ -1085,7 +1085,7 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	If(tgui_alert("Are you sure you want to send the global message?", "Confirm Man Up Global", list( "Yes", "No")) != "No")
+	If(tgui_alert("Are you sure you want to send the global message?", "Confirm Man Up Global", list("Yes", "No")) != "No")
 		var/manned_up_sound = sound('sound/voice/manup1.ogg')
 		for(var/sissy in GLOB.player_list)
 			to_chat(sissy, chat_box_notice_thick("<span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span>"))
