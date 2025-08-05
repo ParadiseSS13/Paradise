@@ -933,7 +933,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		if(!frommob || !toitem) //make sure the mobs don't go away while we waited for a response
 			return TRUE
 
-		var/mob/living/simple_animal/possessed_object/tomob = new(toitem)
+		var/mob/living/basic/possessed_object/tomob = new(toitem)
 
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
