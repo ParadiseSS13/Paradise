@@ -30,7 +30,7 @@
 
 /obj/item/clothing/under/rank/security/warden/turtleneck
 	name = "warden's turtleneck"
-	desc = "A fancy turtleneck designed to keep the wearer warm in a cold prison"
+	desc = "A fancy turtleneck designed to keep the wearer warm in a cold prison. Due to budget cuts, the material does not offer any external protection."
 	icon_state = "ward_turtle"
 	item_state = "ward_turtle"
 	item_color = "ward_turtle"
@@ -183,7 +183,7 @@
 
 /obj/item/clothing/under/rank/security/head_of_security/turtleneck
 	name = "head of security's turtleneck"
-	desc = "A fancy turtleneck designed to keep the wearer warm in a security lobby."
+	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold security lobby. Due to budget cuts, the material does not offer any external protection."
 	icon_state = "hos_turtle"
 	item_state = "hos_turtle"
 	item_color = "hos_turtle"

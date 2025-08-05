@@ -49,7 +49,7 @@
 
 /obj/item/clothing/under/rank/cargo/qm/turtleneck
 	name = "quartermaster's turtleneck"
-	desc = "A fancy turtleneck designed to keep the wearer warm in a cold cargo bay."
+	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold cargo bay. Due to budget cuts, the material does not offer any external protection."
 	icon_state = "qm_turtle"
 	item_state = "qm_turtle"
 	item_color = "qm_turtle"

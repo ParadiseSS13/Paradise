@@ -33,7 +33,7 @@
 	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/rnd/rd/turtleneck
-	desc = "A fancy turtleneck designed to keep the wearer warm in a cold research lobby."
+	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold research lobby. Due to budget cuts, the material does not offer any external protection."
 	icon_state = "rd_turtle"
 	item_state = "rd_turtle"
 	item_color = "rd_turtle"
