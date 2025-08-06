@@ -387,13 +387,15 @@
 	if(applying)
 		to_chat(user, "<span class='warning'>You're already applying [src].</span>")
 		return
-	if(!ishuman(target))
-		return
-	if(!target.can_inject(user, TRUE))
+	if(!ishuman(target) || !target.can_inject(user, TRUE))
 		return
 	var/heal_type = (heal_brute ? BRUTE : BURN)
+	var/heal_display = (heal_brute ? BRUTE : "burn")
 	if(!target.get_damage_amount(heal_type))
-		to_chat(user, "<span class='warning'>They don't have any [heal_type] damage.</span>")
+		if(target == user)
+			to_chat(user, "<span class='warning'>You don't have any [heal_display] damage.</span>")
+		else
+			to_chat(user, "<span class='warning'>They don't have any [heal_display] damage.</span>")
 		return
 
 	var/obj/item/organ/external/current_limb = target.get_organ(user.zone_selected)

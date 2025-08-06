@@ -65,7 +65,6 @@
 	icon_state = pick("ointment", "firefirstaid")
 
 /obj/item/storage/firstaid/fire/populate_contents()
-	// new /obj/item/reagent_containers/applicator/burn(src)
 	new /obj/item/stack/medical/suture/regen_mesh/advanced(src)
 	new /obj/item/stack/medical/suture/regen_mesh(src)
 	new /obj/item/reagent_containers/patch/silver_sulf/small(src)
@@ -125,7 +124,6 @@
 	icon_state = pick("brute", "brute2")
 
 /obj/item/storage/firstaid/brute/populate_contents()
-	// new /obj/item/reagent_containers/applicator/brute(src)
 	new /obj/item/stack/medical/suture/medicated(src)
 	new /obj/item/stack/medical/suture(src)
 	new /obj/item/reagent_containers/patch/styptic/small(src)

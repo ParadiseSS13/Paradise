@@ -260,8 +260,6 @@
 					/obj/item/stack/medical/ointment/advanced = 2,
 					/obj/item/reagent_containers/patch/styptic = 3,
 					/obj/item/reagent_containers/patch/silver_sulf = 3,
-					// /obj/item/reagent_containers/applicator/brute = 2,
-					// /obj/item/reagent_containers/applicator/burn = 2,
 					/obj/item/stack/medical/suture/medicated = 3,
 					/obj/item/stack/medical/suture = 5,
 					/obj/item/stack/medical/suture/regen_mesh/advanced = 3,
