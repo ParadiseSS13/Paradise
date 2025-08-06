@@ -399,7 +399,6 @@
 	//Parent proc checks if a mob can_be_flashed()
 	. = ..()
 
-	SIGNAL_HANDLER
 	SEND_SIGNAL(src, COMSIG_CARBON_FLASH_EYES, laser_pointer)
 	var/damage = intensity - check_eye_prot()
 	var/extra_damage = 0
