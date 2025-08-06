@@ -4,11 +4,6 @@
 	desc = "An inflatable ball of fun, enjoyed on many beaches."
 	icon_state = "ball"
 	item_state = "beachball"
-	density = FALSE
-	anchored = FALSE
-	w_class = WEIGHT_CLASS_NORMAL
-	force = 0
-	throwforce = 0
 	throw_speed = 1
 	throw_range = 20
 	flags = CONDUCT

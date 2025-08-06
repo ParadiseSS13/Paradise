@@ -159,7 +159,6 @@
 	endurance = 30
 	maturation = 5
 	yield = 1
-	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	mutatelist = list()
 	reagents_add = list("vitamin" = 0.05, "nutriment" = 0.15)
 	rarity = 30
@@ -225,9 +224,7 @@
 	product = /obj/item/food/grown/mushroom/glowshroom
 	lifespan = 100 //ten times that is the delay
 	endurance = 30
-	maturation = 6
 	production = 1
-	yield = 3 //-> spread
 	potency = 30 //-> brightness
 	growthstages = 4
 	rarity = 20
@@ -291,7 +288,6 @@
 	name = "glowcap cluster"
 	desc = "<I>Mycena Ruthenia</I>: This species of mushroom glows in the dark, but isn't actually bioluminescent. They're warm to the touch..."
 	icon_state = "glowcap"
-	filling_color = "#00FA9A"
 	effect_path = /obj/structure/glowshroom/glowcap
 	origin_tech = "biotech=4;powerstorage=6;plasmatech=4"
 	light_color = "#8E0300"

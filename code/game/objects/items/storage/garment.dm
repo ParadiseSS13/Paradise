@@ -328,9 +328,11 @@
 
 /obj/item/storage/bag/garment/paramedic/populate_contents()
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
-	new /obj/item/clothing/head/soft/blue(src)
+	new /obj/item/clothing/under/rank/medical/paramedic/skirt(src)
+	new /obj/item/clothing/head/soft/paramedic(src)
+	new /obj/item/clothing/head/beret/paramedic(src)
 	new /obj/item/clothing/suit/storage/labcoat/emt(src)
-	new /obj/item/clothing/suit/storage/paramedic(src)
+	new /obj/item/clothing/suit/storage/hazardvest/paramedic(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
@@ -367,3 +369,26 @@
 	new /obj/item/clothing/shoes/workboots/smithing(src)
 	new /obj/item/clothing/under/plasmaman/smith(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/smith(src)
+
+/obj/item/storage/bag/garment/syndie
+	name = "suspicious garment bag"
+	icon_state = "garment_bag_syndie"
+	desc = "A bag for storing extra clothes and shoes. Judging by the colors, this one belongs to someone with malicious intent."
+
+/obj/item/storage/bag/garment/syndie/populate_contents()
+	new /obj/item/clothing/under/syndicate/tacticool(src)
+	new /obj/item/clothing/under/syndicate(src)
+	new /obj/item/clothing/under/syndicate/combat(src)
+	new /obj/item/clothing/under/syndicate/greyman(src)
+	new /obj/item/clothing/under/syndicate/sniper(src)
+	new /obj/item/clothing/mask/gas/syndicate(src)
+	new /obj/item/clothing/mask/balaclava(src)
+	new /obj/item/clothing/suit/storage/iaa/blackjacket(src)
+	new /obj/item/clothing/suit/blacktrenchcoat(src)
+	new /obj/item/clothing/head/beret/syndicate(src)
+	new /obj/item/clothing/glasses/syndie(src)
+	new /obj/item/clothing/neck/cloak/syndicate(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/gloves/fingerless(src)
+	new /obj/item/clothing/shoes/combat(src)
+	new /obj/item/clothing/shoes/laceup(src)

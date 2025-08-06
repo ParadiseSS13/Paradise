@@ -139,3 +139,6 @@
 		return FALSE //Handling reagent removal on our own.
 
 	return ..()
+
+/datum/species/vox/do_compressor_grind(mob/living/carbon/human/H)
+	new /obj/item/food/fried_vox(H.loc)

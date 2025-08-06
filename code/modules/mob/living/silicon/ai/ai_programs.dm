@@ -291,7 +291,6 @@
 	action_icon = 'icons/effects/random_spawners.dmi'
 	action_icon_state = "glowstick"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
-	auto_use_uses = FALSE
 	base_cooldown = 30 SECONDS
 	cooldown_min = 5 SECONDS
 	level_max = 5
@@ -361,7 +360,6 @@
 	action_icon = 'icons/obj/power.dmi'
 	action_icon_state = "smes-o"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
-	auto_use_uses = FALSE
 	base_cooldown = 120 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 7
@@ -440,7 +438,6 @@
 	action_icon = 'icons/obj/surgery.dmi'
 	action_icon_state = "tube"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
-	auto_use_uses = FALSE
 	base_cooldown = 150 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 7
@@ -493,7 +490,6 @@
 	program_name = "Universal Adapter"
 	program_id = "universal_adapter"
 	description = "Upgraded firmware allows IPCs to be valid targets for Power Shunt and Repair Nanites, at half efficiency."
-	nanite_cost = 0
 	unlock_text = "Universal adapter installation complete!"
 	upgrade = TRUE
 
@@ -534,7 +530,6 @@
 	action_icon = 'icons/obj/doors/doorint.dmi'
 	action_icon_state = "door_closed"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
-	auto_use_uses = FALSE
 	base_cooldown = 60 SECONDS
 	cooldown_min = 60 SECONDS
 	level_max = 5
@@ -598,7 +593,6 @@
 	action_icon = 'icons/effects/effects.dmi'
 	action_icon_state = "frozen_smoke_capsule"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
-	auto_use_uses = FALSE
 	base_cooldown = 60 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 3
@@ -639,8 +633,6 @@
 	program_name = "Bluespace Miner Subsystem"
 	program_id = "bluespace_miner"
 	description = "You link yourself to a miniature bluespace harvester, generating income for the science account at the cost of increasing your core's power needs."
-	nanite_cost = 0
-	max_level = 5
 	unlock_text = "Bluespace miner installation complete!"
 	upgrade = TRUE
 
@@ -670,7 +662,6 @@
 	program_name = "Multimarket Analysis Subsystem"
 	program_id = "multimarket_analyser"
 	description = "You connect to a digital marketplace to price-check all orders from the station, ensuring you get the best prices! This reduces the cost of crates in cargo!"
-	nanite_cost = 0
 	unlock_text = "Online marketplace detected... connected!"
 	max_level = 6
 	upgrade = TRUE
@@ -709,7 +700,6 @@
 	action_icon = 'icons/obj/janitor.dmi'
 	action_icon_state = "lightreplacer0"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
-	auto_use_uses = FALSE
 	base_cooldown = 30 SECONDS
 	cooldown_min = 5 SECONDS
 	level_max = 5
@@ -764,7 +754,6 @@
 	action_icon = 'icons/obj/surgery.dmi'
 	action_icon_state = "scalpel_laser1_on"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
-	auto_use_uses = FALSE
 	base_cooldown = 150 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 10
@@ -826,9 +815,7 @@
 	program_name = "Enhanced Door Controls"
 	program_id = "enhanced_doors"
 	description = "You enhance the subroutines that let you control doors, speeding up response times!"
-	nanite_cost = 0
 	unlock_text = "Doors connected and optimized. You feel right at home."
-	max_level = 5
 	upgrade = TRUE
 	/// Track the original delay
 	var/original_door_delay = 3 SECONDS
@@ -945,7 +932,6 @@
 	action_icon = 'icons/obj/structures.dmi'
 	action_icon_state = "reinforced"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
-	auto_use_uses = FALSE
 	base_cooldown = 180 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 5
@@ -986,7 +972,6 @@
 	program_name = "Holosign Displayer"
 	program_id = "holosign_displayer"
 	description = "Deploy a holographic sign to alert crewmembers to potential hazards."
-	cost = 1
 	nanite_cost = 10
 	power_type = /datum/spell/ai_spell/ranged/holosign_displayer
 	unlock_text = "Metal foam synthesizer online."
@@ -997,7 +982,6 @@
 	action_icon = 'icons/obj/device.dmi'
 	action_icon_state = "signmaker"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
-	auto_use_uses = FALSE
 	base_cooldown = 30 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 8
@@ -1064,7 +1048,6 @@
 	action_icon = 'icons/obj/items.dmi'
 	action_icon_state = "bike_horn"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
-	auto_use_uses = FALSE
 	base_cooldown = 30 SECONDS
 	cooldown_min = 15 SECONDS
 	level_max = 10
@@ -1103,7 +1086,6 @@
 	program_id = "enhanced_tracker"
 	description = "New camera firmware allows automated alerts when an individual of interest enters camera view."
 	cost = 5
-	nanite_cost = 0
 	power_type = /datum/spell/ai_spell/enhanced_tracker
 	unlock_text = "Tag and track software online."
 	max_level = 8
@@ -1168,7 +1150,6 @@
 	program_name = "Holopointer"
 	program_id = "holopointer"
 	description = "Illuminate a hologram to notify or beckon crew."
-	cost = 1
 	nanite_cost = 5
 	power_type = /datum/spell/ai_spell/ranged/pointer
 	unlock_text = "Hologram emitters online."
@@ -1179,7 +1160,6 @@
 	action_icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
 	action_icon_state = "target_circle"
 	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
-	auto_use_uses = FALSE
 	base_cooldown = 15 SECONDS
 	cooldown_min = 15 SECONDS
 	level_max = 1

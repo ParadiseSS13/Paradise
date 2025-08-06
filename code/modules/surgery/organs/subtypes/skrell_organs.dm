@@ -9,20 +9,18 @@
 	icon = 'icons/obj/species_organs/skrell.dmi'
 	icon_state = "skrell_headpocket"
 	origin_tech = "biotech=2"
-	w_class = WEIGHT_CLASS_SMALL
 	parent_organ = "head"
 	slot = "headpocket"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/headpocket)
 	var/obj/item/held_item
 
 /datum/action/item_action/organ_action/toggle/headpocket
-	use_itemicon = FALSE
-	button_overlay_icon_state = "skrell_headpocket_in"
+	button_icon_state = "skrell_headpocket_in"
 
 /obj/item/organ/internal/headpocket/proc/update_button_state()
 	for(var/datum/action/item_action/T in actions)
-		T.button_overlay_icon_state = "skrell_headpocket[held_item ? "_out" : "_in"]"
-		T.UpdateButtons()
+		T.button_icon_state = "skrell_headpocket[held_item ? "_out" : "_in"]"
+		T.build_all_button_icons()
 
 /obj/item/organ/internal/headpocket/Destroy()
 	empty_contents()
@@ -93,9 +91,7 @@
 /obj/item/organ/internal/brain/skrell
 	icon = 'icons/obj/species_organs/skrell.dmi'
 	desc = "A brain with a odd division in the middle."
-	icon_state = "brain2"
 	mmi_icon = 'icons/obj/species_organs/skrell.dmi'
-	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/skrell
 	name = "skrell lungs"

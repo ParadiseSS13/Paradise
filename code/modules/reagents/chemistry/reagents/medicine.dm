@@ -103,10 +103,7 @@
 	id = "recal"
 	description = "An oily insulating liquid that passively regulates electrical activity on sensitive electronic components, allowing them to recover from decalibrating events faster. \
 	Overdosing will cause under-voltage errors and hamper component heat dissipation, potentially causing heat damage."
-	reagent_state = LIQUID
 	color = "#85845d"
-	overdose_threshold = 40
-	harmless = FALSE
 	taste_description = "mineral oil and toothpaste"
 	process_flags = SYNTHETIC
 
@@ -179,7 +176,6 @@
 	name = "Rezadone"
 	id = "rezadone"
 	description = "A powder derived from fish toxin, Rezadone can effectively treat genetic damage as well as restoring minor wounds. Overdose will cause intense nausea and minor toxin damage."
-	reagent_state = SOLID
 	color = "#669900" // rgb: 102, 153, 0
 	overdose_threshold = 30
 	harmless = FALSE
@@ -422,7 +418,6 @@
 	id = "charcoal"
 	description = "Activated charcoal helps to absorb toxins."
 	reagent_state = LIQUID
-	color = "#000000"
 	taste_description = "dust"
 	goal_difficulty = REAGENT_GOAL_EASY
 
@@ -836,7 +831,6 @@
 	id = "atropine"
 	description = "Atropine is a potent cardiac resuscitant but it can causes confusion, dizzyness and hyperthermia."
 	reagent_state = LIQUID
-	color = "#000000"
 	metabolization_rate = 0.2
 	overdose_threshold = 25
 	harmless = FALSE
@@ -1362,7 +1356,6 @@
 	name = "Restorative Nanites"
 	id = "syndicate_nanites"
 	description = "Miniature medical robots that swiftly restore bodily damage. May begin to attack their host's cells in high amounts."
-	reagent_state = SOLID
 	color = "#555555"
 	taste_description = "bodily perfection"
 

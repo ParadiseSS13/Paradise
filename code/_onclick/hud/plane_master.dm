@@ -21,13 +21,11 @@
 	name = "floor plane master"
 	plane = FLOOR_PLANE
 	appearance_flags = PLANE_MASTER
-	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/game_world
 	name = "game world plane master"
 	plane = GAME_PLANE
 	appearance_flags = PLANE_MASTER
-	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/game_world/backdrop(mob/mymob)
 	. = ..() //if you delete it so help me god
@@ -55,7 +53,6 @@
 	name = "point plane master"
 	plane = POINT_PLANE
 	appearance_flags = PLANE_MASTER //should use client color
-	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/point/backdrop(mob/mymob)
 	if(istype(mymob) && mymob.client && mymob.client.prefs)
@@ -65,7 +62,6 @@
 	name = "cogbar plane master"
 	plane = COGBAR_PLANE
 	appearance_flags = PLANE_MASTER //should use client color
-	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/cogbar/backdrop(mob/mymob)
 	if(istype(mymob) && mymob.client?.prefs)
@@ -91,7 +87,6 @@
 	name = "space plane master"
 	plane = PLANE_SPACE
 	appearance_flags = PLANE_MASTER
-	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/parallax
 	name = "parallax plane master"
@@ -113,18 +108,15 @@
 	plane = GRAVITY_PULSE_PLANE
 	blend_mode = BLEND_ADD
 	render_target = GRAVITY_PULSE_RENDER_TARGET
-	appearance_flags = PLANE_MASTER | NO_CLIENT_COLOR
 
 /atom/movable/screen/plane_master/smoke
 	name = "point plane master"
 	plane = SMOKE_PLANE
 	appearance_flags = PLANE_MASTER
-	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/lamps
 	name = "lamps plane master"
 	plane = LIGHTING_LAMPS_PLANE
-	blend_mode = BLEND_OVERLAY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	render_target = LIGHTING_LAMPS_RENDER_TARGET
 
