@@ -658,5 +658,5 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		"resistance" = base_properties["resistance"],
 		"stageSpeed" = base_properties["stage rate"],
 		"stealth" = base_properties["stealth"],
-		"transmissibility" = base_properties["transmitability"],
+		"transmissibility" = base_properties["transmissibility"],
 		)

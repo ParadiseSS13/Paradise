@@ -102,7 +102,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 		var/symptom_path = pick_n_take(symptom_list)
 		A.add_symptom_path(symptom_path)
 
-	// Add extra transmitabillity through base properties as needed
+	// Add extra transmissibility through base properties as needed
 	A.base_properties["transmissibility"] = max(0, spread_threhsold - (A.totaltransmissibility() - length(A.symptoms)))
 
 	A.name = pick(GLOB.alphabet_uppercase) + num2text(rand(1,9)) + pick(GLOB.alphabet_uppercase) + num2text(rand(1,9)) + pick("v", "V", "-" + num2text(GLOB.game_year), "")
