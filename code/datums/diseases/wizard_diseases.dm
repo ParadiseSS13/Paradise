@@ -1,9 +1,6 @@
 /datum/disease/beesease/wizard_variant
 	spread_flags = NON_CONTAGIOUS
 
-/datum/disease/berserker/wizard_variant
-	spread_flags = NON_CONTAGIOUS
-
 /datum/disease/cold9/wizard_variant
 	spread_flags = NON_CONTAGIOUS
 

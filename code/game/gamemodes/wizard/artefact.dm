@@ -921,7 +921,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 	var/picked_disease
 	var/static/list/possible_diseases = list(
 		/datum/disease/beesease/wizard_variant,
-		/datum/disease/berserker/wizard_variant,
 		/datum/disease/cold9/wizard_variant,
 		/datum/disease/fluspanish/wizard_variant,
 		/datum/disease/kingstons_advanced/wizard_variant,
@@ -929,6 +928,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		/datum/disease/tuberculosis/wizard_variant,
 		/datum/disease/anxiety/wizard_variant,
 		/datum/disease/wizarditis/wizard_variant,
+		/datum/disease/berserker,
 		/datum/disease/appendicitis,
 		/datum/disease/grut_gut,
 		/datum/disease/wand_rot,

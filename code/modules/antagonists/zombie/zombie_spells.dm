@@ -182,7 +182,6 @@
 	desc = "Claws extend from your rotting hands, oozing a putrid ichor. Perfect for rending bone and flesh for your master."
 	armour_penetration_flat = 15
 	force = 13
-	attack_effect_override = ATTACK_EFFECT_CLAW
 
 /obj/item/zombie_claw/plague_claw/Initialize(mapload, new_parent_spell, disease)
 	. = ..()
