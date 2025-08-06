@@ -81,7 +81,6 @@
 /obj/item/ammo_casing/c9mm
 	name = "9mm round"
 	desc = "A 9mm pistol cartridge, commonly used in handguns and submachine guns."
-	icon_state = "pistol_brass"
 	caliber = "9mm"
 	projectile_type = /obj/item/projectile/bullet/weakbullet3
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
