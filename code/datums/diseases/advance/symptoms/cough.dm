@@ -25,7 +25,7 @@ BONUS
 	severity = 1
 	chem_treatments = list(
 		"salbutamol" = list("multiplier" = 0, "timer" = 0),
-	 	"perfluorodecalin" = list("multiplier" = 0, "timer" = 0))
+		"perfluorodecalin" = list("multiplier" = 0, "timer" = 0))
 
 /datum/symptom/cough/symptom_act(datum/disease/advance/A, unmitigated)
 	var/mob/living/M = A.affected_mob
