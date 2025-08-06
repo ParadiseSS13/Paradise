@@ -687,7 +687,7 @@
 			return
 		if(!user.drop_item_to_ground(I))
 			return
-		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(100) && user.get_item_by_slot(ITEM_SLOT_SHOES) == src)
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(45) && user.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 
 			var/stabbed_foot = pick("l_foot", "r_foot")
 			user.visible_message("<span class='notice'>[user] tries to place [I] into [src] but stabs their own foot!</span>", \
