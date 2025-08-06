@@ -69846,18 +69846,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/xenobiology)
-"nBi" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/orange{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/port2)
 "nBo" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
@@ -141410,7 +141398,7 @@ aXn
 hLt
 eiE
 eiE
-nBi
+oeh
 oOj
 oeh
 oeh
