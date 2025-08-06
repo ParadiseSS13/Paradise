@@ -5499,7 +5499,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/disposal)
 "azk" = (
-/mob/living/simple_animal/lizard/wags_his_tail,
+/mob/living/basic/lizard/wags_his_tail,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "azl" = (
@@ -27685,7 +27685,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/station/legal/lawoffice)
 "ccv" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/basic/pet/sloth/paperwork,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
