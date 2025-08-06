@@ -60,7 +60,7 @@
 			step(M, pick(GLOB.cardinal))
 	if(prob(7))
 		if(!ismachineperson(M))
-			M.emote(pick("twitch","drool","moan","giggle"))
+			M.emote(pick("twitch", "drool", "moan", "giggle"))
 		else
 			M.emote(pick("twitch","stare","moan","giggle"))
 	return ..() | update_flags
