@@ -20,8 +20,8 @@ import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 interface BaseStats {
-  stealth: number;
   resistance: number;
+  stealth: number;
   stageSpeed: number;
   transmissibility: number;
 }
@@ -45,7 +45,7 @@ interface PathogenStrain {
   bloodDNA?: string;
   bloodType?: string;
   diseaseAgent: string;
-  possibleTreatments?: string;
+  possibleCures?: string;
   transmissionRoute?: string;
   symptoms: PathogenSymptom[];
   baseStats: BaseStats;
@@ -190,7 +190,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
     diseaseAgent,
     bloodDNA,
     bloodType,
-    possibleTreatments,
+    possibleCures,
     transmissionRoute,
     isAdvanced,
     RequiredCures,
@@ -318,7 +318,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
           <LabeledList.Item label="Disease Agent">{diseaseAgent}</LabeledList.Item>
           {bloodInformation}
           <LabeledList.Item label="Spread Vector">{transmissionRoute ?? 'None'}</LabeledList.Item>
-          <LabeledList.Item label="Possible Cures">{possibleTreatments ?? 'None'}</LabeledList.Item>
+          <LabeledList.Item label="Possible Cures">{possibleCures ?? 'None'}</LabeledList.Item>
           <LabeledList.Item label="Required Cures">{RequiredCures ?? 'None'}</LabeledList.Item>
           {isAdvanced ? <LabeledList.Item label="Stabilized">{Stabilized === 1 ? 'Yes' : 'No'}</LabeledList.Item> : ''}
           {isAdvanced ? (

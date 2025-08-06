@@ -75,7 +75,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	var/datum/disease/advance/A = new /datum/disease/advance(_event = UID())
 	A.clear_symptoms()
 	// Base properties get buffs depending on severity
-	var/list/properties_to_buff = A.base_properties.Copy() - list("transmittable")
+	var/list/properties_to_buff = A.base_properties.Copy() - list("transmissibility")
 	for(var/i = 0, i < max_severity / 2, i++)
 		A.base_properties[pick(properties_to_buff)]++
 	A.base_properties["stealth"] += max_severity // Stealth gets an additional bonus since most symptoms reduce it a fair bit.
@@ -103,7 +103,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 		A.add_symptom_path(symptom_path)
 
 	// Add extra transmitabillity through base properties as needed
-	A.base_properties["transmittable"] = max(0, spread_threhsold - (A.totalTransmittable() - length(A.symptoms)))
+	A.base_properties["transmissibility"] = max(0, spread_threhsold - (A.totaltransmissibility() - length(A.symptoms)))
 
 	A.name = pick(GLOB.alphabet_uppercase) + num2text(rand(1,9)) + pick(GLOB.alphabet_uppercase) + num2text(rand(1,9)) + pick("v", "V", "-" + num2text(GLOB.game_year), "")
 	A.Refresh()
@@ -125,5 +125,5 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	var/list/candidate_list = subtypesof(/datum/symptom) - /datum/symptom/heal/longevity
 	for(var/candidate in candidate_list)
 		var/datum/symptom/CS = candidate
-		if(initial(CS.transmittable) > 0)
+		if(initial(CS.transmissibility) > 0)
 			transmissable_symptoms += candidate

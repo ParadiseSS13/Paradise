@@ -467,37 +467,14 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 
 	var/list/strains = list()
 	for(var/datum/disease/blood_disease in GetViruses())
-		var/known = FALSE
 		if(!(blood_disease.GetDiseaseID() in GLOB.detected_advanced_diseases["[z]"]))
 			GLOB.detected_advanced_diseases["[z]"] += list(blood_disease.GetDiseaseID())
 		if(blood_disease.visibility_flags & VIRUS_HIDDEN_PANDEMIC)
 			continue
 
-		var/list/symptoms = list()
-		var/list/base_stats = list()
-		var/datum/disease/advance/advanced_disease = blood_disease
-		if(istype(blood_disease, /datum/disease/advance))
-			known = (advanced_disease.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"])
-			for(var/datum/symptom/virus_symptom in advanced_disease.symptoms)
-				symptoms += list(list(
-					"name" = virus_symptom.name,
-					"stealth" = known ? virus_symptom.stealth : "UNKNOWN",
-					"resistance" = known ? virus_symptom.resistance : "UNKNOWN",
-					"stageSpeed" = known ? virus_symptom.stage_speed : "UNKNOWN",
-					"transmissibility" = known ? virus_symptom.transmittable : "UNKNOWN",
-					"complexity" = known ? virus_symptom.level : "UNKNOWN",
-				))
-
-			base_stats["stealth"] = advanced_disease.base_properties["stealth"]
-			base_stats["resistance"] = advanced_disease.base_properties["resistance"]
-			base_stats["stageSpeed"] = advanced_disease.base_properties["stage rate"]
-			base_stats["transmissibility"] = advanced_disease.base_properties["transmittable"]
-		else
-			known = TRUE
-			base_stats["stealth"] = 0
-			base_stats["resistance"] = 0
-			base_stats["stageSpeed"] = 0
-			base_stats["transmissibility"] = 0
+		var/list/symptoms = blood_disease.get_pandemic_symptoms(z)
+		var/list/base_stats = blood_disease.get_pandemic_base_stats()
+		var/known = blood_disease.is_known(z)
 		strains += list(list(
 			"commonName" = known ? blood_disease.name : "Unknown strain",
 			"description" = known ? blood_disease.desc : "Unknown strain",
@@ -509,7 +486,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 			"bloodDNA" = Blood.data["blood_DNA"],
 			"bloodType" = Blood.data["blood_type"],
 			"diseaseAgent" = blood_disease.agent,
-			"possibleTreatments" = known ? blood_disease.cure_text : "Unknown strain",
+			"possibleCures" = known ? blood_disease.cure_text : "Unknown strain",
 			"RequiredCures" = "[blood_disease.get_required_cures()]",
 			"Stabilized" = blood_disease.is_stabilized(),
 			"StrainTracker" = blood_disease.get_tracker(),

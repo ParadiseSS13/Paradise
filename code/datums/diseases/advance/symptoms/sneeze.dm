@@ -6,7 +6,7 @@ Sneezing
 	Very Noticable.
 	Increases resistance.
 	Doesn't increase stage speed.
-	Very transmittable.
+	Very transmissibility.
 	Low Level.
 
 Bonus
@@ -21,18 +21,18 @@ Bonus
 	name = "Sneezing"
 	stealth = -2
 	stage_speed = 2
-	transmittable = 5
+	transmissibility = 5
 	level = 1
 	severity = 1
-	treatments = list("salbutamol", "perfluorodecalin")
+	chem_treatments = list(
+		"salbutamol" = list("multiplier" = 0, "timer" = 0),
+		"perfluorodecalin" = list("multiplier" = 0, "timer" = 0))
 
-/datum/symptom/sneeze/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
-		if(prob(A.progress + 20))
-			M.emote("sneeze")
-			A.spread(5)
-		else
-			M.emote("sniff")
+/datum/symptom/sneeze/symptom_act(datum/disease/advance/A, unmitigated)
+	var/mob/living/M = A.affected_mob
+	if(prob(A.progress + 20))
+		M.emote("sneeze")
+		A.spread(5 * unmitigated)
+	else
+		M.emote("sniff")
 	return

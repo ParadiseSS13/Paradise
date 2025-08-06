@@ -223,3 +223,20 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 /// Not interested in normal diseases right now
 /datum/disease/proc/record_infection()
 	return
+
+/// Returns whether or not the disease is known
+/datum/disease/proc/is_known(z)
+	return TRUE
+
+/// Returns an Asoc list of disease's symptoms and their properties in a format usable by the PANDEMIC
+/datum/disease/proc/get_pandemic_symptoms()
+	return list()
+
+/// Returns the Disease's base stats
+/datum/disease/proc/get_pandemic_base_stats()
+	return list(
+			"resistance" = 0,
+			"stealth" = 0,
+			"stageSpeed" = 0,
+			"transmissibility" = 0,
+			)

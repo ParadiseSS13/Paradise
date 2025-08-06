@@ -21,19 +21,19 @@ Bonus
 	name = "Dizziness"
 	stealth = 2
 	stage_speed = -1
-	transmittable = -1
+	transmissibility = -1
 	level = 4
 	severity = 2
-	treatments = list("antihol" , "ephedrine")
+	chem_treatments = list(
+		"antihol" = list("multiplier" = 0, "timer" = 0),
+		"ephedrine" = list("multiplier" = 0, "timer" = 0))
 
-/datum/symptom/dizzy/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
-			if(1, 2, 3, 4)
-				to_chat(M, "<span class='warning'>[pick("You feel dizzy.", "Your head spins.")]</span>")
-			else
-				to_chat(M, "<span class='userdanger'>A wave of dizziness washes over you!</span>")
-				M.Dizzy(10 SECONDS)
+/datum/symptom/dizzy/symptom_act(datum/disease/advance/A, unmitigated)
+	var/mob/living/M = A.affected_mob
+	switch(A.stage)
+		if(1, 2, 3, 4)
+			to_chat(M, "<span class='warning'>[pick("You feel dizzy.", "Your head spins.")]</span>")
+		else
+			to_chat(M, "<span class='userdanger'>A wave of dizziness washes over you!</span>")
+			M.Dizzy(10 SECONDS * unmitigated)
 	return

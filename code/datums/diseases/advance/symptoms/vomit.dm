@@ -6,7 +6,7 @@ Vomiting
 	Very Very Noticable.
 	Decreases resistance.
 	Doesn't increase stage speed.
-	Little transmittable.
+	Little transmissibility.
 	Medium Level.
 
 Bonus
@@ -24,23 +24,24 @@ Bonus
 	name = "Vomiting"
 	stealth = -3
 	stage_speed = -2
-	transmittable = 1
+	transmissibility = 1
 	level = 3
 	severity = 3
-	treatments = list("calomel" , "charcoal", "pen_acid")
+	chem_treatments = list(
+		"calomel" = list("multiplier" = 0, "timer" = 0),
+		"charcoal" = list("multiplier" = 0, "timer" = 0),
+		"pen_acid" = list("multiplier" = 0, "timer" = 0))
 
-/datum/symptom/vomit/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
-		if(A.progress > 20 && prob(A.progress))
-			Vomit(M, A.progress)
-		else
-			switch(A.progress)
-				if(0 to 59)
-					to_chat(M, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
-				if(60 to INFINITY)
-					to_chat(M, "<span class='warning'>[pick("You feel extremely nauseous!", "You barely manage to not throw up!")]</span>")
+/datum/symptom/vomit/symptom_act(datum/disease/advance/A, unmitigated)
+	var/mob/living/M = A.affected_mob
+	if(A.progress > 20 && prob(A.progress))
+		Vomit(M, A.progress)
+	else
+		switch(A.progress)
+			if(0 to 59)
+				to_chat(M, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
+			if(60 to INFINITY)
+				to_chat(M, "<span class='warning'>[pick("You feel extremely nauseous!", "You barely manage to not throw up!")]</span>")
 	return
 
 /datum/symptom/vomit/proc/Vomit(mob/living/carbon/M, progress)
@@ -54,7 +55,7 @@ Vomiting Blood
 	Very Very Noticable.
 	Decreases resistance.
 	Decreases stage speed.
-	Little transmittable.
+	Little transmissibility.
 	Intense level.
 
 Bonus
@@ -87,7 +88,7 @@ Projectile Vomiting
 	Very Very Noticable.
 	Decreases resistance.
 	Doesn't increase stage speed.
-	Little transmittable.
+	Little transmissibility.
 	Medium Level.
 
 Bonus

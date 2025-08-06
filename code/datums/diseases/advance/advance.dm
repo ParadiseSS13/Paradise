@@ -51,7 +51,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	// NEW VARS
 
 	/// The base properties of the virus. retained between strains
-	var/list/base_properties = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1)
+	var/list/base_properties = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmissibility" = 1)
 	/// Chance of the virus evolving on spread
 	var/evolution_chance = VIRUS_EVOLUTION_CHANCE
 	/// The symptoms of the disease.
@@ -155,23 +155,8 @@ GLOBAL_LIST_INIT(plant_cures,list(
 			processing = TRUE
 			for(var/datum/symptom/S in symptoms)
 				S.Start(src)
-		var/treated = FALSE
 		for(var/datum/symptom/S in symptoms)
-			treated = FALSE
-			var/treatment_volume = 0
-			for(var/treatment in S.treatments)
-				if(treatment in mob_reagents)
-					treated = TRUE
-					treatment_volume = min(mob_reagents[treatment], S.purge_amount)
-					affected_mob.reagents.remove_reagent(treatment, S.purge_amount)
-			if(treated)
-				if(S.treatment_timer < VIRUS_MAX_TREATMENT_TIMER)
-					// Increase timer in proportion to how much of the reagent we actually had
-					S.treatment_timer += VIRUS_TREATMENT_TIMER_MOD * treatment_volume / S.purge_amount
-			else if(S.treatment_timer <= 0)
-				S.Activate(src)
-			else
-				S.treatment_timer--
+			S.Activate(src)
 	else
 		CRASH("We do not have any symptoms during stage_act()!")
 	return TRUE
@@ -331,7 +316,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		properties["resistance"] += S.resistance
 		properties["stealth"] += S.stealth
 		properties["stage rate"] += S.stage_speed
-		properties["transmittable"] += S.transmittable
+		properties["transmissibility"] += S.transmissibility
 		properties["severity"] = max(properties["severity"], S.severity) // severity is based on the highest severity symptom
 
 	return properties
@@ -345,9 +330,9 @@ GLOBAL_LIST_INIT(plant_cures,list(
 			if(2 to INFINITY)
 				visibility_flags = VIRUS_HIDDEN_SCANNER
 
-		// The more symptoms we have, the less transmittable it is but some symptoms can make up for it.
-		SetSpread(clamp(2 ** (properties["transmittable"] - length(symptoms)), SPREAD_BLOOD, SPREAD_AIRBORNE))
-		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
+		// The more symptoms we have, the less transmissibility it is but some symptoms can make up for it.
+		SetSpread(clamp(2 ** (properties["transmissibility"] - length(symptoms)), SPREAD_BLOOD, SPREAD_AIRBORNE))
+		permeability_mod = max(CEILING(0.4 * properties["transmissibility"], 1), 1)
 		cure_chance = 20 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
 		// The amount of cures needed to cure the disease. clamped between 1 and 6 because we generate 6 possible cures
 		cures_required = round(max(2.2 * (1.1 ** properties["resistance"]), 1))
@@ -568,7 +553,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
 	var/datum/disease/advance/admin_disease = new(_event = TRUE)
 
-	var/base_props = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmittable" = 1)
+	var/base_props = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmissibility" = 1)
 
 	for(var/prop in base_props)
 		var/current_prop = input(user, "Enter base [prop]", "Base Stats", null)
@@ -627,12 +612,12 @@ GLOBAL_LIST_INIT(plant_cures,list(
 		total_resistance += S.resistance
 	return total_resistance
 
-/datum/disease/advance/proc/totalTransmittable()
-	var/total_transmittable = base_properties["transmittable"]
+/datum/disease/advance/proc/totaltransmissibility()
+	var/total_transmissibility = base_properties["transmissibility"]
 	for(var/i in symptoms)
 		var/datum/symptom/S = i
-		total_transmittable += S.transmittable
-	return total_transmittable
+		total_transmissibility += S.transmissibility
+	return total_transmissibility
 
 /datum/disease/advance/get_required_cures()
 	return cures_required
@@ -652,3 +637,26 @@ GLOBAL_LIST_INIT(plant_cures,list(
 /datum/disease/advance/get_full_strain_id()
 	return GetDiseaseID()
 
+/datum/disease/advance/is_known(z)
+	return (GetDiseaseID() in GLOB.known_advanced_diseases["[z]"])
+
+/datum/disease/advance/get_pandemic_symptoms(z)
+	. = list()
+	var/known = is_known(z)
+	for(var/datum/symptom/virus_symptom in symptoms)
+		. += list(list(
+			"name" = virus_symptom.name,
+			"stealth" = known ? virus_symptom.stealth : "UNKNOWN",
+			"resistance" = known ? virus_symptom.resistance : "UNKNOWN",
+			"stageSpeed" = known ? virus_symptom.stage_speed : "UNKNOWN",
+			"transmissibility" = known ? virus_symptom.transmissibility : "UNKNOWN",
+			"complexity" = known ? virus_symptom.level : "UNKNOWN",
+		))
+
+/datum/disease/advance/get_pandemic_base_stats()
+	return list(
+		"resistance" = base_properties["resistance"],
+		"stageSpeed" = base_properties["stage rate"],
+		"stealth" = base_properties["stealth"],
+		"transmissibility" = base_properties["transmitability"],
+		)

@@ -112,7 +112,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		var/datum/symptom/S = new type()
 		goal_symptom = S.type
 		goal_symptom_name = S.name
-		goal_property = pick("resistance", "stealth", "stage rate", "transmittable")
+		goal_property = pick("resistance", "stealth", "stage rate", "transmissibility")
 		goal_property_value = rand(-8, 6)
 		switch(goal_property)
 			if("resistance")
@@ -121,8 +121,8 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 				goal_property_value += S.stealth
 			if("stage rate")
 				goal_property_value += S.stage_speed
-			if("transmittable")
-				goal_property_value += S.transmittable
+			if("transmissibility")
+				goal_property_value += S.transmissibility
 		qdel(S)
 		times_looped++
 	while(check_for_duplicate() && times_looped < MAX_LOOPS)

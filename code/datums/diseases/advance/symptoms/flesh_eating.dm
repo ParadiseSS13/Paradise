@@ -20,21 +20,21 @@ Bonus
 	name = "Necrotizing Fasciitis"
 	stealth = -4
 	resistance = 3
-	transmittable = -3
+	transmissibility = -3
 	level = 6
 	severity = 6
-	treatments = list("synthflesh", "lazarus_reagent")
+	chem_treatments = list(
+		"synthflesh" = list("multiplier" = 0, "timer" = 0),
+		"lazarus_reagent" = list("multiplier" = 0, "timer" = 0))
 
-/datum/symptom/flesh_eating/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
-		if(A.stage > 1)
-			if(prob(A.progress))
-				to_chat(M, "<span class='userdanger'>[pick("You cringe as a violent pain takes over your body.", "It feels like your body is eating itself inside out.", "IT HURTS.")]</span>")
-				Flesheat(M, A)
-			else
-				to_chat(M, "<span class='warning'>[pick("You feel a sudden pain across your body.", "Drops of blood appear suddenly on your skin.")]</span>")
+/datum/symptom/flesh_eating/symptom_act(datum/disease/advance/A, unmitigated)
+	var/mob/living/M = A.affected_mob
+	if(A.stage > 1)
+		if(prob(A.progress))
+			to_chat(M, "<span class='userdanger'>[pick("You cringe as a violent pain takes over your body.", "It feels like your body is eating itself inside out.", "IT HURTS.")]</span>")
+			Flesheat(M, A)
+		else
+			to_chat(M, "<span class='warning'>[pick("You feel a sudden pain across your body.", "Drops of blood appear suddenly on your skin.")]</span>")
 
 	return
 
