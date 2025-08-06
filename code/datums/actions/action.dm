@@ -116,7 +116,7 @@
 	Trigger()
 	return FALSE
 
-/datum/action/proc/IsAvailable(show_message = TRUE)// returns 1 if all checks pass
+/datum/action/proc/IsAvailable(show_message = TRUE) // returns 1 if all checks pass
 	if(!owner)
 		return FALSE
 	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
