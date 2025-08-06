@@ -14,8 +14,8 @@
 /datum/spell/alien_spell/neurotoxin/update_spell_icon()
 	if(!action)
 		return
-	action.button_overlay_icon_state = "alien_neurotoxin_[active]"
-	action.UpdateButtons()
+	action.button_icon_state = "alien_neurotoxin_[active]"
+	action.build_all_button_icons()
 
 /datum/spell/alien_spell/neurotoxin/cast(list/targets, mob/living/carbon/user)
 	var/target = targets[1]

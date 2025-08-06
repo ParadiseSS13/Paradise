@@ -84,7 +84,11 @@
 				new_organ.unknown_quality = pick_quality(tool, surgery.get_surgery_step())
 				user.put_in_inactive_hand(new_organ)
 				SSblackbox.record_feedback("nested tally", "xeno_organ_type", 1, list("[new_organ.true_organ_type]", new_organ.unknown_quality))
-			target.contains_xeno_organ = FALSE
+			if(!isalien(target))
+				target.contains_xeno_organ = FALSE
+			else if(!length(target.surgery_container.xeno_specialized_organs))
+				target.contains_xeno_organ = FALSE
+
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/dissect/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

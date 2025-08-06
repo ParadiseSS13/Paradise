@@ -1017,6 +1017,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return FALSE
 	. = ..()
 
+/mob/dead/canface()
+	return TRUE
+
 /mob/proc/fall()
 	drop_l_hand()
 	drop_r_hand()

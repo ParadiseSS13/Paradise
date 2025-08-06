@@ -108,6 +108,10 @@
 		var/obj/mecha/M = loc
 		return M.click_action(A, src, params)
 
+	if(isclowncar(loc) && !modifiers["shift"])
+		var/obj/tgvehicle/sealed/car/clowncar/cc = loc
+		return cc.fire_cannon_at(A, src, params)
+
 	if(restrained())
 		RestrainedClickOn(A)
 		return
