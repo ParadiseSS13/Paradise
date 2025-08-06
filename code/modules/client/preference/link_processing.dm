@@ -865,9 +865,15 @@
 						return
 					active_character.pda_ringtone = ringtone
 				if("clientfps")
-					var/desiredfps = tgui_input_list(user, "Choose your desired fps. (Min = synced with server tick rate)", "Character Preference", GLOB.client_fps_options, clientfps)
+					var/desiredfps = tgui_input_list(user, "Choose your desired fps. Listed variants work better than custom", "Character Preference", list("\[CUSTOM\]") + GLOB.client_fps_options, clientfps)
 					if(!isnull(desiredfps))
-						clientfps = GLOB.client_fps_options[desiredfps] // saves raw number cos byond will convert it on his own
+						if(desiredfps == "\[CUSTOM\]")
+							desiredfps = tgui_input_number(user, "Set your desired fps. Remember that this value will be converted to one that server can actually work with!", "Character Preference", parent.fps, 1000, world.fps)
+							if(isnull(desiredfps)) // we closed the window
+								return
+							if(round(1000 / floor(1000 / desiredfps), 1) != desiredfps) // don't ask
+								desiredfps = floor(1000 / round(1000 / desiredfps, 1))
+						clientfps = desiredfps
 						parent.fps = clientfps
 
 		else
