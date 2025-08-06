@@ -606,7 +606,6 @@
 	program_name = "Automated Extinguishing System"
 	program_id = "extinguishing_system"
 	description = "Deploy a nanofrost globule to a target to rapidly extinguish plasmafires."
-	cost = 1
 	nanite_cost = 50
 	power_type = /datum/spell/ai_spell/ranged/extinguishing_system
 	unlock_text = "Nanofrost synthesizer online."
@@ -884,7 +883,6 @@
 	program_id = "research_subsystem"
 	description = "Put your processors to work spinning centrifuges and studying results. You unlock a new point of research in a random field."
 	cost = 5
-	nanite_cost = 0
 	max_level = 10
 	unlock_text = "Research and Discovery submodule installation complete. Automated information gathering enabled."
 	upgrade = TRUE
