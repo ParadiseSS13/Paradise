@@ -226,11 +226,11 @@
 
 	switch(severity)
 		if(1)
-			brainmob.emp_damage += rand(20,30)
+			brainmob.emp_damage += rand(20, 30)
 		if(2)
-			brainmob.emp_damage += rand(10,20)
+			brainmob.emp_damage += rand(10, 20)
 		if(3)
-			brainmob.emp_damage += rand(0,10)
+			brainmob.emp_damage += rand(0, 10)
 	..()
 
 /obj/item/mmi/Destroy()
