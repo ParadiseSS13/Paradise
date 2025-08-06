@@ -31,7 +31,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "et" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "ez" = (
@@ -296,7 +296,7 @@
 /turf/template_noop,
 /area/template_noop)
 "VL" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
