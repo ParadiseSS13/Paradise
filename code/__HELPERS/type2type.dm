@@ -153,6 +153,7 @@
 	if(rights & R_VIEWRUNTIMES)	. += "[seperator]+VIEWRUNTIMES"
 	if(rights & R_MAINTAINER)	. += "[seperator]+MAINTAINER"
 	if(rights & R_DEV_TEAM)		. += "[seperator]+DEV_TEAM"
+	if(rights & R_VIEWLOGS)		. += "[seperator]+VIEWLOGS"
 
 /proc/ui_style2icon(ui_style)
 	switch(ui_style)
@@ -166,6 +167,8 @@
 			return 'icons/mob/screen_operative.dmi'
 		if("White")
 			return 'icons/mob/screen_white.dmi'
+		if("Clockwork")
+			return 'icons/mob/screen_clockwork.dmi'
 		if("Midnight")
 			return 'icons/mob/screen_midnight.dmi'
 		else

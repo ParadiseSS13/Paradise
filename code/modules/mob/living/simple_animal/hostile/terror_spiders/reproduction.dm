@@ -4,12 +4,7 @@
 // --------------------------------------------------------------------------------
 
 /obj/structure/spider/spiderling/terror_spiderling
-	name = "spiderling"
 	desc = "A fast-moving tiny spider, prone to making aggressive hissing sounds. Hope it doesn't grow up."
-	icon_state = "spiderling"
-	anchored = FALSE
-	layer = 2.75
-	max_integrity = 3
 	var/stillborn = FALSE
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/spider_myqueen = null
 	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_mymother = null
@@ -190,7 +185,6 @@
 /obj/structure/spider/eggcluster/terror_eggcluster
 	name = "terror egg cluster"
 	desc = "A cluster of tiny spider eggs. They pulse with a strong inner life, and appear to have sharp thorns on the sides."
-	icon_state = "eggs"
 	var/spider_growinstantly = FALSE
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/spider_myqueen = null
 	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_mymother = null

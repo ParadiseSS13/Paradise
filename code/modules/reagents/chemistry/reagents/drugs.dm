@@ -9,7 +9,6 @@
 	name = "Lithium"
 	id = "lithium"
 	description = "A chemical element."
-	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "metal"
 
@@ -248,7 +247,6 @@
 	name = "Pump Up"
 	id = "pump_up"
 	description = "An awful smelling mixture which acts as a makeshift stimulant"
-	reagent_state = SOLID
 	color = COLOR_HALF_TRANSPARENT_BLACK
 	taste_description = "poorly mixed coffee"
 	metabolization_rate = 1
@@ -443,7 +441,6 @@
 	name = "Bath Salts"
 	id = "bath_salts"
 	description = "Sometimes packaged as a refreshing bathwater additive, these crystals are definitely not for human consumption."
-	reagent_state = SOLID
 	color = "#FAFAFA"
 	overdose_threshold = 20
 	addiction_chance = 15
@@ -1134,7 +1131,6 @@
 	name = "Ultra-Lube"
 	id = "ultralube"
 	description = "Ultra-Lube is an enhanced lubricant which induces effect similar to Methamphetamine in synthetic users by drastically reducing internal friction and increasing cooling capabilities."
-	reagent_state = LIQUID
 	color = "#1BB1FF"
 	process_flags = SYNTHETIC
 	overdose_threshold = 20

@@ -110,14 +110,9 @@
 		unholster(user)
 
 /obj/item/clothing/accessory/holster/armpit
-	name = "shoulder holster"
 	desc = "A worn-out handgun holster. Perfect for concealed carry"
-	icon_state = "holster"
-	item_color = "holster"
 	holster_allow = list(/obj/item/gun/projectile, /obj/item/gun/energy/detective)
 
 /obj/item/clothing/accessory/holster/waist
-	name = "shoulder holster"
 	desc = "A handgun holster. Made of expensive leather."
-	icon_state = "holster"
 	item_color = "holster_low"

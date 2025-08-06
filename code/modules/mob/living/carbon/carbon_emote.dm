@@ -179,6 +179,24 @@
 		var/obj/item/grab/grabbed = thing
 		message = "twirls [grabbed.affecting.name] around!"
 		grabbed.affecting.emote("spin")
+	else if(istype(thing, /obj/item/gun/energy/laser/lever_action))
+		var/obj/item/gun/energy/laser/lever_action/gun = thing
+		if(HAS_TRAIT(user, TRAIT_CLUMSY))
+			message = "attempts to twirl [thing] around in their hand, but pulls the trigger instead!"
+			gun.cycle_action(user)
+			var/shot_leg = pick("l_foot", "r_foot")
+			gun.process_fire(user, user, 0, params, zone_override = shot_leg)
+			user.drop_item()
+		else if(prob(50) && !HAS_TRAIT(user, TRAIT_BADASS))
+			message = "attempts to twirl [thing] around in their hand, but fumbles!"
+			user.drop_item()
+		else
+			message = "twirls [thing] around in their hand!"
+			gun.cycle_action(user)
+		if(HAS_TRAIT(user, TRAIT_BADASS) && istype(user.get_inactive_hand(), /obj/item/gun/energy/laser/lever_action))
+			var/obj/item/gun/energy/laser/lever_action/offhand = user.get_inactive_hand()
+			offhand.cycle_action()
+			message = "twirls [thing] around in their hand, and [offhand] in the other! What a badass!"
 	else if(!(thing.flags & ABSTRACT))
 		message = "twirls [thing] around in their hand!"
 	else

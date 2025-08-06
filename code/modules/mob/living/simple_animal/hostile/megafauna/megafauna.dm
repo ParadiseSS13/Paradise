@@ -26,7 +26,6 @@
 	mob_size = MOB_SIZE_LARGE
 	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
 	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
-	mouse_opacity = MOUSE_OPACITY_ICON
 	dodging = FALSE // This needs to be false until someone fixes megafauna pathing so they dont lag-switch teleport at you (09-15-2023)
 	initial_traits = list(TRAIT_FLYING)
 	var/list/crusher_loot
@@ -81,6 +80,9 @@
 
 /mob/living/simple_animal/hostile/megafauna/death(gibbed)
 	GLOB.alive_megafauna_list -= UID()
+	// lets normalize the icons a bit
+	pixel_x = 0
+	pixel_y = 0
 	// this happens before the parent call because `del_on_death` may be set
 	if(can_die() && !admin_spawned)
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
@@ -143,7 +145,7 @@
 	if(!istype(get_area(src), /area/shuttle)) //I'll be funny and make non teleported enrage mobs not lose enrage. Harder to pull off, and also funny when it happens accidently. Or if one gets on the escape shuttle.
 		unrage()
 
-/mob/living/simple_animal/hostile/megafauna/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/mob/living/simple_animal/hostile/megafauna/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller_mob)
 	var/turf/oldloc = loc
 	. = ..()
 	if(!.)
@@ -152,7 +154,7 @@
 	message_admins("Megafauna [src] \
 		([ADMIN_FLW(src,"FLW")]) \
 		moved via shuttle from ([oldloc.x], [oldloc.y], [oldloc.z]) to \
-		([newloc.x], [newloc.y], [newloc.z])[caller ? " called by [ADMIN_LOOKUP(caller)]" : ""]")
+		([newloc.x], [newloc.y], [newloc.z])[caller_mob ? " called by [ADMIN_LOOKUP(caller_mob)]" : ""]")
 
 /mob/living/simple_animal/hostile/megafauna/proc/devour(mob/living/L)
 	if(!L)
@@ -214,8 +216,8 @@
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
-	button_overlay_icon = 'icons/mob/actions/actions_animal.dmi'
-	button_overlay_icon_state = ""
+	button_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_icon_state = ""
 	var/mob/living/simple_animal/hostile/megafauna/M
 	var/chosen_message
 	var/chosen_attack_num = 0

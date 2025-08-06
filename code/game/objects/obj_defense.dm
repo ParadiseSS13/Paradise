@@ -30,7 +30,32 @@
 		armor_protection = armor.getRating(damage_flag)
 	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
 		armor_protection = clamp((armor_protection * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat, min(armor_protection, 0), 100)
-	return round(damage_amount * (100 - armor_protection)*0.01, DAMAGE_PRECISION)
+	var/damage_multiplier = (100 - armor_protection) / 100
+	return round(damage_amount * damage_multiplier, DAMAGE_PRECISION)
+
+/// returns the amount of damage required to destroy this object in a single hit.
+/obj/proc/calculate_oneshot_damage(damage_type, damage_flag = 0, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
+	if(obj_integrity <= 0)
+		return 0
+	if(resistance_flags & INDESTRUCTIBLE)
+		return INFINITY
+	if(damage_type != BRUTE && damage_type != BURN)
+		return INFINITY
+
+	var/armor_protection = 0
+	if(damage_flag)
+		armor_protection = armor.getRating(damage_flag)
+	if(armor_protection)        // Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
+		armor_protection = clamp((armor_protection * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat, min(armor_protection, 0), 100)
+
+	var/damage_multiplier = (100 - armor_protection) / 100
+	if(damage_multiplier <= 0)
+		return INFINITY
+
+	var/oneshot = obj_integrity / damage_multiplier
+	if(damage_flag == MELEE)
+		oneshot = max(oneshot, damage_deflection)
+	return oneshot
 
 ///the sound played when the obj is damaged.
 /obj/proc/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -107,7 +132,7 @@
 		return 0
 	else
 		var/play_soundeffect = 1
-		if(M.environment_smash)
+		if(istype(M) && M.environment_smash)
 			play_soundeffect = 0
 		var/obj_turf = get_turf(src)  // play from the turf in case the object gets deleted mid attack
 		if(M.obj_damage)
@@ -116,6 +141,23 @@
 			. = attack_generic(M, rand(M.melee_damage_lower,M.melee_damage_upper), M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration_flat, M.armour_penetration_percentage)
 		if(. && !play_soundeffect)
 			playsound(QDELETED(src) ? obj_turf : src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+
+/obj/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	if((attacker.a_intent == INTENT_HELP && attacker.ckey) || attacker.melee_damage_upper == 0)
+		attacker.custom_emote(EMOTE_VISIBLE, "[attacker.friendly_verb_continuous] [src].")
+		return FALSE
+	else
+		var/play_soundeffect = TRUE
+		if(attacker.environment_smash)
+			play_soundeffect = FALSE
+		var/obj_turf = get_turf(src)  // play from the turf in case the object gets deleted mid attack
+		if(attacker.obj_damage)
+			. = attack_generic(attacker, attacker.obj_damage, attacker.melee_damage_type, MELEE, play_soundeffect, attacker.armour_penetration_flat, attacker.armour_penetration_percentage)
+		else
+			. = attack_generic(attacker, rand(attacker.melee_damage_lower, attacker.melee_damage_upper), attacker.melee_damage_type, MELEE, play_soundeffect, attacker.armour_penetration_flat, attacker.armour_penetration_percentage)
+		if(. && !play_soundeffect)
+			playsound(QDELETED(src) ? obj_turf : src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+	return TRUE
 
 /obj/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return TRUE

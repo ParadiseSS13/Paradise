@@ -7,11 +7,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	real_name = "Cyborg"
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
-	maxHealth = 100
-	health = 100
 	bubble_icon = "robot"
 	universal_understand = TRUE
 	deathgasp_on_death = TRUE
+	appearance_flags = LONG_GLIDE | PIXEL_SCALE | KEEP_TOGETHER | TILE_BOUND
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	hud_type = /datum/hud/robot
 
@@ -130,6 +129,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/base_icon = ""
 	/// If set to TRUE, the robot's 3 module slots will progressively become unusable as they take damage.
 	var/modules_break = TRUE
+	/// Is the robot already being charged by a roboticist?
+	var/being_charged
 
 	/// Maximum brightness of a robot's headlamp. Set as a var for easy adjusting.
 	var/lamp_max = 10
@@ -374,6 +375,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scanner = null
 	module_actions.Cut()
 	return ..()
+
+/mob/living/silicon/robot/update_runechat_msg_location()
+	if(istgvehicle(loc))
+		runechat_msg_location = loc.UID()
+	else
+		return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
@@ -883,7 +890,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/InCritical()
 	return low_power_mode
 
-/mob/living/silicon/robot/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+/mob/living/silicon/robot/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	if(!(class in alarms_listened_for))
 		return
 	if(alarmsource.z != z)
@@ -892,7 +899,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 	queueAlarm(text("--- [class] alarm detected in [A.name]!"), class)
 
-/mob/living/silicon/robot/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+/mob/living/silicon/robot/alarm_cancelled(source, class, area/A, obj/origin, cleared)
 	if(cleared)
 		if(!(class in alarms_listened_for))
 			return
@@ -923,6 +930,34 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	// Check if the user is trying to insert another component like a radio, actuator, armor etc.
+	if(istype(W, /obj/item/stock_parts/cell) && user.mind && HAS_TRAIT(user.mind, TRAIT_CYBORG_SPECIALIST) && !opened && user.a_intent != INTENT_HARM)
+		var/obj/item/stock_parts/cell/donor = W
+		if(being_charged)
+			to_chat(user, "<span class='warning'>You are already charging [src]!")
+			return ITEM_INTERACT_COMPLETE
+		if(donor.charge == 0)
+			to_chat(user, "<span class='warning'>[donor] has no charge to donate!")
+			return ITEM_INTERACT_COMPLETE
+		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+		being_charged = TRUE
+		to_chat(src, "<span class='notice'>[user] begins to manually charge your internal cell.</span>")
+		while(do_after(user, 0.5 SECONDS, target = src))
+			var/cell_difference = cell.maxcharge - cell.charge
+			if(donor.charge >= 500 && cell_difference >= 500)
+				cell.charge += 500
+				donor.charge -= 500
+			else if(donor.charge <= cell_difference)
+				cell.charge += donor.charge
+				donor.charge = 0
+			else if(donor.charge > cell_difference)
+				cell.charge = cell.maxcharge
+				donor.charge -= cell_difference
+			if(donor.charge == 0 || cell.charge >= cell.maxcharge)
+				donor.update_icon(UPDATE_OVERLAYS)
+				break
+			cell.update_icon(UPDATE_OVERLAYS)
+		being_charged = FALSE
+		return ITEM_INTERACT_COMPLETE
 	if(istype(W, /obj/item/robot_parts/robot_component) && opened)
 		for(var/V in components)
 			var/datum/robot_component/C = components[V]
@@ -1128,10 +1163,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	C.uninstall()
 	thing.forceMove(loc)
-
-
-
-
 
 /mob/living/silicon/robot/attacked_by(obj/item/I, mob/living/user, def_zone)
 	if(I.force && I.damtype != STAMINA && stat != DEAD) //only sparks if real damage is dealt.
@@ -1801,6 +1832,22 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(ourapc.malfai && !(src in ourapc.malfai.connected_robots))
 		return FALSE
 	return TRUE
+
+/mob/living/silicon/robot/update_transform()
+	var/matrix/ntransform = matrix(transform)
+	var/final_pixel_y = pixel_y
+	var/final_dir = dir
+	var/changed = 0
+
+	if(resize != RESIZE_DEFAULT_SIZE)
+		changed++
+		ntransform.Scale(resize)
+		ntransform.Translate(0, (resize - 1) * 16) // Pixel Y shift: 1.25 = 4, 1.5 = 8, 2 -> 16, 3 -> 32, 4 -> 48, 5 -> 64
+		resize = RESIZE_DEFAULT_SIZE
+
+	if(changed)
+		floating = FALSE
+		animate(src, transform = ntransform, time = (lying_prev == 0 || lying_angle == 0) ? 2 : 0, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
 
 /mob/living/silicon/robot/plushify(plushie_override, curse_time)
 	if(curse_time == -1)

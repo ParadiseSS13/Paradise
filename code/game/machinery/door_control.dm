@@ -1,7 +1,6 @@
 /obj/machinery/door_control
 	name = "remote door-control"
 	desc = "A remote control-switch for a door."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl0"
 	power_channel = PW_CHANNEL_ENVIRONMENT
 	var/id = null
@@ -136,7 +135,6 @@
 
 /obj/machinery/door_control/no_emag/no_cyborg
 	desc = "A remote control-switch for a door. Looks strangely analog in design."
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/door_control/no_emag/no_cyborg/attack_ai(mob/user)
 	to_chat(user, "<span class='warning'>Error, no route to host.</span>")

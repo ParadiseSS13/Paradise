@@ -11,7 +11,6 @@
 	points = 50
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
 	refined_type = /obj/item/stack/ore/bluespace_crystal/refined
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	dynamic_icon_state = TRUE
 
@@ -51,6 +50,9 @@
 	if(isliving(hit_atom))
 		blink_mob(hit_atom)
 	qdel(src)
+
+/obj/item/stack/ore/bluespace_crystal/five
+	amount = 5
 
 // Refined Bluespace crystal fragments (stops point farming)
 /obj/item/stack/ore/bluespace_crystal/refined

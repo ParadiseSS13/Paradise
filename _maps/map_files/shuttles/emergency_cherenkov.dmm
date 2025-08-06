@@ -42,7 +42,7 @@
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "aI" = (
-/obj/effect/spawner/window/plastitanium,
+/obj/effect/spawner/window/plastitanium/rad_protect,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bf" = (
@@ -300,10 +300,10 @@
 /turf/simulated/floor/catwalk,
 /area/shuttle/escape)
 "iu" = (
-/obj/effect/spawner/window/plastitanium,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
+/obj/effect/spawner/window/plastitanium/rad_protect,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "iO" = (
@@ -545,8 +545,8 @@
 /turf/simulated/floor/engine,
 /area/shuttle/escape)
 "ov" = (
-/obj/effect/spawner/window/plastitanium,
 /obj/structure/sign/greencross,
+/obj/effect/spawner/window/plastitanium/rad_protect,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "oU" = (
@@ -630,10 +630,10 @@
 /turf/simulated/floor/catwalk,
 /area/shuttle/escape)
 "tj" = (
-/obj/effect/spawner/window/plastitanium,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/effect/spawner/window/plastitanium/rad_protect,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "tT" = (
@@ -826,7 +826,7 @@
 /turf/simulated/floor/catwalk,
 /area/shuttle/escape)
 "zl" = (
-/obj/effect/spawner/window/plastitanium,
+/obj/effect/spawner/window/plastitanium/rad_protect,
 /obj/structure/sign/radiation/rad_area,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
@@ -1071,10 +1071,10 @@
 /turf/simulated/floor/pod/dark,
 /area/shuttle/escape)
 "Id" = (
-/obj/effect/spawner/window/plastitanium,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/effect/spawner/window/plastitanium/rad_protect,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "Ir" = (
@@ -1432,10 +1432,10 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "Td" = (
-/obj/effect/spawner/window/plastitanium,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/effect/spawner/window/plastitanium/rad_protect,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "TR" = (
@@ -1446,8 +1446,8 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "TX" = (
-/obj/effect/spawner/window/plastitanium,
 /obj/structure/disposalpipe/segment/corner,
+/obj/effect/spawner/window/plastitanium/rad_protect,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "Uh" = (

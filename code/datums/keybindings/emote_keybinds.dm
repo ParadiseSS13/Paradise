@@ -477,6 +477,10 @@
 	linked_emote = /datum/emote/living/carbon/human/quill
 	name = "Quill"
 
+/datum/keybinding/emote/carbon/human/caw
+	linked_emote = /datum/emote/living/carbon/human/caw
+	name = "Caw"
+
 /datum/keybinding/emote/carbon/human/warble
 	linked_emote = /datum/emote/living/carbon/human/warble
 	name = "Warble"
@@ -632,7 +636,7 @@
 	return isnymph(M) && ..()
 
 /datum/keybinding/emote/simple_animal/gorilla_ooga
-	linked_emote = /datum/emote/living/simple_animal/gorilla/ooga
+	linked_emote = /datum/emote/living/basic_mob/gorilla/ooga
 	name = "Ooga (Gorilla)"
 
 /datum/keybinding/emote/simple_animal/gorilla_ooga/can_use(client/C, mob/M)
@@ -678,6 +682,10 @@
 
 /datum/keybinding/emote/simple_animal/pet/cat/can_use(client/C, mob/M)
 	return iscat(M) && ..()
+
+/datum/keybinding/emote/simple_animal/lizard/whicker
+	linked_emote = /datum/emote/lizard/whicker
+	name = "Whicker (Lizard)"
 
 /datum/keybinding/custom
 	category = KB_CATEGORY_EMOTE_CUSTOM

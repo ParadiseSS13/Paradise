@@ -106,7 +106,6 @@
 	desc = "A small, powerful cell for use in fully prosthetic bodies."
 	icon_state = "cell"
 	organ_tag = "heart"
-	parent_organ = "chest"
 	dead_icon = "cell_bork"
 	slot = "heart"
 	vital = TRUE
