@@ -72,7 +72,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/ping_all_admins,
 	/client/proc/show_watchlist,
 	/client/proc/debugstatpanel,
-	/client/proc/create_rnd_restore_disk
+	/client/proc/create_rnd_restore_disk,
+	/client/proc/open_admin_zlevel_manager,
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
