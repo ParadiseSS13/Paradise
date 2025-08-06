@@ -47,6 +47,9 @@
 	if(avoid_friendly_fire && check_friendly_in_path(controller.pawn, target, targeting_strategy))
 		return AI_BEHAVIOR_DELAY
 
+	if(avoid_friendly_fire && check_friendly_in_path(controller.pawn, target, targeting_strategy))
+		return AI_BEHAVIOR_DELAY
+
 	controller.ai_interact(target = target, intent = INTENT_HARM)
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 

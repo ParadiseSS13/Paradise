@@ -10929,7 +10929,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Sp" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Sq" = (
@@ -12574,7 +12574,7 @@
 /area/ruin/space/moonbase19)
 "ZK" = (
 /obj/machinery/light/small,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "ZL" = (

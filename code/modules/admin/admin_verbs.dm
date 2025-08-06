@@ -189,6 +189,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debug_atom_init,
 	/client/proc/debug_bloom,
 	/client/proc/cmd_mass_screenshot,
+	/client/proc/allow_browser_inspect,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -257,7 +258,6 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	/client/proc/vv_by_ref, // This allows you to lookup **ANYTHING** in the server memory by spamming refs. Locked for security.
 	/client/proc/cinematic, // This will break everyone's screens in the round. Dont use this for adminbus.
 	/client/proc/throw_runtime, // Do I even need to explain why this is locked?
-	/client/proc/allow_browser_inspect, // XSS prevention
 ))
 GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/view_runtimes,
@@ -502,8 +502,11 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
 		return
 
-	if(cleanup_admin_observe(mob))
+	var/mob/dead/observer/observer = mob
+	if(istype(observer) && target == locateUID(observer.mob_observed))
+		cleanup_admin_observe(mob)
 		return
+	cleanup_admin_observe(mob)
 
 	if(isnull(target) || target == src)
 		// let the default one find the target if there isn't one
