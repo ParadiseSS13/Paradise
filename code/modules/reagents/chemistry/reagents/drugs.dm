@@ -62,7 +62,7 @@
 		if(!ismachineperson(M))
 			M.emote(pick("twitch", "drool", "moan", "giggle"))
 		else
-			M.emote(pick("twitch","stare","moan","giggle"))
+			M.emote(pick("twitch", "stare", "moan", "giggle"))
 	return ..() | update_flags
 
 /datum/reagent/psilocybin
