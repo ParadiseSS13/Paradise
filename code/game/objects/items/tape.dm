@@ -7,14 +7,20 @@
 	w_class = WEIGHT_CLASS_TINY
 	amount = 25
 	max_amount = 25
+	new_attack_chain = TRUE
 
 /obj/item/stack/tape_roll/New(loc, amount=null)
 	..()
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/stack/tape_roll/attack__legacy__attackchain(mob/living/carbon/human/M, mob/living/user)
-	if(!istype(M)) //What good is a duct tape mask if you are unable to speak?
+/obj/item/stack/tape_roll/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isitem(target))
+		return ..()
+
+	. = ITEM_INTERACT_COMPLETE
+	if(!ishuman(target))
 		return
+	var/mob/living/carbon/human/M = target
 	if(M.wear_mask)
 		to_chat(user, "Remove [M.p_their()] mask first!")
 		return
