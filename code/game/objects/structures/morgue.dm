@@ -137,6 +137,12 @@
 				return
 
 /obj/structure/morgue/attack_hand(mob/user as mob)
+	toggle_tray()
+	add_fingerprint()
+	update_state()
+	return
+
+/obj/structure/morgue/proc/toggle_tray()
 	if(connected)
 		for(var/atom/movable/A in connected.loc)
 			if(!A.anchored)
@@ -148,10 +154,6 @@
 		playsound(loc, open_sound, 50, 1)
 		get_revivable(FALSE)
 		connect()
-
-	add_fingerprint(user)
-	update_state()
-	return
 
 /obj/structure/morgue/attack_ai(mob/user)
 	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
