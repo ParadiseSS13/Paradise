@@ -14,6 +14,7 @@
 #define NODECONSTRUCT			(1<<9)
 #define EARBANGPROTECT			(1<<10)
 #define HEADBANGPROTECT			(1<<11)
+#define SKIP_TRANSFORM_REEQUIP	(1<<15)		// This flag makes items be skipped when a user transforms species.
 
 #define BLOCK_GAS_SMOKE_EFFECT	(1<<12)	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
 #define THICKMATERIAL 			(1<<12)	//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with BLOCK_GAS_SMOKE_EFFECT)

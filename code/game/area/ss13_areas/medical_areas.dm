@@ -71,7 +71,6 @@
 
 /area/station/medical/virology/lab
 	name = "\improper Virology Laboratory"
-	icon_state = "virology"
 
 /area/station/medical/morgue
 	name = "\improper Morgue"
@@ -100,7 +99,6 @@
 
 /area/station/medical/surgery/observation
 	name = "Surgery Observation"
-	icon_state = "surgery"
 
 /area/station/medical/cryo
 	name = "Cryogenics"

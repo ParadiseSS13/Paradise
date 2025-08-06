@@ -45,6 +45,8 @@
 #define BB_TEMPORARILY_IGNORE_FACTION "BB_TEMPORARILY_IGNORE_FACTIONS"
 ///List of mobs who have damaged us
 #define BB_BASIC_MOB_RETALIATE_LIST "BB_BASIC_MOB_SHITLIST"
+///Blackboard key for a whitelist typecache of "things we can target while trying to move"
+#define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
 
 //Hunting BB keys
 
@@ -67,6 +69,27 @@
 #define BB_NEXT_FOOD_EAT "BB_NEXT_FOOD_EAT"
 /// key holding our eating cooldown
 #define BB_EAT_FOOD_COOLDOWN "BB_EAT_FOOD_COOLDOWN"
+
+// Ventcrawling
+
+/// key holding the turf we will move to
+#define BB_VENTCRAWL_FINAL_TARGET "BB_VENTCRAWL_FINAL_TARGET"
+/// key holding the vent we will move to
+#define BB_VENTCRAWL_ENTRANCE "BB_VENTCRAWL_ENTRANCE"
+/// key holding the vent we will ventcrawl to
+#define BB_VENTCRAWL_EXIT "BB_VENTCRAWL_EXIT"
+/// key holding a boolean value if we're entering into a vent
+#define BB_VENTCRAWL_IS_ENTERING "BB_VENTCRAWL_IS_ENTERING"
+/// key holding the amount of delay between steps in a vent (recommended: 1)
+#define BB_VENTCRAWL_DELAY "BB_VENTCRAWL_DELAY"
+/// key holding a range to look for vents (recommended: 10)
+#define BB_VENT_SEARCH_RANGE "BB_VENT_SEARCH_RANGE"
+
+// Ranged
+/// Minimum range to keep target within
+#define BB_RANGED_SKIRMISH_MIN_DISTANCE "BB_ranged_skirmish_min_distance"
+/// Maximum range to keep target within
+#define BB_RANGED_SKIRMISH_MAX_DISTANCE "BB_ranged_skirmish_max_distance"
 
 // Tipped blackboards
 
@@ -112,6 +135,14 @@
 /// gibtonite wall we need to run away from
 #define BB_MINEBOT_GIBTONITE_RUN "BB_MINEBOT_GIBTONITE_RUN"
 
+// Legion
+/// Corpse we have consumed
+#define BB_LEGION_CORPSE "legion_corpse"
+/// Things our target recently said
+#define BB_LEGION_RECENT_LINES "legion_recent_lines"
+/// The creator of our legion skull
+#define BB_LEGION_BROOD_CREATOR "legion_brood_creator"
+
 /// Blackboard field for the most recent command the pet was given
 #define BB_ACTIVE_PET_COMMAND "BB_ACTIVE_PET_COMMAND"
 
@@ -126,11 +157,14 @@
 /// List of strings used to apologize for attacking friends.
 #define BB_OWNER_FRIENDLY_FIRE_APOLOGIES "BB_FF_APOLOGIES"
 
+// Hivebot keys
+/// the hivebot partner we will go communicate with
+#define BB_HIVE_PARTNER "BB_HIVE_PARTNER"
 
 // Misc
 
 /// For /datum/ai_behavior/find_potential_targets, what if any field are we using currently
-#define BB_FIND_TARGETS_FIELD(type) "bb_find_targets_field_[type]"
+#define BB_FIND_TARGETS_FIELD(type) "BB_FIND_TARGETS_FIELD_[type]"
 
 /// key that tells the wall we will mine
 #define BB_TARGET_MINERAL_WALL "BB_TARGET_MINERAL_WALL"
@@ -138,3 +172,21 @@
 #define BB_ORE_TARGET "BB_ORE_TARGET"
 /// which ore types we will not eat
 #define BB_ORE_IGNORE_TYPES "BB_ORE_IGNORE_TYPES"
+
+#define BB_INCURSION_HOME_PORTAL "BB_INCURSION_HOME_PORTAL"
+#define BB_INCURSION_HOME_PORTAL_TARGET "BB_INCURSION_HOME_PORTAL_TARGET"
+#define BB_PROWL_TARGET "BB_PROWL_TARGET"
+
+// Giant Spiders
+/// Our webbing target
+#define BB_SPIDER_WEB_TARGET "BB_spider_web_target"
+/// Key where we store the web-spinning ability
+#define BB_SPIDER_WEB_ACTION "BB_spider_web_action"
+/// Our wrapping target
+#define BB_SPIDER_WRAP_TARGET "BB_spider_wrap_target"
+/// Key where we define the wrapping ability
+#define BB_SPIDER_WRAP_ACTION "BB_spider_wrap_action"
+/// Key where we define the egg laying ability
+#define BB_SPIDER_EGG_LAYING_ACTION "BB_spider_egg_laying_action"
+/// Key used by changelings who control spiders
+#define BB_CHANGELING_SPIDER_ORDER "BB_changeling_spider_order"

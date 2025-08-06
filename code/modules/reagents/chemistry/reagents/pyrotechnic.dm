@@ -47,7 +47,6 @@
 	size_divisor = 80
 	mob_burning = 3 // 15
 	burn_temperature = T0C + 700
-	burn_color = "white"
 
 /datum/reagent/napalm
 	name = "Napalm"
@@ -194,7 +193,6 @@
 	name = "Thermite"
 	id = "thermite"
 	description = "Thermite produces an aluminothermic reaction known as a thermite reaction. Can be used to melt walls."
-	reagent_state = SOLID
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "rust"
@@ -317,7 +315,6 @@
 	id = "blackpowder"
 	description = "Explodes. Violently."
 	reagent_state = LIQUID
-	color = "#000000"
 	metabolization_rate = 0.05
 	penetrates_skin = TRUE
 	taste_description = "explosions"

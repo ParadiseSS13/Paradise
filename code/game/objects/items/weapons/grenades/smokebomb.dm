@@ -1,12 +1,10 @@
 /obj/item/grenade/smokebomb
 	name = "smoke bomb"
 	desc = "A grenade filled with chemical agents that will turn into a dense smoke when detonated, making it impossible to see through without specialised optics."
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "smoke"
 	det_time = 2 SECONDS
 	modifiable_timer = FALSE
 	item_state = "smoke"
-	slot_flags = ITEM_SLOT_BELT
 	var/datum/effect_system/smoke_spread/bad/smoke
 
 /obj/item/grenade/smokebomb/Initialize(mapload)

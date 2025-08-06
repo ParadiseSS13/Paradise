@@ -8,7 +8,6 @@
 	desc = "A pneumatic tube that brings you from here to there."
 	icon = 'icons/obj/pipes/transit_tube.dmi'
 	icon_state = "straight"
-	density = FALSE
 	layer = 3.1
 	anchored = TRUE
 	var/list/tube_dirs = null

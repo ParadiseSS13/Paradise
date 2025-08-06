@@ -68,7 +68,6 @@
 
 /// Warps the area you're in to look like a new one
 /obj/machinery/anomalous_crystal/theme_warp
-	activation_method = "touch"
 	cooldown_add = 200
 	var/terrain_theme = "winter"
 	var/NewTerrainFloors
@@ -140,7 +139,6 @@
 
 /// Generates a projectile when interacted with
 /obj/machinery/anomalous_crystal/emitter
-	activation_method = "touch"
 	cooldown_add = 50
 	var/generated_projectile = /obj/item/projectile/beam/emitter
 
@@ -170,7 +168,6 @@
 
 /// Revives anyone nearby, but turns them into shadowpeople and renders them uncloneable, so the crystal is your only hope of getting up again if you go down.
 /obj/machinery/anomalous_crystal/dark_reprise
-	activation_method = "touch"
 	activation_sound = 'sound/hallucinations/growl1.ogg'
 
 /obj/machinery/anomalous_crystal/dark_reprise/ActivationReaction(mob/user, method)
@@ -189,7 +186,6 @@
 
 /// Lets ghost spawn as helpful creatures that can only heal people slightly. Incredibly fragile and they can't converse with humans
 /obj/machinery/anomalous_crystal/helpers
-	activation_method = "touch"
 	var/ready_to_deploy = 0
 
 /obj/machinery/anomalous_crystal/helpers/ActivationReaction(mob/user, method)
@@ -232,7 +228,6 @@
 	icon_state = "lightgeist"
 	icon_living = "lightgeist"
 	icon_dead = "butterfly_dead"
-	turns_per_move = 1
 	response_help = "waves away"
 	response_disarm = "brushes aside"
 	response_harm = "disrupts"
@@ -252,7 +247,6 @@
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	luminosity = 4
 	faction = list("neutral")
-	universal_understand = TRUE
 	del_on_death = TRUE
 	unsuitable_atmos_damage = 0
 	minbodytemp = 0
@@ -287,7 +281,6 @@
 
 /// Allows you to bodyjack small animals, then exit them at your leisure, but you can only do this once per activation. Because they blow up. Also, if the bodyjacked animal dies, SO DO YOU.
 /obj/machinery/anomalous_crystal/possessor
-	activation_method = "touch"
 
 /obj/machinery/anomalous_crystal/possessor/ActivationReaction(mob/user, method)
 	if(..())
@@ -307,7 +300,6 @@
 	name = "quantum entanglement stasis warp field"
 	desc = "You can hardly comprehend this thing... which is why you can't see it."
 	icon_state = null //This shouldn't even be visible, so if it DOES show up, at least nobody will notice
-	density = TRUE
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/mob/living/simple_animal/holder_animal
@@ -360,7 +352,6 @@
 	desc = "Exits the body you are possessing."
 	base_cooldown = 60
 	clothes_req = FALSE
-	invocation_type = "none"
 	action_icon_state = "exit_possession"
 	sound = null
 

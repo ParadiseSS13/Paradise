@@ -1,7 +1,6 @@
 /obj/item/thermal_drill
 	name = "thermal safe drill"
 	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "hardened_drill"
 	w_class = WEIGHT_CLASS_GIGANTIC
 	force = 15.0
