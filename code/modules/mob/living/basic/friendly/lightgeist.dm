@@ -20,7 +20,6 @@
 	friendly_verb_simple = "mend"
 	density = FALSE
 	initial_traits = list(TRAIT_FLYING)
-	obj_damage = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
