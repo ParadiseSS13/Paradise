@@ -162,6 +162,9 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/ranged_burst_interval = 0.2 SECONDS
 	/// Time between bursts
 	var/ranged_cooldown = 2 SECONDS
+
+	/// What casing type is the projectile?
+	var/casing_type
 	/// What projectile do we shoot?
 	var/projectile_type
 	/// What sound does it make when firing?
@@ -181,7 +184,7 @@ RESTRICT_TYPE(/mob/living/basic)
 		var/datum/action/innate/hide/hide = new()
 		hide.Grant(src)
 	if(is_ranged)
-		AddComponent(/datum/component/ranged_attacks, cooldown_time = ranged_cooldown, projectile_type = projectile_type, projectile_sound = projectile_sound, burst_shots = ranged_burst_count, burst_intervals = ranged_burst_interval)
+		AddComponent(/datum/component/ranged_attacks, casing_type = casing_type, projectile_type = projectile_type, projectile_sound = projectile_sound, burst_shots = ranged_burst_count, burst_intervals = ranged_burst_interval, cooldown_time = ranged_cooldown)
 
 /mob/living/basic/Destroy()
 	if(nest)
