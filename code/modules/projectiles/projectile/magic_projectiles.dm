@@ -198,9 +198,9 @@ GLOBAL_LIST_INIT(wabbajack_hostile_animals, list(
 	"statue" = /mob/living/simple_animal/hostile/statue,
 	"bat" = /mob/living/basic/scarybat,
 	"goat" = /mob/living/simple_animal/hostile/retaliate/goat,
-	"tomato" = /mob/living/simple_animal/hostile/killertomato,
-	"gorilla" = /mob/living/simple_animal/hostile/gorilla,
-	"kangaroo" = /mob/living/simple_animal/hostile/retaliate/kangaroo,
+	"kangaroo" = /mob/living/basic/kangaroo,
+	"tomato" = /mob/living/basic/killertomato,
+	"gorilla" = /mob/living/basic/gorilla,
 ))
 
 GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
@@ -211,14 +211,14 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 	"mouse" = /mob/living/simple_animal/mouse,
 	"chicken" = /mob/living/simple_animal/chicken,
 	"cow" = /mob/living/basic/cow,
-	"lizard" = /mob/living/simple_animal/lizard,
+	"lizard" = /mob/living/basic/lizard,
 	"fox" = /mob/living/simple_animal/pet/dog/fox,
 	"chick" = /mob/living/simple_animal/chick,
 	"pug" = /mob/living/simple_animal/pet/dog/pug,
 	"turkey" = /mob/living/simple_animal/turkey,
 	"seal" = /mob/living/simple_animal/seal,
-	"bunny" = /mob/living/simple_animal/bunny,
-	"penguin" = /mob/living/simple_animal/pet/penguin/emperor,
+	"bunny" = /mob/living/basic/bunny,
+	"penguin" = /mob/living/basic/pet/penguin/emperor,
 ))
 
 /proc/wabbajack(mob/living/M, force_borg = FALSE, force_animal = FALSE)
