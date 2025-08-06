@@ -180,7 +180,7 @@
 	return ..()
 
 /datum/disease/zombie/wizard
-		spread_flags = NON_CONTAGIOUS
+		spread_flags = SPREAD_NON_CONTAGIOUS
 		bypasses_immunity = TRUE
 		spread_text = "Non Contagious"
 		cure_text = "Anti-magic"
