@@ -494,7 +494,7 @@
 	},
 /area/ruin/space/powered/bar)
 "rC" = (
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/basic/pirate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -509,7 +509,7 @@
 /obj/structure/chair/stool{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/basic/pirate,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "sq" = (
@@ -563,7 +563,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "wo" = (
-/mob/living/simple_animal/hostile/pirate/ranged,
+/mob/living/basic/pirate/ranged,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "wy" = (
@@ -653,7 +653,7 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/basic/pirate,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "Cx" = (
