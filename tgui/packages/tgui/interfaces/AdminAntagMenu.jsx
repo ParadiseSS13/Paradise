@@ -445,6 +445,7 @@ const SecurityBase = (properties) => {
           <Table.Row key={index}>
             <Table.Cell collapsing>
               <Button
+                mb={1}
                 onClick={() =>
                   act('show_player_panel', {
                     mind_uid: officer.mind_uid,
@@ -476,6 +477,7 @@ const SecurityBase = (properties) => {
             </Table.Cell>
             <Table.Cell>
               <ProgressBar
+                mt={0.5}
                 minValue={0}
                 value={officer.health / officer.max_health}
                 maxValue={1}
