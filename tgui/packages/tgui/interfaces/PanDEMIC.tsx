@@ -222,29 +222,25 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
   const analysisInformation = (
     <>
       <LabeledList.Item label="Analysis Difficulty">{Math.ceil(analysisDifficulty)}</LabeledList.Item>
-      {analysisContributions.map((contribution, i) =>
-        contribution.factor === 'Symptom Prediction Data' ? (
-          ''
-        ) : (
-          <LabeledList.Item key={i} label={contribution.factor}>
-            <ProgressBar
-              maxValue={Math.min(contribution.maxAmount, analysisDifficulty)}
-              minValue={0}
-              value={contribution.amount}
-              ranges={{
-                good: [Math.min(contribution.maxAmount, analysisDifficulty) * 0.66, Infinity],
-                average: [
-                  Math.min(contribution.maxAmount, analysisDifficulty) * 0.33,
-                  Math.min(contribution.maxAmount, analysisDifficulty) * 0.66,
-                ],
-                bad: [-Infinity, Math.min(contribution.maxAmount, analysisDifficulty) * 0.33],
-              }}
-            >
-              {contribution.amount}
-            </ProgressBar>
-          </LabeledList.Item>
-        )
-      )}
+      {analysisContributions.map((contribution, i) => (
+        <LabeledList.Item key={i} label={contribution.factor}>
+          <ProgressBar
+            maxValue={Math.min(contribution.maxAmount, analysisDifficulty)}
+            minValue={0}
+            value={contribution.amount}
+            ranges={{
+              good: [Math.min(contribution.maxAmount, analysisDifficulty) * 0.66, Infinity],
+              average: [
+                Math.min(contribution.maxAmount, analysisDifficulty) * 0.33,
+                Math.min(contribution.maxAmount, analysisDifficulty) * 0.66,
+              ],
+              bad: [-Infinity, Math.min(contribution.maxAmount, analysisDifficulty) * 0.33],
+            }}
+          >
+            {contribution.amount}
+          </ProgressBar>
+        </LabeledList.Item>
+      ))}
     </>
   );
 
@@ -285,7 +281,7 @@ const StrainInformation = (props: { strain: PathogenStrain; strainIndex: number 
         <Button
           content="Analyze"
           disabled={!canAnalyze || analyzing}
-          onClick={() => act('analyze_strain', { strain_id: props.strain.diseaseID, symptoms: props.strain.symptoms })}
+          onClick={() => act('analyze_strain', { strain_index: props.strainIndex })}
         />
       );
       removeDataButton = (
@@ -428,16 +424,15 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
         <Table className="symptoms-table">
           <Table.Row>
             <Table.Cell>Name</Table.Cell>
-            <Table.Cell>{known ? 'Stealth' : 'Predicted Symptoms'}</Table.Cell>
+            <Table.Cell>Stealth</Table.Cell>
             <Table.Cell>Resistance</Table.Cell>
             <Table.Cell>Stage Speed</Table.Cell>
             <Table.Cell>Transmissibility</Table.Cell>
           </Table.Row>
           {symptoms.map((symptom, index) => (
             <Table.Row key={index}>
-              <Table.Cell>{known ? symptom.name : 'UNKNOWN'}</Table.Cell>
-              {known ? (
-                <Table.Cell>{symptom.stealth}</Table.Cell>
+              {known || !(symptom.name === 'UNKNOWN') ? (
+                <Table.Cell>{symptom.name}</Table.Cell>
               ) : (
                 <Dropdown
                   options={symptom_names.sort((a, b) => a.localeCompare(b))}
@@ -447,6 +442,7 @@ const StrainSymptomsSection = (props: { className?: string; strain: PathogenStra
                   onSelected={(val) => act('set_prediction', { pred_index: index + 1, pred_value: val })}
                 />
               )}
+              <Table.Cell>{symptom.stealth}</Table.Cell>
               <Table.Cell>{symptom.resistance}</Table.Cell>
               <Table.Cell>{symptom.stageSpeed}</Table.Cell>
               <Table.Cell>{symptom.transmissibility}</Table.Cell>

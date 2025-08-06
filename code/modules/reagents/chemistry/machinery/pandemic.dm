@@ -25,14 +25,12 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	var/analysis_contributions = list(
 		"Stage Data" = list("amount" = 0, "max" = 5 * STAGE_CONTRIBUTION),
 		"Viral Gene Data" = list("amount" = 0, "max" = 2 * GENE_CONTRIBUTION),
-		"Symptom Prediction Data" = list("amount" = 0, "max" = 0.5 * ANALYSIS_DIFFICULTY_BASE)
+		"Symptom Data" = list("amount" = 0, "max" = 0.5 * ANALYSIS_DIFFICULTY_BASE)
 		)
 	/// The time at which the analysis of a disease will be done. Calculated at the begnining of analysis using analysis_difficulty and symptoms symptom_guesses.
 	var/analysis_time
 	/// How much time analysis will take. Depends on components
 	var/analysis_duration
-	/// Is the current analysis successful
-	var/analysis_success = FALSE
 	/// Whether the PANDEMIC is currently analyzing an advanced disease
 	var/analyzing = FALSE
 	/// Whether to keep the report screen up. This is so it can stay persistent while the UI is closed
@@ -41,6 +39,8 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	var/valid_sample = FALSE
 	/// ID of the disease being analyzed
 	var/analyzed_ID = ""
+	/// Index of the disease being analyzed
+	var/analyzed_index
 	/// List of all symptoms. Gets filled in Initialize().
 	var/symptom_list = list()
 	var/temp_html = ""
@@ -165,6 +165,8 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		return
 	analysis_contributions["Stage Data"]["amount"] = 0
 	analysis_contributions["Viral Gene Data"]["amount"] = 0
+	analysis_contributions["Symptom Data"]["amount"] = 0
+	analysis_contributions["Symptom Data"]["max"] = 1
 	valid_sample = TRUE
 	var/strains = 0
 	var/list/stages = list()
@@ -173,10 +175,16 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	var/stealth = 0
 	var/resistance = 0
 	var/max_stages = 0
+	var/known_symptoms = 0
+	var/num_symptoms = 0
 	var/datum/reagent/blood/blood_sample = locate() in beaker.reagents.reagent_list
 	var/datum/reagent/virus_genes/gene_sample = locate() in beaker.reagents.reagent_list
 	if(blood_sample && blood_sample.data && blood_sample.data["viruses"])
 		for(var/datum/disease/advance/to_analyze in blood_sample.data["viruses"])
+			// Note down number of symptoms and number of known symptoms.
+			// We only use these values if we find one strain, so no need to worry about overwriting
+			known_symptoms = length(GLOB.detected_advanced_diseases["[z]"][to_analyze.GetDiseaseID()]["known_symptoms"])
+			num_symptoms = length(to_analyze.symptoms)
 			// Automatically analyze if the tracker stores the ID of an analyzed disease
 			if(to_analyze.tracker && (to_analyze.tracker in GLOB.known_advanced_diseases["[z]"]))
 				if(!(to_analyze.GetDiseaseID() in GLOB.known_advanced_diseases["[z]"]))
@@ -219,27 +227,35 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		analysis_difficulty = analysis_difficulty_base * (1.1 ** power_level)
 	else
 		analysis_difficulty = analysis_difficulty_base
+
+	analysis_contributions["Symptom Data"]["amount"] = analysis_difficulty * known_symptoms / (2 * num_symptoms)
+	analysis_contributions["Symptom Data"]["max"] = analysis_difficulty / 2
+
 	SStgui.update_uis(src, TRUE)
 
-/obj/machinery/pandemic/proc/analyze(disease_ID, symptoms)
+/obj/machinery/pandemic/proc/start_analysis(strain_index)
+	var/datum/disease/advance/virus = GetVirusByIndex(strain_index)
 	analyzing = TRUE
-	reporting = TRUE
 	analysis_time = world.time + analysis_duration
-	analyzed_ID = disease_ID
+	analyzed_ID = virus.GetDiseaseID()
+	analyzed_index = strain_index
+
+/obj/machinery/pandemic/proc/analyze(strain_index)
+	reporting = TRUE
+	var/datum/disease/advance/virus = GetVirusByIndex(analyzed_index)
 	var/symptom_names = list()
-	var/predicted_symptoms = list()
-	var/correct_prediction_count = 0
-	for(var/symptom in symptoms)
-		symptom_names += list(symptom["name"])
+	for(var/datum/symptom/current_symptom in virus.symptoms)
+		symptom_names += list(current_symptom.name)
 	for(var/name in predictions)
-		if(!name || name == "No Prediction" || (name in predicted_symptoms))
+		if(!name || name == "No Prediction")
 			continue
 		if(name in symptom_names)
-			correct_prediction_count++
-			predicted_symptoms += name
+			GLOB.detected_advanced_diseases["[z]"][analyzed_ID]["known_symptoms"] |= list(name)
+
+	var/found_symptoms = length(GLOB.detected_advanced_diseases["[z]"][analyzed_ID]["known_symptoms"])
 	// Correct symptom symptom_guesses reduce the final analysis time by up to half of the base time.
-	analysis_contributions["Symptom Prediction Data"]["max"] = analysis_difficulty / 2
-	analysis_contributions["Symptom Prediction Data"]["amount"] = analysis_difficulty * correct_prediction_count / (2 * length(symptoms))
+	analysis_contributions["Symptom Data"]["max"] = analysis_difficulty / 2
+	analysis_contributions["Symptom Data"]["amount"] = analysis_difficulty * found_symptoms / (2 * length(virus.symptoms))
 
 	var/total_contribution = 0
 	for(var/factor in analysis_contributions)
@@ -249,9 +265,9 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 
 /obj/machinery/pandemic/process()
 	if(analyzing && analysis_time < world.time)
-		analyzing = FALSE
-		if(analysis_success)
+		if(analyze(analyzed_index))
 			GLOB.known_advanced_diseases["[z]"] += analyzed_ID
+		analyzing = FALSE
 		SStgui.update_uis(src, TRUE)
 
 /obj/machinery/pandemic/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
@@ -387,7 +403,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 				return
 			selected_strain_index = strain_index;
 		if("analyze_strain")
-			analysis_success = analyze(params["strain_id"], params["symptoms"])
+			start_analysis(params["strain_index"])
 		if("set_prediction")
 			set_predictions(text2num(params["pred_index"]), params["pred_value"])
 			SStgui.update_uis(src)
@@ -468,7 +484,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	var/list/strains = list()
 	for(var/datum/disease/blood_disease in GetViruses())
 		if(!(blood_disease.GetDiseaseID() in GLOB.detected_advanced_diseases["[z]"]))
-			GLOB.detected_advanced_diseases["[z]"] += list(blood_disease.GetDiseaseID())
+			GLOB.detected_advanced_diseases["[z]"] += list(blood_disease.GetDiseaseID() = list("known_symptoms" = list()))
 		if(blood_disease.visibility_flags & VIRUS_HIDDEN_PANDEMIC)
 			continue
 
@@ -609,9 +625,11 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 		icon_state = "pandemic1"
 		var/datum/reagent/blood/inserted = locate() in beaker.reagents.reagent_list
 		if(inserted && inserted.data && inserted.data["viruses"])
-			find_analysis_requirements()
 			for(var/datum/disease/advance/virus in inserted.data["viruses"])
+				if(!(virus.GetDiseaseID() in GLOB.detected_advanced_diseases["[z]"]))
+					GLOB.detected_advanced_diseases["[z]"] += list(virus.GetDiseaseID() = list("known_symptoms" = list()))
 				log_admin("[key_name(user)] inserted disease [virus] of strain [virus.strain] with the following symptoms: [english_list(virus.symptoms)] into [src] at these coords x: [x] y: [y] z: [z]")
+		find_analysis_requirements()
 		SStgui.update_uis(src, TRUE)
 		return ITEM_INTERACT_COMPLETE
 	else

@@ -642,10 +642,11 @@ GLOBAL_LIST_INIT(plant_cures,list(
 
 /datum/disease/advance/get_pandemic_symptoms(z)
 	. = list()
-	var/known = is_known(z)
+	var/disease_known = is_known(z)
 	for(var/datum/symptom/virus_symptom in symptoms)
+		var/known = disease_known || (virus_symptom.name in GLOB.detected_advanced_diseases["[z]"][GetDiseaseID()]["known_symptoms"])
 		. += list(list(
-			"name" = virus_symptom.name,
+			"name" = known ? virus_symptom.name : "UNKNOWN",
 			"stealth" = known ? virus_symptom.stealth : "UNKNOWN",
 			"resistance" = known ? virus_symptom.resistance : "UNKNOWN",
 			"stageSpeed" = known ? virus_symptom.stage_speed : "UNKNOWN",
