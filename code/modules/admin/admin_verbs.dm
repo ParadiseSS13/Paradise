@@ -502,8 +502,11 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
 		return
 
-	if(cleanup_admin_observe(mob))
+	var/mob/dead/observer/observer = mob
+	if(istype(observer) && target == locateUID(observer.mob_observed))
+		cleanup_admin_observe(mob)
 		return
+	cleanup_admin_observe(mob)
 
 	if(isnull(target) || target == src)
 		// let the default one find the target if there isn't one
