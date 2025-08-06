@@ -6,7 +6,6 @@
 	id_access_list = list(ACCESS_SYNDICATE)
 	outfit = /datum/outfit/syndicatecorpse
 	del_types = list()
-	disable_pda = TRUE
 	var/name_changed
 	var/name_to_add
 	var/num_to_add
@@ -115,11 +114,9 @@
 
 /obj/effect/mob_spawn/human/corpse/clown/corpse
 	roundstart = TRUE
-	instant = TRUE
 
 /obj/effect/mob_spawn/human/corpse/mime/corpse
 	roundstart = TRUE
-	instant = TRUE
 
 /obj/effect/mob_spawn/human/corpse/pirate
 	name = "Pirate"
@@ -140,7 +137,6 @@
 /obj/effect/mob_spawn/human/corpse/pirate/ranged
 	name = "Pirate Gunner"
 	mob_name = "Pirate Gunner"
-	outfit = /datum/outfit/piratecorpse
 
 /datum/outfit/piratecorpse/ranged
 	name = "Corpse of a Pirate Gunner"

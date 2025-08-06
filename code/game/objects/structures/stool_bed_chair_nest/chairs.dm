@@ -4,14 +4,11 @@
 	desc = "You sit in this. Either by will or force."
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "chair"
-	layer = OBJ_LAYER
 	can_buckle = TRUE
 	buckle_lying = FALSE // you sit in a chair, not lay
 	anchored = TRUE
-	resistance_flags = NONE
 	max_integrity = 250
 	integrity_failure = 25
-	buckle_offset = 0
 	face_while_pulling = FALSE
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
@@ -143,7 +140,6 @@
 
 // Chair types
 /obj/structure/chair/light
-	name = "chair"
 	icon_state = "chair_greyscale"
 	resistance_flags = FLAMMABLE
 	item_chair = /obj/item/chair/light
@@ -309,7 +305,6 @@
 
 /obj/structure/chair/barber
 	icon_state = "barber_chair"
-	buildstackamount = 1
 	item_chair = null
 
 // Sofas
@@ -318,9 +313,7 @@
 	name = "sofa"
 	icon_state = "sofamiddle"
 	color = rgb(141,70,0) //this sprite and benches support coloring currently
-	anchored = TRUE
 	item_chair = null
-	buildstackamount = 1
 	var/image/armrest = null
 	var/colorable = TRUE
 
@@ -377,7 +370,6 @@
 	possible_dirs = 8
 
 /obj/structure/chair/sofa/corp
-	name = "sofa"
 	desc = "Soft and cushy."
 	icon_state = "corp_sofamiddle"
 	color = null
@@ -413,7 +405,6 @@
 	desc = "An ornate pew fashioned from brass. It is even less comfortable than a regular pew, but it does radiate a pleasent warmth."
 	icon_state = "clockwork_pew_middle"
 	buildstacktype = /obj/item/stack/tile/brass
-	buildstackamount = 5
 
 /obj/structure/chair/sofa/pew/clockwork/left
 	icon_state = "clockwork_pew_left"
@@ -423,7 +414,6 @@
 
 /obj/structure/chair/sofa/bench
 	name = "bench"
-	desc = "You sit in this. Either by will or force."
 	icon_state = "bench_middle_mapping"
 	base_icon_state = "bench_middle"
 	///icon for the cover seat
@@ -556,12 +546,10 @@
 
 /obj/item/chair/stool
 	name = "stool"
-	icon = 'icons/obj/chairs.dmi'
 	icon_state = "stool_toppled"
 	item_state = "stool"
 	force = 8
 	throwforce = 8
-	w_class = WEIGHT_CLASS_HUGE
 	origin_type = /obj/structure/chair/stool
 	break_chance = 0 //It's too sturdy.
 	force_unwielded = 8
@@ -683,7 +671,6 @@
 	icon_state = "brass_chair"
 	max_integrity = 150
 	buildstacktype = /obj/item/stack/tile/brass
-	buildstackamount = 1
 	item_chair = null
 	var/turns = 0
 

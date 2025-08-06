@@ -51,9 +51,9 @@
 		/mob/living/simple_animal/pet/dog/fox,
 		/mob/living/simple_animal/mouse,
 		/mob/living/simple_animal/pet/dog/pug,
-		/mob/living/simple_animal/lizard,
+		/mob/living/basic/lizard,
 		/mob/living/simple_animal/diona,
-		/mob/living/simple_animal/butterfly,
+		/mob/living/basic/butterfly,
 		/mob/living/carbon/human/monkey,
 	)
 
@@ -125,18 +125,18 @@
 
 					var/list/valid_animals = list(
 						/mob/living/simple_animal/parrot,
-						/mob/living/simple_animal/butterfly,
+						/mob/living/basic/butterfly,
 						/mob/living/simple_animal/pet/cat,
 						/mob/living/simple_animal/pet/dog/corgi,
 						/mob/living/simple_animal/crab,
 						/mob/living/simple_animal/pet/dog/fox,
-						/mob/living/simple_animal/lizard,
+						/mob/living/basic/lizard,
 						/mob/living/simple_animal/mouse,
 						/mob/living/simple_animal/pet/dog/pug,
-						/mob/living/simple_animal/hostile/bear/black,
-						/mob/living/simple_animal/hostile/bear/brown,
+						/mob/living/basic/bear/black,
+						/mob/living/basic/bear/brown,
 						/mob/living/simple_animal/hostile/poison/bees,
-						/mob/living/simple_animal/hostile/carp
+						/mob/living/basic/carp
 					)
 
 					for(var/counter in 1 to animal_spawncount)

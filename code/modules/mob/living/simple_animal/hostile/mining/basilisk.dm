@@ -14,9 +14,7 @@
 	projectilesound = 'sound/weapons/pierce.ogg'
 	ranged = TRUE
 	ranged_message = "stares"
-	ranged_cooldown_time = 30
 	throw_message = "does nothing against the hard shell of"
-	vision_range = 2
 	speed = 3
 	maxHealth = 200
 	health = 200
@@ -25,10 +23,8 @@
 	melee_damage_lower = 12
 	melee_damage_upper = 12
 	attacktext = "bites into"
-	a_intent = INTENT_HARM
 	speak_emote = list("chitters")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	aggro_vision_range = 9
 	turns_per_move = 5
 	gold_core_spawnable = HOSTILE_SPAWN
 	contains_xeno_organ = TRUE
@@ -40,10 +36,6 @@
 /obj/item/projectile/temp/basilisk
 	name = "freezing blast"
 	icon_state = "ice_2"
-	damage = 0
-	damage_type = BURN
-	nodamage = TRUE
-	flag = ENERGY
 	temperature = 50
 
 /obj/item/projectile/temp/basilisk/on_hit(atom/target, blocked)
@@ -85,9 +77,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	attacktext = "impales"
-	a_intent = INTENT_HARM
 	speak_emote = list("telepathically cries")
-	attack_sound = 'sound/weapons/bladeslice.ogg'
 	stat_attack = UNCONSCIOUS
 	robust_searching = TRUE
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing
@@ -130,14 +120,12 @@
 	name = "scorching blast"
 	icon_state = "lava"
 	damage = 5
-	damage_type = BURN
 	nodamage = FALSE
 	temperature = 500 //Heats you up!
 	immolate = 1
 
 /obj/item/projectile/temp/basilisk/icewing
 	damage = 5
-	damage_type = BURN
 	nodamage = FALSE
 
 /obj/item/projectile/temp/basilisk/icewing/on_hit(atom/target, blocked = FALSE)

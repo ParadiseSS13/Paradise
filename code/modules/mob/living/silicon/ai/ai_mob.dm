@@ -41,7 +41,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	icon = 'icons/mob/ai.dmi'//
 	icon_state = "ai"
 	move_resist = MOVE_FORCE_NORMAL
-	density = TRUE
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
 	d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED
 	mob_size = MOB_SIZE_LARGE

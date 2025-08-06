@@ -81,7 +81,6 @@
 	desc = "A protoype module that improves the sensors on the modsuit to detect radiation on the user. \
 	Currently due to time restraints and a lack of lead on lavaland, it does not have a built in geiger counter or radiation protection."
 	icon_state = "radshield"
-	complexity = 0 //I'm setting this to zero for now due to it not currently increasing radiaiton armor. If we add giger counter / additional rad protecion to this, it should be 2. We denied radiation potions before, so this should NOT give full rad immunity on a engi modsuit
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1 //Lowered from 0.3 due to no protection.
 	incompatible_modules = list(/obj/item/mod/module/rad_protection)
 	tgui_id = "rad_counter"

@@ -15,7 +15,6 @@
 
 	move_resist = INFINITY
 	anchored = TRUE
-	density = FALSE
 
 	var/faction = list("hostile")	// If you spawn auto-attacking mobs, make sure that their faction and the nest's is the same
 	var/spawn_byproduct = list(/obj/item/stack/ore/glass, /obj/item/stack/ore/iron)	// When mobs spawn, these items also spawn on top of the tunnel
@@ -75,5 +74,5 @@
 	spawn_mob_options = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast, /mob/living/simple_animal/hostile/asteroid/goldgrub)
 
 /obj/structure/nest/carppuppy
-	spawn_mob_options = list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/pet/dog/corgi/puppy/void)
+	spawn_mob_options = list(/mob/living/basic/carp, /mob/living/simple_animal/pet/dog/corgi/puppy/void)
 	spawn_trigger_distance = 3

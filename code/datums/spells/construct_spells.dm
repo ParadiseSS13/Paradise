@@ -2,7 +2,6 @@
 
 /datum/spell/aoe/conjure/construct/lesser
 	base_cooldown = 1800
-	action_icon_state = "artificer"
 	action_background_icon_state = "bg_cult"
 
 /datum/spell/aoe/conjure/build
@@ -16,7 +15,6 @@
 	base_cooldown = 20
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
 	summon_type = list(/turf/simulated/floor/engine/cult)
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
@@ -26,10 +24,8 @@
 	desc = "This spell constructs a cult wall."
 	action_icon_state = "cultforcewall"
 	action_background_icon_state = "bg_cult"
-	base_cooldown = 100
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
 	summon_type = list(/turf/simulated/wall/cult/artificer) //we don't want artificer-based runed metal farms
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
@@ -38,11 +34,6 @@
 	name = "Greater Construction"
 	desc = "This spell constructs a reinforced metal wall."
 	base_cooldown = 300
-	clothes_req = FALSE
-	invocation = "none"
-	invocation_type = "none"
-	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
-	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	delay = 50
 
 	summon_type = list(/turf/simulated/wall/r_wall)
@@ -55,7 +46,6 @@
 	base_cooldown = 3000
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 	summon_type = list(/obj/item/soulstone)
@@ -76,7 +66,6 @@
 	base_cooldown = 200
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 
 	summon_type = list(/obj/structure/cult/functional/pylon)
@@ -90,7 +79,6 @@
 	base_cooldown = 300
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	summon_type = list(/obj/effect/forcefield/cult)
 	summon_lifespan = 200
@@ -109,8 +97,6 @@
 	action_background_icon_state = "bg_cult"
 	base_cooldown = 200
 	clothes_req = FALSE
-	invocation = "none"
-	invocation_type = "none"
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	jaunt_in_time = 12
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith
@@ -132,7 +118,6 @@
 
 /datum/spell/projectile/magic_missile/lesser
 	name = "Lesser Magic Missile"
-	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 	action_background_icon_state = "bg_cult"
 	base_cooldown = 400
 	clothes_req = FALSE
@@ -161,11 +146,6 @@
 	action_icon_state = "parasmoke"
 	action_background_icon_state = "bg_cult"
 	base_cooldown = 200
-	clothes_req = FALSE
-	invocation = "none"
-	invocation_type = "none"
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
-	cooldown_min = 20 //25 deciseconds reduction per rank
 
 	smoke_type = SMOKE_SLEEPING
-	smoke_amt = 10

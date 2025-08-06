@@ -34,7 +34,6 @@
 
 	var/blocks_air = FALSE
 
-	flags = 0 // TODO, someday move all off the flags here to turf_flags
 
 	var/turf_flags = NONE
 

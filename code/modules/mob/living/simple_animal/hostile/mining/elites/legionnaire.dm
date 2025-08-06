@@ -33,8 +33,6 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	throw_message = "doesn't affect the sturdiness of"
 	speed = 0.5 //Since it is mainly melee, this *should* be right
-	move_to_delay = 3
-	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/hallucinations/wail.ogg'
 	deathmessage = "'s arms reach out before it falls apart onto the floor, lifeless."
 	sight = SEE_MOBS // So it can see through smoke / charge through walls like the kool aid man.
@@ -57,25 +55,25 @@
 
 /datum/action/innate/elite_attack/legionnaire_charge
 	name = "Legionnaire Charge"
-	button_overlay_icon_state = "legionnaire_charge"
+	button_icon_state = "legionnaire_charge"
 	chosen_message = "<span class='boldwarning'>You will attempt to grab your opponent and throw them.</span>"
 	chosen_attack_num = LEGIONNAIRE_CHARGE
 
 /datum/action/innate/elite_attack/head_detach
 	name = "Release Head"
-	button_overlay_icon_state = "head_detach"
+	button_icon_state = "head_detach"
 	chosen_message = "<span class='boldwarning'>You will now detach your head or kill it if it is already released.</span>"
 	chosen_attack_num = HEAD_DETACH
 
 /datum/action/innate/elite_attack/bonfire_teleport
 	name = "Bonfire Teleport"
-	button_overlay_icon_state = "bonfire_teleport"
+	button_icon_state = "bonfire_teleport"
 	chosen_message = "<span class='boldwarning'>You will leave a bonfire. Second use will let you swap positions with it indefintiely. Using this move on the same tile as your active bonfire removes it.</span>"
 	chosen_attack_num = BONFIRE_TELEPORT
 
 /datum/action/innate/elite_attack/spew_smoke
 	name = "Spew Smoke"
-	button_overlay_icon_state = "spew_smoke"
+	button_icon_state = "spew_smoke"
 	chosen_message = "<span class='boldwarning'>Your head will spew smoke in an area, wherever it may be.</span>"
 	chosen_attack_num = SPEW_SMOKE
 
@@ -290,7 +288,6 @@
 	max_integrity = 100
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	anchored = TRUE
-	density = FALSE
 	light_range = 4
 	light_color = LIGHT_COLOR_FLARE
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/myowner = null
@@ -318,7 +315,6 @@
 
 //The visual effect which appears in front of legionnaire when he goes to charge.
 /obj/effect/temp_visual/dragon_swoop/legionnaire
-	duration = 10
 
 /obj/effect/temp_visual/dragon_swoop/legionnaire/Initialize(mapload)
 	. = ..()

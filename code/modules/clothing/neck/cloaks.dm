@@ -4,7 +4,6 @@
 	name = "grey cloak"
 	desc = "It's a cloak that can be worn around your neck in a pretty dull color."
 	icon_state = "cloak"
-	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = UPPER_TORSO | ARMS
 
 /obj/item/clothing/neck/cloak/head_of_security
@@ -45,6 +44,11 @@
 	name = "head of personnel's cloak"
 	desc = "Worn by the Head of Personnel. It smells faintly of bureaucracy."
 	icon_state = "hopcloak"
+
+/obj/item/clothing/neck/cloak/syndicate
+	name = "suspicious cloak"
+	desc = "A half-cloak worn around the neck, featuring a color scheme that's both suspicious and stylish."
+	icon_state = "syndiecloak"
 
 //Mantles.
 

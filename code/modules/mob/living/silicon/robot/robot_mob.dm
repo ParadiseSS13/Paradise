@@ -7,8 +7,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	real_name = "Cyborg"
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
-	maxHealth = 100
-	health = 100
 	bubble_icon = "robot"
 	universal_understand = TRUE
 	deathgasp_on_death = TRUE
@@ -377,6 +375,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scanner = null
 	module_actions.Cut()
 	return ..()
+
+/mob/living/silicon/robot/update_runechat_msg_location()
+	if(istgvehicle(loc))
+		runechat_msg_location = loc.UID()
+	else
+		return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)

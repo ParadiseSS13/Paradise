@@ -19,7 +19,6 @@
 	speak = list("ALERT.", "Hostile-ile-ile entities dee-twhoooo-wected.", "Threat parameterszzzz- szzet.", "Bring sub-sub-sub-systems uuuup to combat alert alpha-a-a.")
 	emote_see = list("beeps menacingly.", "whirrs threateningly.", "scans for targets.")
 	a_intent = INTENT_HARM
-	stop_automated_movement_when_pulled = FALSE
 	health = 200
 	maxHealth = 200
 	speed = 8

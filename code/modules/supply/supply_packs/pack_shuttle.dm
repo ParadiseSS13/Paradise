@@ -63,7 +63,6 @@
 /datum/supply_packs/abstract/admin_notify/donations
 	name = "Donation to Lonely Corgi Foundation"
 	special = TRUE
-	special_enabled = FALSE
 	manifest = "1% of every donation goes towards supporting corgis in need."
 	cost = 500
 

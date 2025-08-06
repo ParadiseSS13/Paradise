@@ -1,7 +1,6 @@
 /obj/structure/closet/athletic_mixed
 	name = "athletic wardrobe"
 	desc = "It's a storage unit for athletic wear."
-	icon_state = "generic"
 	closed_door_sprite = "mixed"
 
 /obj/structure/closet/athletic_mixed/populate_contents()
@@ -41,7 +40,6 @@
 /obj/structure/closet/lasertag/red
 	name = "red laser tag equipment"
 	desc = "It's a storage unit for laser tag equipment."
-	icon_state = "generic"
 	closed_door_sprite = "red"
 
 /obj/structure/closet/lasertag/red/populate_contents()
@@ -57,7 +55,6 @@
 /obj/structure/closet/lasertag/blue
 	name = "blue laser tag equipment"
 	desc = "It's a storage unit for laser tag equipment."
-	icon_state = "generic"
 	closed_door_sprite = "blue"
 
 /obj/structure/closet/lasertag/blue/populate_contents()

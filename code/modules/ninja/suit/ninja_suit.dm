@@ -16,7 +16,6 @@ Contents:
 	slowdown = 0
 	flags_inv = HIDEJUMPSUIT|HIDETAIL
 	armor = list(MELEE = 75, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
-	dyeable = FALSE
 
 	var/suitActive = 0
 	var/suitBusy = 0
