@@ -22,7 +22,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/retaliate/skeleton/warden{
+/mob/living/basic/skeleton/warden{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless{

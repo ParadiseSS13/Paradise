@@ -60,7 +60,6 @@ Difficulty: Hard
 	friendly = "stares down"
 	speak_emote = list("BUZZES")
 	universal_speak = TRUE
-	universal_understand = TRUE
 	armour_penetration_percentage = 50
 	melee_damage_lower = 20
 	melee_damage_upper = 20
@@ -158,7 +157,6 @@ Difficulty: Hard
 	icon_state = null
 	gpstag = "Malfunctioning Signal"
 	desc = "ERROR_NULL_ENTRY"
-	invisibility = 100
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/death(gibbed, allowed = FALSE)
 	icon = 'icons/mob/lavaland/corpses.dmi'
@@ -206,10 +204,9 @@ Difficulty: Hard
 
 	if(enraged)
 		for(var/mob/living/M in urange(40, src)) //Bigger range, ran once per shift, as people run away from vetus as it blows up.
-			if(!M.client)
-				return
-			loot += /obj/item/disk/fauna_research/vetus
-	..()
+			if(M.client)
+				loot += /obj/item/disk/fauna_research/vetus
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/enrage()
 	. = ..()
@@ -804,6 +801,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	playsound(src, 'sound/effects/meteorimpact.ogg', 60, TRUE, 2, TRUE) //turned way down from bubblegum levels due to 4 legs
+	return ..()
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/mob_negates_gravity()
 	return TRUE
@@ -813,12 +811,10 @@ Difficulty: Hard
 
 /obj/item/projectile/bullet/ancient_robot_bullet
 	damage = 8
-	damage_type = BRUTE
 
 /obj/item/projectile/bullet/rock
 	name= "thrown rock"
 	damage = 25
-	damage_type = BRUTE
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small1"
 

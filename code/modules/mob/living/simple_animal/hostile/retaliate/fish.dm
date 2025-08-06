@@ -6,12 +6,10 @@
 	icon_state = "carp"
 	icon_gib = "carp_gib"
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
-	speak_chance = 0
 	turns_per_move = 5
 	butcher_results = list(/obj/item/food/carpmeat = 1)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
-	response_harm = "hits"
 	speed = 0
 	maxHealth = 25
 	health = 25
@@ -50,7 +48,7 @@
 	update_icons()
 
 /mob/living/simple_animal/hostile/retaliate/carp/proc/carp_randomify(rarechance)
-	// Simplified version of: /mob/living/simple_animal/hostile/carp/proc/carp_randomify(rarechance)
+	// Simplified version of: /mob/living/basic/carp/proc/carp_randomify(rarechance)
 	var/our_color
 	our_color = pick(carp_colors)
 	add_atom_colour(carp_colors[our_color], FIXED_COLOUR_PRIORITY)
