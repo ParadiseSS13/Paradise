@@ -687,7 +687,7 @@
 
 /obj/item/clothing/gloves/color/black/pyro_claws
 	name = "Fusion gauntlets"
-	desc = "Cybersun Industries developed these gloves after a grifter fought one of their soldiers, who attached a pyro core to an energy sword, and found it mostly effective."
+	desc = "A pair of heavy combat gauntlets that project lethal energy claws via the power of a captive pyroclastic anomaly core."
 	icon_state = "pyro"
 	inhand_icon_state = null
 	worn_icon_state = null
