@@ -191,11 +191,9 @@ GLOBAL_LIST_INIT(client_fps_options, list_fps_options())
 	var/list/options = list()
 
 	for(var/option in 1 to 1000 / world.fps)
-		var/fps_actual = floor(1000 / option)
-
 		if(1000 % option) // Lummox said it works better with divisors of 1000
 			continue
 
-		options += fps_actual
+		options += 1000 / option
 
 	return options
