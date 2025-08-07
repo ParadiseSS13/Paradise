@@ -46923,6 +46923,8 @@
 	icon_state = "darkblue"
 	},
 /area/station/maintenance/starboard)
+"iBs" = (
+)
 "iBC" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -48960,6 +48962,11 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/port)
+"iXh" = (
+/obj/structure/table/wood,
+/obj/machinery/microscope,
+/turf/simulated/floor/carpet/grimey,
+/area/station/security/detective)
 "iXl" = (
 /obj/item/radio/intercom{
 	pixel_x = 28;
@@ -135965,7 +135972,7 @@ pPN
 fvV
 jiW
 dkb
-rXF
+iXh
 yhW
 diC
 guQ
@@ -174080,7 +174087,7 @@ hUU
 hUU
 aXn
 qsN
-rXI
+iBs
 qxj
 eFI
 fKZ
