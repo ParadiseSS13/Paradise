@@ -520,7 +520,7 @@
 		to_chat(user, "<span class='warning'>You don't have enough fingers!</span>")
 		return TRUE
 	else if(fingers < 0)
-		to_chat(user, "<span class='warning'>You're not entirely sure how to raise negative fingers.")
+		to_chat(user, "<span class='warning'>You're not entirely sure how to raise negative fingers.</span>")
 		return TRUE
 
 	params = fingers
