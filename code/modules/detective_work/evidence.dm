@@ -91,10 +91,10 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/list/evidence = list()
 
-/obj/item/sample/New(newloc, atom/supplied)
-	. = ..()
-	if(supplied)
-		copy_evidence(supplied)
+/obj/item/sample/initialize(atom/supplied)
+    . = ..()
+    if(supplied)
+    	copy_evidence(supplied)
 		name = "[initial(name)] ([supplied])"
 
 /obj/item/sample/print/New(newloc, atom/supplied)
