@@ -162,7 +162,6 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/ranged_burst_interval = 0.2 SECONDS
 	/// Time between bursts
 	var/ranged_cooldown = 2 SECONDS
-
 	/// What casing type is the projectile?
 	var/casing_type
 	/// What projectile do we shoot?
