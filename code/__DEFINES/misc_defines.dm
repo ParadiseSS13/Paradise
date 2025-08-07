@@ -434,6 +434,7 @@
 #define INVESTIGATE_RENAME "renames"
 #define INVESTIGATE_SINGULO "singulo"
 #define INVESTIGATE_SUPERMATTER "supermatter"
+#define INVESTIGATE_REACTOR "reactor"
 #define INVESTIGATE_WIRES "wires"
 #define INVESTIGATE_DEATHS "deaths"
 
