@@ -4,11 +4,11 @@
 	icon = 'icons/obj/forensics/forensics.dmi'
 	icon_state = "card1"
 	w_class = WEIGHT_CLASS_TINY
-	var/number = 1
+	/// Used for the number on the marker
+	var/number
 
 /obj/item/csi_marker/n1
 	number = 1
-	icon_state = "card1"
 /obj/item/csi_marker/n2
 	number = 2
 	icon_state = "card2"
