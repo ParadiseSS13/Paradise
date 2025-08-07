@@ -191,7 +191,7 @@
 	return possessed_item.throw_impact(hit_atom, throwingdatum)
 
 /mob/living/basic/possessed_object/revenant
-	maxHealth = 69
+	maxHealth = 60
 	health = 60
 	melee_attack_cooldown_min = 4 SECONDS
 	melee_attack_cooldown_max = 5 SECONDS
