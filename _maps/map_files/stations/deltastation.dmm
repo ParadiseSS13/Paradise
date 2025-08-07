@@ -5499,7 +5499,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/disposal)
 "azk" = (
-/mob/living/simple_animal/lizard/wags_his_tail,
+/mob/living/basic/lizard/wags_his_tail,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "azl" = (
@@ -27686,7 +27686,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/station/legal/lawoffice)
 "ccv" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/basic/pet/sloth/paperwork,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -53020,7 +53020,7 @@
 "eGP" = (
 /obj/structure/flora/tree/palm,
 /obj/effect/overlay/coconut,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "eHg" = (
 /obj/machinery/power/apc/directional/west,
@@ -53846,7 +53846,7 @@
 	pixel_x = -3;
 	pixel_y = 16
 	},
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "eXU" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -62397,7 +62397,7 @@
 	pixel_x = -11;
 	pixel_y = -8
 	},
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "iQK" = (
 /obj/effect/decal/cleanable/dirt,
@@ -63532,7 +63532,7 @@
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "jrF" = (
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "jrI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -77574,7 +77574,7 @@
 /area/station/service/clown/secret)
 "pDt" = (
 /obj/item/beach_ball,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "pDw" = (
 /obj/structure/disposalpipe/segment,
@@ -79100,7 +79100,7 @@
 /area/station/medical/virology)
 "qmJ" = (
 /obj/structure/flora/ausbushes/leafybush,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "qmP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -81264,7 +81264,7 @@
 /area/station/hallway/primary/central/east)
 "rkH" = (
 /obj/item/camera,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "rkJ" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -93367,7 +93367,7 @@
 "wbL" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/item/stack/medical/ointment,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "wbZ" = (
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide,
@@ -97499,7 +97499,7 @@
 	},
 /area/station/security/main)
 "xIN" = (
-/mob/living/simple_animal/hostile/retaliate/kangaroo{
+/mob/living/basic/kangaroo{
 	name = "Darwin"
 	},
 /obj/structure/cable{

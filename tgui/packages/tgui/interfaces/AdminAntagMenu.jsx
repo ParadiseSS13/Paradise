@@ -476,6 +476,7 @@ const SecurityBase = (properties) => {
             </Table.Cell>
             <Table.Cell>
               <ProgressBar
+                my={0.5}
                 minValue={0}
                 value={officer.health / officer.max_health}
                 maxValue={1}

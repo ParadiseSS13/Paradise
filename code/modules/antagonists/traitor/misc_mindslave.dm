@@ -7,3 +7,7 @@
 /datum/antagonist/mindslave/necromancy
 	name = "Necromancy-risen Thrall"
 	master_hud_name = "wizard"
+
+/datum/antagonist/mindslave/necromancy/plague_zombie
+	name = "Necromancy-risen Plague Zombie"
+

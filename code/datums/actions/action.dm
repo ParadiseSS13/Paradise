@@ -32,6 +32,8 @@
 	var/action_disabled = FALSE
 	/// The appearance used as an overlay for when the action is unavailable
 	var/mutable_appearance/unavailable_effect
+	/// If False, the owner of this action does not get a hud and cannot activate it on their own
+	var/owner_has_control = TRUE
 
 /datum/action/New(target)
 	link_to(target)
@@ -114,7 +116,7 @@
 	Trigger()
 	return FALSE
 
-/datum/action/proc/IsAvailable()// returns 1 if all checks pass
+/datum/action/proc/IsAvailable(show_message = TRUE) // returns 1 if all checks pass
 	if(!owner)
 		return FALSE
 	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
@@ -194,6 +196,8 @@
 /datum/action/proc/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
 	button.overlays -= unavailable_effect
 	button.maptext = ""
+	if(IsAvailable(show_message = FALSE))
+		button.color = rgb(255, 255, 255, 255)
 	if(should_draw_cooldown())
 		apply_unavailable_effect(button)
 
