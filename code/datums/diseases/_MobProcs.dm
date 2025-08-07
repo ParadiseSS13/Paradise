@@ -34,7 +34,14 @@ MARK: Helpers
 	return (spread_method & SPREAD_BLOOD) || !((satiety > 0 && prob(satiety/10)) || (prob(15/D.permeability_mod)))
 
 /mob/living/carbon/human/proc/check_contraction_human(datum/disease/D, spread_method = SPREAD_CONTACT_GENERAL)
-	if((HAS_TRAIT(src, TRAIT_VIRUSIMMUNE) && !D.bypasses_immunity) || (src.mind && HAS_TRAIT(src.mind, TRAIT_GERMOPHOBE) && prob(85)))
+	if((HAS_TRAIT(src, TRAIT_VIRUSIMMUNE) && !D.bypasses_immunity))
+		return FALSE
+
+	// We transfer to the blood directly
+	if(spread_method == SPREAD_BLOOD)
+		return TRUE
+
+	if(src.mind && HAS_TRAIT(src.mind, TRAIT_GERMOPHOBE) && prob(85))
 		return FALSE
 
 	for(var/organ in D.required_organs)
@@ -45,10 +52,6 @@ MARK: Helpers
 		if(locate(organ) in bodyparts)
 			continue
 		return FALSE
-
-	// We transfer to the blood directly
-	if(spread_method == SPREAD_BLOOD)
-		return TRUE
 
 	var/passed = FALSE
 

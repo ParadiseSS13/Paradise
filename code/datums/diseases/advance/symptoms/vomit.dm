@@ -103,7 +103,7 @@ Bonus
 	name = "Projectile Vomiting"
 	stealth = -2
 	resistance = 1
-	level = 5
+	level = 4
 	severity = 4
 
 /datum/symptom/vomit/projectile/Vomit(mob/living/carbon/M, progress)

@@ -1,4 +1,5 @@
 #define ANALYSIS_DIFFICULTY_BASE 100
+#define ANALYSIS_DIFFICULTY_INCREMENT 40
 #define ANALYSIS_DURATION_BASE (0.5 MINUTES)
 #define STAGE_CONTRIBUTION 40
 #define GENE_CONTRIBUTION 60
@@ -224,7 +225,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	var/power_level = (stealth + resistance)
 	// Make sure we don't runtime if empty
 	if(max_stages)
-		analysis_difficulty = analysis_difficulty_base * (1.1 ** power_level)
+		analysis_difficulty = analysis_difficulty_base + ANALYSIS_DIFFICULTY_INCREMENT * (1.17 ** power_level)
 	else
 		analysis_difficulty = analysis_difficulty_base
 
@@ -646,6 +647,7 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	return default_deconstruction_crowbar(user, I)
 
 #undef ANALYSIS_DIFFICULTY_BASE
+#undef ANALYSIS_DIFFICULTY_INCREMENT
 #undef ANALYSIS_DURATION_BASE
 #undef STAGE_CONTRIBUTION
 #undef GENE_CONTRIBUTION
