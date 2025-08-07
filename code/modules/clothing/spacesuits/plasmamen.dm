@@ -2,8 +2,11 @@
 /obj/item/clothing/head/helmet/space/plasmaman
 	name = "plasma envirosuit helmet"
 	desc = "A special containment helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment. It is space-worthy, and may be worn in tandem with other EVA gear."
+	icon = 'icons/obj/clothing/species/plasmaman/hats.dmi'
 	icon_state = "plasmaman-helm"
 	base_icon_state = "plasmaman-helm"
+	worn_icon = 'icons/mob/clothing/species/plasmaman/helmet.dmi'
+	worn_icon_state = null
 	inhand_icon_state = "plasmaman_helmet"
 	strip_delay = 80
 	tint = FLASH_PROTECTION_WELDER
@@ -21,11 +24,10 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen/plasmaman)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	visor_flags_inv = HIDEEYES|HIDEFACE
-	icon = 'icons/obj/clothing/species/plasmaman/hats.dmi'
 	species_restricted = list("Plasmaman")
-	sprite_sheets = list("Plasmaman" = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
 	can_have_hats = TRUE
 	can_be_hat = FALSE
+	sprite_sheets = null
 
 /obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
 	. = ..()

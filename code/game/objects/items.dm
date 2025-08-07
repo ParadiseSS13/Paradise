@@ -12,14 +12,17 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	move_resist = null
 
-	/* Species-specific sprites, concept stolen from Paradise//vg/.
-	ex:
-	sprite_sheets = list(
-		"Tajaran" = 'icons/cat/are/bad'
-		)
-	If index term exists, this sprite sheet will be used.
+	/**
+	 * Species-specific sprites, concept stolen from Paradise//vg/.
+	 *
+	 * ex:
+	 *
+	 *	sprite_sheets = list("Tajaran" = 'icons/cat/are/bad')
+	 *
+	 * If index term exists, this sprite sheet will be used.
+	 *
+	 * This should never have a "Human" inside - use `worn_icon` instead.
 	*/
-	/// This should NEVER have a "Human" inside - use `worn_icon` instead.
 	var/list/sprite_sheets
 	/// Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
 	var/list/sprite_sheets_inhand
