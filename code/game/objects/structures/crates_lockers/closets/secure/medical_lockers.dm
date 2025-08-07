@@ -160,7 +160,7 @@
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/gun/energy/gun/mini(src)
-
+	new /obj/item/autosurgeon/organ/one_use/med_hud(src)
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control locker"

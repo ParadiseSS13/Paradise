@@ -19,6 +19,7 @@
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/reagent_containers/drinks/mug/cap(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
+	new /obj/item/autosurgeon/organ/one_use/skill_hud(src)
 
 /obj/structure/closet/secure_closet/hop
 	name = "head of personnel's locker"
@@ -36,6 +37,7 @@
 	new /obj/item/reagent_containers/drinks/mug/hop(src)
 	new /obj/item/clothing/accessory/medal/service(src)
 	new /obj/item/storage/bag/garment/head_of_personnel(src)
+	new /obj/item/autosurgeon/organ/one_use/skill_hud(src)
 
 /obj/structure/closet/secure_closet/hos
 	name = "head of security's locker"
@@ -63,6 +65,7 @@
 	new /obj/item/clothing/accessory/medal/security(src)
 	new /obj/item/reagent_containers/drinks/flask/barflask(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/autosurgeon/organ/one_use/sec_hud(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"

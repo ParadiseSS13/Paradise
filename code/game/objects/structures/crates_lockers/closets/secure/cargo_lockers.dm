@@ -55,7 +55,7 @@
 /obj/structure/closet/secure_closet/quartermaster/populate_contents()
 	new /obj/item/radio/headset/heads/qm(src)
 	new /obj/item/door_remote/quartermaster(src)
-	new /obj/item/organ/internal/eyes/cybernetic/meson(src)
+	new /obj/item/autosurgeon/organ/one_use/meson_eyes(src)
 	new /obj/item/storage/bag/garment/quartermaster(src)
 	new /obj/item/clothing/accessory/medal/supply(src)
 	new /obj/item/clothing/accessory/medal/supply(src)
