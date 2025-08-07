@@ -242,7 +242,7 @@
 	if(can_take_sample(user, A))
 		take_sample(user,A)
 		return TRUE
-	
+
 	to_chat(user, "<span class='warning'>You cannot find [evidence_type] on [A].</span>")
 	return ..()
 
@@ -255,6 +255,7 @@
 	desc = "A jar of aluminum powder and a specialized brush. Use on harm intent to collect samples and not interact with objects."
 	icon_state = "dust"
 	evidence_type = "prints"
+	evidence_path = /obj/item/sample/print
 
 /obj/item/forensics/sample_kit/powder/can_take_sample(mob/user, atom/supplied)
 	return length(supplied.fingerprints)
