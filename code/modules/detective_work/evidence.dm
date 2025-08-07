@@ -92,9 +92,9 @@
 	var/list/evidence = list()
 
 /obj/item/sample/initialize(atom/supplied)
-    . = ..()
-    if(supplied)
-    	copy_evidence(supplied)
+	. = ..()
+	if(supplied)
+		copy_evidence(supplied)
 		name = "[initial(name)] ([supplied])"
 
 /obj/item/sample/print/New(newloc, atom/supplied)
