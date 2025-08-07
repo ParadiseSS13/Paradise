@@ -992,7 +992,7 @@ to destroy them and players will be able to make replacements.
 	icon_state = "medical"
 	board_type = "machine"
 	build_path = /obj/machinery/pandemic
-	req_components = list(/obj/item/stock_parts/manipulator = 2)
+	req_components = list(/obj/item/stock_parts/manipulator = 1, /obj/item/stock_parts/micro_laser = 1)
 	origin_tech = "programming=2;biotech=2"
 
 /obj/item/circuitboard/cell_charger
