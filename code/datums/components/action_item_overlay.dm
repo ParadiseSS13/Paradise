@@ -72,8 +72,6 @@
 		current_button.cut_overlay(item_appearance)
 
 	var/mutable_appearance/muse_appearance = mutable_appearance(muse.icon, muse.icon_state, FLOAT_LAYER, FLOAT_PLANE)
-	// muse_appearance.plane = FLOAT_PLANE
-	// muse_appearance.layer = FLOAT_LAYER
 	muse_appearance.pixel_x = 0
 	muse_appearance.pixel_y = 0
 
