@@ -46923,8 +46923,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/maintenance/starboard)
-"iBs" = (
-)
 "iBC" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -174087,7 +174085,7 @@ hUU
 hUU
 aXn
 qsN
-iBs
+rcp
 qxj
 eFI
 fKZ
