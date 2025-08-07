@@ -50906,6 +50906,9 @@
 /obj/item/clothing/neck/stethoscope{
 	pixel_y = 6
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "dYl" = (
@@ -64111,6 +64114,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
+"jOm" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft)
 "jOt" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -91713,6 +91722,11 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/sleeper)
+"vBB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/aft)
 "vBK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -138996,12 +139010,12 @@ hYi
 qPj
 qPj
 dDh
-dDh
+jOm
 dDh
 dDh
 uOV
 uOV
-qPj
+vBB
 dEo
 dDh
 dDm
