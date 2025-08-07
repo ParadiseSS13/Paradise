@@ -42076,7 +42076,12 @@
 	},
 /area/station/maintenance/aft)
 "gEr" = (
-)
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/station/engineering/atmos)
 "gEt" = (
 /obj/structure/table/glass,
 /obj/item/paper/crumpled,
