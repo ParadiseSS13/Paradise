@@ -228,8 +228,8 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 	else
 		analysis_difficulty = analysis_difficulty_base
 
-	analysis_contributions["Symptom Data"]["amount"] = analysis_difficulty * known_symptoms / (2 * num_symptoms)
-	analysis_contributions["Symptom Data"]["max"] = analysis_difficulty / 2
+	analysis_contributions["Symptom Data"]["amount"] = num_symptoms ? analysis_difficulty * known_symptoms / (2 * num_symptoms) : 0
+	analysis_contributions["Symptom Data"]["max"] = max(analysis_difficulty / 2, 1)
 
 	SStgui.update_uis(src, TRUE)
 
