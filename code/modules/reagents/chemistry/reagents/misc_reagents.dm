@@ -26,7 +26,6 @@
 	name = "Potassium"
 	id = "potassium"
 	description = "A soft, low-melting solid that can easily be cut with a knife. Reacts violently with water."
-	reagent_state = SOLID
 	color = "#A0A0A0" // rgb: 160, 160, 160
 	taste_description = "bad ideas"
 
@@ -34,7 +33,6 @@
 	name = "Sulfur"
 	id = "sulfur"
 	description = "A chemical element."
-	reagent_state = SOLID
 	color = "#BF8C00" // rgb: 191, 140, 0
 	taste_description = "impulsive decisions"
 
@@ -42,7 +40,6 @@
 	name = "Sodium"
 	id = "sodium"
 	description = "A chemical element."
-	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "horrible misjudgement"
 
@@ -50,7 +47,6 @@
 	name = "Phosphorus"
 	id = "phosphorus"
 	description = "A chemical element."
-	reagent_state = SOLID
 	color = "#832828" // rgb: 131, 40, 40
 	taste_description = "misguided choices"
 
@@ -58,7 +54,6 @@
 	name = "Carbon"
 	id = "carbon"
 	description = "A chemical element."
-	reagent_state = SOLID
 	color = "#1C1300" // rgb: 30, 20, 0
 	taste_description = "like a pencil or something"
 
@@ -70,7 +65,6 @@
 	name = "Gold"
 	id = "gold"
 	description = "Gold is a dense, soft, shiny metal and the most malleable and ductile metal known."
-	reagent_state = SOLID
 	color = "#F7C430" // rgb: 247, 196, 48
 	taste_description = "bling"
 
@@ -79,7 +73,6 @@
 	name = "Silver"
 	id = "silver"
 	description = "A lustrous metallic element regarded as one of the precious metals."
-	reagent_state = SOLID
 	color = "#D0D0D0" // rgb: 208, 208, 208
 	taste_description = "sub-par bling"
 
@@ -87,7 +80,6 @@
 	name = "Aluminum"
 	id = "aluminum"
 	description = "A silvery white and ductile member of the boron group of chemical elements."
-	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "metal"
 
@@ -95,7 +87,6 @@
 	name = "Silicon"
 	id = "silicon"
 	description = "A tetravalent metalloid, silicon is less reactive than its chemical analog carbon."
-	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "a CPU"
 
@@ -124,7 +115,6 @@
 	name = "Iron"
 	id = "iron"
 	description = "Pure iron is a metal."
-	reagent_state = SOLID
 	color = "#525152" // rgb: 200, 165, 220
 	taste_description = "metal"
 
@@ -675,7 +665,6 @@
 	name = "Generic nutrient"
 	id = "plantnutrient"
 	description = "Some kind of nutrient. You can't really tell what it is. You should probably report it, along with how you obtained it."
-	color = "#000000" // RBG: 0, 0, 0
 	var/tox_prob = 0
 	var/mutation_level = 0
 	taste_description = "puke"

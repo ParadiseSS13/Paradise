@@ -1,0 +1,24 @@
+/**
+ * Internal variables
+ * For more, see: https://github.com/tgstation/tgui-core
+ * Files: vars-colors.scss | vars-components.scss | vars-values.scss
+ */
+
+:root {
+  /* Colors */
+  --color-beige: hsl(50, 40%, 77.5%);
+
+  /* Department colors */
+  --color-security: hsl(2.5, 40%, 45%);
+  --color-engineering: hsl(32.5, 37.5%, 45%);
+  --color-medical: hsl(182.5, 37.5%, 45%);
+  --color-science: hsl(330, 37.5%, 45%);
+  --color-service: hsl(300, 37.5%, 45%);
+  --color-supply: hsl(60, 37.5%, 45%);
+
+  /* TitleBar */
+  --titlebar-background: var(--color-secondary);
+  --titlebar-text: var(--color-text-translucent-light);
+  --titlebar-shadow-color: var(--color-border-dark);
+  --titlebar-shadow-core: hsl(from var(--color-border-dark) h s l / 0.4);
+}

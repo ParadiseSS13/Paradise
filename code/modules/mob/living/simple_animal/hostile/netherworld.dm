@@ -1,69 +1,3 @@
-/mob/living/simple_animal/hostile/netherworld
-	name = "creature"
-	desc = "A sanity-destroying otherthing from the netherworld."
-	icon_state = "otherthing-pink"
-	icon_living = "otherthing-pink"
-	icon_dead = "otherthing-pink-dead"
-	health = 80
-	maxHealth = 80
-	obj_damage = 100
-	melee_damage_lower = 25
-	melee_damage_upper = 50
-	attacktext = "chomps"
-	attack_sound = 'sound/weapons/bladeslice.ogg'
-	speak_emote = list("screams")
-	gold_core_spawnable = HOSTILE_SPAWN
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	faction = list("nether")
-	contains_xeno_organ = TRUE
-	surgery_container = /datum/xenobiology_surgery_container/sweating
-
-/mob/living/simple_animal/hostile/netherworld/migo
-	name = "mi-go"
-	desc = "A pinkish, fungoid crustacean-like creature with numerous pairs of clawed appendages and a head covered with waving antennae."
-	speak_emote = list("screams", "clicks", "chitters", "barks", "moans", "growls", "meows", "reverberates", "roars", "squeaks", "rattles", "exclaims", "yells", "remarks", "mumbles", "jabbers", "stutters", "seethes")
-	icon_state = "mi-go"
-	icon_living = "mi-go"
-	icon_dead = "mi-go-dead"
-	attacktext = "lacerates"
-	speed = -0.5
-	deathmessage = "wails as its form turns into a pulpy mush."
-	death_sound = 'sound/voice/hiss6.ogg'
-	surgery_container = /datum/xenobiology_surgery_container/migo
-
-/mob/living/simple_animal/hostile/netherworld/migo/Initialize(mapload)
-	. = ..()
-
-/mob/living/simple_animal/hostile/netherworld/migo/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
-	..()
-	if(stat)
-		return
-	var/chosen_sound = pick(GLOB.migo_sounds)
-	playsound(src, chosen_sound, 50, TRUE)
-
-/mob/living/simple_animal/hostile/netherworld/migo/Life()
-	..()
-	if(stat)
-		return
-	if(prob(10))
-		var/chosen_sound = pick(GLOB.migo_sounds)
-		playsound(src, chosen_sound, 50, TRUE)
-
-/mob/living/simple_animal/hostile/netherworld/blankbody
-	name = "blank body"
-	desc = "This looks human enough, but its flesh has an ashy texture, and it's face is featureless save an eerie smile."
-	icon_state = "blank-body"
-	icon_living = "blank-body"
-	icon_dead = "blank-dead"
-	gold_core_spawnable = NO_SPAWN
-	health = 100
-	maxHealth = 100
-	melee_damage_lower = 5
-	melee_damage_upper = 10
-	attacktext = "punches"
-	deathmessage = "falls apart into a fine dust."
-
 /obj/structure/spawner/nether
 	name = "netherworld link"
 	desc = null //see examine()
@@ -73,7 +7,7 @@
 	max_mobs = 15
 	icon = 'icons/mob/nest.dmi'
 	spawn_text = "crawls through"
-	mob_types = list(/mob/living/simple_animal/hostile/netherworld/migo, /mob/living/simple_animal/hostile/netherworld, /mob/living/simple_animal/hostile/netherworld/blankbody)
+	mob_types = list(/mob/living/basic/netherworld/migo, /mob/living/basic/netherworld, /mob/living/basic/netherworld/blankbody)
 	faction = list("nether")
 
 /obj/structure/spawner/nether/Initialize(mapload)
@@ -103,9 +37,17 @@
 			M.adjustBruteLoss(60)
 			new /obj/effect/gibspawner/generic(get_turf(M), M.dna)
 			if(M.stat == DEAD)
-				var/mob/living/simple_animal/hostile/netherworld/blankbody/blank
+				var/mob/living/basic/netherworld/blankbody/blank
 				blank = new(loc)
 				blank.name = "[M]"
 				blank.desc = "It's [M], but [M.p_their()] flesh has an ashy texture, and [M.p_their()] face is featureless save an eerie smile."
 				visible_message("<span class='warning'>[M] reemerges from the link!</span>")
-				qdel(M)
+				blank.held_body = M
+				M.forceMove(blank)
+
+/obj/structure/spawner/nether/deconstruct(disassembled)
+	for(var/mob/living/M in contents)
+		if(M)
+			M.forceMove(loc)
+	return ..()
+

@@ -42,3 +42,5 @@ dbpnoise = "0.1.2"
 # redis - DO NOT CHANGE FROM 0.21.4 - also dont touch flume either please k thx. if you mess with these you make redis unstable
 redis = { version = "0.21.4" }
 flume = { version = "0.10" }
+notify-rust = "4.11.7"
+git2 = { version = "0.20.2", default-features = false }

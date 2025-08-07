@@ -6,7 +6,6 @@
 	restricted_jobs = list("Cyborg")
 	secondary_restricted_jobs = list("AI", "Chaplain")
 	required_players = 10
-	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
 	secondary_enemies_scaling = 0.025
 	species_to_mindflayer = list("Machine")

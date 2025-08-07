@@ -23,8 +23,6 @@
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
-	requires_organic_bodypart = TRUE
-	requires_bodypart = TRUE
 
 /datum/surgery/organ_manipulation/soft
 	possible_locs = list(BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
@@ -46,7 +44,6 @@
 		/datum/surgery_step/proxy/manipulate_organs,
 		/datum/surgery_step/generic/cauterize
 	)
-	requires_organic_bodypart = TRUE
 
 /datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
@@ -76,7 +73,6 @@
 
 // Intermediate steps for branching organ manipulation.
 /datum/surgery/intermediate/manipulate
-	requires_bodypart = TRUE
 
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 
@@ -689,8 +685,7 @@
 		TOOL_SAW = 100,
 		/obj/item/melee/energy/sword/cyborg/saw = 100,
 		/obj/item/hatchet = 90,
-		/obj/item/chainsaw/ = 90,
-		/obj/item/butcher_chainsaw = 90,
+		/obj/item/chainsaw = 90,
 		TOOL_WIRECUTTER = 35
 	)
 
@@ -698,7 +693,6 @@
 		TOOL_SAW = 'sound/surgery/saw.ogg',
 		/obj/item/hatchet = 'sound/surgery/scalpel1.ogg',
 		/obj/item/chainsaw = 'sound/weapons/chainsaw.ogg',
-		/obj/item/butcher_chainsaw = 'sound/weapons/chainsaw.ogg',
 		TOOL_WIRECUTTER = 'sound/surgery/scalpel1.ogg'
 	)
 
@@ -743,7 +737,6 @@
 		/obj/item/melee/energy = 6,
 		/obj/item/pen/edagger = 6,
 		/obj/item/chainsaw = 1,
-		/obj/item/butcher_chainsaw = 1
 	)
 
 	preop_sound = 'sound/surgery/scalpel1.ogg'

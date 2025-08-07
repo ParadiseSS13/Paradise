@@ -1,7 +1,8 @@
-import { classes } from '../../common/react';
-import { BooleanLike } from 'common/react';
+import { Button, NoticeBox, ProgressBar, Section, Stack } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+import { BooleanLike } from 'tgui-core/react';
+
 import { useBackend } from '../backend';
-import { Button, Section, ProgressBar, Stack, NoticeBox } from '../components';
 import { Window } from '../layouts';
 
 type MintData = {
@@ -22,8 +23,8 @@ type MintMaterial = {
   id: string;
 };
 
-export const CoinMint = (props, context) => {
-  const { act, data } = useBackend<MintData>(context);
+export const CoinMint = (props) => {
+  const { act, data } = useBackend<MintData>();
   const { materials, moneyBag, moneyBagContent, moneyBagMaxContent } = data;
   const dynamicHeight = (moneyBag ? 210 : 138) + Math.ceil(materials.length / 4) * 64;
   return (
@@ -66,7 +67,6 @@ export const CoinMint = (props, context) => {
                       key={material.id}
                       bold
                       inline
-                      translucent
                       m={0.2}
                       textAlign={'center'}
                       selected={material.id === data.chosenMaterial}

@@ -21,7 +21,6 @@
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	projectiletype = /obj/item/projectile/kinetic
 	projectilesound = 'sound/weapons/kenetic_accel.ogg'
-	ranged_cooldown_time = 30
 	speak_emote = list("states")
 	throw_message = "does not go through the armor of"
 	del_on_death = TRUE
@@ -30,7 +29,6 @@
 	ranged = TRUE
 	dodging = FALSE // I feel like they are pretty strong as is, no need to dodge.
 	retreat_distance = 2
-	minimum_distance = 1
 	deathmessage = "blows apart!"
 	loot = list(/obj/effect/gibspawner/robot, /obj/item/pickaxe/drill)
 

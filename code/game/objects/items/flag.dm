@@ -51,7 +51,6 @@
 /obj/item/flag/nt
 	name = "\improper Nanotrasen flag"
 	desc = "A flag proudly boasting the logo of NT."
-	icon_state = "ntflag"
 
 /obj/item/flag/clown
 	name = "\improper Clown Unity flag"
@@ -171,7 +170,6 @@
 /obj/item/flag/command
 	name = "\improper Command flag"
 	desc = "The flag of the independent, sovereign nation of Command. Apparently the budget was all spent on this flag, rather than a creative name."
-	icon_state = "ntflag"
 
 //Antags
 
@@ -210,7 +208,6 @@
 /obj/item/flag/chameleon
 	name = "chameleon flag"
 	desc = "A poor recreation of the official NT flag. It seems to shimmer a little."
-	icon_state = "ntflag"
 	origin_tech = "syndicate=1;magnets=4"
 	var/updated_icon_state = null
 	var/used = FALSE

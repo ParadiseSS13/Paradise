@@ -17,7 +17,6 @@
 
 /obj/item/storage/box/syndie_kit/fulton_kit
 	name = "fulton extraction kit"
-	icon_state = "doom_box"
 
 /obj/item/storage/box/syndie_kit/fulton_kit/populate_contents()
 	new /obj/item/extraction_pack(src)

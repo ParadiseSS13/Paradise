@@ -92,29 +92,29 @@ Difficulty: Hard
 
 /datum/action/innate/megafauna_attack/blink
 	name = "Blink To Target"
-	button_overlay_icon = 'icons/mob/actions/actions.dmi'
-	button_overlay_icon_state = "sniper_zoom"
+	button_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "sniper_zoom"
 	chosen_message = "<span class='colossus'>You are now blinking to your target.</span>"
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/chaser_swarm
 	name = "Chaser Swarm"
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "hierophant_squares_indefinite"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "hierophant_squares_indefinite"
 	chosen_message = "<span class='colossus'>You are firing a chaser swarm at your target.</span>"
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/cross_blasts
 	name = "Cross Blasts"
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "hierophant_blast_indefinite"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "hierophant_blast_indefinite"
 	chosen_message = "<span class='colossus'>You are now firing cross blasts at your target.</span>"
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/blink_spam
 	name = "Blink Chase"
-	button_overlay_icon = 'icons/obj/lavaland/artefacts.dmi'
-	button_overlay_icon_state = "hierophant_club_ready_beacon"
+	button_icon = 'icons/obj/lavaland/artefacts.dmi'
+	button_icon_state = "hierophant_club_ready_beacon"
 	chosen_message = "<span class='colossus'>You are now repeatedly blinking at your target.</span>"
 	chosen_attack_num = 4
 
@@ -481,7 +481,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/CanAttack(atom/the_target)
 	. = ..()
-	if(istype(the_target, /mob/living/simple_animal/hostile/asteroid/hivelordbrood)) //ignore temporary targets in favor of more permanent targets
+	if(istype(the_target, /mob/living/basic/mining/hivelordbrood)) //ignore temporary targets in favor of more permanent targets
 		return FALSE
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/GiveTarget(new_target)
@@ -806,7 +806,6 @@ Difficulty: Hard
 	icon_state = "hierophant_tele_off"
 	light_range = 2
 	layer = LOW_OBJ_LAYER
-	anchored = TRUE
 
 /obj/effect/hierophant/ex_act()
 	return
@@ -838,4 +837,3 @@ Difficulty: Hard
 	icon_state = null
 	gpstag = "Zealous Signal"
 	desc = "Heed its words."
-	invisibility = 100

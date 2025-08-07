@@ -206,9 +206,7 @@
 	dog_fashion = /datum/dog_fashion/head/surgery
 
 /obj/item/clothing/head/surgery/blue
-	name = "blue surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is baby blue."
-	icon_state = "surgcap_blue"
 	dog_fashion = /datum/dog_fashion/head/surgery
 
 /obj/item/clothing/head/surgery/green

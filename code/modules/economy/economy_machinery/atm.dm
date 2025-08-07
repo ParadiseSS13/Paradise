@@ -11,7 +11,6 @@
 	desc = "For all your monetary needs! Just insert your ID card to make a withdrawal or deposit!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "atm"
-	anchored = TRUE
 	idle_power_consumption = 10
 	density = FALSE
 	restricted_bypass = TRUE

@@ -1,5 +1,4 @@
 /obj/machinery/atmospherics/binary
-	dir = SOUTH
 	initialize_directions = SOUTH|NORTH
 	power_state = IDLE_POWER_USE
 
@@ -15,7 +14,6 @@
 	var/datum/pipeline/parent1
 	var/datum/pipeline/parent2
 
-	new_attack_chain = TRUE
 
 /obj/machinery/atmospherics/binary/New()
 	..()

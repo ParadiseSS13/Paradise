@@ -9,7 +9,6 @@
 	suppressed_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	force = 0
 	throwforce = 0
-	burst_size = 3
 	clumsy_check = FALSE
 	needs_permit = FALSE
 
@@ -43,17 +42,17 @@
 	can_flashlight = TRUE
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon_state()
-	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_overlays()
 	. = ..()
 	if(suppressed)
-		. += image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "enforcer_supp", pixel_x = 5)
+		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 15, pixel_y = 5)
 	if(gun_light)
-		var/flashlight = "Enforcer_light"
+		var/flashlight = "uflashlight_attached"
 		if(gun_light.on)
-			flashlight = "Enforcer_light-on"
-		. += image(icon = 'icons/obj/guns/projectile.dmi', icon_state = flashlight, pixel_x = 0)
+			flashlight = "uflashlight_attached-on"
+		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = flashlight, pixel_x = 5, pixel_y = -2)
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/ui_action_click()
 	toggle_gunlight()
@@ -111,7 +110,6 @@
 	name = "donksoft LMG"
 	desc = "A heavily modified toy light machine gun, designated 'L6 SAW'. Ages 8 and up."
 	icon = 'icons/obj/guns/toy.dmi'
-	can_suppress = FALSE
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/m762
 	origin_tech = "combat=5;engineering=3;syndicate=3"
@@ -125,9 +123,7 @@
 /obj/item/gun/projectile/shotgun/toy/tommygun
 	name = "tommy gun"
 	desc = "Looks almost like the real thing! Great for practicing Drive-bys. Ages 8 and up."
-	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "tommygun"
-	item_state = "shotgun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	inhand_x_dimension = 32
