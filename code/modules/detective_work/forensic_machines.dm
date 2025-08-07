@@ -43,7 +43,6 @@
 	desc = "A high-tech machine that is designed to sequence DNA samples."
 	icon = 'icons/obj/forensics/forensics.dmi'
 	icon_state = "dnaopen"
-	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 	density = TRUE
 	new_attack_chain = FALSE
