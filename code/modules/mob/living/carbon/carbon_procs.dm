@@ -393,7 +393,6 @@
 	//Parent proc checks if a mob can_be_flashed()
 	. = ..()
 
-	SIGNAL_HANDLER
 	SEND_SIGNAL(src, COMSIG_CARBON_FLASH_EYES, laser_pointer)
 	var/damage = intensity - check_eye_prot()
 	var/extra_damage = 0
@@ -640,7 +639,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			var/atom/movable/AM = hit_atom
 			var/atom/throw_target = get_edge_target_turf(AM, dir)
 			if(!AM.anchored || ismecha(AM))
-				AM.throw_at(throw_target, 5, 12, src)
+				if(!HAS_TRAIT(src, TRAIT_PLAGUE_ZOMBIE))
+					AM.throw_at(throw_target, 5, 12, src)
 				hit_something = TRUE
 		if(isobj(hit_atom))
 			var/obj/O = hit_atom
@@ -648,10 +648,16 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			hit_something = TRUE
 		if(isliving(hit_atom))
 			var/mob/living/L = hit_atom
-			L.adjustBruteLoss(60)
-			L.KnockDown(12 SECONDS)
-			L.Confused(10 SECONDS)
 			shake_camera(L, 4, 3)
+			if(HAS_TRAIT(src, TRAIT_PLAGUE_ZOMBIE))
+				var/obj/item/I = src.get_active_hand()
+				if(I)
+					I.attack(L, src)
+				L.KnockDown(1 SECONDS)
+			else
+				L.adjustBruteLoss(60)
+				L.KnockDown(12 SECONDS)
+				L.Confused(10 SECONDS)
 			hit_something = TRUE
 		if(isturf(hit_atom))
 			var/turf/T = hit_atom
@@ -659,8 +665,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				T.dismantle_wall(TRUE)
 				hit_something = TRUE
 		if(hit_something)
-			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
 			playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
+			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
 		return
 	if(has_status_effect(STATUS_EFFECT_IMPACT_IMMUNE))
 		return
