@@ -47,6 +47,8 @@
 #define BB_BASIC_MOB_RETALIATE_LIST "BB_BASIC_MOB_SHITLIST"
 ///Blackboard key for a whitelist typecache of "things we can target while trying to move"
 #define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
+/// some behaviors that check current_target also set this on deep crit mobs
+#define BB_BASIC_MOB_EXECUTION_TARGET "BB_basic_execution_target"
 
 //Hunting BB keys
 
