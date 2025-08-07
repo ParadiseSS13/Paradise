@@ -661,6 +661,14 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 				if(FRIENDLY_SPAWN)
 					mob_spawn_nicecritters += T
 
+		for(var/T in typesof(/mob/living/basic))
+			var/mob/living/basic/BA = T
+			switch(initial(BA.gold_core_spawnable))
+				if(HOSTILE_SPAWN)
+					mob_spawn_meancritters += T
+				if(FRIENDLY_SPAWN)
+					mob_spawn_nicecritters += T
+
 	var/chosen
 	if(mob_class == FRIENDLY_SPAWN)
 		chosen = pick(mob_spawn_nicecritters)
