@@ -48,6 +48,7 @@
 	investigate_log("was destroyed!", INVESTIGATE_REACTOR)
 	clear_reactor_network()
 	on = FALSE
+	return ..()
 
 /obj/machinery/power/fission_reactor/proc/build_reactor_network()
 	for(var/turf/T in RECT_TURFS(1, 2, src))
@@ -65,7 +66,7 @@
 
 /obj/machinery/power/fission_reactor/set_broken()
 	overlay_state = null
-	INVOKE_ASYNC(src, PROF_REF(meltdown))
+	INVOKE_ASYNC(src, PROF_REF(meltdown),)
 	stat |= BROKEN
 
 /obj/machinery/power/fission_reactor/proc/meltdown()
@@ -75,6 +76,7 @@
 
 /obj/machinery/power/fission_reactor/set_fixed
 	stat &= ~BROKEN
+
 /obj/machinery/power/fission_reactor/process()
 	if(stat & BROKEN)
 		return
@@ -145,9 +147,9 @@
 					return
 
 /obj/item/circuitboard/machine/reactor_chamber
-	board_name = "Doppler Radar"
-	icon_state = "supply"
-	build_path = /obj/machinery/radar
+	board_name = "Reactor Chamber"
+	icon_state = "engineering"
+	build_path = /obj/machinery/reactor_chamber
 	board_type = "machine"
 	origin_tech = "engineering=2"
 	req_components = list(
