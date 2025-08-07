@@ -1178,7 +1178,6 @@
 	description = "An experimental compound cooked up in the back alleys of New Canaan, designed to mimic the effects of Krokodil in synthetics. \
 	Unfortunately, this worked a little too well, as it also faithfully replicates the fact that there are serious side-effects. \
 	Overconsumption will cause extreme corrosion and a combonation of endothermic and exothermic reactions that will lead to localized melting and generalized temperature reduction."
-	reagent_state = SOLID
 	color = "#212121"
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
