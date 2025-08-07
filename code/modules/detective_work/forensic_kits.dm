@@ -2,7 +2,6 @@
 /obj/item/storage/box/swabs
 	name = "box of forensic swabs"
 	desc = "Sterile equipment inside. Avoid contamination."
-	icon = 'icons/obj/boxes.dmi'
 	icon_state = "sec_box"
 
 /obj/item/storage/box/swabs/populate_contents()
@@ -17,7 +16,6 @@
 /obj/item/storage/box/fingerprints
 	name = "box of fingerprint cards"
 	desc = "Sterile equipment inside. Avoid contamination."
-	icon = 'icons/obj/boxes.dmi'
 	icon_state = "id_prisoner_box"
 
 /obj/item/storage/box/fingerprints/populate_contents()
