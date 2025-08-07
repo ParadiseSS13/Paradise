@@ -4,7 +4,10 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	var/datum/disease/chosen_disease
 
 	var/list/disease_blacklist = list(/datum/disease/advance, /datum/disease/appendicitis, /datum/disease/kuru, /datum/disease/critical, /datum/disease/rhumba_beat, /datum/disease/fake_gbs,
-										/datum/disease/gbs, /datum/disease/transformation, /datum/disease/food_poisoning, /datum/disease/berserker, /datum/disease/zombie)
+										/datum/disease/gbs, /datum/disease/transformation, /datum/disease/food_poisoning, /datum/disease/berserker, /datum/disease/zombie, /datum/disease/beesease/wizard_variant,
+										/datum/disease/cold9/wizard_variant, /datum/disease/fluspanish/wizard_variant, /datum/disease/kingstons_advanced/wizard_variant,
+										/datum/disease/dna_retrovirus/wizard_variant, /datum/disease/tuberculosis/wizard_variant, /datum/disease/wizarditis/wizard_variant, /datum/disease/anxiety/wizard_variant,
+										/datum/disease/grut_gut, /datum/disease/wand_rot, /datum/disease/mystic_malaise)
 	var/static/list/transmissable_symptoms = list()
 	var/static/list/diseases_minor = list()
 	var/static/list/diseases_moderate_major = list()
