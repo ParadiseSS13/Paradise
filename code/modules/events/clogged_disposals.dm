@@ -42,7 +42,7 @@
 		/mob/living/basic/hivebot = 5,
 		/mob/living/basic/scarybat = 5,
 		/mob/living/basic/giant_spider/hunter = 5,
-		/mob/living/simple_animal/hostile/alien = 2,
+		/mob/living/basic/alien = 2,
 		// Retaliate mobs
 		/mob/living/basic/clown = 5,
 		/mob/living/basic/clown/goblin = 5,
