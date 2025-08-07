@@ -2,7 +2,6 @@
 	origin_tech = "biotech=3"
 	force = 1
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 0
 	var/slot
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/non_primary = 0
@@ -340,10 +339,7 @@
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
 				if(H.drop_item_to_ground(H.shoes))
-					GLOB.move_manager.move_away(thingy, H, 15, 2)
-					spawn(20)
-						if(thingy)
-							GLOB.move_manager.stop_looping(thingy)
+					GLOB.move_manager.move_away(thingy, H, 15, 2, timeout = 20)
 
 /obj/item/organ/internal/honktumor/cursed
 	unremovable = TRUE

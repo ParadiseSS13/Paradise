@@ -14,7 +14,8 @@
 		to_chat(C, "<span class='danger'>You cannot use [name] (muted).</span>", MESSAGE_TYPE_WARNING)
 		return
 
-	winset(C, null, "command=[C.tgui_say_create_open_command(name)]")
+	winset(C, null, "command=[C.tgui_say_create_open_command(name)];")
+	winset(C, "tgui_say.browser", "focus=true")
 
 /datum/keybinding/client/communication/ooc
 	name = OOC_CHANNEL

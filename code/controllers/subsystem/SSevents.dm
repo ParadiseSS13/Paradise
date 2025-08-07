@@ -198,7 +198,7 @@ SUBSYSTEM_DEF(events)
 			var/no_end = E.noAutoEnd
 			html += "<tr>"
 			html += "<td>[GLOB.severity_to_string[EM.severity]]</td>"
-			html += "<td>[EM.name]</td>"
+			html += "<td>[EM.name] [ADMIN_VV(E, "VV")]</td>"
 			html += "<td>[no_end ? "N/A" : station_time_timestamp("hh:mm:ss", ends_at)]</td>"
 			html += "<td>[no_end ? "N/A" : ends_in]</td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];stop=\ref[E]'>Stop</A></td>"

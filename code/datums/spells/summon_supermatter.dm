@@ -5,7 +5,6 @@
 	cooldown_min = 60 SECONDS
 	summon_type = list(/obj/machinery/atmospherics/supermatter_crystal/shard)
 	action_icon_state = "summon_supermatter"
-	summon_amt = 1
 	aoe_range = 0
 
 /datum/spell/aoe/conjure/summon_supermatter/cast(list/targets, mob/living/user = usr)

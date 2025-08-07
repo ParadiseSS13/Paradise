@@ -12,6 +12,9 @@
 	for(var/initial_trait in initial_traits)
 		ADD_TRAIT(src, initial_trait, INNATE_TRAIT)
 
+	AddElement(/datum/element/strippable)
+	RegisterSignal(src, COMSIG_STRIPPABLE_REQUEST_ITEMS, PROC_REF(get_strippable_items))
+
 // Used to determine the forces dependend on the mob size
 // Will only change the force if the force was not set in the mob type itself
 /mob/living/proc/determine_move_and_pull_forces()
@@ -730,6 +733,10 @@
 
 ///proc extender of [/mob/living/verb/resist] meant to make the process queable if the server is overloaded when the verb is called
 /mob/living/proc/run_resist()
+	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		var/obj/C = loc
+		C.container_resist(src)
+		return
 	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)
@@ -853,6 +860,7 @@
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /atom/movable/screen/fullscreen/stretch/flash)
+	SIGNAL_HANDLER
 	if(can_be_flashed(intensity, override_blindness_check))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
@@ -1152,6 +1160,68 @@
 		if(A.light_range > 0)
 			A.extinguish_light(force)
 
+/mob/living/vv_get_header()
+	. = ..()
+	. += {"
+		<br><font size='1'>
+			BRUTE:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=brute'>[getBruteLoss()]</a>
+			FIRE:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=fire'>[getFireLoss()]</a>
+			TOXIN:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=toxin'>[getToxLoss()]</a>
+			OXY:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=oxygen'>[getOxyLoss()]</a>
+			CLONE:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=clone'>[getCloneLoss()]</a>
+			BRAIN:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=brain'>[getBrainLoss()]</a>
+			STAMINA:<font size='1'><a href='byond://?_src_=vars;[VV_HK_TARGET]=[UID()];adjustDamage=stamina'>[getStaminaLoss()]</a>
+		</font>
+	"}
+
+/mob/living/vv_do_topic(list/href_list)
+	. = ..()
+
+	if(!.)
+		return
+
+	if(href_list["adjustDamage"])
+		if(!check_rights(R_DEBUG|R_ADMIN|R_EVENT))	return
+
+		var/Text = href_list["adjustDamage"]
+		var/amount =	tgui_input_number(usr, "Deal how much damage to mob? (Negative values here heal)", "Adjust [Text]loss", min_value = -10000, max_value = 10000)
+
+		if(QDELETED(src))
+			to_chat(usr, "<span class='notice'>Mob doesn't exist anymore.</span>")
+			return
+
+		switch(Text)
+			if("brute")
+				if(ishuman(src))
+					var/mob/living/carbon/human/H = src
+					H.adjustBruteLoss(amount, robotic = TRUE)
+				else
+					adjustBruteLoss(amount)
+			if("fire")
+				if(ishuman(src))
+					var/mob/living/carbon/human/H = src
+					H.adjustFireLoss(amount, robotic = TRUE)
+				else
+					adjustFireLoss(amount)
+			if("toxin")
+				adjustToxLoss(amount)
+			if("oxygen")
+				adjustOxyLoss(amount)
+			if("brain")
+				adjustBrainLoss(amount)
+			if("clone")
+				adjustCloneLoss(amount)
+			if("stamina")
+				adjustStaminaLoss(amount)
+			else
+				to_chat(usr, "<span class='notice'>You caused an error. DEBUG: Text:[Text] Mob:[src]</span>")
+				return
+
+		if(amount != 0)
+			log_admin("[key_name(usr)] dealt [amount] amount of [Text] damage to [src]")
+			message_admins("[key_name_admin(usr)] dealt [amount] amount of [Text] damage to [src]")
+			href_list["datumrefresh"] = UID()
+
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if("stat")
@@ -1286,3 +1356,7 @@
 
 	SEND_SIGNAL(src, COMSIG_LIVING_BEFRIENDED, new_friend)
 	return TRUE
+
+/mob/living/proc/get_strippable_items(datum/source, list/items)
+	SIGNAL_HANDLER // COMSIG_STRIPPABLE_REQUEST_ITEMS
+	return

@@ -1,6 +1,5 @@
 /obj/effect/spawner/random/barrier
 	name = "random barrier spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "barrier"
 	loot = list(
 		/obj/effect/spawner/window/reinforced,
@@ -13,8 +12,6 @@
 
 /obj/effect/spawner/random/barrier/temporary
 	name = "random temporary barrier spawner"
-	icon = 'icons/effects/random_spawners.dmi'
-	icon_state = "barrier"
 	loot = list(
 		/obj/structure/barricade/wooden,
 		/obj/structure/grille,
@@ -34,7 +31,6 @@
 
 /obj/effect/spawner/random/barrier/obstruction
 	name = "obstruction"
-	icon_state = "barrier"
 	loot = list(
 		/obj/machinery/door/airlock/welded,
 		/obj/structure/barricade/wooden,

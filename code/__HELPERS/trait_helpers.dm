@@ -239,6 +239,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CLING_BURSTING "cling_bursting" // This changeling is about to burst into a headslug, block cremation / gibber to prevent nullspace issues
 #define TRAIT_I_WANT_BRAINS "mob_zombie" // A general trait for tracking if the mob is a zombie.
 #define TRAIT_NON_INFECTIOUS_ZOMBIE "non_infectious_zombie" // A trait for checking if a zombie shouldn't be able to infect other people
+#define TRAIT_PLAGUE_ZOMBIE "plague_zombie" // For checking if this is a wizard plague zombie
 #define TRAIT_NPC_ZOMBIE "npc_zombie" // A trait for checking if a zombie should act like an NPC and attack
 #define TRAIT_ABSTRACT_HANDS "abstract_hands" // Mobs with this trait can only pick up abstract items.
 #define TRAIT_LANGUAGE_LOCKED "language_locked" // cant add/remove languages until removed (excludes babel because fuck everything i guess)
@@ -258,6 +259,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_UNKNOWN "unknown" // The person with this trait always appears as 'unknown'.
 #define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
 #define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
+#define TRAIT_WIRE_BLIND "wire_blind" // This doesn't block someone from seeing wires or recalling their position, but randomizes name / function to the user
 
 /// Whether or not the user is in a MODlink call, prevents making more calls
 #define TRAIT_IN_CALL "in_call"
@@ -455,6 +457,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define DOGGO_SPACESUIT "doggo_spacesuit"
 #define FLOORCLUWNE "floorcluwne"
 #define LOCKDOWN_TRAIT "lockdown"
+#define VEHICLE_TRAIT "vehicle"
 #define STAT_TRAIT "stat_trait"
 #define TRANSFORMING_TRAIT "transforming"
 #define BUCKLING_TRAIT "buckled"
@@ -466,6 +469,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define HOLO_CIGAR "holo_cigar"
 #define GLADIATOR "gladiator"
 #define PULSEDEMON_TRAIT "pulse_demon"
+#define TRAIT_CLOWN_CAR_SQUISHED "squished_by_car"
 /// Mentor observing
 #define MENTOR_OBSERVING "mobserving"
 #define TIPPED_OVER "tipped_over"
@@ -524,6 +528,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 // turf trait sources
 #define FLOOR_EFFECT_TRAIT "floor_effect_trait"
+
+/// A web is being spun on this turf presently
+#define TRAIT_SPINNING_WEB_TURF "spinning_web_turf"
 
 //***** EFFECT TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.
