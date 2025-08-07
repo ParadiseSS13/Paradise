@@ -46373,9 +46373,6 @@
 	dir = 8
 	},
 /obj/effect/landmark/lightsout,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -47160,9 +47157,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -65373,9 +65367,6 @@
 	},
 /area/station/medical/surgery)
 "knZ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/item/book/manual/wiki/sop_science{
 	pixel_x = -7;
 	pixel_y = 6
@@ -65391,6 +65382,9 @@
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
 	pixel_y = -30
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -66680,16 +66674,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/atmos)
-"kRp" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/aft/south)
 "kRq" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -67215,9 +67199,10 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "lcg" = (
-/obj/structure/cable,
 /obj/machinery/power/apc/directional/west,
-/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -68367,6 +68352,13 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/storage)
+"lFN" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/genetics)
 "lGj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -71675,9 +71667,6 @@
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -71790,13 +71779,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "nhw" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -77530,16 +77513,6 @@
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
-"pIn" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/aft/south)
 "pIs" = (
 /obj/machinery/door/airlock/medical{
 	name = "Operating Theatre Storage"
@@ -84268,11 +84241,6 @@
 	},
 /area/station/medical/surgery/observation)
 "swS" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/newscaster/directional/north,
 /obj/machinery/economy/vending/genedrobe,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -94132,9 +94100,7 @@
 /obj/item/reagent_containers/glass/bottle/potassium_iodide,
 /obj/item/hand_labeler,
 /obj/item/reagent_containers/spray/cleaner,
-/obj/structure/disposalpipe/segment/corner{
-	dir = 1
-	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
@@ -97948,6 +97914,13 @@
 "yeh" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
+"yem" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/genetics)
 "yes" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
@@ -132311,9 +132284,9 @@ sWC
 qJo
 qJo
 feM
-drX
-drX
-drX
+yem
+yem
+lFN
 knZ
 eEq
 vdo
@@ -137985,12 +137958,12 @@ tiQ
 vyO
 kGA
 neQ
-pIn
+vyO
 dwt
-pIn
-kRp
-pIn
-pIn
+vyO
+kGA
+vyO
+vyO
 dBP
 dDc
 dPu
