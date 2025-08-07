@@ -694,7 +694,6 @@
 	name = "\improper Runic Belt"
 	desc = "A belt designed to hold safely contain Plague Talismans. Better hope it doesn't start dripping..."
 	icon_state = "soulstonebelt"
-	item_state = "soulstonebelt"
 	storage_slots = 5
 	use_item_overlays = TRUE
 	can_hold = list(
