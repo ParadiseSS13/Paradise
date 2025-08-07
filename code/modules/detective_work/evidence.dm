@@ -91,7 +91,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/list/evidence = list()
 
-/obj/item/sample/initialize(atom/supplied)
+/obj/item/sample/Initialize(atom/supplied)
 	. = ..()
 	if(supplied)
 		copy_evidence(supplied)
