@@ -34700,9 +34700,10 @@
 	},
 /area/station/science/xenobiology)
 "dZZ" = (
-/obj/structure/closet/emcloset,
-/turf/simulated/floor/plasteel,
-/area/station/security/brig)
+/obj/structure/table/wood,
+/obj/machinery/microscope,
+/turf/simulated/floor/carpet,
+/area/station/security/detective)
 "eac" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
@@ -42074,6 +42075,8 @@
 	icon_state = "darkgrey"
 	},
 /area/station/maintenance/aft)
+"gEr" = (
+)
 "gEt" = (
 /obj/structure/table/glass,
 /obj/item/paper/crumpled,
@@ -72080,15 +72083,6 @@
 	},
 /area/station/medical/storage/secondary)
 "rpt" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/item/radio/intercom/department/security{
-	pixel_x = -28;
-	pixel_y = -7
-	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "rpy" = (
@@ -106513,7 +106507,7 @@ kOC
 xqq
 wrX
 xqq
-roV
+gEr
 uFw
 rbK
 iGn
@@ -119596,8 +119590,8 @@ iBR
 iBR
 iBR
 iBR
-amx
-amx
+qeK
+qeK
 qeK
 vqm
 bdT
@@ -132238,7 +132232,7 @@ uJI
 xBg
 xoS
 bYt
-roR
+gEr
 kcr
 jOr
 kuW
