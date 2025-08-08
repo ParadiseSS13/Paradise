@@ -26,6 +26,10 @@
 	var/rad_amount
 	/// What type of radiation is emitted by this rod
 	var/list/rad_type
+	/// What special gas requirement does this rod need
+	var/gas_requirement
+	/// What items need to be adjacent to this rod for it to function properly
+	var/list/adjacent_requirements = list()
 
 /obj/item/nuclear_rod/fuel
 	name = "uranium-238 fuel rod"
