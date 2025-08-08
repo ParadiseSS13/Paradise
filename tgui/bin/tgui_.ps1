@@ -101,6 +101,7 @@ function task-validate-build {
 
 ## Installs merge drivers and git hooks
 function task-install-git-hooks () {
+  Write-Output "tgui: WARNING: tgui bundle merge drivers are deprecated. Please modify .gitattributes to continue using them"
   Set-Location $global:basedir
   git config --replace-all merge.tgui-merge-bundle.driver "tgui/bin/tgui --merge=bundle %P %A"
   Write-Output "tgui: Merge drivers have been successfully installed!"
