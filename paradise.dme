@@ -2455,7 +2455,6 @@
 #include "code\modules\mob\living\basic\minebots\minebot_abilities.dm"
 #include "code\modules\mob\living\basic\minebots\minebot_ai.dm"
 #include "code\modules\mob\living\basic\minebots\minebot_upgrades.dm"
-#include "code\modules\mob\living\basic\mining\goldgrub\goldgrub_abilities.dm"
 #include "code\modules\mob\living\basic\retaliate\kangaroo.dm"
 #include "code\modules\mob\living\basic\nether_mobs\blankbody.dm"
 #include "code\modules\mob\living\basic\nether_mobs\faithless.dm"
