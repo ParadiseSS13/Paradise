@@ -54236,6 +54236,12 @@
 /obj/machinery/ai_node/network_node,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/abandonedservers)
+"heQ" = (
+/obj/machinery/atmospherics/unary/reactor_gas_node,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "hfp" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger{
@@ -72821,6 +72827,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
+"qLY" = (
+/obj/machinery/atmospherics/unary/reactor_gas_node/output{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "qMh" = (
 /obj/structure/bed,
 /obj/machinery/light/small{
@@ -115221,11 +115235,11 @@ ePY
 ePY
 ePY
 ePY
+sKE
+sKE
 ePY
 sKE
-sKE
-sKE
-ePY
+vWF
 ePY
 ePY
 ePY
@@ -115478,11 +115492,11 @@ ePY
 ePY
 ePY
 ePY
-ePY
 sKE
 sKE
+qLY
 sKE
-ePY
+vWF
 ePY
 ePY
 ePY
@@ -115735,11 +115749,11 @@ ePY
 ePY
 ePY
 ePY
+sKE
+sKE
 ePY
-ePY
-ePY
-ePY
-ePY
+sKE
+sKE
 ePY
 ePY
 ePY
@@ -116249,11 +116263,11 @@ ePY
 ePY
 ePY
 ePY
+sKE
+sKE
 ePY
-ePY
-ePY
-ePY
-ePY
+sKE
+sKE
 ePY
 ePY
 ePY
@@ -116506,11 +116520,11 @@ ePY
 ePY
 ePY
 ePY
-ePY
 sKE
 vWF
+heQ
 sKE
-ePY
+sKE
 ePY
 ePY
 ePY
@@ -116763,11 +116777,11 @@ ePY
 ePY
 ePY
 ePY
-ePY
-vWF
-vWF
+sKE
 sKE
 ePY
+sKE
+sKE
 ePY
 ePY
 ePY

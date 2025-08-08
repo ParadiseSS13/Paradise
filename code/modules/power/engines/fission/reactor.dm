@@ -53,6 +53,8 @@
 	AddComponent(/datum/component/multitile, list(
 		list(1, MACH_CENTER, 1),
 	))
+	air_contents = new
+	air_contents.volume = 10000 // kpa
 	build_reactor_network()
 
 /obj/machinery/power/fission_reactor/ex_act(severity)
@@ -199,18 +201,23 @@
 
 	/// Hold which reactor the intake is connected to.
 	var/obj/machinery/power/fission_reactor/linked_reactor
-	/// Is this vent taking air int or out
-	var/intake_vent
+	/// Is this vent taking air in or out. TRUE by default.
+	var/intake_vent = TRUE
+
+/obj/machinery/atmospherics/unary/reactor_gas_node/output
+	intake_vent = FALSE
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/Initialize(mapload)
 	. = ..()
 	for(var/obj/machinery/power/fission_reactor/reactor in range(src, 1))
 		linked_reactor = reactor
+	initialize_directions = dir
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/process_atmos()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
-
+	if(!linked_reactor)
+		return FALSE
 	var/datum/gas_mixture/network1
 	var/datum/gas_mixture/network2
 
@@ -221,15 +228,15 @@
 		network1 = air_contents
 		network2 = linked_reactor.air_contents
 
+	if(!network1 || !network2)
+		return
+
 	// this is basically passive gate code
 	var/output_starting_pressure = network1.return_pressure()
 	var/input_starting_pressure = network2.return_pressure()
-	if(output_starting_pressure >= min(target_pressure,input_starting_pressure - 10))
+	if(output_starting_pressure >= min(target_pressure, input_starting_pressure - 10))
 		//No need to pump gas if target is already reached or input pressure is too low
 		//Need at least 10 KPa difference to overcome friction in the mechanism
-		return 1
-	if(target_pressure >= input_starting_pressure - 10)
-		//Gas will not pump if the input pressure is lower than the target
 		return 1
 
 	//Calculate necessary moles to transfer using PV = nRT
@@ -246,18 +253,37 @@
 
 	return 1
 
-/obj/machinery/atmospherics/unary/reactor_gas_node/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(linked_reactor)
-		to_chat(user, "<span class='alert'>The gas node is already linked </span>")
+/obj/machinery/atmospherics/unary/reactor_gas_node/wrench_act(mob/user, obj/item/I)
+	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
+	var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", choices)
+	if(!selected)
 		return
-	if(default_change_direction_wrench(user, used))
-		linked_reactor = null
-		var/turf/T = get_step(src, dir)
-		for(var/obj/machinery/power/fission_reactor/reactor in T.contents)
-			intake_vent = FALSE
-			linked_reactor = reactor
-		T = get_step(src, REVERSE_DIR(dir))
-		for(var/obj/machinery/power/fission_reactor/reactor in T.contents)
-			intake_vent = TRUE
-			linked_reactor = reactor
-		update_icon(UPDATE_OVERLAYS)
+	if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume))
+		return
+	dir = choices[selected]
+	var/node_connect = dir
+	initialize_directions = dir
+	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
+		if(target.initialize_directions & get_dir(target,src))
+			node = target
+			break
+	initialize_atmos_network()
+	linked_reactor = null
+	var/turf/T = get_step(src, REVERSE_DIR(dir))
+	for(var/obj/machinery/power/fission_reactor/reactor in T)
+		linked_reactor = reactor
+	for(var/obj/structure/filler/filler in T)
+		if(istype(filler.parent, /obj/machinery/power/fission_reactor))
+			linked_reactor = filler.parent
+	T = get_step(src, REVERSE_DIR(dir))
+	update_icon()
+	return
+
+/obj/machinery/atmospherics/unary/reactor_gas_node/multitool_act(mob/living/user, obj/item/I)
+	if(do_after_once(user, 1 SECONDS, TRUE, src))
+		intake_vent = !intake_vent
+		if(intake_vent)
+			name = "Reactor Gas Intake"
+		else
+			name = "Reactor Gas Extractor"
+	return ..()
