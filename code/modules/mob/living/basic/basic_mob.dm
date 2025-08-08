@@ -288,6 +288,7 @@ RESTRICT_TYPE(/mob/living/basic)
 	. = ..()
 	if(!.)
 		return FALSE
+	REMOVE_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 	if(nest)
 		nest.spawned_mobs -= src
 		nest = null
