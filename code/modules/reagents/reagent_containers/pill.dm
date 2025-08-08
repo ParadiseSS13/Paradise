@@ -6,8 +6,7 @@
 /obj/item/reagent_containers/pill
 	name = "pill"
 	desc = "A pill."
-	icon_state = null
-	item_state = "pill"
+	inhand_icon_state = "pill"
 	possible_transfer_amounts = null
 	visible_transfer_rate = FALSE
 	volume = 100

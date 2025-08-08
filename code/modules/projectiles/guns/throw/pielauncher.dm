@@ -2,6 +2,7 @@
 	name = "pie cannon"
 	desc = "A projectile weapon that fires pies."
 	icon_state = "piecannon1"
+	inhand_icon_state = "piecannon"
 	w_class = WEIGHT_CLASS_HUGE
 	throw_speed = 2
 	throw_range = 3
@@ -11,7 +12,6 @@
 	max_capacity = 5
 	projectile_speed = 2
 	projectile_range = 30
-
 
 /obj/item/gun/throw/piecannon/Initialize(mapload)
 	. = ..()
@@ -28,7 +28,6 @@
 		icon_state = "piecannon1"
 	else
 		icon_state = "piecannon0"
-	item_state = icon_state
 
 /obj/item/gun/throw/piecannon/process_chamber()
 	..()
