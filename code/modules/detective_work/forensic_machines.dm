@@ -82,7 +82,7 @@
 		return
 	else
 		to_chat(user, "<span class='notice'>This is not a compatible sample!</span>")
-	..()
+		return
 
 /obj/machinery/dnaforensics/attack_hand(mob/user)
 
