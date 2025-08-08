@@ -2,13 +2,13 @@
 	name = "Retrovirus"
 	max_stages = 4
 	spread_text = "Contact"
-	spread_flags = CONTACT_GENERAL
+	spread_flags = SPREAD_CONTACT_GENERAL
 	cure_text = "Rest or an injection of mutadone"
 	cure_chance = 6
 	agent = ""
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = "A DNA-altering retrovirus that scrambles the structural and unique enzymes of a host constantly."
-	severity = BIOHAZARD
+	severity = VIRUS_BIOHAZARD
 	permeability_mod = 0.4
 	stage_prob = 2
 	var/SE
