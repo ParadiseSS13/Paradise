@@ -66,7 +66,6 @@
 		device = new device(src)
 		device.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		device.slot_flags = null
-		device.materials = null
 		RegisterSignal(device, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(on_move), override = TRUE)
 		RegisterSignal(device, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(on_drop), override = TRUE)
 		RegisterSignal(device, COMSIG_PARENT_QDELETING, PROC_REF(on_device_deletion))
