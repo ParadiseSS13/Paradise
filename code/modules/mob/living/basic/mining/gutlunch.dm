@@ -2,11 +2,9 @@
 /mob/living/basic/mining/gutlunch
 	name = "gutlunch"
 	desc = "A scavenger that eats raw meat, often found alongside ash walkers. Produces a thick, medicinally nutritious milk."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "gutlunch"
 	icon_living = "gutlunch"
 	icon_dead = "gutlunch"
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak_emote = list("warbles", "quavers")
 	weather_immunities = list("lava","ash")
 	faction = list("mining", "ashwalker")
