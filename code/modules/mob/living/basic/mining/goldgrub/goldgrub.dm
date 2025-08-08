@@ -28,6 +28,8 @@
 	ai_controller = /datum/ai_controller/basic_controller/goldgrub
 	/// Hungry hungry goldgrubs
 	var/food_types = list(/obj/item/stack/ore)
+	/// Does this creature burrow?
+	var/will_burrow = TRUE
 
 /mob/living/basic/mining/goldgrub/Initialize(mapload)
 	. = ..()

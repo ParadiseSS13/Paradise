@@ -18,14 +18,13 @@
 
 /// Only dig away if humans are around
 /datum/ai_planning_subtree/dig_away_from_danger
-	/// Does it burrow?
-	var/will_burrow = TRUE
 
 /datum/ai_planning_subtree/dig_away_from_danger/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/has_target = controller.blackboard_key_exists(BB_BASIC_MOB_CURRENT_TARGET)
 
+	var/mob/living/basic/mining/goldgrub/grub = controller.pawn
 	// Someone is nearby, its time to escape
-	if(will_burrow && has_target && ishuman(controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET]))
+	if(grub.will_burrow && has_target && ishuman(controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET]))
 		controller.queue_behavior(/datum/ai_behavior/burrow_away)
 		return SUBTREE_RETURN_FINISH_PLANNING
 
@@ -39,7 +38,7 @@
 	var/mob/living/basic/mining/goldgrub/grub = controller.pawn
 	grub.addtimer(CALLBACK(src, PROC_REF(burrow), controller.pawn), chase_time)
 
-/datum/ai_behavior/burrow_away/proc/burrow(var/mob/living/mob) // Begin the chase to kill the mob in time
-	if(mob.stat == CONSCIOUS)
-		mob.visible_message("<span class='danger'>[mob] buries into the ground, vanishing from sight!</span>")
-		qdel(mob)
+/datum/ai_behavior/burrow_away/proc/burrow(mob/living/pawn) // Begin the chase to kill the mob in time
+	if(pawn.stat == CONSCIOUS)
+		pawn.visible_message("<span class='danger'>[pawn] buries into the ground, vanishing from sight!</span>")
+		qdel(pawn)
