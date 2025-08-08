@@ -1,5 +1,5 @@
-//Gutlunches, passive mods that devour blood and gibs
-/mob/living/simple_animal/hostile/asteroid/gutlunch
+// Gutlunches, passive mods that devour blood and gibs
+/mob/living/basic/mining/gutlunch
 	name = "gutlunch"
 	desc = "A scavenger that eats raw meat, often found alongside ash walkers. Produces a thick, medicinally nutritious milk."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
@@ -8,90 +8,61 @@
 	icon_dead = "gutlunch"
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak_emote = list("warbles", "quavers")
-	emote_hear = list("trills.")
-	emote_see = list("sniffs.", "burps.")
 	weather_immunities = list("lava","ash")
 	faction = list("mining", "ashwalker")
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "squishes"
+	response_harm_simple = "squish"
+	friendly_verb_continuous = "pinches"
+	friendly_verb_simple = "pinch"
 	density = FALSE
-	speak_chance = 1
-	turns_per_move = 8
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	move_to_delay = 15
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "squishes"
-	friendly = "pinches"
 	a_intent = INTENT_HELP
 	ventcrawler = VENTCRAWLER_ALWAYS
 	gold_core_spawnable = FRIENDLY_SPAWN
-	stat_attack = UNCONSCIOUS
-	gender = NEUTER
-	stop_automated_movement_when_pulled = TRUE
-	stat_exclusive = TRUE
-	robust_searching = TRUE
-	search_objects = 3 //Ancient simplemob AI shitcode. This makes them ignore all other mobs.
-	del_on_death = TRUE
 	loot = list(/obj/effect/decal/cleanable/blood/gibs)
 	deathmessage = "is pulped into bugmash."
 
-	animal_species = /mob/living/simple_animal/hostile/asteroid/gutlunch
-	childtype = list(/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch = 100)
-
-	wanted_objects = list(/obj/effect/decal/cleanable/blood/gibs, /obj/item/organ/internal/eyes,
+	var/list/food_types = list(/obj/effect/decal/cleanable/blood/gibs, /obj/item/organ/internal/eyes,
 										/obj/item/organ/internal/heart, /obj/item/organ/internal/lungs,
 										/obj/item/organ/internal/liver, /obj/item/organ/internal/kidneys,
 										/obj/item/organ/internal/appendix)
 	var/obj/item/udder/gutlunch/udder = null
+	/// can we breed?
+	var/can_breed = TRUE
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize(mapload)
-	udder = new()
+/mob/living/basic/mining/gutlunch/Initialize(mapload)
 	. = ..()
+	udder = new()
+	// Have all eating components share the same exact list per mob subtype
+	var/static/list/static_food_types
+	if(!static_food_types)
+		static_food_types = food_types.Copy()
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/Destroy()
+	AddElement(/datum/element/basic_eating, food_types_ = static_food_types)
+	AddElement(/datum/element/ai_retaliate)
+	ai_controller.set_blackboard_key(BB_BASIC_FOODS, typecacheof(static_food_types))
+	if(can_breed)
+		add_breeding_component()
+
+/mob/living/basic/mining/gutlunch/Destroy()
 	QDEL_NULL(udder)
 	return ..()
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/regenerate_icons()
+/mob/living/basic/mining/gutlunch/regenerate_icons()
 	..()
 	if(udder.reagents.total_volume == udder.reagents.maximum_volume)
 		add_overlay("gl_full")
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/item_interaction(mob/living/user, obj/item/O, list/modifiers)
+/mob/living/basic/mining/gutlunch/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
 		regenerate_icons()
 		return ITEM_INTERACT_COMPLETE
-
-/mob/living/simple_animal/hostile/asteroid/gutlunch/CanAttack(atom/the_target) // Gutlunch-specific version of CanAttack to handle stupid stat_exclusive = true crap so we don't have to do it for literally every single simple_animal/hostile except the two that spawn in lavaland
-	if(isturf(the_target) || !the_target || the_target.type == /atom/movable/lighting_object) // bail out on invalids
-		return FALSE
-
-	if(see_invisible < the_target.invisibility)//Target's invisible to us, forget it
-		return FALSE
-
-	if(isliving(the_target))
-		var/mob/living/L = the_target
-
-		if(faction_check_mob(L) && !attack_same)
-			return FALSE
-		if(L.stat > stat_attack || L.stat != stat_attack && stat_exclusive)
-			return FALSE
-
-		return TRUE
-
-	if(isobj(the_target) && is_type_in_typecache(the_target, wanted_objects))
-		return TRUE
-
-	return FALSE
-
-/mob/living/simple_animal/hostile/asteroid/gutlunch/AttackingTarget()
-	if(is_type_in_typecache(target,wanted_objects)) //we eats
-		udder.generateMilk()
-		regenerate_icons()
-		visible_message("<span class='notice'>[src] slurps up [target].</span>")
-		qdel(target)
-	return ..()
 
 /obj/item/udder/gutlunch
 	name = "nutrient sac"
@@ -105,58 +76,63 @@
 		reagents.add_reagent("epinephrine", rand(2, 5))
 
 
-//Male gutlunch. They're smaller and more colorful!
-/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
+/mob/living/basic/mining/gutlunch/proc/add_breeding_component()
+	var/static/list/partner_paths = typecacheof(list(/mob/living/basic/mining/gutlunch))
+	var/static/list/baby_paths = list(
+		/mob/living/basic/mining/gutlunch/grublunch = 1,
+	)
+
+	AddComponent(\
+		/datum/component/breed,\
+		can_breed_with = partner_paths,\
+		baby_paths = baby_paths,\
+		breed_timer = 3 MINUTES,\
+	)
+
+// Male gutlunch. They're smaller and more colorful!
+/mob/living/basic/mining/gutlunch/gubbuck
 	name = "gubbuck"
 	gender = MALE
+	ai_controller = /datum/ai_controller/basic_controller/gutlunch/gubbuck
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/Initialize(mapload)
+/mob/living/basic/mining/gutlunch/gubbuck/Initialize(mapload)
 	. = ..()
 	add_atom_colour(pick("#E39FBB", "#D97D64", "#CF8C4A"), FIXED_COLOUR_PRIORITY)
 	resize = 0.85
 	update_transform()
 
-//Lady gutlunch. They make the babby.
-/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen
+// Lady gutlunch. They make the babby.
+/mob/living/basic/mining/gutlunch/guthen
 	name = "guthen"
 	gender = FEMALE
+	ai_controller = /datum/ai_controller/basic_controller/gutlunch/guthen
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/Life()
-	..()
-	if(udder.reagents.total_volume == udder.reagents.maximum_volume) //Only breed when we're full.
-		make_babies()
-
-/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/make_babies()
-	. = ..()
-	if(.)
-		udder.reagents.clear_reagents()
-		regenerate_icons()
-
-/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch
+/mob/living/basic/mining/gutlunch/grublunch
 	name = "grublunch"
-	wanted_objects = list() //They don't eat.
+	food_types = list() //They don't eat.
 	gold_core_spawnable = NO_SPAWN
+	ai_controller = /datum/ai_controller/basic_controller/gutlunch/gutlunch_baby
 	var/growth = 0
 
-//Baby gutlunch
-/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Initialize(mapload)
+// Baby gutlunch
+/mob/living/basic/mining/gutlunch/grublunch/Initialize(mapload)
 	. = ..()
-	add_atom_colour("#9E9E9E", FIXED_COLOUR_PRIORITY) //Somewhat hidden
+	add_atom_colour("#9E9E9E", FIXED_COLOUR_PRIORITY) // Somewhat hidden
 	resize = 0.45
 	update_transform()
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Life()
+/mob/living/basic/mining/gutlunch/grublunch/Life()
 	..()
 	growth++
 	if(growth > 50) //originally used a timer for this but was more problem that it's worth.
 		growUp()
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/proc/growUp()
+/mob/living/basic/mining/gutlunch/grublunch/proc/growUp()
 	var/mob/living/L
 	if(prob(45))
-		L = new /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck(loc)
+		L = new /mob/living/basic/mining/gutlunch/gubbuck(loc)
 	else
-		L = new /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen(loc)
+		L = new /mob/living/basic/mining/gutlunch/guthen(loc)
 	mind?.transfer_to(L)
 	L.faction = faction.Copy()
 	L.setDir(dir)

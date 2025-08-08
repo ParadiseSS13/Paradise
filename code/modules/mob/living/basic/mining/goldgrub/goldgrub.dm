@@ -41,12 +41,6 @@
 		loot += pick(/obj/item/stack/ore/silver, /obj/item/stack/ore/gold, /obj/item/stack/ore/uranium, /obj/item/stack/ore/diamond)
 		i--
 
-/mob/living/basic/mining/goldgrub/AttackingTarget()
-	if(istype(target, /obj/item/stack/ore))
-		EatOre(target)
-		return
-	return ..()
-
 /mob/living/basic/mining/goldgrub/death(gibbed)
 	barf_contents(gibbed)
 	return ..()
@@ -59,12 +53,3 @@
 	if(P.armour_penetration_flat + P.armour_penetration_percentage >= 100)
 		return ..()
 	visible_message("<span class='danger'>[P.name] was repelled by [name]'s girth!</span>")
-
-/mob/living/basic/mining/goldgrub/adjustHealth(amount, updating_health = TRUE)
-	vision_range = 9
-	. = ..()
-
-/mob/living/basic/mining/goldgrub/proc/burrow()// Begin the chase to kill the goldgrub in time
-	if(stat == CONSCIOUS)
-		visible_message("<span class='danger'>[src] buries into the ground, vanishing from sight!</span>")
-		qdel(src)

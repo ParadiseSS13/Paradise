@@ -46,11 +46,10 @@
 
 /datum/ai_behavior/interact_with_target/mine_wall/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
 	var/mob/living/basic/living_pawn = controller.pawn
-	var/turf/closed/mineral/target = controller.blackboard[target_key]
-	var/is_gibtonite_turf = istype(target, /turf/closed/mineral/gibtonite)
+	var/turf/simulated/mineral/target = controller.blackboard[target_key]
 	if(!controller.ai_interact(target = target))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
-	if(is_gibtonite_turf)
+	if(istype(target) && istype(target.ore, /datum/ore/gibtonite))
 		living_pawn.manual_emote("sighs...") // accept whats about to happen to us
 
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED

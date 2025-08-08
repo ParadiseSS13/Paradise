@@ -14,6 +14,10 @@
 #define BB_BASIC_MOB_FLEE_TARGET_HIDING_LOCATION "BB_BASIC_FLEE_TARGET_HIDING_LOCATION"
 /// Key defining the targeting strategy for things to flee from
 #define BB_FLEE_TARGETING_STRATEGY "BB_FLEE_TARGETING_STRATEGY"
+/// are we ready to breed?
+#define BB_BREED_READY "BB_breed_ready"
+/// maximum kids we can have
+#define BB_MAX_CHILDREN "BB_max_children"
 /// Key defining how far we attempt to get away from something we're fleeing from
 #define BB_BASIC_MOB_FLEE_DISTANCE "BB_BASIC_FLEE_DISTANCE"
 #define DEFAULT_BASIC_FLEE_DISTANCE 9
@@ -56,6 +60,24 @@
 #define BB_LOW_PRIORITY_HUNTING_TARGET "BB_LOW_PRIORITY_HUNTING_TARGET"
 /// Key that holds the cooldown for our hunting subtree
 #define BB_HUNTING_COOLDOWN(type) "BB_HUNTING_COOLDOWN_[type]"
+
+// Finding adult mob
+/// key holds the adult we found
+#define BB_FOUND_MOM "BB_found_mom"
+/// list of types of mobs we will look for
+#define BB_FIND_MOM_TYPES "BB_find_mom_types"
+/// list of types of mobs we must ignore
+#define BB_IGNORE_MOM_TYPES "BB_ignore_mom_types"
+
+// Baby-making blackboard
+/// Types of animal we can make babies with.
+#define BB_BABIES_PARTNER_TYPES "BB_babies_partner"
+/// Types of animal that we make as a baby.
+#define BB_BABIES_CHILD_TYPES "BB_babies_child"
+/// Current partner target
+#define BB_BABIES_TARGET "BB_babies_target"
+/// Timeout for finding partners when theres too many of us in 1 location
+#define BB_PARTNER_SEARCH_TIMEOUT "BB_partner_search_timeout"
 
 // Food and eating
 
@@ -190,17 +212,3 @@
 #define BB_SPIDER_EGG_LAYING_ACTION "BB_spider_egg_laying_action"
 /// Key used by changelings who control spiders
 #define BB_CHANGELING_SPIDER_ORDER "BB_changeling_spider_order"
-
-// goldgrub keys
-/// key that tells the wall we will mine
-#define BB_TARGET_MINERAL_WALL "BB_target_mineral_wall"
-/// key that holds our spit ability
-#define BB_SPIT_ABILITY "BB_spit_ability"
-/// key that holds our dig ability
-#define BB_BURROW_ABILITY "BB_burrow_ability"
-/// key that holds the ore we will eat
-#define BB_ORE_TARGET "BB_ore_target"
-/// which ore types we will not eat
-#define BB_ORE_IGNORE_TYPES "BB_ore_ignore_types"
-/// key that holds the boulder we will break
-#define BB_BOULDER_TARGET "BB_boulder_target"
