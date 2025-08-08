@@ -222,7 +222,7 @@
 		network2 = linked_reactor.air_contents
 
 	// this is basically passive gate code
-	var/output_starting_pressure = network1..return_pressure()
+	var/output_starting_pressure = network1.return_pressure()
 	var/input_starting_pressure = network2.return_pressure()
 	if(output_starting_pressure >= min(target_pressure,input_starting_pressure - 10))
 		//No need to pump gas if target is already reached or input pressure is too low
@@ -245,3 +245,19 @@
 		parent.update = 1
 
 	return 1
+
+/obj/machinery/atmospherics/unary/reactor_gas_node/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(linked_reactor)
+		to_chat(user, "<span class='alert'>The gas node is already linked </span>")
+		return
+	if(default_change_direction_wrench(user, used))
+		linked_reactor = null
+		var/turf/T = get_step(src, dir)
+		for(var/obj/machinery/power/fission_reactor/reactor in T.contents)
+			intake_vent = FALSE
+			linked_reactor = reactor
+		T = get_step(src, REVERSE_DIR(dir))
+		for(var/obj/machinery/power/fission_reactor/reactor in T.contents)
+			intake_vent = TRUE
+			linked_reactor = reactor
+		update_icon(UPDATE_OVERLAYS)
