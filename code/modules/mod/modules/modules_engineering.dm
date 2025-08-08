@@ -173,14 +173,13 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 3
 	incompatible_modules = list(/obj/item/mod/module/firefighting_tank)
 	device = /obj/item/extinguisher/mini/nozzle/mod
-	// Used by nozzle code.
-	var/volume = 500
 
 /obj/item/extinguisher/mini/nozzle/mod
 	name = "modsuit extinguisher nozzle"
 	desc = "A heavy duty nozzle attached to a modsuit's internal tank."
 	metal_regen_time = 5 SECONDS
 	nanofrost_cooldown_time = 10 SECONDS
+	tank_type = /obj/item/mod/module/firefighting_tank
 
 /obj/item/extinguisher/mini/nozzle/mod/update_icon_state()
 	switch(nozzle_mode)

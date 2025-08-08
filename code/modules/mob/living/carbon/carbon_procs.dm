@@ -751,9 +751,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 				add_attack_logs(src, throwable_mob, "Thrown from [start_T_descriptor] with the target [end_T_descriptor]")
 
-	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
+	else if(!(I.flags & ABSTRACT) && drop_item_to_ground(I, silent = TRUE)) //can't throw abstract items, can't pretend to throw items that we are unable to drop
 		thrown_thing = I
-		drop_item_to_ground(I, silent = TRUE)
 
 		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
 			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")

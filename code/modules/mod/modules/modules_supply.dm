@@ -341,7 +341,7 @@
 	armor = list(MELEE = 4, BULLET = 1, LASER = 2, ENERGY = 1, BOMB = 4, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/mod/module/ash_accretion/on_suit_activation()
-	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
+	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 
 /obj/item/mod/module/ash_accretion/on_suit_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
@@ -367,7 +367,7 @@
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
 	return ..()
 
-/obj/item/mod/module/ash_accretion/proc/on_move(atom/source, atom/oldloc, dir, forced)
+/obj/item/mod/module/ash_accretion/proc/on_moved(atom/source, atom/oldloc, dir, forced)
 	if(!isturf(mod.wearer.loc)) //dont lose ash from going in a locker
 		return
 	if(traveled_tiles) //leave ash every tile

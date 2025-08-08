@@ -52,7 +52,6 @@
 		mod.bag = null
 		return
 	qdel(bag)
-	UnregisterSignal(mod.chestplate, COMSIG_ITEM_PRE_UNEQUIP)
 
 /obj/item/mod/module/storage/large_capacity
 	name = "MOD expanded storage module"

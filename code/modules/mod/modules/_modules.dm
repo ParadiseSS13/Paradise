@@ -66,10 +66,10 @@
 		device = new device(src)
 		device.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		device.slot_flags = null
-		device.w_class = WEIGHT_CLASS_HUGE
 		device.materials = null
+		RegisterSignal(device, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(on_move), override = TRUE)
+		RegisterSignal(device, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(on_drop), override = TRUE)
 		RegisterSignal(device, COMSIG_PARENT_QDELETING, PROC_REF(on_device_deletion))
-		RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 
 /obj/item/mod/module/Destroy()
 	mod?.uninstall(src)
@@ -115,8 +115,6 @@
 		if(device)
 			if(mod.wearer.put_in_hands(device))
 				to_chat(mod.wearer, "<span class='notice'>[device] extended.</span>")
-				RegisterSignal(mod.wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
-				RegisterSignal(mod.wearer, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dropkey))
 			else
 				to_chat(mod.wearer, "<span class='warning'>You cannot extend [device]!</span>")
 				if(device.loc != src)
@@ -149,8 +147,6 @@
 
 		if(device)
 			mod.wearer.transfer_item_to(device, src, force = TRUE)
-			UnregisterSignal(mod.wearer, COMSIG_ATOM_EXITED)
-			UnregisterSignal(mod.wearer, COMSIG_MOB_WILLINGLY_DROP)
 		else
 			UnregisterSignal(mod.wearer, used_signal)
 			used_signal = null
@@ -263,18 +259,19 @@
 /obj/item/mod/module/proc/configure_edit(key, value)
 	return
 
-/// Called when the device moves to a different place on active modules
-/obj/item/mod/module/proc/on_exit(datum/source, atom/movable/part, direction)
-	SIGNAL_HANDLER
+/// Prevents devices from moving on their own
+/obj/item/mod/module/proc/on_move()
+	SIGNAL_HANDLER // COMSIG_MOVABLE_PRE_MOVE
 
-	if(!active)
-		return
-	if(part.loc == src)
-		return
-	if(part.loc == mod.wearer)
-		return
-	if(part == device)
-		on_deactivation(display_message = FALSE)
+	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+
+/// Prevents devices from being able to be thrown, dropped, inserted etc.
+/obj/item/mod/module/proc/on_drop(datum/source, mob/user, atom/destination)
+	SIGNAL_HANDLER // COMSIG_ITEM_PRE_UNEQUIP
+
+	if(destination != src)
+		on_deactivation()
+		return COMPONENT_ITEM_BLOCK_UNEQUIP
 
 /// Called when the device gets deleted on active modules
 /obj/item/mod/module/proc/on_device_deletion(datum/source)
