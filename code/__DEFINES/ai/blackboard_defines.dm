@@ -190,3 +190,17 @@
 #define BB_SPIDER_EGG_LAYING_ACTION "BB_spider_egg_laying_action"
 /// Key used by changelings who control spiders
 #define BB_CHANGELING_SPIDER_ORDER "BB_changeling_spider_order"
+
+// goldgrub keys
+/// key that tells the wall we will mine
+#define BB_TARGET_MINERAL_WALL "BB_target_mineral_wall"
+/// key that holds our spit ability
+#define BB_SPIT_ABILITY "BB_spit_ability"
+/// key that holds our dig ability
+#define BB_BURROW_ABILITY "BB_burrow_ability"
+/// key that holds the ore we will eat
+#define BB_ORE_TARGET "BB_ore_target"
+/// which ore types we will not eat
+#define BB_ORE_IGNORE_TYPES "BB_ore_ignore_types"
+/// key that holds the boulder we will break
+#define BB_BOULDER_TARGET "BB_boulder_target"
