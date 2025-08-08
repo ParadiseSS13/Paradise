@@ -162,7 +162,6 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/ranged_burst_interval = 0.2 SECONDS
 	/// Time between bursts
 	var/ranged_cooldown = 2 SECONDS
-
 	/// What casing type is the projectile?
 	var/casing_type
 	/// What projectile do we shoot?
@@ -275,6 +274,16 @@ RESTRICT_TYPE(/mob/living/basic)
 				create_debug_log("woke up, trigger reason: [reason]")
 	med_hud_set_status()
 
+/mob/living/basic/revive()
+	..()
+	density = initial(density)
+	health = maxHealth
+	icon = initial(icon)
+	icon_state = icon_living
+	density = initial(density)
+	if(TRAIT_FLYING in initial_traits)
+		ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
+
 /mob/living/basic/death(gibbed)
 	. = ..()
 	if(!.)
@@ -293,6 +302,8 @@ RESTRICT_TYPE(/mob/living/basic)
 	if(HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))
 		SSmobs.xenobiology_mobs--
 	if(basic_mob_flags & DEL_ON_DEATH)
+		// Moves them to their turf to prevent rendering problems
+		forceMove(get_turf(src))
 		// From simplemob implementation; prevent infinite loops if the mob
 		// Destroy() is overridden in such a manner as to cause a call to
 		// death() again. One hopes this isn't still necessary but whatevs

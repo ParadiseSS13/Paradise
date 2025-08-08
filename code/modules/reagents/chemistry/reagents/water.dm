@@ -106,7 +106,7 @@
 		for(var/thing in data["viruses"])
 			var/datum/disease/D = thing
 
-			if(D.spread_flags & SPECIAL || D.spread_flags & NON_CONTAGIOUS)
+			if(D.spread_flags & SPREAD_SPECIAL || D.spread_flags & SPREAD_NON_CONTAGIOUS)
 				continue
 
 			if(method == REAGENT_TOUCH)
@@ -120,6 +120,13 @@
 			C.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, C.nutrition + 10))
 			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 	..()
+
+/datum/reagent/blood/reaction_temperature(exposed_temperature, exposed_volume)
+	// If the blood goes above 60C kill all viruses
+	if(exposed_temperature > VIRUS_DISINFECTION_TEMP)
+		data["viruses"] = list()
+	..()
+
 
 /datum/reagent/blood/on_new(list/data)
 	if(istype(data))
@@ -151,15 +158,38 @@
 
 		// Stop issues with the list changing during mixing.
 		var/list/to_mix = list()
+		var/list/disease_ids = list()
+		var/list/stages = list()
 
 		for(var/datum/disease/advance/AD in mix1)
-			to_mix += AD
-		for(var/datum/disease/advance/AD in mix2)
-			to_mix += AD
+			if(!(AD.GetDiseaseID() in disease_ids))
+				disease_ids += AD.GetDiseaseID()
+				stages[AD.GetDiseaseID()] = list(AD.stage)
+				to_mix += AD
+			if(!(AD.stage in stages[AD.GetDiseaseID()]))
+				stages[AD.GetDiseaseID()] += list(AD.stage)
+				to_mix += AD
 
-		var/datum/disease/advance/AD = Advance_Mix(to_mix)
-		if(AD)
-			var/list/preserve = list(AD)
+		for(var/datum/disease/advance/AD in mix2)
+			if(!(AD.GetDiseaseID() in disease_ids))
+				disease_ids += AD.GetDiseaseID()
+				stages[AD.GetDiseaseID()] = list(AD.stage)
+				to_mix += AD
+			if(!(AD.stage in stages[AD.GetDiseaseID()]))
+				stages[AD.GetDiseaseID()] += list(AD.stage)
+				to_mix += AD
+
+		var/list/result_diseases = list()
+		if(length(disease_ids) == 1)
+			for(var/datum/disease/advance/AD in to_mix)
+				result_diseases += AD.Copy()
+		else
+			var/datum/disease/advance/result_virus = Advance_Mix(to_mix)
+			if(istype(result_virus))
+				result_diseases = list(result_virus)
+
+		if(length(result_diseases))
+			var/list/preserve = result_diseases
 			for(var/D in data["viruses"])
 				if(!istype(D, /datum/disease/advance))
 					preserve += D
@@ -187,6 +217,19 @@
 			blood_prop = new(T)
 			blood_prop.blood_DNA["UNKNOWN DNA STRUCTURE"] = "X*"
 
+/// If irradiated by gamma radiation and there are advanced viruses in the blood become a sample of viral genetic data
+/datum/reagent/blood/reaction_radiation(amount, emission_type)
+	if(emission_type == GAMMA_RAD && amount > 100)
+		if(data && data["viruses"])
+			var/list/strains = list("radiation" = list())
+			for(var/datum/disease/advance/virus in data["viruses"])
+				strains["radiation"] += virus.strain
+			if(length(strains["radiation"]))
+				var/blood_volume = volume
+				holder.remove_reagent(id, blood_volume)
+				holder.add_reagent("virus_genes", blood_volume, strains)
+
+
 /datum/reagent/vaccine
 	//data must contain virus type
 	name = "Vaccine"
@@ -199,7 +242,7 @@
 		for(var/thing in M.viruses)
 			var/datum/disease/D = thing
 			if(D.GetDiseaseID() in data)
-				D.cure()
+				D.make_resistant(M)
 		M.resistances |= data
 
 /datum/reagent/vaccine/on_merge(list/incoming_data)
