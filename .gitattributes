@@ -5,5 +5,5 @@
 ## WARNING: DEPRECATED
 ## Uncomment then run "bash tgui/bin/tgui --install-git-hooks" to activate
 ## TGUI bundle merge drivers
-#*.bundle.* binary merge=tgui-merge-bundle
-#*.chunk.* binary merge=tgui-merge-bundle
+*.bundle.* binary # merge=tgui-merge-bundle
+*.chunk.* binary # merge=tgui-merge-bundle
