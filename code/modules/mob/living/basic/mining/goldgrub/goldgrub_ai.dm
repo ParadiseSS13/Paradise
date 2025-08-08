@@ -1,4 +1,3 @@
-#define BURROW_RANGE 5
 /datum/ai_controller/basic_controller/goldgrub
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
