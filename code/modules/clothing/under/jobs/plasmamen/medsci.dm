@@ -3,12 +3,14 @@
 	desc = "A suit designed for the station's more plasma-based doctors."
 	icon_state = "doctor_envirosuit"
 	item_color = "doctor_envirosuit"
+	permeability_coefficient = 0.1
 
 /obj/item/clothing/under/plasmaman/cmo
 	name = "chief medical officer's plasma envirosuit"
 	desc = "A suit designed for the station's more plasma-based chief medical officer."
 	icon_state = "cmo_envirosuit"
 	item_color = "cmo_envirosuit"
+	permeability_coefficient = 0.1
 
 /obj/item/clothing/under/plasmaman/science
 	name = "science plasma envirosuit"
