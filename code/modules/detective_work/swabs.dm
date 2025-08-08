@@ -85,15 +85,16 @@
 			return
 
 		if(sample_type)
-			if(!dispenser)
-				dna = target_dna
-				gsr = target_gsr
-				set_used(sample_type, H)
-			else
-				var/obj/item/forensics/swab/S = new(get_turf(user))
-				S.dna = target_dna
-				S.gsr = target_gsr
-				S.set_used(sample_type, H)
++			if(dispenser)
++				var/obj/item/forensics/swab/S = new(get_turf(user))
++				S.dna = target_dna
++				S.gsr = target_gsr
++				S.set_used(sample_type, A)
++				user.put_in_hands(S)
++			else
++				dna = target_dna
++				gsr = target_gsr
++				set_used(sample_type, A)
 			inuse = FALSE
 			return
 		inuse = FALSE
