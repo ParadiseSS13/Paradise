@@ -4,14 +4,14 @@
 	desc = "This virus infects humanoids and drives them insane with a hunger for flesh, along with possessing regenerative abilities."
 	max_stages = 7
 	spread_text = "Blood and Saliva"
-	spread_flags = BLOOD
+	spread_flags = SPREAD_BLOOD
 	cure_text = "Anti-plague viral solutions"
 	cures = list()
 	agent = ""
 	viable_mobtypes = list(/mob/living/carbon/human)
-	severity = BIOHAZARD
+	severity = VIRUS_BIOHAZARD
 	allow_dead = TRUE
-	disease_flags = CAN_CARRY
+	disease_flags = VIRUS_CAN_CARRY
 	virus_heal_resistant = TRUE
 	stage_prob = 100 // It isn't actually 100%, but is instead based on a timer
 	cure_chance = 80
@@ -180,7 +180,7 @@
 	return ..()
 
 /datum/disease/zombie/wizard
-		spread_flags = NON_CONTAGIOUS
+		spread_flags = SPREAD_NON_CONTAGIOUS
 		bypasses_immunity = TRUE
 		spread_text = "Non Contagious"
 		cure_text = "Anti-magic"
