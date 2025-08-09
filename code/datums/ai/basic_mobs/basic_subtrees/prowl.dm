@@ -26,3 +26,7 @@
 	hunt_targets = list(/turf/simulated/floor/plasteel)
 	hunt_range = 8
 	hunt_chance = 50
+
+/datum/ai_planning_subtree/find_and_hunt_target/prowl/lavaland
+	hunt_targets = list(/turf/simulated/floor/plating/asteroid)
+	hunt_chance = 15

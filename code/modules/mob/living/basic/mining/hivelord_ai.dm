@@ -13,6 +13,7 @@
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/summon_brood,
 		/datum/ai_planning_subtree/flee_target/legion,
+		/datum/ai_planning_subtree/find_and_hunt_target/prowl/lavaland,
 	)
 
 /// With evil speech
@@ -22,6 +23,7 @@
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/summon_brood,
 		/datum/ai_planning_subtree/flee_target/legion,
+		/datum/ai_planning_subtree/find_and_hunt_target/prowl/lavaland,
 	)
 
 /datum/ai_controller/basic_controller/hivelord/legion/advanced

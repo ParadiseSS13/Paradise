@@ -54,7 +54,7 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	friendly_verb_continuous = "buzzes near"
 	friendly_verb_simple = "buzz near"
-	speed = 2
+	speed = -1 // Faster than a person
 	maxHealth = 1
 	health = 1
 	harm_intent_damage = 5
