@@ -209,7 +209,7 @@
 			if(user)
 				to_chat(user, "<span class='warning'>[src] is no longer usable!</span>")
 			return
-		var/mob/living/simple_animal/hostile/lightgeist/W = new /mob/living/simple_animal/hostile/lightgeist(get_turf(loc))
+		var/mob/living/basic/lightgeist/W = new /mob/living/basic/lightgeist(get_turf(loc))
 		W.key = user.key
 
 /obj/machinery/anomalous_crystal/helpers/Topic(href, href_list)
@@ -221,63 +221,6 @@
 /obj/machinery/anomalous_crystal/helpers/Destroy()
 	GLOB.poi_list -= src
 	return ..()
-
-/mob/living/simple_animal/hostile/lightgeist
-	name = "lightgeist"
-	desc = "This small floating creature is a completely unknown form of life... being near it fills you with a sense of tranquility."
-	icon_state = "lightgeist"
-	icon_living = "lightgeist"
-	icon_dead = "butterfly_dead"
-	response_help = "waves away"
-	response_disarm = "brushes aside"
-	response_harm = "disrupts"
-	speak_emote = list("warps")
-	maxHealth = 2
-	health = 2
-	harm_intent_damage = 1
-	friendly = "mends"
-	density = FALSE
-	initial_traits = list(TRAIT_FLYING)
-	obj_damage = 0
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	ventcrawler = VENTCRAWLER_ALWAYS
-	mob_size = MOB_SIZE_TINY
-	gold_core_spawnable = HOSTILE_SPAWN
-
-	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	luminosity = 4
-	faction = list("neutral")
-	del_on_death = TRUE
-	unsuitable_atmos_damage = 0
-	minbodytemp = 0
-	maxbodytemp = 1500
-	environment_smash = 0
-	AIStatus = AI_OFF
-	stop_automated_movement = TRUE
-	var/heal_power = 5
-
-/mob/living/simple_animal/hostile/lightgeist/Initialize(mapload)
-	. = ..()
-	remove_verb(src, /mob/living/verb/pulled)
-	remove_verb(src, /mob/verb/me_verb)
-	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	med_hud.add_hud_to(src)
-
-/mob/living/simple_animal/hostile/lightgeist/Destroy()
-	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	med_hud.remove_hud_from(src)
-	return ..()
-
-/mob/living/simple_animal/hostile/lightgeist/AttackingTarget()
-	. = ..()
-	if(isliving(target) && target != src)
-		var/mob/living/L = target
-		if(L.stat != DEAD)
-			L.heal_overall_damage(heal_power, heal_power)
-			new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
-
-/mob/living/simple_animal/hostile/lightgeist/ghost()
-	qdel(src)
 
 /// Allows you to bodyjack small animals, then exit them at your leisure, but you can only do this once per activation. Because they blow up. Also, if the bodyjacked animal dies, SO DO YOU.
 /obj/machinery/anomalous_crystal/possessor
