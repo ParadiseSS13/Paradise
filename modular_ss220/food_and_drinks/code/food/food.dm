@@ -756,29 +756,6 @@
 		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
-// Sundae
-/obj/item/food/sundae
-	name = "Сандей"
-	desc = "Сливочное удовольствие."
-	icon = 'modular_ss220/food_and_drinks/icons/food.dmi'
-	icon_state = "sundae"
-	filling_color = "#F5DEB8"
-	list_reagents = list("nutriment" = 4, "plantmatter" = 2, "bananajucie" = 4, "cream" = 3)
-	tastes = list("банан" = 1, "вишня" = 1, "крем" = 1)
-	bitesize = 5
-
-/datum/cooking/recipe/sundae
-	container_type = /obj/item/reagent_containers/cooking/icecream_bowl
-	product_type = /obj/item/food/sundae
-	catalog_category = COOKBOOK_CATEGORY_DESSERTS
-	steps = list(
-		PCWJ_ADD_PRODUCE(/obj/item/food/grown/cherries),
-		PCWJ_ADD_PRODUCE(/obj/item/food/grown/banana),
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/dough),
-		PCWJ_ADD_REAGENT("cream", 10),
-		PCWJ_USE_ICE_CREAM_MIXER(10 SECONDS),
-	)
-
 // Bun-Bun
 /obj/item/food/bunbun
 	name = "Бун-Бун"
