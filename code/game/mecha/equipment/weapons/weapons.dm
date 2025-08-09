@@ -457,6 +457,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/dropwall
 	name = "\improper DWDL-04 Dropwall Launcher"
+	desc = "A large, semi-automatic launcher designed by Shellguard Munitions to fire dropwall shield generators."
 	icon_state = "mecha_grenadelnchr"
 	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/grenade/barrier/dropwall
