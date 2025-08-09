@@ -49,7 +49,7 @@
 
 /mob/living/basic/alien/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/aggro_emote, emote_list = list("flutters"), emote_chance = 20)
+	AddComponent(/datum/component/aggro_emote, emote_list = list("hisses"), emote_chance = 20)
 
 /mob/living/basic/alien/proc/spread_plants()
 	if(!isturf(loc) || isspaceturf(loc))
