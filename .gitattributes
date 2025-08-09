@@ -2,8 +2,10 @@
 *.dmm text eol=lf merge=dmm
 *.dmi binary merge=dmi
 
+## TGUI bundles
+*.bundle.* binary
+*.chunk.* binary
 ## WARNING: DEPRECATED
-## Uncomment then run "bash tgui/bin/tgui --install-git-hooks" to activate
-## TGUI bundle merge drivers
-*.bundle.* binary # merge=tgui-merge-bundle
-*.chunk.* binary # merge=tgui-merge-bundle
+## To activate the merge drivers, comment the above lines and uncomment the below lines
+# *.bundle.* binary merge=tgui-merge-bundle
+# *.chunk.* binary merge=tgui-merge-bundle
