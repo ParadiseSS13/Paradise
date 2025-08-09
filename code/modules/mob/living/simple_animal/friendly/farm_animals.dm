@@ -226,7 +226,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	update_appearance(UPDATE_ICON_STATE)
 	GLOB.chicken_count += 1
 
-/mob/living/simple_animal/chick/scatter_atom(x_offset, y_offset)
+/mob/living/simple_animal/chicken/scatter_atom(x_offset, y_offset)
 	pixel_x = rand(-6, 6) + x_offset
 	pixel_y = rand(0, 10) + y_offset
 

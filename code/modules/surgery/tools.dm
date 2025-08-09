@@ -63,6 +63,7 @@
 
 /obj/item/cautery/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
@@ -87,10 +88,6 @@
 		)
 	cig.light(user, target)
 	return TRUE
-
-/obj/item/cautery/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/cautery/augment
 	desc = "A heated element that cauterizes wounds."
