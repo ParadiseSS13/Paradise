@@ -691,10 +691,10 @@ SUBSYSTEM_DEF(ticker)
 	// Besides, what's another loop over the /entire player list/
 	var/kudos_message
 	for(var/mob/M in GLOB.player_list)
-		var/kudos = M.mind?.kudos_received_from
+		var/kudos = M.client?.persistent.kudos_received_from
 		if(length(kudos))
 			kudos_message = pick(length(kudos) > 5 ? special_encouragement_messages : base_encouragement_messages)
-			to_chat(M, "<span class='green big'>You received <b>[length(M.mind.kudos_received_from)]</b> kudos from other players this round! [kudos_message]</span>")
+			to_chat(M, "<span class='green big'>You received <b>[length(kudos)]</b> kudos from other players this round! [kudos_message]</span>")
 
 	// Seal the blackbox, stop collecting info
 	SSblackbox.Seal()
