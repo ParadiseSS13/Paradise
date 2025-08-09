@@ -1264,7 +1264,7 @@
 			if(JOB_XENOBIOLOGIST)
 				clothes_s = new /icon('icons/mob/clothing/under/rnd.dmi', "science_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_tox_open"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/suits/labcoat.dmi', "labcoat_science_open"), ICON_OVERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "nitrilegloves"), ICON_OVERLAY)
 				if(prob(50))
 					clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "sterile"), ICON_OVERLAY)
