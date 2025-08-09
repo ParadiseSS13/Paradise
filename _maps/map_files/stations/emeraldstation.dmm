@@ -7981,7 +7981,9 @@
 	},
 /area/station/medical/reception)
 "bDz" = (
-/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
 "bDA" = (
@@ -29474,7 +29476,9 @@
 	},
 /area/station/hallway/secondary/entry)
 "fPw" = (
-/obj/machinery/atmospherics/portable/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
 "fPx" = (
@@ -98135,7 +98139,9 @@
 /turf/simulated/floor/wood,
 /area/station/public/fitness)
 "twp" = (
-/obj/machinery/atmospherics/portable/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/airless/nodecay,
 /area/station/engineering/atmos/asteroid_filtering)
 "twq" = (
