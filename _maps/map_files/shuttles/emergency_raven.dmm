@@ -1211,7 +1211,7 @@
 "zR" = (
 /obj/machinery/door_control{
 	id = "ravenbridgeblast";
-	name = "Cockpick Airlock Blastdoor Control";
+	name = "Cockpit Airlock Blast Door Control";
 	pixel_x = 5;
 	pixel_y = -35;
 	req_access = list(19)
