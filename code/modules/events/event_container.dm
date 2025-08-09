@@ -197,7 +197,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear, 0),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear/honk,	0),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/vent_clog,	25),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Disposals Clog",			/datum/event/disposals_clog,			250),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/disposals_clog, 250),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/wormholes,	15),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_pyro, 15),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_cryo, 15),
@@ -225,9 +225,9 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter, 20, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 20, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 20, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Demonic Incursion", 	/datum/event/demon_incursion, 20, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Immovable Rod",		/datum/event/immovable_rod,	0, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Disease Outbreak",			/datum/event/disease_outbreak, 	15, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/demon_incursion, 20, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod,	0, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/disease_outbreak, 	15, TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Pulse Demon Infiltration",	/datum/event/spawn_pulsedemon,	20,	is_one_shot = TRUE)
 	)
