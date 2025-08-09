@@ -81,80 +81,80 @@
 	secondary_theme = "gradient"
 
 /datum/sprite_accessory/hair/skrell/skr_diablacktentacle_m
-	name = "Black headress Skrell Male Tentacles"
+    name = "Black headdress Skrell Male Tentacles"
 	icon_state = "male"
 	secondary_theme = "blackdia"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_diablacktentacle_f
-	name = "Black headress Skrell Female Tentacles"
+    name = "Black headdress Skrell Female Tentacles"
 	icon_state = "female"
 	secondary_theme = "blackdia"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_diablacktentacleslong
-	name = "Black headress Long Skrell Tentacles"
+    name = "Black headdress Long Skrell Tentacles"
 	icon_state = "verylong"
 	secondary_theme = "blackdia"
 	no_sec_colour = 1
 
 
 /datum/sprite_accessory/hair/skrell/skr_diagoldtentacle_m
-	name = "Gold headress Skrell Male Tentacles"
+    name = "Gold headdress Skrell Male Tentacles"
 	icon_state = "male"
 	secondary_theme = "golddia"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_diagoldtentacle_f
-	name = "Gold headress Skrell Female Tentacles"
+    name = "Gold headdress Skrell Female Tentacles"
 	icon_state = "female"
 	secondary_theme = "golddia"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_diagoldtentacleslong
-	name = "Gold headress Long Skrell Tentacles"
+    name = "Gold headdress Long Skrell Tentacles"
 	icon_state = "verylong"
 	secondary_theme = "golddia"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_diasilvertentacle_m
-	name = "Silver headress Skrell Male Tentacles"
+    name = "Silver headdress Skrell Male Tentacles"
 	icon_state = "male"
 	secondary_theme = "silvdia"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_diasilvertentacle_f
-	name = "Silver headress Skrell Female Tentacles"
+    name = "Silver headdress Skrell Female Tentacles"
 	icon_state = "female"
 	secondary_theme = "silvdia"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_diasilvertentacleslong
-	name = "Silver headress Long Skrell Tentacles"
+    name = "Silver headdress Long Skrell Tentacles"
 	icon_state = "verylong"
 	secondary_theme = "silvdia"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_festivetentacle_m
-	name = "Festive headress Skrell Male Tentacles"
+    name = "Festive headdress Skrell Male Tentacles"
 	icon_state = "male"
 	secondary_theme = "fest"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_festivetentacle_f
-	name = "Festive headress Skrell Female Tentacles"
+    name = "Festive headdress Skrell Female Tentacles"
 	icon_state = "female"
 	secondary_theme = "fest"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_festivetentacleslong
-	name = "Festive headress Long Skrell Tentacles"
+    name = "Festive headdress Long Skrell Tentacles"
 	icon_state = "verylong"
 	secondary_theme = "fest"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_festivetentaclesshort
-	name = "Festive headress Short Skrell Tentacles"
+    name = "Festive headdress Short Skrell Tentacles"
 	icon_state = "veryshort"
 	secondary_theme = "fest"
 	no_sec_colour = 1
