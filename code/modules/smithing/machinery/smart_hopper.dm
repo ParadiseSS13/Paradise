@@ -38,7 +38,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 	// Try to link to magma crucible on initialize. Link to the first crucible it can find.
-	for(var/obj/machinery/magma_crucible/crucible in view(2, src))
+	for(var/obj/machinery/magma_crucible/crucible in view(3, src))
 		linked_crucible = crucible
 		linked_crucible.linked_machines |= src
 		return
@@ -220,3 +220,32 @@
 	var/time_to_animate = max(ore_amount * 2, 1 SECONDS)
 	addtimer(VARSET_CALLBACK(src, icon_state, "hopper"), time_to_animate)
 	linked_crucible.animate_transfer(time_to_animate)
+
+/obj/machinery/mineral/smart_hopper/attack_ghost(mob/dead/observer/user)
+	. = ..()
+	ui_interact(user)
+
+/obj/machinery/mineral/smart_hopper/attack_hand(mob/user)
+	. = ..()
+	ui_interact(user)
+
+/obj/machinery/mineral/smart_hopper/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/mineral/smart_hopper/ui_interact(mob/user, datum/tgui/ui = null)
+	if(!linked_crucible)
+		return FALSE
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "MaterialContainer", name)
+		ui.open()
+
+/obj/machinery/mineral/smart_hopper/ui_data(mob/user)
+	..()
+	var/datum/component/material_container/material_container = linked_crucible.GetComponent(/datum/component/material_container)
+	return material_container.get_ui_data(user)
+
+/obj/machinery/mineral/smart_hopper/ui_static_data(mob/user)
+	..()
+	var/datum/component/material_container/material_container = linked_crucible.GetComponent(/datum/component/material_container)
+	return material_container.get_ui_static_data(user, TRUE, point_upgrade)
