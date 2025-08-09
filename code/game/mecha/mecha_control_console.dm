@@ -181,6 +181,9 @@
 		mech.occupant_message("<span class='danger'>Coordination system calibration failure. Manual restart required.</span>")
 		SEND_SOUND(mech.occupant, sound('sound/machines/warning-buzzer.ogg'))
 
+	do_sparks(3, FALSE, mech.loc)
+	var/obj/effect/temp_visual/emp/sabotage_overlay = new(mech.loc)
+	sabotage_overlay.layer = ABOVE_ALL_MOB_LAYER
 	charges_left--
 	if(charges_left < 1)
 		qdel(src)
