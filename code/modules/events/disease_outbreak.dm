@@ -22,10 +22,6 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	var/list/infected_players = list()
 	var/first_infection = FALSE
 
-
-
-
-
 /datum/event/disease_outbreak/setup()
 	if(isemptylist(diseases_minor) && isemptylist(diseases_moderate_major))
 		populate_diseases()
@@ -83,6 +79,11 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	if(length(infected_players) <= 0 && first_infection)
 		kill()
 	. = ..()
+
+/// Cost of ongoing disease outbreak. 1 medical personnal per 2 infected at major severity.
+/datum/event/disease_outbreak/event_resource_cost()
+	return list("[ASSIGNMENT_MEDICAL]" = severity * length(infected_players) / 6)
+
 
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
 /datum/event/disease_outbreak/proc/create_virus(max_severity = 6)

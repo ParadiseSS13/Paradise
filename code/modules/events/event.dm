@@ -219,5 +219,6 @@
 /datum/event/proc/fake_announce()
 	return FALSE
 
+/// The amount of people in different roles needed to handle an ongoing event.
 /datum/event/proc/event_resource_cost()
 	return role_requirements
