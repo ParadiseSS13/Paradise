@@ -257,11 +257,11 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		return
 	for(var/datum/disease/advance/D in BL.data["viruses"])
 		// Assume we succeed for each virus and change that if we found out it's wrong
-		completed = TRUE
+		var/valid = TRUE
 		var/missing_symptoms = list()
 		// We have the wrong numnber of symptoms. Complain about it if possible and required, then go to next virus.
 		if(length(D.symptoms) != length(goal_symptoms))
-			completed = FALSE
+			valid = FALSE
 			if(!simulate && manifest && complain)
 				var/datum/economy/line_item/item = new
 				item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
@@ -273,12 +273,12 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		for(var/S in goal_symptoms)
 			var/datum/symptom/SY = locate(S) in D.symptoms
 			if(!SY)
-				completed = FALSE
+				valid = FALSE
 				missing_symptoms += initial(SY.name)
 
 
 		// We are missing some symptoms we need. Complain about it if possible and required, then go to next virus.
-		if(!completed)
+		if(!valid)
 			if(!simulate && manifest && complain)
 				var/datum/economy/line_item/item = new
 				item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
@@ -287,18 +287,20 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 				manifest.line_items += item
 			continue
 
-		if(completed)
-			if(manifest)
-				var/datum/economy/line_item/item = new
-				item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
-				item.credits = 0
-				item.zero_is_good = TRUE
-				item.reason = "Received [BL.volume] units of usable virus [D.name] for [name]."
-				manifest.line_items += item
-			delivered_amount += BL.volume
-			if(delivered_amount >= delivery_goal)
-				check_total_virology_goals_completion()
-				return TRUE
+		if(simulate)
+			return TRUE
+		if(manifest)
+			var/datum/economy/line_item/item = new
+			item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
+			item.credits = 0
+			item.zero_is_good = TRUE
+			item.reason = "Received [BL.volume] units of usable virus [D.name] for [name]."
+			manifest.line_items += item
+		delivered_amount += BL.volume
+		if(delivered_amount >= delivery_goal)
+			completed = TRUE
+			check_total_virology_goals_completion()
+			return TRUE
 
 /datum/virology_goal/virus/stealth
 	name = "Specific Viral Sample Request (Stealth)"
