@@ -154,7 +154,6 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 
 /obj/machinery/pandemic/proc/create_culture(name, bottle_type = "culture", cooldown = 50)
 	var/obj/item/reagent_containers/glass/bottle/B = new/obj/item/reagent_containers/glass/bottle(loc)
-	B.icon_state = "bottle"
 	B.scatter_atom()
 	replicator_cooldown(cooldown)
 	B.name = "[name] [bottle_type] bottle"
