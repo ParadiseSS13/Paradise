@@ -249,6 +249,7 @@
 	volume = 50000
 	spray_maxrange = 10
 	spray_currentrange = 10
+	spray_minrange = 5
 	list_reagents = list("cleaner" = 50000)
 	delay = 0.1 SECONDS // it costs 1000 reagents to fire this cleaner... for 12 seconds.
 
