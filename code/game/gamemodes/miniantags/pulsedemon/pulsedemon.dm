@@ -28,6 +28,8 @@
 	response_disarm = "pushes their hand through"
 	response_harm = "punches their fist through"
 	deathmessage = "fizzles out into faint sparks, leaving only a slight trail of smoke..."
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0) // "I don't need air, just MORE POWER!"
+	unsuitable_atmos_damage = 0
 	level = 1
 	plane = FLOOR_PLANE
 	layer = ABOVE_PLATING_LAYER
