@@ -1410,7 +1410,7 @@
 	refresh_overlay()
 
 	if(foam_level == 5)
-		owner.Immobilize(4 SECONDS)
+		owner.Immobilize(5 SECONDS)
 
 /datum/status_effect/c_foamed/proc/refresh_overlay()
 	// Refresh overlay
