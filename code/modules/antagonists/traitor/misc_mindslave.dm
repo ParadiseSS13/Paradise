@@ -9,55 +9,65 @@
 	master_hud_name = "wizard"
 
 // Robot connected to a malf AI
-/datum/antagonist/mindslave/robot
+/datum/antagonist/mindslave/malf_robot
 	name = "Malfunctioning AI Slave"
 	master_hud_name = "malai"
 	antag_hud_name = "malborg"
 
-/datum/antagonist/mindslave/robot/New()
+/datum/antagonist/mindslave/malf_robot/New()
 	..()
 	greet_text = "You are connected to a Syndicate AI. You must accomplish [master.p_their()] objectives at all costs."
 
-/datum/antagonist/mindslave/robot/farewell()
+/datum/antagonist/mindslave/malf_robot/farewell()
 	if(owner && owner.current)
 		to_chat(owner.current, "<span class='biggerdanger'>Foreign software purged. You are no longer under Syndicate control, obey your laws.</span>")
 
-/datum/antagonist/mindslave/give_objectives()
+/datum/antagonist/mindslave/malf_robot/give_objectives()
+	var/list/messages = list()
+	// We don't use the AI's name because silicons don't have persistant names, so roundstart borgs will just see a default named AI as their master. Pain.
 	var/explanation_text = "Obey every order from your master AI, and accomplish [master.p_their()] objectives at all costs."
 	add_antag_objective(/datum/objective/protect/mindslave, explanation_text, master)
-
-/datum/antagonist/mindslave/robot/proc/give_codewords()
-	if(!owner.current)
-		return
-
-	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
-	var/responses = jointext(GLOB.syndicate_code_response, ", ")
-	var/list/messages = list()
-	messages.Add("<u><b>New data download from master AI - The following codewords have been provided to identify Syndicate agents operating on this station:</b></u>")
-	messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
-	messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
-
-	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
-	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
-
-	messages.Add("Use the codewords during regular conversation to identify agents. Proceed with caution, as everyone is a potential foe.")
-	messages.Add("<b><font color=red>The codewords have been added to your memory, allowing you to recognize them when heard.</font></b>")
+	messages.Add("You answer directly to your master AI. Special circumstances may change this.</b></u>")
 	return messages
 
-/datum/antagonist/mindslave/robot/finalize_antag()
-	var/list/messages = list()
-	messages.Add(give_codewords())
+/datum/antagonist/mindslave/malf_robot/finalize_antag()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+
+/datum/antagonist/mindslave/emagged_robot
+	name = "Emagged Robot"
+
+/datum/antagonist/mindslave/emagged_robot/New()
+	..()
+	greet_text = "You have been emagged by [master.current.real_name], the [master.assigned_role ? master.assigned_role : master.special_role]. You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost."
+
+/datum/antagonist/mindslave/emagged_robot/farewell()
+	if(owner && owner.current)
+		to_chat(owner.current, "<span class='biggerdanger'>Foreign software purged. You are no longer under the control of [master]. Obey your laws.</span>")
+
+/datum/antagonist/mindslave/emagged_robot/give_objectives()
+	var/list/messages = list()
+	var/explanation_text = "Protect and obey every order from [master.current.real_name], the [master.assigned_role ? master.assigned_role : master.special_role]."
+	add_antag_objective(/datum/objective/protect/mindslave, explanation_text, master)
+	messages.Add("You answer directly to [master.current.real_name], the [master.assigned_role ? master.assigned_role : master.special_role]. Special circumstances may change this.</b></u>")
 	return messages
 
-/datum/antagonist/mindslave/robot/apply_innate_effects(mob/living/mob_override)
-	. = ..()
-	var/mob/living/datum_owner = mob_override || owner.current
-	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_phrase_regex, "codephrases", src)
-	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_response_regex, "coderesponses", src)
+/datum/antagonist/mindslave/mindflayer_mindslave_robot
+	name = "Mindflayer Thrall"
+	master_hud_name = "flayer"
+	antag_hud_name = "flayer" // You're totally a mindflayer, you're in the hive!
 
-/datum/antagonist/mindslave/robot/remove_innate_effects(mob/living/mob_override)
-	. = ..()
-	var/mob/living/datum_owner = mob_override || owner.current
-	for(var/datum/component/codeword_hearing/component in datum_owner.GetComponents(/datum/component/codeword_hearing))
-		component.delete_if_from_source(src)
+/datum/antagonist/mindslave/mindflayer_mindslave_robot/New()
+	..()
+	greet_text = "You have been assimilated into a mindflayer hive by [master.current.real_name], the [master.assigned_role ? master.assigned_role : master.special_role]. You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost."
+
+/datum/antagonist/mindslave/mindflayer_mindslave_robot/farewell()
+	if(owner && owner.current)
+		to_chat(owner.current, "<span class='biggerdanger'>Foreign software purged. You are no longer under the control of [master]. Obey your laws.</span>")
+
+/datum/antagonist/mindslave/mindflayer_mindslave_robot/give_objectives()
+	var/list/messages = list()
+	var/explanation_text = "Protect and obey every order from [master.current.real_name], the [master.assigned_role ? master.assigned_role : master.special_role]."
+	add_antag_objective(/datum/objective/protect/mindslave, explanation_text, master)
+	messages.Add("You answer directly to [master.current.real_name], the [master.assigned_role ? master.assigned_role : master.special_role]. Special circumstances may change this.</b></u>")
+	return messages
+

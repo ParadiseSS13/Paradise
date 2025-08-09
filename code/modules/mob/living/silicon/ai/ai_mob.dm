@@ -1475,7 +1475,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				qdel(A)
 	//De-malf all the connected robots too!
 	for(var/mob/living/silicon/robot/R in connected_robots)
-		R.remove_malf_robot()
+		R.remove_robot_mindslave()
 
 /mob/living/silicon/ai/proc/open_nearest_door(mob/living/target)
 	if(!istype(target))
