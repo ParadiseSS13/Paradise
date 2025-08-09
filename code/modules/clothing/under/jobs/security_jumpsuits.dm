@@ -28,6 +28,20 @@
 	item_state = "warden_corporate_skirt"
 	item_color = "warden_corporate_skirt"
 
+/obj/item/clothing/under/rank/security/warden/turtleneck
+	name = "warden's turtleneck"
+	desc = "A fancy turtleneck designed to keep the wearer warm in a cold prison. Due to budget cuts, the material does not offer any external protection."
+	icon_state = "ward_turtle"
+	item_state = "ward_turtle"
+	item_color = "ward_turtle"
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/security.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/security.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/security.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/security.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/security.dmi'
+		)
+
 /obj/item/clothing/under/rank/security/officer
 	name = "security officer's jumpsuit"
 	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection."
@@ -167,3 +181,16 @@
 	icon_state = "hos_formal"
 	item_color = "hos_formal"
 
+/obj/item/clothing/under/rank/security/head_of_security/turtleneck
+	name = "head of security's turtleneck"
+	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold security lobby. Due to budget cuts, the material does not offer any external protection."
+	icon_state = "hos_turtle"
+	item_state = "hos_turtle"
+	item_color = "hos_turtle"
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/security.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/security.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/security.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/security.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/security.dmi'
+		)
