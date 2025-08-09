@@ -5,7 +5,7 @@ Alopecia
 	Noticable.
 	Decreases resistance slightly.
 	Reduces stage speed slightly.
-	Transmittable.
+	transmissibility.
 	Intense Level.
 
 BONUS
@@ -19,15 +19,11 @@ BONUS
 	name = "Alopecia"
 	stealth = -1
 	resistance = -1
-	stage_speed = -1
-	transmittable = 2
+	transmissibility = 2
 	level = 4
 	severity = 1
 
-/datum/symptom/shedding/Activate(datum/disease/advance/A)
-	..()
-	if(!prob(SYMPTOM_ACTIVATION_PROB))
-		return
+/datum/symptom/shedding/symptom_act(datum/disease/advance/A, unmitigated)
 	if(!ishuman(A.affected_mob))
 		return
 	var/mob/living/carbon/human/H = A.affected_mob
