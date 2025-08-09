@@ -433,7 +433,7 @@
 	. = ..()
 	if(icon_state == "random-alien")
 		icon_state = "alien-[rand(1,8)]"
-	
+
 /obj/item/kirbyplants/large/alien/alien1
 	icon_state = "alien-1"
 /obj/item/kirbyplants/large/alien/alien3
@@ -519,7 +519,7 @@
 /obj/structure/bush/Initialize(mapload)
 	. = ..()
 	if(prob(20))
-		opacity = TRUE
+		set_opacity(TRUE)
 
 /*
 /obj/structure/bush/Bumped(M as mob)
