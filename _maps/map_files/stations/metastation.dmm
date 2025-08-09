@@ -42837,7 +42837,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/control)
 "gRu" = (
-/mob/living/simple_animal/mouse/brown/tom,
+/mob/living/basic/mouse/brown/tom,
 /obj/structure/sink/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
