@@ -12097,6 +12097,9 @@
 /obj/machinery/atmospherics/portable/canister/nitrogen{
 	anchored = 1
 	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "n2_sensor"
+	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
 "bOl" = (
@@ -12818,11 +12821,14 @@
 /obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "o2_sensor"
+	},
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
 "bSo" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "o2_sensor"
+/obj/effect/turf_decal/alphanumeric/oxygen{
+	dir = 4
 	},
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
@@ -13316,6 +13322,10 @@
 /obj/machinery/atmospherics/portable/canister/air{
 	anchored = 1
 	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "air_sensor";
+	output = 127
+	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
 "bUT" = (
@@ -13779,8 +13789,8 @@
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
 "bWO" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "co2_sensor"
+/obj/effect/turf_decal/alphanumeric/carbon_dioxide{
+	dir = 1
 	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
@@ -13799,8 +13809,8 @@
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
 "bWR" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "tox_sensor"
+/obj/effect/turf_decal/alphanumeric/plasma{
+	dir = 1
 	},
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
@@ -13819,8 +13829,8 @@
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
 "bWU" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "n2o_sensor"
+/obj/effect/turf_decal/alphanumeric/nitrous_oxide{
+	dir = 1
 	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
@@ -13953,6 +13963,9 @@
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide{
 	anchored = 1
 	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "co2_sensor"
+	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
 "bXx" = (
@@ -13962,6 +13975,9 @@
 /obj/machinery/atmospherics/portable/canister/toxins{
 	anchored = 1
 	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "tox_sensor"
+	},
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
 "bXz" = (
@@ -13970,6 +13986,9 @@
 "bXA" = (
 /obj/machinery/atmospherics/portable/canister/sleeping_agent{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
@@ -29763,8 +29782,8 @@
 	},
 /area/station/service/chapel/office)
 "eMF" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "n2_sensor"
+/obj/effect/turf_decal/alphanumeric/nitrogen{
+	dir = 4
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
@@ -36799,9 +36818,8 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/port2)
 "gtA" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "air_sensor";
-	output = 127
+/obj/effect/turf_decal/alphanumeric/air{
+	dir = 4
 	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
@@ -105308,6 +105326,12 @@
 /obj/effect/turf_decal/box,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/external/southeast)
+"vaB" = (
+/obj/effect/turf_decal/alphanumeric/mix{
+	dir = 1
+	},
+/turf/simulated/floor/engine/vacuum,
+/area/station/engineering/atmos)
 "vaC" = (
 /obj/effect/spawner/random/maintenance,
 /obj/structure/table,
@@ -153262,8 +153286,8 @@ bUW
 anq
 bWc
 fuk
+vaB
 bWX
-bXB
 bYf
 bDR
 ilx

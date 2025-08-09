@@ -7981,7 +7981,12 @@
 	},
 /area/station/medical/reception)
 "bDz" = (
-/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "co2_sensor"
+	},
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
 "bDA" = (
@@ -10712,6 +10717,10 @@
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
+"cdH" = (
+/obj/effect/turf_decal/alphanumeric/mix,
+/turf/simulated/floor/engine/airless,
 /area/station/engineering/atmos)
 "cdM" = (
 /obj/structure/cable{
@@ -16885,6 +16894,9 @@
 "dss" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "n2_sensor"
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
@@ -24036,6 +24048,10 @@
 	icon_state = "cafeteria"
 	},
 /area/station/security/permabrig)
+"ePR" = (
+/obj/effect/turf_decal/alphanumeric/mix,
+/turf/simulated/floor/engine/airless/nodecay,
+/area/station/engineering/atmos/asteroid_filtering)
 "ePU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/circuitboard/thermomachine,
@@ -29474,7 +29490,12 @@
 	},
 /area/station/hallway/secondary/entry)
 "fPw" = (
-/obj/machinery/atmospherics/portable/canister/sleeping_agent,
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "n2o_sensor"
+	},
+/obj/machinery/atmospherics/portable/canister/sleeping_agent{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
 "fPx" = (
@@ -40446,9 +40467,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools/auxiliary)
 "ibf" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "n2o_sensor"
-	},
+/obj/effect/turf_decal/alphanumeric/nitrous_oxide,
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
 "ibh" = (
@@ -44888,6 +44907,10 @@
 /obj/machinery/atmospherics/portable/canister/air{
 	anchored = 1
 	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "air_sensor";
+	output = 127
+	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
 "iTx" = (
@@ -47630,9 +47653,7 @@
 	},
 /area/station/medical/storage)
 "jwh" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "n2_sensor"
-	},
+/obj/effect/turf_decal/alphanumeric/nitrogen,
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
 "jwm" = (
@@ -51247,10 +51268,7 @@
 	},
 /area/station/medical/surgery/secondary)
 "kgz" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "air_sensor";
-	output = 127
-	},
+/obj/effect/turf_decal/alphanumeric/air,
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
 "kgB" = (
@@ -98135,7 +98153,12 @@
 /turf/simulated/floor/wood,
 /area/station/public/fitness)
 "twp" = (
-/obj/machinery/atmospherics/portable/canister/toxins,
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "tox_sensor"
+	},
+/obj/machinery/atmospherics/portable/canister/toxins{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/airless/nodecay,
 /area/station/engineering/atmos/asteroid_filtering)
 "twq" = (
@@ -103086,6 +103109,9 @@
 /obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "o2_sensor"
+	},
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
 "uwZ" = (
@@ -105245,9 +105271,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
 "uSE" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "co2_sensor"
-	},
+/obj/effect/turf_decal/alphanumeric/carbon_dioxide,
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
 "uSH" = (
@@ -111874,9 +111898,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "wiU" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "tox_sensor"
-	},
+/obj/effect/turf_decal/alphanumeric/plasma,
 /turf/simulated/floor/engine/airless/nodecay,
 /area/station/engineering/atmos/asteroid_filtering)
 "wiW" = (
@@ -116195,9 +116217,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "xgu" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "o2_sensor"
-	},
+/obj/effect/turf_decal/alphanumeric/oxygen,
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
 "xgv" = (
@@ -134973,8 +134993,8 @@ jnP
 aZS
 mjs
 cyu
-rjt
 fbb
+ePR
 eGJ
 aZS
 wXG
@@ -139135,8 +139155,8 @@ jnP
 aZS
 cEY
 wKB
-pSq
 jNm
+cdH
 lkm
 iZC
 mrw
