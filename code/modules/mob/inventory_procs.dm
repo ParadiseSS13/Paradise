@@ -224,7 +224,7 @@
 	if((target.flags & NODROP) && !force)
 		return FALSE
 
-	if((SEND_SIGNAL(target, COMSIG_ITEM_PRE_UNEQUIP, destination, force, silent, drop_inventory, no_move) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
+	if((SEND_SIGNAL(target, COMSIG_ITEM_PRE_UNEQUIP, src, destination, force, silent, drop_inventory, no_move) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
 		return FALSE
 
 	if(target == r_hand)

@@ -18,7 +18,6 @@
 	name = "MOD injector syringe"
 	desc = "A high-capacity syringe, with a tip fine enough to locate \
 		the emergency injection ports on any suit of armor, penetrating it with ease. Even yours."
-	flags = NODROP
 	amount_per_transfer_from_this = 30
 	possible_transfer_amounts = list(5, 10, 15, 20, 30)
 	volume = 30
@@ -56,13 +55,10 @@
 	desc = "A pair of paddles with flat metal surfaces that are used to deliver powerful electric shocks."
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibgauntlets0" //Inhands handled by the module overlays
-	flags = NODROP
-	w_class = WEIGHT_CLASS_BULKY
 	var/defib_cooldown = 5 SECONDS
 	var/safety = TRUE
 	/// Whether or not the paddles are on cooldown. Used for tracking icon states.
 	var/on_cooldown = FALSE
-
 
 /obj/item/mod_defib/Initialize(mapload)
 	. = ..()

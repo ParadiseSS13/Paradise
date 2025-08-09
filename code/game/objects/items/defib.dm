@@ -45,7 +45,7 @@
 
 /obj/item/defibrillator/Initialize(mapload) // Base version starts without a cell for rnd
 	. = ..()
-	paddles = new paddle_type(src)
+	paddles = new paddle_type(src, src)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/loaded/Initialize(mapload) // Loaded version starts with high-capacity cell.
@@ -293,7 +293,6 @@
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
 	throwforce = 6
-	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = INDESTRUCTIBLE
 	base_icon_state = "defibpaddles"
 	/// Amount of power used on a shock.
@@ -303,17 +302,16 @@
 	/// Whether or not the paddles are on cooldown. Used for tracking icon states.
 	var/on_cooldown = FALSE
 
-
-/obj/item/shockpaddles/New(mainunit)
+/obj/item/shockpaddles/Initialize(mapload)
 	. = ..()
-
-	if(check_defib_exists(mainunit, null, src))
-		defib = mainunit
-		loc = defib
-		update_icon(UPDATE_ICON_STATE)
-		AddComponent(/datum/component/defib, actual_unit = defib, combat = defib.combat, safe_by_default = defib.safety, heart_attack_chance = defib.heart_attack_probability, emp_proof = defib.hardened, emag_proof = defib.emag_proof)
-	else
-		AddComponent(/datum/component/defib)
+	if(!istype(loc, /obj/item/defibrillator))
+		return INITIALIZE_HINT_QDEL
+	defib = loc
+	forceMove(defib)
+	update_icon(UPDATE_ICON_STATE)
+	AddComponent(/datum/component/defib, actual_unit = defib, combat = defib.combat, safe_by_default = defib.safety, heart_attack_chance = defib.heart_attack_probability, emp_proof = defib.hardened, emag_proof = defib.emag_proof)
+	RegisterSignal(src, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(on_move))
+	RegisterSignal(src, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(on_drop))
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
 	RegisterSignal(src, COMSIG_DEFIB_SHOCK_APPLIED, PROC_REF(after_shock))
 	RegisterSignal(src, COMSIG_DEFIB_PADDLES_APPLIED, PROC_REF(on_application))
@@ -367,14 +365,23 @@
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	return OXYLOSS
 
-/obj/item/shockpaddles/dropped(mob/user)
-	..()
-	if(user)
+/// Prevents us from being thrown around
+/obj/item/shockpaddles/proc/on_drop(datum/source, mob/user, atom/destination)
+	SIGNAL_HANDLER // COMSIG_ITEM_PRE_UNEQUIP
+
+	if(destination != defib)
 		to_chat(user, "<span class='notice'>The paddles snap back into the main unit.</span>")
 		defib.paddles_on_defib = TRUE
-		loc = defib
+		user.transfer_item_to(src, defib)
 		defib.update_icon(UPDATE_OVERLAYS)
 		update_icon(UPDATE_ICON_STATE)
+		return COMPONENT_ITEM_BLOCK_UNEQUIP
+
+/// Prevents us from moving on our own
+/obj/item/shockpaddles/proc/on_move()
+	SIGNAL_HANDLER // COMSIG_MOVABLE_PRE_MOVE
+
+	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 
 /obj/item/shockpaddles/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
 

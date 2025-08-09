@@ -67,8 +67,7 @@
 /obj/item/watertank/proc/remove_noz()
 	if(ismob(noz.loc))
 		var/mob/M = noz.loc
-		M.drop_item_to_ground(noz, force = TRUE)
-	return
+		M.drop_item_to_ground(noz)
 
 /obj/item/watertank/attack_hand(mob/user)
 	if(loc == user)
@@ -92,7 +91,6 @@
 				if(!H.unequip(src))
 					return
 				H.put_in_l_hand(src)
-	return
 
 /obj/item/watertank/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(W == noz)
@@ -114,38 +112,38 @@
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
 	volume = 500
-
 	var/obj/item/watertank/tank
 
 /obj/item/reagent_containers/spray/mister/Initialize(mapload)
-	if(!check_tank_exists(loc, src))
+	if(!istype(loc, /obj/item/watertank))
 		return INITIALIZE_HINT_QDEL
 	tank = loc
-	reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
+	reagents = tank.reagents // This mister is really just a proxy for the tank's reagents
+	. = ..()
 	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
-	return ..()
+	RegisterSignal(src, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(on_move))
+	RegisterSignal(src, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(on_drop))
+
+/// Prevents us from moving on our own
+/obj/item/reagent_containers/spray/mister/proc/on_move()
+	SIGNAL_HANDLER // COMSIG_MOVABLE_PRE_MOVE
+
+	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+
+/// Prevents us from being thrown around
+/obj/item/reagent_containers/spray/mister/proc/on_drop(datum/source, mob/user, atom/destination)
+	SIGNAL_HANDLER // COMSIG_ITEM_PRE_UNEQUIP
+
+	if(destination != tank)
+		to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
+		tank.on = FALSE
+		user.transfer_item_to(src, tank)
+		return COMPONENT_ITEM_BLOCK_UNEQUIP
 
 /obj/item/reagent_containers/spray/mister/Destroy()
 	tank = null
 	reagents = null // Unset, this is the tanks reagents
 	return ..()
-
-/obj/item/reagent_containers/spray/mister/dropped(mob/user as mob)
-	..()
-	to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
-	tank.on = FALSE
-	loc = tank
-
-/proc/check_tank_exists(parent_tank, mob/living/carbon/human/M, obj/O)
-	if(!parent_tank || (!istype(parent_tank, /obj/item/watertank) && !istype(parent_tank, /obj/item/mod/module/firefighting_tank)))	//To avoid weird issues from admin spawns
-		return FALSE
-	else
-		return TRUE
-
-/obj/item/reagent_containers/spray/mister/Move()
-	..()
-	if(loc != tank.loc)
-		loc = tank.loc
 
 /obj/item/reagent_containers/spray/mister/normal_act(atom/target, mob/living/user)
 	if(target.loc == loc || target == tank)
@@ -222,7 +220,8 @@
 	precision = TRUE
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
-	flags = NODROP //Necessary to ensure that the nozzle and tank never seperate
+	/// Type of our tank
+	var/tank_type = /obj/item/watertank
 	/// A reference to the tank that this nozzle is linked to
 	var/obj/item/watertank/tank
 	/// What mode are we currently in?
@@ -235,6 +234,23 @@
 	var/nanofrost_cooldown_time = 2 SECONDS
 	COOLDOWN_DECLARE(nanofrost_cooldown)
 
+/// Prevents us from moving on our own
+/obj/item/extinguisher/mini/nozzle/proc/on_move()
+	SIGNAL_HANDLER // COMSIG_MOVABLE_PRE_MOVE
+
+	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+
+/// Prevents us from being thrown around
+/obj/item/extinguisher/mini/nozzle/proc/on_drop(datum/source, mob/user, atom/destination)
+	SIGNAL_HANDLER // COMSIG_ITEM_PRE_UNEQUIP
+
+	if(destination != tank)
+		if(istype(tank))
+			to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
+			tank.on = FALSE
+		user.transfer_item_to(src, tank)
+		return COMPONENT_ITEM_BLOCK_UNEQUIP
+
 /obj/item/extinguisher/mini/nozzle/examine(mob/user)
 	. = ..()
 	switch(nozzle_mode)
@@ -246,24 +262,18 @@
 			. += "<span class='notice'>[src] is currently set to metal foam mode.</span>"
 
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
-	if(!check_tank_exists(loc, src))
+	if(!istype(loc, tank_type))
 		return INITIALIZE_HINT_QDEL
-
 	tank = loc
 	reagents = tank.reagents
-	reagent_capacity = tank.volume
-
-	return ..()
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(on_move))
+	RegisterSignal(src, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(on_drop))
 
 /obj/item/extinguisher/mini/nozzle/Destroy()
 	tank = null
 	reagents = null // Unset, this is the tanks reagents
 	return ..()
-
-/obj/item/extinguisher/mini/nozzle/Move()
-	..()
-	if(tank && loc != tank.loc)
-		forceMove(tank)
 
 /obj/item/extinguisher/mini/nozzle/activate_self(mob/user)
 	..()
@@ -291,15 +301,6 @@
 		if(METAL_FOAM)
 			icon_state = "atmos_nozzle_3"
 			tank.icon_state = "waterbackpackatmos_2"
-
-/obj/item/extinguisher/mini/nozzle/dropped(mob/user)
-	..()
-	if(istype(tank, /obj/item/mod/module/firefighting_tank))
-		return
-
-	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
-	tank.on = FALSE
-	loc = tank
 
 /obj/item/extinguisher/mini/nozzle/extinguisher_spray(atom/A, mob/living/user)
 	if(nozzle_mode == EXTINGUISHER)
