@@ -990,7 +990,7 @@ SLIME SCANNER
 	throw_range = 10
 	origin_tech = "magnets=6;biotech=6"
 	var/obj/item/stock_parts/cell/cell
-	var/cell_type = /obj/item/stock_parts/cell/upgraded
+	var/cell_type = /obj/item/stock_parts/cell/high
 	var/ready = TRUE // Ready to scan
 	var/printing = FALSE
 	var/time_to_use = 0 // How much time remaining before next scan is available.
@@ -1002,7 +1002,7 @@ SLIME SCANNER
 	return cell
 
 /obj/item/bodyanalyzer/advanced
-	cell_type = /obj/item/stock_parts/cell/upgraded/plus
+	cell_type = /obj/item/stock_parts/cell/super // twice the charge!
 
 /obj/item/bodyanalyzer/borg
 	name = "cyborg body analyzer"
