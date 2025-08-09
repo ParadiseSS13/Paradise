@@ -92,6 +92,7 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/cmd_admin_dress,
 	/client/proc/cmd_admin_gib_self,
 	/client/proc/drop_bomb,
+	/client/proc/disease_outbreak,
 	/client/proc/one_click_antag,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/cmd_admin_add_random_ai_law,
@@ -189,6 +190,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debug_atom_init,
 	/client/proc/debug_bloom,
 	/client/proc/cmd_mass_screenshot,
+	/client/proc/allow_browser_inspect,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -257,7 +259,6 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	/client/proc/vv_by_ref, // This allows you to lookup **ANYTHING** in the server memory by spamming refs. Locked for security.
 	/client/proc/cinematic, // This will break everyone's screens in the round. Dont use this for adminbus.
 	/client/proc/throw_runtime, // Do I even need to explain why this is locked?
-	/client/proc/allow_browser_inspect, // XSS prevention
 ))
 GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/view_runtimes,
@@ -502,8 +503,11 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
 		return
 
-	if(cleanup_admin_observe(mob))
+	var/mob/dead/observer/observer = mob
+	if(istype(observer) && target == locateUID(observer.mob_observed))
+		cleanup_admin_observe(mob)
 		return
+	cleanup_admin_observe(mob)
 
 	if(isnull(target) || target == src)
 		// let the default one find the target if there isn't one
@@ -773,12 +777,53 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 	set category = "Event"
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
-	var/datum/disease/D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in GLOB.diseases
-	if(!D) return
-	T.ForceContractDisease(new D)
+	var/datum/disease/given_disease = null
+
+	if(tgui_input_list(usr, "Create own disease", "Would you like to create your own disease?", list("Yes","No")) == "Yes")
+		given_disease = AdminCreateVirus(usr)
+	else
+		given_disease = tgui_input_list(usr, "ACHOO", "Choose the disease to give to that guy", GLOB.diseases)
+
+	if(!given_disease)
+		return
+
+	if(!istype(given_disease, /datum/disease/advance))
+		given_disease = new given_disease
+	T.ForceContractDisease(given_disease)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [D].</span>")
+	log_admin("[key_name(usr)] gave [key_name(T)] the disease [given_disease].")
+	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [given_disease].</span>")
+
+/client/proc/disease_outbreak()
+	set category = "Event"
+	set name = "Disease Outbreak"
+	set desc = "Creates a disease and infects a random player with it"
+	var/datum/disease/given_disease = null
+	if(tgui_input_list(usr, "Create own disease", "Would you like to create your own disease?", list("Yes","No")) == "Yes")
+		given_disease = AdminCreateVirus(usr)
+	else
+		given_disease = tgui_input_list(usr, "ACHOO", "Choose the disease to give to that guy", GLOB.diseases)
+	if(!given_disease)
+		return
+
+	if(!istype(given_disease, /datum/disease/advance))
+		given_disease = new given_disease
+
+	for(var/thing in shuffle(GLOB.human_list))
+		var/mob/living/carbon/human/H = thing
+		if(H.stat == DEAD || !is_station_level(H.z))
+			continue
+		if(!H.HasDisease(given_disease))
+			H.ForceContractDisease(given_disease)
+			break
+	if(istype(given_disease, /datum/disease/advance))
+		var/datum/disease/advance/given_advanced_disease = given_disease
+		var/list/name_symptoms = list()
+		for(var/datum/symptom/S in given_advanced_disease.symptoms)
+			name_symptoms += S.name
+		message_admins("[key_name_admin(usr)] has triggered a custom virus outbreak of [given_advanced_disease.name]! It has these symptoms: [english_list(name_symptoms)] and these base stats [english_map(given_advanced_disease.base_properties)]")
+	else
+		message_admins("[key_name_admin(usr)] has triggered a custom virus outbreak of [given_disease.name]!")
 
 /client/proc/make_sound(obj/O in view()) // -- TLE
 	set name = "\[Admin\] Make Sound"

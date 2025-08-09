@@ -114,6 +114,7 @@ task-validate-build() {
 
 ## Installs merge drivers and git hooks
 task-install-git-hooks() {
+  echo "tgui: WARNING: tgui bundle merge drivers are deprecated. Please modify .gitattributes to continue using them"
   cd "${base_dir}"
   local git_root
   local git_base_dir
