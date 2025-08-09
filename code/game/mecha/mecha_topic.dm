@@ -257,8 +257,8 @@
 		if(usr != occupant)	return
 		var/obj/item/mecha_parts/mecha_equipment/equip = afilter.getObj("select_equip")
 		if(equip && (equip in equipment))
-			if(chassis.selected)
-				chassis.selected.on_unequip()
+			if(selected)
+				selected.on_unequip()
 			selected = equip
 			selected.on_equip()
 			occupant_message("You switch to [equip]")

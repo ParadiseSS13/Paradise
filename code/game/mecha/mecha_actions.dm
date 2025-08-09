@@ -134,6 +134,7 @@
 		chassis.step_energy_drain = chassis.normal_step_energy_drain
 		chassis.occupant_message("<span class='notice'>You disable leg actuators overload.</span>")
 	build_all_button_icons()
+	chassis.update_icon(UPDATE_OVERLAYS)
 
 /datum/action/innate/mecha/mech_toggle_thrusters
 	name = "Toggle Thrusters"

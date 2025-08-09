@@ -167,7 +167,7 @@
 	underlays.Cut()
 	underlays += emissive_appearance(emissive_appearance_icon, "[icon_state]_lightmask")
 	overlays.Cut()
-	if(istype(selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield))
+	if(istype(selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield) && !leg_overload_mode && !istype(cell, /obj/item/stock_parts/cell/infinite))
 		overlays += mutable_appearance('icons/effects/effects.dmi', "at_shield2", MOB_LAYER + 0.01)
 
 ////////////////////////
@@ -531,9 +531,9 @@
 
 /obj/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	for(var/obj/item/mecha_parts/mecha_equipment/pulse_shield/shield in equipment)
-		if(selected == shield)
+		if(selected == shield && !leg_overload_mode && !istype(cell, /obj/item/stock_parts/cell/infinite))
 			var/required_power = shield.energy_drain * damage_amount
-			if(cell.use(required_power))
+			if(cell && cell.use(required_power))
 				log_message("Took [damage_amount] points of damage. Damage absorbed by [shield].")
 				damage_amount = 0
 				spark_system.start()
