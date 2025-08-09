@@ -6,7 +6,6 @@
 	desc = "Simply attach a bloodbag and puncture the patient with a needle, they'll have more blood in no time."
 	icon = 'icons/goonstation/objects/iv.dmi'
 	icon_state = "stand"
-	anchored = FALSE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/obj/item/reagent_containers/iv_bag/bag = null
 
@@ -59,6 +58,7 @@
 	if(bag)
 		user.put_in_hands(bag)
 		bag.update_icon(UPDATE_OVERLAYS)
+		bag.update_iv_type()
 		bag = null
 		update_icon(UPDATE_OVERLAYS)
 
@@ -72,6 +72,7 @@
 
 		used.forceMove(src)
 		bag = used
+		bag.update_iv_type()
 		to_chat(user, "<span class='notice'>You attach [used] to [src].</span>")
 		update_icon(UPDATE_OVERLAYS)
 		START_PROCESSING(SSmachines, src)
@@ -95,8 +96,9 @@
 		. += bag.examine(user)
 
 /obj/machinery/iv_drip/Move(NewLoc, direct)
+	var/oldloc = loc
 	. = ..()
-	if(!.) // ..() will return 0 if we didn't actually move anywhere.
+	if(oldloc == loc) // ..() will return 0 if we didn't actually move anywhere, except for some diagonal cases.
 		return
 	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 75, TRUE, ignore_walls = FALSE)
 

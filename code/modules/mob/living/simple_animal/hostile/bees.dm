@@ -12,7 +12,6 @@
 	name = "bee"
 	desc = "Buzzy buzzy bee, stingy sti- Ouch!"
 	icon_state = ""
-	icon_living = ""
 	icon = 'icons/mob/bees.dmi'
 	gender = FEMALE
 	speak_emote = list("buzzes")

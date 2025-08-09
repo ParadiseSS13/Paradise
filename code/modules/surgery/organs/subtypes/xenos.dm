@@ -94,7 +94,6 @@
 	stored_plasma = 200
 
 /obj/item/organ/internal/alien/plasmavessel/sentinel
-	stored_plasma = 100
 	max_plasma = 250
 
 /obj/item/organ/internal/alien/plasmavessel/hunter

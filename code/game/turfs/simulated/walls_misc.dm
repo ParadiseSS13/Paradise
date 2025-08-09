@@ -4,7 +4,6 @@
 	icon = 'icons/turf/walls/cult_wall.dmi'
 	icon_state = "cult_wall-0"
 	base_icon_state = "cult_wall"
-	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_CULT_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
 	sheet_type = /obj/item/stack/sheet/runed_metal
@@ -49,7 +48,6 @@
 	hardness = 10
 	slicing_duration = 80
 	sheet_type = /obj/item/stack/tile/brass
-	sheet_amount = 2
 	girder_type = /obj/structure/clockwork/wall_gear
 	var/heated
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BRASS_WALL)
@@ -106,7 +104,6 @@
 	hardness = 10
 	heat_resistance = 20000
 	can_dismantle_with_welder = FALSE
-	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BOSS_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_BOSS_WALLS)
 	sheet_type = /obj/item/stack/sheet/runed_metal

@@ -824,7 +824,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!ai_number)
 		messages += "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
 
-	to_chat(usr, chat_box_examine(messages.Join("\n")))
+	to_chat(usr, chat_box_examine(messages.Join("<br>")))
 
 	log_admin("[key_name(usr)] checked the AI laws")
 	message_admins("[key_name_admin(usr)] checked the AI laws")
@@ -933,7 +933,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		if(!frommob || !toitem) //make sure the mobs don't go away while we waited for a response
 			return TRUE
 
-		var/mob/living/simple_animal/possessed_object/tomob = new(toitem)
+		var/mob/living/basic/possessed_object/tomob = new(toitem)
 
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")

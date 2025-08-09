@@ -93,7 +93,7 @@
 		derez(item)
 	for(var/obj/effect/decal/cleanable/blood/B in linkedholodeck)
 		qdel(B)
-	for(var/mob/living/simple_animal/hostile/carp/holocarp/C in linkedholodeck)
+	for(var/mob/living/basic/carp/holocarp/C in linkedholodeck)
 		qdel(C)
 	holographic_items = A.copy_contents_to(linkedholodeck, platingRequired = TRUE)
 
@@ -104,7 +104,7 @@
 	spawn(30)
 		for(var/obj/effect/landmark/L in linkedholodeck)
 			if(L.name=="Holocarp Spawn")
-				new /mob/living/simple_animal/hostile/carp/holocarp(L.loc)
+				new /mob/living/basic/carp/holocarp(L.loc)
 
 
 /obj/machinery/computer/holodeck_control/proc/emergency_shutdown()
@@ -241,7 +241,6 @@
 	footstep = FOOTSTEP_CARPET
 	barefootstep = FOOTSTEP_CARPET_BAREFOOT
 	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/holofloor/carpet/Initialize(mapload)
 	. = ..()
@@ -302,14 +301,9 @@
 	item_chair = null
 
 /obj/item/clothing/gloves/boxing/hologlove
-	name = "boxing gloves"
-	desc = "Because you really needed another excuse to punch your crewmates."
-	icon_state = "boxing"
-	item_state = "boxing"
 
 /obj/structure/holowindow
 	name = "reinforced window"
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "rwindow"
 	desc = "A window."
 	density = TRUE
@@ -369,7 +363,6 @@
 	force = 3.0
 	throw_speed = 1
 	throw_range = 5
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	armour_penetration_percentage = 50
 	var/active = FALSE

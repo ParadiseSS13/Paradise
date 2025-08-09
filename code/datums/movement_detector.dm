@@ -33,6 +33,24 @@
 		UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 		target = target.loc
 
+
+/**
+ * Movement detectors don't work by default unless the item starts on a turf.
+ * Run this proc to fix that.
+ */
+/datum/movement_detector/proc/fix_signal()
+	// we're already inside something
+	var/atom/current_target = tracked.loc
+	var/turf/newturf = get_turf(tracked)
+	var/i = 0
+	while(current_target.loc != newturf && current_target != null)
+		current_target = current_target.loc
+		if(i++ <= 100)
+			return
+	if(ismovable(current_target))
+		RegisterSignal(current_target, COMSIG_MOVABLE_MOVED, PROC_REF(move_react), TRUE)
+		return current_target
+
 /**
  * Reacts to any movement that would cause a change in coordinates of the tracked movable atom
  * This works by detecting movement of either the tracked object, or anything it is inside, recursively

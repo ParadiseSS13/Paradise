@@ -1,5 +1,4 @@
 /obj/item/mod/control/pre_equipped
-	starting_frequency = MODLINK_FREQ_NANOTRASEN
 	/// The skin we apply to the suit, defaults to the default_skin of the theme.
 	var/applied_skin
 	/// The MOD core we apply to the suit.
@@ -53,6 +52,9 @@
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack
+	)
+	default_pins = list(
+		/obj/item/mod/module/jetpack,
 	)
 
 /obj/item/mod/control/pre_equipped/engineering
@@ -196,6 +198,10 @@
 		/obj/item/mod/module/dispenser/mirage,
 		/obj/item/mod/module/jetpack,
 	)
+	default_pins = list(
+		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/dispenser/mirage,
+	)
 
 /obj/item/mod/control/pre_equipped/safeguard
 	icon_state = "safeguard-control"
@@ -210,6 +216,7 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/dispenser/mirage,
 	)
 
 /obj/item/mod/control/pre_equipped/safeguard/gamma
@@ -221,9 +228,6 @@
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/holster,
 		/obj/item/mod/module/energy_shield/gamma,
-	)
-	default_pins = list(
-		/obj/item/mod/module/jetpack/advanced,
 	)
 
 /obj/item/mod/control/pre_equipped/praetorian
@@ -250,7 +254,6 @@
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
 	)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
 
 /obj/item/mod/control/pre_equipped/magnate/Initialize(mapload)
 	. = ..()
@@ -262,6 +265,9 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/waddle,
+		/obj/item/mod/module/bikehorn,
+	)
+	default_pins = list(
 		/obj/item/mod/module/bikehorn,
 	)
 
@@ -357,7 +363,6 @@
 	icon_state = "prototype-control"
 	starting_frequency = MODLINK_FREQ_THETA
 	theme = /datum/mod_theme/prototype
-	req_access = list()
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/welding,
@@ -385,6 +390,10 @@
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/ert_camera,
+	)
+	default_pins = list(
+		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/magboot/advanced,
 	)
 	/// The insignia type, insignias show what sort of member of the ERT you're dealing with.
 	var/insignia_type = /obj/item/mod/module/insignia
@@ -537,6 +546,7 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/bikehorn,
+		/obj/item/mod/module/jetpack/advanced,
 	)
 	activation_step_time = 0.1 SECONDS // coders are cooler than admins
 

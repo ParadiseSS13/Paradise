@@ -394,7 +394,6 @@
 	name = "plasma syringe cannon"
 	desc = "A syringe gun integrated into a medical cyborg's chassis. Fires heavy-duty plasma syringes tipped in poison."
 	icon_state = "rapidsyringegun"
-	throw_speed = 3
 	throw_range = 7
 	force = 4
 	fire_sound = 'sound/items/syringeproj.ogg'
@@ -638,7 +637,7 @@
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer)
 	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/instrument/guitar/cyborg)
-	malf_modules = list(/obj/item/gun/projectile/shotgun/automatic/combat/cyborg)
+	malf_modules = list(/obj/item/gun/energy/gun/shotgun/cyborg)
 	special_rechargables = list(
 		/obj/item/reagent_containers/condiment/enzyme,
 		/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer,

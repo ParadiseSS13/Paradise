@@ -170,8 +170,8 @@
 	AddSpell(new /datum/spell/fireball/shadow_grapple)
 	var/datum/spell/bloodcrawl/shadow_crawl/S = new
 	AddSpell(S)
-	whisper_action.button_overlay_icon_state = "shadow_whisper"
-	whisper_action.button_background_icon_state = "shadow_demon_bg"
+	whisper_action.button_icon_state = "shadow_whisper"
+	whisper_action.background_icon_state = "shadow_demon_bg"
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		S.phased = TRUE
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
@@ -232,7 +232,7 @@
 		var/mob/living/simple_animal/demon/shadow/current_demon = firer
 		if(istype(current_demon))
 			current_demon.block_shadow_crawl()
-		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1, beam_type = /obj/effect/ebeam/floor)
+		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/floor)
 	return ..()
 
 /obj/item/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)

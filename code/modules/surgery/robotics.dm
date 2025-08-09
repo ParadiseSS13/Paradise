@@ -18,7 +18,6 @@
 		/datum/surgery_step/robotics/external/close_hatch
 	)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
-	requires_organic_bodypart = FALSE
 
 /datum/surgery/robotics/cybernetic_repair/internal
 	name = "Internal Component Manipulation"
@@ -68,7 +67,6 @@
 // Intermediate repair surgeries, for fixing up internal maladies mid-surgery.
 
 /datum/surgery/intermediate/robotics
-	requires_bodypart = TRUE
 	requires_organic_bodypart = FALSE
 
 /datum/surgery/intermediate/robotics/repair
@@ -98,7 +96,6 @@
 	possible_locs = list(BODY_ZONE_CHEST)
 
 /datum/surgery_step/robotics
-	can_infect = FALSE
 
 /datum/surgery_step/robotics/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	. = ..()

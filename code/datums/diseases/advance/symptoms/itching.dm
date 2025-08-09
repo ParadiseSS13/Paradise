@@ -6,7 +6,7 @@ Itching
 	Not noticable or unnoticable.
 	Resistant.
 	Increases stage speed.
-	Little transmittable.
+	Little transmissibility.
 	Low Level.
 
 BONUS
@@ -19,16 +19,16 @@ BONUS
 /datum/symptom/itching
 
 	name = "Itching"
-	stealth = 0
-	resistance = 3
+	stealth = 2
+	resistance = -1
 	stage_speed = 3
-	transmittable = 1
+	transmissibility = 1
 	level = 1
 	severity = 1
+	chem_treatments = list(
+		"silver_sulfadiazine" = list("multiplier" = 0, "timer" = 0))
 
-/datum/symptom/itching/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
-		to_chat(M, "<span class='warning'>Your [pick("back", "arm", "leg", "elbow", "head")] itches.</span>")
+/datum/symptom/itching/symptom_act(datum/disease/advance/A, unmitigated)
+	var/mob/living/M = A.affected_mob
+	to_chat(M, "<span class='warning'>Your [pick("back", "arm", "leg", "elbow", "head")] itches.</span>")
 	return
