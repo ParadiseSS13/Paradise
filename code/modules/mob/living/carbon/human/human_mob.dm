@@ -10,7 +10,6 @@
 	UpdateAppearance()
 	GLOB.human_list += src
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
-	AddElement(/datum/element/strippable, GLOB.strippable_human_items)
 	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(mind_checks))
 
 /**
@@ -2280,3 +2279,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/compressor_grind()
 	dna.species.do_compressor_grind(src)
 	. = ..()
+
+/mob/living/carbon/human/get_strippable_items(datum/source, list/items)
+	items |= GLOB.strippable_human_items

@@ -8,6 +8,9 @@
 	name = "Necromancy-risen Thrall"
 	master_hud_name = "wizard"
 
+/datum/antagonist/mindslave/necromancy/plague_zombie
+	name = "Necromancy-risen Plague Zombie"
+
 // Robot connected to a malf AI
 /datum/antagonist/mindslave/malf_robot
 	name = "Malfunctioning AI Slave"
@@ -70,4 +73,3 @@
 	add_antag_objective(/datum/objective/protect/mindslave, explanation_text, master)
 	messages.Add("You answer directly to [master.current.real_name], the [master.assigned_role ? master.assigned_role : master.special_role]. Special circumstances may change this.</b></u>")
 	return messages
-

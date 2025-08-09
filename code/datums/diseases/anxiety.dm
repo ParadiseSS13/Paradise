@@ -3,13 +3,13 @@
 	form = "Infection"
 	max_stages = 4
 	spread_text = "On contact"
-	spread_flags = CONTACT_GENERAL
+	spread_flags = SPREAD_CONTACT_GENERAL
 	cure_text = "Ethanol"
 	cures = list("ethanol")
 	agent = "Excess Lepidopticides"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
 	desc = "If left untreated subject will regurgitate butterflies."
-	severity = MINOR
+	severity = VIRUS_MINOR
 
 /datum/disease/anxiety/stage_act()
 	if(!..())
@@ -38,13 +38,13 @@
 				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up butterflies!</span>", \
 													"<span class='userdanger'>You cough up butterflies!</span>")
 				for(var/i in 1 to 2)
-					var/mob/living/simple_animal/butterfly/B = new(affected_mob.loc)
-					addtimer(CALLBACK(B, TYPE_PROC_REF(/mob/living/simple_animal/butterfly, decompose)), rand(5, 25) SECONDS)
+					var/mob/living/basic/butterfly/B = new(affected_mob.loc)
+					addtimer(CALLBACK(B, TYPE_PROC_REF(/mob/living/basic/butterfly, decompose)), rand(5, 25) SECONDS)
 
 /**
  * Made so severe anxiety does not overload the SSmob while keeping it's effect
  */
-/mob/living/simple_animal/butterfly/proc/decompose()
+/mob/living/basic/butterfly/proc/decompose()
 	visible_message("<span class='notice'>[src] decomposes due to being outside of its original habitat for too long!</span>",
 					"<span class='userdanger'>You decompose for being too long out of your habitat!</span>")
 	melt()
