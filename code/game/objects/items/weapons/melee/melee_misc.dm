@@ -8,7 +8,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=5"
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
 	hitsound = 'sound/weapons/slash.ogg' //pls replace
@@ -36,7 +35,6 @@
 	item_state = "candy_sword"
 	force = 10
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("slashed", "stabbed", "sliced", "caned")
 
 // MARK: FLYSWATTER
@@ -57,8 +55,8 @@
 	. = ..()
 	strong_against = typecacheof(list(
 					/mob/living/simple_animal/hostile/poison/bees/,
-					/mob/living/simple_animal/butterfly,
-					/mob/living/simple_animal/cockroach,
+					/mob/living/basic/butterfly,
+					/mob/living/basic/cockroach,
 					/obj/item/queen_bee))
 	strong_against -= /mob/living/simple_animal/hostile/poison/bees/syndi // Syndi-bees have special anti-flyswatter tech installed
 

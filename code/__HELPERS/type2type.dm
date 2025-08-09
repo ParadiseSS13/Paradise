@@ -162,6 +162,8 @@
 			return 'icons/mob/screen_operative.dmi'
 		if("White")
 			return 'icons/mob/screen_white.dmi'
+		if("Clockwork")
+			return 'icons/mob/screen_clockwork.dmi'
 		if("Midnight")
 			return 'icons/mob/screen_midnight.dmi'
 		else

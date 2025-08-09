@@ -19,7 +19,6 @@
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/crowbar.ogg'
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
@@ -111,7 +110,6 @@
 	armour_penetration_percentage = 50
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	light_power = 2
@@ -288,7 +286,6 @@
 	sharp = TRUE
 	no_spin_thrown = TRUE
 	var/obj/item/grenade/explosive = null
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	needs_permit = TRUE
 
@@ -367,12 +364,8 @@
 /obj/item/spear/grey_tide
 	name = "\improper Grey Tide"
 	desc = "Recovered from the aftermath of a revolt aboard Defense Outpost Theta Aegis, in which a seemingly endless tide of Assistants caused heavy casualities among Nanotrasen military forces."
-	base_icon_state = "spearglass"
-	icon_state = "spearglass0"
 	force_unwielded = 15
 	force_wielded = 25
-	throwforce = 20
-	throw_speed = 4
 	attack_verb = list("gored")
 
 /obj/item/spear/grey_tide/afterattack__legacy__attackchain(atom/movable/AM, mob/living/user, proximity)
@@ -413,7 +406,6 @@
 	name = "head on a spear"
 	desc = "How barbaric."
 	icon_state = "headspear"
-	density = FALSE
 	anchored = TRUE
 	var/obj/item/organ/external/head/mounted_head = null
 	var/obj/item/spear/contained_spear = null
@@ -519,7 +511,6 @@
 	slot_flags = ITEM_SLOT_BACK
 	force = 5
 	throwforce = 30
-	throw_range = 7
 	w_class = WEIGHT_CLASS_HUGE
 	origin_tech = "combat=4;powerstorage=7"
 
@@ -696,7 +687,7 @@
 
 /obj/item/clothing/gloves/color/black/pyro_claws
 	name = "Fusion gauntlets"
-	desc = "Cybersun Industries developed these gloves after a grifter fought one of their soldiers, who attached a pyro core to an energy sword, and found it mostly effective."
+	desc = "A pair of heavy combat gauntlets that project lethal energy claws via the power of a captive pyroclastic anomaly core."
 	item_state = "pyro"
 	item_color = "pyro" // I will kill washing machines one day
 	icon_state = "pyro"
@@ -776,8 +767,6 @@
 	force = 8
 	throwforce = 10
 	throw_speed = 3
-	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("swept", "brushed off", "bludgeoned", "whacked")
 	resistance_flags = FLAMMABLE
 

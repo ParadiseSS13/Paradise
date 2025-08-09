@@ -175,7 +175,6 @@
 
 /obj/item/door_remote/civillian
 	name = "civilian door remote"
-	icon_state = "gangtool-white"
 	region_access = list(REGION_GENERAL)
 	additional_access = list(ACCESS_HOP)
 

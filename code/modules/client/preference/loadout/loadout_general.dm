@@ -214,7 +214,6 @@
 
 /datum/gear/mug/department
 	main_typepath = /datum/gear/mug/department
-	sort_category = "Mugs"
 	subtype_selection_cost = FALSE
 
 /datum/gear/mug/department/eng

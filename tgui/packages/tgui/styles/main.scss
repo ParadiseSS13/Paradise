@@ -5,9 +5,11 @@
 
 @use 'sass:meta';
 @use './base.scss';
+@use '~tgui-core/styles';
 
 // Core styles
 @include meta.load-css('./reset.scss');
+@include meta.load-css('./css-variables.scss');
 
 // Atomic classes
 @include meta.load-css('./atomic/candystripe.scss');
@@ -17,36 +19,14 @@
 @include meta.load-css('./atomic/text.scss');
 
 // Components
-@include meta.load-css('./components/BlockQuote.scss');
-@include meta.load-css('./components/Button.scss');
-@include meta.load-css('./components/Collapsible.scss');
-@include meta.load-css('./components/ColorBox.scss');
-@include meta.load-css('./components/Dimmer.scss');
-@include meta.load-css('./components/Divider.scss');
-@include meta.load-css('./components/Dropdown.scss');
-@include meta.load-css('./components/Flex.scss');
-@include meta.load-css('./components/Icon.scss');
-@include meta.load-css('./components/ImageButton.scss');
-@include meta.load-css('./components/Input.scss');
-@include meta.load-css('./components/Knob.scss');
-@include meta.load-css('./components/LabeledList.scss');
-@include meta.load-css('./components/Modal.scss');
+@include meta.load-css('./components/Countdown.scss');
+@include meta.load-css('./components/IconStack.scss');
 @include meta.load-css('./components/NanoMap.scss');
-@include meta.load-css('./components/NoticeBox.scss');
-@include meta.load-css('./components/NumberInput.scss');
-@include meta.load-css('./components/ProgressBar.scss');
-@include meta.load-css('./components/RoundGauge.scss');
-@include meta.load-css('./components/Section.scss');
-@include meta.load-css('./components/Slider.scss');
-@include meta.load-css('./components/Stack.scss');
-@include meta.load-css('./components/Table.scss');
-@include meta.load-css('./components/Tabs.scss');
-@include meta.load-css('./components/TextArea.scss');
-@include meta.load-css('./components/Tooltip.scss');
 
 // Interfaces
 @include meta.load-css('./interfaces/AccountsUplinkTerminal.scss');
 @include meta.load-css('./interfaces/AdminAntagMenu.scss');
+@include meta.load-css('./interfaces/AIControllerDebugger.scss');
 @include meta.load-css('./interfaces/AlertModal.scss');
 @include meta.load-css('./interfaces/BrigCells.scss');
 @include meta.load-css('./interfaces/CameraConsole.scss');
@@ -57,10 +37,8 @@
 @include meta.load-css('./interfaces/GeneModder.scss');
 @include meta.load-css('./interfaces/KitchenMachine.scss');
 @include meta.load-css('./interfaces/LibraryComputer.scss');
-@include meta.load-css('./interfaces/ListInput.scss');
 @include meta.load-css('./interfaces/Loadout.scss');
 @include meta.load-css('./interfaces/Newscaster.scss');
-@include meta.load-css('./interfaces/NuclearBomb.scss');
 @include meta.load-css('./interfaces/OreRedemption.scss');
 @include meta.load-css('./interfaces/PanDEMIC.scss');
 @include meta.load-css('./interfaces/PDA.scss');
@@ -69,7 +47,6 @@
 @include meta.load-css('./interfaces/PoolController.scss');
 @include meta.load-css('./interfaces/ReagentsEditor.scss');
 @include meta.load-css('./interfaces/RndConsole.scss');
-@include meta.load-css('./interfaces/Roulette.scss');
 @include meta.load-css('./interfaces/Safe.scss');
 @include meta.load-css('./interfaces/SecureStorage.scss');
 @include meta.load-css('./interfaces/SecurityRecords.scss');
@@ -83,9 +60,13 @@
 
 // NT Theme
 .Layout__content {
-  // From 'packages/tgui/assets/bg-nanotrasen.svg', converted to base64 manually to stop webpack exploding
   background-image: url('../assets/bg-nanotrasen.svg');
   background-size: 70% 70%;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+// A default, in case someone uses the vp() function outside of a <Window>
+:root {
+  --scaling-amount: 1;
 }
