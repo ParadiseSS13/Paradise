@@ -1,5 +1,6 @@
 
 /datum/event/mundane_news
+	name = "Mundane News"
 	endWhen = 10
 
 /datum/event/mundane_news/announce()
@@ -147,6 +148,7 @@
 		NC.alert_news(newMsg.title)
 
 /datum/event/trivial_news
+	name = "Trivial News"
 	endWhen = 10
 
 /datum/event/trivial_news/announce()

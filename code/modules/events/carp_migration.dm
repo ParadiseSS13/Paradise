@@ -1,7 +1,10 @@
 /datum/event/carp_migration
+	name = "Carp Migration"
 	announceWhen	= 50
 	endWhen 		= 900
-
+	nominal_severity = EVENT_LEVEL_MODERATE
+	role_weights = list(ASSIGNMENT_ENGINEERING = 1, ASSIGNMENT_SECURITY = 2)
+	role_requirements = list(ASSIGNMENT_ENGINEERING = 1, ASSIGNMENT_SECURITY = 1)
 	var/list/spawned_mobs = list(
 		/mob/living/basic/carp = 95,
 		/mob/living/basic/carp/megacarp = 5)

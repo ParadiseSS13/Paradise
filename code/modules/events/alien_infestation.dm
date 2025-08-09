@@ -1,9 +1,13 @@
 /datum/event/alien_infestation
+	name = "Alien Infestation"
 	announceWhen	= 400
 	var/highpop_trigger = 80
 	var/spawncount = 2
 	var/list/playercount
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
+	nominal_severity = EVENT_LEVEL_DISASTER
+	role_weights = list(ASSIGNMENT_SECURITY = 5, ASSIGNMENT_TOTAL = 3, ASSIGNMENT_MEDICAL = 4)
+	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_TOTAL = 60, ASSIGNMENT_MEDICAL = 5)
 
 /datum/event/alien_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)

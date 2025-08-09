@@ -2,8 +2,11 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 /datum/event/disease_outbreak
 	// We only want the announcement to happen after the virus has spawned on station
 	announceWhen = -1
-	// Keep the event running until we announce it
+	// Keep the event running for as long as we have infected
 	noAutoEnd = TRUE
+	name = "Disease Outbreak"
+	role_weights = list(ASSIGNMENT_MEDICAL = 10)
+	role_requirements = list(ASSIGNMENT_MEDICAL = 1.5)
 	/// The type of disease that patient zero will be infected with.
 	var/datum/disease/chosen_disease
 
@@ -17,6 +20,11 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	var/static/list/diseases_moderate_major = list()
 	var/force_disease_time = 300
 	var/list/infected_players = list()
+	var/first_infection = FALSE
+
+
+
+
 
 /datum/event/disease_outbreak/setup()
 	if(isemptylist(diseases_minor) && isemptylist(diseases_moderate_major))
@@ -57,10 +65,10 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 			GLOB.minor_announcement.Announce("Moderate contagion detected aboard [station_name()].", new_sound = 'sound/misc/notice2.ogg', new_title = "Contagion Alert")
 		if(EVENT_LEVEL_MUNDANE)
 			GLOB.minor_announcement.Announce("Minor contagion detected aboard [station_name()].", new_sound = 'sound/misc/notice2.ogg', new_title = "Contagion Alert")
-	// We did our announcement, the event no longer needs to run
-	kill()
 
 /datum/event/disease_outbreak/process()
+	if(length(infected_players) > 0)
+		first_infection = TRUE
 	if(activeFor == force_disease_time)
 		for(var/list/disease_event in GLOB.current_pending_diseases)
 			if(chosen_disease == disease_event["disease"])
@@ -71,6 +79,9 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 				break
 	if(length(infected_players) > 2 && announceWhen <= 0)
 		announceWhen = activeFor + 180
+	// The event ends when everyone is cured
+	if(length(infected_players) <= 0 && first_infection)
+		kill()
 	. = ..()
 
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
