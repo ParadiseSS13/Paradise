@@ -11,6 +11,10 @@
 	access -= list(ACCESS_TELEPORTER)
 	access |= list(ACCESS_MAILSORTING)
 
+/datum/job/smith/New()
+	. = ..()
+	access |= list(ACCESS_SUPPLY_SHUTTLE, ACCESS_MAILSORTING)
+
 /datum/job/bartender/New()
 	. = ..()
 	access |= list(ACCESS_KITCHEN, ACCESS_HYDROPONICS)
