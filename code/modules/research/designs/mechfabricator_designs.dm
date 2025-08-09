@@ -947,7 +947,7 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_ccw_armor
+/datum/design/mech_pulse_shield
 	name = "Exosuit Module (EPS-99 Pulse Shield Generator)"
 	desc = "Exosuit-mounted shield generator."
 	id = "mech_shield_gen"

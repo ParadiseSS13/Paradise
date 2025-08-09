@@ -168,7 +168,7 @@
 	underlays += emissive_appearance(emissive_appearance_icon, "[icon_state]_lightmask")
 	overlays.Cut()
 	if(istype(selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield))
-		overlays += mutable_appearance('icons/effects/effects.dmi', "shield", MOB_LAYER + 0.01)
+		overlays += mutable_appearance('icons/effects/effects.dmi', "at_shield2", MOB_LAYER + 0.01)
 
 ////////////////////////
 ////// Helpers /////////
