@@ -97,6 +97,7 @@
 
 	if(!QDELETED(clicker))
 		UnregisterSignal(clicker, list(COMSIG_CLIENT_MOUSEDOWN, COMSIG_CLIENT_MOUSEUP, COMSIG_CLIENT_MOUSEDRAG))
+		clicker.mob.remove_mousepointer(MP_AUTO_GUN_PRIORITY)
 	mouse_status = AUTOFIRE_MOUSEUP // In regards to the component there's no click anymore to care about.
 	clicker = null
 	if(!QDELETED(shooter))
@@ -164,8 +165,7 @@
 		return
 	autofire_stat = AUTOFIRE_STAT_FIRING
 
-	clicker.mouse_override_icon = 'icons/effects/mouse_pointers/weapon_pointer.dmi'
-	clicker.mouse_pointer_icon = clicker.mouse_override_icon
+	clicker.mob.add_mousepointer(MP_AUTO_GUN_PRIORITY, 'icons/mouse_icons/weapon_pointer.dmi')
 
 	if(mouse_status == AUTOFIRE_MOUSEUP) // See mouse_status definition for the reason for this.
 		RegisterSignal(clicker, COMSIG_CLIENT_MOUSEUP, PROC_REF(on_mouse_up))
@@ -206,8 +206,7 @@
 	STOP_PROCESSING(SSprojectiles, src)
 	autofire_stat = AUTOFIRE_STAT_ALERT
 	if(clicker)
-		clicker.mouse_override_icon = null
-		clicker.mouse_pointer_icon = clicker.mouse_override_icon
+		clicker.mob.remove_mousepointer(MP_AUTO_GUN_PRIORITY)
 		UnregisterSignal(clicker, COMSIG_CLIENT_MOUSEDRAG)
 	if(!QDELETED(shooter))
 		UnregisterSignal(shooter, COMSIG_MOB_SWAPPED_HANDS)
