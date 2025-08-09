@@ -1620,9 +1620,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/remove_robot_mindslave()
 	clear_zeroth_law()
-	mind.remove_antag_datum(/datum/antagonist/mindslave/malf_robot)
-	mind.remove_antag_datum(/datum/antagonist/mindslave/emagged_robot)
-	mind.remove_antag_datum(/datum/antagonist/mindslave/mindflayer_mindslave_robot)
+	if(mind)	
+		mind.remove_antag_datum(/datum/antagonist/mindslave/malf_robot)
+		mind.remove_antag_datum(/datum/antagonist/mindslave/emagged_robot)
+		mind.remove_antag_datum(/datum/antagonist/mindslave/mindflayer_mindslave_robot)
 
 /mob/living/silicon/robot/adjustOxyLoss(amount)
 	if(suiciding)
