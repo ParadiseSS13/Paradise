@@ -171,11 +171,29 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `admin_rank` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Administrator',
-  `level` int(2) NOT NULL DEFAULT '0',
-  `flags` int(16) NOT NULL DEFAULT '0',
+  `display_rank` varchar(32) COLLATE utf8mb4_unicode_ci,
+  `permissions_rank` int(11) COMMENT 'Foreign key for admin_ranks.id',
+  `extra_permissions` int(16) NOT NULL DEFAULT '0',
+  `removed_permissions` int(16) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `admin_ranks`
+--
+
+DROP TABLE IF EXISTS `admin_ranks`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `admin_ranks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `default_permissions` int(16) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -273,7 +291,6 @@ CREATE TABLE `player` (
   `lastseen` datetime NOT NULL,
   `ip` varchar(18) COLLATE utf8mb4_unicode_ci NOT NULL,
   `computerid` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lastadminrank` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Player',
   `ooccolor` varchar(7) COLLATE utf8mb4_unicode_ci DEFAULT '#b82e00',
   `UI_style` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT 'Midnight',
   `UI_style_color` varchar(7) COLLATE utf8mb4_unicode_ci DEFAULT '#ffffff',
