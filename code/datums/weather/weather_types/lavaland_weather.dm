@@ -447,7 +447,7 @@
 		update_areas()
 	if(!istype(target)) // lets not push around lavaland mobs
 		return
-	if(!is_mecha_occupant(target)) // mecha's occupants are unaffected
+	if(isturf(target.loc)) // only affected if outside and not dead.
 		target.air_push(wind_dir, MOVE_FORCE_NORMAL * 2)
 
 #undef ROCKFALL_DELAY
