@@ -80,3 +80,182 @@
 	else
 		to_chat(user, "[src] is empty.")
 		icon_state = "evidenceobj"
+
+/obj/item/forensics
+	icon = 'icons/obj/forensics/forensics.dmi'
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/sample
+	name = "\improper Forensic sample"
+	icon = 'icons/obj/forensics/forensics.dmi'
+	w_class = WEIGHT_CLASS_TINY
+	var/list/evidence = list()
+
+/obj/item/sample/Initialize(mapload, atom/supplied)
+	. = ..()
+	if(supplied)
+		copy_evidence(supplied)
+		name = "[initial(name)] ([supplied])"
+
+/obj/item/sample/print/New(newloc, atom/supplied)
+	. = ..()
+	if(length(evidence))
+		icon_state = "fingerprint1"
+
+/obj/item/sample/proc/copy_evidence(atom/supplied)
+	if(length(supplied.suit_fibers))
+		evidence = supplied.suit_fibers.Copy()
+		supplied.suit_fibers.Cut()
+
+/obj/item/sample/proc/merge_evidence(obj/item/sample/supplied, mob/user)
+	if(!length(supplied.evidence))
+		return FALSE
+	evidence |= supplied.evidence
+	name = "[initial(name)] (combined)"
+	to_chat(user, "<span class='notice'>You are moving [supplied] to [src].</span>")
+	return TRUE
+
+/obj/item/sample/print/merge_evidence(obj/item/sample/supplied, mob/user)
+	if(!supplied || !length(supplied.evidence))
+		return FALSE
+	for(var/print in supplied.evidence)
+		if(evidence[print])
+			evidence[print] = stringmerge(evidence[print], supplied.evidence[print])
+		else
+			evidence[print] = supplied.evidence[print]
+	name = "[initial(name)] (combined)"
+	to_chat(user, "<span class='notice'>You overlay [src] and [supplied], combining the print records.</span>")
+	return TRUE
+
+/obj/item/sample/pre_attack(atom/A, mob/living/user, params)
+	..()
+	// Fingerprints will be handled in after_attack() to not mess up the samples taken
+	return A.attackby__legacy__attackchain(src, user, params)
+
+/obj/item/sample/attackby__legacy__attackchain(obj/O, mob/user)
+	if(istype(O, src.type))
+		user.unequip(O)
+		if(merge_evidence(O, user))
+			qdel(O)
+		return TRUE
+	return ..()
+
+/obj/item/sample/fibers
+	name = "fiber bag"
+	desc = "Used to store fiber evidence for forensic examianation."
+	icon_state = "fiberbag"
+
+/obj/item/sample/print
+	name = "fingerprint card"
+	desc = "Preserves fingerprints."
+	icon = 'icons/obj/card.dmi'
+	icon_state = "fingerprint0"
+	item_state = "paper"
+	var/used
+
+/obj/item/sample/print/update_icon_state()
+	. = ..()
+	icon_state = "fingerprint0"
+	if(used)
+		icon_state = "fingerprint1"
+
+
+/obj/item/sample/print/attack_self__legacy__attackchain(mob/user)
+	if(!length(evidence))
+		return
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.gloves)
+		to_chat(user, "<span class='warning'>Take [H.gloves] off first.</span>")
+		return
+
+	to_chat(user, "<span class='notice'>You press your fingertips firmly against the card.</span>")
+	var/fullprint = H.get_full_print()
+	evidence[fullprint] = fullprint
+	name = "[initial(name)] ([H])"
+	used = TRUE
+	update_appearance(UPDATE_ICON_STATE)
+
+/obj/item/sample/print/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
+	. = ..()
+
+	if(!ishuman(M))
+		return ..()
+
+	if(length(evidence))
+		return FALSE
+
+	var/mob/living/carbon/human/H = M
+
+	if(H.gloves)
+		to_chat(user, "<span class='warning'>[H] is wearing gloves.</span>")
+		return TRUE
+
+	if(user != H && !IS_HORIZONTAL(H))
+		user.visible_message("<span class='danger'>[user] tried to fingerprint [H], but he resists.</span>")
+		return TRUE
+
+	if(user.zone_selected == "r_hand" || user.zone_selected == "l_hand")
+		var/has_hand = (H.has_organ("r_hand") || H.has_organ("l_hand"))
+		if(!has_hand)
+			to_chat(user, "<span class='warning'>[H] has no hands!</span>")
+			return FALSE
+		if(!do_after(user, 2 SECONDS, target = user))
+			return FALSE
+
+		user.visible_message("<span class='notice'>[user] makes a copy of [H]'s fingerprints'.</span>")
+		var/fullprint = H.get_full_print()
+		evidence[fullprint] = fullprint
+		copy_evidence(src)
+		name = ("[initial(name)] ([H])")
+		used = TRUE
+		update_appearance(UPDATE_ICON_STATE)
+		return TRUE
+	return FALSE
+
+/obj/item/sample/print/copy_evidence(atom/supplied)
+	if(length(supplied.fingerprints))
+		for(var/print in supplied.fingerprints)
+			evidence[print] = supplied.fingerprints[print]
+		supplied.fingerprints.Cut()
+
+/obj/item/forensics/sample_kit
+	name = "fiber collection kit"
+	desc = "Magnifying glass and tweezers. Used to lift fabric fibers. Use on harm intent to collect samples and not interact with objects."
+	icon_state = "m_glass"
+	w_class = WEIGHT_CLASS_SMALL
+	///naming for individual evidence items
+	var/evidence_type = "fibers"
+	var/evidence_path = /obj/item/sample/fibers
+
+/obj/item/forensics/sample_kit/proc/can_take_sample(mob/user, atom/supplied)
+	return length(supplied.suit_fibers)
+
+/obj/item/forensics/sample_kit/proc/take_sample(mob/user, atom/supplied)
+	var/obj/item/sample/S = new evidence_path(get_turf(user), supplied)
+	to_chat(user, "<span class='notice'>You move [S.evidence.len] [S.evidence.len > 1 ? "[evidence_type]" : "[evidence_type]"] [S].</span>")
+
+/obj/item/forensics/sample_kit/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
+	if(!proximity)
+		return
+	if(can_take_sample(user, A))
+		take_sample(user,A)
+		return TRUE
+
+	to_chat(user, "<span class='warning'>You cannot find [evidence_type] on [A].</span>")
+	return ..()
+
+/obj/item/forensics/sample_kit/MouseDrop(atom/over)
+	if(ismob(src.loc))
+		afterattack__legacy__attackchain(over, usr, TRUE)
+
+/obj/item/forensics/sample_kit/powder
+	name = "fingerprint Powder"
+	desc = "A jar of aluminum powder and a specialized brush. Use on harm intent to collect samples and not interact with objects."
+	icon_state = "dust"
+	evidence_type = "prints"
+	evidence_path = /obj/item/sample/print
+
+/obj/item/forensics/sample_kit/powder/can_take_sample(mob/user, atom/supplied)
+	return length(supplied.fingerprints)

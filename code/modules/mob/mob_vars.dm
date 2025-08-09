@@ -254,7 +254,8 @@
 	/// This is *not* necessarily an instance of [/datum/click_intercept].
 	var/datum/click_interceptor
 
+	///gunshot residue for det work
+	var/gunshot_residue
 	/// For storing what do_after's something has, key = string, value = amount of interactions of that type happening.
 	var/list/do_afters
-
 	new_attack_chain = TRUE

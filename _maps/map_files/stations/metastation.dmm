@@ -6842,7 +6842,6 @@
 	dir = 4;
 	pixel_x = -32
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "aRO" = (
@@ -30495,9 +30494,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "cUW" = (
-/obj/structure/closet/firecloset,
-/turf/simulated/floor/plasteel,
-/area/station/security/brig)
+/obj/structure/table/wood,
+/obj/machinery/dnaforensics,
+/turf/simulated/floor/carpet,
+/area/station/security/detective)
 "cUX" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -33819,7 +33819,8 @@
 	},
 /area/station/science/toxins/mixing)
 "dJx" = (
-/obj/structure/filingcabinet,
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/disposal,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "dJB" = (
@@ -34699,9 +34700,10 @@
 	},
 /area/station/science/xenobiology)
 "dZZ" = (
-/obj/structure/closet/emcloset,
-/turf/simulated/floor/plasteel,
-/area/station/security/brig)
+/obj/structure/table/wood,
+/obj/machinery/microscope,
+/turf/simulated/floor/carpet,
+/area/station/security/detective)
 "eac" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
@@ -42073,6 +42075,13 @@
 	icon_state = "darkgrey"
 	},
 /area/station/maintenance/aft)
+"gEr" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/station/engineering/atmos)
 "gEt" = (
 /obj/structure/table/glass,
 /obj/item/paper/crumpled,
@@ -49340,12 +49349,12 @@
 	},
 /area/station/engineering/control)
 "jnZ" = (
-/obj/item/kirbyplants/large/plant14,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/camera{
 	c_tag = "Brig Detective's Office";
 	dir = 8
 	},
+/obj/structure/filingcabinet,
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "joD" = (
@@ -50347,7 +50356,6 @@
 /area/station/engineering/transmission_laser)
 "jIf" = (
 /obj/machinery/hologram/holopad,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "jIj" = (
@@ -72079,42 +72087,7 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/medical/storage/secondary)
-"roR" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
-	},
-/area/station/engineering/atmos)
-"roV" = (
-/obj/structure/sign/directions/engineering{
-	dir = 4;
-	pixel_x = 32
-	},
-/obj/structure/sign/directions/bridge{
-	dir = 4;
-	pixel_x = 32;
-	pixel_y = -8
-	},
-/obj/structure/sign/directions/security{
-	dir = 4;
-	pixel_x = 32;
-	pixel_y = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/fore/west)
 "rpt" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/item/radio/intercom/department/security{
-	pixel_x = -28;
-	pixel_y = -7
-	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "rpy" = (
@@ -82331,9 +82304,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/sortjunction/reversed{
-	dir = 4;
-	sort_type_txt = "24"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
@@ -82763,11 +82735,12 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
+	},
+/obj/structure/disposalpipe/sortjunction/reversed{
+	dir = 4;
+	sort_type_txt = "24"
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
@@ -88479,8 +88452,6 @@
 	},
 /area/station/hallway/supply/aft)
 "xta" = (
-/obj/structure/disposalpipe/trunk,
-/obj/machinery/disposal,
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24
@@ -106541,7 +106512,7 @@ kOC
 xqq
 wrX
 xqq
-roV
+xqq
 uFw
 rbK
 iGn
@@ -119624,8 +119595,8 @@ iBR
 iBR
 iBR
 iBR
-dZZ
-cUW
+qeK
+qeK
 qeK
 vqm
 bdT
@@ -119881,8 +119852,8 @@ aiN
 xSg
 erZ
 iBR
-qeK
-qeK
+cUW
+dZZ
 qeK
 dJx
 voS
@@ -132266,7 +132237,7 @@ uJI
 xBg
 xoS
 bYt
-roR
+gEr
 kcr
 jOr
 kuW

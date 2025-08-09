@@ -22216,7 +22216,6 @@
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "dkb" = (
-/obj/machinery/requests_console/directional/south,
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
@@ -23543,6 +23542,7 @@
 "dwb" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/flask/detflask,
+/obj/item/camera/detective,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "dwd" = (
@@ -27339,9 +27339,6 @@
 /obj/structure/cable/orange{
 	icon_state = "0-4"
 	},
-/obj/structure/shelf/security,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/camera/detective,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "emC" = (
@@ -48963,6 +48960,11 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/port)
+"iXh" = (
+/obj/structure/table/wood,
+/obj/machinery/microscope,
+/turf/simulated/floor/carpet/grimey,
+/area/station/security/detective)
 "iXl" = (
 /obj/item/radio/intercom{
 	pixel_x = 28;
@@ -78864,10 +78866,10 @@
 	},
 /area/station/maintenance/starboard)
 "pqf" = (
-/obj/structure/table,
-/obj/item/storage/box/evidence,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
+/obj/structure/table/wood,
+/obj/machinery/dnaforensics,
+/turf/simulated/floor/carpet/grimey,
+/area/station/security/detective)
 "pqm" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -90937,16 +90939,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/service/hydroponics)
-"rXI" = (
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred";
-	dir = 1
-	},
-/area/station/hallway/secondary/exit)
 "rXJ" = (
 /obj/effect/spawner/random/dirt/frequent,
 /obj/effect/spawner/random/dirt/frequent,
@@ -135465,7 +135457,7 @@ yhW
 yhW
 yhW
 yhW
-duh
+yhW
 diC
 nxA
 xJa
@@ -135721,8 +135713,8 @@ dyJ
 nHy
 viT
 emw
-yhW
 pqf
+yhW
 diC
 xyw
 xJa
@@ -135978,8 +135970,8 @@ pPN
 fvV
 jiW
 dkb
+iXh
 yhW
-vsk
 diC
 guQ
 xJa
@@ -174093,7 +174085,7 @@ hUU
 hUU
 aXn
 qsN
-rXI
+rcp
 qxj
 eFI
 fKZ
