@@ -308,6 +308,7 @@
 		return
 	if(istype(chassis.selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield))
 		chassis.selected.on_unequip() // No shields while recharging
+		occupant_message("Shields disabled.")
 	var/cur_charge = chassis.get_charge()
 	if(isnull(cur_charge) || !chassis.cell)
 		STOP_PROCESSING(SSobj, src)

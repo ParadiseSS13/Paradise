@@ -787,6 +787,9 @@
 				W.forceMove(src)
 				cell = W
 				log_message("Powercell installed")
+				if(istype(selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield) && istype(cell, /obj/item/stock_parts/cell/infinite))
+					occupant_message("<span class='danger'>The immense power of the cell overloads the shields.</span>")
+					selected.on_unequip()
 			else
 				to_chat(user, "<span class='notice'>There's already a powercell installed.</span>")
 		return

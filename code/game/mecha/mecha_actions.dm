@@ -127,6 +127,8 @@
 		chassis.step_in = min(1, round(chassis.step_in / 2))
 		chassis.step_energy_drain = max(chassis.overload_step_energy_drain_min, chassis.step_energy_drain * chassis.leg_overload_coeff)
 		chassis.occupant_message("<span class='danger'>You enable leg actuators overload.</span>")
+		if(istype(chassis.selected = /obj/item/mecha_parts/mecha_equipment/pulse_shield))
+			chassis.occupant_message("<span class='danger'>Your shields turn off as your actuators overload.</span>")
 	else
 		chassis.leg_overload_mode = 0
 		// chassis.bumpsmash = 0
