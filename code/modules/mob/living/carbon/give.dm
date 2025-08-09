@@ -84,6 +84,7 @@
 
 
 /datum/click_intercept/give/InterceptClickOn(mob/user, params, atom/object)
+	. = TRUE
 	if(user == object || !ishuman(object))
 		return
 	var/mob/living/carbon/human/receiver = object
