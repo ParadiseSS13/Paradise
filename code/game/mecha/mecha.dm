@@ -166,6 +166,9 @@
 	. = ..()
 	underlays.Cut()
 	underlays += emissive_appearance(emissive_appearance_icon, "[icon_state]_lightmask")
+	overlays.Cut()
+	if(istype(selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield))
+		overlays += mutable_appearance('icons/effects/effects.dmi', "shield", MOB_LAYER + 0.01)
 
 ////////////////////////
 ////// Helpers /////////
@@ -527,6 +530,16 @@
 	return facing_modifiers[MECHA_SIDE_ARMOUR] //always return non-0
 
 /obj/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	for(var/obj/item/mecha_parts/mecha_equipment/pulse_shield/shield in equipment)
+		if(selected == shield)
+			var/required_power = shield.energy_drain * damage_amount
+			if(cell.use(required_power))
+				log_message("Took [damage_amount] points of damage. Damage absorbed by [shield].")
+				damage_amount = 0
+				spark_system.start()
+			else
+				occupant_message("<span class='userdanger'>Shield breached!</span>")
+				shield.on_unequip()
 	. = ..()
 	if(. && obj_integrity > 0)
 		spark_system.start()
@@ -630,6 +643,9 @@
 /obj/mecha/bullet_act(obj/item/projectile/Proj) //wrapper
 	log_message("Hit by projectile. Type: [Proj.name]([Proj.flag]).")
 	add_attack_logs(Proj.firer, OCCUPANT_LOGGING, "shot [Proj.name]([Proj.flag]) at mech [src]")
+	if(Proj.shield_buster && istype(selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield))
+		occupant_message("<span class='userdanger'>Shield breached!</span>")
+		selected.on_unequip()
 	..()
 
 /obj/mecha/ex_act(severity, target)
@@ -695,6 +711,9 @@
 /obj/mecha/emp_act(severity)
 	if(emp_proof)
 		return
+	if(istype(selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield))
+		occupant_message("<span class='userdanger'>Shield breached!</span>")
+		selected.on_unequip()
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, ENERGY, 1)

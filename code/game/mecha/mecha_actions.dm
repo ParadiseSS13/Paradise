@@ -253,7 +253,10 @@
 /datum/action/innate/mecha/select_module/Activate()
 	if(!owner || !chassis || chassis.occupant != owner)
 		return
+	if(chassis.selected)
+		chassis.selected.on_unequip()
 	chassis.selected = equipment
+	chassis.selected.on_equip()
 	chassis.occupant_message("<span class='notice'>You switch to [equipment.name].</span>")
 	chassis.visible_message("[chassis] raises [equipment.name]")
 	send_byjax(chassis.occupant, "exosuit.browser", "eq_list", chassis.get_equipment_list())
