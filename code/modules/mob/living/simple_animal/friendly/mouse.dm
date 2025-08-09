@@ -231,6 +231,8 @@
 	if(core)
 		core.admin_spawned = admin_spawned
 
+	SEND_SIGNAL(src, COMSIG_BLOB_MOUSE_BURST, core)
+
 	SSticker.record_biohazard_start(BIOHAZARD_BLOB)
 
 /mob/living/simple_animal/mouse/blobinfected/get_scooped(mob/living/carbon/grabber)

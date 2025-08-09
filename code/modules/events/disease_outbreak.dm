@@ -64,8 +64,6 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 			GLOB.minor_announcement.Announce("Moderate contagion detected aboard [station_name()].", new_sound = 'sound/misc/notice2.ogg', new_title = "Contagion Alert")
 		if(EVENT_LEVEL_MUNDANE)
 			GLOB.minor_announcement.Announce("Minor contagion detected aboard [station_name()].", new_sound = 'sound/misc/notice2.ogg', new_title = "Contagion Alert")
-	// We did our announcement, the event no longer needs to run
-	kill()
 
 /datum/event/disease_outbreak/process()
 	if(activeFor == force_disease_time)
@@ -78,6 +76,9 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 				break
 	if(length(infected_players) > 2 && announceWhen <= 0)
 		announceWhen = activeFor + 180
+	// The event ends when everyone is cured
+	if(length(infected_players) <= 0)
+		kill()
 	. = ..()
 
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne

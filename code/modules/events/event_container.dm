@@ -107,19 +107,19 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/proc/get_playercount_modifier()
 	switch(length(GLOB.player_list))
 		if(0 to 10)
-			return 1.2
-		if(11 to 15)
 			return 1.1
+		if(11 to 15)
+			return 1.05
 		if(16 to 25)
 			return 1
 		if(26 to 35)
-			return 0.9
+			return 0.95
 		if(36 to 50)
-			return 0.8
+			return 0.9
 		if(50 to 80)
-			return 0.7
+			return 0.85
 		if(80 to 10000)
-			return 0.6
+			return 0.8
 
 /datum/event_container/proc/set_event_delay()
 	// If the next event time has not yet been set and we have a custom first time start
@@ -134,10 +134,13 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 		playercount_modifier = playercount_modifier * delay_modifier
 
-		var/event_delay = rand(GLOB.configuration.event.delay_lower_bound[severity], GLOB.configuration.event.delay_upper_bound[severity]) * playercount_modifier
+		var/event_delay = calculate_event_delay()
 		next_event_time = world.time + event_delay
 
 	log_debug("Next event of severity [GLOB.severity_to_string[severity]] in [(next_event_time - world.time)/600] minutes.")
+
+/datum/event_container/proc/calculate_event_delay()
+	return rand(GLOB.configuration.event.delay_lower_bound[severity], GLOB.configuration.event.delay_upper_bound[severity]) * playercount_modifier
 
 /datum/event_container/proc/SelectEvent()
 	var/datum/event_meta/EM = input("Select an event to queue up.", "Event Selection", null) as null|anything in available_events
@@ -232,13 +235,14 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Pulse Demon Infiltration",	/datum/event/spawn_pulsedemon,	20,	is_one_shot = TRUE)
 	)
 
+// The weights here are set up to roll an event about 1 in 3 rounds, assuming you roll as much as possible
 /datum/event_container/disaster
 	severity = EVENT_LEVEL_DISASTER
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/nothing, 360),
-		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/blob, 90, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/alien_infestation, 90, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 90, TRUE)
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/nothing, 950),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/blob, 15, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/alien_infestation, 15, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 15, TRUE)
 		)
 	var/activation_counter = 0
 
@@ -253,3 +257,9 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/disaster/start_event()
 	activation_counter++
 	. = ..()
+
+/datum/event_container/disaster/calculate_event_delay()
+	. = ..()
+	if(world.time + . <= 120 MINUTES && world.time + . >= 95 MINUTES)
+		. += 25 MINUTES
+	return

@@ -15,14 +15,14 @@
 		EVENT_LEVEL_MUNDANE = 5 MINUTES,
 		EVENT_LEVEL_MODERATE = 15 MINUTES,
 		EVENT_LEVEL_MAJOR = 20 MINUTES,
-		EVENT_LEVEL_DISASTER = 40 MINUTES
+		EVENT_LEVEL_DISASTER = 10 MINUTES
 	)
 	/// Assoc list of lower bounds of event delays. key: severity | value: delay (deciseconds)
 	var/list/delay_upper_bound = list(
 		EVENT_LEVEL_MUNDANE = 7.5 MINUTES,
 		EVENT_LEVEL_MODERATE = 22.5 MINUTES,
 		EVENT_LEVEL_MAJOR = 30 MINUTES,
-		EVENT_LEVEL_DISASTER = 45 MINUTES
+		EVENT_LEVEL_DISASTER = 12 MINUTES
 	)
 	/// Expected time of a round in deciseconds
 	var/expected_round_length = 120 MINUTES // This macro is equivilent to 72,000 deciseconds
@@ -40,14 +40,14 @@
 		CONFIG_LOAD_NUM_MULT(delay_lower_bound[EVENT_LEVEL_MUNDANE], data["event_delay_lower_bounds"]["mundane"], MINUTES)
 		CONFIG_LOAD_NUM_MULT(delay_lower_bound[EVENT_LEVEL_MODERATE], data["event_delay_lower_bounds"]["moderate"], MINUTES)
 		CONFIG_LOAD_NUM_MULT(delay_lower_bound[EVENT_LEVEL_MAJOR], data["event_delay_lower_bounds"]["major"], MINUTES)
-		CONFIG_LOAD_NUM_MULT(delay_lower_bound[EVENT_LEVEL_DISASTER], data["event_delay_lower_bounds"]["major"], MINUTES)
+		CONFIG_LOAD_NUM_MULT(delay_lower_bound[EVENT_LEVEL_DISASTER], data["event_delay_lower_bounds"]["disaster"], MINUTES)
 
 	// Same here. I hate this.
 	if(islist(data["event_delay_upper_bounds"]))
 		CONFIG_LOAD_NUM_MULT(delay_upper_bound[EVENT_LEVEL_MUNDANE], data["event_delay_upper_bounds"]["mundane"], MINUTES)
 		CONFIG_LOAD_NUM_MULT(delay_upper_bound[EVENT_LEVEL_MODERATE], data["event_delay_upper_bounds"]["moderate"], MINUTES)
 		CONFIG_LOAD_NUM_MULT(delay_upper_bound[EVENT_LEVEL_MAJOR], data["event_delay_upper_bounds"]["major"], MINUTES)
-		CONFIG_LOAD_NUM_MULT(delay_upper_bound[EVENT_LEVEL_DISASTER], data["event_delay_upper_bounds"]["major"], MINUTES)
+		CONFIG_LOAD_NUM_MULT(delay_upper_bound[EVENT_LEVEL_DISASTER], data["event_delay_upper_bounds"]["disaster"], MINUTES)
 
 	// And for the worst, the first run delays. I hate this so much -aa07
 	if(islist(data["event_initial_delays"]))
