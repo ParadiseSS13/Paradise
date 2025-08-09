@@ -6,8 +6,8 @@
 	role_weights = list(ASSIGNMENT_ENGINEERING = 1, ASSIGNMENT_SECURITY = 2)
 	role_requirements = list(ASSIGNMENT_ENGINEERING = 1, ASSIGNMENT_SECURITY = 1)
 	var/list/spawned_mobs = list(
-		/mob/living/simple_animal/hostile/carp = 95,
-		/mob/living/simple_animal/hostile/carp/megacarp = 5)
+		/mob/living/basic/carp = 95,
+		/mob/living/basic/carp/megacarp = 5)
 
 /datum/event/carp_migration/setup()
 	announceWhen = rand(40, 60)

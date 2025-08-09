@@ -82,7 +82,6 @@
 	max_integrity = 300
 	pixel_x = -32	//shamelessly stolen from dna vault
 	pixel_y = -32
-	power_state = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
@@ -175,6 +174,12 @@
 	radio.listening = FALSE
 	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
+
+/obj/machinery/power/bluespace_tap/examine(mob/user)
+	. = ..()
+	. += "An alien looking device that gathers all manner of objects from different dimensions"
+	if(dirty)
+		. += "It's gummed up with filth!"
 
 /obj/machinery/power/bluespace_tap/cleaning_act(mob/user, atom/cleaner, cleanspeed, text_verb, text_description, text_targetname)
 	. = ..()
@@ -451,7 +456,7 @@
 	radio.autosay("<b>Power spike detected during Bluespace Harvester Operation. Large bluespace payload inbound.</b>", name, "Engineering")
 	// Build location list cache once
 	var/list/possible_spawns = list()
-	var/list/random_spawns = GLOB.nukedisc_respawn
+	var/list/random_spawns = GLOB.maints_loot_spawns
 	// Build list of spawn positions
 	for(var/turf/current_target_turf in view(3, src))
 		possible_spawns.Add(current_target_turf)
@@ -479,7 +484,7 @@
 /obj/machinery/power/bluespace_tap/proc/find_spawn_location(random = FALSE)
 	var/list/possible_spawns = list()
 	if(random)
-		possible_spawns = GLOB.nukedisc_respawn
+		possible_spawns = GLOB.maints_loot_spawns
 	else
 		// Build list of spawn positions
 		for(var/turf/current_target_turf in view(3, src))

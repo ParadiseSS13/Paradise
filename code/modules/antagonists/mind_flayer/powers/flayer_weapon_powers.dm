@@ -1,7 +1,6 @@
 /datum/spell/flayer/self/weapon
 	name = "Create weapon"
 	desc = "This really shouldn't be here"
-	power_type = FLAYER_UNOBTAINABLE_POWER
 	action_icon = 'icons/mob/robot_items.dmi'
 	action_icon_state = "lollipop"
 	base_cooldown = 1 SECONDS // This just handles retracting and deploying the weapon, weapon charge will be fully separate
@@ -36,7 +35,9 @@
 
 	if(!weapon_ref)
 		create_new_weapon()
-	weapon_ref.flags |= (ABSTRACT | NODROP) // Just in case the item doesn't start with both of these, or somehow loses them.
+	// Just in case the item doesn't start with both of these, or somehow loses them.
+	weapon_ref.flags |= ABSTRACT
+	weapon_ref.set_nodrop(TRUE, user)
 
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || (user.get_active_hand() && !user.drop_item()))
 		flayer.send_swarm_message("We cannot manifest [weapon_ref] into our active hand...")
@@ -152,12 +153,10 @@
 	name = "Grapple Arm"
 	range = 10
 	damage = 15
-	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	icon_state = "flayer_claw"
 	chain_icon_state = "flayer_tether"
 	speed = 3
 	yank_speed = 2
-	reflectability = REFLECTABILITY_PHYSICAL // This lowkey makes no sense but it's also kinda funny
 	/// The ammo this came from
 	var/obj/item/ammo_casing/magic/grapple_ammo/ammo
 
@@ -199,9 +198,7 @@
 	upgrade_info = ""
 	action_icon = 'icons/obj/device.dmi'
 	action_icon_state = "hacktool"
-	base_cooldown = 1 SECONDS
 	category = FLAYER_CATEGORY_INTRUDER
-	power_type = FLAYER_UNOBTAINABLE_POWER
 	weapon_type = /obj/item/door_remote/omni/access_tuner/flayer
 
 /*
@@ -213,7 +210,6 @@
 	upgrade_info = "Upgrading it allows us to reload the cannon faster. At the third level, we gain an extra magazine slot."
 	action_icon = 'icons/obj/guns/projectile.dmi'
 	action_icon_state = "shell_cannon_weapon"
-	base_cooldown = 1 SECONDS
 	category = FLAYER_CATEGORY_DESTROYER
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 50
@@ -240,7 +236,6 @@
 	flags = NODROP | ABSTRACT
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
-	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/flayer
 	unique_reskin = FALSE
 	can_sawoff = FALSE

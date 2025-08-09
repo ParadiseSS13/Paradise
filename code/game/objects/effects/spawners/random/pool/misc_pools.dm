@@ -1,5 +1,4 @@
 /datum/spawn_pool/whiteship_mobs
-	available_points = 0
 
 /obj/effect/spawner/random/pool/whiteship_mob
 	icon_state = "giftbox"
@@ -8,6 +7,6 @@
 	guaranteed = TRUE
 	point_value = 0
 	loot = list(
-		/mob/living/simple_animal/hostile/pirate,
+		/mob/living/basic/pirate,
 		/obj/effect/spawner/random/space_pirate,
 	)

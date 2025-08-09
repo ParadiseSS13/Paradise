@@ -604,8 +604,8 @@
 	name = "Dublin Drop"
 	id = "dublindrop"
 	result = "dublindrop"
-	required_reagents = list("ale" = 1, "irishcream" = 1)
-	result_amount = 2
+	required_reagents = list("stout" = 1, "irishcream" = 1, "whiskey" = 1)
+	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/syndicatebomb
@@ -745,7 +745,6 @@
 	id = "robottears"
 	result = "robottears"
 	required_reagents = list("synthanol" = 1, "oil" = 1, "sodawater" = 1)
-	result_amount = 3
 	mix_message = "The ingredients combine into a stiff, dark goo."
 
 /datum/chemical_reaction/synthanol/trinary
@@ -753,7 +752,6 @@
 	id = "trinary"
 	result = "trinary"
 	required_reagents = list("synthanol" = 1, "limejuice" = 1, "orangejuice" = 1)
-	result_amount = 3
 	mix_message = "The ingredients mix into a colorful substance."
 
 /datum/chemical_reaction/synthanol/servo

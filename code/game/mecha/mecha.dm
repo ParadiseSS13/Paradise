@@ -160,6 +160,7 @@
 
 	set_light(lights_range_ambient, lights_power_ambient)
 	update_icon(UPDATE_OVERLAYS)
+	AddElement(/datum/element/hostile_machine)
 
 /obj/mecha/update_overlays()
 	. = ..()

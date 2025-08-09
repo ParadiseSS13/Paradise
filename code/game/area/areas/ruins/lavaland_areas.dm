@@ -72,3 +72,12 @@
 
 // This area exists so that lavaland ruins dont overwrite the baseturfs on regular space ruins
 /area/ruin/unpowered/misc_lavaruin
+
+
+/area/ruin/lavaland_relay
+	name = "Nanotrasen Lavaland Relay"
+	icon_state = "lava_relay"
+
+/area/ruin/lavaland_relay/Initialize(mapload)
+	name = "Nanotrasen Lavaland Relay #[rand(1, 1000)]" //Give it a random relay name
+	return ..()

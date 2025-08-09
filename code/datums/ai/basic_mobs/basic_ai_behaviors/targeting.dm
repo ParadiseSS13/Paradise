@@ -6,6 +6,7 @@ GLOBAL_LIST_EMPTY_TYPED(hostile_machines, /atom)
 GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 	/mob,
 	/obj/machinery/porta_turret,
+	/obj/machinery/power/emitter,
 	/obj/mecha,
 )))
 
@@ -13,7 +14,7 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 	action_cooldown = 2 SECONDS
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 	/// How far can we see stuff?
-	var/vision_range = 9
+	var/vision_range = 11
 	/// Blackboard key for aggro range, uses vision range if not specified
 	var/aggro_range_key = BB_AGGRO_RANGE
 
@@ -54,6 +55,8 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 	var/list/filtered_targets = list()
 
 	for(var/atom/pot_target in potential_targets)
+		if(ismob(pot_target) && living_mob.faction_check_mob(pot_target))
+			continue
 		if(targeting_strategy.can_attack(living_mob, pot_target))//Can we attack it?
 			filtered_targets += pot_target
 			continue
@@ -102,6 +105,8 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 			continue
 		if(!strategy.can_attack(pawn, maybe_target))
 			continue
+		if(ismob(maybe_target) && pawn.faction_check_mob(maybe_target))
+			continue
 		valid_found = TRUE
 		break
 	if(!valid_found)
@@ -132,7 +137,13 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 			continue
 		if(!strategy.can_attack(pawn, maybe_target))
 			continue
+		if(ismob(maybe_target) && pawn.faction_check_mob(maybe_target))
+			continue
 		accepted_targets += maybe_target
+
+	if(!length(accepted_targets))
+		finish_action(controller, succeeded = FALSE)
+		return
 
 	// Alright, we found something acceptable, let's use it yeah?
 	var/atom/target = pick_final_target(controller, accepted_targets)
@@ -156,3 +167,6 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 /// Returns the desired final target from the filtered list of targets
 /datum/ai_behavior/find_potential_targets/proc/pick_final_target(datum/ai_controller/controller, list/filtered_targets)
 	return pick(filtered_targets)
+
+/datum/ai_behavior/find_potential_targets/bigger_range
+	vision_range = 16

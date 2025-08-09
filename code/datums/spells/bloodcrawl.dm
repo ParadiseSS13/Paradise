@@ -3,7 +3,6 @@
 	desc = "Use pools of blood to phase out of existence."
 	base_cooldown = 1 SECONDS
 	clothes_req = FALSE
-	cooldown_min = 0
 	should_recharge_after_cast = FALSE
 	overlay = null
 	action_icon_state = "bloodcrawl"
@@ -60,10 +59,7 @@
 /// Can't use the wizard one, blocked by jaunt/slow
 /obj/effect/dummy/slaughter
 	name = "odd blood"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
-	density = FALSE
-	anchored = TRUE
 	invisibility = 60
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
@@ -97,7 +93,6 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "blank" // Flicks are used instead
 	duration = 0.6 SECONDS
-	layer = MOB_LAYER + 0.1
 
 /obj/effect/temp_visual/dir_setting/bloodcrawl/Initialize(mapload, set_dir, animation_state)
 	. = ..()
@@ -159,7 +154,7 @@
 		L.adjustOxyLoss(-1000)
 		L.adjustToxLoss(-1000)
 	else if((ishuman(victim) || isrobot(victim)))
-		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetising, leaving you wanting for more.</span>")
+		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetizing, leaving you wanting for more.</span>")
 		L.adjustBruteLoss(-50)
 		if(!isslaughterdemon(L))
 			L.adjustFireLoss(-50)

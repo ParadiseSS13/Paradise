@@ -16,7 +16,7 @@
 	var/flags = 0                               // Various language flags.
 	var/native                                  // If set, non-native speakers will have trouble speaking.
 	var/list/syllables                          // Used when scrambling text for a non-speaker.
-	var/list/space_chance = 55                  // Likelihood of getting a space in the random scramble string.
+	var/space_chance = 55                  // Likelihood of getting a space in the random scramble string.
 	var/follow = 0                              // Applies to HIVEMIND languages - should a follow link be included for dead mobs?
 	var/english_names = 0                       // Do we want English names by default, no matter what?
 	var/list/scramble_cache = list()
@@ -414,7 +414,6 @@
 /datum/language/common
 	name = "Galactic Common"
 	desc = "Originally a carefully crafted fusion of various Human and Skrell dialects, Galactic Common is the most commonly spoken language in the Sector, and incorporates influences from nearly every known sapient species."
-	speech_verb = "says"
 	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
 	key = "9"
@@ -425,7 +424,6 @@
 /datum/language/human
 	name = "Sol Common"
 	desc = "An artifical language designed by the Trans-Solar Federation for ease of use and concise communication."
-	speech_verb = "says"
 	exclaim_verbs = list("snaps", "shouts", "barks")
 	whisper_verb = "whispers"
 	colour = "solcom"
@@ -540,7 +538,6 @@
 /datum/language/ling
 	name = "Changeling"
 	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
-	speech_verb = "says"
 	colour = "changeling"
 	key = "g"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
@@ -650,11 +647,8 @@
 	speech_verb = "transmits"
 	ask_verb = "transmits"
 	exclaim_verbs = list("transmits")
-	colour = "say_quote"
 	key = "d"
-	flags = RESTRICTED | HIVEMIND | NOBABEL
 	drone_only = TRUE
-	follow = TRUE
 
 /datum/language/drone
 	name = "Drone"
@@ -783,7 +777,7 @@
 	ask_verb = "groans"
 	exclaim_verbs = list("yells")
 	colour = "zombie"
-	key = "zz" //doesn't matter, this is their default and only language
+	key = "w"
 	flags = RESTRICTED | NOLIBRARIAN
 	syllables = list("Brains", "Brainssss", "Flesh", "Grrr", "Hnng", "Braaaains", "Braaiiiins")
 	english_names = TRUE

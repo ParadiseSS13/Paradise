@@ -73,8 +73,6 @@
 /obj/item/storage/belt/utility
 	name = "tool-belt" //Carn: utility belt is nicer, but it bamboozles the text parsing.
 	desc = "Can hold various tools."
-	icon_state = "utilitybelt"
-	item_state = "utility"
 	use_item_overlays = TRUE
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 18
@@ -221,13 +219,10 @@
 	)
 
 /obj/item/storage/belt/medical/surgery
-	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 17
-	use_to_pickup = TRUE
 	name = "surgical belt"
 	desc = "Can hold various surgical tools."
 	storage_slots = 9
-	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/scalpel,
 		/obj/item/hemostat,
@@ -238,6 +233,7 @@
 		/obj/item/fix_o_vein,
 		/obj/item/surgicaldrill,
 		/obj/item/cautery,
+		/obj/item/dissector
 	)
 
 /obj/item/storage/belt/medical/surgery/loaded/populate_contents()
@@ -310,6 +306,7 @@
 		/obj/item/grenade/barrier,
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
+		/obj/item/grenade/frag/stinger,
 		/obj/item/reagent_containers/spray/pepper,
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
@@ -370,7 +367,6 @@
 	item_state = "federationwebbing"
 	storage_slots = 15
 	max_combined_w_class = 25
-	use_item_overlays = FALSE
 	layer_over_suit = TRUE
 	w_class_override = list(
 		/obj/item/crowbar,
@@ -420,7 +416,6 @@
 	desc = "A syndicate belt designed to be used by boarding parties. Its style is modelled after the hardsuits they wear."
 	icon_state = "militarybelt"
 	item_state = "military"
-	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 18
 	resistance_flags = FIRE_PROOF
 	use_item_overlays = TRUE // Will show the tools on the sprite
@@ -708,13 +703,28 @@
 		W.charges = W.max_charges
 	update_icon()
 
+/obj/item/storage/belt/plague_talisman
+	name = "\improper Runic Belt"
+	desc = "A belt designed to hold safely contain Plague Talismans. Better hope it doesn't start dripping..."
+	icon_state = "soulstonebelt"
+	item_state = "soulstonebelt"
+	storage_slots = 5
+	use_item_overlays = TRUE
+	can_hold = list(
+		/obj/item/plague_talisman
+	)
+
+/obj/item/storage/belt/plague_talisman/populate_contents()
+	for(var/count in 1 to storage_slots)
+		new /obj/item/plague_talisman(src)
+	update_icon()
+
 /obj/item/storage/belt/fannypack
 	name = "fannypack"
 	desc = "A dorky fannypack for keeping small items in."
 	icon_state = "fannypack_leather"
 	item_state = "fannypack_leather"
 	storage_slots = 3
-	max_w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
@@ -859,7 +869,6 @@
 	item_state = "holdingbelt"
 	storage_slots = 14
 	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
@@ -882,7 +891,6 @@
 	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 18
-	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	allow_quick_empty = TRUE
 	can_hold = list(
 		/obj/item/grenade/smokebomb,
@@ -996,7 +1004,6 @@
 	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 20
-	use_item_overlays = FALSE
 	layer_over_suit = TRUE
 	can_hold = list(
 		/obj/item/crowbar,
@@ -1035,7 +1042,8 @@
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
-		/obj/item/stack/marker_beacon)
+		/obj/item/stack/marker_beacon,
+		/obj/item/grenade/plastic/miningcharge)
 
 /obj/item/storage/belt/mining/vendor/Initialize(mapload)
 	. = ..()

@@ -210,6 +210,8 @@
 	. = ..()
 	extinguish()
 	acid_level = 0
+	if(temperature > VIRUS_DISINFECTION_TEMP)
+		SEND_SIGNAL(src, COMSIG_ATOM_DISINFECTED)
 
 /obj/singularity_pull(S, current_size)
 	..()
@@ -235,15 +237,6 @@
 	speed_process = FALSE
 	START_PROCESSING(SSobj, src)
 	STOP_PROCESSING(SSfastprocess, src)
-
-/obj/vv_get_dropdown()
-	. = ..()
-	.["Delete all of type"] = "byond://?_src_=vars;delall=[UID()]"
-	if(!speed_process)
-		.["Make speed process"] = "byond://?_src_=vars;makespeedy=[UID()]"
-	else
-		.["Make normal process"] = "byond://?_src_=vars;makenormalspeed=[UID()]"
-	.["Modify armor values"] = "byond://?_src_=vars;modifyarmor=[UID()]"
 
 /obj/proc/check_uplink_validity()
 	return TRUE

@@ -9,15 +9,11 @@
 	icon_dead = "Goldgrub_dead"
 	icon_gib = "syndicate_gib"
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
-	vision_range = 2
-	aggro_vision_range = 9
 	move_to_delay = 5
 	friendly = "harmlessly rolls into"
 	maxHealth = 45
 	health = 45
 	harm_intent_damage = 5
-	melee_damage_lower = 0
-	melee_damage_upper = 0
 	attacktext = "barrels into"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HELP
@@ -26,6 +22,8 @@
 	deathmessage = "spits up the contents of its stomach before dying!"
 	status_flags = CANPUSH
 	search_objects = 1
+	contains_xeno_organ = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/goldgrub
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
 						/obj/item/stack/ore/uranium)
 
@@ -34,6 +32,8 @@
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize(mapload)
 	. = ..()
+	faction |= "goldgrub"
+
 	var/i = rand(1,3)
 	while(i)
 		loot += pick(/obj/item/stack/ore/silver, /obj/item/stack/ore/gold, /obj/item/stack/ore/uranium, /obj/item/stack/ore/diamond)

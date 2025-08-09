@@ -1,9 +1,7 @@
 /obj/item/grenade/syndieminibomb
 	name = "\improper Syndicate minibomb"
 	desc = "A Syndicate-manufactured high-explosive grenade used to sow destruction and chaos."
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
-	item_state = "grenade"
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 	var/explosion_cause = "Syndicate minibomb"
 
@@ -23,7 +21,7 @@
 
 /obj/item/grenade/syndieminibomb/fake/attack_self__legacy__attackchain(mob/user)
 	if(!active)
-		flags |= NODROP
+		set_nodrop(TRUE, user)
 		to_chat(user, "<span class='userdanger'>As you activate the bomb, it emits a substance that sticks to your hand! It won't come off!</span>")
 		to_chat(user, "<span class='sans'>Uh oh.</span>")
 	. = ..()

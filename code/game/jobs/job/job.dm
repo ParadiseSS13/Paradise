@@ -72,10 +72,15 @@
 	/// Boolean detailing if this job has been banned because of a gamemode restriction i.e. The revolution has won, no more command
 	var/job_banned_gamemode = FALSE
 
+	/// Standard paycheck amount for this job
+	var/standard_paycheck = CREW_PAY_ASSISTANT
+
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H)
 
+	H.mind.initial_account.payday_amount = standard_paycheck
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	return
@@ -296,7 +301,37 @@
 	var/datum/job/J = SSjobs.GetJobType(jobtype)
 	if(!J)
 		J = SSjobs.GetJob(H.job)
-	id.assignment = H.mind.role_alt_title ? H.mind.role_alt_title : J.title
+	if(H.mind.role_alt_title)
+		id.assignment = H.mind.role_alt_title
+	else if(J)
+		id.assignment = J.title
+	else
+		id.assignment = H.job // ERTs and other things without job datums
+
 	if(!H.mind.initial_account)
 		return
 	id.associated_account_number = H.mind.initial_account.account_number
+
+/// Used to give the gaze ability to NTReps and IAAs
+/datum/outfit/job/proc/give_gaze(mob/living/carbon/human/user)
+	user.AddSpell(new /datum/spell/inspectors_gaze(null))
+
+/// Gives the imaginary space law booklet verb
+/mob/living/carbon/human/proc/space_law()
+	set name = "Open Space Law"
+	set desc = "Open a memorized version of the space law booklet."
+	set category = "Space Law"
+
+	var/obj/item/book/manual/wiki/security_space_law/imaginary/book = new()
+	if(!put_in_any_hand_if_possible(book))
+		QDEL_NULL(book)
+
+/// Gives the imaginary legal sop booklet verb
+/mob/living/carbon/human/proc/sop_legal()
+	set name = "Open Legal SOP"
+	set desc = "Open a memorized version of the legal SOP booklet."
+	set category = "Space Law"
+
+	var/obj/item/book/manual/wiki/sop_legal/imaginary/book = new()
+	if(!put_in_any_hand_if_possible(book))
+		QDEL_NULL(book)
