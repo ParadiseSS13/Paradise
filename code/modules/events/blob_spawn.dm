@@ -5,7 +5,9 @@
 	nominal_severity = EVENT_LEVEL_DISASTER
 	role_weights = list(ASSIGNMENT_SECURITY = 5, ASSIGNMENT_TOTAL = 3, ASSIGNMENT_MEDICAL = 3)
 	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_TOTAL = 60, ASSIGNMENT_MEDICAL = 4)
-	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
+	/// So we don't make a command report if nothing gets spawned.
+	var/successSpawn = FALSE
+	/// List of all blob cores and blob mice related to this event
 	var/list/blob_things = list("cores" = list(), "mice" = 0)
 
 /datum/event/blob/announce(false_alarm)
@@ -18,7 +20,7 @@
 	INVOKE_ASYNC(src, PROC_REF(make_blob))
 
 /datum/event/blob/process()
-	if(!(length(blob_things["cores"]) + blob_things["mice"]) && activeFor > 30)
+	if(!(length(blob_things["cores"]) + blob_things["mice"]) && successSpawn)
 		return kill()
 	return ..()
 
@@ -64,10 +66,10 @@
 
 /datum/event/blob/proc/record_core(atom/source, obj/structure/blob/core/core)
 	SIGNAL_HANDLER // COMSIG_BLOB_MOUSE_BURST
-	blob_things["mice"]--
 	if(core)
 		blob_things["cores"] += list(core)
 		RegisterSignal(core, COMSIG_PARENT_QDELETING, PROC_REF(remove_core))
+	blob_things["mice"]--
 
 /datum/event/blob/proc/remove_core(obj/structure/blob/core/source)
 	if(source)
