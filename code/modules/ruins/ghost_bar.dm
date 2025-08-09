@@ -14,6 +14,7 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 	restrict_antagban = FALSE
 	restrict_respawnability = FALSE
 	restrict_ahud = FALSE
+	outfit = /datum/outfit/ghost_bar
 
 /obj/effect/mob_spawn/human/alive/ghost_bar/create(ckey, flavour = TRUE, name, mob/user = usr) // So divorced from the normal proc it's just being overriden
 	var/datum/character_save/save_to_load
@@ -37,16 +38,15 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 			return
 		save_to_load = new
 		save_to_load.randomise()
-	var/mob/living/carbon/human/H = new(get_turf(src))
+	var/mob/living/carbon/human/human = new(get_turf(src))
+	human.speaks_ooc = TRUE
 
-	save_to_load.copy_to(H)
-	if(!H.back)
-		equip_item(H, /obj/item/storage/backpack, ITEM_SLOT_BACK)
-	equip_item(H, /obj/item/radio/headset/deadsay, ITEM_SLOT_LEFT_EAR)
-	H.dna.species.before_equip_job(/datum/job/assistant, H)
-	H.dna.species.remains_type = /obj/effect/decal/cleanable/ash
-	var/obj/item/bio_chip/dust/I = new
-	I.implant(H, null)
+	save_to_load.copy_to(human)
+	human.dna.species.before_equip_job(/datum/job/assistant, human)
+	human.job = assignedrole
+	if(outfit)
+		human.equipOutfit(outfit)
+	human.dna.species.remains_type = /obj/effect/decal/cleanable/ash
 	for(var/gear in save_to_load.loadout_gear)
 		var/datum/gear/G = GLOB.gear_datums[text2path(gear) || gear]
 		if(isnull(G))
@@ -54,56 +54,35 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 		if(G.allowed_roles) // Fix due to shitty HUD code
 			continue
 		if(G.slot)
-			if(H.equip_to_slot_or_del(G.spawn_item(H, save_to_load.get_gear_metadata(G)), G.slot, TRUE))
-				to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
+			if(human.equip_to_slot_or_del(G.spawn_item(human, save_to_load.get_gear_metadata(G)), G.slot, TRUE))
+				to_chat(human, "<span class='notice'>Equipping you with [G.display_name]!</span>")
 		else
-			H.equip_or_collect(G.spawn_item(null, save_to_load.get_gear_metadata(G)))
-	if(!H.w_uniform)
-		equip_item(H, /obj/item/clothing/under/color/random, ITEM_SLOT_JUMPSUIT)
-	if(!H.shoes)
-		equip_item(H, /obj/item/clothing/shoes/black, ITEM_SLOT_SHOES)
-	equip_item(H, /obj/item/stack/spacecash/c1000, ITEM_SLOT_LEFT_POCKET)
+			human.equip_or_collect(G.spawn_item(null, save_to_load.get_gear_metadata(G)))
 
-	var/obj/item/card/id/syndicate/our_id = equip_item(H, /obj/item/card/id/syndicate/ghost_bar, ITEM_SLOT_ID)
-	our_id.assignment = assignedrole
-	our_id.registered_name = H.real_name
-	our_id.sex = capitalize(H.gender)
-	our_id.age = H.age
-	our_id.name = "[our_id.registered_name]'s ID Card ([our_id.assignment])"
-	our_id.photo = get_id_photo(H)
-	our_id.owner_uid = H.UID()
-	our_id.owner_ckey = H.ckey
-	H.job = assignedrole
-
-	H.dna.ready_dna(H)
-	H.mind_initialize()
-	H.mind.assigned_role = assignedrole
-	H.mind.special_role = assignedrole
-	H.mind.offstation_role = TRUE
-	ADD_TRAIT(H, TRAIT_PACIFISM, GHOST_ROLE)
+	human.dna.ready_dna(human)
+	human.mind_initialize()
+	human.mind.assigned_role = assignedrole
+	human.mind.special_role = assignedrole
+	human.mind.offstation_role = TRUE
+	ADD_TRAIT(human, TRAIT_PACIFISM, GHOST_ROLE)
 	if(isobserver(user))
 		var/mob/dead/observer/ghost = user
 		if(ghost.can_reenter_corpse)
-			ADD_TRAIT(H, TRAIT_RESPAWNABLE, GHOST_ROLE)
+			ADD_TRAIT(human, TRAIT_RESPAWNABLE, GHOST_ROLE)
 
-	H.key = ckey
-	H.dna.species.after_equip_job(/datum/job/assistant, H)
-	if(isgrey(H))
+	human.key = ckey
+	human.dna.species.after_equip_job(/datum/job/assistant, human)
+	if(isgrey(human))
 		var/obj/item/organ/internal/cyberimp/brain/speech_translator/implant = new
-		implant.insert(H)
+		implant.insert(human)
 	log_game("[ckey] has entered the ghost bar")
 	playsound(src, 'sound/machines/wooden_closet_open.ogg', 50)
-	var/mob/old_mob = GLOB.occupants_by_key["[H.ckey]"]
+	var/mob/old_mob = GLOB.occupants_by_key["[human.ckey]"]
 	if(old_mob)
 		qdel(old_mob)
-	GLOB.occupants_by_key["[H.ckey]"] = H
-	RegisterSignal(H, COMSIG_PARENT_QDELETING, PROC_REF(clear_references_to_owner))
-
-/obj/effect/mob_spawn/human/alive/ghost_bar/proc/equip_item(mob/living/carbon/human/H, path, slot)
-	var/obj/item/I = new path(H)
-	H.equip_or_collect(I, slot, TRUE)
-	H.speaks_ooc = TRUE
-	return I
+	GLOB.occupants_by_key["[human.ckey]"] = human
+	RegisterSignal(human, COMSIG_PARENT_QDELETING, PROC_REF(clear_references_to_owner))
+	return human
 
 /obj/effect/mob_spawn/human/alive/ghost_bar/proc/clear_references_to_owner(mob/mob_to_obliterate)
 	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
@@ -132,3 +111,35 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 		return
 	if(HAS_TRAIT_FROM(M, TRAIT_RESPAWNABLE, GHOST_ROLE))
 		M.dust()
+
+// MARK: Ghost Bar outfit
+/datum/outfit/ghost_bar
+	name = "Ghost Bar Occupant"
+	uniform = /obj/item/clothing/under/color/random
+	shoes = /obj/item/clothing/shoes/black
+	back = /obj/item/storage/backpack
+	l_ear = /obj/item/radio/headset/deadsay
+	l_pocket = /obj/item/stack/spacecash/c1000
+	id = /obj/item/card/id/syndicate/ghost_bar
+	bio_chips = list(/obj/item/bio_chip/dust)
+	backpack_contents = list(/obj/item/storage/box/syndie_kit/chameleon/ghost_bar)
+
+/datum/outfit/ghost_bar/post_equip(mob/living/carbon/human/human, visualsOnly)
+	. = ..()
+	var/obj/item/card/id/card = human.wear_id
+	card.assignment = human.job
+	card.registered_name = human.real_name
+	card.sex = capitalize(human.gender)
+	card.age = human.age
+	card.name = "[card.registered_name]'s ID Card ([card.assignment])"
+	card.photo = get_id_photo(human)
+	card.owner_uid = human.UID()
+	card.owner_ckey = human.ckey
+
+// MARK: Ghost Bar chameleon kit
+/obj/item/storage/box/syndie_kit/chameleon/ghost_bar/populate_contents()
+	. = ..()
+	for(var/obj/item/pda/pda in contents)
+		qdel(pda)
+	for(var/obj/item/radio/headset/headset in contents)
+		qdel(headset)
