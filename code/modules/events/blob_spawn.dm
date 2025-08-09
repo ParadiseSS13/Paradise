@@ -18,7 +18,7 @@
 	INVOKE_ASYNC(src, PROC_REF(make_blob))
 
 /datum/event/blob/process()
-	if(!(length(blob_things["cores"]) + blob_things["mice"]))
+	if(!(length(blob_things["cores"]) + blob_things["mice"]) && activeFor > 30)
 		return kill()
 	return ..()
 
@@ -29,7 +29,8 @@
 	var/nodes = length(GLOB.blob_nodes)
 	var/blobbernauts = length(GLOB.blob_minions)
 	for(var/role in role_requirements)
-		cost += list(role = role_requirements[role] / role_requirements[ASSIGNMENT_TOTAL] * (cores * 10 + nodes * 2 + blob_blocks * 0.03 + blobbernauts))
+		costs += list("[role]" = role_requirements[role] / role_requirements[ASSIGNMENT_TOTAL] * (cores * 10 + nodes * 2 + blob_blocks * 0.03 + blobbernauts))
+	return costs
 
 /datum/event/blob/proc/make_blob()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
@@ -61,8 +62,13 @@
 	successSpawn = TRUE
 	SSevents.biohazards_this_round += BIOHAZARD_BLOB
 
-/datum/event/blob/record_core(atom/source, /obj/structure/blob/core/core)
+/datum/event/blob/proc/record_core(atom/source, obj/structure/blob/core/core)
 	SIGNAL_HANDLER // COMSIG_BLOB_MOUSE_BURST
-	blob_things["mice--"]
+	blob_things["mice"]--
 	if(core)
 		blob_things["cores"] += list(core)
+		RegisterSignal(core, COMSIG_PARENT_QDELETING, PROC_REF(remove_core))
+
+/datum/event/blob/proc/remove_core(obj/structure/blob/core/source)
+	if(source)
+		blob_things["cores"] -= source

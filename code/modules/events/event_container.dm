@@ -130,17 +130,13 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		next_event_time = world.time + event_delay
 	// Otherwise, follow the standard setup process
 	else
-		var/playercount_modifier = get_playercount_modifier()
-
-		playercount_modifier = playercount_modifier * delay_modifier
-
 		var/event_delay = calculate_event_delay()
 		next_event_time = world.time + event_delay
 
 	log_debug("Next event of severity [GLOB.severity_to_string[severity]] in [(next_event_time - world.time)/600] minutes.")
 
 /datum/event_container/proc/calculate_event_delay()
-	return rand(GLOB.configuration.event.delay_lower_bound[severity], GLOB.configuration.event.delay_upper_bound[severity]) * playercount_modifier
+	return rand(GLOB.configuration.event.delay_lower_bound[severity], GLOB.configuration.event.delay_upper_bound[severity]) * delay_modifier * get_playercount_modifier()
 
 /datum/event_container/proc/SelectEvent()
 	var/datum/event_meta/EM = input("Select an event to queue up.", "Event Selection", null) as null|anything in available_events
