@@ -466,7 +466,8 @@
 /area/shuttle/pod_4)
 "aeM" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 4 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
@@ -17650,7 +17651,10 @@
 /turf/simulated/wall,
 /area/station/hallway/primary/central)
 "bsA" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod 3 Airlock";
+	id_tag = "emergency_home"
+	},
 /turf/simulated/floor/plating,
 /area/station/security/prisonershuttle)
 "bsB" = (
@@ -88784,7 +88788,8 @@
 /area/station/science/genetics)
 "ueB" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 2 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -95950,7 +95955,8 @@
 /area/station/maintenance/apmaint)
 "xcL" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 1 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/south)

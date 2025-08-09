@@ -19283,7 +19283,8 @@
 /area/station/hallway/primary/central/north)
 "cOo" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 1 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
@@ -44965,7 +44966,8 @@
 /area/station/engineering/smes)
 "ieY" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 2 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -56155,7 +56157,8 @@
 /area/station/maintenance/port2)
 "kuw" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 3 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -78296,7 +78299,8 @@
 /area/station/maintenance/fore)
 "pjm" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 4 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
@@ -89981,7 +89985,7 @@
 /area/station/maintenance/fsmaint)
 "rNH" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 5 Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/plating,
