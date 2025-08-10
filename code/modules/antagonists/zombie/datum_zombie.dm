@@ -11,13 +11,23 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	var/list/old_languages = list() // someone make this better to prevent langs changing if species changes while zombie somehow
 	var/static/list/zombie_traits = list(TRAIT_LANGUAGE_LOCKED, TRAIT_GOTTAGOSLOW, TRAIT_ABSTRACT_HANDS, TRAIT_NOBREATH)
 	var/datum/unarmed_attack/claws/claw_attack
+	var/chosen_disease
 
 // possibly upgrades for the zombies after eating brains? Better vision (/datum/action/changeling/augmented_eyesight), better weapons (armblade), better infection, more inhereint armor (physiology)
 // ability to find nearby brains to eat (like cling/vamp ability to track people around them)
+/datum/antagonist/zombie/New(chosen_plague)
+	chosen_disease = chosen_plague
+	..()
 
 /datum/antagonist/zombie/on_gain()
 	. = ..()
-	owner.AddSpell(new /datum/spell/zombie_claws)
+	if(HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE))
+		var/datum/spell/zombie_claws/plague_claws/plague_claws = new /datum/spell/zombie_claws/plague_claws
+		plague_claws.disease = chosen_disease
+		owner.AddSpell(plague_claws)
+		owner.AddSpell(new /datum/spell/zombie_leap)
+	else
+		owner.AddSpell(new /datum/spell/zombie_claws)
 	claw_attack = new /datum/unarmed_attack/claws()
 
 /datum/antagonist/zombie/Destroy(force, ...)
@@ -25,7 +35,11 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	return ..()
 
 /datum/antagonist/zombie/detach_from_owner()
-	owner.RemoveSpell(/datum/spell/zombie_claws)
+	if(HAS_TRAIT(owner, TRAIT_PLAGUE_ZOMBIE))
+		owner.RemoveSpell(new /datum/spell/zombie_claws/plague_claws)
+		owner.RemoveSpell(new /datum/spell/zombie_leap)
+	else
+		owner.RemoveSpell(new /datum/spell/zombie_claws)
 	return ..()
 
 /datum/antagonist/zombie/add_owner_to_gamemode()
@@ -35,6 +49,8 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	SSticker.mode.zombies -= owner
 
 /datum/antagonist/zombie/greet()
+	if(HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE)) // we shouldnt get a second welcome message for wiz zombies
+		return
 	var/list/messages = list()
 	. = messages
 	if(owner && owner.current)
@@ -42,6 +58,8 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 		messages.Add("<span class='zombie'>You can feel your heart stopping, but something isn't right... life has not abandoned your broken form. You can only feel a deep and immutable hunger that not even death can stop.</span>")
 
 /datum/antagonist/zombie/finalize_antag()
+	if(HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE)) // we shouldnt get a second welcome message for wiz zombies
+		return
 	var/list/messages = list()
 	. = messages
 	if(owner && owner.current)
@@ -55,14 +73,13 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 		L.remove_language(lang.name)
 	L.add_language("Zombie")
 	L.default_language = GLOB.all_languages["Zombie"]
-	L.extinguish_light() // zombies prefer darkness
+	if(!HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE))
+		L.extinguish_light() // zombies prefer darkness
 	for(var/trait in zombie_traits)
 		ADD_TRAIT(L, trait, ZOMBIE_TRAIT)
-
 	if(!L.HasDisease(/datum/disease/zombie))
 		var/datum/disease/zombie/zomb = new /datum/disease/zombie()
-		zomb.stage = 7
-		L.AddDisease(zomb)
+		L.AddDisease(zomb, FALSE, 7)
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
@@ -91,4 +108,16 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 	return ..()
 
 /datum/antagonist/zombie/give_objectives()
+	if(HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE))
+		return
 	add_antag_objective(/datum/objective/zombie)
+
+/datum/antagonist/zombie/get_antag_objectives()
+	if(HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE))
+		return
+	return ..()
+
+/datum/antagonist/zombie/add_antag_objective()
+	if(HAS_TRAIT(owner.current, TRAIT_PLAGUE_ZOMBIE))
+		return
+	return ..()

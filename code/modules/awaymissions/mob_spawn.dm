@@ -764,8 +764,8 @@
 	ADD_TRAIT(H, TRAIT_NON_INFECTIOUS_ZOMBIE, ROUNDSTART_TRAIT)
 	. = ..()
 	for(var/datum/disease/zombie/zomb in H.viruses)
-		zomb.spread_flags = SPECIAL
-		zomb.visibility_flags = HIDDEN_PANDEMIC // This is how critical diseases block being interacted by the pandemic or copied. I hate it here.
+		zomb.spread_flags = SPREAD_SPECIAL
+		zomb.visibility_flags = VIRUS_HIDDEN_PANDEMIC // This is how critical diseases block being interacted by the pandemic or copied. I hate it here.
 
 
 /// these mob spawn subtypes trigger immediately (New or Initialize) and are not player controlled... since they're dead, you know?
@@ -786,7 +786,7 @@
 	qdel(src)
 
 /obj/effect/mob_spawn/corpse/watcher
-	mob_type = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
+	mob_type = /mob/living/basic/mining/basilisk/watcher
 	icon = 'icons/mob/lavaland/watcher.dmi'
 	icon_state = "watcher_dead"
 	pixel_x = -12
