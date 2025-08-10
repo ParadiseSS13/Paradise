@@ -155,6 +155,12 @@
 	color = "#899613" // rgb: 137, 150, 19
 	taste_description = "watery milk"
 
+/datum/reagent/consumable/virus_food/on_mob_life(mob/living/M)
+	. = ..()
+	for(var/datum/disease/advance/virus in M.viruses)
+		if(prob(3))
+			virus.progress += 20
+
 /datum/reagent/mutagen/mutagenvirusfood
 	name = "Mutagenic agar"
 	id = "mutagenvirusfood"
@@ -183,3 +189,32 @@
 	name = "Weakened virus plasma"
 	id = "weakplasmavirusfood"
 	color = "#CEC3C6" // rgb: 206,195,198
+
+/datum/reagent/consumable/stable_agar
+	name = "Stable agar"
+	id = "stable_agar"
+	color = "#50BDB0" // rgb: 80,206,192
+
+/datum/reagent/consumable/tracking_agar
+	name = "Tracking agar"
+	id = "tracking_agar"
+	color = "#2c8852" // rgb: 45,136,82
+
+/datum/reagent/virus_genes
+	name = "Viral Genetic Material"
+	id = "virus_genes"
+	color = "#e0717a"
+
+/// Depth 1 copy of the lists
+/datum/reagent/virus_genes/on_merge(list/_data)
+	var/list/result = list()
+	for(var/key in (data + _data))
+		result[key] = data[key]
+		if(_data[key])
+			result[key] += _data[key]
+	data = result
+
+/datum/reagent/viral_eraser
+	name = "Viral Eraser"
+	id = "viral_eraser"
+	color = "#ffe600" // rgb: 45,136,82
