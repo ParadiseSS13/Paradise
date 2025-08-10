@@ -45,7 +45,7 @@
 	icon_state = "dnaopen"
 	anchored = TRUE
 	density = TRUE
-	new_attack_chain = FALSE
+	new_attack_chain = TRUE
 
 	var/obj/item/forensics/swab = null
 	///is currently scanning
@@ -68,21 +68,20 @@
 	. += "<span class='notice'><b>Click while holding a sample</b> to insert a sample.</span>"
 	. += "<span class='notice'><b>Click with an empty hand</b> to operate.</span>"
 
-/obj/machinery/dnaforensics/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob)
+/obj/machinery/dnaforensics/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(swab)
 		to_chat(user, "<span class='warning'>There is already a test tube inside the scanner.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/forensics/swab))
-		to_chat(user, "<span class='notice'>You insert [W] into [src].</span>")
-		user.unequip(W)
-		W.forceMove(src)
-		swab = W
+	if(istype(used, /obj/item/forensics/swab))
+		to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+		user.unequip(used)
+		used.forceMove(src)
+		swab = used
 		update_icon()
-		return
 	else
 		to_chat(user, "<span class='notice'>This is not a compatible sample!</span>")
-		return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/dnaforensics/attack_hand(mob/user)
 
@@ -181,6 +180,7 @@
 	var/obj/item/sample = null
 	var/report_num = 0
 	var/fingerprint_complete = 6
+	new_attack_chain = TRUE
 
 /obj/machinery/microscope/Initialize(mapload)
 	. = ..()
@@ -194,20 +194,19 @@
 	. = ..()
 	. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current sample. <b>Click while holding a sample</b> to insert a sample. <b>Click with an empty hand</b> to operate.</span>"
 
-/obj/machinery/microscope/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob)
+/obj/machinery/microscope/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(sample)
 		to_chat(user, "<span class='warning'>There is already a sample in the microscope!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/forensics/swab)|| istype(W, /obj/item/sample/fibers) || istype(W, /obj/item/sample/print))
+	if(istype(used, /obj/item/forensics/swab)|| istype(used, /obj/item/sample/fibers) || istype(used, /obj/item/sample/print))
 		add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You inserted [W] into the microscope.</span>")
-		user.unequip(W)
-		W.forceMove(src)
-		sample = W
+		to_chat(user, "<span class='notice'>You inserted [used] into the microscope.</span>")
+		user.unequip(used)
+		used.forceMove(src)
+		sample = used
 		update_appearance(UPDATE_ICON_STATE)
-		return
-	..()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/microscope/attack_hand(mob/user)
 
