@@ -301,7 +301,7 @@
 			return FALSE
 		if(user.a_intent != INTENT_HELP) // Stops you from putting your baton in the closet on accident
 			return
-		if(isrobot(user))
+		if(isrobot(user) && !istype(W.loc, /obj/item/gripper))
 			return
 		if(!user.drop_item()) //couldn't drop the item
 			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
