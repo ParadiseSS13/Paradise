@@ -37652,7 +37652,9 @@
 	},
 /area/station/command/office/ce)
 "cIf" = (
-/obj/machinery/atmospherics/portable/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
 "cIg" = (
@@ -38601,7 +38603,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "cLV" = (
-/obj/machinery/atmospherics/portable/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
 "cLW" = (
@@ -39933,7 +39937,9 @@
 	},
 /area/station/engineering/smes)
 "cRi" = (
-/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
 "cRj" = (
