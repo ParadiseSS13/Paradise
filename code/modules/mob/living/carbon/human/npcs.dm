@@ -1,11 +1,11 @@
 /obj/item/clothing/under/punpun
 	name = "fancy uniform"
 	desc = "It looks like it was tailored for a monkey."
+	icon_state = "punpun"
+	worn_icon = 'icons/mob/clothing/under/misc.dmi'
 	item_color = "punpun"
 	species_restricted = list("Monkey")
 	species_exception = list(/datum/species/monkey)
-
-	sprite_sheets = list("Monkey" = 'icons/mob/clothing/under/misc.dmi')
 
 /mob/living/carbon/human/monkey/punpun/Initialize(mapload)
 	. = ..()
