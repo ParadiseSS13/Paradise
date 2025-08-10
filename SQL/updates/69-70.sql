@@ -12,7 +12,10 @@ CREATE TABLE `admin_ranks` (
 
 # Create official ranks for every existing display rank, with the minimum common permissions.
 INSERT INTO admin_ranks (name, default_permissions)
-SELECT admin_rank, BIT_AND(flags) FROM admin GROUP BY admin_rank;
+SELECT admin_rank, BIT_AND(flags) FROM admin
+# Admins in the "Removed" rank don't actually exist according to the old code, so don't give them a rank. Not having a rank will also stop them from getting extra_permissions later.
+WHERE admin_rank != "Removed"
+GROUP BY admin_rank;
 
 # Add new columns to admin table.
 ALTER TABLE admin
