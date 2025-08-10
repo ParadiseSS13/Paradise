@@ -1,6 +1,5 @@
 /obj/item/projectile/homing
 	name = "smart bullet"
-	icon_state = "bullet"
 	var/homing_active = TRUE
 
 /obj/item/projectile/homing/pixel_move(trajectory_multiplier)
@@ -30,6 +29,8 @@
 	nodamage = 1
 	armour_penetration_percentage = 100
 	flag = MAGIC
+	antimagic_flags = MAGIC_RESISTANCE
+	antimagic_charge_cost = 1
 
 /obj/item/projectile/homing/magic/toolbox
 	name = "magic toolbox"
@@ -68,6 +69,9 @@
 
 /obj/item/projectile/homing/magic/homing_fireball/on_hit(mob/living/target)
 	. = ..()
+	if(ismob(target))
+		if(!.)
+			return .
 	explosion(get_turf(target), explosion_devastate, explosion_heavy, explosion_light, explosion_flash, 0, flame_range = explosion_fire, cause = "Homing Fireball")
 	if(istype(target)) //multiple flavors of pain
 		target.adjustFireLoss(10) // does 20 brute, and 10 burn + explosion. Pretty brutal.

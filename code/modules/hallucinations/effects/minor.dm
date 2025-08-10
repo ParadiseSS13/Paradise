@@ -48,7 +48,6 @@
   * Visually bolts a random number of airlocks around the target.
   */
 /obj/effect/hallucination/bolts
-	duration = 15 SECONDS
 	/// The maximum amount of airlocks to fake bolt.
 	var/bolt_amount = 2
 	/// The duration of fake bolt in deciseconds.

@@ -191,7 +191,6 @@
 	baseturf = /turf/simulated/floor/lava/lava_land_surface/plasma
 
 	light_range = 3
-	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
@@ -298,7 +297,6 @@
 	base_icon_state = "liquidplasma"
 	baseturf = /turf/simulated/floor/lava/plasma
 	light_range = 3
-	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
 
 // special turf for the asteroid core on EmeraldStation

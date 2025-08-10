@@ -26,7 +26,6 @@
 	maxHealth = INFINITY //The spirit itself is invincible
 	health = INFINITY
 	environment_smash = 0
-	obj_damage = 40
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
@@ -398,7 +397,6 @@
 	to_chat(user, "[G.magic_fluff_string].")
 
 /obj/item/guardiancreator/choose
-	random = FALSE
 
 /obj/item/guardiancreator/tech
 	name = "holoparasite injector"
@@ -442,7 +440,6 @@
 	return !used
 
 /obj/item/guardiancreator/tech/choose
-	random = FALSE
 
 /obj/item/guardiancreator/biological
 	name = "scarab egg cluster"
@@ -479,12 +476,10 @@
 	G.speak_emote = list("chitters")
 
 /obj/item/guardiancreator/biological/choose
-	random = FALSE
 
 
 /obj/item/paper/guardian
 	name = "Holoparasite Guide"
-	icon_state = "paper"
 	info = {"<b>A list of Holoparasite Types</b><br>
 
  <br>

@@ -275,7 +275,6 @@
 ///////////////////////
 /obj/item/pinpointer/nukeop
 	var/obj/docking_port/mobile/home = null
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_PDA
 	syndicate = TRUE
 	modes = list(MODE_DISK, MODE_NUKE)
 

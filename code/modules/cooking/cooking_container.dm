@@ -6,7 +6,6 @@
 /// Abstract reagent container used for transferring from non-containers e.g. sinks
 /obj/item/reagent_containers/temp
 	container_type = OPENCONTAINER
-	amount_per_transfer_from_this = 5
 	list_reagents = list("water" = 5)
 
 /**
@@ -327,7 +326,6 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 3
-	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("rolled", "cracked", "battered", "thrashed")
 
 /obj/item/reagent_containers/cooking/oven

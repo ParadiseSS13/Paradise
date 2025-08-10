@@ -66,8 +66,8 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
 	density = TRUE
-	var/hits = 4
-	var/hitpwr = EXPLODE_HEAVY //Level of ex_act to be called on hit.
+	max_integrity = 400 * OBJ_INTEGRITY_TO_WALL_DAMAGE
+	var/explosion_strength = EXPLODE_HEAVY // Level of ex_act to be called on hit.
 	var/dest
 	pass_flags = PASSTABLE
 	var/heavy = FALSE
@@ -78,20 +78,61 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	var/list/meteordrop = list(/obj/item/stack/ore/iron)
 	var/dropamt = 2
 
-/obj/effect/meteor/Move(atom/newloc, direction, glide_size_override = 0, update_dir = TRUE)
-	// Delete if we reach our goal or somehow leave the Z level.
-	if(z != z_original || loc == dest)
+/obj/effect/meteor/Move(atom/destination)
+	// Nullspace is scary.
+	if(isnull(loc) || isnull(destination))
 		qdel(src)
 		return FALSE
 
-	. = ..() //process movement...
+	// Quietly delete if we reach our goal or somehow leave the Z level.
+	if(z != z_original || loc == dest || destination.z != z_original || destination == dest)
+		qdel(src)
+		return FALSE
 
-	if(.)//.. if did move, ram the turf we get in
-		var/turf/T = get_turf(loc)
-		ram_turf(T)
+	// Dead meteors hit no atoms.
+	if(obj_integrity <= 0 || QDELETED(src))
+		return FALSE
 
-		if(prob(10) && !ispassmeteorturf(T))//randomly takes a 'hit' from ramming
-			get_hit()
+	if(abs(destination.y - y) == 1 && abs(destination.x - x) == 1)
+		// Hit one of the turfs beside the diagonal.
+		crunch(locate(destination.x, y, z))
+
+		// Dead meteors hit no atoms.
+		if(obj_integrity <= 0 || QDELETED(src))
+			return FALSE
+
+	// Hit the target tile and move to it (even if we made it change).
+	forceMove(crunch(destination))
+
+	// Dead meteors don't move, either.
+	if(obj_integrity <= 0 || QDELETED(src))
+		return FALSE
+	return TRUE
+
+/obj/effect/meteor/proc/crunch(turf/target)
+	// Keep track of the target coordinates so we can find the turf again if it changes.
+	var/target_x = target.x
+	var/target_y = target.y
+	var/target_z = target.z
+
+	if(iswallturf(target))
+		// Ram into the wall.
+		ram_wall(target)
+
+	if(!target)
+		// We broke the turf, find it again.
+		target = locate(target_x, target_y, target_z)
+
+	if(obj_integrity <= 0 || QDELETED(src))
+		return target
+
+	ram_turf_contents(target)
+
+	if(!target)
+		// We broke the turf, find it again.
+		target = locate(target_x, target_y, target_z)
+
+	return target
 
 /obj/effect/meteor/Destroy()
 	if(timerid)
@@ -112,36 +153,70 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 /obj/effect/meteor/Process_Spacemove(movement_dir, continuous_move)
 	return TRUE
 
-/obj/effect/meteor/Bump(atom/A)
-	if(A)
-		ram_turf(get_turf(A))
-		playsound(loc, meteorsound, 40, TRUE)
-		if(!istype(A, /obj/structure/railing))
-			get_hit()
+/obj/effect/meteor/proc/ram_wall(turf/simulated/wall/wall)
+	var/damage_cap = wall.damage_cap
+	if(wall.rotting)
+		damage_cap /= 10
+	var/damage_needed = (damage_cap - wall.damage) * OBJ_INTEGRITY_TO_WALL_DAMAGE 
+	if(damage_needed <= 0)
+		wall.dismantle_wall()
+	else if(damage_needed < obj_integrity)
+		obj_integrity -= damage_needed
+		wall.dismantle_wall()
+	else
+		wall.take_damage(obj_integrity / OBJ_INTEGRITY_TO_WALL_DAMAGE)
+		if(wall) // In case we somehow broke it despite not thinking we could.
+			wall.ex_act(explosion_strength)
+		deconstruct(FALSE)
 
-/obj/effect/meteor/proc/ram_turf(turf/T)
-	//first bust whatever is in the turf
-	for(var/thing in T)
-		var/atom/A = thing
-		if(thing == src)
+/obj/effect/meteor/proc/ram_turf_contents(turf/T)
+	. = FALSE // Tracks whether we hit anything.
+
+	for(var/atom/thing in T)
+		if(thing == src || QDELETED(thing))
 			continue
+
 		if(isliving(thing))
+			. = TRUE // Hit a mob.
+
 			var/mob/living/living_thing = thing
 			living_thing.visible_message("<span class='warning'>[src] slams into [living_thing].</span>", "<span class='userdanger'>[src] slams into you!</span>")
-		A.ex_act(hitpwr)
+			thing.ex_act(explosion_strength)
 
-	//then, ram the turf if it still exists
-	if(T)
-		T.ex_act(hitpwr)
+		if(!isobj(thing))
+			continue
 
-//process getting 'hit' by colliding with a dense object
-//or randomly when ramming turfs
-/obj/effect/meteor/proc/get_hit()
-	hits--
-	if(hits <= 0)
-		make_debris()
-		meteor_effect()
-		qdel(src)
+		var/obj/obstacle = thing
+		if(obstacle.obj_integrity <= 0)
+			// It's already broken.
+			continue
+
+		if(!obstacle.density)
+			// Doesn't block our way, but we still damage it on our way past.
+			obstacle.ex_act(explosion_strength)
+			continue
+
+		. = TRUE // Hit an object.
+
+		var/damage_needed = obstacle.calculate_oneshot_damage(BRUTE, MELEE)
+		if(obj_integrity > damage_needed)
+			obj_integrity -= damage_needed
+			obstacle.obj_break(MELEE)
+			obstacle.obj_destruction(MELEE)
+		else
+			obstacle.take_damage(obj_integrity, BRUTE, MELEE)
+			obstacle.ex_act(explosion_strength)
+			obj_integrity = 0
+			deconstruct(FALSE)
+			return
+
+	// Do some damage to the floor (if any) in passing.
+	T.ex_act(explosion_strength)
+
+/obj/effect/meteor/deconstruct(disassembled)
+	make_debris()
+	meteor_effect()
+	return ..()
 
 /obj/effect/meteor/ex_act()
 	return
@@ -155,9 +230,10 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 /obj/effect/meteor/proc/make_debris()
 	for(var/throws = dropamt, throws > 0, throws--)
 		var/thing_to_spawn = pick(meteordrop)
-		new thing_to_spawn(get_turf(src))
+		if(ispath(thing_to_spawn))
+			new thing_to_spawn(get_turf(src))
 
-/obj/effect/meteor/proc/chase_target(atom/chasing, delay = 1)
+/obj/effect/meteor/proc/chase_target(atom/chasing, delay = 0.5)
 	set waitfor = FALSE
 	if(chasing)
 		GLOB.move_manager.home_onto(src, chasing, delay)
@@ -204,17 +280,16 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	goal = null
 	return ..()
 
-/obj/effect/meteor/fake/ram_turf(turf/T)
-	if(!isspaceturf(T))
-		fail()
-		return
-	for(var/thing in T)
-		if(isobj(thing) && !iseffect(thing))
-			fail()
-			return
+/obj/effect/meteor/fake/ram_wall(turf/simulated/wall/wall)
+	fail()
+	return TRUE
 
-/obj/effect/meteor/fake/get_hit()
-	return
+/obj/effect/meteor/fake/ram_turf_contents(turf/T)
+	for(var/obj/thing in T)
+		if(!iseffect(thing) && !QDELETED(thing))
+			fail()
+			return TRUE
+	return FALSE
 
 /obj/effect/meteor/fake/proc/succeed()
 	if(istype(goal))
@@ -231,8 +306,8 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	name = "space dust"
 	icon_state = "dust"
 	pass_flags = PASSTABLE | PASSGRILLE
-	hits = 1
-	hitpwr = EXPLODE_LIGHT
+	max_integrity = 100 * OBJ_INTEGRITY_TO_WALL_DAMAGE
+	explosion_strength = EXPLODE_LIGHT
 	meteorsound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	meteordrop = list(/obj/item/stack/ore/glass)
 
@@ -249,7 +324,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 /obj/effect/meteor/big
 	name = "big meteor"
 	icon_state = "large"
-	hits = 6
+	max_integrity = 600 * OBJ_INTEGRITY_TO_WALL_DAMAGE
 	heavy = TRUE
 	dropamt = 4
 
@@ -261,7 +336,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 /obj/effect/meteor/flaming
 	name = "flaming meteor"
 	icon_state = "flaming"
-	hits = 5
+	max_integrity = 500 * OBJ_INTEGRITY_TO_WALL_DAMAGE
 	heavy = TRUE
 	meteorsound = 'sound/effects/bamf.ogg'
 	meteordrop = list(/obj/item/stack/ore/plasma)
@@ -308,13 +383,13 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	name = "tunguska meteor"
 	icon_state = "flaming"
 	desc = "Your life briefly passes before your eyes the moment you lay them on this monstrosity."
-	hits = 30
-	hitpwr = EXPLODE_DEVASTATE
+	max_integrity = 3000 * OBJ_INTEGRITY_TO_WALL_DAMAGE
+	explosion_strength = EXPLODE_DEVASTATE
 	heavy = TRUE
 	meteorsound = 'sound/effects/bamf.ogg'
 	meteordrop = list(/obj/item/stack/ore/plasma)
 
-/obj/effect/meteor/tunguska/Move()
+/obj/effect/meteor/tunguska/Move(atom/destination)
 	. = ..()
 	if(.)
 		new /obj/effect/temp_visual/revenant(get_turf(src))
@@ -323,19 +398,25 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	..()
 	explosion(loc, 5, 10, 15, 20, 0, cause = "[name]: End explosion")
 
-/obj/effect/meteor/tunguska/Bump()
-	..()
+/obj/effect/meteor/tunguska/ram_wall()
+	. = ..()
 	if(prob(20))
-		explosion(loc, 2, 4, 6, 8, cause = "[name]: Bump explosion")
+		explosion(loc, 2, 4, 6, 8, cause = "[name]: Wall collision explosion")
+
+/obj/effect/meteor/tunguska/ram_turf_contents()
+	. = ..()
+	if(. && prob(20))
+		explosion(loc, 2, 4, 6, 8, cause = "[name]: Object or mob collision explosion")
 
 //Meaty Ore
 /obj/effect/meteor/meaty
 	name = "meaty ore"
 	icon_state = "meateor"
 	desc = "Just... don't think too hard about where this thing came from."
-	hits = 2
+	max_integrity = 200 * OBJ_INTEGRITY_TO_WALL_DAMAGE
 	heavy = TRUE
 	meteorsound = 'sound/effects/blobattack.ogg'
+	var/bloodtype = /obj/effect/decal/cleanable/blood
 	meteordrop = list(/obj/item/food/meat/human, /obj/item/organ/internal/heart, /obj/item/organ/internal/lungs, /obj/item/organ/internal/appendix)
 	var/meteorgibs = /obj/effect/gibspawner/generic
 
@@ -344,27 +425,22 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	new meteorgibs(get_turf(src))
 
 
-/obj/effect/meteor/meaty/ram_turf(turf/T)
-	if(!isspaceturf(T))
-		new /obj/effect/decal/cleanable/blood(T)
-
-/obj/effect/meteor/meaty/Bump(atom/A)
-	A.ex_act(hitpwr)
-	get_hit()
+/obj/effect/meteor/meaty/ram_turf_contents()
+	. = ..()
+	var/turf/T = get_turf(src)
+	if(bloodtype && !isspaceturf(T))
+		new bloodtype(T)
 
 //Meaty Ore Xeno edition
 /obj/effect/meteor/meaty/xeno
 	color = "#5EFF00"
+	bloodtype = /obj/effect/decal/cleanable/blood/xeno
 	meteordrop = list(/obj/item/food/monstermeat/xenomeat)
 	meteorgibs = /obj/effect/gibspawner/xeno
 
 /obj/effect/meteor/meaty/xeno/Initialize(mapload, target)
 	meteordrop += subtypesof(/obj/item/organ/internal/alien)
 	return ..()
-
-/obj/effect/meteor/meaty/xeno/ram_turf(turf/T)
-	if(!isspaceturf(T))
-		new /obj/effect/decal/cleanable/blood/xeno(T)
 
 //////////////////////////
 //Spookoween meteors
@@ -375,7 +451,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	desc = "THE PUMPKING'S COMING!"
 	icon = 'icons/obj/meteor_spooky.dmi'
 	icon_state = "pumpkin"
-	hits = 10
+	max_integrity = 1000 * OBJ_INTEGRITY_TO_WALL_DAMAGE
 	heavy = TRUE
 	dropamt = 1
 	meteordrop = list(/obj/item/clothing/head/hardhat/pumpkinhead, /obj/item/food/grown/pumpkin)

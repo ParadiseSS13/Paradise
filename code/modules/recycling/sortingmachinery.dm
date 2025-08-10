@@ -280,7 +280,6 @@
 /obj/machinery/disposal/delivery_chute
 	name = "delivery chute"
 	desc = "A chute for big and small packages alike!"
-	density = TRUE
 	icon_state = "intake"
 	required_mode_to_deconstruct = 1
 	deconstructs_to = PIPE_DISPOSALS_CHUTE

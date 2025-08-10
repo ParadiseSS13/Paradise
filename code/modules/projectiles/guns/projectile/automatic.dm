@@ -13,7 +13,6 @@
 */
 
 /obj/item/gun/projectile/automatic
-	w_class = WEIGHT_CLASS_NORMAL
 	var/alarmed = 0
 	var/select = 1
 	can_tactical = TRUE
@@ -109,7 +108,6 @@
 	origin_tech = "combat=5;materials=2;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/smgm45
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
-	fire_delay = 2
 	burst_size = 2
 	can_bayonet = TRUE
 	knife_x_offset = 26
@@ -139,7 +137,6 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	fire_delay = 2
 	can_suppress = FALSE
 	burst_size = 1
 	actions_types = list()
@@ -157,12 +154,19 @@
 /obj/item/gun/projectile/automatic/mini_uzi
 	name = "\improper 'Type U3' Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
+	icon = 'icons/tgmc/objects/guns.dmi'
 	icon_state = "mini-uzi"
+	item_state = "mini-uzi"
 	origin_tech = "combat=4;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 	burst_size = 2
 	can_holster = TRUE // it's a mini-uzi after all
+
+/obj/item/gun/projectile/automatic/mini_uzi/update_overlays()
+	. = ..()
+	if(suppressed)
+		. += image(icon = 'icons/obj/guns/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 13, pixel_y = 5)
 
 //////////////////////////////
 // MARK: M-90GL CARBINE
@@ -179,8 +183,6 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = FALSE
 	var/obj/item/gun/projectile/revolver/grenadelauncher/underbarrel
-	burst_size = 3
-	fire_delay = 2
 
 /obj/item/gun/projectile/automatic/m90/Initialize(mapload)
 	. = ..()
@@ -250,7 +252,6 @@
 /obj/item/gun/projectile/automatic/tommygun
 	name = "\improper Thompson SMG"
 	desc = "A genuine 'Chicago Typewriter'."
-	icon_state = "tommygun"
 	item_state = "shotgun"
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = 0
@@ -276,7 +277,6 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = FALSE
-	burst_size = 3
 	fire_delay = 1
 
 //////////////////////////////
@@ -307,7 +307,6 @@
 	desc = "A compact semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
@@ -362,7 +361,6 @@
 	desc = "A compact Warp-Tac Industries fully automatic laser carbine that uses disposable laser cartridges rather than an internal power cell. Utilized by Nanotrasen's response teams for combat operations."
 	icon_state = "lasercarbine"
 	item_state = "lasercarbine"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/laser
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'

@@ -190,13 +190,12 @@
 	name = "random space pirate spawner"
 	icon_state = "pirate"
 	loot = list(
-		/mob/living/simple_animal/hostile/pirate,
-		/mob/living/simple_animal/hostile/pirate/ranged,
+		/mob/living/basic/pirate,
+		/mob/living/basic/pirate/ranged,
 	)
 
 /obj/effect/spawner/random/fancy_table
 	name = "fancy table spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "fancy_table"
 	loot_type_path = /obj/structure/table/wood/fancy
 
@@ -215,8 +214,8 @@
 	icon_state = "Carp"
 	spawn_loot_chance = 50
 	loot = list(
-		/mob/living/simple_animal/hostile/carp = 4,
-		/mob/living/simple_animal/hostile/carp/megacarp = 1
+		/mob/living/basic/carp = 4,
+		/mob/living/basic/carp/megacarp = 1
 	)
 
 /obj/effect/spawner/random/rarely_meteor_strike
