@@ -446,12 +446,12 @@
 				phrases += "What happened?"
 			if(!slimes_near)
 				phrases += "Lonely..."
-			if(stat == CONSCIOUS)
-				say (pick(phrases))
 			if(trained && prob(3))
 				phrases += "Treat? Have treat?"
 				phrases += "Can have treat?"
 				phrases += "Treat?..."
+			if(stat == CONSCIOUS)
+				say (pick(phrases))
 
 /mob/living/simple_animal/slime/proc/get_max_nutrition() // Can't go above it
 	if(is_adult)
