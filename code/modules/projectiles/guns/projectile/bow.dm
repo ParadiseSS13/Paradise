@@ -71,7 +71,6 @@
 	ammo_type = /obj/item/ammo_casing/caseless/arrow
 	range = 10
 	damage = 25
-	damage_type = BRUTE
 
 /obj/item/ammo_casing/caseless/arrow
 	name = "arrow"

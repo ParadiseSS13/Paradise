@@ -21,7 +21,6 @@
 		new /obj/item/reagent_containers/pill/zoom(src)
 
 /obj/item/reagent_containers/pill/random_drugs
-	name = "pill"
 	desc = "A cocktail of illicit designer drugs, who knows what might be in here."
 
 /obj/item/reagent_containers/pill/random_drugs/Initialize(mapload)

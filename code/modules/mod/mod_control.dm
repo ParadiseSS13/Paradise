@@ -21,7 +21,6 @@
 		/datum/action/item_action/mod/panel,
 		/datum/action/item_action/mod/module,
 	)
-	resistance_flags = NONE
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	siemens_coefficient = 0.5
@@ -93,8 +92,8 @@
 	var/current_disguise = FALSE
 	/// The MODlink datum, letting us call people from the suit.
 	var/datum/mod_link/mod_link
-	/// The starting MODlink frequency, overridden on subtypes that want it to be something.
-	var/starting_frequency = null
+	/// The starting MODlink frequency, by default NT to make it easier for everyone to use.
+	var/starting_frequency = MODLINK_FREQ_NANOTRASEN
 
 /obj/item/mod/control/serialize()
 	var/list/data = ..()

@@ -14,7 +14,6 @@
 /obj/item/organ/internal/eyes/vulpkanin/wolpin
 	name = "wolpin eyeballs"
 	colormatrix = MATRIX_VULP_CBLIND
-	see_in_dark = 3
 	replace_colours = PROTANOPIA_COLOR_REPLACE
 
 /obj/item/organ/internal/heart/vulpkanin
@@ -23,9 +22,7 @@
 
 /obj/item/organ/internal/brain/vulpkanin
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
-	icon_state = "brain2"
 	mmi_icon = 'icons/obj/species_organs/vulpkanin.dmi'
-	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/vulpkanin
 	name = "vulpkanin lungs"

@@ -21,7 +21,6 @@
 	emote_hear = list("vibrates", "sizzles")
 	speak_emote = list("modulates")
 
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "pulsedem"
 	icon_living = "pulsedem"
 	icon_dead = "pulsedem"
@@ -38,16 +37,13 @@
 	speed = -0.3
 	mob_size = MOB_SIZE_TINY
 	density = FALSE
-	del_on_death = TRUE
 
 	attacktext = "electrocutes"
 	attack_sound = "sparks"
-	a_intent = INTENT_HARM
 	harm_intent_damage = 0
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	pass_flags = PASSDOOR
-	stop_automated_movement = TRUE
 	has_unlimited_silicon_privilege = TRUE
 	// this makes the demon able to speak through holopads, due to the overriden say, PD cannot speak normally regardless
 	universal_speak = TRUE
@@ -173,8 +169,8 @@
 	update_glow()
 	playsound(get_turf(src), 'sound/effects/eleczap.ogg', 30, TRUE)
 	give_spells()
-	whisper_action.button_overlay_icon_state = "pulse_whisper"
-	whisper_action.button_background_icon_state = "bg_pulsedemon"
+	whisper_action.button_icon_state = "pulse_whisper"
+	whisper_action.background_icon_state = "bg_pulsedemon"
 
 /mob/living/simple_animal/demon/pulse_demon/proc/deleted_handler(our_demon, force)
 	SIGNAL_HANDLER
@@ -348,7 +344,7 @@
 		if(!S.action || S.locked)
 			continue
 		if(S.requires_area)
-			S.action.UpdateButtons()
+			S.action.build_all_button_icons()
 
 // can enter an apc at all?
 /mob/living/simple_animal/demon/pulse_demon/proc/is_valid_apc(obj/machinery/power/apc/A)
@@ -461,7 +457,7 @@
 		var/dist = S.cast_cost - orig
 		// only update icon if the amount is actually enough to change a spell's availability
 		if(dist == 0 || (dist > 0 && realdelta >= dist) || (dist < 0 && realdelta <= dist))
-			S.action.UpdateButtons()
+			S.action.build_all_button_icons()
 	return realdelta
 
 // linear scale for glow strength, see table:

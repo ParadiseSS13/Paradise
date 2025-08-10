@@ -30,7 +30,6 @@
 	hallucination_icon = 'icons/mob/terrorspider.dmi'
 	hallucination_icon_state = "terror_green"
 	duration = 30 SECONDS
-	damage = 25
 
 /obj/effect/hallucination/chaser/attacker/terror_spider/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
@@ -433,7 +432,6 @@
 	hallucination_icon = 'icons/mob/human.dmi'
 	hallucination_icon_state = "zombie2_s"
 	duration = 45 SECONDS
-	damage = 25
 	/// The hallucination that spawned us.
 	var/obj/effect/hallucination/blob/owning_hallucination = null
 	/// Whether or not the target has been zombified already.
@@ -483,7 +481,6 @@
   * Fires a penetrator round at the target. On hit, knockdown + stam loss + hallucinated blood splatter for a bit.
   */
 /obj/effect/hallucination/sniper
-	duration = 15 SECONDS
 
 /obj/effect/hallucination/sniper/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
@@ -528,7 +525,6 @@
 	START_PROCESSING(SSprojectiles, bullet)
 
 /obj/effect/hallucination/sniper_bloodsplatter
-	duration = 15 SECONDS
 	hallucination_icon = 'icons/effects/blood.dmi'
 	hallucination_icon_state = "mfloor1"
 	hallucination_color = "#A10808"

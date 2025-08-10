@@ -85,8 +85,6 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "simple"
 	item_state = "buildpipe"
-	w_class = WEIGHT_CLASS_NORMAL
-	level = 2
 	/// Will the constructed pipe be flipped
 	var/flipped = FALSE
 	/// The label that will be put on the constructed pipe when this is wrenched down
