@@ -45,7 +45,6 @@
 	icon_state = "dnaopen"
 	anchored = TRUE
 	density = TRUE
-	new_attack_chain = TRUE
 
 	var/obj/item/forensics/swab = null
 	///is currently scanning
@@ -179,7 +178,6 @@
 	var/obj/item/sample = null
 	var/report_num = 0
 	var/fingerprint_complete = 6
-	new_attack_chain = TRUE
 
 /obj/machinery/microscope/Initialize(mapload)
 	. = ..()
