@@ -73,7 +73,7 @@
 	if(!turf_check(next, current))
 		to_chat(user, "<span class='warning'>[movable_parent] cannot go onto [next]!</span>")
 		return
-	if(GLOB.move_manager.processing_on(user, SSspacedrift) && !override_allow_spacemove)
+	if(GLOB.move_manager.processing_on(movable_parent, SSspacedrift) && !override_allow_spacemove)
 		return
 	if(!isturf(movable_parent.loc))
 		return
