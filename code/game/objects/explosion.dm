@@ -85,7 +85,7 @@
 				var/turf/M_turf = get_turf(M)
 				if(M_turf && M_turf.z == z0)
 					var/dist = get_dist(M_turf, epicenter)
-					if(isliving(M) && dist <= flash_range)
+					if(isliving(M) && dist <= flash_range && !HAS_TRAIT(M, TRAIT_EXPLOSION_PROOF))
 						var/mob/living/to_flash = M
 						var/is_very_close_to_the_explosion = flash_range > (dist * 2)
 						to_flash.flash_eyes(is_very_close_to_the_explosion * 2, is_very_close_to_the_explosion, is_very_close_to_the_explosion) // Gets past sunglasses

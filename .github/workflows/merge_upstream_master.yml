@@ -89,7 +89,6 @@ jobs:
           # Install Tools
           chmod +x tools/bootstrap/python
           bash tools/hooks/install.sh
-          bash tgui/bin/tgui --install-git-hooks
           chmod +x tools/hooks/*.merge tgui/bin/tgui
 
           # Actual Merge
@@ -109,17 +108,31 @@ jobs:
           fi
 
           git merge FETCH_HEAD
-          git push origin
+          exit_code=0
+          merge_conflicts=$(git diff --name-only --diff-filter=U --exit-code) || exit_code=$?
+          if [ "$exit_code" -eq 0 ] ; then
+            exit 0
+          else
+            if grep -v ^tgui/public/ <<< "$merge_conflicts" ; then
+              gh pr comment ${{ github.event.issue.html_url }} --body "GitHub Actions can not merge upstream into this branch as some conflicted files can not be resolved automatically."
+              exit 1
+            fi
+            if [[ -n "$(grep ^tgui/public/ <<< "$merge_conflicts")" ]] ; then
+              echo 'REBUILD_TGUI=true' >>> "$GITHUB_ENV"
+            fi
+          fi
 
       - name: Rebuild TGUI
+        if: ${{ env.REBUILD_TGUI }}
         run: |
-          if git diff-tree --name-only -r $(git rev-parse HEAD~2) | grep "tgui/public/" ; then
-            bash tgui/bin/tgui
-            git commit -m "Rebuild TGUI"
+          bash tgui/bin/tgui
+          git merge --continue
+
+      - name: Push Changes
+        run: |
+          if [[ -n "$(git rev-list -1 @{u}..)" ]]; then
             git push origin
           else
-            echo "No changes to rebuild TGUI"
-          fi
 
       - name: Notify Failure
         if: failure() && env.FAIL_NOTIFIED != 'true'
