@@ -233,7 +233,6 @@
 /obj/item/gun/projectile/revolver/doublebarrel
 	name = "\improper CM150 double-barreled shotgun"
 	desc = "A true classic, by Starstrike Arms."
-	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "dbshotgun"
 	item_state = null
 	lefthand_file = 'icons/mob/inhands/64x64_guns_lefthand.dmi'
