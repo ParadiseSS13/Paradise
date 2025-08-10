@@ -238,6 +238,9 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	fed++
 	qdel(J)
 
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/event_score()
+	return 1
+
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: PROC OVERRIDES ---------------------------
 // --------------------------------------------------------------------------------

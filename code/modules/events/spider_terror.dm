@@ -3,11 +3,13 @@
 /datum/event/spider_terror
 	name = "Terror Spiders"
 	announceWhen = 240
-	var/spawncount = 1
-	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
+	noAutoEnd = TRUE
 	nominal_severity = EVENT_LEVEL_DISASTER
 	role_weights = list(ASSIGNMENT_SECURITY = 6, ASSIGNMENT_TOTAL = 3, ASSIGNMENT_MEDICAL = 4)
 	role_requirements = list(ASSIGNMENT_SECURITY = 5, ASSIGNMENT_TOTAL = 60, ASSIGNMENT_MEDICAL = 3)
+	var/spawncount = 1
+	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
+	var/spiders = list("spiderling" = 0, "spider" = 0)
 
 /datum/event/spider_terror/setup()
 	announceWhen = rand(announceWhen, announceWhen + 30)
@@ -22,6 +24,24 @@
 /datum/event/spider_terror/start()
 	// It is necessary to wrap this to avoid the event triggering repeatedly.
 	INVOKE_ASYNC(src, PROC_REF(wrappedstart))
+
+/datum/event/spider_terror/process()
+	// End the event once all spiders, eggs and spiderlings are gone from the station Z level.
+	var/count = 0
+	var/list/terror_things = terror_spider_score_on_station()
+	for(var/key in terror_things)
+		count += terror_things["[key]"]
+	if(!count && successSpawn)
+		kill()
+	. = ..()
+
+/datum/event/spider_terror/event_resource_cost()
+	var/list/costs = list()
+	var/list/terror_things = terror_spider_score_on_station()
+	for(var/role in role_requirements)
+		costs += list("[role]" = role_requirements[role] / role_requirements[ASSIGNMENT_TOTAL] * (terror_things["spiders"] * 2 + terror_things["eggs"] + terror_things["spiderlings"]))
+	costs[ASSIGNMENT_MEDICAL] += terror_things["infected"]
+	return costs
 
 /datum/event/spider_terror/proc/wrappedstart()
 	var/spider_type
@@ -70,7 +90,24 @@
 		S.give_intro_text()
 		spawncount--
 		successSpawn = TRUE
+	if(!successSpawn)
+		kill()
 	SSticker.record_biohazard_start(infestation_type)
 	SSevents.biohazards_this_round += infestation_type
+
+// returns the combined number of terror spiders, eggs and spiderlings on station
+/datum/event/spider_terror/proc/terror_spider_score_on_station()
+	. = list("spiders" = 0, "spiderlings" = 0, "eggs" = 0, "infected" = 0)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/spider in GLOB.ts_spiderlist)
+		if(is_station_level((get_turf(spider)).z) && spider.stat != DEAD)
+			.["spiders"] += spider.event_score()
+	for(var/obj/structure/spider/spiderling/terror_spiderling/spiderling in GLOB.ts_spiderling_list)
+		if(is_station_level(spiderling.z))
+			.["spiderlings"]++
+	for(var/obj/structure/spider/eggcluster/terror_eggcluster/eggs in GLOB.ts_egg_list)
+		if(is_station_level(eggs.z))
+			.["eggs"]++
+
+	.["infected"] = length(GLOB.ts_infected_list)
 
 #undef TS_HIGHPOP_TRIGGER

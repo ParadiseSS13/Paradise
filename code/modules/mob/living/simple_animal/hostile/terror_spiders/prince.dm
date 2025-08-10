@@ -109,3 +109,6 @@
 	if(hit_something)
 		visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
 		playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
+
+/mob/living/simple_animal/hostile/poison/terror_spider/prince/event_score()
+	return 10

@@ -123,3 +123,5 @@
 		return TRUE
 	return FALSE
 
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/event_score()
+	return 4

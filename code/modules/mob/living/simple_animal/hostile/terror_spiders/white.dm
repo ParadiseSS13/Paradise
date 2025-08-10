@@ -51,6 +51,9 @@
 				LoseTarget()
 				GLOB.move_manager.move_away(src,L,2,1)
 
+/mob/living/simple_animal/hostile/poison/terror_spider/white/event_score()
+	return 3
+
 /proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))
 		return 1

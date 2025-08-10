@@ -348,6 +348,8 @@
 	. += "<span class='notice'>[p_they(TRUE)] has laid [eggslaid] egg[eggslaid != 1 ? "s" : ""].</span>"
 	. += "<span class='notice'>[p_they(TRUE)] has lived for [MinutesAlive()] minutes.</span>"
 
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/event_score()
+	return 10
 
 /obj/item/projectile/terrorqueenspit
 	name = "acid spit"
