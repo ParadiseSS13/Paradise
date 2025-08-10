@@ -36,25 +36,25 @@
 		var/list/found_blood = list()
 
 		// This is utterly hateful, yes, but so is blood_DNA. - Chuga
-		if(issimulatedturf(A))
-			for(var/obj/effect/decal/cleanable/C in A.contents)
+		if(issimulatedturf(target))
+			for(var/obj/effect/decal/cleanable/C in target.contents)
 				if(istype(C, /obj/effect/decal/cleanable/blood) || istype(C, /obj/effect/decal/cleanable/trail_holder))
 					found_blood |= C.blood_DNA
-		else if(isliving(A))
-			var/mob/living/L = A
+		else if(isliving(target))
+			var/mob/living/L = target
 			found_blood |= L.get_blood_dna_list()
 		else
-			if(A.blood_DNA)
-				found_blood |= A.blood_DNA
+			if(target.blood_DNA)
+				found_blood |= target.blood_DNA
 
 		if(length(found_blood))
 			choices |= "Blood"
-		if(istype(A, /obj/item/clothing/gloves))
+		if(istype(target, /obj/item/clothing/gloves))
 			choices |= "Gunpowder particles"
 
 		var/choice
 		if(!length(choices))
-			to_chat(user, "<span class='warning'>There is no evidence on [A].</span>")
+			to_chat(user, "<span class='warning'>There is no evidence on [target].</span>")
 			inuse = FALSE
 			return ITEM_INTERACT_COMPLETE
 		else if(length(choices) == 1)
@@ -74,9 +74,9 @@
 			sample_type = "blood"
 
 		else if(choice == "Gunpowder particles")
-			var/obj/item/clothing/B = A
+			var/obj/item/clothing/B = target
 			if(!istype(B) || !B.gunshot_residue)
-				to_chat(user, "<span class='warning'>There is not a hint of gunpowder on [A].</span>")
+				to_chat(user, "<span class='warning'>There is not a hint of gunpowder on [target].</span>")
 				inuse = FALSE
 				return ITEM_INTERACT_COMPLETE
 			target_gsr = B.gunshot_residue
@@ -84,17 +84,17 @@
 
 		if(sample_type)
 			user.visible_message(
-				"<span class='notice'>[user] takes a swab from [A] for analysis.</span>",
-				"<span class='notice'>You take a swab from [A] for analysis.</span>")
+				"<span class='notice'>[user] takes a swab from [target] for analysis.</span>",
+				"<span class='notice'>You take a swab from [target] for analysis.</span>")
 			if(!dispenser)
 				dna = target_dna
 				gsr = target_gsr
-				set_used(sample_type, A)
+				set_used(sample_type, target)
 			else
 				var/obj/item/forensics/swab/S = new(get_turf(user))
 				S.dna = target_dna
 				S.gsr = target_gsr
-				S.set_used(sample_type, A)
+				S.set_used(sample_type, target)
 	inuse = FALSE
 	return ITEM_INTERACT_COMPLETE
 

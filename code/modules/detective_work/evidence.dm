@@ -233,10 +233,10 @@
 	if(user.a_intent != INTENT_HARM)
 		return ..()
 
-	if(can_take_sample(user, A))
-		take_sample(user,A)
+	if(can_take_sample(user, target))
+		take_sample(user, target)
 	else
-		to_chat(user, "<span class='warning'>You cannot find [evidence_type] on [A].</span>")
+		to_chat(user, "<span class='warning'>You cannot find [evidence_type] on [target].</span>")
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/forensics/sample_kit/MouseDrop(atom/over)
