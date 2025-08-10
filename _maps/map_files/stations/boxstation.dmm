@@ -50647,6 +50647,12 @@
 	icon_state = "dark"
 	},
 /area/station/medical/morgue)
+"fsB" = (
+/obj/machinery/atmospherics/pipe/manifold/visible,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "fsQ" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -53305,6 +53311,14 @@
 /obj/item/kitchen/rollingpin,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint2)
+"gMe" = (
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "gMl" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -54065,7 +54079,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/abandonedservers)
 "heQ" = (
-/obj/machinery/atmospherics/unary/reactor_gas_node,
+/obj/machinery/atmospherics/unary/reactor_gas_node{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -60265,6 +60281,14 @@
 /obj/effect/landmark/start/psychiatrist,
 /turf/simulated/floor/carpet,
 /area/station/medical/psych)
+"koL" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "koW" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -68854,6 +68878,12 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/misc_lab)
+"oFv" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "oFK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -73247,7 +73277,7 @@
 /area/station/engineering/hardsuitstorage)
 "qLY" = (
 /obj/machinery/atmospherics/unary/reactor_gas_node/output{
-	dir = 2
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -74179,6 +74209,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"rjC" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "rkp" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 6
@@ -76068,6 +76106,12 @@
 	dir = 8
 	},
 /area/station/hallway/secondary/exit)
+"skO" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+	dir = 8
+	},
+/turf/simulated/wall/r_wall,
+/area/station/engineering/control)
 "skT" = (
 /obj/item/rollingpaper,
 /obj/effect/decal/cleanable/dirt,
@@ -77600,6 +77644,14 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"tcD" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "tcM" = (
 /obj/effect/spawner/random/cobweb/right/frequent,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -83391,6 +83443,14 @@
 	icon_state = "caution"
 	},
 /area/station/public/dorms)
+"wgs" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "wgt" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/glass,
@@ -83568,6 +83628,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
+"wkI" = (
+/obj/machinery/atmospherics/binary/valve/digital/open{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "wkQ" = (
 /obj/effect/spawner/random/blood/maybe,
 /obj/effect/spawner/random/maintenance,
@@ -114730,10 +114798,10 @@ cSU
 cSU
 cSU
 cSU
+skO
 cSU
 cSU
-cSU
-cSU
+skO
 cSU
 cSU
 cSU
@@ -114987,10 +115055,10 @@ cYQ
 ePY
 ePY
 ePY
-ePY
+koL
 deF
 ePY
-ePY
+koL
 ePY
 deF
 ePY
@@ -115244,10 +115312,10 @@ rJr
 ePY
 ePY
 ePY
+wkI
 ePY
 ePY
-ePY
-ePY
+wkI
 ePY
 ePY
 ePY
@@ -115501,10 +115569,10 @@ cSU
 nTG
 cUl
 ePY
+koL
 ePY
 ePY
-ePY
-ePY
+koL
 ePY
 ePY
 cUl
@@ -115758,10 +115826,10 @@ cSU
 dyH
 ePY
 ePY
-ePY
-ePY
-ePY
-ePY
+rjC
+oFv
+oFv
+fsB
 ePY
 ePY
 ePY
@@ -116015,10 +116083,10 @@ cYQ
 ePY
 ePY
 ePY
-ePY
+koL
 sKE
 sKE
-ePY
+wgs
 sKE
 vWF
 ePY
@@ -116272,7 +116340,7 @@ cYQ
 ePY
 ePY
 ePY
-ePY
+koL
 sKE
 sKE
 qLY
@@ -116529,7 +116597,7 @@ dPd
 ePY
 ePY
 ePY
-ePY
+koL
 sKE
 sKE
 ePY
@@ -116786,7 +116854,7 @@ cSU
 nTG
 ePY
 ePY
-ePY
+wkI
 ePY
 ePY
 cSI
@@ -117043,7 +117111,7 @@ lnU
 ePY
 ePY
 ePY
-ePY
+koL
 sKE
 sKE
 ePY
@@ -117300,7 +117368,7 @@ cYQ
 ePY
 ePY
 ePY
-ePY
+koL
 sKE
 vWF
 heQ
@@ -117557,10 +117625,10 @@ cYQ
 ePY
 ePY
 ePY
-ePY
+koL
 sKE
 sKE
-ePY
+wgs
 sKE
 sKE
 ePY
@@ -117814,10 +117882,10 @@ cSU
 ePY
 ePY
 ePY
-ePY
-ePY
-ePY
-ePY
+rjC
+oFv
+oFv
+fsB
 ePY
 ePY
 ePY
@@ -118071,10 +118139,10 @@ cSU
 nTG
 cUl
 ePY
+wgs
 ePY
 ePY
-ePY
-ePY
+gMe
 ePY
 ePY
 cUl
@@ -118328,7 +118396,7 @@ cYQ
 ePY
 ePY
 ePY
-ePY
+tcD
 ePY
 ePY
 ePY

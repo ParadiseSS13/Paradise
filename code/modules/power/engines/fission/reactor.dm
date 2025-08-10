@@ -7,6 +7,13 @@
 #define REACTOR_NEEDS_PLASTEEL		6
 #define REACTOR_NEEDS_WRENCH		7
 
+// The states of reactor chambers
+#define CHAMBER_DOWN =	 1
+#define CHAMBER_UP =	 2
+#define CHAMBER_OPEN =	 3
+
+#warn Idea todo: Make plutonium nuke core craftable
+
 /obj/machinery/power/fission_reactor
 	name = "Nuclear Fission Reactor"
 	desc = "An ancient yet reliable form of power generation utilising fissile materials to generate heat."
@@ -115,7 +122,7 @@
 	name = "Rod Housing Chamber"
 	desc = "A chamber used to house nuclear rods of various types to facilitate a fission reaction."
 	icon = 'icons/obj/fission/reactor_parts.dmi'
-	icon_state = "injector"
+	icon_state = "chamber_down"
 	anchored = TRUE
 	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
@@ -137,6 +144,11 @@
 /obj/machinery/reactor_chamber/on_construction()
 	. = ..()
 	find_link()
+
+/obj/machinery/reactor_chamber/attack_hand(mob/user)
+	if(issilicon(user) && !Adjacent(user))
+		return
+
 
 /// Forms the two-way link between the reactor and the chamber, then spreads it
 /obj/machinery/reactor_chamber/proc/form_link(var/obj/machinery/power/fission_reactor/reactor)
@@ -191,8 +203,8 @@
 /obj/machinery/atmospherics/unary/reactor_gas_node
 	name = "Reactor Gas Intake"
 	desc = "A sturdy-looking gas inlet that injects gas into the reactor"
-	icon = 'icons/atmos/pump.dmi'
-	icon_state = "map_off"
+	icon = 'icons/obj/fission/reactor_parts.dmi'
+	icon_state = "gas_node"
 	layer = GAS_PIPE_VISIBLE_LAYER
 	max_integrity = 2000
 	density = FALSE
@@ -205,6 +217,7 @@
 	var/intake_vent = TRUE
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/output
+	name = "Reactor Gas Extractor"
 	intake_vent = FALSE
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/Initialize(mapload)
@@ -260,6 +273,7 @@
 		return
 	if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume))
 		return
+	if(!Adjacent())
 	dir = choices[selected]
 	var/node_connect = dir
 	initialize_directions = dir
@@ -287,3 +301,13 @@
 		else
 			name = "Reactor Gas Extractor"
 	return ..()
+
+
+
+#undef REACTOR_NEEDS_DIGGING
+#undef REACTOR_NEEDS_CROWBAR
+#undef REACTOR_NEEDS_PLASTITANIUM
+#undef REACTOR_NEEDS_SCREWDRIVER
+#undef REACTOR_NEEDS_WELDING
+#undef REACTOR_NEEDS_PLASTEEL
+#undef REACTOR_NEEDS_WRENCH
