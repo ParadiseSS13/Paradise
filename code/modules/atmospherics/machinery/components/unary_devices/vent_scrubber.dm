@@ -53,20 +53,18 @@
 	name = "[initial_loc.name] Air Scrubber #[length(initial_loc.scrubbers)]"
 
 /obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
-	. = ..()
+	if(initial_loc)
+		initial_loc.scrubbers -= src
+
 	GLOB.all_scrubbers -= src
+
+	return ..()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This filters the atmosphere of harmful gas. Filtered gas goes straight into the connected pipenet. Controlled by an Air Alarm.</span>"
 	if(welded)
 		. += "It seems welded shut."
-
-/obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
-	if(initial_loc)
-		initial_loc.scrubbers -= src
-
-	return ..()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_overlays()
 	. = ..()

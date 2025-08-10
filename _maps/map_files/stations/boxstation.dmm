@@ -2538,7 +2538,7 @@
 /area/station/command/office/hos)
 "akL" = (
 /obj/structure/flora/rock/jungle,
-/mob/living/simple_animal/lizard{
+/mob/living/basic/lizard{
 	name = "Greentext"
 	},
 /turf/simulated/floor/grass,
@@ -32777,7 +32777,7 @@
 	},
 /area/station/science/genetics)
 "cpL" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
@@ -46980,7 +46980,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft)
 "dvv" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/basic/pet/sloth/paperwork,
 /turf/simulated/floor/carpet,
 /area/station/legal/lawoffice)
 "dvD" = (
@@ -63294,7 +63294,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "lpS" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "lqc" = (
@@ -87490,7 +87490,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "xtZ" = (
-/mob/living/simple_animal/pet/penguin/baby,
+/mob/living/basic/pet/penguin/baby,
 /turf/simulated/floor/carpet,
 /area/station/maintenance/asmaint)
 "xuw" = (
@@ -88416,7 +88416,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/lizard/wags_his_tail,
+/mob/living/basic/lizard/wags_his_tail,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "xPE" = (

@@ -198,6 +198,7 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
+	permeability_coefficient = 0.01
 
 /obj/item/clothing/head/surgery/purple
 	name = "purple surgical cap"

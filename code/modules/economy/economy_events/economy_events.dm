@@ -77,8 +77,7 @@
 				newMsg.title += "Attack on [affected_dest.name]"
 				newMsg.body = "[pick("Pirates","Criminal elements","A [pick("Syndicate","Donk Co.","Waffle Co.","\'REDACTED\'")] strike force")] have [pick("raided","blockaded","attempted to blackmail","attacked")] [affected_dest.name] today. Security has been tightened, but many valuable minerals were taken."
 			if(RANDOM_STORY_CORPORATE_ATTACK)
-				newMsg.title += "Corporate attack on [affected_dest.name]"
-				newMsg.body = "A small [pick("pirate","Cybersun Industries","Gorlex Marauders","Syndicate")] fleet has precise-jumped into proximity with [affected_dest.name], [pick("for a smash-and-grab operation","in a hit and run attack","in an overt display of hostilities")]. Much damage was done, and security has been tightened since the incident."
+				newMsg.body = "A small [pick("pirate","Gorlex Marauders","Syndicate")] fleet has precise-jumped into proximity with [affected_dest.name], [pick("for a smash-and-grab operation","in a hit and run attack","in an overt display of hostilities")]. Much damage was done, and security has been tightened since the incident."
 			if(RANDOM_STORY_ALIEN_RAIDERS)
 				if(prob(20))
 					newMsg.title += "Raid on [affected_dest.name]"
