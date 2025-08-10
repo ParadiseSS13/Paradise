@@ -90,6 +90,7 @@
 	icon = 'icons/obj/forensics/forensics.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	var/list/evidence = list()
+	new_attack_chain = TRUE
 
 /obj/item/sample/Initialize(mapload, atom/supplied)
 	. = ..()
@@ -127,17 +128,12 @@
 	to_chat(user, "<span class='notice'>You overlay [src] and [supplied], combining the print records.</span>")
 	return TRUE
 
-/obj/item/sample/pre_attack(atom/A, mob/living/user, params)
-	..()
-	// Fingerprints will be handled in after_attack() to not mess up the samples taken
-	return A.attackby__legacy__attackchain(src, user, params)
-
-/obj/item/sample/attackby__legacy__attackchain(obj/O, mob/user)
-	if(istype(O, src.type))
-		user.unequip(O)
-		if(merge_evidence(O, user))
-			qdel(O)
-		return TRUE
+/obj/item/sample/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, src.type))
+		user.unequip(used)
+		if(merge_evidence(used, user))
+			qdel(used)
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/item/sample/fibers
@@ -160,15 +156,14 @@
 		icon_state = "fingerprint1"
 
 
-/obj/item/sample/print/attack_self__legacy__attackchain(mob/user)
-	if(length(evidence))
-		return
-	if(!ishuman(user))
-		return
+/obj/item/sample/print/activate_self(mob/user)
+	if(..() || length(evidence) || !ishuman(user))
+		return FINISH_ATTACK
+
 	var/mob/living/carbon/human/H = user
 	if(H.gloves)
 		to_chat(user, "<span class='warning'>Take [H.gloves] off first.</span>")
-		return
+		return FINISH_ATTACK
 
 	to_chat(user, "<span class='notice'>You press your fingertips firmly against the card.</span>")
 	var/fullprint = H.get_full_print()
@@ -177,32 +172,30 @@
 	used = TRUE
 	update_appearance(UPDATE_ICON_STATE)
 
-/obj/item/sample/print/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
-	. = ..()
-
-	if(!ishuman(M))
+/obj/item/sample/print/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!ishuman(target))
 		return ..()
 
 	if(length(evidence))
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 
-	var/mob/living/carbon/human/H = M
+	var/mob/living/carbon/human/H = target
 
 	if(H.gloves)
 		to_chat(user, "<span class='warning'>[H] is wearing gloves.</span>")
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 	if(user != H && !IS_HORIZONTAL(H))
 		user.visible_message("<span class='danger'>[user] tried to fingerprint [H], but he resists.</span>")
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 	if(user.zone_selected == "r_hand" || user.zone_selected == "l_hand")
 		var/has_hand = (H.has_organ("r_hand") || H.has_organ("l_hand"))
 		if(!has_hand)
 			to_chat(user, "<span class='warning'>[H] has no hands!</span>")
-			return FALSE
+			return ITEM_INTERACT_COMPLETE
 		if(!do_after(user, 2 SECONDS, target = user))
-			return FALSE
+			return ITEM_INTERACT_COMPLETE
 
 		user.visible_message("<span class='notice'>[user] makes a copy of [H]'s fingerprints'.</span>")
 		var/fullprint = H.get_full_print()
@@ -211,8 +204,7 @@
 		name = ("[initial(name)] ([H])")
 		used = TRUE
 		update_appearance(UPDATE_ICON_STATE)
-		return TRUE
-	return FALSE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/sample/print/copy_evidence(atom/supplied)
 	if(length(supplied.fingerprints))
