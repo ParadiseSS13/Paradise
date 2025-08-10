@@ -176,7 +176,6 @@
 	icon_state = "microscope"
 	anchored = TRUE
 	density = TRUE
-	new_attack_chain = FALSE
 	var/obj/item/sample = null
 	var/report_num = 0
 	var/fingerprint_complete = 6
