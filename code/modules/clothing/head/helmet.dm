@@ -271,7 +271,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/helmet.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi'
-		)
+	)
 
 
 /obj/item/clothing/head/helmet/street_judge
