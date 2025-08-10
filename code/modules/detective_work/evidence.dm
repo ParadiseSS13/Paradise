@@ -161,7 +161,7 @@
 
 
 /obj/item/sample/print/attack_self__legacy__attackchain(mob/user)
-	if(!length(evidence))
+	if(length(evidence))
 		return
 	if(!ishuman(user))
 		return
