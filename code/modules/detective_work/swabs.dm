@@ -20,17 +20,13 @@
 /obj/item/forensics/swab/proc/is_used()
 	return used
 
-/obj/item/forensics/swab/pre_attack(atom/A, mob/living/user, params)
-	. = ..()
-	return A.attackby__legacy__attackchain(src, user, params)
-
-/obj/item/forensics/swab/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
-	if(istype(A, /obj/machinery/microscope))
-		return
+/obj/item/forensics/swab/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(isstorage(target)) // Storage handling. Maybe add an intent check?
+		return ..()
 
 	if(is_used())
 		to_chat(user, "<span class='warning'>This sample kit is already used.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	add_fingerprint(user)
 	inuse = TRUE
@@ -60,7 +56,7 @@
 		if(!length(choices))
 			to_chat(user, "<span class='warning'>There is no evidence on [A].</span>")
 			inuse = FALSE
-			return
+			return ITEM_INTERACT_COMPLETE
 		else if(length(choices) == 1)
 			choice = choices[1]
 		else
@@ -68,7 +64,7 @@
 
 		if(!choice)
 			inuse = FALSE
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		var/sample_type
 		var/target_dna
@@ -82,7 +78,7 @@
 			if(!istype(B) || !B.gunshot_residue)
 				to_chat(user, "<span class='warning'>There is not a hint of gunpowder on [A].</span>")
 				inuse = FALSE
-				return
+				return ITEM_INTERACT_COMPLETE
 			target_gsr = B.gunshot_residue
 			sample_type = "powder"
 
@@ -99,7 +95,8 @@
 				S.dna = target_dna
 				S.gsr = target_gsr
 				S.set_used(sample_type, A)
-		inuse = FALSE
+	inuse = FALSE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/forensics/swab/proc/set_used(sample_str, atom/source)
 	name = ("[initial(name)] ([sample_str] - [source])")

@@ -84,6 +84,7 @@
 /obj/item/forensics
 	icon = 'icons/obj/forensics/forensics.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	new_attack_chain = TRUE
 
 /obj/item/sample
 	name = "\improper Forensic sample"
@@ -228,19 +229,19 @@
 	var/obj/item/sample/S = new evidence_path(get_turf(user), supplied)
 	to_chat(user, "<span class='notice'>You move [S.evidence.len] [S.evidence.len > 1 ? "[evidence_type]" : "[evidence_type]"] [S].</span>")
 
-/obj/item/forensics/sample_kit/afterattack__legacy__attackchain(atom/A, mob/user, proximity)
-	if(!proximity)
-		return
+/obj/item/forensics/sample_kit/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(user.a_intent != INTENT_HARM)
+		return ..()
+
 	if(can_take_sample(user, A))
 		take_sample(user,A)
-		return TRUE
-
-	to_chat(user, "<span class='warning'>You cannot find [evidence_type] on [A].</span>")
-	return ..()
+	else
+		to_chat(user, "<span class='warning'>You cannot find [evidence_type] on [A].</span>")
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/forensics/sample_kit/MouseDrop(atom/over)
 	if(ismob(src.loc))
-		afterattack__legacy__attackchain(over, usr, TRUE)
+		interact_with_atom(over, usr)
 
 /obj/item/forensics/sample_kit/powder
 	name = "fingerprint Powder"
