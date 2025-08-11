@@ -54,6 +54,13 @@
 /mob/living/simple_animal/diona/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/wears_collar)
+	if(name == initial(name)) //To stop named dionas becoming generic.
+		name = "[name] ([rand(1, 1000)])"
+		real_name = name
+	add_language("Rootspeak")
+	merge_action.Grant(src)
+	evolve_action.Grant(src)
+	steal_blood_action.Grant(src)
 
 /datum/action/innate/diona/merge
 	name = "Merge with gestalt"
@@ -81,17 +88,6 @@
 /datum/action/innate/diona/steal_blood/Activate()
 	var/mob/living/simple_animal/diona/user = owner
 	user.steal_blood()
-
-/mob/living/simple_animal/diona/Initialize(mapload)
-	. = ..()
-
-	if(name == initial(name)) //To stop Pun-Pun becoming generic.
-		name = "[name] ([rand(1, 1000)])"
-		real_name = name
-	add_language("Rootspeak")
-	merge_action.Grant(src)
-	evolve_action.Grant(src)
-	steal_blood_action.Grant(src)
 
 /mob/living/simple_animal/diona/UnarmedAttack(atom/A)
 	if(isdiona(A) && (src in A.contents)) //can't attack your gestalt
