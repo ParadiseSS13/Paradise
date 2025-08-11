@@ -15,9 +15,9 @@
 
 /datum/ai_behavior/capricious_retaliate/perform(seconds_per_tick, datum/ai_controller/controller, targeting_strategy_key, ignore_faction)
 	var/atom/pawn = controller.pawn
-	if (controller.blackboard_key_exists(BB_BASIC_MOB_RETALIATE_LIST))
+	if(controller.blackboard_key_exists(BB_BASIC_MOB_RETALIATE_LIST))
 		var/deaggro_chance = controller.blackboard[BB_RANDOM_DEAGGRO_CHANCE] || 10
-		if (!SPT_PROB(deaggro_chance, seconds_per_tick))
+		if(!SPT_PROB(deaggro_chance, seconds_per_tick))
 			return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 		pawn.visible_message("<span class='notice'>[pawn] calms down.</span>") // We can blackboard key this if anyone else actually wants to customise it
 		controller.clear_blackboard_key(BB_BASIC_MOB_RETALIATE_LIST)
@@ -26,26 +26,26 @@
 		return AI_BEHAVIOR_DELAY
 
 	var/aggro_chance = controller.blackboard[BB_RANDOM_AGGRO_CHANCE] || 0.5
-	if (!SPT_PROB(aggro_chance, seconds_per_tick))
+	if(!SPT_PROB(aggro_chance, seconds_per_tick))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	var/aggro_range = controller.blackboard[BB_AGGRO_RANGE] || 10
 	var/list/potential_targets = hearers(aggro_range, get_turf(pawn)) - pawn
-	if (!length(potential_targets))
+	if(!length(potential_targets))
 		failed_targeting(pawn)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	var/datum/targeting_strategy/target_helper = GET_TARGETING_STRATEGY(controller.blackboard[targeting_strategy_key])
 
 	var/mob/living/final_target = null
-	if (ignore_faction)
+	if(ignore_faction)
 		controller.set_blackboard_key(BB_TEMPORARILY_IGNORE_FACTION, TRUE)
-	while (isnull(final_target) && length(potential_targets))
+	while(isnull(final_target) && length(potential_targets))
 		var/mob/living/test_target = pick_n_take(potential_targets)
-		if (target_helper.can_attack(pawn, test_target, vision_range = aggro_range))
+		if(target_helper.can_attack(pawn, test_target, vision_range = aggro_range))
 			final_target = test_target
 
-	if (isnull(final_target))
+	if(isnull(final_target))
 		failed_targeting(pawn)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
@@ -59,7 +59,7 @@
 
 /datum/ai_behavior/capricious_retaliate/finish_action(datum/ai_controller/controller, succeeded, ignore_faction)
 	. = ..()
-	if (succeeded || !ignore_faction)
+	if(succeeded || !ignore_faction)
 		return
 	var/usually_ignores_faction = controller.blackboard[BB_ALWAYS_IGNORE_FACTION] || FALSE
 	controller.set_blackboard_key(BB_TEMPORARILY_IGNORE_FACTION, usually_ignores_faction)
