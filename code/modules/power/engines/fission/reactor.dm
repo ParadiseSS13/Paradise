@@ -8,9 +8,9 @@
 #define REACTOR_NEEDS_WRENCH		7
 
 // The states of reactor chambers
-#define CHAMBER_DOWN =	 1
-#define CHAMBER_UP =	 2
-#define CHAMBER_OPEN =	 3
+#define CHAMBER_DOWN	 1
+#define CHAMBER_UP		 2
+#define CHAMBER_OPEN	 3
 
 #warn Idea todo: Make plutonium nuke core craftable
 
@@ -131,24 +131,35 @@
 	var/linked_reactor
 	/// holds the specific rod inserted into the chamber
 	var/held_rod
+	/// Is the chamber up, down, or open
+	var/chamber_state = 1
 
 /obj/machinery/reactor_chamber/Initialize(mapload)
 	. = ..()
-	var/chambers_found = 0
-	for(var/obj/machinery/reactor_chamber/chamber in range(0, src))
-		chambers_found++
-		if(chambers_found > 1)
-			chamber.deconstruct()
+	dupe_check()
 
 // we only want it searching for a link when it is constructed, otherwise the reactor starts this.
 /obj/machinery/reactor_chamber/on_construction()
 	. = ..()
 	find_link()
 
+// check for multiple on a tile and nuke it
+/obj/machinery/reactor_chamber/proc/dupe_check()
+	var/chambers_found = 0
+	for(var/obj/machinery/reactor_chamber/chamber in range(0, src))
+		chambers_found++
+		if(chambers_found > 1)
+			visible_message("[src] has no room to deploy and breaks apart!")
+			chamber.deconstruct()
+
 /obj/machinery/reactor_chamber/attack_hand(mob/user)
 	if(issilicon(user) && !Adjacent(user))
 		return
 
+	if(chamber_state == CHAMBER_DOWN)
+		chamber_state = CHAMBER_UP
+		icon_state = "chamber_up"
+		density = TRUE
 
 /// Forms the two-way link between the reactor and the chamber, then spreads it
 /obj/machinery/reactor_chamber/proc/form_link(var/obj/machinery/power/fission_reactor/reactor)
