@@ -268,7 +268,6 @@
 	name = "proto-kinetic pistol"
 	desc = "A lightweight mining tool, sacrificing upgrade capacity for convenience."
 	icon_state = "kineticpistol"
-	inhand_icon_state = "kineticpistol"
 	w_class = WEIGHT_CLASS_SMALL
 	max_mod_capacity = 65
 	can_bayonet = FALSE
@@ -621,7 +620,6 @@
 		if(istype(KA, /obj/item/gun/energy/kinetic_accelerator/pistol))
 			KA.current_skin = pistol_chassis_icon
 			KA.name = pistol_chassis_name
-			KA.item_state = pistol_chassis_icon
 		else
 			KA.current_skin = chassis_icon
 			KA.name = chassis_name
