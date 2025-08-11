@@ -1,9 +1,16 @@
 /datum/event/spawn_morph
 	name = "Morph Spawn"
+	noAutoEnd = TRUE
 	nominal_severity = EVENT_LEVEL_MAJOR
 	role_weights = list(ASSIGNMENT_SECURITY = 3)
 	role_requirements = list(ASSIGNMENT_SECURITY = 2)
 	var/key_of_morph
+	var/spawned = FALSE
+
+/datum/event/spawn_morph/process()
+	if(!length(event_category_cost(EVENT_MORPH)) && spawned)
+		kill()
+	return ..()
 
 /datum/event/spawn_morph/proc/get_morph()
 	spawn()
@@ -34,6 +41,7 @@
 		S.make_morph_antag()
 		S.forceMove(vent)
 		S.add_ventcrawl(vent)
+		spawned = TRUE
 		dust_if_respawnable(C)
 		message_admins("[key_of_morph] has been made into morph by an event.")
 		log_game("[key_of_morph] was spawned as a morph by an event.")

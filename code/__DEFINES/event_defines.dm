@@ -22,3 +22,6 @@
 #define EVENT_TERROR_SPIDERS "terror_spiders"
 #define EVENT_BLOB "blob"
 #define EVENT_XENOS "xenos"
+#define EVENT_MORPH "morph"
+#define EVENT_CARP "carps"
+

@@ -233,7 +233,6 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 20, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 20, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/demon_incursion, 20, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod,	0, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/disease_outbreak, 	15, TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Pulse Demon Infiltration",	/datum/event/spawn_pulsedemon,	20,	is_one_shot = TRUE)

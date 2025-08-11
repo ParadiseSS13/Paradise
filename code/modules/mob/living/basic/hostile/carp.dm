@@ -70,6 +70,12 @@
 	carp_randomify(rarechance)
 	AddComponent(/datum/component/swarming)
 	AddComponent(/datum/component/aggro_emote, emote_list = list("gnashes"))
+	AddComponent(/datum/component/event_tracker, EVENT_CARP)
+
+/mob/living/basic/carp/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_TOTAL = 0.3)
 
 /mob/living/basic/carp/proc/carp_randomify(rarechance)
 	if(random_color)

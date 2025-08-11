@@ -1,8 +1,20 @@
 /datum/event/abductor
 	name = "Abductor Visit"
+	noAutoEnd = TRUE
 	nominal_severity = EVENT_LEVEL_MAJOR
 	role_weights = list(ASSIGNMENT_SECURITY =  3)
 	role_requirements = list(ASSIGNMENT_SECURITY = 2)
+	var/datum/team/abductor/ayys
+	var/successful_spawn = FALSE
+
+/datum/event/abductor/process()
+	if(ayys && length(ayys.members) && successful_spawn)
+		kill()
+	return ..()
+
+/// abductor costs are calculated independently of event
+/datum/event/abductor/event_resource_cost()
+	return list()
 
 /datum/event/abductor/start()
 	INVOKE_ASYNC(src, PROC_REF(try_makeAbductorTeam))
@@ -27,7 +39,8 @@
 		mind.active = TRUE
 		minds += mind
 
-	var/datum/team/abductor/ayys = new /datum/team/abductor(minds)
+	ayys = new /datum/team/abductor(minds)
 	ayys.create_agent()
 	ayys.create_scientist()
+	succesful_spawn = TRUE
 	return TRUE
