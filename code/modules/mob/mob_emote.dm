@@ -205,7 +205,6 @@
 	key = "jump"
 	key_third_person = "jumps"
 	message = "jumps!"
-	age_based = FALSE
 	emote_type = EMOTE_VISIBLE | EMOTE_FORCE_NO_RUNECHAT
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)
 	mob_type_blacklist_typecache = list(/mob/living/brain, /mob/camera, /mob/living/silicon/ai)
