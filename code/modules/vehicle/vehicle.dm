@@ -71,7 +71,7 @@
 		return FALSE
 
 	installed_vtec = TRUE
-	vehicle_move_delay = max(1, vehicle_move_delay -= 1)
+	vehicle_move_delay = max(1, vehicle_move_delay - 1)
 	qdel(vtec)
 	to_chat(user, "<span class='notice'>You upgrade [src] with [vtec].</span>")
 	return TRUE
