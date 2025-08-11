@@ -8,7 +8,7 @@
 	var/key_of_revenant
 
 
-/datum/event/revenant/on_revenant_death(mob/source)
+/datum/event/revenant/proc/on_revenant_death(mob/source)
 	SIGNAL_HANDLER // COMSIG_MOB_DEATH
 	UnregisterSignal(source, COMSIG_MOB_DEATH)
 	kill()
