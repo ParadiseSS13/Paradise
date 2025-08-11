@@ -662,7 +662,7 @@ What are the archived variables for?
 	private_hotspot_volume = milla[MILLA_INDEX_HOTSPOT_VOLUME]
 	private_fuel_burnt = milla[MILLA_INDEX_FUEL_BURNT]
 
-/proc/share_many_airs(list/mixtures)
+/proc/share_many_airs(list/mixtures, atom/root)
 	var/total_volume = 0
 	var/total_oxygen = 0
 	var/total_nitrogen = 0
@@ -691,8 +691,11 @@ What are the archived variables for?
 		total_sleeping_agent += G.private_sleeping_agent
 		total_agent_b += G.private_agent_b
 
-	if(total_volume <= 0)
+	if(total_volume == 0)
 		return
+
+	if(total_volume < 0 || isnan(total_volume) || !isnum(total_volume) || total_oxygen < 0 || isnan(total_oxygen) || !isnum(total_oxygen) || total_nitrogen < 0 || isnan(total_nitrogen) || !isnum(total_nitrogen) || total_toxins < 0 || isnan(total_toxins) || !isnum(total_toxins) || total_carbon_dioxide < 0 || isnan(total_carbon_dioxide) || !isnum(total_carbon_dioxide) || total_sleeping_agent < 0 || isnan(total_sleeping_agent) || !isnum(total_sleeping_agent) || total_agent_b < 0 || isnan(total_agent_b) || !isnum(total_agent_b))
+		CRASH("A pipenet with [length(mixtures)] connected airs is corrupt and cannot flow safely. Pipenet root is [root] at ([root.x], [root.y], [root.z]).")
 
 	// If we don't have a significant temperature difference, check for a significant gas amount difference.
 	if(!must_share)
@@ -736,6 +739,9 @@ What are the archived variables for?
 	temperature = TCMB
 	if(total_heat_capacity > 0)
 		temperature = total_thermal_energy/total_heat_capacity
+
+	if(temperature <= 0 || isnan(temperature) || !isnum(temperature))
+		CRASH("A pipenet with [length(mixtures)] connected airs is corrupt and cannot flow safely. Pipenet root is [root] at ([root.x], [root.y], [root.z]).")
 
 	// Update individual gas_mixtures by volume ratio.
 	for(var/datum/gas_mixture/G in mixtures)

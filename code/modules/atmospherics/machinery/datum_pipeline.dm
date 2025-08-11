@@ -232,7 +232,11 @@
 			if(C.connected_device)
 				GL += C.portableConnectorReturnAir()
 
-	share_many_airs(GL)
+	if(length(members))
+		share_many_airs(GL, members[1])
+	else if(length(other_atmosmch))
+		share_many_airs(GL, other_atmosmch[1])
+	// If neither has anything, GL will have no volumen, so nothing to share.
 
 /datum/pipeline/proc/add_ventcrawler(mob/living/crawler)
 	if(!(crawler in crawlers))
