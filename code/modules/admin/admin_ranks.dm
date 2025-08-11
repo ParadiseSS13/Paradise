@@ -124,7 +124,6 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 	if(admin_ckey in GLOB.directory)
 		var/client/admin = GLOB.directory[admin_ckey]
-		to_chat(admin, "Holder? [admin.holder]  Permissions? [admin.holder?.rights]")
 	if(!silent)
 		message_admins("<span class='notice'>Admin permissions for [admin_ckey] have been reloaded.</span>")
 
