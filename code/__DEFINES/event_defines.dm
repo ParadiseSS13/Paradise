@@ -17,3 +17,8 @@
 #define EVENT_LEVEL_MODERATE 2
 #define EVENT_LEVEL_MAJOR 3
 #define EVENT_LEVEL_DISASTER 4
+
+// Categories for the event tracker component
+#define EVENT_TERROR_SPIDERS "terror_spiders"
+#define EVENT_BLOB "blob"
+#define EVENT_XENOS "xenos"

@@ -79,6 +79,14 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 			else
 				total_resources[assignment] = -event_costs[assignment]
 
+	// Subtract resources from various elements
+	var/list/misc_costs = event_total_cost()
+	for(var/assignment in misc_costs)
+		if(total_resources[assignment])
+			total_resources[assignment] -= misc_costs[assignment]
+		else
+			total_resources[assignment] = -misc_costs[assignment]
+
 	var/list/possible_events = list()
 	for(var/datum/event_meta/EM in available_events)
 		var/event_weight = EM.get_weight(total_resources)

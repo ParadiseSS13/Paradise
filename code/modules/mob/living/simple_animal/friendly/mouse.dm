@@ -193,6 +193,7 @@
 /mob/living/simple_animal/mouse/blobinfected/Initialize(mapload)
 	. = ..()
 	apply_status_effect(STATUS_EFFECT_BLOB_BURST, 120 SECONDS, CALLBACK(src, PROC_REF(burst), FALSE))
+	AddComponent(/datum/component/event_tracker, EVENT_BLOB)
 
 /mob/living/simple_animal/mouse/blobinfected/Life()
 	if(ismob(loc)) // if someone ate it, burst immediately

@@ -111,3 +111,19 @@
 		if(P.client)
 			players++
 	return players
+
+/proc/event_category_cost(category)
+	. = list()
+	if(!category)
+		return
+	for(var/datum/component/event_tracker/tracker in GLOB.event_trackers["[category]"])
+		var/costs = tracker.event_cost()
+		for(var/key in costs)
+			.["[key]"] += costs[key]
+
+/proc/event_total_cost()
+	. = list()
+	for(var/category in GLOB.event_trackers)
+		var/costs = event_category_cost(category)
+		for(var/key in costs)
+			.["[key]"] += costs[key]

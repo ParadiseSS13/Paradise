@@ -33,6 +33,12 @@
 	for(var/organ_path in get_caste_organs())
 		var/obj/item/organ/internal/organ = new organ_path()
 		organ.insert(src)
+	AddComponent(/datum/component/event_tracker, EVENT_XENOS)
+
+/mob/living/carbon/alien/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_SECURITY = 1, ASSIGNMENT_TOTAL = 3, ASSIGNMENT_MEDICAL = 1)
 
 /mob/living/carbon/alien/death(gibbed)
 	move_resist = null

@@ -1,6 +1,9 @@
+GLOBAL_LIST_INIT(xeno_things, list("xenos" = list(), "eggs" = list()))
+
 /datum/event/alien_infestation
 	name = "Alien Infestation"
-	announceWhen	= 400
+	announceWhen = 400
+	noAutoEnd = TRUE
 	var/highpop_trigger = 80
 	var/spawncount = 2
 	var/list/playercount
@@ -17,6 +20,17 @@
 		GLOB.major_announcement.Announce("Xenomorph infestation detected aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak_xeno.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Alien Infestation")
+
+/datum/event/alien_infestation/process()
+	// Check for completion every minute
+	if(!activeFor % 30)
+		if(successSpawn && !length(event_category_cost(EVENT_XENOS)))
+			kill()
+	. = ..()
+
+/datum/event/alien_infestation/process()
+	. = ..()
+
 
 /datum/event/alien_infestation/start()
 	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts

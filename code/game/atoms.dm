@@ -1514,3 +1514,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	attack_info.last_attacker_ckey = attacker.ckey
 	if(istype(weapon))
 		attack_info.last_attacker_weapon = "[weapon] ([weapon.type])"
+
+// Event procs
+/// Returns the cost of the atom for the event system as a list of all requirements. By default this is just 1 crew.
+/atom/proc/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_TOTAL = 1)
+

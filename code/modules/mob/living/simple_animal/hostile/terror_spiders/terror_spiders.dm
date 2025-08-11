@@ -238,8 +238,9 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	fed++
 	qdel(J)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/event_score()
-	return 1
+/mob/living/simple_animal/hostile/poison/terror_spider/event_cost()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 0.2, ASSIGNMENT_TOTAL = 1.5, ASSIGNMENT_MEDICAL = 0.2)
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: PROC OVERRIDES ---------------------------
@@ -290,6 +291,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	U.add_hud_to(src)
 	spider_creation_time = world.time
+	AddComponent(/datum/component/event_tracker, EVENT_TERROR_SPIDERS)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
 	if(stat == DEAD)

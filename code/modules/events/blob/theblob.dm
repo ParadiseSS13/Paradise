@@ -31,6 +31,12 @@ GLOBAL_LIST_EMPTY(blob_minions)
 	if(atmosblock)
 		recalculate_atmos_connectivity()
 	ConsumeTile()
+	AddComponent(/datum/component/event_tracker, EVENT_BLOB)
+
+/obj/structure/blob/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_TOTAL = 0.07)
 
 /obj/structure/blob/Destroy()
 	if(atmosblock)

@@ -538,6 +538,7 @@
 #include "code\datums\components\ducttape.dm"
 #include "code\datums\components\edit_complainer.dm"
 #include "code\datums\components\emissive_blocker.dm"
+#include "code\datums\components\event_tracker.dm"
 #include "code\datums\components\footstep.dm"
 #include "code\datums\components\forces_doors_open.dm"
 #include "code\datums\components\fullauto.dm"

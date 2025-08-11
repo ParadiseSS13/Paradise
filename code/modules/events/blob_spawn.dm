@@ -24,15 +24,9 @@
 		return kill()
 	return ..()
 
+/// Blob costs are calculated are calculated independently from the event itself
 /datum/event/blob/event_resource_cost()
-	var/list/costs = list()
-	var/cores = length(blob_things["cores"])
-	var/blob_blocks = length(GLOB.blobs)
-	var/nodes = length(GLOB.blob_nodes)
-	var/blobbernauts = length(GLOB.blob_minions)
-	for(var/role in role_requirements)
-		costs += list("[role]" = role_requirements[role] / role_requirements[ASSIGNMENT_TOTAL] * (cores * 10 + nodes * 2 + blob_blocks * 0.03 + blobbernauts))
-	return costs
+	return list()
 
 /datum/event/blob/proc/make_blob()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
