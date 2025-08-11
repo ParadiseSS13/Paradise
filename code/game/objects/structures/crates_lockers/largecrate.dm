@@ -37,6 +37,8 @@
 
 /obj/structure/largecrate/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		return
 	if(manifest)
 		manifest.forceMove(loc)
 		manifest = null
