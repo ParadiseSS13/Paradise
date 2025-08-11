@@ -67,7 +67,7 @@
 	if(installed_vtec)
 		return FALSE
 	if(vehicle_move_delay <= 1)
-		to_chat(user, "<span class='warning'>[src] is too fast for the [vtec] to have any effect.</span>")
+		to_chat(user, "<span class='warning'>[src] is too fast for [vtec] to have any effect.</span>")
 		return FALSE
 
 	installed_vtec = TRUE
