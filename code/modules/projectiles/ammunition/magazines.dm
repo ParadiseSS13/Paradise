@@ -417,8 +417,9 @@
 
 /obj/item/ammo_box/magazine/m556/arg
 	name = "\improper M26 assault rifle magazine (5.56mm)"
+	icon = 'icons/tgmc/objects/ammo.dmi'
+	icon_state = "m26a2"
 	desc = "A Standardized Equipment model magazine for the M26 assault rifle."
-	icon_state = "arg"
 
 /obj/item/ammo_box/magazine/ak814
 	name = "AK magazine (5.45x39mm)"
