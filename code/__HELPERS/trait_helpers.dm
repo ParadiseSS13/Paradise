@@ -317,7 +317,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SURGICAL_OPEN_HAND "surgical_hand_alternative"
 
 /// Surgical tools with this trait have their prob_success set to 100 (but is still able to fail form other factors)
-#define TRAIT_SURGICAL_MAX_PROB	"surgical_max_prob"
+#define TRAIT_SURGICAL_CANNOT_FAIL	"surgical_cannot_fail"
 
 /// A wearable item that protects the covered areas from viral infection
 #define TRAIT_ANTI_VIRAL "anti_viral"
