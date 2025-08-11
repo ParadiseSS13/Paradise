@@ -329,6 +329,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel/improvised
 	name = "improvised shotgun"
 	desc = "Essentially a tube that aims shotgun shells."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "ishotgun"
 	item_state = "ishotgun"
 	slot_flags = null
