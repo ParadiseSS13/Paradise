@@ -47,6 +47,7 @@
 
 #define R_HOST			(~0) // Sum of all permissions to allow easy setting.
 
+#define ADMIN_PERMS_2FALESS (R_MENTOR|R_DEV_TEAM|R_VIEWRUNTIMES)
 
 #define ADMIN_QUE(user,display) "<a href='byond://?_src_=holder;adminmoreinfo=[user.UID()]'>[display]</a>"
 #define ADMIN_FLW(user,display) "<a href='byond://?_src_=holder;adminplayerobservefollow=[user.UID()]'>[display]</a>"

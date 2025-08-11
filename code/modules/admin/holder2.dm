@@ -75,7 +75,7 @@ GLOBAL_PROTECT(href_token)
 	// Check for 2fa, if required.
 	if(needs_2fa() && istype(owner) && !owner.has_2fa())
 		// Disable most permissions.
-		rights = rights & (R_MENTOR | R_VIEWRUNTIMES)
+		rights = rights & ADMIN_PERMS_2FALESS
 		restricted_by_2fa = TRUE
 		if(!delay_2fa_complaint)
 			// And tell them about it.
@@ -105,7 +105,7 @@ GLOBAL_PROTECT(href_token)
 	GLOB.de_mentors -= ckey
 
 /datum/admins/proc/needs_2fa()
-	if((rights & (R_MENTOR | R_VIEWRUNTIMES)) == rights)
+	if((rights & ADMIN_PERMS_2FALESS) == rights)
 		// No significant permissions.
 		return FALSE
 
