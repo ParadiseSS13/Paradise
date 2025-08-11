@@ -1,23 +1,21 @@
 /obj/item/clothing/mask/gas
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply. Used by mischievous assistants and syndicate agents alike."
-	icon_state = "gas_alt"
+	icon_state = "gasmask"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_NORMAL
-	item_state = "gas_alt"
+	item_state = "gasmask"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	resistance_flags = NONE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Kidan" = 'icons/mob/clothing/species/Kidan/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
-		"Plasmaman" = 'icons/mob/clothing/species/plasmaman/mask.dmi'
 		)
 
 // **** Welding gas mask ****
@@ -43,7 +41,6 @@
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
 	)
 
@@ -53,7 +50,8 @@
 /obj/item/clothing/mask/gas/explorer
 	name = "explorer gas mask"
 	desc = "A military-grade gas mask that can be connected to an air supply."
-	icon_state = "gas_mining"
+	icon_state = "gasmask_yellow"
+	item_state = "gasmask_yellow"
 	actions_types = list(/datum/action/item_action/adjust)
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 35)
 	resistance_flags = FIRE_PROOF
@@ -61,15 +59,9 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi'
 		)
-
-/obj/item/clothing/mask/gas/explorer/marines
-	name = "military gas mask"
 
 /obj/item/clothing/mask/gas/explorer/attack_self__legacy__attackchain(mob/user)
 	adjustmask(user)
@@ -92,6 +84,13 @@
 	flags &= ~AIRTIGHT
 	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/clothing/mask/gas/solgov
+	name = "\improper Federation military gas mask"
+	desc = "A standard-issue gas mask used by all branches of the Trans-Solar Armed Forces. The plexiglass faceplate offers a small amount of protection against incoming projectiles."
+	icon_state = "gasmask_solgov"
+	item_state = "gasmask_solgov"
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 35)
+	resistance_flags = FIRE_PROOF
 
 //Bane gas mask
 /obj/item/clothing/mask/gas/banemask
@@ -100,6 +99,11 @@
 	icon_state = "bane_mask"
 	item_state = "sechailer"
 
+/obj/item/clothing/mask/gas/old
+	name = "antique gas mask"
+	desc = "An old, ill-fitting gas mask of a long-discontinued design. The dust-caked interior smells like mothballs and rust."
+	icon_state = "gas_alt"
+	item_state = "gas_alt"
 
 //Plague Dr suit can be found in clothing/suits/bio.dm
 /obj/item/clothing/mask/gas/plaguedoctor
@@ -111,12 +115,14 @@
 /obj/item/clothing/mask/gas/swat
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
-	icon_state = "swat"
+	icon_state = "gasmask_red"
+	item_state = "gasmask_red"
 
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
-	icon_state = "swat"
+	icon_state = "gasmask_syndicate"
+	item_state = "gasmask_syndicate"
 	strip_delay = 60
 
 /obj/item/clothing/mask/gas/clown_hat
