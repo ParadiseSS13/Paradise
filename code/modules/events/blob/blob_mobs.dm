@@ -17,6 +17,7 @@
 	maximum_survivable_temperature = 360
 	universal_speak = TRUE // So mobs can understand them when a blob uses Blob Broadcast
 	sentience_type = SENTIENCE_OTHER
+	a_intent = INTENT_HARM
 	can_be_on_fire = TRUE
 	fire_damage = 3
 	var/mob/camera/blob/overmind = null
