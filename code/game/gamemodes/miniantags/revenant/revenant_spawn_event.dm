@@ -8,6 +8,11 @@
 	var/key_of_revenant
 
 
+/datum/event/revenant/on_revenant_death(mob/source)
+	SIGNAL_HANDLER // COMSIG_MOB_DEATH
+	UnregisterSignal(source, COMSIG_MOB_DEATH)
+	kill()
+
 /datum/event/revenant/proc/get_revenant(end_if_fail = 0)
 	var/deadMobs = 0
 	for(var/mob/M in GLOB.dead_mob_list)
@@ -40,6 +45,7 @@
 			kill()
 			return
 		var/mob/living/simple_animal/revenant/revvie = new /mob/living/simple_animal/revenant/(pick(spawn_locs))
+		RegisterSignal(revvie, COMSIG_MOB_DEATH, PROC_REF(on_revenant_death))
 		player_mind.transfer_to(revvie)
 		dust_if_respawnable(C)
 		player_mind.assigned_role = SPECIAL_ROLE_REVENANT

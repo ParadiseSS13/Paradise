@@ -10,10 +10,10 @@ GLOBAL_LIST_EMPTY(event_trackers)
 		category = "misc"
 	else
 		category = _category
-	GLOB.event_trackers["category"] += list(src)
+	GLOB.event_trackers["[category]"] += list(src)
 
 /datum/component/event_tracker/Destroy()
-	GLOB.event_trackers["category"] -= list(src)
+	GLOB.event_trackers["[category]"] -= list(src)
 	return ..()
 
 /datum/component/event_tracker/proc/event_cost()

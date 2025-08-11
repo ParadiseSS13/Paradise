@@ -5,10 +5,10 @@
 	role_weights = list(ASSIGNMENT_SECURITY =  3)
 	role_requirements = list(ASSIGNMENT_SECURITY = 2)
 	var/datum/team/abductor/ayys
-	var/successful_spawn = FALSE
+	var/spawned = FALSE
 
 /datum/event/abductor/process()
-	if(ayys && length(ayys.members) && successful_spawn)
+	if(ayys && length(ayys.members) && spawned)
 		kill()
 	return ..()
 
@@ -42,5 +42,5 @@
 	ayys = new /datum/team/abductor(minds)
 	ayys.create_agent()
 	ayys.create_scientist()
-	succesful_spawn = TRUE
+	spawned = TRUE
 	return TRUE

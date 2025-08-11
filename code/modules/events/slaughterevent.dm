@@ -7,7 +7,7 @@
 	role_weights = list(ASSIGNMENT_SECURITY = 5)
 	role_requirements = list(ASSIGNMENT_SECURITY = 3)
 
-/datum/event/spawn_slaughter/proc/process()
+/datum/event/spawn_slaughter/process()
 	if(!demon || demon.stat == DEAD)
 		kill()
 

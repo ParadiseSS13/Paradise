@@ -61,6 +61,7 @@
 		for(var/j = 1, j <= group_size, j++)
 			var/carptype = pickweight(spawned_mobs)
 			var/mob/carp = new carptype(spawn_locations[i])
-			RegisterSignal(carp, COMSIG_MOB_DEATH)
+			RegisterSignal(carp, COMSIG_MOB_DEATH, PROC_REF(remove_carp))
+			my_carps += carp
 			spawned = TRUE
 		i++
