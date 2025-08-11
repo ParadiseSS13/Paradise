@@ -932,7 +932,6 @@
 	name = "space helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
 	icon_state = "space"
-	worn_icon_state = "s_helmet"
 	inhand_icon_state = "s_helmet"
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
