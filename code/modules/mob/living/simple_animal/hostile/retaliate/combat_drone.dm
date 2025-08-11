@@ -36,6 +36,7 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
 	update_icons()
+	AddComponent(/datum/component/event_tracker, EVENT_DRONE)
 
 /mob/living/simple_animal/hostile/malf_drone/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
 	var/turf/T = get_turf(oldloc)

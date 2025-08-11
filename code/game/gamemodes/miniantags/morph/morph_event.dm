@@ -7,10 +7,9 @@
 	var/key_of_morph
 	var/spawned = FALSE
 
-/datum/event/spawn_morph/process()
+/datum/event/spawn_morph/tick()
 	if(!length(event_category_cost(EVENT_MORPH)) && spawned)
 		kill()
-	return ..()
 
 /datum/event/spawn_morph/proc/get_morph()
 	spawn()

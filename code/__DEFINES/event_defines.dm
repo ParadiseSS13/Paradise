@@ -24,4 +24,6 @@
 #define EVENT_XENOS "xenos"
 #define EVENT_MORPH "morph"
 #define EVENT_CARP "carps"
-
+#define EVENT_BRAND_INTELLIGENCE "brand_intelligence"
+#define EVENT_DRONE "rogue_drones"
+#define EVENT_DEMONIC "demonic_incursion"

@@ -1,8 +1,8 @@
 /datum/event/brand_intelligence
 	name = "Brand Intelligence"
 	role_weights = list(ASSIGNMENT_ENGINEERING = 25)
+	noAutoEnd = FALSE
 	announceWhen	= 21
-	endWhen			= 1000	//Ends when all vending machines are subverted anyway.
 
 	var/list/obj/machinery/economy/vending/vendingMachines = list()
 	var/list/obj/machinery/economy/vending/infectedMachines = list()
