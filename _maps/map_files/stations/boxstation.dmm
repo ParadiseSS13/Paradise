@@ -52522,6 +52522,12 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/aft)
+"gpC" = (
+/obj/item/nuclear_rod/coolant,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "gpD" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -74236,6 +74242,12 @@
 	icon_state = "purple"
 	},
 /area/station/science/hallway)
+"rle" = (
+/obj/item/nuclear_rod/moderator,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "rlj" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -79637,6 +79649,23 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/aft)
+"ubm" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/airlock_controller/access_controller{
+	name = "Supermatter Access Console";
+	ext_door_link_id = "engsm_door_ext";
+	int_door_link_id = "engsm_door_int";
+	ext_button_link_id = "engsm_btn_ext";
+	int_button_link_id = "engsm_btn_int";
+	req_access = list(32);
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "ubq" = (
 /obj/structure/rack,
 /obj/item/clothing/gloves/boxing/green{
@@ -80683,6 +80712,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft)
+"uGl" = (
+/obj/item/nuclear_rod/fuel,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "uGA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -116851,7 +116886,7 @@ cSU
 ntt
 fEP
 cSU
-nTG
+ubm
 ePY
 ePY
 wkI
@@ -117109,7 +117144,7 @@ vFA
 aig
 lnU
 ePY
-ePY
+gpC
 ePY
 koL
 sKE
@@ -117366,7 +117401,7 @@ tQJ
 wpH
 cYQ
 ePY
-ePY
+uGl
 ePY
 koL
 sKE
@@ -117623,7 +117658,7 @@ tQJ
 wpH
 cYQ
 ePY
-ePY
+rle
 ePY
 koL
 sKE

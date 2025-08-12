@@ -17,6 +17,8 @@
 #warn Idea todo: Allow CC to unlock for nuking station
 #warn Idea todo: Make some lavaland loot into special rods/upgrades
 #warn Idea todo: Bananium rods
+#warn Idea todo: Make chambers weldable
+#warn Idea todo: Make chambers self-weld at high temps
 
 /// MARK: Fission Reactor
 
@@ -161,11 +163,11 @@
 
 /obj/machinery/reactor_chamber/update_overlays()
 	. = ..()
-	if(held_rod)
-		var/mutable_appearance/overlay = mutable_appearance(layer = OBJ_LAYER, plane = GAME_PLANE)
-		overlay.icon = held_rod.icon
-		overlay.icon = held_rod.icon_state
-		. += overlay
+	if(held_rod && chamber_state == CHAMBER_OPEN)
+		var/mutable_appearance/rod_overlay = mutable_appearance(layer = ABOVE_OBJ_LAYER)
+		rod_overlay.icon = held_rod.icon
+		rod_overlay.icon_state = held_rod.icon_state
+		. += rod_overlay
 
 // check for multiple on a tile and nuke it
 /obj/machinery/reactor_chamber/proc/dupe_check()
@@ -187,24 +189,42 @@
 	if(chamber_state == CHAMBER_DOWN)
 		if(do_after_once(user, 2 SECONDS, target = src, allow_moving = FALSE))
 			raise()
-
+			return
 	if(chamber_state == CHAMBER_UP)
 		if(do_after_once(user, 2 SECONDS, target = src, allow_moving = FALSE))
+			if(chamber_state != CHAMBER_UP) // so that we cant lower early
+				return
 			lower()
+			return
 
 	if(chamber_state == CHAMBER_OPEN)
-		if(issilicon(user) && get_dist(src, user) > 1)
+		if(issilicon(user))
 			return
 		if(!held_rod)
 			to_chat(user, "<span class='warning'>There is no rod inside of the chamber to remove!</span>")
 			return
 		else
 			if(user.put_in_hands(held_rod))
+				held_rod.add_fingerprint(user)
 				held_rod = null
+				playsound(loc, 'sound/machines/podopen.ogg', 50, 1)
+				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, "<span class='warning'>Your hands are currently full!</span>")
+				return
 		update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/reactor_chamber/AltClick(mob/user, modifiers)
+	. = ..()
+	if(chamber_state == CHAMBER_UP)
+		open()
+		return
+	if(chamber_state == CHAMBER_OPEN)
+		if(panel_open == TRUE)
+			to_chat(user, "<span class='warning'>You must close the maintenance panel before the chamber can be sealed!</span>")
+			return
+		close()
+		return
 
 /obj/machinery/reactor_chamber/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(issilicon(user) && get_dist(src, user) > 1)
@@ -214,30 +234,26 @@
 	if(istype(used, /obj/item/nuclear_rod))
 		if(chamber_state == CHAMBER_OPEN)
 			if(!held_rod)
-				held_rod = used
-				held_rod.forceMove(src)
-				playsound(loc, 'sound/machines/podclose.ogg', 50, 1)
-				user.visible_message(
-					"<span class='notice'>[user] inserts [used] into [src].</span>",
-					"<span class='notice'>You insert [used] into [src].</span>"
-					)
-				update_icon(UPDATE_OVERLAYS)
-			if(held_rod)
-				user.put_in_hands(held_rod)
-				playsound(loc, 'sound/machines/podopen.ogg', 50, 1)
-				update_icon(UPDATE_OVERLAYS)
+				if(user.transfer_item_to(used, src, force = TRUE))
+					held_rod = used
+					playsound(loc, 'sound/machines/podclose.ogg', 50, 1)
+					user.visible_message(
+						"<span class='notice'>[user] inserts [used] into [src].</span>",
+						"<span class='notice'>You insert [used] into [src].</span>"
+						)
+					update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/reactor_chamber/proc/raise()
 	chamber_state = CHAMBER_UP
 	icon_state = "chamber_up"
 	density = TRUE
-	playsound(loc, 'sound/machines/deconstruct.ogg', 50, 1)
+	playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 
 /obj/machinery/reactor_chamber/proc/lower()
 	chamber_state = CHAMBER_DOWN
 	icon_state = "chamber_down"
 	density = FALSE
-	playsound(loc, 'sound/machines/deconstruct.ogg', 50, 1)
+	playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 
 /obj/machinery/reactor_chamber/proc/close()
 	chamber_state = CHAMBER_UP
@@ -380,9 +396,13 @@
 	var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", choices)
 	if(!selected)
 		return
+	if(!Adjacent(user))
+		to_chat(user, "<span class='warning'>You moved away before construction was finished</span>")
 	if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume))
 		return
-	if(!Adjacent())
+	if(!Adjacent(user))
+		to_chat(user, "<span class='warning'>You moved away before construction was finished</span>")
+		return
 	dir = choices[selected]
 	var/node_connect = dir
 	initialize_directions = dir

@@ -163,6 +163,19 @@
 			)
 		return ITEM_INTERACT_COMPLETE
 
+	if(istype(target, /obj/machinery/reactor_chamber))
+		var/obj/machinery/reactor_chamber/chamber = target
+		if(chamber.chamber_state == 3 && chamber.held_rod) // chamber_state 3 is equal to CHAMBER_OPEN
+			chamber.held_rod.forceMove(src)
+			gripped_item = chamber.held_rod
+			user.visible_message(
+			"<span class='notice'>[user] removes [chamber.held_rod] from [chamber].</span>",
+			"<span class='notice'>You remove [chamber.held_rod] from [chamber].</span>"
+			)
+			chamber.held_rod = null
+			chamber.update_appearance(UPDATE_OVERLAYS)
+		return ITEM_INTERACT_COMPLETE
+
 /obj/item/gripper/emag_act(mob/user)
 	emagged = !emagged
 	..()
@@ -386,5 +399,6 @@
 		/obj/item/circuitboard,
 		/obj/item/stack/ore/bluespace_crystal,
 		/obj/item/stack/tile/light,
-		/obj/item/light
+		/obj/item/light,
+		/obj/item/nuclear_rod,
 	)
