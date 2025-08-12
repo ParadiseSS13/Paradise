@@ -26,6 +26,7 @@
 // Interfaces
 @include meta.load-css('./interfaces/AccountsUplinkTerminal.scss');
 @include meta.load-css('./interfaces/AdminAntagMenu.scss');
+@include meta.load-css('./interfaces/AIControllerDebugger.scss');
 @include meta.load-css('./interfaces/AlertModal.scss');
 @include meta.load-css('./interfaces/BrigCells.scss');
 @include meta.load-css('./interfaces/CameraConsole.scss');
@@ -37,6 +38,7 @@
 @include meta.load-css('./interfaces/KitchenMachine.scss');
 @include meta.load-css('./interfaces/LibraryComputer.scss');
 @include meta.load-css('./interfaces/Loadout.scss');
+@include meta.load-css('./interfaces/LoreConsole.scss');
 @include meta.load-css('./interfaces/Newscaster.scss');
 @include meta.load-css('./interfaces/OreRedemption.scss');
 @include meta.load-css('./interfaces/PanDEMIC.scss');

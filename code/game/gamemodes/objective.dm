@@ -46,8 +46,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/delayed_objective_text = "This is a bug! Report it on the github and ask an admin what type of objective"
 
 /datum/objective/New(text, datum/team/team_to_join, datum/mind/_owner)
-	. = ..()
 	SHOULD_CALL_PARENT(TRUE)
+	. = ..()
 	GLOB.all_objectives += src
 	if(text)
 		explanation_text = text

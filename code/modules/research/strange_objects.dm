@@ -51,9 +51,9 @@
 		/mob/living/simple_animal/pet/dog/fox,
 		/mob/living/simple_animal/mouse,
 		/mob/living/simple_animal/pet/dog/pug,
-		/mob/living/simple_animal/lizard,
+		/mob/living/basic/lizard,
 		/mob/living/simple_animal/diona,
-		/mob/living/simple_animal/butterfly,
+		/mob/living/basic/butterfly,
 		/mob/living/carbon/human/monkey,
 	)
 
@@ -125,12 +125,12 @@
 
 					var/list/valid_animals = list(
 						/mob/living/simple_animal/parrot,
-						/mob/living/simple_animal/butterfly,
+						/mob/living/basic/butterfly,
 						/mob/living/simple_animal/pet/cat,
 						/mob/living/simple_animal/pet/dog/corgi,
 						/mob/living/simple_animal/crab,
 						/mob/living/simple_animal/pet/dog/fox,
-						/mob/living/simple_animal/lizard,
+						/mob/living/basic/lizard,
 						/mob/living/simple_animal/mouse,
 						/mob/living/simple_animal/pet/dog/pug,
 						/mob/living/basic/bear/black,
