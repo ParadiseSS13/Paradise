@@ -4,7 +4,7 @@
 	icon_state = null
 	item_state = "eng_helm"
 	max_integrity = 300
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, RAD = 150, FIRE = 50, ACID = 150)
+	armor = /obj/item/clothing/suit/space/hardsuit::armor
 	var/basestate = "hardsuit"
 	allowed = list(/obj/item/flashlight)
 	var/brightness_on = 4 //luminosity when on
@@ -140,7 +140,7 @@
 	icon_state = null
 	item_state = "eng_hardsuit"
 	max_integrity = 300
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, RAD = 150, FIRE = 50, ACID = 150)
+	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 75, FIRE = 50, ACID = 75)
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
 	siemens_coefficient = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet)
@@ -254,7 +254,7 @@
 	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_helm"
 	item_color = "syndi"
-	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = 50, ACID = 450)
+	armor = /obj/item/clothing/suit/space/hardsuit/syndi::armor
 	on = TRUE
 	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
@@ -337,7 +337,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	var/on = TRUE
 	actions_types = list(/datum/action/item_action/toggle_hardsuit_mode)
-	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = 50, ACID = 450)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 35, RAD = 50, FIRE = 50, ACID = 90)
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
@@ -351,7 +351,7 @@
 	desc = "An elite version of the syndicate helmet, with improved armour and fire shielding. It is in travel mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit0-syndielite"
 	item_color = "syndielite"
-	armor = list(MELEE = 75, BULLET = 75, LASER = 50, ENERGY = 15, BOMB = 60, RAD = 115, FIRE = INFINITY, ACID = INFINITY)
+	armor = /obj/item/clothing/suit/space/hardsuit/syndi/elite::armor
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
@@ -361,19 +361,20 @@
 	icon_state = "hardsuit0-syndielite"
 	item_color = "syndielite"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
-	armor = list(MELEE = 75, BULLET = 75, LASER = 50, ENERGY = 15, BOMB = 60, RAD = 115, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 60, BULLET = 60, LASER = 50, ENERGY = 25, BOMB = 55, RAD = 70, FIRE = 100, ACID = 100)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 //Strike team hardsuits
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
-	armor = list(MELEE = 115, BULLET = 115, LASER = 50, ENERGY = 35, BOMB = 200, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) //Almost as good as DS gear, but unlike DS can switch to combat for mobility
+	armor = /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst::armor
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	icon_state = "hardsuit0-sst"
 	item_color = "sst"
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst
-	armor = list(MELEE = 115, BULLET = 115, LASER = 50, ENERGY = 40, BOMB = 200, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	// Almost as good as DS gear, but unlike DS can switch to combat for mobility
+	armor = list(MELEE = 70, BULLET = 70, LASER = 50, ENERGY = 40, BOMB = 80, RAD = 100, FIRE = 100, ACID = 100)
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	icon_state = "hardsuit0-sst"
 	item_color = "sst"
@@ -412,7 +413,7 @@
 	icon_state = "hardsuit0-soviet"
 	item_state = "hardsuit0-soviet"
 	item_color = "soviet"
-	armor = list(MELEE = 35, BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 10, RAD = 50, FIRE = 75, ACID = 75)
+	armor = /obj/item/clothing/suit/space/hardsuit/soviet::armor
 
 /obj/item/clothing/suit/space/hardsuit/soviet
 	name = "\improper Soviet hardsuit"
@@ -420,7 +421,7 @@
 	icon_state = "hardsuit-soviet"
 	item_state = "hardsuit-soviet"
 	slowdown = 0.5
-	armor = list(MELEE = 35, BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 10, RAD = 50, FIRE = 75, ACID = 75)
+	armor = list(MELEE = 40, BULLET = 25, LASER = 40, ENERGY = 20, BOMB = 20, RAD = 50, FIRE = 60, ACID = 60)
 	allowed = list(/obj/item/gun, /obj/item/flashlight, /obj/item/tank/internals, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/soviet
 	jetpack = /obj/item/tank/jetpack/suit
@@ -480,7 +481,7 @@
 	icon_state = "hardsuit0-singuloth"
 	item_state = "singuloth_helm"
 	item_color = "singuloth"
-	armor = list(MELEE = 35, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 15, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 40, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 25, RAD = 100, FIRE = 95, ACID = 95)
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = null
 
@@ -491,7 +492,7 @@
 	item_state = "singuloth_hardsuit"
 	flags = STOPSPRESSUREDMAGE
 	flags_2 = RAD_PROTECT_CONTENTS_2
-	armor = list(MELEE = 35, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 15, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 100, FIRE = 95, ACID = 95)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/singuloth
 	sprite_sheets = null
 

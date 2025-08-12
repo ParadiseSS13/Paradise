@@ -9,7 +9,7 @@
 	permeability_coefficient = 0.01
 	flags = BLOCKHAIR | THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 200, FIRE = 20, ACID = INFINITY)
+	armor = /obj/item/clothing/suit/bio_suit::armor
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	resistance_flags = ACID_PROOF
 	sprite_sheets = list(
@@ -36,7 +36,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 0.45
 	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/pen,/obj/item/flashlight/pen)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 200, FIRE = 20, ACID = INFINITY)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 80, FIRE = 30, ACID = 100)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 70
 	put_on_delay = 70
@@ -70,11 +70,11 @@
 
 //Security biosuit, white with red and a vest
 /obj/item/clothing/head/bio_hood/security
-	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 200, FIRE = 20, ACID = INFINITY)
+	armor = /obj/item/clothing/suit/bio_suit/security::armor
 	icon_state = "bio_security"
 
 /obj/item/clothing/suit/bio_suit/security
-	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 200, FIRE = 20, ACID = INFINITY)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, RAD = 80, FIRE = 30, ACID = 100)
 	icon_state = "bio_security"
 
 

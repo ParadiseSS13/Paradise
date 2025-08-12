@@ -78,7 +78,7 @@
 /obj/item/clothing/suit/space/vox
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs, /obj/item/tank/internals)
-	armor = list(MELEE = 35, BULLET = 35, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
+	armor = list(MELEE = 40, BULLET = 40, LASER = 30, ENERGY = 15, BOMB = 30, RAD = 30, FIRE = 80, ACID = 85)
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	icon_state = null
 	species_restricted = list("Vox")
@@ -86,7 +86,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/head/helmet/space/vox
-	armor = list(MELEE = 35, BULLET = 35, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
+	armor = /obj/item/clothing/suit/space/vox::armor
 	flags = STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
 	icon = 'icons/obj/clothing/species/vox/hats.dmi'

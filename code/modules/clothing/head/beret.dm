@@ -35,14 +35,14 @@
 	desc = "A beret made from durathread, its resilient fibres provide some protection to the wearer."
 	icon_state = "beret_durathread"
 	item_color = null
-	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 5, RAD = 0, FIRE = 20, ACID = 5)
+	armor = list(MELEE = 15, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 30, ACID = 5)
 
 //Central Command
 /obj/item/clothing/head/beret/centcom/officer
 	name = "officer beret"
 	desc = "A black beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
 	icon_state = "beret_centcom_officer"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 10, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/centcom/officer/navy
@@ -60,7 +60,7 @@
 	name = "captain's beret"
 	desc = "For Captains that are more inclined towards style."
 	icon_state = "beret_captain"
-	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
 	sprite_sheets = list(
@@ -79,7 +79,7 @@
 	name = "head of security's beret"
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
 	icon_state = "beret_hos_black"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 50, ACID = 60)
 	strip_delay = 80
 	dog_fashion = /datum/dog_fashion/head/hos
 
@@ -89,7 +89,7 @@
 	icon_state = "beret_officer"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 60
-	dog_fashion = /datum/dog_fashion/head/beret/sec	
+	dog_fashion = /datum/dog_fashion/head/beret/sec
 
 /obj/item/clothing/head/beret/sec/corporate
 	name = "corporate security beret"

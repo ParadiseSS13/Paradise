@@ -41,30 +41,25 @@
 	if(!SSmapping.maint_all_access)
 		SSmapping.make_maint_all_access()
 
-/datum/weather/rad_storm/weather_act(mob/living/L)
-	if(!prob(60))
+/datum/weather/rad_storm/weather_act(mob/living/carbon/human/human)
+	if(!istype(human) || HAS_TRAIT(human, TRAIT_RADIMMUNE) || !prob(60))
+		return
+	var/resist = human.getarmor(armor_type = RAD)
+	if(resist >= MAX_ARMOR_PERCENTAGE)
 		return
 
-	if(!ishuman(L))
-		return
-
-	var/mob/living/carbon/human/H = L
-	var/resist = H.getarmor(null, RAD)
-	if(HAS_TRAIT(H, TRAIT_RADIMMUNE) || resist == INFINITY)
-		return
-
-	if(prob(max(0, 100 - ARMOUR_VALUE_TO_PERCENTAGE(resist))))
-		L.base_rad_act(L ,400 , BETA_RAD)
-		if(HAS_TRAIT(H, TRAIT_GENELESS))
+	if(prob(max(0, 100 - resist)))
+		human.base_rad_act(human, 400, BETA_RAD)
+		if(HAS_TRAIT(human, TRAIT_GENELESS))
 			return
-		randmuti(H) // Applies bad mutation
+		randmuti(human) // Applies bad mutation
 		if(prob(50))
 			if(prob(90))
-				randmutb(H)
+				randmutb(human)
 			else
-				randmutg(H)
+				randmutg(human)
 
-		domutcheck(H, MUTCHK_FORCED)
+		domutcheck(human, MUTCHK_FORCED)
 
 /datum/weather/rad_storm/end()
 	if(..())

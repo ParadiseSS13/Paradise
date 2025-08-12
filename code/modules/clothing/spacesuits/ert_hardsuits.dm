@@ -5,7 +5,7 @@
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "helm-command"
 	item_color = "ert_commander"
-	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
+	armor = /obj/item/clothing/suit/space/hardsuit/ert::armor
 	resistance_flags = FIRE_PROOF
 	var/obj/machinery/camera/portable/camera
 	var/has_camera = TRUE
@@ -58,7 +58,7 @@
 	item_state = "suit-command"
 	slowdown = 0
 	w_class = WEIGHT_CLASS_NORMAL
-	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = 80, ACID = 80)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
 					/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
 					/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
@@ -108,7 +108,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
 	name = "emergency response team engineer helmet"
 	desc = "An environmentally sealed combat helmet with a wide plexiglass visor for maximum visibility. This one has orange Engineering stripes, and additional lead plating for improved radiation protection."
-	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 150, FIRE = 200, ACID = 200)
+	armor = /obj/item/clothing/suit/space/hardsuit/ert/engineer::armor
 	icon_state = "hardsuit0-ert_engineer"
 	item_state = "helm-orange"
 	item_color = "ert_engineer"
@@ -116,7 +116,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
 	name = "elite emergency response team engineer helmet"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = INFINITY, FIRE = 200, ACID = 200)
+	armor = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma::armor
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	icon_state = "hardsuit0-gammaengineer"
 	item_color = "gammaengineer"
@@ -126,14 +126,14 @@
 	desc = "A powered combat hardsuit produced by Citadel Armories. Decently armored, environmentally sealed, and fire-resistant. This one is covered in orange Engineering livery, and has additional lead inserts for added radiation protection."
 	icon_state = "ert_engineer"
 	item_state = "suit-orange"
-	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 150, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 75, FIRE = 80, ACID = 80)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
 
 /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
 	name = "elite emergency response team engineer suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_state = "ert_gengineer"
-	armor = list(MELEE = 40, BULLET = 15, LASER = 20, ENERGY = 5, BOMB = 15, RAD = INFINITY, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 45, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 100, FIRE = 80, ACID = 80)
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
 
@@ -210,7 +210,7 @@
 	icon_state = "hardsuit0-solgovmarine"
 	item_state = "hardsuit0-solgovmarine"
 	item_color = "solgovmarine"
-	armor = list(MELEE = 25, BULLET = 75, LASER = 10, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
+	armor = /obj/item/clothing/suit/space/hardsuit/ert/solgov::armor
 
 /obj/item/clothing/suit/space/hardsuit/ert/solgov
 	name = "\improper MARSOC hardsuit"
@@ -219,7 +219,7 @@
 	icon_state = "ert_solgov_marine"
 	item_state = "ert_solgov_marine"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov
-	armor = list(MELEE = 25, BULLET = 75, LASER = 10, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 35, BULLET = 60, LASER = 15, ENERGY = 5, BOMB = 25, RAD = 50, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov/command
 	name = "\improper MARSOC officer's helmet"

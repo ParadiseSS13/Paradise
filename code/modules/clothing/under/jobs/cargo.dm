@@ -92,7 +92,7 @@
 /obj/item/clothing/under/rank/cargo/miner/lavaland
 	name = "shaft miner's harshsuit"
 	desc = "It's an brown uniform with some padded armour for operating in hazardous environments."
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 30, ACID = 30)
 	icon_state = "explorer"
 	item_state = "explorer"
 	item_color = "explorer"
@@ -114,7 +114,7 @@
 /obj/item/clothing/under/rank/cargo/expedition
 	name = "expedition jumpsuit"
 	desc = "An armored brown jumpsuit with Nanotrasen markings for identification, and a black safety harness for their space suits."
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 30, ACID = 30)
 	icon_state = "expedition"
 	item_state = "expedition"
 	item_color = "expedition"
@@ -136,7 +136,7 @@
 /obj/item/clothing/under/rank/cargo/smith
 	name = "smith's jumpsuit"
 	desc = "A brown jumpsuit with some extra metal pieces strapped to it. You're not sure why, but the added armor doesn't make you feel any safer..."
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 30, ACID = 30)
 	icon_state = "smith"
 	item_state = "smith"
 	item_color = "smith"

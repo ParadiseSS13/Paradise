@@ -209,7 +209,7 @@
 	light_color = LIGHT_COLOR_RED
 	var/backstab_sound = 'sound/items/unsheath.ogg'
 	var/backstab_damage = 12
-	armour_penetration_flat = 20
+	armor_penetration_flat = 20
 	throw_speed = 4
 
 /obj/item/pen/edagger/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)

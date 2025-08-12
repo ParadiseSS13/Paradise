@@ -166,7 +166,7 @@
 	update_corgi_fluff()
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/dog/corgi/getarmor(def_zone, type)
+/mob/living/simple_animal/pet/dog/corgi/getarmor(def_zone, armor_type)
 	var/armorval = 0
 
 	if(def_zone)

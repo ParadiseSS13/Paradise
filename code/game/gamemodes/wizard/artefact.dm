@@ -991,7 +991,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = INFINITY, FIRE = 5, ACID = 5)
+	armor = list(MELEE = 30, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 0, RAD = 100, FIRE = 10, ACID = 10)
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -1014,7 +1014,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	hoodtype = /obj/item/clothing/head/hooded/oblivion
 	allowed = list(/obj/item/supermatter_halberd, /obj/item/nuke_core/supermatter_sliver)
-	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = INFINITY, FIRE = 5, ACID = 5)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 15, BOMB = 25, RAD = 100, FIRE = 10, ACID = 10)
 	flags_inv = HIDEJUMPSUIT | HIDESHOES | HIDETAIL | HIDESHOES
 	flags = THICKMATERIAL
 	flags_2 = RAD_PROTECT_CONTENTS_2

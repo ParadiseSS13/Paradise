@@ -134,10 +134,10 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/obj_damage = 0
 	/// What can this mob break?
 	var/environment_smash = ENVIRONMENT_SMASH_NONE
-	/// Flat armour reduction, occurs after percentage armour penetration.
-	var/armour_penetration_flat = 0
-	/// Percentage armour reduction, happens before flat armour reduction.
-	var/armour_penetration_percentage = 0
+	/// Mob decreases armor by this value, happens before percentage armor penetration
+	var/armor_penetration_flat = 0
+	/// Mob penetrates this percentage of armor, occurs after flat armor reduction
+	var/armor_penetration_percentage = 0
 	/// Damage type of a simple mob's melee attack, should it do damage.
 	var/melee_damage_type = BRUTE
 	/// Lower bound for melee attack cooldown

@@ -73,7 +73,7 @@
 		qdel(src)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/item/projectile/P)
-	if(P.armour_penetration_flat + P.armour_penetration_percentage >= 100)
+	if(P.armor_penetration_flat >= MAX_ARMOR_PERCENTAGE || P.armor_penetration_percentage >= MAX_ARMOR_PERCENTAGE)
 		return ..()
 	visible_message("<span class='danger'>[P.name] was repelled by [name]'s girth!</span>")
 

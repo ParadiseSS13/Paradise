@@ -1,38 +1,45 @@
 
-/*
-	run_armor_check(a,b)
-	args
-	a:def_zone - What part is getting hit, if null will check entire body
-	b:attack_flag - What type of attack, bullet, laser, energy, melee
-
-	Returns
-	0 - no block
-	1 - halfblock
-	2 - fullblock
+/**
+ * Returns final, decreased by `armor_penetration_flat` and `armor_penetration_percentage`, armor percentage of specific armor type
+ *
+ * * def_zone - What part is getting hit, if not set will check entire body
+ * * armor_type - What type of armor is used
+ * * absorb_text - Text displayed when armor >= MAX_ARMOR_PERCENTAGE
+ * * soften_text - Text displayed when 0 < armor < MAX_ARMOR_PERCENTAGE
+ * * penetrated_text - Text displayed when armor penetration decreases armor to 0
+ * * armor_penetration_flat - First, armor will be decreased by this percentage
+ * * armor_penetration_percentage - Second, armor will be decreased by this percentage of itself
 */
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = "Your armor absorbs the blow!", soften_text = "Your armor softens the blow!", armour_penetration_flat = 0, penetrated_text = "Your armor was penetrated!", armour_penetration_percentage = 0)
-	var/armor = getarmor(def_zone, attack_flag)
+/mob/living/proc/run_armor_check(
+	def_zone,
+	armor_type = MELEE,
+	absorb_text = "Your armor absorbs the blow!",
+	soften_text = "Your armor softens the blow!",
+	penetrated_text = "Your armor was penetrated!",
+	armor_penetration_flat = 0,
+	armor_penetration_percentage = 0,
+)
+	. = getarmor(def_zone, armor_type)
 
-	if(armor == INFINITY)
+	if(. >= MAX_ARMOR_PERCENTAGE)
 		to_chat(src, "<span class='userdanger'>[absorb_text]</span>")
-		return armor
-	if(armor <= 0)
-		return armor
-	if(!armour_penetration_flat && !armour_penetration_percentage)
+		return
+	if(. <= 0)
+		return
+	if(!armor_penetration_flat && !armor_penetration_percentage)
 		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
-		return armor
+		return
 
-	var/armor_original = armor
-	armor = max(0, (armor * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat)
-	if(armor_original <= armor)
+	var/armor = .
+	. = max(0, (armor - armor_penetration_flat) * (MAX_ARMOR_PERCENTAGE - armor_penetration_percentage) / MAX_ARMOR_PERCENTAGE)
+	if(.)
 		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
 	else
 		to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
 
-	return armor
+	return
 
-//if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
-/mob/living/proc/getarmor(def_zone, type)
+/mob/living/proc/getarmor(def_zone, armor_type)
 	return 0
 
 /mob/living/proc/is_mouth_covered(head_only = FALSE, mask_only = FALSE)
@@ -44,7 +51,7 @@
 /mob/living/bullet_act(obj/item/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	//Armor
-	var/armor = run_armor_check(def_zone, P.flag, armour_penetration_flat = P.armour_penetration_flat, armour_penetration_percentage = P.armour_penetration_percentage)
+	var/armor = run_armor_check(def_zone, P.flag, armor_penetration_flat = P.armor_penetration_flat, armor_penetration_percentage = P.armor_penetration_percentage)
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
 		if(P.dismemberment)
@@ -140,7 +147,14 @@
 		visible_message("<span class='danger'>[src] is hit by [thrown_item]!</span>", "<span class='userdanger'>You're hit by [thrown_item]!</span>")
 		if(!thrown_item.throwforce)
 			return
-		var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration_flat, armour_penetration_percentage = thrown_item.armour_penetration_percentage)
+		var/armor = run_armor_check(
+			def_zone = zone,
+			armor_type = MELEE,
+			absorb_text = "Your armor has protected your [parse_zone(zone)].",
+			soften_text = "Your armor has softened hit to your [parse_zone(zone)].",
+			armor_penetration_flat = thrown_item.armor_penetration_flat,
+			armor_penetration_percentage = thrown_item.armor_penetration_percentage,
+		)
 		apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, thrown_item.sharp, thrown_item)
 		if(QDELETED(src)) //Damage can delete the mob.
 			return

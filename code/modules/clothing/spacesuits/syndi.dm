@@ -4,7 +4,7 @@
 	desc = "A suspicious-looking space helmet. It is reinforced with a layer of armour."
 	icon_state = "syndicate"
 	item_state = "syndicate"
-	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
+	armor = /obj/item/clothing/suit/space/syndicate::armor
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_SYNDICATE_HELMET
 	sprite_sheets = list(
@@ -13,7 +13,6 @@
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi')
-
 
 /obj/item/clothing/suit/space/syndicate
 	name = "red space suit"
@@ -24,13 +23,12 @@
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_SYNDICATE_SUIT
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
-	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, RAD = 30, FIRE = 80, ACID = 85)
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
-
 
 //Green syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/green
@@ -89,7 +87,7 @@
 /obj/item/clothing/head/helmet/space/syndicate/black/strike
 	name = "Syndicate Strike Team commando helmet"
 	desc = "A heavily armored black helmet that is only given to high-ranking Syndicate operatives."
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) //Matches DS gear.
+	armor = /obj/item/clothing/suit/space/syndicate/black/strike::armor
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
 	flags_2 = RAD_PROTECT_CONTENTS_2
@@ -102,7 +100,7 @@
 /obj/item/clothing/suit/space/syndicate/black/strike
 	name = "Syndicate Strike Team commando space suit"
 	desc = "A heavily armored, black space suit that is only given to high-ranking Syndicate operatives."
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) //Matches DS gear.
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, RAD = 100, FIRE = 100, ACID = 100) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
 	flags_2 = RAD_PROTECT_CONTENTS_2
@@ -155,7 +153,7 @@
 /obj/item/clothing/head/helmet/space/syndicate/black/red/strike
 	name = "Syndicate Strike Team leader helmet"
 	desc = "A heavily armored, black and red space helmet that is only given to elite Syndicate operatives, it looks particularly menacing."
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) //Matches DS gear.
+	armor = /obj/item/clothing/suit/space/syndicate/black/red/strike::armor
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
 	flags_2 = RAD_PROTECT_CONTENTS_2
@@ -168,7 +166,7 @@
 /obj/item/clothing/suit/space/syndicate/black/red/strike
 	name = "Syndicate Strike Team leader space suit"
 	desc = "A heavily armored, black and red space suit that is only given to elite Syndicate operatives, it looks particularly menacing."
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) //Matches DS gear.
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, RAD = 100, FIRE = 100, ACID = 100) // Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
 	flags_2 = RAD_PROTECT_CONTENTS_2

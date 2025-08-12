@@ -6,5 +6,5 @@
 	icon_state = "s-ninja"
 	item_state = "s-ninja_hood"
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
-	armor = list(MELEE = 75, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 60, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, RAD = 30, FIRE = 100, ACID = 100)
 	blockTracking = 1
