@@ -241,7 +241,7 @@ RESTRICT_TYPE(/mob/living/basic)
 
 /mob/living/basic/proc/early_melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	face_atom(target)
-	if(!ignore_cooldown)
+	if(!ignore_cooldown && !client)
 		var/melee_attack_cooldown = rand(melee_attack_cooldown_min, melee_attack_cooldown_max)
 		changeNext_move(melee_attack_cooldown)
 	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target, Adjacent(target), modifiers) & COMPONENT_HOSTILE_NO_ATTACK)
