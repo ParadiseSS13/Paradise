@@ -114,7 +114,7 @@
 		return FALSE
 	evidence |= supplied.evidence
 	name = "[initial(name)] (combined)"
-	to_chat(user, "<span class='notice'>You are moving [supplied] to [src].</span>")
+	to_chat(user, "<span class='notice'>You add [supplied] to [src].</span>")
 	return TRUE
 
 /obj/item/sample/print/merge_evidence(obj/item/sample/supplied, mob/user)
@@ -186,7 +186,7 @@
 		to_chat(user, "<span class='warning'>[H] is wearing gloves.</span>")
 		return ITEM_INTERACT_COMPLETE
 
-	if(user != H && !IS_HORIZONTAL(H))
+	if(user != H && H.stat == CONSCIOUS && !H.restrained())
 		user.visible_message("<span class='danger'>[user] tried to fingerprint [H], but he resists.</span>")
 		return ITEM_INTERACT_COMPLETE
 
@@ -195,7 +195,7 @@
 		if(!has_hand)
 			to_chat(user, "<span class='warning'>[H] has no hands!</span>")
 			return ITEM_INTERACT_COMPLETE
-		if(!do_after(user, 2 SECONDS, target = user))
+		if(!do_after(user, 2 SECONDS, target = H))
 			return ITEM_INTERACT_COMPLETE
 
 		user.visible_message("<span class='notice'>[user] makes a copy of [H]'s fingerprints'.</span>")
@@ -226,8 +226,9 @@
 	return length(supplied.suit_fibers)
 
 /obj/item/forensics/sample_kit/proc/take_sample(mob/user, atom/supplied)
-	var/obj/item/sample/S = new evidence_path(get_turf(user), supplied)
-	to_chat(user, "<span class='notice'>You move [S.evidence.len] [S.evidence.len > 1 ? "[evidence_type]" : "[evidence_type]"] [S].</span>")
+	var/obj/item/sample/S = new evidence_path(get_turf(user))
+	S.copy_evidence(supplied)
+	to_chat(user, "<span class='notice'>You move [S.evidence.len] [S.evidence.len > 1 ? "[evidence_type]s" : "[evidence_type]"] into [S].</span>")
 
 /obj/item/forensics/sample_kit/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(user.a_intent != INTENT_HARM)
