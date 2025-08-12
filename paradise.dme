@@ -2432,6 +2432,7 @@
 #include "code\modules\mob\living\basic\friendly\bunny.dm"
 #include "code\modules\mob\living\basic\friendly\butterfly.dm"
 #include "code\modules\mob\living\basic\friendly\cockroach.dm"
+#include "code\modules\mob\living\basic\friendly\lightgeist.dm"
 #include "code\modules\mob\living\basic\friendly\lizard.dm"
 #include "code\modules\mob\living\basic\friendly\penguin.dm"
 #include "code\modules\mob\living\basic\friendly\sloth.dm"
