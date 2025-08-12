@@ -237,7 +237,6 @@
 	L.color = A.color
 	animate(L, 6 SECONDS, color = old_color, easing = EASE_IN|CIRCULAR_EASING, flags = ANIMATION_PARALLEL)
 
-
 /datum/spell/bloodcrawl/proc/phasein(atom/A, mob/living/L)
 
 	if(L.notransform)
