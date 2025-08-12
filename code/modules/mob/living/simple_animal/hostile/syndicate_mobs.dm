@@ -71,7 +71,6 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	armor_penetration_flat = /obj/item/melee/energy/sword::armor_penetration_flat
-	armor_penetration_percentage = /obj/item/melee/energy/sword::armor_penetration_percentage
 	loot = list(
 		/obj/effect/decal/cleanable/blood/innards,
 		/obj/effect/decal/cleanable/blood,
