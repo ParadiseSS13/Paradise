@@ -2,7 +2,7 @@
 	name = "Nuclear Control Rod"
 	desc = "You shouldnt be seeing this. Contact a developer"
 	icon = 'icons/obj/fission/rods.dmi'
-	icon_state = "reactor_off"
+	icon_state = "irradiated"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE
 	/// How much durability is left before the rod is useless
 	var/durability = 1000
@@ -43,12 +43,14 @@
 	desc = "A solid rod of compressed graphite. It can be used to amplify the reactivity of nearby fuel rods, generating much more heat."
 	heat_amp_mod = 1.8
 	power_amp_mod = 1.4
+	icon_state = "normal"
 
 /obj/item/nuclear_rod/coolant
 	name = "R-32 coolant rod"
 	desc = "a sophisticated container of solid refridgerant, compacted into a dense rod. It can be used to help prevent reactors from overheating."
 	heat_amount = -20
 	heat_amp_mod = 0.8
+	icon_state = "bananium"
 
 
 

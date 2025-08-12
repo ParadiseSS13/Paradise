@@ -13,6 +13,12 @@
 #define CHAMBER_OPEN	 3
 
 #warn Idea todo: Make plutonium nuke core craftable
+#warn Idea todo: Allow grilling on an active reactor
+#warn Idea todo: Allow CC to unlock for nuking station
+#warn Idea todo: Make some lavaland loot into special rods/upgrades
+#warn Idea todo: Bananium rods
+
+/// MARK: Fission Reactor
 
 /obj/machinery/power/fission_reactor
 	name = "Nuclear Fission Reactor"
@@ -118,6 +124,8 @@
 	if(stat & BROKEN)
 		return
 
+/// MARK: Rod Chamber
+
 /obj/machinery/reactor_chamber
 	name = "Rod Housing Chamber"
 	desc = "A chamber used to house nuclear rods of various types to facilitate a fission reaction."
@@ -130,18 +138,34 @@
 	/// Each reactor chamber can only be linked to a single reactor, if somehow theres two.
 	var/linked_reactor
 	/// holds the specific rod inserted into the chamber
-	var/held_rod
+	var/obj/item/nuclear_rod/held_rod
 	/// Is the chamber up, down, or open
 	var/chamber_state = 1
 
 /obj/machinery/reactor_chamber/Initialize(mapload)
 	. = ..()
 	dupe_check()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/machine/reactor_chamber(null)
+	component_parts += new /obj/item/stock_parts/manipulator(src)
+	component_parts += new /obj/item/stack/sheet/mineral/plastitanium(src, 2)
+	component_parts += new /obj/item/stack/sheet/metal(src, 2)
+	component_parts += new /obj/item/stack/cable_coil(src, 5)
+	RefreshParts()
+	update_icon()
 
 // we only want it searching for a link when it is constructed, otherwise the reactor starts this.
 /obj/machinery/reactor_chamber/on_construction()
 	. = ..()
 	find_link()
+
+/obj/machinery/reactor_chamber/update_overlays()
+	. = ..()
+	if(held_rod)
+		var/mutable_appearance/overlay = mutable_appearance(layer = OBJ_LAYER, plane = GAME_PLANE)
+		overlay.icon = held_rod.icon
+		overlay.icon = held_rod.icon_state
+		. += overlay
 
 // check for multiple on a tile and nuke it
 /obj/machinery/reactor_chamber/proc/dupe_check()
@@ -149,17 +173,83 @@
 	for(var/obj/machinery/reactor_chamber/chamber in range(0, src))
 		chambers_found++
 		if(chambers_found > 1)
-			visible_message("[src] has no room to deploy and breaks apart!")
+			visible_message("<span class='warning'>[src] has no room to deploy and breaks apart!</span>")
 			chamber.deconstruct()
 
 /obj/machinery/reactor_chamber/attack_hand(mob/user)
-	if(issilicon(user) && !Adjacent(user))
+	if(!user)
 		return
+	if((stat & NOPOWER))
+		to_chat(user, "<span class='warning'></span>")
+		return
+	add_fingerprint(user)
 
 	if(chamber_state == CHAMBER_DOWN)
-		chamber_state = CHAMBER_UP
-		icon_state = "chamber_up"
-		density = TRUE
+		if(do_after_once(user, 2 SECONDS, target = src, allow_moving = FALSE))
+			raise()
+
+	if(chamber_state == CHAMBER_UP)
+		if(do_after_once(user, 2 SECONDS, target = src, allow_moving = FALSE))
+			lower()
+
+	if(chamber_state == CHAMBER_OPEN)
+		if(issilicon(user) && get_dist(src, user) > 1)
+			return
+		if(!held_rod)
+			to_chat(user, "<span class='warning'>There is no rod inside of the chamber to remove!</span>")
+			return
+		else
+			if(user.put_in_hands(held_rod))
+				held_rod = null
+			else
+				to_chat(user, "<span class='warning'>Your hands are currently full!</span>")
+		update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/reactor_chamber/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(issilicon(user) && get_dist(src, user) > 1)
+		attack_hand(user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/nuclear_rod))
+		if(chamber_state == CHAMBER_OPEN)
+			if(!held_rod)
+				held_rod = used
+				held_rod.forceMove(src)
+				playsound(loc, 'sound/machines/podclose.ogg', 50, 1)
+				user.visible_message(
+					"<span class='notice'>[user] inserts [used] into [src].</span>",
+					"<span class='notice'>You insert [used] into [src].</span>"
+					)
+				update_icon(UPDATE_OVERLAYS)
+			if(held_rod)
+				user.put_in_hands(held_rod)
+				playsound(loc, 'sound/machines/podopen.ogg', 50, 1)
+				update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/reactor_chamber/proc/raise()
+	chamber_state = CHAMBER_UP
+	icon_state = "chamber_up"
+	density = TRUE
+	playsound(loc, 'sound/machines/deconstruct.ogg', 50, 1)
+
+/obj/machinery/reactor_chamber/proc/lower()
+	chamber_state = CHAMBER_DOWN
+	icon_state = "chamber_down"
+	density = FALSE
+	playsound(loc, 'sound/machines/deconstruct.ogg', 50, 1)
+
+/obj/machinery/reactor_chamber/proc/close()
+	chamber_state = CHAMBER_UP
+	icon_state = "chamber_up"
+	playsound(loc, 'sound/machines/switch.ogg', 50, 1)
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/reactor_chamber/proc/open()
+	chamber_state = CHAMBER_OPEN
+	icon_state = "chamber_open"
+	playsound(loc, 'sound/machines/switch.ogg', 50, 1)
+	update_icon(UPDATE_OVERLAYS)
 
 /// Forms the two-way link between the reactor and the chamber, then spreads it
 /obj/machinery/reactor_chamber/proc/form_link(var/obj/machinery/power/fission_reactor/reactor)
@@ -207,9 +297,11 @@
 	origin_tech = "engineering=2"
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
-		/obj/item/stack/sheet/metal = 10,
-		/obj/item/stack/sheet/mineral/plastitanium = 10,
+		/obj/item/stack/sheet/metal = 2,
+		/obj/item/stack/sheet/mineral/plastitanium = 2,
 	)
+
+/// MARK: Gas Node
 
 /obj/machinery/atmospherics/unary/reactor_gas_node
 	name = "Reactor Gas Intake"
@@ -233,9 +325,15 @@
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/Initialize(mapload)
 	. = ..()
-	for(var/obj/machinery/power/fission_reactor/reactor in range(src, 1))
-		linked_reactor = reactor
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/machine/reactor_gas_node(null)
+	component_parts += new /obj/item/stack/sheet/metal(src, 2)
+	component_parts += new /obj/item/stack/cable_coil(src, 2)
+	form_link()
 	initialize_directions = dir
+	RefreshParts()
+	update_icon()
+
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/process_atmos()
 	if(stat & (NOPOWER|BROKEN))
@@ -293,6 +391,11 @@
 			node = target
 			break
 	initialize_atmos_network()
+	form_link()
+	update_icon()
+	return
+
+/obj/machinery/atmospherics/unary/reactor_gas_node/proc/form_link()
 	linked_reactor = null
 	var/turf/T = get_step(src, REVERSE_DIR(dir))
 	for(var/obj/machinery/power/fission_reactor/reactor in T)
@@ -300,12 +403,9 @@
 	for(var/obj/structure/filler/filler in T)
 		if(istype(filler.parent, /obj/machinery/power/fission_reactor))
 			linked_reactor = filler.parent
-	T = get_step(src, REVERSE_DIR(dir))
-	update_icon()
-	return
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/multitool_act(mob/living/user, obj/item/I)
-	if(do_after_once(user, 1 SECONDS, TRUE, src))
+	if(do_after_once(user, 1 SECONDS, TRUE, src, allow_moving = FALSE))
 		intake_vent = !intake_vent
 		if(intake_vent)
 			name = "Reactor Gas Intake"
@@ -313,6 +413,16 @@
 			name = "Reactor Gas Extractor"
 	return ..()
 
+/obj/item/circuitboard/machine/reactor_gas_node
+	board_name = "Reactor Gas Node"
+	icon_state = "engineering"
+	build_path = /obj/machinery/atmospherics/unary/reactor_gas_node
+	board_type = "machine"
+	origin_tech = "engineering=2"
+	req_components = list(
+		/obj/item/stack/cable_coil = 2,
+		/obj/item/stack/sheet/metal = 2,
+	)
 
 
 #undef REACTOR_NEEDS_DIGGING
