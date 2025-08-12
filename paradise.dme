@@ -2451,7 +2451,7 @@
 #include "code\modules\mob\living\basic\hostile\pirate.dm"
 #include "code\modules\mob\living\basic\hostile\skeleton_mob.dm"
 #include "code\modules\mob\living\basic\hostile\tree.dm"
-#include "code\modules\mob\living\basic\hostile\soviet.dm
+#include "code\modules\mob\living\basic\hostile\soviet.dm"
 #include "code\modules\mob\living\basic\hostile\alien\alien_mob_ai.dm"
 #include "code\modules\mob\living\basic\hostile\alien\alien_mob_drone.dm"
 #include "code\modules\mob\living\basic\hostile\alien\alien_mob_hunter.dm"
