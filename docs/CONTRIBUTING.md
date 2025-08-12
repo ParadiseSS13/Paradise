@@ -234,6 +234,7 @@ affect mergeability status. People included in this role are:
 - [SteelSlayer](https://github.com/SteelSlayer)
 - [Warriorstar](https://github.com/warriorstar-orion)
 - [Wilkson](https://github.com/BiancaWilkson)
+- [PollardTheDragon](https://github.com/PollardTheDragon)
 
 ---
 
