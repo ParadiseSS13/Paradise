@@ -228,7 +228,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/apc_overload,	0),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/meteor_wave, 0, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/abductor, 20, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/traders, 85, 	is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/traders, 50, 	is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter, 20, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 20, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 20, TRUE),

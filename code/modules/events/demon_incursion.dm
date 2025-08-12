@@ -3,6 +3,8 @@
 	/// Corresponds to the number of process() runs the event has lasted for. Roughly 2 minutes here.
 	announceWhen = 60
 	noAutoEnd = TRUE
+	role_weights = list(ASSIGNMENT_SECURITY = 4, ASSIGNMENT_TOTAL = 0.5, ASSIGNMENT_MEDICAL = 2)
+	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_TOTAL = 10, ASSIGNMENT_MEDICAL = 3)
 	/// The name of the notification for dchat
 	var/notify_title = "Demonic Incursion"
 	/// The icon of the notification
