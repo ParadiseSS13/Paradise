@@ -214,10 +214,10 @@ PRs. People included in this role are:
 - [DGamerL](https://github.com/DGamerL)
 - [FunnyMan3595](https://github.com/FunnyMan3595)
 - [lewcc](https://github.com/lewcc)
+- [PollardTheDragon](https://github.com/PollardTheDragon)
 - [S34N](https://github.com/S34NW)
 - [SteelSlayer](https://github.com/SteelSlayer)
 - [Warriorstar](https://github.com/warriorstar-orion)
-- [PollardTheDragon](https://github.com/PollardTheDragon)
 
 ---
 
@@ -229,12 +229,12 @@ affect mergeability status. People included in this role are:
 - [DGamerL](https://github.com/DGamerL)
 - [FunnyMan3595](https://github.com/FunnyMan3595)
 - [lewcc](https://github.com/lewcc)
+- [PollardTheDragon](https://github.com/PollardTheDragon)
 - [S34N](https://github.com/S34NW)
 - [Sirryan2002](https://github.com/Sirryan2002)
 - [SteelSlayer](https://github.com/SteelSlayer)
 - [Warriorstar](https://github.com/warriorstar-orion)
 - [Wilkson](https://github.com/BiancaWilkson)
-- [PollardTheDragon](https://github.com/PollardTheDragon)
 
 ---
 
