@@ -198,7 +198,6 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	move_resist = MOVE_FORCE_OVERPOWERING
-	a_intent = INTENT_HARM
 	contains_xeno_organ = TRUE
 	surgery_container = /datum/xenobiology_surgery_container/blobbernaut
 	ai_controller = /datum/ai_controller/basic_controller/blobbernaut
