@@ -179,7 +179,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/moderate
 	severity = EVENT_LEVEL_MODERATE
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/nothing, 300),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/nothing, 700),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/falsealarm, 20),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spontaneous_appendicitis, 	0, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/carp_migration, 20, , TRUE),

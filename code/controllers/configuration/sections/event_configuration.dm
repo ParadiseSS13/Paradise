@@ -13,15 +13,15 @@
 	/// Assoc list of lower bounds of event delays. key: severity | value: delay (deciseconds)
 	var/list/delay_lower_bound = list(
 		EVENT_LEVEL_MUNDANE = 5 MINUTES,
-		EVENT_LEVEL_MODERATE = 15 MINUTES,
-		EVENT_LEVEL_MAJOR = 20 MINUTES,
+		EVENT_LEVEL_MODERATE = 10 MINUTES,
+		EVENT_LEVEL_MAJOR = 12 MINUTES,
 		EVENT_LEVEL_DISASTER = 10 MINUTES
 	)
 	/// Assoc list of lower bounds of event delays. key: severity | value: delay (deciseconds)
 	var/list/delay_upper_bound = list(
 		EVENT_LEVEL_MUNDANE = 7.5 MINUTES,
-		EVENT_LEVEL_MODERATE = 22.5 MINUTES,
-		EVENT_LEVEL_MAJOR = 30 MINUTES,
+		EVENT_LEVEL_MODERATE = 15 MINUTES,
+		EVENT_LEVEL_MAJOR = 17 MINUTES,
 		EVENT_LEVEL_DISASTER = 12 MINUTES
 	)
 	/// Expected time of a round in deciseconds
