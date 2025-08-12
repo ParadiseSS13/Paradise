@@ -236,7 +236,7 @@
 		return ..()
 	return FALSE
 
-/datum/emote/jump/can_run_emote(mob/user, intentional)
+/datum/emote/jump/can_run_emote(mob/user, status_check, intentional)
 	if(user.buckled || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !isturf(user.loc))
 		return FALSE
 	if(isliving(user))
