@@ -1349,6 +1349,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable/orange{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "aje" = (
@@ -20520,6 +20523,7 @@
 /area/station/security/permabrig)
 "cVR" = (
 /obj/item/beach_ball/holoball,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -34774,7 +34778,7 @@
 /area/station/hallway/primary/port/north)
 "fQH" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
@@ -51030,6 +51034,14 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/port/north)
+"jpl" = (
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/station/security/permabrig)
 "jps" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -58089,9 +58101,6 @@
 	},
 /area/station/maintenance/starboard)
 "kKb" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
@@ -68866,7 +68875,6 @@
 "mZg" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "mZi" = (
@@ -79726,15 +79734,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
-"ptw" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel,
-/area/station/security/permabrig)
 "ptA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -97329,14 +97328,6 @@
 "tgW" = (
 /turf/simulated/wall/r_wall,
 /area/mine/unexplored/cere/orbiting)
-"tgZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/station/security/permabrig)
 "thd" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -106220,6 +106211,11 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/patients_rooms_secondary)
+"vbc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/station/security/permabrig)
 "vbd" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -120085,11 +120081,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable/orange{
-	icon_state = "2-8"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -141745,7 +141741,7 @@ jvI
 epR
 jUh
 xTQ
-ptw
+jUh
 kKb
 afd
 afd
@@ -142002,8 +141998,8 @@ lEq
 epR
 epr
 aja
-rHj
-aQL
+jpl
+rwv
 rwv
 pdt
 rwv
@@ -142261,7 +142257,7 @@ aqL
 rSl
 dLb
 dLb
-tkn
+vbc
 cVR
 fQH
 rHj
@@ -142519,8 +142515,8 @@ pWr
 bic
 dqz
 mZg
-dLb
-tgZ
+rHj
+rHj
 rHj
 hMA
 rNK
