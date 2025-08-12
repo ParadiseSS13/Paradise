@@ -36,6 +36,7 @@
 		expected_round_length = data["expected_round_length"] MINUTES // Convert from minutes to deciseconds
 
 	// Load event severities. This is quite awful but needs to be done so we can account for config mistakes. This event system is awful
+	/*
 	if(islist(data["event_delay_lower_bounds"]))
 		CONFIG_LOAD_NUM_MULT(delay_lower_bound[EVENT_LEVEL_MUNDANE], data["event_delay_lower_bounds"]["mundane"], MINUTES)
 		CONFIG_LOAD_NUM_MULT(delay_lower_bound[EVENT_LEVEL_MODERATE], data["event_delay_lower_bounds"]["moderate"], MINUTES)
@@ -64,5 +65,5 @@
 					target = EVENT_LEVEL_DISASTER
 			ASSERT(target in list(EVENT_LEVEL_MUNDANE, EVENT_LEVEL_MODERATE, EVENT_LEVEL_MAJOR, EVENT_LEVEL_DISASTER))
 			first_run_times[target] = list("lower" = assoclist["lower_bound"] MINUTES, "upper" = assoclist["upper_bound"] MINUTES)
-
+*/
 
