@@ -20,6 +20,12 @@
 	var/is_xeno_organ = FALSE
 	/// Does this organ give a warning upon being inserted?
 	var/warning = FALSE
+	/// Does this organ show outside the mob, and what is the icon state?
+	var/augment_state = null
+	/// Does this organ actually have a sprite for it being on the arm? And what is the path of it.
+	var/augment_icon = null
+	/// Does this organ have a extra render mechanic?
+	var/do_extra_render = FALSE
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()
@@ -218,7 +224,15 @@
 
 // Rendering!
 /obj/item/organ/internal/proc/render()
-	return
+	if(!augment_state || !augment_icon)
+		return FALSE
+	return TRUE //qwertodo: This is where limb flags for cover come in.
+
+// An extra render used in certain situations.
+/obj/item/organ/internal/proc/extra_render()
+	if(!augment_state || !augment_icon || !do_extra_render)
+		return FALSE
+	return TRUE //qwertodo: This is where limb flags for cover come in.
 
 /obj/item/organ/internal/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
