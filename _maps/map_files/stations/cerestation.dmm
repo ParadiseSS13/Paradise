@@ -31708,15 +31708,20 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 4
 	},
-/obj/machinery/door/window/reinforced/normal{
-	dir = 8;
-	name = "Secure Armory"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
+	dir = 8
+	},
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -60416,15 +60421,20 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 4
 	},
-/obj/machinery/door/window/reinforced/normal{
-	dir = 8;
-	name = "Secure Armory"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
+	dir = 8
+	},
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
