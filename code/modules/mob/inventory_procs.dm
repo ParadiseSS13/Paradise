@@ -23,6 +23,13 @@
 	if(I)
 		I.equip_to_best_slot(src)
 
+/mob/proc/can_use_hand(hand_name)
+	if(hand_name == "r_hand")
+		return has_right_hand()
+	if(hand_name == "l_hand")
+		return has_left_hand()
+	return FALSE
+
 /mob/proc/is_in_active_hand(obj/item/I)
 	var/obj/item/item_to_test = get_active_hand()
 

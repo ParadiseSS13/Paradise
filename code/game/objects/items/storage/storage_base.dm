@@ -169,12 +169,12 @@
 		return
 	if(!M.restrained() && !M.stat)
 		switch(over_object.name)
-			if("r_hand" && M.has_right_hand)
-				if(!M.unequip(src))
+			if("r_hand")
+				if(!M.can_use_hand("r_hand") || !M.unequip(src))
 					return
 				M.put_in_r_hand(src)
-			if("l_hand" && M.has_left_hand)
-				if(!M.unequip(src))
+			if("l_hand")
+				if(!M.can_use_hand("l_hand") || !M.unequip(src))
 					return
 				M.put_in_l_hand(src)
 		add_fingerprint(usr)
