@@ -160,8 +160,8 @@ emp_act
 
 		affecting.droplimb(FALSE, damtype)
 
-/// This proc calculates armor percentage for humans
-/// if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
+/// This proc calculates armor percentage for humans.
+/// If null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
 /mob/living/carbon/human/getarmor(def_zone, armor_type)
 	// If a specific bodypart is targetted, check how that bodypart is protected and return the value
 	if(def_zone)
@@ -180,10 +180,7 @@ emp_act
 
 	return armor / max(mob_bodyparts, 1)
 
-/**
- * This is an internal proc, returns the percentage armor value for a particular bodypart (/organ/external). Use `getarmor()` instead
- * This is what makes us use new armor system
-*/
+/// This is an internal proc, returns the percentage armor value for a particular bodypart (/organ/external). Use `getarmor()` instead
 /mob/living/carbon/human/proc/__getarmor_bodypart(obj/item/organ/external/def_zone, armor_type)
 	if(!armor_type || !def_zone)
 		return 0

@@ -1127,8 +1127,8 @@
 
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
 
-	var/blocked = getarmor(null, RAD)
-	if(blocked >= 100) // Full protection, go no further.
+	var/blocked = getarmor(armor_type = RAD)
+	if(blocked >= MAX_ARMOR_PERCENTAGE) // Full protection, go no further.
 		return
 	if(amount > RAD_BURN_THRESHOLD)
 		apply_damage(RAD_BURN_CURVE(amount), BURN, null, blocked)
