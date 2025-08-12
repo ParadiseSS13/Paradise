@@ -275,11 +275,19 @@ SLIME SCANNER
 
 	for(var/thing in H.viruses)
 		var/datum/disease/D = thing
-		if(D.visibility_flags & HIDDEN_SCANNER)
+		// If the disease is incubating, or if it's stealthy and hasn't been put into a pandemic yet the scanner won't see it
+		if(D.incubation || (D.visibility_flags & VIRUS_HIDDEN_SCANNER && !(D.GetDiseaseID() in GLOB.detected_advanced_diseases["[user.z]"])))
 			continue
 		// Snowflaking heart problems, because they are special (and common).
 		if(istype(D, /datum/disease/critical))
-			msgs += "<span class='notice'><font color='red'><b>Warning: Subject is undergoing [D.name].</b>\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
+			msgs += "<span class='notice'><font color='red'><b>Warning: Subject is undergoing [D.name].</b>\nStage: [D.stage]/[D.max_stages].\nCure: [D.cure_text]</font></span>"
+			continue
+		if(istype(D, /datum/disease/advance))
+			var/datum/disease/advance/A = D
+			if(!(A.id in GLOB.known_advanced_diseases[num2text(user.z)]))
+				msgs += "<span class='notice'><font color='red'><b>Warning: Unknown viral strain detected</b>\nStrain:[A.strain]\nStage: [A.stage]</span>"
+			else
+				msgs += "<span class='notice'><font color='red'><b>Warning: [A.form] detected</b>\nName: [A.name].\nStrain:[A.strain]\nType: [A.spread_text].\nStage: [A.stage]/[A.max_stages].\nPossible Cures: [A.cure_text]\nNeeded Cures: [A.cures_required]</font></span>"
 			continue
 		msgs += "<span class='notice'><font color='red'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
 
@@ -394,6 +402,8 @@ SLIME SCANNER
 
 	if(H.radiation > RAD_MOB_SAFE)
 		msgs += "<span class='danger'>Subject is irradiated.</span>"
+
+	msgs += "<span class='notice'>Biological Age: [H.age]</span>"
 
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 

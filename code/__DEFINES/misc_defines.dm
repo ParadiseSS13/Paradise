@@ -438,7 +438,7 @@
 #define INVESTIGATE_DEATHS "deaths"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 68
+#define SQL_VERSION 70
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -494,6 +494,7 @@
 /// Prepares a text to be used for maptext. Use this so it doesn't look hideous.
 #define MAPTEXT(text) {"<span class='maptext'>[##text]</span>"}
 #define MAPTEXT_CENTER(text) {"<span class='maptext' style='text-align: center'>[##text]</span>"}
+#define MAPTEXT_SMALL(text) {"<span style='font-family: \"Small Fonts\"; font-size: 12pt; line-height: 0.75; -dm-text-outline: 1px black'>[##text]</span>"}
 
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15
@@ -777,3 +778,9 @@ do { \
 #define DIRECT_EXPLOSIVE_TRAP_IGNORE 2
 
 #define NODROP_TOGGLE "toggle"
+
+#define DECAL_PAINTER_CATEGORY_STANDARD "Standard"
+#define DECAL_PAINTER_CATEGORY_THIN "Thin Lines"
+#define DECAL_PAINTER_CATEGORY_THICK "Thick Lines"
+#define DECAL_PAINTER_CATEGORY_SQUARE "Square Borders"
+#define DECAL_PAINTER_CATEGORY_ALPHANUM "Alphanumeric"
