@@ -1,5 +1,4 @@
 /obj/machinery/atmospherics/trinary
-	dir = SOUTH
 	initialize_directions = SOUTH|NORTH|WEST
 	power_state = IDLE_POWER_USE
 

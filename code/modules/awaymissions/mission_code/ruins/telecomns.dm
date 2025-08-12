@@ -302,7 +302,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	desc = "Looks like the cover to a turret. Not deploying, however?"
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "turret_cover"
-	layer = /obj/machinery/shieldgen/telecomms::layer + 0.1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	anchored = TRUE
 	/// Trap we create on activation
@@ -325,7 +324,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	aggressive = TRUE
 	aggressive_tilt_chance = 100 //It will tip on you, and it will be funny.
 
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg
+/mob/living/basic/hivebot/strong/malfborg
 	name = "Security cyborg"
 	desc = "Oh god they still have access to these!"
 	icon = 'icons/mob/robots.dmi'
@@ -333,38 +332,39 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	health = 200
 	maxHealth = 200
 	faction = list("malf_drone")
-	ranged = TRUE
-	rapid = 2
 	speed = 0.5
-	projectiletype = /obj/item/projectile/beam/disabler/weak
-	projectilesound = 'sound/weapons/taser2.ogg'
+	projectile_type = /obj/item/projectile/beam/disabler/weak
+	projectile_sound = 'sound/weapons/taser2.ogg'
+	ranged_burst_count = 2
 	gold_core_spawnable = NO_SPAWN // Could you imagine xenobio with this? lmao.
 	a_intent = INTENT_HARM
 	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
+	ai_controller = /datum/ai_controller/basic_controller/simple/simple_skirmisher
 
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg/Initialize(mapload)
+/mob/living/basic/hivebot/strong/malfborg/Initialize(mapload)
 	. = ..()
 	baton = new(src)
 
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg/Destroy()
+/mob/living/basic/hivebot/strong/malfborg/Destroy()
 	QDEL_NULL(baton)
 	return ..()
 
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg/AttackingTarget()
+/mob/living/basic/hivebot/strong/malfborg/melee_attack(atom/target, list/modifiers, ignore_cooldown)
+	. = ..()
 	if(QDELETED(target))
 		return
 	face_atom(target)
 	baton.melee_attack_chain(src, target)
 	return TRUE
 
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
+/mob/living/basic/hivebot/strong/malfborg/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!used_item && !isturf(A))
 		used_item = baton
 	..()
 
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg/emp_act(severity)
+/mob/living/basic/hivebot/strong/malfborg/emp_act(severity)
 	. = ..()
-	target = null
+	ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 	adjustBruteLoss(50)
 
 /obj/structure/displaycase/dvoraks_treat
@@ -432,7 +432,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 
 /obj/effect/spawner/random/telecomms_core_table
 	name = "telecomms core table spawner"
-	spawn_loot_count = 1
 	loot = list(
 		/obj/item/rcd/combat,
 		/obj/item/gun/medbeam,
@@ -478,7 +477,6 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	anchored = TRUE
 	layer = HOLOPAD_LAYER
 	plane = FLOOR_PLANE
-	max_integrity = 300
 	/// Have we been activated? If we have, we do not activate again.
 	var/activated = FALSE
 	/// Tied effect to kill when we die.

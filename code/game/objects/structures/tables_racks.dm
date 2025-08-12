@@ -232,7 +232,7 @@
 		tablepush(I, user)
 		return
 
-	if(isrobot(user))
+	if(isrobot(user) && !istype(I.loc, /obj/item/gripper))
 		return
 
 	if(user.a_intent == INTENT_HELP && !(I.flags & ABSTRACT))
@@ -806,7 +806,6 @@
 	framestack = /obj/item/stack/tile/brass
 	buildstack = /obj/item/stack/tile/brass
 	framestackamount = 1
-	buildstackamount = 1
 	smoothing_groups = list(SMOOTH_GROUP_BRASS_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
 	canSmoothWith = list(SMOOTH_GROUP_BRASS_TABLES)
 
@@ -946,7 +945,7 @@
 		return TRUE
 
 /obj/structure/rack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(isrobot(user))
+	if(isrobot(user) && !istype(W.loc, /obj/item/gripper))
 		return
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -1016,7 +1015,6 @@
 /obj/item/rack_parts
 	name = "rack parts"
 	desc = "Parts of a rack."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
 	flags = CONDUCT
 	materials = list(MAT_METAL=2000)

@@ -178,7 +178,6 @@
 
 /obj/effect/ebeam
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	anchored = TRUE
 	var/datum/beam/owner
 
 /obj/effect/ebeam/Initialize(mapload, beam_owner)

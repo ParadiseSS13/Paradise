@@ -17,7 +17,6 @@
 	You can also open powered doors and your webs are airtight, being capable of blocking off exposure to space. \
 	You do not take damage from weaker weapons or projectiles. \
 	However, you only have moderate health and deal moderate damage, making you weak in direct fights and reliant on other spiders for defence."
-	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_princess1"
 	icon_living = "terror_princess1"
 	icon_dead = "terror_princess1_dead"
@@ -34,7 +33,6 @@
 
 	canlay = 0
 	hasnested = TRUE
-	spider_spawnfrequency = 120 SECONDS
 	var/spider_max_children = 8
 
 

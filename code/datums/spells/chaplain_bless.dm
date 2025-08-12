@@ -6,7 +6,6 @@
 	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
 	antimagic_flags = NONE
 
 	selection_activated_message = "<span class='notice'>You prepare a blessing. Click on a target to start blessing.</span>"

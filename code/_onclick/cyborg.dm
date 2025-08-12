@@ -49,6 +49,9 @@
 	if(incapacitated())
 		return
 
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
+
 	if(next_move >= world.time)
 		return
 
@@ -157,8 +160,8 @@
 		user.examinate(src)
 	return
 
-/atom/proc/BorgAltShiftClick()
-	return
+/atom/proc/BorgAltShiftClick(mob/living/silicon/robot/user)
+	AltShiftClick(user)
 
 /atom/proc/BorgShiftMiddleClick()
 	return

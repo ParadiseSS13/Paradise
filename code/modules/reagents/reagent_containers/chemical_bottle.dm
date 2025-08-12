@@ -4,13 +4,9 @@
 /obj/item/reagent_containers/glass/bottle
 	name = "bottle"
 	desc = "A small bottle."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle"
 	item_state = "atoxinbottle"
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5, 10, 15, 25, 30, 40, 50)
-	container_type = OPENCONTAINER
-	volume = 50
 
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
@@ -250,7 +246,6 @@
 /obj/item/reagent_containers/glass/bottle/thermite
 	name = "thermite bottle"
 	desc = "A small bottle of thermite, a substance that burns extremely hot."
-	icon_state = "bottle"
 	list_reagents = list("thermite" = 50)
 
 ////////////////////Traitor Poison Bottle//////////////////////////////
@@ -306,6 +301,26 @@
 	name = "Pierrot's Throat culture bottle"
 	desc = "A small bottle. Contains H0NI<42 virion culture in synthblood medium."
 	spawned_disease = /datum/disease/pierrot_throat
+
+/obj/item/reagent_containers/glass/bottle/tracking_agar
+	name = "Tracking agar bottle"
+	desc = "A small bottle. Contains tracking agar which allows modifying a virus without needing to reanalyze it"
+	list_reagents = list("tracking_agar" = 50)
+
+/obj/item/reagent_containers/glass/bottle/stable_agar
+	name = "Stable agar bottle"
+	desc = "A small bottle. Contains stable agar which stop a virus from being able to mutate on its own"
+	list_reagents = list("stable_agar" = 50)
+
+/obj/item/reagent_containers/glass/bottle/sterilizine
+	name = "Sterilizine bottle"
+	desc = "A small bottle. Contains sterilizine, which is used to sterilize beakers and syringes"
+	list_reagents = list("sterilizine" = 50)
+
+/obj/item/reagent_containers/glass/bottle/viral_eraser
+	name = "Viral eraser bottle"
+	desc = "A small bottle. Contains a small amount of viral eraser which removes all tracking and stabilizing from a virus"
+	list_reagents = list("viral_eraser" = 10)
 
 /obj/item/reagent_containers/glass/bottle/cold
 	name = "Rhinovirus culture bottle"

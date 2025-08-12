@@ -4,7 +4,6 @@
 	name = "fragmentation grenade"
 	desc = "A grenade with a specially designed casing that will launch lethal fragments in all directions upon detonation. Fire in the hole!"
 	icon_state = "frag"
-	item_state = "grenade"
 	origin_tech = "materials=3;magnets=4"
 	/// How much shrapnel the grenade will launch.
 	var/shrapnel_contained = 20
@@ -21,8 +20,6 @@
 	name = "stingball grenade"
 	desc = "A specialized less-lethal hand grenade used for police action. Launches hard rubber balls in all directions upon detonation."
 	icon_state = "stinger"
-	item_state = "grenade"
-	det_time = 5 SECONDS
 	modifiable_timer = FALSE
 	shrapnel_contained = 50
 	embedded_type = /obj/item/projectile/bullet/pellet/rubber/stinger

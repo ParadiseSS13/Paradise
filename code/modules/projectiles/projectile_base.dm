@@ -7,11 +7,9 @@
 	name = "projectile"
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bullet"
-	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	flags = ABSTRACT
-	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
@@ -455,7 +453,10 @@
 
 /// A mob moving on a tile with a projectile is hit by it.
 /obj/item/projectile/proc/on_atom_entered(datum/source, atom/movable/entered)
-	if(isliving(entered) && entered.density && !checkpass(PASSMOB) && !(entered in permutated) && (entered.loc == loc))
+	if(!isliving(entered))
+		return
+	var/mob/living_entered = entered
+	if(((living_entered.density || !living_entered.projectile_hit_check(src))) && !checkpass(PASSMOB) && !(living_entered in permutated) && (living_entered.loc == loc))
 		Bump(entered, 1)
 
 /obj/item/projectile/Destroy()

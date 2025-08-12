@@ -1,9 +1,8 @@
 /obj/item/gun/projectile
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason"
 	name = "projectile gun"
-	icon_state = "pistol"
+	icon_state = "tommygun"
 	origin_tech = "combat=2;materials=2"
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=1000)
 
 	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info

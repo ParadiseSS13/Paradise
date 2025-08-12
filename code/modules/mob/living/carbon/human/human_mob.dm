@@ -10,7 +10,6 @@
 	UpdateAppearance()
 	GLOB.human_list += src
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
-	AddElement(/datum/element/strippable, GLOB.strippable_human_items)
 	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(mind_checks))
 
 /**
@@ -270,7 +269,7 @@
 			status_tab_data[++status_tab_data.len] = list("Usable Blood:", "[V.bloodusable]")
 
 /mob/living/carbon/human/ex_act(severity)
-	if(status_flags & GODMODE)
+	if((status_flags & GODMODE) || HAS_TRAIT(src, TRAIT_EXPLOSION_PROOF))
 		return FALSE
 
 	var/brute_loss = 0
@@ -2032,6 +2031,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/update_runechat_msg_location()
 	if(ismecha(loc))
 		runechat_msg_location = loc.UID()
+	else if(istgvehicle(loc))
+		runechat_msg_location = loc.UID()
 	else
 		return ..()
 
@@ -2278,3 +2279,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/compressor_grind()
 	dna.species.do_compressor_grind(src)
 	. = ..()
+
+/mob/living/carbon/human/get_strippable_items(datum/source, list/items)
+	items |= GLOB.strippable_human_items

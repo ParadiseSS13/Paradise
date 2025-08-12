@@ -10,7 +10,6 @@
 	access = list()			//See /datum/job/assistant/get_access()
 	alt_titles = list("Off-Duty", "Retired", "Intern")
 	outfit = /datum/outfit/job/assistant
-	standard_paycheck = CREW_PAY_ASSISTANT
 
 /datum/job/assistant/get_access()
 	if(GLOB.configuration.jobs.assistant_maint_access)
@@ -23,7 +22,6 @@
 	jobtype = /datum/job/assistant
 
 	uniform = /obj/item/clothing/under/color/random
-	shoes = /obj/item/clothing/shoes/black
 	id = /obj/item/card/id/assistant
 
 

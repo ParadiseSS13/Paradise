@@ -4,7 +4,6 @@
 	icon = 'icons/turf/floors/glass.dmi'
 	icon_state = "glass-0"
 	base_icon_state = "glass"
-	baseturf = /turf/space
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_GLASS_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_GLASS_FLOOR)
