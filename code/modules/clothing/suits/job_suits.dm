@@ -68,19 +68,24 @@
 
 //Chef
 /obj/item/clothing/suit/toggle/chef
-	name = "chef's apron"
+	name = "chef's coat"
 
 //Chef
 /obj/item/clothing/suit/chef
-	name = "chef's apron"
-	desc = "An apron used by a high class chef."
+	name = "chef's coat"
+	desc = "A coat used by a high class chef."
 	icon_state = "chef"
 	inhand_icon_state = "chef"
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.50
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list (/obj/item/kitchen/knife)
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+	)
 
 //Chef
 /obj/item/clothing/suit/chef/classic
