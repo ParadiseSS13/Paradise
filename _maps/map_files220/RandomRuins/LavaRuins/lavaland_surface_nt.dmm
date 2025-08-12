@@ -7817,6 +7817,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/random/dirt/maybe,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrownfull"
 	},
