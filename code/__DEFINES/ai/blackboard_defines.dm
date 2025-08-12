@@ -51,6 +51,8 @@
 #define BB_BASIC_MOB_RETALIATE_LIST "BB_BASIC_MOB_SHITLIST"
 ///Blackboard key for a whitelist typecache of "things we can target while trying to move"
 #define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
+/// some behaviors that check current_target also set this on deep crit mobs
+#define BB_BASIC_MOB_EXECUTION_TARGET "BB_basic_execution_target"
 
 //Hunting BB keys
 
@@ -184,6 +186,9 @@
 #define BB_HIVE_PARTNER "BB_HIVE_PARTNER"
 
 // Misc
+
+/// Target define for cleaning
+#define BB_CLEAN_TARGET "BB_clean_target"
 
 /// For /datum/ai_behavior/find_potential_targets, what if any field are we using currently
 #define BB_FIND_TARGETS_FIELD(type) "BB_FIND_TARGETS_FIELD_[type]"

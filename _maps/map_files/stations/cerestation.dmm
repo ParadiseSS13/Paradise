@@ -79121,7 +79121,7 @@
 /turf/simulated/floor/wood,
 /area/station/hallway/secondary/entry/south)
 "ptq" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
