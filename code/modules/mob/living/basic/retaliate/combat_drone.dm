@@ -59,6 +59,7 @@
 	do_sparks(3, 1, src)
 	if(!QDELETED(src))
 		ai_controller.set_blackboard_key(BB_MALF_DRONE_PASSIVE, FALSE)
+	passive = FALSE
 	update_icons()
 	if(!advanced_bullet_dodge_chance)
 		advanced_bullet_dodge_chance = 25
@@ -199,7 +200,7 @@
 /datum/ai_controller/basic_controller/simple/malf_drone
 	movement_delay = 2 SECONDS
 	blackboard = list(
-		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic/malf_drone,
 		BB_AGGRO_RANGE = 7,
 		BB_BASIC_MOB_FLEE_DISTANCE = 3,
 		BB_MALF_DRONE_PASSIVE = FALSE,
@@ -225,3 +226,11 @@
 	speech_chance = 4
 	speak = list("ALERT.", "Hostile-ile-ile entities dee-twhoooo-wected.", "Threat parameterszzzz- szzet.", "Bring sub-sub-sub-systems uuuup to combat alert alpha-a-a.")
 	emote_see = list("beeps menacingly.", "whirrs threateningly.", "scans for targets.")
+
+/datum/targeting_strategy/basic/malf_drone
+
+/// Returns false if we're on passive mode. If we get attacked, we swap out of passive mode.
+/datum/targeting_strategy/basic/malf_drone/can_attack(mob/living/living_mob, atom/target, vision_range)
+	if(living_mob?.ai_controller?.blackboard[BB_MALF_DRONE_PASSIVE])
+		return FALSE
+	return ..()
