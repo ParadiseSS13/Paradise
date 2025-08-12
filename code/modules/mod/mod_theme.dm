@@ -1035,11 +1035,11 @@
 	)
 
 /obj/item/mod/armor/mod_theme_elite
-	armor = list(MELEE = 50, BULLET = 45, LASER = 40, ENERGY = 25, BOMB = 55, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 45, LASER = 40, ENERGY = 15, BOMB = 55, RAD = 100, FIRE = 100, ACID = 100)
 	//melee = 50 // 75 with booster
 	//bullet = 45 // 75
 	//laser = 40 // 55
-	//energy = 25 // 40
+	//energy = 15 // 30
 
 /datum/mod_theme/prototype
 	name = "'Ogre' prototype"
