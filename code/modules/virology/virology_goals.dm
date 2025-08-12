@@ -4,9 +4,9 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal
 	var/name = "Generic Virology Goal"
-	/// The amount of units currently already delivered  
-	var/delivered_amount = 0  
-	/// The amount of units of the required virus that must be delivered for the completion of this goal  
+	/// The amount of units currently already delivered
+	var/delivered_amount = 0
+	/// The amount of units of the required virus that must be delivered for the completion of this goal
 	var/delivery_goal = 15
 	var/completed = FALSE
 
@@ -80,7 +80,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 			return
 	GLOB.archived_virology_goals += GLOB.virology_goals
 	GLOB.virology_goals = list(new /datum/virology_goal/property_symptom, new /datum/virology_goal/virus, new /datum/virology_goal/virus/stealth)
-	for(var/obj/machinery/computer/pandemic/P in GLOB.pandemics)
+	for(var/obj/machinery/pandemic/P in GLOB.pandemics)
 		P.print_goal_orders()
 
 /datum/virology_goal/Destroy()
@@ -112,7 +112,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		var/datum/symptom/S = new type()
 		goal_symptom = S.type
 		goal_symptom_name = S.name
-		goal_property = pick("resistance", "stealth", "stage rate", "transmittable")  
+		goal_property = pick("resistance", "stealth", "stage rate", "transmissibility")
 		goal_property_value = rand(-8, 6)
 		switch(goal_property)
 			if("resistance")
@@ -121,8 +121,8 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 				goal_property_value += S.stealth
 			if("stage rate")
 				goal_property_value += S.stage_speed
-			if("transmittable")
-				goal_property_value += S.transmittable
+			if("transmissibility")
+				goal_property_value += S.transmissibility
 		qdel(S)
 		times_looped++
 	while(check_for_duplicate() && times_looped < MAX_LOOPS)
