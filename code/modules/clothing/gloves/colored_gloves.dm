@@ -22,7 +22,7 @@
 	inhand_icon_state = "ygloves"
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
 	permeability_coefficient = 0.01
-	item_color="yellow"
+	item_color = "yellow"
 	resistance_flags = NONE
 
 /obj/item/clothing/gloves/color/fyellow/Initialize(mapload)

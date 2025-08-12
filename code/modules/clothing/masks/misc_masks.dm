@@ -189,7 +189,7 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
-		)
+	)
 
 /obj/item/clothing/mask/surgical/Initialize(mapload)
 	. = ..()

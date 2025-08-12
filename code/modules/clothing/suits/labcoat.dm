@@ -53,7 +53,6 @@
 	name = "virologist labcoat"
 	desc = "A suit that protects against minor chemical spills. Offers slightly more protection against biohazards than the standard model. Has green medical markings."
 	icon_state = "labcoat_viro_open"
-	item_state = "labcoat_viro_open"
 	permeability_coefficient = 0.2
 
 /obj/item/clothing/suit/storage/labcoat/science

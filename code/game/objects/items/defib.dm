@@ -208,7 +208,6 @@
 	name = "compact defibrillator"
 	desc = "A belt-mounted defibrillator that can be rapidly deployed."
 	icon_state = "defibcompact"
-	worn_icon_state = "defibcompact"
 	sprite_sheets = null //Because Vox had the belt defibrillator sprites in back.dm
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT

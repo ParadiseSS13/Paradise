@@ -87,7 +87,6 @@
 	name = "riot helmet"
 	desc = "A large, bulky helmet reinforced with impact plates and shock-absorbing gel to protect against melee attacks. The helmet is treated with a fire and acid-resistant surface coating, and the attached plexiglass visor should prevent things from jumping on your face."
 	icon_state = "riot"
-	inhand_icon_state = "helmet"
 	armor = list(MELEE = 50, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 200, ACID = 200)
 	flags_inv = HIDEEARS
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
@@ -122,7 +121,6 @@
 	toggle_message = "You turn off the light"
 	alt_toggle_message = "You turn on the light"
 
-
 /obj/item/clothing/head/helmet/swat
 	name = "\improper SWAT helmet"
 	desc = "A menacing black combat helmet used by police assault units. Provides moderate protection against all threats."
@@ -139,7 +137,6 @@
 	name = "blood-red helmet"
 	desc = "An extremely robust, space-worthy helmet without a visor to allow for goggle usage underneath. Property of Gorlex Marauders."
 	icon_state = "helmetsyndi"
-	inhand_icon_state = "helmet"
 
 /obj/item/clothing/head/helmet/thunderdome
 	name = "\improper Thunderdome helmet"
