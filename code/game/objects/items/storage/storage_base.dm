@@ -169,11 +169,11 @@
 		return
 	if(!M.restrained() && !M.stat)
 		switch(over_object.name)
-			if("r_hand")
+			if("r_hand" && M.has_right_hand)
 				if(!M.unequip(src))
 					return
 				M.put_in_r_hand(src)
-			if("l_hand")
+			if("l_hand" && M.has_left_hand)
 				if(!M.unequip(src))
 					return
 				M.put_in_l_hand(src)
