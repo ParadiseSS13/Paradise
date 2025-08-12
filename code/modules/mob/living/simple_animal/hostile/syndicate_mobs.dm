@@ -858,39 +858,6 @@
 		depotarea.unlock_lockers()
 	return ..()
 
-//////////////////////////////
-// MARK: VISCERATOR
-//////////////////////////////
-/mob/living/simple_animal/hostile/viscerator
-	name = "viscerator"
-	desc = "A small, twin-bladed machine capable of inflicting very deadly lacerations."
-	icon = 'icons/mob/critter.dmi'
-	icon_state = "viscerator_attack"
-	icon_living = "viscerator_attack"
-	pass_flags = PASSTABLE | PASSMOB
-	a_intent = INTENT_HARM
-	mob_biotypes = MOB_ROBOTIC
-	health = 15
-	maxHealth = 15
-	obj_damage = 0
-	melee_damage_lower = 15
-	melee_damage_upper = 15
-	attacktext = "cuts"
-	attack_sound = 'sound/weapons/bladeslice.ogg'
-	faction = list(SYNDICATE)
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	mob_size = MOB_SIZE_TINY
-	bubble_icon = "syndibot"
-	gold_core_spawnable = HOSTILE_SPAWN
-	del_on_death = TRUE
-	deathmessage = "is smashed into pieces!"
-	initial_traits = list(TRAIT_FLYING)
-
-/mob/living/simple_animal/hostile/viscerator/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/swarming)
-
 #undef BLOOD_HELMET
 #undef BLOOD_MASK
 #undef BLOOD_ARMOR

@@ -37,7 +37,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/mob/living/simple_animal/hostile/malf_drone,
+/mob/living/basic/malf_drone,
 /obj/effect/spawner/random/cobweb/left/frequent,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms/powercontrol)
@@ -1747,7 +1747,7 @@
 "Dy" = (
 /obj/structure/lattice,
 /obj/structure/grille/broken,
-/mob/living/simple_animal/hostile/malf_drone,
+/mob/living/basic/malf_drone,
 /turf/template_noop,
 /area/space/nearstation/no_teleport)
 "DT" = (
@@ -2668,7 +2668,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
 "TY" = (
-/mob/living/simple_animal/hostile/malf_drone,
+/mob/living/basic/malf_drone,
 /turf/template_noop,
 /area/space/no_teleport)
 "Uw" = (

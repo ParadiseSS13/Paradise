@@ -57,7 +57,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "ia" = (
-/mob/living/simple_animal/hostile/malf_drone,
+/mob/living/basic/malf_drone,
 /turf/template_noop,
 /area/template_noop)
 "ir" = (
