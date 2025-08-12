@@ -217,6 +217,7 @@ PRs. People included in this role are:
 - [S34N](https://github.com/S34NW)
 - [SteelSlayer](https://github.com/SteelSlayer)
 - [Warriorstar](https://github.com/warriorstar-orion)
+- [PollardTheDragon](https://github.com/PollardTheDragon)
 
 ---
 
