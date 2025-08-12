@@ -205,8 +205,6 @@
 		BB_BASIC_MOB_FLEE_DISTANCE = 3,
 		BB_MALF_DRONE_PASSIVE = FALSE,
 	)
-	ai_movement = /datum/ai_movement/basic_avoidance
-	idle_behavior = /datum/idle_behavior/idle_random_walk
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/malf_drone,
 		/datum/ai_planning_subtree/target_retaliate/check_faction,

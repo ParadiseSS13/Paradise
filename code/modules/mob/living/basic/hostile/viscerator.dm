@@ -9,7 +9,6 @@
 	mob_biotypes = MOB_ROBOTIC
 	health = 15
 	maxHealth = 15
-	obj_damage = 0
 	melee_attack_cooldown_min = 1.5 SECONDS
 	melee_attack_cooldown_max = 2.5 SECONDS
 	melee_damage_lower = 15
