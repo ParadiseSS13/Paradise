@@ -92,6 +92,7 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/cmd_admin_dress,
 	/client/proc/cmd_admin_gib_self,
 	/client/proc/drop_bomb,
+	/client/proc/disease_outbreak,
 	/client/proc/one_click_antag,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/cmd_admin_add_random_ai_law,
@@ -776,12 +777,53 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 	set category = "Event"
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
-	var/datum/disease/D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in GLOB.diseases
-	if(!D) return
-	T.ForceContractDisease(new D)
+	var/datum/disease/given_disease = null
+
+	if(tgui_input_list(usr, "Create own disease", "Would you like to create your own disease?", list("Yes","No")) == "Yes")
+		given_disease = AdminCreateVirus(usr)
+	else
+		given_disease = tgui_input_list(usr, "ACHOO", "Choose the disease to give to that guy", GLOB.diseases)
+
+	if(!given_disease)
+		return
+
+	if(!istype(given_disease, /datum/disease/advance))
+		given_disease = new given_disease
+	T.ForceContractDisease(given_disease)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [D].</span>")
+	log_admin("[key_name(usr)] gave [key_name(T)] the disease [given_disease].")
+	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name(T)] the disease [given_disease].</span>")
+
+/client/proc/disease_outbreak()
+	set category = "Event"
+	set name = "Disease Outbreak"
+	set desc = "Creates a disease and infects a random player with it"
+	var/datum/disease/given_disease = null
+	if(tgui_input_list(usr, "Create own disease", "Would you like to create your own disease?", list("Yes","No")) == "Yes")
+		given_disease = AdminCreateVirus(usr)
+	else
+		given_disease = tgui_input_list(usr, "ACHOO", "Choose the disease to give to that guy", GLOB.diseases)
+	if(!given_disease)
+		return
+
+	if(!istype(given_disease, /datum/disease/advance))
+		given_disease = new given_disease
+
+	for(var/thing in shuffle(GLOB.human_list))
+		var/mob/living/carbon/human/H = thing
+		if(H.stat == DEAD || !is_station_level(H.z))
+			continue
+		if(!H.HasDisease(given_disease))
+			H.ForceContractDisease(given_disease)
+			break
+	if(istype(given_disease, /datum/disease/advance))
+		var/datum/disease/advance/given_advanced_disease = given_disease
+		var/list/name_symptoms = list()
+		for(var/datum/symptom/S in given_advanced_disease.symptoms)
+			name_symptoms += S.name
+		message_admins("[key_name_admin(usr)] has triggered a custom virus outbreak of [given_advanced_disease.name]! It has these symptoms: [english_list(name_symptoms)] and these base stats [english_map(given_advanced_disease.base_properties)]")
+	else
+		message_admins("[key_name_admin(usr)] has triggered a custom virus outbreak of [given_disease.name]!")
 
 /client/proc/make_sound(obj/O in view()) // -- TLE
 	set name = "\[Admin\] Make Sound"
@@ -837,118 +879,9 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 
 	log_admin("[key_name(usr)] deadmined themself.")
 	message_admins("[key_name_admin(usr)] deadmined themself.")
-	if(check_rights(R_ADMIN, FALSE))
-		GLOB.de_admins += ckey
-	else
-		GLOB.de_mentors += ckey
 	deadmin()
-	add_verb(src, /client/proc/readmin)
-	update_active_keybindings()
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/readmin()
-	set name = "Re-admin self"
-	set category = "Admin"
-	set desc = "Regain your admin powers."
-
-	var/datum/admins/D = GLOB.admin_datums[ckey]
-	var/rank = null
-	if(!GLOB.configuration.admin.use_database_admins)
-		for(var/iterator_key in GLOB.configuration.admin.ckey_rank_map)
-			var/_ckey = ckey(iterator_key) // Snip out formatting
-			if(ckey != _ckey)
-				continue
-			rank = GLOB.configuration.admin.ckey_rank_map[iterator_key]
-			break
-	else
-		if(!SSdbcore.IsConnected())
-			to_chat(src, "Warning, MYSQL database is not connected.")
-			return
-
-		var/datum/db_query/rank_read = SSdbcore.NewQuery(
-			"SELECT admin_rank FROM admin WHERE ckey=:ckey",
-			list("ckey" = ckey)
-		)
-
-		if(!rank_read.warn_execute())
-			qdel(rank_read)
-			return FALSE
-
-		while(rank_read.NextRow())
-			rank = ckeyEx(rank_read.item[1])
-
-		qdel(rank_read)
-	if(!D)
-		D = try_localhost_autoadmin()
-		if(!D)
-			if(!GLOB.configuration.admin.use_database_admins)
-				if(GLOB.admin_ranks[rank] == null)
-					error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
-					to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.")
-					return
-
-				// Do a little check here
-				if(GLOB.configuration.system.is_production && (GLOB.admin_ranks[rank] & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
-					to_chat(src,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
-					return
-				D = new(rank, GLOB.admin_ranks[rank], ckey)
-			else
-				if(!SSdbcore.IsConnected())
-					to_chat(src, "Warning, MYSQL database is not connected.")
-					return
-
-				var/datum/db_query/admin_read = SSdbcore.NewQuery(
-					"SELECT ckey, admin_rank, flags FROM admin WHERE ckey=:ckey",
-					list("ckey" = ckey)
-				)
-
-				if(!admin_read.warn_execute())
-					qdel(admin_read)
-					return FALSE
-
-				while(admin_read.NextRow())
-					var/admin_ckey = admin_read.item[1]
-					var/admin_rank = admin_read.item[2]
-					var/flags = admin_read.item[3]
-					if(!admin_ckey)
-						to_chat(src, "Error while re-adminning, ckey [admin_ckey] was not found in the admin database.")
-						qdel(admin_read)
-						return
-					if(admin_rank == "Removed") //This person was de-adminned. They are only in the admin list for archive purposes.
-						to_chat(src, "Error while re-adminning, ckey [admin_ckey] is not an admin.")
-						qdel(admin_read)
-						return
-
-					if(istext(flags))
-						flags = text2num(flags)
-					var/client/check_client = GLOB.directory[ckey]
-					// Do a little check here
-					if(GLOB.configuration.system.is_production && (flags & R_ADMIN) && check_client.prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
-						to_chat(src,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
-						qdel(admin_read)
-						return
-					D = new(admin_rank, flags, ckey)
-				qdel(admin_read)
-
-		var/client/C = GLOB.directory[ckey]
-		D.associate(C)
-		update_active_keybindings()
-		message_admins("[key_name_admin(usr)] re-adminned themselves.")
-		log_admin("[key_name(usr)] re-adminned themselves.")
-		GLOB.de_admins -= ckey
-		GLOB.de_mentors -= ckey
-		if(istype(mob, /mob/dead/observer))
-			var/mob/dead/observer/O = mob
-			O.update_admin_actions()
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-admin")
-		return
-	else
-		to_chat(src, "You are already an admin.")
-		remove_verb(src, /client/proc/readmin)
-		GLOB.de_admins -= ckey
-		GLOB.de_mentors -= ckey
-		return
 
 /client/proc/toggle_log_hrefs()
 	set name = "Toggle href logging"
