@@ -2703,7 +2703,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "qA" = (
-/obj/effect/mapping_helpers/airlock/access/any/supply/smith,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2712,6 +2711,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/mining/glass,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrownfull"
 	},
@@ -7610,6 +7610,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/command/blueshield,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
