@@ -332,6 +332,7 @@
 	actions_types = list(/datum/action/item_action/organ_action/toggle/sensory_enhancer)
 	origin_tech = "combat=6;biotech=6;syndicate=4"
 	augment_icon = "sandy"
+	always_show_augment = TRUE // A bit too big and bright to hide with synthetic skin.
 	///The icon state used for the on mob sprite. Default is sandy. Drask and vox have their own unique sprites
 	var/custom_mob_sprite = "sandy"
 	COOLDOWN_DECLARE(sensory_enhancer_cooldown)

@@ -802,7 +802,7 @@
 		return FALSE
 	..()
 
-/obj/item/organ/internal/cyberimp/arm/render()
+/obj/item/organ/internal/cyberimp/arm/v1_arm/render()
 	if(isvox(owner))
 		augment_icon = "v1_arm_vox"
 	else if(isdrask(owner))

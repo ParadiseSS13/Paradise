@@ -165,6 +165,39 @@
 	build_path = /obj/item/stack/nanopaste
 	category = list("Medical")
 
+/datum/design/skin_1
+	name = "level-1 synthetic skin"
+	desc = "qwertodo: Fill this out once skin design is finalized."
+	id = "skin_1"
+	req_tech = list("biotech" = 1, "materials" = 1)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 20
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
+	build_path = /obj/item/stack/synthetic_skin
+	category = list("Medical")
+
+/datum/design/skin_2
+	name = "level-2 synthetic skin"
+	desc = "qwertodo: Fill this out once skin design is finalized."
+	id = "skin_2"
+	req_tech = list("biotech" = 5, "materials" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 40
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_TITANIUM = 250)
+	build_path = /obj/item/stack/synthetic_skin/level_2
+	category = list("Medical")
+
+/datum/design/skin_3
+	name = "level-3 synthetic skin"
+	desc = "qwertodo: Fill this out once skin design is finalized."
+	id = "skin_3"
+	req_tech = list("biotech" = 7, "materials" = 7)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 2000, MAT_TITANIUM = 500, MAT_BLUESPACE = 250)
+	build_path = /obj/item/stack/synthetic_skin/level_3
+	category = list("Medical")
+
 /datum/design/reagent_scanner
 	name = "Reagent Scanner"
 	desc = "A device for identifying chemicals."
