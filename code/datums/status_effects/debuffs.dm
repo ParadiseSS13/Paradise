@@ -3,7 +3,6 @@
 /// does minor damage over time unless holding His Grace
 /datum/status_effect/his_wrath
 	id = "his_wrath"
-	duration = -1
 	tick_interval = 4
 	alert_type = /atom/movable/screen/alert/status_effect/his_wrath
 
@@ -27,7 +26,6 @@
 /// is a cult ghost and can't use manifest runes, can see ghosts and dies if too far from summoner
 /datum/status_effect/cultghost
 	id = "cult_ghost"
-	duration = -1
 	alert_type = null
 	var/damage = 7.5
 	var/source_UID
@@ -80,7 +78,6 @@
 
 /datum/status_effect/saw_bleed
 	id = "saw_bleed"
-	duration = -1 //removed under specific conditions
 	tick_interval = 6
 	alert_type = null
 	var/mutable_appearance/bleed_overlay
@@ -163,7 +160,7 @@
 	stack_threshold = 3
 	max_stacks = 3
 	reset_ticks_on_stack = TRUE
-	var/mob/living/simple_animal/hostile/asteroid/big_legion/latest_attacker
+	var/mob/living/basic/mining/big_legion/latest_attacker
 
 /datum/status_effect/stacking/ground_pound/on_creation(mob/living/new_owner, stacks_to_apply, mob/living/attacker)
 	. = ..()
@@ -179,7 +176,7 @@
 
 /datum/status_effect/stacking/ground_pound/stacks_consumed_effect()
 	flick("legion-smash", latest_attacker)
-	addtimer(CALLBACK(latest_attacker, TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/big_legion, throw_mobs)), 1 SECONDS)
+	addtimer(CALLBACK(latest_attacker, TYPE_PROC_REF(/mob/living/basic/mining/big_legion, throw_mobs)), 1 SECONDS)
 
 /datum/status_effect/stacking/ground_pound/on_remove()
 	latest_attacker = null
@@ -1004,7 +1001,6 @@
 /datum/status_effect/cryo_beam
 	id = "cryo beam"
 	alert_type = null
-	duration = -1 //Kill it, get out of sight, or be killed. Jump boots are *required*
 	tick_interval = 0.5 SECONDS
 	var/damage = 0.75
 	var/source_UID
@@ -1030,8 +1026,6 @@
 /datum/status_effect/bubblegum_curse
 	id = "bubblegum curse"
 	alert_type = /atom/movable/screen/alert/status_effect/bubblegum_curse
-	duration = -1 //Kill it. There is no other option.
-	tick_interval = 1 SECONDS
 	/// The damage the status effect does per tick.
 	var/damage = 0.75
 	var/source_UID
@@ -1474,7 +1468,6 @@
 
 /datum/status_effect/temporal_slash_finisher
 	id = "temporal_slash_finisher"
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 	tick_interval = 0.25 SECONDS
 	/// How many times the user has been cut. Each cut adds a damage value below

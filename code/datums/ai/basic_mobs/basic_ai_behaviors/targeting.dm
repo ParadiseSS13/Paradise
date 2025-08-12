@@ -55,6 +55,8 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 	var/list/filtered_targets = list()
 
 	for(var/atom/pot_target in potential_targets)
+		if(ismob(pot_target) && living_mob.faction_check_mob(pot_target))
+			continue
 		if(targeting_strategy.can_attack(living_mob, pot_target))//Can we attack it?
 			filtered_targets += pot_target
 			continue
@@ -103,6 +105,8 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 			continue
 		if(!strategy.can_attack(pawn, maybe_target))
 			continue
+		if(ismob(maybe_target) && pawn.faction_check_mob(maybe_target))
+			continue
 		valid_found = TRUE
 		break
 	if(!valid_found)
@@ -133,7 +137,13 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 			continue
 		if(!strategy.can_attack(pawn, maybe_target))
 			continue
+		if(ismob(maybe_target) && pawn.faction_check_mob(maybe_target))
+			continue
 		accepted_targets += maybe_target
+
+	if(!length(accepted_targets))
+		finish_action(controller, succeeded = FALSE)
+		return
 
 	// Alright, we found something acceptable, let's use it yeah?
 	var/atom/target = pick_final_target(controller, accepted_targets)

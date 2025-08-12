@@ -273,7 +273,6 @@
 	desc = "A metal frame for building a scooter. Looks like you'll need to add some iron to make wheels."
 	icon = 'icons/obj/tgvehicles.dmi'
 	icon_state = "scooter_frame"
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/scooter_frame/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stack/sheet/metal))
@@ -301,16 +300,16 @@
 /obj/tgvehicle/scooter/skateboard/wrench_act(mob/living/user, obj/item/I)
 	return
 
-/obj/tgvehicle/scooter/skateboard/improvised/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/tgvehicle/scooter/skateboard/improvised/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(!istype(I, /obj/item/stack/rods))
 		return ..()
 	var/obj/item/stack/S = I
 	if(S.get_amount() < 2)
-		return
+		return ITEM_INTERACT_COMPLETE
 	to_chat(user, "<span class='notice'>You begin making handlebars for [src].</span>")
 	if(do_after(user, 2.5 SECONDS, target = src))
 		if(!loc || !S || S.get_amount() < 2 || !S.use(2))
-			return
+			return ITEM_INTERACT_COMPLETE
 	to_chat(user, "<span class='notice'>You add the rods to [src], creating handlebars.</span>")
 	var/obj/tgvehicle/scooter/skaterskoot = new(loc)
 	if(has_buckled_mobs())

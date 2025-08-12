@@ -92,6 +92,7 @@
 /obj/item/clothing/under/rank/cargo/miner/lavaland
 	name = "shaft miner's harshsuit"
 	desc = "It's an brown uniform with some padded armour for operating in hazardous environments."
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	icon_state = "explorer"
 	item_state = "explorer"
 	item_color = "explorer"
@@ -135,6 +136,7 @@
 /obj/item/clothing/under/rank/cargo/smith
 	name = "smith's jumpsuit"
 	desc = "A brown jumpsuit with some extra metal pieces strapped to it. You're not sure why, but the added armor doesn't make you feel any safer..."
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	icon_state = "smith"
 	item_state = "smith"
 	item_color = "smith"

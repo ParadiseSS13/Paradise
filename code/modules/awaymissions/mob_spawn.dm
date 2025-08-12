@@ -9,7 +9,6 @@
 /obj/effect/mob_spawn
 	name = "Unknown"
 	density = TRUE
-	anchored = TRUE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	var/mob_type
@@ -670,13 +669,10 @@
 	outfit = /datum/outfit/job/mining/suit
 
 /datum/outfit/job/mining/suit
-	name = "Shaft Miner"
 	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	uniform = /obj/item/clothing/under/rank/cargo/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
-	l_ear = /obj/item/radio/headset/headset_cargo/mining
-	id = /obj/item/card/id/shaftminer
 	l_pocket = /obj/item/reagent_containers/patch/styptic
 	r_pocket = /obj/item/flashlight/seclite
 
@@ -768,8 +764,8 @@
 	ADD_TRAIT(H, TRAIT_NON_INFECTIOUS_ZOMBIE, ROUNDSTART_TRAIT)
 	. = ..()
 	for(var/datum/disease/zombie/zomb in H.viruses)
-		zomb.spread_flags = SPECIAL
-		zomb.visibility_flags = HIDDEN_PANDEMIC // This is how critical diseases block being interacted by the pandemic or copied. I hate it here.
+		zomb.spread_flags = SPREAD_SPECIAL
+		zomb.visibility_flags = VIRUS_HIDDEN_PANDEMIC // This is how critical diseases block being interacted by the pandemic or copied. I hate it here.
 
 
 /// these mob spawn subtypes trigger immediately (New or Initialize) and are not player controlled... since they're dead, you know?
@@ -790,7 +786,7 @@
 	qdel(src)
 
 /obj/effect/mob_spawn/corpse/watcher
-	mob_type = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
+	mob_type = /mob/living/basic/mining/basilisk/watcher
 	icon = 'icons/mob/lavaland/watcher.dmi'
 	icon_state = "watcher_dead"
 	pixel_x = -12

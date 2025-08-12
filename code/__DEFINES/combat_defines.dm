@@ -166,3 +166,6 @@
 #define AUTOFIRE_STAT_ALERT	(1<<1)
 /// Gun is shooting.
 #define AUTOFIRE_STAT_FIRING (1<<2)
+
+/// Multiplier for wall damage for comparison with object integrity.
+#define OBJ_INTEGRITY_TO_WALL_DAMAGE 10

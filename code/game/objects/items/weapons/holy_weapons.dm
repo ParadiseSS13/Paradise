@@ -198,7 +198,6 @@
 	desc = "Capable of cutting clean through a holy claymore."
 	icon_state = "katana"
 	item_state = "katana"
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 
 /obj/item/nullrod/claymore/multiverse
 	name = "extradimensional blade"
@@ -273,7 +272,6 @@
 	icon = 'icons/obj/guns/magic.dmi'
 	name = "dormant spellblade"
 	desc = "The blade grants the wielder nearly limitless power...if they can figure out how to turn it on, that is."
-	hitsound = 'sound/weapons/rapierhit.ogg'
 
 /obj/item/nullrod/scythe/talking
 	name = "possessed blade"
@@ -284,7 +282,6 @@
 	item_state = "talking_sword"
 	desc = "When the station falls into chaos, it's nice to have a friend by your side."
 	attack_verb = list("chopped", "sliced", "cut")
-	hitsound = 'sound/weapons/rapierhit.ogg'
 	force = 12
 	can_be_hit = TRUE // be a shit and you can get your ass beat
 	max_integrity = 100
@@ -484,12 +481,10 @@
 /obj/item/nullrod/claymore/bostaff
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
-	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "bostaff0"
 	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	item_state = "bostaff0"
-	w_class = WEIGHT_CLASS_BULKY
 	force = 13
 	slot_flags = ITEM_SLOT_BACK
 	sharp = FALSE

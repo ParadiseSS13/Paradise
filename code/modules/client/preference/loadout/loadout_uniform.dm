@@ -272,6 +272,11 @@
 	path = /obj/item/clothing/under/rank/medical/virologist/skirt
 	allowed_roles = list("Virologist")
 
+/datum/gear/uniform/skirt/job/para
+	display_name = "Skirt, paramedic"
+	path = /obj/item/clothing/under/rank/medical/paramedic/skirt
+	allowed_roles = list("Chief Medical Officer", "Paramedic")
+
 /datum/gear/uniform/skirt/job/med
 	display_name = "Skirt, medical"
 	path = /obj/item/clothing/under/rank/medical/doctor/skirt

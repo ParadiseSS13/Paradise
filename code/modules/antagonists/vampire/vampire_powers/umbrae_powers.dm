@@ -14,7 +14,7 @@
 
 	action.name = "[initial(name)] ([V.iscloaking ? "Deactivate" : "Activate"])"
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_NAME)
-	UpdateButtons()
+	build_all_button_icons()
 
 /datum/spell/vampire/self/cloak/cast(list/targets, mob/user = usr)
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
@@ -115,7 +115,7 @@
 
 /datum/spell/vampire/soul_anchor
 	name = "Soul Anchor (30)"
-	desc = "You summon a dimenional anchor after a delay, casting again will teleport you back to the anchor. You will fake a recall after 2 minutes."
+	desc = "You summon a dimensional anchor after a delay. Casting again will teleport you back to the anchor. You will fake a recall after 2 minutes."
 	gain_desc = "You have gained the ability to save a point in space and teleport back to it at will. Unless you willingly teleport back to that point within 2 minutes, you will fake a recall."
 	required_blood = 30
 	centcom_cancast = FALSE
@@ -209,7 +209,6 @@
 	alpha = 120
 	color = "#545454"
 	density = TRUE
-	opacity = FALSE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
 
@@ -284,8 +283,7 @@
 /datum/spell/vampire/self/eternal_darkness
 	name = "Eternal Darkness"
 	desc = "When toggled, you shroud the area around you in darkness and slowly lower the body temperature of people nearby. Energy projectiles will dim in its radius."
-	gain_desc = "You have gained the ability to shroud the area around you in darkness, only the strongest of lights can pierce your unholy powers."
-	base_cooldown = 10 SECONDS
+	gain_desc = "You have gained the ability to shroud the area around you in darkness. Only the strongest of lights can pierce your unholy powers."
 	action_icon_state = "eternal_darkness"
 	required_blood = 5
 	var/shroud_power = -6

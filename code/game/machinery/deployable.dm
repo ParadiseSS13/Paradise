@@ -88,7 +88,6 @@
 /obj/structure/barricade/wooden
 	name = "wooden barricade"
 	desc = "This space is blocked off by a wooden barricade."
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "woodenbarricade"
 	bar_material = WOOD
 	stacktype = /obj/item/stack/sheet/wood
@@ -179,7 +178,6 @@
 /obj/item/grenade/barrier
 	name = "barrier grenade"
 	desc = "Instant cover."
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "wallbang"
 	item_state = "flashbang"
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
@@ -464,7 +462,6 @@
 /obj/item/grenade/turret
 	name = "Pop-Up Turret grenade"
 	desc = "Inflates into a Pop-Up turret, shoots everyone on sight who wasn't the primer."
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "wallbang"
 	item_state = "flashbang"
 	var/owner_uid
