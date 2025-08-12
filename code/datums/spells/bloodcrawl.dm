@@ -233,8 +233,9 @@
 		var/mob/living/simple_animal/demon/slaughter/S = L
 		S.speed = 0
 		S.boost = world.time + 6 SECONDS
+	var/old_color = L.color
 	L.color = A.color
-	addtimer(VARSET_CALLBACK(L, color, null), 6 SECONDS)
+	animate(L, 6 SECONDS, color = old_color, easing = EASE_IN|CIRCULAR_EASING, flags = ANIMATION_PARALLEL)
 
 
 /datum/spell/bloodcrawl/proc/phasein(atom/A, mob/living/L)
