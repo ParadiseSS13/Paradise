@@ -691,7 +691,7 @@
 
 			var/stabbed_foot = pick("l_foot", "r_foot")
 			user.visible_message("<span class='notice'>[user] tries to place [I] into [src] but stabs their own foot!</span>", \
-			"<span class='warning'>You goto put [I] into [src], but miss the boot and stab your own foot!</span>")
+			"<span class='warning'>You go to put [I] into [src], but miss the boot and stab your own foot!</span>")
 			user.apply_damage(I.force, BRUTE, stabbed_foot)
 			user.drop_item(I)
 			return
