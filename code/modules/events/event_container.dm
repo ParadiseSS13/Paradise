@@ -179,7 +179,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/moderate
 	severity = EVENT_LEVEL_MODERATE
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/nothing, 700),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/nothing, 300),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/falsealarm, 20),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spontaneous_appendicitis, 	0, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/carp_migration, 20, , TRUE),
@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/meteor_wave, 0),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/solar_flare, 0),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/dust/meaty, 0),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/communications_blackout, 100),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/communications_blackout, 50),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/prison_break, 0),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Virology Breach",			/datum/event/prison_break/virology,		0,		list(ASSIGNMENT_MEDICAL = 100)),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Xenobiology Breach",		/datum/event/prison_break/xenobiology,	0,		list(ASSIGNMENT_SCIENCE = 100)),
@@ -204,7 +204,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear, 0),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear/honk,	0),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/vent_clog,	25),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/disposals_clog, 250),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/disposals_clog, 25),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/wormholes,	15),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_pyro, 15),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_cryo, 15),
