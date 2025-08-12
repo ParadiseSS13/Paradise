@@ -349,7 +349,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	flash_protect = FLASH_PROTECTION_WELDER
-	armor = list(MELEE = 44, BULLET = 47, LASER = 47, ENERGY = 44, BOMB = 66, RAD = 33, FIRE = 100, ACID = 66)
+	armor = list(MELEE = 45, BULLET = 45, LASER = 45, ENERGY = 45, BOMB = 65, RAD = 35, FIRE = 100, ACID = 65)
 	strip_delay = 130
 
 /obj/item/clothing/head/helmet/federation/marine/export
@@ -368,7 +368,7 @@
 	see_in_dark = 0
 	lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	flash_protect = FLASH_PROTECTION_NONE
-	armor = list(MELEE = 37.5, BULLET = 41, LASER = 41, ENERGY = 37.5, BOMB = 50, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 50, RAD = 0, FIRE = 100, ACID = 50)
 
 /obj/item/clothing/head/helmet/federation/marine/officer
 	name = "\improper Federation marine officer's combat helmet"

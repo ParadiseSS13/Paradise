@@ -972,10 +972,11 @@
 
 /obj/item/mod/armor/mod_theme_syndicate
 	armor = list(MELEE = 25, BULLET = 30, LASER = 10, ENERGY = 10, BOMB = 40, RAD = 100, FIRE = 50, ACID = 90)
-	//melee = 40 with booster
-	//bullet = 50
-	//laser = 20 with booster
-	//energy = //20 with booster, energy has always been an armor hole.
+	//melee = 25 // 50 with booster
+	//bullet = 30 // 60
+	//laser = 10 // 25
+	//energy = 10 // 25 energy has always been an armor hole.
+
 /datum/mod_theme/elite
 	name = "'Jaeger' elite syndicate"
 	desc = "A terrifying, jet-black suit of advanced power armor, used by the Syndicate's elite forces. Completely fireproof, and offers phenomenal protection in all areas."
@@ -1036,9 +1037,9 @@
 /obj/item/mod/armor/mod_theme_elite
 	armor = list(MELEE = 50, BULLET = 45, LASER = 40, ENERGY = 25, BOMB = 55, RAD = 100, FIRE = 100, ACID = 100)
 	//melee = 50 // 75 with booster
-	//bullet = 45 // 75 same as
-	//laser = 35 //50 same as
-	//energy = 15 // 25
+	//bullet = 45 // 75
+	//laser = 40 // 55
+	//energy = 25 // 40
 
 /datum/mod_theme/prototype
 	name = "'Ogre' prototype"
