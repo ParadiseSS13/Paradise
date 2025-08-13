@@ -20,6 +20,10 @@
 /datum/gear/uniform/suit
 	main_typepath = /datum/gear/uniform/suit
 
+/datum/gear/uniform/suit/job
+	main_typepath = /datum/gear/uniform/suit/job
+	subtype_selection_cost = FALSE
+
 /datum/gear/uniform/turtleneck
 	main_typepath = /datum/gear/uniform/turtleneck
 
@@ -362,10 +366,8 @@
 	allowed_roles = list("Head of Security")
 
 //Service
-/datum/gear/uniform/service
-	main_typepath = /datum/gear/uniform/service
 
-/datum/gear/uniform/service/hydroponics_alt
+/datum/gear/uniform/suit/job/hydroponics_alt
 	display_name = "Jumpsuit, hydroponics brown"
 	path = /obj/item/clothing/under/rank/civilian/hydroponics/alt
 	allowed_roles = list("Botanist")
