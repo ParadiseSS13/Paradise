@@ -3,8 +3,8 @@
 	announceWhen	= 50
 	noAutoEnd = TRUE
 	nominal_severity = EVENT_LEVEL_MODERATE
-	role_weights = list(ASSIGNMENT_ENGINEERING = 1, ASSIGNMENT_SECURITY = 2)
-	role_requirements = list(ASSIGNMENT_ENGINEERING = 1, ASSIGNMENT_SECURITY = 1)
+	role_weights = list(ASSIGNMENT_ENGINEERING = 2, ASSIGNMENT_SECURITY = 2)
+	role_requirements = list(ASSIGNMENT_ENGINEERING = 2, ASSIGNMENT_SECURITY = 2)
 	var/list/spawned_mobs = list(
 		/mob/living/basic/carp = 95,
 		/mob/living/basic/carp/megacarp = 5)

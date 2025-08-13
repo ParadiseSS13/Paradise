@@ -9,7 +9,7 @@ GLOBAL_LIST_INIT(xeno_things, list("xenos" = list(), "eggs" = list()))
 	var/list/playercount
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 	nominal_severity = EVENT_LEVEL_DISASTER
-	role_weights = list(ASSIGNMENT_SECURITY = 5, ASSIGNMENT_TOTAL = 2.5, ASSIGNMENT_MEDICAL = 4)
+	role_weights = list(ASSIGNMENT_SECURITY = 5, ASSIGNMENT_TOTAL = 2, ASSIGNMENT_MEDICAL = 4)
 	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_TOTAL = 50, ASSIGNMENT_MEDICAL = 5)
 
 /datum/event/alien_infestation/setup()
