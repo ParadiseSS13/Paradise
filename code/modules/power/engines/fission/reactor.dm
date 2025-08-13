@@ -2,23 +2,28 @@
 #define REACTOR_NEEDS_DIGGING 		1
 #define REACTOR_NEEDS_CROWBAR 		2
 #define REACTOR_NEEDS_PLASTITANIUM	3
-#define REACTOR_NEEDS_SCREWDRIVER	4
+#define REACTOR_NEEDS_WRENCH		4
 #define REACTOR_NEEDS_WELDING		5
 #define REACTOR_NEEDS_PLASTEEL		6
-#define REACTOR_NEEDS_WRENCH		7
+#define REACTOR_NEEDS_SCREWDRIVER	7
+
 
 // The states of reactor chambers
 #define CHAMBER_DOWN	 1
 #define CHAMBER_UP		 2
 #define CHAMBER_OPEN	 3
 
-#warn Idea todo: Make plutonium nuke core craftable
 #warn Idea todo: Allow grilling on an active reactor
 #warn Idea todo: Allow CC to unlock for nuking station
 #warn Idea todo: Make some lavaland loot into special rods/upgrades
-#warn Idea todo: Bananium rods
+#warn Idea todo: Bananium rods?
+#warn Idea todo: syndicate meltdown rods
 #warn Idea todo: Make chambers weldable
 #warn Idea todo: Make chambers self-weld at high temps
+#warn Idea todo: Control rods break slowly at high temps
+#warn Idea todo: Reactor leaks heat at high temperatures
+#warn Idea todo: ripley grippers can pick up rods without damage
+#warn Idea todo: coolant rods can eject from the reactor at high temps
 
 /// MARK: Fission Reactor
 
@@ -46,6 +51,12 @@
 	var/temperature_mult = 1
 	/// The current air contents of this device
 	var/datum/gas_mixture/air_contents
+	/// How many functional control rods does the reactor have?
+	var/control_rods = 5
+	/// Is the reactor calm enough to be considered available for maintenance
+	var/can_maintain = TRUE
+	/// what repair step is the reactor on?
+	var/repair_step = 1
 
 /obj/machinery/power/fission_reactor/examine(mob/user)
 	. = ..()
@@ -98,12 +109,15 @@
 				chamber.form_link(src)
 
 
-/obj/machinery/power/fission_reactor/proc/clear_reactor_network()
+/obj/machinery/power/fission_reactor/proc/clear_reactor_network(var/restart = FALSE)
 	for(var/obj/machinery/reactor_chamber/linked in connected_chambers)
 		linked.linked_reactor = null
 		connected_chambers -= linked
 	if(length(connected_chambers))
 		log_debug("clear_reactor_network ran successfully, however connected_chambers still contains items!")
+		connected_chambers.Cut()
+	if(restart)
+		build_reactor_network()
 
 /obj/machinery/power/fission_reactor/proc/set_broken()
 	if(stat & BROKEN)
@@ -126,6 +140,39 @@
 	if(stat & BROKEN)
 		return
 
+/obj/machinery/power/fission_reactor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	. = ..()
+	if(!(stat & BROKEN))
+		return
+	if(istype(used, /obj/item/shovel) && repair_step == REACTOR_NEEDS_DIGGING)
+		playsound(src, used.usesound, 50, 1)
+		if(do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE))
+			playsound(src, used.usesound, 50, 1)
+			new /obj/item/slag(loc)
+			if(prob(30))
+				repair_step++
+			else
+				to_chat(user, "<span class='info'>There seems to be more slag clogging the reactor.</span>")
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/stack/sheet/mineral/plastitanium) && repair_step == REACTOR_NEEDS_PLASTITANIUM)
+		if(used.amount >= 10)
+			if(do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE))
+				repair_step++
+		else
+			to_chat(user, "<span class='warning'>You need at least ten sheets of plastitanium to reform the reactor core structure!</span>")
+		return ITEM_INTERACT_COMPLETE
+
+
+
+
+/obj/machinery/power/fission_reactor/crowbar_act(mob/living/user, obj/item/I)
+	if(repair_step == REACTOR_NEEDS_DIGGING)
+		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
+			playsound(src, I.usesound, 50, 1)
+			repair_step++
+	return ITEM_INTERACT_COMPLETE
+
+
 /// MARK: Rod Chamber
 
 /obj/machinery/reactor_chamber
@@ -138,7 +185,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 	/// Each reactor chamber can only be linked to a single reactor, if somehow theres two.
-	var/linked_reactor
+	var/obj/machinery/power/fission_reactor/linked_reactor
 	/// holds the specific rod inserted into the chamber
 	var/obj/item/nuclear_rod/held_rod
 	/// Is the chamber up, down, or open
@@ -160,6 +207,16 @@
 /obj/machinery/reactor_chamber/on_construction()
 	. = ..()
 	find_link()
+
+/obj/machinery/reactor_chamber/on_deconstruction()
+	. = ..()
+	if(linked_reactor)
+		linked_reactor.clear_reactor_network(restart = TRUE)
+
+/obj/machinery/reactor_chamber/Destroy()
+	. = ..()
+	if(linked_reactor)
+		linked_reactor.clear_reactor_network(restart = TRUE)
 
 /obj/machinery/reactor_chamber/update_overlays()
 	. = ..()
@@ -243,6 +300,18 @@
 						)
 					update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/reactor_chamber/screwdriver_act(mob/living/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	. = TRUE
+	if(chamber_state != CHAMBER_OPEN)
+		to_chat(user, "<span class='alert'>[src] must be raised and open first!</span>")
+		return
+	if(!linked_reactor.can_maintain)
+		to_chat(user, "<span class='alert'>The safety locks prevent maintenance while the reactor is on!</span>")
+		return
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+
 /obj/machinery/reactor_chamber/proc/raise()
 	chamber_state = CHAMBER_UP
 	icon_state = "chamber_up"
@@ -287,8 +356,6 @@
 				if(!chamber.linked_reactor)
 					chamber.form_link(reactor)
 
-
-/// Proc called when a chamber is first built
 /obj/machinery/reactor_chamber/proc/find_link()
 	var/turf/nearby_turf
 	var/direction = 0
@@ -444,6 +511,19 @@
 		/obj/item/stack/sheet/metal = 2,
 	)
 
+/obj/item/slag
+	name = "Radioactive_slag"
+	desc = "A large clump of active radioactive fuel fused with structural reactor metals."
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "big_molten"
+	move_resist = MOVE_FORCE_STRONG // Massive chunk of metal slag, shouldnt be moving it without carrying.
+	w_class = WEIGHT_CLASS_HUGE
+	force = 15
+	throwforce = 10
+
+/obj/item/slag/Initialize(mapload)
+	. = ..()
+	scatter_atom()
 
 #undef REACTOR_NEEDS_DIGGING
 #undef REACTOR_NEEDS_CROWBAR
