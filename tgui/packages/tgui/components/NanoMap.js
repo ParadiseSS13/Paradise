@@ -235,7 +235,7 @@ let ActiveButton;
 class NanoButton extends Component {
   constructor(props) {
     super(props);
-    const { act } = useBackend(this.props.context);
+    const { act } = useBackend();
     this.state = {
       color: this.props.color,
     };

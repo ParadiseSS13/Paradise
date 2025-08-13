@@ -1,6 +1,6 @@
 import { filter, sortBy } from 'common/collections';
 import { useState } from 'react';
-import { Box, Button, ByondUi, Icon, Input, Section, Stack, Tabs } from 'tgui-core/components';
+import { Button, ByondUi, Input, NoticeBox, Section, Stack, Tabs } from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
 import { createSearch } from 'tgui-core/string';
 
@@ -37,191 +37,190 @@ const selectCameras = (cameras, searchText = '') => {
 };
 
 export const CameraConsole220 = (props) => {
-  const [tabIndex, setTabIndex] = useState(0);
-  const decideTab = (index) => {
-    switch (index) {
-      case 0:
-        return <CameraConsoleMapContent />;
-      case 1:
-        return <CameraConsoleOldContent />;
+  return (
+    <Window width={1170} height={775}>
+      <Window.Content>
+        <CameraContent />
+      </Window.Content>
+    </Window>
+  );
+};
+
+export const CameraContent = (props) => {
+  const [searchText, setSearchText] = useState('');
+  const [tab, setTab] = useState('Map');
+  const decideTab = (tab) => {
+    switch (tab) {
+      case 'List':
+        return <CameraListSelector searchText={searchText} setSearchText={setSearchText} />;
+      case 'Map':
+        return <CameraMapSelector />;
       default:
         return "WE SHOULDN'T BE HERE!";
     }
   };
 
   return (
-    <Window width={1170} height={755}>
-      <Window.Content>
-        <Stack>
-          <Box fillPositionedParent>
-            <Stack.Item width={tabIndex === 1 ? '222px' : '475px'} textAlign="center">
-              <Tabs fluid ml={tabIndex === 1 ? 1 : 0} mt={tabIndex === 1 ? 1 : 0}>
-                <Tabs.Tab key="Map" selected={tabIndex === 0} onClick={() => setTabIndex(0)}>
-                  <Icon name="map-marked-alt" /> Карта
-                </Tabs.Tab>
-                <Tabs.Tab key="List" selected={tabIndex === 1} onClick={() => setTabIndex(1)}>
-                  <Icon name="table" /> Список
-                </Tabs.Tab>
-              </Tabs>
-            </Stack.Item>
-            {decideTab(tabIndex)}
-          </Box>
+    <Stack fill g={0}>
+      <Stack.Item grow minWidth={0}>
+        <Stack fill vertical g={0}>
+          <Stack.Item textAlign="center">
+            <Tabs fluid>
+              <Tabs.Tab key="Map" icon="map-marked-alt" selected={tab === 'Map'} onClick={() => setTab('Map')}>
+                Карта
+              </Tabs.Tab>
+              <Tabs.Tab key="List" icon="table" selected={tab === 'List'} onClick={() => setTab('List')}>
+                Список
+              </Tabs.Tab>
+            </Tabs>
+          </Stack.Item>
+          <Stack.Item grow>{decideTab(tab)}</Stack.Item>
         </Stack>
-      </Window.Content>
-    </Window>
-  );
-};
-
-export const CameraConsoleMapContent = (props) => {
-  const { act, data } = useBackend();
-  const cameras = selectCameras(data.cameras);
-  const [zoom, setZoom] = useState(1);
-  const { mapRef, activeCamera, stationLevel } = data;
-  const [prevCameraName, nextCameraName] = prevNextCamera(cameras, activeCamera);
-  return (
-    <Stack fill>
-      <Stack.Item
-        height="100%"
-        style={{
-          flex: '0 0 474px',
-        }}
-      >
-        <NanoMap onZoom={(v) => setZoom(v)}>
-          {cameras
-            .filter((cam) => cam.z === stationLevel)
-            .map((cm) => (
-              <NanoMap.NanoButton
-                activeCamera={activeCamera}
-                key={cm.ref}
-                x={cm.x}
-                y={cm.y}
-                context={context}
-                zoom={zoom}
-                icon="circle"
-                tooltip={cm.name}
-                name={cm.name}
-                color={'blue'}
-                status={cm.status}
-              />
-            ))}
-        </NanoMap>
       </Stack.Item>
-      <Stack.Item height="100%" m={0.1} className="CameraConsole__right_map">
-        <div className="CameraConsole__header">
-          <div className="CameraConsole__toolbar">
-            <b>Камера: </b>
-            {(activeCamera && activeCamera.name) || '—'}
-          </div>
-          <div className="CameraConsole__toolbarRight">
-            <Button
-              icon="chevron-left"
-              disabled={!prevCameraName}
-              onClick={() =>
-                act('switch_camera', {
-                  name: prevCameraName,
-                })
-              }
-            />
-            <Button
-              icon="chevron-right"
-              disabled={!nextCameraName}
-              onClick={() =>
-                act('switch_camera', {
-                  name: nextCameraName,
-                })
-              }
-            />
-          </div>
-        </div>
-        <ByondUi
-          className="CameraConsole__map"
-          overflow="hidden"
-          params={{
-            id: mapRef,
-            type: 'map',
-          }}
-        />
+      <Stack.Item grow={tab === 'Map' ? 1.5 : 3}>
+        <CameraControls searchText={searchText} />
       </Stack.Item>
     </Stack>
   );
 };
 
-export const CameraConsoleOldContent = (props) => {
+export const CameraMapSelector = (props) => {
+  const { act, data } = useBackend();
+  const cameras = selectCameras(data.cameras);
+  const [zoom, setZoom] = useState(1);
+  const { mapRef, activeCamera, stationLevel } = data;
+  const [prevCameraName, nextCameraName] = prevNextCamera(cameras, activeCamera);
+
+  return (
+    <NanoMap onZoom={setZoom}>
+      {cameras
+        .filter((cam) => cam.z === stationLevel)
+        .map((cm) => (
+          <NanoMap.NanoButton
+            activeCamera={activeCamera}
+            key={cm.ref}
+            x={cm.x}
+            y={cm.y}
+            zoom={zoom}
+            icon="circle"
+            tooltip={cm.name}
+            name={cm.name}
+            color={'blue'}
+            status={cm.status}
+          />
+        ))}
+    </NanoMap>
+  );
+};
+
+const CameraListSelector = (props) => {
   const { act, data, config } = useBackend();
   const { mapRef, activeCamera } = data;
   const [searchText, setSearchText] = useState('');
   const cameras = selectCameras(data.cameras, searchText);
-  const [prevCameraName, nextCameraName] = prevNextCamera(cameras, activeCamera);
+
   return (
-    <Stack.Item>
-      <div className="CameraConsole__left">
-        <Window.Content>
-          <Stack fill vertical>
-            <Stack.Item>
-              <Input width="215px" placeholder="Найти камеру" onChange={(value) => setSearchText(value)} />
-            </Stack.Item>
+    <Stack fill vertical>
+      <Stack.Item mt={1}>
+        <Input
+          autoFocus
+          expensive
+          fluid
+          placeholder="Search for a camera"
+          onChange={setSearchText}
+          value={searchText}
+        />
+      </Stack.Item>
+      <Stack.Item grow>
+        <Section fill scrollable>
+          {cameras.map((camera) => (
+            // We're not using the component here because performance
+            // would be absolutely abysmal (50+ ms for each re-render).
+            <div
+              key={camera.name}
+              title={camera.name}
+              className={classes([
+                'Button',
+                'Button--fluid',
+                'Button--color--transparent',
+                'Button--ellipsis',
+                activeCamera?.name === camera.name ? 'Button--selected' : 'candystripe',
+              ])}
+              onClick={() =>
+                act('switch_camera', {
+                  name: camera.name,
+                })
+              }
+            >
+              {camera.name}
+            </div>
+          ))}
+        </Section>
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+const CameraControls = (props) => {
+  const { act, data } = useBackend();
+  const { activeCamera, can_spy, mapRef } = data;
+  const { searchText } = props;
+
+  const cameras = selectCameras(data.cameras, searchText);
+  const [prevCamera, nextCamera] = prevNextCamera(cameras, activeCamera);
+
+  return (
+    <Section fill>
+      <Stack fill vertical>
+        <Stack.Item>
+          <Stack fill>
             <Stack.Item grow>
-              <Section fill scrollable>
-                {cameras.map((camera) => (
-                  // We're not using the component here because performance
-                  // would be absolutely abysmal (50+ ms for each re-render).
-                  <div
-                    key={camera.name}
-                    title={camera.name}
-                    className={classes([
-                      'Button',
-                      'Button--fluid',
-                      camera.status ? 'Button--color--transparent' : 'Button--color--danger',
-                      'Button--ellipsis',
-                      activeCamera && camera.name === activeCamera.name && 'Button--selected',
-                    ])}
-                    onClick={() =>
-                      act('switch_camera', {
-                        name: camera.name,
-                      })
-                    }
-                  >
-                    {camera.name}
-                  </div>
-                ))}
-              </Section>
+              {activeCamera?.status ? (
+                <NoticeBox info>{activeCamera.name}</NoticeBox>
+              ) : (
+                <NoticeBox danger>No input signal</NoticeBox>
+              )}
+            </Stack.Item>
+            <Stack.Item>
+              {!!can_spy && (
+                <Button icon="magnifying-glass" tooltip="Track Person" onClick={() => act('start_tracking')} />
+              )}
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                icon="chevron-left"
+                disabled={!prevCamera}
+                onClick={() =>
+                  act('switch_camera', {
+                    name: prevCamera,
+                  })
+                }
+              />
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                icon="chevron-right"
+                disabled={!nextCamera}
+                onClick={() =>
+                  act('switch_camera', {
+                    name: nextCamera,
+                  })
+                }
+              />
             </Stack.Item>
           </Stack>
-        </Window.Content>
-      </div>
-      <div className="CameraConsole__right">
-        <div className="CameraConsole__toolbar">
-          <b>Камера: </b>
-          {(activeCamera && activeCamera.name) || '—'}
-        </div>
-        <div className="CameraConsole__toolbarRight">
-          <Button
-            icon="chevron-left"
-            disabled={!prevCameraName}
-            onClick={() =>
-              act('switch_camera', {
-                name: prevCameraName,
-              })
-            }
+        </Stack.Item>
+        <Stack.Item grow>
+          <ByondUi
+            height="100%"
+            width="100%"
+            params={{
+              id: mapRef,
+              type: 'map',
+            }}
           />
-          <Button
-            icon="chevron-right"
-            disabled={!nextCameraName}
-            onClick={() =>
-              act('switch_camera', {
-                name: nextCameraName,
-              })
-            }
-          />
-        </div>
-        <ByondUi
-          className="CameraConsole__map"
-          params={{
-            id: mapRef,
-            type: 'map',
-          }}
-        />
-      </div>
-    </Stack.Item>
+        </Stack.Item>
+      </Stack>
+    </Section>
   );
 };
