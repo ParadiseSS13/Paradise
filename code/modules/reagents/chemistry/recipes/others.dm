@@ -414,6 +414,20 @@
 	required_reagents = list("salglu_solution" = 1, "mutagenvirusfood" = 1)
 	result_amount = 2
 
+/datum/chemical_reaction/virus_food_mutadone
+	name = "stable agar"
+	id = "stable_agar"
+	result = "stable_agar"
+	required_reagents = list("mutadone" = 1, "virusfood" = 1)
+	result_amount = 2
+
+/datum/chemical_reaction/virus_food_tracker
+	name = "Tracking agar"
+	id = "tracking_agar"
+	result = "tracking_agar"
+	required_reagents = list("fluorosurfactant" = 1, "virusfood" = 1)
+	result_amount = 2
+
 /datum/chemical_reaction/mix_virus
 	name = "Mix Virus"
 	id = "mixvirus"
@@ -499,6 +513,43 @@
 		if(D)
 			D.Devolve()
 
+/datum/chemical_reaction/mix_virus/stabilize_virus
+	name = "Stabilize Virus"
+	id = "stabilize_virus"
+	required_reagents = list("stable_agar" = 1)
+
+/datum/chemical_reaction/mix_virus/stabilize_virus/on_reaction(datum/reagents/holder, created_volume)
+	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
+	if(B && B.data)
+		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
+		if(istype(D))
+			D.evolution_chance = 0
+
+/datum/chemical_reaction/mix_virus/track_virus
+	name = "Track Virus"
+	id = "track_virus"
+	required_reagents = list("tracking_agar" = 1)
+
+/datum/chemical_reaction/mix_virus/track_virus/on_reaction(datum/reagents/holder, created_volume)
+	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
+	if(B && B.data)
+		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
+		if(istype(D))
+			D.tracker = D.GetDiseaseID()
+
+/datum/chemical_reaction/mix_virus/clear_virus
+	name = "Clear Virus"
+	id = "clear_virus"
+	required_reagents = list("viral_eraser" = 10)
+
+/datum/chemical_reaction/mix_virus/clear_virus/on_reaction(datum/reagents/holder, created_volume)
+	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
+	if(B && B.data)
+		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
+		if(istype(D))
+			D.tracker = ""
+			D.evolution_chance = VIRUS_EVOLUTION_CHANCE
+
 // Someday, maybe add some version of doing science on patient zero to discover the recipees.
 /datum/chemical_reaction/zombie
 	name = "Anti-Plague Sequence Alpha"
@@ -575,7 +626,7 @@
 	result = "zombiecure4"
 	cure_level = 4
 	amt_req_cures = 2
-	required_symptom = /datum/symptom/heal/metabolism
+	required_symptom = /datum/symptom/heal
 
 /datum/chemical_reaction/zombie/four/get_possible_cures()
 	return list("colorful_reagent", "bacchus_blessing", "pen_acid", "glyphosate", "lazarus_reagent", "omnizine", "sarin", "ants", "clf3", "sorium", "????", "aranesp")
