@@ -1,0 +1,8 @@
+help: "Specify direction for this keycard device."
+/obj/machinery/keycard_auth:
+  banned_variables:
+   - dir
+=/obj/machinery/keycard_auth:
+  banned: true
+=/obj/machinery/keycard_auth/directional:
+  banned: true

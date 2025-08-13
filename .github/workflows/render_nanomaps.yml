@@ -12,7 +12,7 @@ on:
 jobs:
   generate_maps:
     name: 'Generate NanoMaps'
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     steps:
       - id: create_token
         uses: actions/create-github-app-token@v2
@@ -43,7 +43,7 @@ jobs:
           git pull origin master
           git commit -m "NanoMap Auto-Update (`date`)" -a || true
           git push -f -u origin nanomap-render
-          result=$(gh pr create -t "Automatic NanoMap Update" -b "This pull request updates the server NanoMaps. Please review the diff images before merging." -l "NanoMaps" -H "nanomap-render" -B "master" 2>&1) || true
+          result=$(gh pr create -t "Automatic NanoMap Update" -b "This pull request updates the server NanoMaps. Please review the diff images before merging." -l "NanoMaps,:scroll: CL не требуется" -H "nanomap-render" -B "master" 2>&1) || true
           echo "$result"
           if echo "$result" | grep -q "No commits between master and nanomap-render"; then
             echo "No NanoMaps update required, skipping."

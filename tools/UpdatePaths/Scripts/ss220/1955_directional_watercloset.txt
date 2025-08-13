@@ -1,0 +1,9 @@
+/obj/structure/sink/kitchen/north : /obj/structure/sink/kitchen/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/sink/kitchen/south : /obj/structure/sink/kitchen/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/sink/kitchen/east : /obj/structure/sink/kitchen/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/sink/kitchen/west : /obj/structure/sink/kitchen/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/structure/sink/directional/west : /obj/structure/sink/directional/e
+/obj/structure/sink/directional/east : /obj/structure/sink/directional/w
+/obj/structure/sink/directional/w : /obj/structure/sink/directional/west
+/obj/structure/sink/directional/e : /obj/structure/sink/directional/east

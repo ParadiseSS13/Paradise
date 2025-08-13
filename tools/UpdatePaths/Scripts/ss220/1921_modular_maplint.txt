@@ -1,0 +1,173 @@
+/obj/machinery/door/airlock/@SUBTYPES{locked=1} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;locked=@SKIP}, /obj/effect/mapping_helpers/airlock/locked
+/obj/machinery/door/airlock/@SUBTYPES{welded=1} : /obj/machinery/door/airlock/@SUBTYPES{@OLD;welded=@SKIP}, /obj/effect/mapping_helpers/airlock/welded
+
+/obj/machinery/keycard_auth/south : /obj/machinery/keycard_auth/directional/south{@OLD;dir=@SKIP}
+/obj/machinery/keycard_auth/north : /obj/machinery/keycard_auth/directional/north{@OLD;dir=@SKIP}
+/obj/machinery/keycard_auth/east : /obj/machinery/keycard_auth/directional/east{@OLD;dir=@SKIP}
+/obj/machinery/keycard_auth/west : /obj/machinery/keycard_auth/directional/west{@OLD;dir=@SKIP}
+
+/obj/item/radio/intercom{dir=1} : /obj/item/radio/intercom/directional/south{@OLD;dir=@SKIP}
+/obj/item/radio/intercom{dir=4} : /obj/item/radio/intercom/directional/west{@OLD;dir=@SKIP}
+/obj/item/radio/intercom{dir=8} : /obj/item/radio/intercom/directional/east{@OLD;dir=@SKIP}
+
+/obj/item/radio/intercom/locked/prison{dir=1} : /obj/item/radio/intercom/locked/prison/directional/north{@OLD;dir=@SKIP}
+/obj/item/radio/intercom/locked/prison{dir=4} : /obj/item/radio/intercom/locked/prison/directional/east{@OLD;dir=@SKIP}
+/obj/item/radio/intercom/locked/prison{dir=8} : /obj/item/radio/intercom/locked/prison/directional/west{@OLD;dir=@SKIP}
+/obj/item/radio/intercom/locked/prison : /obj/item/radio/intercom/locked/prison/directional/south{@OLD;dir=@SKIP}
+
+/obj/item/radio/intercom/syndicate{dir=1} : /obj/item/radio/intercom/syndicate{@OLD;dir=2}
+/obj/item/radio/intercom/syndicate{dir=4} : /obj/item/radio/intercom/syndicate{@OLD;dir=8}
+/obj/item/radio/intercom/syndicate{dir=8} : /obj/item/radio/intercom/syndicate{@OLD;dir=4}
+
+/obj/machinery/light{dir=1} : /obj/machinery/light/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light{dir=4} : /obj/machinery/light/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light{dir=8} : /obj/machinery/light/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light : /obj/machinery/light/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/machinery/light/nightshifted/south : /obj/machinery/light/nightshifted/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/nightshifted/north : /obj/machinery/light/nightshifted/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/nightshifted/east : /obj/machinery/light/nightshifted/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/nightshifted/west : /obj/machinery/light/nightshifted/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/machinery/light/spot{dir=1} : /obj/machinery/light/spot/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/spot{dir=4} : /obj/machinery/light/spot/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/spot{dir=8} : /obj/machinery/light/spot/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/spot : /obj/machinery/light/spot/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/machinery/light/built/south : /obj/machinery/light/built/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/built/north : /obj/machinery/light/built/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/built/east : /obj/machinery/light/built/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/built/west : /obj/machinery/light/built/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/machinery/light/small{dir=1} : /obj/machinery/light/small/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/small{dir=4} : /obj/machinery/light/small/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/small{dir=8} : /obj/machinery/light/small/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/small : /obj/machinery/light/small/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/machinery/light/small/nightshifted/south : /obj/machinery/light/small/nightshifted/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/small/nightshifted/north : /obj/machinery/light/small/nightshifted/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/small/nightshifted/east : /obj/machinery/light/small/nightshifted/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/small/nightshifted/west : /obj/machinery/light/small/nightshifted/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/machinery/light/small/built/south : /obj/machinery/light/small/built/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/small/built/north : /obj/machinery/light/small/built/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/small/built/east : /obj/machinery/light/small/built/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light/small/built/west : /obj/machinery/light/small/built/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/machinery/light_construct/small/south : /obj/machinery/light_construct/small/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light_construct/small/north : /obj/machinery/light_construct/small/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light_construct/small/east : /obj/machinery/light_construct/small/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/light_construct/small/west : /obj/machinery/light_construct/small/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/structure/extinguisher_cabinet{pixel_y=-32} : /obj/structure/extinguisher_cabinet/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet{pixel_y=-30} : /obj/structure/extinguisher_cabinet/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet{pixel_y=-28} : /obj/structure/extinguisher_cabinet/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet{pixel_y=32} : /obj/structure/extinguisher_cabinet/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet{pixel_y=31} : /obj/structure/extinguisher_cabinet/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet{pixel_y=30} : /obj/structure/extinguisher_cabinet/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet{pixel_x=32} : /obj/structure/extinguisher_cabinet/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet{pixel_x=27} : /obj/structure/extinguisher_cabinet/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet{pixel_x=25} : /obj/structure/extinguisher_cabinet/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet{pixel_x=-32} : /obj/structure/extinguisher_cabinet/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet{pixel_x=-27} : /obj/structure/extinguisher_cabinet/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/structure/extinguisher_cabinet/empty/south : /obj/structure/extinguisher_cabinet/empty/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet/empty/north : /obj/structure/extinguisher_cabinet/empty/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet/empty/east : /obj/structure/extinguisher_cabinet/empty/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet/empty/west : /obj/structure/extinguisher_cabinet/empty/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/structure/extinguisher_cabinet/empty{pixel_y=-32} : /obj/structure/extinguisher_cabinet/empty/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet/empty{pixel_y=-30} : /obj/structure/extinguisher_cabinet/empty/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet/empty{pixel_y=32} : /obj/structure/extinguisher_cabinet/empty/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet/empty{pixel_y=31} : /obj/structure/extinguisher_cabinet/empty/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet/empty{pixel_y=30} : /obj/structure/extinguisher_cabinet/empty/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet/empty{pixel_x=32} : /obj/structure/extinguisher_cabinet/empty/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet/empty{pixel_x=30} : /obj/structure/extinguisher_cabinet/empty/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet/empty{pixel_x=27} : /obj/structure/extinguisher_cabinet/empty/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/extinguisher_cabinet/empty{pixel_x=-32} : /obj/structure/extinguisher_cabinet/empty/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/machinery/access_button/south : /obj/machinery/access_button/directional/south{@OLD}
+/obj/machinery/access_button/north : /obj/machinery/access_button/directional/north{@OLD}
+/obj/machinery/access_button/east : /obj/machinery/access_button/directional/east{@OLD}
+/obj/machinery/access_button/west : /obj/machinery/access_button/directional/west{@OLD}
+
+/obj/structure/reagent_dispensers/fueltank/chem/south : /obj/structure/reagent_dispensers/fueltank/chem/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/fueltank/chem/north : /obj/structure/reagent_dispensers/fueltank/chem/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/fueltank/chem/east : /obj/structure/reagent_dispensers/fueltank/chem/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/fueltank/chem/west : /obj/structure/reagent_dispensers/fueltank/chem/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/structure/reagent_dispensers/fueltank/chem{pixel_y=-32} : /obj/structure/reagent_dispensers/fueltank/chem/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/fueltank/chem{pixel_y=-30} : /obj/structure/reagent_dispensers/fueltank/chem/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/fueltank/chem{pixel_y=32} : /obj/structure/reagent_dispensers/fueltank/chem/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/fueltank/chem{pixel_y=30} : /obj/structure/reagent_dispensers/fueltank/chem/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/fueltank/chem{pixel_x=32} : /obj/structure/reagent_dispensers/fueltank/chem/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/fueltank/chem{pixel_x=-32} : /obj/structure/reagent_dispensers/fueltank/chem/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/structure/reagent_dispensers/virusfood/south : /obj/structure/reagent_dispensers/virusfood/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/virusfood/north : /obj/structure/reagent_dispensers/virusfood/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/virusfood/east : /obj/structure/reagent_dispensers/virusfood/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/virusfood/west : /obj/structure/reagent_dispensers/virusfood/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/structure/reagent_dispensers/virusfood{pixel_y=-32} : /obj/structure/reagent_dispensers/virusfood/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/virusfood{pixel_y=32} : /obj/structure/reagent_dispensers/virusfood/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/virusfood{pixel_x=32} : /obj/structure/reagent_dispensers/virusfood/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/virusfood{pixel_x=-32} : /obj/structure/reagent_dispensers/virusfood/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/virusfood{pixel_x=-30} : /obj/structure/reagent_dispensers/virusfood/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/structure/reagent_dispensers/spacecleanertank/south : /obj/structure/reagent_dispensers/spacecleanertank/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/spacecleanertank/north : /obj/structure/reagent_dispensers/spacecleanertank/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/spacecleanertank/east : /obj/structure/reagent_dispensers/spacecleanertank/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/spacecleanertank/west : /obj/structure/reagent_dispensers/spacecleanertank/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/structure/reagent_dispensers/spacecleanertank{pixel_y=-32} : /obj/structure/reagent_dispensers/spacecleanertank/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/spacecleanertank{pixel_y=32} : /obj/structure/reagent_dispensers/spacecleanertank/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/spacecleanertank{pixel_y=30} : /obj/structure/reagent_dispensers/spacecleanertank/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/spacecleanertank{pixel_x=32} : /obj/structure/reagent_dispensers/spacecleanertank/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/spacecleanertank{pixel_x=-32} : /obj/structure/reagent_dispensers/spacecleanertank/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/structure/reagent_dispensers/peppertank/south : /obj/structure/reagent_dispensers/peppertank/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/peppertank/north : /obj/structure/reagent_dispensers/peppertank/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/peppertank/east : /obj/structure/reagent_dispensers/peppertank/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/peppertank/west : /obj/structure/reagent_dispensers/peppertank/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/structure/reagent_dispensers/peppertank{pixel_y=-32} : /obj/structure/reagent_dispensers/peppertank/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/peppertank{pixel_y=32} : /obj/structure/reagent_dispensers/peppertank/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/peppertank{pixel_y=28} : /obj/structure/reagent_dispensers/peppertank/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/peppertank{pixel_x=32} : /obj/structure/reagent_dispensers/peppertank/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/peppertank{pixel_x=30} : /obj/structure/reagent_dispensers/peppertank/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/peppertank{pixel_x=-32} : /obj/structure/reagent_dispensers/peppertank/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/structure/reagent_dispensers/peppertank{pixel_x=-29} : /obj/structure/reagent_dispensers/peppertank/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/machinery/ai_status_display/south : /obj/machinery/ai_status_display/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/ai_status_display/north : /obj/machinery/ai_status_display/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/ai_status_display/east : /obj/machinery/ai_status_display/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/ai_status_display/west : /obj/machinery/ai_status_display/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/machinery/ai_status_display{pixel_y=-32} : /obj/machinery/ai_status_display/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/ai_status_display{pixel_y=-30} : /obj/machinery/ai_status_display/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/ai_status_display{pixel_y=32} : /obj/machinery/ai_status_display/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/ai_status_display{pixel_y=31} : /obj/machinery/ai_status_display/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/ai_status_display{pixel_y=30} : /obj/machinery/ai_status_display/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/ai_status_display{pixel_x=32} : /obj/machinery/ai_status_display/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/ai_status_display{pixel_x=-32} : /obj/machinery/ai_status_display/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/machinery/status_display/supply_display/south : /obj/machinery/status_display/supply_display/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/status_display/supply_display/north : /obj/machinery/status_display/supply_display/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/status_display/supply_display/east : /obj/machinery/status_display/supply_display/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/status_display/supply_display/west : /obj/machinery/status_display/supply_display/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/machinery/status_display{pixel_y=-32} : /obj/machinery/status_display/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/status_display{pixel_y=-30} : /obj/machinery/status_display/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/status_display{pixel_y=32} : /obj/machinery/status_display/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/status_display{pixel_y=30} : /obj/machinery/status_display/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/status_display{pixel_x=32} : /obj/machinery/status_display/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/status_display{pixel_x=-32} : /obj/machinery/status_display/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+
+/obj/machinery/computer/security/telescreen/entertainment{pixel_y=-32} : /obj/machinery/computer/security/telescreen/entertainment/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/computer/security/telescreen/entertainment{pixel_y=-29} : /obj/machinery/computer/security/telescreen/entertainment/directional/south{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/computer/security/telescreen/entertainment{pixel_y=32} : /obj/machinery/computer/security/telescreen/entertainment/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/computer/security/telescreen/entertainment{pixel_y=30} : /obj/machinery/computer/security/telescreen/entertainment/directional/north{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/computer/security/telescreen/entertainment{pixel_x=32} : /obj/machinery/computer/security/telescreen/entertainment/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/computer/security/telescreen/entertainment{pixel_x=30} : /obj/machinery/computer/security/telescreen/entertainment/directional/east{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/computer/security/telescreen/entertainment{pixel_x=-32} : /obj/machinery/computer/security/telescreen/entertainment/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}
+/obj/machinery/computer/security/telescreen/entertainment{pixel_x=-31} : /obj/machinery/computer/security/telescreen/entertainment/directional/west{@OLD;dir=@SKIP;pixel_x=@SKIP;pixel_y=@SKIP}

@@ -1,0 +1,4 @@
+#include "_phrases.dm"
+
+#include "code/mobs_phrases.dm"
+#include "code/vending_phrases.dm"

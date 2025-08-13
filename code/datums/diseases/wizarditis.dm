@@ -41,11 +41,19 @@
 		return FALSE
 
 	switch(stage)
-		if(2, 3)
-			if(prob(2)) // Low prob. since everyone else will also be spouting this
-				affected_mob.say(pick("You shall not pass!", "Expeliarmus!", "By Merlin's beard!", "Feel the power of the Dark Side!", "A wizard is never late!", "50 points for Security!", "NEC CANTIO!", "STI KALY!", "AULIE OXIN FIERA!", "GAR YOK!", "DIRI CEL!"))
-			if(prob(8)) // Double the stage advancement prob. so each player has a chance to catch a couple
-				to_chat(affected_mob, "<span class='danger'>You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "that this location gives you a +1 to INT", "an urge to summon familiar")].</span>")
+		if(2)
+			if(prob(0.5))
+				affected_mob.say(pick("ТЫ!!! НЕ ПРОЙ-ДЁШЬ!!!", "Экспеллиармус!", "Мерлинова борода!", "Почувствуй силу тёмной стороны!"))
+			if(prob(0.5))
+				to_chat(affected_mob, "<span class='danger'>You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "an urge to summon familiar")].</span>")
+
+
+		if(3)
+			if(prob(0.5))
+				affected_mob.say(pick("NEC CANTIO!","AULIE OXIN FIERA!", "STI KALY!", "TARCOL MINTI ZHERI!"))
+			if(prob(0.5))
+				to_chat(affected_mob, "<span class='danger'>You feel [pick("the magic bubbling in your veins","that this location gives you a +1 to INT","an urge to summon familiar")].</span>")
+
 		if(4)
 			if(prob(1))
 				affected_mob.say(pick("FORTI GY AMA!", "GITTAH WEIGH!", "TOKI WO TOMARE!", "TARCOL MINTI ZHERI!", "ONI SOMA!", "EI NATH!", "BIRUZ BENNAR!", "NWOLC EGNEVER!"))

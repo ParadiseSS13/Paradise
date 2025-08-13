@@ -56,7 +56,7 @@
 	/// A list of all the antagonist datums that the player is (does not include undatumized antags)
 	var/list/antag_datums
 	/// A lazy list of all teams the player is part of but doesnt have an antag role for, (i.e. a custom admin team)
-	var/list/teams
+	// var/list/teams // SS220 EDIT - Commented for #840
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -231,10 +231,12 @@
 		if(A.has_antag_objectives(include_team)) // this checks teams also
 			return TRUE
 	// For custom non-antag role teams
-	if(include_team && LAZYLEN(teams))
-		for(var/datum/team/team as anything in teams)
-			if(team.objective_holder.has_objectives())
-				return TRUE
+	// SS220 EDIT START - Commented for #840
+	// if(include_team && LAZYLEN(teams))
+		// for(var/datum/team/team as anything in teams)
+			// if(team.objective_holder.has_objectives())
+				// return TRUE
+	// SS220 EDIT END
 	return FALSE
 
 /**
@@ -249,9 +251,11 @@
 		all_objectives += A.get_antag_objectives(include_team) // Add all antag datum objectives, and possibly antag team objectives
 
 	// For custom non-antag role teams
-	if(include_team && LAZYLEN(teams))
+	// SS220 EDIT START - Commented for #840
+	/* if(include_team && LAZYLEN(teams))
 		for(var/datum/team/team as anything in teams)
-			all_objectives += team.objective_holder.get_objectives()
+			all_objectives += team.objective_holder.get_objectives() */
+	// SS220 EDIT END
 
 	return all_objectives
 
@@ -574,6 +578,10 @@
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
+	// SS220 EDIT - START
+	sections["blood_brother"] = memory_edit_blood_brother()
+	sections["vox_raider"] = memory_edit_vox_raider()
+	// SS220 EDIT - END
 	if(!issilicon(current))
 		/** CULT ***/
 		sections["cult"] = memory_edit_cult(H)

@@ -263,6 +263,12 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	temp = new /icon(icobase, "[head]_[g]")
 	preview_icon.Blend(temp, ICON_OVERLAY)
 
+	// SS220 EDIT START - SERPENTIDS
+	if(is_species(H, /datum/species/serpentid))
+		temp = new/icon("icon" = 'modular_ss220/species/serpentids/icons/mob/r_serpentid.dmi', "icon_state" = "preview")
+		preview_icon.Blend(temp, ICON_OVERLAY)
+	// SS220 EDIT END - SERPENTIDS
+
 	//Tail
 	if(H.body_accessory && (istype(H.body_accessory, /datum/body_accessory/tail) || istype(H.body_accessory, /datum/body_accessory/wing)))
 		temp = new/icon("icon" = H.body_accessory.icon, "icon_state" = H.body_accessory.icon_state)
@@ -399,6 +405,10 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		job_clothes = custom_job
 	else if(H.mind)
 		job_clothes = H.mind.assigned_role
+	//SS220 EDIT START - SERPENTIDS
+	if(is_species(H, /datum/species/serpentid))
+		job_clothes = "Naked"
+	//SS220 EDIT END - SERPENTIDS
 	switch(job_clothes)
 		if("Head of Personnel")
 			clothes_s = new /icon('icons/mob/clothing/under/civilian.dmi', "hop_s")
@@ -525,6 +535,25 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s = new /icon('icons/mob/clothing/under/rnd.dmi', "robotics_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_open"), ICON_OVERLAY)
+
+		// SS220 ADDITION - START
+		if("Student Scientist")
+			clothes_s = new /icon('modular_ss220/jobs/icons/clothing/mob/uniform.dmi', "student_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_tox_open"), ICON_OVERLAY)
+		if("Medical Intern")
+			clothes_s = new /icon('modular_ss220/jobs/icons/clothing/mob/uniform.dmi', "intern_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_open"), ICON_OVERLAY)
+		if("Security Cadet")
+			clothes_s = new /icon('modular_ss220/jobs/icons/clothing/mob/uniform.dmi', "cadet_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
+		if("Trainee Engineer")
+			clothes_s = new /icon('modular_ss220/jobs/icons/clothing/mob/uniform.dmi', "trainee_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "orange"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/belt.dmi', "utility"), ICON_OVERLAY)
+		// SS220 ADDITION - END
+
 		if("Syndicate Agent")
 			clothes_s = new /icon('icons/mob/clothing/under/syndicate.dmi', "syndicate_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)

@@ -1,7 +1,7 @@
 
 /obj/machinery/kitchen_machine/microwave
-	name = "microwave"
-	desc = "A microwave, perfect for reheating things with radiation."
+	name = "микроволновка"
+	desc = "Микроволновка. Идеальна для перенагревания вещей излучением."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "mw"
 	cook_verbs = list("Microwaving", "Reheating", "Heating")

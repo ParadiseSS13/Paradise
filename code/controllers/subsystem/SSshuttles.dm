@@ -546,7 +546,10 @@ SUBSYSTEM_DEF(shuttle)
 	if(!midpoint)
 		qdel(proposal)
 		return FALSE
-
+	// SS220 EDIT START - dynamic parallax movement direction for the shuttle area
+	var/area/shuttle/shuttle_area = get_area(M)
+	shuttle_area?.parallax_move_direction = travel_dir
+	// SS220 EDIT END
 	// our shuttle system currently doesnt support changing areas of shuttles
 	// var/area/shuttle/transit/new_area = new()
 	// new_area.parallax_move_direction = travel_dir

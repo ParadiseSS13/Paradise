@@ -20,7 +20,7 @@
 	var/heat_protection = 0.5
 	var/leaping = FALSE
 	ventcrawler = VENTCRAWLER_ALWAYS
-	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
+	var/death_message = "издаёт ослабевший истошный визг, из её пасти пузырится зелёная кровь..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
 	ignore_generic_organs = TRUE
 	contains_xeno_organ = TRUE

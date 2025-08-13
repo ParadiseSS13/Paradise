@@ -187,10 +187,10 @@
 			SSmapping.revoke_station_all_access()
 		if("Emergency Response Team")
 			if(is_ert_blocked())
-				atom_say("All Emergency Response Teams are dispatched and can not be called at this time.")
+				atom_say("ОБР недоступен и не может быть вызван в данный момент.")
 				return
-			atom_say("ERT request transmitted!")
-			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name, follow_target_override = src)
+			atom_say("Запрос ОБР отправлен!")
+			GLOB.command_announcer.autosay("Отправлен запрос ОБР. Причина запроса: [ert_reason].", name, follow_target_override = src)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 			SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
 

@@ -1,0 +1,9 @@
+help: 'Use regular doors instead of directional variants. They are to be removed.'
+/obj/machinery/door/airlock/multi_tile/directional:
+  banned: true
+/obj/machinery/door/airlock/multi_tile/glass/directional:
+  banned: true
+/obj/machinery/door/poddoor/multi_tile/directional:
+  banned: true
+/obj/machinery/door/poddoor/multi_tile/impassable/directional:
+  banned: true

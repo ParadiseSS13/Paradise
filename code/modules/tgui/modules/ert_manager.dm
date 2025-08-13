@@ -107,7 +107,7 @@
 			message_admins("[key_name_admin(usr)] dispatched a [silenced ? "silent " : ""][ert_type] ERT. Slots: [slot_text]", 1)
 			log_admin("[key_name(usr)] dispatched a [silenced ? "silent " : ""][ert_type] ERT. Slots: [slot_text]")
 			if(!silenced)
-				GLOB.major_announcement.Announce("Attention, [station_name()]. We are attempting to assemble an ERT. Standby.", "ERT Protocol Activated")
+				GLOB.major_announcement.Announce("Внимание, [station_name()]. Мы рассматриваем возможность отправки ОБР, ожидайте.", "ВНИМАНИЕ: Активирован протокол ОБР.")
 			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, cyborg_security)
 
 		if("view_player_panel")
@@ -115,9 +115,9 @@
 
 		if("deny_ert")
 			GLOB.ert_request_answered = TRUE
-			var/message = "[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time."
+			var/message = "[station_name()], к сожалению, в данный момент мы не можем выслать вам ОБР."
 			if(params["reason"])
 				message += " Your ERT request has been denied for the following reasons:\n\n[params["reason"]]"
-			GLOB.major_announcement.Announce(message, "ERT Unavailable")
+			GLOB.major_announcement.Announce(message, "ОБР недоступно")
 		else
 			return FALSE

@@ -1,0 +1,5 @@
+#include "_crawl_speed.dm"
+
+#include "code/_crawl_speed_defines.dm"
+#include "code/crawl_speed_mob.dm"
+#include "code/~crawl_speed_defines.dm"

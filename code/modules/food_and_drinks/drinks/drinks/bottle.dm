@@ -24,7 +24,7 @@
 		user.put_in_active_hand(B)
 	B.icon_state = icon_state
 
-	var/icon/I = new('icons/obj/drinks.dmi', icon_state)
+	var/icon/I = new(broken_bottle_icon, icon_state)
 	I.Blend(B.broken_outline, ICON_OVERLAY, rand(5), 1)
 	I.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
 	B.icon = I
