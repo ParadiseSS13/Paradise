@@ -1,8 +1,10 @@
-import { useBackend, useLocalState } from '../backend';
-import { Window } from '../layouts';
-import { Section, Input, Stack, Collapsible } from '../components';
+import { useState } from 'react';
+import { Collapsible, Input, Section, Stack } from 'tgui-core/components';
 
-export const ModpacksList = (props, context) => {
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
+
+export const ModpacksList = (props) => {
   return (
     <Window width={500} height={550}>
       <Window.Content>
@@ -14,17 +16,17 @@ export const ModpacksList = (props, context) => {
   );
 };
 
-export const ModpacksListContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ModpacksListContent = (props) => {
+  const { act, data } = useBackend();
   const { modpacks } = data;
 
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useState('');
 
   const searchBar = (
     <Input
       placeholder="Искать модпак по имени, описанию или автору..."
       fluid
-      onInput={(e, value) => setSearchText(value)}
+      onChange={(value) => setSearchText(value)}
     />
   );
 

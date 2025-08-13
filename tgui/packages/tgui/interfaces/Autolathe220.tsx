@@ -1,9 +1,10 @@
-import { BooleanLike } from 'common/react';
-import { createSearch, toTitleCase } from 'common/string';
 import { filter, sortBy } from 'common/collections';
-import { flow } from 'common/fp';
+import { Box, Button, ImageButton, Input, ProgressBar, Section, Stack, Tabs } from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { BooleanLike } from 'tgui-core/react';
+import { createSearch, toTitleCase } from 'tgui-core/string';
+
 import { useBackend, useSharedState } from '../backend';
-import { Box, Button, ImageButton, Input, ProgressBar, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 
 type Autolathe = {
@@ -61,8 +62,8 @@ const roundMaterials = (amount, multiplier) => {
   return Math.floor(calculatedAmount * 100) / 100;
 };
 
-export const Autolathe220 = (props, context) => {
-  const [category, setCategory] = useSharedState(context, 'category', 'Tools');
+export const Autolathe220 = () => {
+  const [category, setCategory] = useSharedState('category', 'Tools');
 
   return (
     <Window width={800} height={550}>
@@ -87,8 +88,8 @@ export const Autolathe220 = (props, context) => {
   );
 };
 
-const Categories = (props, context) => {
-  const { data } = useBackend<Autolathe>(context);
+const Categories = (props) => {
+  const { data } = useBackend<Autolathe>();
   const { category, setCategory } = props;
   const { categories } = data;
 
@@ -113,24 +114,35 @@ const Categories = (props, context) => {
   );
 };
 
-const Recipes = (props, context) => {
-  const { act, data } = useBackend<Autolathe>(context);
+const Recipes = (props) => {
+  const { act, data } = useBackend<Autolathe>();
   const { metal_amount, glass_amount, recipes } = data;
   const { category } = props;
 
-  const [searchText, setSearchText] = useSharedState(context, 'searchText', '');
-  const recipesToShow = flow([
-    filter(
-      (recipe) =>
-        category === 'All' || recipe.category.includes(category) || (searchText && (data.showhacked || !recipe.hacked))
-    ),
-    searchText && filter(createSearch(searchText, (recipe: Recipe) => recipe.name)),
-    sortBy((recipe) => recipe.name.toLowerCase()),
-  ])(recipes);
+  const [searchText, setSearchText] = useSharedState('searchText', '');
+  const recipesToShow = flow(
+    (recipes: Recipe[]) =>
+      filter(
+        recipes,
+        (recipe) =>
+          category === 'All' ||
+          recipe.category.includes(category) ||
+          !!(searchText && (data.showhacked || !recipe.hacked))
+      ),
+    ...(searchText
+      ? [
+          (recipes) =>
+            filter(
+              recipes,
+              createSearch(searchText, (recipe: Recipe) => recipe.name)
+            ),
+        ]
+      : []),
+    (recipes: Recipe[]) => sortBy(recipes, (recipe) => recipe.name.toLowerCase())
+  )(recipes);
 
   const MultiplierButton = (recipe, multiplier) => (
     <Button
-      translucent
       tooltip={materialsTooltip(recipe, multiplier)}
       tooltipPosition="top"
       disabled={!canBeMade(recipe, metal_amount, glass_amount, multiplier)}
@@ -162,7 +174,7 @@ const Recipes = (props, context) => {
     <Section fill title={`Build (${category})`}>
       <Stack fill vertical>
         <Stack.Item>
-          <Input fluid placeholder="Search for..." onInput={(e, value) => setSearchText(value)} />
+          <Input fluid placeholder="Search for..." onChange={(value) => setSearchText(value)} />
         </Stack.Item>
         <Stack.Item mt={0.5} mb={-2.33} grow>
           <Section fill scrollable>
@@ -203,8 +215,8 @@ const Recipes = (props, context) => {
   );
 };
 
-const Materials = (props, context) => {
-  const { data } = useBackend<Autolathe>(context);
+const Materials = (props) => {
+  const { data } = useBackend<Autolathe>();
   const { metal_amount, glass_amount, fill_percent } = data;
 
   const MaterialButton = (material, amount) => (
@@ -237,8 +249,8 @@ const Materials = (props, context) => {
   );
 };
 
-const Building = (props, context) => {
-  const { data } = useBackend<Autolathe>(context);
+const Building = () => {
+  const { data } = useBackend<Autolathe>();
   const { recipes, busyname, busyamt } = data;
   const recipe = recipes.find((recipe) => recipe.name === busyname);
 
@@ -253,8 +265,8 @@ const Building = (props, context) => {
   );
 };
 
-const Queue = (props, context) => {
-  const { act, data } = useBackend<Autolathe>(context);
+const Queue = () => {
+  const { act, data } = useBackend<Autolathe>();
   const { recipes, buildQueue, buildQueueLen } = data;
 
   let buildQueueItems;
@@ -265,12 +277,11 @@ const Queue = (props, context) => {
         <ImageButton
           key={i}
           fluid
-          base64={recipe.image}
+          base64={recipe?.image}
           imageSize={32}
           buttons={
             <Button
               key={queueItem}
-              translucent
               width="32px"
               icon="times"
               iconColor="red"
@@ -282,7 +293,7 @@ const Queue = (props, context) => {
             />
           }
         >
-          {recipe.name} {Number(buildQueue[i][1]) > 1 && `x${buildQueue[i][1]}`}
+          {recipe?.name} {Number(buildQueue[i][1]) > 1 && `x${buildQueue[i][1]}`}
         </ImageButton>
       );
     });
@@ -298,14 +309,7 @@ const Queue = (props, context) => {
         </Stack.Item>
         <Stack.Item m={0}>
           <Section fitted p={0.75}>
-            <Button
-              fluid
-              translucent={!buildQueueLen}
-              color="red"
-              icon="trash-can"
-              disabled={!buildQueueLen}
-              onClick={() => act('clear_queue')}
-            >
+            <Button fluid color="red" icon="trash-can" disabled={!buildQueueLen} onClick={() => act('clear_queue')}>
               Clear Queue
             </Button>
           </Section>

@@ -1,9 +1,10 @@
-import { capitalize } from 'common/string';
-import { useBackend } from '../../backend';
-import { Button, Icon, Stack, Section, Box } from '../../components';
+import { Box, Button, Icon, Section, Stack } from 'tgui-core/components';
+import { capitalize } from 'tgui-core/string';
 
-export const pda_alarm_button = (props, context) => {
-  const { act, data } = useBackend(context);
+import { useBackend } from '../../backend';
+
+export const pda_alarm_button = (props) => {
+  const { act, data } = useBackend();
   const { is_home, last_response } = data;
 
   if (!is_home) {
@@ -44,8 +45,8 @@ export const pda_alarm_button = (props, context) => {
   );
 };
 
-const AlarmAlert = (props, context) => {
-  const { act } = useBackend(context);
+const AlarmAlert = (props) => {
+  const { act } = useBackend();
   const { title, text, success, acts } = props;
 
   return (

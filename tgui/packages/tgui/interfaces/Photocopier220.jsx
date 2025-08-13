@@ -1,9 +1,11 @@
-import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Stack, Input, Slider, ProgressBar } from '../components';
-import { Window } from '../layouts';
 import { filter, sortBy } from 'common/collections';
-import { flow } from 'common/fp';
-import { createSearch } from 'common/string';
+import { useState } from 'react';
+import { Button, Input, ProgressBar, Section, Slider, Stack } from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { createSearch } from 'tgui-core/string';
+
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
 
 String.prototype.trimLongStr = function (length) {
   return this.length > length ? this.substring(0, length) + '...' : this;
@@ -11,25 +13,31 @@ String.prototype.trimLongStr = function (length) {
 
 const selectForms = (forms, searchText = '') => {
   const testSearch = createSearch(searchText, (form) => form.altername);
-  return flow([filter((form) => form?.altername), searchText && filter(testSearch), sortBy((form) => form.id)])(forms);
+  return flow(
+    (arr) => filter(arr, (form) => Boolean(form?.altername)),
+    ...(searchText ? [(arr) => filter(arr, testSearch)] : []),
+    (arr) => sortBy(arr, (form) => form.id)
+  )(forms);
 };
 
-export const Photocopier220 = (props, context) => {
-  const { act, data } = useBackend(context);
-
+export const Photocopier220 = (props) => {
+  const { act, data } = useBackend();
   const { copies, maxcopies } = data;
 
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useState('');
+  const forms = selectForms(
+    sortBy(data.forms || [], (form) => form.category),
+    searchText
+  );
 
-  const forms = selectForms(sortBy((form) => form.category)(data.forms || []), searchText);
   const categories = [];
   for (let form of forms) {
     if (!categories.includes(form.category)) {
       categories.push(form.category);
     }
   }
-  const [number, setNumber] = useLocalState(context, 'number', 0);
 
+  const [number, setNumber] = useState(0);
   let category;
   if (data.category === '') {
     category = forms;

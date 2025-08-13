@@ -1,7 +1,20 @@
-import { BooleanLike } from 'common/react';
-import { useBackend, useLocalState } from '../backend';
-import { Button, LabeledList, Table, Section, Dropdown, Input, BlockQuote, Box, Icon, Stack } from '../components';
-import { VirtualList } from '../components/VirtualList';
+import { useState } from 'react';
+import {
+  BlockQuote,
+  Box,
+  Button,
+  Dropdown,
+  Icon,
+  Input,
+  LabeledList,
+  Section,
+  Stack,
+  Table,
+  VirtualList,
+} from 'tgui-core/components';
+import { BooleanLike } from 'tgui-core/react';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type Seed = {
@@ -55,22 +68,23 @@ const gendersIcons = {
   },
 };
 
-const getCheckboxGroup = (itemsList, selectedList, setSelected, contentKey = null) => {
+const getCheckboxGroup = (itemsList, selectedList, setSelected, contentKey: string | null = null) => {
   return itemsList.map((item) => {
-    const title = item[contentKey] ?? item;
+    const title = contentKey ? item[contentKey] : item;
     return (
       <Button.Checkbox
         key={title}
         checked={selectedList.includes(item)}
-        content={title}
         onClick={() => {
           if (selectedList.includes(item)) {
-            setSelected(selectedList.filter((i) => (i[contentKey] ?? i) !== item));
+            setSelected(selectedList.filter((i) => (contentKey ? i[contentKey] : i) !== item));
           } else {
             setSelected([item, ...selectedList]);
           }
         }}
-      />
+      >
+        {title}
+      </Button.Checkbox>
     );
   });
 };
@@ -87,8 +101,8 @@ export const TTSSeedsExplorer = () => {
   );
 };
 
-export const TTSSeedsExplorerContent = (props, context) => {
-  const { act, data } = useBackend<TTSData>(context);
+export const TTSSeedsExplorerContent = () => {
+  const { act, data } = useBackend<TTSData>();
 
   const { providers, seeds, selected_seed, phrases, donator_level, character_gender } = data;
 
@@ -103,23 +117,19 @@ export const TTSSeedsExplorerContent = (props, context) => {
     .sort((a, b) => a - b)
     .map((level) => donatorTiers[level]);
 
-  const [selectedProviders, setSelectedProviders] = useLocalState(context, 'selectedProviders', providers);
-  const [selectedGenders, setSelectedGenders] = useLocalState(
-    context,
-    'selectedGenders',
+  const [selectedProviders, setSelectedProviders] = useState(providers);
+  const [selectedGenders, setSelectedGenders] = useState(
     genders.includes(gender[character_gender]) ? [gender[character_gender]] : genders
   );
-  const [selectedCategories, setSelectedCategories] = useLocalState(context, 'selectedCategories', categories);
-  const [selectedDonatorLevels, setSelectedDonatorLevels] = useLocalState(
-    context,
-    'selectedDonatorLevels',
+  const [selectedCategories, setSelectedCategories] = useState(categories);
+  const [selectedDonatorLevels, setSelectedDonatorLevels] = useState(
     donatorLevels.includes(donatorTiers[donator_level])
       ? donatorLevels.slice(0, donatorLevels.indexOf(donatorTiers[donator_level]) + 1)
       : donatorLevels
   );
-  const [selectedPhrase, setSelectedPhrase] = useLocalState(context, 'selectedPhrase', phrases[0]);
-  const [searchtext, setSearchtext] = useLocalState(context, 'searchtext', '');
-  const [searchToggle, setSearchToggle] = useLocalState(context, 'searchToggle', false);
+  const [selectedPhrase, setSelectedPhrase] = useState(phrases[0]);
+  const [searchtext, setSearchtext] = useState('');
+  const [searchToggle, setSearchToggle] = useState(false);
 
   let providerCheckboxes = getCheckboxGroup(providers, selectedProviders, setSelectedProviders, 'name');
   let genderesCheckboxes = getCheckboxGroup(genders, selectedGenders, setSelectedGenders);
@@ -137,7 +147,7 @@ export const TTSSeedsExplorerContent = (props, context) => {
 
   let searchBar = (
     <>
-      {searchToggle && <Input placeholder="Название..." width={20} onInput={(e, value) => setSearchtext(value)} />}
+      {searchToggle && <Input placeholder="Название..." width={20} onChange={(value) => setSearchtext(value)} />}
       <Button
         icon="magnifying-glass"
         tooltip="Переключить поиск"

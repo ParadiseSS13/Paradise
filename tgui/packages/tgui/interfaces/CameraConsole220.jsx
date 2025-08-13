@@ -1,9 +1,11 @@
 import { filter, sortBy } from 'common/collections';
-import { flow } from 'common/fp';
-import { classes } from 'common/react';
-import { createSearch } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
-import { Button, ByondUi, Input, Section, Stack, NanoMap, Tabs, Icon, Box } from '../components';
+import { useState } from 'react';
+import { Box, Button, ByondUi, Icon, Input, Section, Stack, Tabs } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+import { createSearch } from 'tgui-core/string';
+
+import { useBackend } from '../backend';
+import { NanoMap } from '../components';
 import { Window } from '../layouts';
 
 /**
@@ -24,19 +26,18 @@ const prevNextCamera = (cameras, activeCamera) => {
  * Filters cameras, applies search terms and sorts the alphabetically.
  */
 const selectCameras = (cameras, searchText = '') => {
-  const testSearch = createSearch(searchText, (camera) => camera.name);
-  return flow([
-    // Null camera filter
-    filter((camera) => camera?.name),
-    // Optional search term
-    searchText && filter(testSearch),
-    // Slightly expensive, but way better than sorting in BYOND
-    sortBy((camera) => camera.name),
-  ])(cameras);
+  let queriedCameras = filter(cameras, (camera) => !!camera.name);
+  if (searchText) {
+    const testSearch = createSearch(searchText, (camera) => camera.name);
+    queriedCameras = filter(queriedCameras, testSearch);
+  }
+  queriedCameras = sortBy(queriedCameras, (camera) => camera.name);
+
+  return queriedCameras;
 };
 
-export const CameraConsole220 = (props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+export const CameraConsole220 = (props) => {
+  const [tabIndex, setTabIndex] = useState(0);
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -71,10 +72,10 @@ export const CameraConsole220 = (props, context) => {
   );
 };
 
-export const CameraConsoleMapContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const CameraConsoleMapContent = (props) => {
+  const { act, data } = useBackend();
   const cameras = selectCameras(data.cameras);
-  const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
+  const [zoom, setZoom] = useState(1);
   const { mapRef, activeCamera, stationLevel } = data;
   const [prevCameraName, nextCameraName] = prevNextCamera(cameras, activeCamera);
   return (
@@ -145,10 +146,10 @@ export const CameraConsoleMapContent = (props, context) => {
   );
 };
 
-export const CameraConsoleOldContent = (props, context) => {
-  const { act, data, config } = useBackend(context);
+export const CameraConsoleOldContent = (props) => {
+  const { act, data, config } = useBackend();
   const { mapRef, activeCamera } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useState('');
   const cameras = selectCameras(data.cameras, searchText);
   const [prevCameraName, nextCameraName] = prevNextCamera(cameras, activeCamera);
   return (
@@ -157,7 +158,7 @@ export const CameraConsoleOldContent = (props, context) => {
         <Window.Content>
           <Stack fill vertical>
             <Stack.Item>
-              <Input width="215px" placeholder="Найти камеру" onInput={(e, value) => setSearchText(value)} />
+              <Input width="215px" placeholder="Найти камеру" onChange={(value) => setSearchText(value)} />
             </Stack.Item>
             <Stack.Item grow>
               <Section fill scrollable>

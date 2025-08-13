@@ -1,8 +1,8 @@
-import { filter, sortBy } from 'common/collections';
-import { flow } from 'common/fp';
-import { decodeHtmlEntities } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Input, Section, Stack, Tabs, LabeledList } from '../components';
+import { useState } from 'react';
+import { Box, Button, Section, Stack, Tabs } from 'tgui-core/components';
+import { decodeHtmlEntities } from 'tgui-core/string';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
@@ -17,11 +17,11 @@ const PickTab = (index) => {
   }
 };
 
-export const Shop = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Shop = (props) => {
+  const { act, data } = useBackend();
   const { cart } = data;
 
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const [tabIndex, setTabIndex] = useState(0);
 
   return (
     <Window width={900} height={600} theme="abductor">
@@ -61,13 +61,13 @@ export const Shop = (props, context) => {
 
 // ================== ITEMS PAGE ==================
 
-const ItemsPage = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const ItemsPage = () => {
+  const { act, data } = useBackend();
   const { cash, cats } = data;
-  // Default to first
-  const [shopItems, setShopItems] = useLocalState(context, 'shopItems', cats[0].items);
 
-  const [showDesc, setShowDesc] = useLocalState(context, 'showDesc', 1);
+  // Default to first
+  const [shopItems, setShopItems] = useState(cats[0].items);
+  const [showDesc, setShowDesc] = useState(1);
 
   return (
     <Stack fill vertical>
@@ -115,11 +115,11 @@ const ItemsPage = (_properties, context) => {
   );
 };
 
-const CartPage = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const CartPage = () => {
+  const { act, data } = useBackend();
   const { cart, cash, cart_price } = data;
 
-  const [showDesc, setShowDesc] = useLocalState(context, 'showDesc', 0);
+  const [showDesc, setShowDesc] = useState(0);
 
   return (
     <Stack fill vertical>
@@ -158,7 +158,7 @@ const CartPage = (_properties, context) => {
   );
 };
 
-const ShopItem = (props, context) => {
+const ShopItem = (props) => {
   const { i, showDecription = 1, buttons = <ShopItemButtons i={i} /> } = props;
 
   return (
@@ -169,8 +169,8 @@ const ShopItem = (props, context) => {
   );
 };
 
-const ShopItemButtons = (props, context) => {
-  const { act, data } = useBackend(context);
+const ShopItemButtons = (props) => {
+  const { act, data } = useBackend();
   const { i } = props;
   const { cash } = data;
 
@@ -191,8 +191,8 @@ const ShopItemButtons = (props, context) => {
   );
 };
 
-const CartButtons = (props, context) => {
-  const { act, data } = useBackend(context);
+const CartButtons = (props) => {
+  const { act, data } = useBackend();
   const { i } = props;
 
   return (
@@ -248,8 +248,8 @@ const CartButtons = (props, context) => {
   );
 };
 
-const ContentImages = (props, context) => {
-  const { act, data } = useBackend(context);
+const ContentImages = (props) => {
+  const { act, data } = useBackend();
   const { pack } = props;
 
   return (

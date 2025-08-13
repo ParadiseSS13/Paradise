@@ -1,9 +1,10 @@
-import { useBackend, useLocalState } from '../backend';
-import { Window } from '../layouts';
-import { Button, Section, Input, Stack, Icon } from '../components';
-import { capitalize } from 'common/string';
+import { useState } from 'react';
+import { Button, Icon, Input, Section, Stack } from 'tgui-core/components';
 
-export const EmotePanel = (props, context) => {
+import { useBackend } from '../backend';
+import { Window } from '../layouts';
+
+export const EmotePanel = (props) => {
   return (
     <Window width={500} height={550}>
       <Window.Content>
@@ -15,25 +16,19 @@ export const EmotePanel = (props, context) => {
   );
 };
 
-export const EmotePanelContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const EmotePanelContent = (props) => {
+  const { act, data } = useBackend();
   const { emotes } = data;
 
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useState('');
+  const [filterVisible, toggleVisualFilter] = useState('');
+  const [filterAudible, toggleAudibleFilter] = useState('');
+  const [filterSound, toggleSoundFilter] = useState('');
+  const [filterHands, toggleHandsFilter] = useState('');
+  const [filterTargettable, toggleTargettableFilter] = useState('');
+  const [useTarget, toggleUseTarget] = useState('');
 
-  const [filterVisible, toggleVisualFilter] = useLocalState(context, 'filterVisible', '');
-
-  const [filterAudible, toggleAudibleFilter] = useLocalState(context, 'filterAudible', '');
-
-  const [filterSound, toggleSoundFilter] = useLocalState(context, 'filterSound', '');
-
-  const [filterHands, toggleHandsFilter] = useLocalState(context, 'filterHands', '');
-
-  const [filterTargettable, toggleTargettableFilter] = useLocalState(context, 'filterTargettable', '');
-
-  const [useTarget, toggleUseTarget] = useLocalState(context, 'useTarget', '');
-
-  let searchBar = <Input placeholder="Искать эмоцию..." fluid onInput={(e, value) => setSearchText(value)} />;
+  let searchBar = <Input placeholder="Искать эмоцию..." fluid onChange={(value) => setSearchText(value)} />;
 
   return (
     <>

@@ -1,8 +1,8 @@
 import { map } from 'common/collections';
-import { toFixed } from 'common/math';
+import { Box, Button, LabeledList, NumberInput, Section } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
 
 import { useBackend } from '../backend';
-import { Section, Box, LabeledList, NumberInput, Button } from '../components';
 import { RADIO_CHANNELS } from '../constants';
 import { Window } from '../layouts';
 
@@ -21,8 +21,8 @@ type RadioData = {
   ichannels: Record<string, number>;
 };
 
-export const Radio220 = (props, context) => {
-  const { act, data } = useBackend<RadioData>(context);
+export const Radio220 = () => {
+  const { act, data } = useBackend<RadioData>();
   const {
     freqlock,
     frequency,
@@ -47,17 +47,16 @@ export const Radio220 = (props, context) => {
     return colorMap;
   })();
 
-  const secure_channels = map((value, key) => ({
+  const secureChannels = map(data.schannels, (value, key) => ({
     name: key,
     status: !!value,
-  }))(data.schannels);
-
-  const internal_channels = map((value, key) => ({
+  }));
+  const internalChannels = map(data.ichannels, (value, key) => ({
     name: key,
     freq: value,
-  }))(data.ichannels);
+  }));
 
-  const window_height = 130 + secure_channels.length * 21.2 + internal_channels.length * 11;
+  const window_height = 130 + secureChannels.length * 21.2 + internalChannels.length * 11;
 
   return (
     <Window width={375} height={window_height}>
@@ -72,7 +71,7 @@ export const Radio220 = (props, context) => {
               )) || (
                 <>
                   <NumberInput
-                    animate
+                    animated
                     lineHeight={1.5}
                     unit="кГц"
                     step={0.2}
@@ -81,7 +80,7 @@ export const Radio220 = (props, context) => {
                     maxValue={maxFrequency / 10}
                     value={frequency / 10}
                     format={(value) => toFixed(value, 1)}
-                    onChange={(e, value) =>
+                    onChange={(value) =>
                       act('frequency', {
                         adjust: value - frequency / 10,
                       })
@@ -100,8 +99,8 @@ export const Radio220 = (props, context) => {
                 </>
               )}
               {matchedChannel && (
-                <Box inline color={tunedChannel.color} ml={2}>
-                  [{tunedChannel.name}]
+                <Box inline color={tunedChannel?.color} ml={2}>
+                  [{tunedChannel?.name}]
                 </Box>
               )}
             </LabeledList.Item>
@@ -110,7 +109,7 @@ export const Radio220 = (props, context) => {
                 ''
               ) : (
                 <NumberInput
-                  animate
+                  animated
                   unit="м"
                   width={6.35}
                   lineHeight={1.5}
@@ -118,7 +117,7 @@ export const Radio220 = (props, context) => {
                   minValue={0}
                   maxValue={maxHearRange}
                   value={hearRange}
-                  onDrag={(e, value) =>
+                  onDrag={(value) =>
                     act('range', {
                       set: value,
                     })
@@ -143,9 +142,9 @@ export const Radio220 = (props, context) => {
                 onClick={() => act('broadcast')}
               />
             </LabeledList.Item>
-            {secure_channels.length !== 0 && (
+            {secureChannels.length !== 0 && (
               <LabeledList.Item label="Доступные каналы">
-                {secure_channels.map((channel) => (
+                {secureChannels.map((channel) => (
                   <Box key={channel.name}>
                     <Button
                       icon={channel.status ? 'check-square-o' : 'square-o'}
@@ -164,20 +163,21 @@ export const Radio220 = (props, context) => {
                 ))}
               </LabeledList.Item>
             )}
-            {internal_channels.length !== 0 && (
+            {internalChannels.length !== 0 && (
               <LabeledList.Item label="Стандартный канал">
-                {internal_channels.map((channel) => (
+                {internalChannels.map((channel) => (
                   <Button
                     key={'i_' + channel.name}
                     icon="arrow-right"
-                    content={channel.name}
-                    selected={matchedChannel && tunedChannel.name === channel.name}
+                    selected={matchedChannel && tunedChannel?.name === channel.name}
                     onClick={() =>
                       act('ichannel', {
                         ichannel: channel.freq,
                       })
                     }
-                  />
+                  >
+                    {channel.name}
+                  </Button>
                 ))}
               </LabeledList.Item>
             )}
