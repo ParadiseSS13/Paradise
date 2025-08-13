@@ -1,4 +1,4 @@
-/datum/event/meteor_wav
+/datum/event/meteor_wave
 	name = "Meteor Wave"
 	role_weights = list(ASSIGNMENT_ENGINEERING = 25)
 	startWhen		= 5
