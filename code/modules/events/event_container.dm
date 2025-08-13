@@ -222,7 +222,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/major
 	severity = EVENT_LEVEL_MAJOR
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/nothing, 306),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/nothing, 400),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/carp_migration, 10, TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",	/datum/event/prison_break/station,	0,			list(ASSIGNMENT_ANY = 5)),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/apc_overload,	15),
