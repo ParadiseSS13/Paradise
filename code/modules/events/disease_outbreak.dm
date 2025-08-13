@@ -5,8 +5,8 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	// Keep the event running for as long as we have infected
 	noAutoEnd = TRUE
 	name = "Disease Outbreak"
-	role_weights = list(ASSIGNMENT_MEDICAL = 3)
-	role_requirements = list(ASSIGNMENT_MEDICAL = 2)
+	role_weights = list(ASSIGNMENT_MEDICAL = 3, ASSIGNMENT_VIROLOGIST = 5, ASSIGNMENT_BOTANIST = 2, ASSIGNMENT_CHEMIST = 2)
+	role_requirements = list(ASSIGNMENT_MEDICAL = 3, ASSIGNMENT_VIROLOGIST = 1, ASSIGNMENT_BOTANIST = 0, ASSIGNMENT_CHEMIST = 0)
 	nominal_severity = EVENT_LEVEL_MODERATE
 	/// The type of disease that patient zero will be infected with.
 	var/datum/disease/chosen_disease

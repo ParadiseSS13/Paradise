@@ -61,10 +61,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 	// Add resources from staffing
 	for(var/assignment in active_with_role)
-		if(total_resources[assignment])
-			total_resources[assignment] += ASSIGNMENT_STAFFING_VALUE
-		else
-			total_resources[assignment] = 0
+		total_resources[assignment] += active_with_role[assignment] * ASSIGNMENT_STAFFING_VALUE
 
 	// Subtract resources from active antags
 	for(var/datum/antagonist/active in GLOB.antagonists)
