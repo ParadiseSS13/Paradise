@@ -525,7 +525,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
 	force = 18
-	armour_penetration_percentage = -100 //This means that armor twice as effective against it
+	armor_penetration_percentage = -100 //This means that armor twice as effective against it
 	reach = 2
 	hitsound = 'sound/weapons/whip.ogg'
 	attack_verb = list("slashes", "whips", "lashes", "lacerates")
@@ -925,7 +925,7 @@
 	icon_state = "syndie_mantis"
 	item_state = "syndie_mantis"
 	force = 15
-	armour_penetration_percentage = 30
+	armor_penetration_percentage = 30
 
 /obj/item/melee/mantis_blade/syndicate/Initialize(mapload)
 	. = ..()
