@@ -89,6 +89,9 @@
 
 /obj/item/extinguisher/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
+	if(isstorage(target) || istype(target, /atom/movable/screen))
+		return
+
 	if(attempt_refill(target, user))
 		return ITEM_INTERACT_COMPLETE
 
