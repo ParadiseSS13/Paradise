@@ -8,6 +8,7 @@
 	exp_map = list(EXP_TYPE_CREW = NOVICE_JOB_MINUTES)
 	outfit = /datum/outfit/job/doctor/intern
 	important_information = "Ваша должность ограничена во всех взаимодействиях с рабочим имуществом отдела и экипажем станции, при отсутствии приставленного к нему квалифицированного сотрудника или полученного разрешения от вышестоящего начальства."
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/doctor/intern
 	name = "Medical Intern"

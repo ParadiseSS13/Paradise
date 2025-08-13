@@ -13,6 +13,7 @@
 	outfit = /datum/outfit/job/donor/barber
 	important_information = "Ваша должность нацелена на свободный РП-отыгрыш и не разрешает нарушать правила сервера. \
 	\nВы ПАРИКМАХЕР. Данная роль нацелена для наведения красоты на головах людей через добровольные начинания."
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/donor/barber
 	name = "Barber"
@@ -44,6 +45,7 @@
 	outfit = /datum/outfit/job/donor/bath
 	important_information = "Ваша должность нацелена на свободный РП-отыгрыш и не разрешает нарушать правила сервера. \
 	\nВы БАНЩИК. Данная роль нацелена для создания душной атмосферы в замкнутых помещениях, РП-разговоров, встреч."
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/donor/bath
 	name = "Bath"
@@ -85,6 +87,7 @@
 	outfit = /datum/outfit/job/donor/casino
 	important_information = "Ваша должность нацелена на свободный РП-отыгрыш и не разрешает нарушать правила сервера. \
 	\nВы КРУПЬЕ. Данная роль нацелена на отыгрыш работника казино. Раздача карт, азарт - всё это ваша стезя. Организуйте свое лучшее казино."
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/donor/casino
 	name = "Casino"
@@ -122,6 +125,7 @@
 	outfit = /datum/outfit/job/donor/waiter
 	important_information = "Ваша должность нацелена на свободный РП-отыгрыш и не разрешает нарушать правила сервера. \
 	\nВы ОФИЦИАНТ. Данная роль нацелена на принеси-подай-иди-не мешай. Обеспечьте атмосферу настоящего ресторана."
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/donor/waiter
 	name = "Waiter"
@@ -159,6 +163,7 @@
 	important_information = "Ваша должность нацелена на свободный РП-отыгрыш и не разрешает нарушать правила сервера. \
 	\nВы ПОСЛУШНИК. Данная роль нацелена на богослужение и помощь священнику. Несите слово священника, он ваш пастырь. \
 	Вы не обладаете такими же способностями как священник, вы не можете освящать воду, но вы можете помочь тому, кто наделен этим даром!"
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/donor/acolyte
 	name = "Acolyte"
@@ -248,6 +253,7 @@
 	outfit = /datum/outfit/job/donor/wrestler
 	important_information = "Ваша должность нацелена на свободный РП-отыгрыш и не разрешает нарушать правила сервера. \
 	\nВы БОРЕЦ. Данная роль нацелена на дружественные соревнования. Найдите этот дух соревнования среди экипажа и обеспечьте зрелища!"
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/donor/wrestler
 	name = "Wrestler"
@@ -339,6 +345,7 @@
 	outfit = /datum/outfit/job/donor/musican
 	important_information = "Ваша должность нацелена на свободный РП-отыгрыш и не разрешает нарушать правила сервера. \
 	\nВы МУЗЫКАНТ. Данная роль нацелена на создание музыкальной атмосферы. Приласкайте уши экипажа."
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/donor/musican
 	name = "Musician"
@@ -381,6 +388,7 @@
 	important_information = "Ваша должность нацелена на свободный РП-отыгрыш и не разрешает нарушать правила сервера. \
 	\nВы АКТЕР. Данная роль нацелена на ваше актерское мастерство. Сами вы им стали или ваши родители вас на это натолкнули, \
 	но вы связаны со сценой. Устройте шоу, пригласите гостей! Попробуйте устроить совместное представление с другими актерами, клоуном и мимом."
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/donor/actor
 	name = "Actor"
