@@ -25,12 +25,12 @@
 		return 0
 	if(damage_type != BRUTE && damage_type != BURN)
 		return 0
-	var/armor
+	var/armor_protection
 	if(damage_flag)
-		armor = src.armor.getRating(damage_flag)
-	if(armor > 0)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
-		armor = clamp(armor * (100 - armour_penetration_percentage) / 100 - armour_penetration_flat, 0, 100)
-	return round(damage_amount * (100 - armor) / 100, DAMAGE_PRECISION)
+		armor_protection = armor.getRating(damage_flag)
+	if(armor_protection > 0)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
+		armor_protection = clamp(armor_protection * (100 - armour_penetration_percentage) / 100 - armour_penetration_flat, 0, 100)
+	return round(damage_amount * (100 - armor_protection) / 100, DAMAGE_PRECISION)
 
 /// returns the amount of damage required to destroy this object in a single hit.
 /obj/proc/calculate_oneshot_damage(damage_type, damage_flag = 0, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
@@ -41,13 +41,13 @@
 	if(damage_type != BRUTE && damage_type != BURN)
 		return INFINITY
 
-	var/armor
+	var/armor_protection
 	if(damage_flag)
-		armor = src.armor.getRating(damage_flag)
-	if(armor > 0)        // Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
-		armor = clamp(armor * (100 - armour_penetration_percentage) / 100 - armour_penetration_flat, 0, 100)
+		armor_protection = armor.getRating(damage_flag)
+	if(armor_protection > 0)        // Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
+		armor_protection = clamp(armor_protection * (100 - armour_penetration_percentage) / 100 - armour_penetration_flat, 0, 100)
 
-	var/damage_multiplier = (100 - armor) / 100
+	var/damage_multiplier = (100 - armor_protection) / 100
 	if(damage_multiplier <= 0)
 		return INFINITY
 

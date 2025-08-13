@@ -312,12 +312,12 @@
 /mob/living/silicon/proc/run_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	if(damage_type != BRUTE && damage_type != BURN)
 		return 0
-	var/armor
+	var/armor_protection
 	if(damage_flag)
-		armor = src.armor.getRating(damage_flag)
-	if(armor > 0)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
-		armor = clamp(armor * (100 - armour_penetration_percentage) / 100 - armour_penetration_flat, 0, 100)
-	return round(damage_amount * (100 - armor) / 100, DAMAGE_PRECISION)
+		armor_protection = armor.getRating(damage_flag)
+	if(armor_protection > 0)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
+		armor_protection = clamp(armor_protection * (100 - armour_penetration_percentage) / 100 - armour_penetration_flat, 0, 100)
+	return round(damage_amount * (100 - armor_protection) / 100, DAMAGE_PRECISION)
 
 /mob/living/silicon/apply_effect(effect = 0, effecttype = STUN, blocked = 0)
 	return FALSE //The only effect that can hit them atm is flashes and they still directly edit so this works for now
