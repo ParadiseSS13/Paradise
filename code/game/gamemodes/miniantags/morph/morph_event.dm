@@ -1,7 +1,7 @@
 /datum/event/spawn_morph
 	name = "Morph Spawn"
 	noAutoEnd = TRUE
-	nominal_severity = EVENT_LEVEL_MODERATE
+	nominal_severity = EVENT_LEVEL_MAJOR
 	role_weights = list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_TOTAL = 0.3)
 	role_requirements = list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_TOTAL = 30)
 	var/key_of_morph

@@ -220,7 +220,6 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_bluespace,	10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_flux, 10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_grav, 10),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spawn_morph, 20, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/disease_outbreak, 25, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/door_runtime, 25, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tourist_arrivals, 50, TRUE)
@@ -242,6 +241,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/demon_incursion, 20, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/disease_outbreak, 20, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/revenant, 15),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_morph, 20, is_one_shot = TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Pulse Demon Infiltration",	/datum/event/spawn_pulsedemon,	20,	is_one_shot = TRUE)
 	)
