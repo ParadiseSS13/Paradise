@@ -5,6 +5,7 @@
 	noAutoEnd = TRUE
 	role_weights = list(ASSIGNMENT_SECURITY = 4, ASSIGNMENT_TOTAL = 0.5, ASSIGNMENT_MEDICAL = 2)
 	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_TOTAL = 10, ASSIGNMENT_MEDICAL = 3)
+	nominal_severity = EVENT_LEVEL_MAJOR
 	/// The name of the notification for dchat
 	var/notify_title = "Demonic Incursion"
 	/// The icon of the notification

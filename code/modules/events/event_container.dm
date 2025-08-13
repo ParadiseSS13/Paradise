@@ -11,6 +11,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	var/datum/event_meta/next_event = null
 
 	var/last_world_time = 0
+	/// Records the initial amount of events in the available event list
 	var/initial_event_count = 0
 
 /datum/event_container/New()
@@ -230,8 +231,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",	/datum/event/prison_break/station,	0,			list(ASSIGNMENT_ANY = 5)),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/apc_overload,	15),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/meteor_wave, 15, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/abductor, 20, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/traders, 40, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/abductor, 15, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/traders, 25, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter, 20, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 20, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 15, TRUE),
