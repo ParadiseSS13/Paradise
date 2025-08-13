@@ -1,6 +1,5 @@
 /datum/event/solar_flare
 	name =  "Solar Flare"
-	role_weights = list(ASSIGNMENT_ENGINEERING = 25)
 	startWhen = 2
 	endWhen = 3
 	announceWhen = 1

@@ -1,10 +1,10 @@
-/datum/event/meteor_wave
+/datum/event/meteor_wav
 	name = "Meteor Wave"
 	role_weights = list(ASSIGNMENT_ENGINEERING = 25)
 	startWhen		= 5
 	endWhen 		= 900
 	nominal_severity = EVENT_LEVEL_MODERATE
-	role_weights = list(ASSIGNMENT_ENGINEERING = 7)
+	role_weights = list(ASSIGNMENT_ENGINEERING = 4)
 	role_requirements = list(ASSIGNMENT_ENGINEERING = 2)
 	var/next_meteor = 6
 	var/waves = 1

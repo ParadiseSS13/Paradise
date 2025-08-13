@@ -1,6 +1,7 @@
 /datum/event/dust/meaty
 	name = "Meaty Ores"
-	role_weights = list(ASSIGNMENT_ENGINEERING = 20)
+	role_weights = list(ASSIGNMENT_ENGINEERING = 2)
+	role_requirements = list(ASSIGNMENT_ENGINEERING = 2)
 
 /datum/event/dust/meaty/announce()
 	if(prob(16))
