@@ -57,6 +57,7 @@
 // with a specific role.
 // Note that this isn't sorted just by department, because e.g. having a roboticist shouldn't make meteors spawn.
 /proc/number_active_with_role()
+
 	var/list/active_with_role = list()
 	active_with_role[ASSIGNMENT_TOTAL] = 0
 	active_with_role[ASSIGNMENT_COMMAND] = 0
@@ -64,6 +65,9 @@
 	active_with_role[ASSIGNMENT_MEDICAL] = 0
 	active_with_role[ASSIGNMENT_SECURITY] = 0
 	active_with_role[ASSIGNMENT_SCIENCE] = 0
+
+	if(length(SSevents.debug_resources))
+		active_with_role = SSevents.debug_resources.Copy()
 
 	for(var/mob/M in GLOB.player_list)
 		if(!M.mind || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive

@@ -32,6 +32,8 @@ SUBSYSTEM_DEF(events)
 	var/datum/event_meta/new_event = new
 
 	var/list/biohazards_this_round = list()
+	/// Artificial staffing for debug purpouses
+	var/list/debug_resources = list()
 
 /datum/controller/subsystem/events/Initialize()
 	allEvents = subtypesof(/datum/event)
