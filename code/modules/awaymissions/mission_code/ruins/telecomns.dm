@@ -151,20 +151,24 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	universal_speak = TRUE
 	universal_understand = TRUE
 	var/has_died = FALSE // fucking decoy silicons are weird.
+	var/turf/our_death_turf // Don't ask, see above.
 
 /mob/living/silicon/decoy/telecomms/death(gibbed)
 	if(has_died)
 		return ..()
 	has_died = TRUE
+	if(!our_death_turf)
+		our_death_turf = get_turf(src)
 	for(var/obj/structure/telecomms_doomsday_device/D in GLOB.telecomms_doomsday_device)
 		D.start_the_party()
 		break
-	new /obj/item/documents/syndicate/dvorak_blackbox(get_turf(src))
+	new /obj/item/documents/syndicate/dvorak_blackbox(our_death_turf)
 	if(prob(50))
 		if(prob(80))
-			new /obj/item/ai_upgrade/surveillance_upgrade(get_turf(src))
+			new /obj/item/ai_upgrade/surveillance_upgrade(our_death_turf)
 		else // 10% chance
-			new /obj/item/ai_upgrade/malf_upgrade(get_turf(src))
+			new /obj/item/ai_upgrade/malf_upgrade(our_death_turf)
+	our_death_turf = null
 	return ..()
 
 /obj/structure/telecomms_trap_tank
