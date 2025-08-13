@@ -8,7 +8,12 @@
 	strip_delay = 10
 	put_on_delay = 10
 	dog_fashion = /datum/dog_fashion/head/chef
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+	)
 
 //Captain
 /obj/item/clothing/head/caphat

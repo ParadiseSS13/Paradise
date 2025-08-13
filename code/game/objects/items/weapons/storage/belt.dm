@@ -1043,3 +1043,7 @@
 		/obj/item/food,
 		/obj/item/reagent_containers/condiment,
 		/obj/item/reagent_containers/glass/beaker)
+	sprite_sheets = list(
+		"Kidan" = 'icons/mob/clothing/species/kidan/belt.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/belt.dmi'
+	)
