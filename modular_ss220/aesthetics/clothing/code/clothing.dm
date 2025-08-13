@@ -25,6 +25,9 @@
 /obj/item/clothing/under/rank/cargo/qm/dress
 	icon = 'icons/obj/clothing/under/cargo.dmi'
 
+/obj/item/clothing/under/rank/cargo/qm/turtleneck
+	icon = 'icons/obj/clothing/under/cargo.dmi'
+
 //Captain
 /obj/item/clothing/under/rank/captain
 	icon = 'modular_ss220/aesthetics/clothing/icons/clothing.dmi'
@@ -63,6 +66,9 @@
 /obj/item/clothing/under/rank/civilian/hop/oldman
 	icon = 'icons/obj/clothing/under/civilian.dmi'
 
+/obj/item/clothing/under/rank/civilian/hop/turtleneck
+	icon = 'icons/obj/clothing/under/civilian.dmi'
+
 //Engineering
 /obj/item/clothing/under/rank/engineering/chief_engineer
 	icon = 'modular_ss220/aesthetics/clothing/icons/clothing.dmi'
@@ -70,12 +76,18 @@
 /obj/item/clothing/under/rank/engineering/chief_engineer/skirt
 	icon = 'modular_ss220/aesthetics/clothing/icons/clothing.dmi'
 
+/obj/item/clothing/under/rank/engineering/chief_engineer/turtleneck
+	icon = 'icons/obj/clothing/under/engineering.dmi'
+
 //Medical
 /obj/item/clothing/under/rank/medical/cmo
 	icon = 'modular_ss220/aesthetics/clothing/icons/clothing.dmi'
 
 /obj/item/clothing/under/rank/medical/cmo/skirt
 	icon = 'modular_ss220/aesthetics/clothing/icons/clothing.dmi'
+
+/obj/item/clothing/under/rank/medical/cmo/turtleneck
+	icon = 'icons/obj/clothing/under/medical.dmi'
 
 //Research
 /obj/item/clothing/under/rank/rnd/rd
@@ -85,6 +97,9 @@
 	icon = 'modular_ss220/aesthetics/clothing/icons/clothing.dmi'
 
 /obj/item/clothing/under/rank/rnd/rd/dress
+	icon = 'icons/obj/clothing/under/rnd.dmi'
+
+/obj/item/clothing/under/rank/rnd/rd/turtleneck
 	icon = 'icons/obj/clothing/under/rnd.dmi'
 
 //Procedure
