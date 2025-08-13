@@ -599,6 +599,7 @@
 
 /mob/living/silicon/proc/null_hat()
 	silicon_hat = null
+	hat_icon_file = initial(hat_icon_file)
 	hat_icon_state = null
 	hat_alpha = null
 	hat_color = null
