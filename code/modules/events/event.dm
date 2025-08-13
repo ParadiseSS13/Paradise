@@ -77,6 +77,12 @@
 /datum/event/nothing
 	name = "Nothing"
 
+/datum/event/nothing/has_cooldown()
+	return FALSE
+
+/datum/event/nothing/is_relative()
+	return TRUE
+
 /// Calculate the weight for rolling the event based on round circumstances.
 /datum/event/proc/get_weight(list/total_resources)
 	var/job_weight = 0
@@ -188,6 +194,13 @@
 	endedAt = world.time
 	SSevents.active_events -= src
 	SSevents.event_complete(src)
+
+// Events have cooldown by default
+/datum/event/proc/has_cooldown()
+	return TRUE
+
+/datum/event/proc/is_relative()
+	return FALSE
 
 /datum/event/New(datum/event_meta/EM, skeleton = FALSE, _severity)
 	// event needs to be responsible for this, as stuff like APLUs currently make their own events for curious reasons

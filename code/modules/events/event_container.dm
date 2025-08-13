@@ -11,6 +11,11 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	var/datum/event_meta/next_event = null
 
 	var/last_world_time = 0
+	var/initial_event_count = 0
+
+/datum/event_container/New()
+	. = ..()
+	initial_event_count = length(available_events)
 
 /datum/event_container/process()
 	if(!next_event_time)
@@ -90,19 +95,22 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	var/list/possible_events = list()
 	for(var/datum/event_meta/EM in available_events)
 		var/event_weight = EM.get_weight(total_resources)
-		if(EM.enabled && event_weight)
-			possible_events[EM] = event_weight
+		// We use the amount of non disabled events to adjust the value of Nothing, so we count 0 weight events
+		if(EM.enabled)
+			possible_events[EM] = max(event_weight, 0)
+		// For events like nothing we want to have their weight adjusted depending on how many events are left of the original list
+		if(EM.skeleton.is_relative())
+			possible_events[EM] *= (length(available_events) / initial_event_count)
 
-	for(var/event_meta in last_event_time) if(possible_events[event_meta])
-		var/time_passed = world.time - GLOB.event_last_fired[event_meta]
-		var/half_of_round = GLOB.configuration.event.expected_round_length / 2
-		var/weight_modifier = min(1, 1 - ((half_of_round - time_passed) / half_of_round))
-		//With this formula, an event ran 30 minutes ago has half weight, and an event ran an hour ago, has 100 % weight. This works better in general for events, as super high weight events are impacted in a meaningful way.
-		var/new_weight = max(possible_events[event_meta] * weight_modifier, 0)
-		if(new_weight)
-			possible_events[event_meta] = new_weight
-		else
-			possible_events -= event_meta
+	for(var/datum/event_meta/event_meta in last_event_time)
+		if(event_meta.skeleton.has_cooldown() && possible_events[event_meta])
+			var/time_passed = world.time - GLOB.event_last_fired[event_meta]
+			var/cooldown = GLOB.configuration.event.expected_round_length / 4
+			var/weight_modifier = 1 - max(0, 0.5 * ((cooldown - time_passed) / cooldown))
+			// Events that just ran have their base weight reduced by half, tapering to no reduction over half an hour
+			var/new_weight = max(possible_events[event_meta] * weight_modifier, 0)
+			if(new_weight)
+				possible_events[event_meta] = new_weight
 
 	if(length(possible_events) == 0)
 		return null
@@ -179,7 +187,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/moderate
 	severity = EVENT_LEVEL_MODERATE
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/nothing, 700),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/nothing, 500),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/falsealarm, 20),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spontaneous_appendicitis, 5, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/carp_migration, 10, , TRUE),
@@ -221,7 +229,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/major
 	severity = EVENT_LEVEL_MAJOR
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/nothing, 400),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/nothing, 300),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/carp_migration, 10, TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",	/datum/event/prison_break/station,	0,			list(ASSIGNMENT_ANY = 5)),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/apc_overload,	15),
