@@ -5,6 +5,7 @@
 	nominal_severity = EVENT_LEVEL_MODERATE
 	role_weights = list(ASSIGNMENT_ENGINEERING = 2, ASSIGNMENT_SECURITY = 2)
 	role_requirements = list(ASSIGNMENT_ENGINEERING = 2, ASSIGNMENT_SECURITY = 2)
+	nominal_severity = EVENT_LEVEL_MODERATE
 	var/list/spawned_mobs = list(
 		/mob/living/basic/carp = 95,
 		/mob/living/basic/carp/megacarp = 5)

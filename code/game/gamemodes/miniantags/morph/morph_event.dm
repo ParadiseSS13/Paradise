@@ -2,7 +2,7 @@
 	name = "Morph Spawn"
 	noAutoEnd = TRUE
 	nominal_severity = EVENT_LEVEL_MAJOR
-	role_weights = list(ASSIGNMENT_SECURITY = 3)
+	role_weights = list(ASSIGNMENT_SECURITY = 2)
 	role_requirements = list(ASSIGNMENT_SECURITY = 2)
 	var/key_of_morph
 	var/spawned = FALSE

@@ -4,7 +4,7 @@
 	name = "Anomaly: Energetic Flux"
 	nominal_severity = EVENT_LEVEL_MODERATE
 	noAutoEnd = TRUE
-	role_weights = list(ASSIGNMENT_SCIENCE = 3, ASSIGNMENT_ENGINEERING = 2)
+	role_weights = list(ASSIGNMENT_SCIENCE = 1, ASSIGNMENT_ENGINEERING = 1)
 	role_requirements = list(ASSIGNMENT_SCIENCE = 1, ASSIGNMENT_ENGINEERING = 1)
 	var/obj/effect/anomaly/anomaly_path = /obj/effect/anomaly/flux
 	var/turf/target_turf

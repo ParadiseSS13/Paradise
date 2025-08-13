@@ -6,7 +6,8 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	noAutoEnd = TRUE
 	name = "Disease Outbreak"
 	role_weights = list(ASSIGNMENT_MEDICAL = 3)
-	role_requirements = list(ASSIGNMENT_MEDICAL = 3)
+	role_requirements = list(ASSIGNMENT_MEDICAL = 2)
+	nominal_severity = EVENT_LEVEL_MODERATE
 	/// The type of disease that patient zero will be infected with.
 	var/datum/disease/chosen_disease
 

@@ -4,7 +4,7 @@
 	name = "Revenant"
 	nominal_severity = EVENT_LEVEL_MAJOR
 	noAutoEnd = TRUE
-	role_weights = list(ASSIGNMENT_CHAPLAIN = 10)
+	role_weights = list(ASSIGNMENT_CHAPLAIN = 5)
 	role_requirements = list(ASSIGNMENT_CHAPLAIN = 1)
 	var/key_of_revenant
 
