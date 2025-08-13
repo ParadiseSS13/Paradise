@@ -1433,10 +1433,13 @@
 
 /datum/status_effect/rust_corruption/tick()
 	. = ..()
+	SEND_SOUND(owner, sound('sound/weapons/sear.ogg'))
 	if(issilicon(owner))
+		to_chat(owner, "<span class='userdanger'>The unnatural rust magically corrodes your body!</span>")
 		owner.adjustBruteLoss(10)
 		return
 	//We don't have disgust, so...
+	to_chat(owner, "<span class='userdanger'>The unnatural rust makes you feel sick!</span>")
 	if(ishuman(owner))
 		owner.adjustBrainLoss(2.5)
 		owner.reagents?.remove_all(0.75)
