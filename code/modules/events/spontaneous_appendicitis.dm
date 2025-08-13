@@ -1,7 +1,7 @@
 /datum/event/spontaneous_appendicitis
 	name =  "Appendicitis"
 	role_weights = list(ASSIGNMENT_MEDICAL = 1)
-	role_requirements = listu(ASSIGNMENT_MEDICAL = 1)
+	role_requirements = list(ASSIGNMENT_MEDICAL = 1)
 
 /datum/event/spontaneous_appendicitis/start()
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))
