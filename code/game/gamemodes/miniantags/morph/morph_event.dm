@@ -11,6 +11,10 @@
 	if(!length(event_category_cost(EVENT_MORPH)) && spawned)
 		kill()
 
+// Cost is calculated independently of event
+/datum/event/spawn_morph/event_resource_cost()
+	return list()
+
 /datum/event/spawn_morph/proc/get_morph()
 	spawn()
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a morph?", ROLE_MORPH, TRUE, source = /mob/living/simple_animal/hostile/morph)
