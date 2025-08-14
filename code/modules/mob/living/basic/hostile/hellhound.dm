@@ -104,6 +104,7 @@
 	smoke_freq = 20 SECONDS
 	life_regen_cycle_trigger = 5
 	melee_damage_lower = 20
+	gold_core_spawnable = NO_SPAWN
 
 /mob/living/basic/hellhound/greater/Initialize(mapload)
 	. = ..()
@@ -148,3 +149,4 @@
 	health = 300
 	melee_damage_lower = 30
 	melee_damage_upper = 50
+	gold_core_spawnable = NO_SPAWN

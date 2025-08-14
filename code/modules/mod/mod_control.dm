@@ -92,8 +92,8 @@
 	var/current_disguise = FALSE
 	/// The MODlink datum, letting us call people from the suit.
 	var/datum/mod_link/mod_link
-	/// The starting MODlink frequency, overridden on subtypes that want it to be something.
-	var/starting_frequency = null
+	/// The starting MODlink frequency, by default NT to make it easier for everyone to use.
+	var/starting_frequency = MODLINK_FREQ_NANOTRASEN
 
 /obj/item/mod/control/serialize()
 	var/list/data = ..()
