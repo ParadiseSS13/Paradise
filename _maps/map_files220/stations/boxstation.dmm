@@ -89753,7 +89753,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	sort_type_txt = "11"
+	sort_type_txt = "12"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
