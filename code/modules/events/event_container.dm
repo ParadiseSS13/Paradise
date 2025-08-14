@@ -206,7 +206,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		//new /datum/event_meta/ninja(EVENT_LEVEL_MODERATE, "Space Ninja",		/datum/event/space_ninja, 				0,		list(ASSIGNMENT_SECURITY = 15), TRUE),
 		// NON-BAY EVENTS
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/mass_hallucination,		10),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/brand_intelligence, 10, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/brand_intelligence, 5, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear, 15),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear/honk,	10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/vent_clog,	12),
@@ -219,7 +219,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_flux, 10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_grav, 10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/disease_outbreak, 25, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/door_runtime, 12, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/door_runtime, 10, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tourist_arrivals, 50, TRUE)
 	)
 
