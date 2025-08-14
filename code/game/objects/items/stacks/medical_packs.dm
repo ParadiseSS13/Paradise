@@ -502,7 +502,7 @@
 
 /obj/item/stack/medical/suture/regen_mesh/Initialize(mapload, new_amount, merge)
 	. = ..()
-	if(amount == max_amount)  //only seal full mesh packs
+	if(amount == max_amount)  // only seal full mesh packs
 		is_open = FALSE
 		update_appearance()
 
