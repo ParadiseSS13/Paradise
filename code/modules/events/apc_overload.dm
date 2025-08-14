@@ -4,8 +4,8 @@
 	name = "APC Overload"
 	nominal_severity = EVENT_LEVEL_MAJOR
 	endWhen = 450
-	role_weights = list(ASSIGNMENT_ENGINEERING = 5)
-	role_requirements = list(ASSIGNMENT_ENGINEERING = 2)
+	role_weights = list(ASSIGNMENT_ENGINEERING = 3, ASSIGNMENT_TOTAL = 0.2)
+	role_requirements = list(ASSIGNMENT_ENGINEERING = 3, ASSIGNMENT_TOTAL = 30)
 	var/const/announce_after_mc_ticks     = 5
 	var/const/delayed                     = FALSE
 	var/const/event_max_duration_mc_ticks = announce_after_mc_ticks * 2
