@@ -1,6 +1,6 @@
 /datum/event/communications_blackout
 	name = "Communication Blackout"
-	role_weights = list(ASSIGNMENT_AI = 150, ASSIGNMENT_SECURITY = 120)
+	nominal_severity = EVENT_LEVEL_MODERATE
 
 /datum/event/communications_blackout/announce(false_alarm)
 	var/alert = pick(	"Ionospheric anomalies detected. Temporary telecommunication failure imminent. Please contact you*%fj00)`5vc-BZZT", \
