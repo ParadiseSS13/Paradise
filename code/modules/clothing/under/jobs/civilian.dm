@@ -50,7 +50,6 @@
 	name = "head of personnel's turtleneck"
 	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold office. Due to budget cuts, the material does not offer any external protection."
 	icon_state = "hop_turtle"
-	item_state = "hop_turtle"
 	item_color = "hop_turtle"
 
 /obj/item/clothing/under/rank/civilian/bartender

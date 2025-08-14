@@ -30,7 +30,6 @@
 	name = "chief engineer's turtleneck"
 	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold engineering lobby. Due to budget cuts, the material does not offer any external protection."
 	icon_state = "ce_turtle"
-	item_state = "ce_turtle"
 	item_color = "ce_turtle"
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician

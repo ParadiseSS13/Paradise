@@ -31,15 +31,13 @@
 	name = "warden's turtleneck"
 	desc = "A fancy turtleneck designed to keep the wearer warm in a cold prison. Due to budget cuts, the material does not offer any external protection."
 	icon_state = "ward_turtle"
-	item_state = "ward_turtle"
 	item_color = "ward_turtle"
 	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/under/security.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/security.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/security.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/security.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/security.dmi'
-		)
+	)
 
 /obj/item/clothing/under/rank/security/officer
 	name = "security officer's jumpsuit"

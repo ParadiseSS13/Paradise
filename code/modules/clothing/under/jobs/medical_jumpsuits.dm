@@ -28,7 +28,6 @@
 	name = "chief medical officer's turtleneck"
 	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold medical bay. Due to budget cuts, the material does not offer any external protection."
 	icon_state = "cmo_turtle"
-	item_state = "cmo_turtle"
 	item_color = "cmo_turtle"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 

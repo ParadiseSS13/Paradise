@@ -78,7 +78,6 @@
 	name = "blueshield's turtleneck"
 	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold bridge. Due to budget cuts, the material does not offer any external protection."
 	icon_state = "bs_turtle"
-	item_state = "bs_turtle"
 	item_color = "bs_turtle"
 
 /obj/item/clothing/under/rank/procedure/iaa
