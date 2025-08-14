@@ -7,7 +7,7 @@
 		EVENT_LEVEL_MUNDANE = null,
 		EVENT_LEVEL_MODERATE = null,
 		EVENT_LEVEL_MAJOR = list("lower" = 20 MINUTES, "upper" = 30 MINUTES),
-		EVENT_LEVEL_DISASTER = list("lower" = 30 MINUTES, "upper" = 45 MINUTES)
+		EVENT_LEVEL_DISASTER = list("lower" = 40 MINUTES, "upper" = 50 MINUTES)
 	) // <---- Whoever designed this needs to be shot
 
 	/// Assoc list of lower bounds of event delays. key: severity | value: delay (deciseconds)
