@@ -180,6 +180,26 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
 	)
 
+/obj/item/clothing/head/beret/hydroponics
+	name = "botany beret"
+	desc = "A green beret with a blue service insignia emblazoned on it. It smells dizzying."
+	icon_state = "beret_hydroponics"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/hydroponics_alt
+	name = "hydroponics beret"
+	desc = "A green beret with a brown service insignia emblazoned on it. It smells dizzying."
+	icon_state = "beret_hydroponics_alt"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
 //Medical
 /obj/item/clothing/head/beret/cmo
 	name = "chief medical officer's beret"
