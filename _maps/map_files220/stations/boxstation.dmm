@@ -20409,11 +20409,11 @@
 /obj/machinery/recharger{
 	pixel_y = 2
 	},
-/obj/machinery/newscaster/security_unit/directional/north,
 /obj/item/rcs{
 	pixel_x = 2;
 	pixel_y = 4
 	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "arrival"
@@ -23507,7 +23507,7 @@
 	},
 /area/station/engineering/hallway)
 "bNJ" = (
-/obj/machinery/newscaster/security_unit/directional/east,
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -26807,6 +26807,7 @@
 "cbJ" = (
 /obj/structure/table,
 /obj/item/folder/yellow,
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "purple"
@@ -28014,7 +28015,7 @@
 /area/station/maintenance/apmaint)
 "cgR" = (
 /obj/machinery/mineral/equipment_vendor/explorer,
-/obj/machinery/newscaster/security_unit/directional/south,
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "browncorner"
@@ -90168,7 +90169,6 @@
 	},
 /area/station/science/robotics/chargebay)
 "syl" = (
-/obj/machinery/newscaster/security_unit/directional/north,
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -90185,6 +90185,7 @@
 	pixel_x = -6;
 	pixel_y = -4
 	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/wood/fancy,
 /area/station/supply/break_room)
 "sym" = (

@@ -33343,10 +33343,10 @@
 	dir = 4;
 	network = list("SS13","MiniSat")
 	},
-/obj/machinery/newscaster/directional/west,
 /obj/machinery/status_display/supply_display/directional/north,
 /obj/item/eftpos,
 /obj/structure/table,
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -43373,6 +43373,7 @@
 "hxr" = (
 /obj/machinery/suit_storage_unit/expedition,
 /obj/machinery/light/small/directional/west,
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -44994,6 +44995,7 @@
 /area/station/science/break_room)
 "idR" = (
 /obj/machinery/light/directional/south,
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -79823,6 +79825,7 @@
 /obj/item/eftpos/register{
 	dir = 4
 	},
+/obj/machinery/requests_console/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -83970,7 +83973,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
 "wIu" = (
-/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -87510,7 +87512,6 @@
 /turf/simulated/floor/carpet,
 /area/station/procedure/trainer_office)
 "xXQ" = (
-/obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -87518,7 +87519,6 @@
 /area/station/supply/smith_office)
 "xXY" = (
 /obj/structure/closet/secure_closet/explorer,
-/obj/machinery/requests_console/directional/east,
 /obj/machinery/light_switch/south,
 /obj/item/gun/energy/laser/awaymission_aeg/rnd,
 /obj/item/radio,
