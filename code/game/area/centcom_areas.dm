@@ -48,7 +48,6 @@
 
 /area/centcom/docks
 	name = "\improper Central Command Docks"
-	icon_state = "centcom"
 
 // Admin areas
 
@@ -79,11 +78,9 @@
 
 /area/tdome/arena_source
 	name = "Тандердом - Шаблон Арены"
-	icon_state = "thunder"
 
 /area/tdome/arena
 	name = "Тандердом - Арена"
-	icon_state = "thunder"
 
 /area/tdome/tdomeadmin
 	name = "Тандердом - Комната Управления"
@@ -99,7 +96,6 @@
 	name = "Корабль Абдукторов"
 	icon_state = "yellow"
 	requires_power = FALSE
-	has_gravity = TRUE
 
 /area/wizard_station
 	name = "Логово Волшебника"
@@ -133,7 +129,6 @@
 	name = "Призрачный Бар"
 	icon_state = "observatory"
 	requires_power = FALSE
-	has_gravity = TRUE
 	hide_attacklogs = TRUE
 
 /area/backrooms

@@ -168,7 +168,7 @@
 /// The hangup action handler, for handling the hangup button displayed in the top left corner of the screen
 /datum/action/innate/end_holocall
 	name = "End Holocall"
-	button_overlay_icon_state = "camera_off"
+	button_icon_state = "camera_off"
 	var/datum/holocall/hcall
 
 /datum/action/innate/end_holocall/New(Target, datum/holocall/HC)

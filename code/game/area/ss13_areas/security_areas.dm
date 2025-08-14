@@ -129,8 +129,6 @@
 	icon_state = "checkpoint1"
 
 /area/station/security/checkpoint/secondary
-	name = "Дополнительный Контрольно-Пропускной Пункт Службы Безопасности"
-	icon_state = "checkpoint1"
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Security"
 

@@ -22,7 +22,6 @@
 	jobtype = /datum/job/assistant
 
 	uniform = /obj/item/clothing/under/color/random
-	shoes = /obj/item/clothing/shoes/black
 	id = /obj/item/card/id/assistant
 
 

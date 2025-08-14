@@ -1,6 +1,5 @@
 /obj/structure/ai_core
 	density = TRUE
-	anchored = FALSE
 	name = "Ядро ИИ"
 	icon = 'icons/mob/AI.dmi'
 	icon_state = "0"

@@ -13682,11 +13682,10 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "buN" = (
-/obj/structure/transit_tube_pod,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/transit_tube/station{
+/obj/structure/transit_tube/station/dispenser/flipped{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -21015,7 +21014,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "ccp" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreen"
@@ -27698,7 +27697,6 @@
 	},
 /area/station/hallway/primary/central/south)
 "cGZ" = (
-/obj/machinery/iv_drip,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -33125,7 +33123,7 @@
 	},
 /area/station/hallway/supply/port)
 "dre" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
 "drL" = (
@@ -47328,11 +47326,14 @@
 /obj/item/taperecorder{
 	pixel_x = -3
 	},
-/obj/item/storage/fancy/cigarettes,
 /obj/item/flash,
 /obj/item/reagent_containers/spray/pepper,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 9;
+	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -50608,12 +50609,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
 "jKS" = (
-/obj/structure/transit_tube/station/reverse/flipped{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
+	},
+/obj/structure/transit_tube/station/dispenser/reverse/flipped{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -53569,7 +53570,7 @@
 	},
 /area/station/command/office/cmo)
 "kKp" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/station/supply/warehouse)
 "kLd" = (
@@ -56393,7 +56394,7 @@
 	},
 /area/station/hallway/primary/aft/south)
 "lIe" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
@@ -64272,7 +64273,7 @@
 /area/station/science/research)
 "oyY" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/hostile/retaliate/araneus,
+/mob/living/basic/giant_spider/araneus,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -69364,14 +69365,14 @@
 /area/station/hallway/secondary/entry/lounge)
 "qrO" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/cigarettes{
-	pixel_y = 2
-	},
 /obj/item/lighter{
 	pixel_x = 4;
 	pixel_y = 2
 	},
 /obj/machinery/firealarm/directional/west,
+/obj/item/storage/fancy/cigarettes/cigpack_solar_rays{
+	pixel_x = -6
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/hallway/secondary/entry/lounge)
 "qrT" = (
@@ -76004,7 +76005,7 @@
 	},
 /area/station/engineering/equipmentstorage)
 "sMM" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/basic/pet/sloth/paperwork,
 /turf/simulated/floor/carpet,
 /area/station/legal/lawoffice)
 "sMZ" = (
@@ -81953,7 +81954,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/structure/closet/paramedic,
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -88905,7 +88906,7 @@
 /area/shuttle/arrival/station)
 "xBG" = (
 /obj/effect/spawner/random/dirt/often,
-/mob/living/simple_animal/lizard/wags_his_tail,
+/mob/living/basic/lizard/wags_his_tail,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "xBX" = (

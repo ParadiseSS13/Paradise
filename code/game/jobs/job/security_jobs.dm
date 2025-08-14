@@ -44,6 +44,7 @@
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/hos
 	important_information = "Эта роль требует, чтобы вы координировали работу отдела. От вас требуется знание Стандартных Рабочих Процедур (Охранных), базовых должностных обязанностей и профессиональных действий."
+	standard_paycheck = CREW_PAY_HIGH
 
 /datum/outfit/job/hos
 	name = "Head of Security"
@@ -100,6 +101,7 @@
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/warden
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/warden
 	name = "Warden"
@@ -159,6 +161,7 @@
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/detective
 	important_information = "Расследуйте, исследуйте и выглядите при этом круто."
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/detective
 	name = "Detective"
@@ -230,6 +233,7 @@
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/officer
 	important_information = "Космический Закон - это необходимость, а не рекомендация."
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/officer
 	name = "Security Officer"

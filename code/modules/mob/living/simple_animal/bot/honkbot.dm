@@ -1,10 +1,8 @@
 /mob/living/simple_animal/bot/honkbot
 	name = "honkbot"
 	desc = "A little robot. It looks happy with its bike horn."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "honkbot"
 	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)

@@ -1,9 +1,10 @@
 import { sortBy } from 'common/collections';
-import { flow } from 'common/fp';
+import { Box, Button, Dimmer, Icon, Knob, Section, Stack } from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { BooleanLike } from 'tgui-core/react';
 
-import { BooleanLike } from '../../common/react';
 import { useBackend } from '../backend';
-import { Box, Button, Knob, ProgressBar, Section, Stack, Dimmer, Icon } from '../components';
+import { Countdown } from '../components';
 import { Window } from '../layouts';
 
 type Song = {
@@ -27,8 +28,8 @@ type Data = {
   songs: Song[];
 };
 
-export const Jukebox = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+export const Jukebox = () => {
+  const { act, data } = useBackend<Data>();
   const {
     active,
     looping,
@@ -46,7 +47,7 @@ export const Jukebox = (props, context) => {
 
   const MAX_NAME_LENGTH = 35;
   const need_payment = !payment && need_coin && !advanced_admin;
-  const songs_sorted: Song[] = flow([sortBy((song: Song) => song.name)])(songs);
+  const songs_sorted: Song[] = flow([(songs: Song[]) => sortBy(songs, (song) => song.name)])(songs);
   const song_selected: Song | undefined = songs.find((song) => song.name === track_selected);
   const totalTracks = songs_sorted.length;
   const selectedTrackNumber = song_selected
@@ -68,8 +69,8 @@ export const Jukebox = (props, context) => {
           : formatTime(Math.round((worldTime - startTime) / 10))
         : looping
           ? '∞'
-          : formatTime(song_selected.length)}{' '}
-      / {looping ? '∞' : formatTime(song_selected.length)}
+          : formatTime(song_selected?.length)}{' '}
+      / {looping ? '∞' : formatTime(song_selected?.length)}
     </Box>
   );
 
@@ -83,11 +84,7 @@ export const Jukebox = (props, context) => {
               <Section fill title="Проигрыватель">
                 <Stack fill vertical>
                   <Stack.Item bold maxWidth="240px">
-                    {song_selected.name.length > MAX_NAME_LENGTH ? (
-                      <marquee>{song_selected.name}</marquee>
-                    ) : (
-                      song_selected.name
-                    )}
+                    {song_selected?.name}
                   </Stack.Item>
                   <Stack fill mt={1.5}>
                     <Stack.Item grow basis="0">
@@ -95,10 +92,11 @@ export const Jukebox = (props, context) => {
                         fluid
                         icon={active ? 'pause' : 'play'}
                         color="transparent"
-                        content={active ? 'Стоп' : 'Старт'}
                         selected={active}
                         onClick={() => act('toggle')}
-                      />
+                      >
+                        {active ? 'Стоп' : 'Старт'}
+                      </Button>
                     </Stack.Item>
                     <Stack.Item grow basis="0">
                       <Button.Checkbox
@@ -113,9 +111,9 @@ export const Jukebox = (props, context) => {
                     </Stack.Item>
                   </Stack>
                   <Stack.Item>
-                    <ProgressBar.Countdown start={startTime} current={!looping ? worldTime : endTime} end={endTime}>
+                    <Countdown progressBar timeStart={startTime} timeEnd={endTime}>
                       {trackTimer}
-                    </ProgressBar.Countdown>
+                    </Countdown>
                   </Stack.Item>
                 </Stack>
               </Section>
@@ -204,18 +202,17 @@ export const Jukebox = (props, context) => {
                 <Stack.Item key={song.name} mb={0.5} textAlign="left">
                   <Button
                     fluid
-                    selected={song_selected.name === song.name}
+                    selected={song_selected?.name === song.name}
                     color="translucent"
-                    content={
-                      <Stack fill>
-                        <Stack.Item grow>{song.name}</Stack.Item>
-                        <Stack.Item>{formatTime(song.length)}</Stack.Item>
-                      </Stack>
-                    }
                     onClick={() => {
                       act('select_track', { track: song.name });
                     }}
-                  />
+                  >
+                    <Stack fill>
+                      <Stack.Item grow>{song.name}</Stack.Item>
+                      <Stack.Item>{formatTime(song.length)}</Stack.Item>
+                    </Stack>
+                  </Button>
                 </Stack.Item>
               ))}
             </Section>
@@ -229,7 +226,7 @@ export const Jukebox = (props, context) => {
 const OnMusic = () => {
   return (
     <Dimmer textAlign="center">
-      <Icon name="music" size="3" color="gray" mb={1} />
+      <Icon name="music" size={3} color="gray" mb={1} />
       <Box color="label" bold>
         Играет музыка
       </Box>
@@ -240,7 +237,7 @@ const OnMusic = () => {
 const NoCoin = () => {
   return (
     <Dimmer textAlign="center">
-      <Icon name="coins" size="6" color="gold" mr={1} />
+      <Icon name="coins" size={6} color="gold" mr={1} />
       <Box color="label" bold mt={5} fontSize={2}>
         Вставьте монетку
       </Box>

@@ -7,12 +7,10 @@
 /area/station/engineering/atmos/control
 	name = "Комната Контроля Атмосферы"
 	icon_state = "atmosctrl"
-	request_console_flags = RC_ASSIST | RC_SUPPLY
 	request_console_name = "Atmospherics"
 
 /area/station/engineering/atmos/distribution
 	name = "Атмосферный Распределительный Контур"
-	icon_state = "atmos"
 
 /area/station/engineering/atmos/storage
 	name = "Атмосферный Склад ВКД"
@@ -31,7 +29,6 @@
 /area/station/engineering/atmos/asteroid_filtering
 	name = "Атмосферный Отсек Астероида"
 	icon_state = "asteroid_atmos"
-	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/station/engineering/atmos/asteroid_core
 	name = "Расплавленное Ядро Астероида"

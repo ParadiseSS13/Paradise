@@ -675,7 +675,7 @@
 /area/admin)
 "kq" = (
 /obj/structure/table/wood,
-/obj/item/butcher_chainsaw,
+/obj/item/chainsaw/syndie,
 /turf/simulated/floor/plasteel{
 	icon_state = "alienvault"
 	},
@@ -2662,7 +2662,7 @@
 /area/holodeck/source_basketball)
 "NQ" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/aps,
+/obj/item/gun/projectile/automatic/pistol/type_230,
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "NT" = (

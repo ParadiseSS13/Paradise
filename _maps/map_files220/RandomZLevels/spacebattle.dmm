@@ -1143,7 +1143,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate2)
 "dO" = (
-/mob/living/simple_animal/hostile/bear/brown{
+/mob/living/basic/bear/brown{
 	faction = list("neutral");
 	name = "Winny"
 	},

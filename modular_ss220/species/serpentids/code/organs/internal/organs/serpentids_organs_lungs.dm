@@ -12,8 +12,6 @@
 	desc = "A large looking lugns with big breating bag."
 	icon_state = "lungs"
 	actions_types = 		list(/datum/action/item_action/organ_action/toggle/serpentid)
-	action_icon = 			list(/datum/action/item_action/organ_action/toggle/serpentid = 'modular_ss220/species/serpentids/icons/organs.dmi')
-	action_icon_state = 	list(/datum/action/item_action/organ_action/toggle/serpentid = "serpentid_abilities")
 	var/chemical_consuption = SERPENTID_ORGAN_HUNGER_LUNGS
 	var/obj/item/tank/internals/oxygen/serpentid_vault = new /obj/item/tank/internals/oxygen/serpentid_vault_tank
 	var/chem_to_oxy_mult = 0.1
@@ -24,6 +22,10 @@
 	var/last_danger_air_check = 0
 	radial_action_state = "ballon"
 	radial_action_icon = 'modular_ss220/species/serpentids/icons/organs.dmi'
+
+/datum/action/item_action/organ_action/toggle/serpentid
+	button_icon = 'modular_ss220/species/serpentids/icons/organs.dmi'
+	button_icon_state = "serpentid_abilities"
 
 /obj/item/organ/internal/lungs/serpentid/Initialize(mapload)
 	. = ..()

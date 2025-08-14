@@ -9,7 +9,6 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "extinguisher"
 	anchored = TRUE
-	density = FALSE
 	max_integrity = 200
 	integrity_failure = 50
 	var/obj/item/extinguisher/has_extinguisher = null

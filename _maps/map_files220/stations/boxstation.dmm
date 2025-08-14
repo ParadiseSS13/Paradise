@@ -2049,7 +2049,7 @@
 /area/station/command/office/hos)
 "akL" = (
 /obj/structure/flora/rock/jungle,
-/mob/living/simple_animal/lizard{
+/mob/living/basic/lizard{
 	name = "Greentext"
 	},
 /turf/simulated/floor/grass,
@@ -25367,7 +25367,7 @@
 	},
 /area/station/science/robotics)
 "bVJ" = (
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+/mob/living/basic/gorilla/cargo_domestic{
 	name = "Forklift"
 	},
 /obj/machinery/hologram/holopad,
@@ -30250,7 +30250,7 @@
 	},
 /area/station/science/genetics)
 "cpL" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -44437,7 +44437,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "dvv" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/basic/pet/sloth/paperwork,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -53507,7 +53507,7 @@
 /area/station/command/office/ce)
 "guK" = (
 /obj/effect/decal/cleanable/dust,
-/mob/living/simple_animal/hostile/killertomato{
+/mob/living/basic/killertomato{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
@@ -61486,7 +61486,7 @@
 	},
 /area/station/medical/virology)
 "jcc" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "jcg" = (
@@ -70317,7 +70317,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/scarybat,
+/mob/living/basic/scarybat,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -89570,7 +89570,7 @@
 /obj/structure/closet/crate/secure{
 	req_one_access = list(33,41)
 	},
-/mob/living/simple_animal/hostile/scarybat,
+/mob/living/basic/scarybat,
 /obj/effect/spawner/random/id_skins,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
@@ -90650,7 +90650,7 @@
 "sEl" = (
 /obj/structure/bed,
 /obj/effect/landmark/spawner/nukedisc_respawn,
-/mob/living/simple_animal/hostile/scarybat,
+/mob/living/basic/scarybat,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -93457,7 +93457,7 @@
 /area/station/maintenance/aft)
 "tAa" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/killertomato{
+/mob/living/basic/killertomato{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
@@ -95568,7 +95568,6 @@
 	},
 /area/station/hallway/primary/central/nw)
 "uhl" = (
-/obj/structure/closet/paramedic,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -99278,7 +99277,7 @@
 	},
 /area/station/supply/expedition/gate)
 "vtW" = (
-/mob/living/simple_animal/hostile/killertomato{
+/mob/living/basic/killertomato{
 	desc = "Прирученный ботаниками томат-убийца. Не подпускать к Сане.";
 	faction = list("plants","neutral","hostile");
 	name = "Витамин"
@@ -105497,7 +105496,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "xtZ" = (
-/mob/living/simple_animal/pet/penguin/baby,
+/mob/living/basic/pet/penguin/baby,
 /turf/simulated/floor/carpet,
 /area/station/maintenance/asmaint)
 "xub" = (

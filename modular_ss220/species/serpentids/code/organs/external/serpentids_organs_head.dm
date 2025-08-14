@@ -14,8 +14,6 @@
 	min_broken_damage = 30
 	encased = CARAPACE_ENCASE_WORD
 	actions_types = 		list(/datum/action/item_action/organ_action/toggle)
-	action_icon = 			list(/datum/action/item_action/organ_action/toggle = 'modular_ss220/species/serpentids/icons/organs.dmi')
-	action_icon_state = 	list(/datum/action/item_action/organ_action/toggle = "serpentid_eyes_0")
 	var/eye_shielded = FALSE
 
 /obj/item/organ/external/head/carapace/Initialize(mapload)
@@ -30,5 +28,5 @@
 	owner.update_sight()
 
 	for(var/datum/action/item_action/T in actions)
-		T.button_overlay_icon_state ="serpentid_eyes_[eye_shielded]"
-		T.UpdateButtons()
+		T.button_icon_state ="serpentid_eyes_[eye_shielded]"
+		T.build_all_button_icons()

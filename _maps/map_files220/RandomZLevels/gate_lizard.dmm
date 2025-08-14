@@ -36,7 +36,7 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "abx" = (
-/mob/living/simple_animal/hostile/pirate/ranged{
+/mob/living/basic/pirate/ranged{
 	loot = null
 	},
 /turf/simulated/floor/plating/asteroid/ancient{
@@ -10407,7 +10407,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "nqg" = (
-/mob/living/simple_animal/lizard,
+/mob/living/basic/lizard,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -10916,7 +10916,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "oeO" = (
-/mob/living/simple_animal/hostile/pirate{
+/mob/living/basic/pirate{
 	loot = null
 	},
 /turf/simulated/floor/beach/away/sand,
@@ -12627,7 +12627,7 @@
 /turf/simulated/wall,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "qsD" = (
-/mob/living/simple_animal/hostile/scarybat{
+/mob/living/basic/scarybat{
 	faction = list("junglemob")
 	},
 /turf/simulated/floor/plating/asteroid/ancient{
@@ -14024,7 +14024,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/waterfall)
 "rYr" = (
-/mob/living/simple_animal/hostile/pirate{
+/mob/living/basic/pirate{
 	loot = null
 	},
 /turf/simulated/floor/plating/asteroid/ancient{
@@ -14051,7 +14051,7 @@
 /obj/effect/turf_decal/grass{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/retaliate/poison/snake{
+/mob/living/basic/snake{
 	faction = list("hostile","jungle","junglemob")
 	},
 /turf/simulated/floor/plasteel{
@@ -14121,7 +14121,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "sdS" = (
-/mob/living/simple_animal/hostile/pirate/ranged{
+/mob/living/basic/pirate/ranged{
 	loot = null
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -14796,7 +14796,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "sZs" = (
-/mob/living/simple_animal/hostile/pirate/ranged{
+/mob/living/basic/pirate/ranged{
 	loot = null
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -15280,7 +15280,7 @@
 /area/awaymission/jungle_planet/outside/river)
 "tDA" = (
 /obj/structure/flora/rock/pile,
-/mob/living/simple_animal/hostile/scarybat{
+/mob/living/basic/scarybat{
 	faction = list("junglemob")
 	},
 /turf/simulated/floor/plating/asteroid/ancient{
@@ -17208,7 +17208,7 @@
 /area/awaymission/jungle_planet/outside/cave)
 "vSc" = (
 /obj/effect/spawner/random/dirt/frequent,
-/mob/living/simple_animal/lizard,
+/mob/living/basic/lizard,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "vSq" = (
@@ -18072,7 +18072,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "xae" = (
-/mob/living/simple_animal/hostile/pirate{
+/mob/living/basic/pirate{
 	loot = null
 	},
 /obj/effect/spawner/random/dirt/often,
@@ -18487,7 +18487,7 @@
 	amount = 2
 	},
 /obj/effect/spawner/random/dirt/often,
-/mob/living/simple_animal/lizard,
+/mob/living/basic/lizard,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "xCW" = (

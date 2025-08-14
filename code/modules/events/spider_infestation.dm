@@ -19,6 +19,6 @@
 		var/obj/vent = pick_n_take(vents)
 		var/obj/structure/spider/spiderling/S = new(vent.loc)
 		if(prob(66))
-			S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/nurse
+			S.grow_as = /mob/living/basic/giant_spider/nurse
 		spawncount--
 		successSpawn = TRUE

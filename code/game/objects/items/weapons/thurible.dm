@@ -8,7 +8,6 @@
 	item_state = "thurible"
 	force = 10
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	flags = CONDUCT
 	container_type = REFILLABLE
 	/// Whether or not the thurible can be loaded with harmful chems

@@ -8,7 +8,6 @@
 	anchored = TRUE
 	flags = ON_BORDER
 	flags_2 = RAD_PROTECT_CONTENTS_2
-	flags_ricochet = RICOCHET_HARD
 	receive_ricochet_chance_mod = 0.5
 	can_be_unanchored = TRUE
 	max_integrity = 25
@@ -546,7 +545,6 @@
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
 	desc = "It looks rather strong and frosted over. Looks like it might take a few less hits then a normal reinforced window."
-	icon_state = "twindow"
 	max_integrity = 30
 
 /obj/structure/window/reinforced/polarized

@@ -6,7 +6,6 @@
 
 /area/station/legal/courtroom/gallery
 	name = "Галерея Зала Суда"
-	icon_state = "courtroom"
 	request_console_name = "Courtroom"
 
 /area/station/legal/lawoffice

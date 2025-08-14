@@ -42,7 +42,7 @@
 /area/awaymission)
 "an" = (
 /obj/structure/spider/stickyweb,
-/mob/living/simple_animal/hostile/poison/giant_spider{
+/mob/living/basic/giant_spider{
 	health = 250;
 	maxHealth = 250;
 	name = "angry giant spider";
@@ -95,7 +95,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/hostile/poison/giant_spider{
+/mob/living/basic/giant_spider{
 	health = 250;
 	maxHealth = 250;
 	name = "angry giant spider"
@@ -106,7 +106,7 @@
 /area/awaymission/bmp_ship/common)
 "ax" = (
 /obj/machinery/light/directional/east,
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+/mob/living/basic/giant_spider/hunter{
 	health = 150;
 	maxHealth = 150;
 	name = "Angry giant spider"
@@ -134,7 +134,7 @@
 /area/awaymission/bmp_ship/turrets_south)
 "aD" = (
 /obj/machinery/light/small/directional/north,
-/mob/living/simple_animal/hostile/poison/giant_spider,
+/mob/living/basic/giant_spider,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -314,7 +314,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/lizard,
+/mob/living/basic/lizard,
 /obj/effect/turf_decal/delivery/red/partial{
 	dir = 8
 	},
@@ -984,7 +984,7 @@
 "dl" = (
 /obj/item/whetstone,
 /obj/structure/spider/stickyweb,
-/mob/living/simple_animal/hostile/poison/giant_spider{
+/mob/living/basic/giant_spider{
 	health = 250;
 	maxHealth = 250;
 	name = "angry giant spider"
@@ -1038,7 +1038,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/spider/stickyweb,
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+/mob/living/basic/giant_spider/hunter,
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/containment)
 "dt" = (
@@ -1229,7 +1229,7 @@
 "dN" = (
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/poison/giant_spider{
+/mob/living/basic/giant_spider{
 	health = 250;
 	maxHealth = 250;
 	name = "angry giant spider"
@@ -1251,7 +1251,7 @@
 /obj/structure/closet/critter{
 	opened = 1
 	},
-/mob/living/simple_animal/hostile/feral_cat,
+/mob/living/basic/feral_cat,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/containment)
@@ -1286,7 +1286,7 @@
 	},
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+/mob/living/basic/giant_spider/hunter,
 /turf/simulated/floor/plasteel,
 /area/awaymission/bmp_ship/engines)
 "dX" = (
@@ -1381,7 +1381,7 @@
 /obj/structure/closet/critter{
 	opened = 1
 	},
-/mob/living/simple_animal/hostile/retaliate/poison/snake,
+/mob/living/basic/snake,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/containment)
@@ -1540,7 +1540,7 @@
 /obj/structure/window/reinforced{
 	color = "yellow"
 	},
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+/mob/living/basic/giant_spider/hunter{
 	health = 150;
 	maxHealth = 150;
 	name = "Angry giant spider"
@@ -1951,7 +1951,7 @@
 /area/awaymission/bmp_ship/buffer)
 "fP" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/retaliate/kangaroo,
+/mob/living/basic/kangaroo,
 /obj/structure/closet/critter{
 	opened = 1
 	},
@@ -2246,7 +2246,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/hostile/poison/giant_spider{
+/mob/living/basic/giant_spider{
 	health = 250;
 	maxHealth = 250;
 	name = "angry giant spider"
@@ -2401,7 +2401,7 @@
 /obj/structure/alien/weeds,
 /obj/machinery/firealarm/no_alarm/directional/south,
 /obj/structure/spider/stickyweb,
-/mob/living/simple_animal/hostile/poison/giant_spider{
+/mob/living/basic/giant_spider{
 	health = 250;
 	maxHealth = 250;
 	name = "angry giant spider"
@@ -3096,7 +3096,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/poison/giant_spider{
+/mob/living/basic/giant_spider{
 	health = 250;
 	maxHealth = 250;
 	name = "angry giant spider"
@@ -3249,7 +3249,7 @@
 /area/awaymission/bmp_ship/medbay)
 "lK" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/bear,
+/mob/living/basic/bear,
 /obj/structure/closet/critter{
 	opened = 1
 	},
@@ -3504,7 +3504,7 @@
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
-/mob/living/simple_animal/hostile/poison/giant_spider{
+/mob/living/basic/giant_spider{
 	health = 250;
 	maxHealth = 250;
 	name = "angry giant spider";
@@ -3694,7 +3694,7 @@
 /area/awaymission/bmp_ship/common)
 "pt" = (
 /obj/machinery/light_construct/small/directional/south,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/carpet,
 /area/awaymission/bmp_ship/dormitories)
 "pC" = (
@@ -3900,7 +3900,7 @@
 /obj/effect/turf_decal/delivery/red/partial{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+/mob/living/basic/giant_spider/hunter{
 	health = 150;
 	maxHealth = 150;
 	name = "Angry giant spider"
@@ -4038,7 +4038,7 @@
 	},
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+/mob/living/basic/giant_spider/hunter{
 	health = 150;
 	maxHealth = 150;
 	name = "Angry giant spider"
@@ -4136,7 +4136,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/bmp_ship/fore)
 "tF" = (
-/mob/living/simple_animal/hostile/carp{
+/mob/living/basic/carp{
 	maxHealth = 50;
 	name = "Annoyed space carp";
 	health = 50
@@ -4222,7 +4222,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/buffer)
 "ux" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/carpet,
 /area/awaymission/bmp_ship/dormitories)
 "uB" = (
@@ -4354,7 +4354,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+/mob/living/basic/giant_spider/hunter{
 	health = 150;
 	maxHealth = 150;
 	name = "Angry giant spider"
@@ -4427,7 +4427,7 @@
 /area/awaymission/bmp_ship/turrets_north)
 "wo" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+/mob/living/basic/giant_spider/hunter{
 	health = 150;
 	maxHealth = 150;
 	name = "Angry giant spider"
@@ -4455,7 +4455,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/bmp_ship/containment)
 "wA" = (
-/mob/living/simple_animal/hostile/carp{
+/mob/living/basic/carp{
 	maxHealth = 50;
 	name = "Annoyed space carp";
 	health = 50
@@ -4504,7 +4504,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/mob/living/simple_animal/lizard,
+/mob/living/basic/lizard,
 /obj/structure/sign/engineering{
 	pixel_y = 32
 	},
@@ -4541,7 +4541,7 @@
 	opened = 1
 	},
 /obj/structure/alien/weeds,
-/mob/living/simple_animal/hostile/alien/sentinel{
+/mob/living/basic/alien/sentinel{
 	health = 250;
 	maxHealth = 250
 	},
@@ -4634,14 +4634,14 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/bmp_ship/fore)
 "xW" = (
-/mob/living/simple_animal/hostile/retaliate/poison/snake,
+/mob/living/basic/snake,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/containment)
 "ye" = (
 /obj/effect/decal/cleanable/ash,
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/carp{
+/mob/living/basic/carp{
 	maxHealth = 50;
 	name = "Annoyed space carp";
 	health = 50
@@ -4659,7 +4659,7 @@
 /obj/item/food/meat,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small/directional/north,
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+/mob/living/basic/giant_spider/hunter{
 	health = 150;
 	maxHealth = 150;
 	name = "Angry giant spider"
@@ -4744,7 +4744,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/spider/stickyweb,
-/mob/living/simple_animal/hostile/poison/giant_spider{
+/mob/living/basic/giant_spider{
 	health = 250;
 	maxHealth = 250;
 	name = "angry giant spider";
@@ -4895,7 +4895,7 @@
 	layer = 2.9
 	},
 /obj/structure/sign/poster/contraband/have_a_puff/directional/west,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/item/reagent_containers/pill/charcoal{
 	layer = 2.9
 	},
@@ -4967,7 +4967,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/bmp_ship/mining)
 "BG" = (
-/mob/living/simple_animal/hostile/carp{
+/mob/living/basic/carp{
 	maxHealth = 50;
 	name = "Annoyed space carp";
 	health = 50
@@ -5142,7 +5142,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/spider/stickyweb,
-/mob/living/simple_animal/hostile/poison/giant_spider{
+/mob/living/basic/giant_spider{
 	health = 250;
 	maxHealth = 250;
 	name = "angry giant spider";
@@ -5159,7 +5159,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/spider/stickyweb,
-/mob/living/simple_animal/hostile/poison/giant_spider{
+/mob/living/basic/giant_spider{
 	health = 250;
 	maxHealth = 250;
 	name = "angry giant spider"
@@ -5517,7 +5517,7 @@
 /area/awaymission/bmp_ship/containment)
 "Gz" = (
 /obj/structure/alien/weeds,
-/mob/living/simple_animal/hostile/alien/sentinel{
+/mob/living/basic/alien/sentinel{
 	health = 250;
 	maxHealth = 250
 	},
@@ -5525,7 +5525,7 @@
 /area/awaymission/bmp_ship/fore)
 "GB" = (
 /obj/structure/spider/stickyweb,
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+/mob/living/basic/giant_spider/hunter{
 	health = 150;
 	maxHealth = 150;
 	name = "Angry giant spider"
@@ -5601,7 +5601,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/spider/stickyweb,
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+/mob/living/basic/giant_spider/hunter,
 /turf/simulated/floor/engine,
 /area/awaymission/bmp_ship/containment)
 "Hr" = (
@@ -5635,7 +5635,7 @@
 "HE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/poison/giant_spider{
+/mob/living/basic/giant_spider{
 	health = 250;
 	maxHealth = 250;
 	name = "angry giant spider"
@@ -5785,7 +5785,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/hostile/alien/sentinel{
+/mob/living/basic/alien/sentinel{
 	health = 250;
 	maxHealth = 250
 	},
@@ -5872,7 +5872,7 @@
 /area/awaymission)
 "KG" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/bear,
+/mob/living/basic/bear,
 /obj/structure/closet/critter{
 	opened = 1
 	},
@@ -5921,7 +5921,7 @@
 	pixel_x = 4
 	},
 /obj/structure/alien/weeds,
-/mob/living/simple_animal/hostile/alien/sentinel{
+/mob/living/basic/alien/sentinel{
 	health = 250;
 	maxHealth = 250
 	},
@@ -6060,7 +6060,7 @@
 /area/awaymission/bmp_ship/bath)
 "MY" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /obj/structure/closet/critter{
 	opened = 1
 	},
@@ -6256,7 +6256,7 @@
 /area/awaymission/bmp_ship/common)
 "PO" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+/mob/living/basic/giant_spider/hunter{
 	health = 150;
 	maxHealth = 150;
 	name = "Angry giant spider"
@@ -6569,7 +6569,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/bmp_ship/gate)
 "Tv" = (
-/mob/living/simple_animal/hostile/retaliate/poison/snake,
+/mob/living/basic/snake,
 /obj/item/food/meat,
 /obj/item/shard,
 /obj/effect/decal/cleanable/dirt,
@@ -6592,7 +6592,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+/mob/living/basic/giant_spider/hunter{
 	health = 150;
 	maxHealth = 150;
 	name = "Angry giant spider"
@@ -6657,7 +6657,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/bmp_ship/trader_shuttle)
 "Un" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/space,
 /area/space)
 "Uy" = (

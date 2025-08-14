@@ -7,12 +7,8 @@
 /mob/living/simple_animal/bot/medbot
 	name = "\improper Medibot"
 	desc = "A little medical robot. He looks somewhat underwhelmed."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "medibot0"
 	density = FALSE
-	anchored = FALSE
-	health = 20
-	maxHealth = 20
 	pass_flags = PASSMOB
 
 	radio_channel = "Medical"
@@ -114,7 +110,6 @@
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
 
 /mob/living/simple_animal/bot/medbot/syndicate
 	name = "Suspicious Medibot"
@@ -124,7 +119,6 @@
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
 	syndicate_aligned = TRUE
 	req_access = list(ACCESS_SYNDICATE)
 	control_freq = BOT_FREQ + 1000 // make it not show up on lists
@@ -412,7 +406,7 @@
 		return
 
 	for(var/datum/disease/D as anything in C.viruses)
-		if(!(D.visibility_flags & HIDDEN_SCANNER && D.visibility_flags & HIDDEN_PANDEMIC) && D.severity != NONTHREAT && (D.stage > 1 || D.spread_flags & AIRBORNE))
+		if((!(D.visibility_flags & VIRUS_HIDDEN_SCANNER) || (D.GetDiseaseID() in GLOB.detected_advanced_diseases["[z]"])) && D.severity != VIRUS_NONTHREAT && (D.stage > 1 || D.spread_flags & SPREAD_AIRBORNE))
 			return TRUE //Medbots see viruses that aren't fully hidden and have developed enough/are airborne, ignoring safe viruses
 
 /mob/living/simple_animal/bot/medbot/proc/select_medication(mob/living/carbon/C, beaker_injection)

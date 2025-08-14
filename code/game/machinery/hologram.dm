@@ -588,9 +588,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "holoray"
 	layer = FLY_LAYER
-	density = FALSE
-	anchored = TRUE
-	mouse_opacity = MOUSE_OPACITY_ICON
 	pixel_x = -32
 	pixel_y = -32
 	alpha = 100

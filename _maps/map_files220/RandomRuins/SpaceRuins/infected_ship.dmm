@@ -359,7 +359,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/white/line,
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /obj/effect/spawner/random/dirt/often,
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -563,7 +563,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/space/powered/requires_power_space)
 "nE" = (
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /obj/effect/spawner/random/dirt/often,
 /obj/effect/decal/cleanable/blood/drip{
 	icon_state = "3"
@@ -756,7 +756,7 @@
 /turf/template_noop,
 /area/template_noop)
 "tv" = (
-/mob/living/simple_animal/hostile/alien/queen/large,
+/mob/living/basic/alien/queen/large,
 /obj/structure/bed/nest,
 /obj/effect/mob_spawn/human/corpse/damaged,
 /turf/simulated/floor/plating,
@@ -1225,7 +1225,7 @@
 /turf/template_noop,
 /area/template_noop)
 "JS" = (
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /obj/effect/decal/cleanable/blood/gibs/xeno/body,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plating,

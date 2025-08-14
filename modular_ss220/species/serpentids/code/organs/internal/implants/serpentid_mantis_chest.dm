@@ -6,8 +6,6 @@
 	parent_organ = "chest"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/switch_blades)
 	contents = newlist(/obj/item/kitchen/knife/combat/serpentblade)
-	action_icon = list(/datum/action/item_action/organ_action/toggle/switch_blades = 'modular_ss220/species/serpentids/icons/organs.dmi')
-	action_icon_state = list(/datum/action/item_action/organ_action/toggle/switch_blades = "serpentid_hand_act")
 	var/obj/item/holder_l = null
 	var/icon_file = 'modular_ss220/species/serpentids/icons/mob/r_serpentid.dmi'
 	var/new_icon_state = "blades_0"
@@ -30,8 +28,8 @@
 /datum/action/item_action/organ_action/toggle/switch_blades
 	name = "Switch Threat Mode"
 	desc = "Switch your stance to show other your intentions"
-	button_overlay_icon = 'modular_ss220/species/serpentids/icons/organs.dmi'
-	button_overlay_icon_state = "serpentid_hand_act"
+	button_icon = 'modular_ss220/species/serpentids/icons/organs.dmi'
+	button_icon_state = "serpentid_hand_act"
 
 /obj/item/organ/internal/cyberimp/chest/serpentid_blades/on_life()
 	. = ..()

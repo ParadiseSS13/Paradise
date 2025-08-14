@@ -1536,7 +1536,7 @@
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/dorm_computers)
 "bUQ" = (
-/mob/living/simple_animal/hostile/alien/maid,
+/mob/living/basic/alien/maid,
 /turf/simulated/floor/plasteel/smooth,
 /area/awaymission/black_mesa/high_security_surgery)
 "bWn" = (
@@ -14154,7 +14154,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/black_mesa/hecu_zone_atrium)
 "rLL" = (
-/mob/living/simple_animal/hostile/carp/megacarp,
+/mob/living/basic/carp/megacarp,
 /turf/simulated/floor/beach/away/water{
 	color = "#5AAA88";
 	water_overlay_image = null

@@ -589,7 +589,7 @@ UI STUFF
 	for(var/client/X in GLOB.admins)
 		if(ckey(X.ckey) == ckey(T.client_ckey))
 			continue
-		if(!check_rights_for(X, rights_needed))
+		if(!check_rights_client(rights_needed, FALSE, X))
 			continue
 		for(var/key in X.pm_tracker.pms)
 			if(ckey(key) != ckey(T.client_ckey))

@@ -636,7 +636,6 @@
 	dwidth = 2
 	width = 8
 	height = 8
-	dir = 4
 
 /obj/docking_port/mobile/emergency/backup/register()
 	var/current_emergency = SSshuttle.emergency

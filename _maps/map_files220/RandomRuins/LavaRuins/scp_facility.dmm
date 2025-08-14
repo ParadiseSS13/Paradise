@@ -36,7 +36,7 @@
 /area/ruin/powered/scpfacility)
 "ca" = (
 /obj/effect/decal/cleanable/dust,
-/mob/living/simple_animal/hostile/carp/eyeball,
+/mob/living/basic/carp/eyeball,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "engine"
 	},
@@ -159,7 +159,7 @@
 /area/ruin/powered/scpfacility)
 "ir" = (
 /obj/effect/mapping_helpers/no_lava,
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher,
+/mob/living/basic/mining/basilisk/watcher,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "iu" = (

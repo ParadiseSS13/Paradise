@@ -252,7 +252,7 @@
 		H.update_inv_head()
 	for(var/X in actions)
 		var/datum/action/A = X
-		A.UpdateButtons()
+		A.build_all_button_icons()
 
 /obj/item/clothing/head/helmet/cop/proc/turn_on(mob/user)
 	set_light(brightness_on)

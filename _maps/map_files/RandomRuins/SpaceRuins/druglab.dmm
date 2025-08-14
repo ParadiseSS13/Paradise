@@ -109,7 +109,7 @@
 /area/ruin/space/methlab)
 "v" = (
 /obj/structure/chair,
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/basic/pirate,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "w" = (

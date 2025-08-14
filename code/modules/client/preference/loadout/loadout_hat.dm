@@ -252,6 +252,11 @@
 	path = /obj/item/clothing/head/beret/med
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Geneticist", "Coroner", "Paramedic")
 
+/datum/gear/hat/beret_job/para
+	display_name = "Beret, EMT"
+	path = /obj/item/clothing/head/beret/paramedic
+	allowed_roles = list("Chief Medical Officer", "Paramedic")
+
 /datum/gear/hat/beret_job/cmo
 	display_name = "Beret, chief medical officer"
 	path = /obj/item/clothing/head/beret/cmo
@@ -288,3 +293,12 @@
 /datum/gear/hat/cool_bandana
 	display_name = "Badass Bandana"
 	path = /obj/item/clothing/head/cool_bandana
+
+/datum/gear/hat/rabbitears
+	display_name = "Rabbit ears"
+	path = /obj/item/clothing/head/rabbitears
+
+/datum/gear/hat/kittyears
+	display_name = "Kitty ears"
+	path = /obj/item/clothing/head/kitty
+

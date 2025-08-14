@@ -62,7 +62,12 @@
 		data.Cut()
 	data = null
 
-/datum/reagent/proc/reaction_temperature(exposed_temperature, exposed_volume) //By default we do nothing.
+/// By default do nothing
+/datum/reagent/proc/reaction_temperature(exposed_temperature, exposed_volume)
+	return
+
+/// By default do nothing
+/datum/reagent/proc/reaction_radiation(amount, emission_type)
 	return
 
 /**

@@ -554,7 +554,7 @@
 	icon_living = "abomination5"
 	icon_dead = "abomination_dead"
 
-/mob/living/simple_animal/hostile/carp/eyeball
+/mob/living/basic/carp/eyeball
 	name = "глазок"
 	desc = "Странное на вид существо, оно не перестает смотреть..."
 	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
@@ -563,11 +563,6 @@
 	icon_gib = null
 	gender = NEUTER
 	mob_biotypes = MOB_ORGANIC
-	response_help = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm = "hits"
-	emote_taunt = list("glares")
-	taunt_chance = 25
 	maxHealth = 45
 	health = 45
 	speak_emote = list("телепатически вопит")
@@ -576,12 +571,10 @@
 	obj_damage = 60
 	melee_damage_lower = 20
 	melee_damage_upper = 25
-	attacktext = "моргает на"
 	attack_sound = 'sound/weapons/pierce.ogg'
 	initial_traits = list(TRAIT_FLYING)
 
 	faction = list("spooky")
-	del_on_death = TRUE
 	random_color = FALSE
 
 /* Caves bosses */

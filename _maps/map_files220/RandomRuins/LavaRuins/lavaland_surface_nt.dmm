@@ -6461,7 +6461,7 @@
 /area/mine/outpost/production)
 "Ov" = (
 /obj/effect/spawner/random/dirt/frequent,
-/mob/living/simple_animal/cockroach/brad,
+/mob/living/basic/cockroach/brad,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "OD" = (

@@ -11,7 +11,6 @@
 
 /area/holodeck/source_plating
 	name = "Голодек - Выкл"
-	icon_state = "Holodeck"
 
 /area/holodeck/source_emptycourt
 	name = "Голодек - Пустой Корт"
@@ -27,7 +26,6 @@
 
 /area/holodeck/source_beach
 	name = "Голодек - Пляж"
-	icon_state = "Holodeck" // Lazy.
 
 /area/holodeck/source_burntest
 	name = "Голодек - Симуляция Атмосферы"

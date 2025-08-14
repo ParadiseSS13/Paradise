@@ -145,7 +145,6 @@ SLIME SCANNER
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=200)
 	origin_tech = "magnets=1;biotech=1"
 	/// Can be SIMPLE_HEALTH_SCAN (damage is only shown as a single % value), or DETAILED_HEALTH_SCAN (shows the % value and also damage for every specific limb).
@@ -276,11 +275,19 @@ SLIME SCANNER
 
 	for(var/thing in H.viruses)
 		var/datum/disease/D = thing
-		if(D.visibility_flags & HIDDEN_SCANNER)
+		// If the disease is incubating, or if it's stealthy and hasn't been put into a pandemic yet the scanner won't see it
+		if(D.incubation || (D.visibility_flags & VIRUS_HIDDEN_SCANNER && !(D.GetDiseaseID() in GLOB.detected_advanced_diseases["[user.z]"])))
 			continue
 		// Snowflaking heart problems, because they are special (and common).
 		if(istype(D, /datum/disease/critical))
-			msgs += "<span class='notice'><font color='red'><b>Warning: Subject is undergoing [D.name].</b>\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
+			msgs += "<span class='notice'><font color='red'><b>Warning: Subject is undergoing [D.name].</b>\nStage: [D.stage]/[D.max_stages].\nCure: [D.cure_text]</font></span>"
+			continue
+		if(istype(D, /datum/disease/advance))
+			var/datum/disease/advance/A = D
+			if(!(A.id in GLOB.known_advanced_diseases[num2text(user.z)]))
+				msgs += "<span class='notice'><font color='red'><b>Warning: Unknown viral strain detected</b>\nStrain:[A.strain]\nStage: [A.stage]</span>"
+			else
+				msgs += "<span class='notice'><font color='red'><b>Warning: [A.form] detected</b>\nName: [A.name].\nStrain:[A.strain]\nType: [A.spread_text].\nStage: [A.stage]/[A.max_stages].\nPossible Cures: [A.cure_text]\nNeeded Cures: [A.cures_required]</font></span>"
 			continue
 		msgs += "<span class='notice'><font color='red'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
 
@@ -395,6 +402,8 @@ SLIME SCANNER
 
 	if(H.radiation > RAD_MOB_SAFE)
 		msgs += "<span class='danger'>Subject is irradiated.</span>"
+
+	msgs += "<span class='notice'>Biological Age: [H.age]</span>"
 
 	//SS220 ADDITION START - SERPENTIDS
 	if(SEND_SIGNAL(H, COMSIG_SHELL_GET_CARAPACE_STATE) & CARAPACE_SHELL_BROKEN)
@@ -602,7 +611,6 @@ SLIME SCANNER
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL = 210, MAT_GLASS = 140)
 	origin_tech = "magnets=1;engineering=1"
 	var/cooldown = FALSE
@@ -835,7 +843,7 @@ SLIME SCANNER
 		message += "<span class='notice'>Wind: ([round(milla[MILLA_INDEX_WIND_X], 0.001)], [round(milla[MILLA_INDEX_WIND_Y], 0.001)])</span>"
 		message += "<span class='notice'>Fuel burnt last tick: [milla[MILLA_INDEX_FUEL_BURNT]] moles</span>"
 
-	to_chat(user, chat_box_examine(message.Join("\n")))
+	to_chat(user, chat_box_examine(message.Join("<br>")))
 	return TRUE
 
 ////////////////////////////////////////
@@ -930,7 +938,6 @@ SLIME SCANNER
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
 /obj/item/slime_scanner/attack__legacy__attackchain(mob/living/M, mob/living/user)
@@ -1007,7 +1014,6 @@ SLIME SCANNER
 	desc = "Scan an entire body to prepare for field surgery. Consumes power for each scan."
 
 /obj/item/bodyanalyzer/borg/syndicate
-	scan_time = 5 SECONDS
 	scan_cd = 20 SECONDS
 
 /obj/item/bodyanalyzer/New()

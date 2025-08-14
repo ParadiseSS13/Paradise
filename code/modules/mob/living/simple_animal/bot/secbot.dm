@@ -4,10 +4,8 @@
 /mob/living/simple_animal/bot/secbot
 	name = "\improper Securitron"
 	desc = "A little security robot. He looks less than thrilled."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "secbot0"
 	density = FALSE
-	anchored = FALSE
 	health = 60
 	maxHealth = 60
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -62,8 +60,6 @@
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beepsky"
 	desc = "It's Officer Beepsky! Powered by a potato and a shot of whiskey."
-	idcheck = FALSE
-	weapons_check = FALSE
 	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
@@ -82,7 +78,6 @@
 /mob/living/simple_animal/bot/secbot/ofitser
 	name = "Prison Ofitser"
 	desc = "It's Prison Ofitser! Powered by the tears and sweat of prisoners."
-	idcheck = FALSE
 	weapons_check = TRUE
 	auto_patrol = TRUE
 

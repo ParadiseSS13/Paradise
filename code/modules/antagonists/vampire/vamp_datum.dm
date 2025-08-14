@@ -30,7 +30,6 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
 	blurb_text_color = COLOR_RED
-	blurb_text_outline_width = 0
 	blurb_r = 255
 	blurb_g = 221
 	blurb_b = 138
@@ -302,7 +301,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	check_vampire_upgrade(TRUE)
 	for(var/datum/spell/S in powers)
 		if(S.action)
-			S.action.UpdateButtons()
+			S.action.build_all_button_icons()
 
 /**
  * Safely subtract vampire's bloodusable. Clamped between 0 and bloodtotal.
@@ -349,7 +348,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
 	messages.Add("<span class='danger'>You are a Vampire!</span><br>")
 	messages.Add("To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers. \
-		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water.")
+		You are weak to holy things, starlight, and fire. Don't go into space and avoid the Chaplain, the chapel, and especially Holy Water.")
 	return messages
 
 /datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override)

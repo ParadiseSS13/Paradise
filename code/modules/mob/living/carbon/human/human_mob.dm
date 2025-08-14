@@ -11,7 +11,6 @@
 	UpdateAppearance()
 	GLOB.human_list += src
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
-	AddElement(/datum/element/strippable, GLOB.strippable_human_items)
 	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(mind_checks))
 
 /**
@@ -115,7 +114,7 @@
 	if(delta_now < 3 SECONDS)
 		return
 	// Stop counting, print, and reset
-	if(timer_id != TIMER_ID_NULL) 
+	if(timer_id != TIMER_ID_NULL)
 		deltimer(timer_id)
 		timer_id = TIMER_ID_NULL
 	print_summary()
@@ -156,10 +155,6 @@
 /mob/living/carbon/human/vox/Initialize(mapload)
 	. = ..(mapload, /datum/species/vox)
 
-/mob/living/carbon/human/vox/compressor_grind(turf/location)
-	new /obj/item/food/fried_vox(loc)
-	return ..()
-
 /mob/living/carbon/human/skeleton/Initialize(mapload)
 	. = ..(mapload, /datum/species/skeleton)
 
@@ -187,10 +182,6 @@
 /mob/living/carbon/human/diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona)
 
-/mob/living/carbon/human/diona/compressor_grind()
-	new /obj/item/food/salad(loc)
-	return ..()
-
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona/pod)
 
@@ -199,10 +190,6 @@
 
 /mob/living/carbon/human/machine/created
 	name = "Integrated Robotic Chassis"
-
-/mob/living/carbon/human/machine/compressor_grind()
-	new /obj/item/stack/sheet/mineral/titanium(loc)
-	return ..()
 
 /mob/living/carbon/human/machine/created/Initialize(mapload)
 	. = ..()
@@ -225,10 +212,6 @@
 
 /mob/living/carbon/human/drask/Initialize(mapload)
 	. = ..(mapload, /datum/species/drask)
-
-/mob/living/carbon/human/drask/compressor_grind(turf/location)
-	new /obj/item/soap(loc)
-	return ..()
 
 /mob/living/carbon/human/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
@@ -287,7 +270,7 @@
 			status_tab_data[++status_tab_data.len] = list("Usable Blood:", "[V.bloodusable]")
 
 /mob/living/carbon/human/ex_act(severity)
-	if(status_flags & GODMODE)
+	if((status_flags & GODMODE) || HAS_TRAIT(src, TRAIT_EXPLOSION_PROOF))
 		return FALSE
 
 	var/brute_loss = 0
@@ -2049,6 +2032,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/update_runechat_msg_location()
 	if(ismecha(loc))
 		runechat_msg_location = loc.UID()
+	else if(istgvehicle(loc))
+		runechat_msg_location = loc.UID()
 	else
 		return ..()
 
@@ -2290,3 +2275,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		changeNext_move(CLICK_CD_POINT)
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_pointed), A))
+
+/// Default behavior when getting ground up in a compressor
+/mob/living/carbon/human/compressor_grind()
+	dna.species.do_compressor_grind(src)
+	. = ..()
+
+/mob/living/carbon/human/get_strippable_items(datum/source, list/items)
+	items |= GLOB.strippable_human_items

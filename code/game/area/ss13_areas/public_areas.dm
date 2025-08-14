@@ -89,15 +89,12 @@
 	icon_state = "hall_space"
 
 /area/station/hallway/spacebridge/security
-	icon_state = "hall_space"
 	name = "Мост Службы Безопасности"
 
 /area/station/hallway/spacebridge/security/west
-	icon_state = "hall_space"
 	name = "Западный Мост Службы Безопасности"
 
 /area/station/hallway/spacebridge/security/south
-	icon_state = "hall_space"
 	name = "Южный Мост Службы Безопасности"
 
 /area/station/hallway/spacebridge/dockmed
@@ -189,7 +186,6 @@
 
 /area/station/public/sleep/secondary
 	name = "Вторичное Криохранилище Дормитория"
-	icon_state = "Sleep"
 
 /area/station/public/locker
 	name = "Бытовое Помещение"
@@ -255,7 +251,6 @@
 
 /area/station/public/storage/emergency/port
 	name = "Западное Аварийное Хранилище"
-	icon_state = "emergencystorage"
 
 /area/station/public/storage/office
 	name = "Комната Канцелярских Принадлежностей"
@@ -268,7 +263,10 @@
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/station/public/quantum/security
-	name = "Телепортерный Узел Службы Безопасности"
+	name = "Телепортерный Узел Брига"
+
+/area/station/public/quantum/engineering
+	name = "Телепортерный Узел Инженерии"
 
 /area/station/public/quantum/docking
 	name = "Телепортерный Узел Зоны Прибытия"

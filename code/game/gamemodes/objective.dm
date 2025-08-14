@@ -46,8 +46,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/delayed_objective_text = "This is a bug! Report it on the github and ask an admin what type of objective"
 
 /datum/objective/New(text, datum/team/team_to_join, datum/mind/_owner)
-	. = ..()
 	SHOULD_CALL_PARENT(TRUE)
+	. = ..()
 	GLOB.all_objectives += src
 	if(text)
 		explanation_text = text
@@ -290,7 +290,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/maroon
 	name = "Maroon"
-	martyr_compatible = FALSE
 	delayed_objective_text = "Your objective is to make sure another crewmember doesn't leave on the Escape Shuttle. You will receive further information in a few minutes."
 
 /datum/objective/maroon/update_explanation_text()
@@ -316,7 +315,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /// I want braaaainssss
 /datum/objective/debrain
 	name = "Debrain"
-	martyr_compatible = FALSE
 	delayed_objective_text = "Your objective is to steal another crewmember's brain. You will receive further information in a few minutes."
 
 /datum/objective/debrain/is_invalid_target(datum/mind/possible_target)
@@ -384,7 +382,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/hijack
 	name = "Hijack"
-	martyr_compatible = FALSE //Technically you won't get both anyway.
 	explanation_text = "Угоните шаттл без лояльного к Нанотрейзен экипажа на борту. \
 	Агенты Синдиката, другие враги корпорации, киборги, питомцы, а также закованные в наручники заложники могут быть допущены на шаттл живыми. \
 	Альтернативно, взломайте консоль управления шаттлом несколько раз (при помощи альт-клика по консоли) до тех пор, пока курс полёта шаттла не будет нарушен."
@@ -401,7 +398,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/hijackclone
 	name = "Hijack (with clones)"
 	explanation_text = "Угоните шаттл, где только Вы (или Ваши клоны) будут допущены на борт."
-	martyr_compatible = FALSE
 	needs_target = FALSE
 
 // This objective should only be given to a single owner, because the "copies" can only copy one person.
@@ -436,7 +432,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Угоните шаттл без лояльного к Нанотрейзен экипажа на борту. \
 	Агенты Синдиката, другие враги корпорации, киборги, питомцы/ограниченные заложники, разрешены живыми на шаттле. \
 	Успешное использование устройства судного дня - тоже вариант."
-	martyr_compatible = FALSE
 	needs_target = FALSE
 
 /datum/objective/block/check_completion()
@@ -578,7 +573,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal
 	name = "Steal Item"
-	martyr_compatible = FALSE
 	delayed_objective_text = "Your objective is to steal a high-value item. You will receive further information in a few minutes."
 	var/theft_area
 	var/datum/theft_objective/steal_target

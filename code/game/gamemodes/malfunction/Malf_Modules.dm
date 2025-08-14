@@ -76,7 +76,7 @@
 	if(QDELETED(src) || uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		return
 	desc = "[initial(desc)]У этой способности осталось [uses] использований."
-	UpdateButtons()
+	build_all_button_icons()
 
 /datum/spell/ai_spell/proc/check_camera_vision(mob/user, atom/target)
 	var/turf/target_turf = get_turf(target)
@@ -207,8 +207,8 @@
 					else //Adding uses to an existing module
 						action.uses += initial(action.uses)
 						action.desc = "У [initial(action.desc)] теперь [action.uses] использований."
-						action.UpdateButtons()
-						temp = "Были добавлены использовани[action.uses > 1 ? "я" : "е"] к [action.name]!"
+						action.build_all_button_icons()
+						temp = "Были добавлены использования к [action.name]!"
 			processing_time -= AM.cost
 
 		if(href_list["showdesc"])
@@ -490,7 +490,6 @@
 	desc = "Перегревает машину, вызывая небольшой взрыв через небольшой промежуток времени."
 	action_icon_state = "overload_machine"
 	uses = 4
-	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	selection_activated_message = "<span class='notice'>Вы подключаетесь к энергосети. Кликните на машину для её подрыва или используйте способность повторно для отмены.</span>"
 	selection_deactivated_message = "<span class='notice'>Вы отключаетесь от энергосети.</span>"
@@ -935,7 +934,6 @@
 	name = "Перекатиться"
 	action_icon_state = "roll_over"
 	desc = "Позволяет перекатиться в выбранном направлении, круша всё на своём пути."
-	auto_use_uses = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	selection_activated_message = "<span class='notice'>Ваши приводы перемещаются в то время, как вы готовитесь к перекату. Кликните по соседнему тайлу чтобы перекатиться на него!</span>"
 	selection_deactivated_message = "<span class='notice'>Вы отключаете протоколы перкатывания.</span>"

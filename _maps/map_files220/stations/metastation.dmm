@@ -20361,7 +20361,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "ccp" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreen"
@@ -32125,7 +32125,7 @@
 	},
 /area/station/hallway/supply/port)
 "dre" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
 "drp" = (
@@ -52136,7 +52136,7 @@
 	},
 /area/station/command/office/cmo)
 "kKp" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/station/supply/warehouse)
 "kLd" = (
@@ -54860,7 +54860,7 @@
 	},
 /area/station/hallway/primary/aft/south)
 "lIe" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
@@ -74016,7 +74016,7 @@
 /turf/space,
 /area/space/nearstation)
 "sMM" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/basic/pet/sloth/paperwork,
 /turf/simulated/floor/carpet,
 /area/station/legal/lawoffice)
 "sMZ" = (
@@ -79737,7 +79737,6 @@
 /area/station/supply/lobby)
 "vap" = (
 /obj/item/radio/intercom/directional/west,
-/obj/structure/closet/paramedic,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -86440,7 +86439,7 @@
 /area/shuttle/arrival/station)
 "xBG" = (
 /obj/effect/spawner/random/dirt/often,
-/mob/living/simple_animal/lizard/wags_his_tail,
+/mob/living/basic/lizard/wags_his_tail,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "xBX" = (

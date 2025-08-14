@@ -6364,7 +6364,7 @@
 	},
 /area/shuttle/vox)
 "cPl" = (
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/simulated/floor/grass,
 /area/ghost_bar/outdoor)
 "cPy" = (
@@ -23134,7 +23134,7 @@
 /area/tdome/arena_source)
 "jVa" = (
 /obj/structure/table/glass/reinforced/titanium,
-/obj/item/butcher_chainsaw,
+/obj/item/chainsaw/syndie,
 /turf/simulated/floor/carpet/red,
 /area/centcom/ss220/admin2)
 "jVd" = (
@@ -36699,7 +36699,7 @@
 /area/syndicate_mothership/control)
 "pSQ" = (
 /obj/structure/table/wood,
-/obj/item/butcher_chainsaw,
+/obj/item/chainsaw/syndie,
 /turf/simulated/floor/plasteel{
 	icon_state = "alienvault"
 	},
@@ -40814,7 +40814,7 @@
 	},
 /area/ghost_bar/indoor)
 "rGE" = (
-/mob/living/simple_animal/hostile/creature{
+/mob/living/basic/creature{
 	name = "Experiment 35b"
 	},
 /obj/item/candle/eternal/wizard,
@@ -42729,7 +42729,7 @@
 /area/centcom/ss220/admin3)
 "ste" = (
 /obj/structure/flora/ausbushes/ppflowers,
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/simulated/floor/grass,
 /area/ghost_bar/outdoor)
 "stq" = (
@@ -43727,7 +43727,7 @@
 /turf/simulated/floor/indestructible/necropolis,
 /area/ruin/space/bubblegum_arena)
 "sQD" = (
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter{
+/mob/living/basic/giant_spider/hunter{
 	desc = "Не очень любит синтетиков...";
 	faction = list("syndicate");
 	icon = 'icons/mob/terrorspider.dmi';
@@ -53234,7 +53234,7 @@
 /area/centcom/ss220/admin2)
 "xcD" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/aps,
+/obj/item/gun/projectile/automatic/pistol/type_230,
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "xcG" = (
@@ -55685,7 +55685,7 @@
 /area/centcom/ss220/admin3)
 "ygd" = (
 /obj/structure/sink/puddle,
-/mob/living/simple_animal/butterfly,
+/mob/living/basic/butterfly,
 /turf/simulated/floor/grass,
 /area/ghost_bar/outdoor)
 "ygn" = (

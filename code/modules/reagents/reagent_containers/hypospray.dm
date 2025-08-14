@@ -8,8 +8,6 @@
 	item_state = "hypo"
 	icon_state = "hypo"
 	belt_icon = "hypospray"
-	amount_per_transfer_from_this = 5
-	volume = 30
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER

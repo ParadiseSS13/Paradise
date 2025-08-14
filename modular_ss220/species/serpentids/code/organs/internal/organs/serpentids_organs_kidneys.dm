@@ -5,8 +5,6 @@
 	icon_state = "kidneys"
 	desc = "A large looking organ, that can inject chemicals."
 	actions_types = 		list(/datum/action/item_action/organ_action/toggle/serpentid)
-	action_icon = 			list(/datum/action/item_action/organ_action/toggle/serpentid = 'modular_ss220/species/serpentids/icons/organs.dmi')
-	action_icon_state = 	list(/datum/action/item_action/organ_action/toggle/serpentid = "serpentid_abilities")
 	var/chemical_consuption = SERPENTID_ORGAN_HUNGER_KIDNEYS
 	var/cloak_engaged = FALSE
 	radial_action_state = "serpentid_stealth"

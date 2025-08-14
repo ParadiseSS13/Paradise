@@ -101,6 +101,6 @@
 		/mob/living/simple_animal/pet/dog/fox/fennec = 2,
 		/mob/living/simple_animal/possum = 2,
 
-		/mob/living/simple_animal/pet/penguin = 5,
+		/mob/living/basic/pet/penguin = 5,
 		//mob/living/basic/pig = 5,
 		))

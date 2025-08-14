@@ -509,10 +509,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[oldrank]\" to \"[temp_t]\".")
 			else
 				var/list/access = list()
+				var/datum/job/jobdatum
 				if(is_centcom() && islist(get_centcom_access(t1)))
 					access = get_centcom_access(t1)
 				else
-					var/datum/job/jobdatum
 					for(var/jobtype in typesof(/datum/job))
 						var/datum/job/J = new jobtype
 						if(ckey(J.title) == ckey(t1))
@@ -534,6 +534,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				SSjobs.notify_dept_head(t1, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[jobnamedata]\" to \"[t1]\".")
 				if(modify.owner_uid)
 					SSjobs.slot_job_transfer(modify.rank, t1)
+				var/datum/money_account/account = modify.get_card_account()
+				if(account && jobdatum)
+					account.payday_amount = jobdatum.standard_paycheck
 
 				var/mob/living/carbon/human/H = modify.getPlayer()
 				if(istype(H))
@@ -573,6 +576,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			modify.lastlog = "[station_time_timestamp()]: DEMOTED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has demoted \"[modify.registered_name]\" ([jobnamedata]) for \"[reason]\".")
 			SSjobs.slot_job_transfer(modify.rank, "Assistant")
+			var/datum/money_account/account = modify.get_card_account()
+			if(account)
+				account.payday_amount = jobdatum.standard_paycheck
 			modify.access = access
 			modify.assignment = "Demoted"
 			modify.icon_state = "id"
@@ -600,6 +606,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/datum/job/job = SSjobs.GetJob(modify.rank)
 			if(modify.assignment != "Demoted" && !(job.title in GLOB.command_positions))
 				job.current_positions--
+			var/datum/money_account/account = modify.get_card_account()
+			if(account)
+				account.payday_amount = 0
 			modify.assignment = "Terminated"
 			modify.access = list()
 			modify.rank = "Terminated"

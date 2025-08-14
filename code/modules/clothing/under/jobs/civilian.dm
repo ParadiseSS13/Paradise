@@ -49,6 +49,13 @@
 	item_state = "oldman"
 	item_color = "oldman"
 
+/obj/item/clothing/under/rank/civilian/hop/turtleneck
+	name = "head of personnel's turtleneck"
+	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold office. Due to budget cuts, the material does not offer any external protection."
+	icon_state = "hop_turtle"
+	item_state = "hop_turtle"
+	item_color = "hop_turtle"
+
 /obj/item/clothing/under/rank/civilian/bartender
 	desc = "It looks like it could use some more flair."
 	name = "bartender's uniform"
@@ -94,7 +101,6 @@
 
 /obj/item/clothing/under/rank/civilian/clown/skirt
 	name = "clown skirt"
-	desc = "<i>'HONK!'</i>"
 	icon_state = "clown_skirt"
 	item_state = "clown_skirt"
 	item_color = "clown_skirt"
@@ -118,7 +124,6 @@
 
 /obj/item/clothing/under/rank/civilian/mime/skirt
 	name = "mime's skirt"
-	desc = "It's not very colourful."
 	icon_state = "mime_skirt"
 	item_state = "mime_skirt"
 	item_color = "mime_skirt"

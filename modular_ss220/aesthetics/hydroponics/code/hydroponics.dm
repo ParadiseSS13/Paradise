@@ -17,6 +17,9 @@
 /obj/item/storage/bag/plants
 	icon = 'modular_ss220/aesthetics/hydroponics/icons/hydroponics.dmi'
 
+/obj/item/storage/bag/plants/seed_sorting_tray
+	icon = 'icons/obj/hydroponics/equipment.dmi'
+
 /obj/structure/loom
 	icon = 'modular_ss220/aesthetics/hydroponics/icons/hydroponics.dmi'
 

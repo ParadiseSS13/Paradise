@@ -96,10 +96,8 @@
 
 /area/shuttle/administration/centcom
 	name = "Корпоративное Судно ЦК НТ"
-	icon_state = "shuttlered"
 
 /area/shuttle/administration/station
-	name = "Корпоративное Судно НТ"
 	icon_state = "shuttlered2"
 
 // === Trying to remove these areas:

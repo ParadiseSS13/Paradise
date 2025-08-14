@@ -35,7 +35,7 @@
 
 /datum/event/prison_break/announce(false_alarm)
 	if(length(areas) || false_alarm)
-		GLOB.minor_announcement.Announce("[pick("Вирус `Gr3y.T1d3`", "S.E.L.F program", "Вредоносный троян", "Runtime error", "Cybersun worm", "[pick("Castle", "Felix", "Fractal", "Paradox", "Rubiks", "Portcullis", "Hammer", "Lockpick", "Faust", "Dream")][pick(" 2.0","")] Daemon")] обнаружен в подсистеме [(eventDept == "Security")? "заключения":"безопасности"] на [station_name()]. Немедленно обеспечьте безопасность всех затронутых отсеков. Рекомендуется вмешательство ИИ станции.", "ВНИМАНИЕ: Аварийное оповещение [eventDept].")
+		GLOB.minor_announcement.Announce("[pick("Вирус `Gr3y.T1d3`", "S.E.L.F program", "Вредоносный троян", "Runtime error", "Unidentified hostile worm", "[pick("Castle", "Felix", "Fractal", "Paradox", "Rubiks", "Portcullis", "Hammer", "Lockpick", "Faust", "Dream")][pick(" 2.0","")] Daemon")] обнаружен в подсистеме [(eventDept == "Security")? "заключения":"безопасности"] на [station_name()]. Немедленно обеспечьте безопасность всех затронутых отсеков. Рекомендуется вмешательство ИИ станции.", "ВНИМАНИЕ: Аварийное оповещение [eventDept].")
 
 /datum/event/prison_break/start()
 	for(var/area/A in world)

@@ -61,7 +61,7 @@
 		"\improper ARG" = list('icons/obj/guns/projectile.dmi', "arg-30"),
 		"\improper C4" = list('icons/obj/grenade.dmi', "plastic-explosive0"),
 		"\improper L6 SAW" = list('icons/obj/guns/projectile.dmi', "l6closed100"),
-		"chainsaw" = list('icons/obj/weapons/melee.dmi', "chainsaw0"),
+		"chainsaw" = list('icons/obj/weapons/melee.dmi', "chainsaw"),
 		"combat shotgun" = list('icons/obj/guns/projectile.dmi', "cshotgun"),
 		"double-bladed energy sword" = list('icons/obj/weapons/energy_melee.dmi', "dualsaberred1"),
 		"energy sword" = list('icons/obj/weapons/energy_melee.dmi', "swordred"),
@@ -431,7 +431,6 @@
   * Changes the target's appearance to something else temporarily.
   */
 /obj/effect/hallucination/self_delusion
-	duration = 15 SECONDS
 
 /obj/effect/hallucination/self_delusion/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
@@ -455,7 +454,6 @@
   * Changes the appearance of all humans around the target.
   */
 /obj/effect/hallucination/delusion
-	duration = 15 SECONDS
 
 /obj/effect/hallucination/delusion/Initialize(mapload, mob/living/carbon/target, override_icon, override_icon_state)
 	. = ..()

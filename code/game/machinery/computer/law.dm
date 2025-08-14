@@ -9,7 +9,6 @@
 	var/mob/living/silicon/ai/current = null
 	var/opened = FALSE
 	light_color = LIGHT_COLOR_WHITE
-	light_range_on = 2
 	/// sets the cooldown time between uploads when emag'd
 	var/cooldown = 0
 	/// holds the value for when the inherent_laws are counted in countlaws()

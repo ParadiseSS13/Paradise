@@ -2343,7 +2343,7 @@
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "te" = (
-/mob/living/simple_animal/hostile/alien/maid,
+/mob/living/basic/alien/maid,
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "tg" = (

@@ -258,21 +258,77 @@
 	name = "Северные Технические Тоннели Дормиториев"
 	icon_state = "dorms_maint_fore"
 
+/area/station/maintenance/command
+	name = "Технические Тоннели Мостика"
+	icon_state = "cmd_maint"
+
+/area/station/maintenance/command/fore
+	name = "Северные Технические Тоннели Мостика"
+	icon_state = "cmd_maint_fore"
+
+/area/station/maintenance/command/fore_starboard
+	name = "Северо-Восточные Технические Тоннели Мостика"
+	icon_state = "cmd_maint_fore_starboard"
+
+/area/station/maintenance/command/fore_port
+	name = "Северо-Западные Технические Тоннели Мостика"
+	icon_state = "cmd_maint_fore_port"
+
+/area/station/maintenance/command/aft
+	name = "Южные Технические Тоннели Мостика"
+	icon_state = "cmd_maint_aft"
+
+/area/station/maintenance/command/aft_starboard
+	name = "Юго-Восточные Технические Тоннели Мостика"
+	icon_state = "cmd_maint_aft_starboard"
+
+/area/station/maintenance/command/aft_port
+	name = "Юго-Западные Технические Тоннели Мостика"
+	icon_state = "cmd_maint_aft_port"
+
+/area/station/maintenance/command/starboard
+	name = "Восточные Технические Тоннели Мостика"
+	icon_state = "cmd_maint_starboard"
+
+/area/station/maintenance/command/port
+	name = "Западные Технические Тоннели Мостика"
+	icon_state = "cmd_maint_port"
+
 /area/station/maintenance/security
-	name = "Технические Тоннели Службы Безопасности"
+	name = "Технические Тоннели Брига"
 	icon_state = "sec_maint"
 
 /area/station/maintenance/security/fore
-	name = "Северные Технические Тоннели Службы Безопасности"
+	name = "Северные Технические Тоннели Брига"
 	icon_state = "sec_maint_fore"
 
-/area/station/maintenance/security/aft_port
-	name = "Юго-Западные Технические Тоннели Службы Безопасности"
-	icon_state = "sec_maint_ap"
+/area/station/maintenance/security/fore_starboard
+	name = "Северо-Восточные Технические Тоннели Брига"
+	icon_state = "sec_maint_fore_starboard"
+
+/area/station/maintenance/security/fore_port
+	name = "Северо-Западные Технические Тоннели Брига"
+	icon_state = "sec_maint_fore_port"
+
+/area/station/maintenance/security/aft
+	name = "Южные Технические Тоннели Брига"
+	icon_state = "sec_maint_aft"
 
 /area/station/maintenance/security/aft_starboard
-	name = "Юго-Восточные Технические Тоннели Службы Безопасности"
-	icon_state = "sec_maint_as"
+	name = "Юго-Восточные Технические Тоннели Брига"
+	icon_state = "sec_maint_aft_starboard"
+
+/area/station/maintenance/security/aft_port
+	name = "Юго-Западные Технические Тоннели Брига"
+	icon_state = "sec_maint_aft_port"
+
+/area/station/maintenance/security/starboard
+	name = "Восточные Технические Тоннели Брига"
+	icon_state = "sec_maint_starboard"
+
+/area/station/maintenance/security/port
+	name = "Западные Технические Тоннели Брига"
+	icon_state = "sec_maint_port"
 
 /area/station/engineering/atmos/asteroid_maint
 	name = "Технические Тоннели Атмосферного Отсека Астероида"

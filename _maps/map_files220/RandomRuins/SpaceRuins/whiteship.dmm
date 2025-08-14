@@ -1188,7 +1188,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "FJ" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/space)
 "FZ" = (

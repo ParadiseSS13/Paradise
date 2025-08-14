@@ -43,7 +43,6 @@
 /area/station/service/chapel/office
 	name = "Офис Священника"
 	icon_state = "chapeloffice"
-	request_console_flags = RC_SUPPLY
 	request_console_name = "Chapel"
 
 /area/station/service/clown

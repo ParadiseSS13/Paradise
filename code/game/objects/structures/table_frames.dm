@@ -12,10 +12,7 @@
 /obj/structure/table_frame
 	name = "table frame"
 	desc = "Four metal legs with four framing rods for a table. You could easily pass through this."
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "table_frame"
-	density = FALSE
-	anchored = FALSE
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 	max_integrity = 100
 	///The resource dropped when the table frame is destroyed or deconstructed
@@ -109,7 +106,6 @@
 	desc = "Four wooden legs with four framing wooden rods for a wooden table. You could easily pass through this."
 	icon_state = "wood_frame"
 	framestack = /obj/item/stack/sheet/wood
-	framestackamount = 2
 	resistance_flags = FLAMMABLE
 	restrict_table_types = list(/obj/item/stack/tile/carpet = /obj/structure/table/wood/poker, /obj/item/stack/sheet/wood = /obj/item/stack/sheet/wood::table_type)
 

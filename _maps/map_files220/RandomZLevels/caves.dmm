@@ -2039,7 +2039,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/caves/build)
 "ko" = (
-/mob/living/simple_animal/hostile/scarybat,
+/mob/living/basic/scarybat,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "kp" = (

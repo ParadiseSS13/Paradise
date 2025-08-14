@@ -71,7 +71,6 @@
 
 /area/station/medical/virology/lab
 	name = "Лаборатория Вирусологии"
-	icon_state = "virology"
 
 /area/station/medical/morgue
 	name = "Морг"
@@ -100,7 +99,6 @@
 
 /area/station/medical/surgery/observation
 	name = "Комната Оперативного Наблюдения"
-	icon_state = "surgery"
 
 /area/station/medical/cryo
 	name = "Криогеника"

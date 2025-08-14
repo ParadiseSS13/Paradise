@@ -72,9 +72,15 @@
 	/// Boolean detailing if this job has been banned because of a gamemode restriction i.e. The revolution has won, no more command
 	var/job_banned_gamemode = FALSE
 
+	/// Standard paycheck amount for this job
+	var/standard_paycheck = CREW_PAY_ASSISTANT
+
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H, joined_late = FALSE)	// SS220 EDIT - jobs - prisoner spawn
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H)
+
+	H.mind.initial_account.payday_amount = standard_paycheck
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	return
@@ -333,3 +339,36 @@
 	var/obj/item/book/manual/wiki/sop_legal/imaginary/book = new()
 	if(!put_in_any_hand_if_possible(book))
 		QDEL_NULL(book)
+
+/proc/get_full_job_name(job)
+	var/static/regex/cap_expand = new("cap(?!tain)")
+	var/static/regex/cmo_expand = new("cmo")
+	var/static/regex/hos_expand = new("hos")
+	var/static/regex/hop_expand = new("hop")
+	var/static/regex/rd_expand = new("rd")
+	var/static/regex/ce_expand = new("ce")
+	var/static/regex/qm_expand = new("qm")
+	var/static/regex/sec_expand = new("(?<!security )officer")
+	var/static/regex/engi_expand = new("(?<!station )engineer")
+	var/static/regex/atmos_expand = new("atmos tech")
+	var/static/regex/doc_expand = new("(?<!medical )doctor|medic(?!al)")
+	var/static/regex/mine_expand = new("(?<!shaft )miner")
+	var/static/regex/chef_expand = new("chef")
+	var/static/regex/borg_expand = new("(?<!cy)borg")
+
+	job = lowertext(job)
+	job = cap_expand.Replace(job, "captain")
+	job = cmo_expand.Replace(job, "chief medical officer")
+	job = hos_expand.Replace(job, "head of security")
+	job = hop_expand.Replace(job, "head of personnel")
+	job = rd_expand.Replace(job, "research director")
+	job = ce_expand.Replace(job, "chief engineer")
+	job = qm_expand.Replace(job, "quartermaster")
+	job = sec_expand.Replace(job, "security officer")
+	job = engi_expand.Replace(job, "station engineer")
+	job = atmos_expand.Replace(job, "atmospheric technician")
+	job = doc_expand.Replace(job, "medical doctor")
+	job = mine_expand.Replace(job, "shaft miner")
+	job = chef_expand.Replace(job, "cook")
+	job = borg_expand.Replace(job, "cyborg")
+	return job

@@ -9,7 +9,6 @@
 	var/is_adult = FALSE
 	var/docile = FALSE
 	faction = list("slime", "neutral")
-	new_attack_chain = TRUE
 
 	harm_intent_damage = 5
 	icon_living = "grey baby slime"
