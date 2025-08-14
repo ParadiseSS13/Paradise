@@ -51,8 +51,7 @@
 	if(QDELETED(A))
 		return
 
-	if(client?.click_intercept)
-		client.click_intercept.InterceptClickOn(src, params, A)
+	if(check_click_intercept(params,A))
 		return
 
 	if(next_click > world.time)
@@ -515,6 +514,19 @@
 			modifiers["catcher"] = TRUE
 			click_turf.Click(location, control, list2params(modifiers))
 	. = 1
+
+/mob/proc/check_click_intercept(params,A)
+	// Client level intercept
+	if(client?.click_intercept)
+		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
+			return TRUE
+
+	// Mob level intercept
+	if(click_interceptor)
+		if(call(click_interceptor, "InterceptClickOn")(src, params, A))
+			return TRUE
+
+	return FALSE
 
 #undef MAX_SAFE_BYOND_ICON_SCALE_TILES
 #undef MAX_SAFE_BYOND_ICON_SCALE_PX
