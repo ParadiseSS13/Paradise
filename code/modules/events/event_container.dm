@@ -190,12 +190,12 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spontaneous_appendicitis, 5, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/carp_migration, 10, , TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/rogue_drone, 7),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spacevine, 20),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spacevine, 15),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/meteor_wave, 10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/solar_flare, 12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/dust/meaty, 10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/communications_blackout, 15),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/prison_break, 0),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/prison_break, 7),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Virology Breach",			/datum/event/prison_break/virology,		0,		list(ASSIGNMENT_MEDICAL = 100)),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Xenobiology Breach",		/datum/event/prison_break/xenobiology,	0,		list(ASSIGNMENT_SCIENCE = 100)),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/apc_short, 15),
@@ -219,7 +219,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_flux, 10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_grav, 10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/disease_outbreak, 25, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/door_runtime, 25, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/door_runtime, 12, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tourist_arrivals, 50, TRUE)
 	)
 

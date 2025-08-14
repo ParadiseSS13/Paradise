@@ -1,6 +1,8 @@
 /datum/event/prison_break
 	name = "Prison Break"
-	role_weights = list(ASSIGNMENT_SECURITY = 100)
+	role_weights = list(ASSIGNMENT_SECURITY = 0.8, ASSIGNMENT_TOTAL = 0.2)
+	role_requirements = list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_TOTAL = 0)
+	nominal_severity = EVENT_LEVEL_MODERATE
 	startWhen		= 40
 	announceWhen	= 75
 
