@@ -1,4 +1,5 @@
 /datum/event/vent_clog
+	name = "Scrubber Clog"
 	startWhen		= 5
 	endWhen			= 35
 	nominal_severity = EVENT_LEVEL_MODERATE
