@@ -755,7 +755,6 @@
 	name = "suit"
 	icon = 'icons/obj/clothing/suits.dmi'
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
-	armor = null
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	slot_flags = ITEM_SLOT_OUTER_SUIT
@@ -1012,7 +1011,6 @@
 	name = "under"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	slot_flags = ITEM_SLOT_JUMPSUIT
-	armor = null
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'

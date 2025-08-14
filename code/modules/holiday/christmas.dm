@@ -67,4 +67,3 @@
 	icon_state = "xmashat"
 	desc = "A crappy paper hat that you are REQUIRED to wear."
 	flags_inv = 0
-	armor = null

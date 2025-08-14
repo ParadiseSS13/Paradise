@@ -8,7 +8,6 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rsf"
 	item_state = "rsf"
-	armor = null
 	var/atom/currently_dispensing
 	var/power_mode = POWER_NONE
 

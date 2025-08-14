@@ -6,7 +6,6 @@
 	base_icon_state = "helmet"
 	item_state = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	armor = null
 	heat_protection = HEAD
 	cold_protection = HEAD
 	permeability_coefficient = 0.01
@@ -32,7 +31,6 @@
 		/obj/item/flashlight,
 		/obj/item/tank/jetpack/oxygen/captain,
 	)
-	armor = null
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	heat_protection = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
@@ -55,7 +53,6 @@
 	base_icon_state = "gauntlets"
 	item_state = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	armor = null
 	body_parts_covered = HANDS|ARMS
 	heat_protection = HANDS|ARMS
 	cold_protection = HANDS|ARMS
@@ -76,7 +73,6 @@
 	base_icon_state = "boots"
 	item_state = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	armor = null
 	body_parts_covered = FEET|LEGS
 	heat_protection = FEET|LEGS
 	cold_protection = FEET|LEGS

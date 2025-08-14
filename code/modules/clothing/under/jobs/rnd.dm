@@ -74,7 +74,6 @@
 	item_state = "genetics"
 	item_color = "genetics"
 	permeability_coefficient = 0.50
-	armor = null
 
 /obj/item/clothing/under/rank/rnd/geneticist/skirt
 	name = "geneticist's jumpskirt"

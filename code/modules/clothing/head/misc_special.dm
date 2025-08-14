@@ -61,7 +61,6 @@
 	desc = "It's tasty looking!"
 	icon_state = "cake0"
 	flags_cover = HEADCOVERSEYES
-	armor = null
 	var/onfire = FALSE
 	var/status = 0
 	var/fire_resist = T0C+1300	//this is the max temp it can stand before you start to cook. although it might not burn away, you take damage

@@ -181,7 +181,6 @@
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
-	armor = null
 	actions_types = list(/datum/action/item_action/adjust)
 	can_toggle = TRUE
 
