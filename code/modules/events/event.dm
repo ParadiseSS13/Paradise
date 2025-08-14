@@ -88,7 +88,9 @@
 	var/job_weight = 0
 	for(var/role in role_weights)
 		var/role_available = total_resources[role] ? total_resources[role] : 0
-		job_weight += (role_available - role_requirements[role] * (severity / nominal_severity)) * role_weights[role]
+		var/difference = (role_available - role_requirements[role] * (severity / nominal_severity)) * role_weights[role]
+		// We add difference if it's negative, or the square root if it's positive
+		job_weight += (difference > 0 ? difference**0.9 : difference)
 	return job_weight
 
 /**
