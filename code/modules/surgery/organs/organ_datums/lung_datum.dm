@@ -106,7 +106,7 @@
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			H.clear_alert("not_enough_oxy")
 
-		//Exhale
+		// Exhale
 		breath.set_carbon_dioxide(breath.carbon_dioxide() + breath.oxygen())
 		breath.set_oxygen(0)
 
@@ -130,7 +130,7 @@
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			H.clear_alert("not_enough_nitro")
 
-		//Exhale
+		// Exhale
 		breath.set_carbon_dioxide(breath.carbon_dioxide() + breath.nitrogen())
 		breath.set_nitrogen(0)
 
@@ -163,7 +163,7 @@
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			H.clear_alert("not_enough_co2")
 
-		//Exhale
+		// Exhale
 		breath.set_oxygen(breath.oxygen() + breath.carbon_dioxide())
 		breath.set_carbon_dioxide(0)
 
@@ -189,7 +189,7 @@
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			H.clear_alert("not_enough_tox")
 
-		//Exhale
+		// Exhale
 		breath.set_carbon_dioxide(breath.carbon_dioxide() + breath.toxins())
 		breath.set_toxins(0)
 
@@ -217,7 +217,7 @@
 
 	if(prob(20))
 		H.emote("gasp")
-	var/available_ratio = clamp(breath_pp /safe_breath_min, 0, 1)
+	var/available_ratio = clamp(breath_pp / safe_breath_min, 0, 1)
 	// Take oxyloss damage scaled to the amount of missing air.
 	H.adjustOxyLoss((1 - available_ratio) * HUMAN_MAX_OXYLOSS)
 
