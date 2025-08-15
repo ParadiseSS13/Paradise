@@ -38,6 +38,7 @@
 @include meta.load-css('./interfaces/KitchenMachine.scss');
 @include meta.load-css('./interfaces/LibraryComputer.scss');
 @include meta.load-css('./interfaces/Loadout.scss');
+@include meta.load-css('./interfaces/LoreConsole.scss');
 @include meta.load-css('./interfaces/Newscaster.scss');
 @include meta.load-css('./interfaces/OreRedemption.scss');
 @include meta.load-css('./interfaces/PanDEMIC.scss');
@@ -52,6 +53,7 @@
 @include meta.load-css('./interfaces/SecurityRecords.scss');
 @include meta.load-css('./interfaces/SeedExtractor.scss');
 @include meta.load-css('./interfaces/MedicalRecords.scss');
+@include meta.load-css('./interfaces/MaterialContainer.scss');
 
 // Layouts
 @include meta.load-css('./layouts/Layout.scss');
