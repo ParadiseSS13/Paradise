@@ -47,6 +47,13 @@
 	item_state = "qm_whimsy"
 	item_color = "qm_whimsy"
 
+/obj/item/clothing/under/rank/cargo/qm/turtleneck
+	name = "quartermaster's turtleneck"
+	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold cargo bay. Due to budget cuts, the material does not offer any external protection."
+	icon_state = "qm_turtle"
+	item_state = "qm_turtle"
+	item_color = "qm_turtle"
+
 /obj/item/clothing/under/rank/cargo/tech
 	name = "cargo technician's jumpsuit"
 	desc = "A standard issue jumpsuit for cargo technicians. Snazzy!"
@@ -92,6 +99,7 @@
 /obj/item/clothing/under/rank/cargo/miner/lavaland
 	name = "shaft miner's harshsuit"
 	desc = "It's an brown uniform with some padded armour for operating in hazardous environments."
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	icon_state = "explorer"
 	item_state = "explorer"
 	item_color = "explorer"
@@ -135,6 +143,7 @@
 /obj/item/clothing/under/rank/cargo/smith
 	name = "smith's jumpsuit"
 	desc = "A brown jumpsuit with some extra metal pieces strapped to it. You're not sure why, but the added armor doesn't make you feel any safer..."
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	icon_state = "smith"
 	item_state = "smith"
 	item_color = "smith"

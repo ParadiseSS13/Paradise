@@ -155,7 +155,7 @@
 	name = "Ignite"
 	desc = "Set yourself aflame, bringing yourself closer to exploding!"
 	check_flags = AB_CHECK_CONSCIOUS
-	button_overlay_icon_state = "sacredflame"
+	button_icon_state = "sacredflame"
 
 /datum/action/innate/golem_ignite/Activate()
 	if(ishuman(owner))
@@ -504,14 +504,13 @@
 /datum/action/innate/unstable_teleport
 	name = "Unstable Teleport"
 	check_flags = AB_CHECK_CONSCIOUS
-	button_overlay_icon_state = "blink"
-	button_overlay_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "blink"
 	var/activated = FALSE // To prevent spamming
 	var/cooldown = 150
 	var/last_teleport = 0
 	var/tele_range = 6
 
-/datum/action/innate/unstable_teleport/IsAvailable()
+/datum/action/innate/unstable_teleport/IsAvailable(show_message = TRUE)
 	if(..())
 		if(world.time > last_teleport + cooldown && !activated)
 			return 1
@@ -547,9 +546,9 @@
 		H.unbuckle(force = TRUE)
 	do_teleport(H, picked)
 	last_teleport = world.time
-	UpdateButtons() //action icon looks unavailable
+	build_all_button_icons() //action icon looks unavailable
 	sleep(cooldown + 5)
-	UpdateButtons() //action icon looks available again
+	build_all_button_icons() //action icon looks available again
 
 /datum/unarmed_attack/golem/bluespace
 	attack_verb = "bluespace punch"
@@ -581,6 +580,7 @@
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/drinks/bottle/bottleofbanana(H), ITEM_SLOT_RIGHT_POCKET)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), ITEM_SLOT_LEFT_POCKET)
 	H.AddElement(/datum/element/waddling)
+	H.AddComponent(/datum/component/slippery, H, 8 SECONDS, 100, 0, FALSE, TRUE, "slip", TRUE)
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
 	. = ..()

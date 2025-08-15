@@ -17,7 +17,6 @@
 	tracer_type = /obj/effect/projectile/tracer/death
 	impact_type = /obj/effect/projectile/impact/death
 	hitscan_light_intensity = 3
-	hitscan_light_range = 0.75
 	hitscan_light_color_override = LIGHT_COLOR_PURPLE
 	muzzle_flash_intensity = 6
 	muzzle_flash_range = 2
@@ -145,7 +144,6 @@
 
 /obj/item/projectile/magic/door
 	name = "bolt of door creation"
-	icon_state = "energy"
 	var/list/door_types = list(/obj/structure/mineral_door/wood,/obj/structure/mineral_door/iron,/obj/structure/mineral_door/silver,\
 		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium,/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/transparent/plasma,\
 		/obj/structure/mineral_door/transparent/diamond)
@@ -194,15 +192,15 @@
 	wabbajack(change)
 
 GLOBAL_LIST_INIT(wabbajack_hostile_animals, list(
-	"carp" = /mob/living/simple_animal/hostile/carp,
-	"bear" = /mob/living/simple_animal/hostile/bear,
+	"carp" = /mob/living/basic/carp,
+	"bear" = /mob/living/basic/bear,
 	"mushroom" = /mob/living/simple_animal/hostile/mushroom,
 	"statue" = /mob/living/simple_animal/hostile/statue,
-	"bat" = /mob/living/simple_animal/hostile/scarybat,
+	"bat" = /mob/living/basic/scarybat,
 	"goat" = /mob/living/simple_animal/hostile/retaliate/goat,
-	"tomato" = /mob/living/simple_animal/hostile/killertomato,
-	"gorilla" = /mob/living/simple_animal/hostile/gorilla,
-	"kangaroo" = /mob/living/simple_animal/hostile/retaliate/kangaroo,
+	"kangaroo" = /mob/living/basic/kangaroo,
+	"tomato" = /mob/living/basic/killertomato,
+	"gorilla" = /mob/living/basic/gorilla,
 ))
 
 GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
@@ -213,14 +211,14 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 	"mouse" = /mob/living/simple_animal/mouse,
 	"chicken" = /mob/living/simple_animal/chicken,
 	"cow" = /mob/living/basic/cow,
-	"lizard" = /mob/living/simple_animal/lizard,
+	"lizard" = /mob/living/basic/lizard,
 	"fox" = /mob/living/simple_animal/pet/dog/fox,
 	"chick" = /mob/living/simple_animal/chick,
 	"pug" = /mob/living/simple_animal/pet/dog/pug,
 	"turkey" = /mob/living/simple_animal/turkey,
 	"seal" = /mob/living/simple_animal/seal,
-	"bunny" = /mob/living/simple_animal/bunny,
-	"penguin" = /mob/living/simple_animal/pet/penguin/emperor,
+	"bunny" = /mob/living/basic/bunny,
+	"penguin" = /mob/living/basic/pet/penguin/emperor,
 ))
 
 /proc/wabbajack(mob/living/M, force_borg = FALSE, force_animal = FALSE)
@@ -416,6 +414,4 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 	damage = 20
 	damage_type = BURN
 	nodamage = FALSE
-	armour_penetration_flat = 0
-	flag = MAGIC
 	hitsound = 'sound/weapons/barragespellhit.ogg'

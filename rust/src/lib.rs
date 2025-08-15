@@ -4,6 +4,7 @@ mod mapmanip;
 mod milla;
 mod rustlibs_dmi;
 mod rustlibs_file;
+mod rustlibs_git;
 mod rustlibs_http;
 mod rustlibs_json;
 mod rustlibs_logging;

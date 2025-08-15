@@ -111,7 +111,6 @@
 	hallucination_icon = 'icons/mob/carp.dmi'
 	hallucination_icon_state = "base"
 	duration = 30 SECONDS
-	damage = 25
 
 /obj/effect/hallucination/chaser/attacker/space_carp/Initialize(mapload, mob/living/carbon/hallucination_target)
 	. = ..()

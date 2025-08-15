@@ -89,15 +89,12 @@
 	icon_state = "hall_space"
 
 /area/station/hallway/spacebridge/security
-	icon_state = "hall_space"
 	name = "\improper Security Space Bridge"
 
 /area/station/hallway/spacebridge/security/west
-	icon_state = "hall_space"
 	name = "\improper Security West Space Bridge"
 
 /area/station/hallway/spacebridge/security/south
-	icon_state = "hall_space"
 	name = "\improper Security South Space Bridge"
 
 /area/station/hallway/spacebridge/dockmed
@@ -189,7 +186,6 @@
 
 /area/station/public/sleep/secondary
 	name = "\improper Secondary Cryogenic Dormitories"
-	icon_state = "Sleep"
 
 /area/station/public/locker
 	name = "\improper Locker Room"
@@ -255,7 +251,6 @@
 
 /area/station/public/storage/emergency/port
 	name = "Port Emergency Storage"
-	icon_state = "emergencystorage"
 
 /area/station/public/storage/office
 	name = "Office Supplies"

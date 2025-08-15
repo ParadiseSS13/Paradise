@@ -32,7 +32,7 @@
 	if(islist(data["admin_assignments"]))
 		ckey_rank_map.Cut()
 		for(var/list/kvset in data["admin_assignments"])
-			ckey_rank_map[kvset["ckey"]] = kvset["rank"]
+			ckey_rank_map[ckey(kvset["ckey"])] = kvset["rank"]
 
 	// Load admin colours
 	if(islist(data["admin_rank_colour_map"]))

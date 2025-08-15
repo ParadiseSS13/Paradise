@@ -63,6 +63,7 @@
 
 /obj/item/cautery/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
@@ -88,10 +89,6 @@
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/cautery/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
-
 /obj/item/cautery/augment
 	desc = "A heated element that cauterizes wounds."
 	toolspeed = 0.5
@@ -108,7 +105,6 @@
 	flags = CONDUCT
 	force = 15.0
 	sharp = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
 	tool_behaviour = TOOL_DRILL
@@ -206,19 +202,15 @@
 
 /// lasers also count as catuarys
 /obj/item/scalpel/laser/laser1
-	name = "laser scalpel"
 	desc = "A basic low-power laser emitter for creating and cauterizing precise surgical incisions."
-	icon_state = "scalpel_laser1_on"
 	toolspeed = 0.8
 
 /obj/item/scalpel/laser/laser2
-	name = "laser scalpel"
 	desc = "An improved laser emitter for rapidly creating and cauterizing precise surgical incisions."
 	icon_state = "scalpel_laser2_on"
 	toolspeed = 0.6
 
 /obj/item/scalpel/laser/laser3
-	name = "laser scalpel"
 	desc = "An advanced laser emitter for creating and cauterizing precise surgical incisions with extreme speed."
 	icon_state = "scalpel_laser3_on"
 	toolspeed = 0.4
@@ -247,7 +239,6 @@
 	flags = CONDUCT
 	force = 15.0
 	sharp = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 9.0
 	throw_speed = 3
 	throw_range = 5
@@ -276,7 +267,6 @@
 	icon_state = "bone-gel"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	force = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
@@ -298,7 +288,6 @@
 	icon_state = "fixovein"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	force = 0
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
 	w_class = WEIGHT_CLASS_SMALL

@@ -109,7 +109,6 @@
 
 //Black-green syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/green
-	name = "black space helmet"
 	icon_state = "syndicate-helm-black-green"
 	item_state = "syndicate-helm-black-green"
 
@@ -121,7 +120,6 @@
 
 //Black-blue syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/blue
-	name = "black space helmet"
 	icon_state = "syndicate-helm-black-blue"
 	item_state = "syndicate-helm-black-blue"
 
@@ -133,31 +131,24 @@
 
 //Black medical syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/med
-	name = "black space helmet"
 	icon_state = "syndicate-helm-black-med"
-	item_state = "syndicate-helm-black"
 
 /obj/item/clothing/suit/space/syndicate/black/med
 	name = "green space suit"
 	icon_state = "syndicate-black-med"
-	item_state = "syndicate-black"
 
 
 //Black-orange syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/orange
-	name = "black space helmet"
 	icon_state = "syndicate-helm-black-orange"
-	item_state = "syndicate-helm-black"
 
 /obj/item/clothing/suit/space/syndicate/black/orange
 	name = "black and orange space suit"
 	icon_state = "syndicate-black-orange"
-	item_state = "syndicate-black"
 
 
 //Black-red syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/red
-	name = "black space helmet"
 	icon_state = "syndicate-helm-black-red"
 	item_state = "syndicate-helm-black-red"
 
@@ -185,14 +176,11 @@
 
 //Black with yellow/red engineering syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/engie
-	name = "black space helmet"
 	icon_state = "syndicate-helm-black-engie"
-	item_state = "syndicate-helm-black"
 
 /obj/item/clothing/suit/space/syndicate/black/engie
 	name = "black engineering space suit"
 	icon_state = "syndicate-black-engie"
-	item_state = "syndicate-black"
 
 /obj/item/clothing/head/helmet/space/syndicate/contractor
 	name = "contractor helmet"
@@ -204,7 +192,6 @@
 /obj/item/clothing/suit/space/syndicate/contractor
 	name = "contractor space suit"
 	desc = "A specialised black and gold space suit that's easier to move around in than its standard Syndicate counterpart. It is made of an exotic military-grade fabric for added protection, and can be ultra-compressed into even the tightest of spaces."
-	slowdown = 1
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "syndicate-contractor"
 	item_state = "syndicate-contractor"

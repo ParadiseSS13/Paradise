@@ -18,14 +18,12 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
 	color = COLOR_RED
 	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL = 15, MAT_GLASS = 10)
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	usesound = 'sound/items/deconstruct.ogg'
-	toolspeed = 1
 
 /obj/item/stack/cable_coil/Initialize(mapload, length, paramcolor)
 	. = ..()

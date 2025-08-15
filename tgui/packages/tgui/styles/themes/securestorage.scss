@@ -1,22 +1,19 @@
-@use 'sass:color';
-@use 'sass:meta';
+.theme-securestorage:root {
+  // Base
+  --color-base: var(--color-beige);
+  --color-secondary: var(--color-base);
+  --color-section: transparent;
+  --color-primary: hsl(120, 35%, 35%);
+  --color-caution: hsl(from var(--color-yellow) h s calc(l - var(--adjust-color)));
+  --color-danger: hsl(from var(--color-red) h s calc(l - var(--adjust-color)));
+  --color-text: var(--color-black);
+  --base-gradient-spread: 0;
 
-@use '../colors.scss' with (
-  $primary: #397439,
-  $fg-map-keys: (),
-  $bg-map-keys: ()
-);
-@use '../base.scss' with (
-  $color-bg: #e8e4c9,
-  $color-bg-grad-spread: 6%,
-  $border-radius: 2px
-);
-
-.theme-securestorage {
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #e8e4c9, 'text-color': #191916));
-  @include meta.load-css('../layouts/Layout.scss');
-  @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../components/Section.scss');
+  // Components
+  --button-background-default: var(--color-base);
+  --button-color: hsla(0, 0%, 0%, 0.5);
+  --titlebar-shadow-color: transparent;
+  --titlebar-shadow-core: transparent;
 
   .Layout__content {
     background-image: none;

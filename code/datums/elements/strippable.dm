@@ -467,7 +467,7 @@
 				strippable_item.finish_unequip(owner, user)
 		if("alt")
 			var/key = params["key"]
-			var/datum/strippable_item/strippable_item = strippable.items[key]
+			var/datum/strippable_item/strippable_item = unfiltered_items[key]
 
 			if(isnull(strippable_item))
 				return
