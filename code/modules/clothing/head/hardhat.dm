@@ -106,7 +106,6 @@
 /obj/item/clothing/head/hardhat/durathread
 	name = "durathread hard hat"
 	icon_state = "hardhat0_durathread"
-	item_state = "hardhat0_durathread"
 	item_color = "durathread"
 	desc = "A hard hat made from durathread, leather, and light fixture components."
 	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 35, ACID = 50)
