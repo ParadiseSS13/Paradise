@@ -123,18 +123,22 @@
 	if(stat & BROKEN)
 		return
 	overlays = null
+	clear_reactor_network()
 	INVOKE_ASYNC(src, PROC_REF(meltdown))
 	stat |= BROKEN
 
 /obj/machinery/power/fission_reactor/proc/meltdown()
+	icon_state =
 	icon_state = "meltdown"
 	sleep(1.7 SECONDS)
 	#warn Set this to be based off reactivity later
-	explosion(src.loc, 10, 15, 20, ignorecap = TRUE, smoke = TRUE)
+	explosion(src.loc, 5, 15, 20, ignorecap = TRUE, smoke = TRUE)
 	icon_state = "broken"
 
 /obj/machinery/power/fission_reactor/proc/set_fixed()
 	stat &= ~BROKEN
+	icon = "reactor_off"
+	build_reactor_network()
 
 /obj/machinery/power/fission_reactor/process()
 	if(stat & BROKEN)
@@ -151,26 +155,66 @@
 			new /obj/item/slag(loc)
 			if(prob(30))
 				repair_step++
+				to_chat(user, "<span class='information'>There seems to be more slag clogging the ruined reactor core.</span>")
 			else
-				to_chat(user, "<span class='info'>There seems to be more slag clogging the reactor.</span>")
+				to_chat(user, "<span class='information'>No more melted slag remains in the chamber</span>")
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/stack/sheet/mineral/plastitanium) && repair_step == REACTOR_NEEDS_PLASTITANIUM)
-		if(used.amount >= 10)
+		var/obj/item/stack/sheet/plastitanium = used
+		if(plastitanium.amount >= 10)
 			if(do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE))
+				to_chat(user, "<span class='information'>You reform the control rod housing and slot the structure into place.</span>")
 				repair_step++
 		else
 			to_chat(user, "<span class='warning'>You need at least ten sheets of plastitanium to reform the reactor core structure!</span>")
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/stack/sheet/plasteel) && repair_step == REACTOR_NEEDS_PLASTEEL)
+		var/obj/item/stack/sheet/plasteel = used
+		if(plasteel.amount >= 5)
+			if(do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE))
+				repair_step++
+				to_chat(user, "<span class='information'>You attach a layer of radiation shielding around the reactor core.</span>")
+		else
+			to_chat(user, "<span class='warning'>You need at least five sheets of plastitanium to reform the reactor core structure!</span>")
 		return ITEM_INTERACT_COMPLETE
 
 
 
 
 /obj/machinery/power/fission_reactor/crowbar_act(mob/living/user, obj/item/I)
-	if(repair_step == REACTOR_NEEDS_DIGGING)
+	if(repair_step == REACTOR_NEEDS_CROWBAR)
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
 			playsound(src, I.usesound, 50, 1)
 			repair_step++
-	return ITEM_INTERACT_COMPLETE
+			to_chat(user, "<span class='information'>You remove any remaining damaged structure from the housing.</span>")
+			new /obj/item/stack/sheet/metal(user.loc, 2)
+		return ITEM_INTERACT_COMPLETE
+
+/obj/machinery/power/fission_reactor/wrench_act(mob/living/user, obj/item/I)
+	if(repair_step == REACTOR_NEEDS_WRENCH)
+		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
+			playsound(src, I.usesound, 50, 1)
+			repair_step++
+			to_chat(user, "<span class='information'>You secure the new plastitanium structure in place.</span>")
+			new /obj/item/stack/sheet/metal(user.loc, 2)
+		return ITEM_INTERACT_COMPLETE
+
+/obj/machinery/power/fission_reactor/screwdriver_act(mob/living/user, obj/item/I)
+	if(repair_step == REACTOR_NEEDS_SCREWDRIVER)
+		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
+			playsound(src, I.usesound, 50, 1)
+			to_chat(user, "<span class='information'>You secure the radiation shielding into place.</span>")
+			set_fixed()
+		return ITEM_INTERACT_COMPLETE
+
+/obj/machinery/power/fission_reactor/welder_act(mob/living/user, obj/item/I)
+	if(repair_step == REACTOR_NEEDS_WELDING)
+		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
+			playsound(src, I.usesound, 50, 1)
+			repair_step++
+			to_chat(user, "<span class='information'>You weld together the framing, ensuring an airtight seal within the core.</span>")
+			new /obj/item/stack/sheet/metal(user.loc, 2)
+		return ITEM_INTERACT_COMPLETE
 
 
 /// MARK: Rod Chamber
@@ -371,6 +415,20 @@
 					linked_reactor = chamber.linked_reactor
 					spread_link(linked_reactor)
 					return
+
+// check one's neighbors for rod activation requirements.
+/obj/machinery/reactor_chamber/proc/update_requirements()
+	var/turf/nearby_turf
+	var/direction = 0
+	while(direction <= 8)
+		direction++
+		if(IS_DIR_CARDINAL(direction))
+			nearby_turf = get_step(src, direction)
+			for(var/obj/machinery/reactor_chamber/chamber in nearby_turf.contents)
+				if(chamber.chamber_state == CHAMBER_DOWN && chamber.held_rod)
+
+
+
 
 /obj/item/circuitboard/machine/reactor_chamber
 	board_name = "Reactor Chamber"

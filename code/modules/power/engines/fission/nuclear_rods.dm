@@ -5,9 +5,9 @@
 	icon_state = "irradiated"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE
 	/// How much durability is left before the rod is useless
-	var/durability = 1000
+	var/durability = 6000
 	/// The maximum amount of durability for this rod. Used for percentage calculations
-	var/max_durability = 1000
+	var/max_durability = 6000
 	/// How fast does this rod degrade? higher = faster
 	var/degredation_speed = 1
 	/// How much heat does this rod add by default
@@ -16,7 +16,7 @@
 	var/heat_amp_mod = 1
 	/// The total amount of heat produced by this rod
 	var/heat_total
-	/// How much power does this rod add by default
+	/// How much power does this rod add by default in watts
 	var/power_amount = 0
 	/// How does this rod affect its neighbors power production
 	var/power_amp_mod = 1
@@ -32,28 +32,45 @@
 	var/list/adjacent_requirements = list()
 
 /obj/item/nuclear_rod/fuel
-	name = "uranium-238 fuel rod"
-	desc = "A rod comprised of multiple small uranium pellets. It can be used to fuel a nuclear reactor, generating heat in the process."
-	heat_amount = 50
-	power_amount = 50
+	name = "nuclear fuel rod"
+	desc = "This is a base item and should not be found. Alert a developer!"
 	rad_type = ALPHA_RAD
 
-/obj/item/nuclear_rod/moderator
-	name = "graphite moderator"
-	desc = "A solid rod of compressed graphite. It can be used to amplify the reactivity of nearby fuel rods, generating much more heat."
+/obj/item/nuclear_rod/fuel/uranium_235
+	name = "Uranium 235 Fuel Rod"
+	desc = "This is a base item and should not be found. Alert a developer!"
+	heat_amount = 50
+	power_amount = 15 KW
 	heat_amp_mod = 1.8
-	power_amp_mod = 1.4
+	power_amp_mod = 1.1
+	durability = 6000
+	rad_type = BETA_RAD
+	adjacent_requirements = list()
+
+/obj/item/nuclear_rod/moderator
+	name = "nuclear moderator rod"
+	desc = "This is a base item and should not be found. Alert a developer!"
 	icon_state = "normal"
 
+/obj/item/nuclear_rod/moderator/heavy_water
+	name = "Heavy Water Moderator"
+	desc = "A basic moderation rod filled with a varint of water comprised of deuterium instead of hydrogen atoms."
+	heat_amp_mod = 1.1
+	power_amp_mod = 1.4
+	durability = 6000
+
 /obj/item/nuclear_rod/coolant
-	name = "R-32 coolant rod"
-	desc = "a sophisticated container of solid refridgerant, compacted into a dense rod. It can be used to help prevent reactors from overheating."
-	heat_amount = -20
-	heat_amp_mod = 0.8
+	name = "Nuclear Coolant rod"
+	desc = "This is a base item and should not be found. Alert a developer!"
 	icon_state = "bananium"
 
-
-
+/obj/item/nuclear_rod/coolant/light_water
+	name = "Light Water Circulator"
+	desc = "A basic coolant rod that circulates distilled water through critical reactor components."
+	heat_amount = -20
+	heat_amp_mod = 1
+	power_amount = -10 KW
+	durability = 6000
 
 
 
