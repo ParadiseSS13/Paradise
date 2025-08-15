@@ -430,7 +430,7 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/docking_port/mobile/trader{
-	height = 17;
+	height = 18;
 	width = 14;
 	dwidth = 7;
 	preferred_direction = 1;
@@ -462,6 +462,7 @@ Ze
 Ze
 Ze
 Ze
+Ze
 CF
 CF
 FX
@@ -479,6 +480,7 @@ YZ
 MM
 CF
 ZP
+li
 fB
 Ze
 pN
@@ -497,6 +499,7 @@ iO
 Lw
 uV
 Pu
+li
 li
 li
 Ze
@@ -518,6 +521,7 @@ Ze
 Ze
 CF
 li
+li
 Ze
 Ze
 KM
@@ -537,6 +541,7 @@ el
 xa
 Lv
 li
+li
 IX
 Pu
 li
@@ -553,6 +558,7 @@ iO
 bb
 Qi
 VZ
+li
 li
 li
 li
@@ -575,6 +581,7 @@ kX
 li
 cH
 li
+li
 Ao
 Ze
 Ep
@@ -594,6 +601,7 @@ kX
 li
 wB
 li
+li
 xJ
 Ze
 JQ
@@ -610,6 +618,7 @@ iO
 bb
 Qi
 VZ
+li
 li
 li
 li
@@ -632,6 +641,7 @@ CM
 Hm
 Et
 li
+li
 yR
 Pu
 li
@@ -650,6 +660,7 @@ Ze
 Ze
 Ze
 CF
+li
 li
 Ze
 Ze
@@ -670,6 +681,7 @@ oh
 Pu
 li
 li
+li
 Ze
 LO
 iO
@@ -688,6 +700,7 @@ ar
 iz
 CF
 ZP
+li
 sw
 Ze
 sm
@@ -705,6 +718,7 @@ BY
 FX
 CF
 CF
+Ze
 Ze
 Ze
 Ze

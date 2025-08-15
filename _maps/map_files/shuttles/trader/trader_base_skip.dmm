@@ -47,7 +47,7 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/docking_port/mobile/trader{
-	height = 17;
+	height = 18;
 	width = 14;
 	dwidth = 7;
 	preferred_direction = 1;
@@ -430,8 +430,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/trade/sol)
 "Sg" = (
-/obj/item/flag/species/vox,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/trade/sol)
 "SE" = (
 /obj/effect/turf_decal/siding{
@@ -485,6 +484,7 @@ Cg
 Cg
 Cg
 Cg
+Cg
 aE
 zQ
 PY
@@ -501,7 +501,8 @@ aE
 aE
 VF
 bX
-Sg
+Ai
+VF
 FB
 aS
 bX
@@ -520,6 +521,7 @@ aE
 VF
 cl
 qk
+VF
 FB
 FB
 FB
@@ -542,6 +544,7 @@ bX
 bX
 FB
 FB
+FB
 bX
 bX
 nC
@@ -559,6 +562,7 @@ FB
 bX
 rj
 pG
+FB
 uE
 gg
 Nt
@@ -578,6 +582,7 @@ oc
 oL
 Rl
 gg
+FB
 gg
 FB
 LB
@@ -597,6 +602,7 @@ Ob
 oL
 Ea
 yV
+gg
 ws
 yV
 am
@@ -612,9 +618,10 @@ WG
 yM
 AY
 gg
-AY
+oc
 oL
 Ea
+yV
 yV
 rQ
 yV
@@ -637,6 +644,7 @@ Rl
 yV
 yV
 yV
+yV
 vV
 Le
 oi
@@ -654,6 +662,7 @@ AY
 Le
 Kj
 NW
+Sg
 KP
 yV
 kS
@@ -673,6 +682,7 @@ gJ
 Le
 Le
 Le
+yV
 Ub
 yV
 Le
@@ -694,6 +704,7 @@ CH
 yv
 yV
 yV
+yV
 Le
 DU
 AY
@@ -711,6 +722,7 @@ Le
 DD
 QI
 Dr
+yV
 Fh
 nh
 Le
@@ -729,6 +741,7 @@ zQ
 Le
 Dr
 Dr
+Le
 Le
 Le
 Le

@@ -12,19 +12,22 @@
 /obj/item/toy/plushie/abductor/agent,
 /turf/simulated/floor/mineral/abductor,
 /area/shuttle/trade/sol)
-"d" = (
-/obj/machinery/light/spot{
-	dir = 8
-	},
-/obj/structure/closet/abductor,
-/obj/effect/spawner/random/traders/minerals,
-/turf/simulated/floor/mineral/abductor,
-/area/shuttle/trade/sol)
 "e" = (
 /obj/machinery/light/spot{
 	dir = 8
 	},
 /obj/item/flag/species/greys,
+/turf/simulated/floor/mineral/abductor,
+/area/shuttle/trade/sol)
+"f" = (
+/obj/structure/closet/abductor,
+/obj/effect/spawner/random/traders/service,
+/obj/item/stack/tile/disco_light/thirty,
+/turf/simulated/floor/mineral/abductor,
+/area/shuttle/trade/sol)
+"h" = (
+/obj/structure/closet/abductor,
+/obj/effect/spawner/random/traders/engineering,
 /turf/simulated/floor/mineral/abductor,
 /area/shuttle/trade/sol)
 "i" = (
@@ -59,12 +62,9 @@
 	},
 /turf/simulated/floor/mineral/abductor,
 /area/shuttle/trade/sol)
-"k" = (
-/obj/machinery/light/spot{
-	dir = 4
-	},
+"l" = (
+/obj/effect/spawner/random/traders/minerals,
 /obj/structure/closet/abductor,
-/obj/effect/spawner/random/traders/engineering,
 /turf/simulated/floor/mineral/abductor,
 /area/shuttle/trade/sol)
 "m" = (
@@ -292,12 +292,6 @@
 	},
 /turf/simulated/floor/mineral/abductor,
 /area/shuttle/trade/sol)
-"V" = (
-/obj/structure/closet/abductor,
-/obj/item/stack/tile/disco_light/thirty,
-/obj/effect/spawner/random/traders/service,
-/turf/simulated/floor/mineral/abductor,
-/area/shuttle/trade/sol)
 "W" = (
 /obj/structure/closet/abductor,
 /obj/effect/spawner/random/traders/civilian,
@@ -339,8 +333,8 @@ C
 C
 C
 C
-X
-d
+q
+z
 W
 C
 C
@@ -378,7 +372,7 @@ v
 q
 q
 q
-a
+q
 C
 c
 C
@@ -395,7 +389,7 @@ C
 C
 s
 q
-q
+l
 w
 C
 K
@@ -413,7 +407,7 @@ e
 C
 A
 q
-q
+Y
 u
 C
 C
@@ -445,12 +439,12 @@ q
 q
 q
 q
-q
+S
 i
 Q
 q
-q
-Y
+t
+X
 C
 H
 P
@@ -463,12 +457,12 @@ q
 q
 q
 q
-q
+S
 i
 Q
 q
-q
-Y
+a
+f
 C
 G
 P
@@ -503,7 +497,7 @@ B
 C
 j
 q
-q
+Y
 u
 C
 C
@@ -521,7 +515,7 @@ C
 C
 s
 q
-q
+h
 b
 C
 o
@@ -540,7 +534,7 @@ v
 q
 q
 q
-t
+q
 C
 r
 C
@@ -573,8 +567,8 @@ C
 C
 C
 C
-V
-k
+q
+K
 I
 C
 C

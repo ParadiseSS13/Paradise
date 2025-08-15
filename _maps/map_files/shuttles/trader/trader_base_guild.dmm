@@ -16,6 +16,11 @@
 	},
 /turf/simulated/floor/carpet/purple,
 /area/shuttle/trade/sol)
+"aH" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/civilian,
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
 "aZ" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/item/ashtray/bronze{
@@ -250,11 +255,6 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
-"mJ" = (
-/obj/structure/closet,
-/obj/effect/spawner/random/traders/minerals,
-/turf/simulated/floor/wood,
-/area/shuttle/trade/sol)
 "mP" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 4
@@ -349,6 +349,10 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"si" = (
+/obj/structure/shelf/clockwork,
+/turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
 "sp" = (
 /obj/effect/turf_decal/woodsiding{
@@ -568,11 +572,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
-"Is" = (
-/obj/structure/closet,
-/obj/effect/spawner/random/traders/civilian,
-/turf/simulated/floor/wood,
-/area/shuttle/trade/sol)
 "IH" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/medical,
@@ -608,6 +607,8 @@
 /turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
 "ME" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/minerals,
 /turf/simulated/floor/carpet/royalblue,
 /area/shuttle/trade/sol)
 "Oi" = (
@@ -801,7 +802,7 @@ Yd
 DN
 VE
 Pl
-Dy
+si
 Cq
 JH
 nR
@@ -911,7 +912,7 @@ Dk
 at
 TC
 Pl
-Is
+Dy
 jO
 ME
 HC
@@ -933,9 +934,9 @@ FR
 at
 TC
 Pl
-mJ
+Gi
 jO
-ME
+aH
 HC
 hs
 Xm
@@ -1043,7 +1044,7 @@ Yd
 aZ
 es
 Pl
-Gi
+si
 oC
 yX
 nR

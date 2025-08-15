@@ -95,6 +95,20 @@
 	icon_state = "red"
 	},
 /area/shuttle/trade/sol)
+"gR" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock"
+	},
+/obj/docking_port/mobile/trader{
+	height = 19;
+	width = 16;
+	dwidth = 7;
+	preferred_direction = 1;
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/trade/sol)
 "hc" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/trade/sol)
@@ -181,8 +195,7 @@
 /area/shuttle/trade/sol)
 "qS" = (
 /obj/structure/closet,
-/obj/item/stack/tile/disco_light/thirty,
-/obj/effect/spawner/random/traders/service,
+/obj/effect/spawner/random/traders/engineering,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -264,16 +277,10 @@
 	},
 /area/shuttle/trade/sol)
 "vU" = (
+/obj/effect/spawner/random/traders/donksoft,
 /obj/structure/closet,
-/obj/effect/spawner/random/traders/science,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/machinery/light/spot{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 8;
 	icon_state = "red"
 	},
 /area/shuttle/trade/sol)
@@ -304,6 +311,18 @@
 /obj/effect/spawner/random/traders/large_item,
 /turf/simulated/floor/plasteel{
 	dir = 6;
+	icon_state = "red"
+	},
+/area/shuttle/trade/sol)
+"yg" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
 	icon_state = "red"
 	},
 /area/shuttle/trade/sol)
@@ -352,16 +371,11 @@
 	},
 /area/shuttle/trade/sol)
 "Cr" = (
+/obj/item/stack/tile/disco_light/thirty,
+/obj/effect/spawner/random/traders/service,
 /obj/structure/closet,
-/obj/effect/spawner/random/traders/engineering,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/machinery/light/spot{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
+	dir = 4;
 	icon_state = "red"
 	},
 /area/shuttle/trade/sol)
@@ -439,6 +453,18 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
+	icon_state = "red"
+	},
+/area/shuttle/trade/sol)
+"JE" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
 	icon_state = "red"
 	},
 /area/shuttle/trade/sol)
@@ -547,18 +573,10 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "RG" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/titanium/glass{
-	id_tag = "s_docking_airlock"
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "redcorner"
 	},
-/obj/docking_port/mobile/trader{
-	height = 18;
-	width = 16;
-	dwidth = 7;
-	preferred_direction = 1;
-	dir = 2
-	},
-/turf/simulated/floor/plasteel,
 /area/shuttle/trade/sol)
 "RR" = (
 /obj/effect/turf_decal/arrows/red{
@@ -568,7 +586,7 @@
 /area/shuttle/trade/sol)
 "SC" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 6;
 	icon_state = "redcorner"
 	},
 /area/shuttle/trade/sol)
@@ -585,7 +603,7 @@
 /area/shuttle/trade/sol)
 "UT" = (
 /obj/structure/closet,
-/obj/effect/spawner/random/traders/donksoft,
+/obj/effect/spawner/random/traders/science,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -619,6 +637,7 @@ EK
 hc
 Tv
 Go
+Go
 Tv
 hc
 EK
@@ -637,6 +656,7 @@ hc
 Tv
 Tv
 Tv
+JE
 vU
 UT
 JY
@@ -660,6 +680,7 @@ YV
 Dj
 ah
 ah
+ah
 ew
 Tv
 Tv
@@ -680,6 +701,7 @@ Tv
 gv
 uM
 ah
+ah
 QV
 Tv
 bw
@@ -699,6 +721,7 @@ Qs
 Tv
 jb
 kd
+xC
 bE
 ah
 RE
@@ -715,10 +738,11 @@ Tv
 Xl
 ah
 ah
-uB
+PC
 By
 BX
 ah
+RG
 xC
 Ek
 Tv
@@ -731,7 +755,7 @@ Mv
 oM
 "}
 (7,1,1) = {"
-RG
+gR
 yx
 ah
 ah
@@ -739,6 +763,7 @@ PC
 By
 vz
 BC
+ah
 xC
 vu
 Tv
@@ -759,6 +784,7 @@ PC
 By
 vz
 BC
+ah
 xC
 Ma
 Tv
@@ -775,10 +801,11 @@ Tv
 fv
 ah
 ah
-uB
+PC
 By
 BX
 ah
+SC
 xC
 fO
 Tv
@@ -799,6 +826,7 @@ PX
 Tv
 fg
 jo
+xC
 NU
 ah
 RE
@@ -820,6 +848,7 @@ Tv
 Oj
 rw
 ah
+ah
 QV
 Tv
 zJ
@@ -840,6 +869,7 @@ YV
 Dj
 ah
 ah
+ah
 ya
 Tv
 Tv
@@ -857,6 +887,7 @@ hc
 Tv
 Tv
 Tv
+yg
 Cr
 qS
 uk
@@ -878,6 +909,7 @@ EK
 EK
 hc
 Tv
+Go
 Go
 Tv
 hc
