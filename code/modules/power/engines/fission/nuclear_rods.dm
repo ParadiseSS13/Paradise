@@ -36,9 +36,9 @@
 	desc = "This is a base item and should not be found. Alert a developer!"
 	rad_type = ALPHA_RAD
 
-/obj/item/nuclear_rod/fuel/uranium_235
+/obj/item/nuclear_rod/fuel/uranium_238
 	name = "Uranium 235 Fuel Rod"
-	desc = "This is a base item and should not be found. Alert a developer!"
+	desc = "A standard fuel rod for most NGCR reactors. Has just barely enough Uranium 235 to be useful."
 	heat_amount = 50
 	power_amount = 15 KW
 	heat_amp_mod = 1.8

@@ -128,7 +128,6 @@
 	stat |= BROKEN
 
 /obj/machinery/power/fission_reactor/proc/meltdown()
-	icon_state =
 	icon_state = "meltdown"
 	sleep(1.7 SECONDS)
 	#warn Set this to be based off reactivity later
@@ -409,23 +408,23 @@
 			nearby_turf = get_step(src, direction)
 			for(var/obj/machinery/power/fission_reactor/reactor in nearby_turf.contents)
 				form_link(reactor)
-				return
+				continue
 			for(var/obj/machinery/reactor_chamber/chamber in nearby_turf.contents)
 				if(chamber.linked_reactor)
 					linked_reactor = chamber.linked_reactor
 					spread_link(linked_reactor)
-					return
+					continue
 
 // check one's neighbors for rod activation requirements.
-/obj/machinery/reactor_chamber/proc/update_requirements()
-	var/turf/nearby_turf
-	var/direction = 0
-	while(direction <= 8)
-		direction++
-		if(IS_DIR_CARDINAL(direction))
-			nearby_turf = get_step(src, direction)
-			for(var/obj/machinery/reactor_chamber/chamber in nearby_turf.contents)
-				if(chamber.chamber_state == CHAMBER_DOWN && chamber.held_rod)
+/obj/machinery/reactor_chamber/proc/check_requirements(var/list/neighbors)
+	var/list/requirements = held_rod.adjacent_requirements
+	for(var/rod in requirements)
+		if(neighbors in typesof(rod))
+			requirements -= rod
+	if(!length(requirements))
+		return TRUE
+	return FALSE
+
 
 
 
