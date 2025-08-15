@@ -166,17 +166,17 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	severity = EVENT_LEVEL_MUNDANE
 	available_events = list(
 		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set.
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/nothing, 360),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/nothing, 330),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/pda_spam, 10),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/economic_event,	20),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/trivial_news, 20),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/mundane_news, 20),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/infestation, 20),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/sentience, 20),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/wallrot, 0),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/economic_event,	13),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/trivial_news, 13),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/mundane_news, 13),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/infestation, 12),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/sentience, 17),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/wallrot, 10),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/wallrot/fungus, 10),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/carp_migration/koi,	20),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/camera_failure, 20),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/carp_migration/koi,	15),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/camera_failure, 15),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/fake_virus,		20),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/bureaucratic_error,	20, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/disease_outbreak, 15, TRUE)
