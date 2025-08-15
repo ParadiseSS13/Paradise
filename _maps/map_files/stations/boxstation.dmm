@@ -2536,7 +2536,7 @@
 /area/station/command/office/hos)
 "akL" = (
 /obj/structure/flora/rock/jungle,
-/mob/living/simple_animal/lizard{
+/mob/living/basic/lizard{
 	name = "Greentext"
 	},
 /turf/simulated/floor/grass,
@@ -2984,7 +2984,7 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
 "amv" = (
-/mob/living/simple_animal/hostile/retaliate/araneus,
+/mob/living/basic/giant_spider/araneus,
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
 "amy" = (
@@ -27878,7 +27878,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+/mob/living/basic/gorilla/cargo_domestic{
 	name = "Forklift"
 	},
 /turf/simulated/floor/plasteel,
@@ -32775,7 +32775,7 @@
 	},
 /area/station/science/genetics)
 "cpL" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
@@ -46968,7 +46968,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft)
 "dvv" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/basic/pet/sloth/paperwork,
 /turf/simulated/floor/carpet,
 /area/station/legal/lawoffice)
 "dvD" = (
@@ -52427,10 +52427,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/transit_tube_pod{
-	dir = 4
-	},
-/obj/structure/transit_tube/station/reverse/flipped{
+/obj/structure/transit_tube/station/dispenser/reverse/flipped{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -63255,7 +63252,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "lpS" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "lqc" = (
@@ -67220,11 +67217,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "nrh" = (
-/obj/structure/transit_tube_pod{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/structure/transit_tube/station/reverse,
+/obj/structure/transit_tube/station/dispenser/reverse,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "nrD" = (
@@ -87513,7 +87507,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "xtZ" = (
-/mob/living/simple_animal/pet/penguin/baby,
+/mob/living/basic/pet/penguin/baby,
 /turf/simulated/floor/carpet,
 /area/station/maintenance/asmaint)
 "xuw" = (
@@ -88439,7 +88433,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/lizard/wags_his_tail,
+/mob/living/basic/lizard/wags_his_tail,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "xPE" = (
