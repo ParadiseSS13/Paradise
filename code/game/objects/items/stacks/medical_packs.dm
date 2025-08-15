@@ -321,10 +321,6 @@
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 		var/limb = affecting.name
 
-		if(!(affecting.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")))
-			to_chat(user, "<span class='danger'>You can't apply a splint there!</span>")
-			return TRUE
-
 		if(affecting.status & ORGAN_SPLINTED)
 			to_chat(user, "<span class='danger'>[H]'s [limb] is already splinted!</span>")
 			if(tgui_alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Splint removal", list("Yes", "No")) == "Yes")
