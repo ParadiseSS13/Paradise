@@ -40,10 +40,6 @@
 	if(is_station_level((get_turf(src)).z))
 		return list(ASSIGNMENT_SECURITY = 1, ASSIGNMENT_TOTAL = 3, ASSIGNMENT_MEDICAL = 1)
 
-/mob/living/carbon/alien/death(gibbed)
-	move_resist = null
-	return ..()
-
 /// returns the list of type paths of the organs that we need to insert into
 /// this particular xeno upon its creation
 /mob/living/carbon/alien/proc/get_caste_organs()

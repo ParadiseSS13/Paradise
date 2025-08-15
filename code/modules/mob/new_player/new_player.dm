@@ -1,8 +1,6 @@
 /mob/new_player
 	var/ready = FALSE
 	var/spawning = FALSE	//Referenced when you want to delete the new_player later on in the code.
-	var/totalPlayers = 0		 //Player counts for the Lobby tab
-	var/totalPlayersReady = 0
 	universal_speak = TRUE
 
 	invisibility = 101
@@ -96,17 +94,6 @@
 			status_tab_data[++status_tab_data.len] = list("Game Mode:", "[GLOB.master_mode]")
 		else
 			status_tab_data[++status_tab_data.len] = list("Game Mode:", "Secret")
-
-		if(SSticker.current_state == GAME_STATE_PREGAME)
-			status_tab_data[++status_tab_data.len] = list("Time To Start:", SSticker.ticker_going ? deciseconds_to_time_stamp(SSticker.pregame_timeleft) : "DELAYED")
-			if(check_rights(R_ADMIN, 0, src))
-				status_tab_data[++status_tab_data.len] = list("Players Ready:", "[totalPlayersReady]")
-			totalPlayersReady = 0
-			for(var/mob/new_player/player in GLOB.player_list)
-				if(check_rights(R_ADMIN, 0, src))
-					status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Ready)" : "(Not ready)")
-				if(player.ready)
-					totalPlayersReady++
 
 /mob/new_player/Topic(href, href_list[])
 	if(!client)
