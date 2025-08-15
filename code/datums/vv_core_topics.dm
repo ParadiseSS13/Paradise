@@ -20,7 +20,7 @@
 
 		modify_variables(D, href_list["varnameedit"], 1)
 	if(href_list["varnamechange"] && href_list["datumchange"])
-		if(!check_rights(R_MOD|R_VAREDIT))	return
+		if(!check_rights(R_ADMIN|R_VAREDIT))	return
 
 		var/D = locateUID(href_list["datumchange"])
 		if(!istype(D,/datum) && !isclient(D))
@@ -29,7 +29,7 @@
 
 		modify_variables(D, href_list["varnamechange"], 0)
 	if(href_list["varnamemass"] && href_list["datummass"])
-		if(!check_rights(R_MOD|R_VAREDIT))	return
+		if(!check_rights(R_ADMIN|R_VAREDIT))	return
 
 		var/atom/A = locateUID(href_list["datummass"])
 		if(!istype(A))
