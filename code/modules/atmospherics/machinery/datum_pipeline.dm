@@ -160,6 +160,9 @@
 				var/heat = thermal_conductivity*delta_temperature* \
 					(partial_heat_capacity*modeled_location.heat_capacity/(partial_heat_capacity+modeled_location.heat_capacity))
 
+				if(!IS_IN_BOUNDS(heat, -1e10, 1e10))
+					CRASH("Sharing [partial_heat_capacity] @ [pipeline.air.temperature()]K with solid-wall environment [modeled_location.heat_capacity] @ [modeled_location.temperature]K produced out-of-bounds heat transfer [heat]!")
+
 				pipeline.air.set_temperature(pipeline.air.temperature() - heat / total_heat_capacity)
 				modeled_location.temperature += heat/modeled_location.heat_capacity
 
@@ -179,6 +182,9 @@
 
 				self_temperature_delta = -heat/total_heat_capacity
 				sharer_temperature_delta = heat/sharer_heat_capacity
+
+				if(!IS_IN_BOUNDS(heat, -1e10, 1e10))
+					CRASH("Sharing [partial_heat_capacity] @ [pipeline.air.temperature()]K with environment [sharer_heat_capacity] @ [environment.temperature()]K produced out-of-bounds heat transfer [heat]!")
 			else
 				return 1
 
@@ -194,6 +200,8 @@
 			var/heat = thermal_conductivity * delta_temperature * \
 				(partial_heat_capacity * target.heat_capacity / (partial_heat_capacity + target.heat_capacity))
 
+			if(!IS_IN_BOUNDS(heat, -1e10, 1e10))
+				CRASH("Sharing [partial_heat_capacity] @ [pipeline.air.temperature()]K with static environment [target.heat_capacity] @ [target.temperature]K produced out-of-bounds heat transfer [heat]!")
 			pipeline.air.set_temperature(pipeline.air.temperature() - heat / total_heat_capacity)
 	pipeline.update = TRUE
 
