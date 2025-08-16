@@ -534,8 +534,8 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/clothing/mask/chameleon/voice_change
-	icon_state = "swat"
-	item_state = "swat"
+	icon_state = "gasmask_syndicate"
+	item_state = "gasmask_syndicate"
 
 	var/obj/item/voice_changer/voice_changer
 

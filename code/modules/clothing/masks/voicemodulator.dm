@@ -17,8 +17,8 @@
 /obj/item/clothing/mask/gas/voice_modulator/chameleon
 	name = "chameleon voice modulator mask"
 	desc = "A tactical mask equipped with chameleon technology and a sound modulator that disguises the user's voice when active."
-	icon_state = "swat"
-	item_state = "swat"
+	icon_state = "gasmask_syndicate"
+	item_state = "gasmask_syndicate"
 
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
