@@ -5,6 +5,8 @@
 	desc = "A base rootkit for ai upgrades. If you are seeing this, report where you found it on the github issues."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk3"
+	drop_sound = 'sound/items/handling/disk_drop.ogg'
+	pickup_sound = 'sound/items/handling/disk_pickup.ogg'
 	new_attack_chain = TRUE
 
 /obj/item/ai_upgrade/interact_with_atom(atom/target, mob/living/user, list/modifiers)
