@@ -61,8 +61,8 @@
 	name = "DNA Sampler"
 	desc = "Can be used to take chemical and genetic samples of pretty much anything."
 	icon = 'icons/obj/hypo.dmi'
-	item_state = "sampler_hypo"
 	icon_state = "sampler_hypo"
+	inhand_icon_state = "hypo"
 	flags = NOBLUDGEON
 	var/list/animals = list()
 	var/list/plants = list()

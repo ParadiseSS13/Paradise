@@ -3,7 +3,6 @@
 	desc = "A small electronic device designed to topically apply healing chemicals."
 	icon = 'icons/goonstation/objects/objects.dmi'
 	icon_state = "mender"
-	item_state = "mender"
 	volume = 200
 	possible_transfer_amounts = null
 	visible_transfer_rate = FALSE

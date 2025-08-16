@@ -4,8 +4,7 @@
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-helmet"
 	base_icon_state = "helmet"
-	item_state = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	heat_protection = HEAD
 	cold_protection = HEAD
@@ -16,7 +15,7 @@
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
-		)
+	)
 
 /obj/item/clothing/suit/mod
 	name = "MOD chestplate"
@@ -24,8 +23,7 @@
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-chestplate"
 	base_icon_state = "chestplate"
-	item_state = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	blood_overlay_type = "armor"
 	allowed = list(
 		/obj/item/tank/internals,
@@ -44,7 +42,7 @@
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
-		)
+	)
 
 
 /obj/item/clothing/gloves/mod
@@ -53,8 +51,7 @@
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-gauntlets"
 	base_icon_state = "gauntlets"
-	item_state = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	body_parts_covered = HANDS|ARMS
 	heat_protection = HANDS|ARMS
@@ -65,7 +62,7 @@
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
-		)
+	)
 
 
 /obj/item/clothing/shoes/mod
@@ -74,8 +71,7 @@
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-boots"
 	base_icon_state = "boots"
-	item_state = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	body_parts_covered = FEET|LEGS
 	heat_protection = FEET|LEGS
@@ -86,4 +82,4 @@
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
-		)
+	)
