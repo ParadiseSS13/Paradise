@@ -9,7 +9,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "launcherbtt"
 	anchored = TRUE
-	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 10, rad = 100, fire = 90, acid = 70)
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, RAD = 100, FIRE = 90, ACID = 70)
 	idle_power_consumption = 2
 	active_power_consumption = 4
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
