@@ -783,13 +783,19 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/headset/deadsay
 	name = "spectral radio"
 	ks2type = /obj/item/encryptionkey/centcom
+	var/datum/action/item_action/chameleon_change/chameleon_action
 
-/obj/item/radio/headset/deadsay/New()
-	..()
+/obj/item/radio/headset/deadsay/Initialize(mapload)
+	. = ..()
+	chameleon_action = new(src)
+	chameleon_action.chameleon_type = /obj/item/radio/headset
+	chameleon_action.chameleon_name = "Headset"
+	chameleon_action.initialize_disguises()
 	GLOB.deadsay_radio_systems.Add(src)
 	make_syndie()
 
 /obj/item/radio/headset/deadsay/Destroy()
+	QDEL_NULL(chameleon_action)
 	GLOB.deadsay_radio_systems.Remove(src)
 	return ..()
 
