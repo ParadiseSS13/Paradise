@@ -84,7 +84,7 @@
 		if("lavaland")//Free cult metal, I guess.
 			NewTerrainFloors = /turf/simulated/floor/plating/false_asteroid
 			NewTerrainWalls = /turf/simulated/wall/cult
-			NewFlora = list(/mob/living/simple_animal/hostile/asteroid/goldgrub)
+			NewFlora = list(/mob/living/basic/mining/goldgrub)
 			florachance = 1
 		if("winter") //Snow terrain is slow to move in and cold! Get the assistants to shovel your driveway.
 			NewTerrainFloors = /turf/simulated/floor/snow // Needs to be updated after turf update

@@ -29,3 +29,27 @@
 		if(!test_turf.is_blocked_turf(source_atom = source))
 			return TRUE
 	return FALSE
+
+
+/datum/ai_planning_subtree/mine_walls
+	var/find_wall_behavior = /datum/ai_behavior/find_mineral_wall
+
+/datum/ai_planning_subtree/mine_walls/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
+	if(controller.blackboard_key_exists(BB_TARGET_MINERAL_WALL))
+		controller.queue_behavior(/datum/ai_behavior/interact_with_target/mine_wall, BB_TARGET_MINERAL_WALL)
+		return SUBTREE_RETURN_FINISH_PLANNING
+	controller.queue_behavior(find_wall_behavior, BB_TARGET_MINERAL_WALL)
+
+/datum/ai_behavior/interact_with_target/mine_wall
+	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_REQUIRE_REACH | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
+	action_cooldown = 15 SECONDS
+
+/datum/ai_behavior/interact_with_target/mine_wall/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
+	var/mob/living/basic/living_pawn = controller.pawn
+	var/turf/simulated/mineral/target = controller.blackboard[target_key]
+	if(!controller.ai_interact(target = target))
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+	if(istype(target) && istype(target.ore, /datum/ore/gibtonite))
+		living_pawn.manual_emote("sighs...") // accept whats about to happen to us
+
+	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
