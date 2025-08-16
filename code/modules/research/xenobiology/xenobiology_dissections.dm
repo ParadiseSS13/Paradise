@@ -26,6 +26,7 @@
 /obj/item/dissector/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
+	ADD_TRAIT(src, TRAIT_SURGICAL_CANNOT_FAIL, ROUNDSTART_TRAIT)
 	AddComponent(/datum/component/surgery_initiator)
 	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
