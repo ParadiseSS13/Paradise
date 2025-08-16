@@ -1,10 +1,11 @@
 /datum/event/meteor_wave
 	name = "Meteor Wave"
 	startWhen		= 5
-	endWhen 		= 900
 	nominal_severity = EVENT_LEVEL_MODERATE
+	// We set this when the station clears the meteor storm to keep the event ongoing for a bit so it keeps having a cost
+	noAutoEnd = TRUE
 	role_weights = list(ASSIGNMENT_ENGINEERING = 4)
-	role_requirements = list(ASSIGNMENT_ENGINEERING = 2)
+	role_requirements = list(ASSIGNMENT_ENGINEERING = 3)
 	var/next_meteor = 6
 	var/waves = 1
 	var/atom/movable/screen/alert/augury/meteor/screen_alert
@@ -32,9 +33,12 @@
 		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteors), get_meteor_count(), get_meteors())
 		next_meteor += rand(15, 30) / severity
 		waves--
-		endWhen = (waves ? next_meteor + 1 : activeFor + 15)
+	else if(noAutoEnd) // We set the end timer when we clear the storm so we can just check that so we don't keep announcing
+		announce_clear()
 
-/datum/event/meteor_wave/end()
+/datum/event/meteor_wave/announce_clear()
+	endWhen = activeFor + 1800
+	noAutoEnd = FALSE
 	for(var/mob/M in GLOB.dead_mob_list)
 		M.clear_alert("\ref[src]_augury")
 	QDEL_NULL(screen_alert)

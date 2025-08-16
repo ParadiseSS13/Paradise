@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 
 /// Cost of ongoing disease outbreak. 1 medical personnal per 2 infected at major severity.
 /datum/event/disease_outbreak/event_resource_cost()
-	return list("[ASSIGNMENT_MEDICAL]" = severity * length(infected_players) / 6)
+	return list("[ASSIGNMENT_MEDICAL]" = (severity / nominal_severity) * (length(infected_players) / 3), "[ASSIGNMENT_VIROLOGIST]" = 1)
 
 
 //Creates a virus with a harmful effect, guaranteed to be spreadable by contact or airborne
