@@ -17,6 +17,10 @@
 	linked_emote = /datum/emote/spin
 	name = "Spin"
 
+/datum/keybinding/emote/jump
+	linked_emote = /datum/emote/jump
+	name = "Jump"
+
 /datum/keybinding/emote/blush
 	linked_emote = /datum/emote/living/blush
 	name = "Blush"
@@ -40,10 +44,6 @@
 /datum/keybinding/emote/dance
 	linked_emote = /datum/emote/living/dance
 	name = "Dance"
-
-/datum/keybinding/emote/jump
-	linked_emote = /datum/emote/living/jump
-	name = "Jump"
 
 /datum/keybinding/emote/deathgasp
 	linked_emote = /datum/emote/living/deathgasp
