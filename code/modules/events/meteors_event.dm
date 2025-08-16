@@ -36,7 +36,7 @@
 	else if(noAutoEnd) // We set the end timer when we clear the storm so we can just check that so we don't keep announcing
 		announce_clear()
 
-/datum/event/meteor_wave/announce_clear()
+/datum/event/meteor_wave/proc/announce_clear()
 	endWhen = activeFor + 1800
 	noAutoEnd = FALSE
 	for(var/mob/M in GLOB.dead_mob_list)
