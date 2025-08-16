@@ -9,21 +9,27 @@
 
 /obj/item/csi_marker/n1
 	number = 1
+
 /obj/item/csi_marker/n2
 	number = 2
 	icon_state = "card2"
+
 /obj/item/csi_marker/n3
 	number = 3
 	icon_state = "card3"
+
 /obj/item/csi_marker/n4
 	number = 4
 	icon_state = "card4"
+
 /obj/item/csi_marker/n5
 	number = 5
 	icon_state = "card5"
+
 /obj/item/csi_marker/n6
 	number = 6
 	icon_state = "card6"
+
 /obj/item/csi_marker/n7
 	number = 7
 	icon_state = "card7"

@@ -1,7 +1,3 @@
-/obj/item/clothing/clean_blood(radiation_clean = FALSE)
-	. = ..()
-	gunshot_residue = null
-
 /obj/item/forensics/swab
 	name = "sample collection kit"
 	desc = "Sterile cotton swab and test tube for collecting samples."
@@ -99,7 +95,7 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/forensics/swab/proc/set_used(sample_str, atom/source)
-	name = ("[initial(name)] ([sample_str] - [source])")
+	name = "[initial(name)] ([sample_str] - [source])"
 	desc = "[initial(desc)] The label on the bottle reads: 'Sample [sample_str] - [source].'."
 	icon_state = "swab_used"
 	used = TRUE

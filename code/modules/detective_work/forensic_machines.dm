@@ -1,42 +1,3 @@
-// Designs
-/datum/design/dnaforensics
-	name = "Machine Design (DNA analyzer)"
-	desc = "DNA analyzer for forensic DNA analysis of objects."
-	id = "dnaforensics"
-	req_tech = list("programming" = 2, "combat" = 2, "magnets" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/dnaforensics
-	category = list("Misc. Machinery")
-
-/obj/item/circuitboard/dnaforensics
-	name = "circuit board (DNA analyzer)"
-	build_path = /obj/machinery/dnaforensics
-	board_type = "machine"
-	origin_tech = "programming=2;combat=2"
-	req_components = list(
-		/obj/item/stock_parts/micro_laser = 2,
-		/obj/item/stock_parts/manipulator = 1)
-
-/datum/design/microscope
-	name = "Machine Design (Forensic Microscope)"
-	desc = "Microscope capable of magnifying images 3000 times"
-	id = "microscope"
-	req_tech = list("programming" = 2, "combat" = 2, "magnets" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/microscope
-	category = list("Misc. Machinery")
-
-/obj/item/circuitboard/microscope
-	name = "circuit board (Microscope)"
-	build_path = /obj/machinery/microscope
-	board_type = "machine"
-	origin_tech = "programming=2;combat=2"
-	req_components = list(
-		/obj/item/stock_parts/micro_laser = 1,
-		/obj/item/stack/sheet/glass = 1)
-
 // DNA machine
 /obj/machinery/dnaforensics
 	name = "\improper DNA analyzer"
@@ -91,8 +52,8 @@
 	update_appearance(UPDATE_ICON)
 	to_chat(user, "<span class='notice'>The scanner begins to hum as you analyze [swab].</span>")
 
-	if(!do_after(user, 2.5 SECONDS, src) || !swab)
-		to_chat(user, "<span class='notice'>You have stopped analyzing [swab].</span>")
+	if(!do_after(user, 2.5 SECONDS, src) || QDELETED(swab))
+		to_chat(user, "<span class='notice'>You have stopped analyzing [swab || "the swab"].</span>")
 		scanning = FALSE
 		update_appearance(UPDATE_ICON)
 		return
@@ -103,26 +64,25 @@
 	report.overlays = list("paper_stamped")
 	report_num++
 
-	if(swab)
-		var/obj/item/forensics/swab/bloodswab = swab
-		report.name = ("DNA scanner report no. [++report_num]: [bloodswab.name]")
-		//dna data itself
-		var/data = "No analysis data available."
-		if(!isnull(bloodswab.dna))
-			data = "Spectrometric analysis on the provided sample determined the presence of DNA. DNA String(s) found: [length(bloodswab.dna)].<br><br>"
-			for(var/blood in bloodswab.dna)
-				data += "<span class='notice'>Blood type: [bloodswab.dna[blood]]<br>\nDNA: [blood]<br><br></span>"
-		else
-			data += "\nNo DNA found.<br>"
-		report.info = "<b>Report number: [report_num]</b><br>"
-		report.info += "<b>\nAnalyzed object:</b><br>[bloodswab.name]<br>[bloodswab.desc]<br><br>" + data
-		report.forceMove(get_turf(src))
-		report.update_icon()
-		scanning = FALSE
-		update_appearance(UPDATE_ICON)
+	var/obj/item/forensics/swab/bloodswab = swab
+	report.name = ("DNA scanner report no. [++report_num]: [bloodswab.name]")
+	//dna data itself
+	var/data = "No analysis data available."
+	if(!isnull(bloodswab.dna))
+		data = "Spectrometric analysis on the provided sample determined the presence of DNA. DNA String(s) found: [length(bloodswab.dna)].<br><br>"
+		for(var/blood in bloodswab.dna)
+			data += "<span class='notice'>Blood type: [bloodswab.dna[blood]]<br>\nDNA: [blood]<br><br></span>"
+	else
+		data += "\nNo DNA found.<br>"
+	report.info = "<b>Report number: [report_num]</b><br>"
+	report.info += "<b>\nAnalyzed object:</b><br>[bloodswab.name]<br>[bloodswab.desc]<br><br>" + data
+	report.forceMove(get_turf(src))
+	report.update_icon()
+	scanning = FALSE
+	update_appearance(UPDATE_ICON)
 
 /obj/machinery/dnaforensics/proc/remove_sample(mob/living/remover)
-	if(!istype(remover) || remover.incapacitated() || !Adjacent(remover))
+	if(!istype(remover) || HAS_TRAIT(remover, TRAIT_HANDS_BLOCKED) || !Adjacent(remover))
 		return
 	if(!swab)
 		to_chat(remover, "<span class='warning'>There is no sample inside the scanner!</span>")
@@ -130,7 +90,7 @@
 	to_chat(remover, "<span class='notice'>You remove [swab] from the scanner.</span>")
 	swab.forceMove(get_turf(src))
 	remover.put_in_hands(swab)
-	swab = null
+	if(!do_after(user, 2.5 SECONDS, src) || QDELETED(swab))
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/machinery/dnaforensics/AltClick()
@@ -139,15 +99,16 @@
 /obj/machinery/dnaforensics/MouseDrop(atom/other)
 	if(usr == other)
 		remove_sample(usr)
-	else
-		return ..()
+		return
+	return ..()
 
 /obj/machinery/dnaforensics/update_icon_state()
-	icon_state = "dnaopen"
-	if(swab)
-		icon_state = "dnaclosed"
-		if(scanning)
-			icon_state = "dnaworking"
+	if(scanning)
+        icon_state = "dnaworking"
+    else if(swab)
+        icon_state = "dnaclosed"
+    else
+        icon_state = "dnaopen"
 
 /obj/machinery/dnaforensics/screwdriver_act(mob/user, obj/item/I)
 	if(swab)
@@ -166,8 +127,6 @@
 	default_deconstruction_crowbar(user, I)
 
 // Microscope code itself
-// This is the output of the stringpercent(print) proc, and means about 80% of
-// the print must be there for it to be complete.  (Prints are 32 digits)
 /obj/machinery/microscope
 	name = "microscope"
 	desc = "A microscope capable of magnifying images up to 3000 times."

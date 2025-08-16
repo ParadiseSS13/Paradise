@@ -1236,3 +1236,7 @@
 	icon = 'icons/obj/clothing/neck.dmi'
 	body_parts_covered = UPPER_TORSO
 	slot_flags = ITEM_SLOT_NECK
+
+/obj/item/clothing/clean_blood(radiation_clean = FALSE)
+	. = ..()
+	gunshot_residue = null
