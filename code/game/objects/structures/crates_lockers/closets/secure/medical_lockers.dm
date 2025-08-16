@@ -154,13 +154,13 @@
 	new /obj/item/flash(src)
 	new /obj/item/gun/syringe(src)
 	new /obj/item/reagent_containers/hypospray/cmo(src)
-	new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)
 	new /obj/item/door_remote/chief_medical_officer(src)
 	new /obj/item/reagent_containers/drinks/mug/cmo(src)
 	new /obj/item/clothing/accessory/medal/medical(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/clothing/mask/gas(src)
-
+	new /obj/item/gun/energy/gun/mini(src)
+	new /obj/item/autosurgeon/organ/one_use/med_hud(src)
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control locker"
