@@ -470,13 +470,13 @@
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
-/datum/language/com_cygni
-	name = "Cygni Standard"
+/datum/language/com_zvezhan
+	name = "Zvezhan"
 	desc = "The language of revolution across the stars, initially formed as a hybrid of Russian and Mandarin Chinese by early Cygni settlers before incorporating additional influences from across Eurasia."
 	speech_verb = "articulates"
 	whisper_verb = "murmurs"
 	exclaim_verbs = list("proclaims", "boasts", "accentuates")
-	colour = "com_cygni"
+	colour = "com_zvezhan"
 	key = "?"
 	space_chance = 50
 	syllables = list("ai","bai","bian","che","chuang","e","fan","gan","huo","jian","jiao","ka","man","mu","nang","nuo","o","pang","pi",
