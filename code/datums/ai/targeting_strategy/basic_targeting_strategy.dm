@@ -9,6 +9,8 @@
 	var/ignore_sight = FALSE
 	/// Blackboard key containing the minimum stat of a living mob to target
 	var/minimum_stat_key = BB_TARGET_MINIMUM_STAT
+	/// Blackboard key for the maximum aggro range of the mob
+	var/aggro_range_key = BB_AGGRO_RANGE
 	/// If this blackboard key is TRUE, makes us only target wounded mobs
 	var/target_wounded_key
 
@@ -34,6 +36,10 @@
 			return FALSE
 
 	if(vision_range && get_dist(living_mob, the_target) > vision_range)
+		return FALSE
+
+	var/aggro_range = our_controller.blackboard[aggro_range_key]
+	if(aggro_range && get_dist(living_mob, the_target) > aggro_range)
 		return FALSE
 
 	if(!ignore_sight && !can_see(living_mob, the_target, vision_range)) //Target has moved behind cover and we have lost line of sight to it
