@@ -123,7 +123,6 @@
 /obj/item/stamp/mod
 	name = "MOD electronic stamp"
 	desc = "A high-power stamp, able to switch between accept and deny mode when used."
-	flags = NODROP
 
 /obj/item/stamp/mod/attack_self__legacy__attackchain(mob/user, modifiers)
 	. = ..()
