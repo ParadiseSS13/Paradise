@@ -379,7 +379,7 @@
 	desc = "A machine gun that fires 3D-printed flachettes slowly synthesized using your internal energy cell."
 	icon_state = "l6closed0"
 	icon = 'icons/obj/guns/projectile.dmi'
-	cell_type = /obj/item/stock_parts/cell/secborg
+	cell_type = /obj/item/stock_parts/cell/energy_gun/lmg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
 
@@ -625,7 +625,7 @@
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	cell_type = /obj/item/stock_parts/cell/bsg
+	cell_type = /obj/item/stock_parts/cell/energy_gun/bsg
 	shaded_charge = TRUE
 	can_fit_in_turrets = FALSE //Crystal would shatter, or someone would try to put an empty gun in the frame.
 	var/obj/item/assembly/signaler/anomaly/flux/core = null
@@ -1209,7 +1209,7 @@
 /obj/item/gun/energy/laser/lever_action
 	name = "model 2495"
 	desc = "A rifle styled after an ancient Earth design. Concealed beneath the wooden furniture and forged metal is a modern laser gun. Features a hand-powered charger that can be used anywhere."
-	cell_type = /obj/item/stock_parts/cell/lever_gun
+	cell_type = /obj/item/stock_parts/cell/energy_gun/lever_action
 	icon_state = "lever_action"
 	item_state = "lever_action"
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
