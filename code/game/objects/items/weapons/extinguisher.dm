@@ -26,7 +26,12 @@
 	var/precision = FALSE
 	/// Sets the `cooling_temperature` of the water reagent datum inside of the extinguisher when it is refilled.
 	var/cooling_power = 2
+	/// If FALSE, extinguishers wont appear prefilled by default
+	var/prefilled = TRUE
 	COOLDOWN_DECLARE(last_use)
+
+/obj/item/extinguisher/empty
+	prefilled = FALSE
 
 /obj/item/extinguisher/atmospherics
 	name = "atmospheric fire extinguisher"
@@ -38,6 +43,9 @@
 	dog_fashion = null
 	reagent_id = "firefighting_foam"
 	reagent_capacity = 65
+
+/obj/item/extinguisher/atmospherics/empty
+	prefilled = FALSE
 
 /obj/item/extinguisher/mini
 	name = "pocket fire extinguisher"
@@ -54,6 +62,9 @@
 	reagent_capacity = 30
 	dog_fashion = null
 
+/obj/item/extinguisher/mini/empty
+	prefilled = FALSE
+
 /obj/item/extinguisher/mini/cyborg
 	name = "integrated fire extinguisher"
 	desc = "A miniature fire extinguisher designed to store firefighting foam."
@@ -69,6 +80,9 @@
 
 /obj/item/extinguisher/Initialize(mapload)
 	. = ..()
+	if(!prefilled)
+		create_reagents(reagent_capacity)
+		reagents.add_reagent(reagent_id, 0)
 	if(!reagents)
 		create_reagents(reagent_capacity)
 		reagents.add_reagent(reagent_id, reagent_capacity)
