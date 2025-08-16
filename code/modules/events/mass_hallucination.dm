@@ -1,3 +1,6 @@
+/datum/event/mass_hallucination
+	name = "Mass Hallucination"
+
 /datum/event/mass_hallucination/setup()
 	announceWhen = rand(0, 20)
 

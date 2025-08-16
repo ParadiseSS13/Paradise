@@ -1,8 +1,18 @@
 #define REVENANT_SPAWN_THRESHOLD 10
 
 /datum/event/revenant
+	name = "Revenant"
+	nominal_severity = EVENT_LEVEL_MAJOR
+	noAutoEnd = TRUE
+	role_weights = list(ASSIGNMENT_CHAPLAIN = 5, ASSIGNMENT_TOTAL = 0.2)
+	role_requirements = list(ASSIGNMENT_CHAPLAIN = 1, ASSIGNMENT_TOTAL = 40)
 	var/key_of_revenant
 
+
+/datum/event/revenant/proc/on_revenant_death(mob/source)
+	SIGNAL_HANDLER // COMSIG_MOB_DEATH
+	UnregisterSignal(source, COMSIG_MOB_DEATH)
+	kill()
 
 /datum/event/revenant/proc/get_revenant(end_if_fail = 0)
 	var/deadMobs = 0
@@ -36,6 +46,7 @@
 			kill()
 			return
 		var/mob/living/simple_animal/revenant/revvie = new /mob/living/simple_animal/revenant/(pick(spawn_locs))
+		RegisterSignal(revvie, COMSIG_MOB_DEATH, PROC_REF(on_revenant_death))
 		player_mind.transfer_to(revvie)
 		dust_if_respawnable(C)
 		player_mind.assigned_role = SPECIAL_ROLE_REVENANT

@@ -1,6 +1,8 @@
 /datum/event/vent_clog
+	name = "Scrubber Clog"
 	startWhen		= 5
 	endWhen			= 35
+	nominal_severity = EVENT_LEVEL_MODERATE
 	var/interval 	= 2
 	var/list/vents  = list()
 

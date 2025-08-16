@@ -22,6 +22,12 @@
 /mob/living/simple_animal/hostile/blob/Initialize(mapload)
 	. = ..()
 	GLOB.blob_minions |= src
+	AddComponent(/datum/component/event_tracker, EVENT_BLOB)
+
+/mob/living/simple_animal/hostile/blob/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_TOTAL = 3, ASSIGNMENT_MEDICAL = 0.5)
 
 /mob/living/simple_animal/hostile/blob/Destroy()
 	GLOB.blob_minions -= src
@@ -203,6 +209,11 @@
 	overmind_chat.Grant(src)
 	if(name == "blobbernaut")
 		name = "blobbernaut ([rand(1, 1000)])"
+
+/mob/living/simple_animal/hostile/blob/blobbernaut/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_TOTAL = 3, ASSIGNMENT_MEDICAL = 0.5)
 
 /datum/action/innate/communicate_overmind_blob
 	name = "Speak with the overmind"
