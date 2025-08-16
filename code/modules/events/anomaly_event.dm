@@ -18,7 +18,9 @@
 
 /datum/event/anomaly/tick()
 	if(spawned && QDELETED(anomaly_path))
-		kill()
+		// Add 15 minutes for cleanup
+		endWhen = activeFor + 900
+		noAutoEnd = FALSE
 
 /datum/event/anomaly/setup()
 	target_turf = find_targets(TRUE)
