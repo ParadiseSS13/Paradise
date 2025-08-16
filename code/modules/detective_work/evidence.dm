@@ -162,6 +162,7 @@
 	evidence[fullprint] = fullprint
 	name = "[initial(name)] ([H])"
 	used = TRUE
+	update_icon_state()
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/sample/print/interact_with_atom(atom/target, mob/living/user, list/modifiers)
@@ -244,7 +245,7 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/forensics/sample_kit/MouseDrop(atom/over)
-	if(ismob(sloc))
+	if(ismob(src.loc))
 		interact_with_atom(over, loc)
 
 /obj/item/forensics/sample_kit/powder

@@ -90,7 +90,7 @@
 	to_chat(remover, "<span class='notice'>You remove [swab] from the scanner.</span>")
 	swab.forceMove(get_turf(src))
 	remover.put_in_hands(swab)
-	if(!do_after(user, 2.5 SECONDS, src) || QDELETED(swab))
+	swab = null
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/machinery/dnaforensics/AltClick()
@@ -104,11 +104,11 @@
 
 /obj/machinery/dnaforensics/update_icon_state()
 	if(scanning)
-        icon_state = "dnaworking"
-    else if(swab)
-        icon_state = "dnaclosed"
-    else
-        icon_state = "dnaopen"
+		icon_state = "dnaworking"
+	else if(swab)
+		icon_state = "dnaclosed"
+	else
+		icon_state = "dnaopen"
 
 /obj/machinery/dnaforensics/screwdriver_act(mob/user, obj/item/I)
 	if(swab)
