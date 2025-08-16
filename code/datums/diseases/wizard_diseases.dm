@@ -27,7 +27,6 @@
 	max_stages = 5
 	stage_prob = 5
 	spread_text = "Non-contagious"
-	spread_flags = SPREAD_AIRBORNE
 	cure_text = "Pyrotech stabilizing agents"
 	agent = "Eruca Stomachum"
 	cures = list("stabilizing_agent")
@@ -101,7 +100,6 @@
 	max_stages = 5
 	stage_prob = 5
 	spread_text = "Non-contagious"
-	spread_flags = SPREAD_AIRBORNE
 	cure_text = "Acetaldehyde"
 	agent = "nasum magicum"
 	cures = list("acetaldehyde")
