@@ -52,6 +52,15 @@
 	build_path = /obj/item/healthupgrade
 	category = list("Medical")
 
+/datum/design/automender
+	name = "Auto-mender"
+	id = "automender"
+	req_tech = list("biotech" = 7, "magnets" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_TITANIUM = 3000, MAT_GLASS = 1000)
+	build_path = /obj/item/reagent_containers/applicator
+	category = list("Medical")
+
 /datum/design/handheld_defib
 	name = "Handheld Defibrillator"
 	desc = "A smaller defibrillator only capable of treating cardiac arrest."
