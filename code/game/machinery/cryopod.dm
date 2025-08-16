@@ -243,7 +243,10 @@
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
 		/obj/item/mmi/robotic_brain,
-		/obj/item/card/id/captains_spare/assigned
+		/obj/item/card/id/captains_spare/assigned,
+		/obj/item/gun/energy/laser/mounted,
+		/obj/item/gun/energy/gun/advtaser/mounted,
+		/obj/item/gun/magic/grapple,
 	)
 
 /obj/machinery/cryopod/right

@@ -84,6 +84,13 @@
 	item_color = "blueshield_formal"
 	displays_id = FALSE
 
+/obj/item/clothing/under/rank/procedure/blueshield/turtleneck
+	name = "blueshield's turtleneck"
+	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold bridge. Due to budget cuts, the material does not offer any external protection."
+	icon_state = "bs_turtle"
+	item_state = "bs_turtle"
+	item_color = "bs_turtle"
+
 /obj/item/clothing/under/rank/procedure/iaa
 	name = "Internal Affairs uniform"
 	desc = "The plain, professional attire of an Internal Affairs Agent. The collar is <i>immaculately</i> starched."

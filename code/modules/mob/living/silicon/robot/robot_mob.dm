@@ -678,6 +678,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	module.add_languages(src)
 	module.add_armor(src)
 	module.add_subsystems_and_actions(src)
+	if(emagged)
+		module.emag_act(src)
 	if(!static_radio_channels)
 		radio.config(module.channels)
 	rename_character(real_name, get_default_name())

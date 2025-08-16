@@ -607,10 +607,11 @@ GLOBAL_LIST_EMPTY(detected_advanced_diseases)
 /obj/machinery/pandemic/attack_ghost(mob/user)
 	ui_interact(user)
 
+/obj/machinery/pandemic/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I, 4 SECONDS)
+
 /obj/machinery/pandemic/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(default_unfasten_wrench(user, used, time = 4 SECONDS))
-		power_change()
-		return
 	if((istype(used, /obj/item/reagent_containers) && (used.container_type & OPENCONTAINER)) && user.a_intent != INTENT_HARM)
 		if(stat & (NOPOWER|BROKEN))
 			return ITEM_INTERACT_COMPLETE

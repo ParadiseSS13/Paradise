@@ -11,7 +11,8 @@
 	stop_automated_movement = TRUE
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	death_sound = 'sound/misc/demon_dies.ogg'
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	unsuitable_atmos_damage = 10
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	faction = list("demon")

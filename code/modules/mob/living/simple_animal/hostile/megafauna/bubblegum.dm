@@ -675,7 +675,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/round_2/Life(seconds, times_fired)
 	. = ..()
-	if(!istype(get_area(src), /area/ruin/space/bubblegum_arena))
+	if(stat != DEAD && !istype(get_area(src), /area/ruin/space/bubblegum_arena))
 		for(var/obj/effect/landmark/spawner/bubblegum/B in GLOB.landmarks_list)
 			forceMove(get_turf(B))
 			break

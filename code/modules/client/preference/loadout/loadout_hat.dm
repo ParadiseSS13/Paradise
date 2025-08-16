@@ -87,6 +87,16 @@
 	path = /obj/item/clothing/head/soft/janitorpurple
 	allowed_roles = list("Janitor")
 
+/datum/gear/hat/caphydroblue
+	display_name = "Cap, hydroponics blue"
+	path = /obj/item/clothing/head/soft/hydroponics
+	allowed_roles = list("Botanist")
+
+/datum/gear/hat/caphydrobrown
+	display_name = "Cap, hydroponics brown"
+	path = /obj/item/clothing/head/soft/hydroponics_alt
+	allowed_roles = list("Botanist")
+
 /datum/gear/hat/capred
 	display_name = "Cap, red"
 	path = /obj/item/clothing/head/soft/red
@@ -202,6 +212,16 @@
 	path = /obj/item/clothing/head/beret/janitor
 	allowed_roles = list("Janitor")
 
+/datum/gear/hat/beret_job/hydroponics
+	display_name = "Beret, hydroponics blue"
+	path = /obj/item/clothing/head/beret/hydroponics
+	allowed_roles = list("Botanist")
+
+/datum/gear/hat/beret_job/hydroponics_alt
+	display_name = "Beret, hydroponics brown"
+	path = /obj/item/clothing/head/beret/hydroponics_alt
+	allowed_roles = list("Botanist")
+
 /datum/gear/hat/beret_job/hop
 	display_name = "Beret, head of personnel"
 	path = /obj/item/clothing/head/beret/hop
@@ -293,3 +313,12 @@
 /datum/gear/hat/cool_bandana
 	display_name = "Badass Bandana"
 	path = /obj/item/clothing/head/cool_bandana
+
+/datum/gear/hat/rabbitears
+	display_name = "Rabbit ears"
+	path = /obj/item/clothing/head/rabbitears
+
+/datum/gear/hat/kittyears
+	display_name = "Kitty ears"
+	path = /obj/item/clothing/head/kitty
+

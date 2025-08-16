@@ -17,6 +17,8 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 	var/vision_range = 11
 	/// Blackboard key for aggro range, uses vision range if not specified
 	var/aggro_range_key = BB_AGGRO_RANGE
+	/// Can we target allies?
+	var/targets_allies = FALSE
 
 /datum/ai_behavior/find_potential_targets/get_cooldown(datum/ai_controller/cooldown_for)
 	if(cooldown_for.blackboard[BB_FIND_TARGETS_FIELD(type)])
@@ -55,7 +57,7 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 	var/list/filtered_targets = list()
 
 	for(var/atom/pot_target in potential_targets)
-		if(ismob(pot_target) && living_mob.faction_check_mob(pot_target))
+		if(ismob(pot_target) && living_mob.faction_check_mob(pot_target) && !targets_allies)
 			continue
 		if(targeting_strategy.can_attack(living_mob, pot_target))//Can we attack it?
 			filtered_targets += pot_target
@@ -170,3 +172,6 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(
 
 /datum/ai_behavior/find_potential_targets/bigger_range
 	vision_range = 16
+
+/datum/ai_behavior/find_potential_targets/allies
+	targets_allies = TRUE

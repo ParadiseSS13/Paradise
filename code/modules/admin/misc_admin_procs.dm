@@ -434,7 +434,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		for(var/client/clients_to_alert in GLOB.clients)
 			window_flash(clients_to_alert)
 			if(clients_to_alert.prefs?.sound & SOUND_ADMINHELP)
-				SEND_SOUND(clients_to_alert, sound('sound/effects/adminhelp.ogg'))
+				SEND_SOUND(clients_to_alert, sound('sound/misc/server_alert.ogg'))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleooc()

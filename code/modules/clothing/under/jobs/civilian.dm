@@ -49,6 +49,13 @@
 	item_state = "oldman"
 	item_color = "oldman"
 
+/obj/item/clothing/under/rank/civilian/hop/turtleneck
+	name = "head of personnel's turtleneck"
+	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold office. Due to budget cuts, the material does not offer any external protection."
+	icon_state = "hop_turtle"
+	item_state = "hop_turtle"
+	item_color = "hop_turtle"
+
 /obj/item/clothing/under/rank/civilian/bartender
 	desc = "It looks like it could use some more flair."
 	name = "bartender's uniform"
@@ -132,12 +139,18 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/rank/civilian/hydroponics
-	desc = "It's a jumpsuit designed to protect against minor plant-related hazards."
+	desc = "It's a jumpsuit designed to protect against minor plant-related hazards. This one has blue markings."
 	name = "botanist's jumpsuit"
 	icon_state = "hydroponics"
 	item_state = "g_suit"
 	item_color = "hydroponics"
 	permeability_coefficient = 0.50
+
+/obj/item/clothing/under/rank/civilian/hydroponics/alt
+	desc = "It's a jumpsuit designed to protect against minor plant-related hazards. This one has brown markings."
+	name = "hydroponicist's jumpsuit"
+	icon_state = "hydroponics_alt"
+	item_color = "hydroponics_alt"
 
 /obj/item/clothing/under/rank/civilian/janitor
 	name = "janitor's jumpsuit"
