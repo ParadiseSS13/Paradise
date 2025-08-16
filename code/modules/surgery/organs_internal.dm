@@ -431,6 +431,7 @@
 	if(!user.drop_item())
 		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
 		return SURGERY_STEP_INCOMPLETE
+	SSblackbox.record_feedback("tally", "o_implant_organic", 1, "[I.type]")
 	I.insert(target)
 	spread_germs_to_organ(I, user, tool)
 

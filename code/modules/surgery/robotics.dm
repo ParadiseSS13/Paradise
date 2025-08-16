@@ -484,6 +484,7 @@
 		return SURGERY_STEP_INCOMPLETE
 
 	user.drop_item()
+	SSblackbox.record_feedback("tally", "o_implant_ipc", 1, "[I.type]")
 	I.insert(target)
 	user.visible_message(
 		"<span class='notice'>[user] has reattached [target]'s [I].</span>",
