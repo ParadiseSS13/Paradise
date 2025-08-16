@@ -162,8 +162,7 @@
 	evidence[fullprint] = fullprint
 	name = "[initial(name)] ([H])"
 	used = TRUE
-	update_icon_state()
-	update_appearance(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/sample/print/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	var/mob/living/carbon/human/H = target
