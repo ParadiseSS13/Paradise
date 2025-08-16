@@ -69,7 +69,7 @@
 /obj/item/clothing/head/helmet/material
 	name = "material visor helmet"
 	desc = "A helmet with a built-in material scanning visor."
-	vision_flags = SEE_OBJS
+	vision_flags = SEE_OBJS | SEE_TURFS
 
 /obj/item/clothing/head/helmet/night
 	name = "night-vision helmet"
