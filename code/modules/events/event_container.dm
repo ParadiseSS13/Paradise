@@ -226,16 +226,16 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/major
 	severity = EVENT_LEVEL_MAJOR
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/nothing, 350),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/nothing, 400),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/carp_migration, 10, TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",	/datum/event/prison_break/station,	0,			list(ASSIGNMENT_ANY = 5)),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/apc_overload,	15),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/meteor_wave, 15, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/apc_overload,	12),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/meteor_wave, 12, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/abductor, 15, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/traders, 25, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter, 20, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 20, is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 15, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 12, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/demon_incursion, 10, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/disease_outbreak, 20, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/revenant, 15),

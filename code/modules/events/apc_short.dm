@@ -7,7 +7,7 @@
 	role_requirements = list(ASSIGNMENT_ENGINEERING = 3)
 	nominal_severity = EVENT_LEVEL_MODERATE
 	var/const/announce_after_mc_ticks = 5
-	var/const/event_max_duration_mc_ticks = announce_after_mc_ticks * 2s
+	var/const/event_max_duration_mc_ticks = announce_after_mc_ticks * 2
 	var/const/event_min_duration_mc_ticks = announce_after_mc_ticks
 
 	announceWhen = announce_after_mc_ticks
