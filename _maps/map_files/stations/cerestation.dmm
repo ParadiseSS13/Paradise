@@ -45295,6 +45295,12 @@
 "ifa" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/station/science/toxins/test)
+"ifc" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/hallway/secondary/entry/south)
 "ifg" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -103918,6 +103924,17 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/gravitygenerator)
+"uBa" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 11;
+	height = 23;
+	id = "trade_dock";
+	name = "port bay 4 at NSS Farragus";
+	width = 23
+	},
+/turf/space,
+/area/space)
 "uBd" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -118931,16 +118948,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "xGW" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 4;
-	height = 11;
-	id = "trade_dock";
-	name = "port bay 4";
-	width = 9
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/space,
-/area/space)
+/area/station/hallway/secondary/entry/south)
 "xHl" = (
 /obj/machinery/ai_status_display,
 /turf/simulated/mineral/ancient,
@@ -158865,7 +158876,7 @@ ozq
 czS
 aXn
 hUU
-rNK
+hUU
 rNK
 rNK
 rNK
@@ -159122,7 +159133,7 @@ jjL
 czS
 hUU
 hUU
-rNK
+hUU
 rNK
 rNK
 rNK
@@ -159379,7 +159390,7 @@ tEz
 czS
 hUU
 bhO
-rNK
+bhO
 rNK
 rNK
 rNK
@@ -159635,8 +159646,8 @@ cPb
 fXb
 czS
 hUU
+hUU
 gzW
-rNK
 rNK
 rNK
 rNK
@@ -159892,8 +159903,8 @@ glO
 oEW
 sNX
 sNX
+sNX
 dFt
-rNK
 rNK
 rNK
 rNK
@@ -160148,10 +160159,10 @@ bUa
 bUa
 bUa
 dgs
-xJF
-dgs
 xGW
-rNK
+ifc
+dgs
+uBa
 rNK
 rNK
 rNK
@@ -160401,13 +160412,13 @@ ptl
 dhZ
 mgm
 sgJ
-jCW
-uhc
-hXO
-sNX
-sNX
-sNX
-rNK
+bUa
+bUa
+bUa
+dgs
+xGW
+xJF
+dgs
 rNK
 rNK
 rNK
@@ -160658,13 +160669,13 @@ rHn
 aUt
 mgm
 sgJ
-iJo
-czS
-czS
-czS
-hUU
-hUU
-rNK
+jCW
+uhc
+hXO
+sNX
+sNX
+sNX
+sNX
 rNK
 rNK
 rNK
@@ -160915,13 +160926,13 @@ aFk
 aFk
 nRy
 sgJ
-qIb
+iJo
 czS
-aXn
+czS
+czS
 hUU
 hUU
-rNK
-rNK
+hUU
 rNK
 rNK
 rNK
@@ -161175,9 +161186,9 @@ wYo
 fQi
 czS
 aXn
+aXn
 hUU
 bhO
-rNK
 rNK
 rNK
 rNK
@@ -161432,9 +161443,9 @@ tpJ
 qIb
 czS
 aXn
+aXn
 hUU
-hUU
-rNK
+bhO
 rNK
 rNK
 rNK

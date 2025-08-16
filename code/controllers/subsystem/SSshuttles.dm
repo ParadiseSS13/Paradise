@@ -479,6 +479,38 @@ SUBSYSTEM_DEF(shuttle)
 	custom_escape_shuttle_loading = FALSE
 	return loaded_shuttle
 
+/datum/controller/subsystem/shuttle/proc/set_trader_shuttle(datum/map_template/shuttle/trader/template)
+	var/obj/docking_port/mobile/trader/trade_shuttle = getShuttle("trader")
+	if(trade_shuttle)
+		var/obj/docking_port/stationary/docked_id = trade_shuttle.get_docked()
+		if(docked_id?.id != "trader_base")
+			CRASH("Attempted to load a new trade shuttle while the existing one was not at its home base.")
+		// Dispose of the old shuttle.
+		trade_shuttle.jumpToNullSpace()
+
+	var/obj/docking_port/mobile/trader/dock = getDock("trader_base")
+	if(!dock)
+		CRASH("Unable to load trading shuttle, no trading dock found.")
+
+	// Load in the new shuttle.
+	trade_shuttle = load_template(template)
+	var/result = trade_shuttle.canDock(dock)
+	if(result == SHUTTLE_SOMEONE_ELSE_DOCKED)
+		trade_shuttle.jumpToNullSpace()
+		CRASH("A non-trader shuttle is blocking the trading dock.")
+	if(result != SHUTTLE_CAN_DOCK)
+		trade_shuttle.jumpToNullSpace()
+		CRASH("New trading shuttle unable to dock at the trading dock: [result]")
+
+	trade_shuttle.dock(dock)
+
+	trade_shuttle.register()
+
+	// TODO indicate to the user that success happened, rather than just
+	// blanking the modification tab
+
+	return trade_shuttle
+
 /datum/controller/subsystem/shuttle/proc/request_transit_dock(obj/docking_port/mobile/M)
 	if(!istype(M))
 		CRASH("[M] is not a mobile docking port")

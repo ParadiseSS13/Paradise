@@ -899,14 +899,15 @@
 	width = 5
 	preferred_direction = EAST
 
-/obj/docking_port/mobile/trade_sol
+/obj/docking_port/mobile/trader
 	dir = 8
-	dwidth = 4
-	height = 11
-	id = "trade_sol"
+	dwidth = 11
+	height = 30
+	id = "trader"
 	name = "sol trade shuttle"
-	width = 9
+	width = 22
 	preferred_direction = EAST
+	timid = TRUE
 
 /obj/docking_port/mobile/nuke_ops
 	dheight = 9
@@ -1114,8 +1115,8 @@
 
 /obj/machinery/computer/shuttle/trade/sol
 	req_access = list(ACCESS_TRADE_SOL)
-	possible_destinations = "trade_sol_base;trade_dock"
-	shuttleId = "trade_sol"
+	possible_destinations = "trader_base;trade_dock"
+	shuttleId = "trader"
 
 //#undef DOCKING_PORT_HIGHLIGHT
 
