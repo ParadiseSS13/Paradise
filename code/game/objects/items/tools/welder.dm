@@ -41,16 +41,10 @@
 	/// If FALSE, welding tools wont appear prefilled by default
 	var/prefilled = TRUE
 
-/obj/item/weldingtool/empty
-	prefilled = FALSE
-
 /obj/item/weldingtool/Initialize(mapload)
 	. = ..()
-	if(!prefilled)
-		create_reagents(maximum_fuel)
-		reagents.add_reagent("fuel", 0)
-	else
-		create_reagents(maximum_fuel)
+	create_reagents(maximum_fuel)
+	if(prefilled)
 		reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
 	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
@@ -256,6 +250,9 @@
 
 /obj/item/weldingtool/get_heat()
 	return tool_enabled * 2500
+
+/obj/item/weldingtool/empty
+	prefilled = FALSE
 
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"
