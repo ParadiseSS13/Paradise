@@ -29,7 +29,8 @@
 
 		modify_variables(D, href_list["varnamechange"], 0)
 	if(href_list["varnamemass"] && href_list["datummass"])
-		if(!check_rights(R_ADMIN|R_VAREDIT))	return
+		if(!check_rights(R_ADMIN | R_VAREDIT))
+			return
 
 		var/atom/A = locateUID(href_list["datummass"])
 		if(!istype(A))
