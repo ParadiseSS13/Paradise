@@ -244,7 +244,7 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/forensics/sample_kit/MouseDrop(atom/over)
-	if(ismob(sloc))
+	if(ismob(src.loc))
 		interact_with_atom(over, loc)
 
 /obj/item/forensics/sample_kit/powder
