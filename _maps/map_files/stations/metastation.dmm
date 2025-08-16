@@ -1938,6 +1938,16 @@
 	icon_state = "brown"
 	},
 /area/station/supply/lobby)
+"asQ" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/gravitygenerator)
 "asU" = (
 /obj/effect/mapping_helpers/turfs/rust/probably,
 /turf/simulated/wall/r_wall,
@@ -13115,11 +13125,10 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "buN" = (
-/obj/structure/transit_tube_pod,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/transit_tube/station{
+/obj/structure/transit_tube/station/dispenser/flipped{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -20404,7 +20413,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "ccp" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreen"
@@ -37093,15 +37102,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
-"fed" = (
-/obj/structure/chair/comfy/beige{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/lounge)
 "feu" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
@@ -37391,12 +37391,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/supply/qm)
-"fkG" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/lounge)
 "fkH" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/simulated/floor/plating,
@@ -43478,6 +43472,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/warden)
+"hvE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard)
 "hvG" = (
 /obj/structure/table,
 /obj/item/assembly/igniter,
@@ -46546,15 +46552,6 @@
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/station/supply/lobby)
-"iAJ" = (
-/obj/structure/chair/comfy/beige{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/lounge)
 "iAO" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
@@ -49932,12 +49929,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
 "jKS" = (
-/obj/structure/transit_tube/station/reverse/flipped{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
+	},
+/obj/structure/transit_tube/station/dispenser/reverse/flipped{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -52522,6 +52519,15 @@
 "kCr" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/fore_port)
+"kDq" = (
+/obj/structure/chair/comfy/beige{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/lounge)
 "kDy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -64559,6 +64565,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
+"oNg" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/lounge)
 "oNk" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
@@ -65683,14 +65695,6 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
-"pfe" = (
-/obj/structure/table/wood,
-/obj/item/food/donut/chocolate,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/lounge)
 "pfH" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Supermatter Engine Room"
@@ -77098,16 +77102,6 @@
 /obj/item/stack/cable_coil/orange,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
-"tkk" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/gravitygenerator)
 "tkA" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/spray/cleaner{
@@ -80057,6 +80051,15 @@
 	icon_state = "caution"
 	},
 /area/station/engineering/transmission_laser)
+"upc" = (
+/obj/structure/chair/comfy/beige{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/lounge)
 "upe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -87350,6 +87353,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"wXk" = (
+/obj/structure/table/wood,
+/obj/item/food/donut/chocolate,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/lounge)
 "wXp" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/turf_decal/stripes/line,
@@ -91003,18 +91014,6 @@
 	icon_state = "brown"
 	},
 /area/station/supply/storage)
-"yiJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "yiU" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -103798,7 +103797,7 @@ xBw
 bin
 aaa
 qrA
-fkG
+oNg
 bmv
 jzG
 jbH
@@ -104055,7 +104054,7 @@ bkb
 biq
 aaa
 qrA
-fkG
+oNg
 ifM
 gHn
 hsx
@@ -104312,7 +104311,7 @@ uNP
 bin
 aaa
 qrA
-fkG
+oNg
 aNc
 goe
 qag
@@ -104569,7 +104568,7 @@ bin
 bin
 aaa
 qrA
-iAJ
+upc
 wtE
 bjn
 rHT
@@ -104826,7 +104825,7 @@ aaa
 aaa
 aaa
 qrA
-pfe
+wXk
 aGl
 bmq
 dLS
@@ -105083,7 +105082,7 @@ aaa
 aaa
 aaa
 bfG
-fed
+kDq
 vXk
 qIZ
 pEv
@@ -131348,7 +131347,7 @@ aub
 mlq
 agR
 odL
-yiJ
+hvE
 cLr
 nbw
 aRQ
@@ -133603,7 +133602,7 @@ aqh
 ccM
 lFO
 avV
-tkk
+asQ
 kpT
 sfP
 enp

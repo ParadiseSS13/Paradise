@@ -19,6 +19,7 @@
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
+	permeability_coefficient = 0.4
 
 /obj/item/clothing/head/helmet/attack_self__legacy__attackchain(mob/user)
 	if(can_toggle && !user.incapacitated())
@@ -94,6 +95,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
 	dog_fashion = null
+	permeability_coefficient = 0.01
 
 /obj/item/clothing/head/helmet/riot/knight
 	name = "medieval helmet"
@@ -266,6 +268,13 @@
 	icon_state = "durathread"
 	item_state = "durathread"
 	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 35, ACID = 50)
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/helmet.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi'
+	)
+
 
 /obj/item/clothing/head/helmet/street_judge
 	name = "judge's helmet"

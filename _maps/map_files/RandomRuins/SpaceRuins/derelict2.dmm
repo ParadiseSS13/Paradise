@@ -55,7 +55,7 @@
 	dir = 4
 	},
 /obj/effect/decal/remains/human,
-/mob/living/simple_animal/hostile/retaliate/ghost,
+/mob/living/simple_animal/shade,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "n" = (
@@ -77,7 +77,7 @@
 	dir = 8
 	},
 /obj/effect/decal/remains/human,
-/mob/living/simple_animal/hostile/retaliate/ghost,
+/mob/living/simple_animal/shade,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "p" = (

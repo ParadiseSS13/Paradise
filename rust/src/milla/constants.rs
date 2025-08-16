@@ -204,3 +204,7 @@ pub(crate) const BYOND_WIND_MULTIPLIER: f32 = 0.5;
 /// The smallest temperature allowed for the purpose of caluclating pressure.
 /// Prevents weirdness from absolute-zero gas having no pressure at all.
 pub(crate) const MINIMUM_TEMPERATURE_FOR_PRESSURE: f32 = 1.0;
+
+/// How much of the excess temperature in a hotspot should be lost to the tile every tick.
+/// Makes hotspots die out if they're not burning fast enough.
+pub(crate) const HOTSPOT_CONDUCTION: f32 = 0.1;

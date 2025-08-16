@@ -15465,6 +15465,40 @@
 	icon_state = "vault"
 	},
 /area/station/service/chapel)
+"bcG" = (
+/obj/machinery/camera{
+	c_tag = "Arrivals Lounge"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/lounge)
+"bcM" = (
+/obj/machinery/economy/atm/directional/north,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/lounge)
 "bcO" = (
 /obj/item/radio/intercom{
 	name = "north bump";
@@ -16695,6 +16729,24 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/port/east)
+"bgC" = (
+/obj/structure/sign/double/map/left{
+	pixel_y = 31
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 2
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/lounge)
 "bgD" = (
 /obj/structure/sign/double/map/right{
 	pixel_y = 31
@@ -20172,6 +20224,17 @@
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
+"brp" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrivalcorner"
+	},
+/area/station/hallway/secondary/entry/lounge)
 "brq" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "stairs-r"
@@ -32594,7 +32657,7 @@
 	},
 /area/station/science/genetics)
 "cpL" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
@@ -38034,22 +38097,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"cKo" = (
-/obj/machinery/economy/atm/directional/north,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/lounge)
 "cKr" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -49291,24 +49338,6 @@
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/carpet/grimey,
 /area/station/hallway/secondary/entry/lounge)
-"eCQ" = (
-/obj/structure/sign/double/map/left{
-	pixel_y = 31
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
-/obj/structure/disposalpipe/segment/corner{
-	dir = 2
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/lounge)
 "eDj" = (
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/cable/orange{
@@ -52371,10 +52400,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/transit_tube_pod{
-	dir = 4
-	},
-/obj/structure/transit_tube/station/reverse/flipped{
+/obj/structure/transit_tube/station/dispenser/reverse/flipped{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -67271,11 +67297,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "nrh" = (
-/obj/structure/transit_tube_pod{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/structure/transit_tube/station/reverse,
+/obj/structure/transit_tube/station/dispenser/reverse,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "nrD" = (
@@ -73825,17 +73848,6 @@
 "qsc" = (
 /turf/simulated/wall,
 /area/station/supply/warehouse)
-"qsp" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "arrivalcorner"
-	},
-/area/station/hallway/secondary/entry/lounge)
 "qsA" = (
 /obj/machinery/light{
 	dir = 8
@@ -84770,24 +84782,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
-"vTx" = (
-/obj/machinery/camera{
-	c_tag = "Arrivals Lounge"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/lounge)
 "vTz" = (
 /obj/structure/chair,
 /obj/item/radio/intercom/locked/confessional{
@@ -104431,7 +104425,7 @@ doj
 aXE
 aZb
 aVc
-vTx
+bcG
 fEC
 sYL
 sYL
@@ -104688,7 +104682,7 @@ aTu
 aTu
 aTu
 aTu
-cKo
+bcM
 wli
 bgv
 biv
@@ -104945,13 +104939,13 @@ aUu
 aXI
 aZj
 aTu
-eCQ
+bgC
 bhQ
 hvj
 blh
 blq
 blq
-qsp
+brp
 iuS
 bqr
 bqr
