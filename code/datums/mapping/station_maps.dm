@@ -35,6 +35,10 @@
 	min_players_random = 60
 	welcome_sound = 'sound/AI/welcome_diagoras.ogg'
 
+/datum/map/moonstation
+	fluff_name = "Avernus Complex"
+	technical_name = "MoonStation"
+
 /datum/map/test_tiny
 	fluff_name = "test_tiny"
 	technical_name = "test_tiny"
