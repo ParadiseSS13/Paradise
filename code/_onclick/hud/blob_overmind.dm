@@ -195,7 +195,7 @@
 	static_inventory += using
 
 	var/mob/camera/blob/B = user
-	if(!B.is_offspring) // Checks if the blob is an offspring, to not create split button if it is
+	if(!B.is_offspring && (length(GLOB.clients) > GLOB.configuration.event.blob_highpop_trigger)) // Checks if the blob is an offspring or below a population value, to not create split button if it is
 		using = new /atom/movable/screen/blob/split()
 		using.screen_loc = ui_acti
 		static_inventory += using
