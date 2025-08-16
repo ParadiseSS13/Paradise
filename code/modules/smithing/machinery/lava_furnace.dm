@@ -77,7 +77,7 @@
 		return FALSE
 	target.visible_message("<span class='danger'>[user] pushes [target]'s head into [src]!</span>", \
 					"<span class='userdanger'>[user] pushes your head into [src]! The heat is agonizing!</span>")
-	var/armor = target.run_armor_check(def_zone = BODY_ZONE_HEAD, attack_flag = MELEE, armour_penetration_percentage = 50)
+	var/armor = target.run_armor_check(def_zone = BODY_ZONE_HEAD, attack_flag = MELEE, armor_penetration_percentage = 50)
 	target.apply_damage(40, BURN, BODY_ZONE_HEAD, armor)
 	target.adjust_fire_stacks(5)
 	target.IgniteMob()

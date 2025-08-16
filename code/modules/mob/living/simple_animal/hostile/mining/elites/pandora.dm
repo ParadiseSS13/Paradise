@@ -30,7 +30,7 @@
 	health = 1000
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	attacktext = "smashes into the side of"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	throw_message = "merely dinks off of the"

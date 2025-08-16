@@ -7,7 +7,7 @@
 	knockdown_duration = 4 SECONDS
 	cooldown = 2.5 SECONDS
 	stamina_damage = 70
-	stamina_armour_pen = 100
+	stamina_armor_pen = 100
 	force_off = 5
 	force_on = 15
 	item_state_on = "contractor_baton"

@@ -385,7 +385,7 @@
 
 /datum/species/golem/sand/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H))
-		if((P.flag == BULLET || P.flag == BOMB) && P.armour_penetration_percentage < 100)
+		if((P.flag == BULLET || P.flag == BOMB) && P.armor_penetration_percentage < 100)
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
 			H.visible_message("<span class='danger'>[P] sinks harmlessly in [H]'s sandy body!</span>", \
 			"<span class='userdanger'>[P] sinks harmlessly in [H]'s sandy body!</span>")

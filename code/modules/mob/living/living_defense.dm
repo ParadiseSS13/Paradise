@@ -10,7 +10,7 @@
 	1 - halfblock
 	2 - fullblock
 */
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = "Your armor absorbs the blow!", soften_text = "Your armor softens the blow!", armour_penetration_flat = 0, penetrated_text = "Your armor was penetrated!", armour_penetration_percentage = 0)
+/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = "Your armor absorbs the blow!", soften_text = "Your armor softens the blow!", armor_penetration_flat = 0, penetrated_text = "Your armor was penetrated!", armor_penetration_percentage = 0)
 	var/armor = getarmor(def_zone, attack_flag)
 
 	if(armor == INFINITY)
@@ -18,12 +18,12 @@
 		return armor
 	if(armor <= 0)
 		return armor
-	if(!armour_penetration_flat && !armour_penetration_percentage)
+	if(!armor_penetration_flat && !armor_penetration_percentage)
 		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
 		return armor
 
 	var/armor_original = armor
-	armor = max(0, (armor * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat)
+	armor = max(0, (armor * ((100 - armor_penetration_percentage) / 100)) - armor_penetration_flat)
 	if(armor_original <= armor)
 		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
 	else
@@ -44,7 +44,7 @@
 /mob/living/bullet_act(obj/item/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	//Armor
-	var/armor = run_armor_check(def_zone, P.flag, armour_penetration_flat = P.armour_penetration_flat, armour_penetration_percentage = P.armour_penetration_percentage)
+	var/armor = run_armor_check(def_zone, P.flag, armor_penetration_flat = P.armor_penetration_flat, armor_penetration_percentage = P.armor_penetration_percentage)
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
 		if(P.dismemberment)
@@ -140,7 +140,7 @@
 		visible_message("<span class='danger'>[src] is hit by [thrown_item]!</span>", "<span class='userdanger'>You're hit by [thrown_item]!</span>")
 		if(!thrown_item.throwforce)
 			return
-		var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armour_penetration_flat, armour_penetration_percentage = thrown_item.armour_penetration_percentage)
+		var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armor_penetration_flat, armor_penetration_percentage = thrown_item.armor_penetration_percentage)
 		apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, thrown_item.sharp, thrown_item)
 		if(QDELETED(src)) //Damage can delete the mob.
 			return

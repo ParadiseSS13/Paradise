@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 15
 	throwforce = 25
-	armour_penetration_flat = 35
+	armor_penetration_flat = 35
 	sprite_sheets_inhand = null // Override parent
 	var/drawing_rune = FALSE
 	var/scribe_multiplier = 1 // Lower is faster
