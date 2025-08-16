@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=2;magnets=1;bluespace=2"
 	/// Whether the GPS is on.
-	var/tracking = TRUE
+	var/tracking = FALSE
 	/// The tag that is visible to other GPSes.
 	var/gpstag = "COM0"
 	/// Whether to only list signals that are on the same Z-level.
@@ -193,7 +193,6 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon_state = "gps-m"
 	gpstag = "MOD0"
 	desc = "A positioning system helpful for rescuing trapped or injured miners, after you have become lost from rolling around at the speed of sound."
-	tracking = FALSE
 
 /obj/item/gps/mod/ui_state()
 	return GLOB.deep_inventory_state
@@ -203,11 +202,13 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	gpstag = "BORG0"
 	desc = "A mining cyborg internal positioning system. Used as a recovery beacon for damaged cyborg assets, or a collaboration tool for mining teams."
 	flags = NODROP
+	tracking = TRUE
 
 /obj/item/gps/internal
 	icon_state = null
 	flags = ABSTRACT
 	local = TRUE
+	tracking = TRUE
 	gpstag = "Eerie Signal"
 	desc = "Report to a coder immediately."
 	invisibility = INVISIBILITY_MAXIMUM
@@ -227,6 +228,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	desc = "This admin-spawn GPS unit leaves the coordinates visible \
 		on any turf that it passes over, for debugging. Especially useful \
 		for marking the area around the transition edges."
+	tracking = TRUE
 	var/list/turf/tagged
 
 /obj/item/gps/visible_debug/Initialize(mapload)
