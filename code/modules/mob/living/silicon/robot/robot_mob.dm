@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// A reference to the type of cyborg it is, i.e. Engineering, Security, Medical etc.
 	var/obj/item/robot_module/module = null
 	/// The item the borg currently has selected, or null if nothing is selected
-	var/selected_item
+	var/obj/item/selected_item
 	/// The list of up to 3 items the borg can have "equipped". The contents will either be CYBORG_EMPTY_MODULE for nothing, or the item selected
 	var/list/all_active_items = list(CYBORG_EMPTY_MODULE, CYBORG_EMPTY_MODULE, CYBORG_EMPTY_MODULE)
 
