@@ -13681,11 +13681,10 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "buN" = (
-/obj/structure/transit_tube_pod,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/transit_tube/station{
+/obj/structure/transit_tube/station/dispenser/flipped{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -50618,12 +50617,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
 "jKS" = (
-/obj/structure/transit_tube/station/reverse/flipped{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
+	},
+/obj/structure/transit_tube/station/dispenser/reverse/flipped{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;

@@ -5369,11 +5369,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "beV" = (
-/obj/structure/transit_tube/station{
+/obj/structure/transit_tube/station/dispenser{
 	dir = 1
-	},
-/obj/structure/transit_tube_pod{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -10309,6 +10306,7 @@
 /obj/structure/transit_tube/curved{
 	dir = 1
 	},
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "bZD" = (
@@ -12732,6 +12730,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
+"czI" = (
+/obj/structure/transit_tube/curved/flipped{
+	dir = 1
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "czK" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -15197,6 +15202,13 @@
 "daJ" = (
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/bar)
+"daM" = (
+/obj/structure/transit_tube/curved{
+	dir = 4
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "daQ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -24376,6 +24388,11 @@
 	icon_state = "green"
 	},
 /area/station/command/bridge)
+"eUr" = (
+/obj/structure/transit_tube/curved/flipped,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "eUB" = (
 /obj/structure/table/wood,
 /obj/item/eftpos,
@@ -31045,12 +31062,6 @@
 	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
-"ghg" = (
-/obj/structure/transit_tube/curved/flipped{
-	dir = 1
-	},
-/turf/space,
-/area/space/nearstation)
 "ghi" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -43208,6 +43219,11 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
+"iDi" = (
+/obj/structure/transit_tube/curved,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "iDm" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -82457,10 +82473,8 @@
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "quR" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube/curved/flipped{
-	dir = 1
-	},
+/obj/structure/lattice/catwalk,
+/obj/structure/transit_tube,
 /turf/space,
 /area/space/nearstation)
 "qvk" = (
@@ -83652,6 +83666,7 @@
 /area/station/service/library)
 "qHs" = (
 /obj/structure/transit_tube/diagonal/topleft,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "qHD" = (
@@ -89564,10 +89579,7 @@
 	},
 /area/station/medical/chemistry)
 "rOk" = (
-/obj/structure/transit_tube_pod{
-	dir = 4
-	},
-/obj/structure/transit_tube/station,
+/obj/structure/transit_tube/station/dispenser,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -94719,6 +94731,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "sPc" = (
+/obj/structure/lattice/catwalk,
 /obj/structure/transit_tube/curved/flipped,
 /turf/space,
 /area/space/nearstation)
@@ -101385,6 +101398,7 @@
 /obj/structure/transit_tube/diagonal/topleft{
 	dir = 1
 	},
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "ueb" = (
@@ -101743,6 +101757,11 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
+"uid" = (
+/obj/structure/transit_tube,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "uiH" = (
 /obj/structure/chair/sofa/corner{
 	dir = 1;
@@ -108649,8 +108668,8 @@
 /turf/simulated/floor/carpet,
 /area/station/public/mrchangs)
 "vDx" = (
-/obj/structure/lattice,
 /obj/structure/transit_tube/junction/flipped,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "vDA" = (
@@ -111542,7 +111561,7 @@
 /obj/structure/transit_tube/junction/flipped{
 	dir = 1
 	},
-/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "wfQ" = (
@@ -121457,8 +121476,10 @@
 	},
 /area/station/security/prisonershuttle)
 "yip" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube/diagonal/topleft,
+/obj/structure/lattice/catwalk,
+/obj/structure/transit_tube/curved{
+	dir = 8
+	},
 /turf/space,
 /area/space/nearstation)
 "yiq" = (
@@ -164692,17 +164713,17 @@ wDu
 jnP
 jnP
 jnP
-jnP
-jnP
-jnP
-jnP
-jnP
-jnP
-jnP
-jnP
-jnP
-jnP
-jnP
+wXf
+wXf
+wXf
+wXf
+wXf
+wXf
+wXf
+wXf
+wXf
+wXf
+wXf
 jnP
 jnP
 jnP
@@ -164950,15 +164971,15 @@ jnP
 jnP
 jnP
 jnP
+aZS
 jnP
 jnP
 jnP
+aZS
 jnP
 jnP
 jnP
-jnP
-jnP
-jnP
+aZS
 jnP
 jnP
 jnP
@@ -165974,15 +165995,15 @@ cQi
 egV
 riH
 xVI
-lju
-ghg
+uid
+czI
+tHM
 jnP
-wXf
+jnP
 jnP
 jnP
 jnP
 aZS
-jnP
 jnP
 jnP
 jnP
@@ -166231,15 +166252,15 @@ pYE
 flb
 oCC
 eJG
-jnP
-jnP
+aZS
+tHM
 qHs
+tHM
 aZS
-tEb
-jnP
-jnP
 aZS
-jnP
+aZS
+aZS
+aZS
 jnP
 jnP
 jnP
@@ -166490,15 +166511,15 @@ beV
 eJG
 aZS
 aZS
-aZS
+tHM
 vDx
-iWM
+uid
 quR
+czI
+tHM
 aZS
-aZS
-aZS
-aZS
-aZS
+jnP
+jnP
 jnP
 jnP
 aZS
@@ -166745,20 +166766,20 @@ cAE
 cbB
 uBd
 eJG
-jnP
-jnP
+aZS
+tHM
 udY
+tHM
 aZS
-tEb
-jnP
-yip
-jnP
-jnP
-jnP
 aZS
-wXf
+tHM
+daM
 aZS
-cLk
+aZS
+jnP
+jnP
+tHM
+iDi
 jLp
 qyt
 jkd
@@ -167002,20 +167023,20 @@ cAE
 odG
 ecq
 pgp
-lju
+uid
 bZs
+tHM
 jnP
-wXf
 jnP
 jnP
 aZS
 yip
+tHM
 aZS
-wXf
-wXf
 aZS
+tHM
 udY
-aZS
+tHM
 aoy
 ceu
 htN
@@ -167260,18 +167281,18 @@ cAE
 cAE
 cAE
 aZS
-aZS
-aZS
-aZS
-aZS
 jnP
 jnP
-aZS
+jnP
+jnP
+jnP
+jnP
+tHM
 sPc
-lju
-lju
+uid
+uid
 wfN
-jnP
+tHM
 aZS
 aoy
 rOk
@@ -167525,11 +167546,11 @@ aZS
 aZS
 aZS
 aZS
-wXf
-wXf
 aZS
+aZS
+tHM
 qHs
-aZS
+tHM
 aoy
 asn
 jCk
@@ -167784,9 +167805,9 @@ jnP
 aZS
 jnP
 jnP
-wXf
-aZS
-lLu
+jnP
+tHM
+eUr
 xxl
 hLb
 bEB
@@ -168294,12 +168315,12 @@ ewS
 nuJ
 aZS
 aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-aZS
+wXf
+wXf
+wXf
+wXf
+wXf
+wXf
 aZS
 aZS
 aZS
@@ -168550,9 +168571,9 @@ lkR
 bNJ
 nuJ
 nuJ
-jnP
-jnP
 aZS
+jnP
+jnP
 jnP
 jnP
 jnP
@@ -168808,8 +168829,8 @@ sHN
 ugn
 nuJ
 aZS
-aZS
-aZS
+jnP
+jnP
 jnP
 jnP
 jnP

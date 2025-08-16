@@ -659,7 +659,7 @@
 	if(H.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 
-/obj/item/clothing/shoes/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/item/clothing/shoes/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
 		if(!M.lit && !M.burnt) // Match isn't lit, but isn't burnt.
@@ -691,6 +691,14 @@
 			to_chat(user, "<span class='notice'>There is already something in [src]!</span>")
 			return
 		if(!user.drop_item_to_ground(I))
+			return
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(45) && user.get_item_by_slot(ITEM_SLOT_SHOES) == src)
+
+			var/stabbed_foot = pick("l_foot", "r_foot")
+			user.visible_message("<span class='notice'>[user] tries to place [I] into [src] but stabs their own foot!</span>", \
+			"<span class='warning'>You go to put [I] into [src], but miss the boot and stab your own foot!</span>")
+			user.apply_damage(I.force, BRUTE, stabbed_foot)
+			user.drop_item(I)
 			return
 		user.visible_message("<span class='notice'>[user] places [I] into their [name]!</span>", \
 			"<span class='notice'>You place [I] into the side of your [name]!</span>")

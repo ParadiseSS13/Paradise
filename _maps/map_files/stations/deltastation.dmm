@@ -11160,9 +11160,6 @@
 /turf/simulated/floor/plasteel/goonplaque,
 /area/station/hallway/primary/fore/east)
 "aTl" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -24576,9 +24573,6 @@
 	},
 /area/station/engineering/control)
 "bRT" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/structure/table/reinforced,
 /obj/machinery/light/small{
 	dir = 1
@@ -25260,10 +25254,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "bTU" = (
-/obj/structure/transit_tube/station{
-	dir = 8
-	},
-/obj/structure/transit_tube_pod,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -25272,6 +25262,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/transit_tube/station/dispenser/flipped{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
@@ -25291,9 +25284,6 @@
 	},
 /area/station/hallway/primary/port/east)
 "bUc" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
@@ -26634,18 +26624,15 @@
 	},
 /area/station/security/storage)
 "bZf" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/engineering/ai_transit_tube)
 "bZj" = (
 /obj/structure/grille,
 /obj/effect/turf_decal/stripes/line,
@@ -56055,15 +56042,9 @@
 	},
 /area/station/public/fitness)
 "fRW" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/space,
-/area/space/nearstation)
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/engineering/ai_transit_tube)
 "fSk" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -76847,6 +76828,13 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"pnY" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/transit_tube/curved{
+	dir = 4
+	},
+/turf/space,
+/area/space/nearstation)
 "pog" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -80678,15 +80666,10 @@
 	},
 /area/station/medical/virology)
 "qYL" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/transit_tube/curved{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/space,
-/area/space/nearstation)
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/transit_tube/horizontal,
+/turf/simulated/floor/plating,
+/area/station/engineering/ai_transit_tube)
 "qYT" = (
 /obj/machinery/light{
 	dir = 1
@@ -95237,13 +95220,10 @@
 	},
 /area/station/medical/chemistry)
 "wOE" = (
-/obj/structure/transit_tube_pod{
-	dir = 8
-	},
 /obj/machinery/ai_status_display{
 	pixel_y = -32
 	},
-/obj/structure/transit_tube/station/reverse/flipped,
+/obj/structure/transit_tube/station/dispenser/reverse/flipped,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -112799,7 +112779,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+tOF
 aaa
 kTj
 vuY
@@ -113056,8 +113036,8 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+tOF
+abj
 xqE
 giK
 xLV
@@ -113313,7 +113293,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+tOF
 aaa
 xqE
 abj
@@ -113322,7 +113302,7 @@ abj
 xMr
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -113570,7 +113550,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+sso
 aaa
 xqE
 abj
@@ -113579,7 +113559,7 @@ fIk
 xLV
 abj
 aaa
-aaa
+sso
 aaa
 aaa
 aaa
@@ -113827,16 +113807,16 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+sso
+abj
 bVf
 abj
 abj
 hFE
 abj
 abj
-aaa
-aaa
+abj
+tOF
 aaa
 aaa
 aaa
@@ -114084,7 +114064,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+tOF
 aaa
 xqE
 abj
@@ -114093,7 +114073,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -114341,7 +114321,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+tOF
 aaa
 xqE
 abj
@@ -114350,7 +114330,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -114598,16 +114578,16 @@ aaZ
 aaa
 aaa
 aaa
-aaa
-aaa
+tOF
+abj
 xqE
 abj
 abj
 hFE
 abj
 abj
-aaa
-aaa
+abj
+sso
 aaa
 aaa
 aaa
@@ -114855,7 +114835,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+sso
 aaa
 xqE
 abj
@@ -114864,7 +114844,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -115112,7 +115092,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+tOF
 aaa
 xqE
 abj
@@ -115121,7 +115101,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+sso
 aaa
 aaa
 aaa
@@ -115369,16 +115349,16 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+tOF
+abj
 xqE
 abj
 abj
 hFE
 abj
 abj
-aaa
-aaa
+abj
+sso
 aaa
 aaa
 aaa
@@ -115626,7 +115606,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+sso
 aaa
 xqE
 abj
@@ -115635,7 +115615,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -115892,7 +115872,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -116148,8 +116128,8 @@ abj
 hFE
 abj
 abj
-aaa
-aaa
+abj
+tOF
 aaa
 aaa
 aaa
@@ -116406,7 +116386,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -116663,7 +116643,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -116919,8 +116899,8 @@ abj
 hFE
 abj
 abj
-aaa
-aaa
+abj
+sso
 aaa
 aaa
 aaa
@@ -117177,7 +117157,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+sso
 aaa
 aaa
 aaa
@@ -119486,7 +119466,7 @@ dVS
 kmy
 abj
 fYS
-nmF
+giK
 abj
 bXU
 bZk
@@ -119743,8 +119723,8 @@ vcx
 qGf
 abj
 fYS
-giK
-abj
+acF
+pnY
 bXU
 bZl
 kxe
@@ -119998,7 +119978,7 @@ bwN
 bJZ
 bVt
 qGf
-abj
+qGf
 bZf
 fRW
 qYL
