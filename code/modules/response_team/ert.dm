@@ -208,7 +208,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 	//Creates mind stuff.
 	M.mind = new
-	M.mind.current = M
+	M.mind.bind_to(M)
 	M.mind.set_original_mob(M)
 	M.mind.assigned_role = SPECIAL_ROLE_ERT
 	M.mind.special_role = SPECIAL_ROLE_ERT

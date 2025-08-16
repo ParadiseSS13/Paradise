@@ -126,7 +126,7 @@
 		return FALSE
 	layer = MOB_LAYER
 	if(client)
-		client.time_died_as_mouse = world.time
+		client.persistent.time_died_as_mouse = world.time
 
 /*
  * Mouse types
