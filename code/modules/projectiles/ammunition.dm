@@ -276,3 +276,12 @@
 	for(var/obj/item/ammo in stored_ammo)
 		ammo.forceMove(turf_mag)
 		stored_ammo -= ammo
+
+/obj/item/ammo_casing/proc/leave_residue(mob/living/carbon/human/H)
+	if(!istype(H))
+		return
+	if(H.gloves)
+		var/obj/item/clothing/G = H.gloves
+		G.gunshot_residue = caliber
+	else
+		H.gunshot_residue = caliber
