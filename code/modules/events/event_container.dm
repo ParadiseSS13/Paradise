@@ -62,11 +62,11 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	for(var/datum/event_meta/EM in available_events)
 		var/event_weight = EM.get_weight(total_resources)
 		// We use the amount of non disabled events to adjust the value of Nothing, so we count 0 weight events
-		if(EM.enabled)
+		if(EM.enabled && EM.first_run_time < world.time)
 			possible_events[EM] = max(event_weight, 0)
-		// For events like nothing we want to have their weight adjusted depending on how many events are left of the original list
-		if(EM.skeleton.is_relative())
-			possible_events[EM] *= (length(available_events) / initial_event_count)
+			// For events like nothing we want to have their weight adjusted depending on how many events are left of the original list
+			if(EM.skeleton.is_relative())
+				possible_events[EM] *= (length(available_events) / initial_event_count)
 
 	for(var/datum/event_meta/event_meta in last_event_time)
 		if(event_meta.skeleton.has_cooldown() && possible_events[event_meta])
@@ -159,7 +159,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/carp_migration, 10, , TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/rogue_drone, 7),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spacevine, 15),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/meteor_wave, 10),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/meteor_wave, 10, _first_run_time = 25 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/solar_flare, 12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/dust/meaty, 10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/communications_blackout, 15),
@@ -174,21 +174,21 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		//new /datum/event_meta/ninja(EVENT_LEVEL_MODERATE, "Space Ninja",		/datum/event/space_ninja, 				0,		list(ASSIGNMENT_SECURITY = 15), TRUE),
 		// NON-BAY EVENTS
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/mass_hallucination,		10),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/brand_intelligence, 5, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/brand_intelligence, 5, TRUE, _first_run_time = 25 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear, 15),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear/honk,	10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/vent_clog,	12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/disposals_clog, 12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/wormholes,	15),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_pyro, 7),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_cryo, 7),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_vortex, 7),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_bluespace,	7),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_flux, 7),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_grav, 7),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/disease_outbreak, 25, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_pyro, 7, _first_run_time = 20 MINUTES),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_cryo, 7, _first_run_time = 20 MINUTES),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_vortex, 7, _first_run_time = 20 MINUTES),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_bluespace,	7, _first_run_time = 20 MINUTES),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_flux, 7, _first_run_time = 20 MINUTES),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_grav, 7, _first_run_time = 20 MINUTES),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/disease_outbreak, 25, TRUE, _first_run_time = 25 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/door_runtime, 10, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tourist_arrivals, 50, TRUE)
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tourist_arrivals, 50, TRUE, _first_run_time = 35 MINUTES)
 	)
 
 /datum/event_container/major

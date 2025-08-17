@@ -6,7 +6,7 @@
 	var/list/first_run_times = list(
 		EVENT_LEVEL_MUNDANE = null,
 		EVENT_LEVEL_MODERATE = null,
-		EVENT_LEVEL_MAJOR = list("lower" = 20 MINUTES, "upper" = 30 MINUTES),
+		EVENT_LEVEL_MAJOR = list("lower" = 24 MINUTES, "upper" = 32 MINUTES),
 		EVENT_LEVEL_DISASTER = list("lower" = 40 MINUTES, "upper" = 50 MINUTES)
 	) // <---- Whoever designed this needs to be shot
 

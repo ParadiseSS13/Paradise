@@ -1,7 +1,7 @@
 /datum/event_meta
 	var/name = ""
 	/// Whether or not the event is available for random selection at all.
-	var/enabled 	= TRUE
+	var/enabled = TRUE
 	/// The base weight of this event. A zero means it may never fire, but see get_weight()
 	var/weight
 	/// The minimum weight that this event will have. Only used if non-zero.
@@ -14,8 +14,10 @@
 	var/weight_mod	= 1
 	/// Event held by this meta event. Used to do things like calculate weight.
 	var/datum/event/skeleton
+	/// How early this specific event can run
+	var/first_run_time = 0
 
-/datum/event_meta/New(event_severity, type, event_weight, is_one_shot = FALSE, min_event_weight = 0, max_event_weight = INFINITY)
+/datum/event_meta/New(event_severity, type, event_weight, is_one_shot = FALSE, min_event_weight = 0, max_event_weight = INFINITY, _first_run_time)
 	if(type)
 		skeleton = new type(EM = src, skeleton = TRUE, _severity = event_severity)
 		name = skeleton.name
@@ -23,6 +25,7 @@
 	weight = event_weight
 	min_weight = min_event_weight
 	max_weight = max_event_weight
+	first_run_time = _first_run_time
 
 /datum/event_meta/proc/change_event(type)
 	var/event_severity = 0
