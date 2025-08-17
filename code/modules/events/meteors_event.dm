@@ -33,11 +33,11 @@
 		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteors), get_meteor_count(), get_meteors())
 		next_meteor += rand(15, 30) / severity
 		waves--
-	else if(noAutoEnd) // We set the end timer when we clear the storm so we can just check that so we don't keep announcing
+	if(!waves && noAutoEnd) // We set the end timer when we clear the storm so we can just check that so we don't keep announcing
 		announce_clear()
 
 /datum/event/meteor_wave/proc/announce_clear()
-	endWhen = activeFor + 1800
+	endWhen = activeFor + 900
 	noAutoEnd = FALSE
 	for(var/mob/M in GLOB.dead_mob_list)
 		M.clear_alert("\ref[src]_augury")
