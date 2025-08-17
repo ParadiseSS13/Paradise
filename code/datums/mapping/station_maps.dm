@@ -26,7 +26,7 @@
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/paradise/cerestation/"
 	min_players_random = 60
 	welcome_sound = 'sound/AI/welcome_farragus.ogg'
-	voteable = = FALSE
+	voteable = FALSE
 
 /datum/map/emeraldstation
 	fluff_name = "NSS Diagoras"
