@@ -1,5 +1,6 @@
 /datum/event/brand_intelligence
 	name = "Brand Intelligence"
+	nominal_severity = EVENT_LEVEL_MODERATE
 	role_weights = list(ASSIGNMENT_ENGINEERING = 1, ASSIGNMENT_CREW = 0.4)
 	role_requirements = list(ASSIGNMENT_ENGINEERING = 2, ASSIGNMENT_CREW = 10)
 	noAutoEnd = TRUE

@@ -107,6 +107,7 @@ SUBSYSTEM_DEF(events)
 
 	if(selected_event_container)
 		var/event_time = max(0, selected_event_container.next_event_time - world.time)
+		var/list/total_resources = get_total_resources()
 		html += "<A align='right' href='byond://?src=[UID()];back=1'>Back</A><br>"
 		html += "Time till start: [round(event_time / 600, 0.1)]<br>"
 		html += "<div class='block'>"
@@ -121,7 +122,7 @@ SUBSYSTEM_DEF(events)
 			html += "<td>[EM.max_weight == INFINITY ? "No max" : EM.max_weight]</td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];toggle_oneshot=\ref[EM]'>[EM.one_shot]</A></td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];toggle_enabled=\ref[EM]'>[EM.enabled]</A></td>"
-			html += "<td><span class='alert'>[EM.get_weight(number_active_with_role())]</span></td>"
+			html += "<td><span class='alert'>[EM.get_weight(total_resources)]</span></td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];remove=\ref[EM];EC=\ref[selected_event_container]'>Remove</A></td>"
 			html += "</tr>"
 		html += "</table>"

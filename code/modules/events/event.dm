@@ -38,7 +38,13 @@
 /datum/event_meta/proc/get_weight(list/total_resources)
 	if(!enabled || !skeleton)
 		return 0
-	return clamp((weight + skeleton.get_weight(total_resources)) * weight_mod, min_weight, max_weight)
+	var/resource_effect = skeleton.get_weight(total_resources)
+	var/new_weight = weight
+	if(resource_effect > 0)
+		new_weight *= (1.003 ** resource_effect)
+	if(resource_effect < 0)
+		new_weight *= 0.95 ** -resource_effect
+	return clamp((new_weight) * weight_mod, min_weight, max_weight)
 
 /*/datum/event_meta/ninja/get_weight(var/list/active_with_role)
 	if(toggle_space_ninja)
@@ -93,7 +99,7 @@
 		var/role_available = total_resources[role] ? total_resources[role] : 0
 		var/difference = (role_available - role_requirements[role] * (severity / nominal_severity)) * role_weights[role]
 		// We add difference if it's negative, or the square root if it's positive
-		job_weight += (difference > 0 ? difference**0.9 : difference)
+		job_weight += difference
 	return job_weight
 
 /**

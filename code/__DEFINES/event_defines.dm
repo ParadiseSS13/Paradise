@@ -27,3 +27,4 @@
 #define EVENT_BRAND_INTELLIGENCE "brand_intelligence"
 #define EVENT_DRONE "rogue_drones"
 #define EVENT_DEMONIC "demonic_incursion"
+#define EVENT_REVENTANT "revenant"

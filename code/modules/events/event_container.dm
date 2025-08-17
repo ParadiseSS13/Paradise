@@ -135,19 +135,19 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	available_events = list(
 		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set.
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/nothing, 330),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/pda_spam, 10),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/economic_event,	13),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/trivial_news, 13),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/mundane_news, 13),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/infestation, 12),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/pda_spam, 9),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/economic_event,	7),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/trivial_news, 7),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/mundane_news, 7),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/infestation, 11),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/sentience, 17),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/wallrot, 10),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/wallrot/fungus, 10),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/carp_migration/koi,	15),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/camera_failure, 15),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/fake_virus,		20),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/bureaucratic_error,	20, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/disease_outbreak, 15, TRUE)
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/bureaucratic_error,	15, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/disease_outbreak, 12, TRUE)
 	)
 
 /datum/event_container/moderate
@@ -162,12 +162,12 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/meteor_wave, 10, _first_run_time = 25 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/solar_flare, 12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/dust/meaty, 10),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/communications_blackout, 15),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/communications_blackout, 10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/prison_break, 7),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Virology Breach",			/datum/event/prison_break/virology,		0,		list(ASSIGNMENT_MEDICAL = 100)),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Xenobiology Breach",		/datum/event/prison_break/xenobiology,	0,		list(ASSIGNMENT_SCIENCE = 100)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/apc_short, 15),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/electrical_storm, 25),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/apc_short, 12),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/electrical_storm, 12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/radiation_storm, 10, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spider_infestation, 10, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/ion_storm, 10),
@@ -186,27 +186,27 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_bluespace,	7, _first_run_time = 20 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_flux, 7, _first_run_time = 20 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_grav, 7, _first_run_time = 20 MINUTES),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/disease_outbreak, 25, TRUE, _first_run_time = 25 MINUTES),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/disease_outbreak, 15, TRUE, _first_run_time = 25 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/door_runtime, 10, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tourist_arrivals, 50, TRUE, _first_run_time = 35 MINUTES)
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tourist_arrivals, 40, TRUE, _first_run_time = 35 MINUTES)
 	)
 
 /datum/event_container/major
 	severity = EVENT_LEVEL_MAJOR
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/nothing, 330),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/nothing, 360),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/carp_migration, 10, TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",	/datum/event/prison_break/station,	0,			list(ASSIGNMENT_ANY = 5)),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/apc_overload,	11),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/meteor_wave, 12, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/abductor, 15, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/traders, 25, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/abductor, 12, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/traders, 13, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter, 13, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 13, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 12, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/demon_incursion, 10, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/disease_outbreak, 20, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/revenant, 13),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/disease_outbreak, 12, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/revenant, 10),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_morph, 17, is_one_shot = TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Pulse Demon Infiltration",	/datum/event/spawn_pulsedemon,	20,	is_one_shot = TRUE)

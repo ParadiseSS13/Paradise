@@ -2,7 +2,7 @@
 	name = "Abductor Visit"
 	noAutoEnd = TRUE
 	nominal_severity = EVENT_LEVEL_MAJOR
-	role_weights = list(ASSIGNMENT_SECURITY =  3)
+	role_weights = list(ASSIGNMENT_SECURITY =  5)
 	role_requirements = list(ASSIGNMENT_SECURITY = 3)
 	var/datum/team/abductor/ayys
 	var/spawned = FALSE

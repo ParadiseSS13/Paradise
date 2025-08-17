@@ -4,10 +4,13 @@
 	name = "Revenant"
 	nominal_severity = EVENT_LEVEL_MAJOR
 	noAutoEnd = TRUE
-	role_weights = list(ASSIGNMENT_CHAPLAIN = 5, ASSIGNMENT_CREW = 0.2)
-	role_requirements = list(ASSIGNMENT_CHAPLAIN = 1, ASSIGNMENT_CREW = 40)
+	role_weights = list(ASSIGNMENT_CHAPLAIN = 5, ASSIGNMENT_CREW = 0.8)
+	role_requirements = list(ASSIGNMENT_CHAPLAIN = 1, ASSIGNMENT_CREW = 30)
 	var/key_of_revenant
 
+// Calculated separately from event
+/datum/event/revenant/event_resource_cost()
+	return list()
 
 /datum/event/revenant/proc/on_revenant_death(mob/source)
 	SIGNAL_HANDLER // COMSIG_MOB_DEATH
@@ -20,6 +23,7 @@
 		deadMobs++
 	if(deadMobs < REVENANT_SPAWN_THRESHOLD)
 		message_admins("Random event attempted to spawn a revenant, but there were only [deadMobs]/[REVENANT_SPAWN_THRESHOLD] dead mobs.")
+		kill()
 		return
 
 	spawn()

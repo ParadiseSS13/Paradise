@@ -3,7 +3,7 @@
 /datum/event/apc_overload
 	name = "APC Overload"
 	nominal_severity = EVENT_LEVEL_MAJOR
-	role_weights = list(ASSIGNMENT_ENGINEERING = 3, ASSIGNMENT_CREW = 0.2)
+	role_weights = list(ASSIGNMENT_ENGINEERING = 4, ASSIGNMENT_CREW = 0.5)
 	role_requirements = list(ASSIGNMENT_ENGINEERING = 5, ASSIGNMENT_CREW = 30)
 	var/const/announce_after_mc_ticks     = 5
 	var/const/delayed                     = FALSE

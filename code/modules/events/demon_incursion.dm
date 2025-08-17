@@ -3,7 +3,7 @@
 	/// Corresponds to the number of process() runs the event has lasted for. Roughly 2 minutes here.
 	announceWhen = 60
 	noAutoEnd = TRUE
-	role_weights = list(ASSIGNMENT_SECURITY = 4, ASSIGNMENT_CREW = 0.7, ASSIGNMENT_MEDICAL = 2)
+	role_weights = list(ASSIGNMENT_SECURITY = 4, ASSIGNMENT_CREW = 1, ASSIGNMENT_MEDICAL = 2)
 	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 35, ASSIGNMENT_MEDICAL = 3)
 	nominal_severity = EVENT_LEVEL_MAJOR
 	/// The name of the notification for dchat
