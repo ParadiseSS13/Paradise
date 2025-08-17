@@ -68,7 +68,6 @@
 	to_chat(user, "<span class='notice'>Printing report...</span>")
 	var/obj/item/paper/report = new(get_turf(src))
 	report.stamped = list(/obj/item/stamp)
-	report.overlays = list("paper_stamped")
 	report_num++
 
 	var/obj/item/forensics/swab/bloodswab = swab
@@ -196,7 +195,7 @@
 	to_chat(user, "<span class='notice'>Printing Report...</span>")
 	var/obj/item/paper/report = new(get_turf(src))
 	report.stamped = list(/obj/item/stamp)
-	report.overlays = list("paper_stamped")
+	//report.overlays = list("paper_stamped")
 	report_num++
 
 	if(istype(sample, /obj/item/forensics/swab))
