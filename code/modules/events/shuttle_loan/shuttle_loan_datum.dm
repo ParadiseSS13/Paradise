@@ -191,7 +191,7 @@
 
 /datum/shuttle_loan_situation/honk
 	sender = "Central Command Entertainment Division"
-	announcement_text = "A surplus of clowns were sent to us from the Clown College. You should be able to find some use of them"
+	announcement_text = "A surplus of clowns were sent to us from the Clown College. You should be able to find some use of them."
 	bonus_points = 500 // If you mess up, people die and the shuttle gets turned into swiss cheese
 	logging_desc = "Shuttle with clowns"
 
