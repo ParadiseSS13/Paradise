@@ -18,7 +18,7 @@
 /mob/living/carbon/alien/larva/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z))
-		return list(ASSIGNMENT_SECURITY = 0.8, ASSIGNMENT_TOTAL = 4, ASSIGNMENT_MEDICAL = 0.4)
+		return list(ASSIGNMENT_SECURITY = 0.8, ASSIGNMENT_CREW = 4, ASSIGNMENT_MEDICAL = 0.4)
 
 /mob/living/carbon/alien/humanoid/hunter/get_caste_organs()
 	. = ..()

@@ -55,40 +55,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/proc/acquire_event()
 	if(length(available_events) == 0)
 		return
-	// A list of the amount of active players in each role/department
-	var/active_with_role = number_active_with_role()
 	// A list of the net available resources of each department depending on staffing and active threats/events
-	var/list/total_resources = list()
-
-	// Add resources from staffing
-	for(var/assignment in active_with_role)
-		total_resources[assignment] += active_with_role[assignment] * ASSIGNMENT_STAFFING_VALUE
-
-	// Subtract resources from active antags
-	for(var/datum/antagonist/active in GLOB.antagonists)
-		var/list/antag_costs = active.antag_event_resource_cost()
-		for(var/assignment in antag_costs)
-			if(total_resources[assignment])
-				total_resources[assignment] -= antag_costs[assignment]
-			else
-				total_resources[assignment] = -antag_costs[assignment]
-
-	// Subtract resources from active events
-	for(var/datum/event/active in SSevents.active_events)
-		var/list/event_costs = active.event_resource_cost()
-		for(var/assignment in event_costs)
-			if(total_resources[assignment])
-				total_resources[assignment] -= event_costs[assignment]
-			else
-				total_resources[assignment] = -event_costs[assignment]
-
-	// Subtract resources from various elements
-	var/list/misc_costs = event_total_cost()
-	for(var/assignment in misc_costs)
-		if(total_resources[assignment])
-			total_resources[assignment] -= misc_costs[assignment]
-		else
-			total_resources[assignment] = -misc_costs[assignment]
+	var/list/total_resources = get_total_resources()
 
 	var/list/possible_events = list()
 	for(var/datum/event_meta/EM in available_events)
@@ -233,8 +201,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/meteor_wave, 12, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/abductor, 15, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/traders, 25, is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter, 15, is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 15, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter, 13, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 13, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 12, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/demon_incursion, 10, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/disease_outbreak, 20, TRUE),

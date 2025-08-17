@@ -27,7 +27,7 @@
 /mob/living/simple_animal/hostile/blob/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)
-		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_TOTAL = 3, ASSIGNMENT_MEDICAL = 0.5)
+		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 3, ASSIGNMENT_MEDICAL = 0.5)
 
 /mob/living/simple_animal/hostile/blob/Destroy()
 	GLOB.blob_minions -= src
@@ -213,7 +213,7 @@
 /mob/living/simple_animal/hostile/blob/blobbernaut/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)
-		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_TOTAL = 3, ASSIGNMENT_MEDICAL = 0.5)
+		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 3, ASSIGNMENT_MEDICAL = 0.5)
 
 /datum/action/innate/communicate_overmind_blob
 	name = "Speak with the overmind"

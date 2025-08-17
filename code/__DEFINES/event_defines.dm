@@ -1,4 +1,4 @@
-#define ASSIGNMENT_TOTAL "Any"
+#define ASSIGNMENT_CREW "Crew"
 #define ASSIGNMENT_COMMAND "Command"
 #define ASSIGNMENT_ENGINEERING "Engineering"
 #define ASSIGNMENT_MEDICAL "Medical"

@@ -53,7 +53,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/white/event_cost()
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)
-		return list(ASSIGNMENT_SECURITY = 1, ASSIGNMENT_TOTAL = 5, ASSIGNMENT_MEDICAL = 2)
+		return list(ASSIGNMENT_SECURITY = 1, ASSIGNMENT_CREW = 5, ASSIGNMENT_MEDICAL = 2)
 
 /proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))

@@ -34,7 +34,7 @@
 /mob/living/carbon/alien/humenoid/sentinel/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z))
-		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_TOTAL = 3, ASSIGNMENT_MEDICAL = 0.2)
+		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 3, ASSIGNMENT_MEDICAL = 0.2)
 
 /mob/living/carbon/alien/humanoid/sentinel/get_caste_organs()
 	. = ..()

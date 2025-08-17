@@ -240,7 +240,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/event_cost()
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)
-		return list(ASSIGNMENT_SECURITY = 0.2, ASSIGNMENT_TOTAL = 1.5, ASSIGNMENT_MEDICAL = 0.2)
+		return list(ASSIGNMENT_SECURITY = 0.2, ASSIGNMENT_CREW = 1.5, ASSIGNMENT_MEDICAL = 0.2)
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: PROC OVERRIDES ---------------------------

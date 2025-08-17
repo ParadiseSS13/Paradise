@@ -350,7 +350,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/event_cost()
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)
-		return list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_TOTAL = 30, ASSIGNMENT_MEDICAL = 2)
+		return list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 30, ASSIGNMENT_MEDICAL = 2)
 
 /obj/item/projectile/terrorqueenspit
 	name = "acid spit"

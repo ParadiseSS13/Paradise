@@ -30,6 +30,6 @@ GLOBAL_VAR_INIT(spores_active, 0)
 /obj/structure/blob/factory/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z))
-		return list(ASSIGNMENT_SECURITY = 0.33, ASSIGNMENT_TOTAL = 1)
+		return list(ASSIGNMENT_SECURITY = 0.33, ASSIGNMENT_CREW = 1)
 
 #undef MAX_GLOBAL_SPORES

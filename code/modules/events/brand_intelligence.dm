@@ -1,7 +1,7 @@
 /datum/event/brand_intelligence
 	name = "Brand Intelligence"
-	role_weights = list(ASSIGNMENT_ENGINEERING = 1, ASSIGNMENT_TOTAL = 0.4)
-	role_requirements = list(ASSIGNMENT_ENGINEERING = 2, ASSIGNMENT_TOTAL = 10)
+	role_weights = list(ASSIGNMENT_ENGINEERING = 1, ASSIGNMENT_CREW = 0.4)
+	role_requirements = list(ASSIGNMENT_ENGINEERING = 2, ASSIGNMENT_CREW = 10)
 	noAutoEnd = TRUE
 	announceWhen	= 21
 

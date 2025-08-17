@@ -37,7 +37,7 @@
 /obj/structure/blob/core/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z))
-		return list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_TOTAL = 15, ASSIGNMENT_MEDICAL = 2)
+		return list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 15, ASSIGNMENT_MEDICAL = 2)
 
 /obj/structure/blob/core/Destroy()
 	if(overmind)

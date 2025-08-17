@@ -22,7 +22,7 @@
 /mob/living/carbon/alien/humenoid/queen/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z))
-		return list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_TOTAL = 12, ASSIGNMENT_MEDICAL = 1)
+		return list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 12, ASSIGNMENT_MEDICAL = 1)
 
 /mob/living/carbon/alien/humanoid/queen/get_caste_organs()
 	. = ..()

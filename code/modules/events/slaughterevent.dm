@@ -5,7 +5,7 @@
 	var/mob/living/simple_animal/demon/demon = /mob/living/simple_animal/demon/slaughter/lesser
 	nominal_severity = EVENT_LEVEL_MAJOR
 	role_weights = list(ASSIGNMENT_SECURITY = 5, ASSIGNMENT_ANY = 0.3)
-	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_ANY = 35)
+	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_ANY = 15)
 
 /datum/event/spawn_slaughter/tick()
 	if(!demon || demon.stat == DEAD)

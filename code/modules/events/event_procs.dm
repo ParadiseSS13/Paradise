@@ -59,7 +59,7 @@
 /proc/number_active_with_role()
 
 	var/list/active_with_role = list()
-	active_with_role[ASSIGNMENT_TOTAL] = 0
+	active_with_role[ASSIGNMENT_CREW] = 0
 	active_with_role[ASSIGNMENT_COMMAND] = 0
 	active_with_role[ASSIGNMENT_ENGINEERING] = 0
 	active_with_role[ASSIGNMENT_MEDICAL] = 0
@@ -74,7 +74,7 @@
 			continue
 
 		if(M.mind.assigned_role in (GLOB.exp_jobsmap[EXP_TYPE_CREW]["titles"]))
-			active_with_role[ASSIGNMENT_TOTAL]++
+			active_with_role[ASSIGNMENT_CREW]++
 
 		if(active_with_role[M.mind.assigned_role])
 			active_with_role[M.mind.assigned_role]++
@@ -131,3 +131,42 @@
 		var/costs = event_category_cost(category)
 		for(var/key in costs)
 			.["[key]"] += costs[key]
+
+/// Returns the net resources available for event rolling
+/proc/get_total_resources()
+	// A list of the amount of active players in each role/department
+	var/active_with_role = number_active_with_role()
+	// A list of the net available resources of each department depending on staffing and active threats/events
+	var/list/total_resources = list()
+
+	// Add resources from staffing
+	for(var/assignment in active_with_role)
+		total_resources[assignment] += active_with_role[assignment] * ASSIGNMENT_STAFFING_VALUE
+
+	// Subtract resources from active antags
+	for(var/datum/antagonist/active in GLOB.antagonists)
+		var/list/antag_costs = active.antag_event_resource_cost()
+		for(var/assignment in antag_costs)
+			if(total_resources[assignment])
+				total_resources[assignment] -= antag_costs[assignment]
+			else
+				total_resources[assignment] = -antag_costs[assignment]
+
+	// Subtract resources from active events
+	for(var/datum/event/active in SSevents.active_events)
+		var/list/event_costs = active.event_resource_cost()
+		for(var/assignment in event_costs)
+			if(total_resources[assignment])
+				total_resources[assignment] -= event_costs[assignment]
+			else
+				total_resources[assignment] = -event_costs[assignment]
+
+	// Subtract resources from various elements
+	var/list/misc_costs = event_total_cost()
+	for(var/assignment in misc_costs)
+		if(total_resources[assignment])
+			total_resources[assignment] -= misc_costs[assignment]
+		else
+			total_resources[assignment] = -misc_costs[assignment]
+
+	return total_resources

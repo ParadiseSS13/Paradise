@@ -242,7 +242,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 /mob/living/simple_animal/hostile/mimic/copy/vendor/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)
-		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_TOTAL = 1)
+		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 1)
 
 /mob/living/simple_animal/hostile/mimic/copy/vendor/AttackingTarget()
 	. = ..()

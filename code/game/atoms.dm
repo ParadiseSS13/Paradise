@@ -1520,5 +1520,5 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z))
-		return list(ASSIGNMENT_TOTAL = 1)
+		return list(ASSIGNMENT_CREW = 1)
 

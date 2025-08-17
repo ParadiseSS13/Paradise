@@ -37,4 +37,4 @@
 /obj/structure/blob/node/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z))
-		return list(ASSIGNMENT_SECURITY = 0.1, ASSIGNMENT_TOTAL = 1)
+		return list(ASSIGNMENT_SECURITY = 0.1, ASSIGNMENT_CREW = 1)

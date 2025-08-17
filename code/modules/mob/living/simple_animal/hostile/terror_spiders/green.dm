@@ -99,7 +99,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/green/event_cost()
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)
-		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_TOTAL = 2, ASSIGNMENT_MEDICAL = 0.2)
+		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 2, ASSIGNMENT_MEDICAL = 0.2)
 
 /obj/structure/spider/terrorweb/green
 	name = "slimy web"

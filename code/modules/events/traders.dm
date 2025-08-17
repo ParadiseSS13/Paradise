@@ -5,8 +5,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 /datum/event/traders
 	name = "Traders"
-	role_weights = list(ASSIGNMENT_TOTAL = 0.5)
-	role_requirements = list(ASSIGNMENT_TOTAL = 30)
+	role_weights = list(ASSIGNMENT_CREW = 0.5)
+	role_requirements = list(ASSIGNMENT_CREW = 30)
 	nominal_severity = EVENT_LEVEL_MAJOR
 	var/success_spawn = 0
 	var/station = null

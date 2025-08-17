@@ -34,7 +34,7 @@
 /mob/living/carbon/alien/larva/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z))
-		return list(ASSIGNMENT_SECURITY = 0.2, ASSIGNMENT_TOTAL = 1)
+		return list(ASSIGNMENT_SECURITY = 0.2, ASSIGNMENT_CREW = 1)
 
 /mob/living/carbon/alien/larva/Destroy()
 	for(var/datum/action/innate/hide/alien_larva_hide/hide in actions)

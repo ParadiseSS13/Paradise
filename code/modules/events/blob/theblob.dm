@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(blob_minions)
 /obj/structure/blob/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z))
-		return list(ASSIGNMENT_TOTAL = 0.07)
+		return list(ASSIGNMENT_CREW = 0.07)
 
 /obj/structure/blob/Destroy()
 	if(atmosblock)

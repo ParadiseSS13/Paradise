@@ -38,7 +38,7 @@
 /mob/living/carbon/alien/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z))
-		return list(ASSIGNMENT_SECURITY = 1, ASSIGNMENT_TOTAL = 3, ASSIGNMENT_MEDICAL = 1)
+		return list(ASSIGNMENT_SECURITY = 1, ASSIGNMENT_CREW = 3, ASSIGNMENT_MEDICAL = 1)
 
 /// returns the list of type paths of the organs that we need to insert into
 /// this particular xeno upon its creation
