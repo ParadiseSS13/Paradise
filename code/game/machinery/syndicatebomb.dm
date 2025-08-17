@@ -321,7 +321,7 @@
 	name = "clown bomb"
 	icon_state = "clown-bomb"
 	desc = "HONK."
-	payload = /obj/item/bombcore/badmin/summon/clown/shuttle_loan
+	payload = /obj/item/bombcore/badmin/summon/clown/lesser
 	beepsound = 'sound/items/bikehorn.ogg'
 
 /obj/machinery/syndicatebomb/badmin/clown/shuttle_loan/Initialize(mapload)
@@ -444,7 +444,7 @@
 	playsound(src.loc, 'sound/misc/sadtrombone.ogg', 50)
 	..()
 
-/obj/item/bombcore/badmin/summon/clown/shuttle_loan
+/obj/item/bombcore/badmin/summon/clown/lesser
 	amt_summon = 10
 
 /obj/item/bombcore/explosive_wall
