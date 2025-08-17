@@ -29,6 +29,8 @@
 	. += "<span class='notice'><b>Click with an empty hand</b> to analyze the current sample.</span>"
 
 /obj/machinery/dnaforensics/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(panel_open)
+		return SCREWDRIVER_OPEN_PANEL_MESSAGE
 	if(swab)
 		to_chat(user, "<span class='warning'>There is already a sample inside the scanner.</span>")
 		return ITEM_INTERACT_COMPLETE
@@ -61,7 +63,6 @@
 	to_chat(user, "<span class='notice'>Printing report...</span>")
 	var/obj/item/paper/report = new(get_turf(src))
 	report.stamped = list(/obj/item/stamp)
-	report.overlays = list("paper_stamped")
 	report_num++
 
 	var/obj/item/forensics/swab/bloodswab = swab
@@ -153,6 +154,8 @@
 	. += "<span class='notice'><b>Click with an empty hand</b> to study the current sample.</span>"
 
 /obj/machinery/microscope/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(panel_open)
+		return SCREWDRIVER_OPEN_PANEL_MESSAGE
 	if(sample)
 		to_chat(user, "<span class='warning'>There is already a sample in the microscope!</span>")
 		return ITEM_INTERACT_COMPLETE
@@ -182,7 +185,7 @@
 	to_chat(user, "<span class='notice'>Printing Report...</span>")
 	var/obj/item/paper/report = new(get_turf(src))
 	report.stamped = list(/obj/item/stamp)
-	report.overlays = list("paper_stamped")
+	//report.overlays = list("paper_stamped")
 	report_num++
 
 	if(istype(sample, /obj/item/forensics/swab))
