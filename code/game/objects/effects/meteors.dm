@@ -38,21 +38,10 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	var/obj/effect/meteor/M = new Me(pickedstart, pickedgoal)
 	M.dest = pickedgoal
 
-/proc/spawn_meteor_center_station(list/meteortypes)
-	var/turf/pickedstart
-	var/turf/pickedgoal
-	var/max_i = 10 //number of tries to spawn meteor.
-	while(!isspaceturf(pickedstart))
-		var/startSide = pick(GLOB.cardinal)
-		var/startZ = level_name_to_num(MAIN_STATION)
-		pickedstart = pick_edge_loc(startSide, startZ)
-		pickedgoal = pick_edge_loc(REVERSE_DIR(startSide), startZ)
-		max_i--
-		if(max_i <= 0)
-			return
+/proc/spawn_meteor_targeted(meteortypes, start, goal)
 	var/Me = pickweight(meteortypes)
-	var/obj/effect/meteor/M = new Me(pickedstart, pickedgoal)
-	M.dest = pickedgoal
+	var/obj/effect/meteor/M = new Me(start, goal)
+	M.dest = goal
 
 /proc/pick_edge_loc(startSide, Z)
 	var/starty
@@ -429,7 +418,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 		explosion(loc, 2, 4, 6, 8, cause = "[name]: Object or mob collision explosion")
 
 /obj/effect/meteor/super_tunguska
-	max_integrity = 15000 *  OBJ_INTEGRITY_TO_WALL_DAMAGE
+	max_integrity = 6000 * OBJ_INTEGRITY_TO_WALL_DAMAGE
 	name = "super tunguska meteor"
 	desc = "THERE'S A BIGGER ONE?!"
 	icon_state = "flaming"
