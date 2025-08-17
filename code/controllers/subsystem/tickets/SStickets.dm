@@ -419,7 +419,7 @@ SUBSYSTEM_DEF(tickets)
 	ticket_responses = list()
 	ticket_responses += new /datum/ticket_response(cont, the_ckey)
 	real_time_opened = SQLtime()
-	ingame_time_opened = (ROUND_TIME ? time2text(ROUND_TIME, "hh:mm:ss") : 0)
+	ingame_time_opened = worldtime2text() // SS220 EDIT - timestamp fix
 	timeUntilStale = world.time + TICKET_TIMEOUT
 	setCooldownPeriod()
 	ticketNum = num
