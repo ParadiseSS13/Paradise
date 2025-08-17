@@ -18,7 +18,7 @@
 	var/turf/expected_impact
 
 /datum/event/super_tunguska/setup()
-	var/type = pick(typesof(/datum/super_tunguska_variant))
+	var/type = pick(typesof(/datum/super_tunguska_variant/artillery))
 	variant = new type
 	var/list/turfs = across_map_center()
 	if(length(turfs) == 2)
@@ -64,6 +64,7 @@
 /datum/super_tunguska_variant
 	var/announcement_message = "Super Tunguska class meteor detected on collision course with the station\
 	\nAll engineers are instructed to fortify the projected impact area"
+	var/announcement_title = "Super Tunguska Alert"
 	var/list/meteor_types = list(/obj/effect/meteor/super_tunguska)
 
 /datum/super_tunguska_variant/proc/launch(start, end)
@@ -77,13 +78,14 @@
 	"\nExpected Impact Location: [expected_impact.loc] "+\
 	"\nGPS coords: ([expected_impact.x], [expected_impact.y], [expected_impact.z])"+\
 	"\nBearing: [bearing]° [bearing_to_dir_text(bearing)]"
-	GLOB.major_announcement.Announce(announce_text, "Meteor Alert", new_sound = 'sound/AI/meteors.ogg')
+	GLOB.major_announcement.Announce(announce_text, announcement_title, new_sound = 'sound/AI/meteors.ogg')
 
 
 // MARK: Artillery Variant
 /datum/super_tunguska_variant/artillery
 	announcement_message = "Armor penetrating artillery shell detected on collision course with the station\
 	\nAll engineers are instructed to fortify the projected impact area"
+	announcement_title = "Artillery Misfire"
 	meteor_types = list(/obj/effect/meteor/artillery)
 
 // MARK: Helper Procs

@@ -82,6 +82,8 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	var/timerid = null
 	var/list/meteordrop = list(/obj/item/stack/ore/iron)
 	var/dropamt = 2
+	/// Do we spin?
+	var/spin = TRUE
 
 /obj/effect/meteor/Move(atom/destination)
 	// Nullspace is scary.
@@ -151,7 +153,8 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	ADD_TRAIT(src, TRAIT_NO_EDGE_TRANSITIONS, ROUNDSTART_TRAIT)
 	z_original = z
 	GLOB.meteor_list += src
-	SpinAnimation()
+	if(spin)
+		SpinAnimation()
 	timerid = QDEL_IN(src, lifetime)
 	chase_target(target)
 
@@ -469,21 +472,20 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	max_integrity = 9000 * OBJ_INTEGRITY_TO_WALL_DAMAGE
 	name = "Armor Penetrating Artillery Shell"
 	desc = "A hardened penetrator and a high explosive charge with a delayed fuse ensure maximum effect on target"
-	icon_state = "flaming"
+	icon_state = "artillery"
 	explosion_strength = EXPLODE_DEVASTATE
 	heavy = TRUE
 	meteorsound = 'sound/effects/bamf.ogg'
 	meteordrop = list()
+	spin = FALSE
 	var/timer = 0
-
-/obj/effect/meteor/artillery/meteor_effect()
-	..()
-	for(var/i in 1 to 3)
-		explosion(loc, 7, 13, 27, 35, 0, cause = "[name]: End explosion", ignorecap = TRUE)
 
 /obj/effect/meteor/artillery/Initialize(mapload, target)
 	. = ..()
-	timer = rand(world.maxx - 40, world.maxx + 40)
+	timer = rand(world.maxx / 2 - 40, world.maxx / 2 + 40)
+	var/turf/end = get_turf(target)
+	var/angle = arctan(end.x - x, end.y - y)
+	icon = turn(icon, -angle)
 
 /obj/effect/meteor/artillery/Move(atom/destination)
 	. = ..()
@@ -491,6 +493,11 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	if(timer <= 0)
 		meteor_effect()
 		qdel(src)
+
+/obj/effect/meteor/artillery/meteor_effect()
+	..()
+	for(var/i in 1 to 2)
+		explosion(loc, 6, 11, 23, 30, 0, cause = "[name]: End explosion", ignorecap = TRUE)
 
 /obj/effect/meteor/artillery/ram_obstacle(obj/obstacle)
 	// Normal objects affect the super tunguska less
