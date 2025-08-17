@@ -168,7 +168,7 @@
 		return
 
 	var/datum/db_query/ranks_ckey_read = SSdbcore.NewQuery(
-		"SELECT ckey FROM admin WHERE admin_rank=:rank OR admin_rank=:rank1 OR admin_rank=:rank2 OR admin_rank=:rank3",
+		"SELECT a.ckey FROM admin a JOIN admin_ranks ar ON a.permissions_rank = ar.id WHERE ar.name IN (:rank, :rank1, :rank2, :rank3)",
 			list(
 				"rank" = "Банда",
 				"rank1" = "Братюня",
