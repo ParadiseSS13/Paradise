@@ -80,16 +80,10 @@ SUBSYSTEM_DEF(maprotate)
 		if(istype(SSmapping.map_datum, M))
 			continue
 		// Commenting out this check for now, as we only have 3 maps to choose from.
-		// Uncomment when more are added back.
+		// TODO: Uncomment when more maps are added back.
 		// Skip last round map
 //		if(istype(SSmapping.last_map, M))
 //			continue
-		// Skip cerestation
-		if(M.type == /datum/map/cerestation)
-			continue
-		// Skip emeraldstation
-		if(M.type == /datum/map/emeraldstation)
-			continue
 		potential_maps[M] = 0
 	// We now have 3 maps. We then pick your highest priority map in the list. Does this mean votes 4 and 5 don't matter? Yeah, with this current system only your top 3 votes will ever be used. 4 and 5 are good info to know however!
 	for(var/client/user_client in GLOB.clients)
