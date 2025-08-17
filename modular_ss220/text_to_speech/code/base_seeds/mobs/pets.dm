@@ -1,6 +1,6 @@
 //All named pets
 
-/mob/living/simple_animal/hostile/retaliate/araneus/add_tts_component()
+/mob/living/basic/giant_spider/araneus/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/anubarak)
 
 /mob/living/simple_animal/parrot/poly/add_tts_component()

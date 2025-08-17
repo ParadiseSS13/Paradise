@@ -62642,8 +62642,8 @@
 /area/station/science/research)
 "oyY" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/hostile/retaliate/araneus,
 /obj/machinery/firealarm/directional/east,
+/mob/living/basic/giant_spider/araneus,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "ozg" = (

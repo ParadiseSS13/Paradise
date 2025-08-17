@@ -106896,10 +106896,10 @@
 	desc = "A comfy-looking spider bed. You can even strap your pet in, just in case the gravity turns off.";
 	name = "spider bed"
 	},
-/mob/living/simple_animal/hostile/retaliate/araneus,
 /obj/effect/turf_decal/siding/wood/oak{
 	dir = 8
 	},
+/mob/living/basic/giant_spider/araneus,
 /turf/simulated/floor/wood/fancy/oak,
 /area/station/command/office/hos)
 "wOC" = (
