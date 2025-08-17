@@ -38,7 +38,7 @@
 		curr_x += walk_dir
 		if(curr_x < 1 || curr_x > 255)
 			break
-		curr_y = m * curr_x + start.y
+		curr_y = m * (curr_x - start.x) + start.y
 		var/turf/curr_turf = locate(curr_x, curr_y, curr_z)
 		var/area/curr_area = curr_turf.loc
 		if(istype(curr_area, /area/station))
@@ -69,9 +69,13 @@
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteor_targeted), meteor_types, start, end)
 
 /datum/super_tunguska_variant/proc/announce(arrival_time, turf/expected_impact)
+	var/bearing = arctan((world.maxx / 2) - expected_impact.x, (world.maxy / 2) - expected_impact.y)
+	bearing = bearing < 0 ? 90 - bearing : (bearing > 90 ? 450 - bearing : 90 - bearing)
 	var/announce_text = announcement_message + \
-	"\nExpected Arrival Time [round(arrival_time / 30)]:[round((arrival_time * 2) % 60)] minutes" + \
-	"\nExpected Impact Location [expected_impact.x], [expected_impact.y]"
+	"\nExpected Arrival Time: [round(arrival_time / 30) < 10 ? 0 :""][round(arrival_time / 30)]:[(arrival_time * 2) % 60 < 10 ? 0 :""][(arrival_time * 2) % 60] minutes" + \
+	"\nExpected Impact Location: [expected_impact.loc] "+\
+	"\nGPS coords: ([expected_impact.x], [expected_impact.y], [expected_impact.z])"+\
+	"\nBearing: [bearing]° [bearing_to_dir_text()]"
 	GLOB.major_announcement.Announce(announce_text, "Meteor Alert", new_sound = 'sound/AI/meteors.ogg')
 
 /proc/across_map_center()
@@ -85,22 +89,49 @@
 		max_i--
 		if(max_i <= 0)
 			return
-	// m = dy/dx, and the deltas we use are between the starting point and map center
-	var/meteor_dir = ((world.maxy / 2) - pickedstart.y) / ((world.maxx / 2) - pickedstart.x)
-	// c = y - mx
-	var/meteor_y_at_zero_x = pickedstart.y - (meteor_dir * pickedstart.x)
-	// We start by assuming the meteor goes to the end of the map horizontaly
-	var/end_x = (world.maxx / 2) > pickedstart.x ? world.maxx : 1
-	// We calculate which y value that would result in and clamp it to the boundries of the map
-	// y = mx + c
-	var/end_y = clamp(meteor_dir * end_x + meteor_y_at_zero_x, 1, world.maxy)
-	// We calculate the x value back from that clamped y value to get our final x value.
-	// x = (y - c) / m
-	// If the calculated y was within bounds this should be unchanged
-	end_x = clamp((end_y - meteor_y_at_zero_x) / meteor_dir, 1, world.maxx)
+	var/end_x = world.maxx - pickedstart.x + 1
+	var/end_y = world.maxy - pickedstart.y + 1
 	pickedgoal = locate(end_x, end_y, startZ)
 
 	return list(pickedstart, pickedgoal)
+
+/proc/bearing_to_dir_text(bearing)
+	switch(bearing)
+		if(348 to 360)
+			return "N"
+		if(0 to 11)
+			return "N"
+		if(10 to 22)
+			return "NNE"
+		if(22 to 45)
+			return "NE"
+		if(45 to 67)
+			return "ENE"
+		if(67 to 101)
+			return "E"
+		if(101 to 123)
+			return "ESE"
+		if(123 to 145)
+			return "SE"
+		if(145 to 167)
+			return "ESE"
+		if(167 to 191)
+			return "S"
+		if(191 to 213)
+			return "SSW"
+		if(213 to 235)
+			return "SW"
+		if(235 to 257)
+			return "WSW"
+		if(257 to 281)
+			return "W"
+		if(281 to 302)
+			return "WNW"
+		if(302 to 324)
+			return "NW"
+		if(324 to 348)
+			return "NNW"
+
 
 #undef ARRIVAL_MIN
 #undef ARRIVAL_MAX
