@@ -318,11 +318,7 @@
 	update_appearance()
 
 /obj/machinery/syndicatebomb/badmin/clown/shuttle_loan
-	name = "clown bomb"
-	icon_state = "clown-bomb"
-	desc = "HONK."
 	payload = /obj/item/bombcore/badmin/summon/clown/lesser
-	beepsound = 'sound/items/bikehorn.ogg'
 
 /obj/machinery/syndicatebomb/badmin/clown/shuttle_loan/Initialize(mapload)
 	. = ..()
