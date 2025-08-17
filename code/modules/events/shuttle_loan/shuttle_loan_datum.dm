@@ -155,13 +155,13 @@
 		var/turf/web_turf = pick_n_take(empty_shuttle_turfs)
 		new /obj/structure/spider/stickyweb(web_turf)
 
-/datum/shuttle_loan_situation/department_resupply
+/datum/shuttle_loan_situation/mineral_haul
 	sender = "Central Command Supply Department"
 	announcement_text = "Another station's mining division has struck a mineral motherlode. We'll be sending your station some of the haul."
 	bonus_points = 0
 	logging_desc = "Mineral haul"
 
-/datum/shuttle_loan_situation/department_resupply/spawn_items(list/spawn_list, list/empty_shuttle_turfs)
+/datum/shuttle_loan_situation/mineral_haul/spawn_items(list/spawn_list, list/empty_shuttle_turfs)
 	var/list/crate_types = list(
 		/datum/supply_packs/materials/metal50,
 		/datum/supply_packs/materials/glass50,
