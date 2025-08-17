@@ -6,11 +6,11 @@ SUBSYSTEM_DEF(maprotate)
 	var/setup_done = FALSE
 
 // Debugging purposes. Im not having people change this on the fly.
-/datum/controller/subsystem/maprotate/vv_edit_var(var_name, var_value)
-	if(((var_name == "rotation_mode") || (var_name == "setup_done")) && !check_rights(R_MAINTAINER))
-		return FALSE
+	/datum/controller/subsystem/maprotate/vv_edit_var(var_name, var_value)
+		if(((var_name == "rotation_mode") || (var_name == "setup_done")) && !check_rights(R_MAINTAINER))
+			return FALSE
 
-	. = ..()
+		. = ..()
 
 /datum/controller/subsystem/maprotate/Initialize()
 	if(!SSdbcore.IsConnected())
@@ -43,7 +43,6 @@ SUBSYSTEM_DEF(maprotate)
 	var/day_index = 0
 
 	// Were gonna increase the DB value by 1 so we have 1-7, therefore we can use 0 as fail
-
 	if(dbq.NextRow())
 		day_index = text2num(dbq.item[1]) + 1
 
@@ -52,7 +51,6 @@ SUBSYSTEM_DEF(maprotate)
 	if(!day_index)
 		log_startup_progress("Somehow, we failed to extract a valid numerical day from the DB. ?????????????")
 		return
-
 
 	// String interpolation is faster than num2text() for some reason
 	var/dindex_str = "[day_index]"
@@ -65,12 +63,8 @@ SUBSYSTEM_DEF(maprotate)
 			log_startup_progress("It is [days[day_index]], which means [rotation_descs[vote_type]]")
 			rotation_mode = vote_type
 			setup_done = TRUE
-
-		// Its not valid
 		else
 			log_startup_progress("The defined rotation mode for this day is invalid. Please inform AA.")
-
-	// No special defined for this day
 	else
 		log_startup_progress("There is no special rotation defined for this day")
 
@@ -80,13 +74,22 @@ SUBSYSTEM_DEF(maprotate)
 		var/datum/map/M = x
 		if(!initial(M.voteable))
 			continue
-			// And of course, if the current map is the same
+		// skip the current map
 		if(istype(SSmapping.map_datum, M))
 			continue
-			// Or the map from last round
-		if(istype(SSmapping.last_map, M))
+		// Commenting out this check for now, as we only have 3 maps to choose from.
+		// Uncomment when more are added back.
+		// skip the last map
+//		if(istype(SSmapping.last_map, M))
+//			continue
+		// skip cerestation
+		if(M.type == /datum/map/cerestation)
+			continue
+		// skip emeraldstation
+		if(M.type == /datum/map/emeraldstation)
 			continue
 		potential_maps[M] = 0
+
 	// We now have 3 maps. We then pick your highest priority map in the list. Does this mean votes 4 and 5 don't matter? Yeah, with this current system only your top 3 votes will ever be used. 4 and 5 are good info to know however!
 	for(var/client/user_client in GLOB.clients)
 		for(var/preferred_text as anything in user_client.prefs.map_vote_pref_json) // stored as a list of text
@@ -96,6 +99,7 @@ SUBSYSTEM_DEF(maprotate)
 			if(preferred_map in potential_maps)
 				potential_maps[preferred_map]++
 				break
+
 	var/list/returned_text = list("Map Preference Vote Results:")
 	var/list/pickable_maps = list()
 	for(var/possible_next_map in potential_maps)
@@ -106,8 +110,10 @@ SUBSYSTEM_DEF(maprotate)
 			percentage_text += "[add_lspace(actual_percentage, 5 - length("[actual_percentage]"))]%"
 			pickable_maps[possible_next_map] = votes
 		returned_text += "[percentage_text] | <b>[possible_next_map]</b>: [potential_maps[possible_next_map]]"
+
 	if(!length(pickable_maps))
 		pickable_maps = potential_maps // potential_maps should probably be renamed to `available_maps` or `voteable_maps`
+
 	var/datum/map/winner = pickweight(pickable_maps) // Even if no one votes, pickweight will pick from them evenly. This means a map with zero votes *can* be chosen
 	to_chat(world, "[returned_text.Join("\n")]")
 	SSmapping.next_map = new winner
