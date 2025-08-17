@@ -85,8 +85,8 @@
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
 
 /obj/item/salvage/loot/soviet
-	name = "\improper Cygni manifesto"
-	desc = "A small book, written in Cygni Standard, detailing the manifesto of Malfoy Ames, father of The Cygni Rebellion. Banned in Federation space, it may fetch a decent price on the black market."
+	name = "\improper Neo-Russkian manifesto"
+	desc = "A small book, written in Neo-Russkyia, detailing the manifesto of Malfoy Ames, father of The Neo-Russkian Rebellion. Banned in Federation space, it may fetch a decent price on the black market." // SS220 EDIT - Cygni -> Neo-Russkiya
 	icon_state = "ussp_manual"
 	hitsound = 'sound/items/handling/paper_pickup.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'

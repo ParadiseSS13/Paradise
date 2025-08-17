@@ -21,10 +21,12 @@
 	var/time_portion = time2text(world.timeofday, "hh:mm:ss")
 	return "[date_portion]T[time_portion]"
 
-/proc/gameTimestamp(format = "hh:mm:ss", wtime=null)
+// SS220 EDIT START - timestamp fix
+/proc/gameTimestamp(format = "hh:mm:ss", wtime = null, timezone = 0)
 	if(wtime == null)
 		wtime = world.time
-	return time2text(wtime - GLOB.timezoneOffset, format)
+	return time2text(wtime, format, timezone)
+// SS220 EDIT END
 
 /proc/deciseconds_to_time_stamp(deciseconds)
 	if(istext(deciseconds))
@@ -54,11 +56,15 @@
  * - You can use this, for example, to do "This will expire at [station_time_at(world.time + 500)]" to display a "station time" expiration date
  *   which is much more useful for a player)
  */
-/proc/station_time(time=world.time, display_only=FALSE)
-	return ((((time - SSticker.round_start_time)) + GLOB.gametime_offset) % 864000) - (display_only ? GLOB.timezoneOffset : 0)
+// SS220 EDIT START - timestamp fix
+/proc/station_time(time=world.time)
+	return (time - SSticker.time_game_started + GLOB.gametime_offset) % 864000
+// SS220 EDIT END
 
-/proc/station_time_timestamp(format = "hh:mm:ss", time=world.time)
-	return time2text(station_time(time, TRUE), format)
+// SS220 EDIT START - timestamp fix
+/proc/station_time_timestamp(format = "hh:mm:ss", time = world.time, timezone = 0)
+	return time2text(station_time(time, TRUE), format, timezone)
+// SS220 EDIT END
 
 /proc/all_timestamps()
 	var/real_time = time_stamp()
@@ -102,7 +108,7 @@
 /proc/seconds_to_time(seconds as num)
 	var/numSeconds = seconds % 60
 	var/numMinutes = (seconds - numSeconds) / 60
-	return "[numMinutes] [numMinutes > 1 ? "minutes" : "minute"] and [numSeconds] seconds"
+	return "[numMinutes] [declension_ru(numMinutes, "минута", "минуты", "минут")] и [numSeconds] [declension_ru(numSeconds, "секунда", "секунды", "секунд")]"
 
 /// Take a value in seconds and makes it display like a clock. Hours are stripped. (mm:ss)
 /proc/seconds_to_clock(seconds as num)

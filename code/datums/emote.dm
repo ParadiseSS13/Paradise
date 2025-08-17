@@ -35,7 +35,7 @@
 	/// Message to display if the user is a spooky observer ghost.
 	var/message_observer = ""
 	/// Sounds emitted when the user is muzzled. Generally used like "[user] makes a pick(muzzled_noises) noise!"
-	var/muzzled_noises = list("strong", "weak")
+	var/muzzled_noises = list("громкий", "тихий")
 	/// Message with %t at the end to allow adding params to the message, like for mobs doing an emote relatively to something else.
 	/// Set this to EMOTE_PARAM_USE_POSTFIX to just use the postfix.
 	var/message_param = ""
@@ -185,7 +185,7 @@
 	if(!can_vocalize_emotes(user) && (emote_type & (EMOTE_MOUTH | EMOTE_AUDIBLE)))
 		var/noise_emitted = pick(muzzled_noises)
 		suppressed = TRUE
-		msg = "makes \a [noise_emitted] noise."
+		msg = "издает [noise_emitted] звук."
 
 	var/tmp_sound = get_sound(user)
 	var/sound_volume = get_volume(user)
@@ -216,9 +216,9 @@
 				ghost.show_message("<span class='deadsay'>[displayed_msg]</span>", EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		else if((emote_type & EMOTE_AUDIBLE) && !user.mind?.miming)
-			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
+			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>Вы видите, как <b>[user]</b> [msg]</span>")
 		else
-			user.visible_message(displayed_msg, blind_message = "<span class='emote'>You hear how someone [msg]</span>")
+			user.visible_message(displayed_msg, blind_message = "<span class='emote'>Вы слышите, как кто-то [msg]</span>")
 
 		if(!((emote_type & EMOTE_FORCE_NO_RUNECHAT) || suppressed) && !isobserver(user))
 			runechat_emote(user, msg)

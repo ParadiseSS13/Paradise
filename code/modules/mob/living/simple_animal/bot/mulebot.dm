@@ -660,7 +660,7 @@
 
 		if(load)		// if loaded, unload at target
 			if(report_delivery)
-				speak("Destination <b>[destination]</b> reached. Unloading [load].", radio_channel)
+				speak("Пункт назначения <b>[destination]</b> достигнут. Разгрузка [load].", radio_channel)
 			if(istype(load, /obj/structure/closet/crate))
 				var/obj/structure/closet/crate/C = load
 				C.notifyRecipient(destination)
@@ -679,7 +679,7 @@
 				if(AM && AM.Adjacent(src))
 					load(AM)
 					if(report_delivery)
-						speak("Now loading [load] at <b>[get_area(src)]</b>.", radio_channel)
+						speak("Начата загрузка [load] в <b>[get_area(src)]</b>.", radio_channel)
 		// whatever happened, check to see if we return home
 
 		if(auto_return && home_destination && destination != home_destination)

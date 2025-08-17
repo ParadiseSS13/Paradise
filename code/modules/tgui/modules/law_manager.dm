@@ -1,5 +1,5 @@
 /datum/ui_module/law_manager
-	name = "Law manager"
+	name = "Менеджер законов"
 	var/ion_law	= "IonLaw"
 	var/zeroth_law = "ZerothLaw"
 	var/inherent_law = "InherentLaw"
@@ -69,27 +69,27 @@
 				owner.add_supplied_law(supplied_law_position, supplied_law)
 
 		if("change_zeroth_law")
-			var/new_law = tgui_input_text(ui.user, "Enter new law Zero. Leaving the field blank will cancel the edit.", "Edit Law", zeroth_law)
+			var/new_law = tgui_input_text(ui.user, "Введите новый Нулевой закон. Оставьте поле пустым для отмены изменений.", "Смена закона", zeroth_law)
 			if(new_law && new_law != zeroth_law && (!..()))
 				zeroth_law = new_law
 
 		if("change_ion_law")
-			var/new_law = tgui_input_text(ui.user, "Enter new ion law. Leaving the field blank will cancel the edit.", "Edit Law", ion_law)
+			var/new_law = tgui_input_text(ui.user, "Введите новый ионный закон. Оставьте поле пустым для отмены изменений.", "Смена закона", ion_law)
 			if(new_law && new_law != ion_law && (!..()))
 				ion_law = new_law
 
 		if("change_inherent_law")
-			var/new_law = tgui_input_text(ui.user, "Enter new inherent law. Leaving the field blank will cancel the edit.", "Edit Law", inherent_law)
+			var/new_law = tgui_input_text(ui.user, "Введите новый основной закон. Оставьте поле пустым для отмены изменений.", "Смена закона", inherent_law)
 			if(new_law && new_law != inherent_law && (!..()))
 				inherent_law = new_law
 
 		if("change_supplied_law")
-			var/new_law = tgui_input_text(ui.user, "Enter new supplied law. Leaving the field blank will cancel the edit.", "Edit Law", supplied_law)
+			var/new_law = tgui_input_text(ui.user, "Введите новый дополнительный закон. Оставьте поле пустым для отмены изменений.", "Смена закона", supplied_law)
 			if(new_law && new_law != supplied_law && (!..()))
 				supplied_law = new_law
 
 		if("change_supplied_law_position")
-			var/new_position = tgui_input_number(ui.user, "Enter new supplied law position between 1 and [MAX_SUPPLIED_LAW_NUMBER], inclusive. Inherent laws at the same index as a supplied law will not be stated.", "Law Position", supplied_law_position, MAX_SUPPLIED_LAW_NUMBER, 1)
+			var/new_position = tgui_input_number(ui.user, "Введите позицию от 1 до [MAX_SUPPLIED_LAW_NUMBER] включительно. Дополнительные законы с такой же позицией, что и основные, не будут проговариваться.", "Позиция закона", supplied_law_position, MAX_SUPPLIED_LAW_NUMBER, 1)
 			if(isnum(new_position) && (!..()))
 				supplied_law_position = new_position
 
@@ -98,10 +98,10 @@
 				var/datum/ai_law/AL = locate(params["edit_law"]) in owner.laws.all_laws()
 				// Dont allow non-admins to edit their own malf laws
 				if(istype(AL, /datum/ai_law/zero) && (!check_rights(R_ADMIN)))
-					to_chat(ui.user, "<span class='warning'>You can't edit that law.</span>")
+					to_chat(ui.user, "<span class='warning'>Вы не можете изменить данный закон.</span>")
 					return
 				if(AL)
-					var/new_law = tgui_input_text(ui.user, "Enter new law. Leaving the field blank will cancel the edit.", "Edit Law", AL.law)
+					var/new_law = tgui_input_text(ui.user, "Введите новый закон. Оставьте поле пустым для отмены изменений.", "Смена закона", AL.law)
 					if(new_law && new_law != AL.law && is_malf(ui.user) && (!..()))
 						log_and_message_admins("has changed a law of [owner] from '[AL.law]' to '[new_law]'")
 						AL.law = new_law
@@ -111,7 +111,7 @@
 				var/datum/ai_law/AL = locate(params["delete_law"]) in owner.laws.all_laws()
 				// Dont allow non-admins to delete their own malf laws
 				if(istype(AL, /datum/ai_law/zero) && (!check_rights(R_ADMIN)))
-					to_chat(ui.user, "<span class='warning'>You can't delete that law.</span>")
+					to_chat(ui.user, "<span class='warning'>Вы не можете удалить данный закон.</span>")
 					return
 				if(AL && is_malf(ui.user))
 					owner.delete_law(AL)
@@ -138,15 +138,15 @@
 			current_view = 0
 
 		if("notify_laws")
-			to_chat(owner, "<span class='danger'>Law Notice</span>")
+			to_chat(owner, "<span class='danger'>Оповещение о законах</span>")
 			owner.laws.show_laws(owner)
 			if(is_ai(owner))
 				var/mob/living/silicon/ai/AI = owner
 				for(var/mob/living/silicon/robot/R in AI.connected_robots)
-					to_chat(R, "<span class='danger'>Law Notice</span>")
+					to_chat(R, "<span class='danger'>Оповещение о законах</span>")
 					R.laws.show_laws(R)
 			if(ui.user != owner)
-				to_chat(ui.user, "<span class='notice'>Laws displayed.</span>")
+				to_chat(ui.user, "<span class='notice'>Законы отображены.</span>")
 
 
 /datum/ui_module/law_manager/ui_state(mob/user)

@@ -1,0 +1,10 @@
+/obj/structure/closet/walllocker/firelocker/north : /obj/structure/closet/walllocker/firelocker/directional/north{@OLD}
+/obj/structure/closet/walllocker/firelocker/south : /obj/structure/closet/walllocker/firelocker/directional/south{@OLD}
+/obj/structure/closet/walllocker/firelocker/east : /obj/structure/closet/walllocker/firelocker/directional/east{@OLD}
+/obj/structure/closet/walllocker/firelocker/west : /obj/structure/closet/walllocker/firelocker/directional/west{@OLD}
+
+/obj/structure/closet/walllocker/medlocker/north : /obj/structure/closet/walllocker/medlocker/directional/north{@OLD}
+/obj/structure/closet/walllocker/medlocker{pixel_y=32} : /obj/structure/closet/walllocker/medlocker/directional/north{@OLD;pixel_y=@SKIP}
+/obj/structure/closet/walllocker/medlocker/south : /obj/structure/closet/walllocker/medlocker/directional/south{@OLD}
+/obj/structure/closet/walllocker/medlocker/east : /obj/structure/closet/walllocker/medlocker/directional/east{@OLD}
+/obj/structure/closet/walllocker/medlocker/west : /obj/structure/closet/walllocker/medlocker/directional/west{@OLD}

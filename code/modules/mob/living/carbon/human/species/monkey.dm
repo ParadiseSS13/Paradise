@@ -1,7 +1,7 @@
 /datum/species/monkey
 	name = "Monkey"
 	name_plural = "Monkeys"
-	blurb = "Ook."
+	blurb = "У-у-у!"
 
 	icobase = 'icons/mob/human_races/monkeys/r_monkey.dmi'
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
@@ -22,7 +22,7 @@
 	dietflags = DIET_OMNI
 	show_ssd = 0
 	eyes = "blank_eyes"
-	death_message = "lets out a faint chimper as it collapses and stops moving..."
+	death_message = "издаёт слабый визг, падает и перестаёт двигаться..."
 
 	scream_verb = "screeches"
 	male_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'

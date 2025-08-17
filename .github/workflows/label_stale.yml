@@ -6,7 +6,7 @@ on:
 
 jobs:
   stale-prs:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Seek and destroy stale PRs and Issues
         uses: actions/stale@v9

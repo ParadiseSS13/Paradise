@@ -1,0 +1,3 @@
+#include "camera.dm"
+
+#include "code/camera.dm"

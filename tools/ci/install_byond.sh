@@ -4,7 +4,7 @@ set -euo pipefail
 # This is needed now
 sudo dpkg --add-architecture i386
 sudo apt-get update
-sudo apt install libcurl4:i386
+sudo apt install -y libcurl4:i386
 
 if [ -z "${BYOND_MAJOR+x}" ]; then
   source _build_dependencies.sh
@@ -31,7 +31,7 @@ else
   rm -rf "$HOME/BYOND"
   mkdir -p "$HOME/BYOND"
   cd "$HOME/BYOND"
-  curl -H "User-Agent: ParadiseSS13/1.0 CI Script" "http://www.byond.com/download/build/${BYOND_MAJOR}/${BYOND_MAJOR}.${BYOND_MINOR}_byond_linux.zip" -o byond.zip
+  curl "https://cmss13-devs.github.io/byond-build-mirror/download/build/${BYOND_MAJOR}/${BYOND_MAJOR}.${BYOND_MINOR}_byond_linux.zip" -H "User-Agent: ss220club CI" -o byond.zip
   unzip byond.zip
   rm byond.zip
   cd byond

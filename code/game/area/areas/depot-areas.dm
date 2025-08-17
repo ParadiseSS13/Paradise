@@ -1,6 +1,6 @@
 
 /area/syndicate_depot
-	name = "Suspicious Supply Depot"
+	name = "Подозрительный Схрон"
 	icon_state = "dark"
 	tele_proof = TRUE
 
@@ -478,11 +478,11 @@
 	return moblist
 
 /area/syndicate_depot/outer
-	name = "Suspicious Asteroid"
+	name = "Подозрительный Астероид"
 	icon_state = "green"
 
 /area/syndicate_depot/perimeter
-	name = "Suspicious Asteroid Perimeter"
+	name = "Периметр Подозрительного Астероида"
 	icon_state = "yellow"
 	var/list/shield_list = list()
 

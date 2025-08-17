@@ -528,7 +528,7 @@
 
 /obj/item/storage/box/syndie_kit/stechkin
 	name = "\improper FK-69 Stechkin kit"
-	desc = "A box marked with Cygni Standard characters. It appears to contain a 10mm pistol and two magazines."
+	desc = "A box marked with Neo-Russkiyan characters. It appears to contain a 10mm pistol and two magazines." // SS220 EDIT - Cygni -> Neo-Russkiya
 
 /obj/item/storage/box/syndie_kit/stechkin/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol(src)

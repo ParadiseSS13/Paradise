@@ -127,14 +127,14 @@
 /obj/machinery/economy/vending/hydronutrients
 	name = "\improper NutriMax"
 	desc = "A plant nutrients vendor."
-	slogan_list = list("Aren't you glad you don't have to fertilize the natural way?",
-					"Now with 50% less stink!","Plants are people too!")
+	slogan_list = list("Вам не надо удобрять почву естественным путём — разве это не чудесно?",
+					"Теперь на 50% меньше вони!","Растения тоже люди!")
 
-	ads_list = list("We like plants!",
-					"Don't you want some?",
-					"The greenest thumbs ever.",
-					"We like big plants.",
-					"Soft soil...")
+	ads_list = list("Мы любим растения!",
+					"Может сами примете?",
+					"Самые зелёные кнопки на свете.",
+					"Мы любим большие растения.",
+					"Мягкая почва...")
 
 	icon_state = "nutri"
 	icon_deny = "nutri_deny"
@@ -164,14 +164,14 @@
 /obj/machinery/economy/vending/hydroseeds
 	name = "\improper MegaSeed Servitor"
 	desc = "When you need seeds fast!"
-	slogan_list = list("THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!",
-					"Hands down the best seed selection on the station!",
-					"Also certain mushroom varieties available, more for experts! Get certified today!")
+	slogan_list = list("ЗДЕСЬ ЖИВУТ СЕМЕНА! ВОЗЬМИТЕ СЕБЕ НЕМНОГО!",
+					"Лучший выбор семян на станции!",
+					"Доступны разнообразные сорта грибов для специалистов! Станьте им уже сегодня!")
 
-	ads_list = list("We like plants!",
-					"Grow some crops!",
-					"Grow, baby, growww!",
-					"Aw h'yeah son!")
+	ads_list = list("Мы любим растения!",
+					"Вырасти урожай!",
+					"Расти, малыш, расти-и-и-и!",
+					"Ды-а, сына!")
 
 	icon_state = "seeds"
 	icon_lightmask = "seeds"

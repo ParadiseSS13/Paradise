@@ -26,10 +26,10 @@
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src //AI is inside.
 	update_icon(UPDATE_OVERLAYS)
 	if(AI)
-		name = "intelliCard - [AI.name]"
+		name = "ИнтеллиКарта - [AI.name]"
 		AI.cancel_camera() //AI are forced to move when transferred, so do this whenver one is downloaded.
 	else
-		name = "intelliCard"
+		name = "ИнтеллиКарта"
 
 /obj/item/aicard/update_overlays()
 	. = ..()
