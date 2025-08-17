@@ -38,6 +38,22 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	var/obj/effect/meteor/M = new Me(pickedstart, pickedgoal)
 	M.dest = pickedgoal
 
+/proc/spawn_meteor_center_station(list/meteortypes)
+	var/turf/pickedstart
+	var/turf/pickedgoal
+	var/max_i = 10 //number of tries to spawn meteor.
+	while(!isspaceturf(pickedstart))
+		var/startSide = pick(GLOB.cardinal)
+		var/startZ = level_name_to_num(MAIN_STATION)
+		pickedstart = pick_edge_loc(startSide, startZ)
+		pickedgoal = pick_edge_loc(REVERSE_DIR(startSide), startZ)
+		max_i--
+		if(max_i <= 0)
+			return
+	var/Me = pickweight(meteortypes)
+	var/obj/effect/meteor/M = new Me(pickedstart, pickedgoal)
+	M.dest = pickedgoal
+
 /proc/pick_edge_loc(startSide, Z)
 	var/starty
 	var/startx
@@ -157,7 +173,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	var/damage_cap = wall.damage_cap
 	if(wall.rotting)
 		damage_cap /= 10
-	var/damage_needed = (damage_cap - wall.damage) * OBJ_INTEGRITY_TO_WALL_DAMAGE 
+	var/damage_needed = (damage_cap - wall.damage) * OBJ_INTEGRITY_TO_WALL_DAMAGE
 	if(damage_needed <= 0)
 		wall.dismantle_wall()
 	else if(damage_needed < obj_integrity)
@@ -197,21 +213,25 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 			continue
 
 		. = TRUE // Hit an object.
-
-		var/damage_needed = obstacle.calculate_oneshot_damage(BRUTE, MELEE)
-		if(obj_integrity > damage_needed)
-			obj_integrity -= damage_needed
-			obstacle.obj_break(MELEE)
-			obstacle.obj_destruction(MELEE)
-		else
-			obstacle.take_damage(obj_integrity, BRUTE, MELEE)
-			obstacle.ex_act(explosion_strength)
-			obj_integrity = 0
-			deconstruct(FALSE)
+		if(!ram_obstacle(obstacle))
 			return
 
 	// Do some damage to the floor (if any) in passing.
 	T.ex_act(explosion_strength)
+
+/obj/effect/meteor/proc/ram_obstacle(obj/obstacle)
+	var/damage_needed = obstacle.calculate_oneshot_damage(BRUTE, MELEE)
+	if(obj_integrity > damage_needed)
+		obj_integrity -= damage_needed
+		obstacle.obj_break(MELEE)
+		obstacle.obj_destruction(MELEE)
+	else
+		obstacle.take_damage(obj_integrity, BRUTE, MELEE)
+		obstacle.ex_act(explosion_strength)
+		obj_integrity = 0
+		deconstruct(FALSE)
+		return FALSE
+	return TRUE
 
 /obj/effect/meteor/deconstruct(disassembled)
 	make_debris()
@@ -407,6 +427,51 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	. = ..()
 	if(. && prob(20))
 		explosion(loc, 2, 4, 6, 8, cause = "[name]: Object or mob collision explosion")
+
+/obj/effect/meteor/super_tunguska
+	max_integrity = 15000 *  OBJ_INTEGRITY_TO_WALL_DAMAGE
+	name = "super tunguska meteor"
+	desc = "THERE'S A BIGGER ONE?!"
+	icon_state = "flaming"
+	explosion_strength = EXPLODE_DEVASTATE
+	heavy = TRUE
+	meteorsound = 'sound/effects/bamf.ogg'
+	meteordrop = list(/obj/item/stack/ore/plasma)
+
+
+/obj/effect/meteor/super_tunguska/Move(atom/destination)
+	. = ..()
+	if(.)
+		new /obj/effect/temp_visual/revenant(get_turf(src))
+
+/obj/effect/meteor/super_tunguska/meteor_effect()
+	..()
+	explosion(loc, 6, 12, 25, 30, 0, cause = "[name]: End explosion", ignorecap = TRUE)
+
+/obj/effect/meteor/super_tunguska/ram_wall()
+	. = ..()
+	if(prob(20))
+		explosion(loc, 3, 5, 8, 10, cause = "[name]: Wall collision explosion")
+
+/obj/effect/meteor/super_tunguska/ram_turf_contents()
+	. = ..()
+	if(. && prob(20))
+		explosion(loc, 3, 5, 8, 10, cause = "[name]: Object or mob collision explosion")
+
+/obj/effect/meteor/super_tunguska/ram_obstacle(obj/obstacle)
+	// Normal objects affect the super tunguska less
+	var/damage_needed = obstacle.calculate_oneshot_damage(BRUTE, MELEE) / 3
+	if(obj_integrity > damage_needed)
+		obj_integrity -= damage_needed
+		obstacle.obj_break(MELEE)
+		obstacle.obj_destruction(MELEE)
+	else
+		obstacle.take_damage(obj_integrity, BRUTE, MELEE)
+		obstacle.ex_act(explosion_strength)
+		obj_integrity = 0
+		deconstruct(FALSE)
+		return FALSE
+	return TRUE
 
 //Meaty Ore
 /obj/effect/meteor/meaty
