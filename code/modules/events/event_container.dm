@@ -134,26 +134,26 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	severity = EVENT_LEVEL_MUNDANE
 	available_events = list(
 		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set.
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/nothing, 330),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/nothing, 290),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/pda_spam, 9),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/economic_event,	7),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/trivial_news, 7),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/mundane_news, 7),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/infestation, 11),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/sentience, 17),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/sentience, 15),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/wallrot, 10),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/wallrot/fungus, 10),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/carp_migration/koi,	15),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/camera_failure, 15),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/fake_virus,		20),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/bureaucratic_error,	15, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/carp_migration/koi,	12),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/camera_failure, 12),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/fake_virus,		12),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/bureaucratic_error,	12, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/disease_outbreak, 12, TRUE)
 	)
 
 /datum/event_container/moderate
 	severity = EVENT_LEVEL_MODERATE
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/nothing, 750),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/nothing, 690),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/falsealarm, 20),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spontaneous_appendicitis, 5, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/carp_migration, 10, , TRUE),
@@ -194,7 +194,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/major
 	severity = EVENT_LEVEL_MAJOR
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/nothing, 360),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/nothing, 290),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/carp_migration, 10, TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",	/datum/event/prison_break/station,	0,			list(ASSIGNMENT_ANY = 5)),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/apc_overload,	11),
