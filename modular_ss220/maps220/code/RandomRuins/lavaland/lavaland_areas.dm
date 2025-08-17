@@ -8,3 +8,7 @@
 
 /area/ruin/powered/cheesus
 	icon_state = "yellow"
+
+/area/mine/outpost/maintenance/north
+	name = "Северные Технические Тоннели Шахтерского Аванпоста"
+	icon_state = "fmaint"
