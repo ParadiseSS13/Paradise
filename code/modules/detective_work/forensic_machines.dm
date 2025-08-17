@@ -33,7 +33,7 @@
 		return ..()
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>Close the panel first.</span>")
+		to_chat(user, "<span class='warning'>You must close the panel!</span>")
 		return ITEM_INTERACT_COMPLETE
 
 	if(swab)
@@ -163,7 +163,7 @@
 		return ..()
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>Close the panel first.</span>")
+		to_chat(user, "<span class='warning'>You must close the panel!</span>")
 		return ITEM_INTERACT_COMPLETE
 
 	if(sample)
