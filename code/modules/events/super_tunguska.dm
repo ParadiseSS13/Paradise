@@ -59,11 +59,12 @@
 		noAutoEnd = FALSE
 		endWhen = activeFor + 1000
 
+//MARK: Variant Datums
+
 /datum/super_tunguska_variant
-	var/announcement_message = "Super Tunguska Class Meteor Detected On Colision Course With The Station"
+	var/announcement_message = "Super Tunguska class meteor detected on collision course with the station\
+	\nAll engineers are instructed to fortify the projected impact area"
 	var/list/meteor_types = list(/obj/effect/meteor/super_tunguska)
-
-
 
 /datum/super_tunguska_variant/proc/launch(start, end)
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteor_targeted), meteor_types, start, end)
@@ -77,6 +78,15 @@
 	"\nGPS coords: ([expected_impact.x], [expected_impact.y], [expected_impact.z])"+\
 	"\nBearing: [bearing]° [bearing_to_dir_text(bearing)]"
 	GLOB.major_announcement.Announce(announce_text, "Meteor Alert", new_sound = 'sound/AI/meteors.ogg')
+
+
+// MARK: Artillery Variant
+/datum/super_tunguska_variant/artillery
+	announcement_message = "Armor penetrating artillery shell detected on collision course with the station\
+	\nAll engineers are instructed to fortify the projected impact area"
+	meteor_types = list(/obj/effect/meteor/artillery)
+
+// MARK: Helper Procs
 
 /// Picks a random start point on an edge of the map and returns it with an endpoint such that a line between them crosses the map's center
 /proc/across_map_center()

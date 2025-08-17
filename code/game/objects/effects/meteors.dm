@@ -427,6 +427,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	meteorsound = 'sound/effects/bamf.ogg'
 	meteordrop = list(/obj/item/stack/ore/plasma)
 
+// MARK: SUPER TUNGUSKA
 
 /obj/effect/meteor/super_tunguska/Move(atom/destination)
 	. = ..()
@@ -461,6 +462,66 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 		deconstruct(FALSE)
 		return FALSE
 	return TRUE
+
+// MARK: ARTILLERY
+
+/obj/effect/meteor/artillery
+	max_integrity = 9000 * OBJ_INTEGRITY_TO_WALL_DAMAGE
+	name = "Armor Penetrating Artillery Shell"
+	desc = "A hardened penetrator and a high explosive charge with a delayed fuse ensure maximum effect on target"
+	icon_state = "flaming"
+	explosion_strength = EXPLODE_DEVASTATE
+	heavy = TRUE
+	meteorsound = 'sound/effects/bamf.ogg'
+	meteordrop = list()
+	var/timer = 0
+
+/obj/effect/meteor/artillery/meteor_effect()
+	..()
+	for(var/i in 1 to 3)
+		explosion(loc, 7, 13, 27, 35, 0, cause = "[name]: End explosion", ignorecap = TRUE)
+
+/obj/effect/meteor/artillery/Initialize(mapload, target)
+	. = ..()
+	timer = rand(world.maxx - 40, world.maxx + 40)
+
+/obj/effect/meteor/artillery/Move(atom/destination)
+	. = ..()
+	timer--
+	if(timer <= 0)
+		meteor_effect()
+		qdel(src)
+
+/obj/effect/meteor/artillery/ram_obstacle(obj/obstacle)
+	// Normal objects affect the super tunguska less
+	var/damage_needed = obstacle.calculate_oneshot_damage(BRUTE, MELEE) / 3
+	if(obj_integrity > damage_needed)
+		obj_integrity -= damage_needed
+		obstacle.obj_break(MELEE)
+		obstacle.obj_destruction(MELEE)
+	else
+		obstacle.take_damage(obj_integrity, BRUTE, MELEE)
+		obstacle.ex_act(explosion_strength)
+		obj_integrity = 0
+		deconstruct(FALSE)
+		return FALSE
+	return TRUE
+
+/obj/effect/meteor/artillery/ram_wall(turf/simulated/wall/wall)
+	var/damage_cap = wall.damage_cap
+	if(wall.rotting)
+		damage_cap /= 10
+	var/damage_needed = (damage_cap - wall.damage) * OBJ_INTEGRITY_TO_WALL_DAMAGE
+	if(damage_needed <= 0)
+		wall.dismantle_wall()
+	else if(damage_needed < obj_integrity)
+		obj_integrity -= damage_needed
+		wall.dismantle_wall()
+	else
+		wall.take_damage(obj_integrity / OBJ_INTEGRITY_TO_WALL_DAMAGE)
+		if(wall) // In case we somehow broke it despite not thinking we could.
+			wall.ex_act(explosion_strength)
+		deconstruct(FALSE)
 
 //Meaty Ore
 /obj/effect/meteor/meaty
