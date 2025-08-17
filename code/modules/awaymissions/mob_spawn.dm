@@ -620,6 +620,13 @@
 	id_job = "Medical Doctor"
 	outfit = /datum/outfit/job/doctor
 
+// Cargo tech corpse
+/obj/effect/mob_spawn/human/corpse/random_species/cargo_tech
+	name = "Cargo Technician"
+	mob_name = "Cargo Technician"
+	id_job = "Cargo Technician"
+	outfit = /datum/outfit/job/cargo_tech
+
 //Engineer corpse.
 /obj/effect/mob_spawn/human/corpse/engineer
 	name = "Engineer"
