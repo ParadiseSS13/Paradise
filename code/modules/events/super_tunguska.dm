@@ -75,9 +75,10 @@
 	"\nExpected Arrival Time: [round(arrival_time / 30) < 10 ? 0 :""][round(arrival_time / 30)]:[(arrival_time * 2) % 60 < 10 ? 0 :""][(arrival_time * 2) % 60] minutes" + \
 	"\nExpected Impact Location: [expected_impact.loc] "+\
 	"\nGPS coords: ([expected_impact.x], [expected_impact.y], [expected_impact.z])"+\
-	"\nBearing: [bearing]° [bearing_to_dir_text()]"
+	"\nBearing: [bearing]° [bearing_to_dir_text(bearing)]"
 	GLOB.major_announcement.Announce(announce_text, "Meteor Alert", new_sound = 'sound/AI/meteors.ogg')
 
+/// Picks a random start point on an edge of the map and returns it with an endpoint such that a line between them crosses the map's center
 /proc/across_map_center()
 	var/turf/pickedstart
 	var/turf/pickedgoal
@@ -95,41 +96,42 @@
 
 	return list(pickedstart, pickedgoal)
 
+/// Takes in a bearing in degrees and returns the appropriate text for it
 /proc/bearing_to_dir_text(bearing)
 	switch(bearing)
-		if(348 to 360)
+		if(348.75 to 360)
 			return "N"
-		if(0 to 11)
+		if(0 to 11.25)
 			return "N"
-		if(10 to 22)
+		if(11.25 to 33.75)
 			return "NNE"
-		if(22 to 45)
+		if(33.75 to 56.25)
 			return "NE"
-		if(45 to 67)
+		if(56.25 to 78.75)
 			return "ENE"
-		if(67 to 101)
+		if(78.75 to 101.25)
 			return "E"
-		if(101 to 123)
+		if(101.25 to 123.75)
 			return "ESE"
-		if(123 to 145)
+		if(123.75 to 146.25)
 			return "SE"
-		if(145 to 167)
-			return "ESE"
-		if(167 to 191)
+		if(146.25 to 168.75)
+			return "SSE"
+		if(168.75 to 191.25)
 			return "S"
-		if(191 to 213)
+		if(191.25 to 213.75)
 			return "SSW"
-		if(213 to 235)
+		if(213.75 to 236.25)
 			return "SW"
-		if(235 to 257)
+		if(236.25 to 258.75)
 			return "WSW"
-		if(257 to 281)
+		if(258.75 to 281.25)
 			return "W"
-		if(281 to 302)
+		if(281.25 to 303.75)
 			return "WNW"
-		if(302 to 324)
+		if(303.75 to 326.25)
 			return "NW"
-		if(324 to 348)
+		if(326.25 to 348.75)
 			return "NNW"
 
 
