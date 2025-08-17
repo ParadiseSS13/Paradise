@@ -478,8 +478,10 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_4)
 "aeM" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/external{
+	name = "Эвакуационная Капсула 4";
+	id_tag = "emergency_home"
+	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
 "aeN" = (
@@ -498,8 +500,10 @@
 /area/station/hallway/secondary/entry)
 "aeP" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/external{
+	name = "Эвакуационная Капсула 1";
+	id_tag = "emergency_home"
+	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
 "aeQ" = (
@@ -47912,8 +47916,10 @@
 	},
 /area/station/maintenance/starboard2)
 "elb" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/external{
+	name = "Эвакуационная Капсула 2";
+	id_tag = "emergency_home"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "elg" = (
@@ -53182,8 +53188,10 @@
 /area/station/hallway/secondary/entry)
 "fTX" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/external{
+	name = "Эвакуационная Капсула 3";
+	id_tag = "emergency_home"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/dormitory_maintenance)
 "fTZ" = (

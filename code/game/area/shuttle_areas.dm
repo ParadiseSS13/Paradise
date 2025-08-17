@@ -26,23 +26,23 @@
 	nad_allowed = TRUE
 
 /area/shuttle/pod_1
-	name = "Эвакуационная Капсула Один"
+	name = "Эвакуационная Капсула 1"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
 
 /area/shuttle/pod_2
-	name = "Эвакуационная Капсула Два"
+	name = "Эвакуационная Капсула 2"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
 
 /area/shuttle/pod_3
-	name = "Эвакуационная Капсула Три"
+	name = "Эвакуационная Капсула 3"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
 	parallax_move_direction = EAST
 
 /area/shuttle/pod_4
-	name = "Эвакуационная Капсула Четыре"
+	name = "Эвакуационная Капсула 4"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
 	parallax_move_direction = EAST
