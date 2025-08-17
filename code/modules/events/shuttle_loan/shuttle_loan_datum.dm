@@ -117,8 +117,8 @@
 		spawn_list.Add(pick(prob(5) ? naughtypizza : nicepizza))
 
 /datum/shuttle_loan_situation/russian_party
-	sender = "Central Command Russian Outreach Program"
-	announcement_text = "A group of angry Russians want to have a party. We rented them your cargo shuttle as a venue."
+	sender = "Central Command Soviet Outreach Program"
+	announcement_text = "A group of angry Soviets want to have a party. We rented them your cargo shuttle as a venue."
 	logging_desc = "Russian party squad"
 
 /datum/shuttle_loan_situation/russian_party/spawn_items(list/spawn_list, list/empty_shuttle_turfs)
