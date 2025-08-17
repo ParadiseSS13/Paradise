@@ -72,7 +72,7 @@
 	var/bearing = arctan((world.maxx / 2) - expected_impact.x, (world.maxy / 2) - expected_impact.y)
 	bearing = bearing < 0 ? 90 - bearing : (bearing > 90 ? 450 - bearing : 90 - bearing)
 	var/announce_text = announcement_message + \
-	"\nExpected Arrival Time: [round(arrival_time / 30) < 10 ? 0 :""][round(arrival_time / 30)]:[(arrival_time * 2) % 60 < 10 ? 0 :""][(arrival_time * 2) % 60] minutes" + \
+	"\nExpected Arrival Time: [time2text(station_time(world.time + (arrival_time * 2) SECONDS, TRUE), "hh:mm:ss")]" + \
 	"\nExpected Impact Location: [expected_impact.loc] "+\
 	"\nGPS coords: ([expected_impact.x], [expected_impact.y], [expected_impact.z])"+\
 	"\nBearing: [bearing]° [bearing_to_dir_text(bearing)]"
