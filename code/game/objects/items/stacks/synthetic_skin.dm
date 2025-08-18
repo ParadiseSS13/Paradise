@@ -5,7 +5,6 @@
 	icon_state = "skin_1"
 	w_class = WEIGHT_CLASS_TINY
 	singular_name = "globs of gobbly go" // qwertodo: once skin is sprited, find a proper singular name
-	amount = 1
 	max_amount = 10
 	merge_type = /obj/item/stack/synthetic_skin
 	var/skin_level = 1
