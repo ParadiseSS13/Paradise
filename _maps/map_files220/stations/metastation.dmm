@@ -34228,8 +34228,10 @@
 	},
 /area/station/hallway/primary/central/north)
 "ejj" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/external{
+	name = "Эвакуационная Капсула 1";
+	id_tag = "emergency_home"
+	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/west)
 "ejr" = (
@@ -62119,8 +62121,10 @@
 /turf/space,
 /area/space/nearstation)
 "onD" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/external{
+	name = "Эвакуационная Капсула 2";
+	id_tag = "emergency_home"
+	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
 "onF" = (
@@ -67276,8 +67280,10 @@
 	},
 /area/station/supply/break_room)
 "qid" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/external{
+	name = "Эвакуационная Капсула 3";
+	id_tag = "emergency_home"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "qif" = (
@@ -67667,8 +67673,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
 "qss" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/external/glass{
+	name = "Эвакуационная Капсула 4";
+	id_tag = "emergency_home"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/engimaint)
 "qta" = (

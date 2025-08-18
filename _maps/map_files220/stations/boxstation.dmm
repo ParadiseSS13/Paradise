@@ -5095,8 +5095,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "avs" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/external{
+	id_tag = "emergency_home";
+	name = "Эвакуационная Капсула 3"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "avt" = (
@@ -11113,8 +11115,10 @@
 	},
 /area/station/hallway/secondary/entry)
 "aPZ" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/external{
+	id_tag = "emergency_home";
+	name = "Эвакуационная Капсула 1"
+	},
 /obj/effect/turf_decal/caution,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
@@ -38499,8 +38503,10 @@
 /area/station/engineering/break_room)
 "cVL" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/external{
+	id_tag = "emergency_home";
+	name = "Эвакуационная Капсула 4"
+	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
 /turf/simulated/floor/plating,
 /area/station/engineering/break_room)
@@ -63762,6 +63768,14 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/asmaint)
+"jOu" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "emergency_home";
+	name = "Эвакуационная Капсула 2"
+	},
+/obj/effect/turf_decal/caution,
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry)
 "jOx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -119003,7 +119017,7 @@ aLf
 aMt
 aNy
 bMa
-aPZ
+jOu
 bMb
 aSf
 aSf

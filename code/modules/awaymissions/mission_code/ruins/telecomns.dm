@@ -354,11 +354,13 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	return ..()
 
 /mob/living/basic/hivebot/strong/malfborg/melee_attack(atom/target, list/modifiers, ignore_cooldown)
-	. = ..()
+	if(!early_melee_attack(target, modifiers, ignore_cooldown))
+		return FALSE
 	if(QDELETED(target))
-		return
+		return FALSE
 	face_atom(target)
 	baton.melee_attack_chain(src, target)
+	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, TRUE)
 	return TRUE
 
 /mob/living/basic/hivebot/strong/malfborg/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)

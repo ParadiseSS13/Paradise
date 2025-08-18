@@ -129,6 +129,18 @@
 	icon_state = "janitorpurplesoft"
 	item_color = "janitorpurple"
 
+/obj/item/clothing/head/soft/hydroponics
+	name = "botanist's cap"
+	desc = "It's a green baseball hat with a blue service shield."
+	icon_state = "hydroponicssoft"
+	item_color = "hydroponics"
+
+/obj/item/clothing/head/soft/hydroponics_alt
+	name = "hydroponics cap"
+	desc = "It's a green baseball hat with a brown service shield."
+	icon_state = "hydroponics_altsoft"
+	item_color = "hydroponics_alt"
+
 /obj/item/clothing/head/soft/paramedic
 	name = "\improper EMT cap"
 	desc = "It's a blue baseball hat with a white medical shield."

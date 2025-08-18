@@ -665,7 +665,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	user.do_attack_animation(M)
 
-	if(H.check_shields(src, force, "the [name]", MELEE_ATTACK, armour_penetration_flat, armour_penetration_percentage))
+	if(H.check_shields(src, force, "the [name]", MELEE_ATTACK))
 		return FALSE
 
 	if(M != user)

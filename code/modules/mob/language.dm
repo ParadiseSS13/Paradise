@@ -470,7 +470,7 @@
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
-// SS220 EDIT START - Zvezhan -> Neo-Russkiya
+// SS220 EDIT START - Cygni -> Neo-Russkiya
 /datum/language/com_srus
 	name = "Neo-Russkiya"
 	desc = "Neo-Russkiya, a bastard mix of Gutter, Sol Common, and old Russian. The official language of the USSP. It has started to see use outside of the fringe in hobby circles and protest groups. The linguistic spirit of Sol-Gov criticisms."
@@ -490,7 +490,7 @@
 					"odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
 					"tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
 					"udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
-// SS220 EDIT END - Zvezhan -> Neo-Russkiya
+// SS220 EDIT END - Cygni -> Neo-Russkiya
 
 /datum/language/xenocommon
 	name = "Xenomorph"
