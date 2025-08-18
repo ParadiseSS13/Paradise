@@ -848,7 +848,7 @@
 /obj/docking_port/mobile/mining,
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
-	area_type = /area/lavaland/surface/outdoors;
+	area_type = /area/lavaland/surface/outdoors/outpost/no_boulder;
 	dir = 8;
 	dwidth = 3;
 	height = 5;
@@ -1714,8 +1714,9 @@
 	},
 /area/mine/outpost/hallway/west)
 "jQ" = (
-/obj/machinery/door/airlock/multi_tile/glass/directional/north{
-	name = "Main Airlock"
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Main Airlock";
+	dir = 4
 	},
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
@@ -2709,7 +2710,7 @@
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed/dogbed/brad,
-/mob/living/simple_animal/cockroach/brad,
+/mob/living/basic/cockroach/brad,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
@@ -3963,7 +3964,7 @@
 /area/mine/outpost/production)
 "vP" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/multi_tile/glass/directional/east{
+/obj/machinery/door/airlock/multi_tile/glass{
 	name = "Main Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
@@ -6593,8 +6594,8 @@
 	},
 /area/mine/outpost/hallway/west)
 "KC" = (
-/obj/structure/closet/secure_closet/miner,
 /obj/machinery/firealarm/directional/north,
+/obj/machinery/economy/vending/minedrobe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -7190,8 +7191,8 @@
 	name = "North Switch";
 	pixel_y = 24
 	},
-/obj/structure/closet/wardrobe/miner,
 /obj/machinery/alarm/directional/east,
+/obj/structure/closet/secure_closet/miner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -8006,6 +8007,7 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
 	},
+/obj/machinery/magma_crucible,
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/mine/outpost/smith_workshop)
 "RV" = (
@@ -8895,10 +8897,6 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/mine/outpost/hallway/east)
-"WT" = (
-/obj/machinery/magma_crucible,
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
-/area/mine/outpost/smith_workshop)
 "WU" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
@@ -16314,7 +16312,7 @@ Ur
 Lp
 zJ
 GZ
-WT
+Rk
 kG
 LU
 aN

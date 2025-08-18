@@ -1,16 +1,12 @@
 /obj/item/extinguisher
 	name = "fire extinguisher"
 	desc = "A traditional red fire extinguisher."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "fire_extinguisher0"
 	item_state = "fire_extinguisher"
 	base_icon_state = "fire_extinguisher"
 	hitsound = 'sound/weapons/smash.ogg'
 	flags = CONDUCT
 	throwforce = 10
-	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 2
-	throw_range = 7
 	force = 10
 	container_type = AMOUNT_VISIBLE
 	materials = list(MAT_METAL = 200)
@@ -58,6 +54,14 @@
 	reagent_capacity = 30
 	dog_fashion = null
 
+/obj/item/extinguisher/mini/cyborg
+	name = "integrated fire extinguisher"
+	desc = "A miniature fire extinguisher designed to store firefighting foam."
+	icon_state = "cyborgFE0"
+	item_state = "cyborgFE"
+	base_icon_state = "cyborgFE"
+	reagent_id = "firefighting_foam"
+
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
 	if(has_safety)
@@ -85,6 +89,9 @@
 
 /obj/item/extinguisher/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
+	if(isstorage(target) || istype(target, /atom/movable/screen))
+		return
+
 	if(attempt_refill(target, user))
 		return ITEM_INTERACT_COMPLETE
 
@@ -143,7 +150,8 @@
 		INVOKE_ASYNC(src, PROC_REF(buckled_speed_move), user.buckled, direction)
 	else
 		user.newtonian_move(turn(direction, 180))
-
+	if(user.mind && HAS_TRAIT(user.mind, TRAIT_FIRE_FIGHTER))
+		precision = TRUE
 	var/turf/T = get_turf(A)
 	var/turf/T1 = get_step(T, turn(direction, 90))
 	var/turf/T2 = get_step(T, turn(direction, -90))
@@ -163,7 +171,7 @@
 		INVOKE_ASYNC(water, TYPE_PROC_REF(/obj/effect/particle_effect/water, extinguish_move), new_target)
 
 /obj/item/extinguisher/cyborg_recharge(coeff, emagged)
-	reagents.check_and_add("water", reagent_capacity, 5 * coeff)
+	reagents.check_and_add(reagent_id, reagent_capacity, 5 * coeff)
 
 /obj/item/extinguisher/proc/buckled_speed_move(obj/structure/chair/buckled_to, direction) // Buckled_to may not be a chair here, but we're assuming so because it makes it easier to typecheck
 	var/movementdirection = turn(direction, 180)

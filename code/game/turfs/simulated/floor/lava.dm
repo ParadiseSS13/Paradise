@@ -67,6 +67,12 @@
 		return TRUE
 	return FALSE
 
+/turf/simulated/floor/lava/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	if(!pass_info.is_living)
+		return TRUE
+
+	return pass_info.is_flying || pass_info.is_megafauna || (locate(/obj/structure/bridge_walkway) in src)
+
 /turf/simulated/floor/lava/proc/burn_stuff(AM)
 	. = FALSE
 
@@ -165,6 +171,9 @@
 /turf/simulated/floor/lava/burn_tile()
 	return
 
+/turf/simulated/floor/lava/can_cross_safely(atom/movable/crossing)
+	return locate(/obj/structure/bridge_walkway) in src
+
 /turf/simulated/floor/lava/lava_land_surface
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
@@ -182,7 +191,6 @@
 	baseturf = /turf/simulated/floor/lava/lava_land_surface/plasma
 
 	light_range = 3
-	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
@@ -289,7 +297,6 @@
 	base_icon_state = "liquidplasma"
 	baseturf = /turf/simulated/floor/lava/plasma
 	light_range = 3
-	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
 
 // special turf for the asteroid core on EmeraldStation

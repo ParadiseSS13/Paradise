@@ -501,7 +501,6 @@
 	new /obj/item/reagent_containers/syringe/pancuronium(src)
 
 /obj/item/storage/box/syndie_kit/nuke
-	name = "box"  //Bit of stealth, since you spawn with it
 	desc = "It's just an ordinary box."
 	icon_state = "box"
 
@@ -511,7 +510,6 @@
 	new /obj/item/paper/guides/antag/nuke_instructions(src)
 
 /obj/item/storage/box/syndie_kit/supermatter
-	name = "box"
 	desc = "It's just an ordinary box."
 	icon_state = "box"
 
@@ -530,7 +528,7 @@
 
 /obj/item/storage/box/syndie_kit/stechkin
 	name = "\improper FK-69 Stechkin kit"
-	desc = "A box marked with Zvezhan characters. It appears to contain a 10mm pistol and two magazines."
+	desc = "A box marked with Cygni Standard characters. It appears to contain a 10mm pistol and two magazines."
 
 /obj/item/storage/box/syndie_kit/stechkin/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol(src)

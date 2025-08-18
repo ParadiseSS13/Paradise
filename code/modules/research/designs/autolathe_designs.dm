@@ -544,6 +544,14 @@
 	build_path = /obj/item/storage/lockbox/vials
 	category = list("initial", "Medical")
 
+/datum/design/roller_bed
+	name = "Roller Bed"
+	id = "roller_bed"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000)
+	build_path = /obj/item/roller
+	category = list("initial", "Medical")
+
 /datum/design/beanbag_slug
 	name = "Beanbag Slug"
 	id = "beanbag_slug"
@@ -742,14 +750,6 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/reagent_containers/hypospray/safety
-	category = list("initial", "Medical")
-
-/datum/design/automender
-	name = "Auto-mender"
-	id = "automender"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 1000, MAT_GLASS = 1000)
-	build_path = /obj/item/reagent_containers/applicator
 	category = list("initial", "Medical")
 
 /datum/design/prox_sensor

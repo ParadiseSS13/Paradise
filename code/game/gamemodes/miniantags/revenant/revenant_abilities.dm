@@ -153,7 +153,6 @@
 			to_chat(M, "<span class='revennotice'><b>An alien voice resonates from all around...</b></span><i> [msg]</I>")
 
 /datum/spell/aoe/revenant
-	name = "Spell"
 	clothes_req = FALSE
 	action_background_icon_state = "bg_revenant"
 	/// How long it reveals the revenant in deciseconds
@@ -176,7 +175,7 @@
 		name = "[initial(name)] ([cast_amount]E)"
 	action.name = name
 	action.desc = desc
-	action.UpdateButtons()
+	action.build_all_button_icons()
 
 /datum/spell/aoe/revenant/revert_cast(mob/user)
 	. = ..()
@@ -213,7 +212,7 @@
 	user.reveal(reveal)
 	user.stun(stun)
 	if(action)
-		action.UpdateButtons()
+		action.build_all_button_icons()
 	return TRUE
 
 //Overload Light: Breaks a light that's online and sends out lightning bolts to all nearby people.
@@ -261,7 +260,7 @@
 //Defile: Corrupts nearby stuff, unblesses floor tiles.
 /datum/spell/aoe/revenant/defile
 	name = "Defile"
-	desc = "Twists and corrupts the nearby area as well as dispelling holy auras on floors."
+	desc = "Twists and corrupts the nearby area as well as dispelling holy auras on floors. The presence of the living empowers the effects."
 	base_cooldown = 15 SECONDS
 	stun = 1 SECONDS
 	reveal = 4 SECONDS
@@ -281,7 +280,22 @@
 	for(var/turf/T in targets)
 		T.defile()
 		for(var/atom/A in T.contents)
+			if(istype(A, /obj/structure/window)) // we want to handle glass seperately
+				continue
 			A.defile()
+		for(var/mob/living/carbon/human/living in T.contents)
+			if(!living.mind || living.stat == DEAD) // shouldnt work on dead or mindless mobs
+				continue
+			var/obj/effect/warp_effect/supermatter/warp = new(T)
+			warp.pixel_x += 16
+			warp.pixel_y += 16
+			animate(warp, time = 0.9 SECONDS, transform = matrix().Scale(0.2,0.2))
+			for(var/obj/structure/window/W in range(2, living))
+				W.defile()
+			addtimer(CALLBACK(src, PROC_REF(delete_pulse), warp), 1 SECONDS)
+
+/datum/spell/aoe/revenant/defile/proc/delete_pulse(warp)
+	qdel(warp)
 
 //Malfunction: Makes bad stuff happen to robots and machines.
 /datum/spell/aoe/revenant/malfunction
@@ -319,10 +333,8 @@
 	action_icon_state = "haunt"
 	base_cooldown = 60 SECONDS
 	unlock_amount = 150
-	cast_amount = 50
 	stun = 3 SECONDS
 	reveal = 10 SECONDS
-	aoe_range = 7
 	/// The maximum number of objects to haunt
 	var/max_targets = 7
 	/// A list of all attack timers started by this spell being cast
@@ -372,43 +384,32 @@
 /// Handles making an object haunted and setting it up to attack
 /datum/spell/aoe/revenant/haunt_object/proc/make_spooky(obj/item/item_to_possess, mob/living/simple_animal/revenant/user)
 	new /obj/effect/temp_visual/revenant(get_turf(item_to_possess)) // Thematic spooky visuals
-	var/mob/living/simple_animal/possessed_object/possessed_object = new(item_to_possess) // Begin haunting object
-	item_to_possess.throwforce = min(item_to_possess.throwforce + 5, 15) // Damage it should do? throwforce+5 or 15, whichever is lower
+	var/mob/living/basic/possessed_object/revenant/possessed_object = new(item_to_possess) // Begin haunting object
 	set_outline(possessed_object)
-	possessed_object.maxHealth = 100 // Double the regular HP of possessed objects
-	possessed_object.health = 100
-	possessed_object.escape_chance = 100 // We cannot be contained
 	ADD_TRAIT(possessed_object, TRAIT_DODGE_ALL_OBJECTS, "Revenant")
+	addtimer(CALLBACK(src, PROC_REF(begin_poltergheist), possessed_object, user), 1 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
+	addtimer(CALLBACK(possessed_object, TYPE_PROC_REF(/mob/living/basic/possessed_object, death)), 70 SECONDS, TIMER_UNIQUE) // De-haunt the object
 
-	addtimer(CALLBACK(src, PROC_REF(attack__legacy__attackchain), possessed_object, user), 1 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
-	attack_timers.Add(addtimer(CALLBACK(src, PROC_REF(attack__legacy__attackchain), possessed_object, user), 4 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
-	addtimer(CALLBACK(possessed_object, TYPE_PROC_REF(/mob/living/simple_animal/possessed_object, death)), 70 SECONDS, TIMER_UNIQUE) // De-haunt the object
+/// Gives it AI
+/datum/spell/aoe/revenant/haunt_object/proc/begin_poltergheist(mob/living/basic/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
+	possessed_object.ai_controller = new /datum/ai_controller/basic_controller/revenant(possessed_object)
 
-/// Handles finding a valid target and throwing us at it
-/datum/spell/aoe/revenant/haunt_object/proc/attack__legacy__attackchain(mob/living/simple_animal/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
-	var/list/potential_victims = list()
-	for(var/turf/turf_to_search in spiral_range_turfs(aoe_range, get_turf(possessed_object)))
-		for(var/mob/living/potential_victim in turf_to_search)
-			if(QDELETED(possessed_object) || !can_see(possessed_object, potential_victim, aoe_range)) // You can't see me
-				continue
-			if(potential_victim.stat != CONSCIOUS) // Don't kill our precious essence-filled sleepy mobs
-				continue
-			if(istype(potential_victim, user) || istype(potential_victim, possessed_object))
-				continue
-			potential_victims.Add(potential_victim)
+/datum/ai_controller/basic_controller/revenant
+	blackboard = list(
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+	)
 
-	potential_victims.Cut((length(potential_victims) * 0.8) + 1.2) // Only consider the people near us
-
-	if(!length(potential_victims))
-		possessed_object.possessed_item.throwforce = min(possessed_object.possessed_item.throwforce + 5, 15) // If an item is stood still for a while it can gather power
-		set_outline(possessed_object)
-		return
-
-	var/mob/living/victim = pick(potential_victims)
-	possessed_object.throw_at(victim, aoe_range, 2, user, dodgeable = FALSE)
+	ai_movement = /datum/ai_movement/basic_avoidance
+	idle_behavior = null
+	planning_subtrees = list(
+		/datum/ai_planning_subtree/simple_find_target,
+		/datum/ai_planning_subtree/attack_obstacle_in_path,
+		/datum/ai_planning_subtree/swirl_around_target,
+		/datum/ai_planning_subtree/basic_melee_attack_subtree,
+	)
 
 /// Sets the glow on the haunted object, scales up based on throwforce
-/datum/spell/aoe/revenant/haunt_object/proc/set_outline(mob/living/simple_animal/possessed_object/possessed_object)
+/datum/spell/aoe/revenant/haunt_object/proc/set_outline(mob/living/basic/possessed_object/possessed_object)
 	possessed_object.remove_filter("haunt_glow")
 	var/outline_size = min((possessed_object.possessed_item.throwforce / 15) * 3, 3)
 	possessed_object.add_filter("haunt_glow", 2, list("type" = "outline", "color" = "#7A4FA9", "size" = outline_size)) // Give it spooky purple outline
@@ -483,6 +484,9 @@
 /obj/machinery/power/smes/rev_malfunction(cause_emp = TRUE)
 	return
 
+/obj/machinery/computer/emergency_shuttle/rev_malfunction(cause_emp = TRUE)
+	return
+
 /mob/living/silicon/robot/rev_malfunction(cause_emp = TRUE)
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 1)
 	new /obj/effect/temp_visual/revenant(loc)
@@ -524,6 +528,10 @@
 
 /obj/structure/closet/defile()
 	open()
+
+/obj/structure/morgue/defile()
+	if(!connected && prob(25))
+		toggle_tray()
 
 /turf/simulated/floor/defile()
 	..()

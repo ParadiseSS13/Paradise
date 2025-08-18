@@ -26,6 +26,7 @@
 					/obj/item/clothing/head/cowboyhat/sec = 4,
 					/obj/item/clothing/head/officer = 4,
 					/obj/item/clothing/head/beret/sec = 4,
+					/obj/item/clothing/head/beret/sec/corporate = 4,
 					/obj/item/clothing/head/soft/sec = 4,
 					/obj/item/clothing/head/drillsgt = 4,
 					/obj/item/clothing/mask/bandana/red = 4,
@@ -65,6 +66,7 @@
 				/obj/item/clothing/head/soft/sec/corp = 40,
 				/obj/item/clothing/head/officer = 40,
 				/obj/item/clothing/head/beret/sec = 40,
+				/obj/item/clothing/head/beret/sec/corporate = 40,
 				/obj/item/clothing/head/soft/sec = 40,
 				/obj/item/clothing/head/cowboyhat/sec = 50,
 				/obj/item/clothing/head/drillsgt = 40,
@@ -333,7 +335,7 @@
 	icon_panel = "drobe"
 	icon_addon = "genedrobe"
 	category = VENDOR_TYPE_CLOTHING
-	ads_list = "Perfect for the mad scientist in you!"
+	ads_list = list("Perfect for the mad scientist in you!")
 	vend_reply = "Thank you for using the GeneDrobe!"
 	products = list(/obj/item/clothing/under/rank/rnd/geneticist = 3,
 					/obj/item/clothing/shoes/laceup = 3,
@@ -613,8 +615,7 @@
 					/obj/item/clothing/under/plasmaman/cargo = 3)
 
 	contraband = list(/obj/item/toy/figure/crew/qm = 1,
-					/obj/item/toy/figure/crew/cargotech = 1,
-					/obj/item/toy/figure/crew/miner = 1)
+					/obj/item/toy/figure/crew/cargotech = 1)
 
 	prices = list(/obj/item/clothing/under/rank/cargo/tech = 50,
 				/obj/item/clothing/under/rank/cargo/tech/skirt = 50,
@@ -634,6 +635,53 @@
 				/obj/item/clothing/under/plasmaman/cargo = 60)
 
 	refill_canister = /obj/item/vending_refill/cargodrobe
+
+/obj/machinery/economy/vending/minedrobe
+	name = "\improper MineDrobe"
+	desc = "This vending machine dispenses sturdy clothing for the mining team."
+	icon_state = "minedrobe"
+	icon_lightmask = "base_drobe"
+	icon_panel = "drobe"
+	icon_broken = "base_drobe"
+	icon_off = "base_drobe"
+	category = VENDOR_TYPE_CLOTHING
+
+	products = list(/obj/item/clothing/under/rank/cargo/miner/lavaland/overalls = 3,
+				/obj/item/clothing/under/rank/cargo/miner/lavaland = 3,
+				/obj/item/clothing/under/rank/cargo/miner/lavaland/skirt = 3,
+				/obj/item/clothing/head/soft/mining = 3,
+				/obj/item/clothing/head/beret/mining = 3,
+				/obj/item/clothing/suit/jacket/bomber/mining = 3,
+				/obj/item/clothing/suit/hooded/wintercoat/miner =3,
+				/obj/item/clothing/suit/storage/hazardvest/staff = 3,
+				/obj/item/clothing/gloves/color/black = 3,
+				/obj/item/clothing/accessory/armband/cargo = 3,
+				/obj/item/clothing/shoes/workboots/mining = 3,
+				/obj/item/clothing/mask/gas/explorer = 3,
+				/obj/item/storage/backpack/explorer = 2,
+				/obj/item/storage/backpack/satchel/explorer = 2,
+				/obj/item/clothing/head/helmet/space/plasmaman/mining = 3,
+				/obj/item/clothing/under/plasmaman/mining = 3)
+
+	contraband = list(/obj/item/toy/figure/crew/miner = 1)
+
+	prices = list(/obj/item/clothing/under/rank/cargo/miner/lavaland/overalls = 50,
+				/obj/item/clothing/under/rank/cargo/miner/lavaland = 50,
+				/obj/item/clothing/under/rank/cargo/miner/lavaland/skirt = 50,
+				/obj/item/clothing/head/soft/mining = 20,
+				/obj/item/clothing/head/beret/mining = 20,
+				/obj/item/clothing/suit/jacket/bomber/mining = 75,
+				/obj/item/clothing/suit/hooded/wintercoat/miner = 75,
+				/obj/item/clothing/suit/storage/hazardvest/staff = 50,
+				/obj/item/clothing/gloves/color/black = 20,
+				/obj/item/clothing/accessory/armband/cargo = 20,
+				/obj/item/clothing/shoes/workboots/mining = 20,
+				/obj/item/storage/backpack/explorer = 50,
+				/obj/item/storage/backpack/satchel/explorer = 50,
+				/obj/item/clothing/head/helmet/space/plasmaman/mining = 60,
+				/obj/item/clothing/under/plasmaman/mining = 60)
+
+	refill_canister = /obj/item/vending_refill/minedrobe
 
 /obj/machinery/economy/vending/exploredrobe
 	name = "\improper ExploreDrobe"
@@ -799,6 +847,7 @@
 
 	vend_reply = "Thank you for using the HydroDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/hydroponics = 3,
+					/obj/item/clothing/under/rank/civilian/hydroponics/alt = 3,
 					/obj/item/reagent_containers/glass/bucket = 3,
 					/obj/item/clothing/suit/apron = 3,
 					/obj/item/clothing/suit/apron/overalls = 3,
@@ -806,6 +855,10 @@
 					/obj/item/clothing/suit/jacket/bomber/hydro = 3,
 					/obj/item/clothing/suit/storage/labcoat/hydro = 3,
 					/obj/item/clothing/mask/bandana/botany = 3,
+					/obj/item/clothing/head/beret/hydroponics = 3,
+					/obj/item/clothing/head/beret/hydroponics_alt = 3,
+					/obj/item/clothing/head/soft/hydroponics = 3,
+					/obj/item/clothing/head/soft/hydroponics_alt = 3,
 					/obj/item/clothing/accessory/armband/hydro = 3,
 					/obj/item/clothing/accessory/armband/service = 3,
 					/obj/item/storage/backpack/botany = 2,
@@ -817,6 +870,7 @@
 	contraband = list(/obj/item/toy/figure/crew/botanist = 1)
 
 	prices = list(/obj/item/clothing/under/rank/civilian/hydroponics = 50,
+				/obj/item/clothing/under/rank/civilian/hydroponics/alt = 50,
 				/obj/item/reagent_containers/glass/bucket = 15,
 				/obj/item/clothing/suit/apron = 50,
 				/obj/item/clothing/suit/apron/overalls = 50,
@@ -824,6 +878,10 @@
 				/obj/item/clothing/suit/jacket/bomber/hydro = 75,
 				/obj/item/clothing/suit/storage/labcoat/hydro = 75,
 				/obj/item/clothing/mask/bandana/botany = 20,
+				/obj/item/clothing/head/beret/hydroponics = 20,
+				/obj/item/clothing/head/beret/hydroponics_alt = 20,
+				/obj/item/clothing/head/soft/hydroponics = 20,
+				/obj/item/clothing/head/soft/hydroponics_alt = 20,
 				/obj/item/clothing/accessory/armband/hydro = 20,
 				/obj/item/clothing/accessory/armband/service = 20,
 				/obj/item/storage/backpack/botany = 50,

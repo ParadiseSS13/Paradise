@@ -3,7 +3,6 @@
 	desc = "Use pools of blood to phase out of existence."
 	base_cooldown = 1 SECONDS
 	clothes_req = FALSE
-	cooldown_min = 0
 	should_recharge_after_cast = FALSE
 	overlay = null
 	action_icon_state = "bloodcrawl"
@@ -60,10 +59,7 @@
 /// Can't use the wizard one, blocked by jaunt/slow
 /obj/effect/dummy/slaughter
 	name = "odd blood"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
-	density = FALSE
-	anchored = TRUE
 	invisibility = 60
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
@@ -79,7 +75,13 @@
 /obj/effect/dummy/slaughter/singularity_act()
 	return
 
-
+/obj/effect/dummy/slaughter/return_obj_air()
+	var/datum/gas_mixture/GM = new
+	GM.set_oxygen(MOLES_O2STANDARD)
+	GM.set_nitrogen(MOLES_N2STANDARD)
+	GM.set_temperature(T20C)
+	return GM
+		
 /datum/spell/bloodcrawl/proc/block_hands(mob/living/carbon/C)
 	if(C.l_hand || C.r_hand)
 		to_chat(C, "<span class='warning'>You may not hold items while blood crawling!</span>")
@@ -97,7 +99,6 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "blank" // Flicks are used instead
 	duration = 0.6 SECONDS
-	layer = MOB_LAYER + 0.1
 
 /obj/effect/temp_visual/dir_setting/bloodcrawl/Initialize(mapload, set_dir, animation_state)
 	. = ..()
@@ -159,7 +160,7 @@
 		L.adjustOxyLoss(-1000)
 		L.adjustToxLoss(-1000)
 	else if((ishuman(victim) || isrobot(victim)))
-		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetising, leaving you wanting for more.</span>")
+		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetizing, leaving you wanting for more.</span>")
 		L.adjustBruteLoss(-50)
 		if(!isslaughterdemon(L))
 			L.adjustFireLoss(-50)
@@ -238,8 +239,9 @@
 		var/mob/living/simple_animal/demon/slaughter/S = L
 		S.speed = 0
 		S.boost = world.time + 6 SECONDS
+	var/old_color = L.color
 	L.color = A.color
-	addtimer(VARSET_CALLBACK(L, color, null), 6 SECONDS)
+	addtimer(VARSET_CALLBACK(L, color, old_color), 6 SECONDS)
 
 
 /datum/spell/bloodcrawl/proc/phasein(atom/A, mob/living/L)

@@ -9,6 +9,7 @@
 	see_in_dark = 10 // Below 10 `see_in_dark`, you'll not have full vision with fullscreen
 	loot = list(/obj/item/organ/internal/heart/demon/shadow)
 	death_sound = 'sound/shadowdemon/shadowdeath.ogg'
+	unsuitable_atmos_damage = 18 // You will heal very slowly in a vacuum (2 damage). Go back to the air to heal faster.
 	var/thrown_alert = FALSE
 	var/wrapping = FALSE
 	/// Should only be TRUE if we're shooting the Shadow Grapple right now. If its TRUE, the demon wont be able to shadow crawl.
@@ -170,8 +171,8 @@
 	AddSpell(new /datum/spell/fireball/shadow_grapple)
 	var/datum/spell/bloodcrawl/shadow_crawl/S = new
 	AddSpell(S)
-	whisper_action.button_overlay_icon_state = "shadow_whisper"
-	whisper_action.button_background_icon_state = "shadow_demon_bg"
+	whisper_action.button_icon_state = "shadow_whisper"
+	whisper_action.background_icon_state = "shadow_demon_bg"
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		S.phased = TRUE
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
@@ -232,7 +233,7 @@
 		var/mob/living/simple_animal/demon/shadow/current_demon = firer
 		if(istype(current_demon))
 			current_demon.block_shadow_crawl()
-		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1, beam_type = /obj/effect/ebeam/floor)
+		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/floor)
 	return ..()
 
 /obj/item/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)

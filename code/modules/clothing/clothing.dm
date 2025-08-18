@@ -1,8 +1,8 @@
 /obj/item/clothing
 	name = "clothing"
-	max_integrity = 200
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
+	permeability_coefficient = 0.8
 	/// Only these species can wear this kit.
 	var/list/species_restricted
 	/// Can the wearer see reagents inside transparent containers while it's equipped?
@@ -176,7 +176,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "block"
-	slot_flags = ITEM_SLOT_BOTH_EARS
 
 /obj/item/clothing/ears/offear/New(obj/O)
 	. = ..()
@@ -192,7 +191,6 @@
 /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
-	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = ITEM_SLOT_EYES
 	materials = list(MAT_GLASS = 250)
@@ -245,9 +243,9 @@
 	name = "gloves"
 	///Carn: for grammarically correct text-parsing
 	gender = PLURAL
-	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
 	siemens_coefficient = 0.50
+	permeability_coefficient = 0.5
 	body_parts_covered = HANDS
 	slot_flags = ITEM_SLOT_GLOVES
 	attack_verb = list("challenged")
@@ -541,9 +539,8 @@
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_MASK
-	strip_delay = 4 SECONDS
 	put_on_delay = 4 SECONDS
-	dyeable = FALSE
+	permeability_coefficient = 0.7
 
 	var/adjusted_flags = null
 
@@ -626,8 +623,7 @@
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_SHOES
 
-	permeability_coefficient = 0.50
-	slowdown = SHOES_SLOWDOWN
+	permeability_coefficient = 0.4
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/shoes.dmi',
@@ -661,7 +657,7 @@
 	if(H.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 
-/obj/item/clothing/shoes/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/item/clothing/shoes/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
 		if(!M.lit && !M.burnt) // Match isn't lit, but isn't burnt.
@@ -693,6 +689,14 @@
 			to_chat(user, "<span class='notice'>There is already something in [src]!</span>")
 			return
 		if(!user.drop_item_to_ground(I))
+			return
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(45) && user.get_item_by_slot(ITEM_SLOT_SHOES) == src)
+
+			var/stabbed_foot = pick("l_foot", "r_foot")
+			user.visible_message("<span class='notice'>[user] tries to place [I] into [src] but stabs their own foot!</span>", \
+			"<span class='warning'>You go to put [I] into [src], but miss the boot and stab your own foot!</span>")
+			user.apply_damage(I.force, BRUTE, stabbed_foot)
+			user.drop_item(I)
 			return
 		user.visible_message("<span class='notice'>[user] places [I] into their [name]!</span>", \
 			"<span class='notice'>You place [I] into the side of your [name]!</span>")
@@ -755,7 +759,7 @@
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	slot_flags = ITEM_SLOT_OUTER_SUIT
-	dyeable = FALSE
+	permeability_coefficient = 0.75
 
 	var/fire_resist = T0C + 100
 	var/blood_overlay_type = "suit"
@@ -959,16 +963,13 @@
 	name = "space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-	w_class = WEIGHT_CLASS_NORMAL
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "s_helmet"
 	permeability_coefficient = 0.01
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 50, FIRE = 200, ACID = 115)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
-	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	flash_protect = FLASH_PROTECTION_WELDER
 	strip_delay = 50
@@ -983,7 +984,7 @@
 	item_state = "s_suit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.02
+	permeability_coefficient = 0.01
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
@@ -1010,7 +1011,6 @@
 	icon = 'icons/obj/clothing/under/misc.dmi'
 	name = "under"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	permeability_coefficient = 0.90
 	slot_flags = ITEM_SLOT_JUMPSUIT
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'

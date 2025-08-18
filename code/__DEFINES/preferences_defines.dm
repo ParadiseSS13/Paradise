@@ -183,3 +183,17 @@
 #define COLOURBLIND_MODE_DEUTER "Red-green (green weak, deuteranopia)"
 #define COLOURBLIND_MODE_PROT "Red-green (red weak, protanopia)"
 #define COLOURBLIND_MODE_TRIT "Blue-yellow (tritanopia)"
+
+/// Best FPS options for clients. A regular list that has only divisors of 1000
+GLOBAL_LIST_INIT(client_fps_options, list_fps_options())
+
+/proc/list_fps_options()
+	var/list/options = list()
+
+	for(var/option in 1 to 1000 / world.fps)
+		if(1000 % option) // Lummox said it works better with divisors of 1000
+			continue
+
+		options += 1000 / option
+
+	return options

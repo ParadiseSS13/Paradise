@@ -438,7 +438,7 @@
 #define INVESTIGATE_DEATHS "deaths"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 67
+#define SQL_VERSION 70
 
 // Vending machine stuff
 #define CAT_NORMAL (1<<0)
@@ -494,6 +494,7 @@
 /// Prepares a text to be used for maptext. Use this so it doesn't look hideous.
 #define MAPTEXT(text) {"<span class='maptext'>[##text]</span>"}
 #define MAPTEXT_CENTER(text) {"<span class='maptext' style='text-align: center'>[##text]</span>"}
+#define MAPTEXT_SMALL(text) {"<span style='font-family: \"Small Fonts\"; font-size: 12pt; line-height: 0.75; -dm-text-outline: 1px black'>[##text]</span>"}
 
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15
@@ -642,6 +643,7 @@
 
 #define BIOHAZARD_BLOB	"Blob"
 #define BIOHAZARD_XENO	"Xenomorphs"
+#define INCURSION_DEMONS "Demon Incursion"
 
 #define MAX_ALLOWED_TELEPORTS_PER_PROCESS 20
 
@@ -746,6 +748,20 @@ do { \
 #define BANK_PIN_MIN 10000
 #define BANK_PIN_MAX 99999
 
+/// Defines for hidden organ techs
+#define TECH_MATERIAL "materials"
+#define TECH_ENGINEERING "engineering"
+#define TECH_PLASMA "plasmatech"
+#define TECH_POWER "powerstorage"
+#define TECH_BLUESPACE "bluespace"
+#define TECH_BIO "biotech"
+#define TECH_COMBAT "combat"
+#define TECH_MAGNETS "magnets"
+#define TECH_PROGRAM "programming"
+#define TECH_TOXINS "toxins"
+#define TECH_SYNDICATE "syndicate"
+#define TECH_ABDUCTOR "abductor"
+
 //! The number of seconds between the start of the UNIX and BYOND epochs.
 #define BYOND_EPOCH_UNIX 946702800
 
@@ -762,3 +778,11 @@ do { \
 
 #define DIRECT_EXPLOSIVE_TRAP_DEFUSE 1
 #define DIRECT_EXPLOSIVE_TRAP_IGNORE 2
+
+#define NODROP_TOGGLE "toggle"
+
+#define DECAL_PAINTER_CATEGORY_STANDARD "Standard"
+#define DECAL_PAINTER_CATEGORY_THIN "Thin Lines"
+#define DECAL_PAINTER_CATEGORY_THICK "Thick Lines"
+#define DECAL_PAINTER_CATEGORY_SQUARE "Square Borders"
+#define DECAL_PAINTER_CATEGORY_ALPHANUM "Alphanumeric"

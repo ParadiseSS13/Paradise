@@ -23,7 +23,7 @@
 		var/obj/item/clothing/suit/armor/abductor/vest/V = locate() in H
 		if(V)
 			console.vest = V
-			V.flags |= NODROP
+			V.set_nodrop(TRUE, H)
 
 		var/obj/item/abductor/gizmo/G = locate() in H.get_item_by_slot(ITEM_SLOT_BACK)
 		if(G)

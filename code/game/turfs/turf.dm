@@ -36,7 +36,6 @@
 
 	var/blocks_air = FALSE
 
-	flags = 0 // TODO, someday move all off the flags here to turf_flags
 
 	var/turf_flags = NONE
 
@@ -820,7 +819,7 @@
 	overlay.blend_mode = BLEND_OVERLAY
 	overlay.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 
-/obj/effect/abstract/pressure_overlay/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/obj/effect/abstract/pressure_overlay/onShuttleMove(turf/oldT, turf/T1, rotation, mob/calling_mob)
 	// No, I don't think I will.
 	return FALSE
 

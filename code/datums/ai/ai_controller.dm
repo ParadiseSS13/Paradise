@@ -70,6 +70,11 @@ RESTRICT_TYPE(/datum/ai_controller)
 	var/can_idle = TRUE
 	/// What distance should we be checking for interesting things when considering idling/deidling? Defaults to AI_DEFAULT_INTERESTING_DIST
 	var/interesting_dist = AI_DEFAULT_INTERESTING_DIST
+	/// TRUE if we're able to run, FALSE if we aren't
+	/// Should not be set manually, override get_able_to_run() instead
+	/// Make sure you hook update_able_to_run() in setup_able_to_run() to whatever parameters changing that you added
+	/// Otherwise we will not pay attention to them changing
+	var/able_to_run = FALSE
 	/// are we currently on failed planning timeout?
 	var/on_failed_planning_timeout = FALSE
 
@@ -99,8 +104,17 @@ RESTRICT_TYPE(/datum/ai_controller)
 
 /// Sets the current movement target, with an optional param to override the movement behavior
 /datum/ai_controller/proc/set_movement_target(source, atom/target, datum/ai_movement/new_movement)
+	if(current_movement_target)
+		UnregisterSignal(current_movement_target, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_PREQDELETED))
+	if(!isnull(target) && !isatom(target))
+		stack_trace("[pawn]'s current movement target is [target.type], not an atom")
+		cancel_actions()
+		return
 	movement_target_source = source
 	current_movement_target = target
+	if(!isnull(current_movement_target))
+		RegisterSignal(current_movement_target, COMSIG_MOVABLE_MOVED, PROC_REF(on_movement_target_move))
+		RegisterSignal(current_movement_target, COMSIG_PARENT_PREQDELETED, PROC_REF(on_movement_target_delete))
 	if(new_movement)
 		change_ai_movement_type(new_movement)
 
@@ -157,6 +171,20 @@ RESTRICT_TYPE(/datum/ai_controller)
 	RegisterSignal(pawn, COMSIG_MOB_STATCHANGE, PROC_REF(on_stat_changed))
 	RegisterSignal(pawn, COMSIG_MOB_LOGIN, PROC_REF(on_sentience_gained))
 	RegisterSignal(pawn, COMSIG_PARENT_QDELETING, PROC_REF(on_pawn_qdeleted))
+	update_able_to_run()
+	setup_able_to_run()
+
+/datum/ai_controller/proc/on_movement_target_move(datum/source)
+	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
+	check_target_max_distance()
+
+/datum/ai_controller/proc/on_movement_target_delete(atom/source)
+	SIGNAL_HANDLER // COMSIG_PARENT_PREQDELETED
+	set_movement_target(source = type, target = null)
+
+/datum/ai_controller/proc/check_target_max_distance()
+	if(get_dist(current_movement_target, pawn) > max_target_distance)
+		cancel_actions()
 
 /// Sets the AI on or off based on current conditions, call to reset after you've manually disabled it somewhere
 /datum/ai_controller/proc/reset_ai_status()
@@ -205,11 +233,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 		SSai_controllers.ai_controllers_by_zlevel[old_turf.z] -= src
 	if(new_turf)
 		SSai_controllers.ai_controllers_by_zlevel[new_turf.z] += src
-		var/new_level_clients = length(SSmobs.clients_by_zlevel[new_turf.z])
-		if(new_level_clients)
-			set_ai_status(AI_STATUS_IDLE)
-		else
-			set_ai_status(AI_STATUS_OFF)
+		reset_ai_status()
 
 /// Abstract proc for initializing the pawn to the new controller
 /datum/ai_controller/proc/try_possess_pawn(atom/new_pawn)
@@ -233,13 +257,30 @@ RESTRICT_TYPE(/datum/ai_controller)
 	if(destroy)
 		qdel(src)
 
-/// Returns TRUE if the ai controller can actually run at the moment.
-/datum/ai_controller/proc/able_to_run()
+/datum/ai_controller/proc/setup_able_to_run()
+	// paused_until is handled by PauseAi() manually
+	RegisterSignals(pawn, list(SIGNAL_ADDTRAIT(TRAIT_AI_PAUSED), SIGNAL_REMOVETRAIT(TRAIT_AI_PAUSED)), PROC_REF(update_able_to_run))
+
+/datum/ai_controller/proc/clear_able_to_run()
+	UnregisterSignal(pawn, list(SIGNAL_ADDTRAIT(TRAIT_AI_PAUSED), SIGNAL_REMOVETRAIT(TRAIT_AI_PAUSED)))
+
+/datum/ai_controller/proc/update_able_to_run()
+	SIGNAL_HANDLER
+	var/run_flags = get_able_to_run()
+	if(run_flags & AI_UNABLE_TO_RUN)
+		able_to_run = FALSE
+		GLOB.move_manager.stop_looping(pawn) //stop moving
+	else
+		able_to_run = TRUE
+	set_ai_status(get_expected_ai_status(), run_flags)
+
+/// Returns TRUE if the ai controller can actually run at the moment, FALSE otherwise
+/datum/ai_controller/proc/get_able_to_run()
 	if(HAS_TRAIT(pawn, TRAIT_AI_PAUSED))
-		return FALSE
+		return AI_UNABLE_TO_RUN
 	if(world.time < paused_until)
-		return FALSE
-	return TRUE
+		return AI_UNABLE_TO_RUN
+	return NONE
 
 /datum/ai_controller/proc/ai_can_interact()
 	SHOULD_CALL_PARENT(TRUE)
@@ -274,23 +315,13 @@ RESTRICT_TYPE(/datum/ai_controller)
 	// in the AI controller implementation are actually the managing subsystem's `wait`.
 	seconds_per_tick /= (1 SECONDS)
 
-	if(!able_to_run())
+	if(!able_to_run)
 		GLOB.move_manager.stop_looping(pawn) //stop moving
 		return //this should remove them from processing in the future through event-based stuff.
 
 	if(!LAZYLEN(current_behaviors) && idle_behavior)
 		idle_behavior.perform_idle_behavior(seconds_per_tick, src) //Do some stupid shit while we have nothing to do
 		return
-
-	if(current_movement_target)
-		if(!isatom(current_movement_target))
-			stack_trace("[pawn]'s current movement target is [current_movement_target], not an atom!")
-			cancel_actions()
-			return
-
-		if(get_dist(pawn, current_movement_target) > max_target_distance) //The distance is out of range
-			cancel_actions()
-			return
 
 	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
 		// Convert the current behaviour action cooldown to realtime seconds from deciseconds.current_behavior
@@ -299,9 +330,9 @@ RESTRICT_TYPE(/datum/ai_controller)
 		var/action_seconds_per_tick = max(current_behavior.get_cooldown(src) * 0.1, seconds_per_tick)
 
 		if(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_MOVEMENT) //Might need to move closer
-			if(!current_movement_target)
-				stack_trace("[pawn] wants to perform action type [current_behavior.type] which requires movement, but has no current movement target!")
-				return // This can cause issues, so don't let these slide.
+			if(isnull(current_movement_target))
+				fail_behavior(current_behavior)
+				return
 
 			// Stops pawns from performing such actions that should require the target to be adjacent.
 			var/atom/movable/moving_pawn = pawn
@@ -432,17 +463,21 @@ RESTRICT_TYPE(/datum/ai_controller)
 	if(!LAZYLEN(current_behaviors))
 		return
 	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
-		var/list/arguments = list(src, FALSE)
-		var/list/stored_arguments = behavior_args[current_behavior.type]
-		if(stored_arguments)
-			arguments += stored_arguments
-		current_behavior.finish_action(arglist(arguments))
+		fail_behavior(current_behavior)
+
+/datum/ai_controller/proc/fail_behavior(datum/ai_behavior/current_behavior)
+	var/list/arguments = list(src, FALSE)
+	var/list/stored_arguments = behavior_args[current_behavior.type]
+	if(stored_arguments)
+		arguments += stored_arguments
+	current_behavior.finish_action(arglist(arguments))
 
 /// Turn the controller on or off based on if you're alive.
 /// We only register to this if the flag is present so don't need to check again.
 /datum/ai_controller/proc/on_stat_changed(mob/living/source, new_stat)
 	SIGNAL_HANDLER // COMSIG_MOB_STATCHANGE
 	reset_ai_status()
+	update_able_to_run()
 
 /datum/ai_controller/proc/on_sentience_gained()
 	SIGNAL_HANDLER // COMSIG_MOB_LOGIN

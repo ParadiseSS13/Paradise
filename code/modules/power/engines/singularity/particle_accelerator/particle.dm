@@ -3,8 +3,6 @@
 	desc = "Small things moving very fast."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "particle"
-	anchored = TRUE
-	density = FALSE
 	var/movement_range = 11
 	var/energy = 10
 
@@ -36,10 +34,10 @@
 		for(var/atom/A in loc)
 			try_irradiate(src, A)
 
-/obj/effect/accelerated_particle/proc/try_irradiate(src, atom/A)
+/obj/effect/accelerated_particle/proc/try_irradiate(source, atom/A)
 	if(isliving(A))
 		var/mob/living/L = A
-		L.base_rad_act(src, energy * 6, GAMMA_RAD)
+		L.base_rad_act(source, energy * 6, GAMMA_RAD)
 	else if(istype(A, /obj/machinery/the_singularitygen))
 		var/obj/machinery/the_singularitygen/S = A
 		S.energy += energy

@@ -10,8 +10,6 @@
 	force = 3
 	throwforce = 5
 	throw_speed = 3
-	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
 	resistance_flags = FLAMMABLE
 	new_attack_chain = TRUE
@@ -71,7 +69,10 @@
 	if(world.time > mop_sound_cooldown)
 		playsound(loc, pick('sound/weapons/mopping1.ogg', 'sound/weapons/mopping2.ogg'), 30, TRUE, -1)
 		mop_sound_cooldown = world.time + MOP_SOUND_CD
-	target.cleaning_act(user, src, mopspeed, text_verb = "mop", text_description = ".")
+	if(user.mind && HAS_TRAIT(user, TRAIT_JANITOR))
+		target.cleaning_act(user, src, mopspeed / 2, text_verb = "mop", text_description = ".")
+	else
+		target.cleaning_act(user, src, mopspeed, text_verb = "mop", text_description = ".")
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/mop/can_clean()

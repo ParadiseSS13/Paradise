@@ -10,6 +10,9 @@
 	dog_fashion = /datum/dog_fashion/head/chef
 
 	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 
@@ -198,6 +201,7 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
+	permeability_coefficient = 0.01
 
 /obj/item/clothing/head/surgery/purple
 	name = "purple surgical cap"
@@ -206,9 +210,7 @@
 	dog_fashion = /datum/dog_fashion/head/surgery
 
 /obj/item/clothing/head/surgery/blue
-	name = "blue surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is baby blue."
-	icon_state = "surgcap_blue"
 	dog_fashion = /datum/dog_fashion/head/surgery
 
 /obj/item/clothing/head/surgery/green

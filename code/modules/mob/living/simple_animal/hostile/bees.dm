@@ -12,7 +12,6 @@
 	name = "bee"
 	desc = "Buzzy buzzy bee, stingy sti- Ouch!"
 	icon_state = ""
-	icon_living = ""
 	icon = 'icons/mob/bees.dmi'
 	gender = FEMALE
 	speak_emote = list("buzzes")
@@ -321,6 +320,11 @@
 
 /obj/item/queen_bee/Destroy()
 	QDEL_NULL(queen)
+	return ..()
+
+/mob/living/simple_animal/hostile/poison/bees/queen/consider_wakeup()
+	if(beehome && loc == beehome) // The queen is home and doesn't have to do anything.
+		return
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/bees/consider_wakeup()

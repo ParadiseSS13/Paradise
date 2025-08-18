@@ -23,8 +23,6 @@
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
-	requires_organic_bodypart = TRUE
-	requires_bodypart = TRUE
 
 /datum/surgery/organ_manipulation/soft
 	possible_locs = list(BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
@@ -46,23 +44,6 @@
 		/datum/surgery_step/proxy/manipulate_organs,
 		/datum/surgery_step/generic/cauterize
 	)
-	requires_organic_bodypart = TRUE
-
-/datum/surgery/organ_manipulation/alien
-	name = "Alien Organ Manipulation"
-	requires_bodypart = FALSE  // xenos just don't have "bodyparts"
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-	target_mobtypes = list(/mob/living/carbon/alien/humanoid)
-	steps = list(
-		/datum/surgery_step/saw_carapace,
-		/datum/surgery_step/cut_carapace,
-		/datum/surgery_step/retract_carapace,
-		/datum/surgery_step/proxy/manipulate_organs/alien,
-		/datum/surgery_step/generic/seal_carapace
-	)
-
-
-
 
 /datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
 	. = ..()
@@ -92,7 +73,6 @@
 
 // Intermediate steps for branching organ manipulation.
 /datum/surgery/intermediate/manipulate
-	requires_bodypart = TRUE
 
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 
@@ -132,12 +112,6 @@
 	)
 
 // have to redefine all of these because xenos don't technically have bodyparts.
-/datum/surgery/intermediate/manipulate/extract/xeno
-	requires_bodypart = FALSE
-
-/datum/surgery/intermediate/manipulate/implant/xeno
-	requires_bodypart = FALSE
-
 /datum/surgery/intermediate/manipulate/mend/xeno
 	requires_bodypart = FALSE
 
@@ -147,10 +121,8 @@
 /datum/surgery_step/proxy/manipulate_organs/alien
 	name = "Manipulate Organs Xeno (proxy)"
 	branches = list(
-		/datum/surgery/intermediate/manipulate/extract/xeno,
-		/datum/surgery/intermediate/manipulate/implant/xeno,
 		/datum/surgery/intermediate/manipulate/mend/xeno,
-		/datum/surgery/intermediate/manipulate/clean/xeno
+		/datum/surgery/intermediate/manipulate/clean/xeno,
 	)
 
 // Internal surgeries.
@@ -305,7 +277,7 @@
 /datum/surgery_step/internal/manipulate_organs/extract/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/list/organs = target.get_organs_zone(target_zone)
 	if(!length(organs))
-		to_chat(user, "<span class='notice'>There are no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
+		to_chat(user, "<span class='notice'>There are no removable organs in [target]'s [parse_zone(target_zone)]!</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
 	for(var/obj/item/organ/internal/O in organs)
@@ -438,6 +410,11 @@
 			"You start transplanting [tool] into [target]'s [parse_zone(target_zone)].",
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
+	if(I.warning)
+		if(tgui_alert(user, "This is a permanent action, guaranteeing this person will be removed from the round. Are you sure?", "Insert [I]", list("Yes", "No")) != "Yes")
+			return
+		log_admin("[key_name(user)] has inserted a [I] into [key_name(target)]!")
+		log_attack(user, target, "Inserted [I]")
 	return ..()
 
 /datum/surgery_step/internal/manipulate_organs/implant/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -708,8 +685,7 @@
 		TOOL_SAW = 100,
 		/obj/item/melee/energy/sword/cyborg/saw = 100,
 		/obj/item/hatchet = 90,
-		/obj/item/chainsaw/ = 90,
-		/obj/item/butcher_chainsaw = 90,
+		/obj/item/chainsaw = 90,
 		TOOL_WIRECUTTER = 35
 	)
 
@@ -717,7 +693,6 @@
 		TOOL_SAW = 'sound/surgery/saw.ogg',
 		/obj/item/hatchet = 'sound/surgery/scalpel1.ogg',
 		/obj/item/chainsaw = 'sound/weapons/chainsaw.ogg',
-		/obj/item/butcher_chainsaw = 'sound/weapons/chainsaw.ogg',
 		TOOL_WIRECUTTER = 'sound/surgery/scalpel1.ogg'
 	)
 
@@ -762,7 +737,6 @@
 		/obj/item/melee/energy = 6,
 		/obj/item/pen/edagger = 6,
 		/obj/item/chainsaw = 1,
-		/obj/item/butcher_chainsaw = 1
 	)
 
 	preop_sound = 'sound/surgery/scalpel1.ogg'

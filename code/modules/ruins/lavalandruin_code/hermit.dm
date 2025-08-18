@@ -45,6 +45,7 @@
 	return ..()
 
 /datum/outfit/hermit
+	name = "Lavaland Hermit"
 	suit = /obj/item/clothing/suit/space/syndicate/orange
 	head = /obj/item/clothing/head/helmet/space/syndicate/orange
 	shoes = /obj/item/clothing/shoes/black

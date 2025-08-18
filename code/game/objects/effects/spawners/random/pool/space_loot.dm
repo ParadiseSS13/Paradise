@@ -37,7 +37,6 @@
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/common
 	name = "syndicate depot loot, common"
-	icon_state = "loot"
 	point_value = 10
 	loot = list(
 		// Loot schema: costumes, toys, useless gimmick items
@@ -56,6 +55,10 @@
 		/obj/item/storage/toolbox/syndicate,
 		/obj/item/suppressor,
 		/obj/item/toy/syndicateballoon,
+		/obj/item/ai_upgrade/expanded_storage,
+		/obj/item/ai_upgrade/expanded_network,
+		/obj/item/ai_upgrade/expanded_tank,
+		/obj/item/ai_upgrade/expanded_fabricator,
 	)
 
 /obj/effect/spawner/random/pool/spaceloot/syndicate/common/depot
@@ -111,10 +114,10 @@
 		/obj/item/mod/module/plate_compression,
 		/obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen,
 		/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
-		/obj/item/stack/sheet/mineral/gold{amount = 20},
-		/obj/item/stack/sheet/mineral/plasma{amount = 20},
-		/obj/item/stack/sheet/mineral/silver{amount = 20},
-		/obj/item/stack/sheet/mineral/uranium{amount = 20},
+		/obj/item/stack/sheet/mineral/gold/twenty,
+		/obj/item/stack/sheet/mineral/plasma/twenty,
+		/obj/item/stack/sheet/mineral/silver/twenty,
+		/obj/item/stack/sheet/mineral/uranium/twenty,
 		/obj/item/stamp/chameleon,
 		/obj/item/storage/backpack/duffel/syndie/med/surgery,
 		/obj/item/storage/backpack/satchel_flat,
@@ -146,10 +149,10 @@
 		/obj/item/mod/module/plate_compression,
 		/obj/item/reagent_containers/hypospray/autoinjector/hyper_medipen,
 		/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
-		/obj/item/stack/sheet/mineral/gold{amount = 20},
-		/obj/item/stack/sheet/mineral/plasma{amount = 20},
-		/obj/item/stack/sheet/mineral/silver{amount = 20},
-		/obj/item/stack/sheet/mineral/uranium{amount = 20},
+		/obj/item/stack/sheet/mineral/gold/twenty,
+		/obj/item/stack/sheet/mineral/plasma/twenty,
+		/obj/item/stack/sheet/mineral/silver/twenty,
+		/obj/item/stack/sheet/mineral/uranium/twenty,
 		/obj/item/stamp/chameleon,
 		/obj/item/storage/backpack/duffel/syndie/med/surgery,
 		/obj/item/storage/backpack/satchel_flat,
@@ -175,7 +178,7 @@
 		/obj/item/mod/module/visor/thermal,
 		/obj/item/pen/edagger,
 		/obj/item/pinpointer/advpinpointer,
-		/obj/item/stack/sheet/mineral/diamond{amount = 10},
+		/obj/item/stack/sheet/mineral/diamond/ten,
 		/obj/item/storage/belt/sheath/snakesfang,
 		/obj/item/storage/box/syndidonkpockets,
 		/obj/item/storage/box/syndie_kit/stechkin,
@@ -197,7 +200,7 @@
 		/obj/item/mod/module/visor/thermal,
 		/obj/item/pen/edagger,
 		/obj/item/pinpointer/advpinpointer,
-		/obj/item/stack/sheet/mineral/diamond{amount = 10},
+		/obj/item/stack/sheet/mineral/diamond/ten,
 		/obj/item/storage/belt/sheath/snakesfang,
 		/obj/item/storage/box/syndidonkpockets,
 		/obj/item/storage/box/syndie_kit/stechkin,

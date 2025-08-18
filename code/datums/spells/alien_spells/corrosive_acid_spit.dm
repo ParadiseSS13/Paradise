@@ -8,7 +8,7 @@
 
 /obj/item/melee/touch_attack/alien/corrosive_acid
 	name = "Corrosive acid"
-	desc = "A fistfull of death."
+	desc = "A fistful of death."
 	icon_state = "alien_acid"
 
 /obj/item/melee/touch_attack/alien/corrosive_acid/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -33,9 +33,12 @@
 		to_chat(C, "<span class='noticealien'>You cannot dissolve this object.</span>")
 	handle_delete(user)
 
+/obj/item/melee/touch_attack/alien/corrosive_acid/customised_abstract_text(mob/living/carbon/owner)
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is dripping with vile corrosive goo!</span>"
+
 /datum/spell/touch/alien_spell/burning_touch
 	name = "Blazing touch"
-	desc = "Boil acid within your hand to burn through anything you touch with it, deals a lot of damage to aliens and destroys resin structures instantly."
+	desc = "Boil acid within your hand to burn through anything you touch with it, dealing a lot of damage to aliens and destroying resin structures instantly."
 	hand_path = "/obj/item/melee/touch_attack/alien/burning_touch"
 	action_icon_state = "alien_acid"
 	plasma_cost = 100
@@ -74,3 +77,7 @@
 			C.add_plasma(-100)
 			qdel(target)
 	handle_delete(user)
+
+/obj/item/melee/touch_attack/alien/burning_touch/customised_abstract_text(mob/living/carbon/owner)
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] has a shimmering mirage around it!</span>"
+

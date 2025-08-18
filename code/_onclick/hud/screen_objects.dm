@@ -100,11 +100,9 @@
 
 /atom/movable/screen/act_intent/alien
 	icon = 'icons/mob/screen_alien.dmi'
-	screen_loc = ui_acti
 
 /atom/movable/screen/act_intent/robot
 	icon = 'icons/mob/screen_robot.dmi'
-	screen_loc = ui_borg_intents
 
 /atom/movable/screen/act_intent/robot/ai
 	screen_loc = "SOUTH+1:6,EAST-1:32"
@@ -115,11 +113,9 @@
 
 /atom/movable/screen/act_intent/simple_animal
 	icon = 'icons/mob/screen_simplemob.dmi'
-	screen_loc = ui_acti
 
 /atom/movable/screen/act_intent/guardian
 	icon = 'icons/mob/guardian.dmi'
-	screen_loc = ui_acti
 
 /atom/movable/screen/mov_intent/Click()
 	usr.toggle_move_intent()
@@ -281,7 +277,6 @@
 	icon = 'icons/mob/zone_sel.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	alpha = 128
-	anchored = TRUE
 	layer = ABOVE_HUD_LAYER
 	plane = ABOVE_HUD_PLANE
 
@@ -460,22 +455,30 @@
 	. = ..()
 	if(!handcuff_overlay)
 		var/state = (slot_id == ITEM_SLOT_RIGHT_HAND) ? "markus" : "gabrielle"
-		handcuff_overlay = image("icon"='icons/mob/screen_gen.dmi', "icon_state"=state)
+		handcuff_overlay = image(icon = 'icons/mob/screen_gen.dmi', icon_state = state)
 
-	if(hud && hud.mymob)
-		if(iscarbon(hud.mymob))
-			var/mob/living/carbon/C = hud.mymob
-			if(C.handcuffed)
-				. += handcuff_overlay
+	if(!hud || !hud.mymob)
+		return
 
-			var/obj/item/organ/external/hand = C.get_organ("[slot_id == ITEM_SLOT_LEFT_HAND ? "l" : "r"]_hand")
-			if(!isalien(C) && (!hand || !hand.is_usable()))
-				. += blocked_overlay
+	if(iscarbon(hud.mymob))
+		var/mob/living/carbon/C = hud.mymob
+		if(C.handcuffed)
+			. += handcuff_overlay
 
-		if(slot_id == ITEM_SLOT_LEFT_HAND && hud.mymob.hand)
+		var/obj/item/organ/external/hand = C.get_organ("[slot_id == ITEM_SLOT_LEFT_HAND ? "l" : "r"]_hand")
+		if(!isalien(C) && (!hand || !hand.is_usable()))
+			. += blocked_overlay
+
+	if(slot_id == ITEM_SLOT_LEFT_HAND)
+		if(hud.mymob.hand)
 			. += "hand_active"
-		else if(slot_id == ITEM_SLOT_RIGHT_HAND && !hud.mymob.hand)
+		if(hud.mymob.l_hand && (hud.mymob.l_hand.flags & NODROP) && !(hud.mymob.l_hand.flags & ABSTRACT))
+			. += "locked_l"
+	else if(slot_id == ITEM_SLOT_RIGHT_HAND)
+		if(!hud.mymob.hand)
 			. += "hand_active"
+		if(hud.mymob.r_hand && (hud.mymob.r_hand?.flags & NODROP) && !(hud.mymob.r_hand.flags & ABSTRACT))
+			. += "locked"
 
 /atom/movable/screen/inventory/hand/Click()
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
@@ -543,7 +546,6 @@
 	name = "summoner health"
 	icon = 'icons/mob/guardian.dmi'
 	icon_state = "base"
-	screen_loc = ui_health
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /atom/movable/screen/healthdoll

@@ -232,7 +232,7 @@
 		tablepush(I, user)
 		return
 
-	if(isrobot(user))
+	if(isrobot(user) && !istype(I.loc, /obj/item/gripper))
 		return
 
 	if(user.a_intent == INTENT_HELP && !(I.flags & ABSTRACT))
@@ -806,7 +806,6 @@
 	framestack = /obj/item/stack/tile/brass
 	buildstack = /obj/item/stack/tile/brass
 	framestackamount = 1
-	buildstackamount = 1
 	smoothing_groups = list(SMOOTH_GROUP_BRASS_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
 	canSmoothWith = list(SMOOTH_GROUP_BRASS_TABLES)
 
@@ -840,10 +839,9 @@
 			held_items += held.UID()
 
 /obj/structure/table/tray/Move(NewLoc, direct)
-	var/atom/OldLoc = loc
-
+	var/atom/oldloc = loc
 	. = ..()
-	if(!.) // ..() will return 0 if we didn't actually move anywhere.
+	if(oldloc == loc) // ..() will return 0 if we didn't actually move anywhere, except for some diagonal cases.
 		return
 
 	if(direct & (direct - 1)) // This represents a diagonal movement, which is split into multiple cardinal movements. We'll handle moving the items on the cardinals only.
@@ -857,7 +855,7 @@
 		if(!held)
 			held_items -= held_uid
 			continue
-		if(OldLoc != held.loc)
+		if(oldloc != held.loc)
 			held_items -= held_uid
 			continue
 		held.forceMove(NewLoc)
@@ -947,7 +945,7 @@
 		return TRUE
 
 /obj/structure/rack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(isrobot(user))
+	if(isrobot(user) && !istype(W.loc, /obj/item/gripper))
 		return
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -1017,7 +1015,6 @@
 /obj/item/rack_parts
 	name = "rack parts"
 	desc = "Parts of a rack."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
 	flags = CONDUCT
 	materials = list(MAT_METAL=2000)

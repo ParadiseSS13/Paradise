@@ -313,7 +313,7 @@
 	},
 /area/syndicate_depot/core)
 "aZ" = (
-/obj/machinery/door/poddoor/multi_tile/double/directional/east,
+/obj/machinery/door/poddoor/multi_tile,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1094,6 +1094,13 @@
 /area/syndicate_depot/core)
 "tE" = (
 /obj/structure/sign/poster/contraband/syndicate_recruitment/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"uH" = (
+/obj/machinery/door/airlock/silver,
+/obj/effect/mapping_helpers/airlock/access/all/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3022,7 +3029,7 @@ at
 aQ
 aD
 aD
-bH
+uH
 bS
 ce
 cr

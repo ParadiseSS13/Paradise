@@ -6,7 +6,7 @@
 	// Client does not have 2FA enabled. Set it up.
 	if(prefs._2fa_status == _2FA_DISABLED)
 		// Get us an auth token
-		var/datum/http_response/qrcr = MakeAPICall(RUSTG_HTTP_METHOD_GET, "2fa/generate_qr?ckey=[ckey]")
+		var/datum/http_response/qrcr = MakeAPICall(RUSTLIBS_HTTP_METHOD_GET, "2fa/generate_qr?ckey=[ckey]")
 		// If this fails, shits gone bad
 		if(qrcr.errored)
 			alert(usr, "Something has gone VERY wrong ingame. Please inform the server host.\nError details: [qrcr.error]")
@@ -33,7 +33,7 @@
 			B.close()
 			return
 
-		var/datum/http_response/vr = MakeAPICall(RUSTG_HTTP_METHOD_GET, "2fa/validate_code?ckey=[ckey]&code=[entered_code]")
+		var/datum/http_response/vr = MakeAPICall(RUSTLIBS_HTTP_METHOD_GET, "2fa/validate_code?ckey=[ckey]&code=[entered_code]")
 		// If this fails, shits gone bad
 		if(vr.errored)
 			alert(usr, "Something has gone VERY wrong ingame. Please inform the server host.\nError details: [vr.error]")
@@ -55,12 +55,15 @@
 			return
 
 		// If we are here, they authed successfully
-		alert(usr, "Congratulations. 2FA is now setup properly for your account. In preferences, you can change whether you want it to ask for a code on every connection or only when your IP changes")
 		B.close()
 		// Default to IP change only
 		prefs._2fa_status = _2FA_ENABLED_IP
 		prefs.save_preferences(src)
 		prefs.ShowChoices(usr)
+		if(holder && holder.restricted_by_2fa)
+			reload_one_admin(ckey)
+			to_chat(usr, "<span class='notice'>2fa configured, admin verbs enabled.")
+		alert(usr, "Congratulations. 2FA is now setup properly for your account. In preferences, you can change whether you want it to ask for a code on every connection or only when your IP changes")
 		return
 
 
@@ -79,6 +82,10 @@
 			var/confirm = tgui_alert(usr, "Are you SURE you want to deactivate 2FA?", "WARNING", list("Yes", "No"))
 			if(confirm != "Yes")
 				return
+			if(holder && holder.needs_2fa())
+				confirm = tgui_alert(usr, "This will disable most of your admin permissions. Are you REALLY sure?", "WARNING", list("Yes", "No"))
+				if(confirm != "Yes")
+					return
 
 			// Prompt them for a code to make sure they know what they are doing
 			var/entered_code = input(usr, "Please enter a code from your auth app", "2FA Validation")
@@ -86,7 +93,7 @@
 				alert(usr, "2FA deactivation aborted!")
 				return
 
-			var/datum/http_response/vr = MakeAPICall(RUSTG_HTTP_METHOD_GET, "2fa/validate_code?ckey=[ckey]&code=[entered_code]")
+			var/datum/http_response/vr = MakeAPICall(RUSTLIBS_HTTP_METHOD_GET, "2fa/validate_code?ckey=[ckey]&code=[entered_code]")
 			// If this fails, shits gone bad
 			if(vr.errored)
 				alert(usr, "Something has gone VERY wrong ingame. Please inform the server host.\nError details: [vr.error]")
@@ -106,7 +113,12 @@
 			prefs._2fa_status = _2FA_DISABLED
 			prefs.save_preferences(src)
 			prefs.ShowChoices(usr)
+			if(holder && holder.needs_2fa())
+				reload_one_admin(ckey)
 			alert(usr, "2FA disabled successfully")
+
+/client/proc/has_2fa()
+	return prefs._2fa_status != _2FA_DISABLED
 
 /datum/preferences/proc/_2fastatus_to_text()
 	switch(_2fa_status)
