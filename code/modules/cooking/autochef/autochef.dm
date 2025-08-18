@@ -13,6 +13,10 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 	var/list/linked_machines = list()
 	var/list/linked_storages = list()
 	var/list/task_queue = list()
+	var/list/recipe_memory = list()
+
+	var/current_output
+	var/current_recipe
 
 	var/screen_icon_state
 	var/current_state = AUTOCHEF_IDLE
@@ -25,8 +29,7 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 
 /obj/machinery/autochef/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("Specify the desired output by using a food item on [src].")
-	. += SPAN_NOTICE("Start, pause, or restart [src] by clicking on it.")
+	. += SPAN_NOTICE("<b>Click</b> to access the interface.")
 	. += SPAN_NOTICE("<b>Alt-Click</b> to reset and clear all pending recipes.")
 
 /obj/machinery/autochef/Initialize(mapload)
@@ -59,18 +62,14 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 	if(..())
 		return
 
-	switch(current_state)
-		if(AUTOCHEF_IDLE, AUTOCHEF_INTERRUPTED)
-			if(panel_open)
-				atom_say("Please close panel before continuing.")
-				return
-			if(length(task_queue))
-				current_state = AUTOCHEF_RUNNING
-			else
-				atom_say("Please provide a food item to create.")
-		if(AUTOCHEF_RUNNING)
-			set_display(null)
-			current_state = AUTOCHEF_IDLE
+	if(panel_open)
+		to_chat(user, "<span class='notice'>[src]'s interface cannot be accessed with the panel open.")
+		return
+
+	if(stat & (NOPOWER|BROKEN))
+		return
+
+	ui_interact(user)
 
 /obj/machinery/autochef/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/storage/part_replacer) || (used.flags & ABSTRACT))
@@ -117,18 +116,36 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 			atom_say("Autochef running. Please wait.")
 			return ITEM_INTERACT_COMPLETE
 
-		if(length(task_queue))
-			task_queue.Cut()
-
-		var/datum/autochef_task/make_item/task = new(src, food_item.type)
-		task.repeating = TRUE
-		task_queue.Add(task)
-		set_display(null)
-		atom_say("Recipe selected: [initial(food_item.name)].")
+		recipe_memory |= food_item.type
+		atom_say("Adding [initial(food_item.name)] to memory.")
 	else
 		atom_say("Cannot make [initial(food_item.name)].")
 
 	return ITEM_INTERACT_COMPLETE
+
+/obj/machinery/autochef/proc/set_recipe(recipe_type)
+	current_recipe = recipe_type
+	if(length(task_queue))
+		task_queue.Cut()
+	var/obj/recipe_output = recipe_type
+	atom_say("Recipe selected: [initial(recipe_output::name)].")
+
+/obj/machinery/autochef/proc/toggle_state()
+	switch(current_state)
+		if(AUTOCHEF_IDLE, AUTOCHEF_INTERRUPTED)
+			set_display(null)
+			if(!length(recipe_memory) || !current_recipe)
+				atom_say("Please provide a food item to create.")
+				return
+			if(!length(task_queue))
+				var/datum/autochef_task/make_item/task = new(src, current_recipe)
+				task.repeating = TRUE
+				task_queue.Add(task)
+
+			current_state = AUTOCHEF_RUNNING
+		if(AUTOCHEF_RUNNING)
+			set_display(null)
+			current_state = AUTOCHEF_IDLE
 
 /obj/machinery/autochef/proc/find_recipes(target_type)
 	. = list()
@@ -199,6 +216,17 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 
 		return container
 
+/obj/machinery/autochef/proc/get_current_output_storage()
+	RETURN_TYPE(/obj/machinery/smartfridge)
+
+	if(current_output)
+		return current_output
+
+	for(var/i = length(linked_storages); i >= 1; i--)
+		var/obj/machinery/smartfridge/storage = linked_storages[i]
+		if(istype(storage))
+			return storage
+
 /obj/machinery/autochef/process()
 	if(!..())
 		return FALSE
@@ -248,3 +276,82 @@ RESTRICT_TYPE(/obj/machinery/autochef)
 	var/datum/autochef_task/current_task = task_queue[1]
 	current_task.current_state = AUTOCHEF_ACT_INTERRUPTED
 	set_display("screen-error")
+
+/obj/machinery/autochef/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/autochef/ui_data(mob/user)
+	. = list()
+
+	.["current_recipe"] = current_recipe
+	.["current_output"] = get_current_output_storage()?.UID()
+	.["current_state"] = current_state
+
+	.["linked_items"] = list()
+	for(var/obj/item in linked_cooking_containers + linked_machines + linked_storages)
+		.["linked_items"] += list(list(
+			"name" = item.name,
+			"icon" = item.icon,
+			"icon_state" = item.icon_state,
+			"uid" = item.UID(),
+			"storage" = istype(item, /obj/machinery/smartfridge),
+		))
+
+	.["task_queue"] = list()
+	for(var/datum/autochef_task/task in task_queue)
+		.["task_queue"] += list(list(
+			"desc" = task.human_readable_desc(),
+			"type" = "[task.type]",
+			"state" = task.current_state,
+			"repeating" = task.repeating,
+			"uid" = task.UID(),
+		))
+
+	.["recipe_memory"] = list()
+	for(var/obj/item/food/food_type as anything in recipe_memory)
+		.["recipe_memory"] += list(list(
+			"name" = food_type::name,
+			"icon" = food_type::icon,
+			"icon_state" = food_type::icon_state,
+			"type" = "[food_type]",
+		))
+
+/obj/machinery/autochef/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Autochef", name)
+		ui.open()
+
+/obj/machinery/autochef/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	switch(action)
+		if("toggle_state")
+			toggle_state()
+		if("set_recipe")
+			var/recipe_type = text2path(params["recipe"])
+			if(recipe_type)
+				set_recipe(recipe_type)
+			return TRUE
+		if("set_output")
+			var/new_output_uid = params["item"]
+			var/obj/new_output = locateUID(new_output_uid)
+			if(!istype(new_output))
+				return
+			current_output = new_output
+			return TRUE
+		if("unlink_item")
+			var/unlink_item_uid = params["item"]
+			var/atom/unlink_item = locateUID(unlink_item_uid)
+			if(!istype(unlink_item))
+				return
+			if(istype(unlink_item, /obj/item/reagent_containers/cooking))
+				linked_cooking_containers -= unlink_item
+				return TRUE
+			if(istype(unlink_item, /obj/machinery/cooking))
+				linked_machines -= unlink_item
+				return TRUE
+			if(istype(unlink_item, /obj/machinery/smartfridge))
+				linked_storages -= unlink_item
+				return TRUE
