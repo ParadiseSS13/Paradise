@@ -32,7 +32,7 @@ emp_act
 			return -1
 
 	//Shields
-	var/shield_check_result = check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration_flat, P.armour_penetration_percentage)
+	var/shield_check_result = check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK)
 	if(shield_check_result == 1)
 		return 2
 	else if(shield_check_result == -1)
@@ -242,7 +242,7 @@ emp_act
 //End Here
 
 
-/mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration_flat = 0, armour_penetration_percentage = 0)
+/mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK)
 	var/obj/item/shield = get_best_shield()
 	var/shield_result = shield?.hit_reaction(src, AM, attack_text, 0, damage, attack_type)
 	if(shield_result >= 1)
@@ -477,7 +477,7 @@ emp_act
 
 	if(user != src)
 		user.do_attack_animation(src)
-		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration_flat, I.armour_penetration_percentage))
+		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK))
 			return
 
 	send_item_attack_message(I, user, hit_area)
@@ -708,7 +708,7 @@ emp_act
 	. = ..()
 	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		if(check_shields(M, damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration_flat, M.armour_penetration_percentage))
+		if(check_shields(M, damage, "the [M.name]", MELEE_ATTACK))
 			return FALSE
 		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
@@ -723,7 +723,7 @@ emp_act
 	. = ..()
 	if(.)
 		var/damage = rand(attacker.melee_damage_lower, attacker.melee_damage_upper)
-		if(check_shields(attacker, damage, "[attacker.name]", MELEE_ATTACK, attacker.armour_penetration_flat, attacker.armour_penetration_percentage))
+		if(check_shields(attacker, damage, "[attacker.name]", MELEE_ATTACK))
 			return FALSE
 		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))

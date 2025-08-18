@@ -5369,11 +5369,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "beV" = (
-/obj/structure/transit_tube/station{
+/obj/structure/transit_tube/station/dispenser{
 	dir = 1
-	},
-/obj/structure/transit_tube_pod{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -7981,7 +7978,12 @@
 	},
 /area/station/medical/reception)
 "bDz" = (
-/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "co2_sensor"
+	},
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
 "bDA" = (
@@ -10309,6 +10311,7 @@
 /obj/structure/transit_tube/curved{
 	dir = 1
 	},
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "bZD" = (
@@ -10712,6 +10715,10 @@
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
+"cdH" = (
+/obj/effect/turf_decal/alphanumeric/mix,
+/turf/simulated/floor/engine/airless,
 /area/station/engineering/atmos)
 "cdM" = (
 /obj/structure/cable{
@@ -12732,6 +12739,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
+"czI" = (
+/obj/structure/transit_tube/curved/flipped{
+	dir = 1
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "czK" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -15197,6 +15211,13 @@
 "daJ" = (
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/bar)
+"daM" = (
+/obj/structure/transit_tube/curved{
+	dir = 4
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "daQ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -16885,6 +16906,9 @@
 "dss" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "n2_sensor"
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
@@ -24036,6 +24060,10 @@
 	icon_state = "cafeteria"
 	},
 /area/station/security/permabrig)
+"ePR" = (
+/obj/effect/turf_decal/alphanumeric/mix,
+/turf/simulated/floor/engine/airless/nodecay,
+/area/station/engineering/atmos/asteroid_filtering)
 "ePU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/circuitboard/thermomachine,
@@ -24371,6 +24399,11 @@
 	icon_state = "green"
 	},
 /area/station/command/bridge)
+"eUr" = (
+/obj/structure/transit_tube/curved/flipped,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "eUB" = (
 /obj/structure/table/wood,
 /obj/item/eftpos,
@@ -27961,8 +27994,9 @@
 /turf/simulated/floor/grass,
 /area/station/public/park)
 "fBf" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod"
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod 2 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
@@ -29474,7 +29508,12 @@
 	},
 /area/station/hallway/secondary/entry)
 "fPw" = (
-/obj/machinery/atmospherics/portable/canister/sleeping_agent,
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "n2o_sensor"
+	},
+/obj/machinery/atmospherics/portable/canister/sleeping_agent{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
 "fPx" = (
@@ -31040,12 +31079,6 @@
 	icon_state = "escape"
 	},
 /area/station/hallway/secondary/exit)
-"ghg" = (
-/obj/structure/transit_tube/curved/flipped{
-	dir = 1
-	},
-/turf/space,
-/area/space/nearstation)
 "ghi" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -40446,9 +40479,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools/auxiliary)
 "ibf" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "n2o_sensor"
-	},
+/obj/effect/turf_decal/alphanumeric/nitrous_oxide,
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
 "ibh" = (
@@ -40755,8 +40786,9 @@
 	},
 /area/station/security/storage)
 "iek" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod"
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod 3 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
@@ -43203,6 +43235,11 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
+"iDi" = (
+/obj/structure/transit_tube/curved,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "iDm" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -44887,6 +44924,10 @@
 "iTr" = (
 /obj/machinery/atmospherics/portable/canister/air{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "air_sensor";
+	output = 127
 	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
@@ -47630,9 +47671,7 @@
 	},
 /area/station/medical/storage)
 "jwh" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "n2_sensor"
-	},
+/obj/effect/turf_decal/alphanumeric/nitrogen,
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
 "jwm" = (
@@ -51247,10 +51286,7 @@
 	},
 /area/station/medical/surgery/secondary)
 "kgz" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "air_sensor";
-	output = 127
-	},
+/obj/effect/turf_decal/alphanumeric/air,
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
 "kgB" = (
@@ -57276,8 +57312,9 @@
 	},
 /area/station/medical/virology)
 "luf" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod"
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod 4 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore)
@@ -70651,7 +70688,8 @@
 /area/station/medical/virology)
 "ocI" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 1 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/west)
@@ -82451,10 +82489,8 @@
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
 "quR" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube/curved/flipped{
-	dir = 1
-	},
+/obj/structure/lattice/catwalk,
+/obj/structure/transit_tube,
 /turf/space,
 /area/space/nearstation)
 "qvk" = (
@@ -83646,6 +83682,7 @@
 /area/station/service/library)
 "qHs" = (
 /obj/structure/transit_tube/diagonal/topleft,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "qHD" = (
@@ -89558,10 +89595,7 @@
 	},
 /area/station/medical/chemistry)
 "rOk" = (
-/obj/structure/transit_tube_pod{
-	dir = 4
-	},
-/obj/structure/transit_tube/station,
+/obj/structure/transit_tube/station/dispenser,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -94713,6 +94747,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
 "sPc" = (
+/obj/structure/lattice/catwalk,
 /obj/structure/transit_tube/curved/flipped,
 /turf/space,
 /area/space/nearstation)
@@ -98135,7 +98170,12 @@
 /turf/simulated/floor/wood,
 /area/station/public/fitness)
 "twp" = (
-/obj/machinery/atmospherics/portable/canister/toxins,
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "tox_sensor"
+	},
+/obj/machinery/atmospherics/portable/canister/toxins{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/airless/nodecay,
 /area/station/engineering/atmos/asteroid_filtering)
 "twq" = (
@@ -101379,6 +101419,7 @@
 /obj/structure/transit_tube/diagonal/topleft{
 	dir = 1
 	},
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "ueb" = (
@@ -101737,6 +101778,11 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
+"uid" = (
+/obj/structure/transit_tube,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "uiH" = (
 /obj/structure/chair/sofa/corner{
 	dir = 1;
@@ -103085,6 +103131,9 @@
 "uwU" = (
 /obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "o2_sensor"
 	},
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
@@ -105245,9 +105294,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
 "uSE" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "co2_sensor"
-	},
+/obj/effect/turf_decal/alphanumeric/carbon_dioxide,
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
 "uSH" = (
@@ -108647,8 +108694,8 @@
 /turf/simulated/floor/carpet,
 /area/station/public/mrchangs)
 "vDx" = (
-/obj/structure/lattice,
 /obj/structure/transit_tube/junction/flipped,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "vDA" = (
@@ -111540,7 +111587,7 @@
 /obj/structure/transit_tube/junction/flipped{
 	dir = 1
 	},
-/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "wfQ" = (
@@ -111874,9 +111921,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
 "wiU" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "tox_sensor"
-	},
+/obj/effect/turf_decal/alphanumeric/plasma,
 /turf/simulated/floor/engine/airless/nodecay,
 /area/station/engineering/atmos/asteroid_filtering)
 "wiW" = (
@@ -116195,9 +116240,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
 "xgu" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "o2_sensor"
-	},
+/obj/effect/turf_decal/alphanumeric/oxygen,
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
 "xgv" = (
@@ -121455,8 +121498,10 @@
 	},
 /area/station/security/prisonershuttle)
 "yip" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube/diagonal/topleft,
+/obj/structure/lattice/catwalk,
+/obj/structure/transit_tube/curved{
+	dir = 8
+	},
 /turf/space,
 /area/space/nearstation)
 "yiq" = (
@@ -134973,8 +135018,8 @@ jnP
 aZS
 mjs
 cyu
-rjt
 fbb
+ePR
 eGJ
 aZS
 wXG
@@ -139135,8 +139180,8 @@ jnP
 aZS
 cEY
 wKB
-pSq
 jNm
+cdH
 lkm
 iZC
 mrw
@@ -164690,17 +164735,17 @@ wDu
 jnP
 jnP
 jnP
-jnP
-jnP
-jnP
-jnP
-jnP
-jnP
-jnP
-jnP
-jnP
-jnP
-jnP
+wXf
+wXf
+wXf
+wXf
+wXf
+wXf
+wXf
+wXf
+wXf
+wXf
+wXf
 jnP
 jnP
 jnP
@@ -164948,15 +164993,15 @@ jnP
 jnP
 jnP
 jnP
+aZS
 jnP
 jnP
 jnP
+aZS
 jnP
 jnP
 jnP
-jnP
-jnP
-jnP
+aZS
 jnP
 jnP
 jnP
@@ -165972,15 +166017,15 @@ cQi
 egV
 riH
 xVI
-lju
-ghg
+uid
+czI
+tHM
 jnP
-wXf
+jnP
 jnP
 jnP
 jnP
 aZS
-jnP
 jnP
 jnP
 jnP
@@ -166229,15 +166274,15 @@ pYE
 flb
 oCC
 eJG
-jnP
-jnP
+aZS
+tHM
 qHs
+tHM
 aZS
-tEb
-jnP
-jnP
 aZS
-jnP
+aZS
+aZS
+aZS
 jnP
 jnP
 jnP
@@ -166488,15 +166533,15 @@ beV
 eJG
 aZS
 aZS
-aZS
+tHM
 vDx
-iWM
+uid
 quR
+czI
+tHM
 aZS
-aZS
-aZS
-aZS
-aZS
+jnP
+jnP
 jnP
 jnP
 aZS
@@ -166743,20 +166788,20 @@ cAE
 cbB
 uBd
 eJG
-jnP
-jnP
+aZS
+tHM
 udY
+tHM
 aZS
-tEb
-jnP
-yip
-jnP
-jnP
-jnP
 aZS
-wXf
+tHM
+daM
 aZS
-cLk
+aZS
+jnP
+jnP
+tHM
+iDi
 jLp
 qyt
 jkd
@@ -167000,20 +167045,20 @@ cAE
 odG
 ecq
 pgp
-lju
+uid
 bZs
+tHM
 jnP
-wXf
 jnP
 jnP
 aZS
 yip
+tHM
 aZS
-wXf
-wXf
 aZS
+tHM
 udY
-aZS
+tHM
 aoy
 ceu
 htN
@@ -167258,18 +167303,18 @@ cAE
 cAE
 cAE
 aZS
-aZS
-aZS
-aZS
-aZS
 jnP
 jnP
-aZS
+jnP
+jnP
+jnP
+jnP
+tHM
 sPc
-lju
-lju
+uid
+uid
 wfN
-jnP
+tHM
 aZS
 aoy
 rOk
@@ -167523,11 +167568,11 @@ aZS
 aZS
 aZS
 aZS
-wXf
-wXf
 aZS
+aZS
+tHM
 qHs
-aZS
+tHM
 aoy
 asn
 jCk
@@ -167782,9 +167827,9 @@ jnP
 aZS
 jnP
 jnP
-wXf
-aZS
-lLu
+jnP
+tHM
+eUr
 xxl
 hLb
 bEB
@@ -168292,12 +168337,12 @@ ewS
 nuJ
 aZS
 aZS
-aZS
-aZS
-aZS
-aZS
-aZS
-aZS
+wXf
+wXf
+wXf
+wXf
+wXf
+wXf
 aZS
 aZS
 aZS
@@ -168548,9 +168593,9 @@ lkR
 bNJ
 nuJ
 nuJ
-jnP
-jnP
 aZS
+jnP
+jnP
 jnP
 jnP
 jnP
@@ -168806,8 +168851,8 @@ sHN
 ugn
 nuJ
 aZS
-aZS
-aZS
+jnP
+jnP
 jnP
 jnP
 jnP
