@@ -71,7 +71,7 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/reagent_containers))
-		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
+		return ..()
 
 	if(my_bag)
 		if(my_bag.can_be_inserted(used))
