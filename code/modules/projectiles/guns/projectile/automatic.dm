@@ -100,6 +100,11 @@
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
 
+/obj/item/gun/projectile/automatic/proto/update_overlays()
+	. = list()
+	if(suppressed)
+		. += image(icon = 'icons/tgmc/objects/attachments.dmi', icon_state = "suppressor_attached", pixel_x = 30, pixel_y = 17)
+
 //////////////////////////////
 // MARK: C-20R SMG
 //////////////////////////////
