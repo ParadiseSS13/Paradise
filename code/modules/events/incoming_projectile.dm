@@ -1,25 +1,45 @@
 #define ARRIVAL_MIN 210
 #define ARRIVAL_MAX 300
 
-/datum/event/super_tunguska
-	name = "Super Tunguska"
+/datum/event/incoming_projectile
+	name = "Incoming Projectile"
 	noAutoEnd = TRUE
 	// nominal_severity = EVENT_LEVEL_MAJOR
 	// role_weights = list(ASSIGNMENT_ENGINEERING = 4)
 	// role_requirements = list(ASSIGNMENT_ENGINEERING = 5)
 	/// The variant of super tunguska that is about to hit the station
-	var/datum/super_tunguska_variant/variant
+	var/datum/incoming_projectile_variant/variant
 	/// When the super tunguska will spawn at the station Z level
 	var/arrival_time
+	/// Whether we already launched the projectile
 	var/launched = FALSE
+	/// Alert for Dchat
 	var/atom/movable/screen/alert/augury/meteor/screen_alert
+	/// Start turf of our projectile
 	var/turf/start
+	/// Initial target of our projectile
 	var/turf/end
+	/// Where we expect our projectile to hit the station
 	var/turf/expected_impact
 
-/datum/event/super_tunguska/setup()
-	var/type = pick(typesof(/datum/super_tunguska_variant/artillery))
-	variant = new type
+/datum/event/incoming_projectile/New(datum/event_meta/EM, skeleton, force_variant)
+	. = ..()
+	variant = force_variant
+
+/datum/event/incoming_projectile/setup()
+	if(!variant)
+		var/list/types = typesof(/datum/incoming_projectile_variant/artillery)
+		for(var/type in types)
+			variant = new type
+			if(!variant.can_roll)
+				types -= type
+			qdel(variant)
+
+		var/type = pick(types)
+		variant = new type
+	else
+		variant = new variant
+
 	var/list/turfs = across_map_center()
 	if(length(turfs) == 2)
 		start = turfs[1]
@@ -45,10 +65,10 @@
 			expected_impact = curr_turf
 			break
 
-/datum/event/super_tunguska/announce(false_alarm)
+/datum/event/incoming_projectile/announce(false_alarm)
 	variant.announce(arrival_time, expected_impact)
 
-/datum/event/super_tunguska/tick()
+/datum/event/incoming_projectile/tick()
 	if(arrival_time < activeFor && !launched)
 		for(var/mob/dead/observer/O in GLOB.dead_mob_list)
 			var/atom/movable/screen/alert/augury/meteor/A = O.throw_alert("\ref[src]_augury", /atom/movable/screen/alert/augury/meteor)
@@ -61,16 +81,17 @@
 
 //MARK: Variant Datums
 
-/datum/super_tunguska_variant
-	var/announcement_message = "Super Tunguska class meteor detected on collision course with the station\
+/datum/incoming_projectile_variant
+	var/announcement_message = "Meteor detected on collision course with the station\
 	\nAll engineers are instructed to fortify the projected impact area"
-	var/announcement_title = "Super Tunguska Alert"
-	var/list/meteor_types = list(/obj/effect/meteor/super_tunguska)
+	var/announcement_title = "Meteor Alert"
+	var/list/meteor_types = list(/obj/effect/meteor)
+	var/can_roll = TRUE
 
-/datum/super_tunguska_variant/proc/launch(start, end)
+/datum/incoming_projectile_variant/proc/launch(start, end)
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteor_targeted), meteor_types, start, end)
 
-/datum/super_tunguska_variant/proc/announce(arrival_time, turf/expected_impact)
+/datum/incoming_projectile_variant/proc/announce(arrival_time, turf/expected_impact)
 	var/bearing = arctan((world.maxx / 2) - expected_impact.x, (world.maxy / 2) - expected_impact.y)
 	bearing = bearing < 0 ? 90 - bearing : (bearing > 90 ? 450 - bearing : 90 - bearing)
 	var/announce_text = announcement_message + \
@@ -80,9 +101,11 @@
 	"\nBearing: [bearing]° [bearing_to_dir_text(bearing)]"
 	GLOB.major_announcement.Announce(announce_text, announcement_title, new_sound = 'sound/AI/meteors.ogg')
 
+// MARK: Super Tunguska Datum
+
 
 // MARK: Artillery Variant
-/datum/super_tunguska_variant/artillery
+/datum/incoming_projectile_variant/artillery
 	announcement_message = "Armor penetrating artillery shell detected on collision course with the station\
 	\nAll engineers are instructed to fortify the projected impact area"
 	announcement_title = "Artillery Misfire"
