@@ -84,6 +84,9 @@
 	initialize_controller_action_type(/datum/action/vehicle/skateboard/kickflip, VEHICLE_CONTROL_DRIVE)
 
 /obj/tgvehicle/scooter/skateboard/post_buckle_mob(mob/living/M)//allows skateboards to be non-dense but still allows 2 skateboarders to collide with each other
+	if(M.pulling)
+		M.stop_pulling()
+		to_chat(M, "<span class='warning'>You can't pull things along while skateboarding!</span>")
 	set_density(TRUE)
 	return ..()
 

@@ -702,11 +702,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/obj/item/clothing/glasses/mob_glasses = glasses
 		var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 		var/worn_layer
-		if((istype(mob_glasses) && mob_glasses.over_mask) || hair_style?.glasses_over)
+		if(istype(mob_glasses) && mob_glasses.over_mask)
 			worn_layer = OVER_MASK_LAYER
+		else if(hair_style?.glasses_over)
+			worn_layer = GLASSES_OVER_LAYER
 		else
 			worn_layer = GLASSES_LAYER
-
 		var/mutable_appearance/standing = mutable_appearance(worn_icon, worn_icon_state, layer = -worn_layer)
 
 		overlays_standing[worn_layer] = standing

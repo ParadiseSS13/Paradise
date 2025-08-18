@@ -5,7 +5,6 @@
 	name = "insulated gloves"
 	desc = "A pair of rubber-lined industrial gloves. They'll protect the wearer from electrical shocks."
 	icon_state = "yellow"
-	inhand_icon_state = "ygloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.01
 	item_color = "yellow"
@@ -19,7 +18,6 @@
 	name = "budget insulated gloves"
 	desc = "A pair of knock-off insulated gloves. They might stop a shock, but it'll be a gamble."
 	icon_state = "yellow"
-	inhand_icon_state = "ygloves"
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
 	permeability_coefficient = 0.01
 	item_color = "yellow"

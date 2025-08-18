@@ -256,28 +256,39 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	if(!BL.data || !BL.data["viruses"])
 		return
 	for(var/datum/disease/advance/D in BL.data["viruses"])
+		// Assume we succeed for each virus and change that if we found out it's wrong
+		var/valid = TRUE
+		var/missing_symptoms = list()
+		// We have the wrong numnber of symptoms. Complain about it if possible and required, then go to next virus.
 		if(length(D.symptoms) != length(goal_symptoms))
-			if(simulate || !manifest || !complain)
-				continue
-			var/datum/economy/line_item/item = new
-			item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
-			item.credits = 0
-			item.reason = "Virus [D.name] has the wrong number of symptoms for [name] ([length(D.symptoms)] is not [length(goal_symptoms)])."
-			manifest.line_items += item
-			continue
-		for(var/S in goal_symptoms)
-			var/datum/symptom/SY = locate(S) in D.symptoms
-			if(!SY)
-				if(simulate || !manifest || !complain)
-					continue
+			valid = FALSE
+			if(!simulate && manifest && complain)
 				var/datum/economy/line_item/item = new
 				item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
 				item.credits = 0
-				item.reason = "Virus [D.name] is missing symptom [initial(SY.name)] for [name]."
+				item.reason = "Virus [D.name] has the wrong number of symptoms for [name] ([length(D.symptoms)] is not [length(goal_symptoms)])."
+			continue
+
+		// Check if we have all symptoms we need, and list the ones we don't.
+		for(var/S in goal_symptoms)
+			var/datum/symptom/SY = locate(S) in D.symptoms
+			if(!SY)
+				valid = FALSE
+				missing_symptoms += initial(SY.name)
+
+
+		// We are missing some symptoms we need. Complain about it if possible and required, then go to next virus.
+		if(!valid)
+			if(!simulate && manifest && complain)
+				var/datum/economy/line_item/item = new
+				item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
+				item.credits = 0
+				item.reason = "Virus [D.name] is missing symptoms [english_list(missing_symptoms)] for [name]."
 				manifest.line_items += item
-				return
-			if(simulate)
-				return TRUE
+			continue
+
+		if(simulate)
+			return TRUE
 		if(manifest)
 			var/datum/economy/line_item/item = new
 			item.account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_MEDICAL)
