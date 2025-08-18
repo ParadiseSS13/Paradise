@@ -195,21 +195,25 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 			continue
 
 		var/obj/obstacle = thing
-		if(obstacle.obj_integrity <= 0)
-			// It's already broken.
-			continue
-
-		if(!obstacle.density)
-			// Doesn't block our way, but we still damage it on our way past.
-			obstacle.ex_act(explosion_strength)
-			continue
-
-		. = TRUE // Hit an object.
-		if(!ram_obstacle(obstacle))
+		if(!obstacle_act(obstacle))
 			return
+
+		. = TRUE // Hit an obstacle
 
 	// Do some damage to the floor (if any) in passing.
 	T.ex_act(explosion_strength)
+
+/obj/effect/meteor/proc/obstacle_act(obj/obstacle)
+	if(obstacle.obj_integrity <= 0)
+		// It's already broken.
+		return TRUE
+
+	if(!obstacle.density)
+		// Doesn't block our way, but we still damage it on our way past.
+		obstacle.ex_act(explosion_strength)
+		return TRUE
+
+	return ram_obstacle(obstacle)
 
 /obj/effect/meteor/proc/ram_obstacle(obj/obstacle)
 	var/damage_needed = obstacle.calculate_oneshot_damage(BRUTE, MELEE)
@@ -478,7 +482,12 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	meteorsound = 'sound/effects/bamf.ogg'
 	meteordrop = list()
 	spin = FALSE
+	/// Timer on our explosion that ticks down each move
 	var/timer = 0
+	/// The angle our icon is rotated by
+	var/rotation = 0
+	/// Did we hit anything yet?
+	var/first_hit = FALSE
 
 /obj/effect/meteor/artillery/Initialize(mapload, target)
 	. = ..()
@@ -486,21 +495,38 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	var/turf/end = get_turf(target)
 	var/angle = arctan(end.x - x, end.y - y)
 	icon = turn(icon, -angle)
+	rotation = angle
 
 /obj/effect/meteor/artillery/Move(atom/destination)
-	. = ..()
+	var/obj/machinery/field/containment/field = locate() in destination
+	if(field)
+		var/turf/goal = dest
+		GLOB.move_manager.stop_looping(src)
+		if(field.dir & (NORTH|SOUTH))
+			goal = locate(world.maxx - goal.x + 1, goal.y, goal.z)
+		else
+			goal = locate(goal.x, world.maxy - goal.y + 1, goal.z)
+		dest = goal
+		chase_target(goal)
+		icon = turn(icon, rotation)
+		var/angle = arctan(goal.x - x, goal.y - y)
+		icon = turn(icon, -angle)
+		rotation = angle
+
+		return
 	timer--
 	if(timer <= 0)
 		meteor_effect()
 		qdel(src)
+		return
+	. = ..()
 
 /obj/effect/meteor/artillery/meteor_effect()
 	..()
-	for(var/i in 1 to 2)
-		explosion(loc, 6, 11, 23, 30, 0, cause = "[name]: End explosion", ignorecap = TRUE)
+	explosion(loc, 3, 7, 15, 20, 0, cause = "[name]: End explosion")
 
 /obj/effect/meteor/artillery/ram_obstacle(obj/obstacle)
-	// Normal objects affect the super tunguska less
+	// AP shell go brrr
 	var/damage_needed = obstacle.calculate_oneshot_damage(BRUTE, MELEE) / 3
 	if(obj_integrity > damage_needed)
 		obj_integrity -= damage_needed

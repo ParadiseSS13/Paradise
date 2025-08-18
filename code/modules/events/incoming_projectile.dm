@@ -7,7 +7,7 @@
 	// nominal_severity = EVENT_LEVEL_MAJOR
 	// role_weights = list(ASSIGNMENT_ENGINEERING = 4)
 	// role_requirements = list(ASSIGNMENT_ENGINEERING = 5)
-	/// The variant of super tunguska that is about to hit the station
+	/// The variant of projectile that is about to hit the station
 	var/datum/incoming_projectile_variant/variant
 	/// When the super tunguska will spawn at the station Z level
 	var/arrival_time
@@ -24,22 +24,22 @@
 
 /datum/event/incoming_projectile/New(datum/event_meta/EM, skeleton, force_variant)
 	. = ..()
-	variant = force_variant
-
-/datum/event/incoming_projectile/setup()
-	if(!variant)
+	if(force_variant)
+		variant = new force_variant
+	else
 		var/list/types = typesof(/datum/incoming_projectile_variant/artillery)
 		for(var/type in types)
 			variant = new type
 			if(!variant.can_roll)
 				types -= type
 			qdel(variant)
+			variant = null
 
 		var/type = pick(types)
 		variant = new type
-	else
-		variant = new variant
 
+
+/datum/event/incoming_projectile/setup()
 	var/list/turfs = across_map_center()
 	if(length(turfs) == 2)
 		start = turfs[1]
@@ -101,10 +101,23 @@
 	"\nBearing: [bearing]° [bearing_to_dir_text(bearing)]"
 	GLOB.major_announcement.Announce(announce_text, announcement_title, new_sound = 'sound/AI/meteors.ogg')
 
-// MARK: Super Tunguska Datum
+// Super Tunguska Datum
+/datum/incoming_projectile_variant/super_tunguska
+	announcement_message = "Super Tunguska class meteor detected on collision course with the station\
+	\nAll engineers are instructed to fortify the projected impact area"
+	announcement_title = "Super Tunguska Alert"
+	meteor_types = list(/obj/effect/meteor/super_tunguska)
+	can_roll = FALSE
 
+// Tunguska Datum
+/datum/incoming_projectile_variant/tunguska
+	announcement_message = "Tunguska class meteor detected on collision course with the station\
+	\nAll engineers are instructed to fortify the projected impact area"
+	announcement_title = "Tunguska Alert"
+	meteor_types = list(/obj/effect/meteor/super_tunguska)
+	can_roll = FALSE
 
-// MARK: Artillery Variant
+// Artillery Variant
 /datum/incoming_projectile_variant/artillery
 	announcement_message = "Armor penetrating artillery shell detected on collision course with the station\
 	\nAll engineers are instructed to fortify the projected impact area"
