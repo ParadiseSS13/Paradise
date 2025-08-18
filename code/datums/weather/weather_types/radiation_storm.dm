@@ -1,19 +1,19 @@
 //Radiation storms occur when the station passes through an irradiated area, and irradiate anyone not standing in protected areas (maintenance, emergency storage, etc.)
 /datum/weather/rad_storm
-	name = "radiation storm"
-	desc = "A cloud of intense radiation passes through the area dealing rad damage to those who are unprotected."
+	name = "радиационный шторм"
+	desc = "Станция проходит через радиационный пояс высокой интенсивности, облучающее всех, кому не повезло оказаться без защиты."
 
 	telegraph_duration = 400
-	telegraph_message = "<span class='danger'>The air begins to grow warm.</span>"
+	telegraph_message = "<span class='danger'>Вам кажется, что воздух вокруг становится теплее.</span>"
 
-	weather_message = "<span class='userdanger'><i>You feel waves of heat wash over you! Find shelter!</i></span>"
+	weather_message = "<span class='userdanger'><i>Вы чувствуете, как вас окутывают волны жара! Срочно найдите укрытие!</i></span>"
 	weather_overlay = "ash_storm"
 	weather_duration_lower = 600
 	weather_color = "green"
 	weather_sound = 'sound/misc/bloblarm.ogg'
 
 	end_duration = 100
-	end_message = "<span class='notice'>The air seems to be cooling off again.</span>"
+	end_message = "<span class='notice'>Воздух, кажется, остывает обратно...</span>"
 	var/pre_maint_all_access
 	area_types = list(/area)
 	protected_areas = list(

@@ -3,18 +3,18 @@
 /// MARK: Ash Storm
 //Ash storms happen frequently on lavaland. They heavily obscure vision, and cause high fire damage to anyone caught outside.
 /datum/weather/ash_storm
-	name = "Ash storm"
-	desc = "An intense atmospheric storm lifts ash off of the planet's surface and billows it down across the area, dealing intense fire damage to the unprotected."
+	name = "пепельный шторм"
+	desc = "Интенсивный шторм поднимает горячий пепел с поверхности планеты и обрушивает его на всю округу, обжигая всех, кому не повезло оказаться снаружи без защиты."
 
-	telegraph_message = "<span class='boldwarning'>An eerie moan rises on the wind. Sheets of burning ash blacken the horizon. Seek shelter.</span>"
+	telegraph_message = "<span class='boldwarning'>Далёкий ветер разносит жуткий стон. Горизонт застилают тучи пепла и чёрного дыма. Поскорее найдите укрытие.</span>"
 	telegraph_overlay = "light_ash"
 
-	weather_message = "<span class='userdanger'><i>Smoldering clouds of scorching ash billow down around you! Get inside!</i></span>"
+	weather_message = "<span class='userdanger'><i>Вокруг вас сгущаются облака жгучего пепла! Немедленно прячьтесь внутрь!</i></span>"
 	weather_duration_lower = 600
 	weather_duration_upper = 1200
 	weather_overlay = "ash_storm"
 
-	end_message = "<span class='boldannounceic'>The shrieking wind whips away the last of the ash and falls to its usual murmur. It should be safe to go outside now.</span>"
+	end_message = "<span class='boldannounceic'>Ветер уносит от вас остатки пепла и возвращается к своему привычному тихому гулу. Теперь можно безопасно выходить наружу.</span>"
 	end_overlay = "light_ash"
 
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
@@ -87,8 +87,8 @@
 /// MARK: Heavy Ash Storm
 // Radar needed to detect the difference, but shouldnt matter much
 /datum/weather/ash_storm/heavy
-	name = "Heavy ash storm"
-	desc = "An even more intense atmospheric storm lifts ash off of the planet's surface and billows it down across the area, dealing intense fire damage to the unprotected."
+	name = "сильный пепельный шторм"
+	desc = "Ещё более интенсивный шторм поднимает горячий пепел с поверхности планеты и обрушивает его на всю округу, обжигая всех, кому не повезло оказаться снаружи без защиты."
 
 	//lasts longer
 	weather_duration_lower = 800
@@ -102,27 +102,27 @@
 /// MARK: Emberfall
 //Emberfalls are the result of an ash storm passing by close to the playable area of lavaland. They have a 10% chance to trigger in place of an ash storm.
 /datum/weather/ash_storm/emberfall
-	name = "Emberfall"
-	desc = "A passing ash storm blankets the area in harmless embers."
+	name = "пеплопад"
+	desc = "Пролетающий мимо пепельный шторм покрывает местность безвредными тлеющими угольками."
 
-	weather_message = "<span class='notice'>Gentle embers waft down around you like grotesque snow. The storm seems to have passed you by...</span>"
+	weather_message = "<span class='notice'>Тлеющие угольки медленно осыпаются вокруг вас, словно странный снег. Кажется, в этот раз шторм обошёл вас стороной...</span>"
 	weather_overlay = "light_ash"
 
-	end_message = "<span class='notice'>The emberfall slows, stops. Another layer of hardened soot to the basalt beneath your feet.</span>"
+	end_message = "<span class='notice'>Пеплопад постепенно замедляется и угасает. Очередной слой сажи оседает на землю под вами...</span>"
 	end_sound = null
 
 	aesthetic = TRUE
 
 /// MARK: Volcano
 /datum/weather/volcano
-	name = "Volcanic activity"
-	desc = "The shifting tectonic forces on the unstable planet have caused volcanic activity in the area. New rivers/chasms will form and chunks of rock will rain from the sky."
+	name = "вулканический выброс"
+	desc = "Сдвиг тектонических плит на планете вызвал вулканическую активность в этом районе. Образуются новые лавовые реки и бездонные пропасти, а с неба обрушатся обломки горных пород."
 
-	telegraph_message = "<span class='boldwarning'><i>The ground rumbles with an ominous strength, threatening to shift below you. Seek shelter.</i></span>"
+	telegraph_message = "<span class='boldwarning'><i>Земля под вами дрожжит с пугающей силой, грозя расколоться. Поскорее найдите укрытие.</i></span>"
 	telegraph_duration = 600
 	telegraph_sound = 'sound/weather/volcano/lavaland_volcano_warning.ogg'
 
-	weather_message = "<span class='userdanger'><i>A massive plume of smoke and magma can be seen billowing in the distance. The ground quakes and threatens to split. Find shelter now!.</i></span>"
+	weather_message = "<span class='userdanger'><i>Вдали виден огромный столб дыма и лавы. Земля под вами трясётся и грозит расколоться. Немедленно прячьтесь внутрь!</i></span>"
 	weather_duration_lower = 600
 	weather_duration_upper = 1200
 	weather_sound = 'sound/weather/volcano/lavaland_volcano_eruption.ogg'
@@ -244,19 +244,19 @@
 
 /// MARK: Acid Rain
 /datum/weather/acid
-	name = "Acidic rain"
-	desc = "Emissions of sulfur and carbon into the atmosphere results in the formation of acid particulate in the ashen clouds. Eventually, enough collects that it will fall back down as sulfuric acid rain. NT brand shelter pods capsules are not rated for this level of acid."
+	name = "кислотный дождь"
+	desc = "Выбросы серы и углерода в атмосферу приводят к образованию кислотных частиц в облаках пепла. В конечном итоге их накапливается достаточно, чтобы сконденсироваться и выпасть обратно в виде сернокислотных дождей. Шахтерские капсулы-убежища Нанотрейзен не рассчитаны на такую концентрацию кислоты."
 
-	telegraph_message = "<span class='boldwarning'><i>The sound of tiny drops begins to splatter against the ground, sizzling against the ash and stone. Seek shelter.</i></span>"
+	telegraph_message = "<span class='boldwarning'><i>Вы слышите звуки падения капель и следующее за ними кислотное шипение. Поскорее найдите укрытие.</i></span>"
 	telegraph_duration = 600
 	telegraph_overlay = "light_ash"
 
-	weather_message = "<span class='userdanger'><i>Acidic rain begins to pour down in thick sheets, melting rock and flesh alike. Get inside now!</i></span>"
+	weather_message = "<span class='userdanger'><i>Кислотный дождь начинает обильно выпадать, расплавляя и плоть, и породу. Немедленно прячьтесь внутрь!</i></span>"
 	weather_duration_lower = 600
 	weather_duration_upper = 1200
 	weather_overlay = "acid_rain"
 
-	end_message = "<span class='boldannounceic'>The pitter of acidic dropples slows to silence. It should be safe to go outside now.</span>"
+	end_message = "<span class='boldannounceic'>Стук кислотных капель постепенно затихает. Теперь можно безопасно выходить наружу.</span>"
 	end_overlay = "light_ash"
 
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
@@ -361,19 +361,19 @@
 
 /// MARK: Wind Storm
 /datum/weather/wind
-	name = "High-velocity wind"
-	desc = "High-pressure barometrics in the area have caused a radical change in air pressure, resulting in high-speed winds in the immediate vicinity."
+	name = "ураган"
+	desc = "Высокие барометрические значения в этом районе стали причиной радикального изменения давления воздуха, что привело к возникновению сильнейшего урагана."
 
-	telegraph_message = "<span class='boldwarning'><i>The wind begins to pick up, whipping against your body with an ominous intensity. Seek shelter.</i></span>"
+	telegraph_message = "<span class='boldwarning'><i>Ветер усиливается, обдавая ваше тело с угрожающей силой. Поскорее найдите укрытие.</i></span>"
 	telegraph_duration = 600
 	telegraph_overlay = "light_ash"
 
-	weather_message = "<span class='userdanger'><i>The wind rises into a furious rage, kicking up dirt and ash in its wake. Get inside now!</i></span>"
+	weather_message = "<span class='userdanger'><i>Ветер яростно усиливается, поднимая в воздух пыль и пепел. Немедленно прячьтесь внутрь!</i></span>"
 	weather_duration_lower = 600
 	weather_duration_upper = 1200
 	weather_overlay = "wind"
 
-	end_message = "<span class='boldannounceic'>The wind calms into its normal rhythms, dust settling back to the ashen surface. It should be safe to go outside now.</span>"
+	end_message = "<span class='boldannounceic'>Ветер успокаивается, возвращаясь к своему обычному ритму, а пыль оседает на пепельную поверхность. Теперь можно безопасно выходить наружу.</span>"
 	end_overlay = "light_ash"
 
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
