@@ -29158,7 +29158,7 @@
 	name = "Aft Asteroid Maintenance"
 	},
 /turf/simulated/floor/plasteel/white,
-/area/station/science/xenobiology)
+/area/station/maintenance/apmaint)
 "eFn" = (
 /obj/structure/cable/orange{
 	icon_state = "2-4"
@@ -29247,7 +29247,7 @@
 /obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
 /obj/effect/mapping_helpers/airlock/access/any/science/tox,
 /turf/simulated/floor/plasteel/white,
-/area/station/science/test_chamber)
+/area/station/maintenance/apmaint)
 "eGB" = (
 /obj/effect/turf_decal/caution/red{
 	dir = 4
@@ -105862,7 +105862,7 @@
 /obj/effect/mapping_helpers/airlock/access/any/science/tox,
 /obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
 /turf/simulated/floor/plasteel/white,
-/area/station/science/misc_lab)
+/area/station/maintenance/apmaint)
 "uWB" = (
 /mob/living/basic/bunny{
 	desc = "It's Spaghetti, the official bnuy of Atmospherics. Appropriately named after the jumbled mess of piping.";

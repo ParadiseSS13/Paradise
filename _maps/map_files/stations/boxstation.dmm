@@ -62067,7 +62067,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/station/science/hallway)
+/area/station/maintenance/asmaint2)
 "kKJ" = (
 /obj/structure/chair{
 	dir = 8
@@ -72147,7 +72147,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plating,
-/area/station/supply/warehouse)
+/area/station/maintenance/port)
 "pIR" = (
 /obj/structure/cable{
 	icon_state = "4-8"
