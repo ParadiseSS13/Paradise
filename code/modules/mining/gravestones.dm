@@ -14,13 +14,15 @@
 
 /obj/structure/grave/Initialize(mapload)
 	. = ..()
-	if(!istype(get_turf(src),/turf/simulated/floor/plating/asteroid/))
+	var/turf/item_turf = get_turf(src)
+	if(!ispath(item_turf.baseturf, /turf/simulated/floor/plating/asteroid))
 		var/obj/item/stack/ore/glass/sand_pile = new /obj/item/stack/ore/glass(get_turf(src))
 		sand_pile.amount = 5
 		visible_message("<span class='danger'>With nowhere to dig, [src] falls apart.</span>")
-		// In case somehow something is buried here
+		// In case somehow something is buried here already
 		dig_up()
 		qdel(src)
+		return
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/grave/examine(mob/user)
@@ -35,9 +37,10 @@
 
 /obj/structure/grave/update_icon_state()
 	. = ..()
-	if(istype(get_turf(src), /turf/simulated/floor/plating/asteroid/basalt))
+	var/turf/item_turf = get_turf(src)
+	if(ispath(item_turf.baseturf, /turf/simulated/floor/plating/asteroid/basalt))
 		icon_state = "grave_basalt"
-	else // Asteroid turfs, and a default in case the grave gets moves somehow
+	else
 		icon_state = "grave_sand"
 	if(buried)
 		icon_state += "_closed"
@@ -79,6 +82,7 @@
 			return ITEM_INTERACT_COMPLETE
 		visible_message("<span class='danger'>[user] starts to bury [G.affecting] in the [src]!</span>", \
 			"<span class='userdanger'>[user] starts to bury [G.affecting]!</span>")
+		to_chat(G.affecting, "<span class='danger'>[user] is burying you alive!</span>")
 		log_admin("[user] started to bury [G.affecting] in [src]")
 		if(do_after(user, 10 SECONDS, target = G.affecting))
 			bury(user, G.affecting)
@@ -96,7 +100,8 @@
 	return vacuum
 
 /obj/structure/grave/container_resist(mob/living)
-	if(do_after(living, 30 SECONDS))
+	to_chat(living, "<span class='danger'>You begin to dig out of [src]! This will take about 30 seconds.</span>")
+	if(do_after(living, 30 SECONDS, target = src))
 		dig_up()
 
 /obj/structure/grave/proc/bury(mob/living/user, atom/thing_to_bury)
