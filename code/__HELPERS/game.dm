@@ -26,7 +26,7 @@
 
 /proc/get_open_turf_in_dir(atom/center, dir)
 	var/turf/T = get_ranged_target_turf(center, dir, 1)
-	if(T && !T.density)
+	if(T && !T.density && !(locate(/obj/structure/window) in T))
 		return T
 
 /proc/get_adjacent_open_turfs(atom/center)
