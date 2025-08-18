@@ -116,7 +116,7 @@
 	var/outer_msg = "[user] succeeds in fixing some of [target]'s [damage_name_pretty]"
 	var/self_msg = "You successfully manage to patch up some of [target]'s [damage_name_pretty]"
 
-	if(target.stat == DEAD) //dead patients get way less additional heal from the damage they have.
+	if(target.stat == DEAD)
 		brute_healed += round((target.getBruteLoss() * (brute_damage_healmod * 0.2)), 0.1)
 		burn_healed += round((target.getFireLoss() * (burn_damage_healmod * 0.2)), 0.1)
 	else
@@ -142,7 +142,6 @@
 
 		COOLDOWN_START(src, success_message_spam_cooldown, 10 SECONDS)
 
-	// retry ad nauseum; can_repeat should handle anything else.
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/heal/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -180,13 +179,14 @@
 /datum/surgery_step/heal/brute
 	name = "tend wounds"
 	brute_damage_healed = 5
-	brute_damage_healmod = 0.07
+	brute_damage_healmod = 0.09
 
 /datum/surgery_step/heal/brute/get_progress(mob/user, mob/living/carbon/target, brute_healed, burn_healed)
 	if(!brute_healed)
 		return
 
-	var/estimated_remaining_steps = target.getBruteLoss() / brute_healed
+	var/heal_per_step = brute_damage_healed + round((target.getBruteLoss() * brute_damage_healmod), 0.1)
+	var/estimated_remaining_steps = target.getBruteLoss() / heal_per_step
 	var/progress_text
 
 	if(locate(/obj/item/healthanalyzer) in list(user.l_hand, user.r_hand))
@@ -214,13 +214,14 @@
 	name = "treat burns"
 	damage_name_pretty = "burns"
 	burn_damage_healed = 5
-	burn_damage_healmod = 0.07
+	burn_damage_healmod = 0.09
 
 /********************BURN STEPS********************/
 /datum/surgery_step/heal/burn/get_progress(mob/living/user, mob/living/carbon/target, brute_healed, burn_healed)
 	if(!burn_healed)
 		return
-	var/estimated_remaining_steps = target.getFireLoss() / burn_healed
+	var/heal_per_step = burn_damage_healed + round((target.getFireLoss() * burn_damage_healmod), 0.1)
+	var/estimated_remaining_steps = target.getFireLoss() / heal_per_step
 	var/progress_text
 
 	if(locate(/obj/item/healthanalyzer) in list(user.l_hand, user.r_hand))
