@@ -89542,6 +89542,14 @@
 /obj/structure/flora/ausbushes/grassybush,
 /turf/simulated/floor/grass/no_creep,
 /area/station/hallway/primary/port/north)
+"uwl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/station/maintenance/apmaint)
 "uwm" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -131894,7 +131902,7 @@ dbp
 huN
 sJD
 ddy
-dOP
+uwl
 dOO
 dHA
 ddy
