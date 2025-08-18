@@ -134,7 +134,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	severity = EVENT_LEVEL_MUNDANE
 	available_events = list(
 		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set.
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/nothing, 290),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/nothing, 252),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/pda_spam, 9),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/economic_event,	7),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, /datum/event/trivial_news, 7),
@@ -153,7 +153,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/moderate
 	severity = EVENT_LEVEL_MODERATE
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/nothing, 690),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/nothing, 950),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/falsealarm, 20),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/spontaneous_appendicitis, 5, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/carp_migration, 10, , TRUE),
