@@ -357,8 +357,8 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/rocket
-	name = "rocket propelled grenade"
-	desc = "A high explosive rocket meant to be fired from a launcher."
+	name = "83mm HE rocket"
+	desc = "An unguided 83mm high-explosive meant to be fired from a launcher."
 	icon_state = "rocketshell"
 	projectile_type = /obj/item/projectile/missile
 	caliber = "rocket"

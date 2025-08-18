@@ -1,9 +1,12 @@
 /obj/item/gun/rocketlauncher
 	var/projectile
-	name = "rocket launcher"
-	desc = "A rocket propelled grenade launcher. Holds one shell at a time."
-	icon_state = "rocket"
-	item_state = "rocket"
+	name = "\improper B-320 'Sadar' rocket launcher"
+	desc = "A versatile shoulder-mounted rocket launcher produced by Aussec Armory for military customers. Fires 83mm unguided rockets."
+	icon = 'icons/tgmc/objects/guns64.dmi'
+	icon_state = "sadar"
+	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
+	item_state = "sadar"
 	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 2
 	throw_range = 3
