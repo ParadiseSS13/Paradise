@@ -229,10 +229,12 @@
 
 	/// Each reactor chamber can only be linked to a single reactor, if somehow theres two.
 	var/obj/machinery/power/fission_reactor/linked_reactor
-	/// holds the specific rod inserted into the chamber
+	/// Holds the specific rod inserted into the chamber
 	var/obj/item/nuclear_rod/held_rod
 	/// Is the chamber up, down, or open
 	var/chamber_state = 1
+	/// Has the requirements for the rod inside this chamber been met?
+	var/requirements_met = FALSE
 
 /obj/machinery/reactor_chamber/Initialize(mapload)
 	. = ..()
@@ -390,30 +392,32 @@
 /// Will spread the linked reactor to other nearby chambers
 /obj/machinery/reactor_chamber/proc/spread_link(var/obj/machinery/power/fission_reactor/reactor)
 	var/turf/nearby_turf
-	var/direction = 0
-	while(direction <= 8)
-		direction++
-		if(IS_DIR_CARDINAL(direction))
-			nearby_turf = get_step(src, direction)
-			for(var/obj/machinery/reactor_chamber/chamber in nearby_turf.contents)
-				if(!chamber.linked_reactor)
-					chamber.form_link(reactor)
+	for(var/direction in GLOB.cardinal)
+		nearby_turf = get_step(src, direction)
+		for(var/obj/machinery/reactor_chamber/chamber in nearby_turf.contents)
+			if(!chamber.linked_reactor)
+				chamber.form_link(reactor)
 
+/// Searches for a valid reactor or linked chamber nearby
 /obj/machinery/reactor_chamber/proc/find_link()
 	var/turf/nearby_turf
-	var/direction = 0
-	while(direction <= 8)
-		direction++
-		if(IS_DIR_CARDINAL(direction))
-			nearby_turf = get_step(src, direction)
-			for(var/obj/machinery/power/fission_reactor/reactor in nearby_turf.contents)
-				form_link(reactor)
+	for(var/direction in GLOB.cardinal)
+		nearby_turf = get_step(src, direction)
+		for(var/obj/machinery/power/fission_reactor/reactor in nearby_turf.contents)
+			form_link(reactor)
+			continue
+		for(var/obj/machinery/reactor_chamber/chamber in nearby_turf.contents)
+			if(chamber.linked_reactor)
+				linked_reactor = chamber.linked_reactor
+				spread_link(linked_reactor)
 				continue
-			for(var/obj/machinery/reactor_chamber/chamber in nearby_turf.contents)
-				if(chamber.linked_reactor)
-					linked_reactor = chamber.linked_reactor
-					spread_link(linked_reactor)
-					continue
+
+/obj/machinery/reactor_chamber/proc/update_status()
+	var/turf/nearby_turf
+	for(var/direction in GLOB.cardinal)
+		for(var/obj/machinery/reactor_chamber/chamber in nearby_turf.contents)
+			if(chamber.linked_reactor && chamber.chamber_state == CHAMBER_DOWN)
+
 
 // check one's neighbors for rod activation requirements.
 /obj/machinery/reactor_chamber/proc/check_requirements(var/list/neighbors)
@@ -424,9 +428,6 @@
 	if(!length(requirements))
 		return TRUE
 	return FALSE
-
-
-
 
 
 /obj/item/circuitboard/machine/reactor_chamber
