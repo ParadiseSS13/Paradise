@@ -57,7 +57,7 @@
 				S.be_replaced()
 	QDEL_NULL(middleClickOverride)
 	if(mind?.current == src)
-		mind.unbind()
+		mind.current = null
 	UnregisterSignal(src, COMSIG_ATOM_PREHIT)
 	return ..()
 

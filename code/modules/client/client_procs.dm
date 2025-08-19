@@ -278,10 +278,8 @@
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
-	persistent = GLOB.persistent_clients[ckey]
-	if(!persistent)
-		persistent = new(ckey)
-		GLOB.persistent_clients[ckey] = persistent
+	// Create a PM tracker bound to this ckey.
+	pm_tracker = new(ckey)
 
 	tgui_panel = new(src, "chat_panel")
 	tgui_say = new(src, "tgui_say")
@@ -1342,9 +1340,6 @@
 
 	src << link("https://secure.byond.com/download/")
 
-/datum/persistent_client/New(ckey)
-	// Create a PM tracker bound to this ckey.
-	pm_tracker = new(ckey)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
