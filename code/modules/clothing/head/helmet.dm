@@ -172,7 +172,7 @@
 
 /obj/item/clothing/head/helmet/roman/fake
 	desc = "A shoddily-crafted cosplay helmet made of plastic. Protects against jack and shit, if you're lucky."
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = null
 
 /obj/item/clothing/head/helmet/roman/legionaire
 	name = "centurion helmet"
@@ -182,7 +182,7 @@
 
 /obj/item/clothing/head/helmet/roman/legionaire/fake
 	desc = "A shoddily-crafted cosplay helmet made of plastic. This particular specimen has what appears to be the head of a broom crudely taped to the top."
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = null
 
 /obj/item/clothing/head/helmet/gladiator
 	name = "gladiator helmet"
@@ -294,7 +294,7 @@
 /obj/item/clothing/head/helmet/fake
 	name = "replica helmet"
 	desc = "A replica of a mass-produced protective helmet used by security personnel across the sector. Made of cheap plastic and provides no protection."
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = null
 	cold_protection = FALSE
 	heat_protection = FALSE
 

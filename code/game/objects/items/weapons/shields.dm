@@ -50,7 +50,7 @@
 
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 0, acid = 0)
+	armor = null
 
 /obj/item/shield/riot/roman/fake/add_parry_component()
 	return
