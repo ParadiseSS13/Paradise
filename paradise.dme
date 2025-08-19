@@ -2841,6 +2841,7 @@
 #include "code\modules\pda\games\minesweeper.dm"
 #include "code\modules\persistence\persistence.dm"
 #include "code\modules\point\point.dm"
+#include "code\modules\power\alien_cache.dm"
 #include "code\modules\power\cell.dm"
 #include "code\modules\power\gravitygenerator.dm"
 #include "code\modules\power\lights.dm"
