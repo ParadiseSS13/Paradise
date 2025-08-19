@@ -1519,8 +1519,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <b>:</b> [agent.name] ([agent.key]) emagged [name] ([key]).")
 	if(hud_used)
-		hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
-	SetLockdown(TRUE) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
+		hud_used.update_robot_modules_display()	// Shows/hides the emag item if the inventory screen is already open.
+	SetLockdown(TRUE) // Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 	disconnect_from_ai()
 	clear_supplied_laws()
 	clear_inherent_laws()
