@@ -457,7 +457,8 @@
 /area/shuttle/pod_4)
 "aeM" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 4 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
@@ -3051,6 +3052,12 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/maintenance/fore2)
+"arn" = (
+/obj/effect/turf_decal/alphanumeric/mix{
+	dir = 4
+	},
+/turf/simulated/floor/engine/vacuum,
+/area/station/engineering/atmos)
 "aro" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/maintenance,
@@ -11879,6 +11886,10 @@
 /obj/machinery/atmospherics/portable/canister/air{
 	anchored = 1
 	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "air_sensor";
+	output = 127
+	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
 "aVU" = (
@@ -12653,6 +12664,9 @@
 "aYv" = (
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
@@ -13444,6 +13458,9 @@
 /obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "o2_sensor"
+	},
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
 "bca" = (
@@ -13881,6 +13898,9 @@
 "beF" = (
 /obj/machinery/atmospherics/portable/canister/toxins{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
@@ -14470,6 +14490,9 @@
 "bht" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "n2_sensor"
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
@@ -15338,6 +15361,9 @@
 "bkw" = (
 /obj/machinery/atmospherics/portable/canister/sleeping_agent{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
@@ -17601,7 +17627,10 @@
 /turf/simulated/wall,
 /area/station/hallway/primary/central)
 "bsA" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod 3 Airlock";
+	id_tag = "emergency_home"
+	},
 /turf/simulated/floor/plating,
 /area/station/security/prisonershuttle)
 "bsB" = (
@@ -64155,8 +64184,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "jKW" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "tox_sensor"
+/obj/effect/turf_decal/alphanumeric/plasma{
+	dir = 4
 	},
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
@@ -70703,8 +70732,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "mIh" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "n2_sensor"
+/obj/effect/turf_decal/alphanumeric/nitrogen{
+	dir = 8
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
@@ -80803,8 +80832,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
 "qWZ" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "o2_sensor"
+/obj/effect/turf_decal/alphanumeric/oxygen{
+	dir = 8
 	},
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
@@ -89002,7 +89031,8 @@
 /area/station/science/genetics)
 "ueB" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 2 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -91854,9 +91884,8 @@
 	},
 /area/station/engineering/atmos)
 "vom" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "air_sensor";
-	output = 127
+/obj/effect/turf_decal/alphanumeric/air{
+	dir = 8
 	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
@@ -93429,8 +93458,8 @@
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "vXf" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "n2o_sensor"
+/obj/effect/turf_decal/alphanumeric/nitrous_oxide{
+	dir = 4
 	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
@@ -93480,8 +93509,8 @@
 	},
 /area/station/engineering/gravitygenerator)
 "vYt" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "co2_sensor"
+/obj/effect/turf_decal/alphanumeric/carbon_dioxide{
+	dir = 4
 	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
@@ -96267,7 +96296,8 @@
 /area/station/maintenance/apmaint)
 "xcL" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 1 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/south)
@@ -118248,7 +118278,7 @@ bkw
 biK
 aOg
 bpw
-bpv
+jGV
 bpv
 aOg
 abj
@@ -118505,7 +118535,7 @@ vXf
 tnu
 aOg
 ibK
-jGV
+arn
 xBO
 aOg
 abj
