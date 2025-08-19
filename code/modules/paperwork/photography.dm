@@ -271,7 +271,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		qdel(used)
 		pictures_left = pictures_max
 		return ITEM_INTERACT_COMPLETE
-	. = ..()
+	return ..()
 
 
 /obj/item/camera/proc/get_icon(list/turfs, turf/center, mob/user)
