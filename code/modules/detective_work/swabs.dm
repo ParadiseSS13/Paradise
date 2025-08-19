@@ -10,8 +10,6 @@
 	var/list/dna
 	/// boolean, used or not
 	var/used
-	/// limits to one sample per item
-	var/in_use = FALSE
 
 /obj/item/forensics/swab/proc/is_used()
 	return used
