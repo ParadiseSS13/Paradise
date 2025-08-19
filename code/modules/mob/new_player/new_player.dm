@@ -19,7 +19,8 @@
 
 /mob/new_player/Destroy()
 	if(mind)
-		mind.current = null // We best null their mind as well, otherwise /every/ single new player is going to explode the server a little more going in/out of the round
+		// Minds really shouldn't bind to new players, but just in case...
+		mind.unbind()
 	return ..()
 
 /mob/new_player/proc/new_player_panel()
@@ -62,11 +63,11 @@
 
 	var/list/antags = client.prefs.be_special
 	if(length(antags))
-		if(!client.skip_antag)
+		if(!client.persistent.skip_antag)
 			output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
 		else
 			output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
-		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
+		output += "<br /><small>You are <b>[client.persistent.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
 	if(SSticker.current_state == GAME_STATE_STARTUP)
 		output += "<p>Observe (Please wait...)</p>"
@@ -143,7 +144,7 @@
 		new_player_panel_proc()
 
 	if(href_list["skip_antag"])
-		client.skip_antag = !client.skip_antag
+		client.persistent.skip_antag = !client.persistent.skip_antag
 		new_player_panel_proc()
 
 	if(href_list["refresh"])
@@ -613,8 +614,8 @@
 	if(!client || !client.prefs) ..()
 	return client.prefs.active_character.gender
 
-/mob/new_player/is_ready()
-	return ready && ..()
+/mob/new_player/proc/is_ready()
+	return ready && client
 
 // No hearing announcements
 /mob/new_player/can_hear()
