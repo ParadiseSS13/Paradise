@@ -51,7 +51,7 @@
 			M.lazarus_revive(user, malfunctioning)
 		loaded = 0
 		user.visible_message("<span class='notice'>[user] injects [target] with [src], reviving it.</span>")
-		playsound(src,'sound/effects/refill.ogg',50,1)
+		playsound(src,'sound/effects/refill.ogg', 50, TRUE)
 		icon_state = "lazarus_empty"
 		return ITEM_INTERACT_COMPLETE
 
