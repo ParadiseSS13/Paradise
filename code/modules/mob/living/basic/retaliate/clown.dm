@@ -43,7 +43,7 @@
 		return
 	if(attacker.ai_controller) // Don't chain retaliates.
 		var/list/shitlist = attacker.ai_controller.blackboard[BB_BASIC_MOB_RETALIATE_LIST]
-		if(locate(src) in shitlist)
+		if(src in shitlist)
 			return
 	for(var/mob/living/basic/clown/harbringer in oview(src, 7))
 		if(harbringer == attacker) // Do not commit suicide attacking yourself
