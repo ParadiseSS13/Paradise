@@ -61,6 +61,5 @@
 			ASSERT(target in list(EVENT_LEVEL_MUNDANE, EVENT_LEVEL_MODERATE, EVENT_LEVEL_MAJOR))
 			first_run_times[target] = list("lower" = assoclist["lower_bound"] MINUTES, "upper" = assoclist["upper_bound"] MINUTES)
 
-	if(isnum(data["blob_highpop_trigger"]))
-		CONFIG_LOAD_NUM(blob_highpop_trigger, data["blob_highpop_trigger"])
+	CONFIG_LOAD_NUM(blob_highpop_trigger, data["blob_highpop_trigger"])
 
