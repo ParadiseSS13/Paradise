@@ -602,8 +602,6 @@
 	uniform = /obj/item/clothing/under/rank/civilian/librarian
 	suit = /obj/item/clothing/suit/librarian
 	l_ear = /obj/item/radio/headset/headset_service
-	l_pocket = /obj/item/laser_pointer
-	r_pocket = /obj/item/barcodescanner
 	id = /obj/item/card/id/librarian
 	pda = /obj/item/pda/librarian
 

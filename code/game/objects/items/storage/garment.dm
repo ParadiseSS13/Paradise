@@ -320,9 +320,9 @@
 /obj/item/storage/bag/garment/librarian/populate_contents()
 	new /obj/item/clothing/under/rank/civilian/librarian(src)
 	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/suit/librarian
-	new /obj/item/clothing/suit/librarian/argyle
-	new /obj/item/clothing/suit/armor/vest/press
+	new /obj/item/clothing/suit/librarian(src)
+	new /obj/item/clothing/suit/librarian/argyle(src)
+	new /obj/item/clothing/suit/armor/vest/press(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/librarian(src)
 	new /obj/item/clothing/under/plasmaman/librarian(src)
 
