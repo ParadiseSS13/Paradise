@@ -23,7 +23,10 @@
 /turf/space,
 /area/space)
 "Ey" = (
-/obj/machinery/power/alien_cache,
+/obj/machinery/power/alien_cache{
+	pixel_y = -32;
+	pixel_x = -32
+	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
