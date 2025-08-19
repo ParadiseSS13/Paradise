@@ -85,4 +85,3 @@ _maps/map_files/**/*.mapmanipout.dmm
 
 # byond version manager tracking file
 .byondversion
-config/example/config.toml
