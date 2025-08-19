@@ -24,6 +24,7 @@
 		return FINISH_ATTACK
 
 	if(ismob(A))
+		user.changeNext_move(CLICK_CD_MELEE)
 		to_chat(A, "<font color='red'><b>You have been banned FOR NO REISIN by [user]<b></font>")
 		to_chat(user, "<font color='red'>You have <b>BANNED</b> [A]</font>")
 		playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
