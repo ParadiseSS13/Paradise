@@ -18,9 +18,13 @@
 	return INITIALIZE_HINT_NORMAL
 
 /mob/new_player/Destroy()
+	if(spawning)
+		// The mind is being reused elsewhere, so just unhook it here.
+		mind = null
 	if(mind)
 		// Minds really shouldn't bind to new players, but just in case...
 		mind.unbind()
+		qdel(mind)
 	return ..()
 
 /mob/new_player/proc/new_player_panel()
@@ -552,21 +556,16 @@
 		H.flavor_text = ""
 	stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
+	mind.set_original_mob(new_character)
+	mind.transfer_to(new_character)
 
-	if(mind)
-		mind.active = FALSE					//we wish to transfer the key manually
-		// Clowns and mimes get appropriate default names, and the chance to pick a custom one.
-		if(mind.assigned_role == "Clown")
-			new_character.rename_character(new_character.real_name, pick(GLOB.clown_names))
-			new_character.rename_self("clown")
-		else if(mind.assigned_role == "Mime")
-			new_character.rename_character(new_character.real_name, pick(GLOB.mime_names))
-			new_character.rename_self("mime")
-		mind.set_original_mob(new_character)
-		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
-
-
-	new_character.key = key		//Manually transfer the key to log them in
+	// Clowns and mimes get appropriate default names, and the chance to pick a custom one.
+	if(mind.assigned_role == "Clown")
+		new_character.rename_character(new_character.real_name, pick(GLOB.clown_names))
+		new_character.rename_self("clown")
+	else if(mind.assigned_role == "Mime")
+		new_character.rename_character(new_character.real_name, pick(GLOB.mime_names))
+		new_character.rename_self("mime")
 
 	return new_character
 
