@@ -141,7 +141,7 @@
 /obj/item/mecha_parts/mecha_equipment/pulse_shield
 	name = "EPS-99 pulse shield generator"
 	desc = "A shield module that covers the exosuit in an energy barrier that absorbs damage. Requires energy to operate."
-	icon_state = "mecha_abooster_ccw"
+	icon_state = "mecha_pulse_shield"
 	origin_tech = "materials=4;combat=4"
 	equip_cooldown = 10
 	energy_drain = 50
