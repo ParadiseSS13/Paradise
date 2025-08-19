@@ -611,7 +611,7 @@
 		return 1
 	return 0
 
-// We're using after_attack instead of pre_attack here, so it still does damage, and stools have an additional chance to break.
+// We use after_attack here so it still does damage, unlike the stool's chance to break before the attack. Don't ask me why stools do separate stuff. I blame oldcoders.
 /obj/item/chair/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!proximity_flag || !prob(break_chance))
