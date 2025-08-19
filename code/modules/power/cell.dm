@@ -187,7 +187,7 @@
 
 /obj/item/stock_parts/cell/high/plus
 	name = "high-capacity power cell+"
-	desc = "A rechargeable electrochemical power cell. Where the hell did this one come from..?"
+	desc = "A rechargeable electrochemical power cell. Where the hell did this one come from...?"
 	icon_state = "h+cell"
 	maxcharge = 15000
 	chargerate = 2250
