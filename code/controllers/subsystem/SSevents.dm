@@ -66,7 +66,7 @@ SUBSYSTEM_DEF(events)
 	// Add the event back to the list of available events
 	var/datum/event_container/EC = event_containers[theseverity]
 	var/datum/event_meta/EM = E.event_meta
-	EC.available_events += EM
+	EC.available_events |= EM
 
 	log_debug("Event '[EM.skeleton.name]' has completed at [station_time_timestamp()].")
 

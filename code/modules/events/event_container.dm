@@ -71,7 +71,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	for(var/datum/event_meta/event_meta in last_event_time)
 		if(event_meta.skeleton.has_cooldown() && possible_events[event_meta])
 			var/time_passed = world.time - GLOB.event_last_fired[event_meta]
-			var/cooldown = GLOB.configuration.event.expected_round_length / 4
+			var/cooldown = GLOB.configuration.event.expected_round_length / 2
 			var/weight_modifier = 1 - max(0, 0.5 * ((cooldown - time_passed) / cooldown))
 			// Events that just ran have their base weight reduced by half, tapering to no reduction over half an hour
 			var/new_weight = max(possible_events[event_meta] * weight_modifier, 0)
@@ -200,11 +200,11 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/apc_overload,	11),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/meteor_wave, 12, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/abductor, 12, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/traders, 13, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/traders, 13, is_one_shot = TRUE, _first_run_time = 35 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter, 13, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 13, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 12, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/demon_incursion, 10, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/demon_incursion, 10, TRUE, _first_run_time = 35 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/disease_outbreak, 12, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/revenant, 10),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_morph, 17, is_one_shot = TRUE),
