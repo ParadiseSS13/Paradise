@@ -6654,6 +6654,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/power/apc/directional/east,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -30626,17 +30629,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "fgi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -34144,17 +34137,7 @@
 	},
 /obj/machinery/computer/monitor,
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "fSx" = (
 /obj/item/stack/ore/glass,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -41561,17 +41544,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "hBX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -48948,17 +48921,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "iZP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -72810,17 +72773,7 @@
 	},
 /obj/item/flashlight,
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "odt" = (
 /obj/item/trash/pistachios{
 	pixel_x = -3;
@@ -76972,17 +76925,7 @@
 /obj/item/stock_parts/cell/high,
 /obj/item/stock_parts/cell/high,
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "oWW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -80550,17 +80493,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "pLr" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -84264,17 +84197,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "qAH" = (
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/mech_bay_recharge_floor,
@@ -87144,17 +87067,7 @@
 "rgH" = (
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "rgM" = (
 /obj/machinery/newscaster/security_unit/directional/north,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -88603,17 +88516,7 @@
 /area/station/maintenance/security/fore_starboard)
 "rzo" = (
 /turf/simulated/wall/r_wall,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "rzp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -94073,17 +93976,7 @@
 /area/station/service/kitchen)
 "sFD" = (
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "sFH" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -94374,17 +94267,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "sJy" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -99534,9 +99417,6 @@
 /turf/simulated/floor/carpet,
 /area/station/service/bar)
 "tOQ" = (
-/obj/structure/cable/orange{
-	icon_state = "2-4"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/airlock/security/glass,
@@ -100565,17 +100445,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "tZf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -103242,17 +103112,7 @@
 /area/station/maintenance/disposal/south)
 "uAa" = (
 /turf/simulated/wall,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "uAb" = (
 /obj/machinery/atmospherics/unary/cryo_cell,
 /obj/machinery/light{
@@ -107411,17 +107271,7 @@
 "vul" = (
 /obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "vuM" = (
 /obj/structure/marker_beacon/dock_marker,
 /obj/structure/lattice/catwalk,
@@ -107491,17 +107341,7 @@
 /obj/machinery/power/apc/reinforced/directional/west,
 /obj/structure/cable/orange,
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "vvH" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
@@ -107523,17 +107363,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "vvQ" = (
 /obj/item/flag/rnd,
 /obj/machinery/alarm/directional/north,
@@ -109350,17 +109180,7 @@
 "vOH" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
 /turf/simulated/floor/transparent/glass/reinforced,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/area/station/maintenance/electrical/fore_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/area/station/maintenance/security/aft_port,
-/area/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	})
+/area/station/maintenance/electrical/fore_port)
 "vOI" = (
 /turf/simulated/floor/carpet/cyan,
 /area/station/public/fitness)
@@ -144557,7 +144377,7 @@ wUX
 vFV
 iCq
 hTP
-qUm
+xla
 pwT
 pdb
 hZU
