@@ -36,7 +36,7 @@
 	new /obj/item/reagent_containers/drinks/mug/hop(src)
 	new /obj/item/clothing/accessory/medal/service(src)
 	new /obj/item/storage/bag/garment/head_of_personnel(src)
-	new /obj/item/storage/box/fingerprints(src) //used for fingerprinting new arrivals
+	new /obj/item/storage/box/fingerprints(src) // used for fingerprinting new arrivals
 
 /obj/structure/closet/secure_closet/hos
 	name = "head of security's locker"

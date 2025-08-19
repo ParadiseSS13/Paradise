@@ -8,9 +8,9 @@
 	density = TRUE
 
 	var/obj/item/forensics/swab = null
-	///is currently scanning
+	/// is currently scanning
 	var/scanning = FALSE
-	///Global number of reports ran from that machine type
+	/// Global number of reports ran from that machine type
 	var/report_num = FALSE
 
 /obj/machinery/dnaforensics/Initialize(mapload)
@@ -72,7 +72,7 @@
 
 	var/obj/item/forensics/swab/bloodswab = swab
 	report.name = ("DNA scanner report no. [++report_num]: [bloodswab.name]")
-	//dna data itself
+	// dna data itself
 	var/data = "No analysis data available."
 	if(!isnull(bloodswab.dna))
 		data = "Spectrometric analysis on the provided sample determined the presence of DNA. DNA String(s) found: [length(bloodswab.dna)].<br><br>"

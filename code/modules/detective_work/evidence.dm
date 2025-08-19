@@ -222,7 +222,7 @@
 	desc = "Magnifying glass and tweezers. Used to lift fabric fibers. Use on harm intent to collect samples and not interact with objects."
 	icon_state = "m_glass"
 	w_class = WEIGHT_CLASS_SMALL
-	///naming for individual evidence items
+	/// naming for individual evidence items
 	var/evidence_type = "fibers"
 	var/evidence_path = /obj/item/sample/fibers
 /obj/item/forensics/sample_kit/proc/can_take_sample(mob/user, atom/supplied)
@@ -248,7 +248,7 @@
 		interact_with_atom(over, loc)
 
 /obj/item/forensics/sample_kit/powder
-	name = "fingerprint Powder"
+	name = "fingerprint powder"
 	desc = "A jar of aluminum powder and a specialized brush. Use on harm intent to collect samples and not interact with objects."
 	icon_state = "dust"
 	evidence_type = "prints"

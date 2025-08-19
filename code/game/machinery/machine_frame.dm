@@ -1262,7 +1262,7 @@ to destroy them and players will be able to make replacements.
 		/obj/item/stock_parts/manipulator = 1,
 	)
 
-//Detective machines
+// Detective machines
 /obj/item/circuitboard/dnaforensics
 	name = "circuit board (DNA analyzer)"
 	build_path = /obj/machinery/dnaforensics

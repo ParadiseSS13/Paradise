@@ -730,7 +730,7 @@
 	build_path = /obj/item/circuitboard/organ_analyzer
 	category = list("Research Machinery")
 
-//Forensic Machines (DNA analyzer, microscope)
+// Forensic Machines (DNA analyzer, microscope)
 /datum/design/dnaforensics
 	name = "Machine Design (DNA analyzer)"
 	desc = "DNA analyzer for forensic DNA analysis of objects."
