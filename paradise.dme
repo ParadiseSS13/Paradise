@@ -2844,6 +2844,7 @@
 #include "code\modules\power\alien_cache.dm"
 #include "code\modules\power\cell.dm"
 #include "code\modules\power\gravitygenerator.dm"
+#include "code\modules\power\laser_receptacle.dm"
 #include "code\modules\power\lights.dm"
 #include "code\modules\power\power_machine.dm"
 #include "code\modules\power\smes.dm"
