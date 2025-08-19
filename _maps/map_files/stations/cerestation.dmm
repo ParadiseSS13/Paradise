@@ -43651,18 +43651,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/maintenance/starboard)
-"hXo" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/airlock/security/glass,
-/obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
-/area/station/security/lobby)
 "hXq" = (
 /turf/simulated/wall/r_wall,
 /area/station/hallway/secondary/garden)
@@ -64720,15 +64708,6 @@
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/apmaint)
-"mmr" = (
-/obj/structure/cable/orange{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/orange{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/security/aft_port)
 "mmv" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating{
@@ -78743,12 +78722,6 @@
 	icon_state = "ramptop"
 	},
 /area/station/service/theatre)
-"prb" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/turf/simulated/wall,
-/area/station/maintenance/security/aft_port)
 "prq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -81926,9 +81899,6 @@
 /turf/simulated/floor/plating,
 /area/station/service/chapel)
 "qaa" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /obj/structure/closet/emcloset,
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
@@ -92627,9 +92597,6 @@
 	},
 /area/station/medical/cryo)
 "srA" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -138472,12 +138439,12 @@ rOy
 xla
 xla
 tOQ
-hXo
+tOQ
 srA
-prb
+hyY
 qaa
-iyr
-mmr
+duh
+xmj
 duh
 sAj
 hyY
