@@ -32448,7 +32448,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "ctM" = (
-/obj/structure/dresser,
+/obj/structure/closet/secure_closet/librarian,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "ctN" = (

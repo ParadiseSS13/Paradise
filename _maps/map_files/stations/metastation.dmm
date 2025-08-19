@@ -75486,6 +75486,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/closet/secure_closet/librarian,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "sEt" = (
