@@ -29,8 +29,13 @@
 	. += "<span class='notice'><b>Click with an empty hand</b> to analyze the current sample.</span>"
 
 /obj/machinery/dnaforensics/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/forensics))
+		return ..()
+
 	if(panel_open)
-		return SCREWDRIVER_OPEN_PANEL_MESSAGE
+		to_chat(user, "<span class='warning'>You must close the panel!</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	if(swab)
 		to_chat(user, "<span class='warning'>There is already a sample inside the scanner.</span>")
 		return ITEM_INTERACT_COMPLETE
@@ -154,8 +159,13 @@
 	. += "<span class='notice'><b>Click with an empty hand</b> to study the current sample.</span>"
 
 /obj/machinery/microscope/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/forensics/swab) && !istype(used, /obj/item/sample))
+		return ..()
+
 	if(panel_open)
-		return SCREWDRIVER_OPEN_PANEL_MESSAGE
+		to_chat(user, "<span class='warning'>You must close the panel!</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	if(sample)
 		to_chat(user, "<span class='warning'>There is already a sample in the microscope!</span>")
 		return ITEM_INTERACT_COMPLETE
