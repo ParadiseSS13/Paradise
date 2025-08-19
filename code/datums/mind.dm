@@ -135,8 +135,11 @@
 	RegisterSignal(current, COMSIG_PARENT_QDELETING, PROC_REF(archive_deleted_body), override = TRUE)
 
 /datum/mind/proc/unbind()
+	if(isnull(current))
+		return
 	UnregisterSignal(current, COMSIG_PARENT_QDELETING)
-	current.mind = null
+	if(current.mind == src)
+		current.mind = null
 	current = null
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
