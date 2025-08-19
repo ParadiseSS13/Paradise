@@ -115,13 +115,13 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list(/obj/item/kitchen/knife)
 
-//Librarian
+// Librarian
 /obj/item/clothing/suit/librarian/argyle
 	name = "argyle sweater vest"
 	desc = "A not-so-warm sweater vest for old-fashioned librarians. A tag sticks out, 'DOES NOT PROVIDE INSULATION.'"
 	icon_state = "argyle"
 	item_state = "argyle"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO
 
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -130,13 +130,13 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
-//Librarian
+// Librarian
 /obj/item/clothing/suit/librarian
 	name = "librarian's tailcoat"
 	desc = "A dull red tailcoat, a common choice between historians and vampires."
 	icon_state = "tailcoat_red"
 	item_state = "tailcoat_red"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
 
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
