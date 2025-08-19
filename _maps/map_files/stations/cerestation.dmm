@@ -26325,9 +26325,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
