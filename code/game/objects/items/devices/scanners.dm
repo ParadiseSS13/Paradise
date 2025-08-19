@@ -918,7 +918,7 @@ SLIME SCANNER
 /obj/item/slime_scanner
 	name = "slime scanner"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "adv_spectrometer_s"
+	icon_state = "slime_scanner"
 	item_state = "analyzer"
 	origin_tech = "biotech=2"
 	slot_flags = ITEM_SLOT_BELT
