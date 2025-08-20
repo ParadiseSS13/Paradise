@@ -140,7 +140,7 @@
 /obj/item/food/grown/mushroom/plumphelmet
 	seed = /obj/item/seeds/plump
 	name = "plump-helmet"
-	desc = "Hypogeus mycora — “Hypogeus mycora: A small mushroom typically found underground."
+	desc = "Hypogeus mycora: A small mushroom typically found underground."
 	icon_state = "plumphelmet"
 	filling_color = "#9370DB"
 	tastes = list("plump helmet" = 1, "dwarven hardiness" = 1)
