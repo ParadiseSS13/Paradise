@@ -160,7 +160,7 @@
 	return
 
 /obj/item/storage/firstaid/tactical
-	name = "first-aid kit"
+	name = "tactical first-aid kit"
 	desc = "I hope you've got insurance."
 	icon_state = "firstaid_elite"
 	item_state = "firstaid_elite"
