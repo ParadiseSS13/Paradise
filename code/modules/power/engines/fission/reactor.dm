@@ -235,8 +235,8 @@
 	var/chamber_state = 1
 	/// Has the requirements for the rod inside this chamber been met?
 	var/requirements_met = FALSE
-	/// Holds the spanning-tree list of rod chambers when calculating requirements
-	var/list/source_list
+	/// Is the rod chamber actively running and providing its effects
+	var/operational = FALSE
 
 /obj/machinery/reactor_chamber/Initialize(mapload)
 	. = ..()
@@ -417,21 +417,26 @@
 /obj/machinery/reactor_chamber/proc/update_status()
 	var/turf/nearby_turf
 	var/list/temp_requirements = held_rod.adjacent_requirements // a temporary modable holder
-	var/
+	if(!temp_requirements)
+		return TRUE
+
 	for(var/direction in GLOB.cardinal)
 		nearby_turf = get_step(src, direction)
 		for(var/obj/machinery/reactor_chamber/chamber in nearby_turf.contents)
-			if(chamber.held_rod.type)
-			if(chamber.held_rod && linked_reactor == chamber.linked_reactor)
-				var/found_rod = FALSE
-				if(chamber.held_rod.type in temp_requirements)
-					temp_requirements -= chamber.held_rod.type
-					found_rod = TRUE
-				if(!found_rod)
-					for(var/requirement in temp_requirements)
-						if(requirement in typesof(chamber.held_rod.type))
+			if(!chamber.operational)
+				continue
+			if(chamber.held_rod.type in temp_requirements)
+				temp_requirements
+			for(var/requirement in temp_requirements)
+				if(requirement in types_of(chamber.held_rod.type))
+					temp_requirements -= requirement
+					break
 
-							break
+	if(!length(temp_requirements))
+		return TRUE
+
+	return FALSE
+
 
 
 
