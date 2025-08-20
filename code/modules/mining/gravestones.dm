@@ -84,6 +84,7 @@
 		to_chat(G.affecting, "<span class='userdanger'>[user] is burying you alive!</span>")
 		log_admin("[user] started to bury [G.affecting] in [src]")
 		if(do_after(user, 10 SECONDS, target = G.affecting))
+			log_attack(user, G.affecting, "buried [G.affecting] in [src].")
 			bury(user, G.affecting)
 	else // Burying Objects
 		visible_message("<span class='danger'>[user] starts to bury [used] in [src]!</span>", \
