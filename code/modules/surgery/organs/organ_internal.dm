@@ -230,7 +230,7 @@
 		if(S)
 			H.drop_item()
 			H.put_in_active_hand(S)
-			S.attack__legacy__attackchain(H, H)
+			S.interact_with_atom(H, H)
 			qdel(src)
 	else
 		..()

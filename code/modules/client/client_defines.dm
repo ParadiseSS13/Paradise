@@ -6,30 +6,26 @@
 		////////////////
 	/// hides the byond verb panel as we use our own custom version
 	show_verb_panel = FALSE
+
+	var/datum/persistent_client/persistent
+
 	var/datum/admins/holder = null
 
 	var/last_message	= "" //contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message_count = 0 //contains a number of how many times a message identical to last_message was sent.
 	var/last_message_time = 0 //holds the last time (based on world.time) a message was sent
-	var/datum/pm_tracker/pm_tracker
 
 		/////////
 		//OTHER//
 		/////////
 	var/datum/preferences/prefs = null
-	var/skip_antag = FALSE //TRUE when a player declines to be included for the selection process of game mode antagonists.
 	///The visual delay to use for the current client.Move(), mostly used for making a client based move look like it came from some other slower source
 	var/visual_delay = 0
 	var/move_delay		= 1
 	var/moving			= null
 	var/area			= null
 
-	// why the hell do we track this when you can just file > reconnect to bypass it
-	var/time_died_as_mouse = null //when the client last died as a mouse
-
 	var/typing = FALSE // Prevents typing window stacking
-
-	var/adminhelped = 0
 
 		///////////////
 		//SOUND STUFF//
@@ -235,3 +231,15 @@
 
 	/// If this client has any windows scaling applied
 	var/window_scaling
+
+/datum/persistent_client
+	/// Holds admin/mentor PM history.
+	var/datum/pm_tracker/pm_tracker
+	/// The Global Antag Candidacy setting from the new player menu.
+	var/skip_antag = FALSE
+	/// Used to prevent rapid mouse spamming.
+	var/time_died_as_mouse = null
+	/// All of the minds this client has been associated with.
+	var/list/minds = list()
+	/// Ckeys that sent us kudos.
+	var/list/kudos_received_from = list()

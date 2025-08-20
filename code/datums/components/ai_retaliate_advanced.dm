@@ -33,5 +33,10 @@
 	if(!victim.ai_controller)
 		return
 
+	if(isanimal_or_basicmob(attacker)) // Don't retaliate on nuzzles
+		var/mob/living/M = attacker
+		if(M.a_intent == INTENT_HELP)
+			return
+
 	victim.ai_controller.insert_blackboard_key_lazylist(BB_BASIC_MOB_RETALIATE_LIST, attacker)
 	post_retaliate_callback?.InvokeAsync(attacker)
