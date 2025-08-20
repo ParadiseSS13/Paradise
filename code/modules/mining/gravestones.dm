@@ -21,8 +21,7 @@
 		visible_message("<span class='danger'>With nowhere to dig, [src] falls apart.</span>")
 		// In case somehow something is buried here already
 		dig_up()
-		qdel(src)
-		return
+		return INITIALIZE_HINT_QDEL
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/grave/examine(mob/user)
@@ -32,8 +31,8 @@
 	if(buried)
 		. += "<span class='notice'>You can dig up [src] with a shovel or other digging tool.</span>"
 	else
-		. += "<span class='notice'>YYou can bury an object here by clicking on [src] with the object.</span>"
-		. += "<span class='notice'>YYou can bury a mob or person here by clicking on [src] with the mob or person strongly grabbed.</span>"
+		. += "<span class='notice'>You can bury an object here by clicking on [src] with the object.</span>"
+		. += "<span class='notice'>You can bury a mob or person here by clicking on [src] with the mob or person strongly grabbed.</span>"
 
 /obj/structure/grave/update_icon_state()
 	. = ..()
@@ -75,19 +74,19 @@
 	if(istype(used, /obj/item/grab)) // Burying Mobs
 		var/obj/item/grab/G = used
 		if(G.state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='danger'>You need a stronger grip on [G.affecting] to bury them!</span>")
+			to_chat(user, "<span class='danger'>You need a stronger grip on [G.affecting] to bury [G.affecting.p_them()]!</span>")
 			return ITEM_INTERACT_COMPLETE
 		if(HAS_TRAIT(user, TRAIT_PACIFISM) && G.affecting.stat != DEAD)
-			to_chat(user, "<span class='danger'>Burying [G.affecting] in [src] might hurt them!</span>")
+			to_chat(user, "<span class='danger'>Burying [G.affecting] in [src] might hurt [G.affecting.p_them()]!</span>")
 			return ITEM_INTERACT_COMPLETE
-		visible_message("<span class='danger'>[user] starts to bury [G.affecting] in the [src]!</span>", \
+		visible_message("<span class='danger'>[user] starts to bury [G.affecting] in [src]!</span>", \
 			"<span class='userdanger'>[user] starts to bury [G.affecting]!</span>")
-		to_chat(G.affecting, "<span class='danger'>[user] is burying you alive!</span>")
+		to_chat(G.affecting, "<span class='userdanger'>[user] is burying you alive!</span>")
 		log_admin("[user] started to bury [G.affecting] in [src]")
 		if(do_after(user, 10 SECONDS, target = G.affecting))
 			bury(user, G.affecting)
 	else // Burying Objects
-		visible_message("<span class='danger'>[user] starts to bury [used] in the [src]!</span>", \
+		visible_message("<span class='danger'>[user] starts to bury [used] in [src]!</span>", \
 			"<span class='userdanger'>[user] starts to bury [used]!</span>")
 		if(do_after(user, 10 SECONDS, target = used))
 			bury(user, used)
@@ -130,5 +129,4 @@
 		dig_up_me.forceMove(get_turf(src))
 	buried = null
 	playsound(loc, 'sound/effects/shovel_dig.ogg', 50, 1)
-	update_icon(UPDATE_ICON_STATE)
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
