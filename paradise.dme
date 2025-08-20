@@ -2424,6 +2424,7 @@
 #include "code\modules\mob\living\taste.dm"
 #include "code\modules\mob\living\basic\basic_emotes.dm"
 #include "code\modules\mob\living\basic\basic_mob.dm"
+#include "code\modules\mob\living\basic\friendly\nian_caterpillar.dm"
 #include "code\modules\mob\living\basic\posessed_object.dm"
 #include "code\modules\mob\living\basic\farm_animals\cow.dm"
 #include "code\modules\mob\living\basic\farm_animals\deer.dm"
