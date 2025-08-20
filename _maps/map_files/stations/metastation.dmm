@@ -4070,8 +4070,8 @@
 	},
 /area/station/maintenance/fpmaint)
 "aEX" = (
-/obj/structure/closet/crate{
-	name = "Gold Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "gold crate"
 	},
 /obj/item/stack/sheet/mineral/gold{
 	pixel_x = -1;
@@ -4101,10 +4101,10 @@
 	},
 /area/station/command/vault)
 "aFb" = (
-/obj/effect/turf_decal/delivery/white/hollow/left,
-/obj/structure/closet/crate{
-	name = "Silver Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "silver crate"
 	},
+/obj/effect/turf_decal/delivery/white/hollow/left,
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,

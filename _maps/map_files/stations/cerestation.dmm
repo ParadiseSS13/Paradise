@@ -60209,8 +60209,8 @@
 	},
 /area/station/engineering/hardsuitstorage)
 "liI" = (
-/obj/structure/closet/crate{
-	name = "Silver Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "silver crate"
 	},
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,
@@ -60713,8 +60713,8 @@
 	},
 /area/station/science/robotics)
 "lmO" = (
-/obj/structure/closet/crate{
-	name = "Silver Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "gold crate"
 	},
 /obj/item/storage/belt/champion,
 /obj/item/stack/sheet/mineral/gold,
