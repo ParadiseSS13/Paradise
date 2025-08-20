@@ -218,7 +218,6 @@
 	desc = "A dark red tacticool goggles anyone would go operate with."
 	icon_state = "securityhudnight"
 	color = "#d62d20" // I want it to color the on mob's sprite as well, but i don't know how to actually.
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/eyepatch
 	name = "eyepatch"
