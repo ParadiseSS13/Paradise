@@ -27,15 +27,14 @@
 	. = ..()
 	. += "<span class='notice'>A nifty little machine that is able to produce hydrogen when supplied with water vapor and \
 			enough power, allowing for on the go hydrogen production! Nanotrasen is not responsbile for any accidents that \
-			may occur from sudden hydogen combustion or explosions. </span>"
+			may occur from sudden hydogen combustion or explosions.</span>"
 
 /obj/machinery/power/electrolyzer/wrench_act(mob/user, obj/item/I)
-	if(!on)
-		. = TRUE
-		default_unfasten_wrench(user, I, 4 SECONDS)
 	if(on)
 		to_chat(user, "<span class='warning'>[src] must be turned off first!</span>")
-		return
+		return FALSE
+	. = TRUE
+	default_unfasten_wrench(user, I, 4 SECONDS)
 
 /obj/machinery/power/electrolyzer/screwdriver_act(mob/user, obj/item/I)
 	if(on)

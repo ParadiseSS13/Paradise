@@ -96,12 +96,12 @@ pub(crate) fn internal_create_environment(
     if let Some(value) = agent_b {
         tile.gases.set_agent_b(value);
     }
-	if let Some(value) = hydrogen {
-		tile.gases.set_hydrogen(value);
-	}
-	if let Some(value) = water_vapor {
-		tile.gases.set_water_vapor(value);
-	}
+    if let Some(value) = hydrogen {
+        tile.gases.set_hydrogen(value);
+    }
+    if let Some(value) = water_vapor {
+        tile.gases.set_water_vapor(value);
+    }
     if let Some(value) = temperature {
         tile.thermal_energy = value * tile.heat_capacity();
     }
