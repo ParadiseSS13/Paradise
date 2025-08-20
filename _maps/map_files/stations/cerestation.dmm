@@ -10766,6 +10766,10 @@
 	c_tag = "Atmospherics Fore";
 	network = list("SS13","Engineering")
 	},
+/obj/item/clothing/head/cone{
+	pixel_x = 4;
+	pixel_y = 17
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
@@ -43767,7 +43771,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/clothing/head/cone,
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
@@ -116402,17 +116406,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/port)
 "xcE" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/power/electrolyzer,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/machinery/hologram/holopad,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
