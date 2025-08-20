@@ -1,62 +1,22 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"dk" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating/abductor,
-/area/space)
 "et" = (
 /turf/simulated/floor/plating/abductor,
-/area/space)
+/area/ruin/powered/alien_cache_site/cache_room)
 "fA" = (
 /obj/structure/fans/tiny/invisible,
 /obj/machinery/door/airlock/abductor,
 /turf/simulated/floor/plating/abductor,
-/area/space)
-"ky" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating/abductor,
-/area/space)
+/area/ruin/powered/alien_cache_site/cache_room)
 "mQ" = (
 /turf/space,
 /area/space)
 "Ey" = (
-/obj/machinery/power/alien_cache{
-	pixel_y = -32;
-	pixel_x = -32
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/machinery/power/alien_cache,
 /turf/simulated/floor/plating/abductor,
-/area/space)
+/area/ruin/powered/alien_cache_site/cache_room)
 "Ha" = (
 /turf/simulated/wall/indestructible/abductor,
-/area/space)
-"OW" = (
-/obj/machinery/power/apc/directional/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating/abductor,
-/area/space)
-"Ud" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating/abductor,
-/area/space)
-"XP" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating/abductor,
-/area/space)
+/area/ruin/powered/alien_cache_site/cache_room)
 
 (1,1,1) = {"
 mQ
@@ -518,7 +478,7 @@ Ha
 Ha
 Ha
 et
-OW
+et
 et
 Ha
 Ha
@@ -552,7 +512,7 @@ Ha
 et
 et
 et
-XP
+et
 et
 et
 Ha
@@ -584,9 +544,9 @@ mQ
 mQ
 Ha
 Ey
-dk
-dk
-Ud
+et
+et
+et
 et
 et
 fA
@@ -620,7 +580,7 @@ Ha
 et
 et
 et
-XP
+et
 et
 et
 Ha
@@ -654,7 +614,7 @@ Ha
 Ha
 Ha
 et
-ky
+et
 et
 Ha
 Ha

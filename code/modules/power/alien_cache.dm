@@ -1,27 +1,41 @@
 #define CACHE_MAX_LEVEL 10
 #define LEVEL_DISTRIBUTION_SIGMA 0.5
+#define LEVEL_REQUIREMENT(level) ((300 MJ) * (level ** 3))
 
 /obj/machinery/power/alien_cache
+	name = "Alien Cache"
+	desc = "A strange storage device of alien design"
 	icon = 'icons/obj/machines/alien_cache.dmi'
 	icon_state = "cache_0"
 	base_icon_state = "cache_0"
 	pixel_x = -32
 	pixel_y = -32
+	density = TRUE
 	// Alien stuff is pretty tough
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	desc = "A strange cache of alien design"
 	/// The maximum reachable level
 	var/max_level = CACHE_MAX_LEVEL
+	/// The deepest level we opened
+	var/reached_level = 0
+	/// The total amount of energy consumed
+	var/total_energy = 0
 	/// Assoc list of random rewards to the level they are normally found at
 	var/list/random_rewards = list(
-
-	)
+									/obj/item/screwdriver/abductor = 1,
+									/obj/item/wrench/abductor = 1,
+									/obj/item/multitool/abductor = 1,
+									/obj/item/wirecutters/abductor = 1,
+									/obj/item/crowbar/abductor = 1,
+									/obj/item/stack/sheet/mineral/bananium/thirty = 1,
+									/obj/item/stack/sheet/mineral/tranquillite/thirty = 1,
+									/obj/item/stack/sheet/mineral/abductor/fifty = 1,
+									/obj/item/storage/belt/military/abductor/full = 1,
+									/obj/machinery/atmospherics/portable/canister/agent_b = 2,
+									)
 	/// List of guaranteed rewards you get from the last stage
 	var/list/open_rewards = list()
 	/// Terminal for receiving power through
 	var/obj/machinery/power/terminal/terminal
-	/// The deepest level we opened
-	var/reached_level = 0
 
 /obj/machinery/power/alien_cache/Initialize(mapload)
 	. = ..()
@@ -45,7 +59,9 @@
 	var/list/levels = list()
 	// Generate a weighted list of all possible levels using normal distribution
 	for(var/i in 1 to max_level)
-		levels += normal_distribution(i, reached_level, LEVEL_DISTRIBUTION_SIGMA)
+		var/level_prob = normal_distribution(i, reached_level, LEVEL_DISTRIBUTION_SIGMA)
+		if(level_prob > 0)
+			levels["[i]"] = level_prob
 
 	return levels
 
@@ -63,12 +79,24 @@
 		for(var/reward in random_rewards)
 			if(random_rewards[reward] == selected_level)
 				pool += reward
-		. += pick(pool)
+		if(length(pool))
+			. += pick(pool)
+		else
+			. += "no rewards in level [selected_level]"
+
+/obj/machinery/power/alien_cache/process()
+	if(terminal)
+		var/available = terminal.get_surplus()
+		terminal.consume_direct_power(available)
+		total_energy += available * WATT_TICK_TO_JOULE
+		if(total_energy >= LEVEL_REQUIREMENT(reached_level + 1))
+			reached_level++
+			to_chat(world, "Level: [reached_level]\nRewards: [english_list(pick_rewards())]")
 
 /// Items interaction mostly stolen from SMES
 /obj/machinery/power/alien_cache/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	// Opening using screwdriver
-	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), used))
+	if(default_deconstruction_screwdriver(user, "[icon_state]-o", initial(icon_state), used))
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
 
