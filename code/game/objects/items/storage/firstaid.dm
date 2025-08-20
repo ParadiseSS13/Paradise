@@ -188,6 +188,7 @@
 	desc = "A kit for surgery in the field."
 	icon_state = "firstaid_surgery"
 	item_state = "firstaid_o2"
+	med_bot_skin = "o2"
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 21
 	storage_slots = 10
@@ -225,9 +226,9 @@
 /obj/item/storage/firstaid/ert_amber
 	name = "amber ert first-aid kit"
 	desc = "A medical kit used by Amber level emergency response team personnel."
-	icon_state = "firstaid"
+	icon_state = "firstaid_elite"
 	item_state = "firstaid_elite"
-	item_state = "firstaid_elite"
+	med_bot_skin = "bezerk"
 
 /obj/item/storage/firstaid/ert_amber/populate_contents()
 	new /obj/item/healthanalyzer/advanced(src)
