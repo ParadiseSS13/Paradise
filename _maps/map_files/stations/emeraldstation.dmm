@@ -17959,8 +17959,9 @@
 /area/station/science/toxins/mixing)
 "dCN" = (
 /obj/structure/cable,
-/obj/structure/computerframe{
-	dir = 4
+/obj/machinery/power/solar_control{
+	dir = 4;
+	name = "Aft Port Solar Control"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
@@ -22284,6 +22285,28 @@
 /obj/structure/fermenting_barrel,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandoned_garden)
+"exH" = (
+/obj/structure/closet/crate{
+	name = "solar pack crate"
+	},
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/circuitboard/solar_control,
+/obj/item/tracker_electronics,
+/obj/item/paper/solar,
+/turf/simulated/floor/plating,
+/area/station/maintenance/solar_maintenance/fore_port)
 "exL" = (
 /turf/simulated/wall/r_wall,
 /area/station/command/office/captain/bedroom)
@@ -102659,6 +102682,8 @@
 /area/station/service/theatre)
 "usw" = (
 /obj/effect/spawner/random/cobweb/right/rare,
+/obj/structure/closet/toolcloset,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "usF" = (
@@ -146108,7 +146133,7 @@ dGi
 cqY
 hOC
 dCN
-dXx
+exH
 dGi
 sik
 sik
