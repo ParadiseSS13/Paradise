@@ -28,6 +28,7 @@
 	name = "first-aid kit"
 	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer."
 	icon_state = "firstaid_regular"
+	item_state = "firstaid_regular"
 
 /obj/item/storage/firstaid/regular/populate_contents()
 	new /obj/item/reagent_containers/patch/styptic(src)
@@ -57,7 +58,7 @@
 	name = "fire first-aid kit"
 	desc = "A medical kit that contains several medical patches and pills for treating burns. Contains one epinephrine syringe for emergency use and a health analyzer."
 	icon_state = "firstaid_burn"
-	item_state = "firstaid-ointment"
+	item_state = "firstaid_burn"
 	med_bot_skin = "ointment"
 
 /obj/item/storage/firstaid/fire/populate_contents()
@@ -74,8 +75,8 @@
 /obj/item/storage/firstaid/toxin
 	name = "toxin first aid kit"
 	desc = "A medical kit designed to counter poisoning by common toxins. Contains three pills and syringes, and a health analyzer to determine the health of the patient."
-	icon_state = "firstaid-toxin"
-	item_state = "firstaid-toxin"
+	icon_state = "firstaid_toxin"
+	item_state = "firstaid_toxin"
 	med_bot_skin = "tox"
 
 /obj/item/storage/firstaid/toxin/populate_contents()
@@ -91,7 +92,7 @@
 	name = "oxygen deprivation first aid kit"
 	desc = "A first aid kit that contains four pills of salbutamol, which is able to counter injuries caused by suffocation. Also contains a health analyzer to determine the health of the patient."
 	icon_state = "firstaid_o2"
-	item_state = "firstaid-o2"
+	item_state = "firstaid_o2"
 	med_bot_skin = "o2"
 
 /obj/item/storage/firstaid/o2/populate_contents()
@@ -108,7 +109,7 @@
 	name = "brute trauma treatment kit"
 	desc = "A medical kit that contains several medical patches and pills for treating brute injuries. Contains one epinephrine syringe for emergency use and a health analyzer."
 	icon_state = "firstaid_brute"
-	item_state = "firstaid-brute"
+	item_state = "firstaid_brute"
 	med_bot_skin = "brute"
 
 /obj/item/storage/firstaid/brute/populate_contents()
@@ -126,7 +127,7 @@
 	name = "advanced first-aid kit"
 	desc = "Contains advanced medical treatments."
 	icon_state = "firstaid_advanced"
-	item_state = "firstaid-advanced"
+	item_state = "firstaid_advanced"
 	med_bot_skin = "adv"
 
 /obj/item/storage/firstaid/adv/populate_contents()
@@ -145,7 +146,7 @@
 	name = "machine repair kit"
 	desc = "A kit that contains supplies to repair IPCs on the go."
 	icon_state = "firstaid_machine"
-	item_state = "firstaid-machine"
+	item_state = "firstaid_machine"
 	med_bot_skin = "machine"
 
 /obj/item/storage/firstaid/machine/populate_contents()
@@ -161,7 +162,8 @@
 /obj/item/storage/firstaid/tactical
 	name = "first-aid kit"
 	desc = "I hope you've got insurance."
-	icon_state = "firstaid_tactical"
+	icon_state = "firstaid_elite"
+	item_state = "firstaid_elite"
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
@@ -185,6 +187,7 @@
 	name = "field surgery kit"
 	desc = "A kit for surgery in the field."
 	icon_state = "firstaid_surgery"
+	item_state = "firstaid_o2"
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 21
 	storage_slots = 10
@@ -206,7 +209,8 @@
 /obj/item/storage/firstaid/ert
 	name = "ert first-aid kit"
 	desc = "A medical kit used by Nanotrasen emergency response team personnel."
-	icon_state = "firstaid_tactical"
+	icon_state = "firstaid_elite"
+	item_state = "firstaid_elite"
 	med_bot_skin = "bezerk"
 
 /obj/item/storage/firstaid/ert/populate_contents()
@@ -218,11 +222,12 @@
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 
-
 /obj/item/storage/firstaid/ert_amber
 	name = "amber ert first-aid kit"
 	desc = "A medical kit used by Amber level emergency response team personnel."
 	icon_state = "firstaid"
+	item_state = "firstaid_elite"
+	item_state = "firstaid_elite"
 
 /obj/item/storage/firstaid/ert_amber/populate_contents()
 	new /obj/item/healthanalyzer/advanced(src)
@@ -236,7 +241,8 @@
 /obj/item/storage/firstaid/fake_tactical
 	name = "tactical first-aid kit"
 	desc = "I hope you've got insurance. The paint is still wet."
-	icon_state = "firstaid_tactical"
+	icon_state = "firstaid_elite"
+	item_state = "firstaid_elite"
 	med_bot_skin = "bezerk"
 
 /obj/item/storage/firstaid/fake_tactical/populate_contents()
