@@ -723,10 +723,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(glasses)
 		var/mutable_appearance/new_glasses
 		var/obj/item/organ/external/head/head_organ = get_organ("head")
+		var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 		update_hud_glasses(glasses)
 
 		if(glasses.icon_override)
 			new_glasses = mutable_appearance(glasses.icon_override, "[glasses.icon_state]", layer = -GLASSES_LAYER)
+		else if(glasses.icon_monitor && robohead && robohead.is_monitor)
+			new_glasses = mutable_appearance(glasses.icon_monitor, "[glasses.icon_state]", layer = -GLASSES_LAYER)
 		else if(glasses.sprite_sheets && glasses.sprite_sheets[head_organ.dna.species.sprite_sheet_name])
 			new_glasses = mutable_appearance(glasses.sprite_sheets[head_organ.dna.species.sprite_sheet_name], "[glasses.icon_state]", layer = -GLASSES_LAYER)
 		else

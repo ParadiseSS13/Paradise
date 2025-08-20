@@ -179,6 +179,7 @@
 	desc = "Wolf's non-functional thermal eyepatch."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "wolf_eyepatch"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /// Adrkiller59: Adam Cooper
 /obj/item/clothing/glasses/meson/fluff/book_berner_1
@@ -186,6 +187,7 @@
 	desc = "One of the older meson scanner models retrofitted to perform like its modern counterparts."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "book_berner_1"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /// Rapidvalj: Kakicharakiti
 /obj/item/clothing/glasses/sunglasses_fake/fluff/kaki
@@ -616,6 +618,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "eyepro"
 	item_state = "eyepro"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /// LP Spartan: Kaskreyarawkta
 /obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud

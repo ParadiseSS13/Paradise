@@ -58,6 +58,7 @@
 	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/health/sunglasses
 	name = "medical HUDSunglasses"
@@ -67,6 +68,7 @@
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
 	hide_examine = TRUE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/diagnostic
 	name = "diagnostic HUD"
@@ -90,6 +92,7 @@
 	origin_tech = "magnets=4;powerstorage=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/diagnostic/sunglasses
 	name = "diagnostic sunglasses"
@@ -98,6 +101,7 @@
 	item_state = "glasses"
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/security
 	name = "security HUD"
@@ -130,6 +134,7 @@
 	origin_tech = "magnets=4;combat=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/security/sunglasses
 	name = "HUDSunglasses"
@@ -139,6 +144,7 @@
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -172,6 +178,7 @@
 	item_state = "glasses"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/skills
 	name = "skills HUD"
@@ -193,6 +200,7 @@
 	see_in_dark = 1 // None of these three can be converted to booleans. Do not try it.
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey"  = 'icons/mob/clothing/species/grey/eyes.dmi',
@@ -221,6 +229,7 @@
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
 	hide_examine = TRUE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/janitor/night
 	name = "night vision janitor HUD"
@@ -229,3 +238,4 @@
 	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
