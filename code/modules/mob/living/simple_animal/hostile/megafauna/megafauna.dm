@@ -200,16 +200,14 @@
 		on_ptl_fire(ptl)
 	return
 
-/mob/living/simple_animal/hostile/megafauna/on_ptl_tick(obj/machinery/power/transmission_laser/ptl)
-	if(!ptl)
-		return
+/mob/living/simple_animal/hostile/megafauna/on_ptl_tick(obj/machinery/power/transmission_laser/ptl, output_level)
 	loot = list() // disable loot drops form the target to prevent cheese
-	if(10 * ptl.output_level * damage_coeff[BURN] / (1 MW) > health) // If we would kill the target dust it.
+	if(10 * output_level * damage_coeff[BURN] / (1 MW) > health) // If we would kill the target dust it.
 		health = 0 // We need this so can_die() won't prevent dusting
 		visible_message("<span class='danger'>\The [src] is reduced to dust by the beam!</span>")
 		dust()
 	else
-		adjustFireLoss(10 * ptl.output_level / (1 MW))
+		adjustFireLoss(10 * output_level / (1 MW))
 
 /mob/living/simple_animal/hostile/megafauna/on_ptl_untarget(obj/machinery/power/transmission_laser/ptl)
 	on_ptl_stop(ptl)

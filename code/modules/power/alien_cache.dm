@@ -7,6 +7,9 @@
 	base_icon_state = "cache_0"
 	pixel_x = -32
 	pixel_y = -32
+	// Alien stuff is pretty tough
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	desc = "A strange cache of alien design"
 	/// The maximum reachable level
 	var/max_level = CACHE_MAX_LEVEL
 	/// Assoc list of random rewards to the level they are normally found at
@@ -26,6 +29,16 @@
 		list(1, MACH_CENTER, 1),
 		list(1, 0,		   1),
 	))
+
+/obj/machinery/power/alien_cache/examine(mob/user)
+	. = ..()
+	if(panel_open)
+		. += "<span class='notice'>The panel is open, revealing the internal wiring</span>"
+	else
+		. += "<span class='notice'>There's a loose panel on the front that could be pried open with a screwdriver</span>"
+
+/obj/machinery/power/alien_cache/display_parts(user)
+	return list("<span class='warning'>ERROR: UNIDENTIFIED MACHINE DESIGN</span>")
 
 /// generate a list with weights for levels depending on the reached level
 /obj/machinery/power/alien_cache/proc/level_weights()

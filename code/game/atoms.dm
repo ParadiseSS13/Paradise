@@ -1524,7 +1524,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return
 
 // Called for each process of the PTL
-/atom/proc/on_ptl_tick(obj/machinery/power/transmission_laser/ptl)
+/atom/proc/on_ptl_tick(obj/machinery/power/transmission_laser/ptl, output_level)
 	return
 
 // Called when no longer targeted by the ptl

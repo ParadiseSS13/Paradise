@@ -314,6 +314,12 @@
 	build_path = /obj/machinery/power/solar_control
 	origin_tech = "programming=2;powerstorage=2"
 
+/obj/item/circuitboard/laser_terminal
+	board_name = "Laser Terminal"
+	icon_state = "engineering"
+	build_path = /obj/machinery/power/laser_terminal
+	origin_tech = "programing=2;powerstorage=4"
+
 /obj/item/circuitboard/powermonitor
 	board_name = "Power Monitor"
 	icon_state = "engineering"

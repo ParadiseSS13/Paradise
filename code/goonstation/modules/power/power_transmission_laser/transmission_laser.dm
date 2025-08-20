@@ -336,6 +336,8 @@
 		for(var/area_type in targetable_areas)
 			if(istype(boss_loc, area_type))
 				target_list[monster.internal_gps.gpstag] = monster
+	for(var/obj/machinery/power/laser_terminal/receptacle in GLOB.laser_terminals)
+		target_list["[receptacle.name]: [receptacle.UID()]"] = receptacle
 	// Target CC to sell power
 	target_list["Collection Terminal"] = null
 
@@ -387,8 +389,8 @@
 		if(!target)
 			sell_power(output_level * WATT_TICK_TO_JOULE)
 		else
-			if(!QDELETED(target)) // Just for safety.
-				target.on_ptl_tick(src)
+			if(!QDELETED(target)) // Make sure our target still exists
+				INVOKE_ASYNC(target, TYPE_PROC_REF(/atom, on_ptl_tick), src, output_level)
 			else
 				target = null
 		if(output_level > EYE_DAMAGE_THRESHOLD)
