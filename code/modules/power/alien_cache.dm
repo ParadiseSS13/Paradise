@@ -74,7 +74,7 @@
 	var/list/levels = level_weights()
 
 	for(var/i in 1 to amount)
-		var/selected_level = pickweight(levels)
+		var/selected_level = text2num(pickweight_fraction(levels))
 		var/list/pool = list()
 		for(var/reward in random_rewards)
 			if(random_rewards[reward] == selected_level)
