@@ -439,10 +439,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	name = "Canister \[Air\]"
 	icon_state = "grey" //See Initialize()
 	can_label = FALSE
-/obj/machinery/atmospherics/portable/canister/agent_b
-	name = "Canister \[Agent B\]"
-	icon_state = "yellow" //See Initialize()
-	can_label = FALSE
 
 /obj/machinery/atmospherics/portable/canister/custom_mix
 	name = "Canister \[Custom\]"
@@ -499,11 +495,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	air_contents.set_nitrogen((N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 	update_icon()
-
-/obj/machinery/atmospherics/portable/canister/agent_b/Initialize(mapload)
-	. = ..()
-	canister_color["prim"] = "yellow"
-	air_contents.set_agent_b((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 /obj/machinery/atmospherics/portable/canister/custom_mix/Initialize(mapload)
 	. = ..()
