@@ -188,7 +188,6 @@
 	desc = "A kit for surgery in the field."
 	icon_state = "firstaid_surgery"
 	item_state = "firstaid_o2"
-	med_bot_skin = "o2"
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 21
 	storage_slots = 10
