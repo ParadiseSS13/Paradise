@@ -235,6 +235,8 @@
 	var/chamber_state = 1
 	/// Has the requirements for the rod inside this chamber been met?
 	var/requirements_met = FALSE
+	/// Holds the spanning-tree list of rod chambers when calculating requirements
+	var/list/source_list
 
 /obj/machinery/reactor_chamber/Initialize(mapload)
 	. = ..()
@@ -414,20 +416,28 @@
 
 /obj/machinery/reactor_chamber/proc/update_status()
 	var/turf/nearby_turf
+	var/list/temp_requirements = held_rod.adjacent_requirements // a temporary modable holder
+	var/
 	for(var/direction in GLOB.cardinal)
+		nearby_turf = get_step(src, direction)
 		for(var/obj/machinery/reactor_chamber/chamber in nearby_turf.contents)
-			if(chamber.linked_reactor && chamber.chamber_state == CHAMBER_DOWN)
+			if(chamber.held_rod.type)
+			if(chamber.held_rod && linked_reactor == chamber.linked_reactor)
+				var/found_rod = FALSE
+				if(chamber.held_rod.type in temp_requirements)
+					temp_requirements -= chamber.held_rod.type
+					found_rod = TRUE
+				if(!found_rod)
+					for(var/requirement in temp_requirements)
+						if(requirement in typesof(chamber.held_rod.type))
+
+							break
 
 
-// check one's neighbors for rod activation requirements.
-/obj/machinery/reactor_chamber/proc/check_requirements(var/list/neighbors)
-	var/list/requirements = held_rod.adjacent_requirements
-	for(var/rod in requirements)
-		if(neighbors in typesof(rod))
-			requirements -= rod
-	if(!length(requirements))
-		return TRUE
-	return FALSE
+
+
+/obj/machinery/reactor_chamber/proc/spanning_check()
+	for()
 
 
 /obj/item/circuitboard/machine/reactor_chamber
