@@ -19,18 +19,49 @@
 	var/reached_level = 0
 	/// The total amount of energy consumed
 	var/total_energy = 0
-	/// Assoc list of random rewards to the level they are normally found at
+	/// Assoc list of level to rewards found at that level with a weight for each
 	var/list/random_rewards = list(
+									// level 1
+									list(
+									/obj/item/stack/sheet/mineral/bananium/thirty = 1,
+									/obj/item/stack/sheet/mineral/tranquillite/thirty = 1,
+									/obj/item/stack/sheet/mineral/abductor/fifty = 1,
+									),
+									// level 2
+									list(
 									/obj/item/screwdriver/abductor = 1,
 									/obj/item/wrench/abductor = 1,
 									/obj/item/multitool/abductor = 1,
 									/obj/item/wirecutters/abductor = 1,
 									/obj/item/crowbar/abductor = 1,
-									/obj/item/stack/sheet/mineral/bananium/thirty = 1,
-									/obj/item/stack/sheet/mineral/tranquillite/thirty = 1,
-									/obj/item/stack/sheet/mineral/abductor/fifty = 1,
-									/obj/item/storage/belt/military/abductor/full = 1,
-									/obj/machinery/atmospherics/portable/canister/agent_b = 2,
+									/obj/item/storage/belt/military/abductor/full = 0.4,
+									),
+									// level 3
+									list(
+									/obj/item/assembly/signaler/anomaly/bluespace = 1
+									),
+									// level 4
+									list(
+									/obj/machinery/atmospherics/portable/canister/agent_b = 1,
+									),
+									// level 5
+									list(
+									),
+									// level 6
+									list(
+									),
+									// level 7
+									list(
+									),
+									// level 8
+									list(
+									),
+									// level 9
+									list(
+									),
+									// level 10
+									list(
+									),
 									)
 	/// List of guaranteed rewards you get from the last stage
 	var/list/open_rewards = list()
@@ -76,22 +107,19 @@
 	for(var/i in 1 to amount)
 		var/selected_level = text2num(pickweight_fraction(levels))
 		var/list/pool = list()
-		for(var/reward in random_rewards)
-			if(random_rewards[reward] == selected_level)
-				pool += reward
-		if(length(pool))
-			. += pick(pool)
+		if(length(random_rewards[selected_level]))
+			. += pickweight_fraction(random_rewards[selected_level])
 		else
 			. += "no rewards in level [selected_level]"
 
 /obj/machinery/power/alien_cache/process()
-	if(terminal)
+	if(terminal && level_reached < max_level)
 		var/available = terminal.get_surplus()
 		terminal.consume_direct_power(available)
 		total_energy += available * WATT_TICK_TO_JOULE
 		if(total_energy >= LEVEL_REQUIREMENT(reached_level + 1))
 			reached_level++
-			to_chat(world, "Level: [reached_level]\nRewards: [english_list(pick_rewards())]")
+			to_chat(world, "Level: [reached_level]\nRewards: [english_list(pick_rewards(5))]")
 
 /// Items interaction mostly stolen from SMES
 /obj/machinery/power/alien_cache/item_interaction(mob/living/user, obj/item/used, list/modifiers)
