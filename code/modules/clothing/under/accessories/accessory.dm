@@ -343,8 +343,15 @@
 	var/stored_name = null
 
 /obj/item/clothing/accessory/holobadge/cord
-	icon_state = "holobadge-cord"
-	item_color = "holobadge-cord"
+	icon_state = "holobadge_cord"
+	item_color = "holobadge_cord"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi'
+		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi'
+
+	)
 
 /obj/item/clothing/accessory/holobadge/attack_self__legacy__attackchain(mob/user)
 	if(!stored_name)
