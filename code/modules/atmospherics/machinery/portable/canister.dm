@@ -445,7 +445,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	icon_state = "whiters" //See Initialize()
 	can_label = FALSE
 
-
 /obj/machinery/atmospherics/portable/canister/toxins/Initialize(mapload)
 	. = ..()
 

@@ -1184,6 +1184,7 @@
 #include "code\game\objects\effects\spawners\random_barrier.dm"
 #include "code\game\objects\effects\spawners\vaultspawner.dm"
 #include "code\game\objects\effects\spawners\windowspawner.dm"
+#include "code\game\objects\effects\spawners\random\alien_cache_random_spawners.dm"
 #include "code\game\objects\effects\spawners\random\bluespace_tap_spawners.dm"
 #include "code\game\objects\effects\spawners\random\decal_spawners.dm"
 #include "code\game\objects\effects\spawners\random\engineering_spawners.dm"

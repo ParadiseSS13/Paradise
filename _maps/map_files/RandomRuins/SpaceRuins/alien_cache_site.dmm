@@ -11,7 +11,7 @@
 /turf/space,
 /area/space)
 "Ey" = (
-/obj/machinery/power/alien_cache,
+/obj/machinery/alien_cache,
 /turf/simulated/floor/plating/abductor,
 /area/ruin/powered/alien_cache_site/cache_room)
 "Ha" = (

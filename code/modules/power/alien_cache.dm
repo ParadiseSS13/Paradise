@@ -1,8 +1,8 @@
 #define CACHE_MAX_LEVEL 10
 #define LEVEL_DISTRIBUTION_SIGMA 0.5
-#define LEVEL_REQUIREMENT(level) ((300 MJ) * (level ** 3))
+#define LEVEL_REQUIREMENT(level) ((300 MJ) * ((level) ** 3))
 
-/obj/machinery/power/alien_cache
+/obj/machinery/alien_cache
 	name = "Alien Cache"
 	desc = "A strange storage device of alien design"
 	icon = 'icons/obj/machines/alien_cache.dmi'
@@ -16,7 +16,7 @@
 	/// The maximum reachable level
 	var/max_level = CACHE_MAX_LEVEL
 	/// The deepest level we opened
-	var/reached_level = 0
+	var/level_reached = 0
 	/// The total amount of energy consumed
 	var/total_energy = 0
 	/// Assoc list of level to rewards found at that level with a weight for each
@@ -26,42 +26,25 @@
 									/obj/item/stack/sheet/mineral/bananium/thirty = 1,
 									/obj/item/stack/sheet/mineral/tranquillite/thirty = 1,
 									/obj/item/stack/sheet/mineral/abductor/fifty = 1,
+									/obj/effect/spawner/random/alien_cache/alien_surgical_tool = 3,
 									),
 									// level 2
 									list(
-									/obj/item/screwdriver/abductor = 1,
-									/obj/item/wrench/abductor = 1,
-									/obj/item/multitool/abductor = 1,
-									/obj/item/wirecutters/abductor = 1,
-									/obj/item/crowbar/abductor = 1,
+									/obj/effect/spawner/random/alien_cache/alien_tool = 5,
 									/obj/item/storage/belt/military/abductor/full = 1,
 									),
 									// level 3
 									list(
-									/obj/item/assembly/signaler/anomaly/bluespace = 1,
+									/obj/item/assembly/signaler/anomaly/random = 2,
 									/obj/item/mod/module/jetpack/advanced = 1,
 									),
 									// level 4
 									list(
-
+									/obj/effect/spawner/alien_cache/gas_canister = 1,
 									),
 									// level 5
 									list(
-									),
-									// level 6
-									list(
-									),
-									// level 7
-									list(
-									),
-									// level 8
-									list(
-									),
-									// level 9
-									list(
-									),
-									// level 10
-									list(
+									/obj/effect/spawner/alien_cache/gas_canister/agent_b = 1,
 									),
 									)
 	/// List of guaranteed rewards you get from the last stage
@@ -69,65 +52,69 @@
 	/// Terminal for receiving power through
 	var/obj/machinery/power/terminal/terminal
 
-/obj/machinery/power/alien_cache/Initialize(mapload)
+/obj/machinery/alien_cache/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/multitile, list(
 		list(1, MACH_CENTER, 1),
 		list(1, 0,		   1),
 	))
 
-/obj/machinery/power/alien_cache/examine(mob/user)
+/obj/machinery/alien_cache/examine(mob/user)
 	. = ..()
 	if(panel_open)
 		. += "<span class='notice'>The panel is open, revealing the internal wiring</span>"
 	else
 		. += "<span class='notice'>There's a loose panel on the front that could be pried open with a screwdriver</span>"
 
-/obj/machinery/power/alien_cache/display_parts(user)
+/obj/machinery/alien_cache/display_parts(user)
 	return list("<span class='warning'>ERROR: UNIDENTIFIED MACHINE DESIGN</span>")
 
-/// generate a list with weights for levels depending on the reached level
-/obj/machinery/power/alien_cache/proc/level_weights()
-	var/list/levels = list()
-	// Generate a weighted list of all possible levels using normal distribution
-	for(var/i in 1 to max_level)
-		var/level_prob = normal_distribution(i, reached_level, LEVEL_DISTRIBUTION_SIGMA)
-		if(level_prob > 0)
-			levels["[i]"] = level_prob
+/// generate a list with weights for tiers of loot depending on the reached level
+/obj/machinery/alien_cache/proc/tier_weights()
+	var/list/tiers = list()
+	// Generate a weighted list of all possible tiers using normal distribution
+	var/avg_tier = (length(random_rewards) * level_reached / max_level)
+	for(var/i in 1 to length(random_rewards))
+		var/tier_prob = normal_distribution(i, avg_tier, LEVEL_DISTRIBUTION_SIGMA)
+		if(tier_prob > 0)
+			tiers["[i]"] = tier_prob
 
-	return levels
+	return tiers
 
 /// Returns a list of rewards with length equal to amount
-/obj/machinery/power/alien_cache/proc/pick_rewards(amount = 1)
+/obj/machinery/alien_cache/proc/pick_rewards(amount = 1)
 	. = list()
 	if(!amount || amount < 1)
 		return
 
-	var/list/levels = level_weights()
+	var/list/tiers = tier_weights()
 
 	for(var/i in 1 to amount)
-		var/selected_level = text2num(pickweight_fraction(levels))
+		var/selected_level = text2num(pickweight_fraction(tiers))
 		if(length(random_rewards[selected_level]))
 			. += pickweight_fraction(random_rewards[selected_level])
 		else
 			. += "no rewards in level [selected_level]"
 
-/obj/machinery/power/alien_cache/process()
-	if(terminal && reached_level < max_level)
+/obj/machinery/alien_cache/process()
+	if(terminal && level_reached < max_level)
 		var/available = terminal.get_surplus()
 		terminal.consume_direct_power(available)
 		total_energy += available * WATT_TICK_TO_JOULE
-		if(total_energy >= LEVEL_REQUIREMENT(reached_level + 1))
-			reached_level++
-			to_chat(world, "Level: [reached_level]\nRewards: [english_list(pick_rewards(5))]")
+		if(total_energy >= LEVEL_REQUIREMENT(level_reached + 1))
+			level_reached++
+			var/list/rewards = pick_rewards(3)
+			to_chat(world, "Level: [level_reached]\nRewards: [english_list(rewards)]")
+			spawn_loot(rewards)
+
+
+/obj/machinery/alien_cache/proc/spawn_loot(list/loot)
+	var/turf/spawnloc = get_step(get_step(get_step(src, SOUTH), SOUTH), EAST)
+	for(var/lootpath in loot)
+		new lootpath(spawnloc)
 
 /// Items interaction mostly stolen from SMES
-/obj/machinery/power/alien_cache/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	// Opening using screwdriver
-	if(default_deconstruction_screwdriver(user, "[icon_state]-o", initial(icon_state), used))
-		update_icon()
-		return ITEM_INTERACT_COMPLETE
-
+/obj/machinery/alien_cache/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	// Building and linking a terminal
 	if(istype(used, /obj/item/stack/cable_coil))
 		var/dir = get_dir(user, src)
@@ -195,34 +182,47 @@
 				stat &= ~BROKEN
 		return ITEM_INTERACT_COMPLETE
 
-	// Disassembling the terminal
-	if(istype(used, /obj/item/wirecutters) && terminal && panel_open)
-		var/turf/T = get_turf(terminal)
-		if(T.intact) //is the floor plating removed ?
-			to_chat(user, "<span class='alert'>You must first expose the power terminal!</span>")
-			return ITEM_INTERACT_COMPLETE
-
-		to_chat(user, "<span class='notice'>You begin to dismantle the power terminal...</span>")
-		playsound(src.loc, used.usesound, 50, TRUE)
-
-		if(do_after(user, 5 SECONDS * used.toolspeed, target = src))
-			if(terminal && panel_open)
-				if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal, 1, TRUE)) // Animate the electrocution if uncautious and unlucky
-					do_sparks(5, TRUE, src)
-					return ITEM_INTERACT_COMPLETE
-
-				// Returns wires on deletion of the terminal
-				new /obj/item/stack/cable_coil(T, 10)
-				user.visible_message(\
-					"<span class='alert'>[user.name] cuts the cables and dismantles the power terminal.</span>",\
-					"<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
-				qdel(terminal)
-				return ITEM_INTERACT_COMPLETE
-
 	return ..()
 
+/obj/machinery/alien_cache/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	to_chat(user, chat_box_examine("<span class='notice'>Total energy: [DisplayJoules(total_energy)]<br> tiers opened: [level_reached]</span>"))
+
+/obj/machinery/alien_cache/screwdriver_act(mob/living/user, obj/item/I)
+	// Opening using screwdriver
+	return default_deconstruction_screwdriver(user, "[icon_state]-o", initial(icon_state), I)
+
+/obj/machinery/alien_cache/wirecutter_act(mob/living/user, obj/item/I)
+	// No terminal to cut, just bonk
+	if(!terminal)
+		return FALSE
+	// If we have a terminal assume we are trying to disassemble it
+	. = TRUE
+	var/turf/T = get_turf(terminal)
+	if(T.intact) //is the floor plating removed ?
+		to_chat(user, "<span class='alert'>You must first expose the power terminal!</span>")
+		return
+	if(!panel_open)
+		to_chat(user, "<span class='alert'>You must first open the panel</span>")
+	to_chat(user, "<span class='notice'>You begin to dismantle the power terminal...</span>")
+	playsound(src.loc, I.usesound, 50, TRUE)
+
+	if(do_after(user, 5 SECONDS * I.toolspeed, target = src))
+		if(terminal && panel_open)
+			if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal, 1, TRUE)) // Animate the electrocution if uncautious and unlucky
+				do_sparks(5, TRUE, src)
+				return
+
+			// Returns wires on deletion of the terminal
+			new /obj/item/stack/cable_coil(T, 10)
+			user.visible_message(\
+				"<span class='alert'>[user.name] cuts the cables and dismantles the power terminal.</span>",\
+				"<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
+			qdel(terminal)
+			return
+
 /// Terminal creation proc stolen from SMES
-/obj/machinery/power/alien_cache/proc/make_terminal(user, temporary_direction, temporary_location)
+/obj/machinery/alien_cache/proc/make_terminal(user, temporary_direction, temporary_location)
 	// Create a terminal object at the same position as original turf loc
 	// Wires will attach to this
 	terminal = new /obj/machinery/power/terminal(temporary_location)
