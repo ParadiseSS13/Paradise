@@ -33,7 +33,7 @@
 	GLOB.minor_announcement.Announce("Cargo: [situation.announcement_text]", situation.sender)
 
 /datum/event/shuttle_loan/proc/loan_shuttle()
-	SSshuttle.shuttle_loan = src
+	SSshuttle.shuttle_loan_UID = UID()
 	SSblackbox.record_feedback("tally", "Shuttle Loan Event Type", 1, situation.type)
 	GLOB.minor_announcement.Announce("Cargo: [situation.announcement_text]", situation.sender)
 	log_debug("Shuttle loan event firing with type '[situation.logging_desc]'.")
@@ -53,5 +53,8 @@
 			endWhen = activeFor + 1
 
 /datum/event/shuttle_loan/end()
-	if(!SSshuttle.shuttle_loan || !SSshuttle.shuttle_loan.dispatched)
+	if(!SSshuttle.shuttle_loan_UID)
+		return
+	var/datum/event/shuttle_loan/shuttle_loan = locateUID(SSshuttle.shuttle_loan_UID)
+	if(!shuttle_loan.dispatched)
 		return
