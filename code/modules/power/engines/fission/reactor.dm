@@ -24,6 +24,7 @@
 #warn Idea todo: Reactor leaks heat at high temperatures
 #warn Idea todo: ripley grippers can pick up rods without damage
 #warn Idea todo: coolant rods can eject from the reactor at high temps
+#warn Idea todo: Grenades that force start rods
 
 /// MARK: Fission Reactor
 
@@ -254,6 +255,7 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 5)
 	RefreshParts()
 	update_icon()
+	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/reactor_chamber/LateInitialize()
 	. = ..()
@@ -403,6 +405,7 @@
 	density = TRUE
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 	operational = FALSE
+	requirements_met = FALSE
 
 /obj/machinery/reactor_chamber/proc/lower()
 	chamber_state = CHAMBER_DOWN
@@ -455,6 +458,9 @@
 				continue
 
 /obj/machinery/reactor_chamber/proc/update_status()
+	if(!held_rod)
+		return FALSE
+
 	var/turf/nearby_turf
 	var/list/temp_requirements = held_rod.adjacent_requirements // a temporary modable holder
 	if(!temp_requirements)

@@ -45,7 +45,20 @@
 	power_amp_mod = 1.1
 	durability = 6000
 	rad_type = BETA_RAD
-	adjacent_requirements = list()
+
+/obj/item/nuclear_rod/fuel/weak_thorium
+	name = "Weak Thorium Fuel Rod"
+	desc = "A specialized fuel rod bred from uranium 238. This rod will last longer than normal, and wont generate as much heat."
+	heat_amount = 50
+	power_amount = 15 KW
+	heat_amp_mod = 1.6
+	power_amp_mod = 1.1
+	durability = 10000
+	rad_type = ALPHA_RAD
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/moderator,
+		/obj/item/nuclear_rod/coolant,
+		)
 
 /obj/item/nuclear_rod/moderator
 	name = "nuclear moderator rod"
@@ -71,6 +84,7 @@
 	heat_amp_mod = 1
 	power_amount = -10 KW
 	durability = 6000
+	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
 
 
 
