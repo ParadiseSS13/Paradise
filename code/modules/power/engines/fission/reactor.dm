@@ -102,10 +102,11 @@
 	clear_reactor_network()
 	return ..()
 
+/// Links all valid chambers to the reactor itself.
 /obj/machinery/power/fission_reactor/proc/build_reactor_network()
 	for(var/turf/T in RECT_TURFS(1, 2, src))
 		for(var/obj/machinery/reactor_chamber/chamber in T)
-			if(!chamber.linked_reactor)
+			if(!chamber.linked_reactor && !chamber.skip_link)
 				chamber.form_link(src)
 
 
@@ -237,6 +238,10 @@
 	var/requirements_met = FALSE
 	/// Is the rod chamber actively running and providing its effects
 	var/operational = FALSE
+	/// Holds the list of linked neighbors
+	var/list/neighbors = list()
+	/// skip this chamber when building links
+	var/skip_link = FALSE
 
 /obj/machinery/reactor_chamber/Initialize(mapload)
 	. = ..()
@@ -250,20 +255,49 @@
 	RefreshParts()
 	update_icon()
 
-// we only want it searching for a link when it is constructed, otherwise the reactor starts this.
+/obj/machinery/reactor_chamber/LateInitialize()
+	. = ..()
+	get_neighbors()
+
+/obj/machinery/reactor_chamber/proc/get_neighbors()
+	if(length(neighbors)) // for when we need to rerun this
+		neighbors.Cut()
+	var/turf/nearby_turf
+	for(var/direction in GLOB.cardinal)
+		nearby_turf = get_step(src, direction)
+		for(var/obj/machinery/reactor_chamber/chamber in nearby_turf)
+			if(chamber.linked_reactor != linked_reactor)
+				continue
+			neighbors += chamber
+			continue
+
+// we only want it searching for a link when it is constructed, otherwise the reactor starts the link process.
 /obj/machinery/reactor_chamber/on_construction()
 	. = ..()
 	find_link()
+	for(var/obj/machinery/reactor_chamber/chamber in neighbors)
+		chamber.get_neighbors()
 
 /obj/machinery/reactor_chamber/on_deconstruction()
-	. = ..()
 	if(linked_reactor)
-		linked_reactor.clear_reactor_network(restart = TRUE)
+		desync()
+	return ..()
 
 /obj/machinery/reactor_chamber/Destroy()
-	. = ..()
+	if(linked_reactor)
+		desync()
+	return ..()
+
+///  Removes the chamber from neighbor from its neighborss, and forces them to run status checks
+/obj/machinery/reactor_chamber/proc/desync()
 	if(linked_reactor)
 		linked_reactor.clear_reactor_network(restart = TRUE)
+	if(!length(neighbors))
+		return
+	for(var/obj/machinery/reactor_chamber/chamber in neighbors)
+		chamber.neighbors -= src
+		chamber.update_status()
+
 
 /obj/machinery/reactor_chamber/update_overlays()
 	. = ..()
@@ -294,9 +328,13 @@
 		if(do_after_once(user, 2 SECONDS, target = src, allow_moving = FALSE))
 			raise()
 			return
+
 	if(chamber_state == CHAMBER_UP)
-		if(do_after_once(user, 2 SECONDS, target = src, allow_moving = FALSE))
-			if(chamber_state != CHAMBER_UP) // so that we cant lower early
+		var/delay = 1 SECONDS
+		if(operational)
+			delay = 8 SECONDS
+		if(do_after_once(user, delay, target = src, allow_moving = FALSE))
+			if(chamber_state != CHAMBER_UP) // so that we cant lower while in the open state
 				return
 			lower()
 			return
@@ -364,12 +402,14 @@
 	icon_state = "chamber_up"
 	density = TRUE
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+	operational = FALSE
 
 /obj/machinery/reactor_chamber/proc/lower()
 	chamber_state = CHAMBER_DOWN
 	icon_state = "chamber_down"
 	density = FALSE
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+	update_status()
 
 /obj/machinery/reactor_chamber/proc/close()
 	chamber_state = CHAMBER_UP
@@ -385,7 +425,7 @@
 
 /// Forms the two-way link between the reactor and the chamber, then spreads it
 /obj/machinery/reactor_chamber/proc/form_link(var/obj/machinery/power/fission_reactor/reactor)
-	if(linked_reactor) // A check to prevent duplicates
+	if(linked_reactor || skip_link) // A check to prevent duplicates or unwanted chambers
 		return
 	linked_reactor = reactor
 	reactor.connected_chambers += src
@@ -420,30 +460,20 @@
 	if(!temp_requirements)
 		return TRUE
 
-	for(var/direction in GLOB.cardinal)
-		nearby_turf = get_step(src, direction)
-		for(var/obj/machinery/reactor_chamber/chamber in nearby_turf.contents)
-			if(!chamber.operational)
-				continue
-			if(chamber.held_rod.type in temp_requirements)
-				temp_requirements
-			for(var/requirement in temp_requirements)
-				if(requirement in types_of(chamber.held_rod.type))
-					temp_requirements -= requirement
-					break
+	for(var/obj/machinery/reactor_chamber/chamber in neighbors)
+		if(!chamber.operational)
+			continue
+		if(chamber.held_rod.type in temp_requirements)
+			temp_requirements -= chamber.held_rod.type
+		for(var/requirement in temp_requirements)
+			if(requirement in typesof(chamber.held_rod.type))
+				temp_requirements -= requirement
+				break
 
 	if(!length(temp_requirements))
 		return TRUE
 
 	return FALSE
-
-
-
-
-
-/obj/machinery/reactor_chamber/proc/spanning_check()
-	for()
-
 
 /obj/item/circuitboard/machine/reactor_chamber
 	board_name = "Reactor Chamber"
