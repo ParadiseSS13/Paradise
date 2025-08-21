@@ -284,7 +284,7 @@
 /mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
 	if(user == src && ishuman(user))
 		var/mob/living/carbon/human/self = user
-		self.peel_off_synthetic_skin()
+		INVOKE_ASYNC(self, TYPE_PROC_REF(/mob/living/carbon/human, peel_off_synthetic_skin))
 		return
 	if(anchored)
 		return FALSE
