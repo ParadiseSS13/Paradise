@@ -213,6 +213,9 @@
 	audio_cooldown = 0.25 SECONDS
 
 /datum/emote/jump/run_emote(mob/user, params, type_override, intentional)
+	if(isobserver(user))
+		jump_animation(user)
+		return TRUE
 	. = ..()
 	if(!.)
 		return FALSE
