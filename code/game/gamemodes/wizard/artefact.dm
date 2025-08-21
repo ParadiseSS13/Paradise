@@ -996,6 +996,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	magical = TRUE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',

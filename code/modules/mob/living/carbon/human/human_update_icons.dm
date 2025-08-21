@@ -723,10 +723,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(glasses)
 		var/mutable_appearance/new_glasses
 		var/obj/item/organ/external/head/head_organ = get_organ("head")
+		var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 		update_hud_glasses(glasses)
 
 		if(glasses.icon_override)
 			new_glasses = mutable_appearance(glasses.icon_override, "[glasses.icon_state]", layer = -GLASSES_LAYER)
+		else if(glasses.icon_monitor && robohead && robohead.is_monitor)
+			new_glasses = mutable_appearance(glasses.icon_monitor, "[glasses.icon_state]", layer = -GLASSES_LAYER)
 		else if(glasses.sprite_sheets && glasses.sprite_sheets[head_organ.dna.species.sprite_sheet_name])
 			new_glasses = mutable_appearance(glasses.sprite_sheets[head_organ.dna.species.sprite_sheet_name], "[glasses.icon_state]", layer = -GLASSES_LAYER)
 		else
@@ -864,7 +867,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(head)
 		update_hud_head(head)
+		var/obj/item/organ/external/head/head_organ = get_organ("head")
+		var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 		var/mutable_appearance/standing
+		if(head.icon_monitor && robohead && robohead.is_monitor)
+			standing = mutable_appearance(head.icon_monitor, "[head.icon_state]", layer = -HEAD_LAYER)
 		if(head.sprite_sheets && head.sprite_sheets[dna.species.sprite_sheet_name])
 			standing = mutable_appearance(head.sprite_sheets[dna.species.sprite_sheet_name], "[head.icon_state]", layer = -HEAD_LAYER)
 		else if(head.icon_override)
@@ -880,6 +887,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(istype(head, /obj/item/clothing/head))
 			var/obj/item/clothing/head/w_hat = head
 			for(var/obj/item/clothing/head/hat in w_hat.attached_hats)
+				if(hat.icon_monitor && robohead && robohead.is_monitor)
+					standing.overlays += image("icon" = hat.icon_monitor, "icon_state" = "[hat.icon_state]")
 				if(hat.sprite_sheets && hat.sprite_sheets[dna.species.sprite_sheet_name])
 					standing.overlays += image("icon" = hat.sprite_sheets[dna.species.sprite_sheet_name], "icon_state" = "[hat.icon_state]")
 				else

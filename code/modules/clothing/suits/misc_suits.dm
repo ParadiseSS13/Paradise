@@ -295,6 +295,7 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
 /obj/item/clothing/suit/hooded/carp_costume/dragon
 	name = "space carp poncho"
@@ -350,6 +351,7 @@
 	icon_state = "salmon"
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
 /// It's Hip!
 /obj/item/clothing/suit/hooded/bee_costume
@@ -369,6 +371,7 @@
 	icon_state = "bee"
 	flags = THICKMATERIAL|BLOCKHAIR
 	flags_inv = HIDEEARS
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /// OH MY GOD WHAT HAVE YOU DONE!?!?!?
@@ -414,6 +417,7 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
@@ -640,6 +644,7 @@
 	flags = BLOCKHAIR
 	armor = list(MELEE = 5, BULLET = 5, LASER = 50, ENERGY = 50, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	strip_delay = 3 SECONDS
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 						"Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 
@@ -699,7 +704,7 @@
 	cold_protection = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
-
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
