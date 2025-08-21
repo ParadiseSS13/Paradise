@@ -20,7 +20,7 @@
 		"CO2" = 50,
 		"Plasma" = 5,
 		"Agent B" = 5,
-		"Hydrogen" = 5,
+		"Hydrogen" = 15,
 		"Water Vapor" = 5
 	)
 
