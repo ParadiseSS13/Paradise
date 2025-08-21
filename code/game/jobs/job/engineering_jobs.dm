@@ -36,6 +36,7 @@
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/chief_engineer
 	important_information = "Эта роль требует, чтобы вы координировали работу отдела. От вас требуется знание Стандартных Рабочих Процедур (Инженерных), базовых должностных обязанностей и профессиональных действий."
+	standard_paycheck = CREW_PAY_HIGH
 
 /datum/outfit/job/chief_engineer
 	name = "Chief Engineer"
@@ -87,6 +88,7 @@
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/engineer
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/engineer
 	name = "Station Engineer"
@@ -135,6 +137,7 @@
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/atmos
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/atmos
 	name = "Life Support Specialist"
