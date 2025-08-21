@@ -34,15 +34,16 @@
 									/obj/item/multitool/abductor = 1,
 									/obj/item/wirecutters/abductor = 1,
 									/obj/item/crowbar/abductor = 1,
-									/obj/item/storage/belt/military/abductor/full = 0.4,
+									/obj/item/storage/belt/military/abductor/full = 1,
 									),
 									// level 3
 									list(
-									/obj/item/assembly/signaler/anomaly/bluespace = 1
+									/obj/item/assembly/signaler/anomaly/bluespace = 1,
+									/obj/item/mod/module/jetpack/advanced = 1,
 									),
 									// level 4
 									list(
-									/obj/machinery/atmospherics/portable/canister/agent_b = 1,
+
 									),
 									// level 5
 									list(
@@ -106,14 +107,13 @@
 
 	for(var/i in 1 to amount)
 		var/selected_level = text2num(pickweight_fraction(levels))
-		var/list/pool = list()
 		if(length(random_rewards[selected_level]))
 			. += pickweight_fraction(random_rewards[selected_level])
 		else
 			. += "no rewards in level [selected_level]"
 
 /obj/machinery/power/alien_cache/process()
-	if(terminal && level_reached < max_level)
+	if(terminal && reached_level < max_level)
 		var/available = terminal.get_surplus()
 		terminal.consume_direct_power(available)
 		total_energy += available * WATT_TICK_TO_JOULE
