@@ -70,6 +70,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	// AI Powers
 	var/datum/program_picker/program_picker
 	var/datum/spell/ai_spell/choose_program/program_action
+	/// Base rate of nanite regen
+	var/nanite_regen = 1
 	/// Whether or not the AI has unlocked universal adapter
 	var/universal_adapter = FALSE
 	/// How effective is the adapter?
@@ -80,6 +82,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/bluespace_miner_rate = 100
 	/// Time until next payout
 	var/next_payout = 10 MINUTES
+	/// Has the AI unlocked a research subsystem?
+	var/research_subsystem = FALSE
+	/// How potent is the research subsystem?
+	var/research_level = 0
+	/// How long does it take to unlock the next research?
+	var/research_time = 10 MINUTES
+	/// When did we last research something?
+	var/last_research_time
 	/// Do we have the enhanced tracker?
 	var/enhanced_tracking = FALSE
 	/// Who are we tracking with the enhanced tracker?
@@ -229,7 +239,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language("Galactic Common", 1)
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
-	add_language("Zvezhan", 1)
+	add_language("Cygni Standard", 1)
 	add_language("Gutter", 1)
 	add_language("Sinta'unathi", 1)
 	add_language("Siik'tajr", 1)
@@ -323,7 +333,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Nanites:", "[program_picker.nanites] / [program_picker.max_nanites]")
-	status_tab_data[++status_tab_data.len] = list("Nanite Manufacture Rate:", "[(1 + 0.5 * program_picker.bandwidth)]")
+	status_tab_data[++status_tab_data.len] = list("Nanite Manufacture Rate:", "[(nanite_regen + 0.5 * program_picker.bandwidth)]")
 	if(stat)
 		status_tab_data[++status_tab_data.len] = list("System status:", "Nonfunctional")
 		return
@@ -430,12 +440,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		qdel(src)
 		return
 	// Regenerate nanites for abilities only when powered.
-	powered_ai.program_picker.nanites = min(100, powered_ai.program_picker.nanites + (1 + 0.5 * powered_ai.program_picker.bandwidth))
+	powered_ai.program_picker.nanites = min(powered_ai.program_picker.max_nanites, powered_ai.program_picker.nanites + (powered_ai.nanite_regen + 0.5 * powered_ai.program_picker.bandwidth))
 	if(!powered_ai.anchored)
 		loc = powered_ai.loc
 		change_power_mode(NO_POWER_USE)
 	if(powered_ai.anchored)
 		change_power_mode(ACTIVE_POWER_USE)
+	if(powered_ai.research_subsystem && powered_ai.last_research_time + powered_ai.research_time <= world.time)
+		powered_ai.do_research()
 	if(powered_ai.bluespace_miner)
 		// Money money money
 		if(powered_ai.next_payout <= world.time)
@@ -453,6 +465,53 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/update_icons()
 	. = ..()
 	update_hat_icons()
+
+/mob/living/silicon/ai/proc/do_research()
+	last_research_time = world.time
+	// First, find the RND server
+	var/network_manager_uid = null
+	for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
+		if(RNC.network_name == "station_rnd")
+			network_manager_uid = RNC.UID()
+			break
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	if(!RNC) // Could not find the RND server. It probably blew up.
+		to_chat(src, "<span class='warning'>No research server found!</span>")
+		return
+
+	var/upgraded = FALSE
+	var/datum/research/files = RNC.research_files
+	if(!files)
+		to_chat(src, "<span class='warning'>No research server found!</span>")
+		return
+	var/list/possible_tech = list()
+	for(var/datum/tech/T in files.possible_tech)
+		possible_tech += T
+	while(!upgraded)
+		var/datum/tech/tech_to_upgrade = pick_n_take(possible_tech)
+		// If there are no possible techs to upgrade, stop the program
+		if(!tech_to_upgrade)
+			to_chat(src, "<span class='notice'>Current research cannot be discovered any further.</span>")
+			research_subsystem = FALSE
+			return
+		// No illegals until level 10
+		if(research_level < 10 && istype(tech_to_upgrade, /datum/tech/syndicate))
+			continue
+		// No alien research
+		if(istype(tech_to_upgrade, /datum/tech/abductor))
+			continue
+		var/datum/tech/current = files.find_possible_tech_with_id(tech_to_upgrade.id)
+		if(!current)
+			continue
+		// If the tech is level 7 and the program too weak, don't upgrade
+		if(current.level >= 7 && research_level < 5)
+			continue
+		// Nothing beyond 8
+		if(current.level >= 8)
+			continue
+		files.UpdateTech(tech_to_upgrade.id, current.level + 1)
+		aiRadio.autosay("Discovered innovations have led to an increase in the field of [current]!", src, "Science")
+		upgraded = TRUE
 
 /mob/living/silicon/ai/proc/pick_icon()
 	set category = "AI Commands"

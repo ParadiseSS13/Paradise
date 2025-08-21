@@ -278,8 +278,10 @@
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
-	// Create a PM tracker bound to this ckey.
-	pm_tracker = new(ckey)
+	persistent = GLOB.persistent_clients[ckey]
+	if(!persistent)
+		persistent = new(ckey)
+		GLOB.persistent_clients[ckey] = persistent
 
 	tgui_panel = new(src, "chat_panel")
 	tgui_say = new(src, "tgui_say")
@@ -310,14 +312,9 @@
 	// Automatically makes localhost connection an admin
 	try_localhost_autoadmin()
 
-	holder = GLOB.admin_datums[ckey]
-	if(holder)
-		GLOB.admins += src
-		holder.owner = src
-
 	log_client_to_db(tdata) // Make sure our client exists in the DB
 
-	// We have a holder. Inform the relevant places
+	// Holder set up. Inform the relevant places
 	INVOKE_ASYNC(src, PROC_REF(announce_join))
 
 	pai_save = new(src)
@@ -352,6 +349,12 @@
 		// ToS accepted
 		tos_consent = TRUE
 
+	holder = GLOB.admin_datums[ckey]
+	if(holder)
+		holder.associate(src, delay_2fa_complaint = TRUE)
+		// Must be async because any sleeps (happen in sql queries) will break connecting clients
+		INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
+
 	// Setup widescreen
 	view = prefs.viewrange
 
@@ -376,22 +379,6 @@
 	// YOU WILL BREAK STUFF. SERIOUSLY. -aa07
 	GLOB.clients += src
 	connection_time = world.time
-
-	var/_2fa_alert = FALSE // This is so we can display the message where it will be seen
-	if(holder)
-		if(GLOB.configuration.system.is_production && (holder.rights & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
-			// No, check_rights() does not work in the above proc, because we dont have a mob yet
-			_2fa_alert = TRUE
-			// This also has to be manually done since no mob to use check_rights() on
-			deadmin()
-			add_verb(src, /client/proc/readmin)
-			GLOB.de_admins += ckey
-
-		else
-			add_admin_verbs()
-			// Must be async because any sleeps (happen in sql queries) will break connectings clients
-			INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
-
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
 	// (but turn them off first, since sometimes BYOND doesn't turn them on properly otherwise)
@@ -466,16 +453,13 @@
 	if(check_rights(R_ADMIN, FALSE, mob)) // Mob is required. Dont even try without it.
 		to_chat(src, "The queue server is currently [SSqueue.queue_enabled ? "<font color='green'>enabled</font>" : "<font color='disabled'>disabled</font>"], with a threshold of <b>[SSqueue.queue_threshold]</b>. This <b>[SSqueue.persist_queue ? "will" : "will not"]</b> persist through rounds.")
 
-	if(_2fa_alert)
+	if(holder && holder.restricted_by_2fa)
 		to_chat(src,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
 
 	// Tell client about their connection
 	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
 	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
 	display_job_bans(TRUE)
-	if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, mob))
-		winset(src, "debugmcbutton", "is-disabled=false")
-		winset(src, "profilecode", "is-disabled=false")
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
@@ -605,13 +589,9 @@
 
 	qdel(query)
 
-	var/admin_rank = "Player"
 	// Admins don't get slammed by this, I guess
-	if(holder)
-		admin_rank = holder.rank
-	else
-		if(check_randomizer(connectiontopic))
-			return
+	if(!holder && check_randomizer(connectiontopic))
+		return
 
 	var/client_address = address
 	if(!client_address) // Localhost can sometimes have no address set
@@ -625,10 +605,9 @@
 			return // Return here because if we somehow didnt pull a number from an INT column, EVERYTHING is breaking
 
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
-		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE player SET lastseen=NOW(), ip=:sql_ip, computerid=:sql_cid, lastadminrank=:sql_ar WHERE id=:sql_id", list(
+		var/datum/db_query/query_update = SSdbcore.NewQuery("UPDATE player SET lastseen=NOW(), ip=:sql_ip, computerid=:sql_cid WHERE id=:sql_id", list(
 			"sql_ip" = client_address,
 			"sql_cid" = computer_id,
-			"sql_ar" = admin_rank,
 			"sql_id" = sql_id
 		))
 
@@ -642,11 +621,10 @@
 
 	else
 		//New player!! Need to insert all the stuff
-		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
+		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO player (id, ckey, firstseen, lastseen, ip, computerid) VALUES (null, :ckey, Now(), Now(), :ip, :cid)", list(
 			"ckey" = ckey,
 			"ip" = client_address,
 			"cid" = computer_id,
-			"rank" = admin_rank
 		))
 		if(!query_insert.warn_execute())
 			qdel(query_insert)
@@ -1141,8 +1119,22 @@
 		SSambience.ambience_listening_clients -= src
 
 /client/proc/try_localhost_autoadmin()
-	if(GLOB.configuration.admin.enable_localhost_autoadmin && is_connecting_from_localhost())
-		return new /datum/admins("!LOCALHOST!", R_HOST, ckey)
+	if(!GLOB.configuration.admin.enable_localhost_autoadmin)
+		return FALSE
+	if(!is_connecting_from_localhost())
+		if(holder && holder.is_localhost_autoadmin)
+			qdel(holder)
+		return FALSE
+
+	// Unhook the old admin datum, if any.
+	if(holder)
+		qdel(holder)
+
+	// Hook up a new localhost admin datum.
+	var/datum/admins/admin_datum = new /datum/admins("!LOCALHOST!", R_HOST, ckey)
+	admin_datum.is_localhost_autoadmin = TRUE
+	admin_datum.associate(src)
+	return TRUE
 
 // Verb scoped to the client level so its ALWAYS available
 /client/verb/open_tos()
@@ -1350,6 +1342,9 @@
 
 	src << link("https://secure.byond.com/download/")
 
+/datum/persistent_client/New(ckey)
+	// Create a PM tracker bound to this ckey.
+	pm_tracker = new(ckey)
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
