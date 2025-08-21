@@ -141,6 +141,17 @@
 /datum/outfit/piratecorpse/ranged
 	name = "Corpse of a Pirate Gunner"
 
+/obj/effect/mob_spawn/human/corpse/drakehound
+	name = "Drakehound"
+	mob_name = "Drakehound"
+	mob_species = /datum/species/unathi
+	outfit = /datum/outfit/drakehound
+
+/datum/outfit/drakehound
+	name = "Drakehound"
+	uniform = /obj/item/clothing/under/syndicate/tacticool
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/jackboots
 
 /obj/effect/mob_spawn/human/corpse/soviet
 	name = "Soviet"

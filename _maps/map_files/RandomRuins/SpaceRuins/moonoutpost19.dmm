@@ -57,7 +57,7 @@
 /area/ruin/space/moonbase19)
 "aj" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -1859,7 +1859,7 @@
 /area/ruin/space/moonbase19)
 "gh" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "gi" = (
@@ -2140,7 +2140,7 @@
 /area/ruin/space/moonbase19)
 "hc" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -2583,7 +2583,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
@@ -2739,7 +2739,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -3062,7 +3062,7 @@
 /area/ruin/space/moonbase19)
 "jC" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "jD" = (
@@ -3517,7 +3517,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "lc" = (
@@ -3983,7 +3983,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "mW" = (
@@ -4251,7 +4251,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "nZ" = (
@@ -4309,7 +4309,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "on" = (
@@ -4327,7 +4327,7 @@
 	},
 /area/ruin/space/moonbase19)
 "op" = (
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -4773,7 +4773,7 @@
 /area/ruin/space/moonbase19)
 "qc" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -5700,7 +5700,7 @@
 /area/ruin/space/moonbase19)
 "uf" = (
 /obj/structure/window/reinforced,
-/mob/living/simple_animal/hostile/alien/drone,
+/mob/living/basic/alien/drone,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -6963,7 +6963,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Aj" = (
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Ak" = (
@@ -7925,7 +7925,7 @@
 	pixel_x = -1;
 	pixel_y = -5
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -8085,7 +8085,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Fe" = (
@@ -8158,7 +8158,7 @@
 /area/ruin/space/moonbase19)
 "Ft" = (
 /obj/effect/turf_decal/stripes/corner,
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -8322,7 +8322,7 @@
 /obj/structure/railing/cap{
 	dir = 9
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -10451,7 +10451,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "Qk" = (
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Ql" = (
@@ -10929,7 +10929,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Sp" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Sq" = (
@@ -11119,7 +11119,7 @@
 /area/ruin/space/moonbase19)
 "Tr" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
@@ -11429,7 +11429,7 @@
 	},
 /area/ruin/space/moonbase19)
 "UD" = (
-/mob/living/simple_animal/hostile/alien/drone,
+/mob/living/basic/alien/drone,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "UF" = (
@@ -12275,7 +12275,7 @@
 "Yu" = (
 /obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/vomit/green,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -12342,7 +12342,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "YL" = (
@@ -12424,7 +12424,7 @@
 /area/ruin/space/moonbase19)
 "Zf" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien/queen/large{
+/mob/living/basic/alien/queen/large{
 	melee_damage_upper = 35;
 	melee_damage_lower = 30
 	},
@@ -12527,7 +12527,7 @@
 "Zw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -12574,7 +12574,7 @@
 /area/ruin/space/moonbase19)
 "ZK" = (
 /obj/machinery/light/small,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "ZL" = (

@@ -466,7 +466,8 @@
 /area/shuttle/pod_4)
 "aeM" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 4 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
@@ -3090,6 +3091,12 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/maintenance/fore2)
+"arn" = (
+/obj/effect/turf_decal/alphanumeric/mix{
+	dir = 4
+	},
+/turf/simulated/floor/engine/vacuum,
+/area/station/engineering/atmos)
 "aro" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/maintenance,
@@ -5499,7 +5506,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/disposal)
 "azk" = (
-/mob/living/simple_animal/lizard/wags_his_tail,
+/mob/living/basic/lizard/wags_his_tail,
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "azl" = (
@@ -11160,9 +11167,6 @@
 /turf/simulated/floor/plasteel/goonplaque,
 /area/station/hallway/primary/fore/east)
 "aTl" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -11926,6 +11930,10 @@
 /obj/machinery/atmospherics/portable/canister/air{
 	anchored = 1
 	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "air_sensor";
+	output = 127
+	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
 "aVU" = (
@@ -12114,7 +12122,7 @@
 /area/station/supply/office)
 "aWu" = (
 /obj/effect/turf_decal/stripes/line,
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+/mob/living/basic/gorilla/cargo_domestic{
 	name = "Forklift"
 	},
 /turf/simulated/floor/plasteel,
@@ -12685,6 +12693,9 @@
 "aYv" = (
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
@@ -13476,6 +13487,9 @@
 /obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "o2_sensor"
+	},
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
 "bca" = (
@@ -13922,6 +13936,9 @@
 "beF" = (
 /obj/machinery/atmospherics/portable/canister/toxins{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
@@ -14513,6 +14530,9 @@
 "bht" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "n2_sensor"
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
@@ -15387,6 +15407,9 @@
 "bkw" = (
 /obj/machinery/atmospherics/portable/canister/sleeping_agent{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
@@ -17650,7 +17673,10 @@
 /turf/simulated/wall,
 /area/station/hallway/primary/central)
 "bsA" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod 3 Airlock";
+	id_tag = "emergency_home"
+	},
 /turf/simulated/floor/plating,
 /area/station/security/prisonershuttle)
 "bsB" = (
@@ -24575,9 +24601,6 @@
 	},
 /area/station/engineering/control)
 "bRT" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/structure/table/reinforced,
 /obj/machinery/light/small{
 	dir = 1
@@ -25259,10 +25282,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "bTU" = (
-/obj/structure/transit_tube/station{
-	dir = 8
-	},
-/obj/structure/transit_tube_pod,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -25271,6 +25290,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/transit_tube/station/dispenser/flipped{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
@@ -25290,9 +25312,6 @@
 	},
 /area/station/hallway/primary/port/east)
 "bUc" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/ai_transit_tube)
@@ -26633,18 +26652,15 @@
 	},
 /area/station/security/storage)
 "bZf" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/engineering/ai_transit_tube)
 "bZj" = (
 /obj/structure/grille,
 /obj/effect/turf_decal/stripes/line,
@@ -27685,7 +27701,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/station/legal/lawoffice)
 "ccv" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/basic/pet/sloth/paperwork,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -53019,7 +53035,7 @@
 "eGP" = (
 /obj/structure/flora/tree/palm,
 /obj/effect/overlay/coconut,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "eHg" = (
 /obj/machinery/power/apc/directional/west,
@@ -53845,7 +53861,7 @@
 	pixel_x = -3;
 	pixel_y = 16
 	},
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "eXU" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -56054,15 +56070,9 @@
 	},
 /area/station/public/fitness)
 "fRW" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/space,
-/area/space/nearstation)
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/engineering/ai_transit_tube)
 "fSk" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -62395,7 +62405,7 @@
 	pixel_x = -11;
 	pixel_y = -8
 	},
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "iQK" = (
 /obj/effect/decal/cleanable/dirt,
@@ -63530,7 +63540,7 @@
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "jrF" = (
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "jrI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -64195,8 +64205,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "jKW" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "tox_sensor"
+/obj/effect/turf_decal/alphanumeric/plasma{
+	dir = 4
 	},
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
@@ -67005,7 +67015,7 @@
 	},
 /area/station/hallway/primary/port/north)
 "kTO" = (
-/mob/living/simple_animal/hostile/retaliate/araneus,
+/mob/living/basic/giant_spider/araneus,
 /obj/structure/bed/dogbed{
 	name = "Araneus's lair"
 	},
@@ -70681,8 +70691,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "mIh" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "n2_sensor"
+/obj/effect/turf_decal/alphanumeric/nitrogen{
+	dir = 8
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
@@ -76844,6 +76854,13 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"pnY" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/transit_tube/curved{
+	dir = 4
+	},
+/turf/space,
+/area/space/nearstation)
 "pog" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -77571,7 +77588,7 @@
 /area/station/service/clown/secret)
 "pDt" = (
 /obj/item/beach_ball,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "pDw" = (
 /obj/structure/disposalpipe/segment,
@@ -79097,7 +79114,7 @@
 /area/station/medical/virology)
 "qmJ" = (
 /obj/structure/flora/ausbushes/leafybush,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "qmP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -80623,8 +80640,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
 "qWZ" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "o2_sensor"
+/obj/effect/turf_decal/alphanumeric/oxygen{
+	dir = 8
 	},
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
@@ -80675,15 +80692,10 @@
 	},
 /area/station/medical/virology)
 "qYL" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/transit_tube/curved{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/space,
-/area/space/nearstation)
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/transit_tube/horizontal,
+/turf/simulated/floor/plating,
+/area/station/engineering/ai_transit_tube)
 "qYT" = (
 /obj/machinery/light{
 	dir = 1
@@ -81261,7 +81273,7 @@
 /area/station/hallway/primary/central/east)
 "rkH" = (
 /obj/item/camera,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "rkJ" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -88784,7 +88796,8 @@
 /area/station/science/genetics)
 "ueB" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 2 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -91552,9 +91565,8 @@
 	},
 /area/station/engineering/atmos)
 "vom" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "air_sensor";
-	output = 127
+/obj/effect/turf_decal/alphanumeric/air{
+	dir = 8
 	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
@@ -93132,8 +93144,8 @@
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "vXf" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "n2o_sensor"
+/obj/effect/turf_decal/alphanumeric/nitrous_oxide{
+	dir = 4
 	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
@@ -93183,8 +93195,8 @@
 	},
 /area/station/engineering/gravitygenerator)
 "vYt" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "co2_sensor"
+/obj/effect/turf_decal/alphanumeric/carbon_dioxide{
+	dir = 4
 	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
@@ -93359,7 +93371,7 @@
 "wbL" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/item/stack/medical/ointment,
-/turf/simulated/floor/beach/away/sand,
+/turf/simulated/floor/desert_sand,
 /area/station/hallway/secondary/exit)
 "wbZ" = (
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide,
@@ -95234,13 +95246,10 @@
 	},
 /area/station/medical/chemistry)
 "wOE" = (
-/obj/structure/transit_tube_pod{
-	dir = 8
-	},
 /obj/machinery/ai_status_display{
 	pixel_y = -32
 	},
-/obj/structure/transit_tube/station/reverse/flipped,
+/obj/structure/transit_tube/station/dispenser/reverse/flipped,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -95690,7 +95699,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "wWX" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /obj/effect/turf_decal/delivery/green,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -95950,7 +95959,8 @@
 /area/station/maintenance/apmaint)
 "xcL" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 1 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/south)
@@ -97496,7 +97506,7 @@
 	},
 /area/station/security/main)
 "xIN" = (
-/mob/living/simple_animal/hostile/retaliate/kangaroo{
+/mob/living/basic/kangaroo{
 	name = "Darwin"
 	},
 /obj/structure/cable{
@@ -112796,7 +112806,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+tOF
 aaa
 kTj
 vuY
@@ -113053,8 +113063,8 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+tOF
+abj
 xqE
 giK
 xLV
@@ -113310,7 +113320,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+tOF
 aaa
 xqE
 abj
@@ -113319,7 +113329,7 @@ abj
 xMr
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -113567,7 +113577,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+sso
 aaa
 xqE
 abj
@@ -113576,7 +113586,7 @@ fIk
 xLV
 abj
 aaa
-aaa
+sso
 aaa
 aaa
 aaa
@@ -113824,16 +113834,16 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+sso
+abj
 bVf
 abj
 abj
 hFE
 abj
 abj
-aaa
-aaa
+abj
+tOF
 aaa
 aaa
 aaa
@@ -114081,7 +114091,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+tOF
 aaa
 xqE
 abj
@@ -114090,7 +114100,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -114338,7 +114348,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+tOF
 aaa
 xqE
 abj
@@ -114347,7 +114357,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -114595,16 +114605,16 @@ aaZ
 aaa
 aaa
 aaa
-aaa
-aaa
+tOF
+abj
 xqE
 abj
 abj
 hFE
 abj
 abj
-aaa
-aaa
+abj
+sso
 aaa
 aaa
 aaa
@@ -114852,7 +114862,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+sso
 aaa
 xqE
 abj
@@ -114861,7 +114871,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -115109,7 +115119,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+tOF
 aaa
 xqE
 abj
@@ -115118,7 +115128,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+sso
 aaa
 aaa
 aaa
@@ -115366,16 +115376,16 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+tOF
+abj
 xqE
 abj
 abj
 hFE
 abj
 abj
-aaa
-aaa
+abj
+sso
 aaa
 aaa
 aaa
@@ -115623,7 +115633,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+sso
 aaa
 xqE
 abj
@@ -115632,7 +115642,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -115889,7 +115899,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -116145,8 +116155,8 @@ abj
 hFE
 abj
 abj
-aaa
-aaa
+abj
+tOF
 aaa
 aaa
 aaa
@@ -116403,7 +116413,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -116660,7 +116670,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+tOF
 aaa
 aaa
 aaa
@@ -116916,8 +116926,8 @@ abj
 hFE
 abj
 abj
-aaa
-aaa
+abj
+sso
 aaa
 aaa
 aaa
@@ -117174,7 +117184,7 @@ nmF
 aaa
 abj
 aaa
-aaa
+sso
 aaa
 aaa
 aaa
@@ -117919,7 +117929,7 @@ bkw
 biK
 aOg
 bpw
-bpv
+jGV
 bpv
 aOg
 abj
@@ -118176,7 +118186,7 @@ vXf
 tnu
 aOg
 ibK
-jGV
+arn
 xBO
 aOg
 abj
@@ -119483,7 +119493,7 @@ dVS
 kmy
 abj
 fYS
-nmF
+giK
 abj
 bXU
 bZk
@@ -119740,8 +119750,8 @@ vcx
 qGf
 abj
 fYS
-giK
-abj
+acF
+pnY
 bXU
 bZl
 kxe
@@ -119995,7 +120005,7 @@ bwN
 bJZ
 bVt
 qGf
-abj
+qGf
 bZf
 fRW
 qYL

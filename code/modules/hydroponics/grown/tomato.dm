@@ -128,26 +128,31 @@
 	origin_tech = "biotech=4;combat=5"
 	distill_reagent = "demonsblood"
 
-/obj/item/food/grown/tomato/killer/attack__legacy__attackchain(mob/M, mob/user, def_zone)
-	if(awakening)
-		to_chat(user, "<span class='warning'>The tomato is twitching and shaking, preventing you from eating it.</span>")
-		return
-	..()
+/obj/item/food/grown/tomato/killer/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(!awakening)
+		return ..()
 
-/obj/item/food/grown/tomato/killer/attack_self__legacy__attackchain(mob/user)
+	to_chat(user, "<span class='warning'>The tomato is squirming and shaking too much to do anything with it!</span>")
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/food/grown/tomato/killer/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(awakening || isspaceturf(user.loc))
-		return
-	to_chat(user, "<span class='notice'>You begin to awaken the Killer Tomato...</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, "<span class='notice'>You begin to awaken [src]...</span>")
 	awakening = 1
 
 	spawn(30)
 		if(!QDELETED(src))
 			var/turf/T = get_turf(src)
-			var/mob/living/simple_animal/hostile/killertomato/K = new /mob/living/simple_animal/hostile/killertomato(T)
+			var/mob/living/basic/killertomato/K = new /mob/living/basic/killertomato(T)
 			K.maxHealth += round(seed.endurance / 3)
 			K.melee_damage_lower += round(seed.potency / 10)
 			K.melee_damage_upper += round(seed.potency / 10)
-			K.move_to_delay -= round(seed.production / 50)
+			K.speed -= round(seed.production / 50)
 			K.health = K.maxHealth
 			K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
 			if(user)
@@ -155,3 +160,5 @@
 			message_admins("[key_name_admin(user)] released a killer tomato at [ADMIN_COORDJMP(T)]")
 			log_game("[key_name(user)] released a killer tomato at [COORD(T)]")
 			qdel(src)
+	return ITEM_INTERACT_COMPLETE
+

@@ -34,11 +34,20 @@
 /mob/living/basic/clown/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/ai_retaliate_advanced, CALLBACK(src, PROC_REF(retaliate_callback)))
+	add_language("Galactic Common")
+	add_language("Clownish")
+	set_default_language(GLOB.all_languages["Galactic Common"])
 
 /mob/living/basic/clown/proc/retaliate_callback(mob/living/attacker)
 	if(!istype(attacker))
 		return
+	if(attacker.ai_controller) // Don't chain retaliates.
+		var/list/shitlist = attacker.ai_controller.blackboard[BB_BASIC_MOB_RETALIATE_LIST]
+		if(src in shitlist)
+			return
 	for(var/mob/living/basic/clown/harbringer in oview(src, 7))
+		if(harbringer == attacker) // Do not commit suicide attacking yourself
+			continue
 		harbringer.ai_controller.insert_blackboard_key_lazylist(BB_BASIC_MOB_RETALIATE_LIST, attacker)
 
 /mob/living/basic/clown/goblin

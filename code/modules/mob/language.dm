@@ -470,13 +470,13 @@
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
-/datum/language/com_zvezhan
-	name = "Zvezhan"
+/datum/language/com_cygni
+	name = "Cygni Standard"
 	desc = "The language of revolution across the stars, initially formed as a hybrid of Russian and Mandarin Chinese by early Cygni settlers before incorporating additional influences from across Eurasia."
 	speech_verb = "articulates"
 	whisper_verb = "murmurs"
 	exclaim_verbs = list("proclaims", "boasts", "accentuates")
-	colour = "com_zvezhan"
+	colour = "com_cygni"
 	key = "?"
 	space_chance = 50
 	syllables = list("ai","bai","bian","che","chuang","e","fan","gan","huo","jian","jiao","ka","man","mu","nang","nuo","o","pang","pi",
@@ -777,7 +777,7 @@
 	ask_verb = "groans"
 	exclaim_verbs = list("yells")
 	colour = "zombie"
-	key = "zz" //doesn't matter, this is their default and only language
+	key = "w"
 	flags = RESTRICTED | NOLIBRARIAN
 	syllables = list("Brains", "Brainssss", "Flesh", "Grrr", "Hnng", "Braaaains", "Braaiiiins")
 	english_names = TRUE

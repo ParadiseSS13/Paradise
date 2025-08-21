@@ -2710,7 +2710,7 @@
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed/dogbed/brad,
-/mob/living/simple_animal/cockroach/brad,
+/mob/living/basic/cockroach/brad,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
@@ -8007,6 +8007,7 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
 	},
+/obj/machinery/magma_crucible,
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/mine/outpost/smith_workshop)
 "RV" = (
@@ -8896,10 +8897,6 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/mine/outpost/hallway/east)
-"WT" = (
-/obj/machinery/magma_crucible,
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
-/area/mine/outpost/smith_workshop)
 "WU" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
 /turf/simulated/floor/plating,
@@ -16315,7 +16312,7 @@ Ur
 Lp
 zJ
 GZ
-WT
+Rk
 kG
 LU
 aN

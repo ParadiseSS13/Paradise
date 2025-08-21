@@ -9,6 +9,7 @@
 	see_in_dark = 10 // Below 10 `see_in_dark`, you'll not have full vision with fullscreen
 	loot = list(/obj/item/organ/internal/heart/demon/shadow)
 	death_sound = 'sound/shadowdemon/shadowdeath.ogg'
+	unsuitable_atmos_damage = 18 // You will heal very slowly in a vacuum (2 damage). Go back to the air to heal faster.
 	var/thrown_alert = FALSE
 	var/wrapping = FALSE
 	/// Should only be TRUE if we're shooting the Shadow Grapple right now. If its TRUE, the demon wont be able to shadow crawl.

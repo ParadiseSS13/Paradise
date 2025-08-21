@@ -134,6 +134,7 @@
 // Spawns a portal between given origin and destination.
 /datum/buildmode_mode/portal/proc/spawn_portal(turf/origin, turf/destination, mob/user)
 	var/obj/effect/portal/advanced/bmportal = new /obj/effect/portal/advanced(origin, destination, null, lifetime)
+	bmportal.admin_spawned = TRUE
 	bmportal.icon = portal_icon
 	bmportal.icon_state = portal_icon_state
 	return bmportal

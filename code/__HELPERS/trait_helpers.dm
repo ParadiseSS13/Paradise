@@ -168,6 +168,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESISTCOLD		"resist_cold"
 #define TRAIT_RESISTHIGHPRESSURE	"resist_high_pressure"
 #define TRAIT_RESISTLOWPRESSURE	"resist_low_pressure"
+#define TRAIT_EXPLOSION_PROOF	"explosion_proof" // Note, this only works for humans.
 #define TRAIT_RADIMMUNE			"rad_immunity"
 #define TRAIT_GENELESS  		"geneless"
 #define TRAIT_VIRUSIMMUNE		"virus_immunity"
@@ -239,6 +240,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CLING_BURSTING "cling_bursting" // This changeling is about to burst into a headslug, block cremation / gibber to prevent nullspace issues
 #define TRAIT_I_WANT_BRAINS "mob_zombie" // A general trait for tracking if the mob is a zombie.
 #define TRAIT_NON_INFECTIOUS_ZOMBIE "non_infectious_zombie" // A trait for checking if a zombie shouldn't be able to infect other people
+#define TRAIT_PLAGUE_ZOMBIE "plague_zombie" // For checking if this is a wizard plague zombie
 #define TRAIT_NPC_ZOMBIE "npc_zombie" // A trait for checking if a zombie should act like an NPC and attack
 #define TRAIT_ABSTRACT_HANDS "abstract_hands" // Mobs with this trait can only pick up abstract items.
 #define TRAIT_LANGUAGE_LOCKED "language_locked" // cant add/remove languages until removed (excludes babel because fuck everything i guess)
@@ -258,6 +260,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_UNKNOWN "unknown" // The person with this trait always appears as 'unknown'.
 #define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
 #define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
+#define TRAIT_WIRE_BLIND "wire_blind" // This doesn't block someone from seeing wires or recalling their position, but randomizes name / function to the user
 
 /// Whether or not the user is in a MODlink call, prevents making more calls
 #define TRAIT_IN_CALL "in_call"
@@ -312,6 +315,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// A surgical tool; If a surgical tool has this flag it can be used as an alternative to an open hand in surgery
 #define TRAIT_SURGICAL_OPEN_HAND "surgical_hand_alternative"
+
+/// A wearable item that protects the covered areas from viral infection
+#define TRAIT_ANTI_VIRAL "anti_viral"
+
+/// Given to items that have something that absorbs radiation in them that is neither the item or in it's contents
+#define TRAIT_ABSORB_RADS "absorb_rads"
 
 /// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
 #define TRAIT_TURF_COVERED "turf_covered"
@@ -526,6 +535,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 // turf trait sources
 #define FLOOR_EFFECT_TRAIT "floor_effect_trait"
+
+/// A web is being spun on this turf presently
+#define TRAIT_SPINNING_WEB_TURF "spinning_web_turf"
 
 //***** EFFECT TRAITS *****//
 // Causes the effect to go through a teleporter instead of being deleted by it.
