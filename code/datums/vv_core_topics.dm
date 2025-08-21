@@ -11,7 +11,7 @@
 			jumptoturf(T)
 		href_list["datumrefresh"] = target.UID()
 	if(href_list["varnameedit"] && href_list["datumedit"])
-		if(!check_rights(R_VAREDIT))	return
+		if(!check_rights(R_ADMIN | R_VAREDIT))	return
 
 		var/D = locateUID(href_list["datumedit"])
 		if(!istype(D,/datum) && !isclient(D))
