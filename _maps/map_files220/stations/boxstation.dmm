@@ -23330,9 +23330,6 @@
 	},
 /area/station/science/robotics)
 "bNo" = (
-/obj/structure/bed/amb_trolley{
-	dir = 4
-	},
 /obj/machinery/alarm/directional/north,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
@@ -27126,8 +27123,9 @@
 	},
 /area/station/medical/medbay2)
 "ccJ" = (
-/obj/structure/closet/secure_closet/paramedic,
-/obj/effect/turf_decal/delivery/blue,
+/obj/structure/bed/amb_trolley{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -60300,6 +60298,9 @@
 "iGq" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
+	},
+/obj/vehicle/ambulance{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -94375,9 +94376,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "tPC" = (
-/obj/vehicle/ambulance{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
@@ -95605,6 +95603,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery/blue,
+/obj/structure/closet/secure_closet/paramedic,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
