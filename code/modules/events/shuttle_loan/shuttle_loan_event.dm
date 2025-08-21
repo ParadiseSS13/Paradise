@@ -13,7 +13,7 @@
 	var/situation_type = pick(subtypesof(/datum/shuttle_loan_situation))
 	situation = new situation_type
 	if(!SSshuttle.supply.canMove())
-		log_game("Shuttle loan event fired while shuttle cannot move. Reattempting in 30s.")
+		log_debug("Shuttle loan event fired while shuttle cannot move. Reattempting in 30s.")
 		if(dispatch_attempts)
 			dispatch_attempts--
 			addtimer(CALLBACK(src, PROC_REF(setup)), 30 SECONDS)
@@ -36,7 +36,7 @@
 	SSshuttle.shuttle_loan = src
 	SSblackbox.record_feedback("tally", "Shuttle Loan Event Type", 1, situation.type)
 	GLOB.minor_announcement.Announce("Cargo: [situation.announcement_text]", situation.sender)
-	log_game("Shuttle loan event firing with type '[situation.logging_desc]'.")
+	log_debug("Shuttle loan event firing with type '[situation.logging_desc]'.")
 
 	dispatched = TRUE
 	GLOB.station_money_database.credit_account(SSeconomy.cargo_account, situation.bonus_points, "Central Command Cargo Shuttle Reimbursement", "Central Command Supply Master", supress_log = FALSE)
