@@ -1,5 +1,5 @@
 #define COMPRESSED_GAS_AMOUNT 300000
-#define AGENT_B_AMOUNT 1000
+#define AGENT_B_AMOUNT 100000
 #define NAME_O2 "O2"
 #define NAME_CO2 "CO2"
 #define NAME_N2 "N2"
