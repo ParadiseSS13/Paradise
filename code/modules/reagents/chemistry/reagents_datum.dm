@@ -217,11 +217,9 @@
 	return
 
 // Called if the reagent has passed the overdose threshold and is set to be triggering overdose effects
-/datum/reagent/proc/overdose_process(mob/living/M, severity)
-	var/effect = rand(1, 100) - severity
+/datum/reagent/proc/overdose_process	(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(effect <= 8)
-		update_flags |= (M.adjustToxLoss(severity, FALSE) ? STATUS_UPDATE_HEALTH : STATUS_UPDATE_NONE)
+	update_flags |= (M.adjustToxLoss(severity, FALSE) ? STATUS_UPDATE_HEALTH : STATUS_UPDATE_NONE)
 	return list(effect, update_flags)
 
 /datum/reagent/proc/overdose_start(mob/living/M)

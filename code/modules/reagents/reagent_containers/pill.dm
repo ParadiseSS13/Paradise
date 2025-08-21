@@ -146,7 +146,7 @@
 	name = "\improper Charcoal pill"
 	desc = "Neutralizes many common toxins."
 	icon_state = "pill17"
-	list_reagents = list("charcoal" = 50)
+	list_reagents = list("charcoal" = 30)
 
 /obj/item/reagent_containers/pill/epinephrine
 	name = "\improper Epinephrine pill"

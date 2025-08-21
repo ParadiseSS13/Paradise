@@ -164,6 +164,7 @@
 	metabolization_rate = 0.1
 	taste_description = "motor oil"
 	process_flags = SYNTHETIC
+	overdose_threshold = 30
 	/// What this becomes after burning.
 	var/reagent_after_burning = "ash"
 

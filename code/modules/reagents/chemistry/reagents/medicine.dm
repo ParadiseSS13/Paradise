@@ -23,6 +23,7 @@
 	metabolization_rate = 0.3 // Lasts 1.5 minutes for 15 units
 	shock_reduction = 200
 	taste_description = "numbness"
+	overdose_threshold = 30
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M) //Needed so the hud updates when injested / removed from system
@@ -143,6 +144,7 @@
 	reagent_state = LIQUID
 	color = "#8523be"
 	taste_description = "nurturing"
+	overdose_threshold = 20
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/mitocholide/on_mob_life(mob/living/M)
@@ -171,7 +173,8 @@
 	color = "#0000C8" // rgb: 200, 165, 220
 	heart_rate_decrease = 1
 	taste_description = "a safe refuge"
-	goal_difficulty = REAGENT_GOAL_NORMAL
+	overdose_threshold = 20
+	goal_diffculty = REAGENT_GOAL_NORMAL
 	data = list()
 
 /datum/reagent/medicine/cryoxadone/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE)
@@ -272,6 +275,7 @@
 	color = "#cbc6ce"
 	penetrates_skin = TRUE
 	metabolization_rate = 0.15
+	overdose_threshold = 20
 	taste_description = "salt"
 	goal_difficulty = REAGENT_GOAL_EASY
 
@@ -380,6 +384,7 @@
 	reagent_state = LIQUID
 	color = "#FF9696"
 	metabolization_rate = 3
+	overdose_threshold = 30
 	harmless = FALSE
 	taste_description = "wound cream"
 	goal_difficulty = REAGENT_GOAL_EASY
@@ -415,6 +420,7 @@
 	reagent_state = LIQUID
 	color = "#F0DC00"
 	metabolization_rate = 3
+	overdose_threshold = 30
 	harmless = FALSE	//toxic if ingested, and I am NOT going to account for the difference
 	taste_description = "burn cream"
 	goal_difficulty = REAGENT_GOAL_EASY
@@ -448,6 +454,7 @@
 	description = "Activated charcoal helps to absorb toxins."
 	reagent_state = LIQUID
 	taste_description = "dust"
+	overdose_threshold = 30
 	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/M)
@@ -543,6 +550,7 @@
 	reagent_state = LIQUID
 	color = "#22AB35"
 	metabolization_rate = 0.8
+	overdose_threshold = 10
 	harmless = FALSE
 	taste_description = "a painful cleansing"
 	goal_difficulty = REAGENT_GOAL_EASY
@@ -565,6 +573,7 @@
 	reagent_state = LIQUID
 	color = "#B4DCBE"
 	taste_description = "cleansing"
+	overdose_threshold = 20
 	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
@@ -577,6 +586,7 @@
 	description = "Pentetic Acid is an aggressive chelation agent. May cause tissue damage. Use with caution."
 	reagent_state = LIQUID
 	color = "#058605"
+	overdose_threshold = 20
 	harmless = FALSE
 	taste_description = "a purge"
 	goal_difficulty = REAGENT_GOAL_HARD
@@ -640,6 +650,7 @@
 	color = "#00FFFF"
 	metabolization_rate = 0.2
 	taste_description = "safety"
+	overdose_threshold = 40
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
@@ -655,8 +666,7 @@
 	reagent_state = LIQUID
 	color = "#54abfc"
 	metabolization_rate = 0.2
-	overdose_threshold = 4
-	allowed_overdose_process = TRUE
+	overdose_threshold = 5
 	addiction_chance = 1
 	addiction_chance_additional = 20
 	addiction_threshold = 10
@@ -675,8 +685,10 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/perfluorodecalin/overdose_process(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.LoseBreath(12 SECONDS)
-	return list(0, STATUS_UPDATE_NONE)
+	update_flags |=  M.adjustOxyLoss(-5 * REAGENTS_EFFECT_MULTIPLIER, FALSE) // Chokes them but doesn't kill them, still a mute chemical.
+	return list(0, update_flags)
 
 /datum/reagent/medicine/ephedrine
 	name = "Ephedrine"
@@ -685,7 +697,7 @@
 	reagent_state = LIQUID
 	color = "#a185b1"
 	metabolization_rate = 0.3
-	overdose_threshold = 35
+	overdose_threshold = 20
 	harmless = FALSE
 	taste_description = "stimulation"
 	goal_difficulty = REAGENT_GOAL_HARD
@@ -741,7 +753,7 @@
 	addiction_chance = 1
 	addiction_threshold = 10
 	allowed_overdose_process = TRUE
-	overdose_threshold = 35
+	overdose_threshold = 20
 	harmless = FALSE
 	taste_description = "antihistamine"
 	goal_difficulty = REAGENT_GOAL_HARD
@@ -832,6 +844,7 @@
 	reagent_state = LIQUID
 	color = "#757377"
 	taste_description = "clarity"
+	overdose_threshold = 40
 	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/medicine/oculine/on_mob_life(mob/living/M)
@@ -1095,6 +1108,7 @@
 	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling."
 	color = "#D1D1F1"
 	taste_description = "sweetness"
+	overdose_threshold = 20
 	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
@@ -1108,6 +1122,7 @@
 	description = "Mutadone is an experimental bromide that can cure genetic abnomalities."
 	color = "#5096C8"
 	taste_description = "cleanliness"
+	overdose_threshold = 10
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/mutadone/on_mob_life(mob/living/carbon/human/M)
@@ -1138,6 +1153,7 @@
 	description = "A medicine which quickly eliminates alcohol in the body."
 	color = "#009CA8"
 	taste_description = "sobriety"
+	overdose_threshold = 20
 	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/antihol/on_mob_life(mob/living/M)
@@ -1271,6 +1287,7 @@
 	reagent_state = LIQUID
 	color = "#e6d5f0"
 	taste_description = "tiredness"
+	overdose_threshold = 20
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
 	M.reagents.remove_reagent("sugar", 5)
@@ -1320,9 +1337,6 @@
 	description = "This experimental plasma-based compound seems to regulate body temperature."
 	reagent_state = LIQUID
 	color = "#D782E6"
-	addiction_chance = 1
-	addiction_chance_additional = 10
-	addiction_threshold = 10
 	overdose_threshold = 50
 	taste_description = "warmth and stability"
 	goal_difficulty = REAGENT_GOAL_NORMAL
@@ -1371,6 +1385,7 @@
 	reagent_state = LIQUID
 	color = "#96DEDE"
 	metabolization_rate = 0.1
+	overdose_threshold = 30
 	harmless = FALSE
 	taste_description = "sleepiness"
 	goal_difficulty = REAGENT_GOAL_EASY
@@ -1453,6 +1468,7 @@
 	color = "#CC7A00"
 	process_flags = SYNTHETIC
 	taste_description = "overclocking"
+	overdose_threshold = 30
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/medicine/degreaser/on_mob_life(mob/living/M)
@@ -1482,6 +1498,7 @@
 	color = "#D7B395"
 	process_flags = SYNTHETIC
 	taste_description = "heavy metals"
+	overdose_threshold = 20
 	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/medicine/liquid_solder/on_mob_life(mob/living/M)
