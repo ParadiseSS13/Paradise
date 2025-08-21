@@ -225,7 +225,7 @@
 	cooldown_low = 1 MINUTES
 	cooldown_high = 1.5 MINUTES
 	uses = -1
-	icon_state = "emp"
+	icon_state = "teleporting"
 	mind_control_uses = 3
 
 /obj/item/organ/internal/heart/gland/teleport/trigger()
