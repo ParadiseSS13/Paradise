@@ -870,8 +870,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/obj/item/organ/external/head/head_organ = get_organ("head")
 		var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 		var/mutable_appearance/standing
-		if(head.icon_monitor && robohead && robohead.is_monitor)
-			standing = mutable_appearance(head.icon_monitor, "[head.icon_state]", layer = -HEAD_LAYER)
+		if(istype(head, /obj/item/clothing))
+			var/obj/item/clothing/head_clothes = head
+			if(head_clothes.icon_monitor && robohead && robohead.is_monitor)
+				standing = mutable_appearance(head_clothes.icon_monitor, "[head.icon_state]", layer = -HEAD_LAYER)
 		if(head.sprite_sheets && head.sprite_sheets[dna.species.sprite_sheet_name])
 			standing = mutable_appearance(head.sprite_sheets[dna.species.sprite_sheet_name], "[head.icon_state]", layer = -HEAD_LAYER)
 		else if(head.icon_override)
