@@ -8,9 +8,9 @@
 	density = TRUE
 
 	var/obj/item/forensics/swab = null
-	///is currently scanning
+	/// is currently scanning
 	var/scanning = FALSE
-	///Global number of reports ran from that machine type
+	/// Global number of reports ran from that machine type
 	var/report_num = FALSE
 
 /obj/machinery/dnaforensics/Initialize(mapload)
@@ -29,6 +29,13 @@
 	. += "<span class='notice'><b>Click with an empty hand</b> to analyze the current sample.</span>"
 
 /obj/machinery/dnaforensics/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/forensics))
+		return ..()
+
+	if(panel_open)
+		to_chat(user, "<span class='warning'>You must close the panel!</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	if(swab)
 		to_chat(user, "<span class='warning'>There is already a sample inside the scanner.</span>")
 		return ITEM_INTERACT_COMPLETE
@@ -61,12 +68,11 @@
 	to_chat(user, "<span class='notice'>Printing report...</span>")
 	var/obj/item/paper/report = new(get_turf(src))
 	report.stamped = list(/obj/item/stamp)
-	report.overlays = list("paper_stamped")
 	report_num++
 
 	var/obj/item/forensics/swab/bloodswab = swab
 	report.name = ("DNA scanner report no. [++report_num]: [bloodswab.name]")
-	//dna data itself
+	// dna data itself
 	var/data = "No analysis data available."
 	if(!isnull(bloodswab.dna))
 		data = "Spectrometric analysis on the provided sample determined the presence of DNA. DNA String(s) found: [length(bloodswab.dna)].<br><br>"
@@ -90,7 +96,7 @@
 	to_chat(remover, "<span class='notice'>You remove [swab] from the scanner.</span>")
 	swab.forceMove(get_turf(src))
 	remover.put_in_hands(swab)
-	if(!do_after(user, 2.5 SECONDS, src) || QDELETED(swab))
+	swab = null
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/machinery/dnaforensics/AltClick()
@@ -104,11 +110,11 @@
 
 /obj/machinery/dnaforensics/update_icon_state()
 	if(scanning)
-        icon_state = "dnaworking"
-    else if(swab)
-        icon_state = "dnaclosed"
-    else
-        icon_state = "dnaopen"
+		icon_state = "dnaworking"
+	else if(swab)
+		icon_state = "dnaclosed"
+	else
+		icon_state = "dnaopen"
 
 /obj/machinery/dnaforensics/screwdriver_act(mob/user, obj/item/I)
 	if(swab)
@@ -153,6 +159,13 @@
 	. += "<span class='notice'><b>Click with an empty hand</b> to study the current sample.</span>"
 
 /obj/machinery/microscope/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/forensics/swab) && !istype(used, /obj/item/sample))
+		return ..()
+
+	if(panel_open)
+		to_chat(user, "<span class='warning'>You must close the panel!</span>")
+		return ITEM_INTERACT_COMPLETE
+
 	if(sample)
 		to_chat(user, "<span class='warning'>There is already a sample in the microscope!</span>")
 		return ITEM_INTERACT_COMPLETE
@@ -182,7 +195,7 @@
 	to_chat(user, "<span class='notice'>Printing Report...</span>")
 	var/obj/item/paper/report = new(get_turf(src))
 	report.stamped = list(/obj/item/stamp)
-	report.overlays = list("paper_stamped")
+	//report.overlays = list("paper_stamped")
 	report_num++
 
 	if(istype(sample, /obj/item/forensics/swab))

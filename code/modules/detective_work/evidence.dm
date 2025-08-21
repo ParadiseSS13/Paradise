@@ -162,7 +162,7 @@
 	evidence[fullprint] = fullprint
 	name = "[initial(name)] ([H])"
 	used = TRUE
-	update_appearance(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/sample/print/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	var/mob/living/carbon/human/H = target
@@ -219,10 +219,10 @@
 
 /obj/item/forensics/sample_kit
 	name = "fiber collection kit"
-	desc = "Magnifying glass and tweezers. Used to lift fabric fibers. Use on harm intent to collect samples and not interact with objects."
+	desc = "A magnifying glass and pair of tweezers. Used to lift fabric fibers from crime scene objects. Use on harm intent to collect samples without disturbing the scene."
 	icon_state = "m_glass"
 	w_class = WEIGHT_CLASS_SMALL
-	///naming for individual evidence items
+	/// naming for individual evidence items
 	var/evidence_type = "fibers"
 	var/evidence_path = /obj/item/sample/fibers
 /obj/item/forensics/sample_kit/proc/can_take_sample(mob/user, atom/supplied)
@@ -244,12 +244,12 @@
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/forensics/sample_kit/MouseDrop(atom/over)
-	if(ismob(sloc))
+	if(ismob(src.loc))
 		interact_with_atom(over, loc)
 
 /obj/item/forensics/sample_kit/powder
-	name = "fingerprint Powder"
-	desc = "A jar of aluminum powder and a specialized brush. Use on harm intent to collect samples and not interact with objects."
+	name = "fingerprint powder"
+	desc = "A jar of aluminum powder and a specialized brush. Use on harm intent to collect samples without leaving additional prints."
 	icon_state = "dust"
 	evidence_type = "prints"
 	evidence_path = /obj/item/sample/print
