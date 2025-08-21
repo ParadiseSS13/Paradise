@@ -219,7 +219,7 @@
 
 /obj/item/forensics/sample_kit
 	name = "fiber collection kit"
-	desc = "Magnifying glass and tweezers. Used to lift fabric fibers. Use on harm intent to collect samples and not interact with objects."
+	desc = "A magnifying glass and pair of tweezers. Used to lift fabric fibers from crime scene objects. Use on harm intent to collect samples without disturbing the scene."
 	icon_state = "m_glass"
 	w_class = WEIGHT_CLASS_SMALL
 	/// naming for individual evidence items
@@ -249,7 +249,7 @@
 
 /obj/item/forensics/sample_kit/powder
 	name = "fingerprint powder"
-	desc = "A jar of aluminum powder and a specialized brush. Use on harm intent to collect samples and not interact with objects."
+	desc = "A jar of aluminum powder and a specialized brush. Use on harm intent to collect samples without leaving additional prints."
 	icon_state = "dust"
 	evidence_type = "prints"
 	evidence_path = /obj/item/sample/print

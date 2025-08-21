@@ -1,7 +1,7 @@
 // Boxes
 /obj/item/storage/box/swabs
 	name = "box of forensic swabs"
-	desc = "Sterile equipment inside. Avoid contamination."
+	desc = "A sterile box full of forensic swabs, used to acquire DNA samples and test for lingering weapon residue."
 	icon_state = "sec_box"
 
 /obj/item/storage/box/swabs/populate_contents()
@@ -15,7 +15,7 @@
 
 /obj/item/storage/box/fingerprints
 	name = "box of fingerprint cards"
-	desc = "Sterile equipment inside. Avoid contamination."
+	desc = "A sealed box full of fingerprint cards, used to acquire print sets from humanoids."
 	icon_state = "id_prisoner_box"
 
 /obj/item/storage/box/fingerprints/populate_contents()
@@ -30,7 +30,7 @@
 // Crime scene kit
 /obj/item/storage/briefcase/crimekit
 	name = "crime scene kit"
-	desc = "Stainless-steel-coated case containing everything a detective could need. Feels heavy."
+	desc = "A stainless-steel case containing everything a detective could need. It's quite heavy."
 	icon = 'icons/obj/forensics/forensics.dmi'
 	icon_state = "case"
 	lefthand_file = 'icons/obj/forensics/items_lefthand.dmi'
@@ -47,7 +47,7 @@
 
 /obj/item/storage/csi_markers
 	name = "crime scene markers box"
-	desc = "A cardboard box for crime scene marker cards."
+	desc = "A cardboard box full of crime scene marker cards."
 	icon = 'icons/obj/boxes.dmi'
 	icon_state = "sec_box"
 	w_class = WEIGHT_CLASS_TINY
