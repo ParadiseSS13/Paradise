@@ -870,11 +870,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/obj/item/organ/external/head/head_organ = get_organ("head")
 		var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 		var/mutable_appearance/standing
-		if(istype(head, /obj/item/clothing))
-			var/obj/item/clothing/head_clothes = head
-			if(head_clothes.icon_monitor && robohead && robohead.is_monitor)
-				standing = mutable_appearance(head_clothes.icon_monitor, "[head.icon_state]", layer = -HEAD_LAYER)
-		if(head.sprite_sheets && head.sprite_sheets[dna.species.sprite_sheet_name])
+		var/obj/item/clothing/head/head_clothes
+		if(istype(head, /obj/item/clothing/head))
+			head_clothes = head
+
+		if(head_clothes && head_clothes.icon_monitor && robohead && robohead.is_monitor)
+			standing = mutable_appearance(head_clothes.icon_monitor, "[head.icon_state]", layer = -HEAD_LAYER)
+		else if(head.sprite_sheets && head.sprite_sheets[dna.species.sprite_sheet_name])
 			standing = mutable_appearance(head.sprite_sheets[dna.species.sprite_sheet_name], "[head.icon_state]", layer = -HEAD_LAYER)
 		else if(head.icon_override)
 			standing = mutable_appearance(head.icon_override, "[head.icon_state]", layer = -HEAD_LAYER)
@@ -891,7 +893,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			for(var/obj/item/clothing/head/hat in w_hat.attached_hats)
 				if(hat.icon_monitor && robohead && robohead.is_monitor)
 					standing.overlays += image("icon" = hat.icon_monitor, "icon_state" = "[hat.icon_state]")
-				if(hat.sprite_sheets && hat.sprite_sheets[dna.species.sprite_sheet_name])
+				else if(hat.sprite_sheets && hat.sprite_sheets[dna.species.sprite_sheet_name])
 					standing.overlays += image("icon" = hat.sprite_sheets[dna.species.sprite_sheet_name], "icon_state" = "[hat.icon_state]")
 				else
 					standing.overlays += image("icon" = hat.icon_override, "icon_state" = "[hat.icon_state]")
