@@ -56,4 +56,5 @@
 					T.ChangeTurf(objholder)
 				else
 					var/obj/A = new objholder(T)
+					A.admin_spawned = TRUE
 					A.setDir(BM.build_dir)

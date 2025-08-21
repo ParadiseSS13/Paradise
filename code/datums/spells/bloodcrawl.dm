@@ -75,7 +75,13 @@
 /obj/effect/dummy/slaughter/singularity_act()
 	return
 
-
+/obj/effect/dummy/slaughter/return_obj_air()
+	var/datum/gas_mixture/GM = new
+	GM.set_oxygen(MOLES_O2STANDARD)
+	GM.set_nitrogen(MOLES_N2STANDARD)
+	GM.set_temperature(T20C)
+	return GM
+		
 /datum/spell/bloodcrawl/proc/block_hands(mob/living/carbon/C)
 	if(C.l_hand || C.r_hand)
 		to_chat(C, "<span class='warning'>You may not hold items while blood crawling!</span>")
@@ -235,8 +241,7 @@
 		S.boost = world.time + 6 SECONDS
 	var/old_color = L.color
 	L.color = A.color
-	addtimer(VARSET_CALLBACK(L, color, old_color), 6 SECONDS)
-
+	animate(L, 6 SECONDS, color = old_color, easing = EASE_IN|CIRCULAR_EASING, flags = ANIMATION_PARALLEL)
 
 /datum/spell/bloodcrawl/proc/phasein(atom/A, mob/living/L)
 
