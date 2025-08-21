@@ -11780,7 +11780,8 @@
 /area/station/maintenance/fpmaint2)
 "aPZ" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 1 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
@@ -15274,6 +15275,9 @@
 /obj/machinery/atmospherics/portable/canister/nitrogen{
 	anchored = 1
 	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "n2_sensor"
+	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
 "bbN" = (
@@ -15287,6 +15291,9 @@
 "bbO" = (
 /obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "o2_sensor"
 	},
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
@@ -15911,6 +15918,10 @@
 "bdG" = (
 /obj/machinery/atmospherics/portable/canister/air{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "air_sensor";
+	output = 127
 	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
@@ -37659,7 +37670,12 @@
 	},
 /area/station/command/office/ce)
 "cIf" = (
-/obj/machinery/atmospherics/portable/canister/sleeping_agent,
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "n2o_sensor"
+	},
+/obj/machinery/atmospherics/portable/canister/sleeping_agent{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
 "cIg" = (
@@ -38608,7 +38624,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "cLV" = (
-/obj/machinery/atmospherics/portable/canister/toxins,
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "tox_sensor"
+	},
+/obj/machinery/atmospherics/portable/canister/toxins{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
 "cLW" = (
@@ -39940,7 +39961,12 @@
 	},
 /area/station/engineering/smes)
 "cRi" = (
-/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "co2_sensor"
+	},
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide{
+	anchored = 1
+	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
 "cRj" = (
@@ -49992,7 +50018,8 @@
 /area/station/engineering/break_room)
 "ePc" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 4 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
@@ -52476,10 +52503,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/transit_tube_pod{
-	dir = 4
-	},
-/obj/structure/transit_tube/station/reverse/flipped{
+/obj/structure/transit_tube/station/dispenser/reverse/flipped{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -55242,9 +55266,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "hrg" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "air_sensor";
-	output = 127
+/obj/effect/turf_decal/alphanumeric/air{
+	dir = 1
 	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
@@ -56379,7 +56402,8 @@
 /area/station/security/permabrig)
 "hVu" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 3 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
@@ -58684,8 +58708,8 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain)
 "jeG" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "n2o_sensor"
+/obj/effect/turf_decal/alphanumeric/nitrous_oxide{
+	dir = 8
 	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
@@ -59439,6 +59463,13 @@
 	icon_state = "cafeteria"
 	},
 /area/station/science/break_room)
+"jxK" = (
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod 2 Airlock";
+	id_tag = "emergency_home"
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry/north)
 "jyo" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/slime,
@@ -60826,8 +60857,8 @@
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
 "khY" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "o2_sensor"
+/obj/effect/turf_decal/alphanumeric/oxygen{
+	dir = 1
 	},
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
@@ -66618,8 +66649,8 @@
 	},
 /area/station/medical/sleeper)
 "mVr" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "n2_sensor"
+/obj/effect/turf_decal/alphanumeric/nitrogen{
+	dir = 1
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
@@ -67235,11 +67266,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "nrh" = (
-/obj/structure/transit_tube_pod{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/structure/transit_tube/station/reverse,
+/obj/structure/transit_tube/station/dispenser/reverse,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "nrD" = (
@@ -72615,8 +72643,8 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
 "pUX" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "co2_sensor"
+/obj/effect/turf_decal/alphanumeric/carbon_dioxide{
+	dir = 8
 	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
@@ -76559,6 +76587,12 @@
 	icon_state = "darkred"
 	},
 /area/station/hallway/secondary/exit)
+"rLI" = (
+/obj/effect/turf_decal/alphanumeric/mix{
+	dir = 8
+	},
+/turf/simulated/floor/engine/vacuum,
+/area/station/engineering/atmos)
 "rLK" = (
 /obj/machinery/newscaster/directional/west,
 /obj/structure/sink/directional/east,
@@ -82978,8 +83012,8 @@
 /turf/simulated/wall,
 /area/station/maintenance/disposal)
 "vdD" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "tox_sensor"
+/obj/effect/turf_decal/alphanumeric/plasma{
+	dir = 8
 	},
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
@@ -99941,7 +99975,7 @@ aLf
 aMt
 aNy
 ygg
-aPZ
+jxK
 kmm
 foj
 ksJ
@@ -125972,7 +126006,7 @@ cxO
 cQp
 cZS
 olG
-pRS
+rLI
 ecy
 cZS
 gMP
@@ -126229,7 +126263,7 @@ cxO
 cQp
 cZS
 cSs
-cSw
+pRS
 cSw
 cZS
 cWZ
