@@ -254,9 +254,9 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 /world/proc/SetupLogs()
 	if(GLOB.round_id)
-		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]/round-[GLOB.round_id]"
+		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day", 0)]/round-[GLOB.round_id]" // SS220 EDIT - use UTC for log directory
 	else
-		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]" // Dont stick a round ID if we dont have one
+		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day", 0)]" // Dont stick a round ID if we dont have one // SS220 EDIT - use UTC for log directory
 	GLOB.world_game_log = "[GLOB.log_directory]/game.log"
 	GLOB.world_href_log = "[GLOB.log_directory]/hrefs.log"
 	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"
