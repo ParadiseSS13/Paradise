@@ -237,17 +237,13 @@
 		owner.emote("scream")
 		owner.SetKnockDown(2 SECONDS, TRUE) // even with antistuns, i want them to fall over. Mainly so it conveys how unplesant feels
 		sleep(2 SECONDS)
-		// nabbed from the teleprot proc in wizarditis.dm, but severly modernized
-		var/list/possible_areas = get_areas_in_range(80, owner)
-		for(var/area/space/S in possible_areas)
-			possible_areas -= S
-		for(var/area/station/engineering/solar/sol in possible_areas)
-			possible_areas -= sol
-		do_teleport(owner, pick(possible_areas), 3, safe_turf_pick = TRUE)
+		var/turf/possible_area
+		possible_area = find_safe_turf()
+		do_teleport(owner, pick(possible_area))
 		return
 	to_chat(owner, "<span class='warning'>You feel a horrible twisting and turning throughout your entire body.</span>")
 	owner.emote("scream")
-	sleep(1.5 SECONDS)
+	sleep(1.5 SECONDS) // so they scream, and viewers hear the scream be cut off
 	do_teleport(owner, get_turf(owner), 10, safe_turf_pick = TRUE)
 
 /obj/item/organ/internal/heart/gland/spiderman
