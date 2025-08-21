@@ -221,12 +221,14 @@
 	desc = "A blunt knife used to slice cheese."
 	icon_state = "knife-cheese"
 	force = 3
+	materials = list(MAT_METAL = 4000)
 
 /obj/item/kitchen/knife/pizza_cutter
 	name = "pizza cutter"
 	desc = "A simple circular blade on a handle, used to cut pizza."
 	icon_state = "pizza_cutter"
 	force = 8
+	materials = list(MAT_METAL = 10000)
 
 /*
  * Rolling Pins
