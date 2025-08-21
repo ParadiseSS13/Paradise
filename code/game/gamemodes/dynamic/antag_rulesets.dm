@@ -146,7 +146,7 @@
 		if(jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, antagonist_type::job_rank))
 			continue
 		// Make sure they want to play antag, and that they're not already something (off station or antag)
-		if(player.client.skip_antag || player.mind.offstation_role || player.mind.special_role)
+		if(player.client.persistent.skip_antag || player.mind.offstation_role || player.mind.special_role)
 			continue
 		// Make sure they actually want to be this antagonist
 		if(!(antagonist_type::job_rank in player.client.prefs.be_special))
