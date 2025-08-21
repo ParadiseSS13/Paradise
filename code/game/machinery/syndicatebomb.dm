@@ -313,7 +313,7 @@
 /obj/machinery/syndicatebomb/shuttle_loan/Initialize(mapload)
 	. = ..()
 	anchored = TRUE
-	timer_set = rand(180, 300) // once the supply shuttle docks (after 5 minutes travel time), players have between 3-5 minutes to defuse the bomb
+	timer_set = rand(3 MINUTES, 5 MINUTES) // once the supply shuttle docks (after 5 minutes travel time), players have between 3-5 minutes to defuse the bomb
 	activate()
 	update_appearance()
 
@@ -323,7 +323,7 @@
 /obj/machinery/syndicatebomb/badmin/clown/shuttle_loan/Initialize(mapload)
 	. = ..()
 	anchored = TRUE
-	timer_set = rand(180, 300) // once the supply shuttle docks (after 5 minutes travel time), players have between 3-5 minutes to defuse the bomb
+	timer_set = rand(3 MINUTES, 5 MINUTES) // once the supply shuttle docks (after 5 minutes travel time), players have between 3-5 minutes to defuse the bomb
 	activate()
 	update_appearance()
 

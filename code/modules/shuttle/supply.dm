@@ -42,7 +42,7 @@
 			/obj/effect/hierophant,
 			/obj/item/warp_cube),
 		"undelivered mail" = list(/obj/item/envelope),
-		"live ordinance" = list(/obj/machinery/syndicatebomb)
+		"live ordnance" = list(/obj/machinery/syndicatebomb)
 		)
 
 	// The current manifest of what's on the shuttle.
