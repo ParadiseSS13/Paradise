@@ -3,7 +3,7 @@
 	name = "\improper DNA analyzer"
 	desc = "A high-tech machine that is designed to sequence DNA samples."
 	icon = 'icons/obj/forensics/forensics.dmi'
-	icon_state = "dnaopen"
+	icon_state = "dna-open"
 	anchored = TRUE
 	density = TRUE
 
@@ -110,17 +110,17 @@
 
 /obj/machinery/dnaforensics/update_icon_state()
 	if(scanning)
-		icon_state = "dnaworking"
+		icon_state = "dna-working"
 	else if(swab)
-		icon_state = "dnaclosed"
+		icon_state = "dna-closed"
 	else
-		icon_state = "dnaopen"
+		icon_state = "dna-open"
 
 /obj/machinery/dnaforensics/screwdriver_act(mob/user, obj/item/I)
 	if(swab)
 		return
 	. = TRUE
-	default_deconstruction_screwdriver(user, "dnaopenunpowered", "dnaopen", I)
+	default_deconstruction_screwdriver(user, "dna-open-unpowered", "dna-open", I)
 
 /obj/machinery/dnaforensics/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -195,7 +195,6 @@
 	to_chat(user, "<span class='notice'>Printing Report...</span>")
 	var/obj/item/paper/report = new(get_turf(src))
 	report.stamped = list(/obj/item/stamp)
-	//report.overlays = list("paper_stamped")
 	report_num++
 
 	if(istype(sample, /obj/item/forensics/swab))
