@@ -426,6 +426,7 @@
 			qdel(G)
 		else
 			to_chat(user, "<span class='warning'>You need five lengths of cable to make a [G] battery!</span>")
+		return TRUE
 
 
 /datum/plant_gene/trait/stinging
