@@ -142,6 +142,17 @@
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/encryptionkey/binary
 
+	/obj/item/radio/headset/dual
+	name = "dual radio headset"
+	desc = "A stylish radio headset designed to give you double the audio power of a normal headset."
+	item_state = "dual_radio"
+	icon_state = "dual_radio"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/ears.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/ears.dmi',
+		)
+
 /obj/item/radio/headset/headset_sec
 	name = "security radio headset"
 	desc = "This is used by your elite security force."
@@ -500,3 +511,5 @@
 	keyslot1 = new /obj/item/encryptionkey/syndicate
 	syndiekey = keyslot1
 	recalculateChannels()
+
+
