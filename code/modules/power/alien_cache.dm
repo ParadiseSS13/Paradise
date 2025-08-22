@@ -23,32 +23,41 @@
 	var/list/random_rewards = list(
 									// level 1
 									list(
-									/obj/item/stack/sheet/mineral/bananium/thirty = 1,
-									/obj/item/stack/sheet/mineral/tranquillite/thirty = 1,
-									/obj/item/stack/sheet/mineral/abductor/fifty = 1,
-									/obj/effect/spawner/random/alien_cache/alien_surgical_tool = 3,
-									),
+										/obj/item/stack/sheet/mineral/abductor/fifty = 1,
+										/obj/machinery/the_singularitygen/tesla = 1,
+										/obj/machinery/the_singularitygen = 1,
+										/obj/item/stack/sheet/mineral/bananium/thirty = 1,
+										/obj/item/stack/sheet/mineral/tranquillite/thirty = 1,
+										),
 									// level 2
 									list(
-									/obj/effect/spawner/random/alien_cache/alien_tool = 5,
-									/obj/item/storage/belt/military/abductor/full = 1,
-									),
+										/obj/effect/spawner/random/alien_cache/alien_surgical_tool = 1,
+										/obj/item/mod/module/dispenser = 1,
+										/obj/effect/spawner/alien_cache/mob_capsule = 1,
+										/obj/item/storage/pill_bottle/random_meds/labelled = 1,
+										),
 									// level 3
 									list(
-									/obj/item/assembly/signaler/anomaly/random = 2,
-									/obj/item/mod/module/jetpack/advanced = 1,
-									),
+										/obj/item/mod/module/jetpack/advanced = 1,
+										/obj/effect/spawner/alien_cache/gas_canister = 1,
+										/obj/effect/spawner/random/alien_cache/alien_tool_borg = 1,
+										),
 									// level 4
 									list(
-									/obj/effect/spawner/alien_cache/gas_canister = 1,
-									),
+										/obj/effect/spawner/random/alien_cache/alien_tool = 1,
+										/obj/item/assembly/signaler/anomaly/random = 1,
+										/obj/effect/spawner/alien_cache/gas_canister/agent_b = 1,
+										),
 									// level 5
 									list(
-									/obj/effect/spawner/alien_cache/gas_canister/agent_b = 1,
-									),
+										/obj/item/storage/belt/military/abductor/full = 1,
+										/obj/item/guardiancreator/biological = 1,
+										),
 									)
 	/// List of guaranteed rewards you get from the last stage
-	var/list/open_rewards = list()
+	var/list/open_rewards = list(
+								/obj/item/circuitboard/machine/bluespace_tap = 1,
+								)
 	/// Terminal for receiving power through
 	var/obj/machinery/power/terminal/terminal
 
@@ -106,6 +115,8 @@
 			var/list/rewards = pick_rewards(3)
 			to_chat(world, "Level: [level_reached]\nRewards: [english_list(rewards)]")
 			spawn_loot(rewards)
+			if(level_reached >= max_level)
+				spawn_loot(open_rewards)
 
 
 /obj/machinery/alien_cache/proc/spawn_loot(list/loot)

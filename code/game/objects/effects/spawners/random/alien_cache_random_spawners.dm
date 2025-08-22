@@ -1,3 +1,4 @@
+// Canister
 #define COMPRESSED_GAS_AMOUNT 300000
 #define AGENT_B_AMOUNT 100000
 #define NAME_O2 "O2"
@@ -6,7 +7,11 @@
 #define NAME_N2O "N2O"
 #define NAME_TOX "Plasma"
 #define NAME_AGENT_B "Agent B"
+// Lazarus Capsule
+#define MOB_TYPE (1 << 0)
+#define MOB_PROTOTYPE (1 << 1)
 
+// MARK: Random Spanwers
 
 /obj/effect/spawner/random/bluespace_tap
 	name = "alien cache loot spawner"
@@ -57,7 +62,9 @@
 				/obj/item/borg/upgrade/abductor_jani,
 				)
 
-// Random gas canister
+//MARK: Canister Spawners
+
+// Gas canister with random gas
 /obj/effect/spawner/alien_cache/gas_canister
 	name = "random gas canister spawner"
 	var/list/gasses = list(
@@ -67,6 +74,7 @@
 							NAME_TOX = COMPRESSED_GAS_AMOUNT,
 							NAME_N2O = COMPRESSED_GAS_AMOUNT)
 
+// Agent B canister
 /obj/effect/spawner/alien_cache/gas_canister/agent_b
 	name = "agent b canister spawner"
 	gasses = list(NAME_AGENT_B  = AGENT_B_AMOUNT)
@@ -93,6 +101,42 @@
 	add_gas(spawned)
 	update_icon()
 	qdel(src)
+
+// MARK: Lazarus Spawners
+// Lazarus Capsule with a mob inside
+/obj/effect/spawner/alien_cache/mob_capsule
+	var/list/mob_types = list()
+
+// Lazarus Capsule with a megafauna inside
+/obj/effect/spawner/alien_cache/mob_capsule/megafauna
+	mob_types = list(/mob/living/simple_animal/hostile/megafauna = MOB_PROTOTYPE)
+
+/obj/effect/spawner/alien_cache/mob_capsule/Initialize(mapload)
+	. = ..()
+	var/obj/item/mobcapsule/capsule = new(get_turf(src))
+	var/type
+	if(length(mob_types))
+		var/list/pool = list()
+		for(var/mob_type in mob_types)
+			if(mob_types[mob_type] & MOB_TYPE)
+				pool += mob_type
+			if(mob_types[mob_type] & MOB_PROTOTYPE)
+				pool += subtypesof(mob_type)
+		type = pick(pool)
+	else
+		type = pick(subtypesof(/mob/living/simple_animal))
+	var/mob/living/simple_animal/my_mob = new type(loc)
+	my_mob.faction += "neutral"
+	capsule.captured = my_mob
+	my_mob.forceMove(capsule)
+
+// TEG crate for the cache
+/obj/structure/closet/crate/teg
+
+/obj/structure/closet/crate/teg/populate_contents()
+	new /obj/machinery/power/teg(src)
+	new /obj/item/pipe/circulator(src)
+	new /obj/item/pipe/circulator(src)
 
 #undef COMPRESSED_GAS_AMOUNT
 #undef AGENT_B_AMOUNT
