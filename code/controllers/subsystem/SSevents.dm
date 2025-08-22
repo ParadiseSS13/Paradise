@@ -104,7 +104,7 @@ SUBSYSTEM_DEF(events)
 
 /datum/controller/subsystem/events/proc/GetInteractWindow()
 	var/html = "<A align='right' href='byond://?src=[UID()];refresh=1'>Refresh</A>"
-
+	html += "<A align='right' href='byond://?src=[UID()];resource=1'>Resources</A>"
 	if(selected_event_container)
 		var/event_time = max(0, selected_event_container.next_event_time - world.time)
 		var/list/total_resources = get_total_resources()
@@ -304,5 +304,38 @@ SUBSYSTEM_DEF(events)
 		if(EC.next_event)
 			log_and_message_admins("has dequeued the [GLOB.severity_to_string[EC.severity]] event '[EC.next_event.skeleton.name]'.")
 			EC.next_event = null
+	else if(href_list["resource"])
+		GetResourceWindow()
 
 	Interact(usr)
+
+/datum/controller/subsystem/events/proc/GetResourceWindow()
+	var/html = "<A align='right' href='byond://?src=[UID()];refresh=1'>Refresh</A>"
+	var/list/total_resources = get_total_resources()
+	html += "<div class='block'>"
+	html += "<h2>Total Resources</h2>"
+	html += "<table [table_options]>"
+	html += "<tr [head_options]><td [row_options2]>Name <td [row_options3]>Weight</tr>"
+	for(var/resource in total_resources)
+		html += "<tr>"
+		html += "<td>[resource]</td>"
+		html += "<td>[total_resources[resource]]</td>"
+		html += "</tr>"
+	html += "</table>"
+	html += "</div>"
+	var/list/net_resources = number_active_with_role()
+	html += "<div class='block'>"
+	html += "<h2>Net Resources</h2>"
+	html += "<table [table_options]>"
+	html += "<tr [head_options]><td [row_options2]>Name <td [row_options3]>Weight</tr>"
+	for(var/resource in net_resources)
+		html += "<tr>"
+		html += "<td>[resource]</td>"
+		html += "<td>[net_resources[resource]]</td>"
+		html += "</tr>"
+	html += "</table>"
+	html += "</div>"
+
+	var/datum/browser/popup = new(usr, "resources", "Resources", window_x, window_y)
+	popup.set_content(html)
+	popup.open()
