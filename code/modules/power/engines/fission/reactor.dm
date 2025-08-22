@@ -48,7 +48,7 @@
 	var/total_power
 	/// The user-controlled rods used to change how active the reactor is
 	var/control_rod_percentage = 0
-	/// A modifier for general reactivity, based off of heat. Cant go below 1
+	/// A modifier for general reactivity, based off of heat production. Cant go below 1
 	var/temperature_mult = 1
 	/// The current air contents of this device
 	var/datum/gas_mixture/air_contents
@@ -58,12 +58,16 @@
 	var/can_maintain = TRUE
 	/// what repair step is the reactor on?
 	var/repair_step = 1
+	/// the desired percentage the engineers set the reactor control rods
+	var/desired_power = 0
+	/// What percentage are the reactor control rods running at? Minimum raised for each broken control rod
+	var/operating_power = 0
 
 /obj/machinery/power/fission_reactor/examine(mob/user)
 	. = ..()
 	if(!(stat & BROKEN))
 		return
-	. += "A burning hole where the NGCR Reactor housed its core. Its inoperable in this state. The acrid smell permeates through even the thickest of suits."
+	. += "A burning hole remains where the NGCR Reactor housed its core. Its inoperable in this state. The acrid smell permeates through even the thickest of suits."
 	. += ""
 
 

@@ -47343,13 +47343,19 @@
 /turf/simulated/wall,
 /area/station/medical/coldroom)
 "dPd" = (
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_int";
-	locked = 1;
-	name = "Supermatter Interior Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/item/nuclear_rod/moderator/heavy_water,
+/obj/item/nuclear_rod/moderator/heavy_water,
+/obj/item/nuclear_rod/moderator/heavy_water,
+/obj/item/nuclear_rod/moderator/heavy_water,
+/obj/item/nuclear_rod/moderator/heavy_water,
+/obj/item/nuclear_rod/moderator/heavy_water,
+/obj/item/nuclear_rod/moderator/heavy_water,
+/obj/item/nuclear_rod/moderator/heavy_water,
+/obj/item/nuclear_rod/moderator/heavy_water,
+/obj/item/nuclear_rod/moderator/heavy_water,
+/obj/item/nuclear_rod/moderator/heavy_water,
+/obj/item/nuclear_rod/moderator/heavy_water,
+/obj/item/nuclear_rod/moderator/heavy_water,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -52523,7 +52529,21 @@
 	},
 /area/station/maintenance/aft)
 "gpC" = (
-/obj/item/nuclear_rod/coolant,
+/obj/item/nuclear_rod/fuel/uranium_238,
+/obj/item/nuclear_rod/fuel/uranium_238,
+/obj/item/nuclear_rod/fuel/uranium_238,
+/obj/item/nuclear_rod/fuel/uranium_238,
+/obj/item/nuclear_rod/fuel/uranium_238,
+/obj/item/nuclear_rod/fuel/uranium_238,
+/obj/item/nuclear_rod/fuel/uranium_238,
+/obj/item/nuclear_rod/fuel/uranium_238,
+/obj/item/nuclear_rod/fuel/uranium_238,
+/obj/item/nuclear_rod/fuel/uranium_238,
+/obj/item/nuclear_rod/fuel/uranium_238,
+/obj/item/nuclear_rod/fuel/uranium_238,
+/obj/item/nuclear_rod/fuel/uranium_238,
+/obj/item/nuclear_rod/fuel/uranium_238,
+/obj/item/nuclear_rod/fuel/uranium_238,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -55423,13 +55443,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "hON" = (
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_ext";
-	locked = 1;
-	name = "Supermatter Exterior Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -61791,13 +61804,6 @@
 	},
 /area/station/command/office/ce)
 "lbc" = (
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_ext";
-	locked = 1;
-	name = "Supermatter Exterior Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "lbd" = (
@@ -62275,13 +62281,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/engineering/glass{
-	autoclose = 0;
-	id_tag = "engsm_door_int";
-	locked = 1;
-	name = "Supermatter Interior Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74242,7 +74241,18 @@
 	},
 /area/station/science/hallway)
 "rle" = (
-/obj/item/nuclear_rod/moderator,
+/obj/item/nuclear_rod/fuel/weak_thorium,
+/obj/item/nuclear_rod/fuel/weak_thorium,
+/obj/item/nuclear_rod/fuel/weak_thorium,
+/obj/item/nuclear_rod/fuel/weak_thorium,
+/obj/item/nuclear_rod/fuel/weak_thorium,
+/obj/item/nuclear_rod/fuel/weak_thorium,
+/obj/item/nuclear_rod/fuel/weak_thorium,
+/obj/item/nuclear_rod/fuel/weak_thorium,
+/obj/item/nuclear_rod/fuel/weak_thorium,
+/obj/item/nuclear_rod/fuel/weak_thorium,
+/obj/item/nuclear_rod/fuel/weak_thorium,
+/obj/item/nuclear_rod/fuel/weak_thorium,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -79661,6 +79671,7 @@
 	req_access = list(32);
 	pixel_y = 24
 	},
+/obj/machinery/computer/fission_monitor,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80712,7 +80723,19 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft)
 "uGl" = (
-/obj/item/nuclear_rod/fuel,
+/obj/item/nuclear_rod/coolant/light_water,
+/obj/item/nuclear_rod/coolant/light_water,
+/obj/item/nuclear_rod/coolant/light_water,
+/obj/item/nuclear_rod/coolant/light_water,
+/obj/item/nuclear_rod/coolant/light_water,
+/obj/item/nuclear_rod/coolant/light_water,
+/obj/item/nuclear_rod/coolant/light_water,
+/obj/item/nuclear_rod/coolant/light_water,
+/obj/item/nuclear_rod/coolant/light_water,
+/obj/item/nuclear_rod/coolant/light_water,
+/obj/item/nuclear_rod/coolant/light_water,
+/obj/item/nuclear_rod/coolant/light_water,
+/obj/item/nuclear_rod/coolant/light_water,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -116116,7 +116139,7 @@ ePY
 cYQ
 ePY
 ePY
-ePY
+uGl
 koL
 sKE
 sKE
@@ -116372,8 +116395,8 @@ cPX
 ePY
 cYQ
 ePY
-ePY
-ePY
+gpC
+rle
 koL
 sKE
 sKE
@@ -116627,10 +116650,10 @@ uVt
 lbc
 lsx
 lsx
+ePY
+ePY
+ePY
 dPd
-ePY
-ePY
-ePY
 koL
 sKE
 sKE
@@ -117143,7 +117166,7 @@ vFA
 aig
 lnU
 ePY
-gpC
+ePY
 ePY
 koL
 sKE
@@ -117400,7 +117423,7 @@ tQJ
 wpH
 cYQ
 ePY
-uGl
+ePY
 ePY
 koL
 sKE
@@ -117657,7 +117680,7 @@ tQJ
 wpH
 cYQ
 ePY
-rle
+ePY
 ePY
 koL
 sKE
