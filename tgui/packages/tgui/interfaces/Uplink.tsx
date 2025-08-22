@@ -140,14 +140,15 @@ const ItemsPage = (_properties) => {
   const { act, data } = useBackend<UplinkItemsPage>();
   const { crystals, cats } = data;
   // Default to first
-  const [uplinkItems, setUplinkItems] = useState(cats[0].items);
-
+  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
   const [searchText, setSearchText] = useState('');
+  const [showDesc, setShowDesc] = useState<BooleanLike>(1);
+
   const SelectEquipment = (items: UplinkItem[], searchText = '') => {
     items = filter(items, (item) => !!item.name);
     if (searchText) {
-      const matches = createSearch<UplinkItem>(searchText, (item) => {
-        let key = `${item.name}|${item.desc}|${item.cost}tc`;
+      const matches = createSearch<UplinkItem>(searchText.toLowerCase(), (item) => {
+        let key = `${item.name}|${item.desc}|${item.cost}tc`.toLowerCase();
         if (item.hijack_only) {
           key += '|hijack';
         }
@@ -157,15 +158,14 @@ const ItemsPage = (_properties) => {
     }
     return sortBy(items, (item) => item.name);
   };
+
   const handleSearch = (value) => {
     setSearchText(value);
-    if (value === '') {
-      return setUplinkItems(cats[0].items);
-    }
-    setUplinkItems(SelectEquipment(cats.map((category: UplinkCategory) => category.items).flat(), value));
   };
 
-  const [showDesc, setShowDesc] = useState<BooleanLike>(1);
+  const visibleItems = searchText
+    ? SelectEquipment(cats.flatMap((category: UplinkCategory) => category.items), searchText)
+    : cats[selectedCategoryIndex].items;
 
   return (
     <Stack fill vertical>
@@ -200,12 +200,12 @@ const ItemsPage = (_properties) => {
         <Stack.Item width="30%">
           <Section fill scrollable>
             <Tabs vertical>
-              {cats.map((c) => (
+              {cats.map((c, index) => (
                 <Tabs.Tab
                   key={c.cat}
-                  selected={searchText !== '' ? false : c.items === uplinkItems}
+                  selected={searchText === '' && index === selectedCategoryIndex}
                   onClick={() => {
-                    setUplinkItems(c.items);
+                    setSelectedCategoryIndex(index);
                     setSearchText('');
                   }}
                 >
@@ -217,8 +217,8 @@ const ItemsPage = (_properties) => {
         </Stack.Item>
         <Stack.Item grow>
           <Section fill scrollable>
-            <Stack vertical>
-              {uplinkItems.map((i) => (
+            <Stack vertical key={searchText || selectedCategoryIndex}>
+              {visibleItems.map((i) => (
                 <Stack.Item key={decodeHtmlEntities(i.name)} p={1} backgroundColor={'rgba(255, 0, 0, 0.1)'}>
                   <UplinkItem i={i} showDecription={showDesc} key={decodeHtmlEntities(i.name)} />
                 </Stack.Item>
@@ -230,6 +230,7 @@ const ItemsPage = (_properties) => {
     </Stack>
   );
 };
+
 
 const CartPage = (_properties) => {
   const { act, data } = useBackend<UplinkItemsPage>();
