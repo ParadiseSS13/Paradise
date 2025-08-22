@@ -1,9 +1,9 @@
+import { createContext, useContext } from 'react';
 import { Box, Button, Flex, Icon, Section, Stack, Table, Tabs } from 'tgui-core/components';
+import { BooleanLike, classes } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { BooleanLike, classes } from 'tgui-core/react';
-import { createContext, useContext } from 'react';
 
 const Dir = {
   NORTH: 1,

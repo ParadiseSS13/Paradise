@@ -171,6 +171,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/uid_log,
 	/client/proc/reestablish_db_connection,
 	/client/proc/ss_breakdown,
+	/client/proc/event_debug,
 	#ifdef REFERENCE_TRACKING
 	/datum/proc/find_refs,
 	/datum/proc/qdel_then_find_references,
@@ -266,6 +267,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/cmd_display_del_log_simple,
 	/client/proc/debug_variables, /*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
 	/client/proc/ss_breakdown,
+	/client/proc/event_debug,
 	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
 	/client/proc/debug_timers,

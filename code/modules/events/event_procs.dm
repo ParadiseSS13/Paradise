@@ -70,7 +70,7 @@
 		active_with_role = SSevents.debug_resources.Copy()
 
 	for(var/mob/M in GLOB.player_list)
-		if(!M.mind || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
+		if(!M.mind?.assigned_role || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
 			continue
 
 		if(M.mind.assigned_role in (GLOB.exp_jobsmap[EXP_TYPE_CREW]["titles"]))

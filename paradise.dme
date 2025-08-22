@@ -1609,6 +1609,7 @@
 #include "code\modules\admin\watchlist.dm"
 #include "code\modules\admin\db_ban\functions.dm"
 #include "code\modules\admin\menus\antagonist_menu.dm"
+#include "code\modules\admin\menus\event_debug_menu.dm"
 #include "code\modules\admin\menus\ui_module_admin.dm"
 #include "code\modules\admin\permissionverbs\permissionedit.dm"
 #include "code\modules\admin\tickets\adminticketsverbs.dm"
