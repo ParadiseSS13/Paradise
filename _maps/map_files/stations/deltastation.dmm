@@ -1131,13 +1131,9 @@
 	},
 /area/station/hallway/secondary/entry/south)
 "aip" = (
-/obj/structure/sign/vacuum/external{
-	pixel_x = -32
-	},
 /obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "arrival"
+	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/north)
 "ait" = (
@@ -9919,6 +9915,17 @@
 /obj/structure/sign/fire,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos)
+"aOn" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 11;
+	height = 23;
+	id = "trade_dock";
+	name = "port bay 4 at NSS Kerberos";
+	width = 23
+	},
+/turf/space,
+/area/space)
 "aOo" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -49067,11 +49074,9 @@
 	},
 /area/station/maintenance/apmaint)
 "dMg" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1
+/obj/structure/sign/vacuum/external{
+	pixel_x = -32
 	},
-/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "arrival"
@@ -62577,8 +62582,15 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "iUU" = (
-/obj/effect/spawner/airlock/e_to_w,
-/turf/simulated/wall,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "trade_dock";
+	name = "Docking Port 4"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
 "iVg" = (
 /obj/machinery/economy/atm/directional/west,
@@ -69405,6 +69417,12 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
+"mci" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry/north)
 "mcD" = (
 /turf/space,
 /area/station/public/fitness)
@@ -76666,16 +76684,14 @@
 /turf/simulated/floor/grass/jungle,
 /area/station/maintenance/fsmaint)
 "pjO" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 4;
-	height = 11;
-	id = "trade_dock";
-	name = "port bay 4 at Kerberos";
-	width = 9
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "trade_dock";
+	name = "Docking Port 4"
 	},
-/turf/space,
-/area/space)
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry/north)
 "pkg" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -87951,9 +87967,6 @@
 /area/station/medical/medbay)
 "tRa" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
 "tRn" = (
@@ -89536,6 +89549,14 @@
 /obj/structure/flora/ausbushes/grassybush,
 /turf/simulated/floor/grass/no_creep,
 /area/station/hallway/primary/port/north)
+"uwl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/station/maintenance/apmaint)
 "uwm" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -92734,9 +92755,6 @@
 /area/station/security/processing)
 "vNK" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
@@ -130715,7 +130733,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aOn
 aaa
 aaa
 aaa
@@ -130970,12 +130988,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
+mQO
+ovL
+iUU
 pjO
-aaa
-aaa
+ovL
+mQO
 aaa
 aaa
 aaa
@@ -131227,12 +131245,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-ovL
+abj
+doS
+mci
 tRa
-iUU
-aaa
+doS
+abj
 aaa
 aaa
 aaa
@@ -131484,9 +131502,9 @@ aaa
 aaa
 aaa
 aaa
-anu
 abj
 doS
+mci
 vNK
 doS
 abj
@@ -131743,8 +131761,8 @@ aaa
 aaa
 abj
 ovL
-ovL
-tRa
+iUU
+pjO
 ovL
 ovL
 abj
@@ -131888,7 +131906,7 @@ dbp
 huN
 sJD
 ddy
-dOP
+uwl
 dOO
 dHA
 ddy
@@ -132001,7 +132019,7 @@ ovL
 ovL
 ovL
 aip
-mFy
+qGl
 dMg
 ovL
 anu
