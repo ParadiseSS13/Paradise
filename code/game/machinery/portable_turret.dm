@@ -1089,8 +1089,9 @@
 		Turret.name = finish_name
 		Turret.installation = installation
 		Turret.gun_charge = gun_charge
-		gun_lens.forceMove(Turret)
-		Turret.fitted_lens = gun_lens
+		if(gun_lens)
+			gun_lens.forceMove(Turret)
+			Turret.fitted_lens = gun_lens
 		Turret.enabled = FALSE
 		Turret.setup()
 

@@ -35,9 +35,9 @@
 		to_chat(user, "<span class='warning'>We are already regenerating.</span>")
 		return FALSE
 	if(!user.stat)//Confirmation for living changelings if they want to fake their death
-		switch(tgui_alert(user, "Are we sure we wish to fake our death?", "Fake Death", list("Yes", "No")))
-			if("No")
-				return FALSE
+		var/death_confirmation = tgui_alert(user, "Are we sure we wish to fake our death?", "Fake Death", list("Yes", "No"))
+		if(death_confirmation != "Yes")
+			return FALSE
 		// Do the checks again since we had user input
 		if(cling.owner != user.mind)
 			return FALSE
