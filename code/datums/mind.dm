@@ -23,6 +23,8 @@
 	var/key
 	var/name				//replaces mob/var/original_name
 	var/mob/living/current
+	/// A serialized copy of this mind's body when it was destroyed, for admin respawn usage.
+	var/destroyed_body_json
 	/// The original mob's UID. Used for example to see if a silicon with antag status is actually malf. Or just an antag put in a borg
 	var/original_mob_UID
 	/// The original mob's name. Used in Dchat messages
@@ -75,9 +77,6 @@
 
 	var/list/learned_recipes //List of learned recipe TYPES.
 
-	/// List of people who we've received kudos from.
-	var/list/kudos_received_from = list()
-
 /datum/mind/New(new_key)
 	key = new_key
 	objective_holder = new(src)
@@ -86,8 +85,7 @@
 	SSticker.minds -= src
 	remove_all_antag_datums()
 	qdel(objective_holder)
-	current = null
-	kudos_received_from.Cut()
+	unbind()
 	return ..()
 
 /datum/mind/proc/set_original_mob(mob/original)
@@ -126,13 +124,30 @@
 
 	return out_ckey
 
+/datum/mind/proc/archive_deleted_body()
+	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
+	if(isliving(current))
+		destroyed_body_json = json_encode(current.serialize())
+
+/datum/mind/proc/bind_to(mob/living/new_character)
+	current = new_character
+	new_character.mind = src
+	RegisterSignal(current, COMSIG_PARENT_QDELETING, PROC_REF(archive_deleted_body), override = TRUE)
+
+/datum/mind/proc/unbind()
+	if(isnull(current))
+		return
+	UnregisterSignal(current, COMSIG_PARENT_QDELETING)
+	if(current.mind == src)
+		current.mind = null
+	current = null
+
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
 	if(!istype(new_character))
 		stack_trace("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob.")
 	if(current)					//remove ourself from our old body's mind variable
-		current.mind = null
 		if(isliving(current))
 			current.med_hud_set_status()
 		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
@@ -141,11 +156,13 @@
 
 		new_character.job = current.job //transfer our job over to the new body
 
-	if(new_character.mind)		//remove any mind currently in our new body's mind variable
-		new_character.mind.current = null
+		unbind()
 
-	current = new_character		//link ourself to our new body
-	new_character.mind = src	//and link our new body to ourself
+	if(new_character.mind)		//remove any mind currently in our new body's mind variable
+		new_character.mind.unbind()
+
+	bind_to(new_character)
+
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		var/datum/antagonist/A = a
 		A.on_body_transfer(old_current, current)
@@ -1858,7 +1875,7 @@
 			error("mind_initialize(): No ticker ready yet! Please inform Carn")
 	if(!mind.name)
 		mind.name = real_name
-	mind.current = src
+	mind.bind_to(src)
 	SEND_SIGNAL(src, COMSIG_MIND_INITIALIZE)
 
 //HUMAN
@@ -1870,6 +1887,7 @@
 /mob/proc/sync_mind()
 	mind_initialize()  //updates the mind (or creates and initializes one if one doesn't exist)
 	mind.active = TRUE //indicates that the mind is currently synced with a client
+	client.persistent.minds |= mind
 
 //slime
 /mob/living/simple_animal/slime/mind_initialize()

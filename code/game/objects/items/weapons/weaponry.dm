@@ -13,15 +13,22 @@
 	attack_verb = list("banned")
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
+	new_attack_chain = TRUE
 
 /obj/item/banhammer/suicide_act(mob/user)
 	visible_message("<span class='suicide'>[user] is hitting [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to ban [user.p_themselves()] from life.</span>")
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
-/obj/item/banhammer/attack__legacy__attackchain(mob/M, mob/user)
-	to_chat(M, "<font color='red'><b> You have been banned FOR NO REISIN by [user]<b></font>")
-	to_chat(user, "<font color='red'> You have <b>BANNED</b> [M]</font>")
-	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
+/obj/item/banhammer/pre_attack(atom/A, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(ismob(A))
+		user.changeNext_move(CLICK_CD_MELEE)
+		to_chat(A, "<font color='red'><b>You have been banned FOR NO REISIN by [user]<b></font>")
+		to_chat(user, "<font color='red'>You have <b>BANNED</b> [A]</font>")
+		playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
+		return FINISH_ATTACK
 
 /obj/item/sord
 	name = "\improper SORD"
