@@ -466,7 +466,8 @@
 /area/shuttle/pod_4)
 "aeM" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 4 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
@@ -1130,13 +1131,9 @@
 	},
 /area/station/hallway/secondary/entry/south)
 "aip" = (
-/obj/structure/sign/vacuum/external{
-	pixel_x = -32
-	},
 /obj/machinery/economy/atm/directional/north,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "arrival"
+	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/north)
 "ait" = (
@@ -3090,6 +3087,12 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/maintenance/fore2)
+"arn" = (
+/obj/effect/turf_decal/alphanumeric/mix{
+	dir = 4
+	},
+/turf/simulated/floor/engine/vacuum,
+/area/station/engineering/atmos)
 "aro" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/maintenance,
@@ -9912,6 +9915,17 @@
 /obj/structure/sign/fire,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos)
+"aOn" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 11;
+	height = 23;
+	id = "trade_dock";
+	name = "port bay 4 at NSS Kerberos";
+	width = 23
+	},
+/turf/space,
+/area/space)
 "aOo" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -11923,6 +11937,10 @@
 /obj/machinery/atmospherics/portable/canister/air{
 	anchored = 1
 	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "air_sensor";
+	output = 127
+	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
 "aVU" = (
@@ -12682,6 +12700,9 @@
 "aYv" = (
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
@@ -13473,6 +13494,9 @@
 /obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "o2_sensor"
+	},
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
 "bca" = (
@@ -13919,6 +13943,9 @@
 "beF" = (
 /obj/machinery/atmospherics/portable/canister/toxins{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
@@ -14510,6 +14537,9 @@
 "bht" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "n2_sensor"
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
@@ -15384,6 +15414,9 @@
 "bkw" = (
 /obj/machinery/atmospherics/portable/canister/sleeping_agent{
 	anchored = 1
+	},
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
@@ -17647,7 +17680,10 @@
 /turf/simulated/wall,
 /area/station/hallway/primary/central)
 "bsA" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external/glass{
+	name = "Escape Pod 3 Airlock";
+	id_tag = "emergency_home"
+	},
 /turf/simulated/floor/plating,
 /area/station/security/prisonershuttle)
 "bsB" = (
@@ -49044,11 +49080,9 @@
 	},
 /area/station/maintenance/apmaint)
 "dMg" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1
+/obj/structure/sign/vacuum/external{
+	pixel_x = -32
 	},
-/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "arrival"
@@ -62554,8 +62588,15 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "iUU" = (
-/obj/effect/spawner/airlock/e_to_w,
-/turf/simulated/wall,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "trade_dock";
+	name = "Docking Port 4"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
 "iVg" = (
 /obj/machinery/economy/atm/directional/west,
@@ -64176,8 +64217,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "jKW" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "tox_sensor"
+/obj/effect/turf_decal/alphanumeric/plasma{
+	dir = 4
 	},
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos)
@@ -69382,6 +69423,12 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
+"mci" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry/north)
 "mcD" = (
 /turf/space,
 /area/station/public/fitness)
@@ -70662,8 +70709,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "mIh" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "n2_sensor"
+/obj/effect/turf_decal/alphanumeric/nitrogen{
+	dir = 8
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
@@ -76643,16 +76690,14 @@
 /turf/simulated/floor/grass/jungle,
 /area/station/maintenance/fsmaint)
 "pjO" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 4;
-	height = 11;
-	id = "trade_dock";
-	name = "port bay 4 at Kerberos";
-	width = 9
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/airlock/external/glass{
+	id_tag = "trade_dock";
+	name = "Docking Port 4"
 	},
-/turf/space,
-/area/space)
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry/north)
 "pkg" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -80611,8 +80656,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore)
 "qWZ" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "o2_sensor"
+/obj/effect/turf_decal/alphanumeric/oxygen{
+	dir = 8
 	},
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
@@ -87928,9 +87973,6 @@
 /area/station/medical/medbay)
 "tRa" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
 "tRn" = (
@@ -88767,7 +88809,8 @@
 /area/station/science/genetics)
 "ueB" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 2 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -89512,6 +89555,14 @@
 /obj/structure/flora/ausbushes/grassybush,
 /turf/simulated/floor/grass/no_creep,
 /area/station/hallway/primary/port/north)
+"uwl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/station/maintenance/apmaint)
 "uwm" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -91535,9 +91586,8 @@
 	},
 /area/station/engineering/atmos)
 "vom" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "air_sensor";
-	output = 127
+/obj/effect/turf_decal/alphanumeric/air{
+	dir = 8
 	},
 /turf/simulated/floor/engine/air,
 /area/station/engineering/atmos)
@@ -92711,9 +92761,6 @@
 /area/station/security/processing)
 "vNK" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
@@ -93115,8 +93162,8 @@
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "vXf" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "n2o_sensor"
+/obj/effect/turf_decal/alphanumeric/nitrous_oxide{
+	dir = 4
 	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
@@ -93166,8 +93213,8 @@
 	},
 /area/station/engineering/gravitygenerator)
 "vYt" = (
-/obj/machinery/atmospherics/air_sensor{
-	autolink_id = "co2_sensor"
+/obj/effect/turf_decal/alphanumeric/carbon_dioxide{
+	dir = 4
 	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos)
@@ -95930,7 +95977,8 @@
 /area/station/maintenance/apmaint)
 "xcL" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod 1 Airlock";
+	id_tag = "emergency_home"
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/south)
@@ -117899,7 +117947,7 @@ bkw
 biK
 aOg
 bpw
-bpv
+jGV
 bpv
 aOg
 abj
@@ -118156,7 +118204,7 @@ vXf
 tnu
 aOg
 ibK
-jGV
+arn
 xBO
 aOg
 abj
@@ -130691,7 +130739,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aOn
 aaa
 aaa
 aaa
@@ -130946,12 +130994,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
+mQO
+ovL
+iUU
 pjO
-aaa
-aaa
+ovL
+mQO
 aaa
 aaa
 aaa
@@ -131203,12 +131251,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-ovL
+abj
+doS
+mci
 tRa
-iUU
-aaa
+doS
+abj
 aaa
 aaa
 aaa
@@ -131460,9 +131508,9 @@ aaa
 aaa
 aaa
 aaa
-anu
 abj
 doS
+mci
 vNK
 doS
 abj
@@ -131719,8 +131767,8 @@ aaa
 aaa
 abj
 ovL
-ovL
-tRa
+iUU
+pjO
 ovL
 ovL
 abj
@@ -131864,7 +131912,7 @@ dbp
 huN
 sJD
 ddy
-dOP
+uwl
 dOO
 dHA
 ddy
@@ -131977,7 +132025,7 @@ ovL
 ovL
 ovL
 aip
-mFy
+qGl
 dMg
 ovL
 anu

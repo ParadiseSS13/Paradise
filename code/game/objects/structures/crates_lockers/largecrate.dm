@@ -37,6 +37,12 @@
 
 /obj/structure/largecrate/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		return TRUE
+	break_open()
+	user.visible_message("<span class='notice'>[user] pries [src] open.</span>", \
+						"<span class='notice'>You pry open [src].</span>", \
+						"<span class='notice'>You hear splitting wood.</span>")
 	if(manifest)
 		manifest.forceMove(loc)
 		manifest = null
@@ -46,10 +52,10 @@
 	for(var/O in contents)
 		var/atom/movable/A = O
 		A.forceMove(T)
-	user.visible_message("<span class='notice'>[user] pries [src] open.</span>", \
-						"<span class='notice'>You pry open [src].</span>", \
-						"<span class='notice'>You hear splitting wood.</span>")
 	qdel(src)
+
+/obj/structure/largecrate/proc/break_open()
+	return
 
 /obj/structure/largecrate/Destroy()
 	var/turf/src_turf = get_turf(src)
@@ -62,60 +68,42 @@
 /obj/structure/largecrate/lisa
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/lisa/crowbar_act(mob/living/user, obj/item/I)
-	if(!I.use_tool(src, user, I.tool_volume))
-		return
+/obj/structure/largecrate/lisa/break_open()
 	new /mob/living/simple_animal/pet/dog/corgi/lisa(loc)
-	return ..()
 
 /obj/structure/largecrate/cow
 	name = "cow crate"
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/cow/crowbar_act(mob/living/user, obj/item/I)
-	if(!I.use_tool(src, user, I.tool_volume))
-		return
+/obj/structure/largecrate/cow/break_open()
 	new /mob/living/basic/cow(loc)
-	return ..()
 
 /obj/structure/largecrate/goat
 	name = "goat crate"
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/goat/crowbar_act(mob/living/user, obj/item/I)
-	if(!I.use_tool(src, user, I.tool_volume))
-		return
+/obj/structure/largecrate/goat/break_open()
 	new /mob/living/simple_animal/hostile/retaliate/goat(loc)
-	return ..()
 
 /obj/structure/largecrate/chick
 	name = "chicken crate"
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/chick/crowbar_act(mob/living/user, obj/item/I)
-	if(!I.use_tool(src, user, I.tool_volume))
-		return
+/obj/structure/largecrate/chick/break_open()
 	var/num = rand(4, 6)
 	for(var/i in 1 to num)
 		new /mob/living/simple_animal/chick(loc)
-	return ..()
 
 /obj/structure/largecrate/cat
 	name = "cat crate"
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/cat/crowbar_act(mob/living/user, obj/item/I)
-	if(!I.use_tool(src, user, I.tool_volume))
-		return
+/obj/structure/largecrate/cat/break_open()
 	new /mob/living/simple_animal/pet/cat(loc)
-	return ..()
 
 /obj/structure/largecrate/secway
 	name = "secway crate"
 
-/obj/structure/largecrate/secway/crowbar_act(mob/living/user, obj/item/I)
-	if(!I.use_tool(src, user, I.tool_volume))
-		return
+/obj/structure/largecrate/secway/break_open()
 	new /obj/vehicle/secway(loc)
 	new /obj/item/key/security(loc)
-	return ..()

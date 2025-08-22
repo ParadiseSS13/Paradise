@@ -171,6 +171,7 @@
 	item_state = "camera"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_NECK
+	new_attack_chain = TRUE
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
 	// cameras historically were varedited to start with 30 shots despite
@@ -244,10 +245,12 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		size = nsize
 		to_chat(user, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
 
-/obj/item/camera/attack__legacy__attackchain(mob/living/carbon/human/M as mob, mob/user as mob)
-	return
+/obj/item/camera/pre_attack(atom/target, mob/living/user, params)
+	if(..() || ismob(target))
+		return FINISH_ATTACK
 
-/obj/item/camera/attack_self__legacy__attackchain(mob/user)
+/obj/item/camera/activate_self(mob/user)
+	. = ..()
 	if(on_cooldown)
 		to_chat(user, "<span class='notice'>[src] is still on cooldown!</span>")
 		return
@@ -258,17 +261,17 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		icon_state = icon_off
 	to_chat(user, "You switch the camera [on ? "on" : "off"].")
 
-/obj/item/camera/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/camera_film))
-		if(pictures_left)
+/obj/item/camera/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/camera_film))
+		if(pictures_left > 0)
 			to_chat(user, "<span class='notice'>[src] still has some film in it!</span>")
-			return
-		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
 		user.drop_item()
-		qdel(I)
+		qdel(used)
 		pictures_left = pictures_max
-		return
-	..()
+		return ITEM_INTERACT_COMPLETE
+	return ..()
 
 
 /obj/item/camera/proc/get_icon(list/turfs, turf/center, mob/user)
@@ -401,25 +404,34 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				mob_detail += "You can also see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
-/obj/item/camera/afterattack__legacy__attackchain(atom/target, mob/user, flag)
-	if(!on || !pictures_left || ismob(target.loc))
-		return
+/obj/item/camera/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(take_photo(target, user))
+		return ITEM_INTERACT_COMPLETE
 
+/obj/item/camera/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(take_photo(target, user))
+		return ITEM_INTERACT_COMPLETE
+
+/obj/item/camera/proc/take_photo(atom/target, mob/user)
+	if(!on || (pictures_left <= 0) || ismob(target.loc))
+		return FALSE
+
+	pictures_left--
+	on = FALSE
+	on_cooldown = TRUE
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, TRUE, -3)
 	if(flashing_light)
 		set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
 		sleep(0.2 SECONDS) //Allow lights to update before capturing image
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.1 SECONDS)
 
-	captureimage(target, user, flag)
-	pictures_left--
-	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
+	captureimage(target, user)
+	to_chat(user, "<span class='notice'>[pictures_left] photo\s left.</span>")
 	icon_state = icon_off
-	on = FALSE
-	on_cooldown = TRUE
 
 	handle_haunt(user)
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 6.4 SECONDS) // fucking magic numbers
+	return TRUE
 
 /obj/item/camera/proc/reset_cooldown()
 	icon_state = icon_on
@@ -433,7 +445,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/can_see = (T in view(viewer)) //No x-ray vision cameras.
 	return can_see
 
-/obj/item/camera/proc/captureimage(atom/target, mob/user, flag)
+/obj/item/camera/proc/captureimage(atom/target, mob/user)
 	var/x_c = target.x - (size-1)/2
 	var/y_c = target.y + (size-1)/2
 	var/z_c	= target.z
@@ -449,10 +461,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		y_c--
 		x_c = x_c - size
 
-	var/datum/picture/P = createpicture(target, user, turfs, mobs, flag, blueprints)
+	var/datum/picture/P = createpicture(target, user, turfs, mobs)
 	printpicture(user, P)
 
-/obj/item/camera/proc/createpicture(atom/target, mob/user, list/turfs, mobs, flag)
+/obj/item/camera/proc/createpicture(atom/target, mob/user, list/turfs, mobs)
 	var/icon/photoimage = get_icon(turfs, target, user)
 
 	var/icon/small_img = icon(photoimage)
@@ -534,19 +546,20 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	. += "<span class='notice'><b>Alt-Shift-Click</b> [src] to print a specific photo.</span>"
 	. += "<span class='notice'><b>Ctrl-Shift-Click</b> [src] to delete a specific photo.</span>"
 
-/obj/item/camera/digital/afterattack__legacy__attackchain(atom/target, mob/user, flag)
+/obj/item/camera/digital/take_photo(atom/target, mob/user)
 	if(!on || !pictures_left || ismob(target.loc))
-		return
+		return FALSE
 
-	captureimage(target, user, flag)
+	captureimage(target, user)
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, TRUE, -3)
 
 	icon_state = icon_off
 	on = FALSE
 	on_cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 6.4 SECONDS) // magic numbers here too
+	return TRUE
 
-/obj/item/camera/digital/captureimage(atom/target, mob/user, flag)
+/obj/item/camera/digital/captureimage(atom/target, mob/user)
 	if(length(saved_pictures) >= max_storage)
 		to_chat(user, "<span class='notice'>Maximum photo storage capacity reached.</span>")
 		return
@@ -566,7 +579,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		y_c--
 		x_c = x_c - size
 
-	var/datum/picture/P = createpicture(target, user, turfs, mobs, flag)
+	var/datum/picture/P = createpicture(target, user, turfs, mobs)
 	saved_pictures += P
 
 /obj/item/camera/digital/AltShiftClick(mob/user)
