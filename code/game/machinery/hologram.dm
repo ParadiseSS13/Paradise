@@ -310,6 +310,11 @@ GLOBAL_LIST_EMPTY(holopads)
 /obj/machinery/hologram/holopad/attack_ai(mob/living/silicon/ai_or_robot)
 	if(outgoing_call)
 		return
+
+	if(istype(ai_or_robot, /mob/living/silicon/robot))
+		interact(ai_or_robot)
+		return
+
 	if(istype(ai_or_robot, /mob/living/silicon/ai))
 		if(is_mecha_occupant(ai_or_robot)) // AIs must exit mechs before activating holopads.
 			return
@@ -321,9 +326,6 @@ GLOBAL_LIST_EMPTY(holopads)
 			activate_holo(ai, 1)
 		else // If there is a hologram, remove it.
 			clear_holo(ai)
-
-	else if(istype(ai_or_robot, /mob/living/silicon/robot))
-		interact(ai_or_robot)
 
 /obj/machinery/hologram/holopad/process()
 	for(var/I in masters)
