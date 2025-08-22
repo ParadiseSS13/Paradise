@@ -163,12 +163,10 @@ const ItemsPage = (_properties) => {
     setSearchText(value);
   };
 
-  const visibleItems = searchText
-    ? SelectEquipment(
-        cats.flatMap((category: UplinkCategory) => category.items),
-        searchText
-      )
-    : cats[selectedCategoryIndex].items;
+  const visibleItems = SelectEquipment(
+    searchText ? cats.flatMap((category: UplinkCategory) => category.items) : cats[selectedCategoryIndex].items,
+    searchText
+  );
 
   return (
     <Stack fill vertical>
