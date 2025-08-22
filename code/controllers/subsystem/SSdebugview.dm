@@ -91,16 +91,3 @@ SUBSYSTEM_DEF(debugview)
 
 	popup.set_content(html.Join("<br>"))
 	popup.open(FALSE)
-
-
-// Make a verb for dumping full SS stats
-/client/proc/event_debug()
-	set name = "Event Debug"
-	set category = "Debug"
-
-	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
-		return
-
-	var/datum/ui_module/admin/event_debug/event_debug_window = get_admin_ui_module(/datum/ui_module/admin/event_debug)
-
-	event_debug_window.ui_interact(usr)
