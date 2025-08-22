@@ -251,8 +251,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
-	..()
-	return QDEL_HINT_HARDDEL_NOW
+	tag = null
+	return ..()
 
 /obj/effect/landmark/proc/set_tag()
 	tag = "landmark*[name]"
@@ -648,22 +648,22 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/legion
-	mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion
+	mobtype = /mob/living/basic/mining/hivelord/legion
 
 /obj/effect/landmark/mob_spawner/legion/Initialize(mapload)
 	if(prob(5))
-		mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
+		mobtype = /mob/living/basic/mining/hivelord/legion/dwarf
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/watcher
-	mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
+	mobtype = /mob/living/basic/mining/basilisk/watcher
 
 /obj/effect/landmark/mob_spawner/watcher/Initialize(mapload)
 	if(prob(1))
 		if(prob(25)) /// 75% chance to get a magmawing watcher, and 25% chance to get a icewing watcher (1/133, 1/400 respectively)
-			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
+			mobtype = /mob/living/basic/mining/basilisk/watcher/icewing
 		else
-			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
+			mobtype = /mob/living/basic/mining/basilisk/watcher/magmawing
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/goldgrub

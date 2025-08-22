@@ -965,9 +965,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/is_mechanical()
 	return mind && (mind.assigned_role == "Cyborg" || mind.assigned_role == "AI")
 
-/mob/proc/is_ready()
-	return client && !!mind
-
 /mob/proc/is_in_brig()
 	if(!loc || !loc.loc)
 		return 0
@@ -996,6 +993,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/get_status_tab_items()
 	SHOULD_CALL_PARENT(TRUE)
 	var/list/status_tab_data = list()
+	if(check_rights(R_ADMIN, 0, src))
+		status_tab_data = SSstatpanels.admin_data.Copy()
 	return status_tab_data
 
 // facing verbs
@@ -1016,6 +1015,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!(mobility_flags & MOBILITY_MOVE))
 		return FALSE
 	. = ..()
+
+/mob/dead/canface()
+	return TRUE
 
 /mob/proc/fall()
 	drop_l_hand()
@@ -1102,8 +1104,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
  * Returns true if the player successfully becomes a mouse
  */
 /mob/proc/become_mouse()
-	var/timedifference = world.time - client.time_died_as_mouse
-	if(client.time_died_as_mouse && timedifference <= GLOB.mouse_respawn_time * 600)
+	var/timedifference = world.time - client.persistent.time_died_as_mouse
+	if(client.persistent.time_died_as_mouse && timedifference <= GLOB.mouse_respawn_time * 600)
 		var/timedifference_text = time2text(GLOB.mouse_respawn_time * 600 - timedifference,"mm:ss")
 		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after your death. You have [timedifference_text] left.</span>")
 		return FALSE
@@ -1514,10 +1516,10 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 	// Pretend we've always succeeded when we might not have.
 	// This should prevent people from using it to suss anything out about mobs' states
-	if(!client || !target.mind)
+	if(!client || !target.client)
 		return
 
-	target.mind.kudos_received_from |= ckey
+	target.client.persistent.kudos_received_from |= ckey
 
 /mob/living/simple_animal/relaymove(mob/living/user, direction)
 	if(user.incapacitated())

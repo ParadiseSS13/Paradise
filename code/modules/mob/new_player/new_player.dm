@@ -1,8 +1,6 @@
 /mob/new_player
 	var/ready = FALSE
 	var/spawning = FALSE	//Referenced when you want to delete the new_player later on in the code.
-	var/totalPlayers = 0		 //Player counts for the Lobby tab
-	var/totalPlayersReady = 0
 	universal_speak = TRUE
 
 	invisibility = 101
@@ -20,8 +18,13 @@
 	return INITIALIZE_HINT_NORMAL
 
 /mob/new_player/Destroy()
+	if(spawning)
+		// The mind is being reused elsewhere, so just unhook it here.
+		mind = null
 	if(mind)
-		mind.current = null // We best null their mind as well, otherwise /every/ single new player is going to explode the server a little more going in/out of the round
+		// Minds really shouldn't bind to new players, but just in case...
+		mind.unbind()
+		qdel(mind)
 	return ..()
 
 /mob/new_player/proc/new_player_panel()
@@ -64,11 +67,11 @@
 
 	var/list/antags = client.prefs.be_special
 	if(length(antags))
-		if(!client.skip_antag)
+		if(!client.persistent.skip_antag)
 			output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
 		else
 			output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
-		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
+		output += "<br /><small>You are <b>[client.persistent.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
 	if(SSticker.current_state == GAME_STATE_STARTUP)
 		output += "<p>Observe (Please wait...)</p>"
@@ -96,17 +99,6 @@
 			status_tab_data[++status_tab_data.len] = list("Game Mode:", "[GLOB.master_mode]")
 		else
 			status_tab_data[++status_tab_data.len] = list("Game Mode:", "Secret")
-
-		if(SSticker.current_state == GAME_STATE_PREGAME)
-			status_tab_data[++status_tab_data.len] = list("Time To Start:", SSticker.ticker_going ? deciseconds_to_time_stamp(SSticker.pregame_timeleft) : "DELAYED")
-			if(check_rights(R_ADMIN, 0, src))
-				status_tab_data[++status_tab_data.len] = list("Players Ready:", "[totalPlayersReady]")
-			totalPlayersReady = 0
-			for(var/mob/new_player/player in GLOB.player_list)
-				if(check_rights(R_ADMIN, 0, src))
-					status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Ready)" : "(Not ready)")
-				if(player.ready)
-					totalPlayersReady++
 
 /mob/new_player/Topic(href, href_list[])
 	if(!client)
@@ -156,7 +148,7 @@
 		new_player_panel_proc()
 
 	if(href_list["skip_antag"])
-		client.skip_antag = !client.skip_antag
+		client.persistent.skip_antag = !client.persistent.skip_antag
 		new_player_panel_proc()
 
 	if(href_list["refresh"])
@@ -385,7 +377,9 @@
 			GLOB.data_core.manifest_inject(character)
 			AnnounceArrival(character, rank, join_message)
 
-			if(length(GLOB.current_pending_diseases) && character.ForceContractDisease(GLOB.current_pending_diseases[1], TRUE, TRUE))
+			if(length(GLOB.current_pending_diseases) && character.ForceContractDisease(GLOB.current_pending_diseases[1]["disease"], TRUE, TRUE))
+				var/datum/event/disease_outbreak/outbreak = GLOB.current_pending_diseases[1]["event"]
+				outbreak.force_disease_time = 0
 				popleft(GLOB.current_pending_diseases)
 			if(GLOB.summon_guns_triggered)
 				give_guns(character)
@@ -562,21 +556,16 @@
 		H.flavor_text = ""
 	stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
+	mind.set_original_mob(new_character)
+	mind.transfer_to(new_character)
 
-	if(mind)
-		mind.active = FALSE					//we wish to transfer the key manually
-		// Clowns and mimes get appropriate default names, and the chance to pick a custom one.
-		if(mind.assigned_role == "Clown")
-			new_character.rename_character(new_character.real_name, pick(GLOB.clown_names))
-			new_character.rename_self("clown")
-		else if(mind.assigned_role == "Mime")
-			new_character.rename_character(new_character.real_name, pick(GLOB.mime_names))
-			new_character.rename_self("mime")
-		mind.set_original_mob(new_character)
-		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
-
-
-	new_character.key = key		//Manually transfer the key to log them in
+	// Clowns and mimes get appropriate default names, and the chance to pick a custom one.
+	if(mind.assigned_role == "Clown")
+		new_character.rename_character(new_character.real_name, pick(GLOB.clown_names))
+		new_character.rename_self("clown")
+	else if(mind.assigned_role == "Mime")
+		new_character.rename_character(new_character.real_name, pick(GLOB.mime_names))
+		new_character.rename_self("mime")
 
 	return new_character
 
@@ -624,8 +613,8 @@
 	if(!client || !client.prefs) ..()
 	return client.prefs.active_character.gender
 
-/mob/new_player/is_ready()
-	return ready && ..()
+/mob/new_player/proc/is_ready()
+	return ready && client
 
 // No hearing announcements
 /mob/new_player/can_hear()

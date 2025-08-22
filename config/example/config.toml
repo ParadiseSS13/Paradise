@@ -173,7 +173,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 68
+sql_version = 70
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -235,6 +235,8 @@ event_initial_delays = [
   {severity = "moderate", lower_bound = 25, upper_bound = 40},
   {severity = "major", lower_bound = 55, upper_bound = 75},
 ]
+# The population needed to allow blobs to split consciousness
+blob_highpop_trigger = 60
 
 ################################################################
 

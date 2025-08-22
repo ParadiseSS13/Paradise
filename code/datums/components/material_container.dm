@@ -328,6 +328,41 @@
 		material_amount += I.materials[MAT]
 	return material_amount
 
+/datum/component/material_container/proc/get_ui_data(mob/user)
+	. = list()
+
+	var/list/data_materials = list()
+	for(var/key in materials)
+		var/datum/material/material = materials[key]
+		if(!material)
+			continue
+		data_materials += list(list(
+			"id" = key,
+			"amount" = material.amount / MINERAL_MATERIAL_AMOUNT,
+		))
+	.["materials"] = data_materials
+
+/datum/component/material_container/proc/get_ui_static_data(mob/user, show_points = FALSE, points_multiplier=1)
+	. = list()
+
+	.["icon"] = 'icons/obj/stacks/minerals.dmi'
+	.["showPoints"] = show_points
+
+	var/list/static_materials = list()
+	for(var/key in materials)
+		var/datum/material/material = materials[key]
+		var/list/static_material = list()
+		static_material["name"] = material.name
+		if(show_points && material.ore_type)
+			var/obj/item/stack/ore/ore = material.ore_type
+			static_material["points"] = ore.points * points_multiplier
+		if(material.sheet_type)
+			var/obj/item/stack/sheet/sheet = material.sheet_type
+			static_material["iconState"] = sheet.icon_state
+		static_materials[material.id] = static_material
+	.["staticMaterials"] = static_materials
+
+
 
 /datum/material
 	var/name
