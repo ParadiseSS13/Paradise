@@ -335,6 +335,7 @@
 	caliber = "9mm"
 	max_ammo = 21
 	materials = list(MAT_METAL = 2000)
+	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/smgm9mm/ap
 	name = "\improper Saber magazine (Armor-Piercing 9mm)"
