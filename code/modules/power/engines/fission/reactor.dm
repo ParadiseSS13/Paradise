@@ -53,7 +53,7 @@
 	/// The current air contents of this device
 	var/datum/gas_mixture/air_contents
 	/// How many functional control rods does the reactor have?
-	var/control_rods = 5
+	var/control_rods_remaining = 5
 	/// Is the reactor calm enough to be considered available for maintenance
 	var/can_maintain = TRUE
 	/// what repair step is the reactor on?
@@ -217,6 +217,11 @@
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return ITEM_INTERACT_COMPLETE
 
+/obj/machinery/power/fission_reactorproc/get_status()
+	if(!air_contents) // this shouldnt happen, but just in case it does...
+		return SUPERMATTER_ERROR
+	if(can_maintain)
+		return SUPERMATTER_INACTIVE
 
 /// MARK: Rod Chamber
 
@@ -352,7 +357,7 @@
 
 	if(chamber_state == CHAMBER_DOWN)
 		var/delay = 1 SECONDS
-		if(operational)
+		if(linked_reactor.can_maintain)
 			delay = 8 SECONDS
 		if(do_after_once(user, delay, target = src, allow_moving = FALSE))
 			raise()
@@ -541,12 +546,6 @@
 			update_icon(UPDATE_OVERLAYS)
 		return
 
-
-
-
-
-
-
 /obj/item/circuitboard/machine/reactor_chamber
 	board_name = "Reactor Chamber"
 	icon_state = "engineering"
@@ -687,7 +686,7 @@
 	)
 
 /obj/item/slag
-	name = "Radioactive_slag"
+	name = "radioactive slag"
 	desc = "A large clump of active radioactive fuel fused with structural reactor metals."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "big_molten"
@@ -699,6 +698,51 @@
 /obj/item/slag/Initialize(mapload)
 	. = ..()
 	scatter_atom()
+
+/obj/machinery/computer/fission_monitor
+	name = "NGCR monitoring console"
+	desc = "Used to monitor the Nanotrasen Gas Cooled Fission Reactor."
+	icon_keyboard = "power_key"
+	icon_screen = "smmon_0"
+	circuit = /obj/item/circuitboard/fission_monitor
+	light_color = LIGHT_COLOR_YELLOW
+	/// Last status of the active reactor for caching purposes
+	var/last_status
+	/// Reference to the active reactor
+	var/obj/machinery/power/fission_reactor/active
+
+/obj/machinery/computer/fission_monitor/attack_ai(mob/user)
+	attack_hand(user)
+
+/obj/machinery/computer/fission_monitor/attack_hand(mob/user)
+	add_fingerprint(user)
+	if(stat & (BROKEN|NOPOWER))
+		return
+	ui_interact(user)
+
+/obj/machinery/computer/fission_monitor/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/fission_monitor/process()
+	if(stat & (NOPOWER|BROKEN))
+		return FALSE
+
+	if(active)
+		var/new_status = active.get_status()
+		if(last_status != new_status)
+			last_status = new_status
+			if(last_status == SUPERMATTER_ERROR)
+				last_status = SUPERMATTER_INACTIVE
+			icon_screen = "smmon_[last_status]"
+			update_icon()
+
+/obj/machinery/computer/fission_monitor/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "FissionMonitor", name)
+		ui.open()
+
+	return TRUE
 
 #undef REACTOR_NEEDS_DIGGING
 #undef REACTOR_NEEDS_CROWBAR
