@@ -29,6 +29,7 @@
 	#define SHOULD_BE_PURE(X)
 	#define PRIVATE_PROC(X)
 	#define PROTECTED_PROC(X)
+	#define CAN_BE_REDEFINED(X)
 	#define VAR_FINAL var
 	#define VAR_PRIVATE var
 	#define VAR_PROTECTED var
