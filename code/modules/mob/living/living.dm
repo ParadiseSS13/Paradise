@@ -1084,7 +1084,7 @@
 		var/old_level_new_clients = (registered_z ? length(SSmobs.clients_by_zlevel[registered_z]) : null)
 		// No one is left after we're gone, shut off inactive ones
 		if(registered_z && old_level_new_clients == 0)
-			for(var/datum/ai_controller/controller as anything in SSai_controllers.ai_controllers_by_zlevel[registered_z])
+			for(var/datum/ai_controller/controller as anything in GLOB.ai_controllers_by_zlevel[registered_z])
 				controller.set_ai_status(AI_STATUS_OFF)
 
 
@@ -1097,7 +1097,7 @@
 
 			if(new_level_old_clients == 0) // No one was here before, wake up all the AIs.
 				// Basic mob AI
-				for(var/datum/ai_controller/controller as anything in SSai_controllers.ai_controllers_by_zlevel[new_z])
+				for(var/datum/ai_controller/controller as anything in GLOB.ai_controllers_by_zlevel[new_z])
 					// We don't set them directly on, for instances like AIs acting while dead and other cases that may exist in the future.
 					// This isn't a problem for AIs with a client since the client will prevent this from being called anyway.
 					controller.set_ai_status(controller.get_expected_ai_status())
