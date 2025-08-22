@@ -164,7 +164,10 @@ const ItemsPage = (_properties) => {
   };
 
   const visibleItems = searchText
-    ? SelectEquipment(cats.flatMap((category: UplinkCategory) => category.items), searchText)
+    ? SelectEquipment(
+        cats.flatMap((category: UplinkCategory) => category.items),
+        searchText
+      )
     : cats[selectedCategoryIndex].items;
 
   return (
@@ -230,7 +233,6 @@ const ItemsPage = (_properties) => {
     </Stack>
   );
 };
-
 
 const CartPage = (_properties) => {
   const { act, data } = useBackend<UplinkItemsPage>();
