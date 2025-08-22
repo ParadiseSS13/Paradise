@@ -11,7 +11,6 @@ SUBSYSTEM_DEF(unplanned_controllers)
 	var/list/current_run = list()
 
 /datum/controller/subsystem/unplanned_controllers/Initialize()
-	..()
 	GLOB.unplanned_controller_subsystems += src
 
 /datum/controller/subsystem/unplanned_controllers/Destroy()
