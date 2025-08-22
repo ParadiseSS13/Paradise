@@ -223,11 +223,12 @@
 /obj/machinery/reactor_chamber
 	name = "Rod Housing Chamber"
 	desc = "A chamber used to house nuclear rods of various types to facilitate a fission reaction."
-	icon = 'icons/obj/fission/reactor_parts.dmi'
+	icon = 'icons/obj/fission/reactor_chamber.dmi'
 	icon_state = "chamber_down"
 	anchored = TRUE
 	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	idle_power_consumption = 100
 
 	/// Each reactor chamber can only be linked to a single reactor, if somehow theres two.
 	var/obj/machinery/power/fission_reactor/linked_reactor
@@ -298,16 +299,35 @@
 		return
 	for(var/obj/machinery/reactor_chamber/chamber in neighbors)
 		chamber.neighbors -= src
-		chamber.update_status()
+		if(chamber.check_status())
+			chamber.requirements_met = TRUE
+		else
+			chamber.requirements_met = FALSE
 
 
 /obj/machinery/reactor_chamber/update_overlays()
 	. = ..()
 	if(held_rod && chamber_state == CHAMBER_OPEN)
-		var/mutable_appearance/rod_overlay = mutable_appearance(layer = ABOVE_OBJ_LAYER)
+		var/mutable_appearance/rod_overlay = mutable_appearance(layer = ABOVE_MOB_LAYER + 0.01)
 		rod_overlay.icon = held_rod.icon
 		rod_overlay.icon_state = held_rod.icon_state
+		rod_overlay.pixel_y = 14
 		. += rod_overlay
+	if(held_rod && chamber_state == CHAMBER_DOWN)
+		var/mutable_appearance/state_overlay = mutable_appearance(layer = BELOW_OBJ_LAYER + 0.01)
+		state_overlay.icon = icon
+
+		if(requirements_met)
+			if(operational)
+				state_overlay.icon_state = "green"
+			else
+				state_overlay.icon_state = "orange"
+		else
+			state_overlay.icon_state = "red"
+		if(!requirements_met && operational)
+			state_overlay.icon_state = "orange"
+
+		. += state_overlay
 
 // check for multiple on a tile and nuke it
 /obj/machinery/reactor_chamber/proc/dupe_check()
@@ -322,20 +342,24 @@
 	if(!user)
 		return
 	if((stat & NOPOWER))
-		to_chat(user, "<span class='warning'></span>")
+		to_chat(user, "<span class='warning'> The chamber's locks wont disengage without power!</span>")
 		return
+	if(user.loc == loc)
+		to_chat(user, "<span class='warning'>You can't raise the rod chamber while standing on it!</span>")
+		return
+
 	add_fingerprint(user)
 
 	if(chamber_state == CHAMBER_DOWN)
-		if(do_after_once(user, 2 SECONDS, target = src, allow_moving = FALSE))
-			raise()
-			return
-
-	if(chamber_state == CHAMBER_UP)
 		var/delay = 1 SECONDS
 		if(operational)
 			delay = 8 SECONDS
 		if(do_after_once(user, delay, target = src, allow_moving = FALSE))
+			raise()
+			return
+
+	if(chamber_state == CHAMBER_UP)
+		if(do_after_once(user, 2 SECONDS, target = src, allow_moving = FALSE))
 			if(chamber_state != CHAMBER_UP) // so that we cant lower while in the open state
 				return
 			lower()
@@ -406,13 +430,25 @@
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 	operational = FALSE
 	requirements_met = FALSE
+	layer = ABOVE_MOB_LAYER
+	for(var/obj/machinery/reactor_chamber/chamber in neighbors)
+		if(chamber.check_status())
+			chamber.requirements_met = TRUE
+		else
+			chamber.requirements_met = FALSE
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/reactor_chamber/proc/lower()
 	chamber_state = CHAMBER_DOWN
 	icon_state = "chamber_down"
 	density = FALSE
+	layer = BELOW_OBJ_LAYER
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-	update_status()
+	if(check_status())
+		requirements_met = TRUE
+	else
+		requirements_met = FALSE
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/reactor_chamber/proc/close()
 	chamber_state = CHAMBER_UP
@@ -457,11 +493,12 @@
 				spread_link(linked_reactor)
 				continue
 
-/obj/machinery/reactor_chamber/proc/update_status()
+
+/// validates that all rod requirements are being met
+/obj/machinery/reactor_chamber/proc/check_status()
 	if(!held_rod)
 		return FALSE
 
-	var/turf/nearby_turf
 	var/list/temp_requirements = held_rod.adjacent_requirements // a temporary modable holder
 	if(!temp_requirements)
 		return TRUE
@@ -472,7 +509,7 @@
 		if(chamber.held_rod.type in temp_requirements)
 			temp_requirements -= chamber.held_rod.type
 		for(var/requirement in temp_requirements)
-			if(requirement in typesof(chamber.held_rod.type))
+			if(chamber.held_rod.type in typesof(requirement))
 				temp_requirements -= requirement
 				break
 
@@ -480,6 +517,35 @@
 		return TRUE
 
 	return FALSE
+
+/obj/machinery/reactor_chamber/process()
+	if(chamber_state != CHAMBER_DOWN) /// we should only process reactor info when down
+		return
+	if(!requirements_met && !operational)
+		if(check_status())
+			requirements_met = TRUE
+			update_icon(UPDATE_OVERLAYS)
+			return
+	if(requirements_met && !operational)
+		if(prob(30))
+			operational = TRUE
+			update_icon(UPDATE_OVERLAYS)
+			return
+	if(!requirements_met && operational) /// if it loses requirements, it wont immediately turn off
+		if(istype(held_rod.type, /obj/item/nuclear_rod/fuel))
+			if(prob(3)) // Lower rate of fuel rod failures once they're already on. Good luck.
+				operational = FALSE
+				update_icon(UPDATE_OVERLAYS)
+		else if(prob(15))
+			operational = FALSE
+			update_icon(UPDATE_OVERLAYS)
+		return
+
+
+
+
+
+
 
 /obj/item/circuitboard/machine/reactor_chamber
 	board_name = "Reactor Chamber"

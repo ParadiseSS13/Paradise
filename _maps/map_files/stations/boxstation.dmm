@@ -66622,7 +66622,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/reactor_chamber,
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
 "nCs" = (
@@ -116123,7 +116122,7 @@ sKE
 sKE
 wgs
 sKE
-vWF
+sKE
 ePY
 ePY
 ePY
