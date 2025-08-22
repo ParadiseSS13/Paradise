@@ -306,27 +306,24 @@ GLOBAL_LIST_EMPTY(holopads)
 
 	updateDialog()
 
-//do not allow AIs to answer calls or people will use it to meta the AI satellite
+// do not allow AIs to answer calls or people will use it to meta the AI satellite
 /obj/machinery/hologram/holopad/attack_ai(mob/living/silicon/ai_or_robot)
-	var/mob/living/silicon/ai/ai = ai_or_robot
-	var/mob/living/silicon/robot/robot = ai_or_robot
-	if(!istype(ai) && !istype(robot))
-		return
 	if(outgoing_call)
 		return
-	if(istype(robot))
-		interact(robot)
-	if(ismecha(ai.loc)) // AIs must exit mechs before activating holopads.
-		return
-	/*There are pretty much only three ways to interact here.
-	I don't need to check for client since they're clicking on an object.
-	This may change in the future but for now will suffice.*/
-	else if(ai.eyeobj.loc != loc)//Set client eye on the object if it's not already.
-		ai.eyeobj.set_loc(get_turf(src))
-	else if(!LAZYLEN(masters) || !masters[ai])//If there is no hologram, possibly make one.
-		activate_holo(ai, 1)
-	else//If there is a hologram, remove it.
-		clear_holo(ai)
+	if(istype(ai_or_robot, /mob/living/silicon/ai))
+		if(is_mecha_occupant(ai_or_robot)) // AIs must exit mechs before activating holopads.
+			return
+		var/mob/living/silicon/ai/ai = ai_or_robot
+
+		if(ai.eyeobj.loc != loc) // Set client eye on the object if it's not already.
+			ai.eyeobj.set_loc(get_turf(src))
+		else if(!LAZYLEN(masters) || !masters[ai]) // If there is no hologram, possibly make one.
+			activate_holo(ai, 1)
+		else // If there is a hologram, remove it.
+			clear_holo(ai)
+
+	else if(istype(ai_or_robot, /mob/living/silicon/robot))
+		interact(ai_or_robot)
 
 /obj/machinery/hologram/holopad/process()
 	for(var/I in masters)
