@@ -197,7 +197,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 		return FALSE
 	// TODO: one of the connection points for spatial grid is here
 	// and should be converted over if/when spatial grid is ported
-	if(proxmon.nearby_mob_count > 0)
+	if(proxmon.has_client_mobs_nearby())
 		return FALSE
 
 	return TRUE
