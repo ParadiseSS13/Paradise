@@ -113,6 +113,11 @@
 	if(!check_rights(R_SERVER))
 		return
 
+	if(!usr.client.is_connecting_from_localhost())
+		var/confirm = tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No"))
+		if(confirm != "Yes")
+			return
+
 	message_admins("[key_name_admin(usr)] has manually reloaded admins")
 	log_admin("[key_name(usr)] has manually reloaded admins")
 
