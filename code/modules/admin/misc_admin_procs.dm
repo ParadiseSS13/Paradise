@@ -549,6 +549,11 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!check_rights(R_SERVER))
 		return
 
+	if(!usr.client.is_connecting_from_localhost())
+		var/confirm = tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No"))
+		if(confirm != "Yes")
+			return
+
 	GLOB.enter_allowed = !GLOB.enter_allowed
 	if(!GLOB.enter_allowed)
 		to_chat(world, "<B>New players may no longer enter the game.</B>")
@@ -559,7 +564,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	world.update_status()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Entering") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/admins/proc/toggleAI()
+/datum/admins/proc/toggle_ai()
 	set category = "Event"
 	set desc="People can't be AI"
 	set name="Toggle AI"
@@ -586,6 +591,11 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!check_rights(R_SERVER))
 		return
 
+	if(!usr.client.is_connecting_from_localhost())
+		var/confirm = tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No"))
+		if(confirm != "Yes")
+			return
+
 	GLOB.configuration.general.respawn_enabled = !(GLOB.configuration.general.respawn_enabled)
 	if(GLOB.configuration.general.respawn_enabled)
 		to_chat(world, "<B>You may now respawn.</B>")
@@ -607,6 +617,11 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(SSticker.current_state < GAME_STATE_STARTUP)
 		alert("Slow down a moment, let the ticker start first!")
 		return
+
+	if(!usr.client.is_connecting_from_localhost())
+		var/confirm = tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No"))
+		if(confirm != "Yes")
+			return
 
 	if(SSblackbox)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -785,6 +800,11 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 	if(!check_rights(R_SERVER))
 		return
+
+	if(!usr.client.is_connecting_from_localhost())
+		var/confirm = tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No"))
+		if(confirm != "Yes")
+			return
 
 	GLOB.configuration.general.guest_ban = !(GLOB.configuration.general.guest_ban)
 	if(GLOB.configuration.general.guest_ban)

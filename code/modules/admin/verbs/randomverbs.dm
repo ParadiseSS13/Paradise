@@ -329,6 +329,11 @@
 	if(!check_rights(R_SERVER))
 		return
 
+	if(!usr.client.is_connecting_from_localhost())
+		var/confirm = tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No"))
+		if(confirm != "Yes")
+			return
+
 	var/action=""
 	if(GLOB.configuration.general.restrict_antag_hud_rejoin)
 		for(var/mob/dead/observer/g in get_ghosts())
