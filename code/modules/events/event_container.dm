@@ -46,10 +46,14 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		log_debug("Starting event '[next_event.skeleton.name]' of severity [GLOB.severity_to_string[severity]].")
 		SSblackbox.record_feedback("nested tally", "events", 1, list(GLOB.severity_to_string[severity], next_event.skeleton.name))
 		GLOB.event_last_fired[next_event] = world.time
-		next_event = null						// When set to null, a random event will be selected next time
+		var/datum/event_meta/meta = next_event
+		next_event = null // When set to null, a random event will be selected next time
+		// Used for checks about the event we just ran
+		return meta
 	else
 		// If not, wait for one minute, instead of one tick, before checking again.
 		next_event_time += (60 * 10)
+
 
 
 /datum/event_container/proc/acquire_event()
@@ -227,13 +231,18 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	return 1
 
 /datum/event_container/disaster/acquire_event()
-	if(activation_counter > 1) // Disaster level events should normally roll up to 2 times per round. Doing it this way makes adminbus easier.
-		return new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/nothing, 590)
+	// We should only be getting one none nothing disaster roll per round, and doing it this way leaves more room for admins to play around with it.
+	if(activation_counter > 0)
+		for(var/datum/event_meta/meta in available_events)
+			if(istype(meta.skeleton, /datum/event/nothing))
+				return meta
 	. = ..()
 
 /datum/event_container/disaster/start_event()
-	activation_counter++
 	. = ..()
+	var/datum/event_meta/meta = .
+	if(!istype(meta.skeleton, /datum/event/nothing))
+		activation_counter++
 
 /datum/event_container/disaster/calculate_event_delay()
 	. = ..()

@@ -221,8 +221,12 @@
 	event_meta = EM
 
 	severity = _severity ? _severity : nominal_severity
-	if(severity < EVENT_LEVEL_MUNDANE) severity = EVENT_LEVEL_MUNDANE
-	if(severity > EVENT_LEVEL_DISASTER) severity = EVENT_LEVEL_DISASTER
+	if(severity < EVENT_LEVEL_MUNDANE)
+		severity = EVENT_LEVEL_MUNDANE
+		log_debug("Event of '[type]' with severity below mundane run has run")
+	if(severity > EVENT_LEVEL_DISASTER)
+		severity = EVENT_LEVEL_DISASTER
+		log_debug("Event of '[type]' with severity above disaster has run")
 
 	startedAt = world.time
 
