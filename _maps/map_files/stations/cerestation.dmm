@@ -18104,30 +18104,14 @@
 /turf/simulated/wall,
 /area/station/public/quantum/engineering)
 "cIC" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/structure/cable/orange{
-	icon_state = "1-8"
-	},
 /obj/machinery/light,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "cIO" = (
@@ -25481,23 +25465,10 @@
 	},
 /area/station/security/lobby)
 "dYA" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/light,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
 /obj/machinery/requests_console/directional/south,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "dYD" = (
@@ -66096,21 +66067,8 @@
 	},
 /area/station/maintenance/apmaint)
 "mDO" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/machinery/requests_console/directional/south,
 /obj/structure/cable{
 	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
@@ -93961,25 +93919,9 @@
 	},
 /area/station/hallway/secondary/entry/west)
 "sFs" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
-	},
-/obj/structure/shelf/security,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/camera/detective,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/power/apc/directional/west,
-/obj/structure/cable/orange{
-	icon_state = "0-4"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
