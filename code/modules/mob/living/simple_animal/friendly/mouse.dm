@@ -39,6 +39,17 @@
 	. = ..()
 	AddElement(/datum/element/wears_collar)
 	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
+	if(!mouse_color)
+		mouse_color = pick("brown", "gray", "white")
+	icon_state = "mouse_[mouse_color]"
+	icon_living = "mouse_[mouse_color]"
+	icon_dead = "mouse_[mouse_color]_dead"
+	icon_resting = "mouse_[mouse_color]_sleep"
+	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 #if defined(GAME_TESTS) || defined(MAP_TESTS) // DO NOT EAT MY CABLES DURING TESTS
@@ -75,21 +86,6 @@
 			custom_emote(EMOTE_AUDIBLE, "snuffles")
 	else if(prob(0.5))
 		lay_down()
-
-/mob/living/simple_animal/mouse/Initialize(mapload)
-	. = ..()
-
-	if(!mouse_color)
-		mouse_color = pick("brown", "gray", "white")
-	icon_state = "mouse_[mouse_color]"
-	icon_living = "mouse_[mouse_color]"
-	icon_dead = "mouse_[mouse_color]_dead"
-	icon_resting = "mouse_[mouse_color]_sleep"
-	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/mouse/update_desc()
 	. = ..()
@@ -130,7 +126,7 @@
 		return FALSE
 	layer = MOB_LAYER
 	if(client)
-		client.time_died_as_mouse = world.time
+		client.persistent.time_died_as_mouse = world.time
 
 /*
  * Mouse types

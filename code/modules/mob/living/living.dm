@@ -57,7 +57,7 @@
 				S.be_replaced()
 	QDEL_NULL(middleClickOverride)
 	if(mind?.current == src)
-		mind.current = null
+		mind.unbind()
 	UnregisterSignal(src, COMSIG_ATOM_PREHIT)
 	return ..()
 
@@ -1341,6 +1341,15 @@
 
 /mob/living/proc/sec_hud_set_ID()
 	return
+
+/// Proc called when TARGETED by a lazarus injector
+/mob/living/proc/lazarus_revive(mob/living/reviver, malfunctioning)
+	revive()
+	befriend(reviver)
+	AddElement(/datum/element/wears_collar)
+	faction = (malfunctioning) ? list("lazarus", "\ref[reviver]") : list("neutral")
+	if(malfunctioning)
+		log_game("[reviver] has revived hostile mob [src] with a malfunctioning lazarus injector")
 
 /// Proc for giving a mob a new 'friend', generally used for AI control and
 /// targeting. Returns false if already friends or null if qdeleted.

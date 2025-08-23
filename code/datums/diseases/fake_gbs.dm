@@ -2,13 +2,13 @@
 	name = "GBS"
 	max_stages = 5
 	spread_text = "On contact"
-	spread_flags = CONTACT_GENERAL
+	spread_flags = SPREAD_CONTACT_GENERAL
 	cure_text = "Diphenhydramine & Sulfur"
 	cures = list("diphenhydramine","sulfur")
 	agent = "Gravitokinetic Bipotential SADS-"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
 	desc = "If left untreated death will occur."
-	severity = BIOHAZARD // Mimicking real GBS
+	severity = VIRUS_BIOHAZARD // Mimicking real GBS
 
 /datum/disease/fake_gbs/stage_act()
 	if(!..())

@@ -19,7 +19,7 @@
 /// How often will we try to perform our ranged attack?
 /datum/ai_behavior/ranged_skirmish
 	action_cooldown = 0.5 SECONDS
-	///do we care about avoiding friendly fire?
+	/// Do we care about shooting friends?
 	var/avoid_friendly_fire = FALSE
 
 /datum/ai_behavior/ranged_skirmish/setup(datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key, max_range, min_range)
@@ -44,6 +44,8 @@
 	var/distance = get_dist(controller.pawn, target)
 	if(distance > max_range || distance < min_range)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+	if(avoid_friendly_fire && check_friendly_in_path(controller.pawn, target, targeting_strategy))
+		return AI_BEHAVIOR_DELAY
 
 	if(avoid_friendly_fire && check_friendly_in_path(controller.pawn, target, targeting_strategy))
 		return AI_BEHAVIOR_DELAY

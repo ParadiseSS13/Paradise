@@ -22,6 +22,8 @@
 	desc = "If you can see this, make an issue report on GitHub. Something has gone wrong!"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-default"
+	spray_maxrange = 3
+	spray_currentrange = 3
 
 /obj/item/reagent_containers/spray/alien/smoke
 	name = "smokescreen module"

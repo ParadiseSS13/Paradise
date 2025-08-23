@@ -168,6 +168,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESISTCOLD		"resist_cold"
 #define TRAIT_RESISTHIGHPRESSURE	"resist_high_pressure"
 #define TRAIT_RESISTLOWPRESSURE	"resist_low_pressure"
+#define TRAIT_EXPLOSION_PROOF	"explosion_proof" // Note, this only works for humans.
 #define TRAIT_RADIMMUNE			"rad_immunity"
 #define TRAIT_GENELESS  		"geneless"
 #define TRAIT_VIRUSIMMUNE		"virus_immunity"
@@ -259,6 +260,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_UNKNOWN "unknown" // The person with this trait always appears as 'unknown'.
 #define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
 #define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
+#define TRAIT_WIRE_BLIND "wire_blind" // This doesn't block someone from seeing wires or recalling their position, but randomizes name / function to the user
 
 /// Whether or not the user is in a MODlink call, prevents making more calls
 #define TRAIT_IN_CALL "in_call"
@@ -313,6 +315,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// A surgical tool; If a surgical tool has this flag it can be used as an alternative to an open hand in surgery
 #define TRAIT_SURGICAL_OPEN_HAND "surgical_hand_alternative"
+
+/// A wearable item that protects the covered areas from viral infection
+#define TRAIT_ANTI_VIRAL "anti_viral"
+
+/// Given to items that have something that absorbs radiation in them that is neither the item or in it's contents
+#define TRAIT_ABSORB_RADS "absorb_rads"
 
 /// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
 #define TRAIT_TURF_COVERED "turf_covered"
