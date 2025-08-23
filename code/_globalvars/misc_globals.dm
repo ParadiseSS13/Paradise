@@ -59,6 +59,8 @@ GLOBAL_LIST_EMPTY(mod_link_ids)
 
 GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_crystal)
 
+GLOBAL_DATUM(main_fission_reactor, /obj/machinery/atmospherics/supermatter_crystal)
+
 ///Global list for descriptors
 GLOBAL_LIST_INIT(character_physiques, list("rail thin", "thin", "average", "well-built", "muscular", "overweight"))
 

@@ -62,6 +62,15 @@
 	var/desired_power = 0
 	/// What percentage are the reactor control rods running at? Minimum raised for each broken control rod
 	var/operating_power = 0
+	///The amount of damage we have currently
+	var/damage = 0
+	///The point at which we delam
+	var/explosion_point = 900
+	/// Is this the primary station engine that spawns in round? Basically
+	var/primary_engine = FALSE
+
+/obj/machinery/power/fission_reactor/roundstart
+	primary_engine = TRUE
 
 /obj/machinery/power/fission_reactor/examine(mob/user)
 	. = ..()
@@ -86,6 +95,8 @@
 	))
 	air_contents = new
 	air_contents.volume = 10000 // kpa
+	if(primary_engine)
+		GLOB.main_fission_reactor = src
 	build_reactor_network()
 
 /obj/machinery/power/fission_reactor/ex_act(severity)
@@ -221,11 +232,25 @@
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/power/fission_reactorproc/get_status()
+/obj/machinery/power/fission_reactor/proc/get_status()
 	if(!air_contents) // this shouldnt happen, but just in case it does...
 		return SUPERMATTER_ERROR
 	if(can_maintain)
 		return SUPERMATTER_INACTIVE
+	else
+		return SUPERMATTER_NORMAL
+
+/obj/machinery/power/fission_reactor/proc/get_integrity()
+	var/integrity = damage / explosion_point
+	integrity = round(100 - integrity * 100, 0.01)
+	integrity = integrity < 0 ? 0 : integrity
+	return integrity
+
+/obj/machinery/power/fission_reactor/multitool_act(mob/living/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/obj/item/multitool/multi = I
+	multi.set_multitool_buffer(user, src)
 
 /// MARK: Rod Chamber
 
@@ -715,6 +740,14 @@
 	/// Reference to the active reactor
 	var/obj/machinery/power/fission_reactor/active
 
+/obj/machinery/computer/fission_monitor/Initialize(mapload)
+	. = ..()
+	active = GLOB.main_fission_reactor
+
+/obj/machinery/computer/fission_monitor/Destroy()
+	active = null
+	return ..()
+
 /obj/machinery/computer/fission_monitor/attack_ai(mob/user)
 	attack_hand(user)
 
@@ -740,13 +773,69 @@
 			icon_screen = "smmon_[last_status]"
 			update_icon()
 
+/obj/machinery/computer/fission_monitor/multitool_act(mob/living/user, obj/item/I)
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/multitool = I
+	if(istype(multitool.buffer, /obj/machinery/power/fission_reactor))
+		active = multitool.buffer
+		to_chat(user, "<span class='notice'>You load the buffer's linking data to [src].</span>")
+
 /obj/machinery/computer/fission_monitor/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "FissionMonitor", name)
+		ui = new(user, src, "ReactorMonitor", name)
 		ui.open()
 
 	return TRUE
+
+/obj/machinery/computer/fission_monitor/ui_data(mob/user)
+	var/list/data = list()
+	// If we somehow dont have an engine anymore, handle it here.
+	if(!active)
+		active = null
+		return
+	var/datum/gas_mixture/air = active.air_contents
+	if(!air)
+		active = null
+		return
+
+	data["NGCR_integrity"] = active.get_integrity()
+	data["NGCR_power"] = active.total_power
+	data["NGCR_ambienttemp"] = air.temperature()
+	data["NGCR_ambientpressure"] = air.return_pressure()
+	data["NGCR_coefficient"] = active.temperature_mult
+	data["NGCR_throttle"] = active.desired_power
+	data["NGCR_operatingpower"] = active.operating_power
+	//data["SM_EPR"] = round((air.total_moles / air.group_multiplier) / 23.1, 0.01)
+	var/list/gasdata = list()
+	var/TM = air.total_moles()
+	if(TM)
+		gasdata.Add(list(list("name"= "Oxygen", "amount" = air.oxygen(), "portion" = round(100 * air.oxygen() / TM, 0.01))))
+		gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = air.carbon_dioxide(), "portion" = round(100 * air.carbon_dioxide() / TM, 0.01))))
+		gasdata.Add(list(list("name"= "Nitrogen", "amount" = air.nitrogen(), "portion" = round(100 * air.nitrogen() / TM, 0.01))))
+		gasdata.Add(list(list("name"= "Plasma", "amount" = air.toxins(), "portion" = round(100 * air.toxins() / TM, 0.01))))
+		gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = air.sleeping_agent(), "portion" = round(100 * air.sleeping_agent() / TM, 0.01))))
+		gasdata.Add(list(list("name"= "Agent B", "amount" = air.agent_b(), "portion" = round(100 * air.agent_b() / TM, 0.01))))
+	else
+		gasdata.Add(list(list("name"= "Oxygen", "amount" = 0, "portion" = 0)))
+		gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = 0,"portion" = 0)))
+		gasdata.Add(list(list("name"= "Nitrogen", "amount" = 0,"portion" = 0)))
+		gasdata.Add(list(list("name"= "Plasma", "amount" = 0,"portion" = 0)))
+		gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = 0,"portion" = 0)))
+		gasdata.Add(list(list("name"= "Agent B", "amount" = 0,"portion" = 0)))
+		data["gases"] = gasdata
+
+	return data
+
+/obj/machinery/computer/fission_monitor/ui_act(action, params)
+	if(..())
+		return
+
+	if(stat & (BROKEN|NOPOWER))
+		return
+
+	. = TRUE
 
 #undef REACTOR_NEEDS_DIGGING
 #undef REACTOR_NEEDS_CROWBAR

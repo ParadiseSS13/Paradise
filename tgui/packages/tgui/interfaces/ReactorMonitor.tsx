@@ -5,6 +5,7 @@ import { useBackend } from '../backend';
 import { getGasColor, getGasLabel } from '../constants';
 import { Window } from '../layouts';
 
+/*
 interface FissionReactorData {
   active: number;
   supermatters?: Array<{
@@ -24,84 +25,23 @@ interface FissionReactorData {
     portion: number;
   }>;
 }
+*/
 
-export const ReactorMonitor = () => {
-  const { act, data } = useBackend<FissionReactionData>();
-
-  if (data.active === 0) {
-    return <ReactorMonitorListView />;
-  } else {
-    return <ReactorMonitorDataView />;
-  }
-};
-
-const logScale = (value: number): number => Math.log2(16 + Math.max(0, value)) - 4;
-
-const SupermatterMonitorListView = () => {
-  const { act, data } = useBackend<SupermatterData>();
-  const { supermatters = [] } = data;
-
-  return (
-    <Window width={450} height={250}>
-      <Window.Content scrollable>
-        <Section
-          fill
-          title="Detected Supermatters"
-          buttons={<Button icon="sync" content="Refresh" onClick={() => act('refresh')} />}
-        >
-          <Table>
-            {supermatters.map((sm) => (
-              <Table.Row key={sm.supermatter_id}>
-                <Table.Cell>{sm.supermatter_id + '. ' + sm.area_name}</Table.Cell>
-                <Table.Cell collapsing color="label">
-                  Integrity:
-                </Table.Cell>
-                <Table.Cell collapsing width="120px">
-                  <ProgressBar
-                    value={sm.integrity / 100}
-                    ranges={{
-                      good: [0.9, Infinity],
-                      average: [0.5, 0.9],
-                      bad: [-Infinity, 0.5],
-                    }}
-                  />
-                </Table.Cell>
-                <Table.Cell collapsing>
-                  <Button
-                    content="Details"
-                    onClick={() =>
-                      act('view', {
-                        view: sm.supermatter_id,
-                      })
-                    }
-                  />
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table>
-        </Section>
-      </Window.Content>
-    </Window>
-  );
-};
-
-const SupermatterMonitorDataView = () => {
-  const { act, data } = useBackend<SupermatterData>();
+export const ReactorMonitor = (props) => {
+  const { act, data } = useBackend();
+  const logScale = (value: number): number => Math.log2(16 + Math.max(0, value)) - 4;
   const {
-    SM_integrity,
-    SM_power,
-    SM_pre_reduction_power,
-    SM_ambienttemp,
-    SM_ambientpressure,
-    SM_moles,
-    SM_gas_coefficient,
+    NGCR_integrity,
+    NGCR_power,
+    NGCR_ambienttemp,
+    NGCR_ambientpressure,
+    NGCR_coefficient,
+    NGCR_operatingpower,
+    NGCR_throttle,
     gases = [],
   } = data;
-
   const filteredGases = (gases ?? []).filter((gas) => gas.amount >= 0.01).sort((a, b) => b.amount - a.amount);
-
   const gasMaxAmount = Math.max(1, ...filteredGases.map((gas) => gas.portion));
-
   return (
     <Window width={550} height={270}>
       <Window.Content>
@@ -111,7 +51,7 @@ const SupermatterMonitorDataView = () => {
               <LabeledList>
                 <LabeledList.Item label="Integrity">
                   <ProgressBar
-                    value={SM_integrity / 100}
+                    value={NGCR_integrity / 100}
                     ranges={{
                       good: [0.9, Infinity],
                       average: [0.5, 0.9],
@@ -119,9 +59,9 @@ const SupermatterMonitorDataView = () => {
                     }}
                   />
                 </LabeledList.Item>
-                <LabeledList.Item label="Peak EER">
+                <LabeledList.Item label="Power Generation">
                   <ProgressBar
-                    value={SM_pre_reduction_power}
+                    value={NGCR_power}
                     minValue={0}
                     maxValue={5000}
                     ranges={{
@@ -130,26 +70,12 @@ const SupermatterMonitorDataView = () => {
                       bad: [7000, Infinity],
                     }}
                   >
-                    {toFixed(SM_pre_reduction_power) + ' MeV/cm3'}
-                  </ProgressBar>
-                </LabeledList.Item>
-                <LabeledList.Item label="Nominal EER">
-                  <ProgressBar
-                    value={SM_power}
-                    minValue={0}
-                    maxValue={5000}
-                    ranges={{
-                      good: [-Infinity, 5000],
-                      average: [5000, 7000],
-                      bad: [7000, Infinity],
-                    }}
-                  >
-                    {toFixed(SM_power) + ' MeV/cm3'}
+                    {toFixed(NGCR_power) + ' Watts'}
                   </ProgressBar>
                 </LabeledList.Item>
                 <LabeledList.Item label="Gas Coefficient">
                   <ProgressBar
-                    value={SM_gas_coefficient}
+                    value={NGCR_coefficient}
                     minValue={1}
                     maxValue={5.25}
                     ranges={{
@@ -158,12 +84,12 @@ const SupermatterMonitorDataView = () => {
                       good: [5.25, Infinity],
                     }}
                   >
-                    {SM_gas_coefficient.toFixed(2)}
+                    {NGCR_coefficient.toFixed(2)}
                   </ProgressBar>
                 </LabeledList.Item>
                 <LabeledList.Item label="Temperature">
                   <ProgressBar
-                    value={logScale(SM_ambienttemp)}
+                    value={logScale(NGCR_ambienttemp)}
                     minValue={0}
                     maxValue={logScale(10000)}
                     ranges={{
@@ -173,27 +99,12 @@ const SupermatterMonitorDataView = () => {
                       bad: [logScale(1000), Infinity],
                     }}
                   >
-                    {toFixed(SM_ambienttemp) + ' K'}
-                  </ProgressBar>
-                </LabeledList.Item>
-                <LabeledList.Item label="Mole Per Tile">
-                  <ProgressBar
-                    value={SM_moles}
-                    minValue={0}
-                    maxValue={12000}
-                    ranges={{
-                      teal: [-Infinity, 100],
-                      average: [100, 11333],
-                      good: [11333, 12000],
-                      bad: [12000, Infinity],
-                    }}
-                  >
-                    {toFixed(SM_moles) + ' mol'}
+                    {toFixed(NGCR_ambienttemp) + ' K'}
                   </ProgressBar>
                 </LabeledList.Item>
                 <LabeledList.Item label="Pressure">
                   <ProgressBar
-                    value={logScale(SM_ambientpressure)}
+                    value={logScale(NGCR_ambientpressure)}
                     minValue={0}
                     maxValue={logScale(50000)}
                     ranges={{
@@ -202,7 +113,7 @@ const SupermatterMonitorDataView = () => {
                       bad: [logScale(1000), Infinity],
                     }}
                   >
-                    {toFixed(SM_ambientpressure) + ' kPa'}
+                    {toFixed(NGCR_ambientpressure) + ' kPa'}
                   </ProgressBar>
                 </LabeledList.Item>
               </LabeledList>
@@ -225,6 +136,22 @@ const SupermatterMonitorDataView = () => {
                 ))}
               </LabeledList>
             </Section>
+            <Section title="Throttle">
+              <Knob
+                size={3}
+                value={NGCR_throttle}
+                unit="%"
+                minValue={0}
+                maxValue={100}
+                step={1}
+                stepPixelSize={1}
+                onDrag={(e, value) =>
+                  act('set_throttle', {
+                    throttle: value,
+                  })
+                }
+              />
+          </Section>
           </Stack.Item>
         </Stack>
       </Window.Content>
