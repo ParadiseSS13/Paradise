@@ -99,12 +99,14 @@
 	var/list/meteor_types = list(/obj/effect/meteor)
 	var/can_roll = TRUE
 	var/alert_sound
-	var/siren_sound = 'sound/effects/warning_buzzer_1.ogg'
+	var/siren_sound = 'sound/effects/alert2.ogg'
 
 /datum/incoming_projectile_variant/proc/launch(start, end)
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteor_targeted), meteor_types, start, end)
 
 /datum/incoming_projectile_variant/proc/announce(arrival_time, turf/expected_impact)
+	if(!expected_impact)
+		expected_impact = locate(world.maxx / 2, world.maxy / 2, level_name_to_num(MAIN_STATION))
 	var/bearing = arctan((world.maxx / 2) - expected_impact.x, (world.maxy / 2) - expected_impact.y)
 	bearing = bearing < 0 ? 90 - bearing : (bearing > 90 ? 450 - bearing : 90 - bearing)
 	var/announce_text = announcement_message + \
