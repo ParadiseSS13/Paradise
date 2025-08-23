@@ -264,35 +264,35 @@
 	icon_state = "cmd_maint"
 
 /area/station/maintenance/command/fore
-	name = "\improper Command Maintenance Fore"
+	name = "\improper Fore Command Maintenance"
 	icon_state = "cmd_maint_fore"
 
 /area/station/maintenance/command/fore_starboard
-	name = "\improper Command Maintenance Fore-Starboard"
+	name = "\improper Fore-Starboard Command Maintenance"
 	icon_state = "cmd_maint_fore_starboard"
 
 /area/station/maintenance/command/fore_port
-	name = "\improper Command Maintenance Fore-Port"
+	name = "\improper Fore-Port Command Maintenance"
 	icon_state = "cmd_maint_fore_port"
 
 /area/station/maintenance/command/aft
-	name = "\improper Command Maintenance Aft"
+	name = "\improper Aft Command Maintenance"
 	icon_state = "cmd_maint_aft"
 
 /area/station/maintenance/command/aft_starboard
-	name = "\improper Command Maintenance Aft-Starboard"
+	name = "\improper Aft-Starboard Command Maintenance"
 	icon_state = "cmd_maint_aft_starboard"
 
 /area/station/maintenance/command/aft_port
-	name = "\improper Command Maintenance Aft-Port"
+	name = "\improper Aft-Port Command Maintenance"
 	icon_state = "cmd_maint_aft_port"
 
 /area/station/maintenance/command/starboard
-	name = "\improper Command Maintenance Starboard"
+	name = "\improper Starboard Command Maintenance"
 	icon_state = "cmd_maint_starboard"
 
 /area/station/maintenance/command/port
-	name = "\improper Command Maintenance Port"
+	name = "\improper Port Command Maintenance"
 	icon_state = "cmd_maint_port"
 
 // MARK: Security
@@ -301,35 +301,35 @@
 	icon_state = "sec_maint"
 
 /area/station/maintenance/security/fore
-	name = "\improper Security Maintenance Fore"
+	name = "\improper Fore Security Maintenance"
 	icon_state = "sec_maint_fore"
 
 /area/station/maintenance/security/fore_starboard
-	name = "\improper Security Maintenance Fore-Starboard"
+	name = "\improper Fore-Starboard Security Maintenance"
 	icon_state = "sec_maint_fore_starboard"
 
 /area/station/maintenance/security/fore_port
-	name = "\improper Security Maintenance Fore-Port"
+	name = "\improper Fore-Port Security Maintenance"
 	icon_state = "sec_maint_fore_port"
 
 /area/station/maintenance/security/aft
-	name = "\improper Security Maintenance Aft"
+	name = "\improper Aft Security Maintenance"
 	icon_state = "sec_maint_aft"
 
 /area/station/maintenance/security/aft_starboard
-	name = "\improper Security Maintenance Aft-Starboard"
+	name = "\improper Aft-Starboard Security Maintenance"
 	icon_state = "sec_maint_aft_starboard"
 
 /area/station/maintenance/security/aft_port
-	name = "\improper Security Maintenance Aft-Port"
+	name = "\improper Aft-Port Security Maintenance"
 	icon_state = "sec_maint_aft_port"
 
 /area/station/maintenance/security/starboard
-	name = "\improper Security Maintenance Starboard"
+	name = "\improper Starboard Security Maintenance"
 	icon_state = "sec_maint_starboard"
 
 /area/station/maintenance/security/port
-	name = "\improper Security Maintenance Port"
+	name = "\improper Port Security Maintenance"
 	icon_state = "sec_maint_port"
 
 // MARK: Service
@@ -338,33 +338,33 @@
 	icon_state = "serv_maint"
 
 /area/station/maintenance/service/fore
-	name = "\improper Service Maintenance Fore"
+	name = "\improper Fore Service Maintenance"
 	icon_state = "serv_maint_fore"
 
 /area/station/maintenance/service/fore_starboard
-	name = "\improper Service Maintenance Fore-Starboard"
+	name = "\improper Fore-Starboard Service Maintenance"
 	icon_state = "serv_maint_fore_starboard"
 
 /area/station/maintenance/service/fore_port
-	name = "\improper Service Maintenance Fore-Port"
+	name = "\improper Fore-Port Service Maintenance"
 	icon_state = "serv_maint_fore_port"
 
 /area/station/maintenance/service/aft
-	name = "\improper Service Maintenance Aft"
+	name = "\improper Aft Service Maintenance"
 	icon_state = "serv_maint_aft"
 
 /area/station/maintenance/service/aft_starboard
-	name = "\improper Service Maintenance Aft-Starboard"
+	name = "\improper Aft-Starboard Service Maintenance"
 	icon_state = "serv_maint_aft_starboard"
 
 /area/station/maintenance/service/aft_port
-	name = "\improper Service Maintenance Aft-Port"
+	name = "\improper Aft-Port Service Maintenance"
 	icon_state = "serv_maint_aft_port"
 
 /area/station/maintenance/service/starboard
-	name = "\improper Service Maintenance Starboard"
+	name = "\improper Starboard Service Maintenance"
 	icon_state = "serv_maint_starboard"
 
 /area/station/maintenance/service/port
-	name = "\improper Service Maintenance Port"
+	name = "\improper Port Service Maintenance"
 	icon_state = "serv_maint_port"
