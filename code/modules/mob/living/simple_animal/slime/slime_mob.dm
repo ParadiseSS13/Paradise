@@ -117,12 +117,6 @@
 	Target = null
 	return ..()
 
-/mob/living/simple_animal/slime/death()
-	if(holding_organ)
-		eject_organ()
-	underlays.Cut()
-	return ..()
-
 /mob/living/simple_animal/slime/update_overlays()
 	. = ..()
 	if(stat != DEAD)
