@@ -90063,10 +90063,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/brig)
-"ykq" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/electrical/fore_port)
 "ykr" = (
 /obj/effect/mapping_helpers/airlock/access/any/command/hop,
 /obj/structure/cable{
@@ -107007,7 +107003,7 @@ fgq
 vqz
 aLq
 mPx
-ykq
+mPx
 mPx
 mPx
 mPx
