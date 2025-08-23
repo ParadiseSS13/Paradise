@@ -28,11 +28,11 @@
 	if(user.a_intent != INTENT_HELP)
 		return ..()
 
+	if(istype(used, /obj/item/reagent_containers))
+		return ..()
+
 	if(handle_mop_interaction(user, used))
 		return ITEM_INTERACT_COMPLETE
-
-	if(istype(used, /obj/item/reagent_containers))
-		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
 
 	return ..()
 

@@ -21,6 +21,16 @@
 	time = 4 SECONDS
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/durathread_hardhat
+	name = "Durathread Hard Hat"
+	result = list(/obj/item/clothing/head/hardhat/durathread)
+	reqs = list(/obj/item/clothing/head/helmet/durathread = 1,
+				/obj/item/mounted/frame/light_fixture/small = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/light/bulb = 1)
+	time = 4 SECONDS
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/durathread_jumpsuit
 	name = "Durathread Jumpsuit"
 	result = list(/obj/item/clothing/under/misc/durathread)

@@ -63,6 +63,7 @@
 /// Key that holds the cooldown for our hunting subtree
 #define BB_HUNTING_COOLDOWN(type) "BB_HUNTING_COOLDOWN_[type]"
 
+
 // Finding adult mob
 /// key holds the adult we found
 #define BB_FOUND_MOM "BB_found_mom"
@@ -80,6 +81,12 @@
 #define BB_BABIES_TARGET "BB_babies_target"
 /// Timeout for finding partners when theres too many of us in 1 location
 #define BB_PARTNER_SEARCH_TIMEOUT "BB_partner_search_timeout"
+
+/// Chance to randomly acquire a new target
+#define BB_RANDOM_AGGRO_CHANCE "BB_random_aggro_chance"
+/// Chance to randomly drop all of our targets
+#define BB_RANDOM_DEAGGRO_CHANCE "BB_random_deaggro_chance"
+
 
 // Food and eating
 
