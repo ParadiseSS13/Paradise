@@ -21,13 +21,26 @@
 	name = "warden's jumpskirt"
 	desc = "Standard feminine fashion for a Warden. It is made of sturdier material than standard jumpskirts. It has the word \"Warden\" written on the shoulders."
 	icon_state = "warden_skirt"
-	item_state = "r_suit"
 	item_color = "warden_skirt"
 
 /obj/item/clothing/under/rank/security/warden/skirt/corporate
 	icon_state = "warden_corporate_skirt"
 	item_state = "warden_corporate_skirt"
 	item_color = "warden_corporate_skirt"
+
+/obj/item/clothing/under/rank/security/warden/turtleneck
+	name = "warden's turtleneck"
+	desc = "A fancy turtleneck designed to keep the wearer warm in a cold prison. Due to budget cuts, the material does not offer any external protection."
+	icon_state = "ward_turtle"
+	item_state = "ward_turtle"
+	item_color = "ward_turtle"
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/security.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/security.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/security.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/security.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/security.dmi'
+		)
 
 /obj/item/clothing/under/rank/security/officer
 	name = "security officer's jumpsuit"
@@ -44,7 +57,6 @@
 	name = "security officer's jumpskirt"
 	desc = "Standard feminine fashion for Security Officers. It's made of sturdier material than the standard jumpskirts."
 	icon_state = "security_skirt"
-	item_state = "r_suit"
 	item_color = "security_skirt"
 
 /obj/item/clothing/under/rank/security/officer/skirt/corporate
@@ -78,7 +90,6 @@
 	name = "security officer's uniform"
 	desc = "It's made of a slightly sturdier material, to allow for robust protection."
 	icon_state = "redshirt" //pants, actually
-	item_state = "r_suit"
 	item_color = "redshirt"
 
 /obj/item/clothing/under/rank/security/officer/corporate
@@ -137,7 +148,6 @@
 	name = "head of security's jumpskirt"
 	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
 	icon_state = "hos_skirt"
-	item_state = "r_suit"
 	item_color = "hos_skirt"
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_JUMPSKIRT
@@ -163,13 +173,24 @@
 	name = "warden's suit"
 	desc = "A formal security suit for the warden with blue desginations and '/Warden/' stiched into the shoulders."
 	icon_state = "warden_formal"
-	item_state = "gy_suit"
 	item_color = "warden_formal"
 
 /obj/item/clothing/under/rank/security/formal/head_of_security
 	name = "head of security's suit"
 	desc = "A security suit decorated for those few with the dedication to achieve the position of Head of Security."
 	icon_state = "hos_formal"
-	item_state = "gy_suit"
 	item_color = "hos_formal"
 
+/obj/item/clothing/under/rank/security/head_of_security/turtleneck
+	name = "head of security's turtleneck"
+	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold security lobby. Due to budget cuts, the material does not offer any external protection."
+	icon_state = "hos_turtle"
+	item_state = "hos_turtle"
+	item_color = "hos_turtle"
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/security.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/security.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/security.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/security.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/security.dmi'
+		)

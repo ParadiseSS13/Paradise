@@ -980,6 +980,16 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/dropwall_launcher
+	name = "Exosuit Module (DWDL-04 Dropwall Launcher)"
+	id = "dropwall_launcher"
+	build_type = MECHFAB
+	req_tech = list("engineering" = 6, "bluespace" = 6, "combat" = 6)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/cleaner
+	materials = list(list(MAT_METAL = 8000, MAT_GLASS = 8000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 4000))
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_bola
 	name = "Exosuit Weapon Design (PCMK-6 Bola Launcher)"
 	desc = "Allows for the construction of PCMK-6 Bola Launcher."
@@ -1055,6 +1065,28 @@
 	req_tech = list("combat" = 4, "syndicate" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	materials = list(MAT_METAL=10000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_disabler_shotgun
+	name = "Exosuit Weapon (MESG-01 Disabler Scattercannon)"
+	desc = "Allows for the construction of MESG-01 Disabler Scattercannon."
+	id = "mech_ion"
+	build_type = MECHFAB
+	req_tech = list("combat" = 6, "materials" = 5)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_disabler
+	materials = list(MAT_METAL=10000,MAT_SILVER=6000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_laser_shotgun
+	name = "Exosuit Weapon (MESG-02 Laser Scattercannon)"
+	desc = "Allows for the construction of MESG-02 Laser Scattercannon."
+	id = "mech_ion"
+	build_type = MECHFAB
+	req_tech = list("combat" = 6, "materials" = 5)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_laser
+	materials = list(MAT_METAL=10000,MAT_GOLD=6000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 

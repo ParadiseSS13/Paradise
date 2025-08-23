@@ -2,7 +2,6 @@
 	origin_tech = "biotech=3"
 	force = 1
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 0
 	var/slot
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/non_primary = 0
@@ -231,7 +230,7 @@
 		if(S)
 			H.drop_item()
 			H.put_in_active_hand(S)
-			S.attack__legacy__attackchain(H, H)
+			S.interact_with_atom(H, H)
 			qdel(src)
 	else
 		..()

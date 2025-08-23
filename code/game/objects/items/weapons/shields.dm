@@ -24,7 +24,6 @@
 	slot_flags = ITEM_SLOT_BACK
 	force = 10
 	throwforce = 5
-	throw_speed = 2
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_GLASS=7500, MAT_METAL=1000)
@@ -51,7 +50,7 @@
 
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 0, acid = 0)
+	armor = null
 
 /obj/item/shield/riot/roman/fake/add_parry_component()
 	return

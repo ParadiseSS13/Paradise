@@ -6,7 +6,6 @@
 
 	base_cooldown = 3 SECONDS
 	clothes_req = FALSE
-	invocation_type = "none"
 	level_max = 0 //cannot be improved
 	action_icon_state = "disguise_self"
 	sound = null

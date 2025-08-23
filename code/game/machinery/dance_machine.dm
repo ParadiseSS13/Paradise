@@ -3,7 +3,6 @@
 	desc = "The first three prototypes were discontinued after mass casualty incidents."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "disco0"
-	anchored = FALSE
 	atom_say_verb = "states"
 	density = TRUE
 	var/active = FALSE

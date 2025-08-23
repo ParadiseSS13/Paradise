@@ -38,6 +38,7 @@
 	new /obj/item/clothing/accessory/medal/service(src)
 	new /obj/item/storage/bag/garment/head_of_personnel(src)
 	new /obj/item/autosurgeon/organ/one_use/skill_hud(src)
+	new /obj/item/storage/box/fingerprints(src) // used for fingerprinting new arrivals
 
 /obj/structure/closet/secure_closet/hos
 	name = "head of security's locker"
@@ -197,7 +198,6 @@
 	new /obj/item/ammo_box/magazine/detective/speedcharger(src)
 	new /obj/item/clipboard(src)
 	new /obj/item/clothing/gloves/color/latex(src)
-	new /obj/item/detective_scanner(src)
 	new /obj/item/flash(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/holosign_creator/detective(src)
@@ -207,8 +207,10 @@
 	new /obj/item/storage/bag/garment/detective(src)
 	new /obj/item/storage/belt/security(src)
 	new /obj/item/storage/box/evidence(src)
+	new /obj/item/taperecorder(src)
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/taperecorder(src)
+	new /obj/item/storage/briefcase/crimekit(src)
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections locker"

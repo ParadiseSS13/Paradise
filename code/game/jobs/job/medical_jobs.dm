@@ -34,6 +34,7 @@
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/cmo
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Medical), basic job duties, and act professionally (roleplay)."
+	standard_paycheck = CREW_PAY_HIGH
 
 /datum/outfit/job/cmo
 	name = "Chief Medical Officer"
@@ -80,6 +81,7 @@
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/doctor
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/doctor
 	name = "Medical Doctor"
@@ -120,6 +122,7 @@
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/coroner
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/coroner
 	name = "Coroner"
@@ -189,6 +192,7 @@
 	minimal_player_age = 7
 	exp_map = list(EXP_TYPE_CREW = 300)
 	outfit = /datum/outfit/job/chemist
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/chemist
 	name = "Chemist"
@@ -230,6 +234,7 @@
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/geneticist
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/geneticist
 	name = "Geneticist"
@@ -274,6 +279,7 @@
 		/datum/job_objective/virus_samples
 	)
 	outfit = /datum/outfit/job/virologist
+	standard_paycheck = CREW_PAY_MEDIUM
 
 
 /datum/outfit/job/virologist
@@ -314,6 +320,7 @@
 	)
 	alt_titles = list("Psychologist","Therapist")
 	outfit = /datum/outfit/job/psychiatrist
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/psychiatrist
 	name = "Psychiatrist"
@@ -365,14 +372,14 @@
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/paramedic
 	important_information = "You are the first responder to medical emergencies outside the sanctity of the Medbay. You can also respond to Lavaland emergencies via the mining shuttle located in Cargo."
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/paramedic
 	name = "Paramedic"
 	jobtype = /datum/job/paramedic
 
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
-	shoes = /obj/item/clothing/shoes/black
-	head = /obj/item/clothing/head/soft/blue
+	head = /obj/item/clothing/head/soft/paramedic
 	mask = /obj/item/clothing/mask/cigarette
 	l_ear = /obj/item/radio/headset/headset_med/para
 	id = /obj/item/card/id/paramedic

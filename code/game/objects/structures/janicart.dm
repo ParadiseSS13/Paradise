@@ -5,7 +5,6 @@
 	desc = "This is the alpha and omega of sanitation."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cart"
-	anchored = FALSE
 	density = TRUE
 	face_while_pulling = FALSE
 	container_type = OPENCONTAINER
@@ -70,9 +69,6 @@
 
 	if(handle_janitorial_equipment(user, used))
 		return ITEM_INTERACT_COMPLETE
-
-	if(istype(used, /obj/item/reagent_containers))
-		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
 
 	if(my_bag)
 		if(my_bag.can_be_inserted(used))

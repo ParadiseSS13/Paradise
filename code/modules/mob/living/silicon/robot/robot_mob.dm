@@ -7,8 +7,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	real_name = "Cyborg"
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
-	maxHealth = 100
-	health = 100
 	bubble_icon = "robot"
 	universal_understand = TRUE
 	deathgasp_on_death = TRUE
@@ -378,6 +376,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	module_actions.Cut()
 	return ..()
 
+/mob/living/silicon/robot/update_runechat_msg_location()
+	if(istgvehicle(loc))
+		runechat_msg_location = loc.UID()
+	else
+		return ..()
+
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
@@ -674,6 +678,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	module.add_languages(src)
 	module.add_armor(src)
 	module.add_subsystems_and_actions(src)
+	if(emagged)
+		module.emag_act(src)
 	if(!static_radio_channels)
 		radio.config(module.channels)
 	rename_character(real_name, get_default_name())
@@ -1620,7 +1626,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	custom_name = borgname
 	real_name = name
 	mind = new
-	mind.current = src
+	mind.bind_to(src)
 	mind.set_original_mob(src)
 	mind.assigned_role = SPECIAL_ROLE_ERT
 	mind.special_role = SPECIAL_ROLE_ERT

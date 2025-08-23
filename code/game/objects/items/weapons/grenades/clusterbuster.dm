@@ -4,7 +4,6 @@
 /obj/item/grenade/clusterbuster
 	name = "clusterbang"
 	desc = "Use of this weapon may constitute a war crime in your area, consult your local captain."
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang"
 	item_state = "flashbang"
 	var/payload = /obj/item/grenade/flashbang/cluster
@@ -39,7 +38,6 @@
 /obj/item/grenade/clusterbuster/segment
 	name = "clusterbang bomblet"
 	desc = "A bomblet released by a clusterbang. Better run!"
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang_segment"
 
 /obj/item/grenade/clusterbuster/segment/Initialize(mapload, payload_type = /obj/item/grenade/flashbang/cluster)

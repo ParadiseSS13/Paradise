@@ -778,12 +778,17 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	return thresholds
 
 /obj/machinery/alarm/ui_state(mob/user)
-	if(is_ai(user))
-		var/mob/living/silicon/ai/AI = user
-		if(!AI.lacks_power() || AI.apc_override)
-			return GLOB.always_state
+	if(issilicon(user))
+		if(is_ai(user))
+			var/mob/living/silicon/ai/AI = user
+			if(!AI.lacks_power() || AI.apc_override)
+				return GLOB.always_state
+		else
+			for(var/obj/machinery/computer/atmoscontrol/AC in view(user.client.maxview(), user))
+				if(!AC.stat)
+					return GLOB.always_state
 
-	else if(ishuman(user))
+	if(ishuman(user))
 		for(var/obj/machinery/computer/atmoscontrol/AC in range(1, user))
 			if(!AC.stat)
 				return GLOB.always_state
@@ -1184,7 +1189,6 @@ Just an object used in constructing air alarms
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 #undef AALARM_PRESET_HUMAN

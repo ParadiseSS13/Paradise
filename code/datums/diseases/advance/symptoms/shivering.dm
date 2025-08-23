@@ -6,7 +6,7 @@ Shivering
 	No change to hidden.
 	Increases resistance.
 	Increases stage speed.
-	Little transmittable.
+	Little transmissibility.
 	Low level.
 
 Bonus
@@ -18,20 +18,18 @@ Bonus
 /datum/symptom/shivering
 
 	name = "Shivering"
-	stealth = 0
-	resistance = 2
+	stealth = 1
 	stage_speed = 2
-	transmittable = 2
+	transmissibility = 3
 	level = 2
 	severity = 2
 
-/datum/symptom/shivering/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/carbon/M = A.affected_mob
-		to_chat(M, "<span class='warning'>[pick("You feel cold.", "You start shivering.")]</span>")
-		if(M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT)
-			Chill(M, A)
+/datum/symptom/shivering/symptom_act(datum/disease/advance/A, unmitigated)
+	var/mob/living/carbon/M = A.affected_mob
+	to_chat(M, "<span class='warning'>[pick("You feel cold.", "You start shivering.")]</span>")
+	M.emote("shiver")
+	if(M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT)
+		Chill(M, A)
 	return
 
 /datum/symptom/shivering/proc/Chill(mob/living/M, datum/disease/advance/A)

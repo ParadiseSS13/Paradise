@@ -4,7 +4,7 @@ import time
 from dataclasses import dataclass
 from collections import namedtuple, defaultdict
 
-from avulto import DMM, DME, DMI, Dir, Path as p, paths, ProcDecl, TypeDecl
+from avulto import DME, Path as p, ProcDecl, TypeDecl
 from avulto.ast import NodeKind
 from avulto import exceptions
 
@@ -230,6 +230,7 @@ if __name__ == "__main__":
                         ERROR_STRINGS.append(call.format_error())
 
     for legacy_proc_error in sorted(ERROR_STRINGS):
+        exit_code = 1
         print(legacy_proc_error)
 
     end = time.time()

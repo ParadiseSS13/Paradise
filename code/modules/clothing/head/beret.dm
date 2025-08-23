@@ -89,7 +89,11 @@
 	icon_state = "beret_officer"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 60
-	dog_fashion = /datum/dog_fashion/head/beret/sec
+	dog_fashion = /datum/dog_fashion/head/beret/sec 
+
+/obj/item/clothing/head/beret/sec/corporate
+	name = "corporate security beret"
+	icon_state = "beret_corporate_officer"
 
 /obj/item/clothing/head/beret/warden
 	name = "warden's beret"
@@ -178,6 +182,26 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
 	)
 
+/obj/item/clothing/head/beret/hydroponics
+	name = "botany beret"
+	desc = "A green beret with a blue service insignia emblazoned on it. It smells dizzying."
+	icon_state = "beret_hydroponics"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/hydroponics_alt
+	name = "hydroponics beret"
+	desc = "A green beret with a brown service insignia emblazoned on it. It smells dizzying."
+	icon_state = "beret_hydroponics_alt"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
 //Medical
 /obj/item/clothing/head/beret/cmo
 	name = "chief medical officer's beret"
@@ -194,6 +218,17 @@
 	name = "medical beret"
 	desc = "A white beret with a green cross finely threaded into it. It has that sterile smell about it."
 	icon_state = "beret_med"
+
+/obj/item/clothing/head/beret/paramedic
+	name = "paramedic's beret"
+	desc = "A blue beret with a white medical insignia emblazoned on it. Save lives with style."
+	icon_state = "beret_paramedic"
+	dog_fashion = /datum/dog_fashion/head/paramedic
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
 
 //Cargo
 /obj/item/clothing/head/beret/qm
@@ -252,6 +287,7 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
 	)
 
+
 //NT Career Trainer
 /obj/item/clothing/head/beret/nct/black
 	name = "\improper NT Career Trainer's beret"
@@ -292,3 +328,15 @@
 	icon_state = "beret_solgovcelite"
 	item_color = "solgovcelite"
 	resistance_flags = FIRE_PROOF
+
+//Traitor
+/obj/item/clothing/head/beret/syndicate
+	name = "syndicate beret"
+	desc = "A dark grey beret with the Syndicate’s unmistakable 'S' logo emblazoned on it. Wearing this just for the looks might not be the wisest idea..."
+	icon_state = "beret_syndie"
+	item_color = "beret_syndie"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)

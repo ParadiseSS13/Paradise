@@ -8,7 +8,6 @@
 
 /obj/machinery/computer/syndicate_depot
 	name = "depot computer"
-	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "syndie_key"
 	icon_screen = "tcboss"
 	light_color = LIGHT_COLOR_PURE_CYAN
