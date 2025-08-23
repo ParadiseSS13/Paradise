@@ -105149,13 +105149,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/prison/cell_block/a)
-"uML" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/start/chef,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/station/service/kitchen)
 "uMN" = (
 /obj/machinery/light{
 	dir = 8
@@ -140692,7 +140685,7 @@ pVQ
 wds
 mrt
 jau
-uML
+pxi
 mrt
 mrt
 mrt
