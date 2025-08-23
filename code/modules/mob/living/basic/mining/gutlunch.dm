@@ -1,4 +1,4 @@
-// Gutlunches, passive mods that devour blood and gibs
+/// Gutlunches, passive mods that devour blood and gibs
 /mob/living/basic/mining/gutlunch
 	name = "gutlunch"
 	desc = "A scavenger that eats raw meat, often found alongside ash walkers. Produces a thick, medicinally nutritious milk."
@@ -25,11 +25,16 @@
 	loot = list(/obj/effect/decal/cleanable/blood/gibs)
 	deathmessage = "is pulped into bugmash."
 
-	var/list/food_types = list(/obj/effect/decal/cleanable/blood/gibs, /obj/item/organ/internal/eyes,
-										/obj/item/organ/internal/heart, /obj/item/organ/internal/lungs,
-										/obj/item/organ/internal/liver, /obj/item/organ/internal/kidneys,
-										/obj/item/organ/internal/appendix)
-	var/obj/item/udder/gutlunch/udder = null
+	var/list/food_types = list(
+		/obj/effect/decal/cleanable/blood/gibs,
+		/obj/item/organ/internal/eyes,
+		/obj/item/organ/internal/heart,
+		/obj/item/organ/internal/lungs,
+		/obj/item/organ/internal/liver,
+		/obj/item/organ/internal/kidneys,
+		/obj/item/organ/internal/appendix
+	)
+	var/obj/item/udder/gutlunch/udder
 	/// can we breed?
 	var/can_breed = TRUE
 
@@ -99,12 +104,13 @@
 	resize = 0.85
 	update_transform()
 
-// Lady gutlunch. They make the babby.
+/// Lady gutlunch. They make the babby.
 /mob/living/basic/mining/gutlunch/guthen
 	name = "guthen"
 	gender = FEMALE
 	ai_controller = /datum/ai_controller/basic_controller/gutlunch/guthen
 
+/// Baby gutlunch
 /mob/living/basic/mining/gutlunch/grublunch
 	name = "grublunch"
 	food_types = list() //They don't eat.
@@ -112,7 +118,6 @@
 	ai_controller = /datum/ai_controller/basic_controller/gutlunch/gutlunch_baby
 	var/growth = 0
 
-// Baby gutlunch
 /mob/living/basic/mining/gutlunch/grublunch/Initialize(mapload)
 	. = ..()
 	add_atom_colour("#9E9E9E", FIXED_COLOUR_PRIORITY) // Somewhat hidden

@@ -46,7 +46,7 @@
 
 
 /datum/component/breed/proc/breed_with_partner(mob/living/source, mob/living/target)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_HOSTILE_PRE_ATTACKINGTARGET
 
 	if(!is_type_in_typecache(target, can_breed_with))
 		return

@@ -41,7 +41,7 @@
 	for(var/mob/mother in oview(look_range, living_pawn))
 		if(!is_type_in_list(mother, mom_types))
 			continue
-		if(is_type_in_list(mother, ignore_types)) // so the not permanent baby and the permanent baby subtype dont followed each other
+		if(is_type_in_list(mother, ignore_types)) // so the not permanent baby and the permanent baby subtype don't follow each other
 			continue
 		all_moms += mother
 

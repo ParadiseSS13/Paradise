@@ -1,4 +1,4 @@
-//An ore-devouring but easily scared creature
+/// An ore-devouring but easily scared creature
 /mob/living/basic/mining/goldgrub
 	name = "goldgrub"
 	desc = "A worm that grows fat from eating everything in its sight. Seems to enjoy precious metals and other shiny things, hence the name."

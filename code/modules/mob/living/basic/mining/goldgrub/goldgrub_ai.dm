@@ -37,7 +37,8 @@
 	var/mob/living/basic/mining/goldgrub/grub = controller.pawn
 	grub.addtimer(CALLBACK(src, PROC_REF(burrow), controller.pawn), chase_time)
 
-/datum/ai_behavior/burrow_away/proc/burrow(mob/living/pawn) // Begin the chase to kill the mob in time
+/// Begin the chase to kill the mob in time
+/datum/ai_behavior/burrow_away/proc/burrow(mob/living/pawn)
 	if(pawn.stat == CONSCIOUS)
 		pawn.visible_message("<span class='danger'>[pawn] buries into the ground, vanishing from sight!</span>")
 		qdel(pawn)
