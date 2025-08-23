@@ -58643,13 +58643,11 @@
 	},
 /area/station/hallway/secondary/exit)
 "hkR" = (
-/obj/machinery/power/smes{
-	charge = 2e+006
-	},
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/machinery/firealarm/directional/north,
+/obj/machinery/power/smes/engineering,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
 "hkW" = (
