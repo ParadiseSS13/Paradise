@@ -127,7 +127,7 @@
 /datum/ruleset/proc/refund(info)
 	// not enough antagonists signed up!!! idk what to do. The only real solution is to procedurally allocate budget, which will result in 1000x more get_players_for_role() calls. Which is not cheap.
 	// OR we cache get_players_for_role() and then just check if they have a special_role. May be unreliable.
-	// log_dynamic("[info] Refunding [antag_cost * antag_amount] budget.")
+	log_dynamic("[info] Refund unimplemented, wasting [antag_cost * antag_amount] budget.")
 	// Currently unimplemented. Will be useful for a possible future PR where latejoin antagonists are factored in.
 	return
 
