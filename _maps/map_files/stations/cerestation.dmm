@@ -24608,10 +24608,6 @@
 	c_tag = "Docking Asteroid Substation";
 	dir = 6
 	},
-/obj/machinery/computer/monitor,
-/obj/structure/cable/orange{
-	icon_state = "0-2"
-	},
 /obj/structure/cable/orange{
 	icon_state = "2-4"
 	},
