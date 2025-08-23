@@ -473,7 +473,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 // MARK: ARTILLERY
 
 /obj/effect/meteor/artillery
-	max_integrity = 9000 * OBJ_INTEGRITY_TO_WALL_DAMAGE
+	max_integrity = 5000 * OBJ_INTEGRITY_TO_WALL_DAMAGE
 	name = "Armor Penetrating Artillery Shell"
 	desc = "A hardened penetrator and a high explosive charge with a delayed fuse ensure maximum effect on target"
 	icon_state = "artillery"
@@ -496,6 +496,11 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	var/angle = arctan(end.x - x, end.y - y)
 	icon = turn(icon, -angle)
 	rotation = angle
+
+/obj/effect/meteor/artillery/chase_target(atom/chasing, delay = 0.1)
+	set waitfor = FALSE
+	if(chasing)
+		GLOB.move_manager.home_onto(src, chasing, delay)
 
 /obj/effect/meteor/artillery/Move(atom/destination)
 	var/obj/machinery/field/containment/field = locate() in destination
@@ -527,7 +532,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 
 /obj/effect/meteor/artillery/ram_obstacle(obj/obstacle)
 	// AP shell go brrr
-	var/damage_needed = obstacle.calculate_oneshot_damage(BRUTE, MELEE) / 3
+	var/damage_needed = obstacle.calculate_oneshot_damage(BRUTE, MELEE) / 5
 	if(obj_integrity > damage_needed)
 		obj_integrity -= damage_needed
 		obstacle.obj_break(MELEE)
