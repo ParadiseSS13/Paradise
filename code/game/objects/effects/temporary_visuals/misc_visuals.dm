@@ -517,14 +517,6 @@
 		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
 		animate(offset = 0, time = 10 SECONDS)
 
-/obj/effect/temp_visual/electrocution
-	name = "electrocution"
-	icon_state = "electrocution"
-
-/obj/effect/temp_visual/electrocution/Initialize(mapload, set_duration)
-	duration = set_duration
-	. = ..()
-
 /obj/effect/temp_visual/warning
 	name = "warning"
 	icon = 'icons/effects/96x96.dmi'
