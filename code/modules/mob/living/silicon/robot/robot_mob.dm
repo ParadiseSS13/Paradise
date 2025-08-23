@@ -678,6 +678,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	module.add_languages(src)
 	module.add_armor(src)
 	module.add_subsystems_and_actions(src)
+	if(emagged)
+		module.emag_act(src)
 	if(!static_radio_channels)
 		radio.config(module.channels)
 	rename_character(real_name, get_default_name())
@@ -1624,7 +1626,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	custom_name = borgname
 	real_name = name
 	mind = new
-	mind.current = src
+	mind.bind_to(src)
 	mind.set_original_mob(src)
 	mind.assigned_role = SPECIAL_ROLE_ERT
 	mind.special_role = SPECIAL_ROLE_ERT

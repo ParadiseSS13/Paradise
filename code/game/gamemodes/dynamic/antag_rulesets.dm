@@ -127,7 +127,7 @@
 /datum/ruleset/proc/refund(info)
 	// not enough antagonists signed up!!! idk what to do. The only real solution is to procedurally allocate budget, which will result in 1000x more get_players_for_role() calls. Which is not cheap.
 	// OR we cache get_players_for_role() and then just check if they have a special_role. May be unreliable.
-	// log_dynamic("[info] Refunding [antag_cost * antag_amount] budget.")
+	log_dynamic("[info] Refund unimplemented, wasting [antag_cost * antag_amount] budget.")
 	// Currently unimplemented. Will be useful for a possible future PR where latejoin antagonists are factored in.
 	return
 
@@ -146,7 +146,7 @@
 		if(jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, antagonist_type::job_rank))
 			continue
 		// Make sure they want to play antag, and that they're not already something (off station or antag)
-		if(player.client.skip_antag || player.mind.offstation_role || player.mind.special_role)
+		if(player.client.persistent.skip_antag || player.mind.offstation_role || player.mind.special_role)
 			continue
 		// Make sure they actually want to be this antagonist
 		if(!(antagonist_type::job_rank in player.client.prefs.be_special))
