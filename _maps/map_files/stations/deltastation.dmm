@@ -46657,6 +46657,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "dyL" = (
@@ -48445,11 +48448,9 @@
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "dJd" = (
+/obj/item/stock_parts/cell/high,
 /obj/structure/table,
-/obj/item/multitool,
-/obj/item/multitool,
-/obj/item/storage/toolbox/electrical,
-/obj/item/storage/toolbox/electrical,
+/obj/machinery/cell_charger,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -51355,7 +51356,12 @@
 	},
 /area/station/medical/reception)
 "edc" = (
-/obj/structure/closet/secure_closet/engineering_electrical,
+/obj/machinery/computer/monitor{
+	dir = 8
+	},
+/obj/structure/cable/orange{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -56222,6 +56228,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/structure/closet/secure_closet/engineering_electrical,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "gaZ" = (
@@ -59608,7 +59615,10 @@
 /turf/simulated/wall,
 /area/station/security/brig)
 "hHW" = (
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
 /area/station/maintenance/electrical/fore_starboard)
 "hHX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -60342,6 +60352,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
+	},
+/obj/structure/cable/orange{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
@@ -63658,6 +63671,10 @@
 	},
 /area/station/maintenance/electrical/aft_port)
 "jvj" = (
+/obj/machinery/computer/monitor,
+/obj/structure/cable/orange{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -63754,6 +63771,9 @@
 "jxe" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -66803,7 +66823,10 @@
 /obj/structure/rack,
 /obj/item/multitool,
 /obj/item/storage/toolbox/electrical,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
 /area/station/maintenance/electrical/fore_starboard)
 "kPI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -67597,6 +67620,9 @@
 	},
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
@@ -69213,7 +69239,10 @@
 /area/station/command/office/ntrep)
 "lUQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
 /area/station/maintenance/electrical/fore_starboard)
 "lVA" = (
 /obj/machinery/computer/operating,
@@ -72701,11 +72730,14 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
 "nuS" = (
-/obj/structure/table,
-/obj/item/stock_parts/cell/high,
-/obj/machinery/cell_charger,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/machinery/computer/monitor{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -83942,7 +83974,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
 /area/station/maintenance/electrical/fore_starboard)
 "shP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -84730,6 +84765,11 @@
 	},
 /area/station/medical/surgery/observation)
 "swh" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/electrical,
+/obj/item/storage/toolbox/electrical,
+/obj/item/multitool,
+/obj/item/multitool,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -89499,7 +89539,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
 /area/station/maintenance/electrical/fore_starboard)
 "uoa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -89995,6 +90038,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
@@ -90785,7 +90831,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
 /area/station/maintenance/electrical/fore_starboard)
 "uOC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -94643,6 +94692,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -97954,6 +98006,9 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "xKX" = (
@@ -122717,7 +122772,7 @@ mAo
 gXQ
 cIC
 jvj
-tdV
+cLM
 cNe
 cQC
 sRd
