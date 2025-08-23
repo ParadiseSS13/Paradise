@@ -71736,10 +71736,6 @@
 	icon_state = "yellow"
 	},
 /area/station/hallway/primary/aft/south)
-"rns" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/station/maintenance/aft2)
 "rnu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -123261,7 +123257,7 @@ vir
 fNw
 rKH
 fVX
-rns
+coG
 coG
 coG
 coG
