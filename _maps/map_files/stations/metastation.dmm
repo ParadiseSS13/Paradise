@@ -1031,9 +1031,12 @@
 	},
 /area/station/security/brig)
 "aln" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/electrical,
-/obj/item/storage/toolbox/electrical,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/computer/monitor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/fore_port)
 "alq" = (
@@ -9257,6 +9260,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/fore_port)
 "beR" = (
@@ -10878,8 +10884,11 @@
 	},
 /area/station/engineering/ai_transit_tube)
 "blz" = (
-/obj/effect/spawner/random/fungus/probably,
-/turf/simulated/wall,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/closet/secure_closet/engineering_electrical,
+/turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "blC" = (
 /obj/effect/spawner/window,
@@ -15967,13 +15976,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/bridge)
 "bHy" = (
+/obj/item/stack/cable_coil/yellow,
+/obj/item/stack/cable_coil/yellow,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil/orange,
+/obj/item/stack/cable_coil/orange,
 /obj/structure/rack,
-/obj/item/stack/cable_coil/yellow,
-/obj/item/stack/cable_coil/yellow,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil/orange,
-/obj/item/stack/cable_coil/orange,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/fore_port)
 "bHz" = (
@@ -18562,6 +18571,9 @@
 "bTg" = (
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/fore_port)
@@ -22155,8 +22167,7 @@
 /area/station/maintenance/apmaint)
 "cku" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random/maintenance,
-/obj/structure/rack,
+/obj/structure/closet/crate,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "ckw" = (
@@ -31995,6 +32006,12 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/research)
+"dpJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "dpM" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/door/airlock/engineering/glass{
@@ -38001,7 +38018,12 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/station/maintenance/electrical/aft_starboard)
 "fxB" = (
 /obj/machinery/light/small,
@@ -39217,6 +39239,15 @@
 /obj/machinery/atmospherics/refill_station/oxygen,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
+"fSu" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "caution"
+	},
+/area/station/maintenance/electrical/fore_port)
 "fSz" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -39374,6 +39405,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan,
+/obj/structure/sign/poster/contraband/random/directional/south,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "fWa" = (
@@ -39925,11 +39957,11 @@
 	},
 /area/station/science/research)
 "geC" = (
+/obj/machinery/power/terminal{
+	dir = 8
+	},
 /obj/structure/cable/orange{
 	icon_state = "0-4"
-	},
-/obj/machinery/power/terminal{
-	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
@@ -41596,6 +41628,9 @@
 /obj/machinery/power/apc/reinforced/directional/north,
 /obj/structure/cable/orange{
 	icon_state = "0-2"
+	},
+/obj/structure/cable/orange{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/fore_port)
@@ -45498,6 +45533,11 @@
 /obj/effect/spawner/random/trash,
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_north)
+"igw" = (
+/obj/machinery/power/smes/engineering,
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/station/maintenance/electrical/aft_starboard)
 "igE" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -46515,6 +46555,10 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/engineering/hardsuitstorage)
+"iAd" = (
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "iAg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -48096,11 +48140,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
-"jah" = (
-/obj/effect/spawner/random/maintenance,
-/obj/structure/rack,
-/turf/simulated/floor/plating,
-/area/station/maintenance/aft2)
 "jau" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/simulated/floor/bluegrid/telecomms,
@@ -52550,6 +52589,9 @@
 	},
 /area/station/hallway/primary/central/se)
 "kCr" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/fore_port)
 "kDq" = (
@@ -58236,8 +58278,9 @@
 	},
 /area/station/service/kitchen)
 "mxp" = (
-/obj/structure/cable,
-/obj/machinery/power/smes/engineering,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "mxw" = (
@@ -60733,7 +60776,9 @@
 	},
 /obj/machinery/power/apc/reinforced/directional/east,
 /obj/machinery/power/port_gen/pacman,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/station/maintenance/electrical/aft_starboard)
 "nnS" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -63702,10 +63747,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
-"oux" = (
-/obj/structure/closet/crate,
-/turf/simulated/floor/plating,
-/area/station/maintenance/aft2)
 "ouz" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 4
@@ -66055,8 +66096,16 @@
 /area/station/supply/sorting)
 "plY" = (
 /obj/machinery/alarm/directional/east,
-/obj/structure/closet/secure_closet/engineering_electrical,
-/turf/simulated/floor/plating,
+/obj/machinery/computer/monitor,
+/obj/machinery/computer/monitor{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/station/maintenance/electrical/aft_starboard)
 "pml" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -71687,6 +71736,10 @@
 	icon_state = "yellow"
 	},
 /area/station/hallway/primary/aft/south)
+"rns" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall,
+/area/station/maintenance/aft2)
 "rnu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -74456,10 +74509,6 @@
 	icon_state = "red"
 	},
 /area/station/security/prisonlockers)
-"smy" = (
-/obj/structure/sign/poster/contraband/random/directional/south,
-/turf/simulated/wall,
-/area/station/maintenance/electrical/aft_starboard)
 "smH" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -76704,7 +76753,6 @@
 "tcT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple";
 	dir = 4
@@ -77096,12 +77144,15 @@
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/virology)
 "tkg" = (
-/obj/structure/rack,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/storage/toolbox/electrical,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil/orange,
-/turf/simulated/floor/plating,
+/obj/machinery/computer/monitor{
+	dir = 8
+	},
+/obj/structure/cable/orange{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/station/maintenance/electrical/aft_starboard)
 "tkA" = (
 /obj/structure/table/glass,
@@ -78015,6 +78066,17 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/medbay)
+"tAa" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/item/storage/toolbox/electrical,
+/obj/item/clothing/gloves/color/yellow,
+/obj/structure/rack,
+/obj/item/stack/cable_coil/orange,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/plating,
+/area/station/maintenance/electrical/aft_starboard)
 "tAn" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -81929,6 +81991,9 @@
 /area/station/command/bridge)
 "uYU" = (
 /obj/machinery/alarm/directional/north,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -83289,7 +83354,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "vwH" = (
-/obj/structure/closet/secure_closet/engineering_electrical,
+/obj/structure/cable/orange{
+	icon_state = "0-4"
+	},
+/obj/machinery/computer/monitor{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical/fore_port)
 "vwS" = (
@@ -84140,7 +84210,9 @@
 /obj/structure/cable/orange{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/station/maintenance/electrical/aft_starboard)
 "vNS" = (
 /obj/structure/cable{
@@ -86727,6 +86799,9 @@
 /turf/space,
 /area/space/nearstation)
 "wJV" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/electrical,
+/obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -89473,6 +89548,9 @@
 /area/station/science/genetics)
 "xGo" = (
 /obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -90032,6 +90110,11 @@
 	icon_state = "white"
 	},
 /area/station/security/permabrig)
+"xQc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/barrier/grille_maybe,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "xQp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -90057,6 +90140,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/structure/closet/secure_closet/engineering_electrical,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/fore_port)
 "xQG" = (
@@ -90549,7 +90633,12 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/light/small,
-/turf/simulated/floor/plating,
+/obj/structure/cable/orange{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/station/maintenance/electrical/aft_starboard)
 "yag" = (
 /obj/machinery/disposal,
@@ -103589,7 +103678,7 @@ edA
 aaa
 aaa
 aaa
-aaa
+cdT
 cdT
 smP
 cdT
@@ -112790,7 +112879,7 @@ eYE
 bPP
 abW
 uYU
-wJV
+fSu
 wJV
 siX
 tXN
@@ -122660,8 +122749,8 @@ vZo
 wWu
 vZo
 gLZ
-vZo
-lYB
+iAd
+dpJ
 cOp
 cEK
 cEK
@@ -122915,9 +123004,9 @@ hhd
 lYB
 jkW
 gWk
-lYB
+xQc
 avs
-lTS
+tba
 cku
 cOp
 qnp
@@ -123172,10 +123261,10 @@ vir
 fNw
 rKH
 fVX
-lTS
-avs
-jah
-oux
+rns
+coG
+coG
+coG
 cOp
 fhw
 mhw
@@ -123429,10 +123518,10 @@ uXa
 vZo
 vZo
 iRX
-smy
 clQ
+tAa
 blz
-clQ
+igw
 qGk
 dPJ
 kXv
