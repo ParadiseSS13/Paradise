@@ -21,6 +21,8 @@
 	var/turf/end
 	/// Where we expect our projectile to hit the station
 	var/turf/expected_impact
+	/// When to remove the alert from observers
+	var/remove_alert_when = -1
 
 /datum/event/incoming_projectile/New(datum/event_meta/EM, skeleton, force_variant)
 	. = ..()
@@ -78,6 +80,15 @@
 		launched = TRUE
 		noAutoEnd = FALSE
 		endWhen = activeFor + 1000
+		// Remove the alert after 30 seconds
+		remove_alert_when = activeFor + 15
+	if(activeFor == remove_alert_when)
+		remove_alert()
+
+/datum/event/incoming_projectile/proc/remove_alert()
+	for(var/mob/M in GLOB.dead_mob_list)
+		M.clear_alert("\ref[src]_augury")
+	QDEL_NULL(screen_alert)
 
 //MARK: Variant Datums
 
