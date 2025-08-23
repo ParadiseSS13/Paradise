@@ -34394,7 +34394,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/maintenance/electrical/aft_starboard)
+/area/station/maintenance/aft2)
 "ekT" = (
 /obj/machinery/power/apc/directional/north,
 /obj/machinery/economy/vending/exploredrobe,
@@ -47734,7 +47734,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/electrical/aft_starboard)
+/area/station/maintenance/aft2)
 "iSf" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -69800,7 +69800,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/electrical/aft_starboard)
+/area/station/maintenance/aft2)
 "qBP" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -76753,7 +76753,7 @@
 	icon_state = "whitepurple";
 	dir = 4
 	},
-/area/station/maintenance/electrical/aft_starboard)
+/area/station/maintenance/aft2)
 "tcV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -124541,7 +124541,7 @@ bdN
 cOp
 cOp
 vyF
-qGk
+cOp
 qGk
 qGk
 qGk
