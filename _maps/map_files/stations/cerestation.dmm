@@ -45280,6 +45280,12 @@
 	dir = 1
 	},
 /area/station/engineering/engine_foyer)
+"ier" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "ieu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -45525,11 +45531,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/maintenance/starboard)
-"igZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "ihn" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -81724,10 +81725,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
 /obj/structure/disposalpipe/segment/corner{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -83913,13 +83914,6 @@
 	dir = 1
 	},
 /area/station/engineering/atmos)
-"qoN" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "qoO" = (
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
@@ -110014,10 +110008,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -113590,6 +113584,13 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/hallway/spacebridge/scidock)
+"wzk" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "wzl" = (
 /obj/structure/disposaloutlet{
 	dir = 1
@@ -117462,6 +117463,18 @@
 	icon_state = "dark"
 	},
 /area/station/science/robotics)
+"xpB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "xpC" = (
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
@@ -140398,8 +140411,8 @@ wmR
 wmR
 wmR
 pOY
-igZ
-qoN
+rVC
+rVC
 rVC
 bNF
 baF
@@ -141425,9 +141438,9 @@ rIY
 ddn
 hbt
 wmR
-vNp
-vcN
-wmR
+xpB
+wzk
+ier
 wmR
 tgc
 mgI
