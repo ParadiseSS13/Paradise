@@ -1086,3 +1086,11 @@
 	materials = list(MAT_METAL = 500)
 	build_path = /obj/item/melee/knuckleduster
 	category = list("hacked", "Security")
+
+/datum/design/sample_kit
+	name = "Forensic Swab"
+	id = "forensicswab"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 250)
+	build_path = /obj/item/forensics/swab
+	category = list("initial", "Security")
