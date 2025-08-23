@@ -87,6 +87,8 @@
 	var/announcement_title = "Meteor Alert"
 	var/list/meteor_types = list(/obj/effect/meteor)
 	var/can_roll = TRUE
+	var/alert_sound
+	var/siren_sound = 'sound/effects/warning_buzzer_1.ogg'
 
 /datum/incoming_projectile_variant/proc/launch(start, end)
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteor_targeted), meteor_types, start, end)
@@ -99,7 +101,7 @@
 	"\nExpected Impact Location: [expected_impact.loc] "+\
 	"\nGPS coords: ([expected_impact.x], [expected_impact.y], [expected_impact.z])"+\
 	"\nBearing: [bearing]° [bearing_to_dir_text(bearing)]"
-	GLOB.major_announcement.Announce(announce_text, announcement_title, new_sound = 'sound/AI/meteors.ogg')
+	GLOB.major_announcement.Announce(announce_text, announcement_title, new_sound = alert_sound, new_sound2 = siren_sound)
 
 // Super Tunguska Datum
 /datum/incoming_projectile_variant/super_tunguska
