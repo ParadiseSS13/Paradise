@@ -26,6 +26,9 @@
 
 	var/empty_state = "kineticgun_empty"
 
+/obj/item/gun/energy/kinetic_accelerator/update_icon_state()
+	icon_state = current_skin || initial(icon_state)
+
 /obj/item/gun/energy/kinetic_accelerator/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
@@ -611,7 +614,6 @@
 	var/chassis_icon = "kineticgun_u"
 	var/chassis_name = "super-kinetic accelerator"
 	var/pistol_chassis_icon = "kineticpistol_u"
-	var/pistol_chassis_item = "kineticpistol_u"
 	var/pistol_chassis_name = "super-kinetic pistol"
 
 /obj/item/borg/upgrade/modkit/chassis_mod/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
@@ -637,7 +639,6 @@
 	chassis_icon = "kineticgun_h"
 	chassis_name = "hyper-kinetic accelerator"
 	pistol_chassis_icon = "kineticpistol_h"
-	pistol_chassis_item = "kineticpistol_h"
 	pistol_chassis_name = "hyper-kinetic pistol"
 
 /obj/item/borg/upgrade/modkit/tracer

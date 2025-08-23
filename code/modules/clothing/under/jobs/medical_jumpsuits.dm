@@ -15,7 +15,6 @@
 	icon_state = "cmo"
 	item_color = "cmo"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/cmo/skirt
 	name = "chief medical officer's skirt"
@@ -37,7 +36,6 @@
 	icon_state = "medical"
 	item_color = "medical"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/doctor/sensor
 	sensor_mode = SENSOR_COORDS
@@ -55,7 +53,6 @@
 	icon_state = "virology"
 	item_color = "virology"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/virologist/skirt
 	name = "virologist's jumpskirt"
@@ -69,7 +66,6 @@
 	icon_state = "nursesuit"
 	item_color = "nursesuit"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/nurse
 	name = "nurse's dress"
@@ -77,7 +73,6 @@
 	icon_state = "nurse"
 	item_color = "nurse"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/orderly
 	name = "orderly's uniform"
@@ -85,7 +80,6 @@
 	icon_state = "orderly"
 	item_color = "orderly"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/scrubs
 	name = "blue medical scrubs"
@@ -159,4 +153,3 @@
 	icon_state = "medicalgown"
 	item_color = "medicalgown"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)

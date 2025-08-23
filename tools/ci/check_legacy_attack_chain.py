@@ -230,6 +230,7 @@ if __name__ == "__main__":
                         ERROR_STRINGS.append(call.format_error())
 
     for legacy_proc_error in sorted(ERROR_STRINGS):
+        exit_code = 1
         print(legacy_proc_error)
 
     end = time.time()
