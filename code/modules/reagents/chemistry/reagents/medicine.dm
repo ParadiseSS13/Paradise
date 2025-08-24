@@ -174,7 +174,7 @@
 	heart_rate_decrease = 1
 	taste_description = "a safe refuge"
 	overdose_threshold = 20
-	goal_diffculty = REAGENT_GOAL_NORMAL
+	goal_difficulty = REAGENT_GOAL_NORMAL
 	data = list()
 
 /datum/reagent/medicine/cryoxadone/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE)
