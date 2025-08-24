@@ -49948,7 +49948,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/turf/simulated/floor/catwalk,
+/turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "jKj" = (
 /turf/simulated/wall/r_wall,
@@ -67048,16 +67048,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"pFC" = (
-/obj/structure/cable/extra_insulated{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/turf/simulated/floor/catwalk,
-/area/station/maintenance/fore2)
 "pFI" = (
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/wood,
@@ -88071,7 +88061,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
-/turf/simulated/floor/catwalk,
+/turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "xgE" = (
 /obj/machinery/door/firedoor,
@@ -113139,7 +113129,7 @@ wvG
 wvG
 oyg
 fLt
-pFC
+wmL
 vZp
 rlF
 jVj
