@@ -417,7 +417,7 @@
 	if(target == user)
 		mend_time = self_delay
 
-	target.visible_message("<span class='notice'>[user] begins [healverb] [target.e_themselves(user)] with [src].</span>", "<span class='notice'>You begin [healverb] [target.i_your(user)] [current_limb.name] with [src].</span>")
+	user.visible_message("<span class='notice'>[user] begins [healverb] [target.e_themselves(user)] with [src].</span>", "<span class='notice'>You begin [healverb] [target.i_your(user)] [current_limb.name] with [src].</span>")
 	current_limb = try_swap_to_most_damaged_limb(target, user, current_limb)
 	if(!current_limb)
 		return
@@ -440,7 +440,7 @@
 		if(is_zero_amount(TRUE))
 			break
 		if(!target.get_damage_amount(heal_type))
-			target.visible_message("<span class='warning'>[user] finishes [healverb] [target.e_themselves(user)] with [src].</span>", "<span class='notice'>You finish [healverb] [target.i_yourself(user)] with [src].</span>")
+			user.visible_message("<span class='warning'>[user] finishes [healverb] [target.e_themselves(user)] with [src].</span>", "<span class='notice'>You finish [healverb] [target.i_yourself(user)] with [src].</span>")
 			break
 
 		var/skip_swap = FALSE
@@ -455,7 +455,7 @@
 		if(!skip_swap)
 			current_limb = try_swap_to_most_damaged_limb(target, user, current_limb)
 			if(!current_limb)
-				target.visible_message("<span class='warning'>[user] finishes [healverb] [target.e_themselves(user)] with [src].</span>", "<span class='notice'>You finish [healverb] [target.i_yourself(user)] with [src].</span>")
+				user.visible_message("<span class='warning'>[user] finishes [healverb] [target.e_themselves(user)] with [src].</span>", "<span class='notice'>You finish [healverb] [target.i_yourself(user)] with [src].</span>")
 				break
 
 		if(!target.can_inject(user, TRUE, current_limb.limb_name))
