@@ -1,11 +1,10 @@
-import { Button, LabeledList, ProgressBar, Section, Stack, Table } from 'tgui-core/components';
+import { Button, Knob, LabeledList, ProgressBar, Section, Stack } from 'tgui-core/components';
 import { toFixed } from 'tgui-core/math';
 
 import { useBackend } from '../backend';
 import { getGasColor, getGasLabel } from '../constants';
 import { Window } from '../layouts';
 
-/*
 interface FissionReactorData {
   active: number;
   supermatters?: Array<{
@@ -17,19 +16,19 @@ interface FissionReactorData {
   NGCR_power: number;
   NGCR_ambienttemp: number;
   NGCR_ambientpressure: number;
-  NGCR_moles: number;
   NGCR_coefficient: number;
+  NGCR_operatingpower: number;
+  NGCR_throttle;
   gases?: Array<{
     name: string;
     amount: number;
     portion: number;
   }>;
 }
-*/
 
 export const ReactorMonitor = (props) => {
-  const { act, data } = useBackend();
   const logScale = (value: number): number => Math.log2(16 + Math.max(0, value)) - 4;
+  const { act, data } = useBackend<FissionReactorData>();
   const {
     NGCR_integrity,
     NGCR_power,
@@ -151,7 +150,7 @@ export const ReactorMonitor = (props) => {
                   })
                 }
               />
-          </Section>
+            </Section>
           </Stack.Item>
         </Stack>
       </Window.Content>
