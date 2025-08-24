@@ -549,18 +549,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	setDir(SOUTH) // reset dir so the right directional sprites show up
 	return ..()
 
-/mob/dead/observer/proc/jump_to_mob(mob/M)
-	if(!M || !isobserver(usr))
-		return
-	var/mob/A = src			 //Source mob
-	var/turf/T = get_turf(M) //Turf of the destination mob
-
-	if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
-		A.abstract_move(T)
-		M.update_parallax_contents()
-		return
-	to_chat(A, "This mob is not located in the game world.")
-
 /mob/dead/observer/memory()
 	set hidden = TRUE
 	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
