@@ -30,7 +30,6 @@
 	all_active_items[index] = CYBORG_EMPTY_MODULE
 	SEND_SIGNAL(O, COMSIG_CYBORG_ITEM_DEACTIVATED, src)
 	selected_item = null
-	remove_mousepointer(MP_ITEM_PRIORITY)
 	var/atom/movable/screen/robot/active_module/screen = inventory_screens[index]
 	screen.icon_state = screen.deactivated_icon_string
 
@@ -70,10 +69,6 @@
 	var/atom/movable/screen/robot/active_module/to_activate = inventory_screens[slot]
 	to_activate.activate()
 	selected_item = O
-	if(istype(selected_item))
-		selected_item.update_mp_icon(src)
-	else
-		remove_mousepointer(MP_ITEM_PRIORITY)
 	O.layer = ABOVE_HUD_LAYER
 	O.plane = ABOVE_HUD_PLANE
 	O.screen_loc = CYBORG_HUD_LOCATIONS[slot]
@@ -157,10 +152,6 @@
 			selected_item = all_active_items[module]
 		else
 			inventory.deactivate()
-	if(istype(selected_item))
-		selected_item.update_mp_icon(src)
-	else
-		remove_mousepointer(MP_ITEM_PRIORITY)
 	update_icons()
 
 //deselect_module(module) - Deselects the module slot specified by "module"
@@ -171,7 +162,6 @@
 	for(var/i in 1 to CYBORG_MAX_MODULES)
 		var/atom/movable/screen/robot/active_module/inventory = inventory_screens[i]
 		inventory.deactivate()
-	remove_mousepointer(MP_ITEM_PRIORITY)
 	update_icons()
 
 //toggle_module(module) - Toggles the selection of the module slot specified by "module".
