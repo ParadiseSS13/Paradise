@@ -13741,7 +13741,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "bdz" = (
-/mob/living/simple_animal/chicken/clucky,
+/mob/living/basic/chicken/clucky,
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "bdA" = (
@@ -46716,7 +46716,7 @@
 /area/station/science/research)
 "dxA" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/mob/living/simple_animal/chick{
+/mob/living/basic/chick{
 	name = "Sins"
 	},
 /turf/simulated/floor/grass,
@@ -86353,7 +86353,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/retaliate/goat/chef,
+/mob/living/basic/goat/chef,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
