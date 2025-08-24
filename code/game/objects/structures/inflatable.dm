@@ -165,6 +165,7 @@
 	if(ismob(user))
 		var/mob/M = user
 		if(!M.client)
+			operate()
 			return
 
 		if(!iscarbon(M))
