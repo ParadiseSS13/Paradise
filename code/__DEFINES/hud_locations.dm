@@ -60,7 +60,6 @@
 #define UI_ALIENLARVA_LANGUAGE_MENU "EAST-3:26,SOUTH:5"//alien
 
 //Lower right, persistant menu
-//#define ui_dropbutton "11:22,1:5"
 #define UI_DROP_THROW "EAST-1:28,SOUTH+1:7"
 #define UI_PULL_RESIST "EAST-2:26,SOUTH+1:7"
 #define UI_ACTI "EAST-2:26,SOUTH:5"
