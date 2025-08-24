@@ -124,6 +124,7 @@ jobs:
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
           DreamMaker -DMAP_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          mkdir -p data
           echo '/datum/map/${{ matrix.station }}' > data/next_map.txt
           tools/ci/run_server.sh
 
@@ -156,6 +157,7 @@ jobs:
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
           DreamMaker -DGAME_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          mkdir -p data
           echo '/datum/map/test_tiny' > data/next_map.txt
           tools/ci/run_server.sh
 
