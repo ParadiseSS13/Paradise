@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/carp_migration, 10, , TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/rogue_drone, 7),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spacevine, 15),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/meteor_wave, 9, _first_run_time = 25 MINUTES),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/meteor_wave, 9),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/solar_flare, 12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/dust/meaty, 9),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/communications_blackout, 10),
@@ -178,19 +178,19 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		//new /datum/event_meta/ninja(EVENT_LEVEL_MODERATE, "Space Ninja",		/datum/event/space_ninja, 				0,		list(ASSIGNMENT_SECURITY = 15), TRUE),
 		// NON-BAY EVENTS
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/mass_hallucination,		10),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/brand_intelligence, 5, TRUE, _first_run_time = 25 MINUTES),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/brand_intelligence, 5, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear, 15),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tear/honk,	10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/vent_clog,	12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/disposals_clog, 12),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/wormholes,	15),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_pyro, 7, _first_run_time = 20 MINUTES),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_cryo, 7, _first_run_time = 20 MINUTES),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_vortex, 7, _first_run_time = 20 MINUTES),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_bluespace,	7, _first_run_time = 20 MINUTES),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_flux, 7, _first_run_time = 20 MINUTES),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_grav, 7, _first_run_time = 20 MINUTES),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/disease_outbreak, 15, TRUE, _first_run_time = 25 MINUTES),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_pyro, 7),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_cryo, 7),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_vortex, 7),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_bluespace,	7),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_flux, 7),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/anomaly/anomaly_grav, 7),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/disease_outbreak, 15, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/door_runtime, 10, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/tourist_arrivals, 40, TRUE, _first_run_time = 35 MINUTES)
 	)
@@ -221,11 +221,12 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	severity = EVENT_LEVEL_DISASTER
 	available_events = list(
 		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/nothing, 5730),
-		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/blob, 90, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/alien_infestation, 90, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 90, TRUE)
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/blob, 100, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/alien_infestation, 100, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_DISASTER, /datum/event/spider_terror, 100, TRUE)
 		)
 	var/activation_counter = 0
+	var/event_rolls = 0
 
 /datum/event_container/disaster/get_playercount_modifier()
 	return 1
@@ -236,6 +237,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		for(var/datum/event_meta/meta in available_events)
 			if(istype(meta.skeleton, /datum/event/nothing))
 				return meta
+	event_rolls++
 	. = ..()
 
 /datum/event_container/disaster/start_event()

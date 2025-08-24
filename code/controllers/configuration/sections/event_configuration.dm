@@ -5,8 +5,8 @@
 	/// Assoc list of when the first event in a group can run. key: severity | value: assoc list with upper and low bounds (key: "upper"/"lower" | value: time in deciseconds)
 	var/list/first_run_times = list(
 		EVENT_LEVEL_MUNDANE = null,
-		EVENT_LEVEL_MODERATE = null,
-		EVENT_LEVEL_MAJOR = list("lower" = 24 MINUTES, "upper" = 32 MINUTES),
+		EVENT_LEVEL_MODERATE = list("lower" = 19 MINUTES, "upper" = 23 MINUTES),
+		EVENT_LEVEL_MAJOR = list("lower" = 29 MINUTES, "upper" = 36 MINUTES),
 		EVENT_LEVEL_DISASTER = list("lower" = 40 MINUTES, "upper" = 50 MINUTES)
 	) // <---- Whoever designed this needs to be shot
 
@@ -15,7 +15,7 @@
 		EVENT_LEVEL_MUNDANE = 5 MINUTES,
 		EVENT_LEVEL_MODERATE = 7.5 MINUTES,
 		EVENT_LEVEL_MAJOR = 12 MINUTES,
-		EVENT_LEVEL_DISASTER = 10 MINUTES
+		EVENT_LEVEL_DISASTER = 9 MINUTES
 	)
 	/// Assoc list of lower bounds of event delays. key: severity | value: delay (deciseconds)
 	var/list/delay_upper_bound = list(

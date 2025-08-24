@@ -3,8 +3,8 @@
 	announceWhen = 180
 	noAutoEnd = TRUE
 	nominal_severity = EVENT_LEVEL_DISASTER
-	role_weights = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 1, ASSIGNMENT_MEDICAL = 3)
-	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 45, ASSIGNMENT_MEDICAL = 4)
+	role_weights = list(ASSIGNMENT_SECURITY = 2, ASSIGNMENT_CREW = 0.7, ASSIGNMENT_MEDICAL = 2)
+	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 45, ASSIGNMENT_MEDICAL = 3)
 	/// So we don't make a command report if nothing gets spawned.
 	var/successSpawn = FALSE
 	/// List of all blob cores and blob mice related to this event
