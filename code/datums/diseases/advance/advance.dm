@@ -51,7 +51,7 @@ GLOBAL_LIST_INIT(plant_cures,list(
 	// NEW VARS
 
 	/// The base properties of the virus. retained between strains
-	var/list/base_properties = list("resistance" = 1, "stealth" = 0, "stage rate" = 1, "transmissibility" = 1)
+	var/list/base_properties = list("resistance" = 0, "stealth" = 0, "stage rate" = 1, "transmissibility" = 1)
 	/// Chance of the virus evolving on spread
 	var/evolution_chance = VIRUS_EVOLUTION_CHANCE
 	/// The symptoms of the disease.
