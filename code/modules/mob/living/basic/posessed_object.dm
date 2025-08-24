@@ -44,13 +44,13 @@
 	if(response != "Ghost")
 		return
 	lay_down()
-	var/mob/dead/observer/ghost = ghostize(TRUE)
+	var/mob/dead/observer/ghost = ghostize()
 	ghost.timeofdeath = world.time
 	death(0) // Turn back into a regular object.
 
 /mob/living/basic/possessed_object/death(gibbed)
 	if(can_die())
-		ghostize(TRUE)
+		ghostize()
 		// if gibbed, the item goes with the ghost
 		if(!gibbed && possessed_item.loc == src)
 			// Put the normal item back once the EVIL SPIRIT has been vanquished from it. If it's not already in place

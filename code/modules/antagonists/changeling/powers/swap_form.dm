@@ -54,7 +54,7 @@
 		ghosted = TRUE
 		target.grab_ghost() //GET OVER HERE!
 
-	var/mob/dead/observer/ghost = target.ghostize(FALSE)
+	var/mob/dead/observer/ghost = target.ghostize(GHOST_FLAGS_OBSERVE_ONLY)
 	user.mind.transfer_to(target)
 	if(ghost && ghost.mind)
 		ghost.mind.transfer_to(user)
