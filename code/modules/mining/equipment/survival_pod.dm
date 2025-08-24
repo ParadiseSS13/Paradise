@@ -213,6 +213,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/survival_pod,
 	icon = 'icons/obj/lavaland/pod_computer.dmi'
 	anchored = TRUE
 	density = TRUE
+	tracking = TRUE
 	pixel_y = -32
 	light_power = 1.4
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
