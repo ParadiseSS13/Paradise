@@ -312,7 +312,7 @@
 				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
 					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
 					qdel(BS)
-			if(prob(5))// 5 seems like a good number...
+			if(prob(5)) // 5 seems like a good number...
 				M.AdjustCultSlur(10 SECONDS)
 				M.Jitter(10 SECONDS)
 				M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
