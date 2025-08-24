@@ -235,7 +235,7 @@
 	if(prob(10))
 		to_chat(owner, "<span class='biggerdanger'>It feels like you are being torn apart atom by atom!</span>")
 		owner.emote("scream")
-		owner.SetKnockDown(2 SECONDS, TRUE) // even with antistuns, i want them to fall over. Mainly so it conveys how unplesant feels
+		owner.SetKnockDown(2 SECONDS, TRUE) // even with antistuns, I want them to fall over. Mainly so it conveys how unpleasant it feels
 		sleep(2 SECONDS)
 		var/turf/possible_area
 		possible_area = find_safe_turf()
