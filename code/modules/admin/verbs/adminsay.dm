@@ -20,7 +20,7 @@
 		data["message"] = html_decode(msg)
 		SSredis.publish("byond.asay", json_encode(data))
 
-	var/display_colour = get_ooc_color()
+	var/display_color = get_staffsay_color()
 	for(var/client/C in GLOB.admins)
 		var/temp_message = msg
 		if(R_ADMIN & C.holder.rights)
@@ -31,7 +31,7 @@
 				temp_message = replacetext(temp_message, "@[C.key]", "<font color='red'>@[C.key]</font>") // Same applies here. key and ckey.
 
 			temp_message = "<span class='emoji_enabled'>[temp_message]</span>"
-			to_chat(C, "<span class='admin_channel'>ADMIN: <font color='[display_colour]'>[key_name(usr, 1)]</font> ([admin_jump_link(mob)]): <span class='message'>[temp_message]</span></span>", MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
+			to_chat(C, "<span class='admin_channel'>ADMIN: <font color='[display_color]'>[key_name(usr, 1)]</font> ([admin_jump_link(mob)]): <span class='message'>[temp_message]</span></span>", MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Asay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -59,7 +59,7 @@
 		data["message"] = html_decode(msg)
 		SSredis.publish("byond.devsay", json_encode(data))
 
-	var/display_colour = get_ooc_color()
+	var/display_color = get_staffsay_color()
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN|R_MOD|R_DEV_TEAM, 0, C.mob))
 			var/display_name = key
@@ -69,7 +69,7 @@
 				else
 					display_name = holder.fakekey
 			msg = "<span class='emoji_enabled'>[msg]</span>"
-			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "dev_channel_admin" : "dev_channel"]'>DEV: <font color='[display_colour]'>[display_name]</font> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
+			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "dev_channel_admin" : "dev_channel"]'>DEV: <font color='[display_color]'>[display_name]</font> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Devsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -97,7 +97,7 @@
 		data["message"] = html_decode(msg)
 		SSredis.publish("byond.staffsay", json_encode(data))
 
-	var/display_colour = get_ooc_color()
+	var/display_color = get_staffsay_color()
 	for(var/client/C in GLOB.admins)
 		if(check_rights(0, 0, C.mob))
 			var/display_name = key
@@ -107,7 +107,7 @@
 				else
 					display_name = holder.fakekey
 			msg = "<span class='emoji_enabled'>[msg]</span>"
-			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "staff_channel_admin" : "staff_channel"]'>STAFF: <font color='[display_colour]'>[display_name]</font> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_STAFFCHAT, confidential = TRUE)
+			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "staff_channel_admin" : "staff_channel"]'>STAFF: <font color='[display_color]'>[display_name]</font> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_STAFFCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Staffsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -145,7 +145,7 @@
 		data["message"] = html_decode(msg)
 		SSredis.publish("byond.msay", json_encode(data))
 
-	var/display_colour = get_ooc_color()
+	var/display_color = get_staffsay_color()
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob))
 			var/display_name = key
@@ -155,7 +155,7 @@
 				else
 					display_name = holder.fakekey
 			msg = "<span class='emoji_enabled'>[msg]</span>"
-			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: <font color='[display_colour]'>[display_name]</font> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
+			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: <font color='[display_color]'>[display_name]</font> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Msay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -191,3 +191,8 @@
 
 	log_and_message_admins("toggled mentor chat [enabling ? "on" : "off"].")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Msay")
+
+/client/proc/get_staffsay_color()
+	if(!GLOB.configuration.admin.allow_admin_ooc_colour || !check_rights(R_ADMIN, FALSE))
+		return client2rankcolour(src)
+	return prefs.ooccolor

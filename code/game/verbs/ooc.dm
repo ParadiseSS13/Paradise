@@ -86,9 +86,9 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		if(prefs.unlock_content && (prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC))
 			return GLOB.member_ooc_colour
 		return GLOB.normal_ooc_colour
-	if(check_rights(R_MOD, 0) && !check_rights(R_ADMIN, 0))
-		return GLOB.moderator_ooc_colour
-	if(!check_rights(R_ADMIN, 0))
+	if(!check_rights(R_ADMIN, FALSE))
+		if(check_rights(R_MOD, FALSE))
+			return GLOB.moderator_ooc_colour
 		return GLOB.mentor_ooc_colour
 	if(!GLOB.configuration.admin.allow_admin_ooc_colour)
 		return GLOB.admin_ooc_colour
