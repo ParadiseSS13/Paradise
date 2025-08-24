@@ -267,7 +267,7 @@
 
 /obj/structure/closet/proc/toggle(mob/user)
 	if(!(opened ? close(user) : open()))
-		to_chat(user, "<span class='notice'>It won't budge!</span>")
+		to_chat(user, span_notice("It won't budge!"))
 
 /obj/structure/closet/proc/bust_open()
 	welded = FALSE //applies to all lockers
@@ -296,7 +296,7 @@
 			if(large)
 				MouseDrop_T(G.affecting, user)      //act like they were dragged onto the closet
 			else
-				to_chat(user, "<span class='notice'>[src] is too small to stuff [G.affecting] into!</span>")
+				to_chat(user, span_notice("[src] is too small to stuff [G.affecting] into!"))
 		if(istype(W, /obj/item/tk_grab))
 			return FALSE
 		if(user.a_intent != INTENT_HELP) // Stops you from putting your baton in the closet on accident
@@ -304,7 +304,7 @@
 		if(isrobot(user) && !istype(W.loc, /obj/item/gripper))
 			return
 		if(!user.drop_item()) //couldn't drop the item
-			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
+			to_chat(user, span_notice("\The [W] is stuck to your hand, you cannot put it in \the [src]!"))
 			return
 		if(W.loc != user.loc)
 			// It went somewhere else, don't teleport it back.
@@ -328,7 +328,7 @@
 /obj/structure/closet/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!opened && user.loc == src)
-		to_chat(user, "<span class='warning'>You can't weld [src] from inside!</span>")
+		to_chat(user, span_warning("You can't weld [src] from inside!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -340,12 +340,12 @@
 			return
 	else
 		var/adjective = welded ? "open" : "shut"
-		user.visible_message("<span class='notice'>[user] begins welding [src] [adjective]...</span>", "<span class='notice'>You begin welding [src] [adjective]...</span>", "<span class='warning'>You hear welding.</span>")
+		user.visible_message(span_notice("[user] begins welding [src] [adjective]..."), span_notice("You begin welding [src] [adjective]..."), span_warning("You hear welding."))
 		if(I.use_tool(src, user, 15, volume = I.tool_volume))
 			if(opened)
-				to_chat(user, "<span class='notice'>Keep [src] shut while doing that!</span>")
+				to_chat(user, span_notice("Keep [src] shut while doing that!"))
 				return
-			user.visible_message("<span class='notice'>[user] welds [src] [adjective]!</span>", "<span class='notice'>You weld [src] [adjective]!</span>")
+			user.visible_message(span_notice("[user] welds [src] [adjective]!"), span_notice("You weld [src] [adjective]!"))
 			welded = !welded
 			update_icon()
 			return
@@ -372,7 +372,7 @@
 		return
 	step_towards(O, loc)
 	if(user != O)
-		user.visible_message("<span class='danger'>[user] stuffs [O] into [src]!</span>", "<span class='danger'>You stuff [O] into [src]!</span>")
+		user.visible_message(span_danger("[user] stuffs [O] into [src]!"), span_danger("You stuff [O] into [src]!"))
 	add_fingerprint(user)
 	return TRUE
 
@@ -385,7 +385,7 @@
 		return
 
 	if(!open())
-		to_chat(user, "<span class='notice'>It won't budge!</span>")
+		to_chat(user, span_notice("It won't budge!"))
 		if(!lastbang)
 			lastbang = 1
 			for(var/mob/M in hearers(src, null))
@@ -450,9 +450,9 @@
 	//		breakout_time++ //Harder to get out of welded lockers than locked lockers
 
 	//okay, so the closet is either welded or locked... resist!!!
-	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time / 600] minutes)</span>")
+	to_chat(L, span_warning("You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time / 600] minutes)"))
 	for(var/mob/O in viewers(usr.loc))
-		O.show_message("<span class='danger'>[src] begins to shake violently!</span>", 1)
+		O.show_message(span_danger("[src] begins to shake violently!"), 1)
 
 
 	spawn(0)
@@ -467,9 +467,9 @@
 			//Well then break it!
 			welded = FALSE
 			update_icon()
-			to_chat(usr, "<span class='warning'>You successfully break out!</span>")
+			to_chat(usr, span_warning("You successfully break out!"))
 			for(var/mob/O in viewers(L.loc))
-				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
+				O.show_message(span_danger("\the [usr] successfully broke out of \the [src]!"), 1)
 			if(istype(loc, /obj/structure/big_delivery)) //nullspace ect.. read the comment above
 				var/obj/structure/big_delivery/BD = loc
 				BD.attack_hand(usr)
@@ -499,14 +499,14 @@
 /obj/structure/closet/shove_impact(mob/living/target, mob/living/attacker)
 	if(opened && can_close())
 		target.forceMove(src)
-		visible_message("<span class='danger'>[attacker] shoves [target] inside [src]!</span>", "<span class='warning'>You hear a thud, and something clangs shut.</span>")
+		visible_message(span_danger("[attacker] shoves [target] inside [src]!"), span_warning("You hear a thud, and something clangs shut."))
 		close(attacker)
 		add_attack_logs(attacker, target, "shoved into [src]")
 		return TRUE
 
 	if(!opened && can_open())
 		open()
-		visible_message("<span class='danger'>[attacker] shoves [target] against [src], knocking it open!</span>")
+		visible_message(span_danger("[attacker] shoves [target] against [src], knocking it open!"))
 		target.KnockDown(3 SECONDS)
 		return TRUE
 

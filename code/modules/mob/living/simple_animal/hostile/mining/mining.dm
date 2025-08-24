@@ -38,7 +38,7 @@
 		Aggro()
 	if(P.damage < 30 && P.damage_type != BRUTE && has_laser_resist)
 		P.damage = (P.damage / 3)
-		visible_message("<span class='danger'>[P] has a reduced effect on [src]!</span>")
+		visible_message(span_danger("[P] has a reduced effect on [src]!"))
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //No floor tiling them to death, wiseguy
@@ -47,7 +47,7 @@
 		if(stat == CONSCIOUS)
 			Aggro()
 		if(T.throwforce <= 20)
-			visible_message("<span class='notice'>[T] [throw_message] [src.name]!</span>")
+			visible_message(span_notice("[T] [throw_message] [src.name]!"))
 			return
 	..()
 

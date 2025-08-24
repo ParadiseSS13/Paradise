@@ -26,7 +26,7 @@
 		var/obj/item/stack/rods/R = I
 		if(R.get_amount() >= 4)
 			R.use(4)
-			to_chat(user, "<span class='notice'>You add spikes to the frame.</span>")
+			to_chat(user, span_notice("You add spikes to the frame."))
 			new /obj/structure/kitchenspike(loc)
 			add_fingerprint(user)
 			qdel(src)
@@ -36,7 +36,7 @@
 
 /obj/structure/kitchenspike_frame/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Add metal rods to complete construction, or use a wrench to deconstruct it.</span>"
+	. += span_notice("Add metal rods to complete construction, or use a wrench to deconstruct it.")
 
 /obj/structure/kitchenspike_frame/deconstruct(disassembled = TRUE)
 	if(disassembled)
@@ -59,7 +59,7 @@
 
 /obj/structure/kitchenspike/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>To deconstruct, pry out the spikes with a crowbar, then deconstruct the frame with a wrench.</span>"
+	. += span_notice("To deconstruct, pry out the spikes with a crowbar, then deconstruct the frame with a wrench.")
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/kitchenspike/attack_hand(mob/user)
@@ -79,11 +79,11 @@
 /obj/structure/kitchenspike/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(has_buckled_mobs())
-		to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
+		to_chat(user, span_notice("You can't do that while something's on the spike!"))
 		return
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
+	to_chat(user, span_notice("You pry the spikes out of the frame."))
 	deconstruct(TRUE)
 
 /obj/structure/kitchenspike/MouseDrop_T(mob/living/victim, mob/living/user)
@@ -97,11 +97,11 @@
 
 /obj/structure/kitchenspike/proc/start_spike(mob/living/victim, mob/user)
 	if(has_buckled_mobs())
-		to_chat(user, "<span class='danger'>The spike already has something on it, finish collecting its meat first!</span>")
+		to_chat(user, span_danger("The spike already has something on it, finish collecting its meat first!"))
 		return
 	victim.visible_message(
-		"<span class='danger'>[user] tries to slam [victim] onto the meat spike!</span>",
-		"<span class='userdanger'>[user] tries to slam you onto the meat spike!</span>"
+		span_danger("[user] tries to slam [victim] onto the meat spike!"),
+		span_userdanger("[user] tries to slam you onto the meat spike!")
 	)
 	if(do_mob(user, victim, 6 SECONDS))
 		end_spike(victim, user)
@@ -119,9 +119,9 @@
 	victim.forceMove(drop_location())
 	victim.emote("scream")
 	victim.visible_message(
-		"<span class='danger'>[user] slams [victim] onto the meat spike!</span>",
-		"<span class='userdanger'>[user] slams you onto the meat spike!</span>",
-		"<span class='italics'>You hear a squishy wet noise.</span>"
+		span_danger("[user] slams [victim] onto the meat spike!"),
+		span_userdanger("[user] slams you onto the meat spike!"),
+		span_italics("You hear a squishy wet noise.")
 	)
 	if(ishuman(victim))
 		var/mob/living/carbon/human/H = victim
@@ -140,23 +140,23 @@
 	if(buckled_mob)
 		var/mob/living/M = buckled_mob
 		if(M != user)
-			M.visible_message("<span class='notice'>[user] tries to pull [M] free of [src]!</span>",\
-				"<span class='notice'>[user] is trying to pull you off [src], opening up fresh wounds!</span>",\
-				"<span class='italics'>You hear a squishy wet noise.</span>")
+			M.visible_message(span_notice("[user] tries to pull [M] free of [src]!"),\
+				span_notice("[user] is trying to pull you off [src], opening up fresh wounds!"),\
+				span_italics("You hear a squishy wet noise."))
 			if(!do_after(user, 15 SECONDS, target = src))
 				if(M && M.buckled)
-					M.visible_message("<span class='notice'>[user] fails to free [M]!</span>",\
-					"<span class='notice'>[user] fails to pull you off of [src].</span>")
+					M.visible_message(span_notice("[user] fails to free [M]!"),\
+					span_notice("[user] fails to pull you off of [src]."))
 				return
 
 		else
-			M.visible_message("<span class='warning'>[M] struggles to break free from [src]!</span>",\
-			"<span class='notice'>You struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)</span>",\
-			"<span class='italics'>You hear a wet squishing noise..</span>")
+			M.visible_message(span_warning("[M] struggles to break free from [src]!"),\
+			span_notice("You struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)"),\
+			span_italics("You hear a wet squishing noise.."))
 			M.adjustBruteLoss(30)
 			if(!do_after(M, 2 MINUTES, target = src, hidden = TRUE))
 				if(M && M.buckled)
-					to_chat(M, "<span class='warning'>You fail to free yourself!</span>")
+					to_chat(M, span_warning("You fail to free yourself!"))
 				return
 		if(!M.buckled)
 			return
@@ -164,7 +164,7 @@
 
 /obj/structure/kitchenspike/proc/release_mob(mob/living/M)
 	M.adjustBruteLoss(30)
-	visible_message(text("<span class='danger'>[M] falls free of [src]!</span>"))
+	visible_message(span_danger("[M] falls free of [src]!"))
 	unbuckle_mob(M, force = TRUE)
 	M.emote("scream")
 	M.AdjustWeakened(20 SECONDS)

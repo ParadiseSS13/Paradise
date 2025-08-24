@@ -61,11 +61,11 @@
 	if(.)
 		return
 	if(locked && !allowed(usr))
-		to_chat(usr, "<span class='warning'>Insufficient access!</span>")
+		to_chat(usr, span_warning("Insufficient access!"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(malfunctioning && prob(75))
-		to_chat(usr, "<span class='warning'>ERROR!</span>")
+		to_chat(usr, span_warning("ERROR!"))
 		return
 	switch(action)
 		if("call")
@@ -75,7 +75,7 @@
 				mod_link.end_call()
 		if("lock")
 			locked = !locked
-			to_chat(usr, "<span class='notice'>ID [locked ? "locked" : "unlocked"].</span>")
+			to_chat(usr, span_notice("ID [locked ? "locked" : "unlocked"]."))
 		if("activate")
 			toggle_activate(usr)
 		if("select")

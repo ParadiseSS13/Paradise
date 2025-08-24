@@ -27,7 +27,7 @@
 
 /obj/item/melee/saber/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The blade looks very well-suited for piercing armour.</span>"
+	. += span_notice("The blade looks very well-suited for piercing armour.")
 
 /obj/item/melee/saber/examine_more(mob/user)
 	. = ..()
@@ -50,12 +50,12 @@
 		return
 	var/mob/living/carbon/human/H = target
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		user.visible_message("<span class='danger'>[user] accidentally slaps [user.p_themselves()] with [src]!</span>", \
-							"<span class='userdanger'>You accidentally slap yourself with [src]!</span>")
+		user.visible_message(span_danger("[user] accidentally slaps [user.p_themselves()] with [src]!"), \
+							span_userdanger("You accidentally slap yourself with [src]!"))
 		slap(user, user)
 	else
-		user.visible_message("<span class='danger'>[user] slaps [H] with the flat of the blade!</span>", \
-							"<span class='userdanger'>You slap [H] with the flat of the blade!</span>")
+		user.visible_message(span_danger("[user] slaps [H] with the flat of the blade!"), \
+							span_userdanger("You slap [H] with the flat of the blade!"))
 		slap(target, user)
 
 /obj/item/melee/saber/proc/slap(mob/living/carbon/human/target, mob/living/user)
@@ -67,8 +67,8 @@
 	COOLDOWN_START(src, slap_cooldown, 4 SECONDS)
 
 /obj/item/melee/saber/suicide_act(mob/user)
-	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \
-						"<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
+	user.visible_message(pick(span_suicide("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"), \
+						span_suicide("[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!")))
 	return BRUTELOSS
 
 // MARK: SNAKESFANG
@@ -150,7 +150,7 @@
 	icon_state = "[base_icon_state]0"
 
 /obj/item/melee/breach_cleaver/proc/wield(obj/item/source, mob/living/carbon/human/user)
-	to_chat(user, "<span class='notice'>You heave [src] up in both hands.</span>")
+	to_chat(user, span_notice("You heave [src] up in both hands."))
 	user.apply_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
 	update_icon(UPDATE_ICON_STATE)
 
@@ -170,7 +170,7 @@
 	var/mob/living/carbon/human/H = user
 	H.changeNext_move(CLICK_CD_MELEE)
 	H.do_attack_animation(O)
-	H.visible_message("<span class='danger'>[H] has hit [O] with [src]!</span>", "<span class='danger'>You hit [O] with [src]!</span>")
+	H.visible_message(span_danger("[H] has hit [O] with [src]!"), span_danger("You hit [O] with [src]!"))
 	var/damage = force_wield
 	damage += H.physiology.melee_bonus
 	O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, H), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
@@ -184,9 +184,9 @@
 
 	switch(user.a_intent)
 		if(INTENT_HELP) // Stamina damage
-			H.visible_message("<span class='danger'>[user] slams [H] with the flat of the blade!</span>", \
-							"<span class='userdanger'>[user] slams you with the flat of the blade!</span>", \
-							"<span class='italics'>You hear a thud.</span>")
+			H.visible_message(span_danger("[user] slams [H] with the flat of the blade!"), \
+							span_userdanger("[user] slams you with the flat of the blade!"), \
+							span_italics("You hear a thud."))
 			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
 			playsound(loc, 'sound/weapons/swordhit.ogg', 50, TRUE, -1)
 			H.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
@@ -197,9 +197,9 @@
 			if(H.stat != CONSCIOUS || IS_HORIZONTAL(H))
 				return ..()
 
-			H.visible_message("<span class='danger'>[user] smashes [H] with the blade's tip!</span>", \
-							"<span class='userdanger'>[user] smashes you with the blade's tip!</span>", \
-							"<span class='italics'>You hear crushing.</span>")
+			H.visible_message(span_danger("[user] smashes [H] with the blade's tip!"), \
+							span_userdanger("[user] smashes you with the blade's tip!"), \
+							span_italics("You hear crushing."))
 
 			user.do_attack_animation(H, ATTACK_EFFECT_KICK)
 			playsound(get_turf(user), 'sound/weapons/sonic_jackhammer.ogg', 50, TRUE, -1)
@@ -209,9 +209,9 @@
 			add_attack_logs(user, H, "Smashed away by a breach cleaver. (Disarm intent, Knockback)", ATKLOG_ALL)
 
 		if(INTENT_GRAB) // Knocks down
-			H.visible_message("<span class='danger'>[user] cleaves [H] with an overhead strike!</span>", \
-							"<span class='userdanger'>[user] cleaves you with an overhead strike!</span>", \
-							"<span class='italics'>You hear a chopping noise.</span>")
+			H.visible_message(span_danger("[user] cleaves [H] with an overhead strike!"), \
+							span_userdanger("[user] cleaves you with an overhead strike!"), \
+							span_italics("You hear a chopping noise."))
 
 			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
 			playsound(get_turf(user), 'sound/weapons/armblade.ogg', 50, TRUE, -1)
@@ -309,13 +309,13 @@
 // MARK: SLAYER CHAINSAW
 /obj/item/chainsaw/doomslayer
 	name = "OOOH BABY"
-	desc = "<span class='warning'>VRRRRRRR!!!</span>"
+	desc = span_warning("VRRRRRRR!!!")
 	armour_penetration_percentage = 100
 	force_on = 30
 
 /obj/item/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
-		owner.visible_message("<span class='danger'>Ranged attacks just make [owner] angrier!</span>")
+		owner.visible_message(span_danger("Ranged attacks just make [owner] angrier!"))
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
 		return TRUE
 	return FALSE

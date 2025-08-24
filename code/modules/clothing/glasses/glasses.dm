@@ -14,11 +14,11 @@
 	// Adding prescription glasses
 	if(istype(I, /obj/item/clothing/glasses/regular))
 		if(prescription)
-			to_chat(H, "<span class='warning'>You can't possibly imagine how adding more lenses would improve [src].</span>")
+			to_chat(H, span_warning("You can't possibly imagine how adding more lenses would improve [src]."))
 			return
 		H.drop_item_to_ground(I)
 		upgrade_prescription(I)
-		to_chat(H, "<span class='notice'>You fit [src] with lenses from [I].</span>")
+		to_chat(H, span_notice("You fit [src] with lenses from [I]."))
 
 	// Removing prescription glasses
 	H.update_nearsighted_effects()
@@ -41,7 +41,7 @@
 	name = initial(name)
 
 	if(user)
-		to_chat(user, "<span class='notice'>You salvage the prescription lenses from [src].</span>")
+		to_chat(user, span_notice("You salvage the prescription lenses from [src]."))
 		user.put_in_hands(prescription_glasses)
 		user.update_nearsighted_effects()
 	else
@@ -49,7 +49,7 @@
 
 /obj/item/clothing/glasses/screwdriver_act(mob/living/user)
 	if(!prescription)
-		to_chat(user, "<span class='notice'>There are no prescription lenses in [src].</span>")
+		to_chat(user, span_notice("There are no prescription lenses in [src]."))
 		return
 	remove_prescription(user)
 	return TRUE
@@ -80,7 +80,7 @@
 		var/obj/item/organ/internal/eyes/eyes = H.get_organ_slot("eyes")
 		if(!H.AmountBlinded() && eyes)
 			if(H.glasses == src)
-				to_chat(H, "<span class='danger'>[src] overloads and blinds you!</span>")
+				to_chat(H, span_danger("[src] overloads and blinds you!"))
 				H.flash_eyes(visual = TRUE)
 				H.EyeBlind(6 SECONDS)
 				H.EyeBlurry(10 SECONDS)
@@ -430,7 +430,7 @@
 
 	punused = TRUE
 	playsound(loc, 'sound/misc/yeah.ogg', 100, FALSE)
-	user.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
+	user.visible_message(span_biggerdanger("YEEEAAAAAHHHHHHHHHHHHH!!"))
 	if(HAS_TRAIT(user, TRAIT_BADASS)) //unless you're badass
 		addtimer(VARSET_CALLBACK(src, punused, FALSE), 5 MINUTES)
 

@@ -33,8 +33,8 @@
 			. += "<b>[get_remaining_mod_capacity()]%</b> mod capacity remaining."
 			for(var/A in get_modkits())
 				var/obj/item/borg/upgrade/modkit/M = A
-				. |= "<span class='notice'>You can use a crowbar on it to remove it's installed mod kits.</span>"
-				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
+				. |= span_notice("You can use a crowbar on it to remove it's installed mod kits.")
+				. += span_notice("There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.")
 
 /obj/item/gun/energy/kinetic_accelerator/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(istype(I, /obj/item/borg/upgrade/modkit) && max_mod_capacity)
@@ -48,11 +48,11 @@
 	if(!max_mod_capacity)
 		return
 	if(!length(modkits))
-		to_chat(user, "<span class='notice'>There are no modifications currently installed.</span>")
+		to_chat(user, span_notice("There are no modifications currently installed."))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You pry the modifications out.</span>")
+	to_chat(user, span_notice("You pry the modifications out."))
 	for(var/obj/item/borg/upgrade/modkit/M in modkits)
 		M.uninstall(src)
 
@@ -155,7 +155,7 @@
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 	else if(isliving(loc))
-		to_chat(loc, "<span class='warning'>[src] silently charges up.</span>")
+		to_chat(loc, span_warning("[src] silently charges up."))
 	update_icon()
 	overheat = FALSE
 
@@ -259,7 +259,7 @@
 			M.projectile_strike(src, target_turf, target, kinetic_gun)
 	if(ismineralturf(target_turf))
 		if(is_ancient_rock(target_turf))
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			visible_message(span_notice("This rock appears to be resistant to all mining tools except pickaxes!"))
 		else
 			var/turf/simulated/mineral/M = target_turf
 			M.gets_drilled(firer)
@@ -300,7 +300,7 @@
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "<span class='notice'>Occupies <b>[cost]%</b> of mod capacity.</span>"
+		. += span_notice("Occupies <b>[cost]%</b> of mod capacity.")
 
 /obj/item/borg/upgrade/modkit/attackby__legacy__attackchain(obj/item/A, mob/user)
 	if(istype(A, /obj/item/gun/energy/kinetic_accelerator) && !issilicon(user))
@@ -326,10 +326,10 @@
 		return FALSE
 	if(minebot_upgrade)
 		if(minebot_exclusive && !istype(KA.loc, /mob/living/basic/mining_drone))
-			to_chat(user, "<span class='notice'>The modkit you're trying to install is only rated for minebot use.</span>")
+			to_chat(user, span_notice("The modkit you're trying to install is only rated for minebot use."))
 			return FALSE
 	else if(istype(KA.loc, /mob/living/basic/mining_drone))
-		to_chat(user, "<span class='notice'>The modkit you're trying to install is not rated for minebot use.</span>")
+		to_chat(user, span_notice("The modkit you're trying to install is not rated for minebot use."))
 		return FALSE
 	if(denied_type)
 		var/number_of_denied = 0
@@ -342,15 +342,15 @@
 				break
 	if(KA.get_remaining_mod_capacity() >= cost)
 		if(.)
-			to_chat(user, "<span class='notice'>You install the modkit.</span>")
+			to_chat(user, span_notice("You install the modkit."))
 			playsound(loc, usesound, 100, 1)
 			user.unequip(src)
 			forceMove(KA)
 			KA.modkits += src
 		else
-			to_chat(user, "<span class='notice'>The modkit you're trying to install would conflict with an already installed modkit. Use a crowbar to remove existing modkits.</span>")
+			to_chat(user, span_notice("The modkit you're trying to install would conflict with an already installed modkit. Use a crowbar to remove existing modkits."))
 	else
-		to_chat(user, "<span class='notice'>You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar to remove existing modkits.</span>")
+		to_chat(user, span_notice("You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar to remove existing modkits."))
 		. = FALSE
 
 /obj/item/borg/upgrade/modkit/proc/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
@@ -462,7 +462,7 @@
 		for(var/mob/living/L in range(1, target_turf) - K.firer - target)
 			var/armor = L.run_armor_check(K.def_zone, K.flag, null, null, K.armour_penetration_flat, K.armour_penetration_percentage)
 			L.apply_damage(K.damage * modifier, K.damage_type, K.def_zone, armor)
-			to_chat(L, "<span class='userdanger'>You're struck by a [K.name]!</span>")
+			to_chat(L, span_userdanger("You're struck by a [K.name]!"))
 
 /obj/item/borg/upgrade/modkit/aoe/turfs
 	name = "mining explosion"

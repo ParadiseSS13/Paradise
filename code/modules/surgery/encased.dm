@@ -40,8 +40,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		"<span class='notice'>[user] has cut [target]'s [affected.encased] open with \the [tool].</span>",
-		"<span class='notice'>You have cut [target]'s [affected.encased] open with \the [tool].</span>",
+		span_notice("[user] has cut [target]'s [affected.encased] open with \the [tool]."),
+		span_notice("You have cut [target]'s [affected.encased] open with \the [tool]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
@@ -52,8 +52,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		"<span class='warning'>[user]'s hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>" ,
-		"<span class='warning'>Your hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>",
+		span_warning("[user]'s hand slips, cracking [target]'s [affected.encased] with \the [tool]!") ,
+		span_warning("Your hand slips, cracking [target]'s [affected.encased] with \the [tool]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -91,8 +91,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		"<span class='notice'>[user] forces open [target]'s [affected.encased] with \the [tool].</span>",
-		"<span class='notice'>You force open [target]'s [affected.encased] with \the [tool].</span>",
+		span_notice("[user] forces open [target]'s [affected.encased] with \the [tool]."),
+		span_notice("You force open [target]'s [affected.encased] with \the [tool]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -104,8 +104,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		"<span class='warning'>[user]'s hand slips, cracking [target]'s [affected.encased]!</span>",
-		"<span class='warning'>Your hand slips, cracking [target]'s  [affected.encased]!</span>",
+		span_warning("[user]'s hand slips, cracking [target]'s [affected.encased]!"),
+		span_warning("Your hand slips, cracking [target]'s  [affected.encased]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -141,8 +141,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		"<span class='notice'>[user] bends [target]'s [affected.encased] back into place with \the [tool].</span>",
-		"<span class='notice'>You bend [target]'s [affected.encased] back into place with \the [tool].</span>",
+		span_notice("[user] bends [target]'s [affected.encased] back into place with \the [tool]."),
+		span_notice("You bend [target]'s [affected.encased] back into place with \the [tool]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -152,8 +152,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		"<span class='warning'>[user]'s hand slips, bending [target]'s [affected.encased] the wrong way!</span>",
-		"<span class='warning'>Your hand slips, bending [target]'s [affected.encased] the wrong way!</span>",
+		span_warning("[user]'s hand slips, bending [target]'s [affected.encased] the wrong way!"),
+		span_warning("Your hand slips, bending [target]'s [affected.encased] the wrong way!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
@@ -192,8 +192,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		"<span class='notice'>[user] applied [tool] to [target]'s [affected.encased].</span>",
-		"<span class='notice'>You applied \the [tool] to [target]'s [affected.encased].</span>",
+		span_notice("[user] applied [tool] to [target]'s [affected.encased]."),
+		span_notice("You applied \the [tool] to [target]'s [affected.encased]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 

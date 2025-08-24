@@ -267,9 +267,9 @@
 /obj/effect/decal/cleanable/fungus/examine(mob/user)
 	. = ..()
 	if(no_scoop)
-		. += "<span class='notice'>There's not a lot here, you probably wouldn't be able to harvest anything useful.</span>"
+		. += span_notice("There's not a lot here, you probably wouldn't be able to harvest anything useful.")
 	else
-		. += "<span class='notice'>There's enough here to scrape into a beaker.</span>"
+		. += span_notice("There's enough here to scrape into a beaker.")
 
 /obj/effect/decal/cleanable/fungus/on_scoop()
 	alpha = 128

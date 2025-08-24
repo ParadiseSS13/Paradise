@@ -157,7 +157,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	var/damage_cap = wall.damage_cap
 	if(wall.rotting)
 		damage_cap /= 10
-	var/damage_needed = (damage_cap - wall.damage) * OBJ_INTEGRITY_TO_WALL_DAMAGE 
+	var/damage_needed = (damage_cap - wall.damage) * OBJ_INTEGRITY_TO_WALL_DAMAGE
 	if(damage_needed <= 0)
 		wall.dismantle_wall()
 	else if(damage_needed < obj_integrity)
@@ -180,7 +180,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 			. = TRUE // Hit a mob.
 
 			var/mob/living/living_thing = thing
-			living_thing.visible_message("<span class='warning'>[src] slams into [living_thing].</span>", "<span class='userdanger'>[src] slams into you!</span>")
+			living_thing.visible_message(span_warning("[src] slams into [living_thing]."), span_userdanger("[src] slams into you!"))
 			thing.ex_act(explosion_strength)
 
 		if(!isobj(thing))

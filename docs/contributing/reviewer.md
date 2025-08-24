@@ -199,10 +199,10 @@ their span, so we will do that as well.
 /obj/item/omega/attack_self(mob/user)
 	if(user)
 		if(is_user_cool(user) && istype(user, /mob/living/carbon/human))
-			to_chat(user, "<span class='notice'>[user] is very [pick(announce_verbs)]</span>")
+			to_chat(user, span_notice("[user] is very [pick(announce_verbs)]"))
 			is_cool = TRUE
 			return
-		to_chat(user, "<span class='notice'>[user] is not very [pick(announce_verbs)]</span>")
+		to_chat(user, span_notice("[user] is not very [pick(announce_verbs)]"))
 		is_cool = FALSE
 		return
 ```
@@ -263,10 +263,10 @@ Lets put all of our suggested changes together!
 /obj/item/omega/attack_self(mob/user)
 	if(user)
 		if(is_user_cool(user))
-			to_chat(user, "<span class='notice'>[user] is very [pick(announce_verbs)]</span>")
+			to_chat(user, span_notice("[user] is very [pick(announce_verbs)]"))
 			is_cool = TRUE
 			return
-		to_chat(user, "<span class='notice'>[user] is not very [pick(announce_verbs)]</span>")
+		to_chat(user, span_notice("[user] is not very [pick(announce_verbs)]"))
 		is_cool = FALSE
 		return
 

@@ -80,9 +80,9 @@ how messages are typically handled.
 
 // Also Good
 user.visible_message(
-    "<span class='notice'>[user] writes Hello World!</span>",
-    "<span class='notice'>You write Hello World!.</span>",
-    "<span class='notice'>You hear someone writing Hello World!.</span>"
+    span_notice("[user] writes Hello World!"),
+    span_notice("You write Hello World!."),
+    span_notice("You hear someone writing Hello World!.")
 )
 ```
 
@@ -101,7 +101,7 @@ These can be set using in-line span tags.
 
 ```dm
 proc/my_example_proc
-    to_chat(user, "<span class='notice'>Message with the notice style.</span>")
+    to_chat(user, span_notice("Message with the notice style."))
 ```
 
 You are not limited to the styles listed above. It is important, however, to
@@ -205,8 +205,8 @@ unnecessarily down the line.
 var/list/numbers = list(
     1, 2, 3)
 
-user.visible_message("<span class='notice'>[user] writes the style guide.</span>",
-"<span class='notice'>You wonder if you're following the guide correctly.</span>")
+user.visible_message(span_notice("[user] writes the style guide."),
+span_notice("You wonder if you're following the guide correctly."))
 
 // Good
 var/list/numbers = list(
@@ -216,9 +216,9 @@ var/list/numbers = list(
 )
 
 user.visible_message(
-    "<span class='notice'>[user] writes the style guide.</span>",
-    "<span class='notice'>You write the style guide.</span>",
-    "<span class='notice'>You hear typing.</span>"
+    span_notice("[user] writes the style guide."),
+    span_notice("You write the style guide."),
+    span_notice("You hear typing.")
 )
 
 // Also good

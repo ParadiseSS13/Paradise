@@ -120,7 +120,7 @@
 		new_player_panel_proc()
 	if(href_list["consent_rejected"])
 		client.tos_consent = FALSE
-		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+		to_chat(usr, span_warning("You must consent to the terms of service before you can join!"))
 		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO privacy (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
 			"ckey" = ckey
 		))
@@ -134,13 +134,13 @@
 
 	if(href_list["ready"])
 		if(!client.tos_consent)
-			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			to_chat(usr, span_warning("You must consent to the terms of service before you can join!"))
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
 		if(!ready && !client.prefs.active_character.check_any_job() && (client.prefs.active_character.alternate_option == RETURN_TO_LOBBY))
-			to_chat(usr, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
+			to_chat(usr, span_danger("You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences."))
 			ready = FALSE
 			return FALSE
 
@@ -157,13 +157,13 @@
 
 	if(href_list["observe"])
 		if(!client.tos_consent)
-			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			to_chat(usr, span_warning("You must consent to the terms of service before you can join!"))
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
 		if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
-			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
+			to_chat(usr, span_warning("You must wait for the server to finish starting before you can join!"))
 			return FALSE
 
 		if(alert(usr, "Are you sure you wish to observe? You cannot normally join the round after doing this!", "Observe", "Yes", "No") == "Yes")
@@ -178,7 +178,7 @@
 				var/period_human_readable = "within [GLOB.configuration.general.roundstart_observer_period] minute\s"
 				if(GLOB.configuration.general.roundstart_observer_period == 0)
 					period_human_readable = "before the round started"
-				to_chat(src, "<span class='notice'>As you observed [period_human_readable], you can freely toggle antag-hud without losing respawnability, and can freely observe what other players see.</span>")
+				to_chat(src, span_notice("As you observed [period_human_readable], you can freely toggle antag-hud without losing respawnability, and can freely observe what other players see."))
 				if(!check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE, src))
 					// admins always get aobserve
 					add_verb(observer, list(/mob/dead/observer/proc/do_observe, /mob/dead/observer/proc/observe))
@@ -190,7 +190,7 @@
 			else
 				spawn_point = locate("landmark*Observer-Start")
 
-			to_chat(src, "<span class='notice'>Now teleporting.</span>")
+			to_chat(src, span_notice("Now teleporting."))
 			observer.forceMove(get_turf(spawn_point))
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.active_character.update_preview_icon(1)
@@ -216,13 +216,13 @@
 
 	if(href_list["late_join"])
 		if(!client.tos_consent)
-			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			to_chat(usr, span_warning("You must consent to the terms of service before you can join!"))
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
-			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
+			to_chat(usr, span_warning("The round is either not ready, or has already finished..."))
 			return
 		if(!can_use_species(src, client.prefs.active_character.species))
 			to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
@@ -236,7 +236,7 @@
 	if(href_list["SelectedJob"])
 
 		if(!GLOB.enter_allowed)
-			to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
+			to_chat(usr, span_notice("There is an administrative lock on entering the game!"))
 			return
 
 		if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
@@ -310,10 +310,10 @@
 	if(src != usr)
 		return 0
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
-		to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
+		to_chat(usr, span_warning("The round is either not ready, or has already finished..."))
 		return 0
 	if(!GLOB.enter_allowed)
-		to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
+		to_chat(usr, span_notice("There is an administrative lock on entering the game!"))
 		return 0
 	if(!IsJobAvailable(rank))
 		to_chat(src, alert("[rank] is not available. Please try another."))

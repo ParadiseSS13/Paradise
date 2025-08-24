@@ -18,7 +18,7 @@
 	if(attached_to)
 		if(!QDELETED(parent) && isitem(parent))
 			var/obj/item/I = parent
-			I.visible_message("<span class='notice'>[parent] falls off of [attached_to].</span>")
+			I.visible_message(span_notice("[parent] falls off of [attached_to]."))
 		pick_up(parent)
 
 	move_to_the_thing(parent, get_turf(parent))
@@ -55,7 +55,7 @@
 	attached_to = target
 	move_to_the_thing(parent)
 	if(user)
-		to_chat(user, "<span class='notice'>You attach [parent] to [attached_to].</span>")
+		to_chat(user, span_notice("You attach [parent] to [attached_to]."))
 
 	overlay = icon(I.icon, I.icon_state)
 	//Clamp it so that the icon never moves more than 16 pixels in either direction
@@ -103,7 +103,7 @@
 	move_to_the_thing(parent)
 	if(user)
 		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), I)
-		to_chat(user, "<span class='notice'>You take [parent] off of [attached_to].</span>")
+		to_chat(user, span_notice("You take [parent] off of [attached_to]."))
 
 
 	I.invisibility = initial(I.invisibility)
@@ -116,7 +116,7 @@
 	SIGNAL_HANDLER
 	if(!in_range(user, attached_to))
 		return
-	examine_list += "<span class='notice'>There is [parent] attached to [source], grab [attached_to.p_them()] to remove it.</span>"
+	examine_list += span_notice("There is [parent] attached to [source], grab [attached_to.p_them()] to remove it.")
 
 /datum/component/sticky/proc/on_move(datum/source, oldloc, move_dir)
 	SIGNAL_HANDLER

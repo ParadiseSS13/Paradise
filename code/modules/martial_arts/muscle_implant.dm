@@ -10,7 +10,7 @@
 	MARTIAL_ARTS_ACT_CHECK
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to hurt [target]!</span>")
+		to_chat(user, span_warning("You don't want to hurt [target]!"))
 		return FALSE
 	var/picked_hit_type = pick("punch", "smash")
 	if(ishuman(target) && target.check_shields(user, punch_damage, "[user]'s' [picked_hit_type]"))
@@ -37,21 +37,21 @@
 
 	var/picked_hit_type = pick("punch", "smash", "kick")
 	punchee.visible_message(
-		"<span class='danger'>[puncher] [picked_hit_type]ed [punchee]!</span>",
-		"<span class='danger'>You're [picked_hit_type]ed by [puncher]!</span>",
-		"<span class='danger'>You hear a sickening sound of flesh hitting flesh!</span>"
+		span_danger("[puncher] [picked_hit_type]ed [punchee]!"),
+		span_danger("You're [picked_hit_type]ed by [puncher]!"),
+		span_danger("You hear a sickening sound of flesh hitting flesh!")
 	)
 
 	if(puncher == punchee)
-		to_chat(puncher, "<span class='danger'>You [picked_hit_type] yourself!</span>")
+		to_chat(puncher, span_danger("You [picked_hit_type] yourself!"))
 	else
-		to_chat(puncher, "<span class='danger'>You [picked_hit_type] [punchee]!</span>")
+		to_chat(puncher, span_danger("You [picked_hit_type] [punchee]!"))
 
 /datum/martial_art/muscle_implant/proc/emp_act(severity, mob/owner)
 	is_emped = TRUE
-	to_chat(owner, "<span class='danger'>Your arms spasm wildly!</span>")
+	to_chat(owner, span_danger("Your arms spasm wildly!"))
 	addtimer(CALLBACK(src, PROC_REF(reboot), owner), (18 / severity) SECONDS)
 
 /datum/martial_art/muscle_implant/proc/reboot(mob/owner)
 	is_emped = FALSE
-	to_chat(owner, "<span class='danger'>Your arms stop spasming.</span>")
+	to_chat(owner, span_danger("Your arms stop spasming."))

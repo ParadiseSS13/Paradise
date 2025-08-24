@@ -9,13 +9,13 @@
 		return MARTIAL_COMBO_FAIL
 
 	if(!IS_HORIZONTAL(user))
-		target.visible_message("<span class='warning'>[user] raises [target] over [user.p_their()] shoulder, and slams [target.p_them()] into the ground!</span>", \
-							"<span class='userdanger'>[user] throws you over [user.p_their()] shoulder, slamming you into the ground!</span>")
+		target.visible_message(span_warning("[user] raises [target] over [user.p_their()] shoulder, and slams [target.p_them()] into the ground!"), \
+							span_userdanger("[user] throws you over [user.p_their()] shoulder, slamming you into the ground!"))
 		playsound(get_turf(user), 'sound/magic/tail_swing.ogg', 40, TRUE, -1)
 		target.SpinAnimation(10, 1)
 	else
-		target.visible_message("<span class='warning'>[user] manages to get a hold onto [target], and pinning [target.p_them()] to the ground!</span>", \
-							"<span class='userdanger'>[user] throws you over [user.p_their()] shoulder, slamming you into the ground!</span>")
+		target.visible_message(span_warning("[user] manages to get a hold onto [target], and pinning [target.p_them()] to the ground!"), \
+							span_userdanger("[user] throws you over [user.p_their()] shoulder, slamming you into the ground!"))
 		playsound(get_turf(user), 'sound/weapons/slam.ogg', 40, TRUE, -1)
 	target.apply_damage(120, STAMINA)
 	target.KnockDown(15 SECONDS)

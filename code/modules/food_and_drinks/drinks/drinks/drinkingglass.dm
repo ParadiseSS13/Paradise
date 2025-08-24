@@ -19,9 +19,9 @@
 		var/obj/item/food/egg/egg = used
 		if(reagents)
 			if(reagents.total_volume >= reagents.maximum_volume)
-				to_chat(user, "<span class='notice'>[src] is full.</span>")
+				to_chat(user, span_notice("[src] is full."))
 			else
-				to_chat(user, "<span class='notice'>You break [egg] in [src].</span>")
+				to_chat(user, span_notice("You break [egg] in [src]."))
 				egg.reagents.trans_to(src, egg.reagents.total_volume)
 				qdel(egg)
 		return ITEM_INTERACT_COMPLETE

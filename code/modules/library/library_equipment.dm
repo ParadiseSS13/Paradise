@@ -44,7 +44,7 @@
 		for(var/obj/item/T in B.contents)
 			if(is_type_in_list(T, allowed_books))
 				B.remove_from_storage(T, src)
-		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
+		to_chat(user, span_notice("You empty [O] into [src]."))
 		update_icon(UPDATE_OVERLAYS)
 		return TRUE
 	if(is_pen(O))
@@ -285,7 +285,7 @@
 		if("print_book")
 			if(!printing)
 				printing = TRUE
-				visible_message("<span class='notice'>[src] begins to hum as it warms up its printing drums.</span>")
+				visible_message(span_notice("[src] begins to hum as it warms up its printing drums."))
 				addtimer(CALLBACK(src, PROC_REF(print_book)), 5 SECONDS)
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
@@ -335,7 +335,7 @@
 			return FALSE
 
 /obj/machinery/bookbinder/proc/print_book()
-	visible_message("<span class='notice'>[src] whirs as it prints and binds a new book.</span>")
+	visible_message(span_notice("[src] whirs as it prints and binds a new book."))
 	new /obj/item/book(loc, selected_content, FALSE, FALSE)
 	printing = FALSE
 
@@ -374,7 +374,7 @@
 		else
 			modedesc = "ERROR"
 	playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
-	to_chat(user, "<span class='notice'>[src] mode: [modedesc]</span>")
+	to_chat(user, span_notice("[src] mode: [modedesc]"))
 
 /obj/item/barcodescanner/proc/connect(obj/machinery/computer/library/library_computer)
 	if(!istype(library_computer))
@@ -401,18 +401,18 @@
 		computer.user_data.patron_name = null
 		computer.user_data.patron_account = null //account number should reset every scan so we don't accidently have an account number but no name
 		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-		to_chat(user, "<span class='warning'>[src]'s screen flashes: 'ERROR! No name associated with this ID Card'</span>")
+		to_chat(user, span_warning("[src]'s screen flashes: 'ERROR! No name associated with this ID Card'"))
 		return //no point in continuing if the ID card has no associated name!
 
 	computer.user_data.patron_name = ID.registered_name
 	playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
 	if(!ID.associated_account_number)
 		computer.user_data.patron_account = null
-		to_chat(user, "<span class='warning'>[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'</span>")
+		to_chat(user, span_warning("[src]'s screen flashes: 'WARNING! Patron without associated account number Selected'"))
 		return
 
 	computer.user_data.patron_account = ID.associated_account_number
-	to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Patron Selected'</span>")
+	to_chat(user, span_notice("[src]'s screen flashes: 'Patron Selected'"))
 
 /obj/item/barcodescanner/proc/scanBook(obj/item/book/B, mob/user as mob)
 	if(!check_connection(user))
@@ -422,14 +422,14 @@
 		if(BARCODE_MODE_SCAN_SELECT)
 			computer.select_book(B)
 			playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
-			to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Book selected in library computer.'</span>")
+			to_chat(user, span_notice("[src]'s screen flashes: 'Book selected in library computer.'"))
 		if(BARCODE_MODE_SCAN_INVENTORY)
 			if(computer.inventoryAdd(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
-				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title added to general inventory.'</span>")
+				to_chat(user, span_notice("[src]'s screen flashes: 'Title added to general inventory.'"))
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title already in general inventory.'</span>")
+				to_chat(user, span_notice("[src]'s screen flashes: 'Title already in general inventory.'"))
 		if(BARCODE_MODE_CHECKOUT)
 			var/confirm
 			if(!computer.user_data.patron_account)
@@ -441,24 +441,24 @@
 				return
 			if(computer.checkout(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
-				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title checked out to [computer.user_data.patron_name].'</span>")
+				to_chat(user, span_notice("[src]'s screen flashes: 'Title checked out to [computer.user_data.patron_name].'"))
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccessful.'</span>")
+				to_chat(user, span_notice("[src]'s screen flashes: 'ERROR! Book Checkout Unsuccessful.'"))
 		if(BARCODE_MODE_CHECKIN)
 			if(computer.checkin(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
-				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title checked back into general inventory.'</span>")
+				to_chat(user, span_notice("[src]'s screen flashes: 'Title checked back into general inventory.'"))
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccessful.'</span>")
+				to_chat(user, span_notice("[src]'s screen flashes: 'ERROR! Book Checkout Unsuccessful.'"))
 
 /obj/item/barcodescanner/proc/check_connection(mob/user as mob) //fuck you null references!
 	if(computer)
 		return TRUE
 	else
 		playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-		to_chat(user, "<span class='notice'>Please reconnect [src] to a library computer.</span>")
+		to_chat(user, span_notice("Please reconnect [src] to a library computer."))
 		return FALSE
 
 #undef BARCODE_MODE_SCAN_SELECT

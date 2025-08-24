@@ -230,7 +230,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		return FALSE
 
 	if(!silent && message)
-		to_chat(clown, "<span class='boldnotice'>[message]</span>")
+		to_chat(clown, span_boldnotice("[message]"))
 	return TRUE
 
 /**
@@ -314,7 +314,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(length(finalized) || istext(finalized))
 		messages.Add(finalized)
 	if(wiki_page_name)
-		messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])</span>")
+		messages.Add(span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])"))
 	if(length(messages))
 		to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 	if(is_banned(owner.current) && replace_banned)
@@ -353,7 +353,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [name]?", job_rank, TRUE, 10 SECONDS)
 	if(!length(candidates))
 		message_admins("[owner] ([owner.key]) has been converted into [name] with an active antagonist jobban for said role since no ghost has volunteered to take [owner.p_their()] place.")
-		to_chat(owner.current, "<span class='biggerdanger'>You have been converted into [name] with an active jobban. Your body was offered up but there were no ghosts to take over. You will be allowed to continue as [name], but any further violations of the rules on your part are likely to result in a permanent ban.</span>")
+		to_chat(owner.current, span_biggerdanger("You have been converted into [name] with an active jobban. Your body was offered up but there were no ghosts to take over. You will be allowed to continue as [name], but any further violations of the rules on your part are likely to result in a permanent ban."))
 		return FALSE
 	var/mob/dead/observer/C = pick(candidates)
 	to_chat(owner.current, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
@@ -372,7 +372,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/list/messages = list()
 	. = messages
 	if(owner && owner.current)
-		messages.Add("<span class='userdanger'>You are a [special_role]!</span>")
+		messages.Add(span_userdanger("You are a [special_role]!"))
 
 /**
  * Displays a message to the antag mob while the datum is being deleted, i.e. "Your powers are gone and you're no longer a vampire!"
@@ -381,7 +381,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/farewell()
 	if(owner && owner.current)
-		to_chat(owner.current,"<span class='userdanger'>You are no longer a [special_role]!</span>")
+		to_chat(owner.current,span_userdanger("You are no longer a [special_role]!"))
 
 /**
  * Creates a new antagonist team.
@@ -484,7 +484,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 //Displayed at the start of roundend_category section, default to roundend_category header
 /datum/antagonist/proc/roundend_report_header()
-	return 	"<span class='header'>The [roundend_category] were:</span><br>"
+	return 	"[span_header("The [roundend_category] were:")]<br>"
 
 //Displayed at the end of roundend_category section
 /datum/antagonist/proc/roundend_report_footer()

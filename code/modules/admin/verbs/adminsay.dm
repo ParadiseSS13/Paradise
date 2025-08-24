@@ -30,8 +30,8 @@
 					temp_message = replacetext(temp_message, "@[C.ckey]", "<font color='red'>@[C.ckey]</font>")
 					temp_message = replacetext(temp_message, "@[C.key]", "<font color='red'>@[C.key]</font>") // Same applies here. key and ckey.
 
-				temp_message = "<span class='emoji_enabled'>[temp_message]</span>"
-				to_chat(C, "<span class='admin_channel'>ADMIN: <span class='name'>[key_name(usr, 1)]</span> ([admin_jump_link(mob)]): <span class='message'>[temp_message]</span></span>", MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
+				temp_message = span_emoji_enabled("[temp_message]")
+				to_chat(C, span_admin_channel("ADMIN: [span_name("[key_name(usr, 1)]")] ([admin_jump_link(mob)]): [span_message("[temp_message]")]"), MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Asay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -67,8 +67,8 @@
 					display_name = "[holder.fakekey]/([key])"
 				else
 					display_name = holder.fakekey
-			msg = "<span class='emoji_enabled'>[msg]</span>"
-			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "dev_channel_admin" : "dev_channel"]'>DEV: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
+			msg = span_emoji_enabled("[msg]")
+			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "dev_channel_admin" : "dev_channel"]'>DEV: [span_name("[display_name]")] ([admin_jump_link(mob)]): [span_message("[msg]")]</span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Devsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -104,8 +104,8 @@
 					display_name = "[holder.fakekey]/([key])"
 				else
 					display_name = holder.fakekey
-			msg = "<span class='emoji_enabled'>[msg]</span>"
-			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "staff_channel_admin" : "staff_channel"]'>STAFF: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_STAFFCHAT, confidential = TRUE)
+			msg = span_emoji_enabled("[msg]")
+			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "staff_channel_admin" : "staff_channel"]'>STAFF: [span_name("[display_name]")] ([admin_jump_link(mob)]): [span_message("[msg]")]</span>", MESSAGE_TYPE_STAFFCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Staffsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -151,8 +151,8 @@
 					display_name = "[holder.fakekey]/([key])"
 				else
 					display_name = holder.fakekey
-			msg = "<span class='emoji_enabled'>[msg]</span>"
-			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
+			msg = span_emoji_enabled("[msg]")
+			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: [span_name("[display_name]")] ([admin_jump_link(mob)]): [span_message("[msg]")]</span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Msay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

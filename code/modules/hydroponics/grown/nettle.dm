@@ -46,7 +46,7 @@
 	attack_verb = list("stung")
 
 /obj/item/grown/nettle/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is eating some of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is eating some of [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS|TOXLOSS
 
 /obj/item/grown/nettle/pickup(mob/living/user)
@@ -63,7 +63,7 @@
 	if(affecting)
 		if(affecting.receive_damage(0, force))
 			H.UpdateDamageIcon()
-	to_chat(H, "<span class='userdanger'>The nettle burns your bare hand!</span>")
+	to_chat(H, span_userdanger("The nettle burns your bare hand!"))
 	return TRUE
 
 
@@ -102,13 +102,13 @@
 	if(..())
 		if(prob(50))
 			user.Weaken(10 SECONDS)
-			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
+			to_chat(user, span_userdanger("You are stunned by the Deathnettle when you try picking it up!"))
 
 /obj/item/grown/nettle/death/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	..()
 	if(!isliving(M))
 		return
 
-	to_chat(M, "<span class='danger'>You flinch as you are struck by \the [src]!</span>")
+	to_chat(M, span_danger("You flinch as you are struck by \the [src]!"))
 	add_attack_logs(user, M, "Hit with [src]")
 	M.AdjustEyeBlurry(force * 2) // Maximum duration 5 seconds per hit.

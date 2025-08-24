@@ -22,9 +22,9 @@
 /obj/item/reagent_containers/glass/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2 && !is_open_container())
-		. += "<span class='notice'>Airtight lid seals it completely.</span>"
+		. += span_notice("Airtight lid seals it completely.")
 
-	. += "<span class='notice'>[src] can hold up to [reagents.maximum_volume] units.</span>"
+	. += span_notice("[src] can hold up to [reagents.maximum_volume] units.")
 
 /obj/item/reagent_containers/glass/mob_act(mob/target, mob/living/user)
 	. = TRUE
@@ -32,7 +32,7 @@
 		return
 
 	if(!reagents || !reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 		return
 
 	if(istype(target))
@@ -42,27 +42,27 @@
 		var/contained = english_list(transferred)
 
 		if(user.a_intent == INTENT_HARM)
-			target.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
-							"<span class='userdanger'>[user] splashes the contents of [src] onto [target]!</span>")
+			target.visible_message(span_danger("[user] splashes the contents of [src] onto [target]!"), \
+							span_userdanger("[user] splashes the contents of [src] onto [target]!"))
 			add_attack_logs(user, target, "Splashed with [name] containing [contained]", !!target.ckey ? null : ATKLOG_ALL)
 
 			reagents.reaction(target, REAGENT_TOUCH)
 			reagents.clear_reagents()
 		else
 			if(!iscarbon(target)) // Non-carbons can't process reagents
-				to_chat(user, "<span class='warning'>You cannot find a way to feed [target].</span>")
+				to_chat(user, span_warning("You cannot find a way to feed [target]."))
 				return
 			if(target != user)
-				target.visible_message("<span class='danger'>[user] attempts to feed something to [target].</span>", \
-							"<span class='userdanger'>[user] attempts to feed something to you.</span>")
+				target.visible_message(span_danger("[user] attempts to feed something to [target]."), \
+							span_userdanger("[user] attempts to feed something to you."))
 				if(!do_mob(user, target))
 					return
 				if(!reagents || !reagents.total_volume)
 					return // The drink might be empty after the delay, such as by spam-feeding
-				target.visible_message("<span class='danger'>[user] feeds something to [target].</span>", "<span class='userdanger'>[user] feeds something to you.</span>")
+				target.visible_message(span_danger("[user] feeds something to [target]."), span_userdanger("[user] feeds something to you."))
 				add_attack_logs(user, target, "Fed with [name] containing [contained]", !!target.ckey ? null : ATKLOG_ALL)
 			else
-				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
+				to_chat(user, span_notice("You swallow a gulp of [src]."))
 			var/fraction = min(5 / reagents.total_volume, 1)
 			reagents.reaction(target, REAGENT_INGEST, fraction)
 			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), target, 5), 5)
@@ -85,33 +85,33 @@
 	. = TRUE
 	if(target.is_refillable()) //Something like a glass. Player probably wants to transfer TO it.
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='warning'>[src] is empty!</span>")
+			to_chat(user, span_warning("[src] is empty!"))
 			return
 
 		if(target.reagents.holder_full())
-			to_chat(user, "<span class='warning'>[target] is full.</span>")
+			to_chat(user, span_warning("[target] is full."))
 			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You transfer [trans] unit\s of the solution to [target].</span>")
+		to_chat(user, span_notice("You transfer [trans] unit\s of the solution to [target]."))
 		return
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!target.reagents.total_volume)
-			to_chat(user, "<span class='warning'>[target] is empty and can't be refilled!</span>")
+			to_chat(user, span_warning("[target] is empty and can't be refilled!"))
 			return
 
 		if(reagents.holder_full())
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
+			to_chat(user, span_warning("[src] is full."))
 			return
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] unit\s of the contents of [target].</span>")
+		to_chat(user, span_notice("You fill [src] with [trans] unit\s of the contents of [target]."))
 		return
 	else if(reagents.total_volume)
 		if(user.a_intent == INTENT_HARM)
-			user.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
-								"<span class='notice'>You splash the contents of [src] onto [target].</span>")
+			user.visible_message(span_danger("[user] splashes the contents of [src] onto [target]!"), \
+								span_notice("You splash the contents of [src] onto [target]."))
 			reagents.reaction(target, REAGENT_TOUCH)
 			reagents.clear_reagents()
 			return
@@ -146,7 +146,7 @@
 /obj/item/reagent_containers/glass/beaker/examine(mob/user)
 	. = ..()
 	if(assembly)
-		. += "<span class='notice'>There is an [assembly] attached to it, use a screwdriver to remove it.</span>"
+		. += span_notice("There is an [assembly] attached to it, use a screwdriver to remove it.")
 
 /obj/item/reagent_containers/glass/beaker/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
@@ -188,7 +188,7 @@
 /obj/item/reagent_containers/glass/beaker/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/assembly_holder) && can_assembly)
 		if(assembly)
-			to_chat(usr, "<span class='warning'>[src] already has an assembly.</span>")
+			to_chat(usr, span_warning("[src] already has an assembly."))
 		else
 			assembly = used
 			user.drop_item()
@@ -221,12 +221,12 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(assembly)
-		to_chat(user, "<span class='notice'>You detach [assembly] from [src]</span>")
+		to_chat(user, span_notice("You detach [assembly] from [src]"))
 		user.put_in_hands(assembly)
 		assembly = null
 		update_icon(UPDATE_OVERLAYS)
 	else
-		to_chat(user, "<span class='notice'>There is no assembly to remove.</span>")
+		to_chat(user, span_notice("There is no assembly to remove."))
 
 /obj/item/reagent_containers/glass/beaker/large
 	name = "large beaker"
@@ -324,7 +324,7 @@
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
 	..()
 	if(slot == ITEM_SLOT_HEAD && reagents.total_volume)
-		to_chat(user, "<span class='userdanger'>[src]'s contents spill all over you!</span>")
+		to_chat(user, span_userdanger("[src]'s contents spill all over you!"))
 		reagents.reaction(user, REAGENT_TOUCH)
 		reagents.clear_reagents()
 
@@ -334,7 +334,7 @@
 		mop.wet_mop(src, user)
 		return ITEM_INTERACT_COMPLETE
 	if(isprox(used))
-		to_chat(user, "<span class='notice'>You add [used] to [src].</span>")
+		to_chat(user, span_notice("You add [used] to [src]."))
 		qdel(used)
 		user.put_in_hands(new /obj/item/bucket_sensor)
 		user.unequip(src)

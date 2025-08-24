@@ -27,7 +27,7 @@
 
 /obj/structure/chair/e_chair/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>You can <b>Alt-Click</b> [src] to activate it.</span>"
+	. += span_warning("You can <b>Alt-Click</b> [src] to activate it.")
 
 /obj/structure/chair/e_chair/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -37,16 +37,16 @@
 	part.loc = loc
 	part.master = null
 	part = null
-	visible_message("<span class='warning'>[user] deconstructs [src].</span>")
+	visible_message(span_warning("[user] deconstructs [src]."))
 	qdel(src)
 
 /obj/structure/chair/e_chair/AltClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(last_time + delay_time > world.time)
-		to_chat(user, "<span class='warning'>[src] is not ready yet!</span>")
+		to_chat(user, span_warning("[src] is not ready yet!"))
 		return
-	to_chat(user, "<span class='notice'>You activate [src].</span>")
+	to_chat(user, span_notice("You activate [src]."))
 	shock()
 
 /obj/structure/chair/e_chair/rotate()
@@ -82,11 +82,11 @@
 
 	flick("echair_shock", src)
 	do_sparks(12, 1, src)
-	visible_message("<span class='danger'>The electric chair went off!</span>", "<span class='danger'>You hear a deep sharp shock!</span>")
+	visible_message(span_danger("The electric chair went off!"), span_danger("You hear a deep sharp shock!"))
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
 			buckled_mob.electrocute_act(110, src, 1)
-			to_chat(buckled_mob, "<span class='danger'>You feel a deep shock course through your body!</span>")
+			to_chat(buckled_mob, span_danger("You feel a deep shock course through your body!"))
 			spawn(1)
 				buckled_mob.electrocute_act(110, src, 1)

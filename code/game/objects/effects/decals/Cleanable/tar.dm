@@ -36,7 +36,7 @@
 	if(isliving(entered))
 		var/mob/living/L = entered
 		playsound(L, 'sound/effects/attackblob.ogg', 50, TRUE)
-		to_chat(L, "<span class='userdanger'>[src] sticks to you!</span>")
+		to_chat(L, span_userdanger("[src] sticks to you!"))
 
 /obj/effect/decal/cleanable/tar/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/obj/item/weldingtool/fire_tool = used
@@ -45,6 +45,6 @@
 	playsound(fire_tool, 'sound/items/welder.ogg', 50, TRUE)
 	if(do_after(user, 3 SECONDS, FALSE, user))
 		if(fire_tool.get_heat() && Adjacent(user))
-			user.visible_message("<span class='danger'>[user] burns away [src] with [fire_tool]!</span>", "<span class='danger'>You burn away [src]!</span>")
+			user.visible_message(span_danger("[user] burns away [src] with [fire_tool]!"), span_danger("You burn away [src]!"))
 			qdel(src)
 			return ITEM_INTERACT_COMPLETE

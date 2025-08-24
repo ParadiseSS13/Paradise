@@ -302,11 +302,11 @@
 		credit_changes[item.account] += item.credits
 
 		if(item.credits > 0)
-			msg += "<span class='good'>[item.account.account_name] +[item.credits]</span>: [item.reason]<br>"
+			msg += "[span_good("[item.account.account_name] +[item.credits]")]: [item.reason]<br>"
 		else if(item.credits == 0)
 			msg += "<span class='[item.zero_is_good ? "good" : "bad"]'>[item.account.account_name] Notice</span>: [item.reason]<br>"
 		else
-			msg += "<span class='bad'>[item.account.account_name] [item.credits]</span>: [item.reason]<br>"
+			msg += "[span_bad("[item.account.account_name] [item.credits]")]: [item.reason]<br>"
 
 		if(item.requests_console_department)
 			if(!department_messages[item.requests_console_department])

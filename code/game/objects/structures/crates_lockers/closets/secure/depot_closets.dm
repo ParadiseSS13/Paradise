@@ -32,13 +32,13 @@
 
 /obj/structure/closet/secure_closet/depot/attack_animal(mob/M)
 	if(isanimal_or_basicmob(M) && ("syndicate" in M.faction))
-		to_chat(M, "<span class='warning'>[src] resists your attack!</span>")
+		to_chat(M, span_warning("[src] resists your attack!"))
 		return
 	return ..()
 
 /obj/structure/closet/secure_closet/depot/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs))
-		to_chat(user, "<span class='warning'>Bluespace interference prevents [W] from locking onto [src]!</span>")
+		to_chat(user, span_warning("Bluespace interference prevents [W] from locking onto [src]!"))
 		return
 	return ..()
 

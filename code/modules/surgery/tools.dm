@@ -78,13 +78,13 @@
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [cig], heating it until it lights.</span>",
-			"<span class='notice'>You press [src] against [cig], heating it until it lights.</span>"
+			span_notice("[user] presses [src] against [cig], heating it until it lights."),
+			span_notice("You press [src] against [cig], heating it until it lights.")
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [cig] for [target], heating it until it lights.</span>",
-			"<span class='notice'>You press [src] against [cig] for [target], heating it until it lights.</span>"
+			span_notice("[user] presses [src] against [cig] for [target], heating it until it lights."),
+			span_notice("You press [src] against [cig] for [target], heating it until it lights.")
 		)
 	cig.light(user, target)
 	return TRUE
@@ -116,8 +116,8 @@
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/surgicaldrill/suicide_act(mob/user)
-	to_chat(viewers(user), pick("<span class='suicide'>[user] is pressing [src] to [user.p_their()] temple and activating it! It looks like [user.p_theyre()] trying to commit suicide!</span>",
-						"<span class='suicide'>[user] is pressing [src] to [user.p_their()] chest and activating it! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
+	to_chat(viewers(user), pick(span_suicide("[user] is pressing [src] to [user.p_their()] temple and activating it! It looks like [user.p_theyre()] trying to commit suicide!"),
+						span_suicide("[user] is pressing [src] to [user.p_their()] chest and activating it! It looks like [user.p_theyre()] trying to commit suicide!")))
 	return BRUTELOSS
 
 /obj/item/surgicaldrill/augment
@@ -157,9 +157,9 @@
 
 
 /obj/item/scalpel/suicide_act(mob/user)
-	to_chat(viewers(user), pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
-						"<span class='suicide'>[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
-						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>"))
+	to_chat(viewers(user), pick(span_suicide("[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide!"),
+						span_suicide("[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!"),
+						span_suicide("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!")))
 	return BRUTELOSS
 
 
@@ -189,13 +189,13 @@
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [cig], heating it until it lights.</span>",
-			"<span class='notice'>You press [src] against [cig], heating it until it lights.</span>"
+			span_notice("[user] presses [src] against [cig], heating it until it lights."),
+			span_notice("You press [src] against [cig], heating it until it lights.")
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [cig] for [target], heating it until it lights.</span>",
-			"<span class='notice'>You press [src] against [cig] for [target], heating it until it lights.</span>"
+			span_notice("[user] presses [src] against [cig] for [target], heating it until it lights."),
+			span_notice("You press [src] against [cig] for [target], heating it until it lights.")
 		)
 	cig.light(user, target)
 	return TRUE

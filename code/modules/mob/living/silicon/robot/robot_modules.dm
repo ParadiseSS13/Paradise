@@ -592,7 +592,7 @@
 			if(!IS_HORIZONTAL(cleaned_human))
 				continue
 			cleaned_human.clean_blood()
-			to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
+			to_chat(cleaned_human, span_danger("[src] cleans your face!"))
 
 
 /obj/item/malfbroom
@@ -610,9 +610,9 @@
 	var/mob/living/carbon/human/H = target
 	if(H.stat != CONSCIOUS || IS_HORIZONTAL(H))
 		return ..()
-	H.visible_message("<span class='danger'>[user] sweeps [H]'s legs out from under [H.p_them()]!</span>", \
-						"<span class='userdanger'>[user] sweeps your legs out from under you!</span>", \
-						"<span class='italics'>You hear sweeping.</span>")
+	H.visible_message(span_danger("[user] sweeps [H]'s legs out from under [H.p_them()]!"), \
+						span_userdanger("[user] sweeps your legs out from under you!"), \
+						span_italics("You hear sweeping."))
 	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	H.apply_damage(20, BRUTE)
 	H.KnockDown(4 SECONDS)

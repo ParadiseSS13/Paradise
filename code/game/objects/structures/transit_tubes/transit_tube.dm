@@ -148,7 +148,7 @@
 
 /obj/structure/transit_tube/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	to_chat(user, "<span class='notice'>You must uninstall [src] before disassembling it!</span>")
+	to_chat(user, span_notice("You must uninstall [src] before disassembling it!"))
 
 /obj/structure/transit_tube/screwdriver_act(mob/living/user, obj/item/I)
 	var/obj/structure/transit_tube_construction/construction = new uninstalled_type(get_turf(src))
@@ -161,7 +161,7 @@
 	if(leaf == "flipped")
 		construction.flip()
 
-	user.visible_message("<span class='notice'>[user] uninstalls [src].</span>")
+	user.visible_message(span_notice("[user] uninstalls [src]."))
 	qdel(src)
 
 /obj/structure/transit_tube/deconstruct(disassembled = TRUE)

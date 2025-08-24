@@ -126,7 +126,7 @@
 	else
 		add_xray(human_user)
 	xray = !xray
-	to_chat(user, "<span class='notice'>You [!xray ? "de" : ""]activate the x-ray setting on [src]</span>")
+	to_chat(user, span_notice("You [!xray ? "de" : ""]activate the x-ray setting on [src]"))
 	human_user.update_sight()
 
 /obj/item/clothing/glasses/hud/debug/proc/remove_xray(mob/user)
@@ -150,7 +150,7 @@
 
 /obj/item/debug/human_spawner/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to toggle mind-activation on spawning.</span>"
+	. += span_notice("<b>Alt-Click</b> to toggle mind-activation on spawning.")
 
 /obj/item/debug/human_spawner/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
 	..()
@@ -171,7 +171,7 @@
 	if(!Adjacent(user))
 		return
 	activate_mind = !activate_mind
-	to_chat(user, "<span class='notice'>Any humans spawned will [activate_mind ? "" : "not "]spawn with an initialized mind.</span>")
+	to_chat(user, span_notice("Any humans spawned will [activate_mind ? "" : "not "]spawn with an initialized mind."))
 
 /obj/item/rcd/combat/admin
 	name = "AVD-CNED RCD"

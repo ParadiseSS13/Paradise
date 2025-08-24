@@ -90,7 +90,7 @@ SUBSYSTEM_DEF(ticker)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
 			pregame_timeleft = GLOB.configuration.general.lobby_time SECONDS
 			round_start_time = world.time + pregame_timeleft
-			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
+			to_chat(world, "<B>[span_darkmblue("Welcome to the pre-game lobby!")]</B>")
 			to_chat(world, "Please, setup your character and select ready. Game will start in [GLOB.configuration.general.lobby_time] seconds")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
@@ -166,7 +166,7 @@ SUBSYSTEM_DEF(ticker)
 
 				var/datum/map/target_map = pick(pickable_types)
 				SSmapping.next_map = new target_map
-				to_chat(world, "<span class='interface'>Map for next round: [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</span>")
+				to_chat(world, span_interface("Map for next round: [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])"))
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)
@@ -234,7 +234,7 @@ SUBSYSTEM_DEF(ticker)
 
 		var/has_antags = (length(P.client.prefs.be_special) > 0)
 		if(!P.client.prefs.active_character.check_any_job())
-			to_chat(P, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
+			to_chat(P, span_danger("You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences."))
 			if(has_antags)
 				// We add these to a list so we can deal with them as a batch later
 				// A lot of DB tracking stuff needs doing, so we may as well async it
@@ -350,11 +350,11 @@ SUBSYSTEM_DEF(ticker)
 			qdel(S)
 
 	SSdbcore.SetRoundStart()
-	to_chat(world, "<span class='darkmblue'><B>Enjoy the game!</B></span>")
+	to_chat(world, span_darkmblue("<B>Enjoy the game!</B>"))
 	SEND_SOUND(world, sound(SSmapping.map_datum.welcome_sound))
 
 	if(SSholiday.holidays)
-		to_chat(world, "<span class='darkmblue'>and...</span>")
+		to_chat(world, span_darkmblue("and..."))
 		for(var/holidayname in SSholiday.holidays)
 			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
@@ -402,7 +402,7 @@ SUBSYSTEM_DEF(ticker)
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer) && !(issilicon(M) && override == "AI malfunction"))
-					to_chat(M, "<span class='danger'><B>The blast wave from the explosion tears you atom from atom!</B></span>")
+					to_chat(M, span_danger("<B>The blast wave from the explosion tears you atom from atom!</B>"))
 					var/mob/ghost = M.ghostize()
 					M.dust() //no mercy
 					if(ghost && ghost.client) //Play the victims an uninterrupted cinematic.
@@ -526,23 +526,23 @@ SUBSYSTEM_DEF(ticker)
 			if(length(S.contents) < S.storage_slots)
 				I.forceMove(H.back)
 				ok = TRUE
-				to_chat(H, "<span class='notice'>Your [I.name] has been added to your [H.back.name].</span>")
+				to_chat(H, span_notice("Your [I.name] has been added to your [H.back.name]."))
 
 		if(!ok)
 			for(var/obj/item/storage/S in H.contents) // Try to place it in any item that can store stuff, on the mob.
 				if(length(S.contents) < S.storage_slots)
 					I.forceMove(S)
 					ok = TRUE
-					to_chat(H, "<span class='notice'>Your [I.name] has been added to your [S.name].</span>")
+					to_chat(H, span_notice("Your [I.name] has been added to your [S.name]."))
 					break
 
 		if(!ok) // Finally, since everything else failed, place it on the ground
 			var/turf/T = get_turf(H)
 			if(T)
 				I.forceMove(T)
-				to_chat(H, "<span class='notice'>Your [I.name] is on the [T.name] below you.</span>")
+				to_chat(H, span_notice("Your [I.name] is on the [T.name] below you."))
 			else
-				to_chat(H, "<span class='notice'>Your [I.name] couldnt spawn anywhere on you or even on the floor below you. Please file a bug report.</span>")
+				to_chat(H, span_notice("Your [I.name] couldnt spawn anywhere on you or even on the floor below you. Please file a bug report."))
 				qdel(I)
 
 
@@ -559,7 +559,7 @@ SUBSYSTEM_DEF(ticker)
 			m = pick(memetips)
 
 	if(m)
-		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
+		to_chat(world, span_purple("<b>Tip of the round: </b>[html_encode(m)]"))
 
 /datum/controller/subsystem/ticker/proc/send_fact_of_the_round()
 	var/factoid
@@ -571,7 +571,7 @@ SUBSYSTEM_DEF(ticker)
 			factoid = pick(random_facts)
 
 	if(length(factoid))
-		to_chat(world, "<span class='green'><b>Fact of the round: </b>[html_encode(factoid)]</span>")
+		to_chat(world, span_green("<b>Fact of the round: </b>[html_encode(factoid)]"))
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
@@ -598,7 +598,7 @@ SUBSYSTEM_DEF(ticker)
 		aiPlayer.laws_sanity_check()
 		for(var/datum/ai_law/law as anything in aiPlayer.laws.sorted_laws)
 			if(law == aiPlayer.laws.zeroth_law)
-				end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+				end_of_round_info += span_danger("[law.get_index()]. [law.law]")
 			else
 				end_of_round_info += "[law.get_index()]. [law.law]"
 
@@ -627,7 +627,7 @@ SUBSYSTEM_DEF(ticker)
 			robo.laws_sanity_check()
 			for(var/datum/ai_law/law as anything in robo.laws.sorted_laws)
 				if(law == robo.laws.zeroth_law)
-					end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+					end_of_round_info += span_danger("[law.get_index()]. [law.law]")
 				else
 					end_of_round_info += "[law.get_index()]. [law.law]"
 
@@ -722,7 +722,7 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/reboot_helper(reason, end_string, delay)
 	// Admins delayed round end. Just alert and dont bother with anything else.
 	if(delay_end)
-		to_chat(world, "<span class='boldannounceooc'>An admin has delayed the round end.</span>")
+		to_chat(world, span_boldannounceooc("An admin has delayed the round end."))
 		return
 	if(delay)
 		INVOKE_ASYNC(src, TYPE_PROC_REF(/datum/controller/subsystem/ticker, show_server_restart_blurb), reason)
@@ -734,14 +734,14 @@ SUBSYSTEM_DEF(ticker)
 		// Use default restart timeout
 		delay = max(0, GLOB.configuration.general.restart_timeout SECONDS)
 
-	to_chat(world, "<span class='boldannounceooc'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
+	to_chat(world, span_boldannounceooc("Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]"))
 
 	real_reboot_time = world.time + delay
 	UNTIL(world.time > real_reboot_time) // Hold it here
 
 	// And if we re-delayed, bail again
 	if(delay_end)
-		to_chat(world, "<span class='boldannounceooc'>Reboot was cancelled by an admin.</span>")
+		to_chat(world, span_boldannounceooc("Reboot was cancelled by an admin."))
 		return
 
 	if(end_string)

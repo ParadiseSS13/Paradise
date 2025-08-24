@@ -28,7 +28,7 @@
 
 /obj/machinery/cooking/ice_cream_mixer/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Ctrl-Click</b> to set its timer and toggle it on or off.</span>"
+	. += span_notice("<b>Ctrl-Click</b> to set its timer and toggle it on or off.")
 
 /obj/machinery/cooking/ice_cream_mixer/clickpos_to_surface(modifiers)
 	return 1
@@ -39,7 +39,7 @@
 		return
 
 	if(surface.on)
-		to_chat(user, "<span class='notice'>\The [src] must be off to retrieve its contents.</span>")
+		to_chat(user, span_notice("\The [src] must be off to retrieve its contents."))
 		return
 
 	user.put_in_hands(surface.container)

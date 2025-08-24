@@ -92,26 +92,26 @@
 
 /obj/structure/closet/crate/toggle(mob/user, by_hand = FALSE)
 	if(!(opened ? close() : open(by_hand)))
-		to_chat(user, "<span class='notice'>It won't budge!</span>")
+		to_chat(user, span_notice("It won't budge!"))
 
 /obj/structure/closet/crate/proc/try_rig(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
 		if(rigged)
-			to_chat(user, "<span class='notice'>[src] is already rigged!</span>")
+			to_chat(user, span_notice("[src] is already rigged!"))
 			return TRUE
 		if(C.use(15))
-			to_chat(user, "<span class='notice'>You rig [src].</span>")
+			to_chat(user, span_notice("You rig [src]."))
 			rigged = TRUE
 		else
-			to_chat(user, "<span class='warning'>You need at least 15 wires to rig [src]!</span>")
+			to_chat(user, span_warning("You need at least 15 wires to rig [src]!"))
 		return TRUE
 	if(istype(W, /obj/item/electropack))
 		if(rigged)
 			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>[W] seems to be stuck to your hand!</span>")
+				to_chat(user, span_warning("[W] seems to be stuck to your hand!"))
 				return TRUE
-			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
+			to_chat(user, span_notice("You attach [W] to [src]."))
 			W.forceMove(src)
 		return TRUE
 
@@ -122,7 +122,7 @@
 		return
 
 	if(I.use_tool(src, user))
-		to_chat(user, "<span class='notice'>You cut away the wiring.</span>")
+		to_chat(user, span_notice("You cut away the wiring."))
 		playsound(loc, I.usesound, 100, 1)
 		rigged = FALSE
 		return TRUE
@@ -132,7 +132,7 @@
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	if(manifest)
-		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
+		to_chat(user, span_notice("You tear the manifest off of the crate."))
 		playsound(loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
 		manifest.forceMove(loc)
 		if(ishuman(user))
@@ -198,7 +198,7 @@
 
 /obj/structure/closet/crate/secure/proc/boom(mob/user)
 	if(user)
-		to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
+		to_chat(user, span_danger("The crate's anti-tamper system activates!"))
 		investigate_log("[key_name(user)] has detonated a [src]", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/AM in src)
@@ -211,18 +211,18 @@
 
 /obj/structure/closet/crate/secure/proc/togglelock(mob/user)
 	if(opened)
-		to_chat(user, "<span class='notice'>Close the crate first.</span>")
+		to_chat(user, span_notice("Close the crate first."))
 		return FALSE
 	if(broken)
-		to_chat(user, "<span class='warning'>The crate appears to be broken.</span>")
+		to_chat(user, span_warning("The crate appears to be broken."))
 		return FALSE
 	if(allowed(user))
 		locked = !locked
-		visible_message("<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>")
+		visible_message(span_notice("The crate has been [locked ? null : "un"]locked by [user]."))
 		update_icon()
 		return TRUE
 	else
-		to_chat(user, "<span class='notice'>Access Denied.</span>")
+		to_chat(user, span_notice("Access Denied."))
 		return FALSE
 
 /obj/structure/closet/crate/secure/AltClick(mob/user)
@@ -236,7 +236,7 @@
 
 /obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)
-		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
+		to_chat(user, span_notice("You tear the manifest off of the crate."))
 		playsound(loc, 'sound/items/poster_ripped.ogg', 75, 1)
 		manifest.forceMove(loc)
 		if(ishuman(user))
@@ -258,7 +258,7 @@
 		broken = TRUE
 		update_icon()
 		do_sparks(2, TRUE, src)
-		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
+		to_chat(user, span_notice("You unlock \the [src]."))
 		return TRUE
 
 /obj/structure/closet/crate/secure/emp_act(severity)
@@ -316,12 +316,12 @@
 		return ..()
 
 	if(broken)
-		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
+		to_chat(user, span_warning("It appears to be broken."))
 		return FALSE
 
 	var/obj/item/card/id/id = I
 	if(!is_usable_id(id))
-		to_chat(user, "<span class='warning'>Invalid identification card.</span>")
+		to_chat(user, span_warning("Invalid identification card."))
 		return FALSE
 
 	if(registered_name && allowed(user))
@@ -329,7 +329,7 @@
 
 	if(!registered_name)
 		registered_name = id.registered_name
-		to_chat(user, "<span class='notice'>Crate reserved</span>")
+		to_chat(user, span_notice("Crate reserved"))
 		return TRUE
 
 	if(registered_name == id.registered_name)
@@ -730,7 +730,7 @@
 	if(!istype(keycard))
 		return
 
-	to_chat(user, "<span class='notice'>You swipe [keycard] in [src]'s keycard slot.</span>")
+	to_chat(user, span_notice("You swipe [keycard] in [src]'s keycard slot."))
 	return TRUE
 
 /obj/item/card/sec_shuttle_ruin

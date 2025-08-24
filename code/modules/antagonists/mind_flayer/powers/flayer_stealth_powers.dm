@@ -73,7 +73,7 @@
 	if(flayer.mimicking)
 		flayer.mimicking = ""
 		user.extra_message_range = 0
-		to_chat(user, "<span class='notice'>We turn our vocal modulator to its original settings.</span>")
+		to_chat(user, span_notice("We turn our vocal modulator to its original settings."))
 		return FALSE
 
 	var/mimic_voice = tgui_input_text(user, "Enter a name to mimic.", "Mimic Voice", max_length = MAX_NAME_LEN)
@@ -193,24 +193,24 @@
 		return FINISH_ATTACK
 
 	if(!isrobot(A))
-		to_chat(user, "<span class='warning'>[src] will have no effect against this target!</span>")
+		to_chat(user, span_warning("[src] will have no effect against this target!"))
 		return FINISH_ATTACK
 
 	var/mob/living/silicon/robot/borg = A
 	borg.visible_message(
-		"<span class='danger'>[user] puts [user.p_their()] hands on [borg] and begins transferring energy!</span>",
-		"<span class='userdanger'>[user] puts [user.p_their()] hands on you and begins transferring energy!</span>")
+		span_danger("[user] puts [user.p_their()] hands on [borg] and begins transferring energy!"),
+		span_userdanger("[user] puts [user.p_their()] hands on you and begins transferring energy!"))
 	if(borg.emagged || !borg.is_emaggable)
-		to_chat(user, "<span class='notice'>Your override attempt fails before it can even begin.</span>")
+		to_chat(user, span_notice("Your override attempt fails before it can even begin."))
 		qdel(src)
 		return FINISH_ATTACK
 
 	if(!do_mob(user, borg, conversion_time, hidden = TRUE))
-		to_chat(user, "<span class='notice'>Your concentration breaks.</span>")
+		to_chat(user, span_notice("Your concentration breaks."))
 		qdel(src)
 		return FINISH_ATTACK
 
-	to_chat(user, "<span class='notice'>The mass of swarms vanish into the cyborg's internals. Success.</span>")
+	to_chat(user, span_notice("The mass of swarms vanish into the cyborg's internals. Success."))
 	INVOKE_ASYNC(src, PROC_REF(emag_borg), borg, user)
 	qdel(src)
 	return FINISH_ATTACK

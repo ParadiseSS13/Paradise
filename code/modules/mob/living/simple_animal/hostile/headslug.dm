@@ -44,8 +44,8 @@
 		egg.origin = mind
 	for(var/obj/item/organ/internal/I in src)
 		I.forceMove(egg)
-	visible_message("<span class='warning'>[src] plants something in [victim]'s flesh!</span>", \
-					"<span class='danger'>We inject our egg into [victim]'s body!</span>")
+	visible_message(span_warning("[src] plants something in [victim]'s flesh!"), \
+					span_danger("We inject our egg into [victim]'s body!"))
 	egg_layed = TRUE
 
 /mob/living/simple_animal/hostile/headslug/AltClickOn(mob/living/carbon/carbon_target)
@@ -54,13 +54,13 @@
 	if(carbon_target.stat != DEAD && !do_mob(src, carbon_target, 5 SECONDS, hidden = TRUE))
 		return
 	if(HAS_TRAIT(carbon_target, TRAIT_XENO_HOST))
-		to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
+		to_chat(src, span_userdanger("A foreign presence repels us from this body. Perhaps we should try to infest another?"))
 		return
 	if(!carbon_target.get_int_organ_datum(ORGAN_DATUM_HEART))
-		to_chat(src, "<span class='userdanger'>There's no heart for us to infest!</span>")
+		to_chat(src, span_userdanger("There's no heart for us to infest!"))
 		return
 	Infect(carbon_target)
-	to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
+	to_chat(src, span_userdanger("With our egg laid, our death approaches rapidly..."))
 	addtimer(CALLBACK(src, PROC_REF(death)), 25 SECONDS)
 
 /mob/living/simple_animal/hostile/headslug/projectile_hit_check(obj/item/projectile/P)
@@ -79,10 +79,10 @@
 	if(time >= 30 && prob(40))
 		owner.bleed(5)
 	if(time >= 60 && prob(10))
-		to_chat(owner, pick("<span class='danger'>We feel great!</span>", "<span class='danger'>Something hurts for a moment but it's gone now.</span>", "<span class='danger'>You feel like you should go to a dark place.</span>", "<span class='danger'>You feel really tired.</span>"))
+		to_chat(owner, pick(span_danger("We feel great!"), span_danger("Something hurts for a moment but it's gone now."), span_danger("You feel like you should go to a dark place."), span_danger("You feel really tired.")))
 		owner.adjustToxLoss(30)
 	if(time >= 90 && prob(15))
-		to_chat(owner, pick("<span class='danger'>Something hurts.</span>", "<span class='danger'>Someone is thinking, but it's not you.</span>", "<span class='danger'>You feel at peace.</span>", "<span class='danger'>Close your eyes.</span>"))
+		to_chat(owner, pick(span_danger("Something hurts."), span_danger("Someone is thinking, but it's not you."), span_danger("You feel at peace."), span_danger("Close your eyes.")))
 		owner.apply_damage(50, STAMINA)
 	if(time >= EGG_INCUBATION_DEAD_CYCLE && owner.stat == DEAD || time >= EGG_INCUBATION_LIVING_CYCLE)
 		Pop()

@@ -39,7 +39,7 @@
 /obj/structure/mopbucket/proc/handle_mop_interaction(mob/living/user, obj/item/used)
 	if(!istype(used, /obj/item/mop))
 		return FALSE
-	
+
 	. = TRUE
 	var/robot_mop = used.is_robot_module()
 	var/obj/item/mop/attacking_mop = used
@@ -48,15 +48,15 @@
 		return
 
 	if(robot_mop)
-		to_chat(user, "<span class='warning'>You cannot store [used] in [src]!</span>")
+		to_chat(user, span_warning("You cannot store [used] in [src]!"))
 		return
 
 	if(stored_mop)
-		to_chat(user, "<span class='notice'>There is already a mop in [src].</span>")
+		to_chat(user, span_notice("There is already a mop in [src]."))
 		return
 
 	if(!put_in_cart(user, attacking_mop))
-		to_chat(user, "<span class='notice'>[attacking_mop] is stuck to your hand!</span>")
+		to_chat(user, span_notice("[attacking_mop] is stuck to your hand!"))
 
 /obj/structure/mopbucket/proc/put_in_cart(mob/user, obj/item/mop/I)
 	if(!user.unequip(I))
@@ -64,7 +64,7 @@
 
 	stored_mop = I
 	I.forceMove(src)
-	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
+	to_chat(user, span_notice("You put [I] into [src]."))
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
@@ -94,7 +94,7 @@
 	. = ..()
 	if(stored_mop)
 		user.put_in_hands(stored_mop)
-		to_chat(user, "<span class='notice'>You take [stored_mop] from [src].</span>")
+		to_chat(user, span_notice("You take [stored_mop] from [src]."))
 		stored_mop = null
 		update_icon(UPDATE_OVERLAYS)
 		return

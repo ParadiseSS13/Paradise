@@ -68,7 +68,7 @@
 	if(..())
 		return TRUE
 	if(issilicon(user))
-		to_chat(user, "<span class='warning'>Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005.</span>")
+		to_chat(user, span_warning("Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005."))
 		return
 	if(!account_database)
 		reconnect_database()
@@ -91,7 +91,7 @@
 	return ..()
 
 /obj/machinery/economy/atm/insert_cash(obj/item/stack/spacecash/cash_money, mob/user)
-	visible_message("<span class='notice'>[user] inserts [cash_money] into [src].</span>")
+	visible_message(span_notice("[user] inserts [cash_money] into [src]."))
 	cash_stored += cash_money.amount
 	account_database.credit_account(authenticated_account, cash_money.amount, "ATM Deposit", name, FALSE)
 	cash_money.use(cash_money.amount)
@@ -215,12 +215,12 @@
 /obj/machinery/economy/atm/proc/attempt_login(account_number, account_pin, mob/user)
 	var/account_to_attempt = account_number ? account_number : held_card?.associated_account_number
 	if(!account_to_attempt)
-		to_chat(user, "[bicon(src)]<span class='warning'>Authentification Failure: Account number not found.</span>")
+		to_chat(user, "[bicon(src)][span_warning("Authentification Failure: Account number not found.")]")
 		return FALSE
 
 	var/datum/money_account/user_account = account_database.find_user_account(account_number, include_departments = TRUE)
 	if(!user_account)
-		to_chat(user, "[bicon(src)]<span class='warning'>Authentification Failure: User Account Not Found.</span>")
+		to_chat(user, "[bicon(src)][span_warning("Authentification Failure: User Account Not Found.")]")
 		return FALSE
 
 	if(login_attempts >= 3)
@@ -248,10 +248,10 @@
 		lockout_time = world.time + LOCKOUT_TIME
 	else
 		playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
-		to_chat(user, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered, [3 - login_attempts] attempt\s remaining.</span>")
+		to_chat(user, "[bicon(src)][span_warning("Incorrect pin/account combination entered, [3 - login_attempts] attempt\s remaining.")]")
 
 /obj/machinery/economy/atm/proc/unauthorized(user)
-	to_chat(user, "[bicon(src)]<span class='warning'>Account is locked due to too many incorrect login attempts. Try again later.</span>")
+	to_chat(user, "[bicon(src)][span_warning("Account is locked due to too many incorrect login attempts. Try again later.")]")
 	playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
 	view_screen = ATM_SCREEN_DEFAULT
 
@@ -264,21 +264,21 @@
 	if(!authenticated_account)
 		return
 	if(amount <= 0)
-		to_chat(user, "[bicon(src)]<span class='warning'>That is not a valid transfer amount.</span>")
+		to_chat(user, "[bicon(src)][span_warning("That is not a valid transfer amount.")]")
 		return
 	if(account_database.charge_account(authenticated_account, amount, FALSE))
 		var/datum/money_account/target_account = account_database.find_user_account(target_account_number, include_departments = TRUE)
 		if(target_account)
 			account_database.credit_account(target_account, amount, purpose, name, FALSE)
-			to_chat(user, "[bicon(src)]<span class='notice'>Funds transfer successful.</span>")
+			to_chat(user, "[bicon(src)][span_notice("Funds transfer successful.")]")
 	else
-		to_chat(user, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
+		to_chat(user, "[bicon(src)][span_warning("You don't have enough funds to do that!")]")
 
 /obj/machinery/economy/atm/proc/withdraw(amount, mob/user)
 	if(!authenticated_account)
 		return
 	if(amount <= 0)
-		to_chat(user, "[bicon(src)]<span class='warning'>That is not a valid amount.</span>")
+		to_chat(user, "[bicon(src)][span_warning("That is not a valid amount.")]")
 		return
 
 	if(account_database.charge_account(authenticated_account, amount, "Cash Withdrawal", name, FALSE, FALSE))
@@ -289,7 +289,7 @@
 	if(!authenticated_account)
 		return
 	if(world.time <= print_cooldown)
-		to_chat(usr, "<span class='notice'>[src] flashes an error on its display.</span>")
+		to_chat(usr, span_notice("[src] flashes an error on its display."))
 		return
 	print_cooldown = world.time + PRINT_DELAY
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
@@ -316,7 +316,7 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return FALSE
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	to_chat(user, "<span class='warning'>Yellow ooze seeps into the [src]'s card slot...</span>")
+	to_chat(user, span_warning("Yellow ooze seeps into the [src]'s card slot..."))
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 	return TRUE
 
@@ -324,7 +324,7 @@
 	. = ..()
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
-	. += "<span class='warning'>Yellow ooze is dripping from the card slot!</span>"
+	. += span_warning("Yellow ooze is dripping from the card slot!")
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/atm, 30, 30)
 

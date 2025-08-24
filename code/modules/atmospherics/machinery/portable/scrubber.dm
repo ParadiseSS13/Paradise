@@ -145,7 +145,7 @@
 	switch(action)
 		if("power")
 			if(connected_port)
-				to_chat(ui.user, "<span class='warning'>[src] fails to turn on, the port is covered!</span>")
+				to_chat(ui.user, span_warning("[src] fails to turn on, the port is covered!"))
 				return
 			on = !on
 			update_icon()
@@ -182,7 +182,7 @@
 	name = "[name] (ID [id])"
 
 /obj/machinery/atmospherics/portable/scrubber/huge/attack_hand(mob/user)
-	to_chat(usr, "<span class='warning'>You can't directly interact with this machine. Use the area atmos computer.</span>")
+	to_chat(usr, span_warning("You can't directly interact with this machine. Use the area atmos computer."))
 
 /obj/machinery/atmospherics/portable/scrubber/huge/update_icon_state()
 	icon_state = "scrubber:[on]"
@@ -190,10 +190,10 @@
 /obj/machinery/atmospherics/portable/scrubber/huge/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(stationary)
-		to_chat(user, "<span class='warning'>The bolts are too tight for you to unscrew!</span>")
+		to_chat(user, span_warning("The bolts are too tight for you to unscrew!"))
 		return
 	if(on)
-		to_chat(user, "<span class='warning'>Turn it off first!</span>")
+		to_chat(user, span_warning("Turn it off first!"))
 		return
 	default_unfasten_wrench(user, I, 4 SECONDS)
 

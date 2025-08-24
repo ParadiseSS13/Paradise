@@ -23,21 +23,21 @@
 	. = ..()
 	if(loc == user)
 		if(bees_left)
-			. += "<span class='warning'>There are [bees_left] bees still inside in briefcase!</span>"
+			. += span_warning("There are [bees_left] bees still inside in briefcase!")
 		else
-			. += "<span class='danger'>The bees are gone... Colony collapse disorder?</span>"
+			. += span_danger("The bees are gone... Colony collapse disorder?")
 	if(isAntag(user))
-		. += "<span class='warning'>A briefcase filled with deadly bees, you should inject this with a syringe of your own blood before opening it. Exotic blood cannot be used.</span>"
+		. += span_warning("A briefcase filled with deadly bees, you should inject this with a syringe of your own blood before opening it. Exotic blood cannot be used.")
 
 
 /obj/item/bee_briefcase/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
 		if(!bees_left)
-			to_chat(user, "<span class='warning'>The briefcase is empty, so there is no point in injecting something into it.</span>")
+			to_chat(user, span_warning("The briefcase is empty, so there is no point in injecting something into it."))
 			return
 		if(S.reagents && S.reagents.total_volume)
-			to_chat(user, "<span class='notice'>You inject [src] with [S].</span>")
+			to_chat(user, span_notice("You inject [src] with [S]."))
 			for(var/datum/reagent/A in S.reagents.reagent_list)
 				if(A.id == "blood")
 					if(!(A.data["donor"] in blood_list))
@@ -45,9 +45,9 @@
 				if(A.id == "lazarus_reagent")		//RELOAD THE BEES (1 bee per 1 unit, max 15 bees)
 					if(bees_left < 15)
 						bees_left = min(15, round((bees_left + A.volume), 1))	//No partial bees, max 15 bees in case at any given time
-						to_chat(user, "<span class='warning'>The buzzing inside the briefcase intensifies as new bees form inside.</span>")
+						to_chat(user, span_warning("The buzzing inside the briefcase intensifies as new bees form inside."))
 					else
-						to_chat(user, "<span class='warning'>The buzzing inside the briefcase swells momentarily, then returns to normal. Guess it was too cramped...</span>")
+						to_chat(user, span_warning("The buzzing inside the briefcase swells momentarily, then returns to normal. Guess it was too cramped..."))
 				S.reagents.clear_reagents()
 				S.update_icon()
 	else if(istype(I, /obj/item/reagent_containers/spray/pestspray))
@@ -58,7 +58,7 @@
 /obj/item/bee_briefcase/attack_self__legacy__attackchain(mob/user)
 	var/bees_released
 	if(!bees_left)
-		to_chat(user, "<span class='danger'>The lack of all and any bees at this event has been somewhat of a let-down...</span>")
+		to_chat(user, span_danger("The lack of all and any bees at this event has been somewhat of a let-down..."))
 		return
 	else
 		if(world.time >= next_sound)		//This cooldown doesn't prevent us from releasing bees, just stops the sound

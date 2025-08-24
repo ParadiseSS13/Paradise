@@ -69,19 +69,19 @@
 
 	if(length(contents))
 		I.play_tool_sound(src)
-		user.visible_message("<span class='notice'>[user] pries [src] open.</span>")
+		user.visible_message(span_notice("[user] pries [src] open."))
 		empty_pod()
 
 /obj/structure/transit_tube_pod/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	var/obj/structure/transit_tube_construction/pod/P = new(get_turf(src))
 	P.dir = dir
-	to_chat(user, "<span class='notice'>You uninstall [src].</span>")
+	to_chat(user, span_notice("You uninstall [src]."))
 	qdel(src)
 
 /obj/structure/transit_tube_pod/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	to_chat(user, "<span class='notice'>You must uninstall [src] before disassembling it!</span>")
+	to_chat(user, span_notice("You must uninstall [src] before disassembling it!"))
 
 /obj/structure/transit_tube_pod/process()
 	..()
@@ -101,7 +101,7 @@
 	var/list/savedcontents = contents.Copy()
 	var/saveddir = dir
 	var/turf/destination = get_edge_target_turf(src, saveddir)
-	visible_message("<span class='warning'>[src] ejects its insides out!</span>")
+	visible_message(span_warning("[src] ejects its insides out!"))
 	for(var/i in savedcontents)
 		var/atom/movable/AM = i
 		AM.throw_at(destination, rand(1, 3), 5)

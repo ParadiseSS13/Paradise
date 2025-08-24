@@ -49,7 +49,7 @@
 
 /obj/item/organ/internal/lungs/cybernetic/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] is configured for [species_state] standards of atmosphere.</span>"
+	. += span_notice("[src] is configured for [species_state] standards of atmosphere.")
 
 /obj/item/organ/internal/lungs/cybernetic/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -61,7 +61,7 @@
 	if(isnull(chosen) || chosen == species_state || !Adjacent(user) || !I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	species_state = chosen
-	to_chat(user, "<span class='notice'>You configure [src] to [chosen] settings.</span>")
+	to_chat(user, span_notice("You configure [src] to [chosen] settings."))
 
 	var/typepath = possible[chosen]
 	var/datum/organ/lungs/lungs = new typepath(src)

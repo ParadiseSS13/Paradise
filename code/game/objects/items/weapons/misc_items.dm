@@ -76,23 +76,23 @@
 		return
 	if(!hidden && I.tool_behaviour != TOOL_SCREWDRIVER && I.w_class == WEIGHT_CLASS_TINY)
 		if(istype(I, /obj/item/disk/nuclear))
-			to_chat(user, "<span class='warning'>You think you're gonna need more than crutches if your employers find out what you just tried to do...</span>")
+			to_chat(user, span_warning("You think you're gonna need more than crutches if your employers find out what you just tried to do..."))
 			return
 		if(I.flags & ABSTRACT)
 			return
 		if(!user.unequip(I))
-			to_chat(user, "<span class='notice'>[I] doesn't seem to want to go into [src]!</span>")
+			to_chat(user, span_notice("[I] doesn't seem to want to go into [src]!"))
 			return
 		I.forceMove(src)
 		hidden = I
-		to_chat(user, "<span class='notice'>You hide [I] inside the crutch tip.</span>")
+		to_chat(user, span_notice("You hide [I] inside the crutch tip."))
 
 /obj/item/crutches/attack_hand(mob/user, pickupfireoverride)
 	if(!is_open)
 		return ..()
 	if(hidden)
 		user.put_in_hands(hidden)
-		to_chat(user, "<span class='notice'>You remove [hidden] from the crutch tip!</span>")
+		to_chat(user, span_notice("You remove [hidden] from the crutch tip!"))
 		hidden = null
 
 	add_fingerprint(user)
@@ -100,7 +100,7 @@
 /obj/item/crutches/screwdriver_act(mob/living/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You screw the crutch tip [is_open ? "closed" : "open"].</span>")
+	to_chat(user, span_notice("You screw the crutch tip [is_open ? "closed" : "open"]."))
 	is_open = !is_open
 
 /obj/item/crutches/get_crutch_efficiency()

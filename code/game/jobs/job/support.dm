@@ -468,7 +468,7 @@
 	active = TRUE
 	background_icon_state = "bg_spell"
 	build_all_button_icons()
-	to_chat(H, "<span class='notice'>You start acting clumsy to throw suspicions off. Focus again before using weapons.</span>")
+	to_chat(H, span_notice("You start acting clumsy to throw suspicions off. Focus again before using weapons."))
 
 /datum/action/innate/toggle_clumsy/Deactivate()
 	var/mob/living/carbon/human/H = owner
@@ -477,7 +477,7 @@
 	active = FALSE
 	background_icon_state = "bg_default"
 	build_all_button_icons()
-	to_chat(H, "<span class='notice'>You focus and can now use weapons regularly.</span>")
+	to_chat(H, span_notice("You focus and can now use weapons regularly."))
 
 /datum/job/mime
 	title = "Mime"

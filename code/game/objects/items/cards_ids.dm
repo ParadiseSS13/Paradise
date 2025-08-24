@@ -139,17 +139,17 @@
 	if(in_range(user, src))
 		show(usr)
 	else
-		. += "<span class='warning'>It is too far away.</span>"
+		. += span_warning("It is too far away.")
 	if(guest_pass)
-		. += "<span class='notice'>There is a guest pass attached to this ID card, <b>Alt-Click</b> to remove it.</span>"
+		. += span_notice("There is a guest pass attached to this ID card, <b>Alt-Click</b> to remove it.")
 		if(world.time < guest_pass.expiration_time)
-			. += "<span class='notice'>It expires at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>"
+			. += span_notice("It expires at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].")
 		else
-			. += "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>"
-		. += "<span class='notice'>It grants access to following areas:</span>"
+			. += span_warning("It expired at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].")
+		. += span_notice("It grants access to following areas:")
 		for(var/A in guest_pass.temp_access)
-			. += "<span class='notice'>[get_access_desc(A)].</span>"
-		. += "<span class='notice'>Issuing reason: [guest_pass.reason].</span>"
+			. += span_notice("[get_access_desc(A)].")
+		. += span_notice("Issuing reason: [guest_pass.reason].")
 
 /obj/item/card/id/proc/show(mob/user as mob)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
@@ -179,7 +179,7 @@
 	if(victim.has_status_effect(STATUS_EFFECT_OFFERING_EFTPOS))
 		var/obj/item/eftpos/eftpos = victim.is_holding_item_of_type(/obj/item/eftpos)
 		if(!eftpos || !eftpos.can_offer)
-			to_chat(user, "<span class='warning'>They don't seem to have it in hand anymore.</span>")
+			to_chat(user, span_warning("They don't seem to have it in hand anymore."))
 			return ITEM_INTERACT_COMPLETE
 		victim.remove_status_effect(STATUS_EFFECT_OFFERING_EFTPOS)
 		eftpos.scan_card(src, user)
@@ -319,11 +319,11 @@
 		return
 
 	if(guest_pass)
-		to_chat(user, "<span class='notice'>You remove the guest pass from this ID.</span>")
+		to_chat(user, span_notice("You remove the guest pass from this ID."))
 		guest_pass.forceMove(get_turf(src))
 		guest_pass = null
 	else
-		to_chat(user, "<span class='warning'>There is no guest pass attached to this ID.</span>")
+		to_chat(user, span_warning("There is no guest pass attached to this ID."))
 
 /obj/item/card/id/serialize()
 	var/list/data = ..()
@@ -811,7 +811,7 @@
 		desc = "A card used to claim mining points and buy gear."
 		registered = TRUE
 		can_id_flash = TRUE
-		to_chat(user, "<span class='notice'>The ID is now registered as yours.</span>")
+		to_chat(user, span_notice("The ID is now registered as yours."))
 
 /obj/item/card/id/data
 	icon_state = "data"
@@ -827,8 +827,8 @@
 /obj/item/card/id/nct_data_chip/examine(mob/user)
 	. = ..()
 	. += "<br>The current registered Trainee is: <b>[trainee]</b>"
-	. += "<span class='notice'>Use in hand to reset the assigned trainee and access.</span>"
-	. += "<span class='purple'>The datachip is unable to copy any access that has been deemed high-risk by Nanotrasen Officials. That includes some, if not most, head related access permissions.</span>"
+	. += span_notice("Use in hand to reset the assigned trainee and access.")
+	. += span_purple("The datachip is unable to copy any access that has been deemed high-risk by Nanotrasen Officials. That includes some, if not most, head related access permissions.")
 
 /obj/item/card/id/nct_data_chip/activate_self(mob/user)
 	if(..())
@@ -849,15 +849,15 @@
 		return
 
 	if(user.mind.current != registered_user)
-		to_chat(user, "<span class='notice'>You do not have access to use this NCT Trainee Access Chip!</span>")
+		to_chat(user, span_notice("You do not have access to use this NCT Trainee Access Chip!"))
 		return
 
 	if(istype(target, /obj/item/card/id/ert))
-		to_chat(user, "<span class='warning'>The chip's screen blinks red as you attempt scanning this ID.</span>")
+		to_chat(user, span_warning("The chip's screen blinks red as you attempt scanning this ID."))
 		return
 
 	var/obj/item/card/id/I = target
-	to_chat(user, "<span class='notice'>The chip's microscanners activate as you scan [I.registered_name]'s ID, copying its access.</span>")
+	to_chat(user, span_notice("The chip's microscanners activate as you scan [I.registered_name]'s ID, copying its access."))
 	access = I.access.Copy()
 	access.Remove(ACCESS_AI_UPLOAD, ACCESS_ARMORY, ACCESS_CAPTAIN, ACCESS_CE, ACCESS_RD, ACCESS_HOP, ACCESS_QM, ACCESS_CMO, ACCESS_HOS, ACCESS_NTREP,
 						ACCESS_MAGISTRATE, ACCESS_BLUESHIELD, ACCESS_HEADS_VAULT, ACCESS_KEYCARD_AUTH, ACCESS_RC_ANNOUNCE,

@@ -1096,30 +1096,30 @@
 	if(is_pen(W))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(length(contents))
-			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
+			to_chat(user, span_warning("You can't modify [src] with items still inside!"))
 			return
 		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILE)
 		var/switchDesign = tgui_input_list(user, "Select a Design", "Paper Sack Design", designs)
 		if(!switchDesign)
 			return
 		if(get_dist(usr, src) > 1 && !usr.incapacitated())
-			to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
+			to_chat(usr, span_warning("You have moved too far away!"))
 			return
 		if(design == switchDesign)
 			return
-		to_chat(usr, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
+		to_chat(usr, span_notice("You make some modifications to [src] using your pen."))
 		design = switchDesign
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return
 	else if(W.sharp)
 		if(!length(contents))
 			if(item_state == "paperbag_None")
-				to_chat(user, "<span class='notice'>You cut eyeholes into [src].</span>")
+				to_chat(user, span_notice("You cut eyeholes into [src]."))
 				new /obj/item/clothing/head/papersack(user.loc)
 				qdel(src)
 				return
 			else if(item_state == "paperbag_SmileyFace")
-				to_chat(user, "<span class='notice'>You cut eyeholes into [src] and modify the design.</span>")
+				to_chat(user, span_notice("You cut eyeholes into [src] and modify the design."))
 				new /obj/item/clothing/head/papersack/smiley(user.loc)
 				qdel(src)
 				return
@@ -1281,14 +1281,14 @@
 	foldable = null
 
 /obj/item/storage/box/hug/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all..</span>")
+	user.visible_message(span_suicide("[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all.."))
 	return (BRUTELOSS)
 
 /obj/item/storage/box/hug/attack_self__legacy__attackchain(mob/user)
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(loc, "rustle", 50, TRUE, -5)
-	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
+	user.visible_message(span_notice("[user] hugs \the [src]."),span_notice("You hug \the [src]."))
 
 /obj/item/storage/box/wizard
 	name = "magical box"

@@ -48,7 +48,7 @@
 /obj/machinery/mineral/labor_prisoner_shuttle_console/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/card/id/prisoner))
 		if(inserted_id_uid)
-			to_chat(user, "<span class='notice'>There's an ID inserted already.</span>")
+			to_chat(user, span_notice("There's an ID inserted already."))
 			return ITEM_INTERACT_COMPLETE
 
 		if(!user.drop_item_to_ground(used))
@@ -56,7 +56,7 @@
 
 		used.forceMove(src)
 		inserted_id_uid = used.UID()
-		to_chat(user, "<span class='notice'>You insert [used].</span>")
+		to_chat(user, span_notice("You insert [used]."))
 		SStgui.update_uis(src)
 
 		return ITEM_INTERACT_COMPLETE
@@ -115,22 +115,22 @@
 
 		if("move_shuttle")
 			if(!alone_in_area(get_area(src), ui.user))
-				to_chat(ui.user, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
+				to_chat(ui.user, span_warning("Prisoners are only allowed to be released while alone."))
 				return TRUE
 
 			switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE, ui.user))
 				if(1)
-					to_chat(ui.user, "<span class='notice'>Shuttle not found.</span>")
+					to_chat(ui.user, span_notice("Shuttle not found."))
 				if(2)
-					to_chat(ui.user, "<span class='notice'>Shuttle already at station.</span>")
+					to_chat(ui.user, span_notice("Shuttle already at station."))
 				if(3)
-					to_chat(ui.user, "<span class='notice'>No permission to dock could be granted.</span>")
+					to_chat(ui.user, span_notice("No permission to dock could be granted."))
 				else
 					if(!emagged)
 						var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
 						announcer.autosay(message, "Labor Camp Controller", "Security")
 						sec_record_release(ui.user)
-					to_chat(ui.user, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
+					to_chat(ui.user, span_notice("Shuttle received message and will be sent shortly."))
 					ui.user.create_log(MISC_LOG, "used [src] to call the laborcamp shuttle")
 
 	return TRUE
@@ -155,7 +155,7 @@
 /obj/machinery/mineral/labor_prisoner_shuttle_console/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
+		to_chat(user, span_warning("PZZTTPFFFT"))
 		return TRUE
 
 /**********************Point Lookup Console**************************/
@@ -175,15 +175,15 @@
 	if(istype(used, /obj/item/card/id/prisoner))
 		var/obj/item/card/id/prisoner/prisoner_id = used
 		if(!prisoner_id.goal)
-			to_chat(user, "<span class='warning'>Error: No point quota assigned by security, exiting.</span>")
+			to_chat(user, span_warning("Error: No point quota assigned by security, exiting."))
 			return ITEM_INTERACT_COMPLETE
-		to_chat(user, "<span class='notice'><b>ID: [prisoner_id.registered_name]</b></span>")
-		to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.mining_points]</span>")
-		to_chat(user, "<span class='notice'>Point Quota: [prisoner_id.goal]</span>")
-		to_chat(user, "<span class='notice'>Collect points by bringing ore to the labor camp ore redemption machine. Reach your quota to earn your release.</span>")
+		to_chat(user, span_notice("<b>ID: [prisoner_id.registered_name]</b>"))
+		to_chat(user, span_notice("Points Collected:[prisoner_id.mining_points]"))
+		to_chat(user, span_notice("Point Quota: [prisoner_id.goal]"))
+		to_chat(user, span_notice("Collect points by bringing ore to the labor camp ore redemption machine. Reach your quota to earn your release."))
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/card/id))
-		to_chat(user, "<span class='warning'>Error: Invalid ID</span>")
+		to_chat(user, span_warning("Error: Invalid ID"))
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()

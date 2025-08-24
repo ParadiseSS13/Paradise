@@ -32,7 +32,7 @@
 	if(!used.sharp)
 		return NONE
 
-	to_chat(user, "<span class='notice'>You carve a face into [src] with [used].</span>")
+	to_chat(user, span_notice("You carve a face into [src] with [used]."))
 	new carved_type(user.loc)
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE

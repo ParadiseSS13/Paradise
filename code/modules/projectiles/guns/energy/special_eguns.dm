@@ -224,7 +224,7 @@
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	user.visible_message("<span class='suicide'>[user] cocks [src] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] cocks [src] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!"))
 	shoot_live_shot(user, user, FALSE, FALSE)
 	return OXYLOSS
 
@@ -251,8 +251,8 @@
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] can be recharged by inserting plasma sheets or raw plasma ore into it.</span>"
-	. += "<span class='warning'>[src] cannot be charged in a gun charging station.</span>"
+	. += span_notice("[src] can be recharged by inserting plasma sheets or raw plasma ore into it.")
+	. += span_warning("[src] cannot be charged in a gun charging station.")
 
 /obj/item/gun/energy/plasmacutter/examine_more(mob/user)
 	..()
@@ -272,7 +272,7 @@
 		S.use(1)
 		cell.give(1000)
 		on_recharge()
-		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
+		to_chat(user, span_notice("You insert [A] in [src], recharging it."))
 	else if(istype(A, /obj/item/stack/ore/plasma))
 		if(cell.charge >= cell.maxcharge)
 			to_chat(user,"<span class='notice'>[src] is already fully charged.")
@@ -281,7 +281,7 @@
 		S.use(1)
 		cell.give(500)
 		on_recharge()
-		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
+		to_chat(user, span_notice("You insert [A] in [src], recharging it."))
 	else
 		return ..()
 
@@ -363,8 +363,8 @@
 		orange.target = get_turf(blue)
 
 /obj/item/gun/energy/wormhole_projector/suicide_act(mob/user)
-	user.visible_message(pick("<span class='suicide'>[user] looking directly into the operational end of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
-								"<span class='suicide'>[user] is touching the operatonal end of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
+	user.visible_message(pick(span_suicide("[user] looking directly into the operational end of [src]! It looks like [user.p_theyre()] trying to commit suicide!"),
+								span_suicide("[user] is touching the operatonal end of [src]! It looks like [user.p_theyre()] trying to commit suicide!")))
 	if(!do_after(user, 0.5 SECONDS, target = user)) // touch/looking doesn't take that long, but still probably good for a delay to exist for shoving and whatnot
 		return SHAME
 	user.dust()
@@ -446,7 +446,7 @@
 
 /obj/item/gun/energy/clown/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] contains a strange bananium core that somehow slowly reacharges its power cell at all times. It can still be put into a gun charger for faster charging.</span>"
+	. += span_notice("[src] contains a strange bananium core that somehow slowly reacharges its power cell at all times. It can still be put into a gun charger for faster charging.")
 
 /obj/item/gun/energy/clown/examine_more(mob/user)
 	..()
@@ -485,7 +485,7 @@
 
 /obj/item/gun/energy/plasma_pistol/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>Beware! Improper handling of [src] may release a cloud of highly flammable plasma gas!</span>"
+	. += span_warning("Beware! Improper handling of [src] may release a cloud of highly flammable plasma gas!")
 
 /obj/item/gun/energy/plasma_pistol/examine_more(mob/user)
 	..()
@@ -519,15 +519,15 @@
 
 /obj/item/gun/energy/plasma_pistol/attack_self__legacy__attackchain(mob/living/user)
 	if(overloaded)
-		to_chat(user, "<span class='warning'>[src] is already overloaded!</span>")
+		to_chat(user, span_warning("[src] is already overloaded!"))
 		return
 	if(cell.charge <= 140) //at least 6 seconds of charge time
-		to_chat(user, "<span class='warning'>[src] does not have enough charge to be overloaded.</span>")
+		to_chat(user, span_warning("[src] does not have enough charge to be overloaded."))
 		return
 	if(charging)
-		to_chat(user, "<span class='warning'>[src] is already charging!</span>")
+		to_chat(user, span_warning("[src] is already charging!"))
 		return
-	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
+	to_chat(user, span_notice("You begin to overload [src]."))
 	charging = TRUE
 	charge_failure = FALSE
 	holder = user
@@ -600,7 +600,7 @@
 	reset_overloaded()
 	do_sparks(2, 1, src)
 	update_icon()
-	visible_message("<span class='danger'>[src] vents heated plasma!</span>")
+	visible_message(span_danger("[src] vents heated plasma!"))
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
 		var/datum/gas_mixture/air = new()
@@ -639,14 +639,14 @@
 /obj/item/gun/energy/bsg/examine(mob/user)
 	. = ..()
 	if(core && has_bluespace_crystal)
-		. += "<span class='notice'>[src] is fully operational!</span>"
-		. += "<span class='notice'>[src] will generate a protective field that shields the user from the blast of its own projectiles when fired.</span>"
+		. += span_notice("[src] is fully operational!")
+		. += span_notice("[src] will generate a protective field that shields the user from the blast of its own projectiles when fired.")
 	else if(core)
-		. += "<span class='warning'>It has a flux anomaly core installed, but no bluespace crystal installed.</span>"
+		. += span_warning("It has a flux anomaly core installed, but no bluespace crystal installed.")
 	else if(has_bluespace_crystal)
-		. += "<span class='warning'>It has a bluespace crystal installed, but no flux anomaly core installed.</span>"
+		. += span_warning("It has a bluespace crystal installed, but no flux anomaly core installed.")
 	else
-		. += "<span class='warning'>It is missing a flux anomaly core and bluespace crystal.</span>"
+		. += span_warning("It is missing a flux anomaly core and bluespace crystal.")
 
 /obj/item/gun/energy/bsg/examine_more(mob/user)
 	..()
@@ -665,12 +665,12 @@
 /obj/item/gun/energy/bsg/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
 		if(has_bluespace_crystal)
-			to_chat(user, "<span class='notice'>[src] already has a bluespace crystal installed.</span>")
+			to_chat(user, span_notice("[src] already has a bluespace crystal installed."))
 			return
 		var/obj/item/stack/S = O
 		if(!loc || !S || S.get_amount() < 1)
 			return
-		to_chat(user, "<span class='notice'>You load [O] into [src].</span>")
+		to_chat(user, span_notice("You load [O] into [src]."))
 		S.use(1)
 		has_bluespace_crystal = TRUE
 		update_icon()
@@ -678,12 +678,12 @@
 
 	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
 		if(core)
-			to_chat(user, "<span class='notice'>[src] already has a [O]!</span>")
+			to_chat(user, span_notice("[src] already has a [O]!"))
 			return
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[O] is stuck to your hand!</span>")
+			to_chat(user, span_warning("[O] is stuck to your hand!"))
 			return
-		to_chat(user, "<span class='notice'>You insert [O] into [src], and [src] starts to warm up.</span>")
+		to_chat(user, span_notice("You insert [O] into [src], and [src] starts to warm up."))
 		O.forceMove(src)
 		core = O
 		update_icon()
@@ -700,10 +700,10 @@
 
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
-		to_chat(user, "<span class='warning'>[src] has no bluespace crystal to power it!</span>")
+		to_chat(user, span_warning("[src] has no bluespace crystal to power it!"))
 		return
 	if(!core)
-		to_chat(user, "<span class='warning'>[src] has no flux anomaly core to power it!</span>")
+		to_chat(user, span_warning("[src] has no flux anomaly core to power it!"))
 		return
 	return ..()
 
@@ -728,7 +728,7 @@
 /obj/item/gun/energy/bsg/proc/shatter()
 	if(admin_model)
 		return
-	visible_message("<span class='warning'>[src]'s bluespace crystal shatters!</span>")
+	visible_message(span_warning("[src]'s bluespace crystal shatters!"))
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 50, TRUE)
 	has_bluespace_crystal = FALSE
 	update_icon()
@@ -812,7 +812,7 @@
 /obj/item/gun/energy/temperature/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='warning'>You remove the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
+		to_chat(user, span_warning("You remove the gun's temperature cap! Targets hit by searing beams will burst into flames!"))
 		desc += " Its temperature cap has been removed."
 		max_temp = 1000
 		temperature_multiplier *= 5  //so emagged temp guns adjust their temperature much more quickly
@@ -961,7 +961,7 @@
 
 /obj/item/gun/energy/detective/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Ctrl-click to clear active tracked target or clear linked pinpointer.</span>"
+	. += span_notice("Ctrl-click to clear active tracked target or clear linked pinpointer.")
 
 /obj/item/gun/energy/detective/emp_act(severity)
 	. = ..()
@@ -976,11 +976,11 @@
 	var/tracking_target = locateUID(tracking_target_UID)
 	if(tracking_target)
 		if(tgui_alert(user, "Do you want to clear the tracker?", "Tracker reset", list("Yes", "No")) == "Yes")
-			to_chat(user, "<span class='notice'>[src] stops tracking [tracking_target]</span>")
+			to_chat(user, span_notice("[src] stops tracking [tracking_target]"))
 			stop_pointing()
 	if(linked_pinpointer_UID)
 		if(tgui_alert(user, "Do you want to clear the linked pinpointer?", "Pinpointer reset", list("Yes", "No")) == "Yes")
-			to_chat(user, "<span class='notice'>[src] is ready to be linked to a new pinpointer.</span>")
+			to_chat(user, span_notice("[src] is ready to be linked to a new pinpointer."))
 			unlink()
 
 /obj/item/gun/energy/detective/proc/link_pinpointer(pinpointer_UID)
@@ -998,9 +998,9 @@
 
 /obj/item/gun/energy/detective/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
-	user.visible_message("<span class='notice'>[user] starts [overcharged ? "restoring" : "removing"] the safety limits on [src].</span>", "<span class='notice'>You start [overcharged ? "restoring" : "removing"] the safety limits on [src]</span>")
+	user.visible_message(span_notice("[user] starts [overcharged ? "restoring" : "removing"] the safety limits on [src]."), span_notice("You start [overcharged ? "restoring" : "removing"] the safety limits on [src]"))
 	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume))
-		user.visible_message("<span class='notice'>[user] stops modifying the safety limits on [src].", "You stop modifying the [src]'s safety limits</span>")
+		user.visible_message(span_notice("[user] stops modifying the safety limits on [src]."), span_notice("You stop modifying the [src]'s safety limits"))
 		return
 	if(!overcharged)
 		overcharged = TRUE
@@ -1012,7 +1012,7 @@
 		ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/tracker_warrant)
 		update_ammo_types()
 		select_fire(user)
-	user.visible_message("<span class='notice'>[user] [overcharged ? "removes" : "restores"] the safety limits on [src].", "You [overcharged ? "remove" : "restore" ] the safety limits on [src]</span>")
+	user.visible_message(span_notice("[user] [overcharged ? "removes" : "restores"] the safety limits on [src]."), span_notice("You [overcharged ? "remove" : "restore" ] the safety limits on [src]"))
 	update_icon()
 
 /obj/item/gun/energy/detective/attackby__legacy__attackchain(obj/item/I, mob/user, params)
@@ -1021,10 +1021,10 @@
 		return
 	var/obj/item/ammo_box/magazine/detective/speedcharger/S = I
 	if(!S.charge)
-		to_chat(user, "<span class='notice'>[S] has no charge to give!</span>")
+		to_chat(user, span_notice("[S] has no charge to give!"))
 		return
 	if(cell.charge == cell.maxcharge)
-		to_chat(user, "<span class='notice'>[src] is already at full power!</span>")
+		to_chat(user, span_notice("[src] is already at full power!"))
 		return
 	var/new_speedcharger_charge = cell.give(S.charge)
 	S.charge -= new_speedcharger_charge
@@ -1036,7 +1036,7 @@
 		return ..()
 	if(prob(clamp((100 - ((cell.charge / cell.maxcharge) * 100)), 10, 70)))	//minimum probability of 10, maximum of 70
 		playsound(user, fire_sound, 50, 1)
-		visible_message("<span class='userdanger'>[src]'s energy cell overloads!</span>")
+		visible_message(span_userdanger("[src]'s energy cell overloads!"))
 		user.apply_damage(60, BURN, pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND))
 		user.EyeBlurry(10 SECONDS)
 		user.flash_eyes(2, TRUE)
@@ -1106,7 +1106,7 @@
 
 /obj/item/gun/energy/spikethrower/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This item's cell recharges on its own. Known to drive people mad by forcing them to wait for shots to recharge. Not compatible with rechargers.</span>"
+	. += span_notice("This item's cell recharges on its own. Known to drive people mad by forcing them to wait for shots to recharge. Not compatible with rechargers.")
 
 //////////////////////////////
 // MARK: VORTEX SHOTGUN
@@ -1223,7 +1223,7 @@
 
 /obj/item/gun/energy/laser/lever_action/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This weapon is rechargable by cycling the action, or by twirling the firearm with some skill.</span>"
+	. += span_notice("This weapon is rechargable by cycling the action, or by twirling the firearm with some skill.")
 
 /obj/item/gun/energy/laser/lever_action/examine_more(mob/user)
 	..()

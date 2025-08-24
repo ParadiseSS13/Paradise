@@ -39,18 +39,18 @@
 
 /obj/structure/engineeringcart/proc/put_in_cart(obj/item/used, mob/user)
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+		to_chat(user, span_warning("[used] is stuck to your hand!"))
 		return FALSE
 
 	used.loc = src
-	to_chat(user, "<span class='notice'>You put [used] into [src].</span>")
+	to_chat(user, span_notice("You put [used] into [src]."))
 	return TRUE
 
 /obj/structure/engineeringcart/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ITEM_INTERACT_COMPLETE
-	var/fail_msg = "<span class='warning'>There is already one of those in [src]!</span>"
+	var/fail_msg = span_warning("There is already one of those in [src]!")
 	if(used.is_robot_module())
-		to_chat(user, "<span class='warning'>You cannot interface your modules with [src]!</span>")
+		to_chat(user, span_warning("You cannot interface your modules with [src]!"))
 		return
 
 	if(istype(used, /obj/item/stack/sheet/glass))
@@ -94,7 +94,7 @@
 			to_chat(user, fail_msg)
 			return
 
-		if(!put_in_cart(used, user))	
+		if(!put_in_cart(used, user))
 			return
 
 		my_flashlight = used
@@ -145,9 +145,9 @@
 		tool.play_tool_sound(src, tool.tool_volume)
 		anchored = FALSE
 		user.visible_message(
-			"<span class='notice'>[user] loosens [src]'s casters.</span>",
-			"<span class='notice'>You have loosened [src]'s casters.</span>",
-			"<span class='notice'>You hear ratcheting.</span>"
+			span_notice("[user] loosens [src]'s casters."),
+			span_notice("You have loosened [src]'s casters."),
+			span_notice("You hear ratcheting.")
 		)
 		return
 
@@ -155,9 +155,9 @@
 		tool.play_tool_sound(src, tool.tool_volume)
 		anchored = TRUE
 		user.visible_message(
-			"<span class='notice'>[user] tightens [src]'s casters.</span>",
-			"<span class='notice'>You have tightened [src]'s casters.</span>",
-			"<span class='notice'>You hear ratcheting.</span>"
+			span_notice("[user] tightens [src]'s casters."),
+			span_notice("You have tightened [src]'s casters."),
+			span_notice("You hear ratcheting.")
 		)
 
 /obj/structure/engineeringcart/attack_hand(mob/user)
@@ -191,7 +191,7 @@
 				return
 
 			user.put_in_hands(my_glass)
-			to_chat(user, "<span class='notice'>You take [my_glass] from [src].</span>")
+			to_chat(user, span_notice("You take [my_glass] from [src]."))
 			my_glass = null
 
 		if("Metal")
@@ -199,7 +199,7 @@
 				return
 
 			user.put_in_hands(my_metal)
-			to_chat(user, "<span class='notice'>You take [my_metal] from [src].</span>")
+			to_chat(user, span_notice("You take [my_metal] from [src]."))
 			my_metal = null
 
 		if("Plasteel")
@@ -207,7 +207,7 @@
 				return
 
 			user.put_in_hands(my_plasteel)
-			to_chat(user, "<span class='notice'>You take [my_plasteel] from [src].</span>")
+			to_chat(user, span_notice("You take [my_plasteel] from [src]."))
 			my_plasteel = null
 
 		if("Flashlight")
@@ -215,7 +215,7 @@
 				return
 
 			user.put_in_hands(my_flashlight)
-			to_chat(user, "<span class='notice'>You take [my_flashlight] from [src].</span>")
+			to_chat(user, span_notice("You take [my_flashlight] from [src]."))
 			my_flashlight = null
 
 		if("Mechanical Toolbox")
@@ -223,7 +223,7 @@
 				return
 
 			user.put_in_hands(my_blue_toolbox)
-			to_chat(user, "<span class='notice'>You take [my_blue_toolbox] from [src].</span>")
+			to_chat(user, span_notice("You take [my_blue_toolbox] from [src]."))
 			my_blue_toolbox = null
 
 		if("Emergency Toolbox")
@@ -231,7 +231,7 @@
 				return
 
 			user.put_in_hands(my_red_toolbox)
-			to_chat(user, "<span class='notice'>You take [my_red_toolbox] from [src].</span>")
+			to_chat(user, span_notice("You take [my_red_toolbox] from [src]."))
 			my_red_toolbox = null
 
 		if("Electrical Toolbox")
@@ -239,7 +239,7 @@
 				return
 
 			user.put_in_hands(my_yellow_toolbox)
-			to_chat(user, "<span class='notice'>You take [my_yellow_toolbox] from [src].</span>")
+			to_chat(user, span_notice("You take [my_yellow_toolbox] from [src]."))
 			my_yellow_toolbox = null
 
 	update_icon(UPDATE_OVERLAYS)

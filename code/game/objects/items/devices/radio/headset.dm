@@ -392,7 +392,7 @@
 			return
 
 		if(!user.transfer_item_to(key, src, FALSE, FALSE))
-			to_chat(user, "<span class='warning'>[key] is stuck to your hand, you can't insert it in [src].</span>")
+			to_chat(user, span_warning("[key] is stuck to your hand, you can't insert it in [src]."))
 			return
 
 		if(!keyslot1)

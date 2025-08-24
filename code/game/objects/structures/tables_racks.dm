@@ -60,12 +60,12 @@
 	. += deconstruction_hints(user)
 	if(can_be_flipped)
 		if(flipped)
-			. += "<span class='notice'><b>Alt-Shift-Click</b> to right the table again.</span>"
+			. += span_notice("<b>Alt-Shift-Click</b> to right the table again.")
 		else
-			. += "<span class='notice'><b>Alt-Shift-Click</b> to flip over the table.</span>"
+			. += span_notice("<b>Alt-Shift-Click</b> to flip over the table.")
 
 /obj/structure/table/proc/deconstruction_hints(mob/user)
-	return "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
+	return span_notice("The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.")
 
 /obj/structure/table/update_icon(updates=ALL)
 	. = ..()
@@ -117,12 +117,12 @@
 	if(length(climbers))
 		for(var/mob/living/climber as anything in climbers)
 			climber.Weaken(4 SECONDS)
-			climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You hear [climber.name] get knocked off the table</span>")
+			climber.visible_message(span_warning("[climber.name] has been knocked off the table"), span_warning("You've been knocked off the table"), span_warning("You hear [climber.name] get knocked off the table"))
 	else if(Adjacent(user) && user.pulling && user.pulling.pass_flags & PASSTABLE)
 		user.Move_Pulled(src)
 		if(user.pulling.loc == loc)
-			user.visible_message("<span class='notice'>[user] places [user.pulling] onto [src].</span>",
-				"<span class='notice'>You place [user.pulling] onto [src].</span>")
+			user.visible_message(span_notice("[user] places [user.pulling] onto [src]."),
+				span_notice("You place [user.pulling] onto [src]."))
 			user.stop_pulling()
 
 /obj/structure/table/attack_tk() // no telehulk sorry
@@ -202,26 +202,26 @@
 
 /obj/structure/table/proc/tablepush(obj/item/grab/G, mob/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='danger'>Throwing [G.affecting] onto the table might hurt them!</span>")
+		to_chat(user, span_danger("Throwing [G.affecting] onto the table might hurt them!"))
 		return
 	if(get_dist(src, user) < 2)
 		if(G.affecting.buckled)
-			to_chat(user, "<span class='warning'>[G.affecting] is buckled to [G.affecting.buckled]!</span>")
+			to_chat(user, span_warning("[G.affecting] is buckled to [G.affecting.buckled]!"))
 			return FALSE
 		if(G.state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+			to_chat(user, span_warning("You need a better grip to do that!"))
 			return FALSE
 		if(!G.confirm())
 			return FALSE
 		var/blocking_object = density_check()
 		if(blocking_object)
-			to_chat(user, "<span class='warning'>You cannot do this there is \a [blocking_object] in the way!</span>")
+			to_chat(user, span_warning("You cannot do this there is \a [blocking_object] in the way!"))
 			return FALSE
 		G.affecting.forceMove(get_turf(src))
 		G.affecting.Weaken(4 SECONDS)
 		item_placed(G.affecting)
-		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
-									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
+		G.affecting.visible_message(span_danger("[G.assailant] pushes [G.affecting] onto [src]."), \
+									span_userdanger("[G.assailant] pushes [G.affecting] onto [src]."))
 		add_attack_logs(G.assailant, G.affecting, "Pushed onto a table")
 		qdel(G)
 		return TRUE
@@ -247,7 +247,7 @@
 			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			if(slippery)
 				step_away(I, user)
-				visible_message("<span class='warning'>[I] slips right off [src]!</span>")
+				visible_message(span_warning("[I] slips right off [src]!"))
 				playsound(loc, 'sound/misc/slip.ogg', 50, TRUE, -1)
 			else //Don't want slippery moving tables to have the item attached to them if it slides off.
 				item_placed(I)
@@ -258,7 +258,7 @@
 	. = ..()
 	if(. && M.environment_smash >= minimum_env_smash)
 		deconstruct(FALSE)
-		M.visible_message("<span class='danger'>[M] smashes [src]!</span>", "<span class='notice'>You smash [src].</span>")
+		M.visible_message(span_danger("[M] smashes [src]!"), span_notice("You smash [src]."))
 
 /obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
 	if(locate(/obj/structure/table) in get_turf(target))
@@ -334,28 +334,28 @@
 	if(!flipped)
 
 		if(flip_speed > 0)
-			user.visible_message("<span class='warning'>[user] starts trying to flip [src]!</span>", "<span class='warning'>You start trying to flip [src][flip_speed >= 5 SECONDS ? " (it'll take about [flip_speed / 10] seconds)." : ""].</span>")
+			user.visible_message(span_warning("[user] starts trying to flip [src]!"), span_warning("You start trying to flip [src][flip_speed >= 5 SECONDS ? " (it'll take about [flip_speed / 10] seconds)." : ""]."))
 			if(!do_after(user, flip_speed, TRUE, src))
-				user.visible_message("<span class='notice'>[user] gives up on trying to flip [src].</span>")
+				user.visible_message(span_notice("[user] gives up on trying to flip [src]."))
 				return
 		if(!flip(get_cardinal_dir(user, src)))
-			to_chat(user, "<span class='notice'>It won't budge.</span>")
+			to_chat(user, span_notice("It won't budge."))
 			return
 
 
-		user.visible_message("<span class='warning'>[user] flips [src]!</span>")
+		user.visible_message(span_warning("[user] flips [src]!"))
 
 		if(climbable)
 			structure_shaken()
 	else
 		if(flip_speed > 0)
-			user.visible_message("<span class='warning'>[user] starts trying to right [src]!</span>", "<span class='warning'>You start trying to right [src][flip_speed >= 5 SECONDS ? " (it'll take about [flip_speed / 10] seconds)." : ""]</span>")
+			user.visible_message(span_warning("[user] starts trying to right [src]!"), span_warning("You start trying to right [src][flip_speed >= 5 SECONDS ? " (it'll take about [flip_speed / 10] seconds)." : ""]"))
 			if(!do_after(user, flip_speed, TRUE, src))
-				user.visible_message("<span class='notice'>[user] gives up on trying to right [src].</span>")
+				user.visible_message(span_notice("[user] gives up on trying to right [src]."))
 				return
 		if(!unflip())
-			to_chat(user, "<span class='notice'>It won't budge.</span>")
-		user.visible_message("<span class='warning'>[user] rights [src]!</span>")
+			to_chat(user, span_notice("It won't budge."))
+		user.visible_message(span_warning("[user] rights [src]!"))
 
 /obj/structure/table/proc/get_flip_speed(mob/living/flipper)
 	if(!istype(flipper))
@@ -506,8 +506,8 @@
 	deconstruct(FALSE)
 
 /obj/structure/table/glass/proc/table_shatter(mob/living/L)
-	visible_message("<span class='warning'>[src] breaks!</span>",
-		"<span class='danger'>You hear breaking glass.</span>")
+	visible_message(span_warning("[src] breaks!"),
+		span_danger("You hear breaking glass."))
 	var/turf/T = get_turf(src)
 	playsound(T, "shatter", 50, 1)
 	for(var/I in debris)
@@ -576,9 +576,9 @@
 
 /obj/structure/table/glass/reinforced/deconstruction_hints(mob/user) //look, it was either copy paste these 4 procs, or copy paste all of the glass stuff
 	if(deconstruction_ready)
-		to_chat(user, "<span class='notice'>The top cover has been <i>welded</i> loose and the main frame's <b>bolts</b> are exposed.</span>")
+		to_chat(user, span_notice("The top cover has been <i>welded</i> loose and the main frame's <b>bolts</b> are exposed."))
 	else
-		to_chat(user, "<span class='notice'>The top cover is firmly <b>welded</b> on.</span>")
+		to_chat(user, span_notice("The top cover is firmly <b>welded</b> on."))
 
 /obj/structure/table/glass/reinforced/flip(direction)
 	if(!deconstruction_ready)
@@ -590,9 +590,9 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>You start [deconstruction_ready ? "strengthening" : "weakening"] the reinforced table...</span>")
+	to_chat(user, span_notice("You start [deconstruction_ready ? "strengthening" : "weakening"] the reinforced table..."))
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You [deconstruction_ready ? "strengthen" : "weaken"] the table.</span>")
+		to_chat(user, span_notice("You [deconstruction_ready ? "strengthen" : "weaken"] the table."))
 		deconstruction_ready = !deconstruction_ready
 
 /obj/structure/table/glass/reinforced/shove_impact(mob/living/target, mob/living/attacker)
@@ -776,9 +776,9 @@
 
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
 	if(deconstruction_ready)
-		to_chat(user, "<span class='notice'>The top cover has been <i>welded</i> loose and the main frame's <b>bolts</b> are exposed.</span>")
+		to_chat(user, span_notice("The top cover has been <i>welded</i> loose and the main frame's <b>bolts</b> are exposed."))
 	else
-		to_chat(user, "<span class='notice'>The top cover is firmly <b>welded</b> on.</span>")
+		to_chat(user, span_notice("The top cover is firmly <b>welded</b> on."))
 
 /obj/structure/table/reinforced/flip(direction)
 	if(!deconstruction_ready)
@@ -790,9 +790,9 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	. = TRUE
-	to_chat(user, "<span class='notice'>You start [deconstruction_ready ? "strengthening" : "weakening"] the reinforced table...</span>")
+	to_chat(user, span_notice("You start [deconstruction_ready ? "strengthening" : "weakening"] the reinforced table..."))
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You [deconstruction_ready ? "strengthen" : "weaken"] the table.</span>")
+		to_chat(user, span_notice("You [deconstruction_ready ? "strengthen" : "weaken"] the table."))
 		deconstruction_ready = !deconstruction_ready
 
 /obj/structure/table/reinforced/brass
@@ -886,7 +886,7 @@
 	qdel(src)
 
 /obj/structure/table/tray/deconstruction_hints(mob/user)
-	to_chat(user, "<span class='notice'>It is held together by some <b>screws</b> and <b>bolts</b>.</span>")
+	to_chat(user, span_notice("It is held together by some <b>screws</b> and <b>bolts</b>."))
 
 /obj/structure/table/tray/flip()
 	return 0
@@ -912,7 +912,7 @@
 
 /obj/structure/rack/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
+	. += span_notice("It's held together by a couple of <b>bolts</b>.")
 
 /obj/structure/rack/CanPass(atom/movable/mover, border_dir)
 	if(!density) //Because broken racks -Agouri |TODO: SPRITE!|
@@ -957,7 +957,7 @@
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct this.</span>")
+		to_chat(user, span_warning("Try as you might, you can't figure out how to deconstruct this."))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -968,8 +968,8 @@
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
-	user.visible_message("<span class='warning'>[user] kicks [src].</span>", \
-							"<span class='danger'>You kick [src].</span>")
+	user.visible_message(span_warning("[user] kicks [src]."), \
+							span_danger("You kick [src]."))
 	take_damage(rand(4,8), BRUTE, MELEE, 1)
 
 /obj/structure/rack/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -1031,13 +1031,13 @@
 	if(building)
 		return
 	building = TRUE
-	to_chat(user, "<span class='notice'>You start constructing a rack...</span>")
+	to_chat(user, span_notice("You start constructing a rack..."))
 	if(do_after(user, 50, target = user, progress=TRUE))
 		if(!user.drop_item(src))
 			return
 		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)
 		user.visible_message("<span class='notice'>[user] assembles \a [R].\
-			</span>", "<span class='notice'>You assemble \a [R].</span>")
+			</span>", span_notice("You assemble \a [R]."))
 		R.add_fingerprint(user)
 		qdel(src)
 	building = FALSE

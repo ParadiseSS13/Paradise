@@ -6,11 +6,11 @@
 
 /obj/item/inflatable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Use this item in hand</b> to create an inflatable wall.</span>"
+	. += span_notice("<b>Use this item in hand</b> to create an inflatable wall.")
 
 /obj/item/inflatable/attack_self__legacy__attackchain(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
-	to_chat(user, "<span class='notice'>You inflate [src].</span>")
+	to_chat(user, span_notice("You inflate [src]."))
 	var/obj/structure/inflatable/R = new /obj/structure/inflatable(user.loc)
 	src.transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
@@ -29,7 +29,7 @@
 
 /obj/structure/inflatable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to deflate [src].</span>"
+	. += span_notice("<b>Alt-Click</b> to deflate [src].")
 
 /obj/structure/inflatable/Initialize(mapload, location)
 	. = ..()
@@ -87,7 +87,7 @@
 
 /obj/item/inflatable/door/attack_self__legacy__attackchain(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
-	to_chat(user, "<span class='notice'>You inflate [src].</span>")
+	to_chat(user, span_notice("You inflate [src]."))
 	var/obj/structure/inflatable/door/R = new /obj/structure/inflatable/door(user.loc)
 	src.transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
@@ -162,7 +162,7 @@
 	icon_state = "folded_wall_torn"
 
 /obj/item/inflatable/torn/attack_self__legacy__attackchain(mob/user)
-	to_chat(user, "<span class='warning'>The inflatable wall is too torn to be inflated!</span>")
+	to_chat(user, span_warning("The inflatable wall is too torn to be inflated!"))
 	add_fingerprint(user)
 
 /obj/item/inflatable/door/torn
@@ -171,7 +171,7 @@
 	icon_state = "folded_door_torn"
 
 /obj/item/inflatable/door/torn/attack_self__legacy__attackchain(mob/user)
-	to_chat(user, "<span class='warning'>The inflatable door is too torn to be inflated!</span>")
+	to_chat(user, span_warning("The inflatable door is too torn to be inflated!"))
 	add_fingerprint(user)
 
 /obj/item/storage/briefcase/inflatable

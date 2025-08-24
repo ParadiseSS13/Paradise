@@ -160,7 +160,7 @@
 	if(!can_use(user))
 		return
 	locked = !locked
-	to_chat(user, "<span class='notice'>[src]'s button has been [locked ? "":"un"]locked.</span>")
+	to_chat(user, span_notice("[src]'s button has been [locked ? "":"un"]locked."))
 
 
 /**
@@ -185,10 +185,10 @@
 		user.client.active_keybindings[keybind_to_set_to] += list(triggerer)
 		linked_keybind = triggerer
 		triggerer.binded_to = keybind_to_set_to
-		to_chat(user, "<span class='notice'>[src] has been binded to [keybind_to_set_to]!</span>")
+		to_chat(user, span_notice("[src] has been binded to [keybind_to_set_to]!"))
 	else if(linked_keybind)
 		clean_up_keybinds(user)
-		to_chat(user, "<span class='notice'>Your active keybinding on [src] has been cleared.</span>")
+		to_chat(user, span_notice("Your active keybinding on [src] has been cleared."))
 
 /atom/movable/screen/movable/action_button/AltClick(mob/user)
 	return linked_action.AltTrigger()
@@ -368,7 +368,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 			for(var/datum/hud/hud as anything in action.viewers)
 				var/atom/movable/screen/movable/action_button/button = action.viewers[hud]
 				hud.position_action(button, SCRN_OBJ_DEFAULT)
-		to_chat(usr, "<span class='notice'>Action button positions have been reset.</span>")
+		to_chat(usr, span_notice("Action button positions have been reset."))
 		return TRUE
 
 	set_expanded(!expanded)

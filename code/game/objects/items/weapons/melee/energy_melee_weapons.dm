@@ -80,22 +80,22 @@
 		return !isnull(cig)
 
 	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
-		to_chat(user, "<span class='warning'>You must activate [src] before you can light [cig] with it!</span>")
+		to_chat(user, span_warning("You must activate [src] before you can light [cig] with it!"))
 		return TRUE
 
 	if(target == user)
 		user.visible_message(
 			"<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes! \
 			[user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [cig] with [src] in the process.</span>",
-			"<span class='notice'>You casually slash [src] at [cig], lighting it with the blade.</span>",
-			"<span class='danger'>You hear an energy blade slashing something!</span>"
+			span_notice("You casually slash [src] at [cig], lighting it with the blade."),
+			span_danger("You hear an energy blade slashing something!")
 		)
 	else
 		user.visible_message(
 			"<span class='danger'>[user] makes a violent slashing motion, barely missing the nose of [target] as light flashes! \
 			[user.p_they(TRUE)] light[user.p_s()] [cig] in the mouth of [target] with [src] in the process.</span>",
-			"<span class='notice'>You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade.</span>",
-			"<span class='danger'>You hear an energy blade slashing something!</span>"
+			span_notice("You casually slash [src] at [cig] in the mouth of [target], lighting it with the blade."),
+			span_danger("You hear an energy blade slashing something!")
 		)
 	user.do_attack_animation(target)
 	playsound(user.loc, hitsound, 50, TRUE)
@@ -103,13 +103,13 @@
 	return TRUE
 
 /obj/item/melee/energy/suicide_act(mob/user)
-	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>", \
-						"<span class='suicide'>[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>"))
+	user.visible_message(pick(span_suicide("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"), \
+						span_suicide("[user] is falling on [src]! It looks like [user.p_theyre()] trying to commit suicide!")))
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/melee/energy/attack_self__legacy__attackchain(mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
+		to_chat(user, span_warning("You accidentally cut yourself with [src], like a doofus!"))
 		user.take_organ_damage(5,5)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
@@ -123,7 +123,7 @@
 		w_class = initial(w_class)
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
 		set_light(0)
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+		to_chat(user, span_notice("[src] can now be concealed."))
 	else
 		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
 		force = force_on
@@ -140,7 +140,7 @@
 			set_light(brightness_on, l_color=colormap[item_color])
 		w_class = w_class_on
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+		to_chat(user, span_notice("[src] is now active."))
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -189,7 +189,7 @@
 	light_color = LIGHT_COLOR_WHITE
 
 /obj/item/melee/energy/axe/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] swings [src] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] swings [src] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS|FIRELOSS
 
 //////////////////////////////
@@ -221,7 +221,7 @@
 
 /obj/item/melee/energy/sword/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Can parry melee attacks and sometimes blocks ranged energy attacks. Use in hand to turn off and on.</span>"
+	. += span_notice("Can parry melee attacks and sometimes blocks ranged energy attacks. Use in hand to turn off and on.")
 
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
@@ -237,7 +237,7 @@
 		var/obj/item/stock_parts/cell/C = R.cell
 		if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) && !(C.use(hitcost)))
 			attack_self__legacy__attackchain(R)
-			to_chat(R, "<span class='notice'>It's out of charge!</span>")
+			to_chat(R, span_notice("It's out of charge!"))
 			return
 		..()
 	return
@@ -268,11 +268,11 @@
 	..()
 	if(istype(W, /obj/item/melee/energy/sword/saber))
 		if(W == src)
-			to_chat(user, "<span class='notice'>You try to attach the end of the energy sword to... itself. You're not very smart, are you?</span>")
+			to_chat(user, span_notice("You try to attach the end of the energy sword to... itself. You're not very smart, are you?"))
 			if(ishuman(user))
 				user.adjustBrainLoss(10)
 		else
-			to_chat(user, "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>")
+			to_chat(user, span_notice("You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool."))
 			var/obj/item/dualsaber/newSaber = new /obj/item/dualsaber(user.loc)
 			if(src.hacked) // That's right, we'll only check the "original" esword.
 				newSaber.hacked = TRUE
@@ -284,7 +284,7 @@
 		if(!hacked)
 			hacked = TRUE
 			item_color = "rainbow"
-			to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
+			to_chat(user, span_warning("RNBW_ENGAGE"))
 
 			if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 				icon_state = "swordrainbow"
@@ -296,7 +296,7 @@
 					user.update_inv_l_hand()
 
 		else
-			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
+			to_chat(user, span_warning("It's already fabulous!"))
 
 
 /obj/item/melee/energy/sword/saber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -308,10 +308,10 @@
 	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.reflectability == REFLECTABILITY_ENERGY)
-			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+			owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"))
 			add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
 			return -1
-		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+		owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
 		playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
 		return TRUE
 
@@ -434,7 +434,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(HAS_TRAIT(H, TRAIT_CLUMSY) && prob(50))
-			to_chat(H, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
+			to_chat(H, span_warning("You accidentally cut yourself with [src], like a doofus!"))
 			H.take_organ_damage(10,10)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
@@ -448,7 +448,7 @@
 		w_class = initial(w_class)
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
 		set_light(0)
-		to_chat(user, "<span class='notice'>You close [src]. It will now attack rapidly and cause fauna to bleed.</span>")
+		to_chat(user, span_notice("You close [src]. It will now attack rapidly and cause fauna to bleed."))
 	else
 		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, TRAIT_GENERIC)
 		force = force_on
@@ -465,7 +465,7 @@
 			set_light(brightness_on, l_color=colormap[item_color])
 		w_class = w_class_on
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) * 30000))
-		to_chat(user, "<span class='notice'>You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna.</span>")
+		to_chat(user, span_notice("You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna."))
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -481,7 +481,7 @@
 	Transforming it immediately after an attack causes the next attack to come out faster.</span>"
 
 /obj/item/melee/energy/cleaving_saw/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is [HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is [HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	transform_cooldown = 0
 	transform_weapon(user, TRUE)
 	return BRUTELOSS

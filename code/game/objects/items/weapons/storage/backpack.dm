@@ -33,15 +33,15 @@
 		for(var/obj/item/I in contents)
 			space_used += I.w_class
 		if(!space_used)
-			. += "<span class='notice'>[src] is empty.</span>"
+			. += span_notice("[src] is empty.")
 		else if(space_used <= max_combined_w_class * 0.6)
-			. += "<span class='notice'>[src] still has plenty of remaining space.</span>"
+			. += span_notice("[src] still has plenty of remaining space.")
 		else if(space_used <= max_combined_w_class * 0.8)
-			. += "<span class='notice'>[src] is beginning to run out of space.</span>"
+			. += span_notice("[src] is beginning to run out of space.")
 		else if(space_used < max_combined_w_class)
-			. += "<span class='notice'>[src] doesn't have much space left.</span>"
+			. += span_notice("[src] doesn't have much space left.")
 		else
-			. += "<span class='notice'>[src] is full.</span>"
+			. += span_notice("[src] is full.")
 
 /*
  * Backpack Types
@@ -66,17 +66,17 @@
 	if(istype(W, /obj/item/storage/backpack/holding))
 		var/response = tgui_alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?", "IMMINENT DEATH!", list("No", "Yes"))
 		if(response == "Yes")
-			user.visible_message("<span class='warning'>[user] grins as [user.p_they()] begin[user.p_s()] to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
+			user.visible_message(span_warning("[user] grins as [user.p_they()] begin[user.p_s()] to put a Bag of Holding into a Bag of Holding!"), span_warning("You begin to put the Bag of Holding into the Bag of Holding!"))
 			if(do_after(user, 30, target=src))
 				if(GLOB.disable_explosions)
 					if(istype(user))
-						to_chat(user, "<span class='userdanger'>You seem to stuff yourself into the quantum hellscape between the two bags. That wasn't wise.</span>")
+						to_chat(user, span_userdanger("You seem to stuff yourself into the quantum hellscape between the two bags. That wasn't wise."))
 						user.gib()
 
 					return
 
 				investigate_log("has become a singularity. Caused by [user.key]",INVESTIGATE_SINGULO)
-				user.visible_message("<span class='warning'>[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='danger'> You hear the sound of scientific evil brewing!</span>")
+				user.visible_message(span_warning("[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!"), span_warning("You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you."),span_danger(" You hear the sound of scientific evil brewing!"))
 				qdel(W)
 				var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
 				singulo.energy = 300 //To give it a small boost
@@ -237,7 +237,7 @@
 
 /obj/item/storage/backpack/satchel/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>You can <b>Alt-Shift-Click</b> [src] to flip it's strap side.</span>"
+	. += span_notice("You can <b>Alt-Shift-Click</b> [src] to flip it's strap side.")
 
 /obj/item/storage/backpack/satchel/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -406,7 +406,7 @@
 
 /obj/item/storage/backpack/duffel/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is currently [zipped ? "zipped" : "unzipped"]. Alt+Shift+Click to [zipped ? "un-" : ""]zip it!</span>"
+	. += span_notice("It is currently [zipped ? "zipped" : "unzipped"]. Alt+Shift+Click to [zipped ? "un-" : ""]zip it!")
 
 /obj/item/storage/backpack/duffel/AltShiftClick(mob/user)
 	. = ..()
@@ -462,21 +462,21 @@
 		return ..()
 
 	if(zipped)
-		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
+		to_chat(usr, span_notice("[src] is zipped shut!"))
 		return FALSE
 
 	return ..()
 
 /obj/item/storage/backpack/duffel/removal_allowed_check(mob/user)
 	if(zipped)
-		to_chat(user, "<span class='notice'>[src] is zipped shut!</span>")
+		to_chat(user, span_notice("[src] is zipped shut!"))
 		return FALSE
 
 	return TRUE
 
 /obj/item/storage/backpack/duffel/drop_inventory(user)
 	if(zipped)
-		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
+		to_chat(usr, span_notice("[src] is zipped shut!"))
 		return FALSE
 
 	return ..()
@@ -486,7 +486,7 @@
 		return ..()
 
 	if(zipped)
-		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
+		to_chat(usr, span_notice("[src] is zipped shut!"))
 		return FALSE
 
 	return ..()

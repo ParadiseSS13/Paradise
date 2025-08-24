@@ -28,7 +28,7 @@
 	var/cotton_name = "raw cotton"
 
 /obj/item/grown/cotton/attack_self__legacy__attackchain(mob/user)
-	user.show_message("<span class='notice'>You pull some [cotton_name] out of [src]!</span>", 1)
+	user.show_message(span_notice("You pull some [cotton_name] out of [src]!"), 1)
 	var/seed_modifier = 0
 	if(seed)
 		seed_modifier = round(seed.potency / 25)
@@ -38,7 +38,7 @@
 		if(ST != cotton && istype(ST, cotton_type) && ST.amount < ST.max_amount)
 			ST.attackby__legacy__attackchain(cotton, user)
 	if(cotton.amount > old_cotton_amount)
-		to_chat(user, "<span class='notice'>You add the newly-formed [cotton_name] to the stack. It now contains [cotton.amount] [cotton_name].</span>")
+		to_chat(user, span_notice("You add the newly-formed [cotton_name] to the stack. It now contains [cotton.amount] [cotton_name]."))
 	qdel(src)
 
 //reinforced mutated variant

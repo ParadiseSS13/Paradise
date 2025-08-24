@@ -383,7 +383,7 @@
 		if(usr != occupant)
 			return
 		if(occupant && !iscarbon(occupant))
-			to_chat(occupant, "<span class='danger'>You do not have any DNA!</span>")
+			to_chat(occupant, span_danger("You do not have any DNA!"))
 			return
 		dna = occupant.dna.unique_enzymes
 		occupant_message("You feel a prick as the needle takes your DNA sample.")

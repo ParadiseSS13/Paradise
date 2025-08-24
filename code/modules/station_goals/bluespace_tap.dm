@@ -25,7 +25,7 @@
 	var/highscore = 0
 	for(var/obj/machinery/power/bluespace_tap/T in SSmachines.get_by_type(/obj/machinery/power/bluespace_tap))
 		highscore = max(highscore, T.total_points)
-	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounceic'>"][highscore]</span>")
+	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>" : "<span class='boldannounceic'>"][highscore]</span>")
 	if(highscore >= goal)
 		return TRUE
 	return FALSE
@@ -584,7 +584,7 @@
 	emagged = TRUE
 	do_sparks(5, FALSE, src)
 	if(user)
-		user.visible_message("<span class='warning'>[user] disables the [src]'s safeties'.</span>", "<span class='warning'>You disable the [src]'s safeties'.</span>")
+		user.visible_message(span_warning("[user] disables the [src]'s safeties'."), span_warning("You disable the [src]'s safeties'."))
 	return TRUE
 
 /obj/structure/spawner/nether/bluespace_tap

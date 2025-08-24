@@ -164,12 +164,12 @@
 				do_sparks(5, 0, loc)
 				playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 				H.do_attack_animation(C)
-				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
+				visible_message(span_danger("[C] has been touched with [src] by [H]!"))
 				add_attack_logs(H, C, "Touched with stun gloves")
 				C.Weaken(stun_strength)
 				C.Stuttering(stun_strength)
 			else
-				to_chat(H, "<span class='notice'>Not enough charge!</span>")
+				to_chat(H, span_notice("Not enough charge!"))
 			return TRUE
 	return FALSE
 
@@ -183,14 +183,14 @@
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(!cell)
 			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>[W] is stuck to you!</span>")
+				to_chat(user, span_warning("[W] is stuck to you!"))
 				return
 			W.forceMove(src)
 			cell = W
-			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
+			to_chat(user, span_notice("You attach [W] to [src]."))
 			update_icon(UPDATE_OVERLAYS)
 		else
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+			to_chat(user, span_notice("[src] already has a cell."))
 	else
 		return ..()
 
@@ -199,7 +199,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(cell)
-		to_chat(user, "<span class='notice'>You cut [cell] away from [src].</span>")
+		to_chat(user, span_notice("You cut [cell] away from [src]."))
 		cell.forceMove(get_turf(loc))
 		cell = null
 		update_icon(UPDATE_OVERLAYS)
@@ -207,7 +207,7 @@
 /obj/item/clothing/gloves/color/yellow/fake/examine(mob/user)
 	. = ..()
 	if(user.Adjacent(src))
-		. += "<span class='notice'>They don't feel like rubber...</span>"
+		. += span_notice("They don't feel like rubber...")
 
 /obj/item/clothing/gloves/fingerless/rapid
 	name = "gloves of the North Star"

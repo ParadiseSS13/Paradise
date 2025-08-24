@@ -26,8 +26,8 @@
 /datum/spell/vampire/enthrall/cast(list/targets, mob/user = usr)
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/living/target = targets[1]
-	user.visible_message("<span class='warning'>[user] bites [target]'s neck!</span>", "<span class='warning'>You bite [target]'s neck and begin the flow of power.</span>")
-	to_chat(target, "<span class='warning'>You feel the tendrils of evil invade your mind.</span>")
+	user.visible_message(span_warning("[user] bites [target]'s neck!"), span_warning("You bite [target]'s neck and begin the flow of power."))
+	to_chat(target, span_warning("You feel the tendrils of evil invade your mind."))
 	if(do_mob(user, target, 15 SECONDS, hidden = TRUE))
 		if(can_enthrall(user, target))
 			handle_enthrall(user, target)
@@ -36,7 +36,7 @@
 			vampire.subtract_usable_blood(blood_cost) //we take the blood after enthralling, not before
 	else
 		revert_cast(user)
-		to_chat(user, "<span class='warning'>You or your target moved.</span>")
+		to_chat(user, span_warning("You or your target moved."))
 
 /datum/spell/vampire/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	. = FALSE
@@ -45,21 +45,21 @@
 	if(!user.mind.som)
 		CRASH("Dantalion Thrall datum ended up null.")
 	if(!ishuman(C))
-		to_chat(user, "<span class='warning'>You can only enthrall sentient humanoids!</span>")
+		to_chat(user, span_warning("You can only enthrall sentient humanoids!"))
 		return
 	if(!C.mind)
-		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
+		to_chat(user, span_warning("[C.name]'s mind is not there for you to enthrall."))
 		return
 
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(V.subclass.thrall_cap <= length(user.mind.som.serv))
-		to_chat(user, "<span class='warning'>You don't have enough power to enthrall any more people!</span>")
+		to_chat(user, span_warning("You don't have enough power to enthrall any more people!"))
 		return
 	if(ismindshielded(C) || C.mind.has_antag_datum(/datum/antagonist/vampire) || IS_MINDSLAVE(C))
-		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
+		C.visible_message(span_warning("[C] seems to resist the takeover!"), span_notice("You feel a familiar sensation in your skull that quickly dissipates."))
 		return
 	if(HAS_MIND_TRAIT(C, TRAIT_HOLY))
-		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith in [SSticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
+		C.visible_message(span_warning("[C] seems to resist the takeover!"), span_notice("Your faith in [SSticker.Bible_deity_name] has kept your mind clear of all evil."))
 		return
 	return TRUE
 
@@ -117,9 +117,9 @@
 	var/title = isvampirethrall(user) ? "Thrall" : "<b>Vampire Master</b>" // if admins give this to a non vampire/thrall it is not my problem
 	var/full_title = "[user.real_name] ([title])"
 	for(var/mob/M in targets)
-		to_chat(M, "<span class='dantalion'>[full_title]: [input]</span>")
+		to_chat(M, span_dantalion("[full_title]: [input]"))
 	for(var/mob/M in GLOB.dead_mob_list)
-		to_chat(M, "<span class='dantalion'>[full_title] ([ghost_follow_link(user, ghost=M)]): [input]</span>")
+		to_chat(M, span_dantalion("[full_title] ([ghost_follow_link(user, ghost=M)]): [input]"))
 	log_say("(DANTALION) [input]", user)
 	user.create_log(SAY_LOG, "(DANTALION) [input]")
 
@@ -162,8 +162,8 @@
 /datum/spell/vampire/switch_places/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
 	if(target.can_block_magic(antimagic_flags))
-		to_chat(user, "<span class='warning'>The spell had no effect!</span>")
-		to_chat(target, "<span class='warning'>You feel space bending, but it rapidly dissipates.</span>")
+		to_chat(user, span_warning("The spell had no effect!"))
+		to_chat(target, span_warning("You feel space bending, but it rapidly dissipates."))
 		return FALSE
 	var/turf/user_turf = get_turf(user)
 	var/turf/target_turf = get_turf(target)

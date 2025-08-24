@@ -20,7 +20,7 @@
 /obj/item/chameleon_counterfeiter/examine(mob/user)
 	. = ..()
 	if(dummy_active)
-		. += "<span class='warning'>It doesn't look quite right...</span>"
+		. += span_warning("It doesn't look quite right...")
 
 /obj/item/chameleon_counterfeiter/afterattack__legacy__attackchain(obj/item/target, mob/user, proximity)
 	if(!proximity || !check_sprite(target) || target.alpha < 255 || target.invisibility != 0)
@@ -28,7 +28,7 @@
 	if(dummy_active || !isitem(target))
 		return
 	playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, TRUE, -6)
-	to_chat(user, "<span class='notice'>Scanned [target].</span>")
+	to_chat(user, span_notice("Scanned [target]."))
 	saved_name = target.name
 	saved_desc = target.desc
 	saved_icon = target.icon
@@ -46,9 +46,9 @@
 	playsound(get_turf(src), 'sound/effects/pop.ogg', 100, TRUE, -6)
 	if(dummy_active)
 		matter_deactivate()
-		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
+		to_chat(user, span_notice("You deactivate [src]."))
 	else
-		to_chat(user, "<span class='notice'>You activate [src].</span>")
+		to_chat(user, span_notice("You activate [src]."))
 		matter_activate()
 
 /obj/item/chameleon_counterfeiter/proc/matter_activate()

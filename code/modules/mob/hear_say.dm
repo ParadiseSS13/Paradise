@@ -46,7 +46,7 @@
 						piece = stars(piece)
 				if(always_stars)
 					piece = stars(piece)
-			piece = "<span class='message'><span class='body'>[piece]</span></span>"
+			piece = span_message("[span_body("[piece]")]")
 		msg += (piece + " ")
 	if(msg == "")
 		// There is literally no content left in this message, we need to shut this shit down
@@ -131,11 +131,11 @@
 		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
 		// if(!language || !(language.flags & INNATE))
 		if(speaker == src)
-			to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
+			to_chat(src, span_warning("You cannot hear yourself speak!"))
 		else
-			to_chat(src, "<span class='name'>[speaker.name]</span> talks but you cannot hear [speaker.p_them()].")
+			to_chat(src, "[span_name("[speaker.name]")] talks but you cannot hear [speaker.p_them()].")
 	else
-		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][verb], \"[message]\"</span>")
+		to_chat(src, "<span class='game say'>[span_name("[speaker_name]")][speaker.GetAltName()] [track][verb], \"[message]\"</span>")
 
 		// Create map text message
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
@@ -167,7 +167,7 @@
 
 	if(!can_hear())
 		if(prob(20))
-			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
+			to_chat(src, span_warning("You feel your headset vibrate but can hear nothing from it!"))
 	else if(track)
 		to_chat(src, "[part_a][track][part_b][message]</span></span>")
 	else
@@ -229,5 +229,5 @@
 	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
 		create_chat_message(H, message_unverbed)
 
-	var/rendered = "<span class='game say'><span class='name'>[name]</span> [message]</span>"
+	var/rendered = "<span class='game say'>[span_name("[name]")] [message]</span>"
 	to_chat(src, rendered)

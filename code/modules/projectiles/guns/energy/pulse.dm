@@ -88,7 +88,7 @@
 
 /obj/item/gun/energy/pulse/pistol/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>The power cell of this weapon cannot be recharged!</span>"
+	. += span_warning("The power cell of this weapon cannot be recharged!")
 
 /obj/item/gun/energy/pulse/pistol/examine_more(mob/user)
 	..()
@@ -114,7 +114,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
 
 /obj/item/gun/energy/pulse/destroyer/attack_self__legacy__attackchain(mob/living/user)
-	to_chat(user, "<span class='notice'>[src] is now set to DESTROY.</span>")
+	to_chat(user, span_notice("[src] is now set to DESTROY."))
 
 //////////////////////////////
 // MARK: PULSE ANNIHILATOR
@@ -125,7 +125,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/pulse)
 
 /obj/item/gun/energy/pulse/destroyer/annihilator/attack_self__legacy__attackchain(mob/living/user)
-	to_chat(user, "<span class='boldannounceic'>[src] is now set to ANNIHILATE.</span>")
+	to_chat(user, span_boldannounceic("[src] is now set to ANNIHILATE."))
 
 //////////////////////////////
 // MARK: M1911-P
@@ -139,7 +139,7 @@
 
 /obj/item/gun/energy/pulse/pistol/m1911/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] contains a highly experimental power cell that consatntly generates energy seemingly out of nowhere. It will never run out of charge.</span>"
+	. += span_notice("[src] contains a highly experimental power cell that consatntly generates energy seemingly out of nowhere. It will never run out of charge.")
 
 /obj/item/gun/energy/pulse/pistol/m1911/examine_more(mob/user)
 	..()
@@ -171,7 +171,7 @@
 
 /obj/item/gun/energy/pulse/turret/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>This weapon has no internal power source. It cannot function without being mounted in a turret frame!</span>"
+	. += span_warning("This weapon has no internal power source. It cannot function without being mounted in a turret frame!")
 
 /obj/item/gun/energy/pulse/turret/examine_more(mob/user)
 	..()

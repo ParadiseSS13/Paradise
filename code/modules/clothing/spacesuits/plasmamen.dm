@@ -74,9 +74,9 @@
 	if(istype(H))
 		H.update_inv_head()
 		if(!update_light)
-			to_chat(user, "<span class='notice'>You turn \the [src]'s torch [on ? "on":"off"].</span>")
+			to_chat(user, span_notice("You turn \the [src]'s torch [on ? "on":"off"]."))
 		if(on && !up)
-			to_chat(user, "<span class='notice'>[src]'s torch can't pass through your welding visor!</span>")
+			to_chat(user, span_notice("[src]'s torch can't pass through your welding visor!"))
 
 	if(!on || !up)
 		set_light(0)
@@ -307,12 +307,12 @@
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/examine(mob/user)
 	. = ..()
 	if(!reskinned)
-		. += "<span class='notice'>You can <b>Alt-Click</b> to reskin it when held.</span>"
+		. += span_notice("You can <b>Alt-Click</b> to reskin it when held.")
 
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/AltClick(mob/user)
 	..()
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(reskin_radial_check(user) && !reskinned)
 		reskin(user)

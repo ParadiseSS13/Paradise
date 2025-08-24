@@ -149,7 +149,7 @@
 	if(..())
 		return
 	if(topic_denied(usr))
-		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		to_chat(usr, span_warning("[src]'s interface is not responding!"))
 		return
 	add_fingerprint(usr)
 	. = TRUE
@@ -202,9 +202,9 @@
 	..()
 	if(emagged)
 		if(user)
-			to_chat(user, "<span class='danger'>You short out [src]'s target assessment circuits.</span>")
+			to_chat(user, span_danger("You short out [src]'s target assessment circuits."))
 			oldtarget_name = user.name
-		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
+		audible_message(span_danger("[src] buzzes oddly!"))
 		declare_arrests = FALSE
 		icon_state = "[base_icon][on]"
 
@@ -244,8 +244,8 @@
 /mob/living/simple_animal/bot/secbot/proc/cuff(mob/living/carbon/C)
 	set_mode(BOT_ARREST)
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
-						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+	C.visible_message(span_danger("[src] is trying to put zipties on [C]!"),\
+						span_userdanger("[src] is trying to put zipties on you!"))
 	INVOKE_ASYNC(src, PROC_REF(cuff_callback), C)
 
 /mob/living/simple_animal/bot/secbot/proc/cuff_callback(mob/living/carbon/C)
@@ -439,7 +439,7 @@
 
 /mob/living/simple_animal/bot/secbot/explode()
 	GLOB.move_manager.stop_looping(src)
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(span_userdanger("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
 	Sa.build_step = 1

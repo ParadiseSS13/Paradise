@@ -40,7 +40,7 @@
 				msg = harvest_message_low
 			else if(rand_harvested == harvest_amount_high)
 				msg = harvest_message_high
-			to_chat(user, "<span class='notice'>[msg]</span>")
+			to_chat(user, span_notice("[msg]"))
 		for(var/i in 1 to rand_harvested)
 			new harvest(get_turf(src))
 
@@ -62,7 +62,7 @@
 
 /obj/structure/flora/ash/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(!harvested && needs_sharp_harvest && W.sharp)
-		user.visible_message("<span class='notice'>[user] starts to harvest from [src] with [W].</span>","<span class='notice'>You begin to harvest from [src] with [W].</span>")
+		user.visible_message(span_notice("[user] starts to harvest from [src] with [W]."),span_notice("You begin to harvest from [src] with [W]."))
 		if(do_after(user, harvest_time, target = src))
 			harvest(user)
 	else
@@ -70,7 +70,7 @@
 
 /obj/structure/flora/ash/attack_hand(mob/user)
 	if(!harvested && !needs_sharp_harvest)
-		user.visible_message("<span class='notice'>[user] starts to harvest from [src].</span>","<span class='notice'>You begin to harvest from [src].</span>")
+		user.visible_message(span_notice("[user] starts to harvest from [src]."),span_notice("You begin to harvest from [src]."))
 		if(do_after(user, harvest_time, target = src))
 			harvest(user)
 	else

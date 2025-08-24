@@ -95,12 +95,12 @@
 /obj/item/stock_parts/cell/examine(mob/user)
 	. = ..()
 	if(rigged)
-		. += "<span class='danger'>This power cell seems to be faulty!</span>"
+		. += span_danger("This power cell seems to be faulty!")
 	else
 		. += "The charge meter reads [round(percent() )]%."
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	to_chat(viewers(user), span_suicide("[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return FIRELOSS
 
 /obj/item/stock_parts/cell/attackby__legacy__attackchain(obj/item/W, mob/user, params)

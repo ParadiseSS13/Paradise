@@ -30,7 +30,7 @@
 			choices += C
 
 	if(!length(choices))
-		to_chat(src, "<span class='warning'>No subjects nearby to feed on!</span>")
+		to_chat(src, span_warning("No subjects nearby to feed on!"))
 		return
 
 	var/mob/living/M = tgui_input_list(src, "Who do you wish to feed on?", "Feeding Selection", choices)
@@ -74,31 +74,31 @@
 	if(isslime(M))
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='warning'><i>I can't latch onto another slime...</i></span>")
+		to_chat(src, span_warning("<i>I can't latch onto another slime...</i>"))
 		return FALSE
 
 	if(docile)
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='notice'><i>I'm not hungry anymore...</i></span>")
+		to_chat(src, span_notice("<i>I'm not hungry anymore...</i>"))
 		return FALSE
 
 	if(stat)
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='warning'><i>I must be conscious to do this...</i></span>")
+		to_chat(src, span_warning("<i>I must be conscious to do this...</i>"))
 		return FALSE
 
 	if(M.stat == DEAD)
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='warning'><i>This subject does not have a strong enough life energy...</i></span>")
+		to_chat(src, span_warning("<i>This subject does not have a strong enough life energy...</i>"))
 		return FALSE
 
 	if(locate(/mob/living/simple_animal/slime) in M.buckled_mobs)
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='warning'><i>Another slime is already feeding on this subject...</i></span>")
+		to_chat(src, span_warning("<i>Another slime is already feeding on this subject...</i>"))
 		return FALSE
 	return TRUE
 
@@ -106,10 +106,10 @@
 	M.unbuckle_all_mobs(force = TRUE) //Slimes rip other mobs (eg: shoulder parrots) off (Slimes Vs Slimes is already handled in CanFeedon())
 	if(M.buckle_mob(src, force = TRUE))
 		layer = M.layer + 0.01 //appear above the target mob
-		M.visible_message("<span class='danger'>[name] has latched onto [M]!</span>", \
-						"<span class='userdanger'>[name] has latched onto [M]!</span>")
+		M.visible_message(span_danger("[name] has latched onto [M]!"), \
+						span_userdanger("[name] has latched onto [M]!"))
 	else
-		to_chat(src, "<span class='warning'><i>I have failed to latch onto the subject!</i></span>")
+		to_chat(src, span_warning("<i>I have failed to latch onto the subject!</i>"))
 
 /mob/living/simple_animal/slime/proc/Feedstop(silent = FALSE, living = 1)
 	if(buckled)
@@ -119,8 +119,8 @@
 			"I am not satisified", "I can not feed from this subject", \
 			"I do not feel nourished", "This subject is not food")]!</span>")
 		if(!silent)
-			visible_message("<span class='warning'>[src] has let go of [buckled]!</span>", \
-							"<span class='notice'><i>I stopped feeding.</i></span>")
+			visible_message(span_warning("[src] has let go of [buckled]!"), \
+							span_notice("<i>I stopped feeding.</i>"))
 		layer = initial(layer)
 		unbuckle(force=TRUE)
 

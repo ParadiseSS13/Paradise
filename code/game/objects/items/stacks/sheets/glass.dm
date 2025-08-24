@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 
 /obj/item/stack/sheet/glass/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Using rods on a floor plating will install glass floor. You can make reinforced glass by combining rods and normal glass sheets.</span>"
+	. += span_notice("Using rods on a floor plating will install glass floor. You can make reinforced glass by combining rods and normal glass sheets.")
 
 /obj/item/stack/sheet/glass/fifty
 	amount = 50
@@ -55,7 +55,7 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	. = ..()
 	var/mob/living/silicon/robot/robot = user
 	if(!istype(robot.module, /obj/item/robot_module/drone))
-		. += "<span class='notice'>You can refill your glass by using your <b>magnetic gripper</b> on the Ore Redemption machine, or by picking it up from the ground.</span>"
+		. += span_notice("You can refill your glass by using your <b>magnetic gripper</b> on the Ore Redemption machine, or by picking it up from the ground.")
 
 /obj/item/stack/sheet/glass/cyborg/drone
 	energy_type = /datum/robot_storage/energy/glass
@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 			to_chat(user, "<b>There is not enough wire in this coil. You need 5 lengths.</b>")
 			return
 		CC.use(5)
-		to_chat(user, "<span class='notice'>You attach wire to [src].</span>")
+		to_chat(user, span_notice("You attach wire to [src]."))
 		new /obj/item/stack/light_w(user.loc)
 		use(1)
 		return
@@ -122,7 +122,7 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 
 /obj/item/stack/sheet/rglass/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Reinforced glass is much stronger against damage than normal glass, otherwise it functions like normal glass does.</span>"
+	. += span_notice("Reinforced glass is much stronger against damage than normal glass, otherwise it functions like normal glass does.")
 
 /obj/item/stack/sheet/rglass/fifty
 	amount = 50
@@ -146,7 +146,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 	. = ..()
 	var/mob/living/silicon/robot/robot = user
 	if(!istype(robot.module, /obj/item/robot_module/drone))
-		. += "<span class='notice'>You can refill your reinforced glass by picking it up from the ground.</span>"
+		. += span_notice("You can refill your reinforced glass by picking it up from the ground.")
 
 /obj/item/stack/sheet/rglass/cyborg/drone
 	energy_type = /datum/robot_storage/energy/rglass

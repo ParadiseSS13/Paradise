@@ -27,7 +27,7 @@
 	var/base_icon
 	var/open
 	/// Item inside locket.
-	var/obj/item/held 
+	var/obj/item/held
 
 /obj/item/clothing/neck/necklace/locket/Destroy()
 	QDEL_NULL(held)
@@ -47,7 +47,7 @@
 	if(open)
 		icon_state = "[base_icon]_open"
 		if(held)
-			to_chat(user, "<span class='warning'>[held] falls out!</span>")
+			to_chat(user, span_warning("[held] falls out!"))
 			held.forceMove(get_turf(user))
 			held = null
 	else

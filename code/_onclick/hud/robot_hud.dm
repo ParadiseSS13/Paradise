@@ -46,7 +46,7 @@
 /atom/movable/screen/robot/active_module/proc/activate()
 	icon_state = activated_icon_string
 	active = TRUE
-	
+
 /// Updates the background of the module to be inactive
 /atom/movable/screen/robot/active_module/proc/deactivate()
 	icon_state = deactivated_icon_string
@@ -248,7 +248,7 @@
 		screenmob.client.screen += module_store_icon	//"store" icon
 
 		if(!R.module.modules)
-			to_chat(usr, "<span class='danger'>Selected module has no modules to select.</span>")
+			to_chat(usr, span_danger("Selected module has no modules to select."))
 			return
 
 		if(!robot_modules_background)

@@ -76,18 +76,18 @@
 		return FALSE
 	var/blocking_object = density_check()
 	if(blocking_object)
-		to_chat(user, "<span class='warning'>You cannot climb onto [src], as it is blocked by \a [blocking_object]!</span>")
+		to_chat(user, span_warning("You cannot climb onto [src], as it is blocked by \a [blocking_object]!"))
 		return FALSE
 
 	if(!isturf(loc))
 		return FALSE
 
 	if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
-		user.visible_message("<span class='warning'>[user] gets ready to vault up onto [src]!</span>")
+		user.visible_message(span_warning("[user] gets ready to vault up onto [src]!"))
 		if(!do_after(user, 0.5 SECONDS, target = src))
 			return FALSE
 	else
-		user.visible_message("<span class='warning'>[user] starts climbing onto [src]!</span>")
+		user.visible_message(span_warning("[user] starts climbing onto [src]!"))
 		if(!do_after(user, 5 SECONDS, target = src))
 			return FALSE
 
@@ -102,9 +102,9 @@
 	if(do_climb(user))
 		user.forceMove(get_turf(src))
 		if(HAS_MIND_TRAIT(user, TRAIT_TABLE_LEAP))
-			user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
+			user.visible_message(span_warning("[user] leaps up onto [src]!"))
 		else
-			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
+			user.visible_message(span_warning("[user] climbs onto [src]!"))
 	if(QDELETED(src)) // Table was destroyed while we were climbing it
 		return
 	climbers -= user
@@ -124,14 +124,14 @@
 			return //No spamming this on people.
 
 		M.Weaken(10 SECONDS)
-		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")
+		to_chat(M, span_warning("You topple as \the [src] moves under you!"))
 
 		if(prob(25))
 
 			var/damage = rand(15,30)
 			var/mob/living/carbon/human/H = M
 			if(!istype(H))
-				to_chat(H, "<span class='warning'>You land heavily!</span>")
+				to_chat(H, span_warning("You land heavily!"))
 				M.adjustBruteLoss(damage)
 				return
 
@@ -150,12 +150,12 @@
 					affecting = H.get_organ("head")
 
 			if(affecting)
-				to_chat(M, "<span class='warning'>You land heavily on your [affecting.name]!</span>")
+				to_chat(M, span_warning("You land heavily on your [affecting.name]!"))
 				affecting.receive_damage(damage, 0)
 				if(affecting.parent)
 					affecting.parent.add_autopsy_data("Misadventure", damage)
 			else
-				to_chat(H, "<span class='warning'>You land heavily!</span>")
+				to_chat(H, span_warning("You land heavily!"))
 				H.adjustBruteLoss(damage)
 
 			H.UpdateDamageIcon()
@@ -166,25 +166,25 @@
 	if(!Adjacent(user))
 		return FALSE
 	if(user.restrained() || user.buckled)
-		to_chat(user, "<span class='notice'>You need your hands and legs free for this.</span>")
+		to_chat(user, span_notice("You need your hands and legs free for this."))
 		return FALSE
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	if(issilicon(user))
-		to_chat(user, "<span class='notice'>You need hands for this.</span>")
+		to_chat(user, span_notice("You need hands for this."))
 		return FALSE
 	return TRUE
 
 /obj/structure/proc/get_climb_text()
-	return "<span class='notice'>You can <b>Click-Drag</b> yourself to [src] to climb on top of it after a short delay.</span>"
+	return span_notice("You can <b>Click-Drag</b> yourself to [src] to climb on top of it after a short delay.")
 
 /obj/structure/examine(mob/user)
 	. = ..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
-			. += "<span class='warning'>It's on fire!</span>"
+			. += span_warning("It's on fire!")
 		if(broken)
-			. += "<span class='notice'>It appears to be broken.</span>"
+			. += span_notice("It appears to be broken.")
 		var/examine_status = examine_status(user)
 		if(examine_status)
 			. += examine_status
@@ -200,7 +200,7 @@
 			return  "It appears heavily damaged."
 		if(0 to 25)
 			if(!broken)
-				return  "<span class='warning'>It's falling apart!</span>"
+				return  span_warning("It's falling apart!")
 
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE

@@ -5,7 +5,7 @@
 	var/obj/machinery/cooking/oven/oven = parent
 	if(istype(oven))
 		if(!on && oven.opened)
-			to_chat(user, "<span class='notice'>The oven must be closed in order to turn it on.</span>")
+			to_chat(user, span_notice("The oven must be closed in order to turn it on."))
 			return
 
 	return ..()
@@ -43,7 +43,7 @@
 
 /obj/machinery/cooking/oven/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Ctrl-Click</b> to set its timer, temperature, and toggle it on or off.</span>"
+	. += span_notice("<b>Ctrl-Click</b> to set its timer, temperature, and toggle it on or off.")
 
 /obj/machinery/cooking/oven/RefreshParts()
 	..()
@@ -85,7 +85,7 @@
 		return
 
 	if(!opened)
-		to_chat(user, "<span class='notice'>The oven must be open to retrieve the food.</span>")
+		to_chat(user, span_notice("The oven must be open to retrieve the food."))
 		return
 
 	return ..()

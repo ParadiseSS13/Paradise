@@ -36,7 +36,7 @@
 
 /obj/item/storage/belt/can_be_inserted(obj/item/I, stop_messages = FALSE)
 	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding) && !istype(loc, /obj/item/storage/hidden_implant) && !storable)
-		to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+		to_chat(usr, span_warning("You can't seem to fit [I] into [src]."))
 		return FALSE
 	. = ..()
 
@@ -517,7 +517,7 @@
 
 /obj/item/storage/belt/military/assault/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.w_class > WEIGHT_CLASS_NORMAL)
-		to_chat(user, "<span class='warning'>[I] is too big for [src].</span>")
+		to_chat(user, span_warning("[I] is too big for [src]."))
 		return
 	return ..()
 
@@ -803,11 +803,11 @@
 
 	if(length(contents))
 		var/obj/item/I = contents[1]
-		H.visible_message("<span class='notice'>[H] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>")
+		H.visible_message(span_notice("[H] takes [I] out of [src]."), span_notice("You take [I] out of [src]."))
 		H.put_in_hands(I)
 		update_icon()
 	else
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 
 /obj/item/storage/belt/sheath/handle_item_insertion(obj/item/W, mob/user, prevent_warning)
 	if(!..())

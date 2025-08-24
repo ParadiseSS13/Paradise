@@ -23,7 +23,7 @@
 /obj/item/jammer/activate_self(mob/user)
 	if(..())
 		return
-	to_chat(user, "<span class='notice'>You [active ? "deactivate [src]. It goes quiet with a small click." : "activate [src]. It starts to hum softly."]</span>")
+	to_chat(user, span_notice("You [active ? "deactivate [src]. It goes quiet with a small click." : "activate [src]. It starts to hum softly."]"))
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
 	if(active)
@@ -69,7 +69,7 @@
 
 /obj/item/teleporter/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] has [charges] out of [max_charges] charges left.</span>"
+	. += span_notice("[src] has [charges] out of [max_charges] charges left.")
 
 /obj/item/teleporter/activate_self(mob/user)
 	if(..())
@@ -86,17 +86,17 @@
 	if(prob(50 / severity))
 		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc
-			to_chat(user, "<span class='userdanger'>[src] buzzes and activates!</span>")
+			to_chat(user, span_userdanger("[src] buzzes and activates!"))
 			attempt_teleport(user, TRUE)
 		else //Well, it either is on a floor / locker, and won't teleport someone, OR it's in someones bag. As such, we need to check the turf to see if people are there.
 			var/turf/teleport_turf = get_turf(src)
 			for(var/mob/living/user in teleport_turf)
 				if(!teleported_something)
-					teleport_turf.visible_message("<span class='danger'>[src] activates sporadically, teleporting everyone around it!</span>")
+					teleport_turf.visible_message(span_danger("[src] activates sporadically, teleporting everyone around it!"))
 					teleported_something = TRUE
 				attempt_teleport(user, TRUE)
 			if(!teleported_something)
-				visible_message("<span class='danger'>[src] activates and blinks out of existence!</span>")
+				visible_message(span_danger("[src] activates and blinks out of existence!"))
 				do_sparks(2, 1, src)
 				qdel(src)
 
@@ -111,12 +111,12 @@
 		qdel(G)
 	dir_correction(user)
 	if(!charges && !EMP_D) //If it's empd, you are moving no matter what.
-		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
+		to_chat(user, span_warning("[src] is still recharging."))
 		return
 	var/turf/starting = get_turf(src)
 	var/area/starting_area = get_area(starting)
 	if(!is_teleport_allowed(starting.z) || starting_area.tele_proof)
-		to_chat(user, "<span class='danger'>[src] will not work here!</span>")
+		to_chat(user, span_danger("[src] will not work here!"))
 		return
 	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, starting) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE
@@ -144,7 +144,7 @@
 
 	if(found_turf)
 		if(user.loc != mobloc) // No locker / mech / sleeper teleporting, that breaks stuff
-			to_chat(M, "<span class='danger'>[src] will not work here!</span>")
+			to_chat(M, span_danger("[src] will not work here!"))
 		if(charges > 0) //While we want EMP triggered teleports to drain charge, we also do not want it to go negative charge, as such we need this check here
 			charges--
 			update_icon_charges()
@@ -163,7 +163,7 @@
 		else // Emp activated? Bag of holding? No saving throw for you
 			get_fragged(user, destination)
 	else
-		to_chat(M, "<span class='danger'>[src] will not work here!</span>")
+		to_chat(M, span_danger("[src] will not work here!"))
 
 /obj/item/teleporter/proc/tile_check(turf/T)
 	if(isfloorturf(T) || isspaceturf(T))
@@ -231,14 +231,14 @@
 	playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 	destination.ex_act(rand(1,2))
-	to_chat(user, "<span class='biggerdanger'>You teleport into the wall, the teleporter tries to save you, but--</span>")
+	to_chat(user, span_biggerdanger("You teleport into the wall, the teleporter tries to save you, but--"))
 	user.gib()
 
 /obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
 	for(var/mob/living/M in fragging_location)//Hit everything in the turf
 		M.apply_damage(20, BRUTE)
 		M.Weaken(6 SECONDS)
-		to_chat(M, "<span class='warning'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
+		to_chat(M, span_warning("[user] teleports into you, knocking you to the floor with the bluespace wave!"))
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"
@@ -283,21 +283,21 @@
 	if(..())
 		return
 	if(HAS_TRAIT(user, TRAIT_RESISTHEAT))
-		to_chat(user, "<span class='warning'>You are already fireproof!</span>")
+		to_chat(user, span_warning("You are already fireproof!"))
 		return
 	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || (user.dna && user.dna.species.name != "Plasmaman"))
-		to_chat(user, "<span class='warning'>The injector is not compatable with your biology!</span>")
+		to_chat(user, span_warning("The injector is not compatable with your biology!"))
 		return
 	if(used)
-		to_chat(user, "<span class='notice'>The injector is empty!</span>")
+		to_chat(user, span_notice("The injector is empty!"))
 		return
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once.
 	var/choice = tgui_alert(user, "The injector is still unused. Do you wish to use it?", "Fireproofing injector", list("Yes", "No"))
 	if(choice != "Yes")
-		to_chat(user, "<span class='notice'>You decide against using [src].</span>")
+		to_chat(user, span_notice("You decide against using [src]."))
 		used = FALSE
 		return
-	to_chat(user, "<span class='notice'>You inject yourself with the nanites!</span>")
+	to_chat(user, span_notice("You inject yourself with the nanites!"))
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, "fireproof_injector")
 
 /obj/item/cryoregenerative_enhancer
@@ -318,23 +318,23 @@
 	if(..())
 		return
 	if(HAS_TRAIT(user, TRAIT_DRASK_SUPERCOOL))
-		to_chat(user, "<span class='warning'>Your regeneration is already enhanced!</span>")
+		to_chat(user, span_warning("Your regeneration is already enhanced!"))
 		return
 	if(user.mind && (IS_CHANGELING(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || user.dna?.species.name != "Drask")
-		to_chat(user, "<span class='warning'>The injector is not compatable with your biology!</span>")
+		to_chat(user, span_warning("The injector is not compatable with your biology!"))
 		return
 	if(used)
-		to_chat(user, "<span class='notice'>The injector is empty!</span>")
+		to_chat(user, span_notice("The injector is empty!"))
 		return
 	var/choice = tgui_alert(user, "The injector is still unused. Do you wish to use it?", "Cryoregenerative enhancer", list("Yes", "No"))
 	if(choice != "Yes")
-		to_chat(user, "<span class='notice'>You decide against using [src].</span>")
+		to_chat(user, span_notice("You decide against using [src]."))
 		return
 	if(used)
-		to_chat(user, "<span class='warning'>The injector is empty!</span>")
+		to_chat(user, span_warning("The injector is empty!"))
 		return
 	used = TRUE
-	to_chat(user, "<span class='notice'>You inject yourself with the enhancer!</span>")
+	to_chat(user, span_notice("You inject yourself with the enhancer!"))
 	ADD_TRAIT(user, TRAIT_DRASK_SUPERCOOL, "cryoregenerative_enhancer")
 
 /obj/item/batterer
@@ -365,11 +365,11 @@
 
 /obj/item/batterer/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>A little label on the side reads: \"Warning: Using this item in quick succession may cause fatigue to the user!\"</span>"
+	. += span_warning("A little label on the side reads: \"Warning: Using this item in quick succession may cause fatigue to the user!\"")
 	if(times_used >= max_uses)
-		. += "<span class='notice'>[src] is out of charge.</span>"
+		. += span_notice("[src] is out of charge.")
 	if(times_used < max_uses)
-		. += "<span class='notice'>[src] has [max_uses-times_used] charges left.</span>"
+		. += span_notice("[src] has [max_uses-times_used] charges left.")
 
 /obj/item/batterer/process()
 	if(times_used)
@@ -388,13 +388,13 @@
 	times_used++
 	if(user)
 		if(times_used > max_uses)
-			to_chat(user, "<span class='danger'>The mind batterer has been burnt out!</span>")
+			to_chat(user, span_danger("The mind batterer has been burnt out!"))
 			times_used--
 			return
 		if(!do_after_once(user, 2 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "You think it's best to save this for later.", hidden = TRUE))
 			times_used--
 			return
-		to_chat(user, "<span class='notice'>You trigger [src]. It has [max_uses-times_used] charges left.</span>")
+		to_chat(user, span_notice("You trigger [src]. It has [max_uses-times_used] charges left."))
 
 	for(var/mob/living/M in oview(7, get_turf(src)))
 		if(!M.client)
@@ -405,29 +405,29 @@
 		else
 			M.Confused(45 SECONDS)
 		M.adjustBrainLoss(10)
-		to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through yourself,</span>")
+		to_chat(M, span_danger("You feel a sudden, electric jolt travel through yourself,"))
 		switch(rand(1, 10))
 			if(1)
 				M.Immobilize(7 SECONDS)
-				to_chat(M, "<span class='warning'>and your legs lock up for a moment!</span>")
+				to_chat(M, span_warning("and your legs lock up for a moment!"))
 			if(2)
 				M.apply_status_effect(STATUS_EFFECT_PACIFIED_BATTERER)
-				to_chat(M, "<span class='warning'>and you feel an innate love for life for a fleeting moment!</span>")
+				to_chat(M, span_warning("and you feel an innate love for life for a fleeting moment!"))
 			if(3)
 				new /obj/effect/hallucination/delusion(get_turf(M), M)
-				to_chat(M, "<span class='warning'>and the people around you morph in appearance!</span>")
+				to_chat(M, span_warning("and the people around you morph in appearance!"))
 			if(4)
 				if(prob(80))
 					M.EyeBlurry(25 SECONDS)
-					to_chat(M, "<span class='warning'>and something in the back of your head stings like hell!</span>")
+					to_chat(M, span_warning("and something in the back of your head stings like hell!"))
 				else
 					M.EyeBlind(15 SECONDS)
-					to_chat(M, "<span class='warning'>and you can't see a goddamn thing!</span>")
+					to_chat(M, span_warning("and you can't see a goddamn thing!"))
 			if(5)
 				M.apply_damage(40, STAMINA)
-				to_chat(M, "<span class='warning'>and a wave of tiredness washes over you!</span>")
+				to_chat(M, span_warning("and a wave of tiredness washes over you!"))
 			else
-				to_chat(M, "<span class='danger'>but as soon as it arrives, it fades.</span>")
+				to_chat(M, span_danger("but as soon as it arrives, it fades."))
 		add_attack_logs(user, M, "Mind battered with [src]")
 
 	playsound(get_turf(src), 'sound/misc/interference.ogg', 50, TRUE)
@@ -439,7 +439,7 @@
 	if(times_used >= max_uses || on_throwing_cooldown)
 		return
 	addtimer(CALLBACK(src, PROC_REF(end_throwing_delay)), 3 SECONDS)
-	visible_message("<span class='notice'>[src] suddenly triggers, sending a shower of sparks everywhere!</span>")
+	visible_message(span_notice("[src] suddenly triggers, sending a shower of sparks everywhere!"))
 	do_sparks(4, FALSE, get_turf(src))
 	activate_batterer()
 	on_throwing_cooldown = TRUE
@@ -450,7 +450,7 @@
 /obj/item/batterer/emp_act(severity)
 	if(times_used >= max_uses)
 		return
-	visible_message("<span class='notice'>[src] explodes into a light show of colors!</span>")
+	visible_message(span_notice("[src] explodes into a light show of colors!"))
 	if(severity == EMP_HEAVY)
 		activate_batterer()
 
@@ -518,7 +518,7 @@
 	if(..())
 		return
 	if(!COOLDOWN_FINISHED(src, scan_cooldown))
-		to_chat(user, "<span class='warning'>[src] is recharging!</span>")
+		to_chat(user, span_warning("[src] is recharging!"))
 		return
 
 	COOLDOWN_START(src, scan_cooldown, cooldown_length)
@@ -544,4 +544,4 @@
 			// Found the right split point, and we're not past all of them, so play the on-hit sound effect.
 			playsound(user, on_hit_sound, 75, TRUE)
 			break
-	to_chat(user, "<span class='notice'>[range_messages[range_index]]</span>")
+	to_chat(user, span_notice("[range_messages[range_index]]"))

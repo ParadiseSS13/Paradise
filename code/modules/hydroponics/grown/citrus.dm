@@ -117,8 +117,8 @@
 
 	var/area/A = get_area(user)
 	user.visible_message(
-		"<span class='warning'>[user] primes [src]!</span>",
-		"<span class='userdanger'>You prime [src]!</span>"
+		span_warning("[user] primes [src]!"),
+		span_userdanger("You prime [src]!")
 	)
 	investigate_log("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].", INVESTIGATE_BOMB)
 	add_attack_logs(user, src, "primed a combustible lemon for detonation", ATKLOG_FEW)

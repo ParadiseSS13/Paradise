@@ -118,7 +118,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 			release pressure, and open the valve. Alt-click to eject the tank, or use another to hot-swap. A gas analyzer can be used to check \
 			the contents of the canister.</span>"
 	if(isAntag(user))
-		. += "<span class='notice'>Canisters can be damaged, spilling their contents into the air, or you can just leave the release valve open.</span>"
+		. += span_notice("Canisters can be damaged, spilling their contents into the air, or you can just leave the release valve open.")
 
 /obj/machinery/atmospherics/portable/canister/proc/pressure_to_appearance(tank_pressure)
 	if(tank_pressure < 10)
@@ -333,7 +333,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 						name = "canister"
 					update_appearance(UPDATE_NAME)
 				else
-					to_chat(ui.user, "<span class='warning'>As you attempted to rename it the pressure rose!</span>")
+					to_chat(ui.user, span_warning("As you attempted to rename it the pressure rose!"))
 					. = FALSE
 
 		if("pressure")
@@ -511,7 +511,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You salvage whats left of [src]!</span>")
+		to_chat(user, span_notice("You salvage whats left of [src]!"))
 		new /obj/item/stack/sheet/metal(drop_location(), 3)
 		qdel(src)
 

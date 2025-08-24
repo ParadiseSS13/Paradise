@@ -185,7 +185,7 @@
 	else if(our_rpd.mode == RPD_DISPOSALS_MODE)
 		for(var/obj/machinery/door/airlock/A in src)
 			if(A.density)
-				to_chat(user, "<span class='warning'>That type of pipe won't fit under [A]!</span>")
+				to_chat(user, span_warning("That type of pipe won't fit under [A]!"))
 				return
 		our_rpd.create_disposals_pipe(user, src)
 	else if(our_rpd.mode == RPD_TRANSIT_MODE)
@@ -647,7 +647,7 @@
 	if(mob_hurt || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
-	C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
+	C.visible_message(span_danger("[C] slams into [src]!"), span_userdanger("You slam into [src]!"))
 	if(issilicon(C))
 		C.adjustBruteLoss(damage)
 		C.Weaken(3 SECONDS)

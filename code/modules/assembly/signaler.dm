@@ -27,10 +27,10 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 /obj/item/assembly/signaler/examine(mob/user)
 	. = ..()
 	. += "The power light is [receiving ? "on" : "off"]"
-	. += "<span class='notice'>Alt+Click to send a signal.</span>"
+	. += span_notice("Alt+Click to send a signal.")
 
 /obj/item/assembly/signaler/AltClick(mob/user)
-	to_chat(user, "<span class='notice'>You activate [src].</span>")
+	to_chat(user, span_notice("You activate [src]."))
 	activate()
 
 /obj/item/assembly/signaler/attackby__legacy__attackchain(obj/item/W, mob/user, params)

@@ -39,15 +39,15 @@
 		return ..()
 
 	if(broken)
-		to_chat(user, "<span class='warning'>The locker appears to be broken.</span>")
+		to_chat(user, span_warning("The locker appears to be broken."))
 		return
 
 	if(user.loc == src)
-		to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
+		to_chat(user, span_notice("You can't reach the lock from inside."))
 		return
 
 	if(istype(W, /obj/item/card/id/guest))
-		to_chat(user, "<span class='warning'>Invalid identification card.</span>")
+		to_chat(user, span_warning("Invalid identification card."))
 		return
 
 	var/obj/item/card/id/I = W
@@ -67,4 +67,4 @@
 			desc = "Owned by [I.registered_name]."
 
 	else
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))

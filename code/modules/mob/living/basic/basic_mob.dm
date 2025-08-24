@@ -297,9 +297,9 @@ RESTRICT_TYPE(/mob/living/basic)
 		if(death_sound)
 			playsound(get_turf(src), death_sound, 200, 1)
 		if(death_message)
-			visible_message("<span class='danger'>\The [src] [death_message]</span>")
+			visible_message(span_danger("\The [src] [death_message]"))
 		else if(!(basic_mob_flags & DEL_ON_DEATH))
-			visible_message("<span class='danger'>\The [src] stops moving...</span>")
+			visible_message(span_danger("\The [src] stops moving..."))
 	if(HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))
 		SSmobs.xenobiology_mobs--
 	if(basic_mob_flags & DEL_ON_DEATH)
@@ -325,8 +325,8 @@ RESTRICT_TYPE(/mob/living/basic)
 		if(INTENT_HELP)
 			if(health > 0)
 				visible_message(
-					"<span class='notice'>[M] [response_help_continuous] [src].</span>",
-					"<span class='notice'>[M] [response_help_continuous] you.</span>"
+					span_notice("[M] [response_help_continuous] [src]."),
+					span_notice("[M] [response_help_continuous] you.")
 				)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
@@ -335,12 +335,12 @@ RESTRICT_TYPE(/mob/living/basic)
 
 		if(INTENT_HARM, INTENT_DISARM)
 			if(HAS_TRAIT(M, TRAIT_PACIFISM))
-				to_chat(M, "<span class='warning'>You don't want to hurt [src]!</span>")
+				to_chat(M, span_warning("You don't want to hurt [src]!"))
 				return
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			visible_message(
-				"<span class='danger'>[M] [response_harm_continuous] [src]!</span>",
-				"<span class='userdanger'>[M] [response_harm_continuous] you!</span>"
+				span_danger("[M] [response_harm_continuous] [src]!"),
+				span_userdanger("[M] [response_harm_continuous] you!")
 			)
 			playsound(loc, attacked_sound, 25, TRUE, -1)
 			attack_threshold_check(harm_intent_damage)
@@ -358,7 +358,7 @@ RESTRICT_TYPE(/mob/living/basic)
 		temp_damage *= damage_coeff[damagetype]
 
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
-		visible_message("<span class='warning'>[src] looks unharmed.</span>")
+		visible_message(span_warning("[src] looks unharmed."))
 		return FALSE
 	else
 		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))

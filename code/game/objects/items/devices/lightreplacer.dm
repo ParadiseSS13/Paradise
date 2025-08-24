@@ -63,7 +63,7 @@
 
 /obj/item/lightreplacer/attackby__legacy__attackchain(obj/item/I, mob/user)
 	if(uses >= max_uses)
-		to_chat(user, "<span class='warning'>[src] is full.</span>")
+		to_chat(user, span_warning("[src] is full."))
 		return
 
 	if(istype(I, /obj/item/stack/sheet/glass))
@@ -71,34 +71,34 @@
 
 		if(G.use(decrement))
 			AddUses(increment)
-			to_chat(user, "<span class='notice'>You insert some glass into [src]. You have [uses] light\s remaining.</span>")
+			to_chat(user, span_notice("You insert some glass into [src]. You have [uses] light\s remaining."))
 		else
-			to_chat(user, "<span class='warning'>You need one sheet of glass to replace lights!</span>")
+			to_chat(user, span_warning("You need one sheet of glass to replace lights!"))
 		return
 
 	if(istype(I, /obj/item/shard))
 		if(!user.drop_item_to_ground(I))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
 
 		AddUses(increment)
-		to_chat(user, "<span class='notice'>You insert a shard of glass into [src]. You have [uses] light\s remaining.</span>")
+		to_chat(user, span_notice("You insert a shard of glass into [src]. You have [uses] light\s remaining."))
 		qdel(I)
 		return
 
 	if(istype(I, /obj/item/light))
 		var/obj/item/light/L = I
 		if(!user.drop_item_to_ground(L))
-			to_chat(user, "<span class='warning'>[L] is stuck to your hand!</span>")
+			to_chat(user, span_warning("[L] is stuck to your hand!"))
 			return
 
 		if(L.status == LIGHT_OK)
 			AddUses(1)
-			to_chat(user, "<span class='notice'>You insert [L] into [src]. You have [uses] light\s remaining.</span>")
+			to_chat(user, span_notice("You insert [L] into [src]. You have [uses] light\s remaining."))
 			qdel(L)
 		else
 			AddShards(1, user)
-			to_chat(user, "<span class='notice'>You insert [L] into [src]. You have [uses] light\s remaining.</span>")
+			to_chat(user, span_notice("You insert [L] into [src]. You have [uses] light\s remaining."))
 		qdel(L)
 		return
 
@@ -124,14 +124,14 @@
 					qdel(L)
 
 		if(!found_lightbulbs)
-			to_chat(user, "<span class='warning'>[S] contains no bulbs.</span>")
+			to_chat(user, span_warning("[S] contains no bulbs."))
 			return
 
 		if(!replaced_something && uses == max_uses)
-			to_chat(user, "<span class='warning'>[src] is full!</span>")
+			to_chat(user, span_warning("[src] is full!"))
 			return
 
-		to_chat(user, "<span class='notice'>You fill [src] with lights from [S]. " + status_string() + "</span>")
+		to_chat(user, span_notice("You fill [src] with lights from [S]. " + status_string() + ""))
 		return
 	return ..()
 
@@ -176,7 +176,7 @@
 		AddUses(new_bulbs)
 	bulb_shards = bulb_shards % shards_required
 	if(new_bulbs != 0)
-		to_chat(user, "<span class='notice'>[src] has fabricated a new bulb from the broken glass it has stored. It now has [uses] uses.</span>")
+		to_chat(user, span_notice("[src] has fabricated a new bulb from the broken glass it has stored. It now has [uses] uses."))
 		playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	return new_bulbs
 
@@ -200,7 +200,7 @@
 			to_chat(U, "[src]'s refill light blinks red.")
 			return
 	else
-		to_chat(U, "<span class='warning'>There is a working [target.fitting] already inserted!</span>")
+		to_chat(U, span_warning("There is a working [target.fitting] already inserted!"))
 		return
 
 /obj/item/lightreplacer/proc/CanUse(mob/living/user)

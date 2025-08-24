@@ -14,7 +14,7 @@
 	var/dye_color = DYE_GREEN
 
 /obj/item/stamp/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead.</span>")
+	user.visible_message(span_suicide("[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead."))
 	playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 	return OXYLOSS
 

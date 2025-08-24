@@ -41,7 +41,7 @@
 
 /obj/item/rcs/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There are [round(rcell.charge/chargecost)] charge\s left.</span>"
+	. += span_notice("There are [round(rcell.charge/chargecost)] charge\s left.")
 
 /obj/item/rcs/Destroy()
 	QDEL_NULL(rcell)
@@ -52,7 +52,7 @@
   */
 /obj/item/rcs/attack_self__legacy__attackchain(mob/user)
 	if(teleporting)
-		to_chat(user, "<span class='warning'>Error: Unable to change destination while in use.</span>")
+		to_chat(user, span_warning("Error: Unable to change destination while in use."))
 		return
 
 	var/list/L = list() // List of avaliable telepads
@@ -102,32 +102,32 @@
 	if(!emagged)
 		emagged = TRUE
 		do_sparks(3, TRUE, src)
-		to_chat(user, "<span class='boldwarning'>Warning: Safeties disabled.</span>")
+		to_chat(user, span_boldwarning("Warning: Safeties disabled."))
 		return TRUE
 
 
 /obj/item/rcs/proc/try_send_container(mob/user, obj/structure/closet/C)
 	if(teleporting)
-		to_chat(user, "<span class='warning'>You're already using [src]!</span>")
+		to_chat(user, span_warning("You're already using [src]!"))
 		return
 	if((!emagged) && (user in C.contents)) // If it's emagged, skip this check.
-		to_chat(user, "<span class='warning'>Error: User located in container--aborting for safety.</span>")
+		to_chat(user, span_warning("Error: User located in container--aborting for safety."))
 		return
 	if(rcell.charge < chargecost)
-		to_chat(user, "<span class='warning'>Unable to teleport, insufficient charge.</span>")
+		to_chat(user, span_warning("Unable to teleport, insufficient charge."))
 		return
 	if(!pad)
-		to_chat(user, "<span class='warning'>Error: No telepad selected.</span>")
+		to_chat(user, span_warning("Error: No telepad selected."))
 		return
 	if(!is_level_reachable(C.z))
-		to_chat(user, "<span class='warning'>Warning: No telepads in range!</span>")
+		to_chat(user, span_warning("Warning: No telepads in range!"))
 		return
 
 	teleport(user, C, pad)
 
 
 /obj/item/rcs/proc/teleport(mob/user, obj/structure/closet/C, target)
-	to_chat(user, "<span class='notice'>Teleporting [C]...</span>")
+	to_chat(user, span_notice("Teleporting [C]..."))
 	playsound(get_turf(src), usesound, 25, TRUE)
 	teleporting = TRUE
 	if(!do_after(user, 50 * toolspeed, target = C))
@@ -139,4 +139,4 @@
 	rcell.use(final_cost)
 	playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
 	do_teleport(C, target)
-	to_chat(user, "<span class='notice'>Teleport successful. [round(rcell.charge/final_cost)] charge\s left.</span>")
+	to_chat(user, span_notice("Teleport successful. [round(rcell.charge/final_cost)] charge\s left."))

@@ -362,11 +362,11 @@
 			SStgui.update_uis(src)
 			var/fail_msg = construct_item(usr, TR)
 			if(!fail_msg)
-				to_chat(usr, "<span class='notice'>[TR.name] constructed.</span>")
+				to_chat(usr, span_notice("[TR.name] constructed."))
 				if(TR.alert_admins_on_craft)
 					message_admins("[key_name_admin(usr)] has created a [TR.name] at [ADMIN_COORDJMP(usr)]")
 			else
-				to_chat(usr, "<span class='warning'>Construction failed[fail_msg]</span>")
+				to_chat(usr, span_warning("Construction failed[fail_msg]"))
 			busy = FALSE
 			SStgui.update_uis(src)
 

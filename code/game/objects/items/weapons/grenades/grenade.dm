@@ -27,14 +27,14 @@
 		return
 
 	if(det_time > 1)
-		. += "<span class='notice'>The fuze is set to [det_time / 10] second\s.</span>"
+		. += span_notice("The fuze is set to [det_time / 10] second\s.")
 	else
-		. += "<span class='warning'>[src] is set for instant detonation.</span>"
+		. += span_warning("[src] is set for instant detonation.")
 
 	if(modifiable_timer)
-		. += "<span class='notice'>Use a screwdriver to modify the time on the fuze.</span>"
+		. += span_notice("Use a screwdriver to modify the time on the fuze.")
 	else
-		. += "<span class='notice'>The fuze's time cannot be modified.</span>"
+		. += span_notice("The fuze's time cannot be modified.")
 
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
@@ -44,7 +44,7 @@
 
 /obj/item/grenade/proc/clown_check(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
+		to_chat(user, span_warning("Huh? How does this thing work?"))
 		active = TRUE
 		icon_state = initial(icon_state) + "_active"
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
@@ -61,7 +61,7 @@
 	if(!clown_check(user))
 		return
 
-	to_chat(user, "<span class='danger'>You prime [src]! [det_time / 10] seconds!</span>")
+	to_chat(user, span_danger("You prime [src]! [det_time / 10] seconds!"))
 	active = TRUE
 	icon_state = initial(icon_state) + "_active"
 	add_fingerprint(user)
@@ -92,16 +92,16 @@
 	switch(det_time)
 		if(1 DECISECONDS)
 			det_time = 1 SECONDS
-			to_chat(user, "<span class='notice'>You set [src] for 1 second detonation time.</span>")
+			to_chat(user, span_notice("You set [src] for 1 second detonation time."))
 		if(1 SECONDS)
 			det_time = 3 SECONDS
-			to_chat(user, "<span class='notice'>You set [src] for 3 second detonation time.</span>")
+			to_chat(user, span_notice("You set [src] for 3 second detonation time."))
 		if(3 SECONDS)
 			det_time = 5 SECONDS
-			to_chat(user, "<span class='notice'>You set [src] for 5 second detonation time.</span>")
+			to_chat(user, span_notice("You set [src] for 5 second detonation time."))
 		if(5 SECONDS)
 			det_time = 1 DECISECONDS
-			to_chat(user, "<span class='warning'>You set [src] for instant detonation.</span>")
+			to_chat(user, span_warning("You set [src] for instant detonation."))
 	add_fingerprint(user)
 	return TRUE
 
@@ -118,7 +118,7 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return FALSE
 	ADD_TRAIT(src, TRAIT_CMAGGED, "cmagged grenade")
-	to_chat(user, "<span class='warning'>You drip some yellow ooze into [src]. [src] suddenly doesn't want to leave you...</span>")
+	to_chat(user, span_warning("You drip some yellow ooze into [src]. [src] suddenly doesn't want to leave you..."))
 	AddComponent(/datum/component/boomerang, throw_range, TRUE)
 	return TRUE
 

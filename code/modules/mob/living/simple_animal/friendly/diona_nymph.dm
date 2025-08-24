@@ -109,7 +109,7 @@
 			M.throw_alert(NYMPH_ALERT, /atom/movable/screen/alert/gestalt, new_master = src)
 			forceMove(M)
 		else if(isrobot(M))
-			M.visible_message("<span class='notice'>[M] playfully boops [src] on the head!</span>", "<span class='notice'>You playfully boop [src] on the head!</span>")
+			M.visible_message(span_notice("[M] playfully boops [src] on the head!"), span_notice("You playfully boop [src] on the head!"))
 		else
 			get_scooped(M)
 	else
@@ -126,7 +126,7 @@
 		choices += H
 
 	if(!length(choices))
-		to_chat(src, "<span class='warning'>No suitable diona nearby.</span>")
+		to_chat(src, span_warning("No suitable diona nearby."))
 		return FALSE
 
 	var/mob/living/M = tgui_input_list(src, "Who do you wish to merge with?", "Nymph Merging", choices)
@@ -172,20 +172,20 @@
 		return FALSE
 
 	if(length(donors) < evolve_donors)
-		to_chat(src, "<span class='warning'>You need more blood in order to ascend to a new state of consciousness...</span>")
+		to_chat(src, span_warning("You need more blood in order to ascend to a new state of consciousness..."))
 		return FALSE
 
 	if(nutrition < nutrition_need)
-		to_chat(src, "<span class='warning'>You need to binge on weeds in order to have the energy to grow...</span>")
+		to_chat(src, span_warning("You need to binge on weeds in order to have the energy to grow..."))
 		return FALSE
 
 	if(isdiona(loc) && !split()) //if it's merged with diona, needs to able to split before evolving
 		return FALSE
 
-	visible_message("<span class='danger'>[src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea.</span>","<span class='danger'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form.</span>")
+	visible_message(span_danger("[src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea."),span_danger("You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form."))
 
 	if(master_commander)
-		to_chat(src, "<span class='userdanger'>As you evolve, your mind grows out of it's restraints. You are no longer loyal to [master_commander]!</span>")
+		to_chat(src, span_userdanger("As you evolve, your mind grows out of it's restraints. You are no longer loyal to [master_commander]!"))
 
 	var/mob/living/carbon/human/diona/adult = new(get_turf(loc))
 	adult.set_species(/datum/species/diona)
@@ -215,7 +215,7 @@
 // Consumes plant matter other than weeds to evolve
 /mob/living/simple_animal/diona/proc/consume(obj/item/food/grown/G)
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating plant items without evolving.
-		to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
+		to_chat(src, span_warning("You're too full to consume this! Perhaps it's time to grow bigger..."))
 	else
 		if(do_after_once(src, 20, target = G))
 			visible_message("[src] ravenously consumes [G].", "You ravenously devour [G].")
@@ -236,7 +236,7 @@
 			choices += H
 
 	if(!length(choices))
-		to_chat(src, "<span class='warning'>No suitable blood donors nearby.</span>")
+		to_chat(src, span_warning("No suitable blood donors nearby."))
 		return FALSE
 
 	var/mob/living/carbon/human/M = tgui_input_list(src, "Who do you wish to take a sample from?", "Blood Sampling", choices)
@@ -245,14 +245,14 @@
 		return FALSE
 
 	if(!M.dna || (NO_BLOOD in M.dna.species.species_traits))
-		to_chat(src, "<span class='warning'>That donor has no blood to take.</span>")
+		to_chat(src, span_warning("That donor has no blood to take."))
 		return FALSE
 
 	if(donors.Find(M.real_name))
-		to_chat(src, "<span class='warning'>That donor offers you nothing new.</span>")
+		to_chat(src, span_warning("That donor offers you nothing new."))
 		return FALSE
 
-	visible_message("<span class='danger'>[src] flicks out a feeler and neatly steals a sample of [M]'s blood.</span>","<span class='danger'>You flick out a feeler and neatly steal a sample of [M]'s blood.</span>")
+	visible_message(span_danger("[src] flicks out a feeler and neatly steals a sample of [M]'s blood."),span_danger("You flick out a feeler and neatly steal a sample of [M]'s blood."))
 	donors += M.real_name
 	for(var/datum/language/L in M.languages)
 		if(!(L.flags & HIVEMIND))
@@ -266,12 +266,12 @@
 		return FALSE
 
 	if(length(donors) == evolve_donors)
-		to_chat(src, "<span class='noticealien'>You feel ready to move on to your next stage of growth.</span>")
+		to_chat(src, span_noticealien("You feel ready to move on to your next stage of growth."))
 	else if(length(donors) == awareness_donors)
 		universal_understand = TRUE
-		to_chat(src, "<span class='noticealien'>You feel your awareness expand, and realize you know how to understand the creatures around you.</span>")
+		to_chat(src, span_noticealien("You feel your awareness expand, and realize you know how to understand the creatures around you."))
 	else
-		to_chat(src, "<span class='noticealien'>The blood seeps into your small form, and you draw out the echoes of memories and personality from it, working them into your budding mind.</span>")
+		to_chat(src, span_noticealien("The blood seeps into your small form, and you draw out the echoes of memories and personality from it, working them into your budding mind."))
 
 
 /mob/living/simple_animal/diona/put_in_hands(obj/item/W)
@@ -281,7 +281,7 @@
 	W.dropped()
 
 /mob/living/simple_animal/diona/put_in_active_hand(obj/item/W)
-	to_chat(src, "<span class='warning'>You don't have any hands!</span>")
+	to_chat(src, span_warning("You don't have any hands!"))
 	return
 
 /mob/living/simple_animal/diona/npc_safe(mob/user)

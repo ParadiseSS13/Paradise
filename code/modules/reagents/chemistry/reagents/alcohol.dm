@@ -20,15 +20,15 @@
 	if(istype(O,/obj/item/paper))
 		var/obj/item/paper/paperaffected = O
 		paperaffected.clearpaper()
-		paperaffected.visible_message("<span class='notice'>The solution melts away the ink on the paper.</span>")
+		paperaffected.visible_message(span_notice("The solution melts away the ink on the paper."))
 	if(istype(O,/obj/item/book))
 		if(volume >= 5)
 			var/obj/item/book/affectedbook = O
 			for(var/page in affectedbook.pages)
 				affectedbook.pages[page] = " " //we're blanking the pages not making em null
-			affectedbook.visible_message("<span class='notice'>The solution melts away the ink on the book.</span>")
+			affectedbook.visible_message(span_notice("The solution melts away the ink on the book."))
 		else
-			O.visible_message("<span class='warning'>It wasn't enough...</span>")
+			O.visible_message(span_warning("It wasn't enough..."))
 
 /datum/reagent/consumable/ethanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with ethanol isn't quite as good as fuel.
 	if(method == REAGENT_TOUCH)
@@ -734,7 +734,7 @@
 	drink_icon = "demonsblood"
 	drink_name = "Demons Blood"
 	drink_desc = "Just looking at this thing makes the hair at the back of your neck stand up."
-	taste_description = "<span class='warning'>evil</span>"
+	taste_description = span_warning("evil")
 	goal_difficulty = REAGENT_GOAL_HARD
 
 /datum/reagent/consumable/ethanol/vodkatonic
@@ -1103,7 +1103,7 @@
 		if(prob(50))
 			M.say("[sonic_message]")
 		else
-			to_chat(M, "<span class='notice'>[sonic_message ]</span>")
+			to_chat(M, span_notice("[sonic_message ]"))
 	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/applejack
@@ -1161,7 +1161,7 @@
 	id = "dragonsbreath"
 	description = "Possessing this stuff probably breaks the Geneva convention."
 	color = "#DC0000"
-	taste_description = "<span class='userdanger'>LIQUID FUCKING DEATH OH GOD WHAT THE FUCK</span>"
+	taste_description = span_userdanger("LIQUID FUCKING DEATH OH GOD WHAT THE FUCK")
 
 /datum/reagent/consumable/ethanol/dragons_breath/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST && prob(20))
@@ -1171,7 +1171,7 @@
 /datum/reagent/consumable/ethanol/dragons_breath/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(M.reagents.has_reagent("milk"))
-		to_chat(M, "<span class='notice'>The milk stops the burning. Ahhh.</span>")
+		to_chat(M, span_notice("The milk stops the burning. Ahhh."))
 		M.reagents.del_reagent("milk")
 		M.reagents.del_reagent("dragonsbreath")
 		return
@@ -1179,22 +1179,22 @@
 		M.reagents.del_reagent("dragonsbreath") //As funny as it is, let's not have new wizards dust themselfs.
 		return
 	if(prob(8))
-		to_chat(M, "<span class='userdanger'>Oh god! Oh GODD!!</span>")
+		to_chat(M, span_userdanger("Oh god! Oh GODD!!"))
 	if(prob(50))
-		to_chat(M, "<span class='danger'>Your throat burns terribly!</span>")
+		to_chat(M, span_danger("Your throat burns terribly!"))
 		M.emote(pick("scream","cry","choke","gasp"))
 		M.Stun(2 SECONDS, FALSE)
 	if(prob(8))
-		to_chat(M, "<span class='danger'>Why!? WHY!?</span>")
+		to_chat(M, span_danger("Why!? WHY!?"))
 	if(prob(8))
-		to_chat(M, "<span class='danger'>ARGHHHH!</span>")
+		to_chat(M, span_danger("ARGHHHH!"))
 	if(prob(2 * volume))
-		to_chat(M, "<span class='userdanger'><b>OH GOD OH GOD PLEASE NO!!</b></span>")
+		to_chat(M, span_userdanger("<b>OH GOD OH GOD PLEASE NO!!</b>"))
 		if(M.on_fire)
 			M.adjust_fire_stacks(20)
 		if(prob(50))
-			to_chat(M, "<span class='userdanger'>IT BURNS!!!!</span>")
-			M.visible_message("<span class='danger'>[M] is consumed in flames!</span>")
+			to_chat(M, span_userdanger("IT BURNS!!!!"))
+			M.visible_message(span_danger("[M] is consumed in flames!"))
 			M.dust()
 			return
 	return ..() | update_flags
@@ -1434,10 +1434,10 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(!M.nutrition)
 		if(prob(66.66))
-			to_chat(M, "<span class='warning'>You feel hungry...</span>")
+			to_chat(M, span_warning("You feel hungry..."))
 		else if(prob(50))
 			update_flags |= M.adjustToxLoss(1, FALSE)
-			to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
+			to_chat(M, span_warning("Your stomach grumbles painfully!"))
 	else
 		if(prob(60))
 			M.adjust_nutrition(-remove_nutrition)
@@ -1546,7 +1546,7 @@
 /datum/reagent/consumable/ethanol/sontse/on_mob_life(mob/living/M)
 	if(current_cycle != 5 || !ismoth(M))
 		return ..()
-	to_chat(M, "<span class='warning'>The Sun was within you all this time!</span>")
+	to_chat(M, span_warning("The Sun was within you all this time!"))
 	if(!light_activated)
 		M.set_light(2)
 		light_activated = TRUE
@@ -1555,7 +1555,7 @@
 /datum/reagent/consumable/ethanol/sontse/on_mob_delete(mob/living/M)
 	if(!ismoth(M))
 		return ..()
-	to_chat(M, "<span class='warning'>The Sun within you subsides.</span>")
+	to_chat(M, span_warning("The Sun within you subsides."))
 	M.set_light(0)
 	..()
 
@@ -1654,7 +1654,7 @@
 		return ..()
 
 	if(prob(50))
-		to_chat(M, "<span class='warning'>Your skin emits a soapy liquid from its pores cleaning you in the process.</span>")
+		to_chat(M, span_warning("Your skin emits a soapy liquid from its pores cleaning you in the process."))
 		M.clean_blood()
 	return ..()
 
@@ -1681,7 +1681,7 @@
 			targets += L
 		if(length(targets))
 			var/mob/living/target = pick(targets)
-			to_chat(target, "<span class='warning'>You feel that [M.name] is somewhere near.</span>")
+			to_chat(target, span_warning("You feel that [M.name] is somewhere near."))
 	return ..()
 
 /datum/reagent/consumable/ethanol/islay_whiskey
@@ -1734,7 +1734,7 @@
 
 	if(prob(30))
 		var/mob/living/carbon/human/H = M
-		to_chat(M, "<span class='warning'>You expell flaming substance from within your suit.</span>")
+		to_chat(M, span_warning("You expell flaming substance from within your suit."))
 		var/obj/item/clothing/under/plasmaman/suit = H.w_uniform
 		if(suit)
 			suit.next_extinguish = world.time + 10 SECONDS
@@ -1783,7 +1783,7 @@
 	if(mutated || !iskidan(M))
 		return ..()
 
-	to_chat(M, "<span class='warning'>Mmm, tasty.</span>")
+	to_chat(M, span_warning("Mmm, tasty."))
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	mutated = TRUE
 

@@ -58,7 +58,7 @@
 
 /datum/event/demon_incursion/proc/prepare_spawn_elite()
 	var/obj/structure/spawner/nether/demon_incursion/elite_portal = pick(portal_list)
-	elite_portal.visible_message("<span class='danger'>Something within [elite_portal] stirs...</span>")
+	elite_portal.visible_message(span_danger("Something within [elite_portal] stirs..."))
 	var/list/potentialspawns = list(/mob/living/simple_animal/hostile/asteroid/elite/broodmother,
 		/mob/living/simple_animal/hostile/asteroid/elite/pandora,
 		/mob/living/simple_animal/hostile/asteroid/elite/legionnaire,
@@ -69,7 +69,7 @@
 /datum/event/demon_incursion/proc/spawn_elite(mob/dead/observer/elitemind, obj/structure/spawner/nether/demon_incursion/elite_portal, selected_elite)
 	var/mob/living/simple_animal/hostile/asteroid/elite/created_mob = new selected_elite(elite_portal.loc)
 	created_mob.faction = list("nether")
-	elite_portal.visible_message("<span class='userdanger'>[created_mob] emerges from [elite_portal]!</span>")
+	elite_portal.visible_message(span_userdanger("[created_mob] emerges from [elite_portal]!"))
 	notify_ghosts("\A [created_mob] has emerged from an incursion portal in \the [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = created_mob, action = NOTIFY_FOLLOW)
 	qdel(elite_portal)
 	playsound(created_mob.loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
@@ -152,7 +152,7 @@
 /obj/structure/spawner/nether/demon_incursion/examine(mob/user)
 	. = ..()
 	if(COOLDOWN_FINISHED(src, portal_repair) && obj_integrity < max_integrity)
-		. += "<span class='warning'>Dark tendrils are stabilizing the portal!</span>"
+		. += span_warning("Dark tendrils are stabilizing the portal!")
 
 /obj/structure/spawner/nether/demon_incursion/process()
 	. = ..()

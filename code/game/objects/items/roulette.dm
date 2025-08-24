@@ -15,7 +15,7 @@
 
 /obj/structure/roulette/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Interact to customise it and spin with <b>Alt-Click</b>.</span>"
+	. += span_notice("Interact to customise it and spin with <b>Alt-Click</b>.")
 	. += "The options are: \n[options.Join(".\n")]"
 
 /obj/structure/roulette/AltClick()
