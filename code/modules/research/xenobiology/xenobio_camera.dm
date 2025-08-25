@@ -461,7 +461,7 @@
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 	var/area/turfarea = get_area(T)
 	if(!recycler)
-		to_chat(C, "<span class='notice'>There is no connected monkey recycler.  Use a multitool to link one.</span>")
+		to_chat(C, "<span class='notice'>There is no connected monkey recycler. Use a multitool to link one.</span>")
 		return
 	if(iswallturf(T))
 		to_chat(user, "You can't place monkey here.")
