@@ -885,8 +885,7 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 		return
 
 	if(!usr.client.is_connecting_from_localhost())
-		var/confirm = tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No"))
-		if(confirm != "Yes")
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
 	// Why would we ever turn this off?
@@ -1147,12 +1146,11 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 
 	if(SSair.interesting_tile_count > 500)
 		// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
-		var/confirm = tgui_alert(usr, "WARNING: There are [SSair.interesting_tile_count] Interesting Turfs. This process will be lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you with to continue", "WARNING", list("I am sure", "Nope"))
-		if(confirm != "I am sure")
+		if(tgui_alert(usr, "WARNING: There are [SSair.interesting_tile_count] Interesting Turfs. This process will be lag intensive and should only be used if the atmos controller \
+			is screaming bloody murder. Are you sure you with to continue", "WARNING", list("I am sure", "Nope")) != "I am sure")
 			return
 	else
-		var/confirm = tgui_alert(usr, "Visualizing turfs may cause server to lag. Are you sure?", "Warning", list("Yes", "No"))
-		if(confirm != "Yes")
+		if(tgui_alert(usr, "Visualizing turfs may cause server to lag. Are you sure?", "Warning", list("Yes", "No")) != "Yes")
 			return
 
 	var/display_turfs_overlay = FALSE

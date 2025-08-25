@@ -550,8 +550,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		return
 
 	if(!usr.client.is_connecting_from_localhost())
-		var/confirm = tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No"))
-		if(confirm != "Yes")
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
 	GLOB.enter_allowed = !GLOB.enter_allowed
@@ -592,8 +591,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		return
 
 	if(!usr.client.is_connecting_from_localhost())
-		var/confirm = tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No"))
-		if(confirm != "Yes")
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
 	GLOB.configuration.general.respawn_enabled = !(GLOB.configuration.general.respawn_enabled)
@@ -619,8 +617,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		return
 
 	if(!usr.client.is_connecting_from_localhost())
-		var/confirm = tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No"))
-		if(confirm != "Yes")
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
 	if(SSblackbox)
@@ -802,8 +799,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		return
 
 	if(!usr.client.is_connecting_from_localhost())
-		var/confirm = tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No"))
-		if(confirm != "Yes")
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
 	GLOB.configuration.general.guest_ban = !(GLOB.configuration.general.guest_ban)

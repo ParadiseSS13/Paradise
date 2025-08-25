@@ -330,8 +330,7 @@
 		return
 
 	if(!usr.client.is_connecting_from_localhost())
-		var/confirm = tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No"))
-		if(confirm != "Yes")
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
 			return
 
 	var/action=""
