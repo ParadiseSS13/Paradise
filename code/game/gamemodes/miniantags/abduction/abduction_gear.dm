@@ -60,7 +60,6 @@ CONTENTS:
 		)
 
 /obj/item/clothing/under/abductor
-	icon = 'icons/obj/clothing/under/misc.dmi'
 	name = "alien uniform"
 	desc = "A highly breathable, alien uniform designed for optimal abduction and dissection."
 	icon_state = "abductor"
@@ -68,12 +67,9 @@ CONTENTS:
 	item_color = "abductor"
 	has_sensor = FALSE
 
-/obj/item/clothing/suit/storage/labcoat/abductor
-	name = "alien labcoat"
-	desc = "A comfortable suit for alien scientists. Has pink markings."
-	icon_state = "labcoat_abductor_open"
-	item_state = "labcoat_abductor_open"
-	allowed = list(/obj/item/abductor/silencer, /obj/item/abductor/gizmo, /obj/item/abductor/mind_device)
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/misc.dmi'
+	)
 
 /obj/item/clothing/suit/armor/abductor/vest
 	name = "agent vest"
