@@ -63,6 +63,58 @@
 /obj/item/storage/fancy/matches
 	use_sound = "patchpack"
 
+/obj/item/radio
+	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/device_drop.ogg'
+	pickup_sound =  'modular_ss220/aesthetics_sounds/sound/handling/pickup/device_pickup.ogg'
+
+/obj/item/pda
+	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/device_drop.ogg'
+	pickup_sound =  'modular_ss220/aesthetics_sounds/sound/handling/pickup/device_pickup.ogg'
+
+/obj/item/t_scanner
+	drop_sound = 'sound/items/handling/multitool_drop.ogg'
+	pickup_sound =  'sound/items/handling/multitool_pickup.ogg'
+
+/obj/item/healthanalyzer
+	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/device_drop.ogg'
+	pickup_sound =  'modular_ss220/aesthetics_sounds/sound/handling/pickup/device_pickup.ogg'
+
+/obj/item/analyzer
+	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/device_drop.ogg'
+	pickup_sound =  'modular_ss220/aesthetics_sounds/sound/handling/pickup/device_pickup.ogg'
+
+/obj/item/robotanalyzer
+	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/device_drop.ogg'
+	pickup_sound =  'modular_ss220/aesthetics_sounds/sound/handling/pickup/device_pickup.ogg'
+
+/obj/item/reagent_scanner
+	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/device_drop.ogg'
+	pickup_sound =  'modular_ss220/aesthetics_sounds/sound/handling/pickup/device_pickup.ogg'
+
+/obj/item/slime_scanner
+	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/device_drop.ogg'
+	pickup_sound =  'modular_ss220/aesthetics_sounds/sound/handling/pickup/device_pickup.ogg'
+
+/obj/item/bodyanalyzer
+	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/device_drop.ogg'
+	pickup_sound =  'modular_ss220/aesthetics_sounds/sound/handling/pickup/device_pickup.ogg'
+
+/obj/item/flash
+	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound =  'sound/items/handling/component_pickup.ogg'
+
+/obj/item/extinguisher
+	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/gastank_drop.ogg'
+	pickup_sound =  'modular_ss220/aesthetics_sounds/sound/handling/pickup/gastank_pickup.ogg'
+
+/obj/item/tank/internals
+	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/gastank_drop.ogg'
+	pickup_sound =  'modular_ss220/aesthetics_sounds/sound/handling/pickup/gastank_pickup.ogg'
+
+/obj/item/chemical_canister
+	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/gastank_drop.ogg'
+	pickup_sound =  'modular_ss220/aesthetics_sounds/sound/handling/pickup/gastank_pickup.ogg'
+
 /* KNIFE */
 /obj/item/nullrod/tribal_knife
 	drop_sound = 'modular_ss220/aesthetics_sounds/sound/handling/drop/knife.ogg'
