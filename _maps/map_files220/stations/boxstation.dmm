@@ -9874,6 +9874,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "arcade"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/arcade)
 "aKY" = (
@@ -14047,10 +14050,10 @@
 /turf/simulated/floor/wood/fancy,
 /area/station/public/sleep_female)
 "aZE" = (
-/obj/item/radio/intercom/directional/north,
 /obj/effect/turf_decal/siding/wood/oak{
 	dir = 1
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/wood/fancy/oak,
 /area/station/public/arcade)
 "aZF" = (
@@ -76387,6 +76390,7 @@
 	c_tag = "Casino"
 	},
 /obj/effect/landmark/start/bar,
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/carpet/green,
 /area/station/public/arcade)
 "nXU" = (
