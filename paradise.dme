@@ -2479,7 +2479,6 @@
 #include "code\modules\mob\living\basic\mining\goldgrub\goldgrub.dm"
 #include "code\modules\mob\living\basic\mining\goldgrub\goldgrub_ai.dm"
 #include "code\modules\mob\living\basic\mining\mining_mobs.dm"
-#include "code\modules\mob\living\basic\hostile\soviet.dm"
 #include "code\modules\mob\living\basic\hostile\giant_spider\giant_spider.dm"
 #include "code\modules\mob\living\basic\hostile\giant_spider\giant_spider_actions.dm"
 #include "code\modules\mob\living\basic\hostile\giant_spider\giant_spider_ai.dm"
