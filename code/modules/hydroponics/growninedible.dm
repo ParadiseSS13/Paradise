@@ -70,7 +70,7 @@
 	set_light(0)
 
 /obj/item/grown/proc/send_plant_details(mob/user)
-	var/msg = "[span_notice("This is \a ")][span_name("[src]")]\n"
+	var/msg = "[span_notice("This is")][span_name(" \a [src]")]\n"
 	if(seed)
 		msg += seed.get_analyzer_text()
 	msg += "</span>"
