@@ -1,4 +1,4 @@
-import { Button, Knob, LabeledList, ProgressBar, Section, Stack } from 'tgui-core/components';
+import { Knob, LabeledList, ProgressBar, Section, Stack } from 'tgui-core/components';
 import { toFixed } from 'tgui-core/math';
 
 import { useBackend } from '../backend';
@@ -18,7 +18,7 @@ interface FissionReactorData {
   NGCR_ambientpressure: number;
   NGCR_coefficient: number;
   NGCR_operatingpower: number;
-  NGCR_throttle;
+  NGCR_throttle: number;
   gases?: Array<{
     name: string;
     amount: number;
@@ -42,7 +42,7 @@ export const ReactorMonitor = (props) => {
   const filteredGases = (gases ?? []).filter((gas) => gas.amount >= 0.01).sort((a, b) => b.amount - a.amount);
   const gasMaxAmount = Math.max(1, ...filteredGases.map((gas) => gas.portion));
   return (
-    <Window width={550} height={270}>
+    <Window width={550} height={500}>
       <Window.Content>
         <Stack fill>
           <Stack.Item width="270px">
@@ -62,17 +62,17 @@ export const ReactorMonitor = (props) => {
                   <ProgressBar
                     value={NGCR_power}
                     minValue={0}
-                    maxValue={5000}
+                    maxValue={2000}
                     ranges={{
-                      good: [-Infinity, 5000],
-                      average: [5000, 7000],
-                      bad: [7000, Infinity],
+                      good: [200, Infinity],
+                      average: [100, 200],
+                      bad: [-Infinity, 100],
                     }}
                   >
-                    {toFixed(NGCR_power) + ' Watts'}
+                    {toFixed(NGCR_power) + ' KW'}
                   </ProgressBar>
                 </LabeledList.Item>
-                <LabeledList.Item label="Gas Coefficient">
+                <LabeledList.Item label="Reactivity Coefficient">
                   <ProgressBar
                     value={NGCR_coefficient}
                     minValue={1}
@@ -115,42 +115,60 @@ export const ReactorMonitor = (props) => {
                     {toFixed(NGCR_ambientpressure) + ' kPa'}
                   </ProgressBar>
                 </LabeledList.Item>
+                <LabeledList.Item label="Control Rod Position">
+                  <ProgressBar
+                    value={NGCR_operatingpower}
+                    minValue={0}
+                    maxValue={100}
+                    ranges={{
+                      good: [70, Infinity],
+                      average: [30, 70],
+                      bad: [-Infinity, 30],
+                    }}
+                  >
+                    {toFixed(NGCR_operatingpower) + ' %'}
+                  </ProgressBar>
+                </LabeledList.Item>
               </LabeledList>
+              <Section title="Desired Fission Rate" textAlign="center">
+                <Knob
+                  size={5}
+                  value={NGCR_throttle}
+                  unit="%"
+                  minValue={0}
+                  maxValue={100}
+                  step={1}
+                  stepPixelSize={2}
+                  onDrag={(e, value) =>
+                    act('set_throttle', {
+                      NGCR_throttle: value,
+                    })
+                  }
+                />
+              </Section>
             </Section>
           </Stack.Item>
           <Stack.Item grow basis={0}>
-            <Section
-              fill
-              scrollable
-              title="Gases"
-              buttons={<Button icon="arrow-left" content="Back" onClick={() => act('back')} />}
-            >
-              <LabeledList>
-                {filteredGases.map((gas) => (
-                  <LabeledList.Item key={gas.name} label={getGasLabel(gas.name, gas.name)}>
-                    <ProgressBar color={getGasColor(gas.name)} value={gas.portion} minValue={0} maxValue={gasMaxAmount}>
-                      {toFixed(gas.amount) + ' mol (' + gas.portion + '%)'}
-                    </ProgressBar>
-                  </LabeledList.Item>
-                ))}
-              </LabeledList>
-            </Section>
-            <Section title="Throttle">
-              <Knob
-                size={3}
-                value={NGCR_throttle}
-                unit="%"
-                minValue={0}
-                maxValue={100}
-                step={1}
-                stepPixelSize={1}
-                onDrag={(e, value) =>
-                  act('set_throttle', {
-                    throttle: value,
-                  })
-                }
-              />
-            </Section>
+            <Stack fill vertical>
+              <Stack.Item grow>
+                <Section fill scrollable title="Gases">
+                  <LabeledList>
+                    {filteredGases.map((gas) => (
+                      <LabeledList.Item key={gas.name} label={getGasLabel(gas.name, gas.name)}>
+                        <ProgressBar
+                          color={getGasColor(gas.name)}
+                          value={gas.portion}
+                          minValue={0}
+                          maxValue={gasMaxAmount}
+                        >
+                          {toFixed(gas.amount) + ' mol (' + gas.portion + '%)'}
+                        </ProgressBar>
+                      </LabeledList.Item>
+                    ))}
+                  </LabeledList>
+                </Section>
+              </Stack.Item>
+            </Stack>
           </Stack.Item>
         </Stack>
       </Window.Content>

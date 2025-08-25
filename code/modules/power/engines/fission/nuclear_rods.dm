@@ -14,16 +14,10 @@
 	var/heat_amount = 0
 	/// How does this rod affect its neighbors heating
 	var/heat_amp_mod = 1
-	/// The total amount of heat produced by this rod
-	var/heat_total
 	/// How much power does this rod add by default in watts
 	var/power_amount = 0
 	/// How does this rod affect its neighbors power production
 	var/power_amp_mod = 1
-	/// The total amount of power produced by this rod
-	var/power_total
-	/// How much radiation does this rod emit when exposed
-	var/rad_amount
 	/// What type of radiation is emitted by this rod
 	var/list/rad_type
 	/// What special gas requirement does this rod need
