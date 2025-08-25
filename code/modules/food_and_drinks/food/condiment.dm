@@ -172,7 +172,7 @@
 	name = "flour sack"
 	desc = "A big bag of flour. Good for baking!"
 	icon_state = "flour"
-	inhand_icon_state = "flour"
+	inhand_icon_state = "contvapour"
 	list_reagents = list("flour" = 30)
 	possible_states = list()
 

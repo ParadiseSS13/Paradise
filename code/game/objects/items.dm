@@ -29,10 +29,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	/// Icon file for mob worn overlays. Can be ignored if sprite_sheets/sprite_sheets_inhand is set
 	var/icon/worn_icon
-	/// Icon state for mob worn overlays, if null the `icon_state`'s will be used
+	/// Icon state for mob worn overlays, if null the `icon_state` value will be used
 	var/worn_icon_state
 
-	/// Icon state for mob inhand overlays, if null the `icon_state`'s value will be used. If you set this manually, verify that such icon actually exists
+	/// Icon state for mob inhand overlays, if null the `icon_state` value will be used
 	var/inhand_icon_state
 	/// Icon file for left hand inhand overlays
 	var/icon/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'

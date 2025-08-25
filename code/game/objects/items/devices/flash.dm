@@ -266,7 +266,9 @@
 	name = "memorizer"
 	desc = "If you see this, you're not likely to remember it any time soon." // Why doesn't this at least delete your notes smh
 	icon_state = "memorizer"
-	inhand_icon_state = "nullrod"
+	inhand_icon_state = "tele_baton"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 
 /obj/item/flash/armimplant
 	name = "photon projector"

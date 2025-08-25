@@ -81,6 +81,7 @@
 	name = "foam force crossbow"
 	desc = "A weapon favored by many overactive children. Ages 8 and up."
 	icon_state = "crossbow"
+	worn_icon_state = "gun"
 	inhand_icon_state = "foamcrossbow"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
@@ -124,6 +125,7 @@
 	name = "tommy gun"
 	desc = "Looks almost like the real thing! Great for practicing Drive-bys. Ages 8 and up."
 	icon_state = "tommygun"
+	worn_icon_state = "gun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	inhand_x_dimension = 32

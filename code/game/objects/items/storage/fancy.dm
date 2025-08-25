@@ -336,7 +336,6 @@
 	Exported across the known Orion Spur by members of the USSP's trading bloc and vendors affiliated with the Nian Merchant Guild. \
 	The flavour is acrid, the smoke is thin and wispy, yet harsh on the throat. The only redeeming features are the high nicotine content and the low price."
 	icon_state = "our_brand_packet"
-	inhand_icon_state = "our_brand_packet"
 	cigarette_slogan = "Smoke, for the Union!"
 
 /obj/item/storage/fancy/cigarettes/cigpack_robust
@@ -376,7 +375,6 @@
 	desc = "A popular brand within the Trans-Solar Federation, they have a smooth, slightly cinnamon flavour. \
 	Whilst not actually state-owned, these cigarettes lean heavily into patriotic marketing, and are included in federal ration packs as a morale booster."
 	icon_state = "solar_packet"
-	inhand_icon_state = "solar_packet"
 	cigarette_slogan = "Smoked by true patriots."
 
 /obj/item/storage/fancy/cigarettes/cigpack_uplift

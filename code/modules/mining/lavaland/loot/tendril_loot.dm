@@ -18,6 +18,8 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "cultpack"
 	inhand_icon_state = "backpack"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	resistance_flags = INDESTRUCTIBLE
 	var/obj/item/storage/backpack/shared/bag

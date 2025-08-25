@@ -156,6 +156,8 @@
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "throwingstar"
 	inhand_icon_state = "eshield0"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	force = 2
 	throwforce = 20 //This is never used on mobs since this has a 100% embed chance.
 	throw_speed = 4

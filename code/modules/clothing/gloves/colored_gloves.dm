@@ -111,7 +111,6 @@
 	name = "blue gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "blue"
-	inhand_icon_state = "bluegloves"
 	item_color = "blue"
 
 /obj/item/clothing/gloves/color/purple

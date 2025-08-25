@@ -6,7 +6,6 @@
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronobackpack"
 	worn_icon_state = "backpack"
-	inhand_icon_state = "backpack"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	slowdown = 1

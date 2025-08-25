@@ -392,10 +392,11 @@
 	icon_state = "clownrender"
 	worn_icon_state = null
 	inhand_icon_state = "gold_horn"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	hitsound = 'sound/items/bikehorn.ogg'
 	sharp = TRUE
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "honked")
-
 
 /obj/item/nullrod/fedora
 	name = "binary fedora"
@@ -481,7 +482,7 @@
 	name = "arrhythmic knife"
 	desc = "They say fear is the true mind killer, but stabbing them in the head works too. Honour compels you to not sheathe it once drawn."
 	icon_state = "crysknife"
-	inhand_icon_state = "crysknife"
+	inhand_icon_state = null // no icon state
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 	slot_flags = null

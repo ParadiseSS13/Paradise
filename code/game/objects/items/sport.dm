@@ -25,7 +25,7 @@
 	desc = "Take me out to the ball game."
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "baseball"
-	inhand_icon_state = "baseball"
+	inhand_icon_state = null // no icon state
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/beach_ball/dodgeball

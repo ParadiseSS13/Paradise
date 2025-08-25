@@ -6,7 +6,6 @@
 	lefthand_file = 'icons/mob/inhands/lighter_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lighter_righthand.dmi'
 	icon_state = "lighter-g"
-	inhand_icon_state = "lighter-g"
 	w_class = WEIGHT_CLASS_TINY
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
