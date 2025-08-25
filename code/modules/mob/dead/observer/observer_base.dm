@@ -196,7 +196,7 @@ Works together with spawning an observer, noted above.
 		GLOB.non_respawnable_keys[ckey] = 1
 
 	// mods, mentors, and the like will have admin observe anyway, so this is moot
-	if(((key in GLOB.antag_hud_users) || (key in GLOB.roundstart_observer_keys)) && !check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE, src))
+	if(((key in GLOB.antag_hud_users) || (key in GLOB.roundstart_observer_keys)) && !check_rights(R_MOD | R_ADMIN, FALSE, src)) // SS220 EDIT - removed R_MENTOR
 		ghost.verbs |= /mob/dead/observer/proc/do_observe
 		ghost.verbs |= /mob/dead/observer/proc/observe
 	if(user_color)
