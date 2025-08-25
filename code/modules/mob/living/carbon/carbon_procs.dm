@@ -205,7 +205,7 @@
 	// Major Shock - YEET
 	var/throw_distance = 0
 	var/throw_dir = null
-	if(shock_damage >= SHOCK_MAJOR)
+	if(shock_damage >= SHOCK_MAJOR && !(flags & SHOCK_ILLUSION))
 		do_sparks(3, TRUE, src)
 		AdjustStuttering(4 SECONDS)
 		if(isatom(source))
