@@ -1148,6 +1148,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
+"agQ" = (
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteyellow"
+	},
+/area/station/medical/chemistry)
 "agS" = (
 /obj/machinery/flasher/portable,
 /turf/simulated/floor/plasteel{
@@ -21855,7 +21861,7 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 8;
 	icon_state = "whiteyellow"
 	},
 /area/station/medical/chemistry)
@@ -55624,11 +55630,11 @@
 "haC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/window/reinforced,
-/obj/structure/morgue{
-	dir = 2
-	},
 /obj/effect/turf_decal/delivery/red,
 /obj/effect/landmark/spawner/rev,
+/obj/structure/morgue{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/medical/morgue)
 "haD" = (
@@ -85696,11 +85702,11 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/obj/structure/morgue{
-	dir = 2
-	},
 /obj/effect/turf_decal/delivery/red,
 /obj/effect/landmark/spawner/rev,
+/obj/structure/morgue{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/medical/morgue)
 "qQm" = (
@@ -105679,11 +105685,11 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/obj/structure/morgue{
-	dir = 2
-	},
 /obj/effect/turf_decal/delivery/red,
 /obj/effect/landmark/spawner/rev,
+/obj/structure/morgue{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/medical/morgue)
 "xwS" = (
@@ -142176,7 +142182,7 @@ sqU
 ogI
 aTT
 bCW
-bDf
+agQ
 bGi
 bJF
 bTI
