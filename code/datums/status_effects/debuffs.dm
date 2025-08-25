@@ -160,7 +160,7 @@
 	stack_threshold = 3
 	max_stacks = 3
 	reset_ticks_on_stack = TRUE
-	var/mob/living/simple_animal/hostile/asteroid/big_legion/latest_attacker
+	var/mob/living/basic/mining/big_legion/latest_attacker
 
 /datum/status_effect/stacking/ground_pound/on_creation(mob/living/new_owner, stacks_to_apply, mob/living/attacker)
 	. = ..()
@@ -176,7 +176,7 @@
 
 /datum/status_effect/stacking/ground_pound/stacks_consumed_effect()
 	flick("legion-smash", latest_attacker)
-	addtimer(CALLBACK(latest_attacker, TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/big_legion, throw_mobs)), 1 SECONDS)
+	addtimer(CALLBACK(latest_attacker, TYPE_PROC_REF(/mob/living/basic/mining/big_legion, throw_mobs)), 1 SECONDS)
 
 /datum/status_effect/stacking/ground_pound/on_remove()
 	latest_attacker = null
@@ -1039,8 +1039,9 @@
 
 /datum/status_effect/bubblegum_curse/tick()
 	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
-	if(!attacker || attacker.loc == null)
+	if(!attacker || attacker.loc == null || attacker.stat == DEAD)
 		qdel(src)
+		return
 	if(attacker.health <= attacker.maxHealth / 2)
 		owner.clear_fullscreen("Bubblegum")
 		owner.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/stretch/fog, 2)
@@ -1410,7 +1411,7 @@
 	refresh_overlay()
 
 	if(foam_level == 5)
-		owner.Paralyse(4 SECONDS)
+		owner.Immobilize(5 SECONDS)
 
 /datum/status_effect/c_foamed/proc/refresh_overlay()
 	// Refresh overlay
@@ -1432,10 +1433,13 @@
 
 /datum/status_effect/rust_corruption/tick()
 	. = ..()
+	SEND_SOUND(owner, sound('sound/weapons/sear.ogg'))
 	if(issilicon(owner))
+		to_chat(owner, "<span class='userdanger'>The unnatural rust magically corrodes your body!</span>")
 		owner.adjustBruteLoss(10)
 		return
 	//We don't have disgust, so...
+	to_chat(owner, "<span class='userdanger'>The unnatural rust makes you feel sick!</span>")
 	if(ishuman(owner))
 		owner.adjustBrainLoss(2.5)
 		owner.reagents?.remove_all(0.75)

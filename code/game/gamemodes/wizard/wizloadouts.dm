@@ -124,7 +124,7 @@
 /datum/spellbook_entry/loadout/fireball
 	name = "Fireball. Fireball. Fireball."
 	desc = "Who cares about the rest of the spells. Become an expert in fire magic. Devote yourself to the craft. The only spell you need anyways is <b>Fireball.</b><br>\
-		</i>Provides fire immunity, homing fireballs, rapid-fire fireballs, and some fireball wands. Provides no mobility spells. Replaces your robes with infernal versions.<i>"
+		</i>Provides fire & explosion immunity, homing fireballs, rapid-fire fireballs, and some fireball wands. Provides no mobility spells. Replaces your robes with infernal versions.<i>"
 	spells_path = list(/datum/spell/sacred_flame, /datum/spell/fireball/homing, /datum/spell/infinite_guns/fireball)
 	category = "Unique"
 	destroy_spellbook = TRUE
@@ -137,6 +137,7 @@
 	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
 	ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
+	ADD_TRAIT(user, TRAIT_EXPLOSION_PROOF, MAGIC_TRAIT)
 
 	user.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red/fireball(user), ITEM_SLOT_OUTER_SUIT)
 	user.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red/fireball(user), ITEM_SLOT_HEAD)

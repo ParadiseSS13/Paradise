@@ -36,6 +36,7 @@
 	else if(!storedorgan)
 		to_chat(user, "<span class='alert'>[src] currently has no implant stored.</span>")
 		return
+	SSblackbox.record_feedback("tally", "o_implant_auto", 1, "[storedorgan.type]")
 	storedorgan.insert(user) //insert stored organ into the user
 	user.visible_message("<span class='notice'>[user] presses a button on [src], and you hear a short mechanical noise.</span>", "<span class='notice'>You feel a sharp sting as [src] plunges into your body.</span>")
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 50, TRUE)
@@ -78,6 +79,33 @@
 		if(!uses)
 			desc = "[initial(desc)] Looks like it's been used up."
 	return TRUE
+
+/obj/item/autosurgeon/organ/one_use
+	uses = 1
+
+/obj/item/autosurgeon/organ/one_use/skill_hud
+	desc = "A single use autosurgeon that contains a skill heads up display. A screwdriver can be used to remove it, but implants can't be placed back in."
+	starting_organ = /obj/item/organ/internal/cyberimp/eyes/hud/skill
+
+/obj/item/autosurgeon/organ/one_use/sec_hud
+	desc = "A single use autosurgeon that contains a security heads up display. A screwdriver can be used to remove it, but implants can't be placed back in."
+	starting_organ = /obj/item/organ/internal/cyberimp/eyes/hud/security
+
+/obj/item/autosurgeon/organ/one_use/med_hud
+	desc = "A single use autosurgeon that contains a medical heads up display. A screwdriver can be used to remove it, but implants can't be placed back in."
+	starting_organ = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+
+/obj/item/autosurgeon/organ/one_use/diagnostic_hud
+	desc = "A single use autosurgeon that contains a diagnostic heads up display. A screwdriver can be used to remove it, but implants can't be placed back in."
+	starting_organ = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
+
+/obj/item/autosurgeon/organ/one_use/wire_interface
+	desc = "A single use autosurgeon that contains a wire interface. A screwdriver can be used to remove it, but implants can't be placed back in."
+	starting_organ = /obj/item/organ/internal/cyberimp/brain/wire_interface
+
+/obj/item/autosurgeon/organ/one_use/meson_eyes
+	desc = "A single use autosurgeon that contains a set of meson eyes. A screwdriver can be used to remove it, but implants can't be placed back in."
+	starting_organ = /obj/item/organ/internal/eyes/cybernetic/meson
 
 /obj/item/autosurgeon/organ/syndicate
 	name = "suspicious implant autosurgeon"

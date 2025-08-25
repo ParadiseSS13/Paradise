@@ -14,6 +14,10 @@
 #define BB_BASIC_MOB_FLEE_TARGET_HIDING_LOCATION "BB_BASIC_FLEE_TARGET_HIDING_LOCATION"
 /// Key defining the targeting strategy for things to flee from
 #define BB_FLEE_TARGETING_STRATEGY "BB_FLEE_TARGETING_STRATEGY"
+/// are we ready to breed?
+#define BB_BREED_READY "BB_breed_ready"
+/// maximum kids we can have
+#define BB_MAX_CHILDREN "BB_max_children"
 /// Key defining how far we attempt to get away from something we're fleeing from
 #define BB_BASIC_MOB_FLEE_DISTANCE "BB_BASIC_FLEE_DISTANCE"
 #define DEFAULT_BASIC_FLEE_DISTANCE 9
@@ -47,6 +51,8 @@
 #define BB_BASIC_MOB_RETALIATE_LIST "BB_BASIC_MOB_SHITLIST"
 ///Blackboard key for a whitelist typecache of "things we can target while trying to move"
 #define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
+/// some behaviors that check current_target also set this on deep crit mobs
+#define BB_BASIC_MOB_EXECUTION_TARGET "BB_basic_execution_target"
 
 //Hunting BB keys
 
@@ -56,6 +62,31 @@
 #define BB_LOW_PRIORITY_HUNTING_TARGET "BB_LOW_PRIORITY_HUNTING_TARGET"
 /// Key that holds the cooldown for our hunting subtree
 #define BB_HUNTING_COOLDOWN(type) "BB_HUNTING_COOLDOWN_[type]"
+
+
+// Finding adult mob
+/// key holds the adult we found
+#define BB_FOUND_MOM "BB_found_mom"
+/// list of types of mobs we will look for
+#define BB_FIND_MOM_TYPES "BB_find_mom_types"
+/// list of types of mobs we must ignore
+#define BB_IGNORE_MOM_TYPES "BB_ignore_mom_types"
+
+// Baby-making blackboard
+/// Types of animal we can make babies with.
+#define BB_BABIES_PARTNER_TYPES "BB_babies_partner"
+/// Types of animal that we make as a baby.
+#define BB_BABIES_CHILD_TYPES "BB_babies_child"
+/// Current partner target
+#define BB_BABIES_TARGET "BB_babies_target"
+/// Timeout for finding partners when theres too many of us in 1 location
+#define BB_PARTNER_SEARCH_TIMEOUT "BB_partner_search_timeout"
+
+/// Chance to randomly acquire a new target
+#define BB_RANDOM_AGGRO_CHANCE "BB_random_aggro_chance"
+/// Chance to randomly drop all of our targets
+#define BB_RANDOM_DEAGGRO_CHANCE "BB_random_deaggro_chance"
+
 
 // Food and eating
 
@@ -135,6 +166,14 @@
 /// gibtonite wall we need to run away from
 #define BB_MINEBOT_GIBTONITE_RUN "BB_MINEBOT_GIBTONITE_RUN"
 
+// Legion
+/// Corpse we have consumed
+#define BB_LEGION_CORPSE "legion_corpse"
+/// Things our target recently said
+#define BB_LEGION_RECENT_LINES "legion_recent_lines"
+/// The creator of our legion skull
+#define BB_LEGION_BROOD_CREATOR "legion_brood_creator"
+
 /// Blackboard field for the most recent command the pet was given
 #define BB_ACTIVE_PET_COMMAND "BB_ACTIVE_PET_COMMAND"
 
@@ -154,6 +193,9 @@
 #define BB_HIVE_PARTNER "BB_HIVE_PARTNER"
 
 // Misc
+
+/// Target define for cleaning
+#define BB_CLEAN_TARGET "BB_clean_target"
 
 /// For /datum/ai_behavior/find_potential_targets, what if any field are we using currently
 #define BB_FIND_TARGETS_FIELD(type) "BB_FIND_TARGETS_FIELD_[type]"

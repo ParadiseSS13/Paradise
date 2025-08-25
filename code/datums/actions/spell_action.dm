@@ -38,13 +38,13 @@
 		spell.AltClick(usr)
 		return TRUE
 
-/datum/action/spell_action/IsAvailable()
+/datum/action/spell_action/IsAvailable(show_message = TRUE)
 	if(!target)
 		return FALSE
 	var/datum/spell/spell = target
 
 	if(owner)
-		return spell.can_cast(owner, show_message = TRUE)
+		return spell.can_cast(owner, show_message)
 	return FALSE
 
 /datum/action/spell_action/apply_unavailable_effect(atom/movable/screen/movable/action_button/button)

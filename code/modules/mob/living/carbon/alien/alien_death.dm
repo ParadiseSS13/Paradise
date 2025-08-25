@@ -61,6 +61,7 @@
 	QDEL_IN(animation, 15)
 
 /mob/living/carbon/alien/death(gibbed)
+	move_resist = null
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
 	if(!.)
