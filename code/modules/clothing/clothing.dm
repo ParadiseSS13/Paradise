@@ -43,6 +43,8 @@
 
 	/// Detective Work, used for allowing a given atom to leave its fibers on stuff. Allowed by default
 	var/can_leave_fibers = TRUE
+	/// Detective Work, firing a ballistic weapon will add a signature to this var
+	var/gunshot_residue
 
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
@@ -657,7 +659,7 @@
 	if(H.get_item_by_slot(ITEM_SLOT_SHOES) == src)
 		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
 
-/obj/item/clothing/shoes/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/item/clothing/shoes/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
 		if(!M.lit && !M.burnt) // Match isn't lit, but isn't burnt.
@@ -689,6 +691,14 @@
 			to_chat(user, "<span class='notice'>There is already something in [src]!</span>")
 			return
 		if(!user.drop_item_to_ground(I))
+			return
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(45) && user.get_item_by_slot(ITEM_SLOT_SHOES) == src)
+
+			var/stabbed_foot = pick("l_foot", "r_foot")
+			user.visible_message("<span class='notice'>[user] tries to place [I] into [src] but stabs their own foot!</span>", \
+			"<span class='warning'>You go to put [I] into [src], but miss the boot and stab your own foot!</span>")
+			user.apply_damage(I.force, BRUTE, stabbed_foot)
+			user.drop_item(I)
 			return
 		user.visible_message("<span class='notice'>[user] places [I] into their [name]!</span>", \
 			"<span class='notice'>You place [I] into the side of your [name]!</span>")
@@ -747,7 +757,6 @@
 	name = "suit"
 	icon = 'icons/obj/clothing/suits.dmi'
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	slot_flags = ITEM_SLOT_OUTER_SUIT
@@ -1004,7 +1013,6 @@
 	name = "under"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	slot_flags = ITEM_SLOT_JUMPSUIT
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
@@ -1234,3 +1242,7 @@
 	icon = 'icons/obj/clothing/neck.dmi'
 	body_parts_covered = UPPER_TORSO
 	slot_flags = ITEM_SLOT_NECK
+
+/obj/item/clothing/clean_blood(radiation_clean = FALSE)
+	. = ..()
+	gunshot_residue = null

@@ -385,34 +385,7 @@
 /datum/spell/aoe/revenant/haunt_object/proc/make_spooky(obj/item/item_to_possess, mob/living/simple_animal/revenant/user)
 	new /obj/effect/temp_visual/revenant(get_turf(item_to_possess)) // Thematic spooky visuals
 	var/mob/living/basic/possessed_object/revenant/possessed_object = new(item_to_possess) // Begin haunting object
-	set_outline(possessed_object)
-	ADD_TRAIT(possessed_object, TRAIT_DODGE_ALL_OBJECTS, "Revenant")
-	addtimer(CALLBACK(src, PROC_REF(begin_poltergheist), possessed_object, user), 1 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
 	addtimer(CALLBACK(possessed_object, TYPE_PROC_REF(/mob/living/basic/possessed_object, death)), 70 SECONDS, TIMER_UNIQUE) // De-haunt the object
-
-/// Gives it AI
-/datum/spell/aoe/revenant/haunt_object/proc/begin_poltergheist(mob/living/basic/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
-	possessed_object.ai_controller = new /datum/ai_controller/basic_controller/revenant(possessed_object)
-
-/datum/ai_controller/basic_controller/revenant
-	blackboard = list(
-		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
-	)
-
-	ai_movement = /datum/ai_movement/basic_avoidance
-	idle_behavior = null
-	planning_subtrees = list(
-		/datum/ai_planning_subtree/simple_find_target,
-		/datum/ai_planning_subtree/attack_obstacle_in_path,
-		/datum/ai_planning_subtree/swirl_around_target,
-		/datum/ai_planning_subtree/basic_melee_attack_subtree,
-	)
-
-/// Sets the glow on the haunted object, scales up based on throwforce
-/datum/spell/aoe/revenant/haunt_object/proc/set_outline(mob/living/basic/possessed_object/possessed_object)
-	possessed_object.remove_filter("haunt_glow")
-	var/outline_size = min((possessed_object.possessed_item.throwforce / 15) * 3, 3)
-	possessed_object.add_filter("haunt_glow", 2, list("type" = "outline", "color" = "#7A4FA9", "size" = outline_size)) // Give it spooky purple outline
 
 /// Stop all attack timers cast by the previous spell use
 /datum/spell/aoe/revenant/haunt_object/proc/stop_timers()
