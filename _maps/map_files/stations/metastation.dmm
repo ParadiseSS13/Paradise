@@ -42090,13 +42090,6 @@
 	icon_state = "darkgrey"
 	},
 /area/station/maintenance/aft)
-"gEr" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
-	},
-/area/station/engineering/atmos)
 "gEt" = (
 /obj/structure/table/glass,
 /obj/item/paper/crumpled,
@@ -62183,7 +62176,6 @@
 	},
 /obj/machinery/door_control{
 	id = "ToxinsVenting";
-	layer = 3.3;
 	name = "Toxin Venting Control";
 	pixel_x = 8;
 	pixel_y = -27
@@ -66346,10 +66338,10 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/directional/north,
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
+/obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "escape"
@@ -72103,6 +72095,13 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/medical/storage/secondary)
+"roR" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/station/engineering/atmos)
 "rpt" = (
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
@@ -132254,7 +132253,7 @@ uJI
 xBg
 xoS
 bYt
-gEr
+roR
 kcr
 jOr
 kuW

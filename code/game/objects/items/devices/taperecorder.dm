@@ -143,7 +143,7 @@
 
 	if(mytape.used_capacity < mytape.max_capacity)
 		recording = TRUE
-		atom_say("Recording started.")
+		atom_say("Начало записи.")
 		update_sound()
 		update_icon(UPDATE_ICON_STATE)
 		mytape.timestamp += mytape.used_capacity
@@ -159,7 +159,7 @@
 			sleep(10)
 		stop()
 	else
-		atom_say("[mytape] is full!")
+		atom_say("[mytape] заполнена!")
 		playsound(src, 'sound/items/taperecorder/taperecorder_stop.ogg', 50, FALSE)
 
 
@@ -168,12 +168,12 @@
 		mytape.timestamp += mytape.used_capacity
 		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] Recording stopped."
 		playsound(src, 'sound/items/taperecorder/taperecorder_stop.ogg', 50, FALSE)
-		atom_say("Recording stopped.")
+		atom_say("Запись остановлена.")
 		recording = FALSE
 	else if(playing)
 		playsound(src, 'sound/items/taperecorder/taperecorder_stop.ogg', 50, FALSE)
 		if(!PlaybackOverride)
-			atom_say("Playback stopped.")
+			atom_say("Воспроизведение остановлено.")
 		playing = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	update_sound()
@@ -188,7 +188,7 @@
 		stop()
 		return
 	if(!length(mytape.storedinfo))
-		atom_say("There is no stored data.")
+		atom_say("Нет сохраненных данных.")
 		playsound(src, 'sound/items/taperecorder/taperecorder_play.ogg', 50, FALSE)
 		playsound(src, 'sound/items/taperecorder/taperecorder_stop.ogg', 50, FALSE)
 		return
@@ -196,7 +196,7 @@
 	playing = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	update_sound()
-	atom_say("Playback started.")
+	atom_say("Воспроизведение.")
 	playsound(src, 'sound/items/taperecorder/taperecorder_play.ogg', 50, FALSE)
 	var/used = mytape.used_capacity	//to stop runtimes when you eject the tape
 	var/max = mytape.max_capacity
@@ -207,7 +207,7 @@
 		if(playing == 0)
 			break
 		if(length(mytape.storedinfo) < i)
-			atom_say("End of recording.")
+			atom_say("Конец записи.")
 			break
 		atom_say("[mytape.storedinfo[i]]")
 		if(length(mytape.storedinfo) < i + 1 || playsleepseconds > 1.4 SECONDS)
@@ -227,7 +227,7 @@
 	if(recording || playing)
 		return
 
-	atom_say("Transcript printed.")
+	atom_say("Транскрипт распечатан.")
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	var/obj/item/paper/P = new /obj/item/paper(get_turf(src))
 	var/t1 = "<B>Transcript:</B><BR><BR>"

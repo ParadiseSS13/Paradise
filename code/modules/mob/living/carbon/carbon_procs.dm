@@ -5,6 +5,11 @@
 		stack_trace("Carbon mob being instantiated in nullspace")
 
 /mob/living/carbon/Destroy()
+	// We need to delete the back slot first, for modsuits. Otherwise, we have issues.
+	if(back)
+		var/obj/I = back
+		drop_item_to_ground(I)
+		qdel(I)
 	// This clause is here due to items falling off from limb deletion
 	for(var/obj/item in get_all_slots())
 		if(QDELETED(item))

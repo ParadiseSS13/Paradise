@@ -45,7 +45,7 @@
 /datum/outfit/job/response_team/commander/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 
-	H.rename_character(H.real_name, "[pick("Lieutenant", "Captain", "Major")] [pick(GLOB.last_names)]")
+	H.rename_character(H.real_name, "[pick("Лейтенант", "Капитан", "Майор")] [pick(GLOB.last_names)]")
 	H.age = rand(35, 45)
 
 /datum/outfit/job/response_team/commander/amber

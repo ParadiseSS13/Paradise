@@ -24,6 +24,7 @@ type Data = {
   fingerprint_hash: string;
   photo: string;
   assignment: string;
+  job_assets: string; // SS220 ADDITION
   job_icon: string;
   appearances: string[];
   id_icon: string;
@@ -91,6 +92,7 @@ export const AgentCardInfo = (props) => {
     sex,
     age,
     assignment,
+    job_assets, // SS220 ADDITION
     job_icon,
     associated_account_number,
     blood_type,
@@ -175,7 +177,7 @@ export const AgentCardInfo = (props) => {
                     color={'transparent'}
                     tooltip={'Change HUD icon'}
                     tooltipPosition={'bottom-end'}
-                    dmIcon={'icons/mob/hud/job_assets.dmi'}
+                    dmIcon={job_assets} // SS220 EDIT - replace 'icons/mob/hud/job_assets.dmi' with variable
                     dmIconState={job_icon}
                     onClick={() => act('change_occupation', { option: 'Primary' })}
                   />

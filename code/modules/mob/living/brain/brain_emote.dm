@@ -29,38 +29,38 @@
 /datum/emote/living/brain/alarm
 	key = "alarm"
 	key_third_person = "alarms"
-	message = "sounds an alarm."
-	self_message = "You sound an alarm."
+	message = "подаёт сигнал тревоги."
+	self_message = "Вы подаёте сигнал тревоги."
 
 /datum/emote/living/brain/alert
 	key = "alert"
 	key_third_person = "alerts"
-	message = "lets out a distressed noise."
-	self_message = "You let out a distressed noise."
+	message = "издаёт страдальческий звук."
+	self_message = "Вы издаёте страдальческий звук."
 
 /datum/emote/living/brain/notice
 	key = "notice"
-	message = "plays a loud tone."
-	self_message = "You play a loud tone."
+	message = "воспроизводит громкий звук."
+	self_message = "Вы воспроизводите громкий звук."
 
 /datum/emote/living/brain/flash
 	key = "flash"
-	message = "starts flashing its lights quickly!"
+	message = "начинает быстро мигать лампочками!"
 
 /datum/emote/living/brain/whistle
 	key = "whistle"
 	key_third_person = "whistles"
-	message = "whistles."
-	self_message = "You whistle."
+	message = "свистит."
+	self_message = "Вы свистите."
 
 /datum/emote/living/brain/beep
 	key = "beep"
 	key_third_person = "beeps"
-	message = "beeps."
-	self_message = "You beep."
+	message = "бипает."
+	self_message = "Вы бипаете."
 
 /datum/emote/living/brain/boop
 	key = "boop"
 	key_third_person = "boops"
-	message = "boops."
-	self_message = "You boop."
+	message = "бупает."
+	self_message = "Вы бупаете."

@@ -21,22 +21,22 @@
 /datum/emote/living/simple_animal/slime/bounce
 	key = "bounce"
 	key_third_person = "bounces"
-	message = "bounces in place."
+	message = "подпрыгивает на месте."
 
 /datum/emote/living/simple_animal/slime/jiggle
 	key = "jiggle"
 	key_third_person = "jiggles"
-	message = "jiggles!"
+	message = "трясётся!"
 
 /datum/emote/living/simple_animal/slime/light
 	key = "light"
 	key_third_person = "lights"
-	message = "lights up for a bit, then stops."
+	message = "заливается светом ненадолго и потом гаснет."
 
 /datum/emote/living/simple_animal/slime/vibrate
 	key = "vibrate"
 	key_third_person = "vibrates"
-	message = "vibrates!"
+	message = "вибрирует!"
 
 /datum/emote/living/simple_animal/slime/noface
 	// mfw no face

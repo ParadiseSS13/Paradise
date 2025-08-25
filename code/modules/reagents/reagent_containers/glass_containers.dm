@@ -292,7 +292,7 @@
 
 /obj/item/reagent_containers/glass/bucket
 	name = "bucket"
-	desc = "Useful for moving liquids, or having a helmet in the zombie apocalypse."
+	desc = "Полезно для переноса жидкостей, а также сойдёт в качестве шлема на случай зомби-апокалипсиса."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "bucket"
 	item_state = "bucket"

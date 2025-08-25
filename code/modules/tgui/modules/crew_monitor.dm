@@ -4,7 +4,7 @@
 #define MAX_TAB_INDEX 1
 
 /datum/ui_module/crew_monitor
-	name = "Crew monitor"
+	name = "Монитор экипажа"
 	var/is_advanced = FALSE
 	var/viewing_current_z_level
 	/// If true, we'll see everyone, regardless of their suit sensors.

@@ -304,12 +304,22 @@
 		if(prob(33.33))
 			if(lowertext(newletter) == "o")
 				newletter = "u"
+			if(lowertext(newletter) == "о")
+				newletter = "у"
+			if(lowertext(newletter) == "э")
+				newletter = "и"
 			if(lowertext(newletter) == "s")
 				newletter = "ch"
+			if(lowertext(newletter) == "с")
+				newletter = "сш"
 			if(lowertext(newletter) == "a")
 				newletter = "ah"
+			if(lowertext(newletter) == "а")
+				newletter = "ах"
 			if(lowertext(newletter) == "c")
 				newletter = "k"
+			if(lowertext(newletter) == "ц")
+				newletter = "сц"
 		if(prob(60))
 			if(prob(11.11))
 				newletter += pick(slurletters)
@@ -706,11 +716,11 @@
 
 		for(var/i=1,i<=3,i++)	//we get 3 attempts to pick a suitable name.
 			if(force)
-				newname = tgui_input_text(src, "Pick a new name.", "Name Change", oldname)
+				newname = tgui_input_text(src, "Выберите новое имя.", "Смена имени", oldname)
 			else
-				newname = tgui_input_text(src, "You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname, timeout = 3 MINUTES)
+				newname = tgui_input_text(src, "Вы - [role]. Хотели бы вы сменить своё имя? (У вас есть 3 минуты на выбор имени.)", "Смена имени", oldname, timeout = 3 MINUTES)
 			if(((world.time - time_passed) > 1800) && !force)
-				tgui_alert(src, "Unfortunately, more than 3 minutes have passed for selecting your name. If you are a robot, use the Namepick verb; otherwise, adminhelp.", "Name Change")
+				tgui_alert(src, "К сожалению, прошло более трёх минут для выбора имени. Если вы робот, используйте верб Namepick; в иных случаях, adminhelp.", "Смена имени")
 				return	//took too long
 			newname = reject_bad_name(newname,allow_numbers)	//returns null if the name doesn't meet some basic requirements. Tidies up a few other things like bad-characters.
 

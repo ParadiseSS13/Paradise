@@ -14,7 +14,7 @@ SLIME SCANNER
 ////////////////////////////////////////
 /obj/item/t_scanner
 	name = "\improper T-ray scanner"
-	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
+	desc = "Излучатель и сканер терагерцового излучения, используемый для обнаружения скрытых инженерных коммуникаций под полом, таких как трубы и провода."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
 	var/on = FALSE
@@ -404,6 +404,11 @@ SLIME SCANNER
 		msgs += "<span class='danger'>Subject is irradiated.</span>"
 
 	msgs += "<span class='notice'>Biological Age: [H.age]</span>"
+
+	//SS220 ADDITION START - SERPENTIDS
+	if(SEND_SIGNAL(H, COMSIG_SHELL_GET_CARAPACE_STATE) & CARAPACE_SHELL_BROKEN)
+		msgs = get_carapace_damage_level(H, msgs)
+	//SS220 ADDITION END - SERPENTIDS
 
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 

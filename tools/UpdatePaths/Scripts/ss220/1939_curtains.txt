@@ -1,0 +1,1 @@
+/obj/structure/curtain/@SUBTYPES : /obj/structure/curtain/@SUBTYPES{@OLD;icon_state=@SKIP}

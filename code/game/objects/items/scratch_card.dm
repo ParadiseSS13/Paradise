@@ -37,7 +37,7 @@
 		return ..()
 	
 	playsound(user, 'sound/machines/ping.ogg', 50, TRUE)
-	target.atom_say("Congratulations for winning the lottery!")
+	target.atom_say("Поздравляем с выигрышем в лотерею!")
 	var/obj/item/reward = new /obj/item/stack/spacecash/c1000
 	qdel(src)
 	user.put_in_hands(reward)

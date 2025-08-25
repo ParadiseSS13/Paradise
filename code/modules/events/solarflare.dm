@@ -4,7 +4,7 @@
 	announceWhen = 1
 
 /datum/event/solar_flare/announce()
-	GLOB.minor_announcement.Announce("A solar flare has been detected on collision course with the station. Do not conduct space walks or approach windows until the flare has passed!", "Incoming Solar Flare", 'sound/AI/flare.ogg')
+	GLOB.minor_announcement.Announce("Солнечная вспышка зафиксирована на встречном со станцией курсе. Не выходите в открытый космос и не приближайтесь к окнам до конца вспышки.", "ВНИМАНИЕ: Солнечная вспышка.", 'sound/AI/flare.ogg')
 
 /datum/event/solar_flare/start()
 	SSweather.run_weather(/datum/weather/solar_flare)

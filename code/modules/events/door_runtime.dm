@@ -1,7 +1,7 @@
 /datum/event/door_runtime
 
 /datum/event/door_runtime/announce()
-	GLOB.minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.", "Network Alert", 'sound/AI/door_runtimes.ogg')
+	GLOB.minor_announcement.Announce("Вредоносное программное обеспечение обнаружено в системе контроля шлюзов. Задействованы протоколы изоляции. Пожалуйста, сохраняйте спокойствие.", "ВНИМАНИЕ: Уязвимость сети.", 'sound/AI/door_runtimes.ogg')
 
 /datum/event/door_runtime/start()
 	for(var/obj/machinery/door/D in GLOB.airlocks)
@@ -13,4 +13,4 @@
 	post_status(STATUS_DISPLAY_ALERT, "lockdown")
 
 /datum/event/door_runtime/proc/reboot()
-	GLOB.minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network reset:", 'sound/AI/door_runtimes_fix.ogg')
+	GLOB.minor_announcement.Announce("Автоматическая перезагрузка системы завершена. Хорошего вам дня.","ПЕРЕЗАГРУЗКА СЕТИ:", 'sound/AI/door_runtimes_fix.ogg')

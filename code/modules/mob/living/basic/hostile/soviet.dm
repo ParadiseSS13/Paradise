@@ -29,8 +29,8 @@
 
 /mob/living/basic/soviet/Initialize(mapload)
 	. = ..()
-	add_language("Zvezhan")
-	set_default_language(GLOB.all_languages["Zvezhan"])
+	add_language("Neo-Russkiya") // SS220 EDIT - Cygni -> Neo-Russkiya
+	set_default_language(GLOB.all_languages["Neo-Russkiya"]) // SS220 EDIT - Cygni -> Neo-Russkiya
 
 /mob/living/basic/soviet/ranged
 	icon_state = "sovietranged"

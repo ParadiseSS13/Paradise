@@ -2,23 +2,23 @@
 	. = ..()
 	var/msg = "<span class='notice'>"
 	if(src.stat == DEAD)
-		msg += "<span class='deadsay'>It appears to be powered-down.</span>\n"
+		msg += "<span class='deadsay'>Выглядит отключённым.</span>\n"
 	else
 		msg += "<span class='warning'>"
 		if(src.getBruteLoss())
 			if(src.getBruteLoss() < 30)
-				msg += "It looks slightly dented.\n"
+				msg += "Выглядит слегка помятым.\n"
 			else
-				msg += "<B>It looks severely dented!</B>\n"
+				msg += "<B>Выглядит очень помятым!</B>\n"
 		if(src.getFireLoss())
 			if(src.getFireLoss() < 30)
-				msg += "It looks slightly charred.\n"
+				msg += "Выглядит слегка обугленным.\n"
 			else
-				msg += "<B>Its casing is melted and heat-warped!</B>\n"
+				msg += "<B>Оболочка расплавлена и искажена от тепла!</B>\n"
 		if(src.stat == UNCONSCIOUS)
-			msg += "It is non-responsive and displaying the text: \"RUNTIME: Sensory Overload, stack 26/3\".\n"
+			msg += "Оно не отвечает и высвечивает текст: \"RUNTIME: Перегрузка сенсоров, стэк 26/3\".\n"
 		if(!shunted && !client)
-			msg += "[src]Core.exe has stopped responding! NTOS is searching for a solution to the problem...\n"
+			msg += "[src]Core.exe перестал отвечать! NTOS ищет решение проблемы...\n"
 		msg += "</span>"
 	msg += "</span>"
 

@@ -49,8 +49,8 @@
 	number_level = SEC_LEVEL_GREEN
 	ai_announcement_sound = 'sound/AI/green.ogg'
 	color = "limegreen"
-	lowering_to_announcement_title = "Attention! Security level lowered to Green."
-	lowering_to_announcement_text = "All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced."
+	lowering_to_announcement_title = "ВНИМАНИЕ! Уровень угрозы понижен до ЗЕЛЁНОГО."
+	lowering_to_announcement_text = "Все угрозы для станции устранены. Все оружие должно быть в кобуре, и законы о конфиденциальности вновь полностью соблюдаются."
 
 /**
  * BLUE
@@ -63,10 +63,10 @@
 	elevating_to_sound = 'sound/misc/notice1.ogg'
 	ai_announcement_sound = 'sound/AI/blue.ogg'
 	color = "dodgerblue"
-	lowering_to_announcement_title = "Attention! Security level lowered to Blue."
-	lowering_to_announcement_text = "The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed."
-	elevating_to_announcement_title = "Attention! Security level elevated to Blue."
-	elevating_to_announcement_text = "The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible and random searches are permitted."
+	lowering_to_announcement_title = "ВНИМАНИЕ! Уровень угрозы понижен до СИНЕГО."
+	lowering_to_announcement_text = "Непосредственная угроза миновала. Служба безопасности может больше не держать оружие в полной боевой готовности, но может по-прежнему держать его на виду. Выборочные обыски запрещены."
+	elevating_to_announcement_title = "ВНИМАНИЕ! Уровень угрозы повышен до СИНЕГО."
+	elevating_to_announcement_text = "Станция получила надежные данные о возможной враждебной активности на борту. Служба Безопасности может держать оружие на виду."
 
 /**
  * RED
@@ -81,10 +81,10 @@
 	color = "red"
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "redalert"
-	lowering_to_announcement_title = "Attention! Code Red!"
-	lowering_to_announcement_text = "The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised."
-	elevating_to_announcement_title = "Attention! Code Red!"
-	elevating_to_announcement_text = "There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised."
+	lowering_to_announcement_title = "ВНИМАНИЕ! КОД КРАСНЫЙ!"
+	lowering_to_announcement_text = "Код был снижен до красного. Станции по-прежнему грозит серьёзная опасность. Службе Безопасности рекомендуется иметь оружие в полной боевой готовности. Выборочные обыски разрешены."
+	elevating_to_announcement_title = "ВНИМАНИЕ! КОД КРАСНЫЙ!"
+	elevating_to_announcement_text = "Станции грозит серьёзная опасность. Службе Безопасности рекомендуется иметь оружие в полной боевой готовности. Выборочные обыски разрешены."
 
 /**
  * Gamma
@@ -100,10 +100,10 @@
 	color = "gold"
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "gammaalert"
-	lowering_to_announcement_title = "Attention! Gamma security level activated!"
-	lowering_to_announcement_text = "Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek out command staff for instructions."
-	elevating_to_announcement_text = "Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek out command staff for instructions."
-	elevating_to_announcement_title = "Attention! Gamma security level activated!"
+	lowering_to_announcement_title = "Внимание! Код ГАММА!"
+	lowering_to_announcement_text = "Центральным Командованием был установлен Код Гамма на станции. Служба безопасности должна быть полностью вооружена. Гражданский персонал обязан немедленно обратиться к Главам отделов для получения дальнейших указаний."
+	elevating_to_announcement_text = "Центральным Командованием был установлен Код Гамма на станции. Служба безопасности должна быть полностью вооружена. Гражданский персонал обязан немедленно обратиться к Главам отделов для получения дальнейших указаний."
+	elevating_to_announcement_title = "Внимание! Код ГАММА!"
 
 /**
  * Epsilon
@@ -120,10 +120,10 @@
 	color = "blueviolet"
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "epsilonalert"
-	lowering_to_announcement_title = "Attention! Epsilon security level activated!"
-	lowering_to_announcement_text = "Central Command has ordered the Epsilon security level on the station."
-	elevating_to_announcement_title = "Attention! Epsilon security level activated!"
-	elevating_to_announcement_text = "Central Command has ordered the Epsilon security level on the station. Nanotrasen Representative, please prepare to abandon station. Consider all contracts terminated."
+	lowering_to_announcement_title = "ВНИМАНИЕ! КОД ЭПСИЛОН!"
+	lowering_to_announcement_text = "Центральным Командованием был установлен код ЭПСИЛОН. Все контракты расторгнуты."
+	elevating_to_announcement_title = "ВНИМАНИЕ! КОД ЭПСИЛОН!"
+	elevating_to_announcement_text = "Центральным Командованием был установлен код ЭПСИЛОН. Все контракты расторгнуты."
 
 /datum/security_level/epsilon/pre_change()
 	sound_to_playing_players_on_station_level(S = sound('sound/effects/powerloss.ogg'))
@@ -141,5 +141,5 @@
 	color = "orangered"
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "deltaalert"
-	elevating_to_announcement_title = "Attention! Delta security level reached!"
-	elevating_to_announcement_text = "The station's self-destruct mechanism has been engaged. All crew are instructed to abandon the station immediately. This is not a drill."
+	elevating_to_announcement_title = "ВНИМАНИЕ! КОД ДЕЛЬТА!"
+	elevating_to_announcement_text = "Механизм самоуничтожения станции задействован. Все члены экипажа обязаны подчиняться всем указаниям, данными Главами отделов. Любые нарушения этих приказов наказуемы уничтожением на месте. Это не учебная тревога."

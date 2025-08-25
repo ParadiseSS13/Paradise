@@ -1,19 +1,19 @@
 //Radiation storms occur when the station passes through an irradiated area, and irradiate anyone not standing in protected areas (maintenance, emergency storage, etc.)
 /datum/weather/rad_storm
-	name = "radiation storm"
-	desc = "A cloud of intense radiation passes through the area dealing rad damage to those who are unprotected."
+	name = "радиационный шторм"
+	desc = "Станция проходит через радиационный пояс высокой интенсивности, облучающее всех, кому не повезло оказаться без защиты."
 
 	telegraph_duration = 400
-	telegraph_message = "<span class='danger'>The air begins to grow warm.</span>"
+	telegraph_message = "<span class='danger'>Вам кажется, что воздух вокруг становится теплее.</span>"
 
-	weather_message = "<span class='userdanger'><i>You feel waves of heat wash over you! Find shelter!</i></span>"
+	weather_message = "<span class='userdanger'><i>Вы чувствуете, как вас окутывают волны жара! Срочно найдите укрытие!</i></span>"
 	weather_overlay = "ash_storm"
 	weather_duration_lower = 600
 	weather_color = "green"
 	weather_sound = 'sound/misc/bloblarm.ogg'
 
 	end_duration = 100
-	end_message = "<span class='notice'>The air seems to be cooling off again.</span>"
+	end_message = "<span class='notice'>Воздух, кажется, остывает обратно...</span>"
 	var/pre_maint_all_access
 	area_types = list(/area)
 	protected_areas = list(
@@ -72,10 +72,10 @@
 
 	status_alarm(FALSE)
 	if(!pre_maint_all_access)
-		GLOB.minor_announcement.Announce("The radiation threat has passed. Please return to your workplaces. Door access resetting momentarily.", "Anomaly Alert")
+		GLOB.minor_announcement.Announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места. Доступы восстановлены.", "ВНИМАНИЕ: Радиационная опасность.")
 		addtimer(CALLBACK(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, revoke_maint_all_access)), 10 SECONDS) // Bit of time to get out / break into somewhere.
 	else
-		GLOB.minor_announcement.Announce("The radiation threat has passed. Please return to your workplaces.", "Anomaly Alert")
+		GLOB.minor_announcement.Announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места.", "ВНИМАНИЕ: Радиационная опасность.")
 
 /datum/weather/rad_storm/proc/status_alarm(active)	//Makes the status displays show the radiation warning for those who missed the announcement.
 	if(active)

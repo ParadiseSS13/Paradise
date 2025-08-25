@@ -1,0 +1,7 @@
+#include "_mods.dm"
+
+#include "code/mod_control.dm"
+#include "code/mod_modules.dm"
+#include "code/mod_theme.dm"
+#include "code/mod_clothes.dm"
+#include "code/mod_types.dm"

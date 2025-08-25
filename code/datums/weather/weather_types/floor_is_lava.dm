@@ -1,17 +1,17 @@
 //Causes fire damage to anyone not standing on a dense object.
 /datum/weather/floor_is_lava
-	name = "the floor is lava"
-	desc = "The ground turns into surprisingly cool lava, lightly damaging anything on the floor."
+	name = "пол это лава"
+	desc = "Пол превращается в необычно холодную лаву, которая слегка повреждает все, что в неё попадёт."
 
-	telegraph_message = "<span class='warning'>You feel the ground beneath you getting hot. Waves of heat distort the air.</span>"
+	telegraph_message = "<span class='warning'>Вы чувствуете, как земля под вами становится всё горячее. Волны жара создают миражи в воздухе.</span>"
 	telegraph_duration = 150
 
-	weather_message = "<span class='userdanger'>The floor is lava! Get on top of something!</span>"
+	weather_message = "<span class='userdanger'>Пол это лава! Взбирайтесь на что-нибудь!</span>"
 	weather_duration_lower = 300
 	weather_duration_upper = 600
 	weather_overlay = "lava"
 
-	end_message = "<span class='danger'>The ground cools and returns to its usual form.</span>"
+	end_message = "<span class='danger'>Пол остывает и возвращается в свое обыкновенное состояние.</span>"
 	end_duration = 0
 
 	area_types = list(/area)
@@ -39,5 +39,5 @@
 	L.adjustFireLoss(3)
 
 /datum/weather/floor_is_lava/fake
-	name = "the floor is lava (fake)"
+	name = "пол это лава (фальшивая)"
 	aesthetic = TRUE
