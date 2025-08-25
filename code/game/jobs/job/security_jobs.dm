@@ -180,7 +180,6 @@
 	pda = /obj/item/pda/detective
 	backpack_contents = list(
 		/obj/item/storage/box/evidence = 1,
-		/obj/item/detective_scanner = 1,
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
 

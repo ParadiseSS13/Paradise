@@ -1261,3 +1261,23 @@ to destroy them and players will be able to make replacements.
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/manipulator = 1,
 	)
+
+// Detective machines
+/obj/item/circuitboard/dnaforensics
+	name = "circuit board (DNA analyzer)"
+	build_path = /obj/machinery/dnaforensics
+	board_type = "machine"
+	origin_tech = "programming=2;combat=2"
+	req_components = list(
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stock_parts/manipulator = 1)
+
+
+/obj/item/circuitboard/microscope
+	name = "circuit board (Microscope)"
+	build_path = /obj/machinery/microscope
+	board_type = "machine"
+	origin_tech = "programming=2;combat=2"
+	req_components = list(
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stack/sheet/glass = 1)

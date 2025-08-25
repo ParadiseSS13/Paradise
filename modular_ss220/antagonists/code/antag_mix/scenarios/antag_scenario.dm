@@ -180,7 +180,7 @@
 			candidates.Remove(candidate)
 			continue
 
-		if(candidate_client.skip_antag)
+		if(candidate_client.persistent.skip_antag)
 			candidates.Remove(candidate)
 			continue
 

@@ -137,10 +137,12 @@
 	. = ..()
 	trash = /obj/item/ammo_casing/peas_shooter
 
-/obj/item/food/grown/soybeans/attack_self__legacy__attackchain(mob/user)
-	. = ..()
+/obj/item/food/grown/soybeans/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
 	if(!do_after(user, 1.5 SECONDS, target = user))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	user.unequip(src)
 	if(trash)
 		var/obj/item/trash = generate_trash()

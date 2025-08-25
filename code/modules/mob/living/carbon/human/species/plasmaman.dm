@@ -160,9 +160,7 @@
 			O = new /datum/outfit/plasmaman/soo
 
 	H.equipOutfit(O, visualsOnly)
-	H.internal = H.r_hand
 	H.update_action_buttons_icon()
-	return FALSE
 
 /datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
 	var/atmos_sealed = !HAS_TRAIT(H, TRAIT_NOFIRE) && (isclothing(H.wear_suit) && H.wear_suit.flags & STOPSPRESSUREDMAGE) && (isclothing(H.head) && H.head.flags & STOPSPRESSUREDMAGE)

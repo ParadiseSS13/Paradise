@@ -56,11 +56,6 @@
 	key_third_person = "dances"
 	message = "радостно танцует."
 
-/datum/emote/living/jump
-	key = "jump"
-	key_third_person = "jumps"
-	message = "прыгает!"
-
 /datum/emote/living/deathgasp
 	key = "deathgasp"
 	key_third_person = "deathgasps"

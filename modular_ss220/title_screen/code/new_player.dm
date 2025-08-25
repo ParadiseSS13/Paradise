@@ -14,7 +14,7 @@
 		client << output(ready, "title_browser:ready")
 
 	else if(href_list["skip_antag"])
-		client << output(client.skip_antag, "title_browser:skip_antag")
+		client << output(client.persistent.skip_antag, "title_browser:skip_antag")
 
 	else if(href_list["char_preferences"])
 		client.prefs.current_tab = TAB_CHAR

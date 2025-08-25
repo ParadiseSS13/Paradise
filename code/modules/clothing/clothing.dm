@@ -43,6 +43,8 @@
 
 	/// Detective Work, used for allowing a given atom to leave its fibers on stuff. Allowed by default
 	var/can_leave_fibers = TRUE
+	/// Detective Work, firing a ballistic weapon will add a signature to this var
+	var/gunshot_residue
 
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
@@ -755,7 +757,6 @@
 	name = "suit"
 	icon = 'icons/obj/clothing/suits.dmi'
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	slot_flags = ITEM_SLOT_OUTER_SUIT
@@ -1012,7 +1013,6 @@
 	name = "under"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	slot_flags = ITEM_SLOT_JUMPSUIT
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
@@ -1242,3 +1242,7 @@
 	icon = 'icons/obj/clothing/neck.dmi'
 	body_parts_covered = UPPER_TORSO
 	slot_flags = ITEM_SLOT_NECK
+
+/obj/item/clothing/clean_blood(radiation_clean = FALSE)
+	. = ..()
+	gunshot_residue = null
