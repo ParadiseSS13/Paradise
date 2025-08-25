@@ -183,6 +183,8 @@
 	to_chat(owner, "<span class='notice'>You feel very stretchy.</span>")
 	owner.ventcrawler = VENTCRAWLER_ALWAYS
 
+/obj/item/organ/internal/heart/gland/ventcrawling/remove(mob/living/carbon/M, special = 0)
+	owner.ventcrawler = initial(owner.ventcrawler)
 
 /obj/item/organ/internal/heart/gland/viral
 	cooldown_low = 1800

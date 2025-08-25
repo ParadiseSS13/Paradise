@@ -1,0 +1,857 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"cc" = (
+/obj/machinery/door_control/no_emag{
+	id = "trader_privacy";
+	name = "Privacy Shutters Control";
+	pixel_y = -24;
+	req_access = list(160);
+	pixel_x = -10
+	},
+/obj/machinery/flasher_button{
+	id = "trader_flash";
+	pixel_y = -23;
+	req_access = list(160)
+	},
+/obj/machinery/door_control/no_emag{
+	id = "trader_starboard";
+	name = "Trade Deposits Door";
+	normaldoorcontrol = 1;
+	pixel_x = 10;
+	req_access = list(160);
+	pixel_y = -24
+	},
+/obj/item/flag/species/skrell,
+/obj/structure/extinguisher_cabinet{
+	name = "east bump";
+	pixel_x = 30
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"cW" = (
+/obj/structure/table/glass/reinforced/titanium,
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/obj/item/toy/plushie/skrellplushie,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"fP" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/shuttle/trade/sol)
+"fR" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/obj/machinery/door/airlock/titanium/glass,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"fZ" = (
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/shuttle/trade/sol)
+"hf" = (
+/obj/structure/bed,
+/obj/item/bedsheet/blue,
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"hu" = (
+/obj/structure/flora/ausbushes/leafybush,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/shuttle/trade/sol)
+"hI" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/shuttle/trade/sol)
+"jh" = (
+/obj/structure/shelf,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"jU" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"ki" = (
+/obj/effect/spawner/random/traders/large_item,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"lb" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/medical,
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"lf" = (
+/obj/structure/chair/sofa/right{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"li" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/trade/sol)
+"nQ" = (
+/obj/structure/flora/ausbushes/fernybush,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/shuttle/trade/sol)
+"qJ" = (
+/obj/effect/landmark/spawner/tradergearminor,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"rw" = (
+/obj/item/stack/wrapping_paper,
+/obj/item/stack/package_wrap{
+	pixel_y = 8
+	},
+/obj/structure/table/glass/reinforced/titanium,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"rF" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/trade/sol)
+"se" = (
+/obj/item/flag/species/skrell,
+/obj/machinery/light/spot,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"sV" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"tQ" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"vQ" = (
+/obj/machinery/light/spot,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"vR" = (
+/obj/machinery/door_control/no_emag{
+	id = "trader_privacy";
+	name = "Privacy Shutters Control";
+	pixel_y = -24;
+	req_access = list(160);
+	pixel_x = 10
+	},
+/obj/machinery/flasher_button{
+	id = "trader_flash";
+	pixel_y = -23;
+	req_access = list(160)
+	},
+/obj/machinery/door_control/no_emag{
+	id = "trader_port";
+	name = "Trade Deposits Door";
+	normaldoorcontrol = 1;
+	pixel_x = -10;
+	req_access = list(160);
+	pixel_y = -24
+	},
+/obj/item/flag/species/skrell,
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -30
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"wf" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/science,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"wg" = (
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "trader_starboard";
+	security_level = 6
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"xx" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/trade/sol)
+"xA" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/shuttle/trade/sol)
+"yA" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"zY" = (
+/obj/structure/chair/sofa/right{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"AU" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Bu" = (
+/obj/effect/spawner/window/shuttle,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "trader_privacy";
+	name = "Privacy Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/trade/sol)
+"Dg" = (
+/obj/structure/flora/rock/jungle,
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/shuttle/trade/sol)
+"Dr" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/minerals,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"DG" = (
+/obj/machinery/flasher{
+	id = "trader_flash";
+	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"FI" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/civilian,
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"FL" = (
+/obj/effect/spawner/random/traders/vehicle,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"FM" = (
+/obj/structure/chair/sofa/left{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Gn" = (
+/obj/structure/table/glass/reinforced/titanium,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"GY" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/shuttle/trade/sol)
+"Hh" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/donksoft,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Ix" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "trader_privacy";
+	name = "Privacy Shutters"
+	},
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/trade/sol)
+"JD" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/shuttle/trade/sol)
+"JM" = (
+/obj/structure/chair/sofa/left{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Kd" = (
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/shuttle/trade/sol)
+"Km" = (
+/obj/machinery/economy/atm/directional/west,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"KT" = (
+/obj/machinery/flasher{
+	id = "trader_flash";
+	pixel_x = -28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"KW" = (
+/obj/machinery/door/airlock/titanium/glass,
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Ln" = (
+/turf/template_noop,
+/area/template_noop)
+"LD" = (
+/obj/structure/bed,
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/obj/item/bedsheet/blue,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"MM" = (
+/obj/structure/flora/ausbushes/sunnybush,
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/shuttle/trade/sol)
+"NU" = (
+/obj/structure/flora/ausbushes/genericbush,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/shuttle/trade/sol)
+"Os" = (
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Ot" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"Pa" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock"
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"QN" = (
+/obj/machinery/computer/shuttle/trade/sol,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Rz" = (
+/obj/effect/landmark/spawner/tradergearmajor,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Tf" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Tm" = (
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/shuttle/trade/sol)
+"Tx" = (
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "trader_port";
+	security_level = 6
+	},
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"TA" = (
+/obj/structure/table/glass/reinforced/titanium,
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/obj/item/toy/plushie/siamese_cat,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Ue" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"Un" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock"
+	},
+/obj/docking_port/mobile/trader{
+	height = 21;
+	width = 18;
+	dwidth = 9;
+	preferred_direction = 1;
+	dir = 1;
+	port_direction = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"US" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Vm" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/security,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"VR" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/engineering,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Wa" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"XG" = (
+/obj/machinery/economy/atm/directional/east,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"YQ" = (
+/obj/structure/closet,
+/obj/item/stack/tile/disco_light/thirty,
+/obj/effect/spawner/random/traders/service,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Zd" = (
+/obj/structure/sink/puddle,
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/shuttle/trade/sol)
+
+(1,1,1) = {"
+Ln
+Ln
+Ln
+Ln
+rF
+rF
+rF
+rF
+li
+li
+xx
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+"}
+(2,1,1) = {"
+Ln
+Ln
+rF
+rF
+rF
+nQ
+Tm
+Kd
+Tm
+GY
+li
+rF
+rF
+rF
+li
+sV
+Ot
+Ln
+Ln
+Ln
+Ln
+"}
+(3,1,1) = {"
+Ln
+rF
+rF
+NU
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+fR
+Os
+FM
+lf
+rF
+Os
+sV
+Ot
+Ln
+Ln
+Ln
+"}
+(4,1,1) = {"
+rF
+rF
+fP
+Tm
+Tm
+Tm
+fZ
+JD
+Dg
+Tm
+rF
+Os
+Os
+Os
+KW
+Os
+Os
+sV
+Ot
+Ln
+Ln
+"}
+(5,1,1) = {"
+rF
+cW
+Tf
+Tm
+hI
+rF
+rF
+rF
+li
+li
+li
+ki
+Os
+Os
+rF
+AU
+Os
+Os
+tQ
+Ot
+Ln
+"}
+(6,1,1) = {"
+rF
+LD
+US
+hu
+rF
+rF
+Ln
+Ln
+li
+Hh
+wf
+Os
+Os
+vQ
+li
+li
+li
+Tx
+li
+li
+xx
+"}
+(7,1,1) = {"
+rF
+rF
+rF
+rF
+rF
+Ln
+Ln
+xx
+li
+Dr
+Os
+Os
+Os
+Os
+vR
+li
+Km
+Os
+KT
+se
+li
+"}
+(8,1,1) = {"
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+rF
+FI
+Os
+Os
+Os
+qJ
+Os
+jU
+Ix
+Wa
+Os
+Os
+Wa
+li
+"}
+(9,1,1) = {"
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+rF
+Gn
+Wa
+Os
+Os
+jh
+Os
+rw
+Bu
+Os
+Os
+Os
+Os
+Pa
+"}
+(10,1,1) = {"
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+rF
+QN
+Wa
+Os
+Os
+jh
+Os
+rw
+Bu
+Os
+Os
+Os
+Os
+Un
+"}
+(11,1,1) = {"
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+rF
+lb
+Os
+Os
+Os
+Rz
+Os
+jU
+Ix
+Wa
+Os
+Os
+Wa
+li
+"}
+(12,1,1) = {"
+rF
+rF
+rF
+rF
+rF
+Ln
+Ln
+xx
+li
+Vm
+Os
+Os
+Os
+Os
+cc
+li
+XG
+Os
+DG
+se
+li
+"}
+(13,1,1) = {"
+rF
+hf
+Tf
+nQ
+rF
+rF
+Ln
+Ln
+li
+VR
+YQ
+Os
+Os
+vQ
+li
+li
+li
+wg
+li
+li
+xx
+"}
+(14,1,1) = {"
+rF
+TA
+US
+Tm
+Kd
+rF
+rF
+rF
+li
+li
+li
+FL
+Os
+Os
+rF
+yA
+Os
+Os
+tQ
+Ot
+Ln
+"}
+(15,1,1) = {"
+rF
+rF
+GY
+Tm
+Tm
+Tm
+Tm
+Tm
+MM
+hI
+rF
+Os
+Os
+Os
+KW
+Os
+Os
+Ue
+Ot
+Ln
+Ln
+"}
+(16,1,1) = {"
+Ln
+rF
+rF
+Tm
+Tm
+Tm
+Zd
+Tm
+Tm
+Tm
+fR
+Os
+zY
+JM
+rF
+Os
+Ue
+Ot
+Ln
+Ln
+Ln
+"}
+(17,1,1) = {"
+Ln
+Ln
+rF
+rF
+rF
+nQ
+xA
+JD
+Kd
+Tm
+li
+rF
+rF
+rF
+li
+Ue
+Ot
+Ln
+Ln
+Ln
+Ln
+"}
+(18,1,1) = {"
+Ln
+Ln
+Ln
+Ln
+rF
+rF
+rF
+rF
+li
+li
+xx
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+Ln
+"}
