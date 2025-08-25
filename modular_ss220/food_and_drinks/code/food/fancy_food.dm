@@ -17,16 +17,18 @@
 	if(opened)
 		icon_state = "[initial(icon_state)]_open"
 
-/obj/item/food/fancy/attack__legacy__attackchain(mob/M, mob/user, def_zone)
+/obj/item/food/fancy/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!opened)
 		to_chat(user, span_warning("[src] сначала нужно открыть!"))
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 	if(opened && need_takeout)
 		to_chat(user, span_warning("Сначала вытащите еду из упаковки!"))
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
-/obj/item/food/fancy/attack_self__legacy__attackchain(mob/user)
+/obj/item/food/fancy/activate_self(mob/user)
+	if(..())
+		return
 	AltClick(user)
 
 /obj/item/food/fancy/examine(mob/user)

@@ -945,14 +945,17 @@
 	bitesize = 2
 	tastes = list("сырое мясо" = 1, "сырое тесто" = 1)
 
-/obj/item/food/sliced/dough/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/food/rawcutlet))
+/obj/item/food/sliced/dough/attack_by(obj/item/attacking, mob/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(istype(attacking, /obj/item/food/rawcutlet))
 		new /obj/item/food/pelmeni(src)
 		to_chat(user, "Вы сделали немного пельменей.")
 		qdel(src)
-		qdel(I)
+		qdel(attacking)
 	else
-		..()
+		return FINISH_ATTACK
 
 /obj/item/food/boiledpelmeni
 	name = "варёные пельмени"
