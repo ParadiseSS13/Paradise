@@ -122,8 +122,6 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 	if(admin_datum)
 		admin_datum.associate(GLOB.directory[admin_ckey])
 
-	if(admin_ckey in GLOB.directory)
-		var/client/admin = GLOB.directory[admin_ckey]
 	if(!silent)
 		message_admins("<span class='notice'>Admin permissions for [admin_ckey] have been reloaded.</span>")
 
@@ -172,7 +170,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 		var/datum/db_query/get_admins = SSdbcore.NewQuery({"
 			SELECT
-				admin.ckey, 
+				admin.ckey,
 				-- Use the display_rank if set, otherwise the name of their permissions_rank.
 				IFNULL(admin.display_rank, admin_ranks.name),
 				-- Permissions start with their admin rank permissions (if any)
