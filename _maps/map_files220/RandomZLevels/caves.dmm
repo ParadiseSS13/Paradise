@@ -865,9 +865,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "ea" = (
-/mob/living/simple_animal/hostile/asteroid/hivelord{
-	wander = 0
-	},
+/mob/living/basic/mining/hivelord,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "ed" = (
@@ -2039,7 +2037,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/caves/build)
 "ko" = (
-/mob/living/basic/scarybat,
+/mob/living/basic/scarybat/caves,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "kp" = (
@@ -3882,9 +3880,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/caves/build)
 "uW" = (
-/mob/living/simple_animal/hostile/asteroid/basilisk{
-	wander = 0
-	},
+/mob/living/basic/mining/basilisk,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "uX" = (
@@ -5129,9 +5125,7 @@
 /area/awaymission/caves/build/reqpower_build)
 "BU" = (
 /obj/structure/flora/rock,
-/mob/living/simple_animal/hostile/asteroid/basilisk{
-	wander = 0
-	},
+/mob/living/basic/mining/basilisk,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "BW" = (
@@ -9348,9 +9342,7 @@
 /area/awaymission/caves/build/reqpower_build)
 "Zq" = (
 /obj/structure/flora/rock/pile,
-/mob/living/simple_animal/hostile/asteroid/basilisk{
-	wander = 0
-	},
+/mob/living/basic/mining/basilisk,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "Zr" = (

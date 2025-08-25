@@ -1,4 +1,4 @@
-/mob/living/simple_animal/hostile/poison/giant_spider/add_tts_component()
+/mob/living/basic/giant_spider/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/anubarak)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/add_tts_component()

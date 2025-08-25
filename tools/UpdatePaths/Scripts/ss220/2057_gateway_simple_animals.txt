@@ -1,0 +1,2 @@
+/mob/living/simple_animal/hostile/asteroid/hivelord/@SUBTYPES : /mob/living/basic/mining/hivelord/@SUBTYPES{@OLD}
+/mob/living/simple_animal/hostile/asteroid/basilisk/@SUBTYPES : /mob/living/basic/mining/basilisk/@SUBTYPES{@OLD}

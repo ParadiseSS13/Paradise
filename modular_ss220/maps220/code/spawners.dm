@@ -184,7 +184,7 @@
 	spawn_loot_chance = 65
 	loot = list(
 		/mob/living/basic/netherworld/faithless = 30,
-		/mob/living/simple_animal/hostile/creature = 20,
+		/mob/living/basic/creature = 20,
 		/mob/living/basic/netherworld = 10,
 		/mob/living/basic/netherworld/migo = 10,
 		/mob/living/basic/hellhound = 5,
@@ -195,7 +195,7 @@
 /mob/living/basic/netherworld/faithless/wildwest
 	faction = list("wildwest")
 
-/mob/living/simple_animal/hostile/creature/wildwest
+/mob/living/basic/creature/wildwest
 	faction = list("wildwest")
 
 /mob/living/basic/netherworld/wildwest
@@ -213,7 +213,7 @@
 /obj/effect/spawner/random/hostile_fauna/wildwest
 	loot = list(
 		/mob/living/basic/netherworld/faithless/wildwest = 30,
-		/mob/living/simple_animal/hostile/creature/wildwest = 20,
+		/mob/living/basic/creature/wildwest = 20,
 		/mob/living/basic/netherworld/wildwest = 10,
 		/mob/living/basic/netherworld/migo/wildwest = 10,
 		/mob/living/basic/hellhound/wildwest = 5,
@@ -221,13 +221,13 @@
 		/mob/living/basic/hellhound/tear/wildwest,
 	)
 
-/mob/living/simple_animal/hostile/creature/caves
-	maxbodytemp = 1500
+/mob/living/basic/creature/caves
+	maximum_survivable_temperature = 1500
 
 /obj/effect/spawner/random/hostile_fauna/caves
 	loot = list(
 		/mob/living/basic/netherworld/faithless = 30,
-		/mob/living/simple_animal/hostile/creature/caves = 20,
+		/mob/living/basic/creature/caves = 20,
 		/mob/living/basic/netherworld = 10,
 		/mob/living/basic/netherworld/migo = 10,
 		/mob/living/basic/hellhound = 5,
@@ -238,26 +238,29 @@
 /obj/effect/spawner/random/hostile_fauna/spider
 	name = "hostile spider spawner"
 	loot = list(
-		/mob/living/simple_animal/hostile/poison/giant_spider = 6,
-		/mob/living/simple_animal/hostile/poison/giant_spider/hunter = 3,
-		/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
+		/mob/living/basic/giant_spider = 6,
+		/mob/living/basic/giant_spider/hunter = 3,
+		/mob/living/basic/giant_spider/nurse,
 	)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/caves
-	maxbodytemp = 1500
+/mob/living/basic/giant_spider/caves
+	maximum_survivable_temperature = 1500
 
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/caves
-	maxbodytemp = 1500
+/mob/living/basic/giant_spider/hunter/caves
+	maximum_survivable_temperature = 1500
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/caves
-	maxbodytemp = 1500
+/mob/living/basic/giant_spider/nurse/caves
+	maximum_survivable_temperature = 1500
 
 /obj/effect/spawner/random/hostile_fauna/spider/caves
 	loot = list(
-		/mob/living/simple_animal/hostile/poison/giant_spider/caves = 6,
-		/mob/living/simple_animal/hostile/poison/giant_spider/hunter/caves = 3,
-		/mob/living/simple_animal/hostile/poison/giant_spider/nurse/caves,
+		/mob/living/basic/giant_spider/caves = 6,
+		/mob/living/basic/giant_spider/hunter/caves = 3,
+		/mob/living/basic/giant_spider/nurse/caves,
 	)
+
+/mob/living/basic/scarybat/caves
+	maximum_survivable_temperature = 1500
 
 // MARK: Misc
 /obj/effect/spawner/random/trash

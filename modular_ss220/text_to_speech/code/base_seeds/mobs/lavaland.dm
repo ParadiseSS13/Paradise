@@ -6,22 +6,22 @@
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/chen)
 
-/mob/living/simple_animal/hostile/asteroid/basilisk/add_tts_component()
+/mob/living/basic/mining/basilisk/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/antimage)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/bloodseeker)
 
-/mob/living/simple_animal/hostile/asteroid/hivelord/add_tts_component()
+/mob/living/basic/mining/hivelord/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/ladyvashj)
 
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/add_tts_component()
+/mob/living/basic/mining/hivelordbrood/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/ladyvashj)
 
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion/add_tts_component()
+/mob/living/basic/mining/hivelord/legion/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/bloodseeker)
 
-/mob/living/simple_animal/hostile/big_legion/add_tts_component()
+/mob/living/basic/mining/big_legion/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/mannoroth)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/add_tts_component()

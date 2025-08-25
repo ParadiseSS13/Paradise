@@ -5,7 +5,7 @@
 	icon_state = "biocore"
 	item_state = "cottoncandy_purple"
 
-	var/mob/living/mob_spawner_type = /mob/living/simple_animal/hostile/creature
+	var/mob/living/mob_spawner_type = /mob/living/basic/creature
 	var/spawn_amount = 1	// сколько в одном ядре
 	var/is_spin = TRUE
 
