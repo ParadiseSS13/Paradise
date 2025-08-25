@@ -649,7 +649,6 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
-
 /obj/item/clothing/head/hooded/ablative
 	name = "ablative hood"
 	desc = "A high-tech ablative hood attached to an ablative trenchcoat. Dissipates energy attacks with ease, and has an integrated flashproof visor. Entirely ineffecitve against kinetic attacks."
