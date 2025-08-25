@@ -59,6 +59,22 @@ CONTENTS:
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 
+/obj/item/clothing/under/abductor
+	icon = 'icons/obj/clothing/under/misc.dmi'
+	name = "alien uniform"
+	desc = "A highly breathable, alien uniform designed for optimal abduction and dissection."
+	icon_state = "abductor"
+	item_state = "bl_suit"
+	item_color = "abductor"
+	has_sensor = FALSE
+
+/obj/item/clothing/suit/storage/labcoat/abductor
+	name = "alien labcoat"
+	desc = "A comfortable suit for alien scientists. Has pink markings."
+	icon_state = "labcoat_abductor_open"
+	item_state = "labcoat_abductor_open"
+	allowed = list(/obj/item/abductor/silencer, /obj/item/abductor/gizmo, /obj/item/abductor/mind_device)
+
 /obj/item/clothing/suit/armor/abductor/vest
 	name = "agent vest"
 	desc = "A vest outfitted with advanced stealth technology. It has two modes - combat and stealth."
