@@ -110,8 +110,8 @@
 
 	update_icon(UPDATE_NAME)
 	throwforce = possessed_item.throwforce
-	armour_penetration_flat = possessed_item.armour_penetration_flat
-	armour_penetration_percentage = possessed_item.armour_penetration_percentage
+	armor_penetration_flat = possessed_item.armor_penetration_flat
+	armor_penetration_percentage = possessed_item.armor_penetration_percentage
 	melee_damage_lower = max(0, possessed_item.force - 5)
 	melee_damage_upper = possessed_item.force + 5
 

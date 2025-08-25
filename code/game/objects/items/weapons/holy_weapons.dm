@@ -248,7 +248,7 @@
 	item_state = "scythe0"
 	desc = "Ask not for whom the bell tolls..."
 	w_class = WEIGHT_CLASS_BULKY
-	armour_penetration_flat = 30
+	armor_penetration_flat = 30
 	slot_flags = ITEM_SLOT_BACK
 	sharp = TRUE
 	attack_verb = list("chopped", "sliced", "cut", "reaped")

@@ -101,18 +101,18 @@
 	if(time_since_parry > parry_time_out_time)
 		return
 
-	var/armour_penetration_percentage = 0
-	var/armour_penetration_flat = 0
+	var/armor_penetration_percentage = 0
+	var/armor_penetration_flat = 0
 
 	if(isitem(hitby))
 		var/obj/item/I = hitby
-		armour_penetration_percentage = I.armour_penetration_percentage
-		armour_penetration_flat = I.armour_penetration_flat
+		armor_penetration_percentage = I.armor_penetration_percentage
+		armor_penetration_flat = I.armor_penetration_flat
 
-	if(armour_penetration_flat + armour_penetration_percentage >= 100)
+	if(armor_penetration_flat + armor_penetration_percentage >= 100)
 		return
 
-	var/stamina_damage = stamina_coefficient * (((time_since_parry / parry_time_out_time) + armour_penetration_percentage / 100) * (damage + armour_penetration_flat)) + stamina_constant
+	var/stamina_damage = stamina_coefficient * (((time_since_parry / parry_time_out_time) + armor_penetration_percentage / 100) * (damage + armor_penetration_flat)) + stamina_constant
 
 	if(!no_parry_sound)
 		var/sound_to_play
