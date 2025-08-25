@@ -75,7 +75,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(in_use)
-		to_chat(user, "<span class='warning'>It's currently in use - wait a bit.</span>")
+		to_chat(user, span_warning("It's currently in use - wait a bit."))
 		return
 	else
 		WELDER_ATTEMPT_SLICING_MESSAGE

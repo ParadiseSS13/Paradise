@@ -89,23 +89,23 @@
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/A)
 	var/food_value = calc_food_gained(A)
 	if(food_value + gathered_food < 0)
-		to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
+		to_chat(src, span_warning("You can't force yourself to eat more disgusting items. Eat some living things first."))
 		return
 	var/eat_self_message
 	if(food_value < 0)
-		eat_self_message = "<span class='warning'>You start eating [A]... disgusting....</span>"
+		eat_self_message = span_warning("You start eating [A]... disgusting....")
 	else
-		eat_self_message = "<span class='notice'>You start eating [A].</span>"
-	visible_message("<span class='warning'>[src] starts eating [target]!</span>", eat_self_message, "You hear loud crunching!")
+		eat_self_message = span_notice("You start eating [A].")
+	visible_message(span_warning("[src] starts eating [target]!"), eat_self_message, "You hear loud crunching!")
 	if(do_after(src, 3 SECONDS, target = A))
 		if(food_value + gathered_food < 0)
-			to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
+			to_chat(src, span_warning("You can't force yourself to eat more disgusting items. Eat some living things first."))
 			return
 		eat(A)
 
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/A)
 	if(A && A.loc != src)
-		visible_message("<span class='warning'>[src] swallows [A] whole!</span>")
+		visible_message(span_warning("[src] swallows [A] whole!"))
 
 		var/mob/living/carbon/human/H = A
 		if(istype(H) && H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under))
@@ -169,7 +169,7 @@
 	melee_damage_upper = initial(melee_damage_upper)
 	speed = initial(speed)
 	if(ambush_prepared)
-		to_chat(src, "<span class='warning'>The ambush potential has faded as you take your true form.</span>")
+		to_chat(src, span_warning("The ambush potential has faded as you take your true form."))
 	failed_ambush()
 	pass_airlock_spell.build_all_button_icons()
 	move_resist = MOVE_FORCE_STRONG // Return to their fatness
@@ -177,7 +177,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/prepare_ambush()
 	ambush_prepared = TRUE
-	to_chat(src, "<span class='sinister'>You are ready to ambush any unsuspected target. Your next attack will hurt a lot more and weaken the target! Moving will break your focus. Standing still will perfect your disguise.</span>")
+	to_chat(src, span_sinister("You are ready to ambush any unsuspected target. Your next attack will hurt a lot more and weaken the target! Moving will break your focus. Standing still will perfect your disguise."))
 	apply_status_effect(/datum/status_effect/morph_ambush)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
@@ -191,12 +191,12 @@
 
 /mob/living/simple_animal/hostile/morph/proc/perfect_ambush()
 	mimic_spell.perfect_disguise = TRUE // Reset the perfect disguise
-	to_chat(src, "<span class='sinister'>You've perfected your disguise. Making you indistinguishable from the real form!</span>")
+	to_chat(src, span_sinister("You've perfected your disguise. Making you indistinguishable from the real form!"))
 	remove_from_all_data_huds()
 
 /mob/living/simple_animal/hostile/morph/proc/on_move()
 	failed_ambush()
-	to_chat(src, "<span class='warning'>You moved out of your ambush spot!</span>")
+	to_chat(src, span_warning("You moved out of your ambush spot!"))
 
 /mob/living/simple_animal/hostile/morph/add_ventcrawl()
 	. = ..()
@@ -223,13 +223,13 @@
 	if(user.a_intent != INTENT_HELP)
 		return CONTINUE_ATTACK
 	if(!contents.len)
-		to_chat(user, "<span class='warning'>[src] doesnt have anything left inside it!</span>")
+		to_chat(user, span_warning("[src] doesnt have anything left inside it!"))
 		return ITEM_INTERACT_COMPLETE
 	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
 	visible_message(
-		"<span class='warning'>[src] begins to pry open the morph's massive jaws!</span>", 
-		"<span class='danger'>You begin to pry open the morph's massive jaws!</span>", 
-		"<span class='warning'>You hear wet, meaty tearing nearby!</span>"
+		span_warning("[src] begins to pry open the morph's massive jaws!"),
+		span_danger("You begin to pry open the morph's massive jaws!"),
+		span_warning("You hear wet, meaty tearing nearby!")
 	)
 	if(do_after_once(user, 8 SECONDS, target = src))
 		eject_contents()
@@ -238,7 +238,7 @@
 
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/M)
 	if(ambush_prepared)
-		to_chat(M, "<span class='warning'>[src] feels a bit different from normal... it feels more.. </span><span class='userdanger'>SLIMEY?!</span>")
+		to_chat(M, span_warning("[src] feels a bit different from normal... it feels more.. </span><span class='userdanger'>SLIMEY?!"))
 		ambush_attack(M, TRUE)
 	else
 		return ..()
@@ -247,14 +247,14 @@
 	. = ..()
 	if(stat == DEAD)
 		if(length(contents))
-			. += "<span class='notice'>You can use <b>ALT + Click</b> to eject anything the morph may have eaten.</span>"
+			. += span_notice("You can use <b>ALT + Click</b> to eject anything the morph may have eaten.")
 		else if(in_range(user, src))
-			. += "<span class='warning'>\The [src] seems to have nothing left inside of it!</span>"
+			. += span_warning("\The [src] seems to have nothing left inside of it!")
 #define MORPH_ATTACKED if((. = ..()) && morphed) mimic_spell.restore_form(src)
 
 /mob/living/simple_animal/hostile/morph/attack_by(obj/item/O, mob/living/user, params)
 	if(user.a_intent == INTENT_HELP && ambush_prepared)
-		to_chat(user, "<span class='warning'>You try to use [O] on [src]... it seems different than no-</span>")
+		to_chat(user, span_warning("You try to use [O] on [src]... it seems different than no-"))
 		ambush_attack(user, TRUE)
 		return FINISH_ATTACK
 
@@ -262,7 +262,7 @@
 
 /mob/living/simple_animal/hostile/morph/attack_animal(mob/living/simple_animal/M)
 	if(M.a_intent == INTENT_HELP && ambush_prepared)
-		to_chat(M, "<span class='notice'>You nuzzle [src].</span><span class='danger'> And [src] nuzzles back!</span>")
+		to_chat(M, span_notice("You nuzzle [src].</span><span class='danger'> And [src] nuzzles back!"))
 		ambush_attack(M, TRUE)
 		return TRUE
 	MORPH_ATTACKED
@@ -296,7 +296,7 @@
 	L.apply_damage(total_damage, BRUTE)
 	add_attack_logs(src, L, "morph ambush attacked")
 	do_attack_animation(L, ATTACK_EFFECT_BITE)
-	visible_message("<span class='danger'>[src] suddenly leaps towards [L]!</span>", "<span class='warning'>You strike [L] when [L.p_they()] least expected it!</span>", "You hear a horrible crunch!")
+	visible_message(span_danger("[src] suddenly leaps towards [L]!"), span_warning("You strike [L] when [L.p_they()] least expected it!"), "You hear a horrible crunch!")
 
 	mimic_spell.restore_form(src)
 
@@ -341,14 +341,14 @@
 	SSticker.mode.traitors |= mind
 	var/list/messages = list()
 	messages.Add("<b><font size=3 color='red'>You are a morph.</font><br></b>")
-	messages.Add("<span class='sinister'>You hunger for living beings and desire to procreate. Achieve this goal by ambushing unsuspecting pray using your abilities.</span>")
-	messages.Add("<span class='specialnotice'>As an abomination created primarily with changeling cells you may take the form of anything nearby by using your <span class='specialnotice bold'>Mimic ability.</span></span>")
-	messages.Add("<span class='specialnotice'>The transformation will not go unnoticed for bystanding observers.</span>")
-	messages.Add("<span class='specialnotice bold'>While morphed</span><span class='specialnotice'>, you move slower and do less damage. In addition, anyone within three tiles will note an uncanny wrongness if examining you.</span>")
-	messages.Add("<span class='specialnotice'>From this form you can however <span class='specialnotice bold'>Prepare an Ambush</span> using your ability.</span>")
-	messages.Add("<span class='specialnotice'>This will allow you to deal a lot of damage the first hit. And if they touch you then even more.</span>")
-	messages.Add("<span class='specialnotice'>Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health and will add to your stored food while eating items will reduce your stored food.</span>")
-	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Morph)</span>")
+	messages.Add(span_sinister("You hunger for living beings and desire to procreate. Achieve this goal by ambushing unsuspecting pray using your abilities."))
+	messages.Add(span_specialnotice("As an abomination created primarily with changeling cells you may take the form of anything nearby by using your <span class='specialnotice bold'>Mimic ability.</span>"))
+	messages.Add(span_specialnotice("The transformation will not go unnoticed for bystanding observers."))
+	messages.Add("<span class='specialnotice bold'>While morphed</span>[span_specialnotice(", you move slower and do less damage. In addition, anyone within three tiles will note an uncanny wrongness if examining you.")]")
+	messages.Add(span_specialnotice("From this form you can however <span class='specialnotice bold'>Prepare an Ambush</span> using your ability."))
+	messages.Add(span_specialnotice("This will allow you to deal a lot of damage the first hit. And if they touch you then even more."))
+	messages.Add(span_specialnotice("Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health and will add to your stored food while eating items will reduce your stored food."))
+	messages.Add(span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Morph)"))
 	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
 	if(give_default_objectives)
 		mind.add_mind_objective(/datum/objective/morph_eat)

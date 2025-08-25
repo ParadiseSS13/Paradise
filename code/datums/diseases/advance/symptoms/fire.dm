@@ -33,16 +33,16 @@ Bonus
 	var/mob/living/M = A.affected_mob
 	switch(A.progress)
 		if(30 to 59)
-			to_chat(M, "<span class='warning'>[pick("You feel hot.", "You hear a crackling noise.", "You smell smoke.")]</span>")
+			to_chat(M, span_warning("[pick("You feel hot.", "You hear a crackling noise.", "You smell smoke.")]"))
 		if(60 to 79)
 			Firestacks(M, A, unmitigated)
 			M.IgniteMob()
-			to_chat(M, "<span class='userdanger'>Your skin bursts into flames!</span>")
+			to_chat(M, span_userdanger("Your skin bursts into flames!"))
 			M.emote("scream")
 		if(80 to INFINITY)
 			Firestacks(M, A, unmitigated)
 			M.IgniteMob()
-			to_chat(M, "<span class='userdanger'>Your skin erupts into an inferno!</span>")
+			to_chat(M, span_userdanger("Your skin erupts into an inferno!"))
 			M.emote("scream")
 	return
 

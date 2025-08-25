@@ -234,7 +234,7 @@
 /obj/item/storage/fancy/cigarettes/examine(mob/user)
 	. = ..()
 	if(cigarette_slogan)
-		. += "<span class='notice'>\"[cigarette_slogan]\"</span>"
+		. += span_notice("\"[cigarette_slogan]\"")
 
 /obj/item/storage/fancy/cigarettes/populate_contents()
 	for(var/I in 1 to storage_slots)
@@ -256,16 +256,16 @@
 				M.equip_to_slot_if_possible(C, ITEM_SLOT_MASK)
 				if(M != user)
 					user.visible_message(
-						"<span class='notice'>[user] takes \a [C.name] out of [src] and gives it to [M].</span>",
-						"<span class='notice'>You take \a [C.name] out of [src] and give it to [M].</span>"
+						span_notice("[user] takes \a [C.name] out of [src] and gives it to [M]."),
+						span_notice("You take \a [C.name] out of [src] and give it to [M].")
 					)
 				else
-					to_chat(user, "<span class='notice'>You take \a [C.name] out of the pack.</span>")
+					to_chat(user, span_notice("You take \a [C.name] out of the pack."))
 				update_icon()
 				got_cig = TRUE
 				break
 		if(!got_cig)
-			to_chat(user, "<span class='warning'>There are no smokables in the pack!</span>")
+			to_chat(user, span_warning("There are no smokables in the pack!"))
 	else
 		..()
 
@@ -274,13 +274,13 @@
 		var/obj/item/match/M = W
 		if(M.lit)
 			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>Putting a lit [W] in [src] probably isn't a good idea.</span>")
+				to_chat(usr, span_notice("Putting a lit [W] in [src] probably isn't a good idea."))
 			return FALSE
 	if(istype(W, /obj/item/lighter))
 		var/obj/item/lighter/L = W
 		if(L.lit)
 			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>Putting [W] in [src] while lit probably isn't a good idea.</span>")
+				to_chat(usr, span_notice("Putting [W] in [src] while lit probably isn't a good idea."))
 			return FALSE
 	//if we get this far, handle the insertion checks as normal
 	. = ..()

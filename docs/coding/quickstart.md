@@ -388,7 +388,7 @@ You cannot link machinery using a multitool. Something it should do.
 ```dm
 /obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)
 	if(ismachinery(M))
-		to_chat(user, "<span class='warning'>That's not a machine!</span>")
+		to_chat(user, span_warning("That's not a machine!"))
 		return
 ```
 

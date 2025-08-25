@@ -71,11 +71,11 @@
 		var/time = (reagent_temp / 10) / (temperature / 1000)
 		if(user.mind && HAS_TRAIT(user.mind, TRAIT_QUICK_HEATER))
 			while(do_after_once(user, time, TRUE, user, TRUE, attempt_cancel_message = "You stop heating up [A]."))
-				to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
+				to_chat(user, span_notice("You heat [A] with [src]."))
 				A.reagents.temperature_reagents(temperature)
 		else
 			if(do_after_once(user, time, TRUE, user, TRUE, attempt_cancel_message = "You stop heating up [A]."))
-				to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
+				to_chat(user, span_notice("You heat [A] with [src]."))
 				A.reagents.temperature_reagents(temperature)
 
 /**
@@ -168,11 +168,11 @@
 
 	// TODO: Migrate all of this to the proper objects so it's not clogging up a core proc and called at irrelevant times
 	if((is_surgery_tool_by_behavior(src) || is_organ(src) || tool_behaviour) && user.a_intent == INTENT_HELP && on_operable_surface(target) && target != user)
-		to_chat(user, "<span class='notice'>You don't want to harm the person you're trying to help!</span>")
+		to_chat(user, span_notice("You don't want to harm the person you're trying to help!"))
 		return FALSE
 
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		return FALSE
 
 	if(!force)
@@ -223,9 +223,9 @@
 	var/damage = attacker.force
 	if(attacker.force)
 		user.visible_message(
-			"<span class='danger'>[user] has hit [src] with [attacker]!</span>",
-			"<span class='danger'>You hit [src] with [attacker]!</span>",
-			"<span class='danger'>You hear something being struck by a weapon!</span>"
+			span_danger("[user] has hit [src] with [attacker]!"),
+			span_danger("You hit [src] with [attacker]!"),
+			span_danger("You hear something being struck by a weapon!")
 		)
 
 	if(ishuman(user))
@@ -252,16 +252,16 @@
 /mob/living/simple_animal/attacked_by(obj/item/attacker, mob/living/user)
 	if(!attacker.force)
 		user.visible_message(
-			"<span class='notice'>[user] gently taps [src] with [attacker].</span>",
-			"<span class='warning'>This weapon is ineffective, it does no damage!</span>",
-			"<span class='notice'>You hear a gentle tapping.</span>"
+			span_notice("[user] gently taps [src] with [attacker]."),
+			span_warning("This weapon is ineffective, it does no damage!"),
+			span_notice("You hear a gentle tapping.")
 		)
 
 	else if(attacker.force < force_threshold || attacker.damtype == STAMINA)
 		visible_message(
-			"<span class='warning'>[attacker] bounces harmlessly off of [src].</span>",
-			"<span class='warning'>[attacker] bounces harmlessly off of [src]!</span>",
-			"<span class='warning'>You hear something being struck by a weapon!</span>"
+			span_warning("[attacker] bounces harmlessly off of [src]."),
+			span_warning("[attacker] bounces harmlessly off of [src]!"),
+			span_warning("You hear something being struck by a weapon!")
 		)
 
 	else

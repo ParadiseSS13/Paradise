@@ -186,13 +186,13 @@
 		return
 
 	if(stat & (BROKEN|NOPOWER))
-		to_chat(user, "<span class='notice'>[src] is unpowered and useless.</span>")
+		to_chat(user, span_notice("[src] is unpowered and useless."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(load(used, user))
 		user.visible_message(
-			"<span class='notice'>[user] has added [used] to [src].</span>",
-			"<span class='notice'>You add [used] to [src].</span>"
+			span_notice("[user] has added [used] to [src]."),
+			span_notice("You add [used] to [src].")
 		)
 		SStgui.update_uis(src)
 		update_icon(UPDATE_OVERLAYS)
@@ -206,18 +206,18 @@
 				items_loaded++
 		if(items_loaded)
 			user.visible_message(
-				"<span class='notice'>[user] loads [src] with [P].</span>",
-				"<span class='notice'>You load [src] with [P].</span>"
+				span_notice("[user] loads [src] with [P]."),
+				span_notice("You load [src] with [P].")
 			)
 			SStgui.update_uis(src)
 			update_icon(UPDATE_OVERLAYS)
 		var/failed = length(P.contents)
 		if(failed)
-			to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
+			to_chat(user, span_notice("[failed] item\s [failed == 1 ? "is" : "are"] refused."))
 		return ITEM_INTERACT_COMPLETE
 
 	if(!istype(used, /obj/item/card/emag))
-		to_chat(user, "<span class='notice'>\The [src] smartly refuses [used].</span>")
+		to_chat(user, span_notice("\The [src] smartly refuses [used]."))
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
@@ -244,12 +244,12 @@
 	if(!istype(over_object, /obj/item/storage/pill_bottle)) //Only pill bottles, please
 		return
 	if(stat & (BROKEN|NOPOWER))
-		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
+		to_chat(user, span_notice("\The [src] is unpowered and useless."))
 		return TRUE
 
 	var/obj/item/storage/box/pillbottles/P = over_object
 	if(!length(P.contents))
-		to_chat(user, "<span class='notice'>\The [P] is empty.</span>")
+		to_chat(user, span_notice("\The [P] is empty."))
 		return TRUE
 
 	var/items_loaded = 0
@@ -257,11 +257,11 @@
 		if(load(G, user))
 			items_loaded++
 	if(items_loaded)
-		user.visible_message("<span class='notice'>[user] empties \the [P] into \the [src].</span>", "<span class='notice'>You empty \the [P] into \the [src].</span>")
+		user.visible_message(span_notice("[user] empties \the [P] into \the [src]."), span_notice("You empty \the [P] into \the [src]."))
 		update_icon(UPDATE_OVERLAYS)
 	var/failed = length(P.contents)
 	if(failed)
-		to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
+		to_chat(user, span_notice("[failed] item\s [failed == 1 ? "is" : "are"] refused."))
 	return TRUE
 
 /obj/machinery/smartfridge/ui_state(mob/user)
@@ -306,7 +306,7 @@
 	switch(action)
 		if("vend")
 			if(is_secure && !emagged && scan_id && !allowed(usr)) //secure fridge check
-				to_chat(usr, "<span class='warning'>Access denied.</span>")
+				to_chat(usr, span_warning("Access denied."))
 				return FALSE
 
 			var/index = text2num(params["index"])
@@ -350,7 +350,7 @@
 /obj/machinery/smartfridge/proc/load(obj/I, mob/user)
 	if(accept_check(I))
 		if(length(contents) >= max_n_of_items)
-			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
+			to_chat(user, span_notice("\The [src] is full."))
 			return FALSE
 		else
 			if(isstorage(I.loc))
@@ -368,7 +368,7 @@
 						item_quants[I.name] += 1
 						return TRUE
 					else
-						to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
+						to_chat(user, span_warning("\The [I] is stuck to you!"))
 						return FALSE
 			else
 				I.forceMove(src)
@@ -400,7 +400,7 @@
 		return FALSE
 
 	INVOKE_ASYNC(throw_item, TYPE_PROC_REF(/atom/movable, throw_at), target, 16, 3, src)
-	visible_message("<span class='warning'>[src] launches [throw_item.name] at [target.name]!</span>")
+	visible_message(span_warning("[src] launches [throw_item.name] at [target.name]!"))
 	return TRUE
 
 /**
@@ -424,7 +424,7 @@
 
 /obj/machinery/smartfridge/secure/emag_act(mob/user)
 	emagged = TRUE
-	to_chat(user, "<span class='notice'>You short out the product lock on \the [src].</span>")
+	to_chat(user, span_notice("You short out the product lock on \the [src]."))
 	return TRUE
 
 /obj/machinery/smartfridge/secure/emp_act(severity)

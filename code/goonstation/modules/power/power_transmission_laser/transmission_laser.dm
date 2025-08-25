@@ -118,7 +118,7 @@
 
 /obj/machinery/power/transmission_laser/screwdriver_act(mob/living/user, obj/item/I)
 	if(firing)
-		to_chat(user,"<span class='info'>Turn the laser off first.</span>")
+		to_chat(user,span_info("Turn the laser off first."))
 		return
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
 		return TRUE
@@ -134,7 +134,7 @@
 		return
 	if(rotate())
 		return TRUE
-	to_chat(user, "<span class='info'>Target area blocked, please clear all objects and personnel.</span>")
+	to_chat(user, span_info("Target area blocked, please clear all objects and personnel."))
 	return TRUE
 
 /// Rotates the laser if we have the space to do so.
@@ -212,9 +212,9 @@
 
 /obj/machinery/power/transmission_laser/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Laser currently has [unsent_earnings] unsent credits.</span>"
-	. += "<span class='notice'>Laser has generated [total_earnings] credits.</span>"
-	. += "<span class='notice'>Laser has sold [total_energy] Joules.</span>"
+	. += span_notice("Laser currently has [unsent_earnings] unsent credits.")
+	. += span_notice("Laser has generated [total_earnings] credits.")
+	. += span_notice("Laser has sold [total_energy] Joules.")
 
 /// Appearance changes are here
 /obj/machinery/power/transmission_laser/update_overlays()
@@ -398,7 +398,7 @@
 				target.loot = list() // disable loot drops form the target to prevent cheese
 				if(10 * output_level * target.damage_coeff[BURN] / (1 MW) > target.health) // If we would kill the target dust it.
 					target.health = 0 // We need this so can_die() won't prevent dusting
-					visible_message("<span class='danger'>\The [src] is reduced to dust by the beam!</span>")
+					visible_message(span_danger("\The [src] is reduced to dust by the beam!"))
 					target.dust()
 				else
 					target.adjustFireLoss(10 * output_level / (1 MW))

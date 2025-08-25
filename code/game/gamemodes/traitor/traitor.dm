@@ -165,7 +165,7 @@
 		var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 		var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-		text += "<br><br><b>The code phrases were:</b> <span class='danger'>[phrases]</span><br>\
-					<b>The code responses were:</b> <span class='danger'>[responses]</span><br><br>"
+		text += "<br><br><b>The code phrases were:</b> [span_danger("[phrases]")]<br>\
+					<b>The code responses were:</b> [span_danger("[responses]")]<br><br>"
 
 		return text.Join("")

@@ -48,15 +48,15 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 
 	var/obj/machinery/airlock_controller/C = locateUID(controller_uid)
 	if(!C)
-		to_chat(user, "<span class='warning'>Could not communicate with controller.</span>")
+		to_chat(user, span_warning("Could not communicate with controller."))
 		return
 
 	if(!C.has_power(C.power_channel))
-		to_chat(user, "<span class='warning'>No response from controller, possibly offline.</span>")
+		to_chat(user, span_warning("No response from controller, possibly offline."))
 		return
 
 	if(!allowed(user) && !user.can_advanced_admin_interact())
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		return
 
 	C.handle_button(assigned_command)

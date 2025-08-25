@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			uploaded_sound.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
 
 			var/this_uid = M.client.UID()
-			to_chat(M, "<span class='boldannounceic'>[ckey] played <code>[S]</code> (<a href='byond://?src=[this_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[this_uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
+			to_chat(M, span_boldannounceic("[ckey] played <code>[S]</code> (<a href='byond://?src=[this_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[this_uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)"))
 			SEND_SOUND(M, uploaded_sound)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -152,7 +152,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 	if(sound_mode == "Web")
 		if(!GLOB.configuration.system.ytdlp_url)
-			to_chat(src, "<span class='boldwarning'>yt-dlp was not configured, action unavailable</span>") //Check config
+			to_chat(src, span_boldwarning("yt-dlp was not configured, action unavailable")) //Check config
 			return
 
 		web_sound_input = tgui_input_text(src, "Enter content URL", "Play Internet Sound", null)
@@ -162,8 +162,8 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		web_sound_input = trim(web_sound_input)
 
 		if(findtext(web_sound_input, ":") && !findtext(web_sound_input, GLOB.is_http_protocol))
-			to_chat(src, "<span class='boldwarning'>Non-http(s) URIs are not allowed.</span>")
-			to_chat(src, "<span class='warning'>For yt-dlp shortcuts like ytsearch: please use the appropriate full url from the website.</span>")
+			to_chat(src, span_boldwarning("Non-http(s) URIs are not allowed."))
+			to_chat(src, span_warning("For yt-dlp shortcuts like ytsearch: please use the appropriate full url from the website."))
 			return
 
 		// Prepare the body
@@ -181,12 +181,12 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			try
 				data = json_decode(media_poll_response.body)
 			catch(var/exception/e)
-				to_chat(src, "<span class='boldwarning'>yt-dlp JSON parsing FAILED:</span>")
-				to_chat(src, "<span class='warning'>[e]: [media_poll_response.body]</span>")
+				to_chat(src, span_boldwarning("yt-dlp JSON parsing FAILED:"))
+				to_chat(src, span_warning("[e]: [media_poll_response.body]"))
 				return
 		else
-			to_chat(src, "<span class='boldwarning'>yt-dlp URL retrieval FAILED:</span>")
-			to_chat(src, "<span class='warning'>[media_poll_response.body]</span>")
+			to_chat(src, span_boldwarning("yt-dlp URL retrieval FAILED:"))
+			to_chat(src, span_warning("[media_poll_response.body]"))
 			return
 
 	else if(sound_mode == "Upload MP3")
@@ -202,7 +202,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		var/static/regex/only_extension = regex(@{"^.*\.([a-z0-9]{1,5})$"}, "gi")
 		var/extension = only_extension.Replace("[soundfile]", "$1")
 		if(!length(extension) || extension != "mp3")
-			to_chat(src, "<span class='boldwarning'>Invalid filename extension.</span>")
+			to_chat(src, span_boldwarning("Invalid filename extension."))
 			return
 
 		var/static/playsound_notch = 1
@@ -233,20 +233,20 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		if(res == "Yes")
 			log_admin("[key_name(src)] played sound: [web_sound_input]")
 			message_admins("[key_name(src)] played sound: [web_sound_input]")
-			to_chat(world, "<span class='boldannounceooc'>[src.ckey] played: [webpage_url]</span>")
+			to_chat(world, span_boldannounceooc("[src.ckey] played: [webpage_url]"))
 		else if(res == "No")
 			music_extra_data["link"] = "Song Link Hidden"
 			music_extra_data["title"] = "Song Title Hidden"
 			music_extra_data["artist"] = "Song Artist Hidden"
 			log_admin("[key_name(src)] played sound: [web_sound_input]")
 			message_admins("[key_name(src)] played sound: [web_sound_input]")
-			to_chat(world, "<span class='boldannounceooc'>[src.ckey] played a sound</span>")
+			to_chat(world, span_boldannounceooc("[src.ckey] played a sound"))
 
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound TGchat")
 
 	if(!must_send_assets && web_sound_url && !findtext(web_sound_url, GLOB.is_http_protocol))
-		to_chat(src, "<span class='boldwarning'>BLOCKED: Content URL not using http(s) protocol</span>", confidential = TRUE)
-		to_chat(src, "<span class='warning'>The media provider returned a content URL that isn't using the HTTP or HTTPS protocol</span>", confidential = TRUE)
+		to_chat(src, span_boldwarning("BLOCKED: Content URL not using http(s) protocol"), confidential = TRUE)
+		to_chat(src, span_warning("The media provider returned a content URL that isn't using the HTTP or HTTPS protocol"), confidential = TRUE)
 		return
 
 	if(web_sound_url)
@@ -255,13 +255,13 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			var/player_uid = M.client.UID()
 			if(C.prefs.sound & SOUND_MIDI)
 				if(ckey in M.client.prefs.admin_sound_ckey_ignore)
-					to_chat(C, "<span class='warning'>But [src.ckey] is muted locally in preferences!</span>")
+					to_chat(C, span_warning("But [src.ckey] is muted locally in preferences!"))
 					continue
 				else
 					if(must_send_assets)
 						SSassets.transport.send_assets(C, asset_name)
 					C.tgui_panel?.play_music(web_sound_url, music_extra_data)
-					to_chat(C, "<span class='warning'>(<a href='byond://?src=[player_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[player_uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)</span>")
+					to_chat(C, span_warning("(<a href='byond://?src=[player_uid];action=silenceSound'>SILENCE</a>) (<a href='byond://?src=[player_uid];action=muteAdmin&a=[ckey]'>ALWAYS SILENCE THIS ADMIN</a>)"))
 			else
-				to_chat(C, "<span class='warning'>But Admin MIDIs are disabled in preferences!</span>")
+				to_chat(C, span_warning("But Admin MIDIs are disabled in preferences!"))
 	return

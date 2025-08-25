@@ -10,7 +10,7 @@
 	living_pawn.befriend(living_target)
 	var/befriend_text = controller.blackboard[befriend_message]
 	if(befriend_text)
-		to_chat(living_target, "<span class='notice'>[living_pawn] [befriend_text]</span>")
+		to_chat(living_target, span_notice("[living_pawn] [befriend_text]"))
 
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 

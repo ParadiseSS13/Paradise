@@ -13,11 +13,11 @@
 
 /obj/item/inflatable/cyborg/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>As a synthetic, you can restore them at a <b>cyborg recharger</b>.</span>"
+	. += span_notice("As a synthetic, you can restore them at a <b>cyborg recharger</b>.")
 
 /obj/item/inflatable/cyborg/attack_self__legacy__attackchain(mob/user)
 	if(locate(/obj/structure/inflatable) in get_turf(user))
-		to_chat(user, "<span class='warning'>There's already an inflatable structure!</span>")
+		to_chat(user, span_warning("There's already an inflatable structure!"))
 		return FALSE
 
 	if(!do_after(user, delay, FALSE, user))
@@ -27,7 +27,7 @@
 		return FALSE
 
 	playsound(loc, 'sound/items/zip.ogg', 75, TRUE)
-	to_chat(user, "<span class='notice'>You inflate [src].</span>")
+	to_chat(user, span_notice("You inflate [src]."))
 	var/obj/structure/inflatable/R = new structure_type(user.loc)
 	transfer_fingerprints_to(R)
 	R.add_fingerprint(user)
@@ -37,6 +37,6 @@
 		return FALSE
 	var/mob/living/silicon/robot/R = user
 	if(R.cell.charge < power_use)
-		to_chat(user, "<span class='warning'>Not enough power!</span>")
+		to_chat(user, span_warning("Not enough power!"))
 		return FALSE
 	return R.cell.use(power_use)

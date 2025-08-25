@@ -20,7 +20,7 @@
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
-		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
+		to_chat(usr, span_warning("Cannot use messenger!"))
 	var/list/plist = M.available_pdas()
 	if(plist)
 		var/c = tgui_input_list(usr, "Please select a PDA", "Send message", sortList(plist))
@@ -37,7 +37,7 @@
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
-		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
+		to_chat(usr, span_warning("Cannot use messenger!"))
 	var/HTML = "<html><meta charset='utf-8'><head><title>AI PDA Message Log</title></head><body>"
 	for(var/index in M.tnote)
 		if(index["sent"])
@@ -55,7 +55,7 @@
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.toff = !M.toff
-	to_chat(usr, "<span class='notice'>PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!</span>")
+	to_chat(usr, span_notice("PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!"))
 
 
 /obj/item/pda/silicon/verb/cmd_toggle_pda_silent()
@@ -66,7 +66,7 @@
 		return
 
 	silent = !silent
-	to_chat(usr, "<span class='notice'>PDA ringer toggled [(silent ? "Off" : "On")]!</span>")
+	to_chat(usr, span_notice("PDA ringer toggled [(silent ? "Off" : "On")]!"))
 
 /obj/item/pda/silicon/attack_self__legacy__attackchain(mob/user as mob)
 	if((honkamt > 0) && (prob(60)))//For clown virus.
@@ -93,6 +93,6 @@
 	if(!istype(pAI))
 		return FALSE
 	if(!pAI.installed_software["messenger"])
-		to_chat(usr, "<span class='warning'>You have not purchased the digital messenger!</span>")
+		to_chat(usr, span_warning("You have not purchased the digital messenger!"))
 		return FALSE
 	return ..() && !pAI.silence_time

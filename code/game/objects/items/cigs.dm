@@ -93,8 +93,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(used.get_heat())
 		//Give a generic light message.
 		user.visible_message(
-			"<span class='notice'>[user] lights [src] with [used]</span>",
-			"<span class='notice'>You light [src] with [used].</span>"
+			span_notice("[user] lights [src] with [used]"),
+			span_notice("You light [src] with [used].")
 		)
 		light(user)
 		return ITEM_INTERACT_COMPLETE
@@ -108,14 +108,14 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/obj/item/reagent_containers/glass/glass = target
 	var/transfered = glass.reagents.trans_to(src, chem_volume)
 	if(transfered)
-		to_chat(user, "<span class='notice'>You dip [src] into [target].</span>")
+		to_chat(user, span_notice("You dip [src] into [target]."))
 		return ITEM_INTERACT_COMPLETE
 
 	// Either the beaker was empty, or the cigarette was full
 	if(!glass.reagents.total_volume)
-		to_chat(user, "<span class='notice'>[target] is empty.</span>")
+		to_chat(user, span_notice("[target] is empty."))
 	else
-		to_chat(user, "<span class='notice'>[src] is full.</span>")
+		to_chat(user, span_notice("[src] is full."))
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/cigarette/pre_attack(atom/A, mob/living/user, params)
@@ -128,14 +128,14 @@ LIGHTERS ARE IN LIGHTERS.DM
 		user.do_attack_animation(target)
 		if(target != user)
 			user.visible_message(
-				"<span class='notice'>[user] coldly lights [src] with the burning body of [target]. Clearly, [user.p_they()] offer[user.p_s()] the warmest of regards...</span>",
-				"<span class='notice'>You coldly light [src] with the burning body of [target].</span>"
+				span_notice("[user] coldly lights [src] with the burning body of [target]. Clearly, [user.p_they()] offer[user.p_s()] the warmest of regards..."),
+				span_notice("You coldly light [src] with the burning body of [target].")
 			)
 		else
 			// The fire will light it in your hands by itself, but if you whip out the cig and click yourself fast enough, this will happen. TRULY you have your priorities stright.
 			user.visible_message(
-				"<span class='notice'>[user] quickly whips out [src] and nonchalantly lights it with [user.p_their()] own burning body. Clearly, [user.p_they()] [user.p_have()] [user.p_their()] priorities straight.</span>",
-				"<span class='notice'>You quickly whip out [src] and nonchalantly light it with your own burning body. Clearly, you have your priorities straight.</span>"
+				span_notice("[user] quickly whips out [src] and nonchalantly lights it with [user.p_their()] own burning body. Clearly, [user.p_they()] [user.p_have()] [user.p_their()] priorities straight."),
+				span_notice("You quickly whip out [src] and nonchalantly light it with your own burning body. Clearly, you have your priorities straight.")
 			)
 		light(user, user)
 		return FINISH_ATTACK
@@ -151,11 +151,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 		carbon_target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK)
 		if(target != user)
 			user.visible_message(
-				"<span class='notice'>[user] slips \a [name] into the mouth of [carbon_target].</span>",
-				"<span class='notice'>You slip [src] into the mouth of [carbon_target].</span>"
+				span_notice("[user] slips \a [name] into the mouth of [carbon_target]."),
+				span_notice("You slip [src] into the mouth of [carbon_target].")
 			)
 		else
-			to_chat(user, "<span class='notice'>You put [src] into your mouth.</span>")
+			to_chat(user, span_notice("You put [src] into your mouth."))
 		return FINISH_ATTACK
 
 	// If they DO have a cig, try to light it with your own cig.
@@ -178,15 +178,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/proc/extinguish_cigarette(mob/user)
 	user.visible_message(
-		"<span class='notice'>[user] calmly drops and treads on [src], putting it out instantly.</span>",
-		"<span class='notice'>You calmly drop and tread on [src], putting it out instantly.</span>",
-		"<span class='notice'>You hear a foot being brought down on something, and the tiny fizzling of an ember going out.</span>"
+		span_notice("[user] calmly drops and treads on [src], putting it out instantly."),
+		span_notice("You calmly drop and tread on [src], putting it out instantly."),
+		span_notice("You hear a foot being brought down on something, and the tiny fizzling of an ember going out.")
 	)
 	die()
 
 /obj/item/clothing/mask/cigarette/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold \the [initial(name)] while it's lit!</span>") // initial(name) so it doesn't say "lit" twice in a row
+		to_chat(user, span_warning("[S] can't hold \the [initial(name)] while it's lit!")) // initial(name) so it doesn't say "lit" twice in a row
 		return FALSE
 	return TRUE
 
@@ -196,7 +196,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/catch_fire()
 	if(!lit)
-		visible_message("<span class='warning'>[src] is lit by the flames!</span>")
+		visible_message(span_warning("[src] is lit by the flames!"))
 		light()
 
 /obj/item/clothing/mask/cigarette/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
@@ -205,18 +205,18 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return !isnull(cig)
 
 	if(!lit)
-		to_chat(user, "<span class='warning'>You cannot light [cig] with [src] because you need a lighter to light [src] before you can use [src] as a lighter to light [cig]... This seems a little convoluted.</span>")
+		to_chat(user, span_warning("You cannot light [cig] with [src] because you need a lighter to light [src] before you can use [src] as a lighter to light [cig]... This seems a little convoluted."))
 		return TRUE
 
 	if(target == user)
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] against [cig] until it lights. Seems oddly recursive...</span>",
-			"<span class='notice'>You press [src] against [cig] until it lights. Seems oddly recursive...</span>"
+			span_notice("[user] presses [src] against [cig] until it lights. Seems oddly recursive..."),
+			span_notice("You press [src] against [cig] until it lights. Seems oddly recursive...")
 		)
 	else
 		user.visible_message(
-			"<span class='notice'>[user] presses [src] until it lights. Sharing is caring!</span>",
-			"<span class='notice'>You press [src] against [cig] until it lights. Sharing is caring!</span>"
+			span_notice("[user] presses [src] until it lights. Sharing is caring!"),
+			span_notice("You press [src] against [cig] until it lights. Sharing is caring!")
 		)
 	cig.light(user, target)
 	return TRUE
@@ -301,7 +301,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				reagents.trans_id_to(C, R.id, first_puff ? 1 : max(REAGENTS_METABOLISM / length(reagents.reagent_list), 0.1)) //transfer at least .1 of each chem
 			first_puff = FALSE
 			if(!reagents.total_volume) // There were reagents, but now they're gone
-				to_chat(C, "<span class='notice'>Your [name] loses its flavor.</span>")
+				to_chat(C, span_notice("Your [name] loses its flavor."))
 		else // else just remove some of the reagents
 			reagents.remove_any(REAGENTS_METABOLISM)
 
@@ -312,7 +312,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	transfer_fingerprints_to(butt)
 	if(ismob(loc))
 		var/mob/living/M = loc
-		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
+		to_chat(M, span_notice("Your [name] goes out."))
 		// Only put the butt in the user's mouth if there's already a cig there.
 		if(M.wear_mask == src)
 			M.drop_item_to_ground(src, force = TRUE) //Force the un-equip so the overlays update
@@ -361,10 +361,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		)
 		if(!do_after(user, 5 SECONDS, target = target))
 			return ITEM_INTERACT_COMPLETE
-	
+
 	else
 		to_chat(user, "<span_class='notice'>You eat [src].</span>")
-		
+
 	playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 
 	// A SPICY candy!
@@ -475,7 +475,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	var/obj/item/food/grown/plant = used
 	if(!plant.dry)
-		to_chat(user, "<span class='warning'>You need to dry this first!</span>")
+		to_chat(user, span_warning("You need to dry this first!"))
 		return ITEM_INTERACT_COMPLETE
 
 	user.unequip(plant, TRUE)
@@ -486,7 +486,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	custom_rollie.smoketime = custom_rollie.reagents.total_volume * 2.5
 
 	user.put_in_active_hand(custom_rollie)
-	to_chat(user, "<span class='notice'>You roll the [plant.name] into a rolling paper.</span>")
+	to_chat(user, span_notice("You roll the [plant.name] into a rolling paper."))
 	custom_rollie.desc = "Dried [plant.name] rolled up in a thin piece of paper."
 
 	qdel(plant)
@@ -579,11 +579,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	if(enabled)
 		enabled = FALSE
-		to_chat(user, "<span class='notice'>You disable the holo-cigar.</span>")
+		to_chat(user, span_notice("You disable the holo-cigar."))
 		STOP_PROCESSING(SSobj, src)
 	else
 		enabled = TRUE
-		to_chat(user, "<span class='notice'>You enable the holo-cigar.</span>")
+		to_chat(user, span_notice("You enable the holo-cigar."))
 		START_PROCESSING(SSobj, src)
 
 	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
@@ -626,14 +626,14 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(enabled && slot == ITEM_SLOT_MASK)
 		if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
 			ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
-			to_chat(user, "<span class='notice'>You feel more badass while smoking [src].</span>")
+			to_chat(user, span_notice("You feel more badass while smoking [src]."))
 
 /obj/item/clothing/mask/holo_cigar/dropped(mob/user, silent)
 	. = ..()
 	has_smoked = FALSE
 	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
 		REMOVE_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
-		to_chat(user, "<span class='notice'>You feel less badass.</span>")
+		to_chat(user, span_notice("You feel less badass."))
 
 //////////////////////////////
 // MARK: PIPES
@@ -660,15 +660,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	var/obj/item/food/grown/filler = used
 	if(!filler.dry)
-		to_chat(user, "<span class='warning'>You need to dry this first!</span>")
+		to_chat(user, span_warning("You need to dry this first!"))
 		return ITEM_INTERACT_COMPLETE
 
 	if(reagents.total_volume == reagents.maximum_volume)
-		to_chat(user, "<span class='warning'>[src] is full!</span>")
+		to_chat(user, span_warning("[src] is full!"))
 		return ITEM_INTERACT_COMPLETE
 
 	filler.reagents.trans_to(src, chem_volume)
-	to_chat(user, "<span class='notice'>You stuff the [filler.name] into the pipe.</span>")
+	to_chat(user, span_notice("You stuff the [filler.name] into the pipe."))
 	smoketime = max(reagents.total_volume * REAGENT_TIME_RATIO, smoketime)
 	qdel(filler)
 	return ITEM_INTERACT_COMPLETE
@@ -687,7 +687,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		new /obj/effect/decal/cleanable/ash(location)
 		if(ismob(loc))
 			var/mob/living/M = loc
-			to_chat(M, "<span class='notice'>Your [name] goes out, and you empty the ash.</span>")
+			to_chat(M, span_notice("Your [name] goes out, and you empty the ash."))
 			lit = FALSE
 		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
@@ -697,8 +697,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/pipe/extinguish_cigarette(mob/user)
 	user.visible_message(
-		"<span class='notice'>[user] puts out [src].</span>",
-		"<span class='notice'>You put out [src].</span>"
+		span_notice("[user] puts out [src]."),
+		span_notice("You put out [src].")
 	)
 	lit = FALSE
 	first_puff = TRUE

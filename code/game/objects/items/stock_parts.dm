@@ -37,7 +37,7 @@
 	var/obj/item/reagent_containers/glass/beaker/B = I
 	if(B.reagents?.total_volume)
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[src] cannot hold [I] while it contains liquid.</span>")
+			to_chat(usr, span_warning("[src] cannot hold [I] while it contains liquid."))
 		return FALSE
 	return ..()
 
@@ -51,7 +51,7 @@
 		if(get_dist(user, M) > (user.client.maxview() / 2))
 			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to upgrade machinery with a BRPED via a camera console (attempted range exploit).")
 			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-			to_chat(user, "<span class='notice'>ERROR: [M] is out of [src]'s range!</span>")
+			to_chat(user, span_notice("ERROR: [M] is out of [src]'s range!"))
 			return
 
 	if(M.component_parts)

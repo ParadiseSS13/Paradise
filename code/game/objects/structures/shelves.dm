@@ -40,7 +40,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 		return ..()
 
 	if(!COOLDOWN_FINISHED(src, spraypaint_cd))
-		to_chat(user, "<span class='warning'>The paint on [src] is still drying!</span>")
+		to_chat(user, span_warning("The paint on [src] is still drying!"))
 		return
 
 	var/cur_idx = GLOB.shelf_colors.Find(shelf_style)
@@ -76,7 +76,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.tool_volume))
 		return
 
-	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+	to_chat(user, span_notice("You disassemble [src]."))
 	deconstruct()
 
 /obj/structure/shelf/deconstruct(disassembled)
@@ -143,7 +143,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.tool_volume))
 		return
 
-	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+	to_chat(user, span_notice("You disassemble [src]."))
 	deconstruct()
 
 /obj/structure/gunrack/deconstruct(disassembled)
@@ -189,7 +189,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.tool_volume))
 		return
 
-	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+	to_chat(user, span_notice("You disassemble [src]."))
 	deconstruct()
 
 /obj/structure/spear_rack/deconstruct(disassembled)

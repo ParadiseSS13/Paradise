@@ -171,7 +171,7 @@
 		var/mob/M = AM
 		add_attack_logs(src, M, "passively grabbed", ATKLOG_ALMOSTALL)
 		if(show_message)
-			visible_message("<span class='warning'>[src] has grabbed [M] passively!</span>")
+			visible_message(span_warning("[src] has grabbed [M] passively!"))
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
@@ -203,13 +203,13 @@
 		return FALSE
 	if(anchored || move_resist == INFINITY)
 		if(show_message)
-			to_chat(user, "<span class='warning'>[src] appears to be anchored to the ground!</span>")
+			to_chat(user, span_warning("[src] appears to be anchored to the ground!"))
 		return FALSE
 	if(throwing)
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		if(show_message)
-			to_chat(user, "<span class='warning'>[src] is too heavy to pull!</span>")
+			to_chat(user, span_warning("[src] is too heavy to pull!"))
 		return FALSE
 	if(user in buckled_mobs)
 		return FALSE
@@ -811,12 +811,12 @@
 /atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.force_pushed(src, force, direction)
 	if(!silent && .)
-		visible_message("<span class='warning'>[src] forcefully pushes against [AM]!</span>", "<span class='warning'>You forcefully push against [AM]!</span>")
+		visible_message(span_warning("[src] forcefully pushes against [AM]!"), span_warning("You forcefully push against [AM]!"))
 
 /atom/movable/proc/move_crush(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.move_crushed(src, force, direction)
 	if(!silent && .)
-		visible_message("<span class='danger'>[src] crushes past [AM]!</span>", "<span class='danger'>You crush [AM]!</span>")
+		visible_message(span_danger("[src] crushes past [AM]!"), span_danger("You crush [AM]!"))
 
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
@@ -1049,7 +1049,7 @@
 		has_tried_to_move = TRUE
 		if(!Move(target_turf, crush_dir))
 			// we'll try to move, and if we didn't end up going anywhere, then we do nothing.
-			visible_message("<span class='warning'>[src] seems to rock, but doesn't fall over!</span>")
+			visible_message(span_warning("[src] seems to rock, but doesn't fall over!"))
 			return
 
 	for(var/atom/target in (target_turf.contents) + target_turf)
@@ -1096,9 +1096,9 @@
 			continue
 
 		target.visible_message(
-			"<span class='danger'>[target] is crushed by [src]!</span>",
-			"<span class='userdanger'>[src] crushes you!</span>",
-			"<span class='warning'>You hear a loud crunch!</span>"
+			span_danger("[target] is crushed by [src]!"),
+			span_userdanger("[src] crushes you!"),
+			span_warning("You hear a loud crunch!")
 		)
 
 	tilt_over(target_turf, angle, should_rotate, rightable, block_interactions_until_righted)
@@ -1121,7 +1121,7 @@
  * * block_interactions_until_righted - If true, this object will need to be righted before it can be interacted with
  */
 /atom/movable/proc/tilt_over(turf/target, rotation_angle, should_rotate, rightable, block_interactions_until_righted)
-	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
+	visible_message(span_danger("[src] tips over!"), span_danger("You hear a loud crash!"))
 	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
 	var/rot_angle = rotation_angle ? rotation_angle : pick(90, -90)
 	if(should_rotate)

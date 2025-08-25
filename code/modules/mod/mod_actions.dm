@@ -15,7 +15,7 @@
 		return FALSE
 	var/obj/item/mod/control/mod = target
 	if(mod.malfunctioning && prob(75))
-		to_chat(usr, "<span class='warning'>The module fails to activate!</span>")
+		to_chat(usr, span_warning("The module fails to activate!"))
 		return FALSE
 	return TRUE
 

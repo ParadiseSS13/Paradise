@@ -33,7 +33,7 @@
 		return ..()
 
 /obj/item/nuke_core/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is rubbing [src] against [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return TOXLOSS
 
 /// The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
@@ -71,9 +71,9 @@
 /obj/item/nuke_core_container/examine(mob/user)
 	. = ..()
 	if(cracked) // Cracked open.
-		. += "<span class='warning'>It is broken, and can no longer store objects safely.</span>"
+		. += span_warning("It is broken, and can no longer store objects safely.")
 	else if(dented) // Not cracked, but dented.
-		. += "<span class='notice'>[src] looks dented. Perhaps a bigger explosion may break it.</span>"
+		. += span_notice("[src] looks dented. Perhaps a bigger explosion may break it.")
 	else // Not cracked or dented.
 		. += "Fine print on the box reads \"Syndicate Field Operations secure core extraction container. Guaranteed thermite proof, assistant proof, and explosive resistant.\""
 
@@ -90,7 +90,7 @@
 	new_core.forceMove(src)
 	core = new_core
 	icon_state = "core_container_loaded"
-	to_chat(user, "<span class='warning'>Container is sealing...</span>")
+	to_chat(user, span_warning("Container is sealing..."))
 	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
 
 /obj/item/nuke_core_container/proc/unload(mob/user)
@@ -109,20 +109,20 @@
 		icon_state = "core_container_sealed"
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		if(ismob(loc))
-			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [core]'s radiation is contained.</span>")
+			to_chat(loc, span_warning("[src] is permanently sealed, [core]'s radiation is contained."))
 
 /obj/item/nuke_core_container/attackby__legacy__attackchain(obj/item/nuke_core/plutonium/core, mob/user)
 	if(!istype(core) || cracked)
 		return ..()
 
 	if(!user.drop_item())
-		to_chat(user, "<span class='warning'>[core] is stuck to your hand!</span>")
+		to_chat(user, span_warning("[core] is stuck to your hand!"))
 		return
 	else
 		load(core, user)
 
 /obj/item/nuke_core_container/proc/crack_open()
-	visible_message("<span class='boldnotice'>[src] bursts open!</span>")
+	visible_message(span_boldnotice("[src] bursts open!"))
 	if(core)
 		var/datum/component/inherent_radioactivity/radioactivity = core.GetComponent(/datum/component/inherent_radioactivity)
 		START_PROCESSING(SSradiation, radioactivity)
@@ -192,24 +192,24 @@
 	if(istype(I, /obj/item/retractor/supermatter))
 		var/obj/item/retractor/supermatter/tongs = I
 		if(tongs.sliver)
-			to_chat(user, "<span class='warning'>[tongs] are already holding a supermatter sliver!</span>")
+			to_chat(user, span_warning("[tongs] are already holding a supermatter sliver!"))
 			return FALSE
 		forceMove(tongs)
 		tongs.sliver = src
 		tongs.icon_state = "supermatter_tongs_loaded"
 		tongs.item_state = "supermatter_tongs_loaded"
-		to_chat(user, "<span class='notice'>You carefully pick up [src] with [tongs].</span>")
+		to_chat(user, span_notice("You carefully pick up [src] with [tongs]."))
 	else if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter) || HAS_TRAIT(I, TRAIT_SUPERMATTER_IMMUNE)) // we don't want it to dust
 		return
 	else
 		if(issilicon(user))
-			to_chat(user, "<span class='userdanger'>You try to touch [src] with one of your modules. Error!</span>")
+			to_chat(user, span_userdanger("You try to touch [src] with one of your modules. Error!"))
 			radiation_pulse(user, 2000, GAMMA_RAD)
 			playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 			user.dust()
 			qdel(src)
 			return
-		to_chat(user, "<span class='danger'>As it touches [src], both [src] and [I] burst into dust!</span>")
+		to_chat(user, span_danger("As it touches [src], both [src] and [I] burst into dust!"))
 		radiation_pulse(user, 400, GAMMA_RAD)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		qdel(I)
@@ -230,9 +230,9 @@
 	else
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)] via throw impact.")
 		investigate_log("has consumed [key_name(victim)] via throw impact.", INVESTIGATE_SUPERMATTER)
-	victim.visible_message("<span class='danger'>As [victim] is hit by [src], both flash into dust and silence fills the room...</span>",
-		"<span class='userdanger'>You're hit by [src] and everything suddenly goes silent.\n[src] flashes into dust, and soon as you can register this, you do as well.</span>",
-		"<span class='hear'>Everything suddenly goes silent.</span>")
+	victim.visible_message(span_danger("As [victim] is hit by [src], both flash into dust and silence fills the room..."),
+		span_userdanger("You're hit by [src] and everything suddenly goes silent.\n[src] flashes into dust, and soon as you can register this, you do as well."),
+		span_hear("Everything suddenly goes silent."))
 	victim.dust()
 	radiation_pulse(src, 2000, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -244,9 +244,9 @@
 		return TRUE //yay sliver throwing memes!
 	if(!isliving(user) || user.status_flags & GODMODE) //try to keep this in sync with supermatter's consume fail conditions
 		return FALSE
-	user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",
-			"<span class='userdanger'>You reach for [src] with your hands. That was dumb.</span>",
-			"<span class='hear'>Everything suddenly goes silent.</span>")
+	user.visible_message(span_danger("[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!"),
+			span_userdanger("You reach for [src] with your hands. That was dumb."),
+			span_hear("Everything suddenly goes silent."))
 	radiation_pulse(user, 2000, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	user.dust()
@@ -269,7 +269,7 @@
 	I.icon_state = "supermatter_tongs"
 	I.item_state = "supermatter_tongs"
 	icon_state = "supermatter_container_loaded"
-	to_chat(user, "<span class='warning'>Container is sealing...</span>")
+	to_chat(user, span_warning("Container is sealing..."))
 	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
 
 
@@ -282,7 +282,7 @@
 		icon_state = "supermatter_container_sealed"
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		if(ismob(loc))
-			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [sliver] is safely contained.</span>")
+			to_chat(loc, span_warning("[src] is permanently sealed, [sliver] is safely contained."))
 
 /obj/item/nuke_core_container/supermatter/unload(obj/item/retractor/supermatter/I, mob/user)
 	if(!istype(I) || I.sliver)
@@ -293,7 +293,7 @@
 	I.icon_state = "supermatter_tongs_loaded"
 	I.item_state = "supermatter_tongs_loaded"
 	icon_state = "core_container_cracked_empty"
-	to_chat(user, "<span class='notice'>You carefully pick up [I.sliver] with [I].</span>")
+	to_chat(user, span_notice("You carefully pick up [I.sliver] with [I]."))
 
 /obj/item/nuke_core_container/supermatter/attackby__legacy__attackchain(obj/item/retractor/supermatter/tongs, mob/user)
 	if(istype(tongs))
@@ -310,9 +310,9 @@
 	if(cracked && sliver) //What did we say about touching the shard...
 		if(!isliving(user) || user.status_flags & GODMODE)
 			return FALSE
-		user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [sliver]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",
-				"<span class='userdanger'>You reach for [sliver] with your hands. That was dumb.</span>",
-				"<span class='italics'>Everything suddenly goes silent.</span>")
+		user.visible_message(span_danger("[user] reaches out and tries to pick up [sliver]. [user.p_their()] body starts to glow and bursts into flames before flashing into dust!"),
+				span_userdanger("You reach for [sliver] with your hands. That was dumb."),
+				span_italics("Everything suddenly goes silent."))
 		radiation_pulse(user, 2000, GAMMA_RAD)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		message_admins("[sliver] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
@@ -325,7 +325,7 @@
 		return ..()
 
 /obj/item/nuke_core_container/supermatter/crack_open()
-	visible_message("<span class='boldnotice'>[src] bursts open!</span>")
+	visible_message(span_boldnotice("[src] bursts open!"))
 	if(sliver)
 		START_PROCESSING(SSobj, sliver)
 		icon_state = "supermatter_container_cracked_loaded"
@@ -374,7 +374,7 @@
 /obj/item/retractor/supermatter/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // no instakill supermatter javelins
 	if(sliver)
 		sliver.forceMove(loc)
-		visible_message("<span class='notice'>[sliver] falls out of [src] as it hits the ground.</span>")
+		visible_message(span_notice("[sliver] falls out of [src] as it hits the ground."))
 		sliver = null
 		icon_state = "supermatter_tongs"
 		item_state = "supermatter_tongs"
@@ -402,9 +402,9 @@
 
 	if(user)
 		add_attack_logs(user, AM, "[AM] and [user] consumed by melee attack with [src] by [user]")
-		user.visible_message("<span class='danger'>As [user] touches [AM] with [src], both flash into dust and silence fills the room...</span>",
-			"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well.</span>",
-			"<span class='hear'>Everything suddenly goes silent.</span>")
+		user.visible_message(span_danger("As [user] touches [AM] with [src], both flash into dust and silence fills the room..."),
+			span_userdanger("You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well."),
+			span_hear("Everything suddenly goes silent."))
 		user.dust()
 		icon_state = "supermatter_tongs"
 		item_state = "supermatter_tongs"

@@ -86,13 +86,13 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/attackby__legacy__attackchain(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor || T.intact)
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		to_chat(user, span_danger("You can't interact with something that's under the floor!"))
 		return
 
 	else if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = W
 		if(coil.get_amount() < 1)
-			to_chat(user, "<span class='warning'>Not enough cable!</span>")
+			to_chat(user, span_warning("Not enough cable!"))
 			return
 		coil.cable_join(src, user)
 
@@ -124,9 +124,9 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/generate_power_message()
 	if(powernet && (powernet.available_power > 0))
-		return chat_box_examine("<span class='notice'>Total power: [DisplayPower(powernet.available_power)]<br>Load: [DisplayPower(powernet.power_demand)]<br>Excess power: [DisplayPower(get_surplus())]</span>")
+		return chat_box_examine(span_notice("Total power: [DisplayPower(powernet.available_power)]<br>Load: [DisplayPower(powernet.power_demand)]<br>Excess power: [DisplayPower(get_surplus())]"))
 	else
-		return "<span class='warning'>The cable is not powered.</span>"
+		return span_warning("The cable is not powered.")
 
 /obj/structure/cable/examine(mob/user)
 	. = ..()
@@ -137,7 +137,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	. = TRUE
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor || T.intact)
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		to_chat(user, span_danger("You can't interact with something that's under the floor!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -146,7 +146,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(strengthened)
 		to_chat(user, "<span class = 'danger'>The cable resists your attempts to cut it!")
 		return
-	user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
+	user.visible_message("[user] cuts the cable.", span_notice("You cut the cable."))
 	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])",INVESTIGATE_WIRES)
 	deconstruct()
 

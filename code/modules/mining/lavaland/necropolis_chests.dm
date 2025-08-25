@@ -222,7 +222,7 @@
 
 /obj/item/clothing/head/hooded/berserker/examine()
 	. = ..()
-	. += "<span class='notice'>Berserk mode is [berserk_charge]% charged.</span>"
+	. += span_notice("Berserk mode is [berserk_charge]% charged.")
 
 /obj/item/clothing/head/hooded/berserker/process()
 	if(berserk_active)
@@ -252,11 +252,11 @@
 		berserk_value *= PROJECTILE_HIT_MULTIPLIER
 	berserk_charge = clamp(round(berserk_charge + berserk_value), 0, MAX_BERSERK_CHARGE)
 	if(berserk_charge >= MAX_BERSERK_CHARGE)
-		to_chat(owner, "<span class='boldnotice'>Berserk mode is fully charged!</span>")
+		to_chat(owner, span_boldnotice("Berserk mode is fully charged!"))
 
 /// Starts berserk, giving the wearer 40% brute / burn resist, doubled attacking speed, NOGUNS trait, and colours them blood red.
 /obj/item/clothing/head/hooded/berserker/proc/berserk_mode(mob/living/carbon/human/user)
-	to_chat(user, "<span class='warning'>You enter berserk mode.</span>")
+	to_chat(user, span_warning("You enter berserk mode."))
 	playsound(user, 'sound/magic/staff_healing.ogg', 50)
 	set_light(3)
 	user.physiology.burn_mod *= BERSERK_DAMAGE_REDUCTION
@@ -276,7 +276,7 @@
 	berserk_active = FALSE
 	if(QDELETED(user))
 		return
-	to_chat(user, "<span class='warning'>You exit berserk mode.</span>")
+	to_chat(user, span_warning("You exit berserk mode."))
 	playsound(user, 'sound/magic/summonitems_generic.ogg', 50)
 	set_light(0)
 	user.physiology.burn_mod /= BERSERK_DAMAGE_REDUCTION
@@ -296,10 +296,10 @@
 	if(istype(target, /obj/item/clothing/head/hooded/berserker))
 		var/obj/item/clothing/head/hooded/berserker/berzerk = target
 		if(berzerk.berserk_active)
-			to_chat(owner, "<span class='warning'>You are already berserk!</span>")
+			to_chat(owner, span_warning("You are already berserk!"))
 			return
 		if(berzerk.berserk_charge < 100)
-			to_chat(owner, "<span class='warning'>You don't have a full charge.</span>")
+			to_chat(owner, span_warning("You don't have a full charge."))
 			return
 		berzerk.berserk_mode(owner)
 		return
@@ -333,7 +333,7 @@
 	if(activated)
 		return
 	if(!iscarbon(user))
-		to_chat(user, "<span class='warning'>The snake carving seems to come alive, if only for a moment, before returning to its dormant state, almost as if it finds you incapable of holding its oath.</span>")
+		to_chat(user, span_warning("The snake carving seems to come alive, if only for a moment, before returning to its dormant state, almost as if it finds you incapable of holding its oath."))
 		return
 	var/mob/living/carbon/itemUser = user
 	if(itemUser.l_hand == src)
@@ -341,10 +341,10 @@
 	if(itemUser.r_hand == src)
 		usedHand = RIGHT_HAND
 	if(itemUser.has_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH))
-		to_chat(user, "<span class='warning'>You can't possibly handle the responsibility of more than one rod!</span>")
+		to_chat(user, span_warning("You can't possibly handle the responsibility of more than one rod!"))
 		return
-	var/failText = "<span class='warning'>The snake seems unsatisfied with your incomplete oath and returns to its previous place on the rod, returning to its dormant, wooden state. You must stand still while completing your oath!</span>"
-	to_chat(itemUser, "<span class='notice'>The wooden snake that was carved into the rod seems to suddenly come alive and begins to slither down your arm! The compulsion to help others grows abnormally strong...</span>")
+	var/failText = span_warning("The snake seems unsatisfied with your incomplete oath and returns to its previous place on the rod, returning to its dormant, wooden state. You must stand still while completing your oath!")
+	to_chat(itemUser, span_notice("The wooden snake that was carved into the rod seems to suddenly come alive and begins to slither down your arm! The compulsion to help others grows abnormally strong..."))
 	if(do_after_once(itemUser, 40, target = itemUser))
 		itemUser.say("I swear to fulfill, to the best of my ability and judgment, this covenant:")
 	else
@@ -365,7 +365,7 @@
 	else
 		to_chat(itemUser, failText)
 		return
-	to_chat(itemUser, "<span class='notice'>The snake, satisfied with your oath, attaches itself and the rod to your forearm with an inseparable grip. Your thoughts seem to only revolve around the core idea of helping others, and harm is nothing more than a distant, wicked memory...</span>")
+	to_chat(itemUser, span_notice("The snake, satisfied with your oath, attaches itself and the rod to your forearm with an inseparable grip. Your thoughts seem to only revolve around the core idea of helping others, and harm is nothing more than a distant, wicked memory..."))
 
 	activated(itemUser)
 
@@ -412,10 +412,10 @@
 		H.put_in_r_hand(src, TRUE)
 
 	if(!limb_regrown)
-		to_chat(H, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
+		to_chat(H, span_notice("The Rod of Asclepius suddenly grows back out of your arm!"))
 	else
 		H.update_body() // Update the limb sprites
-		to_chat(H, "<span class='notice'>Your arm suddenly grows back with the Rod of Asclepius still attached!</span>")
+		to_chat(H, span_notice("Your arm suddenly grows back with the Rod of Asclepius still attached!"))
 
 /obj/item/rod_of_asclepius/proc/activated(mob/living/carbon/new_owner)
 	owner = new_owner
@@ -454,7 +454,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/katana/attack_self__legacy__attackchain(mob/living/carbon/user, modifiers)
 	. = ..()
-	to_chat(user,"<span class='userdanger'>The mass goes up your arm and inside it!</span>")
+	to_chat(user,span_userdanger("The mass goes up your arm and inside it!"))
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(user_death))
 
@@ -469,7 +469,7 @@
 	if(!katana || katana.shattered)
 		return FALSE
 	if(!katana.drew_blood)
-		to_chat(owner, "<span class='userdanger'>[katana] lashes out at you in hunger!</span>")
+		to_chat(owner, span_userdanger("[katana] lashes out at you in hunger!"))
 		playsound(owner, 'sound/misc/demon_attack1.ogg', 50, TRUE)
 		if(parent_organ)
 			owner.apply_damage(25, BRUTE, parent_organ, TRUE)
@@ -480,7 +480,7 @@
 /obj/item/organ/internal/cyberimp/arm/katana/Extend()
 	for(var/obj/item/cursed_katana/katana in contents)
 		if(katana.shattered)
-			to_chat(owner, "<span class='warning'>Your cursed katana has not reformed yet!</span>")
+			to_chat(owner, span_warning("Your cursed katana has not reformed yet!"))
 			return FALSE
 	return ..()
 
@@ -490,8 +490,8 @@
 
 /obj/item/organ/internal/cyberimp/arm/katana/proc/user_death_async(mob/user)
 	Retract()
-	user.visible_message("<span class='warning'>[user] begins to turn to dust, his soul being contained within [src]!</span>",
-		"<span class='userdanger'>You feel your body begin to turn to dust, your soul being drawn into [src]!</span>")
+	user.visible_message(span_warning("[user] begins to turn to dust, his soul being contained within [src]!"),
+		span_userdanger("You feel your body begin to turn to dust, your soul being drawn into [src]!"))
 	forceMove(get_turf(owner))
 	remove(user)
 	addtimer(CALLBACK(user, TYPE_PROC_REF(/mob, dust)), 1 SECONDS)
@@ -552,11 +552,11 @@
 	for(var/combo in combo_list)
 		var/list/combo_specifics = combo_list[combo]
 		var/step_string = english_list(combo_specifics[COMBO_STEPS])
-		combo_strings += ("<span class='notice'><b>[combo]</b> - [step_string]</span>")
+		combo_strings += (span_notice("<b>[combo]</b> - [step_string]"))
 
 /obj/item/cursed_katana/examine(mob/user)
 	. = ..()
-	. += drew_blood ? ("<span class='notice'>It's sated... for now.</span>") : ("<span class='danger'>It will not be sated until it tastes blood.</span>")
+	. += drew_blood ? (span_notice("It's sated... for now.")) : (span_danger("It will not be sated until it tastes blood."))
 	. += combo_strings
 
 /obj/item/cursed_katana/dropped(mob/user)
@@ -571,7 +571,7 @@
 	if(target.stat == DEAD || target == user) //No, you can not stab yourself to cloak / not take the penalty for not drawing blood
 		return ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
+		to_chat(user, span_warning("You don't want to harm [target]!"))
 		return TRUE
 	drew_blood = TRUE
 	if(user.a_intent == INTENT_DISARM)
@@ -605,20 +605,20 @@
 /obj/item/cursed_katana/proc/reset_inputs(mob/user, deltimer)
 	input_list.Cut()
 	if(user)
-		to_chat(user, "<span class='notice'>You return to neutral stance.</span>")
+		to_chat(user, span_notice("You return to neutral stance."))
 	if(deltimer && timerid)
 		deltimer(timerid)
 
 /obj/item/cursed_katana/proc/strike(mob/living/target, mob/user)
-	user.visible_message("<span class='warning'>[user] strikes [target] with [src]'s hilt!</span>",
-		"<span class='notice'>You hilt strike [target]!</span>")
-	to_chat(target, "<span class='userdanger'>You've been struck by [user]!</span>")
+	user.visible_message(span_warning("[user] strikes [target] with [src]'s hilt!"),
+		span_notice("You hilt strike [target]!"))
+	to_chat(target, span_userdanger("You've been struck by [user]!"))
 	playsound(src, 'sound/weapons/genhit3.ogg', 50, TRUE)
 	RegisterSignal(target, COMSIG_MOVABLE_IMPACT, PROC_REF(strike_throw_impact))
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	target.throw_at(throw_target, 5, 3, user, FALSE, callback = CALLBACK(target, TYPE_PROC_REF(/datum, UnregisterSignal), target, COMSIG_MOVABLE_IMPACT))
 	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST)
-	to_chat(target, "<span class='userdanger'>You've been struck by [user]!</span>")
+	to_chat(target, span_userdanger("You've been struck by [user]!"))
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 
 /obj/item/cursed_katana/proc/strike_throw_impact(mob/living/source, atom/hit_atom, datum/thrownthing/thrownthing)
@@ -635,8 +635,8 @@
 	return NONE
 
 /obj/item/cursed_katana/proc/slice(mob/living/target, mob/user)
-	user.visible_message("<span class='warning'>[user] does a wide slice!</span>",
-		"<span class='notice'>You do a wide slice!</span>")
+	user.visible_message(span_warning("[user] does a wide slice!"),
+		span_notice("You do a wide slice!"))
 	playsound(src, 'sound/weapons/bladeslice.ogg', 50, TRUE)
 	var/turf/user_turf = get_turf(user)
 	var/dir_to_target = get_dir(user_turf, get_turf(target))
@@ -647,19 +647,19 @@
 		for(var/mob/living/additional_target in T)
 			if(user.Adjacent(additional_target) && additional_target.density)
 				additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
-				to_chat(additional_target, "<span class='userdanger'>You've been sliced by [user]!</span>")
+				to_chat(additional_target, span_userdanger("You've been sliced by [user]!"))
 	target.apply_damage(5, BRUTE, BODY_ZONE_CHEST, TRUE)
 
 /obj/item/cursed_katana/proc/heal(mob/living/target, mob/living/user)
-	user.visible_message("<span class='warning'>[user] lets [src] feast on [target]'s blood!</span>",
-		"<span class='warning'>You let [src] feast on [target], and it heals you, at a price!</span>")
+	user.visible_message(span_warning("[user] lets [src] feast on [target]'s blood!"),
+		span_warning("You let [src] feast on [target], and it heals you, at a price!"))
 	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
 	user.apply_status_effect(STATUS_EFFECT_SHADOW_MEND)
 
 /obj/item/cursed_katana/proc/cut(mob/living/target, mob/user)
-	user.visible_message("<span class='warning'>[user] cuts [target]'s tendons!</span>",
-		"<span class='notice'>You tendon cut [target]!</span>")
-	to_chat(target, "<span class='userdanger'>Your tendons have been cut by [user]!</span>")
+	user.visible_message(span_warning("[user] cuts [target]'s tendons!"),
+		span_notice("You tendon cut [target]!"))
+	to_chat(target, span_userdanger("Your tendons have been cut by [user]!"))
 	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	playsound(src, 'sound/weapons/rapierhit.ogg', 50, TRUE)
@@ -673,11 +673,11 @@
 	var/turf/dash_target = get_turf(target)
 	var/turf/user_turf = get_turf(user)
 	if(!is_teleport_allowed(dash_target.z)) //No teleporting at CC
-		to_chat(user, ("<span class='userdanger'>You can not dash here!</span>"))
+		to_chat(user, (span_userdanger("You can not dash here!")))
 		return
-	user.visible_message("<span class='warning'>[user] dashes through [target]!</span>",
-		"<span class='notice'>You dash through [target]!</span>")
-	to_chat(target, ("<span class='userdanger'>[user] dashes through you!</span>"))
+	user.visible_message(span_warning("[user] dashes through [target]!"),
+		span_notice("You dash through [target]!"))
+	to_chat(target, (span_userdanger("[user] dashes through you!")))
 	playsound(src, 'sound/magic/blink.ogg', 50, TRUE)
 	target.apply_damage(17, BRUTE, BODY_ZONE_CHEST, TRUE)
 	for(var/distance in 0 to 8)
@@ -689,14 +689,14 @@
 			break
 		for(var/mob/living/additional_target in dash_target) //Slash through every mob you cut through
 			additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
-			to_chat(additional_target, "<span class='userdanger'>You've been sliced by [user]!</span>")
+			to_chat(additional_target, span_userdanger("You've been sliced by [user]!"))
 	user_turf.Beam(dash_target, icon_state = "warp_beam", time = 0.3 SECONDS, maxdistance = INFINITY)
 	user.forceMove(dash_target)
 
 /obj/item/cursed_katana/proc/shatter(mob/living/target, mob/user)
-	user.visible_message("<span class='warning'>[user] shatters [src] over [target]!</span>",
-		"<span class='notice'>You shatter [src] over [target]!</span>")
-	to_chat(target, "<span class='userdanger'>[user] shatters [src] over you!</span>")
+	user.visible_message(span_warning("[user] shatters [src] over [target]!"),
+		span_notice("You shatter [src] over [target]!"))
+	to_chat(target, span_userdanger("[user] shatters [src] over you!"))
 	target.apply_damage((ishostile(target) ? 75 : 35), BRUTE, BODY_ZONE_CHEST, TRUE)
 	target.KnockDown(5 SECONDS)
 	target.apply_damage(60, STAMINA) //Takes 4 hits to do, breaks your weapon. Perfectly fine.
@@ -711,7 +711,7 @@
 	addtimer(CALLBACK(src, PROC_REF(coagulate), user), 45 SECONDS)
 
 /obj/item/cursed_katana/proc/coagulate(mob/user)
-	to_chat(user, "<span class='notice'>[src] reforms!</span>")
+	to_chat(user, span_notice("[src] reforms!"))
 	shattered = FALSE
 	playsound(src, 'sound/misc/demon_consume.ogg', 50, TRUE)
 

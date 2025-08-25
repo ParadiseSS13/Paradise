@@ -87,10 +87,10 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 /datum/antagonist/changeling/greet()
 	. = ..()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_alert.ogg'))
-	. += "<span class='danger'>Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>"
+	. += span_danger("Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb a fellow changeling.")
 
 /datum/antagonist/changeling/farewell()
-	to_chat(owner.current, "<span class='biggerdanger'><b>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</b></span>")
+	to_chat(owner.current, span_biggerdanger("<b>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</b>"))
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()
@@ -197,15 +197,15 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 /datum/antagonist/changeling/proc/try_respec()
 	var/mob/living/carbon/human/H = owner.current
 	if(!ishuman(H) || issmall(H))
-		to_chat(H, "<span class='danger'>We can't readapt our evolutions in this form!</span>")
+		to_chat(H, span_danger("We can't readapt our evolutions in this form!"))
 		return FALSE
 	if(can_respec)
-		to_chat(H, "<span class='notice'>We have removed our evolutions from this form, and are now ready to readapt.</span>")
+		to_chat(H, span_notice("We have removed our evolutions from this form, and are now ready to readapt."))
 		respec()
 		can_respec = FALSE
 		return TRUE
 	else
-		to_chat(H, "<span class='danger'>You lack the power to readapt your evolutions!</span>")
+		to_chat(H, span_danger("You lack the power to readapt your evolutions!"))
 		return FALSE
 
 /**
@@ -425,23 +425,23 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 /datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/target)
 	var/mob/living/carbon/user = owner.current
 	if(using_stale_dna())//If our current DNA is the stalest, we gotta ditch it.
-		to_chat(user, "<span class='warning'>The DNA we are wearing is stale. Transform and try again.</span>")
+		to_chat(user, span_warning("The DNA we are wearing is stale. Transform and try again."))
 		return FALSE
 	if(!target || !target.dna)
-		to_chat(user, "<span class='warning'>This creature does not have any DNA.</span>")
+		to_chat(user, span_warning("This creature does not have any DNA."))
 		return FALSE
 	var/mob/living/carbon/human/T = target
 	if(!istype(T) || issmall(T))
-		to_chat(user, "<span class='warning'>[T] is not compatible with our biology.</span>")
+		to_chat(user, span_warning("[T] is not compatible with our biology."))
 		return FALSE
 	if(HAS_TRAIT(T, TRAIT_BADDNA) || HAS_TRAIT(T, TRAIT_HUSK) || HAS_TRAIT(T, TRAIT_SKELETONIZED))
-		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
+		to_chat(user, span_warning("DNA of [target] is ruined beyond usability!"))
 		return FALSE
 	if(HAS_TRAIT(T, TRAIT_GENELESS))
-		to_chat(user, "<span class='warning'>This creature does not have DNA!</span>")
+		to_chat(user, span_warning("This creature does not have DNA!"))
 		return FALSE
 	if(get_dna(target.dna))
-		to_chat(user, "<span class='warning'>We already have this DNA in storage.</span>")
+		to_chat(user, span_warning("We already have this DNA in storage."))
 	return TRUE
 
 /datum/antagonist/changeling/proc/on_death(mob/living/L, gibbed)
@@ -453,9 +453,9 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 		return
 
 	if(!H.get_organ_slot("brain"))
-		to_chat(L, "<span class='notice'>The brain is a useless organ to us, we are able to regenerate!</span>")
+		to_chat(L, span_notice("The brain is a useless organ to us, we are able to regenerate!"))
 	else
-		to_chat(L, "<span class='notice'>While our current form may be lifeless, this is not the end for us as we can still regenerate!</span>")
+		to_chat(L, span_notice("While our current form may be lifeless, this is not the end for us as we can still regenerate!"))
 
 /datum/antagonist/changeling/custom_blurb()
 	return "We awaken on the [station_name()], [get_area_name(owner.current, TRUE)]...\nWe have our tasks to attend to..."

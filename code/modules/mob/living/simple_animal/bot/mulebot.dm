@@ -107,17 +107,17 @@
 		C.forceMove(src)
 		cell = C
 		visible_message("[user] inserts a cell into [src].",
-						"<span class='notice'>You insert the new cell into [src].</span>")
+						span_notice("You insert the new cell into [src]."))
 		update_controls()
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
 			unload(0)
-			user.visible_message("<span class='danger'>[user] knocks [load] off [src] with \the [I]!</span>",
-									"<span class='danger'>You knock [load] off [src] with \the [I]!</span>")
+			user.visible_message(span_danger("[user] knocks [load] off [src] with \the [I]!"),
+									span_danger("You knock [load] off [src] with \the [I]!"))
 		else
-			to_chat(user, "<span class='warning'>You hit [src] with \the [I] but to no effect!</span>")
+			to_chat(user, span_warning("You hit [src] with \the [I] but to no effect!"))
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
 
@@ -133,7 +133,7 @@
 	cell.forceMove(loc)
 	cell = null
 	visible_message("[user] crowbars out the power cell from [src].",
-					"<span class='notice'>You pry the powercell out of [src].</span>")
+					span_notice("You pry the powercell out of [src]."))
 	update_controls()
 
 /mob/living/simple_animal/bot/mulebot/multitool_act(mob/living/user, obj/item/I)
@@ -156,15 +156,15 @@
 /mob/living/simple_animal/bot/mulebot/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(health >= maxHealth)
-		to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
+		to_chat(user, span_notice("[src] does not need a repair!"))
 		return
 	if(!I.use_tool(src, user, I.tool_volume))
 		return
 	adjustBruteLoss(-25)
 	updatehealth()
 	user.visible_message(
-		"<span class='notice'>[user] repairs [src]!</span>",
-		"<span class='notice'>You repair [src]!</span>"
+		span_notice("[user] repairs [src]!"),
+		span_notice("You repair [src]!")
 	)
 
 /mob/living/simple_animal/bot/mulebot/wirecutter_act(mob/living/user, obj/item/I)
@@ -180,7 +180,7 @@
 		emagged = TRUE
 	if(!open)
 		locked = !locked
-		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src]'s controls!</span>")
+		to_chat(user, span_notice("You [locked ? "lock" : "unlock"] [src]'s controls!"))
 	flick("mulebot-emagged", src)
 	playsound(loc, 'sound/effects/sparks1.ogg', 100, 0)
 
@@ -217,7 +217,7 @@
 		if(prob(50) && !isnull(load))
 			unload(0)
 		if(prob(25))
-			visible_message("<span class='danger'>Something shorts out inside [src]!</span>")
+			visible_message(span_danger("Something shorts out inside [src]!"))
 			wires.cut_random()
 
 /mob/living/simple_animal/bot/mulebot/Topic(href, list/href_list)
@@ -232,7 +232,7 @@
 				turn_off()
 			else if(cell && !open)
 				if(!turn_on())
-					to_chat(usr, "<span class='warning'>You can't switch on [src]!</span>")
+					to_chat(usr, span_warning("You can't switch on [src]!"))
 					return
 			else
 				return
@@ -244,7 +244,7 @@
 				cell.add_fingerprint(usr)
 				cell = null
 
-				usr.visible_message("<span class='notice'>[usr] removes the power cell from [src].</span>", "<span class='notice'>You remove the power cell from [src].</span>")
+				usr.visible_message(span_notice("[usr] removes the power cell from [src]."), span_notice("You remove the power cell from [src]."))
 		if("cellinsert")
 			if(open && !cell)
 				var/obj/item/stock_parts/cell/C = usr.get_active_hand()
@@ -254,7 +254,7 @@
 					C.forceMove(src)
 					C.add_fingerprint(usr)
 
-					usr.visible_message("<span class='notice'>[usr] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
+					usr.visible_message(span_notice("[usr] inserts a power cell into [src]."), span_notice("You insert the power cell into [src]."))
 		if("stop")
 			if(mode >= BOT_DELIVER)
 				bot_reset()
@@ -296,7 +296,7 @@
 		update_controls()
 		return 1
 	else
-		to_chat(user, "<span class='danger'>Access denied.</span>")
+		to_chat(user, span_danger("Access denied."))
 		return 0
 
 // TODO: remove this; PDAs currently depend on it
@@ -314,17 +314,17 @@
 		dat += "<div class='statusDisplay'>"
 		switch(mode)
 			if(BOT_IDLE)
-				dat += "<span class='good'>Ready</span>"
+				dat += span_good("Ready")
 			if(BOT_DELIVER)
-				dat += "<span class='good'>[mode_name[BOT_DELIVER]]</span>"
+				dat += span_good("[mode_name[BOT_DELIVER]]")
 			if(BOT_GO_HOME)
-				dat += "<span class='good'>[mode_name[BOT_GO_HOME]]</span>"
+				dat += span_good("[mode_name[BOT_GO_HOME]]")
 			if(BOT_BLOCKED)
-				dat += "<span class='average'>[mode_name[BOT_BLOCKED]]</span>"
+				dat += span_average("[mode_name[BOT_BLOCKED]]")
 			if(BOT_NAV,BOT_WAIT_FOR_NAV)
-				dat += "<span class='average'>[mode_name[BOT_NAV]]</span>"
+				dat += span_average("[mode_name[BOT_NAV]]")
 			if(BOT_NO_ROUTE)
-				dat += "<span class='bad'>[mode_name[BOT_NO_ROUTE]]</span>"
+				dat += span_bad("[mode_name[BOT_NO_ROUTE]]")
 		dat += "</div>"
 
 		dat += "<b>Current Load:</b> [load ? load.name : "<i>none</i>"]<BR>"
@@ -653,7 +653,7 @@
 		if(pathset) //The AI called us here, so notify it of our arrival.
 			loaddir = dir //The MULE will attempt to load a crate in whatever direction the MULE is "facing".
 			if(calling_ai)
-				to_chat(calling_ai, "<span class='notice'>[bicon(src)] [src] wirelessly plays a chiming sound!</span>")
+				to_chat(calling_ai, span_notice("[bicon(src)] [src] wirelessly plays a chiming sound!"))
 				playsound(calling_ai, 'sound/machines/chime.ogg',40, 0)
 				calling_ai = null
 				radio_channel = "AI Private" //Report on AI Private instead if the AI is controlling us.
@@ -721,11 +721,11 @@
 		var/mob/living/L = obs
 		if(ismob(L))
 			if(isrobot(L))
-				visible_message("<span class='danger'>[src] bumps into [L]!</span>")
+				visible_message(span_danger("[src] bumps into [L]!"))
 			else
 				if(!paicard)
 					add_attack_logs(src, L, "Knocked down")
-					visible_message("<span class='danger'>[src] knocks over [L]!</span>")
+					visible_message(span_danger("[src] knocks over [L]!"))
 					L.stop_pulling()
 					L.Weaken(16 SECONDS)
 	return ..()
@@ -734,8 +734,8 @@
 	if(H.player_logged)//No running over SSD people
 		return
 	add_attack_logs(src, H, "Run over (DAMTYPE: [uppertext(BRUTE)])")
-	H.visible_message("<span class='danger'>[src] drives over [H]!</span>", \
-					"<span class='userdanger'>[src] drives over you!</span>")
+	H.visible_message(span_danger("[src] drives over [H]!"), \
+					span_userdanger("[src] drives over you!"))
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 
 	var/damage = rand(5,15)
@@ -851,7 +851,7 @@
 
 
 /mob/living/simple_animal/bot/mulebot/explode()
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(span_userdanger("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 
 	new /obj/item/assembly/prox_sensor(Tsec)

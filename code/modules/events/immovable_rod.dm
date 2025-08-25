@@ -135,8 +135,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	else if(ismob(victim))
 		if(ishuman(victim))
 			var/mob/living/carbon/human/H = victim
-			H.visible_message("<span class='danger'>[H.name] is penetrated by an immovable rod!</span>",
-				"<span class='userdanger'>The rod penetrates you!</span>",
+			H.visible_message(span_danger("[H.name] is penetrated by an immovable rod!"),
+				span_userdanger("The rod penetrates you!"),
 				"<span class ='danger'>You hear a CLANG!</span>")
 			H.adjustBruteLoss(160)
 		if(victim.density || prob(10))

@@ -19,15 +19,15 @@
 /obj/item/stack/medical/proc/apply(mob/living/M, mob/user)
 	if(get_amount() <= 0)
 		if(is_cyborg)
-			to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [singular_name]\s!</span>")
+			to_chat(user, span_warning("You don't have enough energy to dispense more [singular_name]\s!"))
 		return TRUE
 
 	if(!iscarbon(M) && !isanimal_or_basicmob(M))
-		to_chat(user, "<span class='danger'>[src] cannot be applied to [M]!</span>")
+		to_chat(user, span_danger("[src] cannot be applied to [M]!"))
 		return TRUE
 
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='danger'>You don't have the dexterity to do this!</span>")
+		to_chat(user, span_danger("You don't have the dexterity to do this!"))
 		return TRUE
 
 
@@ -39,15 +39,15 @@
 			return TRUE
 
 		if(!affecting)
-			to_chat(user, "<span class='danger'>That limb is missing!</span>")
+			to_chat(user, span_danger("That limb is missing!"))
 			return TRUE
 
 		if(affecting.is_robotic())
-			to_chat(user, "<span class='danger'>This can't be used on a robotic limb.</span>")
+			to_chat(user, span_danger("This can't be used on a robotic limb."))
 			return TRUE
 
 		if(M == user && !unique_handling)
-			user.visible_message("<span class='notice'>[user] starts to apply [src] on [H]...</span>")
+			user.visible_message(span_notice("[user] starts to apply [src] on [H]..."))
 			if(!do_mob(user, H, delay))
 				return TRUE
 		return
@@ -55,25 +55,25 @@
 	if(isanimal_or_basicmob(M))
 		var/mob/living/critter = M
 		if(!(critter.healable))
-			to_chat(user, "<span class='notice'>You cannot use [src] on [critter]!</span>")
+			to_chat(user, span_notice("You cannot use [src] on [critter]!"))
 			return
 		else if(critter.health == critter.maxHealth)
-			to_chat(user, "<span class='notice'>[critter] is at full health.</span>")
+			to_chat(user, span_notice("[critter] is at full health."))
 			return
 		else if(heal_brute < 1)
-			to_chat(user, "<span class='notice'>[src] won't help [critter] at all.</span>")
+			to_chat(user, span_notice("[src] won't help [critter] at all."))
 			return
 
 		critter.heal_organ_damage(heal_brute, heal_burn)
-		user.visible_message("<span class='green'>[user] applies [src] on [critter].</span>", \
-							"<span class='green'>You apply [src] on [critter].</span>")
+		user.visible_message(span_green("[user] applies [src] on [critter]."), \
+							span_green("You apply [src] on [critter]."))
 
 		use(1)
 
 	else
 		M.heal_organ_damage(heal_brute, heal_burn)
-		user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", \
-							"<span class='green'>You apply [src] on [M].</span>")
+		user.visible_message(span_green("[user] applies [src] on [M]."), \
+							span_green("You apply [src] on [M]."))
 		use(1)
 
 /obj/item/stack/medical/attack__legacy__attackchain(mob/living/M, mob/user)
@@ -85,8 +85,8 @@
 /obj/item/stack/medical/proc/heal(mob/living/M, mob/user)
 	var/mob/living/carbon/human/H = M
 	var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
-	user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [affecting.name].</span>", \
-						"<span class='green'>You [healverb] the wounds on [H]'s [affecting.name].</span>" )
+	user.visible_message(span_green("[user] [healverb]s the wounds on [H]'s [affecting.name]."), \
+						span_green("You [healverb] the wounds on [H]'s [affecting.name].") )
 
 	var/rembrute = max(0, heal_brute - affecting.brute_dam) // Maxed with 0 since heal_damage let you pass in a negative value
 	var/remburn = max(0, heal_burn - affecting.burn_dam) // And deduct it from their health (aka deal damage)
@@ -115,8 +115,8 @@
 		E.heal_damage(rembrute, remburn)
 		rembrute = nrembrute
 		remburn = nremburn
-		user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication.</span>", \
-							"<span class='green'>You [healverb] the wounds on [H]'s [E.name] with the remaining medication.</span>" )
+		user.visible_message(span_green("[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication."), \
+							span_green("You [healverb] the wounds on [H]'s [E.name] with the remaining medication.") )
 	return affecting
 
 //Bruise Packs//
@@ -137,12 +137,12 @@
 /obj/item/stack/medical/bruise_pack/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(I.sharp)
 		if(get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need at least two gauzes to do this!</span>")
+			to_chat(user, span_warning("You need at least two gauzes to do this!"))
 			return
 		new /obj/item/stack/sheet/cloth(user.drop_location())
 		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
-					"<span class='notice'>You cut [src] into pieces of cloth with [I].</span>", \
-					"<span class='italics'>You hear cutting.</span>")
+					span_notice("You cut [src] into pieces of cloth with [I]."), \
+					span_italics("You hear cutting."))
 		use(2)
 	else
 		return ..()
@@ -156,7 +156,7 @@
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(E.open >= ORGAN_ORGANIC_OPEN)
-				to_chat(user, "<span class='warning'>[E] is cut open, you'll need more than a bandage!</span>")
+				to_chat(user, span_warning("[E] is cut open, you'll need more than a bandage!"))
 				return
 		affecting.germ_level = 0
 
@@ -229,12 +229,12 @@
 			H.UpdateDamageIcon()
 			use(1)
 		else
-			to_chat(user, "<span class='warning'>[affecting] is cut open, you'll need more than some ointment!</span>")
+			to_chat(user, span_warning("[affecting] is cut open, you'll need more than some ointment!"))
 
 /obj/item/stack/medical/ointment/heal(mob/living/M, mob/user)
 	var/obj/item/organ/external/affecting = ..()
 	if((affecting.status & ORGAN_BURNT) && !(affecting.status & ORGAN_SALVED))
-		to_chat(affecting.owner, "<span class='notice'>As [src] is applied to your burn wound, you feel a soothing cold and relax.</span>")
+		to_chat(affecting.owner, span_notice("As [src] is applied to your burn wound, you feel a soothing cold and relax."))
 		affecting.status |= ORGAN_SALVED
 		addtimer(CALLBACK(affecting, TYPE_PROC_REF(/obj/item/organ/external, remove_ointment), heal_burn), 3 MINUTES)
 
@@ -245,9 +245,9 @@
 		owner.updatehealth("permanent injury removal")
 	if(!perma_injury)
 		fix_burn_wound(update_health = FALSE)
-		to_chat(owner, "<span class='notice'>You feel your [src.name]'s burn wound has fully healed, and the rest of the salve absorbs into it.</span>")
+		to_chat(owner, span_notice("You feel your [src.name]'s burn wound has fully healed, and the rest of the salve absorbs into it."))
 	else
-		to_chat(owner, "<span class='notice'>You feel your [src.name]'s burn wound has healed a little, but the applied salve has already vanished.</span>")
+		to_chat(owner, span_notice("You feel your [src.name]'s burn wound has healed a little, but the applied salve has already vanished."))
 
 /obj/item/stack/medical/ointment/advanced
 	name = "advanced burn kit"
@@ -322,29 +322,29 @@
 		var/limb = affecting.name
 
 		if(!(affecting.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")))
-			to_chat(user, "<span class='danger'>You can't apply a splint there!</span>")
+			to_chat(user, span_danger("You can't apply a splint there!"))
 			return TRUE
 
 		if(affecting.status & ORGAN_SPLINTED)
-			to_chat(user, "<span class='danger'>[H]'s [limb] is already splinted!</span>")
+			to_chat(user, span_danger("[H]'s [limb] is already splinted!"))
 			if(tgui_alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Splint removal", list("Yes", "No")) == "Yes")
 				affecting.status &= ~ORGAN_SPLINTED
 				H.handle_splints()
-				to_chat(user, "<span class='notice'>You remove the splint from [H]'s [limb].</span>")
+				to_chat(user, span_notice("You remove the splint from [H]'s [limb]."))
 			return TRUE
 
 		if((M == user && delay > 0) || (M != user && other_delay > 0))
-			user.visible_message("<span class='notice'>[user] starts to apply [src] to [H]'s [limb].</span>", \
-									"<span class='notice'>You start to apply [src] to [H]'s [limb].</span>", \
-									"<span class='notice'>You hear something being wrapped.</span>")
+			user.visible_message(span_notice("[user] starts to apply [src] to [H]'s [limb]."), \
+									span_notice("You start to apply [src] to [H]'s [limb]."), \
+									span_notice("You hear something being wrapped."))
 
 		if(M == user && !do_mob(user, H, delay))
 			return TRUE
 		else if(!do_mob(user, H, other_delay))
 			return TRUE
 
-		user.visible_message("<span class='notice'>[user] applies [src] to [H]'s [limb].</span>", \
-								"<span class='notice'>You apply [src] to [H]'s [limb].</span>")
+		user.visible_message(span_notice("[user] applies [src] to [H]'s [limb]."), \
+								span_notice("You apply [src] to [H]'s [limb]."))
 
 		affecting.status |= ORGAN_SPLINTED
 		affecting.splinted_count = H.step_count
@@ -385,7 +385,7 @@
 /obj/item/stack/medical/suture/apply(mob/living/carbon/human/target, mob/user)
 	. = TRUE
 	if(applying)
-		to_chat(user, "<span class='warning'>You're already applying [src].</span>")
+		to_chat(user, span_warning("You're already applying [src]."))
 		return
 	if(!ishuman(target) || !target.can_inject(user, TRUE))
 		return
@@ -393,17 +393,17 @@
 	var/heal_display = (heal_brute ? BRUTE : "burn")
 	if(!target.get_damage_amount(heal_type))
 		if(target == user)
-			to_chat(user, "<span class='warning'>You don't have any [heal_display] damage.</span>")
+			to_chat(user, span_warning("You don't have any [heal_display] damage."))
 		else
-			to_chat(user, "<span class='warning'>They don't have any [heal_display] damage.</span>")
+			to_chat(user, span_warning("They don't have any [heal_display] damage."))
 		return
 
 	var/obj/item/organ/external/current_limb = target.get_organ(user.zone_selected)
 	if(!current_limb)
-		to_chat(user, "<span class='danger'>That limb is missing!</span>")
+		to_chat(user, span_danger("That limb is missing!"))
 		return
 	if(current_limb.is_robotic())
-		to_chat(user, "<span class='danger'>This can't be used on a robotic limb.</span>")
+		to_chat(user, span_danger("This can't be used on a robotic limb."))
 		return
 	if((heal_brute > 0 && !current_limb.brute_dam) || (heal_burn > 0 && !current_limb.burn_dam))
 		if(!do_after(user, delay / 2, target = target))
@@ -412,10 +412,10 @@
 
 	var/mend_time = delay
 	if(target == user)
-		target.visible_message("[user] begins [healverb] [user.p_themselves()] with [src].", "<span class='notice'>You begin [healverb] your [current_limb.name] with [src].</span>")
+		target.visible_message("[user] begins [healverb] [user.p_themselves()] with [src].", span_notice("You begin [healverb] your [current_limb.name] with [src]."))
 		mend_time = self_delay
 	else
-		user.visible_message("<span class='notice'>[user] begins [healverb] [target] with [src].</span>", "<span class='notice'>You begin [healverb] [target.p_their()] [current_limb.name] with [src].</span>")
+		user.visible_message(span_notice("[user] begins [healverb] [target] with [src]."), span_notice("You begin [healverb] [target.p_their()] [current_limb.name] with [src]."))
 
 	applying = TRUE
 	while(do_after(user, mend_time, target = target))
@@ -426,7 +426,7 @@
 			for(var/obj/item/organ/external/E in target.bodyparts)
 				if(E.open >= ORGAN_ORGANIC_OPEN)
 					cut_open = TRUE
-					to_chat(user, "<span class='warning'>[target]'s [E.name] is cut open, you'll need more than some [name] to stop their bleeding.</span>")
+					to_chat(user, span_warning("[target]'s [E.name] is cut open, you'll need more than some [name] to stop their bleeding."))
 					break
 		if(!apply_to(target, user, current_limb, !cut_open))
 			break
@@ -435,14 +435,14 @@
 		if((heal_brute > 0 && !current_limb.brute_dam) || (heal_burn > 0 && !current_limb.burn_dam))
 			if(!target.get_damage_amount(heal_type))
 				if(target == user)
-					target.visible_message("[user] finishes [healverb] [user.p_themselves()] with [src].", "<span class='notice'>You finish [healverb] yourself with [src].</span>")
+					target.visible_message("[user] finishes [healverb] [user.p_themselves()] with [src].", span_notice("You finish [healverb] yourself with [src]."))
 				else
-					user.visible_message("<span class='warning'>[user] finishes [healverb] [target] with [src].</span>", "<span class='notice'>You finish [healverb] [target] with [src].</span>")
+					user.visible_message(span_warning("[user] finishes [healverb] [target] with [src]."), span_notice("You finish [healverb] [target] with [src]."))
 				break
 			if(!do_after(user, delay / 2, target = target))
 				break
 			current_limb = most_damaged_limb(target)
-			to_chat(user, "<span class='notice'>You begin [healverb] [target == user ? "your" : target.p_their()] [current_limb.name] with [src].</span>")
+			to_chat(user, span_notice("You begin [healverb] [target == user ? "your" : target.p_their()] [current_limb.name] with [src]."))
 		if(!target.can_inject(user, TRUE))
 			break
 	applying = FALSE

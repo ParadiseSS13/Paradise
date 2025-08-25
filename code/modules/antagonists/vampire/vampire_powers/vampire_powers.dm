@@ -72,15 +72,15 @@
 	U.adjustStaminaLoss(-100)
 	U.stand_up(TRUE)
 	SEND_SIGNAL(U, COMSIG_LIVING_CLEAR_STUNS)
-	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
+	to_chat(user, span_notice("You instill your body with clean blood and remove any incapacitating effects."))
 	var/datum/antagonist/vampire/V = U.mind.has_antag_datum(/datum/antagonist/vampire)
 	for(var/datum/disease/zombie/zombie_infection in U.viruses)
 		zombie_infection.stage = min(zombie_infection.stage, round(7 - (V.bloodtotal/100))) // 700 max usable blood can cleanse any zombie infection
 		if(zombie_infection.stage <= 0)
 			zombie_infection.cure()
-			to_chat(user, "<span class='notice'>You cleanse the plague from your system.</span>")
+			to_chat(user, span_notice("You cleanse the plague from your system."))
 		else
-			to_chat(user, "<span class='warning'>You weaken the plague in your system, but you don't have enough blood to completely remove it.</span>")
+			to_chat(user, span_warning("You weaken the plague in your system, but you don't have enough blood to completely remove it."))
 
 	var/rejuv_bonus = V.get_rejuv_bonus()
 	if(rejuv_bonus)
@@ -203,10 +203,10 @@
 		if(istype(H.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
 			var/obj/item/clothing/glasses/sunglasses/blindfold/B = H.glasses
 			if(B.tint)
-				to_chat(user, "<span class='warning'>You're blindfolded!</span>")
+				to_chat(user, span_warning("You're blindfolded!"))
 				return
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
-	user.visible_message("<span class='warning'>[user]'s eyes emit a blinding flash!</span>")
+	user.visible_message(span_warning("[user]'s eyes emit a blinding flash!"))
 
 	for(var/mob/living/target in targets)
 		if(!target.affects_vampire(user))
@@ -231,7 +231,7 @@
 			target.KnockDown(12 SECONDS)
 			target.AdjustSilence(8 SECONDS)
 			target.flash_eyes(1, TRUE, TRUE)
-		to_chat(target, "<span class='warning'>You are blinded by [user]'s glare.</span>")
+		to_chat(target, span_warning("You are blinded by [user]'s glare."))
 		add_attack_logs(user, target, "(Vampire) Glared at")
 
 /datum/spell/vampire/glare/proc/calculate_deviation(mob/victim, mob/attacker)
@@ -304,7 +304,7 @@
 /datum/spell/vampire/raise_vampires/cast(list/targets, mob/user = usr)
 	new /obj/effect/temp_visual/cult/sparks(user.loc)
 	var/turf/T = get_turf(user)
-	to_chat(user, "<span class='warning'>You call out within bluespace, summoning more vampiric spirits to aid you!</span>")
+	to_chat(user, span_warning("You call out within bluespace, summoning more vampiric spirits to aid you!"))
 	for(var/mob/living/carbon/human/H in targets)
 		T.Beam(H, "sendbeam", 'icons/effects/effects.dmi', time = 30, maxdistance = 7, beam_type = /obj/effect/ebeam)
 		new /obj/effect/temp_visual/cult/sparks(H.loc)
@@ -321,7 +321,7 @@
 		H.visible_message("[H] looks unfazed!")
 		return
 	if(H.mind.has_antag_datum(/datum/antagonist/vampire) || H.mind.special_role == SPECIAL_ROLE_VAMPIRE || H.mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
-		H.visible_message("<span class='notice'>[H] looks refreshed!</span>")
+		H.visible_message(span_notice("[H] looks refreshed!"))
 		H.adjustBruteLoss(-60)
 		H.adjustFireLoss(-60)
 		for(var/obj/item/organ/external/E in H.bodyparts)
@@ -333,10 +333,10 @@
 		return
 	if(H.stat != DEAD)
 		if(H.IsWeakened())
-			H.visible_message("<span class='warning'>[H] looks to be in pain!</span>")
+			H.visible_message(span_warning("[H] looks to be in pain!"))
 			H.adjustBrainLoss(60)
 		else
-			H.visible_message("<span class='warning'>[H] looks to be stunned by the energy!</span>")
+			H.visible_message(span_warning("[H] looks to be stunned by the energy!"))
 			H.Weaken(40 SECONDS)
 		return
 	for(var/obj/item/bio_chip/mindshield/L in H)
@@ -345,7 +345,7 @@
 	for(var/obj/item/bio_chip/traitor/T in H)
 		if(T && T.implanted)
 			qdel(T)
-	H.visible_message("<span class='warning'>[H] gets an eerie red glow in their eyes!</span>")
+	H.visible_message(span_warning("[H] gets an eerie red glow in their eyes!"))
 
 	var/datum/objective/protect/protect_objective = new
 	protect_objective.target = M.mind

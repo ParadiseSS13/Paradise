@@ -95,9 +95,9 @@
 		user.put_in_hands(P)
 		P.add_fingerprint(user)
 		P.scatter_atom()
-		to_chat(user, "<span class='notice'>You take [P] out of [src].</span>")
+		to_chat(user, span_notice("You take [P] out of [src]."))
 	else
-		to_chat(user, "<span class='notice'>[src] is empty!</span>")
+		to_chat(user, span_notice("[src] is empty!"))
 
 	add_fingerprint(user)
 	return
@@ -107,7 +107,7 @@
 	if(istype(i))
 		user.drop_item()
 		i.loc = src
-		to_chat(user, "<span class='notice'>You put [i] in [src].</span>")
+		to_chat(user, span_notice("You put [i] in [src]."))
 		papers.Add(i)
 		amount++
 	else
@@ -118,9 +118,9 @@
 	. = ..()
 	if(in_range(user, src))
 		if(amount)
-			. += "<span class='notice'>There " + (amount > 1 ? "are [amount] papers" : "is one paper") + " in the bin.</span>"
+			. += span_notice("There " + (amount > 1 ? "are [amount] papers" : "is one paper") + " in the bin.")
 		else
-			. += "<span class='notice'>There are no papers in the bin.</span>"
+			. += span_notice("There are no papers in the bin.")
 
 
 /obj/item/paper_bin/update_icon_state()
@@ -147,9 +147,9 @@
 			P = new /obj/item/paper/carbon
 		P.loc = user.loc
 		user.put_in_hands(P)
-		to_chat(user, "<span class='notice'>You take [P] out of [src].</span>")
+		to_chat(user, span_notice("You take [P] out of [src]."))
 	else
-		to_chat(user, "<span class='notice'>[src] is empty!</span>")
+		to_chat(user, span_notice("[src] is empty!"))
 
 	add_fingerprint(user)
 	return

@@ -31,7 +31,7 @@
 /obj/machinery/computer/extinguish_light(force = FALSE)
 	set_light(0)
 	underlays.Cut()
-	visible_message("<span class='danger'>[src] grows dim, its screen barely readable.</span>")
+	visible_message(span_danger("[src] grows dim, its screen barely readable."))
 
 /*
  * Reimp, flash the screen on and off repeatedly.
@@ -142,7 +142,7 @@
 			A.anchored = TRUE
 			if(stat & BROKEN)
 				if(user)
-					to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+					to_chat(user, span_notice("The broken glass falls out."))
 				else
 					playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 				new /obj/item/shard(drop_location())
@@ -150,7 +150,7 @@
 				A.state = 4
 			else
 				if(user)
-					to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+					to_chat(user, span_notice("You disconnect the monitor."))
 				A.state = 5
 			A.update_icon()
 		for(var/obj/C in src)

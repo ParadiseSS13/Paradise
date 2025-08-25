@@ -87,7 +87,7 @@
 
 /datum/surgery_step/heal/can_repeat(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!can_be_healed(user, target, target_zone))
-		to_chat(user, "<span class='notice'>It doesn't look like [target] has any more [damage_name_pretty].</span>")
+		to_chat(user, span_notice("It doesn't look like [target] has any more [damage_name_pretty]."))
 		return FALSE
 	return TRUE
 
@@ -107,7 +107,7 @@
 /datum/surgery_step/heal/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 	if(!can_be_healed(user, target, target_zone))
-		to_chat(user, "<span class='notice'>It doesn't look like [target] has any more [damage_name_pretty].</span>")
+		to_chat(user, span_notice("It doesn't look like [target] has any more [damage_name_pretty]."))
 		return SURGERY_STEP_CONTINUE
 
 	var/brute_healed = brute_damage_healed
@@ -135,8 +135,8 @@
 
 	if(COOLDOWN_FINISHED(src, success_message_spam_cooldown))
 		user.visible_message(
-			"<span class='notice'>[outer_msg].</span>",
-			"<span class='notice'>[self_msg].</span>",
+			span_notice("[outer_msg]."),
+			span_notice("[self_msg]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 
@@ -147,8 +147,8 @@
 
 /datum/surgery_step/heal/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
-		"<span class='warning'>[user] screws up, making things worse!</span>",
-		"<span class='warning'>You screw up, making things worse!</span>",
+		span_warning("[user] screws up, making things worse!"),
+		span_warning("You screw up, making things worse!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	var/burn_dealt = burn_damage_healed * 0.8
@@ -264,7 +264,7 @@
 	if(!.)
 		return
 	if(target.getBruteLoss() == 0)
-		to_chat(user, "<span class='warning'>[target] doesn't even have a bruise on [target.p_them()], there's nothing to treat.</span>")
+		to_chat(user, span_warning("[target] doesn't even have a bruise on [target.p_them()], there's nothing to treat."))
 		return FALSE
 	return TRUE
 	// Normally, adding to_chat to can_start is poor practice since this gets called when listing surgery steps.
@@ -282,6 +282,6 @@
 	if(!.)
 		return
 	if(target.getFireLoss() == 0)
-		to_chat(user, "<span class='warning'>[target] doesn't even have a blister on [target.p_them()], there's nothing to treat.</span>")
+		to_chat(user, span_warning("[target] doesn't even have a blister on [target.p_them()], there's nothing to treat."))
 		return FALSE
 	return TRUE

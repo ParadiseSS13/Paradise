@@ -57,7 +57,7 @@
 			mind.add_mind_objective(/datum/objective/demon_fluff)
 			messages.Add(mind.prepare_announce_objectives(FALSE))
 
-		messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)</span>")
+		messages.Add(span_motd("For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)"))
 		to_chat(src, chat_box_red(messages.Join("<br>")))
 
 
@@ -118,20 +118,20 @@
 
 /datum/spell/sense_victims/cast(list/targets, mob/user)
 	var/mob/living/victim = targets[1]
-	to_chat(victim, "<span class='userdanger'>You feel an awful sense of being watched...</span>")
+	to_chat(victim, span_userdanger("You feel an awful sense of being watched..."))
 	victim.Stun(6 SECONDS) //HUE
 	var/area/A = get_area(victim)
 	if(!A)
-		to_chat(user, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
+		to_chat(user, span_warning("You could not locate any sapient heretics for the Slaughter."))
 		return 0
-	to_chat(user, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
+	to_chat(user, span_danger("You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b>"))
 
 /mob/living/simple_animal/demon/slaughter/cult/New()
 	..()
 	spawn(5)
 		var/list/demon_candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, 10 SECONDS, source = /mob/living/simple_animal/demon/slaughter/cult)
 		if(!length(demon_candidates))
-			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
+			visible_message(span_warning("[src] disappears in a flash of red light!"))
 			qdel(src)
 			return
 		if(QDELETED(src)) // Just in case
@@ -139,7 +139,7 @@
 		var/mob/M = pick(demon_candidates)
 		var/mob/living/simple_animal/demon/slaughter/cult/S = src
 		if(!M || !M.client)
-			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
+			visible_message(span_warning("[src] disappears in a flash of red light!"))
 			qdel(src)
 			return
 		var/client/C = M.client
@@ -177,7 +177,7 @@
 			validtargets += M
 
 	if(!length(validtargets))
-		to_chat(usr, "<span class='warning'>There are no valid targets!</span>")
+		to_chat(usr, span_warning("There are no valid targets!"))
 		return
 
 	var/mob/living/target = tgui_input_list(user, "Choose the target to talk to", "Targeting", validtargets)
@@ -192,8 +192,8 @@
 	if(!msg)
 		return
 	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)
-	to_chat(usr, "<span class='notice'><b>You whisper to [choice]: </b>[msg]</span>")
-	to_chat(choice, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></I>")
+	to_chat(usr, span_notice("<b>You whisper to [choice]: </b>[msg]"))
+	to_chat(choice, "[span_deadsay("<b>Suddenly a strange, demonic voice resonates in your head... </b>")]<i>[span_danger(" [msg]")]</I>")
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")
 
@@ -215,8 +215,8 @@
 	return // Just so people don't accidentally waste it
 
 /obj/item/organ/internal/heart/demon/attack_self__legacy__attackchain(mob/living/user)
-	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
-						"<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
+	user.visible_message(span_warning("[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!"), \
+						span_danger("An unnatural hunger consumes you. You raise [src] to your mouth and devour it!"))
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, 1)
 
 //////////The Loot
@@ -229,8 +229,8 @@
 
 	// Eating the heart for the first time. Gives basic bloodcrawling. This is the only time we need to insert the heart.
 	if(!HAS_TRAIT(user, TRAIT_BLOODCRAWL))
-		user.visible_message("<span class='warning'>[user]'s eyes flare a deep crimson!</span>", \
-							"<span class='userdanger'>You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!</span>")
+		user.visible_message(span_warning("[user]'s eyes flare a deep crimson!"), \
+							span_userdanger("You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!"))
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL, "bloodcrawl")
 		user.drop_item()
 		insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E.
@@ -238,13 +238,13 @@
 
 	// Eating a 2nd heart. Gives the ability to drag people into blood and eat them.
 	if(HAS_TRAIT(user, TRAIT_BLOODCRAWL))
-		to_chat(user, "You feel differ-<span class='danger'> CONSUME THEM!</span>")
+		to_chat(user, "You feel differ-[span_danger(" CONSUME THEM!")]")
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
 		qdel(src) // Replacing their demon heart with another demon heart is pointless, just delete this one and return.
 		return TRUE
 
 	// Eating any more than 2 demon hearts does nothing.
-	to_chat(user, "<span class='warning'>...and you don't feel any different.</span>")
+	to_chat(user, span_warning("...and you don't feel any different."))
 	qdel(src)
 
 /obj/item/organ/internal/heart/demon/slaughter/insert(mob/living/carbon/M, special = 0)
@@ -292,7 +292,7 @@
 	if(M.revive())
 		M.grab_ghost(force = TRUE)
 		playsound(get_turf(src), feast_sound, 50, TRUE, -1)
-		to_chat(M, "<span class='clown'>You leave [src]'s warm embrace, and feel ready to take on the world.</span>")
+		to_chat(M, span_clown("You leave [src]'s warm embrace, and feel ready to take on the world."))
 	..(M)
 
 

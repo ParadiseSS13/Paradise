@@ -13,4 +13,4 @@
 		m = pick(memetips)
 
 	if(m)
-		to_chat(src, "<span class='purple'><b>Tip: </b>[html_encode(m)]</span>")
+		to_chat(src, span_purple("<b>Tip: </b>[html_encode(m)]"))

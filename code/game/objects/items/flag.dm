@@ -14,12 +14,12 @@
 /obj/item/flag/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	. = ..()
 	if(W.get_heat() && !(resistance_flags & ON_FIRE))
-		user.visible_message("<span class='notice'>[user] lights [src] with [W].</span>", "<span class='notice'>You light [src] with [W].</span>", "<span class='warning'>You hear a low whoosh.</span>")
+		user.visible_message(span_notice("[user] lights [src] with [W]."), span_notice("You light [src] with [W]."), span_warning("You hear a low whoosh."))
 		fire_act()
 
 /obj/item/flag/attack_self__legacy__attackchain(mob/user)
 	rolled = !rolled
-	user.visible_message("<span class='notice'>[user] [rolled ? "rolls up" : "unfurls"] [src].</span>", "<span class='notice'>You [rolled ? "roll up" : "unfurl"] [src].</span>", "<span class='warning'>You hear fabric rustling.</span>")
+	user.visible_message(span_notice("[user] [rolled ? "rolls up" : "unfurls"] [src]."), span_notice("You [rolled ? "roll up" : "unfurl"] [src]."), span_warning("You hear fabric rustling."))
 	update_icon()
 
 /obj/item/flag/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = FALSE)
@@ -251,7 +251,7 @@
 			boobytrap = I
 			trapper = user
 			I.forceMove(src)
-			to_chat(user, "<span class='notice'>You hide [I] in [src]. It will detonate some time after the flag is lit on fire.</span>")
+			to_chat(user, span_notice("You hide [I] in [src]. It will detonate some time after the flag is lit on fire."))
 			var/turf/bombturf = get_turf(src)
 			var/area/A = get_area(bombturf)
 			log_game("[key_name(user)] has hidden [I] in [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
@@ -273,7 +273,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You remove [boobytrap] from [src].</span>")
+	to_chat(user, span_notice("You remove [boobytrap] from [src]."))
 	boobytrap.forceMove(get_turf(src))
 	boobytrap = null
 	trapper = null

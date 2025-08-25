@@ -13,7 +13,7 @@
 	hitsound = 'sound/weapons/slash.ogg' //pls replace
 
 /obj/item/melee/chainofcommand/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is strangling [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	to_chat(viewers(user), span_suicide("[user] is strangling [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 // MARK: ICE PICK
@@ -64,9 +64,9 @@
 	. = ..()
 	if(is_type_in_typecache(M, strong_against))
 		new /obj/effect/decal/cleanable/insectguts(M.drop_location())
-		user.visible_message("<span class='warning'>[user] splats [M] with [src].</span>",
-			"<span class='warning'>You splat [M] with [src].</span>",
-			"<span class='warning'>You hear a splat.</span>")
+		user.visible_message(span_warning("[user] splats [M] with [src]."),
+			span_warning("You splat [M] with [src]."),
+			span_warning("You hear a splat."))
 		if(isliving(M))
 			var/mob/living/bug = M
 			bug.death(TRUE)

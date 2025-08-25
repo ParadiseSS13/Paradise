@@ -48,20 +48,20 @@
 		return FALSE
 
 	if(stack.get_amount() < 1)
-		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
+		to_chat(user, span_warning("You need at least one sheet of [stack] to do this!"))
 		return TRUE
 
-	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
+	to_chat(user, span_notice("You start adding [stack] to [src]..."))
 	if(!do_after(user, construction_time, target = src))
 		return TRUE
 
 	if(!stack.use(1))
-		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
+		to_chat(user, span_warning("You need at least one sheet of [stack] to do this!"))
 		return TRUE
 
 	var/obj/structure/table/table_already_there = locate(/obj/structure/table) in get_turf(src)
 	if(table_already_there) //check again after to make sure one wasnt added since
-		to_chat(user, "<span class='warning'>There is already [table_already_there] here.</span>")
+		to_chat(user, span_warning("There is already [table_already_there] here."))
 		return TRUE
 
 	if(!istype(new_table_type, /obj/structure/table)) //if its something unique, skip the table parts

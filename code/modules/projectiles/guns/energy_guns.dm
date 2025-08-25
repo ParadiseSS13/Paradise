@@ -42,11 +42,11 @@
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
-	. += "<span class='notice'>Energy weapons can fire through windows and other see-through surfaces. [can_charge ? "Can be recharged with a recharger" : "Cannot be recharged in a recharger."]</span>"
+		. += span_notice("It is [round(cell.percent())]% charged.")
+	. += span_notice("Energy weapons can fire through windows and other see-through surfaces. [can_charge ? "Can be recharged with a recharger" : "Cannot be recharged in a recharger."]")
 	if(current_lens)
-		. += "<span class='notice'>Has a lens currently attached.</span>"
-		. += "<span class='notice'>Lenses can be removed with Alt-Click.</span>"
+		. += span_notice("Has a lens currently attached.")
+		. += span_notice("Lenses can be removed with Alt-Click.")
 
 /obj/item/gun/energy/emp_act(severity)
 	cell.use(round(cell.charge / severity))
@@ -90,10 +90,10 @@
 	if(!istype(new_lens))
 		return
 	if(current_lens)
-		to_chat(user, "<span class='notice'>Your [src] already has a lens.</span>")
+		to_chat(user, span_notice("Your [src] already has a lens."))
 		return
 	if(new_lens.flags & NODROP || !user.transfer_item_to(new_lens, src))
-		to_chat(user, "<span class='warning'>[new_lens] is stuck to your hand!</span>")
+		to_chat(user, span_warning("[new_lens] is stuck to your hand!"))
 		return
 	current_lens = new_lens
 	new_lens.on_attached(src)
@@ -103,7 +103,7 @@
 	if(!Adjacent(user))
 		return
 	if(!current_lens)
-		to_chat(user, "<span class='notice'>Your [src] has no lens to remove.</span>")
+		to_chat(user, span_notice("Your [src] has no lens to remove."))
 		return
 	user.put_in_hands(current_lens)
 	current_lens.on_detached()
@@ -191,7 +191,7 @@
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
 	if(shot.select_name)
-		to_chat(user, "<span class='notice'>[src] is now set to [shot.select_name].</span>")
+		to_chat(user, span_notice("[src] is now set to [shot.select_name]."))
 	if(chambered)//phil235
 		if(chambered.BB)
 			qdel(chambered.BB)
@@ -256,20 +256,20 @@
 
 /obj/item/gun/energy/suicide_act(mob/user)
 	if(can_shoot())
-		user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!"))
 		sleep(25)
 		if(user.is_holding(src))
-			user.visible_message("<span class='suicide'>[user] melts [user.p_their()] face off with [src]!</span>")
+			user.visible_message(span_suicide("[user] melts [user.p_their()] face off with [src]!"))
 			playsound(loc, fire_sound, 50, TRUE, -1)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 			cell.use(shot.e_cost)
 			update_icon()
 			return FIRELOSS
 		else
-			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
+			user.visible_message(span_suicide("[user] panics and starts choking to death!"))
 			return OXYLOSS
 	else
-		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+		user.visible_message(span_suicide("[user] is pretending to blow [user.p_their()] brains out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b>"))
 		playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
 		return OXYLOSS
 

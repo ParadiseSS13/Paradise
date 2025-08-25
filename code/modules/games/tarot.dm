@@ -27,9 +27,9 @@
 		cards = newcards
 		playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 		user.visible_message(
-			"<span class='notice'>[user] shuffles [src].</span>",
-			"<span class='notice'>You shuffle [src].</span>",
-			"<span class='notice'>You hear cards being shuffled.</span>"
+			span_notice("[user] shuffles [src]."),
+			span_notice("You shuffle [src]."),
+			span_notice("You hear cards being shuffled.")
 		)
 		shuffle_cooldown = world.time
 

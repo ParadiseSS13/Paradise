@@ -41,7 +41,7 @@
 	if(get_dist_euclidian(summoner, owner) < 21)
 		return
 	owner.adjustBruteLoss(damage)
-	to_chat(owner, "<span class='userdanger'>You are too far away from the summoner!</span>")
+	to_chat(owner, span_userdanger("You are too far away from the summoner!"))
 
 /datum/status_effect/crusher_mark
 	id = "crusher_mark"
@@ -201,11 +201,11 @@
 		if(teleports < 3)
 			return
 		if(teleports < 6)
-			to_chat(M, "<span class='warning'>You feel a bit sick!</span>")
+			to_chat(M, span_warning("You feel a bit sick!"))
 			M.vomit(lost_nutrition = 15, blood = 0, should_confuse = FALSE, distance = 0, message = 1)
 			M.Weaken(2 SECONDS)
 		else
-			to_chat(M, "<span class='danger'>You feel really sick!</span>")
+			to_chat(M, span_danger("You feel really sick!"))
 			M.adjustBruteLoss(rand(0, teleports * 2))
 			M.vomit(lost_nutrition = 30, blood = 0, should_confuse = FALSE, distance = 0, message = 1)
 			M.Weaken(6 SECONDS)
@@ -389,7 +389,7 @@
 
 /datum/status_effect/pepper_spray/on_apply()
 	. = ..()
-	to_chat(owner, "<span class='danger'>Your throat burns!</span>")
+	to_chat(owner, span_danger("Your throat burns!"))
 	owner.AdjustConfused(12 SECONDS, bound_upper = 20 SECONDS)
 	owner.Slowed(4 SECONDS)
 	owner.apply_damage(40, STAMINA)
@@ -908,9 +908,9 @@
 	switch(current_fake_disease)
 		if(FAKE_COLD)
 			fake_msg = list(
-						list("<span class='danger'>Your throat feels sore.</span>", "<span class='danger'>Mucous runs down the back of your throat.</span>"),
-						list("<span class='danger'>Your muscles ache.</span>", "<span class='danger'>Your stomach hurts.</span>"),
-						list("<span class='danger'>Your muscles ache.</span>", "<span class='danger'>Your stomach hurts.</span>")
+						list(span_danger("Your throat feels sore."), span_danger("Mucous runs down the back of your throat.")),
+						list(span_danger("Your muscles ache."), span_danger("Your stomach hurts.")),
+						list(span_danger("Your muscles ache."), span_danger("Your stomach hurts."))
 			)
 			fake_emote = list(
 						list("sneeze", "cough"),
@@ -919,9 +919,9 @@
 			)
 		if(FAKE_FOOD_POISONING)
 			fake_msg = list(
-						list("<span class='danger'>Your stomach feels weird.</span>", "<span class='danger'>You feel queasy.</span>"),
-						list("<span class='danger'>Your stomach aches.</span>", "<span class='danger'>You feel nauseous.</span>"),
-						list("<span class='danger'>Your stomach hurts.</span>", "<span class='danger'>You feel sick.</span>")
+						list(span_danger("Your stomach feels weird."), span_danger("You feel queasy.")),
+						list(span_danger("Your stomach aches."), span_danger("You feel nauseous.")),
+						list(span_danger("Your stomach hurts."), span_danger("You feel sick."))
 			)
 			fake_emote = list(
 						list(),
@@ -930,9 +930,9 @@
 			)
 		if(FAKE_RETRO_VIRUS)
 			fake_msg = list(
-						list("<span class='danger'>Your head hurts.</span>", "You feel a tingling sensation in your chest.", "<span class='danger'>You feel angry.</span>"),
-						list("<span class='danger'>Your skin feels loose.</span>", "You feel very strange.", "<span class='danger'>You feel a stabbing pain in your head!</span>", "<span class='danger'>Your stomach churns.</span>"),
-						list("<span class='danger'>Your entire body vibrates.</span>")
+						list(span_danger("Your head hurts."), "You feel a tingling sensation in your chest.", span_danger("You feel angry.")),
+						list(span_danger("Your skin feels loose."), "You feel very strange.", span_danger("You feel a stabbing pain in your head!"), span_danger("Your stomach churns.")),
+						list(span_danger("Your entire body vibrates."))
 			)
 			fake_emote = list(
 						list(),
@@ -941,9 +941,9 @@
 			)
 		if(FAKE_TURBERCULOSIS)
 			fake_msg = list(
-						list("<span class='danger'>Your chest hurts.</span>", "<span class='danger'>Your stomach violently rumbles!</span>", "<span class='danger'>You feel a cold sweat form.</span>"),
-						list("<span class='danger'>You feel a sharp pain from your lower chest!</span>", "<span class='danger'>You feel air escape from your lungs painfully.</span>"),
-						list("<span class='danger'>You feel uncomfortably hot...</span>", "<span class='danger'>You feel like unzipping your jumpsuit</span>", "<span class='danger'>You feel like taking off some clothes...</span>")
+						list(span_danger("Your chest hurts."), span_danger("Your stomach violently rumbles!"), span_danger("You feel a cold sweat form.")),
+						list(span_danger("You feel a sharp pain from your lower chest!"), span_danger("You feel air escape from your lungs painfully.")),
+						list(span_danger("You feel uncomfortably hot..."), span_danger("You feel like unzipping your jumpsuit"), span_danger("You feel like taking off some clothes..."))
 			)
 			fake_emote = list(
 						list("cough"),
@@ -952,9 +952,9 @@
 			)
 		else // FAKE_BRAINROT
 			fake_msg = list(
-						list("<span class='danger'>You don't feel like yourself.</span>"),
-						list("<span class='danger'>Your try to remember something important...but can't.</span>"),
-						list("<span class='danger'>Strange buzzing fills your head, removing all thoughts.</span>")
+						list(span_danger("You don't feel like yourself.")),
+						list(span_danger("Your try to remember something important...but can't.")),
+						list(span_danger("Strange buzzing fills your head, removing all thoughts."))
 			)
 			fake_emote = list(
 						list("blink", "yawn"),
@@ -1021,7 +1021,7 @@
 	for(var/datum/reagent/R in owner.reagents.reagent_list)
 		owner.reagents.remove_reagent(R.id, 0.75)
 	if(prob(10))
-		to_chat(owner, "<span class='userdanger'>Your blood freezes in your veins, get away!</span>")
+		to_chat(owner, span_userdanger("Your blood freezes in your veins, get away!"))
 
 /datum/status_effect/bubblegum_curse
 	id = "bubblegum curse"
@@ -1058,7 +1058,7 @@
 		var/mob/living/carbon/human/H = owner
 		H.bleed(0.33)
 	if(prob(5))
-		to_chat(owner, "<span class='userdanger'>[pick("You feel your sins crawling on your back.", "You felt your sins weighing on your neck.", "You feel your blood pulsing inside you.", "<b>YOU'LL NEVER ESCAPE ME</b>", "<b>YOU'LL DIE FOR INSULTING ME LIKE THIS</b>")]</span>")
+		to_chat(owner, span_userdanger("[pick("You feel your sins crawling on your back.", "You felt your sins weighing on your neck.", "You feel your blood pulsing inside you.", "<b>YOU'LL NEVER ESCAPE ME</b>", "<b>YOU'LL DIE FOR INSULTING ME LIKE THIS</b>")]"))
 
 /datum/status_effect/bubblegum_curse/on_remove()
 	owner.clear_fullscreen("Bubblegum")
@@ -1067,34 +1067,34 @@
 	coward_checking = FALSE
 	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
 	if(owner.z != attacker.z)
-		to_chat(owner, "<span class='colossus'><b>YOU CHALLENGE ME LIKE THIS... AND YOU RUN WITH YOUR FALSE MAGICS?</b></span>")
+		to_chat(owner, span_colossus("<b>YOU CHALLENGE ME LIKE THIS... AND YOU RUN WITH YOUR FALSE MAGICS?</b>"))
 	else
 		return
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>REALLY?</b></span>")
+	to_chat(owner, span_colossus("<b>REALLY?</b>"))
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>SUCH INSOLENCE!</b></span>")
+	to_chat(owner, span_colossus("<b>SUCH INSOLENCE!</b>"))
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>SO PATHETIC...</b></span>")
+	to_chat(owner, span_colossus("<b>SO PATHETIC...</b>"))
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>...SO FOOLISH!</b></span>")
+	to_chat(owner, span_colossus("<b>...SO FOOLISH!</b>"))
 	get_over_here()
 
 /datum/status_effect/bubblegum_curse/proc/runaway_coward_callback()
 	coward_checking = FALSE
 	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
 	if(get_dist(attacker, owner) >= 25)
-		to_chat(owner, "<span class='colossus'><b>My my, you can run FAST.</b></span>")
+		to_chat(owner, span_colossus("<b>My my, you can run FAST.</b>"))
 	else
 		return
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>I thought you wanted a true fight?</b></span>")
+	to_chat(owner, span_colossus("<b>I thought you wanted a true fight?</b>"))
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>Perhaps I was mistaken.</b></span>")
+	to_chat(owner, span_colossus("<b>Perhaps I was mistaken.</b>"))
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>You are a coward who does not want a fight...</b></span>")
+	to_chat(owner, span_colossus("<b>You are a coward who does not want a fight...</b>"))
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>...BUT I WANT YOU DEAD!</b></span>")
+	to_chat(owner, span_colossus("<b>...BUT I WANT YOU DEAD!</b>"))
 	get_over_here()
 
 /datum/status_effect/bubblegum_curse/proc/get_over_here()
@@ -1109,27 +1109,27 @@
 	new /obj/effect/temp_visual/bubblegum_hands/rightsmack(TA)
 	sleep(6)
 	var/turf/TB = get_turf(owner)
-	to_chat(owner, "<span class='userdanger'>[attacker] rends you!</span>")
+	to_chat(owner, span_userdanger("[attacker] rends you!"))
 	playsound(TB, attacker.attack_sound, 100, TRUE, -1)
 	owner.adjustBruteLoss(10)
 	new /obj/effect/decal/cleanable/blood/bubblegum(TB)
 	new /obj/effect/temp_visual/bubblegum_hands/leftsmack(TB)
 	sleep(6)
 	var/turf/TC = get_turf(owner)
-	to_chat(owner, "<span class='userdanger'>[attacker] rends you!</span>")
+	to_chat(owner, span_userdanger("[attacker] rends you!"))
 	playsound(TC, attacker.attack_sound, 100, TRUE, -1)
 	owner.adjustBruteLoss(10)
 	new /obj/effect/decal/cleanable/blood/bubblegum(TC)
 	new /obj/effect/temp_visual/bubblegum_hands/rightsmack(TC)
 	sleep(6)
 	var/turf/TD = get_turf(owner)
-	to_chat(owner, "<span class='userdanger'>[attacker] rends you!</span>")
+	to_chat(owner, span_userdanger("[attacker] rends you!"))
 	playsound(TD, attacker.attack_sound, 100, TRUE, -1)
 	owner.adjustBruteLoss(10)
 	new /obj/effect/temp_visual/bubblegum_hands/leftpaw(TD)
 	new /obj/effect/temp_visual/bubblegum_hands/leftthumb(TD)
 	sleep(8)
-	to_chat(owner, "<span class='userdanger'>[attacker] drags you through the blood!</span>")
+	to_chat(owner, span_userdanger("[attacker] drags you through the blood!"))
 	playsound(TD, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 	var/turf/targetturf = get_step(attacker, attacker.dir)
 	owner.forceMove(targetturf)
@@ -1205,7 +1205,7 @@
 		return SLOT_MACHINE_USE_CANCEL
 
 	if(monologuing)
-		to_chat(owner, "<span class='warning'>Your arm is resisting your attempts to pull the lever!</span>") // listening to kitschy monologues to postpone your powergaming is the true curse here.
+		to_chat(owner, span_warning("Your arm is resisting your attempts to pull the lever!")) // listening to kitschy monologues to postpone your powergaming is the true curse here.
 		return SLOT_MACHINE_USE_POSTPONE
 
 /// Handles the debuffs of this status effect and incrementing the number of curses we have.
@@ -1232,36 +1232,36 @@
 				var/obj/item/organ/external/affecting = human_owner.get_active_hand()
 				branded_hand = affecting
 
-			messages += "<span class='boldwarning'>Your hand burns, and you quickly let go of the lever! You feel a little sick as the nerves deaden in your hand...</span>"
-			messages += "<span class='boldwarning'>Some smoke appears to be coming out of your hand now, but it's not too bad...</span>"
-			messages += "<span class='boldwarning'>Fucking stupid machine.</span>"
+			messages += span_boldwarning("Your hand burns, and you quickly let go of the lever! You feel a little sick as the nerves deaden in your hand...")
+			messages += span_boldwarning("Some smoke appears to be coming out of your hand now, but it's not too bad...")
+			messages += span_boldwarning("Fucking stupid machine.")
 
 		if(2)
-			messages += "<span class='boldwarning'>The machine didn't burn you this time, it must be some arcane work of the brand recognizing a source...</span>"
-			messages += "<span class='boldwarning'>Blisters and boils start to appear over your skin. Each one hissing searing hot steam out of its own pocket...</span>"
-			messages += "<span class='boldwarning'>You understand that the machine tortures you with its simplistic allure. It can kill you at any moment, but it derives a sick satisfaction at forcing you to keep going.</span>"
-			messages += "<span class='boldwarning'>If you could get away from here, you might be able to live with some medical supplies. Is it too late to stop now?</span>"
-			messages += "<span class='boldwarning'>As you shut your eyes to dwell on this conundrum, the brand surges in pain. You shudder to think what might happen if you go unconscious.</span>"
+			messages += span_boldwarning("The machine didn't burn you this time, it must be some arcane work of the brand recognizing a source...")
+			messages += span_boldwarning("Blisters and boils start to appear over your skin. Each one hissing searing hot steam out of its own pocket...")
+			messages += span_boldwarning("You understand that the machine tortures you with its simplistic allure. It can kill you at any moment, but it derives a sick satisfaction at forcing you to keep going.")
+			messages += span_boldwarning("If you could get away from here, you might be able to live with some medical supplies. Is it too late to stop now?")
+			messages += span_boldwarning("As you shut your eyes to dwell on this conundrum, the brand surges in pain. You shudder to think what might happen if you go unconscious.")
 
 		if(3)
 			owner.emote("cough")
-			messages += "<span class='boldwarning'>Your throat becomes to feel like it's slowly caking up with sand and dust. You eject the contents of the back of your throat onto your sleeve.</span>"
-			messages += "<span class='boldwarning'>It is sand. Crimson red. You've never felt so thirsty in your life, yet you don't trust your own hand to carry the glass to your lips.</span>"
-			messages += "<span class='boldwarning'>You get the sneaking feeling that if someone else were to win, that it might clear your curse too. Saving your life is a noble cause.</span>"
-			messages += "<span class='boldwarning'>Of course, you might have to not speak on the nature of this machine, in case they scamper off to leave you to die.</span>"
-			messages += "<span class='boldwarning'>Is it truly worth it to condemn someone to this fate to cure the manifestation of your own hedonistic urges? You'll have to decide quickly.</span>"
+			messages += span_boldwarning("Your throat becomes to feel like it's slowly caking up with sand and dust. You eject the contents of the back of your throat onto your sleeve.")
+			messages += span_boldwarning("It is sand. Crimson red. You've never felt so thirsty in your life, yet you don't trust your own hand to carry the glass to your lips.")
+			messages += span_boldwarning("You get the sneaking feeling that if someone else were to win, that it might clear your curse too. Saving your life is a noble cause.")
+			messages += span_boldwarning("Of course, you might have to not speak on the nature of this machine, in case they scamper off to leave you to die.")
+			messages += span_boldwarning("Is it truly worth it to condemn someone to this fate to cure the manifestation of your own hedonistic urges? You'll have to decide quickly.")
 
 		if(4)
-			messages += "<span class='boldwarning'>A migraine swells over your head as your thoughts become hazy. Your hand desperately inches closer towards the slot machine for one final pull...</span>"
-			messages += "<span class='boldwarning'>The ultimate test of mind over matter. You can jerk your own muscle back in order to prevent a terrible fate, but your life already is worth so little now.</span>"
-			messages += "<span class='boldwarning'>This is what they want, is it not? To witness your failure against itself? The compulsion carries you forward as a sinking feeling of dread fills your stomach.</span>"
-			messages += "<span class='boldwarning'>Paradoxically, where there is hopelessness, there is elation. Elation at the fact that there's still enough power in you for one more pull.</span>"
-			messages += "<span class='boldwarning'>Your legs desperately wish to jolt away on the thought of running away from this wretched machination, but your own arm remains complacent in the thought of seeing spinning wheels.</span>"
-			messages += "<span class='userdanger'>The toll has already been exacted. There is no longer death on 'your' terms. Is your dignity worth more than your life?</span>"
+			messages += span_boldwarning("A migraine swells over your head as your thoughts become hazy. Your hand desperately inches closer towards the slot machine for one final pull...")
+			messages += span_boldwarning("The ultimate test of mind over matter. You can jerk your own muscle back in order to prevent a terrible fate, but your life already is worth so little now.")
+			messages += span_boldwarning("This is what they want, is it not? To witness your failure against itself? The compulsion carries you forward as a sinking feeling of dread fills your stomach.")
+			messages += span_boldwarning("Paradoxically, where there is hopelessness, there is elation. Elation at the fact that there's still enough power in you for one more pull.")
+			messages += span_boldwarning("Your legs desperately wish to jolt away on the thought of running away from this wretched machination, but your own arm remains complacent in the thought of seeing spinning wheels.")
+			messages += span_userdanger("The toll has already been exacted. There is no longer death on 'your' terms. Is your dignity worth more than your life?")
 
 		if(5 to INFINITY)
 			if(max_curse_count != DEFAULT_MAX_CURSE_COUNT) // this probably will only happen through admin schenanigans letting people stack up infinite curses or something
-				to_chat(owner, "<span class='userdanger'>Do you <i>still</i> think you're in control?</span>")
+				to_chat(owner, span_userdanger("Do you <i>still</i> think you're in control?"))
 				return
 
 			to_chat(owner, "Why couldn't I get one more try?!")
@@ -1278,8 +1278,8 @@
 	SIGNAL_HANDLER
 
 	owner.visible_message(
-		"<span class='warning'>The smoke slowly clears from [owner.name]...</span>",
-		"<span class='notice'>Your skin finally settles down and your throat no longer feels as dry... The brand disappearing confirms that the curse has been lifted.</span>",)
+		span_warning("The smoke slowly clears from [owner.name]..."),
+		span_notice("Your skin finally settles down and your throat no longer feels as dry... The brand disappearing confirms that the curse has been lifted."),)
 	qdel(src)
 
 /// If our owner's stat changes, rapidly surge the damage chance.
@@ -1289,7 +1289,7 @@
 		damage_chance = initial(damage_chance)
 		return
 
-	to_chat(owner, "<span class='userdanger'>As your body crumbles, you feel the curse of the slot machine surge through your body!</span>")
+	to_chat(owner, span_userdanger("As your body crumbles, you feel the curse of the slot machine surge through your body!"))
 	damage_chance += 75 //ruh roh raggy
 
 /// If our owner dies without getting gibbed, we gib them, because fuck you baltamore
@@ -1435,11 +1435,11 @@
 	. = ..()
 	SEND_SOUND(owner, sound('sound/weapons/sear.ogg'))
 	if(issilicon(owner))
-		to_chat(owner, "<span class='userdanger'>The unnatural rust magically corrodes your body!</span>")
+		to_chat(owner, span_userdanger("The unnatural rust magically corrodes your body!"))
 		owner.adjustBruteLoss(10)
 		return
 	//We don't have disgust, so...
-	to_chat(owner, "<span class='userdanger'>The unnatural rust makes you feel sick!</span>")
+	to_chat(owner, span_userdanger("The unnatural rust makes you feel sick!"))
 	if(ishuman(owner))
 		owner.adjustBrainLoss(2.5)
 		owner.reagents?.remove_all(0.75)
@@ -1493,7 +1493,7 @@
 
 /datum/status_effect/temporal_slash_finisher/tick()
 	. = ..()
-	owner.visible_message("<span class='danger'>[owner] gets slashed by a cut through spacetime!</span>", "<span class='userdanger'>You get slashed by a cut through spacetime!</span>")
+	owner.visible_message(span_danger("[owner] gets slashed by a cut through spacetime!"), span_userdanger("You get slashed by a cut through spacetime!"))
 	playsound(owner, 'sound/weapons/rapierhit.ogg', 50, TRUE)
 	owner.apply_damage(damage_per_cut, BRUTE, pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG), 0, TRUE, null, FALSE)
 	cuts--

@@ -84,12 +84,12 @@
 		do_sparks(3, 1, src)
 		passive_mode = !passive_mode
 		if(passive_mode)
-			visible_message("<span class='notice'>[src] retracts several targetting vanes.</span>")
+			visible_message(span_notice("[src] retracts several targetting vanes."))
 			advanced_bullet_dodge_chance = 0
 			if(target)
 				LoseTarget()
 		else
-			visible_message("<span class='warning'>[src] suddenly lights up, and additional targetting vanes slide into place.</span>")
+			visible_message(span_warning("[src] suddenly lights up, and additional targetting vanes slide into place."))
 			advanced_bullet_dodge_chance = 25
 		update_icons()
 
@@ -103,8 +103,8 @@
 		return NONE
 
 	source.visible_message(
-		"<span class='danger'>[source]'s jets [pick("boosts", "propels", "pulses", "flares up and moves", "shudders and pushes")] it out of '[hitting_projectile]'s way!</span>",
-		"<span class='userdanger'>You evade [hitting_projectile]!</span>",
+		span_danger("[source]'s jets [pick("boosts", "propels", "pulses", "flares up and moves", "shudders and pushes")] it out of '[hitting_projectile]'s way!"),
+		span_userdanger("You evade [hitting_projectile]!"),
 	)
 	playsound(source, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg', 'sound/effects/refill.ogg'), 75, TRUE)
 	if(prob(50))

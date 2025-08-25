@@ -23,8 +23,8 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 /datum/controller/subsystem/tickets/mentor_tickets/Initialize()
 	..()
 	close_messages = list("<font color='red' size='3'><b>- [ticket_name] Closed -</b></font>",
-				"<span class='boldmessage'>Please try to be as descriptive as possible in mentor helps. Mentors do not know the full situation you're in and need more information to give you a helpful response.</span>",
-				"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
+				span_boldmessage("Please try to be as descriptive as possible in mentor helps. Mentors do not know the full situation you're in and need more information to give you a helpful response."),
+				span_mentorhelp("Your [ticket_name] has now been closed."))
 
 	response_phrases = list("Known Bug" = "Unfortunately, that's a known bug. Hopefully it gets fixed soon.",
 		"TM Bug" = "Unfortunately, that's a bug with a current test merge. It should go away when the test merge is removed or fixed.",
@@ -85,12 +85,12 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 		for(var/mob/living/carbon/human/nct as anything in nct_active)
 			if(!locate(/obj/item/radio/headset) in list(nct.l_ear, nct.r_ear)) // If the NCT doesn't have a headset, ignore it.
 				continue
-			to_chat(nct, "<span class='notice'>Incoming priority transmission from Nanotrasen Training Center. Request information as follows: </span><span class='specialnotice'>Career Trainer, we've received a request from an employee. [trainee.p_their(TRUE)] name is [trainee.real_name], [trainee.p_theyre()] a [trainee.mind.assigned_role]. See if [trainee.p_they()] need [trainee.p_s()] any help.</span>")
+			to_chat(nct, span_notice("Incoming priority transmission from Nanotrasen Training Center. Request information as follows: </span><span class='specialnotice'>Career Trainer, we've received a request from an employee. [trainee.p_their(TRUE)] name is [trainee.real_name], [trainee.p_theyre()] a [trainee.mind.assigned_role]. See if [trainee.p_they()] need [trainee.p_s()] any help."))
 			SEND_SOUND(nct, 'sound/effects/headset_message.ogg')
 
 	SEND_SOUND(returnClient(N), sound('sound/effects/adminhelp.ogg'))
-	to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with:</span> <span class='adminticketalt'>[response_phrases[message_key]]</span>") //for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
-	message_staff("[C] has auto responded to [ticket_owner]\'s mentorhelp with:<span class='adminticketalt'> [message_key]</span>") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
+	to_chat_safe(returnClient(N), "[span_mentorhelp("[key_name_hidden(C)] is autoresponding with: ")][span_adminticketalt("[response_phrases[message_key]]")]") //for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
+	message_staff("[C] has auto responded to [ticket_owner]\'s mentorhelp with: [span_adminticketalt("[message_key]")]") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
 	T.lastStaffResponse = "Autoresponse: [message_key]"
 	resolveTicket(N)
 	log_game("[C] has auto responded to [ticket_owner]\'s mentorhelp with: [response_phrases[message_key]]")

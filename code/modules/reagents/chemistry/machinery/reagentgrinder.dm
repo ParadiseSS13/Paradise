@@ -164,9 +164,9 @@
 
 	if((istype(used, /obj/item/reagent_containers) && (used.container_type & OPENCONTAINER)) && user.a_intent != INTENT_HARM)
 		if(beaker)
-			to_chat(user, "<span class='warning'>There's already a container inside.</span>")
+			to_chat(user, span_warning("There's already a container inside."))
 		else if(panel_open)
-			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
+			to_chat(user, span_warning("Close the maintenance panel first."))
 		else if(user.transfer_item_to(used, src))
 			beaker = used
 			update_icon(UPDATE_ICON_STATE)
@@ -177,7 +177,7 @@
 		if(istype(used, /obj/item/food/grown))
 			var/obj/item/food/grown/G = used
 			if(!G.dry)
-				to_chat(user, "<span class='warning'>You must dry that first!</span>")
+				to_chat(user, span_warning("You must dry that first!"))
 				return ITEM_INTERACT_COMPLETE
 
 	if(length(holdingitems) >= limit)
@@ -188,7 +188,7 @@
 	if(istype(used, /obj/item/storage/bag))
 		var/obj/item/storage/bag/B = used
 		if(!length(B.contents))
-			to_chat(user, "<span class='warning'>[B] is empty.</span>")
+			to_chat(user, span_warning("[B] is empty."))
 			return ITEM_INTERACT_COMPLETE
 
 		var/original_contents_len = length(B.contents)
@@ -198,17 +198,17 @@
 				B.remove_from_storage(G, src)
 				holdingitems += G
 				if(length(holdingitems) >= limit) // Sanity checking so the blender doesn't overfill
-					to_chat(user, "<span class='notice'>You fill the All-In-One grinder to the brim.</span>")
+					to_chat(user, span_notice("You fill the All-In-One grinder to the brim."))
 					break
 
 		if(length(B.contents) == original_contents_len)
-			to_chat(user, "<span class='warning'>Nothing in [B] can be put into the All-In-One grinder.</span>")
+			to_chat(user, span_warning("Nothing in [B] can be put into the All-In-One grinder."))
 			return ITEM_INTERACT_COMPLETE
 
 		else if(!length(B.contents))
-			to_chat(user, "<span class='notice'>You empty all of [B]'s contents into the All-In-One grinder.</span>")
+			to_chat(user, span_notice("You empty all of [B]'s contents into the All-In-One grinder."))
 		else
-			to_chat(user, "<span class='notice'>You empty some of [B]'s contents into the All-In-One grinder.</span>")
+			to_chat(user, span_notice("You empty some of [B]'s contents into the All-In-One grinder."))
 
 		SStgui.update_uis(src)
 		return ITEM_INTERACT_COMPLETE
@@ -217,7 +217,7 @@
 		if(user.a_intent == INTENT_HARM)
 			return ..()
 		else
-			to_chat(user, "<span class='warning'>Cannot refine into a reagent!</span>")
+			to_chat(user, span_warning("Cannot refine into a reagent!"))
 			return ITEM_INTERACT_COMPLETE
 
 	if(user.transfer_item_to(used, src))

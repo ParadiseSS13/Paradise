@@ -59,7 +59,7 @@
 
 /obj/item/defibrillator/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Click</b> to remove the paddles from the defibrillator.</span>"
+	. += span_notice("<b>Alt-Click</b> to remove the paddles from the defibrillator.")
 
 /obj/item/defibrillator/proc/update_power()
 	if(cell)
@@ -101,15 +101,15 @@
 	if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
 		if(cell)
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+			to_chat(user, span_notice("[src] already has a cell."))
 		else
 			if(C.maxcharge < paddles.revivecost)
-				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
+				to_chat(user, span_notice("[src] requires a higher capacity cell."))
 				return
 			if(user.drop_item(C))
 				W.forceMove(src)
 				cell = C
-				to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
+				to_chat(user, span_notice("You install a cell in [src]."))
 	if(W == paddles)
 		toggle_paddles(user)
 
@@ -117,13 +117,13 @@
 
 /obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
-		to_chat(user, "<span class='notice'>[src] doesn't have a cell.</span>")
+		to_chat(user, span_notice("[src] doesn't have a cell."))
 		return
 
 	cell.update_icon()
 	cell.forceMove(get_turf(loc))
 	cell = null
-	to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
+	to_chat(user, span_notice("You remove the cell from [src]."))
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
@@ -147,7 +147,7 @@
 	if(paddles_on_defib)
 		//Detach the paddles into the user's hands
 		if(!user.put_in_hands(paddles))
-			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
+			to_chat(user, span_warning("You need a free hand to hold the paddles!"))
 			update_icon(UPDATE_OVERLAYS)
 			return
 		paddles.forceMove(user)
@@ -256,8 +256,8 @@
 
 /obj/item/defibrillator/compact/advanced/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] uses an experimental self-charging cell, meaning that it will (probably) never stop working.</span>"
-	. += "<span class='notice'>The advanced paddles can be used to defibrillate through space suits.</span>"
+	. += span_notice("[src] uses an experimental self-charging cell, meaning that it will (probably) never stop working.")
+	. += span_notice("The advanced paddles can be used to defibrillate through space suits.")
 
 /obj/item/defibrillator/compact/advanced/examine_more(mob/user)
 	. = ..()
@@ -328,7 +328,7 @@
 	SIGNAL_HANDLER  // COMSIG_DEFIB_PADDLES_APPLIED
 
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
-		to_chat(user, "<span class='boldnotice'>You need to wield the paddles in both hands before you can use them on someone!</span>")
+		to_chat(user, span_boldnotice("You need to wield the paddles in both hands before you can use them on someone!"))
 		return COMPONENT_BLOCK_DEFIB_MISC
 	if(!defib.powered)
 		return COMPONENT_BLOCK_DEFIB_DEAD
@@ -340,10 +340,10 @@
 	on_cooldown = FALSE
 	if(defib.cell)
 		if(defib.cell.charge >= revivecost)
-			defib.visible_message("<span class='notice'>[defib] beeps: Unit ready.</span>")
+			defib.visible_message(span_notice("[defib] beeps: Unit ready."))
 			playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, 0)
 		else
-			defib.visible_message("<span class='notice'>[defib] beeps: Charge depleted.</span>")
+			defib.visible_message(span_notice("[defib] beeps: Charge depleted."))
 			playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 		update_icon(UPDATE_ICON_STATE)
 	defib.update_icon(UPDATE_ICON_STATE)
@@ -362,7 +362,7 @@
 		icon_state = "[base_icon_state][wielded]_cooldown"
 
 /obj/item/shockpaddles/suicide_act(mob/user)
-	user.visible_message("<span class='danger'>[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_danger("[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide!"))
 	defib.deductcharge(revivecost)
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	return OXYLOSS
@@ -370,7 +370,7 @@
 /obj/item/shockpaddles/dropped(mob/user)
 	..()
 	if(user)
-		to_chat(user, "<span class='notice'>The paddles snap back into the main unit.</span>")
+		to_chat(user, span_notice("The paddles snap back into the main unit."))
 		defib.paddles_on_defib = TRUE
 		loc = defib
 		defib.update_icon(UPDATE_OVERLAYS)
@@ -442,7 +442,7 @@
 
 /obj/item/borg_defib/proc/on_cooldown_expire(obj/item/defib)
 	SIGNAL_HANDLER  // COMSIG_DEFIB_READY
-	visible_message("<span class='notice'>[src] beeps: Defibrillation unit ready.</span>")
+	visible_message(span_notice("[src] beeps: Defibrillation unit ready."))
 	playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, 0)
 	update_icon(UPDATE_ICON_STATE)
 

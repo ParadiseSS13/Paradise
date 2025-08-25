@@ -226,7 +226,7 @@
 	if(..())
 		return
 	if(topic_denied(usr))
-		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		to_chat(usr, span_warning("[src]'s interface is not responding!"))
 		return
 	add_fingerprint(usr)
 	. = TRUE
@@ -272,17 +272,17 @@
 /mob/living/simple_animal/bot/medbot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/reagent_containers/glass))
 		if(locked)
-			to_chat(user, "<span class='warning'>You cannot insert a beaker because the panel is locked!</span>")
+			to_chat(user, span_warning("You cannot insert a beaker because the panel is locked!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!isnull(reagent_glass))
-			to_chat(user, "<span class='warning'>There is already a beaker loaded!</span>")
+			to_chat(user, span_warning("There is already a beaker loaded!"))
 			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
 			return ITEM_INTERACT_COMPLETE
 
 		W.forceMove(src)
 		reagent_glass = W
-		to_chat(user, "<span class='notice'>You insert [W].</span>")
+		to_chat(user, span_notice("You insert [W]."))
 		ui_interact(user)
 
 		return ITEM_INTERACT_COMPLETE
@@ -300,8 +300,8 @@
 	if(emagged)
 		declare_crit = FALSE
 		if(user)
-			to_chat(user, "<span class='notice'>You short out [src]'s reagent synthesis circuits.</span>")
-		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
+			to_chat(user, span_notice("You short out [src]'s reagent synthesis circuits."))
+		audible_message(span_danger("[src] buzzes oddly!"))
 		flick("medibot_spark", src)
 		if(user)
 			previous_patient = user.UID()
@@ -511,8 +511,8 @@
 		return
 
 	C.visible_message(
-		"<span class='danger'>[src] is trying to inject [patient]!</span>",
-		"<span class='userdanger'>[src] is trying to inject you!</span>"
+		span_danger("[src] is trying to inject [patient]!"),
+		span_userdanger("[src] is trying to inject you!")
 	)
 
 	if(!do_after(src, 3 SECONDS, target = C) || !on || (get_dist(src, patient) > 1) || !assess_patient(patient))
@@ -529,8 +529,8 @@
 		patient.reagents.add_reagent(reagent_id, injection_amount)
 
 	C.visible_message(
-		"<span class='danger'>[src] injects [patient] with its syringe!</span>",
-		"<span class='userdanger'>[src] injects you with its syringe!</span>"
+		span_danger("[src] injects [patient] with its syringe!"),
+		span_userdanger("[src] injects you with its syringe!")
 	)
 
 	// Don't soft reset here, we already have a patient, only soft reset if we fail to heal them.
@@ -547,7 +547,7 @@
 
 /mob/living/simple_animal/bot/medbot/explode()
 	on = FALSE
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(span_userdanger("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 
 	if(drops_parts)

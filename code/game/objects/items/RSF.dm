@@ -64,9 +64,9 @@
 /obj/item/rsf/attack_self__legacy__attackchain(mob/user)
 	playsound(loc, 'sound/effects/pop.ogg', 50, FALSE)
 	if(!currently_dispensing)
-		to_chat(user, "<span class='notice'>Choose an item to dispense!</span>")
+		to_chat(user, span_notice("Choose an item to dispense!"))
 	else
-		to_chat(user, "<span class='notice'>You are currently dispensing a [initial(currently_dispensing.name)].</span>")
+		to_chat(user, span_notice("You are currently dispensing a [initial(currently_dispensing.name)]."))
 
 	var/rsf_radial_choice = show_radial_menu(user, src, get_radial_contents())
 	if(user.stat || !in_range(user, src))
@@ -74,7 +74,7 @@
 	currently_dispensing = rsf_items[rsf_radial_choice]
 	power_mode = power_costs[rsf_radial_choice]
 	if(currently_dispensing)
-		to_chat(user, "<span class='notice'>Your RSF has been configured to now dispense a [initial(currently_dispensing.name)]!</span>")
+		to_chat(user, span_notice("Your RSF has been configured to now dispense a [initial(currently_dispensing.name)]!"))
 	return TRUE
 
 /obj/item/rsf/proc/get_radial_contents()
@@ -90,7 +90,7 @@
 	if(isrobot(user))
 		var/mob/living/silicon/robot/energy_check = user
 		if(!energy_check.cell.use(power_mode))
-			to_chat(user, "<span class='warning'>Insufficient energy.</span>")
+			to_chat(user, span_warning("Insufficient energy."))
 			flick("[icon_state]_empty", src)
 			return
 	var/turf/T = get_turf(A)

@@ -26,22 +26,22 @@
 				return
 
 			if(M != user)
-				M.visible_message("<span class='notice'>[user.name] pulls [M.name] free from the sticky nest!</span>",\
-					"<span class='notice'>[user.name] pulls you free from the gelatinous resin.</span>",\
-					"<span class='italics'>You hear squelching...</span>")
+				M.visible_message(span_notice("[user.name] pulls [M.name] free from the sticky nest!"),\
+					span_notice("[user.name] pulls you free from the gelatinous resin."),\
+					span_italics("You hear squelching..."))
 			else
-				M.visible_message("<span class='warning'>[M.name] struggles to break free from the gelatinous resin!</span>",\
-					"<span class='notice'>You struggle to break free from the gelatinous resin... (Stay still for two minutes.)</span>",\
-					"<span class='italics'>You hear squelching...</span>")
+				M.visible_message(span_warning("[M.name] struggles to break free from the gelatinous resin!"),\
+					span_notice("You struggle to break free from the gelatinous resin... (Stay still for two minutes.)"),\
+					span_italics("You hear squelching..."))
 				if(!do_after(M, 120 SECONDS, target = src, hidden = TRUE))
 					if(M && M.buckled)
-						to_chat(M, "<span class='warning'>You fail to escape \the [src]!</span>")
+						to_chat(M, span_warning("You fail to escape \the [src]!"))
 					return
 				if(!M.buckled)
 					return
-				M.visible_message("<span class='warning'>[M.name] breaks free from the gelatinous resin!</span>",\
-					"<span class='notice'>You break free from the gelatinous resin!</span>",\
-					"<span class='italics'>You hear squelching...</span>")
+				M.visible_message(span_warning("[M.name] breaks free from the gelatinous resin!"),\
+					span_notice("You break free from the gelatinous resin!"),\
+					span_italics("You hear squelching..."))
 
 			unbuckle_mob(M)
 			add_fingerprint(user)
@@ -54,20 +54,20 @@
 		return FALSE
 
 	if(M.get_int_organ(/obj/item/organ/internal/alien/hivenode))
-		to_chat(user, "<span class='noticealien'>[M]'s linkage with the hive prevents you from securing them into [src]</span>")
+		to_chat(user, span_noticealien("[M]'s linkage with the hive prevents you from securing them into [src]"))
 		return
 
 	if(!user.get_int_organ(/obj/item/organ/internal/alien/hivenode))
-		to_chat(user, "<span class='noticealien'>Your lack of linkage to the hive prevents you from buckling [M] into [src]</span>")
+		to_chat(user, span_noticealien("Your lack of linkage to the hive prevents you from buckling [M] into [src]"))
 		return
 
 	if(has_buckled_mobs())
 		unbuckle_all_mobs()
 
 	if(buckle_mob(M))
-		M.visible_message("<span class='notice'>[user.name] secretes a thick vile goo, securing [M.name] into [src]!</span>",\
-			"<span class='danger'>[user.name] drenches you in a foul-smelling resin, trapping you in [src]!</span>",\
-			"<span class='italics'>You hear squelching...</span>")
+		M.visible_message(span_notice("[user.name] secretes a thick vile goo, securing [M.name] into [src]!"),\
+			span_danger("[user.name] drenches you in a foul-smelling resin, trapping you in [src]!"),\
+			span_italics("You hear squelching..."))
 	ghost_timer = addtimer(CALLBACK(src, PROC_REF(ghost_check), user), 15 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
 
 /obj/structure/bed/nest/proc/ghost_check(mob/user)
@@ -79,7 +79,7 @@
 			if(user && !isalien(user))
 				return
 			buckled_mob.throw_alert("ghost_nest", /atom/movable/screen/alert/ghost/xeno)
-			to_chat(buckled_mob, "<span class='ghostalert'>You may now click on the ghost prompt on your screen to leave your body. You will be alerted when you're removed from the nest.</span>")
+			to_chat(buckled_mob, span_ghostalert("You may now click on the ghost prompt on your screen to leave your body. You will be alerted when you're removed from the nest."))
 			if(tgui_alert(buckled_mob, "You may now ghost and keep respawnability, you will be notified if you leave the nest, would you like to do so?", "Ghosting", list("Yes", "No")) != "Yes")
 				return
 			buckled_mob.ghostize(TRUE)
@@ -172,14 +172,14 @@
 
 /obj/structure/bed/revival_nest/proc/revive_dead_alien(mob/living/carbon/alien/dead_alien)
 	dead_alien.revive()
-	dead_alien.visible_message("<span class='warning'>Vines seep into the back of [dead_alien], and it awakes with a burning rage!</span>")
+	dead_alien.visible_message(span_warning("Vines seep into the back of [dead_alien], and it awakes with a burning rage!"))
 	if(dead_alien.ghost_can_reenter())
 		var/mob/dead/observer/dead_bro = dead_alien.grab_ghost()
 		SEND_SOUND(dead_alien, sound('sound/voice/hiss5.ogg'))
 		if(isalienqueen(dead_alien))
 			for(var/mob/living/carbon/alien/humanoid/queen/living_queen in GLOB.alive_mob_list)
 				if(living_queen.key || !living_queen.get_int_organ(/obj/item/organ/internal/brain))
-					to_chat(dead_bro, "<span class='warning'>We already have an alive queen. We've been reverted to our drone form!</span>")
+					to_chat(dead_bro, span_warning("We already have an alive queen. We've been reverted to our drone form!"))
 					qdel(dead_alien)
 					var/mob/living/carbon/alien/humanoid/drone/new_drone = new(get_turf(src))
 					new_drone.key = dead_bro.key
@@ -203,20 +203,20 @@
 		return FALSE
 
 	if(!user.get_int_organ(/obj/item/organ/internal/alien/hivenode))
-		to_chat(user, "<span class='noticealien'>Your lack of linkage to the hive prevents you from buckling [M] into [src].</span>")
+		to_chat(user, span_noticealien("Your lack of linkage to the hive prevents you from buckling [M] into [src]."))
 		return
 
 	if(has_buckled_mobs())
 		unbuckle_all_mobs()
 
 	if(!M.get_int_organ(/obj/item/organ/internal/alien/hivenode))
-		to_chat(user, "<span class='noticealien'>[src] would be of no use to [M].</span>")
+		to_chat(user, span_noticealien("[src] would be of no use to [M]."))
 		return
 
 	if(buckle_mob(M))
-		M.visible_message("<span class='notice'>[user] secretes a thick vile goo, securing [M] into [src]!</span>",\
-			"<span class='danger'>[user] drenches you in a foul-smelling resin, trapping you in [src]!</span>",\
-			"<span class='italics'>You hear squelching...</span>")
+		M.visible_message(span_notice("[user] secretes a thick vile goo, securing [M] into [src]!"),\
+			span_danger("[user] drenches you in a foul-smelling resin, trapping you in [src]!"),\
+			span_italics("You hear squelching..."))
 		START_PROCESSING(SSobj, src)
 
 /obj/structure/bed/revival_nest/attack_alien(mob/living/carbon/alien/user)

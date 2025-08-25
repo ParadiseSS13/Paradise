@@ -64,7 +64,7 @@
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
 	var/area/our_area = get_area(src)
-	. += "<span class='notice'>It is [our_area.lightswitch ? "on" : "off"].</span>"
+	. += span_notice("It is [our_area.lightswitch ? "on" : "off"].")
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -99,7 +99,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 
-	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
+	user.visible_message(span_notice("[user] starts unwrenching [src] from the wall..."), span_notice("You are unwrenching [src] from the wall..."), span_warning("You hear ratcheting."))
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return
 

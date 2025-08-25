@@ -104,13 +104,13 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 	switch(construction_state)
 		if(GRAV_NEEDS_WELDING)
-			. += "<span class='notice'>The framework is damaged, and needs welding.</span>"
+			. += span_notice("The framework is damaged, and needs welding.")
 		if(GRAV_NEEDS_PLASTEEL)
-			. += "<span class='notice'>The framework needs new plasteel plating.</span>"
+			. += span_notice("The framework needs new plasteel plating.")
 		if(GRAV_NEEDS_WRENCH)
-			. += "<span class='notice'>The plating needs wrenching into place.</span>"
+			. += span_notice("The plating needs wrenching into place.")
 		if(GRAV_NEEDS_SCREWDRIVER)
-			. += "<span class='notice'>The cover screws are loose.</span>"
+			. += span_notice("The cover screws are loose.")
 
 /obj/machinery/gravity_generator/main/Destroy() // If we somehow get deleted, remove all of our other parts.
 	investigate_log("was destroyed!", INVESTIGATE_GRAVITY)
@@ -149,7 +149,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	. = TRUE
 	if(!I.use_tool(src, user, null, 1, I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You mend the damaged framework.</span>")
+	to_chat(user, span_notice("You mend the damaged framework."))
 	construction_state = GRAV_NEEDS_PLASTEEL
 	update_icon()
 
@@ -161,10 +161,10 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	if(istype(used, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/PS = used
 		if(PS.amount < 10)
-			to_chat(user, "<span class='warning'>You need 10 sheets of plasteel.</span>")
+			to_chat(user, span_warning("You need 10 sheets of plasteel."))
 			return ITEM_INTERACT_COMPLETE
 
-		to_chat(user, "<span class='notice'>You add new plating to the framework.</span>")
+		to_chat(user, span_notice("You add new plating to the framework."))
 		construction_state = GRAV_NEEDS_WRENCH
 		update_icon()
 		return ITEM_INTERACT_COMPLETE
@@ -178,7 +178,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You secure the plating to the framework.</span>")
+	to_chat(user, span_notice("You secure the plating to the framework."))
 	construction_state = GRAV_NEEDS_SCREWDRIVER
 	update_icon()
 
@@ -191,7 +191,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You screw the covers back into place.</span>")
+	to_chat(user, span_notice("You screw the covers back into place."))
 	set_fix()
 
 /obj/machinery/gravity_generator/main/attack_hand(mob/user)

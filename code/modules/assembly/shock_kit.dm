@@ -24,13 +24,13 @@
 	part2?.master = null
 	part1 = null
 	part2 = null
-	visible_message("<span class='notice'>[user] disassembles [src].</span>")
+	visible_message(span_notice("[user] disassembles [src]."))
 	qdel(src)
 	return TRUE
 
 /obj/item/assembly/shock_kit/screwdriver_act(mob/user, obj/item/I)
 	status = !status
-	to_chat(user, "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>")
+	to_chat(user, span_notice("[src] is now [status ? "secured" : "unsecured"]!"))
 	add_fingerprint(user)
 	return TRUE
 

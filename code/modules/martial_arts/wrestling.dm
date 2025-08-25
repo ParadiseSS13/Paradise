@@ -13,18 +13,18 @@
 	var/obj/item/grab/G = A.get_active_hand()
 	if(G && prob(50))
 		G.state = GRAB_AGGRESSIVE
-		D.visible_message("<span class='danger'>[A] has [D] in a clinch!</span>", \
-								"<span class='userdanger'>[A] has [D] in a clinch!</span>")
+		D.visible_message(span_danger("[A] has [D] in a clinch!"), \
+								span_userdanger("[A] has [D] in a clinch!"))
 	else
-		D.visible_message("<span class='danger'>[A] fails to get [D] in a clinch!</span>", \
-								"<span class='userdanger'>[A] fails to get [D] in a clinch!</span>")
+		D.visible_message(span_danger("[A] fails to get [D] in a clinch!"), \
+								span_userdanger("[A] fails to get [D] in a clinch!"))
 	return 1
 
 
 /datum/martial_art/wrestling/proc/Suplex(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
-	D.visible_message("<span class='danger'>[A] suplexes [D]!</span>", \
-								"<span class='userdanger'>[A] suplexes [D]!</span>")
+	D.visible_message(span_danger("[A] suplexes [D]!"), \
+								span_userdanger("[A] suplexes [D]!"))
 	D.forceMove(A.loc)
 	var/armor_block = D.run_armor_check(null, MELEE)
 	D.apply_damage(30, BRUTE, null, armor_block)
@@ -50,8 +50,8 @@
 
 /datum/martial_art/wrestling/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	D.grabbedby(A,1)
-	D.visible_message("<span class='danger'>[A] holds [D] down!</span>", \
-								"<span class='userdanger'>[A] holds [D] down!</span>")
+	D.visible_message(span_danger("[A] holds [D] down!"), \
+								span_userdanger("[A] holds [D] down!"))
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 	D.apply_damage(10, STAMINA, affecting, armor_block)
@@ -63,6 +63,6 @@
 
 /datum/martial_art/wrestling/explaination_combos(user)
 	. = ..()
-	to_chat(user, "<span class='notice'>Clinch</span>: Grab. Passively gives you a chance to immediately aggressively grab someone. Not always successful.")
-	to_chat(user, "<span class='notice'>Suplex</span>: Disarm someone you are grabbing. Suplexes your target to the floor. Greatly injures them and leaves both you and your target on the floor.")
-	to_chat(user, "<span class='notice'>Advanced grab</span>: Grab. Passively causes stamina damage when grabbing someone.")
+	to_chat(user, "[span_notice("Clinch")]: Grab. Passively gives you a chance to immediately aggressively grab someone. Not always successful.")
+	to_chat(user, "[span_notice("Suplex")]: Disarm someone you are grabbing. Suplexes your target to the floor. Greatly injures them and leaves both you and your target on the floor.")
+	to_chat(user, "[span_notice("Advanced grab")]: Grab. Passively causes stamina damage when grabbing someone.")

@@ -23,7 +23,7 @@
 
 /datum/spell/touch/alien_spell/Click(mob/user = usr)
 	if(attached_hand)
-		to_chat(user, "<span class='noticealien'>You withdraw your [src].</span>")
+		to_chat(user, span_noticealien("You withdraw your [src]."))
 	..()
 
 /datum/spell/touch/alien_spell/write_custom_logs(list/targets, mob/user)

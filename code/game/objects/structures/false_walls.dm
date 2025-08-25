@@ -42,14 +42,14 @@
 	var/healthpercent = (obj_integrity/max_integrity) * 100
 	switch(healthpercent)
 		if(100)
-			. += "<span class='notice'>It looks fully intact.</span>"
+			. += span_notice("It looks fully intact.")
 		if(70 to 99)
-			. +=  "<span class='warning'>It looks slightly damaged.</span>"
+			. +=  span_warning("It looks slightly damaged.")
 		if(40 to 70)
-			. +=  "<span class='warning'>It looks moderately damaged.</span>"
+			. +=  span_warning("It looks moderately damaged.")
 		if(0 to 40)
-			. += "<span class='danger'>It looks heavily damaged.</span>"
-	. += "<br><span class='notice'>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.</span>"
+			. += span_danger("It looks heavily damaged.")
+	. += "<br>[span_notice("Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.")]"
 
 /obj/structure/falsewall/Destroy()
 	density = FALSE
@@ -116,7 +116,7 @@
 
 /obj/structure/falsewall/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(opening)
-		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
+		to_chat(user, span_warning("You must wait until the door has stopped moving."))
 		return
 
 	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade) || istype(W, /obj/item/pyro_claws))
@@ -126,24 +126,24 @@
 	. = ..()
 	if(. && M.environment_smash >= env_smash_level)
 		deconstruct(FALSE)
-		to_chat(M, "<span class='notice'>You smash through the wall.</span>")
+		to_chat(M, span_notice("You smash through the wall."))
 
 /obj/structure/falsewall/screwdriver_act(mob/living/user, obj/item/I)
 	if(opening)
-		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
+		to_chat(user, span_warning("You must wait until the door has stopped moving."))
 		return TRUE
 	if(!density)
-		to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
+		to_chat(user, span_warning("You can't reach, close it first!"))
 		return TRUE
 	var/turf/T = get_turf(src)
 	if(T.density)
-		to_chat(user, "<span class='warning'>[src] is blocked!</span>")
+		to_chat(user, span_warning("[src] is blocked!"))
 		return TRUE
 
 	if(!isfloorturf(T))
-		to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
+		to_chat(user, span_warning("[src] bolts must be tightened on the floor!"))
 		return TRUE
-	user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")
+	user.visible_message(span_notice("[user] tightens some bolts on the wall."), span_warning("You tighten the bolts on the wall."))
 	ChangeToWall()
 	return TRUE
 
@@ -156,7 +156,7 @@
 	dismantle(user, TRUE)
 
 /obj/structure/falsewall/proc/dismantle(mob/user, disassembled = TRUE)
-	user.visible_message("<span class='notice'>[user] dismantles the false wall.</span>", "<span class='warning'>You dismantle the false wall.</span>")
+	user.visible_message(span_notice("[user] dismantles the false wall."), span_warning("You dismantle the false wall."))
 	playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 	deconstruct(disassembled)
 
@@ -191,7 +191,7 @@
 
 /obj/structure/falsewall/reinforced/examine_status(mob/user)
 	. = ..()
-	. += "<br><span class='notice'>The outer <b>grille</b> is fully intact.</span>"	//not going to fake other states of disassembly
+	. += "<br>[span_notice("The outer <b>grille</b> is fully intact.")]"	//not going to fake other states of disassembly
 
 /obj/structure/falsewall/reinforced/ChangeToWall(delete = 1)
 	var/turf/T = get_turf(src)

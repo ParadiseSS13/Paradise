@@ -69,7 +69,7 @@
 /mob/camera/eye/proc/validate_active_cameranet(strict = 0)
 	var/camera = first_active_camera()
 	if(strict && !camera)
-		to_chat(user, "<span class='warning'>ERROR: No linked and active camera network found.</span>")
+		to_chat(user, span_warning("ERROR: No linked and active camera network found."))
 		return FALSE
 	return TRUE
 
@@ -173,7 +173,7 @@
 
 	if(cooldown && cooldown < world.timeofday)
 		sprint = initial
-	
+
 	for(var/i in 0 to sprint step sprint_threshold)
 		var/turf/next_step= get_turf(get_step(src, direct))
 		if(next_step)

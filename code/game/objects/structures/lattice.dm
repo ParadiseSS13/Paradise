@@ -23,10 +23,10 @@
 /obj/structure/lattice/examine(mob/user)
 	. = ..()
 	. += deconstruction_hints(user)
-	. += "<span class='notice'>Add a floor tile to build a floor on top of the lattice.</span>"
+	. += span_notice("Add a floor tile to build a floor on top of the lattice.")
 
 /obj/structure/lattice/proc/deconstruction_hints(mob/user)
-	return "<span class='notice'>The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.</span>"
+	return span_notice("The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.")
 
 /obj/structure/lattice/attackby__legacy__attackchain(obj/item/C, mob/user, params)
 	if(resistance_flags & INDESTRUCTIBLE)
@@ -34,7 +34,7 @@
 	if(istype(C, /obj/item/wirecutters))
 		var/obj/item/wirecutters/W = C
 		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>Slicing [name] joints...</span>")
+		to_chat(user, span_notice("Slicing [name] joints..."))
 		deconstruct()
 	else
 		// hand this off to the turf instead (for building plating, catwalks, etc)
@@ -65,7 +65,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_CATWALK)
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
-	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>")
+	to_chat(user, span_notice("The supporting rods look like they could be <b>cut</b>."))
 
 /obj/structure/lattice/catwalk/Move()
 	var/turf/T = loc
@@ -93,5 +93,5 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
 
 /obj/structure/lattice/lava/deconstruction_hints(mob/user)
-	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>, but the <i>heat treatment will shatter off</i>.")
+	to_chat(user, "[span_notice("The supporting rods look like they could be <b>cut</b>.")], but the <i>heat treatment will shatter off</i>.")
 

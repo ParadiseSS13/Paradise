@@ -10,7 +10,7 @@
 
 /obj/item/grenade/clusterbuster/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Upon detonating, this grenade will explode into a shower of bomblets that will all explode individually. Be ready to run away very fast.</span>"
+	. += span_notice("Upon detonating, this grenade will explode into a shower of bomblets that will all explode individually. Be ready to run away very fast.")
 
 /obj/item/grenade/clusterbuster/prime()
 	update_mob()

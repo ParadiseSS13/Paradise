@@ -9,14 +9,14 @@
 	if(!IS_HORIZONTAL(target))
 		target.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
 		target.KnockDown(6 SECONDS)
-		target.visible_message("<span class='warning'>[user] kicks [target] in the head, sending them face first into the floor!</span>",
-						"<span class='userdanger'>You are kicked in the head by [user], sending you crashing to the floor!</span>")
+		target.visible_message(span_warning("[user] kicks [target] in the head, sending them face first into the floor!"),
+						span_userdanger("You are kicked in the head by [user], sending you crashing to the floor!"))
 	else
 		target.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
 		target.drop_l_hand()
 		target.drop_r_hand()
-		target.visible_message("<span class='warning'>[user] kicks [target] in the head, leaving them reeling in pain!</span>",
-							"<span class='userdanger'>You are kicked in the head by [user], and you reel in pain!</span>")
+		target.visible_message(span_warning("[user] kicks [target] in the head, leaving them reeling in pain!"),
+							span_userdanger("You are kicked in the head by [user], and you reel in pain!"))
 	target.apply_damage(60, STAMINA)
 	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Keelhaul", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

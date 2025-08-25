@@ -12,10 +12,10 @@
 	if(!deconstructible)
 		return FALSE
 
-	user.visible_message("<span class='notice'>[user] starts disassembling [src]...</span>", "<span class='notice'>You start disassembling [src]...</span>")
+	user.visible_message(span_notice("[user] starts disassembling [src]..."), span_notice("You start disassembling [src]..."))
 	playsound(loc, I.usesound, 50, TRUE)
 	if(I.use_tool(src, user, 5 SECONDS, 0, 50))
-		user.visible_message("<span class='notice'>[user] disassembles [src]!</span>", "<span class='notice'>You break down [src] into scrap metal.</span>")
+		user.visible_message(span_notice("[user] disassembles [src]!"), span_notice("You break down [src] into scrap metal."))
 		playsound(user, 'sound/items/deconstruct.ogg', 50, TRUE)
 		new /obj/item/stack/sheet/metal(drop_location())
 		qdel(src)

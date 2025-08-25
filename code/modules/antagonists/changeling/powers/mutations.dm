@@ -55,7 +55,7 @@
 		done = TRUE
 	if(done && !silent)
 		playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
-		owner.visible_message("<span class='warning'>With a sickening crunch, [owner] reforms [owner.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+		owner.visible_message(span_warning("With a sickening crunch, [owner] reforms [owner.p_their()] [weapon_name_simple] into an arm!"), span_notice("We assimilate the [weapon_name_simple] back into our body."), span_warning("You hear organic matter ripping and tearing!"))
 	cling.chem_recharge_slowdown -= recharge_slowdown // We handle this here because more things can retract without going through try_to_sting
 
 //Parent to space suits and armor.
@@ -77,7 +77,7 @@
 
 	var/mob/living/carbon/human/H = user
 	if(istype(H.wear_suit, suit_type) || istype(H.head, helmet_type))
-		H.visible_message("<span class='warning'>[H] casts off [H.p_their()] [suit_name_simple]!</span>", "<span class='warning'>We cast off our [suit_name_simple].</span>", "<span class='warning'>You hear the organic matter ripping and tearing!</span>")
+		H.visible_message(span_warning("[H] casts off [H.p_their()] [suit_name_simple]!"), span_warning("We cast off our [suit_name_simple]."), span_warning("You hear the organic matter ripping and tearing!"))
 		playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 		qdel(H.wear_suit)
 		qdel(H.head)
@@ -168,7 +168,7 @@
 		C.attack_alien(user) //muh copypasta
 
 /obj/item/melee/arm_blade/customised_abstract_text(mob/living/carbon/owner)
-	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque meat-blade.</span>"
+	return span_warning("[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque meat-blade.")
 
 /***************************************\
 |***********COMBAT TENTACLES*************|
@@ -225,17 +225,17 @@
 		qdel(src)
 
 /obj/item/gun/magic/tentacle/customised_abstract_text(mob/living/carbon/owner)
-	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque tentacle.</span>"
+	return span_warning("[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque tentacle.")
 
 /obj/item/gun/magic/tentacle/Initialize(mapload, silent, new_parent_action)
 	. = ..()
 	parent_action = new_parent_action
 	if(ismob(loc))
 		if(!silent)
-			loc.visible_message("<span class='warning'>[loc.name]\'s arm starts stretching inhumanly!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a tentacle.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+			loc.visible_message(span_warning("[loc.name]\'s arm starts stretching inhumanly!"), span_warning("Our arm twists and mutates, transforming it into a tentacle."), span_italics("You hear organic matter ripping and tearing!"))
 			playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 		else
-			to_chat(loc, "<span class='notice'>You prepare to extend a tentacle.</span>")
+			to_chat(loc, span_notice("You prepare to extend a tentacle."))
 
 /obj/item/gun/magic/tentacle/Destroy()
 	if(parent_action)
@@ -246,10 +246,10 @@
 	return ..()
 
 /obj/item/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='warning'>[src] is not ready yet.</span>")
+	to_chat(user, span_warning("[src] is not ready yet."))
 
 /obj/item/gun/magic/tentacle/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS
 
 /obj/item/ammo_casing/magic/tentacle
@@ -311,7 +311,7 @@
 		if(I.anchored)
 			return FALSE
 
-		to_chat(H, "<span class='notice'>You grab [I] with your tentacle.</span>")
+		to_chat(H, span_notice("You grab [I] with your tentacle."))
 		add_attack_logs(H, I, "[src] grabs [I] with a tentacle")
 		I.forceMove(H.loc)
 		I.attack_hand(H) // The tentacle takes the item back with them and makes them pick it up. No silly throw mode.
@@ -325,14 +325,14 @@
 		return FALSE
 
 	if(!iscarbon(L))
-		L.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
+		L.visible_message(span_danger("[L] is pulled by [H]'s tentacle!"),span_userdanger("A tentacle grabs you and pulls you towards [H]!"))
 		L.throw_at(get_step_towards(H,L), 8, 2)
 		return TRUE
 
 	var/mob/living/carbon/C = L
 	switch(H.a_intent)
 		if(INTENT_HELP)
-			C.visible_message("<span class='danger'>[L] is pulled to their feet towards [H]!</span>","<span class='userdanger'>A tentacle grabs you and pulls you up towards [H]!</span>")
+			C.visible_message(span_danger("[L] is pulled to their feet towards [H]!"),span_userdanger("A tentacle grabs you and pulls you up towards [H]!"))
 			add_attack_logs(H, L, "[H] pulled [L] towards them with a tentacle")
 			C.throw_at(get_step_towards(H,C), 8, 2)
 			C.AdjustParalysis(-2 SECONDS)
@@ -346,19 +346,19 @@
 			var/obj/item/I = C.get_active_hand()
 			if(I)
 				if(C.drop_item())
-					C.visible_message("<span class='danger'>[I] is yanked out of [C]'s hand by [src]!</span>","<span class='userdanger'>A tentacle pulls [I] away from you!</span>")
+					C.visible_message(span_danger("[I] is yanked out of [C]'s hand by [src]!"),span_userdanger("A tentacle pulls [I] away from you!"))
 					add_attack_logs(H, C, "[H] has grabbed [I] out of [C]'s hand with a tentacle")
 					on_hit(I) // grab the item as if you had hit it directly with the tentacle
 					return TRUE
-				to_chat(H, "<span class='danger'>You can't seem to pry [I] out of [C]'s hands!</span>")
+				to_chat(H, span_danger("You can't seem to pry [I] out of [C]'s hands!"))
 				add_attack_logs(H, C, "[H] tried to grab [I] out of their hand with a tentacle, but failed")
-			C.visible_message("<span class='danger'>[C] is knocked over by [src]!</span>", "<span class='userdanger'>A tentacle hits you in the chest and knocks you over!</span>")
+			C.visible_message(span_danger("[C] is knocked over by [src]!"), span_userdanger("A tentacle hits you in the chest and knocks you over!"))
 			add_attack_logs(H, C, "[H] knocked over with a tentacle")
 			C.KnockDown(2 SECONDS) // Not useless with antidrop.
 			return TRUE
 
 		if(INTENT_GRAB)
-			C.visible_message("<span class='danger'>[L] is entangled by [H]'s tentacle!</span>", "<span class='userdanger'>A tentacle grabs you and wraps around your legs!</span>")
+			C.visible_message(span_danger("[L] is entangled by [H]'s tentacle!"), span_userdanger("A tentacle grabs you and wraps around your legs!"))
 			add_attack_logs(H, C, "imobilised with a changeling tentacle")
 			if(!iscarbon(H))
 				return TRUE
@@ -367,7 +367,7 @@
 			return TRUE
 
 		if(INTENT_HARM)
-			C.visible_message("<span class='danger'>[L] is thrown towards [H] by a tentacle!</span>","<span class='userdanger'>A tentacle grabs you and throws you towards [H]!</span>")
+			C.visible_message(span_danger("[L] is thrown towards [H] by a tentacle!"),span_userdanger("A tentacle grabs you and throws you towards [H]!"))
 			C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, TYPE_PROC_REF(/mob, tentacle_stab), C))
 			return TRUE
 
@@ -431,7 +431,7 @@
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 	if(ismob(loc))
-		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+		loc.visible_message(span_warning("The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!"), span_warning("We inflate our hand into a strong shield."), span_warning("You hear organic matter ripping and tearing!"))
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 
 /***************************************\
@@ -465,7 +465,7 @@
 /obj/item/clothing/suit/space/changeling/Initialize(mapload)
 	. = ..()
 	if(ismob(loc))
-		loc.visible_message("<span class='warning'>[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!</span>", "<span class='warning'>We inflate our flesh, creating a spaceproof suit!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+		loc.visible_message(span_warning("[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!"), span_warning("We inflate our flesh, creating a spaceproof suit!"), span_warning("You hear organic matter ripping and tearing!"))
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/space/changeling/process()
@@ -515,7 +515,7 @@
 /obj/item/clothing/suit/armor/changeling/Initialize(mapload)
 	. = ..()
 	if(ismob(loc))
-		loc.visible_message("<span class='warning'>[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!</span>", "<span class='warning'>We harden our flesh, creating a suit of armor!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+		loc.visible_message(span_warning("[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!"), span_warning("We harden our flesh, creating a suit of armor!"), span_warning("You hear organic matter ripping and tearing!"))
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 
 /obj/item/clothing/suit/armor/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage)
@@ -539,16 +539,16 @@
 		return
 
 	user.visible_message(
-		"<span class='notice'>[user] starts to saw through [owner]'s [name].</span>",
-		"<span class='notice'>You start to saw through [owner]'s [name].</span>",
-		"<span class='notice'>You hear a loud grinding noise.</span>"
+		span_notice("[user] starts to saw through [owner]'s [name]."),
+		span_notice("You start to saw through [owner]'s [name]."),
+		span_notice("You hear a loud grinding noise.")
 	)
 
 	if(!do_after(user, 15 SECONDS, target = owner))
 		user.visible_message(
-			"<span class='warning'>[user] fails to cut through [owner]'s [name].</span>",
-			"<span class='warning'>You fail to cut through [owner]'s [name].</span>",
-			"<span class='notice'>You hear the grinding stop.</span>"
+			span_warning("[user] fails to cut through [owner]'s [name]."),
+			span_warning("You fail to cut through [owner]'s [name]."),
+			span_notice("You hear the grinding stop.")
 		)
 		return FALSE
 
@@ -557,9 +557,9 @@
 		return FALSE
 
 	user.visible_message(
-		"<span class='warning'>\The [name] turns to shreds as [user] cleaves through it!</span>",
-		"<span class='warning'>\The [name] turns to shreds as you cleave through it!</span>",
-		"<span class='notice'>You hear something fall as the grinding ends.</span>"
+		span_warning("\The [name] turns to shreds as [user] cleaves through it!"),
+		span_warning("\The [name] turns to shreds as you cleave through it!"),
+		span_notice("You hear something fall as the grinding ends.")
 	)
 
 	playsound(I, I.hitsound, 50)
@@ -624,4 +624,4 @@
 	C.throw_mode_on()
 
 	playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
-	C.visible_message("<span class='warning'>Shards of bone grow through [C.name]'s palms and fall into [C.p_their()] hands!</span>", "<span class='warning'>We expel shards of bone into our hands.</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")
+	C.visible_message(span_warning("Shards of bone grow through [C.name]'s palms and fall into [C.p_their()] hands!"), span_warning("We expel shards of bone into our hands."), span_hear("You hear organic matter ripping and tearing!"))

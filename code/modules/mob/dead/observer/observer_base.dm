@@ -227,7 +227,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/obj/machinery/cryopod/P = istype(loc, /obj/machinery/cryopod) && loc
 
 	if(frozen)
-		to_chat(src, "<span class='warning'>You cannot do this while admin frozen.</span>", MESSAGE_TYPE_WARNING)
+		to_chat(src, span_warning("You cannot do this while admin frozen."), MESSAGE_TYPE_WARNING)
 		message_admins("[key_name_admin(src)] tried to ghost while admin frozen")
 		return
 
@@ -322,13 +322,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!client)
 		return
 	if(!mind || QDELETED(mind.current))
-		to_chat(src, "<span class='warning'>You have no body.</span>")
+		to_chat(src, span_warning("You have no body."))
 		return
 	if(!can_reenter_corpse)
-		to_chat(src, "<span class='warning'>You cannot re-enter your body.</span>")
+		to_chat(src, span_warning("You cannot re-enter your body."))
 		return
 	if(mind.current.key && copytext(mind.current.key,1,2)!="@")	//makes sure we don't accidentally kick any clients
-		to_chat(usr, "<span class='warning'>Another consciousness is in your body...It is resisting you.</span>")
+		to_chat(usr, span_warning("Another consciousness is in your body...It is resisting you."))
 		return
 
 	mind.current.key = key
@@ -340,7 +340,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/proc/notify_cloning(message, sound, atom/source)
 	if(message)
-		to_chat(src, "<span class='ghostalert'>[message]</span>")
+		to_chat(src, span_ghostalert("[message]"))
 		if(source)
 			var/atom/movable/screen/alert/A = throw_alert("\ref[source]_notify_cloning", /atom/movable/screen/alert/notify_cloning)
 			if(A)
@@ -354,7 +354,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				A.overlays += source
 				source.layer = old_layer
 				source.plane = old_plane
-	to_chat(src, "<span class='ghostalert'><a href=byond://?src=[UID()];reenter=1>(Click to re-enter)</a></span>")
+	to_chat(src, span_ghostalert("<a href=byond://?src=[UID()];reenter=1>(Click to re-enter)</a>"))
 	if(sound)
 		SEND_SOUND(src, sound(sound))
 
@@ -423,18 +423,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!isobserver(src)) // Somehow
 		return
 	if(!can_reenter_corpse)
-		to_chat(src, "<span class='warning'>You are already set to DNR!</span>")
+		to_chat(src, span_warning("You are already set to DNR!"))
 		return
 	if(!mind || QDELETED(mind.current))
-		to_chat(src, "<span class='warning'>You have no body.</span>")
+		to_chat(src, span_warning("You have no body."))
 		return
 	if(mind.current.stat != DEAD)
-		to_chat(src, "<span class='warning'>Your body is still alive!</span>")
+		to_chat(src, span_warning("Your body is still alive!"))
 		return
 
 	var/choice = tgui_alert(src, "If you enable this, your body will be unrevivable for the remainder of the round.", "Do Not Revive!", list("Yes", "No"))
 	if(choice == "Yes")
-		to_chat(src, "<span class='boldnotice'>Do Not Revive state enabled.</span>")
+		to_chat(src, span_boldnotice("Do Not Revive state enabled."))
 		create_log(MISC_LOG, "DNR Enabled")
 		can_reenter_corpse = FALSE
 		if(!QDELETED(mind.current)) // Could change while they're choosing
@@ -485,8 +485,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		update_parallax_contents()
 
 		var/list/messages = list(
-			"<span class='notice'>Jumped to <b>[landmark.ruin_template.name]</b>:</span>",
-			"<span class='notice'>[landmark.ruin_template.description]</span>"
+			span_notice("Jumped to <b>[landmark.ruin_template.name]</b>:"),
+			span_notice("[landmark.ruin_template.description]")
 		)
 		to_chat(usr, chat_box_examine(messages.Join("<br />")))
 
@@ -499,7 +499,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		turfs += T
 
 	if(!length(turfs))
-		to_chat(src, "<span class='warning'>Nowhere to jump to!</span>")
+		to_chat(src, span_warning("Nowhere to jump to!"))
 		return
 	forceMove(pick(turfs))
 	update_parallax_contents()
@@ -578,7 +578,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		else // Circular
 			rot_seg = 36 // 360/10 bby, smooth enough aproximation of a circle
 
-	to_chat(src, "<span class='notice'>Now following [target].</span>")
+	to_chat(src, span_notice("Now following [target]."))
 	orbit(target, orbitsize, FALSE, 20, rot_seg)
 
 /mob/dead/observer/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lock_in_orbit = FALSE, force_move = FALSE, orbit_layer = GHOST_LAYER)
@@ -599,11 +599,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/memory()
 	set hidden = 1
-	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
+	to_chat(src, span_warning("You are dead! You have no mind to store memory!"))
 
 /mob/dead/observer/add_memory()
 	set hidden = 1
-	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
+	to_chat(src, span_warning("You are dead! You have no mind to store memory!"))
 
 /mob/dead/observer/verb/toggle_health_scan()
 	set name = "Toggle Health Scan"
@@ -611,10 +611,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	if(health_scan) //remove old huds
-		to_chat(src, "<span class='notice'>Health scan disabled.</span>")
+		to_chat(src, span_notice("Health scan disabled."))
 		health_scan = FALSE
 	else
-		to_chat(src, "<span class='notice'>Health scan enabled.</span>")
+		to_chat(src, span_notice("Health scan enabled."))
 		health_scan = TRUE
 
 /mob/dead/observer/verb/toggle_gas_scan()
@@ -624,9 +624,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	gas_scan = !gas_scan
 	if(gas_scan)
-		to_chat(src, "<span class='notice'>Gas scan enabled.</span>")
+		to_chat(src, span_notice("Gas scan enabled."))
 	else
-		to_chat(src, "<span class='notice'>Gas scan disabled.</span>")
+		to_chat(src, span_notice("Gas scan disabled."))
 
 /mob/dead/observer/verb/toggle_plant_anaylzer()
 	set name = "Toggle Plant Analyzer"
@@ -634,10 +634,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	if(plant_analyzer)
-		to_chat(src, "<span class='notice'>Plant Analyzer disabled.</span>")
+		to_chat(src, span_notice("Plant Analyzer disabled."))
 		plant_analyzer = FALSE
 	else
-		to_chat(src, "<span class='notice'>Plant Analyzer enabled. Click on a plant or seed to analyze.</span>")
+		to_chat(src, span_notice("Plant Analyzer enabled. Click on a plant or seed to analyze."))
 		plant_analyzer = TRUE
 
 /mob/dead/observer/verb/view_manifest()
@@ -799,7 +799,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/follow_link
 		if(invisibility) // Only show the button if the ghost is not visible to the living
 			follow_link = " ([ghost_follow_link(A, M)])" // Ghost needs to be link clicker, otherwise it breaks
-		M.show_message("<span class='deadsay'><b>[src]</b> points to [A][follow_link].</span>", EMOTE_VISIBLE)
+		M.show_message(span_deadsay("<b>[src]</b> points to [A][follow_link]."), EMOTE_VISIBLE)
 
 	return TRUE
 
@@ -881,7 +881,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		possible_targets.Add(L)
 
 	if(!length(possible_targets))
-		to_chat(src, "<span class='warning'>There's nobody for you to observe!</span>")
+		to_chat(src, span_warning("There's nobody for you to observe!"))
 		return
 
 	var/mob/target = tgui_input_list(usr, "Please, select a player!", "Observe", possible_targets)
@@ -895,19 +895,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = null
 
 	if(isnewplayer(mob_eye))
-		to_chat(src, "<span class='warning'>You can't observe someone in the lobby.</span>")
+		to_chat(src, span_warning("You can't observe someone in the lobby."))
 		return
 
 	if(isobserver(mob_eye))
-		to_chat(src, "<span class='warning'>You can't observe a ghost.</span>")
+		to_chat(src, span_warning("You can't observe a ghost."))
 		return
 
 	if(!mob_eye.mind)
-		to_chat(src, "<span class='notice'>You can only observe mobs that have been or are being inhabited by a player!</span>")
+		to_chat(src, span_notice("You can only observe mobs that have been or are being inhabited by a player!"))
 		return
 
 	if(mob_eye == src)
-		to_chat(src, "<span class='warning'>You can't observe yourself!</span>")
+		to_chat(src, span_warning("You can't observe yourself!"))
 		return
 
 	if(mob_observed)

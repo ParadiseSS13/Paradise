@@ -97,15 +97,15 @@
 		if(user.hand)
 			temp = H.bodyparts_by_name["l_hand"]
 		if(!temp)
-			to_chat(user, "<span class='warning'>You try to use your hand, but it's missing!</span>")
+			to_chat(user, span_warning("You try to use your hand, but it's missing!"))
 			return
 		if(!temp.is_usable())
-			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
+			to_chat(user, span_warning("You try to move your [temp.name], but cannot!"))
 			return
 
 	user.Weaken(4 SECONDS)
-	user.visible_message("<span class='warning'>[user] does a grabbing motion towards [get_turf(src)] but [user.p_they()] stumble[user.p_s()] - nothing is there!</span>",
-						"<span class='userdanger'>[src] vanishes as you try grabbing it, causing you to stumble!</span>")
+	user.visible_message(span_warning("[user] does a grabbing motion towards [get_turf(src)] but [user.p_they()] stumble[user.p_s()] - nothing is there!"),
+						span_userdanger("[src] vanishes as you try grabbing it, causing you to stumble!"))
 	qdel(src)
 
 /**
@@ -220,8 +220,8 @@
 	weaken = 8 SECONDS
 
 /obj/effect/hallucination/tripper/chasm/on_crossed()
-	target.visible_message("<span class='warning'>[target] trips over nothing and flails on [get_turf(target)] as if they were falling!</span>",
-						"<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall into the enveloping dark!</span>")
+	target.visible_message(span_warning("[target] trips over nothing and flails on [get_turf(target)] as if they were falling!"),
+						span_userdanger("You stumble and stare into an abyss before you. It stares back, and you fall into the enveloping dark!"))
 
 /**
   * # Hallucination - Delamination Alarm
@@ -234,7 +234,8 @@
 /obj/effect/hallucination/delamination_alarm/Initialize(mapload, mob/living/carbon/target)
 	. = ..()
 	target.playsound_local(target, 'sound/machines/engine_alert2.ogg', 25, FALSE, 30, 30)
-	target.hear_radio(message_to_multilingual("<b>Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(30, 50)]%</b>"), vname = "supermatter crystal", part_a = "<span class='[SSradio.frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
+	target.hear_radio(message_to_multilingual("<b>Danger! Crystal hyperstructure integrity faltering! Integrity: [rand(30, 50)]%</b>"), vname = "supermatter crystal", \
+		part_a = "<span class='[SSradio.frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
 
 /**
   * # Hallucination - Plasma Flood
@@ -439,7 +440,7 @@
 	I.override = TRUE
 	add_icon(I)
 
-	to_chat(target, "<span class='italics'>...wabbajack...wabbajack...</span>")
+	to_chat(target, span_italics("...wabbajack...wabbajack..."))
 	target.playsound_local(get_turf(target), 'sound/magic/staff_change.ogg', 50, TRUE, -1)
 
 /**

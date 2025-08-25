@@ -26,7 +26,7 @@
 	if(istype(chambered.BB, /obj/item/projectile/bullet/sniper) && !HAS_TRAIT(user, TRAIT_SCOPED))
 		var/obj/item/projectile/bullet/sniper/S = chambered.BB
 		if(S.non_zoom_spread)
-			to_chat(user, "<span class='warning'>[src] must be zoomed in to fire this ammunition accurately!</span>")
+			to_chat(user, span_warning("[src] must be zoomed in to fire this ammunition accurately!"))
 			bonus_spread += S.non_zoom_spread
 	return ..()
 

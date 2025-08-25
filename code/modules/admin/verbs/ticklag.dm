@@ -16,6 +16,6 @@
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Ticklag") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	else
-		to_chat(src, "<span class='warning'>Error: ticklag(): Invalid world.ticklag value. No changes made.</span>")
+		to_chat(src, span_warning("Error: ticklag(): Invalid world.ticklag value. No changes made."))
 
 

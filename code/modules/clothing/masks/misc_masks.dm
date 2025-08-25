@@ -22,8 +22,8 @@
 		return 0
 	else if(security_lock && locked)
 		if(do_unlock(user))
-			visible_message("<span class='danger'>[user] unlocks [user.p_their()] [src.name].</span>", \
-								"<span class='userdanger'>[user] unlocks [user.p_their()] [src.name].</span>")
+			visible_message(span_danger("[user] unlocks [user.p_their()] [src.name]."), \
+								span_userdanger("[user] unlocks [user.p_their()] [src.name]."))
 	..()
 	return 1
 
@@ -39,16 +39,16 @@
 
 /obj/item/clothing/mask/muzzle/proc/do_unlock(mob/living/carbon/human/user)
 	if(istype(user.get_inactive_hand(), /obj/item/card/emag))
-		to_chat(user, "<span class='warning'>The lock vibrates as the card forces its locking system open.</span>")
+		to_chat(user, span_warning("The lock vibrates as the card forces its locking system open."))
 		do_break()
 		return TRUE
 	else if(ACCESS_BRIG in user.get_access())
-		to_chat(user, "<span class='warning'>The muzzle unlocks with a click.</span>")
+		to_chat(user, span_warning("The muzzle unlocks with a click."))
 		locked = FALSE
 		set_nodrop(FALSE, loc)
 		return TRUE
 
-	to_chat(user, "<span class='warning'>You must be wearing a security ID card or have one in your inactive hand to remove the muzzle.</span>")
+	to_chat(user, span_warning("You must be wearing a security ID card or have one in your inactive hand to remove the muzzle."))
 	return FALSE
 
 /obj/item/clothing/mask/muzzle/proc/do_lock(mob/living/carbon/human/user)
@@ -113,19 +113,19 @@
 /obj/item/clothing/mask/muzzle/safety/shock/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/assembly/signaler) || istype(W, /obj/item/assembly/voice))
 		if(istype(trigger, /obj/item/assembly/signaler) || istype(trigger, /obj/item/assembly/voice))
-			to_chat(user, "<span class='notice'>Something is already attached to [src].</span>")
+			to_chat(user, span_notice("Something is already attached to [src]."))
 			return FALSE
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>You are unable to insert [W] into [src].</span>")
+			to_chat(user, span_warning("You are unable to insert [W] into [src]."))
 			return FALSE
 		trigger = W
 		trigger.forceMove(src)
 		trigger.master = src
 		trigger.holder = src
-		to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
+		to_chat(user, span_notice("You attach [W] to [src]."))
 		return TRUE
 	else if(istype(W, /obj/item/assembly))
-		to_chat(user, "<span class='notice'>That won't fit in [src]. Perhaps a signaler or voice analyzer would?</span>")
+		to_chat(user, span_notice("That won't fit in [src]. Perhaps a signaler or voice analyzer would?"))
 		return FALSE
 
 	return ..()
@@ -136,7 +136,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You remove [trigger] from [src].</span>")
+	to_chat(user, span_notice("You remove [trigger] from [src]."))
 	trigger.forceMove(get_turf(user))
 	trigger.master = null
 	trigger.holder = null
@@ -154,7 +154,7 @@
 	var/mob/living/L = can_shock(loc)
 	if(!L)
 		return
-	to_chat(L, "<span class='danger'>You feel a sharp shock!</span>")
+	to_chat(L, span_danger("You feel a sharp shock!"))
 	do_sparks(3, 1, L)
 
 	L.Weaken(10 SECONDS)
@@ -225,7 +225,7 @@
 		return 1
 
 /obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
-	user.visible_message("<span class='danger'>\ [user] twirls [user.p_their()] moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
+	user.visible_message(span_danger("\ [user] twirls [user.p_their()] moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!"))
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"
@@ -390,7 +390,7 @@
 
 	var/mob/living/carbon/char = user
 	if((char.get_item_by_slot(ITEM_SLOT_NECK) == src) || (char.get_item_by_slot(ITEM_SLOT_MASK) == src) || (char.get_item_by_slot(ITEM_SLOT_HEAD) == src))
-		to_chat(user, ("<span class='warning'>You can't tie [src] while wearing it!</span>"))
+		to_chat(user, (span_warning("You can't tie [src] while wearing it!")))
 		return
 
 	if(slot_flags & ITEM_SLOT_NECK)
@@ -415,7 +415,7 @@
 		var/datum/action/item_action/adjust/act = new(src)
 		if(loc == user)
 			act.Grant(user)
-		to_chat(user, ("<span class='notice'>You untie the neckercheif.</span>"))
+		to_chat(user, (span_notice("You untie the neckercheif.")))
 	else
 		icon = 'icons/obj/clothing/neck.dmi'
 		flags_inv = FALSE
@@ -436,7 +436,7 @@
 		for(var/datum/action/item_action/adjust/act in actions)
 			act.Remove(user)
 			qdel(act)
-		to_chat(user, ("<span class='notice'>You tie [src] up like a neckerchief.</span>"))
+		to_chat(user, (span_notice("You tie [src] up like a neckerchief.")))
 
 /obj/item/clothing/mask/bandana/red
 	name = "red bandana"
@@ -523,12 +523,12 @@
 	..()
 	var/mob/living/carbon/human/H = user
 	if(istype(H) && slot == ITEM_SLOT_MASK)
-		to_chat(H, "<span class='danger'>[src] grips your face!</span>")
+		to_chat(H, span_danger("[src] grips your face!"))
 		if(H.mind && H.mind.assigned_role != "Cluwne")
 			H.makeCluwne()
 
 /obj/item/clothing/mask/cursedclown/suicide_act(mob/user)
-	user.visible_message("<span class='danger'>[user] gazes into the eyes of [src]. [src] gazes back!</span>")
+	user.visible_message(span_danger("[user] gazes into the eyes of [src]. [src] gazes back!"))
 	spawn(10)
 		if(user)
 			user.gib()

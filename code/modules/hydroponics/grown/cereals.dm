@@ -94,8 +94,8 @@
 		return ITEM_INTERACT_COMPLETE
 
 	user.visible_message(
-		"<span class='notice'>[user] crushes [src] into meat.</span>",
-		"<span class='notice'>You crush [src] into something that resembles meat.</span>"
+		span_notice("[user] crushes [src] into meat."),
+		span_notice("You crush [src] into something that resembles meat.")
 	)
 	playsound(user, 'sound/effects/blobattack.ogg', 50, 1)
 	var/obj/item/food/meat/meatwheat/M = new(get_turf(user))

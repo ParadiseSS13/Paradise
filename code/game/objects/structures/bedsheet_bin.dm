@@ -55,7 +55,7 @@ LINEN BINS
 		var/obj/item/stack/sheet/cloth/C = new (get_turf(src), 3)
 		transfer_fingerprints_to(C)
 		C.add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You tear [src] up.</span>")
+		to_chat(user, span_notice("You tear [src] up."))
 		qdel(src)
 
 /obj/item/bedsheet/blue
@@ -332,22 +332,22 @@ LINEN BINS
 /obj/structure/bedsheetbin/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/bedsheet))
 		if(!user.drop_item())
-			to_chat(user, "<span class='notice'>[used] is stuck to your hand!</span>")
+			to_chat(user, span_notice("[used] is stuck to your hand!"))
 			return
 		used.forceMove(src)
 		sheets.Add(used)
 		amount++
 		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, "<span class='notice'>You put [used] in [src].</span>")
+		to_chat(user, span_notice("You put [used] in [src]."))
 	else if(amount && !hidden && used.w_class < WEIGHT_CLASS_BULKY)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
 		if(used.flags & ABSTRACT)
 			return
 		if(!user.drop_item())
-			to_chat(user, "<span class='notice'>[used] is stuck to your hand!</span>")
+			to_chat(user, span_notice("[used] is stuck to your hand!"))
 			return
 		used.forceMove(src)
 		hidden = used
-		to_chat(user, "<span class='notice'>You hide [used] among the sheets.</span>")
+		to_chat(user, span_notice("You hide [used] among the sheets."))
 
 
 
@@ -365,11 +365,11 @@ LINEN BINS
 
 		B.loc = user.loc
 		user.put_in_hands(B)
-		to_chat(user, "<span class='notice'>You take [B] out of [src].</span>")
+		to_chat(user, span_notice("You take [B] out of [src]."))
 
 		if(hidden)
 			hidden.loc = user.loc
-			to_chat(user, "<span class='notice'>[hidden] falls out of [B]!</span>")
+			to_chat(user, span_notice("[hidden] falls out of [B]!"))
 			hidden = null
 		update_icon(UPDATE_ICON_STATE)
 
@@ -389,7 +389,7 @@ LINEN BINS
 			B = new /obj/item/bedsheet(loc)
 
 		B.loc = loc
-		to_chat(user, "<span class='notice'>You telekinetically remove [B] from [src].</span>")
+		to_chat(user, span_notice("You telekinetically remove [B] from [src]."))
 		update_icon(UPDATE_ICON_STATE)
 
 		if(hidden)

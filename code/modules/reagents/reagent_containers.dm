@@ -70,13 +70,13 @@
 	// error if they changed.
 	if(!can_set_transfer_amount(user))
 		if(!Adjacent(user))
-			to_chat(user, "<span class='warning'>You have moved too far away!</span>")
+			to_chat(user, span_warning("You have moved too far away!"))
 		if(!ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-			to_chat(user, "<span class='warning'>You can't use your hands!</span>")
+			to_chat(user, span_warning("You can't use your hands!"))
 		return
 
 	amount_per_transfer_from_this = new_transfer_rate
-	to_chat(user, "<span class='notice'>[src] will now transfer [amount_per_transfer_from_this] units at a time.</span>")
+	to_chat(user, span_notice("[src] will now transfer [amount_per_transfer_from_this] units at a time."))
 
 /obj/item/reagent_containers/Initialize(mapload)
 	. = ..()
@@ -114,20 +114,20 @@
 		return
 
 	if(is_open_container())
-		to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
+		to_chat(usr, span_notice("You put the lid on [src]."))
 		add_lid()
 	else
-		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
+		to_chat(usr, span_notice("You take the lid off [src]."))
 		remove_lid()
 
 /obj/item/reagent_containers/wash(mob/user, atom/source)
 	if(is_open_container())
 		if(reagents.total_volume >= volume)
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
+			to_chat(user, span_warning("[src] is full."))
 			return
 		else
 			reagents.add_reagent("water", min(volume - reagents.total_volume, amount_per_transfer_from_this))
-			to_chat(user, "<span class='notice'>You fill [src] from [source].</span>")
+			to_chat(user, span_notice("You fill [src] from [source]."))
 			return
 	..()
 
@@ -135,8 +135,8 @@
 	. = ..()
 
 	if(visible_transfer_rate)
-		. += "<span class='notice'>It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this != 1 ? "s" : ""] at a time.</span>"
+		. += span_notice("It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this != 1 ? "s" : ""] at a time.")
 
 	// Items that have no valid possible_transfer_amounts shouldn't say their transfer rate is variable
 	if(possible_transfer_amounts)
-		. += "<span class='notice'><b>Alt-Click</b> to change the transfer amount.</span>"
+		. += span_notice("<b>Alt-Click</b> to change the transfer amount.")

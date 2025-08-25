@@ -107,5 +107,5 @@
 			T.dismantle_wall(TRUE)
 			hit_something = TRUE
 	if(hit_something)
-		visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
+		visible_message(span_danger("[src] slams into [hit_atom]!"), span_userdanger("You slam into [hit_atom]!"))
 		playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)

@@ -76,14 +76,14 @@
 				return
 			else
 				set_mode(CLAMPED_OFF)
-				visible_message("<span class='notice'>[user] attaches [src] to the cable!</span>")
+				visible_message(span_notice("[user] attaches [src] to the cable!"))
 				message_admins("Power sink activated by [key_name_admin(user)] at ([x],[y],[z] - <A href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 				log_game("Power sink activated by [key_name(user)] at ([x],[y],[z])")
 		else
 			to_chat(user, "Device must be placed over an exposed cable to attach to it.")
 	else
 		set_mode(DISCONNECTED)
-		src.visible_message("<span class='notice'>[user] detaches [src] from the cable!</span>")
+		src.visible_message(span_notice("[user] detaches [src] from the cable!"))
 
 /obj/item/powersink/attack_ai()
 	return
@@ -95,8 +95,8 @@
 		if(CLAMPED_OFF)
 			user.visible_message( \
 				"[user] activates \the [src]!", \
-				"<span class='notice'>You activate \the [src].</span>",
-				"<span class='italics'>You hear a click.</span>")
+				span_notice("You activate \the [src]."),
+				span_italics("You hear a click."))
 			message_admins("Power sink activated by [ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(src)]")
 			log_game("Power sink activated by [key_name(user)] at [AREACOORD(src)]")
 			notify_ghosts("[user] has activated a [name]!", title = "An electrifying occurrence! (Click to follow)", source = src, flashwindow = FALSE, action = NOTIFY_FOLLOW)
@@ -105,8 +105,8 @@
 		if(OPERATING)
 			user.visible_message( \
 				"[user] deactivates \the [src]!", \
-				"<span class='notice'>You deactivate \the [src].</span>",
-				"<span class='italics'>You hear a click.</span>")
+				span_notice("You deactivate \the [src]."),
+				span_italics("You hear a click."))
 			set_mode(CLAMPED_OFF)
 
 /obj/item/powersink/process()

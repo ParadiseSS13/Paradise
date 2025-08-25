@@ -171,7 +171,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 
 /obj/item/pipe/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click it to rotate, Alt-Shift-click it to flip!</span>"
+	. += span_notice("Alt-click it to rotate, Alt-Shift-click it to flip!")
 
 /obj/item/pipe/proc/update(obj/machinery/atmospherics/make_from)
 	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"
@@ -313,12 +313,12 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 
 	for(var/obj/machinery/atmospherics/M in loc)
 		if((M.initialize_directions & pipe_dir) && M.check_connect_types_construction(M, src))	// matches at least one direction on either type of pipe
-			to_chat(user, "<span class='warning'>There is already a pipe of the same type at this location.</span>")
+			to_chat(user, span_warning("There is already a pipe of the same type at this location."))
 			return
 
 	if(pipe_type in list(PIPE_SUPPLY_STRAIGHT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_STRAIGHT, PIPE_SCRUBBERS_BENT, PIPE_HE_STRAIGHT, PIPE_HE_BENT, PIPE_SUPPLY_MANIFOLD, PIPE_SCRUBBERS_MANIFOLD, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_UVENT, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_PASV_VENT, PIPE_DP_VENT, PIPE_PASSIVE_GATE))
 		if(T.transparent_floor) //stops jank with transparent floors and pipes
-			to_chat(user, "<span class='warning'>You can only fix simple pipes and devices over glass floors!</span>")
+			to_chat(user, span_warning("You can only fix simple pipes and devices over glass floors!"))
 			return
 
 	switch(pipe_type) //What kind of heartless person thought of doing this?
@@ -369,9 +369,9 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 				P.AddComponent(/datum/component/label, label)
 
 	user.visible_message( \
-		"<span class='notice'>[user] fastens [src].</span>",
-		"<span class='notice'>You fasten [src].</span>",
-		"<span class='notice'>You hear a ratchet.</span>")
+		span_notice("[user] fastens [src]."),
+		span_notice("You fasten [src]."),
+		span_notice("You hear a ratchet."))
 	qdel(src)	// remove the pipe item
 	. |= RPD_TOOL_SUCCESS
 
@@ -386,14 +386,14 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 
 /obj/item/pipe_meter/wrench_act(mob/living/user, obj/item/I)
 	if(!locate(/obj/machinery/atmospherics/pipe, loc))
-		to_chat(user, "<span class='warning'>You need to fasten it to a pipe.</span>")
+		to_chat(user, span_warning("You need to fasten it to a pipe."))
 		return TRUE
 
 	var/obj/machinery/atmospherics/meter/P = new(loc)
 	if(label)
 		P.AddComponent(/datum/component/label, label)
 	I.play_tool_sound(src)
-	to_chat(user, "<span class='notice'>You have fastened the meter to the pipe.</span>")
+	to_chat(user, span_notice("You have fastened the meter to the pipe."))
 	qdel(src)
 	return TRUE
 
@@ -419,7 +419,7 @@ GLOBAL_LIST_INIT(pipe_path2type, list(
 	if(label)
 		AS.AddComponent(/datum/component/label, label)
 	I.play_tool_sound(src, 50)
-	to_chat(user, "<span class='notice'>You have fastened the gas sensor.</span>")
+	to_chat(user, span_notice("You have fastened the gas sensor."))
 	qdel(src)
 	return TRUE
 

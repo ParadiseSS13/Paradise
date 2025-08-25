@@ -32,14 +32,14 @@
 /mob/living/basic/mining/bullet_act(obj/item/projectile/P) // Reduces damage from most projectiles to curb off-screen kills
 	if(P.damage < 30 && P.damage_type != BRUTE && has_laser_resist)
 		P.damage = (P.damage / 3)
-		visible_message("<span class='danger'>[P] has a reduced effect on [src]!</span>")
+		visible_message(span_danger("[P] has a reduced effect on [src]!"))
 	..()
 
 /mob/living/basic/mining/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) // No floor tiling them to death, wiseguy
 	if(isitem(AM))
 		var/obj/item/T = AM
 		if(T.throwforce <= 20)
-			visible_message("<span class='notice'>[T] [throw_blocked_message] [src.name]!</span>")
+			visible_message(span_notice("[T] [throw_blocked_message] [src.name]!"))
 			return
 	..()
 

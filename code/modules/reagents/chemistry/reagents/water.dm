@@ -98,7 +98,7 @@
 	drink_icon = "glass_red"
 	drink_name = "Glass of Tomato juice"
 	drink_desc = "Are you sure this is tomato juice?"
-	taste_description = "<span class='warning'>blood</span>"
+	taste_description = span_warning("blood")
 	taste_mult = 1.3
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
@@ -147,7 +147,7 @@
 
 	if(type_mismatch || species_mismatch)
 		data["species"] = "Coagulated"
-		data["blood_type"] = "<span class='warning'>UNUSABLE!</span>"
+		data["blood_type"] = span_warning("UNUSABLE!")
 		data["species_only"] = species_unique
 	else if(!same_species) // Same blood type, species-agnostic, but we're still mixing blood of different species
 		data["species"] = "Mixed Humanoid"
@@ -301,7 +301,7 @@
 		if(IS_CULTIST(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
-					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
+					to_chat(M, span_cultlarge("Your blood rites falter as holy water scours your body!"))
 					qdel(BS)
 			if(prob(5))
 				M.AdjustCultSlur(10 SECONDS)//5 seems like a good number...
@@ -310,7 +310,7 @@
 			if(prob(10))
 				M.say(pick("*gasp", "*cough", "*sneeze"))
 			if(prob(5)) //Same as cult, for the real big tell
-				M.visible_message("<span class='warning'>A fog lifts from [M]'s eyes for a moment, but soon returns.</span>")
+				M.visible_message(span_warning("A fog lifts from [M]'s eyes for a moment, but soon returns."))
 
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(6 SECONDS)
@@ -318,7 +318,7 @@
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
 
 			holder.remove_reagent(id, volume)
-			M.visible_message("<span class='biggerdanger'>[M] recoils, their skin flushes with colour, regaining their sense of control!</span>")
+			M.visible_message(span_biggerdanger("[M] recoils, their skin flushes with colour, regaining their sense of control!"))
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
@@ -367,8 +367,8 @@
 						M.emote("scream")
 					vamp.adjust_nullification(20, 4)
 				if(13 to INFINITY)
-					M.visible_message("<span class='danger'>[M] suddenly bursts into flames!</span>",
-									"<span class='danger'>You suddenly ignite in a holy fire!</span>")
+					M.visible_message(span_danger("[M] suddenly bursts into flames!"),
+									span_danger("You suddenly ignite in a holy fire!"))
 					M.fire_stacks = min(5, M.fire_stacks + 3)
 					M.IgniteMob()
 					update_flags |= M.adjustFireLoss(3, FALSE)
@@ -387,13 +387,13 @@
 		var/mob/living/carbon/human/H = M
 		if(method == REAGENT_TOUCH)
 			if(H.wear_mask)
-				to_chat(H, "<span class='warning'>Your mask protects you from the holy water!</span>")
+				to_chat(H, span_warning("Your mask protects you from the holy water!"))
 				return
 			else if(H.head)
-				to_chat(H, "<span class='warning'>Your helmet protects you from the holy water!</span>")
+				to_chat(H, span_warning("Your helmet protects you from the holy water!"))
 				return
 			else
-				to_chat(M, "<span class='warning'>Something holy interferes with your powers!</span>")
+				to_chat(M, span_warning("Something holy interferes with your powers!"))
 				V.adjust_nullification(5, 2)
 
 
@@ -471,7 +471,7 @@
 	description = "Also known as sodium hydroxide."
 	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
-	taste_description = "<span class='userdanger'>ACID</span>"//don't drink lye, kids
+	taste_description = span_userdanger("ACID")//don't drink lye, kids
 
 /datum/reagent/drying_agent
 	name = "Drying agent"
