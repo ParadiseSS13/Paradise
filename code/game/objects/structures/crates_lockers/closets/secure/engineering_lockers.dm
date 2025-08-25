@@ -32,7 +32,7 @@
 	new /obj/item/holosign_creator/atmos(src)
 	new /obj/item/rcd/preloaded(src)
 	new /obj/item/storage/bag/construction(src)
-	new /obj/item/gun/energy/gun/mini(src)
+	// new /obj/item/gun/energy/gun/mini(src) // SS220 EDIT - remove eguns from staff lockers
 
 
 /obj/structure/closet/secure_closet/engineering_electrical

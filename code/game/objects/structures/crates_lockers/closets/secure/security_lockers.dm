@@ -31,7 +31,7 @@
 	new /obj/item/radio/headset/heads/hop(src)
 	new /obj/item/storage/box/ids(src)
 	new /obj/item/storage/box/pdas(src)
-	new /obj/item/gun/energy/gun/mini(src)
+	// new /obj/item/gun/energy/gun/mini(src) // SS220 EDIT - remove eguns from staff lockers
 	new /obj/item/flash(src)
 	new /obj/item/door_remote/civillian(src)
 	new /obj/item/reagent_containers/drinks/mug/hop(src)
