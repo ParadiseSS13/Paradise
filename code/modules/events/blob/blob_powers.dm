@@ -232,7 +232,7 @@
 	if(blobber)
 		qdel(B)
 	add_mob_to_overmind(blobber)
-	blobber.ai_controller.ai_status = AI_STATUS_OFF
+	blobber.ai_controller.set_ai_status(AI_STATUS_OFF)
 	spawn()
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blobbernaut?", ROLE_BLOB, TRUE, 10 SECONDS, source = blobber, role_cleanname = "blobbernaut")
 		if(length(candidates) && !QDELETED(blobber))
@@ -243,7 +243,7 @@
 				to_chat(blobber, "<span class='biggerdanger'>You are a blobbernaut! You must assist all blob lifeforms in their mission to consume everything!</span>")
 				to_chat(blobber, "<span class='danger'>You heal while standing on blob structures, however you will decay slowly if you are damaged outside of the blob.</span>")
 		if(!blobber.ckey)
-			blobber.ai_controller.ai_status = AI_STATUS_ON
+			blobber.ai_controller.set_ai_status(AI_STATUS_ON)
 	return
 
 
