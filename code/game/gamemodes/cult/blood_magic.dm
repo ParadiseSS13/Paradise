@@ -271,7 +271,7 @@
 	return TRUE
 
 /datum/spell/horror
-	ranged_mousepointer = 'icons/effects/cult_target.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/cult_target.dmi'
 	var/datum/action/innate/cult/blood_spell/attached_action
 
 /datum/spell/horror/Destroy()

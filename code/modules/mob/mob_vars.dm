@@ -259,3 +259,5 @@
 	/// For storing what do_after's something has, key = string, value = amount of interactions of that type happening.
 	var/list/do_afters
 	new_attack_chain = TRUE
+
+	var/list/mousepointers = list()
