@@ -2250,16 +2250,6 @@
 	icon_state = "darkgrey"
 	},
 /area/station/public/fitness)
-"auT" = (
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/central/south)
 "auV" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -19905,13 +19895,6 @@
 	icon_state = "red"
 	},
 /area/station/security/processing)
-"can" = (
-/obj/machinery/firealarm/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/central/south)
 "car" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -33819,6 +33802,7 @@
 /area/station/hallway/primary/fore/north)
 "ebs" = (
 /obj/structure/chair/sofa/bench,
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -115997,7 +115981,7 @@ bWh
 vsg
 bMW
 tAr
-can
+tZp
 jdP
 bcX
 oqO
@@ -116254,7 +116238,7 @@ bSh
 qzP
 bMW
 nXD
-auT
+tZp
 jdP
 bcX
 oqO
