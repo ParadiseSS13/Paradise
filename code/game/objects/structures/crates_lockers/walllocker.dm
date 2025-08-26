@@ -21,19 +21,31 @@
 	name = "emergency locker"
 	desc = "A wall mounted locker with emergency supplies."
 	icon_state = "emerg"
-	door_anim_time = 0
 	icon_closed = "emerg"
 	icon_opened = "emerg_open"
 
 /obj/structure/closet/walllocker/emerglocker/populate_contents()
-	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/crowbar(src)
-	new /obj/item/crowbar(src)
-	new /obj/item/crowbar(src)
+	switch(pickweight(list("small" = 55, "aid" = 25, "tank" = 10, "both" = 10)))
+		if("small")
+			new /obj/item/tank/internals/emergency_oxygen(src)
+			new /obj/item/tank/internals/emergency_oxygen(src)
+			new /obj/item/clothing/mask/breath(src)
+			new /obj/item/clothing/mask/breath(src)
+		if("aid")
+			new /obj/item/tank/internals/emergency_oxygen(src)
+			new /obj/item/storage/toolbox/emergency(src)
+			new /obj/item/clothing/mask/breath(src)
+			new /obj/item/storage/firstaid/o2(src)
+		if("tank")
+			new /obj/item/tank/internals/emergency_oxygen/engi(src)
+			new /obj/item/clothing/mask/breath(src)
+			new /obj/item/tank/internals/emergency_oxygen/engi(src)
+			new /obj/item/clothing/mask/breath(src)
+		if("both")
+			new /obj/item/storage/toolbox/emergency(src)
+			new /obj/item/tank/internals/emergency_oxygen/engi(src)
+			new /obj/item/clothing/mask/breath(src)
+			new /obj/item/storage/firstaid/o2(src)
+
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/closet/walllocker/emerglocker, 32, 32)

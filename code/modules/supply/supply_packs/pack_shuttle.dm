@@ -63,7 +63,6 @@
 /datum/supply_packs/abstract/admin_notify/donations
 	name = "Donation to Lonely Corgi Foundation"
 	special = TRUE
-	special_enabled = FALSE
 	manifest = "1% of every donation goes towards supporting corgis in need."
 	cost = 500
 
@@ -120,7 +119,7 @@
 	GLOB.major_announcement.Announce("We were unable to find an orderer. We have sent the beacon placer to the Cargo Office.", "Shuttle Purchase Receipt")
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(/area/station/supply/office))
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			continue
 		L.Add(T)
 
@@ -132,6 +131,10 @@
 	return TRUE
 
 // these, otoh, have some pretty silly features, and are hidden behind emag
+/datum/supply_packs/abstract/shuttle/clockwork
+	cost = 3000
+	hidden = TRUE
+	template = /datum/map_template/shuttle/emergency/clockwork
 
 /datum/supply_packs/abstract/shuttle/narnar
 	cost = 3000

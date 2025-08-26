@@ -8,7 +8,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "ac" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/space/nearstation)
 "ad" = (
@@ -470,9 +470,7 @@
 	},
 /area/ruin/unpowered/bmp_ship/midship)
 "bW" = (
-/obj/structure/sink{
-	pixel_y = 12
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -1331,7 +1329,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/mob/living/simple_animal/hostile/pirate/ranged,
+/mob/living/basic/pirate/ranged,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2030,7 +2028,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "hb" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/powered)
 "hc" = (
@@ -2057,9 +2055,7 @@
 	},
 /area/ruin/unpowered/bmp_ship/aft)
 "hg" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -2084,11 +2080,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/bmp_ship/aft)
 "hk" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2161,7 +2153,7 @@
 /area/ruin/unpowered/bmp_ship/aft)
 "hE" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/basic/pirate,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/bmp_ship/midship)
 "qM" = (
@@ -2173,7 +2165,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/bmp_ship/midship)
 "uK" = (
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/basic/pirate,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2185,7 +2177,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/hostile/pirate,
+/mob/living/basic/pirate,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

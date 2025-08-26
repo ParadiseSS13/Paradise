@@ -144,8 +144,6 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	))
 
 /obj/item/stack/sheet/mineral
-	force = 5
-	throwforce = 5
 	throw_speed = 3
 
 /obj/item/stack/sheet/mineral/Initialize(mapload, new_amount, merge)
@@ -163,7 +161,6 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	icon_state = "sheet-sandstone"
 	item_state = "sheet-sandstone"
 	throw_range = 5
-	origin_tech = "materials=1"
 	sheettype = "sandstone"
 	materials = list(MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 
@@ -237,6 +234,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. = ..()
 	recipes = GLOB.diamond_recipes
 
+/obj/item/stack/sheet/mineral/diamond/ten
+	amount = 10
+
 /obj/item/stack/sheet/mineral/diamond/fifty
 	amount = 50
 
@@ -257,6 +257,12 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += "Uranium is extremely dense, radioactive metal. Without undergoing complex enrichment processes, it consists of roughly 99% uranium-238, and roughly 1% fissile uranium-235."
 	. += ""
 	. += "It finds uses in a great number of applications, including medicine, nuclear power generation, radiation shielding, cybernetic and robotic components, as well as weapons."
+
+/obj/item/stack/sheet/mineral/uranium/ten
+	amount = 10
+
+/obj/item/stack/sheet/mineral/uranium/twenty
+	amount = 20
 
 /obj/item/stack/sheet/mineral/uranium/fifty
 	amount = 50
@@ -279,6 +285,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	max_integrity = 100
 	point_value = 20
 
+/obj/item/stack/sheet/mineral/plasma/twenty
+	amount = 20
+
 /obj/item/stack/sheet/mineral/plasma/examine_more(mob/user)
 	. = ..()
 	. += "Plasma, the new oil. A highly sought-after material, and what propelled Nanotrasen from being a small, relatively unknown company to the interstellar megacorporation it is today."
@@ -294,6 +303,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 /obj/item/stack/sheet/mineral/plasma/Initialize(mapload, new_amount, merge)
 	. = ..()
 	recipes = GLOB.plasma_recipes
+
+/obj/item/stack/sheet/mineral/plasma/ten
+	amount = 10
 
 /obj/item/stack/sheet/mineral/plasma/fifty
 	amount = 50
@@ -341,6 +353,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	. += ""
 	. += "It is widely used in the production of advanced electronics and chemical catalysts, as well as a few specialised medicines. Also used as a relatively safe store of wealth that is not affected by the economics of cash."
 
+/obj/item/stack/sheet/mineral/gold/twenty
+	amount = 20
+
 /obj/item/stack/sheet/mineral/gold/fifty
 	amount = 50
 
@@ -359,6 +374,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	merge_type = /obj/item/stack/sheet/mineral/silver
 	materials = list(MAT_SILVER = MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
+
+/obj/item/stack/sheet/mineral/silver/twenty
+	amount = 20
 
 /obj/item/stack/sheet/mineral/silver/examine_more(mob/user)
 	. = ..()
@@ -485,11 +503,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	icon_state = "sheet-titanium"
 	item_state = "sheet-titanium"
 	singular_name = "titanium sheet"
-	force = 5
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
-	throw_range = 3
 	sheettype = "titanium"
 	merge_type = /obj/item/stack/sheet/mineral/titanium
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT)
@@ -527,11 +541,7 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 	icon_state = "sheet-plastitanium"
 	item_state = "sheet-plastitanium"
 	singular_name = "plastitanium sheet"
-	force = 5
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
-	throw_range = 3
 	sheettype = "plastitanium"
 	merge_type = /obj/item/stack/sheet/mineral/plastitanium
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
@@ -567,9 +577,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	item_state = "sheet-abductor"
 	dynamic_icon_state = FALSE
 	singular_name = "alien alloy sheet"
-	force = 5
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
 	origin_tech = "materials=6;abductor=1"
 	sheettype = "abductor"

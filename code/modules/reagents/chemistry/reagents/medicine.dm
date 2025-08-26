@@ -45,9 +45,18 @@
 
 /datum/reagent/medicine/sterilizine/reaction_obj(obj/O, volume)
 	O.germ_level -= min(volume*20, O.germ_level)
+	SEND_SIGNAL(O, COMSIG_ATOM_DISINFECTED)
 
 /datum/reagent/medicine/sterilizine/reaction_turf(turf/T, volume)
 	T.germ_level -= min(volume*20, T.germ_level)
+
+/datum/reagent/medicine/sterilizine/reaction_temperature(exposed_temperature, exposed_volume)
+	// Sterilize the container
+	for(var/datum/reagent/to_disinfect in holder.reagent_list)
+		if(to_disinfect.data && to_disinfect.data["viruses"])
+			to_disinfect?.data["viruses"] = list()
+	if(isobj(holder.my_atom))
+		SEND_SIGNAL(holder.my_atom, COMSIG_ATOM_DISINFECTED)
 
 /datum/reagent/medicine/synaptizine
 	name = "Synaptizine"
@@ -123,10 +132,7 @@
 	id = "recal"
 	description = "An oily insulating liquid that passively regulates electrical activity on sensitive electronic components, allowing them to recover from decalibrating events faster. \
 	Overdosing will cause under-voltage errors and hamper component heat dissipation, potentially causing heat damage."
-	reagent_state = LIQUID
 	color = "#85845d"
-	overdose_threshold = 40
-	harmless = FALSE
 	taste_description = "mineral oil and toothpaste"
 	process_flags = SYNTHETIC
 
@@ -199,7 +205,6 @@
 	name = "Rezadone"
 	id = "rezadone"
 	description = "A powder derived from fish toxin, Rezadone can effectively treat genetic damage as well as restoring minor wounds. Overdose will cause intense nausea and minor toxin damage."
-	reagent_state = SOLID
 	color = "#669900" // rgb: 102, 153, 0
 	overdose_threshold = 30
 	harmless = FALSE
@@ -442,7 +447,6 @@
 	id = "charcoal"
 	description = "Activated charcoal helps to absorb toxins."
 	reagent_state = LIQUID
-	color = "#000000"
 	taste_description = "dust"
 	goal_difficulty = REAGENT_GOAL_EASY
 
@@ -856,7 +860,6 @@
 	id = "atropine"
 	description = "Atropine is a potent cardiac resuscitant but it can causes confusion, dizzyness and hyperthermia."
 	reagent_state = LIQUID
-	color = "#000000"
 	metabolization_rate = 0.2
 	overdose_threshold = 25
 	harmless = FALSE
@@ -965,6 +968,15 @@
 			SM.revive()
 			SM.loot.Cut() //no abusing Lazarus Reagent for farming unlimited resources
 			SM.visible_message("<span class='warning'>[SM] seems to rise from the dead!</span>")
+
+	if(isbasicmob(M) && method == REAGENT_TOUCH)
+		var/mob/living/basic/BM = M
+		if(BM.sentience_type != revive_type) // No reviving Ash Drakes for you
+			return
+		if(BM.stat == DEAD)
+			BM.revive()
+			BM.loot.Cut() //no abusing Lazarus Reagent for farming unlimited resources
+			BM.visible_message("<span class='warning'>[BM] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
@@ -1382,7 +1394,6 @@
 	name = "Restorative Nanites"
 	id = "syndicate_nanites"
 	description = "Miniature medical robots that swiftly restore bodily damage. May begin to attack their host's cells in high amounts."
-	reagent_state = SOLID
 	color = "#555555"
 	taste_description = "bodily perfection"
 

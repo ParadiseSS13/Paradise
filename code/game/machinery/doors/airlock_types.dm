@@ -321,7 +321,6 @@
 /obj/machinery/door/airlock/centcom
 	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi'
-	opacity = TRUE
 	explosion_block = 2
 	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
 	normal_integrity = 1000
@@ -644,7 +643,7 @@
 	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
 	normal_integrity = 150
 	damage_deflection = 5
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = null
 
 //////////////////////////////////
 /*
@@ -654,13 +653,16 @@
 //Terribly sorry for the code doubling, but things go derpy otherwise.
 /obj/machinery/door/airlock/multi_tile
 	name = "large airlock"
-	dir = EAST
 	width = 2
 	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/multi_tile
 	paintable = FALSE
+
+/obj/machinery/door/airlock/multi_tile/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	update_bounds()
 
 /obj/machinery/door/airlock/multi_tile/narsie_act()
 	return
@@ -669,23 +671,17 @@
 	opacity = FALSE
 	glass = TRUE
 
+/// Player view blocking fillers for multi-tile doors
 /obj/airlock_filler_object
 	name = "airlock fluff"
 	desc = "You shouldn't be able to see this fluff!"
-	icon = null
-	icon_state = null
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
 	invisibility = INVISIBILITY_MAXIMUM
-	//atmos_canpass = CANPASS_DENSITY
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// The door/airlock this fluff panel is attached to
 	var/obj/machinery/door/filled_airlock
-
-/obj/airlock_filler_object/Bumped(atom/A)
-	if(isnull(filled_airlock))
-		stack_trace("Someone bumped into an airlock filler with no parent airlock specified!")
-	return filled_airlock.Bumped(A)
 
 /obj/airlock_filler_object/Destroy()
 	filled_airlock = null
@@ -703,14 +699,9 @@
 	UnregisterSignal(filled_airlock)
 	qdel(src)
 
-/// Multi-tile airlocks (using a filler panel) have special handling for movables with PASS_FLAG_GLASS
+/// They only block our visuals, not movement
 /obj/airlock_filler_object/CanPass(atom/movable/mover, border_dir)
-	. = ..()
-	if(.)
-		return
-
-	if(istype(mover))
-		return !opacity
+	return TRUE
 
 /obj/airlock_filler_object/singularity_act()
 	return

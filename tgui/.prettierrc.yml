@@ -9,3 +9,8 @@ semi: true
 singleQuote: true
 tabWidth: 2
 trailingComma: es5
+overrides:
+  - files: 'packages/tgui-setup/helpers.js'
+    options:
+      trailingComma: es5
+      arrowParens: always

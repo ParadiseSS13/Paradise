@@ -221,14 +221,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/dangerous/snakefang
 	name = "Snakesfang"
-	desc = "The snakesfang is a fork-tipped scimitar with a sharp edge and sharper bite. This sword cannot fit in your bag, but it does come with a scabbard you can attach to your belt."
+	desc = "The Snakesfang is a fork-tipped scimitar with a sharp edge and sharper bite. This sword cannot fit in your bag, but it does come with a scabbard you can attach to your belt."
 	reference = "SF"
 	item = /obj/item/storage/belt/sheath/snakesfang
 	cost = 25
 
 /datum/uplink_item/dangerous/powerfist
 	name = "Power Fist"
-	desc = "The power-fist is a metal gauntlet with a built-in piston-ram powered by an external gas supply. \
+	desc = "The Power Fist is a metal gauntlet with a built-in piston-ram powered by an external gas supply. \
 		Upon hitting a target, the piston-ram will extend forward to make contact for some serious damage. \
 		Using a wrench on the piston valve will allow you to tweak the amount of gas used per punch to \
 		deal extra damage and hit targets further. Use a screwdriver to take out any attached tanks."
@@ -240,28 +240,29 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Chainsaw"
 	desc = "A high powered chainsaw for cutting up ...you know...."
 	reference = "CH"
-	item = /obj/item/butcher_chainsaw
+	item = /obj/item/chainsaw/syndie
 	cost = 65
 	surplus = 0 // This has caused major problems with un-needed chainsaw massacres. Bwoink bait.
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
+	can_discount = FALSE // Too gamer.
 
 /datum/uplink_item/dangerous/universal_gun_kit
 	name = "Universal Self Assembling Gun Kit"
-	desc = "A universal gun kit, that can be combined with any weapon kit to make a functioning RND gun of your own. Uses built in allen keys to self assemble, just combine the kits by hitting them together."
+	desc = "A universal gun kit, that can be combined with any weapon kit to make a functioning RND gun of your own. Uses built-in hex keys to self assemble, just combine the kits by hitting them together."
 	reference = "IKEA"
 	item = /obj/item/weaponcrafting/gunkit/universal_gun_kit
 	cost = 20
 
 /datum/uplink_item/dangerous/batterer
 	name = "Mind Batterer"
-	desc = "A dangerous syndicate device focused on crowd control and escapes. Causes brain damage, confusion, and other nasty effects to those surrounding the user. Has 5 charges."
+	desc = "A dangerous Syndicate device focused on crowd control and escapes. Causes brain damage, confusion, and other nasty effects to those surrounding the user. Has 5 charges."
 	reference = "BTR"
 	item = /obj/item/batterer
 	cost = 25
 
 /datum/uplink_item/dangerous/porta_turret
 	name = "Portable Turret"
-	desc = "A pop-up syndicate turret, shoots anyone who didn't prime the grenade. The turret cannot be moved after it's deployed."
+	desc = "A pop-up Syndicate turret that will shoot anyone who didn't prime the grenade. The turret cannot be moved after it's deployed."
 	reference = "MIS"
 	item = /obj/item/grenade/turret
 	cost = 20
@@ -298,7 +299,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/ammo/pistolhp
 	name = "Stechkin - 10mm Hollow Point Magazine"
-	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds which are more damaging but ineffective against armour."
+	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds which are more damaging but ineffective against armor."
 	reference = "10MMHP"
 	item = /obj/item/ammo_box/magazine/m10mm/hp
 	cost = 7
@@ -374,7 +375,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/rsg
 	name = "Rapid Syringe Gun"
-	desc = "A syndicate rapid syringe gun able to fill and fire syringes automatically from an internal reagent reservoir. Comes pre-loaded with 7 empty syringes, and has a maximum capacity of 14 syringes and 300u of reagents."
+	desc = "A Syndicate rapid syringe gun able to fill and fire syringes automatically from an internal reagent reservoir. Comes pre-loaded with 7 empty syringes, and has a maximum capacity of 14 syringes and 300u of reagents."
 	reference = "RSG"
 	item = /obj/item/gun/syringe/rapidsyringe/preloaded/half
 	cost = 60
@@ -506,7 +507,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_tools/chameleonflag
 	name = "Chameleon Flag"
-	desc = "A flag that can be disguised as any other known flag. There is a hidden spot in the pole to boobytrap the flag with a grenade or minibomb, which will detonate some time after the flag is set on fire."
+	desc = "A flag that can be disguised as any other known flag. There is a hidden spot in the pole to booby trap the flag with a grenade or minibomb, which will detonate some time after the flag is set on fire."
 	reference = "CHFLAG"
 	item = /obj/item/flag/chameleon
 	cost = 1
@@ -645,8 +646,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 
 /datum/uplink_item/device_tools/surgerybag
-	name = "Syndicate Surgery Duffelbag"
-	desc = "The Syndicate surgery duffelbag comes with a full set of surgery tools, a straightjacket and a muzzle. The bag itself is also made of very light materials and won't slow you down while it is equipped."
+	name = "Syndicate Surgery Duffel Bag"
+	desc = "The Syndicate surgery duffel bag comes with a full set of surgery tools, a straightjacket and a muzzle. The bag itself is also made of very light materials and won't slow you down while it is equipped."
 	reference = "SSDB"
 	item = /obj/item/storage/backpack/duffel/syndie/med/surgery
 	cost = 10
@@ -786,7 +787,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "MSTV"
 	item = /obj/item/mod/module/visor/thermal
 	cost = 15 // Don't forget, you need to get a modsuit to go with this
-	surplus = 10 //You don't need more than
 
 /datum/uplink_item/suits/night
 	name = "MODsuit Night Visor Module"
@@ -794,7 +794,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "MSNV"
 	item = /obj/item/mod/module/visor/night
 	cost = 5 // It's night vision, rnd pumps out those goggles for anyone man.
-	surplus = 10 //You don't need more than one
 
 /datum/uplink_item/suits/plate_compression
 	name = "MODsuit Plate Compression Module"
@@ -806,14 +805,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/suits/chameleon_module
 	name = "MODsuit Chameleon Module"
-	desc = "A module using chameleon technology to disguise an undeployed modsuit as another object. Note: the disguise will not work once the modsuit is deployed, but can be toggled again when retracted."
+	desc = "A module using chameleon technology to disguise an undeployed MODsuit as another object. Note: the disguise will not work once the MODsuit is deployed, but can be toggled again when retracted."
 	reference = "MSCM"
 	item = /obj/item/mod/module/chameleon
 	cost = 10
 
 /datum/uplink_item/suits/noslip
 	name = "MODsuit Anti-Slip Module"
-	desc = "A MODsuit module preventing the user from slipping on water. Already installed in the uplink modsuits."
+	desc = "A MODsuit module preventing the user from slipping on water. Already installed in the uplink MODsuits."
 	reference = "MSNS"
 	item = /obj/item/mod/module/noslip
 	cost = 5
@@ -832,15 +831,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "FNAF"
 	item = /obj/item/mod/module/springlock/bite_of_87
 	cost = 5
-	surplus = 10
 
 /datum/uplink_item/suits/hidden_holster
 	name = "Hidden Holster Module"
-	desc = "A holster module disguised to look like a tether module. Requires a modsuit to put it in of course. Gun not included."
+	desc = "A holster module disguised to look like a tether module. Requires a MODsuit to put it in of course. Gun not included."
 	reference = "HHM"
 	item = /obj/item/mod/module/holster/hidden
 	cost = 5
-	surplus = 10
 
 /datum/uplink_item/suits/smoke_grenade
 	name = "Smoke Grenade Module"
@@ -848,7 +845,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SGM"
 	item = /obj/item/mod/module/dispenser/smoke
 	cost = 10
-	surplus = 10
 
 ////////////////////////////////////////
 // MARK: IMPLANTS
@@ -902,7 +898,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/bio_chips/proto_adrenal
 	name = "Proto-Adrenal Bio-chip"
-	desc = "A old prototype of the Adrenalin implant, that grants the user 4 seconds of antistun, getting them back on their feet instantly once, but nothing more. Speed and healing sold seperately."
+	desc = "A old prototype of the Adrenalin implant, that grants the user 4 seconds of antistun, getting them back on their feet instantly once, but nothing more. Speed and healing sold separately."
 	reference = "PAI"
 	item = /obj/item/bio_chip_implanter/proto_adrenalin
 	cost = 10
@@ -957,7 +953,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	Can be used to parry incoming melee attacks."
 	reference = "MBK"
 	item = /obj/item/storage/box/syndie_kit/syndie_mantis
-	cost = 75
+	cost = 50
 	surplus = 0
 	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
@@ -1013,6 +1009,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SUIT"
 	item = /obj/item/clothing/suit/storage/iaa/blackjacket/armored
 	cost = 3
+
+/datum/uplink_item/badass/syndie_garments
+	name = "Syndicate Garment Bag"
+	desc = "A customised garment bag filled with all kinds of Syndicate attire, for the fashionable agent's needs. Proclaim your allegiance with style!"
+	reference = "GRMT"
+	item = /obj/item/storage/bag/garment/syndie
+	cost = 5
 
 ////////////////////////////////////////
 // MARK: BUNDLES AND TELECRYSTALS

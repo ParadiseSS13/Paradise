@@ -200,3 +200,50 @@
 	if(istype(L))
 		L.Dizzy(24 SECONDS)
 		L.Confused(24 SECONDS)
+
+/datum/emote/jump
+	key = "jump"
+	key_third_person = "jumps"
+	message = "jumps!"
+	emote_type = EMOTE_VISIBLE | EMOTE_FORCE_NO_RUNECHAT
+	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)
+	mob_type_blacklist_typecache = list(/mob/living/brain, /mob/camera, /mob/living/silicon/ai)
+	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
+	cooldown = 0.25 SECONDS // bhop until you're stamina-less if you want lmao
+	audio_cooldown = 0.25 SECONDS
+
+/datum/emote/jump/run_emote(mob/user, params, type_override, intentional)
+	if(isobserver(user))
+		jump_animation(user)
+		return TRUE
+	. = ..()
+	if(!.)
+		return FALSE
+
+	jump_animation(user)
+	if(isliving(user))
+		var/mob/living/L = user
+		L.adjustStaminaLoss(30)
+
+/datum/emote/jump/proc/jump_animation(mob/user)
+	var/original_transform = user.transform
+	animate(user, transform = user.transform.Translate(0, 8), time = 0.15 SECONDS, flags = ANIMATION_PARALLEL, easing = QUAD_EASING|EASE_OUT)
+	animate(transform = original_transform, time = 0.15 SECONDS, easing = QUAD_EASING|EASE_IN)
+
+/datum/emote/jump/get_sound(mob/user)
+	return 'sound/weapons/thudswoosh.ogg'
+
+// Avoids playing sounds if we're a ghost
+/datum/emote/jump/should_play_sound(mob/user, intentional)
+	if(isliving(user))
+		return ..()
+	return FALSE
+
+/datum/emote/jump/can_run_emote(mob/user, status_check, intentional)
+	if(user.buckled || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !isturf(user.loc))
+		return FALSE
+	if(isliving(user))
+		var/mob/living/L = user
+		if(IS_HORIZONTAL(L))
+			return FALSE
+	return ..()

@@ -115,7 +115,7 @@
 		var/turf/target_turf = get_step(our_turf, direction)
 		if(isnull(target_turf))
 			continue
-		if(is_blocked_turf(target_turf) || get_dist(target_turf, target) > get_dist(living_pawn, target))
+		if(target_turf.is_blocked_turf() || get_dist(target_turf, target) > get_dist(living_pawn, target))
 			continue
 		possible_turfs += target_turf
 
@@ -124,7 +124,7 @@
 	var/turf/picked_turf = get_closest_atom(/turf, possible_turfs, target)
 	step(living_pawn, get_dir(living_pawn, picked_turf))
 
-/datum/ai_behavior/basic_ranged_attack/proc/calculate_trajectory(mob/living/source , atom/target)
+/datum/ai_behavior/basic_ranged_attack/proc/calculate_trajectory(mob/living/source, atom/target)
 	var/list/turf_list = get_line(source, target)
 	var/list_length = length(turf_list) - 1
 	for(var/i in 1 to list_length)

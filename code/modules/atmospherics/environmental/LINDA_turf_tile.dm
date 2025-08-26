@@ -1,3 +1,8 @@
+/turf/simulated/Initialize(mapload)
+	. = ..()
+	if(!blocks_air)
+		blind_set_air(get_initial_air())
+
 /turf/simulated/proc/get_initial_air()
 	var/datum/gas_mixture/air = new()
 	if(!blocks_air)
@@ -236,7 +241,6 @@
 	return list(milla_atmos_airtight, milla_superconductivity)
 
 /obj/effect/wind
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'icons/effects/tile_effects.dmi'
 	icon_state = "wind"

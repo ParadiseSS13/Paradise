@@ -40,11 +40,6 @@
 /obj/item/clothing/mask/gas/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost/vault)
-"eg" = (
-/obj/structure/chair/comfy/red,
-/mob/living/simple_animal/hostile/syndicate/ranged,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/turreted_outpost)
 "eh" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -190,7 +185,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/hostile/syndicate/ranged,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "sp" = (
@@ -249,8 +244,8 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/turreted_outpost)
 "wW" = (
-/mob/living/simple_animal/hostile/syndicate/ranged,
 /obj/structure/chair/comfy/red,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "xd" = (
@@ -322,10 +317,10 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/syndicate/melee/autogib,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/modsuit,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "Cp" = (
@@ -375,7 +370,7 @@
 /area/ruin/space/turreted_outpost)
 "Fz" = (
 /obj/structure/chair/comfy/red,
-/mob/living/simple_animal/hostile/syndicate/melee/autogib,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob/modsuit,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/turreted_outpost)
 "Gd" = (
@@ -430,10 +425,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/turreted_outpost)
 "Kd" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -478,7 +470,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/turreted_outpost)
 "Oc" = (
@@ -503,9 +495,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/turreted_outpost)
 "OU" = (
-/obj/machinery/shower{
-	pixel_y = 24
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower/security,
 /obj/item/soap/syndie,
 /obj/item/bikehorn/rubberducky,
@@ -1129,7 +1119,7 @@ iq
 qa
 Ja
 QB
-eg
+wW
 HH
 Ub
 qK

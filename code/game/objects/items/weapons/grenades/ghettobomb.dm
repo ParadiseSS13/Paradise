@@ -3,16 +3,8 @@
 /obj/item/grenade/iedcasing
 	name = "improvised firebomb"
 	desc = "A sketchy improvised incendiary device."
-	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"
-	item_state = "grenade"
-	throw_speed = 3
 	throw_range = 7
-	flags = CONDUCT
-	slot_flags = ITEM_SLOT_BELT
-	active = FALSE
-	det_time = 5 SECONDS
 	display_timer = FALSE
 	modifiable_timer = FALSE
 	var/list/times

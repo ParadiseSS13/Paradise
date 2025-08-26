@@ -13,9 +13,8 @@
 # CI + Tooling
 _build_dependencies.sh @AffectedArc07
 
-# Server Stuff
+# Database Stuff
 /SQL/ @AffectedArc07
-/config/ @AffectedArc07
 
 # Executables that need to be security-cleared
 dreamchecker.exe @AffectedArc07
@@ -33,3 +32,9 @@ rustlibs_516_prod.dll @AffectedArc07
 ### Burzah
 # TGUI stuff
 /tgui/bin @Burzah
+/tgui/docs @Burzah
+
+
+### Multiple Owners
+# Config Stuff
+/config/ @AffectedArc07 @Burzah @Contrabang @warriorstar-orion

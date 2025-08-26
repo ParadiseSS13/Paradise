@@ -13,11 +13,9 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "ghost"
 	layer = GHOST_LAYER
-	plane = GAME_PLANE
 	stat = DEAD
 	density = FALSE
 	alpha = 127
-	move_resist = INFINITY	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
 	blocks_emissive = FALSE // Ghosts are transparent, duh
 	hud_type = /datum/hud/ghost
@@ -540,8 +538,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Orbits the specified movable atom."
 	set category = null
 
-	// this usr check is apparently necessary for security
-	if(!isobserver(usr))
+	// this check is apparently necessary for security
+	if(!isobserver(src))
 		return
 
 	return do_manual_follow(target)
@@ -805,17 +803,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	return TRUE
 
-/mob/dead/observer/proc/incarnate_ghost()
+/mob/dead/observer/proc/incarnate_ghost(datum/mind/from_mind = null)
 	if(!client)
 		return
 
-	var/mob/living/carbon/human/new_char = new(get_turf(src))
-	client.prefs.active_character.copy_to(new_char)
-	if(mind)
-		mind.active = TRUE
-		mind.transfer_to(new_char)
+	var/mob/new_char
+	if(from_mind)
+		new_char = json_to_object(from_mind.destroyed_body_json, get_turf(src))
+		from_mind.transfer_to(new_char)
 	else
-		new_char.key = key
+		new_char = new /mob/living/carbon/human(get_turf(src))
+		client.prefs.active_character.copy_to(new_char)
+	if(!new_char.ckey)
+		new_char.ckey = ckey
 
 	return new_char
 

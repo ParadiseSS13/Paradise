@@ -391,27 +391,6 @@
 	icon_state = "floorgrime"
 	},
 /area/ruin/space/syndicakefactory)
-"qx" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien/sentinel{
-	animal_species = /mob/living/simple_animal/pet/dog;
-	attack_sound = 'sound/weapons/bite.ogg';
-	attacktext = "bites";
-	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 1, "clone" = 1, "stamina" = 1, "oxy" = 1);
-	death_sound = null;
-	deathmessage = "";
-	desc = "This is no longer a goodboy. Not anymore. He has seen too much.";
-	icon = 'icons/mob/pets.dmi';
-	icon_living = "corgi";
-	icon_state = "corgi";
-	name = "angry corgi";
-	retreat_distance = 2;
-	icon_dead = "corgi_dead"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/ruin/space/syndicakefactory)
 "qX" = (
 /obj/machinery/conveyor/east{
 	id = "garbage";
@@ -742,7 +721,7 @@
 /area/template_noop)
 "CR" = (
 /obj/structure/chair/office/dark,
-/obj/effect/spawner/random/pool/spaceloot/modsuit_syndie,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mob,
 /turf/simulated/floor/engine,
 /area/ruin/space/syndicakefactory)
 "CW" = (
@@ -803,7 +782,7 @@
 	},
 /area/ruin/space/syndicakefactory)
 "EH" = (
-/obj/effect/mob_spawn/human/corpse/syndicatesoldier,
+/obj/effect/mob_spawn/human/corpse/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -875,7 +854,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/bunny/syndi,
+/mob/living/basic/bunny/syndi,
 /turf/simulated/floor/engine,
 /area/ruin/space/syndicakefactory)
 "Ho" = (
@@ -1016,6 +995,12 @@
 	icon_state = "floorgrime"
 	},
 /area/ruin/space/syndicakefactory)
+"MK" = (
+/mob/living/basic/alien/sentinel/corgi,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/syndicakefactory)
 "MV" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/storage/box/papersack{
@@ -1100,26 +1085,6 @@
 	anchored = 1
 	},
 /turf/simulated/floor/engine/airless,
-/area/ruin/space/syndicakefactory)
-"OU" = (
-/mob/living/simple_animal/hostile/alien/sentinel{
-	animal_species = /mob/living/simple_animal/pet/dog;
-	attack_sound = 'sound/weapons/bite.ogg';
-	attacktext = "bites";
-	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 1, "clone" = 1, "stamina" = 1, "oxy" = 1);
-	death_sound = null;
-	deathmessage = "";
-	desc = "This is no longer a goodboy. Not anymore. He has seen too much.";
-	icon = 'icons/mob/pets.dmi';
-	icon_living = "corgi";
-	icon_state = "corgi";
-	name = "angry corgi";
-	retreat_distance = 2;
-	icon_dead = "corgi_dead"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
 /area/ruin/space/syndicakefactory)
 "PH" = (
 /obj/structure/railing,
@@ -1298,21 +1263,7 @@
 	},
 /area/ruin/space/syndicakefactory)
 "YR" = (
-/mob/living/simple_animal/hostile/alien/sentinel{
-	animal_species = /mob/living/simple_animal/pet/dog;
-	attack_sound = 'sound/weapons/bite.ogg';
-	attacktext = "bites";
-	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 1, "clone" = 1, "stamina" = 1, "oxy" = 1);
-	death_sound = null;
-	deathmessage = "";
-	desc = "This is no longer a goodboy. Not anymore. He has seen too much.";
-	icon = 'icons/mob/pets.dmi';
-	icon_living = "corgi";
-	icon_state = "corgi";
-	name = "angry corgi";
-	retreat_distance = 2;
-	icon_dead = "corgi_dead"
-	},
+/mob/living/basic/alien/sentinel/corgi,
 /turf/simulated/floor/grass,
 /area/ruin/space/syndicakefactory)
 "Zs" = (
@@ -1675,7 +1626,7 @@ oB
 bn
 bn
 Iz
-qx
+oB
 Kr
 bG
 TM
@@ -1716,7 +1667,7 @@ Vt
 gx
 DY
 XZ
-bn
+MK
 bG
 uA
 bG
@@ -1794,7 +1745,7 @@ wC
 bn
 Qv
 oB
-bn
+MK
 bn
 bn
 bn
@@ -1802,9 +1753,9 @@ oB
 bn
 bn
 Kr
-bn
+MK
 yV
-OU
+bn
 oB
 RO
 wI
@@ -1830,7 +1781,7 @@ EJ
 EJ
 rJ
 bn
-OU
+bn
 bn
 oH
 EJ

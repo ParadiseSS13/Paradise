@@ -2,7 +2,6 @@
 	name = "arcane tome"
 	desc = "An old, dusty tome with frayed edges and a sinister-looking cover."
 	icon_state = "tome"
-	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -12,7 +11,7 @@
 
 /obj/item/melee/cultblade
 	name = "cult blade"
-	desc = "An arcane weapon wielded by the followers of a cult."
+	desc = "A powerful blade made of darkened metal. An aura of barely-perceptible red light seems to surround it."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "blood_blade"
 	item_state = "blood_blade"
@@ -74,7 +73,7 @@
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
-	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim. Will not hit fellow cultists."
+	desc = "A bola, crafted of dark metal and sinuous cords. The inscriptions covering the weights prevent it from striking the Faithful."
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
 	breakouttime = 45
@@ -96,7 +95,7 @@
 /obj/item/clothing/head/hooded/culthood
 	name = "cult hood"
 	icon_state = "culthood"
-	desc = "A hood worn by the followers of a cult."
+	desc = "An armored hood reinforced with dark metal and covered with esoteric inscriptions urging you toward martyrdom. Serve your purpose."
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
@@ -143,28 +142,25 @@
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
-	slowdown = 1
 	armor = list(MELEE = 115, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 35, ACID = 150)
 	magical = TRUE
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist robes"
-	desc = "An empowered garb which creates a powerful shield around the user."
+	desc = "An imposing set of armored robes, heavily reinforced with dark metal. Strange sigils and glyphs cover the suit, crackling with unholy power."
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list(MELEE = 50, BULLET = 35, LASER = 50, ENERGY = 20, BOMB = 50, RAD = 20, FIRE = 50, ACID = 75)
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 
 /obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist hood"
-	desc = "An empowered garb which creates a powerful shield around the user."
+	desc = "An armored hood, heavily reinforced with dark metal. The inscriptions covering the interior fill you with confidence and determination."
 	icon_state = "cult_hoodalt"
 	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 5, ACID = 5)
-	body_parts_covered = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
@@ -192,12 +188,10 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe
 	name = "flagellant's robes"
-	desc = "Blood-soaked robes infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
+	desc = "A set of blood-soaked robes inscribed with unholy sigils. Wearing them greatly increases movement speed, but the cursed fabrics will take an additional tithe when the wearer is hit."
 	icon_state = "flagellantrobe"
 	item_state = "flagellantrobe"
-	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list(MELEE = -25, BULLET = -25, LASER = -25, ENERGY = -25, BOMB = -25, RAD = -25, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -225,7 +219,7 @@
 
 /obj/item/clothing/head/hooded/flagellant_hood
 	name = "flagellant's robes"
-	desc = "Blood-soaked garb infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
+	desc = "A blood-soaked hood inscribed with unholy sigils. The interior is covered in small barbs, reminding you of your duty."
 	icon_state = "flagellanthood"
 	item_state = "flagellanthood"
 	flags = BLOCKHAIR
@@ -240,7 +234,7 @@
 
 /obj/item/whetstone/cult
 	name = "eldritch whetstone"
-	desc = "A block, empowered by dark magic. Sharp weapons will be enhanced when used on the stone."
+	desc = "A block of dark, cracked metal, criss-crossed by glowing lines of unholy power. The block can grant any blade a razor's edge, but is unlikely to survive imbuement."
 	icon_state = "cult_sharpener"
 	increment = 5
 	max = 40
@@ -258,17 +252,16 @@
 
 /obj/item/reagent_containers/drinks/bottle/unholywater
 	name = "flask of unholy water"
-	desc = "Toxic to nonbelievers; this water renews and reinvigorates the faithful of a cult."
+	desc = "A small flask made of darkened glass, and covered with minute inscriptions. The dark liquid within rejuvenates believers, and scalds the faithless."
 	icon_state = "holyflask"
 	color = "#333333"
 	list_reagents = list("unholywater" = 40)
 
 /obj/item/clothing/glasses/hud/health/night/cultblind
 	name = "zealot's blindfold"
-	desc = "May the master guide you through the darkness and shield you from the light."
+	desc = "A thick blindfold made of dark cloth. The runes and sigils sewn into the fabric amplify the vision of the faithful."
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	see_in_dark = 8
 	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
 	flash_protect = FLASH_PROTECTION_FLASH
 	prescription = TRUE
@@ -285,7 +278,7 @@
 
 /obj/item/shuttle_curse
 	name = "cursed orb"
-	desc = "You peer within this smokey orb and glimpse terrible fates befalling the escape shuttle."
+	desc = "A small metal orb, crackling with the power of a barely-restrained curse. Crushing the orb will unleash its energy, targeting the vessel which attempts to save the station from its fate."
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shuttlecurse"
 	var/global/curselimit = 0
@@ -316,7 +309,7 @@
 
 /obj/item/cult_shift
 	name = "veil shifter"
-	desc = "This relic teleports you forward by a medium distance."
+	desc = "A small rod of black metal, surrounded by red crystals that blaze with unholy power. The relic can shift the faithful forward in space with little more than a thought."
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shifter"
 	var/uses = 4
@@ -426,7 +419,7 @@
 
 /obj/item/shield/mirror
 	name = "mirror shield"
-	desc = "An infamous shield used by eldritch sects to confuse and disorient their enemies."
+	desc = "A small shield of polished metal. The surface glows with eldritch power, and is capable of reflecting incoming attacks."
 	icon = 'icons/obj/cult.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -560,17 +553,15 @@
 	return FALSE
 
 /obj/item/cult_spear
-	name = "blood halberd"
-	desc = "A sickening spear composed entirely of crystallized blood. Will stun people who have been recently marked if the spear is wielded."
+	name = "blood spear"
+	desc = "A mighty polearm made entirely of crystalized blood, held together with eldritch power. Throwing the weapon will cause its enchantments to discharge violently on impact."
 	icon = 'icons/obj/cult.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	base_icon_state = "bloodspear"
 	icon_state = "bloodspear0"
-	slot_flags = 0
 	force = 17
 	throwforce = 30
-	throw_speed = 2
 	armour_penetration_percentage = 50
 	attack_verb = list("attacked", "impaled", "stabbed", "torn", "gored")
 	sharp = TRUE
@@ -642,9 +633,8 @@
 
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
-	desc = "Call the blood spear back to your hand!"
-	button_background_icon_state = "bg_cult"
-	button_overlay_icon_state = "bloodspear"
+	desc = "Recall the blood spear to your hand."
+	button_icon_state = "bloodspear"
 	default_button_position = "11:31,4:-2"
 	var/obj/item/cult_spear/spear
 	var/cooldown = 0
@@ -670,7 +660,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood
 	name = "blood bolt barrage"
-	desc = "Blood for blood."
+	desc = "A crackling orb of blood-red energy, straining for the chance to kill. Simply point at the target, and let it loose."
 	item_state = "disintegrate"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -717,17 +707,17 @@
 
 /obj/item/blood_orb
 	name = "orb of blood"
+	desc = "A solid orb of crystalized blood, likely taken unwillingly. The orb can be used to transfer vitae between the faithful."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "summoning_orb"
 	item_state = "summoning_orb"
-	desc = "It's an orb of crystalized blood. Can be used to transfer blood between cultists."
 	var/blood = 50
 
 /obj/item/portal_amulet
 	name = "reality sunderer"
+	desc = "An elaborately carved amulet resembling a human eye. Looking directly at it sends shivers down your spine. Allows cultists to open portals over teleport runes, destroying the rune in the process."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "amulet"
-	desc = "An elaborately carved amulet resembling a human eye. Looking directly at it sends shivers down your spine. Allows cultists to open portals over teleport runes, destroying the rune in the process."
 	w_class = WEIGHT_CLASS_SMALL
 
 
@@ -802,8 +792,6 @@
 	name = "eldritch portal"
 	desc = "An evil portal made by dark magics. Surprisingly stable."
 	icon_state = "portal1"
-	failchance = 0
-	precision = FALSE
 	var/obj/effect/cult_portal_exit/exit = null
 
 /obj/effect/portal/cult/Initialize(mapload, target, creator, lifespan)

@@ -1,6 +1,5 @@
 /obj/effect/spawner/random/traders
 	name = "trader item spawner"
-	icon_state = "loot"
 	spawn_loot_count = 6
 
 /obj/effect/spawner/random/traders/civilian
@@ -94,9 +93,15 @@
 		// Xenobio
 		/obj/item/slimepotion/sentience = 50, // Low-value, but we want to encourage getting more players back in the round.
 		/obj/item/slimepotion/transference = 50,
+		/obj/item/dissector/alien = 50,
+		/obj/item/regen_mesh = 50,
 
 		// Might as well let AI be interested
 		/obj/item/ai_upgrade/surveillance_upgrade = 25,
+		/obj/item/ai_upgrade/expanded_storage = 10,
+		/obj/item/ai_upgrade/expanded_network = 10,
+		/obj/item/ai_upgrade/expanded_tank = 10,
+		/obj/item/ai_upgrade/expanded_fabricator = 10,
 	)
 
 /obj/effect/spawner/random/traders/medical

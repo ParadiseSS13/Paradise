@@ -12,3 +12,9 @@
 // Airlock controller button modes
 #define MODE_INTERIOR "int"
 #define MODE_EXTERIOR "ext"
+
+#define VENT_ID(_id_to_link)		"[_id_to_link]_vent"
+#define EXT_DOOR_ID(_id_to_link)	"[_id_to_link]_door_ext"
+#define INT_DOOR_ID(_id_to_link)	"[_id_to_link]_door_int"
+#define EXT_BTN_ID(_id_to_link)		"[_id_to_link]_btn_ext"
+#define INT_BTN_ID(_id_to_link)		"[_id_to_link]_btn_int"

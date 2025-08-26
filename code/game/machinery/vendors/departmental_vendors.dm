@@ -260,8 +260,10 @@
 					/obj/item/stack/medical/ointment/advanced = 2,
 					/obj/item/reagent_containers/patch/styptic = 3,
 					/obj/item/reagent_containers/patch/silver_sulf = 3,
-					/obj/item/reagent_containers/applicator/brute = 2,
-					/obj/item/reagent_containers/applicator/burn = 2,
+					/obj/item/stack/medical/suture/medicated = 3,
+					/obj/item/stack/medical/suture = 5,
+					/obj/item/stack/medical/suture/regen_mesh/advanced = 3,
+					/obj/item/stack/medical/suture/regen_mesh = 5,
 					/obj/item/stack/medical/bruise_pack = 2,
 					/obj/item/stack/medical/splint = 3,
 					/obj/item/reagent_containers/syringe = 6,
@@ -367,6 +369,7 @@
 					/obj/item/smithing_cast/component/lens_focus = 3,
 					/obj/item/smithing_cast/component/lens_frame = 3,
 					/obj/item/smithing_cast/component/trim = 3,
+					/obj/item/smithing_cast/misc/egun_parts = 3,
 					/obj/item/storage/bag/smith = 2,
 					/obj/item/storage/box/crewvend = 1)
 

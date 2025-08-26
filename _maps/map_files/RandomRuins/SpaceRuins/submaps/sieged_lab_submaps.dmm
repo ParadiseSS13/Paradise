@@ -17,7 +17,7 @@
 /area/template_noop)
 "ax" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
-/mob/living/simple_animal/hostile/syndicate/melee,
+/mob/living/simple_animal/hostile/syndicate,
 /turf/template_noop,
 /area/template_noop)
 "aK" = (
@@ -232,9 +232,7 @@
 /area/template_noop)
 "fQ" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/effect/mob_spawn/human/corpse/random_species/scientist{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "fU" = (
@@ -247,9 +245,7 @@
 /turf/template_noop,
 /area/template_noop)
 "gd" = (
-/obj/effect/mob_spawn/human/corpse/random_species/scientist{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
 /obj/effect/spawner/random/dirt/frequent,
 /turf/template_noop,
 /area/template_noop)
@@ -411,9 +407,7 @@
 	},
 /area/template_noop)
 "kr" = (
-/obj/effect/mob_spawn/human/corpse/random_species/scientist{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
 /obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plating/asteroid,
 /area/template_noop)
@@ -593,9 +587,7 @@
 /area/template_noop)
 "mX" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/effect/mob_spawn/human/corpse/random_species/doctor{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/doctor,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "mY" = (
@@ -829,9 +821,7 @@
 	},
 /area/template_noop)
 "rN" = (
-/obj/effect/mob_spawn/human/corpse/random_species/scientist{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -904,9 +894,7 @@
 	},
 /area/template_noop)
 "te" = (
-/obj/effect/mob_spawn/human/corpse/random_species/engineer{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/engineer,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
@@ -963,9 +951,7 @@
 	},
 /area/template_noop)
 "ue" = (
-/obj/effect/mob_spawn/human/corpse/random_species/scientist{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
 /obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -1107,9 +1093,7 @@
 "xQ" = (
 /obj/effect/spawner/themed_mess/engineering,
 /obj/structure/chair,
-/obj/effect/mob_spawn/human/corpse/random_species/engineer{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/engineer,
 /obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
@@ -1178,9 +1162,7 @@
 /area/template_noop)
 "zo" = (
 /obj/machinery/firealarm/directional/south,
-/obj/effect/mob_spawn/human/corpse/random_species/security_officer{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/security_officer,
 /turf/template_noop,
 /area/template_noop)
 "zs" = (
@@ -1221,9 +1203,7 @@
 /turf/template_noop,
 /area/template_noop)
 "zR" = (
-/obj/effect/mob_spawn/human/corpse/random_species/assistant{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/assistant,
 /obj/effect/decal/cleanable/blood,
 /turf/template_noop,
 /area/template_noop)
@@ -1234,9 +1214,7 @@
 	},
 /area/template_noop)
 "zV" = (
-/obj/effect/mob_spawn/human/corpse/random_species/engineer{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/engineer,
 /obj/item/trash/spentcasing/bullet,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/blood/often,
@@ -1272,9 +1250,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "AW" = (
-/obj/effect/mob_spawn/human/corpse/random_species/scientist{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
 /obj/item/trash/spentcasing/bullet,
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -1340,9 +1316,7 @@
 /area/template_noop)
 "BZ" = (
 /obj/effect/spawner/random/blood/often,
-/obj/effect/mob_spawn/human/corpse/random_species/security_officer{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/security_officer,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "Cj" = (
@@ -1398,9 +1372,7 @@
 /area/template_noop)
 "DK" = (
 /obj/structure/chair,
-/obj/effect/mob_spawn/human/corpse/random_species/engineer{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/engineer,
 /obj/effect/spawner/random/blood/often,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
@@ -1625,7 +1597,7 @@
 /turf/template_noop,
 /area/template_noop)
 "GI" = (
-/mob/living/simple_animal/hostile/syndicate/melee,
+/mob/living/simple_animal/hostile/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1660,7 +1632,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "Hq" = (
-/mob/living/simple_animal/hostile/syndicate/melee,
+/mob/living/simple_animal/hostile/syndicate,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "HF" = (
@@ -1812,9 +1784,7 @@
 /turf/template_noop,
 /area/template_noop)
 "MI" = (
-/obj/effect/mob_spawn/human/corpse/random_species/scientist{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -1829,9 +1799,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "Na" = (
-/obj/effect/mob_spawn/human/corpse/random_species/security_officer{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/security_officer,
 /turf/template_noop,
 /area/template_noop)
 "Nb" = (
@@ -1946,9 +1914,7 @@
 	},
 /area/template_noop)
 "OM" = (
-/obj/effect/mob_spawn/human/corpse/random_species/scientist{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
 /turf/template_noop,
 /area/template_noop)
 "Pa" = (
@@ -1979,9 +1945,7 @@
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "Qa" = (
-/obj/structure/sink{
-	pixel_y = 19
-	},
+/obj/structure/sink/directional/north,
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2070,9 +2034,7 @@
 "SJ" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/blood/often,
-/obj/effect/mob_spawn/human/corpse/random_species/assistant{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/assistant,
 /turf/template_noop,
 /area/template_noop)
 "SS" = (
@@ -2146,7 +2108,7 @@
 	},
 /area/template_noop)
 "Uq" = (
-/mob/living/simple_animal/hostile/syndicate/melee,
+/mob/living/simple_animal/hostile/syndicate,
 /turf/template_noop,
 /area/template_noop)
 "UH" = (
@@ -2269,9 +2231,7 @@
 "Yg" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/dirt/often,
-/obj/effect/mob_spawn/human/corpse/random_species/scientist{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "Yo" = (
@@ -2332,9 +2292,7 @@
 /turf/template_noop,
 /area/template_noop)
 "ZI" = (
-/obj/effect/mob_spawn/human/corpse/random_species/scientist{
-	random = 1
-	},
+/obj/effect/mob_spawn/human/corpse/random_species/scientist,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/template_noop,

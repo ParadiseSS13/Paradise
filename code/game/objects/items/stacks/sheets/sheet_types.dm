@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	null,
 	new /datum/stack_recipe_list("office chairs",list(
 		new /datum/stack_recipe("dark office chair", /obj/structure/chair/office/dark, 5, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("light office chair", /obj/structure/chair/office/light, 5, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("light office chair", /obj/structure/chair/office, 5, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 
 	new /datum/stack_recipe_list("comfy chairs", list(
@@ -123,7 +123,11 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("intercom frame", /obj/item/mounted/frame/intercom, 2),
 	new /datum/stack_recipe/barsign_frame("bar sign frame", /obj/machinery/barsign, 4),
 	new /datum/stack_recipe("extinguisher cabinet frame", /obj/item/mounted/frame/extinguisher, 2),
-	null
+	null,
+	new /datum/stack_recipe_list("gym equipment", list(
+		new /datum/stack_recipe("bench press", /obj/structure/weightmachine/weightlifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("chest press", /obj/structure/weightmachine/stacklifter, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	)),
 ))
 
 /obj/item/stack/sheet/metal
@@ -135,7 +139,6 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	throwforce = 10.0
 	flags = CONDUCT
 	resistance_flags = FIRE_PROOF
-	origin_tech = "materials=1"
 	merge_type = /obj/item/stack/sheet/metal
 	point_value = 2
 	table_type = /obj/structure/table
@@ -385,6 +388,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 	new /datum/stack_recipe("rag", /obj/item/reagent_containers/glass/rag, 1),
 	new /datum/stack_recipe("bedsheet", /obj/item/bedsheet, 3),
 	new /datum/stack_recipe("empty sandbag", /obj/item/emptysandbag, 4),
+	new /datum/stack_recipe("punching bag", /obj/structure/punching_bag, 10, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("blindfold", /obj/item/clothing/glasses/sunglasses/blindfold, 3),
 	new /datum/stack_recipe("tattered blindfold", /obj/item/clothing/glasses/sunglasses/blindfold/fake, 2),
@@ -460,7 +464,6 @@ GLOBAL_LIST_INIT(durathread_recipes, list (
 	desc = "A bundle of raw durathread ready to be spun on the loom."
 	singular_name = "raw durathread ball"
 	icon_state = "sheet-durathreadraw"
-	icon = 'icons/obj/stacks/organic.dmi'
 	merge_type = /obj/item/stack/sheet/cotton/durathread
 	pull_effort = 70
 	loom_result = /obj/item/stack/sheet/durathread
@@ -518,7 +521,6 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "sheet-card"
 	item_state = "sheet-card"
-	origin_tech = "materials=1"
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cardboard
 
@@ -540,7 +542,6 @@ GLOBAL_LIST_INIT(soil_recipes, list (
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-soil"
 	item_state = "sheet-soil"
-	origin_tech = "materials=1"
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/soil
 
@@ -685,10 +686,6 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	singular_name = "bone"
 	desc = "Someone's been drinking their milk."
 	force = 7
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 1
-	throw_range = 3
 	origin_tech = "materials=2;biotech=2"
 
 //////////////////////////////

@@ -51,8 +51,7 @@
 	if(QDELETED(A))
 		return
 
-	if(client?.click_intercept)
-		client.click_intercept.InterceptClickOn(src, params, A)
+	if(check_click_intercept(params,A))
 		return
 
 	if(next_click > world.time)
@@ -107,6 +106,10 @@
 			return
 		var/obj/mecha/M = loc
 		return M.click_action(A, src, params)
+
+	if(isclowncar(loc) && !modifiers["shift"])
+		var/obj/tgvehicle/sealed/car/clowncar/cc = loc
+		return cc.fire_cannon_at(A, src, params)
 
 	if(restrained())
 		RestrainedClickOn(A)
@@ -468,10 +471,9 @@
 	else
 		if(dx > 0)	direction = EAST
 		else		direction = WEST
-	dir = direction
+	setDir(direction)
 
 /atom/movable/screen/click_catcher
-	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "catcher"
 	plane = CLICKCATCHER_PLANE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
@@ -512,6 +514,19 @@
 			modifiers["catcher"] = TRUE
 			click_turf.Click(location, control, list2params(modifiers))
 	. = 1
+
+/mob/proc/check_click_intercept(params,A)
+	// Client level intercept
+	if(client?.click_intercept)
+		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
+			return TRUE
+
+	// Mob level intercept
+	if(click_interceptor)
+		if(call(click_interceptor, "InterceptClickOn")(src, params, A))
+			return TRUE
+
+	return FALSE
 
 #undef MAX_SAFE_BYOND_ICON_SCALE_TILES
 #undef MAX_SAFE_BYOND_ICON_SCALE_PX

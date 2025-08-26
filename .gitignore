@@ -72,7 +72,8 @@ $RECYCLE.BIN
 # VIM swap files.
 *.swp
 
-# Rust output.
+# Rust output and test output files.
+/rust/src/mapmanip/test/*_out.dmm
 /rust/target/*
 rustlibs_panic.txt
 

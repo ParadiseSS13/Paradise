@@ -26,6 +26,7 @@
 	var/obj/item/gun/energy/attached_gun
 
 /obj/item/smithed_item/lens/set_stats()
+	..()
 	durability = initial(durability) * material.durability_mult
 	max_durability = durability
 	power_mult = 1 + (base_power_mult * quality.stat_mult * material.power_draw_mult)
@@ -147,3 +148,21 @@
 	durability = 3000
 	quality = /datum/smith_quality/masterwork
 	material = /datum/smith_material/platinum
+
+/obj/item/smithed_item/lens/AltClick(mob/user, modifiers)
+	if(!HAS_TRAIT(user.mind, TRAIT_SMITH))
+		return
+	if(do_after_once(user, 3 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE))
+		var/compiled_message = "<span class='notice'>\
+		You determine the following properties on [src]: <br>\
+		Base Laser Speed mod: [base_laser_speed_mult] <br>\
+		Base Power Draw mod: [base_power_mult] <br>\
+		Base Damage mod: [base_damage_mult] <br>\
+		Base Fire Rate mod: [base_fire_rate_mult] <br>\
+		Laser Speed Multiplier: [laser_speed_mult] <br>\
+		Power Draw Multiplier: [power_mult] <br>\
+		Damage multiplier: [damage_mult] <br>\
+		Fire Rate Multiplier: [fire_rate_mult] <br>\
+		Durability: [durability] <br>\
+		</span>"
+		to_chat(user, compiled_message)

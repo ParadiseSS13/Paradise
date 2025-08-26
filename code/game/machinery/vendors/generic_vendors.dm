@@ -415,6 +415,7 @@
 					/obj/item/clothing/under/pants/mustangjeans = 1,
 					/obj/item/clothing/under/pants/camo = 3,
 					/obj/item/clothing/under/pants/blackjeans = 3,
+					/obj/item/clothing/under/pants/shorts/jeanshorts = 3,
 					/obj/item/clothing/under/pants/khaki = 3,
 					/obj/item/clothing/under/pants/white = 3,
 					/obj/item/clothing/under/pants/red = 3,
@@ -422,6 +423,10 @@
 					/obj/item/clothing/under/pants/tan = 3,
 					/obj/item/clothing/under/pants/blue = 3,
 					/obj/item/clothing/under/pants/track = 3,
+					/obj/item/clothing/suit/tracksuit = 3,
+					/obj/item/clothing/suit/tracksuit/green = 3,
+					/obj/item/clothing/suit/tracksuit/red = 3,
+					/obj/item/clothing/suit/tracksuit/white = 3,
 					/obj/item/clothing/suit/jacket/miljacket = 3,
 					/obj/item/clothing/suit/jacket/miljacket/white = 3,
 					/obj/item/clothing/suit/jacket/miljacket/desert = 3,
@@ -502,6 +507,7 @@
 				/obj/item/clothing/under/pants/mustangjeans = 100,
 				/obj/item/clothing/under/pants/camo = 75,
 				/obj/item/clothing/under/pants/blackjeans = 75,
+				/obj/item/clothing/under/pants/shorts/jeanshorts = 75,
 				/obj/item/clothing/under/pants/khaki = 75,
 				/obj/item/clothing/under/pants/white = 75,
 				/obj/item/clothing/under/pants/red = 75,
@@ -509,6 +515,10 @@
 				/obj/item/clothing/under/pants/tan = 75,
 				/obj/item/clothing/under/pants/blue = 75,
 				/obj/item/clothing/under/pants/track = 75,
+				/obj/item/clothing/suit/tracksuit = 75,
+				/obj/item/clothing/suit/tracksuit/green = 75,
+				/obj/item/clothing/suit/tracksuit/red = 75,
+				/obj/item/clothing/suit/tracksuit/white = 75,
 				/obj/item/clothing/suit/jacket/miljacket = 75,
 				/obj/item/clothing/suit/jacket/miljacket/white = 75,
 				/obj/item/clothing/suit/jacket/miljacket/desert = 75,
@@ -670,6 +680,7 @@
 					/obj/item/clothing/under/costume/pirate = 1,
 					/obj/item/clothing/suit/pirate_brown = 1,
 					/obj/item/clothing/suit/pirate_black =1,
+					/obj/item/clothing/head/cool_bandana =1,
 					/obj/item/clothing/under/costume/pirate_rags =1,
 					/obj/item/clothing/head/pirate = 1,
 					/obj/item/clothing/under/costume/soviet = 1,
@@ -789,6 +800,7 @@
 				/obj/item/clothing/under/costume/pirate = 100,
 				/obj/item/clothing/suit/pirate_brown = 100,
 				/obj/item/clothing/suit/pirate_black = 100,
+				/obj/item/clothing/head/cool_bandana = 50,
 				/obj/item/clothing/under/costume/pirate_rags = 100,
 				/obj/item/clothing/head/pirate = 50,
 				/obj/item/clothing/under/costume/soviet = 100,
@@ -1223,31 +1235,35 @@
 	icon_lightmask = "cigs"
 	category = VENDOR_TYPE_RECREATION
 	products = list(/obj/item/clothing/mask/cigarette/cigar = 2,
-					/obj/item/storage/fancy/cigarettes = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_carp = 6,
 					/obj/item/storage/fancy/cigarettes/dromedaryco = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
-					/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
+					/obj/item/storage/fancy/cigarettes/cigpack_our_brand = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_robust = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+					/obj/item/storage/fancy/cigarettes/cigpack_candy = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 6,
+					/obj/item/storage/fancy/cigarettes/cigpack_solar_rays = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
 					/obj/item/reagent_containers/patch/nicotine = 10,
 					/obj/item/storage/fancy/matches = 10,
 					/obj/item/lighter/random = 4,
-					/obj/item/lighter/zippo = 2)
+					/obj/item/lighter/zippo = 2,
+					/obj/item/storage/fancy/rollingpapers = 5)
 
-	contraband = list(/obj/item/storage/fancy/rollingpapers = 5)
+	contraband = list(/obj/item/storage/fancy/cigarettes/cigpack_midori = 6)
 
 	prices = list(/obj/item/clothing/mask/cigarette/cigar = 100,
-				/obj/item/storage/fancy/cigarettes = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_carp = 25,
 				/obj/item/storage/fancy/cigarettes/dromedaryco = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 80,
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 60,
+				/obj/item/storage/fancy/cigarettes/cigpack_our_brand = 15,
 				/obj/item/storage/fancy/cigarettes/cigpack_robust = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 120,
+				/obj/item/storage/fancy/cigarettes/cigpack_candy = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 50,
+				/obj/item/storage/fancy/cigarettes/cigpack_solar_rays = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 35,
 				/obj/item/reagent_containers/patch/nicotine = 70,
 				/obj/item/storage/fancy/matches = 20,
@@ -1264,20 +1280,24 @@
 // The Syndicate version doesn't sell Robust because that is a Nanotrasen-owned brand. It *does* have its special own-brand replacement.
 /obj/machinery/economy/vending/cigarette/syndicate
 	products = list(/obj/item/clothing/mask/cigarette/cigar = 6,
-				/obj/item/storage/fancy/cigarettes = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_carp = 6,
 				/obj/item/storage/fancy/cigarettes/dromedaryco = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
+				/obj/item/storage/fancy/cigarettes/cigpack_our_brand = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_solar_rays = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
 				/obj/item/reagent_containers/patch/nicotine = 10,
 				/obj/item/storage/fancy/matches = 10,
 				/obj/item/lighter/zippo = 6,
 				/obj/item/storage/fancy/rollingpapers = 5)
 
-	contraband = list()
+	// You'd better believe that NT branded cigs are contraband in the Syndicate's territory.
+	contraband = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 6,
+					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+					/obj/item/storage/fancy/cigarettes/cigpack_candy = 6)
 
 /obj/machinery/economy/vending/cigarette/syndicate/free
 	prices = list()
@@ -1298,13 +1318,15 @@
 	products = list(/obj/item/clothing/mask/cigarette/cigar = 6,
 				/obj/item/clothing/mask/cigarette/cigar/cohiba = 6,
 				/obj/item/clothing/mask/cigarette/cigar/havana = 6,
-				/obj/item/storage/fancy/cigarettes = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_carp = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_our_brand = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_robust = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_candy = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_solar_rays = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 10,
 				/obj/item/reagent_containers/patch/nicotine = 20,
 				/obj/item/storage/fancy/matches = 10,
@@ -1349,6 +1371,7 @@
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
 	tiltable = FALSE
 	products = list(/obj/item/stack/medical/bruise_pack = 2,
+					/obj/item/stack/medical/suture/emergency = 2,
 					/obj/item/stack/medical/ointment = 2,
 					/obj/item/reagent_containers/syringe/charcoal = 4,
 					/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 4,

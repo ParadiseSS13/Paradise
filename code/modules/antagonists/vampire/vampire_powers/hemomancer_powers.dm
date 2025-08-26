@@ -58,6 +58,7 @@
 	var/xenomorph_acid_boosted = FALSE
 	var/heal_boost = 1
 	var/datum/spell/vampire/self/vamp_claws/parent_spell
+	new_attack_chain = TRUE
 
 /obj/item/vamp_claws/Initialize(mapload, new_parent_spell)
 	. = ..()
@@ -73,19 +74,18 @@
 /obj/item/vamp_claws/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] bloodied claws extending from [owner.p_their(FALSE)] wrists.</span>"
 
-/obj/item/vamp_claws/afterattack__legacy__attackchain(atom/target, mob/user, proximity)
-	if(!proximity)
-		return
+/obj/item/vamp_claws/attack(mob/living/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
 
 	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/living/attacker = user
-
 	if(!V)
 		return
 	if(xenomorph_acid_boosted)
 		target.acid_act(42, 10) // 42 is the acid power of facid, 10 is equal to 100 units.
 	if(!iscarbon(target))
-		return ..()
+		return FINISH_ATTACK
 	var/mob/living/carbon/C = target
 	if(isalien(target))
 		if(!xenomorph_acid_boosted)
@@ -102,7 +102,7 @@
 				color = list(0.5,1,0,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1, 0,0,0,0) // This makes it coloured acidic green
 				user.update_inv_r_hand()
 				user.update_inv_l_hand()
-	if(C.ckey && C.stat != DEAD && C.affects_vampire())
+	if(C.ckey && C.stat != DEAD && C.affects_vampire(user))
 		if(isalien(C) || !(NO_BLOOD in C.dna.species.species_traits)) // second check runtimes if they are not a xenomorph, but we check xenomorph first
 			C.bleed(blood_drain_amount)
 			V.adjust_blood(C, blood_absorbed_amount)
@@ -112,17 +112,19 @@
 	if(!V.get_ability(/datum/vampire_passive/blood_spill))
 		durability--
 		if(durability <= 0)
-			qdel(src)
 			to_chat(user, "<span class='warning'>Your claws shatter!</span>")
+			qdel(src)
 
 /obj/item/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
 	..()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		user.changeNext_move(CLICK_CD_MELEE * 0.5)
 
-/obj/item/vamp_claws/attack_self__legacy__attackchain(mob/user)
-	qdel(src)
+/obj/item/vamp_claws/activate_self(mob/user)
+	if(..())
+		return
 	to_chat(user, "<span class='notice'>You dispel your claws!</span>")
+	qdel(src)
 
 /datum/spell/vampire/blood_tendrils
 	name = "Blood Tendrils (10)"
@@ -164,7 +166,6 @@
 /obj/effect/temp_visual/blood_tendril
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "blood_tendril"
-	duration = 1 SECONDS
 
 /obj/effect/temp_visual/blood_tendril/long
 	duration = 2 SECONDS
@@ -172,7 +173,7 @@
 /datum/spell/vampire/blood_barrier
 	name = "Blood Barrier (40)"
 	desc = "Select two points within 3 tiles of each other and make a barrier between them."
-	gain_desc = "You have gained the ability to summon a crystaline wall of blood between two points, the barrier is easily destructable, however you can walk freely through it."
+	gain_desc = "You have gained the ability to summon a crystalline wall of blood between two points. The barrier is easily destructible, however you can walk freely through it."
 	required_blood = 40
 	base_cooldown = 1 MINUTES
 	should_recharge_after_cast = FALSE
@@ -225,13 +226,12 @@
 
 /obj/structure/blood_barrier
 	name = "blood barrier"
-	desc = "a grotesque structure of crystalised blood. It's slowly melting away..."
+	desc = "a grotesque structure of crystallized blood. It's slowly melting away..."
 	max_integrity = 100
 	icon_state = "blood_barrier"
 	icon = 'icons/effects/vampire_effects.dmi'
 	density = TRUE
 	anchored = TRUE
-	opacity = FALSE
 
 /obj/structure/blood_barrier/Initialize(mapload)
 	. = ..()
@@ -324,7 +324,7 @@
 /datum/spell/vampire/blood_eruption
 	name = "Blood Eruption (100)"
 	desc = "Every pool of blood in 4 tiles erupts with a spike of living blood, damaging anyone stood on it."
-	gain_desc = "You have gained the ability to weaponise pools of blood to damage those stood on them."
+	gain_desc = "You have gained the ability to weaponize pools of blood to damage those stood on them."
 	required_blood = 100
 	base_cooldown = 200 SECONDS
 	action_icon_state = "blood_spikes"
@@ -362,7 +362,6 @@
 	name = "The Blood Bringers Rite"
 	desc = "When toggled, everyone around you begins to bleed profusely. You will drain their blood and rejuvenate yourself with it."
 	gain_desc = "You have gained the ability to rip the very life force out of people and absorb it, healing you."
-	base_cooldown = 10 SECONDS
 	action_icon_state = "blood_bringers_rite"
 	required_blood = 10
 

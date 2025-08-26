@@ -46,7 +46,7 @@
 //nuke core box, for carrying the core
 /obj/item/nuke_core_container
 	name = "nuke core container"
-	desc = "A solid container for radioactive objects."
+	desc = "A lead-lined secure container produced by the Syndicate for the express purpose of extracting the valuable radioactive cores of nuclear weapons."
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "core_container_empty"
 	item_state = "metal"
@@ -75,7 +75,7 @@
 	else if(dented) // Not cracked, but dented.
 		. += "<span class='notice'>[src] looks dented. Perhaps a bigger explosion may break it.</span>"
 	else // Not cracked or dented.
-		. += "Fine print on the box reads \"Cybersun Industries secure container, guaranteed thermite proof, assistant proof, and explosive resistant.\""
+		. += "Fine print on the box reads \"Syndicate Field Operations secure core extraction container. Guaranteed thermite proof, assistant proof, and explosive resistant.\""
 
 /obj/item/nuke_core_container/attack_hand(mob/user)
 	if(cracked && core)
@@ -253,7 +253,7 @@
 
 /obj/item/nuke_core_container/supermatter
 	name = "supermatter bin"
-	desc = "A tiny receptacle that releases an inert hyper-noblium mix upon sealing, allowing a sliver of a supermatter crystal to be safely stored."
+	desc = "A modified Syndicate nuclear core receptacle, reinforced with a hyper-nobilium alloy lattice to permit the storage of Supermatter crystal shards."
 	var/obj/item/nuke_core/supermatter_sliver/sliver
 
 /obj/item/nuke_core_container/supermatter/Destroy()

@@ -105,7 +105,7 @@
 	if(!istype(product, product_type))
 		return FALSE
 	// Quality doesn't match
-	if(product.quality != quality)
+	if(!istype(product.quality, quality))
 		return FALSE
 	// Material doesn't match
 	if(product.material != material)
@@ -113,8 +113,8 @@
 	return TRUE
 
 /datum/secondary_goal_progress/random_smithed_item/update(atom/movable/AM, datum/economy/cargo_shuttle_manifest/manifest = null)
-	// Not in a matching personal crate? Ignore.
-	if(!check_personal_crate(AM))
+	// Not properly labeled for this goal? Ignore.
+	if(!check_goal_label(AM))
 		return
 
 	if(!istype(AM, /obj/item/smithed_item))

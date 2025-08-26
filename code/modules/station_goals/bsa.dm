@@ -273,7 +273,7 @@
 	name = "Bluespace Artillery Control"
 	var/obj/machinery/bsa/full/cannon
 	var/notice
-	var/target
+	var/atom/target
 	power_state = NO_POWER_USE
 	circuit = /obj/item/circuitboard/computer/bsa_control
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
@@ -395,6 +395,7 @@
 		notice = "Cannon unpowered!"
 		return
 	notice = null
+	investigate_log("[key_name(user)] has fired the BSA at [ADMIN_VERBOSEJMP(cannon)] at the target [ADMIN_VERBOSEJMP(target)].", INVESTIGATE_BOMB)
 	cannon.fire(user, get_impact_turf(), target)
 
 /obj/machinery/computer/bsa_control/proc/deploy()

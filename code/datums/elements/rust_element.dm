@@ -40,7 +40,7 @@
 	SIGNAL_HANDLER //COMSIG_ATOM_UPDATE_OVERLAYS
 
 	if(rust_overlay)
-		parent_atom.add_overlay(rust_overlay)
+		overlays += rust_overlay
 
 /// Because do_after sleeps we register the signal here and defer via an async call
 /datum/element/rust/proc/welder_tool_act(atom/source, obj/item/item, mob/user)
@@ -110,7 +110,6 @@
 /obj/effect/glowing_rune
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "small_rune_1"
-	anchored = TRUE
 	plane = FLOOR_PLANE
 	layer = SIGIL_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

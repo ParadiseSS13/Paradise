@@ -4,6 +4,8 @@
 	icon_state = "petcollar"
 	item_color = "petcollar"
 	var/tagname = null
+	var/original_name
+	var/original_real_name
 	var/obj/item/card/id/access_id
 
 /obj/item/petcollar/Destroy()
@@ -62,7 +64,7 @@
 /obj/item/petcollar/process()
 	var/mob/living/simple_animal/M = loc
 	// if it wasn't intentionally unequipped but isn't being worn, possibly gibbed
-	if(istype(M) && src == M.pcollar && M.stat != DEAD)
+	if(istype(M) && M.stat != DEAD)
 		return
 
 	var/area/pet_death_area = get_area(M)

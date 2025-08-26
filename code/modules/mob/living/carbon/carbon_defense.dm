@@ -21,28 +21,20 @@
 	if(volume > 10) // Anything over 10 volume will make the mob wetter.
 		wetlevel = min(wetlevel + 1,5)
 
-/mob/living/carbon/item_interaction(mob/living/user, obj/item/I, list/modifiers)
-	if(length(surgeries))
-		if(user.a_intent == INTENT_HELP)
-			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, src))
-					return ITEM_INTERACT_COMPLETE
-
-	return ..()
-
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
 	if(!iscarbon(user))
 		return
 
 	for(var/thing in viruses)
 		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
-			user.ContractDisease(D)
+		if(D.spread_flags >= SPREAD_CONTACT_GENERAL)
+			can_spread_disease(D, SPREAD_CONTACT_GENERAL) && user.ContractDisease(D, SPREAD_CONTACT_HANDS)
 
 	for(var/thing in user.viruses)
 		var/datum/disease/D = thing
-		if(D.IsSpreadByTouch())
-			ContractDisease(D)
+		var/spread_method = min(D.spread_flags, SPREAD_CONTACT_GENERAL)
+		if(spread_method >= SPREAD_CONTACT_HANDS)
+			user.can_spread_disease(D, SPREAD_CONTACT_HANDS) && ContractDisease(D, spread_method)
 
 	if(IS_HORIZONTAL(src) && length(surgeries))
 		if(user.a_intent == INTENT_HELP)

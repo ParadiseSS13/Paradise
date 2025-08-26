@@ -51,7 +51,6 @@
 	health = 750
 	maxHealth = 750
 	rapid_melee = 3
-	wander = FALSE
 	move_force = MOVE_FORCE_DEFAULT
 	loot = list(/obj/item/organ/internal/cyberimp/arm/razorwire/harbinger)
 	death_simplemob_representation = /obj/effect/temp_visual/dir_setting/syndicate_harbinger_death
@@ -165,7 +164,6 @@ GLOBAL_LIST_INIT(ruin_sieged_lab_research_loot, list(
 
 /obj/effect/spawner/random/mine
 	name = "50pc landmine"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "mine"
 	loot = list(/obj/effect/mine/sieged_lab)
 	spawn_loot_chance = 50
@@ -175,3 +173,6 @@ GLOBAL_LIST_INIT(ruin_sieged_lab_research_loot, list(
 
 /obj/effect/mine/sieged_lab/mineEffect(mob/living/victim)
 	explosion(loc, 1, 0, 0, 1) // devastate the tile you are on, but leave everything else untouched
+
+/obj/effect/spawner/random/pool/spaceloot/syndicate/rare/sieged_lab
+	guaranteed = TRUE

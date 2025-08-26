@@ -10,10 +10,15 @@ GLOBAL_PROTECT(href_token)
 		. += "[rand(10)]"
 
 /datum/admins
-	var/rank = "Temporary Admin"
+	var/rank = "No Rank"
+	var/ckey
 	var/client/owner
 	/// Bitflag containing the current rights this admin holder is assigned to
 	var/rights = 0
+	/// Tracks if their permissions have been reduced due to a lack of 2fa.
+	var/restricted_by_2fa = FALSE
+	/// Was this auto-created for someone connecting from localhost?
+	var/is_localhost_autoadmin = FALSE
 	var/fakekey
 	var/big_brother	= FALSE
 	var/current_tab = 0
@@ -27,7 +32,7 @@ GLOBAL_PROTECT(href_token)
 	/// Our index into GLOB.antagonist_teams, so that admins can have pretty tabs in the Check Teams menu.
 	var/team_switch_tab_index = 1
 
-/datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
+/datum/admins/New(initial_rank, initial_rights, ckey)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounceooc'>Admin rank creation blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to create a new admin rank via advanced proc-call")
@@ -37,8 +42,11 @@ GLOBAL_PROTECT(href_token)
 		error("Admin datum created without a ckey argument. Datum has been deleted")
 		qdel(src)
 		return
-	rank = initial_rank
-	rights = initial_rights
+	src.ckey = ckey
+	if(initial_rank)
+		rank = initial_rank
+	if(initial_rights)
+		rights = initial_rights
 	href_token = GenerateToken()
 	GLOB.admin_datums[ckey] = src
 
@@ -48,22 +56,68 @@ GLOBAL_PROTECT(href_token)
 		message_admins("[key_name(usr)] attempted to delete an admin rank via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to delete an admin rank via advanced proc-call")
 		return
+	disassociate()
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 
-/datum/admins/proc/associate(client/C)
+/datum/admins/proc/associate(client/C, delay_2fa_complaint = FALSE)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounceooc'>Rank association blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to associate an admin rank to a new client via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to associate an admin rank to a new client via advanced proc-call")
 		return
-	if(istype(C))
-		owner = C
-		owner.holder = src
-		owner.add_admin_verbs()	//TODO
-		remove_verb(owner, /client/proc/readmin)
-		owner.init_verbs() //re-initialize the verb list
-		GLOB.admins |= C
+
+	if(istype(C) && C.ckey != ckey)
+		CRASH("Admin datum belonging to [ckey] was asked to associate to client belonging to [C.ckey].")
+
+	owner = C
+
+	// Check for 2fa, if required.
+	if(needs_2fa() && istype(owner) && !owner.has_2fa())
+		// Disable most permissions.
+		rights = rights & (R_MENTOR | R_VIEWRUNTIMES)
+		restricted_by_2fa = TRUE
+		if(!delay_2fa_complaint)
+			// And tell them about it.
+			to_chat(owner,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
+
+	// Regardless of client, tell BYOND if they should have profiler access.
+	if(rights & (R_DEBUG | R_VIEWRUNTIMES))
+		world.SetConfig("APP/admin", ckey, "role=admin")
+
+	if(!istype(owner))
+		return
+
+	owner.holder = src
+	owner.add_admin_verbs()
+	if(istype(owner.mob, /mob/dead/observer))
+		var/mob/dead/observer/ghost = owner.mob
+		ghost.update_admin_actions()
+	remove_verb(owner, /client/proc/readmin)
+	owner.init_verbs() //re-initialize the verb list
+	owner.update_active_keybindings()
+	if(rights & (R_DEBUG | R_VIEWRUNTIMES))
+		// Enable the buttons they should have.
+		winset(owner, "debugmcbutton", "is-disabled=false")
+		winset(owner, "profilecode", "is-disabled=false")
+	GLOB.admins |= owner
+	GLOB.de_admins -= ckey
+	GLOB.de_mentors -= ckey
+
+/datum/admins/proc/needs_2fa()
+	if((rights & (R_MENTOR | R_VIEWRUNTIMES)) == rights)
+		// No significant permissions.
+		return FALSE
+
+	if(GLOB.configuration.admin.enable_localhost_autoadmin && owner && owner.is_connecting_from_localhost())
+		// Localhost connections are immune.
+		return FALSE
+
+	if(!GLOB.configuration.system.is_production)
+		// 2fa isn't required for anyone.
+		return FALSE
+
+	return TRUE
 
 /datum/admins/proc/disassociate()
 	if(IsAdminAdvancedProcCall())
@@ -71,72 +125,74 @@ GLOBAL_PROTECT(href_token)
 		message_admins("[key_name(usr)] attempted to disassociate an admin rank from a client via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to disassociate an admin rank from a client via advanced proc-call")
 		return
+
+	GLOB.admin_datums -= ckey
+
+	// Regardless of client, tell BYOND they shouldn't have access to the profiler.
+	world.SetConfig("APP/admin", ckey, null)
+
 	if(owner)
 		GLOB.admins -= owner
 		owner.hide_verbs()
-		owner.init_verbs()
 		owner.holder = null
+		owner.init_verbs()
+		if(istype(owner.mob, /mob/dead/observer))
+			var/mob/dead/observer/ghost = owner.mob
+			ghost.update_admin_actions()
+		owner.update_active_keybindings()
+		// Disable buttons they should no longer have.
+		winset(owner, "debugmcbutton", "is-disabled=true")
+		winset(owner, "profilecode", "is-disabled=true")
 		owner = null
 
 /*
-checks if usr is an admin with at least ONE of the flags in rights_required. (Note, they don't need all the flags)
-if rights_required == 0, then it simply checks if they are an admin.
-if it doesn't return 1 and show_msg=1 it will prints a message explaining why the check has failed
-generally it would be used like so:
+Checks if usr is an admin.
+If rights_required == 0, then it simply checks if they are an admin.
+If all is set, requires all the rights listed. Otherwise, any matching right is sufficient.
+With show_msg, if the check fails, prints a message explaining why.
 
-proc/admin_proc()
-	if(!check_rights(R_ADMIN)) return
+Usage:
+/some/proc()
+	if(!check_rights(R_ADMIN))
+		return
 	to_chat(world, "you have enough rights!")
 
-NOTE: it checks usr! not src! So if you're checking somebody's rank in a proc which they did not call
-you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
+NOTE: checks usr by default, not src
 */
-/proc/check_rights(rights_required, show_msg = TRUE, mob/user = usr)
+/proc/check_rights(rights_required, show_msg = TRUE, mob/user = usr, all = FALSE)
 	if(user && user.client)
-		if(rights_required)
-			if(user.client.holder)
-				if(rights_required & user.client.holder.rights)
-					return 1
-				else
-					if(show_msg)
-						to_chat(user, "<font color='red'>Error: You do not have sufficient rights to do that. You require one of the following flags:[rights2text(rights_required," ")].</font>")
-		else
-			if(user.client.holder)
-				return 1
-			else
-				if(show_msg)
-					to_chat(user, "<font color='red'>Error: You are not an admin.</font>")
-	return 0
-
-// Basically the above proc but checks at a /client level
-/proc/check_rights_client(rights_required, show_msg = TRUE, client/C)
-	if(C)
-		if(rights_required)
-			if(C.holder)
-				if(rights_required & C.holder.rights)
-					return TRUE
-				else
-					if(show_msg)
-						to_chat(C, "<font color='red'>Error: You do not have sufficient rights to do that. You require one of the following flags:[rights2text(rights_required," ")].</font>")
-		else
-			if(C.holder)
-				return TRUE
-			else
-				if(show_msg)
-					to_chat(C, "<font color='red'>Error: You are not an admin.</font>")
+		return check_rights_ckey(rights_required, show_msg, user.ckey, all)
 	return FALSE
 
-//probably a bit iffy - will hopefully figure out a better solution
-/proc/check_if_greater_rights_than(client/other)
-	if(usr && usr.client)
-		if(usr.client.holder)
-			if(!other || !other.holder)
-				return 1
-			if(usr.client.holder.rights != other.holder.rights)
-				if((usr.client.holder.rights & other.holder.rights) == other.holder.rights)
-					return 1	//we have all the rights they have and more
-		to_chat(usr, "<font color='red'>Error: Cannot proceed. They have more or equal rights to us.</font>")
-	return 0
+// As above, for a /client
+/proc/check_rights_client(rights_required, show_msg, client/C, all = FALSE)
+	if(C)
+		return check_rights_ckey(rights_required, show_msg, C.ckey, all)
+	return FALSE
+
+// As above, for a ckey
+/proc/check_rights_ckey(rights_required, show_msg, ckey, all)
+	var/datum/admins/holder = GLOB.admin_datums[ckey]
+	if(!holder)
+		if(show_msg)
+			to_chat(GLOB.directory[ckey], "<font color='red'>Error: You are not an admin.</font>")
+		return FALSE
+
+	if(!rights_required)
+		return TRUE
+
+	if((rights_required & holder.rights) == rights_required)
+		return TRUE
+	else if(!all && (rights_required & holder.rights))
+		return TRUE
+
+	if(show_msg)
+		if(all)
+			to_chat(GLOB.directory[ckey], "<font color='red'>Error: You do not have sufficient rights to do that. You require all of the following flags:[rights2text(rights_required," ")].</font>")
+		else
+			to_chat(GLOB.directory[ckey], "<font color='red'>Error: You do not have sufficient rights to do that. You require one of the following flags:[rights2text(rights_required," ")].</font>")
+
+	return FALSE
 
 /client/proc/deadmin()
 	if(IsAdminAdvancedProcCall())
@@ -144,42 +200,39 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 		message_admins("[key_name(usr)] attempted to de-admin a client via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to de-admin a client via advanced proc-call")
 		return
-	GLOB.admin_datums -= ckey
 	if(holder)
-		holder.disassociate()
+		if(check_rights(R_ADMIN, show_msg = FALSE))
+			GLOB.de_admins += ckey
+		else
+			GLOB.de_mentors += ckey
 		qdel(holder)
-	return 1
+		add_verb(src, /client/proc/readmin)
+	else
+		to_chat(src, "<font color='red'>Error: You were already not an admin.</font>")
 
-//This proc checks whether subject has at least ONE of the rights specified in rights_required.
-/proc/check_rights_for(client/subject, rights_required)
-	if(subject && subject.holder)
-		if(rights_required && !(rights_required & subject.holder.rights))
-			return 0
-		return 1
-	return 0
+/client/proc/readmin()
+	set name = "Re-admin self"
+	set category = "Admin"
+	set desc = "Regain your admin powers."
 
-/**
- * Requires the holder to have all the rights specified
- *
- * rights_required = R_ADMIN|R_EVENT means they must have both flags, or it will return false
- */
-/proc/check_rights_all(rights_required, show_msg = TRUE, mob/user = usr)
-	if(!user?.client)
-		return FALSE
-	if(!rights_required)
-		if(user.client.holder)
-			return TRUE
-		if(show_msg)
-			to_chat(user, "<font color='red'>Error: You are not an admin.</font>")
-		return FALSE
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounceooc'>Readmin blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to re-admin a client via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to re-admin a client via advanced proc-call")
 
-	if(!user.client.holder)
-		return FALSE
-	if((user.client.holder.rights & rights_required) == rights_required)
-		return TRUE
-	if(show_msg)
-		to_chat(user, "<font color='red'>Error: You do not have sufficient rights to do that. You require all of the following flags:[rights2text(rights_required, " ")].</font>")
-	return FALSE
+	if(holder)
+		to_chat(usr, "<span class='notice'>You are already an admin.</span>")
+	else if(ckey in (GLOB.de_admins + GLOB.de_mentors))
+		GLOB.de_admins -= ckey
+		GLOB.de_mentors -= ckey
+		reload_one_admin(ckey, silent = TRUE)
+		log_admin("[key_name(usr)] re-adminned themselves.")
+		message_admins("[key_name_admin(usr)] re-adminned themselves.")
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-admin") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	else
+		to_chat(usr, "<span class='boldannounceooc'>Readmin blocked: You were not an admin or mentor.</span>")
+		message_admins("[key_name(usr)] attempted to re-admin without being an admin or mentor")
+		log_admin("[key_name(usr)] attempted to re-admin without being an admin or mentor")
 
 /datum/admins/vv_edit_var(var_name, var_value)
 	return FALSE // no admin abuse

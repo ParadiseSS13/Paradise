@@ -3,7 +3,6 @@
 	mob_size = MOB_SIZE_SMALL
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	blood_volume = BLOOD_VOLUME_NORMAL
-	can_collar = TRUE
 	speed = 0 // same speed as a person.
 	hud_type = /datum/hud/corgi
 

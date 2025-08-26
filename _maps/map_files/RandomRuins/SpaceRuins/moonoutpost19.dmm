@@ -57,7 +57,7 @@
 /area/ruin/space/moonbase19)
 "aj" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -93,9 +93,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "ap" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/noslip,
@@ -198,9 +196,7 @@
 	},
 /area/ruin/space/moonbase19)
 "aD" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
@@ -375,7 +371,7 @@
 	},
 /area/ruin/space/moonbase19)
 "aY" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /obj/machinery/newscaster/directional/south,
@@ -464,13 +460,6 @@
 	icon_state = "darkfull";
 	dir = 8
 	},
-/area/ruin/space/moonbase19)
-"bl" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "bm" = (
 /obj/structure/closet,
@@ -741,12 +730,6 @@
 	icon_state = "whitehall";
 	dir = 4
 	},
-/area/ruin/space/moonbase19)
-"ch" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "ci" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1507,10 +1490,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1879,7 +1859,7 @@
 /area/ruin/space/moonbase19)
 "gh" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "gi" = (
@@ -2082,9 +2062,7 @@
 	},
 /area/ruin/space/moonbase19)
 "gM" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -2162,7 +2140,7 @@
 /area/ruin/space/moonbase19)
 "hc" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -2595,8 +2573,9 @@
 /area/ruin/space/moonbase19)
 "ij" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
-	id_tag = "awaycargogate"
+/obj/machinery/door/poddoor/multi_tile/impassable/quad{
+	id_tag = "awaycargogate";
+	dir = 4
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
@@ -2604,7 +2583,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
@@ -2760,7 +2739,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -3083,7 +3062,7 @@
 /area/ruin/space/moonbase19)
 "jC" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "jD" = (
@@ -3538,7 +3517,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "lc" = (
@@ -4004,7 +3983,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "mW" = (
@@ -4272,7 +4251,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "nZ" = (
@@ -4330,7 +4309,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "on" = (
@@ -4348,7 +4327,7 @@
 	},
 /area/ruin/space/moonbase19)
 "op" = (
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -4794,7 +4773,7 @@
 /area/ruin/space/moonbase19)
 "qc" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -5061,11 +5040,7 @@
 	},
 /area/ruin/space/moonbase19)
 "rl" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = -2
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 4
@@ -5725,7 +5700,7 @@
 /area/ruin/space/moonbase19)
 "uf" = (
 /obj/structure/window/reinforced,
-/mob/living/simple_animal/hostile/alien/drone,
+/mob/living/basic/alien/drone,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -6900,9 +6875,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -6990,7 +6963,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Aj" = (
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Ak" = (
@@ -7952,7 +7925,7 @@
 	pixel_x = -1;
 	pixel_y = -5
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -7987,9 +7960,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Ey" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/noslip,
 /area/ruin/space/moonbase19)
@@ -8114,7 +8085,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Fe" = (
@@ -8164,10 +8135,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "Fp" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -8190,7 +8158,7 @@
 /area/ruin/space/moonbase19)
 "Ft" = (
 /obj/effect/turf_decal/stripes/corner,
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -8354,7 +8322,7 @@
 /obj/structure/railing/cap{
 	dir = 9
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -10483,7 +10451,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "Qk" = (
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Ql" = (
@@ -10961,7 +10929,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Sp" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Sq" = (
@@ -11151,7 +11119,7 @@
 /area/ruin/space/moonbase19)
 "Tr" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
@@ -11461,7 +11429,7 @@
 	},
 /area/ruin/space/moonbase19)
 "UD" = (
-/mob/living/simple_animal/hostile/alien/drone,
+/mob/living/basic/alien/drone,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "UF" = (
@@ -11755,9 +11723,7 @@
 	},
 /area/ruin/space/moonbase19)
 "VX" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/light/small{
@@ -12288,10 +12254,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -12310,11 +12273,9 @@
 	},
 /area/ruin/space/moonbase19)
 "Yu" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/vomit/green,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -12381,7 +12342,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "YL" = (
@@ -12463,7 +12424,7 @@
 /area/ruin/space/moonbase19)
 "Zf" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien/queen/large{
+/mob/living/basic/alien/queen/large{
 	melee_damage_upper = 35;
 	melee_damage_lower = 30
 	},
@@ -12566,7 +12527,7 @@
 "Zw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -12613,7 +12574,7 @@
 /area/ruin/space/moonbase19)
 "ZK" = (
 /obj/machinery/light/small,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "ZL" = (
@@ -16524,7 +16485,7 @@ dM
 hN
 aE
 rJ
-bl
+Df
 uX
 aO
 ag
@@ -16646,7 +16607,7 @@ aA
 aB
 bi
 cX
-ch
+gS
 cv
 uM
 ag

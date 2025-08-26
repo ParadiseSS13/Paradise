@@ -4,7 +4,6 @@
 	icon_state = "muzzle"
 	item_state = "muzzle"
 	flags_cover = MASKCOVERSMOUTH
-	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
 	put_on_delay = 2 SECONDS
 	/// How long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
@@ -32,7 +31,7 @@
 	if(security_lock)
 		security_lock = FALSE
 		locked = FALSE
-		flags &= ~NODROP
+		set_nodrop(FALSE, loc)
 		desc += " This one appears to be broken."
 		return TRUE
 	else
@@ -46,7 +45,7 @@
 	else if(ACCESS_BRIG in user.get_access())
 		to_chat(user, "<span class='warning'>The muzzle unlocks with a click.</span>")
 		locked = FALSE
-		flags &= ~NODROP
+		set_nodrop(FALSE, loc)
 		return TRUE
 
 	to_chat(user, "<span class='warning'>You must be wearing a security ID card or have one in your inactive hand to remove the muzzle.</span>")
@@ -55,7 +54,7 @@
 /obj/item/clothing/mask/muzzle/proc/do_lock(mob/living/carbon/human/user)
 	if(security_lock)
 		locked = TRUE
-		flags |= NODROP
+		set_nodrop(TRUE, loc)
 		return TRUE
 	return FALSE
 
@@ -91,10 +90,8 @@
 	desc = "A muzzle designed to prevent biting."
 	icon_state = "muzzle_secure"
 	item_state = "muzzle_secure"
-	resist_time = 0 SECONDS
 	mute = MUZZLE_MUTE_NONE
 	security_lock = TRUE
-	locked = FALSE
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 	sprite_sheets = list(
@@ -184,7 +181,6 @@
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	actions_types = list(/datum/action/item_action/adjust)
 	can_toggle = TRUE
 
@@ -197,6 +193,9 @@
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 
+/obj/item/clothing/mask/surgical/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_ANTI_VIRAL, "inherent")
 
 /obj/item/clothing/mask/surgical/attack_self__legacy__attackchain(mob/user)
 	adjustmask(user)
@@ -235,7 +234,6 @@
 	item_state = "pig"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
-	w_class = WEIGHT_CLASS_SMALL
 
 
 /obj/item/clothing/mask/horsehead
@@ -245,7 +243,6 @@
 	item_state = "horsehead"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
-	w_class = WEIGHT_CLASS_SMALL
 	var/voicechange = FALSE
 	var/temporaryname = " the Horse"
 	var/originalname = ""
@@ -343,7 +340,6 @@
 	icon_state = "fawkes"
 	item_state = "fawkes"
 	flags_inv = HIDEFACE
-	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/mask/gas/clown_hat/pennywise
 	name = "\improper Pennywise mask"
@@ -351,7 +347,6 @@
 	icon_state = "pennywise_mask"
 	item_state = "pennywise_mask"
 
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
 // Bandanas
 /obj/item/clothing/mask/bandana
@@ -360,7 +355,6 @@
 	flags_inv = HIDEFACE
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = ITEM_SLOT_MASK
 	adjusted_flags = ITEM_SLOT_HEAD
 	icon_state = "bandbotany"
 	dyeable = TRUE
@@ -373,6 +367,7 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/mask.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 	actions_types = list(/datum/action/item_action/adjust)
@@ -413,6 +408,7 @@
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Skrell" = 'icons/mob/clothing/species/skrell/mask.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
 		)
 		actions_types = list(/datum/action/item_action/adjust)
@@ -481,7 +477,6 @@
 /obj/item/clothing/mask/bandana/botany
 	name = "botany bandana"
 	desc = "It's a green bandana with some fine nanotech lining."
-	icon_state = "bandbotany"
 
 /obj/item/clothing/mask/bandana/skull
 	name = "skull bandana"

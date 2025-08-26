@@ -62,14 +62,14 @@
 			if(owner.l_hand.flags & NODROP)
 				l_hand_ignore = TRUE
 			else
-				owner.l_hand.flags |= NODROP
+				owner.l_hand.set_nodrop(TRUE, owner)
 				l_hand_ignore = FALSE
 
 		if(r_hand_obj)
 			if(owner.r_hand.flags & NODROP)
 				r_hand_ignore = TRUE
 			else
-				owner.r_hand.flags |= NODROP
+				owner.r_hand.set_nodrop(TRUE, owner)
 				r_hand_ignore = FALSE
 
 		if(!l_hand_obj && !r_hand_obj)
@@ -103,22 +103,22 @@
 	release_items()
 	..()
 	if(L_item)
-		A = pick(oview(range))
+		A = pick(oview(range, owner))
 		L_item.throw_at(A, range, 2)
 		to_chat(owner, "<span class='notice'>Your left arm spasms and throws [L_item]!</span>")
 		l_hand_obj = null
 	if(R_item)
-		A = pick(oview(range))
+		A = pick(oview(range, owner))
 		R_item.throw_at(A, range, 2)
 		to_chat(owner, "<span class='notice'>Your right arm spasms and throws [R_item]!</span>")
 		r_hand_obj = null
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
 	active = FALSE
-	if(!l_hand_ignore && l_hand_obj && (l_hand_obj == owner.l_hand))
-		l_hand_obj.flags &= ~NODROP
-	if(!r_hand_ignore && r_hand_obj && (r_hand_obj == owner.r_hand))
-		r_hand_obj.flags &= ~NODROP
+	if(!l_hand_ignore && l_hand_obj)
+		l_hand_obj.set_nodrop(FALSE, owner)
+	if(!r_hand_ignore && r_hand_obj)
+		r_hand_obj.set_nodrop(FALSE, owner)
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/remove(mob/living/carbon/M, special = 0)
 	if(active)
@@ -225,10 +225,8 @@
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible
-	name = "Hardened Neural Jumpstarter implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces. This one is compatible with the CNS Rebooter implant."
 	slot = "brain_antisleep"
-	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/clown_voice
 	name = "Comical implant"
@@ -302,6 +300,13 @@
 /obj/item/organ/internal/cyberimp/brain/wire_interface/remove(mob/living/carbon/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_SHOW_WIRE_INFO, "show_wire_info[UID()]")
 	return ..()
+
+/obj/item/organ/internal/cyberimp/brain/wire_interface/emp_act(severity)
+	if(!owner || emp_proof)
+		return
+	var/time_of_emp = world.time // This lets us be emp'd multiple times, applying the trait multiple times, extending the cooldown
+	ADD_TRAIT(owner, TRAIT_WIRE_BLIND, "emp'd_at_[time_of_emp]")
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(callback_remove_trait), owner, TRAIT_WIRE_BLIND, "emp'd_at_[time_of_emp]"), (2 MINUTES / severity))
 
 /obj/item/organ/internal/cyberimp/brain/wire_interface/hardened
 	name = "Hardened Wire interface implant"
@@ -382,9 +387,8 @@
 /datum/action/item_action/organ_action/toggle/sensory_enhancer
 	name = "Activate Qani-Laaca System"
 	desc = "Activates your Qani-Laaca computer and grants you its powers. LMB: Short, safer activation. ALT/MIDDLE: Longer, more powerful, more dangerous activation."
-	button_overlay_icon = 'icons/obj/surgery.dmi'
-	button_overlay_icon_state = "sandy"
-	check_flags = AB_CHECK_CONSCIOUS
+	button_icon = 'icons/obj/surgery.dmi'
+	button_icon_state = "sandy"
 	/// Keeps track of how much mephedrone we inject into people on activation
 	var/injection_amount = 10
 
@@ -452,7 +456,6 @@
 	implant_overlay = null
 	implant_color = null
 	slot = "brain_antistun"
-	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=4;combat=6;biotech=6;powerstorage=2;syndicate=3"
 	stealth_level = 4 //Only surgery or a body scanner with the highest tier of stock parts can detect this.
 
@@ -502,10 +505,8 @@
 /datum/spell/hackerman_deck
 	name = "Activate Ranged Hacking"
 	desc = "Click on any machine to hack them. Has a short range of only three tiles."
-	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
 	antimagic_flags = NONE
 	selection_activated_message = "You warm up your Binyat deck, there's an idle buzzing at the back of your mind as it awaits a target."
 	selection_deactivated_message = "Your hacking deck makes an almost disappointed sounding buzz at the back of your mind as it powers down."
@@ -594,7 +595,6 @@
 	desc = "implants for the organs in your torso."
 	icon_state = "chest_implant"
 	implant_overlay = "chest_implant_overlay"
-	parent_organ = "chest"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment
 	name = "Nutriment pump implant"

@@ -382,7 +382,6 @@
 	desc = "A large chemical canister, designed for use with a chemical flamethrower."
 	id = "chemical_canister_extended"
 	req_tech = list("materials" = 5, "plasmatech" = 4)
-	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000)
 	reagents_list = list("fuel" = 40)
 	build_path = /obj/item/chemical_canister/extended
@@ -393,7 +392,6 @@
 	desc = "A chemical canister designed to accept pyrotechnics."
 	id = "chemical_canister_pyro"
 	req_tech = list("materials" = 4, "plasmatech" = 6)
-	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 7500)
 	reagents_list = list("fuel" = 30)
 	build_path = /obj/item/chemical_canister/pyrotechnics
@@ -403,7 +401,7 @@
 	name = "'Scylla' mantis blade implant"
 	desc = "A reverse-engineered mantis blade implant. While the monomolecular edge was lost, they remain deadly weapons."
 	id = "mantis_blade_nt"
-	req_tech = list("materials" = 7, "engineering" = 6, "combat" = 7, "syndicate" = 6)
+	req_tech = list("materials" = 7, "engineering" = 6, "combat" = 7, "syndicate" = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 6 SECONDS
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_TITANIUM = 3000, MAT_DIAMOND = 4000)

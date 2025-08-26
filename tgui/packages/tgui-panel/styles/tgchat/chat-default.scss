@@ -8,8 +8,6 @@ img {
   margin: 0;
   padding: 0;
   line-height: 1;
-  -ms-interpolation-mode: nearest-neighbor; // TODO: Remove with 516
-  image-rendering: pixelated;
 }
 
 img.icon {
@@ -179,12 +177,12 @@ h2.alert {
 }
 
 .mentor_channel {
-  color: #775bff;
+  color: #b4af13;
   font-weight: bold;
 }
 
 .mentor_channel_admin {
-  color: #a35cff;
+  color: #f1ec50;
   font-weight: bold;
 }
 
@@ -227,6 +225,16 @@ h2.alert {
 
 .dev_channel_admin {
   color: #9ef14f;
+  font-weight: bold;
+}
+
+.staff_channel {
+  color: #775bff;
+  font-weight: bold;
+}
+
+.staff_channel_admin {
+  color: #a35cff;
   font-weight: bold;
 }
 
@@ -591,7 +599,7 @@ h2.alert {
   color: #8282fb;
 }
 
-.com_zvezhan {
+.com_cygni {
   color: #7c4848;
 }
 

@@ -66,6 +66,7 @@
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/clothing/head/hardhat/red(src)
+	new /obj/item/crowbar/red(src)
 
 /obj/structure/closet/firecloset/full/populate_contents()
 	new /obj/item/extinguisher(src)
@@ -74,6 +75,7 @@
 	new /obj/item/flashlight(src)
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/clothing/head/hardhat/red(src)
+	new /obj/item/crowbar/red(src)
 
 
 /*

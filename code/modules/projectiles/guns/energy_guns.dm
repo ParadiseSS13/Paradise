@@ -8,7 +8,7 @@
 	/// What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell
 	/// The specific type of power cell this gun has.
-	var/cell_type = /obj/item/stock_parts/cell
+	var/cell_type = /obj/item/stock_parts/cell/energy_gun
 	var/modifystate = 0
 	/// What projectiles can this gun shoot?
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
@@ -173,9 +173,15 @@
 /obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
 	if(!chambered && can_shoot())
 		process_chamber()
+	..()
+	if(current_lens)
+		user.changeNext_move(CLICK_CD_RANGE / current_lens.fire_rate_mult)
+	return
+
+/obj/item/gun/energy/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
+	..()
 	if(current_lens)
 		current_lens.damage_lens()
-	return ..()
 
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
 	select++

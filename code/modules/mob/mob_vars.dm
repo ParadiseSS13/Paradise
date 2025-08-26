@@ -57,7 +57,6 @@
 	var/gen_record = ""
 	var/lying_prev = 0
 	var/lastpuke = 0
-	var/can_strip = TRUE
 	var/list/languages = list()         // For speaking/listening.
 	var/list/speak_emote = list("says") // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
 	var/emote_type = EMOTE_VISIBLE		// Define emote default type, 1 for seen emotes, 2 for heard emotes
@@ -251,5 +250,12 @@
 	/// Does this mob speak OOC?
 	/// Controls whether they can say some symbols.
 	var/speaks_ooc = FALSE
+	/// Allows a datum to intercept all click calls this mob is the source of.
+	/// This is *not* necessarily an instance of [/datum/click_intercept].
+	var/datum/click_interceptor
 
+	/// gunshot residue for det work. holds the caliber of any BALLISTIC weapon fired by this mob without gloves.
+	var/gunshot_residue
+	/// For storing what do_after's something has, key = string, value = amount of interactions of that type happening.
+	var/list/do_afters
 	new_attack_chain = TRUE

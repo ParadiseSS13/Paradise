@@ -97,7 +97,6 @@
 	icon = 'icons/obj/supermatter.dmi'
 	icon_state = "darkmatter"
 	density = TRUE
-	anchored = TRUE
 	layer = ABOVE_MOB_LAYER + 0.01
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2 | IMMUNE_TO_SHUTTLECRUSH_2 | NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
@@ -218,6 +217,8 @@
 	var/processes = TRUE
 
 	//vars used for supermatter events (Anomalous crystal activityw)
+	/// Can this crystal run supermatter events?
+	var/crystal_can_run_events = TRUE
 	/// Do we have an active event?
 	var/datum/engi_event/supermatter_event/event_active
 	///flat multiplies the amount of gas released by the SM.
@@ -735,7 +736,7 @@
 	C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
 		"<span class='userdanger'>As you mentally focus on the supermatter you feel the contents of your skull start melting away. That was a really dense idea.</span>")
 	var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
-	C.ghostize(0)
+	C.ghostize()
 	if(B)
 		B.remove(C)
 		qdel(B)
@@ -856,6 +857,7 @@
 		Bumped(A)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/Consume(atom/movable/AM)
+	SEND_SIGNAL(AM, COMSIG_SUPERMATTER_CONSUMED, src)
 	if(isliving(AM))
 		var/mob/living/user = AM
 		if(user.status_flags & GODMODE)
@@ -999,8 +1001,6 @@
 				l_color = "#ddd6cf")
 
 /obj/effect/warp_effect/supermatter
-	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PIXEL_SCALE|LONG_GLIDE // no tile bound so you can see it around corners and so
 	icon = 'icons/effects/light_352.dmi'
 	icon_state = "light"
 	pixel_x = -176
@@ -1022,7 +1022,7 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/shard/engine
 	name = "anchored supermatter shard"
-	is_main_engine = TRUE
+	crystal_can_run_events = FALSE // Do not make the crystal begin to delaminate whilst it's still docked at CC.
 	anchored = TRUE
 	moveable = FALSE
 
@@ -1225,6 +1225,8 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/try_events()
 	if(!has_been_powered)
+		return
+	if(!crystal_can_run_events)
 		return
 	if(!next_event_time) // for when the SM starts
 		make_next_event_time()

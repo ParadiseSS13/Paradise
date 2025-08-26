@@ -29,3 +29,15 @@
 	var/list/found = typecache_filter_list(oview(search_range, controller.pawn), locate_paths)
 	if(length(found))
 		return pick(found)
+
+/datum/ai_behavior/find_and_set/in_list/turf_types
+
+/datum/ai_behavior/find_and_set/in_list/turf_types/search_tactic(datum/ai_controller/controller, locate_paths, search_range)
+	var/list/found = RANGE_TURFS(search_range, controller.pawn)
+	shuffle_inplace(found)
+	for(var/turf/possible_turf as anything in found)
+		if(!is_type_in_typecache(possible_turf, locate_paths))
+			continue
+		if(can_see(controller.pawn, possible_turf, search_range))
+			return possible_turf
+	return null

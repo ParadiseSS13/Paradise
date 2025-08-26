@@ -23,6 +23,13 @@ SUBSYSTEM_DEF(blackbox)
 /datum/controller/subsystem/blackbox/Initialize()
 	if(!SSdbcore.IsConnected())
 		flags |= SS_NO_FIRE // Disable firing if SQL is disabled
+	record_feedback("amount", "dm_version", DM_VERSION)
+	record_feedback("amount", "dm_build", DM_BUILD)
+	record_feedback("amount", "byond_version", world.byond_version)
+	record_feedback("amount", "byond_build", world.byond_build)
+	record_feedback("text", "random_seed", 1, num2text(Master.random_seed, 32), 1) // a text string because json_encode turns it into lossy scientific notation
+	record_feedback("text", "rust_g_filepath", 1, "[RUST_G]", 1)
+	record_feedback("text", "rustlibs_filepath", 1, "[RUSTLIB]", 1)
 
 /datum/controller/subsystem/blackbox/fire(resumed = 0)
 	sql_poll_players()

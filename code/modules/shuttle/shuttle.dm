@@ -13,11 +13,16 @@
 	anchored = TRUE
 
 	var/id
-	dir = NORTH		//this should point -away- from the dockingport door, ie towards the ship
-	var/width = 0	//size of covered area, perpendicular to dir
-	var/height = 0	//size of covered area, paralell to dir
-	var/dwidth = 0	//position relative to covered area, perpendicular to dir
-	var/dheight = 0	//position relative to covered area, parallel to dir
+	/// This should point *away* from the docking port door, i.e. towards the ship.
+	dir = NORTH
+	/// Size of covered area, perpendicular to direction.
+	var/width = 0
+	/// Size of covered area, parallel to direction.
+	var/height = 0
+	/// Position relative to covered area, perpendicular to direction.
+	var/dwidth = 0
+	/// Position relative to covered area, parallel to direction.
+	var/dheight = 0
 
 	// A timid shuttle will not register itself with the shuttle subsystem
 	// All shuttle templates are timid
@@ -159,6 +164,11 @@
 	var/area_type = /area/space
 
 	var/lock_shuttle_doors = 0
+
+/obj/docking_port/stationary/Initialize(mapload)
+	. = ..()
+	if(!mapload)
+		register()
 
 // Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
 /obj/docking_port/stationary/whiteship
@@ -889,14 +899,15 @@
 	width = 5
 	preferred_direction = EAST
 
-/obj/docking_port/mobile/trade_sol
+/obj/docking_port/mobile/trader
 	dir = 8
-	dwidth = 4
-	height = 11
-	id = "trade_sol"
+	dwidth = 11
+	height = 30
+	id = "trader"
 	name = "sol trade shuttle"
-	width = 9
+	width = 22
 	preferred_direction = EAST
+	timid = TRUE
 
 /obj/docking_port/mobile/nuke_ops
 	dheight = 9
@@ -906,16 +917,6 @@
 	id = "syndicate"
 	name = "syndicate infiltrator"
 	width = 18
-
-/obj/docking_port/mobile/free_golem
-	dir = 8
-	dwidth = 8
-	height = 20
-	id = "freegolem"
-	name = "Free Golem Ship"
-	width = 16
-	preferred_direction = WEST
-	port_direction = SOUTH
 
 /obj/docking_port/mobile/whiteship
 	dir = 8
@@ -1102,15 +1103,10 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin
 	name = "Admin shuttle navigation computer"
 	desc = "Used to designate a precise transit location for the admin shuttle."
-	icon_screen = "navigation"
-	icon_keyboard = "med_key"
 	shuttleId = "admin"
 	shuttlePortId = "admin_custom"
 	view_range = 14
-	x_offset = 0
-	y_offset = 0
 	resistance_flags = INDESTRUCTIBLE
-	access_mining = TRUE
 
 /obj/machinery/computer/shuttle/trade
 	name = "Freighter Console"
@@ -1119,27 +1115,8 @@
 
 /obj/machinery/computer/shuttle/trade/sol
 	req_access = list(ACCESS_TRADE_SOL)
-	possible_destinations = "trade_sol_base;trade_dock"
-	shuttleId = "trade_sol"
-
-/obj/machinery/computer/shuttle/golem_ship
-	name = "Golem Ship Console"
-	desc = "Used to control the Golem Ship."
-	circuit = /obj/item/circuitboard/shuttle/golem_ship
-	shuttleId = "freegolem"
-	possible_destinations = "freegolem_lavaland;freegolem_space;freegolem_ussp"
-
-/obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
-	if(!isgolem(user) && !isobserver(user))
-		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
-		return
-	..()
-
-/obj/machinery/computer/shuttle/golem_ship/recall
-	name = "golem ship recall terminal"
-	desc = "Used to recall the Golem Ship."
-	possible_destinations = "freegolem_lavaland"
-	resistance_flags = INDESTRUCTIBLE
+	possible_destinations = "trader_base;trade_dock"
+	shuttleId = "trader"
 
 //#undef DOCKING_PORT_HIGHLIGHT
 

@@ -10,21 +10,21 @@
 		)
 
 /obj/item/clothing/under/rank/civilian/hop
-	name = "head of personnel's jumpsuit"
-	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
+	name = "head of personnel's uniform"
+	desc = "It's a blue dress shirt and black slacks worn by someone who works in the position of \"Head of Personnel\"."
 	icon_state = "hop"
 	item_color = "hop"
 
 /obj/item/clothing/under/rank/civilian/hop/skirt
-	name = "head of personnel's jumpskirt"
-	desc = "It's a jumpskirt worn by someone who works in the position of \"Head of Personnel\"."
+	name = "head of personnel's skirt"
+	desc = "It's a blue dress shirt and black skirt worn by someone who works in the position of \"Head of Personnel\"."
 	icon_state = "hop_skirt"
 	item_color = "hop_skirt"
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/hop/dress
-	name = "head of personnel's dress uniform"
+	name = "head of personnel's dress"
 	desc = "Feminine fashion for the style conscious Head of Personnel."
 	icon_state = "hop_dress"
 	item_color = "hop_dress"
@@ -48,6 +48,13 @@
 	icon_state = "oldman"
 	item_state = "oldman"
 	item_color = "oldman"
+
+/obj/item/clothing/under/rank/civilian/hop/turtleneck
+	name = "head of personnel's turtleneck"
+	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold office. Due to budget cuts, the material does not offer any external protection."
+	icon_state = "hop_turtle"
+	item_state = "hop_turtle"
+	item_color = "hop_turtle"
 
 /obj/item/clothing/under/rank/civilian/bartender
 	desc = "It looks like it could use some more flair."
@@ -94,7 +101,6 @@
 
 /obj/item/clothing/under/rank/civilian/clown/skirt
 	name = "clown skirt"
-	desc = "<i>'HONK!'</i>"
 	icon_state = "clown_skirt"
 	item_state = "clown_skirt"
 	item_color = "clown_skirt"
@@ -118,7 +124,6 @@
 
 /obj/item/clothing/under/rank/civilian/mime/skirt
 	name = "mime's skirt"
-	desc = "It's not very colourful."
 	icon_state = "mime_skirt"
 	item_state = "mime_skirt"
 	item_color = "mime_skirt"
@@ -134,12 +139,18 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/rank/civilian/hydroponics
-	desc = "It's a jumpsuit designed to protect against minor plant-related hazards."
+	desc = "It's a jumpsuit designed to protect against minor plant-related hazards. This one has blue markings."
 	name = "botanist's jumpsuit"
 	icon_state = "hydroponics"
 	item_state = "g_suit"
 	item_color = "hydroponics"
 	permeability_coefficient = 0.50
+
+/obj/item/clothing/under/rank/civilian/hydroponics/alt
+	desc = "It's a jumpsuit designed to protect against minor plant-related hazards. This one has brown markings."
+	name = "hydroponicist's jumpsuit"
+	icon_state = "hydroponics_alt"
+	item_color = "hydroponics_alt"
 
 /obj/item/clothing/under/rank/civilian/janitor
 	name = "janitor's jumpsuit"

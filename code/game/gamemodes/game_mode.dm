@@ -38,6 +38,7 @@
 	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
 	var/list/blob_overminds = list()
+	var/list/incursion_portals = list()
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
 	var/list/secondary_goal_grab_bags = null // Once initialized, contains an associative list of department_name -> list(secondary_goal_type). When a goal is requested, a type will be pulled out of the department's grab bag. When the bag is empty, it will be refilled from the list of all goals in that department, with the amount of each set to the type's weight, max 10.
@@ -249,7 +250,8 @@
 	for(var/tech_id in SSeconomy.tech_levels)
 		SSblackbox.record_feedback("tally", "cargo max tech level sold", SSeconomy.tech_levels[tech_id], tech_id)
 
-	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [get_webhook_name()] has ended - [surviving_total] survivors, [ghosts] ghosts.")
+	var/round_text = GLOB.round_id ? "Round [GLOB.round_id]" : "Unknown Round"
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "[round_text] of [get_webhook_name()] has ended - [surviving_total] survivors, [ghosts] ghosts.")
 	if(SSredis.connected)
 		// Send our presence to required channels
 		var/list/presence_data = list()
@@ -297,7 +299,7 @@
 	players = shuffle(players)
 	// Get a list of all the people who want to be the antagonist for this round
 	for(var/mob/eligible_player in players)
-		if(!eligible_player.client.skip_antag)
+		if(!eligible_player.client.persistent.skip_antag)
 			if(species_exclusive && (eligible_player.client.prefs.active_character.species != species_exclusive))
 				continue
 			if(role in eligible_player.client.prefs.be_special)
@@ -337,7 +339,7 @@
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species, and those who are already antagonists
 	for(var/mob/living/carbon/human/player in players)
-		if(player.client.skip_antag || !(allow_offstation_roles || !player.mind?.offstation_role) || player.mind?.special_role)
+		if(player.client.persistent.skip_antag || !(allow_offstation_roles || !player.mind?.offstation_role) || player.mind?.special_role)
 			continue
 
 		if(!(role in player.client.prefs.be_special) || (player.client.prefs.active_character.species in species_to_mindflayer))
