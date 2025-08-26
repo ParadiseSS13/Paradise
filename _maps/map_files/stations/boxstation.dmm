@@ -50571,6 +50571,17 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/medical/morgue)
+"fdM" = (
+/obj/item/clothing/head/cone{
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/clothing/head/cone,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/equipmentstorage)
 "fdN" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -55569,6 +55580,10 @@
 	icon_state = "brown"
 	},
 /area/station/supply/qm)
+"hyV" = (
+/obj/item/clothing/head/cone,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "hzl" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -120821,7 +120836,7 @@ cRX
 cRX
 cRS
 rcq
-cPO
+fdM
 cYM
 cNV
 jsS
@@ -122364,7 +122379,7 @@ cSd
 cSd
 cWT
 cXQ
-cSd
+hyV
 lLC
 cXO
 dbK
