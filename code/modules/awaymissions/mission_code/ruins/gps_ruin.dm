@@ -7,6 +7,7 @@
 	icon_state = "gps_console"
 	anchored = TRUE
 	local = TRUE
+	tracking = TRUE
 	gpstag = "Unknown Signal"
 
 /obj/item/gps/ruin/attack_hand(mob/user)
