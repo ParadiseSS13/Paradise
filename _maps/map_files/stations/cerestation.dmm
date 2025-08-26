@@ -3139,6 +3139,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
+/obj/machinery/light,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "awQ" = (
@@ -22294,7 +22295,6 @@
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "dkb" = (
-/obj/machinery/requests_console/directional/south,
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
@@ -27494,9 +27494,6 @@
 /obj/structure/cable/orange{
 	icon_state = "0-4"
 	},
-/obj/structure/shelf/security,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/camera/detective,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "emC" = (
@@ -28066,7 +28063,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/machinery/light,
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "etJ" = (
@@ -42258,6 +42255,7 @@
 	pixel_x = -8;
 	pixel_y = 11
 	},
+/obj/item/camera/detective,
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "hAH" = (
@@ -45315,6 +45313,12 @@
 "ifa" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/station/science/toxins/test)
+"ifc" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/hallway/secondary/entry/south)
 "ifg" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -55738,10 +55742,10 @@
 	},
 /area/station/hallway/primary/fore/east)
 "kms" = (
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/storage,
-/turf/simulated/floor/plating,
-/area/station/maintenance/security/aft_port)
+/obj/structure/table/wood,
+/obj/machinery/microscope,
+/turf/simulated/floor/carpet/grimey,
+/area/station/security/detective)
 "kmw" = (
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
@@ -79457,8 +79461,7 @@
 	},
 /area/station/maintenance/starboard)
 "pqf" = (
-/obj/structure/table,
-/obj/item/storage/box/evidence,
+/obj/effect/spawner/random/storage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
 "pqm" = (
@@ -103940,6 +103943,17 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/gravitygenerator)
+"uBa" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 11;
+	height = 23;
+	id = "trade_dock";
+	name = "port bay 4 at NSS Farragus";
+	width = 23
+	},
+/turf/space,
+/area/space)
 "uBd" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -106984,6 +106998,9 @@
 /obj/machinery/computer/med_data{
 	dir = 4
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "vjb" = (
@@ -107800,10 +107817,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/starboard)
 "vsk" = (
-/obj/structure/table,
-/obj/item/storage/fancy/donut_box,
-/turf/simulated/floor/plating,
-/area/station/maintenance/security/aft_port)
+/obj/structure/table/wood,
+/obj/machinery/dnaforensics,
+/turf/simulated/floor/carpet/grimey,
+/area/station/security/detective)
 "vsn" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -118959,16 +118976,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "xGW" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 4;
-	height = 11;
-	id = "trade_dock";
-	name = "port bay 4";
-	width = 9
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/space,
-/area/space)
+/area/station/hallway/secondary/entry/south)
 "xHl" = (
 /obj/machinery/ai_status_display,
 /turf/simulated/mineral/ancient,
@@ -136922,8 +136933,8 @@ dyJ
 nHy
 viT
 emw
+vsk
 hyY
-pqf
 diC
 nxA
 xJa
@@ -137179,8 +137190,8 @@ pPN
 fvV
 jiW
 dkb
+kms
 hyY
-vsk
 diC
 guQ
 xJa
@@ -137437,7 +137448,7 @@ hAA
 dwb
 etG
 hyY
-kms
+hyY
 diC
 xyw
 xJa
@@ -137953,7 +137964,7 @@ awL
 hyY
 xJa
 qyT
-duh
+pqf
 xJa
 cRv
 rNK
@@ -158893,7 +158904,7 @@ ozq
 czS
 aXn
 hUU
-rNK
+hUU
 rNK
 rNK
 rNK
@@ -159150,7 +159161,7 @@ jjL
 czS
 hUU
 hUU
-rNK
+hUU
 rNK
 rNK
 rNK
@@ -159407,7 +159418,7 @@ tEz
 czS
 hUU
 bhO
-rNK
+bhO
 rNK
 rNK
 rNK
@@ -159663,8 +159674,8 @@ cPb
 fXb
 czS
 hUU
+hUU
 gzW
-rNK
 rNK
 rNK
 rNK
@@ -159920,8 +159931,8 @@ glO
 oEW
 sNX
 sNX
+sNX
 dFt
-rNK
 rNK
 rNK
 rNK
@@ -160176,10 +160187,10 @@ bUa
 bUa
 bUa
 dgs
-xJF
-dgs
 xGW
-rNK
+ifc
+dgs
+uBa
 rNK
 rNK
 rNK
@@ -160429,13 +160440,13 @@ ptl
 dhZ
 mgm
 sgJ
-jCW
-uhc
-hXO
-sNX
-sNX
-sNX
-rNK
+bUa
+bUa
+bUa
+dgs
+xGW
+xJF
+dgs
 rNK
 rNK
 rNK
@@ -160686,13 +160697,13 @@ rHn
 aUt
 mgm
 sgJ
-iJo
-czS
-czS
-czS
-hUU
-hUU
-rNK
+jCW
+uhc
+hXO
+sNX
+sNX
+sNX
+sNX
 rNK
 rNK
 rNK
@@ -160943,13 +160954,13 @@ aFk
 aFk
 nRy
 sgJ
-qIb
+iJo
 czS
-aXn
+czS
+czS
 hUU
 hUU
-rNK
-rNK
+hUU
 rNK
 rNK
 rNK
@@ -161203,9 +161214,9 @@ wYo
 fQi
 czS
 aXn
+aXn
 hUU
 bhO
-rNK
 rNK
 rNK
 rNK
@@ -161460,9 +161471,9 @@ tpJ
 qIb
 czS
 aXn
+aXn
 hUU
-hUU
-rNK
+bhO
 rNK
 rNK
 rNK

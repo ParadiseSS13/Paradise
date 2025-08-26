@@ -105,8 +105,8 @@
 
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
-			T.on_attackby(src, used, user)
-		return ITEM_INTERACT_COMPLETE
+			if(T.on_attackby(src, used, user))
+				return ITEM_INTERACT_COMPLETE
 
 	return NONE
 

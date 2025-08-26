@@ -43,7 +43,6 @@ SUBSYSTEM_DEF(maprotate)
 	var/day_index = 0
 
 	// Were gonna increase the DB value by 1 so we have 1-7, therefore we can use 0 as fail
-
 	if(dbq.NextRow())
 		day_index = text2num(dbq.item[1]) + 1
 
@@ -52,7 +51,6 @@ SUBSYSTEM_DEF(maprotate)
 	if(!day_index)
 		log_startup_progress("Somehow, we failed to extract a valid numerical day from the DB. ?????????????")
 		return
-
 
 	// String interpolation is faster than num2text() for some reason
 	var/dindex_str = "[day_index]"
@@ -65,11 +63,9 @@ SUBSYSTEM_DEF(maprotate)
 			log_startup_progress("It is [days[day_index]], which means [rotation_descs[vote_type]]")
 			rotation_mode = vote_type
 			setup_done = TRUE
-
 		// Its not valid
 		else
 			log_startup_progress("The defined rotation mode for this day is invalid. Please inform AA.")
-
 	// No special defined for this day
 	else
 		log_startup_progress("There is no special rotation defined for this day")
@@ -80,12 +76,14 @@ SUBSYSTEM_DEF(maprotate)
 		var/datum/map/M = x
 		if(!initial(M.voteable))
 			continue
-			// And of course, if the current map is the same
+		// Skip current map
 		if(istype(SSmapping.map_datum, M))
 			continue
-			// Or the map from last round
-		if(istype(SSmapping.last_map, M))
-			continue
+		// Commenting out this check for now, as we only have 3 maps to choose from.
+		// TODO: Uncomment when more maps are added back.
+		// Skip last round map
+//		if(istype(SSmapping.last_map, M))
+//			continue
 		potential_maps[M] = 0
 	// We now have 3 maps. We then pick your highest priority map in the list. Does this mean votes 4 and 5 don't matter? Yeah, with this current system only your top 3 votes will ever be used. 4 and 5 are good info to know however!
 	for(var/client/user_client in GLOB.clients)
