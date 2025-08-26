@@ -16,8 +16,8 @@ BONUS
 /datum/symptom/viraladaptation
 	name = "Viral self-adaptation"
 	stealth = 3
-	resistance = 5
-	stage_speed = -3
+	resistance = 3
+	stage_speed = -2
 	level = 3
 
 /datum/symptom/viraladaptation/symptom_act(datum/disease/advance/A, unmitigated)
