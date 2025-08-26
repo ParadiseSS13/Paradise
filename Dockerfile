@@ -1,4 +1,4 @@
-FROM node:slim AS tgui
+FROM --platform=linux/amd64 node:slim AS tgui
 WORKDIR /tgui
 COPY /tgui /tgui
 RUN bin/tgui
@@ -9,13 +9,6 @@ COPY . /server
 RUN curl -O -L https://github.com/OpenDreamProject/OpenDream/releases/download/latest/DMCompiler_linux-x64.tar.gz && \
 	tar -xf DMCompiler_linux-x64.tar.gz
 RUN dotnet DMCompiler_linux-x64/DMCompiler.dll --suppress-unimplemented --version=516.1666 paradise.dme
-
-FROM bitnami/dotnet AS server
-WORKDIR /server
-COPY . /server
-RUN curl -O -L https://github.com/OpenDreamProject/OpenDream/releases/download/latest/OpenDreamServer_linux-x64.tar.gz && \
-	tar -xf OpenDreamServer_linux-x64.tar.gz
-RUN dotnet DMCompiler_linux-x64/Robust.Server.dll --version=516.1666 paradise.dme
 
 FROM ubuntu:latest AS byond
 RUN apt-get update && apt-get install -y \
@@ -38,20 +31,10 @@ RUN curl "http://www.byond.com/download/build/${TARGET_MAJOR}/${TARGET_MAJOR}.${
 RUN make here && \
 	echo "$TARGET_MAJOR.$TARGET_MINOR" > "version.txt"
 
-FROM debian:11-slim
-RUN dpkg --add-architecture i386 && \
-	apt-get update && apt-get install -y \
-	libc6:i386 \
-	libstdc++6:i386 \
-	zlib1g:i386 \
-	&& rm -rf /var/lib/apt/lists/*
-WORKDIR /byond
-COPY --from=byond /byond /byond
-ENV BYOND_SYSTEM=/byond \
-	PATH=/byond/bin:$PATH \
-	LD_LIBRARY_PATH=/byond/bin \
-	MANPATH=/byond/man
+FROM bitnami/dotnet
 WORKDIR /server
 COPY --from=dme /server /server
-COPY --from=tgui /tgui /server/tgui
-EXPOSE 8975
+COPY --from=tgui /tgui/public /server/tgui/public
+RUN curl -O -L https://github.com/OpenDreamProject/OpenDream/releases/download/latest/OpenDreamServer_linux-x64.tar.gz && \
+	tar -xf OpenDreamServer_linux-x64.tar.gz
+RUN dotnet DMCompiler_linux-x64/Robust.Server.dll --version=516.1666 paradise.dme
