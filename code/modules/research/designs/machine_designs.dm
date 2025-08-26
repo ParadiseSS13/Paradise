@@ -22,6 +22,16 @@
 	build_path = /obj/item/circuitboard/space_heater
 	category = list ("Engineering Machinery")
 
+/datum/design/electrolyzer
+	name = "Machine Board (Electrolyzer)"
+	desc = "The circuit board for an Electrolyzer."
+	id = "electrolyzer"
+	req_tech = list("programming" = 3, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/electrolyzer
+	category = list ("Engineering Machinery")
+
 /datum/design/recharger
 	name = "Machine Board (Weapon Recharger)"
 	desc = "The circuit board for a weapon recharger."
