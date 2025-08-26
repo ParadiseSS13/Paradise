@@ -38,11 +38,14 @@
 	var/low_fuel_changes_icon = TRUE
 	/// How often does the tool flash the user's eyes?
 	var/progress_flash_divisor = 1 SECONDS
+	/// If FALSE, welding tools wont appear prefilled by default
+	var/prefilled = TRUE
 
 /obj/item/weldingtool/Initialize(mapload)
 	. = ..()
 	create_reagents(maximum_fuel)
-	reagents.add_reagent("fuel", maximum_fuel)
+	if(prefilled)
+		reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
 	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
@@ -248,6 +251,9 @@
 /obj/item/weldingtool/get_heat()
 	return tool_enabled * 2500
 
+/obj/item/weldingtool/empty
+	prefilled = FALSE
+
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"
 	desc = "A heavier welding tool with an expanded fuel reservoir. Otherwise identical to a normal welder."
@@ -256,6 +262,9 @@
 	maximum_fuel = 40
 	materials = list(MAT_METAL = 400, MAT_GLASS = 300)
 	origin_tech = "engineering=2;plasmatech=2"
+
+/obj/item/weldingtool/largetank/empty
+	prefilled = FALSE
 
 /obj/item/weldingtool/largetank/cyborg
 	name = "integrated welding tool"
@@ -299,6 +308,9 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 50)
 	low_fuel_changes_icon = FALSE
 
+/obj/item/weldingtool/mini/empty
+	prefilled = FALSE
+
 /obj/item/weldingtool/hugetank
 	name = "upgraded welding tool"
 	desc = "A large industrial welding tool with an even further upgraded fuel reservoir."
@@ -308,6 +320,9 @@
 	maximum_fuel = 80
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "engineering=3;plasmatech=2"
+
+/obj/item/weldingtool/hugetank/empty
+	prefilled = FALSE
 
 /obj/item/weldingtool/experimental
 	name = "experimental welding tool"
