@@ -128,7 +128,7 @@
 	if(istype(O))
 		if(!O.check_ahud_rejoin_eligibility())
 			return FALSE
-		if(!O.can_reenter_corpse)
+		if(!(O.ghost_flags & GHOST_CAN_REENTER))
 			return FALSE
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O, "nonhumandept"))
 		return FALSE

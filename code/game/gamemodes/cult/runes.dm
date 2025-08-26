@@ -662,7 +662,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			var/mob/dead/observer/C = pick(candidates)
 			to_chat(mob_to_revive, "<span class='biggerdanger'>Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form.</span>")
 			message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(mob_to_revive)]) to replace an AFK player.")
-			mob_to_revive.ghostize(FALSE)
+			mob_to_revive.ghostize(GHOST_FLAGS_NO_REENTER)
 			mob_to_revive.key = C.key
 			dust_if_respawnable(C)
 		else
@@ -1007,7 +1007,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	ADD_TRAIT(user, SCRYING, CULT_TRAIT)
 	user.visible_message("<span class='warning'>[user] freezes statue-still, glowing an unearthly red.</span>",
 					"<span class='cult'>You see what lies beyond. All is revealed. In this form you find that your voice booms above all others.</span>")
-	ghost = user.ghostize(TRUE, RUNE_COLOR_DARKRED, "Dark Spirit of [user.name]")
+	ghost = user.ghostize(ghost_name = "Dark Spirit of [user.name]", ghost_color = RUNE_COLOR_DARKRED)
 	var/datum/action/innate/cult/comm/spirit/CM = new
 	var/datum/action/innate/cult/check_progress/V = new
 	//var/datum/action/innate/cult/ghostmark/GM = new

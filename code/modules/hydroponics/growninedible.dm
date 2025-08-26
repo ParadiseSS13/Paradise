@@ -80,5 +80,5 @@
 /obj/item/grown/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
 		return
-	if(user.plant_analyzer)
+	if(user.ghost_flags & GHOST_PLANT_ANALYZER)
 		send_plant_details(user)

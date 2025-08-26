@@ -413,7 +413,7 @@
 	return ..()
 
 /mob/living/silicon/robot/drone/do_suicide()
-	ghostize(TRUE)
+	ghostize()
 	shut_down()
 
 /mob/living/silicon/robot/drone/proc/pathfind_to_dronefab()

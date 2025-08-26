@@ -126,8 +126,8 @@
 	var/deathtime = world.time - user.timeofdeath
 	var/joinedasobserver = FALSE
 	if(isobserver(user))
-		var/mob/dead/observer/G = user
-		if(G.started_as_observer)
+		var/mob/dead/observer/ghost = user
+		if(ghost.ghost_flags & GHOST_START_AS_OBSERVER)
 			joinedasobserver = TRUE
 
 	var/deathtimeminutes = round(deathtime / 600)

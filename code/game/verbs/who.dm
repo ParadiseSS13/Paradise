@@ -64,7 +64,7 @@
 			if(DEAD)
 				if(isobserver(C.mob))
 					var/mob/dead/observer/observer = C.mob
-					if(observer.started_as_observer)
+					if(observer.ghost_flags & GHOST_START_AS_OBSERVER)
 						entry += " - <font color='gray'>Observing</font>"
 					else
 						entry += " - <font color='black'><b>DEAD</b></font>"

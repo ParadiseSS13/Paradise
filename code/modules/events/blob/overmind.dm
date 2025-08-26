@@ -4,7 +4,7 @@
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "marker"
 
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_HIGH
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 

@@ -2,7 +2,7 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 
 /obj/effect/mob_spawn/human/alive/ghost_bar
 	name = "ghastly rejuvenator"
-	mob_name = "ghost bar occupant"
+	role_name = "ghost bar occupant"
 	permanent = TRUE
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "coffin"
@@ -67,7 +67,7 @@ GLOBAL_LIST_EMPTY(occupants_by_key)
 	ADD_TRAIT(human, TRAIT_PACIFISM, GHOST_ROLE)
 	if(isobserver(user))
 		var/mob/dead/observer/ghost = user
-		if(ghost.can_reenter_corpse)
+		if(ghost.ghost_flags & GHOST_CAN_REENTER)
 			ADD_TRAIT(human, TRAIT_RESPAWNABLE, GHOST_ROLE)
 
 	human.key = ckey

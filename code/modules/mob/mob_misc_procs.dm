@@ -180,8 +180,7 @@
 		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
 		log_admin("[key_name(theghost)] has taken control of [key_name(M)]")
-		var/mob/dead/observer/ghost = M.ghostize(TRUE) // Keep them respawnable
-		ghost?.can_reenter_corpse = FALSE // but keep them out of their old body
+		M.ghostize(GHOST_FLAGS_NO_REENTER)
 		M.key = theghost.key
 		dust_if_respawnable(theghost)
 	else
@@ -640,7 +639,7 @@
   */
 /mob/proc/ghost_can_reenter()
 	var/mob/dead/observer/ghost = get_ghost(TRUE)
-	if(ghost && !ghost.can_reenter_corpse)
+	if(ghost && !(ghost.ghost_flags & GHOST_CAN_REENTER))
 		return FALSE
 	return TRUE
 

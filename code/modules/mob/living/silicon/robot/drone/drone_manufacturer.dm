@@ -130,11 +130,11 @@
 	var/deathtime = world.time - timeofdeath
 	var/joinedasobserver = FALSE
 	if(isobserver(src))
-		var/mob/dead/observer/G = src
-		if(!G.check_ahud_rejoin_eligibility())
+		var/mob/dead/observer/ghost = src
+		if(!ghost.check_ahud_rejoin_eligibility())
 			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return
-		if(G.started_as_observer)
+		if(ghost.ghost_flags & GHOST_START_AS_OBSERVER)
 			joinedasobserver = TRUE
 
 	var/deathtimeminutes = round(deathtime / 600)
