@@ -43,6 +43,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	/// Whether the cable has additional insulation to prevent shocking on contact
 	var/extra_insulated = FALSE
 
+// Insulated by default
 /obj/structure/cable/extra_insulated
 	extra_insulated = TRUE
 	color = COLOR_ORANGE
