@@ -606,7 +606,8 @@
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	update_lighting()
 
-/obj/machinery/teleport/perma/initialize_parts()
+/obj/machinery/teleport/perma/preset/initialize_parts()
+	. = ..()
 	tele_delay = 0 // Act like a fully upgraded tele, no T4 stock parts to plunder.
 
 /obj/machinery/teleport/perma/preset/cerestation
