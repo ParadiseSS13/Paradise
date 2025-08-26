@@ -251,8 +251,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
-	..()
-	return QDEL_HINT_HARDDEL_NOW
+	tag = null
+	return ..()
 
 /obj/effect/landmark/proc/set_tag()
 	tag = "landmark*[name]"
