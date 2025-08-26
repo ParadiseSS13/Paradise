@@ -11,7 +11,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 										/datum/disease/gbs, /datum/disease/transformation, /datum/disease/food_poisoning, /datum/disease/berserker, /datum/disease/zombie, /datum/disease/beesease/wizard_variant,
 										/datum/disease/cold9/wizard_variant, /datum/disease/fluspanish/wizard_variant, /datum/disease/kingstons_advanced/wizard_variant,
 										/datum/disease/dna_retrovirus/wizard_variant, /datum/disease/tuberculosis/wizard_variant, /datum/disease/wizarditis/wizard_variant, /datum/disease/anxiety/wizard_variant,
-										/datum/disease/grut_gut, /datum/disease/wand_rot, /datum/disease/mystic_malaise)
+										/datum/disease/grut_gut, /datum/disease/grut_gut/wizard_variant, /datum/disease/wand_rot, /datum/disease/wand_rot/wizard_variant,  /datum/disease/mystic_malaise, /datum/disease/mystic_malaise/wizard_variant)
 	var/static/list/transmissable_symptoms = list()
 	var/static/list/diseases_minor = list()
 	var/static/list/diseases_moderate_major = list()
