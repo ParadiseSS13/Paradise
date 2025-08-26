@@ -116,6 +116,7 @@
 					/obj/item/clipboard,
 					/obj/item/clipboard)
 	cost = 100
+	containertype = /obj/structure/closet/crate/nanotrasen
 	containername = "bureaucracy crate"
 
 /datum/supply_packs/misc/artscrafts
@@ -153,6 +154,7 @@
 					/obj/item/poster/random_official,
 					/obj/item/poster/random_official)
 	cost = 50
+	containertype = /obj/structure/closet/crate/nanotrasen
 	containername = "corporate posters crate"
 
 ///////////// Janitor Supplies
@@ -543,7 +545,7 @@
 	cost = 10
 	special = TRUE
 	containername = "empty station goal crate"
-	containertype = /obj/structure/closet/crate/engineering
+	containertype = /obj/structure/closet/crate/nanotrasen
 
 /datum/supply_packs/misc/station_goal/bsa
 	name = "Bluespace Artillery Parts"
@@ -832,7 +834,7 @@
 		/obj/item/flag/command
 	)
 	cost = 250
-	containertype = /obj/structure/closet/crate/secure
+	containertype = /obj/structure/closet/crate/secure/nanotrasen
 	containername = "command flag crate"
 	access = ACCESS_HEADS
 

@@ -575,6 +575,20 @@
 	icon_opened = "electricalcrate_open"
 	icon_closed = "electricalcrate"
 
+/obj/structure/closet/crate/nanotrasen
+	name = "corporate crate"
+	desc = "A Nanotrasen crate."
+	icon_state = "nanotrasen"
+	icon_opened = "nanotrasen_open"
+	icon_closed = "nanotrasen"
+
+/obj/structure/closet/crate/secure/nanotrasen
+	name = "secure corporate crate"
+	desc = "A crate with a lock on it, painted in the scheme of Nanotrasen. Whatever's in here is probably above your pay grade."
+	icon_state = "nanotrasensecure"
+	icon_opened = "nanotrasensecure_open"
+	icon_closed = "nanotrasensecure"
+
 /obj/structure/closet/crate/mail
 	name = "mail crate"
 	desc = "A plastic crate for mail delivery."

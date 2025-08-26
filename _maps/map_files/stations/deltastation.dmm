@@ -18120,7 +18120,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/crate,
+/obj/structure/closet/crate/nanotrasen{
+	name = "silver crate"
+	},
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,
@@ -19556,7 +19558,9 @@
 "bAI" = (
 /obj/machinery/alarm/directional/south,
 /obj/machinery/light/small,
-/obj/structure/closet/crate,
+/obj/structure/closet/crate/nanotrasen{
+	name = "gold crate"
+	},
 /obj/item/storage/belt/champion,
 /obj/item/stack/sheet/mineral/gold,
 /obj/item/stack/sheet/mineral/gold,
