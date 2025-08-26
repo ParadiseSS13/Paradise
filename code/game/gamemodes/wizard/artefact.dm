@@ -930,9 +930,9 @@ GLOBAL_LIST_EMPTY(multiverse)
 		/datum/disease/wizarditis/wizard_variant,
 		/datum/disease/berserker,
 		/datum/disease/appendicitis,
-		/datum/disease/grut_gut,
-		/datum/disease/wand_rot,
-		/datum/disease/mystic_malaise
+		/datum/disease/grut_gut/wizard_variant,
+		/datum/disease/wand_rot/wizard_variant,
+		/datum/disease/mystic_malaise/wizard_variant,
 	)
 	picked_disease = pick(possible_diseases)
 	return picked_disease

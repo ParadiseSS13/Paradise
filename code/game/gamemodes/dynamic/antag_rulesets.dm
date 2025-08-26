@@ -112,7 +112,10 @@
 		return antag_cost * antag_amount // shitty refund for now
 
 /datum/ruleset/proc/roundstart_can_apply(datum/mind/antag)
-	if(EXCLUSIVE_OR(antag.current.client.prefs.active_character.species in banned_species, banned_species_only))
+	var/client/antag_client = GLOB.directory[ckey(antag.key)]
+	if(!antag_client)
+		CRASH("Null client for key [antag.key] during dynamic antag assignment.")
+	if(EXCLUSIVE_OR(antag_client.prefs.active_character.species in banned_species, banned_species_only))
 		SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES)
 		return FALSE
 	if(antag.special_role) // You can only have 1 antag roll at a time, sorry
@@ -127,7 +130,7 @@
 /datum/ruleset/proc/refund(info)
 	// not enough antagonists signed up!!! idk what to do. The only real solution is to procedurally allocate budget, which will result in 1000x more get_players_for_role() calls. Which is not cheap.
 	// OR we cache get_players_for_role() and then just check if they have a special_role. May be unreliable.
-	// log_dynamic("[info] Refunding [antag_cost * antag_amount] budget.")
+	log_dynamic("[info] Refund unimplemented, wasting [antag_cost * antag_amount] budget.")
 	// Currently unimplemented. Will be useful for a possible future PR where latejoin antagonists are factored in.
 	return
 
