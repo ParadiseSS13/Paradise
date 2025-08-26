@@ -14,10 +14,20 @@
 #define CHAMBER_OPEN	 3
 
 #define REACTOR_LIGHT_COLOR "#569fff"
-#define TOTAL_CONTROL_RODS 5 // The max number of control rods
-#define AVERAGE_HEAT_THRESHOLD 10 // The threshold the average heat-per-rod must exceed to generate coefficient
-#define TOTAL_HEAT_THRESHOLD 600
-#define HEAT_CONVERSION_RATIO 200
+#define TOTAL_CONTROL_RODS 5 // The max number of control rods.
+#define HEAT_MODIFIER 40000 // Higher = more heat production.
+#define AVERAGE_HEAT_THRESHOLD 10 // The threshold the average heat-per-rod must exceed to generate coefficient.
+#define TOTAL_HEAT_THRESHOLD 600 // the temp (in K) needed to begin generating coefficient.
+#define HEAT_CONVERSION_RATIO 200 // How much heat over the threshold = an extra coefficient point.
+#define HEAT_DAMAGE_RATE 500 // The rate at which damage increases due to heat
+#define MOL_MINIMUM 100 // The amount of mols of gas needed before it begins to take damage while operational
+#define DAMAGE_MINIMUM 0.002 // The minimum amount of damage done when taking damage
+#define DAMAGE_MAXIMUM 10 // The highest amount of damage done when taking damage
+#define MOL_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from no gas
+#define HEAT_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from high heat
+#define MELTDOWN_POINT 1000 // The dammage cap where meltdown occurs. higher = longer to meltdown
+#define EXPLOSION_MODIFIER 4 // Adjusts the size of the engine explosion
+
 
 #warn Idea todo: Allow grilling on an active reactor
 #warn Idea todo: Allow CC to unlock for nuking station
@@ -69,14 +79,14 @@
 	var/operating_power = 0
 	///The amount of damage we have currently
 	var/damage = 0
-	///The point at which we delam
-	var/explosion_point = 900
 	/// Is this the primary station engine that spawns in round? Basically
 	var/primary_engine = FALSE
 	/// Has the engine warmed up enough to start
 	var/starting_up = TRUE
 	/// Is the engine currently fully offline
 	var/offline = TRUE
+	/// The heat (in K) before the reactor accrues damage
+	var/heat_damage_threshold = 1000
 
 /obj/machinery/power/fission_reactor/roundstart
 	primary_engine = TRUE
@@ -151,14 +161,14 @@
 		return
 	overlays = null
 	clear_reactor_network()
-	INVOKE_ASYNC(src, PROC_REF(meltdown))
 	stat |= BROKEN
+	INVOKE_ASYNC(src, PROC_REF(meltdown))
 
 /obj/machinery/power/fission_reactor/proc/meltdown()
 	icon_state = "meltdown"
-	sleep(1.7 SECONDS)
-	#warn Set this to be based off reactivity later
-	explosion(src.loc, 5, 15, 20, ignorecap = TRUE, smoke = TRUE)
+	sleep(2.5 SECONDS)
+	var/explosion_modifier = clamp(reactivity_multiplier * EXPLOSION_MODIFIER, 8, 40)
+	explosion(src.loc, explosion_modifier / 2, explosion_modifier, explosion_modifier + 3, explosion_modifier + 6, ignorecap = TRUE, smoke = TRUE)
 	icon_state = "broken"
 
 /obj/machinery/power/fission_reactor/proc/set_fixed()
@@ -244,7 +254,7 @@
 		return SUPERMATTER_NORMAL
 
 /obj/machinery/power/fission_reactor/proc/get_integrity()
-	var/integrity = damage / explosion_point
+	var/integrity = damage / MELTDOWN_POINT
 	integrity = round(100 - integrity * 100, 0.01)
 	integrity = integrity < 0 ? 0 : integrity
 	return integrity
@@ -258,19 +268,24 @@
 /obj/machinery/power/fission_reactor/process()
 	if(stat & BROKEN)
 		return
+
 	if(!offline && !starting_up)
 		var/light_power = clamp((final_power / (100 KW)), 2, 15)
 		set_light(light_power, 4, REACTOR_LIGHT_COLOR)
 	else
 		remove_light()
+
+
 	if(!length(connected_chambers))
 		return
 
-	if(desired_power > operating_power)
+	var/minimum_power = 100 * (1 - (control_rods_remaining / TOTAL_CONTROL_RODS))
+	if(operating_power < minimum_power) // oops, control rods stuck
 		operating_power++
-	else if(desired_power < operating_power)
-		var/minimum_power = 100 * (1 - (control_rods_remaining / TOTAL_CONTROL_RODS))
-		if(operating_power > minimum_power) // oops, control rods stuck
+	else
+		if(desired_power > operating_power)
+			operating_power++
+		else if(desired_power < operating_power)
 			operating_power--
 
 	if(operating_power == desired_power && desired_power == 0 && offline != TRUE)
@@ -301,11 +316,10 @@
 		final_heat += chamber.heat_total * durability_mod
 		chamber.held_rod.durability -= durability_loss
 
-	final_heat *= ((operating_power / 100) * (reactivity_multiplier * 2) * HEAT_MODIFIER) // proportionally affects heat more
-	final_power *= ((operating_power / 100) * reactivity_multiplier)
-
-	var/temp = air_contents.temperature()
 	var/average_heatgen = final_heat / length(connected_chambers)
+	var/temp = air_contents.temperature()
+	if(!temp)
+		temp = 0
 	if(average_heatgen > AVERAGE_HEAT_THRESHOLD)
 		reactivity_multiplier = 1 + (average_heatgen - AVERAGE_HEAT_THRESHOLD / AVERAGE_HEAT_THRESHOLD)
 	else
@@ -314,14 +328,32 @@
 		reactivity_multiplier += (temp - TOTAL_HEAT_THRESHOLD) / HEAT_CONVERSION_RATIO // reactivity per 200*K over 600*K
 	reactivity_multiplier = min(reactivity_multiplier, 20)
 
+	final_heat *= ((operating_power / 100) * (reactivity_multiplier * 2) * HEAT_MODIFIER) // proportionally affects heat more
+	final_power *= ((operating_power / 100) * reactivity_multiplier)
+
+
+
 	if(!can_create_power)
 		return
 
 	produce_direct_power(final_power)
+
 	var/heat_capacity = air_contents.heat_capacity() * 300
 	if(heat_capacity)
 		air_contents.set_temperature(max(air_contents.temperature() + (final_heat / heat_capacity), air_contents.temperature() + 3))
 
+	var/total_mols = air_contents.total_moles()
+	damage = 0
+	if(!total_mols)
+		damage += 1 * MOL_DAMAGE_MULTIPLIER
+	else if(total_mols <= MOL_MINIMUM)
+		damage += max((1 - (total_mols / MOL_MINIMUM) * MOL_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
+	if(temp > heat_damage_threshold)
+		damage += max((temp - heat_damage_threshold) / HEAT_DAMAGE_RATE, DAMAGE_MINIMUM)
+	damage = min(damage, DAMAGE_MAXIMUM)
+
+	if(damage >= MELTDOWN_POINT)
+		set_broken()
 
 /obj/machinery/power/fission_reactor/proc/shut_off()
 	starting_up = TRUE
