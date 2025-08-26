@@ -31,10 +31,11 @@ RUN curl "http://www.byond.com/download/build/${TARGET_MAJOR}/${TARGET_MAJOR}.${
 RUN make here && \
 	echo "$TARGET_MAJOR.$TARGET_MINOR" > "version.txt"
 
-FROM bitnami/dotnet
+FROM --platform=linux/amd64 bitnami/dotnet
 WORKDIR /server
 COPY --from=dme /server /server
 COPY --from=tgui /tgui/public /server/tgui/public
 RUN curl -O -L https://github.com/OpenDreamProject/OpenDream/releases/download/latest/OpenDreamServer_linux-x64.tar.gz && \
 	tar -xf OpenDreamServer_linux-x64.tar.gz
-RUN dotnet DMCompiler_linux-x64/Robust.Server.dll --version=516.1666 paradise.dme
+# RUN dotnet OpenDreamServer_linux-x64/Robust.Server.dll --version=516.1666 paradise.dme
+ENTRYPOINT ["dotnet", "OpenDreamServer_linux-x64/Robust.Server.dll", "--version=516.1666", "paradise.dme"]
