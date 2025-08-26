@@ -7,13 +7,10 @@
 	throw_speed = 1
 	throw_range = 20
 	flags = CONDUCT
-	new_attack_chain = TRUE
 	/// Whether `attack_self` will move ("dribble") it to the other hand
 	var/dribbleable = FALSE // Most balls do not have a dribble animation
 
-/obj/item/beach_ball/activate_self(mob/user)
-	if(..())
-		return
+/obj/item/beach_ball/attack_self__legacy__attackchain(mob/user)
 	if(!dribbleable)
 		return
 

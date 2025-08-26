@@ -106,7 +106,6 @@
 							"ref" = "\ref[R]",
 							"name" = R.fields["name"],
 							"id" = R.fields["id"],
-							"dna" = R.fields["b_dna"],
 							"rank" = R.fields["rank"],
 							"p_stat" = R.fields["p_stat"],
 							"m_stat" = R.fields["m_stat"])

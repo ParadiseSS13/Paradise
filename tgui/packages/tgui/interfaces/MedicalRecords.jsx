@@ -133,7 +133,6 @@ const MedicalRecordsListBase = (_properties) => {
             <Table.Row bold>
               <SortButton id="name">Name</SortButton>
               <SortButton id="id">ID</SortButton>
-              <SortButton id="dna">DNA</SortButton>
               <SortButton id="rank">Assignment</SortButton>
               <SortButton id="p_stat">Patient Status</SortButton>
               <SortButton id="m_stat">Mental Status</SortButton>
@@ -141,19 +140,7 @@ const MedicalRecordsListBase = (_properties) => {
             {records
               .filter(
                 createSearch(searchText, (record) => {
-                  return (
-                    record.name +
-                    '|' +
-                    record.id +
-                    '|' +
-                    record.dna +
-                    '|' +
-                    record.rank +
-                    '|' +
-                    record.p_stat +
-                    '|' +
-                    record.m_stat
-                  );
+                  return record.name + '|' + record.id + '|' + record.rank + '|' + record.p_stat + '|' + record.m_stat;
                 })
               )
               .sort((a, b) => {
@@ -170,7 +157,6 @@ const MedicalRecordsListBase = (_properties) => {
                     <Icon name="user" /> {record.name}
                   </Table.Cell>
                   <Table.Cell>{record.id}</Table.Cell>
-                  <Table.Cell>{record.dna}</Table.Cell>
                   <Table.Cell>{record.rank}</Table.Cell>
                   <Table.Cell>{record.p_stat}</Table.Cell>
                   <Table.Cell>{record.m_stat}</Table.Cell>

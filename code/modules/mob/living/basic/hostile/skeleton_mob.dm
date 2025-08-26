@@ -32,7 +32,7 @@
 	step_type = FOOTSTEP_MOB_SHOE
 	gold_core_spawnable = HOSTILE_SPAWN
 	loot = list(/obj/effect/decal/remains/human)
-	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/prowler
+	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles/demonic_incursion
 
 /mob/living/basic/skeleton/Initialize(mapload)
 	. = ..()
