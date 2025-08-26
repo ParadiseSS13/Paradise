@@ -427,7 +427,6 @@
 	description = "Carbon Tetrachloride is a foam used for fire suppression."
 	reagent_state = LIQUID
 	color = "#A0A090"
-	var/cooling_temperature = 3 // more effective than water
 	taste_description = "the inside of a fire extinguisher"
 
 /datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -442,7 +441,7 @@
 	if(!istype(T))
 		return
 	new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
-	T.quench(1000, cooling_temperature)
+	T.quench(1000, 3) // more effective than water
 
 /datum/reagent/plasma_dust
 	name = "Plasma Dust"
