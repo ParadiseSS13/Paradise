@@ -5,7 +5,7 @@
 		/obj/item/lighter/zippo/gonzofist = 5,
 		/obj/item/clothing/glasses/welding/superior = 5,
 		/obj/item/clothing/suit/armor/bulletproof = 5,
-		/obj/item/clothing/mask/gas/explorer/marines = 5,
+		/obj/item/clothing/mask/gas/solgov = 5,
 		/obj/item/clothing/gloves/combat = 5,
 		/obj/item/storage/belt/federation_webbing = 5,
 		/obj/item/clothing/under/solgov = 5,
