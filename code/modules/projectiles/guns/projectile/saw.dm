@@ -139,7 +139,7 @@
 /obj/item/ammo_casing/mm762x51
 	name = "7.62x51mm round"
 	desc = "A 7.62x51mm full-metal jacket rifle cartridge, commonly used in general-purpose machine guns."
-	icon_state = "762-casing"
+	icon_state = "rifle_brass"
 	caliber = "mm762x51"
 	projectile_type = /obj/item/projectile/bullet/saw
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
@@ -148,20 +148,24 @@
 /obj/item/ammo_casing/mm762x51/bleeding
 	name = "7.62x51mm 'Shredder' round"
 	desc = "A 7.62x51mm 'Shredder' cartridge, with a heavily serrated tip intended to cause massive bleeding."
+	icon_state = "rifle_brass_surplus"
 	projectile_type = /obj/item/projectile/bullet/saw/bleeding
 
 /obj/item/ammo_casing/mm762x51/hollow
 	name = "7.62x51mm hollow point round"
 	desc = "A 7.62x51mm rifle cartridge designed to cause more damage to unarmored targets."
+	icon_state = "rifle_brass_hollow"
 	projectile_type = /obj/item/projectile/bullet/saw/hollow
 
 /obj/item/ammo_casing/mm762x51/ap
 	name = "7.62x51mm armor-piercing round"
 	desc = "A 7.62x51mm rifle cartridge with a hardened tungsten core to increase armor penetration."
+	icon_state = "rifle_brass_ap"
 	projectile_type = /obj/item/projectile/bullet/saw/ap
 
 /obj/item/ammo_casing/mm762x51/incen
 	name = "7.62x51mm incendiary round"
 	desc = "A 7.62x51mm rifle cartridge with an incendiary chemical payload."
+	icon_state = "rifle_brass_incin"
 	projectile_type = /obj/item/projectile/bullet/saw/incen
 	muzzle_flash_color = LIGHT_COLOR_FIRE

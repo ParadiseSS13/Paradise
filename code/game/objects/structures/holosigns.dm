@@ -81,6 +81,7 @@
 	alpha = 150
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation_beta = RAD_LIGHT_INSULATION
+	resistance_flags = UNACIDABLE | ACID_PROOF
 
 /obj/structure/holosign/barrier/atmos/Initialize(mapload)
 	. = ..()

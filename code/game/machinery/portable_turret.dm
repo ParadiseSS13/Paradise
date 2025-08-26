@@ -482,7 +482,7 @@
 		to_chat(M, "<span class='danger'>That object is useless to you.</span>")
 	return
 
-/mob/living/handle_basic_attack(mob/living/basic/attacker, modifiers)
+/obj/machinery/porta_turret/handle_basic_attack(mob/living/basic/attacker, modifiers)
 	attacker.changeNext_move(CLICK_CD_MELEE)
 	attacker.do_attack_animation(src)
 	if(attacker.melee_damage_upper == 0 || (attacker.melee_damage_type != BRUTE && attacker.melee_damage_type != BURN))
@@ -1089,8 +1089,9 @@
 		Turret.name = finish_name
 		Turret.installation = installation
 		Turret.gun_charge = gun_charge
-		gun_lens.forceMove(Turret)
-		Turret.fitted_lens = gun_lens
+		if(gun_lens)
+			gun_lens.forceMove(Turret)
+			Turret.fitted_lens = gun_lens
 		Turret.enabled = FALSE
 		Turret.setup()
 

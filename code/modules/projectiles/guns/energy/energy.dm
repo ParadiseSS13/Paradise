@@ -91,7 +91,7 @@
 /obj/item/gun/energy/gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
 	desc = "This is an expensive, modern recreation of an antique laser gun. The fire selector has three settings: 'disable', 'ion', 'kill'. Unfortunately, it has lost the ability to recharge over time."
-	cell_type = /obj/item/stock_parts/cell/hos_gun
+	cell_type = /obj/item/stock_parts/cell/energy_gun/hos_gun
 	icon_state = "hoslaser"
 	origin_tech = null
 	force = 10
@@ -126,7 +126,7 @@
 /obj/item/gun/energy/gun/blueshield
 	name = "\improper EG-14 advanced energy revolver"
 	desc = "An advanced, pistol sized energy gun. It looks stylish, and the design makes it slightly better at bludgeoning. The fire selector has two settings: 'disable', and 'kill'."
-	cell_type = /obj/item/stock_parts/cell/hos_gun
+	cell_type = /obj/item/stock_parts/cell/energy_gun/hos_gun
 	icon_state = "bsgun"
 	item_state = null
 	force = 7
