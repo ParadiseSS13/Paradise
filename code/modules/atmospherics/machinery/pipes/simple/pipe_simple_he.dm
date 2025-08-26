@@ -7,7 +7,7 @@
 	var/initialize_directions_he
 	var/surface = 2
 
-	minimum_temperature_difference = 0.5
+	minimum_temperature_difference = 0.1
 	thermal_conductivity = HE_HEAT_TRANSFER_COEFFICIENT
 
 	color = "#404040"
