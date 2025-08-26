@@ -418,12 +418,14 @@
 /obj/item/clothing/accessory/legal_badge/on_attached(obj/item/clothing/under/S, mob/user)
 	..()
 	if(has_suit && ismob(has_suit.loc))
+		user.set_typing_indicator(FALSE)
 		var/mob/M = has_suit.loc
 		cached_bubble_icon = M.bubble_icon
 		M.bubble_icon = "legal"
 
 /obj/item/clothing/accessory/legal_badge/on_removed(mob/user)
 	if(has_suit && ismob(has_suit.loc))
+		user.set_typing_indicator(FALSE)
 		var/mob/M = has_suit.loc
 		M.bubble_icon = cached_bubble_icon
 	..()
