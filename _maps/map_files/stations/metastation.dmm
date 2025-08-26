@@ -90539,10 +90539,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"xZr" = (
-/obj/machinery/requests_console/directional/east,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "xZw" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -132962,7 +132958,7 @@ xwA
 fmi
 fmi
 vxO
-xZr
+fWW
 oCP
 fWW
 mOQ
