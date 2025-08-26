@@ -19840,6 +19840,10 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
+"bBP" = (
+/obj/item/clothing/head/cone,
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/atmos)
 "bBR" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/service,
@@ -20865,6 +20869,11 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light,
+/obj/item/clothing/head/cone{
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -122817,7 +122826,7 @@ aLu
 aMR
 aOk
 aPH
-aPH
+bBP
 uFo
 aUe
 aVN
