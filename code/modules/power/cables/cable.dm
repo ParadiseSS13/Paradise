@@ -153,7 +153,6 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(isobserver(user))
 		. += generate_power_message()
 
-
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
