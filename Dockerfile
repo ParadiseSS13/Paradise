@@ -6,9 +6,16 @@ RUN bin/tgui
 FROM bitnami/dotnet AS dme
 WORKDIR /server
 COPY . /server
-RUN wget https://github.com/OpenDreamProject/OpenDream/releases/download/latest/DMCompiler_linux-x64.tar.gz && \
+RUN curl -O -L https://github.com/OpenDreamProject/OpenDream/releases/download/latest/DMCompiler_linux-x64.tar.gz && \
 	tar -xf DMCompiler_linux-x64.tar.gz
 RUN dotnet DMCompiler_linux-x64/DMCompiler.dll --suppress-unimplemented --version=515.1633 paradise.dme
+
+FROM bitnami/dotnet AS server
+WORKDIR /server
+COPY . /server
+RUN curl -O -L https://github.com/OpenDreamProject/OpenDream/releases/download/latest/OpenDreamServer_linux-x64.tar.gz && \
+	tar -xf OpenDreamServer_linux-x64.tar.gz
+RUN dotnet DMCompiler_linux-x64/Robust.Server.dll --version=515.1633 paradise.dme
 
 FROM ubuntu:latest AS byond
 RUN apt-get update && apt-get install -y \
