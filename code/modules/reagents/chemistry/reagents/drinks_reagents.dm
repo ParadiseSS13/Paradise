@@ -761,3 +761,18 @@
 	drink_name = "Lean"
 	drink_desc = "Also known as Purple Drank."
 	taste_description = "sweet druggy soda"
+
+/datum/reagent/consumable/drink/melonade
+	name = "Melonade"
+	description = "A slushy, sour, melon-lemonade."
+	id = "melonade"
+	color = "#e8313f" // rgb: 232, 49, 63
+	drink_icon = "melonade_glass"
+	drink_name = "Tall Glass of Melonade"
+	drink_desc = "This would go great with 147 fluffity puffity marshalays."
+	taste_description = "summer fruit"
+
+/datum/reagent/consumable/drink/melonade/on_mob_life(mob/living/M)
+	if(M.satiety < 600)
+		M.satiety += 5
+	return ..()
