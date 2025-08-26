@@ -350,7 +350,6 @@
 		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
-
 	)
 
 /obj/item/clothing/accessory/holobadge/attack_self__legacy__attackchain(mob/user)
