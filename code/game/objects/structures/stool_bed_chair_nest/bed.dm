@@ -134,6 +134,19 @@
 	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 5
 
+/obj/structure/bed/dirty
+	name = "dirty mattress"
+	desc = "An old, filthy mattress covered in strange and unidentifiable stains. It looks quite uncomfortable."
+	icon_state = "dirty_mattress"
+	comfort = 0.5
+	buildstackamount = 5
+
+/obj/structure/bed/dirty/double
+	name = "large dirty mattress"
+	desc = "An old, filthy king-sized mattress covered in strange and unidentifiable stains. It looks quite uncomfortable."
+	icon_state = "dirty_mattress_large"
+	buildstackamount = 10
+
 /*
  * Roller beds
  */
@@ -254,7 +267,7 @@
 /obj/item/roller_holder/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!istype(target, /obj/item/roller))
 		return ..()
-	
+
 	if(istype(target, /obj/item/roller/holo) && !carry_holo)
 		return ITEM_INTERACT_COMPLETE
 
