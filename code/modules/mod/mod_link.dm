@@ -102,6 +102,10 @@
 
 /obj/item/mod/control/hear_talk(mob/living/M, list/message_pieces)
 	. = ..()
+	if(bag)
+		for(var/obj/object in bag)
+			object.hear_talk(M, message_pieces)
+
 	if(M != wearer || !mod_link.visual)
 		return
 	if(ishuman(M))
