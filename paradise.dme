@@ -2436,7 +2436,6 @@
 #include "code\modules\mob\living\basic\farm_animals\seal.dm"
 #include "code\modules\mob\living\basic\farm_animals\turkey.dm"
 #include "code\modules\mob\living\basic\farm_animals\udders.dm"
-#include "code\modules\mob\living\basic\farm_animals\walrus.dm"
 #include "code\modules\mob\living\basic\friendly\nian_caterpillar.dm"
 #include "code\modules\mob\living\basic\posessed_object.dm"
 #include "code\modules\mob\living\basic\farm_animals\cow.dm"
