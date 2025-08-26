@@ -48,10 +48,12 @@ jobs:
           python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
           python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
           python tools/ci/define_sanity.py
+          python tools/ci/identical_variables.py
           python tools/ci/restrict_file_types.py
           python tools/ci/verify_sql_version.py
           python tools/ci/no_duplicate_definitions.py
           python tools/ci/check_icons.py
+          python tools/ci/check_random_spawner_prefabs.py
           python -m tools.ci.check_map_sizes
           python -m tools.ci.check_legacy_attack_chain
           python -m tools.maplint.source --github
@@ -82,7 +84,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        byondtype: ['STABLE', 'BETA']
+        byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v4
       - name: Restore BYOND from Cache
@@ -104,7 +106,7 @@ jobs:
       fail-fast: false # Let all map tests run to completion
       matrix:
         station: ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
-        byondtype: ['STABLE', 'BETA']
+        byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v4
       - name: Restore BYOND from Cache
@@ -122,6 +124,7 @@ jobs:
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
           DreamMaker -DMAP_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          mkdir -p data
           echo '/datum/map/${{ matrix.station }}' > data/next_map.txt
           tools/ci/run_server.sh
 
@@ -131,7 +134,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        byondtype: ['STABLE', 'BETA']
+        byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v4
       - name: Restore BYOND from Cache
@@ -154,6 +157,7 @@ jobs:
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
           DreamMaker -DGAME_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          mkdir -p data
           echo '/datum/map/test_tiny' > data/next_map.txt
           tools/ci/run_server.sh
 

@@ -138,7 +138,7 @@
 /obj/item/robot_module/proc/fix_modules()
 	for(var/item in modules)
 		var/obj/item/I = item
-		I.flags |= NODROP
+		I.set_nodrop(TRUE)
 		I.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 /**
@@ -184,7 +184,7 @@
 		I.forceMove(src)
 
 	modules += I
-	I.flags |= NODROP
+	I.set_nodrop(TRUE)
 	I.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 	if(requires_rebuild)
@@ -281,7 +281,7 @@
 	R.add_language("Sol Common", TRUE)
 	R.add_language("Tradeband", TRUE)
 	R.add_language("Gutter", FALSE)
-	R.add_language("Zvezhan", TRUE)
+	R.add_language("Cygni Standard", TRUE)
 	R.add_language("Sinta'unathi", FALSE)
 	R.add_language("Siik'tajr", FALSE)
 	R.add_language("Canilunzt", FALSE)
@@ -347,7 +347,7 @@
 		/obj/item/bonesetter,
 		/obj/item/bonegel,
 		/obj/item/fix_o_vein,
-		/obj/item/extinguisher/mini,
+		/obj/item/extinguisher/mini/cyborg,
 		/obj/item/reagent_containers/glass/beaker/large,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/syringe,
@@ -360,7 +360,7 @@
 	)
 	malf_modules = list(/obj/item/gun/syringemalf)
 	special_rechargables = list(
-		/obj/item/extinguisher/mini,
+		/obj/item/extinguisher/mini/cyborg,
 		/obj/item/gun/syringemalf
 	)
 
@@ -394,7 +394,6 @@
 	name = "plasma syringe cannon"
 	desc = "A syringe gun integrated into a medical cyborg's chassis. Fires heavy-duty plasma syringes tipped in poison."
 	icon_state = "rapidsyringegun"
-	throw_speed = 3
 	throw_range = 7
 	force = 4
 	fire_sound = 'sound/items/syringeproj.ogg'
@@ -436,6 +435,9 @@
 // Fluorosulphuric acid spray bottle.
 /obj/item/reagent_containers/spray/cyborg_facid
 	name = "Polyacid spray"
+	spray_maxrange = 3
+	spray_currentrange = 3
+	adjustable = FALSE
 	list_reagents = list("facid" = 250)
 
 /obj/item/reagent_containers/spray/cyborg_facid/cyborg_recharge(coeff, emagged)
@@ -452,6 +454,7 @@
 		/obj/item/flash/cyborg,
 		/obj/item/rpd,
 		/obj/item/extinguisher,
+		/obj/item/extinguisher/mini/cyborg, // Give them the option of BOTH extinguishers
 		/obj/item/weldingtool/largetank/cyborg,
 		/obj/item/screwdriver/cyborg,
 		/obj/item/wrench/cyborg,
@@ -478,7 +481,7 @@
 	emag_modules = list(/obj/item/melee/baton/loaded/borg_stun_arm, /obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/rcd/borg)
 	override_modules = list(/obj/item/gun/energy/emitter/cyborg/proto)
 	malf_modules = list(/obj/item/gun/energy/emitter/cyborg)
-	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg)
+	special_rechargables = list(/obj/item/extinguisher, /obj/item/extinguisher/mini/cyborg, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg)
 
 /obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/engineering/G = locate(/obj/item/gripper/engineering) in modules
@@ -536,7 +539,7 @@
 		/obj/item/mop/advanced/cyborg,
 		/obj/item/lightreplacer/cyborg,
 		/obj/item/holosign_creator/janitor,
-		/obj/item/extinguisher/mini,
+		/obj/item/extinguisher/mini/cyborg,
 		/obj/item/melee/flyswatter
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
@@ -546,7 +549,7 @@
 		/obj/item/lightreplacer,
 		/obj/item/reagent_containers/spray/cyborg_lube,
 		/obj/item/reagent_containers/spray/cyborg_facid,
-		/obj/item/extinguisher/mini
+		/obj/item/extinguisher/mini/cyborg
 	)
 
 /obj/item/robot_module/janitor/handle_death(mob/living/silicon/robot/R, gibbed)
@@ -637,7 +640,7 @@
 	)
 	emag_override_modules = list(/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer)
 	emag_modules = list(/obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/instrument/guitar/cyborg)
-	malf_modules = list(/obj/item/gun/projectile/shotgun/automatic/combat/cyborg)
+	malf_modules = list(/obj/item/gun/energy/gun/shotgun/cyborg)
 	special_rechargables = list(
 		/obj/item/reagent_containers/condiment/enzyme,
 		/obj/item/reagent_containers/drinks/bottle/beer/sleepy_beer,
@@ -688,7 +691,7 @@
 	R.add_language("Chittin", 1)
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)
-	R.add_language("Zvezhan", 1)
+	R.add_language("Cygni Standard", 1)
 	R.add_language("Tkachi", 1)
 
 // Mining
@@ -705,7 +708,7 @@
 		/obj/item/pickaxe/drill/cyborg,
 		/obj/item/shovel,
 		/obj/item/weldingtool/mini,
-		/obj/item/extinguisher/mini,
+		/obj/item/extinguisher/mini/cyborg,
 		/obj/item/t_scanner/adv_mining_scanner/cyborg,
 		/obj/item/gun/energy/kinetic_accelerator/cyborg,
 		/obj/item/gps/cyborg,
@@ -713,7 +716,7 @@
 	)
 	emag_modules = list(/obj/item/pickaxe/drill/jackhammer)
 	malf_modules = list(/obj/item/gun/energy/kinetic_accelerator/cyborg/malf)
-	special_rechargables = list(/obj/item/extinguisher/mini, /obj/item/weldingtool/mini)
+	special_rechargables = list(/obj/item/extinguisher/mini/cyborg, /obj/item/weldingtool/mini)
 
 /obj/item/robot_module/miner/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/mining/G = locate(/obj/item/gripper/mining) in modules
@@ -857,7 +860,7 @@
 		/obj/item/stack/medical/splint/cyborg/syndicate,
 		/obj/item/stack/nanopaste/cyborg/syndicate,
 		/obj/item/gun/medbeam,
-		/obj/item/extinguisher/mini,
+		/obj/item/extinguisher/mini, // Why the hell would the syndicate care about greys?
 		/obj/item/gripper/medical,
 	)
 	special_rechargables = list(/obj/item/extinguisher/mini)
@@ -880,7 +883,7 @@
 		/obj/item/flash/cyborg,
 		/obj/item/rcd/borg/syndicate,
 		/obj/item/rpd,
-		/obj/item/extinguisher,
+		/obj/item/extinguisher, // Syndicate dont care about no greys.
 		/obj/item/weldingtool/largetank/cyborg,
 		/obj/item/screwdriver/cyborg,
 		/obj/item/wrench/cyborg,
@@ -929,12 +932,12 @@
 		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
-		/obj/item/extinguisher/mini // for friendly fire from their immolator gun.
+		/obj/item/extinguisher/mini/cyborg // for friendly fire from their immolator gun.
 	)
 	special_rechargables = list(
 		/obj/item/melee/baton/loaded,
 		/obj/item/gun/energy/immolator/multi/cyborg,
-		/obj/item/extinguisher/mini
+		/obj/item/extinguisher/mini/cyborg
 	)
 
 // Destroyer security module.

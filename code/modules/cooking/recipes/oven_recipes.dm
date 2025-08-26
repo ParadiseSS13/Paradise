@@ -540,7 +540,7 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/pineapple),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/pineapple),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_MEATHUNK(),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
 		PCWJ_USE_OVEN(J_MED, 15 SECONDS),
 	)
@@ -576,8 +576,8 @@
 	product_type = /obj/item/food/lasagna
 	catalog_category = COOKBOOK_CATEGORY_PIZZAS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_MEATHUNK(),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
@@ -665,9 +665,9 @@
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
 		PCWJ_ADD_ITEM(/obj/item/food/dough),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_MEATHUNK(),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
@@ -680,7 +680,7 @@
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliceable/flatdough),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_MEATHUNK(),
 		PCWJ_USE_OVEN(J_MED, 10 SECONDS),
 	)
 
@@ -690,9 +690,9 @@
 	catalog_category = COOKBOOK_CATEGORY_PIZZAS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliceable/flatdough),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_MEATHUNK(),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/cheesewedge),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
 		PCWJ_USE_OVEN(J_MED, 15 SECONDS),
@@ -1059,10 +1059,10 @@
 	product_type = /obj/item/food/sliceable/turkey
 	catalog_category = COOKBOOK_CATEGORY_MEAT
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_MEATHUNK(),
+		PCWJ_ADD_MEATHUNK(),
 		PCWJ_ADD_ITEM(/obj/item/food/stuffing),
 		PCWJ_ADD_ITEM(/obj/item/food/stuffing),
 		PCWJ_USE_OVEN(J_MED, 15 SECONDS),

@@ -1,8 +1,6 @@
 /datum/spell/rod_form
 	name = "Rod Form"
 	desc = "Take on the form of an immovable rod, destroying all in your path."
-	clothes_req = TRUE
-	human_req = FALSE
 	base_cooldown = 600
 	cooldown_min = 200
 	invocation = "CLANG!"
@@ -40,13 +38,16 @@
 	notify = FALSE
 
 /obj/effect/immovablerod/wizard/Move()
+	. = ..()
 	if(get_dist(start_turf, get_turf(src)) >= max_distance)
 		qdel(src)
-	..()
 
 /obj/effect/immovablerod/wizard/Destroy()
 	if(wizard)
 		wizard.status_flags &= ~GODMODE
 		wizard.notransform = FALSE
 		wizard.forceMove(get_turf(src))
+		wizard = null
+
+	start_turf = null
 	return ..()

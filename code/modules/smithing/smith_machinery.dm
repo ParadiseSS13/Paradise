@@ -3,8 +3,6 @@
 	desc = "A large unknown smithing machine. If you see this, there's a problem and you should notify the development team."
 	icon = 'icons/obj/machines/large_smithing_machines.dmi'
 	icon_state = "power_hammer"
-	max_integrity = 200
-	pixel_x = 0	// 2x2
 	pixel_y = -32
 	bound_height = 64
 	bound_width = 64
@@ -12,6 +10,7 @@
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
+	req_one_access = list(ACCESS_SMITH)
 	/// How many loops per operation
 	var/operation_time = 10
 	/// Is this active
@@ -36,6 +35,9 @@
 /obj/machinery/smithing/power_change()
 	if(!..())
 		return
+	// If power is lost during operation, reset the operating flag to prevent the machine from getting stuck
+	if(stat & NOPOWER && operating)
+		operating = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/smithing/item_interaction(mob/living/user, obj/item/used, list/modifiers)
@@ -66,11 +68,21 @@
 		return ITEM_INTERACT_COMPLETE
 	return ..()
 
+/obj/machinery/smithing/emag_act(user as mob)
+	if(!emagged)
+		playsound(get_turf(src), 'sound/effects/sparks4.ogg', 75, 1)
+		req_one_access = list()
+		emagged = TRUE
+		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+		return TRUE
+
 /obj/machinery/smithing/proc/operate(loops, mob/living/user)
 	operating = TRUE
 	update_icon(ALL)
 	for(var/i in 1 to loops)
 		if(stat & (NOPOWER|BROKEN))
+			operating = FALSE
+			update_icon(ALL)
 			return FALSE
 		use_power(500)
 		if(operation_sound)
@@ -90,6 +102,9 @@
 		return FALSE
 	if(G.state < GRAB_NECK)
 		to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+		return FALSE
+	if(!allowed(user) && !isobserver(user))
+		to_chat(user, "<span class='warning'>You try to shove someone into the machine, but your access is denied!</span>")
 		return FALSE
 	var/result = special_attack(user, G.affecting)
 	user.changeNext_move(CLICK_CD_MELEE)

@@ -20,10 +20,7 @@
 	icon_state = "terror_gray"
 	icon_living = "terror_gray"
 	icon_dead = "terror_gray_dead"
-	maxHealth = 120 // same health as hunter spider, aka, pretty weak.. but its almost invisible while on webs.
-	health = 120
 	melee_damage_lower = 10
-	melee_damage_upper = 20
 	stat_attack = UNCONSCIOUS // ensures they will target people in crit, too!
 	delay_web = 20 // double speed
 	web_type = /obj/structure/spider/terrorweb/gray

@@ -47,28 +47,15 @@
 
 		if("skin_tone")
 			if(can_change_skin_tone())
-				var/new_s_tone = null
+				var/new_s_tone
 				if(owner.dna.species.bodyflags & HAS_SKIN_TONE)
-					new_s_tone = input(usr, "Choose your character's skin tone:\n(Light 1 - 220 Dark)", "Skin Tone", owner.s_tone) as num|null
-					if(isnum(new_s_tone) && (!..()))
-						new_s_tone = 35 - max(min(round(new_s_tone), 220),1)
+					new_s_tone = tgui_input_number(usr, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference", owner.s_tone, 220, 1)
 				else if(owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
-					var/const/MAX_LINE_ENTRIES = 4
-					var/prompt = "Choose your character's skin tone: 1-[length(owner.dna.species.icon_skin_tones)]\n("
-					for(var/i in 1 to length(owner.dna.species.icon_skin_tones))
-						if(i > MAX_LINE_ENTRIES && !((i - 1) % MAX_LINE_ENTRIES))
-							prompt += "\n"
-						prompt += "[i] = [owner.dna.species.icon_skin_tones[i]]"
-						if(i != length(owner.dna.species.icon_skin_tones))
-							prompt += ", "
-					prompt += ")"
+					var/prompt = "Choose your character's skin tone: 1-[length(owner.dna.species.icon_skin_tones)]\n(Light to Dark)"
+					new_s_tone = tgui_input_number(usr, prompt, "Character Preference", owner.s_tone, length(owner.dna.species.icon_skin_tones), 1)
 
-					new_s_tone = input(usr, prompt, "Skin Tone", owner.s_tone) as num|null
-					if(isnum(new_s_tone) && (!..()))
-						new_s_tone = max(min(round(new_s_tone), length(owner.dna.species.icon_skin_tones)), 1)
-
-				if(new_s_tone)
-					owner.change_skin_tone(new_s_tone)
+				if(!isnull(new_s_tone) && (!..()) && owner.change_skin_tone(new_s_tone))
+					update_dna()
 
 		if("skin_color")
 			if(can_change_skin_color())

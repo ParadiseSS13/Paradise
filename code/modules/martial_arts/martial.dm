@@ -76,10 +76,14 @@
 			return check_combos(step, user, target, could_start_new_combo)
 	return FALSE
 
-/datum/martial_art/proc/reset_combos()
+/datum/martial_art/proc/reset_combos(mob/living/carbon/human/H)
 	current_combos.Cut()
 	streak = ""
-	var/mob/living/carbon/human/owner = locateUID(owner_UID)
+	var/mob/living/carbon/human/owner
+	if(H)
+		owner = H
+	else
+		owner = locateUID(owner_UID)
 	if(istype(owner) && !QDELETED(owner))
 		owner.hud_used.combo_display.update_icon(ALL, streak)
 	for(var/combo_type in combos)
@@ -168,6 +172,8 @@
 	var/datum/martial_art/MA = src
 	if(!H.mind)
 		return
+	if(H.hud_used)
+		reset_combos()
 	deltimer(combo_timer)
 	H.mind.known_martial_arts.Remove(MA)
 	H.mind.martial_art = get_highest_weight(H)
@@ -238,7 +244,7 @@
 
 /datum/action/defensive_stance
 	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
-	button_overlay_icon_state = "block"
+	button_icon_state = "block"
 
 /datum/action/defensive_stance/Trigger(left_click)
 	var/mob/living/carbon/human/H = owner
@@ -370,7 +376,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	throwforce = 20
-	throw_speed = 2
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
 
 /obj/item/bostaff/Initialize(mapload)

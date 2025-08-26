@@ -388,6 +388,10 @@
 			update_icon()
 		if("tryoutput")
 			outputting(!output_attempt)
+			if(output_attempt)
+				playsound(loc, 'sound/effects/contactor_on.ogg', 50, FALSE)
+			else
+				playsound(loc, 'sound/effects/contactor_off.ogg', 50, FALSE)
 			update_icon()
 		if("input")
 			var/target = params["target"]
@@ -453,7 +457,6 @@
 	charge = 0.08e6 // Engineering starts with some charge for singulo
 
 /obj/machinery/power/smes/empty
-	charge = 0
 
 /obj/machinery/power/smes/magical
 	name = "magical power storage unit"

@@ -3,7 +3,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/floodlight,
+/obj/machinery/floodlight{
+	anchored = 1
+	},
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
 	nitrogen = 400;
@@ -113,7 +115,9 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/telecomms)
 "cz" = (
-/obj/machinery/floodlight,
+/obj/machinery/floodlight{
+	anchored = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault";
@@ -389,7 +393,9 @@
 /turf/template_noop,
 /area/space/nearstation/no_teleport)
 "hU" = (
-/obj/machinery/computer/teleporter,
+/obj/machinery/computer/teleporter{
+	dir = 1
+	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
@@ -979,6 +985,9 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
 	nitrogen = 400;
@@ -1393,7 +1402,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/recharge_station/upgraded,
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg,
+/mob/living/basic/hivebot/strong/malfborg,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault";
@@ -2471,7 +2480,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/recharge_station/upgraded,
-/mob/living/simple_animal/hostile/hivebot/strong/malfborg,
+/mob/living/basic/hivebot/strong/malfborg,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault";

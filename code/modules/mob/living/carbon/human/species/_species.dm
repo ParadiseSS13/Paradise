@@ -1142,7 +1142,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			if(!HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
 				if(!target.HasDisease(/datum/disease/zombie))
 					var/datum/disease/zombie/zomb = new /datum/disease/zombie
-					if(target.CanContractDisease(zomb)) // biosuit aint going to protect you buddy
+					if(target.can_contract_disease(zomb)) // biosuit aint going to protect you buddy
 						target.ForceContractDisease(zomb)
 						target.Dizzy(10 SECONDS)
 						target.Confused(10 SECONDS)
@@ -1224,3 +1224,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /// Is this species able to be legion infested?
 /datum/species/proc/can_be_legion_infested()
 	return TRUE
+
+/// Prototype for additional behaviour when a specific species is ground by a compressor.
+/datum/species/proc/do_compressor_grind(mob/living/carbon/human)
+	return

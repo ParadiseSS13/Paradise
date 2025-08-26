@@ -9,7 +9,6 @@
 
 
 /datum/map_generator_module/syndie_furniture
-	clusterCheckFlags = MAP_GENERATOR_CLUSTER_CHECK_SAME_ATOMS
 	spawnableTurfs = list()
 	spawnableAtoms = list(/obj/structure/table = 20,/obj/structure/chair = 15,/obj/structure/chair/stool = 10, \
 		/obj/structure/computerframe = 15, /obj/item/storage/toolbox/syndicate = 15 ,\

@@ -14,14 +14,12 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	strip_delay = 10 SECONDS
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	actions_types = list(
 		/datum/action/item_action/mod/deploy,
 		/datum/action/item_action/mod/activate,
 		/datum/action/item_action/mod/panel,
 		/datum/action/item_action/mod/module,
 	)
-	resistance_flags = NONE
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	siemens_coefficient = 0.5
@@ -93,8 +91,8 @@
 	var/current_disguise = FALSE
 	/// The MODlink datum, letting us call people from the suit.
 	var/datum/mod_link/mod_link
-	/// The starting MODlink frequency, overridden on subtypes that want it to be something.
-	var/starting_frequency = null
+	/// The starting MODlink frequency, by default NT to make it easier for everyone to use.
+	var/starting_frequency = MODLINK_FREQ_NANOTRASEN
 
 /obj/item/mod/control/serialize()
 	var/list/data = ..()
@@ -277,6 +275,14 @@
 		if(ismecha(M.loc))
 			return
 
+		if(ismodcontrol(over_object))
+			var/obj/item/mod/control/target = over_object
+			bag?.dump_storage(M, target.bag)
+			return
+		if(isstorage(over_object))
+			bag?.dump_storage(M, over_object)
+			return
+
 		if(!M.restrained() && !M.stat)
 			playsound(loc, "rustle", 50, TRUE, -5)
 
@@ -293,6 +299,14 @@
 				bag?.open(usr)
 
 			add_fingerprint(M)
+
+/obj/item/mod/control/wirecutter_act(mob/living/user, obj/item/I)
+	if(open)
+		if(seconds_electrified && get_charge() && shock(user))
+			return TRUE
+		wires.Interact(user)
+		return TRUE
+	return ..()
 
 /obj/item/mod/control/wrench_act(mob/living/user, obj/item/wrench)
 	if(..())
@@ -317,6 +331,11 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	if(open)
+		if(seconds_electrified && get_charge() && shock(user))
+			return TRUE
+		wires.Interact(user)
+		return TRUE
 	if(!I.multitool_check_buffer(user))
 		return
 	var/obj/item/multitool/M = I
@@ -428,11 +447,6 @@
 		user.drop_item()
 		attacking_core.install(src)
 		update_charge_alert()
-		return TRUE
-	else if(istype(attacking_item, /obj/item/multitool) && open)
-		if(seconds_electrified && get_charge() && shock(user))
-			return TRUE
-		wires.Interact(user)
 		return TRUE
 	else if(open && attacking_item.GetID())
 		update_access(user, attacking_item.GetID())
@@ -842,3 +856,8 @@
 	. = ..()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.extinguish_light(force)
+
+/obj/item/mod/control/hear_message(mob/living/user, msg)
+	if(bag)
+		for(var/obj/object in bag)
+			object.hear_message(user, msg)

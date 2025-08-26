@@ -7,7 +7,6 @@
 	hud_type = /datum/hud/simple_animal
 
 	universal_understand = TRUE
-	universal_speak = FALSE
 	status_flags = CANPUSH
 	healable = TRUE
 	gib_nullifies_icon = FALSE // prevents players from having transparent icon when their body is gibbed
@@ -83,9 +82,6 @@
 
 	/// Higher speed is slower, negative speed is faster
 	var/speed = 1
-	var/can_hide = FALSE
-	/// Allows a mob to pass unbolted doors while hidden
-	var/pass_door_while_hidden = FALSE
 
 	/// If the mob can be renamed
 	var/unique_pet = FALSE
@@ -110,7 +106,6 @@
 	var/list/loot = list()
 	/// Causes mob to be deleted on death, useful for mobs that spawn lootable corpses
 	var/del_on_death = FALSE
-	var/deathmessage = ""
 	/// The sound played on death
 	var/death_sound = null
 
@@ -352,6 +347,8 @@
 	if(HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))
 		SSmobs.xenobiology_mobs--
 	if(del_on_death)
+		// Moves them to their turf to prevent rendering problems
+		forceMove(get_turf(src))
 		//Prevent infinite loops if the mob Destroy() is overridden in such
 		//a manner as to cause a call to death() again
 		del_on_death = FALSE
@@ -482,7 +479,7 @@
 	if(changed)
 		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT)
 
-/mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
+/mob/living/simple_animal/sentience_act() // Called when a simple animal gains sentience via gold slime potion
 	toggle_ai(AI_OFF)
 	can_have_ai = FALSE
 

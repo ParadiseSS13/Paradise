@@ -216,6 +216,12 @@
 	else
 		icon_state = "[base_icon_state]:[on]"
 
+/obj/machinery/atmospherics/portable/pump/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
+
 #undef MAX_TARGET_PRESSURE
 #undef DIRECTION_IN
 #undef DIRECTION_OUT

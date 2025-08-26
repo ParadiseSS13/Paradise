@@ -7,7 +7,6 @@
 	requires_power = FALSE
 
 /area/ruin/space/unpowered
-	always_unpowered = FALSE
 
 /area/ruin/space/unpowered/no_grav
 	has_gravity = FALSE
@@ -65,7 +64,6 @@
 
 /area/ruin/space/djstation/solars
 	name = "\improper Soviet DJ Station Solars"
-	icon_state = "DJ"
 
 //Methlab
 /area/ruin/space/methlab
@@ -300,3 +298,12 @@
 
 /area/ruin/space/rocky_motel/asteroid
 	icon_state = "away"
+
+/area/ruin/space/space_relay
+	name = "Nanotrasen Bluespace Relay"
+	icon_state = "space_relay"
+
+/area/ruin/space/space_relay/Initialize(mapload)
+	name = "Nanotrasen Bluespace Relay #[rand(1, 1000)]" //Give it a random relay name
+	return ..()
+

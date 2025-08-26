@@ -22,6 +22,9 @@
 /proc/cmp_ckey_dsc(client/a, client/b)
 	return sorttext(a.ckey, b.ckey)
 
+/proc/cmp_typepaths_asc(a, b)
+	return sorttext("[b]", "[a]")
+
 /proc/cmp_subsystem_init(datum/controller/subsystem/a, datum/controller/subsystem/b)
 	return initial(b.init_order) - initial(a.init_order)	//uses initial() so it can be used on types
 
@@ -57,3 +60,6 @@
 
 /proc/cmp_changeling_power_category_asc(datum/changeling_power_category/a, datum/changeling_power_category/b)
 	return initial(a.priority) - initial(b.priority)
+
+/proc/cmp_ruin_placement_cost(datum/map_template/ruin/A, datum/map_template/ruin/B)
+	return A.get_cost() - B.get_cost()

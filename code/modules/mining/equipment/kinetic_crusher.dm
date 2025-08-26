@@ -9,7 +9,6 @@
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "crusher"
 	item_state = "crusher0"
-	force = 0 //You can't hit stuff unless wielded
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	throwforce = 5
@@ -169,16 +168,22 @@
 		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 
 /obj/item/kinetic_crusher/ui_action_click(mob/user, actiontype)
-	light_on = !light_on
-	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
-	update_brightness(user)
-	update_icon()
+	toggle_light(user)
 
-/obj/item/kinetic_crusher/proc/update_brightness(mob/user = null)
+
+/obj/item/kinetic_crusher/proc/toggle_light()
+	light_on = !light_on
+	playsound(src, 'sound/weapons/empty.ogg', 100, TRUE)
 	if(light_on)
 		set_light(brightness_on)
 	else
 		set_light(0)
+	update_icon()
+
+/obj/item/kinetic_crusher/extinguish_light()
+	if(light_on)
+		toggle_light()
+		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 /obj/item/kinetic_crusher/update_icon_state()
 	item_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -197,7 +202,6 @@
 	icon_state = "pulse1"
 	nodamage = TRUE
 	damage = 0 //We're just here to mark people. This is still a melee weapon.
-	damage_type = BRUTE
 	flag = BOMB
 	range = 6
 	log_override = TRUE
@@ -434,7 +438,6 @@
 	icon_state = "demon_claws"
 	gender = PLURAL
 	denied_type = /obj/item/crusher_trophy/demon_claws
-	bonus_value = 10
 	var/static/list/damage_heal_order = list(BRUTE, BURN, OXY)
 
 /obj/item/crusher_trophy/demon_claws/effect_desc()

@@ -44,6 +44,7 @@
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/hos
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Security), Space Law, basic job duties, and act professionally (roleplay)."
+	standard_paycheck = CREW_PAY_HIGH
 
 /datum/outfit/job/hos
 	name = "Head of Security"
@@ -70,6 +71,11 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
+/datum/outfit/job/hos/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
+	add_verb(H, /mob/living/carbon/human/proc/space_law)
+
 /datum/job/warden
 	title = "Warden"
 	flag = JOB_WARDEN
@@ -95,6 +101,7 @@
 	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP, DISABILITY_FLAG_PARAPLEGIC)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/warden
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/warden
 	name = "Warden"
@@ -120,6 +127,11 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+
+/datum/outfit/job/warden/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
+	add_verb(H, /mob/living/carbon/human/proc/space_law)
 
 /datum/job/detective
 	title = "Detective"
@@ -149,6 +161,7 @@
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/detective
 	important_information = "Track, investigate, and look cool while doing it."
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/detective
 	name = "Detective"
@@ -167,11 +180,16 @@
 	pda = /obj/item/pda/detective
 	backpack_contents = list(
 		/obj/item/storage/box/evidence = 1,
-		/obj/item/detective_scanner = 1,
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
 
 	bio_chips = list(/obj/item/bio_chip/mindshield)
+
+/datum/outfit/job/detective/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H.mind, TRAIT_CORPSE_RESIST, JOB_TRAIT) // too cool to vomit
+	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
+	add_verb(H, /mob/living/carbon/human/proc/space_law)
 
 /datum/outfit/job/detective/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -214,6 +232,7 @@
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/officer
 	important_information = "Space Law is the law, not a suggestion."
+	standard_paycheck = CREW_PAY_MEDIUM
 
 /datum/outfit/job/officer
 	name = "Security Officer"
@@ -236,3 +255,7 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
+/datum/outfit/job/officer/on_mind_initialize(mob/living/carbon/human/H)
+	. = ..()
+	add_verb(H, /mob/living/carbon/human/proc/sop_legal)
+	add_verb(H, /mob/living/carbon/human/proc/space_law)

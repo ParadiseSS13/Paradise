@@ -151,7 +151,8 @@
 	for(var/depth in 1 to recursion_limit)
 		var/list/layer = next_layer
 		next_layer = list()
-		for(var/thing in layer)
+		for(var/atom/thing in layer)
+			next_layer += thing.contents
 			if(!ismob(thing))
 				continue
 			var/mob/this_mob = thing
@@ -166,9 +167,6 @@
 				var/mob/camera/eye/ai/eye = this_mob
 				if((ai_eyes == AI_EYE_INCLUDE || eye.relay_speech) && eye.ai && (!client_check || eye.ai.client))
 					mobs |= eye.ai
-			for(var/mob/dead/observer/ghost in this_mob.observers)
-				if(!client_check || ghost.client)
-					mobs += ghost
 		if(!length(next_layer))
 			return
 

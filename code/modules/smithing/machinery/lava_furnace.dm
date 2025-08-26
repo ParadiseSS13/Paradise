@@ -1,7 +1,6 @@
 /obj/machinery/smithing/lava_furnace
 	name = "lava furnace"
 	desc = "A furnace that uses the innate heat of lavaland to reheat metal that has not been fully reshaped."
-	icon = 'icons/obj/machines/large_smithing_machines.dmi'
 	icon_state = "furnace_off"
 	operation_sound = 'sound/surgery/cautery1.ogg'
 	/// How much the device heats the component
@@ -58,6 +57,9 @@
 
 /obj/machinery/smithing/lava_furnace/attack_hand(mob/user)
 	. = ..()
+	if(!allowed(user) && !isobserver(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return FINISH_ATTACK
 	if(operating)
 		to_chat(user, "<span class='warning'>[src] is currently operating!</span>")
 		return

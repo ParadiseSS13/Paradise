@@ -49,6 +49,9 @@
 	if(incapacitated())
 		return
 
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
+
 	if(next_move >= world.time)
 		return
 
@@ -76,10 +79,6 @@
 	if(!W)
 		A.add_hiddenprint(src)
 		A.attack_robot(src)
-		return
-
-	// buckled cannot prevent machine interlinking but stops arm movement
-	if(buckled)
 		return
 
 	if(W == A)
@@ -161,8 +160,8 @@
 		user.examinate(src)
 	return
 
-/atom/proc/BorgAltShiftClick()
-	return
+/atom/proc/BorgAltShiftClick(mob/living/silicon/robot/user)
+	AltShiftClick(user)
 
 /atom/proc/BorgShiftMiddleClick()
 	return

@@ -101,7 +101,6 @@
 	slot_flags = ITEM_SLOT_HEAD
 
 /obj/item/holder/drone/emagged
-	name = "maintenance drone"
 	icon_state = "drone-emagged"
 
 /obj/item/holder/pai
@@ -114,6 +113,7 @@
 	desc = "It's a small, disease-ridden rodent."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_gray"
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/holder/bunny
 	name = "bunny"

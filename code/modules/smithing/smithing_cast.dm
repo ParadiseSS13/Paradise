@@ -10,6 +10,8 @@
 	var/list/possible_products = list()
 	/// How many products are we smelting at any given operation?
 	var/amount_to_make = 1
+	/// What is the icon state we pass to the basin?
+	var/basin_state = "error"
 
 	new_attack_chain = TRUE
 
@@ -51,6 +53,7 @@
 	name = "sheet cast"
 	icon_state = "sheet_cast"
 	desc = "A cast for forging molten minerals into workable sheets."
+	basin_state = "cast_sheet"
 
 /obj/item/smithing_cast/sheet/examine(mob/user)
 	. = ..()
@@ -126,42 +129,49 @@
 	icon_state = "insert_frame_cast"
 	desc = "A cast for creating insert frames."
 	product_type = /obj/item/smithed_item/component/insert_frame
+	basin_state = "cast_armorframe"
 
 /obj/item/smithing_cast/component/insert_lining
 	name = "insert lining cast"
 	icon_state = "insert_lining_cast"
 	desc = "A cast for creating insert linings."
 	product_type = /obj/item/smithed_item/component/insert_lining
+	basin_state = "cast_mesh"
 
 /obj/item/smithing_cast/component/bit_mount
 	name = "bit mount cast"
 	icon_state = "bit_mount_cast"
 	desc = "A cast for creating bit mounts."
 	product_type = /obj/item/smithed_item/component/bit_mount
+	basin_state = "cast_bitmount"
 
 /obj/item/smithing_cast/component/bit_head
 	name = "bit head cast"
 	icon_state = "bit_head_cast"
 	desc = "A cast for creating bit heads."
 	product_type = /obj/item/smithed_item/component/bit_head
+	basin_state = "cast_bithead"
 
 /obj/item/smithing_cast/component/lens_frame
 	name = "lens frame cast"
 	icon_state = "lens_frame_cast"
 	desc = "A cast for creating lens frames."
 	product_type = /obj/item/smithed_item/component/lens_frame
+	basin_state = "cast_lens"
 
 /obj/item/smithing_cast/component/lens_focus
 	name = "lens focus cast"
 	icon_state = "lens_focus_cast"
 	desc = "A cast for creating lens foci."
 	product_type = /obj/item/smithed_item/component/lens_focus
+	basin_state = "cast_focus"
 
 /obj/item/smithing_cast/component/trim
 	name = "trim cast"
 	icon_state = "trim_cast"
 	desc = "A cast for creating trims."
 	product_type = /obj/item/smithed_item/component/trim
+	basin_state = "cast_trim"
 
 /obj/item/smithing_cast/misc
 	name = "misc cast"
@@ -176,3 +186,4 @@
 	icon_state = "egun_parts_cast"
 	desc = "A cast for creating energy gun frames."
 	selected_product = /obj/item/smithed_item/component/egun_parts
+	basin_state = "cast_egun_parts"

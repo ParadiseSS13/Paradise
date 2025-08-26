@@ -4,7 +4,7 @@ import time
 from dataclasses import dataclass
 from collections import namedtuple, defaultdict
 
-from avulto import DMM, DME, DMI, Dir, Path as p, paths, ProcDecl, TypeDecl
+from avulto import DME, Path as p, ProcDecl, TypeDecl
 from avulto.ast import NodeKind
 from avulto import exceptions
 
@@ -90,6 +90,8 @@ class AttackChainCallWalker:
 
     def visit_Var(self, node, source_info):
         self.local_vars[str(node.name)] = node.declared_type
+        if node.value:
+            self.visit_Expr(node.value, source_info)
 
     def visit_Expr(self, node, source_info):
         if node.kind == NodeKind.CALL:
@@ -228,6 +230,7 @@ if __name__ == "__main__":
                         ERROR_STRINGS.append(call.format_error())
 
     for legacy_proc_error in sorted(ERROR_STRINGS):
+        exit_code = 1
         print(legacy_proc_error)
 
     end = time.time()

@@ -9,14 +9,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "S" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 8;
-	height = 20;
-	id = "freegolem_space";
-	name = "The middle of space";
-	width = 16
-	},
+/obj/docking_port/stationary/golem/space,
 /turf/template_noop,
 /area/template_noop)
 
@@ -152,8 +145,8 @@ a
 a
 a
 a
-a
-a
+H
+x
 a
 "}
 (5,1,1) = {"
@@ -185,9 +178,9 @@ a
 a
 a
 a
-a
-a
-a
+H
+x
+x
 a
 "}
 (6,1,1) = {"
@@ -220,8 +213,8 @@ a
 a
 a
 a
-a
-a
+x
+H
 a
 "}
 (7,1,1) = {"
@@ -253,9 +246,9 @@ a
 a
 a
 a
-a
-a
-a
+x
+x
+x
 a
 "}
 (8,1,1) = {"
@@ -287,9 +280,9 @@ a
 a
 a
 a
-a
-a
-a
+x
+x
+x
 a
 "}
 (9,1,1) = {"
@@ -321,8 +314,8 @@ a
 a
 a
 a
-a
-a
+x
+x
 a
 a
 "}
@@ -920,11 +913,11 @@ a
 a
 a
 a
-H
-x
-x
-x
-x
+a
+a
+a
+a
+a
 a
 a
 a
@@ -953,12 +946,12 @@ a
 a
 a
 a
-H
-x
-x
-x
-x
-x
+a
+a
+a
+a
+a
+a
 a
 a
 a
@@ -988,10 +981,10 @@ a
 a
 a
 a
-x
-H
-x
-x
+a
+a
+a
+a
 a
 a
 a

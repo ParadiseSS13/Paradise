@@ -36,7 +36,7 @@
 	switch(action)
 		if("payroll_modification")
 			var/list/accounts_to_modify = list()
-			var/num_input = tgui_input_number(ui.user, "Enter an amount. If for more than 4 people, keep around +/-$100 for the love of god!", "Input Amount")
+			var/num_input = tgui_input_number(ui.user, "Enter an amount. If for more than 4 people, keep around +/-$100 for the love of god!", "Input Amount", min_value = -10000)
 			if(!num_input)
 				return
 

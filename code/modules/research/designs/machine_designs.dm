@@ -107,7 +107,6 @@
 	desc = "The circuit board for an Industrial Suit Storage Unit."
 	id = "issu"
 	req_tech = list("engineering" = 5, "materials" = 4)
-	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/suit_storage_unit/industrial
 	category = list("Engineering Machinery")
@@ -583,8 +582,8 @@
 	category = list ("Misc. Machinery")
 
 /datum/design/scientific_assembler
-	name = "Machine Design (Kinetic Assembler)"
-	desc = "The circuit board for a Kinetic Assembler."
+	name = "Machine Design (Scientific Assembler)"
+	desc = "The circuit board for a Scientific Assembler."
 	id = "scientific_assembler"
 	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
 	build_type = IMPRINTER
@@ -719,4 +718,35 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/autochef
+	category = list("Misc. Machinery")
+
+/datum/design/organ_analyzer
+	name = "Machine Design (Organ Analyzer)"
+	desc = "The circuit board for an organ analyzer."
+	id = "organ_analyzer"
+	req_tech = list("programming" = 3, "bluespace" = 3, "materials" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/organ_analyzer
+	category = list("Research Machinery")
+
+// Forensic Machines (DNA analyzer, microscope)
+/datum/design/dnaforensics
+	name = "Machine Design (DNA analyzer)"
+	desc = "DNA analyzer for forensic DNA analysis of objects."
+	id = "dnaforensics"
+	req_tech = list("programming" = 2, "combat" = 2, "magnets" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/dnaforensics
+	category = list("Misc. Machinery")
+
+/datum/design/microscope
+	name = "Machine Design (Forensic Microscope)"
+	desc = "Microscope capable of magnifying images 3000 times"
+	id = "microscope"
+	req_tech = list("programming" = 2, "combat" = 2, "magnets" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/microscope
 	category = list("Misc. Machinery")

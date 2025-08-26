@@ -23,7 +23,6 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	clothes_req = FALSE
 	stat_allowed = UNCONSCIOUS
 	invocation = ""
-	invocation_type = "none"
 	// no need to spam admins regarding boo casts
 	create_attack_logs = FALSE
 

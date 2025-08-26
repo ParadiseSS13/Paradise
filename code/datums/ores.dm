@@ -77,7 +77,6 @@
 
 /datum/ore/bluespace
 	drop_type = /obj/item/stack/ore/bluespace_crystal
-	drop_min = 1
 	drop_max = 1
 	scan_icon_state = "rock_BScrystal"
 
@@ -158,6 +157,7 @@
 		if(GIBTONITE_UNSTRUCK)
 			playsound(src,'sound/effects/hit_on_shattered_glass.ogg', 50, TRUE)
 			explosive_reaction(source, user, triggered_by_explosion)
+			SEND_SIGNAL(source, COMSIG_MINE_EXPOSE_GIBTONITE, user)
 			return MINERAL_PREVENT_DIG
 		if(GIBTONITE_ACTIVE)
 			detonate(source)

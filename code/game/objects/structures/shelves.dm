@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 /obj/structure/shelf/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
-	AddComponent(/datum/component/shelver/basic_shelf, random_pickup_locations_ = istype(A, /area/station/maintenance))
+	AddComponent(/datum/component/shelver/basic_shelf, random_pickup_locations_ = istype(A, /area/station/maintenance) || istype(A, /area/ruin/lavaland_relay))
 	update_icon()
 	set_style(shelf_style)
 
@@ -120,7 +120,6 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 /obj/structure/gunrack
 	name = "gun rack"
 	desc = "A rack for stowing firearms."
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "gunrack"
 	layer = TABLE_LAYER
 	density = TRUE

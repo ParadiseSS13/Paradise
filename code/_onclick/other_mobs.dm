@@ -67,6 +67,7 @@
 		return FALSE
 
 	resolve_unarmed_attack(target, modifiers)
+	return TRUE
 
 /mob/living/simple_animal/hostile/UnarmedAttack(atom/A)
 	target = A

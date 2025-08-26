@@ -96,10 +96,8 @@
 
 /area/shuttle/administration/centcom
 	name = "\improper Nanotrasen Vessel Centcom"
-	icon_state = "shuttlered"
 
 /area/shuttle/administration/station
-	name = "\improper Nanotrasen Vessel"
 	icon_state = "shuttlered2"
 
 // === Trying to remove these areas:

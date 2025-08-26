@@ -410,7 +410,7 @@
 
 /datum/cooking/recipe/jellybean_coffee
 	container_type = /obj/item/reagent_containers/cooking/mould/bean
-	product_type = /obj/item/food/candy/jellybean/cola
+	product_type = /obj/item/food/candy/jellybean/coffee
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
 		PCWJ_ADD_REAGENT("sugar", 5),
@@ -434,7 +434,7 @@
 
 /datum/cooking/recipe/jellybean_drgibb
 	container_type = /obj/item/reagent_containers/cooking/mould/bean
-	product_type = /obj/item/food/candy/jellybean/cola
+	product_type = /obj/item/food/candy/jellybean/drgibb
 	catalog_category = COOKBOOK_CATEGORY_CANDY
 	steps = list(
 		PCWJ_ADD_REAGENT("sugar", 5),
