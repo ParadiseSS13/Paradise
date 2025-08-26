@@ -40,6 +40,12 @@ By design, d1 is the smallest direction and d2 is the highest
 	/// The regional powernet this cable is registered to
 	var/datum/regional_powernet/powernet
 	var/strengthened = FALSE
+	/// Whether the cable has additional insulation to prevent shocking on contact
+	var/extra_insulated = FALSE
+
+/obj/structure/cable/extra_insulated
+	extra_insulated = TRUE
+	color = COLOR_ORANGE
 
 /obj/structure/cable/Initialize(mapload)
 	. = ..()
@@ -106,8 +112,20 @@ By design, d1 is the smallest direction and d2 is the highest
 		var/obj/item/toy/crayon/C = W
 		cable_color(C.dye_color)
 
+	else if(istype(W, /obj/item/stack/sheet/plastic))
+		if(extra_insulated)
+			to_chat(user, "<span class='warning'>The cable is already insulated</span>")
+			return
+		var/obj/item/stack/sheet/plastic/plastack = W
+		if(plastack.get_amount() < 1)
+			to_chat(user, "<span class='warning'>Not enough plastic!</span>")
+			return
+		to_chat(user, "<span class='info'>You add insulation to the cable</span>")
+		plastack.use(1)
+		extra_insulated = TRUE
+
 	else
-		if(W.flags & CONDUCT)
+		if(!extra_insulated && W.flags & CONDUCT)
 			shock(user, 50, 0.7)
 
 	add_fingerprint(user)
@@ -130,8 +148,11 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/examine(mob/user)
 	. = ..()
+	if(extra_insulated)
+		. += "<span class='notice'>It has additional insulation</span>"
 	if(isobserver(user))
 		. += generate_power_message()
+
 
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
