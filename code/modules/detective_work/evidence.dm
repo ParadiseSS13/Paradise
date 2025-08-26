@@ -136,7 +136,7 @@
 	desc = "Preserves fingerprints."
 	icon = 'icons/obj/card.dmi'
 	icon_state = "fingerprint0"
-	item_state = "paper"
+	inhand_icon_state = "paper"
 	/// boolean variable, indicates if print card is in the used state
 	var/used
 
