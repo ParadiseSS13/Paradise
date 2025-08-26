@@ -72,7 +72,7 @@
 		Open His Grace's latch once you are ready to kill by using It in your hand. Keep It fed or you will be Its next meal.<br> \
 		If your Homing Toolbox spell is not enough, you might want to raid the Armory or loot a Security Officer to get more ranged weapons like a disabler, His Grace's Hunger has little patience.<br><br> \
 		</i>Provides His Grace, an Ancient Jumpsuit, an Assistant ID, a Gas Mask, Warning Cone, Shoes, Insulated Gloves, a full Toolbelt, Ethereal Jaunt, Force Wall, Homing Toolbox, Knock and No Clothes.<i>"
-	items_path = list(/obj/item/his_grace, /obj/item/clothing/under/color/grey/glorf, /obj/item/clothing/mask/gas, /obj/item/clothing/head/cone /obj/item/clothing/shoes/black, \
+	items_path = list(/obj/item/his_grace, /obj/item/clothing/under/color/grey/glorf, /obj/item/clothing/mask/gas, /obj/item/clothing/head/cone, /obj/item/clothing/shoes/black, \
 		/obj/item/clothing/gloves/color/yellow, /obj/item/storage/belt/utility/full/multitool)
 	spells_path = list(/datum/spell/ethereal_jaunt, /datum/spell/forcewall, \
 		/datum/spell/aoe/knock, /datum/spell/noclothes, /datum/spell/fireball/toolbox)
