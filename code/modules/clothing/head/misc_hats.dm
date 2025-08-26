@@ -454,6 +454,7 @@
 	attack_verb = list("warned", "cautioned", "smashed")
 	resistance_flags = NONE
 	dog_fashion = /datum/dog_fashion/head/cone
+	magical = TRUE // It's pointy, it's funny!
 
 /obj/item/clothing/head/jester
 	name = "jester hat"
