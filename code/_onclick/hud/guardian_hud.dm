@@ -11,23 +11,23 @@
 	action_intent = using
 
 	using = new /atom/movable/screen/guardian/manifest()
-	using.screen_loc = ui_rhand
+	using.screen_loc = UI_RHAND
 	static_inventory += using
 
 	using = new /atom/movable/screen/guardian/recall()
-	using.screen_loc = ui_lhand
+	using.screen_loc = UI_LHAND
 	static_inventory += using
 
 	using = new /atom/movable/screen/guardian/toggle_mode()
-	using.screen_loc = ui_storage1
+	using.screen_loc = UI_STORAGE1
 	static_inventory += using
 
 	using = new /atom/movable/screen/guardian/toggle_light()
-	using.screen_loc = ui_inventory
+	using.screen_loc = UI_INVENTORY
 	static_inventory += using
 
 	using = new /atom/movable/screen/guardian/communicate()
-	using.screen_loc = ui_back
+	using.screen_loc = UI_BACK
 	static_inventory += using
 
 
