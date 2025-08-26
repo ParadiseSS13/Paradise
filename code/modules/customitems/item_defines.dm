@@ -1085,19 +1085,18 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shesicoat"
 	item_state = "shesicoat"
-	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/shesi
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/fluff/shesi
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
+	sprite_sheets = null
 
 /// MrSynnester : Shesi Skaklas
-/obj/item/clothing/head/hooded/hood/fluff/shesi
+/obj/item/clothing/head/hooded/winterhood/fluff/shesi
 	name = "custom made winter hood"
 	desc = "A custom made winter coat hood. Looks comfy."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shesicoat_hood2"
-	body_parts_covered = HEAD
-	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	sprite_sheets = null
 
 /// AffectedArc07: DTX
 /obj/item/clothing/suit/jacket/dtx
