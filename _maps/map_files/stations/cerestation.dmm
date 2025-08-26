@@ -42427,6 +42427,11 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/fore/west)
+"hBY" = (
+/obj/effect/spawner/random/dirt/often,
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/turbine)
 "hCq" = (
 /obj/machinery/camera{
 	c_tag = "Xenobiology Killroom";
@@ -151655,7 +151660,7 @@ oZU
 hxM
 dQQ
 ojN
-sSb
+hBY
 fdK
 cUW
 oHG
