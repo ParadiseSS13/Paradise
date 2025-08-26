@@ -417,7 +417,6 @@
 /obj/item/handheld_chem_dispenser
 	name = "handheld chem dispenser"
 	icon = 'icons/obj/chemical.dmi'
-	item_state = "handheld_chem"
 	icon_state = "handheld_chem"
 	flags = NOBLUDGEON
 	var/obj/item/stock_parts/cell/high/cell = null
@@ -597,7 +596,6 @@
 
 /obj/item/handheld_chem_dispenser/booze
 	name = "handheld bar tap"
-	item_state = "handheld_booze"
 	icon_state = "handheld_booze"
 	is_drink = TRUE
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila",
@@ -605,7 +603,6 @@
 
 /obj/item/handheld_chem_dispenser/soda
 	name = "handheld soda fountain"
-	item_state = "handheld_soda"
 	icon_state = "handheld_soda"
 	is_drink = TRUE
 	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",

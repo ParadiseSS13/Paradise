@@ -496,8 +496,8 @@
 		return
 	var/image/head_icon
 
-	if(silicon_hat.icon_override)
-		hat_icon_file = silicon_hat.icon_override
+	if(silicon_hat.worn_icon)
+		hat_icon_file = silicon_hat.worn_icon
 	if(!hat_icon_state)
 		hat_icon_state = silicon_hat.icon_state
 	if(isnull(hat_alpha))
@@ -599,6 +599,7 @@
 
 /mob/living/silicon/proc/null_hat()
 	silicon_hat = null
+	hat_icon_file = initial(hat_icon_file)
 	hat_icon_state = null
 	hat_alpha = null
 	hat_color = null
