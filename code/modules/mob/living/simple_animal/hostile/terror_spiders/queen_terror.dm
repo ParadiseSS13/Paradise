@@ -348,6 +348,9 @@
 	. += "<span class='notice'>[p_they(TRUE)] has laid [eggslaid] egg[eggslaid != 1 ? "s" : ""].</span>"
 	. += "<span class='notice'>[p_they(TRUE)] has lived for [MinutesAlive()] minutes.</span>"
 
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/event_cost()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 30, ASSIGNMENT_MEDICAL = 2)
 
 /obj/item/projectile/terrorqueenspit
 	name = "acid spit"

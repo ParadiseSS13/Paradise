@@ -2,8 +2,10 @@
 	name = "demon incursion"
 	/// Corresponds to the number of process() runs the event has lasted for. Roughly 2 minutes here.
 	announceWhen = 60
-	/// Corresponds to the number of process() runs the event has lasted for. Roughly 2 minutes here.
-	endWhen = 60
+	noAutoEnd = TRUE
+	role_weights = list(ASSIGNMENT_SECURITY = 4, ASSIGNMENT_CREW = 1, ASSIGNMENT_MEDICAL = 2)
+	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_CREW = 35, ASSIGNMENT_MEDICAL = 3)
+	nominal_severity = EVENT_LEVEL_MAJOR
 	/// The name of the notification for dchat
 	var/notify_title = "Demonic Incursion"
 	/// The icon of the notification
@@ -12,6 +14,17 @@
 	var/list/portal_list = list()
 	/// The target number of portals
 	var/target_portals = 100
+	/// Toggled when the first portal is spawned
+	var/spawned = FALSE
+
+
+/datum/event/demon_incursion/tick()
+	if(!length(portal_list) && spawned)
+		kill()
+
+// Costs are calculated independently of event
+/datum/event/demon_incursion/event_resource_cost()
+	return list()
 
 /datum/event/demon_incursion/setup()
 	impact_area = findEventArea()
@@ -55,6 +68,7 @@
 	if(length(portal_list) > target_portals)
 		target_portals *= 2
 		prepare_spawn_elite()
+	spawned = TRUE
 
 /datum/event/demon_incursion/proc/prepare_spawn_elite()
 	var/obj/structure/spawner/nether/demon_incursion/elite_portal = pick(portal_list)
@@ -148,6 +162,17 @@
 	if(turf_to_spread)
 		spread_turf()
 	SSticker.mode.incursion_portals += src
+	AddComponent(/datum/component/event_tracker, EVENT_DEMONIC)
+
+/obj/structure/spawner/nether/demon_incursion/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_SECURITY = 1, ASSIGNMENT_CREW = 5, ASSIGNMENT_MEDICAL = 1)
+
+/obj/structure/spawner/nether/demon_incursion/Destroy()
+	if(linked_incursion)
+		linked_incursion.portal_list -= src
+	. = ..()
 
 /obj/structure/spawner/nether/demon_incursion/examine(mob/user)
 	. = ..()
