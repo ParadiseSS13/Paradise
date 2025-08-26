@@ -434,7 +434,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		for(var/client/clients_to_alert in GLOB.clients)
 			window_flash(clients_to_alert)
 			if(clients_to_alert.prefs?.sound & SOUND_ADMINHELP)
-				SEND_SOUND(clients_to_alert, sound('sound/effects/adminhelp.ogg'))
+				SEND_SOUND(clients_to_alert, sound('sound/misc/server_alert.ogg'))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleooc()
@@ -933,7 +933,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		if(!frommob || !toitem) //make sure the mobs don't go away while we waited for a response
 			return TRUE
 
-		var/mob/living/simple_animal/possessed_object/tomob = new(toitem)
+		var/mob/living/basic/possessed_object/tomob = new(toitem)
 
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
@@ -1004,7 +1004,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 /proc/staff_countup(rank_mask = R_BAN)
 	var/list/result = list(0, 0, 0)
 	for(var/client/X in GLOB.admins)
-		if(rank_mask && !check_rights_for(X, rank_mask))
+		if(rank_mask && !check_rights_client(rank_mask, FALSE, X))
 			result[2]++
 			continue
 		if(X.holder.fakekey)

@@ -865,16 +865,16 @@
 						return
 					active_character.pda_ringtone = ringtone
 				if("clientfps")
-					var/version_message
-					if(user.client && user.client.byond_version < 511)
-						version_message = "\nYou need to be using byond version 511 or later to take advantage of this feature, your version of [user.client.byond_version] is too low"
-					if(world.byond_version < 511)
-						version_message += "\nThis server does not currently support client side fps. You can set now for when it does."
-					var/desiredfps = tgui_input_number(user, "Choose your desired fps.[version_message]\n(Min = synced with server tick rate)", "Character Preference", clientfps, 120, world.fps)
+					var/desiredfps = tgui_input_list(user, "Choose your desired fps. Listed variants work better than custom", "Character Preference", list("\[CUSTOM\]") + GLOB.client_fps_options, clientfps)
 					if(!isnull(desiredfps))
+						if(desiredfps == "\[CUSTOM\]")
+							desiredfps = tgui_input_number(user, "Set your desired fps. Remember that this value will be converted to one that server can actually work with!", "Character Preference", parent.fps, 1000, world.fps)
+							if(isnull(desiredfps)) // we closed the window
+								return
+							if(round(1000 / floor(1000 / desiredfps), 1) != desiredfps) // don't ask
+								desiredfps = floor(1000 / round(1000 / desiredfps, 1))
 						clientfps = desiredfps
-						if(world.byond_version >= 511 && user.client && user.client.byond_version >= 511)
-							parent.fps = clientfps
+						parent.fps = clientfps
 
 		else
 			switch(href_list["preference"])
@@ -915,7 +915,7 @@
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
 				if("ui")
-					var/new_UI_style = tgui_input_list(user, "Choose your UI style", "UI style", list("Midnight", "Plasmafire", "Retro", "Slimecore", "Operative", "White"))
+					var/new_UI_style = tgui_input_list(user, "Choose your UI style", "UI style", list("Midnight", "Plasmafire", "Retro", "Slimecore", "Operative", "White", "Clockwork"))
 					if(!new_UI_style)
 						return
 					switch(new_UI_style)
@@ -931,6 +931,8 @@
 							UI_style = "Operative"
 						if("White")
 							UI_style = "White"
+						if("Clockwork")
+							UI_style = "Clockwork"
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr

@@ -586,8 +586,8 @@
 		return
 	H.real_name = "[capitalize(pick(GLOB.first_names_soviet))] [capitalize(pick(GLOB.last_names_soviet))]"
 	H.name = H.real_name
-	H.add_language("Zvezhan")
-	H.set_default_language(GLOB.all_languages["Zvezhan"])
+	H.add_language("Cygni Standard")
+	H.set_default_language(GLOB.all_languages["Cygni Standard"])
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
@@ -886,7 +886,7 @@
 	. = ..()
 	if(visualsOnly)
 		return
-	H.add_language("Zvezhan")
+	H.add_language("Cygni Standard")
 
 /datum/outfit/admin/trader/unathi
 	name = "Glint-Scales Trader"

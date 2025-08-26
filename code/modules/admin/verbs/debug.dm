@@ -621,12 +621,14 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_admin("[key_name(usr)] changed the equipment of [key_name(M)] to [dresscode].")
 	message_admins("<span class='notice'>[key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode].</span>", 1)
 
-/client/proc/robust_dress_shop()
+/client/proc/robust_dress_shop(list/potential_minds)
 	var/list/special_outfits = list(
 		"Naked",
 		"As Job...",
 		"Custom..."
 	)
+	if(length(potential_minds))
+		special_outfits += "Recover destroyed body..."
 
 	var/list/outfits = list()
 	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job) - list(/datum/outfit/varedit, /datum/outfit/admin)
@@ -665,6 +667,9 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		dresscode = custom_names[selected_name]
 		if(isnull(dresscode))
 			return
+	
+	if(dresscode == "Recover destroyed body...")
+		dresscode = input("Select body to rebuild", "Robust quick dress shop") as null|anything in potential_minds
 
 	return dresscode
 
@@ -888,7 +893,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	set name = "Allow Browser Inspect"
 	set desc = "Allow browser debugging via inspect"
 
-	if(!check_rights(R_MAINTAINER) || !isclient(src))
+	if(!check_rights(R_DEBUG) || !isclient(src))
 		return
 
 	if(byond_version < 516)

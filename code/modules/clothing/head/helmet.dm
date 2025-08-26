@@ -19,6 +19,7 @@
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
+	permeability_coefficient = 0.4
 
 /obj/item/clothing/head/helmet/attack_self__legacy__attackchain(mob/user)
 	if(can_toggle && !user.incapacitated())
@@ -94,6 +95,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
 	dog_fashion = null
+	permeability_coefficient = 0.01
 
 /obj/item/clothing/head/helmet/riot/knight
 	name = "medieval helmet"
@@ -170,7 +172,7 @@
 
 /obj/item/clothing/head/helmet/roman/fake
 	desc = "A shoddily-crafted cosplay helmet made of plastic. Protects against jack and shit, if you're lucky."
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = null
 
 /obj/item/clothing/head/helmet/roman/legionaire
 	name = "centurion helmet"
@@ -180,7 +182,7 @@
 
 /obj/item/clothing/head/helmet/roman/legionaire/fake
 	desc = "A shoddily-crafted cosplay helmet made of plastic. This particular specimen has what appears to be the head of a broom crudely taped to the top."
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = null
 
 /obj/item/clothing/head/helmet/gladiator
 	name = "gladiator helmet"
@@ -266,6 +268,13 @@
 	icon_state = "durathread"
 	item_state = "durathread"
 	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 35, ACID = 50)
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/helmet.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi'
+	)
+
 
 /obj/item/clothing/head/helmet/street_judge
 	name = "judge's helmet"
@@ -285,7 +294,7 @@
 /obj/item/clothing/head/helmet/fake
 	name = "replica helmet"
 	desc = "A replica of a mass-produced protective helmet used by security personnel across the sector. Made of cheap plastic and provides no protection."
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = null
 	cold_protection = FALSE
 	heat_protection = FALSE
 

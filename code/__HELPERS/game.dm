@@ -151,7 +151,8 @@
 	for(var/depth in 1 to recursion_limit)
 		var/list/layer = next_layer
 		next_layer = list()
-		for(var/thing in layer)
+		for(var/atom/thing in layer)
+			next_layer += thing.contents
 			if(!ismob(thing))
 				continue
 			var/mob/this_mob = thing

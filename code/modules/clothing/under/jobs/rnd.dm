@@ -32,6 +32,12 @@
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_JUMPSKIRT
 
+/obj/item/clothing/under/rank/rnd/rd/turtleneck
+	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold research lobby. Due to budget cuts, the material does not offer any external protection."
+	icon_state = "rd_turtle"
+	item_state = "rd_turtle"
+	item_color = "rd_turtle"
+
 /obj/item/clothing/under/rank/rnd/scientist
 	name = "scientist's jumpsuit"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. It has markings that denote the wearer as a scientist."
@@ -68,7 +74,6 @@
 	item_state = "genetics"
 	item_color = "genetics"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/rnd/geneticist/skirt
 	name = "geneticist's jumpskirt"
