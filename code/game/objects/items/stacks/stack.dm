@@ -307,7 +307,7 @@
 	return to_transfer
 
 /obj/item/stack/proc/split(mob/user, amount)
-	var/obj/item/stack/material = new type(loc, amount)
+	var/obj/item/stack/material = new type(loc, amount, FALSE)
 	material.copy_evidences(src)
 	if(isliving(user))
 		add_fingerprint(user)

@@ -169,6 +169,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		G.fields["sex"]			= capitalize(H.gender)
 		G.fields["species"]		= H.dna.species.name
 		G.fields["ai_target"]	= "None" // for malf hud
+		G.fields["b_dna"]		= H.dna.unique_enzymes
 
 		// Do some ID card checking stuff here to save on resources
 		var/card_photo

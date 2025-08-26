@@ -380,7 +380,7 @@
 	desc = "A machine gun that fires 3D-printed flachettes slowly synthesized using your internal energy cell."
 	icon_state = "l6closed0"
 	icon = 'icons/obj/guns/projectile.dmi'
-	cell_type = /obj/item/stock_parts/cell/secborg
+	cell_type = /obj/item/stock_parts/cell/energy_gun/lmg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
 
@@ -624,7 +624,7 @@
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	cell_type = /obj/item/stock_parts/cell/bsg
+	cell_type = /obj/item/stock_parts/cell/energy_gun/bsg
 	shaded_charge = TRUE
 	can_fit_in_turrets = FALSE //Crystal would shatter, or someone would try to put an empty gun in the frame.
 	var/obj/item/assembly/signaler/anomaly/flux/core = null
@@ -1210,7 +1210,7 @@
 	origin_tech = "combat=5;magnets=4"
 	slot_flags = ITEM_SLOT_BACK
 	can_charge = FALSE
-	cell_type = /obj/item/stock_parts/cell/lever_gun
+	cell_type = /obj/item/stock_parts/cell/energy_gun/lever_action
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/lever_action)
 	shaded_charge = FALSE
 	var/cycle_time = 1 SECONDS

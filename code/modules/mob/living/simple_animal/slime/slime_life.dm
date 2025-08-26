@@ -446,6 +446,10 @@
 				phrases += "What happened?"
 			if(!slimes_near)
 				phrases += "Lonely..."
+			if(trained && prob(3))
+				phrases += "Treat? Have treat?"
+				phrases += "Can have treat?"
+				phrases += "Treat?..."
 			if(stat == CONSCIOUS)
 				say (pick(phrases))
 
