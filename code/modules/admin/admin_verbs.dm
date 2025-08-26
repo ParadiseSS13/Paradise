@@ -1019,9 +1019,7 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/confirm = alert("Are you sure you want to send the global message?", "Confirm Man Up Global", "Yes", "No")
-
-	if(confirm == "Yes")
+	if(tgui_alert("Are you sure you want to send the global message?", "Confirm Man Up Global", list("Yes", "No")) != "No")
 		var/manned_up_sound = sound('sound/voice/manup1.ogg')
 		for(var/sissy in GLOB.player_list)
 			to_chat(sissy, chat_box_notice_thick("<span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span>"))
@@ -1154,8 +1152,7 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 			return
 
 	var/display_turfs_overlay = FALSE
-	var/do_display_turf_overlay = tgui_alert(usr, "Would you like to have all interesting turfs have a client side overlay applied as well?", "Optional", list("Yep", "Nope"))
-	if(do_display_turf_overlay == "Yep")
+	if(tgui_alert(usr, "Would you like to have all interesting turfs have a client side overlay applied as well?", "Optional", list("Yes", "No")) != "No")
 		display_turfs_overlay = TRUE
 
 	message_admins("[key_name_admin(usr)] is visualizing interesting atmos turfs. Server may lag.")
@@ -1234,9 +1231,7 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 		return
 
 	var/datum/rnd_backup/B = SSresearch.backups[actual_target]
-	var/confirmation = alert("Are you sure you want to restore this RnD backup? The disk will spawn below your character.", "Are you sure?", "Yes", "No")
-
-	if(confirmation != "Yes")
+	if(tgui_alert("Are you sure you want to restore this RnD backup? The disk will spawn below your character.", "Are you sure?", list("Yes", "No")) != "Yes")
 		return
 
 	B.to_backup_disk(get_turf(usr))

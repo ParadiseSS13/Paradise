@@ -80,7 +80,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H)
 
-	H.mind.initial_account.payday_amount = standard_paycheck
+	H.mind.initial_account?.payday_amount = standard_paycheck
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	return

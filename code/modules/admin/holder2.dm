@@ -98,8 +98,8 @@ GLOBAL_PROTECT(href_token)
 	owner.update_active_keybindings()
 	if(rights & (R_DEBUG | R_VIEWRUNTIMES))
 		// Enable the buttons they should have.
-		winset(owner, "debugmcbutton", "is-disabled=true")
-		winset(owner, "profilecode", "is-disabled=true")
+		winset(owner, "debugmcbutton", "is-disabled=false")
+		winset(owner, "profilecode", "is-disabled=false")
 	GLOB.admins |= owner
 	GLOB.de_admins -= ckey
 	GLOB.de_mentors -= ckey
