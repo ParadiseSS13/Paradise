@@ -26,7 +26,23 @@
 
 /proc/get_open_turf_in_dir(atom/center, dir)
 	var/turf/T = get_ranged_target_turf(center, dir, 1)
-	if(T && !T.density)
+	if(T)
+		var/list/milla = new/list(MILLA_TILE_SIZE)
+		get_tile_atmos(T, milla)
+
+		var/checked_dir
+		switch(dir)
+			if(NORTH)
+				checked_dir = MILLA_NORTH
+			if(EAST)
+				checked_dir = MILLA_EAST
+			if(SOUTH)
+				checked_dir = MILLA_SOUTH
+			if(WEST)
+				checked_dir = MILLA_WEST
+
+		if(milla[MILLA_INDEX_AIRTIGHT_DIRECTIONS] & checked_dir)
+			return
 		return T
 
 /proc/get_adjacent_open_turfs(atom/center)
