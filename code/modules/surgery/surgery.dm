@@ -516,7 +516,7 @@
  * *
  */
 /datum/surgery_step/proc/get_step_information(datum/surgery/surgery, with_tools = FALSE)
-	if(!with_tools)
+	if(!with_tools || accept_any_item || accept_hand)
 		return name
 
 	var/list/tools = list()
