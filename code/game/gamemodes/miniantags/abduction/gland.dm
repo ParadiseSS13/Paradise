@@ -220,18 +220,31 @@
 	return A
 
 
-/// TODO : Replace with something more interesting
-/obj/item/organ/internal/heart/gland/emp
-	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"
-	cooldown_low = 800
-	cooldown_high = 1200
-	uses = 10
-	icon_state = "emp"
+/obj/item/organ/internal/heart/gland/teleport
+	origin_tech = "materials=4;biotech=4;bluespace=7;abductor=3"
+	cooldown_low = 1 MINUTES
+	cooldown_high = 1.5 MINUTES
+	uses = -1
+	icon_state = "teleporting"
 	mind_control_uses = 3
 
-/obj/item/organ/internal/heart/gland/emp/trigger()
-	to_chat(owner, "<span class='warning'>You feel a spike of pain in your head.</span>")
-	empulse(get_turf(owner), 2, 5, 1)
+/obj/item/organ/internal/heart/gland/teleport/trigger()
+	if(!is_teleport_allowed(owner.z)) // check if we can actually teleport on this z level before sending scary messages
+		to_chat(owner, "<span class='notice'>You feel like somethings off, but nothing happens?</span>")
+		return
+	if(prob(10))
+		to_chat(owner, "<span class='biggerdanger'>It feels like you are being torn apart atom by atom!</span>")
+		owner.emote("scream")
+		owner.SetKnockDown(2 SECONDS, TRUE) // even with antistuns, I want them to fall over. Mainly so it conveys how unpleasant it feels
+		sleep(2 SECONDS)
+		var/turf/possible_area
+		possible_area = find_safe_turf()
+		do_teleport(owner, pick(possible_area))
+		return
+	to_chat(owner, "<span class='warning'>You feel a horrible twisting and turning throughout your entire body.</span>")
+	owner.emote("scream")
+	sleep(1.5 SECONDS) // so they scream, and viewers hear the scream be cut off
+	do_teleport(owner, get_turf(owner), 10, safe_turf_pick = TRUE)
 
 /obj/item/organ/internal/heart/gland/spiderman
 	cooldown_low = 450
