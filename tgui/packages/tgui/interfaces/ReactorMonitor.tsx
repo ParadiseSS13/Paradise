@@ -60,16 +60,22 @@ export const ReactorMonitor = (props) => {
                 </LabeledList.Item>
                 <LabeledList.Item label="Power Generation">
                   <ProgressBar
-                    value={NGCR_power}
+                    value={NGCR_power >= 10000 ? NGCR_power : NGCR_power / 1000}
                     minValue={0}
                     maxValue={2000}
-                    ranges={{
-                      good: [200, Infinity],
-                      average: [100, 200],
-                      bad: [-Infinity, 100],
-                    }}
+                    ranges={
+                      NGCR_power >= 10000
+                        ? {
+                            good: [300, Infinity],
+                            average: [150, 300],
+                            bad: [-Infinity, 150],
+                          }
+                        : {
+                            good: [-Infinity, Infinity],
+                          }
+                    }
                   >
-                    {toFixed(NGCR_power) + ' KW'}
+                    {toFixed(NGCR_power) + (NGCR_power >= 10000 ? ' KW' : ' MW')}
                   </ProgressBar>
                 </LabeledList.Item>
                 <LabeledList.Item label="Reactivity Coefficient">

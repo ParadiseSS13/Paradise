@@ -17,6 +17,10 @@
 
 #define TOTAL_CONTROL_RODS 5
 
+#define HEAT_MODIFIER 1 // higher = more heat created
+
+#define REACTIVITY_RATIO 2000
+
 #warn Idea todo: Allow grilling on an active reactor
 #warn Idea todo: Allow CC to unlock for nuking station
 #warn Idea todo: Make some lavaland loot into special rods/upgrades
@@ -54,7 +58,7 @@
 	/// The user-controlled rods used to change how active the reactor is
 	var/control_rod_percentage = 0
 	/// A modifier for general reactivity, based off of heat production. Cant go below 1
-	var/temperature_mult = 1
+	var/reactivity_multiplier = 1
 	/// The current air contents of this device
 	var/datum/gas_mixture/air_contents
 	/// How many functional control rods does the reactor have?
@@ -256,9 +260,11 @@
 /obj/machinery/power/fission_reactor/process()
 	if(stat & BROKEN)
 		return
-	#warn make this based off power gen/reactivity later
-	var/light_power = clamp((operating_power / 10), 2, 10)
-	set_light(light_power, 3, REACTOR_LIGHT_COLOR)
+	if(!offline)
+		var/light_power = clamp((final_power / 100 KW), 2, 15)
+		set_light(light_power, 3, REACTOR_LIGHT_COLOR)
+	else
+		remove_light()
 
 	if(desired_power > operating_power)
 		operating_power++
@@ -282,22 +288,32 @@
 	final_power = 0
 	final_heat = 0
 
-	var/durability_loss = round(100 / ((95 / (1 + NUM_E ** (0.08 * (-operating_power + 60)))) + 10), 0.01) // lower operating power = more longer durability
+	// lower operating power = more durability
+	var/durability_loss = round(100 / ((95 / (1 + NUM_E ** (0.08 * (-operating_power + 60)))) + 10), 0.01)
 	for(var/obj/machinery/reactor_chamber/chamber in connected_chambers)
 		if(!chamber.held_rod)
 			continue
+		if(chamber.chamber_state == CHAMBER_OPEN)
+			continue
 		var/durability_mod = clamp(1.5 * (chamber.held_rod.durability / chamber.held_rod.max_durability) - 0.25, 0.25, 1)
-		final_power += chamber.power_total * durability_mod // we lose operational power slowly
+		if(chamber.chamber_state == CHAMBER_DOWN) // We generate heat but not power while its down.
+			final_power += chamber.power_total * durability_mod
 		final_heat += chamber.heat_total * durability_mod
 		chamber.held_rod.durability -= durability_loss
 
-	final_heat *= (operating_power / 100)
-	final_power *= (operating_power / 100)
+	final_heat *= ((operating_power / 100) * reactivity_multiplier)
+	final_power *= ((operating_power / 100) * reactivity_multiplier)
+
+	if(final_heat > 1000) // the hotter we get, the more reactive we get
+		reactivity_multiplier = 0.5 + (final_heat / REACTIVITY_RATIO)
 
 	if(!can_create_power)
 		return
 
 	produce_direct_power(final_power)
+	var/heat_capacity = air_contents.heat_capacity()
+	if(heat_capacity)
+		air_contents.set_temperature(max(air_contents.temperature() + (final_heat / heat_capacity), air_contents.temperature() + 5))
 
 
 /obj/machinery/power/fission_reactor/proc/shut_off()
@@ -494,7 +510,8 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/reactor_chamber/AltClick(mob/user, modifiers)
-	. = ..()
+	if(!Adjacent(user))
+		return
 	if(chamber_state == CHAMBER_UP)
 		open()
 		return
@@ -667,10 +684,10 @@
 	heat_total = held_rod.heat_amount
 
 	for(var/obj/machinery/reactor_chamber/chamber in neighbors)
-		if(!chamber.held_rod || chamber.chamber_state != CHAMBER_DOWN)
+		if(!chamber.held_rod || chamber.chamber_state == CHAMBER_OPEN)
 			continue
 		heat_total *= held_rod.heat_amp_mod  // we generate heat even when its not operational
-		if(operational)
+		if(operational && chamber.chamber_state != CHAMBER_DOWN)
 			power_total *= held_rod.power_amp_mod
 
 /obj/item/circuitboard/machine/reactor_chamber
@@ -913,7 +930,7 @@
 	data["NGCR_power"] = round(active.final_power / 1000, 1)
 	data["NGCR_ambienttemp"] = air.temperature()
 	data["NGCR_ambientpressure"] = air.return_pressure()
-	data["NGCR_coefficient"] = active.temperature_mult
+	data["NGCR_coefficient"] = active.reactivity_multiplier
 	data["NGCR_throttle"] = active.desired_power
 	data["NGCR_operatingpower"] = active.operating_power
 	var/list/gasdata = list()

@@ -33,17 +33,20 @@
 /obj/item/nuclear_rod/fuel/uranium_238
 	name = "Uranium 235 Fuel Rod"
 	desc = "A standard fuel rod for most NGCR reactors. Has just barely enough Uranium 235 to be useful."
-	heat_amount = 50
+	heat_amount = 5
 	power_amount = 15 KW
 	heat_amp_mod = 1.8
 	power_amp_mod = 1.1
 	durability = 6000
 	rad_type = BETA_RAD
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/moderator,
+		)
 
 /obj/item/nuclear_rod/fuel/weak_thorium
 	name = "Weak Thorium Fuel Rod"
 	desc = "A specialized fuel rod bred from uranium 238. This rod will last longer than normal, and wont generate as much heat."
-	heat_amount = 50
+	heat_amount = 5
 	power_amount = 15 KW
 	heat_amp_mod = 1.6
 	power_amp_mod = 1.1
@@ -74,7 +77,7 @@
 /obj/item/nuclear_rod/coolant/light_water
 	name = "Light Water Circulator"
 	desc = "A basic coolant rod that circulates distilled water through critical reactor components."
-	heat_amount = -20
+	heat_amount = -10
 	heat_amp_mod = 1
 	power_amount = -10 KW
 	durability = 6000
