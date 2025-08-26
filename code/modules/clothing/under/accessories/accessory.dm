@@ -349,7 +349,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi,'
 
 	)
 
