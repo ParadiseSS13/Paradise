@@ -77094,7 +77094,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "sKE" = (
-/obj/machinery/reactor_chamber,
+/obj/machinery/reactor_chamber/uranium,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -83190,8 +83190,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "vWF" = (
-/obj/machinery/reactor_chamber,
-/obj/machinery/reactor_chamber,
+/obj/machinery/reactor_chamber/heavy_water,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -116474,10 +116473,10 @@ ePY
 gpC
 rle
 koL
-sKE
-sKE
+vWF
+vWF
 qLY
-sKE
+vWF
 vWF
 ePY
 ePY
@@ -117502,11 +117501,11 @@ rkg
 ePY
 ePY
 koL
-sKE
+vWF
 vWF
 heQ
-sKE
-sKE
+vWF
+vWF
 ePY
 ePY
 ePY

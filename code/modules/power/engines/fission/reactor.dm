@@ -14,12 +14,10 @@
 #define CHAMBER_OPEN	 3
 
 #define REACTOR_LIGHT_COLOR "#569fff"
-
-#define TOTAL_CONTROL_RODS 5
-
-#define HEAT_MODIFIER 1 // higher = more heat created
-
-#define REACTIVITY_RATIO 2000
+#define TOTAL_CONTROL_RODS 5 // The max number of control rods
+#define AVERAGE_HEAT_THRESHOLD 10 // The threshold the average heat-per-rod must exceed to generate coefficient
+#define TOTAL_HEAT_THRESHOLD 600
+#define HEAT_CONVERSION_RATIO 200
 
 #warn Idea todo: Allow grilling on an active reactor
 #warn Idea todo: Allow CC to unlock for nuking station
@@ -105,7 +103,7 @@
 		list(1, MACH_CENTER, 1),
 	))
 	air_contents = new
-	air_contents.volume = 10000 // kpa
+	air_contents.volume = 1000 // kpa
 	if(primary_engine)
 		GLOB.main_fission_reactor = src
 	build_reactor_network()
@@ -260,11 +258,13 @@
 /obj/machinery/power/fission_reactor/process()
 	if(stat & BROKEN)
 		return
-	if(!offline)
-		var/light_power = clamp((final_power / 100 KW), 2, 15)
-		set_light(light_power, 3, REACTOR_LIGHT_COLOR)
+	if(!offline && !starting_up)
+		var/light_power = clamp((final_power / (100 KW)), 2, 15)
+		set_light(light_power, 4, REACTOR_LIGHT_COLOR)
 	else
 		remove_light()
+	if(!length(connected_chambers))
+		return
 
 	if(desired_power > operating_power)
 		operating_power++
@@ -301,19 +301,26 @@
 		final_heat += chamber.heat_total * durability_mod
 		chamber.held_rod.durability -= durability_loss
 
-	final_heat *= ((operating_power / 100) * reactivity_multiplier)
+	final_heat *= ((operating_power / 100) * (reactivity_multiplier * 2) * HEAT_MODIFIER) // proportionally affects heat more
 	final_power *= ((operating_power / 100) * reactivity_multiplier)
 
-	if(final_heat > 1000) // the hotter we get, the more reactive we get
-		reactivity_multiplier = 0.5 + (final_heat / REACTIVITY_RATIO)
+	var/temp = air_contents.temperature()
+	var/average_heatgen = final_heat / length(connected_chambers)
+	if(average_heatgen > AVERAGE_HEAT_THRESHOLD)
+		reactivity_multiplier = 1 + (average_heatgen - AVERAGE_HEAT_THRESHOLD / AVERAGE_HEAT_THRESHOLD)
+	else
+		reactivity_multiplier = 1
+	if(temp > TOTAL_HEAT_THRESHOLD)
+		reactivity_multiplier += (temp - TOTAL_HEAT_THRESHOLD) / HEAT_CONVERSION_RATIO // reactivity per 200*K over 600*K
+	reactivity_multiplier = min(reactivity_multiplier, 20)
 
 	if(!can_create_power)
 		return
 
 	produce_direct_power(final_power)
-	var/heat_capacity = air_contents.heat_capacity()
+	var/heat_capacity = air_contents.heat_capacity() * 300
 	if(heat_capacity)
-		air_contents.set_temperature(max(air_contents.temperature() + (final_heat / heat_capacity), air_contents.temperature() + 5))
+		air_contents.set_temperature(max(air_contents.temperature() + (final_heat / heat_capacity), air_contents.temperature() + 3))
 
 
 /obj/machinery/power/fission_reactor/proc/shut_off()
@@ -380,6 +387,20 @@
 	RefreshParts()
 	update_icon()
 	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/reactor_chamber/uranium
+
+/obj/machinery/reactor_chamber/uranium/Initialize(mapload)
+	. = ..()
+	held_rod = new /obj/item/nuclear_rod/fuel/uranium_238(src)
+
+/obj/machinery/reactor_chamber/heavy_water
+
+/obj/machinery/reactor_chamber/heavy_water/Initialize(mapload)
+	. = ..()
+	held_rod = new /obj/item/nuclear_rod/moderator/heavy_water(src)
+
+
 
 // needs to be late so it does not initialize before the reactor or the other neighbors
 /obj/machinery/reactor_chamber/LateInitialize()
@@ -533,10 +554,6 @@
 				if(user.transfer_item_to(used, src, force = TRUE))
 					held_rod = used
 					playsound(loc, 'sound/machines/podclose.ogg', 50, 1)
-					user.visible_message(
-						"<span class='notice'>[user] inserts [used] into [src].</span>",
-						"<span class='notice'>You insert [used] into [src].</span>"
-						)
 					update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/reactor_chamber/screwdriver_act(mob/living/user, obj/item/I)
@@ -925,9 +942,10 @@
 		return
 
 	var/datum/gas_mixture/air = active.air_contents
+	var/power_kilowatts = round((active.final_power / 1000), 1)
 
 	data["NGCR_integrity"] = active.get_integrity()
-	data["NGCR_power"] = round(active.final_power / 1000, 1)
+	data["NGCR_power"] = power_kilowatts
 	data["NGCR_ambienttemp"] = air.temperature()
 	data["NGCR_ambientpressure"] = air.return_pressure()
 	data["NGCR_coefficient"] = active.reactivity_multiplier
