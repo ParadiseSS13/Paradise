@@ -413,7 +413,7 @@
 		T.cell.give(power_sent)
 	if(ismachineperson(target))
 		var/mob/living/carbon/human/machine/T = target
-		T.adjust_nutrition(AI.adapter_efficiency * (power_sent / 10))
+		T.adjust_nutrition(clamp(AI.adapter_efficiency * (power_sent / 10), 0, (NUTRITION_LEVEL_FULL - T.nutrition)))
 
 	// Handles draining the SMES
 	for(var/obj/machinery/power/smes/power_source in A)
