@@ -22937,6 +22937,11 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/surgery/primary)
+"dpC" = (
+/obj/machinery/hologram/holopad,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "dpK" = (
 /obj/structure/sign/pods,
 /turf/simulated/wall,
@@ -23257,6 +23262,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/fore/east)
+"dsV" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkredcorners"
+	},
+/area/station/security/prison/cell_block/a)
 "dsY" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -30304,7 +30315,7 @@
 /obj/structure/bed/dogbed{
 	name = "Brain's bed"
 	},
-/mob/living/simple_animal/mouse/white/brain,
+/mob/living/basic/mouse/white/brain,
 /obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -68889,11 +68900,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/hallway/primary/central/west)
-"mZg" = (
-/obj/machinery/hologram/holopad,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/station/security/permabrig)
 "mZi" = (
 /obj/structure/disposalpipe/junction{
 	dir = 8
@@ -85056,8 +85062,10 @@
 /turf/simulated/floor/plating,
 /area/station/legal/lawoffice)
 "qCw" = (
+/obj/machinery/door_timer/cell_3{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkredcorners"
 	},
 /area/station/security/prison/cell_block/a)
@@ -91022,7 +91030,7 @@
 "rRO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/mouse/brown/tom,
+/mob/living/basic/mouse/brown/tom,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
@@ -100698,14 +100706,6 @@
 	dir = 8
 	},
 /area/station/hallway/secondary/exit)
-"tSL" = (
-/obj/machinery/door_timer/cell_3{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredcorners"
-	},
-/area/station/security/prison/cell_block/a)
 "tSZ" = (
 /obj/machinery/conveyor{
 	dir = 6;
@@ -140260,7 +140260,7 @@ exK
 exK
 idi
 aDy
-qCw
+dsV
 qNG
 rCc
 uzR
@@ -141031,7 +141031,7 @@ tYl
 kXl
 qqw
 uTG
-qCw
+dsV
 qNG
 rCc
 uLA
@@ -141545,7 +141545,7 @@ gVZ
 exK
 jML
 rNm
-tSL
+qCw
 xla
 vwg
 dOZ
@@ -142543,7 +142543,7 @@ cQc
 pWr
 rHj
 dqz
-mZg
+dpC
 rHj
 rHj
 rHj
@@ -142573,7 +142573,7 @@ aOI
 exK
 cmd
 hJQ
-qCw
+dsV
 fMx
 rCc
 xeU
@@ -143858,7 +143858,7 @@ aON
 wUX
 gKL
 ehi
-qCw
+dsV
 flk
 gzI
 exA
