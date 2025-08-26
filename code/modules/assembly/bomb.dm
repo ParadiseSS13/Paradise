@@ -1,7 +1,7 @@
 /obj/item/onetankbomb
 	name = "bomb"
 	icon = 'icons/obj/tank.dmi'
-	item_state = "assembly"
+	inhand_icon_state = "assembly"
 	throwforce = 5
 	throw_range = 4
 	flags = CONDUCT //Copied this from old code, so this may or may not be necessary

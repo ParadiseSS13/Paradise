@@ -2,7 +2,9 @@
 	name = "latex glove"
 	desc = "You wanted a fiery fist o' pain, but all you got was this dumb balloon."
 	icon_state = "latexballon"
-	item_state = "lgloves"
+	inhand_icon_state = "lgloves"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	cares_about_temperature = TRUE
@@ -17,7 +19,9 @@
 	if(icon_state == "latexballon_bursted")
 		return
 	icon_state = "latexballon_blow"
-	item_state = "latexballon"
+	inhand_icon_state = "latexballon"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	user.update_inv_r_hand()
 	user.update_inv_l_hand()
 	to_chat(user, "<span class='notice'>You blow up [src] with [tank].</span>")
@@ -28,7 +32,7 @@
 		return
 	playsound(src, 'sound/weapons/gunshots/gunshot.ogg', 100, 1)
 	icon_state = "latexballon_bursted"
-	item_state = "lgloves"
+	inhand_icon_state = null
 	if(isliving(loc))
 		var/mob/living/user = loc
 		user.update_inv_r_hand()

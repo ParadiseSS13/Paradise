@@ -11,7 +11,7 @@ Contents:
 	name = "ninja suit"
 	desc = "A unique, vacuum-proof suit of nano-enhanced armor designed specifically for Spider Clan assassins."
 	icon_state = "s-ninja"
-	item_state = "s-ninja_suit"
+	inhand_icon_state = "s-ninja_suit"
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/melee/baton, /obj/item/tank/internals, /obj/item/stock_parts/cell)
 	slowdown = 0
 	flags_inv = HIDEJUMPSUIT|HIDETAIL
@@ -64,7 +64,6 @@ Contents:
 
 		icon_state = (user.gender == MALE ? "s-ninjan" : "s-ninjanf")
 		suitGloves.icon_state = "s-ninjan"
-		suitGloves.item_state = "s-ninjan"
 
 		return 1
 
@@ -78,7 +77,6 @@ Contents:
 		suitShoes.slowdown = -1
 		icon_state = "s-ninja"
 		suitGloves.icon_state = "s-ninja"
-		suitGloves.item_state = "s-ninja"
 
 		suitHood = null
 		suitMask = null

@@ -1,32 +1,28 @@
 /obj/item/clothing/under/dress
 	icon = 'icons/obj/clothing/under/dress.dmi'
-
+	worn_icon = 'icons/mob/clothing/under/dress.dmi'
 	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/under/dress.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/dress.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/dress.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/dress.dmi'
-		)
+	)
 
 /obj/item/clothing/under/dress/victdress
 	name = "black victorian dress"
 	desc = "A victorian style dress, fancy!"
 	icon_state = "victorianblackdress"
-	item_state = "victorianblackdress"
 	item_color = "victorianblackdress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/dress/victdress/red
 	name = "red victorian dress"
 	icon_state = "victorianreddress"
-	item_state = "victorianreddress"
 	item_color = "victorianreddress"
 
 /obj/item/clothing/under/dress/blacktango
 	name = "black tango dress"
 	desc = "Filled with Latin fire."
 	icon_state = "black_tango"
-	item_state = "wcoat"
 	item_color = "black_tango"
 
 /obj/item/clothing/under/dress/blacktango/blue
@@ -142,21 +138,18 @@
 	name = "sailor dress"
 	desc = "Formal wear for a leading lady."
 	icon_state = "sailor_dress"
-	item_state = "sailordress"
 	item_color = "sailor_dress"
 
 /obj/item/clothing/under/dress/redeveninggown
 	name = "red evening gown"
 	desc = "Fancy dress for space bar singers."
 	icon_state = "red_evening_gown"
-	item_state = "redeveninggown"
 	item_color = "red_evening_gown"
 
 /obj/item/clothing/under/dress/schoolgirl
 	name = "schoolgirl uniform"
 	desc = "It's just like one of my Japanese animes!"
 	icon_state = "schoolgirl"
-	item_state = "schoolgirl"
 	item_color = "schoolgirl"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -164,13 +157,11 @@
 	name = "striped dress"
 	desc = "Fashion in space."
 	icon_state = "striped_dress"
-	item_state = "stripeddress"
 	item_color = "striped_dress"
 
 /obj/item/clothing/under/dress/sundress
 	name = "sundress"
 	desc = "Makes you want to frolic in a field of daisies."
 	icon_state = "sundress"
-	item_state = "sundress"
 	item_color = "sundress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
