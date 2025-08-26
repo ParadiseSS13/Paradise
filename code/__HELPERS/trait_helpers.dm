@@ -193,6 +193,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RSG_IMMUNE		"rsgimmune" //prevents RSG syringes from piercing your clothing
 #define TRAIT_DRASK_SUPERCOOL	"drask_supercool"
 
+/// trait determines if this mob can breed given by /datum/component/breeding
+#define TRAIT_MOB_BREEDER "mob_breeder"
+
 #define TRAIT_NO_BONES 			"no_bones"
 #define TRAIT_STURDY_LIMBS		"sturdy_limbs"
 #define TRAIT_BURN_WOUND_IMMUNE "burn_immune"
@@ -315,6 +318,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// A surgical tool; If a surgical tool has this flag it can be used as an alternative to an open hand in surgery
 #define TRAIT_SURGICAL_OPEN_HAND "surgical_hand_alternative"
+
+/// Surgical tools with this trait have their prob_success set to 100 (but is still able to fail from other factors)
+#define TRAIT_SURGICAL_CANNOT_FAIL	"surgical_cannot_fail"
 
 /// A wearable item that protects the covered areas from viral infection
 #define TRAIT_ANTI_VIRAL "anti_viral"

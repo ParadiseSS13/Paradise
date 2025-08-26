@@ -354,6 +354,11 @@
 	icon_opened = "o2crate_open"
 	icon_closed = "o2crate"
 
+/obj/structure/closet/crate/internals/nitrogen
+	icon_state = "n2crate"
+	icon_opened = "n2crate_open"
+	icon_closed = "n2crate"
+
 /obj/structure/closet/crate/trashcart
 	desc = "A heavy, metal trashcart with wheels."
 	name = "trash Cart"

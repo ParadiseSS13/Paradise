@@ -27,14 +27,16 @@
 	max_stages = 5
 	stage_prob = 5
 	spread_text = "Non-contagious"
-	spread_flags = SPREAD_NON_CONTAGIOUS
 	cure_text = "Pyrotech stabilizing agents"
 	agent = "Eruca Stomachum"
 	cures = list("stabilizing_agent")
 	viable_mobtypes = list(/mob/living/carbon/human)
-	desc = "A magic-infused disease that builds up VIRUS_DANGEROUSly high pressure bile within the stomach."
+	desc = "A magic-infused disease that builds up DANGEROUSLY high pressure bile within the stomach."
 	severity = VIRUS_DANGEROUS
 	virus_heal_resistant = TRUE
+
+/datum/disease/grut_gut/wizard_variant
+	spread_flags = SPREAD_NON_CONTAGIOUS
 
 /datum/disease/grut_gut/stage_act()
 	if(!..())
@@ -98,7 +100,6 @@
 	max_stages = 5
 	stage_prob = 5
 	spread_text = "Non-contagious"
-	spread_flags = SPREAD_NON_CONTAGIOUS
 	cure_text = "Acetaldehyde"
 	agent = "nasum magicum"
 	cures = list("acetaldehyde")
@@ -106,6 +107,9 @@
 	desc = "A magic-infused disease that replaces one's nose hairs with tiny wands. Avoid nasal irritants."
 	severity = VIRUS_DANGEROUS
 	virus_heal_resistant = TRUE
+
+/datum/disease/wand_rot/wizard_variant
+	spread_flags = SPREAD_NON_CONTAGIOUS
 
 /datum/disease/wand_rot/stage_act()
 	if(!..())
@@ -165,7 +169,7 @@
 	max_stages = 5
 	stage_prob = 5
 	spread_text = "Non-contagious"
-	spread_flags = SPREAD_NON_CONTAGIOUS
+	spread_flags = SPREAD_CONTACT_GENERAL
 	cure_text = "liquid dark matter"
 	agent = "Spatio Ventrem"
 	cures = list("liquid_dark_matter")
@@ -173,6 +177,9 @@
 	desc = "A magic-infused disease that resides in the gut, converting gastric juices into space-matter."
 	severity = VIRUS_DANGEROUS
 	virus_heal_resistant = TRUE
+
+/datum/disease/mystic_malaise/wizard_variant
+	spread_flags = SPREAD_NON_CONTAGIOUS
 
 /datum/disease/mystic_malaise/stage_act()
 	if(!..())

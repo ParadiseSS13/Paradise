@@ -41188,6 +41188,13 @@
 	icon_state = "darkgrey"
 	},
 /area/station/maintenance/aft)
+"gEr" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/station/engineering/atmos)
 "gEt" = (
 /obj/structure/table/glass,
 /obj/item/paper/crumpled,
@@ -50016,7 +50023,6 @@
 /turf/simulated/floor/plating,
 /area/station/service/cafeteria)
 "jLg" = (
-/obj/item/stock_parts/cell/crap,
 /obj/machinery/cell_charger,
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
@@ -50027,6 +50033,7 @@
 	pixel_x = 1;
 	pixel_y = 31
 	},
+/obj/item/stock_parts/cell,
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "jLr" = (
@@ -71803,13 +71810,6 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/medical/storage/secondary)
-"roR" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
-	},
-/area/station/engineering/atmos)
 "rpt" = (
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
@@ -132701,7 +132701,7 @@ uJI
 xBg
 xoS
 bYt
-roR
+gEr
 kcr
 jOr
 kuW

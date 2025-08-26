@@ -49,14 +49,14 @@
 
 	return INITIALIZE_HINT_NORMAL
 
-/turf/BeforeChange()
+/turf/space/BeforeChange()
 	..()
 	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
 	S.remove_from_transit(src)
 	if(light_sources) // Turn off starlight, if present
 		set_light(0)
 
-/turf/AfterChange(ignore_air, keep_cabling = FALSE)
+/turf/space/AfterChange(ignore_air, keep_cabling = FALSE)
 	..()
 	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
 	S.add_to_transit(src)
