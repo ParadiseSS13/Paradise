@@ -19,6 +19,7 @@
 	var/list/sprite_sheets_refit = null
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
+	var/icon_monitor = null //If set to a sprite path, replaces the sprite for monitor heads
 	var/alt_desc = null
 	var/flash_protect = FLASH_PROTECTION_NONE		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/tint = FLASH_PROTECTION_NONE				//Sets the item's level of visual impairment tint, normally set to the same as flash_protect

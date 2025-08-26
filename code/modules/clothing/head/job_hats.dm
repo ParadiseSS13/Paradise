@@ -86,6 +86,7 @@
 	icon_state = "chaplain_hood"
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
 //Chaplain
 /obj/item/clothing/head/hooded/nun_hood
@@ -94,6 +95,7 @@
 	icon_state = "nun_hood"
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
 //Chaplain
 /obj/item/clothing/head/hooded/monk_hood
@@ -102,6 +104,7 @@
 	icon_state = "monk_hood"
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
 /obj/item/clothing/head/witchhunter_hat
 	name = "witchhunter hat"
