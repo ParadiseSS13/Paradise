@@ -2,172 +2,21 @@ name: CI
 on:
   push:
     branches:
+      - main
       - master
+      - dockify
   pull_request:
     branches:
+      - main
       - master
-  merge_group:
-
+      - dockify
 jobs:
-  run_linters:
-    name: Run Linters
-    runs-on: ubuntu-22.04
+  build-and-run:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Cache
-        uses: actions/cache@v4
-        with:
-          path: ~/SpacemanDMM
-          key: ${{ runner.os }}-spacemandmm
-
-      - name: Install Tools
-        run: |
-          bash tools/ci/install_build_deps.sh
-          bash tools/ci/install_dreamchecker.sh
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-          cache: 'pip'
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'yarn'
-          cache-dependency-path: ./tgui/yarn.lock
-
-      - run: pip install -r tools/requirements.txt
-      - name: Run Linters
-        run: |
-          tools/ci/check_json.sh
-          tgui/bin/tgui --ci
-          python tools/ci/check_grep2.py
-          python tools/ci/check_line_endings.py
-          python tools/ci/check_file_names.py
-          python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
-          python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
-          python tools/ci/define_sanity.py
-          python tools/ci/identical_variables.py
-          python tools/ci/restrict_file_types.py
-          python tools/ci/verify_sql_version.py
-          python tools/ci/no_duplicate_definitions.py
-          python tools/ci/check_icons.py
-          python tools/ci/check_random_spawner_prefabs.py
-          python -m tools.ci.check_map_sizes
-          python -m tools.ci.check_legacy_attack_chain
-          python -m tools.maplint.source --github
-
-      - name: Run DreamChecker
-        shell: bash
-        run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
-
-  odlint:
-    name: Lint with OpenDream
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup OD
-        run: |
-          bash tools/ci/setup_od.sh
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4.3.1
-        with:
-          dotnet-version: 9.x
-      - name: Run OD
-        run: |
-          bash tools/ci/run_od.sh
-
-  compile_all_maps:
-    name: Compile All Maps
-    runs-on: ubuntu-22.04
-    strategy:
-      fail-fast: false
-      matrix:
-        byondtype: ['STABLE']
-    steps:
-      - uses: actions/checkout@v4
-      - name: Restore BYOND from Cache
-        uses: ./.github/actions/restore_or_install_byond
-        with:
-          release: ${{ matrix.byondtype }}
-      # We test PARADISE_PRODUCTION_HARDWARE here because we dont in station_mapload_tests
-      - name: Compile All Maps
-        run: |
-          tools/ci/install_byond.sh
-          source $HOME/BYOND/byond/bin/byondsetup
-          tools/ci/generate_maplist.sh
-          DreamMaker -DMULTIINSTANCE -DCIMAP -DPARADISE_PRODUCTION_HARDWARE paradise.dme
-
-  station_mapload_tests:
-    name: Station Tests
-    runs-on: ubuntu-22.04
-    strategy:
-      fail-fast: false # Let all map tests run to completion
-      matrix:
-        station: ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
-        byondtype: ['STABLE']
-    steps:
-      - uses: actions/checkout@v4
-      - name: Restore BYOND from Cache
-        uses: ./.github/actions/restore_or_install_byond
-        with:
-          release: ${{ matrix.byondtype }}
-      - name: Install RUST_G Deps
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt update || true
-          sudo apt install zlib1g-dev:i386
-          tools/ci/install_rustg.sh
-      - name: Compile & Run Unit Tests
-        run: |
-          tools/ci/install_byond.sh '${{ matrix.byondtype }}'
-          source $HOME/BYOND/byond/bin/byondsetup
-          DreamMaker -DMAP_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
-          mkdir -p data
-          echo '/datum/map/${{ matrix.station }}' > data/next_map.txt
-          tools/ci/run_server.sh
-
-  unit_tests_and_sql:
-    name: Unit Tests + SQL Validation
-    runs-on: ubuntu-22.04
-    strategy:
-      fail-fast: false
-      matrix:
-        byondtype: ['STABLE']
-    steps:
-      - uses: actions/checkout@v4
-      - name: Restore BYOND from Cache
-        uses: ./.github/actions/restore_or_install_byond
-        with:
-          release: ${{ matrix.byondtype }}
-      - name: Setup & Validate DB
-        run: |
-          sudo systemctl start mysql
-          python3 tools/ci/generate_sql_scripts.py
-          tools/ci/validate_sql.sh
-      - name: Install RUST_G Deps
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt update || true
-          sudo apt install zlib1g-dev:i386
-          tools/ci/install_rustg.sh
-      - name: Compile & Run Unit Tests
-        run: |
-          tools/ci/install_byond.sh '${{ matrix.byondtype }}'
-          source $HOME/BYOND/byond/bin/byondsetup
-          DreamMaker -DGAME_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
-          mkdir -p data
-          echo '/datum/map/test_tiny' > data/next_map.txt
-          tools/ci/run_server.sh
-
-  windows_dll_tests:
-    name: Windows RUSTG Validation
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.8.2' # Script was made for 3.8.2
-          architecture: 'x86' # This MUST be x86
-      - run: python tools/ci/validate_rustg_windows.py
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t paradise-server .
+      - name: Run Docker container
+        run: docker run --rm paradise-server

@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 node:slim AS tgui
+FROM node:slim AS tgui
 WORKDIR /tgui
 COPY /tgui /tgui
 RUN bin/tgui
@@ -31,7 +31,7 @@ RUN curl "http://www.byond.com/download/build/${TARGET_MAJOR}/${TARGET_MAJOR}.${
 RUN make here && \
 	echo "$TARGET_MAJOR.$TARGET_MINOR" > "version.txt"
 
-FROM --platform=linux/amd64 bitnami/dotnet
+FROM bitnami/dotnet
 WORKDIR /server
 COPY --from=dme /server /server
 COPY --from=tgui /tgui/public /server/tgui/public
