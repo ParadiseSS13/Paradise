@@ -311,11 +311,11 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(outgoing_call)
 		return
 
-	if(istype(ai_or_robot, /mob/living/silicon/robot))
+	if(isrobot(ai_or_robot))
 		interact(ai_or_robot)
 		return
 
-	if(istype(ai_or_robot, /mob/living/silicon/ai))
+	if(is_ai(ai_or_robot))
 		if(is_mecha_occupant(ai_or_robot)) // AIs must exit mechs before activating holopads.
 			return
 		var/mob/living/silicon/ai/ai = ai_or_robot
