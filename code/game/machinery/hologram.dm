@@ -315,17 +315,20 @@ GLOBAL_LIST_EMPTY(holopads)
 		interact(ai_or_robot)
 		return
 
-	if(is_ai(ai_or_robot))
-		if(is_mecha_occupant(ai_or_robot)) // AIs must exit mechs before activating holopads.
-			return
-		var/mob/living/silicon/ai/ai = ai_or_robot
+	if(!is_ai(ai_or_robot))
+		return
 
-		if(ai.eyeobj.loc != loc) // Set client eye on the object if it's not already.
-			ai.eyeobj.set_loc(get_turf(src))
-		else if(!LAZYLEN(masters) || !masters[ai]) // If there is no hologram, possibly make one.
-			activate_holo(ai, 1)
-		else // If there is a hologram, remove it.
-			clear_holo(ai)
+	if(is_mecha_occupant(ai_or_robot)) // AIs must exit mechs before activating holopads.
+		return
+
+	var/mob/living/silicon/ai/ai = ai_or_robot
+
+	if(ai.eyeobj.loc != loc) // Set client eye on the object if it's not already.
+		ai.eyeobj.set_loc(get_turf(src))
+	else if(!LAZYLEN(masters) || !masters[ai]) // If there is no hologram, possibly make one.
+		activate_holo(ai, 1)
+	else // If there is a hologram, remove it.
+		clear_holo(ai)
 
 /obj/machinery/hologram/holopad/process()
 	for(var/I in masters)
