@@ -50666,7 +50666,6 @@
 /turf/simulated/floor/plating,
 /area/station/service/cafeteria)
 "jLg" = (
-/obj/item/stock_parts/cell/crap,
 /obj/machinery/cell_charger,
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
@@ -50677,6 +50676,7 @@
 	pixel_x = 1;
 	pixel_y = 31
 	},
+/obj/item/stock_parts/cell,
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "jLr" = (
