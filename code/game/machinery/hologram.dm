@@ -326,7 +326,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(ai.eyeobj.loc != loc) // Set client eye on the object if it's not already.
 		ai.eyeobj.set_loc(get_turf(src))
 	else if(!LAZYLEN(masters) || !masters[ai]) // If there is no hologram, possibly make one.
-		activate_holo(ai, 1)
+		activate_holo(ai, TRUE)
 	else // If there is a hologram, remove it.
 		clear_holo(ai)
 
