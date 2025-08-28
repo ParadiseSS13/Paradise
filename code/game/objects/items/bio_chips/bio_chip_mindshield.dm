@@ -48,7 +48,6 @@
 	name = "syndishield bio-chip"
 	desc = "Stops Nanotrasen from messing with your mind."
 	origin_tech = "materials=2;biotech=4;programming=4;syndicate=3"
-	activated = BIOCHIP_ACTIVATED_PASSIVE
 	implant_data = /datum/implant_fluff/syndicate_shield
 	hud_icon_state = "hud_imp_syndiloyal"
 	cult_source = "twisted plans of the Syndicate"
