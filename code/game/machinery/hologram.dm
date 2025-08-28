@@ -314,15 +314,12 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(isrobot(ai_or_robot))
 		interact(ai_or_robot)
 		return
-
 	if(!is_ai(ai_or_robot))
 		return
-
 	if(is_mecha_occupant(ai_or_robot)) // AIs must exit mechs before activating holopads.
 		return
 
 	var/mob/living/silicon/ai/ai = ai_or_robot
-
 	if(ai.eyeobj.loc != loc) // Set client eye on the object if it's not already.
 		ai.eyeobj.set_loc(get_turf(src))
 	else if(!LAZYLEN(masters) || !masters[ai]) // If there is no hologram, possibly make one.
