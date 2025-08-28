@@ -514,14 +514,17 @@
 	name = "integrated cargo implant"
 	desc = "Everything you need to run the cargo bay, except a Forklift."
 	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4"
-	icon_state = "toolkit_engineering"
-	contents = newlist(/obj/item/stamp/granted,
-						/obj/item/stamp/denied,
-						/obj/item/hand_labeler,
-						/obj/item/rcs,
-						/obj/item/destTagger,
-						/obj/item/clipboard,
-						/obj/item/pen/multi)
+	icon_state = "toolkit_cargo"
+	contents = newlist(
+		/obj/item/stamp/granted,
+		/obj/item/stamp/denied,
+		/obj/item/hand_labeler,
+		/obj/item/rcs,
+		/obj/item/dest_tagger,
+		/obj/item/clipboard,
+		/obj/item/pen/multi,
+		/obj/item/mail_scanner
+	)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/stamp)
 
 /datum/action/item_action/organ_action/toggle/stamp
