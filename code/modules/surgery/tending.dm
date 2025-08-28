@@ -54,7 +54,7 @@
 		/obj/item/pen = 55
 	)
 
-	time = 2.5 SECONDS
+	time = 1.75 SECONDS
 	repeatable = TRUE
 
 	preop_sound = 'sound/surgery/retractor2.ogg'
