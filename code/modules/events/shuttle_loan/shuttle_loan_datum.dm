@@ -36,7 +36,7 @@
 		/datum/supply_packs/science/robotics,
 		/datum/supply_packs/science/plasma,
 		/datum/supply_packs/medical/supplies
-		)
+	)
 	for(var/datum/supply_packs/crate in crate_types)
 		var/datum/supply_packs/new_crate = new crate()
 		new_crate.create_package(pick_n_take(empty_shuttle_turfs))
@@ -166,7 +166,7 @@
 		/datum/supply_packs/materials/metal50,
 		/datum/supply_packs/materials/glass50,
 		/datum/supply_packs/materials/sandstone30,
-		)
+	)
 	for(var/datum/supply_packs/crate in crate_types)
 		var/datum/supply_packs/new_crate = new crate()
 		new_crate.create_package(pick_n_take(empty_shuttle_turfs))
