@@ -107,7 +107,7 @@
 
 /obj/structure/reagent_dispensers/fueltank
 	name = "fuel tank"
-	desc = "A tank full of industrial welding fuel, and covered in warning signage. Exposing it to flame is ill-advised."
+	desc = "A tank full of industrial welding fuel, and covered in warning signage. Exposing it to flame is ill-advised. The \"Do not consume\" label has been scratched out."
 	icon_state = "fuel"
 	reagent_id = "fuel"
 	tank_volume = 4000
