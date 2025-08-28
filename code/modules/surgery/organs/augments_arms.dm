@@ -519,7 +519,6 @@
 		/obj/item/stamp/granted,
 		/obj/item/stamp/denied,
 		/obj/item/hand_labeler,
-		/obj/item/rcs,
 		/obj/item/dest_tagger,
 		/obj/item/clipboard,
 		/obj/item/pen/multi,
