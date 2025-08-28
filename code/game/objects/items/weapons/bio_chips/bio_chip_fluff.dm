@@ -100,6 +100,12 @@
 	notes = "An advanced neural shielding chip, the Type 3 Mindshield uses low-frequency radio pulses and defensive nanites to ensure the mental safety of Nanotrasen officers and security personnel."
 	function = "Personnel injected with this device can better resist mental compulsions such as brainwashing and mindslaving. The hardened shell prevents damage or interference from EMPs."
 
+/datum/implant_fluff/syndicate_shield
+	name = "Syndicate Mindshield Bio-chip"
+	life = "Unknown duration."
+	notes = "A syndicate reverse-engineered Nanotrasen generation 2 mindshield, expected to increase loyalty to the syndicate."
+	function = "Personnel are injected with this device to show their loyalty to the syndicate."
+
 /datum/implant_fluff/storage
 	name = "Cybersun Industries RX-16 Collapsible Body Cavity Bio-chip"
 	notes = "This bio-chip uses bluespace technology to store items inside the user's body."
