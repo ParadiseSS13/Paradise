@@ -103,8 +103,8 @@
 /datum/implant_fluff/syndicate_shield
 	name = "Syndicate Mindshield Bio-chip"
 	life = "Unknown duration."
-	notes = "A Syndicate-produced copy of the Nanotrasen Type 2 Mindshield. Unlike its progenitor, this chip is fully capable of interfering with the user's decision-making process."
-	function = "Personnel injected with this device can better resist mental compulsions such as brainwashing and mindslaving. Additionally, the nanites serve a secondary function of altering the user's neural pathways to promote pro-Syndicate lines of thought."
+	notes = "A Syndicate-produced copy of the Nanotrasen Type 2 Mindshield. Unlike its progenitor, this chip is suspected to be capable of interfering with the user's decision-making process."
+	function = "Personnel injected with this device can better resist mental compulsions such as brainwashing and mindslaving. It is theorized that the nanites serve a secondary function of altering the user's neural pathways to promote pro-Syndicate lines of thought."
 
 /datum/implant_fluff/storage
 	name = "Cybersun Industries RX-16 Collapsible Body Cavity Bio-chip"
