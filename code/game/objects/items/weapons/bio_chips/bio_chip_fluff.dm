@@ -104,7 +104,7 @@
 	name = "Syndicate Mindshield Bio-chip"
 	life = "Unknown duration."
 	notes = "A syndicate reverse-engineered Nanotrasen generation 2 mindshield, expected to increase loyalty to the syndicate."
-	function = "Personnel are injected with this device to show their loyalty to the syndicate."
+	function = "Personnel injected with this device can better resist mental compulsions such as brainwashing and mindslaving. Additionally, the nanites serve a secondary function of altering the user's neural pathways to promote pro-Syndicate lines of thought."
 
 /datum/implant_fluff/storage
 	name = "Cybersun Industries RX-16 Collapsible Body Cavity Bio-chip"
