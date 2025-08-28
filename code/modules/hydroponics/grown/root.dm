@@ -31,7 +31,7 @@
 
 /obj/item/food/grown/carrot/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!used.sharp)
-		return NONE
+		return ..()
 
 	to_chat(user, "<span class='notice'>You sharpen [src] into a shiv with [used].</span>")
 	var/obj/item/kitchen/knife/shiv/carrot/shiv = new ()

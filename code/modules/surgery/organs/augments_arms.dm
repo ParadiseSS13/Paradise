@@ -309,7 +309,7 @@
 	desc = "An integrated projector mounted onto a user's arm, that is able to be used as a powerful flash."
 	contents = newlist(/obj/item/flash/armimplant)
 	origin_tech = "materials=4;combat=3;biotech=4;magnets=4;powerstorage=3"
-	actions_types = list(/datum/action/item_action/organ_action/toggle/medibeam)
+	actions_types = list(/datum/action/item_action/organ_action/toggle/flash)
 
 /obj/item/organ/internal/cyberimp/arm/flash/New()
 	..()

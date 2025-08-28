@@ -37,7 +37,7 @@
 
 /obj/item/food/grown/potato/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!used.sharp)
-		return NONE
+		return ..()
 
 	to_chat(user, "<span class='notice'>You cut the potato into wedges with [used].</span>")
 	var/obj/item/food/grown/potato/wedges/W = new /obj/item/food/grown/potato/wedges

@@ -35,13 +35,13 @@
 	weaken_time = weaken_time SECONDS
 	knockdown_time = tgui_input_number(user, "How long to knockdown (in seconds)?", "Knockdown Time", 12)
 	knockdown_time = knockdown_time SECONDS
-	ignore_gravity = tgui_alert(user, "Ignore gravity?", "Ignore gravity", "Yes", "No") == "Yes"
-	should_rotate = tgui_alert(user, "Should it rotate on falling?", "Should rotate", "Yes", "No") == "Yes"
+	ignore_gravity = tgui_alert(user, "Ignore gravity?", "Ignore gravity", list("Yes", "No")) == "Yes"
+	should_rotate = tgui_alert(user, "Should it rotate on falling?", "Should rotate", list("Yes", "No")) == "Yes"
 	if(should_rotate)
 		rotation_angle = tgui_input_number(user, "Which angle to rotate at? (if empty, defaults to 90 degrees in either direction)", "Rotation angle", 0)
-		rightable = tgui_alert(user, "Should it be rightable with alt-click?", "Rightable", "Yes", "No") == "Yes"
+		rightable = tgui_alert(user, "Should it be rightable with alt-click?", "Rightable", list("Yes", "No")) == "Yes"
 		if(rightable)
-			block_interactions_until_righted = tgui_alert(user, "Should it block interactions until righted (by alt-clicking)?", "Block interactions", "Yes", "No") == "Yes"
+			block_interactions_until_righted = tgui_alert(user, "Should it block interactions until righted (by alt-clicking)?", "Block interactions", list("Yes", "No")) == "Yes"
 
 /datum/buildmode_mode/tilting/handle_click(mob/user, params, atom/movable/object)
 	var/list/pa = params2list(params)

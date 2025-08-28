@@ -375,7 +375,7 @@
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_INTERRUPTED
 
-	if(HAS_TRAIT(tool, TRAIT_SURGICAL_CANNOT_FAIL))
+	if(tool && HAS_TRAIT(tool, TRAIT_SURGICAL_CANNOT_FAIL))
 		prob_success = 100 // going to snowflake this in otherwise dissections fail repeatedtly with "proper" tools.
 
 	var/chem_check_result = chem_check(target)
