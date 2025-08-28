@@ -145,8 +145,7 @@
 /turf/template_noop,
 /area/template_noop)
 "hz" = (
-/obj/machinery/computer/nonfunctional,
-/obj/item/paper/white_ship_telepad,
+/obj/machinery/computer/loreconsole/whiteship,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1

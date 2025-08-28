@@ -78,8 +78,6 @@
 	if(H.health < HEALTH_THRESHOLD_CRIT)
 		return FALSE
 
-	var/gas_breathed = 0
-
 	//Partial pressures in our breath
 	var/O2_pp = breath.get_breath_partial_pressure(breath.oxygen())
 	var/N2_pp = breath.get_breath_partial_pressure(breath.nitrogen())
@@ -102,17 +100,15 @@
 	//Too little oxygen!
 	if(safe_oxygen_min)
 		if(O2_pp < safe_oxygen_min)
-			gas_breathed = handle_too_little_breath(H, O2_pp, safe_oxygen_min, breath.oxygen())
+			handle_too_little_breath(H, O2_pp, safe_oxygen_min, breath.oxygen())
 			H.throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
-			gas_breathed = breath.oxygen()
 			H.clear_alert("not_enough_oxy")
 
-	//Exhale
-	breath.set_oxygen(breath.oxygen() - gas_breathed)
-	breath.set_carbon_dioxide(breath.carbon_dioxide() + gas_breathed)
-	gas_breathed = 0
+		// Exhale
+		breath.set_carbon_dioxide(breath.carbon_dioxide() + breath.oxygen())
+		breath.set_oxygen(0)
 
 	//-- Nitrogen --//
 
@@ -128,17 +124,15 @@
 	//Too little nitrogen!
 	if(safe_nitro_min)
 		if(N2_pp < safe_nitro_min)
-			gas_breathed = handle_too_little_breath(H, N2_pp, safe_nitro_min, breath.nitrogen())
+			handle_too_little_breath(H, N2_pp, safe_nitro_min, breath.nitrogen())
 			H.throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
-			gas_breathed = breath.nitrogen()
 			H.clear_alert("not_enough_nitro")
 
-	//Exhale
-	breath.set_nitrogen(breath.nitrogen() - gas_breathed)
-	breath.set_carbon_dioxide(breath.carbon_dioxide() + gas_breathed)
-	gas_breathed = 0
+		// Exhale
+		breath.set_carbon_dioxide(breath.carbon_dioxide() + breath.nitrogen())
+		breath.set_nitrogen(0)
 
 	//-- CO2 --//
 
@@ -163,17 +157,15 @@
 	//Too little CO2!
 	if(safe_co2_min)
 		if(CO2_pp < safe_co2_min)
-			gas_breathed = handle_too_little_breath(H, CO2_pp, safe_co2_min, breath.carbon_dioxide())
+			handle_too_little_breath(H, CO2_pp, safe_co2_min, breath.carbon_dioxide())
 			H.throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
-			gas_breathed = breath.carbon_dioxide()
 			H.clear_alert("not_enough_co2")
 
-	//Exhale
-	breath.set_carbon_dioxide(breath.carbon_dioxide() - gas_breathed)
-	breath.set_oxygen(breath.oxygen() + gas_breathed)
-	gas_breathed = 0
+		// Exhale
+		breath.set_oxygen(breath.oxygen() + breath.carbon_dioxide())
+		breath.set_carbon_dioxide(0)
 
 
 	//-- TOX --//
@@ -191,17 +183,15 @@
 	//Too little toxins!
 	if(safe_toxins_min)
 		if(Toxins_pp < safe_toxins_min)
-			gas_breathed = handle_too_little_breath(H, Toxins_pp, safe_toxins_min, breath.toxins())
+			handle_too_little_breath(H, Toxins_pp, safe_toxins_min, breath.toxins())
 			H.throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
-			gas_breathed = breath.toxins()
 			H.clear_alert("not_enough_tox")
 
-	//Exhale
-	breath.set_toxins(breath.toxins() - gas_breathed)
-	breath.set_carbon_dioxide(breath.carbon_dioxide() + gas_breathed)
-	gas_breathed = 0
+		// Exhale
+		breath.set_carbon_dioxide(breath.carbon_dioxide() + breath.toxins())
+		breath.set_toxins(0)
 
 
 	//-- TRACES --//
@@ -220,19 +210,16 @@
 	return TRUE
 
 
-/datum/organ/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)
+/datum/organ/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, breath_moles = 0)
 	. = 0
 	if(!H || !safe_breath_min) //the other args are either: Ok being 0 or Specifically handled.
 		return FALSE
 
 	if(prob(20))
 		H.emote("gasp")
-	if(breath_pp > 0)
-		var/ratio = safe_breath_min/breath_pp
-		H.adjustOxyLoss(min(5*ratio, HUMAN_MAX_OXYLOSS)) // Don't fuck them up too fast (space only does HUMAN_MAX_OXYLOSS after all!
-		. = true_pp*ratio/6
-	else
-		H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
+	var/available_ratio = clamp(breath_pp / safe_breath_min, 0, 1)
+	// Take oxyloss damage scaled to the amount of missing air.
+	H.adjustOxyLoss((1 - available_ratio) * HUMAN_MAX_OXYLOSS)
 
 
 /datum/organ/lungs/proc/handle_breath_temperature(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures
