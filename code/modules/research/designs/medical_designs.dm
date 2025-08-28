@@ -387,7 +387,7 @@
 	name = "Cargo Arm Implant"
 	desc = "A set of everything a cargo technician needs to have to do their job, besides a forklift. Designed to be installed on subject's arm."
 	id = "ci-cargo"
-	req_tech = list("materials" = 3, "engineering" = 4, "biotech" = 4,)
+	req_tech = list("materials" = 3, "engineering" = 4, "biotech" = 4)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
 	construction_time = 200
