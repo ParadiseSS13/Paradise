@@ -116,12 +116,8 @@
 	var/outer_msg = "[user] succeeds in fixing some of [target]'s [damage_name_pretty]"
 	var/self_msg = "You successfully manage to patch up some of [target]'s [damage_name_pretty]"
 
-	if(target.stat == DEAD)
-		brute_healed += round((target.getBruteLoss() * (brute_damage_healmod * 0.2)), 0.1)
-		burn_healed += round((target.getFireLoss() * (burn_damage_healmod * 0.2)), 0.1)
-	else
-		brute_healed += round((target.getBruteLoss() * brute_damage_healmod), 0.1)
-		burn_healed += round((target.getFireLoss() * burn_damage_healmod), 0.1)
+	brute_healed += round((sqrt(target.getBruteLoss()) * brute_damage_healmod), 0.1)
+	burn_healed += round((sqrt(target.getFireLoss()) * burn_damage_healmod), 0.1)
 
 	if(!get_location_accessible(target, target_zone))
 		brute_healed *= 0.55
@@ -142,6 +138,7 @@
 
 		COOLDOWN_START(src, success_message_spam_cooldown, 10 SECONDS)
 
+	// retry ad nauseum; can_repeat should handle anything else.
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/heal/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -153,8 +150,8 @@
 	var/burn_dealt = burn_damage_healed * 0.8
 	var/brute_dealt = brute_damage_healed * 0.8
 
-	brute_dealt += round((target.getBruteLoss() * (brute_damage_healmod * 0.5)), 0.1)
-	burn_dealt += round((target.getFireLoss() * (burn_damage_healmod * 0.5)), 0.1)
+	brute_dealt += round((sqrt(target.getBruteLoss()) * (brute_damage_healmod * 0.5)), 0.1)
+	burn_dealt += round((sqrt(target.getFireLoss()) * (burn_damage_healmod * 0.5)), 0.1)
 
 	target.take_overall_damage(brute_dealt, burn_dealt)
 
@@ -185,8 +182,7 @@
 	if(!brute_healed)
 		return
 
-	var/heal_per_step = brute_damage_healed + round((target.getBruteLoss() * brute_damage_healmod), 0.1)
-	var/estimated_remaining_steps = target.getBruteLoss() / heal_per_step
+	var/estimated_remaining_steps = target.getBruteLoss() / brute_healed
 	var/progress_text
 
 	if(locate(/obj/item/healthanalyzer) in list(user.l_hand, user.r_hand))
@@ -220,8 +216,7 @@
 /datum/surgery_step/heal/burn/get_progress(mob/living/user, mob/living/carbon/target, brute_healed, burn_healed)
 	if(!burn_healed)
 		return
-	var/heal_per_step = burn_damage_healed + round((target.getFireLoss() * burn_damage_healmod), 0.1)
-	var/estimated_remaining_steps = target.getFireLoss() / heal_per_step
+	var/estimated_remaining_steps = target.getFireLoss() / burn_healed
 	var/progress_text
 
 	if(locate(/obj/item/healthanalyzer) in list(user.l_hand, user.r_hand))
