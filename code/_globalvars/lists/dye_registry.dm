@@ -158,7 +158,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CENTCOM = /obj/item/bedsheet/centcom
 	),
 	DYE_REGISTRY_BOMBER = list(
-		DYE_RED = /obj/item/clothing/suit/jacket/bomber/sec
+		DYE_RED = /obj/item/clothing/suit/jacket/bomber/sec,
 		DYE_ORANGE = /obj/item/clothing/suit/jacket/bomber/chem,
 		DYE_YELLOW = /obj/item/clothing/suit/jacket/bomber/engi,
 		DYE_GREEN = /obj/item/clothing/suit/jacket/bomber/hydro,

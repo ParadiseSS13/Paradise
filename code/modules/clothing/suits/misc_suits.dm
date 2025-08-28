@@ -1023,6 +1023,8 @@
 	icon_state = "bomber"
 	item_state = "bomber"
 	icon_override = 'icons/mob/clothing/suits/coat.dmi'
+	dyeing_key = DYE_REGISTRY_BOMBER
+	dyeable = TRUE
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 	actions_types = list(/datum/action/item_action/zipper)
 
