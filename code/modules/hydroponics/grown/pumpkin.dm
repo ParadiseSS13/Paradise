@@ -30,7 +30,7 @@
 
 /obj/item/food/grown/pumpkin/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(!used.sharp)
-		return NONE
+		return ..()
 
 	to_chat(user, "<span class='notice'>You carve a face into [src] with [used].</span>")
 	new carved_type(user.loc)

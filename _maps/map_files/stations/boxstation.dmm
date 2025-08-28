@@ -22825,11 +22825,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
@@ -57062,10 +57057,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/medical/virology)
-"inB" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/hardsuitstorage)
 "inP" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -67883,6 +67874,18 @@
 	icon_state = "dark"
 	},
 /area/station/science/robotics/chargebay)
+"nCm" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/sign/radiation/rad_area{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/storage)
 "nCs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -75461,6 +75464,10 @@
 	icon_state = "darkbluefull"
 	},
 /area/station/command/office/cmo)
+"rbb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/hardsuitstorage)
 "rbY" = (
 /obj/structure/sign/explosives,
 /turf/simulated/wall/indestructible/riveted,
@@ -80579,29 +80586,6 @@
 	icon_state = "dark"
 	},
 /area/station/science/server)
-"tIE" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/smes)
 "tIY" = (
 /obj/effect/spawner/airlock/w_to_e/long/square,
 /turf/simulated/wall,
@@ -82054,6 +82038,29 @@
 	icon_state = "browncorner"
 	},
 /area/station/supply/smith_office)
+"ury" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/smes)
 "urD" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "2-4"
@@ -83195,18 +83202,6 @@
 	icon_state = "hydrofloor"
 	},
 /area/station/maintenance/asmaint)
-"uXE" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/sign/radiation/rad_area{
-	pixel_x = -32
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/storage)
 "uYm" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -116773,7 +116768,7 @@ rgM
 dsK
 uVt
 cSl
-inB
+rbb
 tvG
 uVt
 cXJ
@@ -121402,7 +121397,7 @@ cSY
 cUs
 tOJ
 dac
-tIE
+ury
 uZx
 hZl
 cOi
@@ -122180,7 +122175,7 @@ cQH
 cZF
 dby
 dcn
-uXE
+nCm
 rLa
 hXP
 mhG

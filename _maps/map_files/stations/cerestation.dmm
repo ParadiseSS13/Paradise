@@ -103803,6 +103803,24 @@
 	icon_state = "redcorner"
 	},
 /area/station/security/lobby)
+"uHY" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/effect/spawner/random/dirt/often,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/effect/spawner/random/dirt/often,
+/obj/machinery/firealarm/directional/north,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/turbine)
 "uHZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -150859,7 +150877,7 @@ oZU
 hxM
 iGM
 ojN
-hMf
+uHY
 fdK
 cUW
 oHG
