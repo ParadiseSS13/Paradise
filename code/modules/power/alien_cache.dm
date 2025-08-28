@@ -11,6 +11,7 @@
 	pixel_x = -32
 	pixel_y = -32
 	density = TRUE
+	anchored = TRUE
 	// Alien stuff is pretty tough
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// The maximum reachable level
@@ -120,7 +121,12 @@
 
 
 /obj/machinery/alien_cache/proc/spawn_loot(list/loot)
-	var/turf/spawnloc = get_step(get_step(get_step(src, SOUTH), SOUTH), EAST)
+	var/spawn_side = prob(50) ? WEST : EAST
+	if(dir & (EAST | WEST))
+		// We can turn EAST/WEST into NORTH/SOUTH simply by right shifting
+		spawn_side = spawn_side >> 2
+	var/turf/spawnloc = get_step(get_step(get_step(src, dir), dir), spawn_side)
+	new /obj/effect/portal(spawnloc, null, src, 10)
 	for(var/lootpath in loot)
 		new lootpath(spawnloc)
 
@@ -155,13 +161,7 @@
 			return ITEM_INTERACT_COMPLETE
 
 		// Direction the terminal will face to
-		var/temporary_direction = get_dir(user, src)
-		switch(temporary_direction)
-			if(NORTHEAST, SOUTHEAST)
-				temporary_direction = EAST
-			if(NORTHWEST, SOUTHWEST)
-				temporary_direction = WEST
-		var/turf/temporary_location = get_step(src, REVERSE_DIR(temporary_direction))
+		var/turf/temporary_location = get_step(src, REVERSE_DIR(dir))
 
 		if(isspaceturf(temporary_location))
 			to_chat(user, "<span class='warning'>You can't build a terminal on space.</span>")
@@ -188,7 +188,7 @@
 					"<span class='notice'>[user.name] adds the cables and connects the power terminal.</span>",\
 					"<span class='notice'>You add the cables and connect the power terminal.</span>")
 
-				make_terminal(user, temporary_direction, temporary_location)
+				make_terminal(user, temporary_location)
 				terminal.connect_to_network()
 				stat &= ~BROKEN
 		return ITEM_INTERACT_COMPLETE
@@ -233,12 +233,12 @@
 			return
 
 /// Terminal creation proc stolen from SMES
-/obj/machinery/alien_cache/proc/make_terminal(user, temporary_direction, temporary_location)
+/obj/machinery/alien_cache/proc/make_terminal(user, temporary_location)
 	// Create a terminal object at the same position as original turf loc
 	// Wires will attach to this
 	terminal = new /obj/machinery/power/terminal(temporary_location)
-	terminal.dir = temporary_direction
 	terminal.master = src
+	terminal.dir = REVERSE_DIR(dir)
 
 #undef CACHE_MAX_LEVEL
 #undef LEVEL_DISTRIBUTION_SIGMA
