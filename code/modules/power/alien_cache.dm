@@ -72,7 +72,7 @@
 /obj/machinery/alien_cache/examine(mob/user)
 	. = ..()
 	if(panel_open)
-		. += "<span class='notice'>The panel is open, revealing the internal wiring</span>"
+		. += "<span class='notice'>The panel is open, revealing unterminated internal wiring.</span>"
 	else
 		. += "<span class='notice'>There's a loose panel on the front that could be pried open with a screwdriver</span>"
 
@@ -175,7 +175,7 @@
 		to_chat(user, "<span class='notice'>You try to connect the cable to [src]</span>")
 		playsound(loc, C.usesound, 50, TRUE)
 
-		if(do_after(user, 5 SECONDS, target = src))
+		if(do_after(user, 5 SECONDS, target = get_turf(src)))
 			if(!terminal && panel_open)
 				T = get_turf(user)
 				var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one
@@ -197,7 +197,7 @@
 
 /obj/machinery/alien_cache/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
-	to_chat(user, chat_box_examine("<span class='notice'>Total energy: [DisplayJoules(total_energy)]<br> tiers opened: [level_reached]</span>"))
+	to_chat(user, chat_box_examine("<span class='notice'>Total energy: [DisplayJoules(total_energy)]<br>Levels opened: [level_reached]</span>"))
 
 /obj/machinery/alien_cache/screwdriver_act(mob/living/user, obj/item/I)
 	// Opening using screwdriver
