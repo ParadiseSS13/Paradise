@@ -218,7 +218,7 @@
 /datum/ai_planning_subtree/simple_find_target/malf_drone/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	if(controller.blackboard[BB_MALF_DRONE_PASSIVE])
 		return // Only target if we're not in passive mode
-	. = ..()
+	return ..()
 
 /datum/ai_planning_subtree/random_speech/malf_drone
 	speech_chance = 4
