@@ -27120,6 +27120,7 @@
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/paper/armory,
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

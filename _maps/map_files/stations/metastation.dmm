@@ -26730,15 +26730,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
-"cCz" = (
-/obj/structure/closet/fireaxecabinet{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
-	},
-/area/station/engineering/atmos)
 "cCA" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -131746,7 +131737,7 @@ axh
 axh
 axh
 axh
-cCz
+fcB
 dyA
 fWW
 fWW
