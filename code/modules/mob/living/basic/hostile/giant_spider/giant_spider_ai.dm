@@ -55,7 +55,7 @@
 /datum/targeting_strategy/basic/not_friends/changeling_spiders
 
 /datum/targeting_strategy/basic/not_friends/changeling_spiders/can_attack(mob/living/living_mob, atom/target, vision_range)
-	if(living_mob?.ai_controller?.blackboard[BB_CHANGELING_SPIDER_ORDER] && (living_mob?.ai_controller?.blackboard[BB_CHANGELING_SPIDER_ORDER] == 1 || living_mob?.ai_controller?.blackboard[BB_CHANGELING_SPIDER_ORDER] == 3))
+	if(living_mob?.ai_controller?.blackboard[BB_CHANGELING_SPIDER_ORDER] && (living_mob?.ai_controller?.blackboard[BB_CHANGELING_SPIDER_ORDER] == FOLLOW_RETALIATE || living_mob?.ai_controller?.blackboard[BB_CHANGELING_SPIDER_ORDER] == IDLE_RETALIATE))
 		return FALSE
 	return ..()
 
@@ -266,7 +266,7 @@
 /datum/ai_planning_subtree/simple_find_target/cling_spider
 
 /datum/ai_planning_subtree/simple_find_target/cling_spider/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
-	if(controller.blackboard[BB_CHANGELING_SPIDER_ORDER] == 1 || controller.blackboard[BB_CHANGELING_SPIDER_ORDER] == 3)
+	if(controller.blackboard[BB_CHANGELING_SPIDER_ORDER] == FOLLOW_RETALIATE || controller.blackboard[BB_CHANGELING_SPIDER_ORDER] == IDLE_RETALIATE)
 		return
 	return ..()
 
@@ -276,7 +276,7 @@
 	var/target_key = BB_CURRENT_PET_TARGET
 
 /datum/ai_planning_subtree/cling_spider_follow/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
-	if(controller.blackboard_key_exists(target_key) && controller.blackboard[BB_CHANGELING_SPIDER_ORDER] < 2)
+	if(controller.blackboard_key_exists(target_key) && controller.blackboard[BB_CHANGELING_SPIDER_ORDER] < IDLE_AGGRESSIVE)
 		controller.queue_behavior(/datum/ai_behavior/cling_spider_follow, target_key)
 		return SUBTREE_RETURN_FINISH_PLANNING
 
