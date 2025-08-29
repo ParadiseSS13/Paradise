@@ -118,11 +118,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 		to_chat(user, "<span class='notice'>[src] is full.</span>")
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/clothing/mask/cigarette/pre_attack(atom/target, mob/living/user, params)
-	if(!ismob(target))
+/obj/item/clothing/mask/cigarette/pre_attack(atom/atom_target, mob/living/user, params)
+	if(!ismob(atom_target))
 		return ..()
 
-	var/mob/living/target = target
+	var/mob/living/target = atom_target
 	if(target.on_fire)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(target)
