@@ -54,7 +54,7 @@
 		/obj/item/pen = 55
 	)
 
-	time = 1.75 SECONDS
+	time = 1.5 SECONDS
 	repeatable = TRUE
 
 	preop_sound = 'sound/surgery/retractor2.ogg'
@@ -175,7 +175,7 @@
 
 /datum/surgery_step/heal/brute
 	name = "tend wounds"
-	brute_damage_healed = 5
+	brute_damage_healed = 7
 	brute_damage_healmod = 0.25
 
 /datum/surgery_step/heal/brute/get_progress(mob/user, mob/living/carbon/target, brute_healed, burn_healed)
@@ -209,7 +209,7 @@
 /datum/surgery_step/heal/burn
 	name = "treat burns"
 	damage_name_pretty = "burns"
-	burn_damage_healed = 5
+	burn_damage_healed = 7
 	burn_damage_healmod = 0.25
 
 /********************BURN STEPS********************/
