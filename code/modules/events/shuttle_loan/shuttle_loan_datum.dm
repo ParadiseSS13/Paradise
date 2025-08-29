@@ -26,7 +26,7 @@
 	logging_desc = "Resupply packages"
 
 /datum/shuttle_loan_situation/department_resupply/spawn_items(list/spawn_list, list/empty_shuttle_turfs)
-	var/list/crate_types = list(
+	var/static/list/crate_types = list(
 		/datum/supply_packs/emergency/evac,
 		/datum/supply_packs/security/supplies,
 		/datum/supply_packs/organic/food,
@@ -111,8 +111,8 @@
 	logging_desc = "Pizza delivery"
 
 /datum/shuttle_loan_situation/pizza_delivery/spawn_items(list/spawn_list, list/empty_shuttle_turfs)
-	var/naughtypizza = list(/obj/item/pizzabox/pizza_bomb/autoarm)
-	var/nicepizza = list(/obj/item/pizzabox/margherita, /obj/item/pizzabox/meat, /obj/item/pizzabox/vegetable, /obj/item/pizzabox/mushroom)
+	var/static/list/naughtypizza = list(/obj/item/pizzabox/pizza_bomb/autoarm)
+	var/static/list/nicepizza = list(/obj/item/pizzabox/margherita, /obj/item/pizzabox/meat, /obj/item/pizzabox/vegetable, /obj/item/pizzabox/mushroom)
 	for(var/i in 1 to 6)
 		spawn_list.Add(pick(prob(5) ? naughtypizza : nicepizza))
 
@@ -162,7 +162,7 @@
 	logging_desc = "Mineral haul"
 
 /datum/shuttle_loan_situation/mineral_haul/spawn_items(list/spawn_list, list/empty_shuttle_turfs)
-	var/list/crate_types = list(
+	var/static/list/crate_types = list(
 		/datum/supply_packs/materials/metal50,
 		/datum/supply_packs/materials/glass50,
 		/datum/supply_packs/materials/sandstone30,
@@ -171,7 +171,7 @@
 		var/datum/supply_packs/new_crate = new crate()
 		new_crate.create_package(pick_n_take(empty_shuttle_turfs))
 
-	var/list/mineral_types = list(
+	var/static/list/mineral_types = list(
 		/obj/item/stack/sheet/mineral/diamond,
 		/obj/item/stack/sheet/mineral/uranium,
 		/obj/item/stack/sheet/mineral/plasma,
