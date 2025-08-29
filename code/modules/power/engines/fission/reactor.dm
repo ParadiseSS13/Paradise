@@ -27,15 +27,16 @@
 #define HEAT_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from high heat
 #define MELTDOWN_POINT 1000 // The dammage cap where meltdown occurs. higher = longer to meltdown
 #define EXPLOSION_MODIFIER 4 // Adjusts the size of the engine explosion
-#define WARNING_POINT = 50 // begin sending warning messages
-#define EMERGENCY_POINT = 700 // Begin sending warning messages over common
+#define WARNING_POINT 50 // begin sending warning messages
+#define EMERGENCY_POINT 700 // Begin sending warning messages over common
 #define WARNING_DELAY 60 // time in deciseconds between warnings
 
-//If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
+// If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
 #define NGCR_MELTDOWN_PERCENT 5
 #define NGCR_EMERGENCY_PERCENT 25
 #define NGCR_DANGER_PERCENT 50
 #define NGCR_WARNING_PERCENT 100
+#define CRITICAL_TEMPERATURE 10000
 
 #warn Idea todo: Allow grilling on an active reactor
 #warn Idea todo: Allow CC to unlock for nuking station
@@ -100,13 +101,17 @@
 	/// The amount of heat created by averaging total heat against all rods
 	var/average_heatgen = 0
 	///The alert we send when we've reached warning_point
-	var/warning_alert = "Danger! Crystal hyperstructure integrity faltering!"
+	var/warning_alert = "Danger! Reactor core chamber meltdown in progress!"
 	///Our "Shit is no longer fucked" message. We send it when temp_damage is 0
-	var/safe_alert = "Crystalline hyperstructure returning to safe operating parameters."
+	var/safe_alert = "Reactor conditions stabilized within operating parameters. Core meltdown averted."
+	///The alert we send when we've reached emergency_point
+	var/emergency_alert = "REACTOR CORE MELTDOWN IMMINENT"
 	///Time in 1/10th of seconds since the last sent warning
 	var/lastwarning = 0
-	/// the last damage before it is updated
-	var/archived_damage
+	/// a boolean value for if we need to send a
+	var/send_message = FALSE
+	/// Our internal radio
+	var/obj/item/radio/radio
 
 /obj/machinery/power/fission_reactor/roundstart
 	primary_engine = TRUE
@@ -270,14 +275,6 @@
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/power/fission_reactor/proc/get_status()
-	if(!air_contents) // this shouldnt happen, but just in case it does...
-		return SUPERMATTER_ERROR
-	if(offline)
-		return SUPERMATTER_INACTIVE
-	else
-		return SUPERMATTER_NORMAL
-
 /obj/machinery/power/fission_reactor/proc/get_integrity()
 	var/integrity = damage / MELTDOWN_POINT
 	integrity = round(100 - integrity * 100, 0.01)
@@ -363,25 +360,46 @@
 
 	var/heat_capacity = air_contents.heat_capacity() * 300
 	if(heat_capacity)
-		air_contents.set_temperature(max(air_contents.temperature() + (final_heat / heat_capacity), air_contents.temperature() + 3))
+		air_contents.set_temperature(max(air_contents.temperature() + (final_heat / heat_capacity), air_contents.temperature() + 2))
 
 	var/total_mols = air_contents.total_moles()
 	var/new_damage = 0
 	if(!total_mols)
-		new_damage += 1 * MOL_DAMAGE_MULTIPLIER
+		new_damage += 5 * MOL_DAMAGE_MULTIPLIER
 	else if(total_mols <= MOL_MINIMUM)
 		new_damage += max((1 - (total_mols / MOL_MINIMUM) * MOL_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
 	if(temp > heat_damage_threshold)
 		new_damage += max((((temp - heat_damage_threshold) / HEAT_DAMAGE_RATE) * HEAT_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
 
-	if(damage > WARNING_POINT && (REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY && archived_damage != damage)
-		try_alarm()
+	if(damage > WARNING_POINT && (REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY && send_message)
+		try_alarm(new_damage)
 
-	damage += new_damage
+	if(new_damage)
+		damage += new_damage
+		send_message = TRUE
+		new_damage = 0
+
 	if(damage >= MELTDOWN_POINT)
 		set_broken()
 
-/obj/machinery/power/fission_reactor/try_alarm()
+/obj/machinery/power/fission_reactor/proc/try_alarm(new_damage)
+	if(!new_damage)
+		radio.autosay("<b>[safe_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
+		lastwarning = REALTIMEOFDAY
+		send_message = FALSE // only stop sending alerts when no damage has been taken
+		return
+
+	switch(get_status())
+		if(SUPERMATTER_WARNING)
+			radio.autosay("<b>[warning_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
+		if(SUPERMATTER_DANGER)
+			radio.autosay("<b>[warning_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
+		if(SUPERMATTER_EMERGENCY)
+			radio.autosay("<span class='big'>[warning_alert] Integrity: [get_integrity()]%</span>", name, "Engineering")
+		if(SUPERMATTER_DELAMINATING)
+			radio.autosay("<span class='big'>[emergency_alert] Integrity: [get_integrity()]%</span>", name, null)
+
+/obj/machinery/power/fission_reactor/proc/get_status()
 	var/integrity = get_integrity()
 	if(integrity < NGCR_MELTDOWN_PERCENT)
 		return SUPERMATTER_DELAMINATING
@@ -392,13 +410,11 @@
 	if(integrity < NGCR_DANGER_PERCENT)
 		return SUPERMATTER_DANGER
 
-	if((integrity < NGCR_WARNING_PERCENT) || (air.temperature() > CRITICAL_TEMPERATURE))
+	if((integrity < NGCR_WARNING_PERCENT) || (air_contents.temperature() > CRITICAL_TEMPERATURE))
 		return SUPERMATTER_WARNING
 
-	if(air.temperature() > (TOTAL_HEAT_THRESHOLD * 0.8))
+	if(air_contents.temperature() > (heat_damage_threshold * 0.8))
 		return SUPERMATTER_NOTIFY
-
-/obj/machinery/power/fission_reactor/get_status()
 
 /obj/machinery/power/fission_reactor/proc/shut_off()
 	starting_up = TRUE
