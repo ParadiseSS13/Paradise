@@ -486,7 +486,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		custom_rollie.desc = "Dried tobacco rolled up in a thin piece of paper."
 		if(plant.reagents.total_volume > custom_rollie.chem_volume)
 			to_chat(user, "<span class='notice'>You pour some of [plant] into a rolling paper.</span>")
-			plant.reagents.trans_to(custom_rollie, 60)
+			plant.reagents.trans_to(custom_rollie, 40)
 			plant.update_icon_state()
 		else
 			to_chat(user, "<span class='notice'>You empty [plant] into a rolling paper.</span>")
