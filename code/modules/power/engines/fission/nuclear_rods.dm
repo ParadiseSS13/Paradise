@@ -47,7 +47,7 @@
 	name = "Weak Thorium Fuel Rod"
 	desc = "A specialized fuel rod bred from uranium 238. This rod will last longer than normal, and wont generate as much heat."
 	heat_amount = 5
-	power_amount = 15 KW
+	power_amount = 20 KW
 	heat_amp_mod = 1.6
 	power_amp_mod = 1.1
 	durability = 10000

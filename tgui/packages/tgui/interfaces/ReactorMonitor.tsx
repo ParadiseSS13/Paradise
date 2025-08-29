@@ -66,9 +66,9 @@ export const ReactorMonitor = (props) => {
                     ranges={
                       NGCR_power <= 10000
                         ? {
-                            good: [300, Infinity],
-                            average: [150, 300],
-                            bad: [-Infinity, 150],
+                            good: [400, Infinity],
+                            average: [200, 400],
+                            bad: [-Infinity, 200],
                           }
                         : {
                             good: [-Infinity, Infinity],

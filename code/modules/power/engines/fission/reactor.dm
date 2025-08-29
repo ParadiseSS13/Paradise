@@ -16,7 +16,7 @@
 #define REACTOR_LIGHT_COLOR "#569fff"
 #define TOTAL_CONTROL_RODS 5 // The max number of control rods.
 #define HEAT_MODIFIER 40000 // Higher = more heat production.
-#define AVERAGE_HEAT_THRESHOLD 10 // The threshold the average heat-per-rod must exceed to generate coefficient.
+#define AVERAGE_HEAT_THRESHOLD 30 // The threshold the average heat-per-rod must exceed to generate coefficient.
 #define TOTAL_HEAT_THRESHOLD 600 // the temp (in K) needed to begin generating coefficient.
 #define HEAT_CONVERSION_RATIO 200 // How much heat over the threshold = an extra coefficient point.
 #define HEAT_DAMAGE_RATE 500 // The rate at which damage increases due to heat
@@ -27,7 +27,15 @@
 #define HEAT_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from high heat
 #define MELTDOWN_POINT 1000 // The dammage cap where meltdown occurs. higher = longer to meltdown
 #define EXPLOSION_MODIFIER 4 // Adjusts the size of the engine explosion
+#define WARNING_POINT = 50 // begin sending warning messages
+#define EMERGENCY_POINT = 700 // Begin sending warning messages over common
+#define WARNING_DELAY 60 // time in deciseconds between warnings
 
+//If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
+#define NGCR_MELTDOWN_PERCENT 5
+#define NGCR_EMERGENCY_PERCENT 25
+#define NGCR_DANGER_PERCENT 50
+#define NGCR_WARNING_PERCENT 100
 
 #warn Idea todo: Allow grilling on an active reactor
 #warn Idea todo: Allow CC to unlock for nuking station
@@ -42,6 +50,8 @@
 #warn Idea todo: coolant rods can eject from the reactor at high temps
 #warn Idea todo: Grenades that force start rods
 #warn Prevent malf AI from using powers on the main reactor
+
+#warn event idea: Pufts of contaminating rad smoke
 
 /// MARK: Fission Reactor
 
@@ -87,6 +97,16 @@
 	var/offline = TRUE
 	/// The heat (in K) before the reactor accrues damage
 	var/heat_damage_threshold = 1000
+	/// The amount of heat created by averaging total heat against all rods
+	var/average_heatgen = 0
+	///The alert we send when we've reached warning_point
+	var/warning_alert = "Danger! Crystal hyperstructure integrity faltering!"
+	///Our "Shit is no longer fucked" message. We send it when temp_damage is 0
+	var/safe_alert = "Crystalline hyperstructure returning to safe operating parameters."
+	///Time in 1/10th of seconds since the last sent warning
+	var/lastwarning = 0
+	/// the last damage before it is updated
+	var/archived_damage
 
 /obj/machinery/power/fission_reactor/roundstart
 	primary_engine = TRUE
@@ -114,6 +134,11 @@
 	))
 	air_contents = new
 	air_contents.volume = 1000 // kpa
+	GLOB.poi_list |= src
+	radio = new(src)
+	radio.listening = FALSE
+	radio.follow_target = src
+	radio.config(list("Engineering" = 0))
 	if(primary_engine)
 		GLOB.main_fission_reactor = src
 	build_reactor_network()
@@ -316,12 +341,12 @@
 		final_heat += chamber.heat_total * durability_mod
 		chamber.held_rod.durability -= durability_loss
 
-	var/average_heatgen = final_heat / length(connected_chambers)
+	average_heatgen = final_heat / length(connected_chambers)
 	var/temp = air_contents.temperature()
 	if(!temp)
 		temp = 0
 	if(average_heatgen > AVERAGE_HEAT_THRESHOLD)
-		reactivity_multiplier = 1 + (average_heatgen - AVERAGE_HEAT_THRESHOLD / AVERAGE_HEAT_THRESHOLD)
+		reactivity_multiplier = 1 + ((average_heatgen - AVERAGE_HEAT_THRESHOLD) / AVERAGE_HEAT_THRESHOLD)
 	else
 		reactivity_multiplier = 1
 	if(temp > TOTAL_HEAT_THRESHOLD)
@@ -330,8 +355,6 @@
 
 	final_heat *= ((operating_power / 100) * (reactivity_multiplier * 2) * HEAT_MODIFIER) // proportionally affects heat more
 	final_power *= ((operating_power / 100) * reactivity_multiplier)
-
-
 
 	if(!can_create_power)
 		return
@@ -343,17 +366,39 @@
 		air_contents.set_temperature(max(air_contents.temperature() + (final_heat / heat_capacity), air_contents.temperature() + 3))
 
 	var/total_mols = air_contents.total_moles()
-	damage = 0
+	var/new_damage = 0
 	if(!total_mols)
-		damage += 1 * MOL_DAMAGE_MULTIPLIER
+		new_damage += 1 * MOL_DAMAGE_MULTIPLIER
 	else if(total_mols <= MOL_MINIMUM)
-		damage += max((1 - (total_mols / MOL_MINIMUM) * MOL_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
+		new_damage += max((1 - (total_mols / MOL_MINIMUM) * MOL_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
 	if(temp > heat_damage_threshold)
-		damage += max((temp - heat_damage_threshold) / HEAT_DAMAGE_RATE, DAMAGE_MINIMUM)
-	damage = min(damage, DAMAGE_MAXIMUM)
+		new_damage += max((((temp - heat_damage_threshold) / HEAT_DAMAGE_RATE) * HEAT_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
 
+	if(damage > WARNING_POINT && (REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY && archived_damage != damage)
+		try_alarm()
+
+	damage += new_damage
 	if(damage >= MELTDOWN_POINT)
 		set_broken()
+
+/obj/machinery/power/fission_reactor/try_alarm()
+	var/integrity = get_integrity()
+	if(integrity < NGCR_MELTDOWN_PERCENT)
+		return SUPERMATTER_DELAMINATING
+
+	if(integrity < NGCR_EMERGENCY_PERCENT)
+		return SUPERMATTER_EMERGENCY
+
+	if(integrity < NGCR_DANGER_PERCENT)
+		return SUPERMATTER_DANGER
+
+	if((integrity < NGCR_WARNING_PERCENT) || (air.temperature() > CRITICAL_TEMPERATURE))
+		return SUPERMATTER_WARNING
+
+	if(air.temperature() > (TOTAL_HEAT_THRESHOLD * 0.8))
+		return SUPERMATTER_NOTIFY
+
+/obj/machinery/power/fission_reactor/get_status()
 
 /obj/machinery/power/fission_reactor/proc/shut_off()
 	starting_up = TRUE
