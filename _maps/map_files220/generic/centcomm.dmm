@@ -6258,9 +6258,7 @@
 /area/vox_base)
 "cNI" = (
 /obj/item/flashlight,
-/obj/item/gps{
-	tracking = 0
-	},
+/obj/item/gps,
 /obj/item/radio{
 	pixel_y = 6
 	},
@@ -8882,7 +8880,7 @@
 /area/centcom/ss220/supply)
 "dPI" = (
 /obj/machinery/door/airlock/centcom{
-	req_access = list(101);
+	req_access = list(106);
 	id_tag = "CC_Cargo_Office_Exterior_1"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -10693,12 +10691,12 @@
 /obj/machinery/door/airlock/centcom{
 	id_tag = "CC_Cargo_Interior_1";
 	name = "Зона ЦК Карго";
-	req_access = list(101)
+	req_access = list(106)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "СС_BD_Cargo_Interior_1";
 	name = "Blast Door Open";
-	req_access = list(104);
+	req_access = list(106);
 	pixel_y = 24
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -12775,7 +12773,7 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 1;
 	name = "Блокпост";
-	req_access = list(101)
+	req_access = list(106)
 	},
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/machinery/door/poddoor/preopen{
@@ -16236,14 +16234,14 @@
 	name = "Blast Door Open";
 	pixel_x = 6;
 	pixel_y = 8;
-	req_access = list(101)
+	req_access = list(106)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "СС_BD_Shitspawn_Interior_1";
 	name = "Blast Door Open";
 	pixel_x = 6;
 	pixel_y = -2;
-	req_access = list(101)
+	req_access = list(106)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "CC_Shitspawn_Interior_1";
@@ -16251,7 +16249,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = -6;
 	pixel_y = -2;
-	req_access = list(101)
+	req_access = list(106)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "CC_Shitspawn_Exterior_1";
@@ -16259,7 +16257,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = -6;
 	pixel_y = 8;
-	req_access = list(101)
+	req_access = list(106)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
@@ -25416,7 +25414,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = -6;
 	pixel_y = 8;
-	req_access = list(101)
+	req_access = list(106)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "CC_Cargo_Office_Interior_1";
@@ -25424,7 +25422,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = -6;
 	pixel_y = -2;
-	req_access = list(101)
+	req_access = list(106)
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/general)
@@ -26872,7 +26870,7 @@
 /area/centcom/ss220/admin2)
 "lvS" = (
 /obj/machinery/door/airlock/centcom{
-	req_access = list(101);
+	req_access = list(106);
 	id_tag = "CC_Cargo_Office_Interior_1"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -27452,7 +27450,7 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 4;
 	name = "Блокпост";
-	req_access = list(101)
+	req_access = list(106)
 	},
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = -4;
@@ -34702,7 +34700,7 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 8;
 	name = "Блокпост";
-	req_access = list(101)
+	req_access = list(106)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/general)
@@ -35104,7 +35102,7 @@
 "peR" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Блокпост";
-	req_access = list(101)
+	req_access = list(106)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/general)
@@ -36934,7 +36932,7 @@
 /obj/machinery/door/airlock/centcom{
 	id_tag = "CC_Cargo_Exterior_1";
 	name = "Зона ЦК Карго";
-	req_access = list(101)
+	req_access = list(106)
 	},
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "СС_BD_Cargo_Exterior_1";
@@ -36943,7 +36941,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "СС_BD_Cargo_Exterior_1";
 	name = "Blast Door Open";
-	req_access = list(104);
+	req_access = list(106);
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -38322,7 +38320,7 @@
 "qHy" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Зона ЦК";
-	req_access = list(104)
+	req_access = list(106)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
@@ -40835,14 +40833,14 @@
 	name = "Blast Door Open";
 	pixel_x = 6;
 	pixel_y = -2;
-	req_access = list(101)
+	req_access = list(106)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "СС_BD_Cargo_Exterior_1";
 	name = "Blast Door Open";
 	pixel_x = 6;
 	pixel_y = 8;
-	req_access = list(101)
+	req_access = list(106)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "CC_Cargo_Exterior_1";
@@ -40850,7 +40848,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = -6;
 	pixel_y = 8;
-	req_access = list(101)
+	req_access = list(106)
 	},
 /obj/machinery/door_control/no_emag{
 	id = "CC_Cargo_Interior_1";
@@ -40858,7 +40856,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = -6;
 	pixel_y = -2;
-	req_access = list(101)
+	req_access = list(106)
 	},
 /turf/simulated/floor/plasteel/dark{
 	dir = 1;
@@ -45018,7 +45016,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "СС_BD_Shitspawn_Interior_1";
 	name = "Blast Door Open";
-	req_access = list(114);
+	req_access = list(106);
 	pixel_x = 24
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -45027,7 +45025,7 @@
 	},
 /obj/machinery/door/airlock/centcom{
 	name = "Блокпост";
-	req_access = list(101)
+	req_access = list(106)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
@@ -45079,7 +45077,7 @@
 /obj/machinery/door_control/no_emag{
 	id = "СС_BD_Shitspawn_Exterior_1";
 	name = "Blast Door Open";
-	req_access = list(114);
+	req_access = list(106);
 	pixel_x = 24
 	},
 /obj/machinery/door/poddoor/impassable{
@@ -45088,7 +45086,7 @@
 	},
 /obj/machinery/door/airlock/centcom{
 	name = "Блокпост";
-	req_access = list(101)
+	req_access = list(106)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
@@ -49278,7 +49276,7 @@
 	name = "Защита КПП";
 	pixel_x = 6;
 	pixel_y = 8;
-	req_access = list(101)
+	req_access = list(106)
 	},
 /turf/simulated/floor/plasteel/dark{
 	dir = 1;
@@ -54476,7 +54474,7 @@
 /obj/machinery/door_control/no_emag/east{
 	id = "CC_GammaShuttle";
 	name = "Blast Door Control";
-	req_access = list(114);
+	req_access = list(106);
 	pixel_x = 0;
 	pixel_y = 24
 	},
