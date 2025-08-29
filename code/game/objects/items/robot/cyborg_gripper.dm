@@ -168,18 +168,18 @@
 	..()
 	return TRUE
 
-/obj/item/gripper/pre_attack(atom/A, mob/living/user, params)
+/obj/item/gripper/pre_attack(atom/target, mob/living/user, params)
 	// This is required to avoid hypersonic interaction speed.
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(gripped_item)
-		gripped_item.attack(A, user)
+		gripped_item.attack(target, user)
 		return TRUE
 
-	if(!ismob(A))
+	if(!ismob(target))
 		return ..()
 
 	. = TRUE
-	var/mob/living/target = A
+	var/mob/living/target = target
 	// If a human target is horizonal, try to help them up. Unless you're trying to kill them.
 	if(ishuman(target) && user.a_intent == INTENT_HELP && can_help_up)
 		var/mob/living/carbon/human/pickup_target = target

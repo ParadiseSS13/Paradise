@@ -118,11 +118,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 		to_chat(user, "<span class='notice'>[src] is full.</span>")
 	return ITEM_INTERACT_COMPLETE
 
-/obj/item/clothing/mask/cigarette/pre_attack(atom/A, mob/living/user, params)
-	if(!ismob(A))
+/obj/item/clothing/mask/cigarette/pre_attack(atom/target, mob/living/user, params)
+	if(!ismob(target))
 		return ..()
 
-	var/mob/living/target = A
+	var/mob/living/target = target
 	if(target.on_fire)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(target)
@@ -141,11 +141,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return FINISH_ATTACK
 
 	// The above section doesn't check for carbons to allow ALL burning bodies to be used.
-	if(!iscarbon(A))
+	if(!iscarbon(target))
 		return ..()
 
 	// If the target has no cig, try to give them the cig.
-	var/mob/living/carbon_target = A
+	var/mob/living/carbon_target = target
 	if(user.zone_selected == "mouth" && !carbon_target.wear_mask && user.a_intent == INTENT_HELP)
 		user.drop_item_to_ground(src, force = TRUE)
 		carbon_target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK)
@@ -361,10 +361,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		)
 		if(!do_after(user, 5 SECONDS, target = target))
 			return ITEM_INTERACT_COMPLETE
-	
+
 	else
 		to_chat(user, "<span_class='notice'>You eat [src].</span>")
-		
+
 	playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 
 	// A SPICY candy!
