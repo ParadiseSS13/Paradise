@@ -25,8 +25,8 @@
 									// level 1
 									list(
 										/obj/item/stack/sheet/mineral/abductor/fifty = 1,
-										/obj/machinery/the_singularitygen/tesla = 1,
-										/obj/machinery/the_singularitygen = 1,
+										/obj/machinery/the_singularitygen/tesla = 0.3,
+										/obj/machinery/the_singularitygen = 0.3,
 										/obj/item/stack/sheet/mineral/bananium/thirty = 1,
 										/obj/item/stack/sheet/mineral/tranquillite/thirty = 1,
 										),
@@ -78,7 +78,7 @@
 		if(cache_level < level_reached + 1)
 			my_alpha = 255
 		if(cache_level == level_reached + 1)
-			my_alpha = clamp(1 - ((LEVEL_REQUIREMENT(cache_level) - total_energy)  / (LEVEL_REQUIREMENT(cache_level + 1) - LEVEL_REQUIREMENT(cache_level))), 0, 1)
+			my_alpha = clamp(1 - ((LEVEL_REQUIREMENT(cache_level) - total_energy) / (LEVEL_REQUIREMENT(cache_level + 1) - LEVEL_REQUIREMENT(cache_level))), 0, 1)
 			my_alpha *= 255
 		. += mutable_appearance(icon, "cache_level_[cache_level]", alpha = my_alpha)
 

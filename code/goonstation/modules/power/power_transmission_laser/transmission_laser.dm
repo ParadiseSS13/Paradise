@@ -345,6 +345,7 @@
 	if(!choose)
 		return
 	target = target_list[choose]
+	target.on_ptl_target(src)
 
 /// Stop targeting a mob once it dies
 /obj/machinery/power/transmission_laser/proc/untarget()

@@ -126,7 +126,7 @@
 	else
 		type = pick(subtypesof(/mob/living/simple_animal))
 	var/mob/living/simple_animal/my_mob = new type(loc)
-	my_mob.faction += "neutral"
+	my_mob.faction = list("neutral")
 	capsule.captured = my_mob
 	my_mob.forceMove(capsule)
 
