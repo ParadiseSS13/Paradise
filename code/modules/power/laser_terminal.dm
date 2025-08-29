@@ -8,7 +8,10 @@ GLOBAL_LIST_EMPTY(laser_terminals)
 	base_icon_state = "ptl_terminal_0"
 	pixel_y = 10
 	density = TRUE
+	/// How much of the received energy we end up outputting to the grid
 	var/conversion_efficiency = 0.5
+	/// List of lasers targetting us
+	var/list/lasers = list()
 
 /obj/item/circuitboard/machine/laser_terminal
 	board_name = "Laser Terminal"
@@ -43,8 +46,18 @@ GLOBAL_LIST_EMPTY(laser_terminals)
 	// Goes from half to full conversion depending on capacitor level
 	conversion_efficiency = cap_rating / 8
 
-/obj/machinery/power/laser_terminal/on_ptl_tick(obj/machinery/power/transmission_laser/ptl, output_level)
-	produce_direct_power(output_level * conversion_efficiency)
+/obj/machinery/power/laser_terminal/on_ptl_target(obj/machinery/power/transmission_laser/ptl)
+	lasers |= ptl
+
+/obj/machinery/power/laser_terminal/on_ptl_untarget(obj/machinery/power/transmission_laser/ptl)
+	lasers -= ptl
+
+/obj/machinery/power/laser_terminal/process()
+	var/total_input = 0
+	for(var/obj/machinery/power/transmission_laser/ptl in lasers)
+		if(ptl.firing)
+			total_input += ptl.output_level
+	produce_direct_power(total_input * conversion_efficiency)
 
 /obj/machinery/power/laser_terminal/screwdriver_act(mob/living/user, obj/item/I)
 	return default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I)

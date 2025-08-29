@@ -69,6 +69,19 @@
 		list(1, 0,		   1),
 	))
 
+/obj/machinery/alien_cache/update_overlays()
+	. = ..()
+	var/my_alpha = 0
+	for(var/cache_level in 1 to CACHE_MAX_LEVEL)
+		if(total_energy <= 0 || cache_level > level_reached + 1)
+			break
+		if(cache_level < level_reached + 1)
+			my_alpha = 255
+		if(cache_level == level_reached + 1)
+			my_alpha = clamp(1 - ((LEVEL_REQUIREMENT(cache_level) - total_energy)  / (LEVEL_REQUIREMENT(cache_level + 1) - LEVEL_REQUIREMENT(cache_level))), 0, 1)
+			my_alpha *= 255
+		. += mutable_appearance(icon, "cache_level_[cache_level]", alpha = my_alpha)
+
 /obj/machinery/alien_cache/examine(mob/user)
 	. = ..()
 	if(panel_open)
@@ -118,6 +131,7 @@
 			spawn_loot(rewards)
 			if(level_reached >= max_level)
 				spawn_loot(open_rewards)
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/alien_cache/proc/spawn_loot(list/loot)
