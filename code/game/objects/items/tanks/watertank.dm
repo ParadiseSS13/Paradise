@@ -212,7 +212,6 @@
 	safety_active = FALSE
 	reagent_capacity = 500
 	precision = TRUE
-	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
 	flags = NODROP //Necessary to ensure that the nozzle and tank never seperate
 	/// A reference to the tank that this nozzle is linked to
