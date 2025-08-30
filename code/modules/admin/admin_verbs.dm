@@ -441,7 +441,7 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 /client/proc/admin_observe()
 	set name = "Aobserve"
 	set category = "Admin"
-	if(!check_rights(R_ADMIN|R_MOD)) // SS220 EDIT - mentors aren't allowed
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
 
 	if(isnewplayer(mob))
@@ -486,7 +486,7 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 	set name = "\[Admin\] Aobserve"
 	set category = null
 
-	if(!check_rights(R_ADMIN|R_MOD, mob)) // SS220 EDIT - mentors aren't allowed
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR, mob))
 		return
 
 	var/full_admin = check_rights(R_ADMIN|R_MOD, FALSE, mob)
