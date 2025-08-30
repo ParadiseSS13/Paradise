@@ -449,7 +449,7 @@
 /atom/movable/screen/combo
 	icon_state = ""
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	screen_loc = ui_combo
+	screen_loc = UI_COMBO
 	layer = ABOVE_HUD_LAYER
 	var/streak
 

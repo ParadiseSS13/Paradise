@@ -24,11 +24,11 @@
 	mymob.pullin.icon = 'icons/mob/screen_alien.dmi'
 	mymob.pullin.hud = src
 	mymob.pullin.update_icon(UPDATE_ICON_STATE)
-	mymob.pullin.screen_loc = ui_pull_resist
+	mymob.pullin.screen_loc = UI_PULL_RESIST
 	hotkeybuttons += mymob.pullin
 
 	using = new /atom/movable/screen/language_menu
-	using.screen_loc = ui_alienlarva_language_menu
+	using.screen_loc = UI_ALIENLARVA_LANGUAGE_MENU
 	static_inventory += using
 
 	zone_select = new /atom/movable/screen/zone_sel/alien()

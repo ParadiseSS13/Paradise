@@ -46,7 +46,7 @@
 /atom/movable/screen/robot/active_module/proc/activate()
 	icon_state = activated_icon_string
 	active = TRUE
-	
+
 /// Updates the background of the module to be inactive
 /atom/movable/screen/robot/active_module/proc/deactivate()
 	icon_state = deactivated_icon_string
@@ -85,7 +85,7 @@
 /atom/movable/screen/robot/lamp
 	name = "Toggle Headlamp"
 	icon_state = "lamp0"
-	screen_loc = ui_borg_lamp
+	screen_loc = UI_BORG_LAMP
 
 /atom/movable/screen/robot/lamp/Click()
 	if(..())
@@ -132,12 +132,12 @@
 
 //Language menu
 	using = new /atom/movable/screen/language_menu
-	using.screen_loc = ui_borg_lanugage_menu
+	using.screen_loc = UI_BORG_LANUGAGE_MENU
 	static_inventory += using
 
 //Radio
 	using = new /atom/movable/screen/robot/radio()
-	using.screen_loc = ui_borg_radio
+	using.screen_loc = UI_BORG_RADIO
 	static_inventory += using
 
 //Module select
@@ -149,7 +149,7 @@
 
 //Sec/Med HUDs
 	using = new /atom/movable/screen/ai/sensors()
-	using.screen_loc = ui_borg_sensor
+	using.screen_loc = UI_BORG_SENSOR
 	static_inventory += using
 
 //Intent
@@ -163,7 +163,7 @@
 	using = new /atom/movable/screen/robot/mov_intent()
 	using.icon_state = (mymob.m_intent == MOVE_INTENT_RUN ? "running" : "walking")
 	static_inventory += using
-	using.screen_loc = ui_movi
+	using.screen_loc = UI_MOVI
 	move_intent = using
 
 //Health
@@ -174,17 +174,17 @@
 
 //Installed Module
 	mymobR.hands = new /atom/movable/screen/robot/module()
-	mymobR.hands.screen_loc = ui_borg_module
+	mymobR.hands.screen_loc = UI_BORG_MODULE
 	static_inventory += mymobR.hands
 
 	module_store_icon = new /atom/movable/screen/robot/store()
-	module_store_icon.screen_loc = ui_borg_store
+	module_store_icon.screen_loc = UI_BORG_STORE
 
 	mymob.pullin = new /atom/movable/screen/pull()
 	mymob.pullin.icon = 'icons/mob/screen_robot.dmi'
 	mymob.pullin.hud = src
 	mymob.pullin.update_icon(UPDATE_ICON_STATE)
-	mymob.pullin.screen_loc = ui_borg_pull
+	mymob.pullin.screen_loc = UI_BORG_PULL
 	hotkeybuttons += mymob.pullin
 
 	zone_select = new /atom/movable/screen/zone_sel/robot()
@@ -194,12 +194,12 @@
 
 //Headlamp
 	mymobR.lamp_button = new /atom/movable/screen/robot/lamp()
-	mymobR.lamp_button.screen_loc = ui_borg_lamp
+	mymobR.lamp_button.screen_loc = UI_BORG_LAMP
 	static_inventory += mymobR.lamp_button
 
 //Thrusters
 	using = new /atom/movable/screen/robot/thrusters()
-	using.screen_loc = ui_borg_thrusters
+	using.screen_loc = UI_BORG_THRUSTERS
 	static_inventory += using
 	mymobR.thruster_button = using
 
