@@ -996,8 +996,8 @@
 	id = "dropwall_launcher"
 	build_type = MECHFAB
 	req_tech = list("engineering" = 6, "bluespace" = 6, "combat" = 6)
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/cleaner
-	materials = list(list(MAT_METAL = 8000, MAT_GLASS = 8000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 4000))
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/dropwall
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 8000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
