@@ -220,12 +220,14 @@
 	name = "cheese knife"
 	desc = "A blunt knife used to slice cheese."
 	icon_state = "knife-cheese"
+	materials = list(MAT_METAL = 4000)
 	force = 3
 
 /obj/item/kitchen/knife/pizza_cutter
 	name = "pizza cutter"
 	desc = "A simple circular blade on a handle, used to cut pizza."
 	icon_state = "pizza_cutter"
+	materials = list(MAT_METAL = 10000)
 	force = 8
 
 /*
