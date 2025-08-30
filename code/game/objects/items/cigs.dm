@@ -509,7 +509,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/food/grown/tobacco/pre_dried
 	name = "\improper King's Own tobacco"
 	desc = "A tin of loose-leaf tobacco for filling pipes and hand-rolled cigarettes."
-	icon = 'icons/obj/clothing/smoking.dmi'
+	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "pipe_tobacco"
 	seed = null
 	trash = /obj/item/trash/tobacco_tin
@@ -537,7 +537,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/trash/tobacco_tin
 	name = "empty tobacco tin"
-	icon = 'icons/obj/clothing/smoking.dmi'
+	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "pipe_tobacco_empty"
 
 //////////////////////////////

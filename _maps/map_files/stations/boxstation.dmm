@@ -22626,6 +22626,9 @@
 "bAa" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
+/obj/item/ashtray/glass{
+	pixel_y = 13
+	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain)
 "bAb" = (
@@ -31484,6 +31487,10 @@
 /area/station/medical/medbay3)
 "ckt" = (
 /obj/structure/table/wood,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "NT Representative's Office";
+	pixel_y = 4
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "ckv" = (
@@ -32509,9 +32516,8 @@
 "coo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office";
-	pixel_y = 4
+/obj/item/storage/fancy/cigars{
+	pixel_y = 8
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
@@ -38494,6 +38500,10 @@
 /obj/item/paper/ntrep,
 /obj/item/stamp/rep,
 /obj/item/folder,
+/obj/item/ashtray/glass{
+	pixel_x = 16;
+	pixel_y = 2
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "cLF" = (
@@ -74255,6 +74265,7 @@
 /obj/item/flashlight/lamp/green{
 	pixel_y = 8
 	},
+/obj/item/storage/fancy/cigars/cohiba,
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain)
 "qCk" = (
@@ -80841,7 +80852,6 @@
 	pixel_y = -28
 	},
 /obj/item/reagent_containers/drinks/flask/gold,
-/obj/item/clothing/mask/cigarette/cigar,
 /obj/item/razor{
 	pixel_x = -4;
 	pixel_y = 2

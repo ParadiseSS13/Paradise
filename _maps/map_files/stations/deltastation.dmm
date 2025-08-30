@@ -22766,6 +22766,9 @@
 "bLe" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
+/obj/item/ashtray/glass{
+	pixel_y = -11
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "bLf" = (
@@ -23345,10 +23348,11 @@
 /area/station/command/office/captain)
 "bNg" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar,
-/obj/item/clothing/mask/cigarette/cigar,
 /obj/structure/cable{
 	icon_state = "2-8"
+	},
+/obj/item/storage/fancy/cigars/cohiba{
+	pixel_y = 8
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
@@ -27602,13 +27606,11 @@
 /area/station/command/office/ntrep)
 "ccb" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = 3;
-	pixel_y = -3
+/obj/item/ashtray/glass{
+	pixel_y = -11
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = -3;
-	pixel_y = 3
+/obj/item/storage/fancy/cigars{
+	pixel_y = 8
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
@@ -34552,9 +34554,15 @@
 /area/station/science/robotics/showroom)
 "czO" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/bottle/whiskey,
+/obj/item/reagent_containers/drinks/bottle/whiskey{
+	pixel_x = 4;
+	pixel_y = 7
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/item/ashtray/glass{
+	pixel_y = -11
 	},
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
@@ -34576,6 +34584,9 @@
 /obj/item/pen/multi,
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/item/ashtray/glass{
+	pixel_y = -11
 	},
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
@@ -35033,16 +35044,11 @@
 /area/station/science/robotics/showroom)
 "cBq" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/havana{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/item/storage/fancy/cigars{
+	pixel_y = 8
 	},
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
