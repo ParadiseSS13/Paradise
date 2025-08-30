@@ -19,7 +19,7 @@ BONUS
 
 	name = "Eternal Youth"
 	stealth = 3
-	resistance = 4
+	resistance = 2
 	stage_speed = 4
 	transmissibility = -4
 	level = 5
