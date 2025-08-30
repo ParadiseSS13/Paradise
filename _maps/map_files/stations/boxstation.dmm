@@ -49670,9 +49670,6 @@
 	},
 /area/station/security/brig)
 "eHO" = (
-/obj/machinery/door/airlock/medical{
-	name = "Genetics Monkey Pen"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -49684,6 +49681,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -55867,11 +55865,18 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/reversed{
-	dir = 4;
-	name = "Genetics Reception"
+	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics{
-	dir = 4
+	dir = 8
+	},
+/obj/item/desk_bell{
+	pixel_x = 7;
+	pixel_y = 7;
+	anchored = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
@@ -74326,10 +74331,6 @@
 /area/station/maintenance/asmaint)
 "qDj" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = "GeneticsDoor";
-	name = "Genetics"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -74337,6 +74338,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/door/airlock/research/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
