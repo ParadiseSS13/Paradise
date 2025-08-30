@@ -107,7 +107,7 @@
 /obj/item/projectile/beam/disabler/weak
 	name = "weakened disabler beam"
 	damage = 15
-	armour_penetration_flat = -10
+	armor_penetration_flat = -10
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/item/projectile/beam/disabler/fake
@@ -252,7 +252,7 @@
 	name = "instagib laser"
 	icon_state = "purple_laser"
 	damage = 200
-	armour_penetration_percentage = 100
+	armor_penetration_percentage = 100
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PURPLE
 

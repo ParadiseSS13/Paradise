@@ -28,7 +28,7 @@ Difficulty: Medium
 	attacktext = "chomps"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	speak_emote = list("echoes")
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	melee_damage_lower = 40
 	melee_damage_upper = 40
 	wander = FALSE

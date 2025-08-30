@@ -28,7 +28,7 @@
 	health = 1000
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	light_power = 5
 	light_range = 2
 	light_color = "#FF0000"
@@ -226,7 +226,7 @@
 	name = "death bolt"
 	icon_state = "chronobolt"
 	damage = 15
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	speed = 2
 
 /obj/item/projectile/herald/teleshot

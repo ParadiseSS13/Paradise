@@ -280,7 +280,7 @@
 
 /mob/living/silicon/bullet_act(obj/item/projectile/Proj)
 	if(!Proj.nodamage)
-		var/damage = run_armor(Proj.damage, Proj.damage_type, Proj.flag, 0, Proj.armour_penetration_flat, Proj.armour_penetration_percentage)
+		var/damage = run_armor(Proj.damage, Proj.damage_type, Proj.flag, 0, Proj.armor_penetration_flat, Proj.armor_penetration_percentage)
 		switch(Proj.damage_type)
 			if(BRUTE)
 				adjustBruteLoss(damage)
@@ -305,18 +305,18 @@
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			bonus_damage = H.physiology.melee_bonus
-		var/damage = run_armor(I.force + bonus_damage, I.damtype, MELEE, 0, I.armour_penetration_flat, I.armour_penetration_percentage)
+		var/damage = run_armor(I.force + bonus_damage, I.damtype, MELEE, 0, I.armor_penetration_flat, I.armor_penetration_percentage)
 		apply_damage(damage, I.damtype, def_zone)
 
 ///returns the damage value of the attack after processing the silicons's various armor protections
-/mob/living/silicon/proc/run_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
+/mob/living/silicon/proc/run_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armor_penetration_flat = 0, armor_penetration_percentage = 0)
 	if(damage_type != BRUTE && damage_type != BURN)
 		return 0
 	var/armor_protection = 0
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
 	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
-		armor_protection = clamp((armor_protection * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat, min(armor_protection, 0), 100)
+		armor_protection = clamp((armor_protection * ((100 - armor_penetration_percentage) / 100)) - armor_penetration_flat, min(armor_protection, 0), 100)
 	return round(damage_amount * (100 - armor_protection) * 0.01, DAMAGE_PRECISION)
 
 /mob/living/silicon/apply_effect(effect = 0, effecttype = STUN, blocked = 0)

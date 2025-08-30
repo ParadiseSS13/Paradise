@@ -28,7 +28,7 @@
 	health = 1000
 	melee_damage_lower = 35
 	melee_damage_upper = 35
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	attacktext = "slashes its arms at"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	throw_message = "doesn't affect the sturdiness of"
