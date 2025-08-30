@@ -308,6 +308,24 @@
 	. = ..()
 	wires.cut_all()
 
+/obj/machinery/syndicatebomb/shuttle_loan
+
+/obj/machinery/syndicatebomb/shuttle_loan/Initialize(mapload)
+	. = ..()
+	anchored = TRUE
+	timer_set = rand(180, 300) // once the supply shuttle docks (after 5 minutes travel time), players have between 3-5 minutes to defuse the bomb. Units are in seconds.
+	activate()
+	update_appearance()
+
+/obj/machinery/syndicatebomb/badmin/clown/shuttle_loan
+	payload = /obj/item/bombcore/badmin/summon/clown/lesser
+
+/obj/machinery/syndicatebomb/badmin/clown/shuttle_loan/Initialize(mapload)
+	. = ..()
+	anchored = TRUE
+	timer_set = rand(180, 300) // once the supply shuttle docks (after 5 minutes travel time), players have between 3-5 minutes to defuse the bomb. Units are in seconds.
+	activate()
+	update_appearance()
 
 ///Bomb Cores///
 
@@ -421,6 +439,9 @@
 /obj/item/bombcore/badmin/summon/clown/defuse()
 	playsound(src.loc, 'sound/misc/sadtrombone.ogg', 50)
 	..()
+
+/obj/item/bombcore/badmin/summon/clown/lesser
+	amt_summon = 10
 
 /obj/item/bombcore/explosive_wall
 	admin_log = FALSE
