@@ -177,6 +177,7 @@
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 
 /obj/item/scalpel/laser/attack__legacy__attackchain(mob/living/carbon/target, mob/living/user)
 	if(!cigarette_lighter_act(user, target))
