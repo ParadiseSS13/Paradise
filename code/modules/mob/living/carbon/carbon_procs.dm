@@ -188,6 +188,7 @@
 	// Moderate shock - Stun, knockdown, funny effect
 	var/should_stun = FALSE
 	var/stun_dur = 0 SECONDS
+	var/icon/overlay_icon = null
 	if(shock_damage >= SHOCK_MODERATE)
 		should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
 		if(should_stun)
@@ -196,8 +197,8 @@
 		if(shock_damage >= SHOCK_FLASH) // Arc flash explosion is instant, don't wait for the secondary shock and bypass the effect
 			stun_dur = 0
 		else
-			var/obj/effect/temp_visual/electrocution/shock_effect = new /obj/effect/temp_visual/electrocution(loc, stun_dur)
-			shock_effect.setDir(dir)
+			overlay_icon = new('icons/effects/effects.dmi', "electrocution")
+			overlays += overlay_icon
 		emote("scream")
 		AdjustStuttering(4 SECONDS)
 
@@ -212,13 +213,15 @@
 			throw_dir = get_dir(shock_source.loc, src)
 			throw_distance = round(shock_damage / 10)
 
-	addtimer(CALLBACK(src, PROC_REF(secondary_shock), jitter_amount, should_stun, throw_dir, throw_distance), stun_dur)
+	addtimer(CALLBACK(src, PROC_REF(secondary_shock), jitter_amount, should_stun, throw_dir, throw_distance, overlay_icon), stun_dur)
 	return shock_damage
 
 /// Called after electrocute_act to apply secondary effects
-/mob/living/carbon/proc/secondary_shock(jitter_amount, should_stun, throw_dir, throw_distance)
+/mob/living/carbon/proc/secondary_shock(jitter_amount, should_stun, throw_dir, throw_distance, overlay_icon)
 	if(jitter_amount)
 		AdjustJitter(jitter_amount)
+	if(overlay_icon)
+		overlays -= overlay_icon
 	if(should_stun)
 		KnockDown(6 SECONDS)
 	if(throw_dir && throw_distance && !HAS_TRAIT(src, TRAIT_MAGPULSE)) // Don't yeet if they're wearing magboots
@@ -321,7 +324,7 @@
 			self_message = "<span class='danger'>You burn your hand trying to extinguish [target]!</span>"
 			H.update_icons()
 
-	target.visible_message("<span class='warning'>[src] tries to extinguish [target]!</span>", self_message)
+	visible_message("<span class='warning'>[src] tries to extinguish [target]!</span>", self_message)
 	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	target.adjust_fire_stacks(-0.5)
 

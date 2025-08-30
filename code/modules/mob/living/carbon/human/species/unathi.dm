@@ -143,11 +143,13 @@
 		fire.Remove(H)
 	var/datum/action/innate/unathi_ignite/ash_walker/fire = new()
 	fire.Grant(H)
+	H.faction |= "ashwalker"
 
 /datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
 	..()
 	for(var/datum/action/innate/unathi_ignite/ash_walker/fire in H.actions)
 		fire.Remove(H)
+	H.faction -= "ashwalker"
 
 /datum/species/unathi/ashwalker/movement_delay(mob/living/carbon/human/H)
 	. = ..()

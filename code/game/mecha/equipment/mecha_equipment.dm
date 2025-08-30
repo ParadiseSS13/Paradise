@@ -73,6 +73,13 @@
 /obj/item/mecha_parts/mecha_equipment/proc/action(atom/target)
 	return
 
+/obj/item/mecha_parts/mecha_equipment/proc/on_unequip()
+	chassis.selected = null
+	return
+
+/obj/item/mecha_parts/mecha_equipment/proc/on_equip(atom/target)
+	return
+
 /obj/item/mecha_parts/mecha_equipment/proc/start_cooldown()
 	set_ready_state(0)
 	chassis.use_power(energy_drain)
