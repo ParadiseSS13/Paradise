@@ -324,7 +324,7 @@
 			self_message = "<span class='danger'>You burn your hand trying to extinguish [target]!</span>"
 			H.update_icons()
 
-	target.visible_message("<span class='warning'>[src] tries to extinguish [target]!</span>", self_message)
+	visible_message("<span class='warning'>[src] tries to extinguish [target]!</span>", self_message)
 	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	target.adjust_fire_stacks(-0.5)
 

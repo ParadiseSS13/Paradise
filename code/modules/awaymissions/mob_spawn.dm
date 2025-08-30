@@ -639,6 +639,7 @@
 	l_pocket = null
 	l_ear = null
 	id = null
+	can_be_admin_equipped = FALSE
 
 /obj/effect/mob_spawn/human/corpse/random_species/security_officer
 	name = "Security Officer"

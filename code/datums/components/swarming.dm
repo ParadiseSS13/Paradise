@@ -5,7 +5,8 @@
 	var/list/swarm_members = list()
 	var/static/list/swarming_loc_connections = list(
 		COMSIG_ATOM_EXITED = PROC_REF(leave_swarm),
-		COMSIG_ATOM_ENTERED = PROC_REF(join_swarm)
+		COMSIG_ATOM_ENTERED = PROC_REF(join_swarm),
+		COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON = PROC_REF(join_swarm)
 	)
 
 
@@ -26,7 +27,8 @@
 	swarm_members = null
 	return ..()
 
-/datum/component/swarming/proc/join_swarm(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+/datum/component/swarming/proc/join_swarm(datum/source, atom/movable/arrived)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED + COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON
 	if(isliving(arrived))
 		var/mob/living/our_mob = arrived
 		if(our_mob.stat == DEAD)
@@ -40,6 +42,7 @@
 	other_swarm.swarm_members |= src
 
 /datum/component/swarming/proc/leave_swarm(datum/source, atom/movable/gone, direction)
+	SIGNAL_HANDLER // COMSIG_ATOM_EXITED
 	var/datum/component/swarming/other_swarm = gone.GetComponent(/datum/component/swarming)
 	if(!other_swarm || !(other_swarm in swarm_members))
 		return
