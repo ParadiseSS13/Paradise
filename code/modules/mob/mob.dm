@@ -1625,3 +1625,24 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		. = STATUS_UPDATE_HEALTH
 	if(updating_health)
 		updatehealth()
+
+/mob/proc/add_mousepointer(priority = INFINITY, new_icon)
+	mousepointers["[priority]"] = new_icon
+	update_mousepointer()
+
+/mob/proc/remove_mousepointer(priority)
+	mousepointers -= "[priority]"
+	update_mousepointer()
+
+/mob/proc/update_mousepointer()
+	if(!client)
+		return
+	var/lowest_prio = INFINITY
+	for(var/prio in mousepointers)
+		prio = text2num(prio)
+		if(prio < lowest_prio)
+			lowest_prio = prio
+	if(lowest_prio == INFINITY)
+		client.mouse_pointer_icon = null
+		return
+	client.mouse_pointer_icon = mousepointers["[lowest_prio]"]

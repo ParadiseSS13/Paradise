@@ -134,13 +134,6 @@
 	/// The client's movement keybindings to directions, which work regardless of modifiers.
 	var/list/movement_kb_dirs = list()
 
-	/// Used to make a special mouse cursor, this one for mouse up icon
-	var/mouse_up_icon = null
-	/// Used to make a special mouse cursor, this one for mouse up icon
-	var/mouse_down_icon = null
-	/// Used to override the mouse cursor so it doesnt get reset
-	var/mouse_override_icon = null
-
 	/// Autoclick list of two elements, first being the clicked thing, second being the parameters.
 	var/list/atom/selected_target[2]
 	/// Used in MouseDrag to preserve the original mouse click parameters

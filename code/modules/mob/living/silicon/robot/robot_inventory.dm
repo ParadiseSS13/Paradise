@@ -153,7 +153,6 @@
 		else
 			inventory.deactivate()
 	update_icons()
-	return
 
 //deselect_module(module) - Deselects the module slot specified by "module"
 /mob/living/silicon/robot/proc/deselect_module(module) //Module is 1-3
@@ -164,7 +163,6 @@
 		var/atom/movable/screen/robot/active_module/inventory = inventory_screens[i]
 		inventory.deactivate()
 	update_icons()
-	return
 
 //toggle_module(module) - Toggles the selection of the module slot specified by "module".
 /mob/living/silicon/robot/proc/toggle_module(module) //Module is 1-3
