@@ -14391,10 +14391,6 @@
 "Zc" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
-/obj/item/lighter/zippo/engraved{
-	pixel_x = 15;
-	pixel_y = 3
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -14405,6 +14401,10 @@
 /obj/machinery/newscaster/directional/north,
 /obj/item/storage/fancy/cigars/cohiba{
 	pixel_y = 8
+	},
+/obj/item/lighter/zippo/nt_rep{
+	pixel_x = -16;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
