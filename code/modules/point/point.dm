@@ -7,11 +7,11 @@
  *
  * Not intended as a replacement for the mob verb
  */
-/atom/movable/proc/point_at(atom/pointed_atom)
+/atom/movable/proc/point_at(atom/pointed_atom, make_bubble)
 	if(!isturf(loc))
 		return
 
-	if((pointed_atom in src) || (pointed_atom.loc in src))
+	if(make_bubble || (src != pointed_atom && contains(pointed_atom)))
 		create_point_bubble_from_atom(pointed_atom)
 		return
 
@@ -145,8 +145,9 @@
 /// possibly delayed verb that finishes the pointing process starting in [/mob/verb/pointed()].
 /// either called immediately or in the tick after pointed() was called, as per the [DEFAULT_QUEUE_OR_CALL_VERB()] macro
 /mob/proc/run_pointed(atom/A)
-	if(A.loc in src) // Object is inside a container on the mob. It's not part of the verb's list since it's not in view and requires middle clicking.
-		point_at(A)
+	var/check_if_inside = src != A && contains(A) // extra check so we don't display ourselves in a bubble
+	if(check_if_inside) // Object is inside a container on the mob. It's not part of the verb's list since it's not in view and requires middle clicking.
+		point_at(A, check_if_inside) // send check_if_inside so we don't perform same check twice
 		return TRUE
 
 	if(client && !(A in view(client.maxview(), src)))
