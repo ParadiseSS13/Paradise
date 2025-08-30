@@ -69,7 +69,7 @@
 	if(href_list["follow"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
-			ghost.ManualFollow(src)
+			ghost.manual_follow(src)
 
 /obj/item/melee/ghost_sword/proc/add_ghost(atom/movable/orbited, atom/orbiter)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_BEGIN

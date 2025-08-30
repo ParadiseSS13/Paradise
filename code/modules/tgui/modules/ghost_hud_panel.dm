@@ -33,7 +33,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 		data[hud] = (hud_type_lookup[hud] in ghost.data_hud_seen)
 	data["ahud"] = ghost.antagHUD
 	// Split radioactivity out as it isn't a true datahud
-	data["radioactivity"] = ghost.seerads
+	data["radioactivity"] = ghost.ghost_flags & GHOST_SEE_RADS
 	return data
 
 /datum/ui_module/ghost_hud_panel/ui_act(action, list/params)
@@ -52,11 +52,8 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 			var/hud_type = hud_type_lookup[params["hud_type"]]
 			ghost.remove_the_hud(hud_type)
 
-		if("rads_on")
-			ghost.set_radiation_view(TRUE)
-
-		if("rads_off")
-			ghost.set_radiation_view(FALSE)
+		if("toggle_rad")
+			ghost.toggle_rad_view()
 
 		if("ahud_on")
 			if(!GLOB.configuration.general.allow_antag_hud && !ghost.client.holder)
@@ -71,7 +68,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 				if(response != "Yes")
 					return FALSE
 
-				ghost.can_reenter_corpse = FALSE
+				ghost.ghost_flags &= ~(GHOST_CAN_REENTER | GHOST_RESPAWNABLE)
 				REMOVE_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
 				log_admin("[key_name(ghost)] has enabled antaghud as an observer and forfeited respawnability.")
 				message_admins("[key_name(ghost)] has enabled antaghud as an observer and forfeited respawnability.")

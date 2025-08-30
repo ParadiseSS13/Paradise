@@ -1,6 +1,4 @@
 /mob/dead/observer/Logout()
-	if(client)
-		client.images -= GLOB.ghost_images
 	if(mob_observed && ismob(locateUID(mob_observed)))
 		cleanup_observe()
 

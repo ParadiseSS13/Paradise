@@ -759,8 +759,6 @@
 		return
 	var/mob/dead/observer/ghost = owner.get_ghost()
 	if(ghost)
-		if(!ghost.can_reenter_corpse)
-			return
 		to_chat(ghost, "<span class='ghostalert'>You are being revived by [src]!</span>")
 		window_flash(ghost.client)
 		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))

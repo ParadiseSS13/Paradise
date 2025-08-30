@@ -445,9 +445,9 @@
 	// Ghost and delete the mob.
 	if(!occupant.get_ghost(TRUE))
 		if(TOO_EARLY_TO_GHOST)
-			occupant.ghostize(FALSE) // Players despawned too early may not re-enter the game
+			occupant.ghostize(GHOST_FLAGS_OBSERVE_ONLY) // Players despawned too early may not re-enter the game
 		else
-			occupant.ghostize(TRUE)
+			occupant.ghostize()
 
 	QDEL_NULL(occupant)
 	name = initial(name)

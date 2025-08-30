@@ -1776,11 +1776,11 @@
 		S.action.Grant(new_character)
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
-	for(var/mob/dead/observer/G in GLOB.dead_mob_list)
-		if(G.mind == src && G.mind.key == G.key)
-			if(G.can_reenter_corpse || even_if_they_cant_reenter)
-				return G
-			break
+	for(var/mob/dead/observer/ghost in GLOB.dead_mob_list)
+		if(ghost.mind == src && ghost.mind.key == ghost.key)
+			if(ghost.ghost_flags & GHOST_CAN_REENTER || even_if_they_cant_reenter)
+				return ghost
+			return
 
 /datum/mind/proc/check_ghost_client()
 	var/mob/dead/observer/G = get_ghost()

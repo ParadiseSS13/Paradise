@@ -1076,7 +1076,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		else if(paicard.pai)
 			paicard.pai.key = key
 		else
-			ghostize(0) // The pAI card that just got ejected was dead.
+			ghostize(GHOST_FLAGS_OBSERVE_ONLY) // The pAI card that just got ejected was dead.
 		key = null
 		paicard.forceMove(loc)
 		if(user)

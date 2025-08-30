@@ -35,9 +35,9 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	view_core()
 	// Ghost the current player and disallow them to return to the body
 	if(TOO_EARLY_TO_GHOST)
-		ghostize(FALSE)
+		ghostize(GHOST_FLAGS_OBSERVE_ONLY)
 	else
-		ghostize(TRUE)
+		ghostize()
 
 	in_storage = TRUE
 	// Clean up AI programs, reassign nodes

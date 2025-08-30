@@ -63,7 +63,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(href_list["follow"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
-			ghost.ManualFollow(src)
+			ghost.manual_follow(src)
 
 /obj/effect/immovablerod/Destroy()
 	GLOB.poi_list.Remove(src)
