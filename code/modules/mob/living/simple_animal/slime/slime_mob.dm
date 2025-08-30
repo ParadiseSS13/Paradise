@@ -409,7 +409,7 @@
 		new /obj/effect/temp_visual/heart(loc)
 		visible_message("<span class='notice'>[user] feeds the slime some plasma. It chirps happily!</span>", "<span class='notice'>[user] feeds you a few sheets of plasma! Yummy!!!</span>")
 		S.use(5)
-		if(Discipline)
+		if(Discipline && !trained)
 			trained = TRUE
 			name = "tamed [name]"
 		else
