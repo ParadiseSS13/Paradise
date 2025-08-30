@@ -10,10 +10,10 @@
 	. = ..()
 	name = "MOD [skin] skin applier"
 
-/obj/item/mod/skin_applier/pre_attack(atom/attacked_atom, mob/living/user, params)
-	if(!ismodcontrol(attacked_atom))
+/obj/item/mod/skin_applier/pre_attack(atom/target, mob/living/user, params)
+	if(!ismodcontrol(target))
 		return ..()
-	var/obj/item/mod/control/mod = attacked_atom
+	var/obj/item/mod/control/mod = target
 	if(mod.active || mod.activating)
 		to_chat(user, "<span class='warning'>Deactivate the suit!</span>")
 		return TRUE

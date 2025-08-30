@@ -46,17 +46,17 @@
 	if(user.a_intent != INTENT_HARM)
 		return ..()
 
-/obj/item/reagent_containers/drinks/bottle/pre_attack(atom/A, mob/living/user, params)
+/obj/item/reagent_containers/drinks/bottle/pre_attack(atom/target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
-	if(isliving(A))
+	if(isliving(target))
 		if(!is_glass)
-			mob_act(A, user)
+			mob_act(target, user)
 			return FINISH_ATTACK
 
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>You don't want to harm [A]!</span>")
+			to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
 			return FINISH_ATTACK
 
 /obj/item/reagent_containers/drinks/bottle/attack(mob/living/target, mob/living/user, params)

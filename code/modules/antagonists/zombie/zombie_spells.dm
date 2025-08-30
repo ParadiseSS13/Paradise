@@ -92,7 +92,7 @@
 /obj/item/zombie_claw/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] dull claws extending from [owner.p_their(FALSE)] [owner.l_hand == src ? "left hand" : "right hand"].</span>"
 
-/obj/item/zombie_claw/pre_attack(atom/A, mob/living/user, params)
+/obj/item/zombie_claw/pre_attack(atom/target, mob/living/user, params)
 	. = ..()
 	if(!HAS_TRAIT(user, TRAIT_PLAGUE_ZOMBIE))
 		if(user.reagents.has_reagent("zombiecure2"))
