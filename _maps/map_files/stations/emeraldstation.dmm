@@ -4725,7 +4725,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/camera{
-	c_tag = "Blueshield's Office";
+	c_tag = "Nanotrasen Representative's Office";
 	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -11025,7 +11025,7 @@
 /area/station/maintenance/starboard)
 "cgE" = (
 /obj/machinery/camera{
-	c_tag = "Paper Supplies";
+	c_tag = "Trainer's Office";
 	dir = 8
 	},
 /obj/machinery/power/apc/important/directional/east,
