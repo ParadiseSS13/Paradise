@@ -8,6 +8,8 @@
 	var/atom/holder
 	/// The holder type; used to make sure that the holder is the correct type.
 	var/holder_type
+	/// Key that enables wire assignments to be common across different holders. If null, will use the holder_type as a key.
+	var/dictionary_key = null
 	/// The display name for the TGUI window. For example, given the var is "APC"...
 	/// When the TGUI window is opened, "wires" will be appended to it's title, and it would become "APC wires".
 	var/proper_name = "Unknown"
@@ -41,12 +43,13 @@
 	if(randomize)
 		randomize()
 		return
-
-	if(!GLOB.wire_color_directory[holder_type])
+	// If there is a dictionary key set, we'll want to use that. Otherwise, use the holder type.
+	var/key = dictionary_key ? dictionary_key : holder_type
+	if(!GLOB.wire_color_directory[key])
 		randomize()
-		GLOB.wire_color_directory[holder_type] = colors
+		GLOB.wire_color_directory[key] = colors
 	else
-		colors = GLOB.wire_color_directory[holder_type]
+		colors = GLOB.wire_color_directory[key]
 
 /datum/wires/Destroy()
 	for(var/color in colors)
