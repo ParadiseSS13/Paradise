@@ -61,7 +61,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/update_icon_state()
 	. = ..()
 	icon_state = "[initial(icon_state)][lit ? "_on" : ""]"
-	item_state = "[initial(icon_state)][lit ? "_on" : ""]"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_wear_mask()
@@ -361,10 +360,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		)
 		if(!do_after(user, 5 SECONDS, target = target))
 			return ITEM_INTERACT_COMPLETE
-	
+
 	else
 		to_chat(user, "<span_class='notice'>You eat [src].</span>")
-		
+
 	playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 
 	// A SPICY candy!

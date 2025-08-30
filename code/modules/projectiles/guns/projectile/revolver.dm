@@ -4,7 +4,7 @@
 	materials = list()
 	icon = 'icons/tgmc/objects/guns.dmi'
 	icon_state = "revolver"
-	item_state = "revolver"
+	inhand_icon_state = "revolver"
 	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
@@ -177,14 +177,14 @@
 	name = "\improper Unica 6 auto-revolver"
 	desc = "A retro high-powered autorevolver typically used by officers of several unrelated militaries. Uses .357 ammo."	//>10mm hole >.357
 	icon_state = "mateba"
-	item_state = "mateba"
+	inhand_icon_state = "mateba"
 
 /obj/item/gun/projectile/revolver/golden
 	name = "\improper Golden revolver"
 	desc = "This ain't no game, ain't never been no show, And I'll gladly gun down the oldest lady you know. Uses .357 ammo."
 	icon = 'icons/tgmc/objects/guns64.dmi'
 	icon_state = "goldrevolver"
-	item_state = "goldrevolver"
+	inhand_icon_state = "goldrevolver"
 	fire_sound = 'sound/weapons/resonator_blast.ogg'
 	recoil = 8
 
@@ -192,7 +192,7 @@
 	name = "\improper Nagant revolver"
 	desc = "An old model of revolver that originated in Russia, now used by the USSP. Able to be suppressed. Uses 7.62x38mmR ammo."
 	icon_state = "nagant"
-	item_state = "nagant"
+	inhand_icon_state = "nagant"
 	origin_tech = "combat=3"
 	can_suppress = TRUE
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
@@ -207,7 +207,9 @@
 	desc = "A bulky revolver that seems to be made out of a plant."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "pea_shooter"
-	item_state = "peashooter"
+	inhand_icon_state = "peashooter"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "combat=3;biotech=5"
 	mag_type = /obj/item/ammo_box/magazine/internal/overgrown
@@ -235,7 +237,8 @@
 	desc = "A true classic, by Starstrike Arms."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "dbshotgun"
-	item_state = null
+	worn_icon_state = null
+	inhand_icon_state = null
 	lefthand_file = 'icons/mob/inhands/64x64_guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_guns_righthand.dmi'
 	inhand_x_dimension = 64
@@ -269,10 +272,8 @@
 		var/obj/item/melee/energy/W = A
 		if(HAS_TRAIT(W, TRAIT_ITEM_ACTIVE))
 			sawoff(user)
-			item_state = icon_state
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
 		sawoff(user)
-		item_state = icon_state
 	else
 		return ..()
 
@@ -331,7 +332,6 @@
 	name = "improvised shotgun"
 	desc = "Essentially a tube that aims shotgun shells."
 	icon_state = "ishotgun"
-	item_state = "ishotgun"
 	slot_flags = null
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	sawn_desc = "I'm just here for the gasoline."
@@ -354,7 +354,6 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon_state()
 	icon_state = "ishotgun[sling ? "_sling" : sawn_state == SAWN_OFF ? "_sawn" : ""]"
-	item_state = "ishotgun[sling ? "_sling" : sawn_state == SAWN_OFF ? "_sawn" : ""]"
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
@@ -369,16 +368,16 @@
 	name = "cane"
 	desc = "A cane used by a true gentleman. Or a clown."
 	icon = 'icons/obj/items.dmi'
+	icon_state = "cane"
+	worn_icon_state = null
+	inhand_icon_state = "stick"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
-	icon_state = "cane"
-	item_state = "stick"
 	sawn_state = SAWN_OFF
 	w_class = WEIGHT_CLASS_SMALL
 	can_unsuppress = FALSE
-	slot_flags = null
 	origin_tech = "" // NO GIVAWAYS
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/cane
 	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
@@ -392,9 +391,6 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon_state()
 	return
-
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_overlays()
-	return list()
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby__legacy__attackchain(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/stack/cable_coil))

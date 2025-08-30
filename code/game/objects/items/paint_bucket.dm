@@ -5,7 +5,7 @@
 	name = "paint bucket"
 	icon = 'icons/obj/paint.dmi'
 	icon_state = "paint_neutral"
-	item_state = "paintcan"
+	inhand_icon_state = "paintcan"
 	materials = list(MAT_METAL = 400)
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE

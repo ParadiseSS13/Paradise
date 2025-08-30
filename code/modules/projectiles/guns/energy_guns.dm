@@ -1,8 +1,8 @@
 /obj/item/gun/energy
-	icon_state = "energy"
 	name = "generic energy gun"
 	desc = "If you can see this, make a bug report on GitHub, something went wrong!"
 	icon = 'icons/obj/guns/energy.dmi'
+	icon_state = "energy"
 	fire_sound_text = "laser blast"
 
 	/// What type of power cell this uses
@@ -215,19 +215,22 @@
 	ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
 	var/inhand_ratio = CEILING((cell.charge / cell.maxcharge) * inhand_charge_sections, 1)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/new_inhand_icon_state = initial(inhand_icon_state) ? null : icon_state
+	var/new_worn_icon_state = initial(worn_icon_state) ? null : icon_state
 	new_icon_state = "[icon_state]_charge"
-	var/new_item_state = null
-	if(!initial(item_state))
-		new_item_state = icon_state
 	if(modifystate)
 		new_icon_state += "_[shot.select_name]"
-		if(new_item_state)
-			new_item_state += "[shot.select_name]"
-	if(new_item_state)
-		new_item_state += "[inhand_ratio]"
-		item_state = new_item_state
-	if(current_skin)
-		icon_state = current_skin
+		if(new_inhand_icon_state)
+			new_inhand_icon_state += "[shot.select_name]"
+		if(new_worn_icon_state)
+			new_worn_icon_state += "[shot.select_name]"
+	if(new_inhand_icon_state)
+		new_inhand_icon_state += "[inhand_ratio]"
+		inhand_icon_state = new_inhand_icon_state
+	if(new_worn_icon_state)
+		new_worn_icon_state += "[inhand_ratio]"
+		worn_icon_state = new_worn_icon_state
+	icon_state = current_skin || initial(icon_state)
 
 /obj/item/gun/energy/update_overlays()
 	. = ..()

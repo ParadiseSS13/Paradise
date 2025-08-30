@@ -1,10 +1,10 @@
 /obj/item/envelope
 	name = "broken letter"
 	desc = "We just got a letter, we just got a letter, we just got a letter -- I wonder who it's from?"
-	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "mail_misc"
-	item_state = "paper"
+	inhand_icon_state = "paper"
+	w_class = WEIGHT_CLASS_SMALL
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 
@@ -231,7 +231,6 @@
 	desc = "A portable mail scanner, this device allows you to log mail deliveries in exchange for financial compensation."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "mail_scanner"
-	item_state = "mail_scanner"
 	lefthand_file = 'icons/mob/inhands/items/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items/devices_righthand.dmi'
 	flags = CONDUCT
