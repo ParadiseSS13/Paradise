@@ -49,7 +49,7 @@
 
 /obj/machinery/computer/library/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(populate_booklist)), 0)
+	END_OF_TICK(CALLBACK(src, PROC_REF(populate_booklist)))
 
 /obj/machinery/computer/library/attack_ai(mob/user)
 	return attack_hand(user)

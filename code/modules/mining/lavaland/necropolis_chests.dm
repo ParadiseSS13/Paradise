@@ -377,7 +377,7 @@
 	..()
 	if(!activated || QDELETED(src))
 		return
-	addtimer(CALLBACK(src, PROC_REF(try_attach_to_owner)), 0) // Do this once the drop call stack is done. The holding limb might be getting removed
+	END_OF_TICK(CALLBACK(src, PROC_REF(try_attach_to_owner))) // Do this once the drop call stack is done. The holding limb might be getting removed
 
 /obj/item/rod_of_asclepius/proc/try_attach_to_owner()
 	if(!ishuman(owner) || QDELETED(owner))

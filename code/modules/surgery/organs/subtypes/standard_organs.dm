@@ -210,7 +210,7 @@
 	// we need to come back to this once the hand is actually removed/dead
 	if(!owner) // Rather not have this trigger on already removed limbs
 		return
-	addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, update_hands_hud), 0))
+	END_OF_TICK(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, update_hands_hud)))
 
 /obj/item/organ/external/hand/right
 	limb_name = "r_hand"
