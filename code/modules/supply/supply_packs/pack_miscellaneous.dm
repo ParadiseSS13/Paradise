@@ -845,7 +845,7 @@
 	containername = "assistant flag crate"
 	contraband = TRUE
 
-/datum/supply_packs/misc/potted_plants_alien
+/datum/supply_packs/misc/premium_havana_cigar
 	name = "premium Havana cigar crate"
 	contains = list(
 		/obj/item/storage/fancy/havana_cigar
