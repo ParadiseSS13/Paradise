@@ -56,7 +56,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
 	smoketime = reagents.total_volume * 2.5
-	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+	update_appearance(UPDATE_NAME|UPDATE_ICON)
 
 /obj/item/clothing/mask/cigarette/update_icon_state()
 	. = ..()
@@ -263,7 +263,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(C.wear_mask == src) // Don't update if it's just in their hand
 			C.wear_mask_update(src)
 	set_light(2, 0.25, "#E38F46")
-	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+	update_appearance(UPDATE_NAME|UPDATE_ICON)
 	START_PROCESSING(SSobj, src)
 	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 	return TRUE
@@ -487,7 +487,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(plant.reagents.total_volume > custom_rollie.chem_volume)
 			to_chat(user, "<span class='notice'>You pour some of [plant] into a rolling paper.</span>")
 			plant.reagents.trans_to(custom_rollie, 40)
-			plant.update_icon_state()
+			plant.update_appearance(UPDATE_ICON)
 		else
 			to_chat(user, "<span class='notice'>You empty [plant] into a rolling paper.</span>")
 			plant.reagents.trans_to(custom_rollie, plant.reagents.total_volume)
@@ -527,7 +527,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	Whilst intended for use in pipes or hand-rolled cigarettes, some have been known to use it as dip or snuff."
 
 /obj/item/food/grown/tobacco/pre_dried/On_Consume(mob/M, mob/user)
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	..()
 
 /obj/item/food/grown/tobacco/pre_dried/update_icon_state()
@@ -654,7 +654,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		to_chat(user, "<span class='notice'>You enable the holo-cigar.</span>")
 		START_PROCESSING(SSobj, src)
 
-	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+	update_appearance(UPDATE_NAME|UPDATE_ICON)
 
 /obj/item/clothing/mask/holo_cigar/Destroy()
 	. = ..()
@@ -745,7 +745,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		else
 			to_chat(user, "<span class='notice'>You pour some of [filler] into the pipe.</span>")
 			filler.reagents.trans_to(src, clamp(filler.reagents.total_volume, 0, (chem_volume - reagents.total_volume)))
-			filler.update_icon_state()
+			filler.update_icon(UPDATE_ICON_STATE)
 	else
 		to_chat(user, "<span class='notice'>You stuff the [filler.name] into the pipe.</span>")
 		filler.reagents.trans_to(src, chem_volume)
@@ -758,7 +758,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(!lit)
 		lit = TRUE
 		damtype = "fire"
-		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+		update_appearance(UPDATE_NAME|UPDATE_ICON)
 		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/process()
@@ -770,7 +770,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			var/mob/living/M = loc
 			to_chat(M, "<span class='notice'>Your [name] goes out, and you empty the ash.</span>")
 			lit = FALSE
-		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+		update_appearance(UPDATE_NAME|UPDATE_ICON)
 		STOP_PROCESSING(SSobj, src)
 		return
 
@@ -783,7 +783,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	)
 	lit = FALSE
 	first_puff = TRUE
-	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+	update_appearance(UPDATE_NAME|UPDATE_ICON)
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/die()
