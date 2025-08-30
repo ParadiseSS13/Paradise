@@ -15312,6 +15312,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 5
 	},
+/obj/item/clothing/head/cone{
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "dbZ" = (
@@ -31096,6 +31101,10 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/atmos/control)
+"ggw" = (
+/obj/item/clothing/head/cone,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "ggG" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall,
@@ -141461,7 +141470,7 @@ scA
 hkJ
 fxn
 cLg
-sGV
+ggw
 cEY
 uBR
 etX
