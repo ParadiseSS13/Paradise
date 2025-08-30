@@ -93,7 +93,7 @@
 	PreInit();\
 	ss_id="timer_[#X]";\
 }\
-/datum/controller/subsystem/timer/##X/fire() {..() /*just so it shows up on the profiler*/} \
+/datum/controller/subsystem/timer/##X/fire() {CAN_BE_REDEFINED(TRUE); ..() } \
 /datum/controller/subsystem/timer/##X
 
 #define MOVEMENT_SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/movement/##X);\
