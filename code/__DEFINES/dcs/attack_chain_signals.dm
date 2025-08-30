@@ -60,8 +60,9 @@
 // signal interceptors because they're not meant to be combined, and to mesh better with
 // historical use of return values in attack chain procs.
 
-#define CONTINUE_ATTACK		0	//! Continue the attack chain, i.e. allow other signals to respond.
-#define FINISH_ATTACK		1	//! Do not continue the attack chain.
+#define CONTINUE_ATTACK			0		//! Continue the attack chain, i.e. allow other signals to respond.
+#define FINISH_ATTACK			(1<<0)	//! Do not continue the attack chain.
+#define MELEE_COOLDOWN_PREATTACK	(1<<1)	//! Apply a CLICK_CD_MELEE cooldown.
 
 // Legacy-only, do not use in new code
 

@@ -6,15 +6,16 @@
 	origin_tech = "combat=2;bluespace=4;materials=3"
 
 /obj/item/melee/baton/cattleprod/teleprod/pre_attack(atom/A, mob/living/user, params)
-	if(..())
-		return FINISH_ATTACK
+	. = ..()
+	if(.)
+		return
 
 	if(!turned_on)
-		return FINISH_ATTACK
+		return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 	if(!ismob(A))
 		return
-	
+
 	var/mob/living/carbon/M
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		user.visible_message(
