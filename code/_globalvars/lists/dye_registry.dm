@@ -157,6 +157,17 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_SYNDICATE = /obj/item/bedsheet/syndie,
 		DYE_CENTCOM = /obj/item/bedsheet/centcom
 	),
+	DYE_REGISTRY_BOMBER = list(
+		DYE_RED = /obj/item/clothing/suit/jacket/bomber/sec,
+		DYE_ORANGE = /obj/item/clothing/suit/jacket/bomber/chem,
+		DYE_YELLOW = /obj/item/clothing/suit/jacket/bomber/engi,
+		DYE_GREEN = /obj/item/clothing/suit/jacket/bomber/hydro,
+		DYE_BLUE = /obj/item/clothing/suit/jacket/bomber/atmos,
+		DYE_PURPLE = /obj/item/clothing/suit/jacket/bomber/sci,
+		DYE_BLACK = /obj/item/clothing/suit/jacket/bomber/coroner,
+		DYE_WHITE = /obj/item/clothing/suit/jacket/bomber/med,
+		DYE_SYNDICATE = /obj/item/clothing/suit/jacket/bomber/syndicate
+	),
 	DYE_REGISTRY_PLASMAMEN = list(
 		DYE_RED = /obj/item/clothing/under/plasmaman/security,
 		DYE_ORANGE = /obj/item/clothing/under/plasmaman,
