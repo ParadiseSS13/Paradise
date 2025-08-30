@@ -10,11 +10,11 @@
 
 	var/num = rand(2, 12)
 	for(var/i = 0, i < num, i++)
-		var/mob/living/simple_animal/hostile/malf_drone/D = new(get_turf(pick(possible_spawns)))
+		var/mob/living/basic/malf_drone/D = new(get_turf(pick(possible_spawns)))
 		RegisterSignal(D, COMSIG_PARENT_QDELETING, PROC_REF(remove_drone))
 		drones_list.Add(D)
 
-/datum/event/rogue_drone/proc/remove_drone(mob/living/simple_animal/hostile/malf_drone/D)
+/datum/event/rogue_drone/proc/remove_drone(mob/living/basic/malf_drone/D)
 	SIGNAL_HANDLER
 	drones_list -= D
 
@@ -33,7 +33,7 @@
 
 /datum/event/rogue_drone/end()
 	var/num_recovered = 0
-	for(var/mob/living/simple_animal/hostile/malf_drone/D in drones_list)
+	for(var/mob/living/basic/malf_drone/D in drones_list)
 		do_sparks(3, 0, D.loc)
 		qdel(D)
 		num_recovered++
