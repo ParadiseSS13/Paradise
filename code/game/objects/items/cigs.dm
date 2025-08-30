@@ -573,7 +573,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/cigar/havana
 	name = "\improper Premium Havanian Cigar"
-	desc = "A luxury cigar only fit for the best of the best."
+	desc = "A luxury cigar imported straight from Sol. Only fit for the best of the best. You feel badass merely glimpsing it..."
 	icon_state = "gold_cigar"
 	smoketime = 450
 	chem_volume = 200
@@ -589,6 +589,27 @@ LIGHTERS ARE IN LIGHTERS.DM
 	. += ""
 	. += "Due to a mixture of limited manufacturing capacity, high quality, brand prestige, and export taxes, \
 	these cigars are too expensive for all but the most wealthy to smoke with any degree of regularity."
+
+/obj/item/clothing/mask/cigarette/cigar/havana/equipped(mob/user, slot, initial)
+	. = ..()
+	if(lit && slot == ITEM_SLOT_MASK)
+		grant_badass(user)
+
+/obj/item/clothing/mask/cigarette/cigar/havana/light(mob/living/user)
+	..()
+	if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
+		grant_badass(user)
+
+/obj/item/clothing/mask/cigarette/cigar/havana/proc/grant_badass(mob/user)
+	if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
+		ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
+		to_chat(user, "<span class='notice'>You feel more badass while smoking [src].</span>")
+
+/obj/item/clothing/mask/cigarette/cigar/havana/dropped(mob/user, silent)
+	. = ..()
+	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
+		REMOVE_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
+		to_chat(user, "<span class='notice'>You feel less badass.</span>")
 
 /obj/item/cigbutt/cigarbutt
 	name = "cigar butt"

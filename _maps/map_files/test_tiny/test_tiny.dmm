@@ -11,14 +11,6 @@
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
-"n" = (
-/obj/item/storage/fancy/havana_cigar,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"o" = (
-/obj/item/storage/fancy/cigars/cohiba,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
 "p" = (
 /obj/machinery/light{
 	dir = 1
@@ -45,10 +37,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/arrival/station)
-"Z" = (
-/obj/item/storage/fancy/cigars,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 
@@ -32303,7 +32291,7 @@ a
 u
 x
 x
-Z
+x
 x
 x
 x
@@ -32560,7 +32548,7 @@ a
 u
 x
 x
-o
+x
 x
 x
 b
@@ -32817,7 +32805,7 @@ a
 u
 x
 x
-n
+x
 x
 x
 x
