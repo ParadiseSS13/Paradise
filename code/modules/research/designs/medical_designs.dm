@@ -383,6 +383,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/toolset
 	category = list("Medical")
 
+/datum/design/cyberimp_cargo
+	name = "Cargo Arm Implant"
+	desc = "A set of everything a cargo technician needs to have to do their job, besides a forklift. Designed to be installed on subject's arm."
+	id = "ci-cargo"
+	req_tech = list("materials" = 3, "engineering" = 4, "biotech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
+	construction_time = 200
+	build_path = /obj/item/organ/internal/cyberimp/arm/cargo
+	category = list("Medical")
+
 /datum/design/cyberimp_janitorial
 	name = "Janitorial Toolset Implant"
 	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm."
