@@ -165,7 +165,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spacevine, 15),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/meteor_wave, 8),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/solar_flare, 12),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/dust/meaty, 7),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/dust/meaty, 8),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/communications_blackout, 10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/prison_break, 7),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Virology Breach",			/datum/event/prison_break/virology,		0,		list(ASSIGNMENT_MEDICAL = 100)),
