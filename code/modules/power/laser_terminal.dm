@@ -59,6 +59,7 @@ GLOBAL_LIST_EMPTY(laser_terminals)
 	if(total_input > 0)
 		. += "ptl_terminal_graph"
 		. += "ptl_terminal_blinkers"
+		. += "ptl_terminal_light"
 	switch(total_input)
 		if(1 MW to 10 MW)
 			. += "ptl_terminal_bar_1"
