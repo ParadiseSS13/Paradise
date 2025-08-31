@@ -404,6 +404,16 @@
 	cigarette_slogan = "Strong flavour, dense smoke, infused with omnizine."
 	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
 
+/obj/item/storage/fancy/cigarettes/cigpack_carcinoma
+	name = "\improper Carcinoma Angel packet"
+	desc = "True to the name, Carcinoma Angel brings your breathless body exactly to the heaven. \
+	This is an attempt to create the most cancerous cigarettes in the known space, for specific connoisseurs. \
+	Unfortunately, in addition to their poor marketing, they have also been banned in many places of the galaxy."
+	icon_state = "death_packet"
+	item_state = "enigma_packet"
+	cigarette_slogan = "That which does not kill us makes us stronger."
+	cigarette_type = /obj/item/clothing/mask/cigarette/carcinoma
+
 /obj/item/storage/fancy/rollingpapers
 	name = "rolling paper pack"
 	desc = "A pack of Nanotrasen brand rolling papers."

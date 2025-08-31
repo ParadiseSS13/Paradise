@@ -1251,7 +1251,9 @@
 					/obj/item/lighter/zippo = 2,
 					/obj/item/storage/fancy/rollingpapers = 5)
 
-	contraband = list(/obj/item/storage/fancy/cigarettes/cigpack_midori = 6)
+	contraband = list(/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
+					/obj/item/storage/fancy/cigarettes/cigpack_carcinoma = 6
+					)
 
 	prices = list(/obj/item/clothing/mask/cigarette/cigar = 100,
 				/obj/item/storage/fancy/cigarettes/cigpack_carp = 25,
@@ -1265,6 +1267,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 50,
 				/obj/item/storage/fancy/cigarettes/cigpack_solar_rays = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 35,
+				/obj/item/storage/fancy/cigarettes/cigpack_carcinoma = 70,
 				/obj/item/reagent_containers/patch/nicotine = 70,
 				/obj/item/storage/fancy/matches = 20,
 				/obj/item/lighter/random = 40,
@@ -1286,6 +1289,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_our_brand = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 6,
+				/obj/item/storage/fancy/cigarettes/cigpack_carcinoma = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_solar_rays = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
@@ -1326,6 +1330,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_candy = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_carcinoma = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_solar_rays = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 10,
 				/obj/item/reagent_containers/patch/nicotine = 20,

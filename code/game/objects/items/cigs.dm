@@ -361,10 +361,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		)
 		if(!do_after(user, 5 SECONDS, target = target))
 			return ITEM_INTERACT_COMPLETE
-	
+
 	else
 		to_chat(user, "<span_class='notice'>You eat [src].</span>")
-		
+
 	playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 
 	// A SPICY candy!
@@ -423,6 +423,16 @@ LIGHTERS ARE IN LIGHTERS.DM
 	desc = "A roll of dried plant matter wrapped in thin paper."
 	list_reagents = list()
 
+/obj/item/clothing/mask/cigarette/carcinoma
+	name = "dark cigarette"
+	desc = "An truly evil-looking cigarette. It has pure lung cancer aroma."
+	icon_state = "death_cig"
+	butt_type = /obj/item/cigbutt/death
+
+/obj/item/clothing/mask/cigarette/carcinoma/New()
+	list_reagents = list("nicotine" = 40, "dnicotine" = 10, pick("carpotoxin", "toxin", "atrazine") = 1)
+	..()
+
 /obj/item/cigbutt
 	name = "cigarette butt"
 	desc = "A manky old cigarette butt."
@@ -435,6 +445,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "suspicious cigarette butt"
 	desc = "A manky old cigarette butt with an evil look about it."
 	icon_state = "syndie_cig_butt"
+
+/obj/item/cigbutt/death
+	name = "dark cigarette butt"
+	desc = "A manky old cigarette butt, it did its part of the job at killing someone's lungs."
+	icon_state = "death_cig_butt"
 
 /obj/item/cigbutt/Initialize(mapload)
 	. = ..()
