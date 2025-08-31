@@ -344,13 +344,16 @@
 	var/choose = tgui_input_list(user, "Select target", "Target", target_list)
 	if(!choose)
 		return
+	untarget()
 	target = target_list[choose]
-	target.on_ptl_target(src)
+	if(target)
+		target.on_ptl_target(src)
 
 /// Stop targeting a mob once it dies
 /obj/machinery/power/transmission_laser/proc/untarget()
 	SIGNAL_HANDLER // This can be called via various signals depending on what we register on the a target
-	target.on_ptl_untarget(src)
+	if(target)
+		target.on_ptl_untarget(src)
 	target = null
 
 /obj/machinery/power/transmission_laser/process()
