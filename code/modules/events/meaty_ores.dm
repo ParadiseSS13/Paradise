@@ -1,5 +1,6 @@
 /datum/event/dust/meaty
 	name = "Meaty Ores"
+	nominal_severity = EVENT_LEVEL_MODERATE
 	role_weights = list(ASSIGNMENT_ENGINEERING = 2)
 	role_requirements = list(ASSIGNMENT_ENGINEERING = 2)
 
@@ -11,6 +12,7 @@
 
 /datum/event/dust/meaty/setup()
 	qnty = rand(45,125)
+	endWhen = 600 // Make it take up engineering staffing for 20 minutes
 
 /datum/event/dust/meaty/start()
 	INVOKE_ASYNC(src, PROC_REF(spawn_meaty_ores))
