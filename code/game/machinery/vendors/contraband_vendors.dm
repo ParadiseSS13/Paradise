@@ -127,13 +127,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/economy/vending/wallmed/syndicate, 32
 					/obj/item/gun/projectile/shotgun/automatic/combat = 2,
 					/obj/item/gun/projectile/automatic/gyropistol = 1,
 					/obj/item/gun/projectile/shotgun = 2,
-					/obj/item/gun/projectile/automatic/ar = 2,
+					/obj/item/gun/projectile/automatic/hydra = 2,
 					/obj/item/gun/projectile/automatic/ak814 = 2,
 					/obj/item/ammo_box/magazine/smgm9mm = 2,
 					/obj/item/ammo_box/magazine/m50 = 4,
 					/obj/item/ammo_box/magazine/m45 = 2,
 					/obj/item/ammo_box/magazine/m75 = 2,
-					/obj/item/ammo_box/magazine/m556/arg = 2,
+					/obj/item/ammo_box/magazine/m556/hydra = 2,
 					/obj/item/ammo_box/magazine/ak814 = 2)
 
 	contraband = list(/obj/item/clothing/under/costume/patriotsuit = 1,

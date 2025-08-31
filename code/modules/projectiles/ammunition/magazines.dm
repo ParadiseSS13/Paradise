@@ -415,11 +415,11 @@
 	max_ammo = 30
 	multi_sprite_step = AMMO_BOX_MULTI_SPRITE_STEP_ON_OFF
 
-/obj/item/ammo_box/magazine/m556/arg
-	name = "\improper M26 assault rifle magazine (5.56mm)"
-	icon = 'icons/tgmc/objects/ammo.dmi'
-	icon_state = "m26a2"
-	desc = "A Standardized Equipment model magazine for the M26 assault rifle."
+/obj/item/ammo_box/magazine/m556/hydra
+	name = "\improper M26 'Hydra' assault rifle magazine (5.56mm)"
+	icon_state = "hydra_mag"
+	desc = "A Standardized Equipment model magazine for the M26 'Hydra' assault rifle."
+	multi_sprite_step = 5
 
 /obj/item/ammo_box/magazine/ak814
 	name = "AK magazine (5.45x39mm)"

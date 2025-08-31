@@ -263,19 +263,19 @@
 	fire_delay = 1
 
 //////////////////////////////
-// MARK: M26A2 ASSAULT RIFLE
+// MARK: M26A2 'HYDRA' ASSAULT RIFLE
 //////////////////////////////
-/obj/item/gun/projectile/automatic/ar
-	name = "\improper M26A2 assault rifle"
-	desc = "A robust assault rifle used by Trans-Solar Federation forces. Chambered in 5.56mm."
-	icon = 'icons/tgmc/objects/guns64.dmi'
-	icon_state = "m26a2"
-	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
-	item_state = "m26a2"
+/obj/item/gun/projectile/automatic/hydra
+	name = "\improper M26A2 'Hydra' assault rifle"
+	desc = "A modern bullpup assault rifle used by every branch of the Trans-Solar Armed Forces. Chambered in 5.56x45mm Federal."
+	icon = 'icons/obj/guns/projectile48.dmi'
+	icon_state = "hydra"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	item_state = "hydra"
 	slot_flags = 0
 	origin_tech = "combat=6;engineering=4"
-	mag_type = /obj/item/ammo_box/magazine/m556/arg
+	mag_type = /obj/item/ammo_box/magazine/m556/hydra
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'

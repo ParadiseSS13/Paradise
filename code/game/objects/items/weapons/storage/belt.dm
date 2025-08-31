@@ -531,9 +531,9 @@
 	update_icon()
 
 /obj/item/storage/belt/military/assault/marines/elite/full/populate_contents()
-	new /obj/item/ammo_box/magazine/m556/arg(src)
-	new /obj/item/ammo_box/magazine/m556/arg(src)
-	new /obj/item/ammo_box/magazine/m556/arg(src)
+	new /obj/item/ammo_box/magazine/m556/hydra(src)
+	new /obj/item/ammo_box/magazine/m556/hydra(src)
+	new /obj/item/ammo_box/magazine/m556/hydra(src)
 	new /obj/item/ammo_box/magazine/m45(src)
 	new /obj/item/ammo_box/magazine/m45(src)
 	update_icon()
