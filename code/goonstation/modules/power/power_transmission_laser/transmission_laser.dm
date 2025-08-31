@@ -337,7 +337,7 @@
 			if(istype(boss_loc, area_type))
 				target_list[monster.internal_gps.gpstag] = monster
 	for(var/obj/machinery/power/laser_terminal/receptacle in GLOB.laser_terminals)
-		target_list["[receptacle.name]: [receptacle.UID()]"] = receptacle
+		target_list["[receptacle.name]: [receptacle.id]"] = receptacle
 	// Target CC to sell power
 	target_list["Collection Terminal"] = null
 

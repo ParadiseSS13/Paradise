@@ -14,6 +14,8 @@ GLOBAL_LIST_EMPTY(laser_terminals)
 	var/list/lasers = list()
 	/// The amount of power coming into the PTL
 	var/total_input
+	/// id of the terminal so you know which one you're targetting
+	var/id = 0
 
 /obj/item/circuitboard/machine/laser_terminal
 	board_name = "Laser Terminal"
@@ -27,7 +29,7 @@ GLOBAL_LIST_EMPTY(laser_terminals)
 
 /obj/machinery/power/laser_terminal/Initialize(mapload)
 	. = ..()
-	UID()
+	id = copytext(UID(), findlasttext(UID(), "_") + 1)
 	GLOB.laser_terminals += src
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/laser_terminal(null)
@@ -75,10 +77,12 @@ GLOBAL_LIST_EMPTY(laser_terminals)
 			. += "ptl_terminal_bar_6"
 
 /obj/machinery/power/laser_terminal/process()
-	total_input = 0
+	var/tick_input = 0
 	for(var/obj/machinery/power/transmission_laser/ptl in lasers)
 		if(ptl.firing)
-			total_input += ptl.output_level
+			tick_input += ptl.output_level
+	// We use another var so we don't zero total input since it's also used for other things that could potentially happen mid-process
+	total_input = tick_input
 	produce_direct_power(total_input * conversion_efficiency)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -99,3 +103,6 @@ GLOBAL_LIST_EMPTY(laser_terminals)
 /obj/machinery/power/laser_terminal/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I, FALSE)
 
+/obj/machinery/power/laser_terminal/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	to_chat(user, chat_box_examine("<span class='notice'>Unit ID: [id]<br>Input Power: [DisplayPower(total_input)]<br>Output Power: [DisplayPower(total_input * conversion_efficiency)]</span>"))
