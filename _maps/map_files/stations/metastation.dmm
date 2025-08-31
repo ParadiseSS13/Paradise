@@ -47759,15 +47759,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/supply)
 "iSW" = (
-/obj/structure/closet,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/item/reagent_containers/drinks/bottle/beer{
 	desc = "Takes you to a whole new level of thinking.";
 	name = "Meta-Cider"
 	},
 /obj/effect/spawner/random/maintenance,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/structure/closet,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "iTo" = (
@@ -54370,11 +54370,6 @@
 	},
 /area/station/science/rnd)
 "lfc" = (
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/solar_maintenance/fore_starboard)
@@ -61367,6 +61362,11 @@
 	dir = 4
 	},
 /obj/structure/cable/extra_insulated,
+/obj/machinery/light_switch{
+	dir = 8;
+	pixel_x = 24;
+	name = "east bump"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "nDb" = (
@@ -66052,7 +66052,6 @@
 /area/station/supply/sorting)
 "plY" = (
 /obj/machinery/alarm/directional/east,
-/obj/machinery/computer/monitor,
 /obj/machinery/computer/monitor{
 	dir = 8
 	},
@@ -90121,21 +90120,6 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint2)
-"xRj" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/catwalk,
 /area/station/maintenance/fsmaint2)
 "xRO" = (
 /obj/effect/decal/cleanable/dirt,
@@ -135452,7 +135436,7 @@ nCS
 avM
 lfc
 iSW
-xRj
+kYt
 mhE
 ezo
 enp
