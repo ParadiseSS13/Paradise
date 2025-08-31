@@ -66,7 +66,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	for(var/datum/event_meta/EM in available_events)
 		var/event_weight = EM.get_weight(total_resources)
 		// We use the amount of non disabled events to adjust the value of Nothing, so we count 0 weight events
-		if(EM.enabled && EM.first_run_time < world.time)
+		if(EM.enabled && EM.first_run_time < world.time - SSticker.time_game_started)
 			possible_events[EM] = max(event_weight, 0)
 			// For events like nothing we want to have their weight adjusted depending on how many events are left of the original list
 			if(EM.skeleton.is_relative())
@@ -163,9 +163,9 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/carp_migration, 10, , TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, /datum/event/rogue_drone, 7),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/spacevine, 15),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/meteor_wave, 8),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/meteor_wave, 8, _first_run_time = 40 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/solar_flare, 12),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/dust/meaty, 8),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/dust/meaty, 8, _first_run_time = 40 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/communications_blackout, 10),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE,	/datum/event/prison_break, 7),
 		//new /datum/event_meta(EVENT_LEVEL_MODERATE, "Virology Breach",			/datum/event/prison_break/virology,		0,		list(ASSIGNMENT_MEDICAL = 100)),
@@ -202,12 +202,12 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/carp_migration, 10, TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",	/datum/event/prison_break/station,	0,			list(ASSIGNMENT_ANY = 5)),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/apc_overload,	11),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/meteor_wave, 9, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/meteor_wave, 9, TRUE, _first_run_time = 40 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/abductor, 12, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/traders, 13, is_one_shot = TRUE, _first_run_time = 35 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter, 13, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 13, is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 9, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 9, TRUE, _first_run_time = 40 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/demon_incursion, 10, TRUE, _first_run_time = 35 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/disease_outbreak, 12, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/revenant, 10),
