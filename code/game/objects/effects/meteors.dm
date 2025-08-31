@@ -39,8 +39,8 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 	M.dest = pickedgoal
 
 /proc/spawn_meteor_targeted(meteortypes, start, goal)
-	var/Me = pickweight(meteortypes)
-	var/obj/effect/meteor/M = new Me(start, goal)
+	var/meteor_type = pickweight(meteortypes)
+	var/obj/effect/meteor/M = new meteor_type(start, goal)
 	M.dest = goal
 
 /proc/pick_edge_loc(startSide, Z)
@@ -474,8 +474,8 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 
 /obj/effect/meteor/artillery
 	max_integrity = 5000 * OBJ_INTEGRITY_TO_WALL_DAMAGE
-	name = "Armor Penetrating Artillery Shell"
-	desc = "A hardened penetrator and a high explosive charge with a delayed fuse ensure maximum effect on target"
+	name = "armor penetrating artillery shell"
+	desc = "A hardened penetrator and a high explosive charge with a delayed fuse ensure maximum effect on target."
 	icon_state = "artillery"
 	explosion_strength = EXPLODE_DEVASTATE
 	heavy = TRUE
@@ -524,7 +524,7 @@ GLOBAL_LIST_INIT(meteors_gore, list(/obj/effect/meteor/meaty = 5, /obj/effect/me
 		meteor_effect()
 		qdel(src)
 		return
-	. = ..()
+	return ..()
 
 /obj/effect/meteor/artillery/meteor_effect()
 	..()

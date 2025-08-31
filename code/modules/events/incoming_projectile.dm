@@ -40,7 +40,6 @@
 		var/type = pick(types)
 		variant = new type
 
-
 /datum/event/incoming_projectile/setup()
 	var/list/turfs = across_map_center()
 	if(length(turfs) == 2)
