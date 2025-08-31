@@ -270,8 +270,6 @@
 	desc = "A modern bullpup assault rifle used by every branch of the Trans-Solar Armed Forces. Chambered in 5.56x45mm Federal."
 	icon = 'icons/obj/guns/projectile48.dmi'
 	icon_state = "hydra"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	item_state = "hydra"
 	slot_flags = 0
 	origin_tech = "combat=6;engineering=4"
