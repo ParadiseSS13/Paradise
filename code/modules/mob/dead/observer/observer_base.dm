@@ -380,23 +380,21 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	if(!GLOB.configuration.general.respawn_enabled && !check_rights(R_ADMIN))
-		to_chat(usr, ("<span class ='warning'>Respawning has been disabled.</span>"))
+		to_chat(usr, "<span class ='warning'>Respawning has been disabled.</span>")
 		return
 
 	if(stat != DEAD)
-		to_chat(usr, ("<span class ='notice'>You must be dead to respawn!</span>"))
+		to_chat(usr, "<span class ='notice'>You must be dead to respawn!</span>")
 		return
 
 	if(!SSticker || SSticker.current_state < GAME_STATE_PLAYING)
-		to_chat(src, ("<span class ='warning'>You can't respawn before the game starts!</span>"))
+		to_chat(src, "<span class ='warning'>You can't respawn before the game starts!</span>")
 		return
 
 	var/deathtime = world.time - timeofdeath
-	if(isobserver(src))
-		var/mob/dead/observer/G = src
-		if(!HAS_TRAIT(G, TRAIT_RESPAWNABLE) && !check_rights(R_ADMIN))
-			to_chat(usr, ("<span class ='warning'>You don't have respawnability!</span>"))
-			return
+	if(!HAS_TRAIT(G, TRAIT_RESPAWNABLE) && !check_rights(R_ADMIN))
+		to_chat(usr, "<span class ='warning'>You don't have respawnability!</span>")
+		return
 
 	var/deathtimeminutes = round(deathtime / 600)
 	var/pluralcheck = "minutes"
@@ -409,8 +407,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
 	if(deathtimeminutes < GLOB.configuration.general.respawn_delay / 600 && !check_rights(R_ADMIN))
-		to_chat(usr, ("<span class ='notice'>You have been dead for [pluralcheck] [deathtimeseconds] seconds.</span>"))
-		to_chat(usr, ("<span class ='warning'>You must wait [GLOB.configuration.general.respawn_delay / 600] minutes before you can respawn.</span>"))
+		to_chat(usr, "<span class ='notice'>You have been dead for [pluralcheck] [deathtimeseconds] seconds.</span>")
+		to_chat(usr, "<span class ='warning'>You must wait [GLOB.configuration.general.respawn_delay / 600] minutes before you can respawn.</span>")
 		return
 	if(isobserver(usr) && HAS_TRAIT(src, TRAIT_RESPAWNABLE))
 		var/mob/dead/observer/O = usr
@@ -420,32 +418,22 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(tgui_alert(usr, "Are you sure you want to respawn?\n(If you do this, you won't be able to be cloned!)", "Respawn?", list("Yes", "No")) != "Yes")
 			return
 
-		log_admin("[key_name(usr)] has chosen to respawn as a new character.")
-		message_admins("[key_name_admin(usr)] has chosen to respawn as a new character.")
+		log_and_message_admins("[key_name(usr)] has chosen to respawn as a new character.")
 
-		to_chat(usr, ("<span class ='notice'>You have chosen to respawn as a new character. You will have no memory of your previous life or time as a ghost.</span>"))
-
-		if(!client)
-			log_game("[key_name(usr)] respawn failed due to disconnect.")
-			return
-		client.screen.Cut()
-		client.screen += client.void
+		to_chat(usr, "<span class ='notice'>You have chosen to respawn as a new character. You will have no memory of your previous life or time as a ghost.</span>")
 
 		if(!client)
 			log_game("[key_name(usr)] respawn failed due to disconnect.")
 			return
 
-		var/mob/new_player/M = new /mob/new_player()
-		if(!client)
-			log_game("[key_name(usr)] respawn failed due to disconnect.")
-			qdel(M)
-			return
-
-		M.key = key
-		M.chose_respawn = TRUE
+		var/mob/new_player/NP = new()
+		GLOB.non_respawnable_keys -= O.ckey
+		NP.ckey = O.ckey
+		qdel(O)
+		NP.chose_respawn = TRUE
 		return
 	else
-		to_chat(usr, ("<span class ='warning'>You are either not dead or have given up respawnability!</span>"))
+		to_chat(usr, "<span class ='warning'>You are either not dead or have given up respawnability!</span>")
 		return
 
 /**
