@@ -396,9 +396,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			new_human.forceMove(respawn_location)
 			log_admin("[key_name(old_human)] has rejoined the round as [key_name(new_human)].")
 			message_admins("[key_name_admin(old_human)] has rejoined the round as [key_name(new_human)].")
-		else
-			to_chat(usr, "You are not dead or you have given up your right to be respawned!")
-			return
+	else
+		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
+		return
 
 /**
  * Toggles on all HUDs for the ghost player.
