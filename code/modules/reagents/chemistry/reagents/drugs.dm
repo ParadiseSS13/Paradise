@@ -179,12 +179,11 @@
 	var/death_smoke_message = pick("You feel grimy.", "You feel less lively.", "You feel more bleak.", "You feel you're dying inside.", "You feel you're one step closer to grave.")
 	if(prob(10))
 		to_chat(M, "<span class='warning'>[death_smoke_message]</span>")
-	if(prob(7))
-		M.emote("cough")
 
 	var/obj/item/organ/internal/lungs/A = M.get_int_organ(/obj/item/organ/internal/lungs)
 	if(prob(5))
 		A.receive_damage(1)
+		M.emote("cough")
 
 	return ..() | update_flags
 

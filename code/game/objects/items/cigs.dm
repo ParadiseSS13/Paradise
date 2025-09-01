@@ -430,10 +430,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "death_cig"
 	butt_type = /obj/item/cigbutt/death
 
-/obj/item/clothing/mask/cigarette/carcinoma/New()
-	list_reagents = list("nicotine" = 40, "dnicotine" = 10, pick("carpotoxin", "toxin", "atrazine") = 1)
-	..()
-
 /obj/item/cigbutt
 	name = "cigarette butt"
 	desc = "A manky old cigarette butt."
