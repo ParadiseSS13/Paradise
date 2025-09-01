@@ -68,6 +68,8 @@
 		BB_TARGET_MINIMUM_STAT = DEAD,
 		BB_AGGRO_RANGE = 5,
 	)
+	ai_movement = /datum/ai_movement/basic_avoidance
+	idle_behavior = /datum/idle_behavior/idle_random_walk
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/legion,
 		/datum/ai_planning_subtree/simple_find_target,

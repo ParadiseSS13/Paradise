@@ -261,7 +261,7 @@
 /mob/living/basic/mining/hivelord/legion/advanced/tendril
 	from_tendril = TRUE
 
-// Legion that spawns Legions
+// Big legion (billy)
 /mob/living/basic/mining/big_legion
 	name = "big legion"
 	desc = "This monstrosity has clearly been corrupting for centuries, and is looking for a fight. Rumours claim it is capable of throwing the strongest of miners and his name is Billy."
