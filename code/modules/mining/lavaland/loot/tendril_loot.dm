@@ -355,7 +355,7 @@
 	icon_state = "hook"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	damage = 25
-	armour_penetration_percentage = 100
+	armor_penetration_percentage = 100
 	hitsound = 'sound/effects/splat.ogg'
 	weaken = 1 SECONDS
 	knockdown = 6 SECONDS
