@@ -424,8 +424,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	list_reagents = list()
 
 /obj/item/clothing/mask/cigarette/carcinoma
-	name = "dark cigarette"
-	desc = "An truly evil-looking cigarette. It has pure lung cancer aroma."
+	name = "\improper Carcinoma Angel cigarette"
+	desc = "A truly evil looking cigarette. The smell of tobacco is so overpowering that you can practically feel the cancer forming inside you already."
+	list_reagents = list("nicotine" = 40, "dnicotine" = 10, pick("carpotoxin", "toxin", "atrazine") = 1)
 	icon_state = "death_cig"
 	butt_type = /obj/item/cigbutt/death
 
@@ -448,7 +449,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/cigbutt/death
 	name = "dark cigarette butt"
-	desc = "A manky old cigarette butt, it did its part of the job at killing someone's lungs."
+	desc = "A manky old cigarette butt, it did its part in the job of killing someone's lungs."
 	icon_state = "death_cig_butt"
 
 /obj/item/cigbutt/Initialize(mapload)
