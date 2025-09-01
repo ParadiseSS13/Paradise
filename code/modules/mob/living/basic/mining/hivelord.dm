@@ -280,6 +280,7 @@
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	speed = 0
 	butcher_results = list(/obj/item/regen_mesh)
+	ai_controller = /datum/ai_controller/basic_controller/big_legion
 
 /mob/living/basic/mining/big_legion/melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	if(!isliving(target))
