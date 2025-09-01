@@ -375,6 +375,31 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	GLOB.ghost_hud_panel.ui_interact(src)
 
+/mob/dead/observer/verb/rejoin(mob/dead/observer/user)
+	set name = "Rejoin as New Character"
+	set category = "Ghost"
+
+	if(SSticker.current_state < GAME_STATE_PLAYING)
+		to_chat(src, "<span class='warning'>You can't rejoin a round that hasn't started!</span>")
+		return
+
+	if((HAS_TRAIT(usr, TRAIT_RESPAWNABLE)) && (stat == DEAD || isobserver(usr) || usr.antagHUD == FALSE))
+		var/response = tgui_alert(user, "Are you sure you want to rejoin the round?\n(If you do this, you won't be able to be cloned!)", "Respawn?", list("Yes", "No"))
+		if(response == "Yes")
+			var/turf/respawn_location = pick(GLOB.latejoin)
+			if(!respawn_location)
+				return
+			var/mob/living/carbon/human/old_human = user
+			var/mob/living/carbon/human/new_human = user.incarnate_ghost()
+			if(!new_human)
+				return
+			new_human.forceMove(respawn_location)
+			log_admin("[key_name(old_human)] has rejoined the round as [key_name(new_human)].")
+			message_admins("[key_name_admin(old_human)] has rejoined the round as [key_name(new_human)].")
+		else
+			to_chat(usr, "You are not dead or you have given up your right to be respawned!")
+			return
+
 /**
  * Toggles on all HUDs for the ghost player.
  *
