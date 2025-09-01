@@ -1171,7 +1171,7 @@
 
 /obj/item/storage/box/responseteam/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/kitchen/knife/combat(src)
