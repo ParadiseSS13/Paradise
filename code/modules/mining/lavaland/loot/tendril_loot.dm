@@ -291,6 +291,11 @@
 		return
 	if(SEND_SIGNAL(user, COMSIG_MOVABLE_TELEPORTING, get_turf(linked)) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE
+	if(is_station_level(user.z) && !iswizard(user)) // specifically not station (instead of lavaland) so it works for explorers potentially
+		user.visible_message("<span class='warning'>[user] begins to channel [src]!</span>", "<span class='warning'>You begin channeling [src], cutting through the interference of the station!</span>")
+		if(!do_after_once(user, 4 SECONDS, TRUE, src, allow_moving = TRUE, must_be_held = TRUE))
+			return
+	user.visible_message("<span class='warning'>[user] disappears in a puff of smoke!</span>")
 
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1, FALSE, user)
@@ -435,6 +440,7 @@
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 
 /obj/effect/immortality_talisman
+	icon_state = "blank"
 	var/can_destroy = FALSE
 
 /obj/effect/immortality_talisman/Initialize(mapload)

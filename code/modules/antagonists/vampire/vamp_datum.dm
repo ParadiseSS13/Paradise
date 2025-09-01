@@ -348,7 +348,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
 	messages.Add("<span class='danger'>You are a Vampire!</span><br>")
 	messages.Add("To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers. \
-		You are weak to holy things, starlight and fire. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water.")
+		You are weak to holy things, starlight, and fire. Don't go into space and avoid the Chaplain, the chapel, and especially Holy Water.")
 	return messages
 
 /datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override)

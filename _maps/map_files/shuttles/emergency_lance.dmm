@@ -89,7 +89,7 @@
 /area/shuttle/escape)
 "ek" = (
 /obj/machinery/door/airlock/engineering{
-	name = "Emergency Shutle Engineering"
+	name = "Emergency Shuttle Engineering"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /turf/simulated/floor/plasteel/dark,
@@ -569,7 +569,7 @@
 /obj/machinery/recharger,
 /obj/machinery/door_control{
 	id = "ravenbridgeblast";
-	name = "Cockpick Airlock Blastdoor Control";
+	name = "Cockpit Airlock Blast Door Control";
 	pixel_x = 5;
 	req_access = list(19);
 	pixel_y = 10

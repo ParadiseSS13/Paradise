@@ -9,6 +9,7 @@
 	base_cooldown = 0 SECONDS
 	var/list/our_claws = list()
 	var/infection_stage = 1 // mostly for adminbus and testing
+	var/disease
 
 /datum/spell/zombie_claws/Destroy()
 	QDEL_LIST_CONTENTS(our_claws)
@@ -18,8 +19,13 @@
 	if(dispel())
 		return
 
-	var/obj/item/zombie_claw/claws = new /obj/item/zombie_claw(user.loc, src)
-	claws.infection_stage = infection_stage
+	var/obj/item/zombie_claw/claws
+	if(HAS_TRAIT(user, TRAIT_PLAGUE_ZOMBIE))
+		claws = new /obj/item/zombie_claw/plague_claw(user.loc, src, disease)
+	else
+		claws = new /obj/item/zombie_claw(user.loc, src)
+		claws.infection_stage = infection_stage
+
 	if(user.put_in_hands(claws))
 		our_claws += claws
 	else
@@ -29,14 +35,14 @@
 /datum/spell/zombie_claws/proc/dispel()
 	var/mob/living/carbon/human/user = action.owner
 	var/obj/item/zombie_claw/claw = user.get_active_hand()
-	if(istype(claw, /obj/item/zombie_claw))
+	if(istype(claw, /obj/item/zombie_claw) || istype(claw, /obj/item/zombie_claw/plague_claw))
 		qdel(claw)
 		return TRUE
 
 /datum/spell/zombie_claws/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
-	if(!L.get_active_hand() || istype(L.get_active_hand(), /obj/item/zombie_claw))
-		return ..()
+	if(!L.get_active_hand() && !user.is_holding_item_of_type(/obj/item/zombie_claw/))
+		return TRUE
 
 /datum/spell/zombie_claws/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -60,6 +66,10 @@
 	var/datum/spell/zombie_claws/parent_spell
 	var/force_weak = 10
 	var/infection_stage = 1
+	var/claw_disease
+
+	new_attack_chain = TRUE
+
 
 /obj/item/zombie_claw/Initialize(mapload, new_parent_spell)
 	. = ..()
@@ -84,24 +94,30 @@
 
 /obj/item/zombie_claw/pre_attack(atom/A, mob/living/user, params)
 	. = ..()
-	if(user.reagents.has_reagent("zombiecure2"))
-		force = force_weak
-	else
-		force = initial(force)
+	if(!HAS_TRAIT(user, TRAIT_PLAGUE_ZOMBIE))
+		if(user.reagents.has_reagent("zombiecure2"))
+			force = force_weak
+		else
+			force = initial(force)
 
-/obj/item/zombie_claw/afterattack__legacy__attackchain(atom/atom_target, mob/user, proximity_flag, click_parameters)
+/obj/item/zombie_claw/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!proximity_flag)
 		return
-	if(!ishuman(atom_target) || ismachineperson(atom_target))
+	if(!ishuman(target) || ismachineperson(target))
 		return
-	var/mob/living/carbon/human/target = atom_target
-	try_infect(target, user)
+	var/mob/living/carbon/human/attack_target = target
 
-	var/obj/item/organ/internal/brain/eat_brain = target.get_organ_slot("brain")
+	if(HAS_TRAIT(user, TRAIT_PLAGUE_ZOMBIE))
+		try_virus_infect(attack_target, user, claw_disease)
+		return
+	else
+		try_infect(attack_target, user)
+
+	var/obj/item/organ/internal/brain/eat_brain = attack_target.get_organ_slot("brain")
 	if(!eat_brain)
 		return
-	var/obj/item/organ/external/brain_holder = target.get_limb_by_name(eat_brain.parent_organ)
+	var/obj/item/organ/external/brain_holder = attack_target.get_limb_by_name(eat_brain.parent_organ)
 	if(!brain_holder || brain_holder.open || brain_holder.limb_name != user.zone_selected)
 		return
 
@@ -109,7 +125,7 @@
 	if(brain_holder.brute_dam + brain_holder.burn_dam <= brain_holder.max_damage - 5) // Deal more damage
 		return
 
-	if(target.getarmor(brain_holder, MELEE) > 0) // dont count negative armor
+	if(attack_target.getarmor(brain_holder, MELEE) > 0) // dont count negative armor
 		to_chat(user, "<span class='warning zombie'>[target]'s brains are blocked.</span>")
 		return // Armor blocks zombies trying to eat your brains!
 
@@ -151,6 +167,68 @@
 		for(var/datum/disease/zombie/zomb in target.viruses)
 			zomb.stage = max(zomb.stage, infection_stage)
 
-/obj/item/zombie_claw/attack_self__legacy__attackchain(mob/user)
+/obj/item/zombie_claw/activate_self(mob/user)
 	. = ..()
 	qdel(src)
+
+
+//wizard plague zombie claws
+/datum/spell/zombie_claws/plague_claws
+	name = "Plague Claws"
+	desc = "Toggle your claws, allowing you to slash and infect people with deadly diseases."
+
+/obj/item/zombie_claw/plague_claw
+	name = "Plague Claws"
+	desc = "Claws extend from your rotting hands, oozing a putrid ichor. Perfect for rending bone and flesh for your master."
+	armour_penetration_flat = 15
+	force = 13
+
+/obj/item/zombie_claw/plague_claw/Initialize(mapload, new_parent_spell, disease)
+	. = ..()
+	claw_disease = disease
+
+/obj/item/zombie_claw/plague_claw/customised_abstract_text(mob/living/carbon/owner)
+	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] sharp, ichor-laden claws extending from [owner.p_their(FALSE)] [owner.l_hand == src ? "left hand" : "right hand"].</span>"
+
+/obj/item/zombie_claw/plague_claw/activate_self(mob/user)
+	if(..())
+		return
+	qdel(src) // drops if "used" in hand
+
+/obj/item/zombie_claw/proc/try_virus_infect(mob/living/carbon/human/target, mob/living/user)
+	if(!target.HasDisease(claw_disease))
+		var/datum/disease/plague = new claw_disease
+		target.ContractDisease(plague)
+	else if(prob(40)) // 40% chance to advance the disease
+		for(var/datum/disease/D in target.viruses)
+			if(D.type == claw_disease && D.stage < D.max_stages)
+				D.stage += 1
+	target.bleed_rate = max(5, target.bleed_rate + 1) // Very sharp, ouch!
+
+/datum/spell/zombie_leap
+	name = "Frenzied Leap"
+	desc = "Momentarily remove the limiters on your muscles to leap a great distance towards your targe."
+	action_icon_state = "mutate"
+	action_background_icon_state = "bg_vampire"
+	human_req = TRUE
+	clothes_req = FALSE
+	antimagic_flags = NONE
+	base_cooldown = 60 SECONDS
+
+/datum/spell/zombie_leap/create_new_targeting()
+	return new /datum/spell_targeting/clicked_atom
+
+/datum/spell/zombie_leap/can_cast(mob/user, charge_check, show_message)
+	var/mob/living/L = user
+	if(IS_HORIZONTAL(L))
+		return FALSE
+	return ..()
+
+/datum/spell/zombie_leap/cast(list/targets, mob/user)
+	var/target = targets[1]
+	if(isliving(user))
+		playsound(user, 'sound/voice/zombie_leap.ogg', 80, FALSE)
+		var/mob/living/L = user
+		L.apply_status_effect(STATUS_EFFECT_CHARGING)
+		L.throw_at(target, 5, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
+
