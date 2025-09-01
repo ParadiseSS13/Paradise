@@ -191,8 +191,8 @@
 	return possessed_item.throw_impact(hit_atom, throwingdatum)
 
 /mob/living/basic/possessed_object/revenant
-	maxHealth = 100
-	health = 100
+	maxHealth = 40
+	health = 40
 	melee_attack_cooldown_min = 4 SECONDS
 	melee_attack_cooldown_max = 5 SECONDS
 	faction = list("revenant")
@@ -200,6 +200,7 @@
 	a_intent = INTENT_HARM
 	escape_chance = 100
 	revenant_possessed = TRUE
+	ai_controller = /datum/ai_controller/basic_controller/revenant
 
 /mob/living/basic/possessed_object/revenant/Initialize(mapload)
 	. = ..()
@@ -207,3 +208,24 @@
 	throwforce = min(possessed_item.throwforce + 5, 15) // Damage it should do? throwforce+5 or 15, whichever is lower
 	melee_damage_lower = min(possessed_item.throwforce + 5, 15)
 	melee_damage_upper = melee_damage_lower
+	var/outline_size = min((throwforce / 15) * 3, 3)
+	add_filter("haunt_glow", 2, list("type" = "outline", "color" = "#7A4FA9", "size" = outline_size)) // Give it spooky purple outline
+	ADD_TRAIT(src, TRAIT_DODGE_ALL_OBJECTS, "Revenant")
+	ai_controller.set_ai_status(AI_STATUS_OFF)
+	addtimer(CALLBACK(src, PROC_REF(begin_poltergheist)), 1 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
+
+/mob/living/basic/possessed_object/revenant/proc/begin_poltergheist()
+	ai_controller.set_ai_status(AI_STATUS_ON)
+
+/datum/ai_controller/basic_controller/revenant
+	blackboard = list(
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+	)
+	ai_movement = /datum/ai_movement/jps
+	idle_behavior = null
+	planning_subtrees = list(
+		/datum/ai_planning_subtree/simple_find_target,
+		/datum/ai_planning_subtree/attack_obstacle_in_path,
+		/datum/ai_planning_subtree/swirl_around_target,
+		/datum/ai_planning_subtree/basic_melee_attack_subtree,
+	)

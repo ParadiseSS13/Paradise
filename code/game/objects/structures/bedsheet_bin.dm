@@ -11,7 +11,7 @@ LINEN BINS
 	icon_state = "sheet"
 	lefthand_file = 'icons/mob/inhands/bedsheet_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/bedsheet_righthand.dmi'
-	layer = 4
+	layer = MOB_LAYER
 	throwforce = 1
 	throw_speed = 1
 	throw_range = 2
@@ -22,6 +22,7 @@ LINEN BINS
 	dog_fashion = /datum/dog_fashion/head/ghost
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_BEDSHEET
+	new_attack_chain = TRUE
 
 	var/list/dream_messages = list("white")
 	var/list/nightmare_messages = list("black")
@@ -36,24 +37,26 @@ LINEN BINS
 		return
 	return ..()
 
-/obj/item/bedsheet/attack_self__legacy__attackchain(mob/user as mob)
+/obj/item/bedsheet/activate_self(mob/user)
+	if(..())
+		return
+
 	user.drop_item()
+
+	// this check doesn't work, because layer is set to ABOVE_HUD_LAYER when in a hand
 	if(layer == initial(layer))
-		layer = 5
+		layer = MOB_LAYER + 1
 	else
 		layer = initial(layer)
 	add_fingerprint(user)
-	return
 
-/obj/item/bedsheet/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(I.sharp)
+/obj/item/bedsheet/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used.sharp)
 		var/obj/item/stack/sheet/cloth/C = new (get_turf(src), 3)
 		transfer_fingerprints_to(C)
 		C.add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You tear [src] up.</span>")
 		qdel(src)
-	else
-		return ..()
 
 /obj/item/bedsheet/blue
 	icon_state = "sheetblue"
@@ -276,6 +279,7 @@ LINEN BINS
 	anchored = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
+	new_attack_chain = TRUE
 	var/amount = 20
 	var/list/sheets = list()
 	var/obj/item/hidden = null
@@ -325,25 +329,25 @@ LINEN BINS
 		default_unfasten_wrench(user, I, time = 20)
 		return TRUE
 
-/obj/structure/bedsheetbin/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/bedsheet))
+/obj/structure/bedsheetbin/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/bedsheet))
 		if(!user.drop_item())
-			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")
+			to_chat(user, "<span class='notice'>[used] is stuck to your hand!</span>")
 			return
-		I.forceMove(src)
-		sheets.Add(I)
+		used.forceMove(src)
+		sheets.Add(used)
 		amount++
 		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
-	else if(amount && !hidden && I.w_class < WEIGHT_CLASS_BULKY)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
-		if(I.flags & ABSTRACT)
+		to_chat(user, "<span class='notice'>You put [used] in [src].</span>")
+	else if(amount && !hidden && used.w_class < WEIGHT_CLASS_BULKY)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
+		if(used.flags & ABSTRACT)
 			return
 		if(!user.drop_item())
-			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")
+			to_chat(user, "<span class='notice'>[used] is stuck to your hand!</span>")
 			return
-		I.forceMove(src)
-		hidden = I
-		to_chat(user, "<span class='notice'>You hide [I] among the sheets.</span>")
+		used.forceMove(src)
+		hidden = used
+		to_chat(user, "<span class='notice'>You hide [used] among the sheets.</span>")
 
 
 

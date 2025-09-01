@@ -35,6 +35,8 @@
 /obj/structure/transit_tube/CanPass(atom/movable/mover, border_dir)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return TRUE
+	if(anchored && has_gravity(src))
+		return FALSE
 	return !density
 
 // When destroyed by explosions, properly handle contents.
