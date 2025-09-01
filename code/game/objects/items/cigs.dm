@@ -426,9 +426,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/carcinoma
 	name = "\improper Carcinoma Angel cigarette"
 	desc = "A truly evil looking cigarette. The smell of tobacco is so overpowering that you can practically feel the cancer forming inside you already."
-	list_reagents = list("nicotine" = 40, "dnicotine" = 10, pick("carpotoxin", "toxin", "atrazine") = 1)
 	icon_state = "death_cig"
 	butt_type = /obj/item/cigbutt/death
+
+/obj/item/clothing/mask/cigarette/random/New()
+	list_reagents = list("nicotine" = 40, "dnicotine" = 10, pick("carpotoxin", "toxin", "atrazine") = 1)
+	..()
 
 /obj/item/cigbutt
 	name = "cigarette butt"
