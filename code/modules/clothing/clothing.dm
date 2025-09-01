@@ -43,6 +43,8 @@
 
 	/// Detective Work, used for allowing a given atom to leave its fibers on stuff. Allowed by default
 	var/can_leave_fibers = TRUE
+	/// Detective Work, firing a ballistic weapon will add a signature to this var
+	var/gunshot_residue
 
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
@@ -1240,3 +1242,7 @@
 	icon = 'icons/obj/clothing/neck.dmi'
 	body_parts_covered = UPPER_TORSO
 	slot_flags = ITEM_SLOT_NECK
+
+/obj/item/clothing/clean_blood(radiation_clean = FALSE)
+	. = ..()
+	gunshot_residue = null
