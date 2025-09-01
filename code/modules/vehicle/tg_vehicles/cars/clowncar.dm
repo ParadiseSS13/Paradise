@@ -8,7 +8,7 @@
 	enter_sound = 'sound/effects/clowncar/door_close.ogg'
 	exit_sound = 'sound/effects/clowncar/door_open.ogg'
 	car_traits = CAN_KIDNAP
-	armor = list(melee = 70, bullet = 40, laser = 40, energy = 40, bomb = 30, rad = 0, fire = 80, acid = 80)
+	armor = list(MELEE = 70, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 30, RAD = 0, FIRE = 80, ACID = 80)
 	enter_delay = 4 SECONDS
 	access_provider_flags = VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_KIDNAPPED
 	/// list of headlight colors we use to pick through when we have party mode due to emag
