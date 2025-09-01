@@ -79,8 +79,7 @@ RESTRICT_TYPE(/datum/antagonist/zombie)
 		ADD_TRAIT(L, trait, ZOMBIE_TRAIT)
 	if(!L.HasDisease(/datum/disease/zombie))
 		var/datum/disease/zombie/zomb = new /datum/disease/zombie()
-		zomb.stage = 7
-		L.AddDisease(zomb)
+		L.AddDisease(zomb, FALSE, 7)
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L

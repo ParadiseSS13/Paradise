@@ -1039,8 +1039,9 @@
 
 /datum/status_effect/bubblegum_curse/tick()
 	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
-	if(!attacker || attacker.loc == null)
+	if(!attacker || attacker.loc == null || attacker.stat == DEAD)
 		qdel(src)
+		return
 	if(attacker.health <= attacker.maxHealth / 2)
 		owner.clear_fullscreen("Bubblegum")
 		owner.overlay_fullscreen("Bubblegum", /atom/movable/screen/fullscreen/stretch/fog, 2)
@@ -1410,7 +1411,7 @@
 	refresh_overlay()
 
 	if(foam_level == 5)
-		owner.Paralyse(4 SECONDS)
+		owner.Immobilize(5 SECONDS)
 
 /datum/status_effect/c_foamed/proc/refresh_overlay()
 	// Refresh overlay
@@ -1432,10 +1433,13 @@
 
 /datum/status_effect/rust_corruption/tick()
 	. = ..()
+	SEND_SOUND(owner, sound('sound/weapons/sear.ogg'))
 	if(issilicon(owner))
+		to_chat(owner, "<span class='userdanger'>The unnatural rust magically corrodes your body!</span>")
 		owner.adjustBruteLoss(10)
 		return
 	//We don't have disgust, so...
+	to_chat(owner, "<span class='userdanger'>The unnatural rust makes you feel sick!</span>")
 	if(ishuman(owner))
 		owner.adjustBrainLoss(2.5)
 		owner.reagents?.remove_all(0.75)

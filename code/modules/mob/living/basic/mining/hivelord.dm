@@ -54,7 +54,7 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	friendly_verb_continuous = "buzzes near"
 	friendly_verb_simple = "buzz near"
-	speed = 2
+	speed = -1 // Faster than a person
 	maxHealth = 1
 	health = 1
 	harm_intent_damage = 5
@@ -304,7 +304,7 @@
 		var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, src)))
 		L.throw_at(throw_target, 4, 4)
 		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-		var/armor = L.run_armor_check(def_zone = limb_to_hit, attack_flag = MELEE, armour_penetration_percentage = 50)
+		var/armor = L.run_armor_check(def_zone = limb_to_hit, attack_flag = MELEE, armor_penetration_percentage = 50)
 		L.apply_damage(40, BRUTE, limb_to_hit, armor)
 
 // Tendril-spawned Legion remains, the charred skeletons of those whose bodies sank into laval or fell into chasms.

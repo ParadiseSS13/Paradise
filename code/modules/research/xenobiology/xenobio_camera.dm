@@ -21,7 +21,7 @@
 	var/datum/action/innate/hotkey_help/hotkey_help = new
 
 	var/list/stored_slimes = list()
-	var/max_slimes = 5
+	var/max_slimes = 6
 	var/monkeys = 0
 	var/obj/item/slimepotion/slime/current_potion
 	var/obj/machinery/monkey_recycler/connected_recycler
@@ -460,6 +460,9 @@
 	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
 	var/area/turfarea = get_area(T)
+	if(!recycler)
+		to_chat(C, "<span class='notice'>There is no connected monkey recycler. Use a multitool to link one.</span>")
+		return
 	if(iswallturf(T))
 		to_chat(user, "You can't place monkey here.")
 		return

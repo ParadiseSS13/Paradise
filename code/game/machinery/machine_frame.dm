@@ -987,6 +987,14 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/stack/sheet/glass = 4)
 
+/obj/item/circuitboard/pandemic
+	board_name = "PanD.E.M.I.C. 2200"
+	icon_state = "medical"
+	board_type = "machine"
+	build_path = /obj/machinery/pandemic
+	req_components = list(/obj/item/stock_parts/manipulator = 1, /obj/item/stock_parts/micro_laser = 1)
+	origin_tech = "programming=2;biotech=2"
+
 /obj/item/circuitboard/cell_charger
 	board_name = "Cell Charger"
 	icon_state = "engineering"
@@ -1253,3 +1261,23 @@ to destroy them and players will be able to make replacements.
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/manipulator = 1,
 	)
+
+// Detective machines
+/obj/item/circuitboard/dnaforensics
+	name = "circuit board (DNA analyzer)"
+	build_path = /obj/machinery/dnaforensics
+	board_type = "machine"
+	origin_tech = "programming=2;combat=2"
+	req_components = list(
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stock_parts/manipulator = 1)
+
+
+/obj/item/circuitboard/microscope
+	name = "circuit board (Microscope)"
+	build_path = /obj/machinery/microscope
+	board_type = "machine"
+	origin_tech = "programming=2;combat=2"
+	req_components = list(
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stack/sheet/glass = 1)
