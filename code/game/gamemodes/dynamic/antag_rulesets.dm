@@ -112,7 +112,10 @@
 		return antag_cost * antag_amount // shitty refund for now
 
 /datum/ruleset/proc/roundstart_can_apply(datum/mind/antag)
-	if(EXCLUSIVE_OR(antag.current.client.prefs.active_character.species in banned_species, banned_species_only))
+	var/client/antag_client = GLOB.directory[ckey(antag.key)]
+	if(!antag_client)
+		CRASH("Null client for key [antag.key] during dynamic antag assignment.")
+	if(EXCLUSIVE_OR(antag_client.prefs.active_character.species in banned_species, banned_species_only))
 		SEND_SIGNAL(src, COMSIG_RULESET_FAILED_SPECIES)
 		return FALSE
 	if(antag.special_role) // You can only have 1 antag roll at a time, sorry

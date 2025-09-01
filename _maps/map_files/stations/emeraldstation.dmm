@@ -16018,6 +16018,11 @@
 "djk" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/flask/detflask,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/hand_labeler,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "djB" = (
@@ -44411,8 +44416,7 @@
 /area/station/security/armory/secure)
 "iNz" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/evidence,
-/obj/item/hand_labeler,
+/obj/machinery/microscope,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "iNH" = (
@@ -67128,6 +67132,24 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/supply/office)
+"nuk" = (
+/obj/structure/sign/directions/bridge{
+	dir = 8;
+	pixel_x = -32;
+	pixel_y = 39
+	},
+/obj/structure/sign/directions/cargo{
+	dir = 8;
+	pixel_x = -32;
+	pixel_y = 32
+	},
+/obj/structure/sign/directions/engineering{
+	dir = 8;
+	pixel_x = -32;
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/ne)
 "nun" = (
 /obj/machinery/door_timer/cell_1{
 	pixel_y = 32
@@ -68784,6 +68806,8 @@
 	pixel_y = -10
 	},
 /obj/item/camera/detective,
+/obj/item/taperecorder,
+/obj/item/storage/box/evidence,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "nJW" = (
@@ -69286,9 +69310,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
 "nOk" = (
-/obj/machinery/status_display{
-	pixel_x = 32
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -94243,6 +94264,21 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"sHg" = (
+/obj/structure/sign/directions/medical{
+	pixel_x = -31;
+	pixel_y = -32
+	},
+/obj/structure/sign/directions/evac{
+	pixel_y = -25;
+	pixel_x = -31
+	},
+/obj/structure/sign/directions/science{
+	pixel_y = -39;
+	pixel_x = -31
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/ne)
 "sHh" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -102006,12 +102042,8 @@
 /area/station/maintenance/dorms/fore)
 "uji" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/taperecorder,
 /obj/machinery/light,
+/obj/machinery/dnaforensics,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "ujC" = (
@@ -103727,6 +103759,9 @@
 /turf/simulated/floor/plating,
 /area/station/legal/courtroom)
 "uBv" = (
+/obj/machinery/status_display{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -159923,7 +159958,7 @@ syn
 syn
 soN
 dlV
-soN
+sHg
 soN
 rnA
 hia
@@ -160178,7 +160213,7 @@ xbE
 soN
 soN
 uLC
-soN
+nuk
 njw
 soN
 soN
