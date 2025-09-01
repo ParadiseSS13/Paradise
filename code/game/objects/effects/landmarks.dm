@@ -667,14 +667,17 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/goldgrub
-	mobtype = /mob/living/simple_animal/hostile/asteroid/goldgrub
+	mobtype = /mob/living/basic/mining/goldgrub
 
 /obj/effect/landmark/mob_spawner/gutlunch
-	mobtype = /mob/living/simple_animal/hostile/asteroid/gutlunch
+	mobtype = /mob/living/basic/mining/gutlunch
 
 /obj/effect/landmark/mob_spawner/gutlunch/Initialize(mapload)
 	if(prob(5))
-		mobtype = /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
+		if(prob(50))
+			mobtype = /mob/living/basic/mining/gutlunch/gubbuck
+		else
+			mobtype = /mob/living/basic/mining/gutlunch/guthen
 	. = ..()
 
 /obj/effect/landmark/mob_spawner/abandoned_minebot

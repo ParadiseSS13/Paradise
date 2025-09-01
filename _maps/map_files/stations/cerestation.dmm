@@ -3139,6 +3139,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
+/obj/machinery/light,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "awQ" = (
@@ -22294,7 +22295,6 @@
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "dkb" = (
-/obj/machinery/requests_console/directional/south,
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
@@ -27494,9 +27494,6 @@
 /obj/structure/cable/orange{
 	icon_state = "0-4"
 	},
-/obj/structure/shelf/security,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/camera/detective,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "emC" = (
@@ -28066,7 +28063,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/machinery/light,
+/obj/machinery/requests_console/directional/south,
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "etJ" = (
@@ -42258,6 +42255,7 @@
 	pixel_x = -8;
 	pixel_y = 11
 	},
+/obj/item/camera/detective,
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
 "hAH" = (
@@ -42429,6 +42427,11 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/fore/west)
+"hBY" = (
+/obj/effect/spawner/random/dirt/often,
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/turbine)
 "hCq" = (
 /obj/machinery/camera{
 	c_tag = "Xenobiology Killroom";
@@ -55744,10 +55747,10 @@
 	},
 /area/station/hallway/primary/fore/east)
 "kms" = (
-/obj/effect/spawner/random/maintenance,
-/obj/effect/spawner/random/storage,
-/turf/simulated/floor/plating,
-/area/station/maintenance/security/aft_port)
+/obj/structure/table/wood,
+/obj/machinery/microscope,
+/turf/simulated/floor/carpet/grimey,
+/area/station/security/detective)
 "kmw" = (
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
@@ -79463,8 +79466,7 @@
 	},
 /area/station/maintenance/starboard)
 "pqf" = (
-/obj/structure/table,
-/obj/item/storage/box/evidence,
+/obj/effect/spawner/random/storage,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
 "pqm" = (
@@ -107001,6 +107003,9 @@
 /obj/machinery/computer/med_data{
 	dir = 4
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/security/detective)
 "vjb" = (
@@ -107817,10 +107822,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/starboard)
 "vsk" = (
-/obj/structure/table,
-/obj/item/storage/fancy/donut_box,
-/turf/simulated/floor/plating,
-/area/station/maintenance/security/aft_port)
+/obj/structure/table/wood,
+/obj/machinery/dnaforensics,
+/turf/simulated/floor/carpet/grimey,
+/area/station/security/detective)
 "vsn" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -136933,8 +136938,8 @@ dyJ
 nHy
 viT
 emw
+vsk
 hyY
-pqf
 diC
 nxA
 xJa
@@ -137190,8 +137195,8 @@ pPN
 fvV
 jiW
 dkb
+kms
 hyY
-vsk
 diC
 guQ
 xJa
@@ -137448,7 +137453,7 @@ hAA
 dwb
 etG
 hyY
-kms
+hyY
 diC
 xyw
 xJa
@@ -137964,7 +137969,7 @@ awL
 hyY
 xJa
 qyT
-duh
+pqf
 xJa
 cRv
 rNK
@@ -151655,7 +151660,7 @@ oZU
 hxM
 dQQ
 ojN
-sSb
+hBY
 fdK
 cUW
 oHG
