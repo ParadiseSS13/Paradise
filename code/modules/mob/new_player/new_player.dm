@@ -332,13 +332,9 @@
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
 	character = SSjobs.AssignRank(character, rank, TRUE)					//equips the human
 	if(chose_respawn)
-		var/list/departments = get_departments_from_job(thisjob)
 		SSblackbox.record_feedback("tally", "player_respawn", 1, "[thisjob]")
 		log_admin("[key_name(usr)] has respawned as [rank].")
 		message_admins("[key_name(usr)] has respawned as [rank].")
-		SSblackbox.record_feedback("tally", "player_respawn", 1, "[departments]")
-		log_admin("[key_name(usr)] has respawned into the [departments] department(s).")
-		message_admins("[key_name(usr)] has respawned into the [departments] department(s).")
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
 	if(character.mind.assigned_role == "AI")

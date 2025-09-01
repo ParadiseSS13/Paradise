@@ -409,7 +409,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
 	if(deathtimeminutes < GLOB.configuration.general.respawn_delay / 600 && !check_rights(R_ADMIN))
-		to_chat(usr, ("<span class ='notice'>You have been dead for[pluralcheck] [deathtimeseconds] seconds.</span>"))
+		to_chat(usr, ("<span class ='notice'>You have been dead for [pluralcheck] [deathtimeseconds] seconds.</span>"))
 		to_chat(usr, ("<span class ='warning'>You must wait [GLOB.configuration.general.respawn_delay / 600] minutes before you can respawn.</span>"))
 		return
 	if(isobserver(usr) && HAS_TRAIT(src, TRAIT_RESPAWNABLE))
