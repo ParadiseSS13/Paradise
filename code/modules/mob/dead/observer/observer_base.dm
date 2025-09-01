@@ -392,7 +392,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	var/deathtime = world.time - timeofdeath
-	if(!HAS_TRAIT(G, TRAIT_RESPAWNABLE) && !check_rights(R_ADMIN))
+	if(!HAS_TRAIT(src, TRAIT_RESPAWNABLE) && !check_rights(R_ADMIN))
 		to_chat(usr, "<span class ='warning'>You don't have respawnability!</span>")
 		return
 
@@ -411,8 +411,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, "<span class ='warning'>You must wait [GLOB.configuration.general.respawn_delay / 600] minutes before you can respawn.</span>")
 		return
 	if(isobserver(usr) && HAS_TRAIT(src, TRAIT_RESPAWNABLE))
-		var/mob/dead/observer/O = usr
-		if(!O.check_ahud_rejoin_eligibility())
+		if(!src.check_ahud_rejoin_eligibility())
 			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return FALSE
 		if(tgui_alert(usr, "Are you sure you want to respawn?\n(If you do this, you won't be able to be cloned!)", "Respawn?", list("Yes", "No")) != "Yes")
@@ -427,9 +426,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			return
 
 		var/mob/new_player/NP = new()
-		GLOB.non_respawnable_keys -= O.ckey
-		NP.ckey = O.ckey
-		qdel(O)
+		GLOB.non_respawnable_keys -= usr.ckey
+		NP.ckey = usr.ckey
+		qdel(usr)
 		NP.chose_respawn = TRUE
 		return
 	else
