@@ -404,7 +404,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	else
 		card.forceMove(get_turf(src))
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 
 /obj/machinery/computer/card/proc/interact_modify(mob/user)
 	if(modify)
