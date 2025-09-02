@@ -5,6 +5,7 @@ GLOBAL_LIST_EMPTY(language_keys)					// Table of say codes for all languages
 GLOBAL_LIST_EMPTY(all_superheroes)
 
 GLOBAL_LIST_EMPTY(clients)							//list of all clients
+GLOBAL_LIST_EMPTY(persistent_clients)				// list of all persistent clients, used for reattaching when someone reconnects
 GLOBAL_LIST_EMPTY(admins)							//list of all clients whom are admins
 GLOBAL_LIST_EMPTY(de_admins)							//list of all admins who have used the de-admin verb.
 GLOBAL_LIST_EMPTY(de_mentors)							//list of all mentors who have used the de-admin verb.

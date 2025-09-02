@@ -850,7 +850,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			t_state = s_store.icon_state
 		var/dmi='icons/mob/clothing/belt_mirror.dmi'
 		overlays_standing[SUIT_STORE_LAYER] = mutable_appearance(dmi, "[t_state]", layer = -SUIT_STORE_LAYER)
-		s_store.screen_loc = ui_sstore1		//TODO
+		s_store.screen_loc = UI_SSTORE1		//TODO
 	apply_overlay(SUIT_STORE_LAYER)
 
 
@@ -918,7 +918,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		if(hud_used.hud_version == HUD_STYLE_STANDARD && belt)
 			client.screen += belt
-			belt.screen_loc = ui_belt
+			belt.screen_loc = UI_BELT
 
 	if(belt)
 		// Manual checks for outliers (Claymores, null rods, defibs, judobelt, etc.) - Items that are belts but not storages.
@@ -1004,16 +1004,16 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		if(hud_used.hud_version == HUD_STYLE_STANDARD)
 			if(l_store)
-				l_store.screen_loc = ui_storage1
+				l_store.screen_loc = UI_STORAGE1
 				if(hud_used.hud_shown)
 					client.screen += l_store
 				update_observer_view(l_store)
 
 			if(r_store)
-				r_store.screen_loc = ui_storage2
+				r_store.screen_loc = UI_STORAGE2
 				if(hud_used.hud_shown)
 					client.screen += r_store
-					r_store.screen_loc = ui_storage2
+					r_store.screen_loc = UI_STORAGE2
 				update_observer_view(r_store)
 
 /mob/living/carbon/human/update_inv_wear_pda()
@@ -1185,92 +1185,92 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 
 /mob/living/carbon/human/update_hud_wear_mask(obj/item/worn_item)
-	worn_item.screen_loc = ui_mask
+	worn_item.screen_loc = UI_MASK
 	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
 		client.screen += worn_item
 	update_observer_view(worn_item, TRUE)
 
 
 /mob/living/carbon/human/proc/update_hud_uniform(obj/item/worn_item)
-	worn_item.screen_loc = ui_iclothing
+	worn_item.screen_loc = UI_ICLOTHING
 	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
 		client.screen += worn_item
 	update_observer_view(worn_item, TRUE)
 
 /mob/living/carbon/human/proc/update_hud_id(obj/item/worn_item)
-	worn_item.screen_loc = ui_id
+	worn_item.screen_loc = UI_ID
 	if(client && hud_used?.hud_shown && hud_used.hud_version == HUD_STYLE_STANDARD)
 		client.screen += worn_item
 	update_observer_view(worn_item)
 
 /mob/living/carbon/human/proc/update_hud_wear_pda(obj/item/worn_item)
-	worn_item.screen_loc = ui_pda
+	worn_item.screen_loc = UI_PDA
 	if(client && hud_used?.hud_shown && hud_used.hud_version == HUD_STYLE_STANDARD)
 		client.screen += worn_item
 	update_observer_view(worn_item)
 
 /mob/living/carbon/human/proc/update_hud_gloves(obj/item/worn_item)
-	worn_item.screen_loc = ui_gloves
+	worn_item.screen_loc = UI_GLOVES
 	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
 		client.screen += worn_item
 	update_observer_view(worn_item, TRUE)
 
 /mob/living/carbon/human/proc/update_hud_glasses(obj/item/worn_item)
-	worn_item.screen_loc = ui_glasses
+	worn_item.screen_loc = UI_GLASSES
 	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
 		client.screen += worn_item
 	update_observer_view(worn_item, TRUE)
 
 /mob/living/carbon/human/proc/update_hud_l_ear(obj/item/worn_item)
-	worn_item.screen_loc = ui_l_ear
+	worn_item.screen_loc = UI_L_EAR
 	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
 		client.screen += worn_item
 	update_observer_view(worn_item, TRUE)
 
 /mob/living/carbon/human/proc/update_hud_r_ear(obj/item/worn_item)
-	worn_item.screen_loc = ui_r_ear
+	worn_item.screen_loc = UI_R_EAR
 	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
 		client.screen += worn_item
 	update_observer_view(worn_item, TRUE)
 
 /mob/living/carbon/human/proc/update_hud_shoes(obj/item/worn_item)
-	worn_item.screen_loc = ui_shoes
+	worn_item.screen_loc = UI_SHOES
 	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
 		client.screen += worn_item
 	update_observer_view(worn_item, TRUE)
 
 /mob/living/carbon/human/proc/update_hud_s_store(obj/item/worn_item)
-	worn_item.screen_loc = ui_sstore1
+	worn_item.screen_loc = UI_SSTORE1
 	if(client && hud_used?.hud_shown && hud_used.hud_version == HUD_STYLE_STANDARD)
 		client.screen += worn_item
 	update_observer_view(worn_item, TRUE)
 
 /mob/living/carbon/human/proc/update_hud_wear_suit(obj/item/worn_item)
-	worn_item.screen_loc = ui_oclothing
+	worn_item.screen_loc = UI_OCLOTHING
 	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
 		client.screen += worn_item
 	update_observer_view(worn_item, TRUE)
 
 /mob/living/carbon/human/proc/update_hud_belt(obj/item/worn_item)
-	belt.screen_loc = ui_belt
+	belt.screen_loc = UI_BELT
 	if(client && hud_used?.hud_shown && hud_used.hud_version == HUD_STYLE_STANDARD)
 		client.screen += worn_item
 	update_observer_view(worn_item, TRUE)
 
 /mob/living/carbon/human/update_hud_head(obj/item/worn_item)
-	worn_item.screen_loc = ui_head
+	worn_item.screen_loc = UI_HEAD
 	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
 		client.screen += worn_item
 	update_observer_view(worn_item, TRUE)
 
 /mob/living/carbon/human/proc/update_hud_neck(obj/item/worn_item)
-	worn_item.screen_loc = ui_neck
+	worn_item.screen_loc = UI_NECK
 	if((client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD) && (hud_used.inventory_shown && hud_used.hud_shown))
 		client.screen += worn_item
 	update_observer_view(worn_item, TRUE)
 
 /mob/living/carbon/human/update_hud_back(obj/item/worn_item)
-	worn_item.screen_loc = ui_back
+	worn_item.screen_loc = UI_BACK
 	if(client && hud_used?.hud_shown && hud_used.hud_version == HUD_STYLE_STANDARD)
 		client.screen += worn_item
 	update_observer_view(worn_item, TRUE)

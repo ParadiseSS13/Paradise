@@ -2,7 +2,7 @@
 	force = 30
 	var/maxsize = 2
 	maint_access = 0
-	armor = list(melee = 30, bullet = 30, laser = 15, energy = 20, bomb = 20, rad = 0, fire = 100)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 15, ENERGY = 20, BOMB = 20, RAD = 0, FIRE = 100)
 	destruction_sleep_duration = 4 SECONDS
 
 /obj/mecha/combat/moved_inside(mob/living/carbon/human/H as mob)

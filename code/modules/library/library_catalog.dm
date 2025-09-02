@@ -84,6 +84,8 @@
 		/obj/item/book/manual/nuclear,
 		/obj/item/book/manual/wiki,
 		/obj/item/book/manual/hydroponics_pod_people,
+		/obj/item/book/manual/wiki/security_space_law/imaginary,
+		/obj/item/book/manual/wiki/sop_legal/imaginary
 	)
 
 	var/newid = 1

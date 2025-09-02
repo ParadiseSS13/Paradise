@@ -10,9 +10,16 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
-	var/spray_currentrange = 3 //the range of tiles the sprayer will reach when in fixed mode.
+	// TRUE if spray amount and range can be toggled via `attack_self()`.
+	var/adjustable = TRUE
+	var/adjust_action = "turn the nozzle"
+	//sprayer alternates between assigning this and `spray_minrange` to `spray_currentrange` via `attack_self()`.
+	var/spray_maxrange = 2
+	//the range of tiles the sprayer will reach when in fixed mode.
+	var/spray_currentrange = 2
+	var/spray_minrange = 1
 	volume = 250
+	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
 	var/delay = CLICK_CD_RANGE * 2
 
@@ -90,10 +97,11 @@
 /obj/item/reagent_containers/spray/activate_self(mob/user)
 	if(..())
 		return FINISH_ATTACK
-
+	if(!adjustable)
+		return FINISH_ATTACK
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
+	spray_currentrange = (amount_per_transfer_from_this == 10 ? spray_maxrange : spray_minrange)
+	to_chat(user, "<span class='notice'>You [adjust_action]. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 /obj/item/reagent_containers/spray/examine(mob/user)
 	. = ..()
@@ -114,9 +122,6 @@
 /obj/item/reagent_containers/spray/empty
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-	spray_maxrange = 2
-	spray_currentrange = 2
-	amount_per_transfer_from_this = 10
 
 //space cleaner
 /obj/item/reagent_containers/spray/cleaner
@@ -124,9 +129,6 @@
 	desc = "Your standard spritz cleaner bottle designed to keep ALL of your workplaces spotless."
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-	spray_maxrange = 2
-	spray_currentrange = 2
-	amount_per_transfer_from_this = 10
 	list_reagents = list("cleaner" = 250)
 
 /obj/item/reagent_containers/spray/cleaner/advanced
@@ -156,6 +158,7 @@
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	spray_maxrange = 3
 	spray_currentrange = 3
+	adjustable = FALSE
 	amount_per_transfer_from_this = 5
 	volume = 50
 	list_reagents = list("cleaner" = 50)
@@ -165,6 +168,9 @@
 
 /obj/item/reagent_containers/spray/cyborg_lube
 	name = "lube spray"
+	spray_maxrange = 3
+	spray_currentrange = 3
+	adjustable = FALSE
 	list_reagents = list("lube" = 250)
 
 /obj/item/reagent_containers/spray/cyborg_lube/cyborg_recharge(coeff, emagged)
@@ -188,6 +194,8 @@
 	belt_icon = null
 	volume = 40
 	spray_maxrange = 4
+	spray_currentrange = 4
+	spray_minrange = 2
 	list_reagents = list("condensedcapsaicin" = 40)
 
 //water flower
@@ -198,14 +206,10 @@
 	icon_state = "sunflower"
 	item_state = "sunflower"
 	belt_icon = null
+	adjustable = FALSE
 	amount_per_transfer_from_this = 1
 	volume = 10
 	list_reagents = list("water" = 10)
-
-/obj/item/reagent_containers/spray/waterflower/Initialize(mapload)
-	. = ..()
-	// Don't allow changing how much the flower sprays
-	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 
 //chemsprayer
 /obj/item/reagent_containers/spray/chemsprayer
@@ -217,7 +221,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	spray_maxrange = 7
 	spray_currentrange = 7
-	amount_per_transfer_from_this = 10
+	spray_minrange = 4
+	adjust_action = "adjust the output switch"
 	volume = 600
 	origin_tech = "combat=3;materials=3;engineering=3"
 
@@ -258,15 +263,6 @@
 			qdel(D)
 
 
-
-/obj/item/reagent_containers/spray/chemsprayer/activate_self(mob/user)
-	if(..())
-		return
-
-	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	to_chat(user, "<span class='notice'>You adjust the output switch. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
-
-
 /// Plant-B-Gone
 /// -- Skie
 /obj/item/reagent_containers/spray/plantbgone
@@ -288,8 +284,5 @@
 	icon_state = "syndie_spraycan"
 	item_state = "syndie_spraycan"
 	container_type = AMOUNT_VISIBLE
-	spray_maxrange = 2
-	spray_currentrange = 2
-	amount_per_transfer_from_this = 10
 	list_reagents = list("sticky_tar" = 100)
 

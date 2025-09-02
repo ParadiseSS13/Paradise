@@ -349,7 +349,7 @@
 	desc = "An integrated projector mounted onto a user's arm, that is able to be used as a powerful flash."
 	contents = newlist(/obj/item/flash/armimplant)
 	origin_tech = "materials=4;combat=3;biotech=4;magnets=4;powerstorage=3"
-	actions_types = list(/datum/action/item_action/organ_action/toggle/medibeam)
+	actions_types = list(/datum/action/item_action/organ_action/toggle/flash)
 	augment_icon = "toolkit"
 	do_extra_render = TRUE
 
@@ -580,7 +580,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
 	force = 18
-	armour_penetration_percentage = -100 //This means that armor twice as effective against it
+	armor_penetration_percentage = -100 //This means that armor twice as effective against it
 	reach = 2
 	hitsound = 'sound/weapons/whip.ogg'
 	attack_verb = list("slashes", "whips", "lashes", "lacerates")
@@ -996,7 +996,7 @@
 	icon_state = "syndie_mantis"
 	item_state = "syndie_mantis"
 	force = 15
-	armour_penetration_percentage = 30
+	armor_penetration_percentage = 30
 
 /obj/item/melee/mantis_blade/syndicate/Initialize(mapload)
 	. = ..()
