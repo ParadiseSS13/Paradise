@@ -401,7 +401,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		card.forceMove(get_turf(user))
 		if(Adjacent(user))
 			user.put_in_hands(card)
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	else
 		card.forceMove(get_turf(src))
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
