@@ -211,7 +211,6 @@
 	if(!ismob(A))
 		return
 
-	user.changeNext_move(CLICK_CD_MELEE)
 	var/mob/living/target = A
 
 	if(user.a_intent == INTENT_HARM)
@@ -224,7 +223,7 @@
 			"<span class='danger'>[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>"
 			)
 		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
-		return FINISH_ATTACK
+		return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 	// Only human mobs can be stunned.
 	if(!ishuman(target))
@@ -234,11 +233,11 @@
 			"<span class='danger'>[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. It doesn't seem to have an effect.</span>"
 		)
 		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
-		return FINISH_ATTACK
+		return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 	if(baton_stun(target, user))
 		user.do_attack_animation(target)
-	return FINISH_ATTACK
+	return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 /obj/item/melee/baton/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()

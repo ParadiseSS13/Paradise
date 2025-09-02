@@ -4,8 +4,8 @@
 	icon = 'icons/obj/weapons/energy_melee.dmi'
 	icon_state = "energy_katana"
 	throwforce = 20
-	armour_penetration_percentage = 50
-	armour_penetration_flat = 10
+	armor_penetration_percentage = 50
+	armor_penetration_flat = 10
 	var/cooldown = 0 // Because spam aint cool, yo.
 	var/datum/effect_system/spark_spread/spark_system
 

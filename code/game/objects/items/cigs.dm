@@ -123,7 +123,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	var/mob/living/target = A
 	if(target.on_fire)
-		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(target)
 		if(target != user)
 			user.visible_message(
@@ -137,7 +136,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				"<span class='notice'>You quickly whip out [src] and nonchalantly light it with your own burning body. Clearly, you have your priorities straight.</span>"
 			)
 		light(user, user)
-		return FINISH_ATTACK
+		return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 	// The above section doesn't check for carbons to allow ALL burning bodies to be used.
 	if(!iscarbon(A))

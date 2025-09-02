@@ -177,7 +177,7 @@
 	if(isitem(target) && !(isstorage(target) && !istype(target,/obj/item/storage/box) && !istype(target, /obj/item/shipping_package)))
 		var/obj/item/O = target
 		if(!use(1))
-			return FALSE
+			return CONTINUE_ATTACK
 
 		var/obj/item/small_delivery/P = new /obj/item/small_delivery(get_turf(O.loc)) //Aaannd wrap it up!
 		if(!isturf(O.loc))
@@ -196,24 +196,24 @@
 	else if(istype(target, /obj/structure/closet/crate))
 		var/obj/structure/big_delivery/D = wrap_closet(target, user)
 		if(!D)
-			return FALSE
+			return CONTINUE_ATTACK
 		D.icon_state = "deliverycrate"
 
 	else if(istype(target, /obj/structure/closet))
 		var/obj/structure/closet/C = target
 		var/obj/structure/big_delivery/D = wrap_closet(target, user)
 		if(!D)
-			return FALSE
+			return CONTINUE_ATTACK
 		D.init_welded = C.welded
 		C.welded = TRUE
 
 	else if(target.GetComponent(/datum/component/two_handed))
 		to_chat(user, "<span class='notice'>[target] is too unwieldy to wrap effectively.</span>")
-		return FALSE
+		return CONTINUE_ATTACK
 
 	else
 		to_chat(user, "<span class='notice'>The object you are trying to wrap is unsuitable for the sorting machinery.</span>")
-		return FALSE
+		return CONTINUE_ATTACK
 
 	user.visible_message("<span class='notice'>[user] wraps [target].</span>")
 	user.create_attack_log("<font color='blue'>Has used [name] on [target]</font>")
@@ -222,7 +222,7 @@
 	if(amount <= 0 && QDELETED(src)) //if we used our last wrapping paper, drop a cardboard tube
 		var/obj/item/c_tube/T = new(get_turf(user))
 		user.put_in_active_hand(T)
-	return FALSE
+	return CONTINUE_ATTACK
 
 // Separate proc to avoid copy pasting the code twice
 /obj/item/stack/package_wrap/proc/wrap_closet(obj/structure/closet/C, mob/user)

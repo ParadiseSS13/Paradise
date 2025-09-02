@@ -169,16 +169,14 @@
 	return TRUE
 
 /obj/item/gripper/pre_attack(atom/A, mob/living/user, params)
-	// This is required to avoid hypersonic interaction speed.
-	user.changeNext_move(CLICK_CD_MELEE)
+	. = FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 	if(gripped_item)
 		gripped_item.attack(A, user)
-		return TRUE
+		return
 
 	if(!ismob(A))
 		return ..()
 
-	. = TRUE
 	var/mob/living/target = A
 	// If a human target is horizonal, try to help them up. Unless you're trying to kill them.
 	if(ishuman(target) && user.a_intent == INTENT_HELP && can_help_up)
