@@ -14,7 +14,6 @@
 /obj/item/gun/energy/gun
 	name = "\improper EG-7 energy gun"
 	desc = "A hybrid fire energy gun manufactured by Shellguard Munitions Co. It has a mounting point for a flashlight. The fire selector has two settings: 'disable', and 'kill'."
-	worn_icon_state = null
 	inhand_icon_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	origin_tech = "combat=4;magnets=3"
@@ -152,7 +151,6 @@
 	name = "\improper PDW-9 energy pistol"
 	desc = "A military-grade energy pistol favored by mercenaries and militia forces. The fire selector has two settings: 'disable', and 'kill'."
 	icon_state = "pdw9pistol"
-	worn_icon_state = "gun"
 	inhand_icon_state = "gun"
 
 /obj/item/gun/energy/gun/blueshield/pdw9/examine_more(mob/user)
