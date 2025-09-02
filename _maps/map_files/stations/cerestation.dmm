@@ -61304,7 +61304,6 @@
 	},
 /area/station/engineering/break_room/secondary)
 "lsh" = (
-/obj/item/wrench,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/cable_coil/random{
@@ -61316,6 +61315,7 @@
 /obj/item/storage/fancy/candle_box/eternal,
 /obj/item/storage/fancy/candle_box/eternal,
 /obj/item/storage/fancy/candle_box/eternal,
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "lsp" = (

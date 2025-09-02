@@ -25029,29 +25029,30 @@
 "bJV" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/shaker,
-/obj/item/gun/projectile/revolver/doublebarrel,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50;
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/storage/fancy/candle_box/eternal,
-/obj/item/storage/fancy/candle_box/eternal,
-/obj/item/storage/fancy/candle_box/eternal,
 /obj/item/storage/secure/safe{
 	pixel_x = -22
 	},
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/item/storage/fancy/candle_box/eternal,
+/obj/item/storage/fancy/candle_box/eternal,
+/obj/item/storage/fancy/candle_box/eternal,
+/obj/item/stack/sheet/glass{
+	amount = 50;
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/gun/projectile/revolver/doublebarrel,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "bJW" = (
