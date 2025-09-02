@@ -422,7 +422,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			usr.drop_item()
 			I.forceMove(src)
 			modify = I
-			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 
 /obj/machinery/computer/card/proc/interact_scanned(mob/user)
 	if(scan)
