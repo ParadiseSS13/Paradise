@@ -419,7 +419,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 		log_and_message_admins("[key_name(usr)] has chosen to respawn as a new character.")
 
-		to_chat(usr, "<span class ='notice'>You have chosen to respawn as a new character. You will have no memory of your previous life or time as a ghost.</span>")
+		var/list/warning = list()
+		warning.Add("<font size=3><b>You have chosen to respawn as a new character!</b></font>")
+		warning.Add("<b>You will not remember anything from your previous life or time as a ghost.</b>")
+		warning.Add("<span class='warning'><font size=2><b>You MUST choose a different character slot to respawn as!</b></font></span>")
+		to_chat(src, chat_box_notice(warning.Join("<br>")))
 
 		if(!client)
 			log_game("[key_name(usr)] respawn failed due to disconnect.")

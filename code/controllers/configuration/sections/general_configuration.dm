@@ -83,7 +83,7 @@
 	/// Time for a brain to keep its spark of life (deciseconds)
 	var/revival_brain_life = 10 MINUTES
 	/// Time to wait before you can respawn as a new character.
-	var/respawn_delay = 40 MINUTES
+	var/respawn_delay = 25 MINUTES
 	/// Enable random AI lawsets from the default=TRUE pool
 	var/random_ai_lawset = TRUE
 	/// Enable weather events initialized by SSweather. New weather events can still
