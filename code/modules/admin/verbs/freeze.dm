@@ -110,3 +110,19 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 		cut_overlay(freeze_overlay)
 	message_admins("<span class='notice'>[key_name_admin(admin)] [processes ? "unfroze" : "froze"] a supermatter crystal</span>")
 	log_admin("[key_name(admin)] [processes ? "unfroze" : "froze"] a supermatter crystal")
+
+/obj/machinery/power/fission_reactor/admin_Freeze(client/admin)
+	var/obj/effect/overlay/adminoverlay/freeze_overlay = new
+	freeze_overlay.pixel_x = 16
+	if(!admin_intervention)
+		radio.autosay("Alert: Unknown intervention is interfering in reactor core operations. It is not progressing in local timespace.", name, "Engineering")
+		GLOB.frozen_atom_list += src
+		admin_intervention = TRUE
+		add_overlay(freeze_overlay)
+	else
+		radio.autosay("Alert: Unknown intervention has ceased within the reactor core. It has returned to the regular flow of time.", name, "Engineering")
+		GLOB.frozen_atom_list -= src
+		admin_intervention = FALSE
+		cut_overlay(freeze_overlay)
+	message_admins("<span class='notice'>[key_name_admin(admin)] [!admin_intervention ? "unfroze" : "froze"] the NGCR Reactor</span>")
+	log_admin("[key_name(admin)] [!admin_intervention ? "unfroze" : "froze"] the NGCR Reactor")

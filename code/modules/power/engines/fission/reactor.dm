@@ -18,11 +18,11 @@
 #define HEAT_MODIFIER 40000 // Higher = more heat production.
 #define AVERAGE_HEAT_THRESHOLD 30 // The threshold the average heat-per-rod must exceed to generate coefficient.
 #define TOTAL_HEAT_THRESHOLD 600 // the temp (in K) needed to begin generating coefficient.
-#define HEAT_CONVERSION_RATIO 200 // How much heat over the threshold = an extra coefficient point.
+#define HEAT_CONVERSION_RATIO 400 // How much heat over the threshold = an extra coefficient point.
 #define HEAT_DAMAGE_RATE 500 // The rate at which damage increases due to heat
 #define MOL_MINIMUM 100 // The amount of mols of gas needed before it begins to take damage while operational
 #define DAMAGE_MINIMUM 0.002 // The minimum amount of damage done when taking damage
-#define DAMAGE_MAXIMUM 10 // The highest amount of damage done when taking damage
+#define DAMAGE_MAXIMUM 3 // The highest amount of damage done when taking damage
 #define MOL_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from no gas
 #define HEAT_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from high heat
 #define MELTDOWN_POINT 1000 // The dammage cap where meltdown occurs. higher = longer to meltdown
@@ -30,6 +30,8 @@
 #define WARNING_POINT 50 // begin sending warning messages
 #define EMERGENCY_POINT 700 // Begin sending warning messages over common
 #define WARNING_DELAY 60 // time in deciseconds between warnings
+#define NGCR_COUNTDOWN_TIME 30 SECONDS // How long the meltdown countdown lasts
+#define TEMP_GENERATION_CAP 50000 // The temperature the reactor can get to before limiting heat gen
 
 // If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
 #define NGCR_MELTDOWN_PERCENT 5
@@ -105,13 +107,17 @@
 	///Our "Shit is no longer fucked" message. We send it when temp_damage is 0
 	var/safe_alert = "Reactor conditions stabilized within operating parameters. Core meltdown averted."
 	///The alert we send when we've reached emergency_point
-	var/emergency_alert = "REACTOR CORE MELTDOWN IMMINENT"
+	var/emergency_alert = "REACTOR CORE MELTDOWN IMMINENT."
 	///Time in 1/10th of seconds since the last sent warning
 	var/lastwarning = 0
 	/// a boolean value for if we need to send a
 	var/send_message = FALSE
 	/// Our internal radio
 	var/obj/item/radio/radio
+	/// Are we giving the final countdown to meltdown
+	var/final_countdown = FALSE
+	/// Are admins freezing the reactor for whatever reason
+	var/admin_intervention = FALSE
 
 /obj/machinery/power/fission_reactor/roundstart
 	primary_engine = TRUE
@@ -148,6 +154,7 @@
 		GLOB.main_fission_reactor = src
 	build_reactor_network()
 	connect_to_network()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/power/fission_reactor/ex_act(severity)
 	if(severity == EXPLODE_DEVASTATE) // Very sturdy.
@@ -168,6 +175,13 @@
 	clear_reactor_network()
 	return ..()
 
+/obj/machinery/power/fission_reactor/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN))
+		var/rod_state = round((operating_power + 25) / 25)
+		rod_state = min(rod_state, 5)
+		. += "rods_[control_rods_remaining]_[rod_state]"
+
 /// Links all valid chambers to the reactor itself.
 /obj/machinery/power/fission_reactor/proc/build_reactor_network()
 	for(var/turf/T in RECT_TURFS(1, 2, src))
@@ -186,15 +200,19 @@
 	if(restart)
 		build_reactor_network()
 
-/obj/machinery/power/fission_reactor/proc/set_broken()
+/obj/machinery/power/fission_reactor/proc/set_broken(meltdown = TRUE)
 	if(stat & BROKEN)
 		return
 	overlays = null
 	clear_reactor_network()
 	stat |= BROKEN
-	INVOKE_ASYNC(src, PROC_REF(meltdown))
+	if(meltdown) // in case we dont want a violent explosion
+		INVOKE_ASYNC(src, PROC_REF(meltdown))
+	else
+		icon_state = "broken"
 
 /obj/machinery/power/fission_reactor/proc/meltdown()
+	update_appearance(UPDATE_OVERLAYS)
 	icon_state = "meltdown"
 	sleep(2.5 SECONDS)
 	var/explosion_modifier = clamp(reactivity_multiplier * EXPLOSION_MODIFIER, 8, 40)
@@ -227,6 +245,7 @@
 			if(do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE))
 				to_chat(user, "<span class='information'>You reform the control rod housing and slot the structure into place.</span>")
 				repair_step++
+				icon = "reactor_maintenance"
 		else
 			to_chat(user, "<span class='warning'>You need at least ten sheets of plastitanium to reform the reactor core structure!</span>")
 		return ITEM_INTERACT_COMPLETE
@@ -291,24 +310,26 @@
 	if(stat & BROKEN)
 		return
 
+	if(admin_intervention)
+		return
+
 	if(!offline && !starting_up)
 		var/light_power = clamp((final_power / (100 KW)), 2, 15)
 		set_light(light_power, 4, REACTOR_LIGHT_COLOR)
 	else
 		remove_light()
 
-
-	if(!length(connected_chambers))
-		return
-
 	var/minimum_power = 100 * (1 - (control_rods_remaining / TOTAL_CONTROL_RODS))
 	if(operating_power < minimum_power) // oops, control rods stuck
 		operating_power++
+		update_appearance(UPDATE_OVERLAYS)
 	else
 		if(desired_power > operating_power)
 			operating_power++
+			update_appearance(UPDATE_OVERLAYS)
 		else if(desired_power < operating_power)
 			operating_power--
+			update_appearance(UPDATE_OVERLAYS)
 
 	if(operating_power == desired_power && desired_power == 0 && offline != TRUE)
 		shut_off()
@@ -320,6 +341,9 @@
 		become_operational()
 
 	if(offline || starting_up)
+		return
+
+	if(!length(connected_chambers))
 		return
 
 	final_power = 0
@@ -340,14 +364,15 @@
 
 	average_heatgen = final_heat / length(connected_chambers)
 	var/temp = air_contents.temperature()
-	if(!temp)
+	var/total_mols = air_contents.total_moles()
+	if(!temp || !total_mols)
 		temp = 0
 	if(average_heatgen > AVERAGE_HEAT_THRESHOLD)
 		reactivity_multiplier = 1 + ((average_heatgen - AVERAGE_HEAT_THRESHOLD) / AVERAGE_HEAT_THRESHOLD)
 	else
 		reactivity_multiplier = 1
 	if(temp > TOTAL_HEAT_THRESHOLD)
-		reactivity_multiplier += (temp - TOTAL_HEAT_THRESHOLD) / HEAT_CONVERSION_RATIO // reactivity per 200*K over 600*K
+		reactivity_multiplier += (temp - TOTAL_HEAT_THRESHOLD) / HEAT_CONVERSION_RATIO
 	reactivity_multiplier = min(reactivity_multiplier, 20)
 
 	final_heat *= ((operating_power / 100) * (reactivity_multiplier * 2) * HEAT_MODIFIER) // proportionally affects heat more
@@ -360,18 +385,32 @@
 
 	var/heat_capacity = air_contents.heat_capacity() * 300
 	if(heat_capacity)
-		air_contents.set_temperature(max(air_contents.temperature() + (final_heat / heat_capacity), air_contents.temperature() + 2))
+		if(temp < TEMP_GENERATION_CAP)
+			air_contents.set_temperature(max(temp + (final_heat / heat_capacity), temp + 2))
+		else
+			air_contents.set_temperature(temp + rand(3, 20)) // lets limit it it but not stop it
 
-	var/total_mols = air_contents.total_moles()
+	temp = air_contents.temperature()
+	if(temp > heat_damage_threshold * 0.9)
+		icon_state = "reactor_overheat"
+	else if(temp > heat_damage_threshold * 0.6)
+		icon_state = "reactor_hot"
+	else
+		icon_state = "reactor_on"
+
 	var/new_damage = 0
 	if(!total_mols)
-		new_damage += 5 * MOL_DAMAGE_MULTIPLIER
+		new_damage += DAMAGE_MAXIMUM * MOL_DAMAGE_MULTIPLIER
 	else if(total_mols <= MOL_MINIMUM)
 		new_damage += max((1 - (total_mols / MOL_MINIMUM) * MOL_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
 	if(temp > heat_damage_threshold)
-		new_damage += max((((temp - heat_damage_threshold) / HEAT_DAMAGE_RATE) * HEAT_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
+		// breaking the equasion up a little for readability. Should look like this: Y = (-AB ^ -X) + A
+		var/rate_of_decay = 1.125 // closer to 1 = slower to reach DAMAGE_MAXIMUM. Do not set at or below 1 it will break
+		var/damage_increments = -((temp - heat_damage_threshold) / HEAT_DAMAGE_RATE)
+		var/damage_calculation = (-DAMAGE_MAXIMUM * (rate_of_decay ** damage_increments)) + DAMAGE_MAXIMUM
+		new_damage += max(damage_calculation * HEAT_DAMAGE_MULTIPLIER, DAMAGE_MINIMUM) // god math sucks. This gives decaying increments of damage for heat generation as it gets closer to DAMAGE_MAXIMUM.
 
-	if(damage > WARNING_POINT && (REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY && send_message)
+	if(damage > WARNING_POINT && (REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY && send_message && !final_countdown)
 		try_alarm(new_damage)
 
 	if(new_damage)
@@ -380,12 +419,13 @@
 		new_damage = 0
 
 	if(damage >= MELTDOWN_POINT)
-		set_broken()
+		send_message = FALSE
+		countdown()
 
 /obj/machinery/power/fission_reactor/proc/try_alarm(new_damage)
+	lastwarning = REALTIMEOFDAY
 	if(!new_damage)
 		radio.autosay("<b>[safe_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
-		lastwarning = REALTIMEOFDAY
 		send_message = FALSE // only stop sending alerts when no damage has been taken
 		return
 
@@ -395,7 +435,7 @@
 		if(SUPERMATTER_DANGER)
 			radio.autosay("<b>[warning_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
 		if(SUPERMATTER_EMERGENCY)
-			radio.autosay("<span class='big'>[warning_alert] Integrity: [get_integrity()]%</span>", name, "Engineering")
+			radio.autosay("<span class='big'>[warning_alert] Integrity: [get_integrity()]%</span>", name, null)
 		if(SUPERMATTER_DELAMINATING)
 			radio.autosay("<span class='big'>[emergency_alert] Integrity: [get_integrity()]%</span>", name, null)
 
@@ -422,6 +462,9 @@
 	can_create_power = FALSE
 	icon_state = "reactor_off"
 	remove_light()
+	if(send_message)
+		radio.autosay("<b>Reactor SCRAM completed successfully. Integrity: [get_integrity()]%</b>", name, "Engineering")
+		send_message = FALSE
 	#warn add a sound here
 
 /obj/machinery/power/fission_reactor/proc/boot_up()
@@ -436,6 +479,39 @@
 	icon_state = "reactor_on"
 	set_light(2, 5, REACTOR_LIGHT_COLOR)
 	#warn add a sound here
+
+// Pretty much ripped from the SM
+/obj/machinery/power/fission_reactor/proc/countdown()
+	if(final_countdown)
+		return
+	final_countdown = TRUE
+	var/speaking = "<span class='reallybig'>[emergency_alert] Reactor structural stability compromised. </span>"
+	for(var/mob/M in GLOB.player_list) // for all players
+		var/turf/T = get_turf(M)
+		if(istype(T) && atoms_share_level(T, src)) // if the player is on the same zlevel as the SM shared
+			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
+	radio.autosay(speaking, name, null)
+	for(var/i in NGCR_COUNTDOWN_TIME to 0 step -10)
+		if(admin_intervention) // Stop exploding if you're frozen by an admin, damn you
+			final_countdown = FALSE
+			damage = MELTDOWN_POINT - 1 // One point below exploding, so it will re-start the countdown once unfrozen
+			return
+		if(offline) // Engineers managed to fully turn off the reactor in time
+			radio.autosay("<span class='big'>[safe_alert]</span>", name, null)
+			final_countdown = FALSE
+			remove_filter(list("outline", "icon"))
+			return
+		else if((i % 50) != 0 && i > 50) // A message once every 5 seconds until the final 5 seconds which count down individualy
+			sleep(10)
+			continue
+		else if(i > 50)
+			speaking = "<b>[DisplayTimeText(i, TRUE)] remain before full reactor core meltdown.</b>"
+		else
+			speaking = "<span class='reallybig'>[i * 0.1]...</span>"
+		radio.autosay(speaking, name, null)
+		sleep(10)
+
+	set_broken()
 
 /// MARK: Rod Chamber
 
@@ -478,7 +554,7 @@
 	component_parts += new /obj/item/stack/sheet/metal(src, 2)
 	component_parts += new /obj/item/stack/cable_coil(src, 5)
 	RefreshParts()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/reactor_chamber/uranium
@@ -579,8 +655,11 @@
 /obj/machinery/reactor_chamber/attack_hand(mob/user)
 	if(!user)
 		return
+	if(linked_reactor.admin_intervention)
+		to_chat(user, "<span class='warning'>An unusual force prevents you from moving the chamber!</span>")
+		return
 	if((stat & NOPOWER))
-		to_chat(user, "<span class='warning'> The chamber's locks wont disengage without power!</span>")
+		to_chat(user, "<span class='warning'>The chamber's locks wont disengage without power!</span>")
 		return
 	if(user.loc == loc)
 		to_chat(user, "<span class='warning'>You can't raise the rod chamber while standing on it!</span>")
@@ -625,6 +704,9 @@
 
 /obj/machinery/reactor_chamber/AltClick(mob/user, modifiers)
 	if(!Adjacent(user))
+		return
+	if(linked_reactor.admin_intervention)
+		to_chat(user, "<span class='warning'>An unusual force prevents you from manipulating the chamber!</span>")
 		return
 	if(chamber_state == CHAMBER_UP)
 		open()
@@ -763,6 +845,8 @@
 	return FALSE
 
 /obj/machinery/reactor_chamber/process()
+	if(linked_reactor && linked_reactor.admin_intervention)
+		return
 	if(chamber_state != CHAMBER_DOWN) /// we should only process reactor info when down
 		return
 	if(!requirements_met && !operational)
@@ -822,7 +906,7 @@
 	layer = GAS_PIPE_VISIBLE_LAYER
 	max_integrity = 2000
 	density = FALSE
-	target_pressure = 9500 // maximum "normal" pressure in KPA
+	target_pressure = 100000 // maximum pressure in KPA
 	can_unwrench = FALSE
 
 	/// Hold which reactor the intake is connected to.
@@ -855,6 +939,8 @@
 		return FALSE
 	if(!linked_reactor)
 		return FALSE
+	if(linked_reactor.admin_intervention)
+		return FALSE
 	var/datum/gas_mixture/network1
 	var/datum/gas_mixture/network2
 
@@ -866,7 +952,7 @@
 		network2 = linked_reactor.air_contents
 
 	if(!network1 || !network2)
-		return
+		return FALSE
 
 	// this is basically passive gate code
 	var/output_starting_pressure = network1.return_pressure()
@@ -942,8 +1028,8 @@
 	)
 
 /obj/item/slag
-	name = "radioactive slag"
-	desc = "A large clump of active radioactive fuel fused with structural reactor metals."
+	name = "Corium Slag"
+	desc = "A large clump of active nuclear fuel fused with structural reactor metals."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "big_molten"
 	move_resist = MOVE_FORCE_STRONG // Massive chunk of metal slag, shouldnt be moving it without carrying.

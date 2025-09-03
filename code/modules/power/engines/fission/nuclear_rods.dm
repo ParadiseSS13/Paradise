@@ -34,7 +34,7 @@
 	name = "Uranium 235 Fuel Rod"
 	desc = "A standard fuel rod for most NGCR reactors. Has just barely enough Uranium 235 to be useful."
 	heat_amount = 5
-	power_amount = 15 KW
+	power_amount = 20 KW
 	heat_amp_mod = 1.8
 	power_amp_mod = 1.1
 	durability = 6000
