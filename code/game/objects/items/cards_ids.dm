@@ -159,6 +159,9 @@
 	popup.set_content(dat)
 	popup.open()
 
+/obj/item/card/id/proc/regenerate_name()
+	name = "[registered_name]'s ID Card ([assignment])"
+
 /obj/item/card/id/activate_self(mob/user)
 	if(..())
 		return
@@ -368,7 +371,10 @@
 	.["registered_name"] = registered_name
 	.["assignment"] = assignment
 	.["current_skin"] = icon_state
+	.["current_skin_name"] = get_skin_desc(icon_state)
 	.["lastlog"] = lastlog
+	.["access"] = access
+	.["associated_account_number"] = associated_account_number
 
 /obj/item/card/id/proc/flash_card(mob/user)
 	user.visible_message("[user] shows you: [bicon(src)] [name]. The assignment on the card: [assignment]",\
