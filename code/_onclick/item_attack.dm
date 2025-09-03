@@ -23,7 +23,10 @@
 			return
 
 	// Attack phase
-	if(pre_attack(target, user, params))
+	var/pre_attack_result = pre_attack(target, user, params)
+	if(pre_attack_result & MELEE_COOLDOWN_PREATTACK)
+		user.changeNext_move(CLICK_CD_MELEE)
+	if(pre_attack_result & FINISH_ATTACK)
 		return
 
 	var/resolved = target.new_attack_chain \
