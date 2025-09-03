@@ -8,13 +8,15 @@
 	enter_sound = 'sound/effects/clowncar/door_close.ogg'
 	exit_sound = 'sound/effects/clowncar/door_open.ogg'
 	car_traits = CAN_KIDNAP
-	armor = list(melee = 70, bullet = 40, laser = 40, energy = 40, bomb = 30, rad = 0, fire = 80, acid = 80)
+	armor = list(MELEE = 70, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 30, RAD = 0, FIRE = 80, ACID = 80)
 	enter_delay = 4 SECONDS
 	access_provider_flags = VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_KIDNAPPED
 	/// list of headlight colors we use to pick through when we have party mode due to emag
 	var/headlight_colors = list(COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_LIME, COLOR_BLUE_LIGHT, COLOR_CYAN, COLOR_PURPLE)
 	/// Cooldown time inbetween [/obj/tgvehicle/sealed/car/clowncar/proc/roll_the_dice()] usages
 	var/dice_cooldown_time = 15 SECONDS
+	/// Are we disguised as a singularity?
+	var/singulomode = FALSE
 	/// Current status of the cannon, alternates between CLOWN_CANNON_INACTIVE, CLOWN_CANNON_BUSY and CLOWN_CANNON_READY
 	var/cannonmode = CLOWN_CANNON_INACTIVE
 	/// Does the driver require the clown role to drive it
@@ -212,6 +214,7 @@
 			visible_message("<span class='warning'>[user] presses one of the colorful buttons on [src], and the clown car turns on its singularity disguise system.</span>")
 			icon = 'icons/obj/singularity.dmi'
 			icon_state = "singularity_s1"
+			singulomode = TRUE
 			addtimer(CALLBACK(src, PROC_REF(reset_icon)), 10 SECONDS)
 		if(4)
 			visible_message("<span class='warning'>[user] presses one of the colorful buttons on [src], and the clown car spews out a cloud of confetti all over the place.</span>")
@@ -232,6 +235,9 @@
 /obj/tgvehicle/sealed/car/clowncar/proc/reset_icon()
 	icon = initial(icon)
 	icon_state = initial(icon_state)
+	singulomode = FALSE
+	if(cannonmode)
+		icon_state = "clowncar_fire"
 
 /// Deploys oil when the clowncar moves in oil deploy mode
 /obj/tgvehicle/sealed/car/clowncar/proc/cover_in_oil()
@@ -249,15 +255,17 @@
 		to_chat(user, "<span class='notice'>Please wait for the vehicle to finish its current action first.</span>")
 		return
 	if(cannonmode) // cannon active, deactivate
-		flick("clowncar_fromfire", src)
-		icon_state = "clowncar"
+		if(!singulomode)
+			flick("clowncar_fromfire", src)
+			icon_state = "clowncar"
 		addtimer(CALLBACK(src, PROC_REF(deactivate_cannon)), 2 SECONDS)
 		playsound(src, 'sound/effects/clowncar/clowncar_cannonmode2.ogg', 75)
 		visible_message("<span class='warning'>[src] starts going back into mobile mode.</span>")
 	else
 		canmove = FALSE // anchor and activate cannon
-		flick("clowncar_tofire", src)
-		icon_state = "clowncar_fire"
+		if(!singulomode)
+			flick("clowncar_tofire", src)
+			icon_state = "clowncar_fire"
 		visible_message("<span class='warning'>[src] opens up and reveals a large cannon.</span>")
 		addtimer(CALLBACK(src, PROC_REF(activate_cannon)), 2 SECONDS)
 		playsound(src, 'sound/effects/clowncar/clowncar_cannonmode1.ogg', 75)
@@ -265,19 +273,18 @@
 
 /// Finalizes cannon activation
 /obj/tgvehicle/sealed/car/clowncar/proc/activate_cannon()
-	var/mouse_pointer = 'icons/effects/mouse_pointers/weapon_pointer.dmi'
+	var/mouse_pointer = 'icons/mouse_icons/weapon_pointer.dmi'
 	cannonmode = CLOWN_CANNON_READY
 	for(var/mob/living/driver as anything in return_controllers_with_flag(VEHICLE_CONTROL_DRIVE))
 		REMOVE_TRAIT(driver, TRAIT_HANDS_BLOCKED, VEHICLE_TRAIT)
-		if(driver.client.mouse_pointer_icon == initial(driver.client.mouse_pointer_icon))
-			driver.client.mouse_pointer_icon = mouse_pointer
+		driver.add_mousepointer(MP_CLOWN_CAR_PRIORITY, mouse_pointer)
 
 /// Finalizes cannon deactivation
 /obj/tgvehicle/sealed/car/clowncar/proc/deactivate_cannon()
 	canmove = TRUE
 	cannonmode = CLOWN_CANNON_INACTIVE
 	for(var/mob/living/driver as anything in return_controllers_with_flag(VEHICLE_CONTROL_DRIVE))
-		driver.client.mouse_pointer_icon = initial(driver.client.mouse_pointer_icon)
+		driver.remove_mousepointer(MP_CLOWN_CAR_PRIORITY)
 		ADD_TRAIT(driver, TRAIT_HANDS_BLOCKED, VEHICLE_TRAIT)
 
 /// Fires the cannon where the user clicks
@@ -288,7 +295,8 @@
 		return
 	var/mob/living/unlucky_sod = pick(return_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED))
 	mob_exit(unlucky_sod, silent = TRUE)
-	flick("clowncar_recoil", src)
+	if(!singulomode)
+		flick("clowncar_recoil", src)
 	playsound(src, pick('sound/effects/clowncar/carcannon1.ogg', 'sound/effects/clowncar/carcannon2.ogg', 'sound/effects/clowncar/carcannon3.ogg'), 75)
 	unlucky_sod.throw_at(target, 10, 2)
 	COOLDOWN_START(src, cannon_cooldown, cannon_fire_delay)

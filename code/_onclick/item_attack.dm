@@ -23,7 +23,10 @@
 			return
 
 	// Attack phase
-	if(pre_attack(target, user, params))
+	var/pre_attack_result = pre_attack(target, user, params)
+	if(pre_attack_result & MELEE_COOLDOWN_PREATTACK)
+		user.changeNext_move(CLICK_CD_MELEE)
+	if(pre_attack_result & FINISH_ATTACK)
 		return
 
 	var/resolved = target.new_attack_chain \
@@ -187,7 +190,7 @@
 	user.do_attack_animation(target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
-		if(human_target.check_shields(src, force, "[user]'s [name]", MELEE_ATTACK, armour_penetration_flat, armour_penetration_percentage))
+		if(human_target.check_shields(src, force, "[user]'s [name]", MELEE_ATTACK))
 			return FALSE
 	add_fingerprint(user)
 

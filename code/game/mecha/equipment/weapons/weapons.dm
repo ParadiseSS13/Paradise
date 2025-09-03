@@ -97,6 +97,30 @@
 	projectile = /obj/item/projectile/beam/laser/heavylaser
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_disabler
+	equip_cooldown = 2 SECONDS
+	name = "MESG-01 Disabler Scattercannon"
+	desc = "A large-bore energy shotgun, configured to fire a large blast of disabling pellets."
+	icon_state = "mecha_disabler_shotgun"
+	origin_tech = "materials=4;combat=5;"
+	energy_drain = 30 // This is per shot + 1x cost, so 300 per shot
+	projectile = /obj/item/projectile/beam/disabler/pellet
+	projectiles_per_shot = 9
+	variance = 40
+	fire_sound = 'sound/weapons/taser2.ogg'
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_laser
+	equip_cooldown = 2 SECONDS
+	name = "MESG-02 Laser Scattercannon"
+	desc = "A large-bore energy shotgun, configured to fire a large blast of lethal laser pellets."
+	icon_state = "mecha_laser_shotgun"
+	origin_tech = "materials=4;combat=5;"
+	energy_drain = 35 // This is per shot + 1x cost, so 560 per shot
+	projectile = /obj/item/projectile/beam/scatter/eshotgun
+	projectiles_per_shot = 15
+	variance = 40
+	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
 	equip_cooldown = 4 SECONDS
 	name = "mkIV Ion Heavy Scatter Cannon"
@@ -430,6 +454,30 @@
 	missile_speed = 1.5
 	projectile_energy_cost = 100
 	harmful = FALSE
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/dropwall
+	name = "\improper DWDL-04 Dropwall Launcher"
+	desc = "A large, semi-automatic launcher designed by Shellguard Munitions to fire dropwall shield generators."
+	icon_state = "mecha_grenadelnchr"
+	origin_tech = "combat=4;engineering=4"
+	projectile = /obj/item/grenade/barrier/dropwall
+	missile_speed = 1.5
+	projectile_energy_cost = 750
+	projectiles = 4
+	size = 1
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/dropwall/action(target, params)
+	if(!action_checks(target))
+		return
+	set_ready_state(0)
+	var/obj/item/grenade/barrier/dropwall/DW = new projectile(chassis.loc)
+	playsound(chassis, fire_sound, 50, 1)
+	DW.mode = angle2dir_cardinal(get_angle(get_turf(src), get_turf(target)))
+	DW.throw_at(target, missile_range, missile_speed)
+	DW.active = TRUE
+	projectiles--
+	log_message("Fired from [name], targeting [target].")
+	do_after_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/can_attach(obj/mecha/combat/honker/M as obj)
 	if(..())

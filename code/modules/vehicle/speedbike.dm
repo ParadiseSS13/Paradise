@@ -1,5 +1,6 @@
 /obj/tgvehicle/speedbike
 	name = "Speedbike"
+	desc = "A futuristic and incredibly fast hovering bike with a small thruster on the back."
 	icon = 'icons/obj/bike.dmi'
 	icon_state = "speedbike_blue"
 	layer = LYING_MOB_LAYER

@@ -73,7 +73,7 @@
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /obj/effect/decal/remains/xeno,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "v" = (
@@ -85,13 +85,13 @@
 /area/space/nearstation)
 "F" = (
 /obj/structure/alien/weeds/node,
-/mob/living/simple_animal/hostile/alien/maid,
+/mob/living/basic/alien/maid,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "G" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "I" = (
@@ -104,7 +104,7 @@
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /obj/effect/decal/remains/human,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 

@@ -15,6 +15,8 @@
 
 	atmos_mode = ATMOS_MODE_SPACE
 
+	rad_insulation_alpha = RAD_NO_INSULATION
+
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(!istype(src, /turf/space/transit))
@@ -47,18 +49,11 @@
 
 	return INITIALIZE_HINT_NORMAL
 
-/turf/BeforeChange()
+/turf/space/BeforeChange()
 	..()
-	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
-	S.remove_from_transit(src)
+
 	if(light_sources) // Turn off starlight, if present
 		set_light(0)
-
-/turf/AfterChange(ignore_air, keep_cabling = FALSE)
-	..()
-	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
-	S.add_to_transit(src)
-	S.apply_transition(src)
 
 /turf/space/proc/update_starlight()
 	if(GLOB.configuration.general.starlight)

@@ -271,14 +271,13 @@
 	name = "proto-kinetic pistol"
 	desc = "A lightweight mining tool, sacrificing upgrade capacity for convenience."
 	icon_state = "kineticpistol"
-	item_state = "gun"
+	item_state = "kineticpistol"
 	w_class = WEIGHT_CLASS_SMALL
 	max_mod_capacity = 65
 	can_bayonet = FALSE
-	can_flashlight = FALSE
+	flight_y_offset = 10
 	can_holster = TRUE
 	empty_state = "kineticpistol_empty"
-
 
 //Modkits
 /obj/item/borg/upgrade/modkit
@@ -461,7 +460,7 @@
 				M.gets_drilled(K.firer)
 	if(modifier)
 		for(var/mob/living/L in range(1, target_turf) - K.firer - target)
-			var/armor = L.run_armor_check(K.def_zone, K.flag, null, null, K.armour_penetration_flat, K.armour_penetration_percentage)
+			var/armor = L.run_armor_check(K.def_zone, K.flag, null, null, K.armor_penetration_flat, K.armor_penetration_percentage)
 			L.apply_damage(K.damage * modifier, K.damage_type, K.def_zone, armor)
 			to_chat(L, "<span class='userdanger'>You're struck by a [K.name]!</span>")
 
@@ -565,7 +564,7 @@
 			var/kill_modifier = 1
 			if(K.pressure_decrease_active)
 				kill_modifier *= K.pressure_decrease
-			var/armor = L.run_armor_check(K.def_zone, K.flag, null, null, K.armour_penetration_flat,  K.armour_penetration_percentage)
+			var/armor = L.run_armor_check(K.def_zone, K.flag, null, null, K.armor_penetration_flat,  K.armor_penetration_percentage)
 			L.apply_damage(bounties_reaped[L.type]*kill_modifier, K.damage_type, K.def_zone, armor)
 
 /obj/item/borg/upgrade/modkit/bounty/proc/get_kill(mob/living/L)
@@ -617,13 +616,21 @@
 	var/chassis_icon = "kineticgun_u"
 	var/chassis_item = "kineticgun_u"
 	var/chassis_name = "super-kinetic accelerator"
+	var/pistol_chassis_icon = "kineticpistol_u"
+	var/pistol_chassis_item = "kineticpistol_u"
+	var/pistol_chassis_name = "super-kinetic pistol"
 
 /obj/item/borg/upgrade/modkit/chassis_mod/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = ..()
 	if(.)
-		KA.current_skin = chassis_icon
-		KA.name = chassis_name
-		KA.item_state = chassis_item
+		if(istype(KA, /obj/item/gun/energy/kinetic_accelerator/pistol))
+			KA.current_skin = pistol_chassis_icon
+			KA.name = pistol_chassis_name
+			KA.item_state = pistol_chassis_icon
+		else
+			KA.current_skin = chassis_icon
+			KA.name = chassis_name
+			KA.item_state = chassis_item
 		KA.update_icon()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
@@ -639,6 +646,9 @@
 	chassis_icon = "kineticgun_h"
 	chassis_item = "kineticgun_h"
 	chassis_name = "hyper-kinetic accelerator"
+	pistol_chassis_icon = "kineticpistol_h"
+	pistol_chassis_item = "kineticpistol_h"
+	pistol_chassis_name = "hyper-kinetic pistol"
 
 /obj/item/borg/upgrade/modkit/tracer
 	name = "white tracer bolts"

@@ -1,7 +1,7 @@
 /obj/item/clothing/glasses/hud
 	name = "\improper HUD"
 	desc = "A heads-up display that provides important info in (almost) real time."
-	flags = null //doesn't protect eyes because it's a monocle, duh
+	flags_cover = null //doesn't protect eyes because it's a monocle, duh
 	origin_tech = "magnets=3;biotech=2"
 	prescription_upgradable = TRUE
 	/// The visual icons granted by wearing these glasses.

@@ -48,7 +48,7 @@ Difficulty: Hard
 	icon = 'icons/mob/lavaland/hierophant_new.dmi'
 	faction = list("boss") //asteroid mobs? get that shit out of my beautiful square house
 	speak_emote = list("preaches")
-	armour_penetration_percentage = 100 //It does 15 damage / only attacks when enraged
+	armor_penetration_percentage = 100 // It does 15 damage / only attacks when enraged
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	speed = 10
@@ -481,7 +481,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/CanAttack(atom/the_target)
 	. = ..()
-	if(istype(the_target, /mob/living/simple_animal/hostile/asteroid/hivelordbrood)) //ignore temporary targets in favor of more permanent targets
+	if(istype(the_target, /mob/living/basic/mining/hivelordbrood)) //ignore temporary targets in favor of more permanent targets
 		return FALSE
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/GiveTarget(new_target)

@@ -385,7 +385,7 @@
 
 /datum/species/golem/sand/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H))
-		if((P.flag == BULLET || P.flag == BOMB) && P.armour_penetration_percentage < 100)
+		if((P.flag == BULLET || P.flag == BOMB) && P.armor_penetration_percentage < 100)
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
 			H.visible_message("<span class='danger'>[P] sinks harmlessly in [H]'s sandy body!</span>", \
 			"<span class='userdanger'>[P] sinks harmlessly in [H]'s sandy body!</span>")
@@ -510,7 +510,7 @@
 	var/last_teleport = 0
 	var/tele_range = 6
 
-/datum/action/innate/unstable_teleport/IsAvailable()
+/datum/action/innate/unstable_teleport/IsAvailable(show_message = TRUE)
 	if(..())
 		if(world.time > last_teleport + cooldown && !activated)
 			return 1
@@ -580,6 +580,7 @@
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/drinks/bottle/bottleofbanana(H), ITEM_SLOT_RIGHT_POCKET)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), ITEM_SLOT_LEFT_POCKET)
 	H.AddElement(/datum/element/waddling)
+	H.AddComponent(/datum/component/slippery, H, 8 SECONDS, 100, 0, FALSE, TRUE, "slip", TRUE)
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
 	. = ..()

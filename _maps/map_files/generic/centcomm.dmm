@@ -394,10 +394,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ninja/outpost)
-"bA" = (
-/obj/effect/landmark/spawner/tradergearminor,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/trade/sol)
 "bB" = (
 /obj/effect/landmark/abductor/scientist,
 /turf/simulated/floor/plating/abductor,
@@ -4032,13 +4028,6 @@
 /obj/item/reagent_containers/glass/bottle/adminordrazine,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
-"of" = (
-/turf/simulated/wall/mineral/titanium,
-/area/shuttle/trade/sol)
-"og" = (
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating,
-/area/shuttle/trade/sol)
 "oh" = (
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
@@ -4141,13 +4130,6 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
-"oF" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "burst_l"
-	},
-/turf/simulated/floor/plating/airless,
-/area/shuttle/trade/sol)
 "oG" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "nukeop_ready";
@@ -4163,11 +4145,6 @@
 /obj/item/storage/fancy/crayons,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
-"oI" = (
-/obj/effect/spawner/random/traders/civilian,
-/obj/structure/closet,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/trade/sol)
 "oJ" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/condiment/saltshaker{
@@ -4190,11 +4167,6 @@
 	icon_state = "cafeteria"
 	},
 /area/tdome/tdomeobserve)
-"oL" = (
-/obj/effect/spawner/random/traders/minerals,
-/obj/structure/closet,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/trade/sol)
 "oM" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/beer{
@@ -4240,14 +4212,6 @@
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
-"oS" = (
-/obj/machinery/light/spot{
-	dir = 1
-	},
-/obj/effect/spawner/random/traders/donksoft,
-/obj/structure/closet,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/trade/sol)
 "oT" = (
 /obj/item/bikehorn/airhorn,
 /obj/structure/flora/grass/jungle,
@@ -4282,12 +4246,6 @@
 	},
 /turf/simulated/floor/backrooms_carpet,
 /area/backrooms)
-"pa" = (
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/trade/sol)
-"pc" = (
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "pe" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
@@ -4301,14 +4259,6 @@
 /obj/structure/lightable/bonfire,
 /turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
-"pg" = (
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/obj/machinery/door/airlock/titanium/glass{
-	name = "trader shuttle airlock";
-	security_level = 6
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "ph" = (
 /turf/simulated/wall/r_wall,
 /area/start)
@@ -4319,12 +4269,6 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
-"pj" = (
-/obj/machinery/light/spot{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "pk" = (
 /obj/item/storage/box/donkpockets,
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -4452,30 +4396,6 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
-"pO" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8
-	},
-/turf/simulated/floor/plating/airless,
-/area/shuttle/trade/sol)
-"pP" = (
-/obj/machinery/door_control/no_emag{
-	id = "soltrader_north";
-	name = "Trade Deposits Door";
-	normaldoorcontrol = 1;
-	pixel_x = 24;
-	pixel_y = -8;
-	req_access = list(160)
-	},
-/obj/machinery/door_control/no_emag{
-	id = "trader_privacy";
-	name = "Privacy Shutters Control";
-	pixel_x = 24;
-	pixel_y = 8;
-	req_access = list(160)
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "pR" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -4598,9 +4518,6 @@
 /obj/item/storage/fancy/matches,
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
-"qn" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/shuttle/trade/sol)
 "qo" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
@@ -4610,22 +4527,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
-"qq" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "soltradeship_north";
-	name = "Security Doors";
-	opacity = 0
-	},
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/obj/machinery/door/airlock/titanium/glass{
-	id_tag = "soltrader_north";
-	name = "trader shuttle airlock";
-	security_level = 6
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "qr" = (
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/centcom/evac)
@@ -5111,11 +5012,6 @@
 /obj/machinery/computer/shuttle/syndicate/drop_pod,
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/assault_pod)
-"rK" = (
-/obj/effect/spawner/random/traders/science,
-/obj/structure/closet,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/trade/sol)
 "rL" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -5186,11 +5082,6 @@
 /obj/structure/closet/crate,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
-"rY" = (
-/obj/effect/spawner/random/traders/medical,
-/obj/structure/closet,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/trade/sol)
 "rZ" = (
 /obj/item/radio/intercom/syndicate{
 	pixel_x = -28
@@ -5208,12 +5099,6 @@
 "sd" = (
 /turf/simulated/floor/backrooms_carpet,
 /area/backrooms)
-"se" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/trade/sol)
 "sf" = (
 /turf/simulated/floor/light,
 /area/centcom/specops)
@@ -5224,18 +5109,6 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
-"sh" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "trader_privacy";
-	name = "Privacy Shutters";
-	opacity = 0
-	},
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "sj" = (
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
@@ -5261,13 +5134,6 @@
 /obj/structure/railing,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
-"sq" = (
-/obj/machinery/economy/atm/directional/north,
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "sr" = (
 /obj/machinery/door/poddoor/impassable{
 	name = "Heavy Supply";
@@ -5659,12 +5525,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation/centcom)
-"tM" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "tN" = (
 /obj/machinery/door/window/classic/normal{
 	dir = 1
@@ -5708,27 +5568,23 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "tY" = (
-/obj/docking_port/mobile/trade_sol,
-/obj/machinery/door/airlock/titanium/glass{
-	id_tag = "s_docking_airlock"
-	},
 /obj/docking_port/stationary{
 	dir = 8;
-	dwidth = 4;
-	height = 11;
-	id = "trade_sol_base";
+	dwidth = 11;
+	height = 30;
+	id = "trader_base";
 	name = "docking bay at Trading Satellite";
-	width = 9
+	width = 22
 	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
+/turf/space,
+/area/space/centcomm)
 "tZ" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "trade_sol_base";
+	id_tag = "trader_base";
 	name = "Docking Port"
 	},
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "ua" = (
@@ -5909,13 +5765,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/admin)
-"uB" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "burst_r"
-	},
-/turf/simulated/floor/plating/airless,
-/area/shuttle/trade/sol)
 "uC" = (
 /obj/structure/chair/comfy/black{
 	dir = 1
@@ -5963,11 +5812,6 @@
 	icon_state = "green"
 	},
 /area/centcom/evac)
-"uP" = (
-/obj/effect/spawner/random/traders/security,
-/obj/structure/closet,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/trade/sol)
 "uR" = (
 /obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
@@ -6009,21 +5853,6 @@
 /obj/structure/statue/uranium/nuke,
 /turf/simulated/floor/plating/asteroid/snow,
 /area/syndicate_mothership)
-"vb" = (
-/obj/effect/spawner/random/traders/engineering,
-/obj/structure/closet,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/trade/sol)
-"vc" = (
-/obj/machinery/flasher{
-	id = "soltraderflash";
-	pixel_y = -28
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "vd" = (
 /turf/simulated/floor/carpet/green,
 /area/ghost_bar)
@@ -6074,41 +5903,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/admin)
-"vo" = (
-/obj/machinery/door_control/no_emag{
-	id = "soltrader_south";
-	name = "Trade Deposits Door";
-	normaldoorcontrol = 1;
-	pixel_x = 24;
-	pixel_y = 8;
-	req_access = list(160)
-	},
-/obj/machinery/flasher_button{
-	id = "soltraderflash";
-	pixel_x = 24;
-	pixel_y = -8
-	},
-/obj/machinery/computer/shuttle/trade/sol{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
-"vp" = (
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "soltradeship_south";
-	name = "Security Doors";
-	opacity = 0
-	},
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
-/obj/machinery/door/airlock/titanium/glass{
-	id_tag = "soltrader_south";
-	name = "trader shuttle airlock";
-	security_level = 6
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "vq" = (
 /obj/structure/chair/sofa/corp,
 /turf/simulated/floor/transparent/glass,
@@ -6297,25 +6091,6 @@
 /obj/machinery/recharger,
 /turf/simulated/floor/carpet,
 /area/admin)
-"vY" = (
-/obj/effect/spawner/random/traders/large_item,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/trade/sol)
-"vZ" = (
-/obj/effect/spawner/random/traders/vehicle,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/trade/sol)
-"wa" = (
-/obj/machinery/light/spot,
-/obj/effect/spawner/random/traders/service,
-/obj/structure/closet,
-/obj/item/stack/tile/disco_light/thirty,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/trade/sol)
-"wb" = (
-/obj/machinery/light/spot,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "wc" = (
 /obj/structure/urinal{
 	pixel_y = 28
@@ -12180,7 +11955,7 @@
 	},
 /area/centcom/control)
 "Qy" = (
-/mob/living/simple_animal/hostile/creature{
+/mob/living/basic/creature{
 	name = "Experiment 35b"
 	},
 /obj/item/candle/eternal/wizard,
@@ -12833,10 +12608,6 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
-"SU" = (
-/obj/effect/landmark/spawner/tradergearmajor,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/trade/sol)
 "SV" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/tdome/tdomeadmin)
@@ -48195,17 +47966,17 @@ aN
 aN
 aN
 aN
-vG
-vG
-vG
-vG
-vG
-vG
-vG
-vG
-vG
-vG
-vG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -48452,17 +48223,17 @@ aN
 aN
 aN
 aN
-vG
-of
-oF
-pO
-oF
-pO
-uB
-pO
-uB
-of
-vG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -48709,17 +48480,17 @@ aN
 aN
 aN
 aN
-vG
-of
-of
-of
-of
-of
-of
-of
-of
-of
-vG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -48966,17 +48737,17 @@ aN
 aN
 aN
 aN
-vG
-of
-oI
-pc
-bA
-pc
-SU
-pc
-vY
-of
-vG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -49223,17 +48994,17 @@ aN
 aN
 aN
 aN
-vG
-og
-oL
-pc
-rY
-pc
-vb
-pc
-vZ
-og
-vG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -49480,17 +49251,17 @@ aN
 aN
 aN
 aN
-vG
-of
-oS
-pc
-rK
-pc
-uP
-pc
-wa
-of
-vG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -49737,17 +49508,17 @@ aN
 aN
 aN
 aN
-vG
-of
-pa
-pa
-pa
-pa
-pa
-se
-pa
-of
-vG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -49994,17 +49765,17 @@ aN
 aN
 aN
 aN
-vG
-of
-pc
-pP
-se
-se
-se
-vo
-pc
-of
-vG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -50251,17 +50022,17 @@ aN
 aN
 aN
 aN
-vG
-of
-pg
-qn
-sh
-sh
-sh
-qn
-pg
-of
-vG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -50508,17 +50279,17 @@ aN
 aN
 aN
 aN
-vG
-of
-pc
-of
-sq
-tM
-vc
-of
-pc
-of
-vG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -50765,17 +50536,17 @@ aN
 aN
 aN
 aN
-vG
-og
-pj
-qq
-pc
-pc
-pc
-vp
-wb
-og
-vG
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -51022,17 +50793,17 @@ aN
 aN
 aN
 aN
-vG
-of
-of
-of
-og
+aN
+aN
+aN
+aN
+aN
 tY
-og
-of
-of
-of
-vG
+aN
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -51279,13 +51050,13 @@ aN
 aN
 aN
 aN
-vG
-vG
-vG
+aN
+aN
+aN
 vG
 vG
 tZ
-vG
+tZ
 vG
 vG
 vG
@@ -51542,7 +51313,7 @@ aN
 vG
 sv
 tF
-tA
+tF
 vG
 wc
 wB
