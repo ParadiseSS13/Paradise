@@ -86,7 +86,8 @@
 #define MIN_TOXIC_GAS_DAMAGE				1
 #define MAX_TOXIC_GAS_DAMAGE				10
 #define MOLES_PLASMA_VISIBLE				0.5		//Moles in a standard cell after which plasma is visible
-#define MOLES_WATER_VAPOR_VISIBLE			0.5		//Moles in a standard cell after which water vapor is visible
+/// Moles in a standard cell after which water vapor is visible
+#define MOLES_WATER_VAPOR_VISIBLE			0.5		
 
 // Pressure limits.
 #define HAZARD_HIGH_PRESSURE				550		//This determins at what pressure the ultra-high pressure red icon is displayed. (This one is set as a constant)
@@ -174,7 +175,6 @@
 #define AGENT_B_CONVERSION_MIN_TEMP 900
 /// Agent B released this much energy per mole of CO2 converted to O2
 #define AGENT_B_CONVERSION_ENERGY_RELEASED 20000
-
 
 // From milla/src/model.rs, line 126
 #define ATMOS_MODE_SPACE 0						//! Tile is exposed to space and loses air every second

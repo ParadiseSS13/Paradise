@@ -26,8 +26,8 @@
 /obj/machinery/power/electrolyzer/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>A nifty little machine that is able to produce hydrogen when supplied with water vapor and \
-			enough power, allowing for on the go hydrogen production! Nanotrasen is not responsbile for any accidents that \
-			may occur from sudden hydogen combustion or explosions.</span>"
+			enough power, allowing for on-the-go hydrogen production! Nanotrasen is not responsible for any accidents that \
+			may occur from sudden hydrogen combustion or explosions.</span>"
 
 /obj/machinery/power/electrolyzer/wrench_act(mob/user, obj/item/I)
 	if(on)
