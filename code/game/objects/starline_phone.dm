@@ -144,6 +144,7 @@
 	w_class = WEIGHT_CLASS_SMALL // no putting this in bags
 	/// the starline phone this receiver conencts to
 	var/obj/machinery/phone/parent_phone
+	pixel_x = 4
 
 /obj/item/radio/phone_receiver/Initialize(mapload)
 	. = ..()
