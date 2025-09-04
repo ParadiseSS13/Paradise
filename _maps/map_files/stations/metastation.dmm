@@ -33947,10 +33947,10 @@
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "dLS" = (
-/obj/machinery/light,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -36519,7 +36519,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
 "eFl" = (
-/obj/machinery/alarm/directional/south,
 /obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -51140,7 +51139,6 @@
 /area/station/service/kitchen)
 "jQA" = (
 /obj/item/kirbyplants/large,
-/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "arrival"
@@ -53180,6 +53178,9 @@
 "kDq" = (
 /obj/structure/chair/comfy/beige{
 	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -56450,17 +56451,6 @@
 	icon_state = "greenblue"
 	},
 /area/station/service/hydroponics)
-"lJa" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/closet/emcloset,
-/obj/machinery/alarm/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/west)
 "lJg" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
@@ -72940,6 +72930,9 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Arrivals Lounge West"
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -100849,7 +100842,7 @@ bpG
 bpG
 ayy
 aUl
-lJa
+bAR
 boc
 ayy
 qcE
