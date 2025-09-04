@@ -13,7 +13,7 @@
 
 // MARK: Random Spanwers
 
-/obj/effect/spawner/random/bluespace_tap
+/obj/effect/spawner/random/alien_cache
 	name = "alien cache loot spawner"
 
 // Random alien tools
