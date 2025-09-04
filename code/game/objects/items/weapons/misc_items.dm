@@ -13,6 +13,7 @@
 	Lightning
 	Newton Cradle
 	PAI cable
+	Red Phone
 	Popsicle Sticks
 */
 
@@ -189,6 +190,25 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "wire1"
 	var/obj/machinery/machine
+
+/obj/item/phone
+	name = "red phone"
+	desc = "Should anything ever go wrong..."
+	icon_state = "red_phone"
+	flags = CONDUCT
+	force = 3
+	throwforce = 2
+	throw_speed = 1
+	throw_range = 4
+	w_class = WEIGHT_CLASS_SMALL
+	attack_verb = list("called", "rang")
+	hitsound = 'sound/weapons/ring.ogg'
+	var/cooldown = 0
+
+/obj/item/phone/attack_self__legacy__attackchain(mob/user)
+	if(cooldown < world.time - 20)
+		playsound(user.loc, 'sound/weapons/ring.ogg', 50, 1)
+		cooldown = world.time
 
 /obj/item/popsicle_stick
 	name = "popsicle stick"
