@@ -62,7 +62,7 @@
 	icon_state = "bluespace"
 	impact_effect_type = /obj/effect/temp_visual/bsg_kaboom
 	damage = BSG_BASE_DAMAGE
-	armour_penetration_flat = 50
+	armor_penetration_flat = 50
 	range = 9
 	knockdown = 4 SECONDS //This is going to knock you off your feet
 	eyeblur = 10 SECONDS
@@ -133,7 +133,7 @@
 	damage = 45
 	damage_type = BURN
 	flag = "energy"
-	armour_penetration_flat = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
+	armor_penetration_flat = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
 	shield_buster = TRUE
 	var/reached_target = FALSE
 

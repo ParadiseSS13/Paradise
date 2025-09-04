@@ -2745,6 +2745,10 @@
 "ayy" = (
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/west)
+"ayA" = (
+/obj/structure/sign/electricshock,
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/solar_maintenance/fore_starboard)
 "ayB" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
@@ -3774,8 +3778,8 @@
 	},
 /area/station/maintenance/fpmaint)
 "aEX" = (
-/obj/structure/closet/crate{
-	name = "Gold Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "gold crate"
 	},
 /obj/item/stack/sheet/mineral/gold{
 	pixel_x = -1;
@@ -3805,10 +3809,10 @@
 	},
 /area/station/command/vault)
 "aFb" = (
-/obj/effect/turf_decal/delivery/white/hollow/left,
-/obj/structure/closet/crate{
-	name = "Silver Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "silver crate"
 	},
+/obj/effect/turf_decal/delivery/white/hollow/left,
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,
@@ -13112,7 +13116,7 @@
 	dir = 8
 	},
 /obj/structure/transit_tube/station/dispenser/flipped{
-	dir = 4
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -31748,6 +31752,7 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/east)
 "dmN" = (
+/obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -32938,10 +32943,10 @@
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "dLS" = (
-/obj/machinery/light,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -35522,7 +35527,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
 "eFl" = (
-/obj/machinery/alarm/directional/south,
 /obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -42184,6 +42188,11 @@
 /area/station/maintenance/fore2)
 "gTn" = (
 /obj/machinery/firealarm/directional/east,
+/obj/item/clothing/head/cone{
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -50474,7 +50483,6 @@
 /area/station/service/kitchen)
 "jQA" = (
 /obj/item/kirbyplants/large,
-/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "arrival"
@@ -52565,6 +52573,9 @@
 /obj/structure/chair/comfy/beige{
 	dir = 8
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "arrival"
@@ -54369,10 +54380,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/rnd)
-"lfc" = (
-/obj/structure/sign/electricshock,
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/solar_maintenance/fore_starboard)
 "lfp" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -56062,17 +56069,6 @@
 	icon_state = "greenblue"
 	},
 /area/station/service/hydroponics)
-"lJa" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/closet/emcloset,
-/obj/machinery/alarm/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/west)
 "lJg" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
@@ -72698,6 +72694,9 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Arrivals Lounge West"
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -101254,7 +101253,7 @@ bpG
 bpG
 ayy
 aUl
-lJa
+bAR
 boc
 ayy
 qcE
@@ -135434,7 +135433,7 @@ dPW
 atX
 nCS
 avM
-lfc
+ayA
 iSW
 kYt
 mhE

@@ -18076,7 +18076,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/crate,
+/obj/structure/closet/crate/nanotrasen{
+	name = "silver crate"
+	},
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,
@@ -19509,7 +19511,9 @@
 "bAI" = (
 /obj/machinery/alarm/directional/south,
 /obj/machinery/light/small,
-/obj/structure/closet/crate,
+/obj/structure/closet/crate/nanotrasen{
+	name = "gold crate"
+	},
 /obj/item/storage/belt/champion,
 /obj/item/stack/sheet/mineral/gold,
 /obj/item/stack/sheet/mineral/gold,
@@ -19793,6 +19797,10 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
+"bBP" = (
+/obj/item/clothing/head/cone,
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/atmos)
 "bBR" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/tech_storage/service,
@@ -20808,6 +20816,11 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light,
+/obj/item/clothing/head/cone{
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -25231,7 +25244,7 @@
 	dir = 4
 	},
 /obj/structure/transit_tube/station/dispenser/flipped{
-	dir = 8
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
@@ -123348,7 +123361,7 @@ aLu
 aMR
 aOk
 aPH
-aPH
+bBP
 uFo
 aUe
 aVN
