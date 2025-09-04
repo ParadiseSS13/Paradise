@@ -1,0 +1,17 @@
+/obj/machinery/door/airlock/abductor/secure
+	security_level = 6
+	autoclose = FALSE
+	aiControlDisabled = AICONTROLDISABLED_ON
+	hackProof = TRUE
+	flags = INDESTRUCTIBLE
+	locked = TRUE
+	req_access = list()
+
+/obj/machinery/door/airlock/abductor/secure/Initialize()
+	. = ..()
+	// Randomize the wires so they aren't the same as the station
+	wires.randomize()
+
+/// Always returns false since you aren't supposed to open it normally
+/obj/machinery/door/airlock/abductor/secure/check_access(obj/item/I)
+	return FALSE

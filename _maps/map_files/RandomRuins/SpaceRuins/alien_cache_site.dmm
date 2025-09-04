@@ -4,9 +4,13 @@
 /area/ruin/powered/alien_cache_site/cache_room)
 "fA" = (
 /obj/structure/fans/tiny/invisible,
-/obj/machinery/door/airlock/abductor,
+/obj/machinery/door/airlock/abductor/secure,
 /turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site/cache_room)
+/area/ruin/powered/alien_cache_site)
+"kY" = (
+/obj/effect/simon_says,
+/turf/simulated/floor/plating/abductor,
+/area/ruin/powered/alien_cache_site)
 "mQ" = (
 /turf/space,
 /area/space)
@@ -485,7 +489,7 @@ et
 et
 et
 Ha
-Ha
+CK
 wy
 wy
 wy
@@ -519,7 +523,7 @@ et
 et
 et
 et
-Ha
+CK
 wy
 wy
 wy
@@ -561,7 +565,7 @@ wy
 wy
 wy
 wy
-wy
+kY
 wy
 Yg
 mQ
@@ -587,7 +591,7 @@ et
 et
 et
 et
-Ha
+CK
 wy
 wy
 wy
@@ -621,7 +625,7 @@ et
 et
 et
 Ha
-Ha
+CK
 wy
 wy
 wy
