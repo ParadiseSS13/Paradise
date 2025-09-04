@@ -9796,6 +9796,10 @@
 	},
 /obj/item/clipboard,
 /obj/item/paper/tcommskey,
+/obj/item/reagent_containers/patch/silver_sulf{
+	pixel_x = -4;
+	pixel_y = 0
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -12443,10 +12447,6 @@
 /area/station/supply/sorting)
 "bpq" = (
 /obj/structure/table/reinforced,
-/obj/item/phone{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/item/cigbutt/cigarbutt,
 /obj/item/radio/intercom/private{
 	pixel_x = 28
@@ -12972,7 +12972,6 @@
 	},
 /area/station/security/permabrig)
 "bsb" = (
-/obj/item/folder/white,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -12980,6 +12979,10 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table/glass,
+/obj/item/storage/firstaid/regular{
+	pixel_x = 3;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkgreen"
@@ -12999,6 +13002,7 @@
 /obj/item/folder/red{
 	pixel_y = 3
 	},
+/obj/item/folder/white,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -13277,10 +13281,6 @@
 	},
 /area/station/engineering/engine_foyer)
 "btT" = (
-/obj/item/storage/firstaid/regular{
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /obj/structure/table/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -13293,6 +13293,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/phone{
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -19912,17 +19915,13 @@
 /area/station/command/office/ntrep)
 "bWZ" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin/nanotrasen,
-/obj/item/clipboard{
-	pixel_x = -2
-	},
-/obj/item/folder,
-/obj/item/pen/multi/fountain,
-/obj/item/stamp/rep,
 /obj/machinery/requests_console/directional/west,
 /obj/machinery/keycard_auth{
 	pixel_x = -24;
 	pixel_y = -24
+	},
+/obj/machinery/phone{
+	pixel_y = 2
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
@@ -21259,8 +21258,20 @@
 "cdB" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
-	pixel_x = -5;
-	pixel_y = 1
+	pixel_x = -8;
+	pixel_y = 11
+	},
+/obj/item/clipboard{
+	pixel_x = 7;
+	pixel_y = 0
+	},
+/obj/item/folder{
+	pixel_y = 0;
+	pixel_x = 4
+	},
+/obj/item/pen/multi/fountain{
+	pixel_y = 0;
+	pixel_x = 5
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
@@ -21603,6 +21614,10 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
+/obj/machinery/phone{
+	pixel_y = 2;
+	pixel_x = 15
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "cfm" = (
@@ -21631,6 +21646,10 @@
 	pixel_y = 5
 	},
 /obj/structure/window/reinforced,
+/obj/machinery/phone{
+	pixel_y = 9;
+	pixel_x = 14
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "cfp" = (
@@ -22523,7 +22542,12 @@
 /area/station/maintenance/turbine)
 "ciK" = (
 /obj/structure/table/wood,
-/obj/item/paper/ntrep,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/paper/ntrep{
+	pixel_y = 2;
+	pixel_x = 2
+	},
+/obj/item/stamp/rep,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "ciM" = (
@@ -25300,7 +25324,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/aft/south)
 "cvJ" = (
-/obj/item/kirbyplants/large/alien/alien6,
+/obj/structure/table,
+/obj/item/folder/white,
+/obj/item/paper/monitorkey{
+	pixel_y = 2;
+	pixel_x = 7
+	},
+/obj/item/stamp/rd,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -36893,10 +36923,6 @@
 /area/station/public/mrchangs)
 "eLB" = (
 /obj/structure/table,
-/obj/item/phone{
-	pixel_x = 6;
-	pixel_y = -2
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "eLD" = (
@@ -39413,11 +39439,9 @@
 /area/station/maintenance/aft2)
 "fFf" = (
 /obj/structure/table/wood,
-/obj/item/pen/red{
-	pixel_x = 2;
-	pixel_y = 6
+/obj/machinery/phone{
+	pixel_y = 2
 	},
-/obj/item/paper,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/supply/qm)
 "fFi" = (
@@ -44220,6 +44244,9 @@
 /obj/item/cartridge/signal/toxins{
 	pixel_y = 6
 	},
+/obj/item/toy/figure/crew/rd{
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -45428,6 +45455,7 @@
 /obj/structure/closet/secure_closet/magistrate,
 /obj/machinery/alarm/directional/north,
 /obj/item/megaphone,
+/obj/item/taperecorder,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -50841,7 +50869,9 @@
 /area/station/medical/surgery/observation)
 "jNu" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/patch/silver_sulf,
+/obj/machinery/phone{
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -51557,7 +51587,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft2)
 "jXj" = (
-/obj/item/taperecorder,
 /obj/structure/table/reinforced,
 /obj/machinery/button/windowtint{
 	dir = 4;
@@ -51573,6 +51602,9 @@
 	pixel_x = -25;
 	pixel_y = -4;
 	req_access = list(74)
+	},
+/obj/machinery/phone{
+	pixel_y = 2
 	},
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
@@ -56106,12 +56138,9 @@
 /area/station/engineering/equipmentstorage)
 "lCW" = (
 /obj/structure/table,
-/obj/item/folder/white,
-/obj/item/toy/figure/crew/rd{
-	pixel_y = 10
+/obj/machinery/phone{
+	pixel_y = 2
 	},
-/obj/item/stamp/rd,
-/obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -56862,10 +56891,8 @@
 	pixel_x = 5;
 	pixel_y = -1
 	},
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -3;
-	pixel_y = 3
+/obj/machinery/phone{
+	pixel_y = 2
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -63971,6 +63998,9 @@
 /area/station/supply/storage)
 "org" = (
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/chair{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/supply/qm)
 "orm" = (
@@ -71747,10 +71777,8 @@
 	},
 /area/station/science/storage)
 "rhR" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/floor/wood,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/carpet/royalblack,
 /area/station/supply/qm)
 "rif" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -72110,7 +72138,9 @@
 /area/station/medical/surgery/observation)
 "rqk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/structure/chair/comfy/brown{
+	dir = 8
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/supply/qm)
 "rqq" = (
@@ -82276,10 +82306,6 @@
 	pixel_y = 28
 	},
 /obj/structure/table/wood,
-/obj/item/phone{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/item/cigbutt/cigarbutt{
 	pixel_x = 5;
 	pixel_y = -1
@@ -87866,6 +87892,14 @@
 /obj/machinery/light,
 /obj/structure/table/wood,
 /obj/item/paper_bin,
+/obj/item/paper{
+	pixel_y = 2;
+	pixel_x = 2
+	},
+/obj/item/pen/red{
+	pixel_x = 2;
+	pixel_y = 6
+	},
 /turf/simulated/floor/wood,
 /area/station/supply/qm)
 "xid" = (
@@ -88609,6 +88643,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/machinery/phone{
+	pixel_y = 2
+	},
+/obj/structure/table/glass,
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "xwi" = (
@@ -110393,7 +110431,7 @@ aIF
 bES
 iCf
 org
-rhR
+gGU
 pHt
 izt
 xhZ
@@ -110907,7 +110945,7 @@ nZl
 fYs
 vxl
 rqk
-kbw
+rhR
 nKT
 qac
 kTF

@@ -3176,7 +3176,6 @@
 /area/station/public/storage/emergency/port)
 "arB" = (
 /obj/structure/table/wood,
-/obj/item/phone,
 /obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/public/vacant_office)
@@ -12281,13 +12280,21 @@
 /area/station/supply/storage)
 "aWH" = (
 /obj/structure/table/reinforced,
-/obj/item/folder/yellow,
-/obj/item/stamp/qm,
+/obj/item/folder/yellow{
+	pixel_y = -8
+	},
+/obj/item/stamp/qm{
+	pixel_y = -8
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
+	},
+/obj/machinery/phone{
+	pixel_y = 8;
+	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -19049,13 +19056,15 @@
 /area/station/hallway/primary/central/nw)
 "byR" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid/regular,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
 	},
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/machinery/phone{
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
@@ -22698,7 +22707,6 @@
 /area/station/command/meeting_room)
 "bKL" = (
 /obj/structure/table/wood,
-/obj/item/phone,
 /obj/item/cigbutt/cigarbutt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -24227,6 +24235,10 @@
 	pixel_x = -5;
 	req_access = list(56)
 	},
+/obj/machinery/phone{
+	pixel_y = 12;
+	pixel_x = -4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -24436,9 +24448,15 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/item/flashlight/lamp/green,
+/obj/item/flashlight/lamp/green{
+	pixel_x = -7
+	},
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/machinery/phone{
+	pixel_y = 1;
+	pixel_x = 10
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
@@ -27581,6 +27599,7 @@
 	pixel_x = -5;
 	pixel_y = 12
 	},
+/obj/item/stamp/rep,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "cbY" = (
@@ -27976,7 +27995,9 @@
 /area/station/command/office/ntrep)
 "cdK" = (
 /obj/structure/table/wood,
-/obj/item/stamp/rep,
+/obj/machinery/phone{
+	pixel_y = 2
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "cdL" = (
@@ -28670,19 +28691,26 @@
 /area/station/command/office/hop)
 "chg" = (
 /obj/structure/table/wood,
-/obj/item/folder/blue,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/folder/blue{
+	pixel_y = 2;
+	pixel_x = 2
+	},
 /obj/item/pen/multi,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "chh" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin/nanotrasen,
 /obj/machinery/door_control{
 	id = "hopofficedoor";
 	name = "Office Door";
 	normaldoorcontrol = 1;
 	pixel_x = -8;
 	req_access = list(57)
+	},
+/obj/machinery/phone{
+	pixel_y = 2;
+	pixel_x = 7
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
@@ -28833,6 +28861,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/megaphone,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -28856,6 +28885,7 @@
 /obj/item/folder/red{
 	pixel_y = 3
 	},
+/obj/item/taperecorder,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -36899,7 +36929,7 @@
 "cHe" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/obj/item/megaphone,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -43165,6 +43195,10 @@
 /obj/item/paper_bin/nanotrasen,
 /obj/item/pen/multi,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/paicard{
+	pixel_y = -2;
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "dgt" = (
@@ -44418,10 +44452,9 @@
 /obj/machinery/door_control{
 	id = "rdtest";
 	name = "Test Range Shutters";
-	pixel_x = -4;
+	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/paicard,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -44431,9 +44464,13 @@
 	id = "rdofficedoor";
 	name = "Office Door";
 	normaldoorcontrol = 1;
-	pixel_x = -4;
+	pixel_x = -6;
 	pixel_y = -4;
 	req_access = list(30)
+	},
+/obj/machinery/phone{
+	pixel_y = 2;
+	pixel_x = 8
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
@@ -54630,10 +54667,6 @@
 	pixel_x = 3;
 	pixel_y = 4
 	},
-/obj/item/phone{
-	pixel_x = -4;
-	pixel_y = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -63291,6 +63324,10 @@
 	pixel_x = -7;
 	pixel_y = 6
 	},
+/obj/item/stamp/hos{
+	pixel_x = -7;
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67089,7 +67126,6 @@
 /area/station/service/bar)
 "kUY" = (
 /obj/structure/table/reinforced,
-/obj/item/phone,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 1
@@ -75894,9 +75930,9 @@
 /obj/structure/table/wood,
 /obj/machinery/light,
 /obj/machinery/keycard_auth,
-/obj/item/stamp/hos{
-	pixel_x = 12;
-	pixel_y = 6
+/obj/machinery/phone{
+	pixel_y = 13;
+	pixel_x = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -78474,8 +78510,9 @@
 "pVP" = (
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/item/megaphone,
-/obj/item/taperecorder,
+/obj/machinery/phone{
+	pixel_y = 2
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/legal/magistrate)
 "pVU" = (
@@ -93321,6 +93358,10 @@
 	},
 /obj/item/storage/box/monkeycubes{
 	pixel_x = -3
+	},
+/obj/machinery/phone{
+	pixel_y = 14;
+	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"

@@ -791,7 +791,8 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/mug/hos,
 /obj/machinery/phone{
-	pixel_y = 12
+	pixel_y = 14;
+	pixel_x = 6
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
@@ -7789,7 +7790,8 @@
 /obj/item/stamp/magistrate,
 /obj/item/paper_bin/nanotrasen,
 /obj/machinery/phone{
-	pixel_x = 17
+	pixel_x = 17;
+	pixel_y = 9
 	},
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
@@ -19778,7 +19780,9 @@
 /obj/item/flash{
 	pixel_y = -11
 	},
-/obj/machinery/phone,
+/obj/machinery/phone{
+	pixel_y = 3
+	},
 /obj/item/flash{
 	pixel_y = -11
 	},
@@ -29196,7 +29200,10 @@
 /obj/item/cartridge/medical{
 	pixel_x = -16
 	},
-/obj/machinery/phone,
+/obj/machinery/phone{
+	pixel_y = 1;
+	pixel_x = 2
+	},
 /obj/item/cartridge/medical{
 	pixel_x = -18
 	},
@@ -30979,7 +30986,9 @@
 	pixel_y = -12;
 	pixel_x = 7
 	},
-/obj/machinery/phone,
+/obj/machinery/phone{
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkpurple"
@@ -31506,6 +31515,8 @@
 /area/station/medical/medbay3)
 "ckt" = (
 /obj/structure/table/wood,
+/obj/item/folder,
+/obj/item/stamp/rep,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "ckv" = (
@@ -32531,16 +32542,18 @@
 "coo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office";
-	pixel_y = 4
+/obj/machinery/phone{
+	pixel_y = 2
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "cop" = (
 /obj/machinery/alarm/directional/east,
 /obj/structure/table/wood,
-/obj/item/paper_bin/nanotrasen,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "NT Representative's Office";
+	pixel_y = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "cot" = (
@@ -32866,7 +32879,7 @@
 	req_access = list(57)
 	},
 /obj/machinery/phone{
-	pixel_y = 12;
+	pixel_y = 14;
 	pixel_x = 6
 	},
 /obj/item/megaphone{
@@ -38521,9 +38534,11 @@
 /area/station/maintenance/assembly_line)
 "cLE" = (
 /obj/structure/table/wood,
-/obj/item/paper/ntrep,
-/obj/item/stamp/rep,
-/obj/item/folder,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/paper/ntrep{
+	pixel_y = 3;
+	pixel_x = 3
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "cLF" = (
@@ -39798,10 +39813,6 @@
 	},
 /obj/item/paper/tcommskey{
 	pixel_x = 5
-	},
-/obj/machinery/phone{
-	pixel_x = -6;
-	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
@@ -46779,6 +46790,10 @@
 /obj/item/folder/yellow,
 /obj/item/stamp/ce,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/phone{
+	pixel_x = -6;
+	pixel_y = 16
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
 "dsU" = (
@@ -76617,12 +76632,13 @@
 	id = "captainofficedoor";
 	name = "Office Door";
 	normaldoorcontrol = 1;
-	pixel_y = -3;
-	req_access = list(20)
+	pixel_y = -2;
+	req_access = list(20);
+	pixel_x = 7
 	},
 /obj/machinery/phone{
-	pixel_y = 6;
-	pixel_x = 9
+	pixel_y = 9;
+	pixel_x = 8
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/station/command/office/captain)

@@ -1,6 +1,7 @@
 #define NO_CALLS 	1
 #define RINGING 	2
 #define ACTIVE_CALL	3
+#define CALL_ENDED	4
 
 /obj/machinery/phone
 	name = "starline telephone"
@@ -14,7 +15,7 @@
 	pass_flags = PASSTABLE
 	new_attack_chain = TRUE
 	/// Holds the handheld
-	var/obj/item/phone_receiver/handheld
+	var/obj/item/radio/phone_receiver/handheld
 	/// Is the handheld currently picked up
 	var/phone_state = NO_CALLS
 	/// Is this a centcomm telephone?
@@ -24,6 +25,7 @@
 
 /obj/machinery/phone/centcomm
 	centcomm_phone = TRUE
+	name = "centcom master starline"
 
 /obj/machinery/phone/centcomm/attack_hand(mob/user)
 	var/mob/living/carbon/crew
@@ -41,19 +43,22 @@
 	var/phone_choice = tgui_input_list(user, "Select Destination Phone", "Phone:", available_phones)
 	if(!phone_choice)
 		return
-	phone_choice = available_phones[phone_choice]
+	var/obj/machinery/phone/target_phone = available_phones[phone_choice]
+	if(target_phone.phone_state != NO_CALLS)
+		to_chat(user, "<span class='warning'>Call attemp failed: Line busy.</span>")
+		return
+	handheld = new
+	handheld.parent_phone = src
 	crew.put_in_active_hand(handheld)
 	icon_state = "answered"
 	phone_state = ACTIVE_CALL
-	connected_line = phone_choice
+	connected_line = target_phone
 	connected_line.phone_state = RINGING
 	connected_line.connected_line = src
 	INVOKE_ASYNC(connected_line, PROC_REF(ring_loop))
 
 /obj/machinery/phone/Initialize(mapload)
 	. = ..()
-	handheld = new
-	handheld.parent_phone = src
 	if(!centcomm_phone) // we dont need to call CC phones
 		GLOB.landline_phones += src
 
@@ -66,23 +71,26 @@
 
 	switch(phone_state)
 		if(NO_CALLS)
-			to_chat(user, "<span class='warning'>[src] is already in use!</span>")
+			to_chat(user, "<span class='warning'>There are no calls at the moment to pick up.</span>")
 			return
 		if(RINGING)
+			handheld = new
+			handheld.parent_phone = src
 			crew.put_in_active_hand(handheld)
 			icon_state = "answered"
 			start_call()
-		if(ACTIVE_CALL)
-			to_chat(user, "<span class='warning'>There are no incomming calls at the moment.</span>")
+		else
+			to_chat(user, "<span class='warning'>The receiver is already off the dock!</span>")
 			return
 
 /obj/machinery/phone/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/phone_receiver))
+	if(istype(used, /obj/item/radio/phone_receiver))
 		if(phone_state == ACTIVE_CALL)
 			to_chat(user, "<span class='information'>You hang up the call.</span>")
 			end_call()
-		user.transfer_item_to(handheld, src)
+		handheld.dropped()
 		icon_state = "base"
+		phone_state = NO_CALLS
 		return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/phone/screwdriver_act(mob/living/user, obj/item/I)
@@ -91,11 +99,17 @@
 /obj/machinery/phone/crowbar_act(mob/living/user, obj/item/I)
 	return
 
+/obj/machinery/phone/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, I)
+
 /obj/machinery/phone/proc/ring_loop()
 	var/ring_duration = 0.3 SECONDS
 	var/ring_rest_duration = 2.5 SECONDS
 	while(phone_state == RINGING)
-		playsound(src, 'sound/weapons/ring.ogg', 50, 0, 4, ignore_walls = TRUE)
+		playsound(src, 'sound/weapons/ring.ogg', 50, 0, 2, ignore_walls = TRUE)
 		icon_state = "ringing"
 		sleep(ring_duration)
 		icon_state = "base"
@@ -103,60 +117,72 @@
 
 /obj/machinery/phone/proc/start_call()
 	phone_state = ACTIVE_CALL
-	handheld.radio.listening = TRUE
-	connected_line.handheld.radio.listening = TRUE
+	handheld.listening = TRUE
+	connected_line.handheld.listening = TRUE
 	connected_line.connected_line.audible_message("<span class='information'>The receiver clicks as the other picks up.</span>", hearing_distance = 1)
 
 /obj/machinery/phone/proc/end_call()
-	handheld.radio.listening = FALSE
-	handheld.radio.broadcasting = FALSE
+	handheld.listening = FALSE
 	phone_state = NO_CALLS
 	if(connected_line)
 		connected_line.audible_message("<span class='information'>The receiver clicks as the other line hangs up</span>", hearing_distance = 1)
 		connected_line.connected_line = null
-		connected_line.handheld.radio.listening = FALSE
-		connected_line.phone_state = NO_CALLS
+		if(connected_line.phone_state == RINGING)
+			connected_line.phone_state = NO_CALLS
+		else
+			connected_line.phone_state = CALL_ENDED
+			connected_line.handheld.listening = FALSE
 		connected_line = null
 
-/obj/item/phone_receiver
+
+/obj/item/radio/phone_receiver
 	name = "phone receiver"
 	desc = "A device for speaking into and listening to a connected starlink phone. "
 	icon = 'icons/obj/starline_phone.dmi'
 	icon_state = "receiver"
-	force = 0
-	throwforce = 0
-	w_class = WEIGHT_CLASS_BULKY // no putting this in bags
+	flags = DROPDEL
+	w_class = WEIGHT_CLASS_SMALL // no putting this in bags
 	/// the starline phone this receiver conencts to
 	var/obj/machinery/phone/parent_phone
-	/// The radio we're going to use for the "secure connection"
-	var/obj/item/radio/radio
 
-/obj/item/phone_receiver/Initialize(mapload)
+/obj/item/radio/phone_receiver/Initialize(mapload)
 	. = ..()
-	radio = new(src)
-	radio.listening = FALSE
-	radio.broadcasting = TRUE
-	radio.loudspeaker = TRUE
-	radio.set_frequency(STARLINE_FREQ)
-	radio.requires_tcomms = FALSE
-	radio.instant = TRUE
-	radio.canhear_range = 1
-	radio.freqlock = TRUE
+	on = TRUE
+	listening = FALSE
+	broadcasting = TRUE
+	loudspeaker = TRUE
+	set_frequency(STARLINE_FREQ)
+	requires_tcomms = FALSE
+	instant = TRUE
+	canhear_range = 0
+	freqlock = TRUE
 
-/obj/item/phone_receiver/dropped(mob/user, silent)
-	. = ..()
+/obj/item/radio/phone_receiver/dropped(mob/user, silent)
 	visible_message("<span class='information'>The receiver snaps back into its dock.</span>")
-	forceMove(parent_phone)
 	parent_phone.icon_state = "base"
 	if(parent_phone.phone_state == ACTIVE_CALL)
 		parent_phone.end_call()
-	return // no child behavior
+	return ..()
 
-/obj/item/phone_receiver/on_mob_move(dir, mob/user)
+/obj/item/radio/phone_receiver/on_mob_move(dir, mob/user)
 	var/distance = get_dist(user.loc, parent_phone.loc)
 	if(distance > 2)
 		dropped()
 
+/obj/item/radio/phone_receiver/can_enter_storage(obj/item/storage/S, mob/user)
+	return FALSE
+
+// we dont want them touching things
+/obj/item/radio/phone_receiver/interact(mob/user)
+	return
+
+/obj/item/radio/phone_receiver/AltClick(mob/user)
+	return
+
+/obj/item/radio/phone_receiver/CtrlShiftClick(mob/user)
+	return
+
 #undef NO_CALLS
 #undef RINGING
 #undef ACTIVE_CALL
+#undef CALL_ENDED

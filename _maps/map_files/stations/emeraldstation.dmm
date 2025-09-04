@@ -2988,6 +2988,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/item/storage/fancy/donut_box{
+	pixel_y = -14
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -5755,10 +5758,12 @@
 /area/station/service/theatre)
 "biX" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
 /obj/machinery/ai_status_display{
 	pixel_x = -32;
 	step_size = 0
+	},
+/obj/machinery/phone{
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -6117,6 +6122,10 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin/nanotrasen,
 /obj/item/pen/multi/gold,
+/obj/machinery/phone{
+	pixel_y = 9;
+	pixel_x = 14
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -10341,10 +10350,6 @@
 /area/station/service/chapel/office)
 "bZP" = (
 /obj/structure/table/reinforced,
-/obj/item/phone{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
@@ -17288,6 +17293,9 @@
 "dvd" = (
 /obj/structure/table/wood,
 /obj/structure/sign/poster/official/random/directional/south,
+/obj/machinery/phone{
+	pixel_y = 2
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/command/office/hop)
 "dvf" = (
@@ -22136,6 +22144,10 @@
 /obj/item/pen/cap,
 /obj/item/stamp/captain{
 	pixel_y = 6
+	},
+/obj/machinery/phone{
+	pixel_y = 2;
+	pixel_x = 16
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/station/command/office/captain)
@@ -30788,7 +30800,9 @@
 /area/station/maintenance/aft)
 "gdG" = (
 /obj/structure/table/reinforced,
-/obj/item/megaphone,
+/obj/machinery/phone{
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
 "gdS" = (
@@ -32819,7 +32833,9 @@
 /area/station/maintenance/solar_maintenance/aft_starboard)
 "gze" = (
 /obj/structure/table/reinforced,
-/obj/item/cartridge/qm,
+/obj/machinery/phone{
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -49475,10 +49491,14 @@
 "jMK" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
-/obj/item/pen/multi/fountain,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/item/folder{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/obj/item/pen/multi/fountain,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "jMN" = (
@@ -52982,9 +53002,9 @@
 	pixel_y = 15;
 	pixel_x = -5
 	},
-/obj/item/folder{
-	pixel_x = 4;
-	pixel_y = -3
+/obj/machinery/phone{
+	pixel_y = -7;
+	pixel_x = -4
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
@@ -53453,7 +53473,6 @@
 /area/station/service/chapel/funeral)
 "kDr" = (
 /obj/structure/table/wood,
-/obj/item/phone,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "kDs" = (
@@ -68834,7 +68853,7 @@
 /obj/item/stamp/cmo,
 /obj/item/food/grown/apple{
 	pixel_y = 21;
-	pixel_x = -11
+	pixel_x = -2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -74220,10 +74239,6 @@
 	pixel_x = -4;
 	pixel_y = -4
 	},
-/obj/item/phone{
-	pixel_x = -4;
-	pixel_y = 4
-	},
 /obj/item/storage/fancy/cigarettes/cigpack_random{
 	pixel_x = 5;
 	pixel_y = 5
@@ -77070,11 +77085,11 @@
 "pld" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/drinks/coffee{
-	pixel_x = 8;
-	pixel_y = 10
+	pixel_x = 13;
+	pixel_y = 13
 	},
-/obj/item/megaphone{
-	pixel_x = -3
+/obj/machinery/phone{
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -80164,7 +80179,6 @@
 /area/station/engineering/transmission_laser)
 "pSS" = (
 /obj/structure/table/reinforced,
-/obj/item/phone,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/command/vault)
@@ -84953,6 +84967,9 @@
 /obj/structure/table/glass,
 /obj/item/clipboard,
 /obj/item/folder/blue,
+/obj/item/megaphone{
+	pixel_x = -3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -85437,7 +85454,6 @@
 "qYF" = (
 /obj/structure/table/glass/reinforced,
 /obj/structure/window/reinforced,
-/obj/item/phone,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -96186,7 +96202,6 @@
 /area/station/security/armory/secure)
 "tbW" = (
 /obj/structure/table,
-/obj/item/phone,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -108853,6 +108868,7 @@
 "vCK" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/sop_engineering,
+/obj/item/megaphone,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -109742,10 +109758,9 @@
 /area/station/hallway/primary/central/ne)
 "vLC" = (
 /obj/structure/table/wood,
-/obj/item/clipboard{
-	pixel_x = 5
+/obj/machinery/phone{
+	pixel_y = 2
 	},
-/obj/item/book/manual/wiki/sop_legal,
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
 "vLH" = (
@@ -116642,10 +116657,6 @@
 /area/station/security/processing)
 "xih" = (
 /obj/structure/table,
-/obj/item/phone{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -117634,9 +117645,17 @@
 	pixel_y = 6;
 	req_access = list(30)
 	},
+/obj/item/paper/monitorkey{
+	pixel_y = 2;
+	pixel_x = 7
+	},
 /obj/item/reagent_containers/drinks/coffee{
 	pixel_x = 8;
 	pixel_y = 10
+	},
+/obj/item/stamp/rd{
+	pixel_x = 5;
+	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -120061,10 +120080,14 @@
 /area/station/command/office/ce)
 "xRM" = (
 /obj/structure/table/wood,
-/obj/item/megaphone,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/sop_legal,
+/obj/item/clipboard{
+	pixel_x = 5
+	},
+/obj/item/megaphone,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -121566,13 +121589,22 @@
 /obj/item/folder/white{
 	pixel_x = 4
 	},
-/obj/item/paper/monitorkey,
-/obj/item/stamp/rd{
-	pixel_x = 5;
-	pixel_y = -2
+/obj/item/paper_bin/nanotrasen{
+	pixel_x = 6;
+	pixel_y = 4
 	},
-/obj/item/pen/rd,
-/obj/item/paper_bin/nanotrasen,
+/obj/machinery/phone{
+	pixel_y = 2;
+	pixel_x = -9
+	},
+/obj/item/folder/white{
+	pixel_x = 9;
+	pixel_y = 6
+	},
+/obj/item/pen/rd{
+	pixel_y = 5;
+	pixel_x = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
