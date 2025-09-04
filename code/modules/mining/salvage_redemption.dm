@@ -2,7 +2,7 @@
 	name = "salvage redemption machine"
 	desc = "An electronic deposit bin that scans recovered salvage for useful information, and dispenses credit tickets based on the salvage's value."
 	icon = 'icons/obj/machines/mining_machines.dmi'
-	icon_state = "ore_redemption"
+	icon_state = "salvage_redemption"
 	anchored = TRUE
 	density = TRUE
 	/// Access to claim points
@@ -15,6 +15,8 @@
 	var/list/obj/item/salvage/salvage_buffer = list()
 	/// If TRUE, [/obj/machinery/salvage_redemption/var/req_access_claim] is ignored and any ID may be used to claim points.
 	var/anyone_claim = FALSE
+	/// Current animation state
+	var/animating = FALSE
 
 /obj/machinery/salvage_redemption/Initialize(mapload)
 	. = ..()
@@ -32,15 +34,16 @@
 	. = ..()
 	. += "<span class='notice'>There are currently [points] claimable points. [points ? "Swipe your ID to claim them." : ""]</span>"
 
-/obj/machinery/salvage_redemption/update_overlays()
+/obj/machinery/salvage_redemption/update_icon_state()
 	. = ..()
-	overlays.Cut()
+	icon_state = "salvage_redemption"
 	if(panel_open)
-		. += "hopper_wires"
+		icon_state += "-open"
+		return
 
 /obj/machinery/salvage_redemption/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	. = ..()
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/salvage_redemption/RefreshParts()
 	var/point_mult = SALVAGE_REDEMPTION_BASE_POINT_MULT
@@ -59,8 +62,12 @@
 	if(istype(used, /obj/item/storage/part_replacer))
 		return ..()
 
-	if(!has_power())
+	if(!has_power() || panel_open)
 		return ..()
+
+	if(animating)
+		to_chat(user, "<span class='warning'>The machine is currently processing salvage at the moment.</span>");
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/card/id))
 		var/obj/item/card/id/ID = used
@@ -93,9 +100,11 @@
 		return ITEM_INTERACT_COMPLETE
 
 	if(istype(used, /obj/item/salvage))
+		if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
+			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/salvage/loot = used
 		salvage_buffer |= loot
-		loot.forceMove(src)
 		process_salvage(user)
 		return ITEM_INTERACT_COMPLETE
 	return ..()
@@ -125,18 +134,36 @@
 		// Delete the salvage
 		salvage_buffer -= loot
 		qdel(loot)
-	// Print credit slip
+	// Do a little animation. It delays the slip slightly, but it looks cool
+	animating = TRUE
+	icon_state = "salvage_redemption-activate"
+	addtimer(CALLBACK(src, PROC_REF(active_loop), total_value, user), 0.5 SECONDS)
+
+/obj/machinery/salvage_redemption/proc/active_loop(total_value, mob/user)
+	// Scan the salvage
+	icon_state = "salvage_redemption-active"
 	if(total_value)
-		var/obj/item/credit_redeption_slip/slip = new /obj/item/credit_redeption_slip(src, total_value)
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			H.put_in_hands(slip)
-		else
-			slip.forceMove(get_turf(user))
-		playsound(src, 'sound/machines/banknote_counter.ogg', 30, FALSE)
+		addtimer(CALLBACK(src, PROC_REF(print_slip), total_value, user), 2.6 SECONDS)
+
+/obj/machinery/salvage_redemption/proc/print_slip(total_value, mob/user)
+	// Print the credit slip
+	icon_state = "salvage_redemption-deactivate"
+	playsound(src, 'sound/machines/banknote_counter.ogg', 30, FALSE)
+	var/obj/item/credit_redemption_slip/slip = new /obj/item/credit_redemption_slip(src, total_value)
+	if(ishuman(user) && Adjacent(user))
+		var/mob/living/carbon/human/H = user
+		H.put_in_hands(slip)
+	else
+		slip.forceMove(get_turf(src))
+	addtimer(CALLBACK(src, PROC_REF(reset_animation)), 1.1 SECONDS)
+
+/obj/machinery/salvage_redemption/proc/reset_animation()
+	// Reset the machine
+	icon_state = "salvage_redemption"
+	animating = FALSE
 
 /// Credit redemption slip
-/obj/item/credit_redeption_slip
+/obj/item/credit_redemption_slip
 	name = "credit redemption slip"
 	desc = "A coupon worth a pre-determined amount of credits. Use this on an ATM to redeem them to your account."
 	icon = 'icons/obj/card.dmi'
@@ -150,7 +177,7 @@
 	/// Department to award
 	var/datum/money_account/department_account
 
-/obj/item/credit_redeption_slip/Initialize(mapload, new_value, department = DEPARTMENT_SUPPLY)
+/obj/item/credit_redemption_slip/Initialize(mapload, new_value, department = DEPARTMENT_SUPPLY)
 	. = ..()
 	value = new_value
 	name += " ([value * (1- department_cut)])"

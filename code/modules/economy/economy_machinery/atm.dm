@@ -87,7 +87,7 @@
 		if(istype(used, /obj/item/stack/spacecash) && has_power())
 			insert_cash(used, user)
 			return ITEM_INTERACT_COMPLETE
-		if(istype(used, /obj/item/credit_redeption_slip) && has_power())
+		if(istype(used, /obj/item/credit_redemption_slip) && has_power())
 			redeem_credits(used, user)
 			return ITEM_INTERACT_COMPLETE
 
@@ -100,7 +100,7 @@
 	cash_money.use(cash_money.amount)
 	return TRUE
 
-/obj/machinery/economy/atm/proc/redeem_credits(obj/item/credit_redeption_slip/credit_slip, mob/user)
+/obj/machinery/economy/atm/proc/redeem_credits(obj/item/credit_redemption_slip/credit_slip, mob/user)
 	visible_message("<span class='notice'>[user] inserts [credit_slip] into [src].</span>")
 	account_database.credit_account(authenticated_account, credit_slip.value * (1 - credit_slip.department_cut), "Credit Redemption", name, FALSE)
 	account_database.credit_account(credit_slip.department_account, credit_slip.value * credit_slip.department_cut, "Credit Redemption", name, FALSE)
