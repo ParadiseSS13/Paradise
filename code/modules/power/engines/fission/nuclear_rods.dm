@@ -25,13 +25,34 @@
 	/// What items need to be adjacent to this rod for it to function properly
 	var/list/adjacent_requirements = list()
 
+
 /obj/item/nuclear_rod/fuel
 	name = "nuclear fuel rod"
 	desc = "This is a base item and should not be found. Alert a developer!"
 	rad_type = ALPHA_RAD
+	/// the total power amp mod needed to enrich
+	var/power_enrich_threshold = 0
+	/// How far we have progressed from to power enrichment
+	var/power_enrich_progress = 0
+	/// What power enrichment results in
+	var/power_enrich_result
+	/// the total heat amp mod needed to enrich
+	var/heat_enrich_threshold = 0
+	/// How far we have progressed from to power enrichment
+	var/heat_enrich_progress = 0
+	/// What heat enrichment results in
+	var/heat_enrich_result
+
+/obj/item/nuclear_rod/fuel/proc/enrich(power_mod, heat_mod)
+	if(power_enrich_result)
+		if(power_mod > power_enrich_threshold && power_enrich_progress < 20)
+			power_enrich_progress++
+	if(heat_enrich_result)
+		if(heat_mod > heat_enrich_threshold && heat_enrich_progress < 20)
+			heat_enrich_progress++
 
 /obj/item/nuclear_rod/fuel/uranium_238
-	name = "Uranium 235 Fuel Rod"
+	name = "uranium 235 fuel rod"
 	desc = "A standard fuel rod for most NGCR reactors. Has just barely enough Uranium 235 to be useful."
 	heat_amount = 5
 	power_amount = 20 KW
@@ -39,15 +60,28 @@
 	power_amp_mod = 1.1
 	durability = 6000
 	rad_type = BETA_RAD
-	adjacent_requirements = list(
-		/obj/item/nuclear_rod/moderator,
-		)
+	heat_enrich_result = /obj/item/nuclear_rod/fuel/weak_thorium
+	power_enrich_result = /obj/item/nuclear_rod/fuel/weak_plutonium
+	adjacent_requirements = list(/obj/item/nuclear_rod/moderator,)
 
 /obj/item/nuclear_rod/fuel/weak_thorium
-	name = "Weak Thorium Fuel Rod"
+	name = "weak thorium fuel rod"
 	desc = "A specialized fuel rod bred from uranium 238. This rod will last longer than normal, and wont generate as much heat."
 	heat_amount = 5
 	power_amount = 20 KW
+	heat_amp_mod = 1.6
+	power_amp_mod = 1.1
+	durability = 10000
+	rad_type = ALPHA_RAD
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/moderator,
+		/obj/item/nuclear_rod/coolant,
+		)
+
+/obj/item/nuclear_rod/fuel/weak_plutonium
+	name = "weak plutonium fuel rod"
+	heat_amount = 8
+	power_amount = 30 KW
 	heat_amp_mod = 1.6
 	power_amp_mod = 1.1
 	durability = 10000
@@ -63,19 +97,19 @@
 	icon_state = "normal"
 
 /obj/item/nuclear_rod/moderator/heavy_water
-	name = "Heavy Water Moderator"
+	name = "heavy water moderator"
 	desc = "A basic moderation rod filled with a varint of water comprised of deuterium instead of hydrogen atoms."
 	heat_amp_mod = 1.1
 	power_amp_mod = 1.4
 	durability = 6000
 
 /obj/item/nuclear_rod/coolant
-	name = "Nuclear Coolant rod"
+	name = "nuclear coolant rod"
 	desc = "This is a base item and should not be found. Alert a developer!"
 	icon_state = "bananium"
 
 /obj/item/nuclear_rod/coolant/light_water
-	name = "Light Water Circulator"
+	name = "light water circulator"
 	desc = "A basic coolant rod that circulates distilled water through critical reactor components."
 	heat_amount = -10
 	heat_amp_mod = 1
