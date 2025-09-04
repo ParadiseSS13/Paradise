@@ -714,6 +714,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "You've never seen this before."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 2500)
 	toolspeed = 0.25
 
 /obj/item/retractor/alien
@@ -721,6 +722,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "You're not sure if you want the veil pulled back."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 3000)
 	toolspeed = 0.25
 
 /obj/item/circular_saw/alien

@@ -376,7 +376,10 @@
 	return W
 
 /turf/proc/BeforeChange()
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	if("[z]" in GLOB.space_manager.z_list)
+		var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
+		S.remove_from_transit(src)
 
 /turf/proc/is_safe()
 	return FALSE
@@ -402,6 +405,11 @@
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)
+
+	if("[z]" in GLOB.space_manager.z_list)
+		var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
+		S.add_to_transit(src)
+		S.apply_transition(src)
 
 /turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE)
 	..()

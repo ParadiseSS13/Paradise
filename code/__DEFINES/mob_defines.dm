@@ -395,6 +395,13 @@
 /// Default maximum body temperature mobs can exist in before taking damage
 #define NPC_DEFAULT_MAX_TEMP 350
 
+#define MP_SPELL_PRIORITY 		1
+#define MP_THROW_MODE_PRIORITY 	2
+#define MP_GIVE_MODE_PRIORITY 	3
+#define MP_AUTO_GUN_PRIORITY 	4
+#define MP_CLOWN_CAR_PRIORITY 	5
+#define MP_MECHA_PRIORITY 		6
+
 #define GHOST_START_AS_OBSERVER 	(1 << 0) // Ghost started playing as an observer.
 #define GHOST_CAN_REENTER 			(1 << 1) // Ghost can reenter its corpse
 #define GHOST_RESPAWNABLE			(1 << 2) // Ghost can respawn. Note that checking respawnability is better via GLOB.non_respawnable_keys and TRAIT_RESPAWNABLE

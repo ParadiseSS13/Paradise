@@ -62,11 +62,7 @@
 	return ..()
 
 /mob/living/ghostize(flags = GHOST_FLAGS_DEFAULT, ghost_name, ghost_color)
-	var/prev_client = client
 	. = ..()
-	if(.)
-		if(ranged_ability && prev_client)
-			ranged_ability.remove_mousepointer(prev_client)
 	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
 
 /// Legacy method for simplemobs to handle turning off their AI.

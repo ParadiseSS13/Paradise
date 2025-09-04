@@ -5,6 +5,6 @@
 
 /obj/structure/closet/wardrobe/atmospherics_yellow/empty
 
-/obj/structure/closet/wardrobe/atmospherics_yellow/populate_contents()
+/obj/structure/closet/wardrobe/atmospherics_yellow/empty/populate_contents()
 	return
 
