@@ -400,7 +400,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
@@ -1024,6 +1023,8 @@
 	icon_state = "bomber"
 	item_state = "bomber"
 	icon_override = 'icons/mob/clothing/suits/coat.dmi'
+	dyeing_key = DYE_REGISTRY_BOMBER
+	dyeable = TRUE
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 	actions_types = list(/datum/action/item_action/zipper)
 

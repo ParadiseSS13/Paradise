@@ -79,7 +79,7 @@ GLOBAL_PROTECT(href_token)
 		restricted_by_2fa = TRUE
 		if(!delay_2fa_complaint)
 			// And tell them about it.
-			to_chat(owner,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
+			to_chat(owner,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.\nTo setup 2FA, head to the following menu: <a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GAME]'>Game Preferences</a></span>")  // Very fucking obvious
 
 	// Regardless of client, tell BYOND if they should have profiler access.
 	if(rights & (R_DEBUG | R_VIEWRUNTIMES))
@@ -98,8 +98,8 @@ GLOBAL_PROTECT(href_token)
 	owner.update_active_keybindings()
 	if(rights & (R_DEBUG | R_VIEWRUNTIMES))
 		// Enable the buttons they should have.
-		winset(owner, "debugmcbutton", "is-disabled=true")
-		winset(owner, "profilecode", "is-disabled=true")
+		winset(owner, "debugmcbutton", "is-disabled=false")
+		winset(owner, "profilecode", "is-disabled=false")
 	GLOB.admins |= owner
 	GLOB.de_admins -= ckey
 	GLOB.de_mentors -= ckey

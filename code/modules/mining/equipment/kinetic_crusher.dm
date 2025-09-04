@@ -13,7 +13,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	throwforce = 5
 	throw_speed = 4
-	armour_penetration_flat = 10
+	armor_penetration_flat = 10
 	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("smashed", "crushed", "cleaved", "chopped", "pulped")
@@ -168,16 +168,22 @@
 		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 
 /obj/item/kinetic_crusher/ui_action_click(mob/user, actiontype)
-	light_on = !light_on
-	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
-	update_brightness(user)
-	update_icon()
+	toggle_light(user)
 
-/obj/item/kinetic_crusher/proc/update_brightness(mob/user = null)
+
+/obj/item/kinetic_crusher/proc/toggle_light()
+	light_on = !light_on
+	playsound(src, 'sound/weapons/empty.ogg', 100, TRUE)
 	if(light_on)
 		set_light(brightness_on)
 	else
 		set_light(0)
+	update_icon()
+
+/obj/item/kinetic_crusher/extinguish_light()
+	if(light_on)
+		toggle_light()
+		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 /obj/item/kinetic_crusher/update_icon_state()
 	item_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]"

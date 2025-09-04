@@ -160,7 +160,7 @@
 	materials = list()
 	origin_tech = "biotech=3;combat=2"
 	attack_verb = list("shanked", "shivved")
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = null
 
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
@@ -220,13 +220,17 @@
 	name = "cheese knife"
 	desc = "A blunt knife used to slice cheese."
 	icon_state = "knife-cheese"
+	materials = list(MAT_METAL = 4000)
 	force = 3
+	materials = list(MAT_METAL = 4000)
 
 /obj/item/kitchen/knife/pizza_cutter
 	name = "pizza cutter"
 	desc = "A simple circular blade on a handle, used to cut pizza."
 	icon_state = "pizza_cutter"
+	materials = list(MAT_METAL = 10000)
 	force = 8
+	materials = list(MAT_METAL = 10000)
 
 /*
  * Rolling Pins

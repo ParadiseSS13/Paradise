@@ -24,6 +24,9 @@
 	/// Expected time of a round in deciseconds
 	var/expected_round_length = 120 MINUTES // This macro is equivilent to 72,000 deciseconds
 
+	/// the population needed to allow blobs to split consciousness
+	var/blob_highpop_trigger = 60
+
 /datum/configuration_section/event_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
 	CONFIG_LOAD_BOOL(enable_random_events, data["allow_random_events"])
@@ -58,4 +61,5 @@
 			ASSERT(target in list(EVENT_LEVEL_MUNDANE, EVENT_LEVEL_MODERATE, EVENT_LEVEL_MAJOR))
 			first_run_times[target] = list("lower" = assoclist["lower_bound"] MINUTES, "upper" = assoclist["upper_bound"] MINUTES)
 
+	CONFIG_LOAD_NUM(blob_highpop_trigger, data["blob_highpop_trigger"])
 
