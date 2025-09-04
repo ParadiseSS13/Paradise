@@ -29925,8 +29925,8 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/crate{
-	name = "Silver Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "silver crate"
 	},
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,
@@ -114155,8 +114155,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "wHI" = (
-/obj/structure/closet/crate{
-	name = "Gold Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "gold crate"
 	},
 /obj/item/storage/belt/champion,
 /obj/machinery/status_display{
