@@ -64052,15 +64052,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"oCq" = (
-/obj/structure/extinguisher_cabinet{
-	name = "south bump";
-	pixel_y = -30
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/secondary/bridge)
 "oCA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -122362,7 +122353,7 @@ qgk
 qgk
 qgk
 bJp
-oCq
+bLg
 rKI
 uhY
 mxS
