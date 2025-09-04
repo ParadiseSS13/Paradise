@@ -191,7 +191,7 @@
 	if(!. && turned_on && istype(hit_mob))
 		thrown_baton_stun(hit_mob)
 
-/obj/item/melee/baton/pre_attack(atom/A, mob/living/user, params)
+/obj/item/melee/baton/pre_attack(atom/atom_target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
@@ -208,10 +208,10 @@
 		to_chat(user, user.mind.martial_art.no_baton_reason)
 		return FINISH_ATTACK
 
-	if(!ismob(A))
+	if(!ismob(atom_target))
 		return
 
-	var/mob/living/target = A
+	var/mob/living/target = atom_target
 
 	if(user.a_intent == INTENT_HARM)
 		return // Harmbaton!

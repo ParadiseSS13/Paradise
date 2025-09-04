@@ -676,7 +676,7 @@
 	name = "Goggles"
 	id = "goggles"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 250)
 	build_path = /obj/item/clothing/glasses/goggles
 	category = list("initial", "Miscellaneous")
 

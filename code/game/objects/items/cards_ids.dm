@@ -361,6 +361,15 @@
 	RebuildHTML()
 	..()
 
+/obj/item/card/id/proc/to_tgui()
+	. = list()
+	.["name"] = name
+	.["rank"] = rank
+	.["registered_name"] = registered_name
+	.["assignment"] = assignment
+	.["current_skin"] = icon_state
+	.["lastlog"] = lastlog
+
 /obj/item/card/id/proc/flash_card(mob/user)
 	user.visible_message("[user] shows you: [bicon(src)] [name]. The assignment on the card: [assignment]",\
 		"You flash your ID card: [bicon(src)] [name]. The assignment on the card: [assignment]")

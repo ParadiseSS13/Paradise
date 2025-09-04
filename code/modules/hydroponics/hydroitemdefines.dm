@@ -167,12 +167,12 @@
 			playsound(loc, pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg'), 50, TRUE, -1)
 	return BRUTELOSS
 
-/obj/item/scythe/pre_attack(atom/A, mob/living/user, params)
-	if(swiping || !istype(A, /obj/structure/spacevine) || get_turf(A) == get_turf(user))
+/obj/item/scythe/pre_attack(atom/target, mob/living/user, params)
+	if(swiping || !istype(target, /obj/structure/spacevine) || get_turf(target) == get_turf(user))
 		return ..()
 	else
 		var/turf/user_turf = get_turf(user)
-		var/dir_to_target = get_dir(user_turf, get_turf(A))
+		var/dir_to_target = get_dir(user_turf, get_turf(target))
 		swiping = TRUE
 		var/static/list/scythe_slash_angles = list(0, 45, 90, -45, -90)
 		for(var/i in scythe_slash_angles)

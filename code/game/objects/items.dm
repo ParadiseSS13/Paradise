@@ -1080,3 +1080,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.update_hands_hud()
+
+/obj/item/proc/on_hands_swap(mob/user, in_active_hand)
+	return

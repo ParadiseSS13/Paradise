@@ -19,14 +19,14 @@
 	visible_message("<span class='suicide'>[user] is hitting [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to ban [user.p_themselves()] from life.</span>")
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
-/obj/item/banhammer/pre_attack(atom/A, mob/living/user, params)
+/obj/item/banhammer/pre_attack(atom/target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
-	if(ismob(A))
+	if(ismob(target))
 		user.changeNext_move(CLICK_CD_MELEE)
-		to_chat(A, "<font color='red'><b>You have been banned FOR NO REISIN by [user]<b></font>")
-		to_chat(user, "<font color='red'>You have <b>BANNED</b> [A]</font>")
+		to_chat(target, "<font color='red'><b>You have been banned FOR NO REISIN by [user]<b></font>")
+		to_chat(user, "<font color='red'>You have <b>BANNED</b> [target]</font>")
 		playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
 		return FINISH_ATTACK
 
