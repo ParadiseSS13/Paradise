@@ -314,9 +314,6 @@
 
 	log_client_to_db(tdata) // Make sure our client exists in the DB
 
-	// Holder set up. Inform the relevant places
-	INVOKE_ASYNC(src, PROC_REF(announce_join))
-
 	pai_save = new(src)
 
 	// This is where we load all of the clients stuff from the DB
@@ -354,6 +351,9 @@
 		holder.associate(src, delay_2fa_complaint = TRUE)
 		// Must be async because any sleeps (happen in sql queries) will break connecting clients
 		INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
+
+	// Holder set up. Inform the relevant places
+	INVOKE_ASYNC(src, PROC_REF(announce_join))
 
 	// Setup widescreen
 	view = prefs.viewrange
