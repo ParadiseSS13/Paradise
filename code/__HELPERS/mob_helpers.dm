@@ -498,6 +498,14 @@ GLOBAL_LIST_EMPTY(do_after_once_tracker)
 	. = do_after(user, delay, needhand, target, progress, allow_moving, must_be_held, extra_checks = list(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(do_after_once_checks), cache_key, hidden)), interaction_key = interaction_key)
 	GLOB.do_after_once_tracker[cache_key] = FALSE
 
+// Please don't use this unless you absolutely need to. Just have a direct call to do_after_once whenever possible.
+/proc/interrupt_do_after_once(mob/user, atom/target, special_identifier)
+	var/cache_key = "[user.UID()][target.UID()][special_identifier]"
+	if(GLOB.do_after_once_tracker[cache_key])
+		GLOB.do_after_once_tracker[cache_key] = DOAFTERONCE_MAGIC
+		return TRUE
+	return FALSE
+
 /proc/do_after_once_checks(cache_key)
 	if(GLOB.do_after_once_tracker[cache_key] && GLOB.do_after_once_tracker[cache_key] == DOAFTERONCE_MAGIC)
 		GLOB.do_after_once_tracker[cache_key] = FALSE

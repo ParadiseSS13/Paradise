@@ -410,8 +410,9 @@
 		visible_message("<span class='notice'>[user] feeds the slime some plasma. It chirps happily!</span>", "<span class='notice'>[user] feeds you a few sheets of plasma! Yummy!!!</span>")
 		S.use(5)
 		if(Discipline)
-			trained = TRUE
-			name = "tamed [name]"
+			if(!trained)
+				trained = TRUE
+				name = "tamed [name]"
 		else
 			discipline_slime(user, positive_reinforcement = TRUE)
 		return ITEM_INTERACT_COMPLETE
