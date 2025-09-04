@@ -67,7 +67,6 @@
 /area/game_test)
 "pS" = (
 /obj/structure/target_stake,
-/turf/space,
 /turf/simulated/floor/plasteel,
 /area/game_test)
 "qt" = (
@@ -118,7 +117,7 @@
 /turf/simulated/floor/plasteel,
 /area/game_test)
 "zK" = (
-/turf/space,
+/obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel,
 /area/game_test)
 "AG" = (
@@ -155,10 +154,6 @@
 /area/game_test)
 "FZ" = (
 /obj/structure/largecrate,
-/turf/simulated/floor/plasteel,
-/area/game_test)
-"GJ" = (
-/obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel,
 /area/game_test)
 "GO" = (
@@ -444,7 +439,7 @@ GO
 rT
 sE
 rT
-GJ
+zK
 rT
 rT
 Od
@@ -492,7 +487,7 @@ Od
 (14,1,1) = {"
 Od
 rT
-zK
+rT
 rT
 rT
 rT
