@@ -142,6 +142,7 @@
 	icon = 'icons/obj/card.dmi'
 	icon_state = "credit_redemption"
 	w_class = WEIGHT_CLASS_TINY
+	resistance_flags = FLAMMABLE
 	/// How much is it worth?
 	var/value = 100
 	/// Percent given to department
