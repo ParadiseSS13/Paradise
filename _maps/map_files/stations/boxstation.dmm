@@ -790,6 +790,9 @@
 "aeC" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/mug/hos,
+/obj/machinery/phone{
+	pixel_y = 12
+	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
 "aeD" = (
@@ -7785,6 +7788,9 @@
 /obj/structure/table/reinforced,
 /obj/item/stamp/magistrate,
 /obj/item/paper_bin/nanotrasen,
+/obj/machinery/phone{
+	pixel_x = 17
+	},
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "aCl" = (
@@ -19769,8 +19775,13 @@
 /area/station/command/bridge)
 "bpr" = (
 /obj/structure/table/reinforced,
-/obj/item/flash,
-/obj/item/flash,
+/obj/item/flash{
+	pixel_y = -11
+	},
+/obj/machinery/phone,
+/obj/item/flash{
+	pixel_y = -11
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "bpt" = (
@@ -27091,10 +27102,6 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/item/phone{
-	pixel_x = -4;
-	pixel_y = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -28214,6 +28221,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/machinery/phone,
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
 "bXh" = (
@@ -29174,14 +29182,24 @@
 /area/station/command/office/cmo)
 "caR" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/drinks/coffee,
+/obj/item/reagent_containers/drinks/coffee{
+	pixel_y = 15;
+	pixel_x = 11
+	},
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/item/cartridge/chemistry,
-/obj/item/cartridge/medical,
-/obj/item/cartridge/medical,
+/obj/item/cartridge/chemistry{
+	pixel_x = -14
+	},
+/obj/item/cartridge/medical{
+	pixel_x = -16
+	},
+/obj/machinery/phone,
+/obj/item/cartridge/medical{
+	pixel_x = -18
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -30146,9 +30164,16 @@
 	},
 /area/station/science/server/coldroom)
 "ceN" = (
-/obj/item/paper/monitorkey,
-/obj/item/megaphone,
+/obj/item/megaphone{
+	pixel_y = -16;
+	pixel_x = 4
+	},
 /obj/structure/table/glass,
+/obj/item/paper_bin/nanotrasen{
+	pixel_x = -5
+	},
+/obj/item/paper/monitorkey,
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -30942,8 +30967,6 @@
 /area/station/command/office/rd)
 "chO" = (
 /obj/structure/table/glass,
-/obj/item/pen/multi,
-/obj/item/paper_bin/nanotrasen,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -30952,7 +30975,11 @@
 	c_tag = "Research Director's Office";
 	network = list("Research","SS13")
 	},
-/obj/item/reagent_containers/drinks/mug/rd,
+/obj/item/reagent_containers/drinks/mug/rd{
+	pixel_y = -12;
+	pixel_x = 7
+	},
+/obj/machinery/phone,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkpurple"
@@ -32837,6 +32864,14 @@
 	pixel_x = 6;
 	pixel_y = 3;
 	req_access = list(57)
+	},
+/obj/machinery/phone{
+	pixel_y = 12;
+	pixel_x = 6
+	},
+/obj/item/megaphone{
+	pixel_y = -3;
+	pixel_x = -3
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/command/office/hop)
@@ -39763,6 +39798,10 @@
 	},
 /obj/item/paper/tcommskey{
 	pixel_x = 5
+	},
+/obj/machinery/phone{
+	pixel_x = -6;
+	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
@@ -68513,7 +68552,6 @@
 	specialfunctions = 4;
 	pixel_y = 34
 	},
-/obj/item/phone,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "nVf" = (
@@ -72533,9 +72571,6 @@
 /obj/item/book/manual/wiki/sop_service{
 	pixel_x = 6;
 	pixel_y = 4
-	},
-/obj/item/megaphone{
-	pixel_y = -11
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -76572,9 +76607,11 @@
 /area/station/hallway/secondary/entry/lounge)
 "rGE" = (
 /obj/structure/table/wood,
-/obj/item/folder/blue,
+/obj/item/folder/blue{
+	pixel_x = -15
+	},
 /obj/item/stamp/captain{
-	pixel_x = -10
+	pixel_x = -15
 	},
 /obj/machinery/door_control{
 	id = "captainofficedoor";
@@ -76582,6 +76619,10 @@
 	normaldoorcontrol = 1;
 	pixel_y = -3;
 	req_access = list(20)
+	},
+/obj/machinery/phone{
+	pixel_y = 6;
+	pixel_x = 9
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/station/command/office/captain)
@@ -86188,7 +86229,6 @@
 	dir = 1
 	},
 /obj/structure/table/reinforced,
-/obj/item/phone,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

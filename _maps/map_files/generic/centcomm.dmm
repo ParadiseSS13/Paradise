@@ -7960,6 +7960,14 @@
 	id = "SpecopsEngineering";
 	req_access = list(114)
 	},
+/obj/machinery/phone/centcomm{
+	pixel_x = 8;
+	pixel_y = -3
+	},
+/obj/machinery/phone{
+	pixel_x = 8;
+	pixel_y = -16
+	},
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
 "Do" = (
@@ -10177,11 +10185,6 @@
 /area/shuttle/escape)
 "KI" = (
 /obj/structure/table,
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "KJ" = (
@@ -10669,11 +10672,6 @@
 /area/shuttle/gamma/space)
 "Mp" = (
 /obj/structure/table/wood,
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/item/clothing/mask/cigarette/cigar/cohiba{
 	pixel_x = 6
 	},
@@ -13524,11 +13522,6 @@
 /area/admin)
 "Wy" = (
 /obj/structure/table/wood,
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/item/clothing/mask/cigarette/cigar/cohiba{
 	pixel_x = 6
 	},
@@ -14391,11 +14384,6 @@
 /area/centcom/specops)
 "Zd" = (
 /obj/structure/table/wood,
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/item/clothing/mask/cigarette/cigar/cohiba{
 	pixel_x = 6
 	},
