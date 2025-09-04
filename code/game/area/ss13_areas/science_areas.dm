@@ -91,7 +91,7 @@
 /area/station/science/server
 	name = "\improper Server Room"
 	icon_state = "server"
-	airlock_wires = /datum/wires/airlock/command //Like every one has command doors.
+	airlock_wires = /datum/wires/airlock/command // Like every one has command doors.
 
 /area/station/science/server/coldroom
 	name = "\improper Server Coldroom"
