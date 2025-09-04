@@ -22,6 +22,7 @@ LINEN BINS
 	dog_fashion = /datum/dog_fashion/head/ghost
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_BEDSHEET
+	new_attack_chain = TRUE
 
 	var/list/dream_messages = list("white")
 	var/list/nightmare_messages = list("black")

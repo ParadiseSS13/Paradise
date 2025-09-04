@@ -6,6 +6,7 @@
 	icon_state = "folded_wall"
 	var/structure_type = /obj/structure/inflatable
 	var/torn = FALSE
+	new_attack_chain = TRUE
 
 /obj/item/inflatable/examine(mob/user)
 	. = ..()
