@@ -8,8 +8,8 @@
 	icon_state = "center"
 	pixel_x = -8
 	pixel_y = -8
-	var/fail_sound = 'sound/effects/simon_says_1.ogg'
-	var/success_sound = 'sound/effects/simon_says_1.ogg'
+	var/fail_sound = 'sound/effects/simon_says_wrong.ogg'
+	var/success_sound = 'sound/effects/simon_says_success.ogg'
 	/// The chosen rhythm to play
 	var/list/rhythm = list()
 	/// List of all rhythms to choose from, made from lists of time from the start in deciseconds
@@ -58,11 +58,15 @@
 		return
 	play_music()
 
+/obj/effect/simon_says/proc/reset_buttons()
+	pressed_buttons = list()
+	current_index = 0
+
 /obj/effect/simon_says/proc/play_music()
 	if(!length(sequence))
 		generate_sequence()
 	playing_until = world.time + rhythm[length(rhythm)]
-	pressed_buttons = list()
+	reset_buttons()
 	for(var/i in 1 to length(sequence))
 		var/obj/effect/simon_says_pad/curr_pad = pads[sequence[i]]
 		addtimer(CALLBACK(curr_pad, TYPE_PROC_REF(/obj/effect/simon_says_pad, play_note)), rhythm[i])
@@ -95,13 +99,11 @@
 	playsound(src, sound, 100, FALSE, falloff_exponent = SOUND_FALLOFF_EXPONENT / 4)
 
 /obj/effect/simon_says/proc/do_failure()
-	pressed_buttons = list()
-	current_index = 0
+	reset_buttons()
 	play_sound(fail_sound, "#ff1100")
 
 /obj/effect/simon_says/proc/do_success()
-	pressed_buttons = list()
-	current_index = 0
+	reset_buttons()
 	play_sound(success_sound, "#00e600")
 	var/obj/machinery/door/airlock/activated = locateUID(airlock_uid)
 	activated.airlock_cycle_callback("secure_open")
