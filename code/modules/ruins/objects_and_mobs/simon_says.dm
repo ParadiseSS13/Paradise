@@ -2,6 +2,8 @@
 #define simon_pad_id_to_color(id) (id == 1 ? "#ac0064" : id == 2 ? "#00597c" : id == 3 ? "#ac0064" : "#00597c")
 
 /obj/effect/simon_says
+	name = "strange platform"
+	desc = "A strange platform of alien design, it looks like something will happen if you stand on it"
 	icon = 'icons/effects/simon_says.dmi'
 	icon_state = "center"
 	pixel_x = -8
@@ -14,7 +16,10 @@
 	var/static/list/rhythms = list(
 		// 7 Elevens are like the greatest thing
 		list(0, 7, 11, 14, 21, 22, 28, 33, 35, 42, 44, 49, 55, 56, 63, 66, 70),
-
+		list(0, 5, 15, 20, 30, 35, 45, 55, 60, 70, 80),
+		list(0, 8, 10, 16, 20, 24, 30, 32, 40),
+		list(0, 6, 10, 12, 18, 20, 24, 30),
+		list(0, 3, 6, 12, 18, 30, 33, 36, 39, 45, 51),
 	)
 	/// The time at which we should finish playing the sequence
 	var/playing_until = 0
@@ -42,6 +47,10 @@
 	for(var/cardinal in list(NORTHWEST, NORTHEAST, SOUTHEAST, SOUTHWEST))
 		pads += new /obj/effect/simon_says_pad(get_step(get_step(place, cardinal), cardinal), id++, src)
 
+/obj/effect/simon_says/Destroy()
+	for(var/obj/effect/simon_says_pad/pad in pads)
+		qdel(pad)
+	return ..()
 
 /obj/effect/simon_says/Cross(atom/movable/crossed_atom)
 	. = ..()
@@ -60,8 +69,6 @@
 	for(var/obj/machinery/door/airlock/to_link in range(10, get_turf(src)))
 		if(to_link.id_tag == autolink_id)
 			airlock_uid = to_link.UID()
-
-/obj/effect/simon_says/proc/press_button()
 
 /obj/effect/simon_says/proc/generate_sequence()
 	sequence = list()
@@ -101,6 +108,8 @@
 
 
 /obj/effect/simon_says_pad
+	name = "strange platform"
+	desc = "A strange platform of alien design, it looks like something will happen if you stand on it"
 	icon = 'icons/effects/simon_says.dmi'
 	icon_state = "pad"
 	pixel_x = -8
