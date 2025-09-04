@@ -92898,9 +92898,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/door/airlock/maintenance/external,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
