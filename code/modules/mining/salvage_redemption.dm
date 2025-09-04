@@ -116,7 +116,7 @@
 			loot.forceMove(src.loc)
 	return ..()
 
-/obj/machinery/salvage_redemption/proc/process_salvage(var/mob/user)
+/obj/machinery/salvage_redemption/proc/process_salvage(mob/user)
 	var/total_value = 0
 	for(var/obj/item/salvage/loot in salvage_buffer)
 		// Award points
