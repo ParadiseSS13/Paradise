@@ -157,6 +157,7 @@
 #include "code\__DEFINES\zoom.dm"
 #include "code\__DEFINES\ai\ai_defines.dm"
 #include "code\__DEFINES\ai\blackboard_defines.dm"
+#include "code\__DEFINES\ai\changeling_giant_spider_ai_defines.dm"
 #include "code\__DEFINES\dcs\ai_signals.dm"
 #include "code\__DEFINES\dcs\area_signals.dm"
 #include "code\__DEFINES\dcs\atom_signals.dm"
