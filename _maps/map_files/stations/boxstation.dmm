@@ -23452,6 +23452,7 @@
 "bDJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light,
+/obj/machinery/salvage_redemption,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},

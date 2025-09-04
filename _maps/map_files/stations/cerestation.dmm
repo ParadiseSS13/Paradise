@@ -45655,6 +45655,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/toy/figure/crew/explorer{
+	step_y = 16
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkbrown"
@@ -103734,13 +103737,12 @@
 	},
 /area/station/medical/reception)
 "uyZ" = (
-/obj/structure/table,
 /obj/machinery/camera{
 	c_tag = "Expedition Access";
 	dir = 8;
 	network = list("SS13","QM")
 	},
-/obj/item/toy/figure/crew/explorer,
+/obj/machinery/salvage_redemption,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbrown"
