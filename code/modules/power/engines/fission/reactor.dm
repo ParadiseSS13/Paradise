@@ -352,15 +352,23 @@
 	// lower operating power = more durability
 	var/durability_loss = round(100 / ((95 / (1 + NUM_E ** (0.08 * (-operating_power + 60)))) + 10), 0.01)
 	for(var/obj/machinery/reactor_chamber/chamber in connected_chambers)
+		var/power_total
+		var/heat_total
 		if(!chamber.held_rod)
 			continue
 		if(chamber.chamber_state == CHAMBER_OPEN)
 			continue
 		var/durability_mod = clamp(1.5 * (chamber.held_rod.durability / chamber.held_rod.max_durability) - 0.25, 0.25, 1)
 		if(chamber.chamber_state == CHAMBER_DOWN) // We generate heat but not power while its down.
-			final_power += chamber.power_total * durability_mod
-		final_heat += chamber.heat_total * durability_mod
+			power_total = chamber.power_total * durability_mod
+		heat_total = chamber.heat_total * durability_mod
+		var/operating_rate = 1 - operating_power / 100
+		chamber.held_rod.enrich(power_total * operating_rate, heat_total * operating_rate)
+		final_heat += power_total
+		final_power += power_total
 		chamber.held_rod.durability -= durability_loss
+
+
 
 	average_heatgen = final_heat / length(connected_chambers)
 	var/temp = air_contents.temperature()
