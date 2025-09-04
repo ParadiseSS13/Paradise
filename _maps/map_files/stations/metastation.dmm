@@ -88949,14 +88949,6 @@
 	icon_state = "caution"
 	},
 /area/station/engineering/transmission_laser)
-"xwA" = (
-/obj/structure/extinguisher_cabinet{
-	name = "east bump";
-	pixel_x = 27
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/purple,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "xwJ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -132912,7 +132904,7 @@ qFI
 exZ
 ksD
 gTx
-xwA
+fmi
 fmi
 fmi
 vxO
