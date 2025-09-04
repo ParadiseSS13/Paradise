@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(laser_terminals)
 	board_name = "Laser Terminal"
 	icon_state = "engineering"
 	build_path = /obj/machinery/power/laser_terminal
-	origin_tech = "programing=2;powerstorage=4"
+	origin_tech = "plasmatech=3; powerstorage=4"
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/capacitor = 2,
