@@ -146,3 +146,5 @@
 #undef NAME_N2O
 #undef NAME_TOX
 #undef NAME_AGENT_B
+#undef MOB_TYPE
+#undef MOB_PROTOTYPE
