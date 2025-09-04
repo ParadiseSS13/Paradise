@@ -45655,9 +45655,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/toy/figure/crew/explorer{
-	step_y = 16
-	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkbrown"
