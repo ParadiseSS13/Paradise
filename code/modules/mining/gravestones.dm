@@ -62,7 +62,7 @@
 
 	if(istype(used, /obj/item/shovel) || istype(used, /obj/item/pickaxe))
 		to_chat(user, "<span class='notice'>You begin to dig up [src] with [used].</span>")
-		playsound(loc, 'sound/effects/shovel_dig.ogg', 50, 1)
+		playsound(loc, 'sound/effects/shovel_dig.ogg', 50, TRUE)
 		if(do_after(user, 10 SECONDS, target = src))
 			dig_up()
 		return ITEM_INTERACT_COMPLETE
@@ -91,7 +91,7 @@
 			"<span class='userdanger'>[user] starts to bury [used]!</span>")
 		if(do_after(user, 10 SECONDS, target = used))
 			bury(user, used)
-	playsound(loc, 'sound/effects/shovel_dig.ogg', 50, 1)
+	playsound(loc, 'sound/effects/shovel_dig.ogg', 50, TRUE)
 
 	return ITEM_INTERACT_COMPLETE
 
@@ -115,7 +115,7 @@
 		var/mob/bury_me = thing_to_bury
 		bury_me.forceMove(src)
 	buried = thing_to_bury
-	playsound(loc, 'sound/effects/shovel_dig.ogg', 50, 1)
+	playsound(loc, 'sound/effects/shovel_dig.ogg', 50, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -129,5 +129,5 @@
 		var/mob/dig_up_me = buried
 		dig_up_me.forceMove(get_turf(src))
 	buried = null
-	playsound(loc, 'sound/effects/shovel_dig.ogg', 50, 1)
+	playsound(loc, 'sound/effects/shovel_dig.ogg', 50, TRUE)
 	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
