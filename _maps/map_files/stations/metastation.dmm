@@ -32800,6 +32800,7 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/east)
 "dmN" = (
+/obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -43024,6 +43025,11 @@
 /area/station/maintenance/fore2)
 "gTn" = (
 /obj/machinery/firealarm/directional/east,
+/obj/item/clothing/head/cone{
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
