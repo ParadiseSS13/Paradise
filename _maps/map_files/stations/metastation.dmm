@@ -4065,8 +4065,8 @@
 	},
 /area/station/maintenance/fpmaint)
 "aEX" = (
-/obj/structure/closet/crate{
-	name = "Gold Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "gold crate"
 	},
 /obj/item/stack/sheet/mineral/gold{
 	pixel_x = -1;
@@ -4096,10 +4096,10 @@
 	},
 /area/station/command/vault)
 "aFb" = (
-/obj/effect/turf_decal/delivery/white/hollow/left,
-/obj/structure/closet/crate{
-	name = "Silver Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "silver crate"
 	},
+/obj/effect/turf_decal/delivery/white/hollow/left,
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,
@@ -13679,7 +13679,7 @@
 	dir = 8
 	},
 /obj/structure/transit_tube/station/dispenser/flipped{
-	dir = 4
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -26730,15 +26730,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
-"cCz" = (
-/obj/structure/closet/fireaxecabinet{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
-	},
-/area/station/engineering/atmos)
 "cCA" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -33950,10 +33941,10 @@
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "dLS" = (
-/obj/machinery/light,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -36522,7 +36513,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
 "eFl" = (
-/obj/machinery/alarm/directional/south,
 /obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -42085,6 +42075,13 @@
 	icon_state = "darkgrey"
 	},
 /area/station/maintenance/aft)
+"gEr" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/station/engineering/atmos)
 "gEt" = (
 /obj/structure/table/glass,
 /obj/item/paper/crumpled,
@@ -43028,6 +43025,11 @@
 /area/station/maintenance/fore2)
 "gTn" = (
 /obj/machinery/firealarm/directional/east,
+/obj/item/clothing/head/cone{
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -51138,7 +51140,6 @@
 /area/station/service/kitchen)
 "jQA" = (
 /obj/item/kirbyplants/large,
-/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "arrival"
@@ -53178,6 +53179,9 @@
 "kDq" = (
 /obj/structure/chair/comfy/beige{
 	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -56448,17 +56452,6 @@
 	icon_state = "greenblue"
 	},
 /area/station/service/hydroponics)
-"lJa" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/closet/emcloset,
-/obj/machinery/alarm/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/west)
 "lJg" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
@@ -56481,15 +56474,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/maintcentral)
-"lJl" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
-	},
-/obj/machinery/power/electrolyzer,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
-/area/station/engineering/atmos/control)
 "lJr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -72100,13 +72084,6 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/medical/storage/secondary)
-"roR" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
-	},
-/area/station/engineering/atmos)
 "rpt" = (
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
@@ -72947,6 +72924,9 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Arrivals Lounge West"
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -87780,6 +87760,15 @@
 	icon_state = "dark"
 	},
 /area/station/security/interrogation)
+"xgR" = (
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/obj/machinery/power/electrolyzer,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/station/engineering/atmos/control)
 "xgS" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
@@ -100856,7 +100845,7 @@ bpG
 bpG
 ayy
 aUl
-lJa
+bAR
 boc
 ayy
 qcE
@@ -131750,7 +131739,7 @@ axh
 axh
 axh
 axh
-cCz
+fcB
 dyA
 fWW
 fWW
@@ -132258,7 +132247,7 @@ uJI
 xBg
 xoS
 bYt
-roR
+gEr
 kcr
 jOr
 kuW
@@ -133024,7 +133013,7 @@ kSA
 igt
 fDb
 iAt
-lJl
+xgR
 bhv
 bnU
 cnH
