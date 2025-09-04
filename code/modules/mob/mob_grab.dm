@@ -185,9 +185,9 @@
 /obj/item/grab/proc/synch()
 	if(affecting)
 		if(assailant.r_hand == src)
-			hud.screen_loc = ui_rhand
+			hud.screen_loc = UI_RHAND
 		else
-			hud.screen_loc = ui_lhand
+			hud.screen_loc = UI_LHAND
 		assailant.client.screen += hud
 
 /obj/item/grab/process()

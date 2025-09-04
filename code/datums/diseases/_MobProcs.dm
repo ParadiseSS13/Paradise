@@ -41,6 +41,10 @@ MARK: Helpers
 	if(spread_method == SPREAD_BLOOD)
 		return TRUE
 
+	// Check the disease can spread by a method other than SPREAD_BLOOD ones
+	if(!(D.spread_flags & (SPREAD_CONTACT_FEET | SPREAD_CONTACT_HANDS | SPREAD_CONTACT_GENERAL | SPREAD_AIRBORNE)))
+		return FALSE
+
 	if(src.mind && HAS_TRAIT(src.mind, TRAIT_GERMOPHOBE) && prob(85))
 		return FALSE
 
