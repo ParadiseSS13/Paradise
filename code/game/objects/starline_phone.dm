@@ -49,6 +49,7 @@
 		return
 	handheld = new
 	handheld.parent_phone = src
+	playsound(src, 'sound/machines/starline_pickup.ogg', 50, 0)
 	crew.put_in_active_hand(handheld)
 	icon_state = "answered"
 	phone_state = ACTIVE_CALL
@@ -76,6 +77,7 @@
 		if(RINGING)
 			handheld = new
 			handheld.parent_phone = src
+			playsound(src, 'sound/machines/starline_pickup.ogg', 50, 0)
 			crew.put_in_active_hand(handheld)
 			icon_state = "answered"
 			start_call()
@@ -88,6 +90,7 @@
 		if(phone_state == ACTIVE_CALL)
 			to_chat(user, "<span class='information'>You hang up the call.</span>")
 			end_call()
+		playsound(src, 'sound/machines/starline_hangup.ogg', 50, 0)
 		handheld.dropped()
 		icon_state = "base"
 		phone_state = NO_CALLS
@@ -106,10 +109,10 @@
 	default_unfasten_wrench(user, I)
 
 /obj/machinery/phone/proc/ring_loop()
-	var/ring_duration = 0.3 SECONDS
-	var/ring_rest_duration = 2.5 SECONDS
+	var/ring_duration = 2 SECONDS
+	var/ring_rest_duration = 3 SECONDS
 	while(phone_state == RINGING)
-		playsound(src, 'sound/weapons/ring.ogg', 50, 0, 2, ignore_walls = TRUE)
+		playsound(src, 'sound/machines/starline_ring.ogg', 50, 0, 2, ignore_walls = TRUE)
 		icon_state = "ringing"
 		sleep(ring_duration)
 		icon_state = "base"
