@@ -83,24 +83,27 @@ GLOBAL_LIST_EMPTY(bug_reports)
 // returns the body payload
 /datum/tgui_bug_report_form/proc/create_form()
 	//var/datum/getrev/revdata = GLOB.revdata
-	var/test_merges
+	//var/test_merges
 	//if(length(revdata.testmerge))
 	//	test_merges = revdata.GetTestMergeInfo(header = FALSE)
 
 	var/desc = {"
-## Testmerges
-[test_merges ? test_merges : "N/A"]
+## Client BYOND Version
+[usr.client.byond_version].[usr.client.byond_build]
 
 ## Round ID
 [GLOB.round_id ? GLOB.round_id : "N/A"]
 
-## Description of the bug
-[bug_report_data["description"]]
-
-## What's the difference with what should have happened?
+## What did you expect to happen?
 [bug_report_data["expected_behavior"]]
 
-## How do we reproduce this bug?
+## What happened instead?
+[bug_report_data["description"]]
+
+## Why is this bad/What are the consequences?
+[bug_report_data["consequences"]]
+
+## Steps to reproduce the issue:
 [bug_report_data["steps"]]
 
 ## Attached logs

@@ -14,6 +14,7 @@ type FormDetails = {
   title: string;
   description: string;
   expected_behavior: string;
+  consequences: string;
   admin_note: string;
   log: string;
 };
@@ -36,11 +37,12 @@ export const BugReportForm = (props) => {
   const [steps, setSteps] = useState(report_details?.steps || '');
   const [description, setDescription] = useState(report_details?.description || '');
   const [expected_behavior, setExpectedBehavior] = useState(report_details?.expected_behavior || '');
+  const [consequences, setConsequences] = useState(report_details?.consequences || '');
   const [admin_note, setAdminNote] = useState(report_details?.admin_note || '');
   const [log, setLog] = useState(report_details?.log || '');
 
   const submit = () => {
-    if (!title || !description || !expected_behavior || !steps) {
+    if (!title || !description || !expected_behavior || !steps || !consequences) {
       alert('Please fill out all required fields!');
       return;
     }
@@ -61,7 +63,12 @@ export const BugReportForm = (props) => {
         <Section fill scrollable>
           <Flex direction="column" height="100%">
             <Flex.Item className="text-center">
-              <a href="https://github.com/cmss13-devs/cmss13/issues" target="_blank" rel="noreferrer" className="link">
+              <a
+                href="https://github.com/ParadiseSS13/Paradise/issues"
+                target="_blank"
+                rel="noreferrer"
+                className="link"
+              >
                 GitHub Repository
               </a>
             </Flex.Item>
@@ -73,8 +80,23 @@ export const BugReportForm = (props) => {
               <input width="100%" className="textarea" value={title} onChange={(e) => setTitle(e.target.value)} />
             </Flex.Item>
             <Flex.Item my={2}>
-              <InputTitle required>{'Description'}</InputTitle>
-              {'Give a description of the bug'}
+              <InputTitle required>{'What did you expect to happen?'}</InputTitle>
+              {'Give a description of what you expected to happen'}
+              <textarea
+                rows={3}
+                className="textarea"
+                onInput={(e) => {
+                  const target = e.target as HTMLTextAreaElement;
+                  target.style.height = 'auto';
+                  target.style.height = `${target.scrollHeight}px`;
+                }}
+                value={expected_behavior}
+                onChange={(e) => setExpectedBehavior(e.target.value)}
+              />
+            </Flex.Item>
+            <Flex.Item my={2}>
+              <InputTitle required>{'What happened instead?'}</InputTitle>
+              {'Give a description of the bug: '}
               <textarea
                 rows={3}
                 className="textarea"
@@ -88,8 +110,8 @@ export const BugReportForm = (props) => {
               />
             </Flex.Item>
             <Flex.Item my={2}>
-              <InputTitle required>{"What's the difference with what should have happened?"}</InputTitle>
-              {'Give a description of what you expected to happen'}
+              <InputTitle required>{'Why is this bad/What are the consequences?'}</InputTitle>
+              {'Issues caused by the bug:'}
               <textarea
                 rows={3}
                 className="textarea"
@@ -98,8 +120,8 @@ export const BugReportForm = (props) => {
                   target.style.height = 'auto';
                   target.style.height = `${target.scrollHeight}px`;
                 }}
-                value={expected_behavior}
-                onChange={(e) => setExpectedBehavior(e.target.value)}
+                value={consequences}
+                onChange={(e) => setConsequences(e.target.value)}
               />
             </Flex.Item>
             <Flex.Item my={2}>
