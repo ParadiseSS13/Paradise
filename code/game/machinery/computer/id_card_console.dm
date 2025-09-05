@@ -118,7 +118,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	return formatted
 
-/obj/machinery/computer/card/proc/format_card_skins(list/card_skins)
+/proc/format_card_skins(list/card_skins)
 	var/list/formatted = list()
 	for(var/skin in card_skins)
 		formatted.Add(list(list(
@@ -394,7 +394,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/proc/regenerate_id_name()
 	if(modify)
-		modify.name = "[modify.registered_name]'s ID Card ([modify.assignment])"
+		modify.regenerate_name()
 
 /obj/machinery/computer/card/proc/eject_card(mob/user, obj/card)
 	if(ishuman(user))
