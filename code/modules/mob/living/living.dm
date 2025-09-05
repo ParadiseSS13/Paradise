@@ -61,7 +61,7 @@
 	UnregisterSignal(src, COMSIG_ATOM_PREHIT)
 	return ..()
 
-/mob/living/ghostize(can_reenter_corpse = 1)
+/mob/living/ghostize(flags = GHOST_FLAGS_DEFAULT, ghost_name, ghost_color)
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
 

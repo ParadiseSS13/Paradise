@@ -82,9 +82,8 @@
 		if(!player.current || !ishuman(player.current)) // Remove mindshield-implanted mobs from the list
 			continue
 		var/mob/living/carbon/human/H = player.current
-		for(var/obj/item/bio_chip/mindshield/I in H.contents)
-			if(I && I.implanted)
-				possible_traitors -= player
+		if(ismindshielded(H))
+			possible_traitors -= player
 		if(!H.job || H.mind.offstation_role) //Golems, special events stuff, etc.
 			possible_traitors -= player
 

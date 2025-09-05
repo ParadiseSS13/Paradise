@@ -261,7 +261,7 @@
 /mob/living/basic/mining/hivelord/legion/advanced/tendril
 	from_tendril = TRUE
 
-// Legion that spawns Legions
+// Big legion (billy)
 /mob/living/basic/mining/big_legion
 	name = "big legion"
 	desc = "This monstrosity has clearly been corrupting for centuries, and is looking for a fight. Rumours claim it is capable of throwing the strongest of miners and his name is Billy."
@@ -280,6 +280,7 @@
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	speed = 0
 	butcher_results = list(/obj/item/regen_mesh)
+	ai_controller = /datum/ai_controller/basic_controller/big_legion
 
 /mob/living/basic/mining/big_legion/melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	if(!isliving(target))

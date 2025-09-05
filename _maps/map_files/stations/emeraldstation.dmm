@@ -4728,7 +4728,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/camera{
-	c_tag = "Blueshield's Office";
+	c_tag = "Nanotrasen Representative's Office";
 	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -11030,7 +11030,7 @@
 /area/station/maintenance/starboard)
 "cgE" = (
 /obj/machinery/camera{
-	c_tag = "Paper Supplies";
+	c_tag = "Trainer's Office";
 	dir = 8
 	},
 /obj/machinery/power/apc/important/directional/east,
@@ -15317,6 +15317,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 5
 	},
+/obj/item/clothing/head/cone{
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "dbZ" = (
@@ -31110,6 +31115,10 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/atmos/control)
+"ggw" = (
+/obj/item/clothing/head/cone,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "ggG" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall,
@@ -141493,7 +141502,7 @@ scA
 hkJ
 fxn
 cLg
-sGV
+ggw
 cEY
 uBR
 etX

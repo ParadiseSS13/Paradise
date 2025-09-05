@@ -33,7 +33,7 @@
 
 /datum/ai_controller/basic_controller/giant_spider/changeling
 	blackboard = list(
-		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic/not_friends,
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic/not_friends/changeling_spiders,
 	)
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/simple_find_target/cling_spider,
@@ -51,6 +51,13 @@
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree,
 	)
+
+/datum/targeting_strategy/basic/not_friends/changeling_spiders
+
+/datum/targeting_strategy/basic/not_friends/changeling_spiders/can_attack(mob/living/living_mob, atom/target, vision_range)
+	if(living_mob?.ai_controller?.blackboard[BB_CHANGELING_SPIDER_ORDER] && (living_mob?.ai_controller?.blackboard[BB_CHANGELING_SPIDER_ORDER] == FOLLOW_RETALIATE || living_mob?.ai_controller?.blackboard[BB_CHANGELING_SPIDER_ORDER] == IDLE_RETALIATE))
+		return FALSE
+	return ..()
 
 /datum/ai_planning_subtree/random_speech/insect
 	speech_chance = 2
@@ -259,7 +266,7 @@
 /datum/ai_planning_subtree/simple_find_target/cling_spider
 
 /datum/ai_planning_subtree/simple_find_target/cling_spider/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
-	if(controller.blackboard[BB_CHANGELING_SPIDER_ORDER] == 1 || controller.blackboard[BB_CHANGELING_SPIDER_ORDER] == 3)
+	if(controller.blackboard[BB_CHANGELING_SPIDER_ORDER] == FOLLOW_RETALIATE || controller.blackboard[BB_CHANGELING_SPIDER_ORDER] == IDLE_RETALIATE)
 		return
 	return ..()
 
@@ -269,7 +276,7 @@
 	var/target_key = BB_CURRENT_PET_TARGET
 
 /datum/ai_planning_subtree/cling_spider_follow/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
-	if(controller.blackboard_key_exists(target_key) && controller.blackboard[BB_CHANGELING_SPIDER_ORDER] < 2)
+	if(controller.blackboard_key_exists(target_key) && controller.blackboard[BB_CHANGELING_SPIDER_ORDER] < IDLE_AGGRESSIVE)
 		controller.queue_behavior(/datum/ai_behavior/cling_spider_follow, target_key)
 		return SUBTREE_RETURN_FINISH_PLANNING
 

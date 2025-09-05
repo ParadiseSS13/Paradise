@@ -222,6 +222,7 @@
 	icon_state = "knife-cheese"
 	materials = list(MAT_METAL = 4000)
 	force = 3
+	materials = list(MAT_METAL = 4000)
 
 /obj/item/kitchen/knife/pizza_cutter
 	name = "pizza cutter"
@@ -229,6 +230,7 @@
 	icon_state = "pizza_cutter"
 	materials = list(MAT_METAL = 10000)
 	force = 8
+	materials = list(MAT_METAL = 10000)
 
 /*
  * Rolling Pins
