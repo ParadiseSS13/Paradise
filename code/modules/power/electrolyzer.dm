@@ -5,8 +5,10 @@
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "electrolyzer_off"
 	density = TRUE
+	/// whether or not the panel is open or not
+	panel_open = FALSE
+	/// whether or not we're actively using power/seeking water vapor in the air
 	var/on = FALSE
-	var/open = FALSE
 	var/datum/gas_mixture/gas
 	var/board_path = /obj/item/circuitboard/electrolyzer
 
@@ -32,22 +34,27 @@
 	default_unfasten_wrench(user, I, 4 SECONDS)
 
 /obj/machinery/power/electrolyzer/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!anchored)
+		to_chat(user, "<span class='warning'>[src] needs to be secured down first!</span>")
+		return
 	if(on)
-		to_chat(user, "<span class='warning'>[src] must be turned off first!</span>")
+		to_chat(user, "<span class='warning'>[src] needs to be turned off first!</span>")
 		return
-	if(!I.use_tool(src, user, 0, volume = 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(!open && !on)
+	panel_open = !panel_open
+	if(panel_open)
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
-		open = TRUE
+		panel_open = TRUE
 		icon_state = "electrolyzer_open"
 	else
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 		icon_state = "electrolyzer_off"
-		open = FALSE
+		panel_open = FALSE
 
 /obj/machinery/power/electrolyzer/crowbar_act(mob/living/user, obj/item/I)
-	if(open)
+	if(panel_open)
 		deconstruct(TRUE)
 		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 		I.play_tool_sound(user, I.tool_volume)
@@ -72,6 +79,9 @@
 		return
 	if(!anchored)
 		to_chat(user, "<span class='warning'>[src] must be anchored first!</span>")
+		return
+	if(panel_open)
+		to_chat(user, "<span class='warning'>Close the panel first!</span>")
 		return
 
 	. = ..()
