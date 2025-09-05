@@ -80,15 +80,3 @@
 		src << link(GLOB.configuration.url.donations_url)
 	else
 		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
-
-/client/verb/submitbug()
-	set name = "Bug Report"
-	set desc = "Submit a bug report."
-	set category = "OOC"
-	set hidden = TRUE
-	if(!usr)
-		return
-	var/datum/tgui_bug_report_form/report = new(usr)
-
-	report.ui_interact(usr)
-	return
