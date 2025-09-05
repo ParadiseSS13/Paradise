@@ -54,11 +54,10 @@
 		ghosted = TRUE
 		target.grab_ghost() //GET OVER HERE!
 
-	var/mob/dead/observer/ghost = target.ghostize(FALSE)
+	var/mob/dead/observer/ghost = target.ghostize()
 	user.mind.transfer_to(target)
 	if(ghost && ghost.mind)
 		ghost.mind.transfer_to(user)
-		GLOB.non_respawnable_keys -= ghost.ckey // Better make sure they can re-enter their new body
 		user.key = ghost.key
 	qdel(ghost)
 	if(ghosted)

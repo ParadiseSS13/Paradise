@@ -959,7 +959,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 			return TRUE
 
 		if(tomob.client) //no need to ghostize if there is no client
-			tomob.ghostize(0)
+			tomob.ghostize(GHOST_FLAGS_OBSERVE_ONLY)
 
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")

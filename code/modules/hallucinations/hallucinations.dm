@@ -42,7 +42,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
   * Base object for hallucinations. Contains basic behaviour to display an icon only to the target.
   */
 /obj/effect/hallucination
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_HIGH
 	/// Duration in deciseconds. Can also be a list with the form [lower bound, upper bound] for a random duration.
 	var/duration = 15 SECONDS
 	/// Hallucination icon.
