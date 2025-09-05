@@ -25,6 +25,8 @@
 	loot = list(/obj/effect/decal/cleanable/blood/gibs)
 	deathmessage = "is pulped into bugmash."
 
+	ai_controller = /datum/ai_controller/basic_controller/gutlunch
+
 	var/list/food_types = list(
 		/obj/effect/decal/cleanable/blood/gibs,
 		/obj/item/organ/internal/eyes,

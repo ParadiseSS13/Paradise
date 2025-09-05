@@ -37,7 +37,8 @@
 	bio_chips = list(
 		/obj/item/bio_chip/dust,
 		/obj/item/bio_chip/freedom,
-		/obj/item/bio_chip/adrenalin
+		/obj/item/bio_chip/adrenalin,
+		/obj/item/bio_chip/mindshield/syndicate
 	)
 
 	cybernetic_implants = list(
