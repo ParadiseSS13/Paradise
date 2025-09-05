@@ -9,7 +9,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera_target"
 	alpha = 127
-	invisibility = SEE_INVISIBLE_OBSERVER
+	invisibility = INVISIBILITY_HIGH
 
 	/// The list of camera chunks currently visible to the camera eye.
 	var/list/visible_camera_chunks = list()
@@ -173,7 +173,7 @@
 
 	if(cooldown && cooldown < world.timeofday)
 		sprint = initial
-	
+
 	for(var/i in 0 to sprint step sprint_threshold)
 		var/turf/next_step= get_turf(get_step(src, direct))
 		if(next_step)
