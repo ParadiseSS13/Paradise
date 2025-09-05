@@ -90185,13 +90185,13 @@
 /turf/simulated/wall,
 /area/station/maintenance/disposal)
 "uBY" = (
-/obj/machinery/power/apc/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/apc/reinforced/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
