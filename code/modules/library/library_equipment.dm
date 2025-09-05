@@ -25,7 +25,7 @@
 	. = ..()
 	. += "<span class='notice'>[src] is [anchored ? "bolted to the floor" : "unsecured"].</span>"
 	. += "<span class='notice'>It can be [anchored ? "<b>unanchored</b>" : "<b>anchored</b>"] with a wrench.</span>"
-	. += "<span class='notice'>It can be <b>desconstructed</b> with a screwdriver.</span>"
+	. += "<span class='notice'>It can be <b>deconstructed</b> with a screwdriver.</span>"
 
 /obj/structure/bookcase/Initialize(mapload)
 	. = ..()
