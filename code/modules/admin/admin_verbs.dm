@@ -191,6 +191,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debug_bloom,
 	/client/proc/cmd_mass_screenshot,
 	/client/proc/allow_browser_inspect,
+	/client/proc/view_bug_reports,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,

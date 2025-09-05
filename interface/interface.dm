@@ -82,8 +82,8 @@
 		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
 
 /client/verb/submitbug()
-	set name = "Submit Bug"
-	set desc = "Submit a bug."
+	set name = "Bug Report"
+	set desc = "Submit a bug report."
 	set category = "OOC"
 	set hidden = TRUE
 	if(!usr)

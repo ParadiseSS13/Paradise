@@ -12,11 +12,11 @@ GLOBAL_LIST_EMPTY(bug_reports)
 	// ckey of the author
 	var/initial_key = null // just incase they leave after creating the bug report
 
-	/// client of the admin who is accessing the report, we don't want multiple admins unknowingly making changes at the same time.
-	var/client/admin_user = null
+	/// client of the admin/dev who is accessing the report, we don't want multiple people unknowingly making changes at the same time.
+	var/client/approving_user = null
 
-	/// value to determine if the bug report is submitted and awaiting admin approval, used for state purposes in tgui.
-	var/awaiting_admin_approval = FALSE
+	/// value to determine if the bug report is submitted and awaiting admin/dev approval, used for state purposes in tgui.
+	var/awaiting_approval = FALSE
 
 	// for garbage collection purposes.
 	var/selected_confirm = FALSE
@@ -27,7 +27,7 @@ GLOBAL_LIST_EMPTY(bug_reports)
 
 /datum/tgui_bug_report_form/proc/external_link_prompt(client/user)
 	tgui_alert(user, "Unable to create a bug report at this time, please create the issue directly through our GitHub repository instead")
-	var/url = "https://github.com/Migratingcocofruit/ParaPRs"
+	var/url = "https://github.com/ParadiseSS13/Paradise"
 	if(!url)
 		to_chat(user, "<span class = 'warning'>The configuration is not properly set, unable to open external link</span>")
 		return
@@ -46,10 +46,10 @@ GLOBAL_LIST_EMPTY(bug_reports)
 
 /datum/tgui_bug_report_form/ui_close(mob/user)
 	. = ..()
-	if(!admin_user && user.client == initial_user && !selected_confirm) // user closes the ui without selecting confirm or approve.
+	if(!approving_user && user.client == initial_user && !selected_confirm) // user closes the ui without selecting confirm or approve.
 		qdel(src)
 		return
-	admin_user = null
+	approving_user = null
 	selected_confirm = FALSE
 
 /datum/tgui_bug_report_form/Destroy()
@@ -62,22 +62,22 @@ GLOBAL_LIST_EMPTY(bug_reports)
 
 	return params
 
-// whether or not an admin can access the record at a given time.
-/datum/tgui_bug_report_form/proc/assign_admin(mob/user)
+// whether or not an admin/dev can access the record at a given time.
+/datum/tgui_bug_report_form/proc/assign_approver(mob/user)
 	if(!initial_key)
 		to_chat(user, "<span class = 'warning'>Unable to identify the author of the bug report.</span>")
 		return FALSE
-	if(admin_user)
-		if(user.client == admin_user)
+	if(approving_user)
+		if(user.client == approving_user)
 			to_chat(user, "<span class = 'warning'>This bug report review is already opened and accessed by you.</span>")
 		else
-			to_chat(user, "<span class = 'warning'>Another administrator is currently accessing this report, please wait for them to finish before making any changes.</span>")
+			to_chat(user, "<span class = 'warning'>Another staff member is currently accessing this report, please wait for them to finish before making any changes.</span>")
 		return FALSE
-	if(check_rights(R_MOD|R_ADMIN, user = user))
+	if(!check_rights(R_VIEWRUNTIMES|R_ADMIN|R_DEBUG, user = user))
 		message_admins("[user.ckey] has attempted to review [initial_key]'s bug report titled [bug_report_data["title"]] without proper authorization at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
 		return FALSE
 
-	admin_user = user.client
+	approving_user = user.client
 	return TRUE
 
 // returns the body payload
@@ -113,8 +113,8 @@ GLOBAL_LIST_EMPTY(bug_reports)
 
 ## Additional details
 - Author: [initial_key]
-- Admin: [admin_user]
-- Note: [bug_report_data["admin_note"] ? bug_report_data["admin_note"] : "None"]
+- Approved By: [approving_user]
+- Note: [bug_report_data["approver_note"] ? bug_report_data["approver_note"] : "None"]
 	"}
 
 	return desc
@@ -154,7 +154,7 @@ GLOBAL_LIST_EMPTY(bug_reports)
 
 	var/datum/http_response/response = request.into_response()
 	if(response.errored || response.status_code != STATUS_SUCCESS)
-		message_admins("<span class='adminnotice'>The GitHub API has failed to create the bug report titled [bug_report_data["title"]] approved by [admin_user], status code:[response.status_code]. Please paste this error code into the development channel on discord.</span>")
+		message_admins("<span class='adminnotice'>The GitHub API has failed to create the bug report titled [bug_report_data["title"]] approved by [approving_user], status code:[response.status_code]. Please paste this error code into the development channel on discord.</span>")
 		external_link_prompt(user)
 	else
 		message_admins("[user.ckey] has approved a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
@@ -162,15 +162,12 @@ GLOBAL_LIST_EMPTY(bug_reports)
 	qdel(src)// approved and submitted, we no longer need the datum.
 
 // proc that creates a ticket for an admin to approve or deny a bug report request
-/*/datum/tgui_bug_report_form/proc/bug_report_request()
+/datum/tgui_bug_report_form/proc/bug_report_request()
 	to_chat(initial_user, "<span class = 'warning'>Your bug report has been submitted, thank you!</span>")
 	GLOB.bug_reports += src
 
-	var/general_message = "[initial_key] has created a bug report, you may find this report directly in the ticket panel. Feel free modify the issue to your liking before submitting it to GitHub.</span>"
-	GLOB.admin_help_ui_handler.perform_adminhelp(initial_user, general_message, urgent = FALSE)
-
-	var/href_message = ADMIN_VIEW_BUG_REPORT(src)
-	initial_user.current_ticket.AddInteraction(href_message)*/
+	var/general_message = "[initial_key] has created a bug report which is now pending approval. The report can be viewed using \"View Bug Reports\" in the debug tab. </span>"
+	message_admins(general_message)
 
 /datum/tgui_bug_report_form/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
@@ -185,14 +182,14 @@ GLOBAL_LIST_EMPTY(bug_reports)
 			bug_report_data = sanitize_payload(params)
 			selected_confirm = TRUE
 			// bug report request is now waiting for admin approval
-			if(!awaiting_admin_approval && FALSE)
-				//bug_report_request()
-				awaiting_admin_approval = TRUE
+			if(!awaiting_approval)
+				bug_report_request()
+				awaiting_approval = TRUE
 			else // otherwise it's been approved
 				var/payload_body = create_form()
 				send_request(payload_body, user.client)
 		if("cancel")
-			if(awaiting_admin_approval) // admin has chosen to reject the bug report
+			if(awaiting_approval) // admin has chosen to reject the bug report
 				reject(user.client)
 			qdel(src)
 	ui.close()
@@ -201,10 +198,10 @@ GLOBAL_LIST_EMPTY(bug_reports)
 /datum/tgui_bug_report_form/ui_data(mob/user)
 	. = list()
 	.["report_details"] = bug_report_data // only filled out once the user as submitted the form
-	.["awaiting_admin_approval"] = awaiting_admin_approval
+	.["awaiting_approval"] = awaiting_approval
 
 /datum/tgui_bug_report_form/proc/reject(client/user)
 	message_admins("[user.ckey] has rejected a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
-	to_chat(initial_user, "<span class = 'warning'>An admin has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
+	to_chat(initial_user, "<span class = 'warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
 
 #undef STATUS_SUCCESS

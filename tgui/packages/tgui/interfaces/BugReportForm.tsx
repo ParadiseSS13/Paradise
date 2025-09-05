@@ -4,7 +4,7 @@ import { Window } from 'tgui/layouts';
 import { Flex, Section } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
 interface FormTypes {
-  awaiting_admin_approval: BooleanLike;
+  awaiting_approval: BooleanLike;
   report_details: FormDetails;
 }
 
@@ -15,7 +15,7 @@ type FormDetails = {
   description: string;
   expected_behavior: string;
   consequences: string;
-  admin_note: string;
+  approver_note: string;
   log: string;
 };
 
@@ -30,7 +30,7 @@ const InputTitle = (props) => {
 
 export const BugReportForm = (props) => {
   const { act, data } = useBackend<FormTypes>();
-  const { awaiting_admin_approval, report_details } = data;
+  const { awaiting_approval, report_details } = data;
   const [checkBox, setCheckbox] = useState(false);
 
   const [title, setTitle] = useState(report_details?.title || '');
@@ -38,7 +38,7 @@ export const BugReportForm = (props) => {
   const [description, setDescription] = useState(report_details?.description || '');
   const [expected_behavior, setExpectedBehavior] = useState(report_details?.expected_behavior || '');
   const [consequences, setConsequences] = useState(report_details?.consequences || '');
-  const [admin_note, setAdminNote] = useState(report_details?.admin_note || '');
+  const [approver_note, setApproverNote] = useState(report_details?.approver_note || '');
   const [log, setLog] = useState(report_details?.log || '');
 
   const submit = () => {
@@ -48,17 +48,18 @@ export const BugReportForm = (props) => {
     }
     const updatedReportDetails = {
       title,
-      steps,
-      description,
       expected_behavior,
-      admin_note,
+      description,
+      consequences,
+      steps,
       log,
+      approver_note,
     };
     act('confirm', updatedReportDetails);
   };
 
   return (
-    <Window title={'Bug Report Form'} width={700} height={awaiting_admin_approval ? 1000 : 700}>
+    <Window title={'Bug Report Form'} width={700} height={awaiting_approval ? 1000 : 700}>
       <Window.Content>
         <Section fill scrollable>
           <Flex direction="column" height="100%">
@@ -140,9 +141,9 @@ export const BugReportForm = (props) => {
                 placeholder={'1) Step 1\n2) Step 2\n3) Step 3\n'}
               />
             </Flex.Item>
-            {!!awaiting_admin_approval && (
+            {!!awaiting_approval && (
               <Flex.Item my={2}>
-                <InputTitle>{'Admin note'}</InputTitle>
+                <InputTitle>{'Additional Note'}</InputTitle>
                 {"Any additional notes to submit with the author's bug report "}
                 <textarea
                   rows={4}
@@ -152,8 +153,8 @@ export const BugReportForm = (props) => {
                     target.style.height = 'auto';
                     target.style.height = `${target.scrollHeight}px`;
                   }}
-                  value={admin_note}
-                  onChange={(e) => setAdminNote(e.target.value)}
+                  value={approver_note}
+                  onChange={(e) => setApproverNote(e.target.value)}
                 />
               </Flex.Item>
             )}
@@ -176,12 +177,12 @@ export const BugReportForm = (props) => {
               <Flex className="flex-center">
                 <Flex.Item mx={1}>
                   <div className="button-cancel" onClick={() => act('cancel')}>
-                    {awaiting_admin_approval ? 'Reject' : 'Cancel'}
+                    {awaiting_approval ? 'Reject' : 'Cancel'}
                   </div>
                 </Flex.Item>
                 <Flex.Item mx={1}>
                   <div className="button-submit" onClick={submit}>
-                    {awaiting_admin_approval ? 'Approve' : 'Submit'}
+                    {awaiting_approval ? 'Approve' : 'Submit'}
                   </div>
                 </Flex.Item>
               </Flex>
