@@ -418,27 +418,23 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(tgui_alert(O, "Are you sure you want to respawn?\n(If you do this, you won't be able to be cloned!)", "Respawn?", list("Yes", "No")) != "Yes")
 		return
 
-		log_and_message_admins("[key_name(O)][O.mind.current?.mind.special_role ? " (<font color='red'>[O.mind.current.mind.special_role]</font>)" : ""] has chosen to respawn as a new character.")
+	log_and_message_admins("[key_name(O)][O.mind.current?.mind.special_role ? " (<font color='red'>[O.mind.current.mind.special_role]</font>)" : ""] has chosen to respawn as a new character.")
 
-		var/list/warning = list()
-		warning.Add("<font size=3><b>You have chosen to respawn as a new character!</b></font>")
-		warning.Add("<b>You will not remember anything from your previous life or time as a ghost.</b>")
-		warning.Add("<span class='warning'><font size=2><b>You MUST choose a different character slot to respawn as!</b></font></span>")
-		to_chat(O, chat_box_notice(warning.Join("<br>")))
+	var/list/warning = list()
+	warning.Add("<font size=3><b>You have chosen to respawn as a new character!</b></font>")
+	warning.Add("<b>You will not remember anything from your previous life or time as a ghost.</b>")
+	warning.Add("<span class='warning'><font size=2><b>You MUST choose a different character slot to respawn as!</b></font></span>")
+	to_chat(O, chat_box_notice(warning.Join("<br>")))
 
-		if(!O.client)
-			log_game("[key_name(O)] respawn failed due to disconnect.")
-			return
-
-		var/mob/new_player/NP = new()
-		GLOB.non_respawnable_keys -= O.ckey
-		NP.ckey = O.ckey
-		qdel(O)
-		NP.chose_respawn = TRUE
+	if(!O.client)
+		log_game("[key_name(O)] respawn failed due to disconnect.")
 		return
-	else
-		to_chat(O, "<span class='warning'>You are either not dead or have given up respawnability!</span>")
-		return
+
+	var/mob/new_player/NP = new()
+	GLOB.non_respawnable_keys -= O.ckey
+	NP.ckey = O.ckey
+	qdel(O)
+	NP.chose_respawn = TRUE
 
 /**
  * Toggles on all HUDs for the ghost player.
