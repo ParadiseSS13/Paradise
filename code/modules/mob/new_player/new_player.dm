@@ -334,7 +334,7 @@
 	character = SSjobs.AssignRank(character, rank, TRUE)					//equips the human
 	if(chose_respawn)
 		SSblackbox.record_feedback("tally", "player_respawn", 1, "[thisjob]")
-		log_and_message_admins("[key_name(usr)] has respawned as [rank].")
+		log_and_message_admins("[character.ckey] has respawned as [character.real_name], [rank].")
 	// AIs don't need a spawnpoint, they must spawn at an empty core
 	if(character.mind.assigned_role == "AI")
 		var/mob/living/silicon/ai/ai_character = character.AIize() // AIize the character, but don't move them yet
