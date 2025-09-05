@@ -74,7 +74,7 @@
 	if(wear_suit)
 		if(client && hud_used && hud_used.hud_version == HUD_STYLE_STANDARD)
 			if(hud_used.inventory_shown)					//if the inventory is open ...
-				wear_suit.screen_loc = ui_oclothing	//TODO	//...draw the item in the inventory screen
+				wear_suit.screen_loc = UI_OCLOTHING	//TODO	//...draw the item in the inventory screen
 			client.screen += wear_suit						//Either way, add the item to the HUD
 
 		var/t_state = wear_suit.item_state
@@ -104,7 +104,7 @@
 		var/image/standing	= image("icon" = 'icons/mob/mob.dmi', "icon_state" = "[t_state]")
 		if(head.blood_DNA)
 			standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "helmetblood")
-		head.screen_loc = ui_alien_head
+		head.screen_loc = UI_ALIEN_HEAD
 		overlays_standing[X_HEAD_LAYER]	= standing
 	else
 		overlays_standing[X_HEAD_LAYER]	= null
@@ -115,7 +115,7 @@
 	if(r_hand)
 		var/t_state = r_hand.item_state
 		if(!t_state)	t_state = r_hand.icon_state
-		r_hand.screen_loc = ui_rhand
+		r_hand.screen_loc = UI_RHAND
 		overlays_standing[X_R_HAND_LAYER]	= image("icon" = r_hand.righthand_file, "icon_state" = t_state)
 	else
 		overlays_standing[X_R_HAND_LAYER]	= null
@@ -126,7 +126,7 @@
 	if(l_hand)
 		var/t_state = l_hand.item_state
 		if(!t_state)	t_state = l_hand.icon_state
-		l_hand.screen_loc = ui_lhand
+		l_hand.screen_loc = UI_LHAND
 		overlays_standing[X_L_HAND_LAYER]	= image("icon" = l_hand.lefthand_file, "icon_state" = t_state)
 	else
 		overlays_standing[X_L_HAND_LAYER]	= null

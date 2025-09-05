@@ -192,7 +192,7 @@
 	if(!. && turned_on && istype(hit_mob))
 		thrown_baton_stun(hit_mob)
 
-/obj/item/melee/baton/pre_attack(atom/A, mob/living/user, params)
+/obj/item/melee/baton/pre_attack(atom/atom_target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
@@ -209,11 +209,10 @@
 		to_chat(user, user.mind.martial_art.no_baton_reason)
 		return FINISH_ATTACK
 
-	if(!ismob(A))
+	if(!ismob(atom_target))
 		return
 
-	user.changeNext_move(CLICK_CD_MELEE)
-	var/mob/living/target = A
+	var/mob/living/target = atom_target
 
 	if(user.a_intent == INTENT_HARM)
 		return // Harmbaton!
@@ -225,7 +224,7 @@
 			"<span class='danger'>[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>"
 			)
 		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
-		return FINISH_ATTACK
+		return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 	// Only human mobs can be stunned.
 	if(!ishuman(target))
@@ -235,11 +234,11 @@
 			"<span class='danger'>[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. It doesn't seem to have an effect.</span>"
 		)
 		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
-		return FINISH_ATTACK
+		return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 	if(baton_stun(target, user))
 		user.do_attack_animation(target)
-	return FINISH_ATTACK
+	return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 /obj/item/melee/baton/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()

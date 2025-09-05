@@ -712,22 +712,22 @@ SLIME SCANNER
  * Used in chat-based gas scans.
  */
 /proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE, milla_turf_details = FALSE, detailed = FALSE)
-	var/datum/gas_mixture/gasmix
 	var/list/airs
 	var/list/milla = null
 	if(milla_turf_details && istype(target, /turf))
+		// This is one of the few times when it's OK to call MILLA directly, as we need more information than we normally keep, aren't trying to modify it, and don't need it to be synchronized with anything.
 		milla = new/list(MILLA_TILE_SIZE)
 		get_tile_atmos(target, milla)
-		gasmix = new()
-		gasmix.copy_from_milla(milla)
-		airs += gasmix
+
+		var/datum/gas_mixture/air = new()
+		air.copy_from_milla(milla)
+		airs = list(air)
 	else
-		gasmix = target.return_analyzable_air()
-		if(!istype(gasmix, /list))
-			gasmix = list(gasmix)
-		airs += gasmix
-		if(!gasmix)
+		airs = target.return_analyzable_air()
+		if(!airs)
 			return FALSE
+		if(!islist(airs))
+			airs = list(airs)
 
 	var/list/message = list()
 	if(!silent && isliving(user))
@@ -990,7 +990,7 @@ SLIME SCANNER
 	throw_range = 10
 	origin_tech = "magnets=6;biotech=6"
 	var/obj/item/stock_parts/cell/cell
-	var/cell_type = /obj/item/stock_parts/cell/upgraded
+	var/cell_type = /obj/item/stock_parts/cell/high
 	var/ready = TRUE // Ready to scan
 	var/printing = FALSE
 	var/time_to_use = 0 // How much time remaining before next scan is available.
@@ -1002,7 +1002,7 @@ SLIME SCANNER
 	return cell
 
 /obj/item/bodyanalyzer/advanced
-	cell_type = /obj/item/stock_parts/cell/upgraded/plus
+	cell_type = /obj/item/stock_parts/cell/super // twice the charge!
 
 /obj/item/bodyanalyzer/borg
 	name = "cyborg body analyzer"

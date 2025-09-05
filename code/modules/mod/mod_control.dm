@@ -14,7 +14,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	strip_delay = 10 SECONDS
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	actions_types = list(
 		/datum/action/item_action/mod/deploy,
 		/datum/action/item_action/mod/activate,
@@ -857,11 +856,6 @@
 	. = ..()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.extinguish_light(force)
-
-/obj/item/mod/control/hear_talk(mob/living/user, list/message_pieces)
-	if(bag)
-		for(var/obj/object in bag)
-			object.hear_talk(user, message_pieces)
 
 /obj/item/mod/control/hear_message(mob/living/user, msg)
 	if(bag)

@@ -947,6 +947,17 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_pulse_shield
+	name = "Exosuit Module (EPS-99 Pulse Shield Generator)"
+	desc = "Exosuit-mounted shield generator."
+	id = "mech_shield_gen"
+	build_type = MECHFAB
+	req_tech = list("bluespace" = 7, "combat" = 7, "engineering"=7)
+	build_path = /obj/item/mecha_parts/mecha_equipment/pulse_shield
+	materials = list(MAT_METAL = 20000, MAT_GOLD = 5000, MAT_BLUESPACE = 5000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_armor_plate
 	name = "Exosuit Mining Armor Plate"
 	desc = "This piece of metal can be attached to the mech itself, enhancing its protective characteristics. Unfortunately, only working class exosuits have notches for such armor."
@@ -977,6 +988,16 @@
 	req_tech = list("combat"= 5, "materials" = 5, "syndicate" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang
 	materials = list(MAT_METAL=20000,MAT_GOLD=10000,MAT_URANIUM=10000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/dropwall_launcher
+	name = "Exosuit Module (DWDL-04 Dropwall Launcher)"
+	id = "dropwall_launcher"
+	build_type = MECHFAB
+	req_tech = list("engineering" = 6, "bluespace" = 6, "combat" = 6)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/dropwall
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 8000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 

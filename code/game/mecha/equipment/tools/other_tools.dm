@@ -138,6 +138,26 @@
 		start_cooldown()
 		return TRUE
 
+/obj/item/mecha_parts/mecha_equipment/pulse_shield
+	name = "EPS-99 pulse shield generator"
+	desc = "A shield module that covers the exosuit in an energy barrier that absorbs damage. Requires energy to operate."
+	icon_state = "mecha_pulse_shield"
+	origin_tech = "materials=4;combat=4"
+	equip_cooldown = 10
+	energy_drain = 50
+	range = 0
+
+/obj/item/mecha_parts/mecha_equipment/pulse_shield/on_equip()
+	chassis.update_icon(UPDATE_OVERLAYS)
+
+/obj/item/mecha_parts/mecha_equipment/pulse_shield/on_unequip()
+	. = ..()
+	chassis.update_icon(UPDATE_OVERLAYS)
+
+/obj/item/mecha_parts/mecha_equipment/pulse_shield/proc/attack_react(mob/user as mob)
+	if(action_checks(user))
+		start_cooldown()
+		return TRUE
 
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
 
@@ -286,6 +306,9 @@
 		STOP_PROCESSING(SSobj, src)
 		set_ready_state(1)
 		return
+	if(istype(chassis.selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield))
+		chassis.selected.on_unequip() // No shields while recharging
+		occupant_message("Shields disabled.")
 	var/cur_charge = chassis.get_charge()
 	if(isnull(cur_charge) || !chassis.cell)
 		STOP_PROCESSING(SSobj, src)
