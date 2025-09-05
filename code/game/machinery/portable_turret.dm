@@ -16,7 +16,7 @@
 	anchored = TRUE
 	idle_power_consumption = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_consumption = 300	//when active, this turret takes up constant 300 Equipment power
-	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, rad = 0, fire = 90, acid = 90)
+	armor = list(MELEE = 50, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 30, RAD = 0, FIRE = 90, ACID = 90)
 	///this will be visible when above doors/firelocks/blastdoors to prevent cheese
 	layer = ABOVE_OBJ_LAYER
 	var/raised = FALSE			//if the turret cover is "open" and the turret is raised
@@ -482,7 +482,7 @@
 		to_chat(M, "<span class='danger'>That object is useless to you.</span>")
 	return
 
-/mob/living/handle_basic_attack(mob/living/basic/attacker, modifiers)
+/obj/machinery/porta_turret/handle_basic_attack(mob/living/basic/attacker, modifiers)
 	attacker.changeNext_move(CLICK_CD_MELEE)
 	attacker.do_attack_animation(src)
 	if(attacker.melee_damage_upper == 0 || (attacker.melee_damage_type != BRUTE && attacker.melee_damage_type != BURN))
@@ -520,8 +520,8 @@
 		enabled = TRUE //turns it back on. The cover pop_up() pop_down() are automatically called in process(), no need to define it here
 		return TRUE
 
-/obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
-	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration_flat, armour_penetration_percentage)
+/obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armor_penetration_flat = 0, armor_penetration_percentage = 0)
+	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armor_penetration_flat, armor_penetration_percentage)
 	if(!raised && !raising)
 		damage_amount = damage_amount / 8
 		if(damage_amount < 5)

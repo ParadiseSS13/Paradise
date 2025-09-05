@@ -204,7 +204,7 @@ RESTRICT_TYPE(/datum/ui_module/admin/antagonist_menu)
 					return
 				target = mind.current
 				var/mob/dead/observer/A = C.mob
-				A.ManualFollow(target)
+				A.manual_follow(target)
 				return
 			if(istype(target, /datum/team))
 				ui.user.client.holder.team_switch_tab_index = clamp(GLOB.antagonist_teams.Find(target), 1, length(GLOB.antagonist_teams))

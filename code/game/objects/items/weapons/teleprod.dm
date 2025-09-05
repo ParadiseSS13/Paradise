@@ -5,17 +5,18 @@
 	base_icon = "teleprod"
 	origin_tech = "combat=2;bluespace=4;materials=3"
 
-/obj/item/melee/baton/cattleprod/teleprod/pre_attack(atom/A, mob/living/user, params)
-	if(..())
-		return FINISH_ATTACK
+/obj/item/melee/baton/cattleprod/teleprod/pre_attack(atom/target, mob/living/user, params)
+	. = ..()
+	if(.)
+		return
 
 	if(!turned_on)
-		return FINISH_ATTACK
+		return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
-	if(!ismob(A))
+	if(!ismob(target))
 		return
-	
-	var/mob/living/carbon/M
+
+	var/mob/living/carbon/M = target
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		user.visible_message(
 			"<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
