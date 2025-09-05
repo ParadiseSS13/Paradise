@@ -39333,7 +39333,7 @@
 	},
 /area/station/security/permabrig)
 "gUJ" = (
-/mob/living/simple_animal/crab{
+/mob/living/basic/crab{
 	desc = "The local trainer hired to keep the crew in shape by aggressively snipping at them.";
 	name = "Crabohydrates"
 	},

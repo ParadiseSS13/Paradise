@@ -7,7 +7,7 @@
 	message = "chirps!"
 	sound = "sound/creatures/nymphchirp.ogg"
 	emote_type = EMOTE_AUDIBLE
-	mob_type_allowed_typecache = list(/mob/living/simple_animal/diona)
+	mob_type_allowed_typecache = list(/mob/living/basic/diona_nymph)
 
 // Dog emotes
 

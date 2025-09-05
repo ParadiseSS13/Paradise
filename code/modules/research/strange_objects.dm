@@ -52,7 +52,7 @@
 		/mob/living/simple_animal/mouse,
 		/mob/living/simple_animal/pet/dog/pug,
 		/mob/living/basic/lizard,
-		/mob/living/simple_animal/diona,
+		/mob/living/basic/diona_nymph,
 		/mob/living/basic/butterfly,
 		/mob/living/carbon/human/monkey,
 	)
@@ -128,7 +128,7 @@
 						/mob/living/basic/butterfly,
 						/mob/living/simple_animal/pet/cat,
 						/mob/living/simple_animal/pet/dog/corgi,
-						/mob/living/simple_animal/crab,
+						/mob/living/basic/crab,
 						/mob/living/simple_animal/pet/dog/fox,
 						/mob/living/basic/lizard,
 						/mob/living/simple_animal/mouse,

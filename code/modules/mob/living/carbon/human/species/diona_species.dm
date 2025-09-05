@@ -77,7 +77,7 @@
 	. = ..()
 	H.clear_alert("nolight")
 
-	for(var/mob/living/simple_animal/diona/N in H.contents) // Let nymphs wiggle out
+	for(var/mob/living/basic/diona_nymph/N in H.contents) // Let nymphs wiggle out
 		N.split()
 
 /datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
