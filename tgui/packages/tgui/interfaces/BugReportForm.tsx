@@ -1,9 +1,8 @@
-import type { BooleanLike } from 'common/react';
 import React, { useState } from 'react';
 import { useBackend } from 'tgui/backend';
-import { Flex, Section } from 'tgui/components';
-import { ButtonCheckbox } from 'tgui/components/Button';
 import { Window } from 'tgui/layouts';
+import { Flex, Section } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 interface FormTypes {
   awaiting_admin_approval: BooleanLike;
   report_details: FormDetails;
@@ -35,12 +34,8 @@ export const BugReportForm = (props) => {
 
   const [title, setTitle] = useState(report_details?.title || '');
   const [steps, setSteps] = useState(report_details?.steps || '');
-  const [description, setDescription] = useState(
-    report_details?.description || '',
-  );
-  const [expected_behavior, setExpectedBehavior] = useState(
-    report_details?.expected_behavior || '',
-  );
+  const [description, setDescription] = useState(report_details?.description || '');
+  const [expected_behavior, setExpectedBehavior] = useState(report_details?.expected_behavior || '');
   const [admin_note, setAdminNote] = useState(report_details?.admin_note || '');
   const [log, setLog] = useState(report_details?.log || '');
 
@@ -61,39 +56,21 @@ export const BugReportForm = (props) => {
   };
 
   return (
-    <Window
-      title={'Bug Report Form'}
-      width={700}
-      height={awaiting_admin_approval ? 1000 : 700}
-    >
+    <Window title={'Bug Report Form'} width={700} height={awaiting_admin_approval ? 1000 : 700}>
       <Window.Content>
         <Section fill scrollable>
           <Flex direction="column" height="100%">
             <Flex.Item className="text-center">
-              <a
-                href="https://github.com/cmss13-devs/cmss13/issues"
-                target="_blank"
-                rel="noreferrer"
-                className="link"
-              >
+              <a href="https://github.com/cmss13-devs/cmss13/issues" target="_blank" rel="noreferrer" className="link">
                 GitHub Repository
               </a>
             </Flex.Item>
             <Flex.Item>
-              <h2 className="tip">
-                {
-                  'TIP: please be as descriptive as possible, it really does help tremendously'
-                }
-              </h2>
+              <h2 className="tip">{'TIP: please be as descriptive as possible, it really does help tremendously'}</h2>
             </Flex.Item>
             <Flex.Item>
               <InputTitle required>{'Title'}</InputTitle>
-              <input
-                width="100%"
-                className="textarea"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
+              <input width="100%" className="textarea" value={title} onChange={(e) => setTitle(e.target.value)} />
             </Flex.Item>
             <Flex.Item my={2}>
               <InputTitle required>{'Description'}</InputTitle>
@@ -111,9 +88,7 @@ export const BugReportForm = (props) => {
               />
             </Flex.Item>
             <Flex.Item my={2}>
-              <InputTitle required>
-                {"What's the difference with what should have happened?"}
-              </InputTitle>
+              <InputTitle required>{"What's the difference with what should have happened?"}</InputTitle>
               {'Give a description of what you expected to happen'}
               <textarea
                 rows={3}
@@ -128,12 +103,8 @@ export const BugReportForm = (props) => {
               />
             </Flex.Item>
             <Flex.Item my={2}>
-              <InputTitle required>
-                {'How do we reproduce this bug?'}
-              </InputTitle>
-              {
-                'Give a list of steps to reproduce this issue, the more details the better'
-              }
+              <InputTitle required>{'How do we reproduce this bug?'}</InputTitle>
+              {'Give a list of steps to reproduce this issue, the more details the better'}
               <textarea
                 rows={4}
                 className="textarea"
@@ -178,21 +149,6 @@ export const BugReportForm = (props) => {
                 value={log}
                 onChange={(e) => setLog(e.target.value)}
               />
-            </Flex.Item>
-            <Flex.Item my={2} className={'text-center'}>
-              <ButtonCheckbox
-                checked={checkBox}
-                onClick={() => {
-                  setCheckbox(!checkBox);
-                }}
-              >
-                {awaiting_admin_approval
-                  ? 'I confirm that this bug report follows all GitHub TOS'
-                  : "I couldn't find an existing issue about this on GitHub"}
-                {!checkBox && (
-                  <span className="input-title-required">{' *'}</span>
-                )}
-              </ButtonCheckbox>
             </Flex.Item>
             <Flex.Item my={2}>
               <Flex className="flex-center">

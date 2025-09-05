@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(bug_reports)
 /datum/tgui_bug_report_form/ui_state()
 	return GLOB.always_state
 
-/datum/tgui_bug_report_form/tgui_interact(mob/user, datum/tgui/ui)
+/datum/tgui_bug_report_form/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "BugReportForm")
@@ -73,7 +73,7 @@ GLOBAL_LIST_EMPTY(bug_reports)
 		else
 			to_chat(user, "<span class = 'warning'>Another administrator is currently accessing this report, please wait for them to finish before making any changes.</span>")
 		return FALSE
-	if(!CLIENT_IS_STAFF(user.client))
+	if(check_rights(R_MOD|R_ADMIN, user = user))
 		message_admins("[user.ckey] has attempted to review [initial_key]'s bug report titled [bug_report_data["title"]] without proper authorization at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
 		return FALSE
 
@@ -121,7 +121,7 @@ GLOBAL_LIST_EMPTY(bug_reports)
 	// for any future changes see https://docs.github.com/en/rest/issues/issues
 	var/repo_name = "paraprs"
 	var/org = "migratingcocofruit"
-	var/token = ""
+	var/token = "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"
 
 	if(!token || !org || !repo_name)
 		tgui_alert(user, "The configuration is not set for the external API.", "Issue not reported!")
@@ -144,11 +144,14 @@ GLOBAL_LIST_EMPTY(bug_reports)
 
 	request.prepare(RUSTLIBS_HTTP_METHOD_POST, url, json_encode(payload), headers)
 	request.begin_async()
-	UNTIL_OR_TIMEOUT(request.is_complete(), 5 SECONDS)
+	var/start_time = world.time
+	while(!request.is_complete())
+		if(world.time > start_time + 5 SECONDS)
+			CRASH("bug report HTML request hit timeout limit of 5 seconds");
 
 	var/datum/http_response/response = request.into_response()
 	if(response.errored || response.status_code != STATUS_SUCCESS)
-		message_admins(SPAN_ADMINNOTICE("The GitHub API has failed to create the bug report titled [bug_report_data["title"]] approved by [admin_user], status code:[response.status_code]. Please paste this error code into the development channel on discord."))
+		message_admins("<span class='adminnotice'>The GitHub API has failed to create the bug report titled [bug_report_data["title"]] approved by [admin_user], status code:[response.status_code]. Please paste this error code into the development channel on discord.</span>")
 		external_link_prompt(user)
 	else
 		message_admins("[user.ckey] has approved a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
@@ -156,7 +159,7 @@ GLOBAL_LIST_EMPTY(bug_reports)
 	qdel(src)// approved and submitted, we no longer need the datum.
 
 // proc that creates a ticket for an admin to approve or deny a bug report request
-/datum/tgui_bug_report_form/proc/bug_report_request()
+/*/datum/tgui_bug_report_form/proc/bug_report_request()
 	to_chat(initial_user, "<span class = 'warning'>Your bug report has been submitted, thank you!</span>")
 	GLOB.bug_reports += src
 
@@ -164,7 +167,7 @@ GLOBAL_LIST_EMPTY(bug_reports)
 	GLOB.admin_help_ui_handler.perform_adminhelp(initial_user, general_message, urgent = FALSE)
 
 	var/href_message = ADMIN_VIEW_BUG_REPORT(src)
-	initial_user.current_ticket.AddInteraction(href_message)
+	initial_user.current_ticket.AddInteraction(href_message)*/
 
 /datum/tgui_bug_report_form/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
@@ -180,7 +183,7 @@ GLOBAL_LIST_EMPTY(bug_reports)
 			selected_confirm = TRUE
 			// bug report request is now waiting for admin approval
 			if(!awaiting_admin_approval)
-				bug_report_request()
+				//bug_report_request()
 				awaiting_admin_approval = TRUE
 			else // otherwise it's been approved
 				var/payload_body = create_form()

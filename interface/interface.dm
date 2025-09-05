@@ -89,5 +89,5 @@
 		return
 	var/datum/tgui_bug_report_form/report = new(usr)
 
-	report.tgui_interact(usr)
+	report.ui_interact(usr)
 	return
