@@ -486,6 +486,14 @@
 	pixel_y = 12
 	},
 /obj/machinery/newscaster/directional/east,
+/obj/item/ashtray/plastic{
+	pixel_x = -12;
+	pixel_y = 1
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 7;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7713,6 +7721,14 @@
 /obj/item/razor{
 	pixel_y = 5
 	},
+/obj/item/ashtray/plastic{
+	pixel_x = -12;
+	pixel_y = 1
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 9;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "aVV" = (
@@ -8635,6 +8651,7 @@
 "bau" = (
 /obj/structure/table/wood,
 /obj/item/clothing/mask/cigarette/cigar,
+/obj/item/ashtray/glass,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "baw" = (
@@ -13333,11 +13350,9 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
-/obj/item/folder/blue{
-	pixel_y = 2
-	},
-/obj/item/folder/blue{
-	pixel_y = 2
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -13879,6 +13894,10 @@
 /obj/machinery/computer/guestpass{
 	pixel_y = 30
 	},
+/obj/item/ashtray/glass{
+	pixel_x = -10;
+	pixel_y = -3
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "bvr" = (
@@ -14118,11 +14137,16 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 8
-	},
 /obj/structure/table/glass,
+/obj/item/folder/blue{
+	pixel_y = 2
+	},
+/obj/item/folder/blue{
+	pixel_y = 2
+	},
+/obj/item/ashtray/bronze{
+	pixel_y = 11
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15582,10 +15606,6 @@
 	},
 /obj/structure/table/wood,
 /obj/item/paper_bin/nanotrasen{
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/obj/item/stamp/hop{
 	pixel_x = -4;
 	pixel_y = 4
 	},
@@ -15594,6 +15614,21 @@
 	name = "custom placement";
 	pixel_x = 6;
 	pixel_y = -33
+	},
+/obj/item/stamp/granted{
+	pixel_x = 9;
+	pixel_y = 14
+	},
+/obj/item/stamp/denied{
+	pixel_x = 9;
+	pixel_y = 7
+	},
+/obj/item/stamp/hop{
+	pixel_x = 9
+	},
+/obj/item/pen/hop{
+	pixel_x = -4;
+	pixel_y = 5
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
@@ -15680,6 +15715,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/item/ashtray/glass,
 /obj/item/clothing/head/fedora,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
@@ -16338,6 +16374,10 @@
 /obj/structure/table/wood,
 /obj/item/folder/blue,
 /obj/item/lighter/zippo,
+/obj/item/ashtray/glass{
+	pixel_x = -9;
+	pixel_y = 10
+	},
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "bFP" = (
@@ -17947,15 +17987,20 @@
 /area/station/service/hydroponics)
 "bND" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/stamp/qm,
+/obj/item/stamp/qm{
+	pixel_x = 10;
+	pixel_y = 13
+	},
 /obj/item/stamp/granted{
-	pixel_x = -4;
-	pixel_y = 4
+	pixel_x = -9;
+	pixel_y = 13
 	},
 /obj/item/stamp/denied{
-	pixel_x = 4;
-	pixel_y = -4
+	pixel_y = 13
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 6;
+	pixel_y = -8
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/supply/qm)
@@ -21573,8 +21618,9 @@
 /obj/item/stamp/ce{
 	pixel_x = -5
 	},
-/obj/item/pen{
-	pixel_x = 6
+/obj/item/pen/ce{
+	pixel_x = 6;
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
@@ -21595,12 +21641,8 @@
 /obj/machinery/computer/security/telescreen/vault{
 	pixel_y = 30
 	},
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/pen{
-	pixel_x = -3;
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 7;
 	pixel_y = 5
 	},
 /turf/simulated/floor/wood,
@@ -21626,11 +21668,11 @@
 "cfn" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin/nanotrasen,
-/obj/item/pen{
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /obj/structure/window/reinforced,
+/obj/item/pen/cap,
+/obj/item/stamp/captain{
+	pixel_y = 13
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "cfp" = (
@@ -24298,6 +24340,10 @@
 	pixel_x = 3;
 	pixel_y = 4
 	},
+/obj/item/ashtray/plastic{
+	pixel_x = -12;
+	pixel_y = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitegreen"
@@ -25551,10 +25597,13 @@
 /area/station/science/research)
 "cwW" = (
 /obj/machinery/firealarm/directional/west,
-/obj/item/kirbyplants/small/small3,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/table,
+/obj/item/circuitboard/aicore,
+/obj/item/paicard,
+/obj/item/aicard,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -27185,9 +27234,21 @@
 "cES" = (
 /obj/structure/table/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/item/paper_bin/nanotrasen,
-/obj/item/pen/multi,
-/obj/item/stamp/cmo,
+/obj/item/paper_bin/nanotrasen{
+	pixel_x = -7;
+	pixel_y = 6
+	},
+/obj/item/stamp/cmo{
+	pixel_x = 4;
+	pixel_y = 8
+	},
+/obj/item/ashtray/bronze{
+	pixel_x = 11
+	},
+/obj/item/pen/cmo{
+	pixel_x = -8;
+	pixel_y = 6
+	},
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "cET" = (
@@ -27241,6 +27302,10 @@
 	pixel_y = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 7;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -27464,6 +27529,10 @@
 "cGb" = (
 /obj/structure/table/glass,
 /obj/machinery/computer/med_data/laptop,
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 15;
+	pixel_y = 3
+	},
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "cGc" = (
@@ -27648,8 +27717,21 @@
 	pixel_x = -5;
 	pixel_y = 26
 	},
-/obj/machinery/computer/ai_resource{
-	dir = 4
+/obj/structure/table/glass/reinforced,
+/obj/item/stamp/rd{
+	pixel_x = 6;
+	pixel_y = 13
+	},
+/obj/item/paper_bin/nanotrasen{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/obj/item/pen/rd{
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/obj/item/paper/monitorkey{
+	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -31015,6 +31097,10 @@
 /obj/structure/disposalpipe/segment,
 /obj/item/folder,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/ashtray/glass{
+	pixel_x = -9;
+	pixel_y = 10
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel/office)
 "cXU" = (
@@ -31252,6 +31338,10 @@
 /obj/structure/table,
 /obj/item/deck/cards{
 	pixel_y = 4
+	},
+/obj/item/ashtray/plastic{
+	pixel_x = -12;
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
@@ -33270,6 +33360,10 @@
 /area/station/medical/virology)
 "dwL" = (
 /obj/structure/table/wood/poker,
+/obj/item/ashtray/glass{
+	pixel_x = -9;
+	pixel_y = 10
+	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "dwQ" = (
@@ -33782,7 +33876,18 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/machinery/recharger,
+/obj/machinery/recharger{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/item/paper_bin/nanotrasen{
+	pixel_x = 6;
+	pixel_y = 5
+	},
+/obj/item/pen/hos{
+	pixel_x = 6;
+	pixel_y = 6
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "dHU" = (
@@ -36725,11 +36830,14 @@
 	icon_state = "right";
 	name = "Captain's Desk"
 	},
-/obj/item/stamp/captain,
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/captain,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/item/ashtray/glass{
+	pixel_x = -9;
+	pixel_y = 10
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
@@ -39413,11 +39521,11 @@
 /area/station/maintenance/aft2)
 "fFf" = (
 /obj/structure/table/wood,
-/obj/item/pen/red{
-	pixel_x = 2;
-	pixel_y = 6
+/obj/item/paper_bin,
+/obj/item/pen/qm,
+/obj/item/ashtray/glass{
+	pixel_y = 11
 	},
-/obj/item/paper,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/supply/qm)
 "fFi" = (
@@ -54145,6 +54253,10 @@
 /area/station/supply/qm)
 "kTH" = (
 /obj/structure/filingcabinet/chestdrawer,
+/obj/item/toy/figure/crew/rd{
+	pixel_y = 15;
+	pixel_x = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -55637,6 +55749,10 @@
 	dir = 4;
 	pixel_x = -32
 	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 9;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -56112,13 +56228,13 @@
 	},
 /area/station/engineering/equipmentstorage)
 "lCW" = (
-/obj/structure/table,
-/obj/item/folder/white,
-/obj/item/toy/figure/crew/rd{
-	pixel_y = 10
+/obj/structure/table/glass/reinforced,
+/obj/item/ashtray/bronze{
+	pixel_y = 11
 	},
-/obj/item/stamp/rd,
-/obj/item/paper/monitorkey,
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -56854,14 +56970,14 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/cigbutt/cigarbutt{
-	pixel_x = 5;
-	pixel_y = -1
-	},
 /obj/item/phone{
 	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
 	pixel_x = -3;
 	pixel_y = 3
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 6;
+	pixel_y = -8
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -59082,10 +59198,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "mEA" = (
-/obj/structure/table,
-/obj/item/circuitboard/aicore,
-/obj/item/paicard,
-/obj/item/aicard,
+/obj/machinery/computer/ai_resource,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -68974,6 +69087,14 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/item/ashtray/plastic{
+	pixel_x = -12;
+	pixel_y = 1
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 9;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -73700,6 +73821,10 @@
 	pixel_y = 9
 	},
 /obj/item/pen,
+/obj/item/ashtray/plastic{
+	pixel_x = -12;
+	pixel_y = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -76318,6 +76443,7 @@
 "sTF" = (
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/item/ashtray/glass,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "sTM" = (
@@ -78381,8 +78507,6 @@
 /area/station/service/library)
 "tHP" = (
 /obj/structure/table,
-/obj/item/paper_bin/nanotrasen,
-/obj/item/pen,
 /obj/item/taperecorder{
 	pixel_x = 6;
 	pixel_y = 10
@@ -79467,6 +79591,7 @@
 "uft" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag,
+/obj/item/ashtray/bronze,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -80165,7 +80290,9 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/stamp/hos,
+/obj/item/ashtray/glass{
+	pixel_y = 11
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "usD" = (
@@ -83763,6 +83890,7 @@
 	pixel_y = 7
 	},
 /obj/structure/table,
+/obj/item/ashtray/plastic,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -83812,6 +83940,10 @@
 /obj/item/radio/intercom/department/security{
 	pixel_x = 28;
 	pixel_y = -7
+	},
+/obj/item/stamp/hos{
+	pixel_x = -14;
+	pixel_y = 5
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -84783,6 +84915,13 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
+	},
+/obj/item/ashtray/bronze{
+	pixel_x = 11
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 6;
+	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
