@@ -4725,7 +4725,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/camera{
-	c_tag = "Blueshield's Office";
+	c_tag = "Nanotrasen Representative's Office";
 	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -11025,7 +11025,7 @@
 /area/station/maintenance/starboard)
 "cgE" = (
 /obj/machinery/camera{
-	c_tag = "Paper Supplies";
+	c_tag = "Trainer's Office";
 	dir = 8
 	},
 /obj/machinery/power/apc/important/directional/east,
@@ -15312,6 +15312,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 5
 	},
+/obj/item/clothing/head/cone{
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "dbZ" = (
@@ -29925,8 +29930,8 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/crate{
-	name = "Silver Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "silver crate"
 	},
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,
@@ -31096,6 +31101,10 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/atmos/control)
+"ggw" = (
+/obj/item/clothing/head/cone,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "ggG" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall,
@@ -114157,8 +114166,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "wHI" = (
-/obj/structure/closet/crate{
-	name = "Gold Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "gold crate"
 	},
 /obj/item/storage/belt/champion,
 /obj/machinery/status_display{
@@ -141461,7 +141470,7 @@ scA
 hkJ
 fxn
 cLg
-sGV
+ggw
 cEY
 uBR
 etX
