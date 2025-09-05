@@ -84,6 +84,7 @@
 /client/verb/submitbug()
 	set name = "Submit Bug"
 	set desc = "Submit a bug."
+	set category = "OOC"
 	set hidden = TRUE
 	if(!usr)
 		return

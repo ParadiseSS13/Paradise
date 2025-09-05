@@ -121,7 +121,7 @@ GLOBAL_LIST_EMPTY(bug_reports)
 	// for any future changes see https://docs.github.com/en/rest/issues/issues
 	var/repo_name = "paraprs"
 	var/org = "migratingcocofruit"
-	var/token = "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"
+	var/token = file2text("e:/temp_token.txt")
 
 	if(!token || !org || !repo_name)
 		tgui_alert(user, "The configuration is not set for the external API.", "Issue not reported!")
@@ -182,7 +182,7 @@ GLOBAL_LIST_EMPTY(bug_reports)
 			bug_report_data = sanitize_payload(params)
 			selected_confirm = TRUE
 			// bug report request is now waiting for admin approval
-			if(!awaiting_admin_approval)
+			if(!awaiting_admin_approval && FALSE)
 				//bug_report_request()
 				awaiting_admin_approval = TRUE
 			else // otherwise it's been approved

@@ -40,7 +40,7 @@ export const BugReportForm = (props) => {
   const [log, setLog] = useState(report_details?.log || '');
 
   const submit = () => {
-    if (!title || !description || !expected_behavior || !steps || !checkBox) {
+    if (!title || !description || !expected_behavior || !steps) {
       alert('Please fill out all required fields!');
       return;
     }

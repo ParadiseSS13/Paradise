@@ -290,16 +290,6 @@ window "rpane"
 		background-color = #008000
 		text = "Donate"
 		command = "Donate"
-	elem "donate"
-		type = BUTTON
-		pos = 519,7
-		size = 1202x16
-		font-style = "bold"
-		text-color = #ffffff
-		background-color = #008000
-		text = "Bug Report"
-		command = "Submit Bug"
-
 
 window "outputwindow"
 	elem "outputwindow"
