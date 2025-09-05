@@ -33364,6 +33364,10 @@
 	pixel_x = -9;
 	pixel_y = 10
 	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 9;
+	pixel_y = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "dwQ" = (
@@ -61478,6 +61482,10 @@
 /obj/structure/table/reinforced,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 7;
+	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
