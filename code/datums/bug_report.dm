@@ -171,7 +171,7 @@ GLOBAL_LIST_EMPTY(bug_reports)
 
 /datum/tgui_bug_report_form/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
-	if (.)
+	if(.)
 		return
 	var/mob/user = ui.user
 	switch(action)
