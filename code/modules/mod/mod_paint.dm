@@ -10,20 +10,20 @@
 	. = ..()
 	name = "MOD [skin] skin applier"
 
-/obj/item/mod/skin_applier/pre_attack(atom/attacked_atom, mob/living/user, params)
-	if(!ismodcontrol(attacked_atom))
+/obj/item/mod/skin_applier/pre_attack(atom/target, mob/living/user, params)
+	if(!ismodcontrol(target))
 		return ..()
-	var/obj/item/mod/control/mod = attacked_atom
+	var/obj/item/mod/control/mod = target
 	if(mod.active || mod.activating)
 		to_chat(user, "<span class='warning'>Deactivate the suit!</span>")
-		return TRUE
+		return FINISH_ATTACK
 	if(!istype(mod.theme, compatible_theme))
 		to_chat(user, "<span class='warning'>Theme is not compatible!</span>")
-		return TRUE
+		return FINISH_ATTACK
 	mod.set_mod_skin(skin)
 	to_chat(user, "<span class='notice'>You apply the theme to [mod].</span>")
 	qdel(src)
-	return TRUE
+	return FINISH_ATTACK
 
 /obj/item/mod/skin_applier/asteroid
 	skin = "asteroid"

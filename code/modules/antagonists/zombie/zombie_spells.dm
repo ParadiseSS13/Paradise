@@ -58,7 +58,7 @@
 	flags = ABSTRACT | NODROP | DROPDEL
 	gender = PLURAL
 	force = 21 // allows them to break down doors aka NOT FUCKING AROUND
-	armour_penetration_percentage = -20
+	armor_penetration_percentage = -20
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "mauled", "cut", "savaged", "clawed")
@@ -92,7 +92,7 @@
 /obj/item/zombie_claw/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] dull claws extending from [owner.p_their(FALSE)] [owner.l_hand == src ? "left hand" : "right hand"].</span>"
 
-/obj/item/zombie_claw/pre_attack(atom/A, mob/living/user, params)
+/obj/item/zombie_claw/pre_attack(atom/target, mob/living/user, params)
 	. = ..()
 	if(!HAS_TRAIT(user, TRAIT_PLAGUE_ZOMBIE))
 		if(user.reagents.has_reagent("zombiecure2"))
@@ -180,7 +180,7 @@
 /obj/item/zombie_claw/plague_claw
 	name = "Plague Claws"
 	desc = "Claws extend from your rotting hands, oozing a putrid ichor. Perfect for rending bone and flesh for your master."
-	armour_penetration_flat = 15
+	armor_penetration_flat = 15
 	force = 13
 
 /obj/item/zombie_claw/plague_claw/Initialize(mapload, new_parent_spell, disease)

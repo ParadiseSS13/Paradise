@@ -1,8 +1,3 @@
-#define FOLLOW_AGGRESSIVE 0
-#define FOLLOW_RETALIATE 1
-#define IDLE_AGGRESSIVE 2
-#define IDLE_RETALIATE 3
-
 /datum/action/changeling/spiders
 	name = "Spread Infestation"
 	desc = "Our form divides, creating an aggressive arachnid which will regard us as a friend. Costs 30 chemicals."
@@ -120,8 +115,3 @@
 		if(IDLE_AGGRESSIVE)
 			to_chat(user, "<span class='notice'>We order the giant spider to remain idle, but ready to attack anyone on sight.</span>")
 			ai_controller.set_blackboard_key(BB_CHANGELING_SPIDER_ORDER, IDLE_AGGRESSIVE)
-
-#undef IDLE_AGGRESSIVE
-#undef FOLLOW_AGGRESSIVE
-#undef FOLLOW_RETALIATE
-#undef IDLE_RETALIATE
