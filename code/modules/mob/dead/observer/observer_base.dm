@@ -379,68 +379,65 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Respawn as New Character"
 	set category = "Ghost"
 
-	if(!GLOB.configuration.general.respawn_enabled && !check_rights(R_ADMIN))
-		to_chat(usr, "<span class ='warning'>Respawning has been disabled.</span>")
-		return
-
-	if(stat != DEAD)
-		to_chat(usr, "<span class ='notice'>You must be dead to respawn!</span>")
+	var/mob/dead/observer/O = usr
+	if(!isobserver(O))
+		to_chat(O, "<span class='warning'>You are not dead!</span>")
 		return
 
 	if(!SSticker || SSticker.current_state < GAME_STATE_PLAYING)
-		to_chat(src, "<span class ='warning'>You can't respawn before the game starts!</span>")
+		to_chat(O, "<span class='warning'>You can't respawn before the game starts!</span>")
 		return
 
 	if(GAMEMODE_IS_WIZARD || GAMEMODE_IS_NUCLEAR)
-		to_chat(usr, "<span class ='warning'>You can't respawn for this gamemode.</span>")
+		to_chat(O, "<span class='warning'>You can't respawn for this gamemode.</span>")
 		return
 
-	var/deathtime = world.time - timeofdeath
-	if(!HAS_TRAIT(src, TRAIT_RESPAWNABLE) && !check_rights(R_ADMIN))
-		to_chat(usr, "<span class ='warning'>You don't have respawnability!</span>")
+	var/death_time = world.time - O.timeofdeath
+	if(!HAS_TRAIT(O, TRAIT_RESPAWNABLE) && !check_rights(R_ADMIN))
+		to_chat(O, "<span class='warning'>You don't have respawnability!</span>")
 		return
 
-	var/deathtimeminutes = round(deathtime / 600)
-	var/pluralcheck = "minutes"
-	if(deathtimeminutes == 0)
-		pluralcheck = ""
-	else if(deathtimeminutes == 1)
-		pluralcheck = "[deathtimeminutes] minute and"
-	else if(deathtimeminutes > 1)
-		pluralcheck = "[deathtimeminutes] minutes and"
-	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
+	var/death_time_minutes = round(death_time / 600)
+	var/plural_check = "minutes"
+	if(death_time_minutes == 0)
+		plural_check = ""
+	else if(death_time_minutes == 1)
+		plural_check = "[death_time_minutes] minute and"
+	else if(death_time_minutes > 1)
+		plural_check = "[death_time_minutes] minutes and"
+	var/death_time_seconds = round((death_time - death_time_minutes * 600) / 10, 1)
 
-	if(deathtimeminutes < GLOB.configuration.general.respawn_delay / 600 && !check_rights(R_ADMIN))
-		to_chat(usr, "<span class ='notice'>You have been dead for [pluralcheck] [deathtimeseconds] seconds.</span>")
-		to_chat(usr, "<span class ='warning'>You must wait [GLOB.configuration.general.respawn_delay / 600] minutes before you can respawn.</span>")
+	if(death_time_minutes < GLOB.configuration.general.respawn_delay / 600 && !check_rights(R_ADMIN))
+		to_chat(O, "<span class='notice'>You have been dead for [plural_check] [death_time_seconds] second\s.</span>")
+		to_chat(O, "<span class='warning'>You must wait [GLOB.configuration.general.respawn_delay / 600] minute\s before you can respawn.</span>")
 		return
-	if(isobserver(usr) && HAS_TRAIT(src, TRAIT_RESPAWNABLE))
-		if(!src.check_ahud_rejoin_eligibility())
-			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
-			return FALSE
-		if(tgui_alert(usr, "Are you sure you want to respawn?\n(If you do this, you won't be able to be cloned!)", "Respawn?", list("Yes", "No")) != "Yes")
-			return
 
-		log_and_message_admins("[key_name(usr)][usr.mind.current?.mind.special_role ? " (<font color='red'>[usr.mind.current.mind.special_role]</font>)" : ""] has chosen to respawn as a new character.")
+	if(!O.check_ahud_rejoin_eligibility())
+		to_chat(O, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		return FALSE
+	if(tgui_alert(O, "Are you sure you want to respawn?\n(If you do this, you won't be able to be cloned!)", "Respawn?", list("Yes", "No")) != "Yes")
+		return
+
+		log_and_message_admins("[key_name(O)][O.mind.current?.mind.special_role ? " (<font color='red'>[O.mind.current.mind.special_role]</font>)" : ""] has chosen to respawn as a new character.")
 
 		var/list/warning = list()
 		warning.Add("<font size=3><b>You have chosen to respawn as a new character!</b></font>")
 		warning.Add("<b>You will not remember anything from your previous life or time as a ghost.</b>")
 		warning.Add("<span class='warning'><font size=2><b>You MUST choose a different character slot to respawn as!</b></font></span>")
-		to_chat(src, chat_box_notice(warning.Join("<br>")))
+		to_chat(O, chat_box_notice(warning.Join("<br>")))
 
-		if(!client)
-			log_game("[key_name(usr)] respawn failed due to disconnect.")
+		if(!O.client)
+			log_game("[key_name(O)] respawn failed due to disconnect.")
 			return
 
 		var/mob/new_player/NP = new()
-		GLOB.non_respawnable_keys -= usr.ckey
-		NP.ckey = usr.ckey
-		qdel(usr)
+		GLOB.non_respawnable_keys -= O.ckey
+		NP.ckey = O.ckey
+		qdel(O)
 		NP.chose_respawn = TRUE
 		return
 	else
-		to_chat(usr, "<span class ='warning'>You are either not dead or have given up respawnability!</span>")
+		to_chat(O, "<span class='warning'>You are either not dead or have given up respawnability!</span>")
 		return
 
 /**
