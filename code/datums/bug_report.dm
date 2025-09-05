@@ -58,7 +58,7 @@ GLOBAL_LIST_EMPTY(bug_reports)
 
 /datum/tgui_bug_report_form/proc/sanitize_payload(list/params)
 	for(var/param in params)
-		params[param] = sanitize(params[param], list("\t"=" ","�"=" ","<"=" ",">"=" ","&"=" "))
+		params[param] = html_decode(sanitize(params[param], list("\t"=" ","�"=" ","<"=" ",">"=" ","&"=" ")))
 
 	return params
 
