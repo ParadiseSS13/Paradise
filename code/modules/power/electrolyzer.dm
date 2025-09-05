@@ -5,8 +5,6 @@
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "electrolyzer_off"
 	density = TRUE
-	/// whether or not the panel is open or not
-	panel_open = FALSE
 	/// whether or not we're actively using power/seeking water vapor in the air
 	var/on = FALSE
 	var/datum/gas_mixture/gas
