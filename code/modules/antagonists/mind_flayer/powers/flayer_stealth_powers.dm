@@ -188,15 +188,15 @@
 	new_attack_chain = TRUE
 	var/conversion_time = 7 SECONDS
 
-/obj/item/melee/swarm_hand/pre_attack(atom/A, mob/living/user, params)
+/obj/item/melee/swarm_hand/pre_attack(atom/target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
-	if(!isrobot(A))
+	if(!isrobot(target))
 		to_chat(user, "<span class='warning'>[src] will have no effect against this target!</span>")
 		return FINISH_ATTACK
 
-	var/mob/living/silicon/robot/borg = A
+	var/mob/living/silicon/robot/borg = target
 	borg.visible_message(
 		"<span class='danger'>[user] puts [user.p_their()] hands on [borg] and begins transferring energy!</span>",
 		"<span class='userdanger'>[user] puts [user.p_their()] hands on you and begins transferring energy!</span>")
