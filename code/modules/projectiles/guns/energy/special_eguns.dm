@@ -134,11 +134,11 @@
 	selfcharge = TRUE
 	can_holster = TRUE
 
-/obj/item/gun/energy/floragun/pre_attack(atom/A, mob/living/user, params)
-	if(istype(A, /obj/machinery/hydroponics))
+/obj/item/gun/energy/floragun/pre_attack(atom/target, mob/living/user, params)
+	if(istype(target, /obj/machinery/hydroponics))
 		// Calling afterattack from pre_attack looks stupid, but afterattack with proximity FALSE is what makes the gun fire, and we're returning FALSE to cancel the melee attack.
-		afterattack__legacy__attackchain(A, user, FALSE, params)
-		return FALSE
+		afterattack__legacy__attackchain(target, user, FALSE, params)
+		return CONTINUE_ATTACK
 	return ..()
 
 //////////////////////////////
@@ -1095,7 +1095,7 @@
 	desc = "It's about a foot of weird silvery metal with a wicked point."
 	damage = 25
 	knockdown = 2
-	armour_penetration_flat = 30
+	armor_penetration_flat = 30
 	icon_state = "magspear"
 
 /obj/item/projectile/bullet/spike/on_hit(atom/target, blocked = 0)

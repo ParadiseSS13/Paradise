@@ -5,7 +5,7 @@
 	icon_state = "plasticflaps"
 	anchored = TRUE
 	layer = 4
-	armor = list(melee = 100, bullet = 80, laser = 80, energy = 100, bomb = 50, rad = 100, fire = 50, acid = 50)
+	armor = list(MELEE = 100, BULLET = 80, LASER = 80, ENERGY = 100, BOMB = 50, RAD = 100, FIRE = 50, ACID = 50)
 	var/state = PLASTIC_FLAPS_NORMAL
 
 /obj/structure/plasticflaps/examine(mob/user)
