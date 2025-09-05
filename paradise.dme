@@ -403,6 +403,7 @@
 #include "code\datums\atom_hud.dm"
 #include "code\datums\beam.dm"
 #include "code\datums\browser.dm"
+#include "code\datums\bug_report.dm"
 #include "code\datums\callback.dm"
 #include "code\datums\card_deck_table_tracker.dm"
 #include "code\datums\chat_payload.dm"
