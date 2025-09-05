@@ -411,7 +411,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
 	if(deathtimeminutes < GLOB.configuration.general.respawn_delay / 600 && !check_rights(R_ADMIN))
-		to_chat(usr, "<span class ='notice'>You have been dead for [pluralcheck][deathtimeseconds] seconds.</span>")
+		to_chat(usr, "<span class ='notice'>You have been dead for [pluralcheck] [deathtimeseconds] seconds.</span>")
 		to_chat(usr, "<span class ='warning'>You must wait [GLOB.configuration.general.respawn_delay / 600] minutes before you can respawn.</span>")
 		return
 	if(isobserver(usr) && HAS_TRAIT(src, TRAIT_RESPAWNABLE))
@@ -421,7 +421,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(tgui_alert(usr, "Are you sure you want to respawn?\n(If you do this, you won't be able to be cloned!)", "Respawn?", list("Yes", "No")) != "Yes")
 			return
 
-		log_and_message_admins("[key_name(usr)] has chosen to respawn as a new character.")
+		log_and_message_admins("[key_name(usr)][usr.mind.current?.mind.special_role ? " (<font color='red'>[usr.mind.current.mind.special_role]</font>)" : ""] has chosen to respawn as a new character.")
 
 		var/list/warning = list()
 		warning.Add("<font size=3><b>You have chosen to respawn as a new character!</b></font>")
