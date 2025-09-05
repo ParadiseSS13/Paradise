@@ -10,10 +10,8 @@
 	icon_state = "base"
 	anchored = TRUE
 	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF
-	idle_power_consumption = 0
 	power_state = NO_POWER_USE
 	pass_flags = PASSTABLE
-	new_attack_chain = TRUE
 	/// Holds the handheld
 	var/obj/item/radio/phone_receiver/handheld
 	/// Is the handheld currently picked up
@@ -144,7 +142,6 @@
 	icon = 'icons/obj/starline_phone.dmi'
 	icon_state = "receiver"
 	flags = DROPDEL
-	w_class = WEIGHT_CLASS_SMALL // no putting this in bags
 	/// the starline phone this receiver conencts to
 	var/obj/machinery/phone/parent_phone
 	pixel_x = 4
