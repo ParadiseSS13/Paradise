@@ -122,8 +122,8 @@ GLOBAL_LIST_EMPTY(bug_reports)
 // the real deal, we are sending the request through the api.
 /datum/tgui_bug_report_form/proc/send_request(payload_body, client/user)
 	// for any future changes see https://docs.github.com/en/rest/issues/issues
-	var/repo_name = "paraprs"
-	var/org = "migratingcocofruit"
+	var/repo_name = "Paradise"
+	var/org = "ParadiseSS13"
 	var/token = file2text("e:/temp_token.txt")
 
 	if(!token || !org || !repo_name)
