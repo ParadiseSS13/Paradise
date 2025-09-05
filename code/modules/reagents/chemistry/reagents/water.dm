@@ -14,24 +14,21 @@
 	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
 	taste_description = "water"
-	var/cooling_temperature = 2
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
-	var/water_temperature = 283.15 // As reagents don't have a temperature value, we'll just use 10 celsius.
 
 /datum/reagent/water/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	M.water_act(volume, water_temperature, src, method)
+	M.water_act(volume, COLD_WATER_TEMPERATURE, src, method)
 
 /datum/reagent/water/reaction_turf(turf/T, volume)
-	T.water_act(volume, water_temperature, src)
+	T.water_act(volume, COLD_WATER_TEMPERATURE, src)
 	var/obj/effect/acid/A = (locate(/obj/effect/acid) in T)
-	if(A)
-		A.acid_level = max(A.acid_level - volume*  50, 0)
+	A?.acid_level = max(A.acid_level - volume * 50, 0)
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
-	O.water_act(volume, water_temperature, src)
+	O.water_act(volume, COLD_WATER_TEMPERATURE, src)
 
 /datum/reagent/lube
 	name = "Space Lube"
@@ -283,7 +280,7 @@
 /datum/reagent/holywater
 	name = "Water"
 	id = "holywater"
-	description = "A ubiquitous chemical substance that is composed of hydrogen and oxygen."
+	description = "A ubiquitous chemical substance that is composed of hydrogen, oxygen, and faith." // Subtle tell if anyone bothers to use a chem master to identify it. How many people know this can be done?
 	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
 	process_flags = ORGANIC | SYNTHETIC
@@ -294,17 +291,27 @@
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustJitter(-10 SECONDS)
-	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
-		M.AdjustStuttering(8 SECONDS, bound_lower = 0, bound_upper = 40 SECONDS)
-		M.Dizzy(10 SECONDS)
+	// Feel the blessing within you. Unless you're an unholy being, of course.
+	if(prob(5) && !IS_CULTIST(M) && !M.mind?.has_antag_datum(/datum/antagonist/vampire) && !isvampirethrall(M))
+		M.AdjustJitter(-10 SECONDS)
+		var/holy_message = pick(
+			"You feel a little more peaceful inside.", 
+			"You feel a higher power looking down on you.", 
+			"You feel as though your spirit is a little safer",
+			"You feel as though you are blessed.",
+		)
+		to_chat(M, "<span class='notice'>[holy_message]</span>")
+
+	// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
+	if(current_cycle >= 30)
 		if(IS_CULTIST(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
 					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
 					qdel(BS)
-			if(prob(5))
-				M.AdjustCultSlur(10 SECONDS)//5 seems like a good number...
+			if(prob(5)) // 5 seems like a good number...
+				M.AdjustCultSlur(10 SECONDS)
+				M.Jitter(10 SECONDS)
 				M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
 		if(isvampirethrall(M))
 			if(prob(10))
@@ -312,17 +319,14 @@
 			if(prob(5)) //Same as cult, for the real big tell
 				M.visible_message("<span class='warning'>A fog lifts from [M]'s eyes for a moment, but soon returns.</span>")
 
-	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
-		M.AdjustConfused(6 SECONDS)
+	// 30 units, 150 seconds
+	if(current_cycle >= 75 && prob(33))	
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
-
 			holder.remove_reagent(id, volume)
 			M.visible_message("<span class='biggerdanger'>[M] recoils, their skin flushes with colour, regaining their sense of control!</span>")
-			M.SetJitter(0)
-			M.SetStuttering(0)
-			M.SetConfused(0)
 			return
+
 		if(IS_CULTIST(M))
 			var/datum/antagonist/cultist/cultist = IS_CULTIST(M)
 			cultist.remove_gear_on_removal = TRUE
@@ -330,12 +334,15 @@
 
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			M.SetJitter(0)
-			M.SetStuttering(0)
-			M.SetConfused(0)
 			return
+
 	var/datum/antagonist/vampire/vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(ishuman(M) && vamp && !vamp.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M
+		// Has never fed, do not pass GO.
+		if(!vamp.bloodtotal)
+			return ..() | update_flags
+
 		if(vamp.bloodusable)
 			M.Stuttering(2 SECONDS)
 			M.Jitter(60 SECONDS)
@@ -344,39 +351,41 @@
 				M.emote("scream")
 			vamp.adjust_nullification(20, 4)
 			vamp.bloodusable = max(vamp.bloodusable - 3,0)
-			if(vamp.bloodusable)
-				V.vomit(0, TRUE, FALSE)
-				V.adjustBruteLoss(3)
-			else
+			if(!vamp.bloodusable)
 				holder.remove_reagent(id, volume)
 				V.vomit(0, FALSE, FALSE)
 				return
-		else
-			if(!vamp.bloodtotal)
-				return ..() | update_flags
-			switch(current_cycle)
-				if(1 to 4)
-					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-					vamp.adjust_nullification(20, 4)
-				if(5 to 12)
-					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
-					update_flags |= M.adjustFireLoss(1, FALSE)
-					M.Stuttering(2 SECONDS)
-					M.Jitter(40 SECONDS)
-					if(prob(20))
-						M.emote("scream")
-					vamp.adjust_nullification(20, 4)
-				if(13 to INFINITY)
-					M.visible_message("<span class='danger'>[M] suddenly bursts into flames!</span>",
-									"<span class='danger'>You suddenly ignite in a holy fire!</span>")
-					M.fire_stacks = min(5, M.fire_stacks + 3)
-					M.IgniteMob()
-					update_flags |= M.adjustFireLoss(3, FALSE)
-					M.Stuttering(2 SECONDS)
-					M.Jitter(60 SECONDS)
-					if(prob(40))
-						M.emote("scream")
-					vamp.adjust_nullification(20, 4)
+
+			V.vomit(0, TRUE, FALSE)
+			V.adjustBruteLoss(3)
+			return ..() | update_flags
+
+		switch(current_cycle)
+			if(1 to 4)
+				to_chat(M, "<span class='warning'>Something sizzles in your veins!</span>")
+				vamp.adjust_nullification(20, 4)
+			if(5 to 12)
+				to_chat(M, "<span class='danger'>You feel an intense burning inside of you!</span>")
+				update_flags |= M.adjustFireLoss(1, FALSE)
+				M.Stuttering(2 SECONDS)
+				M.Jitter(40 SECONDS)
+				if(prob(20))
+					M.emote("scream")
+				vamp.adjust_nullification(20, 4)
+			if(13 to INFINITY)
+				M.visible_message(
+					"<span class='danger'>[M] suddenly bursts into flames!</span>",
+					"<span class='userdanger'>You suddenly ignite in a holy fire!</span>",
+					"<span class='danger'>You hear something suddenly bursting into flames!</span>"
+				)
+				M.fire_stacks = min(5, M.fire_stacks + 3)
+				M.IgniteMob()
+				update_flags |= M.adjustFireLoss(3, FALSE)
+				M.Stuttering(2 SECONDS)
+				M.Jitter(60 SECONDS)
+				if(prob(40))
+					M.emote("scream")
+				vamp.adjust_nullification(20, 4)
 	return ..() | update_flags
 
 

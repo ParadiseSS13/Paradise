@@ -404,7 +404,7 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 		//re-enter
 		var/mob/dead/observer/ghost = mob
 		var/old_turf = get_turf(ghost)
-		ghost.can_reenter_corpse = 1			//just in-case.
+		ghost.ghost_flags |= GHOST_CAN_REENTER // just in-case.
 		ghost.reenter_corpse()
 		log_admin("[key_name(usr)] re-entered their body")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -419,7 +419,7 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 	else
 		//ghostize
 		var/mob/body = mob
-		body.ghostize(1)
+		body.ghostize()
 		if(body && !body.key)
 			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
 		log_admin("[key_name(usr)] has admin-ghosted")
@@ -1021,9 +1021,7 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/confirm = alert("Are you sure you want to send the global message?", "Confirm Man Up Global", "Yes", "No")
-
-	if(confirm == "Yes")
+	if(tgui_alert("Are you sure you want to send the global message?", "Confirm Man Up Global", list("Yes", "No")) != "No")
 		var/manned_up_sound = sound('sound/voice/manup1.ogg')
 		for(var/sissy in GLOB.player_list)
 			to_chat(sissy, chat_box_notice_thick("<span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span>"))
@@ -1136,7 +1134,7 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 	var/turf/T = interesting_tile[MILLA_INDEX_TURF]
 	var/mob/dead/observer/O = mob
 	admin_forcemove(O, T)
-	O.ManualFollow(T)
+	O.manual_follow(T)
 
 /client/proc/visualize_interesting_turfs()
 	set name = "Visualize Interesting Turfs"
@@ -1148,13 +1146,11 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 
 	if(SSair.interesting_tile_count > 500)
 		// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
-		var/confirm = alert(usr, "WARNING: There are [SSair.interesting_tile_count] Interesting Turfs. This process will be lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you with to continue", "WARNING", "I am sure", "Nope")
-		if(confirm != "I am sure")
+		if(tgui_alert(usr, "WARNING: There are [SSair.interesting_tile_count] Interesting Turfs. This process will be lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you wish to continue?", "WARNING", list("I am sure", "No")) != "I am sure")
 			return
 
 	var/display_turfs_overlay = FALSE
-	var/do_display_turf_overlay = alert(usr, "Would you like to have all interesting turfs have a client side overlay applied as well?", "Optional", "Yep", "Nope")
-	if(do_display_turf_overlay == "Yep")
+	if(tgui_alert(usr, "Would you like to have all interesting turfs have a client side overlay applied as well?", "Optional", list("Yes", "No")) != "No")
 		display_turfs_overlay = TRUE
 
 	message_admins("[key_name_admin(usr)] is visualising interesting atmos turfs. Server may lag.")
@@ -1233,9 +1229,7 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 		return
 
 	var/datum/rnd_backup/B = SSresearch.backups[actual_target]
-	var/confirmation = alert("Are you sure you want to restore this RnD backup? The disk will spawn below your character.", "Are you sure?", "Yes", "No")
-
-	if(confirmation != "Yes")
+	if(tgui_alert("Are you sure you want to restore this RnD backup? The disk will spawn below your character.", "Are you sure?", list("Yes", "No")) != "Yes")
 		return
 
 	B.to_backup_disk(get_turf(usr))
@@ -1259,4 +1253,4 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 		target = mind.current
 
 	var/mob/dead/observer/A = client.mob
-	A.ManualFollow(target)
+	A.manual_follow(target)
