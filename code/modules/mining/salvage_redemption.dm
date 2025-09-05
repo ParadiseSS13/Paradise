@@ -136,18 +136,11 @@
 		qdel(loot)
 	// Do a little animation. It delays the slip slightly, but it looks cool
 	animating = TRUE
-	icon_state = "salvage_redemption-activate"
-	addtimer(CALLBACK(src, PROC_REF(active_loop), total_value, user), 0.5 SECONDS)
-
-/obj/machinery/salvage_redemption/proc/active_loop(total_value, mob/user)
-	// Scan the salvage
-	icon_state = "salvage_redemption-active"
-	if(total_value)
-		addtimer(CALLBACK(src, PROC_REF(print_slip), total_value, user), 2.6 SECONDS)
+	flick("salvage_redemption-active", src)
+	addtimer(CALLBACK(src, PROC_REF(print_slip), total_value, user), 2.5 SECONDS)
 
 /obj/machinery/salvage_redemption/proc/print_slip(total_value, mob/user)
 	// Print the credit slip
-	icon_state = "salvage_redemption-deactivate"
 	playsound(src, 'sound/machines/banknote_counter.ogg', 30, FALSE)
 	var/obj/item/credit_redemption_slip/slip = new /obj/item/credit_redemption_slip(src, total_value)
 	if(ishuman(user) && Adjacent(user))
@@ -155,12 +148,6 @@
 		H.put_in_hands(slip)
 	else
 		slip.forceMove(get_turf(src))
-	addtimer(CALLBACK(src, PROC_REF(reset_animation)), 1.1 SECONDS)
-
-/obj/machinery/salvage_redemption/proc/reset_animation()
-	// Reset the machine
-	icon_state = "salvage_redemption"
-	animating = FALSE
 
 /// Credit redemption slip
 /obj/item/credit_redemption_slip
