@@ -67,8 +67,8 @@ SUBSYSTEM_DEF(late_mapping)
 
 	for(var/i in 1 to mice_number)
 		if(prob(1))
-			new /mob/living/simple_animal/mouse/white/linter(pick_n_take(maintenance_turfs))
+			new /mob/living/basic/mouse/white/linter(pick_n_take(maintenance_turfs))
 		else
-			new /mob/living/simple_animal/mouse(pick_n_take(maintenance_turfs))
+			new /mob/living/basic/mouse(pick_n_take(maintenance_turfs))
 
 	log_debug("Spawned [mice_number] mice over in [stop_watch(watch)]s")
