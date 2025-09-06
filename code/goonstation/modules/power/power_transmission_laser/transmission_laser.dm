@@ -71,10 +71,8 @@
 		/area/mine/outpost,
 		/area/shuttle/mining,
 		)
-	/// Megafauna being targeted
-	var/mob/living/simple_animal/hostile/megafauna/target
-	/// Overlay that goes over the mob that gets beamed
-	var/image/orbital_strike
+	/// PTL target
+	var/atom/target
 
 /obj/machinery/power/transmission_laser/north
 	pixel_x = -64
@@ -276,7 +274,7 @@
 	data["accepting_power"] = turned_on
 	data["sucking_power"] = inputting
 	data["firing"] = firing
-	data["target"] = target ? target.internal_gps.gpstag : ""
+	data["target"] = target ? target.ptl_data() : ""
 
 	data["power_format"] = power_format_multi
 	data["input_number"] = input_number
@@ -338,23 +336,24 @@
 		for(var/area_type in targetable_areas)
 			if(istype(boss_loc, area_type))
 				target_list[monster.internal_gps.gpstag] = monster
+	for(var/obj/machinery/power/laser_terminal/receptacle in GLOB.laser_terminals)
+		target_list["[receptacle.name]: [receptacle.id]"] = receptacle
 	// Target CC to sell power
 	target_list["Collection Terminal"] = null
 
 	var/choose = tgui_input_list(user, "Select target", "Target", target_list)
 	if(!choose)
 		return
+	untarget()
 	target = target_list[choose]
-	RegisterSignal(target, COMSIG_MOB_DEATH, PROC_REF(untarget))
-	if(firing && target)
-		orbital_strike = image(target.icon, target, "orbital_strike", FLY_LAYER, SOUTH)
-		target.add_overlay(orbital_strike)
+	if(target)
+		target.on_ptl_target(src)
 
 /// Stop targeting a mob once it dies
 /obj/machinery/power/transmission_laser/proc/untarget()
-	SIGNAL_HANDLER
-	target.cut_overlay(orbital_strike)
-	UnregisterSignal(target, COMSIG_MOB_DEATH)
+	SIGNAL_HANDLER // This can be called via various signals depending on what we register on the a target
+	if(target)
+		target.on_ptl_untarget(src)
 	target = null
 
 /obj/machinery/power/transmission_laser/process()
@@ -394,14 +393,8 @@
 		if(!target)
 			sell_power(output_level * WATT_TICK_TO_JOULE)
 		else
-			if(!QDELETED(target)) // Just for safety.
-				target.loot = list() // disable loot drops form the target to prevent cheese
-				if(10 * output_level * target.damage_coeff[BURN] / (1 MW) > target.health) // If we would kill the target dust it.
-					target.health = 0 // We need this so can_die() won't prevent dusting
-					visible_message("<span class='danger'>\The [src] is reduced to dust by the beam!</span>")
-					target.dust()
-				else
-					target.adjustFireLoss(10 * output_level / (1 MW))
+			if(!QDELETED(target)) // Make sure our target still exists
+				INVOKE_ASYNC(target, TYPE_PROC_REF(/atom, on_ptl_tick), src, output_level)
 			else
 				target = null
 		if(output_level > EYE_DAMAGE_THRESHOLD)
@@ -481,8 +474,7 @@
 
 /obj/machinery/power/transmission_laser/proc/setup_lasers()
 	if(target)
-		orbital_strike = image(target.icon, target, "orbital_strike", FLY_LAYER, SOUTH)
-		target.add_overlay(orbital_strike)
+		target.on_ptl_fire()
 	var/turf/last_step = get_step(get_front_turf(), dir)
 	for(var/num in 1 to range)
 		if(!(locate(/obj/effect/transmission_beam) in last_step))
@@ -495,7 +487,7 @@
 
 /obj/machinery/power/transmission_laser/proc/destroy_lasers()
 	if(target)
-		target.cut_overlay(orbital_strike)
+		target.on_ptl_stop()
 	for(var/obj/effect/transmission_beam/listed_beam as anything in laser_effects)
 		laser_effects -= listed_beam
 		qdel(listed_beam)
