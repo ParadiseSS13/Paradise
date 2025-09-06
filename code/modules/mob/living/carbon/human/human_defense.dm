@@ -882,3 +882,11 @@ emp_act
 	to_contaminate -= to_contaminate[1]
 	for(var/atom/thing in to_contaminate)
 		thing.AddComponent(/datum/component/radioactive, intensity, source, emission_type)
+
+/mob/living/carbon/human/proc/peel_off_synthetic_skin()
+	var/obj/item/organ/external/external_limb = get_organ(zone_selected)
+	if(external_limb && external_limb.augmented_skin_cover_level)
+		visible_message("<span class='warning'>[src] begins to pull at their skin...</span>")
+		if(!do_mob(src, src, 5 SECONDS))
+			return
+		external_limb.break_augmented_skin(TRUE)
