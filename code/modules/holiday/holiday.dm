@@ -321,7 +321,7 @@
 	return ..()
 
 
-/client/proc/Set_Holiday(T as text|null)
+/client/proc/set_holiday(T as text|null)
 	set name = "Set Holiday"
 	set category = "Event"
 	set desc = "Force-set the Holiday variable to make the game think it's a certain day."
