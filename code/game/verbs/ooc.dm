@@ -330,4 +330,16 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	popup.set_content(output.Join(""))
 	popup.open()
 
+/client/verb/submitbug()
+	set name = "Report a Bug"
+	set desc = "Submit a bug report."
+	set category = "OOC"
+	set hidden = TRUE
+	if(!usr)
+		return
+	var/datum/tgui_bug_report_form/report = new(usr)
+
+	report.ui_interact(usr)
+	return
+
 #undef DEFAULT_PLAYER_OOC_COLOUR
