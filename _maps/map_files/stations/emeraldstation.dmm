@@ -33259,12 +33259,9 @@
 /area/station/hallway/primary/aft)
 "gDJ" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/seeds/wheat,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/item/seeds/tomato,
-/obj/item/seeds/wheat/rice,
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "gDK" = (
@@ -115132,8 +115129,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "wRt" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -115141,6 +115136,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/machinery/economy/vending/hydroseeds/chef,
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "wRv" = (
@@ -115181,6 +115177,7 @@
 "wSb" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "wSc" = (

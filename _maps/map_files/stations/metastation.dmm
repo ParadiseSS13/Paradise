@@ -13619,6 +13619,8 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "buD" = (
@@ -17986,16 +17988,7 @@
 	},
 /area/station/engineering/solar/aft_starboard)
 "bNK" = (
-/obj/structure/closet/crate/hydroponics/prespawned,
-/obj/item/shovel/spade,
-/obj/item/wrench,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/cultivator,
-/obj/item/wirecutters,
-/obj/machinery/alarm/directional/south,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "bNM" = (
@@ -18386,6 +18379,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "bPP" = (
@@ -21523,6 +21517,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/sink/directional/west,
 /obj/machinery/light/small,
+/obj/structure/sign/poster/official/cleanliness/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "ceS" = (
@@ -41726,10 +41721,6 @@
 	icon_state = "brown"
 	},
 /area/station/supply/break_room)
-"gwd" = (
-/obj/structure/sign/poster/official/cleanliness/directional/south,
-/turf/simulated/floor/plasteel,
-/area/station/service/hydroponics)
 "gwG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cardboard,
@@ -47447,6 +47438,19 @@
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/research)
+"iBN" = (
+/obj/structure/closet/crate/hydroponics/prespawned,
+/obj/item/shovel/spade,
+/obj/item/wrench,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/cultivator,
+/obj/item/wirecutters,
+/obj/machinery/alarm/directional/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/station/service/hydroponics)
 "iBR" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/storage)
@@ -48557,6 +48561,15 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
+"iUr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery/partial{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/maintenance/starboard)
 "iUs" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -57268,6 +57281,12 @@
 /obj/item/storage/box,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
+"lZp" = (
+/obj/effect/turf_decal/delivery/partial{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard)
 "lZw" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
@@ -59481,12 +59500,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "green"
-	},
-/area/station/service/hydroponics)
-"mNF" = (
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
 "mNJ" = (
@@ -71075,6 +71088,7 @@
 /area/station/hallway/primary/fore/east)
 "qUq" = (
 /mob/living/simple_animal/chicken/clucky,
+/obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "qUX" = (
@@ -71661,9 +71675,6 @@
 /area/station/maintenance/fsmaint2)
 "rgo" = (
 /obj/machinery/hydroponics/soil,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "rgu" = (
@@ -80168,6 +80179,12 @@
 /obj/item/stamp/hos,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
+"usj" = (
+/obj/machinery/economy/vending/hydroseeds/chef,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreenfull"
+	},
+/area/station/service/hydroponics)
 "usD" = (
 /obj/structure/transit_tube/curved/flipped{
 	dir = 4
@@ -81414,7 +81431,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "uQO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -82058,6 +82075,16 @@
 	icon_state = "caution"
 	},
 /area/station/hallway/primary/starboard/east)
+"vbC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard)
 "vbF" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -82993,12 +83020,6 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
-"vtY" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate,
-/obj/effect/spawner/random/maintenance,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
 "vub" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -84154,9 +84175,6 @@
 	icon_state = "darkred"
 	},
 /area/station/security/storage)
-"vSM" = (
-/turf/simulated/floor/grass,
-/area/station/service/hydroponics)
 "vSV" = (
 /obj/structure/chair/stool{
 	dir = 4
@@ -84806,10 +84824,10 @@
 /area/station/maintenance/turbine)
 "wgT" = (
 /mob/living/basic/cow/betsy,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "whf" = (
@@ -86266,11 +86284,11 @@
 /area/station/maintenance/fore)
 "wGR" = (
 /obj/structure/flora/ausbushes/grassybush,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
 	},
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
@@ -88986,11 +89004,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
 "xCP" = (
-/obj/structure/flora/ausbushes/fullgrass,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "xCT" = (
@@ -127621,12 +127639,12 @@ mSm
 mxb
 uXs
 bPO
-vSM
+rgo
 xCP
 bZv
 mVn
 ktD
-gwd
+cex
 cte
 cwG
 xmO
@@ -127883,7 +127901,7 @@ rgo
 bZv
 oTB
 sYJ
-cex
+iBN
 cte
 hvr
 uZG
@@ -128130,19 +128148,19 @@ aoG
 aoG
 aoG
 aoG
-aNR
+iUr
 bEG
 aoG
 bVB
-mNF
-nac
 yhT
+nac
+usj
 bZv
 pHM
 ces
 bNK
 aoG
-aoG
+oXK
 pWa
 oXK
 aoG
@@ -128391,13 +128409,13 @@ dnm
 bTP
 oXK
 bnc
-bXq
+aoG
 aoG
 aoG
 oXK
 aoG
 uQK
-aoG
+bXq
 aoG
 qMN
 eUt
@@ -128654,8 +128672,8 @@ rCD
 rCD
 bSU
 asJ
-oXK
-lJt
+lZp
+asJ
 bSU
 izc
 gYF
@@ -128911,11 +128929,11 @@ cey
 cey
 iMW
 cxo
-dcx
-vtY
+asJ
+bSU
 bSU
 gQu
-aoG
+dcx
 aoG
 bPj
 wdY
@@ -129170,7 +129188,7 @@ pHB
 bYC
 kmO
 kmO
-bYC
+vbC
 buC
 aoG
 cYB
