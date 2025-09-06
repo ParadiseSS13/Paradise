@@ -17989,6 +17989,9 @@
 /area/station/engineering/solar/aft_starboard)
 "bNK" = (
 /obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "bNM" = (
@@ -52743,6 +52746,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/effect/landmark/start/botanist,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "ktE" = (
@@ -76574,9 +76578,8 @@
 	},
 /area/station/hallway/secondary/entry/east)
 "sYJ" = (
-/obj/effect/landmark/start/botanist,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
@@ -79746,6 +79749,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"ujP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/station/service/hydroponics)
 "ujR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -128157,7 +128166,7 @@ nac
 usj
 bZv
 pHM
-ces
+ujP
 bNK
 aoG
 oXK
