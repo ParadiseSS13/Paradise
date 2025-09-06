@@ -81,6 +81,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			M.ckey = C.ckey // must be before equipOutfit, or that will runtime due to lack of mind
 			dust_if_respawnable(C)
 			M.equipOutfit(T.trader_outfit)
+			M.add_language("Tradeband")
 			M.dna.species.after_equip_job(null, M)
 			for(var/datum/objective/O in trader_objectives)
 				M.mind.objective_holder.add_objective(O) // traders dont have a team, so we manually have to add this objective to all of their minds, without setting an owner
