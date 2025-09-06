@@ -32799,12 +32799,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/east)
-"dmN" = (
-/obj/item/clothing/head/cone,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
-/area/station/engineering/atmos/control)
 "dmO" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -42081,6 +42075,13 @@
 	icon_state = "darkgrey"
 	},
 /area/station/maintenance/aft)
+"gEr" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/station/engineering/atmos)
 "gEt" = (
 /obj/structure/table/glass,
 /obj/item/paper/crumpled,
@@ -72083,13 +72084,6 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/medical/storage/secondary)
-"roR" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
-	},
-/area/station/engineering/atmos)
 "rpt" = (
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
@@ -87766,6 +87760,15 @@
 	icon_state = "dark"
 	},
 /area/station/security/interrogation)
+"xgR" = (
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/obj/machinery/power/electrolyzer,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/station/engineering/atmos/control)
 "xgS" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
@@ -132244,7 +132247,7 @@ uJI
 xBg
 xoS
 bYt
-roR
+gEr
 kcr
 jOr
 kuW
@@ -133010,7 +133013,7 @@ kSA
 igt
 fDb
 iAt
-dmN
+xgR
 bhv
 bnU
 cnH
