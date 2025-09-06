@@ -256,6 +256,7 @@
 	origin_tech = "materials=1"
 	attack_verb = null
 	var/is_unathi_fire = FALSE
+	scatter_distance = 10
 
 /obj/item/match/process()
 	var/turf/location = get_turf(src)
@@ -302,6 +303,8 @@
 		desc = "A match. This one has seen better days."
 		attack_verb = list("flicked")
 		STOP_PROCESSING(SSobj, src)
+		scatter_atom()
+		transform = turn(transform, rand(0, 360))
 		return TRUE
 
 /obj/item/match/dropped(mob/user)
