@@ -5,7 +5,6 @@
 	desc = "An empty evidence bag."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "evidenceobj"
-	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/evidencebag/afterattack__legacy__attackchain(obj/item/I, mob/user,proximity)
@@ -137,7 +136,7 @@
 	desc = "Preserves fingerprints."
 	icon = 'icons/obj/card.dmi'
 	icon_state = "fingerprint0"
-	item_state = "paper"
+	inhand_icon_state = "paper"
 	/// boolean variable, indicates if print card is in the used state
 	var/used
 

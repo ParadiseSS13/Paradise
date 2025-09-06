@@ -2,8 +2,7 @@
 	name = "electropack"
 	desc = "Dance my monkeys! DANCE!!!"
 	icon = 'icons/obj/radio.dmi'
-	icon_state = "electropack0"
-	item_state = "electropack"
+	icon_state = "electropack"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
@@ -138,7 +137,6 @@
 	frequency = AIRLOCK_FREQ
 	code = 2
 	receiving = TRUE
-
 	var/obj/item/electropack/owning_pack
 
 /obj/item/assembly/signaler/electropack/Initialize(mapload, holding_electropack)

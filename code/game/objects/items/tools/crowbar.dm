@@ -3,7 +3,6 @@
 	desc = "A basic crowbar made of forged steel. Handy for opening unpowered airlocks, prying out objects, and being an improvised melee weapon."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "crowbar"
-	item_state = "crowbar"
 	belt_icon = "crowbar"
 	usesound = 'sound/items/crowbar.ogg'
 	flags = CONDUCT
@@ -27,7 +26,6 @@
 /obj/item/crowbar/red
 	desc = "A hefty steel crowbar with red stripes. It'll hit a bit harder than a normal crowbar."
 	icon_state = "crowbar_red"
-	item_state = "crowbar_red"
 	belt_icon = "crowbar_red"
 	force = 8
 
@@ -35,7 +33,6 @@
 	name = "brass crowbar"
 	desc = "A brass crowbar. It feels faintly warm to the touch."
 	icon_state = "crowbar_brass"
-	item_state = "crowbar_brass"
 	belt_icon = "crowbar_brass"
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -48,7 +45,6 @@
 	throwforce = 3
 	materials = list(MAT_TITANIUM = 250)
 	icon_state = "crowbar_titanium"
-	item_state = "crowbar_titanium"
 	origin_tech = "materials=2"
 	toolspeed = 1.25
 
@@ -61,7 +57,6 @@
 	throw_range = 3
 	materials = list(MAT_METAL = 400)
 	icon_state = "crowbar_large"
-	item_state = "crowbar_large"
 	toolspeed = 0.5
 
 /obj/item/crowbar/engineering
@@ -73,7 +68,6 @@
 	throw_range = 3
 	materials = list(MAT_METAL = 400)
 	icon_state = "crowbar_eng"
-	item_state = "crowbar_eng"
 	belt_icon = "crowbar_eng"
 	toolspeed = 0.5
 
@@ -116,7 +110,7 @@
 	name = "jaws of life"
 	desc = "A compact and powerful industrial tool with a modular head. This one has a set of prying jaws attached, which are strong enough to pry open powered airlocks."
 	icon_state = "jaws_pry"
-	item_state = "jawsoflife"
+	inhand_icon_state = "jawsoflife"
 	belt_icon = "jaws"
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2"

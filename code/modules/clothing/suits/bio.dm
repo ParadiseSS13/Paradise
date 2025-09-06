@@ -4,8 +4,7 @@
 	desc = "A hood that protects the head and face from biological contaminants."
 	icon = 'icons/obj/clothing/head/bio.dmi'
 	icon_state = "bio"
-	item_state = 'icons/mob/clothing/head/bio.dmi'
-	icon_override = 'icons/mob/clothing/head/bio.dmi'
+	worn_icon = 'icons/mob/clothing/head/bio.dmi'
 	permeability_coefficient = 0.01
 	flags = BLOCKHAIR | THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
@@ -27,8 +26,7 @@
 	desc = "A suit that protects against biological contamination."
 	icon = 'icons/obj/clothing/suits/bio.dmi'
 	icon_state = "bio"
-	item_state = 'icons/mob/clothing/suits/bio.dmi'
-	icon_override = 'icons/mob/clothing/suits/bio.dmi'
+	worn_icon = 'icons/mob/clothing/suits/bio.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
@@ -51,7 +49,6 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/suits/bio.dmi'
 		)
 
-
 //Medical biosuit, white with blue
 /obj/item/clothing/head/bio_hood/general
 	icon_state = "bio_general"
@@ -59,14 +56,12 @@
 /obj/item/clothing/suit/bio_suit/general
 	icon_state = "bio_general"
 
-
 //Virology biosuit, white with green
 /obj/item/clothing/head/bio_hood/virology
 	icon_state = "bio_virology"
 
 /obj/item/clothing/suit/bio_suit/virology
 	icon_state = "bio_virology"
-
 
 //Security biosuit, white with red and a vest
 /obj/item/clothing/head/bio_hood/security
@@ -77,14 +72,12 @@
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 200, FIRE = 20, ACID = INFINITY)
 	icon_state = "bio_security"
 
-
 //Janitor's biosuit, grey with purple
 /obj/item/clothing/head/bio_hood/janitor
 	icon_state = "bio_janitor"
 
 /obj/item/clothing/suit/bio_suit/janitor
 	icon_state = "bio_janitor"
-
 
 //Scientist's biosuit, white with purple
 /obj/item/clothing/head/bio_hood/scientist
@@ -93,7 +86,6 @@
 /obj/item/clothing/suit/bio_suit/scientist
 	icon_state = "bio_scientist"
 
-
 //CMO's biosuit, blue with white
 /obj/item/clothing/suit/bio_suit/cmo
 	icon_state = "bio_cmo"
@@ -101,14 +93,11 @@
 /obj/item/clothing/head/bio_hood/cmo
 	icon_state = "bio_cmo"
 
-
 //Plague Dr mask can be found in clothing/masks/gasmask.dm
 /obj/item/clothing/suit/bio_suit/plaguedoctorsuit
 	name = "plague doctor suit"
 	desc = "It protected doctors from the Black Death, back then. You bet your arse it's gonna help you against viruses."
 	icon_state = "plaguedoctor"
-	item_state = "bio_suit"
 	strip_delay = 40
 	put_on_delay = 20
-
 	hide_tail_by_species = list("Unathi", "Tajaran", "Vulpkanin")

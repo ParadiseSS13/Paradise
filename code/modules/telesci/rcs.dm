@@ -10,7 +10,6 @@
 	desc = "A device used to teleport crates and closets to cargo telepads."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "rcs"
-	item_state = "rcs"
 	flags = CONDUCT
 	force = 10.0
 	throwforce = 10.0
@@ -21,7 +20,6 @@
 	var/obj/item/stock_parts/cell/high/rcell = null
 	/// Selected telepad
 	var/obj/machinery/pad = null
-
 	/// Currently teleporting something?
 	var/teleporting = FALSE
 	/// How much power does each teleport use?

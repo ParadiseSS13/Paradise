@@ -2,8 +2,8 @@
 	name = "syringe"
 	desc = "A syringe."
 	icon = 'icons/goonstation/objects/syringe.dmi'
-	item_state = "syringe_0"
 	icon_state = "0"
+	inhand_icon_state = "syringe_0"
 	belt_icon = "syringe"
 	possible_transfer_amounts = null
 	volume = 15
@@ -204,7 +204,7 @@
 	else
 		rounded_vol = 0
 	icon_state = "[rounded_vol]"
-	item_state = "syringe_[rounded_vol]"
+	inhand_icon_state = "syringe_[rounded_vol]"
 
 /obj/item/reagent_containers/syringe/update_overlays()
 	. = ..()
