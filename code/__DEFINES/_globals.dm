@@ -4,11 +4,12 @@
 	##X = ##InitValue;\
 	gvars_datum_init_order += #X;\
 }
-#define GLOBAL_UNMANAGED(X) /datum/controller/global_vars/proc/InitGlobal##X() { return; }
+#define GLOBAL_UNMANAGED(X) /datum/controller/global_vars/proc/InitGlobal##X() { CAN_BE_REDEFINED(TRUE); return; }
 
 #ifndef TESTING
 #define GLOBAL_PROTECT(X)\
 /datum/controller/global_vars/InitGlobal##X(){\
+	CAN_BE_REDEFINED(TRUE);\
 	..();\
 	gvars_datum_protected_varlist[#X] = TRUE;\
 }
