@@ -125,7 +125,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 		qdel(src)
 
-/obj/structure/marker_beacon/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/marker_beacon/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/stack/marker_beacon))
 		var/obj/item/stack/marker_beacon/M = I
 		to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
@@ -133,7 +133,8 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 			M.add(1)
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 			qdel(src)
-			return
+
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/marker_beacon/AltClick(mob/living/user)
@@ -154,11 +155,9 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	base_icon_state = "dockingmarker"
 	flags = NODECONSTRUCT
 
-/obj/structure/marker_beacon/dock_marker/update_icon_state()
-	set_light(light_range, light_power, LIGHT_COLOR_BLUE)
-
-/obj/structure/marker_beacon/dock_marker/attackby__legacy__attackchain()
-	return
+/obj/structure/marker_beacon/dock_marker/Initialize(mapload, set_color)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
 
 /obj/structure/marker_beacon/dock_marker/attack_hand()
 	return

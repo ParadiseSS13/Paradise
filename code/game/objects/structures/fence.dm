@@ -121,16 +121,16 @@
 					return
 			update_cut_status()
 
-/obj/structure/fence/attackby__legacy__attackchain(obj/item/C, mob/user)
+/obj/structure/fence/item_interaction(mob/living/user, obj/item/C, list/modifiers)
 	if(shock(user, 90))
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(istype(C, /obj/item/stack/rods))
 		if(hole_size == NO_HOLE)
-			return
+			return ITEM_INTERACT_COMPLETE
 		var/obj/item/stack/rods/R = C
 		if(R.get_amount() < HOLE_REPAIR)
 			to_chat(user, "<span class='warning'>You need [HOLE_REPAIR] rods to fix this fence!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You begin repairing the fence...</span>")
 		if(do_after(user, 3 SECONDS * C.toolspeed, target = src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
 			playsound(src, C.usesound, 80, 1)
@@ -138,8 +138,7 @@
 			obj_integrity = max_integrity
 			to_chat(user, "<span class='notice'>You repair the fence.</span>")
 			update_cut_status()
-		return
-	. = ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/fence/Bumped(atom/user)
 	if(!ismob(user))

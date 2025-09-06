@@ -15,12 +15,12 @@
 	QDEL_NULL(brain)
 	return ..()
 
-/obj/structure/ai_core/attackby__legacy__attackchain(obj/item/P, mob/user, params)
+/obj/structure/ai_core/item_interaction(mob/living/user, obj/item/P, list/modifiers)
 	switch(state)
 		if(EMPTY_CORE)
 			if(istype(P, /obj/item/circuitboard/aicore))
 				if(!user.drop_item())
-					return
+					return ITEM_INTERACT_COMPLETE
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 				update_icon(UPDATE_ICON_STATE)
@@ -28,7 +28,7 @@
 				P.forceMove(src)
 				circuit = P
 				update_icon(UPDATE_ICON_STATE)
-				return
+				return ITEM_INTERACT_COMPLETE
 		if(SCREWED_CORE)
 			if(istype(P, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = P
@@ -41,7 +41,7 @@
 						update_icon(UPDATE_ICON_STATE)
 				else
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the AI core!</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 		if(CABLED_CORE)
 			if(istype(P, /obj/item/stack/sheet/rglass))
 				var/obj/item/stack/sheet/rglass/G = P
@@ -54,73 +54,73 @@
 						update_icon(UPDATE_ICON_STATE)
 				else
 					to_chat(user, "<span class='warning'>You need two sheets of reinforced glass to insert them into the AI core!</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			if(istype(P, /obj/item/ai_module/purge))
 				laws.clear_inherent_laws()
 				to_chat(usr, "<span class='notice'>Law module applied.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			if(istype(P, /obj/item/ai_module/freeform))
 				var/obj/item/ai_module/freeform/M = P
 				if(!M.newFreeFormLaw)
 					to_chat(usr, "No law detected on module, please create one.")
-					return
+					return ITEM_INTERACT_COMPLETE
 				laws.add_supplied_law(M.lawpos, M.newFreeFormLaw)
 				to_chat(usr, "<span class='notice'>Added a freeform law.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			if(istype(P, /obj/item/ai_module/syndicate))
 				var/obj/item/ai_module/syndicate/M = P
 				if(!M.newFreeFormLaw)
 					to_chat(usr, "No law detected on module, please create one.")
-					return
+					return ITEM_INTERACT_COMPLETE
 				laws.add_ion_law(M.newFreeFormLaw)
 				to_chat(usr, "<span class='notice'>Added a hacked law.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			if(istype(P, /obj/item/ai_module))
 				var/obj/item/ai_module/M = P
 				if(!M.laws)
 					to_chat(usr, "<span class='warning'>This AI module can not be applied directly to AI cores.</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 				laws = M.laws
 				to_chat(usr, "<span class='notice'>Added [M.laws.name] laws.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			if(istype(P, /obj/item/mmi) && !brain)
 				var/obj/item/mmi/M = P
 				if(!M.brainmob)
 					to_chat(user, "<span class='warning'>Sticking an empty [P] into the frame would sort of defeat the purpose.</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 				if(M.brainmob.stat == DEAD)
 					to_chat(user, "<span class='warning'>Sticking a dead [P] into the frame would sort of defeat the purpose.</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 
 				if(!M.brainmob.client)
 					to_chat(user, "<span class='warning'>Sticking an inactive [M.name] into the frame would sort of defeat the purpose.</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 
 				if(jobban_isbanned(M.brainmob, "AI") || jobban_isbanned(M.brainmob, "nonhumandept"))
 					to_chat(user, "<span class='warning'>This [P] does not seem to fit.</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 
 				if(!M.brainmob.mind)
 					to_chat(user, "<span class='warning'>This [M.name] is mindless!</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 
 				if(istype(P, /obj/item/mmi/syndie))
 					to_chat(user, "<span class='warning'>This MMI does not seem to fit!</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 
 				if(!user.drop_item())
-					return
+					return ITEM_INTERACT_COMPLETE
 
 				M.forceMove(src)
 				brain = M
 				to_chat(user, "<span class='notice'>You add [M.name] to the frame.</span>")
 				update_icon(UPDATE_ICON_STATE)
-				return
+				return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

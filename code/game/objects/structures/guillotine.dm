@@ -154,33 +154,29 @@
 	blade_status = GUILLOTINE_BLADE_DROPPED
 	icon_state = "guillotine"
 
-/obj/structure/guillotine/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/guillotine/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/whetstone))
 		add_fingerprint(user)
 		if(blade_status == GUILLOTINE_BLADE_SHARPENING)
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(blade_status == GUILLOTINE_BLADE_RAISED)
 			if(blade_sharpness < GUILLOTINE_BLADE_MAX_SHARP)
 				blade_status = GUILLOTINE_BLADE_SHARPENING
-				if(do_after(user, 7, target = src))
+				if(do_after(user, W.toolspeed, target = src))
 					blade_status = GUILLOTINE_BLADE_RAISED
 					user.visible_message("<span class='notice'>[user] sharpens the large blade of the guillotine.</span>",
 										"<span class='notice'>You sharpen the large blade of the guillotine.</span>")
 					blade_sharpness += 1
 					playsound(src, 'sound/items/screwdriver.ogg', 100, 1)
-					return
 				else
 					blade_status = GUILLOTINE_BLADE_RAISED
-					return
 			else
 				to_chat(user, "<span class='warning'>The blade is sharp enough!</span>")
-				return
 		else
 			to_chat(user, "<span class='warning'>You need to raise the blade in order to sharpen it!</span>")
-			return
-	else
-		return ..()
+
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/guillotine/wrench_act(mob/user, obj/item/I)
 	if(current_action)

@@ -83,7 +83,8 @@ By design, d1 is the smallest direction and d2 is the highest
 //   - Cable coil : merge cables
 //   - Multitool : get the power currently passing through the cable
 //
-/obj/structure/cable/attackby__legacy__attackchain(obj/item/W, mob/user)
+/obj/structure/cable/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor || T.intact)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")

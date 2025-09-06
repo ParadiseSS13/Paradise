@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	if(mapload)
 		SEND_SIGNAL(src, COMSIG_SHELF_ADDED_ON_MAPLOAD)
 
-/obj/structure/shelf/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
+/obj/structure/shelf/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	var/obj/item/toy/crayon/spraycan/spraycan = I
 	if(!istype(spraycan))
 		return ..()
@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 
 	if(!COOLDOWN_FINISHED(src, spraypaint_cd))
 		to_chat(user, "<span class='warning'>The paint on [src] is still drying!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/cur_idx = GLOB.shelf_colors.Find(shelf_style)
 	if(!cur_idx)
@@ -54,6 +54,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 
 	// Tiny cooldown to prevent constant spamming of the action
 	COOLDOWN_START(src, spraypaint_cd, 1 SECONDS)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/shelf/proc/set_style(new_style)
 	if(shelf_style == new_style && !isnull(shelf_overlay))
@@ -73,7 +74,7 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	. = TRUE
 	if(user.a_intent == INTENT_HELP)
 		return FALSE
-	if(!I.use_tool(src, user, 2.5 SECONDS, volume = I.tool_volume))
+	if(!I.use_tool(src, user, (2.5 SECONDS) * I.toolspeed, volume = I.tool_volume))
 		return
 
 	to_chat(user, "<span class='notice'>You disassemble [src].</span>")

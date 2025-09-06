@@ -28,18 +28,28 @@
 /obj/structure/lattice/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.</span>"
 
-/obj/structure/lattice/attackby__legacy__attackchain(obj/item/C, mob/user, params)
+/obj/structure/lattice/wirecutter_act(mob/living/user, obj/item/wirecutters/wirecutters)
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
-	if(istype(C, /obj/item/wirecutters))
-		var/obj/item/wirecutters/W = C
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>Slicing [name] joints...</span>")
-		deconstruct()
-	else
-		// hand this off to the turf instead (for building plating, catwalks, etc)
-		var/turf/T = get_turf(src)
-		return T.item_interaction(user, C, params)
+	if(!istype(wirecutters))
+		return
+
+	playsound(loc, wirecutters.usesound, 50, 1)
+	to_chat(user, "<span class='notice'>Slicing [name] joints...</span>")
+	deconstruct()
+
+	return ITEM_INTERACT_COMPLETE
+
+/obj/structure/lattice/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	// this is still here for historical reasons though it's
+	// not clear if the original intention was to prevent indestructible
+	// lattices from e.g. being built over with plating.
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
+
+	// hand this off to the turf (for building plating, catwalks, etc)
+	var/turf/T = get_turf(src)
+	return T.item_interaction(user, used, modifiers)
 
 /obj/structure/lattice/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

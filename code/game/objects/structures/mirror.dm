@@ -106,6 +106,10 @@
 	var/organ_warn = FALSE
 	var/actually_magical = TRUE
 
+/obj/structure/mirror/magic/Initialize(mapload, newdir, building)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
+
 /obj/structure/mirror/magic/attack_hand(mob/user)
 	if(!ishuman(user) || broken)
 		return
@@ -173,9 +177,6 @@
 
 /obj/structure/mirror/magic/ui_close(mob/user)
 	curse(user)
-
-/obj/structure/mirror/magic/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	return
 
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return

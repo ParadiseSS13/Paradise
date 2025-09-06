@@ -114,13 +114,14 @@
 		qdel(src)
 	return T
 
-/obj/structure/falsewall/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/falsewall/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(opening)
 		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade) || istype(W, /obj/item/pyro_claws))
+	if(istype(used, /obj/item/gun/energy/plasmacutter) || istype(used, /obj/item/pickaxe/drill/diamonddrill) || istype(used, /obj/item/pickaxe/drill/jackhammer) || istype(used, /obj/item/melee/energy/blade) || istype(used, /obj/item/pyro_claws))
 		dismantle(user, TRUE)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/falsewall/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -272,15 +273,14 @@
 	canSmoothWith = list(SMOOTH_GROUP_PLASMA_WALLS)
 	cares_about_temperature = TRUE
 
-/obj/structure/falsewall/plasma/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(W.get_heat() > 300)
+/obj/structure/falsewall/plasma/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(used.get_heat() > 300)
 		var/turf/T = locate(user)
 		message_admins("Plasma falsewall ignited by [key_name_admin(user)] in [ADMIN_VERBOSEJMP(T)]")
 		log_game("Plasma falsewall ignited by [key_name(user)] in [AREACOORD(T)]")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]",INVESTIGATE_ATMOS)
 		burnbabyburn()
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/falsewall/plasma/proc/burnbabyburn(user)
 	playsound(src, 'sound/items/welder.ogg', 100, 1)

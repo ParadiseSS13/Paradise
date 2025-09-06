@@ -29,11 +29,10 @@
 		to_chat(user, "<span class='notice'>You need a crowbar to pry this open!</span>")
 		return
 
-/obj/structure/largecrate/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/largecrate/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/largecrate/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE

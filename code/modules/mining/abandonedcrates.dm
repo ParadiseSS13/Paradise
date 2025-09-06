@@ -39,11 +39,11 @@
 	else
 		return ..()
 
-/obj/structure/closet/crate/secure/loot/attackby__legacy__attackchain(obj/item/W, mob/user)
+/obj/structure/closet/crate/secure/loot/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(locked)
 		if(istype(W, /obj/item/card/emag))
 			boom(user)
-			return 1
+			return ITEM_INTERACT_COMPLETE
 		if(istype(W, /obj/item/multitool))
 			to_chat(user, "<span class='notice'>DECA-CODE LOCK REPORT:</span>")
 			if(attempts == 1)
@@ -67,7 +67,8 @@
 							++cows
 
 				to_chat(user, "<span class='notice'>Last code attempt had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions.</span>")
-			return 1
+			return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/structure/closet/crate/secure/loot/emag_act(mob/user)

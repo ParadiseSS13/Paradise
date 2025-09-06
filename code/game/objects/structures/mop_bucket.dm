@@ -6,7 +6,6 @@
 	density = TRUE
 	container_type = OPENCONTAINER
 	face_while_pulling = FALSE
-	new_attack_chain = TRUE
 	var/obj/item/mop/stored_mop = null
 	var/maximum_volume = 150
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
@@ -39,7 +38,7 @@
 /obj/structure/mopbucket/proc/handle_mop_interaction(mob/living/user, obj/item/used)
 	if(!istype(used, /obj/item/mop))
 		return FALSE
-	
+
 	. = TRUE
 	var/robot_mop = used.is_robot_module()
 	var/obj/item/mop/attacking_mop = used

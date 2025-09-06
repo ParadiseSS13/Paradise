@@ -130,30 +130,32 @@
 	if(!open && !broken)
 		. += "glassbox_closed"
 
-/obj/structure/displaycase/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/displaycase/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(I.GetID())
 		if(!openable)
 			to_chat(user, "<span class='warning'>There is no ID scanner, looks like this one is sealed shut.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(broken)
 			to_chat(user, "<span class='warning'>[src] is broken, the ID lock won't do anything.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(allowed(user) || emagged)
 			to_chat(user, "<span class='notice'>You use [I] to [open ? "close" : "open"] [src].</span>")
 			toggle_lock()
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
+		return ITEM_INTERACT_COMPLETE
 	else if(open && !showpiece)
 		if(!(I.flags & (ABSTRACT | DROPDEL)) && user.drop_item())
 			I.forceMove(src)
 			showpiece = I
 			to_chat(user, "<span class='notice'>You put [I] on display</span>")
 			update_icon()
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(I, /obj/item/stack/sheet/glass) && broken)
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need two glass sheets to fix the case!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You start fixing [src]...</span>")
 		if(do_after(user, 20, target = src))
 			G.use(2)
@@ -161,6 +163,7 @@
 			open = FALSE
 			obj_integrity = max_integrity
 			update_icon(UPDATE_OVERLAYS)
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 
@@ -231,7 +234,7 @@
 	icon_state = "glassbox_chassis"
 	var/obj/item/airlock_electronics/electronics
 
-/obj/structure/displaycase_chassis/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/displaycase_chassis/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/airlock_electronics))
 		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
 		playsound(loc, I.usesound, 50, TRUE)
@@ -242,12 +245,12 @@
 				electronics = new_electronics
 				to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
 				electronics.is_installed = TRUE
-
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(I, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = I
 		if(G.get_amount() < 10)
 			to_chat(user, "<span class='warning'>You need ten glass sheets to do this!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You start adding [G] to [src]...</span>")
 		if(do_after(user, 20, target = src))
 			G.use(10)
@@ -261,6 +264,7 @@
 				else
 					display.req_access = electronics.selected_accesses
 			qdel(src)
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 

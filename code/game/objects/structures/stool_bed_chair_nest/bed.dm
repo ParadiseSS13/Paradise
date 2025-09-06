@@ -151,7 +151,7 @@
 	var/icon_down = "down"
 	var/folded = /obj/item/roller
 
-/obj/structure/bed/roller/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/bed/roller/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/roller_holder))
 		if(has_buckled_mobs())
 			if(length(buckled_mobs) > 1)
@@ -163,6 +163,8 @@
 			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 			new folded(get_turf(src))
 			qdel(src)
+
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 

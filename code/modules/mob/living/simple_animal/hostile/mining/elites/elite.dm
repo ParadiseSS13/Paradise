@@ -296,16 +296,15 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(mychild))
 			H.color = "#FF0000"
 
-/obj/structure/elite_tumor/attackby__legacy__attackchain(obj/item/attacking_item, mob/user, params)
-	. = ..()
-	if(istype(attacking_item, /obj/item/organ/internal/regenerative_core) && activity == TUMOR_INACTIVE && !boosted)
-		var/obj/item/organ/internal/regenerative_core/core = attacking_item
+/obj/structure/elite_tumor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/organ/internal/regenerative_core) && activity == TUMOR_INACTIVE && !boosted)
+		var/obj/item/organ/internal/regenerative_core/core = used
 		visible_message("<span class='warning'>As [user] drops the core into [src], [src] appears to swell.</span>")
 		icon_state = "advanced_tumor"
 		boosted = TRUE
 		set_light(6)
 		qdel(core)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/elite_tumor/examine(mob/user)
 	. = ..()
