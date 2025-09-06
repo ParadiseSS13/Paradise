@@ -221,3 +221,19 @@
 
 	borg.make_mindflayer_robot(user)
 	return TRUE
+
+/datum/spell/flayer/self/extraction
+	name = "Nanite Portal Generator"
+	desc = "Allows us to use our nanites to create an extraction portal."
+	action_icon = 'icons/obj/lighting.dmi'
+	action_icon_state = "flayer_telepad_base"
+	power_type = FLAYER_PURCHASABLE_POWER
+	base_cooldown = 2 SECONDS
+	var/used = FALSE
+
+/datum/spell/flayer/self/extraction/cast(list/targets, mob/user)
+	if(used)
+		to_chat(user, "<span class='warning'>You have already attempted to create a portal generator!</span>")
+		return
+	flayer.prepare_exfiltration(user, /obj/item/wormhole_jaunter/extraction/mindflayer)
+	used = TRUE
