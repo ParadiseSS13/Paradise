@@ -253,7 +253,6 @@
 					/obj/item/seeds/chanter = 3,
 					/obj/item/seeds/chili = 3,
 					/obj/item/seeds/cocoapod = 3,
-					/obj/item/seeds/coffee = 3,
 					/obj/item/seeds/corn = 3,
 					/obj/item/seeds/eggplant = 3,
 					/obj/item/seeds/garlic = 3,
