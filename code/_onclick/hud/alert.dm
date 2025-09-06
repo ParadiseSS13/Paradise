@@ -450,7 +450,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	if(!..())
 		return
 	if(isnymph(usr))
-		var/mob/living/simple_animal/diona/D = usr
+		var/mob/living/basic/diona_nymph/D = usr
 		return D.resist()
 
 /atom/movable/screen/alert/gestalt
@@ -462,14 +462,14 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		return
 
 	var/list/nymphs = list()
-	for(var/mob/living/simple_animal/diona/D in usr.contents)
+	for(var/mob/living/basic/diona_nymph/D in usr.contents)
 		nymphs += D
 
 	if(length(nymphs) == 1)
-		var/mob/living/simple_animal/diona/D = nymphs[1]
+		var/mob/living/basic/diona_nymph/D = nymphs[1]
 		D.split(TRUE)
 	else
-		var/mob/living/simple_animal/diona/D = tgui_input_list(usr, "Select a nymph to drop:", "Nymph Dropping", nymphs)
+		var/mob/living/basic/diona_nymph/D = tgui_input_list(usr, "Select a nymph to drop:", "Nymph Dropping", nymphs)
 		if(D in usr.contents)
 			D.split(TRUE)
 

@@ -1,11 +1,11 @@
-/mob/living/simple_animal/spiderbot
+// No AI controller for these guys - they should be inert if they're not player controlled.
+/mob/living/basic/spiderbot
 	name = "Spider-bot"
-	desc = "A skittering robotic friend!" //More like ultimate shitter
+	desc = "A skittering robotic friend!" // More like ultimate shitter
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "spiderbot-chassis"
 	icon_living = "spiderbot-chassis"
 	icon_dead = "spiderbot-smashed"
-	wander = FALSE
 	universal_speak = TRUE
 	health = 40
 	maxHealth = 40
@@ -14,31 +14,38 @@
 	melee_damage_lower = 2
 	melee_damage_upper = 2
 	melee_damage_type = BURN
-	attacktext = "shocks"
+	attack_verb_continuous = "shocks"
+	attack_verb_simple = "shocks"
 	attack_sound = "sparks"
 
-	response_help  = "pets"
-	response_disarm = "shoos"
-	response_harm   = "stomps on"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "shoos"
+	response_disarm_simple = "shoo"
+	response_harm_continuous = "stomps on"
+	response_harm_simple = "stomps on"
 	speed = 0
 	mob_biotypes = MOB_ROBOTIC
 	mob_size = MOB_SIZE_SMALL
-	speak_emote = list("beeps","clicks","chirps")
+	speak_emote = list("beeps", "clicks", "chirps")
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	maxbodytemp = 500
+	minimum_survivable_temperature = 0
+	maximum_survivable_temperature = 500
 
 	can_hide = TRUE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
-	del_on_death = TRUE
+	basic_mob_flags = DEL_ON_DEATH
 
-	var/emagged = FALSE               //is it getting ready to explode?
+	/// Is it getting ready to explode?
+	var/emagged = FALSE
+	/// MMI it contains
 	var/obj/item/mmi/mmi = null
-	var/mob/emagged_master = null //for administrative purposes, to see who emagged the spiderbot; also for a holder for if someone emags an empty frame first then inserts an MMI.
+	/// Who emagged the spiderbot
+	var/mob/emagged_master = null
 
-/mob/living/simple_animal/spiderbot/Destroy()
+/mob/living/basic/spiderbot/Destroy()
 	if(emagged)
 		QDEL_NULL(mmi)
 		explosion(get_turf(src), -1, -1, 3, 5, cause = "Emagged spiderbot destruction")
@@ -46,10 +53,10 @@
 		eject_brain()
 	return ..()
 
-/mob/living/simple_animal/spiderbot/item_interaction(mob/living/user, obj/item/O, list/modifiers)
+/mob/living/basic/spiderbot/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(istype(O, /obj/item/mmi))
 		var/obj/item/mmi/B = O
-		if(mmi) //There's already a brain in it.
+		if(mmi) // There's already a brain in it.
 			to_chat(user, "<span class='warning'>There's already a brain in [src]!</span>")
 			return ITEM_INTERACT_COMPLETE
 		if(!B.brainmob)
@@ -62,7 +69,7 @@
 					if(ghost.ghost_flags & GHOST_CAN_REENTER && ghost.mind == B.brainmob.mind)
 						ghost_can_reenter = 1
 						break
-				for(var/mob/living/simple_animal/S in GLOB.player_list)
+				for(var/mob/living/basic/S in GLOB.player_list)
 					if(HAS_TRAIT(S, TRAIT_RESPAWNABLE))
 						ghost_can_reenter = 1
 						break
@@ -113,10 +120,10 @@
 			to_chat(user, "<span class='warning'>You swipe your card, with no effect.</span>")
 			return ITEM_INTERACT_COMPLETE
 
-/mob/living/simple_animal/spiderbot/welder_act(mob/user, obj/item/I)
+/mob/living/basic/spiderbot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
 		return
-	if(user == src) //No self-repair dummy
+	if(user == src) // No self-repair dummy
 		return
 	if(health >= maxHealth)
 		to_chat(user, "<span class='warning'>[src] does not need repairing!</span>")
@@ -128,7 +135,7 @@
 	add_fingerprint(user)
 	user.visible_message("[user] repairs [src]!","<span class='notice'>You repair [src].</span>")
 
-/mob/living/simple_animal/spiderbot/emag_act(mob/living/user)
+/mob/living/basic/spiderbot/emag_act(mob/living/user)
 	if(emagged)
 		to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
 		return 0
@@ -145,7 +152,7 @@
 		attack_sound = 'sound/machines/defib_zap.ogg'
 		return TRUE
 
-/mob/living/simple_animal/spiderbot/proc/transfer_personality(obj/item/mmi/M)
+/mob/living/basic/spiderbot/proc/transfer_personality(obj/item/mmi/M)
 	mind = M.brainmob.mind
 	mind.key = M.brainmob.key
 	ckey = M.brainmob.ckey
@@ -153,7 +160,7 @@
 	if(emagged)
 		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [emagged_master] and [emagged_master.p_their()] every order!</span>")
 
-/mob/living/simple_animal/spiderbot/update_icon_state()
+/mob/living/basic/spiderbot/update_icon_state()
 	if(mmi)
 		if(istype(mmi, /obj/item/mmi))
 			icon_state = "spiderbot-chassis-mmi"
@@ -166,7 +173,7 @@
 		icon_state = "spiderbot-chassis"
 		icon_living = "spiderbot-chassis"
 
-/mob/living/simple_animal/spiderbot/proc/eject_brain()
+/mob/living/basic/spiderbot/proc/eject_brain()
 	if(mmi)
 		var/turf/T = get_turf(src)
 		mmi.forceMove(T)
