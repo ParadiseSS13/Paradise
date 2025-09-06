@@ -390,7 +390,7 @@
 					/obj/item/seeds/wheat/rice,
 					/obj/item/seeds/carrot,
 					/obj/item/seeds/lettuce,
-					/obj/item/seeds/onion
+					/obj/item/seeds/onion,
 					/obj/item/seeds/chanter,
 					/obj/item/seeds/potato,
 					/obj/item/seeds/sugarcane)
