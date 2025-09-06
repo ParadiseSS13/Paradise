@@ -250,7 +250,7 @@
 	icon_state = "material"
 	item_state = "glasses"
 	origin_tech = "magnets=3;engineering=3"
-	vision_flags = SEE_OBJS
+	vision_flags = SEE_OBJS | SEE_TURFS
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
