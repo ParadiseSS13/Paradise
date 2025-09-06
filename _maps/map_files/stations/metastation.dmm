@@ -21483,9 +21483,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /obj/structure/shelf/service,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
