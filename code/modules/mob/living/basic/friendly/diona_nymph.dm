@@ -329,6 +329,7 @@
 	var/mob/living/basic/diona_nymph/nymph = controller.pawn
 	if(nymph.nutrition >= nymph.nutrition_need)
 		return SUBTREE_RETURN_FINISH_PLANNING
+	return ..()
 
 /datum/ai_planning_subtree/random_speech/diona_nymph
 	speech_chance = 5
