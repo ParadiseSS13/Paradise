@@ -11215,6 +11215,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
+/obj/item/storage/belt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
