@@ -3321,6 +3321,10 @@
 	pixel_x = 7;
 	pixel_y = -24
 	},
+/obj/machinery/phone{
+	pixel_x = 7;
+	pixel_y = 15
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "axW" = (
@@ -5767,9 +5771,8 @@
 "aVg" = (
 /obj/structure/table/wood,
 /obj/item/melee/chainofcommand,
-/obj/item/radio/phone{
-	pixel_x = -5;
-	pixel_y = -4
+/obj/machinery/phone{
+	pixel_y = 2
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
@@ -13285,6 +13288,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/taperecorder{
+	pixel_x = -12;
+	pixel_y = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/legal/magistrate)
 "bUK" = (
@@ -19250,10 +19257,11 @@
 /area/station/service/theatre)
 "cNz" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/taperecorder,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
+	},
+/obj/machinery/phone{
+	pixel_y = 2
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/legal/magistrate)
@@ -25421,6 +25429,10 @@
 	},
 /obj/item/lighter/zippo/engraved,
 /obj/structure/table,
+/obj/machinery/phone{
+	pixel_x = -15;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -47559,6 +47571,8 @@
 /area/station/hallway/primary/fore/west)
 "iEl" = (
 /obj/machinery/light,
+/obj/machinery/phone,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -51021,10 +51035,6 @@
 	pixel_y = 21
 	},
 /obj/structure/table,
-/obj/item/phone{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bcircuit"
 	},
@@ -56737,10 +56747,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/item/paper_bin/nanotrasen,
-/obj/item/pen/multi/fountain,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
+/obj/item/paper/ntrep{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/pen/multi/fountain,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "kvZ" = (
@@ -57009,6 +57023,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/book/manual/wiki/security_space_law,
 /obj/item/gavelhammer,
 /turf/simulated/floor/wood,
 /area/station/legal/magistrate)
@@ -58713,9 +58728,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/item/paper/ntrep,
 /obj/structure/cable/orange{
 	icon_state = "1-8"
+	},
+/obj/machinery/phone{
+	pixel_y = 2
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
@@ -96850,11 +96867,16 @@
 "sZY" = (
 /obj/structure/table/reinforced,
 /obj/item/ashtray/bronze{
-	pixel_y = 4
+	pixel_y = 0;
+	pixel_x = 7
 	},
 /obj/item/reagent_containers/drinks/mug/qm{
-	pixel_x = 2;
-	pixel_y = 18
+	pixel_x = -8;
+	pixel_y = 10
+	},
+/obj/machinery/phone{
+	pixel_y = 12;
+	pixel_x = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -99387,8 +99409,8 @@
 	},
 /obj/item/ashtray/bronze,
 /obj/item/reagent_containers/drinks/mug/cmo{
-	pixel_y = 19;
-	pixel_x = -5
+	pixel_y = 24;
+	pixel_x = 9
 	},
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 7;
@@ -99405,6 +99427,10 @@
 /obj/item/flashlight/pen{
 	pixel_x = 6;
 	pixel_y = -15
+	},
+/obj/machinery/phone{
+	pixel_y = 11;
+	pixel_x = -5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -110861,8 +110887,10 @@
 /area/station/maintenance/security/aft_starboard)
 "vWW" = (
 /obj/machinery/firealarm/directional/south,
-/obj/item/radio/phone,
 /obj/structure/table/wood,
+/obj/machinery/phone{
+	pixel_y = 2
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "vWX" = (
