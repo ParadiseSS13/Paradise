@@ -192,19 +192,23 @@
 	icon_state = "baseball_bat"
 	item_state = "baseball_bat"
 	var/deflectmode = FALSE // deflect small/medium thrown objects
-	var/lastdeflect
 	force = 10
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
 	w_class = WEIGHT_CLASS_HUGE
-	var/next_throw_time = 0
-	var/homerun_ready = 0
-	var/homerun_able = 0
+	COOLDOWN_DECLARE(last_deflect)
+	var/deflect_cooldown = 5 MINUTES
+	COOLDOWN_DECLARE(next_throw_time)
+	var/throw_cooldown = 10 SECONDS
+	var/homerun_ready = FALSE
+	var/homerun_able = FALSE
+
+	new_attack_chain = TRUE
 
 /obj/item/melee/baseball_bat/homerun
 	name = "home run bat"
 	desc = "This thing looks dangerous... Dangerously good at baseball, that is."
-	homerun_able = 1
+	homerun_able = TRUE
 
 /obj/item/melee/baseball_bat/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	. = ..()
@@ -212,92 +216,88 @@
 		return FALSE
 	var/obj/item/I = hitby
 	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // baseball bat deflecting
-		if(deflectmode)
-			if(prob(10))
-				visible_message("<span class='boldwarning'>[owner] Deflects [I] directly back at the thrower! It's a home run!</span>", "<span class='boldwarning'>You deflect [I] directly back at the thrower! It's a home run!</span>")
-				playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, 1)
-				do_attack_animation(I, ATTACK_EFFECT_DISARM)
-				I.throw_at(locateUID(I.thrownby), 20, 20, owner)
-				deflectmode = FALSE
-				if(!istype(I, /obj/item/beach_ball))
-					lastdeflect = world.time + 3000
-				return TRUE
-			else if(prob(30))
-				visible_message("<span class='warning'>[owner] swings! And [p_they()] miss[p_es()]! How embarassing.</span>", "<span class='warning'>You swing! You miss! Oh no!</span>")
-				playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-				do_attack_animation(get_step(owner, pick(GLOB.alldirs)), ATTACK_EFFECT_DISARM)
-				deflectmode = FALSE
-				if(!istype(I, /obj/item/beach_ball))
-					lastdeflect = world.time + 3000
-				return FALSE
-			else
-				visible_message("<span class='warning'>[owner] swings and deflects [I]!</span>", "<span class='warning'>You swing and deflect [I]!</span>")
-				playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, TRUE, -1)
-				do_attack_animation(I, ATTACK_EFFECT_DISARM)
-				I.throw_at(get_edge_target_turf(owner, pick(GLOB.cardinal)), rand(8,10), 14, owner)
-				deflectmode = FALSE
-				if(!istype(I, /obj/item/beach_ball))
-					lastdeflect = world.time + 3000
-				return TRUE
+		if(!deflectmode)
+			return
+		if(prob(10))
+			visible_message("<span class='boldwarning'>[owner] Deflects [I] directly back at the thrower! It's a home run!</span>", "<span class='boldwarning'>You deflect [I] directly back at the thrower! It's a home run!</span>")
+			playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, TRUE)
+			do_attack_animation(I, ATTACK_EFFECT_DISARM)
+			I.throw_at(locateUID(I.thrownby), 20, 20, owner)
+			deflectmode = FALSE
+			if(!istype(I, /obj/item/beach_ball))
+				COOLDOWN_START(src, last_deflect, deflect_cooldown)
+			return TRUE
+		else if(prob(30))
+			visible_message("<span class='warning'>[owner] swings! And [p_they()] miss[p_es()]! How embarassing.</span>", "<span class='warning'>You swing! You miss! Oh no!</span>")
+			playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+			do_attack_animation(get_step(owner, pick(GLOB.alldirs)), ATTACK_EFFECT_DISARM)
+			deflectmode = FALSE
+			if(!istype(I, /obj/item/beach_ball))
+				COOLDOWN_START(src, last_deflect, deflect_cooldown)
+			return FALSE
+		else
+			visible_message("<span class='warning'>[owner] swings and deflects [I]!</span>", "<span class='warning'>You swing and deflect [I]!</span>")
+			playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, TRUE, -1)
+			do_attack_animation(src, ATTACK_EFFECT_DISARM)
+			I.throw_at(get_edge_target_turf(owner, pick(GLOB.cardinal)), rand(8,10), 14, owner)
+			deflectmode = FALSE
+			if(!istype(I, /obj/item/beach_ball))
+				COOLDOWN_START(src, last_deflect, deflect_cooldown)
+			return TRUE
 
-/obj/item/melee/baseball_bat/attack_self__legacy__attackchain(mob/user)
+/obj/item/melee/baseball_bat/activate_self(mob/user)
+	if(..())
+		return
 	if(!homerun_able)
-		if(!deflectmode && world.time >= lastdeflect)
+		if(!deflectmode && COOLDOWN_FINISHED(src, last_deflect))
 			to_chat(user, "<span class='notice'>You prepare to deflect objects thrown at you. You cannot attack during this time.</span>")
 			deflectmode = TRUE
-		else if(deflectmode && world.time >= lastdeflect)
+		else if(deflectmode && COOLDOWN_FINISHED(src, last_deflect))
 			to_chat(user, "<span class='notice'>You no longer deflect objects thrown at you. You can attack during this time</span>")
 			deflectmode = FALSE
 		else
-			to_chat(user, "<span class='warning'>You need to wait until you can deflect again. The ability will be ready in [time2text(lastdeflect - world.time, "mm:ss")]</span>")
+			to_chat(user, "<span class='warning'>You need to wait until you can deflect again. The ability will be ready in [round(COOLDOWN_TIMELEFT(src, last_deflect) / 600)] minute\s.</span>")
 		return ..()
 	if(homerun_ready)
 		to_chat(user, "<span class='notice'>You're already ready to do a home run!</span>")
 		return ..()
 	to_chat(user, "<span class='warning'>You begin gathering strength...</span>")
-	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)
-	if(do_after(user, 9 SECONDS, target = user, hidden = TRUE))
+	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, TRUE)
+	if(do_after_once(user, 9 SECONDS, target = user, hidden = TRUE))
 		to_chat(user, "<span class='userdanger'>You gather power! Time for a home run!</span>")
-		homerun_ready = 1
-	..()
+		homerun_ready = TRUE
 
-/obj/item/melee/baseball_bat/attack__legacy__attackchain(mob/living/target, mob/living/user)
+/obj/item/melee/baseball_bat/pre_attack(mob/living/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
 	if(deflectmode)
 		to_chat(user, "<span class='userdanger'>You cannot attack in deflect mode!</span>")
+		return FINISH_ATTACK
+
+	if(!COOLDOWN_FINISHED(src, next_throw_time)) // Limit the rate of throwing, so you can't spam it.
 		return
-	. = ..()
+
+	// Covers stuff like: revenants, mulebots, weeping angels, megafauna, blob spores/naughts, juggernaut cult constructs, hivebot/tele, alien queens, and hostile/asteroid mobs
+	// This doesn't have an effect on the home run bat, just the normal bat throw
+	if(!istype(target) || target.anchored || target.mob_size > MOB_SIZE_HUMAN || !(target.status_flags & CANPUSH) || target.move_resist > MOVE_RESIST_DEFAULT)
+		return
+
+	var/atom/throw_target = get_edge_target_turf(target, user.dir)
+	target.throw_at(throw_target, rand(1, 2), 7, user)
+	COOLDOWN_START(src, next_throw_time, throw_cooldown)
+
+/obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user)
+	if(..())
+		return FINISH_ATTACK
 	if(homerun_ready)
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
 		user.visible_message("<span class='userdanger'>It's a home run!</span>")
 		target.throw_at(throw_target, rand(8,10), 14, user)
 		target.ex_act(EXPLODE_HEAVY)
-		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
-		homerun_ready = 0
-		return
-	if(world.time < next_throw_time)
-		// Limit the rate of throwing, so you can't spam it.
-		return
-	if(!istype(target))
-		// Should already be /mob/living, but check anyway.
-		return
-	if(target.anchored)
-		// No throwing mobs that are anchored to the floor.
-		return
-	if(target.mob_size > MOB_SIZE_HUMAN)
-		// No throwing things that are physically bigger than you are.
-		// Covers: blobbernaut, alien empress, ai core, juggernaut, ed209, mulebot, alien/queen/large, carp/megacarp, deathsquid, hostile/tree, megafauna, hostile/asteroid, terror_spider/queen/empress
-		return
-	if(!(target.status_flags & CANPUSH))
-		// No throwing mobs specifically flagged as immune to being pushed.
-		// Covers: revenant, hostile/blob/*, most borgs, juggernauts, hivebot/tele, shades, bots, alien queens, hostile/syndicate/melee, hostile/asteroid
-		return
-	if(target.move_resist > MOVE_RESIST_DEFAULT)
-		// No throwing mobs that have higher than normal move_resist.
-		// Covers: revenant, bot/mulebot, hostile/statue, hostile/megafauna, goliath
-		return
-	var/atom/throw_target = get_edge_target_turf(target, user.dir)
-	target.throw_at(throw_target, rand(1, 2), 7, user)
-	next_throw_time = world.time + 10 SECONDS
+		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, TRUE)
+		homerun_ready = FALSE
+		return FINISH_ATTACK
 
 /obj/item/melee/baseball_bat/dropped(mob/user, silent)
 	. = ..()
