@@ -846,3 +846,12 @@
 	cost = 250
 	containername = "assistant flag crate"
 	contraband = TRUE
+
+/datum/supply_packs/misc/premium_havana_cigar
+	name = "premium Havana cigar crate"
+	contains = list(
+		/obj/item/storage/fancy/havana_cigar
+	)
+	cost = 5000 // This is a very luxurious product. And it's only made on Earth. And it's subject to TSF export taxes.
+	containername = "premium Havana cigar crate"
+	containertype = /obj/structure/largecrate
