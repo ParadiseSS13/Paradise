@@ -600,16 +600,10 @@
 	jobtype = /datum/job/librarian
 
 	uniform = /obj/item/clothing/under/rank/civilian/librarian
+	suit = /obj/item/clothing/suit/librarian
 	l_ear = /obj/item/radio/headset/headset_service
-	l_pocket = /obj/item/laser_pointer
-	r_pocket = /obj/item/barcodescanner
-	l_hand = /obj/item/storage/bag/books
 	id = /obj/item/card/id/librarian
 	pda = /obj/item/pda/librarian
-	backpack_contents = list(
-		/obj/item/videocam/advanced = 1,
-		/obj/item/clothing/suit/armor/vest/press = 1
-)
 
 /datum/outfit/job/librarian/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
