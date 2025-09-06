@@ -191,7 +191,6 @@
 	flags_2 = RANDOM_BLOCKER_2
 	icon_state = "baseball_bat"
 	item_state = "baseball_bat"
-	var/deflectmode = FALSE // deflect small/medium thrown objects
 	force = 10
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
@@ -202,6 +201,7 @@
 	var/throw_cooldown = 10 SECONDS
 	var/homerun_ready = FALSE
 	var/homerun_able = FALSE
+	var/deflectmode = FALSE // deflect small/medium thrown objects
 
 	new_attack_chain = TRUE
 
