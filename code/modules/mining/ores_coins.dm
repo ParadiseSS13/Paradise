@@ -63,7 +63,8 @@
 	. += "<span class='notice'>You can throw this into people's eyes!</span>"
 
 GLOBAL_LIST_INIT(sand_recipes, list(\
-		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50)\
+		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50),
+		new /datum/stack_recipe("grave", /obj/structure/grave, 5, time = 10 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
 		))
 
 /obj/item/stack/ore/glass/Initialize(mapload, new_amount, merge = TRUE)

@@ -24,8 +24,6 @@
 	var/safety_active = TRUE
 	/// When `FALSE`, turfs picked from a spray are random. When `TRUE`, it always has at least one water effect per row.
 	var/precision = FALSE
-	/// Sets the `cooling_temperature` of the water reagent datum inside of the extinguisher when it is refilled.
-	var/cooling_power = 2
 	/// If FALSE, extinguishers wont appear prefilled by default
 	var/prefilled = TRUE
 	COOLDOWN_DECLARE(last_use)
@@ -132,8 +130,6 @@
 
 	to_chat(user, "<span class='notice'>[src] has been refilled with [transferred] units.</span>")
 	playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, -6)
-	for(var/datum/reagent/water/R in reagents.reagent_list)
-		R.cooling_temperature = cooling_power
 	return TRUE
 
 /obj/item/extinguisher/proc/extinguisher_spray(atom/A, mob/living/user)

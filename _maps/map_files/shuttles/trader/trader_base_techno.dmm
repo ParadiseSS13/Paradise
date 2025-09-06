@@ -37,7 +37,7 @@
 	id_tag = "trader_privacy";
 	name = "Privacy Shutters"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/abductor,
 /area/shuttle/trade/sol)
 "j" = (
 /obj/machinery/flasher_button{
@@ -260,7 +260,7 @@
 /area/shuttle/trade/sol)
 "O" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/mineral/abductor,
 /area/shuttle/trade/sol)
 "P" = (
 /obj/structure/chair/comfy/shuttle{
