@@ -445,6 +445,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/punch_shit, 32
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/the_griffin, 32, 32)
 
+/obj/structure/sign/poster/contraband/gonzo
+	name = "Gonzo Fist"
+	desc = "A rebellious gonzo fist, mocking traditional journalism."
+	icon_state = "poster52"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/gonzo, 32, 32)
+
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
 	poster_item_desc = "An official Nanotrasen-issued poster to foster a compliant and obedient workforce. It comes with state-of-the-art adhesive backing, for easy pinning to any vertical surface."
