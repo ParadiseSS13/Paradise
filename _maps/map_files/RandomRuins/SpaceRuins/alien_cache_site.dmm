@@ -29,6 +29,7 @@
 /area/ruin/powered/alien_cache_site/cache_room)
 "Yg" = (
 /obj/machinery/door/airlock/abductor,
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating/abductor,
 /area/ruin/powered/alien_cache_site)
 

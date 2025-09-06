@@ -5,7 +5,7 @@
 	name = "strange platform"
 	desc = "A strange platform of alien design, it looks like something will happen if you stand on it"
 	icon = 'icons/effects/simon_says.dmi'
-	icon_state = "center"
+	icon_state = "pad"
 	pixel_x = -8
 	pixel_y = -8
 	var/fail_sound = 'sound/effects/simon_says_wrong.ogg'
@@ -38,6 +38,7 @@
 
 /obj/effect/simon_says/Initialize(mapload)
 	. = ..()
+	color = "#00CCB7"
 	var/turf/place = get_turf(src)
 	place = locate(place.x, place.y + 4, place.z)
 	if(place.x >= world.maxx - 1 || place.x <= 2 || place.y >= world.maxy - 1 || place.y <= 2)
