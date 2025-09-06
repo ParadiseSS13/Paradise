@@ -498,4 +498,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/custom_blurb()
 	return FALSE
 
+/datum/antagonist/proc/antag_event_resource_cost()
+	return list(ASSIGNMENT_SECURITY = 1)
+
 #undef SUCCESSFUL_DETACH
