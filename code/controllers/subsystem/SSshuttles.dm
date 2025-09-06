@@ -37,6 +37,8 @@ SUBSYSTEM_DEF(shuttle)
 	var/obj/docking_port/mobile/supply/supply
 	/// Supply shuttle turfs to make mail be put down faster
 	var/static/list/supply_shuttle_turfs = list()
+	/// The current shuttle loan event, if any.
+	var/shuttle_loan_UID
 
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
