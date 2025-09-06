@@ -191,6 +191,7 @@
 	suffix = "wizardcrash.dmm"
 	name = "Crashed Wizard Shuttle"
 	description = "A shuttle of the Wizard Federation, sent out to crush some wandless scum. Unfortunately, the pilot suffered a magic-related accident and the shuttle crashed into a nearby asteroid."
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/space/abandonedtele
 	id = "abandonedtele"
