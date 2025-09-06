@@ -510,6 +510,26 @@
 	contents = newlist(/obj/item/mop/advanced)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/advanced_mop)
 
+/obj/item/organ/internal/cyberimp/arm/cargo
+	name = "integrated cargo implant"
+	desc = "Everything you need to run the cargo bay, except a Forklift."
+	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4"
+	icon_state = "toolkit_cargo"
+	contents = newlist(
+		/obj/item/stamp/granted,
+		/obj/item/stamp/denied,
+		/obj/item/hand_labeler,
+		/obj/item/dest_tagger,
+		/obj/item/clipboard,
+		/obj/item/pen/multi,
+		/obj/item/mail_scanner
+	)
+	actions_types = list(/datum/action/item_action/organ_action/toggle/stamp)
+
+/datum/action/item_action/organ_action/toggle/stamp
+	button_icon = 'icons/obj/bureaucracy.dmi'
+	button_icon_state = "stamp-ok"
+
 // Razorwire implant, long reach whip made of extremely thin wire, ouch!
 
 /obj/item/melee/razorwire
@@ -963,4 +983,3 @@
 
 /obj/item/organ/internal/cyberimp/arm/nt_mantis/l
 	parent_organ = "l_arm"
-

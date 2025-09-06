@@ -169,7 +169,7 @@
 		/datum/job/bartender = /obj/item/organ/internal/liver/cybernetic,
 		/datum/job/hydro = /obj/item/organ/internal/cyberimp/arm/botanical,
 		/datum/job/captain = /obj/item/organ/internal/heart/cybernetic/upgraded,
-		/datum/job/cargo_tech = /obj/item/organ/internal/cyberimp/brain/anti_sleep,
+		/datum/job/cargo_tech = /obj/item/organ/internal/cyberimp/arm/cargo,
 		/datum/job/smith = /obj/item/organ/internal/cyberimp/arm/toolset,
 		/datum/job/chaplain = /obj/item/organ/internal/cyberimp/brain/anti_drop,
 		/datum/job/chemist = /obj/item/organ/internal/liver/cybernetic,
