@@ -90,7 +90,7 @@ emp_act
 	if(user.a_intent != INTENT_HELP)
 		return
 	if(!I.tool_use_check(user, 1))
-		return
+		return TRUE
 	var/obj/item/organ/external/S = bodyparts_by_name[user.zone_selected]
 	if(!S)
 		if(ismachineperson(src))
