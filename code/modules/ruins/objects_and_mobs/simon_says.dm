@@ -92,10 +92,7 @@
 
 
 /obj/effect/simon_says/proc/play_sound(sound, blink_color)
-	var/my_color = color
-	animate(src, color = blink_color, time = 5, easing = SINE_EASING)
-	animate(src, color = my_color, time = 5, easing = SINE_EASING, flags = ANIMATION_END_LOOP)
-
+	animate_flash(src, blink_color, 2)
 	playsound(src, sound, 100, FALSE, falloff_exponent = SOUND_FALLOFF_EXPONENT / 4)
 
 /obj/effect/simon_says/proc/do_failure()
@@ -128,13 +125,11 @@
 	sound = simon_pad_id_to_sound(id)
 
 /obj/effect/simon_says_pad/proc/play_note()
-	var/my_color = color
 	var/list/hsl = rgb2num(color, COLORSPACE_HSL)
 	hsl[3] = hsl[3] + (100 - hsl[3]) * 0.4
 	var/target = rgb(hsl[1], hsl[2], hsl[3], space= COLORSPACE_HSL)
 	playsound(src, sound, 100, FALSE, falloff_exponent = SOUND_FALLOFF_EXPONENT / 4)
-	animate(src, color = target, time = 2, easing = SINE_EASING)
-	animate(src, color = my_color, time = 2, easing = SINE_EASING, flags = ANIMATION_END_LOOP)
+	animate_flash(src, target, 2)
 
 /obj/effect/simon_says_pad/Cross(atom/movable/crossed_atom)
 	. = ..()
@@ -144,3 +139,9 @@
 	owner.pressed_buttons += id
 	owner.current_index++
 	owner.check_completion()
+
+/proc/animate_flash(atom/to_flash , color, length)
+	var/my_color = to_flash.color
+	animate(to_flash, color = color, time = length, easing = SINE_EASING)
+	spawn(length)
+		animate(to_flash, color = my_color, time = length, easing = SINE_EASING)
