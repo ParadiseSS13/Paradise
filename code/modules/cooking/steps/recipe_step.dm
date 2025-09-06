@@ -8,6 +8,12 @@ RESTRICT_TYPE(/datum/cooking/recipe_step)
 	if("optional" in options)
 		optional = options["optional"]
 
+/// See if the *used_item* meets the conditions for this recipe step. This will
+/// typically be something like ensuring that a recipe step for adding a
+/// specific kind of item has been passed an item of that type.
+///
+/// Returns one of [PCWJ_CHECK_INVALID], [PCWJ_CHECK_VALID], [PCWJ_CHECK_FULL],
+/// [PCWJ_CHECK_SILENT].
 /datum/cooking/recipe_step/proc/check_conditions_met(obj/used_item, datum/cooking/recipe_tracker/tracker)
 	SHOULD_CALL_PARENT(FALSE)
 	SHOULD_BE_PURE(TRUE)
@@ -26,7 +32,8 @@ RESTRICT_TYPE(/datum/cooking/recipe_step)
 /datum/cooking/recipe_step/proc/follow_step(obj/used_item, datum/cooking/recipe_tracker/tracker, mob/user)
 	return list()
 
-/// Special function to check if the step has been satisfied. Sometimed just following the step is enough, but not always.
+/// Special function to check if the step has been satisfied. Sometimes just
+/// following the step is enough, but not always.
 /datum/cooking/recipe_step/proc/is_complete(obj/added_item, datum/cooking/recipe_tracker/tracker, list/step_data)
 	return TRUE
 

@@ -52,6 +52,24 @@
 
 /// Core function that checks if a object meets all the requirements for certain
 /// recipe actions.
+///
+/// This is one of the thornier and grosser parts of the cooking system and most
+/// people working with it or implementing recipes should never have to look at
+/// this. The core idea is:
+///
+/// * we keep track of what recipes are still valid outcomes by testing the used
+///   item against the list of recipes which are valid so far.
+/// * each valid recipe is at a certain step, and check the used object against
+///   [/datum/cooking/recipe_step/proc/check_conditions_met]. if we meet the
+///   conditions, we track the recipe and the step.
+/// * for each unique step type that we're tracking, call
+///   [/datum/cooking/recipe_step/proc/follow_step] on the first instance of
+///   that step type, then [/datum/cooking/recipe_step/proc/is_complete] on
+///   all recipe step instances of that type, to see if we advance their
+///   respective recipes.
+///
+/// Once a recipe reaches its final step, the tracker completes the recipe and
+/// typically stops existing at that point.
 /datum/cooking/recipe_tracker/proc/process_item(mob/user, obj/used)
 	// TODO: I *hate* passing in a user here and want to move all the necessary
 	// UI interactions (selecting which recipe to complete, selecting which step
@@ -61,8 +79,6 @@
 	var/list/completed_recipes = list()
 	var/list/silent_recipes = list()
 	var/list/attempted_step_per_recipe = list()
-	var/datum/cooking/recipe_step/use_step_type
-
 
 	for(var/datum/cooking/recipe/recipe in recipes_last_completed_step)
 		var/current_idx = recipes_last_completed_step[recipe]
@@ -73,11 +89,9 @@
 			next_step = recipe.steps[++current_idx]
 			var/conditions = next_step.check_conditions_met(used, src)
 			if(conditions == PCWJ_CHECK_VALID)
-				LAZYADD(valid_steps[next_step], next_step)
+				LAZYADD(valid_steps[next_step.type], next_step)
 				LAZYADD(valid_recipes[next_step.type], recipe)
 				attempted_step_per_recipe[recipe] = current_idx
-				if(!use_step_type)
-					use_step_type = next_step.type
 				match = TRUE
 				break
 			else if(conditions == PCWJ_CHECK_SILENT)
@@ -94,16 +108,33 @@
 			return PCWJ_PARTIAL_SUCCESS
 		return PCWJ_NO_STEPS
 
-	var/datum/cooking/recipe_step/sample_step = valid_steps[1]
-	var/step_data = sample_step.follow_step(used, src)
-	step_reaction_message = step_data["message"]
+	var/list/recipes_with_completed_steps = list()
+	var/list/step_data
 	var/complete_steps = 0
-	for(var/i in 1 to length(valid_recipes[use_step_type]))
-		var/datum/cooking/recipe/recipe = valid_recipes[use_step_type][i]
-		var/datum/cooking/recipe_step/recipe_step = valid_steps[i]
-		if(recipe_step.is_complete(used, src, step_data))
-			recipes_last_completed_step[recipe] = attempted_step_per_recipe[recipe]
-			complete_steps++
+	for(var/step_type in valid_steps)
+		// For each valid step type we only call follow_step() once since it's
+		// pointless to e.g. add an item to the container more than once.
+		//
+		// However, we are still calling follow_step more than once. which means
+		// we have to deal with the possibility that two valid steps may do two
+		// different things with the used item and may expect different results.
+		// Sojurn tried to handle this by adding a user prompt at this point,
+		// asking which step the player wanted to perform. I want to avoid
+		// throwing up interfaces during cooking, especially when unexpected, so
+		// for now, we do nothing, and just watch out for situations where two
+		// different recipe steps with incompatible end states are valid with
+		// the same object.
+		var/datum/cooking/recipe_step/sample_step = valid_steps[step_type][1]
+		step_data = sample_step.follow_step(used, src)
+		step_reaction_message = step_data["message"]
+
+		for(var/i in 1 to length(valid_recipes[step_type]))
+			var/datum/cooking/recipe/recipe = valid_recipes[step_type][i]
+			var/datum/cooking/recipe_step/recipe_step = valid_steps[step_type][i]
+			if(recipe_step.is_complete(used, src, step_data))
+				recipes_last_completed_step[recipe] = attempted_step_per_recipe[recipe]
+				recipes_with_completed_steps |= recipe
+				complete_steps++
 
 	var/obj/item/reagent_containers/cooking/container = locateUID(container_uid)
 	if(complete_steps)
@@ -121,8 +152,8 @@
 	else
 		return PCWJ_PARTIAL_SUCCESS
 
-	for(var/datum/cooking/recipe in recipes_last_completed_step)
-		if(!(recipe in valid_recipes[sample_step.type]))
+	for(var/recipe in recipes_last_completed_step)
+		if(!(recipe in recipes_with_completed_steps))
 			recipes_last_completed_step -= recipe
 
 	var/datum/cooking/recipe/recipe_to_complete
