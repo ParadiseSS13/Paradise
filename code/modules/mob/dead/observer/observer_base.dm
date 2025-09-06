@@ -562,8 +562,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Toggles whether you health-scan living beings on click"
 	set category = "Ghost"
 
-	ghost_flags ^= GHOST_GAS_SCAN
-	to_chat(src, "<span class='notice'>Gas scan [ghost_flags & GHOST_GAS_SCAN ? "en" : "dis"]abled.</span>")
+	ghost_flags ^= GHOST_HEALTH_SCAN
+	to_chat(src, "<span class='notice'>Health scan [ghost_flags & GHOST_HEALTH_SCAN ? "en" : "dis"]abled.</span>")
 
 /mob/dead/observer/verb/toggle_gas_scan()
 	set name = "Toggle Gas Scan"
