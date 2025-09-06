@@ -319,10 +319,16 @@
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/find_nearest_thing_which_attacked_me_to_flee,
 		/datum/ai_planning_subtree/flee_target,
-		/datum/ai_planning_subtree/find_food,
+		/datum/ai_planning_subtree/find_food/diona_nymph,
 		/datum/ai_planning_subtree/random_speech/diona_nymph,
 	)
 
+/datum/ai_planning_subtree/find_food/diona_nymph
+
+/datum/ai_planning_subtree/find_food/diona_nymph/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
+	var/mob/living/basic/diona_nymph/nymph = controller.pawn
+	if(nymph.nutrition >= nymph.nutrition_need)
+		return SUBTREE_RETURN_FINISH_PLANNING
 
 /datum/ai_planning_subtree/random_speech/diona_nymph
 	speech_chance = 5
