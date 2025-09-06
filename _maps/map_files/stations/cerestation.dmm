@@ -18454,13 +18454,6 @@
 	},
 /area/station/command/meeting_room)
 "cGW" = (
-/obj/machinery/door_control{
-	id = "genetics";
-	name = "Genetics Privacy Shutters";
-	pixel_y = -23;
-	req_access = list(9);
-	pixel_x = 24
-	},
 /obj/structure/table/glass,
 /obj/item/paper_bin,
 /obj/item/pen,
@@ -32102,6 +32095,18 @@
 /obj/item/roller{
 	pixel_x = -2;
 	pixel_y = 10
+	},
+/obj/machinery/button/windowtint{
+	id = "genetics";
+	pixel_x = 24;
+	dir = 8
+	},
+/obj/machinery/door_control{
+	id = "genetics";
+	name = "Genetics Privacy Shutters";
+	pixel_y = 8;
+	req_access = list(9);
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -63252,8 +63257,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
-/obj/machinery/door/airlock/medical/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/research/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -96577,10 +96582,17 @@
 	},
 /area/station/maintenance/starboard)
 "sWu" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "genetics";
 	name = "Genetics Privacy Shutters"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "researchlockdown";
+	layer = 2.6;
+	name = "Research Emergency Lockdown"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "genetics"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
@@ -98296,6 +98308,15 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics{
 	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "researchlockdown";
+	layer = 2.6;
+	name = "Research Emergency Lockdown"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "genetics"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
