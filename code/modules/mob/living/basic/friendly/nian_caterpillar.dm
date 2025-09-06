@@ -199,6 +199,9 @@
 /datum/ai_planning_subtree/find_food/nian_caterpillar/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/mob/living/basic/nian_caterpillar/caterpillar = controller.pawn
 	if(caterpillar.nutrition >= caterpillar.nutrition_need)
+		// Put eating on cooldown so it doesn't keep trying to eat.
+		var/food_cooldown = controller.blackboard[BB_EAT_FOOD_COOLDOWN] || EAT_FOOD_COOLDOWN
+		controller.set_blackboard_key(BB_NEXT_FOOD_EAT, world.time + food_cooldown)
 		return SUBTREE_RETURN_FINISH_PLANNING
 	return ..()
 
