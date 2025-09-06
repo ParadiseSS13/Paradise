@@ -179,6 +179,7 @@
 	desc = "Wolf's non-functional thermal eyepatch."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "wolf_eyepatch"
+	icon_monitor = null
 
 /// Adrkiller59: Adam Cooper
 /obj/item/clothing/glasses/meson/fluff/book_berner_1
@@ -186,12 +187,14 @@
 	desc = "One of the older meson scanner models retrofitted to perform like its modern counterparts."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "book_berner_1"
+	icon_monitor = null
 
 /// Rapidvalj: Kakicharakiti
 /obj/item/clothing/glasses/sunglasses_fake/fluff/kaki
 	name = "broken thermonocle"
 	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
 	icon_state = "thermonocle"
+	icon_monitor = null
 
 /// Rapidvalj: Hakikarahiti
 /obj/item/fluff/rapid_wheelchair_kit
@@ -616,6 +619,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "eyepro"
 	item_state = "eyepro"
+	icon_monitor = null
 
 /// LP Spartan: Kaskreyarawkta
 /obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud
