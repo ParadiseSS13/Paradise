@@ -76246,7 +76246,9 @@
 	},
 /area/station/security/permabrig)
 "ryC" = (
-/obj/structure/bed,
+/obj/structure/bed{
+	dir = 1
+	},
 /obj/item/bedsheet/captain{
 	dir = 1
 	},
