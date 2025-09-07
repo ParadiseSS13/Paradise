@@ -93,13 +93,16 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
-	user.visible_message(
-		"<span class='notice'>[user] crushes [src] into meat.</span>",
-		"<span class='notice'>You crush [src] into something that resembles meat.</span>"
-	)
-	playsound(user, 'sound/effects/blobattack.ogg', 50, 1)
-	var/obj/item/food/meat/meatwheat/M = new(get_turf(user))
-	user.drop_item()
+	var/turf/T = get_turf(src)
+	var/obj/item/food/meat/meatwheat/M = new(T)
+	playsound(T, 'sound/effects/blobattack.ogg', 50, vary = TRUE)
 	qdel(src)
-	user.put_in_hands(M)
+
+	if(user)
+		user.visible_message(
+			"<span class='notice'>[user] crushes [src] into meat.</span>",
+			"<span class='notice'>You crush [src] into something that resembles meat.</span>"
+		)
+		user.put_in_hands(M)
+
 	return ITEM_INTERACT_COMPLETE

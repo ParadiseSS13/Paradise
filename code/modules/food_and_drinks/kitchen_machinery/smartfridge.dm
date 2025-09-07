@@ -86,6 +86,9 @@
 		/obj/item/grown,
 	))
 
+	if(mapload)
+		END_OF_TICK(CALLBACK(src, PROC_REF(take_contents)))
+
 /obj/machinery/smartfridge/RefreshParts()
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		max_n_of_items = 1500 * B.rating
@@ -412,6 +415,22 @@
   */
 /obj/machinery/smartfridge/proc/accept_check(obj/item/O)
 	return is_type_in_typecache(O, accepted_items_typecache)
+
+/obj/machinery/smartfridge/proc/directly_move_to(item_type, atom/destination)
+	for(var/obj/I in contents)
+		if(istype(I, item_type) && item_quants[I.name] > 0)
+			I.forceMove(destination)
+			item_quants[I.name]--
+			update_icon(UPDATE_OVERLAYS)
+			return I
+
+// This is called on Initialize to add contents on the tile
+/obj/machinery/smartfridge/proc/take_contents()
+	for(var/obj/item/I in loc)
+		if(I.density || I.anchored || I == src) continue
+		load(I, user = null)
+
+	update_appearance()
 
 /**
   * # Secure Fridge

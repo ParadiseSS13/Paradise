@@ -85,22 +85,28 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_item)
 /datum/cooking/recipe_step/add_item/get_pda_formatted_desc()
 	return "Add \a [item_type::name]."
 
-/datum/cooking/recipe_step/add_item/attempt_autochef_perform(datum/autochef_task/follow_recipe/task)
-	for(var/obj/machinery/smartfridge/storage in task.autochef.linked_storages)
+/datum/cooking/recipe_step/add_item/attempt_autochef_perform(datum/autochef_task/follow_recipe/origin_task)
+	for(var/obj/machinery/smartfridge/storage in origin_task.autochef.linked_storages)
 		for(var/obj/possible_item in storage)
-			if(check_conditions_met(possible_item, task.container.tracker))
-				var/result = task.container.process_item(null, possible_item)
+			if(check_conditions_met(possible_item, origin_task.container.tracker))
+				var/result = origin_task.container.process_item(null, possible_item)
 				switch(result)
 					if(PCWJ_CONTAINER_FULL, PCWJ_NO_STEPS, PCWJ_NO_RECIPES)
 						return AUTOCHEF_ACT_FAILED
 					if(PCWJ_COMPLETE, PCWJ_SUCCESS, PCWJ_PARTIAL_SUCCESS)
-						task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+						origin_task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 						// Boy howdy I sure do love having to manually update
 						// the recorded quantities of items in smartfridges
 						storage.item_quants[possible_item.name]--
 						return AUTOCHEF_ACT_STEP_COMPLETE
 
-	task.autochef.atom_say("Missing [item_type::name].")
+	if(origin_task.autochef.upgrade_level > 2)
+		var/datum/autochef_task/task = origin_task.autochef.handle_missing_item_from_step(src)
+		if(istype(task))
+			task.autochef.add_task(task, origin_task)
+			return AUTOCHEF_ACT_ADDED_TASK
+
+	origin_task.autochef.atom_say("Missing [item_type::name].")
 	return AUTOCHEF_ACT_MISSING_INGREDIENT
 
 /datum/cooking/recipe_step/add_item/attempt_autochef_prepare(obj/machinery/autochef/autochef)

@@ -235,6 +235,9 @@
 	add_fingerprint(usr)
 
 /obj/machinery/chem_dispenser/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/autochef_remote))
+		return
+
 	if(istype(used, /obj/item/storage/part_replacer))
 		. = ..()
 		SStgui.update_uis(src)

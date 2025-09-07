@@ -12,6 +12,10 @@ RESTRICT_TYPE(/obj/item/autochef_remote)
 		/obj/item/reagent_containers/cooking,
 		/obj/machinery/cooking,
 		/obj/machinery/smartfridge,
+		/obj/machinery/chem_dispenser,
+		/obj/machinery/chem_master/condimaster,
+		/obj/machinery/processor,
+		/obj/machinery/reagentgrinder,
 	)
 
 /obj/item/autochef_remote/examine(mob/user)
@@ -28,9 +32,12 @@ RESTRICT_TYPE(/obj/item/autochef_remote)
 	linkable_machine_uids.Cut()
 	to_chat(user, "<span class='notice'>You clear all items stored in [src]'s buffer.</span>")
 
+/obj/item/autochef_remote/proc/can_link_machine(obj/machine)
+	return is_type_in_list(machine, valid_machines)
+
 /obj/item/autochef_remote/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	var/target_uid = interacting_with.UID()
-	if(is_type_in_list(interacting_with, valid_machines))
+	if(can_link_machine(interacting_with))
 		linkable_machine_uids |= target_uid
 	else
 		return

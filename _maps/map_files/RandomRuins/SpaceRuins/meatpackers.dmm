@@ -735,6 +735,7 @@
 /area/ruin/unpowered/bmp_ship/aft)
 "cR" = (
 /obj/item/crowbar,
+/obj/effect/spawner/random/kitchen_equipment,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

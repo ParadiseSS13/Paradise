@@ -2,7 +2,7 @@
 //#define TESTING
 
 // Uncomment the following line to enable debug logging for cooking recipes.
-// #define PCWJ_DEBUG
+#define PCWJ_DEBUG
 
 // Uncomment the following line to compile unit tests on a local server. The output will be in a test_run-[DATE].log file in the ./data folder.
 // #define LOCAL_GAME_TESTS

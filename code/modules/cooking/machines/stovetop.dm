@@ -57,7 +57,7 @@
 	var/datum/cooking_surface/burner = surfaces[input]
 	if(burner && burner.container)
 		if(burner.on)
-			SEND_SIGNAL(burner.container, COMSIG_COOK_MACHINE_STEP_INTERRUPTED, burner)
+			SEND_SIGNAL(burner.container, COMSIG_MACHINE_STEP_INTERRUPTED, burner)
 			var/mob/living/carbon/human/burn_victim = user
 			if(istype(burn_victim) && !burn_victim.gloves)
 				var/which_hand = "l_hand"

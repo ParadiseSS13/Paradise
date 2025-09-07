@@ -19,15 +19,25 @@
 	if(!istype(used, /obj/item/kitchen/knife) && !istype(used, /obj/item/scalpel))
 		return NONE
 
-	new /obj/item/food/rawcutlet(src)
-	new /obj/item/food/rawcutlet(src)
-	new /obj/item/food/rawcutlet(src)
-	user.visible_message(
-		"<span class ='notice'>[user] cuts [src] with [used]!</span>",
-		"<span class ='notice'>You cut [src] with [used]!</span>"
-	)
-	qdel(src)
+	make_cutlets(src)
+
+	if(user)
+		user.visible_message(
+			"<span class ='notice'>[user] cuts [src] with [used]!</span>",
+			"<span class ='notice'>You cut [src] with [used]!</span>"
+		)
+
 	return ITEM_INTERACT_COMPLETE
+
+/obj/item/food/meat/proc/make_cutlets(atom/destination)
+	. = list()
+	. += new /obj/item/food/rawcutlet(destination)
+	. += new /obj/item/food/rawcutlet(destination)
+	. += new /obj/item/food/rawcutlet(destination)
+
+	qdel(src)
+
+/obj/item/food/meat/syntiflesh
 
 /obj/item/food/meat/syntiflesh
 	name = "synthetic meat"
@@ -276,15 +286,18 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
-	user.visible_message(
-		"<span class='notice'>[user] shapes [src] into a raw meatball.</span>",
-		"<span class='notice'>You shape [src] into a raw meatball.</span>"
-	)
-	playsound(user, 'sound/effects/blobattack.ogg', 50, 1)
-	var/obj/item/food/meat/raw_meatball/M = new(get_turf(user))
-	user.drop_item()
+	var/turf/T = get_turf(src)
+	var/obj/item/food/meat/raw_meatball/M = new(T)
+	playsound(T, 'sound/effects/blobattack.ogg', 50, vary = TRUE)
 	qdel(src)
-	user.put_in_hands(M)
+
+	if(user)
+		user.visible_message(
+			"<span class='notice'>[user] shapes [src] into a raw meatball.</span>",
+			"<span class='notice'>You shape [src] into a raw meatball.</span>"
+		)
+		user.put_in_hands(M)
+
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/ground_meat
@@ -305,15 +318,18 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
-	user.visible_message(
+	var/turf/T = get_turf(src)
+	var/obj/item/food/meat/raw_meatball/M = new(T)
+	playsound(T, 'sound/effects/blobattack.ogg', 50, vary = TRUE)
+	qdel(src)
+
+	if(user)
+		user.visible_message(
 		"<span class='notice'>[user] shapes [src] into a ball.</span>",
 		"<span class='notice'>You shape [src] into a ball of raw ground meat.</span>"
-	)
-	playsound(user, 'sound/effects/blobattack.ogg', 50, TRUE)
-	var/obj/item/food/meat/raw_meatball/M = new(get_turf(user))
-	user.drop_item()
-	qdel(src)
-	user.put_in_hands(M)
+		)
+		user.put_in_hands(M)
+
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/meat/raw_meatball

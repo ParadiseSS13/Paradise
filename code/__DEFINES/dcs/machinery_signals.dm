@@ -29,3 +29,12 @@
 #define COMSIG_AIRLOCK_OPEN "airlock_open"
 /// called on airlocks when closed: ()
 #define COMSIG_AIRLOCK_CLOSE "airlock_close"
+
+// /obj/machinery
+
+/// Used to represent that an arbitrary success event has occurred as a result
+/// of the machine's use. If that success event has resulted in the creation of
+/// atoms the handler may want to know about, they are passed in `list/created`.
+/// You could add an argument for created reagents too but that feels esoteric
+/// and harder to manipulate properly with no other context.
+#define COMSIG_MACHINE_PROCESS_COMPLETE "machine_process_complete" // (list/created)

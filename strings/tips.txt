@@ -123,6 +123,7 @@ As a Botanist, you can combine production trait chemicals just like a Chemist. C
 As the Chef, you can create a very wide variety of food. Most recipes are listed in the cookbook app in your PDA.
 As the Chef, you can rename your custom made food with a pen.
 As the Chef, if you are low on ingredients, consider making something that has several servings to last longer among the crew.
+As the Chef, your autochef has rare expansion cards that can automate even more recipe steps than normal. Ask explorers to search the kitchen areas of space ruins for these elusive add-ons.
 As the Bartender, you can use a circular saw on your shotgun to make it easier to store. Remember to unload it first!
 As a Janitor, if someone steals your janicart, you can instead use your space cleaner spray, grenades, water sprayer or order another from Cargo.
 As a Janitor, mousetraps can be used to create bombs or booby-trap containers.

@@ -234,4 +234,4 @@ RESTRICT_TYPE(/obj/machinery/cooking)
 			surface.turn_off()
 			var/obj/item/reagent_containers/cooking/container = surface.container
 			if(istype(container) && container.tracker)
-				SEND_SIGNAL(container, COMSIG_COOK_MACHINE_STEP_INTERRUPTED, surface)
+				SEND_SIGNAL(container, COMSIG_MACHINE_STEP_INTERRUPTED, surface)
