@@ -29,7 +29,7 @@
 		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
 		return
 
-	. = max(0, (. * ((100 - armor_penetration_percentage) / 100)) - armor_penetration_flat)
+	. = max(0, . * (100 - armor_penetration_percentage) / 100 - armor_penetration_flat)
 	if(.)
 		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
 	else
