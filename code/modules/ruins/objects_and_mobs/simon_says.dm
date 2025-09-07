@@ -1,10 +1,8 @@
 /obj/effect/simon_says
 	name = "strange platform"
-	desc = "A strange platform of alien design, it looks like something will happen if you stand on it"
+	desc = "A strange platform of alien design."
 	icon = 'icons/effects/simon_says_32x32.dmi'
-	icon_state = "pad"
-	//pixel_x = -8
-	//pixel_y = -8
+	icon_state = "pad_2"
 	var/fail_sound = 'sound/effects/simon_says_wrong.ogg'
 	var/success_sound = 'sound/effects/simon_says_success.ogg'
 	/// The chosen rhythm to play
@@ -13,18 +11,18 @@
 	var/static/list/rhythms = list(
 		// 7 Elevens are like the greatest thing
 		list(0, 7, 11, 14, 21, 22, 28, 33, 35, 42, 44, 49, 55, 56, 63, 66, 70),
-		list(0, 5, 15, 20, 30, 35, 45, 55, 60, 70, 80),
+		list(0, 2.5, 7.5, 10, 15, 17.5, 22.5, 27.5, 30, 35, 40),
 		list(0, 8, 10, 16, 20, 24, 30, 32, 40),
 		list(0, 6, 10, 12, 18, 20, 24, 30),
 		list(0, 3, 6, 12, 18, 30, 33, 36, 39, 45, 51),
 	)
 	var/static/list/pad_colors = list(
-									"#ac0064",
-									"#00597c",
-									"#997d00",
-									"#ac0064",
-									"#00597c",
-									"#997d00",
+									"#b45e5e",
+									"#3c6474",
+									"#8a7d44",
+									"#b45e5e",
+									"#3c6474",
+									"#8a7d44",
 									)
 	var/static/list/pad_sounds = list(
 									'sound/effects/simon_says_1.ogg',
@@ -50,7 +48,6 @@
 
 /obj/effect/simon_says/Initialize(mapload)
 	. = ..()
-	color = "#00d4bf"
 	var/turf/place = get_turf(src)
 	place = locate(place.x, place.y + 4, place.z)
 	if(place.x >= world.maxx - 1 || place.x <= 2 || place.y >= world.maxy - 1 || place.y <= 2)
@@ -143,7 +140,7 @@
 	name = "strange platform"
 	desc = "A strange platform of alien design, it looks like something will happen if you stand on it"
 	icon = 'icons/effects/simon_says_32x32.dmi'
-	icon_state = "pad"
+	icon_state = "pad_2"
 	//pixel_x = -8
 	//pixel_y = -8
 	/// The simon says minigame we are a part of
@@ -166,7 +163,7 @@
 /obj/effect/simon_says_pad/proc/play_note()
 	last_played = world.time
 	var/list/hsl = rgb2num(color, COLORSPACE_HSL)
-	hsl[3] = hsl[3] + (100 - hsl[3]) * 0.4
+	hsl[3] = hsl[3] + (100 - hsl[3]) * 0.7
 	var/target = rgb(hsl[1], hsl[2], hsl[3], space= COLORSPACE_HSL)
 	playsound(src, sound, 100, FALSE, falloff_exponent = SOUND_FALLOFF_EXPONENT / 4)
 	animate_flash(src, target, 1.5)
