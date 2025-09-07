@@ -2,7 +2,7 @@
 	name = "strange platform"
 	desc = "A strange platform of alien design."
 	icon = 'icons/effects/simon_says_32x32.dmi'
-	icon_state = "pad_2"
+	icon_state = "pad"
 	var/fail_sound = 'sound/effects/simon_says_wrong.ogg'
 	var/success_sound = 'sound/effects/simon_says_success.ogg'
 	/// The chosen rhythm to play
@@ -140,7 +140,7 @@
 	name = "strange platform"
 	desc = "A strange platform of alien design, it looks like something will happen if you stand on it"
 	icon = 'icons/effects/simon_says_32x32.dmi'
-	icon_state = "pad_2"
+	icon_state = "pad"
 	//pixel_x = -8
 	//pixel_y = -8
 	/// The simon says minigame we are a part of
