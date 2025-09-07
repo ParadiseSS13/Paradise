@@ -407,5 +407,4 @@
 	name = "Alien Cache Site"
 	description = "A site containing a cache of alien design, who knows what valuable technology is hiding inside?"
 	never_spawn_on_the_same_level = list("alien_cache_site")
-	always_place = TRUE
 	allow_duplicates = FALSE
