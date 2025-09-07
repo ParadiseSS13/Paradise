@@ -65580,7 +65580,6 @@
 "mle" = (
 /obj/structure/table,
 /obj/item/storage/fancy/matches,
-/obj/item/seeds/tobacco,
 /obj/item/storage/fancy/rollingpapers,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)

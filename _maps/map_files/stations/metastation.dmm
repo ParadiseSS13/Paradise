@@ -37490,7 +37490,6 @@
 /obj/structure/table,
 /obj/item/storage/fancy/rollingpapers,
 /obj/item/storage/fancy/matches,
-/obj/item/seeds/tobacco,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "eVE" = (

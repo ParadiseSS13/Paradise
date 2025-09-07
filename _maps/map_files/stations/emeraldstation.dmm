@@ -107796,17 +107796,13 @@
 /obj/item/shovel/spade,
 /obj/item/plant_analyzer,
 /obj/item/storage/bag/plants/seed_sorting_tray,
-/obj/item/seeds/carrot,
-/obj/item/seeds/banana,
-/obj/item/seeds/wheat/rice,
-/obj/item/seeds/wheat,
-/obj/item/seeds/tobacco,
 /obj/item/reagent_containers/spray/pestspray,
 /obj/machinery/camera{
 	c_tag = "Perma A Botany";
 	network = list("Prison","SS13");
 	dir = 1
 	},
+/obj/item/seeds/ambrosia,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "vrP" = (
@@ -116592,17 +116588,13 @@
 /obj/item/shovel/spade,
 /obj/item/plant_analyzer,
 /obj/item/storage/bag/plants/seed_sorting_tray,
-/obj/item/seeds/carrot,
-/obj/item/seeds/banana,
-/obj/item/seeds/wheat/rice,
-/obj/item/seeds/wheat,
-/obj/item/seeds/tobacco,
 /obj/item/reagent_containers/spray/pestspray,
 /obj/machinery/camera{
 	c_tag = "Perma B Botany";
 	network = list("Prison","SS13");
 	dir = 10
 	},
+/obj/item/seeds/ambrosia,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "xic" = (
