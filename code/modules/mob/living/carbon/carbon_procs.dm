@@ -19,7 +19,7 @@
 		toggle_throw_mode()
 	return ..()
 
-/mob/living/carbon/ghostize(can_reenter_corpse)
+/mob/living/carbon/ghostize(flags = GHOST_FLAGS_DEFAULT, ghost_name, ghost_color)
 	if(in_throw_mode)
 		toggle_throw_mode()
 	return ..()
@@ -205,7 +205,7 @@
 	// Major Shock - YEET
 	var/throw_distance = 0
 	var/throw_dir = null
-	if(shock_damage >= SHOCK_MAJOR)
+	if(shock_damage >= SHOCK_MAJOR && !(flags & SHOCK_ILLUSION))
 		do_sparks(3, TRUE, src)
 		AdjustStuttering(4 SECONDS)
 		if(isatom(source))
