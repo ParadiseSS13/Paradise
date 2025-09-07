@@ -206,14 +206,6 @@ emp_act
 
 	return siemens_coefficient
 
-/mob/living/carbon/human/proc/check_head_coverage()
-	var/list/worn_items = list(head, wear_mask, wear_suit, w_uniform)
-	for(var/obj/item/thing as anything in worn_items)
-		if(thing?.body_parts_covered & HEAD)
-			return TRUE
-
-	return FALSE
-
 /mob/living/carbon/human/proc/check_reflect(def_zone) //Reflection checks for anything in your l_hand, r_hand, or wear_suit based on the reflection chance var of the object
 	if(wear_suit && isitem(wear_suit))
 		var/obj/item/I = wear_suit
