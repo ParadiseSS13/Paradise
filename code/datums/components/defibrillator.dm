@@ -269,7 +269,7 @@
 	else if(!target.get_organ_slot("brain"))  // So things like headless clings don't get outed
 		failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No brain detected within patient.</span>"
 	else if(ghost)
-		if(!ghost.can_reenter_corpse || target.suiciding) // DNR or AntagHUD
+		if(!(ghost.ghost_flags & GHOST_CAN_REENTER) || target.suiciding) // DNR or AntagHUD
 			failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No electrical brain activity detected.</span>"
 		else
 			failure_message = "<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed.</span>"

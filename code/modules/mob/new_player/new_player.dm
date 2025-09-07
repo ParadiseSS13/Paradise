@@ -18,8 +18,13 @@
 	return INITIALIZE_HINT_NORMAL
 
 /mob/new_player/Destroy()
+	if(spawning)
+		// The mind is being reused elsewhere, so just unhook it here.
+		mind = null
 	if(mind)
-		mind.current = null // We best null their mind as well, otherwise /every/ single new player is going to explode the server a little more going in/out of the round
+		// Minds really shouldn't bind to new players, but just in case...
+		mind.unbind()
+		qdel(mind)
 	return ..()
 
 /mob/new_player/proc/new_player_panel()
@@ -62,11 +67,11 @@
 
 	var/list/antags = client.prefs.be_special
 	if(length(antags))
-		if(!client.skip_antag)
+		if(!client.persistent.skip_antag)
 			output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
 		else
 			output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
-		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
+		output += "<br /><small>You are <b>[client.persistent.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
 	if(SSticker.current_state == GAME_STATE_STARTUP)
 		output += "<p>Observe (Please wait...)</p>"
@@ -143,7 +148,7 @@
 		new_player_panel_proc()
 
 	if(href_list["skip_antag"])
-		client.skip_antag = !client.skip_antag
+		client.persistent.skip_antag = !client.persistent.skip_antag
 		new_player_panel_proc()
 
 	if(href_list["refresh"])
@@ -164,7 +169,7 @@
 		if(alert(usr, "Are you sure you wish to observe? You cannot normally join the round after doing this!", "Observe", "Yes", "No") == "Yes")
 			if(!client)
 				return TRUE
-			var/mob/dead/observer/observer = new(src)
+			var/mob/dead/observer/observer = new(src, GHOST_FLAGS_START_AS_OBSERVER)
 			src << browse(null, "window=playersetup")
 			spawning = TRUE
 			stop_sound_channel(CHANNEL_LOBBYMUSIC)
@@ -177,7 +182,6 @@
 				if(!check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE, src))
 					// admins always get aobserve
 					add_verb(observer, list(/mob/dead/observer/proc/do_observe, /mob/dead/observer/proc/observe))
-			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/spawn_point
 			if(SSticker.current_state < GAME_STATE_PLAYING)
@@ -551,21 +555,16 @@
 		H.flavor_text = ""
 	stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
+	mind.set_original_mob(new_character)
+	mind.transfer_to(new_character)
 
-	if(mind)
-		mind.active = FALSE					//we wish to transfer the key manually
-		// Clowns and mimes get appropriate default names, and the chance to pick a custom one.
-		if(mind.assigned_role == "Clown")
-			new_character.rename_character(new_character.real_name, pick(GLOB.clown_names))
-			new_character.rename_self("clown")
-		else if(mind.assigned_role == "Mime")
-			new_character.rename_character(new_character.real_name, pick(GLOB.mime_names))
-			new_character.rename_self("mime")
-		mind.set_original_mob(new_character)
-		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
-
-
-	new_character.key = key		//Manually transfer the key to log them in
+	// Clowns and mimes get appropriate default names, and the chance to pick a custom one.
+	if(mind.assigned_role == "Clown")
+		new_character.rename_character(new_character.real_name, pick(GLOB.clown_names))
+		new_character.rename_self("clown")
+	else if(mind.assigned_role == "Mime")
+		new_character.rename_character(new_character.real_name, pick(GLOB.mime_names))
+		new_character.rename_self("mime")
 
 	return new_character
 
@@ -613,8 +612,8 @@
 	if(!client || !client.prefs) ..()
 	return client.prefs.active_character.gender
 
-/mob/new_player/is_ready()
-	return ready && ..()
+/mob/new_player/proc/is_ready()
+	return ready && client
 
 // No hearing announcements
 /mob/new_player/can_hear()

@@ -440,7 +440,7 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 	trigger = "run"
 	is_regex = FALSE
 
-/datum/voice_of_god_command/walk/execute(list/listeners, mob/living/user, power_multiplier = 1, message)
+/datum/voice_of_god_command/run/execute(list/listeners, mob/living/user, power_multiplier = 1, message)
 	for(var/mob/living/target as anything in listeners)
 		if(target.m_intent != MOVE_INTENT_RUN)
 			target.m_intent = MOVE_INTENT_RUN
@@ -459,7 +459,7 @@ GLOBAL_LIST_INIT(voice_of_god_commands, init_voice_of_god_commands())
 	trigger = "help|pacify"
 	cooldown = COOLDOWN_DAMAGE
 
-/datum/voice_of_god_command/throw_catch/execute(list/listeners, mob/living/user, power_multiplier = 1, message)
+/datum/voice_of_god_command/help/execute(list/listeners, mob/living/user, power_multiplier = 1, message)
 	for(var/mob/living/carbon/human/H in listeners)
 		H.apply_status_effect(STATUS_EFFECT_PACIFIED, 10 SECONDS * power_multiplier)
 

@@ -122,7 +122,6 @@
 		return INITIALIZE_HINT_QDEL
 	tank = loc
 	reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
-	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 	return ..()
 
 /obj/item/reagent_containers/spray/mister/Destroy()
@@ -170,19 +169,12 @@
 	item_state = "misterjani"
 	spray_maxrange = 4
 	spray_currentrange = 4
+	spray_minrange = 2
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
 
 /obj/item/watertank/janitor/make_noz()
 	return new /obj/item/reagent_containers/spray/mister/janitor(src)
-
-/obj/item/reagent_containers/spray/mister/janitor/activate_self(mob/user)
-	if(..())
-		return FINISH_ATTACK
-
-	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
-	spray_currentrange = (spray_currentrange == 2 ? spray_maxrange : 2)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 //ATMOS FIRE FIGHTING BACKPACK
 
@@ -220,7 +212,6 @@
 	safety_active = FALSE
 	reagent_capacity = 500
 	precision = TRUE
-	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
 	flags = NODROP //Necessary to ensure that the nozzle and tank never seperate
 	/// A reference to the tank that this nozzle is linked to
