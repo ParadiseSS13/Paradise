@@ -1,6 +1,6 @@
-/// Chance for mob to avoid being affected
+/// Chance for mob to avoid being affected by rad storm
 #define RAD_STORM_AVOID_CHANCE 40
-/// Chance to also apply good or bad mutation
+/// Chance to additionally apply good or bad mutation
 #define RAD_STORM_ADDITIONAL_MUT_CHANCE 50
 /// Chance to apply bad mutation. When failed will apply good mutation instead
 #define RAD_STORM_BAD_MUT_CHANCE 90
@@ -59,7 +59,7 @@
 		return
 
 	if(prob(max(0, 100 - ARMOUR_VALUE_TO_PERCENTAGE(resist))))
-		human.base_rad_act(L, RAD_STORM_RAD_AMOUNT, BETA_RAD)
+		human.base_rad_act(human, RAD_STORM_RAD_AMOUNT, BETA_RAD)
 		if(HAS_TRAIT(human, TRAIT_GENELESS))
 			return
 		randmuti(human) // Applies appearance mutation

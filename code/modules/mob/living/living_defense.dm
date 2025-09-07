@@ -1,36 +1,42 @@
 /**
- * Returns final, decreased by `armor_penetration_flat` and `armor_penetration_percentage`, armor value of specific armor type
+ * Returns final, affected by `armor_penetration_flat` and `armor_penetration_percentage`, armor value of specific armor type
  *
  * * def_zone - What part is getting hit, if not set will check armor of entire body
  * * armor_type - What type of armor is used. MELEE, BULLET, MAGIC etc.
  * * absorb_text - Text displayed when your armor makes you immune (armor is INFINITY)
- * * soften_text - Text displayed when 0 < armor < INFINITY
- * * penetrated_text - Text displayed when armor penetration decreases non 0 armor to 0
- * * armor_penetration_percentage - If negative, will increasy our armor
- * * armor_penetration_flat - Second, armor will be decreased by this percentage of itself
+ * * soften_text - Text displayed when 0 < armor < INFINITY. So armor protected us from some damage
+ * * penetrated_text - Text displayed when armor penetration decreases non 0 armor to 0. So it's completely penetrated
+ * * armor_penetration_percentage - % of armor value that is penetrated. Does nothing if armor <= 0. Happens before flat AP
+ * * armor_penetration_flat - armor value that is penetrated. Does nothing if armor <= 0. Occurs after percentage AP
 */
-/mob/living/proc/run_armor_check(def_zone = null, armor_type = MELEE, absorb_text = "Your armor absorbs the blow!", soften_text = "Your armor softens the blow!", armor_penetration_flat = 0, penetrated_text = "Your armor was penetrated!", armor_penetration_percentage = 0)
-	var/armor = getarmor(def_zone, armor_type)
+/mob/living/proc/run_armor_check(
+	def_zone,
+	armor_type = MELEE,
+	absorb_text = "Your armor absorbs the blow!",
+	soften_text = "Your armor softens the blow!",
+	penetrated_text = "Your armor was penetrated!",
+	armor_penetration_flat,
+	armor_penetration_percentage,
+)
+	. = getarmor(def_zone, armor_type)
 
-	if(armor == INFINITY)
+	if(. == INFINITY)
 		to_chat(src, "<span class='userdanger'>[absorb_text]</span>")
-		return armor
-	if(armor <= 0)
-		return armor
+		return
+	if(. <= 0)
+		return
 	if(!armor_penetration_flat && !armor_penetration_percentage)
 		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
-		return armor
+		return
 
-	var/armor_original = armor
-	armor = max(0, (armor * ((100 - armor_penetration_percentage) / 100)) - armor_penetration_flat)
-	if(armor_original <= armor)
+	. = max(0, (. * ((100 - armor_penetration_percentage) / 100)) - armor_penetration_flat)
+	if(.)
 		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
 	else
 		to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
 
-	return armor
-
-/// Returns armor value of our mob. As u can see, mobs have no armor by default so we override this proc on subtypes if we add them any armor
+/// Returns armor value of our mob.
+/// As u can see, mobs have no armor by default so we override this proc on mob subtypes if we add them any armor
 /mob/living/proc/getarmor(def_zone, armor_type)
 	return 0
 
@@ -123,7 +129,7 @@
 /mob/living/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(isitem(AM))
 		var/obj/item/thrown_item = AM
-		var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
+		var/zone = ran_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
 		var/nosell_hit = SEND_SIGNAL(thrown_item, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
 		if(nosell_hit)
 			skipcatch = TRUE
@@ -139,7 +145,14 @@
 		visible_message("<span class='danger'>[src] is hit by [thrown_item]!</span>", "<span class='userdanger'>You're hit by [thrown_item]!</span>")
 		if(!thrown_item.throwforce)
 			return
-		var/armor = run_armor_check(zone, MELEE, "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", thrown_item.armor_penetration_flat, armor_penetration_percentage = thrown_item.armor_penetration_percentage)
+		var/armor = run_armor_check(
+			def_zone = zone,
+			armor_type = MELEE,
+			absorb_text = "Your armor has protected your [parse_zone(zone)].",
+			soften_text = "Your armor has softened hit to your [parse_zone(zone)].",
+			armor_penetration_flat = thrown_item.armor_penetration_flat,
+			armor_penetration_percentage = thrown_item.armor_penetration_percentage,
+		)
 		apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, thrown_item.sharp, thrown_item)
 		if(QDELETED(src)) //Damage can delete the mob.
 			return

@@ -161,7 +161,7 @@ emp_act
 		affecting.droplimb(FALSE, damtype)
 
 /// This proc calculates armor value for humans.
-/// If null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
+/// If null is passed for def_zone, then this will return something appropriate for all zones (e.g. area effect damage)
 /mob/living/carbon/human/getarmor(def_zone, armor_type)
 	// If a specific bodypart is targetted, check if it exists, how that bodypart is protected and return the value
 	if(def_zone)
@@ -178,24 +178,19 @@ emp_act
 		armor += __getarmor_bodypart(part, armor_type)
 		mob_bodyparts++
 
-	return armor / max(mob_bodyparts, 1)
+	return armor / mob_bodyparts
 
-/// This is an internal proc, returns the armor value for a particular bodypart [/obj/item/organ/external]. Use `getarmor()` instead
+/// This is an internal proc, returns the armor value for a particular bodypart [/obj/item/organ/external].
+/// Use `getarmor()` instead
 /mob/living/carbon/human/proc/__getarmor_bodypart(obj/item/organ/external/def_zone, armor_type)
-	if(!armor_type || !def_zone)
-		return 0 // no armor
-
 	// Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
-	var/list/covers_body = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck)
-	var/protection
+	var/list/worn_items = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck)
 
-	for(var/obj/item/thing as anything in covers_body)
+	for(var/obj/item/thing as anything in worn_items)
 		if(thing?.body_parts_covered & def_zone.body_part)
-			protection += thing.armor.getRating(armor_type)
+			. += thing.armor.getRating(armor_type)
 
-	protection += physiology.armor.getRating(armor_type)
-
-	return protection
+	. += physiology.armor.getRating(armor_type)
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
 /mob/living/carbon/human/proc/get_siemens_coefficient_organ(obj/item/organ/external/def_zone)
@@ -212,15 +207,12 @@ emp_act
 	return siemens_coefficient
 
 /mob/living/carbon/human/proc/check_head_coverage()
+	var/list/worn_items = list(head, wear_mask, wear_suit, w_uniform)
+	for(var/obj/item/thing as anything in worn_items)
+		if(thing?.body_parts_covered & HEAD)
+			return TRUE
 
-	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform)
-	for(var/bp in body_parts)
-		if(!bp)  continue
-		if(bp && isclothing(bp))
-			var/obj/item/clothing/C = bp
-			if(C.body_parts_covered & HEAD)
-				return 1
-	return 0
+	return FALSE
 
 /mob/living/carbon/human/proc/check_reflect(def_zone) //Reflection checks for anything in your l_hand, r_hand, or wear_suit based on the reflection chance var of the object
 	if(wear_suit && isitem(wear_suit))
