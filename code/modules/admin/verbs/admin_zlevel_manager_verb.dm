@@ -11,5 +11,5 @@
 		return
 
 	message_admins("[key_name_admin(usr)] is using the Z-Level Manager")
-	var/datum/ui_module/z_level_manager/ZLM = new(GLOB.space_manager)
+	var/datum/ui_module/admin/z_level_manager/global_space_manager/ZLM = get_admin_ui_module(/datum/ui_module/admin/z_level_manager/global_space_manager)
 	ZLM.ui_interact(usr)
