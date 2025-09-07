@@ -14,7 +14,7 @@
 	return ..()
 
 /obj/item/bio_chip/grey_autocloner/death_trigger(mob/source, gibbed)
-	imp_in.ghostize(TRUE)
+	imp_in.ghostize()
 	if(linked)
 		linked.growclone(our_record)
 
