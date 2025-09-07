@@ -4,7 +4,7 @@
 	damage = 0
 	damage_type = OXY
 	nodamage = 1
-	armour_penetration_percentage = 100
+	armor_penetration_percentage = 100
 	flag = MAGIC
 	antimagic_flags = MAGIC_RESISTANCE
 	antimagic_charge_cost = 1

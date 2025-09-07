@@ -73,6 +73,11 @@
 	puppet.next_click = world.time
 	puppet.next_move = world.time
 
+/datum/test_puppeteer/proc/alt_click_on(target, params)
+	var/plist = params2list(params)
+	plist["alt"] = TRUE
+	click_on(target, list2params(plist))
+
 /datum/test_puppeteer/proc/spawn_mob_nearby(mob_type)
 	for(var/turf/T in RANGE_TURFS(1, puppet))
 		if(!T.is_blocked_turf())

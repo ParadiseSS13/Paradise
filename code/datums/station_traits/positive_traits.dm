@@ -169,11 +169,11 @@
 		/datum/job/bartender = /obj/item/organ/internal/liver/cybernetic,
 		/datum/job/hydro = /obj/item/organ/internal/cyberimp/arm/botanical,
 		/datum/job/captain = /obj/item/organ/internal/heart/cybernetic/upgraded,
-		/datum/job/cargo_tech = /obj/item/organ/internal/cyberimp/brain/anti_sleep,
+		/datum/job/cargo_tech = /obj/item/organ/internal/cyberimp/arm/cargo,
 		/datum/job/smith = /obj/item/organ/internal/cyberimp/arm/toolset,
 		/datum/job/chaplain = /obj/item/organ/internal/cyberimp/brain/anti_drop,
 		/datum/job/chemist = /obj/item/organ/internal/liver/cybernetic,
-		/datum/job/chief_engineer = /obj/item/organ/internal/cyberimp/brain/wire_interface,
+		/datum/job/chief_engineer = /obj/item/organ/internal/eyes/cybernetic/shield,
 		/datum/job/cmo = /obj/item/organ/internal/cyberimp/chest/reviver,
 		/datum/job/clown = /obj/item/organ/internal/cyberimp/brain/anti_stam, //HONK!
 		/datum/job/chef = /obj/item/organ/internal/cyberimp/chest/nutriment/plus,
@@ -190,7 +190,7 @@
 		/datum/job/paramedic = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
 		/datum/job/psychiatrist = /obj/item/organ/internal/heart/cybernetic/upgraded, //heart of gold. Or at least part gold
 		/datum/job/qm = /obj/item/organ/internal/cyberimp/arm/telebaton,
-		/datum/job/rd = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
+		/datum/job/rd = /obj/item/organ/internal/cyberimp/arm/flash,
 		/datum/job/roboticist = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
 		/datum/job/scientist = /obj/item/organ/internal/ears/cybernetic,
 		/datum/job/xenobiologist = /obj/item/organ/internal/cyberimp/arm/surgery,

@@ -1532,6 +1532,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		for(var/datum/action/A in actions)
 			if(istype(A, initial(AM.power_type)))
 				qdel(A)
+	// De-malf all the connected robots too!
+	for(var/mob/living/silicon/robot/R in connected_robots)
+		R.remove_robot_mindslave()
 
 /mob/living/silicon/ai/proc/open_nearest_door(mob/living/target)
 	if(!istype(target))
@@ -1680,12 +1683,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	stored_locations[location_number] = eyeobj.loc
 	return TRUE
 
-/mob/living/silicon/ai/ghostize(can_reenter_corpse)
+/mob/living/silicon/ai/ghostize(flags = GHOST_FLAGS_DEFAULT, ghost_name, ghost_color)
 	var/old_turf = get_turf(eyeobj)
 	. = ..()
 	if(isobserver(.) && old_turf)
 		var/mob/dead/observer/ghost = .
-		ghost.forceMove(old_turf)
+		ghost.abstract_move(old_turf)
 
 /mob/living/silicon/ai/can_vv_get(var_name)
 	if(!..())

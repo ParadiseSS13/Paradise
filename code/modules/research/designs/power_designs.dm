@@ -30,7 +30,7 @@
 	id = "hyper_cell"
 	req_tech = list("powerstorage" = 5, "materials" = 5, "engineering" = 5)
 	build_type = PROTOLATHE | MECHFAB
-	materials = list(MAT_METAL = 700, MAT_GOLD = 150, MAT_SILVER = 150, MAT_GLASS = 70)
+	materials = list(MAT_METAL = 700, MAT_GOLD = 150, MAT_SILVER = 150, MAT_GLASS = 400)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/hyper/empty
 	category = list("Misc", "Power", "Stock Parts")
@@ -41,7 +41,7 @@
 	id = "super_cell"
 	req_tech = list("powerstorage" = 3, "materials" = 3)
 	build_type = PROTOLATHE | MECHFAB
-	materials = list(MAT_METAL = 700, MAT_GLASS = 70)
+	materials = list(MAT_METAL = 700, MAT_GLASS = 300)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/super/empty
 	category = list("Misc", "Power", "Stock Parts")
@@ -52,7 +52,7 @@
 	id = "bluespace_cell"
 	req_tech = list("powerstorage" = 6, "materials" = 5, "engineering" = 5, "bluespace" = 5)
 	build_type = PROTOLATHE | MECHFAB
-	materials = list(MAT_METAL = 800, MAT_GOLD = 120, MAT_GLASS = 160, MAT_DIAMOND = 160, MAT_TITANIUM = 300, MAT_BLUESPACE = 100)
+	materials = list(MAT_METAL = 800, MAT_GOLD = 120, MAT_GLASS = 600, MAT_DIAMOND = 160, MAT_TITANIUM = 300, MAT_BLUESPACE = 100)
 	construction_time=100
 	build_path = /obj/item/stock_parts/cell/bluespace/empty
 	category = list("Misc", "Power", "Stock Parts")
