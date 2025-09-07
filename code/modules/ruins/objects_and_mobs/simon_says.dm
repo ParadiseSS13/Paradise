@@ -1,13 +1,10 @@
-#define simon_pad_id_to_sound(id) (id == 1 ? 'sound/effects/simon_says_1.ogg' : id == 2 ? 'sound/effects/simon_says_3.ogg' : id == 3 ? 'sound/effects/simon_says_2.ogg' : 'sound/effects/simon_says_4.ogg')
-#define simon_pad_id_to_color(id) (id == 1 ? "#ac0064" : id == 2 ? "#00597c" : id == 3 ? "#ac0064" : "#00597c")
-
 /obj/effect/simon_says
 	name = "strange platform"
 	desc = "A strange platform of alien design, it looks like something will happen if you stand on it"
-	icon = 'icons/effects/simon_says.dmi'
+	icon = 'icons/effects/simon_says_32x32.dmi'
 	icon_state = "pad"
-	pixel_x = -8
-	pixel_y = -8
+	//pixel_x = -8
+	//pixel_y = -8
 	var/fail_sound = 'sound/effects/simon_says_wrong.ogg'
 	var/success_sound = 'sound/effects/simon_says_success.ogg'
 	/// The chosen rhythm to play
@@ -21,6 +18,21 @@
 		list(0, 6, 10, 12, 18, 20, 24, 30),
 		list(0, 3, 6, 12, 18, 30, 33, 36, 39, 45, 51),
 	)
+	var/static/list/pad_colors = list(
+									"#ac0064",
+									"#00597c",
+									"#997d00",
+									"#ac0064",
+									"#00597c",
+									"#997d00",
+									)
+	var/static/list/pad_sounds = list(
+									'sound/effects/simon_says_1.ogg',
+									'sound/effects/simon_says_2.ogg',
+									'sound/effects/simon_says_3.ogg',
+									'sound/effects/simon_says_4.ogg',
+									'sound/effects/simon_says_5.ogg',
+									'sound/effects/simon_says_6.ogg',)
 	/// The time at which we should finish playing the sequence
 	var/playing_until = 0
 	/// Buttons pressed by the player so far
@@ -38,15 +50,20 @@
 
 /obj/effect/simon_says/Initialize(mapload)
 	. = ..()
-	color = "#00CCB7"
+	color = "#00d4bf"
 	var/turf/place = get_turf(src)
 	place = locate(place.x, place.y + 4, place.z)
 	if(place.x >= world.maxx - 1 || place.x <= 2 || place.y >= world.maxy - 1 || place.y <= 2)
 		qdel(src)
 		return
 	var/id = 1
-	for(var/cardinal in list(NORTHWEST, NORTHEAST, SOUTHEAST, SOUTHWEST))
-		pads += new /obj/effect/simon_says_pad(get_step(get_step(place, cardinal), cardinal), id++, src)
+	for(var/cardinal in list(NORTHWEST, NORTHEAST, EAST, SOUTHEAST, SOUTHWEST, WEST))
+		var/turf/curr_place = place
+		if(cardinal & (NORTH | SOUTH))
+			curr_place = get_step(place, cardinal & (NORTH | SOUTH))
+		else
+			curr_place = get_step(place, cardinal & (EAST | WEST))
+		pads += new /obj/effect/simon_says_pad(get_step(curr_place, cardinal), id++, src)
 
 /obj/effect/simon_says/Destroy()
 	for(var/obj/effect/simon_says_pad/pad in pads)
@@ -79,8 +96,23 @@
 	sequence = list()
 	if(!length(rhythm))
 		rhythm = pick(rhythms)
+	var/list/pad_options = list()
+
+	// The reason we do all this instead of just rand(1, length(pads)) is so we can exclude pads that were played too recently
+	for(var/i in 1 to length(pads))
+		pad_options += list(list(i, -5))
+
 	for(var/beat in rhythm)
-		sequence += rand(1, 4)
+		// Exclude pads that have played too recently
+		var/list/excluded = list()
+		for(var/option in pad_options)
+			if(beat - option[2] < 3)
+				excluded += list(option)
+		pad_options -= excluded
+		var/picked = pick(pad_options)
+		sequence += picked[1]
+		picked[2] = beat
+		pad_options += excluded
 
 /obj/effect/simon_says/proc/check_completion()
 	if(!sequence || !length(sequence))
@@ -110,31 +142,38 @@
 /obj/effect/simon_says_pad
 	name = "strange platform"
 	desc = "A strange platform of alien design, it looks like something will happen if you stand on it"
-	icon = 'icons/effects/simon_says.dmi'
+	icon = 'icons/effects/simon_says_32x32.dmi'
 	icon_state = "pad"
-	pixel_x = -8
-	pixel_y = -8
+	//pixel_x = -8
+	//pixel_y = -8
+	/// The simon says minigame we are a part of
 	var/obj/effect/simon_says/owner
+	/// Sound we make when playing
 	var/sound = 'sound/effects/simon_says_1.ogg'
+	/// ID used for comparing what we pressed against the sequence
 	var/id = 1
+	/// Time the pad was last played
+	var/last_played = 0
 
 /obj/effect/simon_says_pad/Initialize(mapload, _id, _owner)
 	. = ..()
 	owner = _owner
 	id = _id
-	color = simon_pad_id_to_color(id)
-	sound = simon_pad_id_to_sound(id)
+	if(owner)
+		color = owner.pad_colors[id]
+		sound = owner.pad_sounds[id]
 
 /obj/effect/simon_says_pad/proc/play_note()
+	last_played = world.time
 	var/list/hsl = rgb2num(color, COLORSPACE_HSL)
 	hsl[3] = hsl[3] + (100 - hsl[3]) * 0.4
 	var/target = rgb(hsl[1], hsl[2], hsl[3], space= COLORSPACE_HSL)
 	playsound(src, sound, 100, FALSE, falloff_exponent = SOUND_FALLOFF_EXPONENT / 4)
-	animate_flash(src, target, 2)
+	animate_flash(src, target, 1.5)
 
 /obj/effect/simon_says_pad/Cross(atom/movable/crossed_atom)
 	. = ..()
-	if(!ismob(crossed_atom)  || (owner.playing_until >= world.time))
+	if(!ismob(crossed_atom)  || (owner.playing_until >= world.time) || world.time < last_played + 3)
 		return
 	play_note()
 	owner.pressed_buttons += id
