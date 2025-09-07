@@ -666,22 +666,22 @@
 	},
 /area/station/hallway/secondary/entry/east)
 "afB" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/east)
 "afC" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -807,10 +807,10 @@
 	},
 /area/station/hallway/secondary/entry/east)
 "agq" = (
-/obj/structure/cable{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -1577,6 +1577,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "ama" = (
@@ -1587,6 +1590,9 @@
 	dir = 4
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "amb" = (
@@ -1595,6 +1601,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
@@ -1711,6 +1720,9 @@
 "amD" = (
 /obj/item/trash/candy,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -2420,6 +2432,9 @@
 /area/station/maintenance/fore2)
 "app" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/extra_insulated{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -2430,6 +2445,9 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -2713,6 +2731,9 @@
 "aqk" = (
 /obj/item/cigbutt/roach,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "aql" = (
@@ -3296,6 +3317,9 @@
 /area/station/security/checkpoint/secondary)
 "arU" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "arV" = (
@@ -4256,6 +4280,9 @@
 	icon_state = "2-4"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -4881,6 +4908,9 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fore2)
 "axb" = (
@@ -12422,7 +12452,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -13734,7 +13764,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/structure/cable/extra_insulated{
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -53207,6 +53237,12 @@
 	dir = 4
 	},
 /area/station/hallway/primary/aft/south)
+"eNJ" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore2)
 "eNO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -53222,6 +53258,15 @@
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
+"eOg" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "arrival"
+	},
+/area/station/hallway/secondary/entry/east)
 "eOj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -56526,6 +56571,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -57516,6 +57564,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
+"gHG" = (
+/obj/item/stack/cable_coil/yellow,
+/turf/space,
+/area/space)
 "gHM" = (
 /obj/machinery/processor,
 /obj/structure/cable{
@@ -60948,6 +61000,16 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
+"ilf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
+	},
+/area/station/maintenance/fore2)
 "ilo" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
@@ -61055,8 +61117,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/structure/cable/extra_insulated{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
@@ -62371,6 +62433,13 @@
 /obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall,
 /area/station/maintenance/library)
+"iQR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore2)
 "iQS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -63310,6 +63379,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
@@ -66634,9 +66706,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -66702,19 +66771,6 @@
 /obj/item/reagent_containers/drinks/mug/sci,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/break_room)
-"kNa" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/secondary/entry/east)
 "kNo" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/disposalpipe/segment,
@@ -67497,6 +67553,13 @@
 	dir = 4
 	},
 /area/station/hallway/secondary/exit)
+"lcu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore2)
 "lcw" = (
 /obj/structure/sign/vacuum{
 	pixel_y = -32
@@ -70143,10 +70206,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
+/obj/machinery/door/firedoor,
+/obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "mra" = (
@@ -77817,6 +77880,9 @@
 /obj/machinery/camera{
 	c_tag = "Arrivals Hall Aft";
 	dir = 8
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -88750,6 +88816,15 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/medical/cloning)
+"tXv" = (
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
+/area/station/maintenance/fore2)
 "tYd" = (
 /obj/structure/morgue,
 /obj/effect/landmark/spawner/rev,
@@ -91119,6 +91194,10 @@
 "uSO" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
+/obj/machinery/power/apc/directional/east,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "arrival"
@@ -97559,16 +97638,6 @@
 "xyH" = (
 /turf/simulated/wall/r_wall,
 /area/station/turret_protected/ai_upload)
-"xyI" = (
-/obj/machinery/power/apc/directional/east,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/east)
 "xze" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/status_display{
@@ -141064,7 +141133,7 @@ vcE
 vcE
 giE
 kLd
-kNa
+vcE
 vcE
 vcE
 gnm
@@ -141321,8 +141390,8 @@ rQS
 akb
 uSO
 inH
-xyI
-rQS
+eOg
+eOg
 pCM
 jlx
 amB
@@ -141589,9 +141658,9 @@ anZ
 axm
 app
 aqk
-apo
+eNJ
 arU
-amP
+ilf
 avd
 auv
 avl
@@ -142101,7 +142170,7 @@ axm
 axm
 axm
 axm
-auu
+iQR
 aqm
 axm
 arV
@@ -142354,11 +142423,11 @@ akB
 auu
 amb
 amD
-aoE
-apo
-aoE
-aoE
-auu
+tXv
+eNJ
+tXv
+tXv
+lcu
 aqn
 are
 arW
@@ -144649,7 +144718,7 @@ dij
 abj
 dij
 dij
-dKz
+gHG
 aaa
 abj
 aaa
@@ -148512,7 +148581,7 @@ aaa
 aaa
 abj
 aaa
-dKz
+gHG
 dij
 aaa
 aaa
