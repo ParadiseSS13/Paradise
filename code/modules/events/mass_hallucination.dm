@@ -17,3 +17,5 @@
 
 /datum/event/mass_hallucination/announce()
 	GLOB.minor_announcement.Announce("The [station_name()] is passing through a minor radiation field. Be advised that acute exposure to space radiation can induce hallucinogenic episodes.")
+
+#undef RAD_ARMOR_TO_IMMUNITY
