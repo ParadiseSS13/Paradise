@@ -25394,10 +25394,6 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
-	},
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "bLy" = (
@@ -25858,10 +25854,11 @@
 	},
 /area/station/hallway/primary/central/sw)
 "bNy" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/chem_dispenser,
+/obj/item/radio/intercom{
+	name = "east bump";
+	pixel_x = 28
+	},
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "bNz" = (
@@ -26661,6 +26658,9 @@
 /area/station/medical/paramedic)
 "bQR" = (
 /obj/machinery/chem_heater,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "bQS" = (
@@ -76246,9 +76246,7 @@
 	},
 /area/station/security/permabrig)
 "ryC" = (
-/obj/structure/bed{
-	dir = 1
-	},
+/obj/structure/bed,
 /obj/item/bedsheet/captain{
 	dir = 1
 	},
