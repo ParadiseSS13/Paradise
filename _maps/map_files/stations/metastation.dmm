@@ -147,23 +147,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/north)
-"acI" = (
-/obj/item/seeds/wheat/rice,
-/obj/item/seeds/wheat/rice,
-/obj/item/seeds/wheat/rice,
-/obj/machinery/camera{
-	c_tag = "Prison Forestry";
-	dir = 4;
-	network = list("Prison","SS13")
-	},
-/obj/machinery/hydroponics/constructable{
-	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
-	name = "Prison hydroponics tray";
-	using_irrigation = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/grass/no_creep,
-/area/station/security/permabrig)
 "acL" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
@@ -19422,6 +19405,19 @@
 	icon_state = "white"
 	},
 /area/station/science/lobby)
+"bUS" = (
+/obj/machinery/camera{
+	c_tag = "Prison Forestry";
+	dir = 4;
+	network = list("Prison","SS13")
+	},
+/obj/machinery/hydroponics/constructable{
+	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
+	name = "Prison hydroponics tray";
+	using_irrigation = 1
+	},
+/turf/simulated/floor/grass/no_creep,
+/area/station/security/permabrig)
 "bUV" = (
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -37921,6 +37917,17 @@
 	icon_state = "blue"
 	},
 /area/station/hallway/secondary/exit)
+"fcp" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/hydroponics/constructable{
+	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
+	name = "Prison hydroponics tray";
+	using_irrigation = 1
+	},
+/turf/simulated/floor/grass/no_creep,
+/area/station/security/permabrig)
 "fcx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
@@ -40935,6 +40942,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
+"gfK" = (
+/obj/machinery/economy/vending/hydroseeds/perma,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "green"
+	},
+/area/station/security/permabrig)
 "gfY" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
@@ -49354,6 +49368,17 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/control)
+"jnG" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/hydroponics/constructable{
+	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
+	name = "Prison hydroponics tray";
+	using_irrigation = 1
+	},
+/turf/simulated/floor/grass/no_creep,
+/area/station/security/permabrig)
 "jnZ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/camera{
@@ -54192,7 +54217,7 @@
 "kUy" = (
 /obj/machinery/biogenerator,
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 1;
 	icon_state = "green"
 	},
 /area/station/security/permabrig)
@@ -55346,16 +55371,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
-"lmP" = (
-/obj/item/seeds/amanita,
-/obj/machinery/hydroponics/constructable{
-	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
-	name = "Prison hydroponics tray";
-	using_irrigation = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/grass/no_creep,
-/area/station/security/permabrig)
 "lna" = (
 /obj/effect/spawner/random/dirt/maybe,
 /turf/simulated/floor/plasteel{
@@ -65944,14 +65959,11 @@
 	},
 /area/station/engineering/control)
 "pdc" = (
-/obj/item/seeds/carrot,
-/obj/item/seeds/carrot,
 /obj/machinery/hydroponics/constructable{
 	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/grass/no_creep,
 /area/station/security/permabrig)
 "pde" = (
@@ -71295,21 +71307,6 @@
 /obj/effect/spawner/random/cobweb/right/rare,
 /turf/simulated/floor/bluespace,
 /area/station/maintenance/starboard)
-"qZg" = (
-/obj/item/seeds/chili,
-/obj/item/seeds/chili,
-/obj/item/seeds/chili,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/hydroponics/constructable{
-	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
-	name = "Prison hydroponics tray";
-	using_irrigation = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/grass/no_creep,
-/area/station/security/permabrig)
 "qZl" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -84527,20 +84524,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/control)
-"wab" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/item/seeds/corn,
-/obj/item/seeds/corn,
-/obj/machinery/hydroponics/constructable{
-	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
-	name = "Prison hydroponics tray";
-	using_irrigation = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/grass/no_creep,
-/area/station/security/permabrig)
 "waj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -86794,9 +86777,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "wRL" = (
-/obj/item/seeds/apple,
-/obj/item/seeds/apple,
-/obj/item/seeds/apple,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -86805,7 +86785,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/grass/no_creep,
 /area/station/security/permabrig)
 "wSh" = (
@@ -88592,18 +88571,6 @@
 /obj/effect/mapping_helpers/turfs/rust/maybe,
 /turf/simulated/wall,
 /area/station/public/vacant_office)
-"xvX" = (
-/obj/item/seeds/orange,
-/obj/item/seeds/orange,
-/obj/item/seeds/orange,
-/obj/machinery/hydroponics/constructable{
-	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
-	name = "Prison hydroponics tray";
-	using_irrigation = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/grass/no_creep,
-/area/station/security/permabrig)
 "xwg" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -108786,12 +108753,12 @@ arB
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+hqL
+urv
+bsA
+abW
+abW
+abW
 aaa
 abq
 aaa
@@ -109042,12 +109009,12 @@ aaa
 abf
 aaa
 aaa
-aaa
 hqL
-urv
-bsA
-abW
-abW
+dgp
+pdc
+jnG
+fcp
+bUS
 abW
 abq
 ajo
@@ -109299,12 +109266,12 @@ aaa
 abf
 aaa
 aaa
-hqL
-dgp
-xvX
-qZg
-wab
-acI
+nKf
+gfK
+evX
+sbK
+eAt
+gCp
 abW
 aaa
 abq
@@ -109558,10 +109525,10 @@ aaa
 aaa
 nKf
 kUy
-evX
-sbK
-eAt
-gCp
+adi
+adi
+adi
+aJM
 abW
 aaa
 abq
@@ -110590,7 +110557,7 @@ pcd
 udK
 uEB
 awA
-lmP
+pdc
 gjF
 abq
 aaa

@@ -24173,7 +24173,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/wheat/rice,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -35140,7 +35139,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/carrot,
 /obj/structure/sign/poster/random/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "green";
@@ -60715,7 +60713,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/chili,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -68299,7 +68296,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/orange,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "lxH" = (
@@ -68798,7 +68794,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/amanita,
 /turf/simulated/floor/plasteel{
 	icon_state = "green";
 	dir = 1
@@ -83570,7 +83565,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/ambrosia,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -83819,6 +83813,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/economy/vending/hydroseeds/perma,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "sjn" = (
@@ -88367,15 +88362,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/medical/cloning)
-"tWW" = (
-/obj/machinery/hydroponics/constructable{
-	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
-	name = "Prison hydroponics tray";
-	using_irrigation = 1
-	},
-/obj/item/seeds/corn,
-/turf/simulated/floor/plasteel,
-/area/station/security/permabrig)
 "tXb" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/spawner/random/storage,
@@ -88666,7 +88652,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/tobacco,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -90631,7 +90616,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/apple,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -155213,7 +155197,7 @@ abj
 ygH
 uRS
 aVw
-tWW
+lxi
 lKG
 isy
 aJx
