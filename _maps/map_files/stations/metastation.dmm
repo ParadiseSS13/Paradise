@@ -21758,10 +21758,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/medbay)
-"cfG" = (
-/obj/structure/shuttle/engine/huge,
-/turf/space,
-/area/space)
 "cfI" = (
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
@@ -94921,7 +94917,7 @@ aaa
 aaa
 aaa
 aaa
-cfG
+aaa
 aaa
 aaa
 aaa
