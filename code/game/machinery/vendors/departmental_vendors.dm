@@ -244,11 +244,6 @@
 	slogan_list = list("You've got nothing better to do. Might as well take up gardening!",
 					"Hands down the best restricted seed selection in prison!",
 					"No crimes against God or your money back!")
-
-	icon_state = "seeds"
-	icon_lightmask = "seeds"
-	icon_panel = "thin_vendor"
-	category = VENDOR_TYPE_DEPARTMENTAL
 	products = list(/obj/item/seeds/apple = 3,
 					/obj/item/seeds/cabbage = 3,
 					/obj/item/seeds/carrot = 3,
