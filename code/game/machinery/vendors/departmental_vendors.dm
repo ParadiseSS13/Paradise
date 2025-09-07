@@ -238,6 +238,75 @@
 
 	refill_canister = /obj/item/vending_refill/hydroseeds
 
+/obj/machinery/economy/vending/hydroseeds/perma
+	name = "\improper PrisonSeed Servitor"
+	desc = "Dispenses seeds for prisoners to grow plants with. It's supposed to help reform them into good citizens, or something."
+	slogan_list = list("You've got nothing better to do. Might as well take up gardening!",
+					"Hands down the best restricted seed selection in prison!",
+					"No crimes against God or your money back!")
+
+	icon_state = "seeds"
+	icon_lightmask = "seeds"
+	icon_panel = "thin_vendor"
+	category = VENDOR_TYPE_DEPARTMENTAL
+	products = list(/obj/item/seeds/aloe = 3,
+					/obj/item/seeds/ambrosia = 3,
+					/obj/item/seeds/apple = 3,
+					/obj/item/seeds/bamboo = 3,
+					/obj/item/seeds/banana = 3,
+					/obj/item/seeds/berry = 3,
+					/obj/item/seeds/cabbage = 3,
+					/obj/item/seeds/carrot = 3,
+					/obj/item/seeds/cherry = 3,
+					/obj/item/seeds/chanter = 3,
+					/obj/item/seeds/chili = 3,
+					/obj/item/seeds/cocoapod = 3,
+					/obj/item/seeds/coffee = 3,
+					/obj/item/seeds/comfrey = 3,
+					/obj/item/seeds/corn = 3,
+					/obj/item/seeds/cotton = 3,
+					/obj/item/seeds/nymph = 3,
+					/obj/item/seeds/eggplant = 3,
+					/obj/item/seeds/garlic = 3,
+					/obj/item/seeds/glowshroom = 3,
+					/obj/item/seeds/grape = 3,
+					/obj/item/seeds/grass = 3,
+					/obj/item/seeds/lemon = 3,
+					/obj/item/seeds/lettuce = 3,
+					/obj/item/seeds/lime = 3,
+					/obj/item/seeds/mint = 3,
+					/obj/item/seeds/olive = 3,
+					/obj/item/seeds/onion = 3,
+					/obj/item/seeds/orange = 3,
+					/obj/item/seeds/peanuts = 3,
+					/obj/item/seeds/pineapple = 3,
+					/obj/item/seeds/plum = 3,
+					/obj/item/seeds/poppy = 3,
+					/obj/item/seeds/potato = 3,
+					/obj/item/seeds/pumpkin = 3,
+					/obj/item/seeds/wheat/rice = 3,
+					/obj/item/seeds/soya = 3,
+					/obj/item/seeds/sugarcane = 3,
+					/obj/item/seeds/sunflower = 3,
+					/obj/item/seeds/tea = 3,
+					/obj/item/seeds/tobacco = 3,
+					/obj/item/seeds/tomato = 3,
+					/obj/item/seeds/tower = 3,
+					/obj/item/reagent_containers/spray/waterflower = 1,
+					/obj/item/seeds/watermelon = 3,
+					/obj/item/seeds/wheat = 3,
+					/obj/item/seeds/whitebeet = 3)
+
+	contraband = list(/obj/item/seeds/cannabis = 3,
+					/obj/item/seeds/amanita = 3,
+					/obj/item/seeds/fungus = 3,
+					/obj/item/seeds/liberty = 3,
+					/obj/item/seeds/nettle = 3,
+					/obj/item/seeds/plump = 3,
+					/obj/item/seeds/reishi = 3,
+					/obj/item/seeds/starthistle = 3,
+					/obj/item/seeds/random = 2)
+
 /obj/machinery/economy/vending/medical
 	name = "\improper NanoMed Plus"
 	desc = "Medical drug dispenser."
