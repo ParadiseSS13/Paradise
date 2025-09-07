@@ -1,17 +1,16 @@
-
-/*
-	run_armor_check(a,b)
-	args
-	a:def_zone - What part is getting hit, if null will check entire body
-	b:attack_flag - What type of attack, bullet, laser, energy, melee
-
-	Returns
-	0 - no block
-	1 - halfblock
-	2 - fullblock
+/**
+ * Returns final, decreased by `armor_penetration_flat` and `armor_penetration_percentage`, armor value of specific armor type
+ *
+ * * def_zone - What part is getting hit, if not set will check armor of entire body
+ * * armor_type - What type of armor is used. MELEE, BULLET, MAGIC etc.
+ * * absorb_text - Text displayed when your armor makes you immune (armor is INFINITY)
+ * * soften_text - Text displayed when 0 < armor < INFINITY
+ * * penetrated_text - Text displayed when armor penetration decreases non 0 armor to 0
+ * * armor_penetration_percentage - If negative, will increasy our armor
+ * * armor_penetration_flat - Second, armor will be decreased by this percentage of itself
 */
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = "Your armor absorbs the blow!", soften_text = "Your armor softens the blow!", armour_penetration_flat = 0, penetrated_text = "Your armor was penetrated!", armour_penetration_percentage = 0)
-	var/armor = getarmor(def_zone, attack_flag)
+/mob/living/proc/run_armor_check(def_zone = null, armor_type = MELEE, absorb_text = "Your armor absorbs the blow!", soften_text = "Your armor softens the blow!", armour_penetration_flat = 0, penetrated_text = "Your armor was penetrated!", armour_penetration_percentage = 0)
+	var/armor = getarmor(def_zone, armor_type)
 
 	if(armor == INFINITY)
 		to_chat(src, "<span class='userdanger'>[absorb_text]</span>")
@@ -31,8 +30,8 @@
 
 	return armor
 
-//if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
-/mob/living/proc/getarmor(def_zone, type)
+/// Returns armor value of our mob. As u can see, mobs have no armor by default so we override this proc on subtypes if we add them any armor
+/mob/living/proc/getarmor(def_zone, armor_type)
 	return 0
 
 /mob/living/proc/is_mouth_covered(head_only = FALSE, mask_only = FALSE)

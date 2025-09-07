@@ -160,38 +160,41 @@ emp_act
 
 		affecting.droplimb(FALSE, damtype)
 
-/mob/living/carbon/human/getarmor(def_zone, type)
-	var/armorval = 0
-	var/organnum = 0
-
+/// This proc calculates armor value for humans.
+/// If null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
+/mob/living/carbon/human/getarmor(def_zone, armor_type)
+	// If a specific bodypart is targetted, check if it exists, how that bodypart is protected and return the value
 	if(def_zone)
 		if(is_external_organ(def_zone))
-			return getarmor_organ(def_zone, type)
-		var/obj/item/organ/external/affecting = get_organ(def_zone)
+			return __getarmor_bodypart(def_zone, armor_type)
+		var/affecting = get_organ(def_zone)
 		if(affecting)
-			return getarmor_organ(affecting, type)
-		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
+			return __getarmor_bodypart(affecting, armor_type)
 
-	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
-	for(var/obj/item/organ/external/organ in bodyparts)
-		armorval += getarmor_organ(organ, type)
-		organnum++
+	// If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
+	var/armor
+	var/mob_bodyparts
+	for(var/obj/item/organ/external/part as anything in bodyparts)
+		armor += __getarmor_bodypart(part, armor_type)
+		mob_bodyparts++
 
-	return (armorval/max(organnum, 1))
+	return armor / max(mob_bodyparts, 1)
 
+/// This is an internal proc, returns the armor value for a particular bodypart [/obj/item/organ/external]. Use `getarmor()` instead
+/mob/living/carbon/human/proc/__getarmor_bodypart(obj/item/organ/external/def_zone, armor_type)
+	if(!armor_type || !def_zone)
+		return 0 // no armor
 
-//this proc returns the armour value for a particular external organ.
-/mob/living/carbon/human/proc/getarmor_organ(obj/item/organ/external/def_zone, type)
-	if(!type || !def_zone)	return 0
-	var/protection = 0
-	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
-	for(var/bp in body_parts)
-		if(!bp)	continue
-		if(bp && isclothing(bp))
-			var/obj/item/clothing/C = bp
-			if(C.body_parts_covered & def_zone.body_part)
-				protection += C.armor.getRating(type)
-	protection += physiology.armor.getRating(type)
+	// Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
+	var/list/covers_body = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck)
+	var/protection
+
+	for(var/obj/item/thing as anything in covers_body)
+		if(thing?.body_parts_covered & def_zone.body_part)
+			protection += thing.armor.getRating(armor_type)
+
+	protection += physiology.armor.getRating(armor_type)
+
 	return protection
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
