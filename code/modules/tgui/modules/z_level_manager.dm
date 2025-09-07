@@ -43,8 +43,3 @@ RESTRICT_TYPE(/datum/ui_module/admin/z_level_manager)
 			usr.client.jumptocoord(x, y, z)
 
 	return TRUE
-
-/datum/ui_module/admin/z_level_manager/global_space_manager
-
-/datum/ui_module/admin/z_level_manager/global_space_manager/New()
-	..(GLOB.space_manager)

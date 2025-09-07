@@ -1,3 +1,8 @@
+/datum/ui_module/admin/z_level_manager/global_space_manager
+
+/datum/ui_module/admin/z_level_manager/global_space_manager/New()
+	..(GLOB.space_manager)
+
 /client/proc/open_admin_zlevel_manager()
 	set name = "Z-Level Manager"
 	set desc = "Opens the Z-Level Manager UI"
