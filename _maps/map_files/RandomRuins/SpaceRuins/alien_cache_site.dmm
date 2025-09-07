@@ -47,12 +47,9 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/plating/abductor,
 /area/ruin/powered/alien_cache_site)
-"hx" = (
-/obj/item/reagent_containers/glass/bucket,
-/turf/simulated/floor/plating/abductor,
-/area/ruin/powered/alien_cache_site)
 "jZ" = (
 /obj/item/reagent_containers/glass/bottle/nutrient/empty,
+/obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plating/abductor,
 /area/ruin/powered/alien_cache_site)
 "kY" = (
@@ -705,7 +702,7 @@ wy
 wy
 wy
 wy
-hx
+wy
 jZ
 CK
 mQ
