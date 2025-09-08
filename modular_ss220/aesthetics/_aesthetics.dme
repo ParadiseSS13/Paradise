@@ -48,3 +48,4 @@
 #include "windows\code\windows.dm"
 #include "windowtint\code\windowtint.dm"
 #include "zippo\code\zippo.dm"
+#include "sleepers\code\sleepers.dm"

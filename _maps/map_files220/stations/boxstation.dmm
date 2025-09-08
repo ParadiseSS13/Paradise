@@ -24632,12 +24632,11 @@
 /area/station/maintenance/port2)
 "bSB" = (
 /obj/effect/turf_decal/delivery/blue/hollow,
-/obj/machinery/sleeper{
-	dir = 4;
-	pixel_x = 3
-	},
 /obj/structure/railing{
 	dir = 8
+	},
+/obj/machinery/sleeper{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
