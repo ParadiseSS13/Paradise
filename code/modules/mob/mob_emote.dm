@@ -151,10 +151,9 @@
 				var/turf/newloc = G.affecting.loc
 				if(isturf(oldloc) && isturf(newloc))
 					user.SpinAnimation(5, 1)
-					var/old_pass = user.pass_flags
-					user.pass_flags |= (PASSTABLE)
+					// SS220 EDIT START - remove PASSTABLE flag
 					step(user, get_dir(oldloc, newloc))
-					user.pass_flags = old_pass
+					// SS220 EDIT END
 					message = "делает кувырок через [G.affecting]!"
 					return ..()
 
