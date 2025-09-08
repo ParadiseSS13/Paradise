@@ -2613,8 +2613,7 @@
 	},
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkgreen"
+	icon_state = "dark"
 	},
 /area/station/procedure/trainer_office)
 "avL" = (
@@ -3862,7 +3861,7 @@
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "darkgreen"
+	icon_state = "darkblue"
 	},
 /area/station/procedure/trainer_office)
 "aDw" = (
@@ -5670,8 +5669,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkgreen"
+	icon_state = "dark"
 	},
 /area/station/procedure/trainer_office)
 "aLE" = (
@@ -12076,7 +12074,7 @@
 /obj/item/flag/nt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "darkgreen"
+	icon_state = "darkblue"
 	},
 /area/station/procedure/trainer_office)
 "bov" = (
@@ -12085,7 +12083,7 @@
 	},
 /obj/effect/landmark/start/nanotrasen_career_trainer,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgreen"
+	icon_state = "darkblue"
 	},
 /area/station/procedure/trainer_office)
 "bow" = (
@@ -12102,7 +12100,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "darkgreen"
+	icon_state = "darkblue"
 	},
 /area/station/procedure/trainer_office)
 "boB" = (
@@ -12399,7 +12397,7 @@
 /obj/machinery/light_switch/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgreen"
+	icon_state = "darkblue"
 	},
 /area/station/procedure/trainer_office)
 "bpU" = (
@@ -20317,15 +20315,13 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/command{
-	id_tag = "ntrepofficedoor"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/command/ntrep,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/machinery/door/airlock/corporate,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "ccn" = (
@@ -23222,9 +23218,6 @@
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/virology)
 "cpX" = (
-/obj/machinery/door/airlock/command/glass{
-	id_tag = "nct"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/procedure/trainer,
 /obj/effect/mapping_helpers/airlock/polarized{
@@ -23248,6 +23241,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/machinery/door/airlock/corporate/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -45026,7 +45020,7 @@
 /obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgreen"
+	icon_state = "darkblue"
 	},
 /area/station/procedure/trainer_office)
 "ieD" = (
@@ -45949,9 +45943,9 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/corporate,
 /turf/simulated/floor/wood,
 /area/station/science/robotics/showroom)
 "iwW" = (
@@ -50498,9 +50492,6 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "kdn" = (
-/obj/machinery/door/airlock/command/glass{
-	id_tag = "nct"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/procedure/trainer,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -50508,6 +50499,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock/corporate/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63474,12 +63466,12 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/command/blueshield,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/machinery/door/airlock/corporate,
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "oOv" = (
@@ -75677,7 +75669,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "darkgreen"
+	icon_state = "darkblue"
 	},
 /area/station/procedure/trainer_office)
 "ttz" = (
@@ -75914,7 +75906,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgreen"
+	icon_state = "darkblue"
 	},
 /area/station/procedure/trainer_office)
 "tyF" = (
@@ -77802,7 +77794,7 @@
 "ulh" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgreen"
+	icon_state = "darkblue"
 	},
 /area/station/procedure/trainer_office)
 "umh" = (

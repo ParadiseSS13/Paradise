@@ -84,8 +84,12 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_bathroom
 
 /obj/machinery/door/airlock/lawyer
-	icon = 'modular_ss220/aesthetics/airlocks/icons/station/corporate.dmi'
+	icon = 'modular_ss220/aesthetics/airlocks/icons/station/law.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_lawyer
+
+/obj/machinery/door/airlock/corporate
+	icon = 'modular_ss220/aesthetics/airlocks/icons/station/corporate.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_corporate
 
 /obj/machinery/door/airlock/bloody
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
@@ -143,6 +147,10 @@
 	glass = TRUE
 
 /obj/machinery/door/airlock/lawyer/glass
+	opacity = 0
+	glass = TRUE
+
+/obj/machinery/door/airlock/corporate/glass
 	opacity = 0
 	glass = TRUE
 

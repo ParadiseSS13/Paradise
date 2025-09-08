@@ -8990,9 +8990,6 @@
 /area/station/security/detective)
 "aHF" = (
 /obj/machinery/economy/vending/coffee,
-/obj/structure/window/basic{
-	dir = 8
-	},
 /obj/effect/turf_decal/siding/wood/cherry{
 	dir = 9
 	},
@@ -9406,6 +9403,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/structure/railing{
+	dir = 4
+	},
 /turf/simulated/floor/wood/fancy,
 /area/station/legal/courtroom/gallery)
 "aJc" = (
@@ -9415,10 +9415,6 @@
 /turf/simulated/floor/wood/fancy,
 /area/station/legal/courtroom/gallery)
 "aJd" = (
-/obj/structure/window/basic{
-	dir = 8
-	},
-/obj/structure/window/basic,
 /obj/effect/turf_decal/siding/wood/cherry{
 	dir = 10
 	},
@@ -9682,8 +9678,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	dir = 6
+	icon_state = "dark"
 	},
 /area/station/legal/courtroom)
 "aKs" = (
@@ -9699,6 +9694,9 @@
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
+	},
+/obj/structure/railing{
+	dir = 1
 	},
 /turf/simulated/floor/wood/fancy,
 /area/station/legal/courtroom/gallery)
@@ -10552,6 +10550,9 @@
 	},
 /area/station/hallway/primary/fore)
 "aNM" = (
+/obj/effect/turf_decal/siding/wood/cherry/corner{
+	dir = 8
+	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/courtroom/gallery)
 "aNP" = (
@@ -10964,6 +10965,9 @@
 /turf/simulated/floor/wood/fancy,
 /area/station/legal/courtroom/gallery)
 "aPD" = (
+/obj/structure/railing/cap/normal{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/stairs/left{
 	color = "gray"
 	},
@@ -15973,7 +15977,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "greencorner"
+	icon_state = "bluecorner"
 	},
 /area/station/hallway/secondary/entry/lounge)
 "bgC" = (
@@ -18924,7 +18928,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "green"
+	icon_state = "blue"
 	},
 /area/station/hallway/secondary/entry/lounge)
 "bst" = (
@@ -20799,17 +20803,15 @@
 	},
 /area/station/hallway/primary/central/west)
 "bBr" = (
-/obj/machinery/door/airlock/command/glass{
-	id_tag = "nct"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/procedure/trainer,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "NCT"
 	},
+/obj/machinery/door/airlock/corporate/glass,
 /turf/simulated/floor/plasteel{
-	icon_state = "greenfull"
+	icon_state = "bluefull"
 	},
 /area/station/procedure/trainer_office)
 "bBy" = (
@@ -21227,7 +21229,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "greencorner"
+	icon_state = "bluecorner"
 	},
 /area/station/hallway/secondary/entry/south)
 "bDv" = (
@@ -29019,9 +29021,6 @@
 /area/station/supply/miningdock)
 "ckN" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command{
-	id_tag = "ntrepofficedoor"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -29039,6 +29038,7 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/corporate,
 /turf/simulated/floor/wood/parquet/oak,
 /area/station/command/office/ntrep)
 "ckP" = (
@@ -30886,9 +30886,6 @@
 /area/station/service/kitchen)
 "csw" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command{
-	id_tag = "blueshieldofficedoor"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -30906,6 +30903,7 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/corporate,
 /turf/simulated/floor/wood/fancy/ebonite,
 /area/station/command/office/blueshield)
 "csB" = (
@@ -46806,9 +46804,6 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/station/service/chapel)
 "ehb" = (
-/obj/machinery/door/airlock/command/glass{
-	id_tag = "nct"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/procedure/trainer,
@@ -46827,8 +46822,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/corporate/glass,
 /turf/simulated/floor/plasteel{
-	icon_state = "greenfull"
+	icon_state = "bluefull"
 	},
 /area/station/procedure/trainer_office)
 "ehi" = (
@@ -57215,7 +57211,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "greencorner"
+	icon_state = "bluecorner"
 	},
 /area/station/hallway/secondary/entry/south)
 "hCr" = (
@@ -69569,6 +69565,9 @@
 	dir = 5
 	},
 /obj/machinery/status_display/directional/north,
+/obj/structure/railing{
+	dir = 4
+	},
 /turf/simulated/floor/wood/fancy,
 /area/station/legal/courtroom/gallery)
 "lKO" = (
@@ -81674,8 +81673,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	dir = 6
+	icon_state = "dark"
 	},
 /area/station/legal/courtroom)
 "pBp" = (
@@ -83571,7 +83569,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "greencorner"
+	icon_state = "bluecorner"
 	},
 /area/station/hallway/secondary/entry/lounge)
 "qlo" = (
@@ -83606,6 +83604,9 @@
 	anchored = 1
 	},
 /obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/obj/structure/railing/corner{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy,
@@ -97194,7 +97195,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "green"
+	icon_state = "blue"
 	},
 /area/station/hallway/secondary/entry/south)
 "uGG" = (

@@ -965,16 +965,16 @@
 "ahy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/command/glass{
-	id_tag = "nct"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/procedure/trainer,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "NCT"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel,
+/obj/machinery/door/airlock/corporate/glass,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluefull"
+	},
 /area/station/procedure/trainer_office)
 "ahz" = (
 /obj/machinery/door/airlock/external{
@@ -2132,8 +2132,8 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkgreen"
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/station/procedure/trainer_office)
 "aoZ" = (
@@ -2373,8 +2373,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkgreen"
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/station/procedure/trainer_office)
 "apM" = (
@@ -2382,7 +2382,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgreen"
+	icon_state = "dark"
 	},
 /area/station/procedure/trainer_office)
 "apP" = (
@@ -2708,22 +2708,13 @@
 "aqI" = (
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkgreen"
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/station/procedure/trainer_office)
 "aqJ" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgreen"
-	},
-/area/station/procedure/trainer_office)
-"aqN" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkgreencorners"
+	icon_state = "dark"
 	},
 /area/station/procedure/trainer_office)
 "aqO" = (
@@ -3031,8 +3022,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkgreen"
+	icon_state = "darkblue"
 	},
 /area/station/procedure/trainer_office)
 "arF" = (
@@ -27669,9 +27659,6 @@
 /area/station/command/office/ntrep)
 "cku" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command{
-	id_tag = "ntrepofficedoor"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -27680,6 +27667,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/access/any/command/ntrep,
+/obj/machinery/door/airlock/corporate,
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ntrep)
 "ckv" = (
@@ -27689,9 +27677,6 @@
 /area/station/hallway/secondary/bridge)
 "ckw" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command{
-	id_tag = "blueshieldofficedoor"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -27700,6 +27685,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/access/any/command/blueshield,
+/obj/machinery/door/airlock/corporate,
 /turf/simulated/floor/plasteel,
 /area/station/command/office/blueshield)
 "ckx" = (
@@ -30334,11 +30320,9 @@
 /area/station/public/vacant_office/secondary)
 "cxc" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	id_tag = "pub_room"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/polarized,
+/obj/machinery/door/airlock/corporate/glass,
 /turf/simulated/floor/plasteel,
 /area/station/public/vacant_office/secondary)
 "cxd" = (
@@ -54956,15 +54940,13 @@
 /area/station/security/permabrig)
 "gyY" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	id_tag = "pub_room"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/polarized,
+/obj/machinery/door/airlock/corporate/glass,
 /turf/simulated/floor/carpet,
 /area/station/public/vacant_office/secondary)
 "gzd" = (
@@ -56140,7 +56122,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgreen"
+	icon_state = "dark"
 	},
 /area/station/procedure/trainer_office)
 "gTc" = (
@@ -56608,8 +56590,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkgreen"
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/station/procedure/trainer_office)
 "hbq" = (
@@ -59229,10 +59211,10 @@
 	},
 /area/station/command/bridge/checkpoint/south)
 "hQJ" = (
-/obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/any/command/magistrate,
+/obj/machinery/door/airlock/lawyer,
 /turf/simulated/floor/wood/oak,
 /area/station/legal/magistrate)
 "hQV" = (
@@ -69219,12 +69201,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
-"kWy" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgreen";
-	dir = 1
-	},
-/area/station/procedure/trainer_office)
 "kWB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -73596,8 +73572,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgreen"
+	icon_state = "dark"
 	},
 /area/station/procedure/trainer_office)
 "mqG" = (
@@ -75406,8 +75381,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgreen";
-	dir = 1
+	icon_state = "dark"
 	},
 /area/station/procedure/trainer_office)
 "mWM" = (
@@ -77644,8 +77618,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkgreen"
+	icon_state = "darkblue"
 	},
 /area/station/procedure/trainer_office)
 "nEn" = (
@@ -82297,7 +82270,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgreen"
+	icon_state = "dark"
 	},
 /area/station/procedure/trainer_office)
 "oYg" = (
@@ -88327,8 +88300,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgreen";
-	dir = 1
+	icon_state = "dark"
 	},
 /area/station/procedure/trainer_office)
 "qQx" = (
@@ -88527,15 +88499,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
-"qSe" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkgreencorners"
-	},
-/area/station/procedure/trainer_office)
 "qSh" = (
 /obj/machinery/door/airlock/external{
 	hackProof = 1;
@@ -98245,8 +98208,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgreen"
+	icon_state = "dark"
 	},
 /area/station/procedure/trainer_office)
 "tVj" = (
@@ -104171,12 +104133,10 @@
 /area/station/maintenance/fore2)
 "vTv" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	id_tag = "pub_room"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/polarized,
+/obj/machinery/door/airlock/corporate/glass,
 /turf/simulated/floor/carpet,
 /area/station/public/vacant_office/secondary)
 "vTJ" = (
@@ -109345,7 +109305,6 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "magistrate"
@@ -109354,6 +109313,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/any/command/magistrate,
+/obj/machinery/door/airlock/lawyer/glass,
 /turf/simulated/floor/wood/fancy/oak,
 /area/station/legal/magistrate)
 "xxW" = (
@@ -143491,7 +143451,7 @@ ant
 anP
 dqB
 imf
-kWy
+aqJ
 aqJ
 arB
 aoo
@@ -144519,8 +144479,8 @@ ant
 anP
 aoo
 aoY
-qSe
-aqN
+qQa
+oYb
 nEe
 aoo
 atu

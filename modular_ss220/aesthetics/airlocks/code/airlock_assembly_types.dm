@@ -101,10 +101,16 @@
 	glass_type = /obj/machinery/door/airlock/psych/glass
 
 /obj/structure/door_assembly/door_assembly_lawyer
-	icon = 'modular_ss220/aesthetics/airlocks/icons/station/corporate.dmi'
+	icon = 'modular_ss220/aesthetics/airlocks/icons/station/law.dmi'
 	base_name = "lawyer airlock"
 	airlock_type = /obj/machinery/door/airlock/lawyer
 	glass_type = /obj/machinery/door/airlock/lawyer/glass
+
+/obj/structure/door_assembly/door_assembly_corporate
+	icon = 'modular_ss220/aesthetics/airlocks/icons/station/corporate.dmi'
+	base_name = "corporate airlock"
+	airlock_type = /obj/machinery/door/airlock/corporate
+	glass_type = /obj/machinery/door/airlock/corporate/glass
 
 /obj/structure/door_assembly/door_assembly_bathroom
 	icon = 'modular_ss220/aesthetics/airlocks/icons/station/bathroom.dmi'
