@@ -11,6 +11,9 @@
 	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	flags = ABSTRACT
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	pass_flags = PASSTABLE
+	animate_movement = NO_STEPS
 	var/armor_penetration_flat
 	var/armor_penetration_percentage
 	var/hitsound = 'sound/weapons/pierce.ogg'
@@ -33,7 +36,6 @@
 	var/Angle = null
 	var/original_angle = null //Angle at firing
 	var/spread = 0			//amount (in degrees) of projectile spread
-	animate_movement = NO_STEPS
 
 	var/ignore_source_check = FALSE
 
