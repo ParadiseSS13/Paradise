@@ -252,7 +252,7 @@
 	desc = "<b>Drag</b> buttons to move them.<br><b>Shift-click</b> any button to reset it.<br><b>Alt-click</b> this to reset all buttons.<br><b>Ctrl-click</b> action buttons to lock or unlock them.<br><b>Ctrl-click</b> this to get a detailed explanation of how to use this."
 	icon = 'icons/hud/64x16_actions.dmi'
 	icon_state = "screen_gen_palette"
-	screen_loc = ui_action_palette
+	screen_loc = UI_ACTION_PALETTE
 	var/datum/hud/our_hud
 	var/expanded = FALSE
 	/// Id of any currently running timers that set our color matrix
@@ -404,7 +404,7 @@ GLOBAL_LIST_INIT(palette_removed_matrix, list(1.4,0,0,0, 0.7,0.4,0,0, 0.4,0,0.6,
 
 
 /atom/movable/screen/palette_scroll
-	screen_loc = ui_palette_scroll
+	screen_loc = UI_PALETTE_SCROLL
 	/// How should we move the palette's actions?
 	/// Positive scrolls down the list, negative scrolls back
 	var/scroll_direction = 0

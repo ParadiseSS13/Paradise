@@ -1,5 +1,5 @@
 //the essential proc to call when an obj must receive damage of any kind.
-/obj/proc/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
+/obj/proc/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armor_penetration_flat = 0, armor_penetration_percentage = 0)
 	if(QDELETED(src))
 		stack_trace("[src] taking damage after deletion")
 		return
@@ -7,7 +7,7 @@
 		play_attack_sound(damage_amount, damage_type, damage_flag)
 	if((resistance_flags & INDESTRUCTIBLE) || obj_integrity <= 0)
 		return
-	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration_flat, armour_penetration_percentage)
+	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armor_penetration_flat, armor_penetration_percentage)
 	if(damage_amount < DAMAGE_PRECISION)
 		return
 	. = damage_amount
@@ -20,21 +20,20 @@
 		obj_destruction(damage_flag)
 
 ///returns the damage value of the attack after processing the obj's various armor protections
-/obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
+/obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armor_penetration_flat = 0, armor_penetration_percentage = 0)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
 	if(damage_type != BRUTE && damage_type != BURN)
 		return 0
-	var/armor_protection = 0
+	var/armor_protection
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
-	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
-		armor_protection = clamp((armor_protection * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat, min(armor_protection, 0), 100)
-	var/damage_multiplier = (100 - armor_protection) / 100
-	return round(damage_amount * damage_multiplier, DAMAGE_PRECISION)
+	if(armor_protection > 0)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
+		armor_protection = clamp(armor_protection * (100 - armor_penetration_percentage) / 100 - armor_penetration_flat, 0, 100)
+	return round(damage_amount * (100 - armor_protection) / 100, DAMAGE_PRECISION)
 
 /// returns the amount of damage required to destroy this object in a single hit.
-/obj/proc/calculate_oneshot_damage(damage_type, damage_flag = 0, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
+/obj/proc/calculate_oneshot_damage(damage_type, damage_flag = 0, attack_dir, armor_penetration_flat = 0, armor_penetration_percentage = 0)
 	if(obj_integrity <= 0)
 		return 0
 	if(resistance_flags & INDESTRUCTIBLE)
@@ -42,11 +41,11 @@
 	if(damage_type != BRUTE && damage_type != BURN)
 		return INFINITY
 
-	var/armor_protection = 0
+	var/armor_protection
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
-	if(armor_protection)        // Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
-		armor_protection = clamp((armor_protection * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat, min(armor_protection, 0), 100)
+	if(armor_protection > 0)        // Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
+		armor_protection = clamp(armor_protection * (100 - armor_penetration_percentage) / 100 - armor_penetration_flat, 0, 100)
 
 	var/damage_multiplier = (100 - armor_protection) / 100
 	if(damage_multiplier <= 0)
@@ -91,7 +90,7 @@
 	playsound(src, P.hitsound, 50, TRUE)
 	visible_message("<span class='danger'>[src] is hit by \a [P]!</span>")
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
-		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration_flat, P.armour_penetration_percentage)
+		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armor_penetration_flat, P.armor_penetration_percentage)
 
 ///Called to get the damage that hulks will deal to the obj.
 /obj/proc/hulk_damage()
@@ -117,10 +116,10 @@
 			return
 	take_damage(400, BRUTE, MELEE, 0, get_dir(src, B))
 
-/obj/proc/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armour_penetration_flat = 0, armour_penetration_percentage = 0) //used by attack_alien, attack_animal, and attack_slime
+/obj/proc/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration_flat = 0, armor_penetration_percentage = 0) // used by attack_alien, attack_animal, and attack_slime
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
-	return take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armour_penetration_flat, armour_penetration_percentage)
+	return take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armor_penetration_flat, armor_penetration_percentage)
 
 /obj/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(attack_generic(user, 60, BRUTE, MELEE, 0))
@@ -136,9 +135,9 @@
 			play_soundeffect = 0
 		var/obj_turf = get_turf(src)  // play from the turf in case the object gets deleted mid attack
 		if(M.obj_damage)
-			. = attack_generic(M, M.obj_damage, M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration_flat, M.armour_penetration_percentage)
+			. = attack_generic(M, M.obj_damage, M.melee_damage_type, MELEE, play_soundeffect, M.armor_penetration_flat, M.armor_penetration_percentage)
 		else
-			. = attack_generic(M, rand(M.melee_damage_lower,M.melee_damage_upper), M.melee_damage_type, MELEE, play_soundeffect, M.armour_penetration_flat, M.armour_penetration_percentage)
+			. = attack_generic(M, rand(M.melee_damage_lower,M.melee_damage_upper), M.melee_damage_type, MELEE, play_soundeffect, M.armor_penetration_flat, M.armor_penetration_percentage)
 		if(. && !play_soundeffect)
 			playsound(QDELETED(src) ? obj_turf : src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 
@@ -152,9 +151,9 @@
 			play_soundeffect = FALSE
 		var/obj_turf = get_turf(src)  // play from the turf in case the object gets deleted mid attack
 		if(attacker.obj_damage)
-			. = attack_generic(attacker, attacker.obj_damage, attacker.melee_damage_type, MELEE, play_soundeffect, attacker.armour_penetration_flat, attacker.armour_penetration_percentage)
+			. = attack_generic(attacker, attacker.obj_damage, attacker.melee_damage_type, MELEE, play_soundeffect, attacker.armor_penetration_flat, attacker.armor_penetration_percentage)
 		else
-			. = attack_generic(attacker, rand(attacker.melee_damage_lower, attacker.melee_damage_upper), attacker.melee_damage_type, MELEE, play_soundeffect, attacker.armour_penetration_flat, attacker.armour_penetration_percentage)
+			. = attack_generic(attacker, rand(attacker.melee_damage_lower, attacker.melee_damage_upper), attacker.melee_damage_type, MELEE, play_soundeffect, attacker.armor_penetration_flat, attacker.armor_penetration_percentage)
 		if(. && !play_soundeffect)
 			playsound(QDELETED(src) ? obj_turf : src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 	return TRUE
