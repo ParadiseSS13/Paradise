@@ -1,4 +1,5 @@
 GLOBAL_LIST_EMPTY(bug_reports)
+GLOBAL_LIST_EMPTY(bug_report_time)
 
 // Datum for handling bug reports
 #define STATUS_SUCCESS 201
@@ -82,11 +83,6 @@ GLOBAL_LIST_EMPTY(bug_reports)
 
 // returns the body payload
 /datum/tgui_bug_report_form/proc/create_form()
-	//var/datum/getrev/revdata = GLOB.revdata
-	//var/test_merges
-	//if(length(revdata.testmerge))
-	//	test_merges = revdata.GetTestMergeInfo(header = FALSE)
-
 	var/desc = {"
 ## Client BYOND Version
 [usr.client.byond_version].[usr.client.byond_build]
@@ -184,6 +180,7 @@ GLOBAL_LIST_EMPTY(bug_reports)
 			// bug report request is now waiting for admin approval
 			if(!awaiting_approval)
 				bug_report_request()
+				GLOB.bug_report_time[user.ckey] = world.time
 				awaiting_approval = TRUE
 			else // otherwise it's been approved
 				var/payload_body = create_form()
