@@ -1,7 +1,7 @@
 /datum/spell/vampire/self/blood_swell
 	name = "Blood Swell (30)"
 	desc = "You infuse your body with blood, making you highly resistant to stuns and physical damage. However, this makes you unable to fire ranged weapons while it is active."
-	gain_desc = "You have gained the ability to temporarly resist large amounts of stuns and physical damage."
+	gain_desc = "You have gained the ability to temporarily resist large amounts of stuns and physical damage."
 	base_cooldown = 40 SECONDS
 	required_blood = 30
 	action_icon_state = "blood_swell"
@@ -14,7 +14,7 @@
 
 /datum/spell/vampire/self/stomp
 	name = "Seismic Stomp (30)"
-	desc = "You slam your foot into the ground sending a powerful shockwave through the station's hull, sending people flying away. Cannot be cast if you legs are impared by a bola or similar."
+	desc = "You slam your foot into the ground sending a powerful shockwave through the station's hull, sending people flying away. Cannot be cast if your legs are restrained by a bola or similar."
 	gain_desc = "You have gained the ability to knock people back using a powerful stomp."
 	action_icon_state = "seismic_stomp"
 	base_cooldown = 60 SECONDS
@@ -70,7 +70,7 @@
 	animate(src, transform = M * 8, time = duration, alpha = 0)
 
 /datum/vampire_passive/blood_swell_upgrade
-	gain_desc = "While blood swell is active all of your melee attacks deal increased damage."
+	gain_desc = "While blood swell is active, all of your melee attacks deal increased damage."
 
 /datum/spell/vampire/self/overwhelming_force
 	name = "Overwhelming Force"
@@ -122,8 +122,8 @@
 
 /datum/spell/fireball/demonic_grasp
 	name = "Demonic Grasp (20)"
-	desc = "Fire a hand of demonic energy, snaring and throwing its target around, based on your intent. Disarm pushes, grab pulls."
-	gain_desc = "You have gained the ability to snare and disrupt people with demonic apendages."
+	desc = "Summon a hand of demonic energy, snaring and throwing its target around, based on your intent. Disarm pushes, grab pulls."
+	gain_desc = "You have gained the ability to snare and disrupt people with demonic appendages."
 	base_cooldown = 30 SECONDS
 	fireball_type = /obj/item/projectile/magic/demonic_grasp
 
@@ -191,11 +191,10 @@
 /obj/effect/temp_visual/demonic_snare
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "immobilized"
-	duration = 1 SECONDS
 
 /datum/spell/vampire/charge
 	name = "Charge (30)"
-	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
+	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning targets, and destroying walls and other objects."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	required_blood = 30
 	base_cooldown = 30 SECONDS

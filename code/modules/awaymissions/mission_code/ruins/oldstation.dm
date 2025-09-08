@@ -13,7 +13,6 @@
 /obj/item/card/id/away/old
 	name = "A perfectly retrograde identification card"
 	desc = "A perfectly retrograde identification card. Looks like it could use some flavor."
-	icon = 'icons/obj/card.dmi'
 	icon_state = "retro"
 	access = list(ACCESS_THETA_STATION)
 
@@ -63,17 +62,13 @@
 	new /obj/item/stack/medical/ointment(src)
 	new /obj/item/stack/medical/ointment(src)
 
-/obj/item/clothing/head/helmet/space/nasavoid/old
-	name = "Engineering Void Helmet"
-	desc = "A CentCom engineering dark red space suit helmet. While old and dusty, it still gets the job done."
-	icon_state = "void-red"
-	item_state = "void"
+/obj/item/clothing/head/helmet/space/void/old
+	name = "Antique Engineering Void Helmet"
+	desc = "An old helmet meant for EVA engineering work. Any insignia it had has long since worn away. While old and dusty, it still gets the job done."
 
-/obj/item/clothing/suit/space/nasavoid/old
-	name = "Engineering Voidsuit"
-	icon_state = "void-red"
-	item_state = "void"
-	desc = "A CentCom engineering dark red space suit. Age has degraded the suit making it difficult to move around in."
+/obj/item/clothing/suit/space/void/old
+	name = "Antique Engineering Void Suit"
+	desc = "An old softsuit meant for engineering work. Any insignia it had has long since worn away. Age has degraded the suit making it difficult to move around in."
 	slowdown = 4
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
 
@@ -85,28 +80,21 @@
 /obj/item/clothing/suit/armor/vest/old
 	name = "degrading armor vest"
 	desc = "Older generation Type 1 armored vest. Due to degradation over time the vest is far less maneuverable to move in."
-	icon_state = "armor"
-	item_state = "armor"
 	slowdown = 1
 
 /obj/item/gun/energy/laser/retro/old
 	name = "degrading L-1 laser gun"
-	icon_state = "retro"
 	desc = "A first-generation lasergun developed by Maiman Photonics. It has a unique rechargable internal cell that cannot be removed. \
 	Due to degredation over time, the battery cannot hold as much charge as it used to. You really hope someone has developed a better laser gun while you were in cryo."
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/old)
-	ammo_x_offset = 3
 
 /obj/item/ammo_casing/energy/lasergun/old
-	projectile_type = /obj/item/projectile/beam/laser
 	e_cost = 200
-	select_name = "kill"
 
 /obj/item/gun/energy/e_gun/old
 	name = "\improper NT-EW-P:01 prototype energy gun"
 	desc = "A long-lost prototype energy gun developed by Nanotrasen's Theta R&D team. The fire selector has two settings: 'stun', and 'kill'."
 	icon_state = "protolaser"
-	ammo_x_offset = 2
 	ammo_type = list(/obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/electrode/old)
 
 /obj/item/gun/energy/e_gun/old/examine(mob/user)
@@ -131,14 +119,6 @@
 //////////////////////////////
 // MARK: PAPERS
 //////////////////////////////
-/obj/item/paper/fluff/ruins/oldstation
-	name = "\improper Cryo Awakening Alert"
-	info = "<B>**WARNING**</B><BR><BR>Catastrophic damage sustained to station. Powernet exhausted to reawaken crew.<BR><BR>Immediate Objectives<br><br>1: Activate emergency power generator<br>2: Lift station lockdown on the bridge<br><br>Please locate the 'Damage Report' on the bridge for a detailed situation report."
-
-/obj/item/paper/fluff/ruins/oldstation/damagereport
-	name = "\improper Damage Report"
-	info = "<b>*Damage Report*</b><br><br><b>Alpha Station</b> - Destroyed<br><br><b>Beta Station</b> - Catastrophic Damage. Medical, destroyed. Atmospherics, partially destroyed. Engine Core, destroyed.<br><br><b>Charlie Station</b> - Intact. Loss of oxygen to eastern side of main corridor.<br><br><b>Theta Station</b> - Intact. <b>WARNING</b>: Unknown force occupying Theta Station. Intent unknown. Species unknown. Numbers unknown.<br><br>Recommendation - Reestablish station powernet via solar array. Reestablish station atmospherics system to restore air."
-
 /obj/item/paper/fluff/ruins/oldstation/protosuit
 	name = "\improper B01-RIG Hardsuit Report"
 	info = "<b>*Prototype Hardsuit*</b><br><br>The B01-RIG Hardsuit is a prototype powered exoskeleton. Based off of a recovered pre-void war era united Earth government powered military \
@@ -174,17 +154,6 @@
 	name = "\improper Laboratory Inventory"
 	info = "<b>*Inventory*</b><br><br>(1) Prototype Hardsuit<br><br>(1)Health Analyser<br><br>(1)Prototype Energy Gun<br><br>(1)Singularity Generation Disk<br><br><b>DO NOT REMOVE WITHOUT \
 	THE CAPTAIN AND RESEARCH DIRECTOR'S AUTHORISATION</b>"
-
-/obj/item/paper/fluff/ruins/oldstation/report
-	name = "\improper Crew Reawakening Report"
-
-/obj/item/paper/fluff/ruins/oldstation/report/Initialize(mapload)
-	. = ..()
-	init_current_date_string()
-	info = "Artificial Program's report to surviving crewmembers.<br><br>Crew were placed into cryostasis 10 March, 2445.<br><br>Crew were awoken from cryostasis [GLOB.current_date_string].<br><br> \
-	<b>SIGNIFICANT EVENTS OF NOTE</b><br>1: The primary radiation detectors were taken offline after [GLOB.game_year - 2445] years due to power failure, secondary radiation detectors showed no residual \
-	radiation on station. Deduction, primarily detector was malfunctioning and was producing a radiation signal when there was none.<br><br>2: A data burst from a nearby Nanotrasen Space \
-	Station was received, this data burst contained research data that has been uploaded to our RnD labs.<br><br>3: Unknown invasion force has occupied Theta station."
 
 /obj/item/paper/fluff/ruins/oldstation/generator_manual
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type portable generator manual"
@@ -434,7 +403,6 @@
 // MARK: ENGINES
 //////////////////////////////
 /obj/structure/shuttle/engine/large
-	name = "engine"
 	opacity = TRUE
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
@@ -444,7 +412,6 @@
 	appearance_flags = LONG_GLIDE
 
 /obj/structure/shuttle/engine/huge
-	name = "engine"
 	icon = 'icons/obj/3x3.dmi'
 	icon_state = "huge_engine"
 	desc = "An extremely large bluespace engine used to propel extremely large ships."
@@ -460,13 +427,11 @@
 /area/ruin/ancientstation
 	name = "Charlie Station Main Corridor"
 	icon_state = "green"
-	has_gravity = TRUE
 
 /area/ruin/ancientstation/powered
 	name = "Powered Tile"
 	icon_state = "teleporter"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/ruin/ancientstation/atmo
 	name = "Beta Station Atmospherics"
@@ -501,7 +466,6 @@
 
 /area/ruin/ancientstation/thetacorridor
 	name = "Theta Station Main Corridor"
-	icon_state = "green"
 
 /area/ruin/ancientstation/proto
 	name = "Theta Station Prototype Lab"
@@ -515,3 +479,58 @@
 	name = "Hivebot Mothership"
 	icon_state = "teleporter"
 	requires_power = FALSE
+
+// MARK: LORE CONSOLES
+
+/obj/machinery/computer/loreconsole/oldstation/damage_report
+	entries = list(
+		new/datum/lore_console_entry(
+			"Damage Report",
+			{"**Alpha Station** - Destroyed.
+
+**Beta Station** - Catastrophic Damage. Medical, destroyed. Atmospherics, partially destroyed. Engine Core, destroyed.
+
+**Charlie Station** - Intact. Loss of oxygen to eastern side of main corridor.
+
+**Theta Station** - Intact. **WARNING**: Unknown force occupying Theta Station. Intent unknown. Species unknown. Numbers unknown.
+
+Recommendation - Reestablish station powernet via solar array. Reestablish station atmospherics system to restore air."}))
+
+/obj/machinery/computer/loreconsole/oldstation/crew_awakening_report
+	entries = list(
+		new/datum/lore_console_entry(
+			"Crew Awakening Report",
+			{"## WARNING
+
+Catastrophic damage sustained to station.
+Powernet exhausted to reawaken crew.
+
+## Immediate Objectives
+
+1. Activate emergency power generator.
+2. Lift station lockdown on the bridge.
+
+Please locate the 'Damage Report' on the bridge for a detailed situation report."}))
+
+/obj/machinery/computer/loreconsole/oldstation/report
+	name = "\improper Crew Reawakening Report"
+
+/obj/machinery/computer/loreconsole/oldstation/report/Initialize(mapload)
+	. = ..()
+	init_current_date_string()
+	entries += new/datum/lore_console_entry(
+		"Crew Reawakening Report",
+		{"Artificial Program's report to surviving crewmembers.
+
+Crew were placed into cryostasis 10 March, 2445.
+
+Crew were awoken from cryostasis [GLOB.current_date_string].
+
+**SIGNIFICANT EVENTS OF NOTE**
+
+1. The primary radiation detectors were taken offline after [GLOB.game_year - 2445] years due to power failure.
+	Secondary radiation detectors showed no residual radiation on station.
+	Deduction: primarily detector was malfunctioning and was producing a radiation signal when there was none.
+2. A data burst from a nearby Nanotrasen Space Station was received, this data burst contained research data that has been uploaded to our RnD labs.
+3. Unknown invasion force has occupied Theta station."})
+

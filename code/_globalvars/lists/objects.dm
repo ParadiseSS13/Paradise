@@ -26,6 +26,7 @@ GLOBAL_LIST_EMPTY(apcs)
 GLOBAL_LIST_EMPTY(air_alarms)
 GLOBAL_LIST_EMPTY(power_monitors)
 GLOBAL_LIST_EMPTY(all_vent_pumps)
+GLOBAL_LIST_EMPTY(all_scrubbers)
 
 GLOBAL_LIST_EMPTY(navbeacons)					//list of all bot nagivation beacons, used for patrolling.
 GLOBAL_LIST_EMPTY(deliverybeacons)			//list of all MULEbot delivery beacons.

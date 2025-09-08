@@ -4,12 +4,7 @@
 	icon = 'icons/obj/machines/magma_crucible.dmi'
 	icon_state = "crucible"
 	max_integrity = 300
-	pixel_x = -32	// 3x3
 	pixel_y = -32
-	bound_width = 96
-	bound_x = -32
-	bound_height = 96
-	bound_y = -32
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
@@ -19,12 +14,19 @@
 	var/adding_ore
 	/// State for if ore is being taken from it
 	var/pouring
+	/// How many outputs are we pouring to? Do not stop animating until we are no longer pouring.
+	var/number_of_pours = 0
 	/// List of linked machines
 	var/list/linked_machines = list()
 
 /obj/machinery/magma_crucible/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PALLADIUM, MAT_IRIDIUM, MAT_PLATINUM, MAT_BRASS), INFINITY, FALSE, list(/obj/item/stack, /obj/item/smithed_item), null, null)
+	AddComponent(/datum/component/multitile, list(
+		list(1,				1,	1),
+		list(MACH_CENTER,	1,	1),
+		list(1,				1,	1),
+	))
 	// Stock parts
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/magma_crucible(null)
@@ -35,6 +37,7 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/assembly/igniter(null)
 	RefreshParts()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/magma_crucible/examine(mob/user)
 	. = ..()
@@ -66,6 +69,8 @@
 		. += "crucible_wires"
 	if(pouring)
 		. += "crucible_output"
+	else if(has_power() && !(stat & (BROKEN)))
+		. += "crucible_passive"
 
 /obj/machinery/magma_crucible/update_icon_state()
 	. = ..()
@@ -95,6 +100,7 @@
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/magma_crucible/proc/animate_transfer(time_to_animate)
 	adding_ore = TRUE
@@ -107,12 +113,25 @@
 
 /obj/machinery/magma_crucible/proc/animate_pour(time_to_animate)
 	pouring = TRUE
+	number_of_pours++
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(stop_pouring)), time_to_animate)
 
 /obj/machinery/magma_crucible/proc/stop_pouring()
-	pouring = FALSE
-	update_icon(UPDATE_OVERLAYS)
+	number_of_pours--
+	if(!number_of_pours)
+		pouring = FALSE
+		update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/magma_crucible/attack_ghost(mob/dead/observer/user)
+	if(..())
+		return TRUE
+	ui_interact(user)
+
+/obj/machinery/magma_crucible/attack_hand(mob/user)
+	if(..())
+		return TRUE
+	ui_interact(user)
 
 /obj/machinery/magma_crucible/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -136,3 +155,22 @@
 			continue
 		msgs += "[M.name]: [floor(M.amount / MINERAL_MATERIAL_AMOUNT)] sheets."
 	to_chat(user, chat_box_regular(msgs.Join("<br>")))
+
+/obj/machinery/magma_crucible/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/magma_crucible/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "MaterialContainer", name)
+		ui.open()
+
+/obj/machinery/magma_crucible/ui_data(mob/user)
+	..()
+	var/datum/component/material_container/material_container = GetComponent(/datum/component/material_container)
+	return material_container.get_ui_data(user)
+
+/obj/machinery/magma_crucible/ui_static_data(mob/user)
+	..()
+	var/datum/component/material_container/material_container = GetComponent(/datum/component/material_container)
+	return material_container.get_ui_static_data(user)

@@ -5,7 +5,6 @@
 	desc = "This is the alpha and omega of sanitation."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cart"
-	anchored = FALSE
 	density = TRUE
 	face_while_pulling = FALSE
 	container_type = OPENCONTAINER
@@ -71,9 +70,6 @@
 	if(handle_janitorial_equipment(user, used))
 		return ITEM_INTERACT_COMPLETE
 
-	if(istype(used, /obj/item/reagent_containers))
-		return ITEM_INTERACT_SKIP_TO_AFTER_ATTACK
-
 	if(my_bag)
 		if(my_bag.can_be_inserted(used))
 			my_bag.handle_item_insertion(used, user)
@@ -120,7 +116,7 @@
 			put_in_cart(user, used)
 			return
 		item_present = TRUE
-	
+
 	if(istype(used, /obj/item/storage/bag/trash))
 		if(!my_bag)
 			my_bag = used
@@ -291,3 +287,9 @@
 				reagentsImage.icon_state = "cart_reagents4"
 		reagentsImage.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += reagentsImage
+
+/obj/structure/janitorialcart/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)

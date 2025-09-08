@@ -19,8 +19,8 @@
 /obj/item/reagent_containers/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(isliving(target))
 		user.changeNext_move(CLICK_CD_MELEE)
-		if(mob_act(target, user))
-			return ITEM_INTERACT_COMPLETE
+		mob_act(target, user)
+		return ITEM_INTERACT_COMPLETE
 	if(normal_act(target, user))
 		return ITEM_INTERACT_COMPLETE
 	return ..()
@@ -36,7 +36,7 @@
 	if(!length(possible_transfer_amounts))
 		// Nothing to configure.
 		return FALSE
-	return TRUE
+	return is_valid_interaction(user)
 
 /obj/item/reagent_containers/proc/is_valid_interaction(mob/user)
 	if(isrobot(user) && src.loc == user)

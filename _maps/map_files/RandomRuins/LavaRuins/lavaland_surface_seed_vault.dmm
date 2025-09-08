@@ -3,9 +3,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/sink{
-	pixel_y = 24
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "al" = (
@@ -45,16 +43,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/sink{
-	pixel_y = -4;
-	dir = 1
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "dX" = (
-/obj/structure/sink{
-	pixel_y = 24
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "ed" = (
@@ -156,10 +149,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/powered/seedvault)
 "nt" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "oy" = (
@@ -411,11 +401,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Uh" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "Vu" = (
@@ -441,10 +427,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "XC" = (
-/obj/structure/sink{
-	pixel_y = -4;
-	dir = 1
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "XF" = (

@@ -10,7 +10,6 @@
 	name = "\improper MULEbot"
 	desc = "A Multiple Utility Load Effector bot."
 	icon_state = "mulebot0"
-	density = TRUE
 	move_resist = MOVE_FORCE_STRONG
 	animate_movement = FORWARD_STEPS
 	health = 50
@@ -70,7 +69,7 @@
 	access_card.access = J.get_access()
 	LAZYADD(access_card.access, ACCESS_CARGO_BOT)
 	prev_access = access_card.access
-	cell = new /obj/item/stock_parts/cell/upgraded(src)
+	cell = new /obj/item/stock_parts/cell/high(src)
 
 	mulebot_count++
 	set_suffix(suffix ? suffix : "#[mulebot_count]")

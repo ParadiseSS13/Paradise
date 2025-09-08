@@ -67,6 +67,12 @@
 		return TRUE
 	return FALSE
 
+/turf/simulated/floor/lava/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	if(!pass_info.is_living)
+		return TRUE
+
+	return pass_info.is_flying || pass_info.is_megafauna || (locate(/obj/structure/bridge_walkway) in src)
+
 /turf/simulated/floor/lava/proc/burn_stuff(AM)
 	. = FALSE
 
@@ -76,7 +82,10 @@
 	var/thing_to_check = src
 	if(AM)
 		thing_to_check = list(AM)
-	for(var/thing in thing_to_check)
+	for(var/atom/thing in thing_to_check)
+		if(HAS_TRAIT(thing, TRAIT_FLYING))
+			continue	//YOU'RE FLYING OVER IT
+
 		if(isobj(thing))
 			var/obj/O = thing
 			if(!O.simulated)
@@ -97,8 +106,6 @@
 		else if(isliving(thing))
 			. = TRUE
 			var/mob/living/L = thing
-			if(HAS_TRAIT(L, TRAIT_FLYING))
-				continue	//YOU'RE FLYING OVER IT
 			var/buckle_check = L.buckling
 			if(!buckle_check)
 				buckle_check = L.buckled
@@ -164,6 +171,12 @@
 /turf/simulated/floor/lava/burn_tile()
 	return
 
+/turf/simulated/floor/lava/can_cross_safely(atom/movable/crossing)
+	if(isliving(crossing))
+		var/mob/living/crosser = crossing
+		return (locate(/obj/structure/bridge_walkway) in src) || HAS_TRAIT(crossing, TRAIT_FLYING) || ("lava" in crosser.weather_immunities)
+	return locate(/obj/structure/bridge_walkway) in src || HAS_TRAIT(crossing, TRAIT_FLYING)
+
 /turf/simulated/floor/lava/lava_land_surface
 	oxygen = LAVALAND_OXYGEN
 	nitrogen = LAVALAND_NITROGEN
@@ -181,7 +194,6 @@
 	baseturf = /turf/simulated/floor/lava/lava_land_surface/plasma
 
 	light_range = 3
-	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
@@ -206,7 +218,10 @@
 	var/thing_to_check = src
 	if(AM)
 		thing_to_check = list(AM)
-	for(var/thing in thing_to_check)
+	for(var/atom/thing in thing_to_check)
+		if(HAS_TRAIT(thing, TRAIT_FLYING))
+			continue	//YOU'RE FLYING OVER IT
+
 		if(isobj(thing))
 			var/obj/O = thing
 			if(!O.simulated)
@@ -285,7 +300,6 @@
 	base_icon_state = "liquidplasma"
 	baseturf = /turf/simulated/floor/lava/plasma
 	light_range = 3
-	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
 
 // special turf for the asteroid core on EmeraldStation

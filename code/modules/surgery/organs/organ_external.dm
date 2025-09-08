@@ -3,9 +3,7 @@
 ****************************************************/
 /obj/item/organ/external
 	name = "external"
-	min_broken_damage = 30
 	max_damage = 0
-	dir = SOUTH
 	organ_tag = "limb"
 
 	blocks_emissive = FALSE
@@ -60,6 +58,7 @@
 	var/amputation_point // Descriptive string used in amputation.
 	var/can_grasp
 	var/can_stand
+	var/malfdamage
 
 	var/splinted_count = 0 //Time when this organ was last splinted
 	///If this organ's max HP is reduced by the IPC magnetic joints implant
@@ -176,13 +175,6 @@
 		C.update_body()
 		C.updatehealth()
 		C.UpdateDamageIcon()
-		if(limb_name == BODY_ZONE_HEAD)
-			var/obj/item/organ/external/head/H = C.get_organ(BODY_ZONE_HEAD)
-			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
-			if(robohead.is_monitor) //Ensures that if an IPC gets a head that's got a human hair wig attached to their body, the hair won't wipe.
-				H.h_style = "Bald"
-				H.f_style = "Shaved"
-				C.m_styles["head"] = "None"
 		user.visible_message(
 			"<span class='notice'>[user] has attached [C]'s [src] to the [amputation_point].</span>",
 			"<span class='notice'>You have attached [C]'s [src] to the [amputation_point].</span>")
@@ -826,8 +818,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 	..()
 	//robot limbs take reduced damage
 	if(!make_tough)
-		brute_mod = 0.66
-		burn_mod = 0.66
 		dismember_at_max_damage = TRUE
 	else
 		tough = TRUE
@@ -885,7 +875,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return !(status & (ORGAN_MUTATED|ORGAN_DEAD))
 
 /obj/item/organ/external/proc/is_malfunctioning()
-	return (is_robotic() && (brute_dam + burn_dam) >= 10 && prob(brute_dam + burn_dam) && !tough)
+	return (is_robotic() && (brute_dam + burn_dam) >= malfdamage && prob(brute_dam + burn_dam) && !tough)
 
 /obj/item/organ/external/remove(mob/living/user, ignore_children)
 

@@ -14,24 +14,21 @@
 	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
 	taste_description = "water"
-	var/cooling_temperature = 2
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
-	var/water_temperature = 283.15 // As reagents don't have a temperature value, we'll just use 10 celsius.
 
 /datum/reagent/water/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	M.water_act(volume, water_temperature, src, method)
+	M.water_act(volume, COLD_WATER_TEMPERATURE, src, method)
 
 /datum/reagent/water/reaction_turf(turf/T, volume)
-	T.water_act(volume, water_temperature, src)
+	T.water_act(volume, COLD_WATER_TEMPERATURE, src)
 	var/obj/effect/acid/A = (locate(/obj/effect/acid) in T)
-	if(A)
-		A.acid_level = max(A.acid_level - volume*  50, 0)
+	A?.acid_level = max(A.acid_level - volume * 50, 0)
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
-	O.water_act(volume, water_temperature, src)
+	O.water_act(volume, COLD_WATER_TEMPERATURE, src)
 
 /datum/reagent/lube
 	name = "Space Lube"
@@ -77,7 +74,7 @@
 	data = list("donor" = null,
 				"viruses" = null,
 				"blood_DNA" = null,
-				"blood_type" = null,
+				"blood_type" = "O-",
 				"blood_colour" = "#A10808",
 				"resistances" = null,
 				"trace_chem" = null,
@@ -106,7 +103,7 @@
 		for(var/thing in data["viruses"])
 			var/datum/disease/D = thing
 
-			if(D.spread_flags & SPECIAL || D.spread_flags & NON_CONTAGIOUS)
+			if(D.spread_flags & SPREAD_SPECIAL || D.spread_flags & SPREAD_NON_CONTAGIOUS)
 				continue
 
 			if(method == REAGENT_TOUCH)
@@ -120,6 +117,13 @@
 			C.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, C.nutrition + 10))
 			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 	..()
+
+/datum/reagent/blood/reaction_temperature(exposed_temperature, exposed_volume)
+	// If the blood goes above 60C kill all viruses
+	if(exposed_temperature > VIRUS_DISINFECTION_TEMP)
+		data["viruses"] = list()
+	..()
+
 
 /datum/reagent/blood/on_new(list/data)
 	if(istype(data))
@@ -151,15 +155,38 @@
 
 		// Stop issues with the list changing during mixing.
 		var/list/to_mix = list()
+		var/list/disease_ids = list()
+		var/list/stages = list()
 
 		for(var/datum/disease/advance/AD in mix1)
-			to_mix += AD
-		for(var/datum/disease/advance/AD in mix2)
-			to_mix += AD
+			if(!(AD.GetDiseaseID() in disease_ids))
+				disease_ids += AD.GetDiseaseID()
+				stages[AD.GetDiseaseID()] = list(AD.stage)
+				to_mix += AD
+			if(!(AD.stage in stages[AD.GetDiseaseID()]))
+				stages[AD.GetDiseaseID()] += list(AD.stage)
+				to_mix += AD
 
-		var/datum/disease/advance/AD = Advance_Mix(to_mix)
-		if(AD)
-			var/list/preserve = list(AD)
+		for(var/datum/disease/advance/AD in mix2)
+			if(!(AD.GetDiseaseID() in disease_ids))
+				disease_ids += AD.GetDiseaseID()
+				stages[AD.GetDiseaseID()] = list(AD.stage)
+				to_mix += AD
+			if(!(AD.stage in stages[AD.GetDiseaseID()]))
+				stages[AD.GetDiseaseID()] += list(AD.stage)
+				to_mix += AD
+
+		var/list/result_diseases = list()
+		if(length(disease_ids) == 1)
+			for(var/datum/disease/advance/AD in to_mix)
+				result_diseases += AD.Copy()
+		else
+			var/datum/disease/advance/result_virus = Advance_Mix(to_mix)
+			if(istype(result_virus))
+				result_diseases = list(result_virus)
+
+		if(length(result_diseases))
+			var/list/preserve = result_diseases
 			for(var/D in data["viruses"])
 				if(!istype(D, /datum/disease/advance))
 					preserve += D
@@ -187,6 +214,19 @@
 			blood_prop = new(T)
 			blood_prop.blood_DNA["UNKNOWN DNA STRUCTURE"] = "X*"
 
+/// If irradiated by gamma radiation and there are advanced viruses in the blood become a sample of viral genetic data
+/datum/reagent/blood/reaction_radiation(amount, emission_type)
+	if(emission_type == GAMMA_RAD && amount > 100)
+		if(data && data["viruses"])
+			var/list/strains = list("radiation" = list())
+			for(var/datum/disease/advance/virus in data["viruses"])
+				strains["radiation"] += virus.strain
+			if(length(strains["radiation"]))
+				var/blood_volume = volume
+				holder.remove_reagent(id, blood_volume)
+				holder.add_reagent("virus_genes", blood_volume, strains)
+
+
 /datum/reagent/vaccine
 	//data must contain virus type
 	name = "Vaccine"
@@ -199,7 +239,7 @@
 		for(var/thing in M.viruses)
 			var/datum/disease/D = thing
 			if(D.GetDiseaseID() in data)
-				D.cure()
+				D.make_resistant(M)
 		M.resistances |= data
 
 /datum/reagent/vaccine/on_merge(list/incoming_data)
@@ -213,7 +253,6 @@
 	reagent_state = LIQUID
 	color = "#757547"
 	taste_description = "puke"
-	harmless = FALSE
 
 /datum/reagent/fishwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
@@ -233,8 +272,6 @@
 	name = "Toilet Water"
 	id = "toiletwater"
 	description = "Filthy water scoured from a nasty toilet bowl. Absolutely disgusting."
-	reagent_state = LIQUID
-	color = "#757547"
 	taste_description = "the inside of a toilet... or worse"
 
 /datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //For shennanigans
@@ -243,7 +280,7 @@
 /datum/reagent/holywater
 	name = "Water"
 	id = "holywater"
-	description = "A ubiquitous chemical substance that is composed of hydrogen and oxygen."
+	description = "A ubiquitous chemical substance that is composed of hydrogen, oxygen, and faith." // Subtle tell if anyone bothers to use a chem master to identify it. How many people know this can be done?
 	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
 	process_flags = ORGANIC | SYNTHETIC
@@ -254,17 +291,27 @@
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustJitter(-10 SECONDS)
-	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
-		M.AdjustStuttering(8 SECONDS, bound_lower = 0, bound_upper = 40 SECONDS)
-		M.Dizzy(10 SECONDS)
+	// Feel the blessing within you. Unless you're an unholy being, of course.
+	if(prob(5) && !IS_CULTIST(M) && !M.mind?.has_antag_datum(/datum/antagonist/vampire) && !isvampirethrall(M))
+		M.AdjustJitter(-10 SECONDS)
+		var/holy_message = pick(
+			"You feel a little more peaceful inside.", 
+			"You feel a higher power looking down on you.", 
+			"You feel as though your spirit is a little safer",
+			"You feel as though you are blessed.",
+		)
+		to_chat(M, "<span class='notice'>[holy_message]</span>")
+
+	// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
+	if(current_cycle >= 30)
 		if(IS_CULTIST(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
 					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
 					qdel(BS)
-			if(prob(5))
-				M.AdjustCultSlur(10 SECONDS)//5 seems like a good number...
+			if(prob(5)) // 5 seems like a good number...
+				M.AdjustCultSlur(10 SECONDS)
+				M.Jitter(10 SECONDS)
 				M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
 		if(isvampirethrall(M))
 			if(prob(10))
@@ -272,17 +319,14 @@
 			if(prob(5)) //Same as cult, for the real big tell
 				M.visible_message("<span class='warning'>A fog lifts from [M]'s eyes for a moment, but soon returns.</span>")
 
-	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
-		M.AdjustConfused(6 SECONDS)
+	// 30 units, 150 seconds
+	if(current_cycle >= 75 && prob(33))	
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
-
 			holder.remove_reagent(id, volume)
 			M.visible_message("<span class='biggerdanger'>[M] recoils, their skin flushes with colour, regaining their sense of control!</span>")
-			M.SetJitter(0)
-			M.SetStuttering(0)
-			M.SetConfused(0)
 			return
+
 		if(IS_CULTIST(M))
 			var/datum/antagonist/cultist/cultist = IS_CULTIST(M)
 			cultist.remove_gear_on_removal = TRUE
@@ -290,12 +334,15 @@
 
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			M.SetJitter(0)
-			M.SetStuttering(0)
-			M.SetConfused(0)
 			return
+
 	var/datum/antagonist/vampire/vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(ishuman(M) && vamp && !vamp.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M
+		// Has never fed, do not pass GO.
+		if(!vamp.bloodtotal)
+			return ..() | update_flags
+
 		if(vamp.bloodusable)
 			M.Stuttering(2 SECONDS)
 			M.Jitter(60 SECONDS)
@@ -304,39 +351,41 @@
 				M.emote("scream")
 			vamp.adjust_nullification(20, 4)
 			vamp.bloodusable = max(vamp.bloodusable - 3,0)
-			if(vamp.bloodusable)
-				V.vomit(0, TRUE, FALSE)
-				V.adjustBruteLoss(3)
-			else
+			if(!vamp.bloodusable)
 				holder.remove_reagent(id, volume)
 				V.vomit(0, FALSE, FALSE)
 				return
-		else
-			if(!vamp.bloodtotal)
-				return ..() | update_flags
-			switch(current_cycle)
-				if(1 to 4)
-					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-					vamp.adjust_nullification(20, 4)
-				if(5 to 12)
-					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
-					update_flags |= M.adjustFireLoss(1, FALSE)
-					M.Stuttering(2 SECONDS)
-					M.Jitter(40 SECONDS)
-					if(prob(20))
-						M.emote("scream")
-					vamp.adjust_nullification(20, 4)
-				if(13 to INFINITY)
-					M.visible_message("<span class='danger'>[M] suddenly bursts into flames!</span>",
-									"<span class='danger'>You suddenly ignite in a holy fire!</span>")
-					M.fire_stacks = min(5, M.fire_stacks + 3)
-					M.IgniteMob()
-					update_flags |= M.adjustFireLoss(3, FALSE)
-					M.Stuttering(2 SECONDS)
-					M.Jitter(60 SECONDS)
-					if(prob(40))
-						M.emote("scream")
-					vamp.adjust_nullification(20, 4)
+
+			V.vomit(0, TRUE, FALSE)
+			V.adjustBruteLoss(3)
+			return ..() | update_flags
+
+		switch(current_cycle)
+			if(1 to 4)
+				to_chat(M, "<span class='warning'>Something sizzles in your veins!</span>")
+				vamp.adjust_nullification(20, 4)
+			if(5 to 12)
+				to_chat(M, "<span class='danger'>You feel an intense burning inside of you!</span>")
+				update_flags |= M.adjustFireLoss(1, FALSE)
+				M.Stuttering(2 SECONDS)
+				M.Jitter(40 SECONDS)
+				if(prob(20))
+					M.emote("scream")
+				vamp.adjust_nullification(20, 4)
+			if(13 to INFINITY)
+				M.visible_message(
+					"<span class='danger'>[M] suddenly bursts into flames!</span>",
+					"<span class='userdanger'>You suddenly ignite in a holy fire!</span>",
+					"<span class='danger'>You hear something suddenly bursting into flames!</span>"
+				)
+				M.fire_stacks = min(5, M.fire_stacks + 3)
+				M.IgniteMob()
+				update_flags |= M.adjustFireLoss(3, FALSE)
+				M.Stuttering(2 SECONDS)
+				M.Jitter(60 SECONDS)
+				if(prob(40))
+					M.emote("scream")
+				vamp.adjust_nullification(20, 4)
 	return ..() | update_flags
 
 
@@ -370,7 +419,6 @@
 	name = "Unholy Water"
 	id = "unholywater"
 	description = "Something that shouldn't exist on this plane of existence."
-	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 	metabolization_rate = 1
 	taste_description = "sulfur"
 
@@ -466,7 +514,6 @@
 	description = "A sticky compound that creates tar on contact with surfaces."
 	reagent_state = LIQUID
 	color = "#4B4B4B"
-	harmless = FALSE
 	taste_description = "processed sludge"
 
 /datum/reagent/tar_compound/reaction_turf(turf/simulated/T, volume)

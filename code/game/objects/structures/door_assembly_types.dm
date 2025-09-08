@@ -136,29 +136,51 @@
 	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
 	base_name = "large airlock"
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
-	dir = EAST
 	var/width = 2
 	airlock_type = /obj/machinery/door/airlock/multi_tile
 	glass_type = /obj/machinery/door/airlock/multi_tile/glass
 	material_amt = 8
 
-/obj/structure/door_assembly/multi_tile/Initialize(mapload)
+/obj/structure/door_assembly/multi_tile/Initialize(mapload, direction)
 	. = ..()
-	if(dir in list(EAST, WEST))
-		bound_width = width * world.icon_size
-		bound_height = world.icon_size
-	else
-		bound_width = world.icon_size
-		bound_height = width * world.icon_size
+	if(direction)
+		setDir(direction)
 
-/obj/structure/door_assembly/multi_tile/Move()
+/obj/structure/door_assembly/multi_tile/setDir(newdir)
 	. = ..()
-	if(dir in list(EAST, WEST))
+	update_bounds()
+
+/obj/structure/door_assembly/multi_tile/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	update_bounds()
+
+/obj/structure/door_assembly/multi_tile/proc/update_bounds()
+	if(width <= 1)
+		return
+
+	if(dir in list(SOUTH, NORTH))
 		bound_width = width * world.icon_size
 		bound_height = world.icon_size
+		bound_y = 0
+		pixel_y = 0
+		if(dir == NORTH)
+			bound_x = -(width - 1) * world.icon_size
+			pixel_x = -(width - 1) * world.icon_size
+		else
+			bound_x = 0
+			pixel_x = 0
+
 	else
 		bound_width = world.icon_size
 		bound_height = width * world.icon_size
+		bound_x = 0
+		pixel_x = 0
+		if(dir == WEST)
+			bound_y = -(width - 1) * world.icon_size
+			pixel_y = -(width - 1) * world.icon_size
+		else
+			bound_y = 0
+			pixel_y = 0
 
 /obj/structure/door_assembly/door_assembly_cult
 	name = "cult airlock assembly"

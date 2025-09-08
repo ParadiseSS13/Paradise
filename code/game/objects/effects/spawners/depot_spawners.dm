@@ -1,7 +1,6 @@
 /// Spawners for the Syndicate depot ruin.
 /obj/effect/spawner/random/syndicate
 	name = "Syndicate Area Spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 
 // Turrets
 
@@ -20,8 +19,8 @@
 /obj/effect/spawner/random/syndicate/mob
 	name = "50pc melee syndimob"
 	icon = 'icons/effects/spawner_icons.dmi'
-	icon_state = "syndie_depot"
-	loot = list(/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot)
+	icon_state = "syndicate"
+	loot = list(/mob/living/simple_animal/hostile/syndicate/depot)
 	spawn_loot_chance = 50
 
 /obj/effect/spawner/random/syndicate/medbot

@@ -15,18 +15,19 @@
 	ingredient_name = "slab of meat"
 	ingredient_name_plural = "slabs of meat"
 
-/obj/item/food/meat/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
-		new /obj/item/food/rawcutlet(src)
-		new /obj/item/food/rawcutlet(src)
-		new /obj/item/food/rawcutlet(src)
-		user.visible_message( \
-			"<span class ='notice'>[user] cuts [src] with [W]!</span>", \
-			"<span class ='notice'>You cut [src] with [W]!</span>" \
-			)
-		qdel(src)
-	else
-		..()
+/obj/item/food/meat/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/kitchen/knife) && !istype(used, /obj/item/scalpel))
+		return NONE
+
+	new /obj/item/food/rawcutlet(src)
+	new /obj/item/food/rawcutlet(src)
+	new /obj/item/food/rawcutlet(src)
+	user.visible_message(
+		"<span class ='notice'>[user] cuts [src] with [used]!</span>",
+		"<span class ='notice'>You cut [src] with [used]!</span>"
+	)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/meat/syntiflesh
 	name = "synthetic meat"
@@ -97,21 +98,22 @@
 	bitesize = 1
 	list_reagents = list("protein" = 1)
 
-/obj/item/food/rawcutlet/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
-		user.visible_message( \
-			"<span class ='notice'>[user] cuts the raw cutlet with [W]!</span>", \
-			"<span class ='notice'>You cut the raw cutlet with [W]!</span>" \
-			)
-		var/obj/item/food/raw_bacon/bacon = new(get_turf(src))
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			qdel(src)
-			H.put_in_hands(bacon)
-		else
-			qdel(src)
+/obj/item/food/rawcutlet/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/kitchen/knife) && !istype(used, /obj/item/scalpel))
+		return NONE
 
-	return ..()
+	user.visible_message(
+		"<span class ='notice'>[user] cuts the raw cutlet with [used]!</span>",
+		"<span class ='notice'>You cut the raw cutlet with [used]!</span>"
+	)
+	var/obj/item/food/raw_bacon/bacon = new(get_turf(src))
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		qdel(src)
+		H.put_in_hands(bacon)
+	else
+		qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 //////////////////////////
 //		Monster Meat	//
@@ -132,7 +134,6 @@
 /obj/item/food/monstermeat/bearmeat
 	name = "bear meat"
 	desc = "A very manly slab of meat."
-	icon_state = "bearmeat"
 	filling_color = "#DB0000"
 	bitesize = 3
 	list_reagents = list("protein" = 12, "methamphetamine" = 5, "vitamin" = 2)
@@ -258,7 +259,6 @@
 	desc = "A juicy cooked patty, ready to be slapped between two buns."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "patty"
-	bitesize = 3
 	list_reagents = list("protein" = 3)
 
 /obj/item/food/meat/patty_raw
@@ -266,14 +266,16 @@
 	desc = "A raw patty ready to be grilled into a juicy and delicious burger."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "patty_raw"
-	bitesize = 3
 	list_reagents = list("protein" = 2)
 
 /obj/item/food/meat/patty_raw/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Use it in hand to shape it into a raw meatball.</span>"
 
-/obj/item/food/meat/patty_raw/attack_self__legacy__attackchain(mob/user)
+/obj/item/food/meat/patty_raw/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	user.visible_message(
 		"<span class='notice'>[user] shapes [src] into a raw meatball.</span>",
 		"<span class='notice'>You shape [src] into a raw meatball.</span>"
@@ -283,7 +285,7 @@
 	user.drop_item()
 	qdel(src)
 	user.put_in_hands(M)
-	return 1
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/ground_meat
 	name = "ground meat"
@@ -299,7 +301,10 @@
 	. += "<span class='notice'>Use it in hand to shape it into a raw meatball.</span>"
 	. += "<span class='notice'>Use it in hand again to flatten it into a raw patty.</span>"
 
-/obj/item/food/ground_meat/attack_self__legacy__attackchain(mob/living/user)
+/obj/item/food/ground_meat/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	user.visible_message(
 		"<span class='notice'>[user] shapes [src] into a ball.</span>",
 		"<span class='notice'>You shape [src] into a ball of raw ground meat.</span>"
@@ -309,12 +314,11 @@
 	user.drop_item()
 	qdel(src)
 	user.put_in_hands(M)
-	return TRUE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/meat/raw_meatball
 	name = "raw meatball"
 	desc = "Some ground meat shaped into a ball."
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "meatball_raw"
 	filling_color = "#DB4444"
 	list_reagents = list("protein" = 4, "vitamin" = 1)
@@ -324,7 +328,10 @@
 	. = ..()
 	. += "<span class='notice'>Use it in hand to flatten it into a raw patty.</span>"
 
-/obj/item/food/meat/raw_meatball/attack_self__legacy__attackchain(mob/user)
+/obj/item/food/meat/raw_meatball/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	user.visible_message(
 		"<span class='notice'>[user] flattens [src] into a patty.</span>",
 		"<span class='notice'>You flatten [src] into a raw patty.</span>"
@@ -334,7 +341,7 @@
 	user.drop_item()
 	qdel(src)
 	user.put_in_hands(M)
-	return TRUE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/meatball
 	name = "meatball"
@@ -509,20 +516,20 @@
 		reagents.reaction(hit_atom, REAGENT_TOUCH)
 	qdel(src)
 
-/obj/item/food/egg/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/C = W
-		var/clr = C.dye_color
+/obj/item/food/egg/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!istype(used, /obj/item/toy/crayon))
+		return NONE
 
-		if(!(clr in list("blue","green","mime","orange","purple","rainbow","red","yellow")))
-			to_chat(usr, "<span class ='notice'>The egg refuses to take on this color!</span>")
-			return
+	var/obj/item/toy/crayon/C = used
+	var/clr = C.dye_color
+	if(!(clr in list("red", "orange", "yellow", "green", "blue", "purple", "rainbow", "mime")))
+		to_chat(usr, "<span class ='warning'>The egg refuses to take on this color!</span>")
+		return ITEM_INTERACT_COMPLETE
 
-		to_chat(usr, "<span class ='notice'>You color \the [src] [clr]</span>")
-		icon_state = "egg-[clr]"
-		item_color = clr
-	else
-		..()
+	to_chat(usr, "<span class ='notice'>You color \the [src] [clr]</span>")
+	icon_state = "egg-[clr]"
+	item_color = clr
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/egg/blue
 	icon_state = "egg-blue"
@@ -582,7 +589,6 @@
 	desc = "A hard boiled egg."
 	icon = 'icons/obj/food/breakfast.dmi'
 	icon_state = "egg"
-	filling_color = "#FFFFFF"
 	list_reagents = list("nutriment" = 2, "egg" = 5, "vitamin" = 1)
 	goal_difficulty = FOOD_GOAL_NORMAL
 

@@ -6,7 +6,6 @@
 /// Abstract reagent container used for transferring from non-containers e.g. sinks
 /obj/item/reagent_containers/temp
 	container_type = OPENCONTAINER
-	amount_per_transfer_from_this = 5
 	list_reagents = list("water" = 5)
 
 /**
@@ -136,7 +135,15 @@
 		return
 
 	if(reaction_status == PCWJ_NO_STEPS && !tracker.recipe_started)
-		to_chat(user, "<span class='notice'>You don't know what you'd begin to make with this.</span>")
+		if(!ismob(user))
+			return
+
+		if(tracker.step_reaction_message)
+			to_chat(user, "<span class='notice'>[tracker.step_reaction_message]</span>")
+			tracker.step_reaction_message = null
+		else
+			to_chat(user, "<span class='notice'>You don't know what you'd begin to make with this.</span>")
+
 		return
 
 	switch(reaction_status)
@@ -319,7 +326,6 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 3
-	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("rolled", "cracked", "battered", "thrashed")
 
 /obj/item/reagent_containers/cooking/oven

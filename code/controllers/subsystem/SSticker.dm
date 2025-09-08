@@ -43,6 +43,10 @@ SUBSYSTEM_DEF(ticker)
 	var/tipped = FALSE
 	/// What will be the tip of the round?
 	var/selected_tip
+	/// Did we broadcast the fact of the round yet?
+	var/facted = FALSE
+	/// What will be the fact of the round?
+	var/selected_fact
 	/// This is used for calculations for the statpanel
 	var/pregame_timeleft
 	/// If set to TRUE, the round will not restart on it's own
@@ -103,6 +107,10 @@ SUBSYSTEM_DEF(ticker)
 			if(pregame_timeleft <= 1 MINUTES && !tipped)
 				send_tip_of_the_round()
 				tipped = TRUE
+
+			if(pregame_timeleft <= 120 SECONDS && !facted)
+				send_fact_of_the_round()
+				facted = TRUE
 
 			if(pregame_timeleft <= 0 || force_start)
 				current_state = GAME_STATE_SETTING_UP
@@ -258,7 +266,9 @@ SUBSYSTEM_DEF(ticker)
 	else
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
 
-	SSjobs.DivideOccupations() //Distribute jobs
+	SSjobs.job_selector = new()
+	SSjobs.job_selector.assign_all_roles()
+	SSjobs.job_selector.apply_roles_to_players()
 
 	if(hide_mode)
 		var/list/modes = list()
@@ -551,6 +561,18 @@ SUBSYSTEM_DEF(ticker)
 	if(m)
 		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
 
+/datum/controller/subsystem/ticker/proc/send_fact_of_the_round()
+	var/factoid
+	if(selected_fact)
+		factoid = selected_fact
+	else
+		var/list/random_facts = file2list("strings/facts.txt")
+		if(length(random_facts))
+			factoid = pick(random_facts)
+
+	if(length(factoid))
+		to_chat(world, "<span class='green'><b>Fact of the round: </b>[html_encode(factoid)]</span>")
+
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
 	GLOB.disable_explosions = TRUE // that said, if people want to be """FUNNY""" and bomb at EORG, they can fuck themselves up
@@ -669,10 +691,10 @@ SUBSYSTEM_DEF(ticker)
 	// Besides, what's another loop over the /entire player list/
 	var/kudos_message
 	for(var/mob/M in GLOB.player_list)
-		var/kudos = M.mind?.kudos_received_from
+		var/kudos = M.client?.persistent.kudos_received_from
 		if(length(kudos))
 			kudos_message = pick(length(kudos) > 5 ? special_encouragement_messages : base_encouragement_messages)
-			to_chat(M, "<span class='green big'>You received <b>[length(M.mind.kudos_received_from)]</b> kudos from other players this round! [kudos_message]</span>")
+			to_chat(M, "<span class='green big'>You received <b>[length(kudos)]</b> kudos from other players this round! [kudos_message]</span>")
 
 	// Seal the blackbox, stop collecting info
 	SSblackbox.Seal()
@@ -688,36 +710,8 @@ SUBSYSTEM_DEF(ticker)
 
 
 /datum/controller/subsystem/ticker/proc/setup_news_feeds()
-	var/datum/feed_channel/newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Station Announcements Log"
-	newChannel.author = "Automated Announcement Listing"
-	newChannel.icon = "bullhorn"
-	newChannel.frozen = TRUE
-	newChannel.admin_locked = TRUE
-	GLOB.news_network.channels += newChannel
-
-	newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Public Station Announcements"
-	newChannel.author = "Automated Announcement Listing"
-	newChannel.icon = "users"
-	newChannel.is_public = TRUE
-	GLOB.news_network.channels += newChannel
-
-	newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Nyx Daily"
-	newChannel.author = "CentComm Minister of Information"
-	newChannel.icon = "meteor"
-	newChannel.frozen = TRUE
-	newChannel.admin_locked = TRUE
-	GLOB.news_network.channels += newChannel
-
-	newChannel = new /datum/feed_channel
-	newChannel.channel_name = "The Gibson Gazette"
-	newChannel.author = "Editor Mike Hammers"
-	newChannel.icon = "star"
-	newChannel.frozen = TRUE
-	newChannel.admin_locked = TRUE
-	GLOB.news_network.channels += newChannel
+	for(var/feed_channel_type in subtypesof(/datum/feed_channel))
+		GLOB.news_network.channels += new feed_channel_type
 
 	for(var/loc_type in subtypesof(/datum/trade_destination))
 		var/datum/trade_destination/D = new loc_type
@@ -869,6 +863,10 @@ SUBSYSTEM_DEF(ticker)
 			for(var/atom/blob_overmind in SSticker.mode.blob_overminds)
 				if(blob_overmind.admin_spawned)
 					return TRUE
+		if(INCURSION_DEMONS)
+			for(var/obj/portal in SSticker.mode.incursion_portals)
+				if(portal.admin_spawned)
+					return TRUE
 
 /datum/controller/subsystem/ticker/proc/biohazard_count(biohazard)
 	switch(biohazard)
@@ -884,6 +882,8 @@ SUBSYSTEM_DEF(ticker)
 			return count_xenomorps()
 		if(BIOHAZARD_BLOB)
 			return length(SSticker.mode.blob_overminds)
+		if(INCURSION_DEMONS)
+			return length(SSticker.mode.incursion_portals)
 
 	CRASH("biohazard_count got unexpected [biohazard]")
 
@@ -900,6 +900,8 @@ SUBSYSTEM_DEF(ticker)
 		if(BIOHAZARD_XENO)
 			return count > 5
 		if(BIOHAZARD_BLOB)
+			return count > 0
+		if(INCURSION_DEMONS)
 			return count > 0
 
 	return FALSE

@@ -5,8 +5,6 @@
 	icon_state = "handcuff"
 	cuffed_state = "legcuff"
 	flags = CONDUCT
-	throwforce = 0
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=3;combat=3"
 	slowdown = 7
 	breakouttime = 30 SECONDS
@@ -123,7 +121,7 @@
 				H.update_inv_legcuffed()
 				SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		else
-			if(istype(entered, /mob/living/simple_animal/hostile/bear))
+			if(istype(entered, /mob/living/basic/bear))
 				entered.apply_damage(trap_damage * 2.5, BRUTE)
 			else
 				entered.apply_damage(trap_damage * 1.75, BRUTE)
@@ -266,7 +264,7 @@
 	if(..() || !iscarbon(hit_atom))//if it gets caught or the target can't be cuffed,
 		return//abort
 	var/mob/living/carbon/C = hit_atom
-	if(!C.legcuffed && C.get_num_legs() >= 2)
+	if(!C.legcuffed && C.get_num_legs() >= 2 && !IS_HORIZONTAL(C))
 		visible_message("<span class='danger'>[src] ensnares [C]!</span>")
 		C.legcuffed = src
 		forceMove(C)

@@ -1,4 +1,5 @@
 #define MAX_PILL_SPRITE 20 //max icon state of the pill sprites
+#define MAX_PATCH_SPRITE 21 //max icon state of the patch sprites
 #define MAX_CUSTOM_NAME_LEN 64 // Max length of a custom pill/condiment/whatever
 
 #define CUSTOM_NAME_DISABLED null
@@ -595,7 +596,7 @@
 /datum/chemical_production_mode/pills/New()
 	. = ..()
 	sprites = list()
-	for(var/i = 1 to MAX_PILL_SPRITE)
+	for(var/i in 1 to MAX_PILL_SPRITE)
 		sprites += list("pill[i]")
 
 /datum/chemical_production_mode/patches
@@ -612,7 +613,13 @@
 									"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
 									"mitocholide", "rezadone", "menthol", "diphenhydramine", "ephedrine", "iron", "sanguine_reagent")
 
-/datum/chemical_production_mode/patches/proc/SafetyCheck(datum/reagents/R)
+/datum/chemical_production_mode/patches/New()
+	. = ..()
+	sprites = list()
+	for(var/i in 1 to MAX_PATCH_SPRITE)
+		sprites += list("bandaid[i]")
+
+/datum/chemical_production_mode/patches/proc/safety_check(datum/reagents/R)
 	for(var/datum/reagent/A in R.reagent_list)
 		if(!safe_chem_list.Find(A.id))
 			return FALSE
@@ -621,15 +628,15 @@
 	return TRUE
 
 /datum/chemical_production_mode/patches/configure_item(data, datum/reagents/R, obj/item/reagent_containers/patch/P)
+	. = ..()
 	var/chemicals_is_safe = data["chemicals_is_safe"]
 
 	if(isnull(chemicals_is_safe))
-		chemicals_is_safe = SafetyCheck(R)
+		chemicals_is_safe = safety_check(R)
 		data["chemicals_is_safe"] = chemicals_is_safe
 
 	if(chemicals_is_safe)
 		P.instant_application = TRUE
-		P.icon_state = "bandaid_med"
 
 /datum/chemical_production_mode/bottles
 	mode_id = "chem_bottles"
@@ -667,6 +674,7 @@
 	return reagents.get_master_reagent_name()
 
 #undef MAX_PILL_SPRITE
+#undef MAX_PATCH_SPRITE
 #undef MAX_CUSTOM_NAME_LEN
 
 #undef CUSTOM_NAME_DISABLED

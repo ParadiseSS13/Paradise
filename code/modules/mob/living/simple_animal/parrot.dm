@@ -27,13 +27,11 @@
 /mob/living/simple_animal/parrot
 	name = "parrot"
 	desc = "The parrot squawks, \"It's a parrot! BAWWK!\""
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "parrot_fly"
 	icon_living = "parrot_fly"
 	icon_dead = "parrot_dead"
 	icon_resting = "parrot_sit"
 	pass_flags = PASSTABLE
-	can_collar = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	faction = list("neutral", "jungle")
 
@@ -127,12 +125,14 @@
 		/obj/machinery/computer/guestpass
 	))
 
-/mob/living/simple_animal/parrot/add_strippable_element()
-	AddElement(/datum/element/strippable, GLOB.strippable_parrot_items)
+	AddElement(/datum/element/wears_collar)
 
 /mob/living/simple_animal/parrot/Destroy()
 	GLOB.hear_radio_list -= src
 	return ..()
+
+/mob/living/simple_animal/parrot/get_strippable_items(datum/source, list/items)
+	items |= GLOB.strippable_parrot_items
 
 /mob/living/simple_animal/parrot/death(gibbed)
 	if(can_die())

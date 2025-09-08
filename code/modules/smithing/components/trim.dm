@@ -4,6 +4,12 @@
 	desc = "Debug smithed component part of any smithed item. If you see this, notify the development team."
 	part_type = PART_TRIM
 
+/obj/item/smithed_item/component/trim/Initialize(mapload)
+	. = ..()
+	if((material == /datum/smith_material/uranium || istype(material, /datum/smith_material/uranium)) && quality)
+		var/datum/component/inherent_radioactivity/radioactivity = AddComponent(/datum/component/inherent_radioactivity, 50 * quality.stat_mult, 0, 0, 1.5)
+		START_PROCESSING(SSradiation, radioactivity)
+
 /obj/item/smithed_item/component/trim/set_name()
 	if(!quality)
 		return

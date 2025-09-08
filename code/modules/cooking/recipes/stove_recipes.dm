@@ -51,7 +51,7 @@
 	product_type = /obj/item/food/soup/chicken_noodle_soup
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_MEATHUNK(),
 		PCWJ_ADD_ITEM(/obj/item/food/boiledspaghetti),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),
 		PCWJ_ADD_REAGENT("water", 10),
@@ -88,7 +88,7 @@
 	product_type = /obj/item/food/soup/coldchili
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_MEATHUNK(),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/icepepper),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
@@ -178,7 +178,7 @@
 	product_type = /obj/item/food/soup/hotchili
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_MEATHUNK(),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/chili),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
 		PCWJ_USE_STOVE(J_MED, 20 SECONDS),
@@ -326,7 +326,7 @@
 	product_type = /obj/item/food/soup/stew
 	catalog_category = COOKBOOK_CATEGORY_SOUPS
 	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_MEATHUNK(),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/tomato),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/potato),
 		PCWJ_ADD_PRODUCE(/obj/item/food/grown/carrot),

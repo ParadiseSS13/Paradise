@@ -107,7 +107,7 @@
 		var/datum/disease/D = thing
 		if(!D.discovered) // Early-stage viruses should not show up on med HUD (though health analywers can still pick them up)
 			continue
-		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
+		if((!(D.visibility_flags & VIRUS_HIDDEN_SCANNER)) && (D.severity != VIRUS_NONTHREAT))
 			return TRUE
 	return FALSE
 
@@ -206,7 +206,7 @@
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		var/revivable_state = "dead"
 		if(ghost_can_reenter()) // Not DNR or AntagHUD
-			if((ismachineperson(src) && client) || (!ismachineperson(src) && timeofdeath && is_revivable()))
+			if((ismachineperson(src) && (client || check_ghost_client())) || (!ismachineperson(src) && timeofdeath && is_revivable()))
 				revivable_state = "flatline"
 			else if(get_ghost() || key)
 				revivable_state = "hassoul"
@@ -248,8 +248,9 @@
 				holder = hud_list[IMPTRACK_HUD]
 				holder.icon_state = "hud_imp_tracking"
 			else if(istype(I,/obj/item/bio_chip/mindshield))
+				var/obj/item/bio_chip/mindshield/shield = I
 				holder = hud_list[IMPMINDSHIELD_HUD]
-				holder.icon_state = "hud_imp_loyal"
+				holder.icon_state = shield.hud_icon_state
 			else if(istype(I,/obj/item/bio_chip/chem))
 				holder = hud_list[IMPCHEM_HUD]
 				holder.icon_state = "hud_imp_chem"
@@ -511,17 +512,17 @@
 	Malf AI HUD
 ~~~~~~~~~~~~~~~*/
 
-/mob/living/carbon/human/proc/malf_hud_set_status(new_status)
+/mob/living/carbon/human/proc/malf_hud_set_status()
 	var/image/holder = hud_list[MALF_AI_HUD]
+	var/new_status
 	var/targetname = get_visible_name(TRUE) //gets the name of the target, works if they have an id or if their face is uncovered
 	if(!SSticker)
 		return //wait till the game starts or the monkeys runtime
-	if(!new_status)
-		for(var/datum/data/record/E in GLOB.data_core.general)
-			if(E.fields["name"] == targetname)
-				for(var/datum/data/record/R in GLOB.data_core.security)
-					if(R.fields["id"] == E.fields["id"])
-						new_status = E.fields["ai_target"]
+	for(var/datum/data/record/E in GLOB.data_core.general)
+		if(E.fields["name"] == targetname)
+			for(var/datum/data/record/R in GLOB.data_core.security)
+				if(R.fields["id"] == E.fields["id"])
+					new_status = E.fields["ai_target"]
 	if(targetname)
 		var/datum/data/record/R = find_record("name", targetname, GLOB.data_core.security)
 		if(R)

@@ -24,7 +24,7 @@
 	. = ..()
 	if(mapload)
 		// same reasoning as closets
-		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+		END_OF_TICK(CALLBACK(src, PROC_REF(take_contents)))
 
 /obj/structure/bookcase/proc/take_contents()
 	for(var/obj/item/I in get_turf(src))
@@ -148,11 +148,10 @@
 	var/category = null
 	var/book_count = 5
 	icon_state = "random_bookshelf"
-	anchored = TRUE
 
 /obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(load_books)), 0)
+	END_OF_TICK(CALLBACK(src, PROC_REF(load_books)))
 	icon_state = "bookshelf" // to keep random_bookshelf icon for mappers
 
 /obj/structure/bookcase/random/proc/load_books()

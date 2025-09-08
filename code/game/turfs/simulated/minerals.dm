@@ -95,24 +95,24 @@
 		if(do_after(user, mine_time * P.toolspeed, target = src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
-				gets_drilled(user)
+				gets_drilled(user, productivity_mod = P.bit_productivity_mod)
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
 
 		return FINISH_ATTACK
 	else
 		return attack_hand(user)
 
-/turf/simulated/mineral/proc/mine_ore(mob/user, triggered_by_explosion)
+/turf/simulated/mineral/proc/mine_ore(mob/user, triggered_by_explosion, productivity_mod = 1)
 	if(!ore)
 		return MINERAL_ALLOW_DIG
 
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
 
-	return ore.on_mine(src, user, triggered_by_explosion)
+	return ore.on_mine(src, user, triggered_by_explosion, productivity_mod)
 
-/turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE)
-	if(mine_ore(user, triggered_by_explosion) == MINERAL_PREVENT_DIG)
+/turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE, productivity_mod = 1)
+	if(mine_ore(user, triggered_by_explosion, productivity_mod) == MINERAL_PREVENT_DIG)
 		return
 
 	ChangeTurf(turf_type, defer_change)
@@ -214,7 +214,6 @@
 	mine_time = 6 SECONDS
 	color = COLOR_ANCIENT_ROCK
 	layer = MAP_EDITOR_TURF_LAYER
-	real_layer = TURF_LAYER
 	should_reset_color = FALSE
 	baseturf = /turf/simulated/floor/plating/asteroid/ancient
 
@@ -303,8 +302,6 @@
 	)
 
 /turf/simulated/mineral/random/high_chance/space
-	color = COLOR_YELLOW
-	mineralChance = 25
 	mineralSpawnChanceList = list(
 		/datum/ore/silver = 50,
 		/datum/ore/plasma = 50,
@@ -367,8 +364,6 @@
 	)
 
 /turf/simulated/mineral/random/low_chance/space
-	color = COLOR_VIOLET
-	mineralChance = 6
 	mineralSpawnChanceList = list(
 		/datum/ore/iron = 40,
 		/datum/ore/plasma = 15,
@@ -440,7 +435,4 @@
 	preset_ore_type = /datum/ore/bananium
 
 /turf/simulated/mineral/volcanic/lava_land_surface
-	environment_type = "basalt"
-	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/lava/mapping_lava
-	defer_change = 1

@@ -25,9 +25,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "newscaster_off"
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
-	max_integrity = 200
 	integrity_failure = 50
-	light_range = 0
 	anchored = TRUE
 	/// The current screen index in the UI.
 	var/screen = NEWSCASTER_HEADLINES
@@ -407,7 +405,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 			return FALSE // Updating handled in that proc
 		if("censor_channel")
 			if(is_security && !get_scanned_user(usr)["security"])
-				set_temp("You do not have permission to perform this action. Please ensure your ID has appropiate access.", "danger")
+				set_temp("You do not have permission to perform this action. Please ensure your ID has appropriate access.", "danger")
 				return
 			var/datum/feed_channel/FC = locateUID(params["uid"])
 			if(!istype(FC))
@@ -418,7 +416,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 			FC.censored = !FC.censored
 		if("censor_author", "censor_story")
 			if(is_security && !get_scanned_user(usr)["security"])
-				set_temp("You do not have permission to perform this action. Please ensure your ID has appropiate access.", "danger")
+				set_temp("You do not have permission to perform this action. Please ensure your ID has appropriate access.", "danger")
 				return
 			var/datum/feed_message/FM = locateUID(params["uid"])
 			if(!istype(FM))
@@ -434,7 +432,7 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 				return FALSE
 		if("clear_wanted_notice")
 			if(is_security && !get_scanned_user(usr)["security"])
-				set_temp("You do not have permission to perform this action. Please ensure your ID has appropiate access.", "danger")
+				set_temp("You do not have permission to perform this action. Please ensure your ID has appropriate access.", "danger")
 				return
 			var/datum/feed_message/WN = GLOB.news_network.wanted_issue
 			if(!WN)

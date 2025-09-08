@@ -1,8 +1,8 @@
 /obj/item/ammo_casing
 	name = "bullet casing"
 	desc = "A bullet casing."
-	icon = 'icons/obj/ammo.dmi'
-	icon_state = "s-casing"
+	icon = 'icons/obj/bullet.dmi'
+	icon_state = "pistol_brass"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 1
@@ -209,8 +209,7 @@
 	if(istype(A, /obj/item/ammo_casing))
 		var/obj/item/ammo_casing/AC = A
 		if(give_round(AC, replace_spent))
-			user.drop_item()
-			AC.loc = src
+			user.transfer_item_to(AC, src)
 			num_loaded++
 		else
 			to_chat(user, "<span class='notice'>You are unable to fit [AC] into \the [src].</span>")
@@ -277,3 +276,12 @@
 	for(var/obj/item/ammo in stored_ammo)
 		ammo.forceMove(turf_mag)
 		stored_ammo -= ammo
+
+/obj/item/ammo_casing/proc/leave_residue(mob/living/carbon/human/H)
+	if(!istype(H))
+		return
+	if(H.gloves)
+		var/obj/item/clothing/G = H.gloves
+		G.gunshot_residue = caliber
+	else
+		H.gunshot_residue = caliber

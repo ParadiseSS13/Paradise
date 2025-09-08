@@ -24,7 +24,6 @@
 	density = TRUE
 	on_blueprints = TRUE
 	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 90, ACID = 30)
-	max_integrity = 200
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	resistance_flags = FIRE_PROOF
 	active_power_consumption = 600
@@ -825,7 +824,6 @@
 	name = "disposal pipe"
 	desc = "An underfloor disposal pipe."
 	anchored = TRUE
-	density = FALSE
 
 	on_blueprints = TRUE
 	level = 1			// underfloor only
@@ -896,7 +894,7 @@
 
 		H.forceMove(P)
 	else			// if wasn't a pipe, then set loc to turf
-		if(is_blocked_turf(T))
+		if(T.is_blocked_turf())
 			H.forceMove(loc)
 		else
 			H.forceMove(T)
@@ -1376,7 +1374,7 @@
 /obj/structure/disposalpipe/trunk/Initialize(mapload)
 	. = ..()
 	dpdir = dir
-	addtimer(CALLBACK(src, PROC_REF(getlinked)), 0) // This has a delay of 0, but wont actually start until the MC is done
+	END_OF_TICK(CALLBACK(src, PROC_REF(getlinked)))
 
 	update()
 	return
@@ -1476,7 +1474,6 @@
 ////////////////////////////////////////
 /obj/structure/disposalpipe/broken
 	icon_state = "pipe-b"
-	dpdir = 0		// broken pipes have dpdir=0 so they're not found as 'real' pipes
 					// i.e. will be treated as an empty turf
 	desc = "A broken piece of disposal pipe."
 
@@ -1518,7 +1515,7 @@
 
 /obj/structure/disposaloutlet/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(setup)), 0) // Wait of 0, but this wont actually do anything until the MC is firing
+	END_OF_TICK(CALLBACK(src, PROC_REF(setup)))
 
 /obj/structure/disposaloutlet/proc/setup()
 	target = get_ranged_target_turf(src, dir, 10)

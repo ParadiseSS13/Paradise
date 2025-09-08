@@ -24,11 +24,12 @@
 /datum/component/proc/add_tape_text(datum/source, mob/user, list/examine_list)
 	examine_list += "<span class='notice'>There's some sticky tape attached to [source].</span>"
 
-/datum/component/ducttape/proc/add_tape_overlay(obj/item/O)
+/datum/component/ducttape/proc/add_tape_overlay(obj/item/O, list/overlays)
+	SIGNAL_HANDLER // COMSIG_ATOM_UPDATE_OVERLAYS
 	tape_overlay = new('icons/obj/bureaucracy.dmi', "tape")
 	tape_overlay.Shift(EAST, x_offset - 2)
 	tape_overlay.Shift(NORTH, y_offset - 2)
-	O.add_overlay(tape_overlay)
+	overlays += tape_overlay
 
 /datum/component/ducttape/proc/remove_tape(obj/item/I, mob/user)
 	to_chat(user, "<span class='notice'>You tear the tape off [I]!</span>")

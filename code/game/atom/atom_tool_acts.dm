@@ -90,7 +90,7 @@
 	if(!act_result)
 		return NONE
 
-	return act_result
+	return ITEM_INTERACT_COMPLETE
 
 /**
  * Called when this atom has an item used on it.

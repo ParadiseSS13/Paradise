@@ -73,7 +73,7 @@
 				traitor_count += 1
 				continue
 			if(ishuman(player) || is_ai(player))
-				if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, ROLE_SYNDICATE))
+				if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.persistent.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, ROLE_SYNDICATE))
 					possible_traitors += player.mind
 	for(var/datum/mind/player in possible_traitors)
 		for(var/job in restricted_jobs)
@@ -82,9 +82,8 @@
 		if(!player.current || !ishuman(player.current)) // Remove mindshield-implanted mobs from the list
 			continue
 		var/mob/living/carbon/human/H = player.current
-		for(var/obj/item/bio_chip/mindshield/I in H.contents)
-			if(I && I.implanted)
-				possible_traitors -= player
+		if(ismindshielded(H))
+			possible_traitors -= player
 		if(!H.job || H.mind.offstation_role) //Golems, special events stuff, etc.
 			possible_traitors -= player
 
@@ -119,7 +118,7 @@
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		return
 
-	if(character.client && (ROLE_TRAITOR in character.client.prefs.be_special) && !character.client.skip_antag && !jobban_isbanned(character, ROLE_TRAITOR) && !jobban_isbanned(character, ROLE_SYNDICATE))
+	if(character.client && (ROLE_TRAITOR in character.client.prefs.be_special) && !character.client.persistent.skip_antag && !jobban_isbanned(character, ROLE_TRAITOR) && !jobban_isbanned(character, ROLE_SYNDICATE))
 		var/player_count = 0
 		var/traitor_count = 0
 		for(var/mob/living/player in GLOB.mob_list)

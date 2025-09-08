@@ -1,6 +1,5 @@
 /obj/effect/spawner/random/tech_storage
 	name = "generic circuit board spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "circuit_board"
 	spawn_loot_split = TRUE
 	spawn_loot_split_pixel_offsets = 3
@@ -49,6 +48,23 @@
 	loot = list(
 		/obj/item/circuitboard/ore_redemption,
 		/obj/item/circuitboard/autolathe,
+		/obj/item/circuitboard/power_hammer,
+		/obj/item/circuitboard/lava_furnace,
+		/obj/item/circuitboard/casting_basin,
+		/obj/item/circuitboard/smart_hopper,
+		/obj/item/circuitboard/magma_crucible,
+	)
+
+/obj/effect/spawner/random/tech_storage/service
+	name = "service circuit boards spawner"
+	loot = list(
+		/obj/item/circuitboard/seed_extractor,
+		/obj/item/circuitboard/plantgenes,
+		/obj/item/circuitboard/hydroponics,
+		/obj/item/circuitboard/cooking/stove,
+		/obj/item/circuitboard/cooking/deep_fryer,
+		/obj/item/circuitboard/cooking/ice_cream_mixer,
+		/obj/item/circuitboard/cooking/oven,
 	)
 
 /obj/effect/spawner/random/tech_storage/research

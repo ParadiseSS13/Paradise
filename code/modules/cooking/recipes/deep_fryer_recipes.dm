@@ -332,7 +332,7 @@
 	catalog_category = COOKBOOK_CATEGORY_DONUTS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/cookiedough),
-		PCWJ_ADD_ITEM(/obj/item/food/meat),
+		PCWJ_ADD_MEATHUNK(),
 		PCWJ_ADD_REAGENT("ketchup", 5),
 		PCWJ_USE_DEEP_FRYER(20 SECONDS),
 	)

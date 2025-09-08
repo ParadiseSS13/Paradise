@@ -6,7 +6,6 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	icon = 'icons/obj/fulton.dmi'
 	icon_state = "extraction_pack"
 	flags = NOBLUDGEON
-	w_class = WEIGHT_CLASS_NORMAL
 	new_attack_chain = TRUE
 	var/obj/structure/extraction_point/beacon
 	var/list/beacon_networks = list("station")
@@ -72,6 +71,9 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		if(!isturf(A.loc)) // no extracting stuff inside other stuff
 			return ITEM_INTERACT_COMPLETE
 		if(A.anchored || (A.move_resist > max_force_fulton))
+			return ITEM_INTERACT_COMPLETE
+		if(ismegafauna(A))
+			to_chat(user, "<span class='warning'>[src] is too heavy to retrieve!</span>")
 			return ITEM_INTERACT_COMPLETE
 		to_chat(user, "<span class='notice'>You start attaching the pack to [A]...</span>")
 		if(do_after(user, 50, target = A))
@@ -174,7 +176,6 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	icon = 'icons/obj/fulton.dmi'
 	icon_state = "extraction_point"
 	anchored = TRUE
-	density = FALSE
 	var/beacon_network = "station"
 
 /obj/structure/extraction_point/Initialize(mapload)
