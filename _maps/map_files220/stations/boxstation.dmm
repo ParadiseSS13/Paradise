@@ -98650,6 +98650,9 @@
 "vfW" = (
 /obj/machinery/suit_storage_unit/expedition,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/camera{
+	c_tag = "Expedition"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
