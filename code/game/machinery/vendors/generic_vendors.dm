@@ -1238,6 +1238,7 @@
 					/obj/item/storage/fancy/cigarettes/dromedaryco = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_our_brand = 6,
+					/obj/item/storage/fancy/cigarettes/cigpack_despojna = 6, // SS220 EDIT
 					/obj/item/storage/fancy/cigarettes/cigpack_robust = 6,
 					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 					/obj/item/storage/fancy/cigarettes/cigpack_candy = 6,
@@ -1258,6 +1259,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 80,
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 60,
 				/obj/item/storage/fancy/cigarettes/cigpack_our_brand = 15,
+				/obj/item/storage/fancy/cigarettes/cigpack_despojna = 20, // SS220 EDIT
 				/obj/item/storage/fancy/cigarettes/cigpack_robust = 25,
 				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 120,
 				/obj/item/storage/fancy/cigarettes/cigpack_candy = 25,
@@ -1284,6 +1286,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_our_brand = 6,
+				/obj/item/storage/fancy/cigarettes/cigpack_despojna = 6, // SS220 EDIT
 				/obj/item/storage/fancy/cigarettes/cigpack_shadyjims = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_solar_rays = 6,
@@ -1321,6 +1324,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_midori = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_our_brand = 10,
+				/obj/item/storage/fancy/cigarettes/cigpack_despojna = 10, // SS220 EDIT
 				/obj/item/storage/fancy/cigarettes/cigpack_robust = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 10,
 				/obj/item/storage/fancy/cigarettes/cigpack_candy = 10,

@@ -1,9 +1,9 @@
 // Советские сиги
-/obj/item/storage/fancy/cigarettes/cigpack_soviet
+/obj/item/storage/fancy/cigarettes/cigpack_despojna
 	name = "\improper Despojnsko Belovodje packet"
 	desc = "Любимые многими моряками сигареты прямиком с Деспойны. Не имеют каких-либо фильтров и отдают вкусом морской соли."
 	icon = 'modular_ss220/objects/icons/fancy.dmi'
-	icon_state = "sovietpacket"
+	icon_state = "soviet_packet"
 	item_state = "sovietpacket"
 	lefthand_file = 'modular_ss220/objects/icons/inhands/fancy_lefthand.dmi'
 	righthand_file = 'modular_ss220/objects/icons/inhands/fancy_righthand.dmi'
@@ -11,18 +11,14 @@
 
 /obj/item/clothing/mask/cigarette/rollie/soviet
 	list_reagents = list("nicotine" = 40, "ash" = 10, "sodiumchloride" = 10)
-
-/obj/machinery/economy/vending/cigarette/Initialize(mapload)
-	products += list(/obj/item/storage/fancy/cigarettes/cigpack_soviet = 6)
-	prices += list(/obj/item/storage/fancy/cigarettes/cigpack_soviet = 35)
-	return ..()
+	desc = "A roll of dried plant matter wrapped in thin paper."
 
 // Самодельная сигаретная пачка
 /obj/item/storage/fancy/cigarettes/cigpack_diy
 	name = "\improper cigarette packet"
 	desc = "Простая самодельная пачка для сигарет и косяков."
 	icon = 'modular_ss220/objects/icons/fancy.dmi'
-	icon_state = "diypacket"
+	icon_state = "diy_packet"
 	item_state = "diypacket"
 	lefthand_file = 'modular_ss220/objects/icons/inhands/fancy_lefthand.dmi'
 	righthand_file = 'modular_ss220/objects/icons/inhands/fancy_righthand.dmi'
