@@ -190,7 +190,7 @@
 	containername = "soundhand Fan crate"
 
 /obj/item/clothing/suit/chef/red
-	name = "chef's red apron"
+	name = "chef's red coat"
 	desc = "Хорошо скроенный поварской китель."
 	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
 	icon_state = "chef_red"
