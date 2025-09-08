@@ -6203,6 +6203,39 @@
 /obj/machinery/power/emitter,
 /turf/simulated/floor/plating,
 /area/station/engineering/secure_storage)
+"bmG" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = "GeneticsDoor";
+	name = "Genetics"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/genetics)
 "bmK" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin/nanotrasen,
@@ -9886,6 +9919,35 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/aft_port)
+"bTC" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/door/airlock/medical{
+	name = "Genetics Monkey Pen"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
+/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/genetics)
 "bTM" = (
 /obj/machinery/alarm/directional/north,
 /obj/structure/cable{
@@ -24478,9 +24540,10 @@
 /area/station/engineering/solar/fore_starboard)
 "ePX" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Genetics Reception"
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window/classic/reversed,
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -31511,10 +31574,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "ggn" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "genetics"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "geneticsprivacy";
+	name = "Genetics Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
@@ -67011,13 +67081,25 @@
 /area/station/engineering/atmos/distribution)
 "nkr" = (
 /obj/machinery/disposal,
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
+	},
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump";
+	pixel_y = 7
+	},
+/obj/machinery/button/windowtint{
+	dir = 4;
+	id = "genetics";
+	pixel_x = -24
+	},
+/obj/machinery/door_control{
+	id = "geneticsprivacy";
+	name = "Genetics Privacy Control";
+	pixel_x = -25;
+	pixel_y = -8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -75268,21 +75350,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
-"oLN" = (
-/obj/machinery/door/airlock/medical{
-	name = "Genetics Monkey Pen"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
-/obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/science/genetics)
 "oLU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -100796,6 +100863,18 @@
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"tIk" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/sign/poster/official/random/directional/south,
+/obj/structure/table/glass,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/simulated/floor/plasteel{
+	icon_state = "purplecorner"
+	},
+/area/station/hallway/primary/starboard/south)
 "tIp" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
@@ -112056,10 +112135,6 @@
 /area/station/security/checkpoint/secondary)
 "vRn" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	dir = 4;
-	name = "Genetics Reception"
-	},
 /obj/item/desk_bell{
 	pixel_x = -6;
 	pixel_y = 3;
@@ -112072,6 +112147,20 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "geneticsprivacy";
+	name = "Genetics Privacy Shutters"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "genetics"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/genetics)
@@ -112163,23 +112252,6 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
-"vSF" = (
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = "GeneticsDoor";
-	name = "Genetics"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/science/genetics)
 "vSM" = (
 /obj/machinery/atmospherics/binary/volume_pump/on{
 	dir = 1;
@@ -167736,7 +167808,7 @@ jWF
 lwn
 mxJ
 suS
-udN
+tIk
 wDu
 cVJ
 vYY
@@ -168760,7 +168832,7 @@ hIq
 uWH
 iaw
 ixY
-vSF
+bmG
 fve
 kuM
 ghZ
@@ -169023,7 +169095,7 @@ xnm
 lyl
 jHP
 seE
-oLN
+bTC
 raV
 ooa
 dZj
