@@ -549,7 +549,7 @@ Difficulty: Hard
 	burst_range = initial(burst_range) + round(anger_modifier * 0.08)
 	beam_range = initial(beam_range) + round(anger_modifier * 0.12)
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/megafauna/hierophant/bullet_act(obj/projectile/P)
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client)
 		if(P.firer && get_dist(src, P.firer) <= aggro_vision_range)
 			FindTarget(list(P.firer), 1)
@@ -608,7 +608,7 @@ Difficulty: Hard
 	if(mover == caster.pulledby)
 		return TRUE
 	if(isprojectile(mover))
-		var/obj/item/projectile/P = mover
+		var/obj/projectile/P = mover
 		if(P.firer == caster)
 			return TRUE
 	if(mover == caster)

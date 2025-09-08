@@ -1,4 +1,4 @@
-/obj/item/projectile/magic
+/obj/projectile/magic
 	name = "bolt of nothing"
 	icon_state = "energy"
 	damage = 0
@@ -9,7 +9,7 @@
 	antimagic_flags = MAGIC_RESISTANCE
 	antimagic_charge_cost = 1
 
-/obj/item/projectile/magic/death
+/obj/projectile/magic/death
 	name = "bolt of death"
 	icon_state = null
 	hitscan = TRUE
@@ -25,7 +25,7 @@
 	impact_light_range = 2.5
 	impact_light_color_override = LIGHT_COLOR_PURPLE
 
-/obj/item/projectile/magic/death/on_hit(mob/living/carbon/target)
+/obj/projectile/magic/death/on_hit(mob/living/carbon/target)
 	. = ..()
 	if(!.)
 		return .
@@ -43,7 +43,7 @@
 
 		target.visible_message("<span class='danger'>[target] topples backwards as the death bolt impacts [target.p_them()]!</span>")
 
-/obj/item/projectile/magic/fireball
+/obj/projectile/magic/fireball
 	name = "bolt of fireball"
 	icon_state = "fireball"
 	damage = 10
@@ -58,7 +58,7 @@
 	var/exp_flash = 3
 	var/exp_fire = 2
 
-/obj/item/projectile/magic/fireball/Range()
+/obj/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
 	var/turf/T2 = get_step(src,turn(dir, 45))
 	var/turf/T3 = get_step(src,dir)
@@ -76,7 +76,7 @@
 		return
 	..()
 
-/obj/item/projectile/magic/fireball/on_hit(target)
+/obj/projectile/magic/fireball/on_hit(target)
 	. = ..()
 	if(ismob(target))
 		if(!.)
@@ -87,18 +87,18 @@
 		M.adjustFireLoss(10) // between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
 
 
-/obj/item/projectile/magic/fireball/infernal
+/obj/projectile/magic/fireball/infernal
 	name = "infernal fireball"
 	exp_heavy = -1
 	exp_light = -1
 	exp_flash = 4
 	exp_fire= 5
 
-/obj/item/projectile/magic/resurrection
+/obj/projectile/magic/resurrection
 	name = "bolt of resurrection"
 	icon_state = "ion"
 
-/obj/item/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
+/obj/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
 	. = ..()
 	if(!.)
 		return .
@@ -120,13 +120,13 @@
 			else
 				to_chat(target, "<span class='notice'>You rise with a start, you're alive!!!</span>")
 
-/obj/item/projectile/magic/teleport
+/obj/projectile/magic/teleport
 	name = "bolt of teleportation"
 	icon_state = "bluespace"
 	var/inner_tele_radius = 0
 	var/outer_tele_radius = 6
 
-/obj/item/projectile/magic/teleport/on_hit(mob/target)
+/obj/projectile/magic/teleport/on_hit(mob/target)
 	. = ..()
 	if(!.)
 		return .
@@ -142,13 +142,13 @@
 			smoke.set_up(max(round(10 - teleammount), 1), FALSE, stuff) //Smoke drops off if a lot of stuff is moved for the sake of sanity
 			smoke.start()
 
-/obj/item/projectile/magic/door
+/obj/projectile/magic/door
 	name = "bolt of door creation"
 	var/list/door_types = list(/obj/structure/mineral_door/wood,/obj/structure/mineral_door/iron,/obj/structure/mineral_door/silver,\
 		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium,/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/transparent/plasma,\
 		/obj/structure/mineral_door/transparent/diamond)
 
-/obj/item/projectile/magic/door/on_hit(atom/target)
+/obj/projectile/magic/door/on_hit(atom/target)
 	. = ..()
 	var/atom/T = target.loc
 	if(isturf(target) && target.density)
@@ -162,30 +162,30 @@
 	else if(istype(target, /obj/structure/closet))
 		OpenCloset(target)
 
-/obj/item/projectile/magic/door/proc/CreateDoor(turf/T)
+/obj/projectile/magic/door/proc/CreateDoor(turf/T)
 	var/door_type = pick(door_types)
 	var/obj/structure/mineral_door/D = new door_type(T)
 	T.ChangeTurf(/turf/simulated/floor/plasteel)
 	D.operate()
 
-/obj/item/projectile/magic/door/proc/OpenDoor(obj/machinery/door/D)
+/obj/projectile/magic/door/proc/OpenDoor(obj/machinery/door/D)
 	if(istype(D,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
 		A.locked = FALSE
 	D.open()
 
-/obj/item/projectile/magic/door/proc/OpenCloset(obj/structure/closet/C)
+/obj/projectile/magic/door/proc/OpenCloset(obj/structure/closet/C)
 	if(istype(C, /obj/structure/closet/secure_closet))
 		var/obj/structure/closet/secure_closet/SC = C
 		SC.locked = FALSE
 	C.open()
 
-/obj/item/projectile/magic/change
+/obj/projectile/magic/change
 	name = "bolt of change"
 	icon_state = "ice_1"
 	damage_type = BURN
 
-/obj/item/projectile/magic/change/on_hit(atom/change)
+/obj/projectile/magic/change/on_hit(atom/change)
 	. = ..()
 	if(!.)
 		return .
@@ -342,12 +342,12 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 		qdel(M)
 		return new_mob
 
-/obj/item/projectile/magic/animate
+/obj/projectile/magic/animate
 	name = "bolt of animation"
 	icon_state = "red_1"
 	damage_type = BURN
 
-/obj/item/projectile/magic/animate/Bump(atom/change)
+/obj/projectile/magic/animate/Bump(atom/change)
 	if(isitem(change) || isstructure(change) && !is_type_in_list(change, GLOB.protected_objects))
 		if(istype(change, /obj/structure/closet/statue))
 			for(var/mob/living/carbon/human/H in change.contents)
@@ -377,7 +377,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 		C.ChangeOwner(firer)
 	return ..()
 
-/obj/item/projectile/magic/slipping
+/obj/projectile/magic/slipping
 	name = "magical banana"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
@@ -385,11 +385,11 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 	var/slip_weaken = 10 SECONDS
 	hitsound = 'sound/items/bikehorn.ogg'
 
-/obj/item/projectile/magic/slipping/New()
+/obj/projectile/magic/slipping/New()
 	..()
 	SpinAnimation()
 
-/obj/item/projectile/magic/slipping/on_hit(atom/target, blocked = 0)
+/obj/projectile/magic/slipping/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(!.)
 		return .
@@ -408,7 +408,7 @@ GLOBAL_LIST_INIT(wabbajack_docile_animals, list(
 			L.Weaken(slip_weaken)
 			L.Stun(slip_stun)
 
-/obj/item/projectile/magic/arcane_barrage
+/obj/projectile/magic/arcane_barrage
 	name = "arcane bolt"
 	icon_state = "arcane_barrage"
 	damage = 20

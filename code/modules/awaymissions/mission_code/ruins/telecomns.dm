@@ -190,7 +190,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	GLOB.telecomms_trap_tank -= src
 	return ..()
 
-/obj/structure/telecomms_trap_tank/bullet_act(obj/item/projectile/P)
+/obj/structure/telecomms_trap_tank/bullet_act(obj/projectile/P)
 	explode()
 
 /obj/structure/telecomms_trap_tank/proc/explode()
@@ -337,7 +337,7 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	maxHealth = 200
 	faction = list("malf_drone")
 	speed = 0.5
-	projectile_type = /obj/item/projectile/beam/disabler/weak
+	projectile_type = /obj/projectile/beam/disabler/weak
 	projectile_sound = 'sound/weapons/taser2.ogg'
 	ranged_burst_count = 2
 	gold_core_spawnable = NO_SPAWN // Could you imagine xenobio with this? lmao.

@@ -229,7 +229,7 @@
 	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
-	projectiletype = /obj/item/projectile/neurotox
+	projectiletype = /obj/projectile/neurotox
 	projectilesound = 'sound/weapons/pierce.ogg'
 
 // Below here is ruin specific code

@@ -422,7 +422,7 @@
 	if(!current_syringes || chambered?.BB)
 		return
 
-	chambered.BB = new /obj/item/projectile/bullet/dart/syringe/heavyduty(src)
+	chambered.BB = new /obj/projectile/bullet/dart/syringe/heavyduty(src)
 	chambered.BB.reagents.add_reagent_list(list("toxin" = 2))
 	chambered.BB.name = "heavy duty syringe"
 	current_syringes--

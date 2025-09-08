@@ -30,7 +30,7 @@
 /mob/living/basic/netherworld/Initialize(mapload)
 	. = ..()
 	if(prob(grappler_chance))
-		AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/item/projectile/energy/demonic_grappler, projectile_sound = 'sound/weapons/wave.ogg')
+		AddComponent(/datum/component/ranged_attacks, projectile_type = /obj/projectile/energy/demonic_grappler, projectile_sound = 'sound/weapons/wave.ogg')
 		name = "grappling " + name
 		ai_controller = new /datum/ai_controller/basic_controller/simple/simple_skirmisher/prowler(src)
 		update_appearance(UPDATE_NAME)
