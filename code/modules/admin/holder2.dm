@@ -90,7 +90,7 @@ GLOBAL_PROTECT(href_token)
 
 	owner.holder = src
 	owner.add_admin_verbs()
-	if(istype(owner.mob, /mob/dead/observer))
+	if(isobserver(owner.mob))
 		var/mob/dead/observer/ghost = owner.mob
 		ghost.update_admin_actions()
 	remove_verb(owner, /client/proc/readmin)
@@ -136,7 +136,7 @@ GLOBAL_PROTECT(href_token)
 		owner.hide_verbs()
 		owner.holder = null
 		owner.init_verbs()
-		if(istype(owner.mob, /mob/dead/observer))
+		if(isobserver(owner.mob))
 			var/mob/dead/observer/ghost = owner.mob
 			ghost.update_admin_actions()
 		owner.update_active_keybindings()
