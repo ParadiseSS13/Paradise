@@ -124,9 +124,9 @@ GLOBAL_LIST_EMPTY(bug_reports)
 	// for any future changes see https://docs.github.com/en/rest/issues/issues
 	var/repo_name = "Paradise"
 	var/org = "ParadiseSS13"
-	var/token
+	var/token = GLOB.configuration.system.github_api_token
 
-	if(!token || !org || !repo_name)
+	if(token == null || !org || !repo_name)
 		tgui_alert(user, "The configuration is not set for the external API.", "Issue not reported!")
 		external_link_prompt(user)
 		qdel(src)
