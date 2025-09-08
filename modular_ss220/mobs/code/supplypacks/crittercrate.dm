@@ -147,7 +147,7 @@
 /obj/structure/closet/critter/moth/populate_contents()
 	amount = rand(1, 5)
 	if(prob(50))
-		content_mob = /mob/living/simple_animal/nian_caterpillar
+		content_mob = /mob/living/basic/nian_caterpillar
 
 	if(prob(prob_clothes))
 		//contains = list()

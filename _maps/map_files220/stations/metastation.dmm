@@ -39009,6 +39009,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/mob/living/basic/nian_caterpillar{
+	name = "Сеньйор";
+	desc = "Мотылёк. Обожает светочи. Знает всю атмосферику, но из-за своего скверного характера не расскажет, даже если бы мог говорить."
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

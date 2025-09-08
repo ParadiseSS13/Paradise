@@ -82,7 +82,7 @@
 /mob/living/simple_animal/moth/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/tychus)
 
-/mob/living/simple_animal/nian_caterpillar/add_tts_component()
+/mob/living/basic/nian_caterpillar/add_tts_component()
 	AddComponent(/datum/component/tts_component, /datum/tts_seed/silero/tychus)
 
 /mob/living/simple_animal/possum/add_tts_component()
