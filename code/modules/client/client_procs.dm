@@ -314,9 +314,6 @@
 
 	log_client_to_db(tdata) // Make sure our client exists in the DB
 
-	// Holder set up. Inform the relevant places
-	INVOKE_ASYNC(src, PROC_REF(announce_join))
-
 	pai_save = new(src)
 
 	// This is where we load all of the clients stuff from the DB
@@ -354,6 +351,9 @@
 		holder.associate(src, delay_2fa_complaint = TRUE)
 		// Must be async because any sleeps (happen in sql queries) will break connecting clients
 		INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
+
+	// Holder set up. Inform the relevant places
+	INVOKE_ASYNC(src, PROC_REF(announce_join))
 
 	// Setup widescreen
 	view = prefs.viewrange
@@ -454,8 +454,7 @@
 		to_chat(src, "The queue server is currently [SSqueue.queue_enabled ? "<font color='green'>enabled</font>" : "<font color='disabled'>disabled</font>"], with a threshold of <b>[SSqueue.queue_threshold]</b>. This <b>[SSqueue.persist_queue ? "will" : "will not"]</b> persist through rounds.")
 
 	if(holder && holder.restricted_by_2fa)
-		to_chat(src,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
-
+		to_chat(src,"<span class='boldannounceooc'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.\nTo setup 2FA, head to the following menu: <a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GAME]'>Game Preferences</a></span>")  // Very fucking obvious
 	// Tell client about their connection
 	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
 	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")

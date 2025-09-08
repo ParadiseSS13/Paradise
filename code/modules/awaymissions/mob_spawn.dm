@@ -126,8 +126,8 @@
 	var/deathtime = world.time - user.timeofdeath
 	var/joinedasobserver = FALSE
 	if(isobserver(user))
-		var/mob/dead/observer/G = user
-		if(G.started_as_observer)
+		var/mob/dead/observer/ghost = user
+		if(ghost.ghost_flags & GHOST_START_AS_OBSERVER)
 			joinedasobserver = TRUE
 
 	var/deathtimeminutes = round(deathtime / 600)
@@ -639,6 +639,7 @@
 	l_pocket = null
 	l_ear = null
 	id = null
+	can_be_admin_equipped = FALSE
 
 /obj/effect/mob_spawn/human/corpse/random_species/security_officer
 	name = "Security Officer"

@@ -176,6 +176,7 @@
 	if(user.a_intent == INTENT_HARM && force)
 		return NONE
 
+	user.changeNext_move(CLICK_CD_MELEE)
 	if(reagents && !reagents.total_volume)	// Shouldn't be needed but it checks to see if it has anything left in it.
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		qdel(src)
@@ -231,7 +232,7 @@
 				TrashItem.forceMove(loc)
 			qdel(src)
 		return ITEM_INTERACT_COMPLETE
-	
+
 	return NONE
 
 /obj/item/food/proc/generate_trash(atom/location)

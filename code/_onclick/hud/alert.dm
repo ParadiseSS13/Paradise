@@ -656,7 +656,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!istype(hugger_mask) || !(locate(/obj/item/organ/internal/body_egg/alien_embryo) in infected_user.internal_organs) || hugger_mask.sterile)
 		infected_user.clear_alert("ghost_nest")
 		return
-	infected_user.ghostize(TRUE)
+	infected_user.ghostize()
 
 /atom/movable/screen/alert/notify_action
 	name = "Body created"
@@ -724,16 +724,16 @@ so as to remain in compliance with the most up-to-date laws."
 				var/turf/T = get_turf(target)
 				if(T && isturf(T))
 					if(!istype(G))
-						var/mob/dead/observer/actual_ghost = G.ghostize(TRUE)
+						var/mob/dead/observer/actual_ghost = G.ghostize()
 						actual_ghost.forceMove(T)
 						return
 					G.forceMove(T)
 			if(NOTIFY_FOLLOW)
 				if(!istype(G))
-					var/mob/dead/observer/actual_ghost = G.ghostize(TRUE)
-					actual_ghost.ManualFollow(target)
+					var/mob/dead/observer/actual_ghost = G.ghostize()
+					actual_ghost.manual_follow(target)
 					return
-				G.ManualFollow(target)
+				G.manual_follow(target)
 
 /atom/movable/screen/alert/notify_action/Topic(href, href_list)
 	if(!href_list["signup"])
@@ -862,15 +862,15 @@ so as to remain in compliance with the most up-to-date laws."
 			alert.icon = icon_pref
 		switch(i)
 			if(1)
-				. = ui_alert1
+				. = UI_ALERT1
 			if(2)
-				. = ui_alert2
+				. = UI_ALERT2
 			if(3)
-				. = ui_alert3
+				. = UI_ALERT3
 			if(4)
-				. = ui_alert4
+				. = UI_ALERT4
 			if(5)
-				. = ui_alert5 // Right now there's 5 slots
+				. = UI_ALERT5 // Right now there's 5 slots
 			else
 				. = ""
 		alert.screen_loc = .
