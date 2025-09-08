@@ -9772,7 +9772,7 @@
 /area/station/command/office/ce)
 "beJ" = (
 /obj/structure/table/reinforced,
-/obj/machinery/photocopier/faxmachine{
+/obj/machinery/photocopier/faxmachine/longrange{
 	department = "Chief Engineer's Office"
 	},
 /turf/simulated/floor/plasteel{
@@ -17623,7 +17623,7 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine{
+/obj/machinery/photocopier/faxmachine/longrange{
 	department = "Blueshield's Office"
 	},
 /turf/simulated/floor/wood,
@@ -52122,14 +52122,14 @@
 	},
 /area/station/science/robotics/chargebay)
 "kJL" = (
-/obj/machinery/photocopier/faxmachine{
-	department = "Chief Medical Officer's Office"
-	},
 /obj/structure/table,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/north,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Chief Medical Officer's Office"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -75748,11 +75748,11 @@
 /area/station/hallway/primary/fore/west)
 "tvd" = (
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine{
-	department = "Head of Security's Office"
-	},
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Head of Security's Office"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hos)
 "tve" = (
@@ -76980,11 +76980,11 @@
 /area/station/maintenance/fsmaint)
 "tYw" = (
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine{
-	department = "Quartermaster's Office"
-	},
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/light/directional/east,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Quartermaster's Office"
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/supply/qm)
 "tYD" = (
@@ -77213,7 +77213,7 @@
 /obj/machinery/light/directional/west,
 /obj/machinery/light_switch/west,
 /obj/structure/table,
-/obj/machinery/photocopier/faxmachine{
+/obj/machinery/photocopier/faxmachine/longrange{
 	department = "Research Director's Office"
 	},
 /turf/simulated/floor/plasteel{
