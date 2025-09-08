@@ -472,7 +472,14 @@ emp_act
 	if(!I.force)
 		return //item force is zero
 
-	var/armor = run_armor_check(affecting, MELEE, "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armor_penetration_flat = I.armor_penetration_flat, armor_penetration_percentage = I.armor_penetration_percentage)
+	var/armor = run_armor_check(
+		def_zone = affecting,
+		armor_type = MELEE,
+		absorb_text = "Your armor has protected your [hit_area].",
+		soften_text = "Your armor has softened hit to your [hit_area].",
+		armor_penetration_flat = I.armor_penetration_flat,
+		armor_penetration_percentage = I.armor_penetration_percentage,
+	)
 	if(armor == INFINITY)
 		return
 
@@ -654,8 +661,7 @@ emp_act
 		if(stat != DEAD)
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_selected))
-			var/armor_block = run_armor_check(affecting, MELEE)
-			apply_damage(damage, BRUTE, affecting, armor_block)
+			apply_damage(damage, BRUTE, affecting, run_armor_check(affecting, MELEE))
 			updatehealth("larva attack")
 
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M)
