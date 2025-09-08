@@ -14,8 +14,11 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	pass_flags = PASSTABLE
 	animate_movement = NO_STEPS
+	/// Flat armor reduction, occurs after percentage armor penetration.
 	var/armor_penetration_flat
+	/// Percentage armor reduction, happens before flat armor reduction.
 	var/armor_penetration_percentage
+	/// Hit sound to play when we hit something
 	var/hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
 	var/def_zone = ""	//Aiming at
