@@ -71424,6 +71424,9 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/research/glass,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -77826,6 +77829,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

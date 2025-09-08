@@ -6211,6 +6211,9 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -9904,6 +9907,9 @@
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
