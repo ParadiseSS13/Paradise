@@ -57,7 +57,7 @@
 	/mob/living/simple_animal/pet/cat,
 	/mob/living/simple_animal/pet/dog/pug,
 	/mob/living/simple_animal/pet/dog/fox,
-	/mob/living/simple_animal/bunny)
+	/mob/living/basic/bunny)
 
 /obj/structure/closet/critter/corgi
 	name = "corgi crate"
@@ -108,11 +108,11 @@
 
 /obj/structure/closet/critter/butterfly
 	name = "butterfly crate"
-	content_mob = /mob/living/simple_animal/butterfly
+	content_mob = /mob/living/basic/butterfly
 
 /obj/structure/closet/critter/nian_caterpillar
 	name = "nian caterpillar crate"
-	content_mob = /mob/living/simple_animal/nian_caterpillar
+	content_mob = /mob/living/basic/nian_caterpillar
 
 /obj/structure/closet/critter/deer
 	name = "deer crate"
@@ -120,7 +120,7 @@
 
 /obj/structure/closet/critter/bunny
 	name = "bunny crate"
-	content_mob = /mob/living/simple_animal/bunny
+	content_mob = /mob/living/basic/bunny
 
 /obj/structure/closet/critter/gorilla
 	name = "gorilla crate"

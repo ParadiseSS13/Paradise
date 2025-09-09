@@ -66,9 +66,12 @@
 /obj/vehicle/proc/install_vtec(obj/item/borg/upgrade/vtec/vtec, mob/user)
 	if(installed_vtec)
 		return FALSE
+	if(vehicle_move_delay <= 1)
+		to_chat(user, "<span class='warning'>[src] is too fast for [vtec] to have any effect.</span>")
+		return FALSE
 
 	installed_vtec = TRUE
-	vehicle_move_delay -= 1
+	vehicle_move_delay = max(1, vehicle_move_delay - 1)
 	qdel(vtec)
 	to_chat(user, "<span class='notice'>You upgrade [src] with [vtec].</span>")
 	return TRUE

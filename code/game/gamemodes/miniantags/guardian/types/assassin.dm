@@ -55,7 +55,7 @@
 	if(toggle)
 		melee_damage_lower = initial(melee_damage_lower)
 		melee_damage_upper = initial(melee_damage_upper)
-		armour_penetration_percentage = initial(armour_penetration_percentage)
+		armor_penetration_percentage = initial(armor_penetration_percentage)
 		obj_damage = initial(obj_damage)
 		environment_smash = initial(environment_smash)
 		alpha = initial(alpha)
@@ -73,7 +73,7 @@
 			return
 		melee_damage_lower = 50
 		melee_damage_upper = 50
-		armour_penetration_percentage = 100
+		armor_penetration_percentage = 100
 		obj_damage = 0
 		environment_smash = ENVIRONMENT_SMASH_NONE
 		alpha = 10

@@ -136,7 +136,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	user.ranged_ability = src
 	ranged_ability_user = user
 	user.client.click_intercept = new /datum/click_intercept/proc_holder(user.client, user.ranged_ability)
-	add_mousepointer(user.client)
+	add_mousepointer(user)
 	active = TRUE
 	if(msg)
 		to_chat(user, msg)
@@ -145,13 +145,13 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 /datum/spell/proc/update_spell_icon()
 	return
 
-/datum/spell/proc/add_mousepointer(client/C)
-	if(C && ranged_mousepointer && C.mouse_pointer_icon == initial(C.mouse_pointer_icon))
-		C.mouse_pointer_icon = ranged_mousepointer
+/datum/spell/proc/add_mousepointer(mob/user)
+	if(ranged_mousepointer)
+		user.add_mousepointer(MP_SPELL_PRIORITY, ranged_mousepointer)
 
-/datum/spell/proc/remove_mousepointer(client/C)
-	if(C && ranged_mousepointer && C.mouse_pointer_icon == ranged_mousepointer)
-		C.mouse_pointer_icon = initial(C.mouse_pointer_icon)
+/datum/spell/proc/remove_mousepointer(mob/user)
+	if(ranged_mousepointer)
+		user.remove_mousepointer(MP_SPELL_PRIORITY)
 
 /datum/spell/proc/remove_ranged_ability(mob/user, msg)
 	if(!user || (user.ranged_ability && user.ranged_ability != src)) //To avoid removing the wrong ability
@@ -162,7 +162,7 @@ GLOBAL_LIST_INIT(spells, typesof(/datum/spell))
 	if(user.client)
 		qdel(user.client.click_intercept)
 		user.client.click_intercept = null
-		remove_mousepointer(user.client)
+		remove_mousepointer(user)
 		if(msg)
 			to_chat(user, msg)
 	update_spell_icon()

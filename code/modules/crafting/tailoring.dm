@@ -21,6 +21,16 @@
 	time = 4 SECONDS
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/durathread_hardhat
+	name = "Durathread Hard Hat"
+	result = list(/obj/item/clothing/head/hardhat/durathread)
+	reqs = list(/obj/item/clothing/head/helmet/durathread = 1,
+				/obj/item/mounted/frame/light_fixture/small = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/light/bulb = 1)
+	time = 4 SECONDS
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/durathread_jumpsuit
 	name = "Durathread Jumpsuit"
 	result = list(/obj/item/clothing/under/misc/durathread)
@@ -303,6 +313,24 @@
 	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/meson/sunglasses = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudsyndiesun
+	name = "Suspicious sunglasses"
+	result = list(/obj/item/clothing/glasses/syndie_sun)
+	time = 1 SECONDS
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/clothing/glasses/syndie = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudsyndiesunremoval
+	name = "Suspicious glasses flash protection removal"
+	result = list(/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/clothing/glasses/syndie = 1,)
+	time = 1 SECONDS
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/syndie_sun = 1)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/beergoggles
