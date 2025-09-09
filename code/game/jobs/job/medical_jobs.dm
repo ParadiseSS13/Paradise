@@ -14,7 +14,6 @@
 		ACCESS_CHEMISTRY,
 		ACCESS_CMO,
 		ACCESS_EVA,
-		ACCESS_GENETICS,
 		ACCESS_HEADS,
 		ACCESS_KEYCARD_AUTH,
 		ACCESS_MAINT_TUNNELS,
@@ -213,48 +212,6 @@
 /datum/outfit/job/chemist/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
 	ADD_TRAIT(H.mind, TRAIT_QUICK_HEATER, JOB_TRAIT)
-
-/datum/job/geneticist
-	title = "Geneticist"
-	flag = JOB_GENETICIST
-	department_flag = JOBCAT_MEDSCI
-	total_positions = 2
-	spawn_positions = 2
-	job_department_flags = DEP_FLAG_MEDICAL | DEP_FLAG_SCIENCE
-	supervisors = "the chief medical officer and the research director"
-	department_head = list("Chief Medical Officer", "Research Director")
-	selection_color = "#ffeef0"
-	access = list(
-		ACCESS_GENETICS,
-		ACCESS_MAINT_TUNNELS,
-		ACCESS_MEDICAL,
-		ACCESS_MORGUE,
-		ACCESS_RESEARCH
-	)
-	minimal_player_age = 3
-	exp_map = list(EXP_TYPE_CREW = 180)
-	outfit = /datum/outfit/job/geneticist
-	standard_paycheck = CREW_PAY_MEDIUM
-
-/datum/outfit/job/geneticist
-	name = "Geneticist"
-	jobtype = /datum/job/geneticist
-
-	uniform = /obj/item/clothing/under/rank/rnd/geneticist
-	suit = /obj/item/clothing/suit/storage/labcoat/genetics
-	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/radio/headset/headset_medsci
-	id = /obj/item/card/id/geneticist
-	suit_store = /obj/item/flashlight/pen
-	pda = /obj/item/pda/geneticist
-
-	backpack = /obj/item/storage/backpack/genetics
-	satchel = /obj/item/storage/backpack/satchel_gen
-	dufflebag = /obj/item/storage/backpack/duffel/genetics
-
-/datum/outfit/job/geneticist/on_mind_initialize(mob/living/carbon/human/H)
-	. = ..()
-	ADD_TRAIT(H.mind, TRAIT_GENETIC_BUDGET, JOB_TRAIT)
 
 /datum/job/virologist
 	title = "Virologist"

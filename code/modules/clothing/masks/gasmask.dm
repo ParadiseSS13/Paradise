@@ -27,7 +27,7 @@
 	desc = "A gas mask with built in welding goggles and face shield. Looks like a skull, clearly designed by a nerd."
 	icon_state = "weldingmask"
 	item_state = "weldingmask"
-	materials = list(MAT_METAL=4000, MAT_GLASS=2000)
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = FLASH_PROTECTION_WELDER
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = 60)
