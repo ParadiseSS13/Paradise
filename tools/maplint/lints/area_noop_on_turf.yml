@@ -3,6 +3,7 @@ exclude_files:
   - _maps/map_files/RandomRuins/SpaceRuins/submaps/rocky_motel_submap.dmm
   - _maps/map_files/RandomRuins/SpaceRuins/submaps/telecomns_returns_submap.dmm
   - _maps/map_files/RandomRuins/SpaceRuins/submaps/sieged_lab_submaps.dmm
+  - _maps/map_files/RandomRuins/SpaceRuins/submaps/whiteship_submaps.dmm
 /area/template_noop:
   banned_neighbors:
   - /turf/simulated

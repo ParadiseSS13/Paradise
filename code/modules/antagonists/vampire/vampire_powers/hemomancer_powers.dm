@@ -46,7 +46,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = ABSTRACT | NODROP | DROPDEL
 	force = 10
-	armour_penetration_flat = 20
+	armor_penetration_flat = 20
 	sharp = TRUE
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -166,7 +166,6 @@
 /obj/effect/temp_visual/blood_tendril
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "blood_tendril"
-	duration = 1 SECONDS
 
 /obj/effect/temp_visual/blood_tendril/long
 	duration = 2 SECONDS
@@ -174,7 +173,7 @@
 /datum/spell/vampire/blood_barrier
 	name = "Blood Barrier (40)"
 	desc = "Select two points within 3 tiles of each other and make a barrier between them."
-	gain_desc = "You have gained the ability to summon a crystaline wall of blood between two points, the barrier is easily destructable, however you can walk freely through it."
+	gain_desc = "You have gained the ability to summon a crystalline wall of blood between two points. The barrier is easily destructible, however you can walk freely through it."
 	required_blood = 40
 	base_cooldown = 1 MINUTES
 	should_recharge_after_cast = FALSE
@@ -227,13 +226,12 @@
 
 /obj/structure/blood_barrier
 	name = "blood barrier"
-	desc = "a grotesque structure of crystalised blood. It's slowly melting away..."
+	desc = "a grotesque structure of crystallized blood. It's slowly melting away..."
 	max_integrity = 100
 	icon_state = "blood_barrier"
 	icon = 'icons/effects/vampire_effects.dmi'
 	density = TRUE
 	anchored = TRUE
-	opacity = FALSE
 
 /obj/structure/blood_barrier/Initialize(mapload)
 	. = ..()
@@ -326,7 +324,7 @@
 /datum/spell/vampire/blood_eruption
 	name = "Blood Eruption (100)"
 	desc = "Every pool of blood in 4 tiles erupts with a spike of living blood, damaging anyone stood on it."
-	gain_desc = "You have gained the ability to weaponise pools of blood to damage those stood on them."
+	gain_desc = "You have gained the ability to weaponize pools of blood to damage those stood on them."
 	required_blood = 100
 	base_cooldown = 200 SECONDS
 	action_icon_state = "blood_spikes"
@@ -364,7 +362,6 @@
 	name = "The Blood Bringers Rite"
 	desc = "When toggled, everyone around you begins to bleed profusely. You will drain their blood and rejuvenate yourself with it."
 	gain_desc = "You have gained the ability to rip the very life force out of people and absorb it, healing you."
-	base_cooldown = 10 SECONDS
 	action_icon_state = "blood_bringers_rite"
 	required_blood = 10
 

@@ -1074,8 +1074,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	H.sync_lighting_plane_alpha()
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
-	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
-		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 // Approximation for gradual heating or cooling.
+	M.adjust_bodytemperature(clamp((temperature + M.bodytemperature) * 0.5 - M.bodytemperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) // Approximation for gradual heating or cooling.
 
 /datum/species/proc/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
 	return TRUE
@@ -1142,7 +1141,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			if(!HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
 				if(!target.HasDisease(/datum/disease/zombie))
 					var/datum/disease/zombie/zomb = new /datum/disease/zombie
-					if(target.CanContractDisease(zomb)) // biosuit aint going to protect you buddy
+					if(target.can_contract_disease(zomb)) // biosuit aint going to protect you buddy
 						target.ForceContractDisease(zomb)
 						target.Dizzy(10 SECONDS)
 						target.Confused(10 SECONDS)
@@ -1224,3 +1223,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /// Is this species able to be legion infested?
 /datum/species/proc/can_be_legion_infested()
 	return TRUE
+
+/// Prototype for additional behaviour when a specific species is ground by a compressor.
+/datum/species/proc/do_compressor_grind(mob/living/carbon/human)
+	return

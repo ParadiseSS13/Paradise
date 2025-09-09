@@ -22,7 +22,7 @@ GLOBAL_DATUM_INIT(discord_manager, /datum/discord_manager, new())
 	var/datum/discord_webhook_payload/dwp = new()
 	dwp.webhook_content = "**\[[GLOB.configuration.system.instance_id]]** [content]"
 	for(var/url in webhook_urls)
-		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
+		SShttp.create_async_request(RUSTLIBS_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
 // This one is designed to take in a [/datum/discord_webhook_payload] which was prepared beforehand
 /datum/discord_manager/proc/send2discord_complex(destination, datum/discord_webhook_payload/dwp)
@@ -37,7 +37,7 @@ GLOBAL_DATUM_INIT(discord_manager, /datum/discord_manager, new())
 		if(DISCORD_WEBHOOK_MENTOR)
 			webhook_urls = GLOB.configuration.discord.mentor_webhook_urls
 	for(var/url in webhook_urls)
-		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
+		SShttp.create_async_request(RUSTLIBS_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
 // This one is for sending messages to the admin channel if no admins are active, complete with a ping to the game admins role
 /datum/discord_manager/proc/send2discord_simple_noadmins(content, check_send_always = FALSE)
@@ -68,7 +68,7 @@ GLOBAL_DATUM_INIT(discord_manager, /datum/discord_manager, new())
 	var/datum/discord_webhook_payload/dwp = new()
 	dwp.webhook_content = "**\[[GLOB.configuration.system.instance_id]]** [message]"
 	for(var/url in GLOB.configuration.discord.admin_webhook_urls)
-		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
+		SShttp.create_async_request(RUSTLIBS_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
 /datum/discord_manager/proc/send2discord_simple_mentor(content)
 	var/alerttext
@@ -89,7 +89,7 @@ GLOBAL_DATUM_INIT(discord_manager, /datum/discord_manager, new())
 	var/datum/discord_webhook_payload/dwp = new()
 	dwp.webhook_content = "**\[[GLOB.configuration.system.instance_id]]** [message]"
 	for(var/url in GLOB.configuration.discord.mentor_webhook_urls)
-		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
+		SShttp.create_async_request(RUSTLIBS_HTTP_METHOD_POST, url, dwp.serialize2json(), list("content-type" = "application/json"))
 
 // Helper to make administrator ping easier
 /datum/discord_manager/proc/handle_administrator_ping()

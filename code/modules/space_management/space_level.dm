@@ -27,6 +27,9 @@
 	var/dirt_count = 0
 	var/list/init_list = list()
 
+	/// This is a list of ruins on the space_level. Used to prevent certain ruins from spawning on the same level as other ruins.
+	var/list/our_ruin_list = list()
+
 /datum/space_level/New(z, level_name, transition_type = SELFLOOPING, traits = list(BLOCK_TELEPORT), transition_tag_)
 	name = level_name
 	zpos = z
@@ -165,16 +168,12 @@ GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))
 /datum/space_level/proc/resume_init()
 	if(dirt_count > 0)
 		throw EXCEPTION("Init told to resume when z-level still dirty. Z level: '[zpos]'")
-	log_debug("Releasing freeze on z-level '[zpos]'!")
-	log_debug("Beginning initialization!")
 	var/list/our_atoms = init_list // OURS NOW!!! (Keeping this list to ourselves will prevent hijack)
 	init_list = list()
-	var/watch = start_watch()
 	listclearnulls(our_atoms)
 	var/list/pipes = typecache_filter_list(our_atoms, GLOB.atmos_machine_typecache)
 	var/list/cables = typecache_filter_list(our_atoms, GLOB.cable_typecache)
 	SSatoms.InitializeAtoms(our_atoms, FALSE)
-	log_debug("Primary initialization finished in [stop_watch(watch)]s.")
 	our_atoms.Cut()
 	if(length(pipes))
 		do_pipes(pipes)
@@ -182,22 +181,17 @@ GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))
 		do_cables(cables)
 
 /datum/space_level/proc/do_pipes(list/pipes)
-	var/watch = start_watch()
-	log_debug("Initializing atmos machines on z-level '[zpos]'!")
-	var/init_count = SSair._setup_atmos_machinery(pipes)
-	log_debug("Initialized [init_count] machines, took [stop_watch(watch)]s")
-	watch = start_watch()
-	log_debug("Initializing pipe networks on z-level '[zpos]'!")
-	init_count = SSair._setup_pipenets(pipes)
-	log_debug("Initialized pipenets for [init_count] machines, took [stop_watch(watch)]s")
+	SSair._setup_atmos_machinery(pipes)
+	SSair._setup_pipenets(pipes)
 	pipes.Cut()
 
 /datum/space_level/proc/do_cables(list/cables)
-	var/watch = start_watch()
-	log_debug("Building powernets on z-level '[zpos]'!")
 	SSmachines.setup_template_powernets(cables)
 	cables.Cut()
-	log_debug("Took [stop_watch(watch)]s")
+
+/datum/space_level/proc/has_all_traits(list/traits)
+	// Cool, horrible set inclusion
+	return length(flags & traits) == length(traits)
 
 /datum/space_level/lavaland/set_transition_borders()
 	// really no reason why these need to be so large,

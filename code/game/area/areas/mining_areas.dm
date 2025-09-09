@@ -2,19 +2,16 @@
 
 /area/mine
 	icon_state = "mining"
-	has_gravity = TRUE
 
 /area/mine/unexplored
 	name = "Mine"
 	icon_state = "unexplored"
 	always_unpowered = TRUE
-	requires_power = TRUE
 	poweralm = FALSE
 	apc_starts_off = TRUE
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
 	sound_environment = SOUND_AREA_ASTEROID
-	flags = NONE
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
 
@@ -46,7 +43,6 @@
 
 /area/mine/outpost
 	name = "Mining Station"
-	icon_state = "mining"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	request_console_name = "Mining Outpost"
 	request_console_flags = RC_SUPPLY
@@ -62,6 +58,10 @@
 /// subtype of /surface so storms hit there
 /area/lavaland/surface/outdoors/outpost/catwalk
 	name = "Mining Station Catwalk"
+	icon_state = "mining"
+
+/area/lavaland/surface/outdoors/outpost/no_boulder
+	name = "Mining Station"
 	icon_state = "mining"
 
 /area/mine/outpost/comms
@@ -146,7 +146,6 @@
 
 /area/lavaland
 	icon_state = "mining"
-	has_gravity = TRUE
 	sound_environment = SOUND_AREA_LAVALAND
 
 /area/lavaland/surface
@@ -155,7 +154,6 @@
 	always_unpowered = TRUE
 	poweralm = FALSE
 	apc_starts_off = TRUE
-	requires_power = TRUE
 	ambientsounds = MINING_SOUNDS
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS

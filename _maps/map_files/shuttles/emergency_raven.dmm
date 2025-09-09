@@ -259,7 +259,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "be" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -1211,7 +1211,7 @@
 "zR" = (
 /obj/machinery/door_control{
 	id = "ravenbridgeblast";
-	name = "Cockpick Airlock Blastdoor Control";
+	name = "Cockpit Airlock Blast Door Control";
 	pixel_x = 5;
 	pixel_y = -35;
 	req_access = list(19)

@@ -20,7 +20,6 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe
 	name = "safe"
 	desc = "A huge chunk of metal with a dial embedded in it. Fine print on the dial reads \"Scarborough Arms tumbler safe, guaranteed thermite resistant, explosion resistant, and assistant resistant.\""
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "safe"
 	anchored = TRUE
 	density = TRUE
@@ -72,7 +71,7 @@ GLOBAL_LIST_EMPTY(safes)
 	for(var/i in 1 to number_of_tumblers)
 		tumblers.Add(rand(0, 99))
 	if(mapload)
-		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+		END_OF_TICK(CALLBACK(src, PROC_REF(take_contents)))
 
 /obj/structure/safe/proc/take_contents()
 	// Put as many items on our turf inside as possible

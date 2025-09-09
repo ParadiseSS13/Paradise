@@ -12,7 +12,7 @@
 
 	if(length(turfs)) //Pick a turf to spawn at if we can
 		var/turf/T = pick(turfs)
-		var/obj/structure/spacevine_controller/SC = new /obj/structure/spacevine_controller(T, null, rand(30,70),rand(5,2)) //spawn a controller at turf
+		var/obj/structure/spacevine_controller/SC = new /obj/structure/spacevine_controller(T, null, rand(30, 100), rand(3, 1)) //spawn a controller at turf
 
 		// Make the event start fun - give the vine a random hostile mutation
 		if(length(SC.vines))
@@ -273,7 +273,7 @@
 	quality = SPACEVINE_MUTATION_POSITIVE
 
 /datum/spacevine_mutation/transparency/on_grow(obj/structure/spacevine/holder)
-	holder.set_opacity(0)
+	holder.set_opacity(FALSE)
 	holder.alpha = 125
 
 /datum/spacevine_mutation/thorns
@@ -393,7 +393,6 @@
 	icon = 'icons/effects/spacevines.dmi'
 	icon_state = "Light1"
 	anchored = TRUE
-	density = FALSE
 	layer = SPACEVINE_LAYER
 	mouse_opacity = MOUSE_OPACITY_OPAQUE //Clicking anywhere on the turf is good enough
 	pass_flags = PASSTABLE | PASSGRILLE
@@ -447,7 +446,7 @@
 			qdel(master)
 	master = null
 	mutations.Cut()
-	set_opacity(0)
+	set_opacity(FALSE)
 	if(has_buckled_mobs())
 		unbuckle_all_mobs(force = TRUE)
 	return ..()
@@ -644,7 +643,7 @@
 	if(!energy)
 		icon_state = pick("Med1", "Med2", "Med3")
 		energy = 1
-		set_opacity(1)
+		set_opacity(TRUE)
 	else
 		icon_state = pick("Hvy1", "Hvy2", "Hvy3")
 		energy = 2

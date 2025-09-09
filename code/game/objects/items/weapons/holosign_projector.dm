@@ -5,11 +5,8 @@
 	icon_state = "signmaker"
 	item_state = "electronic"
 	belt_icon = "holosign_creator"
-	force = 0
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 	origin_tech = "magnets=1;programming=3"
 	flags = NOBLUDGEON
 	var/list/signs = list()
@@ -28,7 +25,7 @@
 			to_chat(user, "<span class='notice'>You use [src] to deactivate [H].</span>")
 			qdel(H)
 		else
-			if(!is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
+			if(!T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
 				if(holocreator_busy)
 					to_chat(user, "<span class='notice'>[src] is busy creating a hologram.</span>")
 					return
@@ -42,7 +39,7 @@
 						holocreator_busy = FALSE
 						if(length(signs) >= max_signs)
 							return
-						if(is_blocked_turf(T, TRUE)) //don't try to sneak dense stuff on our tile during the wait.
+						if(T.is_blocked_turf(exclude_mobs = TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 							return
 					H = new holosign_type(get_turf(target), src)
 					to_chat(user, "<span class='notice'>You create [H] with [src].</span>")
@@ -116,7 +113,6 @@
 	icon_state = "signmaker_engi"
 	belt_icon = null
 	holosign_type = /obj/structure/holosign/barrier/atmos
-	creation_time = 0
 	max_signs = 3
 
 /obj/item/holosign_creator/cyborg

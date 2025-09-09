@@ -947,6 +947,17 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_pulse_shield
+	name = "Exosuit Module (EPS-99 Pulse Shield Generator)"
+	desc = "Exosuit-mounted shield generator."
+	id = "mech_shield_gen"
+	build_type = MECHFAB
+	req_tech = list("bluespace" = 7, "combat" = 7, "engineering"=7)
+	build_path = /obj/item/mecha_parts/mecha_equipment/pulse_shield
+	materials = list(MAT_METAL = 20000, MAT_GOLD = 5000, MAT_BLUESPACE = 5000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_armor_plate
 	name = "Exosuit Mining Armor Plate"
 	desc = "This piece of metal can be attached to the mech itself, enhancing its protective characteristics. Unfortunately, only working class exosuits have notches for such armor."
@@ -977,6 +988,16 @@
 	req_tech = list("combat"= 5, "materials" = 5, "syndicate" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang
 	materials = list(MAT_METAL=20000,MAT_GOLD=10000,MAT_URANIUM=10000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/dropwall_launcher
+	name = "Exosuit Module (DWDL-04 Dropwall Launcher)"
+	id = "dropwall_launcher"
+	build_type = MECHFAB
+	req_tech = list("engineering" = 6, "bluespace" = 6, "combat" = 6)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/dropwall
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 8000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
@@ -1052,9 +1073,31 @@
 	desc = "Allows for the construction of LBX AC 10."
 	id = "mech_scattershot"
 	build_type = MECHFAB
-	req_tech = list("combat" = 4)
+	req_tech = list("combat" = 4, "syndicate" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	materials = list(MAT_METAL=10000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_disabler_shotgun
+	name = "Exosuit Weapon (MESG-01 Disabler Scattercannon)"
+	desc = "Allows for the construction of MESG-01 Disabler Scattercannon."
+	id = "mech_ion"
+	build_type = MECHFAB
+	req_tech = list("combat" = 6, "materials" = 5)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_disabler
+	materials = list(MAT_METAL=10000,MAT_SILVER=6000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_laser_shotgun
+	name = "Exosuit Weapon (MESG-02 Laser Scattercannon)"
+	desc = "Allows for the construction of MESG-02 Laser Scattercannon."
+	id = "mech_ion"
+	build_type = MECHFAB
+	req_tech = list("combat" = 6, "materials" = 5)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_laser
+	materials = list(MAT_METAL=10000,MAT_GOLD=6000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
@@ -1320,6 +1363,16 @@
 	build_path = /obj/item/borg/upgrade/rsf_executive
 	req_tech = list("materials" = 2, "biotech" = 3)
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 6000, MAT_GOLD = 2000)
+	construction_time = 12 SECONDS
+	category = list("Cyborg Upgrades")
+
+/datum/design/borg_upgrade_holo_stretcher
+	name = "Cyborg Upgrade (Holo Stretcher Rack Upgrade)"
+	id = "borg_upgrade_holo_stretcher"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/holo_stretcher
+	req_tech = list("magnets" = 5, "powerstorage" = 4)
+	materials = list(MAT_METAL = 1000, MAT_SILVER = 500, MAT_GLASS = 500, MAT_DIAMOND = 200)
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrades")
 

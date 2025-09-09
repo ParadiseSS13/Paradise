@@ -27,7 +27,7 @@
 		revert_cast()
 		return
 
-	user.visible_message("<span class='warning'>Vines burst from the back of [user], quickly scurring to the ground and swarm onto [user.loc].</span>", "<span class='warning'>You begin infesting [user.loc] with [initial(weed_type.name)].</span>")
+	user.visible_message("<span class='warning'>Vines burst from the back of [user], securing themselves to the ground and swarming onto [user.loc].</span>", "<span class='warning'>You begin infesting [user.loc] with [initial(weed_type.name)].</span>")
 	if(requires_do_after && !do_mob(user, user, 2 SECONDS))
 		revert_cast()
 		return

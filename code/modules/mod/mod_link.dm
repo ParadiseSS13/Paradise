@@ -102,6 +102,10 @@
 
 /obj/item/mod/control/hear_talk(mob/living/M, list/message_pieces)
 	. = ..()
+	if(bag)
+		for(var/obj/object in bag)
+			object.hear_talk(M, message_pieces)
+
 	if(M != wearer || !mod_link.visual)
 		return
 	if(ishuman(M))
@@ -139,7 +143,7 @@
 	/// The MODlink datum we operate.
 	var/datum/mod_link/mod_link
 	/// Initial frequency of the MODlink.
-	var/starting_frequency
+	var/starting_frequency = MODLINK_FREQ_NANOTRASEN
 	/// An additional name tag for the scryer, seen as "MODlink scryer - [label]"
 	var/label
 
@@ -240,7 +244,7 @@
 /obj/item/clothing/neck/link_scryer/process()
 	if(!mod_link.link_call)
 		return
-	cell.use(200)
+	cell.use(50)
 
 /obj/item/clothing/neck/link_scryer/attackby__legacy__attackchain(obj/item/O, mob/user, params)
 	. = ..()
@@ -327,9 +331,6 @@
 /obj/item/clothing/neck/link_scryer/proc/on_user_set_dir(atom/source, dir, newdir)
 	SIGNAL_HANDLER // COMSIG_ATOM_DIR_CHANGE
 	on_user_set_dir_generic(mod_link, newdir || SOUTH)
-
-/obj/item/clothing/neck/link_scryer/loaded
-	starting_frequency = MODLINK_FREQ_NANOTRASEN
 
 /obj/item/clothing/neck/link_scryer/loaded/Initialize(mapload)
 	. = ..()
@@ -499,6 +500,7 @@
 
 /proc/call_link(mob/user, datum/mod_link/calling_link)
 	if(!calling_link.frequency)
+		to_chat(user, "<span class='warning'>The frequency isn't set!</span>")
 		return
 	var/list/callers = list()
 	for(var/id in GLOB.mod_link_ids)

@@ -231,8 +231,7 @@ as it messes with variables.
 ## TGUI
 A JavaScript based format for displaying an interface. It is
 used for our user interfaces (except OOC stuff like admin panels), or
-are planned to be converted to TGUI. TGUI uses InfernoJS (based off of
-reactJS) which is an extension to JavaScript. More information can be
+are planned to be converted to TGUI. TGUI uses React. More information can be
 found at the [TGUI Tutorial][].
 
 [TGUI Tutorial]: https://github.com/ParadiseSS13/Paradise/blob/master/tgui/docs/tutorial-and-examples.md

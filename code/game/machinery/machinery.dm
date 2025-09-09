@@ -5,7 +5,7 @@
 	pressure_resistance = 15
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
-	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, rad = 0, fire = 50, acid = 70)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 70)
 	atom_say_verb = "beeps"
 	flags_ricochet = RICOCHET_HARD
 	receive_ricochet_chance_mod = 0.3
@@ -440,7 +440,7 @@
 				if(B.reagents.maximum_volume <= A.reagents.maximum_volume)
 					continue
 				W.remove_from_storage(B, src)
-				W.handle_item_insertion(A, TRUE)
+				W.handle_item_insertion(A, user, TRUE)
 				component_parts -= A
 				component_parts += B
 				B.loc = null

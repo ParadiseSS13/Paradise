@@ -69,6 +69,8 @@
 #define COMSIG_ATOM_SING_PULL "atom_sing_pull"
 ///from base of atom/set_light(): (l_range, l_power, l_color)
 #define COMSIG_ATOM_SET_LIGHT "atom_set_light"
+/// from base of atom/set_opacity(): (new_opacity)
+#define COMSIG_ATOM_SET_OPACITY "atom_set_opacity"
 ///from base of atom/setDir(): (old_dir, new_dir)
 #define COMSIG_ATOM_DIR_CHANGE "atom_dir_change"
 ///from [/datum/controller/subsystem/processing/dcs/proc/rotate_decals]: (list/datum/element/decal/rotating)
@@ -123,6 +125,10 @@
 ///called on /living, when pull is attempted, but before it completes, from base of [/mob/living/proc/start_pulling]: (atom/movable/thing, force)
 #define COMSIG_LIVING_TRY_PULL "living_try_pull"
 	#define COMSIG_LIVING_CANCEL_PULL (1 << 0)
+#define COMSIG_ATOM_PULLED "atom_pulled"
+
+///from base of atom/Bumped(atom/bumped_atom)
+#define COMSIG_ATOM_BUMPED "atom_bumped"
 
 ///from base of atom/expose_reagents(): (/list, /datum/reagents, chemholder, volume_modifier)
 #define COMSIG_ATOM_EXPOSE_REAGENTS "atom_expose_reagents"
@@ -158,3 +164,4 @@
 #define COMSIG_LENS_ATTACH "lens_attach"
 /// When using an insert on an item that can accept an insert
 #define COMSIG_INSERT_ATTACH "insert_attach"
+#define COMSIG_MINE_EXPOSE_GIBTONITE "mine_expose_gibtonite"

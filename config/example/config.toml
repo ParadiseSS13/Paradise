@@ -173,7 +173,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 67
+sql_version = 70
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -235,6 +235,8 @@ event_initial_delays = [
   {severity = "moderate", lower_bound = 25, upper_bound = 40},
   {severity = "major", lower_bound = 55, upper_bound = 75},
 ]
+# The population needed to allow blobs to split consciousness
+blob_highpop_trigger = 60
 
 ################################################################
 
@@ -458,7 +460,8 @@ job_slot_amounts = [
   {name = "Medical Doctor", lowpop = 5, highpop = 6},
   {name = "Virologist", lowpop = 1, highpop = 1}, # Science
   {name = "Roboticist", lowpop = 2, highpop = 2},
-  {name = "Scientist", lowpop = 6, highpop = 7}, # Security
+  {name = "Scientist", lowpop = 4, highpop = 5},
+  {name = "Xenobiologist", lowpop = 2, highpop = 2}, # Security
   {name = "Detective", lowpop = 1, highpop = 1},
   {name = "Security Officer", lowpop = 8, highpop = 9},
   {name = "Warden", lowpop = 1, highpop = 1},
@@ -639,6 +642,7 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining1.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining2.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmining3.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/bluespace_relay_beacon.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/casino.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/clockwork_monastery.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/debris1.dmm",
@@ -730,6 +734,7 @@ active_lava_ruins = [
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_dead_ratvar.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_elite_tumor.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_fountain_hall.dmm",
+  "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_mining_telecomms.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_monster_nest.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pizzaparty.dmm",
   "_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_puzzle.dmm",
@@ -856,13 +861,13 @@ non_repeating_maps = true
 # - "FPTP" = A vote that excludes the map from the current round, and last round, then uses a weighted pick on the remaining maps, from preferences.
 # If you dont enter one correctly, it will whine on startup
 map_vote_day_types = [
-  {day_number = 1, rotation_type = "Vote"}, # Monday
+  {day_number = 1, rotation_type = "Random"}, # Monday
   {day_number = 2, rotation_type = "Random"}, # Tuesday
-  {day_number = 3, rotation_type = "FPTP"}, # Wednesday
+  {day_number = 3, rotation_type = "Random"}, # Wednesday
   {day_number = 4, rotation_type = "Random"}, # Thursday
-  {day_number = 5, rotation_type = "Vote"}, # Friday
-  {day_number = 6, rotation_type = "FPTP"}, # Saturday
-  {day_number = 7, rotation_type = "FPTP"}, # Sunday
+  {day_number = 5, rotation_type = "Random"}, # Friday
+  {day_number = 6, rotation_type = "Random"}, # Saturday
+  {day_number = 7, rotation_type = "Random"}, # Sunday
 ]
 
 ################################################################

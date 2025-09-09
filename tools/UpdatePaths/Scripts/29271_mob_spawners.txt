@@ -1,0 +1,1 @@
+/obj/effect/mob_spawn/@SUBTYPES : /obj/effect/mob_spawn/@SUBTYPES{@OLD;random=@SKIP}

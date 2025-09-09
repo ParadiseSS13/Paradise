@@ -434,7 +434,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		for(var/client/clients_to_alert in GLOB.clients)
 			window_flash(clients_to_alert)
 			if(clients_to_alert.prefs?.sound & SOUND_ADMINHELP)
-				SEND_SOUND(clients_to_alert, sound('sound/effects/adminhelp.ogg'))
+				SEND_SOUND(clients_to_alert, sound('sound/misc/server_alert.ogg'))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleooc()
@@ -549,6 +549,10 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!check_rights(R_SERVER))
 		return
 
+	if(!usr.client.is_connecting_from_localhost())
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+			return
+
 	GLOB.enter_allowed = !GLOB.enter_allowed
 	if(!GLOB.enter_allowed)
 		to_chat(world, "<B>New players may no longer enter the game.</B>")
@@ -559,7 +563,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	world.update_status()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Entering") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/admins/proc/toggleAI()
+/datum/admins/proc/toggle_ai()
 	set category = "Event"
 	set desc="People can't be AI"
 	set name="Toggle AI"
@@ -586,6 +590,10 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!check_rights(R_SERVER))
 		return
 
+	if(!usr.client.is_connecting_from_localhost())
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+			return
+
 	GLOB.configuration.general.respawn_enabled = !(GLOB.configuration.general.respawn_enabled)
 	if(GLOB.configuration.general.respawn_enabled)
 		to_chat(world, "<B>You may now respawn.</B>")
@@ -607,6 +615,10 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(SSticker.current_state < GAME_STATE_STARTUP)
 		alert("Slow down a moment, let the ticker start first!")
 		return
+
+	if(!usr.client.is_connecting_from_localhost())
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+			return
 
 	if(SSblackbox)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -786,6 +798,10 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!check_rights(R_SERVER))
 		return
 
+	if(!usr.client.is_connecting_from_localhost())
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+			return
+
 	GLOB.configuration.general.guest_ban = !(GLOB.configuration.general.guest_ban)
 	if(GLOB.configuration.general.guest_ban)
 		to_chat(world, "<B>Guests may no longer enter the game.</B>")
@@ -824,7 +840,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!ai_number)
 		messages += "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
 
-	to_chat(usr, chat_box_examine(messages.Join("\n")))
+	to_chat(usr, chat_box_examine(messages.Join("<br>")))
 
 	log_admin("[key_name(usr)] checked the AI laws")
 	message_admins("[key_name_admin(usr)] checked the AI laws")
@@ -933,7 +949,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		if(!frommob || !toitem) //make sure the mobs don't go away while we waited for a response
 			return TRUE
 
-		var/mob/living/simple_animal/possessed_object/tomob = new(toitem)
+		var/mob/living/basic/possessed_object/tomob = new(toitem)
 
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
@@ -959,7 +975,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 			return TRUE
 
 		if(tomob.client) //no need to ghostize if there is no client
-			tomob.ghostize(0)
+			tomob.ghostize(GHOST_FLAGS_OBSERVE_ONLY)
 
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
@@ -1004,7 +1020,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 /proc/staff_countup(rank_mask = R_BAN)
 	var/list/result = list(0, 0, 0)
 	for(var/client/X in GLOB.admins)
-		if(rank_mask && !check_rights_for(X, rank_mask))
+		if(rank_mask && !check_rights_client(rank_mask, FALSE, X))
 			result[2]++
 			continue
 		if(X.holder.fakekey)
@@ -1018,11 +1034,11 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 /**
  * Allows admins to safely pick from SSticker.minds for objectives
- * - caller, mob to ask for results
+ * - caller_mob, mob to ask for results
  * - blacklist, optional list of targets that are not available
  * - default_target, the target to show in the list as default
  */
-/proc/get_admin_objective_targets(mob/caller, list/blacklist, mob/default_target)
+/proc/get_admin_objective_targets(mob/caller_mob, list/blacklist, mob/default_target)
 	if(!islist(blacklist))
 		blacklist = list(blacklist)
 
@@ -1032,12 +1048,12 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 			possible_targets += possible_target.current // Allows for admins to pick off station roles
 
 	if(!length(possible_targets))
-		to_chat(caller, "<span class='warning'>No possible target found.</span>")
+		to_chat(caller_mob, "<span class='warning'>No possible target found.</span>")
 		return
 
 	possible_targets = sortAtom(possible_targets)
 
-	var/mob/new_target = input(caller, "Select target:", "Objective target", default_target) as null|anything in possible_targets
+	var/mob/new_target = input(caller_mob, "Select target:", "Objective target", default_target) as null|anything in possible_targets
 	if(!QDELETED(new_target))
 		return new_target.mind
 

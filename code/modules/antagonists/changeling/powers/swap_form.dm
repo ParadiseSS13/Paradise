@@ -2,7 +2,7 @@
 	name = "Swap Forms"
 	desc = "We force ourselves into the body of another form, pushing their consciousness into the form we left behind. Costs 40 chemicals."
 	helptext = "We will bring all our abilities with us, but we will lose our old form DNA in exchange for the new one. The process will seem suspicious to any observers."
-	button_overlay_icon_state = "cling_mindswap"
+	button_icon_state = "cling_mindswap"
 	chemical_cost = 40
 	dna_cost = 2
 	req_human = TRUE //Monkeys can't grab
@@ -54,11 +54,10 @@
 		ghosted = TRUE
 		target.grab_ghost() //GET OVER HERE!
 
-	var/mob/dead/observer/ghost = target.ghostize(FALSE)
+	var/mob/dead/observer/ghost = target.ghostize()
 	user.mind.transfer_to(target)
 	if(ghost && ghost.mind)
 		ghost.mind.transfer_to(user)
-		GLOB.non_respawnable_keys -= ghost.ckey // Better make sure they can re-enter their new body
 		user.key = ghost.key
 	qdel(ghost)
 	if(ghosted)

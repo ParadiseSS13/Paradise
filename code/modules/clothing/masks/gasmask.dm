@@ -27,7 +27,7 @@
 	desc = "A gas mask with built in welding goggles and face shield. Looks like a skull, clearly designed by a nerd."
 	icon_state = "weldingmask"
 	item_state = "weldingmask"
-	materials = list(MAT_METAL=4000, MAT_GLASS=2000)
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = FLASH_PROTECTION_WELDER
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = 60)
@@ -282,6 +282,7 @@
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
 	icon_state = "officermask"
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	aggressiveness = 3
 	phrase = 12

@@ -3,7 +3,6 @@
 	icon_state = "intact"
 	pipe_icon = "hepipe"
 	level = 2
-	plane = GAME_PLANE
 	layer = GAS_PIPE_VISIBLE_LAYER
 	var/initialize_directions_he
 	var/surface = 2
@@ -38,7 +37,7 @@
 
 	//Heat causes pipe to glow
 	if(pipe_air.temperature() && (icon_temperature > 500 || pipe_air.temperature() > 500)) //glow starts at 500K
-		if(abs(pipe_air.temperature() - icon_temperature) > 10)
+		if(abs(pipe_air.temperature() - icon_temperature) > 50)
 			icon_temperature = pipe_air.temperature()
 
 			var/h_r = heat2color_r(icon_temperature)
@@ -51,7 +50,7 @@
 				h_g = 64 + (h_g - 64) * scale
 				h_b = 64 + (h_b - 64) * scale
 
-			animate(src, color = rgb(h_r, h_g, h_b), time = 20, easing = SINE_EASING)
+			animate(src, color = rgb(h_r, h_g, h_b), time = 5, easing = SINE_EASING)
 
 	//burn any mobs buckled based on temperature
 	if(has_buckled_mobs())
@@ -95,9 +94,7 @@
 /////////////////////////////////
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction
 	icon = 'icons/atmos/junction.dmi'
-	icon_state = "intact"
 	pipe_icon = "hejunction"
-	level = 2
 	minimum_temperature_difference = 300
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 

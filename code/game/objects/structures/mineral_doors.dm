@@ -101,7 +101,7 @@
 
 /obj/structure/mineral_door/proc/operate_update()
 	density = !density
-	opacity = !opacity
+	set_opacity(!opacity)
 	state_open = !state_open
 	recalculate_atmos_connectivity()
 	update_icon(UPDATE_ICON_STATE)
@@ -212,9 +212,7 @@
 	open_sound = 'sound/effects/doorcreaky.ogg'
 	close_sound = 'sound/effects/doorcreaky.ogg'
 	sheetType = /obj/item/stack/sheet/wood
-	hardness = 1
 	resistance_flags = FLAMMABLE
-	max_integrity = 200
 	rad_insulation_beta = RAD_VERY_LIGHT_INSULATION
 
 /obj/structure/mineral_door/wood/Initialize(mapload)

@@ -210,6 +210,8 @@
 	. = ..()
 	extinguish()
 	acid_level = 0
+	if(temperature > VIRUS_DISINFECTION_TEMP)
+		SEND_SIGNAL(src, COMSIG_ATOM_DISINFECTED)
 
 /obj/singularity_pull(S, current_size)
 	..()
@@ -235,15 +237,6 @@
 	speed_process = FALSE
 	START_PROCESSING(SSobj, src)
 	STOP_PROCESSING(SSfastprocess, src)
-
-/obj/vv_get_dropdown()
-	. = ..()
-	.["Delete all of type"] = "byond://?_src_=vars;delall=[UID()]"
-	if(!speed_process)
-		.["Make speed process"] = "byond://?_src_=vars;makespeedy=[UID()]"
-	else
-		.["Make normal process"] = "byond://?_src_=vars;makenormalspeed=[UID()]"
-	.["Modify armor values"] = "byond://?_src_=vars;modifyarmor=[UID()]"
 
 /obj/proc/check_uplink_validity()
 	return TRUE
@@ -294,7 +287,7 @@
 	. = ..()
 	if(. && receive_ricochet_damage_coeff)
 		// pass along receive_ricochet_damage_coeff damage to the structure for the ricochet
-		take_damage(P.damage * receive_ricochet_damage_coeff, P.damage_type, P.flag, 0, REVERSE_DIR(P.dir), P.armour_penetration_flat, P.armour_penetration_percentage)
+		take_damage(P.damage * receive_ricochet_damage_coeff, P.damage_type, P.flag, 0, REVERSE_DIR(P.dir), P.armor_penetration_flat, P.armor_penetration_percentage)
 
 /obj/proc/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)

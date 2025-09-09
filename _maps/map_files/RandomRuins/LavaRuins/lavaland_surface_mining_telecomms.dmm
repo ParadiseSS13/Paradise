@@ -1,0 +1,291 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"b" = (
+/obj/structure/sign/mining/survival{
+	dir = 4
+	},
+/obj/effect/spawner/random/rarely_meteor_strike,
+/turf/simulated/wall/mineral/titanium/survival{
+	explosion_block = 1
+	},
+/area/ruin/lavaland_relay)
+"c" = (
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors/unexplored)
+"e" = (
+/turf/simulated/wall/mineral/titanium/survival{
+	explosion_block = 1
+	},
+/area/ruin/lavaland_relay)
+"f" = (
+/obj/structure/railing/corner,
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors/unexplored)
+"h" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors/unexplored)
+"i" = (
+/obj/structure/railing,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"j" = (
+/obj/item/gps/ruin,
+/turf/simulated/wall/mineral/titanium/survival{
+	explosion_block = 1
+	},
+/area/ruin/lavaland_relay)
+"k" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"l" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/lavaland_relay)
+"m" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/random/relay_beacon,
+/turf/simulated/floor/catwalk,
+/area/ruin/lavaland_relay)
+"n" = (
+/obj/structure/sign/mining,
+/turf/simulated/wall/mineral/titanium/survival{
+	explosion_block = 1
+	},
+/area/ruin/lavaland_relay)
+"p" = (
+/obj/effect/spawner/random/rarely_meteor_strike,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"q" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/pod,
+/area/ruin/lavaland_relay)
+"s" = (
+/obj/structure/flora/ash/rock/style_random,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"t" = (
+/obj/structure/railing,
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors/unexplored)
+"v" = (
+/mob/living/basic/mining/hivelord/legion,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"x" = (
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1
+	},
+/obj/effect/spawner/random/random_pacman,
+/turf/simulated/floor/catwalk,
+/area/ruin/lavaland_relay)
+"y" = (
+/obj/structure/shelf/engineering,
+/obj/item/storage/toolbox/electrical,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/clothing/glasses/meson,
+/obj/item/reagent_containers/hypospray/autoinjector/survival,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/item/food/liquidfood,
+/obj/item/pickaxe/emergency,
+/turf/simulated/floor/pod,
+/area/ruin/lavaland_relay)
+"z" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"A" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"B" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/pod,
+/area/ruin/lavaland_relay)
+"C" = (
+/obj/machinery/power/apc/off_station/directional/west,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/random/rarely_meteor_strike,
+/turf/simulated/floor/catwalk,
+/area/ruin/lavaland_relay)
+"D" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"E" = (
+/obj/structure/sign/mining/survival{
+	dir = 1
+	},
+/turf/simulated/wall/mineral/titanium/survival{
+	explosion_block = 1
+	},
+/area/ruin/lavaland_relay)
+"F" = (
+/obj/structure/sign/mining/survival{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/titanium/survival{
+	explosion_block = 1
+	},
+/area/ruin/lavaland_relay)
+"J" = (
+/obj/machinery/tcomms/relay,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/spawner/random/rarely_meteor_strike,
+/turf/simulated/floor/pod,
+/area/ruin/lavaland_relay)
+"O" = (
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/effect/spawner/random/rarely_meteor_strike,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod,
+/area/ruin/lavaland_relay)
+"Q" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+"X" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/spawner/random/pacman_fuel,
+/turf/simulated/floor/pod,
+/area/ruin/lavaland_relay)
+"Y" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored)
+
+(1,1,1) = {"
+a
+a
+c
+c
+c
+c
+c
+a
+a
+"}
+(2,1,1) = {"
+a
+f
+h
+h
+h
+Y
+Y
+k
+s
+"}
+(3,1,1) = {"
+s
+i
+e
+e
+F
+j
+e
+z
+a
+"}
+(4,1,1) = {"
+a
+i
+e
+X
+C
+B
+n
+z
+a
+"}
+(5,1,1) = {"
+c
+i
+E
+J
+m
+q
+O
+p
+a
+"}
+(6,1,1) = {"
+c
+i
+e
+x
+l
+y
+n
+z
+a
+"}
+(7,1,1) = {"
+c
+t
+e
+e
+b
+e
+e
+z
+c
+"}
+(8,1,1) = {"
+a
+A
+Q
+Q
+Q
+Q
+Q
+D
+a
+"}
+(9,1,1) = {"
+a
+a
+a
+c
+c
+c
+c
+a
+v
+"}

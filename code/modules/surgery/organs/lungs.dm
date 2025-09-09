@@ -1,7 +1,6 @@
 /obj/item/organ/internal/lungs
 	name = "lungs"
 	icon_state = "lungs"
-	parent_organ = "chest"
 	slot = "lungs"
 	organ_tag = "lungs"
 	gender = PLURAL
@@ -13,7 +12,6 @@
 	name = "plasma filter"
 	desc = "A spongy rib-shaped mass for filtering plasma from the air."
 	icon = 'icons/obj/species_organs/plasmaman.dmi'
-	icon_state = "lungs"
 
 	organ_datums = list(/datum/organ/lungs/plasmamen)
 
@@ -21,7 +19,6 @@
 	name = "vox lungs"
 	desc = "They're filled with dust....wow."
 	icon = 'icons/obj/species_organs/vox.dmi'
-	icon_state = "lungs"
 	sterile = TRUE
 
 	organ_datums = list(/datum/organ/lungs/vox)

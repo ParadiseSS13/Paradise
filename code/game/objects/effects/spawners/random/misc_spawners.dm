@@ -93,7 +93,48 @@
 /obj/effect/spawner/random/stock_parts
 	name = "stock parts spawner"
 	icon_state = "stock_parts"
-	loot_subtype_path = /obj/item/stock_parts
+	loot = list(
+		// T1
+		/obj/item/stock_parts/capacitor,
+		/obj/item/stock_parts/scanning_module,
+		/obj/item/stock_parts/manipulator,
+		/obj/item/stock_parts/micro_laser,
+		/obj/item/stock_parts/matter_bin,
+
+		// T2
+		/obj/item/stock_parts/capacitor/adv,
+		/obj/item/stock_parts/scanning_module/adv,
+		/obj/item/stock_parts/manipulator/nano,
+		/obj/item/stock_parts/micro_laser/high,
+		/obj/item/stock_parts/matter_bin/adv,
+
+		// T3
+		/obj/item/stock_parts/capacitor/super,
+		/obj/item/stock_parts/scanning_module/phasic,
+		/obj/item/stock_parts/manipulator/pico,
+		/obj/item/stock_parts/micro_laser/ultra,
+		/obj/item/stock_parts/matter_bin/super,
+
+		// T4
+		/obj/item/stock_parts/capacitor/quadratic,
+		/obj/item/stock_parts/scanning_module/triphasic,
+		/obj/item/stock_parts/manipulator/femto,
+		/obj/item/stock_parts/micro_laser/quadultra,
+		/obj/item/stock_parts/matter_bin/bluespace,
+
+		// Power cells
+		/obj/item/stock_parts/cell,
+		/obj/item/stock_parts/cell/high,
+		/obj/item/stock_parts/cell/high/plus,
+		/obj/item/stock_parts/cell/super,
+		/obj/item/stock_parts/cell/hyper,
+		/obj/item/stock_parts/cell/bluespace,
+		/obj/item/stock_parts/cell/bluespace/charging,
+		/obj/item/stock_parts/cell/bluespace/trapped,
+		/obj/item/stock_parts/cell/infinite/abductor,
+		/obj/item/stock_parts/cell/high/slime,
+		/obj/item/stock_parts/cell/potato,
+	)
 
 /obj/effect/spawner/random/stock_parts/Initialize(mapload)
 	spawn_loot_count = rand(4, 7)
@@ -188,13 +229,67 @@
 
 /obj/effect/spawner/random/space_pirate
 	name = "random space pirate spawner"
+	icon_state = "pirate"
 	loot = list(
-		/mob/living/simple_animal/hostile/pirate,
-		/mob/living/simple_animal/hostile/pirate/ranged,
+		/mob/living/basic/pirate,
+		/mob/living/basic/pirate/ranged,
 	)
 
 /obj/effect/spawner/random/fancy_table
 	name = "fancy table spawner"
-	icon = 'icons/effects/random_spawners.dmi'
 	icon_state = "fancy_table"
 	loot_type_path = /obj/structure/table/wood/fancy
+
+/obj/effect/spawner/random/relay_beacon
+	name = "relay_beacon"
+	icon_state = "circuit_board"
+
+	loot = list(
+		/obj/machinery/bluespace_beacon = 4,
+		/obj/structure/broken_bluespace_beacon = 6,
+	)
+
+/obj/effect/spawner/random/maybe_carp
+	name = "maybe carp"
+	icon = 'icons/effects/spawner_icons.dmi'
+	icon_state = "Carp"
+	spawn_loot_chance = 50
+	loot = list(
+		/mob/living/basic/carp = 4,
+		/mob/living/basic/carp/megacarp = 1
+	)
+
+/obj/effect/spawner/random/rarely_meteor_strike
+	name = "rarely meteor strike"
+	icon_state = "meteor"
+	spawn_loot_chance = 6
+	loot = list(
+		/obj/effect/abstract/meteor_strike
+	)
+
+/obj/effect/abstract/meteor_strike/Initialize(mapload)
+	. = ..()
+	explosion(loc, pick(0, 0, 1), rand(1, 3), rand(3, 6), 4, 0, 0, 5, cause = "A spaceruin suffered a meteor strike")
+
+/obj/effect/spawner/random/random_pacman
+	name = "random pacman"
+	icon_state = "pacman"
+	loot = list(
+		/obj/machinery/power/port_gen/pacman = 17,
+		/obj/machinery/power/port_gen/pacman/super = 4,
+		/obj/machinery/power/port_gen/pacman/mrs = 2,
+		/obj/machinery/power/port_gen/pacman/upgraded = 4,
+		/obj/machinery/power/port_gen/pacman/super/upgraded = 2,
+		/obj/machinery/power/port_gen/pacman/mrs/upgraded = 1,
+		/obj/structure/machine_frame = 10,
+	)
+
+/obj/effect/spawner/random/pacman_fuel
+	name = "random pacman fuel"
+	icon_state = "pacman"
+	spawn_loot_chance = 90
+	loot = list(
+		/obj/item/stack/sheet/mineral/plasma/ten = 14,
+		/obj/item/stack/sheet/mineral/uranium/ten = 5,
+		/obj/item/stack/sheet/mineral/diamond/ten = 1,
+	)

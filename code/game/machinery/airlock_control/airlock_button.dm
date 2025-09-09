@@ -8,7 +8,6 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 	layer = ON_EDGED_TURF_LAYER
 	anchored = TRUE
 	power_channel = PW_CHANNEL_ENVIRONMENT
-	power_state = IDLE_POWER_USE
 	/// Id to be used by the controller to grab us on spawn
 	var/autolink_id
 	/// UID of the airlock controller that owns us
@@ -67,3 +66,4 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 	controller_uid = C.UID()
 	assigned_command = mode
 
+BUTTON_HELPERS(/obj/machinery/access_button, 25, 7)
