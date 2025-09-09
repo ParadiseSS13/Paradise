@@ -119,7 +119,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/requires_power_space)
 "dI" = (
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/mineral/plastitanium,
@@ -348,7 +348,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/requires_power_space)
 "iS" = (
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "jb" = (
@@ -397,7 +397,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "jW" = (
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
@@ -559,7 +559,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "nz" = (
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/pod,
 /area/ruin/space/powered/requires_power_space)
 "nE" = (
@@ -824,7 +824,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/random/dirt/often,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/requires_power_space)
 "vk" = (
