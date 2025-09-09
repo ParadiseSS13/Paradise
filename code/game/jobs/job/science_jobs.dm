@@ -248,7 +248,6 @@
 	uniform = /obj/item/clothing/under/rank/rnd/geneticist
 	suit = /obj/item/clothing/suit/storage/labcoat/genetics
 	shoes = /obj/item/clothing/shoes/white
-	// l_ear = /obj/item/radio/headset/headset_medsci
 	l_ear = /obj/item/radio/headset/headset_sci
 	id = /obj/item/card/id/geneticist
 	suit_store = /obj/item/flashlight/pen
