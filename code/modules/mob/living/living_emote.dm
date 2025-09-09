@@ -35,7 +35,7 @@
 /datum/emote/living/choke
 	key = "choke"
 	key_third_person = "chokes"
-	message = "подавился!"
+	message = "давится!"
 	message_mime = "отчаянно хватается за горло!"
 	emote_type = EMOTE_AUDIBLE
 	muzzled_noises = list("рвотный", "громкий")
@@ -367,7 +367,7 @@
 	key = "whimper"
 	key_third_person = "whimpers"
 	message = "хнычет."
-	message_mime = "кажется, задет."
+	message_mime = "молча хнычет."
 	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	muzzled_noises = list("слабый", "жалкий")
 
