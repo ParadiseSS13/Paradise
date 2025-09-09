@@ -53793,9 +53793,6 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Science Maintenance"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
