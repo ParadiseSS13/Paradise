@@ -57,16 +57,12 @@
 				S.be_replaced()
 	QDEL_NULL(middleClickOverride)
 	if(mind?.current == src)
-		mind.current = null
+		mind.unbind()
 	UnregisterSignal(src, COMSIG_ATOM_PREHIT)
 	return ..()
 
-/mob/living/ghostize(can_reenter_corpse = 1)
-	var/prev_client = client
+/mob/living/ghostize(flags = GHOST_FLAGS_DEFAULT, ghost_name, ghost_color)
 	. = ..()
-	if(.)
-		if(ranged_ability && prev_client)
-			ranged_ability.remove_mousepointer(prev_client)
 	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
 
 /// Legacy method for simplemobs to handle turning off their AI.
@@ -1341,6 +1337,15 @@
 
 /mob/living/proc/sec_hud_set_ID()
 	return
+
+/// Proc called when TARGETED by a lazarus injector
+/mob/living/proc/lazarus_revive(mob/living/reviver, malfunctioning)
+	revive()
+	befriend(reviver)
+	AddElement(/datum/element/wears_collar)
+	faction = (malfunctioning) ? list("lazarus", "\ref[reviver]") : list("neutral")
+	if(malfunctioning)
+		log_game("[reviver] has revived hostile mob [src] with a malfunctioning lazarus injector")
 
 /// Proc for giving a mob a new 'friend', generally used for AI control and
 /// targeting. Returns false if already friends or null if qdeleted.

@@ -375,6 +375,9 @@
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_INTERRUPTED
 
+	if(tool && HAS_TRAIT(tool, TRAIT_SURGICAL_CANNOT_FAIL))
+		prob_success = 100 // going to snowflake this in otherwise dissections fail repeatedtly with "proper" tools.
+
 	var/chem_check_result = chem_check(target)
 	var/pain_mod = deal_pain(user, target, target_zone, tool, surgery)
 	prob_success *= pain_mod
@@ -513,7 +516,7 @@
  * *
  */
 /datum/surgery_step/proc/get_step_information(datum/surgery/surgery, with_tools = FALSE)
-	if(!with_tools)
+	if(!with_tools || accept_any_item || accept_hand)
 		return name
 
 	var/list/tools = list()

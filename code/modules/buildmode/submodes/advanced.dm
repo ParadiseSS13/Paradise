@@ -48,6 +48,7 @@
 		else if(!isnull(obj_holder))
 			//we only want to set the direction of mobs or objects, not turfs or areas.
 			var/atom/movable/A = new obj_holder(get_turf(object))
+			A.admin_spawned = TRUE
 			if(istype(A))
 				A.setDir(BM.build_dir)
 				log_admin("Build Mode: [key_name(user)] modified [A]'s ([A.x],[A.y],[A.z]) dir to [BM.build_dir]")

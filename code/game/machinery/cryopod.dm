@@ -243,7 +243,10 @@
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
 		/obj/item/mmi/robotic_brain,
-		/obj/item/card/id/captains_spare/assigned
+		/obj/item/card/id/captains_spare/assigned,
+		/obj/item/gun/energy/laser/mounted,
+		/obj/item/gun/energy/gun/advtaser/mounted,
+		/obj/item/gun/magic/grapple,
 	)
 
 /obj/machinery/cryopod/right
@@ -442,9 +445,9 @@
 	// Ghost and delete the mob.
 	if(!occupant.get_ghost(TRUE))
 		if(TOO_EARLY_TO_GHOST)
-			occupant.ghostize(FALSE) // Players despawned too early may not re-enter the game
+			occupant.ghostize(GHOST_FLAGS_OBSERVE_ONLY) // Players despawned too early may not re-enter the game
 		else
-			occupant.ghostize(TRUE)
+			occupant.ghostize()
 
 	QDEL_NULL(occupant)
 	name = initial(name)

@@ -1746,18 +1746,29 @@
 			to_chat(usr, "<span class='warning'>This will only work on /mob/dead/observer</span>")
 			return
 
-		var/posttransformoutfit = usr.client.robust_dress_shop()
+		var/list/potential_minds = list()
+		for(var/datum/mind/mind in G.client.persistent.minds)
+			if(ckey(mind.key) == G.ckey && isnull(mind.current) && mind.destroyed_body_json)
+				potential_minds += mind
+		var/outfit = usr.client.robust_dress_shop(potential_minds)
 
-		if(!posttransformoutfit)
+		if(!outfit)
 			return
 
-		var/mob/living/carbon/human/H = G.incarnate_ghost()
+		var/mob/M
+		if(istype(outfit, /datum/mind))
+			M = G.incarnate_ghost(outfit)
 
-		if(posttransformoutfit && istype(H))
-			H.equipOutfit(posttransformoutfit)
+			log_admin("[key_name(M)] was rebuilt from a mind backup by [key_name(owner)]")
+			message_admins("[key_name_admin(M)] was rebuilt from a mind backup by [key_name_admin(owner)]")
+		else
+			M = G.incarnate_ghost()
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				H.equipOutfit(outfit)
 
-		log_admin("[key_name(G)] was incarnated by [key_name(owner)]")
-		message_admins("[key_name_admin(G)] was incarnated by [key_name_admin(owner)]")
+			log_admin("[key_name(M)] was incarnated by [key_name(owner)]")
+			message_admins("[key_name_admin(M)] was incarnated by [key_name_admin(owner)]")
 
 	else if(href_list["togmutate"])
 		if(!check_rights(R_SPAWN))	return
@@ -1810,7 +1821,7 @@
 			return
 
 		var/mob/dead/observer/ghost = C.mob
-		ghost.ManualFollow(target)
+		ghost.manual_follow(target)
 
 	else if(href_list["check_antagonist"])
 		check_antagonists()

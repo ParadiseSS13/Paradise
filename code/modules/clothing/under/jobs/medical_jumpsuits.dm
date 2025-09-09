@@ -1,6 +1,5 @@
 /obj/item/clothing/under/rank/medical
 	icon = 'icons/obj/clothing/under/medical.dmi'
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 	sprite_sheets = list(
 		"Human" = 'icons/mob/clothing/under/medical.dmi',
@@ -17,7 +16,6 @@
 	item_state = "cmo"
 	item_color = "cmo"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/cmo/skirt
 	name = "chief medical officer's skirt"
@@ -41,7 +39,6 @@
 	item_state = "medical"
 	item_color = "medical"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/doctor/sensor
 	sensor_mode = SENSOR_COORDS
@@ -61,7 +58,6 @@
 	item_state = "virology"
 	item_color = "virology"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/virologist/skirt
 	name = "virologist's jumpskirt"
@@ -76,7 +72,6 @@
 	item_state = "nursesuit"
 	item_color = "nursesuit"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/nurse
 	name = "nurse's dress"
@@ -85,7 +80,6 @@
 	item_state = "nurse"
 	item_color = "nurse"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/orderly
 	name = "orderly's uniform"
@@ -94,7 +88,6 @@
 	item_state = "orderly"
 	item_color = "orderly"
 	permeability_coefficient = 0.50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/scrubs
 	name = "blue medical scrubs"
@@ -173,4 +166,3 @@
 	item_state = "medicalgown"
 	item_color = "medicalgown"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
