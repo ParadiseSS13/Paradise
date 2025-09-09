@@ -309,7 +309,7 @@
 	desc = "An integrated projector mounted onto a user's arm, that is able to be used as a powerful flash."
 	contents = newlist(/obj/item/flash/armimplant)
 	origin_tech = "materials=4;combat=3;biotech=4;magnets=4;powerstorage=3"
-	actions_types = list(/datum/action/item_action/organ_action/toggle/medibeam)
+	actions_types = list(/datum/action/item_action/organ_action/toggle/flash)
 
 /obj/item/organ/internal/cyberimp/arm/flash/New()
 	..()
@@ -510,6 +510,26 @@
 	contents = newlist(/obj/item/mop/advanced)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/advanced_mop)
 
+/obj/item/organ/internal/cyberimp/arm/cargo
+	name = "integrated cargo implant"
+	desc = "Everything you need to run the cargo bay, except a Forklift."
+	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4"
+	icon_state = "toolkit_cargo"
+	contents = newlist(
+		/obj/item/stamp/granted,
+		/obj/item/stamp/denied,
+		/obj/item/hand_labeler,
+		/obj/item/dest_tagger,
+		/obj/item/clipboard,
+		/obj/item/pen/multi,
+		/obj/item/mail_scanner
+	)
+	actions_types = list(/datum/action/item_action/organ_action/toggle/stamp)
+
+/datum/action/item_action/organ_action/toggle/stamp
+	button_icon = 'icons/obj/bureaucracy.dmi'
+	button_icon_state = "stamp-ok"
+
 // Razorwire implant, long reach whip made of extremely thin wire, ouch!
 
 /obj/item/melee/razorwire
@@ -525,7 +545,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
 	force = 18
-	armour_penetration_percentage = -100 //This means that armor twice as effective against it
+	armor_penetration_percentage = -100 //This means that armor twice as effective against it
 	reach = 2
 	hitsound = 'sound/weapons/whip.ogg'
 	attack_verb = list("slashes", "whips", "lashes", "lacerates")
@@ -925,7 +945,7 @@
 	icon_state = "syndie_mantis"
 	item_state = "syndie_mantis"
 	force = 15
-	armour_penetration_percentage = 30
+	armor_penetration_percentage = 30
 
 /obj/item/melee/mantis_blade/syndicate/Initialize(mapload)
 	. = ..()
@@ -963,4 +983,3 @@
 
 /obj/item/organ/internal/cyberimp/arm/nt_mantis/l
 	parent_organ = "l_arm"
-

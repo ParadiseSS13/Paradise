@@ -20,7 +20,7 @@
 	modifystate = TRUE
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse, /obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
-	cell_type = /obj/item/stock_parts/cell/pulse
+	cell_type = /obj/item/stock_parts/cell/energy_gun/pulse
 	execution_speed = 2 SECONDS
 
 /obj/item/gun/energy/pulse/examine_more(mob/user)
@@ -58,7 +58,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_carbine"
 	item_state = null
-	cell_type = /obj/item/stock_parts/cell/pulse/carbine
+	cell_type = /obj/item/stock_parts/cell/energy_gun/pulse/carbine
 	can_flashlight = TRUE
 	flight_x_offset = 18
 	flight_y_offset = 12
@@ -83,7 +83,7 @@
 	icon_state = "pulse_pistol"
 	item_state = null
 	can_holster = TRUE
-	cell_type = /obj/item/stock_parts/cell/pulse/pistol
+	cell_type = /obj/item/stock_parts/cell/energy_gun/pulse/pistol
 	can_charge = FALSE
 
 /obj/item/gun/energy/pulse/pistol/examine(mob/user)

@@ -217,7 +217,7 @@
 	ADD_TRAIT(user, SCRYING, SCRYING_ORB)
 	user.visible_message("<span class='notice'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>",
 					"<span class='danger'>You stare into [src], you can see the entire universe!</span>")
-	ghost = user.ghostize(TRUE, COLOR_BLUE, "Magic Spirit of [user.name]")
+	ghost = user.ghostize(ghost_name = "Magic Spirit of [user.name]", ghost_color = COLOR_BLUE)
 	while(!QDELETED(user))
 		if(user.key || QDELETED(src))
 			user.visible_message("<span class='notice'>[user] blinks, returning to the world around [user.p_them()].</span>",
@@ -930,9 +930,9 @@ GLOBAL_LIST_EMPTY(multiverse)
 		/datum/disease/wizarditis/wizard_variant,
 		/datum/disease/berserker,
 		/datum/disease/appendicitis,
-		/datum/disease/grut_gut,
-		/datum/disease/wand_rot,
-		/datum/disease/mystic_malaise
+		/datum/disease/grut_gut/wizard_variant,
+		/datum/disease/wand_rot/wizard_variant,
+		/datum/disease/mystic_malaise/wizard_variant,
 	)
 	picked_disease = pick(possible_diseases)
 	return picked_disease

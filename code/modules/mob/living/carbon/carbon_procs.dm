@@ -19,7 +19,7 @@
 		toggle_throw_mode()
 	return ..()
 
-/mob/living/carbon/ghostize(can_reenter_corpse)
+/mob/living/carbon/ghostize(flags = GHOST_FLAGS_DEFAULT, ghost_name, ghost_color)
 	if(in_throw_mode)
 		toggle_throw_mode()
 	return ..()
@@ -188,6 +188,7 @@
 	// Moderate shock - Stun, knockdown, funny effect
 	var/should_stun = FALSE
 	var/stun_dur = 0 SECONDS
+	var/icon/overlay_icon = null
 	if(shock_damage >= SHOCK_MODERATE)
 		should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
 		if(should_stun)
@@ -196,15 +197,15 @@
 		if(shock_damage >= SHOCK_FLASH) // Arc flash explosion is instant, don't wait for the secondary shock and bypass the effect
 			stun_dur = 0
 		else
-			var/obj/effect/temp_visual/electrocution/shock_effect = new /obj/effect/temp_visual/electrocution(loc, stun_dur)
-			shock_effect.setDir(dir)
+			overlay_icon = new('icons/effects/effects.dmi', "electrocution")
+			overlays += overlay_icon
 		emote("scream")
 		AdjustStuttering(4 SECONDS)
 
 	// Major Shock - YEET
 	var/throw_distance = 0
 	var/throw_dir = null
-	if(shock_damage >= SHOCK_MAJOR)
+	if(shock_damage >= SHOCK_MAJOR && !(flags & SHOCK_ILLUSION))
 		do_sparks(3, TRUE, src)
 		AdjustStuttering(4 SECONDS)
 		if(isatom(source))
@@ -212,13 +213,15 @@
 			throw_dir = get_dir(shock_source.loc, src)
 			throw_distance = round(shock_damage / 10)
 
-	addtimer(CALLBACK(src, PROC_REF(secondary_shock), jitter_amount, should_stun, throw_dir, throw_distance), stun_dur)
+	addtimer(CALLBACK(src, PROC_REF(secondary_shock), jitter_amount, should_stun, throw_dir, throw_distance, overlay_icon), stun_dur)
 	return shock_damage
 
 /// Called after electrocute_act to apply secondary effects
-/mob/living/carbon/proc/secondary_shock(jitter_amount, should_stun, throw_dir, throw_distance)
+/mob/living/carbon/proc/secondary_shock(jitter_amount, should_stun, throw_dir, throw_distance, overlay_icon)
 	if(jitter_amount)
 		AdjustJitter(jitter_amount)
+	if(overlay_icon)
+		overlays -= overlay_icon
 	if(should_stun)
 		KnockDown(6 SECONDS)
 	if(throw_dir && throw_distance && !HAS_TRAIT(src, TRAIT_MAGPULSE)) // Don't yeet if they're wearing magboots
@@ -230,6 +233,8 @@
 		return
 	hand = !hand
 	update_hands_hud()
+	r_hand?.on_hands_swap(src, hand == HAND_BOOL_RIGHT)
+	l_hand?.on_hands_swap(src, hand == HAND_BOOL_LEFT)
 	SEND_SIGNAL(src, COMSIG_CARBON_SWAP_HANDS)
 
 
@@ -321,7 +326,7 @@
 			self_message = "<span class='danger'>You burn your hand trying to extinguish [target]!</span>"
 			H.update_icons()
 
-	target.visible_message("<span class='warning'>[src] tries to extinguish [target]!</span>", self_message)
+	visible_message("<span class='warning'>[src] tries to extinguish [target]!</span>", self_message)
 	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	target.adjust_fire_stacks(-0.5)
 
@@ -703,24 +708,18 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(I)
 		SEND_SIGNAL(I, COMSIG_CARBON_TOGGLE_THROW, in_throw_mode)
 
-#define THROW_MODE_ICON 'icons/effects/cult_target.dmi'
-
 /mob/living/carbon/proc/throw_mode_off()
 	in_throw_mode = FALSE
 	if(throw_icon) //in case we don't have the HUD and we use the hotkey
 		throw_icon.icon_state = "act_throw_off"
-	if(client?.mouse_pointer_icon == THROW_MODE_ICON)
-		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
+	remove_mousepointer(MP_THROW_MODE_PRIORITY)
 
 /mob/living/carbon/proc/throw_mode_on()
 	SIGNAL_HANDLER //This signal is here so we can turn throw mode back on via carp when an object is caught
 	in_throw_mode = TRUE
 	if(throw_icon)
 		throw_icon.icon_state = "act_throw_on"
-	if(client?.mouse_pointer_icon == initial(client.mouse_pointer_icon))
-		client.mouse_pointer_icon = THROW_MODE_ICON
-
-#undef THROW_MODE_ICON
+	add_mousepointer(MP_THROW_MODE_PRIORITY, 'icons/mouse_icons/cult_target.dmi')
 
 /mob/proc/throw_item(atom/target)
 	return
