@@ -26637,7 +26637,6 @@
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "cGc" = (
-/obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -26647,6 +26646,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/any/service/crematorium,
+/obj/machinery/door/airlock/service,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -29746,13 +29746,13 @@
 "cVP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock/public/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/any/service/chapel_office,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock/service/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

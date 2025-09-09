@@ -14328,9 +14328,9 @@
 /area/station/security/restroom)
 "baI" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/service/crematorium,
+/obj/machinery/door/airlock/service,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -19653,12 +19653,12 @@
 /area/station/hallway/primary/central/ne)
 "bvN" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/service/chapel_office,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "chapeloffice"
 	},
+/obj/machinery/door/airlock/service/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -75988,9 +75988,10 @@
 /turf/simulated/floor/light/purple,
 /area/station/service/bar)
 "nQu" = (
-/obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/access/any/service/crematorium,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/service,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

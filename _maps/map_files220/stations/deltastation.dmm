@@ -41338,13 +41338,12 @@
 "duw" = (
 /obj/effect/mapping_helpers/airlock/access/any/service/crematorium,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
-	name = "Chapel Crematorium"
-	},
+/obj/machinery/door/airlock/service,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "duB" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -41476,9 +41475,6 @@
 	},
 /area/station/maintenance/port)
 "duZ" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Robotics Maintenance"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -41492,6 +41488,7 @@
 	id_tag = "Biohazard_RnD";
 	name = "Biohazard Shutter"
 	},
+/obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "dvc" = (
@@ -43619,17 +43616,16 @@
 	},
 /area/station/maintenance/apmaint)
 "dIA" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Chapel Maintenance"
-	},
 /obj/effect/mapping_helpers/airlock/access/any/service/chapel_office,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
-/area/station/service/chapel/study)
+/area/station/maintenance/apmaint)
 "dID" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -43902,7 +43898,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "dKg" = (
 /obj/machinery/light/nightshifted/directional/south,
 /obj/structure/chair/sofa/pew/right{
@@ -44038,7 +44034,7 @@
 	id = "CHAP2"
 	},
 /turf/simulated/floor/plating,
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "dKL" = (
 /obj/structure/chair/sofa/pew/left{
 	dir = 8
@@ -44075,9 +44071,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "dKY" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Chapel Maintenance"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -44085,10 +44078,12 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/service/chapel)
+/area/station/maintenance/apmaint)
 "dKZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -44264,7 +44259,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "dMo" = (
 /obj/machinery/economy/vending/snack,
 /obj/structure/window/reinforced{
@@ -44370,7 +44365,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "dMW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/carpet/black,
@@ -44873,7 +44868,7 @@
 /obj/machinery/light/small/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "dPE" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -44975,11 +44970,11 @@
 	},
 /obj/structure/closet/coffin,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/chapel_office{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/crematorium{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "dQi" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -44994,11 +44989,11 @@
 /obj/effect/mapping_helpers/airlock/access/any/service/chapel_office,
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "CHAP"
 	},
+/obj/machinery/door/airlock/service/glass,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
 "dQl" = (
@@ -45291,7 +45286,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door/airlock/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "CHAP"
@@ -45299,6 +45293,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/service/glass,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
 "dRB" = (
@@ -45515,7 +45510,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "dSk" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -45875,7 +45870,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "dTY" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -46079,21 +46074,21 @@
 /obj/structure/closet/coffin,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "dUK" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/closet/coffin,
 /turf/simulated/floor/plating,
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "dUL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "dUM" = (
 /obj/structure/table,
 /obj/item/storage/box/bodybags,
@@ -46106,14 +46101,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "dUN" = (
 /obj/structure/crematorium,
 /obj/machinery/light_switch/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "dUO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/girder,
@@ -52757,13 +52752,11 @@
 "fOS" = (
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/science/research,
-/obj/machinery/door/airlock/maintenance{
-	name = "Robotics Maintenance"
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_RnD";
 	name = "Biohazard Shutter"
 	},
+/obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
 	},
@@ -57445,7 +57438,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "hqG" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -61157,7 +61150,6 @@
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "iwR" = (
-/obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/service/chapel_office,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -61166,6 +61158,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/service,
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/bedroom)
 "ixf" = (
@@ -79557,7 +79550,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "oen" = (
 /obj/machinery/newscaster/directional/east,
 /obj/item/kirbyplants/large,
@@ -79772,7 +79765,6 @@
 /turf/simulated/floor/plating,
 /area/station/supply/abandoned_boxroom)
 "ohp" = (
-/obj/machinery/door/airlock,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -79789,6 +79781,7 @@
 /obj/effect/turf_decal/siding/wood/cherry{
 	dir = 1
 	},
+/obj/machinery/door/airlock/service,
 /turf/simulated/floor/wood/cherry,
 /area/station/service/chapel/study)
 "ohw" = (
@@ -79807,7 +79800,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "ohP" = (
 /obj/structure/table_frame/wood,
 /obj/item/melee/baseball_bat,
@@ -91560,7 +91553,7 @@
 /obj/structure/closet/coffin,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "rRw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -93209,9 +93202,6 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "srw" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Chapel Maintenance"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -93219,6 +93209,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "srJ" = (
@@ -95705,17 +95696,16 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "teT" = (
-/obj/effect/mapping_helpers/airlock/access/any/service/chapel_office,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/airlock{
-	name = "Chapel Crematorium"
-	},
+/obj/machinery/door/airlock/service,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/any/service/crematorium,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "teX" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
@@ -109821,7 +109811,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
-/area/station/service/chapel/office)
+/area/station/service/chapel/funeral)
 "xHN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/oil/maybe,
@@ -142825,11 +142815,11 @@ dQl
 dXV
 qOs
 dTm
-dIx
+dGU
 dUJ
 dPD
 rRm
-dIx
+dGU
 abj
 aaa
 aaa
@@ -143082,11 +143072,11 @@ aMt
 fTn
 dRM
 ozL
-dIx
+dGU
 dUK
 dQh
 dUK
-dIx
+dGU
 abj
 aaa
 aaa
@@ -143596,11 +143586,11 @@ jdM
 dSf
 iwO
 dTp
-dIx
+dGU
 dUM
 dTX
 oei
-dIx
+dGU
 abj
 aaa
 aaa
@@ -143853,11 +143843,11 @@ kbO
 tNn
 hxF
 dTq
-dIx
+dGU
 dUN
 xHF
 dMn
-dIx
+dGU
 abj
 aaa
 aaa
@@ -144110,7 +144100,7 @@ qux
 tNn
 auH
 dQi
-dIx
+dGU
 dMU
 dSj
 hqq
@@ -144367,11 +144357,11 @@ dIx
 dSh
 dSh
 dIx
-dIx
-dIx
-dIx
+dGU
+dGU
+dGU
 duw
-dIx
+dGU
 abj
 abj
 aaa
