@@ -161,7 +161,7 @@
 	name = "accelerator laser cannon"
 	desc = "An advanced laser cannon that does more damage the farther away the target is. At close range, damage is less than an LG-5 laser carbine shot."
 	icon_state = "lasercannon"
-	inhand_icon_state = "lasercannon"
+	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	slot_flags = ITEM_SLOT_BACK
@@ -305,8 +305,7 @@
 	name = "\improper X-ray laser gun"
 	desc = "A high-power laser gun capable of expelling concentrated X-ray beams. These beams can penetrate any number of solid objects, but will decrease in power the longer they have to travel."
 	icon_state = "xray"
-	worn_icon_state = null
-	inhand_icon_state = "xray"
+	inhand_icon_state = null
 	shaded_charge = TRUE
 	origin_tech = "combat=6;materials=4;magnets=4;syndicate=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
@@ -330,7 +329,6 @@
 	name = "immolator laser gun"
 	desc = "A laser rifle that shoots incendiary bolts, struck targets will be set on fire. Each shot consumes more energy than a regular laser rifle, draining the power cell more quickly."
 	icon_state = "immolator"
-	worn_icon_state = null
 	inhand_icon_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator)
 	origin_tech = "combat=4;magnets=4;powerstorage=3"

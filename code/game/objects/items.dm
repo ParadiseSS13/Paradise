@@ -29,10 +29,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	/// Icon file for mob worn overlays. Can be ignored if sprite_sheets/sprite_sheets_inhand is set
 	var/icon/worn_icon
-	/// Icon state for mob worn overlays, if null the `icon_state`'s will be used
+	/// Icon state for mob worn overlays, if null the `icon_state` value will be used
 	var/worn_icon_state
 
-	/// Icon state for mob inhand overlays, if null the `icon_state`'s value will be used. If you set this manually, verify that such icon actually exists
+	/// Icon state for mob inhand overlays, if null the `icon_state` value will be used
 	var/inhand_icon_state
 	/// Icon file for left hand inhand overlays
 	var/icon/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -111,9 +111,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// How much clothing is slowing you down. Negative values speeds you up.
 	var/slowdown = 0
 	/// Flat armour reduction, occurs after percentage armour penetration.
-	var/armour_penetration_flat = 0
+	var/armor_penetration_flat = 0
 	/// Percentage armour reduction, happens before flat armour reduction.
-	var/armour_penetration_percentage = 0
+	var/armor_penetration_percentage = 0
 	/// For what suits can store. IE. secuirty vest holding stunbatons, disablers, cuffs.
 	var/list/allowed = list()
 	/// All items can have an uplink hidden inside, just remember to add the triggers.
@@ -1080,3 +1080,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.update_hands_hud()
+
+/obj/item/proc/on_hands_swap(mob/user, in_active_hand)
+	return

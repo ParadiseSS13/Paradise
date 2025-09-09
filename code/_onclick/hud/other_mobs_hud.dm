@@ -22,5 +22,5 @@
 	mymob.pullin.icon = 'icons/mob/screen_corgi.dmi'
 	mymob.pullin.hud = src
 	mymob.pullin.update_icon(UPDATE_ICON_STATE)
-	mymob.pullin.screen_loc = ui_construct_pull
+	mymob.pullin.screen_loc = UI_CONSTRUCT_PULL
 	static_inventory += mymob.pullin

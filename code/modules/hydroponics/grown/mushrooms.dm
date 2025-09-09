@@ -140,7 +140,7 @@
 /obj/item/food/grown/mushroom/plumphelmet
 	seed = /obj/item/seeds/plump
 	name = "plump-helmet"
-	desc = "Hypogeus mycora: A small mushroom typically found underground."
+	desc = "<i>Hypogeus mycora</i>: Large mushrooms with a purple cap and burgundy-colored spores. Some spacemen like plump helmets for their rounded tops."
 	icon_state = "plumphelmet"
 	filling_color = "#9370DB"
 	tastes = list("plump helmet" = 1, "dwarven hardiness" = 1)

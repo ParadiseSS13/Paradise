@@ -69,7 +69,7 @@
 /obj/item/clothing/head/helmet/space/syndicate/blue
 	name = "blue space helmet"
 	icon_state = "syndicate-helm-blue"
-	inhand_icon_state = "helm-blue"
+	inhand_icon_state = "helm-command"
 
 /obj/item/clothing/suit/space/syndicate/blue
 	name = "blue space suit"

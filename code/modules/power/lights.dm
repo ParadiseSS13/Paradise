@@ -457,7 +457,7 @@
 	else
 		underlays += emissive_appearance(icon, "[base_state]_lightmask")
 
-/obj/machinery/light/fix(mob/user, obj/used_tool, emagged = FALSE)
+/obj/machinery/light/proc/fix(mob/user, obj/used_tool, emagged = FALSE)
 	if(status != LIGHT_OK)
 		to_chat(user, "<span class='notice'>You replace the [fitting] with [used_tool].</span>")
 		status = LIGHT_OK
@@ -585,6 +585,12 @@
 // attack with item - insert light (if right type), otherwise try to break the light
 
 /obj/machinery/light/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(status == LIGHT_BROKEN || status == LIGHT_EMPTY)
+		if(on && (used.flags & CONDUCT))
+			if(prob(12))
+				electrocute_mob(user, get_area(src), src, 0.3, TRUE)
+				return ITEM_INTERACT_COMPLETE
+
 	var/obj/item/gripper/gripper = used
 	if(istype(gripper) && gripper.engineering_machine_interaction)
 		if(gripper.gripped_item)
@@ -714,15 +720,6 @@
 		newlight.update_icon(UPDATE_ICON_STATE)
 		transfer_fingerprints_to(newlight)
 	qdel(src)
-
-/obj/machinery/light/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(status == LIGHT_BROKEN || status == LIGHT_EMPTY)
-		if(on && (used.flags & CONDUCT))
-			if(prob(12))
-				electrocute_mob(user, get_area(src), src, 0.3, TRUE)
-				return ITEM_INTERACT_COMPLETE
-
-	return ..()
 
 /obj/machinery/light/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	. = ..()
@@ -913,14 +910,6 @@
 			do_sparks(3, 1, src)
 	status = LIGHT_BROKEN
 	update()
-
-/obj/machinery/light/proc/fix()
-	if(status == LIGHT_OK)
-		return
-	status = LIGHT_OK
-	extinguished = FALSE
-	on = TRUE
-	update(FALSE, TRUE, FALSE)
 
 /obj/machinery/light/zap_act(power, zap_flags)
 	var/explosive = zap_flags & ZAP_MACHINE_EXPLOSIVE

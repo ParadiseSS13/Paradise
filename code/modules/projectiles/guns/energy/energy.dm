@@ -14,7 +14,6 @@
 /obj/item/gun/energy/gun
 	name = "\improper EG-7 energy gun"
 	desc = "A hybrid fire energy gun manufactured by Shellguard Munitions Co. It has a mounting point for a flashlight. The fire selector has two settings: 'disable', and 'kill'."
-	worn_icon_state = null
 	inhand_icon_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	origin_tech = "combat=4;magnets=3"
@@ -92,7 +91,7 @@
 /obj/item/gun/energy/gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
 	desc = "This is an expensive, modern recreation of an antique laser gun. The fire selector has three settings: 'disable', 'ion', 'kill'. Unfortunately, it has lost the ability to recharge over time."
-	cell_type = /obj/item/stock_parts/cell/hos_gun
+	cell_type = /obj/item/stock_parts/cell/energy_gun/hos_gun
 	icon_state = "hoslaser"
 	origin_tech = null
 	force = 10
@@ -128,7 +127,7 @@
 	name = "\improper EG-14 advanced energy revolver"
 	desc = "An advanced, pistol sized energy gun. It looks stylish, and the design makes it slightly better at bludgeoning. The fire selector has two settings: 'disable', and 'kill'."
 	icon_state = "bsgun"
-	cell_type = /obj/item/stock_parts/cell/hos_gun
+	cell_type = /obj/item/stock_parts/cell/energy_gun/hos_gun
 	force = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
@@ -152,7 +151,6 @@
 	name = "\improper PDW-9 energy pistol"
 	desc = "A military-grade energy pistol favored by mercenaries and militia forces. The fire selector has two settings: 'disable', and 'kill'."
 	icon_state = "pdw9pistol"
-	worn_icon_state = "gun"
 	inhand_icon_state = "gun"
 
 /obj/item/gun/energy/gun/blueshield/pdw9/examine_more(mob/user)

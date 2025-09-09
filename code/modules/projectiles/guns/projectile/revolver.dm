@@ -208,6 +208,8 @@
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "pea_shooter"
 	inhand_icon_state = "peashooter"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "combat=3;biotech=5"
 	mag_type = /obj/item/ammo_box/magazine/internal/overgrown

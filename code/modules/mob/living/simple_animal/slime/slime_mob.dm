@@ -117,12 +117,6 @@
 	Target = null
 	return ..()
 
-/mob/living/simple_animal/slime/death()
-	if(holding_organ)
-		eject_organ()
-	underlays.Cut()
-	return ..()
-
 /mob/living/simple_animal/slime/update_overlays()
 	. = ..()
 	if(stat != DEAD)
@@ -416,7 +410,9 @@
 		visible_message("<span class='notice'>[user] feeds the slime some plasma. It chirps happily!</span>", "<span class='notice'>[user] feeds you a few sheets of plasma! Yummy!!!</span>")
 		S.use(5)
 		if(Discipline)
-			trained = TRUE
+			if(!trained)
+				trained = TRUE
+				name = "tamed [name]"
 		else
 			discipline_slime(user, positive_reinforcement = TRUE)
 		return ITEM_INTERACT_COMPLETE
@@ -431,7 +427,8 @@
 			Discipline = 0
 			return ITEM_INTERACT_COMPLETE
 		if(trained && prob(20)) // trained slimes are more resistant to losing discipline
-			trained = 0
+			trained = FALSE
+			name = initial(name)
 			visible_message("<span class='warning'>[src] gets spooked and cowers from [user]!</span>")
 
 /mob/living/simple_animal/slime/attacked_by(obj/item/I, mob/living/user)
@@ -455,6 +452,7 @@
 		if(trained && prob(75))
 			say("Ow! HEY!!!", pick(speak_emote))
 			trained = FALSE
+			name = initial(name)
 			rabid = TRUE
 	if(!client && Target && volume >= 3) // Like cats
 		Target = null

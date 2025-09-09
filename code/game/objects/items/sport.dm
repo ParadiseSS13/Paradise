@@ -7,10 +7,13 @@
 	throw_speed = 1
 	throw_range = 20
 	flags = CONDUCT
+	new_attack_chain = TRUE
 	/// Whether `attack_self` will move ("dribble") it to the other hand
 	var/dribbleable = FALSE // Most balls do not have a dribble animation
 
-/obj/item/beach_ball/attack_self__legacy__attackchain(mob/user)
+/obj/item/beach_ball/activate_self(mob/user)
+	if(..())
+		return
 	if(!dribbleable)
 		return
 
@@ -25,7 +28,7 @@
 	desc = "Take me out to the ball game."
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "baseball"
-	inhand_icon_state = "baseball"
+	inhand_icon_state = null // no icon state
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/beach_ball/dodgeball

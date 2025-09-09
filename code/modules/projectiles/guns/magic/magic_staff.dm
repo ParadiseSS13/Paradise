@@ -9,6 +9,7 @@
 	name = "staff of change"
 	desc = "An artefact that spits bolts of coruscating energy which cause the target's very form to reshape itself."
 	icon_state = "staffofchange"
+	worn_icon_state = "staffofchange"
 	ammo_type = /obj/item/ammo_casing/magic/change
 	fire_sound = 'sound/magic/Staff_Change.ogg'
 
@@ -53,6 +54,7 @@
 	name = "staff of slipping"
 	desc = "An artefact that spits... bananas?"
 	icon_state = "staffofslipping"
+	worn_icon_state = "staffofslipping"
 	ammo_type = /obj/item/ammo_casing/magic/slipping
 	fire_sound = 'sound/items/bikehorn.ogg'
 

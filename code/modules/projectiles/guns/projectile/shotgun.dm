@@ -325,6 +325,7 @@
 	name = "\improper XM800 cycler shotgun"
 	desc = "A prototype shotgun by Starstrike Arms with two separate magazine tubes, allowing you to quickly toggle between ammo types."
 	icon_state = "cycler"
+	worn_icon_state = "shotgun_combat"
 	inhand_icon_state = "bulldog"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'

@@ -18,42 +18,42 @@
 	if(!loaded)
 		return ITEM_INTERACT_COMPLETE
 	if(isliving(target))
+		var/mob/living/L = target
+		if(L.stat != DEAD)
+			to_chat(user, "<span class='notice'>[src] is only effective on the dead.</span>")
+			return ITEM_INTERACT_COMPLETE
+		if(!isanimal_or_basicmob(target))
+			to_chat(user, "<span class='notice'>[src] is only effective on lesser beings.</span>")
+			return ITEM_INTERACT_COMPLETE
 		if(isanimal(target))
 			var/mob/living/simple_animal/M = target
 			if(M.sentience_type != revive_type)
 				to_chat(user, "<span class='notice'>[src] does not work on this sort of creature.</span>")
 				return ITEM_INTERACT_COMPLETE
-			if(M.stat == DEAD)
-				M.faction = list("neutral")
-				M.revive()
-				M.AddElement(/datum/element/wears_collar)
-				if(ishostile(target))
-					var/mob/living/simple_animal/hostile/H = M
-					if(isretaliate(target))
-						// Clear the enemies list so we don't break windows
-						// to get to people we no longer hate.
-						var/mob/living/simple_animal/hostile/retaliate/R = H
-						R.enemies.Cut()
-
-					if(malfunctioning)
-						H.faction |= list("lazarus", "\ref[user]")
-						H.robust_searching = TRUE
-						H.friends += user
-						H.attack_same = TRUE
-						log_game("[user] has revived hostile mob [target] with a malfunctioning lazarus injector")
-					else
-						H.attack_same = FALSE
-				loaded = 0
-				user.visible_message("<span class='notice'>[user] injects [M] with [src], reviving it.</span>")
-				playsound(src,'sound/effects/refill.ogg',50,1)
-				icon_state = "lazarus_empty"
+			M.lazarus_revive(user, malfunctioning)
+			if(ishostile(target)) // Handling for simple mobs to make them not angry anymore
+				var/mob/living/simple_animal/hostile/H = M
+				if(isretaliate(target))
+					// Clear the enemies list so we don't break windows
+					// to get to people we no longer hate.
+					var/mob/living/simple_animal/hostile/retaliate/R = H
+					R.enemies.Cut()
+				if(malfunctioning)
+					H.robust_searching = TRUE
+					H.attack_same = TRUE
+				else
+					H.attack_same = FALSE
+		if(isbasicmob(target))
+			var/mob/living/basic/M = target
+			if(M.sentience_type != revive_type)
+				to_chat(user, "<span class='notice'>[src] does not work on this sort of creature.</span>")
 				return ITEM_INTERACT_COMPLETE
-			else
-				to_chat(user, "<span class='notice'>[src] is only effective on the dead.</span>")
-				return ITEM_INTERACT_COMPLETE
-		else
-			to_chat(user, "<span class='notice'>[src] is only effective on lesser beings.</span>")
-			return ITEM_INTERACT_COMPLETE
+			M.lazarus_revive(user, malfunctioning)
+		loaded = 0
+		user.visible_message("<span class='notice'>[user] injects [target] with [src], reviving it.</span>")
+		playsound(src,'sound/effects/refill.ogg', 50, TRUE)
+		icon_state = "lazarus_empty"
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/lazarus_injector/emag_act(mob/user)
 	if(!malfunctioning)

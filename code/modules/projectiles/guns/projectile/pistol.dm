@@ -98,6 +98,7 @@
 	desc = "A robust .50 AE handgun."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "deagle"
+	inhand_icon_state = "deagleg"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	force = 14.0
@@ -110,12 +111,10 @@
 /obj/item/gun/projectile/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
 	icon_state = "deagleg"
-	inhand_icon_state = "deagleg"
 
 /obj/item/gun/projectile/automatic/pistol/deagle/camo
 	desc = "A Deagle brand Deagle for operators operating operationally. Uses .50 AE ammo."
 	icon_state = "deaglecamo"
-	inhand_icon_state = "deagleg"
 
 //Type 230 Machine Pistol//
 /obj/item/gun/projectile/automatic/pistol/type_230

@@ -135,11 +135,11 @@
 	selfcharge = TRUE
 	can_holster = TRUE
 
-/obj/item/gun/energy/floragun/pre_attack(atom/A, mob/living/user, params)
-	if(istype(A, /obj/machinery/hydroponics))
+/obj/item/gun/energy/floragun/pre_attack(atom/target, mob/living/user, params)
+	if(istype(target, /obj/machinery/hydroponics))
 		// Calling afterattack from pre_attack looks stupid, but afterattack with proximity FALSE is what makes the gun fire, and we're returning FALSE to cancel the melee attack.
-		afterattack__legacy__attackchain(A, user, FALSE, params)
-		return FALSE
+		afterattack__legacy__attackchain(target, user, FALSE, params)
+		return CONTINUE_ATTACK
 	return ..()
 
 //////////////////////////////
@@ -237,7 +237,6 @@
 	name = "plasma cutter"
 	desc = "A mining tool capable of expelling concentrated plasma bursts. Its effectiveness drops dramatically outside of low-pressure environments. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
 	icon_state = "plasmacutter"
-	worn_icon_state = null
 	inhand_icon_state = "plasmacutter"
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
 	needs_permit = FALSE
@@ -321,7 +320,6 @@
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
 	icon_state = "wormhole_projector1"
-	worn_icon_state = null
 	inhand_icon_state = null
 	origin_tech = "combat=4;bluespace=6;plasmatech=4;engineering=4"
 	charge_delay = 5
@@ -380,7 +378,7 @@
 	desc = "A machine gun that fires 3D-printed flachettes slowly synthesized using your internal energy cell."
 	icon_state = "l6closed0"
 	icon = 'icons/obj/guns/projectile.dmi'
-	cell_type = /obj/item/stock_parts/cell/secborg
+	cell_type = /obj/item/stock_parts/cell/energy_gun/lmg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
 
@@ -624,7 +622,7 @@
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	cell_type = /obj/item/stock_parts/cell/bsg
+	cell_type = /obj/item/stock_parts/cell/energy_gun/bsg
 	shaded_charge = TRUE
 	can_fit_in_turrets = FALSE //Crystal would shatter, or someone would try to put an empty gun in the frame.
 	var/obj/item/assembly/signaler/anomaly/flux/core = null
@@ -1091,7 +1089,7 @@
 	desc = "It's about a foot of weird silvery metal with a wicked point."
 	damage = 25
 	knockdown = 2
-	armour_penetration_flat = 30
+	armor_penetration_flat = 30
 	icon_state = "magspear"
 
 /obj/item/projectile/bullet/spike/on_hit(atom/target, blocked = 0)
@@ -1210,7 +1208,7 @@
 	origin_tech = "combat=5;magnets=4"
 	slot_flags = ITEM_SLOT_BACK
 	can_charge = FALSE
-	cell_type = /obj/item/stock_parts/cell/lever_gun
+	cell_type = /obj/item/stock_parts/cell/energy_gun/lever_action
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/lever_action)
 	shaded_charge = FALSE
 	var/cycle_time = 1 SECONDS
