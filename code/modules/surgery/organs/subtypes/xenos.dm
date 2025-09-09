@@ -125,7 +125,7 @@
 			owner.adjustFireLoss(-heal_amt)
 			owner.adjustOxyLoss(-heal_amt)
 			owner.adjustCloneLoss(-heal_amt)
-		if(IS_HORIZONTAL(owner))
+		if(IS_HORIZONTAL(owner) && length(owner.viruses))
 			processing_ticks++
 			for(var/datum/disease/virus in owner.viruses)
 				if(virus.stage < 1 && processing_ticks >= 4)
