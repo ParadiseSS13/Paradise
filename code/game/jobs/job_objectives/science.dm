@@ -12,7 +12,7 @@
 /datum/job_objective/further_research/check_for_completion()
 	var/tech_above_three = 0
 	for(var/tech in SSeconomy.tech_levels)
-		if(SSeconomy.tech_levels[tech] > 4)
+		if(SSeconomy.tech_levels[tech] > 3)
 			tech_above_three++
 	if(tech_above_three >= 6)
 		return TRUE
