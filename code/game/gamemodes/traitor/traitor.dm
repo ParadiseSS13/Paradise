@@ -131,7 +131,7 @@
 						var/area/A = a
 						locations += (A == C.contract.extraction_zone ? "<b><u>[A.map_name]</u></b>" : A.map_name)
 					var/display_locations = english_list(locations, and_text = " or ")
-					text += "<br><font color='orange'><B>Contract #[count]</B></font>: Kidnap and extract [C.target_name] at [display_locations]."
+					text += "<br><font color='orange'><b>Contract #[count]</b></font>: Kidnap and extract [C.target_name] at [display_locations]."
 					count++
 				text += "<br><font color='orange'><B>[earned_tc] TC were earned from the contracts.</B></font>"
 
@@ -141,7 +141,7 @@
 				SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
 
 		if(length(SSticker.mode.implanted))
-			text += "<br><FONT size = 3><B>The mindslaves were:</B></FONT><br>"
+			text += "<br><font size=3><b>The mindslaves were:</b></font><br>"
 			for(var/datum/mind/mindslave in SSticker.mode.implanted)
 				text += printplayer(mindslave)
 				var/datum/mind/master_mind = SSticker.mode.implanted[mindslave]

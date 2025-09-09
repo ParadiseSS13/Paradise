@@ -57,15 +57,15 @@
 		text += "<br>[vampire.get_display_key()] was [vampire.name] and "
 		if(vampire.current)
 			if(vampire.current.stat == DEAD)
-				text += "<span class='bold'>died</span>!"
+				text += "<span class='bold'>died!</span>"
 			else
-				text += "<span class='bold'>survived</span>"
+				text += "<span class='bold'>survived!</span>"
 				if(V.subclass)
 					text += " as a [V.subclass.name]!"
 				else
 					text += "!"
 		else
-			text += "<span class='bold'>had [vampire.p_their()] body destroyed</span>!"
+			text += "<span class='bold'>had [vampire.p_their()] body destroyed!</span>"
 
 		var/list/all_objectives = vampire.get_all_objectives(include_team = FALSE)
 
@@ -98,16 +98,16 @@
 	if(!length(vampire_enthralled))
 		return
 
-	var/list/text = list("<br><FONT size = 3><B>The Enthralled were:</B></FONT>")
+	var/list/text = list("<br><font size=3><b>The Enthralled were:</b></font>")
 	for(var/datum/mind/mind in vampire_enthralled)
 		text += "<br>[mind.get_display_key()] was [mind.name] and"
 		if(mind.current)
 			if(mind.current.stat == DEAD)
 				text += "<span class='bold'>died!</span>"
 			else
-				text += "<span class='bold'>survived</span>"
+				text += "<span class='bold'>survived!</span>"
 			if(mind.current.real_name != mind.name)
-				text += "<span class='bold'> as [mind.current.real_name]</bold>!"
+				text += "<span class='bold'> as [mind.current.real_name]!</bold>"
 			else
 				text += "!"
 		else

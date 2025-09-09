@@ -65,13 +65,13 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 				if(changeling.current.stat == DEAD)
 					text += "<span class='bold'>died</span>!"
 				else
-					text += "<span class='bold'>survived</span>"
+					text += "<span class='bold'>survived!</span>"
 				if(changeling.current.real_name != changeling.name)
 					text += " as [changeling.current.real_name]"
 				else
 					text += "!"
 			else
-				text += "<span class='bold'>had [changeling.p_their()] body destroyed</span>!"
+				text += "<span class='bold'>had [changeling.p_their()] body destroyed!</span>"
 				changelingwin = FALSE
 
 			// Removed sanity if(changeling) because we -want- a runtime to inform us that the changelings list is incorrect and needs to be fixed.
@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			if(length(all_objectives))
 				var/count = 1
 				for(var/datum/objective/objective in all_objectives)
-					text += "<br><B>Objective #[count]</B>: [objective.explanation_text]"
+					text += "<br><b>Objective #[count]</b>: [objective.explanation_text]"
 					if(objective.check_completion())
 						if(istype(objective, /datum/objective/steal))
 							var/datum/objective/steal/S = objective

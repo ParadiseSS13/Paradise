@@ -9,9 +9,9 @@
 		text += "<br>[mindflayer.get_display_key()] was [mindflayer.name] and "
 		if(mindflayer.current)
 			if(mindflayer.current.stat == DEAD)
-				text += "<span class='bold'>died</span>!"
+				text += "<span class='bold'>died!</span>"
 			else
-				text += "<span class='bold'>survived</span>!"
+				text += "<span class='bold'>survived!</span>"
 		else
 			text += "<span class='bold'>had [mindflayer.p_their()] body destroyed</span>!"
 
