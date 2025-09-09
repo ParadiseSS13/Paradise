@@ -184,9 +184,9 @@ emp_act
 /// Use `getarmor()` instead
 /mob/living/carbon/human/proc/__getarmor_bodypart(obj/item/organ/external/def_zone, armor_type)
 	// Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
-	var/list/worn_items = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck)
+	var/list/obj/item/worn_items = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck)
 
-	for(var/obj/item/thing as anything in worn_items)
+	for(var/obj/item/thing in worn_items)
 		if(thing?.body_parts_covered & def_zone.body_part)
 			. += thing.armor.getRating(armor_type)
 
