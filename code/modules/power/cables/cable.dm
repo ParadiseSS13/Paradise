@@ -1,4 +1,3 @@
-
 /*
 	* Cable directions (d1 and d2)
 	* 9   1   5
@@ -21,7 +20,7 @@ By design, d1 is the smallest direction and d2 is the highest
 */
 /obj/structure/cable
 	name = "power cable"
-	desc = "A flexible superconducting cable for heavy-duty power transfer."
+	desc = "A low-cost superconducting cable"
 	icon = 'icons/obj/power_cond/power_cond_white.dmi'
 	icon_state = "0-1"
 	level = 1
@@ -42,11 +41,8 @@ By design, d1 is the smallest direction and d2 is the highest
 	var/strengthened = FALSE
 	/// Whether the cable has additional insulation to prevent shocking on contact
 	var/extra_insulated = FALSE
-
-// Insulated by default
-/obj/structure/cable/extra_insulated
-	extra_insulated = TRUE
-	color = COLOR_ORANGE
+	/// Types of cables that can connect to this cable
+	var/connect_type = CABLE_LOW_POWER
 
 /obj/structure/cable/Initialize(mapload)
 	. = ..()
@@ -242,6 +238,8 @@ By design, d1 is the smallest direction and d2 is the highest
 	for(var/obj/structure/cable/C in get_step(src, direction))
 		if(src == C) // skip ourself
 			continue
+		if(!(C.connect_type & connect_type))
+			continue
 		if(C.d1 != flipped_direction && C.d2 != flipped_direction)
 			continue	//no match! Continue the search
 		//if the matching cable somehow got no powernet, make him one (should not happen for cables)
@@ -267,6 +265,8 @@ By design, d1 is the smallest direction and d2 is the highest
 		//first let's add turf cables to our powernet
 		if(istype(object, /obj/structure/cable))
 			var/obj/structure/cable/C = object
+			if(!(C.connect_type & connect_type))
+				continue
 			if(C.d1 == d1 || C.d2 == d1 || C.d1 == d2 || C.d2 == d2) //only connected if they have a common direction
 				if(C.powernet == powernet)
 					continue
@@ -304,6 +304,8 @@ By design, d1 is the smallest direction and d2 is the highest
 	for(var/obj/structure/cable/C in get_step(src, direction & (NORTH|SOUTH)))
 		if(src == C) // skip ourself
 			continue
+		if(!(C.connect_type & connect_type))
+			continue
 		//we've got a diagonally matching cable
 		if(C.d1 == FLIP_DIR_VERTICALLY(direction) || C.d2 == FLIP_DIR_VERTICALLY(direction))
 			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
@@ -317,6 +319,8 @@ By design, d1 is the smallest direction and d2 is the highest
 	//the same from the second direction component (east/west)
 	for(var/obj/structure/cable/C in get_step(src, direction & (EAST|WEST)))
 		if(src == C)
+			continue
+		if(!(C.connect_type & connect_type))
 			continue
 		if(C.d1 == FLIP_DIR_HORIZONTALLY(direction) || C.d2 == FLIP_DIR_HORIZONTALLY(direction)) //we've got a diagonally matching cable
 			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
@@ -458,6 +462,59 @@ By design, d1 is the smallest direction and d2 is the highest
 	SIGNAL_HANDLER // COMSIG_MOB_DEATH
 	src.strengthened = FALSE
 	UnregisterSignal(demon, COMSIG_MOB_DEATH)
+
+/// Variant for high power carrying. insulated by default
+/obj/structure/cable/extra_insulated
+	name = "heavy duty power cable"
+	desc = "A flexible superconducting cable for heavy-duty power transfer. Not compatible with the cheaper type"
+	icon = 'icons/obj/power_cond/hv_power_cond.dmi'
+	extra_insulated = TRUE
+	connect_type = CABLE_HIGH_POWER
+
+/// A cable that can connect to all others. Requires engie access to toggle connection
+/obj/structure/cable/bridging
+	name = "universal cable"
+	color = null
+	desc = "A universal smart cable designed to connect to any other cable type."
+	icon = 'icons/obj/power_cond/bridge_power_cond_disconnected.dmi'
+	extra_insulated = TRUE
+	connect_type = 0
+
+/// A pre unlocked bridge cable for mapping
+/obj/structure/cable/bridging/pre_connect
+	icon = 'icons/obj/power_cond/bridge_power_cond_connected.dmi'
+	connect_type = CABLE_ALL_CONNECTIONS
+	req_one_access = list(ACCESS_ENGINE, ACCESS_CE)
+
+/obj/structure/cable/bridging/proc/toggle_connection(user)
+	if(allowed(user))
+		if(connect_type)
+			connect_type = 0
+			icon = 'icons/obj/power_cond/bridge_power_cond_disconnected.dmi'
+		else
+			connect_type = CABLE_ALL_CONNECTIONS
+			icon = 'icons/obj/power_cond/bridge_power_cond_connected.dmi'
+
+/obj/structure/cable/bridging/examine(mob/user)
+	. = ..()
+	var/connect_text = "It is set to connect to these cables: "
+	var/list/connect_names = list()
+	if(connect_type & CABLE_LOW_POWER)
+		connect_names += "normal"
+	if(connect_type & CABLE_HIGH_POWER)
+		connect_names += "heavy duty"
+
+	if(length(connect_names))
+		connect_text += english_list(connect_names)
+	else
+		connect_text = "It is set to refuse all cable connections"
+
+	. += "<span class='notice'>[connect_text]</span>"
+
+/obj/structure/cable/bridging/attackby__legacy__attackchain(obj/item/I, mob/living/user)
+	if(I.GetID())
+		toggle_connection(user)
+	return ..()
 
 //
 //	This ASCII art represents my brain after looking at cable

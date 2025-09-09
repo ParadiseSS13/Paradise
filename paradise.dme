@@ -45,6 +45,7 @@
 #include "code\__DEFINES\basic_mob_flags.dm"
 #include "code\__DEFINES\bio_chip_defines.dm"
 #include "code\__DEFINES\bots.dm"
+#include "code\__DEFINES\cable_defines.dm"
 #include "code\__DEFINES\callbacks.dm"
 #include "code\__DEFINES\chat.dm"
 #include "code\__DEFINES\chat_box_defines.dm"

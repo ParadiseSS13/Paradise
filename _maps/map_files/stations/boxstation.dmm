@@ -78602,6 +78602,21 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
+"sDB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/structure/cable/bridging/pre_connect{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/hardsuitstorage)
 "sDL" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -115860,7 +115875,7 @@ cUk
 cVh
 cWz
 cXw
-cVo
+sDB
 cJB
 dar
 dtt
