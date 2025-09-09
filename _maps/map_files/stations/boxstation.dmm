@@ -67655,6 +67655,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/closet/secure_closet/librarian,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
