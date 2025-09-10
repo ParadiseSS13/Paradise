@@ -8390,7 +8390,7 @@
 	},
 /obj/machinery/light_switch/west,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 10;
 	icon_state = "brown"
 	},
 /area/station/supply/storage)
@@ -9989,7 +9989,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "aSw" = (
-/obj/machinery/conveyor/southwest/ccw,
+/obj/machinery/conveyor/southwest/ccw{
+	id = "QMLoad2"
+	},
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "aSx" = (
