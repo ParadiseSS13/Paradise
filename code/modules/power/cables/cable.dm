@@ -514,6 +514,9 @@ By design, d1 is the smallest direction and d2 is the highest
 		toggle_connection(user)
 	return ..()
 
+/obj/structure/cable/extra_insulated/attack_ai(mob/user)
+	toggle_connection(user)
+
 //
 //	This ASCII art represents my brain after looking at cable
 //  code for too long, half of this was written before I was even
