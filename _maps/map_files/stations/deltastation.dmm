@@ -69356,9 +69356,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/port)
 "mbh" = (
