@@ -7874,7 +7874,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "bBn" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -9973,7 +9973,7 @@
 /area/station/engineering/atmos/asteroid_core)
 "bUf" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -18736,6 +18736,12 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry)
+"dHf" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/solar_maintenance/fore_port)
 "dHi" = (
 /obj/structure/chair/sofa/bench/right{
 	dir = 8
@@ -20176,15 +20182,17 @@
 /area/space/nearstation)
 "dYX" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 5
+	},
+/obj/structure/cable/extra_insulated/pre_connect{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/space,
 /area/space/nearstation)
@@ -20263,7 +20271,7 @@
 	},
 /area/station/science/server)
 "dZx" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/portable/canister/air{
@@ -24613,7 +24621,7 @@
 /area/station/maintenance/asmaint)
 "eRO" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -28836,7 +28844,7 @@
 /obj/machinery/power/terminal{
 	dir = 4
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -30766,7 +30774,7 @@
 /area/station/hallway/spacebridge/security/south)
 "fYw" = (
 /obj/machinery/power/terminal,
-/obj/structure/cable/extra_insulated,
+/obj/structure/cable/yellow,
 /obj/structure/sign/poster/contraband/random/directional/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_starboard)
@@ -38185,7 +38193,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "hws" = (
-/obj/structure/cable/extra_insulated,
+/obj/structure/cable/yellow,
 /obj/machinery/power/solar_control{
 	dir = 4;
 	name = "Aft Port Solar Control"
@@ -40021,8 +40029,11 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
@@ -40467,7 +40478,7 @@
 	},
 /area/station/security/prison/cell_block)
 "hVe" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
@@ -41561,10 +41572,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
+/obj/structure/disposalpipe/segment,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellow"
@@ -45593,7 +45604,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard)
 "iSU" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -51898,7 +51909,7 @@
 /area/station/public/shops)
 "keZ" = (
 /obj/item/stack/cable_coil{
-	amount = 1;
+	color = "#FFFF00";
 	pixel_y = 4;
 	pixel_x = 10
 	},
@@ -54913,7 +54924,7 @@
 /turf/simulated/floor/plating/airless,
 /area/station/aisat/hall)
 "kLR" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
@@ -56387,7 +56398,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -56677,7 +56688,7 @@
 /area/station/engineering/atmos/asteroid_filtering)
 "leC" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -56862,7 +56873,7 @@
 	},
 /area/station/service/kitchen)
 "lgQ" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
@@ -62822,7 +62833,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -64925,10 +64936,6 @@
 "mPW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/bridging/pre_connect{
-	d1 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "mPX" = (
@@ -65041,7 +65048,7 @@
 /obj/machinery/power/solar_control{
 	name = "Fore Starboard Solar Control"
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -65531,10 +65538,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "mVu" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -67315,13 +67322,6 @@
 	icon_state = "brown"
 	},
 /area/station/supply/miningdock)
-"nmZ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/station/engineering/solar/fore_starboard)
 "nng" = (
 /obj/machinery/computer/scan_consolenew{
 	dir = 1
@@ -67522,6 +67522,13 @@
 "noV" = (
 /turf/simulated/floor/carpet,
 /area/station/hallway/primary/central/se)
+"noW" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/engineering/atmos/transit)
 "noY" = (
 /obj/effect/landmark/lightsout,
 /obj/machinery/hologram/holopad,
@@ -71602,10 +71609,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "obi" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -75297,7 +75304,7 @@
 	amount = 2
 	},
 /obj/item/stack/cable_coil{
-	amount = 1;
+	color = "#FFFF00";
 	pixel_y = 4;
 	pixel_x = 10
 	},
@@ -76878,6 +76885,13 @@
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
+"pae" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/station/engineering/solar/aft_port)
 "pag" = (
 /mob/living/carbon/human/monkey,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -76966,7 +76980,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -88376,7 +88390,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "rnS" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -90485,10 +90499,12 @@
 	dir = 5
 	},
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
 	icon_state = "1-8"
+	},
+/obj/structure/cable/extra_insulated/pre_connect{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -93301,12 +93317,12 @@
 	},
 /area/station/public/dorms)
 "sjI" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/transit)
 "sjK" = (
@@ -100750,6 +100766,17 @@
 	icon_state = "dark"
 	},
 /area/station/security/brig)
+"tGR" = (
+/obj/structure/lattice,
+/obj/item/stack/cable_coil{
+	color = "#FFFF00";
+	pixel_y = 4;
+	pixel_x = 10
+	},
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow,
+/turf/space,
+/area/station/engineering/solar/aft_port)
 "tHj" = (
 /obj/machinery/door/airlock{
 	name = "Court"
@@ -103610,7 +103637,7 @@
 "uke" = (
 /obj/structure/lattice,
 /obj/item/stack/cable_coil{
-	amount = 1;
+	color = "#FFFF00";
 	pixel_y = 4;
 	pixel_x = 10
 	},
@@ -107862,7 +107889,7 @@
 	amount = 2
 	},
 /obj/item/stack/cable_coil{
-	amount = 1;
+	color = "#FFFF00";
 	pixel_y = 4;
 	pixel_x = 10
 	},
@@ -108424,10 +108451,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
@@ -121447,7 +121474,7 @@
 	amount = 2
 	},
 /obj/item/stack/cable_coil{
-	amount = 1;
+	color = "#FFFF00";
 	pixel_y = 4;
 	pixel_x = 10
 	},
@@ -138903,7 +138930,7 @@ nDU
 nDU
 nDU
 dYX
-jry
+noW
 sjI
 jry
 ifQ
@@ -141838,8 +141865,8 @@ vhJ
 rnS
 bUf
 rnS
-kkQ
-uke
+pae
+tGR
 bVk
 frl
 xGK
@@ -147363,7 +147390,7 @@ aZS
 aZS
 aZS
 aGR
-fXb
+dHf
 kvi
 aZS
 aZS
@@ -147877,7 +147904,7 @@ aZS
 aZS
 dGi
 aGR
-fXb
+dHf
 aGR
 dGi
 dGi
@@ -163789,7 +163816,7 @@ bpw
 pXF
 bpw
 qkB
-nmZ
+ePW
 bBn
 eRO
 bBn

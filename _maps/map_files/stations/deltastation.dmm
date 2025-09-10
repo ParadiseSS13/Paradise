@@ -732,7 +732,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -8579,7 +8579,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
@@ -8991,7 +8991,7 @@
 	dir = 4;
 	name = "Aft Port Solar Control"
 	},
-/obj/structure/cable/extra_insulated,
+/obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "aKZ" = (
@@ -11485,7 +11485,7 @@
 	dir = 8;
 	name = "Fore Starboard Solar Control"
 	},
-/obj/structure/cable/extra_insulated,
+/obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -35589,7 +35589,9 @@
 /area/station/engineering/hardsuitstorage)
 "cDD" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/cable/yellow{
+/obj/structure/cable/extra_insulated/pre_connect{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -47919,7 +47921,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
@@ -53848,10 +53850,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandonedservers)
 "ffC" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -53994,7 +53996,7 @@
 	dir = 4;
 	name = "Aft Port Solar Control"
 	},
-/obj/structure/cable/extra_insulated,
+/obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -54413,7 +54415,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "frh" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -63836,7 +63838,7 @@
 	},
 /area/station/medical/morgue)
 "jCQ" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -66610,7 +66612,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -68319,6 +68321,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
+"lzN" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/station/engineering/solar/fore_port)
 "lzY" = (
 /obj/structure/table/wood,
 /obj/machinery/alarm/directional/east,
@@ -75188,7 +75197,7 @@
 	},
 /area/station/service/kitchen)
 "ozn" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
@@ -77958,10 +77967,10 @@
 	},
 /area/station/medical/surgery)
 "pIC" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -78835,7 +78844,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "qbz" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -79958,7 +79967,7 @@
 	},
 /area/station/security/interrogation)
 "qFR" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
@@ -82710,6 +82719,13 @@
 	icon_state = "barber"
 	},
 /area/station/hallway/secondary/entry/south)
+"rJG" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/station/engineering/solar/fore_starboard)
 "rJK" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -82952,7 +82968,7 @@
 	},
 /area/station/procedure/trainer_office)
 "rPx" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -83368,10 +83384,10 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/controlroom)
 "rXy" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -85606,7 +85622,7 @@
 	dir = 8;
 	name = "Aft Starboard Solar Control"
 	},
-/obj/structure/cable/extra_insulated,
+/obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -85883,7 +85899,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "sVl" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
@@ -88293,7 +88309,7 @@
 	},
 /area/station/command/office/ce)
 "tSB" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -89355,7 +89371,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
+/obj/structure/cable/extra_insulated/pre_connect{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
@@ -89547,10 +89565,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "upI" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -90159,12 +90177,6 @@
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/surgery/primary)
-"uDO" = (
-/obj/structure/cable/extra_insulated{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/solar_maintenance/fore_starboard)
 "uEh" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -92238,7 +92250,7 @@
 	},
 /area/station/maintenance/port)
 "vzo" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
@@ -93126,7 +93138,7 @@
 	},
 /area/station/hallway/primary/starboard/south)
 "vPr" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -116222,7 +116234,7 @@ aaa
 aaa
 aaa
 aaa
-atZ
+atK
 abj
 acF
 acF
@@ -116479,7 +116491,7 @@ abj
 abj
 abj
 abj
-atK
+lzN
 abj
 aLT
 aNT
@@ -143950,7 +143962,7 @@ aaa
 aaa
 aaa
 ofi
-uDO
+tSB
 ofi
 abj
 abj
@@ -144207,7 +144219,7 @@ aaa
 aaa
 aaa
 abj
-adg
+rJG
 abj
 abj
 aaa
@@ -144464,7 +144476,7 @@ dij
 sso
 dij
 abj
-adg
+ach
 abj
 abj
 abj
