@@ -68570,7 +68570,7 @@
 "qfm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/extra_insulated/pre_connect{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/catwalk,
@@ -71031,7 +71031,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "rag" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
