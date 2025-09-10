@@ -20389,6 +20389,15 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/security/storage)
+"dcu" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/security/lobby)
 "dcv" = (
 /obj/effect/landmark/spawner/carp,
 /turf/space,
@@ -25347,6 +25356,9 @@
 "dYo" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -36940,6 +36952,9 @@
 /obj/structure/cable/extra_insulated{
 	icon_state = "2-4"
 	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -37050,6 +37065,9 @@
 /obj/machinery/camera{
 	c_tag = "Command Asteroid Hall 2";
 	dir = 6
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -53841,6 +53859,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -60548,6 +60569,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -61788,6 +61812,9 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/security/aft_port)
 "lEO" = (
@@ -68069,6 +68096,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/north,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -76325,6 +76355,18 @@
 	icon_state = "barber"
 	},
 /area/station/service/barber)
+"oOV" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/airlock/security/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/station/security/lobby)
 "oPa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -82466,6 +82508,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -98582,6 +98627,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -109102,12 +109150,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
-"vJL" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
-	},
-/area/station/hallway/primary/fore/west)
 "vKh" = (
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor/west{
@@ -114148,6 +114190,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/security/aft_port)
 "wLT" = (
@@ -115236,6 +115281,9 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/extra_insulated{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -119484,6 +119532,9 @@
 	dir = 6
 	},
 /obj/machinery/newscaster/directional/north,
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -138238,7 +138289,7 @@ lDW
 qOk
 dlp
 tDz
-joR
+dcu
 wWK
 jYZ
 wLR
@@ -138751,7 +138802,7 @@ ryf
 rOy
 xla
 xla
-rHx
+oOV
 rHx
 srA
 hyY
@@ -139008,7 +139059,7 @@ rCc
 pfZ
 aiV
 kJU
-vJL
+xoy
 chV
 hBX
 hyY
@@ -139265,7 +139316,7 @@ yfW
 lYp
 rpm
 xla
-vJL
+xoy
 chV
 tNA
 hyY
@@ -139779,7 +139830,7 @@ rCc
 xEm
 rPu
 kJU
-vJL
+xoy
 chV
 ary
 chV
@@ -140036,7 +140087,7 @@ yfW
 lYp
 evO
 xla
-vJL
+xoy
 chV
 cHw
 evL
@@ -140550,7 +140601,7 @@ rCc
 dFe
 oFt
 kJU
-vJL
+xoy
 chV
 cwn
 oTv
@@ -140807,7 +140858,7 @@ hPz
 lYp
 jpx
 xla
-vJL
+xoy
 dCF
 gPS
 hGp
@@ -141321,7 +141372,7 @@ rCc
 ePJ
 wfT
 aRg
-vJL
+xoy
 chV
 jKH
 oTv
@@ -141578,7 +141629,7 @@ mSn
 lYp
 unH
 xla
-vJL
+xoy
 chV
 qZb
 vXV
@@ -141835,7 +141886,7 @@ vwg
 dOZ
 xla
 xla
-vJL
+xoy
 chV
 ftf
 ice
@@ -142092,7 +142143,7 @@ rCc
 xeU
 jvT
 aRg
-vJL
+xoy
 xLZ
 kjj
 ice
@@ -142349,7 +142400,7 @@ mSn
 lYp
 dgI
 xla
-vJL
+xoy
 chV
 jeS
 ice
@@ -143120,7 +143171,7 @@ gzI
 bwv
 bpT
 lmc
-vJL
+xoy
 chV
 jKH
 gcL
@@ -143377,7 +143428,7 @@ gzI
 exA
 riF
 ikb
-vJL
+xoy
 chV
 aXa
 gcL
@@ -143634,7 +143685,7 @@ cyX
 vYr
 dhd
 lOL
-vJL
+xoy
 chV
 jKH
 qOo
