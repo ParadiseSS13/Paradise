@@ -497,7 +497,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 		// Reconnect the cable according to what is allowed now
 		if(powernet)
-			cut_cable_from_powernet()
+			cut_cable_from_powernet(FALSE)
 		merge_connected_networks_on_turf()
 
 		if(d1)

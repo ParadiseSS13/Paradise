@@ -75,6 +75,13 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	else
 		. += "A coil of power cables."
 
+/obj/item/stack/cable_coil/can_merge(obj/item/stack/check, inhand = FALSE)
+	. = FALSE
+	if(istype(check, merge_type))
+		var/obj/item/stack/cable_coil/coil_check = check
+		. = coil_check.cable_merge_id == cable_merge_id
+	return . && ..()
+
 //you can use wires to heal robotics
 /obj/item/stack/cable_coil/attack__legacy__attackchain(mob/M, mob/user)
 	if(!ishuman(M))
@@ -138,6 +145,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
 		// Cable merging is handled by parent proc
+		if(C.cable_merge_id != cable_merge_id)
+			to_chat(user, "These coils are of different types.")
+			return
 		if(C.get_amount() >= MAXCOIL)
 			to_chat(user, "The coil is as long as it will get.")
 			return
