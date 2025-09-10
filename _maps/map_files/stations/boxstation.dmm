@@ -42639,8 +42639,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable/extra_insulated/pre_connect{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -78625,8 +78623,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable/extra_insulated/pre_connect{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,

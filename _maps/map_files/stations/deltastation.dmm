@@ -35590,8 +35590,6 @@
 "cDD" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable/extra_insulated/pre_connect{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -89372,8 +89370,6 @@
 	dir = 4
 	},
 /obj/structure/cable/extra_insulated/pre_connect{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,

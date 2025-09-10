@@ -3415,8 +3415,6 @@
 "aDi" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/cable/extra_insulated/pre_connect{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -73464,8 +73462,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable/extra_insulated/pre_connect{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
