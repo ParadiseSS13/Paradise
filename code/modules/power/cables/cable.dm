@@ -39,10 +39,15 @@ By design, d1 is the smallest direction and d2 is the highest
 	/// The regional powernet this cable is registered to
 	var/datum/regional_powernet/powernet
 	var/strengthened = FALSE
+	/// The type of cable coil you make when deconstructed
+	var/cable_coil_type = /obj/item/stack/cable_coil
 	/// Whether the cable has additional insulation to prevent shocking on contact
 	var/extra_insulated = FALSE
 	/// Types of cables that can connect to this cable
 	var/connect_type = CABLE_LOW_POWER
+	/// The types of cables that can merge with this cable
+	var/merge_id = CABLE_MERGE_LOW_POWER
+
 
 /obj/structure/cable/Initialize(mapload)
 	. = ..()
@@ -185,9 +190,9 @@ By design, d1 is the smallest direction and d2 is the highest
 		investigate_log("was deconstructed by [key_name(usr, 1)] in [get_area(usr)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])",INVESTIGATE_WIRES)
 	if(!(flags & NODECONSTRUCT))
 		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
-			new/obj/item/stack/cable_coil(T, 2, color)
+			new cable_coil_type(T, 2, color)
 		else
-			new/obj/item/stack/cable_coil(T, 1, color)
+			new cable_coil_type(T, 1, color)
 	qdel(src)
 
 /* ===POWERNET PROCS=== */
@@ -466,52 +471,45 @@ By design, d1 is the smallest direction and d2 is the highest
 /// Variant for high power carrying. insulated by default
 /obj/structure/cable/extra_insulated
 	name = "heavy duty power cable"
-	desc = "A flexible superconducting cable for heavy-duty power transfer. Not compatible with the cheaper type"
+	desc = "A smart, flexible superconducting cable for heavy-duty power transfer.\nAn ID card can be swiped to toggle the ability to connect to other cables"
 	icon = 'icons/obj/power_cond/hv_power_cond.dmi'
-	extra_insulated = TRUE
-	connect_type = CABLE_HIGH_POWER
-
-/// A cable that can connect to all others. Requires engie access to toggle connection
-/obj/structure/cable/bridging
-	name = "universal cable"
 	color = null
-	desc = "A universal smart cable designed to connect to any other cable type."
-	icon = 'icons/obj/power_cond/bridge_power_cond_disconnected.dmi'
 	extra_insulated = TRUE
-	connect_type = 0
-
-/// A pre unlocked bridge cable for mapping
-/obj/structure/cable/bridging/pre_connect
-	icon = 'icons/obj/power_cond/bridge_power_cond_connected.dmi'
-	connect_type = CABLE_ALL_CONNECTIONS
+	merge_id = CABLE_MERGE_HIGH_POWER
+	connect_type = CABLE_HIGH_POWER
+	cable_coil_type = /obj/item/stack/cable_coil/extra_insulated
 	req_one_access = list(ACCESS_ENGINE, ACCESS_CE)
 
-/obj/structure/cable/bridging/proc/toggle_connection(user)
+/// A pre unlocked bridge cable for mapping
+/obj/structure/cable/extra_insulated/pre_connect
+	icon = 'icons/obj/power_cond/hv_power_cond_connected.dmi'
+	connect_type = CABLE_ALL_CONNECTIONS
+
+/obj/structure/cable/extra_insulated/proc/toggle_connection(user)
 	if(allowed(user))
-		if(connect_type)
-			connect_type = 0
-			icon = 'icons/obj/power_cond/bridge_power_cond_disconnected.dmi'
+		if(connect_type == CABLE_ALL_CONNECTIONS)
+			connect_type = CABLE_HIGH_POWER
+			icon = 'icons/obj/power_cond/hv_power_cond.dmi'
 		else
 			connect_type = CABLE_ALL_CONNECTIONS
-			icon = 'icons/obj/power_cond/bridge_power_cond_connected.dmi'
+			icon = 'icons/obj/power_cond/hv_power_cond_connected.dmi'
 
-/obj/structure/cable/bridging/examine(mob/user)
-	. = ..()
-	var/connect_text = "It is set to connect to these cables: "
-	var/list/connect_names = list()
-	if(connect_type & CABLE_LOW_POWER)
-		connect_names += "normal"
-	if(connect_type & CABLE_HIGH_POWER)
-		connect_names += "heavy duty"
 
-	if(length(connect_names))
-		connect_text += english_list(connect_names)
-	else
-		connect_text = "It is set to refuse all cable connections"
+		// Reconnect the cable according to what is allowed now
+		if(powernet)
+			cut_cable_from_powernet()
+		merge_connected_networks_on_turf()
 
-	. += "<span class='notice'>[connect_text]</span>"
+		if(d1)
+			merge_connected_networks(d1)
+			if(IS_DIR_DIAGONAL(d1))
+				merge_diagonal_networks(d1)
+		if(d2)
+			merge_connected_networks(d2)
+			if(IS_DIR_DIAGONAL(d2))
+				merge_diagonal_networks(d2)
 
-/obj/structure/cable/bridging/attackby__legacy__attackchain(obj/item/I, mob/living/user)
+/obj/structure/cable/extra_insulated/attackby__legacy__attackchain(obj/item/I, mob/living/user)
 	if(I.GetID())
 		toggle_connection(user)
 	return ..()

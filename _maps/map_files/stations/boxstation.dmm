@@ -42638,7 +42638,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable/yellow{
+/obj/structure/cable/extra_insulated/pre_connect{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -62877,10 +62879,12 @@
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "laU" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /obj/structure/lattice/catwalk,
+/obj/structure/cable/extra_insulated/pre_connect{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/space,
 /area/station/engineering/solar/fore_port)
 "lbb" = (
@@ -76862,6 +76866,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
+"rIn" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/extra_insulated/pre_connect{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/station/engineering/solar/fore_starboard)
 "rID" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
 /obj/effect/decal/cleanable/dirt,
@@ -78612,7 +78625,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/structure/cable/bridging/pre_connect{
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/extra_insulated/pre_connect{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -81854,6 +81872,15 @@
 /obj/structure/disaster_counter/toxins,
 /turf/simulated/wall/r_wall,
 /area/station/science/toxins/launch)
+"uiB" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/extra_insulated/pre_connect{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "4-8"
+	},
+/turf/space,
+/area/station/engineering/solar/aft_port)
 "ujR" = (
 /obj/structure/chair/sofa/corp{
 	dir = 1
@@ -83577,6 +83604,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
+"vfr" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/extra_insulated/pre_connect{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/space,
+/area/station/engineering/solar/aft_starboard)
 "vfs" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -88346,6 +88382,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"xyb" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/space,
+/area/station/engineering/solar/fore_port)
 "xyl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -104217,7 +104260,7 @@ asb
 asb
 asb
 asb
-asb
+xyb
 laU
 dap
 bOY
@@ -110474,7 +110517,7 @@ rEZ
 cLi
 rEZ
 aaa
-cPG
+uiB
 aaa
 aaa
 aaa
@@ -131462,7 +131505,7 @@ aqZ
 azU
 awQ
 axq
-axq
+rIn
 jOz
 uDn
 jOz
@@ -140825,7 +140868,7 @@ tMT
 sTF
 qUj
 sTF
-ddE
+vfr
 ddE
 ddE
 ddN

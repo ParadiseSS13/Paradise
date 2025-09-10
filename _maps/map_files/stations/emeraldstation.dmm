@@ -64925,7 +64925,8 @@
 "mPW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/yellow{
+/obj/structure/cable/bridging/pre_connect{
+	d1 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,

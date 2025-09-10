@@ -24,6 +24,11 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	usesound = 'sound/items/deconstruct.ogg'
+	/// Type of cable this coil makes
+	var/cable_type = /obj/structure/cable
+	/// Bitflag of the types of cable we can add cable to with this coil.
+	/// This is different to the cable connection flag since it only governs connecting on the same tile
+	var/cable_merge_id = CABLE_MERGE_LOW_POWER
 
 /obj/item/stack/cable_coil/Initialize(mapload, length, paramcolor)
 	. = ..()
@@ -152,7 +157,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 //////////////////////////////////////////////
 
 /obj/item/stack/cable_coil/proc/get_new_cable(location)
-	var/obj/structure/cable/C = new(location)
+	var/obj/structure/cable/C = new cable_type(location)
 	C.cable_color(color)
 
 	return C
@@ -212,6 +217,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 /// called when cable_coil is click on an installed obj/cable or click on a turf that already contains a "node" cable
 /obj/item/stack/cable_coil/proc/cable_join(obj/structure/cable/C, mob/user)
+	if(C.merge_id != cable_merge_id)
+		return
 	var/turf/U = user.loc
 	if(!isturf(U))
 		return
@@ -377,6 +384,29 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/random/Initialize(mapload)
 	. = ..()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE)
+
+/obj/item/stack/cable_coil/extra_insulated
+	name = "heavy duty cable coil"
+	singular_name = "heavy duty cable"
+	icon = 'icons/obj/cable_coils/heavy_duty.dmi'
+	color = null
+	cable_type = /obj/structure/cable/extra_insulated
+	cable_merge_id = CABLE_MERGE_HIGH_POWER
+	req_one_access = list(ACCESS_ENGINE, ACCESS_CE)
+
+/obj/item/stack/cable_coil/extra_insulated/proc/toggle_connection(user)
+	if(allowed(user))
+		if(cable_type == /obj/structure/cable/extra_insulated/pre_connect)
+			cable_type = /obj/structure/cable/extra_insulated
+			icon = 'icons/obj/cable_coils/heavy_duty.dmi'
+		else
+			cable_type = /obj/structure/cable/extra_insulated/pre_connect
+			icon = 'icons/obj/cable_coils/heavy_duty_connected.dmi'
+
+/obj/item/stack/cable_coil/extra_insulated/attackby__legacy__attackchain(obj/item/I, mob/living/user)
+	if(I.GetID())
+		toggle_connection(user)
+	return ..()
 
 /obj/item/stack/cable_coil/cut
 	item_state = "coil2"
