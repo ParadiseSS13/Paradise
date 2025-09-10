@@ -8260,7 +8260,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -8274,7 +8274,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -8595,10 +8595,10 @@
 	},
 /area/station/hallway/secondary/exit)
 "aJM" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
@@ -9022,10 +9022,10 @@
 /area/station/maintenance/incinerator)
 "aLc" = (
 /obj/machinery/power/apc/reinforced/directional/south,
-/obj/structure/cable/extra_insulated,
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
+/obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/fore_port)
 "aLd" = (
@@ -39811,9 +39811,6 @@
 /area/station/maintenance/electrical/aft_port)
 "cTi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
@@ -39822,6 +39819,9 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/structure/cable/extra_insulated/pre_connect{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/port)
@@ -45413,10 +45413,10 @@
 /area/station/public/construction)
 "dsl" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/structure/cable{
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/public/construction)
 "dsm" = (
@@ -55140,10 +55140,10 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "fGW" = (
-/obj/structure/cable/extra_insulated{
+/obj/machinery/power/apc/reinforced/directional/south,
+/obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/reinforced/directional/south,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "fHs" = (
@@ -61664,12 +61664,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/tech_storage)
-"iDC" = (
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/solar_maintenance/aft_port)
 "iDE" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -69352,17 +69346,19 @@
 	name = "Power Transmission Laser"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/catwalk,
 /area/station/maintenance/port)
 "mbh" = (
@@ -77856,7 +77852,7 @@
 	name = "Fore Port Solar Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
@@ -86834,10 +86830,10 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Internal Medbay Maintenance"
 	},
-/obj/structure/cable/extra_insulated{
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "top" = (
@@ -125731,7 +125727,7 @@ aaa
 aaa
 xDJ
 mbi
-iDC
+jme
 hJS
 xDJ
 aaa
