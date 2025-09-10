@@ -76134,18 +76134,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/sw)
-"nhn" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 7;
-	height = 18;
-	id = "trade_dock";
-	name = "port bay 4 at Kerberos";
-	width = 15;
-	dheight = 1
-	},
-/turf/space,
-/area/space)
 "nho" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
@@ -99846,6 +99834,18 @@
 /obj/effect/mapping_helpers/turfs/rust,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/hardsuitstorage)
+"uwG" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 7;
+	height = 23;
+	id = "trade_dock";
+	name = "port bay 4 at Kerberos";
+	width = 23;
+	dheight = 1
+	},
+/turf/space,
+/area/space)
 "uwZ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -139578,8 +139578,8 @@ aaa
 aaa
 aaa
 aaa
+uwG
 aaa
-nhn
 aaa
 aaa
 aaa

@@ -64829,18 +64829,6 @@
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/wood/fancy/oak,
 /area/station/supply/qm)
-"khv" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 7;
-	height = 18;
-	id = "trade_dock";
-	name = "port bay 4 at Cyberiad";
-	width = 15;
-	dheight = 1
-	},
-/turf/space,
-/area/space)
 "khx" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -93590,6 +93578,18 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/xenobiology)
+"tAz" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 7;
+	height = 23;
+	id = "trade_dock";
+	name = "port bay 4 at Cyberiad";
+	width = 23;
+	dheight = 1
+	},
+/turf/space,
+/area/space)
 "tBn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -115997,8 +115997,8 @@ aaa
 aaa
 aaa
 aaa
+tAz
 aaa
-khv
 aaa
 aaa
 aaa

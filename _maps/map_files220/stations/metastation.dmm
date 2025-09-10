@@ -3997,11 +3997,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
-"aEj" = (
-/obj/effect/spawner/airlock/e_to_w,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry/west)
 "aEk" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7229,13 +7224,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
-"aTQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/secondary/entry/west)
 "aTR" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -10715,17 +10703,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
-"biC" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 4;
-	height = 11;
-	id = "trade_dock";
-	name = "port bay 4 at Cyberiad";
-	width = 9
-	},
-/turf/space,
-/area/space)
 "biF" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -14956,7 +14933,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/closet/emcloset,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -44366,6 +44343,14 @@
 	icon_state = "darkblue"
 	},
 /area/station/command/bridge)
+"hSd" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "trade_dock"
+	},
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry/west)
 "hSq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -52864,10 +52849,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/atmospherics/portable/canister/air,
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -71147,15 +71129,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/research)
-"rHu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/secondary/entry/west)
 "rHF" = (
 /obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel{
@@ -71625,16 +71598,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
-"rOR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 10;
-	initialize_directions = 10
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/secondary/entry/west)
 "rOT" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -77200,10 +77163,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
 "ubY" = (
-/obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -83832,6 +83795,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/east)
+"wFr" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 4;
+	height = 23;
+	id = "trade_dock";
+	name = "port bay 4 at Cyberiad";
+	width = 23
+	},
+/turf/space,
+/area/space)
 "wFC" = (
 /turf/simulated/wall,
 /area/station/maintenance/turbine)
@@ -97510,8 +97484,8 @@ aaa
 aaa
 aaa
 aaa
+wFr
 aaa
-biC
 aaa
 aaa
 aaa
@@ -97766,10 +97740,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
 ayy
-qcE
-aEj
+hSd
+hSd
+nlB
 abq
 abq
 abq
@@ -98023,8 +97997,8 @@ aaa
 aaa
 aaa
 aaa
-aaa
 ayy
+qcE
 qcE
 nlB
 nlB
@@ -98281,8 +98255,8 @@ ayy
 ayy
 ayy
 ayy
-ayy
-qcE
+hSd
+hSd
 nlB
 kWi
 bAR
@@ -98539,9 +98513,9 @@ aqA
 ayy
 jwr
 oUe
-rOR
-aTQ
-rHu
+oUe
+oUe
+oUe
 oUe
 oUe
 oUe
