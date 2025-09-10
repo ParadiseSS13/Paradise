@@ -20995,8 +20995,8 @@
 	},
 /area/station/security/prison/cell_block/a)
 "dgL" = (
-/obj/effect/spawner/airlock/w_to_e,
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft)
 "dgM" = (
@@ -24089,7 +24089,9 @@
 	},
 /area/station/hallway/primary/fore/north)
 "dKC" = (
-/obj/structure/cable/yellow{
+/obj/structure/cable/extra_insulated/pre_connect{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -26114,7 +26116,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "eii" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
 /obj/machinery/power/terminal{
@@ -54038,7 +54040,7 @@
 	dir = 8;
 	name = "Science Asteroid Solar Control"
 	},
-/obj/structure/cable/extra_insulated,
+/obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
 /area/station/maintenance/solar_maintenance/aft)
 "kaP" = (
@@ -68158,13 +68160,15 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/random/dirt/often,
 /obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/extra_insulated/pre_connect{
+	d1 = 1;
+	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/effect/spawner/random/dirt/often,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
 "ncn" = (
@@ -85725,13 +85729,13 @@
 /turf/simulated/floor/plating,
 /area/station/supply/break_room)
 "qRt" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -110004,7 +110008,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/station/maintenance/gambling_den)
 "vUb" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -118226,7 +118230,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/pod_3)
 "xEi" = (
-/obj/structure/cable/extra_insulated{
+/obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
