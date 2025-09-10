@@ -76886,13 +76886,6 @@
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
-"pae" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/space,
-/area/station/engineering/solar/aft_port)
 "pag" = (
 /mob/living/carbon/human/monkey,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -100765,17 +100758,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/brig)
-"tGR" = (
-/obj/structure/lattice,
-/obj/item/stack/cable_coil{
-	color = "#FFFF00";
-	pixel_y = 4;
-	pixel_x = 10
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow,
-/turf/space,
-/area/station/engineering/solar/aft_port)
 "tHj" = (
 /obj/machinery/door/airlock{
 	name = "Court"
@@ -141864,8 +141846,8 @@ vhJ
 rnS
 bUf
 rnS
-pae
-tGR
+kkQ
+uke
 bVk
 frl
 xGK
