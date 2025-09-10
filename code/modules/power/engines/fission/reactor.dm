@@ -15,7 +15,7 @@
 
 #define REACTOR_LIGHT_COLOR "#569fff"
 #define TOTAL_CONTROL_RODS 5 // The max number of control rods.
-#define HEAT_MODIFIER 40000 // Higher = more heat production.
+#define HEAT_MODIFIER 175 // Higher = more heat production.
 #define AVERAGE_HEAT_THRESHOLD 30 // The threshold the average heat-per-rod must exceed to generate coefficient.
 #define TOTAL_HEAT_THRESHOLD 600 // the temp (in K) needed to begin generating coefficient.
 #define HEAT_CONVERSION_RATIO 400 // How much heat over the threshold = an extra coefficient point.
@@ -31,7 +31,7 @@
 #define EMERGENCY_POINT 700 // Begin sending warning messages over common
 #define WARNING_DELAY 60 // time in deciseconds between warnings
 #define NGCR_COUNTDOWN_TIME 30 SECONDS // How long the meltdown countdown lasts
-#define TEMP_GENERATION_CAP 50000 // The temperature the reactor can get to before limiting heat gen
+#define TEMP_GENERATION_CAP 40000 // The temperature the reactor can get to before limiting heat gen
 
 // If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
 #define NGCR_MELTDOWN_PERCENT 5
@@ -351,6 +351,7 @@
 
 	// lower operating power = more durability
 	var/durability_loss = round(100 / ((95 / (1 + NUM_E ** (0.08 * (-operating_power + 60)))) + 10), 0.01)
+	var/operating_rate = operating_percent()
 	for(var/obj/machinery/reactor_chamber/chamber in connected_chambers)
 		var/power_total
 		var/heat_total
@@ -362,13 +363,12 @@
 		if(chamber.chamber_state == CHAMBER_DOWN) // We generate heat but not power while its down.
 			power_total = chamber.power_total * durability_mod
 		heat_total = chamber.heat_total * durability_mod
-		var/operating_rate = 1 - operating_power / 100
-		chamber.held_rod.enrich(power_total * operating_rate, heat_total * operating_rate)
+		if(istype(chamber.held_rod, /obj/item/nuclear_rod/fuel))
+			var/obj/item/nuclear_rod/fuel/fuel_rod = chamber.held_rod
+			fuel_rod.enrich(power_total * operating_rate, heat_total * operating_rate)
 		final_heat += power_total
 		final_power += power_total
 		chamber.held_rod.durability -= durability_loss
-
-
 
 	average_heatgen = final_heat / length(connected_chambers)
 	var/temp = air_contents.temperature()
@@ -391,12 +391,12 @@
 
 	produce_direct_power(final_power)
 
-	var/heat_capacity = air_contents.heat_capacity() * 300
+	var/heat_capacity = air_contents.heat_capacity()
 	if(heat_capacity)
 		if(temp < TEMP_GENERATION_CAP)
 			air_contents.set_temperature(max(temp + (final_heat / heat_capacity), temp + 2))
 		else
-			air_contents.set_temperature(temp + rand(3, 20)) // lets limit it it but not stop it
+			air_contents.set_temperature(temp + rand(10, 30)) // lets limit it it but not stop it
 
 	temp = air_contents.temperature()
 	if(temp > heat_damage_threshold * 0.9)
@@ -487,6 +487,11 @@
 	icon_state = "reactor_on"
 	set_light(2, 5, REACTOR_LIGHT_COLOR)
 	#warn add a sound here
+
+/// returns a value from 0 to 1 based off current operating power
+/obj/machinery/power/fission_reactor/proc/operating_percent()
+	var/operating_rate = 1 - operating_power / 100
+		return operating_rate
 
 // Pretty much ripped from the SM
 /obj/machinery/power/fission_reactor/proc/countdown()

@@ -20,16 +20,24 @@
 	var/power_amp_mod = 1
 	/// What type of radiation is emitted by this rod
 	var/list/rad_type
-	/// What special gas requirement does this rod need
-	var/gas_requirement
 	/// What items need to be adjacent to this rod for it to function properly
 	var/list/adjacent_requirements = list()
 
+/obj/item/nuclear_rod/examine(mob/user)
+	. = ..()
+	if(length(adjacent_requirements))
+		var/requirement_list = english_list(adjacent_requirements, and_text = ", ")
+		. += "This rod has the following neighbor requirements: [requirement_list]"
+	else
+		. += "This rod has no neighbor requirements."
 
 /obj/item/nuclear_rod/fuel
-	name = "nuclear fuel rod"
+	name = "any fuel rod"
 	desc = "This is a base item and should not be found. Alert a developer!"
 	rad_type = ALPHA_RAD
+
+	/// the amount of cycles needed to complete enrichment. 30 = ~1 minute
+	var/enrichment_cycles = 15
 	/// the total power amp mod needed to enrich
 	var/power_enrich_threshold = 0
 	/// How far we have progressed from to power enrichment
@@ -45,10 +53,10 @@
 
 /obj/item/nuclear_rod/fuel/proc/enrich(power_mod, heat_mod)
 	if(power_enrich_result)
-		if(power_mod > power_enrich_threshold && power_enrich_progress < 20)
+		if(power_mod > power_enrich_threshold && power_enrich_progress < ENRICHMENT_CYCLES)
 			power_enrich_progress++
 	if(heat_enrich_result)
-		if(heat_mod > heat_enrich_threshold && heat_enrich_progress < 20)
+		if(heat_mod > heat_enrich_threshold && heat_enrich_progress < ENRICHMENT_CYCLES)
 			heat_enrich_progress++
 
 /obj/item/nuclear_rod/fuel/uranium_238
@@ -92,7 +100,7 @@
 		)
 
 /obj/item/nuclear_rod/moderator
-	name = "nuclear moderator rod"
+	name = "any moderator rod"
 	desc = "This is a base item and should not be found. Alert a developer!"
 	icon_state = "normal"
 
@@ -104,7 +112,7 @@
 	durability = 6000
 
 /obj/item/nuclear_rod/coolant
-	name = "nuclear coolant rod"
+	name = "any coolant rod"
 	desc = "This is a base item and should not be found. Alert a developer!"
 	icon_state = "bananium"
 
@@ -116,6 +124,3 @@
 	power_amount = -10 KW
 	durability = 6000
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
-
-
-
