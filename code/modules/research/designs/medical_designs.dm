@@ -52,6 +52,15 @@
 	build_path = /obj/item/healthupgrade
 	category = list("Medical")
 
+/datum/design/automender
+	name = "Auto-mender"
+	id = "automender"
+	req_tech = list("biotech" = 7, "magnets" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_TITANIUM = 3000, MAT_GLASS = 1000)
+	build_path = /obj/item/reagent_containers/applicator
+	category = list("Medical")
+
 /datum/design/handheld_defib
 	name = "Handheld Defibrillator"
 	desc = "A smaller defibrillator only capable of treating cardiac arrest."
@@ -372,6 +381,17 @@
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
 	construction_time = 200
 	build_path = /obj/item/organ/internal/cyberimp/arm/toolset
+	category = list("Medical")
+
+/datum/design/cyberimp_cargo
+	name = "Cargo Arm Implant"
+	desc = "A set of everything a cargo technician needs to have to do their job, besides a forklift. Designed to be installed on subject's arm."
+	id = "ci-cargo"
+	req_tech = list("materials" = 3, "engineering" = 4, "biotech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
+	construction_time = 200
+	build_path = /obj/item/organ/internal/cyberimp/arm/cargo
 	category = list("Medical")
 
 /datum/design/cyberimp_janitorial

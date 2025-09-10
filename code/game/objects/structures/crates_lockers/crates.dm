@@ -354,6 +354,11 @@
 	icon_opened = "o2crate_open"
 	icon_closed = "o2crate"
 
+/obj/structure/closet/crate/internals/nitrogen
+	icon_state = "n2crate"
+	icon_opened = "n2crate_open"
+	icon_closed = "n2crate"
+
 /obj/structure/closet/crate/trashcart
 	desc = "A heavy, metal trashcart with wheels."
 	name = "trash Cart"
@@ -570,6 +575,20 @@
 	icon_opened = "electricalcrate_open"
 	icon_closed = "electricalcrate"
 
+/obj/structure/closet/crate/nanotrasen
+	name = "corporate crate"
+	desc = "A Nanotrasen crate."
+	icon_state = "nanotrasen"
+	icon_opened = "nanotrasen_open"
+	icon_closed = "nanotrasen"
+
+/obj/structure/closet/crate/secure/nanotrasen
+	name = "secure corporate crate"
+	desc = "A crate with a lock on it, painted in the scheme of Nanotrasen. Whatever's in here is probably above your pay grade."
+	icon_state = "nanotrasensecure"
+	icon_opened = "nanotrasensecure_open"
+	icon_closed = "nanotrasensecure"
+
 /obj/structure/closet/crate/mail
 	name = "mail crate"
 	desc = "A plastic crate for mail delivery."
@@ -682,9 +701,11 @@
 		danger_counter = 0
 
 	U.purchase_log += "<BIG>[bicon(src)]</BIG>"
+	bought_items += /obj/item/storage/bag/garment/syndie // Guaranteed to spawn with drip (doesn't affect balance, it's only a bunch of fancy clothing)
 	for(var/item in bought_items)
 		var/obj/purchased = new item(src)
 		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
+		itemlog += purchased.name // To make the item more readable for the log compared to just uplink_item.item
 	var/item_list = jointext(sortList(itemlog), ", ")
 	log_game("[key_name(user)] purchased a surplus crate with [item_list]")
 	user.create_log(MISC_LOG, "Surplus crate purchase with spawned items [item_list]")

@@ -45,7 +45,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = FALSE
 
-/obj/item/gun/projectile/automatic/pistol/update_overlays()
+/obj/item/gun/projectile/automatic/pistol/m1911/update_overlays()
 	. = list()
 	if(gun_light)
 		var/flashlight = "uflashlight_attached"
