@@ -41,7 +41,9 @@
 			/obj/machinery/the_singularitygen,
 			/obj/effect/hierophant,
 			/obj/item/warp_cube),
-		"undelivered mail" = list(/obj/item/envelope))
+		"undelivered mail" = list(/obj/item/envelope),
+		"live ordnance" = list(/obj/machinery/syndicatebomb)
+		)
 
 	// The current manifest of what's on the shuttle.
 	var/datum/economy/cargo_shuttle_manifest/manifest = new
@@ -146,6 +148,23 @@
 		PC.update_icon()
 
 		SG.should_send_crate = FALSE
+	if(SSshuttle.shuttle_loan_UID)
+		var/datum/event/shuttle_loan/shuttle_loan = locateUID(SSshuttle.shuttle_loan_UID)
+		if(!shuttle_loan.dispatched)
+			return
+		// let the situation spawn its items
+		var/list/spawn_list = list()
+		shuttle_loan.situation.spawn_items(spawn_list, emptyTurfs)
+		var/false_positive = 0
+		while(spawn_list.len && emptyTurfs.len)
+			var/turf/spawn_turf = pick_n_take(emptyTurfs)
+			if(spawn_turf.contents.len && false_positive < 5)
+				false_positive++
+				continue
+			var/spawn_type = pick_n_take(spawn_list)
+			new spawn_type(spawn_turf)
+		// Clear the event so it doesn't cause a problem again
+		SSshuttle.shuttle_loan_UID = null
 
 /obj/docking_port/mobile/supply/proc/scan_cargo()
 	manifest = new
