@@ -57041,6 +57041,15 @@
 	dir = 10
 	},
 /area/station/public/dorms)
+"iGY" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/nuclear_centrifuge,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "iHi" = (
 /obj/structure/table,
 /obj/machinery/recharger,
@@ -117754,7 +117763,7 @@ cSU
 tQJ
 wpH
 cYQ
-rkg
+iGY
 ePY
 ePY
 koL

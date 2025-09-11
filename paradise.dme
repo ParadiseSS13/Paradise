@@ -2850,6 +2850,7 @@
 #include "code\modules\power\cables\cable.dm"
 #include "code\modules\power\cables\cable_coil.dm"
 #include "code\modules\power\cables\terminal.dm"
+#include "code\modules\power\engines\fission\nuclear_machines.dm"
 #include "code\modules\power\engines\fission\nuclear_rods.dm"
 #include "code\modules\power\engines\fission\reactor.dm"
 #include "code\modules\power\engines\singularity\collector.dm"

@@ -360,12 +360,13 @@
 		if(chamber.chamber_state == CHAMBER_OPEN)
 			continue
 		var/durability_mod = clamp(1.5 * (chamber.held_rod.durability / chamber.held_rod.max_durability) - 0.25, 0.25, 1)
-		if(chamber.chamber_state == CHAMBER_DOWN) // We generate heat but not power while its down.
-			power_total = chamber.power_total * durability_mod
+		if(chamber.chamber_state == CHAMBER_DOWN && chamber.operational) // We generate heat but not power while its down.
+			power_total = chamber.power_total * durability_mod // some things have negative power, so we put this before fuel rod checks
+			if(istype(chamber.held_rod, /obj/item/nuclear_rod/fuel))
+				var/obj/item/nuclear_rod/fuel/fuel_rod = chamber.held_rod
+				if(fuel_rod.enrich(power_total * operating_rate, heat_total * operating_rate))
+					chamber.enriching = TRUE
 		heat_total = chamber.heat_total * durability_mod
-		if(istype(chamber.held_rod, /obj/item/nuclear_rod/fuel))
-			var/obj/item/nuclear_rod/fuel/fuel_rod = chamber.held_rod
-			fuel_rod.enrich(power_total * operating_rate, heat_total * operating_rate)
 		final_heat += power_total
 		final_power += power_total
 		chamber.held_rod.durability -= durability_loss
@@ -491,7 +492,7 @@
 /// returns a value from 0 to 1 based off current operating power
 /obj/machinery/power/fission_reactor/proc/operating_percent()
 	var/operating_rate = 1 - operating_power / 100
-		return operating_rate
+	return operating_rate
 
 // Pretty much ripped from the SM
 /obj/machinery/power/fission_reactor/proc/countdown()
@@ -556,6 +557,8 @@
 	var/heat_total
 	/// The total amount of power produced by this rod
 	var/power_total
+	/// Is the chamber currently in an enrichment process
+	var/enriching = FALSE
 
 /obj/machinery/reactor_chamber/Initialize(mapload)
 	. = ..()
@@ -646,14 +649,17 @@
 
 		if(requirements_met)
 			if(operational)
-				state_overlay.icon_state = "green"
+				if(enriching)
+					state_overlay.icon_state = "blue"
+				else
+					state_overlay.icon_state = "green"
 			else
 				state_overlay.icon_state = "orange"
 		else
-			state_overlay.icon_state = "red"
-		if(!requirements_met && operational)
-			state_overlay.icon_state = "orange"
-
+			if(operational)
+				state_overlay.icon_state = "orange"
+			else
+				state_overlay.icon_state = "red"
 		. += state_overlay
 
 // check for multiple on a tile and nuke it
@@ -762,6 +768,7 @@
 	density = TRUE
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 	operational = FALSE
+	enriching = TRUE
 	requirements_met = FALSE
 	layer = ABOVE_MOB_LAYER
 	update_icon(UPDATE_OVERLAYS)
@@ -879,8 +886,10 @@
 		if(istype(held_rod.type, /obj/item/nuclear_rod/fuel))
 			if(prob(1)) // Lower rate of fuel rod failures once they're already on. Good luck.
 				operational = FALSE
+				enriching = TRUE
 				update_icon(UPDATE_OVERLAYS)
 		else if(prob(10))
+			enriching = TRUE
 			operational = FALSE
 			update_icon(UPDATE_OVERLAYS)
 		return

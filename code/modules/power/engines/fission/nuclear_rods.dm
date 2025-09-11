@@ -26,6 +26,9 @@
 /obj/item/nuclear_rod/examine(mob/user)
 	. = ..()
 	if(length(adjacent_requirements))
+		var/list/templist = list()
+		for(var/obj/item/nuclear_rod/requirement in adjacent_requirements)
+			templist += requirement::name
 		var/requirement_list = english_list(adjacent_requirements, and_text = ", ")
 		. += "This rod has the following neighbor requirements: [requirement_list]"
 	else
@@ -52,12 +55,16 @@
 	var/heat_enrich_result
 
 /obj/item/nuclear_rod/fuel/proc/enrich(power_mod, heat_mod)
+	var/successful_enrichment = FALSE
 	if(power_enrich_result)
-		if(power_mod > power_enrich_threshold && power_enrich_progress < ENRICHMENT_CYCLES)
+		if(power_mod > power_enrich_threshold && power_enrich_progress < enrichment_cycles)
 			power_enrich_progress++
+			successful_enrichment = TRUE
 	if(heat_enrich_result)
-		if(heat_mod > heat_enrich_threshold && heat_enrich_progress < ENRICHMENT_CYCLES)
+		if(heat_mod > heat_enrich_threshold && heat_enrich_progress < enrichment_cycles)
 			heat_enrich_progress++
+			successful_enrichment = TRUE
+	return successful_enrichment
 
 /obj/item/nuclear_rod/fuel/uranium_238
 	name = "uranium 235 fuel rod"
