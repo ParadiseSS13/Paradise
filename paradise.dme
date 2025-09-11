@@ -2132,6 +2132,8 @@
 #include "code\modules\events\blob\blob_structures\resource.dm"
 #include "code\modules\events\blob\blob_structures\storage_blob.dm"
 #include "code\modules\events\blob\blob_structures\strong_blob.dm"
+#include "code\modules\events\shuttle_loan\shuttle_loan_datum.dm"
+#include "code\modules\events\shuttle_loan\shuttle_loan_event.dm"
 #include "code\modules\events\wizard\ghost_wizard_spells.dm"
 #include "code\modules\fish\fish_eggs.dm"
 #include "code\modules\fish\fish_items.dm"
