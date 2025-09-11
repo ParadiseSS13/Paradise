@@ -439,5 +439,16 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	cable_color(cablecolor)
 	update_icon()
 
+/obj/item/stack/cable_coil/extra_insulated/cyborg
+	energy_type = /datum/robot_storage/energy/cable
+	is_cyborg = TRUE
+
+/obj/item/stack/cable_coil/extra_insulated/cyborg/attack_self__legacy__attackchain(mob/user)
+	toggle_connection(user)
+	update_icon()
+
+/obj/item/stack/cable_coil/cyborg/update_icon_state()
+	return // icon_state should always be a full cable
+
 #undef HEALPERCABLE
 #undef MAXCABLEPERHEAL
