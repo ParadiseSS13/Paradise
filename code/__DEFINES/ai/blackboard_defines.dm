@@ -224,3 +224,7 @@
 #define BB_SPIDER_EGG_LAYING_ACTION "BB_spider_egg_laying_action"
 /// Key used by changelings who control spiders
 #define BB_CHANGELING_SPIDER_ORDER "BB_changeling_spider_order"
+
+// Malf Drones
+/// Are we active?
+#define BB_MALF_DRONE_PASSIVE "BB_MALF_DRONE_PASSIVE"
