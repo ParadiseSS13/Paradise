@@ -7648,7 +7648,6 @@
 /obj/structure/sign/electricshock{
 	pixel_x = 32
 	},
-/obj/item/seeds/chili,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -9003,7 +9002,6 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/fpmaint2)
 "aGa" = (
-/obj/machinery/smartfridge/drying_rack,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
@@ -9012,6 +9010,7 @@
 	dir = 10;
 	network = list("Prison","SS13")
 	},
+/obj/machinery/economy/vending/hydroseeds/perma,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "aGb" = (
@@ -50864,18 +50863,6 @@
 /obj/structure/closet/secure_closet/research_reagents,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
-"fjM" = (
-/obj/machinery/hydroponics/constructable{
-	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
-	name = "Prison hydroponics tray";
-	using_irrigation = 1
-	},
-/obj/item/seeds/onion,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/security/permabrig)
 "fjO" = (
 /obj/structure/sign/directions/medical{
 	dir = 4;
@@ -51297,7 +51284,6 @@
 /obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
-/obj/item/seeds/amanita,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "ftA" = (
@@ -58613,15 +58599,6 @@
 /obj/structure/bed/psych,
 /turf/simulated/floor/carpet,
 /area/station/medical/psych)
-"iZI" = (
-/obj/machinery/hydroponics/constructable{
-	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
-	name = "Prison hydroponics tray";
-	using_irrigation = 1
-	},
-/obj/item/seeds/corn,
-/turf/simulated/floor/grass,
-/area/station/security/permabrig)
 "iZO" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -64794,7 +64771,6 @@
 /obj/structure/table,
 /obj/item/storage/fancy/rollingpapers,
 /obj/item/storage/fancy/matches,
-/obj/item/seeds/tobacco,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -65159,15 +65135,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
-"mfS" = (
-/obj/machinery/hydroponics/constructable{
-	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
-	name = "Prison hydroponics tray";
-	using_irrigation = 1
-	},
-/obj/item/seeds/orange,
-/turf/simulated/floor/grass,
-/area/station/security/permabrig)
 "mgx" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical,
@@ -65654,7 +65621,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/banana,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "msF" = (
@@ -66915,6 +66881,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"mZw" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/smartfridge/drying_rack,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "mZI" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -85517,7 +85490,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/wheat/rice,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -88567,7 +88539,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/carrot,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -109023,8 +108994,8 @@ lKq
 rAe
 rAe
 lKq
-mfS
-fjM
+msC
+xKv
 ftm
 abN
 abN
@@ -111078,10 +111049,10 @@ lKq
 lKq
 lKq
 twu
-avf
+mZw
 aAr
 aBK
-iZI
+msC
 xKv
 msC
 abN
