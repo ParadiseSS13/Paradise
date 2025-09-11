@@ -1,8 +1,8 @@
 /datum/event/dust/meaty
 	name = "Meaty Ores"
 	nominal_severity = EVENT_LEVEL_MODERATE
-	role_weights = list(ASSIGNMENT_ENGINEERING = 2)
-	role_requirements = list(ASSIGNMENT_ENGINEERING = 2)
+	role_weights = list(ASSIGNMENT_ENGINEERING = 4)
+	role_requirements = list(ASSIGNMENT_ENGINEERING = 4)
 
 /datum/event/dust/meaty/announce()
 	if(prob(16))

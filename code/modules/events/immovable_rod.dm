@@ -14,7 +14,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	endWhen = 900
 	nominal_severity = EVENT_LEVEL_MAJOR
 	role_weights = list(ASSIGNMENT_ENGINEERING = 5)
-	role_requirements = list(ASSIGNMENT_ENGINEERING = 4)
+	role_requirements = list(ASSIGNMENT_ENGINEERING = 6)
 
 /datum/event/immovable_rod/announce()
 	GLOB.minor_announcement.Announce("What the fuck was that?!", "General Alert")

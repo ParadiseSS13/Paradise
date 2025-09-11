@@ -4,8 +4,8 @@
 	nominal_severity = EVENT_LEVEL_MODERATE
 	// We set this when the station clears the meteor storm to keep the event ongoing for a bit so it keeps having a cost
 	noAutoEnd = TRUE
-	role_weights = list(ASSIGNMENT_ENGINEERING = 4)
-	role_requirements = list(ASSIGNMENT_ENGINEERING = 3)
+	role_weights = list(ASSIGNMENT_ENGINEERING = 5)
+	role_requirements = list(ASSIGNMENT_ENGINEERING = 4)
 	var/next_meteor = 6
 	var/waves = 1
 	var/atom/movable/screen/alert/augury/meteor/screen_alert

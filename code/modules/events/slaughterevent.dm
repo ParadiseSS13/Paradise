@@ -4,8 +4,8 @@
 	var/key_of_slaughter
 	var/mob/living/simple_animal/demon/demon = /mob/living/simple_animal/demon/slaughter/lesser
 	nominal_severity = EVENT_LEVEL_MAJOR
-	role_weights = list(ASSIGNMENT_SECURITY = 5, ASSIGNMENT_ANY = 0.6)
-	role_requirements = list(ASSIGNMENT_SECURITY = 3, ASSIGNMENT_ANY = 20)
+	role_weights = list(ASSIGNMENT_SECURITY = 5, ASSIGNMENT_JANITOR = 5, ASSIGNMENT_MEDICAL = 3, ASSIGNMENT_CREW = 0.7)
+	role_requirements = list(ASSIGNMENT_SECURITY = 4, ASSIGNMENT_JANITOR = 1, ASSIGNMENT_MEDICAL = 2, ASSIGNMENT_CREW = 20)
 
 /datum/event/spawn_slaughter/tick()
 	if(!demon || demon.stat == DEAD)
