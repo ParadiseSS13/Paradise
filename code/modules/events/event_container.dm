@@ -249,6 +249,6 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 /datum/event_container/disaster/calculate_event_delay()
 	. = ..()
-	if(world.time + . <= 120 MINUTES && world.time + . >= 95 MINUTES)
-		. += 25 MINUTES
+	if(world.time - SSticker.time_game_started + . <= 120 MINUTES && world.time - SSticker.time_game_started + . >= 95 MINUTES)
+		. += 30 MINUTES
 	return
