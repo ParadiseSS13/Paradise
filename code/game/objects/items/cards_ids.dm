@@ -361,6 +361,15 @@
 	RebuildHTML()
 	..()
 
+/obj/item/card/id/proc/to_tgui()
+	. = list()
+	.["name"] = name
+	.["rank"] = rank
+	.["registered_name"] = registered_name
+	.["assignment"] = assignment
+	.["current_skin"] = icon_state
+	.["lastlog"] = lastlog
+
 /obj/item/card/id/proc/flash_card(mob/user)
 	user.visible_message("[user] shows you: [bicon(src)] [name]. The assignment on the card: [assignment]",\
 		"You flash your ID card: [bicon(src)] [name]. The assignment on the card: [assignment]")
@@ -536,7 +545,7 @@
 	name = "Geneticist ID"
 	registered_name = "Geneticist"
 	icon_state = "geneticist"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GENETICS, ACCESS_RESEARCH)
 
 /obj/item/card/id/research
 	name = "Research ID"

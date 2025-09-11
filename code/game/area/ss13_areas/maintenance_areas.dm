@@ -1,5 +1,5 @@
 
-//Maintenance
+// MARK: Directionals
 /area/station/maintenance
 	ambientsounds = MAINTENANCE_SOUNDS
 	valid_territory = FALSE
@@ -89,24 +89,62 @@
 	name = "Atmospherics Maintenance"
 	icon_state = "atmosmaint"
 
+/area/station/engineering/atmos/asteroid_maint
+	name = "Asteroid Filtering Maintenance"
+	icon_state = "asteroid_maint"
+
+/area/station/maintenance/xenobio_north
+	name = "Xenobiology North Maintenance"
+	icon_state = "xenobio_north_maint"
+
+/area/station/maintenance/xenobio_south
+	name = "Xenobiology South Maintenance"
+	icon_state = "xenobio_south_maint"
+
+// MARK: Maint Rooms
+/area/station/maintenance/assembly_line
+	name = "\improper Assembly Line"
+	icon_state = "ass_line"
+	apc_starts_off = TRUE
+
+/area/station/maintenance/abandoned_garden
+	name = "\improper Abandoned Garden"
+	icon_state = "hydro"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/station/maintenance/library
+	name = "\improper Abandoned Library"
+	icon_state = "library"
+	apc_starts_off = TRUE
+
+/area/station/maintenance/abandoned_office
+	name = "\improper Abandoned Office"
+	icon_state = "abandoned_office"
+	apc_starts_off = TRUE
+
+/area/station/maintenance/electrical_shop
+	name = "\improper Electronics Den"
+	icon_state = "elect"
+
+/area/station/maintenance/gambling_den
+	name = "\improper Gambling Den"
+	icon_state = "yellow"
+
+/area/station/maintenance/theatre
+	name = "\improper Abandoned Theatre"
+	icon_state = "Theatre"
+	sound_environment = SOUND_AREA_WOODFLOOR
+
+/area/station/maintenance/electrical
+	name = "\improper Electrical Maintenance"
+	icon_state = "elect"
+
 /area/station/maintenance/incinerator
 	name = "\improper Incinerator"
 	icon_state = "incin"
 
-/area/station/maintenance/turbine
-	name = "\improper Turbine"
-	icon_state = "turbine"
-
-/area/station/maintenance/disposal
-	name = "Waste Disposal"
-	icon_state = "disposals"
-
-/area/station/maintenance/electrical
-	name = "Electrical Maintenance"
-	icon_state = "elect"
-
 /area/station/maintenance/abandonedbar
-	name = "Maintenance Bar"
+	name = "\improper Maintenance Bar"
 	icon_state = "oldbar"
 	apc_starts_off = TRUE
 
@@ -115,31 +153,16 @@
 	icon_state = "oldserver"
 	apc_starts_off = TRUE
 
-/area/station/maintenance/library
-	name = "Abandoned Library"
-	icon_state = "library"
-	apc_starts_off = TRUE
-
-/area/station/maintenance/theatre
-	name = "\improper Abandoned Theatre"
-	icon_state = "Theatre"
-	sound_environment = SOUND_AREA_WOODFLOOR
-
 /area/station/maintenance/spacehut
-	name = "Space Hut"
+	name = "\improper Space Hut"
 	icon_state = "spacehut"
 	apc_starts_off = TRUE
 
-/area/station/maintenance/electrical_shop
-	name ="Electronics Den"
-	icon_state = "elect"
+/area/station/maintenance/turbine
+	name = "\improper Turbine"
+	icon_state = "turbine"
 
-/area/station/maintenance/gambling_den
-	name = "Gambling Den"
-	icon_state = "yellow"
-
-// Solars
-
+// MARK: Solars
 /area/station/maintenance/solar_maintenance
 	name = "\improper Solar Maintenance"
 	icon_state = "general_solar_control"
@@ -176,32 +199,10 @@
 	name = "\improper Port Solar Maintenance"
 	icon_state = "port_solar_control"
 
-/// Derelict Assembly Line
-/area/station/maintenance/assembly_line
-	name = "\improper Assembly Line"
-	icon_state = "ass_line"
-	apc_starts_off = TRUE
-
-/area/station/maintenance/abandoned_office
-	name = "\improper Abandoned Office"
-	icon_state = "abandoned_office"
-	apc_starts_off = TRUE
-
-/area/station/maintenance/abandoned_garden
-	name = "\improper Abandoned Garden"
-	icon_state = "hydro"
-	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-
-/area/station/maintenance/xenobio_north
-	name = "Xenobiology North Maintenance"
-	icon_state = "xenobio_north_maint"
-
-/area/station/maintenance/xenobio_south
-	name = "Xenobiology South Maintenance"
-	icon_state = "xenobio_south_maint"
-
-
-// CERE
+// MARK: Disposals
+/area/station/maintenance/disposal
+	name = "Waste Disposal"
+	icon_state = "disposals"
 
 /area/station/maintenance/disposal/southwest
 	name = "South Western Disposals"
@@ -236,8 +237,7 @@
 /area/station/maintenance/disposal/external/north
 	name = "Northern External Waste Belt"
 
-// Emerald Station
-
+// MARK: Dorms
 /area/station/maintenance/dorms
 	name = "Dorms Maintenance"
 	icon_state = "dorms_maint"
@@ -258,78 +258,113 @@
 	name = "Dorms Fore Maintenance"
 	icon_state = "dorms_maint_fore"
 
+// MARK: Command
 /area/station/maintenance/command
 	name = "\improper Command Maintenance"
 	icon_state = "cmd_maint"
 
 /area/station/maintenance/command/fore
-	name = "\improper Command Maintenance Fore"
+	name = "\improper Fore Command Maintenance"
 	icon_state = "cmd_maint_fore"
 
 /area/station/maintenance/command/fore_starboard
-	name = "\improper Command Maintenance Fore-Starboard"
+	name = "\improper Fore-Starboard Command Maintenance"
 	icon_state = "cmd_maint_fore_starboard"
 
 /area/station/maintenance/command/fore_port
-	name = "\improper Command Maintenance Fore-Port"
+	name = "\improper Fore-Port Command Maintenance"
 	icon_state = "cmd_maint_fore_port"
 
 /area/station/maintenance/command/aft
-	name = "\improper Command Maintenance Aft"
+	name = "\improper Aft Command Maintenance"
 	icon_state = "cmd_maint_aft"
 
 /area/station/maintenance/command/aft_starboard
-	name = "\improper Command Maintenance Aft-Starboard"
+	name = "\improper Aft-Starboard Command Maintenance"
 	icon_state = "cmd_maint_aft_starboard"
 
 /area/station/maintenance/command/aft_port
-	name = "\improper Command Maintenance Aft-Port"
+	name = "\improper Aft-Port Command Maintenance"
 	icon_state = "cmd_maint_aft_port"
 
 /area/station/maintenance/command/starboard
-	name = "\improper Command Maintenance Starboard"
+	name = "\improper Starboard Command Maintenance"
 	icon_state = "cmd_maint_starboard"
 
 /area/station/maintenance/command/port
-	name = "\improper Command Maintenance Port"
+	name = "\improper Port Command Maintenance"
 	icon_state = "cmd_maint_port"
 
+// MARK: Security
 /area/station/maintenance/security
 	name = "\improper Security Maintenance"
 	icon_state = "sec_maint"
 
 /area/station/maintenance/security/fore
-	name = "\improper Security Maintenance Fore"
+	name = "\improper Fore Security Maintenance"
 	icon_state = "sec_maint_fore"
 
 /area/station/maintenance/security/fore_starboard
-	name = "\improper Security Maintenance Fore-Starboard"
+	name = "\improper Fore-Starboard Security Maintenance"
 	icon_state = "sec_maint_fore_starboard"
 
 /area/station/maintenance/security/fore_port
-	name = "\improper Security Maintenance Fore-Port"
+	name = "\improper Fore-Port Security Maintenance"
 	icon_state = "sec_maint_fore_port"
 
 /area/station/maintenance/security/aft
-	name = "\improper Security Maintenance Aft"
+	name = "\improper Aft Security Maintenance"
 	icon_state = "sec_maint_aft"
 
 /area/station/maintenance/security/aft_starboard
-	name = "\improper Security Maintenance Aft-Starboard"
+	name = "\improper Aft-Starboard Security Maintenance"
 	icon_state = "sec_maint_aft_starboard"
 
 /area/station/maintenance/security/aft_port
-	name = "\improper Security Maintenance Aft-Port"
+	name = "\improper Aft-Port Security Maintenance"
 	icon_state = "sec_maint_aft_port"
 
 /area/station/maintenance/security/starboard
-	name = "\improper Security Maintenance Starboard"
+	name = "\improper Starboard Security Maintenance"
 	icon_state = "sec_maint_starboard"
 
 /area/station/maintenance/security/port
-	name = "\improper Security Maintenance Port"
+	name = "\improper Port Security Maintenance"
 	icon_state = "sec_maint_port"
 
-/area/station/engineering/atmos/asteroid_maint
-	name = "Asteroid Filtering Maintenance"
-	icon_state = "asteroid_maint"
+// MARK: Service
+/area/station/maintenance/service
+	name = "\improper Service Maintenance"
+	icon_state = "serv_maint"
+
+/area/station/maintenance/service/fore
+	name = "\improper Fore Service Maintenance"
+	icon_state = "serv_maint_fore"
+
+/area/station/maintenance/service/fore_starboard
+	name = "\improper Fore-Starboard Service Maintenance"
+	icon_state = "serv_maint_fore_starboard"
+
+/area/station/maintenance/service/fore_port
+	name = "\improper Fore-Port Service Maintenance"
+	icon_state = "serv_maint_fore_port"
+
+/area/station/maintenance/service/aft
+	name = "\improper Aft Service Maintenance"
+	icon_state = "serv_maint_aft"
+
+/area/station/maintenance/service/aft_starboard
+	name = "\improper Aft-Starboard Service Maintenance"
+	icon_state = "serv_maint_aft_starboard"
+
+/area/station/maintenance/service/aft_port
+	name = "\improper Aft-Port Service Maintenance"
+	icon_state = "serv_maint_aft_port"
+
+/area/station/maintenance/service/starboard
+	name = "\improper Starboard Service Maintenance"
+	icon_state = "serv_maint_starboard"
+
+/area/station/maintenance/service/port
+	name = "\improper Port Service Maintenance"
+	icon_state = "serv_maint_port"

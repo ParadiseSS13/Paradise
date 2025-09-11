@@ -30,7 +30,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 				. = TRUE
 				return
 			var/mob/dead/observer/ghost = ui.user
-			ghost.ManualFollow(poi)
+			ghost.manual_follow(poi)
 			. = TRUE
 		if("refresh")
 			update_static_data(ui.user, ui)

@@ -4725,7 +4725,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/camera{
-	c_tag = "Blueshield's Office";
+	c_tag = "Nanotrasen Representative's Office";
 	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -11025,7 +11025,7 @@
 /area/station/maintenance/starboard)
 "cgE" = (
 /obj/machinery/camera{
-	c_tag = "Paper Supplies";
+	c_tag = "Trainer's Office";
 	dir = 8
 	},
 /obj/machinery/power/apc/important/directional/east,
@@ -15312,6 +15312,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 5
 	},
+/obj/item/clothing/head/cone{
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "dbZ" = (
@@ -24128,9 +24133,10 @@
 /area/station/engineering/solar/fore_starboard)
 "ePX" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Genetics Reception"
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window/classic/reversed,
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -29925,8 +29931,8 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/crate{
-	name = "Silver Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "silver crate"
 	},
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,
@@ -31074,10 +31080,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "ggn" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "genetics"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "geneticsprivacy";
+	name = "Genetics Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
@@ -31096,6 +31109,10 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/atmos/control)
+"ggw" = (
+/obj/item/clothing/head/cone,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "ggG" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall,
@@ -66175,13 +66192,25 @@
 /area/station/engineering/atmos/distribution)
 "nkr" = (
 /obj/machinery/disposal,
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
+	},
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump";
+	pixel_y = 7
+	},
+/obj/machinery/button/windowtint{
+	dir = 4;
+	id = "genetics";
+	pixel_x = -24
+	},
+/obj/machinery/door_control{
+	id = "geneticsprivacy";
+	name = "Genetics Privacy Control";
+	pixel_x = -25;
+	pixel_y = -8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -67132,6 +67161,24 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/supply/office)
+"nuk" = (
+/obj/structure/sign/directions/bridge{
+	dir = 8;
+	pixel_x = -32;
+	pixel_y = 39
+	},
+/obj/structure/sign/directions/cargo{
+	dir = 8;
+	pixel_x = -32;
+	pixel_y = 32
+	},
+/obj/structure/sign/directions/engineering{
+	dir = 8;
+	pixel_x = -32;
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/ne)
 "nun" = (
 /obj/machinery/door_timer/cell_1{
 	pixel_y = 32
@@ -69292,9 +69339,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/sw)
 "nOk" = (
-/obj/machinery/status_display{
-	pixel_x = 32
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -74302,13 +74346,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "oLN" = (
-/obj/machinery/door/airlock/medical{
-	name = "Genetics Monkey Pen"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -94249,6 +94291,21 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"sHg" = (
+/obj/structure/sign/directions/medical{
+	pixel_x = -31;
+	pixel_y = -32
+	},
+/obj/structure/sign/directions/evac{
+	pixel_y = -25;
+	pixel_x = -31
+	},
+/obj/structure/sign/directions/science{
+	pixel_y = -39;
+	pixel_x = -31
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/primary/central/ne)
 "sHh" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -99342,6 +99399,18 @@
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"tIk" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/sign/poster/official/random/directional/south,
+/obj/structure/table/glass,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/simulated/floor/plasteel{
+	icon_state = "purplecorner"
+	},
+/area/station/hallway/primary/starboard/south)
 "tIp" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
@@ -103729,6 +103798,9 @@
 /turf/simulated/floor/plating,
 /area/station/legal/courtroom)
 "uBv" = (
+/obj/machinery/status_display{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -110367,10 +110439,6 @@
 /area/station/security/checkpoint/secondary)
 "vRn" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	dir = 4;
-	name = "Genetics Reception"
-	},
 /obj/item/desk_bell{
 	pixel_x = -6;
 	pixel_y = 3;
@@ -110383,6 +110451,20 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "geneticsprivacy";
+	name = "Genetics Privacy Shutters"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "genetics"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/genetics)
@@ -110466,15 +110548,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "vSF" = (
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = "GeneticsDoor";
-	name = "Genetics"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -114124,8 +114204,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "wHI" = (
-/obj/structure/closet/crate{
-	name = "Gold Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "gold crate"
 	},
 /obj/item/storage/belt/champion,
 /obj/machinery/status_display{
@@ -141428,7 +141508,7 @@ scA
 hkJ
 fxn
 cLg
-sGV
+ggw
 cEY
 uBR
 etX
@@ -159925,7 +160005,7 @@ syn
 syn
 soN
 dlV
-soN
+sHg
 soN
 rnA
 hia
@@ -160180,7 +160260,7 @@ xbE
 soN
 soN
 uLC
-soN
+nuk
 njw
 soN
 soN
@@ -165913,7 +165993,7 @@ jWF
 lwn
 mxJ
 suS
-udN
+tIk
 wDu
 cVJ
 vYY

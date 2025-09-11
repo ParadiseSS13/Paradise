@@ -121,7 +121,7 @@ SUBSYSTEM_DEF(jobs)
 		L.Add("As a member of Engineering, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Engineering)", "Department SOP")].")
 	if(job.job_department_flags & DEP_FLAG_MEDICAL)
 		L.Add("As a member of Medbay, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Medical)", "Department SOP")].")
-	if(job.job_department_flags & DEP_FLAG_SCIENCE) // geneticist gets both, yeah sure why not
+	if(job.job_department_flags & DEP_FLAG_SCIENCE)
 		L.Add("As a member of Science, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Science)", "Department SOP")].")
 	if(job.job_department_flags & DEP_FLAG_SECURITY)
 		L.Add("As a member of Security, you are to know [wiki_link("Space Law", "Space Law")] and [wiki_link("Legal_Standard_Operating_Procedure", "Legal Standard Operating Procedure")], as well as your [wiki_link("Standard_Operating_Procedure_(Security)", "Department SOP")].")
@@ -310,6 +310,7 @@ SUBSYSTEM_DEF(jobs)
 		to_chat(H, "<span class='boldnotice'>Your department will receive a $[department_account.payday_amount] credit stipend every 30 minutes</span>")
 		to_chat(H, "<span class='boldnotice'>The [department.department_name] department's account number is: #[department_account.account_number], Your department's account pin is: [department_account.account_pin]</span>")
 
+/// Returns a list of jobs keyed by name to UI color for the job transfer selection.
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
 	if(tgtcard)
@@ -331,7 +332,17 @@ SUBSYSTEM_DEF(jobs)
 			jobs_to_formats["Custom"] = "grey"
 	return jobs_to_formats
 
-
+/datum/controller/subsystem/jobs/proc/get_job_titles_for_id_computer()
+	. = list()
+	.["top"] = list("Captain", "Custom")
+	.["assistant"] = GLOB.assistant_positions
+	.["medical"] = GLOB.medical_positions
+	.["engineering"] = GLOB.engineering_positions
+	.["science"] = GLOB.science_positions
+	.["security"] = GLOB.active_security_positions
+	.["service"] = GLOB.service_positions
+	.["supply"] = GLOB.supply_positions
+	.["centcom"] = get_all_centcom_jobs() + get_all_ERT_jobs()
 
 /datum/controller/subsystem/jobs/proc/log_job_transfer(transferee, oldvalue, newvalue, whodidit, reason)
 	id_change_records["[id_change_counter]"] = list(

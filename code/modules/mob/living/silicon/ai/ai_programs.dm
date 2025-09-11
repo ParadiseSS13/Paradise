@@ -295,7 +295,7 @@
 	desc = "Changes the color of a selected light."
 	action_icon = 'icons/effects/random_spawners.dmi'
 	action_icon_state = "glowstick"
-	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/mecha_mouse.dmi'
 	base_cooldown = 30 SECONDS
 	cooldown_min = 5 SECONDS
 	level_max = 5
@@ -367,7 +367,7 @@
 	desc = "Recharge an APC, Borg, or Mech with power directly from your SMES."
 	action_icon = 'icons/obj/power.dmi'
 	action_icon_state = "smes-o"
-	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/mecha_mouse.dmi'
 	base_cooldown = 120 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 7
@@ -413,7 +413,7 @@
 		T.cell.give(power_sent)
 	if(ismachineperson(target))
 		var/mob/living/carbon/human/machine/T = target
-		T.adjust_nutrition(AI.adapter_efficiency * (power_sent / 10))
+		T.adjust_nutrition(clamp(AI.adapter_efficiency * (power_sent / 10), 0, (NUTRITION_LEVEL_FULL - T.nutrition)))
 
 	// Handles draining the SMES
 	for(var/obj/machinery/power/smes/power_source in A)
@@ -448,7 +448,7 @@
 	desc = "Repair an APC, Borg, or Mech with large numbers of robotic nanomachines!"
 	action_icon = 'icons/obj/surgery.dmi'
 	action_icon_state = "tube"
-	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/mecha_mouse.dmi'
 	base_cooldown = 150 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 7
@@ -550,7 +550,7 @@
 	desc = "Repair the wires in an airlock that still has an intact AI control wire."
 	action_icon = 'icons/obj/doors/doorint.dmi'
 	action_icon_state = "door_closed"
-	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/mecha_mouse.dmi'
 	base_cooldown = 60 SECONDS
 	cooldown_min = 60 SECONDS
 	level_max = 5
@@ -615,7 +615,7 @@
 	desc = "Deploy a nanofrost globule to a target to rapidly extinguish plasmafires."
 	action_icon = 'icons/effects/effects.dmi'
 	action_icon_state = "frozen_smoke_capsule"
-	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/mecha_mouse.dmi'
 	base_cooldown = 60 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 3
@@ -731,7 +731,7 @@
 	desc = "Replace damaged or missing lightbulbs."
 	action_icon = 'icons/obj/janitor.dmi'
 	action_icon_state = "lightreplacer0"
-	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/mecha_mouse.dmi'
 	base_cooldown = 30 SECONDS
 	cooldown_min = 5 SECONDS
 	level_max = 5
@@ -788,7 +788,7 @@
 	desc = "Heal a crew member with large numbers of robotic nanomachines!"
 	action_icon = 'icons/obj/surgery.dmi'
 	action_icon_state = "scalpel_laser1_on"
-	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/mecha_mouse.dmi'
 	base_cooldown = 150 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 10
@@ -930,7 +930,7 @@
 	desc = "Deploy an area of metal foam to rapidly repair and seal hull breaches."
 	action_icon = 'icons/obj/structures.dmi'
 	action_icon_state = "reinforced"
-	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/mecha_mouse.dmi'
 	base_cooldown = 180 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 5
@@ -983,7 +983,7 @@
 	desc = "Deploy a holographic sign to alert crewmembers to potential hazards."
 	action_icon = 'icons/obj/device.dmi'
 	action_icon_state = "signmaker"
-	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/mecha_mouse.dmi'
 	base_cooldown = 30 SECONDS
 	cooldown_min = 30 SECONDS
 	level_max = 8
@@ -1052,7 +1052,7 @@
 	desc = "Download a program from Clowns.NT to be able to play bike horn sounds on demand."
 	action_icon = 'icons/obj/items.dmi'
 	action_icon_state = "bike_horn"
-	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/mecha_mouse.dmi'
 	base_cooldown = 30 SECONDS
 	cooldown_min = 15 SECONDS
 	level_max = 10
@@ -1170,7 +1170,7 @@
 	desc = "Illuminate a hologram to notify or beckon crew."
 	action_icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
 	action_icon_state = "target_circle"
-	ranged_mousepointer = 'icons/mecha/mecha_mouse.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/mecha_mouse.dmi'
 	base_cooldown = 15 SECONDS
 	cooldown_min = 15 SECONDS
 	level_max = 1
