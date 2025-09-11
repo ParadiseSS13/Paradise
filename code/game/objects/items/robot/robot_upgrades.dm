@@ -79,14 +79,20 @@
  * * R - the cyborg that we've applied the upgrade to.
  */
 /obj/item/borg/upgrade/proc/after_install(mob/living/silicon/robot/R)
-	for(var/item in items_to_replace)
-		var/replacement_type = items_to_replace[item]
-		var/obj/item/replacement = new replacement_type(R.module)
-		R.module.remove_item_from_lists(item)
-		R.module.basic_modules += replacement
+	for(var/obj/item/installed_item in R.module.basic_modules.Copy())
+		for(var/item in items_to_replace)
+			if(!istype(installed_item, item))
+				continue
+			var/replacement_type = items_to_replace[item]
+			var/obj/item/replacement = new replacement_type(R.module)
+			R.module.remove_item_from_lists(item)
+			R.module.basic_modules += replacement
 
-		if(replacement_type in special_rechargables)
-			R.module.special_rechargables += replacement
+			if(replacement_type in special_rechargables)
+				R.module.special_rechargables += replacement
+
+			// Item is replaced, no need to continue
+			break
 
 	for(var/item in items_to_add)
 		var/obj/item/replacement = new item(R.module)

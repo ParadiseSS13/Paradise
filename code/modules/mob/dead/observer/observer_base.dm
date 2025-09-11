@@ -148,7 +148,7 @@ GLOBAL_DATUM_INIT(ghost_crew_monitor, /datum/ui_module/crew_monitor/ghost, new)
 	var/mob/dead/observer/ghost = new(src, flags) // Transfer safety to observer spawning proc.
 
 	// mods, mentors, and the like will have admin observe anyway, so this is moot
-	if(((key in GLOB.antag_hud_users) || (key in GLOB.roundstart_observer_keys)) && !check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE, src))
+	if(((key in GLOB.antag_hud_users) || (key in GLOB.roundstart_observer_keys)) && !check_rights(R_MOD | R_ADMIN, FALSE, src)) // SS220 EDIT - removed R_MENTOR
 		ghost.verbs |= /mob/dead/observer/proc/do_observe
 		ghost.verbs |= /mob/dead/observer/proc/observe
 
@@ -278,7 +278,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Respawnability:", "[HAS_TRAIT(src, TRAIT_RESPAWNABLE) ? "Yes" : "No"]")
+	status_tab_data[++status_tab_data.len] = list("Возможность респавна:", "[HAS_TRAIT(src, TRAIT_RESPAWNABLE) ? "Да" : "Нет"]")
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"

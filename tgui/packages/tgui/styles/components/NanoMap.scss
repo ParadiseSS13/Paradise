@@ -1,4 +1,5 @@
 .NanoMap__container {
+  position: relative;
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -11,12 +12,25 @@
   margin: 0px;
 }
 
+// SS220 ADDITION - START
+.NanoMap__button {
+  padding: 3px 3px;
+  font-size: 12px;
+  border: 2px solid black;
+}
+
+.NanoMap__button:hover {
+  background-color: greenyellow;
+}
+// SS220 ADDITION - END
+
 .NanoMap__zoomer {
   z-index: 20;
   background-color: var(--color-section);
   position: absolute;
-  top: 30px;
+  top: 0;
   left: 0;
+  right: 0;
   padding: 0.5rem;
-  width: 24%;
+  backdrop-filter: var(--blur-medium);
 }

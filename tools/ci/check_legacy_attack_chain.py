@@ -37,10 +37,10 @@ class AttackChainCall:
 
 def make_error_from_procdecl(proc_decl: ProcDecl, msg) -> str:
     if os.getenv("GITHUB_ACTIONS") == "true":
-        return f"::error file={proc_decl.source_info.file_path},line={proc_decl.source_info.line},title=Attack Chain::{proc_decl.source_info.file_path}:{proc_decl.source_info.line}: {RED}{msg}{NC}"
+        return f"::error file={proc_decl.source_loc.file_path},line={proc_decl.source_loc.line},title=Attack Chain::{proc_decl.source_loc.file_path}:{proc_decl.source_loc.line}: {RED}{msg}{NC}"
 
     else:
-        return f"{proc_decl.source_info.file_path}:{proc_decl.source_info.line}: {RED}{msg}{NC}"
+        return f"{proc_decl.source_loc.file_path}:{proc_decl.source_loc.line}: {RED}{msg}{NC}"
 
 
 # Walker for determining if a proc contains any calls to a legacy attack chain

@@ -368,7 +368,10 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)
-			N.new_player_panel_proc()
+			// SS220 EDIT START - TITLE SCREEN REPLACEMENT
+			// N.new_player_panel_proc() // Old New Player panel
+			SStitle.show_title_screen_to(N.client) // New Title Screen
+			// SS220 EDIT END
 
 	if(GLOB.configuration.general.enable_night_shifts)
 		SSnightshift.check_nightshift(TRUE)
@@ -651,6 +654,8 @@ SUBSYSTEM_DEF(ticker)
 	SSpersistent_data.save()
 	to_chat(world, end_of_round_info.Join("<br>"))
 
+	SScredits.play_credits_cinematic()
+
 	// Display the scoreboard window
 	score.scoreboard()
 
@@ -818,8 +823,12 @@ SUBSYSTEM_DEF(ticker)
 /// into the insanity of trying to record if the first xeno biohazard was defeated
 /// but the second xeno biohazard was nuked.
 /datum/controller/subsystem/ticker/proc/record_biohazard_results()
+	// SS220 EDIT START - Record biohazards active at DS call or still active now
+	var/list/deathsquad_biohazards_to_record = deathsquad_biohazards.Copy()
 	for(var/biohazard in SSevents.biohazards_this_round)
-		if(biohazard_active_threat(biohazard))
+		if((biohazard in deathsquad_biohazards_to_record) || biohazard_active_threat(biohazard))
+			deathsquad_biohazards_to_record -= biohazard
+	// SS220 EDIT END
 			SSblackbox.record_feedback("nested tally", "biohazards", 1, list("survived", biohazard))
 		else
 			SSblackbox.record_feedback("nested tally", "biohazards", 1, list("defeated", biohazard))

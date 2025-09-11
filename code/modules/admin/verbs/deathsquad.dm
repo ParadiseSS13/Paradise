@@ -71,6 +71,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		if(alert("A Deathsquad leader has previously been sent with an unrestricted NAD, would you like to spawn another unrestricted NAD?", null, "Yes", "No") != "Yes")
 			is_leader = FALSE
 	GLOB.deathsquad_sent = TRUE
+	SSticker.mark_deathsquad_biohazards() // SS220 EDIT - Snapshot biohazards that are active at the moment of the DS call
 	message_admins("[key_name_admin(proccaller)] has sent a Deathsquad with [commando_number] commandos.")
 	log_admin("[key_name(proccaller)] has sent a Deathsquad with [commando_number] commandos.")
 
@@ -190,7 +191,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 
 /client/proc/create_deathsquad_commando(obj/spawn_location, is_leader = FALSE)
 	var/mob/living/carbon/human/new_commando = new(spawn_location.loc)
-	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
+	var/commando_leader_rank = pick("Лейтенант", "Капитан", "Майор")
 	var/commando_name = pick(GLOB.deathsquad_names)
 	var/obj/item/organ/external/head/head_organ = new_commando.get_organ("head") // This appearance code is brought to you by ert.dm, basically the same code. If you change something here change somethere there too.
 

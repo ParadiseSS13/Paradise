@@ -1,0 +1,1294 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aV" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 1
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"bd" = (
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
+"be" = (
+/obj/structure/statue/cheese/cheesus,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"bI" = (
+/obj/machinery/light/directional/south,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass/no_creep,
+/area/ruin/powered/cheesus)
+"cn" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 8
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"cr" = (
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"cV" = (
+/obj/structure/mineral_door/wood,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"dk" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 10
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"dm" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/ruin/powered/cheesus)
+"dp" = (
+/turf/simulated/floor/grass/no_creep,
+/area/ruin/powered/cheesus)
+"dq" = (
+/obj/effect/turf_decal/siding/yellow/corner{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"dC" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"dF" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass/no_creep,
+/area/ruin/powered/cheesus)
+"ei" = (
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/grass/no_creep,
+/area/ruin/powered/cheesus)
+"en" = (
+/obj/structure/chair/sofa/pew/left,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"eW" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/turf_decal/siding/yellow/corner,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"eX" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/lavaland/surface/outdoors)
+"fk" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"fK" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"gh" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/effect/turf_decal/siding/yellow{
+	dir = 9
+	},
+/obj/item/food/sliceable/cheesecake,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"gV" = (
+/obj/structure/chair/sofa/pew,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"gX" = (
+/obj/structure/table,
+/obj/item/storage/box/lights/mixed{
+	pixel_x = 6
+	},
+/obj/item/storage/box/mousetraps{
+	pixel_x = -9
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"hZ" = (
+/mob/living/simple_animal/mouse,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"js" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/emergency/old{
+	pixel_y = 6;
+	pixel_x = 4
+	},
+/obj/item/storage/toolbox/mechanical/old{
+	pixel_x = 4
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_x = -11;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_x = -11;
+	pixel_y = 3
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"ks" = (
+/turf/simulated/floor/plasteel/stairs/right,
+/area/ruin/powered/cheesus)
+"kG" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"kJ" = (
+/obj/effect/baseturf_helper/lava/mapping_lava,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"ln" = (
+/obj/effect/turf_decal/siding/yellow/corner{
+	dir = 1
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"lv" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass/no_creep,
+/area/ruin/powered/cheesus)
+"lA" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_y = 9;
+	pixel_x = 7
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/obj/item/reagent_containers/condiment/enzyme{
+	pixel_y = 5;
+	pixel_x = 9
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"mn" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/wrench,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"mo" = (
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/plasteel/stairs/left,
+/area/ruin/powered/cheesus)
+"mO" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/effect/spawner/random/maintenance,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"nA" = (
+/mob/living/simple_animal/mouse,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"oP" = (
+/obj/effect/spawner/window/shuttle,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/powered/cheesus)
+"pm" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 5
+	},
+/obj/effect/spawner/random/trash,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"pQ" = (
+/turf/simulated/floor/wood/fancy/oak/lavaland_air,
+/area/lavaland/surface/outdoors)
+"qq" = (
+/obj/effect/turf_decal/siding/yellow,
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"qw" = (
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
+"qK" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 1
+	},
+/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"qQ" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/effect/turf_decal/siding/yellow{
+	dir = 6
+	},
+/obj/item/food/macncheese{
+	pixel_y = 7
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"rW" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"tw" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 9
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"tQ" = (
+/obj/effect/turf_decal/siding/yellow/corner,
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"vk" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 9
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"wp" = (
+/obj/structure/chair/comfy/yellow{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"wr" = (
+/obj/effect/turf_decal/siding/yellow/corner{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"xk" = (
+/obj/effect/turf_decal/siding/yellow/corner{
+	dir = 8
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"xv" = (
+/obj/structure/flora/ausbushes/stalkybush,
+/turf/simulated/floor/grass/no_creep,
+/area/ruin/powered/cheesus)
+"xT" = (
+/obj/effect/turf_decal/siding/yellow/corner{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"yi" = (
+/obj/machinery/light/directional/north,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"yM" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/book/granter/spell/summon_cheese{
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/siding/yellow{
+	dir = 1
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"zt" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
+"Am" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/effect/turf_decal/siding/yellow{
+	dir = 10
+	},
+/obj/item/reagent_containers/condiment/cheese_sauce{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"AH" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/kirbyplants/large{
+	pixel_y = 13
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"Cn" = (
+/obj/effect/spawner/window/shuttle,
+/obj/effect/mapping_helpers/damaged_window,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/powered/cheesus)
+"CW" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass/no_creep,
+/area/ruin/powered/cheesus)
+"Dm" = (
+/obj/structure/flora/ausbushes/fernybush,
+/turf/simulated/floor/grass/no_creep,
+/area/ruin/powered/cheesus)
+"DW" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"Eo" = (
+/turf/simulated/floor/plasteel/stairs/left,
+/area/ruin/powered/cheesus)
+"Ex" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"EE" = (
+/obj/structure/table/wood,
+/obj/machinery/chem_dispenser/soda{
+	pixel_y = 3;
+	dir = 8
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"Ga" = (
+/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"Gz" = (
+/obj/effect/turf_decal/siding/yellow/corner,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"Hh" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/random/dirt/maybe,
+/obj/item/food/vulpix/cheese{
+	pixel_y = 6;
+	pixel_x = -9
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"Hp" = (
+/obj/machinery/light/directional/north,
+/obj/structure/flora/ausbushes/pointybush,
+/turf/simulated/floor/grass/no_creep,
+/area/ruin/powered/cheesus)
+"Hv" = (
+/turf/simulated/wall/mineral/titanium,
+/area/ruin/powered/cheesus)
+"HV" = (
+/obj/machinery/light/small/directional/west,
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"Ka" = (
+/turf/template_noop,
+/area/template_noop)
+"Km" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood/fancy/oak/lavaland_air,
+/area/lavaland/surface/outdoors)
+"Md" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 5
+	},
+/mob/living/simple_animal/mouse,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"Nc" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 4
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"NG" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 6
+	},
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"Ou" = (
+/obj/machinery/light/directional/east,
+/turf/simulated/floor/plasteel/stairs/right,
+/area/ruin/powered/cheesus)
+"OJ" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"OS" = (
+/obj/structure/chair/sofa/pew/right,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"Ps" = (
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"Sv" = (
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"Ud" = (
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"Uu" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 1
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"UX" = (
+/obj/effect/turf_decal/siding/yellow,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"Vn" = (
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"VZ" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/ruin/powered/cheesus)
+"Xw" = (
+/obj/structure/chair/comfy/yellow{
+	dir = 8
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"XT" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/stack/sheet/cheese/fifteen{
+	pixel_y = 7;
+	pixel_x = -7
+	},
+/obj/item/stack/sheet/cheese/fifteen{
+	pixel_y = 7;
+	pixel_x = 3
+	},
+/obj/item/stack/sheet/cheese/fifteen{
+	pixel_y = 11;
+	pixel_x = -2
+	},
+/obj/effect/turf_decal/siding/yellow,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"Yy" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/effect/turf_decal/siding/yellow{
+	dir = 5
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/obj/item/food/sliceable/cheesewheel,
+/turf/simulated/floor/wood/fancy/oak,
+/area/ruin/powered/cheesus)
+"ZK" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass/no_creep,
+/area/ruin/powered/cheesus)
+"ZV" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+
+(1,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+ZV
+ZV
+ZV
+ZV
+ZV
+Ka
+Ka
+Ka
+Ka
+Ka
+"}
+(2,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+ZV
+ZV
+ZV
+ZV
+ZV
+ZV
+ZV
+Ka
+Ka
+Ka
+Ka
+"}
+(3,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+ZV
+Km
+Km
+Ka
+Ka
+ZV
+ZV
+ZV
+ZV
+Ka
+Ka
+"}
+(4,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+pQ
+Km
+zt
+qw
+Ka
+Ka
+ZV
+ZV
+ZV
+ZV
+Ka
+"}
+(5,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+qw
+qw
+zt
+Km
+pQ
+eX
+qw
+qw
+Ka
+Ka
+Ka
+ZV
+ZV
+ZV
+"}
+(6,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+qw
+qw
+qw
+dm
+cV
+cV
+dm
+dm
+dm
+qw
+Ka
+Ka
+Ka
+ZV
+ZV
+"}
+(7,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+qw
+qw
+qw
+qw
+dm
+Sv
+rW
+Ga
+fK
+oP
+qw
+Ka
+Ka
+Ka
+Ka
+ZV
+"}
+(8,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+qw
+qw
+qw
+Ka
+Ka
+qw
+qw
+qw
+qw
+dm
+dm
+Sv
+Sv
+Ud
+AH
+Cn
+qw
+qw
+Ka
+Ka
+Ka
+Ka
+"}
+(9,1,1) = {"
+Ka
+Ka
+Ka
+qw
+qw
+qw
+qw
+qw
+qw
+qw
+qw
+dm
+oP
+Cn
+dm
+mn
+rW
+Sv
+Ud
+Ex
+oP
+qw
+qw
+qw
+Ka
+Ka
+Ka
+"}
+(10,1,1) = {"
+Ka
+Ka
+Ka
+qw
+qw
+qw
+dm
+oP
+Cn
+oP
+oP
+dm
+tw
+cn
+mo
+Sv
+Ud
+cr
+dm
+dm
+dm
+dm
+dm
+qw
+Ka
+Ka
+Ka
+"}
+(11,1,1) = {"
+Ka
+Ka
+qw
+qw
+dm
+oP
+oP
+Dm
+dF
+dp
+bI
+dm
+Uu
+eW
+ks
+rW
+Ud
+Sv
+mO
+dm
+HV
+js
+dm
+qw
+qw
+Ka
+Ka
+"}
+(12,1,1) = {"
+Ka
+Ka
+qw
+dm
+dm
+Hp
+lv
+gh
+OJ
+dk
+dp
+dm
+qK
+UX
+Hv
+dm
+kG
+rW
+mO
+dm
+Ud
+gX
+dm
+qw
+Ka
+Ka
+Ka
+"}
+(13,1,1) = {"
+Ka
+Ka
+Ka
+oP
+dF
+CW
+vk
+ln
+DW
+xT
+cn
+cn
+dq
+xT
+Am
+Hv
+en
+Ud
+dm
+dm
+Vn
+dm
+dm
+qw
+qw
+Ka
+Ka
+"}
+(14,1,1) = {"
+Ka
+Ka
+qw
+oP
+ZK
+dp
+yM
+kJ
+be
+Ud
+Ex
+Ud
+Ud
+Ud
+XT
+VZ
+gV
+DW
+dm
+kG
+Sv
+dm
+bd
+qw
+qw
+qw
+Ka
+"}
+(15,1,1) = {"
+Ka
+qw
+qw
+Cn
+dp
+lv
+Md
+wr
+Sv
+Gz
+Nc
+Nc
+wr
+tQ
+qQ
+Hv
+OS
+Ud
+dm
+Ps
+hZ
+dm
+dm
+qw
+qw
+Ka
+Ka
+"}
+(16,1,1) = {"
+Ka
+qw
+qw
+dm
+dm
+Hp
+dp
+Yy
+dC
+NG
+CW
+dm
+aV
+qq
+Hv
+dm
+kG
+Ud
+dm
+Sv
+Ud
+wp
+oP
+qw
+qw
+Ka
+Ka
+"}
+(17,1,1) = {"
+Ka
+Ka
+qw
+qw
+dm
+Cn
+Cn
+xv
+ZK
+dF
+ei
+dm
+aV
+xk
+Eo
+rW
+Sv
+Sv
+Vn
+Sv
+Ud
+fk
+oP
+qw
+qw
+Ka
+Ka
+"}
+(18,1,1) = {"
+Ka
+Ka
+qw
+qw
+qw
+qw
+dm
+oP
+oP
+oP
+Cn
+dm
+pm
+dC
+Ou
+nA
+Sv
+Sv
+Vn
+Sv
+Ud
+Hh
+Cn
+Ka
+Ka
+Ka
+Ka
+"}
+(19,1,1) = {"
+Ka
+Ka
+Ka
+qw
+Ka
+qw
+qw
+qw
+qw
+qw
+qw
+dm
+oP
+oP
+dm
+mO
+Sv
+rW
+dm
+Sv
+cr
+Xw
+Cn
+qw
+Ka
+Ka
+Ka
+"}
+(20,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+qw
+qw
+qw
+qw
+qw
+qw
+qw
+dm
+dm
+Sv
+Sv
+dm
+yi
+Ud
+dm
+dm
+qw
+qw
+Ka
+Ka
+"}
+(21,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+qw
+qw
+qw
+qw
+dm
+rW
+Sv
+dm
+EE
+lA
+dm
+qw
+qw
+Ka
+Ka
+ZV
+"}
+(22,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+qw
+qw
+qw
+qw
+dm
+cV
+cV
+dm
+dm
+dm
+dm
+qw
+Ka
+Ka
+ZV
+ZV
+"}
+(23,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+qw
+qw
+eX
+pQ
+pQ
+eX
+qw
+qw
+qw
+Ka
+Ka
+ZV
+ZV
+ZV
+"}
+(24,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+zt
+pQ
+Km
+eX
+qw
+qw
+Ka
+ZV
+ZV
+ZV
+ZV
+Ka
+"}
+(25,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+ZV
+Km
+pQ
+zt
+Ka
+Ka
+ZV
+ZV
+ZV
+ZV
+Ka
+Ka
+"}
+(26,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+ZV
+ZV
+ZV
+ZV
+ZV
+ZV
+ZV
+ZV
+Ka
+Ka
+Ka
+Ka
+"}
+(27,1,1) = {"
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+Ka
+ZV
+ZV
+ZV
+ZV
+ZV
+ZV
+Ka
+Ka
+Ka
+Ka
+Ka
+"}

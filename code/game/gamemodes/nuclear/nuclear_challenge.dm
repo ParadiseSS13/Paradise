@@ -31,7 +31,7 @@
 		to_chat(user, "On second thought, the element of surprise isn't so bad after all.")
 		return
 
-	var/war_declaration = "[user.real_name] has declared [user.p_their()] intent to utterly destroy [station_name()] with a nuclear device, and dares the crew to try and stop them."
+	var/war_declaration = "[user.real_name] заявил(-а) о намерении уничтожить станцию [station_name()] с помощью ядерного устройства и бросает вызов экипажу, чтобы те попытались остановить их."
 
 	declaring_war = TRUE
 	var/custom_threat = tgui_alert(user, "Do you want to customize your declaration?", "Customize?", list("Yes", "No"))
@@ -48,7 +48,7 @@
 	if(!check_allowed(user) || !war_declaration)
 		return
 
-	GLOB.major_announcement.Announce(war_declaration, "Declaration of War", 'sound/effects/siren.ogg', msg_sanitized = TRUE)
+	GLOB.major_announcement.Announce(war_declaration, "Объявление Войны.", 'sound/effects/siren.ogg', msg_sanitized = TRUE)
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), 30 SECONDS)
 
 	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")

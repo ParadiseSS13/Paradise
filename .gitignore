@@ -89,3 +89,8 @@ _maps/map_files/**/*.mapmanipout.dmm
 # dmdoc and output
 dmdoc.exe
 dmdoc/
+
+# SS220 EDIT
+sound/tts_cache/*
+config/lobby_music/sounds/*
+config/jukebox_music/sounds/*

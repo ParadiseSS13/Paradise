@@ -1,0 +1,2 @@
+/obj/effect/spawner/random_spawners/id_skins/@SUBTYPES : /obj/effect/spawner/random/id_skins/@SUBTYPES
+

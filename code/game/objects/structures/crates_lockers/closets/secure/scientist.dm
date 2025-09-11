@@ -58,7 +58,7 @@
 	new /obj/item/door_remote/research_director(src)
 	new /obj/item/reagent_containers/drinks/mug/rd(src)
 	new /obj/item/clothing/accessory/medal/science(src)
-	new /obj/item/gun/energy/gun/mini(src)
+	// new /obj/item/gun/energy/gun/mini(src) // SS220 EDIT - remove eguns from staff lockers
 	new /obj/item/autosurgeon/organ/one_use/diagnostic_hud(src)
 
 /obj/structure/closet/secure_closet/research_reagents

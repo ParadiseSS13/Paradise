@@ -3,7 +3,7 @@
 /////////////////////////////////////////
 /datum/design/advmop
 	name = "Advanced Mop"
-	desc = "An upgraded mop with a large internal capacity for holding water or other cleaning chemicals."
+	desc = "Улучшенная швабра с большим внутренним резервуаром для воды или других чистящих средств."
 	id = "advmop"
 	req_tech = list("materials" = 4, "engineering" = 3)
 	build_type = PROTOLATHE
@@ -13,7 +13,7 @@
 
 /datum/design/blutrash
 	name = "Trash Bag of Holding"
-	desc = "An advanced trash bag that uses experimental Bluespace technology to send stored trash to a specialized pocket dimension."
+	desc = "Продвинутый мусорный мешок, использующий экспериментальные технологии блюспейса для отправки накопленного мусора в специализированное карманное хранилище."
 	id = "blutrash"
 	req_tech = list("materials" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 3)
 	build_type = PROTOLATHE
@@ -23,7 +23,7 @@
 
 /datum/design/holosign
 	name = "Janitorial Holographic Sign Projector"
-	desc = "A holograpic projector used to project wet warning signs."
+	desc = "Голографический проектор, используемый для проецирования предупреждающих знаков о скользком полу."
 	id = "holosign"
 	req_tech = list("programming" = 3)
 	build_type = PROTOLATHE
@@ -33,7 +33,7 @@
 
 /datum/design/light_replacer
 	name = "Light Replacer"
-	desc = "A device to automatically replace lights. Refill with working light bulbs."
+	desc = "Устройство для автоматической замены ламп. Заправьте его рабочими лампочками."
 	id = "light_replacer"
 	req_tech = list("magnets" = 3, "engineering" = 4)
 	build_type = PROTOLATHE
@@ -43,7 +43,7 @@
 
 /datum/design/light_replacer_bluespace
 	name = "Bluespace Light Replacer"
-	desc = "A device to automatically replace lights from a distance. Refill with working light bulbs."
+	desc = "Устройство для автоматической замены ламп на расстоянии. Заправьте его рабочими лампочками."
 	id = "light_replacer_bluespace"
 	req_tech = list("bluespace" = 7, "materials" = 5, "engineering" = 6, "plasmatech" = 6)
 	build_type = PROTOLATHE
@@ -53,7 +53,7 @@
 
 /datum/design/abductor_mop
 	name = "Alien Mop"
-	desc = "An advanced mop obtained through Abductor technology."
+	desc = "Продвинутая швабра, полученная с помощью технологий Абдукторов."
 	id = "alien_mop"
 	req_tech = list("materials" = 5, "engineering" = 5, "abductor" = 3)
 	build_type = PROTOLATHE
@@ -63,7 +63,7 @@
 
 /datum/design/abductor_light_replacer
 	name = "Alien Light Replacer"
-	desc = "An advanced light replacer obtained through Abductor technology."
+	desc = "Продвинутое устройство для замены ламп, полученное с помощью технологий Абдукторов."
 	id = "alien_light_replacer"
 	req_tech = list("bluespace" = 7, "materials" = 5, "engineering" = 5, "abductor" = 3)
 	build_type = PROTOLATHE
@@ -73,7 +73,7 @@
 
 /datum/design/abductor_flyswatter
 	name = "Alien Flyswatter"
-	desc = "An advanced flyswatter obtained through Abductor technology."
+	desc = "Продвинутая мухобойка, полученная с помощью технологий Абдукторов."
 	id = "alien_flyswatter"
 	req_tech = list("combat" = 5, "abductor" = 1)
 	build_type = PROTOLATHE

@@ -1,5 +1,5 @@
 /obj/mecha/combat/marauder
-	desc = "Heavy-duty combat exosuit, developed after the Durand model. Rarely found among civilian populations."
+	desc = "Тяжелый боевой экзокостюм, разработанный на основе модели Дюранд. Редко встречается среди гражданского населения."
 	name = "Marauder"
 	icon_state = "marauder"
 	initial_icon = "marauder"
@@ -50,15 +50,15 @@
 
 /obj/mecha/combat/marauder/examine_more(mob/user)
 	. = ..()
-	. += "<i>The newest combat mech developed by Defiance Arms, the Marauder is now their mainline offering in the galactic arms market. \
-	Based on the earlier Durand chassis, the Marauder is a high-tech weapon of war and destruction, fulfilling the spearhead role of Defiance's earlier design while supporting more firepower than ever before.</i>"
+	. += "<i>Новейший боевой экзокостюм, разработанный Defiance Arms, Мародёр теперь является их основным продуктом на галактическом рынке оружия. \
+	Мародёр представляет собой высокотехнологичное оружие войны и разрушения, выполняя те же задачи, что и Дюранд, но обеспечивая при этом ещё большую огневую мощь.</i>"
 	. += ""
-	. += "<i>The Marauder is rarely seen in civilian hands; instead, it is marketed towards military and mercenary forces. \
-	Recently, Defiance has opened sales to more customers; This includes Nanotrasen, who uses it to equip their ERT dvision.</i>"
+	. += "<i>Мародер редко можно увидеть в руках гражданских лиц, вместо этого он продается военным и наемникам. \
+	Недавно Defiance открыла продажи большему количеству клиентов, в их число входит компания Nanotrasen, которая использует его для оснащения своего подразделения ОБР.</i>"
 
 /obj/mecha/combat/marauder/ares
 	name = "Ares"
-	desc = "Heavy-duty combat exosuit, adapted from rejected early versions of the Marauder to serve as a biohazard containment exosuit. This model, albeit rare, can be found among civilian populations."
+	desc = "Сверхмощный боевой экзокостюм, адаптированный из ранних версий Мародера, используется для сдерживания биологической опасности. Эту модель, пусть и редко, но можно встретить среди гражданского населения."
 	icon_state = "ares"
 	initial_icon = "ares"
 	operation_req_access = list(ACCESS_SECURITY)
@@ -86,14 +86,14 @@
 /obj/mecha/combat/marauder/ares/examine_more(mob/user)
 	..()
 	. = list()
-	. += "<i>Developed from earlier Durand prototypes that never saw production, the Ares is produced by Defiance Arms and marketed as the final word in biohazard containment and protection. \
-	Heavily armed and armored, and perhaps a little out of date, the Ares is built from the ground up to destroy biological incursions, whatever those may be.</i>"
+	. += "<i>Разработанный на основе более ранних прототипов Дюранда, Арес производится компанией Defiance Arms и позиционируется как последнее слово в сдерживании и защите от биологических опасностей. \
+	Тяжело вооруженный и бронированный, пусть и немного устаревший, Арес создан для уничтожения биологических угроз, какими бы они ни были.</i>"
 	. += ""
-	. += "<i>Defiance does not sell the license for the Ares to be produced, and as such, it is rarer than most combat mechs, but is more commonly seen among civilian markets compared to their mainline Marauder chassis. \
-	Nanotrases supports a small stable of Ares battlemechs to be used in times of dire emergency.</i>"
+	. += "<i>Defiance Arms не продаёт лицензию на производство Арес, и поэтому он встречается реже, чем большинство боевых мехов. \
+	Nanotrasen имеет небольшую группу боевых мехов Арес, которые используются лишь в чрезвычайных ситуациях.</i>"
 
 /obj/mecha/combat/marauder/seraph
-	desc = "Heavy-duty command-type exosuit. This is a custom model, utilized only by high-ranking personnel."
+	desc = "Тяжелый командирский экзокостюм. Это уникальная модель, используемая исключительно высокопоставленным персоналом."
 	name = "Seraph"
 	icon_state = "seraph"
 	initial_icon = "seraph"
@@ -130,14 +130,14 @@
 /obj/mecha/combat/marauder/seraph/examine_more(mob/user)
 	..()
 	. = list()
-	. += "<i>In the field, Nanotrasen teams often needed a command and control unit that could assist where comms failed, and thus, they created a retrofit of the Marauder. \
-	This new Seraph variant would serve as a command model, with enhanced comms and command capabilities, but would otherwise be incredibly rare.</i>"
+	. += "<i>В полевых условиях боевым группам Nanotrasen часто требовался пункт коммуникации и командования, который мог бы помочь в случае сбоя связи, и поэтому они создали модификацию Мародёра. \
+	Серафим служит командирской моделью с расширенными возможностями связи и командования, невероятно редок среди гражданских.</i>"
 	. += ""
-	. += "<i>Due to the rarity of the Seraph, it can be assumed that things are well and truly fucked if one is seen operating. \
-	Deployed only in the direst of emergencies, it will inevitably be the lynchpin of any defense or assault.</i>"
+	. += "<i>Поскольку Серафим встречается редко, можно предположить, что увидеть его в действии - это хороший знак. \
+	Используемый только в самых чрезвычайных ситуациях, он неизбежно станет стержнем любой защиты или нападения.</i>"
 
 /obj/mecha/combat/marauder/mauler
-	desc = "Heavy-duty combat exosuit, modified with illegal technology and weapons."
+	desc = "Сверхмощный боевой экзокостюм, модифицированный нелегальными технологиями и оружием."
 	name = "Mauler"
 	icon_state = "mauler"
 	initial_icon = "mauler"
@@ -167,8 +167,8 @@
 /obj/mecha/combat/marauder/mauler/examine_more(mob/user)
 	..()
 	. = list()
-	. += "<i>A bulky, brutish combat mech painted a deep, matte black, highlighted with a menacing red; the Mauler is an illegal retrofit of Defiance's Marauder chassis. \
-	Armed to the teeth with various weapons and armored more thickly than some main battle tanks, this mechanical monstrosity is incredibly rare, and little is known about who makes them or why they exist.</i>"
+	. += "<i>Громоздкий, брутальный боевой экзокостюм, окрашенный в глубокий матовый черный цвет с угрожающим красным оттенком. Маулер представляет собой незаконную модификацию модели Мародёр от Defiance Arms. \
+Вооруженый до зубов различным вооружением и имеющий более толстую броню, чем некоторые основные боевые экзокостюмы, это механическое чудовище встречается невероятно редко, и мало что известно о том, кто его производит и зачем оно существует.</i>"
 	. += ""
-	. += "<i>The few confirmed sightings have recently been in the hands of the Gorlex Marauders, a group of hostile pirates with suspected ties to the Syndicate. \
-	The Mauler poses a severe threat to any force and should never be taken lightly.</i>"
+	. += "<i>Было замечено несколько Маулеров в руках Мародеров Горлекса, группы враждебных пиратов, подозреваемых в связях с Синдикатом. \
+	Маулер представляет серьезную угрозу для любой силы, и к нему никогда не следует относиться легкомысленно.</i>"

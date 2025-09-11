@@ -73,6 +73,7 @@
 	butcher_results = list(/obj/item/food/meat/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
+	collar_icon_state = "corgi"
 	///Currently worn item on the head slot
 	var/obj/item/inventory_head = null
 	///Currently worn item on the back slot
@@ -80,8 +81,6 @@
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
 	var/razor_shave_delay = 5 SECONDS
-	var/collar_icon_state = "corgi"
-
 
 /mob/living/simple_animal/pet/dog/corgi/Initialize(mapload)
 	. = ..()

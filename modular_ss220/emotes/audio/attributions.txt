@@ -1,0 +1,18 @@
+Creative Commons 0 license
+
+modified by Osetrokarasek:
+diona_laugh.ogg: https://freesound.org/people/Sadiquecat/sounds/724074/ , made by Sadiquecat on freesound.org, modified by Osetrokarasek , License: CC0
+diona_giggle1, diona_giggle2, diona_giggle3: https://github.com/SerbiaStrong-220/space-station-14/tree/91ec9e8097c1dbcdf53df09fca8bfd5691fce6f0/Resources/Audio/Voice/Diona , made by nicoproson on freesound.org, the three files were cropped out of the source file and re-encoded to Ogg Vorbis, License: CC0
+
+
+Creative Commons 3.0 license (https://creativecommons.org/licenses/by/3.0/).
+
+modified by MiraHell:
+unathi_laugh.ogg: https://youtu.be/I7CX0AS8RNI , License: CC-BY-3.0
+unathi_giggle.ogg: https://github.com/SerbiaStrong-220/space-station-14/pull/423/files , License: CC-BY-3.0
+
+
+Creative Commons 4.0 license (https://creativecommons.org/licenses/by/4.0/)
+
+modified by Osetrokarasek:
+diona_scream.ogg: https://github.com/SerbiaStrong-220/space-station-14/tree/91ec9e8097c1dbcdf53df09fca8bfd5691fce6f0/Resources/Audio/Voice/Diona , made by InspectorJ (http://www.jshaw.co.uk/) on freesound.org, modified by Morb0 , License: CC-BY-4.0
