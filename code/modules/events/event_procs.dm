@@ -65,6 +65,7 @@
 	active_with_role[ASSIGNMENT_MEDICAL] = 0
 	active_with_role[ASSIGNMENT_SECURITY] = 0
 	active_with_role[ASSIGNMENT_SCIENCE] = 0
+	active_with_role[ASSIGNMENT_CARGO] = 0
 
 	if(length(SSevents.debug_resources))
 		active_with_role = SSevents.debug_resources.Copy()
@@ -103,6 +104,9 @@
 
 		if(M.mind.assigned_role in GLOB.science_positions)
 			active_with_role[ASSIGNMENT_SCIENCE]++
+
+		if(M.mind.assigned_role in GLOB.supply_positions)
+			active_with_role[ASSIGNMENT_CARGO]++
 
 		if(M.mind.assigned_role in GLOB.command_positions)
 			active_with_role[ASSIGNMENT_COMMAND]++

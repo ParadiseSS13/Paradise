@@ -11,6 +11,7 @@
 #define ASSIGNMENT_CHAPLAIN "Chaplain"
 #define ASSIGNMENT_CHEMIST "Chemist"
 #define ASSIGNMENT_VIROLOGIST "Virologist"
+#define ASSIGNMENT_CARGO "Cargo Bay"
 
 #define ASSIGNMENT_STAFFING_VALUE 1
 #define EVENT_LEVEL_MUNDANE 1
