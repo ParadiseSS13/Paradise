@@ -3,8 +3,8 @@
 	announceWhen = 1
 	endWhen = 500
 	nominal_severity = EVENT_LEVEL_MODERATE
-	role_weights = list(ASSIGNMENT_CARGO = 3, ASSIGNMENT_SECURITY = 2)
-	role_requirements = list(ASSIGNMENT_CARGO = 4, ASSIGNMENT_SECURITY = 2)
+	role_weights = list(ASSIGNMENT_CARGO = 2, ASSIGNMENT_SECURITY = 2)
+	role_requirements = list(ASSIGNMENT_CARGO = 2, ASSIGNMENT_SECURITY = 2)
 	/// what type of shuttle loan situation the station faces.
 	var/datum/shuttle_loan_situation/situation
 	/// Whether the station has let Centcom commandeer the shuttle yet.
