@@ -54966,13 +54966,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/public/toilet/unisex)
-"hhJ" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 9
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "hhX" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Prison Cafeteria"
@@ -57003,6 +56996,13 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/exit)
+"ijv" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 10
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "ikv" = (
 /turf/simulated/wall,
 /area/station/science/lobby)
@@ -68619,6 +68619,13 @@
 	dir = 8
 	},
 /area/station/hallway/secondary/exit)
+"nWK" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 9
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "nXc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable{
@@ -80154,13 +80161,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/fpmaint2)
-"tAK" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 10
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "tAS" = (
 /obj/structure/door_assembly/door_assembly_mai{
 	anchored = 1;
@@ -125824,7 +125824,7 @@ aab
 cQp
 aab
 cZh
-tAK
+ijv
 dba
 djE
 dcS
@@ -125836,7 +125836,7 @@ djE
 djE
 djE
 djE
-hhJ
+nWK
 aab
 aab
 aab
