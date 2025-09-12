@@ -889,7 +889,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	inv = hud_used.inv_slots[ITEM_SLOT_2_INDEX(ITEM_SLOT_RIGHT_POCKET)]
 	inv?.update_icon()
 
-	if(!hud_used.hud_version == HUD_STYLE_STANDARD)
+	if(hud_used.hud_version != HUD_STYLE_STANDARD)
 		return
 	if(l_store)
 		l_store.screen_loc = UI_STORAGE1
