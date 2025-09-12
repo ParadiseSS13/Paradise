@@ -33,7 +33,7 @@
 /turf/simulated/floor/engine,
 /area/template_noop)
 "fK" = (
-/mob/living/simple_animal/hostile/viscerator{
+/mob/living/basic/viscerator{
 	faction = list("malf_drone")
 	},
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -57,7 +57,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/template_noop)
 "ia" = (
-/mob/living/simple_animal/hostile/malf_drone,
+/mob/living/basic/malf_drone,
 /turf/template_noop,
 /area/template_noop)
 "ir" = (
@@ -265,7 +265,7 @@
 /turf/template_noop,
 /area/template_noop)
 "EF" = (
-/mob/living/simple_animal/hostile/viscerator{
+/mob/living/basic/viscerator{
 	faction = list("malf_drone")
 	},
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -347,7 +347,7 @@
 /turf/template_noop,
 /area/template_noop)
 "OI" = (
-/mob/living/simple_animal/hostile/viscerator{
+/mob/living/basic/viscerator{
 	faction = list("malf_drone")
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -430,7 +430,7 @@
 /turf/template_noop,
 /area/template_noop)
 "Ze" = (
-/mob/living/simple_animal/hostile/viscerator{
+/mob/living/basic/viscerator{
 	faction = list("malf_drone")
 	},
 /obj/structure/table/glass/reinforced/plastitanium,
