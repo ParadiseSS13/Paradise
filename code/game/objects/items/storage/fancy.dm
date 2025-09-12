@@ -192,7 +192,7 @@
 		new /obj/item/match(src)
 
 /obj/item/storage/fancy/matches/attackby__legacy__attackchain(obj/item/match/W, mob/user, params)
-	if(istype(W, /obj/item/match) && !W.lit)
+	if(istype(W, /obj/item/match) && (!W.lit && !W.burnt))
 		W.matchignite()
 		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
 	return
