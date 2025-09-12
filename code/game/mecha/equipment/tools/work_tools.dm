@@ -468,7 +468,7 @@
 /obj/item/kinetic_crusher/mecha
 	/// Since this one doesn't have the two_handed component it will always use the value in force
 	force = 30
-	armour_penetration_flat = 15
+	armor_penetration_flat = 15
 	detonation_damage = 90
 	backstab_bonus = 50
 

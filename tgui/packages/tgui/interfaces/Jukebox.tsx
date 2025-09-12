@@ -166,7 +166,8 @@ export const Jukebox = () => {
                     maxValue={max_volume}
                     step={1}
                     stepPixelSize={5}
-                    onDrag={(e, value) =>
+                    tickWhileDragging
+                    onChange={(e, value) =>
                       act('set_volume', {
                         volume: value,
                       })

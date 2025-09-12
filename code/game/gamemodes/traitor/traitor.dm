@@ -81,7 +81,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(length(traitors))
-		var/list/text = list("<FONT size = 2><B>The traitors were:</B></FONT><br>")
+		var/list/text = list("<br><font size=3><span class='bold'>The traitors were:</span></font>")
 		for(var/datum/mind/traitor in traitors)
 			var/traitorwin = TRUE
 			text += printplayer(traitor)
@@ -103,15 +103,14 @@
 			if(length(all_objectives))//If the traitor had no objectives, don't need to process this.
 				var/count = 1
 				for(var/datum/objective/objective in all_objectives)
+					text += "<br><B>Objective #[count]</B>: [objective.explanation_text]</font>"
 					if(objective.check_completion())
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 						if(istype(objective, /datum/objective/steal))
 							var/datum/objective/steal/S = objective
 							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [S.steal_target]", "SUCCESS"))
 						else
 							SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
 						if(istype(objective, /datum/objective/steal))
 							var/datum/objective/steal/S = objective
 							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [S.steal_target]", "FAIL"))
@@ -119,12 +118,6 @@
 							SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
 						traitorwin = FALSE
 					count++
-
-			var/special_role_text
-			if(traitor.special_role)
-				special_role_text = lowertext(traitor.special_role)
-			else
-				special_role_text = "antagonist"
 
 			var/datum/contractor_hub/H = LAZYACCESS(GLOB.contractors, traitor)
 			if(H)
@@ -138,25 +131,17 @@
 						var/area/A = a
 						locations += (A == C.contract.extraction_zone ? "<b><u>[A.map_name]</u></b>" : A.map_name)
 					var/display_locations = english_list(locations, and_text = " or ")
-					// Result
-					var/result = ""
-					if(C.status == CONTRACT_STATUS_COMPLETED)
-						result = "<font color='green'><B>Success!</B></font>"
-					else if(C.status != CONTRACT_STATUS_INACTIVE)
-						result = "<font color='red'>Fail.</font>"
-					text += "<br><font color='orange'><B>Contract #[count]</B></font>: Kidnap and extract [C.target_name] at [display_locations]. [result]"
+					text += "<br><font color='orange'><b>Contract #[count]</b></font>: Kidnap and extract [C.target_name] at [display_locations]."
 					count++
 				text += "<br><font color='orange'><B>[earned_tc] TC were earned from the contracts.</B></font>"
 
 			if(traitorwin)
-				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font><br>"
 				SSblackbox.record_feedback("tally", "traitor_success", 1, "SUCCESS")
 			else
-				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font><br>"
 				SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
 
 		if(length(SSticker.mode.implanted))
-			text += "<br><br><FONT size = 2><B>The mindslaves were:</B></FONT><br>"
+			text += "<br><font size=3><b>The mindslaves were:</b></font><br>"
 			for(var/datum/mind/mindslave in SSticker.mode.implanted)
 				text += printplayer(mindslave)
 				var/datum/mind/master_mind = SSticker.mode.implanted[mindslave]
@@ -166,6 +151,6 @@
 		var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
 		text += "<br><br><b>The code phrases were:</b> <span class='danger'>[phrases]</span><br>\
-					<b>The code responses were:</b> <span class='danger'>[responses]</span><br><br>"
+					<b>The code responses were:</b> <span class='danger'>[responses]</span>"
 
 		return text.Join("")

@@ -7,7 +7,7 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 250
 	deflect_chance = 5
-	armor = list(melee = 25, bullet = 20, laser = 30, energy = 15, bomb = 0, rad = 0, fire = 100, acid = 75)
+	armor = list(MELEE = 25, BULLET = 20, LASER = 30, ENERGY = 15, BOMB = 0, RAD = 0, FIRE = 100, ACID = 75)
 	infra_luminosity = 6
 	leg_overload_coeff = 2
 	wreckage = /obj/structure/mecha_wreckage/gygax
@@ -47,7 +47,7 @@
 	initial_icon = "darkgygax"
 	max_integrity = 300
 	deflect_chance = 20
-	armor = list(melee = 40, bullet = 40, laser = 50, energy = 35, bomb = 20, rad =20, fire = 100, acid = 100)
+	armor = list(MELEE = 40, BULLET = 40, LASER = 50, ENERGY = 35, BOMB = 20, RAD =20, FIRE = 100, ACID = 100)
 	max_temperature = 35000
 	leg_overload_coeff = 100
 	operation_req_access = list(ACCESS_SYNDICATE)

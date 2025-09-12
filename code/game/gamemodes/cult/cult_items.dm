@@ -562,7 +562,7 @@
 	icon_state = "bloodspear0"
 	force = 17
 	throwforce = 30
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	attack_verb = list("attacked", "impaled", "stabbed", "torn", "gored")
 	sharp = TRUE
 	no_spin_thrown = TRUE

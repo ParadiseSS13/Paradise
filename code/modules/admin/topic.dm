@@ -1821,7 +1821,7 @@
 			return
 
 		var/mob/dead/observer/ghost = C.mob
-		ghost.ManualFollow(target)
+		ghost.manual_follow(target)
 
 	else if(href_list["check_antagonist"])
 		check_antagonists()

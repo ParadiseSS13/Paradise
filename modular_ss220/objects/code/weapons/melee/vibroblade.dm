@@ -22,7 +22,7 @@
 	throwforce = 15
 	throw_speed = 2
 	throw_range = 5
-	armour_penetration_percentage = 75
+	armor_penetration_percentage = 75
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
 	sharp = TRUE

@@ -24,7 +24,7 @@ Bonus
 	level = 5
 	severity = 3
 	chem_treatments = list(
-		"synaptazine" = list("multiplier" = 0, "timer" = 0),
+		"synaptizine" = list("multiplier" = 0, "timer" = 0),
 		"ephedrine" = list("multiplier" = 0, "timer" = 0))
 
 /datum/symptom/hallucigen/symptom_act(datum/disease/advance/A, unmitigated)

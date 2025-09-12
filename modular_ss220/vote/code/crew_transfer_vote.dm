@@ -63,7 +63,7 @@
 
 	if(client_mob in GLOB.dead_mob_list)
 		var/mob/dead/observer/ghost = client_mob
-		if(isobserver(ghost) && ghost.started_as_observer)
+		if(isobserver(ghost) && (ghost.ghost_flags & GHOST_START_AS_OBSERVER))
 			return GHOST_VOTE_WEIGHT(online_players)
 		return DEAD_VOTE_WEIGHT(online_players)
 

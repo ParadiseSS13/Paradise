@@ -169,7 +169,6 @@
 	initial_icon = "deathripley"
 	step_in = 3
 	slow_pressure_step_in = 3
-	opacity=0
 	max_temperature = 65000
 	max_integrity = 300
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 70, RAD = 0, FIRE = 100, ACID = 100)

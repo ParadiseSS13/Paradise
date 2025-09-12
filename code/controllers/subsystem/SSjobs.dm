@@ -121,7 +121,7 @@ SUBSYSTEM_DEF(jobs)
 		L.Add("Как сотрудник инженерии, обязательно ознакомьтесь с [wiki_link("Standard_Operating_Procedure_(Engineering)", "СРП отдела")].")
 	if(job.job_department_flags & DEP_FLAG_MEDICAL)
 		L.Add("Как сотрудник медотдела, обязательно ознакомьтесь с [wiki_link("Standard_Operating_Procedure_(Medical)", "СРП отдела")].")
-	if(job.job_department_flags & DEP_FLAG_SCIENCE) // geneticist gets both, yeah sure why not
+	if(job.job_department_flags & DEP_FLAG_SCIENCE)
 		L.Add("Как сотрудник НИО, обязательно ознакомьтесь с [wiki_link("Standard_Operating_Procedure_(Science)", "СРП отдела")].")
 	if(job.job_department_flags & DEP_FLAG_SECURITY)
 		L.Add("Как сотрудник безопасности, вы должны знать [wiki_link("Space Law", "Космический Закон")] и [wiki_link("Legal_Standard_Operating_Procedure", "Правовые Стандартные Рабочие Процедуры")], включая [wiki_link("Standard_Operating_Procedure_(Security)", "СРП отдела")].")
@@ -310,6 +310,7 @@ SUBSYSTEM_DEF(jobs)
 		to_chat(H, "<span class='boldnotice'>Ваш отдел получает $[department_account.payday_amount] кредитов каждые 30 минут</span>")
 		to_chat(H, "<span class='boldnotice'>Номер аккаунта [department.department_name] отдела: #[department_account.account_number], пин-код аккаунта: [department_account.account_pin]</span>")
 
+/// Returns a list of jobs keyed by name to UI color for the job transfer selection.
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
 	if(tgtcard)
@@ -331,7 +332,17 @@ SUBSYSTEM_DEF(jobs)
 			jobs_to_formats["Custom"] = "grey"
 	return jobs_to_formats
 
-
+/datum/controller/subsystem/jobs/proc/get_job_titles_for_id_computer()
+	. = list()
+	.["top"] = list("Captain", "Custom")
+	.["assistant"] = GLOB.assistant_positions
+	.["medical"] = GLOB.medical_positions
+	.["engineering"] = GLOB.engineering_positions
+	.["science"] = GLOB.science_positions
+	.["security"] = GLOB.active_security_positions
+	.["service"] = GLOB.service_positions
+	.["supply"] = GLOB.supply_positions
+	.["centcom"] = get_all_centcom_jobs() + get_all_ERT_jobs()
 
 /datum/controller/subsystem/jobs/proc/log_job_transfer(transferee, oldvalue, newvalue, whodidit, reason)
 	id_change_records["[id_change_counter]"] = list(

@@ -21,7 +21,7 @@
 	name = "шип"
 	desc = "Маленький самозаряжающийся кристаллический шип испускающий энергетический вайб."
 	icon_state = "magspear"
-	armour_penetration_flat = 20
+	armor_penetration_flat = 20
 	damage = 7
 	knockdown = 0
 	var/bleed_loss = 5
@@ -39,7 +39,7 @@
 
 /obj/item/projectile/bullet/vox_spike/long
 	damage = 5
-	armour_penetration_flat = 60
+	armor_penetration_flat = 60
 	jitter = 1 SECONDS
 	forcedodge = 3
 	bleed_loss = 3

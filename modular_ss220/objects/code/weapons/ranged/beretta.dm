@@ -134,8 +134,8 @@
 /obj/item/projectile/bullet/mmap919
 	name = "9x19mm armor-piercing bullet"
 	damage = 18
-	armour_penetration_percentage = 35
-	armour_penetration_flat = 15
+	armor_penetration_percentage = 35
+	armor_penetration_flat = 15
 
 /obj/item/projectile/bullet/mmbsp919
 	name = "9x19 bluespace bullet"

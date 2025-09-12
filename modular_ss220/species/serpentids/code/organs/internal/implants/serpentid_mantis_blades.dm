@@ -8,7 +8,7 @@
 	desc = "Biological melee weapon. Sharp and durable. It can cut off some heads, or maybe not..."
 	origin_tech = null
 	force = 11
-	armour_penetration_flat = 20
+	armor_penetration_flat = 20
 	new_attack_chain = TRUE
 	var/obj/item/organ/internal/cyberimp/chest/serpentid_blades/parent_blade_implant
 
@@ -24,7 +24,7 @@
 	if(ishuman(owner))
 		if(IS_CHANGELING(owner) && force == 11)
 			force = 8
-			armour_penetration_flat = 10
+			armor_penetration_flat = 10
 
 /obj/item/kitchen/knife/combat/serpentblade/attack(mob/living/M, mob/living/user, def_zone)
 	. = ..()

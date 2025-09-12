@@ -50,7 +50,7 @@
 
 	// See /obj/structure/closet/Initialize for explanation of
 	// addtimer use here
-	addtimer(CALLBACK(src, PROC_REF(shelf_items)), 0)
+	END_OF_TICK(CALLBACK(src, PROC_REF(shelf_items)))
 
 /datum/component/shelver/proc/shelf_items()
 	var/obj/structure/structure_parent = parent

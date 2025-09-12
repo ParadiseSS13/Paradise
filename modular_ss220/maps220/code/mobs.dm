@@ -1347,7 +1347,7 @@
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn/drone
 	name = "drone"
 	icon_state = "drone"
-	syndi_mob = /mob/living/simple_animal/hostile/malf_drone/spacebattle
+	syndi_mob = /mob/living/basic/malf_drone/spacebattle
 
 // Syndie griefsky
 /mob/living/simple_animal/bot/secbot/griefsky/syndie
@@ -1361,7 +1361,7 @@
 	weapons_check = TRUE
 	emagged = TRUE
 
-/mob/living/simple_animal/hostile/malf_drone/spacebattle
+/mob/living/basic/malf_drone/spacebattle
 	icon = 'modular_ss220/maps220/icons/spacebattle.dmi'
 	icon_state = "wisewill-Combat-roll"
 	icon_living = "wisewill-Combat-roll"
@@ -1369,7 +1369,7 @@
 	health = 50
 	maxHealth = 50
 	faction = list("syndicate")
-	projectiletype = /obj/item/projectile/beam/laser/syndrone
+	projectile_type = /obj/item/projectile/beam/laser/syndrone
 
 /obj/item/projectile/beam/laser/syndrone
 	name = "light immolation beam"
@@ -1377,7 +1377,7 @@
 	icon_state = "scatterlaser"
 	eyeblur = 1
 
-/mob/living/simple_animal/hostile/malf_drone/spacebattle/drop_loot()
+/mob/living/basic/malf_drone/spacebattle/drop_loot()
 	do_sparks(3, 1, src)
 	var/turf/T = get_turf(src)
 
@@ -1401,8 +1401,8 @@
 	step_to(K, get_turf(pick(view(7, src))))
 	K.update_icon()
 
-/mob/living/simple_animal/hostile/malf_drone/spacebattle/update_icons()
-	if(passive_mode)
+/mob/living/basic/malf_drone/spacebattle/update_icons()
+	if(passive)
 		icon_state = "wisewill-Combat"
 	else if(health / maxHealth > 0.9)
 		icon_state = "wisewill-Combat-roll2"

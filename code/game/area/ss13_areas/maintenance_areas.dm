@@ -1,5 +1,5 @@
 
-//Maintenance
+// MARK: Directionals
 /area/station/maintenance
 	ambientsounds = MAINTENANCE_SOUNDS
 	valid_territory = FALSE
@@ -89,21 +89,59 @@
 	name = "Технические Тоннели Турбины"
 	icon_state = "atmosmaint"
 
+/area/station/engineering/atmos/asteroid_maint
+	name = "Asteroid Filtering Maintenance"
+	icon_state = "asteroid_maint"
+
+/area/station/maintenance/xenobio_north
+	name = "Xenobiology North Maintenance"
+	icon_state = "xenobio_north_maint"
+
+/area/station/maintenance/xenobio_south
+	name = "Xenobiology South Maintenance"
+	icon_state = "xenobio_south_maint"
+
+// MARK: Maint Rooms
+/area/station/maintenance/assembly_line
+	name = "\improper Assembly Line"
+	icon_state = "ass_line"
+	apc_starts_off = TRUE
+
+/area/station/maintenance/abandoned_garden
+	name = "\improper Abandoned Garden"
+	icon_state = "hydro"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/station/maintenance/library
+	name = "\improper Abandoned Library"
+	icon_state = "library"
+	apc_starts_off = TRUE
+
+/area/station/maintenance/abandoned_office
+	name = "\improper Abandoned Office"
+	icon_state = "abandoned_office"
+	apc_starts_off = TRUE
+
+/area/station/maintenance/electrical_shop
+	name = "\improper Electronics Den"
+	icon_state = "elect"
+
+/area/station/maintenance/gambling_den
+	name = "\improper Gambling Den"
+	icon_state = "yellow"
+
+/area/station/maintenance/theatre
+	name = "\improper Abandoned Theatre"
+	icon_state = "Theatre"
+	sound_environment = SOUND_AREA_WOODFLOOR
+
+/area/station/maintenance/electrical
+	name = "\improper Electrical Maintenance"
+	icon_state = "elect"
+
 /area/station/maintenance/incinerator
 	name = "Мусоросжигатель"
 	icon_state = "incin"
-
-/area/station/maintenance/turbine
-	name = "Турбина"
-	icon_state = "turbine"
-
-/area/station/maintenance/disposal
-	name = "Комната Утилизации"
-	icon_state = "disposals"
-
-/area/station/maintenance/electrical
-	name = "Необслуживаемое Помещение Электрооборудования"
-	icon_state = "elect"
 
 /area/station/maintenance/abandonedbar
 	name = "Заброшенный Бар"
@@ -115,31 +153,16 @@
 	icon_state = "oldserver"
 	apc_starts_off = TRUE
 
-/area/station/maintenance/library
-	name = "Заброшенная Библиотека"
-	icon_state = "library"
-	apc_starts_off = TRUE
-
-/area/station/maintenance/theatre
-	name = "Заброшеный Театр"
-	icon_state = "Theatre"
-	sound_environment = SOUND_AREA_WOODFLOOR
-
 /area/station/maintenance/spacehut
-	name = "Космическая Хата"
+	name = "Космическая Хижина"
 	icon_state = "spacehut"
 	apc_starts_off = TRUE
 
-/area/station/maintenance/electrical_shop
-	name ="Уголок Электроники"
-	icon_state = "elect"
+/area/station/maintenance/turbine
+	name = "Турбина"
+	icon_state = "turbine"
 
-/area/station/maintenance/gambling_den
-	name = "Игровой Зал"
-	icon_state = "yellow"
-
-// Solars
-
+// MARK: Solars
 /area/station/maintenance/solar_maintenance
 	name = "Пункт Контроля Солнечных Панелей"
 	icon_state = "general_solar_control"
@@ -176,32 +199,10 @@
 	name = "Пункт Контроля Западных Солнечных Панелей"
 	icon_state = "port_solar_control"
 
-/// Derelict Assembly Line
-/area/station/maintenance/assembly_line
-	name = "Комната Сборочной Линии"
-	icon_state = "ass_line"
-	apc_starts_off = TRUE
-
-/area/station/maintenance/abandoned_office
-	name = "Заброшенный Офис"
-	icon_state = "abandoned_office"
-	apc_starts_off = TRUE
-
-/area/station/maintenance/abandoned_garden
-	name = "Заброшенный Сад"
-	icon_state = "hydro"
-	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-
-/area/station/maintenance/xenobio_north
-	name = "Северные Технические Тоннели Ксенобиологии"
-	icon_state = "xenobio_north_maint"
-
-/area/station/maintenance/xenobio_south
-	name = "Южные Технические Тоннели Ксенобиологии"
-	icon_state = "xenobio_south_maint"
-
-
-// CERE
+// MARK: Disposals
+/area/station/maintenance/disposal
+	name = "Комната Утилизации"
+	icon_state = "disposals"
 
 /area/station/maintenance/disposal/southwest
 	name = "Юго-Западный Мусоропровод"
@@ -236,8 +237,7 @@
 /area/station/maintenance/disposal/external/north
 	name = "Внешний Северный Мусоропровод"
 
-// Emerald Station
-
+// MARK: Dorms
 /area/station/maintenance/dorms
 	name = "Технические Тоннели Дормиториев"
 	icon_state = "dorms_maint"
@@ -258,6 +258,7 @@
 	name = "Северные Технические Тоннели Дормиториев"
 	icon_state = "dorms_maint_fore"
 
+// MARK: Command
 /area/station/maintenance/command
 	name = "Технические Тоннели Мостика"
 	icon_state = "cmd_maint"
@@ -294,6 +295,7 @@
 	name = "Западные Технические Тоннели Мостика"
 	icon_state = "cmd_maint_port"
 
+// MARK: Security
 /area/station/maintenance/security
 	name = "Технические Тоннели Брига"
 	icon_state = "sec_maint"
@@ -330,6 +332,39 @@
 	name = "Западные Технические Тоннели Брига"
 	icon_state = "sec_maint_port"
 
-/area/station/engineering/atmos/asteroid_maint
-	name = "Технические Тоннели Атмосферного Отсека Астероида"
-	icon_state = "asteroid_maint"
+// MARK: Service
+/area/station/maintenance/service
+	name = "Технические Тоннели Сервиса"
+	icon_state = "serv_maint"
+
+/area/station/maintenance/service/fore
+	name = "Северные Технические Тоннели Сервиса"
+	icon_state = "serv_maint_fore"
+
+/area/station/maintenance/service/fore_starboard
+	name = "Северо-Восточные Технические Тоннели Сервиса"
+	icon_state = "serv_maint_fore_starboard"
+
+/area/station/maintenance/service/fore_port
+	name = "Северо-Западные Технические Тоннели Сервиса"
+	icon_state = "serv_maint_fore_port"
+
+/area/station/maintenance/service/aft
+	name = "Южные Технические Тоннели Сервиса"
+	icon_state = "serv_maint_aft"
+
+/area/station/maintenance/service/aft_starboard
+	name = "Юго-Восточные Технические Тоннели Сервиса"
+	icon_state = "serv_maint_aft_starboard"
+
+/area/station/maintenance/service/aft_port
+	name = "Юго-Западные Технические Тоннели Сервиса"
+	icon_state = "serv_maint_aft_port"
+
+/area/station/maintenance/service/starboard
+	name = "Восточные Технические Тоннели Сервиса"
+	icon_state = "serv_maint_starboard"
+
+/area/station/maintenance/service/port
+	name = "Западные Технические Тоннели Сервиса"
+	icon_state = "serv_maint_port"

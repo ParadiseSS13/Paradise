@@ -86,6 +86,10 @@ _maps/map_files/**/*.mapmanipout.dmm
 # byond version manager tracking file
 .byondversion
 
+# dmdoc and output
+dmdoc.exe
+dmdoc/
+
 # SS220 EDIT
 sound/tts_cache/*
 config/lobby_music/sounds/*

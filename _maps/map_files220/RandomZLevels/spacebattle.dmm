@@ -1176,7 +1176,7 @@
 /area/awaymission/space_battle/kitchen)
 "dZ" = (
 /obj/effect/turf_decal/box,
-/mob/living/simple_animal/hostile/malf_drone/spacebattle,
+/mob/living/basic/malf_drone/spacebattle,
 /turf/simulated/floor/mineral/plastitanium/red/airless{
 	icon_state = "plastitanium"
 	},
@@ -4372,7 +4372,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/space_battle/hallway4)
 "ol" = (
-/mob/living/simple_animal/hostile/malf_drone/spacebattle,
+/mob/living/basic/malf_drone/spacebattle,
 /turf/space,
 /area/space)
 "om" = (
@@ -6984,7 +6984,7 @@
 /area/space)
 "xk" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/mob/living/simple_animal/hostile/malf_drone/spacebattle,
+/mob/living/basic/malf_drone/spacebattle,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/syndicate/syndicate5)
 "xl" = (
@@ -7848,7 +7848,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/malf_drone/spacebattle,
+/mob/living/basic/malf_drone/spacebattle,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/space_battle/syndicate/syndicate3)
 "Al" = (
@@ -9451,7 +9451,7 @@
 	},
 /area/awaymission/space_battle/hallway2)
 "Fo" = (
-/mob/living/simple_animal/hostile/malf_drone/spacebattle,
+/mob/living/basic/malf_drone/spacebattle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/space_battle/syndicate/syndicate5)
 "Fp" = (
@@ -10134,7 +10134,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/space_battle/living)
 "Hu" = (
-/mob/living/simple_animal/hostile/malf_drone/spacebattle,
+/mob/living/basic/malf_drone/spacebattle,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "podfloor"
 	},
@@ -10442,7 +10442,7 @@
 /area/awaymission/space_battle/syndicate/syndicate1)
 "Is" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/malf_drone/spacebattle,
+/mob/living/basic/malf_drone/spacebattle,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "podfloor"
 	},
@@ -15554,7 +15554,7 @@
 	pixel_x = 16;
 	pixel_y = -10
 	},
-/mob/living/simple_animal/hostile/malf_drone/spacebattle,
+/mob/living/basic/malf_drone/spacebattle,
 /turf/space,
 /area/space)
 "Zb" = (

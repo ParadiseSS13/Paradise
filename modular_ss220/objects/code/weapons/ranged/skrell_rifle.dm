@@ -118,7 +118,7 @@
 
 /obj/item/projectile/bullet/railgun
 	damage = 35
-	armour_penetration_flat = 80
+	armor_penetration_flat = 80
 	pass_flags = PASSTABLE | PASSGRILLE | PASSGIRDER
 	speed = 0.2
 	icon_state = "gauss_silenced"
@@ -126,7 +126,7 @@
 
 /obj/item/projectile/bullet/railgun/railgun_strong
 	damage = 45
-	armour_penetration_flat = 30
+	armor_penetration_flat = 30
 	weaken = 0.2
 	speed = 0.2
 

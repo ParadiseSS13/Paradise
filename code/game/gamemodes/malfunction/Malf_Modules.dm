@@ -490,7 +490,7 @@
 	desc = "Перегревает машину, вызывая небольшой взрыв через небольшой промежуток времени."
 	action_icon_state = "overload_machine"
 	uses = 4
-	ranged_mousepointer = 'icons/effects/cult_target.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/cult_target.dmi'
 	selection_activated_message = "<span class='notice'>Вы подключаетесь к энергосети. Кликните на машину для её подрыва или используйте способность повторно для отмены.</span>"
 	selection_deactivated_message = "<span class='notice'>Вы отключаетесь от энергосети.</span>"
 
@@ -531,7 +531,7 @@
 	desc = "Оживляет целевую машину, заставляя её атаковать всех, кто рядом."
 	action_icon_state = "override_machine"
 	uses = 4
-	ranged_mousepointer = 'icons/effects/override_machine_target.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/override_machine_target.dmi'
 	selection_activated_message = "<span class='notice'>Вы подключаетесь к энергосети. Кликните на машину для оживления или используйте способность повторно для отмены.</span>"
 	selection_deactivated_message = "<span class='notice'>Вы отключаетесь от энергосети.</span>"
 
@@ -888,7 +888,7 @@
 	desc = "Возвращает киборга к 'жизни' после небольшой задержки."
 	action_icon_state = "overload_machine"
 	uses = 2
-	ranged_mousepointer = 'icons/effects/overload_machine_target.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/explode_machine_target.dmi'
 	selection_activated_message = "<span class='notice'>Вызов процесса 0FFFFFFF в логике ЛКП, ожидается ответ пользователя.</span>"
 	selection_deactivated_message = "<span class='notice'>Логика ЛКП сбрасывается...</span>"
 	var/is_active = FALSE
@@ -934,7 +934,7 @@
 	name = "Перекатиться"
 	action_icon_state = "roll_over"
 	desc = "Позволяет перекатиться в выбранном направлении, круша всё на своём пути."
-	ranged_mousepointer = 'icons/effects/cult_target.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/cult_target.dmi'
 	selection_activated_message = "<span class='notice'>Ваши приводы перемещаются в то время, как вы готовитесь к перекату. Кликните по соседнему тайлу чтобы перекатиться на него!</span>"
 	selection_deactivated_message = "<span class='notice'>Вы отключаете протоколы перкатывания.</span>"
 	COOLDOWN_DECLARE(time_til_next_tilt)

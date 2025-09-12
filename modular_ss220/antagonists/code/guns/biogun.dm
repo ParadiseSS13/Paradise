@@ -123,7 +123,7 @@
 	obj_damage = 0
 	melee_damage_lower = 5
 	melee_damage_upper = 10
-	armour_penetration_flat = 30
+	armor_penetration_flat = 30
 	attacktext = "кусает"
 
 /mob/living/simple_animal/hostile/viscerator/vox/kusaka/death(gibbed)
@@ -142,7 +142,7 @@
 	obj_damage = 50
 	melee_damage_lower = 10
 	melee_damage_upper = 20
-	armour_penetration_flat = 20
+	armor_penetration_flat = 20
 	attacktext = "таранит"
 	mob_size = MOB_SIZE_HUMAN
 
@@ -159,7 +159,7 @@
 	melee_damage_type = TOX
 	melee_damage_lower = 5
 	melee_damage_upper = 15
-	armour_penetration_flat = 80
+	armor_penetration_flat = 80
 	attacktext = "вонзается"
 
 /mob/living/simple_animal/hostile/viscerator/vox/tox/death(gibbed)

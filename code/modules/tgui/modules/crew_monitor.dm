@@ -43,7 +43,7 @@
 					AI.ai_actual_track(H)
 			if(isobserver(usr))
 				var/mob/dead/observer/ghost = usr
-				ghost.ManualFollow(H)
+				ghost.manual_follow(H)
 		if("switch_level")
 			if(!is_advanced)
 				return

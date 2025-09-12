@@ -338,19 +338,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/ui_data(mob/user)
 	var/list/data = list()
 	data["mode"] = mode
-	data["modify_name"] = modify ? modify.name : FALSE
-	data["modify_owner"] = modify && modify.registered_name ? modify.registered_name : "-----"
-	data["modify_rank"] = modify?.rank ? modify.rank : FALSE
-	data["modify_assignment"] = modify?.assignment ? modify.assignment : "Unassigned"
-	data["modify_lastlog"] = modify && modify.lastlog ? modify.lastlog : FALSE
-	data["scan_name"] = scan ? scan.name : FALSE
-	data["scan_rank"] = scan ? scan.rank : FALSE
+
+	// slam in nulls because UIs that aren't autoupdate can get weird about
+	// refreshing data even at the points when it's supposed to (like on UI
+	// interactions)
+	data["modifying_card"] = modify?.to_tgui()
+	data["scanned_card"] = scan?.to_tgui()
 
 	data["authenticated"] = is_authenticated(user) ? TRUE : FALSE
 	data["auth_or_ghost"] = data["authenticated"] || isobserver(user)
 	data["target_dept"] = target_dept
-	data["iscentcom"] = is_centcom() ? TRUE : FALSE
-	data["isadmin"] = user.can_admin_interact()
+	data["is_centcom"] = is_centcom() ? TRUE : FALSE
 
 	switch(mode)
 		if(IDCOMPUTER_SCREEN_TRANSFER) // JOB TRANSFER
@@ -358,28 +356,18 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(!scan)
 					return data
 
-				data["jobFormats"] = SSjobs.format_jobs_for_id_computer(modify)
-				data["jobs_assistant"] = GLOB.assistant_positions
-				data["canterminate"] = has_idchange_access()
+				data["job_formats"] = SSjobs.format_jobs_for_id_computer(modify)
+				data["can_terminate"] = has_idchange_access()
 
 				if(target_dept)
 					data["jobs_dept"] = get_subordinates(scan.rank, FALSE)
 				else
-					data["account_number"] = modify ? modify.associated_account_number : null
-					data["jobs_top"] = list("Captain", "Custom")
-					data["jobs_engineering"] = GLOB.engineering_positions
-					data["jobs_medical"] = GLOB.medical_positions
-					data["jobs_science"] = GLOB.science_positions
-					data["jobs_security"] = GLOB.active_security_positions
-					data["jobs_service"] = GLOB.service_positions
-					data["jobs_supply"] = GLOB.supply_positions - "Head of Personnel"
-					data["jobs_centcom"] = get_all_centcom_jobs() + get_all_ERT_jobs()
-					data["current_skin"] = modify.icon_state
+					data["jobs"] = SSjobs.get_job_titles_for_id_computer()
 					data["card_skins"] = format_card_skins(get_station_card_skins())
 					data["all_centcom_skins"] = is_centcom() ? format_card_skins(get_centcom_card_skins()) : FALSE
 
 		if(IDCOMPUTER_SCREEN_SLOTS) // JOB SLOTS
-			data["job_slots"] = format_job_slots(!isobserver(user), data["isadmin"])
+			data["job_slots"] = format_job_slots(!isobserver(user), user.can_admin_interact())
 			data["priority_jobs"] = list()
 			for(var/datum/job/a in SSjobs.prioritized_jobs)
 				data["priority_jobs"] += a.title
@@ -397,7 +385,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				data["regions"] = get_accesslist_static_data(REGION_GENERAL, is_centcom() ? REGION_CENTCOMM : REGION_COMMAND)
 		if(IDCOMPUTER_SCREEN_RECORDS) // RECORDS
 			if(is_authenticated(user))
-				data["records"] = SSjobs.format_job_change_records(data["iscentcom"])
+				data["records"] = SSjobs.format_job_change_records(data["is_centcom"])
 		if(IDCOMPUTER_SCREEN_DEPT) // DEPARTMENT EMPLOYEE LIST
 			if(is_authenticated(user) && scan) // .requires both (aghosts don't count)
 				data["jobs_dept"] = get_subordinates(scan.rank, FALSE)
@@ -408,67 +396,66 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(modify)
 		modify.name = "[modify.registered_name]'s ID Card ([modify.assignment])"
 
+/obj/machinery/computer/card/proc/eject_card(mob/user, obj/card)
+	if(ishuman(user))
+		card.forceMove(get_turf(user))
+		if(Adjacent(user))
+			user.put_in_hands(card)
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+	else
+		card.forceMove(get_turf(src))
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+
+/obj/machinery/computer/card/proc/interact_modify(mob/user)
+	if(modify)
+		GLOB.data_core.manifest_modify(modify.registered_name, modify.assignment)
+		regenerate_id_name()
+		eject_card(user, modify)
+		modify = null
+	else if(Adjacent(usr))
+		var/obj/item/I = usr.get_active_hand()
+		if(istype(I, /obj/item/card/id))
+			if(istype(I, /obj/item/card/id/nct_data_chip))
+				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+				to_chat(usr, "<span class='warning'>The data chip doesn't fit!</span>")
+				return FALSE
+			usr.drop_item()
+			I.forceMove(src)
+			modify = I
+			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+
+/obj/machinery/computer/card/proc/interact_scanned(mob/user)
+	if(scan)
+		eject_card(user, scan)
+		scan = null
+	else if(Adjacent(usr))
+		var/obj/item/I = usr.get_active_hand()
+		if(istype(I, /obj/item/card/id))
+			if(istype(I, /obj/item/card/id/nct_data_chip))
+				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+				to_chat(usr, "<span class='warning'>The data chip doesn't fit!</span>")
+				return FALSE
+			if(!check_access(I))
+				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+				to_chat(usr, "<span class='warning'>This card does not have access.</span>")
+				return FALSE
+			usr.drop_item()
+			I.forceMove(src)
+			scan = I
+			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+
 /obj/machinery/computer/card/ui_act(action, params)
 	if(..())
 		return
 	. = TRUE
 
 	// 1st, handle the functions that require no authorization at all
-
 	switch(action)
-		if("scan") // inserting or removing your authorizing ID
-			if(scan)
-				if(ishuman(usr))
-					scan.forceMove(get_turf(src))
-					if(Adjacent(usr))
-						usr.put_in_hands(scan)
-					scan = null
-					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
-				else
-					scan.forceMove(get_turf(src))
-					scan = null
-					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
-			else if(Adjacent(usr))
-				var/obj/item/I = usr.get_active_hand()
-				if(istype(I, /obj/item/card/id))
-					if(istype(I, /obj/item/card/id/nct_data_chip))
-						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-						to_chat(usr, "<span class='warning'>The data chip doesn't fit!</span>")
-						return FALSE
-					if(!check_access(I))
-						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-						to_chat(usr, "<span class='warning'>This card does not have access.</span>")
-						return FALSE
-					usr.drop_item()
-					I.forceMove(src)
-					scan = I
-					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+		if("interact_modify") // inserting or removing the card being modified
+			interact_modify(usr)
 			return
-		if("modify") // inserting or removing the ID you plan to modify
-			if(modify)
-				GLOB.data_core.manifest_modify(modify.registered_name, modify.assignment)
-				regenerate_id_name()
-				if(ishuman(usr))
-					modify.forceMove(get_turf(src))
-					if(Adjacent(usr))
-						usr.put_in_hands(modify)
-					modify = null
-					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
-				else
-					modify.forceMove(get_turf(src))
-					modify = null
-					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
-			else if(Adjacent(usr))
-				var/obj/item/I = usr.get_active_hand()
-				if(istype(I, /obj/item/card/id))
-					if(istype(I, /obj/item/card/id/nct_data_chip))
-						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-						to_chat(usr, "<span class='warning'>The data chip doesn't fit!</span>")
-						return FALSE
-					usr.drop_item()
-					I.forceMove(src)
-					modify = I
-					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		if("interact_scanned") // inserting or removing the card with your access credentials
+			interact_scanned(usr)
 			return
 		if("mode") // changing mode in the menu
 			mode = text2num(params["mode"])
@@ -701,14 +688,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			modify.registered_name = temp_name
 			regenerate_id_name()
 			return
-		if("account") // card account number
+		if("set_card_account_number") // card account number
 			var/account_num = tgui_input_number(usr, "Account Number", "Input Number", modify.associated_account_number, 9999999, 1000000)
 			if(isnull(account_num) || !scan || !modify)
 				return FALSE
 			modify.associated_account_number = account_num
 			//for future reference, you should never be able to modify the money account datum through the card computer
 			return
-		if("skin")
+		if("set_card_skin")
 			if(!modify)
 				return FALSE
 			var/skin = params["skin_target"]
