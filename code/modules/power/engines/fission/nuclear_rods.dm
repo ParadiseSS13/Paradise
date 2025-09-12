@@ -4,6 +4,8 @@
 	icon = 'icons/obj/fission/rods.dmi'
 	icon_state = "irradiated"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE
+	/// The path of the object required to fabricate this rod. leave null for nothing
+	var/required_object
 	/// How much durability is left before the rod is useless
 	var/durability = 6000
 	/// The maximum amount of durability for this rod. Used for percentage calculations
@@ -22,6 +24,8 @@
 	var/list/rad_type
 	/// What items need to be adjacent to this rod for it to function properly
 	var/list/adjacent_requirements = list()
+	/// Is this design visible on the rod fabricator
+	var/craftable = TRUE
 
 /obj/item/nuclear_rod/examine(mob/user)
 	. = ..()
@@ -78,6 +82,7 @@
 	heat_enrich_result = /obj/item/nuclear_rod/fuel/weak_thorium
 	power_enrich_result = /obj/item/nuclear_rod/fuel/weak_plutonium
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator,)
+	materials = list(MAT_METAL = 2000, MAT_URANIUM = 1000)
 
 /obj/item/nuclear_rod/fuel/weak_thorium
 	name = "weak thorium fuel rod"

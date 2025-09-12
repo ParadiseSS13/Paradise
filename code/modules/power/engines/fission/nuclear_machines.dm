@@ -129,19 +129,13 @@
 	rod_result = null
 	soundloop.stop()
 
-/obj/item/circuitboard/nuclear_centrifuge
-	board_name = "Nuclear Centrifuge"
-	icon_state = "engineering"
-	build_path = /obj/machinery/nuclear_centrifuge
-	board_type = "machine"
-	origin_tech = "programming=4;engineering=4"
-	req_components = list(/obj/item/stock_parts/manipulator = 4)
+// MARK: Rod Fabricator
 
 /obj/machinery/nuclear_rod_fabricator
 	name = "Nuclear Fuel Rod Fabricator"
 	desc = "A highly specialized fabricator for crafting nuclear rods."
-	icon = 'icons/obj/fission/reactor_parts.dmi'
-	icon_state = "centrifuge"
+	icon = 'icons/obj/machines/research.dmi'
+	icon_state = "protolathe"
 	idle_power_consumption = 50
 	active_power_consumption = 3000
 	density = TRUE
@@ -156,13 +150,38 @@
 	var/datum/component/material_container/materials
 	/// How fast do we operate and/or do we get extra rods
 	var/efficiency_coeff = 1
+	/// The list for carrying fuel rods
+	var/list/category_fuel = list()
+	/// The list for carrying moderator rods
+	var/list/category_moderator = list()
+	/// The list for carrying coolant rods
+	var/list/category_coolant = list()
 
-/obj/machinery/r_n_d/Initialize(mapload)
+/obj/machinery/nuclear_rod_fabricator/Initialize(mapload)
 	. = ..()
 	materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC), 0, TRUE, /obj/item/stack, CALLBACK(src, PROC_REF(is_insertion_ready)), CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	materials.precise_insertion = TRUE
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/nuclear_rod_fabricator(src)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
 
-/obj/machinery/r_n_d/proc/is_insertion_ready(mob/user)
+	RefreshParts()
+
+/obj/machinery/nuclear_rod_fabricator/RefreshParts()
+	var/temp_coeff = 12
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
+		temp_coeff -= M.rating
+	efficiency_coeff = clamp(temp_coeff / 10, 0, 1)
+	temp_coeff = 0
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
+		temp_coeff += M.rating
+	materials.max_amount = temp_coeff * 75000
+
+
+/obj/machinery/nuclear_rod_fabricator/proc/is_insertion_ready(mob/user)
 	if(panel_open)
 		to_chat(user, "<span class='warning'>You can't load [src] while it's opened!</span>")
 		return FALSE
@@ -185,3 +204,97 @@
 
 	return TRUE
 
+/obj/machinery/nuclear_rod_fabricator/Destroy()
+	if(loaded_item)
+		loaded_item.forceMove(get_turf(src))
+		loaded_item = null
+	materials = null
+	return ..()
+
+/obj/machinery/nuclear_rod_fabricator/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
+	var/stack_name
+	if(ispath(type_inserted, /obj/item/stack/ore/bluespace_crystal))
+		stack_name = "bluespace"
+		use_power(MINERAL_MATERIAL_AMOUNT / 10)
+	else
+		var/obj/item/stack/S = type_inserted
+		stack_name = initial(S.name)
+		use_power(min(1000, (amount_inserted / 100)))
+	add_overlay("protolathe_[stack_name]")
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, cut_overlay), "protolathe_[stack_name]"), 10)
+
+/obj/machinery/nuclear_rod_fabricator/proc/check_mat(obj/item/nuclear_rod/being_built, M)
+	var/A = materials.amount(M)
+	if(!A)
+	else
+		A = A / max(1, (being_built.materials[M] * efficiency_coeff))
+	return A
+
+/obj/machinery/nuclear_rod_fabricator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
+		return ..()
+
+	if(panel_open)
+		to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
+
+/obj/machinery/nuclear_rod_fabricator/crowbar_act(mob/living/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	materials.retrieve_all()
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/nuclear_rod_fabricator/proc/create_designs()
+	for(var/obj/item/nuclear_rod/rod in subtypesof(/obj/item/nuclear_rod))
+		if(!rod.craftable)
+			continue
+		if(istype(rod, /obj/item/nuclear_rod/fuel))
+			category_fuel += rod
+		if(istype(rod, /obj/item/nuclear_rod/moderator))
+			category_moderator += rod
+		if(istype(rod, /obj/item/nuclear_rod/coolant))
+			category_coolant += rod
+
+/obj/machinery/nuclear_rod_fabricator/proc/get_rod_info(rod_type)
+	return rod_type
+#warn finish this when burza gets to the UI screen
+
+/obj/machinery/nuclear_rod_fabricator/interact(mob/user)
+	. = ..()
+	if(panel_open)
+		to_chat(user, "<span class='warning'>You can't access [src] while it's opened.</span>")
+		return
+	ui_interact(user)
+
+/obj/machinery/nuclear_rod_fabricator/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/nuclear_rod_fabricator/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Autolathe", name)
+		ui.open()
+
+// MARK: Circuits
+
+/obj/item/circuitboard/nuclear_centrifuge
+	board_name = "Nuclear Centrifuge"
+	icon_state = "engineering"
+	build_path = /obj/machinery/nuclear_centrifuge
+	board_type = "machine"
+	origin_tech = "programming=4;engineering=4"
+	req_components = list(/obj/item/stock_parts/manipulator = 4)
+
+/obj/item/circuitboard/nuclear_rod_fabricator
+	board_name = "Nuclear Rod Fabricator"
+	icon_state = "engineering"
+	build_path = /obj/machinery/nuclear_rod_fabricator
+	board_type = "machine"
+	origin_tech = "programming=4;engineering=4"
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/matter_bin = 2,
+		)

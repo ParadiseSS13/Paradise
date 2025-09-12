@@ -3284,6 +3284,12 @@
 				log_admin("[key_name(usr)] moved the gamma armory")
 				move_gamma_ship()
 
+			if("nuclear_overload")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Disable Fission Reactor Safeties")
+				message_admins("[key_name_admin(usr)] disabled reactor safeties")
+				log_admin("[key_name(usr)] disabled reactor safeties")
+				overload_reactor()
+
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")
 			if(ok)

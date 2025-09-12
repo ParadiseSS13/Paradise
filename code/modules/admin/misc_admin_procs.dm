@@ -872,6 +872,8 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		GLOB.gamma_ship_location = 1
 	return
 
+/proc/overload_reactor()
+
 /proc/formatJumpTo(location, where="")
 	var/turf/loc
 	if(isturf(location))
