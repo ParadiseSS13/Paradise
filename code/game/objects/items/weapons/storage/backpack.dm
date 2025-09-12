@@ -213,7 +213,22 @@
 	name = "leather satchel"
 	desc = "It's a very fancy satchel made with fine leather."
 	icon_state = "satchel"
+	inhand_icon_state = "satchel"
 	resistance_flags = FIRE_PROOF
+	var/strap_side_straight = FALSE
+
+/obj/item/storage/backpack/satchel/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Shift-Click</b> [src] to flip its strap side.</span>"
+
+/obj/item/storage/backpack/satchel/AltShiftClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+
+	strap_side_straight = !strap_side_straight
+	worn_icon_state = "satchel[strap_side_straight ? "-flipped" : ""]"
+	if(user.back == src)
+		user.update_inv_back()
 
 /obj/item/storage/backpack/satchel/withwallet/populate_contents()
 	new /obj/item/storage/wallet/random(src)

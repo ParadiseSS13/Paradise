@@ -168,6 +168,7 @@
 	name = "\improper AG(H)-22 hybrid turret gun"
 	desc = "A heavy hybrid energy cannon made for mounted emplacements. The fire selector has two settings: 'stun', and 'kill'."
 	icon_state = "turretlaser"
+	inhand_icon_state = "turretlaser"
 	slot_flags = null
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)

@@ -196,6 +196,8 @@
 	name = "\improper Mosin Nagant"
 	desc = "An ancient design commonly used by the conscript forces of the USSP. Chambered in 7.62mm. Has a bayonet lug for attaching a knife."
 	icon_state = "moistnugget"
+	worn_icon_state = "moistnugget"
+	inhand_icon_state = "moistnugget"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	inhand_x_dimension = 32

@@ -609,6 +609,8 @@
 	desc = "a staple of worshipers of the Silentfather, this holy mime artifact has an odd effect on clowns."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "baguette"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	var/list/smited_clowns
 
 /obj/item/nullrod/rosary/bread/equipped(mob/user, slot, initial = FALSE)

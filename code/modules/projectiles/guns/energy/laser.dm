@@ -161,6 +161,7 @@
 	name = "accelerator laser cannon"
 	desc = "An advanced laser cannon that does more damage the farther away the target is. At close range, damage is less than an LG-5 laser carbine shot."
 	icon_state = "lasercannon"
+	worn_icon_state = null
 	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
