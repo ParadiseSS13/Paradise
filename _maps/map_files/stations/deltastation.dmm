@@ -187,11 +187,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/camera{
-	c_tag = "Prison Solitary 1";
-	network = list("Prison","SS13");
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitered"
@@ -1481,6 +1476,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/light/floor,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/east)
 "alv" = (
@@ -8697,7 +8693,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/wall/r_wall,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/station/engineering/controlroom)
 "aKa" = (
 /obj/effect/decal/cleanable/dirt,
@@ -11534,6 +11531,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
+/obj/machinery/light/floor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -11592,9 +11590,6 @@
 	pixel_y = 3
 	},
 /obj/machinery/newscaster/directional/west,
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -13209,7 +13204,6 @@
 /obj/machinery/computer/guestpass{
 	pixel_y = -28
 	},
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -13813,15 +13807,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
-	},
-/area/station/supply/lobby)
-"beb" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
 	},
 /area/station/supply/lobby)
 "bec" = (
@@ -16778,6 +16763,10 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 9
 	},
+/obj/machinery/camera{
+	dir = 8;
+	name = "Atmospherics Central"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -16896,7 +16885,8 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
 "bpH" = (
 /obj/structure/cable{
@@ -51736,6 +51726,13 @@
 	},
 /turf/simulated/floor/carpet,
 /area/station/service/theatre)
+"enj" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry/north)
 "enm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -53179,16 +53176,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/service/kitchen)
-"ePp" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 4
-	},
-/obj/machinery/camera{
-	dir = 10;
-	name = "Atmospherics Central"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "ePu" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -53477,6 +53464,15 @@
 	icon_state = "neutralfull"
 	},
 /area/station/supply/storage)
+"eWY" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple{
+	dir = 4
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/engineering/atmos)
 "eXn" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
@@ -57799,6 +57795,11 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom/gallery)
+"gSg" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry/north)
 "gTw" = (
 /obj/structure/table/wood,
 /obj/item/folder/white,
@@ -58790,6 +58791,11 @@
 /area/station/medical/medbay)
 "hrY" = (
 /obj/machinery/light/small,
+/obj/machinery/camera{
+	c_tag = "Prison Solitary 1";
+	network = list("Prison","SS13");
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitered"
@@ -65984,6 +65990,15 @@
 /obj/item/assembly/mousetrap/armed,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"kDv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/supply/lobby)
 "kDF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -67503,6 +67518,13 @@
 	icon_state = "whiteyellow"
 	},
 /area/station/medical/chemistry)
+"llM" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry/north)
 "llR" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -68264,10 +68286,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/machinery/camera{
-	c_tag = "Brig Cell 3";
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -68871,6 +68889,12 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/medical/break_room)
+"lUp" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/supply/lobby)
 "lUr" = (
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel/dark,
@@ -68976,10 +69000,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random/tech_storage/silicon,
-/obj/machinery/camera{
-	c_tag = "Secure Technical Storage";
-	dir = 8
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/tech_storage)
 "lXB" = (
@@ -71465,6 +71485,10 @@
 	},
 /obj/structure/cable/yellow,
 /obj/machinery/light/small,
+/obj/machinery/camera{
+	c_tag = "Brig Cell 4";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -73675,6 +73699,11 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/camera{
+	c_tag = "Prison Solitary 2";
+	dir = 5;
+	network = list("Prison","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitered"
@@ -74686,7 +74715,6 @@
 /obj/machinery/economy/merch{
 	dir = 1
 	},
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -75331,6 +75359,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
+"oKR" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry/north)
 "oKZ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -81708,6 +81746,10 @@
 	},
 /obj/structure/cable/yellow,
 /obj/machinery/light/small,
+/obj/machinery/camera{
+	c_tag = "Brig Cell 3";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -85116,6 +85158,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/light/floor,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/tech_storage)
 "sPf" = (
@@ -88437,6 +88480,12 @@
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
+"ucn" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/supply/office)
 "ucB" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -89401,8 +89450,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
 "uyT" = (
-/obj/machinery/light/small{
-	dir = 4
+/obj/machinery/camera{
+	c_tag = "Secure Technical Storage";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/tech_storage)
@@ -91664,6 +91714,13 @@
 /obj/effect/spawner/random/engineering/materials,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"vwH" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry/north)
 "vxz" = (
 /obj/machinery/computer/secure_data{
 	dir = 4
@@ -92693,10 +92750,6 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/machinery/camera{
-	c_tag = "Brig Cell 4";
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -93191,7 +93244,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/light,
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
 "weF" = (
@@ -93369,12 +93421,6 @@
 	dir = 8
 	},
 /area/station/hallway/primary/aft/south)
-"wiQ" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/tech_storage)
 "wiW" = (
 /obj/effect/spawner/random/blood,
 /turf/simulated/floor/plasteel/dark,
@@ -93769,20 +93815,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
-"wqp" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/camera{
-	c_tag = "Prison Solitary 2";
-	dir = 5;
-	network = list("Prison","SS13")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitered"
-	},
-/area/station/security/permabrig)
 "wqP" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -95888,15 +95920,6 @@
 	icon_state = "redfull"
 	},
 /area/station/legal/courtroom)
-"xfE" = (
-/obj/machinery/atmospherics/pipe/simple/visible/purple{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "xfX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -120856,7 +120879,7 @@ aXq
 aXW
 xjt
 xYO
-ePp
+uFo
 bpF
 uCR
 uCR
@@ -121114,7 +121137,7 @@ ban
 uak
 tKk
 uFo
-xfE
+mhf
 hfN
 bbF
 pRe
@@ -121628,7 +121651,7 @@ bhn
 gjl
 aYK
 puP
-fmZ
+eWY
 ban
 blJ
 ogN
@@ -122892,7 +122915,7 @@ ayM
 ayM
 aFZ
 xVK
-aID
+nwK
 atd
 mKM
 aNZ
@@ -123149,7 +123172,7 @@ aDc
 aEj
 aGa
 xVK
-nwK
+bfc
 atd
 atd
 atd
@@ -128838,7 +128861,7 @@ rma
 abj
 iDA
 bAi
-wiQ
+bOt
 iDA
 bFj
 bGU
@@ -131081,7 +131104,7 @@ aaa
 aaa
 abj
 doS
-mci
+enj
 tRa
 doS
 abj
@@ -131339,7 +131362,7 @@ aaa
 abj
 doS
 mci
-tRa
+gSg
 doS
 abj
 anu
@@ -132621,7 +132644,7 @@ aaa
 aaa
 xgt
 gWD
-qtk
+oKR
 gWD
 ueF
 qGl
@@ -136218,7 +136241,7 @@ aaa
 aaa
 rJk
 gtZ
-anU
+llM
 anU
 gtZ
 fMh
@@ -136476,7 +136499,7 @@ aaa
 aaa
 ahg
 aFB
-aFB
+vwH
 ahg
 ktI
 blc
@@ -139360,10 +139383,10 @@ aZi
 baX
 ozS
 bdX
-bft
+kDv
 bft
 bec
-bfu
+lUp
 blu
 bhU
 bov
@@ -140640,15 +140663,15 @@ aRQ
 hxT
 aUU
 aWr
-aNm
+ucn
 aNm
 bbb
 aJd
 odO
-bfu
+lUp
 bfu
 aYc
-bfu
+lUp
 bly
 bfq
 bov
@@ -141160,7 +141183,7 @@ bbd
 aJd
 bcM
 bfu
-beb
+bjF
 aYc
 bjF
 ova
@@ -150654,7 +150677,7 @@ aaa
 abj
 ygH
 nZA
-wqp
+acM
 obm
 aJx
 xdo
