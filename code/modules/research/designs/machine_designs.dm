@@ -12,6 +12,16 @@
 	build_path = /obj/item/circuitboard/thermomachine
 	category = list ("Engineering Machinery")
 
+/datum/design/laser_terminal
+	name = "Machine Board (Laser Terminal)"
+	desc = "The circuit board for a PTL terminal."
+	id = "thermomachine"
+	req_tech = list("powerstorage" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/laser_terminal
+	category = list ("Engineering Machinery")
+
 /datum/design/space_heater
 	name = "Machine Board (Space Heater)"
 	desc = "The circuit board for a space heater"
