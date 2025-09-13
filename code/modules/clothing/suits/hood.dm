@@ -105,6 +105,7 @@
 	cold_protection = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS | HIDEMASK | HIDEFACE | HIDEEYES
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
