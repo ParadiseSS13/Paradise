@@ -1136,6 +1136,7 @@
 #include "code\game\objects\obj_defense.dm"
 #include "code\game\objects\obj_vv.dm"
 #include "code\game\objects\objs.dm"
+#include "code\game\objects\starline_phone.dm"
 #include "code\game\objects\structures.dm"
 #include "code\game\objects\effects\alien_acid.dm"
 #include "code\game\objects\effects\anomalies.dm"
