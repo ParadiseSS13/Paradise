@@ -85,3 +85,5 @@
 	client.init_verbs()
 	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
+
+	update_mousepointer()

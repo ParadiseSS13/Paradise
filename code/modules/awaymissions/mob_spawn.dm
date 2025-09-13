@@ -126,8 +126,8 @@
 	var/deathtime = world.time - user.timeofdeath
 	var/joinedasobserver = FALSE
 	if(isobserver(user))
-		var/mob/dead/observer/G = user
-		if(G.started_as_observer)
+		var/mob/dead/observer/ghost = user
+		if(ghost.ghost_flags & GHOST_START_AS_OBSERVER)
 			joinedasobserver = TRUE
 
 	var/deathtimeminutes = round(deathtime / 600)
@@ -619,6 +619,13 @@
 	mob_name = "Medical Doctor"
 	id_job = "Medical Doctor"
 	outfit = /datum/outfit/job/doctor
+
+// Cargo tech corpse
+/obj/effect/mob_spawn/human/corpse/random_species/cargo_tech
+	name = "Cargo Technician"
+	mob_name = "Cargo Technician"
+	id_job = "Cargo Technician"
+	outfit = /datum/outfit/job/cargo_tech
 
 //Engineer corpse.
 /obj/effect/mob_spawn/human/corpse/engineer
