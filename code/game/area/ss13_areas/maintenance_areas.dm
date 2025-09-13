@@ -4,6 +4,7 @@
 	ambientsounds = MAINTENANCE_SOUNDS
 	valid_territory = FALSE
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
+	airlock_wires = /datum/wires/airlock/maint
 
 /area/station/maintenance/engimaint
 	name = "Engineering Maintenance"
