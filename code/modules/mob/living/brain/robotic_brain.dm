@@ -202,7 +202,6 @@
 	searching_icon = "posibrain-searching"
 	occupied_icon = "posibrain-occupied"
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
-	silenced = TRUE
 	requires_master = FALSE
 	ejected_flavor_text = "metal cube"
 	dead_icon = "posibrain"
