@@ -7,7 +7,7 @@
 	job_department_flags = DEP_FLAG_COMMAND | DEP_FLAG_MEDICAL
 	supervisors = "the captain"
 	department_head = list("Captain")
-	selection_color = "#ffddf0"
+	selection_color = "#b8ebfa"
 	req_admin_notify = 1
 	department_account_access = TRUE
 	access = list(
@@ -69,7 +69,7 @@
 	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#cbf7ff"
 	access = list(
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
@@ -112,7 +112,7 @@
 	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#cbf7ff"
 	access = list(
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
@@ -180,7 +180,7 @@
 	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#cbf7ff"
 	access = list(
 		ACCESS_CHEMISTRY,
 		ACCESS_MAINT_TUNNELS,
@@ -222,7 +222,7 @@
 	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#cbf7ff"
 	access = list(
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
@@ -269,7 +269,7 @@
 	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#cbf7ff"
 	access = list(
 		ACCESS_MAINT_TUNNELS,
 		ACCESS_MEDICAL,
@@ -311,7 +311,7 @@
 	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
-	selection_color = "#ffeef0"
+	selection_color = "#cbf7ff"
 	access = list(
 		ACCESS_CARGO,
 		ACCESS_EVA,
