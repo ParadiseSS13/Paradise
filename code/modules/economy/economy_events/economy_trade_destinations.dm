@@ -13,12 +13,6 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	var/list/temp_price_change[TRADE_GOOD_BIOMEDICAL]
 	var/list/viable_mundane_events = list()
 
-/datum/trade_destination/proc/get_custom_eventstring(event_type)
-	return null
-
-/datum/trade_destination/proc/get_custom_eventtitle(event_type)
-	return null
-
 //distance is measured in AU and co-relates to travel time
 /datum/trade_destination/centcomm
 	name = "CentComm"
@@ -26,8 +20,24 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	distance = 1.2
 	willing_to_buy = list()
 	willing_to_sell = list()
-	viable_random_events = list(RANDOM_STORY_SECURITY_BREACH, RANDOM_STORY_CORPORATE_ATTACK, RANDOM_STORY_AI_LIBERATION)
-	viable_mundane_events = list(RANDOM_STORY_ELECTION, RANDOM_STORY_RESIGNATION, RANDOM_STORY_CELEBRITY_DEATH)
+	viable_random_events = list(
+		/datum/event_news/economic/ai_liberation,
+		/datum/event_news/economic/corporate_attack,
+		/datum/event_news/economic/security_breach,
+	)
+	viable_mundane_events = list(
+		/datum/event_news/celebrity_death,
+		/datum/event_news/election,
+		/datum/event_news/resignation,
+	)
+
+/datum/event_news/research_breakthrough/anansi
+
+/datum/event_news/research_breakthrough/anansi/generate()
+	. = ..()
+	title = "Major Breakthrough on NSS Anansi"
+	body = "Thanks to research conducted on the NSS Anansi, Second Green Cross Society wishes to announce a major breakthrough in the field of \
+		[pick("mind-machine interfacing","neuroscience","nano-augmentation","genetics")]. Nanotrasen is expected to announce a co-exploitation deal within the fortnight."
 
 /datum/trade_destination/anansi
 	name = "NSS Anansi"
@@ -35,19 +45,18 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	distance = 1.7
 	willing_to_buy = list()
 	willing_to_sell = list()
-	viable_random_events = list(RANDOM_STORY_SECURITY_BREACH, RANDOM_STORY_CULT_CELL_REVEALED, RANDOM_STORY_BIOHAZARD_OUTBREAK, RANDOM_STORY_PIRATES, RANDOM_STORY_ALIEN_RAIDERS)
-	viable_mundane_events = list(RANDOM_STORY_RESEARCH_BREAKTHROUGH, RANDOM_STORY_RESEARCH_BREAKTHROUGH, RANDOM_STORY_BARGAINS, RANDOM_STORY_GOSSIP)
-
-/datum/trade_destination/anansi/get_custom_eventstring(event_type)
-	if(event_type == RANDOM_STORY_RESEARCH_BREAKTHROUGH)
-		return "Thanks to research conducted on the NSS Anansi, Second Green Cross Society wishes to announce a major breakthrough in the field of \
-		[pick("mind-machine interfacing","neuroscience","nano-augmentation","genetics")]. Nanotrasen is expected to announce a co-exploitation deal within the fortnight."
-	return null
-
-/datum/trade_destination/anansi/get_custom_eventtitle(event_type)
-	if(event_type == RANDOM_STORY_RESEARCH_BREAKTHROUGH)
-		return "Major Breakthrough on NSS Anansi"
-	return null
+	viable_random_events = list(
+		/datum/event_news/economic/alien_raiders,
+		/datum/event_news/economic/biohazard_outbreak,
+		/datum/event_news/economic/cult_cell_revealed,
+		/datum/event_news/economic/pirates,
+		/datum/event_news/economic/security_breach,
+	)
+	viable_mundane_events = list(
+		/datum/event_news/bargains,
+		/datum/event_news/gossip,
+		/datum/event_news/research_breakthrough/anansi,
+	)
 
 /datum/trade_destination/icarus
 	name = "NMV Icarus"
@@ -55,7 +64,17 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	distance = 0.1
 	willing_to_buy = list()
 	willing_to_sell = list()
-	viable_random_events = list(RANDOM_STORY_SECURITY_BREACH, RANDOM_STORY_AI_LIBERATION, RANDOM_STORY_PIRATES)
+	viable_random_events = list(
+		/datum/event_news/economic/ai_liberation,
+		/datum/event_news/economic/pirates,
+		/datum/event_news/economic/security_breach,
+	)
+
+/datum/event_news/research_breakthrough/redolant/generate()
+	. = ..()
+	title = "Major Breakthrough on OAV Redolant"
+	body = "Thanks to research conducted on the OAV Redolant, Osiris Atmospherics wishes to announce a major breakthrough in the field of \
+		[pick("plasma research","high energy flux capacitance","super-compressed materials","theoretical particle physics")]. Nanotrasen is expected to announce a co-exploitation deal within the fortnight."
 
 /datum/trade_destination/redolant
 	name = "OAV Redolant"
@@ -63,19 +82,14 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	distance = 0.6
 	willing_to_buy = list()
 	willing_to_sell = list()
-	viable_random_events = list(RANDOM_STORY_INDUSTRIAL_ACCIDENT, RANDOM_STORY_PIRATES, RANDOM_STORY_CORPORATE_ATTACK)
-	viable_mundane_events = list(RANDOM_STORY_RESEARCH_BREAKTHROUGH, RANDOM_STORY_RESEARCH_BREAKTHROUGH)
-
-/datum/trade_destination/redolant/get_custom_eventstring(event_type)
-	if(event_type == RANDOM_STORY_RESEARCH_BREAKTHROUGH)
-		return "Thanks to research conducted on the OAV Redolant, Osiris Atmospherics wishes to announce a major breakthrough in the field of \
-		[pick("plasma research","high energy flux capacitance","super-compressed materials","theoretical particle physics")]. Nanotrasen is expected to announce a co-exploitation deal within the fortnight."
-	return null
-
-/datum/trade_destination/redolant/get_custom_eventtitle(event_type)
-	if(event_type == RANDOM_STORY_RESEARCH_BREAKTHROUGH)
-		return "Major Breakthrough on OAV Redolant"
-	return null
+	viable_random_events = list(
+		/datum/event_news/economic/corporate_attack,
+		/datum/event_news/economic/industrial_accident,
+		/datum/event_news/economic/pirates,
+	)
+	viable_mundane_events = list(
+		/datum/event_news/research_breakthrough,
+	)
 
 /datum/trade_destination/beltway
 	name = "Beltway mining chain"
@@ -83,8 +97,13 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	distance = 7.5
 	willing_to_buy = list()
 	willing_to_sell = list()
-	viable_random_events = list(RANDOM_STORY_PIRATES, RANDOM_STORY_INDUSTRIAL_ACCIDENT)
-	viable_mundane_events = list(RANDOM_STORY_TOURISM)
+	viable_random_events = list(
+		/datum/event_news/economic/industrial_accident,
+		/datum/event_news/economic/pirates,
+	)
+	viable_mundane_events = list(
+		/datum/event_news/tourism,
+	)
 
 /datum/trade_destination/biesel
 	name = "Biesel"
@@ -92,8 +111,24 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	distance = 2.3
 	willing_to_buy = list()
 	willing_to_sell = list()
-	viable_random_events = list(RANDOM_STORY_RIOTS, RANDOM_STORY_INDUSTRIAL_ACCIDENT, RANDOM_STORY_BIOHAZARD_OUTBREAK, RANDOM_STORY_CULT_CELL_REVEALED, RANDOM_STORY_FESTIVAL, RANDOM_STORY_MOURNING)
-	viable_mundane_events = list(RANDOM_STORY_BARGAINS, RANDOM_STORY_GOSSIP, RANDOM_STORY_SONG_DEBUT, RANDOM_STORY_MOVIE_RELEASE, RANDOM_STORY_ELECTION, RANDOM_STORY_TOURISM, RANDOM_STORY_RESIGNATION, RANDOM_STORY_CELEBRITY_DEATH)
+	viable_random_events = list(
+		/datum/event_news/economic/biohazard_outbreak,
+		/datum/event_news/economic/cult_cell_revealed,
+		/datum/event_news/economic/festival,
+		/datum/event_news/economic/industrial_accident,
+		/datum/event_news/economic/mourning,
+		/datum/event_news/economic/riots,
+	)
+	viable_mundane_events = list(
+		/datum/event_news/bargains,
+		/datum/event_news/celebrity_death,
+		/datum/event_news/election,
+		/datum/event_news/gossip,
+		/datum/event_news/movie_release,
+		/datum/event_news/resignation,
+		/datum/event_news/song_debut,
+		/datum/event_news/tourism,
+	)
 
 /datum/trade_destination/new_gibson
 	name = "New Gibson"
@@ -101,8 +136,19 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	distance = 6.6
 	willing_to_buy = list()
 	willing_to_sell = list()
-	viable_random_events = list(RANDOM_STORY_RIOTS, RANDOM_STORY_INDUSTRIAL_ACCIDENT, RANDOM_STORY_BIOHAZARD_OUTBREAK, RANDOM_STORY_CULT_CELL_REVEALED, RANDOM_STORY_FESTIVAL, RANDOM_STORY_MOURNING)
-	viable_mundane_events = list(RANDOM_STORY_ELECTION, RANDOM_STORY_TOURISM, RANDOM_STORY_RESIGNATION)
+	viable_random_events = list(
+		/datum/event_news/economic/biohazard_outbreak,
+		/datum/event_news/economic/cult_cell_revealed,
+		/datum/event_news/economic/festival,
+		/datum/event_news/economic/industrial_accident,
+		/datum/event_news/economic/mourning,
+		/datum/event_news/economic/riots,
+	)
+	viable_mundane_events = list(
+		/datum/event_news/election,
+		/datum/event_news/resignation,
+		/datum/event_news/tourism,
+	)
 
 /datum/trade_destination/luthien
 	name = "Luthien"
@@ -110,8 +156,20 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	distance = 8.9
 	willing_to_buy = list()
 	willing_to_sell = list()
-	viable_random_events = list(RANDOM_STORY_WILD_ANIMAL_ATTACK, RANDOM_STORY_CULT_CELL_REVEALED, RANDOM_STORY_FESTIVAL, RANDOM_STORY_MOURNING, RANDOM_STORY_ANIMAL_RIGHTS_RAID, RANDOM_STORY_ALIEN_RAIDERS)
-	viable_mundane_events = list(RANDOM_STORY_ELECTION, RANDOM_STORY_TOURISM, RANDOM_STORY_BIG_GAME_HUNTERS, RANDOM_STORY_RESIGNATION)
+	viable_random_events = list(
+		/datum/event_news/economic/alien_raiders,
+		/datum/event_news/economic/animal_rights_raid,
+		/datum/event_news/economic/cult_cell_revealed,
+		/datum/event_news/economic/festival,
+		/datum/event_news/economic/mourning,
+		/datum/event_news/economic/wild_animal_attack,
+	)
+	viable_mundane_events = list(
+		/datum/event_news/big_game_hunters,
+		/datum/event_news/election,
+		/datum/event_news/resignation,
+		/datum/event_news/tourism,
+	)
 
 /datum/trade_destination/reade
 	name = "Reade"
@@ -119,5 +177,72 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	distance = 7.5
 	willing_to_buy = list()
 	willing_to_sell = list()
-	viable_random_events = list(RANDOM_STORY_WILD_ANIMAL_ATTACK, RANDOM_STORY_CULT_CELL_REVEALED, RANDOM_STORY_FESTIVAL, RANDOM_STORY_MOURNING, RANDOM_STORY_ANIMAL_RIGHTS_RAID, RANDOM_STORY_ALIEN_RAIDERS)
-	viable_mundane_events = list(RANDOM_STORY_ELECTION, RANDOM_STORY_TOURISM, RANDOM_STORY_BIG_GAME_HUNTERS, RANDOM_STORY_RESIGNATION)
+	viable_random_events = list(
+		/datum/event_news/economic/alien_raiders,
+		/datum/event_news/economic/animal_rights_raid,
+		/datum/event_news/economic/cult_cell_revealed,
+		/datum/event_news/economic/festival,
+		/datum/event_news/economic/mourning,
+		/datum/event_news/economic/wild_animal_attack,
+	)
+	viable_mundane_events = list(
+		/datum/event_news/big_game_hunters,
+		/datum/event_news/election,
+		/datum/event_news/resignation,
+		/datum/event_news/tourism,
+	)
+
+/datum/trade_destination/xarxis
+	name = "Xarxis"
+	description = "The ocean planet of Xarxis is the homeworld of the gelatinous Slime People."
+	distance = 6
+	viable_random_events = list(
+		/datum/event_news/economic/alien_raiders,
+		/datum/event_news/economic/cult_cell_revealed,
+		/datum/event_news/economic/industrial_accident,
+		/datum/event_news/economic/festival,
+		/datum/event_news/economic/mourning,
+		/datum/event_news/economic/wild_animal_attack,
+	)
+	viable_mundane_events = list(
+		/datum/event_news/election,
+		/datum/event_news/research_breakthrough
+	)
+
+/datum/trade_destination/adhomai
+	name = "Adhomai"
+	description = "The Tajaran homeworld of Adhomai is a chilly tundra world dominated by taiga forests and snow-capped mountain ranges."
+	distance = 1.6
+	viable_random_events = list(
+		/datum/event_news/economic/alien_raiders,
+		/datum/event_news/economic/cult_cell_revealed,
+		/datum/event_news/economic/festival,
+		/datum/event_news/economic/industrial_accident,
+		/datum/event_news/economic/mourning,
+		/datum/event_news/economic/wild_animal_attack,
+	)
+	viable_mundane_events = list(
+		/datum/event_news/big_game_hunters,
+		/datum/event_news/election,
+		/datum/event_news/resignation,
+		/datum/event_news/tourism,
+	)
+
+/datum/trade_destination/qerballak
+	name = "Qerballak"
+	description = "The largest Skrell-majority nation in Orion, and one of the Spur's oldest extant states; the Royal Domain of Qerballak is a decentralized constitutional monarchy."
+	distance = 4.5
+	viable_random_events = list(
+		/datum/event_news/economic/alien_raiders,
+		/datum/event_news/economic/cult_cell_revealed,
+		/datum/event_news/economic/festival,
+		/datum/event_news/economic/industrial_accident,
+		/datum/event_news/economic/mourning,
+		/datum/event_news/economic/wild_animal_attack,
+	)
+	viable_mundane_events = list(
+		/datum/event_news/big_game_hunters,
+		/datum/event_news/election,
+		/datum/event_news/resignation,
+		/datum/event_news/tourism,
+	)
