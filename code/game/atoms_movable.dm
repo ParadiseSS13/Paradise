@@ -237,6 +237,7 @@
 /// To be removed on step_ conversion.
 /// All this work to prevent a second bump.
 /atom/movable/Move(atom/newloc, direction, glide_size_override = 0, update_dir = TRUE, momentum_change = TRUE)
+	CAN_BE_REDEFINED(TRUE)
 	. = FALSE
 	if(!newloc || newloc == loc)
 		return
