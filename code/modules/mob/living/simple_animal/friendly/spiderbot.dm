@@ -58,8 +58,8 @@
 		if(!B.brainmob.key)
 			var/ghost_can_reenter = 0
 			if(B.brainmob.mind)
-				for(var/mob/dead/observer/G in GLOB.player_list)
-					if(G.can_reenter_corpse && G.mind == B.brainmob.mind)
+				for(var/mob/dead/observer/ghost in GLOB.player_list)
+					if(ghost.ghost_flags & GHOST_CAN_REENTER && ghost.mind == B.brainmob.mind)
 						ghost_can_reenter = 1
 						break
 				for(var/mob/living/simple_animal/S in GLOB.player_list)

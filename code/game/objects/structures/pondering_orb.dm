@@ -11,7 +11,7 @@
 	ADD_TRAIT(user, SCRYING, SCRYING_ORB)
 	user.visible_message("<span class='notice'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>",
 					"<span class='danger'>You stare into [src], you can see the entire universe!</span>")
-	ghost = user.ghostize(TRUE, COLOR_BLUE, "Magic Spirit of [user.name]")
+	ghost = user.ghostize(ghost_name = "Magic Spirit of [user.name]", ghost_color = COLOR_BLUE)
 	while(!QDELETED(user))
 		if(user.key || QDELETED(src))
 			user.visible_message("<span class='notice'>[user] blinks, returning to the world around [user.p_them()].</span>",

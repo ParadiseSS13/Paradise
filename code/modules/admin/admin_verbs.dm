@@ -404,7 +404,7 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 		//re-enter
 		var/mob/dead/observer/ghost = mob
 		var/old_turf = get_turf(ghost)
-		ghost.can_reenter_corpse = 1			//just in-case.
+		ghost.ghost_flags |= GHOST_CAN_REENTER // just in-case.
 		ghost.reenter_corpse()
 		log_admin("[key_name(usr)] re-entered their body")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Aghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -419,7 +419,7 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 	else
 		//ghostize
 		var/mob/body = mob
-		body.ghostize(1)
+		body.ghostize()
 		if(body && !body.key)
 			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
 		log_admin("[key_name(usr)] has admin-ghosted")
@@ -1134,7 +1134,7 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 	var/turf/T = interesting_tile[MILLA_INDEX_TURF]
 	var/mob/dead/observer/O = mob
 	admin_forcemove(O, T)
-	O.ManualFollow(T)
+	O.manual_follow(T)
 
 /client/proc/visualize_interesting_turfs()
 	set name = "Visualize Interesting Turfs"
@@ -1253,4 +1253,4 @@ GLOBAL_LIST_INIT(view_logs_verbs, list(
 		target = mind.current
 
 	var/mob/dead/observer/A = client.mob
-	A.ManualFollow(target)
+	A.manual_follow(target)
