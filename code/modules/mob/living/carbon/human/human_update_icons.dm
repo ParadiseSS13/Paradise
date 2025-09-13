@@ -1310,6 +1310,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(WING_LAYER)
 
 /mob/living/carbon/human/proc/update_tail_layer()
+	// If we're currently wagging, re-apply wagging with current settings
+	if(tail_wagging)
+		start_tail_wagging()
+		return
+
+	// Normal static tail update
 	remove_overlay(TAIL_UNDERLIMBS_LAYER) // SEW direction icons, overlayed by LIMBS_LAYER.
 	remove_overlay(TAIL_LAYER) /* This will be one of two things:
 							If the species' tail is overlapped by limbs, this will be only the N direction icon so tails
@@ -1396,6 +1402,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(TAIL_UNDERLIMBS_LAYER)
 
 /mob/living/carbon/human/proc/start_tail_wagging()
+	tail_wagging = TRUE
 	remove_overlay(TAIL_UNDERLIMBS_LAYER) // SEW direction icons, overlayed by LIMBS_LAYER.
 	remove_overlay(TAIL_LAYER) /* This will be one of two things:
 							If the species' tail is overlapped by limbs, this will be only the N direction icon so tails
@@ -1475,6 +1482,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(TAIL_UNDERLIMBS_LAYER)
 
 /mob/living/carbon/human/proc/stop_tail_wagging()
+	tail_wagging = FALSE
 	remove_overlay(TAIL_UNDERLIMBS_LAYER)
 	remove_overlay(TAIL_LAYER)
 	update_tail_layer() //just trigger a full update for normal stationary sprites
