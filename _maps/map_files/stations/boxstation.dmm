@@ -39013,7 +39013,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 10
 	},
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "cNF" = (
@@ -54135,7 +54135,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 9
 	},
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "gNX" = (
@@ -56996,6 +56996,13 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/exit)
+"ijv" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 10
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "ikv" = (
 /turf/simulated/wall,
 /area/station/science/lobby)
@@ -68612,6 +68619,13 @@
 	dir = 8
 	},
 /area/station/hallway/secondary/exit)
+"nWK" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 9
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "nXc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable{
@@ -71952,6 +71966,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
+"pzF" = (
+/obj/machinery/power/electrolyzer,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "pzU" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -85339,13 +85357,6 @@
 	icon_state = "caution"
 	},
 /area/station/public/dorms)
-"wfZ" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 9
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "wgt" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/glass,
@@ -88785,13 +88796,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
-"xPT" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 10
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "xQB" = (
 /obj/effect/spawner/window/reinforced/tinted,
 /obj/structure/disposalpipe/segment{
@@ -122217,7 +122221,7 @@ cPU
 cQM
 cSb
 cTh
-cSd
+pzF
 cOF
 deJ
 dfF
@@ -125820,7 +125824,7 @@ aab
 cQp
 aab
 cZh
-cNE
+ijv
 dba
 djE
 dcS
@@ -125832,7 +125836,7 @@ djE
 djE
 djE
 djE
-gNQ
+nWK
 aab
 aab
 aab
@@ -127124,7 +127128,7 @@ igi
 igi
 igi
 igi
-wfZ
+gNQ
 fPY
 wyD
 wyD
@@ -127353,7 +127357,7 @@ cep
 cjq
 cep
 cxO
-xPT
+cNE
 igi
 igi
 igi
@@ -127371,7 +127375,7 @@ igi
 igi
 igi
 igi
-wfZ
+gNQ
 dgS
 eQU
 eQU
