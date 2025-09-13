@@ -27,6 +27,7 @@
 #include "test_apc_construction.dm"
 #include "test_components.dm"
 #include "test_config_sanity.dm"
+#include "test_cooking.dm"
 #include "test_crafting_lists.dm"
 #include "test_dynamic_budget.dm"
 #include "test_elements.dm"
