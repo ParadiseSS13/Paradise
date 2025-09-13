@@ -118,7 +118,10 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 		forge_human_objectives()
 
 /datum/antagonist/traitor/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
-	extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/syndicate)
+	if(isplasmaman(extractor))
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/syndicate/plasmaman)
+	else
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/syndicate)
 	// Remove mindslaves
 	var/list/mindslaves = SSticker.mode.implanted
 	for(var/datum/mind/possible_slave in mindslaves)

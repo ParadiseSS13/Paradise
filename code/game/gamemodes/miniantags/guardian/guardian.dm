@@ -55,6 +55,7 @@
 	summoner = host
 	host.grant_guardian_actions(src)
 	RegisterSignal(summoner, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(update_health_hud))
+	RegisterSignal(summoner, COMSIG_SUMMONER_EXTRACTED, PROC_REF(handle_extraction))
 
 /mob/living/simple_animal/hostile/guardian/can_buckle()
 	return FALSE
@@ -191,6 +192,13 @@
 
 /mob/living/simple_animal/hostile/guardian/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE	//Works better in zero G, and not useless in space
+
+/mob/living/simple_animal/hostile/guardian/proc/handle_extraction()
+	if(summoner)
+		summoner.remove_guardian_actions()
+		UnregisterSignal(summoner, COMSIG_LIVING_HEALTH_UPDATE)
+	ghostize()
+	qdel(src)
 
 //Manifest, Recall, Communicate
 
