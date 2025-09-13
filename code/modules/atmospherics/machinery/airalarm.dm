@@ -1153,6 +1153,8 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		if(AIR_ALARM_READY)
 			if(wiresexposed)
 				. += "<span class='notice'>The wiring could be <i>cut and removed</i> or panel could <b>screwed</b> closed.</span>"
+			else
+				. += "<span class='notice'>You can unlock an Air Alarm by using an ID with the required access on it (shortcut: <b>Alt-click</b>), or ask a local synthetic.</span>"
 
 /obj/machinery/alarm/proc/unshort_callback()
 	if(shorted)

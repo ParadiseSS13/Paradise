@@ -233,7 +233,7 @@
 				. += "The cover is broken. It may be hard to force it open."
 			else
 				. += "The cover is closed."
-	. += "<span class='notice'>This powerful, yet small, device powers the entire room in which it is located. From lighting, airlocks, and equipment, an APC is able to power it all! You can unlock an APC by using an ID with the required access on it, or by a local synthetic.</span>"
+	. += "<span class='notice'>This powerful, yet small, device powers the entire room in which it is located. Of lighting, airlocks, and equipment, an APC is able to power it all! You can unlock an APC by using an ID with the required access on it (shortcut: <b>Alt-click</b>), or ask a local synthetic.</span>"
 	. += "<span class='notice'>The enviroment setting controls the gas and airlock power.</span>"
 	. += "<span class='notice'>The lighting setting controls the power of all the lighting of the room.</span>"
 	. += "<span class='notice'>The equipment setting controls the power of all machines and computers in the room.</span>"
