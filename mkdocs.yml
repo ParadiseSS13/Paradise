@@ -74,6 +74,7 @@ nav:
       - 'Getting Started': './contributing/getting_started.md'
       - 'Reviewer Crash Course': './contributing/reviewer.md'
       - 'Writing Quality PRs': './contributing/quality_prs.md'
+      - 'Reporting Exploits': './contributing/exploits.md'
 
   - 'Coding':
       - 'Coding Quickstart': './coding/quickstart.md'
