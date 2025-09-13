@@ -129,7 +129,6 @@
 	var/light_strength = 6
 	light_color = "#ED9200"
 	anchored = TRUE
-	new_attack_chain = TRUE
 
 /obj/structure/lightable/proc/CheckOxygen()
 	var/turf/T = get_turf(src)

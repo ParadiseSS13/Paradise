@@ -39,8 +39,8 @@
 	new_dir = 0
 	return -1
 
-
-/obj/structure/reflector/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/reflector/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	//Finishing the frame
 	if(istype(W,/obj/item/stack/sheet))
 		if(finished)

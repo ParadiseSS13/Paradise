@@ -48,6 +48,11 @@
 
 	origin_test.Fail("could not spawn obj [obj_type] near [src]")
 
+/datum/test_puppeteer/proc/spawn_fast_tool(item_type)
+	var/obj/item/fast_tool = spawn_obj_in_hand(item_type)
+	fast_tool.toolspeed = 0
+	return fast_tool
+
 /datum/test_puppeteer/proc/use_item_in_hand()
 	var/obj/item/item = puppet.get_active_hand()
 	if(!item)
@@ -176,3 +181,6 @@
 	puppet.ClickOn(puppet)
 	puppet.next_click = world.time
 	puppet.next_move = world.time
+
+/datum/test_puppeteer/proc/drop_held_item()
+	puppet.drop_item_to_ground(puppet.get_active_hand())

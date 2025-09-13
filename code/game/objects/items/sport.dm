@@ -67,21 +67,21 @@
 	density = TRUE
 	pass_flags_self = LETPASSTHROW | PASSTAKE
 
-/obj/structure/holohoop/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/holohoop/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/grab) && get_dist(src, user) <= 1)
 		var/obj/item/grab/G = W
 		if(G.state < GRAB_AGGRESSIVE)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		G.affecting.forceMove(loc)
 		G.affecting.Weaken(10 SECONDS)
 		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into [src]!</span>")
 		qdel(W)
-		return
+		return ITEM_INTERACT_COMPLETE
 	else if(isitem(W) && get_dist(src,user) <= 1)
 		user.drop_item(src)
 		visible_message("<span class='notice'>[user] dunks [W] into [src]!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isitem(AM) && !isprojectile(AM))

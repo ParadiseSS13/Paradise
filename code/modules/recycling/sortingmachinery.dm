@@ -35,7 +35,8 @@
 
 	qdel(src)
 
-/obj/structure/big_delivery/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/big_delivery/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	if(istype(W, /obj/item/dest_tagger))
 		var/obj/item/dest_tagger/O = W
 

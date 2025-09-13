@@ -95,14 +95,14 @@
 	add_fingerprint(usr)
 	return TRUE
 
-/obj/structure/dispenser/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/dispenser/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/tank/internals/oxygen) || istype(I, /obj/item/tank/internals/air) || istype(I, /obj/item/tank/internals/anesthetic))
 		try_insert_tank(user, stored_oxygen_tanks, I)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(I, /obj/item/tank/internals/plasma))
 		try_insert_tank(user, stored_plasma_tanks, I)
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/dispenser/wrench_act(mob/living/user, obj/item/I)

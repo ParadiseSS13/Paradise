@@ -103,7 +103,7 @@
 			L.Weaken(10 SECONDS)
 
 
-/obj/structure/transit_tube/station/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/transit_tube/station/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/grab) && hatch_state == TRANSIT_TUBE_OPEN)
 		var/obj/item/grab/G = W
 		if(ismob(G.affecting) && G.state >= GRAB_AGGRESSIVE)
@@ -115,6 +115,7 @@
 					Bumped(GM)
 					qdel(G)
 				break
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/transit_tube/station/proc/open_hatch()
 	if(hatch_state == TRANSIT_TUBE_CLOSED)

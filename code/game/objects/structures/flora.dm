@@ -531,7 +531,7 @@
 		A.loc = get_turf(src)
 */
 
-/obj/structure/bush/attackby__legacy__attackchain(obj/I as obj, mob/user as mob, params)
+/obj/structure/bush/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	//hatchets can clear away undergrowth
 	if(istype(I, /obj/item/hatchet) && !stump)
 		if(indestructable)
@@ -554,8 +554,7 @@
 						pixel_y = rand(-6,6)
 					else
 						qdel(src)
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
 //Jungle grass
 

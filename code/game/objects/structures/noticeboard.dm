@@ -103,20 +103,20 @@
 			paper.show_content(usr)
 			return
 
-/obj/structure/noticeboard/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/noticeboard/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/paper))
 		if(notices >= MAX_NOTICES)
 			to_chat(user, "<span class='notice'>You reach to pin your paper to the board but hesitate. You are certain your paper will not be seen among the many others already attached.</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
-			return
+			return ITEM_INTERACT_COMPLETE
 		I.forceMove(src)
 		notices++
 		to_chat(user, "<span class='notice'>You pin the paper to the noticeboard.</span>")
 		update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)
 		SStgui.update_uis(src)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

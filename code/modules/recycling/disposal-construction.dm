@@ -139,11 +139,11 @@
 	var/ispipe = is_pipe()
 	var/nicetype = get_nice_name()
 	var/turf/T = get_turf(src)
-	
+
 	if(T.intact)
 		to_chat(user, "<span class='warning'>You can only attach the [nicetype] if the floor plating is removed.</span>")
 		return
-	
+
 	if(ispipe)
 		anchored = !anchored
 		level = anchored ? 1 : 2
@@ -184,7 +184,8 @@
 			nicetype = "sorting pipe"
 	return nicetype
 
-/obj/structure/disposalconstruct/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/disposalconstruct/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	var/nicetype = get_nice_name()
 	var/ispipe = is_pipe() // Indicates if we should change the level of this pipe
 	var/turf/T = get_turf(src)

@@ -402,57 +402,57 @@
 /obj/structure/firelock_frame/update_icon_state()
 	icon_state = "frame[constructionStep]"
 
-/obj/structure/firelock_frame/attackby__legacy__attackchain(obj/item/C, mob/user)
+/obj/structure/firelock_frame/item_interaction(mob/living/user, obj/item/C, list/modifiers)
 	switch(constructionStep)
 		if(CONSTRUCTION_PANEL_OPEN)
 			if(istype(C, /obj/item/stack/sheet/plasteel))
 				var/obj/item/stack/sheet/plasteel/P = C
 				if(reinforced)
 					to_chat(user, "<span class='warning'>[src] is already reinforced.</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 				if(P.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need more plasteel to reinforce [src].</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 				user.visible_message("<span class='notice'>[user] begins reinforcing [src]...</span>", \
 									"<span class='notice'>You begin reinforcing [src]...</span>")
 				playsound(get_turf(src), C.usesound, 50, 1)
 				if(do_after(user, 60 * C.toolspeed, target = src))
 					if(constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || P.get_amount() < 2 || !P)
-						return
+						return ITEM_INTERACT_COMPLETE
 					user.visible_message("<span class='notice'>[user] reinforces [src].</span>", \
 										"<span class='notice'>You reinforce [src].</span>")
 					playsound(get_turf(src), C.usesound, 50, 1)
 					P.use(2)
 					reinforced = 1
-				return
+				return ITEM_INTERACT_COMPLETE
 		if(CONSTRUCTION_GUTTED)
 			if(iscoil(C))
 				var/obj/item/stack/cable_coil/B = C
 				if(B.get_amount() < 5)
 					to_chat(user, "<span class='warning'>You need more wires to add wiring to [src].</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 				user.visible_message("<span class='notice'>[user] begins wiring [src]...</span>", \
 									"<span class='notice'>You begin adding wires to [src]...</span>")
 				playsound(get_turf(src), B.usesound, 50, 1)
 				if(do_after(user, 60 * B.toolspeed, target = src))
 					if(constructionStep != CONSTRUCTION_GUTTED || B.get_amount() < 5 || !B)
-						return
+						return ITEM_INTERACT_COMPLETE
 					user.visible_message("<span class='notice'>[user] adds wires to [src].</span>", \
 										"<span class='notice'>You wire [src].</span>")
 					playsound(get_turf(src), B.usesound, 50, 1)
 					B.use(5)
 					constructionStep = CONSTRUCTION_WIRES_EXPOSED
 					update_icon()
-				return
+				return ITEM_INTERACT_COMPLETE
 		if(CONSTRUCTION_NOCIRCUIT)
 			if(istype(C, /obj/item/firelock_electronics))
 				user.visible_message("<span class='notice'>[user] starts adding [C] to [src]...</span>", \
 									"<span class='notice'>You begin adding a circuit board to [src]...</span>")
 				playsound(get_turf(src), C.usesound, 50, 1)
 				if(!do_after(user, 40 * C.toolspeed, target = src))
-					return
+					return ITEM_INTERACT_COMPLETE
 				if(constructionStep != CONSTRUCTION_NOCIRCUIT)
-					return
+					return ITEM_INTERACT_COMPLETE
 				user.drop_item()
 				qdel(C)
 				user.visible_message("<span class='notice'>[user] adds a circuit to [src].</span>", \
@@ -460,7 +460,7 @@
 				playsound(get_turf(src), C.usesound, 50, 1)
 				constructionStep = CONSTRUCTION_GUTTED
 				update_icon()
-				return
+				return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/firelock_frame/crowbar_act(mob/user, obj/item/I)
