@@ -154,7 +154,7 @@
 
 /datum/language/unathi
 	name = "Sinta'unathi"
-	desc = "The common language of Moghes, composed of sibilant hisses and rattles. It's spoken natively by the Unathi."
+	desc = "The common language of Moghes and the larger Unathi community. It's composed of sibilant hisses and rattles, and as such cannot be spoken by other species without mechanical aid."
 	speech_verb = "hisses"
 	ask_verb = "hisses"
 	exclaim_verbs = list("roars")
@@ -175,7 +175,7 @@
 
 /datum/language/tajaran
 	name = "Siik'tajr"
-	desc = "The traditionally employed tongue of Ahdomai, composed of expressive yowls and chirps. Native to the Tajaran."
+	desc = "The traditionally employed tongue of Ahdomai, composed of expressive yowls and chirps. It is native to the Tajaran, and cannot easily be spoken by other species."
 	speech_verb = "mrowls"
 	ask_verb = "mrowls"
 	exclaim_verbs = list("yowls")
@@ -269,7 +269,7 @@
 
 /datum/language/trinary
 	name = "Trinary"
-	desc = "An encoding framework used to communicate on a verbal level by robotic units. Its vocabulary consists of a series of beeps that varies in tone and pitch."
+	desc = "A standard encoding framework used to communicate on a verbal level by robotic units. Its vocabulary consists of a series of beeps that varies in tone and pitch."
 	speech_verb = "states"
 	ask_verb = "queries"
 	exclaim_verbs = list("exclaims")
@@ -336,7 +336,7 @@
 
 /datum/language/grey
 	name = "Psionic Communication"
-	desc = "The Grey's psionic communication, and a far less potent version of their distant cousin's telepathy. Speaks directly to other Greys within a limited radius."
+	desc = "The Grey's psionic communication, and a far less precise version of the telepathy of both them and their distant cousin species. Speaks directly to other Greys within a limited radius."
 	speech_verb = "expresses"
 	ask_verb = "inquires"
 	exclaim_verbs = list("imparts")
@@ -374,7 +374,7 @@
 
 /datum/language/drask
 	name = "Orluum"
-	desc = "The droning, vibrous language of the Drask. It sounds similar to whalesong, being composed with a variety of hums and drones. "
+	desc = "The droning, vibrous language of the Drask. It sounds similar to whalesong, being composed with a variety of low hums and drones."
 	speech_verb = "drones"
 	ask_verb = "hums"
 	exclaim_verbs = list("rumbles")
@@ -452,7 +452,7 @@
 
 /datum/language/gutter
 	name = "Gutter"
-	desc = "Much like Galactic Common, this crude pidgin tongue descended from numerous languages and serves as Tradeband for criminal elements."
+	desc = "Much like Galactic Common, this crude pidgin tongue descended from numerous languages, serving as Tradeband for criminal elements due to its ease of use and concise nature."
 	speech_verb = "growls"
 	ask_verb = "gnarls"
 	exclaim_verbs = list("snarls")
@@ -490,7 +490,7 @@
 /datum/language/xenocommon
 	name = "Xenomorph"
 	colour = "alien"
-	desc = "The common tongue of the xenomorphs."
+	desc = "The common tongue of the Xenomorphs, formed exclusively through hissing between speakers."
 	speech_verb = "hisses"
 	ask_verb = "hisses"
 	exclaim_verbs = list("hisses")
@@ -500,7 +500,7 @@
 
 /datum/language/xenos
 	name = "Hivemind"
-	desc = "A psionic hivemind used for communication by xenomorph hives over long distances."
+	desc = "A psionic hivemind used for communication by Xenomorph hives over long distances."
 	speech_verb = "hisses"
 	ask_verb = "hisses"
 	exclaim_verbs = list("hisses")
@@ -518,7 +518,7 @@
 
 /datum/language/terrorspider
 	name = "Spider Hivemind"
-	desc = "Inherited from their partial xenomorph origins, the terror spider hivemind functions as simple and efficient communication between members of the hive."
+	desc = "Inherited from their partial Xenomorph origins, the Terror Spider hivemind functions as simple and efficient communication between members of the hive."
 	speech_verb = "chitters"
 	ask_verb = "chitters"
 	exclaim_verbs = list("chitters")
@@ -553,7 +553,7 @@
 
 /datum/language/abductor
 	name = "Abductor Mindlink"
-	desc = "Serving as a replacement for the physical speech of abductors, the mindlink creates a direct line of psionic communication between a scientist and their agent."
+	desc = "Serving as a replacement for the physical speech of Abductors, the mindlink creates a direct line of psionic communication between a scientist and their agent."
 	speech_verb = "gibbers"
 	ask_verb = "gibbers"
 	exclaim_verbs = list("gibbers")
@@ -575,7 +575,7 @@
 
 /datum/language/abductor/golem
 	name = "Golem Mindlink"
-	desc = "A psionic link nearly identical to that of abductors, though showing more similarity to the Grey hivemind communication. Allows direct speech with other alien alloy golems."
+	desc = "A psionic link nearly identical to that of Abductors, though showing more similarity to the Grey hivemind communication. Allows direct speech with other alien alloy golems."
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 
 /datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
