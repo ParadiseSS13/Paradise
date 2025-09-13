@@ -745,7 +745,7 @@
 	backpack_contents = list(
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/whetstone = 1,
-		/obj/item/clothing/mask/gas/explorer/marines = 1,
+		/obj/item/clothing/mask/gas/solgov = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
 	)
 	cybernetic_implants = list(
@@ -792,7 +792,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
-		/obj/item/clothing/mask/gas/explorer/marines = 1,
+		/obj/item/clothing/mask/gas/solgov = 1,
 		/obj/item/ammo_box/magazine/m50 = 3
 	)
 	is_solgov_lieutenant = TRUE
@@ -802,7 +802,7 @@
 	uniform = /obj/item/clothing/under/solgov/elite
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov
 	head = null
-	mask = /obj/item/clothing/mask/gas/explorer/marines
+	mask = /obj/item/clothing/mask/gas/solgov
 	belt = /obj/item/storage/belt/military/assault/marines/elite/full
 	shoes = /obj/item/clothing/shoes/magboots/elite
 	l_hand = /obj/item/gun/projectile/automatic/ar
