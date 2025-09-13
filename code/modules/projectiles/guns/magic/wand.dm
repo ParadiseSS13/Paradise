@@ -14,12 +14,12 @@ CONTENTS:
 /obj/item/gun/magic/wand
 	name = "wand of nothing"
 	desc = "It's not just a stick, it's a MAGIC stick!"
-	ammo_type = /obj/item/ammo_casing/magic
+	icon_state = "nothingwand"
+	inhand_icon_state = "wand"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon_state = "nothingwand"
-	item_state = "wand"
 	belt_icon = "wand_nothing"
+	ammo_type = /obj/item/ammo_casing/magic
 	w_class = WEIGHT_CLASS_SMALL
 	can_charge = FALSE
 	max_charges = 100 //100, 50, 50, 34 (max charge distribution by 25%ths)
@@ -42,7 +42,6 @@ CONTENTS:
 
 /obj/item/gun/magic/wand/update_icon_state()
 	icon_state = "[initial(icon_state)][charges ? "" : "-drained"]"
-
 
 /obj/item/gun/magic/wand/attack__legacy__attackchain(atom/target, mob/living/user)
 	if(target == user)

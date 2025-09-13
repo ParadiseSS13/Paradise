@@ -35,7 +35,7 @@
 	icon_state = "case"
 	lefthand_file = 'icons/obj/forensics/items_lefthand.dmi'
 	righthand_file = 'icons/obj/forensics/items_righthand.dmi'
-	item_state = "case"
+	inhand_icon_state = "case"
 
 /obj/item/storage/briefcase/crimekit/populate_contents()
 	..()

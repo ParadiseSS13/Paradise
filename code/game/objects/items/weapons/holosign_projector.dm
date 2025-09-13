@@ -3,7 +3,7 @@
 	desc = "This shouldnt exist, if it does, tell a coder."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	belt_icon = "holosign_creator"
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
