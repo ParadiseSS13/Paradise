@@ -545,7 +545,7 @@
 	name = "Geneticist ID"
 	registered_name = "Geneticist"
 	icon_state = "geneticist"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GENETICS, ACCESS_RESEARCH)
 
 /obj/item/card/id/research
 	name = "Research ID"

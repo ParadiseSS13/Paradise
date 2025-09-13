@@ -454,7 +454,7 @@
 					continue //Dead
 
 			continue //Happy connected client
-		for(var/mob/dead/observer/D in GLOB.mob_list)
+		for(var/mob/dead/observer/D in GLOB.dead_mob_list)
 			if(D.mind && (D.mind.is_original_mob(L) || D.mind.current == L))
 				if(L.stat == DEAD)
 					if(L.suiciding)	//Suicider
@@ -464,7 +464,7 @@
 						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (Dead)\n"
 						continue //Dead mob, ghost abandoned
 				else
-					if(D.can_reenter_corpse)
+					if(D.ghost_flags & GHOST_CAN_REENTER)
 						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>This shouldn't appear.</b></font>)\n"
 						continue //Lolwhat
 					else
@@ -523,44 +523,43 @@
 	var/jobtext = ""
 	if(ply.assigned_role)
 		jobtext = " the <b>[ply.assigned_role]</b>"
-	var/text = "<b>[ply.get_display_key()]</b> was <b>[ply.name]</b>[jobtext] and"
+	var/text = "<br><b>[ply.get_display_key()]</b> was <b>[ply.name]</b>[jobtext] and "
 	if(ply.current)
 		if(ply.current.stat == DEAD)
-			text += " <span class='redtext'>died</span>"
+			text += "<span class='bold'>died!</span>"
 		else
-			text += " <span class='greentext'>survived</span>"
+			text += "<span class='bold'>survived</span>"
 		if(fleecheck)
 			var/turf/T = get_turf(ply.current)
 			if(!T || !is_station_level(T.z))
-				text += " while <span class='redtext'>fleeing the station</span>"
+				text += " while <span class='bold'>fleeing the station</span>"
 		if(ply.current.real_name != ply.name)
-			text += " as <b>[ply.current.real_name]</b>"
+			text += " as <b>[ply.current.real_name]!</b>"
+		else
+			text += "!"
 	else
-		text += " <span class='redtext'>had [ply.p_their()] body destroyed</span>"
+		text += "<span class='bold'>had [ply.p_their()] body destroyed!</span>"
 	return text
 
 /proc/printeventplayer(datum/mind/ply)
 	var/text = "<b>[ply.get_display_key()]</b> was <b>[ply.name]</b>"
 	if(ply.special_role != SPECIAL_ROLE_EVENTMISC)
 		text += " the [ply.special_role]"
-	text += " and"
+	text += " and "
 	if(ply.current)
 		if(ply.current.stat == DEAD)
-			text += " <b>died</b>"
+			text += "<span class='bold'>died!</span>"
 		else
-			text += " <b>survived</b>"
+			text += "<span class='bold'>survived!</span>"
 	else
-		text += " <b>had [ply.p_their()] body destroyed</b>"
+		text += "<span class='bold'>had [ply.p_their()] body destroyed!</span>"
 	return text
 
 /proc/printobjectives(datum/mind/ply)
 	var/list/objective_parts = list()
 	var/count = 1
 	for(var/datum/objective/objective in ply.get_all_objectives(include_team = FALSE))
-		if(objective.check_completion())
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-		else
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+		objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text]"
 		count++
 	return objective_parts.Join("<br>")
 

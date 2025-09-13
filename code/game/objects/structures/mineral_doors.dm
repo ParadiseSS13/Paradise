@@ -101,7 +101,7 @@
 
 /obj/structure/mineral_door/proc/operate_update()
 	density = !density
-	opacity = !opacity
+	set_opacity(!opacity)
 	state_open = !state_open
 	recalculate_atmos_connectivity()
 	update_icon(UPDATE_ICON_STATE)

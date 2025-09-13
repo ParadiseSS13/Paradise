@@ -83,17 +83,17 @@
 //Dispensers
 /obj/structure/reagent_dispensers/watertank
 	name = "water tank"
-	desc = "A water tank."
+	desc = "A large, wheeled tank full of potable water."
 
 /obj/structure/reagent_dispensers/watertank/high
 	name = "high-capacity water tank"
-	desc = "A highly-pressurized water tank made to hold gargantuan amounts of water.."
+	desc = "A highly-pressurized water tank made to hold gargantuan amounts of potable water."
 	icon_state = "water_high" //I was gonna clean my room...
 	tank_volume = 100000
 
 /obj/structure/reagent_dispensers/watertank/firetank
 	name = "firefighting foam tank"
-	desc = "A firefighting foam tank."
+	desc = "A high-pressure tank full of flame-retardant firefighting foam."
 	icon_state = "firetank"
 	reagent_id = "firefighting_foam"
 	tank_volume = 8000
@@ -107,7 +107,7 @@
 
 /obj/structure/reagent_dispensers/fueltank
 	name = "fuel tank"
-	desc = "A tank full of industrial welding fuel. Do not consume."
+	desc = "A tank full of industrial welding fuel, and covered in warning signage. Exposing it to flame is ill-advised. The \"Do not consume\" label has been scratched out."
 	icon_state = "fuel"
 	reagent_id = "fuel"
 	tank_volume = 4000
@@ -247,7 +247,7 @@
 
 /obj/structure/reagent_dispensers/peppertank
 	name = "pepper spray refiller"
-	desc = "Contains condensed capsaicin for use in law \"enforcement.\""
+	desc = "A wall-mounted dispenser filled with condensed capsaicin, used for quickly refilling pepper spray canisters."
 	icon_state = "pepper"
 	density = FALSE
 	can_be_unwrenched = FALSE
@@ -279,7 +279,7 @@
 
 /obj/structure/reagent_dispensers/beerkeg
 	name = "beer keg"
-	desc = "Beer is liquid bread, it's good for you..."
+	desc = "A large metal keg full of low-quality beer. The swill inside won't be winning any awards, but it does the job."
 	icon_state = "beer"
 	reagent_id = "beer"
 
@@ -339,7 +339,7 @@
 
 /obj/structure/reagent_dispensers/spacecleanertank
 	name = "space cleaner refiller"
-	desc = "Refills space cleaner bottles."
+	desc = "A wall-mounted dispenser full of powerful cleaning solvent. A warning label on the side informs you not to drink it."
 	icon_state = "cleaner"
 	can_be_unwrenched = FALSE
 	anchored = TRUE
