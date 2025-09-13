@@ -154,7 +154,7 @@
 
 /datum/language/unathi
 	name = "Sinta'unathi"
-	desc = "The common language of Moghes, composed of sibilant hisses and rattles. Spoken natively by Unathi."
+	desc = "The common language of Moghes, composed of sibilant hisses and rattles. It's spoken natively by the Unathi."
 	speech_verb = "hisses"
 	ask_verb = "hisses"
 	exclaim_verbs = list("roars")
@@ -197,7 +197,7 @@
 
 /datum/language/vulpkanin
 	name = "Canilunzt"
-	desc = "The guttural language spoken and utilized by the inhabitants of Vazzend system, composed of growls, barks, yaps, and heavy utilization of ears and tail movements.Vulpkanin speak this language with ease."
+	desc = "A guttural language mainly spoken and utilized by the inhabitants of the Vazzend system. Due to its composition of growls, barks, and yaps, non-Vulpkanin cannot speak the language in any meaningful capacity."
 	speech_verb = "rawrs"
 	ask_verb = "rurs"
 	exclaim_verbs = list("barks")
@@ -231,7 +231,7 @@
 
 /datum/language/vox
 	name = "Vox-pidgin"
-	desc = "The common tongue of the various Vox ships making up the Shoal. It sounds like chaotic shrieking to everyone else."
+	desc = "Vox-pidgin is the primary language of Vox across the Orion arm. It is composed of chaotic shrieks and creels, and is not intelligible to most other species."
 	speech_verb = "shrieks"
 	ask_verb = "creels"
 	exclaim_verbs = list("loudly skrees")
@@ -253,7 +253,7 @@
 
 /datum/language/diona
 	name = "Rootspeak"
-	desc = "A creaking, subvocal language spoken instinctively by the Dionaea. Due to the unique makeup of the average Diona, a phrase of Rootspeak can be a combination of anywhere from one to twelve individual voices and notes."
+	desc = "A creaking, subvocal language spoken instinctively by the Dionae. Due to the unique makeup of the average Diona, a phrase of Rootspeak can be a combination of anywhere from one to twelve individual voices and notes."
 	speech_verb = "creaks and rustles"
 	ask_verb = "creaks"
 	exclaim_verbs = list("rustles")
@@ -269,7 +269,7 @@
 
 /datum/language/trinary
 	name = "Trinary"
-	desc = "A modification of binary to allow fuzzy logic. 0 is no, 1 is maybe, 2 is yes. Credited with giving Machine People the ability to think creatively."
+	desc = "An encoding framework used to communicate on a verbal level by robotic units. Its vocabulary consists of a series of beeps that varies in tone and pitch."
 	speech_verb = "states"
 	ask_verb = "queries"
 	exclaim_verbs = list("exclaims")
@@ -293,7 +293,7 @@
 
 /datum/language/kidan
 	name = "Chittin"
-	desc = "The noise made by rubbing its antennae together is actually a complex form of communication for Kidan."
+	desc = "A complex form of communication, primary to the Kidan. Its sounds are formed by a combination of rubbing antennae together and expressive use of the mandibles, and cannot be properly expressed by other species."
 	speech_verb = "rubs their antennae together"
 	ask_verb = "rubs their antennae together"
 	exclaim_verbs = list("rubs their antennae together")
@@ -316,7 +316,7 @@
 
 /datum/language/slime
 	name = "Bubblish"
-	desc = "The language of slimes. It's a mixture of bubbling noises and pops. Very difficult to speak without mechanical aid for humans."
+	desc = "The primary language spoken by Slime People. Its vocabulary consists of bubbling, pops, and squishes. Due to these noises being difficult to synthesize as a non-slime, mechanical aid is required to speak it."
 	speech_verb = "burbles"
 	ask_verb = "pops softly"
 	exclaim_verbs = list("fizzes")
@@ -336,7 +336,7 @@
 
 /datum/language/grey
 	name = "Psionic Communication"
-	desc = "The grey's psionic communication, less potent version of their distant cousin's telepathy. Talk to other greys within a limited radius."
+	desc = "The Grey's psionic communication, and a far less potent version of their distant cousin's telepathy. Speaks directly to other Greys within a limited radius."
 	speech_verb = "expresses"
 	ask_verb = "inquires"
 	exclaim_verbs = list("imparts")
@@ -374,7 +374,7 @@
 
 /datum/language/drask
 	name = "Orluum"
-	desc = "The droning, vibrous language of the Drask. It sounds somewhat like whalesong."
+	desc = "The droning, vibrous language of the Drask. It sounds similar to whalesong, being composed with a variety of hums and drones. "
 	speech_verb = "drones"
 	ask_verb = "hums"
 	exclaim_verbs = list("rumbles")
@@ -391,7 +391,7 @@
 
 /datum/language/moth
 	name = "Tkachi"
-	desc = "The language of the Nianae mothpeople borders on complete unintelligibility."
+	desc = "The nearly-unintelligible language of the Nian, originally native to the Garden system. Its vocabulary of buzzes and flapping make the language complex, while being difficult to translate."
 	speech_verb = "buzzes"
 	ask_verb = "flaps"
 	exclaim_verbs = list("chatters")
@@ -452,7 +452,7 @@
 
 /datum/language/gutter
 	name = "Gutter"
-	desc = "Much like Standard, this crude pidgin tongue descended from numerous languages and serves as Tradeband for criminal elements."
+	desc = "Much like Galactic Common, this crude pidgin tongue descended from numerous languages and serves as Tradeband for criminal elements."
 	speech_verb = "growls"
 	ask_verb = "gnarls"
 	exclaim_verbs = list("snarls")
@@ -462,7 +462,7 @@
 
 /datum/language/clown
 	name = "Clownish"
-	desc = "The language of Clown University. Mother tongue of clowns throughout the galaxy."
+	desc = "The language of Clown University. Mother tongue of clowns throughout the Orion arm."
 	speech_verb = "honks"
 	ask_verb = "honks"
 	exclaim_verbs = list("toots", "wubs", "honks")
@@ -500,7 +500,7 @@
 
 /datum/language/xenos
 	name = "Hivemind"
-	desc = "Xenomorphs have the strange ability to commune over a psychic hivemind."
+	desc = "A psionic hivemind used for communication by xenomorph hives over long distances."
 	speech_verb = "hisses"
 	ask_verb = "hisses"
 	exclaim_verbs = list("hisses")
@@ -518,7 +518,7 @@
 
 /datum/language/terrorspider
 	name = "Spider Hivemind"
-	desc = "Terror spiders have a limited ability to commune over a psychic hivemind, similar to xenomorphs."
+	desc = "Inherited from their partial xenomorph origins, the terror spider hivemind functions as simple and efficient communication between members of the hive."
 	speech_verb = "chitters"
 	ask_verb = "chitters"
 	exclaim_verbs = list("chitters")
@@ -537,7 +537,7 @@
 
 /datum/language/ling
 	name = "Changeling"
-	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
+	desc = "The hivemind language inherent to changelings. While its inner workings are unclear, the hivemind allows for anonymity and direct communication, similar to other hiveminds."
 	colour = "changeling"
 	key = "g"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
@@ -553,7 +553,7 @@
 
 /datum/language/abductor
 	name = "Abductor Mindlink"
-	desc = "Abductors are incapable of speech, but have a psychic link attuned to their own team."
+	desc = "Serving as a replacement for the physical speech of abductors, the mindlink creates a direct line of psionic communication between a scientist and their agent."
 	speech_verb = "gibbers"
 	ask_verb = "gibbers"
 	exclaim_verbs = list("gibbers")
@@ -575,7 +575,7 @@
 
 /datum/language/abductor/golem
 	name = "Golem Mindlink"
-	desc = "Communicate with other alien alloy golems through a psychic link."
+	desc = "A psionic link nearly identical to that of abductors, though showing more similarity to the Grey hivemind communication. Allows direct speech with other alien alloy golems."
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 
 /datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
@@ -583,7 +583,7 @@
 
 /datum/language/binary
 	name = "Robot Talk"
-	desc = "Most human stations support free-use communications protocols and routing hubs for synthetic use."
+	desc = "A free-use communications protocol for synthetic use, supported by many stations through use of routing hubs built into cyborgs and AI units."
 	colour = "say_quote"
 	speech_verb = "states"
 	ask_verb = "queries"
@@ -643,7 +643,7 @@
 
 /datum/language/binary/drone
 	name = "Drone Talk"
-	desc = "A heavily encoded damage control coordination stream."
+	desc = "A heavily encoded damage control coordination stream. Exclusively spoken by maintenance drones, and unable to be translated without heavy mechanical assistance."
 	speech_verb = "transmits"
 	ask_verb = "transmits"
 	exclaim_verbs = list("transmits")
@@ -737,7 +737,7 @@
 
 /datum/language/human/monkey
 	name = "Chimpanzee"
-	desc = "Ook ook ook."
+	desc = "A language of chimpering nonsense, spoken and understood only by monkeys. As such, they are the only species capable of speaking or understanding this."
 	speech_verb = "chimpers"
 	ask_verb = "chimpers"
 	exclaim_verbs = list("screeches")
@@ -745,22 +745,22 @@
 
 /datum/language/skrell/monkey
 	name = "Neara"
-	desc = "Squik squik squik."
+	desc = "The ancestor language to Qurvolious, with equally hard to pronounce syllables. Neara are the only species capable of speaking or understanding this."
 	key = "ne"
 
 /datum/language/unathi/monkey
 	name = "Stok"
-	desc = "Hiss hiss hiss."
+	desc = "A language comprised of light hissing, comparable at most to Sinta'unathi. Stok are the only species capable of speaking or understanding this."
 	key = "st"
 
 /datum/language/tajaran/monkey
 	name = "Farwa"
-	desc = "Meow meow meow."
+	desc = "Simplistic and expressive in nature, the Farwa language is composed of chirps and meows. Farwa are the only species capable of speaking or understanding this."
 	key = "fa"
 
 /datum/language/vulpkanin/monkey
 	name = "Wolpin"
-	desc = "Bark bark bark."
+	desc = "A guttural language with syllables of growls and barks, similar to Canilunzt. Wolpin are the only species capable of speaking or understanding this."
 	key = "vu"
 
 /mob/proc/grant_all_babel_languages()
@@ -772,7 +772,7 @@
 
 /datum/language/zombie
 	name = "Zombie"
-	desc = "Flesh... Brains... We hunger..."
+	desc = "The groaning language of flesh-hungry zombies. Braaaiiinsss..."
 	speech_verb = "groans"
 	ask_verb = "groans"
 	exclaim_verbs = list("yells")
