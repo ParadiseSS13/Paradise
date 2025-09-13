@@ -1,22 +1,15 @@
 /datum/cooking_surface/oven
 	cooker_id = COOKER_SURFACE_OVEN
 
-/datum/cooking_surface/oven/handle_switch(mob/user)
-	var/obj/machinery/cooking/oven/oven = parent
-	if(istype(oven))
-		if(!on && oven.opened)
-			to_chat(user, "<span class='notice'>The oven must be closed in order to turn it on.</span>")
-			return
-
-	return ..()
-
 // TODO: add back special attack for oven for v2
 // Yes, that's a v2 thing, I'm not doing it right now
 /obj/machinery/cooking/oven
 	name = "oven"
 	desc = "A cozy oven for baking food."
 	icon_state = "oven"
-	var/opened = FALSE
+	layer = LOW_ITEM_LAYER  // horrible hackiness to deal with layering vis_contents (tray),
+							// overlays (door/light) and emptying container contents on top
+							// of the oven, see below
 
 	var/on_fire = FALSE //if the oven has caught fire or not.
 	allowed_containers = list(
@@ -52,71 +45,18 @@
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		las_rating += M.rating
 
-/obj/machinery/cooking/oven/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/storage/part_replacer) || istype(used, /obj/item/autochef_remote))
-		return ..()
-
-	if(!opened)
-		handle_open(user)
-		update_icon()
-		return ITEM_INTERACT_COMPLETE
-
-	return ..()
-
 /obj/machinery/cooking/oven/attack_hand(mob/user as mob, params)
 	var/input = clickpos_to_surface(params2list(params))
 
-	// If we didn't click on the door, toggle it.
-	if(!input)
-		handle_open(user)
-		return
-
 	var/datum/cooking_surface/surface = surfaces[input]
-	if(surface && surface.container && opened)
+	if(surface && surface.container)
 		user.put_in_hands(surface.container)
 		surface.UnregisterSignal(surface.container, COMSIG_PARENT_EXAMINE)
 		surface.container = null
 		update_appearance(UPDATE_ICON)
-	else
-		handle_open(user)
-
-/obj/machinery/cooking/oven/AltClick(mob/user, params)
-	if(user.stat || user.restrained() || (!in_range(src, user)))
-		return
-
-	if(!opened)
-		to_chat(user, "<span class='notice'>The oven must be open to retrieve the food.</span>")
-		return
-
-	return ..()
-
-/obj/machinery/cooking/oven/proc/handle_open(mob/user)
-	if(opened)
-		opened = FALSE
-	else
-		opened = TRUE
-		var/datum/cooking_surface/surface = surfaces[1]
-		if(surface.on)
-			surface.handle_switch(user)
-			makeNormalProcess()
-
-	update_appearance()
-
-#define ICON_SPLIT_X_1 5
-#define ICON_SPLIT_X_2 28
-#define ICON_SPLIT_Y_1 5
-#define ICON_SPLIT_Y_2 20
 
 /obj/machinery/cooking/oven/clickpos_to_surface(modifiers)
-	var/icon_x = text2num(modifiers["icon-x"])
-	var/icon_y = text2num(modifiers["icon-y"])
-	if(icon_x >= ICON_SPLIT_X_1 && icon_x <= ICON_SPLIT_X_2 && icon_y >= ICON_SPLIT_Y_1 && icon_y <= ICON_SPLIT_Y_2)
-		return 1
-
-#undef ICON_SPLIT_X_1
-#undef ICON_SPLIT_X_2
-#undef ICON_SPLIT_Y_1
-#undef ICON_SPLIT_Y_2
+	return 1
 
 /obj/machinery/cooking/oven/update_surface_icon(surface_idx)
 	var/datum/cooking_surface/surface = surfaces[1]
@@ -127,14 +67,22 @@
 
 /obj/machinery/cooking/oven/update_overlays()
 	. = ..()
-	if(opened)
-		. += image(icon, icon_state = "oven_hatch_open", layer = ABOVE_OBJ_LAYER)
+
+	var/datum/cooking_surface/surface = surfaces[1]
+	if(surface.on)
+		. += image(icon, icon_state = "oven_on", layer = LOW_ITEM_LAYER + 0.02)
+	if(surface.container)
+		. += image(icon, icon_state = "oven_closed", layer = LOW_ITEM_LAYER + 0.04)
 	else
-		var/datum/cooking_surface/surface = surfaces[1]
-		. += image(icon, icon_state = "oven_hatch[surface.on ? "_on" : ""]", layer = ABOVE_OBJ_LAYER)
+		. += image(icon, icon_state = "oven_open", layer = LOW_ITEM_LAYER + 0.04)
+
+/obj/machinery/cooking/oven/remove_from_visible(obj/item/reagent_containers/cooking/container, input)
+	. = ..()
+	container.layer = initial(container.layer)
 
 /obj/machinery/cooking/oven/add_to_visible(obj/item/reagent_containers/cooking/container, surface_idx)
-	container.vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_ID
+	container.vis_flags = VIS_INHERIT_PLANE | VIS_INHERIT_ID
+	container.layer = LOW_ITEM_LAYER + 0.01
 	container.make_mini()
 	vis_contents += container
 
