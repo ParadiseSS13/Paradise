@@ -513,7 +513,7 @@ Difficulty: Hard
 		if(.)
 			recovery_time = world.time + 20 // can only attack melee once every 2 seconds but rapid_melee gives higher priority
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/bullet_act(obj/projectile/P)
 	if(BUBBLEGUM_IS_ENRAGED)
 		visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons while enraged!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 		playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 300, TRUE)
@@ -654,7 +654,7 @@ Difficulty: Hard
 	second_life = TRUE
 	enraged = TRUE
 	rapid_melee = 12
-	projectiletype = /obj/item/projectile/magic/arcane_barrage/blood
+	projectiletype = /obj/projectile/magic/arcane_barrage/blood
 	projectilesound = 'sound/effects/splat.ogg'
 	deathmessage = null
 	death_sound = 'sound/hallucinations/veryfar_noise.ogg'

@@ -1,8 +1,8 @@
-/obj/item/projectile/homing
+/obj/projectile/homing
 	name = "smart bullet"
 	var/homing_active = TRUE
 
-/obj/item/projectile/homing/pixel_move(trajectory_multiplier)
+/obj/projectile/homing/pixel_move(trajectory_multiplier)
 	. = ..()
 	if(!homing_active)
 		return
@@ -21,7 +21,7 @@
 	var/angle = ATAN2(dy, dx)
 	set_angle(angle)
 
-/obj/item/projectile/homing/magic
+/obj/projectile/homing/magic
 	name = "bolt of nothing"
 	icon_state = "energy"
 	damage = 0
@@ -32,7 +32,7 @@
 	antimagic_flags = MAGIC_RESISTANCE
 	antimagic_charge_cost = 1
 
-/obj/item/projectile/homing/magic/toolbox
+/obj/projectile/homing/magic/toolbox
 	name = "magic toolbox"
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "toolbox_default"
@@ -41,11 +41,11 @@
 	nodamage = FALSE
 	damage_type = BRUTE
 
-/obj/item/projectile/homing/magic/toolbox/on_range()
+/obj/projectile/homing/magic/toolbox/on_range()
 	. = ..()
 	new /obj/item/storage/toolbox(get_turf(src))
 
-/obj/item/projectile/homing/magic/toolbox/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/homing/magic/toolbox/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	var/obj/item/storage/toolbox/T = new /obj/item/storage/toolbox(get_turf(src))
 	if(ishuman(target))
@@ -53,7 +53,7 @@
 		var/obj/item/organ/external/E = pick(H.bodyparts)
 		E.add_embedded_object(T)
 
-/obj/item/projectile/homing/magic/homing_fireball
+/obj/projectile/homing/magic/homing_fireball
 	name = "greater bolt of fireball"
 	icon_state = "fireball"
 	damage = 20
@@ -67,7 +67,7 @@
 	var/explosion_flash = 4
 	var/explosion_fire = 3
 
-/obj/item/projectile/homing/magic/homing_fireball/on_hit(mob/living/target)
+/obj/projectile/homing/magic/homing_fireball/on_hit(mob/living/target)
 	. = ..()
 	if(ismob(target))
 		if(!.)

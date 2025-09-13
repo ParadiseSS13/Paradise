@@ -621,7 +621,7 @@
 	var/turf/U = get_turf(target)
 	if(!T || !U)
 		return
-	var/obj/item/projectile/beam/A = new /obj/item/projectile/beam(loc)
+	var/obj/projectile/beam/A = new /obj/projectile/beam(loc)
 	A.icon = 'icons/effects/genetics.dmi'
 	A.icon_state = "eyelasers"
 	playsound(src.loc, 'sound/weapons/taser2.ogg', 75, 1)

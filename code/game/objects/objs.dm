@@ -283,7 +283,7 @@
 			C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
 
-/obj/handle_ricochet(obj/item/projectile/P)
+/obj/handle_ricochet(obj/projectile/P)
 	. = ..()
 	if(. && receive_ricochet_damage_coeff)
 		// pass along receive_ricochet_damage_coeff damage to the structure for the ricochet

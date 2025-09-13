@@ -85,7 +85,7 @@
 		if(3)
 			take_damage(rand(10, 90), BRUTE, BOMB, 0)
 
-/obj/bullet_act(obj/item/projectile/P)
+/obj/bullet_act(obj/projectile/P)
 	. = ..()
 	playsound(src, P.hitsound, 50, TRUE)
 	visible_message("<span class='danger'>[src] is hit by \a [P]!</span>")

@@ -278,7 +278,7 @@
 	user.visible_message("<span class='alert'>[user] patches some dents on [src] with [I].</span>")
 
 
-/mob/living/silicon/bullet_act(obj/item/projectile/Proj)
+/mob/living/silicon/bullet_act(obj/projectile/Proj)
 	if(!Proj.nodamage)
 		var/damage = run_armor(Proj.damage, Proj.damage_type, Proj.flag, 0, Proj.armor_penetration_flat, Proj.armor_penetration_percentage)
 		switch(Proj.damage_type)

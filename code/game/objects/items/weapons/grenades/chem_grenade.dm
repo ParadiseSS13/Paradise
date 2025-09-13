@@ -115,7 +115,7 @@
 				prime()
 
 /obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/obj/item/projectile/P = hitby
+	var/obj/projectile/P = hitby
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
 		owner.visible_message("<span class='userdanger'>[hitby] hits [owner]'s [name], setting it off! What a shot!</span>")
 		var/turf/T = get_turf(src)
@@ -141,7 +141,7 @@
 				return 1
 	else if(stage == WIRED && is_type_in_list(I, allowed_containers))
 
-		if(length(beakers) == 0) 
+		if(length(beakers) == 0)
 			container_type = TRANSPARENT // Allows to see reagents in player's made bombs
 		if(length(beakers) == 2)
 			to_chat(user, "<span class='notice'>[src] can not hold more containers.</span>")

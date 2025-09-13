@@ -37,7 +37,7 @@
 	icon_state = "syndicate_harbinger"
 	icon_living = "syndicate_harbinger"
 	speak_emote = list("snarls")
-	projectiletype = /obj/item/projectile/bullet/heavybullet
+	projectiletype = /obj/projectile/bullet/heavybullet
 	projectilesound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	internal_gps = null
 	faction = list("syndicate", "spawned_corpse")

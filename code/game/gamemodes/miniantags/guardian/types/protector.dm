@@ -127,7 +127,7 @@
 		return TRUE
 	return FALSE
 
-/obj/effect/guardianshield/bullet_act(obj/item/projectile/P)
+/obj/effect/guardianshield/bullet_act(obj/projectile/P)
 	if(!P)
 		return
 	linked_guardian.apply_damage(P.damage, P.damage_type)

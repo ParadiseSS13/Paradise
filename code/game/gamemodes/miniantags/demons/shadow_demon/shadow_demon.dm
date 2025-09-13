@@ -201,7 +201,7 @@
 	name = "Shadow Grapple"
 	desc = "Fire one of your hands, if it hits a person it pulls them in. If you hit a structure you get pulled to the structure. Any light source hit with this will be disabled in a two tile radius."
 	base_cooldown = 10 SECONDS
-	fireball_type = /obj/item/projectile/magic/shadow_hand
+	fireball_type = /obj/projectile/magic/shadow_hand
 
 	selection_activated_message = "<span class='notice'>You raise your hand, full of demonic energy! <b>Left-click to cast at a target!</b></span>"
 	selection_deactivated_message = "<span class='notice'>You re-absorb the energy...for now.</span>"
@@ -215,20 +215,20 @@
 /datum/spell/fireball/shadow_grapple/update_spell_icon()
 	return
 
-/obj/item/projectile/magic/shadow_hand
+/obj/projectile/magic/shadow_hand
 	name = "shadow hand"
 	icon_state = "shadow_hand"
 	plane = FLOOR_PLANE
 	hitsound = 'sound/shadowdemon/shadowattack1.ogg' // Plays when hitting something living or a light
 	var/hit = FALSE
 
-/obj/item/projectile/magic/shadow_hand/pixel_move(trajectory_multiplier, hitscanning)
+/obj/projectile/magic/shadow_hand/pixel_move(trajectory_multiplier, hitscanning)
 	. = ..()
 	var/obj/machinery/light/floor/floor_light = locate(/obj/machinery/light/floor) in get_turf(src)
 	if(floor_light)
 		Bump(floor_light)
 
-/obj/item/projectile/magic/shadow_hand/fire(setAngle)
+/obj/projectile/magic/shadow_hand/fire(setAngle)
 	if(firer)
 		var/mob/living/simple_animal/demon/shadow/current_demon = firer
 		if(istype(current_demon))
@@ -236,7 +236,7 @@
 		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/floor)
 	return ..()
 
-/obj/item/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
 	if(hit)
 		return
 	hit = TRUE // to prevent double hits from the pull
@@ -258,12 +258,12 @@
 		L.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
 		L.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
 
-/obj/item/projectile/magic/shadow_hand/Destroy()
+/obj/projectile/magic/shadow_hand/Destroy()
 	if(!hit)
 		unblock_shadowdemon_crawl()
 	return ..()
 
-/obj/item/projectile/magic/shadow_hand/proc/unblock_shadowdemon_crawl()
+/obj/projectile/magic/shadow_hand/proc/unblock_shadowdemon_crawl()
 	var/mob/living/simple_animal/demon/shadow/current_demon = firer
 	if(istype(current_demon))
 		current_demon.unblock_shadow_crawl()
