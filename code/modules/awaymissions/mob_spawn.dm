@@ -457,7 +457,7 @@
 
 /datum/outfit/abductorcorpse
 	name = "Abductor Corpse"
-	uniform = /obj/item/clothing/under/color/grey
+	uniform = /obj/item/clothing/under/abductor
 	shoes = /obj/item/clothing/shoes/combat
 
 /obj/effect/mob_spawn/human/corpse/ashwalker
