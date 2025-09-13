@@ -215,7 +215,7 @@
 
 /obj/item/lighter/zippo/nt_rep
 	name = "gold engraved zippo"
-	desc = "An engraved golden Zippo lighter with the letters \"NT\" engraved on the sides."
+	desc = "A golden Zippo lighter with the letter \"N\" engraved on the front."
 	icon_state = "zippo-nt"
 	item_state = "zippo-gold"
 
