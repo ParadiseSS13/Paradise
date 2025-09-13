@@ -1176,6 +1176,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/engine, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/monitor, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/server, 24, 24)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/syndicate, 24, 24)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/alarm/kitchen_cold_room, 24, 24)
 
 /*
 AIR ALARM CIRCUIT

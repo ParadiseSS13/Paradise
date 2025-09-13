@@ -93,34 +93,38 @@
 	icon_state = "dinnerware"
 	icon_lightmask = "dinnerware"
 	category = VENDOR_TYPE_DEPARTMENTAL
-	products = list(/obj/item/storage/bag/tray = 8,
-					/obj/item/kitchen/utensil/fork = 6,
-					/obj/item/trash/plate = 20,
-					/obj/item/trash/bowl = 20,
-					/obj/item/kitchen/knife = 3,
-					/obj/item/kitchen/rollingpin = 2,
-					/obj/item/reagent_containers/cooking/sushimat = 3,
-					/obj/item/reagent_containers/drinks/drinkingglass = 8,
-					/obj/item/reagent_containers/condiment/pack/ketchup = 5,
-					/obj/item/reagent_containers/condiment/pack/hotsauce = 5,
-					/obj/item/reagent_containers/condiment/saltshaker =5,
-					/obj/item/reagent_containers/condiment/peppermill =5,
-					/obj/item/whetstone = 2,
-					/obj/item/storage/box/papersack = 20,
-					/obj/item/kitchen/knife/cheese = 2,
-					/obj/item/kitchen/knife/pizza_cutter = 2,
-					/obj/item/reagent_containers/cooking/mould/bear = 1,
-					/obj/item/reagent_containers/cooking/mould/worm = 1,
-					/obj/item/reagent_containers/cooking/mould/bean = 1,
-					/obj/item/reagent_containers/cooking/mould/ball = 1,
-					/obj/item/reagent_containers/cooking/mould/cane = 1,
-					/obj/item/reagent_containers/cooking/mould/cash = 1,
-					/obj/item/reagent_containers/cooking/mould/coin = 1,
-					/obj/item/reagent_containers/cooking/mould/loli = 1,
-					/obj/item/kitchen/cutter = 2)
+	products = list(
+		/obj/item/storage/bag/tray = 8,
+		/obj/item/kitchen/utensil/fork = 6,
+		/obj/item/trash/plate = 20,
+		/obj/item/trash/bowl = 20,
+		/obj/item/kitchen/knife = 3,
+		/obj/item/kitchen/rollingpin = 2,
+		/obj/item/reagent_containers/cooking/sushimat = 3,
+		/obj/item/reagent_containers/drinks/drinkingglass = 8,
+		/obj/item/whetstone = 2,
+		/obj/item/storage/box/papersack = 20,
+		/obj/item/kitchen/knife/cheese = 2,
+		/obj/item/kitchen/knife/pizza_cutter = 2,
+		/obj/item/storage/box/kitchen_moulds = 1,
+		/obj/item/kitchen/cutter = 2,
+		/obj/item/storage/box/dish_drive = 1,
+		/obj/item/storage/box/crewvend = 1,
+		/obj/item/storage/box/autochef = 1,
+		/obj/item/cartridge/chef = 2,
+	)
 
-	contraband = list(/obj/item/kitchen/rollingpin = 2,
-					/obj/item/kitchen/knife/butcher = 2)
+	contraband = list(
+		/obj/item/kitchen/rollingpin = 2,
+		/obj/item/kitchen/knife/butcher = 2,
+	)
+
+	prices = list(
+		/obj/item/storage/box/dish_drive = 100,
+		/obj/item/storage/box/crewvend = 100,
+		/obj/item/storage/box/autochef = 100,
+		/obj/item/cartridge/chef = 50,
+	)
 
 	refill_canister = /obj/item/vending_refill/dinnerware
 
