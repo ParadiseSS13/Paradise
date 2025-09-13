@@ -3,7 +3,8 @@
 	name = "soul stone"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "soulstone"
-	item_state = "electronic"
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	belt_icon = "soulstone"
 	var/icon_state_full = "soulstone2"
 	desc = "A weighty shard of dark crystal, flickering with eldritch energy. A soul can be bound within, forced to obey the commands of the owner."

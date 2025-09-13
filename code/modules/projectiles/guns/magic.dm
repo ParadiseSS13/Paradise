@@ -3,7 +3,9 @@
 	desc = "This staff is boring to watch because even though it came first you've seen everything it can do in other staves for years."
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "staffofnothing"
-	item_state = "staff"
+	inhand_icon_state = "staff"
+	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	fire_sound = 'sound/weapons/emitter.ogg'
 	fire_sound_text = "energy blast"
 	w_class = WEIGHT_CLASS_HUGE
@@ -18,9 +20,6 @@
 	origin_tech = null
 	clumsy_check = FALSE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses magic instead
-
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi' //not really a gun and some toys use these inhands
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /obj/item/gun/magic/afterattack__legacy__attackchain(atom/target, mob/living/user, flag)
 	if(no_den_usage)

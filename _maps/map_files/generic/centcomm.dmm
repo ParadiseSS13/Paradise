@@ -1317,8 +1317,7 @@
 "eM" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/gloves/boxing/hologlove{
-	icon_state = "boxinggreen";
-	item_state = "boxinggreen"
+	icon_state = "boxinggreen"
 	},
 /turf/simulated/floor/holofloor{
 	dir = 6;
@@ -5439,18 +5438,6 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
-"sh" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "trader_privacy";
-	name = "Privacy Shutters";
-	opacity = 0
-	},
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "si" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7399,8 +7386,7 @@
 "zi" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/gloves/boxing/hologlove{
-	icon_state = "boxinggreen";
-	item_state = "boxinggreen"
+	icon_state = "boxinggreen"
 	},
 /turf/simulated/floor/holofloor{
 	dir = 10;

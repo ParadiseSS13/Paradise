@@ -4,7 +4,7 @@
 	icon = 'icons/obj/lighting.dmi'
 	desc = "A single-use extraction flare that will let you escape the station. One way trip."
 	icon_state = "flare-contractor"
-	item_state = "flare"
+	inhand_icon_state = "flare"
 	/// What areas can be extracted from?
 	var/list/extractable_areas = list()
 	/// Is there a roundstart delay?

@@ -3,7 +3,7 @@
 	desc = "A device used to project your voice. Loudly."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "megaphone"
-	item_state = "radio"
+	inhand_icon_state = "radio"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 

@@ -189,11 +189,12 @@
 	if(isitem(target))
 		var/obj/item/I = target
 
-		I.item_state = initial(picked_item.item_state)
+		I.worn_icon_state = initial(picked_item.worn_icon_state)
+		I.inhand_icon_state = initial(picked_item.inhand_icon_state)
 		I.item_color = initial(picked_item.item_color)
 		I.color = initial(picked_item.color)
 
-		I.icon_override = initial(picked_item.icon_override)
+		I.worn_icon = initial(picked_item.worn_icon)
 		if(initial(picked_item.sprite_sheets))
 			// Species-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the picked item.
 			var/obj/item/P = new picked_item(null)
@@ -233,23 +234,20 @@
 
 /obj/item/clothing/under/chameleon
 	name = "black jumpsuit"
-	icon_state = "black"
-	item_state = "bl_suit"
-	item_color = "black"
 	desc = "It's a plain jumpsuit. It has a small dial on the wrist."
+	icon = 'icons/obj/clothing/under/color.dmi'
+	icon_state = "black"
+	worn_icon = 'icons/mob/clothing/under/color.dmi'
+	inhand_icon_state = "bl_suit"
+	item_color = "black"
 	random_sensor = FALSE
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
-
-	icon = 'icons/obj/clothing/under/color.dmi'
-
 	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/under/color.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/color.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi'
-		)
-
+	)
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/under/chameleon/Initialize(mapload)
@@ -293,7 +291,6 @@
 	name = "armor"
 	desc = "A slim armored vest that protects against most types of damage."
 	icon_state = "armor"
-	item_state = "armor"
 	blood_overlay_type = "armor"
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -328,16 +325,13 @@
 	name = "optical meson scanner"
 	desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting condition."
 	icon_state = "meson"
-	item_state = "meson"
 	prescription_upgradable = TRUE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
-
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 	)
-
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/glasses/chameleon/Initialize(mapload)
@@ -425,7 +419,6 @@
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	icon_state = "yellow"
-	item_state = "ygloves"
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 
@@ -455,7 +448,7 @@
 	name = "grey cap"
 	desc = "It's a baseball hat in a tasteful grey colour."
 	icon = 'icons/obj/clothing/head/softcap.dmi'
-	icon_override = 'icons/mob/clothing/head/softcap.dmi'
+	worn_icon = 'icons/mob/clothing/head/softcap.dmi'
 	icon_state = "greysoft"
 	item_color = "grey"
 
@@ -492,7 +485,6 @@
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply. While good for concealing your identity, it isn't good for blocking gas flow." //More accurate
 	icon_state = "gas_alt"
-	item_state = "gas_alt"
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 	flags = AIRTIGHT | BLOCK_GAS_SMOKE_EFFECT
@@ -535,7 +527,6 @@
 
 /obj/item/clothing/mask/chameleon/voice_change
 	icon_state = "swat"
-	item_state = "swat"
 
 	var/obj/item/voice_changer/voice_changer
 
@@ -741,7 +732,7 @@
 			return
 		. = ..()
 		C.current_disguise = TRUE
-		C.item_state = initial(picked_item.item_state)
+		C.inhand_icon_state = initial(picked_item.inhand_icon_state)
 		for(var/obj/item/mod/module/chameleon/tosignal in C.contents)
 			tosignal.RegisterSignal(C, COMSIG_MOD_ACTIVATE, TYPE_PROC_REF(/obj/item/mod/module/chameleon, return_look), TRUE)
 
