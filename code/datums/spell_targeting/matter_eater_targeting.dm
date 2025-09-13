@@ -8,7 +8,7 @@
 		/mob/living/simple_animal/pet,
 		/mob/living/simple_animal/hostile,
 		/mob/living/simple_animal/parrot,
-		/mob/living/simple_animal/crab,
+		/mob/living/basic/crab,
 		/mob/living/simple_animal/mouse,
 		/mob/living/carbon/human,
 		/mob/living/simple_animal/slime,
@@ -18,7 +18,7 @@
 		/mob/living/simple_animal/chicken,
 		/mob/living/basic/lizard,
 		/mob/living/basic/cow,
-		/mob/living/simple_animal/spiderbot
+		/mob/living/basic/spiderbot
 	)
 	var/list/own_blacklist = list(
 		/obj/item/organ,

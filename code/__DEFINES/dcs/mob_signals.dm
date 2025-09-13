@@ -273,3 +273,6 @@
 
 /// From base of /datum/action/cooldown/proc/set_statpanel_format(): (list/stat_panel_data)
 #define COMSIG_ACTION_SET_STATPANEL "ability_set_statpanel"
+
+/// From base of /client/Move(): (direction, old_dir)
+#define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
