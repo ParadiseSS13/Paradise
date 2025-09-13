@@ -30,7 +30,7 @@
 			else
 				// Target prioritization by spider type. BRUTE spiders prioritize lower armor values, POISON spiders prioritize poisonable targets
 				if(ai_target_method == TS_DAMAGE_BRUTE)
-					var/theirarmor = C.getarmor(type = MELEE)
+					var/theirarmor = C.getarmor(armor_type = MELEE)
 					// Example values: Assistant: 2, Engineer w/ Hardsuit: 10, Sec Officer with armor: 19, HoS: 48, Deathsquad: 80
 					if(theirarmor < 10)
 						targets1 += C

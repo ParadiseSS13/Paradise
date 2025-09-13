@@ -80,7 +80,7 @@
 		visible_message("<span class='warning'>[src] looks unharmed.</span>")
 		return FALSE
 	else
-		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
+		apply_damage(damage, damagetype, null, getarmor(armor_type = armorcheck))
 		return TRUE
 
 /mob/living/simple_animal/bullet_act(obj/item/projectile/Proj)
@@ -94,7 +94,7 @@
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
 		return
 	..()
-	var/bomb_armor = getarmor(null, BOMB)
+	var/bomb_armor = getarmor(armor_type = BOMB)
 	switch(severity)
 		if(1)
 			if(prob(bomb_armor))

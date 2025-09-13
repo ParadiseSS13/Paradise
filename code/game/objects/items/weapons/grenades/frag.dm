@@ -50,11 +50,11 @@
 	if(!ishuman(target))
 		return
 
-	var/mob/living/carbon/human/H = target
-	if(!prob(embed_prob - ARMOUR_VALUE_TO_PERCENTAGE(H.getarmor(null, BOMB))))
-		to_chat(H, "<span class='warning'>Shrapnel bounces off your armor!</span>")
+	var/mob/living/carbon/human/human = target
+	if(!prob(embed_prob - ARMOUR_VALUE_TO_PERCENTAGE(human.getarmor(armor_type = BOMB))))
+		to_chat(human, "<span class='warning'>Shrapnel bounces off your armor!</span>")
 		return
-	H.try_embed_object(new_possible_embed)
+	human.try_embed_object(new_possible_embed)
 
 /obj/item/projectile/bullet/shrapnel/on_range()
 	var/obj/item/we_missed = new embedded_type(get_turf(src)) // we missed, lets toss the shrapnel

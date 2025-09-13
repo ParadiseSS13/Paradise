@@ -26,7 +26,7 @@
 	D.visible_message("<span class='danger'>[A] suplexes [D]!</span>", \
 								"<span class='userdanger'>[A] suplexes [D]!</span>")
 	D.forceMove(A.loc)
-	var/armor_block = D.run_armor_check(null, MELEE)
+	var/armor_block = D.run_armor_check(armor_type = MELEE)
 	D.apply_damage(30, BRUTE, null, armor_block)
 	D.apply_effect(12 SECONDS, WEAKEN, armor_block)
 	add_attack_logs(A, D, "Melee attacked with [src] (SUPLEX)")
@@ -35,7 +35,7 @@
 
 	D.SpinAnimation(10,1)
 	spawn(3)
-		armor_block = A.run_armor_check(null, MELEE)
+		armor_block = A.run_armor_check(armor_type = MELEE)
 		A.apply_effect(8 SECONDS, WEAKEN, armor_block)
 	return
 

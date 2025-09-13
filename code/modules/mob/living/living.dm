@@ -1123,7 +1123,7 @@
 
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
 
-	var/blocked = getarmor(null, RAD)
+	var/blocked = getarmor(armor_type = RAD)
 	if(blocked == INFINITY) // Full protection, go no further.
 		return
 	if(amount > RAD_BURN_THRESHOLD)
