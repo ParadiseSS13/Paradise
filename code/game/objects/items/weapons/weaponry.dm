@@ -19,14 +19,14 @@
 	visible_message("<span class='suicide'>[user] is hitting [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to ban [user.p_themselves()] from life.</span>")
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
-/obj/item/banhammer/pre_attack(atom/A, mob/living/user, params)
+/obj/item/banhammer/pre_attack(atom/target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
-	if(ismob(A))
+	if(ismob(target))
 		user.changeNext_move(CLICK_CD_MELEE)
-		to_chat(A, "<font color='red'><b>You have been banned FOR NO REISIN by [user]<b></font>")
-		to_chat(user, "<font color='red'>You have <b>BANNED</b> [A]</font>")
+		to_chat(target, "<font color='red'><b>You have been banned FOR NO REISIN by [user]<b></font>")
+		to_chat(user, "<font color='red'>You have <b>BANNED</b> [target]</font>")
 		playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
 		return FINISH_ATTACK
 
@@ -51,11 +51,10 @@
 /obj/item/claymore
 	name = "claymore"
 	desc = "What are you standing around staring at this for? Get to killing!"
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "claymore"
-	item_state = "claymore"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	flags = CONDUCT
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	slot_flags = ITEM_SLOT_BELT
@@ -82,11 +81,10 @@
 /obj/item/katana
 	name = "katana"
 	desc = "Woefully underpowered in D20."
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "katana"
-	item_state = "katana"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
@@ -104,20 +102,18 @@
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
-
 /obj/item/katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>")
 	return BRUTELOSS
 
 /obj/item/harpoon
 	name = "harpoon"
-	sharp = TRUE
 	desc = "Tharr she blows!"
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "harpoon"
-	item_state = "harpoon"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
+	sharp = TRUE
 	force = 20
 	throwforce = 15
 	attack_verb = list("jabbed","stabbed","ripped")
@@ -126,7 +122,7 @@
 	name = "wired rod"
 	desc = "A rod with some wire wrapped around the top. It'd be easy to attach something to the top bit."
 	icon_state = "wiredrod"
-	item_state = "rods"
+	inhand_icon_state = "rods"
 	flags = CONDUCT
 	force = 9
 	throwforce = 10
@@ -166,7 +162,9 @@
 	desc = "An ancient weapon still used to this day due to it's ease of lodging itself into victim's body parts."
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "throwingstar"
-	item_state = "eshield0"
+	inhand_icon_state = "eshield0"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	force = 2
 	throwforce = 20 //This is never used on mobs since this has a 100% embed chance.
 	throw_speed = 4
@@ -182,21 +180,19 @@
 	name = "\improper Kidan spear"
 	desc = "A one-handed spear brought over from the Kidan homeworld."
 	icon_state = "kidanspear"
-	item_state = "kidanspear"
 	throwforce = 15
 
 /obj/item/melee/baseball_bat
 	name = "baseball bat"
 	desc = "There ain't a skull in the league that can withstand a swatter."
-	flags_2 = RANDOM_BLOCKER_2
 	icon_state = "baseball_bat"
-	item_state = "baseball_bat"
-	var/deflectmode = FALSE // deflect small/medium thrown objects
-	var/lastdeflect
+	flags_2 = RANDOM_BLOCKER_2
 	force = 10
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
 	w_class = WEIGHT_CLASS_HUGE
+	var/deflectmode = FALSE // deflect small/medium thrown objects
+	var/lastdeflect
 	var/next_throw_time = 0
 	var/homerun_ready = 0
 	var/homerun_able = 0
@@ -307,7 +303,6 @@
 	name = "metal baseball bat"
 	desc = "This bat is made of highly reflective, highly armored material."
 	icon_state = "baseball_bat_metal"
-	item_state = "baseball_bat_metal"
 	force = 12
 	throwforce = 15
 

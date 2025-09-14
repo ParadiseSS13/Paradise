@@ -45,7 +45,6 @@
 	name = "roman shield"
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>."
 	icon_state = "roman_shield"
-	item_state = "roman_shield"
 	materials = list(MAT_METAL=8500)
 
 /obj/item/shield/riot/roman/fake
@@ -59,14 +58,12 @@
 	name = "wooden buckler"
 	desc = "A medieval wooden buckler."
 	icon_state = "buckler"
-	item_state = "buckler"
 	materials = list()
 	origin_tech = "materials=1;combat=3;biotech=2"
 	resistance_flags = FLAMMABLE
 
 /obj/item/shield/riot/buckler/add_parry_component()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (10 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
-
 
 /obj/item/shield/energy
 	name = "energy combat shield"
@@ -138,6 +135,7 @@
 	throw_speed = 3
 	throw_range = 4
 	w_class = WEIGHT_CLASS_NORMAL
+	materials = list(MAT_GLASS = 4000, MAT_METAL = 1000)
 
 /obj/item/shield/riot/tele/add_parry_component()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (5 / 3) SECONDS, _requires_activation = TRUE)

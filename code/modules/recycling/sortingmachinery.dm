@@ -150,22 +150,22 @@
 	resistance_flags = FLAMMABLE
 	var/static/list/no_wrap = list(/obj/item/small_delivery, /obj/structure/big_delivery, /obj/item/evidencebag, /obj/structure/closet/body_bag)
 
-/obj/item/stack/package_wrap/pre_attack(atom/A, mob/living/user, params)
+/obj/item/stack/package_wrap/pre_attack(atom/atom_target, mob/living/user, params)
 	. = ..()
-	if(!in_range(A, user))
+	if(!in_range(atom_target, user))
 		return
 
-	if(!isobj(A))
+	if(!isobj(atom_target))
 		return
 
-	var/obj/target = A
+	var/obj/target = atom_target
 	if(is_type_in_list(target, no_wrap))
 		return
 
 	if(istype(target, /obj/item/stack/package_wrap) && user.a_intent != INTENT_HARM)
 		return
 
-	if(is_type_in_list(A.loc, list(/obj/item/small_delivery, /obj/structure/big_delivery)))
+	if(is_type_in_list(atom_target.loc, list(/obj/item/small_delivery, /obj/structure/big_delivery)))
 		return
 
 	if(target.anchored)
@@ -248,9 +248,9 @@
 	desc = "Used to set the destination of properly wrapped packages."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "dest_tagger"
-
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
-	item_state = "electronic"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	///Value of the tag

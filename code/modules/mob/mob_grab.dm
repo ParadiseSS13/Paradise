@@ -10,6 +10,7 @@
 
 /obj/item/grab
 	name = "grab"
+	icon = 'icons/mob/screen_gen.dmi'
 	flags = NOBLUDGEON | ABSTRACT | DROPDEL
 	var/atom/movable/screen/grab/hud = null
 	var/mob/living/affecting = null
@@ -24,10 +25,7 @@
 
 	layer = 21
 	plane = HUD_PLANE
-	item_state = "nothing"
-	icon = 'icons/mob/screen_gen.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-
 
 /obj/item/grab/New(mob/user, mob/victim)
 	..()
