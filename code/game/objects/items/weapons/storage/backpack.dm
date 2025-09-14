@@ -215,6 +215,7 @@
 	icon_state = "satchel"
 	inhand_icon_state = "satchel"
 	resistance_flags = FIRE_PROOF
+	var/strap_side_straight = FALSE
 
 /obj/item/storage/backpack/satchel/examine(mob/user)
 	. = ..()

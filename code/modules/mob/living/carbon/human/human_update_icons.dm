@@ -849,7 +849,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/worn_icon = belt.worn_icon || listgetindex(belt.sprite_sheets, dna.species.sprite_sheet_name) || 'icons/mob/clothing/belt.dmi'
 		var/worn_icon_state = belt.worn_icon_state || belt.icon_state
-
 		overlays_standing[worn_layer] = mutable_appearance(worn_icon, worn_icon_state, layer = -worn_layer)
 
 	apply_overlay(BELT_LAYER)
@@ -926,6 +925,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/obj/item/organ/external/head/head_organ = get_organ("head")
 			if(!istype(head_organ))
 				return // Nothing to update here
+			var/datum/sprite_accessory/alt_heads/alternate_head
+			if(head_organ.alt_head && head_organ.alt_head != "None")
+				alternate_head = GLOB.alt_heads_list[head_organ.alt_head]
 
 			var/icon/worn_icon = new(listgetindex(wear_mask.sprite_sheets, dna.species.sprite_sheet_name) || wear_mask.worn_icon || 'icons/mob/clothing/mask.dmi')
 			var/worn_icon_state = wear_mask.worn_icon_state || wear_mask.icon_state

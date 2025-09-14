@@ -300,7 +300,6 @@
 	flags = NODECONSTRUCT
 	item_chair = null
 
-// wait a minute
 /obj/item/clothing/gloves/boxing/hologlove
 
 /obj/structure/holowindow
