@@ -2,7 +2,7 @@
 	name = "golem emergency treatment kit"
 	desc = "A box of essential medical supplies, formulated for golems' hard skin."
 	icon_state = "firstaid_freegolem"
-	item_state = "firstaid_freegolem"
+	inhand_icon_state = "firstaid_freegolem"
 
 /obj/item/storage/firstaid/freegolem/populate_contents()
 	new /obj/item/healthanalyzer(src)
