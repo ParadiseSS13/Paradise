@@ -271,7 +271,7 @@
 	return TRUE
 
 /datum/spell/horror
-	ranged_mousepointer = 'icons/effects/cult_target.dmi'
+	ranged_mousepointer = 'icons/mouse_icons/cult_target.dmi'
 	var/datum/action/innate/cult/blood_spell/attached_action
 
 /datum/spell/horror/Destroy()
@@ -374,12 +374,11 @@
 	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
+	icon_state = "disintegrate"
+	inhand_icon_state = "disintegrate"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	icon_state = "disintegrate"
-	item_state = "disintegrate"
 	flags = ABSTRACT | DROPDEL
-
 	w_class = WEIGHT_CLASS_HUGE
 	throw_range = 0
 	throw_speed = 0

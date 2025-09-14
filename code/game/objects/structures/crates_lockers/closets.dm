@@ -60,7 +60,7 @@
 		// This includes maint loot spawners. The problem with that is if a closet loads before a spawner,
 		// the loot will just be in a pile. Adding a timer with 0 delay will cause it to only take in contents once the MC has loaded,
 		// therefore solving the issue on mapload. During rounds, everything will happen as normal
-		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+		END_OF_TICK(CALLBACK(src, PROC_REF(take_contents)))
 	populate_contents() // Spawn all its stuff
 	update_icon() // Set it to the right icon if needed
 
@@ -284,11 +284,11 @@
 	if(!broken && !(flags & NODECONSTRUCT))
 		bust_open()
 
-/obj/structure/closet/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/closet/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/rcs) && !opened)
 		var/obj/item/rcs/E = W
 		E.try_send_container(user, src)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(opened)
 		if(istype(W, /obj/item/grab))
@@ -298,26 +298,28 @@
 			else
 				to_chat(user, "<span class='notice'>[src] is too small to stuff [G.affecting] into!</span>")
 		if(istype(W, /obj/item/tk_grab))
-			return FALSE
+			return // passthrough
 		if(user.a_intent != INTENT_HELP) // Stops you from putting your baton in the closet on accident
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(isrobot(user) && !istype(W.loc, /obj/item/gripper))
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item()) //couldn't drop the item
 			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(W.loc != user.loc)
 			// It went somewhere else, don't teleport it back.
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(W)
 			W.forceMove(loc)
-			return TRUE // It's resolved. No afterattack needed. Stops you from emagging lockers when putting in an emag
+			return ITEM_INTERACT_COMPLETE
 	else if(can_be_emaged && (istype(W, /obj/item/card/emag) || istype(W, /obj/item/melee/energy/blade) && !broken))
 		emag_act(user)
+		return ITEM_INTERACT_COMPLETE
 	else if(istype(W, /obj/item/stack/package_wrap))
-		return
+		return ITEM_INTERACT_COMPLETE
 	else if(user.a_intent != INTENT_HARM)
 		closed_item_click(user)
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 

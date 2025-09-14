@@ -308,6 +308,24 @@
 	. = ..()
 	wires.cut_all()
 
+/obj/machinery/syndicatebomb/shuttle_loan
+
+/obj/machinery/syndicatebomb/shuttle_loan/Initialize(mapload)
+	. = ..()
+	anchored = TRUE
+	timer_set = rand(180, 300) // once the supply shuttle docks (after 5 minutes travel time), players have between 3-5 minutes to defuse the bomb. Units are in seconds.
+	activate()
+	update_appearance()
+
+/obj/machinery/syndicatebomb/badmin/clown/shuttle_loan
+	payload = /obj/item/bombcore/badmin/summon/clown/lesser
+
+/obj/machinery/syndicatebomb/badmin/clown/shuttle_loan/Initialize(mapload)
+	. = ..()
+	anchored = TRUE
+	timer_set = rand(180, 300) // once the supply shuttle docks (after 5 minutes travel time), players have between 3-5 minutes to defuse the bomb. Units are in seconds.
+	activate()
+	update_appearance()
 
 ///Bomb Cores///
 
@@ -316,7 +334,9 @@
 	desc = "A powerful secondary explosive of syndicate design and unknown composition, it should be stable under normal conditions..."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bombcore"
-	item_state = "eshield0"
+	inhand_icon_state = "eshield0"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	origin_tech = "syndicate=5;combat=6"
 	resistance_flags = FLAMMABLE //Burnable (but the casing isn't)
 	var/adminlog = null
@@ -421,6 +441,9 @@
 /obj/item/bombcore/badmin/summon/clown/defuse()
 	playsound(src.loc, 'sound/misc/sadtrombone.ogg', 50)
 	..()
+
+/obj/item/bombcore/badmin/summon/clown/lesser
+	amt_summon = 10
 
 /obj/item/bombcore/explosive_wall
 	admin_log = FALSE
@@ -648,7 +671,7 @@
 	desc = "Your standard issue bomb synchronizing button. Five second safety delay to prevent 'accidents'."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bigred"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "syndicate=3"
 	var/timer = 0

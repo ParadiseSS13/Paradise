@@ -486,6 +486,14 @@
 	pixel_y = 12
 	},
 /obj/machinery/newscaster/directional/east,
+/obj/item/ashtray/plastic{
+	pixel_x = -12;
+	pixel_y = 1
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 7;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -4065,8 +4073,8 @@
 	},
 /area/station/maintenance/fpmaint)
 "aEX" = (
-/obj/structure/closet/crate{
-	name = "Gold Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "gold crate"
 	},
 /obj/item/stack/sheet/mineral/gold{
 	pixel_x = -1;
@@ -4096,10 +4104,10 @@
 	},
 /area/station/command/vault)
 "aFb" = (
-/obj/effect/turf_decal/delivery/white/hollow/left,
-/obj/structure/closet/crate{
-	name = "Silver Crate"
+/obj/structure/closet/crate/nanotrasen{
+	name = "silver crate"
 	},
+/obj/effect/turf_decal/delivery/white/hollow/left,
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,
 /obj/item/stack/sheet/mineral/silver,
@@ -6966,11 +6974,13 @@
 /area/shuttle/pod_1)
 "aSx" = (
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
+	dir = 1;
 	name = "Genetics Shutters";
 	id_tag = "geneticsprivacy"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "genetics"
+	},
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
 "aSy" = (
@@ -7712,6 +7722,14 @@
 /obj/structure/table,
 /obj/item/razor{
 	pixel_y = 5
+	},
+/obj/item/ashtray/plastic{
+	pixel_x = -12;
+	pixel_y = 1
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 9;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
@@ -8635,6 +8653,7 @@
 "bau" = (
 /obj/structure/table/wood,
 /obj/item/clothing/mask/cigarette/cigar,
+/obj/item/ashtray/glass,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "baw" = (
@@ -13333,11 +13352,9 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
-/obj/item/folder/blue{
-	pixel_y = 2
-	},
-/obj/item/folder/blue{
-	pixel_y = 2
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -13679,7 +13696,7 @@
 	dir = 8
 	},
 /obj/structure/transit_tube/station/dispenser/flipped{
-	dir = 4
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -13878,6 +13895,10 @@
 	},
 /obj/machinery/computer/guestpass{
 	pixel_y = 30
+	},
+/obj/item/ashtray/glass{
+	pixel_x = -10;
+	pixel_y = -3
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
@@ -14118,11 +14139,16 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 8
-	},
 /obj/structure/table/glass,
+/obj/item/folder/blue{
+	pixel_y = 2
+	},
+/obj/item/folder/blue{
+	pixel_y = 2
+	},
+/obj/item/ashtray/bronze{
+	pixel_y = 11
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15582,10 +15608,6 @@
 	},
 /obj/structure/table/wood,
 /obj/item/paper_bin/nanotrasen{
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/obj/item/stamp/hop{
 	pixel_x = -4;
 	pixel_y = 4
 	},
@@ -15594,6 +15616,21 @@
 	name = "custom placement";
 	pixel_x = 6;
 	pixel_y = -33
+	},
+/obj/item/stamp/granted{
+	pixel_x = 9;
+	pixel_y = 14
+	},
+/obj/item/stamp/denied{
+	pixel_x = 9;
+	pixel_y = 7
+	},
+/obj/item/stamp/hop{
+	pixel_x = 9
+	},
+/obj/item/pen/hop{
+	pixel_x = -4;
+	pixel_y = 5
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
@@ -15680,6 +15717,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/item/ashtray/glass,
 /obj/item/clothing/head/fedora,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
@@ -16338,6 +16376,10 @@
 /obj/structure/table/wood,
 /obj/item/folder/blue,
 /obj/item/lighter/zippo,
+/obj/item/ashtray/glass{
+	pixel_x = -9;
+	pixel_y = 10
+	},
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "bFP" = (
@@ -17947,15 +17989,20 @@
 /area/station/service/hydroponics)
 "bND" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/stamp/qm,
+/obj/item/stamp/qm{
+	pixel_x = 10;
+	pixel_y = 13
+	},
 /obj/item/stamp/granted{
-	pixel_x = -4;
-	pixel_y = 4
+	pixel_x = -9;
+	pixel_y = 13
 	},
 /obj/item/stamp/denied{
-	pixel_x = 4;
-	pixel_y = -4
+	pixel_y = 13
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 6;
+	pixel_y = -8
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/supply/qm)
@@ -21573,8 +21620,9 @@
 /obj/item/stamp/ce{
 	pixel_x = -5
 	},
-/obj/item/pen{
-	pixel_x = 6
+/obj/item/pen/ce{
+	pixel_x = 6;
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
@@ -21595,12 +21643,8 @@
 /obj/machinery/computer/security/telescreen/vault{
 	pixel_y = 30
 	},
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/pen{
-	pixel_x = -3;
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 7;
 	pixel_y = 5
 	},
 /turf/simulated/floor/wood,
@@ -21626,11 +21670,11 @@
 "cfn" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin/nanotrasen,
-/obj/item/pen{
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /obj/structure/window/reinforced,
+/obj/item/pen/cap,
+/obj/item/stamp/captain{
+	pixel_y = 13
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "cfp" = (
@@ -23798,6 +23842,10 @@
 /obj/machinery/computer/scan_consolenew{
 	dir = 4
 	},
+/obj/machinery/button/windowtint{
+	id = "genetics";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkpurple"
@@ -24297,6 +24345,10 @@
 /obj/item/paper_bin{
 	pixel_x = 3;
 	pixel_y = 4
+	},
+/obj/item/ashtray/plastic{
+	pixel_x = -12;
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -25551,10 +25603,13 @@
 /area/station/science/research)
 "cwW" = (
 /obj/machinery/firealarm/directional/west,
-/obj/item/kirbyplants/small/small3,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/table,
+/obj/item/circuitboard/aicore,
+/obj/item/paicard,
+/obj/item/aicard,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -26730,15 +26785,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
-"cCz" = (
-/obj/structure/closet/fireaxecabinet{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "caution"
-	},
-/area/station/engineering/atmos)
 "cCA" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -27194,9 +27240,21 @@
 "cES" = (
 /obj/structure/table/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/item/paper_bin/nanotrasen,
-/obj/item/pen/multi,
-/obj/item/stamp/cmo,
+/obj/item/paper_bin/nanotrasen{
+	pixel_x = -7;
+	pixel_y = 6
+	},
+/obj/item/stamp/cmo{
+	pixel_x = 4;
+	pixel_y = 8
+	},
+/obj/item/ashtray/bronze{
+	pixel_x = 11
+	},
+/obj/item/pen/cmo{
+	pixel_x = -8;
+	pixel_y = 6
+	},
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "cET" = (
@@ -27250,6 +27308,10 @@
 	pixel_y = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 7;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -27473,6 +27535,10 @@
 "cGb" = (
 /obj/structure/table/glass,
 /obj/machinery/computer/med_data/laptop,
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 15;
+	pixel_y = 3
+	},
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "cGc" = (
@@ -27657,8 +27723,21 @@
 	pixel_x = -5;
 	pixel_y = 26
 	},
-/obj/machinery/computer/ai_resource{
-	dir = 4
+/obj/structure/table/glass/reinforced,
+/obj/item/stamp/rd{
+	pixel_x = 6;
+	pixel_y = 13
+	},
+/obj/item/paper_bin/nanotrasen{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/obj/item/pen/rd{
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/obj/item/paper/monitorkey{
+	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -27948,14 +28027,18 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
+	dir = 1;
 	name = "Genetics Shutters";
 	id_tag = "geneticsprivacy"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics,
-/obj/machinery/door/window/classic/normal{
-	name = "Genetics Reception"
+/obj/machinery/door/window/classic/normal,
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "genetics"
 	},
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -31024,6 +31107,10 @@
 /obj/structure/disposalpipe/segment,
 /obj/item/folder,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/ashtray/glass{
+	pixel_x = -9;
+	pixel_y = 10
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel/office)
 "cXU" = (
@@ -31261,6 +31348,10 @@
 /obj/structure/table,
 /obj/item/deck/cards{
 	pixel_y = 4
+	},
+/obj/item/ashtray/plastic{
+	pixel_x = -12;
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
@@ -32809,6 +32900,7 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/east)
 "dmN" = (
+/obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -33278,6 +33370,14 @@
 /area/station/medical/virology)
 "dwL" = (
 /obj/structure/table/wood/poker,
+/obj/item/ashtray/glass{
+	pixel_x = -9;
+	pixel_y = 10
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 9;
+	pixel_y = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "dwQ" = (
@@ -33790,7 +33890,18 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/machinery/recharger,
+/obj/machinery/recharger{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/item/paper_bin/nanotrasen{
+	pixel_x = 6;
+	pixel_y = 5
+	},
+/obj/item/pen/hos{
+	pixel_x = 6;
+	pixel_y = 6
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "dHU" = (
@@ -33955,10 +34066,10 @@
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "dLS" = (
-/obj/machinery/light,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -36527,7 +36638,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/north)
 "eFl" = (
-/obj/machinery/alarm/directional/south,
 /obj/machinery/atmospherics/refill_station/plasma,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -36734,11 +36844,14 @@
 	icon_state = "right";
 	name = "Captain's Desk"
 	},
-/obj/item/stamp/captain,
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/captain,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/item/ashtray/glass{
+	pixel_x = -9;
+	pixel_y = 10
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
@@ -39422,11 +39535,11 @@
 /area/station/maintenance/aft2)
 "fFf" = (
 /obj/structure/table/wood,
-/obj/item/pen/red{
-	pixel_x = 2;
-	pixel_y = 6
+/obj/item/paper_bin,
+/obj/item/pen/qm,
+/obj/item/ashtray/glass{
+	pixel_y = 11
 	},
-/obj/item/paper,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/supply/qm)
 "fFi" = (
@@ -42090,13 +42203,6 @@
 	icon_state = "darkgrey"
 	},
 /area/station/maintenance/aft)
-"gEr" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
-	},
-/area/station/engineering/atmos)
 "gEt" = (
 /obj/structure/table/glass,
 /obj/item/paper/crumpled,
@@ -43040,6 +43146,11 @@
 /area/station/maintenance/fore2)
 "gTn" = (
 /obj/machinery/firealarm/directional/east,
+/obj/item/clothing/head/cone{
+	pixel_x = -8;
+	pixel_y = 12
+	},
+/obj/item/clothing/head/cone,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -50666,7 +50777,6 @@
 /turf/simulated/floor/plating,
 /area/station/service/cafeteria)
 "jLg" = (
-/obj/item/stock_parts/cell/crap,
 /obj/machinery/cell_charger,
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
@@ -50677,6 +50787,7 @@
 	pixel_x = 1;
 	pixel_y = 31
 	},
+/obj/item/stock_parts/cell,
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "jLr" = (
@@ -51150,7 +51261,6 @@
 /area/station/service/kitchen)
 "jQA" = (
 /obj/item/kirbyplants/large,
-/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "arrival"
@@ -53191,6 +53301,9 @@
 /obj/structure/chair/comfy/beige{
 	dir = 8
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "arrival"
@@ -54154,6 +54267,10 @@
 /area/station/supply/qm)
 "kTH" = (
 /obj/structure/filingcabinet/chestdrawer,
+/obj/item/toy/figure/crew/rd{
+	pixel_y = 15;
+	pixel_x = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -55646,6 +55763,10 @@
 	dir = 4;
 	pixel_x = -32
 	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 9;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -56121,13 +56242,13 @@
 	},
 /area/station/engineering/equipmentstorage)
 "lCW" = (
-/obj/structure/table,
-/obj/item/folder/white,
-/obj/item/toy/figure/crew/rd{
-	pixel_y = 10
+/obj/structure/table/glass/reinforced,
+/obj/item/ashtray/bronze{
+	pixel_y = 11
 	},
-/obj/item/stamp/rd,
-/obj/item/paper/monitorkey,
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -56460,17 +56581,6 @@
 	icon_state = "greenblue"
 	},
 /area/station/service/hydroponics)
-"lJa" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/closet/emcloset,
-/obj/machinery/alarm/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "arrival"
-	},
-/area/station/hallway/secondary/entry/west)
 "lJg" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
@@ -56874,14 +56984,14 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/cigbutt/cigarbutt{
-	pixel_x = 5;
-	pixel_y = -1
-	},
 /obj/item/phone{
 	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
 	pixel_x = -3;
 	pixel_y = 3
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 6;
+	pixel_y = -8
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -57828,19 +57938,22 @@
 /area/station/public/toilet/lockerroom)
 "mic" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Genetics Reception"
-	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics,
+/obj/machinery/door/window/classic/reversed,
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk,
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
+	dir = 1;
 	name = "Genetics Shutters";
 	id_tag = "geneticsprivacy"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 6
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "genetics"
+	},
+/obj/item/desk_bell{
+	pixel_x = 7;
+	pixel_y = 7;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
@@ -58595,6 +58708,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "mwI" = (
@@ -59102,10 +59216,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "mEA" = (
-/obj/structure/table,
-/obj/item/circuitboard/aicore,
-/obj/item/paicard,
-/obj/item/aicard,
+/obj/machinery/computer/ai_resource,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycheck"
 	},
@@ -61385,6 +61496,10 @@
 /obj/structure/table/reinforced,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 7;
+	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -68994,6 +69109,14 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/item/ashtray/plastic{
+	pixel_x = -12;
+	pixel_y = 1
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 9;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -72103,6 +72226,13 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/medical/storage/secondary)
+"roR" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/station/engineering/atmos)
 "rpt" = (
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
@@ -72944,6 +73074,9 @@
 /obj/machinery/camera{
 	c_tag = "Arrivals Lounge West"
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "arrival"
@@ -73710,6 +73843,10 @@
 	pixel_y = 9
 	},
 /obj/item/pen,
+/obj/item/ashtray/plastic{
+	pixel_x = -12;
+	pixel_y = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -76328,6 +76465,7 @@
 "sTF" = (
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/item/ashtray/glass,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "sTM" = (
@@ -78391,8 +78529,6 @@
 /area/station/service/library)
 "tHP" = (
 /obj/structure/table,
-/obj/item/paper_bin/nanotrasen,
-/obj/item/pen,
 /obj/item/taperecorder{
 	pixel_x = 6;
 	pixel_y = 10
@@ -79477,6 +79613,7 @@
 "uft" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag,
+/obj/item/ashtray/bronze,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -80175,7 +80312,9 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/stamp/hos,
+/obj/item/ashtray/glass{
+	pixel_y = 11
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "usD" = (
@@ -83773,6 +83912,7 @@
 	pixel_y = 7
 	},
 /obj/structure/table,
+/obj/item/ashtray/plastic,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -83822,6 +83962,10 @@
 /obj/item/radio/intercom/department/security{
 	pixel_x = 28;
 	pixel_y = -7
+	},
+/obj/item/stamp/hos{
+	pixel_x = -14;
+	pixel_y = 5
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -84793,6 +84937,13 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
+	},
+/obj/item/ashtray/bronze{
+	pixel_x = 11
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 6;
+	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
@@ -88012,8 +88163,8 @@
 /obj/machinery/door_control{
 	id = "geneticsprivacy";
 	name = "Genetics Privacy Control";
-	pixel_x = -30;
-	pixel_y = 26
+	pixel_x = -23;
+	pixel_y = 24
 	},
 /obj/effect/landmark/start/geneticist,
 /obj/structure/chair/office{
@@ -100852,7 +101003,7 @@ bpG
 bpG
 ayy
 aUl
-lJa
+bAR
 boc
 ayy
 qcE
@@ -131746,7 +131897,7 @@ axh
 axh
 axh
 axh
-cCz
+fcB
 dyA
 fWW
 fWW
@@ -132254,7 +132405,7 @@ uJI
 xBg
 xoS
 bYt
-gEr
+roR
 kcr
 jOr
 kuW

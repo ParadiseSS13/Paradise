@@ -181,7 +181,7 @@
 	w_class_on = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	flags = CONDUCT
-	armour_penetration_percentage = 100
+	armor_penetration_percentage = 100
 	origin_tech = "combat=4;magnets=3"
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	attack_verb_on = list()
@@ -207,8 +207,8 @@
 	hitsound = "swing_hit"
 	embed_chance = 75
 	embedded_impact_pain_multiplier = 10
-	armour_penetration_percentage = 50
-	armour_penetration_flat = 10
+	armor_penetration_percentage = 50
+	armor_penetration_flat = 10
 	origin_tech = "combat=3;magnets=4;syndicate=4"
 	sharp = TRUE
 	var/hacked = FALSE
@@ -345,8 +345,8 @@
 	throwforce_on = 10 // No PvP shenanigans, this is main weapon in PvE explorer gameplay and can be obtained very easy
 	embed_chance = 45
 	embedded_impact_pain_multiplier = 4
-	armour_penetration_percentage = 0
-	armour_penetration_flat = 0
+	armor_penetration_percentage = 0
+	armor_penetration_flat = 0
 	icon_state = "cutlass0"
 	icon_state_on = "cutlass1"
 	light_color = LIGHT_COLOR_RED
@@ -378,7 +378,6 @@
 	name = "hardlight blade"
 	desc = "An extremely sharp blade made out of hard light. Packs quite a punch."
 	icon_state = "lightblade"
-	item_state = "lightblade"
 
 /obj/item/melee/energy/proc/nemesis_effects(mob/living/user, mob/living/target)
 	return

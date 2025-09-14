@@ -12,7 +12,7 @@
 	desc = "An issue of The Griffon, the newspaper circulating aboard Nanotrasen Space Stations."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "newspaper"
-	item_state = "newspaper"
+	inhand_icon_state = "newspaper"
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("bapped")
 	/// The current screen to display.

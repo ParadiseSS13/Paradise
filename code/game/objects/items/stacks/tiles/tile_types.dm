@@ -1,10 +1,10 @@
 /obj/item/stack/tile
 	name = "broken tile"
-	singular_name = "broken tile"
 	desc = "A broken tile. This should not exist."
 	icon = 'icons/obj/tiles.dmi'
 	icon_state = "tile"
-	item_state = "tile"
+	inhand_icon_state = "tile"
+	singular_name = "broken tile"
 	force = 1
 	throwforce = 1
 	throw_speed = 5

@@ -10,7 +10,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	armour_penetration_percentage = 100
+	armor_penetration_percentage = 100
 	attack_verb = list("bludgeoned", "whacked", "disciplined")
 	resistance_flags = FLAMMABLE
 
@@ -22,7 +22,6 @@
 	name = "broom"
 	desc = "Used for sweeping, and flying into the night while cackling. Black cat not included."
 	icon_state = "broom"
-	item_state = "broom0"
 
 /obj/item/staff/broom/Initialize(mapload)
 	. = ..()
@@ -65,9 +64,3 @@
 	name = "broomstick horse"
 	desc = "Saddle up!"
 	icon_state = "horsebroom"
-	item_state = "horsebroom0"
-
-/obj/item/staff/broom/horsebroom/attack_self__legacy__attackchain(mob/user as mob)
-	..()
-	item_state = "horsebroom[HAS_TRAIT(src, TRAIT_WIELDED) ? 1 : 0]"
-
