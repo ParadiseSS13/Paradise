@@ -42102,13 +42102,6 @@
 	icon_state = "darkgrey"
 	},
 /area/station/maintenance/aft)
-"gEr" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
-	},
-/area/station/engineering/atmos)
 "gEt" = (
 /obj/structure/table/glass,
 /obj/item/paper/crumpled,
@@ -58606,6 +58599,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "mwI" = (
@@ -72114,6 +72108,13 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/medical/storage/secondary)
+"roR" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/station/engineering/atmos)
 "rpt" = (
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
@@ -132268,7 +132269,7 @@ uJI
 xBg
 xoS
 bYt
-gEr
+roR
 kcr
 jOr
 kuW
