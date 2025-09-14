@@ -2,7 +2,8 @@
 	name = "\improper SR-31C sniper rifle"
 	desc = "A powerful anti-materiel rifle produced by Aussec Armory, chambered in devastating .50 BMG."
 	icon_state = "sniper"
-	item_state = "sniper"
+	worn_icon_state = "sniper"
+	inhand_icon_state = "sniper"
 	recoil = 2
 	weapon_weight = WEAPON_HEAVY
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
@@ -59,16 +60,16 @@
 /obj/item/ammo_casing/point50
 	name = ".50 BMG round"
 	desc = "A .50 BMG rifle cartridge, commonly used in anti-materiel rifles and heavy machine guns."
+	icon_state = "heavy_steel"
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
-	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper
 	damage = 70
 	weaken = 10 SECONDS
-	armour_penetration_flat = 70
+	armor_penetration_flat = 70
 	forced_accuracy = TRUE
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSGIRDER
 	speed = 0.5
@@ -83,9 +84,9 @@
 /obj/item/ammo_casing/antimatter
 	name = ".50 BMG anti-matter round"
 	desc = "A .50 BMG high-explosive cartridge. Does not actually contain antimatter."
+	icon_state = "heavy_steel_incin"
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/antimatter
-	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper/antimatter
 	name = "antimatter bullet"
@@ -110,13 +111,13 @@
 /obj/item/ammo_casing/soporific
 	name = ".50 BMG soporific round"
 	desc = "A .50 BMG hypodermic cartridge, loaded with sedatives for instant incapacitation."
+	icon_state = "heavy_steel_rubber"
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/soporific
-	icon_state = ".50"
 	harmful = FALSE
 
 /obj/item/projectile/bullet/sniper/soporific
-	armour_penetration_flat = 0
+	armor_penetration_flat = 0
 	nodamage = 1
 	weaken = 0
 
@@ -138,12 +139,12 @@
 /obj/item/ammo_casing/haemorrhage
 	name = ".50 BMG shredder round"
 	desc = "A .50 BMG 'Shredder' cartridge, with a heavily serrated bullet intended to cause massive blood loss."
+	icon_state = "heavy_steel_hollow"
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/haemorrhage
-	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper/haemorrhage
-	armour_penetration_flat = 25
+	armor_penetration_flat = 25
 	damage = 45
 	weaken = 6 SECONDS
 
@@ -166,9 +167,9 @@
 /obj/item/ammo_casing/penetrator
 	name = ".50 BMG sabot round"
 	desc = "A .50 BMG Sabot Penetrator cartridge, capable of punching through just about anything."
+	icon_state = "heavy_steel_ap"
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/penetrator
-	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper/penetrator
 	icon_state = "gauss"

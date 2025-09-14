@@ -2,7 +2,7 @@
 	name = "crystal spray"
 	icon_state = "guardian"
 	damage = 20
-	armour_penetration_percentage = 100
+	armor_penetration_percentage = 100
 
 /mob/living/simple_animal/hostile/guardian/ranged
 	friendly = "quietly assesses"

@@ -24,7 +24,7 @@ Bonus
 	level = 4
 	severity = 2
 	chem_treatments = list(
-		"synaptazine" = list("multiplier" = 0, "timer" = 0),
+		"synaptizine" = list("multiplier" = 0, "timer" = 0),
 		"ephedrine" = list("multiplier" = 0, "timer" = 0),
 		"methamphetamine" = list("multiplier" = 0, "timer" = 0),
 		"coffee" = list("multiplier" = 0.7, "timer" = 0),
