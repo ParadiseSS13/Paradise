@@ -9,10 +9,10 @@
 	name = "Declaration of War (Challenge Mode)"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "declaration"
-	item_state = "walkietalkie"
+	inhand_icon_state = "radio"
 	desc = "Use to send a declaration of hostilities to the target, delaying your shuttle departure for 20 minutes while they prepare for your assault. \
-	Such a brazen move will attract the attention of powerful benefactors within the Syndicate, who will supply your team with a massive amount of bonus telecrystals. \
-	Must be used within ten minutes, or your benefactors will lose interest."
+		Such a brazen move will attract the attention of powerful benefactors within the Syndicate, who will supply your team with a massive amount of bonus telecrystals. \
+		Must be used within ten minutes, or your benefactors will lose interest."
 	var/declaring_war = FALSE
 	var/total_tc = 0 //Total amount of telecrystals shared between nuke ops
 

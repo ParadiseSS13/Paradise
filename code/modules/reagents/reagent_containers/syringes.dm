@@ -2,8 +2,8 @@
 	name = "syringe"
 	desc = "A syringe."
 	icon = 'icons/goonstation/objects/syringe.dmi'
-	item_state = "syringe_0"
 	icon_state = "0"
+	inhand_icon_state = "syringe_0"
 	belt_icon = "syringe"
 	possible_transfer_amounts = null
 	volume = 15
@@ -54,10 +54,6 @@
 
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
-		return
-
-	if(!L && !L.is_injectable(user)) //only checks on non-living mobs, due to how can_inject() handles
-		to_chat(user, "<span class='warning'>You cannot directly fill [L]!</span>")
 		return
 
 	if(L.reagents.total_volume >= L.reagents.maximum_volume)
@@ -136,6 +132,10 @@
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
 		return
 
+	if(!target.is_injectable(user))
+		to_chat(user, "<span class='warning'>You cannot directly fill [target]!</span>")
+		return
+
 	if(isfood(target))
 		var/list/chemicals = list()
 		for(var/datum/reagent/chem in reagents.reagent_list)
@@ -204,7 +204,7 @@
 	else
 		rounded_vol = 0
 	icon_state = "[rounded_vol]"
-	item_state = "syringe_[rounded_vol]"
+	inhand_icon_state = "syringe_[rounded_vol]"
 
 /obj/item/reagent_containers/syringe/update_overlays()
 	. = ..()

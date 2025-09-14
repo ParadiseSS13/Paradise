@@ -2,8 +2,6 @@
 	name = "modified gas mask"
 	desc = "A gas mask modified with a sound modulator that disguises the user's voice when active."
 	icon_state = "voice_modulator"
-	item_state = "voice_modulator"
-
 	var/obj/item/voice_changer/voice_modulator/voice_modulator
 
 /obj/item/clothing/mask/gas/voice_modulator/Initialize(mapload)
@@ -18,13 +16,10 @@
 	name = "chameleon voice modulator mask"
 	desc = "A tactical mask equipped with chameleon technology and a sound modulator that disguises the user's voice when active."
 	icon_state = "swat"
-	item_state = "swat"
-
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
 /obj/item/clothing/mask/gas/voice_modulator/chameleon/Initialize(mapload)
 	. = ..()
-
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/mask
 	chameleon_action.chameleon_name = "Mask"

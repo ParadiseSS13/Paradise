@@ -14,24 +14,21 @@
 	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
 	taste_description = "water"
-	var/cooling_temperature = 2
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
-	var/water_temperature = 283.15 // As reagents don't have a temperature value, we'll just use 10 celsius.
 
 /datum/reagent/water/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	M.water_act(volume, water_temperature, src, method)
+	M.water_act(volume, COLD_WATER_TEMPERATURE, src, method)
 
 /datum/reagent/water/reaction_turf(turf/T, volume)
-	T.water_act(volume, water_temperature, src)
+	T.water_act(volume, COLD_WATER_TEMPERATURE, src)
 	var/obj/effect/acid/A = (locate(/obj/effect/acid) in T)
-	if(A)
-		A.acid_level = max(A.acid_level - volume*  50, 0)
+	A?.acid_level = max(A.acid_level - volume * 50, 0)
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
-	O.water_act(volume, water_temperature, src)
+	O.water_act(volume, COLD_WATER_TEMPERATURE, src)
 
 /datum/reagent/lube
 	name = "Space Lube"

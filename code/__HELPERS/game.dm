@@ -268,7 +268,7 @@
 			Y1+=s
 			while(Y1!=Y2)
 				T=locate(X1,Y1,Z)
-				if(T.opacity)
+				if(IS_OPAQUE_TURF(T))
 					return 0
 				Y1+=s
 	else
@@ -284,7 +284,7 @@
 			else
 				X1+=signX //Line exits tile horizontally
 			T=locate(X1,Y1,Z)
-			if(T.opacity)
+			if(IS_OPAQUE_TURF(T))
 				return 0
 	return 1
 
@@ -371,19 +371,17 @@
 			viewing += M.client
 	flick_overlay(I, viewing, duration)
 
+/// Get active players who are playing in the round
 /proc/get_active_player_count()
-	// Get active players who are playing in the round
 	var/active_players = 0
-	for(var/i = 1; i <= length(GLOB.player_list); i++)
-		var/mob/M = GLOB.player_list[i]
-		if(M && M.client)
-			if(isnewplayer(M)) // exclude people in the lobby
+	for(var/mob/player as anything in GLOB.player_list)
+		if(isobserver(player)) // Ghosts are fine if they were playing once (didn't start as observers)
+			var/mob/dead/observer/observer = player
+			if(observer.ghost_flags & GHOST_START_AS_OBSERVER) // Exclude people who started as observers
 				continue
-			else if(isobserver(M)) // Ghosts are fine if they were playing once (didn't start as observers)
-				var/mob/dead/observer/O = M
-				if(O.started_as_observer) // Exclude people who started as observers
-					continue
-			active_players++
+
+		active_players++
+
 	return active_players
 
 /proc/mobs_in_area(area/the_area, client_needed=0, moblist=GLOB.mob_list)
