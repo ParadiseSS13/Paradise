@@ -3,20 +3,20 @@
 	desc = "Don't shine it in your eyes!"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pointer"
-	item_state = "pen"
-	var/pointer_icon_state
+	worn_icon_state = "pen"
+	inhand_icon_state = "pen"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=500, MAT_GLASS=500)
 	w_class = WEIGHT_CLASS_SMALL //Increased to 2, because diodes are w_class 2. Conservation of matter.
 	origin_tech = "combat=1;magnets=2"
+	var/pointer_icon_state
 	var/energy = 5
 	var/max_energy = 5
 	var/effectchance = 33
 	var/recharging = 0
 	var/recharge_locked = 0
 	var/obj/item/stock_parts/micro_laser/diode //used for upgrading!
-
 
 /obj/item/laser_pointer/red
 	pointer_icon_state = "red_laser"

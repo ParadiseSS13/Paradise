@@ -6966,11 +6966,13 @@
 /area/shuttle/pod_1)
 "aSx" = (
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
+	dir = 1;
 	name = "Genetics Shutters";
 	id_tag = "geneticsprivacy"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "genetics"
+	},
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
 "aSy" = (
@@ -23798,6 +23800,10 @@
 /obj/machinery/computer/scan_consolenew{
 	dir = 4
 	},
+/obj/machinery/button/windowtint{
+	id = "genetics";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkpurple"
@@ -27939,14 +27945,18 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
+	dir = 1;
 	name = "Genetics Shutters";
 	id_tag = "geneticsprivacy"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics,
-/obj/machinery/door/window/classic/normal{
-	name = "Genetics Reception"
+/obj/machinery/door/window/classic/normal,
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "genetics"
 	},
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -57808,19 +57818,22 @@
 /area/station/public/toilet/lockerroom)
 "mic" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Genetics Reception"
-	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics,
+/obj/machinery/door/window/classic/reversed,
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk,
 /obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
+	dir = 1;
 	name = "Genetics Shutters";
 	id_tag = "geneticsprivacy"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 6
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "genetics"
+	},
+/obj/item/desk_bell{
+	pixel_x = 7;
+	pixel_y = 7;
+	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
@@ -88002,8 +88015,8 @@
 /obj/machinery/door_control{
 	id = "geneticsprivacy";
 	name = "Genetics Privacy Control";
-	pixel_x = -30;
-	pixel_y = 26
+	pixel_x = -23;
+	pixel_y = 24
 	},
 /obj/effect/landmark/start/geneticist,
 /obj/structure/chair/office{
