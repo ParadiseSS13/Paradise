@@ -11249,6 +11249,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
+/obj/item/storage/belt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -59637,6 +59638,12 @@
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "hFR" = (
@@ -83123,12 +83130,12 @@
 	pixel_y = 5
 	},
 /obj/item/stack/sheet/metal/fifty,
-/obj/item/wrench,
 /obj/item/stack/cable_coil/random,
 /obj/item/stack/cable_coil/random{
 	pixel_x = 2;
 	pixel_y = 3
 	},
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
 "rUU" = (

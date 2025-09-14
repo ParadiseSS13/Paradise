@@ -5398,6 +5398,16 @@
 	icon_state = "darkblue"
 	},
 /area/station/command/meeting_room)
+"aSm" = (
+/obj/structure/table/wood,
+/obj/item/stack/cable_coil/random{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/obj/item/stack/cable_coil/random,
+/obj/item/eftpos,
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "aSo" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/ears/earmuffs,
@@ -61299,16 +61309,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/break_room/secondary)
-"lsh" = (
-/obj/structure/table/wood,
-/obj/item/stack/cable_coil/random{
-	pixel_x = 2;
-	pixel_y = 3
-	},
-/obj/item/stack/cable_coil/random,
-/obj/item/eftpos,
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "lsp" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "scibreak"
@@ -143013,7 +143013,7 @@ oOg
 unz
 wmR
 wDV
-lsh
+aSm
 aZZ
 wmR
 ehV

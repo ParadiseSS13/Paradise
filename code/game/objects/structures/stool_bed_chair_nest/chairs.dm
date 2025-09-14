@@ -35,12 +35,12 @@
 		W.setDir(dir)
 		qdel(src)
 
-/obj/structure/chair/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/chair/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/assembly/shock_kit))
 		var/obj/item/assembly/shock_kit/SK = W
 		if(!SK.status)
 			to_chat(user, "<span class='notice'>[SK] is not ready to be attached!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		user.drop_item()
 		var/obj/structure/chair/e_chair/E = new /obj/structure/chair/e_chair(get_turf(src), SK)
 		playsound(src.loc, W.usesound, 50, 1)
@@ -48,8 +48,7 @@
 		SK.loc = E
 		SK.master = E
 		qdel(src)
-		return
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/chair/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -322,8 +321,7 @@
 	armrest.layer = ABOVE_MOB_LAYER
 	return ..()
 
-/obj/structure/chair/sofa/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
-	. = ..()
+/obj/structure/chair/sofa/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(!colorable)
 		return
 	if(istype(I, /obj/item/toy/crayon))
@@ -332,11 +330,17 @@
 		var/list/hsl = rgb2hsl(hex2num(copytext(new_color, 2, 4)), hex2num(copytext(new_color, 4, 6)), hex2num(copytext(new_color, 6, 8)))
 		hsl[3] = max(hsl[3], 0.4)
 		var/list/rgb = hsl2rgb(arglist(hsl))
-		color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
-	if(color)
-		cut_overlay(armrest)
-		armrest = GetArmrest()
-		update_armrest()
+		set_color("#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]")
+		return ITEM_INTERACT_COMPLETE
+
+/obj/structure/chair/sofa/proc/set_color(new_color)
+	if(color == new_color)
+		return
+
+	color = new_color
+	cut_overlay(armrest)
+	armrest = GetArmrest()
+	update_armrest()
 
 /obj/structure/chair/sofa/proc/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
@@ -437,13 +441,17 @@
 /obj/structure/chair/sofa/bench/handle_layer()
 	return
 
-/obj/structure/chair/sofa/bench/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
-	. = ..()
+/obj/structure/chair/sofa/bench/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = I
-		cover_color = C.colour
-	if(cover_color)
-		GetCover()
+		set_cover_color(C.colour)
+		return ITEM_INTERACT_COMPLETE
+
+/obj/structure/chair/sofa/bench/proc/set_cover_color(new_color)
+	if(cover_color == new_color)
+		return
+
+	GetCover()
 
 /obj/structure/chair/sofa/bench/left
 	icon_state = "bench_left_mapping"
