@@ -27305,6 +27305,7 @@
 /obj/item/stack/sheet/wood{
 	amount = 20
 	},
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "fts" = (

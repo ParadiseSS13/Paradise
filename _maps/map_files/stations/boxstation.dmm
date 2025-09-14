@@ -25038,29 +25038,30 @@
 "bJV" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/shaker,
-/obj/item/gun/projectile/revolver/doublebarrel,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50;
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/storage/fancy/candle_box/eternal,
-/obj/item/storage/fancy/candle_box/eternal,
-/obj/item/storage/fancy/candle_box/eternal,
 /obj/item/storage/secure/safe{
 	pixel_x = -22
 	},
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/item/storage/fancy/candle_box/eternal,
+/obj/item/storage/fancy/candle_box/eternal,
+/obj/item/storage/fancy/candle_box/eternal,
+/obj/item/stack/sheet/glass{
+	amount = 50;
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/gun/projectile/revolver/doublebarrel,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "bJW" = (
@@ -39012,7 +39013,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 10
 	},
-/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "cNF" = (
@@ -54121,7 +54122,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 9
 	},
-/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "gNX" = (
@@ -73102,13 +73103,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
-"qdK" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 9
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "qdO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -76955,13 +76949,6 @@
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
-"rPT" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 10
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "rPZ" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
@@ -85326,6 +85313,13 @@
 	icon_state = "caution"
 	},
 /area/station/public/dorms)
+"wfZ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 9
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "wgt" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/glass,
@@ -88763,6 +88757,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
+"xPT" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 10
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "xQB" = (
 /obj/effect/spawner/window/reinforced/tinted,
 /obj/structure/disposalpipe/segment{
@@ -125791,7 +125792,7 @@ aab
 cQp
 aab
 cZh
-rPT
+cNE
 dba
 djE
 dcS
@@ -125803,7 +125804,7 @@ djE
 djE
 djE
 djE
-qdK
+gNQ
 aab
 aab
 aab
@@ -127095,7 +127096,7 @@ igi
 igi
 igi
 igi
-gNQ
+wfZ
 fPY
 wyD
 wyD
@@ -127324,7 +127325,7 @@ cep
 cjq
 cep
 cxO
-cNE
+xPT
 igi
 igi
 igi
@@ -127342,7 +127343,7 @@ igi
 igi
 igi
 igi
-gNQ
+wfZ
 dgS
 eQU
 eQU

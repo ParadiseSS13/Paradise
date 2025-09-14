@@ -58602,6 +58602,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "mwI" = (
