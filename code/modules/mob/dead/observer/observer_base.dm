@@ -866,7 +866,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	mob_observed = null
 	reset_perspective(null)
 	client?.perspective = initial(client.perspective)
-	set_sight(initial(sight))
 	UnregisterSignal(src, COMSIG_ATOM_ORBITER_STOP)
 
 	if(s_active)
