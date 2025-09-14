@@ -55,8 +55,8 @@
 /obj/item/fireaxe/energized
 	desc = "Someone with a love for fire axes decided to turn this one into a high-powered energy weapon. Seems excessive."
 	force_wielded = 35
-	armour_penetration_flat = 10
-	armour_penetration_percentage = 30
+	armor_penetration_flat = 10
+	armor_penetration_percentage = 30
 	var/charge = 20
 	var/max_charge = 20
 
@@ -106,8 +106,8 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
-	armour_penetration_flat = 10
-	armour_penetration_percentage = 50
+	armor_penetration_flat = 10
+	armor_penetration_percentage = 50
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
@@ -279,7 +279,7 @@
 	var/force_wielded = 18
 	throwforce = 20
 	throw_speed = 4
-	armour_penetration_flat = 5
+	armor_penetration_flat = 5
 	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
@@ -350,7 +350,7 @@
 	force_unwielded = 11
 	force_wielded = 20					//I have no idea how to balance
 	throwforce = 22
-	armour_penetration_percentage = 15				//Enhanced armor piercing
+	armor_penetration_percentage = 15				//Enhanced armor piercing
 
 //Blatant imitation of spear, but all natural. Also not valid for explosive modification.
 /obj/item/spear/bamboo
@@ -627,7 +627,7 @@
 	flags = ABSTRACT | NODROP | DROPDEL
 	force = 22
 	damtype = BURN
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	sharp = TRUE
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -688,13 +688,13 @@
 /obj/item/clothing/gloves/color/black/pyro_claws
 	name = "Fusion gauntlets"
 	desc = "A pair of heavy combat gauntlets that project lethal energy claws via the power of a captive pyroclastic anomaly core."
-	item_state = "pyro"
-	item_color = "pyro" // I will kill washing machines one day
 	icon_state = "pyro"
+	inhand_icon_state = null
+	worn_icon_state = null
+	item_color = "pyro" // I will kill washing machines one day
 	can_be_cut = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
 	dyeable = FALSE
-
 	var/on_cooldown = FALSE
 	var/obj/item/assembly/signaler/anomaly/pyro/core
 	var/next_spark_time

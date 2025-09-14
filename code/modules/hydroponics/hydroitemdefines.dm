@@ -4,7 +4,7 @@
 	desc = "A versatile scanner for analyzing plants, plant produce, and seeds. Can be used on a bag holding unsorted seeds to quickly and thorougly sort them into usable packs."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hydro"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "magnets=2;biotech=2"
@@ -38,7 +38,7 @@
 	desc = "It's a toxic mixture, in spray form, to kill small weeds."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "weedspray"
-	item_state = "plantbgone"
+	inhand_icon_state = "plantbgone"
 	belt_icon = null
 	volume = 100
 	throw_range = 10
@@ -54,7 +54,7 @@
 	desc = "It's some pest eliminator spray! <I>Do not inhale!</I>"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "pestspray"
-	item_state = "plantbgone"
+	inhand_icon_state = "plantbgone"
 	belt_icon = null
 	volume = 100
 	throw_range = 10
@@ -68,7 +68,7 @@
 	name = "cultivator"
 	desc = "It's used for removing weeds or scratching your back."
 	icon_state = "cultivator"
-	item_state = "cultivator"
+	inhand_icon_state = "cultivator"
 	belt_icon = "cultivator"
 	origin_tech = "engineering=2;biotech=2"
 	flags = CONDUCT
@@ -92,11 +92,11 @@
 /obj/item/hatchet
 	name = "hatchet"
 	desc = "A very sharp axe blade upon a short fibremetal handle. It has a long history of chopping things, but now it is used for chopping wood."
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "hatchet"
-	item_state = "hatchet"
+	inhand_icon_state = "hatchet"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	belt_icon = "hatchet"
 	flags = CONDUCT
 	force = 12
@@ -119,6 +119,7 @@
 	name = "duelling knife"
 	desc = "A length of leather-bound wood studded with razor-sharp teeth. How crude."
 	icon_state = "unathiknife"
+	inhand_icon_state = "knife"
 	attack_verb = list("ripped", "torn", "cut")
 
 /obj/item/hatchet/wooden
@@ -131,13 +132,15 @@
 	name = "scythe"
 	desc = "A sharp and curved blade on a long fibremetal handle, this tool makes it easy to reap what you sow."
 	icon = 'icons/obj/weapons/melee.dmi'
-	icon_state = "scythe0"
+	icon_state = "scythe"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	force = 13
 	throwforce = 5
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
-	armour_penetration_flat = 20
+	armor_penetration_flat = 20
 	slot_flags = ITEM_SLOT_BACK
 	origin_tech = "materials=3;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -164,12 +167,12 @@
 			playsound(loc, pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg'), 50, TRUE, -1)
 	return BRUTELOSS
 
-/obj/item/scythe/pre_attack(atom/A, mob/living/user, params)
-	if(swiping || !istype(A, /obj/structure/spacevine) || get_turf(A) == get_turf(user))
+/obj/item/scythe/pre_attack(atom/target, mob/living/user, params)
+	if(swiping || !istype(target, /obj/structure/spacevine) || get_turf(target) == get_turf(user))
 		return ..()
 	else
 		var/turf/user_turf = get_turf(user)
-		var/dir_to_target = get_dir(user_turf, get_turf(A))
+		var/dir_to_target = get_dir(user_turf, get_turf(target))
 		swiping = TRUE
 		var/static/list/scythe_slash_angles = list(0, 45, 90, -45, -90)
 		for(var/i in scythe_slash_angles)
@@ -183,7 +186,7 @@
 	name = "telescopic scythe"
 	desc = "A sharp and curved blade on a collapsable fibre metal handle, this tool is the pinnacle of covert reaping technology."
 	icon_state = "tscythe0"
-	item_state = null	//no sprite for folded version, like a tele-baton
+	inhand_icon_state = null	//no sprite for folded version, like a tele-baton
 	force = 3
 	sharp = FALSE
 	w_class = WEIGHT_CLASS_SMALL
@@ -224,10 +227,10 @@
 /obj/item/scythe/tele/update_icon_state()
 	if(extend)
 		icon_state = "tscythe1"
-		item_state = "scythe0"	//use the normal scythe in-hands
+		inhand_icon_state = "scythe"	//use the normal scythe in-hands
 	else
 		icon_state = "tscythe0"
-		item_state = null	//no sprite for folded version, like a tele-baton
+		inhand_icon_state = null	//no sprite for folded version, like a tele-baton
 
 // *************************************
 // Nutrient defines for hydroponics
@@ -238,7 +241,7 @@
 	name = "jug of nutrient"
 	desc = "A decent sized plastic jug."
 	icon_state = "plastic_jug"
-	item_state = "plastic_jug"
+	inhand_icon_state = "carton"
 	possible_transfer_amounts = list(1,2,5,10,20,40,80)
 	volume = 80
 	hitsound = 'sound/weapons/jug_empty_impact.ogg'

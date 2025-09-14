@@ -7,7 +7,6 @@
 	desc = "A device used to rapidly deploy service items."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rsf"
-	item_state = "rsf"
 	var/atom/currently_dispensing
 	var/power_mode = POWER_NONE
 

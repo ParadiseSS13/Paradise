@@ -182,7 +182,7 @@
 	SSticker.mode.incursion_portals -= src
 	return ..()
 
-/obj/structure/spawner/nether/demon_incursion/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration_flat, armour_penetration_percentage)
+/obj/structure/spawner/nether/demon_incursion/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armor_penetration_flat, armor_penetration_percentage)
 	. = ..()
 	COOLDOWN_START(src, portal_repair, portal_repair_cooldown)
 
