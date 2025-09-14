@@ -13,10 +13,9 @@
 	name = "film cartridge"
 	desc = "A camera film cartridge. Insert it into a camera to reload it."
 	icon_state = "film"
-	item_state = "electropack"
+	inhand_icon_state = "electropack"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
-
 
 /********
 * photo *
@@ -24,7 +23,7 @@
 /obj/item/photo
 	name = "photo"
 	icon_state = "photo"
-	item_state = "paper"
+	inhand_icon_state = "paper"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
@@ -129,7 +128,7 @@
 	desc = "A slim book with little plastic coverings to keep photos from deteriorating, it reminds you of the good ol' days."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "album"
-	item_state = "syringe_kit"
+	inhand_icon_state = "syringe_kit"
 	can_hold = list(/obj/item/photo)
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_SMALL
@@ -168,7 +167,8 @@
 	name = "camera"
 	desc = "A polaroid camera."
 	icon_state = "camera"
-	item_state = "camera"
+	worn_icon_state = "camera"
+	inhand_icon_state = "camera"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_NECK
 	new_attack_chain = TRUE
