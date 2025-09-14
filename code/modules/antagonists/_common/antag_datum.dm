@@ -61,6 +61,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 	/// Do we have delayed objective giving?
 	var/delayed_objectives = FALSE
+	/// The title of the players "boss", used for exfil strings
+	var/boss_title = "Operations"
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -358,7 +360,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/mob/dead/observer/C = pick(candidates)
 	to_chat(owner.current, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
 	message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(owner.current)]) to replace a jobbaned player.")
-	owner.current.ghostize(FALSE)
+	owner.current.ghostize(GHOST_FLAGS_OBSERVE_ONLY)
 	owner.current.key = C.key
 	dust_if_respawnable(C)
 	return TRUE
@@ -497,5 +499,25 @@ GLOBAL_LIST_EMPTY(antagonists)
 /// This is the custom blurb message used on login for an antagonist.
 /datum/antagonist/proc/custom_blurb()
 	return FALSE
+
+/datum/antagonist/proc/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
+	return
+
+/datum/antagonist/proc/prepare_exfiltration(mob/user, obj/item/wormhole_jaunter/extraction/extraction_type = null)
+	// No extraction for certian steals/hijack
+	var/objectives = user.mind.get_all_objectives()
+	for(var/datum/objective/goal in objectives)
+		if(!goal.is_valid_exfiltration())
+			to_chat(user, "<span class='warning'>The [boss_title] has deemed your objectives too delicate for an early extraction.</span>")
+			return
+
+	if(world.time < 60 MINUTES) // 60 minutes of no exfil
+		to_chat(user, "<span class='warning'>The [boss_title] is still preparing an exfiltration portal. Please wait another [round((36000 - world.time) / 600)] minutes before trying again.</span>")
+		return
+	var/mob/living/L = user
+	if(!istype(L))
+		return
+	var/obj/item/wormhole_jaunter/extraction/extractor = new extraction_type()
+	L.put_in_active_hand(extractor)
 
 #undef SUCCESSFUL_DETACH

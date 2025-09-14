@@ -182,7 +182,6 @@
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "bola"
-	item_state = "bola"
 	breakouttime = 3.5 SECONDS
 	gender = NEUTER
 	origin_tech = "engineering=3;combat=1"
@@ -217,7 +216,7 @@
 	var/range_increment = round(max_range / max_spins)
 	var/speed_increment = round(max_speed / max_spins)
 	RegisterSignal(L, COMSIG_CARBON_SWAP_HANDS, PROC_REF(reset_values), override = TRUE)
-	item_state = "[initial(item_state)]_spin"
+	inhand_icon_state = "[initial(icon_state)]_spin"
 	L.update_inv_r_hand()
 	L.update_inv_l_hand()
 	spinning = TRUE
@@ -238,7 +237,7 @@
 /obj/item/restraints/legcuffs/bola/proc/reset_values(mob/living/user)
 	throw_range = initial(throw_range)
 	throw_speed = initial(throw_speed)
-	item_state = initial(item_state)
+	inhand_icon_state = initial(inhand_icon_state)
 	spinning = FALSE
 	if(user)
 		user.update_inv_r_hand()
@@ -252,8 +251,6 @@
 		return TRUE
 	return FALSE
 
-
-
 /obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
 	playsound(loc,'sound/weapons/bolathrow.ogg', 50, TRUE)
 	if(!..())
@@ -264,7 +261,7 @@
 	if(..() || !iscarbon(hit_atom))//if it gets caught or the target can't be cuffed,
 		return//abort
 	var/mob/living/carbon/C = hit_atom
-	if(!C.legcuffed && C.get_num_legs() >= 2)
+	if(!C.legcuffed && C.get_num_legs() >= 2 && !IS_HORIZONTAL(C))
 		visible_message("<span class='danger'>[src] ensnares [C]!</span>")
 		C.legcuffed = src
 		forceMove(C)
@@ -281,7 +278,6 @@
 	name = "reinforced bola"
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
-	item_state = "bola_r"
 	breakouttime = 7 SECONDS
 	origin_tech = "engineering=4;combat=3"
 	knockdown_duration = 2 SECONDS
@@ -291,7 +287,6 @@
 	name = "energy bola"
 	desc = "A specialized hard-light bola designed to ensnare fleeing criminals and aid in arrests."
 	icon_state = "ebola"
-	item_state = "ebola"
 	hitsound = 'sound/weapons/tase.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 4 SECONDS

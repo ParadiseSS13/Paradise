@@ -5,11 +5,10 @@
 	name = "ritual dagger"
 	desc = "A small, well-balanced dagger that radiates an aura of palpable menace. The blade tapers to a razor-sharp point that is ideal for drawing with."
 	icon_state = "blood_dagger"
-	item_state = "blood_dagger"
 	w_class = WEIGHT_CLASS_SMALL
 	force = 15
 	throwforce = 25
-	armour_penetration_flat = 35
+	armor_penetration_flat = 35
 	sprite_sheets_inhand = null // Override parent
 	var/drawing_rune = FALSE
 	var/scribe_multiplier = 1 // Lower is faster
@@ -23,7 +22,6 @@
 /obj/item/melee/cultblade/dagger/Initialize(mapload)
 	. = ..()
 	icon_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
-	item_state = GET_CULT_DATA(dagger_icon, "blood_dagger")
 
 /obj/item/melee/cultblade/dagger/examine(mob/user)
 	. = ..()

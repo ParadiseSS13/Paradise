@@ -6,6 +6,7 @@
 #define DYE_REGISTRY_FANNYPACK "fannypack"
 #define DYE_REGISTRY_BEANIE	"beanie"
 #define DYE_REGISTRY_BEDSHEET "bedsheet"
+#define DYE_REGISTRY_BOMBER "bomber"
 #define DYE_REGISTRY_PLASMAMEN "plasmamen"
 #define DYE_REGISTRY_PLASMAMEN_HELMET "plasmamen_helmet"
 #define DYE_REGISTRY_SYNDICATE_SUIT "syndicate_suit"

@@ -861,13 +861,13 @@ non_repeating_maps = true
 # - "FPTP" = A vote that excludes the map from the current round, and last round, then uses a weighted pick on the remaining maps, from preferences.
 # If you dont enter one correctly, it will whine on startup
 map_vote_day_types = [
-  {day_number = 1, rotation_type = "Vote"}, # Monday
+  {day_number = 1, rotation_type = "Random"}, # Monday
   {day_number = 2, rotation_type = "Random"}, # Tuesday
-  {day_number = 3, rotation_type = "FPTP"}, # Wednesday
+  {day_number = 3, rotation_type = "Random"}, # Wednesday
   {day_number = 4, rotation_type = "Random"}, # Thursday
-  {day_number = 5, rotation_type = "Vote"}, # Friday
-  {day_number = 6, rotation_type = "FPTP"}, # Saturday
-  {day_number = 7, rotation_type = "FPTP"}, # Sunday
+  {day_number = 5, rotation_type = "Random"}, # Friday
+  {day_number = 6, rotation_type = "Random"}, # Saturday
+  {day_number = 7, rotation_type = "Random"}, # Sunday
 ]
 
 ################################################################
