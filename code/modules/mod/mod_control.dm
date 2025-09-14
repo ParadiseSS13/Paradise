@@ -787,9 +787,9 @@
 		part.icon_override = used_skin[MOD_WORN_ICON_OVERRIDE] || initial(part.icon_override)
 		part.icon_state = "[skin]-[part.base_icon_state]"
 	for(var/obj/item/clothing/part as anything in mod_parts)
-		part.sprite_sheets = get_nested_value(used_skin, MOD_SPRITE_SHEETS_OVERRIDE, get_nested_value(part_data, part, SPRITE_SHEETS_OVERRIDE)) \
-			|| get_nested_value(part_data, part, SPRITE_SHEETS_DEFAULT)
-		var/used_category = get_nested_value(part_data, part, PART_FLAGS)
+		part.sprite_sheets = LAZYACCESSASSOC(used_skin, MOD_SPRITE_SHEETS_OVERRIDE, LAZYACCESSASSOC(part_data, part, SPRITE_SHEETS_OVERRIDE)) \
+			|| LAZYACCESSASSOC(part_data, part, SPRITE_SHEETS_DEFAULT)
+		var/used_category = LAZYACCESSASSOC(part_data, part, PART_FLAGS)
 		var/list/category = used_skin[used_category]
 		part.flags = category[UNSEALED_CLOTHING] || NONE
 		part.visor_flags = category[SEALED_CLOTHING] || NONE
