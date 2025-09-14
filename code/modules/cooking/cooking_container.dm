@@ -325,7 +325,6 @@
 				tongs.sliver = null
 				// TODO: refactor the tongs so they actually check if(sliver) in `update_icon()` instead of manually setting the icons everywhere.
 				tongs.icon_state = "supermatter_tongs"
-				tongs.item_state = "supermatter_tongs"
 				used.update_appearance(UPDATE_ICON)
 			return ITEM_INTERACT_COMPLETE
 	..()
