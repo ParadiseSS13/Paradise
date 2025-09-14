@@ -11,16 +11,33 @@
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"f" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "p" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"t" = (
+/obj/item/nuke_core/supermatter_sliver,
+/obj/structure/table/reinforced,
+/obj/item/nuke_core/supermatter_sliver,
+/obj/item/nuke_core/supermatter_sliver,
+/obj/item/nuke_core/supermatter_sliver,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "u" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/arrival/station)
 "x" = (
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"B" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cooking/board,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "F" = (
@@ -31,6 +48,20 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"S" = (
+/obj/item/food/sliced/bread,
+/obj/structure/table/reinforced,
+/obj/item/food/sliced/bread{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
+"T" = (
+/obj/item/retractor/supermatter,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "U" = (
@@ -32293,9 +32324,9 @@ x
 x
 x
 x
-x
-x
-x
+t
+B
+f
 x
 x
 x
@@ -32550,9 +32581,9 @@ x
 x
 x
 x
-x
+T
 b
-x
+S
 x
 x
 x
