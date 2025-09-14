@@ -101,7 +101,7 @@
 
 /obj/structure/mineral_door/proc/operate_update()
 	density = !density
-	opacity = !opacity
+	set_opacity(!opacity)
 	state_open = !state_open
 	recalculate_atmos_connectivity()
 	update_icon(UPDATE_ICON_STATE)
@@ -116,15 +116,17 @@
 	else
 		icon_state = initial_state
 
-/obj/structure/mineral_door/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/mineral_door/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/pickaxe))
 		var/obj/item/pickaxe/digTool = W
 		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
 		if(do_after(user, 40 * digTool.toolspeed * hardness, target = src) && src)
 			to_chat(user, "<span class='notice'>You finished digging.</span>")
 			deconstruct(TRUE)
+		return ITEM_INTERACT_COMPLETE
 	else if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 
@@ -182,12 +184,13 @@
 	sheetType = /obj/item/stack/sheet/mineral/plasma
 	cares_about_temperature = TRUE
 
-/obj/structure/mineral_door/transparent/plasma/attackby__legacy__attackchain(obj/item/W, mob/user)
+/obj/structure/mineral_door/transparent/plasma/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(W.get_heat())
 		message_admins("Plasma mineral door ignited by [key_name_admin(user)] in ([x], [y], [z] - <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", 0, 1)
 		log_game("Plasma mineral door ignited by [key_name(user)] in ([x], [y], [z])")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]",INVESTIGATE_ATMOS)
 		TemperatureAct(100)
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 

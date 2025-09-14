@@ -3,7 +3,7 @@
 	desc = "This injects the person with DNA."
 	icon = 'icons/obj/medical.dmi'
 	icon_state = "dnainjector"
-	item_state = "dnainjector"
+	inhand_icon_state = "dnainjector"
 	belt_icon = "syringe"
 	var/block = 0
 	var/datum/dna2_record/buf = null

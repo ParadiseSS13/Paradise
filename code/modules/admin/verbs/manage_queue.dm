@@ -45,7 +45,7 @@
 	if(!check_rights(R_SERVER))
 		return
 
-	var/bypass_ckey = input(usr, "Please, enter a ckey", "Queue Server Bypass")
+	var/bypass_ckey = tgui_input_text(usr, "Please, enter a ckey. Enter nothing to cancel", "Queue Server Bypass")
 
 	if(!bypass_ckey)
 		return
