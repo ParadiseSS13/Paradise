@@ -100,7 +100,6 @@
 	name = "argyle sweater vest"
 	desc = "A not-so-warm sweater vest for old-fashioned librarians. A tag sticks out, 'DOES NOT PROVIDE INSULATION.'"
 	icon_state = "argyle"
-	item_state = "argyle"
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO
 
 	sprite_sheets = list(
@@ -115,7 +114,6 @@
 	name = "librarian's tailcoat"
 	desc = "A dull red tailcoat, a common choice between historians and vampires."
 	icon_state = "tailcoat_red"
-	item_state = "tailcoat_red"
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
 
 	sprite_sheets = list(
