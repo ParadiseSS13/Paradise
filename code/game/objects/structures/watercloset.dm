@@ -10,7 +10,6 @@
 	var/cistern = FALSE			//if the cistern bit is open
 	var/w_items = 0			//the combined w_class of all the items in the cistern
 	var/mob/living/swirlie = null	//the mob being given a swirlie
-	new_attack_chain = TRUE
 
 MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 
@@ -237,7 +236,6 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "urinal"
 	anchored = TRUE
-	new_attack_chain = TRUE
 
 /obj/structure/urinal/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/grab))
@@ -520,7 +518,6 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/shower, 16, -5, 0, 0)
 	desc = "A sink used for washing one's hands and face."
 	anchored = TRUE
 	var/sink_flags = SINK_MOVEABLE
-	new_attack_chain = TRUE
 
 MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/sink, 18, -4, 0, 0)
 
