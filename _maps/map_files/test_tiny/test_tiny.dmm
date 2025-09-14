@@ -2,6 +2,15 @@
 "a" = (
 /turf/space,
 /area/space)
+"m" = (
+/obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "spooky";
+	name = "Observer-Start"
+	},
+/obj/effect/landmark/spawner/late/crew,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/arrival/station)
 "p" = (
 /obj/machinery/light{
 	dir = 1
@@ -32542,7 +32551,7 @@ x
 x
 x
 x
-x
+m
 x
 x
 x
