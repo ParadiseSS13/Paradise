@@ -61,7 +61,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/update_icon_state()
 	. = ..()
 	icon_state = "[initial(icon_state)][lit ? "_on" : ""]"
-	item_state = "[initial(icon_state)][lit ? "_on" : ""]"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_wear_mask()

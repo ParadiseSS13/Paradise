@@ -2,7 +2,8 @@
 	name = "\improper SR-31C sniper rifle"
 	desc = "A powerful anti-materiel rifle produced by Aussec Armory, chambered in devastating .50 BMG."
 	icon_state = "sniper"
-	item_state = "sniper"
+	worn_icon_state = "sniper"
+	inhand_icon_state = "sniper"
 	recoil = 2
 	weapon_weight = WEAPON_HEAVY
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
