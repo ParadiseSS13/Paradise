@@ -154,7 +154,7 @@
 
 /datum/language/unathi
 	name = "Sinta'unathi"
-	desc = "The common language of Moghes and the larger Unathi community. It's composed of sibilant hisses and rattles, and as such cannot be spoken by other species without mechanical aid."
+	desc = "The common language of Moghes and the larger Unathi community. It's composed of sibilant hisses and rattles."
 	speech_verb = "hisses"
 	ask_verb = "hisses"
 	exclaim_verbs = list("roars")
@@ -175,7 +175,7 @@
 
 /datum/language/tajaran
 	name = "Siik'tajr"
-	desc = "The traditionally employed tongue of Ahdomai, composed of expressive yowls and chirps. It is native to the Tajaran, and cannot easily be spoken by other species."
+	desc = "The traditionally employed tongue of Ahdomai, composed of expressive yowls and chirps. It is native to the Tajaran."
 	speech_verb = "mrowls"
 	ask_verb = "mrowls"
 	exclaim_verbs = list("yowls")
@@ -197,7 +197,7 @@
 
 /datum/language/vulpkanin
 	name = "Canilunzt"
-	desc = "A guttural language mainly spoken and utilized by the inhabitants of the Vazzend system. Due to its composition of growls, barks, and yaps, non-Vulpkanin cannot speak the language in any meaningful capacity."
+	desc = "A guttural language mainly spoken and utilized by the inhabitants of the Vazzend system. Its composition is primarily growls, barks, and yaps."
 	speech_verb = "rawrs"
 	ask_verb = "rurs"
 	exclaim_verbs = list("barks")
@@ -220,7 +220,7 @@
 
 /datum/language/skrell
 	name = "Qurvolious"
-	desc = "The state language of the Royal Domain of Qerballak, Qurvolious has a rich and melodious sound that flows like water. Certain syllables of the language cannot be comprehended by non-Skrell."
+	desc = "The state language of the Royal Domain of Qerballak, Qurvolious has a rich and melodious sound that flows like water."
 	speech_verb = "warbles"
 	ask_verb = "warbles"
 	exclaim_verbs = list("warbles")
@@ -231,7 +231,7 @@
 
 /datum/language/vox
 	name = "Vox-pidgin"
-	desc = "Vox-pidgin is the primary language of Vox across the Orion arm. It is composed of chaotic shrieks and creels, and is not intelligible to most other species."
+	desc = "Vox-pidgin is the primary language of Vox across the Orion arm. It is composed of chaotic shrieks, creels, and cawwing."
 	speech_verb = "shrieks"
 	ask_verb = "creels"
 	exclaim_verbs = list("loudly skrees")
@@ -269,7 +269,7 @@
 
 /datum/language/trinary
 	name = "Trinary"
-	desc = "A standard encoding framework used to communicate on a verbal level by robotic units. Its vocabulary consists of a series of beeps that varies in tone and pitch."
+	desc = "A standard encoding framework used to communicate on a verbal level by robotic units. Its vocabulary consists of beeping that varies in tone and pitch."
 	speech_verb = "states"
 	ask_verb = "queries"
 	exclaim_verbs = list("exclaims")
@@ -293,7 +293,7 @@
 
 /datum/language/kidan
 	name = "Chittin"
-	desc = "A complex form of communication, primary to the Kidan. Its sounds are formed by a combination of rubbing antennae together and expressive use of the mandibles, and cannot be properly expressed by other species."
+	desc = "A complex form of communication, primary to the Kidan. Its sounds are formed by a combination of rubbing antennae together and expressive use of the mandibles."
 	speech_verb = "rubs their antennae together"
 	ask_verb = "rubs their antennae together"
 	exclaim_verbs = list("rubs their antennae together")
@@ -316,7 +316,7 @@
 
 /datum/language/slime
 	name = "Bubblish"
-	desc = "The primary language spoken by Slime People. Its vocabulary consists of bubbling, pops, and squishes. Due to these noises being difficult to synthesize as a non-slime, mechanical aid is required to speak it."
+	desc = "The primary language spoken by Slime People. Its vocabulary consists of bubbling, pops, and squishes."
 	speech_verb = "burbles"
 	ask_verb = "pops softly"
 	exclaim_verbs = list("fizzes")
@@ -336,7 +336,7 @@
 
 /datum/language/grey
 	name = "Psionic Communication"
-	desc = "The Grey's psionic communication, and a far less precise version of the telepathy of both them and their distant cousin species. Speaks directly to other Greys within a limited radius."
+	desc = "The Grey's psionic communication, and a far less precise version of the telepathy of their distant cousin species. Speaks directly to other Greys within a limited radius."
 	speech_verb = "expresses"
 	ask_verb = "inquires"
 	exclaim_verbs = list("imparts")
@@ -391,7 +391,7 @@
 
 /datum/language/moth
 	name = "Tkachi"
-	desc = "The nearly-unintelligible language of the Nian, originally native to the Garden system. Its vocabulary of buzzes and flapping make the language complex, while being difficult to translate."
+	desc = "The nearly-unintelligible language of the Nian, originally native to the Garden system. Its vocabulary of buzzes and flapping make the language complex."
 	speech_verb = "buzzes"
 	ask_verb = "flaps"
 	exclaim_verbs = list("chatters")
