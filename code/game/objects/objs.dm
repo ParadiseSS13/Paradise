@@ -186,7 +186,7 @@
 /obj/proc/hear_message(mob/M, text)
 	return
 
-// Returns `TRUE` if the object was successfully repaired. Fully repairs an object (setting `BROKEN` to `FALSE`), default repair time = 40.
+/// Returns `TRUE` if the object was successfully repaired. Fully repairs an object (setting `BROKEN` to `FALSE`), default repair time = 40.
 /obj/proc/default_welder_repair(mob/user, obj/item/I)
 	if(obj_integrity >= max_integrity)
 		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
