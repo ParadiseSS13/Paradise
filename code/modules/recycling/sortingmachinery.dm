@@ -248,9 +248,9 @@
 	desc = "Used to set the destination of properly wrapped packages."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "dest_tagger"
-
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
-	item_state = "electronic"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	///Value of the tag

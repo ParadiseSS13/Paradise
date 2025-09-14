@@ -36,7 +36,8 @@
 	desc = "A device to automatically replace lights. Refill with broken or working light bulbs, or sheets of glass."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "lightreplacer0"
-	item_state = "electronic"
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	belt_icon = "light_replacer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
