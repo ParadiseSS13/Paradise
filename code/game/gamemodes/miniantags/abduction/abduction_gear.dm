@@ -62,7 +62,7 @@ CONTENTS:
 	name = "alien uniform"
 	desc = "A highly breathable, alien uniform designed for optimal abduction and dissection."
 	icon_state = "abductor"
-	item_state = "bl_suit"
+	inhand_icon_state = "bl_suit"
 	item_color = "abductor"
 	has_sensor = FALSE
 

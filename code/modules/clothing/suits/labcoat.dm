@@ -101,5 +101,4 @@
 	name = "alien labcoat"
 	desc = "A comfortable suit for alien scientists. Has pink markings."
 	icon_state = "labcoat_abductor_open"
-	item_state = "labcoat_abductor_open"
 	allowed = list(/obj/item/abductor/silencer, /obj/item/abductor/gizmo, /obj/item/abductor/mind_device)
