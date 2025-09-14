@@ -13,6 +13,8 @@
 	/// How long this takes to unbuckle yourself from.
 	var/unbuckle_time = 0 SECONDS
 
+	new_attack_chain = TRUE
+
 /obj/structure/New()
 	..()
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))

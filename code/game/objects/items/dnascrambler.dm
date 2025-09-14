@@ -2,8 +2,8 @@
 	name = "dna scrambler"
 	desc = "An illegal genetic serum designed to randomize the user's identity."
 	icon = 'icons/obj/hypo.dmi'
-	item_state = "syringe_0"
 	icon_state = "lepopen"
+	inhand_icon_state = "syringe_0"
 	var/used = FALSE
 
 /obj/item/dnascrambler/update_icon_state()

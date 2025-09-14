@@ -688,13 +688,13 @@
 /obj/item/clothing/gloves/color/black/pyro_claws
 	name = "Fusion gauntlets"
 	desc = "A pair of heavy combat gauntlets that project lethal energy claws via the power of a captive pyroclastic anomaly core."
-	item_state = "pyro"
-	item_color = "pyro" // I will kill washing machines one day
 	icon_state = "pyro"
+	inhand_icon_state = null
+	worn_icon_state = null
+	item_color = "pyro" // I will kill washing machines one day
 	can_be_cut = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
 	dyeable = FALSE
-
 	var/on_cooldown = FALSE
 	var/obj/item/assembly/signaler/anomaly/pyro/core
 	var/next_spark_time
