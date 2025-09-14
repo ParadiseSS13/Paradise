@@ -1,19 +1,17 @@
 /obj/item/clothing/under/rank/rnd
 	icon = 'icons/obj/clothing/under/rnd.dmi'
-
+	worn_icon = 'icons/mob/clothing/under/rnd.dmi'
 	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/under/rnd.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/rnd.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/rnd.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/rnd.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/rnd.dmi'
-		)
+	)
 
 /obj/item/clothing/under/rank/rnd/rd
 	name = "research director's uniform"
 	desc = "It's a purple dress shirt and black slacks worn by those with the know-how to achieve the position of \"Research Director\". Its fabric provides minor protection from biological contaminants."
 	icon_state = "rd"
-	item_state = "rd"
 	item_color = "rd"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, RAD = 0, FIRE = 0, ACID = 25)
 
@@ -35,14 +33,12 @@
 /obj/item/clothing/under/rank/rnd/rd/turtleneck
 	desc = "A fancy turtleneck designed to keep the wearer cozy in a cold research lobby. Due to budget cuts, the material does not offer any external protection."
 	icon_state = "rd_turtle"
-	item_state = "rd_turtle"
 	item_color = "rd_turtle"
 
 /obj/item/clothing/under/rank/rnd/scientist
 	name = "scientist's jumpsuit"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. It has markings that denote the wearer as a scientist."
 	icon_state = "science"
-	item_state = "science"
 	item_color = "science"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, RAD = 0, FIRE = 0, ACID = 0)
@@ -57,7 +53,6 @@
 	name = "roboticist's jumpsuit"
 	desc = "It's a slimming black with reinforced seams; great for industrial work."
 	icon_state = "robotics"
-	item_state = "robotics"
 	item_color = "robotics"
 	resistance_flags = NONE
 
@@ -71,7 +66,6 @@
 	name = "geneticist's jumpsuit"
 	desc = "It's made of a special fiber that gives special protection against biohazards. It has a genetics rank stripe on it."
 	icon_state = "genetics"
-	item_state = "genetics"
 	item_color = "genetics"
 	permeability_coefficient = 0.50
 

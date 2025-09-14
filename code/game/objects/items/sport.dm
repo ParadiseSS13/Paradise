@@ -3,7 +3,7 @@
 	icon = 'icons/misc/beach.dmi'
 	desc = "An inflatable ball of fun, enjoyed on many beaches."
 	icon_state = "ball"
-	item_state = "beachball"
+	inhand_icon_state = "beachball"
 	throw_speed = 1
 	throw_range = 20
 	flags = CONDUCT
@@ -28,7 +28,7 @@
 	desc = "Take me out to the ball game."
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "baseball"
-	item_state = "baseball"
+	inhand_icon_state = null // no icon state
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/beach_ball/dodgeball
@@ -36,7 +36,7 @@
 	desc = "Used for playing the most violent and degrading of childhood games. This one is connected to the laser tag armour system."
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "dodgeball"
-	item_state = "dodgeball"
+	inhand_icon_state = "dodgeball"
 	dribbleable = TRUE
 	var/list/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
 
@@ -54,7 +54,7 @@
 	desc = "Here's your chance, do your dance at the Space Jam."
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "basketball"
-	item_state = "basketball"
+	inhand_icon_state = "basketball"
 	dribbleable = TRUE
 	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pockets
 
@@ -67,21 +67,21 @@
 	density = TRUE
 	pass_flags_self = LETPASSTHROW | PASSTAKE
 
-/obj/structure/holohoop/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/holohoop/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/grab) && get_dist(src, user) <= 1)
 		var/obj/item/grab/G = W
 		if(G.state < GRAB_AGGRESSIVE)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		G.affecting.forceMove(loc)
 		G.affecting.Weaken(10 SECONDS)
 		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into [src]!</span>")
 		qdel(W)
-		return
+		return ITEM_INTERACT_COMPLETE
 	else if(isitem(W) && get_dist(src,user) <= 1)
 		user.drop_item(src)
 		visible_message("<span class='notice'>[user] dunks [W] into [src]!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isitem(AM) && !isprojectile(AM))
