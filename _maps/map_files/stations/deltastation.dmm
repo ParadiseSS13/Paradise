@@ -59638,6 +59638,12 @@
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "hFR" = (
