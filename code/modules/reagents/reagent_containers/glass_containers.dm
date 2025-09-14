@@ -63,11 +63,20 @@
 				add_attack_logs(user, target, "Fed with [name] containing [contained]", !!target.ckey ? null : ATKLOG_ALL)
 			else
 				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
-
 			var/fraction = min(5 / reagents.total_volume, 1)
 			reagents.reaction(target, REAGENT_INGEST, fraction)
 			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), target, 5), 5)
 			playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
+			// Add viruses where needed
+			if(length(target.viruses))
+				AddComponent(/datum/component/viral_contamination, target.viruses)
+			// Infect contained blood as well for splash reactions
+			var/datum/reagent/blood/blood_contained = locate() in reagents.reagent_list
+			if(blood_contained?.data["viruses"])
+				var/list/blood_viruses = blood_contained.data["viruses"]
+				blood_viruses |= target.viruses.Copy()
+				blood_contained.data["viruses"] = blood_viruses
+			SEND_SIGNAL(src, COMSIG_MOB_REAGENT_EXCHANGE, target)
 
 /obj/item/reagent_containers/glass/normal_act(atom/target, mob/living/user)
 	if(!check_allowed_items(target, target_self = TRUE) || !is_open_container() || !reagents)
@@ -121,7 +130,7 @@
 	name = "beaker"
 	desc = "A simple glass beaker, nothing special."
 	icon_state = "beaker"
-	item_state = "beaker"
+	inhand_icon_state = "beaker"
 	belt_icon = "beaker"
 	materials = list(MAT_GLASS = 1000)
 	var/obj/item/assembly_holder/assembly = null
@@ -286,7 +295,6 @@
 	desc = "Useful for moving liquids, or having a helmet in the zombie apocalypse."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "bucket"
-	item_state = "bucket"
 	materials = list(MAT_METAL=200)
 	w_class = WEIGHT_CLASS_NORMAL
 	amount_per_transfer_from_this = 20
@@ -307,7 +315,6 @@
 /obj/item/reagent_containers/glass/bucket/wooden
 	name = "wooden bucket"
 	icon_state = "woodbucket"
-	item_state = "woodbucket"
 	materials = null
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 50)
 	resistance_flags = FLAMMABLE
@@ -338,9 +345,9 @@
 	desc = "A bottle of water filled at an old Earth bottling facility."
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "smallbottle"
-	item_state = "bottle"
+	inhand_icon_state = "bottle"
 	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
-	materials = list(MAT_GLASS = 0)
+	materials = list()
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/empty
 	list_reagents = list()

@@ -1,0 +1,1103 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ab" = (
+/obj/structure/chair/comfy/brown,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"at" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"ay" = (
+/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"aH" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/civilian,
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"aZ" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/ashtray/bronze{
+	pixel_y = 3
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 6;
+	pixel_y = -8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"bl" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/trade/sol)
+"dh" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/turf/simulated/floor/carpet/green,
+/area/shuttle/trade/sol)
+"dC" = (
+/obj/machinery/light/spot,
+/obj/structure/table/wood/fancy/orange,
+/obj/item/storage/photo_album{
+	pixel_x = -3;
+	pixel_y = -2
+	},
+/obj/item/camera{
+	pixel_x = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"ea" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"es" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/clothing/mask/cigarette/cigar/cohiba,
+/obj/item/clothing/mask/cigarette/cigar/cohiba{
+	pixel_x = 1;
+	pixel_y = 6
+	},
+/obj/item/storage/fancy/matches{
+	pixel_x = 3;
+	pixel_y = 9
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"eD" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/obj/structure/table/wood/fancy/purple,
+/obj/item/paper_bin{
+	pixel_y = 5
+	},
+/obj/item/pen/multi/fountain{
+	pixel_y = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"eN" = (
+/obj/machinery/door_control/no_emag{
+	id = "trader_privacy";
+	name = "Privacy Shutters Control";
+	pixel_y = -24;
+	req_access = list(160);
+	pixel_x = -10
+	},
+/obj/machinery/flasher_button{
+	id = "trader_flash";
+	pixel_y = -23;
+	req_access = list(160)
+	},
+/obj/machinery/door_control/no_emag{
+	id = "trader_starboard";
+	name = "Trade Deposits Door";
+	normaldoorcontrol = 1;
+	pixel_x = 10;
+	req_access = list(160);
+	pixel_y = -24
+	},
+/obj/item/flag/species/nian,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"eP" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"eS" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"fN" = (
+/obj/machinery/flasher{
+	id = "trader_flash";
+	pixel_y = -28
+	},
+/obj/structure/chair/sofa/left{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"gA" = (
+/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"hd" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/reagent_containers/glass/bottle/oculine{
+	pixel_y = 9
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"hs" = (
+/obj/effect/turf_decal/woodsiding,
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"hy" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"hO" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/green,
+/area/shuttle/trade/sol)
+"hV" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/turf/simulated/floor/carpet/green,
+/area/shuttle/trade/sol)
+"iD" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"jC" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"jO" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"kv" = (
+/obj/structure/chair/comfy/brown,
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"kA" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/obj/structure/chair/comfy/brown{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"kN" = (
+/obj/machinery/door_control/no_emag{
+	id = "trader_privacy";
+	name = "Privacy Shutters Control";
+	pixel_y = -24;
+	req_access = list(160);
+	pixel_x = 10
+	},
+/obj/machinery/flasher_button{
+	id = "trader_flash";
+	pixel_y = -23;
+	req_access = list(160)
+	},
+/obj/machinery/door_control/no_emag{
+	id = "trader_port";
+	name = "Trade Deposits Door";
+	normaldoorcontrol = 1;
+	pixel_x = -10;
+	req_access = list(160);
+	pixel_y = -24
+	},
+/obj/item/flag/species/nian,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"kO" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"lx" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"ly" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"lz" = (
+/obj/effect/turf_decal/woodsiding,
+/turf/simulated/floor/carpet/green,
+/area/shuttle/trade/sol)
+"mk" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"mP" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"mT" = (
+/obj/machinery/door/airlock/titanium/glass,
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"nR" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/trade/sol)
+"oC" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"pm" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"pF" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"pK" = (
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"qd" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/engineering,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"qR" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/obj/structure/table/wood/fancy/purple,
+/obj/item/paper_bin{
+	pixel_y = 5
+	},
+/obj/item/pen/multi/fountain{
+	pixel_y = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"rc" = (
+/obj/machinery/economy/atm/directional/west,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"ro" = (
+/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"rr" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"rt" = (
+/obj/structure/chair/comfy/brown{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"sd" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/reagent_containers/glass/bottle/oculine{
+	pixel_y = 9
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"si" = (
+/obj/structure/shelf/clockwork,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"sp" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"sq" = (
+/obj/structure/chair/sofa/left{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"sI" = (
+/turf/template_noop,
+/area/template_noop)
+"va" = (
+/obj/effect/spawner/window/shuttle,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "trader_privacy";
+	name = "Privacy Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/trade/sol)
+"wg" = (
+/obj/structure/closet,
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/item/stack/tile/disco_light/thirty,
+/obj/effect/spawner/random/traders/service,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"xi" = (
+/obj/item/flag/species/nian,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"xv" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "trader_port";
+	security_level = 6
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"xH" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"xS" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"yd" = (
+/obj/structure/chair/comfy/brown{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"yX" = (
+/obj/effect/landmark/spawner/tradergearmajor,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"zE" = (
+/obj/structure/chair/sofa/right{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"zF" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock"
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"AX" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"Be" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"BJ" = (
+/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"Cq" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"CA" = (
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "trader_starboard";
+	security_level = 6
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Dk" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/hand_labeler,
+/obj/item/hand_labeler,
+/obj/item/hand_labeler_refill{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/obj/item/hand_labeler_refill{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/obj/item/hand_labeler_refill{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/obj/item/hand_labeler_refill{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/obj/item/hand_labeler_refill{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/obj/item/hand_labeler_refill{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"Dy" = (
+/obj/effect/spawner/random/traders/vehicle,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"DN" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/reagent_containers/drinks/bottle/vermouth{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/drinks/bottle/gin{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"DR" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/turf/simulated/floor/carpet/green,
+/area/shuttle/trade/sol)
+"EI" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/donksoft,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"FR" = (
+/obj/machinery/computer/shuttle/trade/sol,
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"Gi" = (
+/obj/effect/spawner/random/traders/large_item,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"GG" = (
+/obj/machinery/light/spot,
+/obj/structure/table/wood/fancy/orange,
+/obj/item/book/manual/barman_recipes{
+	pixel_y = 4
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Hh" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
+/obj/structure/chair/comfy/brown{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"Hi" = (
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"HC" = (
+/obj/structure/shelf/clockwork,
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"HV" = (
+/obj/machinery/flasher{
+	id = "trader_flash";
+	pixel_y = -28
+	},
+/obj/structure/chair/sofa/right{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"IH" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/medical,
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"JH" = (
+/obj/effect/landmark/spawner/tradergearminor,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Ks" = (
+/obj/item/flag/species/nian,
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Kz" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "s_docking_airlock"
+	},
+/obj/docking_port/mobile/trader{
+	height = 20;
+	width = 16;
+	dwidth = 8;
+	preferred_direction = 1;
+	dir = 1;
+	port_direction = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"ME" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/minerals,
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"Oi" = (
+/obj/machinery/door/airlock/titanium,
+/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Pl" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/trade/sol)
+"Pm" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"PM" = (
+/obj/machinery/economy/atm/directional/east,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"SR" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/security,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Tf" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/effect/spawner/random/food_or_drink/dinner,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Tk" = (
+/obj/effect/spawner/window/shuttle,
+/obj/structure/curtain/black,
+/turf/simulated/floor/plating,
+/area/shuttle/trade/sol)
+"TC" = (
+/obj/effect/turf_decal/woodsiding,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"TE" = (
+/obj/structure/bed,
+/obj/item/bedsheet/brown,
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/obj/structure/sign/poster/official/cohiba_robusto_ad/directional/south,
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"UC" = (
+/obj/effect/turf_decal/woodsiding,
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"UE" = (
+/obj/structure/table/wood/fancy/purple,
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"UI" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "trader_privacy";
+	name = "Privacy Shutters"
+	},
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/trade/sol)
+"VE" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/reagent_containers/drinks/shaker{
+	pixel_x = -8;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/drinks/drinkingglass{
+	pixel_x = 3;
+	pixel_y = 6
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Wt" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 10
+	},
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+"Wx" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/obj/item/toy/plushie/nianplushie/royal,
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"WP" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/obj/item/toy/plushie/nianplushie/monarch,
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"Xd" = (
+/obj/item/bedsheet/brown,
+/obj/structure/bed,
+/obj/effect/turf_decal/woodsiding{
+	dir = 6
+	},
+/obj/structure/sign/poster/official/high_class_martini/directional/south,
+/turf/simulated/floor/carpet/royalblue,
+/area/shuttle/trade/sol)
+"Xm" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/stack/wrapping_paper,
+/obj/item/stack/package_wrap{
+	pixel_y = 8
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"XD" = (
+/obj/structure/closet,
+/obj/effect/spawner/random/traders/science,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"Yd" = (
+/obj/structure/coatrack,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"YD" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 9
+	},
+/turf/simulated/floor/carpet/green,
+/area/shuttle/trade/sol)
+"Zo" = (
+/obj/item/kirbyplants/large,
+/obj/effect/turf_decal/woodsiding{
+	dir = 5
+	},
+/turf/simulated/floor/carpet/purple,
+/area/shuttle/trade/sol)
+
+(1,1,1) = {"
+sI
+sI
+sI
+sI
+sI
+sI
+sI
+sI
+sI
+sI
+sI
+bl
+Pl
+nR
+nR
+nR
+Pl
+Pl
+Pl
+sI
+"}
+(2,1,1) = {"
+bl
+Tk
+Tk
+Pl
+nR
+nR
+nR
+Pl
+Pl
+Pl
+Pl
+Pl
+gA
+pF
+pF
+pF
+ro
+Pm
+lx
+sI
+"}
+(3,1,1) = {"
+Tk
+WP
+sd
+Pl
+Yd
+DN
+VE
+Pl
+si
+Cq
+JH
+nR
+eP
+kv
+UE
+yd
+UC
+Pm
+lx
+sI
+"}
+(4,1,1) = {"
+Tk
+Hh
+hs
+Oi
+Hi
+ab
+Tf
+Pl
+pK
+Hi
+Hi
+mT
+sp
+xH
+qR
+xH
+iD
+Pm
+lx
+sI
+"}
+(5,1,1) = {"
+Tk
+jC
+Xd
+Pl
+Hi
+Hi
+GG
+Pl
+nR
+mT
+nR
+Pl
+mT
+Pl
+Pl
+Pl
+xv
+Pl
+Pl
+bl
+"}
+(6,1,1) = {"
+bl
+Tk
+Tk
+Pl
+Hi
+Hi
+xi
+Pl
+SR
+Hi
+qd
+wg
+Hi
+kN
+Pl
+Ks
+Hi
+rc
+fN
+Pl
+"}
+(7,1,1) = {"
+sI
+sI
+sI
+nR
+hy
+AX
+mk
+mT
+Hi
+rr
+Be
+Be
+pm
+ab
+UI
+rt
+YD
+hV
+zE
+Pl
+"}
+(8,1,1) = {"
+sI
+sI
+sI
+nR
+Dk
+at
+TC
+Pl
+Dy
+jO
+ME
+HC
+hs
+Xm
+va
+eS
+hO
+lz
+Hi
+zF
+"}
+(9,1,1) = {"
+sI
+sI
+sI
+nR
+FR
+at
+TC
+Pl
+Gi
+jO
+aH
+HC
+hs
+Xm
+va
+eS
+hO
+lz
+Hi
+Kz
+"}
+(10,1,1) = {"
+sI
+sI
+sI
+nR
+BJ
+xS
+ea
+mT
+Hi
+jC
+mP
+mP
+kO
+ab
+UI
+rt
+dh
+DR
+sq
+Pl
+"}
+(11,1,1) = {"
+bl
+Tk
+Tk
+Pl
+Hi
+Hi
+xi
+Pl
+EI
+Hi
+XD
+IH
+Hi
+eN
+Pl
+Ks
+Hi
+PM
+HV
+Pl
+"}
+(12,1,1) = {"
+Tk
+rr
+TE
+Pl
+Hi
+Hi
+dC
+Pl
+nR
+mT
+nR
+Pl
+mT
+Pl
+Pl
+Pl
+CA
+Pl
+Pl
+bl
+"}
+(13,1,1) = {"
+Tk
+kA
+hs
+Oi
+Hi
+ab
+Tf
+Pl
+pK
+Hi
+Hi
+mT
+ly
+pF
+eD
+pF
+Wt
+Pm
+lx
+sI
+"}
+(14,1,1) = {"
+Tk
+Wx
+hd
+Pl
+Yd
+aZ
+es
+Pl
+si
+oC
+yX
+nR
+eP
+kv
+UE
+yd
+UC
+Pm
+lx
+sI
+"}
+(15,1,1) = {"
+bl
+Tk
+Tk
+Pl
+nR
+nR
+nR
+Pl
+Pl
+Pl
+Pl
+Pl
+Zo
+xH
+xH
+xH
+ay
+Pm
+lx
+sI
+"}
+(16,1,1) = {"
+sI
+sI
+sI
+sI
+sI
+sI
+sI
+sI
+sI
+sI
+sI
+bl
+Pl
+nR
+nR
+nR
+Pl
+Pl
+Pl
+sI
+"}

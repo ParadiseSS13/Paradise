@@ -1,9 +1,8 @@
 /obj/item/stock_parts/cell
 	name = "power cell"
-	desc = "A rechargeable electrochemical power cell."
+	desc = "A rechargeable electrochemical power cell. This one is cheap and doesn't have very good capacity as a result."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "cell"
-	item_state = "cell1"
 	origin_tech = "powerstorage=1"
 	force = 5
 	throwforce = 5
@@ -11,7 +10,7 @@
 	/// Battery's current state of charge (kilojoules)
 	var/charge = 0
 	/// Battery's maximum state of charge (kilojoules)
-	var/maxcharge = 1000
+	var/maxcharge = 2500
 	/// How much energy the cell starts with (kilojoules)
 	var/starting_charge
 	materials = list(MAT_METAL = 700, MAT_GLASS = 50)
@@ -35,7 +34,7 @@
 	charge = !isnull(starting_charge) ? starting_charge : maxcharge
 	if(ratingdesc)
 		// State of charge is in kJ so we multiply it by 1000 to get Joules
-		desc += " This one has a power rating of [DisplayJoules(maxcharge * 1000)], and you should not swallow it."
+		desc += "<span class='notice'>It can store [DisplayJoules(maxcharge * 1000)]. Doctors recommend that you do not swallow it.</span>"
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/Destroy()
@@ -97,7 +96,7 @@
 	if(rigged)
 		. += "<span class='danger'>This power cell seems to be faulty!</span>"
 	else
-		. += "The charge meter reads [round(percent() )]%."
+		. += "<span class='notice'>The charge meter reads [round(percent())]%.</span>"
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -171,71 +170,13 @@
 	else
 		return 0
 
-// Cell variants
+// MARK: Cell variants
 /obj/item/stock_parts/cell/empty
 	starting_charge = 0
 
-/obj/item/stock_parts/cell/lever_gun
-	name = "\improper cycle charge cell"
-	desc = "You shouldn't be seeing this."
-	maxcharge = 150
-
-/obj/item/stock_parts/cell/crap
-	name = "\improper Nanotrasen brand rechargeable AA battery"
-	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
-	maxcharge = 500
-	materials = list(MAT_GLASS = 40)
-	rating = 2
-
-/obj/item/stock_parts/cell/crap/empty
-	starting_charge = 0
-
-/obj/item/stock_parts/cell/upgraded
-	name = "upgraded power cell"
-	desc = "A power cell with a slightly higher capacity than normal!"
-	maxcharge = 2500
-	materials = list(MAT_GLASS = 50)
-	rating = 2
-	chargerate = 1000
-
-/obj/item/stock_parts/cell/upgraded/plus
-	name = "upgraded power cell+"
-	desc = "A power cell with an even higher capacity than the base model!"
-	maxcharge = 5000
-
-/obj/item/stock_parts/cell/secborg
-	name = "security borg rechargeable D battery"
-	origin_tech = null
-	maxcharge = 600	//600 max charge / 100 charge per shot = six shots
-	materials = list(MAT_GLASS = 40)
-	rating = 2.5
-
-/obj/item/stock_parts/cell/secborg/empty
-	starting_charge = 0
-
-/obj/item/stock_parts/cell/hos_gun
-	name = "\improper X-01 multiphase energy gun power cell"
-	maxcharge = 1200
-
-/// 200 pulse shots
-/obj/item/stock_parts/cell/pulse
-	name = "pulse rifle power cell"
-	maxcharge = 40000
-	rating = 3
-	chargerate = 1500
-
-/// 25 pulse shots
-/obj/item/stock_parts/cell/pulse/carbine
-	name = "pulse carbine power cell"
-	maxcharge = 5000
-
-/// 10 pulse shots
-/obj/item/stock_parts/cell/pulse/pistol
-	name = "pulse pistol power cell"
-	maxcharge = 2000
-
 /obj/item/stock_parts/cell/high
 	name = "high-capacity power cell"
+	desc = "A rechargeable electrochemical power cell. This one is a premium design with a good charge capacity."
 	origin_tech = "powerstorage=2"
 	icon_state = "hcell"
 	maxcharge = 10000
@@ -245,7 +186,7 @@
 
 /obj/item/stock_parts/cell/high/plus
 	name = "high-capacity power cell+"
-	desc = "Where did these come from?"
+	desc = "A rechargeable electrochemical power cell. Where the hell did this one come from...?"
 	icon_state = "h+cell"
 	maxcharge = 15000
 	chargerate = 2250
@@ -255,9 +196,10 @@
 
 /obj/item/stock_parts/cell/super
 	name = "super-capacity power cell"
+	desc = "A rechargeable electrochemical power cell. \
+	This one utilizes some experimental tweaks to the cell chemistry to achieve a better charge capacity than any cell currently available on the market."
 	origin_tech = "powerstorage=3;materials=3"
 	icon_state = "scell"
-	item_state = "cell2"
 	maxcharge = 20000
 	materials = list(MAT_GLASS = 300)
 	rating = 4
@@ -268,9 +210,12 @@
 
 /obj/item/stock_parts/cell/hyper
 	name = "hyper-capacity power cell"
+	desc = "A rechargeable electrochemical power cell. \
+	A highly experimental and expensive exotic cell chemistry combined with tweaks to the electrolyte to allow \
+	for even more tightly packed anodes and cathodes, giving this cell an incredible charge capacity."
 	origin_tech = "powerstorage=4;engineering=4;materials=4"
 	icon_state = "hpcell"
-	item_state = "cell2"
+	inhand_icon_state = "scell"
 	maxcharge = 30000
 	materials = list(MAT_GLASS = 400)
 	rating = 5
@@ -281,10 +226,11 @@
 
 /obj/item/stock_parts/cell/bluespace
 	name = "bluespace power cell"
-	desc = "A rechargeable transdimensional power cell."
+	desc = "A rechargeable electrochemical power cell. At the very forefront of power storage technology, there are few gains to be found from optimizing the cell's chemistry. \
+	So the designers of this cell tried something much more conceptually simple: They took a super-capacity cell and made it twice as big. \
+	They then exploited the transdimensional properties of bluespace to squeeze it down to a standard cell's form factor."
 	origin_tech = "powerstorage=5;bluespace=4;materials=4;engineering=4"
 	icon_state = "bscell"
-	item_state = "cell3"
 	maxcharge = 40000
 	materials = list(MAT_GLASS = 600)
 	rating = 6
@@ -295,7 +241,7 @@
 
 /obj/item/stock_parts/cell/bluespace/charging
 	name = "self-charging bluespace power cell"
-	desc = "An experimental, self-charging, transdimensional power cell."
+	desc = "A modified bluespace power cell that draws energy directly from bluespace."
 	origin_tech =  "powerstorage=10;bluespace=10"
 	self_recharge = TRUE
 
@@ -303,26 +249,28 @@
 	rigged = TRUE
 
 /obj/item/stock_parts/cell/infinite
-	name = "infinite-capacity power cell!"
+	name = "infinite-capacity power cell"
+	desc = "A self-recarging power cell. It produces endless amounts of energy seemingly out of nowhere."
 	icon_state = "icell"
-	item_state = "cell4"
 	origin_tech =  "powerstorage=7"
 	maxcharge = 30000
 	materials = list(MAT_GLASS=1000)
 	rating = 6
 	chargerate = 30000
+	self_recharge = TRUE
 
 /obj/item/stock_parts/cell/infinite/use()
 	return TRUE
 
 /obj/item/stock_parts/cell/infinite/abductor
 	name = "void core"
-	desc = "An alien power cell that produces energy seemingly out of nowhere."
+	desc = "An alien power cell of unknown design. It produces endless amounts of energy seemingly out of nowhere."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cell"
-	item_state = "cella"
+	inhand_icon_state = "acell"
 	maxcharge = 50000
 	rating = 12
+	chargerate = 50000
 	ratingdesc = FALSE
 
 /obj/item/stock_parts/cell/infinite/abductor/update_overlays()
@@ -330,10 +278,10 @@
 
 /obj/item/stock_parts/cell/potato
 	name = "potato battery"
-	desc = "A rechargeable starch based power cell."
+	desc = "A rechargeable starch-based power cell. The charge capacity depends on the potency of the plant used to create it."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "potato"
-	item_state = "cellp"
+	inhand_icon_state = "pcell"
 	origin_tech = "powerstorage=1;biotech=1"
 	charge = 100
 	maxcharge = 300
@@ -346,15 +294,55 @@
 	origin_tech = "powerstorage=5;biotech=4"
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "yellow slime extract"
-	item_state = "cellsl"
+	inhand_icon_state = "slcell"
 	materials = list()
 	rating = 5 //self-recharge makes these desirable
-	self_recharge = 1 // Infused slime cores self-recharge, over time
+	self_recharge = TRUE // Infused slime cores self-recharge, over time
 	chargerate = 500
+
+// MARK: Internal Cells
+// Special non-removable internal power cells inside stuff like guns. None of these should be obtainable.
+/obj/item/stock_parts/cell/energy_gun
+	name = "energy gun internal power cell"
+	desc = "If you can see this, make an issue report to GitHub."
+	maxcharge = 1000
+
+/obj/item/stock_parts/cell/energy_gun/hos_gun
+	name = "\improper X-01 multiphase energy gun internal power cell"
+	maxcharge = 1200
+
+/obj/item/stock_parts/cell/energy_gun/lever_action
+	name = "lever action rifle internal power cell"
+	maxcharge = 150
+
+/obj/item/stock_parts/cell/energy_gun/lmg
+	name = "cyborg LMG internal power cell"
+	maxcharge = 600
+
+/obj/item/stock_parts/cell/energy_gun/bsg
+	name = "\improper B.S.G internal power cell"
+	maxcharge = 40000
+	chargerate = 2600 // about 30 seconds to charge with a default recharger
+
+/// 200 pulse shots
+/obj/item/stock_parts/cell/energy_gun/pulse
+	name = "pulse rifle internal power cell"
+	maxcharge = 40000
+	chargerate = 1500
+
+/// 25 pulse shots
+/obj/item/stock_parts/cell/energy_gun/pulse/carbine
+	name = "pulse carbine internal power cell"
+	maxcharge = 5000
+
+/// 10 pulse shots
+/obj/item/stock_parts/cell/energy_gun/pulse/pistol
+	name = "pulse pistol internal power cell"
+	maxcharge = 2000
 
 /obj/item/stock_parts/cell/emproof
 	name = "\improper EMP-proof cell"
-	desc = "An EMP-proof cell."
+	desc = "An EMP-proof cell. If you can see this, make an issue report to GitHub."
 	maxcharge = 500
 	rating = 3
 
@@ -367,27 +355,20 @@
 /obj/item/stock_parts/cell/emproof/corrupt()
 	return
 
+/// EMP proof so emp_act does not double dip.
+/obj/item/stock_parts/cell/emproof/reactive
+	name = "reactive armor internal power cell"
+	desc = "If you can see this, make an issue report to GitHub."
+	maxcharge = 2400
+
 /obj/item/stock_parts/cell/ninja
 	name = "spider-clan power cell"
 	desc = "A standard ninja-suit power cell."
 	maxcharge = 10000
-	materials = list(MAT_GLASS = 60)
-
-/obj/item/stock_parts/cell/bsg
-	name = "\improper B.S.G power cell"
-	desc = "A high capacity, slow charging cell for the B.S.G."
-	maxcharge = 40000
-	chargerate = 2600 // about 30 seconds to charge with a default recharger
-
-/// EMP proof so emp_act does not double dip.
-/obj/item/stock_parts/cell/emproof/reactive
-	name = "reactive armor power cell"
-	desc = "A cell used to power reactive armors."
-	maxcharge = 2400
 
 /obj/item/stock_parts/cell/flayerprod
-	name = "mind flayer internal cell"
-	desc = "you shouldn't be seeing this, contact a coder"
+	name = "mindflayer prod internal power cell"
+	desc = "If you can see this, make an issue report to GitHub."
 	maxcharge = 4000
 	self_recharge = TRUE
 	chargerate = 200 //This self charges it 50 power per tick at the base level

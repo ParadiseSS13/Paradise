@@ -63,6 +63,7 @@
 
 /obj/item/cautery/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
@@ -87,10 +88,6 @@
 		)
 	cig.light(user, target)
 	return TRUE
-
-/obj/item/cautery/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/cautery/augment
 	desc = "A heated element that cauterizes wounds."
@@ -135,7 +132,6 @@
 	desc = "A sterilized stainless steel cutting implement for making precise surgical incisions."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "scalpel"
-	item_state = "scalpel"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	flags = CONDUCT
@@ -180,6 +176,7 @@
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 
 /obj/item/scalpel/laser/attack__legacy__attackchain(mob/living/carbon/target, mob/living/user)
 	if(!cigarette_lighter_act(user, target))

@@ -3,8 +3,7 @@
 	desc = "It's a baseball hat in a tasteless grey colour."
 	icon = 'icons/obj/clothing/head/softcap.dmi'
 	icon_state = "greysoft"
-	item_state = 'icons/mob/clothing/head/softcap.dmi'
-	icon_override = 'icons/mob/clothing/head/softcap.dmi'
+	worn_icon = 'icons/mob/clothing/head/softcap.dmi'
 	item_color = "grey"
 	var/flipped = FALSE
 	actions_types = list(/datum/action/item_action/flip_cap)
@@ -128,6 +127,18 @@
 	desc = "It's a purple baseball hat with a mint service shield."
 	icon_state = "janitorpurplesoft"
 	item_color = "janitorpurple"
+
+/obj/item/clothing/head/soft/hydroponics
+	name = "botanist's cap"
+	desc = "It's a green baseball hat with a blue service shield."
+	icon_state = "hydroponicssoft"
+	item_color = "hydroponics"
+
+/obj/item/clothing/head/soft/hydroponics_alt
+	name = "hydroponics cap"
+	desc = "It's a green baseball hat with a brown service shield."
+	icon_state = "hydroponics_altsoft"
+	item_color = "hydroponics_alt"
 
 /obj/item/clothing/head/soft/paramedic
 	name = "\improper EMT cap"

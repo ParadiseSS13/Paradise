@@ -292,6 +292,6 @@
 	force_unwielded = 12
 	force_wielded = 22
 	throwforce = 25
-	armour_penetration_percentage = 15
+	armor_penetration_percentage = 15
 	embed_chance = 0	// would suck to lose this after one throw
 	var/bonus_burn = 5	// currently does nothing

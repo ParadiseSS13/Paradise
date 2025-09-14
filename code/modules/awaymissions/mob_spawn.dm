@@ -126,8 +126,8 @@
 	var/deathtime = world.time - user.timeofdeath
 	var/joinedasobserver = FALSE
 	if(isobserver(user))
-		var/mob/dead/observer/G = user
-		if(G.started_as_observer)
+		var/mob/dead/observer/ghost = user
+		if(ghost.ghost_flags & GHOST_START_AS_OBSERVER)
 			joinedasobserver = TRUE
 
 	var/deathtimeminutes = round(deathtime / 600)
@@ -620,6 +620,13 @@
 	id_job = "Medical Doctor"
 	outfit = /datum/outfit/job/doctor
 
+// Cargo tech corpse
+/obj/effect/mob_spawn/human/corpse/random_species/cargo_tech
+	name = "Cargo Technician"
+	mob_name = "Cargo Technician"
+	id_job = "Cargo Technician"
+	outfit = /datum/outfit/job/cargo_tech
+
 //Engineer corpse.
 /obj/effect/mob_spawn/human/corpse/engineer
 	name = "Engineer"
@@ -639,6 +646,7 @@
 	l_pocket = null
 	l_ear = null
 	id = null
+	can_be_admin_equipped = FALSE
 
 /obj/effect/mob_spawn/human/corpse/random_species/security_officer
 	name = "Security Officer"
@@ -764,8 +772,8 @@
 	ADD_TRAIT(H, TRAIT_NON_INFECTIOUS_ZOMBIE, ROUNDSTART_TRAIT)
 	. = ..()
 	for(var/datum/disease/zombie/zomb in H.viruses)
-		zomb.spread_flags = SPECIAL
-		zomb.visibility_flags = HIDDEN_PANDEMIC // This is how critical diseases block being interacted by the pandemic or copied. I hate it here.
+		zomb.spread_flags = SPREAD_SPECIAL
+		zomb.visibility_flags = VIRUS_HIDDEN_PANDEMIC // This is how critical diseases block being interacted by the pandemic or copied. I hate it here.
 
 
 /// these mob spawn subtypes trigger immediately (New or Initialize) and are not player controlled... since they're dead, you know?

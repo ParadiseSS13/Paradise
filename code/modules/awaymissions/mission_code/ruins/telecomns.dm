@@ -151,20 +151,24 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	universal_speak = TRUE
 	universal_understand = TRUE
 	var/has_died = FALSE // fucking decoy silicons are weird.
+	var/turf/our_death_turf // Don't ask, see above.
 
 /mob/living/silicon/decoy/telecomms/death(gibbed)
 	if(has_died)
 		return ..()
 	has_died = TRUE
+	if(!our_death_turf)
+		our_death_turf = get_turf(src)
 	for(var/obj/structure/telecomms_doomsday_device/D in GLOB.telecomms_doomsday_device)
 		D.start_the_party()
 		break
-	new /obj/item/documents/syndicate/dvorak_blackbox(get_turf(src))
+	new /obj/item/documents/syndicate/dvorak_blackbox(our_death_turf)
 	if(prob(50))
 		if(prob(80))
-			new /obj/item/ai_upgrade/surveillance_upgrade(get_turf(src))
+			new /obj/item/ai_upgrade/surveillance_upgrade(our_death_turf)
 		else // 10% chance
-			new /obj/item/ai_upgrade/malf_upgrade(get_turf(src))
+			new /obj/item/ai_upgrade/malf_upgrade(our_death_turf)
+	our_death_turf = null
 	return ..()
 
 /obj/structure/telecomms_trap_tank
@@ -350,11 +354,13 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	return ..()
 
 /mob/living/basic/hivebot/strong/malfborg/melee_attack(atom/target, list/modifiers, ignore_cooldown)
-	. = ..()
+	if(!early_melee_attack(target, modifiers, ignore_cooldown))
+		return FALSE
 	if(QDELETED(target))
-		return
+		return FALSE
 	face_atom(target)
 	baton.melee_attack_chain(src, target)
+	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, TRUE)
 	return TRUE
 
 /mob/living/basic/hivebot/strong/malfborg/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
@@ -393,8 +399,8 @@ GLOBAL_LIST_EMPTY(telecomms_trap_tank)
 	desc = "A mobile AI upload. The transmitter is extremely powerful, but will burn out after one use. Make it count."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "dvorak_upload"
+	inhand_icon_state = "camera_bug"
 	w_class = WEIGHT_CLASS_TINY
-	item_state = "camera_bug"
 	origin_tech = "syndicate=4;programming=6"
 	/// Integrated AI upload
 	var/obj/machinery/computer/aiupload/dvorak/integrated_console

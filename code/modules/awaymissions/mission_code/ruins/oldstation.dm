@@ -119,14 +119,6 @@
 //////////////////////////////
 // MARK: PAPERS
 //////////////////////////////
-/obj/item/paper/fluff/ruins/oldstation
-	name = "\improper Cryo Awakening Alert"
-	info = "<B>**WARNING**</B><BR><BR>Catastrophic damage sustained to station. Powernet exhausted to reawaken crew.<BR><BR>Immediate Objectives<br><br>1: Activate emergency power generator<br>2: Lift station lockdown on the bridge<br><br>Please locate the 'Damage Report' on the bridge for a detailed situation report."
-
-/obj/item/paper/fluff/ruins/oldstation/damagereport
-	name = "\improper Damage Report"
-	info = "<b>*Damage Report*</b><br><br><b>Alpha Station</b> - Destroyed<br><br><b>Beta Station</b> - Catastrophic Damage. Medical, destroyed. Atmospherics, partially destroyed. Engine Core, destroyed.<br><br><b>Charlie Station</b> - Intact. Loss of oxygen to eastern side of main corridor.<br><br><b>Theta Station</b> - Intact. <b>WARNING</b>: Unknown force occupying Theta Station. Intent unknown. Species unknown. Numbers unknown.<br><br>Recommendation - Reestablish station powernet via solar array. Reestablish station atmospherics system to restore air."
-
 /obj/item/paper/fluff/ruins/oldstation/protosuit
 	name = "\improper B01-RIG Hardsuit Report"
 	info = "<b>*Prototype Hardsuit*</b><br><br>The B01-RIG Hardsuit is a prototype powered exoskeleton. Based off of a recovered pre-void war era united Earth government powered military \
@@ -163,17 +155,6 @@
 	info = "<b>*Inventory*</b><br><br>(1) Prototype Hardsuit<br><br>(1)Health Analyser<br><br>(1)Prototype Energy Gun<br><br>(1)Singularity Generation Disk<br><br><b>DO NOT REMOVE WITHOUT \
 	THE CAPTAIN AND RESEARCH DIRECTOR'S AUTHORISATION</b>"
 
-/obj/item/paper/fluff/ruins/oldstation/report
-	name = "\improper Crew Reawakening Report"
-
-/obj/item/paper/fluff/ruins/oldstation/report/Initialize(mapload)
-	. = ..()
-	init_current_date_string()
-	info = "Artificial Program's report to surviving crewmembers.<br><br>Crew were placed into cryostasis 10 March, 2445.<br><br>Crew were awoken from cryostasis [GLOB.current_date_string].<br><br> \
-	<b>SIGNIFICANT EVENTS OF NOTE</b><br>1: The primary radiation detectors were taken offline after [GLOB.game_year - 2445] years due to power failure, secondary radiation detectors showed no residual \
-	radiation on station. Deduction, primarily detector was malfunctioning and was producing a radiation signal when there was none.<br><br>2: A data burst from a nearby Nanotrasen Space \
-	Station was received, this data burst contained research data that has been uploaded to our RnD labs.<br><br>3: Unknown invasion force has occupied Theta station."
-
 /obj/item/paper/fluff/ruins/oldstation/generator_manual
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type portable generator manual"
 	info = "You can barely make out a faded sentence... <br><br> Wrench down the generator on top of a wire node connected to either a SMES input terminal or the power grid."
@@ -186,7 +167,6 @@
 	name = "prototype RIG hardsuit helmet"
 	desc = "Early prototype RIG hardsuit helmet, designed to quickly shift over a user's head. Design constraints of the helmet mean it has no inbuilt cameras, thus it restricts the users visability."
 	icon_state = "hardsuit0-ancient"
-	item_state = "anc_helm"
 	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	item_color = "ancient"
 	resistance_flags = FIRE_PROOF
@@ -197,7 +177,6 @@
 	name = "prototype RIG hardsuit"
 	desc = "Prototype powered RIG hardsuit. Provides excellent protection from the elements of space while being comfortable to move around in, thanks to the powered locomotives. Remains very bulky however."
 	icon_state = "hardsuit-ancient"
-	item_state = "anc_hardsuit"
 	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	slowdown = 3
 	resistance_flags = FIRE_PROOF
@@ -498,3 +477,58 @@
 	name = "Hivebot Mothership"
 	icon_state = "teleporter"
 	requires_power = FALSE
+
+// MARK: LORE CONSOLES
+
+/obj/machinery/computer/loreconsole/oldstation/damage_report
+	entries = list(
+		new/datum/lore_console_entry(
+			"Damage Report",
+			{"**Alpha Station** - Destroyed.
+
+**Beta Station** - Catastrophic Damage. Medical, destroyed. Atmospherics, partially destroyed. Engine Core, destroyed.
+
+**Charlie Station** - Intact. Loss of oxygen to eastern side of main corridor.
+
+**Theta Station** - Intact. **WARNING**: Unknown force occupying Theta Station. Intent unknown. Species unknown. Numbers unknown.
+
+Recommendation - Reestablish station powernet via solar array. Reestablish station atmospherics system to restore air."}))
+
+/obj/machinery/computer/loreconsole/oldstation/crew_awakening_report
+	entries = list(
+		new/datum/lore_console_entry(
+			"Crew Awakening Report",
+			{"## WARNING
+
+Catastrophic damage sustained to station.
+Powernet exhausted to reawaken crew.
+
+## Immediate Objectives
+
+1. Activate emergency power generator.
+2. Lift station lockdown on the bridge.
+
+Please locate the 'Damage Report' on the bridge for a detailed situation report."}))
+
+/obj/machinery/computer/loreconsole/oldstation/report
+	name = "\improper Crew Reawakening Report"
+
+/obj/machinery/computer/loreconsole/oldstation/report/Initialize(mapload)
+	. = ..()
+	init_current_date_string()
+	entries += new/datum/lore_console_entry(
+		"Crew Reawakening Report",
+		{"Artificial Program's report to surviving crewmembers.
+
+Crew were placed into cryostasis 10 March, 2445.
+
+Crew were awoken from cryostasis [GLOB.current_date_string].
+
+**SIGNIFICANT EVENTS OF NOTE**
+
+1. The primary radiation detectors were taken offline after [GLOB.game_year - 2445] years due to power failure.
+	Secondary radiation detectors showed no residual radiation on station.
+	Deduction: primarily detector was malfunctioning and was producing a radiation signal when there was none.
+2. A data burst from a nearby Nanotrasen Space Station was received, this data burst contained research data that has been uploaded to our RnD labs.
+3. Unknown invasion force has occupied Theta station."})
+

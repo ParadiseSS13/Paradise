@@ -11,7 +11,7 @@
 	parent_stack = TRUE
 	var/heal_brute = 0
 	var/heal_burn = 0
-	var/self_delay = 20
+	var/delay = 20
 	var/unique_handling = FALSE //some things give a special prompt, do we want to bypass some checks in parent?
 	var/stop_bleeding = 0
 	var/healverb = "bandage"
@@ -48,7 +48,7 @@
 
 		if(M == user && !unique_handling)
 			user.visible_message("<span class='notice'>[user] starts to apply [src] on [H]...</span>")
-			if(!do_mob(user, H, self_delay))
+			if(!do_mob(user, H, delay))
 				return TRUE
 		return
 
@@ -308,7 +308,7 @@
 	singular_name = "medical splint"
 	icon_state = "splint"
 	unique_handling = TRUE
-	self_delay = 100
+	delay = 100
 	merge_type = /obj/item/stack/medical/splint
 	var/other_delay = 0
 
@@ -321,10 +321,6 @@
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 		var/limb = affecting.name
 
-		if(!(affecting.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")))
-			to_chat(user, "<span class='danger'>You can't apply a splint there!</span>")
-			return TRUE
-
 		if(affecting.status & ORGAN_SPLINTED)
 			to_chat(user, "<span class='danger'>[H]'s [limb] is already splinted!</span>")
 			if(tgui_alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Splint removal", list("Yes", "No")) == "Yes")
@@ -333,12 +329,12 @@
 				to_chat(user, "<span class='notice'>You remove the splint from [H]'s [limb].</span>")
 			return TRUE
 
-		if((M == user && self_delay > 0) || (M != user && other_delay > 0))
+		if((M == user && delay > 0) || (M != user && other_delay > 0))
 			user.visible_message("<span class='notice'>[user] starts to apply [src] to [H]'s [limb].</span>", \
 									"<span class='notice'>You start to apply [src] to [H]'s [limb].</span>", \
 									"<span class='notice'>You hear something being wrapped.</span>")
 
-		if(M == user && !do_mob(user, H, self_delay))
+		if(M == user && !do_mob(user, H, delay))
 			return TRUE
 		else if(!do_mob(user, H, other_delay))
 			return TRUE
@@ -362,3 +358,224 @@
 	name = "tribal splints"
 	icon_state = "tribal_splint"
 	other_delay = 50
+
+// Sutures and burn meshes
+
+/obj/item/stack/medical/suture
+	name = "sutures"
+	singular_name = "suture"
+	desc = "A bundle of sterilized sutures used for sealing up minor cuts and lacerations."
+	icon_state = "suture"
+	gender = PLURAL
+	merge_type = /obj/item/stack/medical/suture
+	amount = 10
+	max_amount = 10
+	heal_brute = 10
+	stop_bleeding = 1200
+	dynamic_icon_state = TRUE
+	delay = 1 SECONDS
+	healverb = "suturing"
+	var/healverb_past = "sutured"
+	var/self_delay = 3 SECONDS
+	var/mob/current_target
+
+/obj/item/stack/medical/suture/apply(mob/living/carbon/human/target, mob/user)
+	. = TRUE
+	if(current_target)
+		if(current_target != target)
+			to_chat(user, "<span class='warning'>You're already suturing [current_target].</span>")
+			return
+		// Allow for cancelling of the target by clicking again
+		interrupt_do_after_once(user, current_target)
+		to_chat(user, "<span class='warning'>You stop [healverb] [target.i_yourself(user)].</span>")
+		return
+	if(!ishuman(target) || !target.can_inject(user, TRUE))
+		return
+	var/heal_type = (heal_brute ? BRUTE : BURN)
+	var/heal_display = (heal_brute ? BRUTE : "burn")
+	if(!target.get_damage_amount(heal_type))
+		to_chat(user, "<span class='warning'>[target.i_you(user, TRUE)] [target.i_do(user)]n't have any [heal_display] damage.</span>")
+		return
+
+	var/obj/item/organ/external/current_limb = target.get_organ(user.zone_selected)
+	if(!current_limb)
+		to_chat(user, "<span class='warning'>That limb is missing!</span>")
+		return
+	if(current_limb.is_robotic())
+		to_chat(user, "<span class='warning'>This can't be used on a robotic limb.</span>")
+		return
+	// Swap to another limb if the current one has no damage.
+	if(!most_damaged_limb(target))
+		to_chat(user, "<span class='warning'>[target.i_you(user, TRUE)] [target.i_do(user)]n't have any [heal_display] damage that could be [healverb_past].</span>")
+		return
+
+	var/mend_time = delay
+	if(target == user)
+		mend_time = self_delay
+
+	user.visible_message("<span class='notice'>[user] begins [healverb] [target.e_themselves(user)] with [src].</span>", "<span class='notice'>You begin [healverb] [target.i_your(user)] [current_limb.name] with [src].</span>")
+	current_limb = try_swap_to_most_damaged_limb(target, user, current_limb)
+	if(!current_limb)
+		return
+
+	var/last_targetted_zone = user.zone_selected
+	current_target = target
+	while(do_after_once(user, mend_time, target = target))
+		if(!target.can_inject(user, TRUE, current_limb.limb_name))
+			break
+
+		var/cut_open = FALSE
+		if(stop_bleeding)
+			for(var/obj/item/organ/external/E in target.bodyparts)
+				if(E.open >= ORGAN_ORGANIC_OPEN)
+					cut_open = TRUE
+					to_chat(user, "<span class='warning'>[target]'s [E.name] is cut open, you'll need more than some [name] to stop [target.i_your(user)] bleeding.</span>")
+					break
+		if(!apply_to(target, user, current_limb, !cut_open))
+			break
+		if(is_zero_amount(TRUE))
+			break
+		if(!target.get_damage_amount(heal_type))
+			user.visible_message("<span class='warning'>[user] finishes [healverb] [target.e_themselves(user)] with [src].</span>", "<span class='notice'>You finish [healverb] [target.i_yourself(user)] with [src].</span>")
+			break
+
+		var/skip_swap = FALSE
+		if(last_targetted_zone != user.zone_selected)
+			last_targetted_zone = user.zone_selected
+			var/new_limb = on_target_zone_change(target, user)
+			if(new_limb && current_limb != new_limb)
+				current_limb = new_limb
+				skip_swap = TRUE
+				to_chat(user, "<span class='notice'>You switch to [healverb] [target.i_your(user)] <b>[current_limb.name]</b>.</span>")
+
+		if(!skip_swap)
+			current_limb = try_swap_to_most_damaged_limb(target, user, current_limb)
+			if(!current_limb)
+				user.visible_message("<span class='warning'>[user] finishes [healverb] [target.e_themselves(user)] with [src].</span>", "<span class='notice'>You finish [healverb] [target.i_yourself(user)] with [src].</span>")
+				break
+
+		if(!target.can_inject(user, TRUE, current_limb.limb_name))
+			break
+	current_target = null
+	user.changeNext_move(CLICK_CD_MELEE)
+
+/obj/item/stack/medical/suture/proc/apply_to(mob/living/carbon/human/target, mob/user, obj/item/organ/external/current_limb, allow_stop_bleeding = TRUE)
+	if(!use(1))
+		return FALSE
+
+	current_limb.heal_damage(heal_brute, heal_burn, FALSE, FALSE, updating_health = TRUE)
+	target.UpdateDamageIcon()
+
+	if(stop_bleeding && !target.bleedsuppress && allow_stop_bleeding)
+		target.suppress_bloodloss(stop_bleeding)
+	return TRUE
+
+/obj/item/stack/medical/suture/proc/most_damaged_limb(mob/living/carbon/human/target)
+	var/obj/item/organ/external/most_damaged
+	var/most_damaged_amount = 0
+	var/focus_brute = (heal_brute > 0)
+	for(var/obj/item/organ/external/E in target.bodyparts)
+		if(QDELETED(E))
+			continue
+		if(E.is_robotic())
+			continue
+		if(focus_brute)
+			if(E.brute_dam > most_damaged_amount)
+				most_damaged = E
+				most_damaged_amount = E.brute_dam
+		else if(E.burn_dam > most_damaged_amount)
+			most_damaged = E
+			most_damaged_amount = E.burn_dam
+	return most_damaged
+
+/obj/item/stack/medical/suture/proc/try_swap_to_most_damaged_limb(mob/living/carbon/human/target, mob/user, obj/item/organ/external/current_limb)
+	if(heal_brute && current_limb.brute_dam)
+		return current_limb
+	if(heal_burn && current_limb.burn_dam)
+		return current_limb
+
+	var/obj/item/organ/external/new_limb = most_damaged_limb(target)
+	if(!new_limb)
+		return
+	if(current_limb != new_limb)
+		to_chat(user, "<span class='notice'>You begin [healverb] [target.i_your(user)] <b>[new_limb.name]</b>.</span>")
+	if(!do_after(user, delay / 2, target = target))
+		return
+	return new_limb
+
+/obj/item/stack/medical/suture/proc/on_target_zone_change(mob/living/carbon/human/target, mob/user)
+	var/obj/item/organ/external/new_limb = target.get_organ(user.zone_selected)
+	if(!new_limb)
+		to_chat(user, "<span class='warning'>That limb is missing!</span>")
+		return FALSE
+	if(new_limb.is_robotic())
+		to_chat(user, "<span class='warning'>This can't be used on a robotic limb.</span>")
+		return FALSE
+
+	if(heal_brute && new_limb.brute_dam)
+		return new_limb
+	if(heal_burn && new_limb.burn_dam)
+		return new_limb
+	return FALSE
+
+/obj/item/stack/medical/suture/emergency
+	name = "emergency sutures"
+	singular_name = "emergency suture"
+	desc = "A small bundle of cheap sutures. They're not pretty, but still quite effective at keeping the blood inside your body."
+	icon_state = "suture_emer"
+	merge_type = /obj/item/stack/medical/suture/emergency
+	heal_brute = 5
+
+/obj/item/stack/medical/suture/medicated
+	name = "medicated sutures"
+	singular_name = "medicated suture"
+	desc = "A bundle of sterilized sutures used for sealing up minor cuts and lacerations. These have been treated with potent healing chemicals, dramatically improving their wound-sealing capability."
+	icon_state = "suture_medicated"
+	merge_type = /obj/item/stack/medical/suture/medicated
+	heal_brute = 15
+	stop_bleeding = 2000
+
+/obj/item/stack/medical/suture/regen_mesh
+	name = "regenerative mesh"
+	desc = "A sheet of bacteriostatic mesh used to graft minor burns, housed in a sterile packet."
+	singular_name = "mesh piece"
+	icon_state = "regen_mesh"
+	merge_type = /obj/item/stack/medical/suture/regen_mesh
+	healverb = "grafting"
+	healverb_past = "grafted"
+	heal_brute = 0
+	heal_burn = 10
+	/// This var determines if the sterile packaging of the mesh has been opened.
+	var/is_open = TRUE
+
+/obj/item/stack/medical/suture/regen_mesh/Initialize(mapload, new_amount, merge)
+	. = ..()
+	if(amount == max_amount)  // only seal full mesh packs
+		is_open = FALSE
+		update_appearance()
+
+/obj/item/stack/medical/suture/regen_mesh/update_icon_state()
+	if(is_open)
+		return ..()
+	icon_state = "[initial(icon_state)]_closed"
+
+/obj/item/stack/medical/suture/regen_mesh/apply(mob/living/carbon/human/target, mob/user)
+	open_mesh()
+	. = ..()
+
+/obj/item/stack/medical/suture/regen_mesh/change_stack(mob/user, amount)
+	open_mesh()
+	. = ..()
+
+/obj/item/stack/medical/suture/regen_mesh/proc/open_mesh()
+	if(!is_open)
+		is_open = TRUE
+		update_icon(UPDATE_ICON_STATE)
+		playsound(src, 'sound/items/poster_ripped.ogg', 20, TRUE)
+
+/obj/item/stack/medical/suture/regen_mesh/advanced
+	name = "advanced regenerative mesh"
+	desc = "A sheet of medically-treated bacteriostatic mesh used to graft moderate burns, housed in a sterile packet."
+	icon_state = "advanced_mesh"
+	merge_type = /obj/item/stack/medical/suture/regen_mesh/advanced
+	heal_burn = 15
