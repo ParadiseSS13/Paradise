@@ -782,7 +782,7 @@
 	var/list/skin_updating = mod_parts + src
 	for(var/obj/item/part as anything in skin_updating)
 		part.icon = used_skin[MOD_ICON_OVERRIDE] || initial(part.icon)
-		part.icon_override = used_skin[MOD_WORN_ICON_OVERRIDE] || initial(part.icon_override)
+		part.worn_icon = used_skin[MOD_WORN_ICON_OVERRIDE] || initial(part.worn_icon)
 		part.icon_state = "[skin]-[part.base_icon_state]"
 	for(var/obj/item/clothing/part as anything in mod_parts)
 		part.sprite_sheets = LAZYACCESSASSOC(used_skin, MOD_SPRITE_SHEETS_OVERRIDE, LAZYACCESSASSOC(part_data, part, SPRITE_SHEETS_OVERRIDE)) \
