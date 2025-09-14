@@ -2,7 +2,7 @@
 "a" = (
 /turf/space,
 /area/space)
-"m" = (
+"b" = (
 /obj/effect/landmark{
 	icon = 'icons/effects/spawner_icons.dmi';
 	icon_state = "spooky";
@@ -32551,7 +32551,7 @@ x
 x
 x
 x
-m
+b
 x
 x
 x

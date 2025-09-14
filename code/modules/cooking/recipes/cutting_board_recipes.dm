@@ -444,16 +444,6 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
 	)
 
-/datum/cooking/recipe/supermatter_sandwich
-	container_type = /obj/item/reagent_containers/cooking/board
-	product_type = /obj/item/food/supermatter_sandwich
-	catalog_category = COOKBOOK_CATEGORY_BURGS
-	steps = list(
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-		PCWJ_ADD_ITEM(/obj/item/nuke_core/supermatter_sliver),
-		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-	)
-
 /datum/cooking/recipe/philly_cheesesteak
 	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/philly_cheesesteak

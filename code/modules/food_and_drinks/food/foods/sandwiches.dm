@@ -485,7 +485,7 @@
 
 /obj/item/food/supermatter_sandwich
 	name = "supermatter sandwich"
-	desc = "A supermatter sliver, somehow safely contained between two slices of bread. You have been told many times to not lick the forbidden nacho... But surely one taste can't be that bad?"
+	desc = "You have been told many times to not lick the forbidden nacho... But surely one taste can't be that bad?"
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "supermatter_sandwich"
 	tastes = list("indescribable power" = 3, "bread" = 2)
@@ -505,11 +505,3 @@
 		M.dust()
 		message_admins("[src] has consumed [key_name_admin(M)] [ADMIN_JMP(src)].")
 		investigate_log("has consumed [key_name(M)].", INVESTIGATE_SUPERMATTER)
-
-/obj/item/food/supermatter_sandwich/process()
-	. = ..()
-	var/new_filter = isnull(get_filter("ray"))
-	ray_filter_helper(1, 40,"#ffd04f", 6, 20)
-	if(new_filter)
-		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
-		animate(offset = 0, time = 10 SECONDS)
