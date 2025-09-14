@@ -420,7 +420,7 @@
 	catalog_category = COOKBOOK_CATEGORY_BURGS
 	steps = list(
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
-		PCWJ_ADD_ITEM(/obj/item/shard),
+		PCWJ_ADD_ITEM(/obj/item/shard, exact = TRUE),
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
 	)
 
