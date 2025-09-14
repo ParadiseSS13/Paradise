@@ -3,7 +3,7 @@
 	desc = "Used to restart stopped hearts."
 	icon = 'icons/obj/medical.dmi'
 	icon_state = "defib-on"
-	item_state = "defib"
+	inhand_icon_state = "defib"
 	belt_icon = "defib"
 
 	var/icon_base = "defib"
