@@ -1688,13 +1688,12 @@
 /turf/simulated/wall/r_wall,
 /area/station/security/warden)
 "aqA" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/station/hallway/secondary/entry/west)
 "aqB" = (
 /obj/structure/closet/emcloset,
@@ -2344,6 +2343,14 @@
 	icon_state = "darkgrey"
 	},
 /area/station/medical/morgue)
+"auA" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/hallway/secondary/entry/east)
 "auC" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -34198,6 +34205,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/telecomms/chamber)
+"dRP" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/hallway/secondary/entry/west)
 "dRU" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/preopen{
@@ -35276,7 +35289,9 @@
 	name = "Escape Pod 1 Airlock";
 	id_tag = "emergency_home"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/station/hallway/secondary/entry/west)
 "ejr" = (
 /obj/structure/disposalpipe/segment/corner{
@@ -36334,6 +36349,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/hop)
+"eAm" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/hallway/secondary/entry/east)
 "eAt" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/cable{
@@ -46697,10 +46718,10 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/structure/closet/emcloset,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "arrival"
@@ -49863,6 +49884,9 @@
 	dir = 8
 	},
 /obj/structure/closet/emcloset,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "arrival"
@@ -59212,7 +59236,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/station/hallway/secondary/entry/east)
 "mFx" = (
 /obj/structure/chair,
@@ -61587,7 +61613,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/station/hallway/secondary/entry/west)
 "nvN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -63906,7 +63937,9 @@
 	name = "Escape Pod 2 Airlock";
 	id_tag = "emergency_home"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/station/hallway/secondary/entry/east)
 "onF" = (
 /obj/item/radio/intercom{
@@ -68072,7 +68105,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/station/hallway/secondary/entry/east)
 "pQW" = (
 /obj/structure/table,
@@ -70745,9 +70780,6 @@
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/fore)
 "qMn" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "arrival"
@@ -81396,6 +81428,14 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay)
+"uLU" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/hallway/secondary/entry/west)
 "uMj" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -100572,7 +100612,7 @@ aaa
 aaa
 aaa
 ayy
-jUw
+uLU
 jUw
 nlB
 abq
@@ -100580,7 +100620,7 @@ abq
 abq
 nlB
 jUw
-jUw
+dRP
 ayy
 abq
 abq
@@ -101597,7 +101637,7 @@ aSr
 bxR
 aUW
 brG
-nvJ
+aqA
 ejj
 aCn
 aCn
@@ -107251,22 +107291,22 @@ aaa
 aaa
 aaa
 aaa
-ajo
 abq
-abq
-nAY
-aok
+aaa
+aaa
+vXe
+auA
 mVN
 aaa
 aaa
 aaa
 aaa
 mVN
-bTn
-nAY
-abq
-abq
-ajo
+eAm
+vXe
+aaa
+aaa
+aaa
 kme
 vzc
 hOn
@@ -107508,22 +107548,22 @@ aaa
 aaa
 aaa
 aaa
+ajo
 abq
-aaa
-aaa
-aaa
-gkE
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-bDO
+abq
+nAY
+aok
+mVN
 aaa
 aaa
 aaa
 aaa
+mVN
+bTn
+nAY
+abq
+abq
+ajo
 kme
 uTq
 sDR
@@ -107765,18 +107805,18 @@ aaa
 aaa
 aaa
 aaa
-abf
+abq
+aaa
+aaa
+aaa
+gkE
 aaa
 aaa
 aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+bDO
 aaa
 aaa
 aaa
@@ -110335,7 +110375,7 @@ pdc
 abW
 aaa
 aaa
-abq
+abf
 aaa
 aaa
 aaa
@@ -110592,22 +110632,22 @@ wRL
 jfk
 abq
 abq
-ajo
 abq
-abq
-abq
-ajo
-abq
-abq
-abq
-abq
-abq
-abq
-ajo
-abq
-abq
-abq
-ajo
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 lIM
 dEo
 xGT
@@ -110849,22 +110889,22 @@ lmP
 gjF
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
+ajo
 abq
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 abq
-aaa
-aaa
-aaa
-aaa
+abq
+ajo
+abq
+abq
+abq
+abq
+abq
+abq
+ajo
+abq
+abq
+abq
+ajo
 lIM
 sVV
 sFl
