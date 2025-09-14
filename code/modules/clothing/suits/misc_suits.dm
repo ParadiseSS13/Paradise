@@ -588,7 +588,6 @@
 /obj/item/clothing/suit/hooded/wintercoat/solgov
 	name = "\improper SolGov winter coat"
 	icon_state = "wintercoat_solgov"
-	item_state = "wintercoat_solgov"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/solgov
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
