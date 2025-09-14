@@ -203,7 +203,7 @@
 	desc = "Very confusing glasses."
 	icon_state = "material"
 	origin_tech = "magnets=3;engineering=3"
-	vision_flags = SEE_OBJS
+	vision_flags = SEE_OBJS | SEE_TURFS
 
 /obj/item/clothing/glasses/material/cyber
 	name = "eye replacement implant"

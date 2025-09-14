@@ -751,6 +751,8 @@
 	desc = "A gun that changes the body temperature of its targets, somehow. Use it in-hand to adjust the projectile temperature."	// I give up on trying to come up with an explaination of how this abomonation works. - CRUNCH
 	icon = 'icons/obj/guns/gun_temperature.dmi'
 	icon_state = "tempgun_4"
+	worn_icon_state = null
+	inhand_icon_state = null
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	fire_sound = 'sound/weapons/pulse3.ogg'

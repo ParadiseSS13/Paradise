@@ -267,7 +267,6 @@
 		/mob/camera,
 		/obj/effect,
 		/obj/docking_port,
-		/atom/movable/lighting_object,
 		))
 	if(!compressor_ignored_things[entered.type] && !entered.anchored)
 		to_suck_in += entered
@@ -291,7 +290,6 @@
 	/mob/camera,
 	/obj/effect,
 	/obj/docking_port,
-	/atom/movable/lighting_object,
 	))
 	var/list/act_list = list()
 

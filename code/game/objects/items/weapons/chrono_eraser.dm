@@ -203,7 +203,7 @@
 			qdel(src)
 		else if(tickstokill <= 0)
 			to_chat(captured, "<span class='boldnotice'>As the last essence of your being is erased from time, you begin to re-experience your most enjoyable memory. You feel happy...</span>")
-			var/mob/dead/observer/ghost = captured.ghostize(1)
+			var/mob/dead/observer/ghost = captured.ghostize()
 			if(captured.mind)
 				if(ghost)
 					ghost.mind = null

@@ -1,5 +1,6 @@
 /mob/living/basic/nian_caterpillar
 	name = "nian caterpillar"
+	desc = "Fluffier than clouds."
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = "mothroach"
 	icon_living = "mothroach"
@@ -197,4 +198,3 @@
 	speech_chance = 2
 	emote_hear = list("flutters.", "chitters.", "chatters.")
 	emote_see = list("flutters.", "chitters.", "chatters.")
-

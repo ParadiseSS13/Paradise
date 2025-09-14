@@ -19,7 +19,7 @@
 		toggle_throw_mode()
 	return ..()
 
-/mob/living/carbon/ghostize(can_reenter_corpse)
+/mob/living/carbon/ghostize(flags = GHOST_FLAGS_DEFAULT, ghost_name, ghost_color)
 	if(in_throw_mode)
 		toggle_throw_mode()
 	return ..()

@@ -56,10 +56,6 @@
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
 		return
 
-	if(!L && !L.is_injectable(user)) //only checks on non-living mobs, due to how can_inject() handles
-		to_chat(user, "<span class='warning'>You cannot directly fill [L]!</span>")
-		return
-
 	if(L.reagents.total_volume >= L.reagents.maximum_volume)
 		to_chat(user, "<span class='notice'>[L] is full.</span>")
 		return
@@ -134,6 +130,10 @@
 
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		return
+
+	if(!target.is_injectable(user))
+		to_chat(user, "<span class='warning'>You cannot directly fill [target]!</span>")
 		return
 
 	if(isfood(target))

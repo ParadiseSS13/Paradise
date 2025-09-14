@@ -9,6 +9,7 @@
 
 /obj/structure/bookcase
 	name = "bookcase"
+	desc = "A set of shelves for storing books."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bookshelf"
 	anchored = TRUE
@@ -19,6 +20,12 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 0)
 	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/bible, /obj/item/tome) //Things allowed in the bookcase
 	var/material_type = /obj/item/stack/sheet/wood
+
+/obj/structure/bookcase/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] is [anchored ? "bolted to the floor" : "unsecured"].</span>"
+	. += "<span class='notice'>It can be [anchored ? "<b>unanchored</b>" : "<b>anchored</b>"] with a wrench.</span>"
+	. += "<span class='notice'>It can be <b>deconstructed</b> with a screwdriver.</span>"
 
 /obj/structure/bookcase/Initialize(mapload)
 	. = ..()
