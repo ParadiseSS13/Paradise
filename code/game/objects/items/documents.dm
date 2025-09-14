@@ -3,7 +3,7 @@
 	desc = "Documents printed on special copy-protected paper."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "docs_generic"
-	item_state = "paper"
+	inhand_icon_state = "paper"
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 1
 	throw_speed = 1
@@ -77,7 +77,7 @@
 	name = "\improper D.V.O.R.A.K Blackbox Disk"
 	desc = "This disk contains a full record of all information that passed through D.V.O.R.A.K's systems during its uptime, not to mention what may have gone wrong. NT might be interested in this."
 	icon = 'icons/obj/module.dmi'
-	item_state = "card-id"
 	icon_state = "holodisk"
+	inhand_icon_state = "card-id"
 	drop_sound = 'sound/items/handling/disk_drop.ogg'
 	pickup_sound = 'sound/items/handling/disk_pickup.ogg'

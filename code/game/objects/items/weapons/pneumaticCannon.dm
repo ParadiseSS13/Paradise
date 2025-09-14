@@ -1,15 +1,15 @@
 /obj/item/pneumatic_cannon
 	name = "pneumatic cannon"
 	desc = "A gas-powered cannon that can fire any object loaded into it."
-	w_class = WEIGHT_CLASS_BULKY
-	force = 8 //Very heavy
-	attack_verb = list("bludgeoned", "smashed", "beaten")
 	icon = 'icons/obj/pneumaticCannon.dmi'
 	icon_state = "pneumaticCannon"
-	item_state = "bulldog"
+	inhand_icon_state = "bulldog"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 60, ACID = 50)
+	w_class = WEIGHT_CLASS_BULKY
+	force = 8 //Very heavy
+	attack_verb = list("bludgeoned", "smashed", "beaten")
 	new_attack_chain = TRUE
 	///The max weight of items that can fit into the cannon
 	var/max_weight_class = 20

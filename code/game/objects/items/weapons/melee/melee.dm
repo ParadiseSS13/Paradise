@@ -9,7 +9,6 @@
 	name = "captain's saber"
 	desc = "An elegant weapon, for a more civilized age."
 	icon_state = "saber"
-	item_state = "saber"
 	flags = CONDUCT
 	force = 15
 	throwforce = 10
@@ -76,7 +75,6 @@
 	name = "snakesfang"
 	desc = "A uniquely curved, black and red sword. Extra-edgy and cutting-edge."
 	icon_state = "snakesfang"
-	item_state = "snakesfang"
 	flags = CONDUCT
 	force = 25
 	throwforce = 10

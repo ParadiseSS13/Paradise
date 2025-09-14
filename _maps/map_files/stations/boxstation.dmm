@@ -76293,12 +76293,10 @@
 	},
 /area/station/security/permabrig)
 "ryC" = (
-/obj/structure/bed{
-	dir = 1
-	},
 /obj/item/bedsheet/captain{
 	dir = 1
 	},
+/obj/structure/bed,
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
 "ryV" = (
