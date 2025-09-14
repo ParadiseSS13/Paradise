@@ -13,6 +13,8 @@
 #include "attack_chain\test_attack_chain_borgs.dm"
 #include "attack_chain\test_attack_chain_cult_dagger.dm"
 #include "attack_chain\test_attack_chain_machinery.dm"
+#include "attack_chain\test_attack_chain_structures.dm"
+#include "attack_chain\test_attack_chain_stunbaton.dm"
 #include "attack_chain\test_attack_chain_mobs.dm"
 #include "attack_chain\test_attack_chain_reagent_containers.dm"
 #include "attack_chain\test_attack_chain_stunbaton.dm"
