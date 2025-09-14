@@ -4,7 +4,7 @@
 	desc = "A heavy jacket made from 'synthetic' animal furs."
 	icon = 'icons/obj/clothing/suits/wintercoat.dmi'
 	icon_state = "wintercoat"
-	icon_override = 'icons/mob/clothing/suits/wintercoat.dmi'
+	worn_icon = 'icons/mob/clothing/suits/wintercoat.dmi'
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -26,7 +26,7 @@
 	desc = "A hood attached to a heavy winter jacket."
 	icon = 'icons/obj/clothing/head/winterhood.dmi'
 	icon_state = "winterhood"
-	icon_override = 'icons/mob/clothing/head/winterhood.dmi'
+	worn_icon = 'icons/mob/clothing/head/winterhood.dmi'
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags = BLOCKHAIR
