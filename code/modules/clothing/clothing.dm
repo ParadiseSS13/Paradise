@@ -39,8 +39,7 @@
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
 		return
-	/// Done as such to not break chameleon gear since you can't rely on initial states
-	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
+	icon_state = "[initial(icon_state)][up ? "_up" : ""]"
 	return TRUE
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
@@ -377,9 +376,6 @@
 	/// if this hat can be a hat of a hat. Hat^2
 	var/can_be_hat = TRUE
 
-/obj/item/clothing/head/update_icon_state()
-	if(..())
-		worn_icon_state = "[replacetext("[worn_icon_state]", "_up", "")][up ? "_up" : ""]"
 
 /obj/item/clothing/head/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
