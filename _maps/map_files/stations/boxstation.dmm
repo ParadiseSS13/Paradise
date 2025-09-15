@@ -22630,6 +22630,9 @@
 "bAa" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
+/obj/item/ashtray/glass{
+	pixel_y = 13
+	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain)
 "bAb" = (
@@ -31454,6 +31457,10 @@
 /area/station/medical/medbay3)
 "ckt" = (
 /obj/structure/table/wood,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "NT Representative's Office";
+	pixel_y = 4
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "ckv" = (
@@ -32479,9 +32486,8 @@
 "coo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office";
-	pixel_y = 4
+/obj/item/storage/fancy/cigars{
+	pixel_y = 8
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
@@ -38494,6 +38500,10 @@
 /obj/item/paper/ntrep,
 /obj/item/stamp/rep,
 /obj/item/folder,
+/obj/item/ashtray/glass{
+	pixel_x = 16;
+	pixel_y = 2
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "cLF" = (
@@ -39014,7 +39024,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 10
 	},
-/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "cNF" = (
@@ -54136,7 +54146,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 9
 	},
-/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "gNX" = (
@@ -63639,13 +63649,6 @@
 	},
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
-"ltD" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 9
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "ltR" = (
 /obj/structure/plasticflaps{
 	opacity = 1
@@ -74315,6 +74318,7 @@
 /obj/item/flashlight/lamp/green{
 	pixel_y = 8
 	},
+/obj/item/storage/fancy/cigars/cohiba,
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain)
 "qCk" = (
@@ -80951,7 +80955,6 @@
 	pixel_y = -28
 	},
 /obj/item/reagent_containers/drinks/flask/gold,
-/obj/item/clothing/mask/cigarette/cigar,
 /obj/item/razor{
 	pixel_x = -4;
 	pixel_y = 2
@@ -82101,13 +82104,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/control)
-"uud" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 10
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "uuh" = (
 /obj/machinery/disposal,
 /obj/machinery/light,
@@ -85354,6 +85350,13 @@
 	icon_state = "caution"
 	},
 /area/station/public/dorms)
+"wfZ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 9
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "wgt" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/glass,
@@ -88793,6 +88796,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
+"xPT" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 10
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "xQB" = (
 /obj/effect/spawner/window/reinforced/tinted,
 /obj/structure/disposalpipe/segment{
@@ -125821,7 +125831,7 @@ aab
 cQp
 aab
 cZh
-uud
+cNE
 dba
 djE
 dcS
@@ -125833,7 +125843,7 @@ djE
 djE
 djE
 djE
-ltD
+gNQ
 aab
 aab
 aab
@@ -127125,7 +127135,7 @@ igi
 igi
 igi
 igi
-gNQ
+wfZ
 fPY
 wyD
 wyD
@@ -127354,7 +127364,7 @@ cep
 cjq
 cep
 cxO
-cNE
+xPT
 igi
 igi
 igi
@@ -127372,7 +127382,7 @@ igi
 igi
 igi
 igi
-gNQ
+wfZ
 dgS
 eQU
 eQU
