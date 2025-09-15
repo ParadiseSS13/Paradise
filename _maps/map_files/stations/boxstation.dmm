@@ -38415,6 +38415,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "cLT" = (
@@ -46567,10 +46571,6 @@
 /obj/machinery/economy/vending/atmosdrobe,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
-	},
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
