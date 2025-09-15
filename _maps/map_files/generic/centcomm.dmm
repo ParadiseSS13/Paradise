@@ -2584,31 +2584,6 @@
 	},
 /area/tdome/tdomeobserve)
 "iK" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/table/wood,
-/obj/machinery/door_control/no_emag{
-	id = "specopsoffice";
-	name = "Privacy Shutters";
-	pixel_x = 6;
-	pixel_y = 10;
-	req_access = list(114)
-	},
-/obj/machinery/door_control/no_emag{
-	pixel_x = -6;
-	pixel_y = -17;
-	name = "Engineering Storage";
-	id = "SpecopsEngineering";
-	req_access = list(114)
-	},
-/obj/machinery/phone/centcomm{
-	pixel_x = 7;
-	pixel_y = -14
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/table/wood,
 /obj/machinery/door_control/no_emag{
 	id = "specopsoffice";
@@ -2625,13 +2600,9 @@
 	req_access = list(114)
 	},
 /obj/item/folder/red,
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -5;
-	pixel_y = 3
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
+/obj/machinery/phone/centcomm{
+	pixel_x = 7;
+	pixel_y = -14
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
@@ -7251,28 +7222,9 @@
 /turf/simulated/floor/wood,
 /area/centcom/control)
 "yh" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = 6
-	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
-	pixel_x = 2
-	},
-/obj/item/clothing/mask/cigarette/cigar{
-	pixel_x = 4.5
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigars/cohiba{
 	pixel_y = 8
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
@@ -12870,23 +12822,6 @@
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "Qw" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = 6
-	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
-	pixel_x = 2
-	},
-/obj/item/clothing/mask/cigarette/cigar{
-	pixel_x = 4.5
-	},
-/obj/machinery/newscaster/directional/north,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/table/wood,
 /obj/machinery/newscaster/directional/north,
 /obj/item/storage/fancy/cigars/cohiba{
@@ -12895,9 +12830,6 @@
 /obj/item/lighter/zippo/nt_rep{
 	pixel_x = -16;
 	pixel_y = 3
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
