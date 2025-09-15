@@ -423,7 +423,7 @@
 	investigate_log("has consumed [AM].", INVESTIGATE_SUPERMATTER)
 	qdel(AM)
 	if(user)
-		if(!HAS_TRAIT(TRAIT_SUPERMATTER_IMMUNE) || !user.status_flags & GODMODE)
+		if(!(HAS_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE) || user.status_flags & GODMODE))
 			add_attack_logs(user, AM, "[AM] and [user] consumed by melee attack with [src] by [user].")
 			user.visible_message(
 				"<span class='danger'>As [user] touches [AM] with [src], both flash into dust and silence fills the room...</span>",
