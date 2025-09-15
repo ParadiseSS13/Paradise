@@ -181,9 +181,10 @@
 		to_chat(M, "<span class='warning'>[death_smoke_message]</span>")
 
 	var/obj/item/organ/internal/lungs/A = M.get_int_organ(/obj/item/organ/internal/lungs)
-	if(prob(5))
-		A.receive_damage(1)
-		M.emote("cough")
+	if(ishuman(M))
+		if(prob(5))
+			A.receive_damage(1)
+			M.emote("cough")
 
 	return ..() | update_flags
 
