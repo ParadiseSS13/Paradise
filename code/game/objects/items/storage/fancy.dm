@@ -408,7 +408,7 @@
 	This is an attempt to create the most cancerous cigarettes in the universe, for specific connoisseurs. \
 	These cigarettes have been banned across most of known space due to their reckless marketing strategy and obvious health risks."
 	icon_state = "death_packet"
-	item_state = "enigma_packet"
+	inhand_icon_state = "enigma_packet"
 	cigarette_slogan = "That which does not kill us makes us stronger."
 	cigarette_type = /obj/item/clothing/mask/cigarette/carcinoma
 
