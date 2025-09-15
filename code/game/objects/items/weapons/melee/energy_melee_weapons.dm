@@ -338,6 +338,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	light_color = LIGHT_COLOR_WHITE
 	tool_behaviour = TOOL_SAW
+	blade_color = "red"
 
 //////////////////////////////
 // MARK: CUTLASS

@@ -118,7 +118,7 @@
 /obj/item/clothing/gloves/color/grey
 	name = "grey gloves"
 	desc = "A pair of gloves, they don't look special in any way."
-	icon_state = "gray" // <-----
+	icon_state = "gray"
 	inhand_icon_state = "bgloves"
 
 /obj/item/clothing/gloves/color/light_brown

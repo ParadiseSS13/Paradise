@@ -1146,8 +1146,7 @@
 #define JUMPSUIT_ROLLED_DOWN_SUFFIX "_d"
 
 /obj/item/clothing/under/proc/roll_undersuit(mob/living/carbon/human/user)
-	var/static/rolled_down_suffix_length = length(JUMPSUIT_ROLLED_DOWN_SUFFIX)
-	if(copytext(icon_state, -rolled_down_suffix_length) != JUMPSUIT_ROLLED_DOWN_SUFFIX)
+	if(copytext(icon_state, -length(JUMPSUIT_ROLLED_DOWN_SUFFIX)) != JUMPSUIT_ROLLED_DOWN_SUFFIX)
 		base_icon_state = icon_state
 
 	var/current_worn_icon = LAZYACCESS(sprite_sheets, user.dna.species.sprite_sheet_name) || worn_icon || 'icons/mob/clothing/under/misc.dmi'
