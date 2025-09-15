@@ -11777,7 +11777,6 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/item/clothing/mask/cigarette/cigar,
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
 "bmW" = (
@@ -15743,6 +15742,9 @@
 "bCp" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
+/obj/item/ashtray/glass{
+	pixel_y = -11
+	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain)
 "bCr" = (
@@ -16175,9 +16177,11 @@
 /area/station/command/office/captain)
 "bEl" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/drinks/shaker,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/item/storage/fancy/cigars/cohiba{
+	pixel_y = 8
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain)
@@ -20256,6 +20260,9 @@
 /area/station/science/robotics/showroom)
 "bYo" = (
 /obj/structure/closet/secure_closet/ntrep,
+/obj/item/storage/fancy/cigars{
+	pixel_y = 8
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "bYp" = (
@@ -22568,6 +22575,10 @@
 "ciK" = (
 /obj/structure/table/wood,
 /obj/item/paper/ntrep,
+/obj/item/ashtray/glass{
+	pixel_x = 16;
+	pixel_y = 2
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "ciM" = (
