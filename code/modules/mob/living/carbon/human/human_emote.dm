@@ -656,6 +656,18 @@
 	message = "flutters their wings."
 	species_type_whitelist_typecache = list(/datum/species/moth)
 
+/datum/emote/living/carbon/human/antenna
+	key = "antenna"
+	key_third_person = "antennae"
+	message = "twitches their antennae."
+	species_type_whitelist_typecache = list(/datum/species/moth)
+
+/datum/emote/living/carbon/human/antenna/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
+	mineral_scan_pulse(get_turf(src), range = world.view)
+
 /datum/emote/living/carbon/human/quill
 	key = "quill"
 	key_third_person = "quills"
