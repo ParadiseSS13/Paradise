@@ -163,14 +163,12 @@
 	icon_state = "solgovelite"
 	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	resistance_flags = FIRE_PROOF
-	flipped = TRUE
 
 /obj/item/clothing/head/soft/solgov/marines/command
 	name = "\improper TSF marine lieutenant's cap"
 	desc = "A soft cap worn by marines of the Trans-Solar Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
 	icon_state = "solgovc"
 	strip_delay = 8 SECONDS
-	flipped = TRUE
 
 /obj/item/clothing/head/soft/solgov/marines/command/elite
 	name = "\improper MARSOC Lieutenant's cap"
@@ -178,4 +176,3 @@
 	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	icon_state = "solgovcelite"
 	resistance_flags = FIRE_PROOF
-	flipped = TRUE
