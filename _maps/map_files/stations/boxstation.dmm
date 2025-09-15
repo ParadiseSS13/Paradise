@@ -35439,6 +35439,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"cAn" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan,
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "cAo" = (
 /obj/machinery/alarm/directional/south,
 /obj/machinery/atmospherics/refill_station/nitrogen,
@@ -41324,10 +41332,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "cWX" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
@@ -42643,9 +42647,6 @@
 /area/station/engineering/break_room)
 "dcF" = (
 /obj/structure/closet/firecloset,
-/obj/machinery/light{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "dcG" = (
@@ -43219,7 +43220,6 @@
 /area/station/engineering/atmos)
 "deI" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/purple,
-/obj/machinery/light/floor,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "deJ" = (
@@ -43301,7 +43301,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 9
 	},
-/obj/machinery/light/floor,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "deW" = (
@@ -46569,6 +46568,10 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
 	},
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "dtk" = (
@@ -47100,10 +47103,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"dFj" = (
-/obj/machinery/light/floor,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "dFG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -48176,7 +48175,6 @@
 	outlet_autolink_ids = list("o2_outlet_scrubber");
 	name = "Oxygen Supply Control"
 	},
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "blue"
 	},
@@ -66464,13 +66462,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
-"mPG" = (
-/obj/machinery/atmospherics/pipe/simple/visible/cyan{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
-/turf/simulated/wall,
-/area/station/engineering/atmos/distribution)
 "mPT" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable,
@@ -75062,13 +75053,6 @@
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
-"qSn" = (
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
-/turf/simulated/wall/r_wall,
-/area/station/engineering/atmos)
 "qSF" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -79279,6 +79263,11 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/hallway)
+"sYJ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple,
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "sYL" = (
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/lounge)
@@ -82831,6 +82820,13 @@
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
+"uNC" = (
+/obj/machinery/atmospherics/pipe/manifold/visible/yellow{
+	dir = 8
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "uOo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -123371,14 +123367,14 @@ cXR
 cYT
 cZU
 daM
-daM
+sYJ
 daM
 day
-daM
+sYJ
 deI
 deQ
 dgg
-dgP
+cAn
 dhC
 iGv
 dba
@@ -124142,7 +124138,7 @@ cXX
 cYW
 cZX
 daO
-dFj
+cSd
 cSd
 cSd
 dag
@@ -124151,7 +124147,7 @@ dfB
 cSd
 dgQ
 edf
-qSn
+roQ
 cQp
 nZP
 khY
@@ -124650,7 +124646,7 @@ cOI
 cPD
 cPV
 cRj
-mPG
+cVM
 cWX
 cSd
 kUA
@@ -124913,14 +124909,14 @@ vZe
 cXT
 cZZ
 daY
+vZe
 cXT
 cXT
-cXT
-daY
+uNC
 deU
 dfK
 dgg
-dgP
+cAn
 dhH
 xgY
 dja
