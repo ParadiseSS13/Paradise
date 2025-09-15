@@ -397,32 +397,47 @@
 	return ..()
 
 /obj/item/retractor/supermatter/proc/Consume(atom/movable/AM, mob/living/user)
+	if(istype(AM, /obj/item/nuke_core_container))
+		return
+
+	if(istype(AM, /obj/machinery/atmospherics/supermatter_crystal))
+		return
+
+	if(istype(AM, /obj/singularity))
+		return
+
 	if(ismob(AM))
 		if(!isliving(AM))
 			return
+
 		var/mob/living/victim = AM
-		if(victim.incorporeal_move || victim.status_flags & GODMODE) //try to keep this in sync with supermatter's consume fail conditions
+		if(victim.incorporeal_move || victim.status_flags & GODMODE || HAS_TRAIT(victim, TRAIT_SUPERMATTER_IMMUNE)) //try to keep this in sync with supermatter's consume fail conditions
 			return
+
 		victim.dust()
+		radiation_pulse(src, 2000, GAMMA_RAD)
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)].")
 		investigate_log("has irradiated [key_name(victim)].", INVESTIGATE_SUPERMATTER)
-	else if(istype(AM, /obj/singularity))
-		return
-	else if(istype(AM, /obj/item/nuke_core_container))
-		return
-	else if(istype(AM, /obj/machinery/atmospherics/supermatter_crystal))
-		return
-	else
-		investigate_log("has consumed [AM].", INVESTIGATE_SUPERMATTER)
-		qdel(AM)
 
-	if(user)
-		add_attack_logs(user, AM, "[AM] and [user] consumed by melee attack with [src] by [user]")
-		user.visible_message("<span class='danger'>As [user] touches [AM] with [src], both flash into dust and silence fills the room...</span>",
-			"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well.</span>",
-			"<span class='hear'>Everything suddenly goes silent.</span>")
-		user.dust()
-	radiation_pulse(src, 2000, GAMMA_RAD)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
+	investigate_log("has consumed [AM].", INVESTIGATE_SUPERMATTER)
+	qdel(AM)
+	if(user)
+		if(!HAS_TRAIT(TRAIT_SUPERMATTER_IMMUNE) || !user.status_flags & GODMODE)
+			add_attack_logs(user, AM, "[AM] and [user] consumed by melee attack with [src] by [user].")
+			user.visible_message(
+				"<span class='danger'>As [user] touches [AM] with [src], both flash into dust and silence fills the room...</span>",
+				"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well.</span>",
+				"<span class='hear'>Everything suddenly goes silent.</span>"
+			)
+			user.dust()
+			radiation_pulse(src, 2000, GAMMA_RAD)
+		else
+			add_attack_logs(user, AM, "[AM] consumed by melee attack with [src] by [user].")
+			user.visible_message(
+				"<span class='danger'>As [user] touches [AM] with [src], [AM] flashes into dust and silence fills the room...</span>",
+				"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust.</span>",
+				"<span class='hear'>Everything suddenly goes silent.</span>"
+			)
 	QDEL_NULL(sliver)
 	update_icon(UPDATE_ICON_STATE)
