@@ -9,9 +9,11 @@
 
 
 // The states of reactor chambers
-#define CHAMBER_DOWN	 1
-#define CHAMBER_UP		 2
-#define CHAMBER_OPEN	 3
+#define CHAMBER_DOWN	 		1
+#define CHAMBER_UP		 		2
+#define CHAMBER_OPEN			3
+#define CHAMBER_OVERLOAD_IDLE	4
+#define CHAMBER_OVERLOAD_ACTIVE	5
 
 #define REACTOR_LIGHT_COLOR "#569fff"
 #define TOTAL_CONTROL_RODS 5 // The max number of control rods.
@@ -118,6 +120,10 @@
 	var/final_countdown = FALSE
 	/// Are admins freezing the reactor for whatever reason
 	var/admin_intervention = FALSE
+	/// An admin-triggered var for enabling the station-ending self destruct
+	var/safety_override = FALSE
+	/// Disables changing the desired power value
+	var/control_lockout = FALSE
 
 /obj/machinery/power/fission_reactor/roundstart
 	primary_engine = TRUE
@@ -319,17 +325,18 @@
 	else
 		remove_light()
 
-	var/minimum_power = 100 * (1 - (control_rods_remaining / TOTAL_CONTROL_RODS))
-	if(operating_power < minimum_power) // oops, control rods stuck
-		operating_power++
-		update_appearance(UPDATE_OVERLAYS)
-	else
-		if(desired_power > operating_power)
+	if(!control_lockout)
+		var/minimum_power = 100 * (1 - (control_rods_remaining / TOTAL_CONTROL_RODS))
+		if(operating_power < minimum_power) // oops, control rods stuck
 			operating_power++
 			update_appearance(UPDATE_OVERLAYS)
-		else if(desired_power < operating_power)
-			operating_power--
-			update_appearance(UPDATE_OVERLAYS)
+		else
+			if(desired_power > operating_power)
+				operating_power++
+				update_appearance(UPDATE_OVERLAYS)
+			else if(desired_power < operating_power)
+				operating_power--
+				update_appearance(UPDATE_OVERLAYS)
 
 	if(operating_power == desired_power && desired_power == 0 && offline != TRUE)
 		shut_off()
@@ -341,6 +348,9 @@
 		become_operational()
 
 	if(offline || starting_up)
+		return
+
+	if(safety_override)
 		return
 
 	if(!length(connected_chambers))
@@ -526,6 +536,22 @@
 		sleep(10)
 
 	set_broken()
+
+/obj/machinery/power/fission_reactor/proc/prep_overload()
+	desired_power = 0
+	INVOKE_ASYNC(src, PROC_REF(scram))
+	control_lockout = TRUE
+	safety_override = TRUE
+
+/obj/machinery/power/fission_reactor/proc/scram()
+	var/power_fraction = final_power / operating_power
+	final_heat = 0
+	while(operating_power > 0)
+		operating_power--
+		sleep(0.25)
+		final_power -= power_fraction
+	final_power = 0
+
 
 /// MARK: Rod Chamber
 

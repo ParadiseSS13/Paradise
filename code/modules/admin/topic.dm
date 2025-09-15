@@ -3288,7 +3288,7 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Disable Fission Reactor Safeties")
 				message_admins("[key_name_admin(usr)] disabled reactor safeties")
 				log_admin("[key_name(usr)] disabled reactor safeties")
-				overload_reactor()
+				INVOKE_ASYNC(src, GLOBAL_PROC_REF(overload_reactor))
 
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")
