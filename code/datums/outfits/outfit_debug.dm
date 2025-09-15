@@ -116,11 +116,6 @@
 			remove_xray(user)
 		REMOVE_TRAIT(user, SM_HALLUCINATION_IMMUNE, "debug_glasses[UID()]")
 
-/obj/item/clothing/glasses/hud/debug/dropped(mob/living/carbon/human/user)
-	..()
-	if(xray)
-		remove_xray(user)
-
 /obj/item/clothing/glasses/hud/debug/AltClick(mob/user)
 	if(!ishuman(user))
 		return
