@@ -230,7 +230,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		if(direction)
 			setDir(direction)
 
-		buildstage = 0
+		buildstage = AIR_ALARM_FRAME
 		wiresexposed = TRUE
 		set_pixel_offsets_from_dir(24, -24, 24, -24)
 
@@ -261,7 +261,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	GLOB.air_alarm_repository.update_cache(src)
 
 /obj/machinery/alarm/process()
-	if((stat & (NOPOWER|BROKEN)) || shorted || buildstage != 2 || init_tick == SSair.milla_tick)
+	if((stat & (NOPOWER|BROKEN)) || shorted || buildstage != AIR_ALARM_READY || init_tick == SSair.milla_tick)
 		return
 
 	var/turf/simulated/location = loc
@@ -582,7 +582,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 ///////////////
 
 /obj/machinery/alarm/attack_ai(mob/user)
-	if(buildstage != 2)
+	if(buildstage != AIR_ALARM_READY)
 		return
 
 	add_hiddenprint(user)
@@ -598,7 +598,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	return interact(user)
 
 /obj/machinery/alarm/interact(mob/user)
-	if(buildstage != 2)
+	if(buildstage != AIR_ALARM_READY)
 		return
 
 	if(wiresexposed)
@@ -854,7 +854,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		return !locked
 
 /obj/machinery/alarm/ui_status(mob/user, datum/ui_state/state)
-	if(buildstage != 2)
+	if(buildstage != AIR_ALARM_READY)
 		return UI_CLOSE
 
 	if(aidisabled && (is_ai(user) || isrobot(user)))
@@ -1093,7 +1093,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 				to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
 				playsound(get_turf(src), used.usesound, 50, TRUE)
 				qdel(used)
-				buildstage = 1
+				buildstage = AIR_ALARM_UNWIRED
 				update_icon(UPDATE_ICON_STATE)
 				return ITEM_INTERACT_COMPLETE
 	return ..()
