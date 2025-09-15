@@ -107,8 +107,14 @@
 
 /obj/item/clothing/glasses/hud/debug/equipped(mob/living/carbon/human/user, slot)
 	..()
-	if(xray)
-		add_xray(user)
+	if(slot == ITEM_SLOT_EYES)
+		ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, "debug_glasses[UID()]")
+		if(xray)
+			add_xray(user)
+	if(slot != ITEM_SLOT_EYES)
+		if(xray)
+			remove_xray(user)
+		REMOVE_TRAIT(user, SM_HALLUCINATION_IMMUNE, "debug_glasses[UID()]")
 
 /obj/item/clothing/glasses/hud/debug/dropped(mob/living/carbon/human/user)
 	..()
