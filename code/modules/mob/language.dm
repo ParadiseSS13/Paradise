@@ -253,7 +253,7 @@
 
 /datum/language/diona
 	name = "Rootspeak"
-	desc = "A creaking, subvocal language spoken instinctively by the Dionae. Due to the unique makeup of the average Diona, a phrase of Rootspeak can be a combination of anywhere from one to twelve individual voices and notes."
+	desc = "A creaking, subvocal language spoken instinctively by the Dionae. Due to the unique makeup of the average Diona, a phrase of Rootspeak can be a combination of anywhere from one to multiple tens of individual voices and notes."
 	speech_verb = "creaks and rustles"
 	ask_verb = "creaks"
 	exclaim_verbs = list("rustles")
@@ -737,7 +737,7 @@
 
 /datum/language/human/monkey
 	name = "Chimpanzee"
-	desc = "A language of chimpering nonsense, spoken and understood only by monkeys. As such, they are the only species capable of speaking or understanding this."
+	desc = "A language of chimpering, monkey-like nonsense."
 	speech_verb = "chimpers"
 	ask_verb = "chimpers"
 	exclaim_verbs = list("screeches")
@@ -745,22 +745,22 @@
 
 /datum/language/skrell/monkey
 	name = "Neara"
-	desc = "The ancestor language to Qurvolious, with equally hard to pronounce syllables. Neara are the only species capable of speaking or understanding this."
+	desc = "The ancestor language to Qurvolious, with equally hard to pronounce syllables."
 	key = "ne"
 
 /datum/language/unathi/monkey
 	name = "Stok"
-	desc = "A language comprised of light hissing, comparable at most to Sinta'unathi. Stok are the only species capable of speaking or understanding this."
+	desc = "A language comprised of light hissing, comparable at most to Sinta'unathi."
 	key = "st"
 
 /datum/language/tajaran/monkey
 	name = "Farwa"
-	desc = "Simplistic and expressive in nature, the Farwa language is composed of chirps and meows. Farwa are the only species capable of speaking or understanding this."
+	desc = "Simplistic and expressive in nature, the Farwa language is composed of chirps and meows."
 	key = "fa"
 
 /datum/language/vulpkanin/monkey
 	name = "Wolpin"
-	desc = "A guttural language with syllables of growls and barks, similar to Canilunzt. Wolpin are the only species capable of speaking or understanding this."
+	desc = "A guttural language with syllables of growls and barks, similar to Canilunzt."
 	key = "vu"
 
 /mob/proc/grant_all_babel_languages()
