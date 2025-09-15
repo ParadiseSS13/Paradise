@@ -371,6 +371,7 @@
 	name = "starline remote headset"
 	desc = "A headset that connects remotely to the starline hard line. Dont think about it too hard."
 	icon_state = "com_headset_alt"
+	worn_icon_state = "com_headset_alt"
 	requires_tcomms = FALSE
 	instant = TRUE
 	freqlock = TRUE
