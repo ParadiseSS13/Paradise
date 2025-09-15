@@ -25,6 +25,10 @@
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 
+/obj/item/clothing/under/pants/fluff
+	icon = 'icons/obj/custom_items.dmi'
+	worn_icon = 'icons/mob/clothing/under/donator.dmi'
+
 /// Generic tattoo gun, make subtypes for different folks
 /obj/item/fluff/tattoo_gun
 	name = "disposable tattoo pen"
@@ -1363,9 +1367,7 @@
 /obj/item/clothing/under/pants/fluff/combat
 	name = "combat pants"
 	desc = "Medium style tactical pants, for the fashion aware combat units out there."
-	icon = 'icons/mob/clothing/under/donator.dmi'
 	icon_state = "combat_pants"
-	worn_icon = 'icons/mob/clothing/under/donator.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/donator.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/donator.dmi',
