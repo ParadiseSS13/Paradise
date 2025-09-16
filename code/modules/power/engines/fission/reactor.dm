@@ -17,7 +17,7 @@
 
 #define REACTOR_LIGHT_COLOR "#569fff"
 #define TOTAL_CONTROL_RODS 5 // The max number of control rods.
-#define HEAT_MODIFIER 175 // a flat multiplier. Higher = more heat production.
+#define HEAT_MODIFIER 200 // a flat multiplier. Higher = more heat production.
 #define AVERAGE_HEAT_THRESHOLD 30 // The threshold the average heat-per-rod must exceed to generate coefficient.
 #define TOTAL_HEAT_THRESHOLD 600 // the temp (in K) needed to begin generating coefficient.
 #define HEAT_CONVERSION_RATIO 400 // How much heat over the threshold = an extra coefficient point.
@@ -780,7 +780,8 @@
 				state_overlay.icon_state = "red"
 
 	if(chamber_state == CHAMBER_OVERLOAD_IDLE)
-		state_overlay.icon_state = "overload_idle"
+		if(held_rod && istype(held_rod, /obj/item/nuclear_rod/fuel))
+			state_overlay.icon_state = "overload_idle"
 	if(chamber_state == CHAMBER_OVERLOAD_ACTIVE)
 		state_overlay.icon_state = "overload_active"
 	. += state_overlay
