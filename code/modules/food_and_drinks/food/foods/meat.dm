@@ -38,8 +38,6 @@
 	qdel(src)
 
 /obj/item/food/meat/syntiflesh
-
-/obj/item/food/meat/syntiflesh
 	name = "synthetic meat"
 	desc = "A synthetic slab of flesh."
 
