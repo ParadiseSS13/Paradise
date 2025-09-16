@@ -17,7 +17,7 @@
 
 #define REACTOR_LIGHT_COLOR "#569fff"
 #define TOTAL_CONTROL_RODS 5 // The max number of control rods.
-#define HEAT_MODIFIER 175 // Higher = more heat production.
+#define HEAT_MODIFIER 175 // a flat multiplier. Higher = more heat production.
 #define AVERAGE_HEAT_THRESHOLD 30 // The threshold the average heat-per-rod must exceed to generate coefficient.
 #define TOTAL_HEAT_THRESHOLD 600 // the temp (in K) needed to begin generating coefficient.
 #define HEAT_CONVERSION_RATIO 400 // How much heat over the threshold = an extra coefficient point.
@@ -378,6 +378,8 @@
 			reactivity_multiplier += (rand(10, 25) / 100)
 		else
 			reactivity_multiplier = 20
+
+		damage += rand(1, DAMAGE_MAXIMUM) // this wont actually blow us up early
 		return
 
 	final_power = 0
@@ -401,7 +403,7 @@
 				if(fuel_rod.enrich(power_total * operating_rate, heat_total * operating_rate))
 					chamber.enriching = TRUE
 		heat_total = chamber.heat_total * durability_mod
-		final_heat += power_total
+		final_heat += heat_total
 		final_power += power_total
 		chamber.held_rod.durability -= durability_loss
 
@@ -512,17 +514,17 @@
 
 /obj/machinery/power/fission_reactor/proc/boot_up()
 	offline = FALSE
-	if(safety_override)
-		icon_state = "reactor_overheat"
-	else
-		icon_state = "reactor_starting"
+	icon_state = "reactor_starting"
 	#warn add a sound here
 
 /obj/machinery/power/fission_reactor/proc/become_operational()
 	starting_up = FALSE
 	offline = FALSE
 	can_create_power = TRUE
-	icon_state = "reactor_on"
+	if(safety_override)
+		icon_state = "reactor_overheat"
+	else
+		icon_state = "reactor_on"
 	set_light(2, 5, REACTOR_LIGHT_COLOR)
 	#warn add a sound here
 
