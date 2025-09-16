@@ -144,6 +144,7 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 		new /datum/stack_recipe("leather satchel", /obj/item/storage/backpack/satchel, 5),
 		new /datum/stack_recipe("briefcase", /obj/item/storage/briefcase, 4),
 		new /datum/stack_recipe("bandolier", /obj/item/storage/belt/bandolier, 5),
+		new /datum/stack_recipe("smith's bag", /obj/item/storage/bag/smith, 5),
 		)),
 	null,
 	new /datum/stack_recipe("card box", /obj/item/deck/holder, 1),
