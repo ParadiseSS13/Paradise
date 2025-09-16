@@ -34,16 +34,16 @@
 #define WARNING_DELAY 60 // time in deciseconds between warnings
 #define NGCR_COUNTDOWN_TIME 30 SECONDS // How long the meltdown countdown lasts
 #define TEMP_GENERATION_CAP 40000 // The temperature the reactor can get to before limiting heat gen
+#define MIN_CHAMBERS_TO_OVERLOAD 20 // The amount of conencted chambers required before the overload is valid
 
 // If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
 #define NGCR_MELTDOWN_PERCENT 5
 #define NGCR_EMERGENCY_PERCENT 25
 #define NGCR_DANGER_PERCENT 50
-#define NGCR_WARNING_PERCENT 100
+#define NGCR_WARNING_PERCENT 99
 #define CRITICAL_TEMPERATURE 10000
 
 #warn Idea todo: Allow grilling on an active reactor
-#warn Idea todo: Allow CC to unlock for nuking station
 #warn Idea todo: Make some lavaland loot into special rods/upgrades
 #warn Idea todo: Bananium rods?
 #warn Idea todo: syndicate meltdown rods
@@ -54,7 +54,6 @@
 #warn Idea todo: ripley grippers can pick up rods without damage
 #warn Idea todo: coolant rods can eject from the reactor at high temps
 #warn Idea todo: Grenades that force start rods
-#warn Prevent malf AI from using powers on the main reactor
 
 #warn event idea: Pufts of contaminating rad smoke
 
@@ -69,6 +68,7 @@
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	pixel_x = -16
+	flags_2 = NO_MALF_EFFECT_2
 
 	/// Holds the list for the connected reactor chambers to take data from
 	var/list/connected_chambers = list()
@@ -209,9 +209,15 @@
 /obj/machinery/power/fission_reactor/proc/set_broken(meltdown = TRUE)
 	if(stat & BROKEN)
 		return
-	overlays = null
-	clear_reactor_network()
+
 	stat |= BROKEN
+	overlays = null
+
+	if(safety_override && operating_power >= 100)
+		INVOKE_ASYNC(src, PROC_REF(finalize_overload))
+		return
+
+	clear_reactor_network()
 	if(meltdown) // in case we dont want a violent explosion
 		INVOKE_ASYNC(src, PROC_REF(meltdown))
 	else
@@ -337,6 +343,8 @@
 			else if(desired_power < operating_power)
 				operating_power--
 				update_appearance(UPDATE_OVERLAYS)
+	else
+		return // stopping here until control lockout is done
 
 	if(operating_power == desired_power && desired_power == 0 && offline != TRUE)
 		shut_off()
@@ -350,10 +358,26 @@
 	if(offline || starting_up)
 		return
 
-	if(safety_override)
+	if(!length(connected_chambers))
 		return
 
-	if(!length(connected_chambers))
+	if(safety_override)
+		if(operating_power >= 100)
+			send_message = FALSE
+			countdown()
+			return
+
+		// lets fake it a little
+		var/heat_capacity = air_contents.heat_capacity()
+		var/temp = air_contents.temperature()
+		if(heat_capacity && temp < CRITICAL_TEMPERATURE)
+			air_contents.set_temperature(temp + rand(20, 200))
+		else
+			air_contents.set_temperature(CRITICAL_TEMPERATURE)
+		if(reactivity_multiplier < 20)
+			reactivity_multiplier += (rand(10, 25) / 100)
+		else
+			reactivity_multiplier = 20
 		return
 
 	final_power = 0
@@ -488,7 +512,10 @@
 
 /obj/machinery/power/fission_reactor/proc/boot_up()
 	offline = FALSE
-	icon_state = "reactor_starting"
+	if(safety_override)
+		icon_state = "reactor_overheat"
+	else
+		icon_state = "reactor_starting"
 	#warn add a sound here
 
 /obj/machinery/power/fission_reactor/proc/become_operational()
@@ -537,20 +564,78 @@
 
 	set_broken()
 
+/// Begins the process of the centcomm doomsday overload
 /obj/machinery/power/fission_reactor/proc/prep_overload()
 	desired_power = 0
 	INVOKE_ASYNC(src, PROC_REF(scram))
 	control_lockout = TRUE
 	safety_override = TRUE
+	for(var/obj/machinery/reactor_chamber/chamber in connected_chambers)
+		chamber.set_idle_overload()
 
+/// Checks all connected chambers for a fuel rod
+/obj/machinery/power/fission_reactor/proc/check_overload_ready()
+	if(length(connected_chambers) < MIN_CHAMBERS_TO_OVERLOAD)
+		return FALSE
+	for(var/obj/machinery/reactor_chamber/chamber in connected_chambers)
+		if(chamber.chamber_state == CHAMBER_OVERLOAD_IDLE)
+			if(!chamber.held_rod)
+				return FALSE
+			if(!istype(chamber.held_rod, /obj/item/nuclear_rod/fuel))
+				return FALSE
+		else
+			return FALSE
+	return TRUE
+
+/// sets all the chambers to active overload position and unlocks the reactor.
+/obj/machinery/power/fission_reactor/proc/set_overload()
+	control_lockout = FALSE
+	for(var/obj/machinery/reactor_chamber/chamber in connected_chambers)
+		chamber.set_active_overload()
+
+/// The proc for actually blowing up the station. It is too late
+/obj/machinery/power/fission_reactor/proc/finalize_overload()
+	icon_state = "meltdown"
+	playsound(src, 'sound/machines/alarm.ogg', 100, FALSE, 5)
+	if(SSticker && SSticker.mode)
+		SSticker.mode.explosion_in_progress = TRUE
+		SSticker.record_biohazard_results()
+	sleep(100)
+
+	SSblackbox.record_feedback("tally", "fisson_overload", 1, "detonation successful")
+	icon_state = "broken"
+	GLOB.enter_allowed = 0
+	SSticker.station_explosion_cinematic(NUKE_SITE_ON_STATION, null)
+	SSticker.mode.station_was_nuked = TRUE
+	to_chat(world, "<b>The station was destroyed from a nuclear meltdown!</b>")
+
+	if(!SSticker.mode.check_finished())//If the mode does not deal with the nuke going off so just reboot because everyone is stuck as is
+		SSticker.reboot_helper("Station destroyed by nuclear fission meltdown.", "nuke - unhandled ending")
+		return
+
+/// Stops the reactor in a somewhat fancy way. Purely for anyone watching the monitor.
 /obj/machinery/power/fission_reactor/proc/scram()
 	var/power_fraction = final_power / operating_power
+	reactivity_multiplier = 1
+	offline = TRUE
+	starting_up = TRUE
 	final_heat = 0
+	var/temp = air_contents.temperature()
+	var/temp_fraction
+
+	if(temp && temp > 300)
+		temp_fraction = (temp - 300) / operating_power
 	while(operating_power > 0)
 		operating_power--
 		sleep(0.25)
 		final_power -= power_fraction
+		if(temp)
+			temp = air_contents.temperature()
+			air_contents.set_temperature(temp - temp_fraction)
+
 	final_power = 0
+	icon_state = "reactor_off"
+
 
 
 /// MARK: Rod Chamber
@@ -562,8 +647,11 @@
 	icon_state = "chamber_down"
 	anchored = TRUE
 	density = FALSE
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
+	max_integrity = 400
+	armor = list(melee = 80, bullet = 30, laser = 30, energy = 10, bomb = 40, rad = INFINITY, fire = INFINITY, acid = INFINITY) // fairly robust
 	idle_power_consumption = 100
+	flags_2 = NO_MALF_EFFECT_2
 
 	/// Each reactor chamber can only be linked to a single reactor, if somehow theres two.
 	var/obj/machinery/power/fission_reactor/linked_reactor
@@ -663,16 +751,18 @@
 
 /obj/machinery/reactor_chamber/update_overlays()
 	. = ..()
-	if(held_rod && chamber_state == CHAMBER_OPEN)
+	if(!held_rod)
+		return
+	if(chamber_state == CHAMBER_OPEN)
 		var/mutable_appearance/rod_overlay = mutable_appearance(layer = ABOVE_MOB_LAYER + 0.01)
 		rod_overlay.icon = held_rod.icon
 		rod_overlay.icon_state = held_rod.icon_state
 		rod_overlay.pixel_y = 14
 		. += rod_overlay
-	if(held_rod && chamber_state == CHAMBER_DOWN)
-		var/mutable_appearance/state_overlay = mutable_appearance(layer = BELOW_OBJ_LAYER + 0.01)
-		state_overlay.icon = icon
 
+	var/mutable_appearance/state_overlay = mutable_appearance(layer = BELOW_OBJ_LAYER + 0.01)
+	state_overlay.icon = icon
+	if(chamber_state == CHAMBER_DOWN)
 		if(requirements_met)
 			if(operational)
 				if(enriching)
@@ -686,7 +776,14 @@
 				state_overlay.icon_state = "orange"
 			else
 				state_overlay.icon_state = "red"
-		. += state_overlay
+
+	if(chamber_state == CHAMBER_OVERLOAD_IDLE)
+		state_overlay.icon_state = "overload_idle"
+	if(chamber_state == CHAMBER_OVERLOAD_ACTIVE)
+		state_overlay.icon_state = "overload_active"
+	. += state_overlay
+
+
 
 // check for multiple on a tile and nuke it
 /obj/machinery/reactor_chamber/proc/dupe_check()
@@ -713,7 +810,7 @@
 	add_fingerprint(user)
 
 	switch(chamber_state)
-		if(CHAMBER_DOWN)
+		if(CHAMBER_DOWN, CHAMBER_OVERLOAD_IDLE)
 			if(!Adjacent(user))
 				return
 			var/delay = 1 SECONDS
@@ -745,6 +842,9 @@
 				else
 					to_chat(user, "<span class='warning'>Your hands are currently full!</span>")
 					return
+		if(CHAMBER_OVERLOAD_ACTIVE)
+			to_chat(user, "<span class='alert'>The chamber lockdowns have been engaged, preventing it from being raised!</span>")
+			return
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/reactor_chamber/AltClick(mob/user, modifiers)
@@ -781,7 +881,7 @@
 		return
 	. = TRUE
 	if(chamber_state != CHAMBER_OPEN)
-		to_chat(user, "<span class='alert'>[src] must be raised and open first!</span>")
+		to_chat(user, "<span class='alert'>[src] must be raised and opened first!</span>")
 		return
 	if(!linked_reactor.offline)
 		to_chat(user, "<span class='alert'>The safety locks prevent maintenance while the reactor is on!</span>")
@@ -794,7 +894,7 @@
 	density = TRUE
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 	operational = FALSE
-	enriching = TRUE
+	enriching = FALSE
 	requirements_met = FALSE
 	layer = ABOVE_MOB_LAYER
 	update_icon(UPDATE_OVERLAYS)
@@ -808,19 +908,26 @@
 		chamber.calculate_stats()
 
 /obj/machinery/reactor_chamber/proc/lower()
-	chamber_state = CHAMBER_DOWN
-	icon_state = "chamber_down"
 	density = FALSE
 	layer = BELOW_OBJ_LAYER
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-	update_icon(UPDATE_OVERLAYS)
-	if(!held_rod)
-		return
-	if(check_status())
-		requirements_met = TRUE
+	if(linked_reactor.safety_override)
+		chamber_state = CHAMBER_OVERLOAD_IDLE
+		icon_state = "chamber_overload"
+		if(linked_reactor.check_overload_ready())
+			linked_reactor.set_overload()
 	else
-		requirements_met = FALSE
-	calculate_stats()
+		chamber_state = CHAMBER_DOWN
+		icon_state = "chamber_down"
+		if(!held_rod)
+			update_icon(UPDATE_OVERLAYS)
+			return
+		if(check_status())
+			requirements_met = TRUE
+		else
+			requirements_met = FALSE
+		calculate_stats()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/reactor_chamber/proc/close()
 	chamber_state = CHAMBER_UP
@@ -833,6 +940,21 @@
 	icon_state = "chamber_open"
 	playsound(loc, 'sound/machines/switch.ogg', 50, 1)
 	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/reactor_chamber/proc/set_idle_overload()
+	if(chamber_state == CHAMBER_DOWN)
+		chamber_state = CHAMBER_OVERLOAD_IDLE
+		icon_state = "chamber_overload"
+	operational = FALSE
+	enriching = FALSE
+	requirements_met = FALSE
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/reactor_chamber/proc/set_active_overload()
+	chamber_state = CHAMBER_OVERLOAD_ACTIVE
+	icon_state = "chamber_down"
+	update_icon(UPDATE_OVERLAYS)
+
 
 /// Forms the two-way link between the reactor and the chamber, then spreads it
 /obj/machinery/reactor_chamber/proc/form_link(var/obj/machinery/power/fission_reactor/reactor)
@@ -956,6 +1078,7 @@
 	density = FALSE
 	target_pressure = 100000 // maximum pressure in KPA
 	can_unwrench = FALSE
+	flags_2 = NO_MALF_EFFECT_2
 
 	/// Hold which reactor the intake is connected to.
 	var/obj/machinery/power/fission_reactor/linked_reactor
@@ -988,6 +1111,8 @@
 	if(!linked_reactor)
 		return FALSE
 	if(linked_reactor.admin_intervention)
+		return FALSE
+	if(linked_reactor.safety_override) // we dont want to cool down an intentional runaway reactor
 		return FALSE
 	var/datum/gas_mixture/network1
 	var/datum/gas_mixture/network2
@@ -1176,7 +1301,10 @@
 	data["NGCR_ambienttemp"] = air.temperature()
 	data["NGCR_ambientpressure"] = air.return_pressure()
 	data["NGCR_coefficient"] = active.reactivity_multiplier
-	data["NGCR_throttle"] = active.desired_power
+	if(active.control_lockout)
+		data["NGCR_throttle"] = 0
+	else
+		data["NGCR_throttle"] = active.desired_power
 	data["NGCR_operatingpower"] = active.operating_power
 	var/list/gasdata = list()
 	var/TM = air.total_moles()
@@ -1224,3 +1352,5 @@
 #undef CHAMBER_OPEN
 
 #undef REACTOR_LIGHT_COLOR
+#undef WARNING_DELAY
+#undef CRITICAL_TEMPERATURE
