@@ -1,15 +1,12 @@
-//A slow but strong beast that tries to stun using its tentacles
+/// A slow but strong beast that tries to stun using its tentacles.
 /mob/living/basic/mining/goliath
 	name = "goliath"
 	desc = "A massive beast that uses long tentacles to ensnare its prey, threatening them is not advised under any conditions."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath"
 	icon_living = "goliath"
 	icon_aggro = "goliath"
 	icon_dead = "goliath_dead"
 	icon_gib = "syndicate_gib"
-	mob_biotypes = MOB_ORGANIC | MOB_BEAST
-	mouse_opacity = MOUSE_OPACITY_ICON
 	speak_emote = list("bellows")
 	speed = 3
 	maxHealth = 300
@@ -20,7 +17,6 @@
 	melee_damage_upper = 25
 	attack_verb_simple = "pulverize"
 	attack_verb_continuous = "pulverizes"
-	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_blocked_message = "does nothing to the rocky hide of the"
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_VERY_STRONG

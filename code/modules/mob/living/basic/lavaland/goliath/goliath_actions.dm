@@ -6,9 +6,7 @@
 	button_icon_state = "Goliath_tentacle_wiggle"
 	background_icon_state = "bg_demon"
 	overlay_icon_state = "bg_demon_border"
-	click_to_activate = TRUE
 	cooldown_time = 12 SECONDS
-	melee_cooldown_time = 0
 	shared_cooldown = NONE
 	/// Furthest range we can activate ability at
 	var/max_range = 7
