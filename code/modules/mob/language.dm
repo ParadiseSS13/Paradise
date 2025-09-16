@@ -269,7 +269,7 @@
 
 /datum/language/trinary
 	name = "Trinary"
-	desc = "A standard encoding framework used to communicate on a verbal level by robotic units. Its vocabulary consists of beeping that varies in tone and pitch."
+	desc = "A standard encoding framework used to communicate on a verbal level by robotic units. Its vocabulary consists of beeping that varies in tone and pitch. Additionally, the language features several honorifics: /[name] for affection, \[name] for distaste, +[name] for speaking highly of someone, and -[name] for speaking down on them."
 	speech_verb = "states"
 	ask_verb = "queries"
 	exclaim_verbs = list("exclaims")
