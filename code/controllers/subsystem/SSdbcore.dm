@@ -423,7 +423,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(async)
 		rustlibs_sql_query_async(src)
 
-		if (!in_progress)
+		if(!in_progress)
 			CRASH("Query was not set as in progress - this is bad")
 
 		UNTIL(async_query_done())
@@ -520,15 +520,15 @@ SUBSYSTEM_DEF(dbcore)
 	var/error_message
 
 /datum/db_connection_request
-    var/host
-    var/port
-    var/user
-    var/pass
-    var/db_name
-    var/read_timeout
-    var/write_timeout
-    var/min_threads
-    var/max_threads
+	var/host
+	var/port
+	var/user
+	var/pass
+	var/db_name
+	var/read_timeout
+	var/write_timeout
+	var/min_threads
+	var/max_threads
 
 /**
   * # db_query
