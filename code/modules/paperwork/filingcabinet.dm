@@ -44,12 +44,12 @@
 			I.loc = src
 
 
-/obj/structure/filingcabinet/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+/obj/structure/filingcabinet/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(insert(O, user))
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='warning'>You can't put [O.name] in [src]!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/filingcabinet/wrench_act(mob/living/user, obj/item/I)

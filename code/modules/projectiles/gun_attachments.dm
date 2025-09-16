@@ -6,7 +6,6 @@
 	desc = "A universal syndicate small-arms suppressor for maximum espionage."
 	icon = 'icons/tgmc/objects/attachments.dmi'
 	icon_state = "suppressor"
-	item_state = "suppressor"
 	w_class = WEIGHT_CLASS_SMALL
 	var/oldsound = null
 	var/initial_w_class = null

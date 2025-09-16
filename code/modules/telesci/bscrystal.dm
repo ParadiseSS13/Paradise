@@ -4,7 +4,6 @@
 	desc = "A glowing bluespace crystal, not much is known about how they work. It looks very delicate."
 	icon = 'icons/obj/stacks/minerals.dmi'
 	icon_state = "bluespace_crystal" //This is the raw ore from lavaland, so should look like the ore.
-	item_state = "bluespace_crystal"
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "bluespace=6;materials=3"
