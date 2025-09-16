@@ -190,6 +190,10 @@
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return FINISH_ATTACK
+	if(finished_product)
+		to_chat(user, "<span class='warning'>[src] has a nearly-complete product!</span>")
+		return FINISH_ATTACK
+
 	if(!primary)
 		to_chat(user, "<span class='warning'>[src] lacks a primary component!</span>")
 		return FINISH_ATTACK
