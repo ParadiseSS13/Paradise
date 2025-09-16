@@ -139,6 +139,7 @@ SUBSYSTEM_DEF(dbcore)
 			switch(dc_result)
 				if(1)
 					// Do nothing - was a success
+					return // This return is here just to shut OD up
 				if(0)
 					log_sql("Failed to disconnect - pool is already offline")
 		else
