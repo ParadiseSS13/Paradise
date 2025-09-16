@@ -66,22 +66,22 @@
 
 /// Called slightly before tentacles ability comes off cooldown, as a warning
 /mob/living/basic/mining/goliath/proc/tentacles_ready()
-	if (stat == DEAD)
+	if(stat == DEAD)
 		return
 	icon_state = tentacle_warning_state
 
 /// When we use an ability, activate some kind of visual tell
 /mob/living/basic/mining/goliath/proc/used_ability(mob/living/source, datum/action/cooldown/ability)
 	SIGNAL_HANDLER
-	if (stat == DEAD || ability.IsAvailable())
+	if(stat == DEAD || ability.IsAvailable())
 		return // We died or the action failed for some reason like being out of range
-	if (istype(ability, /datum/action/cooldown/mob_cooldown/goliath_tentacles))
-		if (ability.cooldown_time <= 2 SECONDS)
+	if(istype(ability, /datum/action/cooldown/mob_cooldown/goliath_tentacles))
+		if(ability.cooldown_time <= 2 SECONDS)
 			return
 		icon_state = icon_living
 		addtimer(CALLBACK(src, PROC_REF(tentacles_ready)), ability.cooldown_time - 2 SECONDS, TIMER_DELETE_ME)
 		return
-	if (!COOLDOWN_FINISHED(src, ability_animation_cooldown))
+	if(!COOLDOWN_FINISHED(src, ability_animation_cooldown))
 		return
 	COOLDOWN_START(src, ability_animation_cooldown, 2 SECONDS)
 	Shake(1, 0, 1.5 SECONDS)
@@ -119,20 +119,20 @@
 
 /mob/living/basic/mining/goliath/ancient/Life(seconds_per_tick, times_fired)
 	. = ..()
-	if (!. || !isturf(loc))
+	if(!. || !isturf(loc))
 		return
-	if (!LAZYLEN(tentacle_target_turfs) || COOLDOWN_FINISHED(src, retarget_turfs_cooldown))
+	if(!LAZYLEN(tentacle_target_turfs) || COOLDOWN_FINISHED(src, retarget_turfs_cooldown))
 		cache_nearby_turfs()
-	for (var/turf/target_turf in tentacle_target_turfs)
-		if (target_turf.is_blocked_turf(exclude_mobs = TRUE))
+	for(var/turf/target_turf in tentacle_target_turfs)
+		if(target_turf.is_blocked_turf(exclude_mobs = TRUE))
 			tentacle_target_turfs -= target_turf
 			continue
-		if (prob(10))
+		if(prob(10))
 			new /obj/effect/temp_visual/goliath_tentacle(target_turf)
 
 /mob/living/basic/mining/goliath/ancient/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
-	if (loc == old_loc || stat == DEAD || !isturf(loc))
+	if(loc == old_loc || stat == DEAD || !isturf(loc))
 		return
 	cache_nearby_turfs()
 

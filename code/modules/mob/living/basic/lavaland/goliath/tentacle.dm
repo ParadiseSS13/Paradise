@@ -61,7 +61,7 @@
 
 /datum/status_effect/incapacitating/stun/goliath_tentacled/on_creation(mob/living/new_owner, set_duration, obj/effect/temp_visual/goliath_tentacle/tentacle)
 	. = ..()
-	if (!.)
+	if(!.)
 		return
 	src.tentacle = tentacle
 
@@ -74,7 +74,7 @@
 /datum/status_effect/incapacitating/stun/goliath_tentacled/on_remove()
 	. = ..()
 	UnregisterSignal(owner, list(COMSIG_CARBON_PRE_MISC_HELP, SIGNAL_ADDTRAIT(TRAIT_TENTACLE_IMMUNE)))
-	if (isnull(tentacle))
+	if(isnull(tentacle))
 		return
 	UnregisterSignal(tentacle, list(COMSIG_PARENT_QDELETING, COMSIG_GOLIATH_TENTACLE_RETRACTING))
 	tentacle.retract()

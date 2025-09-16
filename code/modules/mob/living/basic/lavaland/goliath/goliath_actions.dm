@@ -15,7 +15,7 @@
 
 /datum/action/cooldown/mob_cooldown/goliath_tentacles/PreActivate(atom/target)
 	target = get_turf(target)
-	if (get_dist(owner, target) > max_range)
+	if(get_dist(owner, target) > max_range)
 		return FALSE
 	return ..()
 
@@ -28,7 +28,7 @@
 		if(adjacent_target)
 			new /obj/effect/temp_visual/goliath_tentacle(adjacent_target)
 
-	if (isliving(target))
+	if(isliving(target))
 		owner.visible_message("<span class='warning'>[owner] digs its tentacles under [target]!</span>")
 	StartCooldown()
 	return TRUE
