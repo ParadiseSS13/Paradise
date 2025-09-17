@@ -39,13 +39,13 @@
 			I.forceMove(src)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/bookcase/attackby__legacy__attackchain(obj/item/O, mob/user)
+/obj/structure/bookcase/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(is_type_in_list(O, allowed_books))
 		if(!user.drop_item())
-			return
+			return ITEM_INTERACT_COMPLETE
 		O.forceMove(src)
 		update_icon(UPDATE_OVERLAYS)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 	if(istype(O, /obj/item/storage/bag/books))
 		var/obj/item/storage/bag/books/B = O
 		for(var/obj/item/T in B.contents)
@@ -53,10 +53,10 @@
 				B.remove_from_storage(T, src)
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
 		update_icon(UPDATE_OVERLAYS)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 	if(is_pen(O))
 		rename_interactive(user, O)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

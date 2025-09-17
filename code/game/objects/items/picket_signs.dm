@@ -65,7 +65,6 @@
 	icon_state = "floor_sign"
 	/// What does the sign say?
 	var/label = ""
-	new_attack_chain = TRUE
 
 /obj/structure/custom_sign/New(turf/loc, new_label)
 	. = ..()

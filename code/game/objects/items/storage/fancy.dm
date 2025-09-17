@@ -10,7 +10,9 @@
  *		Egg Box
  *		Candle Box
  *		Crayon Box
+ *		Matchbox
  *		Cigarette Box
+ *		Cigar Box
  *		Vial Box
  *		Aquatic Starter Kit
  */
@@ -168,10 +170,7 @@
 				return
 	..()
 
-/*
- * Matches Box
- */
-
+// MARK: MatchBox
 /obj/item/storage/fancy/matches
 	name = "matchbox"
 	desc = "A small box of Almost But Not Quite Plasma Premium Matches."
@@ -435,7 +434,63 @@
 	if(!length(contents))
 		. += "[icon_state]_empty"
 
+// MARK: Cigar Box
+/obj/item/storage/fancy/cigars
+	name = "plastic cigar box"
+	desc = "A cheap plastic box for holding cheap cigars. Only Nanotrasen would think something like this is a good idea."
+	icon = 'icons/obj/cigarettes.dmi'
+	icon_state = "cigar_box"
+	storage_slots = 6
+	max_combined_w_class = 6
+	can_hold = list(/obj/item/clothing/mask/cigarette/cigar)
+	icon_type = "cigar"
+	var/cigar_type = /obj/item/clothing/mask/cigarette/cigar
 
+/obj/item/storage/fancy/cigars/populate_contents()
+	for(var/I in 1 to storage_slots)
+		new cigar_type(src)
+
+/obj/item/storage/fancy/cigars/update_overlays()
+	. = ..()
+	for(var/I = 1 to length(contents))
+		var/obj/item/clothing/mask/cigarette/cigar/cigar = contents[I]
+		var/icon/new_cigar_icon = icon('icons/obj/cigarettes.dmi', "[initial(cigar.icon_state)]_[I]")
+		. += new_cigar_icon
+	
+/obj/item/storage/fancy/cigars/update_icon_state()
+	icon_state = "[initial(icon_state)]_open"
+
+/obj/item/storage/fancy/cigars/cohiba
+	name = "wooden cigar box"
+	icon_state = "wood_cigar_box"
+	desc = "An ornate wooden box with decorative brass inlays. Perfect for storing a collection of fine cigars."
+	cigar_type = /obj/item/clothing/mask/cigarette/cigar/cohiba
+
+/obj/item/storage/fancy/havana_cigar
+	name = "\improper Cuban cigar box"
+	desc = "A small, ornate wooden box with decorative brass inlays. It has space for a single cigar inside. The bottom portion of the box has a silk-covered for holding the cigar. \
+	Underneath the insert is a folded paper with embossed gold lettering explaining the long and illustrious history of Cuban cigars."
+	icon = 'icons/obj/cigarettes.dmi'
+	icon_state = "cuban_cigar_box"
+	w_class = WEIGHT_CLASS_SMALL
+	can_hold = list(/obj/item/clothing/mask/cigarette/cigar/havana) // It's so powerful it refuses anything else.
+	icon_type = "cigar"
+	storage_slots = 1
+	var/cigar_type = /obj/item/clothing/mask/cigarette/cigar/havana
+
+/obj/item/storage/fancy/havana_cigar/update_icon_state()
+	icon_state = "[initial(icon_state)]_open"
+
+/obj/item/storage/fancy/havana_cigar/populate_contents()
+	new cigar_type(src)
+
+/obj/item/storage/fancy/havana_cigar/update_overlays()
+	. = ..()
+	for(var/I = 1 to length(contents))
+		var/obj/item/clothing/mask/cigarette/cigar/cigar = contents[I]
+		var/icon/new_cigar_icon = icon('icons/obj/cigarettes.dmi', "h_[initial(cigar.icon_state)]")
+		. += new_cigar_icon
+	
 // MARK: Vial Box
 /obj/item/storage/fancy/vials
 	name = "vial storage box"

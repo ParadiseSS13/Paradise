@@ -5546,17 +5546,11 @@
 /area/station/maintenance/fpmaint)
 "bgN" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/ashtray/bronze,
-/obj/item/clothing/mask/cigarette/cigar/havana{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/machinery/light,
 /obj/machinery/newscaster/security_unit/directional/south,
+/obj/item/storage/fancy/cigars{
+	pixel_y = 8
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "bgP" = (
@@ -27307,6 +27301,7 @@
 /obj/item/stack/sheet/wood{
 	amount = 20
 	},
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "fts" = (
@@ -37065,11 +37060,9 @@
 /area/station/public/fitness)
 "hql" = (
 /obj/structure/table/wood/fancy/blue,
-/obj/item/ashtray/glass{
-	pixel_y = 3;
-	pixel_x = -3
+/obj/item/storage/fancy/cigars/cohiba{
+	pixel_y = 8
 	},
-/obj/item/clothing/mask/cigarette/cigar,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "hqr" = (
@@ -43587,6 +43580,9 @@
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_x = 10
 	},
+/obj/item/ashtray/bronze{
+	pixel_y = -10
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "iFN" = (
@@ -47572,7 +47568,6 @@
 "juE" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/flask/gold,
-/obj/item/clothing/mask/cigarette/cigar,
 /obj/machinery/camera{
 	c_tag = "Captain's Quarters";
 	dir = 1
@@ -86487,6 +86482,10 @@
 	pixel_y = 15;
 	pixel_x = -5
 	},
+/obj/item/ashtray/glass{
+	pixel_x = 6;
+	pixel_y = 3
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "ril" = (
@@ -113912,7 +113911,6 @@
 	pixel_y = 3;
 	pixel_x = -3
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
