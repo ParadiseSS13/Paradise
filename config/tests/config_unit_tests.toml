@@ -12,3 +12,5 @@ enabled = false
 
 [database_configuration]
 sql_enabled = true
+sql_username = "root"
+sql_password = "root"
