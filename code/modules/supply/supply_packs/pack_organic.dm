@@ -381,6 +381,7 @@
 	name = "Seeds Crate"
 	contains = list(/obj/item/seeds/tower,
 					/obj/item/seeds/chili,
+					/obj/item/seeds/cotton,
 					/obj/item/seeds/berry,
 					/obj/item/seeds/corn,
 					/obj/item/seeds/eggplant,
@@ -389,6 +390,7 @@
 					/obj/item/seeds/wheat,
 					/obj/item/seeds/wheat/rice,
 					/obj/item/seeds/carrot,
+					/obj/item/seeds/sunflower,
 					/obj/item/seeds/lettuce,
 					/obj/item/seeds/onion,
 					/obj/item/seeds/chanter,
