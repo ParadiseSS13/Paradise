@@ -284,7 +284,7 @@
 	)
 
 /obj/item/cartridge/ai
-	name = "S1LLY K.O.N.E. Cartridge"
+	name = "All-Seeing Cartridge"
 	desc = "A data cartridge made for the internal PDA of an AI."
 	programs = list(
 		new /datum/data/pda/app/power,

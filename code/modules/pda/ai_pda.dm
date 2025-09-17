@@ -4,6 +4,7 @@
 	ttone = "data"
 	model_name = "Thinktronic 6000 Internal Personal Data Assistant"
 	silicon_pda = TRUE
+	// No flashlight app - robot cart has a headlamp app instead.
 	programs = list(
 		new/datum/data/pda/app/main_menu,
 		new/datum/data/pda/app/notekeeper,
@@ -12,7 +13,6 @@
 		new/datum/data/pda/app/nanobank,
 		new/datum/data/pda/app/atmos_scanner,
 		new/datum/data/pda/app/games,
-		// Here our games go
 		new/datum/data/pda/app/game/minesweeper,
 		)
 
