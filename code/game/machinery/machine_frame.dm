@@ -90,6 +90,12 @@
 			icon_state = "box_0"
 
 /obj/structure/machine_frame/item_interaction(mob/living/user, obj/item/P, list/modifiers)
+	// Allow the borg gripper to pass the attack to the item it's holding.
+	if(istype(P, /obj/item/gripper))
+		var/obj/item/gripper/gripper = P
+		if(gripper.gripped_item)
+			return ..()
+
 	switch(state)
 		if(MACHINE_FRAME_EMPTY)
 			if(istype(P, /obj/item/stack/cable_coil))
