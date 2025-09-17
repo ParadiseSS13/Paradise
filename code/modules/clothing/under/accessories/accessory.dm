@@ -333,6 +333,12 @@
 /obj/item/clothing/accessory/holobadge/cord
 	icon_state = "holobadge-cord"
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/neck.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/neck.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/neck.dmi',
+	)
+
 /obj/item/clothing/accessory/holobadge/attack_self__legacy__attackchain(mob/user)
 	if(!stored_name)
 		to_chat(user, "Waving around a badge before swiping an ID would be pretty pointless.")
