@@ -1209,7 +1209,7 @@
 	name = "model 2495"
 	desc = "A rifle styled after an ancient Earth design. Concealed beneath the wooden furniture and forged metal is a modern laser gun. Features a hand-powered charger that can be used anywhere."
 	icon_state = "lever_action"
-	inhand_icon_state = null
+	inhand_icon_state = null // matches icon_state
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	origin_tech = "combat=5;magnets=4"
 	slot_flags = ITEM_SLOT_BACK
