@@ -191,11 +191,11 @@ fn sql_check_query(mut query: ByondValue) -> Result<ByondValue> {
                     query.write_var("in_progress", &ByondValue::new_num(0f32))?;
                     return Ok(ByondValue::null());
                 }
-                Err(_) => {
+                Err(e) => {
                     // It was not fine
                     query.write_var("last_error", &ByondValue::new_str(jobs::JOB_PANICKED)?)?;
                     query.write_var("in_progress", &ByondValue::new_num(0f32))?;
-                    return Ok(ByondValue::null());
+                    return Err(e.into());
                 }
             },
             // Query still executed
