@@ -16,32 +16,37 @@
 #define CHAMBER_OVERLOAD_ACTIVE	5
 
 #define REACTOR_LIGHT_COLOR "#569fff"
+
 #define TOTAL_CONTROL_RODS 5 // The max number of control rods.
+
+#define MIN_CHAMBERS_TO_OVERLOAD 20 // The amount of conencted chambers required before the overload is valid
+
 #define HEAT_MODIFIER 200 // a flat multiplier. Higher = more heat production.
 #define AVERAGE_HEAT_THRESHOLD 30 // The threshold the average heat-per-rod must exceed to generate coefficient.
 #define TOTAL_HEAT_THRESHOLD 600 // the temp (in K) needed to begin generating coefficient.
 #define HEAT_CONVERSION_RATIO 400 // How much heat over the threshold = an extra coefficient point.
+#define TEMP_GENERATION_CAP 40000 // The temperature the reactor can get to before limiting heat gen
+
+// If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
+#define NGCR_MELTDOWN_PERCENT 5
+#define NGCR_EMERGENCY_PERCENT 25
+#define NGCR_DANGER_PERCENT 50
+#define NGCR_WARNING_PERCENT 100
+#define CRITICAL_TEMPERATURE 10000
+#define WARNING_POINT 50 // begin sending warning messages
+#define EMERGENCY_POINT 700 // Begin sending warning messages over common
+#define MELTDOWN_POINT 1000 // The dammage cap where meltdown occurs. higher = longer to meltdown
+
+#define NGCR_COUNTDOWN_TIME 30 SECONDS // How long the meltdown countdown lasts
+#define WARNING_DELAY 60 // time in deciseconds between warnings
+
 #define HEAT_DAMAGE_RATE 500 // The rate at which damage increases due to heat
 #define MOL_MINIMUM 100 // The amount of mols of gas needed before it begins to take damage while operational
 #define DAMAGE_MINIMUM 0.002 // The minimum amount of damage done when taking damage
 #define DAMAGE_MAXIMUM 3 // The highest amount of damage done when taking damage
 #define MOL_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from no gas
 #define HEAT_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from high heat
-#define MELTDOWN_POINT 1000 // The dammage cap where meltdown occurs. higher = longer to meltdown
 #define EXPLOSION_MODIFIER 4 // Adjusts the size of the engine explosion
-#define WARNING_POINT 50 // begin sending warning messages
-#define EMERGENCY_POINT 700 // Begin sending warning messages over common
-#define WARNING_DELAY 60 // time in deciseconds between warnings
-#define NGCR_COUNTDOWN_TIME 30 SECONDS // How long the meltdown countdown lasts
-#define TEMP_GENERATION_CAP 40000 // The temperature the reactor can get to before limiting heat gen
-#define MIN_CHAMBERS_TO_OVERLOAD 20 // The amount of conencted chambers required before the overload is valid
-
-// If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
-#define NGCR_MELTDOWN_PERCENT 5
-#define NGCR_EMERGENCY_PERCENT 25
-#define NGCR_DANGER_PERCENT 50
-#define NGCR_WARNING_PERCENT 99
-#define CRITICAL_TEMPERATURE 10000
 
 #warn Idea todo: Allow grilling on an active reactor
 #warn Idea todo: Make some lavaland loot into special rods/upgrades
@@ -52,8 +57,9 @@
 #warn Idea todo: Control rods break slowly at high temps
 #warn Idea todo: Reactor leaks heat at high temperatures
 #warn Idea todo: ripley grippers can pick up rods without damage
-#warn Idea todo: coolant rods can eject from the reactor at high temps
 #warn Idea todo: Grenades that force start rods
+#warn Idea todo: make rods radioactive when outside of houseing or shielding pools
+#warn Idea todo: Add a button on the monitor to activate venting
 
 #warn event idea: Pufts of contaminating rad smoke
 
@@ -124,6 +130,8 @@
 	var/safety_override = FALSE
 	/// Disables changing the desired power value
 	var/control_lockout = FALSE
+	/// Has the chamber been welded shut. Uh oh!
+	var/welded = FALSE
 
 /obj/machinery/power/fission_reactor/roundstart
 	primary_engine = TRUE
@@ -379,7 +387,7 @@
 		else
 			reactivity_multiplier = 20
 
-		damage += rand(1, DAMAGE_MAXIMUM) // this wont actually blow us up early
+		damage += max(0.5, rand(1, DAMAGE_MAXIMUM * 20) / 20) // this wont actually blow us up early
 		return
 
 	final_power = 0
@@ -395,7 +403,7 @@
 			continue
 		if(chamber.chamber_state == CHAMBER_OPEN)
 			continue
-		var/durability_mod = clamp(1.5 * (chamber.held_rod.durability / chamber.held_rod.max_durability) - 0.25, 0.25, 1)
+		var/durability_mod = chamber.held_rod.get_durability_mod()
 		if(chamber.chamber_state == CHAMBER_DOWN && chamber.operational) // We generate heat but not power while its down.
 			power_total = chamber.power_total * durability_mod // some things have negative power, so we put this before fuel rod checks
 			if(istype(chamber.held_rod, /obj/item/nuclear_rod/fuel))
@@ -446,14 +454,24 @@
 	var/new_damage = 0
 	if(!total_mols)
 		new_damage += DAMAGE_MAXIMUM * MOL_DAMAGE_MULTIPLIER
-	else if(total_mols <= MOL_MINIMUM)
-		new_damage += max((1 - (total_mols / MOL_MINIMUM) * MOL_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
-	if(temp > heat_damage_threshold)
-		// breaking the equasion up a little for readability. Should look like this: Y = (-AB ^ -X) + A
-		var/rate_of_decay = 1.125 // closer to 1 = slower to reach DAMAGE_MAXIMUM. Do not set at or below 1 it will break
-		var/damage_increments = -((temp - heat_damage_threshold) / HEAT_DAMAGE_RATE)
-		var/damage_calculation = (-DAMAGE_MAXIMUM * (rate_of_decay ** damage_increments)) + DAMAGE_MAXIMUM
-		new_damage += max(damage_calculation * HEAT_DAMAGE_MULTIPLIER, DAMAGE_MINIMUM) // god math sucks. This gives decaying increments of damage for heat generation as it gets closer to DAMAGE_MAXIMUM.
+	else
+		if(total_mols <= MOL_MINIMUM)
+			new_damage += max((1 - (total_mols / MOL_MINIMUM) * MOL_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
+		if(check_overheating())
+			// breaking the equasion up a little for readability. Should look like this: Y = (-AB ^ -X) + A
+			var/rate_of_decay = 1.125 // closer to 1 = slower to reach DAMAGE_MAXIMUM. Do not set at or below 1 it will break
+			var/damage_increments = -((temp - heat_damage_threshold) / HEAT_DAMAGE_RATE)
+			var/damage_calculation = (-DAMAGE_MAXIMUM * (rate_of_decay ** damage_increments)) + DAMAGE_MAXIMUM
+			new_damage += max(damage_calculation * HEAT_DAMAGE_MULTIPLIER, DAMAGE_MINIMUM) // god math sucks. This gives decaying increments of damage for heat generation as it gets closer to DAMAGE_MAXIMUM.
+
+			if(prob(new_damage / 10))
+				var/list/coolers = list()
+				for(var/obj/machinery/reactor_chamber/chamber in connected_chambers)
+					if(istype(chamber.held_rod, /obj/item/nuclear_rod/coolant) && chamber.chamber_state == CHAMBER_DOWN)
+						coolers += chamber
+				var/obj/machinery/reactor_chamber/failure = coolers[rand(1, length(coolers))]
+				if(!welded)
+					failure.eject_rod()
 
 	if(damage > WARNING_POINT && (REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY && send_message && !final_countdown)
 		try_alarm(new_damage)
@@ -638,7 +656,14 @@
 	final_power = 0
 	icon_state = "reactor_off"
 
-
+/obj/machinery/power/fission_reactor/proc/check_overheating()
+	var/temp = air_contents.temperature()
+	var/mols = air_contents.total_moles()
+	if(!mols)
+		return TRUE
+	if(temp >= heat_damage_threshold)
+		return TRUE
+	return FALSE
 
 /// MARK: Rod Chamber
 
@@ -701,9 +726,7 @@
 	. = ..()
 	held_rod = new /obj/item/nuclear_rod/moderator/heavy_water(src)
 
-
-
-// needs to be late so it does not initialize before the reactor or the other neighbors
+// needs to be late so it does not initialize before the reactor or the other neighbors are ready
 /obj/machinery/reactor_chamber/LateInitialize()
 	. = ..()
 	get_neighbors()
@@ -730,11 +753,15 @@
 /obj/machinery/reactor_chamber/on_deconstruction()
 	if(linked_reactor)
 		desync()
+	if(held_rod)
+		held_rod.forceMove(loc)
+		held_rod = null
 	return ..()
 
 /obj/machinery/reactor_chamber/Destroy()
 	if(linked_reactor)
 		desync()
+	QDEL_NULL(held_rod)
 	return ..()
 
 ///  Removes the chamber from neighbor from its neighborss, and forces them to run status checks
@@ -891,15 +918,49 @@
 		return
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 
-/obj/machinery/reactor_chamber/proc/raise()
+/obj/machinery/reactor_chamber/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/reactor_chamber/multitool_act(mob/living/user, obj/item/I)
+	if(chamber_state != CHAMBER_DOWN)
+		return
+	. = TRUE
+	if(!held_rod)
+		to_chat(user, "<span class='warning'>There is no nuclear rod inside this housing chamber.</span>")
+		return ITEM_INTERACT_COMPLETE
+	var/operating_rate = linked_reactor.operating_percent()
+	var/durability_mod = held_rod.get_durability_mod()
+	var/message
+	message += "[held_rod] is currently contained within this chamber."
+
+	if(held_rod.durability == 0)
+		message += "<br>The rod has been fully depleted and rendered inert."
+	else
+		message += "<br>The rod's integrity is at [held_rod.durability / held_rod.max_durability]%."
+
+	if(power_total && operational)
+		message += "<br>The chamber is currently producing [power_total * operating_rate * durability_mod] watts of energy."
+	else
+		message += "<br>The chamber is producing no power."
+
+	if(heat_total)
+		message += "<br>The chamber is currently producing [heat_total * HEAT_MODIFIER * operating_rate * durability_mod] joules of heat."
+	else
+		message += "<br>The chamber is producing no heat."
+
+/obj/machinery/reactor_chamber/proc/raise(playsound = TRUE)
 	chamber_state = CHAMBER_UP
 	icon_state = "chamber_up"
 	density = TRUE
-	playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 	operational = FALSE
 	enriching = FALSE
 	requirements_met = FALSE
 	layer = ABOVE_MOB_LAYER
+	power_total = 0
+	if(playsound)
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+
 	update_icon(UPDATE_OVERLAYS)
 	for(var/obj/machinery/reactor_chamber/chamber in neighbors)
 		if(!chamber.held_rod)
@@ -910,10 +971,9 @@
 			chamber.requirements_met = FALSE
 		chamber.calculate_stats()
 
-/obj/machinery/reactor_chamber/proc/lower()
+/obj/machinery/reactor_chamber/proc/lower(playsound = TRUE)
 	density = FALSE
 	layer = BELOW_OBJ_LAYER
-	playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 	if(linked_reactor.safety_override)
 		chamber_state = CHAMBER_OVERLOAD_IDLE
 		icon_state = "chamber_overload"
@@ -931,17 +991,21 @@
 			requirements_met = FALSE
 		calculate_stats()
 	update_icon(UPDATE_OVERLAYS)
+	if(playsound)
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 
-/obj/machinery/reactor_chamber/proc/close()
+/obj/machinery/reactor_chamber/proc/close(playsound = TRUE)
 	chamber_state = CHAMBER_UP
 	icon_state = "chamber_up"
-	playsound(loc, 'sound/machines/switch.ogg', 50, 1)
+	if(playsound)
+		playsound(loc, 'sound/machines/switch.ogg', 50, 1)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/reactor_chamber/proc/open()
+/obj/machinery/reactor_chamber/proc/open(playsound = TRUE)
 	chamber_state = CHAMBER_OPEN
 	icon_state = "chamber_open"
-	playsound(loc, 'sound/machines/switch.ogg', 50, 1)
+	if(playsound)
+		playsound(loc, 'sound/machines/switch.ogg', 50, 1)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/reactor_chamber/proc/set_idle_overload()
@@ -1056,6 +1120,67 @@
 		heat_total *= held_rod.heat_amp_mod  // we generate heat even when its not operational
 		if(operational && chamber.chamber_state != CHAMBER_DOWN)
 			power_total *= held_rod.power_amp_mod
+
+/obj/machinery/reactor_chamber/proc/eject_rod()
+	raise(FALSE)
+	open(FALSE)
+	var/datum/effect_system/smoke_spread/bad/smoke = new()
+	smoke.set_up(5, FALSE, loc)
+	smoke.start()
+	var/distance_traveled = rand(6, 20)
+	var/angle = rand(0, 360)
+	var/turf/end = get_turf_in_angle(angle, loc, distance_traveled)
+	var/obj/effect/immovablerod/nuclear_rod/nuclear_rod = new(loc, end)
+	var/matrix/M = new
+	M.Turn(angle)
+	nuclear_rod.transform = M
+	nuclear_rod.icon = held_rod.icon
+	nuclear_rod.icon_state = held_rod.icon_state
+	nuclear_rod.held_rod = held_rod
+	held_rod.forceMove(src)
+	held_rod = null
+	update_icon(UPDATE_OVERLAYS)
+	playsound(src, 'sound/effects/bang.ogg', 70, TRUE)
+	audible_message("POW!")
+
+
+
+/obj/effect/immovablerod/nuclear_rod
+	name = "\improper Nuclear Coolant Rod"
+	desc = "Oh fuck this shouldnt be happening."
+	var/obj/held_rod
+
+/// lets not break the reactor with this.
+/obj/effect/immovablerod/nuclear_rod/clong_thing(atom/victim)
+	if(istype(victim, /obj/machinery/power/fission_reactor))
+		return
+	if(istype(victim, /obj/structure/filler))
+		var/obj/structure/filler/filler = victim
+		if(filler.parent && istype(filler.parent, /obj/machinery/power/fission_reactor))
+			return
+	if(istype(victim, /obj/machinery/reactor_chamber))
+		return
+
+	if(isobj(victim) && victim.density)
+		victim.ex_act(EXPLODE_HEAVY)
+	else if(ismob(victim))
+		if(ishuman(victim))
+			var/mob/living/carbon/human/H = victim
+			H.visible_message("<span class='danger'>[H.name] is penetrated by an ejected coolant rod!</span>",
+				"<span class='userdanger'>The rod penetrates you!</span>",
+				"<span class ='danger'>You hear a CLANG!</span>")
+			H.adjustBruteLoss(100) // not as strong as a normal rod
+		if(victim.density || prob(20)) // we want to hit more things than a normal rod though
+			victim.ex_act(EXPLODE_HEAVY)
+
+/obj/effect/immovablerod/nuclear_rod/Move()
+	. = ..()
+	if(loc == end)
+		qdel(src)
+
+/obj/effect/immovablerod/nuclear_rod/Destroy()
+	held_rod.forceMove(end)
+	return ..()
 
 /obj/item/circuitboard/machine/reactor_chamber
 	board_name = "Reactor Chamber"
@@ -1355,5 +1480,35 @@
 #undef CHAMBER_OPEN
 
 #undef REACTOR_LIGHT_COLOR
-#undef WARNING_DELAY
+
+#undef TOTAL_CONTROL_RODS
+
+#undef MIN_CHAMBERS_TO_OVERLOAD
+
+#undef HEAT_MODIFIER
+#undef AVERAGE_HEAT_THRESHOLD
+#undef TOTAL_HEAT_THRESHOLD
+#undef HEAT_CONVERSION_RATIO
+#undef TEMP_GENERATION_CAP
+
+#undef NGCR_MELTDOWN_PERCENT
+#undef NGCR_EMERGENCY_PERCENT
+#undef NGCR_DANGER_PERCENT
+#undef NGCR_WARNING_PERCENT
 #undef CRITICAL_TEMPERATURE
+#undef WARNING_POINT
+#undef EMERGENCY_POINT
+#undef MELTDOWN_POINT
+
+#undef NGCR_COUNTDOWN_TIME
+#undef WARNING_DELAY
+
+#undef HEAT_DAMAGE_RATE
+#undef MOL_MINIMUM
+#undef DAMAGE_MINIMUM
+#undef DAMAGE_MAXIMUM
+#undef MOL_DAMAGE_MULTIPLIER
+#undef HEAT_DAMAGE_MULTIPLIER
+#undef EXPLOSION_MODIFIER
+
+

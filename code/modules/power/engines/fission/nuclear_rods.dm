@@ -7,9 +7,9 @@
 	/// The path of the object required to fabricate this rod. leave null for nothing
 	var/required_object
 	/// How much durability is left before the rod is useless
-	var/durability = 6000
+	var/durability
 	/// The maximum amount of durability for this rod. Used for percentage calculations
-	var/max_durability = 6000
+	var/max_durability = 3000
 	/// How fast does this rod degrade? higher = faster
 	var/degredation_speed = 1
 	/// How much heat does this rod add by default
@@ -27,6 +27,10 @@
 	/// Is this design visible on the rod fabricator
 	var/craftable = TRUE
 
+/obj/item/nuclear_rod/Initialize(mapload)
+	. = ..()
+	durability = max_durability
+
 /obj/item/nuclear_rod/examine(mob/user)
 	. = ..()
 	if(length(adjacent_requirements))
@@ -37,6 +41,11 @@
 		. += "This rod has the following neighbor requirements: [requirement_list]"
 	else
 		. += "This rod has no neighbor requirements."
+
+/obj/item/nuclear_rod/proc/get_durability_mod()
+	var/temp_mod
+	temp_mod = clamp(1.5 * (durability / max_durability) - 0.25, 0.25, 1)
+	return temp_mod
 
 /obj/item/nuclear_rod/fuel
 	name = "any fuel rod"
@@ -77,8 +86,9 @@
 	power_amount = 20 KW
 	heat_amp_mod = 1.8
 	power_amp_mod = 1.1
-	durability = 6000
 	rad_type = BETA_RAD
+	heat_enrich_threshold = 10 // all uranium rods surrounding: 1.8 x 1.8 x 1.8 x 1.8
+	power_enrich_threshold = 6.5 // all graphite rods surrounding: 1.6 x 1.6 x 1.6 x 1.6
 	heat_enrich_result = /obj/item/nuclear_rod/fuel/weak_thorium
 	power_enrich_result = /obj/item/nuclear_rod/fuel/weak_plutonium
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator,)
@@ -93,6 +103,7 @@
 	power_amp_mod = 1.1
 	durability = 10000
 	rad_type = ALPHA_RAD
+	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/coolant,
@@ -100,12 +111,13 @@
 
 /obj/item/nuclear_rod/fuel/weak_plutonium
 	name = "weak plutonium fuel rod"
-	heat_amount = 8
+	heat_amount = 10
 	power_amount = 30 KW
 	heat_amp_mod = 1.6
 	power_amp_mod = 1.1
-	durability = 10000
+	max_durability = 5000
 	rad_type = ALPHA_RAD
+	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/coolant,
@@ -121,12 +133,20 @@
 	desc = "A basic moderation rod filled with a varint of water comprised of deuterium instead of hydrogen atoms."
 	heat_amp_mod = 1.1
 	power_amp_mod = 1.4
-	durability = 6000
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
+
+/obj/item/nuclear_rod/moderator/graphite
+	name = "graphite moderator"
+	desc = "A nuclear moderation rod comprised of primarily of layered graphite. A staple of fission reactor operation through the ages."
+	heat_amp_mod = 1.1
+	power_amp_mod = 1.4
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 2000)
 
 /obj/item/nuclear_rod/coolant
 	name = "any coolant rod"
 	desc = "This is a base item and should not be found. Alert a developer!"
 	icon_state = "bananium"
+
 
 /obj/item/nuclear_rod/coolant/light_water
 	name = "light water circulator"
@@ -134,5 +154,5 @@
 	heat_amount = -10
 	heat_amp_mod = 1
 	power_amount = -10 KW
-	durability = 6000
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
