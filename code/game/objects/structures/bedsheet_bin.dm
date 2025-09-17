@@ -254,7 +254,6 @@ LINEN BINS
 	anchored = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
-	new_attack_chain = TRUE
 	var/amount = 20
 	var/list/sheets = list()
 	var/obj/item/hidden = null
@@ -308,22 +307,23 @@ LINEN BINS
 	if(istype(used, /obj/item/bedsheet))
 		if(!user.drop_item())
 			to_chat(user, "<span class='notice'>[used] is stuck to your hand!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		used.forceMove(src)
 		sheets.Add(used)
 		amount++
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>You put [used] in [src].</span>")
+		return ITEM_INTERACT_COMPLETE
 	else if(amount && !hidden && used.w_class < WEIGHT_CLASS_BULKY)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
 		if(used.flags & ABSTRACT)
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
 			to_chat(user, "<span class='notice'>[used] is stuck to your hand!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		used.forceMove(src)
 		hidden = used
 		to_chat(user, "<span class='notice'>You hide [used] among the sheets.</span>")
-
+		return ITEM_INTERACT_COMPLETE
 
 
 /obj/structure/bedsheetbin/attack_hand(mob/user)

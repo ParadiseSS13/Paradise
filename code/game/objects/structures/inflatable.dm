@@ -53,7 +53,6 @@
 	icon_state = "wall"
 	var/torn = /obj/item/inflatable/torn
 	var/intact = /obj/item/inflatable
-	new_attack_chain = TRUE
 
 /obj/structure/inflatable/examine(mob/user)
 	. = ..()
@@ -219,7 +218,7 @@
 
 	if(!useResource(user))
 		return ITEM_INTERACT_COMPLETE
-	
+
 	return ..()
 
 /obj/item/inflatable/cyborg/proc/useResource(mob/user)
