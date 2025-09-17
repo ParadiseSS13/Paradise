@@ -11,4 +11,4 @@ maximum_lavaland_zlevels = 0
 enabled = false
 
 [database_configuration]
-enabled = true
+sql_enabled = true
