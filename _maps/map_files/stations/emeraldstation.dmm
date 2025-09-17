@@ -33461,16 +33461,7 @@
 /turf/simulated/floor/plating/airless,
 /area/station/aisat/breakroom)
 "gFg" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen/multi,
-/obj/item/stack/tape_roll{
-	pixel_x = 4;
-	pixel_y = 3
-	},
+/obj/structure/closet/secure_closet/librarian,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -63882,8 +63873,16 @@
 /area/station/medical/chemistry)
 "mNF" = (
 /obj/structure/table/wood,
-/obj/item/camera,
 /obj/effect/spawner/random/cobweb/right/frequent,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/stack/tape_roll{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -87655,10 +87654,11 @@
 /area/station/engineering/atmos)
 "rtX" = (
 /obj/structure/table/wood,
-/obj/item/book/codex_gigas,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/item/camera,
+/obj/item/book/codex_gigas,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
