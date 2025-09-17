@@ -1,7 +1,7 @@
 use crate::jobs;
 use byondapi::{prelude::ValueType, value::ByondValue};
 use dashmap::DashMap;
-use eyre::Result;
+use eyre::{eyre, Result};
 use mysql::{
     consts::{ColumnFlags, ColumnType::*},
     prelude::Queryable,
@@ -193,9 +193,25 @@ fn sql_check_query(mut query: ByondValue) -> Result<ByondValue> {
                 }
                 Err(e) => {
                     // It was not fine
-                    query.write_var("last_error", &ByondValue::new_str(jobs::JOB_PANICKED)?)?;
-                    query.write_var("in_progress", &ByondValue::new_num(0f32))?;
-                    return Err(e.into());
+                    if res.len() == 0 {
+                        // But maybe it was
+                        // Send us an dataset back
+                        let localres: LocalResponse = LocalResponse {
+                            status: "ok".to_string(),
+                            affected: None,
+                            last_insert_id: None,
+                            rows: None,
+                        };
+                        query_data_to_byond(localres, query);
+                        query.write_var("last_error", &ByondValue::null())?;
+                        query.write_var("in_progress", &ByondValue::new_num(0f32))?;
+                        return Ok(ByondValue::null());
+                    } else {
+                        // But it probably wasnt
+                        query.write_var("last_error", &ByondValue::new_str(jobs::JOB_PANICKED)?)?;
+                        query.write_var("in_progress", &ByondValue::new_num(0f32))?;
+                        return Err(eyre!("{} - {}", e, &res));
+                    }
                 }
             },
             // Query still executed
