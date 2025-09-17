@@ -182,13 +182,22 @@ fn sql_check_query(mut query: ByondValue) -> Result<ByondValue> {
     match jobs::check(&id) {
         // Job id exists, check progress
         Some(res) => match res {
-            Ok(res) => {
-                let query_response: LocalResponse = serde_json::from_str(&res).unwrap();
-                query_data_to_byond(query_response, query);
-                query.write_var("last_error", &ByondValue::null())?;
-                query.write_var("in_progress", &ByondValue::new_num(0f32))?;
-                return Ok(ByondValue::null());
-            }
+            Ok(res) => match serde_json::from_str(&res) {
+                Ok(v) => {
+                    // It decoded fine
+                    let query_response: LocalResponse = v;
+                    query_data_to_byond(query_response, query);
+                    query.write_var("last_error", &ByondValue::null())?;
+                    query.write_var("in_progress", &ByondValue::new_num(0f32))?;
+                    return Ok(ByondValue::null());
+                }
+                Err(_) => {
+                    // It was not fine
+                    query.write_var("last_error", &ByondValue::new_str(jobs::JOB_PANICKED)?)?;
+                    query.write_var("in_progress", &ByondValue::new_num(0f32))?;
+                    return Ok(ByondValue::null());
+                }
+            },
             // Query still executed
             Err(flume::TryRecvError::Empty) => {
                 query.write_var("last_error", &ByondValue::new_str(jobs::NO_RESULTS_YET)?)?;
