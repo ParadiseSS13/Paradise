@@ -5546,17 +5546,11 @@
 /area/station/maintenance/fpmaint)
 "bgN" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/ashtray/bronze,
-/obj/item/clothing/mask/cigarette/cigar/havana{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/machinery/light,
 /obj/machinery/newscaster/security_unit/directional/south,
+/obj/item/storage/fancy/cigars{
+	pixel_y = 8
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "bgP" = (
@@ -27307,6 +27301,7 @@
 /obj/item/stack/sheet/wood{
 	amount = 20
 	},
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "fts" = (
@@ -33466,16 +33461,7 @@
 /turf/simulated/floor/plating/airless,
 /area/station/aisat/breakroom)
 "gFg" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen/multi,
-/obj/item/stack/tape_roll{
-	pixel_x = 4;
-	pixel_y = 3
-	},
+/obj/structure/closet/secure_closet/librarian,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -37065,11 +37051,9 @@
 /area/station/public/fitness)
 "hql" = (
 /obj/structure/table/wood/fancy/blue,
-/obj/item/ashtray/glass{
-	pixel_y = 3;
-	pixel_x = -3
+/obj/item/storage/fancy/cigars/cohiba{
+	pixel_y = 8
 	},
-/obj/item/clothing/mask/cigarette/cigar,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "hqr" = (
@@ -43587,6 +43571,9 @@
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_x = 10
 	},
+/obj/item/ashtray/bronze{
+	pixel_y = -10
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "iFN" = (
@@ -47572,7 +47559,6 @@
 "juE" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/flask/gold,
-/obj/item/clothing/mask/cigarette/cigar,
 /obj/machinery/camera{
 	c_tag = "Captain's Quarters";
 	dir = 1
@@ -63890,8 +63876,16 @@
 /area/station/medical/chemistry)
 "mNF" = (
 /obj/structure/table/wood,
-/obj/item/camera,
 /obj/effect/spawner/random/cobweb/right/frequent,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/stack/tape_roll{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -66739,13 +66733,11 @@
 	},
 /area/station/science/lobby)
 "npL" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/emergency,
-/obj/item/crowbar,
 /obj/machinery/camera{
 	c_tag = "Expedition";
 	dir = 8
 	},
+/obj/machinery/salvage_redemption,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -86487,6 +86479,10 @@
 	pixel_y = 15;
 	pixel_x = -5
 	},
+/obj/item/ashtray/glass{
+	pixel_x = 6;
+	pixel_y = 3
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "ril" = (
@@ -87659,10 +87655,11 @@
 /area/station/engineering/atmos)
 "rtX" = (
 /obj/structure/table/wood,
-/obj/item/book/codex_gigas,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/item/camera,
+/obj/item/book/codex_gigas,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -113912,7 +113909,6 @@
 	pixel_y = 3;
 	pixel_x = -3
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -120057,6 +120053,12 @@
 	icon_state = "dark"
 	},
 /area/station/science/server)
+"xQK" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/emergency,
+/obj/item/crowbar,
+/turf/simulated/floor/plasteel,
+/area/station/supply/expedition)
 "xQP" = (
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/shoes/orange,
@@ -149266,7 +149268,7 @@ frH
 frH
 frH
 npL
-frH
+xQK
 eFW
 cqd
 vwR
