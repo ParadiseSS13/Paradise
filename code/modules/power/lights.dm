@@ -1024,7 +1024,7 @@
 	desc = "A replacement light tube."
 	icon_state = "ltube"
 	base_state = "ltube"
-	item_state = "c_tube"
+	inhand_icon_state = "c_tube"
 	brightness_range = 8
 
 /obj/item/light/tube/large
@@ -1043,7 +1043,7 @@
 	desc = "A replacement light bulb."
 	icon_state = "lbulb"
 	base_state = "lbulb"
-	item_state = "contvapour"
+	inhand_icon_state = "contvapour"
 	brightness_range = 5
 
 /obj/item/light/throw_impact(atom/hit_atom)
