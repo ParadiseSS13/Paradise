@@ -111,7 +111,7 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 	message_admins("<span class='notice'>[key_name_admin(admin)] [processes ? "unfroze" : "froze"] a supermatter crystal</span>")
 	log_admin("[key_name(admin)] [processes ? "unfroze" : "froze"] a supermatter crystal")
 
-/obj/machinery/power/fission_reactor/admin_Freeze(client/admin)
+/obj/machinery/atmospherics/fission_reactor/admin_Freeze(client/admin)
 	var/obj/effect/overlay/adminoverlay/freeze_overlay = new
 	freeze_overlay.pixel_x = 16
 	if(!admin_intervention)

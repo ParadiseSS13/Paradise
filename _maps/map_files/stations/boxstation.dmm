@@ -40248,7 +40248,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
 "cSI" = (
-/obj/machinery/power/fission_reactor/roundstart,
+/obj/machinery/atmospherics/fission_reactor/roundstart,
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

@@ -42,26 +42,26 @@
 #define HEAT_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from high heat
 #define EXPLOSION_MODIFIER 4 // Adjusts the size of the engine explosion
 
+// #warn Idea todo: Make chambers weldable
+// #warn Idea todo: Make chambers self-weld at high temps
+// #warn Idea todo: Control rods break slowly at high temps
+//#warn Idea todo: Reactor leaks heat at high temperatures
+// #warn Idea todo: ripley grippers can pick up rods
+// #warn Idea todo: Make coolant rods eject violently at high temperatures
+//#warn Idea todo: Add a button on the monitor to activate venting
+
 #warn Idea todo: Allow grilling on an active reactor
 #warn Idea todo: Make some lavaland loot into special rods/upgrades
 #warn Idea todo: Bananium rods?
 #warn Idea todo: syndicate meltdown rods
-// #warn Idea todo: Make chambers weldable
-// #warn Idea todo: Make chambers self-weld at high temps
-#warn Idea todo: Control rods break slowly at high temps
-#warn Idea todo: Reactor leaks heat at high temperatures
-// #warn Idea todo: ripley grippers can pick up rods
 #warn Idea todo: make ripleys interact safely with rod chambers
 #warn Idea todo: Grenades that force start rods
 #warn Idea todo: make rods radioactive when outside of houseing or shielding pools
-// #warn Idea todo: Make coolant rods eject violently at high temperatures
-#warn Idea todo: Add a button on the monitor to activate venting
-
 #warn event idea: Pufts of contaminating rad smoke
 
 /// MARK: Fission Reactor
 
-/obj/machinery/power/fission_reactor
+/obj/machinery/atmospherics/fission_reactor
 	name = "Nuclear Fission Reactor"
 	desc = "An ancient yet reliable form of power generation utilising fissile materials to generate heat."
 	icon = 'icons/goonstation/objects/reactor.dmi'
@@ -94,7 +94,7 @@
 	var/desired_power = 0
 	/// What percentage are the reactor control rods running at? Minimum raised for each broken control rod
 	var/operating_power = 0
-	///The amount of damage we have currently
+	/// The amount of damage we have currently
 	var/damage = 0
 	/// Is this the primary station engine that spawns in round? Basically
 	var/primary_engine = FALSE
@@ -106,13 +106,13 @@
 	var/heat_damage_threshold = 1000
 	/// The amount of heat created by averaging total heat against all rods
 	var/average_heatgen = 0
-	///The alert we send when we've reached warning_point
+	/// The alert we send when we've reached warning_point
 	var/warning_alert = "Danger! Reactor core chamber meltdown in progress!"
-	///Our "Shit is no longer fucked" message. We send it when temp_damage is 0
+	/// Our "Shit is no longer fucked" message. We send it when temp_damage is 0
 	var/safe_alert = "Reactor conditions stabilized within operating parameters. Core meltdown averted."
-	///The alert we send when we've reached emergency_point
+	/// The alert we send when we've reached emergency_point
 	var/emergency_alert = "REACTOR CORE MELTDOWN IMMINENT."
-	///Time in 1/10th of seconds since the last sent warning
+	/// Time in 1/10th of seconds since the last sent warning
 	var/lastwarning = 0
 	/// a boolean value for if we need to send a
 	var/send_message = FALSE
@@ -126,11 +126,19 @@
 	var/safety_override = FALSE
 	/// Disables changing the desired power value
 	var/control_lockout = FALSE
+	/// Toggles whether the reactor is erupting
+	var/venting = FALSE
+	/// Is the vent allowed to be closed without manual intervention?
+	var/vent_lockout = FALSE
+		/// How often do we want to process the vent?
+	var/ticks_per_run = 5
+	/// How long has it been since we processed the vent?
+	var/tick_counter = 0
 
-/obj/machinery/power/fission_reactor/roundstart
+/obj/machinery/atmospherics/fission_reactor/roundstart
 	primary_engine = TRUE
 
-/obj/machinery/power/fission_reactor/examine(mob/user)
+/obj/machinery/atmospherics/fission_reactor/examine(mob/user)
 	. = ..()
 	if(!(stat & BROKEN))
 		return
@@ -138,7 +146,7 @@
 	. += ""
 
 
-/obj/machinery/power/fission_reactor/examine_more(mob/user)
+/obj/machinery/atmospherics/fission_reactor/examine_more(mob/user)
 	. = ..()
 	. += "The NGCR-5600 Nuclear Reactor was first actualized as a replacement for older, static nuclear or coal models before the discovery of supermatter harvesting techniques. \
 	This reactor became widespread due to the modularity and ease of use of existing station materials, allowing it to be inserted into most stations that posessed basic engineering infrastructure."
@@ -146,7 +154,7 @@
 	. += "However, despite the popularity of the engine, the need for frequent upkeep and higher energy demands led to innovations in newer, more advanced energy sources. \
 	This engine soon became a relic of the past, but still remains a staple in many stations due to its long term reliability. According to Nanotrasen, that is."
 
-/obj/machinery/power/fission_reactor/Initialize(mapload)
+/obj/machinery/atmospherics/fission_reactor/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/multitile, list(
 		list(1, MACH_CENTER, 1),
@@ -161,29 +169,28 @@
 	if(primary_engine)
 		GLOB.main_fission_reactor = src
 	build_reactor_network()
-	connect_to_network()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/power/fission_reactor/ex_act(severity)
+/obj/machinery/atmospherics/fission_reactor/ex_act(severity)
 	if(severity == EXPLODE_DEVASTATE) // Very sturdy.
 		set_broken()
 
-/obj/machinery/power/fission_reactor/blob_act(obj/structure/blob/B)
+/obj/machinery/atmospherics/fission_reactor/blob_act(obj/structure/blob/B)
 	if(prob(20))
 		set_broken()
 
-/obj/machinery/power/fission_reactor/zap_act(power, zap_flags)
+/obj/machinery/atmospherics/fission_reactor/zap_act(power, zap_flags)
 	. = ..()
 	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
 // This shouldnt happen normally
-/obj/machinery/power/fission_reactor/Destroy()
+/obj/machinery/atmospherics/fission_reactor/Destroy()
 	investigate_log("was destroyed!", INVESTIGATE_REACTOR)
 	clear_reactor_network()
 	return ..()
 
-/obj/machinery/power/fission_reactor/update_overlays()
+/obj/machinery/atmospherics/fission_reactor/update_overlays()
 	. = ..()
 	if(!(stat & BROKEN))
 		var/rod_state = round((operating_power + 25) / 25)
@@ -191,14 +198,14 @@
 		. += "rods_[control_rods_remaining]_[rod_state]"
 
 /// Links all valid chambers to the reactor itself.
-/obj/machinery/power/fission_reactor/proc/build_reactor_network()
+/obj/machinery/atmospherics/fission_reactor/proc/build_reactor_network()
 	for(var/turf/T in RECT_TURFS(1, 2, src))
 		for(var/obj/machinery/reactor_chamber/chamber in T)
 			if(!chamber.linked_reactor && !chamber.skip_link)
 				chamber.form_link(src)
 
 
-/obj/machinery/power/fission_reactor/proc/clear_reactor_network(var/restart = FALSE)
+/obj/machinery/atmospherics/fission_reactor/proc/clear_reactor_network(var/restart = FALSE)
 	for(var/obj/machinery/reactor_chamber/linked in connected_chambers)
 		linked.linked_reactor = null
 		connected_chambers -= linked
@@ -208,7 +215,7 @@
 	if(restart)
 		build_reactor_network()
 
-/obj/machinery/power/fission_reactor/proc/set_broken(meltdown = TRUE)
+/obj/machinery/atmospherics/fission_reactor/proc/set_broken(meltdown = TRUE)
 	if(stat & BROKEN)
 		return
 
@@ -225,7 +232,7 @@
 	else
 		icon_state = "broken"
 
-/obj/machinery/power/fission_reactor/proc/meltdown()
+/obj/machinery/atmospherics/fission_reactor/proc/meltdown()
 	update_appearance(UPDATE_OVERLAYS)
 	icon_state = "meltdown"
 	sleep(2.5 SECONDS)
@@ -233,12 +240,12 @@
 	explosion(src.loc, explosion_modifier / 2, explosion_modifier, explosion_modifier + 3, explosion_modifier + 6, ignorecap = TRUE, smoke = TRUE)
 	icon_state = "broken"
 
-/obj/machinery/power/fission_reactor/proc/set_fixed()
+/obj/machinery/atmospherics/fission_reactor/proc/set_fixed()
 	stat &= ~BROKEN
 	icon = "reactor_off"
 	build_reactor_network()
 
-/obj/machinery/power/fission_reactor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/machinery/atmospherics/fission_reactor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
 	if(!(stat & BROKEN))
 		return
@@ -273,7 +280,7 @@
 			to_chat(user, "<span class='warning'>You need at least five sheets of plastitanium to reform the reactor core structure!</span>")
 		return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/power/fission_reactor/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/fission_reactor/crowbar_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_CROWBAR)
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
 			playsound(src, I.usesound, 50, 1)
@@ -281,8 +288,13 @@
 			to_chat(user, "<span class='information'>You remove any remaining damaged structure from the housing.</span>")
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return ITEM_INTERACT_COMPLETE
+	if(!(stat & BROKEN) && venting)
+		if(I.use_tool(src, user, (8 SECONDS * I.toolspeed), volume = I.tool_volume))
+			venting = FALSE
+			return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/power/fission_reactor/wrench_act(mob/living/user, obj/item/I)
+
+/obj/machinery/atmospherics/fission_reactor/wrench_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_WRENCH)
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
 			playsound(src, I.usesound, 50, 1)
@@ -290,8 +302,14 @@
 			to_chat(user, "<span class='information'>You secure the new plastitanium structure in place.</span>")
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return ITEM_INTERACT_COMPLETE
+	if(!(stat & BROKEN) && control_rods_remaining < TOTAL_CONTROL_RODS)
+		if(I.use_tool(src, user, (8 SECONDS * I.toolspeed), volume = I.tool_volume))
+			control_rods_remaining++
+			update_icon(UPDATE_OVERLAYS)
+			return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/power/fission_reactor/screwdriver_act(mob/living/user, obj/item/I)
+
+/obj/machinery/atmospherics/fission_reactor/screwdriver_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_SCREWDRIVER)
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
 			playsound(src, I.usesound, 50, 1)
@@ -299,7 +317,7 @@
 			set_fixed()
 		return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/power/fission_reactor/welder_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/fission_reactor/welder_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_WELDING)
 		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
 			playsound(src, I.usesound, 50, 1)
@@ -308,19 +326,78 @@
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return ITEM_INTERACT_COMPLETE
 
-/obj/machinery/power/fission_reactor/proc/get_integrity()
+/obj/machinery/atmospherics/fission_reactor/proc/get_integrity()
 	var/integrity = damage / MELTDOWN_POINT
 	integrity = round(100 - integrity * 100, 0.01)
 	integrity = integrity < 0 ? 0 : integrity
 	return integrity
 
-/obj/machinery/power/fission_reactor/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/fission_reactor/multitool_act(mob/living/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	var/obj/item/multitool/multi = I
 	multi.set_multitool_buffer(user, src)
 
-/obj/machinery/power/fission_reactor/process()
+/obj/machinery/atmospherics/fission_reactor/process_atmos()
+	if(!venting)
+		return
+
+	if(admin_intervention)
+		return
+
+	tick_counter += SSair.wait
+	if(tick_counter >= ticks_per_run)
+		var/datum/milla_safe/reactor_process/milla = new()
+		milla.invoke_async(src)
+		tick_counter -= ticks_per_run
+
+/datum/milla_safe/reactor_process
+
+/datum/milla_safe/reactor_process/on_run(obj/machinery/atmospherics/fission_reactor/reactor)
+	var/turf/T = get_turf(reactor)
+	var/datum/gas_mixture/environment = get_turf_air(T)
+
+	if(isnull(T)) // We have a null turf...something is wrong, stop processing this entity.
+		return PROCESS_KILL
+
+	if(!istype(reactor.loc, /turf)) // how in the FUCK did we manage this
+		return  //Yeah just stop.
+
+	if(T.density)
+		var/turf/did_it_melt = T.ChangeTurf(T.baseturf)
+		if(!did_it_melt.density) //In case some joker finds way to place these on indestructible walls
+			reactor.visible_message("<span class='warning'>[src] melts through [T]!</span>")
+		return
+
+	var/pressure_delta = reactor.air_contents.return_pressure() - environment.return_pressure()
+	pressure_delta /= 10
+
+	// based on pressure_pump to equalize pressure
+	// already equalized
+	if(abs(pressure_delta) < 0.01)
+		return FALSE
+
+	if(pressure_delta > 0)
+		// transfer from pipe air to environment
+		if((reactor.air_contents.total_moles() > 0) && (reactor.air_contents.temperature() > 0))
+			var/transfer_moles = pressure_delta * reactor.air_contents.volume / (reactor.air_contents.temperature() * R_IDEAL_GAS_EQUATION)
+			transfer_moles = min(transfer_moles, reactor.air_contents.volume)
+
+			var/datum/gas_mixture/removed = reactor.air_contents.remove(transfer_moles)
+			environment.merge(removed)
+	else
+		// transfer from environment to pipe air
+		pressure_delta = -pressure_delta
+		if((environment.total_moles() > 0) && (environment.temperature() > 0))
+			var/transfer_moles = pressure_delta * reactor.air_contents.volume / (environment.temperature() * R_IDEAL_GAS_EQUATION)
+			transfer_moles = min(transfer_moles, reactor.air_contents.volume)
+
+			var/datum/gas_mixture/removed = environment.remove(transfer_moles)
+			reactor.air_contents.merge(removed)
+	return TRUE
+
+
+/obj/machinery/atmospherics/fission_reactor/process()
 	if(stat & BROKEN)
 		return
 
@@ -428,8 +505,6 @@
 	if(!can_create_power)
 		return
 
-	produce_direct_power(final_power)
-
 	var/heat_capacity = air_contents.heat_capacity()
 	if(heat_capacity)
 		if(temp < TEMP_GENERATION_CAP)
@@ -463,23 +538,28 @@
 				for(var/obj/machinery/reactor_chamber/chamber in connected_chambers)
 					if(istype(chamber.held_rod, /obj/item/nuclear_rod/coolant) && chamber.chamber_state == CHAMBER_DOWN)
 						coolers += chamber
-				var/obj/machinery/reactor_chamber/failure = coolers[rand(1, length(coolers))]
-				if(!failure.welded) // you got lucky punk
-					failure.eject_rod()
+				if(length(coolers))
+					var/obj/machinery/reactor_chamber/failure = coolers[rand(1, length(coolers))]
+					if(!failure.welded) // you got lucky punk
+						failure.eject_rod()
 			if(prob(new_damage * EVENT_MODIFIER))
 				var/list/valid_chambers = list()
 				for(var/obj/machinery/reactor_chamber/chamber in connected_chambers)
 					if(chamber.chamber_state == CHAMBER_DOWN)
 						valid_chambers += chamber
-				var/obj/machinery/reactor_chamber/failure = valid_chambers[rand(1, length(valid_chambers))]
-				while(length(valid_chambers))
-					if(!failure.welded)
-						failure.weld_shut()
-						break
-					else
-						valid_chambers -= failure
-			if(prob(new_damage *EVENT_MODIFIER * 3) && control_rods_remaining > 0) // more probable
+				if(length(valid_chambers))
+					var/obj/machinery/reactor_chamber/failure = valid_chambers[rand(1, length(valid_chambers))]
+					while(length(valid_chambers))
+						if(!failure.welded)
+							failure.weld_shut()
+							break
+						else
+							valid_chambers -= failure // just keep cycling through.
+			if(prob(new_damage * EVENT_MODIFIER * 3) && control_rods_remaining > 0) // more probable
 				control_rod_failure()
+
+			if(prob(new_damage * EVENT_MODIFIER * 0.5)) // rarer
+				begin_venting()
 
 	if(damage > WARNING_POINT && (REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY && send_message && !final_countdown)
 		try_alarm(new_damage)
@@ -493,7 +573,7 @@
 		send_message = FALSE
 		countdown()
 
-/obj/machinery/power/fission_reactor/proc/try_alarm(new_damage)
+/obj/machinery/atmospherics/fission_reactor/proc/try_alarm(new_damage)
 	lastwarning = REALTIMEOFDAY
 	if(!new_damage)
 		radio.autosay("<b>[safe_alert] Integrity: [get_integrity()]%</b>", name, "Engineering")
@@ -510,7 +590,7 @@
 		if(SUPERMATTER_DELAMINATING)
 			radio.autosay("<span class='big'>[emergency_alert] Integrity: [get_integrity()]%</span>", name, null)
 
-/obj/machinery/power/fission_reactor/proc/get_status()
+/obj/machinery/atmospherics/fission_reactor/proc/get_status()
 	var/integrity = get_integrity()
 	if(integrity < NGCR_MELTDOWN_PERCENT)
 		return SUPERMATTER_DELAMINATING
@@ -527,7 +607,7 @@
 	if(air_contents.temperature() > (heat_damage_threshold * 0.8))
 		return SUPERMATTER_NOTIFY
 
-/obj/machinery/power/fission_reactor/proc/shut_off()
+/obj/machinery/atmospherics/fission_reactor/proc/shut_off()
 	starting_up = TRUE
 	offline = TRUE
 	can_create_power = FALSE
@@ -538,12 +618,12 @@
 		send_message = FALSE
 	#warn add a sound here
 
-/obj/machinery/power/fission_reactor/proc/boot_up()
+/obj/machinery/atmospherics/fission_reactor/proc/boot_up()
 	offline = FALSE
 	icon_state = "reactor_starting"
 	#warn add a sound here
 
-/obj/machinery/power/fission_reactor/proc/become_operational()
+/obj/machinery/atmospherics/fission_reactor/proc/become_operational()
 	starting_up = FALSE
 	offline = FALSE
 	can_create_power = TRUE
@@ -555,12 +635,12 @@
 	#warn add a sound here
 
 /// returns a value from 0 to 1 based off current operating power
-/obj/machinery/power/fission_reactor/proc/operating_percent()
+/obj/machinery/atmospherics/fission_reactor/proc/operating_percent()
 	var/operating_rate = 1 - operating_power / 100
 	return operating_rate
 
 // Pretty much ripped from the SM
-/obj/machinery/power/fission_reactor/proc/countdown()
+/obj/machinery/atmospherics/fission_reactor/proc/countdown()
 	if(final_countdown)
 		return
 	final_countdown = TRUE
@@ -593,7 +673,7 @@
 	set_broken()
 
 /// Begins the process of the centcomm doomsday overload
-/obj/machinery/power/fission_reactor/proc/prep_overload()
+/obj/machinery/atmospherics/fission_reactor/proc/prep_overload()
 	desired_power = 0
 	INVOKE_ASYNC(src, PROC_REF(scram))
 	control_lockout = TRUE
@@ -602,7 +682,7 @@
 		chamber.set_idle_overload()
 
 /// Checks all connected chambers for a fuel rod
-/obj/machinery/power/fission_reactor/proc/check_overload_ready()
+/obj/machinery/atmospherics/fission_reactor/proc/check_overload_ready()
 	if(length(connected_chambers) < MIN_CHAMBERS_TO_OVERLOAD)
 		return FALSE
 	for(var/obj/machinery/reactor_chamber/chamber in connected_chambers)
@@ -616,13 +696,13 @@
 	return TRUE
 
 /// sets all the chambers to active overload position and unlocks the reactor.
-/obj/machinery/power/fission_reactor/proc/set_overload()
+/obj/machinery/atmospherics/fission_reactor/proc/set_overload()
 	control_lockout = FALSE
 	for(var/obj/machinery/reactor_chamber/chamber in connected_chambers)
 		chamber.set_active_overload()
 
 /// The proc for actually blowing up the station. It is too late
-/obj/machinery/power/fission_reactor/proc/finalize_overload()
+/obj/machinery/atmospherics/fission_reactor/proc/finalize_overload()
 	icon_state = "meltdown"
 	playsound(src, 'sound/machines/alarm.ogg', 100, FALSE, 5)
 	if(SSticker && SSticker.mode)
@@ -642,7 +722,7 @@
 		return
 
 /// Stops the reactor in a somewhat fancy way. Purely for anyone watching the monitor.
-/obj/machinery/power/fission_reactor/proc/scram()
+/obj/machinery/atmospherics/fission_reactor/proc/scram()
 	var/power_fraction = final_power / operating_power
 	reactivity_multiplier = 1
 	offline = TRUE
@@ -664,7 +744,7 @@
 	final_power = 0
 	icon_state = "reactor_off"
 
-/obj/machinery/power/fission_reactor/proc/check_overheating()
+/obj/machinery/atmospherics/fission_reactor/proc/check_overheating()
 	var/temp = air_contents.temperature()
 	var/mols = air_contents.total_moles()
 	if(!mols)
@@ -673,11 +753,17 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/power/fission_reactor/proc/control_rod_failure()
-	playsound(src, 'sound/effects/meteorimpact.ogg', 70, FALSE, 5)
-	radio.autosay("<b>ALERT: Control rod failure! [control_rods_remaining] control rods remaining.</b>", name, "Engineering")
+/obj/machinery/atmospherics/fission_reactor/proc/control_rod_failure()
+	playsound(src, 'sound/effects/meteorimpact.ogg', 80, FALSE)
 	control_rods_remaining--
+	radio.autosay("<b>ALERT: Control rod failure! [control_rods_remaining] functional control rods remaining.</b>", name, "Engineering")
 	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/atmospherics/fission_reactor/proc/begin_venting()
+	var/datum/effect_system/smoke_spread/bad/smoke = new()
+	smoke.set_up(3, FALSE, loc)
+	smoke.start()
+	venting = TRUE
 
 /// MARK: Rod Chamber
 
@@ -695,7 +781,7 @@
 	flags_2 = NO_MALF_EFFECT_2
 
 	/// Each reactor chamber can only be linked to a single reactor, if somehow theres two.
-	var/obj/machinery/power/fission_reactor/linked_reactor
+	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
 	/// Holds the specific rod inserted into the chamber
 	var/obj/item/nuclear_rod/held_rod
 	/// Is the chamber up, down, or open
@@ -1066,7 +1152,7 @@
 
 
 /// Forms the two-way link between the reactor and the chamber, then spreads it
-/obj/machinery/reactor_chamber/proc/form_link(var/obj/machinery/power/fission_reactor/reactor)
+/obj/machinery/reactor_chamber/proc/form_link(var/obj/machinery/atmospherics/fission_reactor/reactor)
 	if(linked_reactor || skip_link) // A check to prevent duplicates or unwanted chambers
 		return
 	linked_reactor = reactor
@@ -1074,7 +1160,7 @@
 	spread_link(reactor)
 
 /// Will spread the linked reactor to other nearby chambers
-/obj/machinery/reactor_chamber/proc/spread_link(var/obj/machinery/power/fission_reactor/reactor)
+/obj/machinery/reactor_chamber/proc/spread_link(var/obj/machinery/atmospherics/fission_reactor/reactor)
 	var/turf/nearby_turf
 	for(var/direction in GLOB.cardinal)
 		nearby_turf = get_step(src, direction)
@@ -1087,7 +1173,7 @@
 	var/turf/nearby_turf
 	for(var/direction in GLOB.cardinal)
 		nearby_turf = get_step(src, direction)
-		for(var/obj/machinery/power/fission_reactor/reactor in nearby_turf.contents)
+		for(var/obj/machinery/atmospherics/fission_reactor/reactor in nearby_turf.contents)
 			form_link(reactor)
 			continue
 		for(var/obj/machinery/reactor_chamber/chamber in nearby_turf.contents)
@@ -1202,11 +1288,11 @@
 
 /// lets not break the reactor with this.
 /obj/effect/immovablerod/nuclear_rod/clong_thing(atom/victim)
-	if(istype(victim, /obj/machinery/power/fission_reactor))
+	if(istype(victim, /obj/machinery/atmospherics/fission_reactor))
 		return
 	if(istype(victim, /obj/structure/filler))
 		var/obj/structure/filler/filler = victim
-		if(filler.parent && istype(filler.parent, /obj/machinery/power/fission_reactor))
+		if(filler.parent && istype(filler.parent, /obj/machinery/atmospherics/fission_reactor))
 			return
 	if(istype(victim, /obj/machinery/reactor_chamber))
 		return
@@ -1259,7 +1345,7 @@
 	flags_2 = NO_MALF_EFFECT_2
 
 	/// Hold which reactor the intake is connected to.
-	var/obj/machinery/power/fission_reactor/linked_reactor
+	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
 	/// Is this vent taking air in or out. TRUE by default.
 	var/intake_vent = TRUE
 
@@ -1352,10 +1438,10 @@
 /obj/machinery/atmospherics/unary/reactor_gas_node/proc/form_link()
 	linked_reactor = null
 	var/turf/T = get_step(src, REVERSE_DIR(dir))
-	for(var/obj/machinery/power/fission_reactor/reactor in T)
+	for(var/obj/machinery/atmospherics/fission_reactor/reactor in T)
 		linked_reactor = reactor
 	for(var/obj/structure/filler/filler in T)
-		if(istype(filler.parent, /obj/machinery/power/fission_reactor))
+		if(istype(filler.parent, /obj/machinery/atmospherics/fission_reactor))
 			linked_reactor = filler.parent
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/multitool_act(mob/living/user, obj/item/I)
@@ -1404,7 +1490,7 @@
 	/// Last status of the active reactor for caching purposes
 	var/last_status
 	/// Reference to the active reactor
-	var/obj/machinery/power/fission_reactor/active
+	var/obj/machinery/atmospherics/fission_reactor/active
 
 /obj/machinery/computer/fission_monitor/Initialize(mapload)
 	. = ..()
@@ -1449,7 +1535,7 @@
 	if(!I.multitool_check_buffer(user))
 		return
 	var/obj/item/multitool/multitool = I
-	if(istype(multitool.buffer, /obj/machinery/power/fission_reactor))
+	if(istype(multitool.buffer, /obj/machinery/atmospherics/fission_reactor))
 		active = multitool.buffer
 		to_chat(user, "<span class='notice'>You load the buffer's linking data to [src].</span>")
 
@@ -1474,6 +1560,7 @@
 	var/datum/gas_mixture/air = active.air_contents
 	var/power_kilowatts = round((active.final_power / 1000), 1)
 
+	data["venting"] = active.venting
 	data["NGCR_integrity"] = active.get_integrity()
 	data["NGCR_power"] = power_kilowatts
 	data["NGCR_ambienttemp"] = air.temperature()
@@ -1513,6 +1600,13 @@
 
 	if(action == "set_throttle")
 		active.desired_power = text2num(params["NGCR_throttle"])
+
+	if(action == "toggle_vent")
+		if(active.vent_lockout)
+			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+			visible_message("<span class='warning'>ERROR: Vent servos unresponsive. Manual closure required.</span>")
+		else
+			active.venting = !active.venting
 
 /obj/machinery/computer/fission_monitor/attack_ai(mob/user)
 	attack_hand(user)
@@ -1556,5 +1650,3 @@
 #undef MOL_DAMAGE_MULTIPLIER
 #undef HEAT_DAMAGE_MULTIPLIER
 #undef EXPLOSION_MODIFIER
-
-

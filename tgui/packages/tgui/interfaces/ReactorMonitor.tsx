@@ -1,4 +1,4 @@
-import { Knob, LabeledList, ProgressBar, Section, Stack } from 'tgui-core/components';
+import { Button, Knob, LabeledList, ProgressBar, Section, Stack } from 'tgui-core/components';
 import { toFixed } from 'tgui-core/math';
 
 import { useBackend } from '../backend';
@@ -12,6 +12,7 @@ interface FissionReactorData {
     area_name: string;
     integrity: number;
   }>;
+  venting: boolean;
   NGCR_integrity: number;
   NGCR_power: number;
   NGCR_ambienttemp: number;
@@ -30,6 +31,7 @@ export const ReactorMonitor = (props) => {
   const logScale = (value: number): number => Math.log2(16 + Math.max(0, value)) - 4;
   const { act, data } = useBackend<FissionReactorData>();
   const {
+    venting,
     NGCR_integrity,
     NGCR_power,
     NGCR_ambienttemp,
@@ -113,9 +115,9 @@ export const ReactorMonitor = (props) => {
                     minValue={0}
                     maxValue={logScale(50000)}
                     ranges={{
-                      good: [logScale(1), logScale(300)],
-                      average: [-Infinity, logScale(1000)],
-                      bad: [logScale(1000), Infinity],
+                      good: [logScale(1), logScale(1000)],
+                      average: [-Infinity, logScale(3000)],
+                      bad: [logScale(3000), Infinity],
                     }}
                   >
                     {toFixed(NGCR_ambientpressure) + ' kPa'}
@@ -157,7 +159,19 @@ export const ReactorMonitor = (props) => {
           <Stack.Item grow basis={0}>
             <Stack fill vertical>
               <Stack.Item grow>
-                <Section fill scrollable title="Gases">
+                <Section
+                  fill
+                  scrollable
+                  title="Gases"
+                  buttons={
+                    <Button
+                      icon={'power-off'}
+                      content={venting ? 'Vent Open' : 'Vent Closed'}
+                      selected={venting}
+                      onClick={() => act('toggle_vent')}
+                    />
+                  }
+                >
                   <LabeledList>
                     {filteredGases.map((gas) => (
                       <LabeledList.Item key={gas.name} label={getGasLabel(gas.name, gas.name)}>
