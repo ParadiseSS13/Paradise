@@ -243,8 +243,8 @@
 	var/sql = "SELECT id, author, title, content, summary, rating, raters, primary_category, secondary_category, tertiary_category, ckey, reports FROM library" + search_query[1] + " LIMIT :lowerlimit, :upperlimit"
 	var/list/sql_params = search_query[2]
 
-	sql_params["lowerlimit"] = initial
-	sql_params["upperlimit"] = range
+	sql_params["lowerlimit"] = "[initial]"
+	sql_params["upperlimit"] = "[range]"
 
 	var/datum/db_query/select_query = SSdbcore.NewQuery(sql, sql_params)
 
