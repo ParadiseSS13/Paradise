@@ -404,7 +404,12 @@ fn byondvalue_to_mysql(val: ByondValue) -> mysql::Value {
             match v {
                 ValueType::Number => {
                     let num = val.get_number().unwrap();
-                    mysql::Value::Float(num)
+                    // Detect integer values vs. true floats
+                    if num.fract() == 0.0 {
+                        mysql::Value::Int(num as i64)
+                    } else {
+                        mysql::Value::Float(num)
+                    }
                 }
                 ValueType::String => {
                     let bstr = val.get_string().unwrap();
