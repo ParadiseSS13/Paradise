@@ -30,6 +30,13 @@
 #define SUPERMATTER_EMERGENCY 5		// Integrity < 50%
 #define SUPERMATTER_DELAMINATING 6	// Pretty obvious, Integrity < 25%
 
+// The states of nuclear reactor chambers.
+#define CHAMBER_DOWN	 		1
+#define CHAMBER_UP		 		2
+#define CHAMBER_OPEN			3
+#define CHAMBER_OVERLOAD_IDLE	4
+#define CHAMBER_OVERLOAD_ACTIVE	5
+
 // More defines for the suppermatter
 /// Higher == Crystal safe operational temperature is higher.
 #define SUPERMATTER_HEAT_PENALTY_THRESHOLD 40

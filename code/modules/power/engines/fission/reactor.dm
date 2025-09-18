@@ -7,19 +7,13 @@
 #define REACTOR_NEEDS_PLASTEEL		6
 #define REACTOR_NEEDS_SCREWDRIVER	7
 
-
-// The states of reactor chambers
-#define CHAMBER_DOWN	 		1
-#define CHAMBER_UP		 		2
-#define CHAMBER_OPEN			3
-#define CHAMBER_OVERLOAD_IDLE	4
-#define CHAMBER_OVERLOAD_ACTIVE	5
-
 #define REACTOR_LIGHT_COLOR "#569fff"
 
 #define TOTAL_CONTROL_RODS 5 // The max number of control rods.
 
 #define MIN_CHAMBERS_TO_OVERLOAD 20 // The amount of conencted chambers required before the overload is valid
+
+#define EVENT_MODIFIER 0.1 // multiplies the commonality of dangerous events.
 
 #define HEAT_MODIFIER 200 // a flat multiplier. Higher = more heat production.
 #define AVERAGE_HEAT_THRESHOLD 30 // The threshold the average heat-per-rod must exceed to generate coefficient.
@@ -52,13 +46,15 @@
 #warn Idea todo: Make some lavaland loot into special rods/upgrades
 #warn Idea todo: Bananium rods?
 #warn Idea todo: syndicate meltdown rods
-#warn Idea todo: Make chambers weldable
-#warn Idea todo: Make chambers self-weld at high temps
+// #warn Idea todo: Make chambers weldable
+// #warn Idea todo: Make chambers self-weld at high temps
 #warn Idea todo: Control rods break slowly at high temps
 #warn Idea todo: Reactor leaks heat at high temperatures
-#warn Idea todo: ripley grippers can pick up rods without damage
+// #warn Idea todo: ripley grippers can pick up rods
+#warn Idea todo: make ripleys interact safely with rod chambers
 #warn Idea todo: Grenades that force start rods
 #warn Idea todo: make rods radioactive when outside of houseing or shielding pools
+// #warn Idea todo: Make coolant rods eject violently at high temperatures
 #warn Idea todo: Add a button on the monitor to activate venting
 
 #warn event idea: Pufts of contaminating rad smoke
@@ -130,8 +126,6 @@
 	var/safety_override = FALSE
 	/// Disables changing the desired power value
 	var/control_lockout = FALSE
-	/// Has the chamber been welded shut. Uh oh!
-	var/welded = FALSE
 
 /obj/machinery/power/fission_reactor/roundstart
 	primary_engine = TRUE
@@ -464,14 +458,28 @@
 			var/damage_calculation = (-DAMAGE_MAXIMUM * (rate_of_decay ** damage_increments)) + DAMAGE_MAXIMUM
 			new_damage += max(damage_calculation * HEAT_DAMAGE_MULTIPLIER, DAMAGE_MINIMUM) // god math sucks. This gives decaying increments of damage for heat generation as it gets closer to DAMAGE_MAXIMUM.
 
-			if(prob(new_damage / 10))
+			if(prob(new_damage * EVENT_MODIFIER))
 				var/list/coolers = list()
 				for(var/obj/machinery/reactor_chamber/chamber in connected_chambers)
 					if(istype(chamber.held_rod, /obj/item/nuclear_rod/coolant) && chamber.chamber_state == CHAMBER_DOWN)
 						coolers += chamber
 				var/obj/machinery/reactor_chamber/failure = coolers[rand(1, length(coolers))]
-				if(!welded)
+				if(!failure.welded) // you got lucky punk
 					failure.eject_rod()
+			if(prob(new_damage * EVENT_MODIFIER))
+				var/list/valid_chambers = list()
+				for(var/obj/machinery/reactor_chamber/chamber in connected_chambers)
+					if(chamber.chamber_state == CHAMBER_DOWN)
+						valid_chambers += chamber
+				var/obj/machinery/reactor_chamber/failure = valid_chambers[rand(1, length(valid_chambers))]
+				while(length(valid_chambers))
+					if(!failure.welded)
+						failure.weld_shut()
+						break
+					else
+						valid_chambers -= failure
+			if(prob(new_damage *EVENT_MODIFIER * 3) && control_rods_remaining > 0) // more probable
+				control_rod_failure()
 
 	if(damage > WARNING_POINT && (REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY && send_message && !final_countdown)
 		try_alarm(new_damage)
@@ -665,10 +673,16 @@
 		return TRUE
 	return FALSE
 
+/obj/machinery/power/fission_reactor/proc/control_rod_failure()
+	playsound(src, 'sound/effects/meteorimpact.ogg', 70, FALSE, 5)
+	radio.autosay("<b>ALERT: Control rod failure! [control_rods_remaining] control rods remaining.</b>", name, "Engineering")
+	control_rods_remaining--
+	update_icon(UPDATE_OVERLAYS)
+
 /// MARK: Rod Chamber
 
 /obj/machinery/reactor_chamber
-	name = "Rod Housing Chamber"
+	name = "rod housing chamber"
 	desc = "A chamber used to house nuclear rods of various types to facilitate a fission reaction."
 	icon = 'icons/obj/fission/reactor_chamber.dmi'
 	icon_state = "chamber_down"
@@ -700,6 +714,8 @@
 	var/power_total
 	/// Is the chamber currently in an enrichment process
 	var/enriching = FALSE
+	/// Has the chamber been welded shut. Uh oh!
+	var/welded = FALSE
 
 /obj/machinery/reactor_chamber/Initialize(mapload)
 	. = ..()
@@ -805,6 +821,8 @@
 				state_overlay.icon_state = "orange"
 			else
 				state_overlay.icon_state = "red"
+		if(welded)
+			. += "welded"
 
 	if(chamber_state == CHAMBER_OVERLOAD_IDLE)
 		if(held_rod && istype(held_rod, /obj/item/nuclear_rod/fuel))
@@ -812,8 +830,6 @@
 	if(chamber_state == CHAMBER_OVERLOAD_ACTIVE)
 		state_overlay.icon_state = "overload_active"
 	. += state_overlay
-
-
 
 // check for multiple on a tile and nuke it
 /obj/machinery/reactor_chamber/proc/dupe_check()
@@ -842,6 +858,9 @@
 	switch(chamber_state)
 		if(CHAMBER_DOWN, CHAMBER_OVERLOAD_IDLE)
 			if(!Adjacent(user))
+				return
+			if(welded)
+				to_chat(user, "<span class='warning'>[src] is welded shut. It wont budge!</span>")
 				return
 			var/delay = 1 SECONDS
 			if(!linked_reactor.offline)
@@ -921,6 +940,29 @@
 /obj/machinery/reactor_chamber/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/reactor_chamber/welder_act(mob/living/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		if(chamber_state != CHAMBER_DOWN)
+			return ITEM_INTERACT_COMPLETE
+		to_chat(user, "<span class='warning'>You begin [welded ? "welding" : "unwelding"] [src]</span>")
+		if(!I.use_tool(src, user, (6 SECONDS) * I.toolspeed, volume = I.tool_volume))
+			return ITEM_INTERACT_COMPLETE
+		if(welded)
+			unweld()
+		else
+			weld_shut()
+		update_icon(UPDATE_OVERLAYS)
+	else
+		if(obj_integrity < max_integrity)
+			to_chat(user, "<span class='warning'>You begin repairing the [src]</span>")
+			if(!I.use_tool(src, user, (3 SECONDS) * I.toolspeed, volume = I.tool_volume))
+				return ITEM_INTERACT_COMPLETE
+			obj_integrity = max_integrity // lets make sure we can keep these healthy if need be
+		else
+			to_chat(user, "<span class='warning'>the [src] is not in need of repair</span>")
+			return ITEM_INTERACT_COMPLETE
+
 
 /obj/machinery/reactor_chamber/multitool_act(mob/living/user, obj/item/I)
 	if(chamber_state != CHAMBER_DOWN)
@@ -1143,7 +1185,15 @@
 	playsound(src, 'sound/effects/bang.ogg', 70, TRUE)
 	audible_message("POW!")
 
+/obj/machinery/reactor_chamber/proc/weld_shut()
+	welded = TRUE
+	playsound(loc, 'sound/items/welder2.ogg', 60, 1)
+	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/reactor_chamber/proc/unweld()
+	welded = FALSE
+	playsound(loc, 'sound/items/welder2.ogg', 60, 1)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/effect/immovablerod/nuclear_rod
 	name = "\improper Nuclear Coolant Rod"
@@ -1197,7 +1247,7 @@
 /// MARK: Gas Node
 
 /obj/machinery/atmospherics/unary/reactor_gas_node
-	name = "Reactor Gas Intake"
+	name = "reactor gas intake"
 	desc = "A sturdy-looking gas inlet that injects gas into the reactor"
 	icon = 'icons/obj/fission/reactor_parts.dmi'
 	icon_state = "gas_node"
@@ -1474,10 +1524,6 @@
 #undef REACTOR_NEEDS_WELDING
 #undef REACTOR_NEEDS_PLASTEEL
 #undef REACTOR_NEEDS_WRENCH
-
-#undef CHAMBER_DOWN
-#undef CHAMBER_UP
-#undef CHAMBER_OPEN
 
 #undef REACTOR_LIGHT_COLOR
 
