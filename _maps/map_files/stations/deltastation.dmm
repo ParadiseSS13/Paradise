@@ -35348,9 +35348,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/structure/chair/stool/bar,
-/obj/effect/landmark/start/explorer,
-/obj/effect/spawner/random/dirt/often,
+/obj/machinery/salvage_redemption,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -68741,6 +68739,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"lKR" = (
+/obj/effect/landmark/start/explorer,
+/obj/effect/spawner/random/dirt/often,
+/obj/structure/chair/stool/bar,
+/turf/simulated/floor/plasteel,
+/area/station/supply/expedition)
 "lKV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -140580,7 +140584,7 @@ cDa
 cDa
 cyt
 fZa
-cDa
+lKR
 cCW
 cyv
 cEZ
