@@ -235,7 +235,7 @@
 
 /obj/item/cartridge/captain
 	name = "Value-PAK Cartridge"
-	desc = "A data cartridge for portable microcomputers. Has every single app included, now that's real value!
+	desc = "A data cartridge for portable microcomputers. Has every single app included, now that's real value!"
 	icon_state = "cart-c"
 	programs = list(
 		new /datum/data/pda/app/power,
