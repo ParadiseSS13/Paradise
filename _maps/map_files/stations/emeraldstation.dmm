@@ -5546,17 +5546,11 @@
 /area/station/maintenance/fpmaint)
 "bgN" = (
 /obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/ashtray/bronze,
-/obj/item/clothing/mask/cigarette/cigar/havana{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/machinery/light,
 /obj/machinery/newscaster/security_unit/directional/south,
+/obj/item/storage/fancy/cigars{
+	pixel_y = 8
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "bgP" = (
@@ -24133,9 +24127,10 @@
 /area/station/engineering/solar/fore_starboard)
 "ePX" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Genetics Reception"
-	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window/classic/reversed,
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -27306,6 +27301,7 @@
 /obj/item/stack/sheet/wood{
 	amount = 20
 	},
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "fts" = (
@@ -31079,10 +31075,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "ggn" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "genetics"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "geneticsprivacy";
+	name = "Genetics Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
@@ -33458,16 +33461,7 @@
 /turf/simulated/floor/plating/airless,
 /area/station/aisat/breakroom)
 "gFg" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen/multi,
-/obj/item/stack/tape_roll{
-	pixel_x = 4;
-	pixel_y = 3
-	},
+/obj/structure/closet/secure_closet/librarian,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -37057,11 +37051,9 @@
 /area/station/public/fitness)
 "hql" = (
 /obj/structure/table/wood/fancy/blue,
-/obj/item/ashtray/glass{
-	pixel_y = 3;
-	pixel_x = -3
+/obj/item/storage/fancy/cigars/cohiba{
+	pixel_y = 8
 	},
-/obj/item/clothing/mask/cigarette/cigar,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "hqr" = (
@@ -43579,6 +43571,9 @@
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_x = 10
 	},
+/obj/item/ashtray/bronze{
+	pixel_y = -10
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
 "iFN" = (
@@ -47564,7 +47559,6 @@
 "juE" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/flask/gold,
-/obj/item/clothing/mask/cigarette/cigar,
 /obj/machinery/camera{
 	c_tag = "Captain's Quarters";
 	dir = 1
@@ -63882,8 +63876,16 @@
 /area/station/medical/chemistry)
 "mNF" = (
 /obj/structure/table/wood,
-/obj/item/camera,
 /obj/effect/spawner/random/cobweb/right/frequent,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/stack/tape_roll{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -66184,13 +66186,25 @@
 /area/station/engineering/atmos/distribution)
 "nkr" = (
 /obj/machinery/disposal,
-/obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
+	},
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump";
+	pixel_y = 7
+	},
+/obj/machinery/button/windowtint{
+	dir = 4;
+	id = "genetics";
+	pixel_x = -24
+	},
+/obj/machinery/door_control{
+	id = "geneticsprivacy";
+	name = "Genetics Privacy Control";
+	pixel_x = -25;
+	pixel_y = -8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -74326,13 +74340,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "oLN" = (
-/obj/machinery/door/airlock/medical{
-	name = "Genetics Monkey Pen"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -86469,6 +86481,10 @@
 	pixel_y = 15;
 	pixel_x = -5
 	},
+/obj/item/ashtray/glass{
+	pixel_x = 6;
+	pixel_y = 3
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "ril" = (
@@ -87641,10 +87657,11 @@
 /area/station/engineering/atmos)
 "rtX" = (
 /obj/structure/table/wood,
-/obj/item/book/codex_gigas,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/item/camera,
+/obj/item/book/codex_gigas,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -99381,6 +99398,18 @@
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
+"tIk" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/sign/poster/official/random/directional/south,
+/obj/structure/table/glass,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/simulated/floor/plasteel{
+	icon_state = "purplecorner"
+	},
+/area/station/hallway/primary/starboard/south)
 "tIp" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
@@ -110409,10 +110438,6 @@
 /area/station/security/checkpoint/secondary)
 "vRn" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	dir = 4;
-	name = "Genetics Reception"
-	},
 /obj/item/desk_bell{
 	pixel_x = -6;
 	pixel_y = 3;
@@ -110425,6 +110450,20 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
 	name = "Biohazard Shutter"
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "geneticsprivacy";
+	name = "Genetics Privacy Shutters"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "genetics"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/genetics)
@@ -110508,15 +110547,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "vSF" = (
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = "GeneticsDoor";
-	name = "Genetics"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -113874,7 +113911,6 @@
 	pixel_y = 3;
 	pixel_x = -3
 	},
-/obj/item/clothing/mask/cigarette/cigar/havana,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -165955,7 +165991,7 @@ jWF
 lwn
 mxJ
 suS
-udN
+tIk
 wDu
 cVJ
 vYY

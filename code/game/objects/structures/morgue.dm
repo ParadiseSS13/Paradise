@@ -37,7 +37,6 @@
 	anchored = TRUE
 	var/open_sound = 'sound/items/deconstruct.ogg'
 	var/status
-	new_attack_chain = TRUE
 
 /obj/structure/morgue/Initialize(mapload)
 	. = ..()
@@ -338,7 +337,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	var/repairstate = CREMATOR_OPERATIONAL // Repairstate 0 is DESTROYED, 1 has the igniter applied but needs welding (IN_REPAIR), 2 is OPERATIONAL
 	var/locked = FALSE
 	var/open_sound = 'sound/items/deconstruct.ogg'
-	new_attack_chain = TRUE
 
 /obj/structure/crematorium/Initialize(mapload)
 	. = ..()

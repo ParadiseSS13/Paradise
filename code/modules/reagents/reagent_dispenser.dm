@@ -24,7 +24,7 @@
 		if(tank_volume && (damage_flag == BULLET || damage_flag == LASER))
 			boom(FALSE, TRUE)
 
-/obj/structure/reagent_dispensers/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/reagent_dispensers/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(I.is_refillable())
 		return FALSE //so we can refill them via their afterattack.
 	return ..()
@@ -83,17 +83,17 @@
 //Dispensers
 /obj/structure/reagent_dispensers/watertank
 	name = "water tank"
-	desc = "A water tank."
+	desc = "A large, wheeled tank full of potable water."
 
 /obj/structure/reagent_dispensers/watertank/high
 	name = "high-capacity water tank"
-	desc = "A highly-pressurized water tank made to hold gargantuan amounts of water.."
+	desc = "A highly-pressurized water tank made to hold gargantuan amounts of potable water."
 	icon_state = "water_high" //I was gonna clean my room...
 	tank_volume = 100000
 
 /obj/structure/reagent_dispensers/watertank/firetank
 	name = "firefighting foam tank"
-	desc = "A firefighting foam tank."
+	desc = "A high-pressure tank full of flame-retardant firefighting foam."
 	icon_state = "firetank"
 	reagent_id = "firefighting_foam"
 	tank_volume = 8000
@@ -107,7 +107,7 @@
 
 /obj/structure/reagent_dispensers/fueltank
 	name = "fuel tank"
-	desc = "A tank full of industrial welding fuel. Do not consume."
+	desc = "A tank full of industrial welding fuel, and covered in warning signage. Exposing it to flame is ill-advised. The \"Do not consume\" label has been scratched out."
 	icon_state = "fuel"
 	reagent_id = "fuel"
 	tank_volume = 4000
@@ -176,11 +176,11 @@
 			lastrigger = null
 			overlays.Cut()
 
-/obj/structure/reagent_dispensers/fueltank/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/reagent_dispensers/fueltank/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/assembly_holder) && accepts_rig)
 		if(rig)
 			to_chat(user, "<span class='warning'>There is another device in the way.</span>")
-			return ..()
+			return ITEM_INTERACT_COMPLETE
 		user.visible_message("[user] begins rigging [I] to [src].", "You begin rigging [I] to [src]")
 		if(do_after(user, 20, target = src))
 			user.visible_message("<span class='notice'>[user] rigs [I] to [src].</span>", "<span class='notice'>You rig [I] to [src].</span>")
@@ -199,6 +199,7 @@
 				test.Shift(NORTH, 1)
 				test.Shift(EAST, 6)
 				overlays += test
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 
@@ -247,7 +248,7 @@
 
 /obj/structure/reagent_dispensers/peppertank
 	name = "pepper spray refiller"
-	desc = "Contains condensed capsaicin for use in law \"enforcement.\""
+	desc = "A wall-mounted dispenser filled with condensed capsaicin, used for quickly refilling pepper spray canisters."
 	icon_state = "pepper"
 	density = FALSE
 	can_be_unwrenched = FALSE
@@ -279,7 +280,7 @@
 
 /obj/structure/reagent_dispensers/beerkeg
 	name = "beer keg"
-	desc = "Beer is liquid bread, it's good for you..."
+	desc = "A large metal keg full of low-quality beer. The swill inside won't be winning any awards, but it does the job."
 	icon_state = "beer"
 	reagent_id = "beer"
 
@@ -299,8 +300,7 @@
 	/// If TRUE, prevents the player from inserting the disk again while it is currently exploding.
 	var/exploding = FALSE
 
-/obj/structure/reagent_dispensers/beerkeg/nuke/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	. = ..()
+/obj/structure/reagent_dispensers/beerkeg/nuke/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(exploding)
 		return
 	if(!istype(O, /obj/item/disk/nuclear))
@@ -311,6 +311,7 @@
 	playsound(src, 'sound/machines/alarm.ogg', 100, FALSE, 0)
 	exploding = TRUE
 	addtimer(CALLBACK(src, PROC_REF(explode)), 13 SECONDS)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/reagent_dispensers/beerkeg/nuke/proc/explode()
 	var/datum/reagents/R = new(100)
@@ -339,7 +340,7 @@
 
 /obj/structure/reagent_dispensers/spacecleanertank
 	name = "space cleaner refiller"
-	desc = "Refills space cleaner bottles."
+	desc = "A wall-mounted dispenser full of powerful cleaning solvent. A warning label on the side informs you not to drink it."
 	icon_state = "cleaner"
 	can_be_unwrenched = FALSE
 	anchored = TRUE

@@ -1121,6 +1121,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/structure/closet/secure_closet/librarian,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3407,6 +3408,7 @@
 "ayA" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/security_space_law,
+/obj/item/megaphone,
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "ayB" = (
@@ -3818,11 +3820,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/carpet/black,
-/area/station/command/office/captain)
-"aCh" = (
-/obj/structure/table/wood,
-/obj/item/megaphone,
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "aCj" = (
@@ -5848,7 +5845,14 @@
 /area/station/hallway/primary/fore/east)
 "aVG" = (
 /obj/structure/table/wood,
-/obj/item/toy/figure/crew/captain,
+/obj/item/ashtray/glass{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/item/toy/figure/crew/captain{
+	pixel_x = 8;
+	pixel_y = 4
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "aVH" = (
@@ -18454,13 +18458,6 @@
 	},
 /area/station/command/meeting_room)
 "cGW" = (
-/obj/machinery/door_control{
-	id = "genetics";
-	name = "Genetics Privacy Shutters";
-	pixel_y = -23;
-	req_access = list(9);
-	pixel_x = 24
-	},
 /obj/structure/table/glass,
 /obj/item/paper_bin,
 /obj/item/pen,
@@ -32103,6 +32100,18 @@
 	pixel_x = -2;
 	pixel_y = 10
 	},
+/obj/machinery/button/windowtint{
+	id = "genetics";
+	pixel_x = 24;
+	dir = 8
+	},
+/obj/machinery/door_control{
+	id = "genetics";
+	name = "Genetics Privacy Shutters";
+	pixel_y = 8;
+	req_access = list(9);
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -39508,6 +39517,13 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/maintcentral)
+"gWs" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/cigars/cohiba{
+	pixel_y = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/station/command/office/captain)
 "gWH" = (
 /obj/structure/shelf/engineering,
 /obj/effect/spawner/random/engineering/materials,
@@ -58276,15 +58292,11 @@
 /area/station/command/office/ntrep)
 "kLg" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/glass{
-	pixel_x = 6;
-	pixel_y = 3
-	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba,
-/obj/item/lighter/zippo/nt_rep,
-/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
+	},
+/obj/item/storage/fancy/cigars{
+	pixel_y = 8
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
@@ -58378,6 +58390,17 @@
 /obj/item/pen/fancy,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/item/ashtray/glass{
+	pixel_y = 10
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 12;
+	pixel_y = 3
+	},
+/obj/item/lighter/zippo/nt_rep{
+	pixel_x = -13;
+	pixel_y = 3
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
@@ -63252,8 +63275,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
-/obj/machinery/door/airlock/medical/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/research/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -96577,10 +96600,17 @@
 	},
 /area/station/maintenance/starboard)
 "sWu" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "genetics";
 	name = "Genetics Privacy Shutters"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "researchlockdown";
+	layer = 2.6;
+	name = "Research Emergency Lockdown"
+	},
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "genetics"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
@@ -98296,6 +98326,15 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/genetics{
 	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "researchlockdown";
+	layer = 2.6;
+	name = "Research Emergency Lockdown"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "genetics"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
@@ -155765,7 +155804,7 @@ ayz
 azS
 hqx
 aVG
-bjN
+gWs
 aES
 eTm
 aBC
@@ -156022,7 +156061,7 @@ ayA
 aEU
 aVC
 wVh
-aCh
+bjN
 aEU
 eTm
 eYJ

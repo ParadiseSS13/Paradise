@@ -3,7 +3,7 @@
 	desc = "Used to modify bio-chips."
 	icon = 'icons/obj/bio_chips.dmi'
 	icon_state = "implantpad-off"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL

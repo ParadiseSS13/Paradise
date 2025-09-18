@@ -10,10 +10,9 @@
 	name = "\improper C-Foam launcher"
 	desc = "The C-Foam launcher. Shoots blobs of quickly hardening and growing foam. Can be used to slow down humanoids or block airlocks"
 	icon_state = "c_foam_launcher"
-	item_state = "c_foam_launcher"
+	inhand_icon_state = "c_foam_launcher"
 	origin_tech = "combat=4;syndicate=1;materials=3"
 	needs_permit = FALSE
-
 	fire_sound = 'sound/effects/bamf.ogg'
 	fire_sound_text = "thunk"
 	mag_type = /obj/item/ammo_box/magazine/c_foam
