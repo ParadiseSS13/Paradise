@@ -398,6 +398,7 @@
 		))
 		results += CB
 	qdel(query)
+	SSdbcore.log_startup_progress("Loaded [length(results)] books from DB")
 	return results
 /*
  * Database Update Procs

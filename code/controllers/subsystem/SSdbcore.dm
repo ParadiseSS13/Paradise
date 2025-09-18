@@ -89,6 +89,12 @@ SUBSYSTEM_DEF(dbcore)
 	. = (result["status"] == "ok")
 	if(.)
 		connection = result["handle"]
+
+		// aaaaaaaaaaaaaaaaa
+		var/datum/db_query/dbq = NewQuery("INSERT INTO `library` (`author`, `title`, `content`, `ckey`, `reports`, `summary`, `raters`) VALUES ('DTX-R', 'Please work', '\[]', 'affectedarc07', '\[]', 'CI is hurting me', '\[]');", list())
+		dbq.warn_execute()
+		log_startup_progress("Book inserted - [dbq.affected] rows affected")
+
 	else
 		connection = null
 		last_error = result["data"]
