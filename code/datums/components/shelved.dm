@@ -135,10 +135,11 @@
 	if(user.a_intent == INTENT_HARM)
 		return
 
-	var/in_allowed_types = length(allowed_types) && !(attacker.type in allowed_types)
+	var/restrictions = length(allowed_types) || length(allowed_subtypes)
+	var/in_allowed_types = is_type_in_list(attacker, allowed_types)
 	var/in_allowed_subtypes = is_type_in_typecache(attacker, allowed_subtypes)
 
-	if(!(in_allowed_types || in_allowed_subtypes))
+	if(restrictions && !(in_allowed_types || in_allowed_subtypes))
 		to_chat(user, "<span class='notice'>[attacker] won't fit on [parent]!</span>")
 		return COMPONENT_SKIP_AFTERATTACK
 
