@@ -109,8 +109,9 @@
 	move_speed_multiplier = 0.5 // You can move at run speed while in this box.
 	material_drop = null
 
-/obj/structure/closet/cardboard/agent/attackby__legacy__attackchain(obj/item/I, mob/living/user)
-	return
+/obj/structure/closet/cardboard/agent/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
 
 /obj/structure/closet/cardboard/agent/open()
 	. = ..()

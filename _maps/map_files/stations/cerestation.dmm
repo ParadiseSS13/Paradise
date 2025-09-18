@@ -1121,6 +1121,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/structure/closet/secure_closet/librarian,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3407,6 +3408,7 @@
 "ayA" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/security_space_law,
+/obj/item/megaphone,
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "ayB" = (
@@ -3818,11 +3820,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/carpet/black,
-/area/station/command/office/captain)
-"aCh" = (
-/obj/structure/table/wood,
-/obj/item/megaphone,
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "aCj" = (
@@ -5848,7 +5845,14 @@
 /area/station/hallway/primary/fore/east)
 "aVG" = (
 /obj/structure/table/wood,
-/obj/item/toy/figure/crew/captain,
+/obj/item/ashtray/glass{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/item/toy/figure/crew/captain{
+	pixel_x = 8;
+	pixel_y = 4
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "aVH" = (
@@ -39517,6 +39521,13 @@
 /obj/effect/spawner/random/maintenance,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/maintcentral)
+"gWs" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/cigars/cohiba{
+	pixel_y = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/station/command/office/captain)
 "gWH" = (
 /obj/structure/shelf/engineering,
 /obj/effect/spawner/random/engineering/materials,
@@ -58285,15 +58296,11 @@
 /area/station/command/office/ntrep)
 "kLg" = (
 /obj/structure/table/wood,
-/obj/item/ashtray/glass{
-	pixel_x = 6;
-	pixel_y = 3
-	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba,
-/obj/item/lighter/zippo/nt_rep,
-/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
+	},
+/obj/item/storage/fancy/cigars{
+	pixel_y = 8
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
@@ -58387,6 +58394,17 @@
 /obj/item/pen/fancy,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/item/ashtray/glass{
+	pixel_y = 10
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 12;
+	pixel_y = 3
+	},
+/obj/item/lighter/zippo/nt_rep{
+	pixel_x = -13;
+	pixel_y = 3
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
@@ -103877,13 +103895,12 @@
 	},
 /area/station/medical/reception)
 "uyZ" = (
-/obj/structure/table,
 /obj/machinery/camera{
 	c_tag = "Expedition Access";
 	dir = 8;
 	network = list("SS13","QM")
 	},
-/obj/item/toy/figure/crew/explorer,
+/obj/machinery/salvage_redemption,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbrown"
@@ -155790,7 +155807,7 @@ ayz
 azS
 hqx
 aVG
-bjN
+gWs
 aES
 eTm
 aBC
@@ -156047,7 +156064,7 @@ ayA
 aEU
 aVC
 wVh
-aCh
+bjN
 aEU
 eTm
 eYJ
