@@ -42,6 +42,8 @@
 #define HEAT_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from high heat
 #define EXPLOSION_MODIFIER 4 // Adjusts the size of the engine explosion
 
+#define CHAMBER_HEAT_DAMAGE 6 // How much damage reactor chambers do when on.
+
 // #warn Idea todo: Make chambers weldable
 // #warn Idea todo: Make chambers self-weld at high temps
 // #warn Idea todo: Control rods break slowly at high temps
@@ -951,6 +953,8 @@
 			var/delay = 1 SECONDS
 			if(!linked_reactor.offline)
 				delay = 8 SECONDS
+				if(!is_mecha_occupant(user)) // mech users are unaffected
+					burn_handler(user)
 			if(do_after_once(user, delay, target = src, allow_moving = FALSE))
 				raise()
 				return
@@ -1281,6 +1285,26 @@
 	playsound(loc, 'sound/items/welder2.ogg', 60, 1)
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/reactor_chamber/proc/burn_handler(mob/user)
+	var/burn_damage = CHAMBER_HEAT_DAMAGE
+	if(istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		if(H.gloves)
+			var/obj/item/clothing/gloves/G = H.gloves
+			if(G.max_heat_protection_temperature)
+				burn_damage *= 0.5
+			else if(HAS_TRAIT(H, TRAIT_RESISTHEAT) || HAS_TRAIT(H, TRAIT_RESISTHEATHANDS))
+				burn_damage *= 0.5
+				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
+				if(affecting.receive_damage(0, burn_damage)) // burn damage to them fingers
+					H.UpdateDamageIcon()
+					H.updatehealth()
+	else if(isliving(user))
+		var/mob/living/L = user
+		if(issilicon) // more resistant by default
+			burn_damage *= 0.5
+		L.adjustFireLoss(burn_damage)
+
 /obj/effect/immovablerod/nuclear_rod
 	name = "\improper Nuclear Coolant Rod"
 	desc = "Oh fuck this shouldnt be happening."
@@ -1465,7 +1489,7 @@
 	)
 
 /obj/item/slag
-	name = "Corium Slag"
+	name = "corium slag"
 	desc = "A large clump of active nuclear fuel fused with structural reactor metals."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "big_molten"
