@@ -53,10 +53,6 @@
 	point_upgrade = point_mult
 	SStgui.update_uis(src)
 
-/obj/machinery/salvage_redemption/process()
-	if(panel_open || !has_power())
-		return
-
 // Interactions
 /obj/machinery/salvage_redemption/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/storage/part_replacer))
