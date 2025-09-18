@@ -2,7 +2,7 @@
 	name = "Scissors"
 	desc = "Those are scissors. Don't run with them!"
 	icon_state = "scissor"
-	item_state = "scissor"
+	inhand_icon_state = "scissor"
 	force = 5
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_SMALL
