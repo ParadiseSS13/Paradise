@@ -191,7 +191,6 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain/green
 	name = "chaplain's white plasma envirosuit helmet"
-	desc = "An envirohelmet specially designed for only the most pious of plasmamen."
 	icon_state = "chapwg_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain/orange

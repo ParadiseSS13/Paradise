@@ -527,3 +527,4 @@
 	icon_state = "dark_hood"
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+

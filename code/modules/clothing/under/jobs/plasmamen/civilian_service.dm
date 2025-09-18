@@ -42,13 +42,11 @@
 
 /obj/item/clothing/under/plasmaman/chaplain/green
 	name = "chaplain's white plasma envirosuit"
-	desc = "An envirosuit specially designed for only the most pious of plasmamen."
 	icon_state = "chapwg_envirosuit"
 	item_color = "chapwg_envirosuit"
 
 /obj/item/clothing/under/plasmaman/chaplain/blue
 	name = "chaplain's blue plasma envirosuit"
-	desc = "An envirosuit specially designed for only the most pious of plasmamen."
 	icon_state = "chapco_envirosuit"
 	item_color = "chapco_envirosuit"
 

@@ -91,12 +91,10 @@
 	display_name = "Chaplain helmet, white and green"
 	description = "Envirohelm for pious plasmamen in white and green."
 	path = /obj/item/clothing/head/helmet/space/plasmaman/chaplain/green
-	slot = ITEM_SLOT_HEAD
 	allowed_roles = list("Chaplain")
 
 /datum/gear/racial/plasmaman/helmet/chaplain/orange
 	display_name = "Chaplain helmet, orange"
 	description = "Envirohelm for pious plasmamen styled like an orange turban."
 	path = /obj/item/clothing/head/helmet/space/plasmaman/chaplain/orange
-	slot = ITEM_SLOT_HEAD
 	allowed_roles = list("Chaplain")
