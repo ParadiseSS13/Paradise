@@ -15511,16 +15511,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bcB" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 5
-	},
-/obj/item/storage/fancy/crayons,
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/economy/vending/chapdrobe,
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel/office)
 "bcC" = (
@@ -85280,6 +85271,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
+"wdw" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/crayons,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = -24;
+	dir = 1
+	},
+/turf/simulated/floor/carpet/grimey,
+/area/station/service/chapel/office)
 "wdE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -137622,7 +137627,7 @@ baz
 bcB
 bcz
 bcz
-bcz
+wdw
 baz
 bjA
 bpM

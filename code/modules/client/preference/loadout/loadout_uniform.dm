@@ -413,7 +413,7 @@
 	allowed_roles = list("Chaplain")
 
 /datum/gear/uniform/suit/job/chaplain/orange
-	display_name = "Chaplain, kāṣāya"
+	display_name = "Chaplain, kasaya"
 	path = /obj/item/clothing/under/rank/civilian/chaplain/orange
 	allowed_roles = list("Chaplain")
 

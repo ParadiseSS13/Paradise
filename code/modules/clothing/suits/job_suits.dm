@@ -93,10 +93,10 @@
 	)
 
 //Chaplain
-/obj/item/clothing/suit/kannushi
-	name = "jōe"
+/obj/item/clothing/suit/joue
+	name = "joue"
 	desc = "Kannushi formal attire."
-	icon_state = "kannushi"
+	icon_state = "joue"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)

@@ -30188,13 +30188,8 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/blueshield)
 "cSL" = (
-/obj/structure/table/wood,
-/obj/item/clothing/under/misc/burial,
 /obj/machinery/firealarm/directional/west,
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/economy/vending/chapdrobe,
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel/office)
 "cSO" = (
@@ -34538,6 +34533,10 @@
 /area/station/supply/lobby)
 "dVn" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel/office)
 "dVK" = (
@@ -46928,6 +46927,7 @@
 /obj/item/food/grown/poppy,
 /obj/item/food/grown/poppy,
 /obj/item/food/grown/poppy,
+/obj/item/clothing/under/misc/burial,
 /turf/simulated/floor/carpet,
 /area/station/service/chapel/funeral)
 "irz" = (

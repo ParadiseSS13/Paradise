@@ -47410,6 +47410,10 @@
 /area/station/command/vault)
 "iCp" = (
 /obj/machinery/newscaster/directional/north,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "iCq" = (
@@ -77685,6 +77689,10 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/patients_rooms_secondary)
+"oVB" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/carpet/black,
+/area/station/service/chapel/office)
 "oVC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
@@ -82435,11 +82443,7 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
 "pVV" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/item/kirbyplants/large,
+/obj/machinery/economy/vending/chapdrobe,
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "pWf" = (
@@ -131995,7 +131999,7 @@ mgN
 wnL
 oUr
 oUr
-oUr
+oVB
 cfF
 ykL
 wGa

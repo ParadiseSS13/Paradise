@@ -79,7 +79,7 @@
 
 /obj/item/clothing/under/rank/civilian/chaplain/orange
 	desc = "Saffron cloth to wrap a Buddhist monk."
-	name = "kāṣāya"
+	name = "kasaya"
 	icon_state = "chaporange"
 	item_color = "chaporange"
 

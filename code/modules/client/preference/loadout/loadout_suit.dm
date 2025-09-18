@@ -313,9 +313,9 @@
 	path = /obj/item/clothing/suit/bana
 	allowed_roles = list("Chaplain")
 
-/datum/gear/suit/job/chaplain/kannushi
-	display_name = "Chaplain, jōe"
-	path = /obj/item/clothing/suit/kannushi
+/datum/gear/suit/job/chaplain/joue
+	display_name = "Chaplain, joue"
+	path = /obj/item/clothing/suit/joue
 	allowed_roles = list("Chaplain")
 
 /datum/gear/suit/job/chaplain/miko
