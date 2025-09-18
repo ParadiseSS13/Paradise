@@ -80,7 +80,12 @@
 	flags = NODROP
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	has_sensor = FALSE // HUNKE
-	sprite_sheets = null
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/misc.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi'
+		)
 
 /obj/item/clothing/under/misc/burial
 	name = "burial garments"
