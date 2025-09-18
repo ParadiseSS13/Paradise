@@ -53,7 +53,6 @@
 	icon_state = "wall"
 	var/torn = /obj/item/inflatable/torn
 	var/intact = /obj/item/inflatable
-	new_attack_chain = TRUE
 
 /obj/structure/inflatable/examine(mob/user)
 	. = ..()
@@ -219,7 +218,7 @@
 
 	if(!useResource(user))
 		return ITEM_INTERACT_COMPLETE
-	
+
 	return ..()
 
 /obj/item/inflatable/cyborg/proc/useResource(mob/user)
@@ -238,7 +237,7 @@
 	name = "inflatable barrier box"
 	desc = "Contains inflatable walls and doors."
 	icon_state = "inf_box"
-	item_state = "syringe_kit"
+	inhand_icon_state = "syringe_kit"
 	w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/inflatable)
 

@@ -115,7 +115,6 @@
 	desc = "It's a very flimsy, very noisy alternative to a bag."
 	icon = 'icons/obj/trash.dmi'
 	icon_state = "plasticbag"
-	item_state = "plasticbag"
 	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_BULKY
 	display_contents_with_number = 0 //or else this will lead to stupid behavior.
@@ -127,7 +126,6 @@
 		to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
 		return FALSE
 	return ..()
-
 
 /obj/item/storage/bag/plasticbag/equipped(mob/user, slot)
 	if(slot==ITEM_SLOT_HEAD)
@@ -206,7 +204,7 @@
 	// into the box.
 	if(istype(user.pulling, /obj/structure/ore_box))
 		var/obj/structure/ore_box/box = user.pulling
-		box.attackby__legacy__attackchain(src, user)
+		box.item_interaction(user, src)
 
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
@@ -508,7 +506,6 @@
 	desc = "A bag for envelopes, stamps, pens, and papers."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "mailbag"
-	item_state = "mailbag"
 	storage_slots = 14
 	max_combined_w_class = 28
 	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
@@ -524,7 +521,6 @@
 	desc = "A bag for storing various small scale construction supplies, such as wiring and circuit boards."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "construction_bag"
-	item_state = "construction_bag"
 	storage_slots = 30
 	max_combined_w_class = 60
 	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
@@ -540,7 +536,6 @@
 	desc = "A fireproof bag for storing modifications, casts, and modification components."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "smith_bag"
-	item_state = "smith_bag"
 	storage_slots = 30
 	max_combined_w_class = 60
 	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS

@@ -254,3 +254,6 @@
 
 /// Returns the hex value of a decimal number. len == length of returned string.
 #define num2hex(X, len) uppertext(num2text(X, len, 16))
+
+/// Tests if the value is in the given range.
+#define IS_IN_BOUNDS(val, lower, upper) ((val) >= (lower) && (val) <= (upper))

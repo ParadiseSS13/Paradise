@@ -3,7 +3,8 @@
 	name = "soul stone"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "soulstone"
-	item_state = "electronic"
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	belt_icon = "soulstone"
 	var/icon_state_full = "soulstone2"
 	desc = "A weighty shard of dark crystal, flickering with eldritch energy. A soul can be bound within, forced to obey the commands of the owner."
@@ -287,13 +288,13 @@
 		. += "<span class='cultitalic'>A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.</span>"
 		. += "<span class='cultitalic'>A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>"
 
-/obj/structure/constructshell/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
+/obj/structure/constructshell/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = I
 		if(!SS.can_use(user))
 			to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to place the soulstone into the shell.</span>")
 			user.Confused(20 SECONDS)
-			return
+			return ITEM_INTERACT_COMPLETE
 		SS.transfer_soul("CONSTRUCT", src, user)
 		SS.was_used()
 	else
