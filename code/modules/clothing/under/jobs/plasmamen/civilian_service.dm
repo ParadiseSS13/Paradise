@@ -35,10 +35,22 @@
 	item_color = "enviroslacks"
 
 /obj/item/clothing/under/plasmaman/chaplain
-	name = "chaplain's plasma envirosuit"
+	name = "chaplain's black plasma envirosuit"
 	desc = "An envirosuit specially designed for only the most pious of plasmamen."
-	icon_state = "chap_envirosuit"
-	item_color = "chap_envirosuit"
+	icon_state = "chapbw_envirosuit"
+	item_color = "chapbw_envirosuit"
+
+/obj/item/clothing/under/plasmaman/chaplain/green
+	name = "chaplain's white plasma envirosuit"
+	desc = "An envirosuit specially designed for only the most pious of plasmamen."
+	icon_state = "chapwg_envirosuit"
+	item_color = "chapwg_envirosuit"
+
+/obj/item/clothing/under/plasmaman/chaplain/blue
+	name = "chaplain's blue plasma envirosuit"
+	desc = "An envirosuit specially designed for only the most pious of plasmamen."
+	icon_state = "chapco_envirosuit"
+	item_color = "chapco_envirosuit"
 
 /obj/item/clothing/under/plasmaman/librarian
 	name = "librarian's plasma envirosuit"

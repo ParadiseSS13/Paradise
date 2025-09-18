@@ -43,6 +43,9 @@
 	path = /obj/item/clothing/suit/hooded/vox_robes
 	slot = ITEM_SLOT_OUTER_SUIT
 
+/datum/gear/racial/plasmaman
+	main_typepath = /datum/gear/racial/plasmaman
+
 /datum/gear/racial/plasmamansuit_coke
 	display_name = "Coke Suit"
 	description = "Plasmaman envirosuit designed by Space Cola Co and gifted to the people of Boron as part of an elaborate advertisement campaign."
@@ -52,3 +55,48 @@
 	display_name = "Tactical Suit"
 	description = "Plasmaman envirosuit supplied by black markets. Forged on Boron. Does not have suit sensors."
 	path = /obj/item/storage/box/tacticool_envirosuit
+
+/datum/gear/racial/plasmaman/suit
+	main_typepath = /datum/gear/racial/plasmaman/suit
+
+/datum/gear/racial/plasmaman/suit/chaplain
+	display_name = "Chaplain suit, black and white"
+	description = "Envirosuit for pious plasmamen in black and white."
+	path = /obj/item/clothing/under/plasmaman/chaplain
+	allowed_roles = list("Chaplain")
+
+/datum/gear/racial/plasmaman/suit/chaplain/green
+	display_name = "Chaplain suit, white and green"
+	description = "Envirosuit for pious plasmamen in white and green."
+	path = /obj/item/clothing/under/plasmaman/chaplain/green
+	allowed_roles = list("Chaplain")
+
+/datum/gear/racial/plasmaman/suit/chaplain/blue
+	display_name = "Chaplain suit, blue and orange"
+	description = "Envirosuit for pious plasmamen in blue and orange."
+	path = /obj/item/clothing/under/plasmaman/chaplain/blue
+	allowed_roles = list("Chaplain")
+
+/datum/gear/racial/plasmaman/helmet
+	main_typepath = /datum/gear/racial/plasmaman/helmet
+
+/datum/gear/racial/plasmaman/helmet/chaplain
+	display_name = "Chaplain helmet, black and white"
+	description = "Envirohelm for pious plasmamen in black and white."
+	path = /obj/item/clothing/head/helmet/space/plasmaman/chaplain
+	slot = ITEM_SLOT_HEAD
+	allowed_roles = list("Chaplain")
+
+/datum/gear/racial/plasmaman/helmet/chaplain/green
+	display_name = "Chaplain helmet, white and green"
+	description = "Envirohelm for pious plasmamen in white and green."
+	path = /obj/item/clothing/head/helmet/space/plasmaman/chaplain/green
+	slot = ITEM_SLOT_HEAD
+	allowed_roles = list("Chaplain")
+
+/datum/gear/racial/plasmaman/helmet/chaplain/orange
+	display_name = "Chaplain helmet, orange"
+	description = "Envirohelm for pious plasmamen styled like an orange turban."
+	path = /obj/item/clothing/head/helmet/space/plasmaman/chaplain/orange
+	slot = ITEM_SLOT_HEAD
+	allowed_roles = list("Chaplain")

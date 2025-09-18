@@ -16,6 +16,9 @@
 	slot = ITEM_SLOT_OUTER_SUIT
 	sort_category = "External Wear"
 
+/datum/gear/suit/job
+	main_typepath = /datum/gear/suit/job
+
 //WINTER COATS
 /datum/gear/suit/coat
 	main_typepath = /datum/gear/suit/coat
@@ -280,3 +283,47 @@
 /datum/gear/suit/tracksuitwhite
 	display_name = "Tracksuit, white"
 	path = /obj/item/clothing/suit/tracksuit/white
+
+// Chaplain
+/datum/gear/suit/job/chaplain
+	main_typepath = /datum/gear/suit/job/chaplain
+
+/datum/gear/suit/job/chaplain/dark_robes
+	display_name = "Dark robes"
+	path = /obj/item/clothing/suit/hooded/dark_robes
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/cassock
+	display_name = "Chaplain, cassock"
+	path = /obj/item/clothing/suit/hooded/chaplain_cassock
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/nun
+	display_name = "Chaplain, habit"
+	path = /obj/item/clothing/suit/hooded/nun
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/monk
+	display_name = "Chaplain, monk robes"
+	path = /obj/item/clothing/suit/hooded/monk
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/bana
+	display_name = "Chaplain, bana"
+	path = /obj/item/clothing/suit/bana
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/kannushi
+	display_name = "Chaplain, jōe"
+	path = /obj/item/clothing/suit/kannushi
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/miko
+	display_name = "Chaplain, miko clothing"
+	path = /obj/item/clothing/suit/miko
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/hasidic_coat
+	display_name = "Chaplain, hasidic coat"
+	path = /obj/item/clothing/suit/hasidic_coat
+	allowed_roles = list("Chaplain")

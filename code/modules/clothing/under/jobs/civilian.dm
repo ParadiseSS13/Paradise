@@ -61,9 +61,39 @@
 
 /obj/item/clothing/under/rank/civilian/chaplain
 	desc = "It's a black jumpsuit, often worn by religious folk."
-	name = "chaplain's jumpsuit"
-	icon_state = "chaplain"
+	name = "chaplain's black jumpsuit"
+	icon_state = "chapblack"
 	item_color = "chapblack"
+
+/obj/item/clothing/under/rank/civilian/chaplain/white
+	desc = "It's a white jumpsuit, often worn by religious folk."
+	name = "chaplain's white jumpsuit"
+	icon_state = "chapwhite"
+	item_color = "chapwhite"
+
+/obj/item/clothing/under/rank/civilian/chaplain/bw
+	desc = "It's a black and white jumpsuit, often worn by religious folk."
+	name = "chaplain's black and white jumpsuit"
+	icon_state = "chapbw"
+	item_color = "chapbw"
+
+/obj/item/clothing/under/rank/civilian/chaplain/orange
+	desc = "Saffron cloth to wrap a Buddhist monk."
+	name = "kāṣāya"
+	icon_state = "chaporange"
+	item_color = "chaporange"
+
+/obj/item/clothing/under/rank/civilian/chaplain/green
+	desc = "A green modest dress."
+	name = "chaplain's dress"
+	icon_state = "chapgreen"
+	item_color = "chapgreen"
+
+/obj/item/clothing/under/rank/civilian/chaplain/thobe
+	desc = "A modest and dignified robe."
+	name = "chaplain's thobe"
+	icon_state = "chapthobe"
+	item_color = "chapthobe"
 
 /obj/item/clothing/under/rank/civilian/chaplain/sensor
 	sensor_mode = SENSOR_COORDS
