@@ -87,7 +87,6 @@
 	attack_verb = list("stabbed", "slashed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 1000)
-	needs_permit = TRUE
 	new_attack_chain = TRUE
 	/// The icon the sword has when turned off
 	var/base_icon = "secsword"
