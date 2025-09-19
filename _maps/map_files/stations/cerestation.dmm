@@ -1121,6 +1121,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/structure/closet/secure_closet/librarian,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -103890,13 +103891,12 @@
 	},
 /area/station/medical/reception)
 "uyZ" = (
-/obj/structure/table,
 /obj/machinery/camera{
 	c_tag = "Expedition Access";
 	dir = 8;
 	network = list("SS13","QM")
 	},
-/obj/item/toy/figure/crew/explorer,
+/obj/machinery/salvage_redemption,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbrown"

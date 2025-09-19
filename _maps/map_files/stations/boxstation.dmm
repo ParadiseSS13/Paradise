@@ -23462,6 +23462,7 @@
 "bDJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light,
+/obj/machinery/salvage_redemption,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -39024,7 +39025,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 10
 	},
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "cNF" = (
@@ -49236,6 +49237,13 @@
 /obj/structure/closet,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"euR" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 9
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "euX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research/glass,
@@ -54156,7 +54164,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 9
 	},
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
 "gNX" = (
@@ -67678,6 +67686,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/closet/secure_closet/librarian,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -82231,6 +82240,13 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/surgery/secondary)
+"uxh" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 10
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "uxB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
@@ -85378,13 +85394,6 @@
 	icon_state = "caution"
 	},
 /area/station/public/dorms)
-"wfZ" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 9
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "wgt" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/glass,
@@ -88827,13 +88836,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
-"xPT" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 10
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "xQB" = (
 /obj/effect/spawner/window/reinforced/tinted,
 /obj/structure/disposalpipe/segment{
@@ -125866,7 +125868,7 @@ aab
 cQp
 aab
 cZh
-cNE
+uxh
 dba
 djE
 dcS
@@ -125878,7 +125880,7 @@ djE
 djE
 djE
 djE
-gNQ
+euR
 aab
 aab
 aab
@@ -127170,7 +127172,7 @@ igi
 igi
 igi
 igi
-wfZ
+gNQ
 fPY
 wyD
 wyD
@@ -127399,7 +127401,7 @@ cep
 cjq
 cep
 cxO
-xPT
+cNE
 igi
 igi
 igi
@@ -127417,7 +127419,7 @@ igi
 igi
 igi
 igi
-wfZ
+gNQ
 dgS
 eQU
 eQU

@@ -75597,6 +75597,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/closet/secure_closet/librarian,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "sEt" = (
@@ -86565,6 +86566,7 @@
 /area/station/maintenance/aft2)
 "wIu" = (
 /obj/machinery/requests_console/directional/south,
+/obj/machinery/salvage_redemption,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
