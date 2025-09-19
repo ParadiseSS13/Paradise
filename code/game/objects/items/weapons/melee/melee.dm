@@ -78,8 +78,6 @@
 /obj/item/melee/secsword
 	name = "securiblade"
 	desc = "A simple, practical blade developed by Shellguard munitions for ‘enhanced’ riot control."
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	base_icon_state = "secsword0"
 	flags = CONDUCT
 	force = 15
