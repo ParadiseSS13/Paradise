@@ -28,7 +28,7 @@
 	health = 1000
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	light_power = 5
 	light_range = 2
 	light_color = "#FF0000"
@@ -226,7 +226,7 @@
 	name = "death bolt"
 	icon_state = "chronobolt"
 	damage = 15
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	speed = 2
 
 /obj/item/projectile/herald/teleshot
@@ -263,10 +263,8 @@
 	desc = "A cloak which lts you travel through a perfect reflection of the world."
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "herald_cloak"
-	item_state = "herald_cloak"
 	item_color = "herald_cloak"
 	actions_types = list(/datum/action/item_action/herald)
-
 
 /obj/item/clothing/neck/cloak/herald_cloak/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_NECK)

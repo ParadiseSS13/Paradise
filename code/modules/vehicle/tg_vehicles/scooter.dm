@@ -84,6 +84,9 @@
 	initialize_controller_action_type(/datum/action/vehicle/skateboard/kickflip, VEHICLE_CONTROL_DRIVE)
 
 /obj/tgvehicle/scooter/skateboard/post_buckle_mob(mob/living/M)//allows skateboards to be non-dense but still allows 2 skateboarders to collide with each other
+	if(M.pulling)
+		M.stop_pulling()
+		to_chat(M, "<span class='warning'>You can't pull things along while skateboarding!</span>")
 	set_density(TRUE)
 	return ..()
 
@@ -338,10 +341,10 @@
 	name = "skateboard"
 	desc = "A skateboard. It can be placed on its wheels and ridden, or used as a radical weapon."
 	icon = 'icons/obj/tgvehicles.dmi'
+	icon_state = "skateboard_held"
+	inhand_icon_state = "skateboard"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	icon_state = "skateboard_held"
-	item_state = "skateboard"
 	force = 12
 	throwforce = 4
 	w_class = WEIGHT_CLASS_BULKY
@@ -364,7 +367,7 @@
 	name = "pro skateboard"
 	desc = "An EightO brand professional skateboard. It looks sturdy and well made."
 	icon_state = "skateboardpro_held"
-	item_state = "skateboardpro"
+	inhand_icon_state = "skateboardpro"
 	board_item_type = /obj/tgvehicle/scooter/skateboard/pro
 
 /obj/item/melee/skateboard/hoverboard
@@ -372,12 +375,12 @@
 	desc = "A blast from the past, so retro!"
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "hoverboard_red_held"
-	item_state = "hoverboard_red"
+	inhand_icon_state = "hoverboard_red"
 	board_item_type = /obj/tgvehicle/scooter/skateboard/hoverboard
 
 /obj/item/melee/skateboard/hoverboard/admin
 	name = "Board Of Directors"
 	desc = "The engineering complexity of a spaceship concentrated inside of a board. Just as expensive, too."
 	icon_state = "hoverboard_nt_held"
-	item_state = "hoverboard_nt"
+	inhand_icon_state = "hoverboard_nt"
 	board_item_type = /obj/tgvehicle/scooter/skateboard/hoverboard/admin

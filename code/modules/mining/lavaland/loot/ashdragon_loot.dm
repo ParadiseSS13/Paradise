@@ -5,7 +5,6 @@
 	desc = "A rusted and dulled blade. It doesn't look like it'd do much damage."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "spectral"
-	item_state = "spectral"
 	flags = CONDUCT
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_BULKY
@@ -69,7 +68,7 @@
 	if(href_list["follow"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
-			ghost.ManualFollow(src)
+			ghost.manual_follow(src)
 
 /obj/item/melee/ghost_sword/proc/add_ghost(atom/movable/orbited, atom/orbiter)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_BEGIN
@@ -228,7 +227,6 @@
 	icon_state = "lavastaff"
 	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
-	item_state = "lavastaff"
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25

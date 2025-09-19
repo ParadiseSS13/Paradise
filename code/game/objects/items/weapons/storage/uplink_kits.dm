@@ -437,8 +437,7 @@
 	if(prob(25))	//an omen of success to come?
 		B.deity_name = "Success"
 		B.icon_state = "greentext"
-		B.item_state = "greentext"
-
+		B.inhand_icon_state = "greentext"
 
 /obj/item/storage/box/syndie_kit/cutouts
 	name = "Fortified Artistic Box"
@@ -528,7 +527,7 @@
 
 /obj/item/storage/box/syndie_kit/stechkin
 	name = "\improper FK-69 Stechkin kit"
-	desc = "A box marked with Zvezhan characters. It appears to contain a 10mm pistol and two magazines."
+	desc = "A box marked with Cygni Standard characters. It appears to contain a 10mm pistol and two magazines."
 
 /obj/item/storage/box/syndie_kit/stechkin/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol(src)

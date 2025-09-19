@@ -4,10 +4,8 @@
 	desc = "A beret, an artist's favorite headwear."
 	icon = 'icons/obj/clothing/head/beret.dmi'
 	icon_state = "beret"
-	item_state = 'icons/mob/clothing/head/beret.dmi'
-	icon_override = 'icons/mob/clothing/head/beret.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret.dmi'
 	dog_fashion = /datum/dog_fashion/head/beret
-
 	sprite_sheets = list(
 		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi'
@@ -89,7 +87,7 @@
 	icon_state = "beret_officer"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 60
-	dog_fashion = /datum/dog_fashion/head/beret/sec	
+	dog_fashion = /datum/dog_fashion/head/beret/sec
 
 /obj/item/clothing/head/beret/sec/corporate
 	name = "corporate security beret"
@@ -176,6 +174,26 @@
 	name = "janitorial beret"
 	desc = "A purple beret with a mint service insignia emblazoned on it. It smells squeaky clean."
 	icon_state = "beret_janitor"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/hydroponics
+	name = "botany beret"
+	desc = "A green beret with a blue service insignia emblazoned on it. It smells dizzying."
+	icon_state = "beret_hydroponics"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi'
+	)
+
+/obj/item/clothing/head/beret/hydroponics_alt
+	name = "hydroponics beret"
+	desc = "A green beret with a brown service insignia emblazoned on it. It smells dizzying."
+	icon_state = "beret_hydroponics_alt"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head/beret.dmi',

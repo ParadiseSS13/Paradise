@@ -45,22 +45,15 @@
 		update_light()
 
 	if(opacity)
-		has_opaque_atom = TRUE
+		directional_opacity = ALL_CARDINALS
 
 	return INITIALIZE_HINT_NORMAL
 
-/turf/BeforeChange()
+/turf/space/BeforeChange()
 	..()
-	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
-	S.remove_from_transit(src)
+
 	if(light_sources) // Turn off starlight, if present
 		set_light(0)
-
-/turf/AfterChange(ignore_air, keep_cabling = FALSE)
-	..()
-	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
-	S.add_to_transit(src)
-	S.apply_transition(src)
 
 /turf/space/proc/update_starlight()
 	if(GLOB.configuration.general.starlight)

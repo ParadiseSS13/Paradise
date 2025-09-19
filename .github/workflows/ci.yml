@@ -13,7 +13,7 @@ jobs:
     name: Run Linters
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup Cache
         uses: actions/cache@v4
@@ -26,12 +26,12 @@ jobs:
           bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
           cache: 'pip'
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: 'yarn'
@@ -56,6 +56,7 @@ jobs:
           python tools/ci/check_random_spawner_prefabs.py
           python -m tools.ci.check_map_sizes
           python -m tools.ci.check_legacy_attack_chain
+          python -m tools.ci.check_simplemob_additions
           python -m tools.maplint.source --github
 
       - name: Run DreamChecker
@@ -66,12 +67,12 @@ jobs:
     name: Lint with OpenDream
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup OD
         run: |
           bash tools/ci/setup_od.sh
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4.3.1
+        uses: actions/setup-dotnet@v5.0.0
         with:
           dotnet-version: 9.x
       - name: Run OD
@@ -86,7 +87,7 @@ jobs:
       matrix:
         byondtype: ['STABLE']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
         with:
@@ -108,7 +109,7 @@ jobs:
         station: ['boxstation', 'deltastation', 'metastation', 'cerestation', 'emeraldstation']
         byondtype: ['STABLE']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
         with:
@@ -124,6 +125,7 @@ jobs:
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
           DreamMaker -DMAP_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          mkdir -p data
           echo '/datum/map/${{ matrix.station }}' > data/next_map.txt
           tools/ci/run_server.sh
 
@@ -135,7 +137,7 @@ jobs:
       matrix:
         byondtype: ['STABLE']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
         with:
@@ -156,6 +158,7 @@ jobs:
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
           DreamMaker -DGAME_TESTS -DTEST_CONFIG_OVERRIDE=\"unit_tests\" -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          mkdir -p data
           echo '/datum/map/test_tiny' > data/next_map.txt
           tools/ci/run_server.sh
 
@@ -163,8 +166,8 @@ jobs:
     name: Windows RUSTG Validation
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.8.2' # Script was made for 3.8.2
           architecture: 'x86' # This MUST be x86

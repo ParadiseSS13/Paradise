@@ -71,7 +71,7 @@
 		visible_message("<span class='danger'>\A [spawned_mob.name] crawls out of \the [name]!</span>")
 
 /obj/structure/nest/lavaland
-	spawn_mob_options = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast, /mob/living/simple_animal/hostile/asteroid/goldgrub)
+	spawn_mob_options = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast, /mob/living/basic/mining/goldgrub)
 
 /obj/structure/nest/carppuppy
 	spawn_mob_options = list(/mob/living/basic/carp, /mob/living/simple_animal/pet/dog/corgi/puppy/void)

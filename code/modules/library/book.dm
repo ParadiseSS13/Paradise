@@ -374,7 +374,7 @@
 
 /obj/item/book/random/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(spawn_books)), 0)
+	END_OF_TICK(CALLBACK(src, PROC_REF(spawn_books)))
 
 /obj/item/book/random/proc/spawn_books()
 	var/list/books = GLOB.library_catalog.get_random_book(amount)

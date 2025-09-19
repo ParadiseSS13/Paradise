@@ -30,7 +30,7 @@
 	health = 1000
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	attacktext = "smashes into the side of"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	throw_message = "merely dinks off of the"
@@ -207,7 +207,6 @@
 	desc = "Found at the bottom of Pandora. After all the evil was released, this was the only thing left inside."
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "hope"
-	item_state = "hope"
 	item_color = "hope"
 	allow_duplicates = FALSE
 	resistance_flags = FIRE_PROOF

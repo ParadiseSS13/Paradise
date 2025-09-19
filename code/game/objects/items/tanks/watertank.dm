@@ -4,7 +4,8 @@
 	desc = "A S.U.N.S.H.I.N.E. brand watertank backpack with nozzle to water plants."
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "waterbackpack"
-	item_state = "waterbackpack"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	slowdown = 1
@@ -109,12 +110,10 @@
 	desc = "A mister nozzle attached to a water tank."
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "mister"
-	item_state = "mister"
 	w_class = WEIGHT_CLASS_BULKY
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
 	volume = 500
-
 	var/obj/item/watertank/tank
 
 /obj/item/reagent_containers/spray/mister/Initialize(mapload)
@@ -122,7 +121,6 @@
 		return INITIALIZE_HINT_QDEL
 	tank = loc
 	reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
-	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
 	return ..()
 
 /obj/item/reagent_containers/spray/mister/Destroy()
@@ -157,7 +155,6 @@
 /obj/item/watertank/janitor
 	desc = "A janitorial watertank backpack with nozzle to clean dirt and graffiti."
 	icon_state = "waterbackpackjani"
-	item_state = "waterbackpackjani"
 
 /obj/item/watertank/janitor/New()
 	..()
@@ -167,22 +164,14 @@
 	name = "janitor spray nozzle"
 	desc = "A janitorial spray nozzle attached to a watertank, designed to clean up large messes."
 	icon_state = "misterjani"
-	item_state = "misterjani"
 	spray_maxrange = 4
 	spray_currentrange = 4
+	spray_minrange = 2
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
 
 /obj/item/watertank/janitor/make_noz()
 	return new /obj/item/reagent_containers/spray/mister/janitor(src)
-
-/obj/item/reagent_containers/spray/mister/janitor/activate_self(mob/user)
-	if(..())
-		return FINISH_ATTACK
-
-	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
-	spray_currentrange = (spray_currentrange == 2 ? spray_maxrange : 2)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 //ATMOS FIRE FIGHTING BACKPACK
 
@@ -194,7 +183,8 @@
 	name = "backpack firefighter tank"
 	desc = "A refridgerated and pressurized backpack tank with extinguisher nozzle, intended to fight fires. Swaps between extinguisher, nanofrost launcher, and metal foam dispenser for breaches. Nanofrost converts plasma in the air to nitrogen, but only if it is combusting at the time."
 	icon_state = "waterbackpackatmos"
-	item_state = "waterbackpackatmos"
+	worn_icon_state = "waterbackpackatmos"
+	inhand_icon_state = "waterbackpackatmos"
 
 /obj/item/watertank/atmos/New()
 	..()
@@ -215,12 +205,11 @@
 	desc = "A heavy duty nozzle attached to a firefighter's backpack tank."
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "atmos_nozzle_1"
-	item_state = "nozzleatmos"
+	inhand_icon_state = "nozzleatmos"
 	has_safety = FALSE
 	safety_active = FALSE
 	reagent_capacity = 500
 	precision = TRUE
-	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
 	flags = NODROP //Necessary to ensure that the nozzle and tank never seperate
 	/// A reference to the tank that this nozzle is linked to

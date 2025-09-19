@@ -135,9 +135,9 @@ RESTRICT_TYPE(/mob/living/basic)
 	/// What can this mob break?
 	var/environment_smash = ENVIRONMENT_SMASH_NONE
 	/// Flat armour reduction, occurs after percentage armour penetration.
-	var/armour_penetration_flat = 0
+	var/armor_penetration_flat = 0
 	/// Percentage armour reduction, happens before flat armour reduction.
-	var/armour_penetration_percentage = 0
+	var/armor_penetration_percentage = 0
 	/// Damage type of a simple mob's melee attack, should it do damage.
 	var/melee_damage_type = BRUTE
 	/// Lower bound for melee attack cooldown
@@ -241,7 +241,7 @@ RESTRICT_TYPE(/mob/living/basic)
 
 /mob/living/basic/proc/early_melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	face_atom(target)
-	if(!ignore_cooldown)
+	if(!ignore_cooldown && !client)
 		var/melee_attack_cooldown = rand(melee_attack_cooldown_min, melee_attack_cooldown_max)
 		changeNext_move(melee_attack_cooldown)
 	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target, Adjacent(target), modifiers) & COMPONENT_HOSTILE_NO_ATTACK)
@@ -253,6 +253,21 @@ RESTRICT_TYPE(/mob/living/basic)
 	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		return attack_threshold_check(damage, M.melee_damage_type)
+
+/mob/living/basic/attack_alien(mob/living/carbon/alien/humanoid/M)
+	if(..()) // if harm or disarm intent.
+		if(M.a_intent == INTENT_DISARM)
+			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
+			visible_message("<span class='danger'>[M] [response_disarm_continuous] [name]!</span>", "<span class='userdanger'>[M] [response_disarm_continuous] you!</span>")
+			add_attack_logs(M, src, "Alien disarmed")
+		else
+			var/damage = rand(15, 30)
+			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
+					"<span class='userdanger'>[M] has slashed at [src]!</span>")
+			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
+			add_attack_logs(M, src, "Alien attacked")
+			attack_threshold_check(damage)
+		return TRUE
 
 /mob/living/basic/handle_environment(datum/gas_mixture/readonly_environment)
 	SEND_SIGNAL(src, COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT, readonly_environment)
@@ -288,6 +303,7 @@ RESTRICT_TYPE(/mob/living/basic)
 	. = ..()
 	if(!.)
 		return FALSE
+	REMOVE_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 	if(nest)
 		nest.spawned_mobs -= src
 		nest = null

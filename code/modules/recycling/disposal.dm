@@ -1043,11 +1043,11 @@
 //attack by item
 //weldingtool: unfasten and convert to obj/disposalconstruct
 
-/obj/structure/disposalpipe/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	var/turf/T = get_turf(src)
 	if(T.intact || T.transparent_floor)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-		return 		// prevent interaction with T-scanner revealed pipes and pipes under glass
+		return ITEM_INTERACT_COMPLETE // prevent interaction with T-scanner revealed pipes and pipes under glass
 
 	add_fingerprint(user)
 
@@ -1221,9 +1221,9 @@
 	if(mapping_fail)
 		stack_trace("[src] mapped incorrectly at [x],[y],[z] - [mapping_fail]")
 
-/obj/structure/disposalpipe/sortjunction/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/sortjunction/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(..())
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(I, /obj/item/dest_tagger))
 		var/obj/item/dest_tagger/O = I
@@ -1244,6 +1244,7 @@
 			sort_type.Add(O.currTag)
 			to_chat(user, "<span class='notice'>Added [tag] to filter.</span>")
 		update_appearance(UPDATE_NAME|UPDATE_DESC)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/disposalpipe/sortjunction/update_name()
 	. = ..()
@@ -1374,7 +1375,7 @@
 /obj/structure/disposalpipe/trunk/Initialize(mapload)
 	. = ..()
 	dpdir = dir
-	addtimer(CALLBACK(src, PROC_REF(getlinked)), 0) // This has a delay of 0, but wont actually start until the MC is done
+	END_OF_TICK(CALLBACK(src, PROC_REF(getlinked)))
 
 	update()
 	return
@@ -1423,18 +1424,18 @@
 		linked = D
 		D.linkedtrunk = src
 
-	// Override attackby so we disallow trunkremoval when somethings ontop
-/obj/structure/disposalpipe/trunk/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-
+/// Disallow trunkremoval when something's on top
+/obj/structure/disposalpipe/trunk/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	//Disposal bins or chutes
 	//Disposal constructors
 	var/obj/structure/disposalconstruct/C = locate() in src.loc
 	if(C && C.anchored)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/turf/T = src.loc
 	if(T.intact || T.transparent_floor)
-		return		// prevent interaction with T-scanner revealed pipes
+		// prevent interaction with T-scanner revealed pipes
+		return ITEM_INTERACT_COMPLETE
 	src.add_fingerprint(user)
 
 	// would transfer to next pipe segment, but we are in a trunk
@@ -1515,7 +1516,7 @@
 
 /obj/structure/disposaloutlet/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(setup)), 0) // Wait of 0, but this wont actually do anything until the MC is firing
+	END_OF_TICK(CALLBACK(src, PROC_REF(setup)))
 
 /obj/structure/disposaloutlet/proc/setup()
 	target = get_ranged_target_turf(src, dir, 10)
