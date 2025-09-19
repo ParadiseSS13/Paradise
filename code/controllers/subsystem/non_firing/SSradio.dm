@@ -12,6 +12,7 @@ SUBSYSTEM_DEF(radio)
 	"Security" 		= SEC_FREQ,
 	"Response Team" = ERT_FREQ,
 	"Special Ops" 	= DTH_FREQ,
+	"Starline" 		= STARLINE_FREQ,
 	"Syndicate" 	= SYND_FREQ,
 	"SyndTeam" 		= SYNDTEAM_FREQ,
 	"Supply" 		= SUP_FREQ,
@@ -20,7 +21,7 @@ SUBSYSTEM_DEF(radio)
 	"Medical(I)"	= MED_I_FREQ,
 	"Security(I)"	= SEC_I_FREQ
 	)
-	var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ)
+	var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ, STARLINE_FREQ)
 	var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ)
 	var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, PROC_FREQ)
 	var/list/datum/radio_frequency/frequencies = list()

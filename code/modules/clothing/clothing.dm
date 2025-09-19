@@ -8,6 +8,7 @@
 	permeability_coefficient = 0.8
 	/// Only these species can wear this kit.
 	var/list/species_restricted
+	var/icon_monitor = null //If set to a sprite path, replaces the sprite for monitor heads
 	/// Can the wearer see reagents inside transparent containers while it's equipped?
 	var/scan_reagents = FALSE
 	/// Can the wearer see reagents inside any container and identify blood types while it's equipped?
