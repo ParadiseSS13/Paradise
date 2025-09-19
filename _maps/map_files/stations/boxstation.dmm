@@ -23966,10 +23966,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools/auxiliary)
 "bGa" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
 /obj/machinery/light,
+/obj/machinery/atmospherics/binary/pump{
+	dir = 8;
+	name = "Heat Exchange to Port"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -33950,6 +33951,9 @@
 	},
 /area/station/science/toxins/mixing)
 "ctQ" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -48552,6 +48556,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
+"eff" = (
+/obj/machinery/anomaly_refinery,
+/obj/machinery/alarm/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/science/toxins/launch)
 "efk" = (
 /obj/structure/rack{
 	dir = 1
@@ -62477,8 +62488,8 @@
 	},
 /area/station/maintenance/asmaint2)
 "kQX" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -70594,15 +70605,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
-"oND" = (
-/obj/machinery/atmospherics/binary/pump{
-	dir = 8;
-	name = "Heat Exchange to Port"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
-/area/station/science/toxins/mixing)
 "oNH" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -76437,6 +76439,7 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/structure/table/reinforced,
 /obj/machinery/requests_console/directional/south,
+/obj/item/raw_anomaly_core,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
@@ -77782,12 +77785,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
-"ska" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whitepurple"
-	},
-/area/station/science/toxins/mixing)
 "skb" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -80491,8 +80488,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "tHH" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -84174,7 +84171,6 @@
 	network = list("Toxins");
 	pixel_x = 32
 	},
-/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkpurple"
@@ -143312,7 +143308,7 @@ nTk
 cmB
 vXo
 kQX
-oND
+vjd
 fDJ
 ioU
 tPX
@@ -143569,7 +143565,7 @@ plq
 cmB
 wdE
 tHH
-vjd
+fDJ
 fDJ
 kCd
 ros
@@ -143826,8 +143822,8 @@ lVB
 cmB
 cWN
 vSI
-ska
 fDJ
+eff
 vyQ
 xEf
 jRM
@@ -144083,7 +144079,7 @@ bES
 fUW
 fqQ
 fqQ
-fqQ
+fDJ
 fDJ
 wan
 wan

@@ -48686,6 +48686,7 @@
 	pixel_x = -5;
 	pixel_y = 5
 	},
+/obj/item/raw_anomaly_core,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -56733,6 +56734,12 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/starboard)
+"gqm" = (
+/obj/machinery/atmospherics/unary/thermomachine/heater{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/science/toxins/mixing)
 "gqo" = (
 /obj/machinery/door/airlock/security/glass,
 /obj/machinery/door/firedoor,
@@ -59794,12 +59801,11 @@
 /area/station/engineering/control)
 "hMa" = (
 /obj/machinery/power/apc/critical/directional/north,
-/obj/machinery/firealarm/directional/east,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
+	dir = 1;
 	icon_state = "darkpurple"
 	},
 /area/station/science/toxins/launch)
@@ -72705,6 +72711,16 @@
 /obj/effect/spawner/random/blood,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
+"nwt" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkpurple"
+	},
+/area/station/science/toxins/launch)
 "nwu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -73898,6 +73914,14 @@
 	name = "reinforced stairs"
 	},
 /area/station/science/test_chamber)
+"nXG" = (
+/obj/machinery/firealarm/directional/east,
+/obj/machinery/anomaly_refinery,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkpurple"
+	},
+/area/station/science/toxins/launch)
 "nXN" = (
 /obj/machinery/light{
 	dir = 4
@@ -75924,15 +75948,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
-"oQB" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
-	},
-/area/station/science/toxins/mixing)
 "oQO" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -77066,15 +77081,10 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/fore)
 "pqB" = (
-/obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "darkpurple"
 	},
 /area/station/science/toxins/launch)
@@ -82280,15 +82290,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
 /area/station/security/detective)
-"rCo" = (
-/obj/machinery/atmospherics/unary/thermomachine/heater{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
-	},
-/area/station/science/toxins/mixing)
 "rCv" = (
 /obj/item/kirbyplants/large{
 	icon_state = "plant-18"
@@ -82841,6 +82842,12 @@
 	icon_state = "darkgreen"
 	},
 /area/station/service/hydroponics)
+"rNs" = (
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/science/toxins/mixing)
 "rNF" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -83774,9 +83781,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai_upload)
 "sfD" = (
-/obj/machinery/door/airlock/research,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -83786,9 +83790,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurplefull"
+	dir = 4;
+	icon_state = "darkpurple"
 	},
 /area/station/science/toxins/launch)
 "sgd" = (
@@ -84401,12 +84405,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"sqF" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
-	},
-/area/station/science/toxins/mixing)
 "sqI" = (
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 25
@@ -85669,13 +85667,9 @@
 	},
 /area/station/medical/break_room)
 "sSH" = (
-/obj/structure/closet/bombcloset,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitepurple"
-	},
-/area/station/science/toxins/mixing)
+/turf/simulated/wall/r_wall,
+/area/station/science/toxins/launch)
 "sSX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -86483,8 +86477,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkpurple"
+	icon_state = "dark"
 	},
 /area/station/science/toxins/launch)
 "tiC" = (
@@ -89360,11 +89353,15 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/research,
+/obj/effect/mapping_helpers/airlock/access/all/science/tox,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/firedoor/heavy,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
 	},
-/area/station/science/toxins/mixing)
+/area/station/science/toxins/launch)
 "uos" = (
 /obj/structure/table/reinforced,
 /obj/item/assembly/prox_sensor{
@@ -92220,6 +92217,14 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
+"vCw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/science/toxins/mixing)
 "vCE" = (
 /obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
@@ -93151,6 +93156,10 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/starboard/south)
+"vTZ" = (
+/obj/structure/closet/bombcloset,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/toxins/mixing)
 "vUX" = (
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
@@ -95966,6 +95975,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
@@ -127251,9 +127263,9 @@ xlH
 hvg
 bDp
 gQW
-gQW
+nXG
 sfD
-gKj
+nwt
 gQW
 gQW
 dkI
@@ -127507,12 +127519,12 @@ drn
 dhG
 drn
 drn
-dkI
+gQW
 sSH
 uoa
-sqF
-oQB
-rCo
+gKj
+gQW
+dkI
 wVZ
 noF
 ogw
@@ -127767,9 +127779,9 @@ cIS
 dkI
 kdm
 jqA
-dyz
-oba
-oba
+vTZ
+rNs
+gqm
 eaO
 gHc
 kVI
@@ -128026,7 +128038,7 @@ nsL
 sYB
 sWO
 wZw
-llU
+vCw
 uDx
 llU
 div

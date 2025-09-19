@@ -4796,6 +4796,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
+/obj/item/raw_anomaly_core,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -118282,6 +118283,7 @@
 /area/station/engineering/atmos)
 "xyC" = (
 /obj/machinery/firealarm/directional/east,
+/obj/machinery/anomaly_refinery,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
