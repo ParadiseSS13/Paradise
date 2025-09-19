@@ -444,6 +444,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	var/cooldown = 0
+	/// Color of the doll. Affects appearance, make sure there is appropriate icon_state in icon file
 	var/doll_color
 
 /obj/item/toy/therapy/Initialize(mapload)
