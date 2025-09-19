@@ -52,6 +52,7 @@
 // #warn Idea todo: Make coolant rods eject violently at high temperatures
 //#warn Idea todo: Add a button on the monitor to activate venting
 
+/* these arnt done, uncomment later
 #warn Idea todo: Allow grilling on an active reactor
 #warn Idea todo: Make some lavaland loot into special rods/upgrades
 #warn Idea todo: Bananium rods?
@@ -62,6 +63,7 @@
 #warn Idea todo: Make meltdown countdown cause LOTS of smoke and chamber lifts/ejections
 #warn Idea todo: Make different gasses do... something
 #warn event idea: Pufts of contaminating rad smoke
+*/
 
 /// MARK: Fission Reactor
 
