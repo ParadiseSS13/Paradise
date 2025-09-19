@@ -414,6 +414,46 @@
 		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
 	)
 
+/datum/cooking/recipe/glass_sandwich
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/glass_sandwich
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_ITEM(/obj/item/shard, exact = TRUE),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+	)
+
+/datum/cooking/recipe/plasma_glass_sandwich
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/glass_sandwich/plasma
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_ITEM(/obj/item/shard/plasma),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+	)
+
+/datum/cooking/recipe/plastitanium_glass_sandwich
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/glass_sandwich/plasma/plastitanium
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_ITEM(/obj/item/shard/plastitanium),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+	)
+
+/datum/cooking/recipe/supermatter_sandwich
+	container_type = /obj/item/reagent_containers/cooking/board
+	product_type = /obj/item/food/supermatter_sandwich
+	catalog_category = COOKBOOK_CATEGORY_BURGS
+	steps = list(
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+		PCWJ_ADD_ITEM(/obj/item/nuke_core/supermatter_sliver),
+		PCWJ_ADD_ITEM(/obj/item/food/sliced/bread),
+	)
+
 /datum/cooking/recipe/philly_cheesesteak
 	container_type = /obj/item/reagent_containers/cooking/board
 	product_type = /obj/item/food/philly_cheesesteak
