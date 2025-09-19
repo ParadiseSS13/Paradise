@@ -123,6 +123,6 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		message_admins("[key_name_admin(usr)] is modifying the access of [src]")
+		log_and_message_admins("[key_name_admin(usr)] is modifying the access of [src]")
 		var/datum/ui_module/obj_access_modifier/ui = new(target = src)
 		ui.ui_interact(usr)
