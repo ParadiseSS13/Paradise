@@ -395,6 +395,7 @@
 	name = "instakill rifle"
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit."
 	icon_state = "instagib"
+	inhand_icon_state = "instagib"
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
 	origin_tech = "combat=7;magnets=6"
@@ -420,11 +421,13 @@
 /obj/item/gun/energy/laser/instakill/red
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a red design."
 	icon_state = "instagibred"
+	inhand_icon_state = "instagibred"
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill/red)
 
 /obj/item/gun/energy/laser/instakill/blue
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a blue design."
 	icon_state = "instagibblue"
+	inhand_icon_state = "instagibblue"
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill/blue)
 
 //////////////////////////////
@@ -1206,6 +1209,7 @@
 	name = "model 2495"
 	desc = "A rifle styled after an ancient Earth design. Concealed beneath the wooden furniture and forged metal is a modern laser gun. Features a hand-powered charger that can be used anywhere."
 	icon_state = "lever_action"
+	inhand_icon_state = null // matches icon_state
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	origin_tech = "combat=5;magnets=4"
 	slot_flags = ITEM_SLOT_BACK

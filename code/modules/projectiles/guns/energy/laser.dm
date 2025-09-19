@@ -136,6 +136,7 @@
 	name = "scatter shot laser rifle"
 	desc = "A heavy-duty laser rifle fitted with a retractable prism that scatters its beam into multiple smaller shots. The fire selector has two settings: 'scatter', and 'kill'."
 	icon_state = "lasercannon"
+	inhand_icon_state = "lasercannon4"
 	modifystate = TRUE
 	origin_tech = "combat=5;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
@@ -436,8 +437,10 @@
 
 /obj/item/gun/energy/laser/tag/blue
 	icon_state = "bluetag"
+	inhand_icon_state = "bluetag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/bluetag)
 
 /obj/item/gun/energy/laser/tag/red
 	icon_state = "redtag"
+	inhand_icon_state = "redtag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/redtag)
