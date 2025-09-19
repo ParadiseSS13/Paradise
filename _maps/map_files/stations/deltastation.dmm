@@ -10648,19 +10648,13 @@
 	},
 /area/station/engineering/atmos)
 "aRc" = (
-/obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/item/stack/cable_coil/random,
-/obj/item/stack/cable_coil/random,
-/obj/item/firealarm_electronics,
-/obj/item/firealarm_electronics,
-/obj/item/firealarm_electronics,
-/obj/item/firealarm_electronics,
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -10922,15 +10916,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
-"aSj" = (
-/obj/machinery/flasher{
-	id = "Execution";
-	pixel_y = -27
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/execution)
 "aSp" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -54827,6 +54812,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"fAd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/execution)
 "fAB" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -75516,6 +75509,15 @@
 	icon_state = "tranquillite"
 	},
 /area/station/service/kitchen)
+"oHl" = (
+/obj/machinery/flasher{
+	id = "Execution";
+	pixel_y = -27
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/execution)
 "oHv" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -79462,14 +79464,6 @@
 	icon_state = "caution"
 	},
 /area/station/public/fitness)
-"quz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/execution)
 "quL" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/light,
@@ -156240,7 +156234,7 @@ eud
 jbp
 uNJ
 vzV
-aSj
+oHl
 aMv
 aaa
 aaa
@@ -156496,7 +156490,7 @@ vyc
 hof
 tvQ
 bdf
-quz
+fAd
 oRB
 aMv
 aaa

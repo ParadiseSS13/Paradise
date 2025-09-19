@@ -49264,6 +49264,13 @@
 /obj/structure/closet,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"euR" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 9
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "euX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research/glass,
@@ -63675,13 +63682,6 @@
 	},
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
-"ltD" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 9
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "ltR" = (
 /obj/structure/plasticflaps{
 	opacity = 1
@@ -72005,6 +72005,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
+"pzF" = (
+/obj/machinery/power/electrolyzer,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "pzU" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -82178,13 +82182,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/control)
-"uud" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 10
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "uuh" = (
 /obj/machinery/disposal,
 /obj/machinery/light,
@@ -82284,6 +82281,13 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/surgery/secondary)
+"uxh" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 10
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "uxB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
@@ -122299,7 +122303,7 @@ cPU
 cQM
 cSb
 cTh
-cSd
+pzF
 cOF
 deJ
 dfF
@@ -125902,7 +125906,7 @@ aab
 cQp
 aab
 cZh
-uud
+uxh
 dba
 djE
 dcS
@@ -125914,7 +125918,7 @@ djE
 djE
 djE
 djE
-ltD
+euR
 aab
 aab
 aab

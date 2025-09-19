@@ -1,4 +1,4 @@
- /*
+/*
 What are the archived variables for?
 	Calculations are done using the archived variables with the results merged into the regular variables.
 	This prevents race conditions that arise based on the order of tile processing.
@@ -8,9 +8,11 @@ What are the archived variables for?
 #define SPECIFIC_HEAT_CDO		30
 #define SPECIFIC_HEAT_N2O		40
 #define SPECIFIC_HEAT_AGENT_B	300
+#define SPECIFIC_HEAT_HYDROGEN  30
+#define SPECIFIC_HEAT_WATER_VAPOR      33
 
-#define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, innate_heat_capacity) \
-	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B + innate_heat_capacity)
+#define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, water_vapor, innate_heat_capacity) \
+	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B + hydrogen * SPECIFIC_HEAT_HYDROGEN + water_vapor * SPECIFIC_HEAT_WATER_VAPOR + innate_heat_capacity)
 
 #define MINIMUM_HEAT_CAPACITY	0.0003
 #define MINIMUM_MOLE_COUNT		0.01
@@ -32,6 +34,8 @@ What are the archived variables for?
 	var/private_toxins = 0
 	var/private_sleeping_agent = 0
 	var/private_agent_b = 0
+	var/private_hydrogen = 0
+	var/private_water_vapor = 0
 	var/private_temperature = 0 //in Kelvin
 	var/private_hotspot_temperature = 0
 	var/private_hotspot_volume = 0
@@ -45,6 +49,8 @@ What are the archived variables for?
 	var/private_toxins_archived = 0
 	var/private_sleeping_agent_archived = 0
 	var/private_agent_b_archived = 0
+	var/private_hydrogen_archived = 0
+	var/private_water_vapor_archived = 0
 	var/private_temperature_archived = 0
 
 	/// Is this mixture currently synchronized with MILLA? Always true for non-bound mixtures.
@@ -120,6 +126,18 @@ What are the archived variables for?
 		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
 	private_agent_b = clamped
 
+/datum/gas_mixture/proc/hydrogen()
+	return private_hydrogen
+
+/datum/gas_mixture/proc/set_hydrogen(value)
+	private_hydrogen = value
+
+/datum/gas_mixture/proc/water_vapor()
+	return private_water_vapor
+
+/datum/gas_mixture/proc/set_water_vapor(value)
+	private_water_vapor = value
+
 /datum/gas_mixture/proc/temperature()
 	return private_temperature
 
@@ -142,14 +160,14 @@ What are the archived variables for?
 
 	///joules per kelvin
 /datum/gas_mixture/proc/heat_capacity()
-	return HEAT_CAPACITY_CALCULATION(private_oxygen, private_carbon_dioxide, private_nitrogen, private_toxins, private_sleeping_agent, private_agent_b, innate_heat_capacity)
+	return HEAT_CAPACITY_CALCULATION(private_oxygen, private_carbon_dioxide, private_nitrogen, private_toxins, private_sleeping_agent, private_agent_b, private_hydrogen, private_water_vapor, innate_heat_capacity)
 
 /datum/gas_mixture/proc/heat_capacity_archived()
-	return HEAT_CAPACITY_CALCULATION(private_oxygen_archived, private_carbon_dioxide_archived, private_nitrogen_archived, private_toxins_archived, private_sleeping_agent_archived, private_agent_b_archived, innate_heat_capacity)
+	return HEAT_CAPACITY_CALCULATION(private_oxygen_archived, private_carbon_dioxide_archived, private_nitrogen_archived, private_toxins_archived, private_sleeping_agent_archived, private_agent_b_archived, private_hydrogen_archived, private_water_vapor_archived, innate_heat_capacity)
 
 	/// Calculate moles
 /datum/gas_mixture/proc/total_moles()
-	return private_oxygen + private_carbon_dioxide + private_nitrogen + private_toxins + private_sleeping_agent + private_agent_b
+	return private_oxygen + private_carbon_dioxide + private_nitrogen + private_toxins + private_sleeping_agent + private_agent_b + private_hydrogen + private_water_vapor
 
 /datum/gas_mixture/proc/total_trace_moles()
 	return private_agent_b
@@ -176,6 +194,8 @@ What are the archived variables for?
 	private_toxins_archived = private_toxins
 	private_sleeping_agent_archived = private_sleeping_agent
 	private_agent_b_archived = private_agent_b
+	private_hydrogen_archived = private_hydrogen
+	private_water_vapor_archived = private_water_vapor
 
 	private_temperature_archived = private_temperature
 
@@ -200,6 +220,8 @@ What are the archived variables for?
 	private_toxins += giver.private_toxins
 	private_sleeping_agent += giver.private_sleeping_agent
 	private_agent_b += giver.private_agent_b
+	private_hydrogen += giver.private_hydrogen
+	private_water_vapor += giver.private_water_vapor
 
 	set_dirty()
 	return TRUE
@@ -228,6 +250,8 @@ What are the archived variables for?
 	removed.private_toxins = QUANTIZE((private_toxins / sum) * amount)
 	removed.private_sleeping_agent = QUANTIZE((private_sleeping_agent / sum) * amount)
 	removed.private_agent_b = QUANTIZE((private_agent_b / sum) * amount)
+	removed.private_hydrogen = QUANTIZE((private_hydrogen / sum) * amount)
+	removed.private_water_vapor = QUANTIZE((private_water_vapor / sum) * amount)
 
 	private_oxygen = max(private_oxygen - removed.private_oxygen, 0)
 	private_nitrogen = max(private_nitrogen - removed.private_nitrogen, 0)
@@ -235,6 +259,8 @@ What are the archived variables for?
 	private_toxins = max(private_toxins - removed.private_toxins, 0)
 	private_sleeping_agent = max(private_sleeping_agent - removed.private_sleeping_agent, 0)
 	private_agent_b = max(private_agent_b - removed.private_agent_b, 0)
+	private_hydrogen = max(private_hydrogen - removed.private_hydrogen, 0)
+	private_water_vapor = max(private_water_vapor - removed.private_water_vapor, 0)
 
 	removed.private_temperature = private_temperature
 
@@ -258,6 +284,8 @@ What are the archived variables for?
 	removed.private_toxins = QUANTIZE(private_toxins * ratio)
 	removed.private_sleeping_agent = QUANTIZE(private_sleeping_agent * ratio)
 	removed.private_agent_b = QUANTIZE(private_agent_b * ratio)
+	removed.private_hydrogen = QUANTIZE(private_hydrogen * ratio)
+	removed.private_water_vapor = QUANTIZE(private_water_vapor * ratio)
 
 	private_oxygen = max(private_oxygen - removed.private_oxygen, 0)
 	private_nitrogen = max(private_nitrogen - removed.private_nitrogen, 0)
@@ -265,6 +293,8 @@ What are the archived variables for?
 	private_toxins = max(private_toxins - removed.private_toxins, 0)
 	private_sleeping_agent = max(private_sleeping_agent - removed.private_sleeping_agent, 0)
 	private_agent_b = max(private_agent_b - removed.private_agent_b, 0)
+	private_hydrogen = max(private_hydrogen - removed.private_hydrogen, 0)
+	private_water_vapor = max(private_water_vapor - removed.private_water_vapor, 0)
 
 	removed.private_temperature = private_temperature
 	set_dirty()
@@ -279,6 +309,8 @@ What are the archived variables for?
 	private_toxins = sample.private_toxins
 	private_sleeping_agent = sample.private_sleeping_agent
 	private_agent_b = sample.private_agent_b
+	private_hydrogen = sample.private_hydrogen
+	private_water_vapor = sample.private_water_vapor
 
 	private_temperature = sample.private_temperature
 	set_dirty()
@@ -294,6 +326,8 @@ What are the archived variables for?
 	private_toxins = model.toxins
 	private_sleeping_agent = model.sleeping_agent
 	private_agent_b = model.agent_b
+	private_hydrogen = model.hydrogen
+	private_water_vapor = model.water_vapor
 
 	//acounts for changes in temperature
 	var/turf/model_parent = model.parent_type
@@ -310,7 +344,7 @@ What are the archived variables for?
 		return 0
 	/// Don't make calculations if there is no difference.
 	if(private_oxygen_archived == sharer.private_oxygen_archived && private_carbon_dioxide_archived == sharer.private_carbon_dioxide_archived && private_nitrogen_archived == sharer.private_nitrogen_archived &&\
-	private_toxins_archived == sharer.private_toxins_archived && private_sleeping_agent_archived == sharer.private_sleeping_agent_archived && private_agent_b_archived == sharer.private_agent_b_archived && private_temperature_archived == sharer.private_temperature_archived)
+	private_toxins_archived == sharer.private_toxins_archived && private_sleeping_agent_archived == sharer.private_sleeping_agent_archived && private_agent_b_archived == sharer.private_agent_b_archived && private_hydrogen_archived == sharer.private_hydrogen_archived && private_water_vapor_archived == sharer.private_water_vapor_archived && private_temperature_archived == sharer.private_temperature_archived)
 		return 0
 	var/delta_oxygen = QUANTIZE(private_oxygen_archived - sharer.private_oxygen_archived) / (atmos_adjacent_turfs + 1)
 	var/delta_carbon_dioxide = QUANTIZE(private_carbon_dioxide_archived - sharer.private_carbon_dioxide_archived) / (atmos_adjacent_turfs + 1)
@@ -318,6 +352,8 @@ What are the archived variables for?
 	var/delta_toxins = QUANTIZE(private_toxins_archived - sharer.private_toxins_archived) / (atmos_adjacent_turfs + 1)
 	var/delta_sleeping_agent = QUANTIZE(private_sleeping_agent_archived - sharer.private_sleeping_agent_archived) / (atmos_adjacent_turfs + 1)
 	var/delta_agent_b = QUANTIZE(private_agent_b_archived - sharer.private_agent_b_archived) / (atmos_adjacent_turfs + 1)
+	var/delta_hydrogen = QUANTIZE(private_hydrogen_archived - sharer.private_hydrogen_archived) / (atmos_adjacent_turfs + 1)
+	var/delta_water_vapor = QUANTIZE(private_water_vapor_archived - sharer.private_water_vapor_archived) / (atmos_adjacent_turfs + 1)
 
 	var/delta_temperature = (private_temperature_archived - sharer.private_temperature_archived)
 
@@ -365,6 +401,20 @@ What are the archived variables for?
 			else
 				heat_capacity_sharer_to_self -= agent_b_heat_capacity
 
+		if(delta_hydrogen)
+			var/hydrogen_heat_capacity = SPECIFIC_HEAT_HYDROGEN * delta_hydrogen
+			if(delta_hydrogen > 0)
+				heat_capacity_self_to_sharer += hydrogen_heat_capacity
+			else
+				heat_capacity_sharer_to_self -= hydrogen_heat_capacity
+
+		if(delta_water_vapor)
+			var/water_vapor_heat_capacity = SPECIFIC_HEAT_WATER_VAPOR * delta_water_vapor
+			if(delta_water_vapor > 0)
+				heat_capacity_self_to_sharer += water_vapor_heat_capacity
+			else
+				heat_capacity_sharer_to_self -= water_vapor_heat_capacity
+
 		old_self_heat_capacity = heat_capacity()
 		old_sharer_heat_capacity = sharer.heat_capacity()
 
@@ -385,6 +435,12 @@ What are the archived variables for?
 
 	private_agent_b -= delta_agent_b
 	sharer.private_agent_b += delta_agent_b
+
+	private_hydrogen -= delta_hydrogen
+	sharer.private_hydrogen += delta_hydrogen
+
+	private_water_vapor -= delta_water_vapor
+	sharer.private_water_vapor += delta_water_vapor
 
 	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_sleeping_agent + delta_agent_b)
 
@@ -416,6 +472,8 @@ What are the archived variables for?
 	var/delta_toxins = QUANTIZE(private_toxins_archived - model.toxins) / (atmos_adjacent_turfs + 1)
 	var/delta_sleeping_agent = QUANTIZE(private_sleeping_agent_archived - model.sleeping_agent) / (atmos_adjacent_turfs + 1)
 	var/delta_agent_b = QUANTIZE(private_agent_b_archived - model.agent_b) / (atmos_adjacent_turfs + 1)
+	var/delta_hydrogen = QUANTIZE(private_hydrogen_archived - model.hydrogen) / (atmos_adjacent_turfs + 1)
+	var/delta_water_vapor = QUANTIZE(private_water_vapor_archived - model.water_vapor) / (atmos_adjacent_turfs + 1)
 
 	var/delta_temperature = (private_temperature_archived - model.temperature)
 
@@ -459,6 +517,8 @@ What are the archived variables for?
 	private_toxins -= delta_toxins
 	private_sleeping_agent -= delta_sleeping_agent
 	private_agent_b -= delta_agent_b
+	private_hydrogen -= delta_hydrogen
+	private_water_vapor -= delta_water_vapor
 
 	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_sleeping_agent + delta_agent_b)
 
@@ -471,7 +531,7 @@ What are the archived variables for?
 
 	set_dirty()
 	if((delta_temperature > MINIMUM_TEMPERATURE_TO_MOVE) || abs(moved_moles) > MINIMUM_MOLES_DELTA_TO_MOVE)
-		var/delta_pressure = private_temperature_archived * (total_moles() + moved_moles) - model.temperature * (model.oxygen + model.carbon_dioxide + model.nitrogen + model.toxins + model.sleeping_agent + model.agent_b)
+		var/delta_pressure = private_temperature_archived * (total_moles() + moved_moles) - model.temperature * (model.oxygen + model.carbon_dioxide + model.nitrogen + model.toxins + model.sleeping_agent + model.agent_b + model.hydrogen + model.water_vapor)
 		return delta_pressure * R_IDEAL_GAS_EQUATION / volume
 	else
 		return 0
@@ -484,6 +544,8 @@ What are the archived variables for?
 	var/delta_toxins = (private_toxins_archived - model.toxins) / (atmos_adjacent_turfs + 1)
 	var/delta_sleeping_agent = (private_sleeping_agent_archived - model.sleeping_agent) / (atmos_adjacent_turfs + 1)
 	var/delta_agent_b = (private_agent_b_archived - model.agent_b) / (atmos_adjacent_turfs + 1)
+	var/delta_hydrogen = (private_hydrogen_archived - model.hydrogen) / (atmos_adjacent_turfs + 1)
+	var/delta_water_vapor = (private_water_vapor_archived - model.water_vapor) / (atmos_adjacent_turfs + 1)
 
 	var/delta_temperature = (private_temperature_archived - model.temperature)
 
@@ -492,7 +554,9 @@ What are the archived variables for?
 		|| ((abs(delta_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_nitrogen) >= private_nitrogen_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
 		|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= private_toxins_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
 		|| ((abs(delta_sleeping_agent) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_sleeping_agent) >= private_sleeping_agent_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_agent_b) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_agent_b) >= private_agent_b_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)))
+		|| ((abs(delta_agent_b) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_agent_b) >= private_agent_b_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_hydrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_hydrogen) >= private_hydrogen_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_water_vapor) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_water_vapor) >= private_water_vapor_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)))
 		return FALSE
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
 		return FALSE
@@ -575,6 +639,8 @@ What are the archived variables for?
 	var/delta_toxins = (private_toxins - model.toxins)
 	var/delta_sleeping_agent = (private_sleeping_agent - model.sleeping_agent)
 	var/delta_agent_b = (private_agent_b - model.agent_b)
+	var/delta_hydrogen = (private_hydrogen - model.hydrogen)
+	var/delta_water_vapor = (private_water_vapor - model.water_vapor)
 
 	var/delta_temperature = (private_temperature - model.temperature)
 
@@ -583,7 +649,9 @@ What are the archived variables for?
 		|| ((abs(delta_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_nitrogen) >= private_nitrogen * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
 		|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= private_toxins * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
 		|| ((abs(delta_sleeping_agent) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_sleeping_agent) >= private_sleeping_agent * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_agent_b) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_agent_b) >= private_agent_b * MINIMUM_AIR_RATIO_TO_SUSPEND)))
+		|| ((abs(delta_agent_b) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_agent_b) >= private_agent_b * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_hydrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_hydrogen) >= private_hydrogen * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
+		|| ((abs(delta_water_vapor) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_water_vapor) >= private_water_vapor * MINIMUM_AIR_RATIO_TO_SUSPEND)))
 		return FALSE
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
 		return FALSE
@@ -655,6 +723,7 @@ What are the archived variables for?
 				private_toxins = QUANTIZE(private_toxins - plasma_burn_rate)
 				private_oxygen = QUANTIZE(private_oxygen - (plasma_burn_rate * private_oxygen_burn_rate))
 				private_carbon_dioxide += plasma_burn_rate
+				private_water_vapor += plasma_burn_rate * WATER_VAPOR_PER_PLASMA_BURNT
 
 				energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 
@@ -667,6 +736,32 @@ What are the archived variables for?
 
 		if(fuel_burnt)
 			reacting = TRUE
+	// handles hydrogen burning
+	if((private_hydrogen >= 0) && (private_oxygen >= 0) && private_temperature > HYDROGEN_MIN_IGNITE_TEMP)
+		// Calculate the reaction rate based on temperature and pressure
+		var/reaction_rate = (private_temperature / (private_temperature + 2000)) * (return_pressure() / (return_pressure() + 100))
+		// Burn a portion of our hydrogen equal to reaction_rate, but no more than we have or have oxygen for.
+		var/burned_hydrogen = min(reaction_rate * private_hydrogen, private_hydrogen, private_oxygen * 2)
+		var/burned_oxygen = min(burned_hydrogen / 2, private_oxygen)
+		var/produced_water_vapor = (burned_hydrogen / H2_NEEDED_FOR_H2O)
+
+		// cache heat capacity before making changes to the gasses
+		var/old_heat_capacity = heat_capacity()
+
+		// Burn gasses
+		private_hydrogen -= burned_hydrogen
+		private_oxygen -= burned_oxygen
+		private_water_vapor += produced_water_vapor
+
+		// Calculate gained energy
+		var/energy_released = HYDROGEN_BURN_ENERGY * burned_hydrogen
+		// Calculate post-burn heat capacity
+		var/new_heat_capacity = heat_capacity()
+		// Calculate new temperature
+		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+			private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
+
+		reacting = TRUE
 
 	set_dirty()
 	return reacting
@@ -691,6 +786,8 @@ What are the archived variables for?
 	private_toxins = milla[MILLA_INDEX_TOXINS]
 	private_sleeping_agent = milla[MILLA_INDEX_SLEEPING_AGENT]
 	private_agent_b = milla[MILLA_INDEX_AGENT_B]
+	private_hydrogen = milla[MILLA_INDEX_HYDROGEN]
+	private_water_vapor = milla[MILLA_INDEX_WATER_VAPOR]
 	innate_heat_capacity = milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]
 	private_temperature = milla[MILLA_INDEX_TEMPERATURE]
 	private_hotspot_temperature = milla[MILLA_INDEX_HOTSPOT_TEMPERATURE]
@@ -705,6 +802,8 @@ What are the archived variables for?
 	var/total_carbon_dioxide = 0
 	var/total_sleeping_agent = 0
 	var/total_agent_b = 0
+	var/total_hydrogen = 0
+	var/total_water_vapor = 0
 	var/must_share = FALSE
 
 	// Collect all the cheap data and check if there's a significant temperature difference.
@@ -725,6 +824,8 @@ What are the archived variables for?
 		total_carbon_dioxide += G.private_carbon_dioxide
 		total_sleeping_agent += G.private_sleeping_agent
 		total_agent_b += G.private_agent_b
+		total_hydrogen += G.private_hydrogen
+		total_water_vapor += G.private_water_vapor
 
 	if(total_volume == 0)
 		return
@@ -753,6 +854,12 @@ What are the archived variables for?
 				must_share = TRUE
 				break
 			if(abs(G.private_agent_b - total_agent_b * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
+			if(abs(G.private_hydrogen - total_hydrogen * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
+			if(abs(G.private_water_vapor - total_water_vapor * G.volume / total_volume) > 0.1)
 				must_share = TRUE
 				break
 
@@ -788,6 +895,8 @@ What are the archived variables for?
 		G.private_carbon_dioxide = total_carbon_dioxide * G.volume / total_volume
 		G.private_sleeping_agent = total_sleeping_agent * G.volume / total_volume
 		G.private_agent_b = total_agent_b * G.volume / total_volume
+		G.private_hydrogen = total_hydrogen * G.volume / total_volume
+		G.private_water_vapor = total_water_vapor * G.volume / total_volume
 
 		G.private_temperature = temperature
 		// In theory, we should G.set_dirty() here, but that's only useful for bound mixtures, and these can't be.
@@ -800,6 +909,8 @@ What are the archived variables for?
 #undef SPECIFIC_HEAT_CDO
 #undef SPECIFIC_HEAT_N2O
 #undef SPECIFIC_HEAT_AGENT_B
+#undef SPECIFIC_HEAT_HYDROGEN
+#undef SPECIFIC_HEAT_WATER_VAPOR
 #undef HEAT_CAPACITY_CALCULATION
 #undef MINIMUM_HEAT_CAPACITY
 #undef MINIMUM_MOLE_COUNT
@@ -826,6 +937,8 @@ What are the archived variables for?
 		readonly.private_toxins = private_toxins
 		readonly.private_sleeping_agent = private_sleeping_agent
 		readonly.private_agent_b = private_agent_b
+		readonly.private_hydrogen = private_hydrogen
+		readonly.private_water_vapor = private_water_vapor
 		readonly.private_temperature = private_temperature
 		readonly.private_hotspot_temperature = private_hotspot_temperature
 		readonly.private_hotspot_volume = private_hotspot_volume
@@ -860,6 +973,14 @@ What are the archived variables for?
 	private_agent_b = value
 	set_dirty()
 
+/datum/gas_mixture/bound_to_turf/set_hydrogen(value)
+	private_hydrogen = value
+	set_dirty()
+
+/datum/gas_mixture/bound_to_turf/set_water_vapor(value)
+	private_water_vapor = value
+	set_dirty()
+
 /datum/gas_mixture/bound_to_turf/set_temperature(value)
 	private_temperature = value
 	set_dirty()
@@ -871,7 +992,7 @@ What are the archived variables for?
 		private_hotspot_volume = max(private_hotspot_volume, (volume / CELL_VOLUME))
 
 /datum/gas_mixture/bound_to_turf/proc/private_unsafe_write()
-	set_tile_atmos(bound_turf, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, temperature = private_temperature)
+	set_tile_atmos(bound_turf, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, hydrogen = private_hydrogen, water_vapor = private_water_vapor, temperature = private_temperature)
 
 /datum/gas_mixture/bound_to_turf/proc/get_readonly()
 	if(isnull(readonly))
@@ -888,6 +1009,8 @@ What are the archived variables for?
 	private_toxins = parent.private_toxins
 	private_sleeping_agent = parent.private_sleeping_agent
 	private_agent_b = parent.private_agent_b
+	private_hydrogen = parent.private_hydrogen
+	private_water_vapor = parent.private_water_vapor
 
 	private_temperature = parent.private_temperature
 	private_hotspot_temperature = parent.private_hotspot_temperature
