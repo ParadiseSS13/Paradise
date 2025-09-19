@@ -3952,6 +3952,7 @@
 /obj/item/kitchen/knife,
 /obj/item/kitchen/rollingpin,
 /obj/structure/table,
+/obj/effect/spawner/random/kitchen_equipment,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15

@@ -287,16 +287,20 @@
  * exists, returns null.
  */
 /datum/reagents/proc/trans_id_to(obj/target, reagent, amount = 1, preserve_data = TRUE) //Not sure why this proc didn't exist before. It does now! /N
-	if(!target)
+	if(!target || total_volume <= 0 || !get_reagent_amount(reagent))
 		return
-	if(!target.reagents || total_volume <= 0 || !get_reagent_amount(reagent))
-		return
+	var/datum/reagents/R
+	if(isobj(target))
+		if(!target.reagents)
+			return
+		R = target.reagents
+	else if(istype(target, /datum/reagents))
+		R = target
 
-	var/datum/reagents/R = target.reagents
 	if(get_reagent_amount(reagent) < amount)
 		amount = get_reagent_amount(reagent)
 	amount = min(amount, R.maximum_volume - R.total_volume)
-	if(isliving(my_atom))
+	if(isliving(my_atom) && isobj(target))
 		SEND_SIGNAL(target,COMSIG_MOB_REAGENT_EXCHANGE , my_atom)
 	var/trans_data = null
 	for(var/A in reagent_list)

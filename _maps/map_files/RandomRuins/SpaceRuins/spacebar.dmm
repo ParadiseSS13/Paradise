@@ -136,6 +136,7 @@
 "aH" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/spawner/random/kitchen_equipment,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "aI" = (

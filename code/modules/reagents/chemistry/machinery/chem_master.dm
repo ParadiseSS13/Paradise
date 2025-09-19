@@ -116,6 +116,9 @@
 	update_icon()
 
 /obj/machinery/chem_master/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/autochef_remote)) // hate this is here
+		return
+
 	if(istype(used, /obj/item/storage/part_replacer))
 		return ..()
 
