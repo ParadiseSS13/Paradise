@@ -9,7 +9,7 @@
 	faction = list("mining")
 	max_mobs = 3
 	max_integrity = 250
-	mob_types = list(/mob/living/basic/mining/basilisk/watcher/tendril)
+	mob_types = list(/mob/living/basic/mining/basilisk/watcher)
 
 	move_resist = INFINITY // just killing it tears a massive hole in the ground, let's not move it
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
@@ -17,10 +17,10 @@
 	var/obj/effect/light_emitter/tendril/emitted_light
 
 /obj/structure/spawner/lavaland/goliath
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril)
+	mob_types = list(/mob/living/basic/mining/goliath)
 
 /obj/structure/spawner/lavaland/legion
-	mob_types = list(/mob/living/basic/mining/hivelord/legion/tendril)
+	mob_types = list(/mob/living/basic/mining/hivelord/legion)
 
 GLOBAL_LIST_EMPTY(tendrils)
 

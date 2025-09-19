@@ -800,7 +800,7 @@
 	pixel_x = -12
 
 /obj/effect/mob_spawn/corpse/goliath
-	mob_type = /mob/living/simple_animal/hostile/asteroid/goliath/beast
+	mob_type = /mob/living/basic/mining/goliath
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath_dead"
 	pixel_x = -12

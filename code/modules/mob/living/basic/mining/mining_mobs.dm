@@ -20,8 +20,6 @@
 	var/crusher_loot
 	/// What is the chance the mob drops it if all their health was taken by crusher attacks
 	var/crusher_drop_mod = 25
-	/// Whether or not the mob came from a tendril
-	var/from_tendril = FALSE
 	/// Alternate icon for mobs that are angry
 	var/icon_aggro = null
 	/// If we want the mob to have 66% resist from burn damage projectiles
