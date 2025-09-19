@@ -89,6 +89,7 @@
 	inhand_icon_state = "meson"
 	origin_tech = "magnets=1;engineering=2"
 	prescription_upgradable = TRUE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	var/active_on_equip = TRUE
 
 /obj/item/clothing/glasses/meson/equipped(mob/user, slot, initial)
@@ -128,6 +129,7 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 4
+	icon_monitor = null
 	attack_verb = list("sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = TRUE
@@ -149,6 +151,7 @@
 	scan_reagents = TRUE // You can see reagents while wearing science goggles
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = INFINITY)
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
@@ -166,11 +169,13 @@
 	name = "janitorial goggles"
 	desc = "These'll keep the soap out of your eyes."
 	icon_state = "purple"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/night
 	name = "night vision goggles"
 	desc = "You can totally see in the dark now!"
 	icon_state = "night"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	origin_tech = "materials=4;magnets=4;plasmatech=4;engineering=4"
 	see_in_dark = 8
 	prescription_upgradable = TRUE
@@ -188,6 +193,7 @@
 	icon_state = "eyepatch"
 	inhand_icon_state = "blindfold"
 	prescription_upgradable = TRUE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/monocle
 	name = "monocle"
@@ -197,12 +203,14 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	prescription_upgradable = TRUE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/material
 	name = "optical material scanner"
 	desc = "Very confusing glasses."
 	icon_state = "material"
 	origin_tech = "magnets=3;engineering=3"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	vision_flags = SEE_OBJS | SEE_TURFS
 
 /obj/item/clothing/glasses/material/cyber
@@ -225,6 +233,7 @@
 	desc = "Made by Nerd. Co."
 	icon_state = "glasses"
 	prescription = TRUE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/regular/hipster
 	desc = "Made by Uncool. Co."
@@ -235,27 +244,33 @@
 	desc = "Just some basic goggles, rather fashionable."
 	icon_state = "goggles"
 
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
+
 /obj/item/clothing/glasses/threedglasses
 	name = "\improper 3D glasses"
 	desc = "A long time ago, people used these glasses to makes images from screens threedimensional."
 	icon_state = "3d"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/gglasses
 	name = "green glasses"
 	desc = "Forest green glasses, like the kind you'd wear when hatching a nasty scheme."
 	icon_state = "gglasses"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/syndie
 	name = "suspicious glasses"
 	desc = "Suspicious-looking, stylish glasses. They don't look like they could protect you from a flash, however they have a slot around their lenses where something could easily be inserted."
 	icon_state = "syndieglasses"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/syndie_sun
 	name = "suspicious shaded glasses"
 	desc = "Suspicious-looking, dark red, stylish glasses. They appear to have an additional eye-shielding layer over the lenses."
 	icon_state = "syndieglasses_sun"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	inhand_icon_state = "sunglasses"
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
@@ -272,6 +287,7 @@
 	tint = FLASH_PROTECTION_FLASH
 	prescription_upgradable = TRUE
 	dog_fashion = /datum/dog_fashion/head
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	hide_examine = TRUE
 
 /obj/item/clothing/glasses/sunglasses_fake
@@ -280,6 +296,7 @@
 	icon_state = "sun"
 	inhand_icon_state = "sunglasses"
 	prescription_upgradable = TRUE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/sunglasses/noir
 	name = "noir sunglasses"
@@ -357,6 +374,7 @@
 	tint = FLASH_PROTECTION_WELDER
 	can_toggle = TRUE
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/welding/attack_self__legacy__attackchain(mob/user)
 	weldingvisortoggle(user)
@@ -398,6 +416,7 @@
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = FLASH_PROTECTION_SENSITIVE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/thermal/emp_act(severity)
 	thermal_overload()
