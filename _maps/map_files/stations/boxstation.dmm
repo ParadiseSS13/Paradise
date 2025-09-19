@@ -29956,6 +29956,14 @@
 /obj/effect/spawner/random/blood/maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"cef" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "ceh" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -52061,6 +52069,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -66524,6 +66535,18 @@
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
+"ntB" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "ntD" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -68581,6 +68604,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -71752,6 +71778,17 @@
 	},
 /turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
+"pVZ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/binary/pump{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "pWt" = (
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel,
@@ -73419,6 +73456,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"qGY" = (
+/obj/machinery/atmospherics/meter,
+/obj/machinery/atmospherics/pipe/manifold4w/visible,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "qHt" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -80628,6 +80672,17 @@
 	icon_state = "browncorner"
 	},
 /area/station/supply/smith_office)
+"urs" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "ury" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -80729,6 +80784,15 @@
 	icon_state = "redfull"
 	},
 /area/station/security/permabrig)
+"utV" = (
+/obj/machinery/light/floor,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "uuh" = (
 /obj/machinery/disposal,
 /obj/machinery/light,
@@ -117601,7 +117665,7 @@ aig
 lnU
 orS
 gag
-ePY
+cef
 kIc
 sKE
 sKE
@@ -117858,7 +117922,7 @@ wpH
 cYQ
 ePY
 gcx
-ePY
+dTn
 koL
 sKE
 sKE
@@ -118115,7 +118179,7 @@ wpH
 cYQ
 gJd
 ePY
-cUl
+utV
 koL
 sKE
 sKE
@@ -118372,8 +118436,8 @@ cVp
 cSU
 fBz
 ePY
-ePY
-rjC
+ntB
+qGY
 oFv
 oFv
 rbi
@@ -118629,7 +118693,7 @@ cYQ
 cSU
 vpo
 ePY
-ePY
+pVZ
 wgs
 ePY
 ePY
@@ -118886,7 +118950,7 @@ uVt
 cYQ
 krD
 ePY
-ePY
+urs
 vNu
 ePY
 ePY
@@ -119143,7 +119207,7 @@ iBS
 cYQ
 fQx
 ePY
-ePY
+urs
 ePY
 rWB
 ePY
