@@ -6,7 +6,6 @@
 /// Global list of all PDAs in the world
 GLOBAL_LIST_EMPTY(PDAs)
 
-
 /obj/item/pda
 	name = "\improper PDA"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
@@ -18,24 +17,33 @@ GLOBAL_LIST_EMPTY(PDAs)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	origin_tech = "programming=2"
-
-	//Main variables
+	/// Is this a silicon's internal PDA?
+	var/silicon_pda = FALSE
+	/// Name on the registered owner's ID card.
 	var/owner = null
-	var/default_cartridge = 0 // Access level defined by cartridge
-	var/obj/item/cartridge/cartridge = null //current cartridge
+	/// Typepath of the ROM cartridge that spawns with this PDA, if any. Gives extra functionality to the PDA.
+	var/default_cartridge = 0
+	/// The ROM cartridge currently inside this PDA.
+	var/obj/item/cartridge/cartridge = null
+	/// The program currently loaded in the PDA (e.g. crew manifest, messanger, main menu).
 	var/datum/data/pda/app/current_app = null
-	var/datum/data/pda/app/lastapp = null
-
-	//Secondary variables
+	/// Stated by some programs, not visible on examination.
 	var/model_name = "Thinktronic 5230 Personal Data Assistant"
+	/// Some PDA programs turn the PDA into scanning tool (e.g. gas scaner, medical analyzer).
 	var/datum/data/pda/utility/scanmode/scanmode = null
-
-	var/lock_code = "" // Lockcode to unlock uplink
-	var/silent = FALSE //To beep or not to beep, that is the question
-	var/honkamt = 0 //How many honks left when infected with honk.exe
-	var/mimeamt = 0 //How many silence left when infected with mime.exe
-	var/detonate = TRUE // Can the PDA be blown up?
-	var/ttone = "beep" //The ringtone!
+	/// Code to unlock the Syndicate uplink.
+	var/lock_code = ""
+	/// Is the PDA muted?
+	var/silent = FALSE
+	/// How many sounds will be replaced with HONKs (when infected with honk.exe)?
+	var/honkamt = 0
+	/// How many sounds will be muted (when infected with mime.exe)?
+	var/mimeamt = 0
+	/// Can this PDA be blown up?
+	var/detonate = TRUE
+	/// This PDA's ringtone.
+	var/ttone = "beep"
+	/// Core programs that come with this PDA.
 	var/list/programs = list(
 		new/datum/data/pda/app/main_menu,
 		new/datum/data/pda/app/notekeeper,
@@ -51,16 +59,19 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/list/shortcut_cat_order = list()
 	var/list/notifying_programs = list()
 
-	var/obj/item/card/id/id = null //Making it possible to slot an ID card into the PDA so it can function as both.
+	/// ID card currently slotted into the PDA.
+	var/obj/item/card/id/id = null
+	/// Job on the current ID card.
 	var/ownjob = null //related to above
+	/// Rank of the current ID card.
 	var/ownrank = null // this one is rank, never alt title
-
-	var/obj/item/paicard/pai = null	// A slot for a personal AI device
-	// The slot where you can store a pen
+	/// PDA slot for a pAI.
+	var/obj/item/paicard/pai = null
+	/// PDA slot for a pen.
 	var/obj/item/held_pen
-	var/retro_mode = 0
-	/// What pen is loaded in the PDA
+	/// Type of pen this PDA spawns with.
 	var/obj/item/pen/default_pen = /obj/item/pen
+	var/retro_mode = 0
 
 /*
  *	The Actual PDA
@@ -143,7 +154,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/update_overlays()
 	. = ..()
 	var/datum/data/pda/utility/flashlight/flash = find_program(/datum/data/pda/utility/flashlight)
-	if(flash.fon)
+	if(flash?.fon)
 		switch(icon_state)
 			if("pda-library")
 				. += image('icons/obj/pda.dmi', "pda-light-library")

@@ -410,6 +410,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	return TRUE
 
+/mob/living/silicon/ai/open_pda()
+	aiPDA.ui_interact(src)
 
 /*
 	The AI Power supply is a dummy object used for powering the AI since only machinery should be using power.

@@ -283,6 +283,30 @@
 		new /datum/data/pda/app/status_display
 	)
 
+/obj/item/cartridge/ai
+	name = "All-Seeing Cartridge"
+	desc = "A data cartridge made for the internal PDA of an AI."
+	programs = list(
+		new /datum/data/pda/app/power,
+		new /datum/data/pda/app/crew_records/medical,
+		new /datum/data/pda/app/crew_records/security,
+		new /datum/data/pda/app/secbot_control,
+		new /datum/data/pda/app/janitor,
+		new /datum/data/pda/app/supply,
+	)
+
+/obj/item/cartridge/robot
+	name = "BORG-0 Cartridge"
+	desc = "A data cartidge made for the internal PDAs of synthetics."
+	programs = list(
+		new /datum/data/pda/utility/robot_headlamp,
+		new /datum/data/pda/utility/robot_self_diagnosis,
+		new /datum/data/pda/app/power,
+		new /datum/data/pda/app/crew_records/medical,
+		new /datum/data/pda/app/crew_records/security,
+		new /datum/data/pda/app/janitor,
+	)
+
 /obj/item/cartridge/syndicate
 	name = "Detomatix Cartridge"
 	desc = "Allows you to remotely detonate other people's PDAs through the messenger program."

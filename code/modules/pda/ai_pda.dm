@@ -2,6 +2,19 @@
 /obj/item/pda/silicon
 	detonate = FALSE
 	ttone = "data"
+	model_name = "Thinktronic 6000 Internal Personal Data Assistant"
+	silicon_pda = TRUE
+	// No flashlight app - robot cart has a headlamp app instead.
+	programs = list(
+		new/datum/data/pda/app/main_menu,
+		new/datum/data/pda/app/notekeeper,
+		new/datum/data/pda/app/messenger,
+		new/datum/data/pda/app/manifest,
+		new/datum/data/pda/app/nanobank,
+		new/datum/data/pda/app/atmos_scanner,
+		new/datum/data/pda/app/games,
+		new/datum/data/pda/app/game/minesweeper,
+		)
 
 /obj/item/pda/silicon/proc/set_name_and_job(newname as text, newjob as text, newrank as null|text)
 	owner = newname
@@ -57,7 +70,6 @@
 	M.toff = !M.toff
 	to_chat(usr, "<span class='notice'>PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!</span>")
 
-
 /obj/item/pda/silicon/verb/cmd_toggle_pda_silent()
 	set category = "AI IM"
 	set name = "Toggle Ringer"
@@ -68,16 +80,17 @@
 	silent = !silent
 	to_chat(usr, "<span class='notice'>PDA ringer toggled [(silent ? "Off" : "On")]!</span>")
 
-/obj/item/pda/silicon/attack_self__legacy__attackchain(mob/user as mob)
-	if((honkamt > 0) && (prob(60)))//For clown virus.
-		honkamt--
-		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
+/obj/item/pda/silicon/ai
+	default_cartridge = /obj/item/cartridge/ai
 
 /obj/item/pda/silicon/ai/can_use()
 	var/mob/living/silicon/ai/AI = usr
 	if(!istype(AI))
 		return 0
 	return ..() && !AI.check_unable(AI_CHECK_WIRELESS)
+
+/obj/item/pda/silicon/robot
+	default_cartridge = /obj/item/cartridge/robot
 
 /obj/item/pda/silicon/robot/can_use()
 	var/mob/living/silicon/robot/R = usr

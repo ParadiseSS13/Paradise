@@ -104,6 +104,17 @@
 	var/mob/living/silicon/robot/R = usr
 	R.toggle_ionpulse()
 
+/atom/movable/screen/robot/pda
+	name = "internal PDA"
+	icon_state = "pda"
+	screen_loc = UI_BORG_PDA
+
+/atom/movable/screen/robot/pda/Click()
+	if(..())
+		return
+	var/mob/living/silicon/robot/R = usr
+	R.open_pda()
+
 /atom/movable/screen/robot/mov_intent
 	name = "fast/slow toggle"
 	icon_state = "running"
@@ -202,6 +213,11 @@
 	using.screen_loc = UI_BORG_THRUSTERS
 	static_inventory += using
 	mymobR.thruster_button = using
+
+// PDA
+	using = new /atom/movable/screen/robot/pda()
+	static_inventory += using
+	mymobR.pda_button = using
 
 /datum/hud/robot/Destroy()
 	var/mob/living/silicon/robot/myrob = mymob

@@ -44,6 +44,7 @@
 #define UI_BORG_SENSOR "CENTER-3:16, SOUTH:5"	//borgs
 #define UI_BORG_LAMP "CENTER-4:16, SOUTH:5"		//borgs
 #define UI_BORG_THRUSTERS "CENTER-5:16, SOUTH:5"//borgs
+#define UI_BORG_PDA "CENTER-6:16, SOUTH:5"      //borgs
 #define UI_INV1 "CENTER-2:16,SOUTH:5"			//borgs
 #define UI_INV2 "CENTER-1  :16,SOUTH:5"			//borgs
 #define UI_INV3 "CENTER  :16,SOUTH:5"			//borgs
@@ -132,8 +133,7 @@
 #define UI_AI_ALERTS "BOTTOM:6,CENTER-1"
 #define UI_AI_ANNOUNCEMENT "BOTTOM:6,CENTER"
 #define UI_AI_SHUTTLE "BOTTOM:6,CENTER+1"
-#define UI_AI_PDA_LOG "BOTTOM:6,CENTER+2"
-#define UI_AI_PDA_SEND "BOTTOM:6,CENTER+3"
+#define UI_AI_PDA "BOTTOM:6,CENTER+2"
 
 #define UI_AI_STATE_LAWS "SOUTH:6,RIGHT-2"
 #define UI_AI_CORE "SOUTH:6,RIGHT-1"
