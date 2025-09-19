@@ -226,6 +226,8 @@
 /obj/machinery/nuclear_rod_fabricator/proc/check_mat(obj/item/nuclear_rod/being_built, M)
 	var/A = materials.amount(M)
 	if(!A)
+		visible_message("<span class='warning'>Something has gone very wrong. Alert a developer.</span>")
+		return
 	else
 		A = A / max(1, (being_built.materials[M] * efficiency_coeff))
 	return A

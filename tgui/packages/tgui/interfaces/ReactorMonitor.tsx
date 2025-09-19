@@ -147,7 +147,7 @@ export const ReactorMonitor = (props) => {
                   maxValue={100}
                   step={1}
                   stepPixelSize={2}
-                  onDrag={(e, value) =>
+                  onChange={(e, value) =>
                     act('set_throttle', {
                       NGCR_throttle: value,
                     })
