@@ -129,6 +129,7 @@
 	shoes = /obj/item/clothing/shoes/workboots/smithing
 	id = /obj/item/card/id/smith
 	pda = /obj/item/pda/cargo
+	box = /obj/item/storage/box/survival_mining
 
 /datum/outfit/job/smith/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
