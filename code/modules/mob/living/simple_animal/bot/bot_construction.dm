@@ -8,9 +8,7 @@
 	icon_state = "bucket_proxy"
 	force = 3
 	throwforce = 5
-	throw_speed = 2
 	throw_range = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	var/created_name = "Cleanbot"
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
@@ -43,7 +41,6 @@
 	desc = "Some sort of bizarre assembly."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "ed209_frame"
-	item_state = "ed209_frame"
 	var/build_step = 0
 	var/created_name = "\improper ED-209 Security Robot" //To preserve the name if it's a unique securitron I guess
 	var/lasercolor = ""
@@ -210,22 +207,16 @@
 /obj/item/ed209_assembly/update_icon_state()
 	switch(build_step)
 		if(1)
-			item_state = "ed209_leg"
 			icon_state = "ed209_leg"
 		if(2)
-			item_state = "ed209_legs"
 			icon_state = "ed209_legs"
 		if(3,4)
-			item_state = "[lasercolor]ed209_shell"
 			icon_state = "[lasercolor]ed209_shell"
 		if(5)
-			item_state = "[lasercolor]ed209_hat"
 			icon_state = "[lasercolor]ed209_hat"
 		if(6,7)
-			item_state = "[lasercolor]ed209_prox"
 			icon_state = "[lasercolor]ed209_prox"
 		if(8,9)
-			item_state = "[lasercolor]ed209_taser"
 			icon_state = "[lasercolor]ed209_taser"
 
 //Floorbot assemblies
@@ -236,9 +227,7 @@
 	icon_state = "toolbox_tiles"
 	force = 3
 	throwforce = 10
-	throw_speed = 2
 	throw_range = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	var/created_name = "Floorbot"
 	var/toolbox = /obj/item/storage/toolbox/mechanical
 	var/toolbox_color = "" //Blank for blue, r for red, y for yellow, etc.
@@ -357,7 +346,6 @@
 	desc = "A first aid kit with a robot arm permanently grafted to it."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "firstaid_arm"
-	w_class = WEIGHT_CLASS_NORMAL
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
 	var/build_step = 0
 	var/created_name = "Medibot" //To preserve the name if it's a unique medbot I guess
@@ -437,7 +425,9 @@
 	desc = "Some sort of bizarre assembly made from a proximity sensor, helmet, and signaler."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "helmet_signaler"
-	item_state = "helmet"
+	inhand_icon_state = "helmet"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	var/created_name = "Securitron" //To preserve the name if it's a unique securitron I guess
 	var/build_step = 0
 	var/robot_arm = /obj/item/robot_parts/l_arm
@@ -560,7 +550,6 @@
 	desc = "Some sort of bizarre assembly."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "griefsky_assembly"
-	item_state = "griefsky_assembly"
 	var/build_step = 0
 	var/toy_step = 0
 
@@ -634,7 +623,6 @@
 	desc = "A clown box with a robot arm permanently grafted to it."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "honkbot_arm"
-	w_class = WEIGHT_CLASS_NORMAL
 	req_one_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
 	var/build_step = 0
 	var/created_name = "Honkbot" //To preserve the name if it's a unique medbot I guess

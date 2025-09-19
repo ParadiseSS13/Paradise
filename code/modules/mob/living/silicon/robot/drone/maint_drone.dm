@@ -2,13 +2,11 @@
 /mob/living/silicon/robot/drone
 	name = "drone"
 	real_name = "drone"
-	icon = 'icons/mob/robots.dmi'
 	icon_state = "repairbot"
 	maxHealth = 35
 	health = 35
 	bubble_icon = "machine"
 	pass_flags = PASSTABLE
-	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	braintype = "Robot"
 	lawupdate = FALSE
 	density = FALSE
@@ -415,7 +413,7 @@
 	return ..()
 
 /mob/living/silicon/robot/drone/do_suicide()
-	ghostize(TRUE)
+	ghostize()
 	shut_down()
 
 /mob/living/silicon/robot/drone/proc/pathfind_to_dronefab()

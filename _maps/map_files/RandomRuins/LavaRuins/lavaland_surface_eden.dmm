@@ -41,7 +41,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "dv" = (
 /obj/item/hatchet,
-/mob/living/simple_animal/hostile/killertomato,
+/mob/living/basic/killertomato,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "dy" = (
@@ -85,7 +85,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "gw" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/killertomato,
+/mob/living/basic/killertomato,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
@@ -128,7 +128,7 @@
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "jb" = (
-/mob/living/simple_animal/hostile/killertomato,
+/mob/living/basic/killertomato,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "jy" = (
@@ -154,7 +154,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/killertomato,
+/mob/living/basic/killertomato,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "kI" = (
@@ -180,14 +180,14 @@
 /area/ruin/unpowered/misc_lavaruin)
 "lN" = (
 /obj/structure/flora/grass/jungle,
-/mob/living/simple_animal/hostile/killertomato,
+/mob/living/basic/killertomato,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "mb" = (
 /obj/structure/chair/sofa{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/killertomato,
+/mob/living/basic/killertomato,
 /obj/structure/spacevine,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
@@ -284,7 +284,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "tR" = (
-/mob/living/simple_animal/hostile/killertomato,
+/mob/living/basic/killertomato,
 /obj/structure/chair/wood{
 	dir = 4
 	},
@@ -477,7 +477,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "Dr" = (
-/mob/living/simple_animal/hostile/killertomato,
+/mob/living/basic/killertomato,
 /turf/simulated/floor/grass/jungle/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "DC" = (
@@ -492,7 +492,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "DZ" = (
 /obj/item/shovel/spade,
-/mob/living/simple_animal/hostile/killertomato,
+/mob/living/basic/killertomato,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "Ee" = (
@@ -665,7 +665,7 @@
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "OS" = (
-/mob/living/simple_animal/hostile/killertomato,
+/mob/living/basic/killertomato,
 /turf/simulated/floor/grass/jungle,
 /area/ruin/unpowered/misc_lavaruin)
 "Pk" = (

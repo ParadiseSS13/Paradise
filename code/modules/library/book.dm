@@ -18,7 +18,6 @@
 	throw_speed = 1
 	throw_range = 5
 	force = 2
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("bashed", "whacked")
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/book_drop.ogg'
@@ -375,7 +374,7 @@
 
 /obj/item/book/random/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(spawn_books)), 0)
+	END_OF_TICK(CALLBACK(src, PROC_REF(spawn_books)))
 
 /obj/item/book/random/proc/spawn_books()
 	var/list/books = GLOB.library_catalog.get_random_book(amount)
@@ -393,7 +392,6 @@
 	name = "\improper Codex Gigas"
 	desc = "A book documenting the nature of devils, it seems whatever magic that once possessed this codex is long gone."
 	icon_state = "demonomicon"
-	throw_speed = 1
 	throw_range = 10
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	author = "Forces beyond your comprehension"

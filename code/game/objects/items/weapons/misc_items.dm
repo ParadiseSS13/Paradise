@@ -27,11 +27,10 @@
 	name = "cane"
 	desc = "A cane used by a true gentlemen. Or a clown."
 	icon_state = "cane"
-	item_state = "stick"
+	inhand_icon_state = "stick"
 	flags = CONDUCT
 	force = 5.0
 	throwforce = 7.0
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=50)
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed", "Vaudevilled")
 
@@ -137,12 +136,11 @@
 /obj/item/gift
 	name = "gift"
 	desc = "A wrapped item."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "gift3"
+	inhand_icon_state = "gift"
+	w_class = WEIGHT_CLASS_BULKY
 	var/size = 3.0
 	var/obj/item/gift = null
-	item_state = "gift"
-	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/gift/emp_act(severity)
 	..()
@@ -196,7 +194,6 @@
 /obj/item/phone
 	name = "red phone"
 	desc = "Should anything ever go wrong..."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "red_phone"
 	flags = CONDUCT
 	force = 3

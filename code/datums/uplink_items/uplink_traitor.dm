@@ -49,6 +49,21 @@
 	cost = 5
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/clown_car
+	name = "Clown Car"
+	desc = "The Clown Car is the ultimate transportation method for any worthy clown! \
+			Simply insert your bikehorn and get in, and get ready to have the funniest ride of your life! \
+			You can ram any crew you come across and stuff them into your car, kidnapping them and locking them inside until \
+			someone saves them or they manage to crawl out. Be sure not to ram into any walls or vending machines, as the springloaded seats \
+			are very sensitive. Now with our included lube defense mechanism which will protect you against any angry shitcurity! \
+			Premium features can be unlocked with a cryptographic sequencer!"
+	reference = "CCR"
+	item = /obj/tgvehicle/sealed/car/clowncar
+	cost = 50
+	job = list("Clown")
+	surplus = 0
+	hijack_only = TRUE
+
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun and Assassination Shells"
@@ -564,6 +579,14 @@
 	reference = "CGM"
 	item = /obj/item/clothing/gloves/color/black/krav_maga
 	cost = 50
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/device_tools/extraction_beacon
+	name = "Extraction Flare"
+	desc = "A special flare used to call in an extraction portal. The portal takes time to generate, and will only work in certain rooms that it is pre-calibrated for. The Syndicate withholds the right to deny a portal to agents with certain objectives."
+	reference = "EXTF"
+	item = /obj/item/wormhole_jaunter/extraction
+	limited_stock = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/hyper_medipen

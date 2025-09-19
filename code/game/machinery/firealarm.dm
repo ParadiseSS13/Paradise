@@ -19,7 +19,7 @@ FIRE ALARM
 	anchored = TRUE
 	max_integrity = 250
 	integrity_failure = 100
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, rad = 100, fire = 90, acid = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 100, FIRE = 90, ACID = 30)
 	idle_power_consumption = 2
 	active_power_consumption = 6
 	power_channel = PW_CHANNEL_ENVIRONMENT
@@ -356,7 +356,6 @@ Just a object used in constructing fire alarms
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 #undef FIRE_ALARM_FRAME

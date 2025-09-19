@@ -40,6 +40,7 @@
 	contains_xeno_organ = TRUE
 	ignore_generic_organs = TRUE
 	surgery_container = /datum/xenobiology_surgery_container/revenant
+	faction = list("revenant")
 
 	/// The revenant's idle icon
 	var/icon_idle = "revenant_idle"
@@ -212,7 +213,7 @@
 	icon_state = "revenant_draining"
 	animate(src, alpha = 0, time = 3 SECONDS)
 	visible_message("<span class='danger'>[src]'s body breaks apart into a fine pile of blue dust.</span>")
-	ghostize(FALSE)
+	ghostize(GHOST_FLAGS_OBSERVE_ONLY)
 	name = "ectoplasm"
 	desc = "A pile of clumpy dust from a restless spirit"
 	alpha = 255

@@ -1,17 +1,15 @@
 /obj/item/clothing/under/pants
 	icon = 'icons/obj/clothing/under/pants.dmi'
+	worn_icon = 'icons/mob/clothing/under/pants.dmi'
 	gender = PLURAL
 	body_parts_covered = LOWER_TORSO|LEGS
 	displays_id = FALSE
-
 	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/under/pants.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/pants.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/pants.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/pants.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/pants.dmi'
-		)
-
+	)
 
 /obj/item/clothing/under/pants/equipped(mob/user, slot)
 	if(ishuman(user) && slot == ITEM_SLOT_JUMPSUIT)
@@ -106,9 +104,7 @@
 /obj/item/clothing/under/pants/shorts
 	name = "athletic shorts"
 	desc = "95% Polyester, 5% Spandex!"
-	gender = PLURAL
 	body_parts_covered = LOWER_TORSO
-	displays_id = FALSE
 
 /obj/item/clothing/under/pants/shorts/red
 	icon_state = "redshorts"
@@ -129,3 +125,9 @@
 /obj/item/clothing/under/pants/shorts/grey
 	icon_state = "greyshorts"
 	item_color = "greyshorts"
+
+/obj/item/clothing/under/pants/shorts/jeanshorts
+	name = "jean shorts"
+	desc = "The trendy shorts your mother never let you wear. Now in space!"
+	icon_state = "jeanshorts"
+	item_color = "jeanshorts"

@@ -16,7 +16,6 @@
 
 	area_types = list(/area)
 	protected_areas = list(/area/space)
-	target_trait = STATION_LEVEL
 
 	overlay_layer = ABOVE_OPEN_TURF_LAYER //Covers floors only
 	overlay_plane = FLOOR_PLANE

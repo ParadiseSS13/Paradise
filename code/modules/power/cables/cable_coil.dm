@@ -11,21 +11,19 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	singular_name = "cable"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "coil"
-	item_state = "coil"
+	inhand_icon_state = "coil"
 	belt_icon = "cable_coil"
 	amount = MAXCOIL
 	max_amount = MAXCOIL
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
 	color = COLOR_RED
 	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL = 15, MAT_GLASS = 10)
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	usesound = 'sound/items/deconstruct.ogg'
-	toolspeed = 1
 
 /obj/item/stack/cable_coil/Initialize(mapload, length, paramcolor)
 	. = ..()
@@ -331,8 +329,10 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 		color = COLOR_RED
 	else if(colorC == "rainbow")
 		color = color_rainbow()
-	else if(colorC == "orange") //byond only knows 16 colors by name, and orange isn't one of them
+	else if(colorC == "orange") // byond only knows 16 colors by name, and orange isn't one of them
 		color = COLOR_ORANGE
+	else if(colorC == "pink")
+		color = COLOR_PINK // nor is pink.. thanks byond
 	else
 		color = colorC
 
@@ -379,7 +379,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE)
 
 /obj/item/stack/cable_coil/cut
-	item_state = "coil2"
+	icon_state = "coil2"
 
 /obj/item/stack/cable_coil/cut/Initialize(mapload)
 	. = ..()
@@ -395,8 +395,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	return // icon_state should always be a full cable
 
 /obj/item/stack/cable_coil/cyborg/attack_self__legacy__attackchain(mob/user)
-	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
-	color = cablecolor
+	var/cablecolor = tgui_input_list(usr, "Pick a cable color.", "Cable Color", list("red","yellow","green","blue","pink","orange","cyan","white"))
+	cable_color(cablecolor)
 	update_icon()
 
 #undef HEALPERCABLE

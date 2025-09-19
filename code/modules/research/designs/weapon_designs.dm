@@ -256,7 +256,7 @@
 	id = "techshotshell"
 	req_tech = list("combat" = 3, "materials" = 3, "powerstorage" = 4, "magnets" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 1000, MAT_GLASS = 200)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 200)
 	build_path = /obj/item/ammo_casing/shotgun/techshell
 	category = list("Weapons")
 
@@ -382,7 +382,6 @@
 	desc = "A large chemical canister, designed for use with a chemical flamethrower."
 	id = "chemical_canister_extended"
 	req_tech = list("materials" = 5, "plasmatech" = 4)
-	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000)
 	reagents_list = list("fuel" = 40)
 	build_path = /obj/item/chemical_canister/extended
@@ -393,7 +392,6 @@
 	desc = "A chemical canister designed to accept pyrotechnics."
 	id = "chemical_canister_pyro"
 	req_tech = list("materials" = 4, "plasmatech" = 6)
-	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 7500)
 	reagents_list = list("fuel" = 30)
 	build_path = /obj/item/chemical_canister/pyrotechnics

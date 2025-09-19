@@ -8,9 +8,7 @@
 	icon_state = null
 	container_type = OPENCONTAINER
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
-	visible_transfer_rate = TRUE
 	volume = 50
-	resistance_flags = NONE
 	var/consume_sound = 'sound/items/drink.ogg'
 	var/chugging = FALSE
 
@@ -106,15 +104,12 @@
 	name = "pewter cup"
 	desc = "Everyone gets a trophy."
 	icon_state = "pewter_cup"
-	w_class = WEIGHT_CLASS_TINY
 	force = 1
 	throwforce = 1
-	amount_per_transfer_from_this = 5
 	materials = list(MAT_METAL=100)
 	possible_transfer_amounts = null
 	volume = 5
 	flags = CONDUCT
-	container_type = OPENCONTAINER
 	resistance_flags = FIRE_PROOF
 
 /obj/item/reagent_containers/drinks/trophy/gold_cup
@@ -163,7 +158,6 @@
 //	rather then having to add it to something else first. They should only contain liquids. They have a default container size of 50.
 //	Formatting is the same as food.
 
-
 /obj/item/reagent_containers/drinks/coffee
 	name = "Robust Coffee"
 	desc = "Careful, the beverage you're about to enjoy is extremely hot."
@@ -181,7 +175,7 @@
 	name = "Duke Purple tea"
 	desc = "An insult to Duke Purple is an insult to the Space Queen! Any proper gentleman will fight you, if you sully this tea."
 	icon_state = "teacup"
-	item_state = "coffee"
+	inhand_icon_state = "coffee"
 	list_reagents = list("tea" = 30)
 
 /obj/item/reagent_containers/drinks/tea/Initialize(mapload)
@@ -193,14 +187,14 @@
 	name = "mugwort tea"
 	desc = "A bitter herbal tea."
 	icon_state = "manlydorfglass"
-	item_state = "coffee"
+	inhand_icon_state = "coffee"
 	list_reagents = list("mugwort" = 30)
 
 /obj/item/reagent_containers/drinks/h_chocolate
 	name = "Dutch hot coco"
 	desc = "Made in Space South America."
 	icon_state = "hot_coco"
-	item_state = "coffee"
+	inhand_icon_state = "coffee"
 	list_reagents = list("hot_coco" = 30, "sugar" = 5)
 	resistance_flags = FREEZE_PROOF
 
@@ -208,7 +202,7 @@
 	name = "hot chocolate"
 	desc = "Made in Space Switzerland."
 	icon_state = "hot_coco"
-	item_state = "coffee"
+	inhand_icon_state = "coffee"
 	list_reagents = list("hot_coco" = 15, "chocolate" = 6, "water" = 9)
 	resistance_flags = FREEZE_PROOF
 
@@ -222,7 +216,6 @@
 	name = "cup ramen"
 	desc = "Just add 10ml of water, self heats! A taste that reminds you of your school years."
 	icon_state = "ramen"
-	item_state = "ramen"
 	list_reagents = list("dry_ramen" = 30)
 
 /obj/item/reagent_containers/drinks/dry_ramen/Initialize(mapload)
@@ -234,14 +227,13 @@
 	name = "canned chicken soup"
 	desc = "A delicious and soothing can of chicken noodle soup; just like spessmom used to microwave it."
 	icon_state = "soupcan"
-	item_state = "soupcan"
 	list_reagents = list("chicken_soup" = 30)
 
 /obj/item/reagent_containers/drinks/sillycup
 	name = "paper cup"
 	desc = "A paper water cup."
 	icon_state = "water_cup_e"
-	item_state = "coffee"
+	inhand_icon_state = "coffee"
 	possible_transfer_amounts = null
 	volume = 10
 
@@ -316,7 +308,6 @@
 	volume = 60
 
 /obj/item/reagent_containers/drinks/flask/barflask
-	name = "flask"
 	desc = "For those who can't be bothered to hang out at the bar to drink."
 	icon_state = "barflask"
 
@@ -374,7 +365,6 @@
 /obj/item/reagent_containers/drinks/bag/goonbag
 	name = "goon from a Blue Toolbox special edition"
 	desc = "Wine from the land down under, where the dingos roam and the roos do wander."
-	icon_state = "goonbag"
 	list_reagents = list("wine" = 70)
 
 /obj/item/reagent_containers/drinks/oilcan

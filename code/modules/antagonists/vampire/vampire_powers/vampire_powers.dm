@@ -108,6 +108,22 @@
 
 	return TRUE
 
+/datum/spell/vampire/self/exfiltrate
+	name = "Conjure Blood Chalice"
+	desc = "Congeal blood into a chalice that will generate a portal away from the station."
+	gain_desc = "You can now decide to leave the station."
+	base_cooldown = 2 SECONDS
+	action_icon = 'icons/obj/items.dmi'
+	action_icon_state = "blood-chalice"
+	var/used = FALSE
+
+/datum/spell/vampire/self/exfiltrate/cast(mob/user)
+	if(used)
+		to_chat(user, "<span class='warning'>You have already attempted to create a blood chalice!</span>")
+		return
+	var/datum/antagonist/vampire/vamp = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	vamp.prepare_exfiltration(user, /obj/item/wormhole_jaunter/extraction/vampire)
+	used = TRUE
 
 /datum/spell/vampire/self/specialize
 	name = "Choose Specialization"
@@ -277,15 +293,12 @@
 
 /datum/vampire_passive/vision/advanced
 	gain_desc = "Your vampiric vision now allows you to see everything in the dark!"
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	see_in_dark = 3
-	vision_flags = SEE_MOBS
 
 /datum/vampire_passive/vision/full
 	gain_desc = "Your vampiric vision has reached its full strength!"
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	see_in_dark = 6
-	vision_flags = SEE_MOBS
 
 /datum/vampire_passive/full
 	gain_desc = "You have reached your full potential. You are no longer weak to the effects of anything holy."
@@ -293,11 +306,7 @@
 /datum/spell/vampire/raise_vampires
 	name = "Raise Vampires"
 	desc = "Summons deadly vampires from bluespace."
-	base_cooldown = 100
-	clothes_req = FALSE
-	human_req = TRUE
 	invocation = "none"
-	invocation_type = "none"
 	cooldown_min = 20
 	action_icon_state = "revive_thrall"
 	sound = 'sound/magic/wandodeath.ogg'

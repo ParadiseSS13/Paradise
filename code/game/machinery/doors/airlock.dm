@@ -51,7 +51,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	desc = "An airlock door keeping you safe from the vacuum of space. Only works if closed."
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "closed"
-	anchored = TRUE
 	max_integrity = 300
 	integrity_failure = 70
 	damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
@@ -1267,7 +1266,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	recalculate_atmos_connectivity()
 	update_icon(AIRLOCK_OPENING, 1)
 	sleep(1)
-	set_opacity(0)
+	set_opacity(FALSE)
 	if(width > 1)
 		set_fillers_opacity(0)
 	update_freelook_sight()
@@ -1321,7 +1320,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!safe)
 		crush()
 	if((visible && !glass) || polarized_on)
-		set_opacity(1)
+		set_opacity(TRUE)
 		if(width > 1)
 			set_fillers_opacity(1)
 	update_freelook_sight()

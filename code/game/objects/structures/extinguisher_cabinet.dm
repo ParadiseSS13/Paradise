@@ -9,7 +9,6 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "extinguisher"
 	anchored = TRUE
-	density = FALSE
 	max_integrity = 200
 	integrity_failure = 50
 	var/obj/item/extinguisher/has_extinguisher = null
@@ -62,7 +61,7 @@
 		has_extinguisher = null
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/extinguisher_cabinet/attackby__legacy__attackchain(obj/item/O, mob/user, params)
+/obj/structure/extinguisher_cabinet/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(isrobot(user) || isalien(user))
 		return
 	if(istype(O, /obj/item/extinguisher))

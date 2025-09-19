@@ -2,7 +2,7 @@
 	name = "bow"
 	desc = "A sturdy bow made out of wood and reinforced with iron."
 	icon_state = "bow_unloaded"
-	item_state = "bow"
+	inhand_icon_state = "bow"
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
 	flags = HANDSLOW
@@ -71,7 +71,6 @@
 	ammo_type = /obj/item/ammo_casing/caseless/arrow
 	range = 10
 	damage = 25
-	damage_type = BRUTE
 
 /obj/item/ammo_casing/caseless/arrow
 	name = "arrow"
@@ -87,11 +86,8 @@
 	name = "quiver"
 	desc = "A quiver for holding arrows."
 	icon_state = "quiver"
-	item_state = "quiver"
 	storage_slots = 20
-	can_hold = list(
-		/obj/item/ammo_casing/caseless/arrow
-		)
+	can_hold = list(/obj/item/ammo_casing/caseless/arrow)
 
 /obj/item/storage/backpack/quiver/full/populate_contents()
 	for(var/i in 1 to storage_slots)

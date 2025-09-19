@@ -12,10 +12,7 @@
 /obj/structure/table_frame
 	name = "table frame"
 	desc = "Four metal legs with four framing rods for a table. You could easily pass through this."
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "table_frame"
-	density = FALSE
-	anchored = FALSE
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 	max_integrity = 100
 	///The resource dropped when the table frame is destroyed or deconstructed
@@ -27,9 +24,11 @@
 	///What stacks can be used to make the table, and if it will result in a unique table
 	var/list/restrict_table_types = list() //ex: list(/obj/item/stack/tile/carpet = /obj/structure/table/wood/poker, /obj/item/stack/sheet/wood = /obj/item/stack/sheet/wood::table_type), carpet will make poker table, wood will result in standard table_type. If the list is empty, any material can be used for its default table_type.
 
-/obj/structure/table_frame/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(!try_make_table(I, user))
-		return ..()
+/obj/structure/table_frame/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	if(try_make_table(I, user))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 ///Try to make a table with the item used to attack. FALSE if you can't make a table and should attack. TRUE does not necessarily mean a table was made.
 /obj/structure/table_frame/proc/try_make_table(obj/item/stack/stack, mob/user)
@@ -109,7 +108,6 @@
 	desc = "Four wooden legs with four framing wooden rods for a wooden table. You could easily pass through this."
 	icon_state = "wood_frame"
 	framestack = /obj/item/stack/sheet/wood
-	framestackamount = 2
 	resistance_flags = FLAMMABLE
 	restrict_table_types = list(/obj/item/stack/tile/carpet = /obj/structure/table/wood/poker, /obj/item/stack/sheet/wood = /obj/item/stack/sheet/wood::table_type)
 

@@ -14,7 +14,6 @@
 	desc = "This is used to lie in, sleep in or strap on."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "bed"
-	dir = SOUTH
 	can_buckle = TRUE
 	anchored = TRUE
 	buckle_lying = TRUE
@@ -152,7 +151,7 @@
 	var/icon_down = "down"
 	var/folded = /obj/item/roller
 
-/obj/structure/bed/roller/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/bed/roller/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/roller_holder))
 		if(has_buckled_mobs())
 			if(length(buckled_mobs) > 1)
@@ -164,6 +163,8 @@
 			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 			new folded(get_turf(src))
 			qdel(src)
+
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 
@@ -224,6 +225,7 @@
 	desc = "A retracted hardlight stretcher that can be carried around."
 	icon_state = "holo_retracted"
 	w_class = WEIGHT_CLASS_SMALL
+	materials = list(MAT_METAL = 1000)
 	origin_tech = "magnets=3;biotech=4;powerstorage=3"
 	extended = /obj/structure/bed/roller/holo
 
@@ -255,7 +257,7 @@
 /obj/item/roller_holder/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!istype(target, /obj/item/roller))
 		return ..()
-	
+
 	if(istype(target, /obj/item/roller/holo) && !carry_holo)
 		return ITEM_INTERACT_COMPLETE
 

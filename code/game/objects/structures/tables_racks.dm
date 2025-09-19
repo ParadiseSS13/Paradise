@@ -227,30 +227,30 @@
 		return TRUE
 	qdel(G)
 
-/obj/structure/table/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/table/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/grab))
 		tablepush(I, user)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(isrobot(user))
-		return
+	if(isrobot(user) && !istype(I.loc, /obj/item/gripper))
+		return ITEM_INTERACT_COMPLETE
 
 	if(user.a_intent == INTENT_HELP && !(I.flags & ABSTRACT))
 		if(user.drop_item())
 			I.Move(loc)
-			var/list/click_params = params2list(params)
 			//Center the icon where the user clicked.
-			if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
+			if(!modifiers || !modifiers["icon-x"] || !modifiers["icon-y"])
 				return
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-			I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
-			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			I.pixel_x = clamp(text2num(modifiers["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			I.pixel_y = clamp(text2num(modifiers["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			if(slippery)
 				step_away(I, user)
 				visible_message("<span class='warning'>[I] slips right off [src]!</span>")
 				playsound(loc, 'sound/misc/slip.ogg', 50, TRUE, -1)
 			else //Don't want slippery moving tables to have the item attached to them if it slides off.
 				item_placed(I)
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 
@@ -806,7 +806,6 @@
 	framestack = /obj/item/stack/tile/brass
 	buildstack = /obj/item/stack/tile/brass
 	framestackamount = 1
-	buildstackamount = 1
 	smoothing_groups = list(SMOOTH_GROUP_BRASS_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
 	canSmoothWith = list(SMOOTH_GROUP_BRASS_TABLES)
 
@@ -840,10 +839,9 @@
 			held_items += held.UID()
 
 /obj/structure/table/tray/Move(NewLoc, direct)
-	var/atom/OldLoc = loc
-
+	var/atom/oldloc = loc
 	. = ..()
-	if(!.) // ..() will return 0 if we didn't actually move anywhere.
+	if(oldloc == loc) // ..() will return 0 if we didn't actually move anywhere, except for some diagonal cases.
 		return
 
 	if(direct & (direct - 1)) // This represents a diagonal movement, which is split into multiple cardinal movements. We'll handle moving the items on the cardinals only.
@@ -857,7 +855,7 @@
 		if(!held)
 			held_items -= held_uid
 			continue
-		if(OldLoc != held.loc)
+		if(oldloc != held.loc)
 			held_items -= held_uid
 			continue
 		held.forceMove(NewLoc)
@@ -946,15 +944,15 @@
 		step(O, get_dir(O, src))
 		return TRUE
 
-/obj/structure/rack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(isrobot(user))
+/obj/structure/rack/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	if(isrobot(user) && !istype(W.loc, /obj/item/gripper))
 		return
 	if(user.a_intent == INTENT_HARM)
-		return ..()
+		return
 	if(!(W.flags & ABSTRACT))
 		if(user.drop_item())
 			W.Move(loc)
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -1017,7 +1015,6 @@
 /obj/item/rack_parts
 	name = "rack parts"
 	desc = "Parts of a rack."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
 	flags = CONDUCT
 	materials = list(MAT_METAL=2000)

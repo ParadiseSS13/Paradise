@@ -211,6 +211,11 @@
 	///cancel post eating
 	#define COMSIG_MOB_TERMINATE_EAT (1<<0)
 
+/// Sent from /proc/do_after if someone starts a do_after action bar.
+#define COMSIG_DO_AFTER_BEGAN "mob_do_after_began"
+/// Sent from /proc/do_after once a do_after action completes, whether via the bar filling or via interruption.
+#define COMSIG_DO_AFTER_ENDED "mob_do_after_ended"
+
 // ghost signals
 
 /// from observer_base/do_observe(): (mob/now_followed)
@@ -258,3 +263,13 @@
 
 ///from the ranged_attacks component for basic mobs: (mob/living/basic/firer, atom/target, modifiers)
 #define COMSIG_BASICMOB_POST_ATTACK_RANGED "basicmob_post_attack_ranged"
+
+/// From base of /datum/action/cooldown/proc/PreActivate(), sent to the action owner: (datum/action/cooldown/activated)
+#define COMSIG_MOB_ABILITY_STARTED "mob_ability_base_started"
+	/// Return to block the ability from starting / activating
+	#define COMPONENT_BLOCK_ABILITY_START (1<<0)
+/// From base of /datum/action/cooldown/proc/PreActivate(), sent to the action owner: (datum/action/cooldown/finished)
+#define COMSIG_MOB_ABILITY_FINISHED "mob_ability_base_finished"
+
+/// From base of /datum/action/cooldown/proc/set_statpanel_format(): (list/stat_panel_data)
+#define COMSIG_ACTION_SET_STATPANEL "ability_set_statpanel"

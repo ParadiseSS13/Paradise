@@ -12,7 +12,6 @@
 	allowed_tools = list(
 		TOOL_SCALPEL = 100,
 		/obj/item/kitchen/knife = 90,
-		TOOL_DISSECTOR = 75,
 		/obj/item/kitchen/knife/shiv = 70,
 		/obj/item/shard = 60,
 		TOOL_WIRECUTTER = 35,
@@ -21,7 +20,6 @@
 		/obj/item/melee/energy = 6,
 		/obj/item/pen/edagger = 6,
 		/obj/item/chainsaw = 1,
-		/obj/item/butcher_chainsaw = 1
 	)
 
 	preop_sound = 'sound/surgery/scalpel1.ogg'
@@ -327,7 +325,6 @@
 	allowed_tools = list(
 		TOOL_SAW = 100,
 		/obj/item/chainsaw = 100,	// It's pretty good at doing this outside of surgery tbh...
-		/obj/item/butcher_chainsaw = 100,
 		/obj/item/hatchet = 90,
 		/obj/item/melee/arm_blade = 75,
 		/obj/item/claymore = 75,

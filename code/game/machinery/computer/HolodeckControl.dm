@@ -93,7 +93,7 @@
 		derez(item)
 	for(var/obj/effect/decal/cleanable/blood/B in linkedholodeck)
 		qdel(B)
-	for(var/mob/living/simple_animal/hostile/carp/holocarp/C in linkedholodeck)
+	for(var/mob/living/basic/carp/holocarp/C in linkedholodeck)
 		qdel(C)
 	holographic_items = A.copy_contents_to(linkedholodeck, platingRequired = TRUE)
 
@@ -104,7 +104,7 @@
 	spawn(30)
 		for(var/obj/effect/landmark/L in linkedholodeck)
 			if(L.name=="Holocarp Spawn")
-				new /mob/living/simple_animal/hostile/carp/holocarp(L.loc)
+				new /mob/living/basic/carp/holocarp(L.loc)
 
 
 /obj/machinery/computer/holodeck_control/proc/emergency_shutdown()
@@ -241,7 +241,6 @@
 	footstep = FOOTSTEP_CARPET
 	barefootstep = FOOTSTEP_CARPET_BAREFOOT
 	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/holofloor/carpet/Initialize(mapload)
 	. = ..()
@@ -302,14 +301,9 @@
 	item_chair = null
 
 /obj/item/clothing/gloves/boxing/hologlove
-	name = "boxing gloves"
-	desc = "Because you really needed another excuse to punch your crewmates."
-	icon_state = "boxing"
-	item_state = "boxing"
 
 /obj/structure/holowindow
 	name = "reinforced window"
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "rwindow"
 	desc = "A window."
 	density = TRUE
@@ -334,11 +328,10 @@
 /obj/item/holo/claymore
 	name = "claymore"
 	desc = "What are you standing around staring at this for? Get to killing!"
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon = 'icons/obj/weapons/melee.dmi'
 	icon_state = "claymore"
-	item_state = "claymore"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	force = 40
 	throwforce = 10
@@ -349,14 +342,11 @@
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
-
 /obj/item/holo/claymore/blue
 	icon_state = "claymoreblue"
-	item_state = "claymoreblue"
 
 /obj/item/holo/claymore/red
 	icon_state = "claymorered"
-	item_state = "claymorered"
 
 /obj/item/holo/esword
 	name = "holographic energy sword"
@@ -369,9 +359,8 @@
 	force = 3.0
 	throw_speed = 1
 	throw_range = 5
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	var/active = FALSE
 
 /obj/item/holo/esword/Initialize(mapload)

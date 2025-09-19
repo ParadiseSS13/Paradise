@@ -1,4 +1,4 @@
-/datum/game_test/anti_drop_implant/Run()
+/datum/game_test/room_test/anti_drop_implant/Run()
 	var/datum/test_puppeteer/player = new(src)
 	var/obj/item/organ/internal/cyberimp/brain/anti_drop/anti_drop = new/obj/item/organ/internal/cyberimp/brain/anti_drop
 	var/obj/item/autosurgeon/organ/syndicate/autosurg = player.spawn_obj_in_hand(/obj/item/autosurgeon/organ/syndicate)
@@ -30,7 +30,7 @@
 	player.puppet.drop_item_to_ground(belt)
 	TEST_ASSERT(!player.puppet.get_item_by_slot(ITEM_SLOT_BELT), "failed to remove belt after disabling NODROP")
 
-	var/obj/item/butcher_chainsaw/saw = player.spawn_obj_in_hand(/obj/item/butcher_chainsaw)
+	var/obj/item/chainsaw/syndie/saw = player.spawn_obj_in_hand(/obj/item/chainsaw/syndie)
 	player.use_item_in_hand()
 	anti_drop.ui_action_click()
 	anti_drop.ui_action_click()

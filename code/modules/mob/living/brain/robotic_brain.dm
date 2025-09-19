@@ -6,7 +6,6 @@
 	var/blank_icon = "boris_blank"
 	var/searching_icon = "boris_recharging"
 	var/occupied_icon = "boris"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=3;programming=3;plasmatech=2"
 	req_access = list(ACCESS_ROBOTICS)
 	mecha = null//This does not appear to be used outside of reference in mecha.dm.
@@ -129,7 +128,7 @@
 	if(istype(O))
 		if(!O.check_ahud_rejoin_eligibility())
 			return FALSE
-		if(!O.can_reenter_corpse)
+		if(!(O.ghost_flags & GHOST_CAN_REENTER))
 			return FALSE
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O, "nonhumandept"))
 		return FALSE
@@ -203,7 +202,6 @@
 	searching_icon = "posibrain-searching"
 	occupied_icon = "posibrain-occupied"
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
-	silenced = TRUE
 	requires_master = FALSE
 	ejected_flavor_text = "metal cube"
 	dead_icon = "posibrain"

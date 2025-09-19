@@ -4,14 +4,12 @@
 	desc = "A glowing bluespace crystal, not much is known about how they work. It looks very delicate."
 	icon = 'icons/obj/stacks/minerals.dmi'
 	icon_state = "bluespace_crystal" //This is the raw ore from lavaland, so should look like the ore.
-	item_state = "bluespace_crystal"
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "bluespace=6;materials=3"
 	points = 50
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
 	refined_type = /obj/item/stack/ore/bluespace_crystal/refined
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	dynamic_icon_state = TRUE
 

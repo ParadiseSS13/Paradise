@@ -46,8 +46,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/delayed_objective_text = "This is a bug! Report it on the github and ask an admin what type of objective"
 
 /datum/objective/New(text, datum/team/team_to_join, datum/mind/_owner)
-	. = ..()
 	SHOULD_CALL_PARENT(TRUE)
+	. = ..()
 	GLOB.all_objectives += src
 	if(text)
 		explanation_text = text
@@ -71,6 +71,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/proc/found_target()
 	return target
+
+/datum/objective/proc/is_valid_exfiltration()
+	return TRUE
 
 /**
  * This is for objectives that need to register signals, so place them in here.
@@ -215,6 +218,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		explanation_text = "Free Objective"
 
 /datum/objective/assassinate/check_completion()
+	if(..())
+		return TRUE
 	if(target?.current)
 		if(target.current.stat == DEAD)
 			return TRUE
@@ -271,6 +276,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_NOTHEAD
 
 /datum/objective/mutiny/check_completion()
+	if(..())
+		return TRUE
 	if(target?.current)
 		if(target.current.stat == DEAD || !ishuman(target.current) || !target.current.ckey || !target.current.client)
 			return TRUE
@@ -290,7 +297,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/maroon
 	name = "Maroon"
-	martyr_compatible = FALSE
 	delayed_objective_text = "Your objective is to make sure another crewmember doesn't leave on the Escape Shuttle. You will receive further information in a few minutes."
 
 /datum/objective/maroon/update_explanation_text()
@@ -316,7 +322,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /// I want braaaainssss
 /datum/objective/debrain
 	name = "Debrain"
-	martyr_compatible = FALSE
 	delayed_objective_text = "Your objective is to steal another crewmember's brain. You will receive further information in a few minutes."
 
 /datum/objective/debrain/is_invalid_target(datum/mind/possible_target)
@@ -335,6 +340,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/debrain/check_completion()
 	if(!target) // If it's a free objective.
+		return TRUE
+	if(..())
 		return TRUE
 	if(!target.current || !isbrain(target.current))
 		return FALSE
@@ -360,6 +367,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/protect/check_completion()
 	if(!target) //If it's a free objective.
 		return TRUE
+	if(..())
+		return TRUE
 	if(target.current)
 		if(target.current.stat == DEAD)
 			return FALSE
@@ -384,7 +393,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/hijack
 	name = "Hijack"
-	martyr_compatible = FALSE //Technically you won't get both anyway.
 	explanation_text = "Hijack the shuttle by escaping on it with no loyalist Nanotrasen crew on board and free. \
 	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive. \
 	Alternatively, hack the shuttle console multiple times (by alt clicking on it) until the shuttle directions are corrupted."
@@ -398,10 +406,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return FALSE
 	return SSshuttle.emergency.is_hijacked()
 
+/datum/objective/hijack/is_valid_exfiltration()
+	return FALSE
+
 /datum/objective/hijackclone
 	name = "Hijack (with clones)"
 	explanation_text = "Hijack the shuttle by ensuring only you (or your copies) escape."
-	martyr_compatible = FALSE
 	needs_target = FALSE
 
 // This objective should only be given to a single owner, because the "copies" can only copy one person.
@@ -436,7 +446,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Hijack the shuttle by alt-clicking on the shuttle console. Do not let the crew wipe you off of it! \
 	Crew and agents can be on the shuttle when you do this, and may try to wipe you! \
 	Using the doomsday device successfully is also an option."
-	martyr_compatible = FALSE
 	needs_target = FALSE
 
 /datum/objective/block/check_completion()
@@ -458,7 +467,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
 	needs_target = FALSE
 
-/datum/objective/escape/check_completion()
+/datum/objective/escape/check_completion(exfilling = FALSE)
+	if(..())
+		return TRUE
 	var/list/owners = get_owners()
 	for(var/datum/mind/M in owners)
 		// These are mandatory conditions, they should come before the freebie conditions below.
@@ -468,6 +479,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(SSticker.force_ending) // This one isn't their fault, so lets just assume good faith.
 		return TRUE
 	if(SSticker.mode.station_was_nuked) // If they escaped the blast somehow, let them win.
+		return TRUE
+	if(exfilling)
 		return TRUE
 	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return FALSE
@@ -541,7 +554,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 // This objective should only be given to a single owner since only 1 person can have the ID card of the target.
 // We're fine to use `owner` instead of `get_owners()`.
-/datum/objective/escape/escape_with_identity/check_completion()
+/datum/objective/escape/escape_with_identity/check_completion(exfilling = FALSE)
+	if(..())
+		return TRUE
 	if(!target_real_name)
 		return TRUE
 	if(!ishuman(owner.current))
@@ -559,6 +574,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	needs_target = FALSE
 
 /datum/objective/survive/check_completion()
+	if(..())
+		return TRUE
 	for(var/datum/mind/M in get_owners())
 		if(QDELETED(M.current) || M.current.stat == DEAD || is_special_dead(M.current, check_silicon = FALSE))
 			return FALSE
@@ -574,13 +591,17 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal
 	name = "Steal Item"
-	martyr_compatible = FALSE
 	delayed_objective_text = "Your objective is to steal a high-value item. You will receive further information in a few minutes."
 	var/theft_area
 	var/datum/theft_objective/steal_target
 
 /datum/objective/steal/found_target()
 	return steal_target
+
+/datum/objective/steal/is_valid_exfiltration()
+	if(istype(steal_target, /datum/theft_objective/nukedisc) || istype(steal_target, /datum/theft_objective/plutonium_core))
+		return FALSE
+	return TRUE
 
 /datum/objective/steal/proc/get_location()
 	return steal_target.location_override || "an unknown area"
@@ -657,6 +678,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/steal/check_completion()
 	if(!steal_target)
 		return TRUE // Free Objective
+	if(..())
+		return TRUE
 
 	for(var/datum/mind/M in get_owners())
 		if(!M.current)
@@ -739,6 +762,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Acquire [target_amount] compatible genomes. The 'Extract DNA Sting' can be used to stealthily get genomes without killing somebody."
 
 /datum/objective/absorb/check_completion()
+	if(..())
+		return TRUE
 	for(var/datum/mind/M in get_owners())
 		var/datum/antagonist/changeling/cling = M?.has_antag_datum(/datum/antagonist/changeling)
 		if(cling?.absorbed_dna && (cling.absorbed_count >= target_amount))
@@ -764,6 +789,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		explanation_text = "Free Objective"
 
 /datum/objective/destroy/check_completion()
+	if(..())
+		return TRUE
 	if(target?.current)
 		if(target.current.stat == DEAD || is_away_level(target.current.z) || !target.current.ckey)
 			return TRUE
@@ -784,6 +811,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	wanted_items = typecacheof(wanted_items)
 
 /datum/objective/steal_five_of_type/check_completion()
+	if(..())
+		return TRUE
 	var/stolen_count = 0
 	var/list/owners = get_owners()
 	var/list/all_items = list()
@@ -811,6 +840,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	..()
 
 /datum/objective/steal_five_of_type/summon_magic/check_completion()
+	if(..())
+		return TRUE
 	var/stolen_count = 0
 	var/list/owners = get_owners()
 	var/list/all_items = list()
@@ -849,6 +880,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Accumulate at least [target_amount] total units of blood."
 
 /datum/objective/blood/check_completion()
+	if(..())
+		return TRUE
 	for(var/datum/mind/M in get_owners())
 		var/datum/antagonist/vampire/V = M.has_antag_datum(/datum/antagonist/vampire)
 		if(V.bloodtotal >= target_amount)
@@ -876,6 +909,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Accumulate at least [target_amount] worth of swarms."
 
 /datum/objective/swarms/check_completion()
+	if(..())
+		return TRUE
 	for(var/datum/mind/M in get_owners())
 		var/datum/antagonist/mindflayer/flayer = M.has_antag_datum(/datum/antagonist/mindflayer)
 		return flayer?.total_swarms_gathered >= target_amount
@@ -936,6 +971,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	needs_target = FALSE
 
 /datum/objective/potentially_backstabbed/check_completion()
+	if(..())
+		return TRUE
 	for(var/datum/mind/M in get_owners())
 		var/datum/antagonist/traitor/T = M.has_antag_datum(/datum/antagonist/traitor)
 		for(var/datum/objective/our_objective in T.get_antag_objectives(FALSE))

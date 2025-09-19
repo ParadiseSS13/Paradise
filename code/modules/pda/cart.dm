@@ -3,7 +3,7 @@
 	desc = "A data cartridge for portable microcomputers."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "cart"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 
 	/// Integrated signaler for captain, science & generic signaler cartridge
@@ -286,7 +286,6 @@
 /obj/item/cartridge/syndicate
 	name = "Detomatix Cartridge"
 	desc = "Allows you to remotely detonate other people's PDAs through the messenger program."
-	icon_state = "cart"
 	charges = 4
 	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/detonate)
 
@@ -308,7 +307,6 @@
 /obj/item/cartridge/frame
 	name = "F.R.A.M.E. cartridge"
 	desc = "Allows you to upload a virus onto a PDA with it's messenger on."
-	icon_state = "cart"
 	charges = 5
 	var/telecrystals = 0
 	messenger_plugins = list(

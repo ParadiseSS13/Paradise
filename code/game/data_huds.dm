@@ -107,7 +107,7 @@
 		var/datum/disease/D = thing
 		if(!D.discovered) // Early-stage viruses should not show up on med HUD (though health analywers can still pick them up)
 			continue
-		if((!(D.visibility_flags & HIDDEN_SCANNER)) && (D.severity != NONTHREAT))
+		if((!(D.visibility_flags & VIRUS_HIDDEN_SCANNER)) && (D.severity != VIRUS_NONTHREAT))
 			return TRUE
 	return FALSE
 
@@ -248,8 +248,9 @@
 				holder = hud_list[IMPTRACK_HUD]
 				holder.icon_state = "hud_imp_tracking"
 			else if(istype(I,/obj/item/bio_chip/mindshield))
+				var/obj/item/bio_chip/mindshield/shield = I
 				holder = hud_list[IMPMINDSHIELD_HUD]
-				holder.icon_state = "hud_imp_loyal"
+				holder.icon_state = shield.hud_icon_state
 			else if(istype(I,/obj/item/bio_chip/chem))
 				holder = hud_list[IMPCHEM_HUD]
 				holder.icon_state = "hud_imp_chem"

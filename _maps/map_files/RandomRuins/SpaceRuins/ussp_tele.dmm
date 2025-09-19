@@ -72,7 +72,7 @@
 /turf/template_noop,
 /area/ruin/space/derelict/teleporter)
 "hg" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/template_noop)
 "ic" = (
@@ -217,8 +217,7 @@
 /area/ruin/space/derelict/teleporter)
 "uD" = (
 /obj/item/kirbyplants/large/dead{
-	desc = "A dead potted plant. Must have died from lack of EVA equipment.";
-	item_state = "plant-dead"
+	desc = "A dead potted plant. Must have died from lack of EVA equipment."
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -347,7 +346,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "HL" = (
-/mob/living/simple_animal/hostile/carp/megacarp,
+/mob/living/basic/carp/megacarp,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)

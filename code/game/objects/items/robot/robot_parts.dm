@@ -1,13 +1,12 @@
 /obj/item/robot_parts
 	name = "robot parts"
 	icon = 'icons/obj/robot_parts.dmi'
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	var/list/part = null
 	var/sabotaged = FALSE //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
-	dir = SOUTH
 
 /obj/item/robot_parts/New(newloc, model)
 	..(newloc)

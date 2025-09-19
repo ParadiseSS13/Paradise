@@ -2,7 +2,6 @@
 	name = "airlock assembly"
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "construction"
-	anchored = FALSE
 	density = TRUE
 	max_integrity = 200
 	cares_about_temperature = TRUE
@@ -56,7 +55,8 @@
 	else
 		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname].</span>"
 
-/obj/structure/door_assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/door_assembly/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	if(is_pen(W))
 		// The door assembly gets renamed to "Assembly - Foobar",
 		// but the `t` returned from the proc is just "Foobar" without the prefix.

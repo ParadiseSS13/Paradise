@@ -4,18 +4,17 @@
 #define WAND_SPEED "Change Closing Speed"
 
 /obj/item/door_remote
-	icon_state = "gangtool-white"
-	item_state = "electronic"
-	icon = 'icons/obj/device.dmi'
 	name = "control wand"
 	desc = "Remotely controls airlocks."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "gangtool-white"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 	flags = NOBLUDGEON
 	var/mode = WAND_OPEN
 	var/region_access = list()
 	var/additional_access = list()
 	var/obj/item/card/id/ID
-
 	new_attack_chain = TRUE
 
 /obj/item/door_remote/Initialize(mapload)
@@ -175,7 +174,6 @@
 
 /obj/item/door_remote/civillian
 	name = "civilian door remote"
-	icon_state = "gangtool-white"
 	region_access = list(REGION_GENERAL)
 	additional_access = list(ACCESS_HOP)
 
@@ -189,7 +187,7 @@
 	name = "access tuner"
 	desc = "A device used for illegally interfacing with doors."
 	icon_state = "hacktool"
-	item_state = "hacktool"
+	inhand_icon_state = "hacktool"
 	var/hack_speed = 1.5 SECONDS
 	var/busy = FALSE
 	/// How far can we use this. Leave `null` for infinite range
@@ -234,7 +232,7 @@
 	name = "janitor's keyring"
 	desc = "An absolutely unwieldy set of keys attached to a metal ring. The keys on the ring allow you to access most Departmental entries and the Service Department!"
 	icon_state = "keyring"
-	item_state = "keyring"
+	inhand_icon_state = null
 	/// Are you already using the keyring?
 	var/busy = FALSE
 	/// This prevents spamming the key-shake.

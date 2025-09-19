@@ -53,21 +53,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	log_ooc(msg, src)
 	mob.create_log(OOC_LOG, msg)
 
-	var/display_colour = GLOB.normal_ooc_colour
-	if(holder && !holder.fakekey)
-		display_colour = GLOB.mentor_ooc_colour
-		if(check_rights(R_MOD,0) && !check_rights(R_ADMIN,0))
-			display_colour = GLOB.moderator_ooc_colour
-		else if(check_rights(R_ADMIN,0))
-			if(GLOB.configuration.admin.allow_admin_ooc_colour)
-				display_colour = src.prefs.ooccolor
-			else
-				display_colour = GLOB.admin_ooc_colour
-
-	if(prefs.unlock_content)
-		if(display_colour == GLOB.normal_ooc_colour)
-			if(prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)
-				display_colour = GLOB.member_ooc_colour
+	var/display_colour = get_ooc_color()
 
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.toggles & PREFTOGGLE_CHAT_OOC)
@@ -94,6 +80,19 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 				msg = emoji_parse(msg)
 
 			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
+
+/client/proc/get_ooc_color()
+	if(!holder || holder.fakekey)
+		if(prefs.unlock_content && (prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC))
+			return GLOB.member_ooc_colour
+		return GLOB.normal_ooc_colour
+	if(!check_rights(R_ADMIN, FALSE))
+		if(check_rights(R_MOD, FALSE))
+			return GLOB.moderator_ooc_colour
+		return GLOB.mentor_ooc_colour
+	if(!GLOB.configuration.admin.allow_admin_ooc_colour)
+		return GLOB.admin_ooc_colour
+	return prefs.ooccolor
 
 /proc/toggle_ooc()
 	GLOB.ooc_enabled = (!GLOB.ooc_enabled)

@@ -107,7 +107,6 @@
 	desc = "The circuit board for an Industrial Suit Storage Unit."
 	id = "issu"
 	req_tech = list("engineering" = 5, "materials" = 4)
-	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/suit_storage_unit/industrial
 	category = list("Engineering Machinery")
@@ -730,3 +729,24 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/organ_analyzer
 	category = list("Research Machinery")
+
+// Forensic Machines (DNA analyzer, microscope)
+/datum/design/dnaforensics
+	name = "Machine Design (DNA analyzer)"
+	desc = "DNA analyzer for forensic DNA analysis of objects."
+	id = "dnaforensics"
+	req_tech = list("programming" = 2, "combat" = 2, "magnets" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/dnaforensics
+	category = list("Misc. Machinery")
+
+/datum/design/microscope
+	name = "Machine Design (Forensic Microscope)"
+	desc = "Microscope capable of magnifying images 3000 times"
+	id = "microscope"
+	req_tech = list("programming" = 2, "combat" = 2, "magnets" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/microscope
+	category = list("Misc. Machinery")

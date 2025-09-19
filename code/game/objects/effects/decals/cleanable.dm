@@ -8,7 +8,6 @@
 	///when another of the same type is made on the same tile will they merge --- YES=TRUE; NO=FLASE
 	var/mergeable_decal = TRUE
 	///prevents Ambient Occlusion effects around it ; Set to GAME_PLANE in Initialize() if on a wall
-	plane = FLOOR_PLANE
 	///for blood n vomit in zero G --- IN GRAVITY=TRUE; NO GRAVITY=FALSE
 	var/gravity_check = TRUE
 	hud_possible = list(JANI_HUD)
@@ -54,8 +53,8 @@
 			bloodiness -= add_blood
 			S.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS, S.bloody_shoes[blood_state] + add_blood)
 			S.bloody_shoes[BLOOD_BASE_ALPHA] = BLOODY_FOOTPRINT_BASE_ALPHA * (alpha/255)
-			if(blood_DNA && length(blood_DNA))
-				S.add_blood(H.blood_DNA, basecolor)
+			if(length(blood_DNA))
+				S.add_blood(blood_DNA, basecolor)
 			S.blood_state = blood_state
 			S.blood_color = basecolor
 			update_icon()

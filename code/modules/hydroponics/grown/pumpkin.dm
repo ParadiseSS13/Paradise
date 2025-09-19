@@ -28,14 +28,14 @@
 	wine_power = 0.2
 	var/carved_type = /obj/item/clothing/head/hardhat/pumpkinhead
 
-/obj/item/food/grown/pumpkin/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
-	if(W.sharp)
-		user.show_message("<span class='notice'>You carve a face into [src]!</span>", 1)
-		new carved_type(user.loc)
-		qdel(src)
-		return
-	else
+/obj/item/food/grown/pumpkin/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.sharp)
 		return ..()
+
+	to_chat(user, "<span class='notice'>You carve a face into [src] with [used].</span>")
+	new carved_type(user.loc)
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 // Blumpkin
 /obj/item/seeds/pumpkin/blumpkin
@@ -56,7 +56,6 @@
 	desc = "The pumpkin's toxic sibling."
 	icon_state = "blumpkin"
 	filling_color = "#87CEFA"
-	bitesize_mod = 2
 	tastes = list("blumpkin" = 1)
 	wine_power = 0.5
 	carved_type = /obj/item/clothing/head/hardhat/pumpkinhead/blumpkin

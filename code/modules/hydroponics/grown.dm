@@ -18,7 +18,6 @@
 	var/wine_flavor //If NULL, this is automatically set to the fruit's flavor. Determines the flavor of the wine if distill_reagent is NULL.
 	var/wine_power = 0.1 //Determines the boozepwr of the wine if distill_reagent is NULL. Uses 0.1 - 1.2 not tg's boozepower (divide by 100) else you'll end up with 1000% proof alcohol!
 	dried_type = -1 // Saves us from having to define each stupid grown's dried_type as itself. If you don't want a plant to be driable (watermelons) set this to null in the time definition.
-	resistance_flags = FLAMMABLE
 	origin_tech = "biotech=1"
 
 /obj/item/food/grown/Initialize(mapload, obj/new_seed = null)
@@ -68,23 +67,28 @@
 			if(T.examine_line)
 				. += T.examine_line
 
-/obj/item/food/grown/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	..()
+/obj/item/food/grown/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(slices_num && slice_path)
 		var/inaccurate = TRUE
-		if(O.sharp)
-			if(istype(O, /obj/item/kitchen/knife) || istype(O, /obj/item/scalpel))
+		if(used.sharp)
+			if(istype(used, /obj/item/kitchen/knife) || istype(used, /obj/item/scalpel))
 				inaccurate = FALSE
 
 			if(!isturf(loc) || !(locate(/obj/structure/table) in loc) && !(locate(/obj/machinery/optable) in loc) && !(locate(/obj/item/storage/bag/tray) in loc))
 				to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
-				return TRUE
+				return ITEM_INTERACT_COMPLETE
 
 			var/slices_lost = 0
 			if(!inaccurate)
-				user.visible_message("<span class='notice'>[user] slices [src] with [O]!</span>", "<span class='notice'>You slice [src]!</span>")
+				user.visible_message(
+			"<span class='notice'>[user] slices [src] with [used].</span>",
+			"<span class='notice'>You slice [src] with [used].</span>"
+				)
 			else
-				user.visible_message("<span class='notice'>[user] crudely slices [src] with [O]!</span>", "<span class='notice'>You crudely slice [src] with your [O]!</span>")
+				user.visible_message(
+					"<span class='notice'>[user] crudely slices [src] with [used], destroying some in the process!</span>",
+					"<span class='notice'>You crudely slice [src] with [used], destroying some in the process!</span>"
+				)
 				slices_lost = rand(1, min(1, round(slices_num / 2)))
 
 			var/reagents_per_slice = reagents.total_volume/slices_num
@@ -93,21 +97,27 @@
 				reagents.trans_to(slice, reagents_per_slice)
 				slice.scatter_atom()
 			qdel(src)
-			return ..()
+			return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/plant_analyzer))
+	if(istype(used, /obj/item/plant_analyzer))
 		send_plant_details(user)
-	else
-		if(seed)
-			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.on_attackby(src, O, user)
+		return ITEM_INTERACT_COMPLETE
+
+	if(seed)
+		for(var/datum/plant_gene/trait/T in seed.genes)
+			if(T.on_attackby(src, used, user))
+				return ITEM_INTERACT_COMPLETE
+
+	return NONE
 
 
 // Various gene procs
-/obj/item/food/grown/attack_self__legacy__attackchain(mob/user)
+/obj/item/food/grown/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))
 		squash(user)
-	..()
 
 /obj/item/food/grown/throw_impact(atom/hit_atom)
 	if(!..()) //was it caught by a mob?
@@ -172,15 +182,20 @@
 	return ..()
 
 // For item-containing growns such as eggy or gatfruit
-/obj/item/food/grown/shell/attack_self__legacy__attackchain(mob/user)
+/obj/item/food/grown/shell/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	if(!do_after(user, 1.5 SECONDS, target = user))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	user.unequip(src)
 	if(trash)
 		var/obj/item/T = generate_trash()
 		user.put_in_hands(T)
-		to_chat(user, "<span class='notice'>You open [src]\'s shell, revealing \a [T].</span>")
+		to_chat(user, "<span class='notice'>You deshell [src], revealing \a [T].</span>")
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 // Diona Nymphs can eat these as well as weeds to gain nutrition.
 /obj/item/food/grown/attack_animal(mob/living/simple_animal/M)
@@ -226,7 +241,7 @@
 /obj/item/food/grown/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
 		return
-	if(user.plant_analyzer)
+	if(user.ghost_flags & GHOST_PLANT_ANALYZER)
 		send_plant_details(user)
 
 /obj/item/food/grown/fire_act()

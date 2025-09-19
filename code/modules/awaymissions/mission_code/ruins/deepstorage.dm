@@ -3,7 +3,6 @@
 /mob/living/simple_animal/hostile/megafauna/fleshling
 	name = "Fleshling"
 	desc = "A sinister mass of flesh molded into a grotesque shape. Nothing about it looks like the result of natural evolution. It looks agitated and clearly doesn't want you to leave here alive."
-	health = 1000
 	icon = 'icons/mob/fleshling.dmi'
 	icon_state = "fleshling"
 	icon_living = "fleshling"
@@ -16,14 +15,11 @@
 	pixel_x = -16
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	wander = TRUE
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
-	sentience_type = SENTIENCE_BOSS
-	a_intent = INTENT_HARM
 	deathmessage = "collapses into a pile of gibs. From the looks of it this is the deadest it can get... "
-	butcher_results = list(/obj/item/regen_mesh)
+	butcher_results = list(/obj/item/regen_mesh = 1)
 	/// Is the boss charging right now?
 	var/charging = FALSE
 	/// Did our boss die?
@@ -54,7 +50,7 @@
 		var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, src)))
 		L.throw_at(throw_target, 4, 4)
 		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-		var/armor = L.run_armor_check(def_zone = limb_to_hit, attack_flag = MELEE, armour_penetration_percentage = 50)
+		var/armor = L.run_armor_check(def_zone = limb_to_hit, attack_flag = MELEE, armor_penetration_percentage = 50)
 		L.apply_damage(40, BRUTE, limb_to_hit, armor)
 
 // Below here is edited from Bubblegum
@@ -246,7 +242,6 @@
 /obj/machinery/deepstorage_teleporter
 	name = "package teleporter"
 	desc = "It's tuned to maintain one-way teleportation."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "controller"
 	density = TRUE
 	anchored = TRUE

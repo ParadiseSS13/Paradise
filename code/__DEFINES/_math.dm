@@ -104,9 +104,6 @@
 
 #define TORADIANS(degrees) ((degrees) * 0.0174532925)
 
-/// Gets shift x that would be required the bitflag (1<<x)
-#define TOBITSHIFT(bit) ( log(2, bit) )
-
 // Will filter out extra rotations and negative rotations
 // E.g: 540 becomes 180. -180 becomes 180.
 #define SIMPLIFY_DEGREES(degrees) (MODULUS((degrees), 360))
@@ -257,3 +254,6 @@
 
 /// Returns the hex value of a decimal number. len == length of returned string.
 #define num2hex(X, len) uppertext(num2text(X, len, 16))
+
+/// Tests if the value is in the given range.
+#define IS_IN_BOUNDS(val, lower, upper) ((val) >= (lower) && (val) <= (upper))

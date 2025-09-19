@@ -4,9 +4,7 @@
 	icon = 'icons/obj/engicart.dmi'
 	icon_state = "cart"
 	face_while_pulling = FALSE
-	anchored = FALSE
 	density = TRUE
-	new_attack_chain = TRUE
 	var/obj/item/stack/sheet/glass/my_glass = null
 	var/obj/item/stack/sheet/metal/my_metal = null
 	var/obj/item/stack/sheet/plasteel/my_plasteel = null
@@ -95,7 +93,7 @@
 			to_chat(user, fail_msg)
 			return
 
-		if(!put_in_cart(used, user))	
+		if(!put_in_cart(used, user))
 			return
 
 		my_flashlight = used

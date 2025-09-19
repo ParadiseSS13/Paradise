@@ -102,13 +102,10 @@
 	desc = "A generic vending machine."
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "generic"
-	layer = BELOW_OBJ_LAYER
-	anchored = TRUE
-	density = TRUE
 	face_while_pulling = TRUE
 	max_integrity = 300
 	integrity_failure = 100
-	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 50, acid = 70)
+	armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 70)
 
 	/// Icon_state when vending
 	var/icon_vend
@@ -172,7 +169,6 @@
 
 	// Things that can go wrong
 	/// Allows people to access a vendor that's normally access restricted.
-	emagged = FALSE
 	/// Shocks people like an airlock
 	var/seconds_electrified = 0
 	/// Fire items at customers! We're broken!

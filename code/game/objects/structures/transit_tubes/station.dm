@@ -12,7 +12,6 @@
 	icon = 'icons/obj/pipes/transit_tube_station.dmi'
 	icon_state = "closed_station0"
 	base_icon_state = "station0"
-	exit_delay = 1
 	enter_delay = 2
 	density = TRUE
 	uninstalled_type = /obj/structure/transit_tube_construction/station
@@ -104,7 +103,7 @@
 			L.Weaken(10 SECONDS)
 
 
-/obj/structure/transit_tube/station/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/transit_tube/station/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/grab) && hatch_state == TRANSIT_TUBE_OPEN)
 		var/obj/item/grab/G = W
 		if(ismob(G.affecting) && G.state >= GRAB_AGGRESSIVE)
@@ -116,6 +115,7 @@
 					Bumped(GM)
 					qdel(G)
 				break
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/transit_tube/station/proc/open_hatch()
 	if(hatch_state == TRANSIT_TUBE_CLOSED)

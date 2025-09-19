@@ -37,10 +37,8 @@
 	var/list/attack_verb_on = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
-	toolspeed = 1
 	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
@@ -183,7 +181,7 @@
 	w_class_on = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	flags = CONDUCT
-	armour_penetration_percentage = 100
+	armor_penetration_percentage = 100
 	origin_tech = "combat=4;magnets=3"
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	attack_verb_on = list()
@@ -209,8 +207,8 @@
 	hitsound = "swing_hit"
 	embed_chance = 75
 	embedded_impact_pain_multiplier = 10
-	armour_penetration_percentage = 50
-	armour_penetration_flat = 10
+	armor_penetration_percentage = 50
+	armor_penetration_flat = 10
 	origin_tech = "combat=3;magnets=4;syndicate=4"
 	sharp = TRUE
 	var/hacked = FALSE
@@ -326,9 +324,7 @@
 /obj/item/melee/energy/sword/cyborg/saw
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
-	force_on = 30
 	force = 18 //About as much as a spear
-	sharp = TRUE
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "esaw_0"
@@ -349,8 +345,8 @@
 	throwforce_on = 10 // No PvP shenanigans, this is main weapon in PvE explorer gameplay and can be obtained very easy
 	embed_chance = 45
 	embedded_impact_pain_multiplier = 4
-	armour_penetration_percentage = 0
-	armour_penetration_flat = 0
+	armor_penetration_percentage = 0
+	armor_penetration_flat = 0
 	icon_state = "cutlass0"
 	icon_state_on = "cutlass1"
 	light_color = LIGHT_COLOR_RED
@@ -365,7 +361,6 @@
 	desc = "A concentrated beam of energy in the shape of a blade. Very stylish... and lethal."
 	icon_state = "blade"
 	force = 30	//Normal attacks deal esword damage
-	hitsound = 'sound/weapons/blade1.ogg'
 	throwforce = 1//Throwing or dropping the item deletes it.
 	throw_speed = 3
 	throw_range = 1
@@ -383,7 +378,6 @@
 	name = "hardlight blade"
 	desc = "An extremely sharp blade made out of hard light. Packs quite a punch."
 	icon_state = "lightblade"
-	item_state = "lightblade"
 
 /obj/item/melee/energy/proc/nemesis_effects(mob/living/user, mob/living/target)
 	return
@@ -397,7 +391,6 @@
 	force = 12
 	force_on = 20 //force when active
 	throwforce = 20
-	throwforce_on = 20
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'

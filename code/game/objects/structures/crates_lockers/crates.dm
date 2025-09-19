@@ -10,8 +10,6 @@
 	var/rigged = FALSE
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
-	open_sound_volume = 35
-	close_sound_volume = 50
 	var/obj/item/paper/manifest/manifest
 	/// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
@@ -87,9 +85,9 @@
 	opened = FALSE
 	return TRUE
 
-/obj/structure/closet/crate/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/closet/crate/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(!opened && try_rig(W, user))
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/closet/crate/toggle(mob/user, by_hand = FALSE)
@@ -172,7 +170,6 @@
 	max_integrity = 500
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
-	broken = FALSE
 	locked = TRUE
 	can_be_emaged = TRUE
 	crate_value = 25 // rarer and cannot be crafted, bonus credits for exporting them
@@ -284,12 +281,19 @@
 
 /obj/structure/closet/crate/secure/personal
 	name = "personal crate"
-	desc = "The crate version of Nanotrasen's famous personal locker, ideal for shipping booze, food, or drugs to CC without letting Cargo consume it. This one has not been configured by CC, and the first card swiped gains control."
+	desc = "The crate version of Nanotrasen's famous personal locker, ideal for shipping booze, food, or drugs to CC without letting Cargo consume it."
 	req_access = list(ACCESS_ALL_PERSONAL_LOCKERS)
 	/// The name of the person this crate is registered to.
 	var/registered_name = null
 	// Unlike most secure crates, personal crates are easily obtained.
 	crate_value = DEFAULT_CRATE_VALUE
+
+/obj/structure/closet/crate/secure/personal/examine(mob/user)
+	. = ..()
+	if(registered_name)
+		. += "Owned by [registered_name]."
+	else
+		. += "This crate has no owner, and can be claimed by swiping your ID card."
 
 /obj/structure/closet/crate/secure/personal/allowed(mob/user)
 	if(..())
@@ -307,32 +311,31 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/closet/crate/secure/personal/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/closet/crate/secure/personal/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(opened || !istype(I, /obj/item/card/id))
 		return ..()
 
 	if(broken)
 		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/card/id/id = I
 	if(!is_usable_id(id))
 		to_chat(user, "<span class='warning'>Invalid identification card.</span>")
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 
 	if(registered_name && allowed(user))
 		return ..()
 
 	if(!registered_name)
 		registered_name = id.registered_name
-		desc = "Owned by [id.registered_name]."
 		to_chat(user, "<span class='notice'>Crate reserved</span>")
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 	if(registered_name == id.registered_name)
 		return ..()
 
-	return FALSE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/closet/crate/plastic
 	name = "plastic crate"
@@ -350,6 +353,11 @@
 	icon_state = "o2crate"
 	icon_opened = "o2crate_open"
 	icon_closed = "o2crate"
+
+/obj/structure/closet/crate/internals/nitrogen
+	icon_state = "n2crate"
+	icon_opened = "n2crate_open"
+	icon_closed = "n2crate"
 
 /obj/structure/closet/crate/trashcart
 	desc = "A heavy, metal trashcart with wheels."
@@ -567,6 +575,20 @@
 	icon_opened = "electricalcrate_open"
 	icon_closed = "electricalcrate"
 
+/obj/structure/closet/crate/nanotrasen
+	name = "corporate crate"
+	desc = "A Nanotrasen crate."
+	icon_state = "nanotrasen"
+	icon_opened = "nanotrasen_open"
+	icon_closed = "nanotrasen"
+
+/obj/structure/closet/crate/secure/nanotrasen
+	name = "secure corporate crate"
+	desc = "A crate with a lock on it, painted in the scheme of Nanotrasen. Whatever's in here is probably above your pay grade."
+	icon_state = "nanotrasensecure"
+	icon_opened = "nanotrasensecure_open"
+	icon_closed = "nanotrasensecure"
+
 /obj/structure/closet/crate/mail
 	name = "mail crate"
 	desc = "A plastic crate for mail delivery."
@@ -679,9 +701,11 @@
 		danger_counter = 0
 
 	U.purchase_log += "<BIG>[bicon(src)]</BIG>"
+	bought_items += /obj/item/storage/bag/garment/syndie // Guaranteed to spawn with drip (doesn't affect balance, it's only a bunch of fancy clothing)
 	for(var/item in bought_items)
 		var/obj/purchased = new item(src)
 		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
+		itemlog += purchased.name // To make the item more readable for the log compared to just uplink_item.item
 	var/item_list = jointext(sortList(itemlog), ", ")
 	log_game("[key_name(user)] purchased a surplus crate with [item_list]")
 	user.create_log(MISC_LOG, "Surplus crate purchase with spawned items [item_list]")
