@@ -123,7 +123,7 @@
 
 //Chaplain
 /obj/item/clothing/head/turban_orange
-	name = "dastār"
+	name = "dastar"
 	desc = "One of the essential five K's for any Sikh."
 	icon_state = "turban_orange"
 	flags = BLOCKHAIR
