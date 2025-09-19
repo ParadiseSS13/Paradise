@@ -80,8 +80,7 @@
 	desc = "A simple, practical blade developed by Shellguard munitions for ‘enhanced’ riot control."
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon_state = "secsword0"
-	item_state = "secsword0"
+	base_icon_state = "secsword0"
 	flags = CONDUCT
 	force = 15
 	throwforce = 5
@@ -91,6 +90,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 1000)
 	needs_permit = TRUE
+	new_attack_chain = TRUE
 	/// The icon the sword has when turned off
 	var/base_icon = "secsword"
 	/// How much stamina damage the sword does in stamina mode
@@ -112,6 +112,7 @@
 	. = ..()
 	cell = new(src)
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 1, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/melee/secsword/Destroy()
 	QDEL_NULL(cell)
@@ -141,10 +142,8 @@
 /obj/item/melee/secsword/update_icon_state()
 	if(!cell)
 		icon_state = "[base_icon]3"
-		item_state = "[base_icon]0"
 	else
 		icon_state = "[base_icon][state]"
-		item_state = "[base_icon][state]"
 
 /obj/item/melee/secsword/emp_act(severity)
 	if(!cell)
@@ -161,22 +160,24 @@
 	cell = null
 	update_icon()
 
-/obj/item/melee/secsword/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/stock_parts/cell))
-		return
-	var/obj/item/stock_parts/cell/C = I
+/obj/item/melee/secsword/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	. = ..()
+	if(!istype(used, /obj/item/stock_parts/cell))
+		return ITEM_INTERACT_COMPLETE
+	var/obj/item/stock_parts/cell/C = used
 	if(cell)
 		to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(C.maxcharge < stam_hitcost)
 		to_chat(user, "<span class='warning'>[src] requires a higher capacity cell!</span>")
-		return
-	if(!user.unEquip(I))
-		return
-	I.forceMove(src)
-	cell = I
-	to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
+		return ITEM_INTERACT_COMPLETE
+	if(!user.unequip(used))
+		return ITEM_INTERACT_COMPLETE
+	used.forceMove(src)
+	cell = used
+	to_chat(user, "<span class='notice'>You install [used] into [src].</span>")
 	update_icon()
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/melee/secsword/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
@@ -190,17 +191,19 @@
 	cell.update_icon()
 	clear_cell()
 
-/obj/item/melee/secsword/attack_self(mob/user)
+/obj/item/melee/secsword/activate_self(mob/user)
+	if(..())
+		return FINISH_ATTACK
 	if(!cell)
 		to_chat(user, "<span class='warning'>[src] does not have a power source!</span>")
-		return
+		return FINISH_ATTACK
 
 	add_fingerprint(user)
 	if(cell.charge < stam_hitcost || (SECSWORD_STUN && cell.charge < burn_hitcost))
 		state = SECSWORD_OFF
 		armor_penetration_percentage = 0
 		to_chat(user, "<span class='notice'>[src] does not have enough charge!</span>")
-		return
+		return FINISH_ATTACK
 	switch(state)
 		if(SECSWORD_OFF)
 			state = SECSWORD_STUN
@@ -215,20 +218,21 @@
 			armor_penetration_percentage = 0
 			to_chat(user, "<span class='notice'>[src]'s edge is now turned off.</span>")
 	update_icon()
+	return FINISH_ATTACK
 
-
-/obj/item/melee/secsword/attack(mob/M, mob/living/user)
+/obj/item/melee/secsword/attack(mob/living/M, mob/living/user, params)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		if(state == SECSWORD_STUN && sword_stun(user, user, skip_cooldown = TRUE))
 			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
-		return
+		return  FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user)) // Just like the baton, no sword + judo.
 		to_chat(user, "<span class='warning'>The sword feels off-balance in your hand due to your specific martial training!</span>")
-		return
+		return  FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 	if(!isliving(M) || state == SECSWORD_OFF)
 		return ..()
+
 	if(state == SECSWORD_STUN) // Stamina
 		if(issilicon(M)) // Can't stun borgs and AIs
 			return ..()
@@ -286,7 +290,7 @@
 	if(cell.charge < amount) // If after the deduction the sword doesn't have enough charge for a hit it turns off.
 		state = SECSWORD_OFF
 		armor_penetration_percentage = 0
-		update_icon()
+	update_icon()
 
 #undef SECSWORD_OFF
 #undef SECSWORD_STUN

@@ -813,13 +813,12 @@
 /obj/item/storage/belt/sheath/secsword
 	name = "securiblade scabbard"
 	desc = "Can hold securiblades."
-	icon_state = "secsheath"
-	item_state = "secsheath"
+	base_icon_state = "secsheath"
 	can_hold = list(/obj/item/melee/secsword)
 
 /obj/item/storage/belt/sheath/secsword/populate_contents()
 	new /obj/item/melee/secsword(src)
-	update_icon()
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/sheath/snakesfang
 	name = "snakesfang scabbard"
