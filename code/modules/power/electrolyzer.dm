@@ -107,10 +107,6 @@
 		return FALSE
 	return gas.water_vapor() > 3
 
-/obj/machinery/power/electrolyzer/process()
-	var/datum/milla_safe/electrolyzer_process/milla = new()
-	milla.invoke_async(src)
-
 /datum/milla_safe/electrolyzer_process/on_run(obj/machinery/power/electrolyzer/electrolyzer, datum/gas_mixture)
 	var/turf/T = get_turf(electrolyzer)
 	var/datum/gas_mixture/env = get_turf_air(T)
