@@ -6,14 +6,13 @@
 	icon = 'icons/mecha/mecha.dmi'
 
 	density = TRUE //Dense. To raise the heat.
-	opacity = TRUE ///opaque. Menacing.
 	anchored = TRUE //no pulling around.
 	resistance_flags = FIRE_PROOF
 	layer = MOB_LAYER //icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
 	max_integrity = 300 //max_integrity is base health
-	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 100, acid = 75)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 75)
 	bubble_icon = "machine"
 	cares_about_temperature = TRUE
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
@@ -166,6 +165,9 @@
 	. = ..()
 	underlays.Cut()
 	underlays += emissive_appearance(emissive_appearance_icon, "[icon_state]_lightmask")
+	overlays.Cut()
+	if(istype(selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield) && !leg_overload_mode && !istype(cell, /obj/item/stock_parts/cell/infinite) && occupant)
+		overlays += mutable_appearance('icons/effects/effects.dmi', "at_shield2", MOB_LAYER + 0.01, alpha = 120)
 
 ////////////////////////
 ////// Helpers /////////
@@ -527,6 +529,16 @@
 	return facing_modifiers[MECHA_SIDE_ARMOUR] //always return non-0
 
 /obj/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	for(var/obj/item/mecha_parts/mecha_equipment/pulse_shield/shield in equipment)
+		if(selected == shield && !leg_overload_mode && !istype(cell, /obj/item/stock_parts/cell/infinite) && occupant)
+			var/required_power = shield.energy_drain * damage_amount
+			if(cell && cell.use(required_power))
+				log_message("Took [damage_amount] points of damage. Damage absorbed by [shield].")
+				damage_amount = 0
+				spark_system.start()
+			else
+				occupant_message("<span class='userdanger'>Shield breached!</span>")
+				shield.on_unequip()
 	. = ..()
 	if(. && obj_integrity > 0)
 		spark_system.start()
@@ -630,6 +642,9 @@
 /obj/mecha/bullet_act(obj/item/projectile/Proj) //wrapper
 	log_message("Hit by projectile. Type: [Proj.name]([Proj.flag]).")
 	add_attack_logs(Proj.firer, OCCUPANT_LOGGING, "shot [Proj.name]([Proj.flag]) at mech [src]")
+	if(Proj.shield_buster && istype(selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield))
+		occupant_message("<span class='userdanger'>Shield breached!</span>")
+		selected.on_unequip()
 	..()
 
 /obj/mecha/ex_act(severity, target)
@@ -695,6 +710,9 @@
 /obj/mecha/emp_act(severity)
 	if(emp_proof)
 		return
+	if(istype(selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield))
+		occupant_message("<span class='userdanger'>Shield breached!</span>")
+		selected.on_unequip()
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, ENERGY, 1)
@@ -768,6 +786,9 @@
 				W.forceMove(src)
 				cell = W
 				log_message("Powercell installed")
+				if(istype(selected, /obj/item/mecha_parts/mecha_equipment/pulse_shield) && istype(cell, /obj/item/stock_parts/cell/infinite))
+					occupant_message("<span class='danger'>The immense power of the cell overloads the shields.</span>")
+					selected.on_unequip()
 			else
 				to_chat(user, "<span class='notice'>There's already a powercell installed.</span>")
 		return

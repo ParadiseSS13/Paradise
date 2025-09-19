@@ -9,12 +9,11 @@
 	name = "captain's saber"
 	desc = "An elegant weapon, for a more civilized age."
 	icon_state = "saber"
-	item_state = "saber"
 	flags = CONDUCT
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
-	armour_penetration_percentage = 75
+	armor_penetration_percentage = 75
 	sharp = TRUE
 	origin_tech = null
 	attack_verb = list("lunged at", "stabbed")
@@ -76,7 +75,6 @@
 	name = "snakesfang"
 	desc = "A uniquely curved, black and red sword. Extra-edgy and cutting-edge."
 	icon_state = "snakesfang"
-	item_state = "snakesfang"
 	flags = CONDUCT
 	force = 25
 	throwforce = 10
@@ -112,7 +110,7 @@
 	flags = CONDUCT
 	force = 5
 	throwforce = 5
-	armour_penetration_flat = 30
+	armor_penetration_flat = 30
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
 	origin_tech = "combat=6;syndicate=5"
@@ -280,8 +278,8 @@
 	force_on = 40
 	throw_speed = 1
 	throw_range = 5
-	armour_penetration_percentage = 50
-	armour_penetration_flat = 10
+	armor_penetration_percentage = 50
+	armor_penetration_flat = 10
 
 /obj/item/chainsaw/syndie/Initialize(mapload)
 	. = ..()
@@ -310,7 +308,7 @@
 /obj/item/chainsaw/doomslayer
 	name = "OOOH BABY"
 	desc = "<span class='warning'>VRRRRRRR!!!</span>"
-	armour_penetration_percentage = 100
+	armor_penetration_percentage = 100
 	force_on = 30
 
 /obj/item/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)

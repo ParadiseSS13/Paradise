@@ -108,6 +108,22 @@
 
 	return TRUE
 
+/datum/spell/vampire/self/exfiltrate
+	name = "Conjure Blood Chalice"
+	desc = "Congeal blood into a chalice that will generate a portal away from the station."
+	gain_desc = "You can now decide to leave the station."
+	base_cooldown = 2 SECONDS
+	action_icon = 'icons/obj/items.dmi'
+	action_icon_state = "blood-chalice"
+	var/used = FALSE
+
+/datum/spell/vampire/self/exfiltrate/cast(mob/user)
+	if(used)
+		to_chat(user, "<span class='warning'>You have already attempted to create a blood chalice!</span>")
+		return
+	var/datum/antagonist/vampire/vamp = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	vamp.prepare_exfiltration(user, /obj/item/wormhole_jaunter/extraction/vampire)
+	used = TRUE
 
 /datum/spell/vampire/self/specialize
 	name = "Choose Specialization"

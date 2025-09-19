@@ -4,16 +4,16 @@
 	desc = "An early design of the proto-kinetic accelerator, it is little more than a combination of various mining tools cobbled together, forming a high-tech club. \
 	While it is an effective mining tool, it did little to aid any but the most skilled and/or suicidal miners against local fauna."
 	icon = 'icons/obj/mining.dmi'
+	icon_state = "crusher"
 	base_icon_state = "crusher"
+	inhand_icon_state = "crusher0"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon_state = "crusher"
-	item_state = "crusher0"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	throwforce = 5
 	throw_speed = 4
-	armour_penetration_flat = 10
+	armor_penetration_flat = 10
 	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("smashed", "crushed", "cleaved", "chopped", "pulped")
@@ -186,7 +186,7 @@
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 /obj/item/kinetic_crusher/update_icon_state()
-	item_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]"
+	inhand_icon_state = "crusher[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/kinetic_crusher/update_overlays()
 	. = ..()
