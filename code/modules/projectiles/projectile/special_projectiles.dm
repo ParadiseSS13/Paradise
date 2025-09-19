@@ -1,4 +1,4 @@
-/obj/item/projectile/ion
+/obj/projectile/ion
 	name = "ion bolt"
 	icon_state = "ion"
 	damage = 0
@@ -10,38 +10,38 @@
 	var/strong_emp = 1
 	var/weak_emp = 1
 
-/obj/item/projectile/ion/on_hit(atom/target, blocked = 0)
+/obj/projectile/ion/on_hit(atom/target, blocked = 0)
 	..()
 	empulse(target, strong_emp, weak_emp, TRUE, cause = "[type] fired by [key_name(firer)]")
 	return TRUE
 
-/obj/item/projectile/ion/weak
+/obj/projectile/ion/weak
 	strong_emp = -1
 	weak_emp = 0
 
-/obj/item/projectile/bullet/gyro
+/obj/projectile/bullet/gyro
 	name ="explosive bolt"
 	icon_state= "bolter"
 	damage = 50
 	alwayslog = TRUE
 
-/obj/item/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
+/obj/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
 	..()
 	explosion(target, -1, 0, 2, cause = "[type] fired by [key_name(firer)]")
 	return TRUE
 
-/obj/item/projectile/bullet/a40mm
+/obj/projectile/bullet/a40mm
 	name ="40mm grenade"
 	desc = "USE A WEEL GUN."
 	icon_state= "bolter"
 	alwayslog = TRUE
 
-/obj/item/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
+/obj/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
 	..()
 	explosion(target, -1, 0, 2, 1, 0, flame_range = 3, cause = "[type] fired by [key_name(firer)]")
 	return TRUE
 
-/obj/item/projectile/temp
+/obj/projectile/temp
 	name = "temperature beam"
 	icon_state = "temp_4"
 	damage = 0
@@ -51,7 +51,7 @@
 	var/temperature = 300
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
-/obj/item/projectile/temp/New(loc, shot_temp)
+/obj/projectile/temp/New(loc, shot_temp)
 	..()
 	if(!isnull(shot_temp))
 		temperature = shot_temp
@@ -88,7 +88,7 @@
 			icon_state = "temp_4"
 
 
-/obj/item/projectile/temp/on_hit(atom/target, blocked = 0)//These two could likely check temp protection on the mob
+/obj/projectile/temp/on_hit(atom/target, blocked = 0)//These two could likely check temp protection on the mob
 	..()
 	if(isliving(target))
 		var/mob/living/M = target
@@ -99,14 +99,14 @@
 			playsound(M.loc, 'sound/effects/bamf.ogg', 50, 0)
 	return 1
 
-/obj/item/projectile/meteor
+/obj/projectile/meteor
 	name = "meteor"
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
 	damage = 0
 	nodamage = 1
 
-/obj/item/projectile/meteor/Bump(atom/A)
+/obj/projectile/meteor/Bump(atom/A)
 	if(A == firer)
 		loc = A.loc
 		return
@@ -116,14 +116,14 @@
 			shake_camera(M, 3, 1)
 	qdel(src)
 
-/obj/item/projectile/missile
+/obj/projectile/missile
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "missile"
 	damage = 50
 	///If the missile will have a heavy, or light explosion.
 	var/heavy = TRUE
 
-/obj/item/projectile/missile/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/missile/on_hit(atom/target, blocked, hit_zone)
 	..()
 	if(heavy)
 		explosion(target, 1, 2, 3, cause = "[type] fired by [key_name(firer)]")
@@ -131,47 +131,47 @@
 		explosion(target, -1, 0, 2, cause = "[type] fired by [key_name(firer)]")
 	return TRUE
 
-/obj/item/projectile/missile/light
+/obj/projectile/missile/light
 	damage = 15
 	heavy = FALSE
 
-/obj/item/projectile/energy/floramut
+/obj/projectile/energy/floramut
 	name = "alpha somatoray"
 	icon_state = "energy"
 	damage_type = TOX
 	nodamage = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 
-/obj/item/projectile/energy/florayield
+/obj/projectile/energy/florayield
 	name = "beta somatoray"
 	icon_state = "energy2"
 	damage_type = TOX
 	nodamage = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 
-/obj/item/projectile/energy/mindflayer
+/obj/projectile/energy/mindflayer
 	name = "flayer ray"
 
-/obj/item/projectile/energy/mindflayer/on_hit(atom/target, blocked = 0)
+/obj/projectile/energy/mindflayer/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
 		M.adjustBrainLoss(20)
 		M.AdjustHallucinate(20 SECONDS)
 
-/obj/item/projectile/clown
+/obj/projectile/clown
 	name = "snap-pop"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "snappop"
 
-/obj/item/projectile/clown/Bump(atom/A as mob|obj|turf|area)
+/obj/projectile/clown/Bump(atom/A as mob|obj|turf|area)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(loc)
 	visible_message("<span class='warning'>[src] explodes!</span>","<span class='warning'>You hear a snap!</span>")
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
-/obj/item/projectile/beam/wormhole
+/obj/projectile/beam/wormhole
 	name = "wormhole beam"
 	icon_state = "spark"
 	hitsound = "sparks"
@@ -180,16 +180,16 @@
 	color = "#33CCFF"
 	nodamage = TRUE
 
-/obj/item/projectile/beam/wormhole/orange
+/obj/projectile/beam/wormhole/orange
 	name = "orange wormhole beam"
 	color = "#FF6600"
 
-/obj/item/projectile/beam/wormhole/New(obj/item/ammo_casing/energy/wormhole/casing)
+/obj/projectile/beam/wormhole/New(obj/item/ammo_casing/energy/wormhole/casing)
 	..()
 	if(istype(casing))
 		gun = casing.gun
 
-/obj/item/projectile/beam/wormhole/on_hit(atom/target)
+/obj/projectile/beam/wormhole/on_hit(atom/target)
 	if(ismob(target))
 		if(is_teleport_allowed(target.z))
 			var/turf/portal_destination = pick(orange(6, src))
@@ -199,30 +199,30 @@
 		qdel(src)
 	gun.create_portal(src)
 
-/obj/item/projectile/bullet/frag12
+/obj/projectile/bullet/frag12
 	name ="explosive slug"
 	damage = 15
 	alwayslog = TRUE
 
-/obj/item/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
+/obj/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
 	explosion(target, -1, 0, 1, cause = "frag 12 fired by [key_name(firer)]")
 	return TRUE
 
-/obj/item/projectile/bullet/confetti
+/obj/projectile/bullet/confetti
 	name = "confetti shot"
 	damage = 0
 	range = 3
 
-/obj/item/projectile/bullet/confetti/on_range()
+/obj/projectile/bullet/confetti/on_range()
 	confettisize(src, 7, 3)
 	..()
 
-/obj/item/projectile/bullet/confetti/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/bullet/confetti/on_hit(atom/target, blocked, hit_zone)
 	confettisize(src, 7, 3)
 	..()
 
-/obj/item/projectile/plasma
+/obj/projectile/plasma
 	name = "plasma blast"
 	icon_state = "plasmacutter"
 	damage = 5
@@ -243,14 +243,14 @@
 	impact_light_range = 2.5
 	impact_light_color_override = LIGHT_COLOR_CYAN
 
-/obj/item/projectile/plasma/prehit(atom/target)
+/obj/projectile/plasma/prehit(atom/target)
 	. = ..()
 	if(!lavaland_equipment_pressure_check(get_turf(target)))
 		name = "weakened [name]"
 		dismemberment = 0
 		sharp = FALSE
 
-/obj/item/projectile/plasma/on_hit(atom/target)
+/obj/projectile/plasma/on_hit(atom/target)
 	. = ..()
 	if(ismineralturf(target))
 		if(is_ancient_rock(target))
@@ -263,27 +263,27 @@
 	else
 		forcedodge = 0
 
-/obj/item/projectile/plasma/adv
+/obj/projectile/plasma/adv
 	damage = 7
 	range = 5
 
-/obj/item/projectile/plasma/adv/mech
+/obj/projectile/plasma/adv/mech
 	damage = 10
 	range = 9
 
-/obj/item/projectile/energy/teleport
+/obj/projectile/energy/teleport
 	name = "teleportation burst"
 	icon_state = "bluespace"
 	nodamage = 1
 	alwayslog = TRUE
 	var/obj/item/beacon/teleport_target
 
-/obj/item/projectile/energy/teleport/New(loc, tele_target)
+/obj/projectile/energy/teleport/New(loc, tele_target)
 	..(loc)
 	if(tele_target)
 		teleport_target = tele_target
 
-/obj/item/projectile/energy/teleport/on_hit(atom/target, blocked = 0)
+/obj/projectile/energy/teleport/on_hit(atom/target, blocked = 0)
 	var/turf/target_turf = get_turf(teleport_target)
 	if(isliving(target))
 		if(istype(target_turf) && (target_turf.z == target.z || teleport_target.emagged))
@@ -293,13 +293,13 @@
 	add_attack_logs(firer, target, "Shot with a [type] [teleport_target ? "(Destination: [teleport_target])" : ""]")
 	return ..()
 
-/obj/item/projectile/energy/demonic_grappler
+/obj/projectile/energy/demonic_grappler
 	name = "demonic grappler"
 	icon_state = "bluespace"
 	nodamage = 1
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
-/obj/item/projectile/energy/demonic_grappler/on_hit(atom/target, blocked = 0)
+/obj/projectile/energy/demonic_grappler/on_hit(atom/target, blocked = 0)
 	if(isliving(target))
 		var/turf/source_turf = get_turf(firer)
 		do_teleport(target, source_turf)
@@ -308,31 +308,31 @@
 		do_teleport(firer, miss_turf)
 	return ..()
 
-/obj/item/projectile/snowball
+/obj/projectile/snowball
 	name = "snowball"
 	icon_state = "snowball"
 	hitsound = 'sound/items/dodgeball.ogg'
 	damage = 4
 	damage_type = BURN
 
-/obj/item/projectile/snowball/on_hit(atom/target)	//chilling
+/obj/projectile/snowball/on_hit(atom/target)	//chilling
 	. = ..()
 	if(isliving(target))
 		var/mob/living/M = target
 		M.bodytemperature = max(0, M.bodytemperature - 50)	//each hit will drop your body temp, so don't get surrounded!
 		M.ExtinguishMob()	//bright side, they counter being on fire!
 
-/obj/item/projectile/ornament
+/obj/projectile/ornament
 	name = "ornament"
 	icon_state = "ornament-1"
 	hitsound = 'sound/effects/glasshit.ogg'
 	damage = 7
 
-/obj/item/projectile/ornament/New()
+/obj/projectile/ornament/New()
 	icon_state = pick("ornament-1", "ornament-2")
 	..()
 
-/obj/item/projectile/ornament/on_hit(atom/target)	//knockback
+/obj/projectile/ornament/on_hit(atom/target)	//knockback
 	..()
 	if(isturf(target))
 		return 0
@@ -341,7 +341,7 @@
 	T.throw_at(get_edge_target_turf(target, throwdir),10,10)
 	return 1
 
-/obj/item/projectile/mimic
+/obj/projectile/mimic
 	name = "googly-eyed gun"
 	hitsound = 'sound/weapons/genhit1.ogg'
 	damage = 0
@@ -350,7 +350,7 @@
 	flag = "melee"
 	var/obj/item/gun/stored_gun
 
-/obj/item/projectile/mimic/New(loc, mimic_type)
+/obj/projectile/mimic/New(loc, mimic_type)
 	..(loc)
 	if(mimic_type)
 		stored_gun = new mimic_type(src)
@@ -359,7 +359,7 @@
 		overlays = stored_gun.overlays
 		SpinAnimation(20, -1)
 
-/obj/item/projectile/mimic/on_hit(atom/target)
+/obj/projectile/mimic/on_hit(atom/target)
 	..()
 	var/turf/T = get_turf(src)
 	var/obj/item/gun/G = stored_gun

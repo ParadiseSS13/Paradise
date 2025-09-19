@@ -286,10 +286,10 @@
  * Creates an explosion of shrapnel at a turf.
  * - /turf/epicenter - where the explosion occurs
  * - shrapnel_number - the amount of shrapnel to create
- * - /obj/item/projectile/shrapnel_type - the type of shrapnel bullets to shoot
+ * - /obj/projectile/shrapnel_type - the type of shrapnel bullets to shoot
  * - chance_to_hit_same_turf - the probability to hit someone on the same turf, doubled for someone lying down
  */
-/proc/create_shrapnel(turf/epicenter, shrapnel_number = 10, obj/item/projectile/shrapnel_type = /obj/item/projectile/bullet/shrapnel, chance_to_hit_same_turf = 50)
+/proc/create_shrapnel(turf/epicenter, shrapnel_number = 10, obj/projectile/shrapnel_type = /obj/projectile/bullet/shrapnel, chance_to_hit_same_turf = 50)
 	epicenter = get_turf(epicenter)
 	if(!epicenter || !shrapnel_number || !shrapnel_type)
 		return
@@ -306,7 +306,7 @@
 			mob_lying_on_turf = M
 
 	for(var/i in 1 to shrapnel_number)
-		var/obj/item/projectile/Shrapnel = new shrapnel_type(epicenter)
+		var/obj/projectile/Shrapnel = new shrapnel_type(epicenter)
 
 		// You can't just stand over a shrapnel explosion to avoid it
 		if(mob_standing_on_turf && prob(chance_to_hit_same_turf))

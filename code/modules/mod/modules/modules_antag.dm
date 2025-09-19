@@ -318,7 +318,7 @@
 		return
 	unstealth(source)
 
-/obj/item/mod/module/stealth/proc/on_bullet_act(datum/source, obj/item/projectile)
+/obj/item/mod/module/stealth/proc/on_bullet_act(datum/source, obj/projectile)
 	SIGNAL_HANDLER
 	unstealth(source)
 

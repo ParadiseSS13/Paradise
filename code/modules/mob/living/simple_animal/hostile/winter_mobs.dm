@@ -49,7 +49,7 @@
 	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
-	projectiletype = /obj/item/projectile/snowball
+	projectiletype = /obj/projectile/snowball
 
 /mob/living/simple_animal/hostile/winter/reindeer
 	name = "reindeer"
@@ -104,7 +104,7 @@
 	maxHealth = 200		//DID YOU REALLY BELIEVE IT WOULD BE THIS EASY!??!!
 	health = 200
 	ranged = TRUE
-	projectiletype = /obj/item/projectile/ornament
+	projectiletype = /obj/projectile/ornament
 	retreat_distance = 5
 	minimum_distance = 5
 
@@ -118,7 +118,7 @@
 	ranged = TRUE
 	rapid = 3
 	speed = 0	//he's lost some weight from the fighting
-	projectiletype = /obj/item/projectile/ornament
+	projectiletype = /obj/projectile/ornament
 	retreat_distance = 3
 	minimum_distance = 3
 

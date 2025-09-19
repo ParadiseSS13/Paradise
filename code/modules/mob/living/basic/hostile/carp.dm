@@ -115,7 +115,7 @@
 	return ..()
 
 // Since it's not dense we let it always hit
-/mob/living/basic/carp/projectile_hit_check(obj/item/projectile/P)
+/mob/living/basic/carp/projectile_hit_check(obj/projectile/P)
 	return stat == DEAD
 
 /mob/living/basic/carp/holocarp
