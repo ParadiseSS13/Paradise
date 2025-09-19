@@ -2,14 +2,6 @@ RESTRICT_TYPE(/datum/ui_module/admin/z_level_manager)
 
 /datum/ui_module/admin/z_level_manager
 	name = "Z-Level Manager"
-	var/datum/zlev_manager/manager
-
-/datum/ui_module/admin/z_level_manager/New(datum/zlev_manager/manager_)
-	if(!istype(manager_))
-		stack_trace("attempted to create a z-Level manager UI with invalid manager_=`[manager_]`")
-		qdel(src)
-		return
-	manager = manager_
 
 /datum/ui_module/admin/z_level_manager/ui_state(mob/user)
 	return GLOB.admin_state
@@ -26,8 +18,8 @@ RESTRICT_TYPE(/datum/ui_module/admin/z_level_manager)
 
 	.["levels"] = list()
 
-	for(var/zlvl in manager.z_list)
-		var/datum/space_level/level = manager.z_list[zlvl]
+	for(var/zlvl in GLOB.space_manager.z_list)
+		var/datum/space_level/level = GLOB.space_manager.z_list[zlvl]
 		.["levels"]["[level.zpos]"] = level.ui_data()
 
 /datum/ui_module/admin/z_level_manager/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
