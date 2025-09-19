@@ -322,3 +322,9 @@
 	var/obj/water_cooler = teleport_to_first(player, /obj/structure/reagent_dispensers/water_cooler)
 	player.click_on(water_cooler)
 	TEST_ASSERT_LAST_CHATLOG(player, "You fill [bucket] with 20 units of the contents of [water_cooler]")
+	player.drop_held_item()
+
+	crate = teleport_to_first(player, /obj/structure/closet/crate/sci)
+	player.spawn_fast_tool(/obj/item/stack/package_wrap)
+	player.click_on(crate)
+	TEST_ASSERT_LAST_CHATLOG(player, "[player.puppet] wraps [crate]")
