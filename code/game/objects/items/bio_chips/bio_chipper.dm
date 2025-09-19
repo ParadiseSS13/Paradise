@@ -3,7 +3,7 @@
 	desc = "A sterile automatic bio-chip injector."
 	icon = 'icons/obj/bio_chips.dmi'
 	icon_state = "implanter0"
-	item_state = "syringe_0"
+	inhand_icon_state = "syringe_0"
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL

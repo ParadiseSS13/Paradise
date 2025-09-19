@@ -92,7 +92,7 @@
 	name = "\improper NF10 'Saber' SMG"
 	desc = "A rejected prototype three-round burst 9mm submachine gun, designated 'SABR'. Surplus of this model are bouncing around armories of Nanotrasen Space Stations. Has a threaded barrel for suppressors."
 	icon_state = "saber"
-	item_state = "saber"
+	inhand_icon_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
@@ -104,7 +104,7 @@
 	name = "\improper C-20R SMG"
 	desc = "A two-round burst .45 SMG, designated 'C-20R'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
 	icon_state = "c20r"
-	item_state = "c20r"
+	inhand_icon_state = "c20r"
 	origin_tech = "combat=5;materials=2;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/smgm45
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
@@ -131,7 +131,6 @@
 	name = "\improper WT-550 PDW"
 	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
 	icon_state = "wt550"
-	item_state = "wt550"
 	w_class = WEIGHT_CLASS_BULKY
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
@@ -145,8 +144,8 @@
 	knife_y_offset = 12
 
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
-	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(0)/4, 1)*4]" : ""]"
-	item_state = "wt550-[CEILING(get_ammo(0)/6.7, 1)]"
+	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE) / 4, 1) * 4]" : ""]"
+	inhand_icon_state = "wt550-[CEILING(get_ammo(FALSE) / 6.7, 1)]"
 
 //////////////////////////////
 // MARK: TYPE U3 UZI
@@ -156,7 +155,9 @@
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
 	icon = 'icons/tgmc/objects/guns.dmi'
 	icon_state = "mini-uzi"
-	item_state = "mini-uzi"
+	inhand_icon_state = "mini-uzi"
+	lefthand_file = 'icons/tgmc/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/tgmc/mob/inhands/guns_righthand.dmi'
 	origin_tech = "combat=4;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
@@ -175,7 +176,7 @@
 	name = "\improper M-90GL Carbine"
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90GL'. Has an attached underbarrel grenade launcher which can be toggled on and off."
 	icon_state = "m90"
-	item_state = "m90-4"
+	inhand_icon_state = "m90-4"
 	origin_tech = "combat=5;materials=2;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m556
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
@@ -210,10 +211,7 @@
 
 /obj/item/gun/projectile/automatic/m90/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
-	if(magazine)
-		item_state = "m90-[CEILING(get_ammo(0)/7.5, 1)]"
-	else
-		item_state = "m90-0"
+	inhand_icon_state = "m90-[CEILING(get_ammo(FALSE) / 7.5, 1)]"
 
 /obj/item/gun/projectile/automatic/m90/update_overlays()
 	. = ..()
@@ -252,7 +250,7 @@
 /obj/item/gun/projectile/automatic/tommygun
 	name = "\improper Thompson SMG"
 	desc = "A genuine 'Chicago Typewriter'."
-	item_state = "shotgun"
+	inhand_icon_state = "shotgun"
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = 0
 	origin_tech = "combat=5;materials=1;syndicate=3"
@@ -269,7 +267,7 @@
 	name = "\improper M26A2 assault rifle"
 	desc = "A robust assault rifle used by Trans-Solar Federation forces. Chambered in 5.56mm."
 	icon_state = "arg"
-	item_state = "arg"
+	inhand_icon_state = "arg"
 	slot_flags = 0
 	origin_tech = "combat=6;engineering=4"
 	mag_type = /obj/item/ammo_box/magazine/m556/arg
@@ -286,7 +284,7 @@
 	name = "\improper AK-814 assault rifle"
 	desc = "A modern AK assault rifle favored by elite Soviet soldiers. Chambered in 7.62x54mm."
 	icon_state = "ak814"
-	item_state = "ak814"
+	inhand_icon_state = "ak814"
 	origin_tech = "combat=5;materials=3"
 	mag_type = /obj/item/ammo_box/magazine/ak814
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
@@ -306,7 +304,7 @@
 	name = "\improper AS-14 'Bulldog' Shotgun"
 	desc = "A compact semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
 	icon_state = "bulldog"
-	item_state = "bulldog"
+	inhand_icon_state = "bulldog"
 	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
@@ -360,7 +358,7 @@
 	name = "\improper IK-M2 laser carbine"
 	desc = "A compact Warp-Tac Industries fully automatic laser carbine that uses disposable laser cartridges rather than an internal power cell. Utilized by Nanotrasen's response teams for combat operations."
 	icon_state = "lasercarbine"
-	item_state = "lasercarbine"
+	inhand_icon_state = "lasercarbine"
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/laser
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
@@ -388,8 +386,13 @@
 	AddComponent(/datum/component/automatic_fire, 0.30 SECONDS, allow_akimbo = FALSE)
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
-	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
-	item_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
+	if(magazine)
+		var/bullets = CEILING(get_ammo(FALSE) / 5, 1) * 5
+		icon_state = "lasercarbine-[bullets]"
+		inhand_icon_state = "lasercarbine-[bullets]"
+	else
+		icon_state = "lasercarbine"
+		inhand_icon_state = "lasercarbine"
 
 //////////////////////////////
 // MARK: IK-M1 LASER RIFLE
@@ -398,7 +401,7 @@
 	name = "\improper IK-M1 laser rifle"
 	desc = "A sleek, Warp-Tac Industries laser rifle that uses disposable laser cartridges rather than an internal power cell. Sold to Nanotrasen's private security forces."
 	icon_state = "laserrifle"
-	item_state = "lasercarbine"
+	inhand_icon_state = "lasercarbine"
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "combat=3;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/laser
@@ -427,5 +430,10 @@
 	. += "Today, the latest generation of the IK-M1 competes with established laser brands like Shellguard Munitions, positioning itself as a premium choice in the laser weaponry market."
 
 /obj/item/gun/projectile/automatic/laserrifle/update_icon_state()
-	icon_state = "laserrifle[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
-	item_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
+	if(magazine)
+		var/bullets = CEILING(get_ammo(FALSE) / 5, 1) * 5
+		icon_state = "laserrifle-[bullets]"
+		inhand_icon_state = "lasercarbine-[bullets]"
+	else
+		icon_state = "laserrifle"
+		inhand_icon_state = "lasercarbine"

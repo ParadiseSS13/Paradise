@@ -26,12 +26,12 @@ jobs:
           bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
           cache: 'pip'
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: 'yarn'
@@ -72,7 +72,7 @@ jobs:
         run: |
           bash tools/ci/setup_od.sh
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4.3.1
+        uses: actions/setup-dotnet@v5.0.0
         with:
           dotnet-version: 9.x
       - name: Run OD
@@ -167,7 +167,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.8.2' # Script was made for 3.8.2
           architecture: 'x86' # This MUST be x86

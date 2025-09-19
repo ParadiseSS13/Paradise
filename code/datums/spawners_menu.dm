@@ -1,10 +1,6 @@
-/datum/spawners_menu
-	var/mob/dead/observer/owner
+GLOBAL_DATUM_INIT(ghost_spawners_menu, /datum/spawners_menu, new)
 
-/datum/spawners_menu/New(mob/dead/observer/new_owner)
-	if(!istype(new_owner))
-		qdel(src)
-	owner = new_owner
+/datum/spawners_menu
 
 /datum/spawners_menu/ui_state(mob/user)
 	return GLOB.observer_state
@@ -26,9 +22,9 @@
 		this["important_info"] = ""
 		this["fluff"] = ""
 		this["uids"] = list()
-		for(var/spawner_obj in GLOB.mob_spawners[spawner])//each spawner can contain multiple actual spawners, we use only one desc/info
-			this["uids"] += "\ref[spawner_obj]"
-			if(!this["desc"])	//haven't set descriptions yet
+		for(var/obj/effect/mob_spawn/spawner_obj as anything in GLOB.mob_spawners[spawner]) // each spawner can contain multiple actual spawners, we use only one desc/info
+			this["uids"] += "[spawner_obj.UID()]"
+			if(!this["desc"]) // haven't set descriptions yet
 				if(istype(spawner_obj, /obj/effect/mob_spawn))
 					var/obj/effect/mob_spawn/MS = spawner_obj
 					this["desc"] = MS.description
@@ -54,9 +50,10 @@
 		CRASH("A ghost tried to interact with an invalid spawner, or the spawner didn't exist.")
 	switch(action)
 		if("jump")
-			owner.forceMove(get_turf(MS))
+			var/mob/dead/observer/ghost = usr
+			ghost.abstract_move(get_turf(MS))
 			. = TRUE
 		if("spawn")
-			if(MS.attack_ghost(owner))
+			if(MS.attack_ghost(usr))
 				SSblackbox.record_feedback("tally", "ghost_spawns", 1, "[MS.assignedrole]")
 			. = TRUE
