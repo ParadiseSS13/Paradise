@@ -360,3 +360,5 @@
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stock_parts/matter_bin = 2,
 		)
+
+#undef DEFAULT_TIME
