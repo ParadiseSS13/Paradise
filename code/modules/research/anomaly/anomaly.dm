@@ -73,6 +73,7 @@
 	desc = "The raw core of an unknown anomaly. It glimmers with potential."
 	icon_state = "unrefined_anomaly_core"
 	icon = 'icons/obj/items.dmi'
+	w_class = WEIGHT_CLASS_SMALL
 	var/target_explosion_size = 4
 
 /obj/item/raw_anomaly_core/Initialize(mapload)
