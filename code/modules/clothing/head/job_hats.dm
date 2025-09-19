@@ -89,7 +89,9 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
 //Chaplain
@@ -106,7 +108,9 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
 		"Nian" = 'icons/mob/clothing/species/nian/head.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
 //Chaplain
@@ -130,7 +134,9 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
 		"Nian" = 'icons/mob/clothing/species/nian/head.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
 //Chaplain
@@ -146,7 +152,9 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
 		"Nian" = 'icons/mob/clothing/species/nian/head.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
 //Chaplain
@@ -162,7 +170,9 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
 		"Nian" = 'icons/mob/clothing/species/nian/head.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
 //Chaplain
@@ -176,7 +186,9 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
 //Chaplain
@@ -190,7 +202,9 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
 //Chaplain
@@ -206,7 +220,9 @@
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
 		"Nian" = 'icons/mob/clothing/species/nian/head.dmi',
 		"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
 
 /obj/item/clothing/head/witchhunter_hat
