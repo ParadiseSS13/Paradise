@@ -254,6 +254,21 @@ RESTRICT_TYPE(/mob/living/basic)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		return attack_threshold_check(damage, M.melee_damage_type)
 
+/mob/living/basic/attack_alien(mob/living/carbon/alien/humanoid/M)
+	if(..()) // if harm or disarm intent.
+		if(M.a_intent == INTENT_DISARM)
+			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
+			visible_message("<span class='danger'>[M] [response_disarm_continuous] [name]!</span>", "<span class='userdanger'>[M] [response_disarm_continuous] you!</span>")
+			add_attack_logs(M, src, "Alien disarmed")
+		else
+			var/damage = rand(15, 30)
+			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
+					"<span class='userdanger'>[M] has slashed at [src]!</span>")
+			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
+			add_attack_logs(M, src, "Alien attacked")
+			attack_threshold_check(damage)
+		return TRUE
+
 /mob/living/basic/handle_environment(datum/gas_mixture/readonly_environment)
 	SEND_SIGNAL(src, COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT, readonly_environment)
 
@@ -361,7 +376,7 @@ RESTRICT_TYPE(/mob/living/basic)
 		visible_message("<span class='warning'>[src] looks unharmed.</span>")
 		return FALSE
 	else
-		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
+		apply_damage(damage, damagetype, null, getarmor(armor_type = armorcheck))
 		return TRUE
 
 

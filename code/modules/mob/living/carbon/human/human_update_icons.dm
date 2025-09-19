@@ -691,9 +691,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(glasses)
 		var/obj/item/organ/external/head/head_organ = get_organ("head")
+		var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
 		update_hud_glasses(glasses)
 
-		var/worn_icon = glasses.worn_icon || listgetindex(glasses.sprite_sheets, head_organ.dna.species.sprite_sheet_name) || 'icons/mob/clothing/eyes.dmi'
+		var/worn_icon = glasses.worn_icon || (robohead && robohead.is_monitor ? glasses.icon_monitor : FALSE) ||  listgetindex(glasses.sprite_sheets, head_organ.dna.species.sprite_sheet_name) || 'icons/mob/clothing/eyes.dmi'
 		var/worn_icon_state = glasses.worn_icon_state || glasses.icon_state
 		var/obj/item/clothing/glasses/mob_glasses = glasses
 		var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
