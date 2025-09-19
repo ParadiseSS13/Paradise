@@ -298,6 +298,7 @@
 /obj/item/melee/baseball_bat/dropped(mob/user, silent)
 	. = ..()
 	deflectmode = FALSE
+	homerun_ready = FALSE
 
 /obj/item/melee/baseball_bat/ablative
 	name = "metal baseball bat"

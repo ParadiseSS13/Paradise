@@ -96,3 +96,9 @@
 	desc = "A suit that protects against minor chemical spills. Has green research markings."
 	icon_state = "labcoat_botany_open"
 	allowed = list(/obj/item/plant_analyzer, /obj/item/reagent_containers/glass/bottle, /obj/item/storage/bag/plants, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/glass/beaker, /obj/item/paper)
+
+/obj/item/clothing/suit/storage/labcoat/abductor
+	name = "alien labcoat"
+	desc = "A comfortable suit for alien scientists. Has pink markings."
+	icon_state = "labcoat_abductor_open"
+	allowed = list(/obj/item/abductor/silencer, /obj/item/abductor/gizmo, /obj/item/abductor/mind_device)
