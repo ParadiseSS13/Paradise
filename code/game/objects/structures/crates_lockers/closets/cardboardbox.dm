@@ -68,7 +68,7 @@
 /obj/structure/closet/cardboard/welder_act()
 	return
 
-/obj/structure/closet/cardboard/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/closet/cardboard/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(src.opened)
 		if(istype(W, /obj/item/wirecutters))
 			var/obj/item/wirecutters/WC = W
@@ -76,26 +76,26 @@
 			for(var/mob/M in viewers(src))
 				M.show_message("<span class='notice'>\The [src] has been cut apart by [user] with \the [WC].</span>", 3, "You hear cutting.", 2)
 			qdel(src)
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(is_pen(W))
 			var/decalselection = tgui_input_list(user, "Please select a decal", "Paint Box", list("Atmospherics", "Bartender", "Barber", "Blueshield", "Captain",
 			"Cargo", "Chief Engineer",	"Chaplain",	"Chef", "Chemist", "Assistant", "Clown", "CMO", "Coroner", "Detective", "Engineering", "Genetics", "HOP",
 			"HOS", "Hydroponics", "Internal Affairs Agent", "Janitor",	"Magistrate", "Medical", "Mime", "Mining", "NT Representative", "Paramedic",
 			"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology"))
 			if(!decalselection)
-				return
+				return ITEM_INTERACT_COMPLETE
 			if(user.incapacitated())
 				to_chat(user, "You're in no condition to perform this action.")
-				return
+				return ITEM_INTERACT_COMPLETE
 			if(W != user.get_active_hand())
 				to_chat(user, "You must be holding the pen to perform this action.")
-				return
+				return ITEM_INTERACT_COMPLETE
 			if(!Adjacent(user))
 				to_chat(user, "You have moved too far away from the cardboard box.")
-				return
+				return ITEM_INTERACT_COMPLETE
 			decalselection = replacetext(decalselection, " ", "_")
 			decalselection = lowertext(decalselection)
 			custom_skin = "_[decalselection]"
 			update_icon() // a proc declared in the closets parent file used to update opened/closed sprites on normal closets
-		return
-	return ..()
+
+		return ITEM_INTERACT_COMPLETE
