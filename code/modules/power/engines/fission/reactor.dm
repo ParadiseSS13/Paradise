@@ -70,7 +70,6 @@
 	desc = "An ancient yet reliable form of power generation utilising fissile materials to generate heat."
 	icon = 'icons/goonstation/objects/reactor.dmi'
 	icon_state = "reactor_off"
-	anchored = TRUE
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	pixel_x = -16
@@ -802,8 +801,6 @@
 	desc = "A chamber used to house nuclear rods of various types to facilitate a fission reaction."
 	icon = 'icons/obj/fission/reactor_chamber.dmi'
 	icon_state = "chamber_down"
-	anchored = TRUE
-	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
 	max_integrity = 400
 	armor = list(melee = 80, bullet = 30, laser = 30, energy = 10, bomb = 40, rad = INFINITY, fire = INFINITY, acid = INFINITY) // fairly robust
@@ -1426,7 +1423,6 @@
 	board_name = "Reactor Chamber"
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/reactor_chamber
-	board_type = "machine"
 	origin_tech = "engineering=2"
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
@@ -1443,9 +1439,7 @@
 	icon_state = "gas_node"
 	layer = GAS_PIPE_VISIBLE_LAYER
 	max_integrity = 2000
-	density = FALSE
 	target_pressure = 100000 // maximum pressure in KPA
-	can_unwrench = FALSE
 	flags_2 = NO_MALF_EFFECT_2
 
 	/// Hold which reactor the intake is connected to.
@@ -1561,7 +1555,6 @@
 	board_name = "Reactor Gas Node"
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/unary/reactor_gas_node
-	board_type = "machine"
 	origin_tech = "engineering=2"
 	req_components = list(
 		/obj/item/stack/cable_coil = 2,
