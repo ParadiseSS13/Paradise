@@ -637,12 +637,12 @@
 	if(send_message)
 		radio.autosay("<b>Reactor SCRAM completed successfully. Integrity: [get_integrity()]%</b>", name, "Engineering")
 		send_message = FALSE
-	#warn add a sound here
+	// #warn add a sound here
 
 /obj/machinery/atmospherics/fission_reactor/proc/boot_up()
 	offline = FALSE
 	icon_state = "reactor_starting"
-	#warn add a sound here
+	// #warn add a sound here
 
 /obj/machinery/atmospherics/fission_reactor/proc/become_operational()
 	starting_up = FALSE
@@ -653,7 +653,7 @@
 	else
 		icon_state = "reactor_on"
 	set_light(2, 5, REACTOR_LIGHT_COLOR)
-	#warn add a sound here
+	// #warn add a sound here
 
 /// returns a value from 0 to 1 based off current operating power
 /obj/machinery/atmospherics/fission_reactor/proc/operating_percent()
