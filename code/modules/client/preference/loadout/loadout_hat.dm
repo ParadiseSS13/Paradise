@@ -322,3 +322,6 @@
 	display_name = "Kitty ears"
 	path = /obj/item/clothing/head/kitty
 
+/datum/gear/hat/wizard
+	display_name = "Wizard hat"
+	path = /obj/item/clothing/head/wizard/fake

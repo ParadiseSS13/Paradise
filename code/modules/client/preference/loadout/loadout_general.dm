@@ -190,6 +190,10 @@
 	path = /obj/item/paicard
 	cost = 2
 
+/datum/gear/wizard_staff
+	display_name = "Wizard's staff"
+	path = /obj/item/staff
+
 //////////////////////
 //		Mugs		//
 //////////////////////
