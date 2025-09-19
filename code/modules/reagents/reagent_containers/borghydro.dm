@@ -121,10 +121,10 @@
 	to_chat(user, "<span class='notice'>Synthesizer is now dispensing [R.name].</span>")
 	reagent_selected = selected_reagent
 
-/obj/item/reagent_containers/borghypo/examine(mob/user)
-	. = ..()
+/// Overriding because this is not really a reagent container
+/obj/item/reagent_containers/borghypo/build_reagent_description(mob/user)
 	var/datum/reagent/get_reagent_name = GLOB.chemical_reagents_list[reagent_selected]
-	. |= "<span class='notice'>Contains [reagent_ids[reagent_selected]] units of [get_reagent_name.name].</span>"
+	return "<span class='notice'>Contains [reagent_ids[reagent_selected]] units of [get_reagent_name.name].</span>"
 
 /obj/item/reagent_containers/borghypo/emag_act(mob/user)
 	if(!emagged)
