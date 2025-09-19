@@ -105,8 +105,6 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	else
 		msg += "<b>Server Commit:</b> <i>Unable to determine</i>"
 
-	msg += "<b>RUST-G Build</b>: [rustg_get_version()]"
-
 	if(world.TgsAvailable())
 		var/datum/tgs_version/tgs_ver = world.TgsVersion()
 		var/datum/tgs_version/api_ver = world.TgsApiVersion()
