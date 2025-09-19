@@ -591,11 +591,17 @@
 	for(var/datum/martial_art/MA in extractor.mind.known_martial_arts)
 		MA.remove(extractor)
 
+	// Kill guardians
+	SEND_SIGNAL(extractor, COMSIG_SUMMONER_EXTRACTED)
+
 	// Equip outfits and remove spells
 	var/datum/mind/extractor_mind = extractor.mind
 	for(var/datum/antagonist/antag in extractor_mind.antag_datums)
 		antag.exfiltrate(extractor, radio)
-
+	if(isvox(extractor))
+		extractor.dna.species.after_equip_job(null, extractor) // Nitrogen tanks
+	if(isplasmaman(extractor))
+		extractor.dna.species.after_equip_job(null, extractor) // Plasma tanks
 	// Apply traits
 	ADD_TRAIT(extractor, TRAIT_PACIFISM, GHOST_ROLE)
 	ADD_TRAIT(extractor, TRAIT_RESPAWNABLE, GHOST_ROLE)
