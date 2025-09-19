@@ -106,9 +106,10 @@
 	if(direction == dir && density)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
-/obj/structure/windoor_assembly/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/windoor_assembly/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	//I really should have spread this out across more states but thin little windoors are hard to sprite.
 	add_fingerprint(user)
+	. = ITEM_INTERACT_COMPLETE
 	switch(state)
 		if(EMPTY_ASSEMBLY)
 			//Adding plasteel makes the assembly a secure windoor assembly. Step 2 (optional) complete.

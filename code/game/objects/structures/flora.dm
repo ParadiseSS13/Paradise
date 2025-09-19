@@ -433,7 +433,7 @@
 	. = ..()
 	if(icon_state == "random-alien")
 		icon_state = "alien-[rand(1,8)]"
-	
+
 /obj/item/kirbyplants/large/alien/alien1
 	icon_state = "alien-1"
 /obj/item/kirbyplants/large/alien/alien3
@@ -519,7 +519,7 @@
 /obj/structure/bush/Initialize(mapload)
 	. = ..()
 	if(prob(20))
-		opacity = TRUE
+		set_opacity(TRUE)
 
 /*
 /obj/structure/bush/Bumped(M as mob)
@@ -531,7 +531,7 @@
 		A.loc = get_turf(src)
 */
 
-/obj/structure/bush/attackby__legacy__attackchain(obj/I as obj, mob/user as mob, params)
+/obj/structure/bush/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	//hatchets can clear away undergrowth
 	if(istype(I, /obj/item/hatchet) && !stump)
 		if(indestructable)
@@ -554,8 +554,7 @@
 						pixel_y = rand(-6,6)
 					else
 						qdel(src)
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
 //Jungle grass
 

@@ -3,7 +3,7 @@
 	name = "circuit board"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "id_mod"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	origin_tech = "programming=2"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_GLASS=200)
@@ -686,7 +686,7 @@
 		I.play_tool_sound(src)
 		update_icon()
 
-/obj/structure/computerframe/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/computerframe/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	switch(state)
 		if(STATE_EMPTY)
 			if(!istype(I, /obj/item/circuitboard))
@@ -695,11 +695,11 @@
 			var/obj/item/circuitboard/B = I
 			if(B.board_type != "computer")
 				to_chat(user, "<span class='warning'>[src] does not accept circuit boards of this type!</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			if(!B.build_path)
 				to_chat(user, "<span class='warning'>This is not a functional computer circuit board!</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			B.play_tool_sound(src)
 			to_chat(user, "<span class='notice'>You place [B] inside [src].</span>")
@@ -709,7 +709,7 @@
 			B.forceMove(src)
 			circuit = B
 			update_icon()
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(STATE_NOWIRES)
 			if(!istype(I, /obj/item/stack/cable_coil))
@@ -718,20 +718,20 @@
 			var/obj/item/stack/cable_coil/C = I
 			if(C.get_amount() < 5)
 				to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			C.play_tool_sound(src)
 			to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
 			if(!do_after(user, 2 SECONDS * C.toolspeed, target = src))
-				return
+				return ITEM_INTERACT_COMPLETE
 			if(C.get_amount() < 5 || !C.use(5))
 				to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 			state = STATE_WIRES
 			update_icon()
-			return
+			return ITEM_INTERACT_COMPLETE
 
 		if(STATE_WIRES)
 			if(!istype(I, /obj/item/stack/sheet/glass))
@@ -740,20 +740,20 @@
 			var/obj/item/stack/sheet/glass/G = I
 			if(G.get_amount() < 2)
 				to_chat(user, "<span class='warning'>You need two sheets of glass for this.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			G.play_tool_sound(src)
 			to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
 			if(!do_after(user, 2 SECONDS * G.toolspeed, target = src))
-				return
+				return ITEM_INTERACT_COMPLETE
 			if(G.get_amount() < 2 || !G.use(2))
 				to_chat(user, "<span class='warning'>At some point during construction you lost some glass. Make sure you have two sheets before trying again.</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 
 			to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
 			state = STATE_GLASS
 			update_icon()
-			return
+			return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
