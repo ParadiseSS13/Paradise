@@ -77103,7 +77103,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "sKE" = (
-/obj/machinery/reactor_chamber/uranium,
+/obj/machinery/atmospherics/reactor_chamber/uranium,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -83208,7 +83208,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "vWF" = (
-/obj/machinery/reactor_chamber/heavy_water,
+/obj/machinery/atmospherics/reactor_chamber/heavy_water,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

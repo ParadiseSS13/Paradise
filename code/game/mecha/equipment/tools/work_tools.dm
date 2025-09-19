@@ -43,8 +43,8 @@
 			chassis.occupant.dust()
 			target.Bumped(chassis)
 			return
-		if(istype(target, /obj/machinery/reactor_chamber))
-			var/obj/machinery/reactor_chamber/chamber = target
+		if(istype(target, /obj/machinery/atmospherics/reactor_chamber))
+			var/obj/machinery/atmospherics/reactor_chamber/chamber = target
 			if(chamber.chamber_state != CHAMBER_OPEN) // we need to handle this a bit special
 				chamber.attack_hand(cargo_holder.occupant)
 				return

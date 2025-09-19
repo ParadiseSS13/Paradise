@@ -163,8 +163,8 @@
 			)
 		return ITEM_INTERACT_COMPLETE
 
-	if(istype(target, /obj/machinery/reactor_chamber))
-		var/obj/machinery/reactor_chamber/chamber = target
+	if(istype(target, /obj/machinery/atmospherics/reactor_chamber))
+		var/obj/machinery/atmospherics/reactor_chamber/chamber = target
 		if(chamber.chamber_state == 3 && chamber.held_rod) // chamber_state 3 is equal to CHAMBER_OPEN
 			chamber.held_rod.forceMove(src)
 			gripped_item = chamber.held_rod

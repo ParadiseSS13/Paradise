@@ -26,6 +26,8 @@
 	var/list/adjacent_requirements = list()
 	/// Is this design visible on the rod fabricator
 	var/craftable = TRUE
+	/// Modifies the reactor's minimum operating temperature.
+	var/minimum_temp_modifier = 0
 
 /obj/item/nuclear_rod/Initialize(mapload)
 	. = ..()
@@ -79,6 +81,8 @@
 			successful_enrichment = TRUE
 	return successful_enrichment
 
+/// MARK: Fuel Rods
+
 /obj/item/nuclear_rod/fuel/uranium_238
 	name = "uranium 235 fuel rod"
 	desc = "A standard fuel rod for most NGCR reactors. Has just barely enough Uranium 235 to be useful."
@@ -102,7 +106,7 @@
 	heat_amp_mod = 1.6
 	power_amp_mod = 1.1
 	durability = 10000
-	rad_type = ALPHA_RAD
+	rad_type = BETA_RAD
 	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator,
@@ -112,16 +116,19 @@
 /obj/item/nuclear_rod/fuel/weak_plutonium
 	name = "weak plutonium fuel rod"
 	heat_amount = 10
-	power_amount = 30 KW
+	power_amount = 40 KW
 	heat_amp_mod = 1.6
 	power_amp_mod = 1.1
 	max_durability = 5000
-	rad_type = ALPHA_RAD
+	rad_type = GAMMA_RAD
 	craftable = FALSE
 	adjacent_requirements = list(
+		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/coolant,
 		)
+
+/// MARK: Moderator Rods
 
 /obj/item/nuclear_rod/moderator
 	name = "any moderator rod"
@@ -138,9 +145,20 @@
 /obj/item/nuclear_rod/moderator/graphite
 	name = "graphite moderator"
 	desc = "A nuclear moderation rod comprised of primarily of layered graphite. A staple of fission reactor operation through the ages."
-	heat_amp_mod = 1.1
-	power_amp_mod = 1.4
+	heat_amp_mod = 1.3
+	power_amp_mod = 1.6
 	materials = list(MAT_METAL = 4000, MAT_PLASMA = 2000)
+	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
+
+/obj/item/nuclear_rod/moderator/titanium
+	name = "titanium moderator"
+	desc = "A nuclear moderation rod comprised of primarily of cast titanium. For what it makes up in power amplification, it make up in versatility and durability."
+	max_durability = 5000
+	heat_amp_mod = 1.1
+	power_amp_mod = 1.3
+	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 2000)
+
+/// MARK: Coolant Rods
 
 /obj/item/nuclear_rod/coolant
 	name = "any coolant rod"
@@ -152,7 +170,18 @@
 	name = "light water circulator"
 	desc = "A basic coolant rod that circulates distilled water through critical reactor components."
 	heat_amount = -10
-	heat_amp_mod = 1
 	power_amount = -10 KW
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
+
+/obj/item/nuclear_rod/coolant/co2_regulator
+	name = "carbon dioxide regulator"
+	desc = "A specialized rod filled with carbon dioxide gas, capable of regulating temperature spikes in fuel rods. However, its very energy inefficient."
+	heat_amount = -3
+	heat_mod = 0.6
+	power_amount = -15 KW
+	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
+	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
+
+
+
