@@ -156,7 +156,7 @@
 /obj/item/veilrender/crabrender
 	name = "crab render"
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast aquarium."
-	spawn_type = /mob/living/simple_animal/crab
+	spawn_type = /mob/living/basic/crab
 	spawn_amt = 10
 	activate_descriptor = "sea life"
 	rend_desc = "Gently wafting with the sounds of endless clacking."
