@@ -42,7 +42,7 @@
 /// [/datum/ai_behavior/proc/perform] returns [AI_BEHAVIOR_SUCCEEDED] or
 /// [AI_BEHAVIOR_FAILED].
 /datum/ai_behavior/proc/finish_action(datum/ai_controller/controller, succeeded, ...)
-	LAZYREMOVE(controller.current_behaviors, src)
+	controller.current_behaviors -= src
 	controller.behavior_args -= type
 	// If this was a movement task, reset our movement target if necessary
 	if(!(behavior_flags & AI_BEHAVIOR_REQUIRE_MOVEMENT))

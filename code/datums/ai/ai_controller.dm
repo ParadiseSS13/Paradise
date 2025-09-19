@@ -26,9 +26,9 @@ RESTRICT_TYPE(/datum/ai_controller)
 	/// Bitfield of traits for this AI to handle extra behavior.
 	var/ai_traits = NONE
 	/// Current actions planned to be performed by the AI in the upcoming plan.
-	var/list/planned_behaviors
+	var/list/planned_behaviors = list()
 	/// Current actions being performed by the AI.
-	var/list/current_behaviors
+	var/list/current_behaviors = list()
 	/// Current actions and their respective last time ran as an assoc list.
 	var/list/behavior_cooldowns = list()
 	/// Current status of AI (OFF/ON)
@@ -100,9 +100,9 @@ RESTRICT_TYPE(/datum/ai_controller)
 	if(ai_movement.moving_controllers[src])
 		ai_movement.stop_moving_towards(src)
 
-	LAZYCLEARLIST(planned_behaviors)
+	planned_behaviors.Cut()
 	LAZYCLEARLIST(planning_subtrees)
-	LAZYCLEARLIST(current_behaviors)
+	current_behaviors.Cut()
 
 	qdel(proxmon)
 
@@ -383,7 +383,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 			break
 
 	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
-		if(LAZYACCESS(planned_behaviors, current_behavior))
+		if(current_behavior in planned_behaviors)
 			continue
 		var/list/arguments = list(src, FALSE)
 		var/list/stored_arguments = behavior_args[type]
