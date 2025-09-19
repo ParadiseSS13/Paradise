@@ -59,6 +59,7 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	var/list/headwear = typesof(/obj/item/clothing/head)
 	var/list/glasses = typesof(/obj/item/clothing/glasses)
 	var/list/masks = typesof(/obj/item/clothing/mask)
+	var/list/neckwear = typesof(/obj/item/clothing/neck)
 	var/list/pdas = typesof(/obj/item/pda)
 	var/list/ids = typesof(/obj/item/card/id)
 
@@ -96,6 +97,12 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	for(var/path in masks)
 		mask_select += "<option value=\"[path]\">[path]</option>"
 	mask_select += "</select>"
+
+	var/neckwear_select = "<select name=\"outfit_neckwear\"><option value=\"\">None</option>"
+	for(var/path in neckwear)
+		neckwear_select += "<option value=\"[path]\">[path]</option>"
+	neckwear_select += "</select>"
+
 
 	var/id_select = "<select name=\"outfit_id\"><option value=\"\">None</option>"
 	for(var/path in ids)
@@ -165,6 +172,12 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 			<th>Mask:</th>
 			<td>
 				[mask_select]
+			</td>
+		</tr>
+		<tr>
+			<th>Neck:</th>
+			<td>
+				[neckwear_select]
 			</td>
 		</tr>
 		<tr>
@@ -246,6 +259,7 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	O.head = text2path(href_list["outfit_head"])
 	O.back = text2path(href_list["outfit_back"])
 	O.mask = text2path(href_list["outfit_mask"])
+	O.neck = text2path(href_list["outfit_neckwear"])
 	O.glasses = text2path(href_list["outfit_glasses"])
 	O.r_hand = text2path(href_list["outfit_r_hand"])
 	O.l_hand = text2path(href_list["outfit_l_hand"])
