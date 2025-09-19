@@ -107,11 +107,19 @@
 
 /obj/item/clothing/glasses/hud/debug/equipped(mob/living/carbon/human/user, slot)
 	..()
-	if(xray)
-		add_xray(user)
+	if(slot == ITEM_SLOT_EYES)
+		if(!HAS_TRAIT_FROM(user, TRAIT_MESON_VISION, "debug_glasses[UID()]"))
+			ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, "debug_glasses[UID()]")
+		if(xray)
+			add_xray(user)
+	else
+		REMOVE_TRAIT(user, SM_HALLUCINATION_IMMUNE, "debug_glasses[UID()]")
+		if(xray)
+			remove_xray(user)
 
 /obj/item/clothing/glasses/hud/debug/dropped(mob/living/carbon/human/user)
 	..()
+	REMOVE_TRAIT(user, SM_HALLUCINATION_IMMUNE, "debug_glasses[UID()]")
 	if(xray)
 		remove_xray(user)
 
