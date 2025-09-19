@@ -40,6 +40,11 @@
 		operating = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/machinery/smithing/Destroy()
+	if(working_component)
+		working_component.forceMove(src.loc)
+	. = ..()
+
 /obj/machinery/smithing/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/grab))
 		var/obj/item/grab/G = used
