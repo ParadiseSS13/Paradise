@@ -261,7 +261,7 @@
 
 /obj/machinery/nuclear_rod_fabricator/proc/get_rod_info(rod_type)
 	return rod_type
-// #warn finish this when burza gets to the UI screen
+#warn finish this when burza gets to the UI screen
 
 /obj/machinery/nuclear_rod_fabricator/interact(mob/user)
 	. = ..()

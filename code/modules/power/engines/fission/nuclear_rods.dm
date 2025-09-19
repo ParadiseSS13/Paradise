@@ -84,7 +84,7 @@
 /// MARK: Fuel Rods
 
 /obj/item/nuclear_rod/fuel/uranium_238
-	name = "uranium 235 fuel rod"
+	name = "uranium 238 fuel rod"
 	desc = "A standard fuel rod for most NGCR reactors. Has just barely enough Uranium 235 to be useful."
 	heat_amount = 5
 	power_amount = 20 KW
@@ -95,7 +95,7 @@
 	power_enrich_threshold = 6.5 // all graphite rods surrounding: 1.6 x 1.6 x 1.6 x 1.6
 	heat_enrich_result = /obj/item/nuclear_rod/fuel/weak_thorium
 	power_enrich_result = /obj/item/nuclear_rod/fuel/weak_plutonium
-	adjacent_requirements = list(/obj/item/nuclear_rod/moderator,)
+	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
 	materials = list(MAT_METAL = 2000, MAT_URANIUM = 1000)
 
 /obj/item/nuclear_rod/fuel/weak_thorium
@@ -244,7 +244,7 @@
 	heat_amp_mod = 1.3
 	power_amp_mod = 1.6
 	materials = list(MAT_METAL = 4000, MAT_PLASMA = 2000)
-	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
+	adjacent_requirements = list(/obj/item/nuclear_rod/coolant)
 
 /obj/item/nuclear_rod/moderator/titanium
 	name = "titanium moderator"
@@ -348,7 +348,7 @@
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
 
 /obj/item/nuclear_rod/coolant/nitrogen_circulator
-	name = "nitrogen_circulator"
+	name = "nitrogen circulator"
 	desc = "A specialized coolant rod filled with nitrogen gas. While not as powerful as similar alternatives, this rod is exceptionally stable and will last longer."
 	heat_amount = -6
 	power_amp_mod = 0.9

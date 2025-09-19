@@ -42,28 +42,33 @@
 #define HEAT_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from high heat
 #define EXPLOSION_MODIFIER 4 // Adjusts the size of the engine explosion
 
-#define CHAMBER_HEAT_DAMAGE 4 // How much damage reactor chambers do when on.
+#define CHAMBER_HEAT_DAMAGE 6 // How much damage reactor chambers do when on.
 
+// Done
 // #warn Idea todo: Make chambers weldable
 // #warn Idea todo: Make chambers self-weld at high temps
 // #warn Idea todo: Control rods break slowly at high temps
-//#warn Idea todo: Reactor leaks heat at high temperatures
+// #warn Idea todo: Reactor leaks heat at high temperatures
 // #warn Idea todo: ripley grippers can pick up rods
 // #warn Idea todo: Make coolant rods eject violently at high temperatures
-//#warn Idea todo: Add a button on the monitor to activate venting
+// #warn Idea todo: Add a button on the monitor to activate venting
+// #warn Idea todo: make ripleys interact safely with rod chambers
 
-/* these arnt done, uncomment later
+#warn reverse the control rod up/down position
+#warn fix the final countdown not pulling some chambers down
+#warn fix neighbor adjacency getting removed
+#warn vital todo: cap negative power gen
+#warn vital todo: make pressure affect shit
 #warn Idea todo: Allow grilling on an active reactor
 #warn Idea todo: Make some lavaland loot into special rods/upgrades
 #warn Idea todo: Bananium rods?
 #warn Idea todo: syndicate meltdown rods
-#warn Idea todo: make ripleys interact safely with rod chambers
+
 #warn Idea todo: Grenades that force start rods
 #warn Idea todo: make rods radioactive when outside of houseing or shielding pools
 #warn Idea todo: Make meltdown countdown cause LOTS of smoke and chamber lifts/ejections
 #warn Idea todo: Make different gasses do... something
 #warn event idea: Pufts of contaminating rad smoke
-*/
 
 /// MARK: Fission Reactor
 
