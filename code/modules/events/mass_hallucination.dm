@@ -5,7 +5,7 @@
 	announceWhen = rand(0, 20)
 
 /datum/event/mass_hallucination/start()
-	for(var/mob/living/carbon/human as anything in GLOB.human_list)
+	for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
 		if(human.stat == DEAD)
 			continue
 		var/turf/turf = get_turf(human)
