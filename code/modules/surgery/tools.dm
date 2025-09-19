@@ -132,7 +132,6 @@
 	desc = "A sterilized stainless steel cutting implement for making precise surgical incisions."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "scalpel"
-	item_state = "scalpel"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	flags = CONDUCT
@@ -177,6 +176,7 @@
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 
 /obj/item/scalpel/laser/attack__legacy__attackchain(mob/living/carbon/target, mob/living/user)
 	if(!cigarette_lighter_act(user, target))

@@ -37,8 +37,8 @@
 	var/parent_stack = FALSE
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
-	if(dynamic_icon_state) //If we have a dynamic icon state, we don't want item states to follow the same pattern.
-		item_state = initial(icon_state)
+	if(dynamic_icon_state && isnull(inhand_icon_state)) //If we have a dynamic icon state, we don't want inhand icon states to follow the same pattern.
+		inhand_icon_state = initial(icon_state)
 
 	if(new_amount != null)
 		amount = new_amount
@@ -307,7 +307,7 @@
 	return to_transfer
 
 /obj/item/stack/proc/split(mob/user, amount)
-	var/obj/item/stack/material = new type(loc, amount)
+	var/obj/item/stack/material = new type(loc, amount, FALSE)
 	material.copy_evidences(src)
 	if(isliving(user))
 		add_fingerprint(user)

@@ -169,7 +169,7 @@
 		if(alert(usr, "Are you sure you wish to observe? You cannot normally join the round after doing this!", "Observe", "Yes", "No") == "Yes")
 			if(!client)
 				return TRUE
-			var/mob/dead/observer/observer = new(src)
+			var/mob/dead/observer/observer = new(src, GHOST_FLAGS_START_AS_OBSERVER)
 			src << browse(null, "window=playersetup")
 			spawning = TRUE
 			stop_sound_channel(CHANNEL_LOBBYMUSIC)
@@ -182,7 +182,6 @@
 				if(!check_rights(R_MOD | R_ADMIN | R_MENTOR, FALSE, src))
 					// admins always get aobserve
 					add_verb(observer, list(/mob/dead/observer/proc/do_observe, /mob/dead/observer/proc/observe))
-			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/spawn_point
 			if(SSticker.current_state < GAME_STATE_PLAYING)

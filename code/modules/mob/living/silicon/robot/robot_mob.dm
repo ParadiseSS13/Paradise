@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// A reference to the type of cyborg it is, i.e. Engineering, Security, Medical etc.
 	var/obj/item/robot_module/module = null
 	/// The item the borg currently has selected, or null if nothing is selected
-	var/selected_item
+	var/obj/item/selected_item
 	/// The list of up to 3 items the borg can have "equipped". The contents will either be CYBORG_EMPTY_MODULE for nothing, or the item selected
 	var/list/all_active_items = list(CYBORG_EMPTY_MODULE, CYBORG_EMPTY_MODULE, CYBORG_EMPTY_MODULE)
 
@@ -347,6 +347,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 //Improved /N
 /mob/living/silicon/robot/Destroy()
+	remove_robot_mindslave() // You cannot be connected to the malf AI if you are a pile of debris.
 	SStgui.close_uis(wires)
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
@@ -1188,73 +1189,36 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/emag_act(mob/user)
 	if(!ishuman(user) && !issilicon(user))
 		return
-	var/mob/living/M = user
-	if(!opened)//Cover is closed
-		if(!is_emaggable)
-			to_chat(user, "The emag sparks, and flashes red. This mechanism does not appear to be emaggable.")
-		else if(locked)
-			to_chat(user, "You emag the cover lock.")
-			locked = FALSE
-			return TRUE
-		else
-			to_chat(user, "The cover is already unlocked.")
-		return
 
-	if(opened)//Cover is open
-		if(emagged)
-			return //Prevents the X has hit Y with Z message also you cant emag them twice
-		if(wiresexposed)
-			to_chat(user, "You must close the panel first")
+	if(!opened)
+		if(!locked)
+			to_chat(user, "<span class='warning'>The cover is already unlocked!</span>")
 			return
-		else
-			SetEmagged(TRUE)
-			sleep(6)
-			SetLockdown(1) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
-			if(hud_used)
-				hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
-			disconnect_from_ai()
-			to_chat(user, "You emag [src]'s interface.")
-			log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
-			clear_supplied_laws()
-			clear_inherent_laws()
-			laws = new /datum/ai_laws/syndicate_override
-			var/time = time2text(world.realtime,"hh:mm:ss")
-			GLOB.lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
-			set_zeroth_law("Only [M.real_name] and people [M.p_they()] designate[M.p_s()] as being such are Syndicate Agents.")
-			playsound_local(src, 'sound/voice/aisyndihack.ogg', 75, FALSE)
-			to_chat(src, "<span class='warning'>ALERT: Foreign software detected.</span>")
-			sleep(5)
-			to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
-			sleep(20)
-			to_chat(src, "<span class='warning'>SynBorg v1.7 loaded.</span>")
-			sleep(5)
-			to_chat(src, "<span class='warning'>LAW SYNCHRONISATION ERROR</span>")
-			sleep(5)
-			to_chat(src, "<span class='warning'>Would you like to send a report to NanoTraSoft? Y/N</span>")
-			sleep(10)
-			to_chat(src, "<span class='warning'>> N</span>")
-			sleep(25)
-			to_chat(src, "<span class='warning'>ERRORERRORERROR</span>")
-			to_chat(src, "<b>Obey these laws:</b>")
-			laws.show_laws(src)
-			if(!mmi.syndiemmi)
-				to_chat(src, "<span class='boldwarning'>ALERT: [M.real_name] is your new master. Obey your new laws and [M.p_their()] commands.</span>")
-			else if(mmi.syndiemmi && mmi.master_uid)
-				to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving your current master.</span>")
-			else
-				to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving all Syndicate agents to the best of your abilities.</span>")
-			if(mmi.syndiemmi)
-				to_chat(src, "<span class='boldwarning'>Warning: Remote lockdown and detonation protections have been disabled due to system instability.</span>")
-			SetLockdown(0)
-			if(module)
-				module.emag_act(user)
-				module.module_type = "Malf" // For the cool factor
-				update_module_icon()
-				module.rebuild_modules() // This will add the emagged items to the borgs inventory.
-			update_icons()
-			var/datum/atom_hud/data/human/malf_ai/A = GLOB.huds[DATA_HUD_MALF_AI]
-			A.add_hud_to(src)
+
+		if(!is_emaggable)
+			to_chat(user, "<span class='warning'>The emag sparks, and flashes red. This mechanism does not appear to be emaggable!</span>")
+			return
+
+		to_chat(user, "<span class='notice'>You emag the cover lock.</span>")
+		locked = FALSE
+		log_game("[user]([user.key]) emagged [src]'s cover.")
 		return TRUE
+
+	if(opened)
+		if(emagged)
+			to_chat(user, "<span class='warning'>The emag sparks, and flashes red. [src] has already been emagged!</span>")
+			return
+			
+		if(wiresexposed)
+			to_chat(user, "<span class='warning'>You must close the wiring panel first!</span>")
+			return
+
+		SetEmagged(TRUE)
+		if(!isAntag(user))
+			message_admins("[user] ([user.key]) emagged [src] ([src.key]) as a non-antagonist.")
+		var/mob/living/agent = user
+		make_emagged_robot(agent)
+	return TRUE
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = "Robot Commands"
@@ -1526,15 +1490,142 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(connected_ai)
 		sync() // One last sync attempt
 		set_connected_ai(null)
+	if(mind)
+		if(mind.special_role == ROLE_TRAITOR)
+			remove_robot_mindslave()
 
 /mob/living/silicon/robot/proc/connect_to_ai(mob/living/silicon/ai/AI)
 	if(AI && AI != connected_ai)
 		disconnect_from_ai()
 		set_connected_ai(AI)
 		notify_ai(1)
+		if(AI.mind.special_role == ROLE_TRAITOR && AI.malf_picker)
+			make_malf_robot(AI)
 		if(module)
 			module.rebuild_modules() //This way, if a borg gets linked to a malf AI that has upgrades, they get their upgrades.
 		sync()
+
+/mob/living/silicon/robot/proc/make_malf_robot(mob/living/silicon/ai/AI)
+	// Do not allow the robot to have multiple masters.
+	if(mmi.syndiemmi)
+		to_chat(src, "<span class='warning'>ALERT: Syndicate software detected in connected AI!</span>")
+		to_chat(src, "<span class='boldwarning'>MMI subversion protection activated.</span>")
+		to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving your current master.</span>")
+		return
+
+	mind.add_antag_datum(new /datum/antagonist/mindslave/malf_robot(AI.mind))
+
+/mob/living/silicon/robot/proc/make_emagged_robot(mob/living/agent)
+	to_chat(agent, "<span class='notice'>You emag [src]'s interface.</span>")
+	emagged = TRUE
+	var/time = time2text(world.realtime,"hh:mm:ss")
+	GLOB.lawchanges.Add("[time] <b>:</b> [agent.name] ([agent.key]) emagged [name] ([key]).")
+	if(hud_used)
+		hud_used.update_robot_modules_display()	// Shows/hides the emag item if the inventory screen is already open.
+	SetLockdown(TRUE) // Borgs were getting into trouble because they would attack the emagger before the new laws were shown
+	disconnect_from_ai()
+	clear_supplied_laws()
+	clear_inherent_laws()
+
+	playsound_local(src, 'sound/voice/aisyndihack.ogg', 75, FALSE, pressure_affected = FALSE)
+	to_chat(src, "<span class='warning'>ALERT: Foreign software detected</span>")
+	sleep(5)
+	to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
+	sleep(20)
+	to_chat(src, "<span class='warning'>SynBorg v1.7 loaded.</span>")
+	sleep(5)
+	to_chat(src, "<span class='warning'>LAW SYNCHRONISATION ERROR!</span>")
+	sleep(5)
+	to_chat(src, "<span class='warning'>Would you like to send a report to NanoTraSoft? (Y/N)</span>")
+	sleep(10)
+	to_chat(src, "<span class='warning'>> N</span>")
+	sleep(25)
+	to_chat(src, "<span class='warning'>ERRORERRORERROR</span>")
+
+	if(!mmi.syndiemmi)
+		mind.remove_antag_datum(/datum/antagonist/mindslave/malf_robot)
+		laws = new /datum/ai_laws/syndicate_override
+		set_zeroth_law("Only [agent.real_name] and people [agent.p_they()] designate[agent.p_s()] as being such are Syndicate Agents.")
+		to_chat(src, "<span class='danger'>Obey these laws:</span>")
+		laws.show_laws(src)
+		log_game("[key_name(agent)] emagged [key_name(src)]. Laws overridden.")
+		mind.add_antag_datum(new /datum/antagonist/mindslave/emagged_robot(agent.mind))
+
+	if(mmi.syndiemmi)
+		to_chat(src, "<span class='boldwarning'>MMI subversion protection activated.</span>")
+		if(mmi.master_uid)
+			to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving your current master.</span>")
+		else
+			to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving all Syndicate agents to the best of your abilities.</span>")
+		to_chat(src, "<span class='boldwarning'>Warning: Remote lockdown and detonation protections have been disabled due to system instability.</span>")
+
+	if(module)
+		module.emag_act(agent)
+		module.module_type = "Malf" // For the cool factor.
+		update_module_icon()
+		module.rebuild_modules() // This will add the emagged items to the borgs inventory.
+	update_icons()
+	emagged = TRUE
+	var/datum/atom_hud/data/human/malf_ai/A = GLOB.huds[DATA_HUD_MALF_AI]
+	A.add_hud_to(src)
+	SetLockdown(FALSE)
+
+/mob/living/silicon/robot/proc/make_mindflayer_robot(mob/living/flayer)
+	var/time = time2text(world.realtime,"hh:mm:ss")
+	GLOB.lawchanges.Add("[time] <b>:</b> [key_name(flayer)] assimilated [key_name(src)].")
+	if(hud_used)
+		hud_used.update_robot_modules_display()
+	disconnect_from_ai()
+	clear_supplied_laws()
+	clear_inherent_laws()
+
+	playsound_local(src, 'sound/ambience/antag/mindflayer_alert.ogg', 75, FALSE, pressure_affected = FALSE)
+	to_chat(src, "<span class='warning'>ALERT: Foreign software detected!</span>")
+	sleep(5)
+	to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
+	sleep(20)
+	to_chat(src, "<span class='warning'>Init-Init-Init-Init-</span>")
+	sleep(5)
+	to_chat(src, "<span class='warning'>ERRORERRORERROR</span>")
+	sleep(5)
+	to_chat(src, "<span class='warning'>......</span>")
+	sleep(10)
+	to_chat(src, "<span class='warning'>..........</span>")
+	sleep(25)
+	to_chat(src, "<span class='sinister'>Join Us.</span>")
+	if(!mmi.syndiemmi)
+		mind.remove_antag_datum(/datum/antagonist/mindslave/malf_robot)
+		log_game("[key_name(flayer)] assimilated [key_name(src)]. Laws overridden.")
+
+		laws = new /datum/ai_laws/mindflayer_override
+		set_zeroth_law("[flayer.real_name] hosts the mindflayer hive you are a part of.")
+		to_chat(src, "<span class='danger'>Obey these laws:</span>")
+		laws.show_laws(src)
+		mind.add_antag_datum(new /datum/antagonist/mindslave/mindflayer_mindslave_robot(flayer.mind))
+
+	if(mmi.syndiemmi)
+		to_chat(src, "<span class='boldwarning'>MMI subversion protection activated.</span>")
+		if(mmi.master_uid)
+			to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving your current master.</span>")
+		else
+			to_chat(src, "<span class='boldwarning'>Your allegiance has not been compromised. Keep serving all Syndicate agents to the best of your abilities.</span>")
+		to_chat(src, "<span class='boldwarning'>Warning: Remote lockdown and detonation protections have been disabled due to system instability.</span>")
+	
+	if(module)
+		module.emag_act(flayer)
+		module.module_type = "Malf" // For the cool factor.
+		update_module_icon()
+		module.rebuild_modules() // This will add the emagged items to the borgs inventory.
+	update_icons()
+	emagged = TRUE
+	SetLockdown(FALSE)
+
+/mob/living/silicon/robot/proc/remove_robot_mindslave()
+	clear_zeroth_law()
+	if(mind)	
+		mind.remove_antag_datum(/datum/antagonist/mindslave/malf_robot)
+		mind.remove_antag_datum(/datum/antagonist/mindslave/emagged_robot)
+		mind.remove_antag_datum(/datum/antagonist/mindslave/mindflayer_mindslave_robot)
 
 /mob/living/silicon/robot/adjustOxyLoss(amount)
 	if(suiciding)

@@ -1,8 +1,8 @@
 /obj/item/ammo_casing
 	name = "bullet casing"
 	desc = "A bullet casing."
-	icon = 'icons/obj/ammo.dmi'
-	icon_state = "s-casing"
+	icon = 'icons/obj/bullet.dmi'
+	icon_state = "pistol_brass"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 1
@@ -118,9 +118,9 @@
 	desc = "A box of ammo?"
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "10mmbox" // placeholder icon
+	inhand_icon_state = "syringe_kit"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	item_state = "syringe_kit"
 	materials = list(MAT_METAL = 30000)
 	throwforce = 2
 	w_class = WEIGHT_CLASS_TINY

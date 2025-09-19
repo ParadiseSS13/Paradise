@@ -113,7 +113,7 @@
 		admin_forcemove(usr, T)
 		if(isobserver(usr))
 			var/mob/dead/observer/O = usr
-			O.ManualFollow(T)
+			O.manual_follow(T)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Coordinate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to coordinates [tx], [ty], [tz]")

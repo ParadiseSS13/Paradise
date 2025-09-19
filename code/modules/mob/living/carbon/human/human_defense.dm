@@ -90,7 +90,7 @@ emp_act
 	if(user.a_intent != INTENT_HELP)
 		return
 	if(!I.tool_use_check(user, 1))
-		return
+		return TRUE
 	var/obj/item/organ/external/S = bodyparts_by_name[user.zone_selected]
 	if(!S)
 		if(ismachineperson(src))
@@ -485,7 +485,7 @@ emp_act
 	if(!I.force)
 		return //item force is zero
 
-	var/armor = run_armor_check(affecting, MELEE, "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration_flat = I.armour_penetration_flat, armour_penetration_percentage = I.armour_penetration_percentage)
+	var/armor = run_armor_check(affecting, MELEE, "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armor_penetration_flat = I.armor_penetration_flat, armor_penetration_percentage = I.armor_penetration_percentage)
 	if(armor == INFINITY)
 		return
 
@@ -681,7 +681,7 @@ emp_act
 			if(w_uniform)
 				w_uniform.add_fingerprint(M)
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
-			var/armor_block = run_armor_check(affecting, MELEE, armour_penetration_flat = 10)
+			var/armor_block = run_armor_check(affecting, MELEE, armor_penetration_flat = 10)
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
@@ -715,7 +715,7 @@ emp_act
 		if(!affecting)
 			affecting = get_organ("chest")
 		affecting.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
-		var/armor = run_armor_check(affecting, MELEE, armour_penetration_flat = M.armour_penetration_flat, armour_penetration_percentage = M.armour_penetration_percentage)
+		var/armor = run_armor_check(affecting, MELEE, armor_penetration_flat = M.armor_penetration_flat, armor_penetration_percentage = M.armor_penetration_percentage)
 		apply_damage(damage, M.melee_damage_type, affecting, armor)
 		updatehealth("animal attack")
 
@@ -730,7 +730,7 @@ emp_act
 		if(!affecting)
 			affecting = get_organ("chest")
 		affecting.add_autopsy_data(attacker.name, damage) // Add the mob's name to the autopsy data
-		var/armor = run_armor_check(affecting, MELEE, armour_penetration_flat = attacker.armour_penetration_flat, armour_penetration_percentage = attacker.armour_penetration_percentage)
+		var/armor = run_armor_check(affecting, MELEE, armor_penetration_flat = attacker.armor_penetration_flat, armor_penetration_percentage = attacker.armor_penetration_percentage)
 		apply_damage(damage, attacker.melee_damage_type, affecting, armor)
 		updatehealth("basicmob attack")
 

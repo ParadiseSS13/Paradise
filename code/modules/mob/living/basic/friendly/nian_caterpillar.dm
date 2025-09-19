@@ -1,5 +1,6 @@
 /mob/living/basic/nian_caterpillar
 	name = "nian caterpillar"
+	desc = "Fluffier than clouds."
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = "mothroach"
 	icon_living = "mothroach"
@@ -190,11 +191,21 @@
 		/datum/ai_planning_subtree/random_speech/moth_caterpillar,
 		/datum/ai_planning_subtree/find_nearest_thing_which_attacked_me_to_flee,
 		/datum/ai_planning_subtree/flee_target,
-		/datum/ai_planning_subtree/find_food,
+		/datum/ai_planning_subtree/find_food/nian_caterpillar,
 	)
+
+/datum/ai_planning_subtree/find_food/nian_caterpillar
+
+/datum/ai_planning_subtree/find_food/nian_caterpillar/select_behaviors(datum/ai_controller/controller, seconds_per_tick)
+	var/mob/living/basic/nian_caterpillar/caterpillar = controller.pawn
+	if(caterpillar.nutrition >= caterpillar.nutrition_need)
+		// Put eating on cooldown so it doesn't keep trying to eat.
+		var/food_cooldown = controller.blackboard[BB_EAT_FOOD_COOLDOWN] || EAT_FOOD_COOLDOWN
+		controller.set_blackboard_key(BB_NEXT_FOOD_EAT, world.time + food_cooldown)
+		return SUBTREE_RETURN_FINISH_PLANNING
+	return ..()
 
 /datum/ai_planning_subtree/random_speech/moth_caterpillar
 	speech_chance = 2
 	emote_hear = list("flutters.", "chitters.", "chatters.")
 	emote_see = list("flutters.", "chitters.", "chatters.")
-

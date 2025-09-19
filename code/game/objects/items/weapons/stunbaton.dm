@@ -3,8 +3,6 @@
 	desc = "A stun baton for incapacitating people with."
 	icon = 'icons/obj/weapons/baton.dmi'
 	icon_state = "stunbaton"
-	var/base_icon = "stunbaton"
-	item_state = null
 	belt_icon = "stunbaton"
 	slot_flags = ITEM_SLOT_BELT
 	force = 10
@@ -13,6 +11,7 @@
 	attack_verb = list("beaten")
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, RAD = 0, FIRE = 80, ACID = 80)
 	new_attack_chain = TRUE
+	var/base_icon = "stunbaton"
 	/// How many seconds does the knockdown last for?
 	var/knockdown_duration = 10 SECONDS
 	/// how much stamina damage does this baton do?
@@ -192,7 +191,7 @@
 	if(!. && turned_on && istype(hit_mob))
 		thrown_baton_stun(hit_mob)
 
-/obj/item/melee/baton/pre_attack(atom/A, mob/living/user, params)
+/obj/item/melee/baton/pre_attack(atom/atom_target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
@@ -209,11 +208,10 @@
 		to_chat(user, user.mind.martial_art.no_baton_reason)
 		return FINISH_ATTACK
 
-	if(!ismob(A))
+	if(!ismob(atom_target))
 		return
 
-	user.changeNext_move(CLICK_CD_MELEE)
-	var/mob/living/target = A
+	var/mob/living/target = atom_target
 
 	if(user.a_intent == INTENT_HARM)
 		return // Harmbaton!
@@ -225,7 +223,7 @@
 			"<span class='danger'>[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. Luckily it was off.</span>"
 			)
 		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
-		return FINISH_ATTACK
+		return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 	// Only human mobs can be stunned.
 	if(!ishuman(target))
@@ -235,11 +233,11 @@
 			"<span class='danger'>[target == user ? "You prod yourself" : "[user] has prodded you"] with [src]. It doesn't seem to have an effect.</span>"
 		)
 		playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE, -1)
-		return FINISH_ATTACK
+		return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 	if(baton_stun(target, user))
 		user.do_attack_animation(target)
-	return FINISH_ATTACK
+	return FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
 /obj/item/melee/baton/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -389,7 +387,7 @@
 	desc = "A mechanical mass which you can use to incapacitate someone with."
 	icon_state = "swarmprod"
 	base_icon = "swarmprod"
-	item_state = "swarmprod"
+	inhand_icon_state = "swarmprod"
 	throwforce = 0 // Just in case
 	knockdown_duration = 6 SECONDS
 	knockdown_delay = 0 SECONDS

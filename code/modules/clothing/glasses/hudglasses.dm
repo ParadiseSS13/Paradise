@@ -43,30 +43,25 @@
 	icon_state = "healthhud"
 	hud_types = DATA_HUD_MEDICAL_ADVANCED
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
-
 /obj/item/clothing/glasses/hud/health/night
 	name = "night vision health scanner HUD"
 	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
 	icon_state = "healthhudnight"
-	item_state = "glasses"
 	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/health/sunglasses
 	name = "medical HUDSunglasses"
 	desc = "Sunglasses with a medical HUD."
 	icon_state = "sunhudmed"
+	inhand_icon_state = "sunglasses"
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
 	hide_examine = TRUE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/diagnostic
 	name = "diagnostic HUD"
@@ -75,29 +70,23 @@
 	origin_tech = "magnets=2;engineering=2"
 	hud_types = DATA_HUD_DIAGNOSTIC_BASIC
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
-
 /obj/item/clothing/glasses/hud/diagnostic/night
 	name = "night vision diagnostic HUD"
 	desc = "A robotics diagnostic HUD fitted with a light amplifier."
 	icon_state = "diagnostichudnight"
-	item_state = "glasses"
 	origin_tech = "magnets=4;powerstorage=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/diagnostic/sunglasses
 	name = "diagnostic sunglasses"
 	desc = "Sunglasses with a diagnostic HUD."
 	icon_state = "sunhuddiag"
-	item_state = "glasses"
+	inhand_icon_state = "sunglasses"
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/security
 	name = "security HUD"
@@ -107,22 +96,6 @@
 	var/global/list/jobs[0]
 	hud_types = DATA_HUD_SECURITY_ADVANCED
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
-
-
-/obj/item/clothing/glasses/hud/security/sunglasses/jensenshades
-	name = "augmented shades"
-	desc = "Polarized bioneural eyewear, designed to augment your vision."
-	icon_state = "jensenshades"
-	item_state = "jensenshades"
-	vision_flags = SEE_MOBS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-
 /obj/item/clothing/glasses/hud/security/night
 	name = "night vision security HUD"
 	desc = "An advanced heads-up display which provides id data and vision in complete darkness."
@@ -130,24 +103,26 @@
 	origin_tech = "magnets=4;combat=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/security/sunglasses
 	name = "HUDSunglasses"
 	desc = "Sunglasses with a HUD."
 	icon_state = "sunhud"
+	inhand_icon_state = "sunglasses"
 	origin_tech = "magnets=3;combat=3;engineering=3"
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-	)
-
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	hide_examine = TRUE
+
+/obj/item/clothing/glasses/hud/security/sunglasses/jensenshades
+	name = "augmented shades"
+	desc = "Polarized bioneural eyewear, designed to augment your vision."
+	icon_state = "jensenshades"
+	vision_flags = SEE_MOBS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/clothing/glasses/hud/security/sunglasses/prescription
 	prescription = TRUE
@@ -158,47 +133,29 @@
 	icon_state = "hydroponichud"
 	hud_types = DATA_HUD_HYDROPONIC
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-		)
-
 /obj/item/clothing/glasses/hud/hydroponic/night
 	name = "night vision hydroponic HUD"
 	desc = "A hydroponic HUD fitted with a light amplifier."
 	icon_state = "hydroponichudnight"
-	item_state = "glasses"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/skills
 	name = "skills HUD"
 	desc = "A heads-up display capable of showing the employment history records of NT crew members."
 	icon_state = "skill"
-	item_state = "glasses"
 	hud_types = DATA_HUD_SECURITY_BASIC
-	sprite_sheets = list(
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey"  = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-	)
 
 /obj/item/clothing/glasses/hud/skills/sunglasses
 	name = "skills HUD sunglasses"
 	desc = "Sunglasses with a build-in skills HUD, showing the employment history of nearby NT crew members."
 	icon_state = "sunhudskill"
+	inhand_icon_state = "sunglasses"
 	see_in_dark = 1 // None of these three can be converted to booleans. Do not try it.
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
-	sprite_sheets = list(
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey"  = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-	)
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/janitor
 	name = "janitor HUD"
@@ -206,21 +163,16 @@
 	icon_state = "janihud"
 	hud_types = DATA_HUD_JANITOR
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
-	)
-
 /obj/item/clothing/glasses/hud/janitor/sunglasses
 	name = "janitor HUD sunglasses"
 	desc = "Sunglasses with a build-in filth scanner, scans for messes and alerts the user."
 	icon_state = "sunhudjani"
+	inhand_icon_state = "sunglasses"
 	see_in_dark = 1
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = FLASH_PROTECTION_FLASH
 	hide_examine = TRUE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/janitor/night
 	name = "night vision janitor HUD"
@@ -229,3 +181,4 @@
 	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'

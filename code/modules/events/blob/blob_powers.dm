@@ -385,6 +385,9 @@
 	if(is_offspring)
 		to_chat(src, "<span class='warning'>You cannot split as an offspring of another Blob.</span>")
 		return
+	if(length(GLOB.clients) < GLOB.configuration.event.blob_highpop_trigger)
+		to_chat(src, "<span class='warning'>There isnt enough organic matter on this station to justify a second core.</span>")
+		return
 
 	var/obj/structure/blob/N = (locate(/obj/structure/blob) in T)
 	if(!N)

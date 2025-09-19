@@ -14,7 +14,7 @@
 	name = "pen"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
-	item_state = "pen"
+	inhand_icon_state = "pen"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_EARS
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -203,13 +203,14 @@
 // E-DAGGER
 
 /obj/item/pen/edagger
+	inhand_icon_state = null
 	origin_tech = "combat=3;syndicate=1"
 	var/active = FALSE
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
 	var/backstab_sound = 'sound/items/unsheath.ogg'
 	var/backstab_damage = 12
-	armour_penetration_flat = 20
+	armor_penetration_flat = 20
 	throw_speed = 4
 
 /obj/item/pen/edagger/attack__legacy__attackchain(mob/living/M, mob/living/user, def_zone)
@@ -297,10 +298,8 @@
 /obj/item/pen/edagger/update_icon_state()
 	if(active)
 		icon_state = "edagger"
-		item_state = "edagger"
 	else
 		icon_state = initial(icon_state) //looks like a normal pen when off.
-		item_state = initial(item_state)
 
 /obj/item/proc/on_write(obj/item/paper/P, mob/user)
 	return

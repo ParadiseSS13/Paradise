@@ -19,7 +19,7 @@
 		toggle_throw_mode()
 	return ..()
 
-/mob/living/carbon/ghostize(can_reenter_corpse)
+/mob/living/carbon/ghostize(flags = GHOST_FLAGS_DEFAULT, ghost_name, ghost_color)
 	if(in_throw_mode)
 		toggle_throw_mode()
 	return ..()
@@ -205,7 +205,7 @@
 	// Major Shock - YEET
 	var/throw_distance = 0
 	var/throw_dir = null
-	if(shock_damage >= SHOCK_MAJOR)
+	if(shock_damage >= SHOCK_MAJOR && !(flags & SHOCK_ILLUSION))
 		do_sparks(3, TRUE, src)
 		AdjustStuttering(4 SECONDS)
 		if(isatom(source))
@@ -233,6 +233,8 @@
 		return
 	hand = !hand
 	update_hands_hud()
+	r_hand?.on_hands_swap(src, hand == HAND_BOOL_RIGHT)
+	l_hand?.on_hands_swap(src, hand == HAND_BOOL_LEFT)
 	SEND_SIGNAL(src, COMSIG_CARBON_SWAP_HANDS)
 
 
@@ -324,7 +326,7 @@
 			self_message = "<span class='danger'>You burn your hand trying to extinguish [target]!</span>"
 			H.update_icons()
 
-	target.visible_message("<span class='warning'>[src] tries to extinguish [target]!</span>", self_message)
+	visible_message("<span class='warning'>[src] tries to extinguish [target]!</span>", self_message)
 	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	target.adjust_fire_stacks(-0.5)
 
@@ -706,24 +708,18 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(I)
 		SEND_SIGNAL(I, COMSIG_CARBON_TOGGLE_THROW, in_throw_mode)
 
-#define THROW_MODE_ICON 'icons/effects/cult_target.dmi'
-
 /mob/living/carbon/proc/throw_mode_off()
 	in_throw_mode = FALSE
 	if(throw_icon) //in case we don't have the HUD and we use the hotkey
 		throw_icon.icon_state = "act_throw_off"
-	if(client?.mouse_pointer_icon == THROW_MODE_ICON)
-		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
+	remove_mousepointer(MP_THROW_MODE_PRIORITY)
 
 /mob/living/carbon/proc/throw_mode_on()
 	SIGNAL_HANDLER //This signal is here so we can turn throw mode back on via carp when an object is caught
 	in_throw_mode = TRUE
 	if(throw_icon)
 		throw_icon.icon_state = "act_throw_on"
-	if(client?.mouse_pointer_icon == initial(client.mouse_pointer_icon))
-		client.mouse_pointer_icon = THROW_MODE_ICON
-
-#undef THROW_MODE_ICON
+	add_mousepointer(MP_THROW_MODE_PRIORITY, 'icons/mouse_icons/cult_target.dmi')
 
 /mob/proc/throw_item(atom/target)
 	return
@@ -775,6 +771,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
 	newtonian_move(get_dir(target, src))
 	thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
+	thrown_thing.scatter_atom()
 
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)

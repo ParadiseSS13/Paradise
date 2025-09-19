@@ -10,7 +10,8 @@
 	desc = "A wooden truncheon for beating criminal scum."
 	icon = 'icons/obj/weapons/baton.dmi'
 	icon_state = "baton"
-	item_state = "classic_baton"
+	worn_icon_state = "classic_baton"
+	inhand_icon_state = "classic_baton"
 	slot_flags = ITEM_SLOT_BELT
 	force = 12 //9 hit crit
 	// Settings
@@ -19,7 +20,7 @@
 	/// The amount of stamina damage the baton does per swing
 	var/stamina_damage = 30
 	/// How much melee armour is ignored by the stamina damage
-	var/stamina_armour_pen = 0
+	var/stamina_armor_pen = 0
 	/// The stun time (in seconds) for non-silicons
 	var/knockdown_duration = 6 SECONDS
 	/// The stun time (in seconds) for silicons
@@ -122,7 +123,7 @@
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/on_non_silicon_stun(mob/living/target, mob/living/user)
-	var/armour = target.run_armor_check("chest", armour_penetration_percentage = stamina_armour_pen) // returns their chest melee armour
+	var/armour = target.run_armor_check("chest", armor_penetration_percentage = stamina_armor_pen) // returns their chest melee armour
 	var/percentage_reduction = 0
 	if(ishuman(target))
 		percentage_reduction = (100 - ARMOUR_VALUE_TO_PERCENTAGE(armour)) / 100
@@ -140,7 +141,8 @@
 	name = "fancy cane"
 	desc = "A cane with special engraving on it. It seems well suited for fending off assailants..."
 	icon_state = "cane_nt"
-	item_state = "cane_nt"
+	worn_icon_state = null
+	inhand_icon_state = null
 
 /obj/item/melee/classic_baton/ntcane/get_crutch_efficiency()
 	return 2
@@ -152,15 +154,18 @@
 	name = "telescopic baton"
 	desc = "A compact yet robust personal defense weapon. Can be concealed when folded."
 	icon_state = "telebaton_0" // For telling what it is when mapping
-	item_state = null
+	worn_icon_state = null
+	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_SMALL
 	on = FALSE
 	/// Force when concealed
 	var/force_off = 0
 	/// Force when extended
 	var/force_on = 10
-	/// Item state when extended
-	var/item_state_on = "tele_baton"
+	/// Worn icon state when extended
+	var/worn_icon_state_on = "tele_baton"
+	/// Inhand icon state when extended
+	var/inhand_icon_state_on = "tele_baton"
 	/// Icon state when concealed
 	var/icon_state_off = "telebaton_0"
 	/// Icon state when extended
@@ -186,14 +191,15 @@
 	icon_state = on ? icon_state_on : icon_state_off
 	if(on)
 		to_chat(user, "<span class='warning'>You extend [src].</span>")
-		item_state = item_state_on
+		worn_icon_state = worn_icon_state_on
+		inhand_icon_state = inhand_icon_state_on
 		w_class = WEIGHT_CLASS_BULKY //doesnt fit in backpack when its on for balance
 		force = force_on //stunbaton damage
 		attack_verb = attack_verb_on
 	else
 		to_chat(user, "<span class='notice'>You collapse [src].</span>")
-		item_state = null //no sprite for concealment even when in hand
-		slot_flags = ITEM_SLOT_BELT
+		worn_icon_state = null
+		inhand_icon_state = null //no sprite for concealment even when in hand
 		w_class = WEIGHT_CLASS_SMALL
 		force = force_off //not so robust now
 		attack_verb = attack_verb_off
