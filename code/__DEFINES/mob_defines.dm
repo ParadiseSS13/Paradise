@@ -394,3 +394,25 @@
 #define NPC_DEFAULT_MIN_TEMP 250
 /// Default maximum body temperature mobs can exist in before taking damage
 #define NPC_DEFAULT_MAX_TEMP 350
+
+#define MP_SPELL_PRIORITY 		1
+#define MP_THROW_MODE_PRIORITY 	2
+#define MP_GIVE_MODE_PRIORITY 	3
+#define MP_AUTO_GUN_PRIORITY 	4
+#define MP_CLOWN_CAR_PRIORITY 	5
+#define MP_MECHA_PRIORITY 		6
+
+#define GHOST_START_AS_OBSERVER 	(1 << 0) // Ghost started playing as an observer.
+#define GHOST_CAN_REENTER 			(1 << 1) // Ghost can reenter its corpse
+#define GHOST_RESPAWNABLE			(1 << 2) // Ghost can respawn. Note that checking respawnability is better via GLOB.non_respawnable_keys and TRAIT_RESPAWNABLE
+#define GHOST_VISION				(1 << 3) // Ghost can see invisible things (like other ghosts)
+#define GHOST_HEALTH_SCAN			(1 << 4) // Ghost uses health scanner on click
+#define GHOST_SEE_RADS				(1 << 5) // Ghost can see radiation
+#define GHOST_GAS_SCAN				(1 << 6) // Ghost uses gas analyzer on click
+#define GHOST_PLANT_ANALYZER		(1 << 7) // Ghost uses plant analyzer on click
+
+#define GHOST_FLAGS_DEFAULT (GHOST_CAN_REENTER | GHOST_RESPAWNABLE | GHOST_VISION)
+#define GHOST_FLAGS_START_AS_OBSERVER (GHOST_FLAGS_DEFAULT | GHOST_START_AS_OBSERVER)
+#define GHOST_FLAGS_NO_REENTER (GHOST_FLAGS_DEFAULT & ~GHOST_CAN_REENTER)
+#define GHOST_FLAGS_NO_RESPAWNABLE (GHOST_FLAGS_DEFAULT & ~GHOST_RESPAWNABLE)
+#define GHOST_FLAGS_OBSERVE_ONLY (GHOST_FLAGS_DEFAULT & ~(GHOST_CAN_REENTER | GHOST_RESPAWNABLE))

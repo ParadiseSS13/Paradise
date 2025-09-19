@@ -38,7 +38,8 @@ export const AtmosFilter = (props) => {
                 minValue={0}
                 maxValue={max_pressure}
                 value={pressure}
-                onDrag={(value) =>
+                tickWhileDragging
+                onChange={(value) =>
                   act('custom_pressure', {
                     pressure: value,
                   })

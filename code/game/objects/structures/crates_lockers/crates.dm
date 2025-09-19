@@ -85,9 +85,9 @@
 	opened = FALSE
 	return TRUE
 
-/obj/structure/closet/crate/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/closet/crate/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(!opened && try_rig(W, user))
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/closet/crate/toggle(mob/user, by_hand = FALSE)
@@ -311,18 +311,18 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/closet/crate/secure/personal/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/closet/crate/secure/personal/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(opened || !istype(I, /obj/item/card/id))
 		return ..()
 
 	if(broken)
 		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/card/id/id = I
 	if(!is_usable_id(id))
 		to_chat(user, "<span class='warning'>Invalid identification card.</span>")
-		return FALSE
+		return ITEM_INTERACT_COMPLETE
 
 	if(registered_name && allowed(user))
 		return ..()
@@ -330,12 +330,12 @@
 	if(!registered_name)
 		registered_name = id.registered_name
 		to_chat(user, "<span class='notice'>Crate reserved</span>")
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 	if(registered_name == id.registered_name)
 		return ..()
 
-	return FALSE
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/closet/crate/plastic
 	name = "plastic crate"
@@ -353,6 +353,11 @@
 	icon_state = "o2crate"
 	icon_opened = "o2crate_open"
 	icon_closed = "o2crate"
+
+/obj/structure/closet/crate/internals/nitrogen
+	icon_state = "n2crate"
+	icon_opened = "n2crate_open"
+	icon_closed = "n2crate"
 
 /obj/structure/closet/crate/trashcart
 	desc = "A heavy, metal trashcart with wheels."
@@ -569,6 +574,20 @@
 	icon_state = "electricalcrate"
 	icon_opened = "electricalcrate_open"
 	icon_closed = "electricalcrate"
+
+/obj/structure/closet/crate/nanotrasen
+	name = "corporate crate"
+	desc = "A Nanotrasen crate."
+	icon_state = "nanotrasen"
+	icon_opened = "nanotrasen_open"
+	icon_closed = "nanotrasen"
+
+/obj/structure/closet/crate/secure/nanotrasen
+	name = "secure corporate crate"
+	desc = "A crate with a lock on it, painted in the scheme of Nanotrasen. Whatever's in here is probably above your pay grade."
+	icon_state = "nanotrasensecure"
+	icon_opened = "nanotrasensecure_open"
+	icon_closed = "nanotrasensecure"
 
 /obj/structure/closet/crate/mail
 	name = "mail crate"

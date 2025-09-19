@@ -5,7 +5,8 @@
 	name = "clusterbang"
 	desc = "Use of this weapon may constitute a war crime in your area, consult your local captain."
 	icon_state = "clusterbang"
-	item_state = "flashbang"
+	worn_icon_state = "flashbang"
+	inhand_icon_state = "flashbang"
 	var/payload = /obj/item/grenade/flashbang/cluster
 
 /obj/item/grenade/clusterbuster/examine(mob/user)

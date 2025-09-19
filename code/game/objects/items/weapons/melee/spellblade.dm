@@ -4,12 +4,11 @@
 	desc = "An enchanted blade with a series of runes along the side."
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "spellblade"
-	item_state = "spellblade"
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
-	armour_penetration_flat = 50
+	armor_penetration_flat = 50
 	sharp = TRUE
 	new_attack_chain = TRUE
 	///enchantment holder, gives it unique on hit effects.

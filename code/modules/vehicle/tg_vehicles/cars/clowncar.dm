@@ -8,7 +8,7 @@
 	enter_sound = 'sound/effects/clowncar/door_close.ogg'
 	exit_sound = 'sound/effects/clowncar/door_open.ogg'
 	car_traits = CAN_KIDNAP
-	armor = list(melee = 70, bullet = 40, laser = 40, energy = 40, bomb = 30, rad = 0, fire = 80, acid = 80)
+	armor = list(MELEE = 70, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 30, RAD = 0, FIRE = 80, ACID = 80)
 	enter_delay = 4 SECONDS
 	access_provider_flags = VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_KIDNAPPED
 	/// list of headlight colors we use to pick through when we have party mode due to emag
@@ -273,19 +273,18 @@
 
 /// Finalizes cannon activation
 /obj/tgvehicle/sealed/car/clowncar/proc/activate_cannon()
-	var/mouse_pointer = 'icons/effects/mouse_pointers/weapon_pointer.dmi'
+	var/mouse_pointer = 'icons/mouse_icons/weapon_pointer.dmi'
 	cannonmode = CLOWN_CANNON_READY
 	for(var/mob/living/driver as anything in return_controllers_with_flag(VEHICLE_CONTROL_DRIVE))
 		REMOVE_TRAIT(driver, TRAIT_HANDS_BLOCKED, VEHICLE_TRAIT)
-		if(driver.client.mouse_pointer_icon == initial(driver.client.mouse_pointer_icon))
-			driver.client.mouse_pointer_icon = mouse_pointer
+		driver.add_mousepointer(MP_CLOWN_CAR_PRIORITY, mouse_pointer)
 
 /// Finalizes cannon deactivation
 /obj/tgvehicle/sealed/car/clowncar/proc/deactivate_cannon()
 	canmove = TRUE
 	cannonmode = CLOWN_CANNON_INACTIVE
 	for(var/mob/living/driver as anything in return_controllers_with_flag(VEHICLE_CONTROL_DRIVE))
-		driver.client.mouse_pointer_icon = initial(driver.client.mouse_pointer_icon)
+		driver.remove_mousepointer(MP_CLOWN_CAR_PRIORITY)
 		ADD_TRAIT(driver, TRAIT_HANDS_BLOCKED, VEHICLE_TRAIT)
 
 /// Fires the cannon where the user clicks

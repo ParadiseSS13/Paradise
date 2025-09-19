@@ -5,7 +5,6 @@
 	desc = "A device that automatically inserts an implant or organ into the user without the hassle of extensive surgery. It has a screwdriver slot for removing accidentally added items."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "autoimplanter"
-	item_state = ""
 	w_class = WEIGHT_CLASS_SMALL
 	var/uses = INFINITE
 
@@ -79,6 +78,33 @@
 		if(!uses)
 			desc = "[initial(desc)] Looks like it's been used up."
 	return TRUE
+
+/obj/item/autosurgeon/organ/one_use
+	uses = 1
+
+/obj/item/autosurgeon/organ/one_use/skill_hud
+	desc = "A single use autosurgeon that contains a skill heads up display. A screwdriver can be used to remove it, but implants can't be placed back in."
+	starting_organ = /obj/item/organ/internal/cyberimp/eyes/hud/skill
+
+/obj/item/autosurgeon/organ/one_use/sec_hud
+	desc = "A single use autosurgeon that contains a security heads up display. A screwdriver can be used to remove it, but implants can't be placed back in."
+	starting_organ = /obj/item/organ/internal/cyberimp/eyes/hud/security
+
+/obj/item/autosurgeon/organ/one_use/med_hud
+	desc = "A single use autosurgeon that contains a medical heads up display. A screwdriver can be used to remove it, but implants can't be placed back in."
+	starting_organ = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+
+/obj/item/autosurgeon/organ/one_use/diagnostic_hud
+	desc = "A single use autosurgeon that contains a diagnostic heads up display. A screwdriver can be used to remove it, but implants can't be placed back in."
+	starting_organ = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
+
+/obj/item/autosurgeon/organ/one_use/wire_interface
+	desc = "A single use autosurgeon that contains a wire interface. A screwdriver can be used to remove it, but implants can't be placed back in."
+	starting_organ = /obj/item/organ/internal/cyberimp/brain/wire_interface
+
+/obj/item/autosurgeon/organ/one_use/meson_eyes
+	desc = "A single use autosurgeon that contains a set of meson eyes. A screwdriver can be used to remove it, but implants can't be placed back in."
+	starting_organ = /obj/item/organ/internal/eyes/cybernetic/meson
 
 /obj/item/autosurgeon/organ/syndicate
 	name = "suspicious implant autosurgeon"

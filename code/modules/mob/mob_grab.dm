@@ -10,6 +10,7 @@
 
 /obj/item/grab
 	name = "grab"
+	icon = 'icons/mob/screen_gen.dmi'
 	flags = NOBLUDGEON | ABSTRACT | DROPDEL
 	var/atom/movable/screen/grab/hud = null
 	var/mob/living/affecting = null
@@ -24,10 +25,7 @@
 
 	layer = 21
 	plane = HUD_PLANE
-	item_state = "nothing"
-	icon = 'icons/mob/screen_gen.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-
 
 /obj/item/grab/New(mob/user, mob/victim)
 	..()
@@ -185,10 +183,11 @@
 /obj/item/grab/proc/synch()
 	if(affecting)
 		if(assailant.r_hand == src)
-			hud.screen_loc = ui_rhand
+			hud.screen_loc = UI_RHAND
 		else
-			hud.screen_loc = ui_lhand
-		assailant.client.screen += hud
+			hud.screen_loc = UI_LHAND
+		if(assailant.client)
+			assailant.client.screen += hud
 
 /obj/item/grab/process()
 	if(!confirm())
