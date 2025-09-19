@@ -16557,7 +16557,7 @@
 	},
 /area/station/service/hydroponics)
 "bfE" = (
-/mob/living/simple_animal/hostile/retaliate/goat/chef,
+/mob/living/basic/goat/chef,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -45752,7 +45752,7 @@
 /area/station/service/hydroponics)
 "dnE" = (
 /obj/machinery/hydroponics/soil,
-/mob/living/simple_animal/chicken/clucky,
+/mob/living/basic/chicken/clucky,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "dnF" = (
