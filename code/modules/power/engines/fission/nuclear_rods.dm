@@ -105,7 +105,7 @@
 	power_amount = 20 KW
 	heat_amp_mod = 1.6
 	power_amp_mod = 1.1
-	durability = 10000
+	durability = 5000
 	rad_type = BETA_RAD
 	craftable = FALSE
 	adjacent_requirements = list(
@@ -119,7 +119,7 @@
 	power_amount = 40 KW
 	heat_amp_mod = 1.6
 	power_amp_mod = 1.1
-	max_durability = 5000
+	max_durability = 3500
 	rad_type = GAMMA_RAD
 	craftable = FALSE
 	adjacent_requirements = list(
@@ -127,6 +127,102 @@
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/coolant,
 		)
+
+/obj/item/nuclear_rod/fuel/uranium_235
+	name = "uranium 235 fuel rod"
+	desc = "An advanced fuel rod for most NGCR reactors, formed from high-density ueanium 235 isotopes."
+	heat_amount = 20
+	power_amount = 50 KW
+	heat_amp_mod = 2.2
+	power_amp_mod = 1.3
+	max_durability = 5000
+	rad_type = BETA_RAD
+	heat_enrich_threshold = 16
+	power_enrich_threshold = 10
+	heat_enrich_result = /obj/item/nuclear_rod/fuel/thorium_salts
+	power_enrich_result = /obj/item/nuclear_rod/fuel/enriched_plutonium
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/coolant/plasma_injector,
+		/obj/item/nuclear_rod/moderator,
+		/obj/item/nuclear_rod/moderator,
+		)
+	materials = list(MAT_METAL = 4000, MAT_URANIUM = 4000)
+
+/obj/item/nuclear_rod/fuel/thorium_salts
+	name = "thorium salts fuel rod"
+	desc = "A specialized fuel rod bred from uranium 235. While this rod doesnt have any notable power boosts, its amazingly large integrity makes it vitually impossible to deplete in a single shift if one can manage its heat."
+	heat_amount = 40
+	power_amount = 35 KW
+	heat_amp_mod = 2.2
+	power_amp_mod = 1.3
+	max_durability = 30000
+	rad_type = BETA_RAD
+	craftable = FALSE
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/moderator,
+		/obj/item/nuclear_rod/fuel/uranium_235,
+		/obj/item/nuclear_rod/fuel,
+		)
+
+/obj/item/nuclear_rod/fuel/enriched_plutonium
+	name = "enriched plutonium fuel rod"
+	desc = "A specialized fuel rod bred from uranium 235. This rod is extremely powerful, boasting high  power outputs and moderate durability. However, its heat presents an exceptional danger."
+	heat_amount = 60
+	power_amount = 75 KW
+	heat_amp_mod = 4
+	power_amp_mod = 1.6
+	max_durability = 5000
+	rad_type = BETA_RAD
+	craftable = FALSE
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
+		/obj/item/nuclear_rod/fuel/thorium_salts,
+		)
+
+/obj/item/nuclear_rod/fuel/supermatter
+	name = "supermatter fuel rod"
+	desc = "A fuel rod made entirely of supermatter, contained safely in a specialized housing case. Due to its unusual properties, it completely neutralizes any potential power from nearby rods."
+	heat_amount = 800
+	power_amount = 800 KW
+	heat_amp_mod = 8
+	power_amp_mod = 0.1
+	durability = INFINITY
+	rad_type = BETA_RAD
+	craftable = FALSE
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/coolant/steam_hammerjet,
+		/obj/item/nuclear_rod/fuel,
+		/obj/item/nuclear_rod/moderator,
+		)
+
+/obj/item/nuclear_rod/fuel/americium
+	name = "americium fuel rod"
+	desc = "A specialized fuel rod bred from enriched plutonium. A pinnacle of power generation, this rod's power generation is nearly unmatched if one can tame its viscious heat output."
+	heat_amount = 100
+	power_amount = 200 KW
+	heat_amp_mod = 6
+	power_amp_mod = 1.6
+	max_durability = 4000
+	rad_type = BETA_RAD
+	craftable = FALSE
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/fuel,
+		/obj/item/nuclear_rod/fuel,
+		)
+
+/obj/item/nuclear_rod/fuel/bananium
+	name = "bananium fuel rod"
+	desc = "The funniest of all fuel rods. Who knows what you might get out of it!"
+	rad_type = GAMMA_RAD
+	craftable = FALSE
+
+/obj/item/nuclear_rod/fuel/bananium/Initialize(mapload)
+	max_durability = rand(1000, 10000)
+	power_amp_mod = rand(1, 30) / 10
+	heat_amp_mod = rand(1, 80) / 10
+	power_amount = rand(10 KW, 100 KW)
+	heat_amount = rand(10, 200)
+	return ..()
 
 /// MARK: Moderator Rods
 
@@ -158,6 +254,66 @@
 	power_amp_mod = 1.3
 	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 2000)
 
+/obj/item/nuclear_rod/moderator/plasma_agitator
+	name = "plasma agitator"
+	desc = "A specialized moderator rod capable of inducing higher fissionr rates in fuel rods through a series of micro-burns. It doesnt last long"
+	max_durability = 2500
+	heat_amount = 20
+	heat_amp_mod = 5
+	power_amp_mod = 3
+	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_PLASMA = 1000)
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/fuel,
+		/obj/item/nuclear_rod/fuel,
+		/obj/item/nuclear_rod/moderator,
+		)
+
+/obj/item/nuclear_rod/moderator/aluminium_reflector
+	name = "liquid aluminum plate reflector"
+	desc = "A specialized moderator rod for amplifying the power output of nearby fuel rods. However, the temperature of the liquid aluminum will force the reactor to run hot."
+	max_durability = 6000
+	power_amount = -15
+	heat_amp_mod = 5
+	power_amp_mod = 3
+	minimum_temp_modifier = 400
+	materials = list(MAT_METAL = 4000, MAT_TITANIUM = 2000, MAT_PLASMA = 2000)
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/coolant/nitrogen_circulator,
+		/obj/item/nuclear_rod/moderator,
+		)
+
+/obj/item/nuclear_rod/moderator/bluespace_agitator
+	name = "bluespace crystal agitator"
+	desc = "An advanced moderator rod that will pull extra neutrons out of bluespace to bombard local fuel rods. The result is a massive increase of power and heat generation. It is exceptionally versatile, however its power requirements limit its uses."
+	max_durability = 4000
+	power_amount = -30
+	heat_amp_mod = 12
+	power_amp_mod = 5
+	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_BLUESPACE = 1000)
+
+/obj/item/nuclear_rod/moderator/diamond_plate
+	name = "diamond reflector plates"
+	desc = "An advanced moderator rod that can reflect nearly all neutrons back to their point of origin. Simple, stable, reliable."
+	max_durability = 6000
+	heat_amp_mod = 6
+	power_amp_mod = 3.3
+	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_DIAMOND = 1000)
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/fuel,
+		/obj/item/nuclear_rod/fuel,
+		/obj/item/nuclear_rod/fuel,
+		/obj/item/nuclear_rod/fuel,
+		)
+
+/obj/item/nuclear_rod/moderator/platinum_plating
+	name = "platinum reflector plating"
+	desc = "An advanced moderator similar to diamond plates, but improved with precious space metals."
+	max_durability = 8000
+	heat_amp_mod = 8
+	power_amp_mod = 3.9
+	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_PLATINUM = 1000)
+	adjacent_requirements = list(/obj/item/nuclear_rod/fuel/americium)
+
 /// MARK: Coolant Rods
 
 /obj/item/nuclear_rod/coolant
@@ -176,12 +332,89 @@
 
 /obj/item/nuclear_rod/coolant/co2_regulator
 	name = "carbon dioxide regulator"
-	desc = "A specialized rod filled with carbon dioxide gas, capable of regulating temperature spikes in fuel rods. However, its very energy inefficient."
+	desc = "A specialized coolant rod filled with carbon dioxide gas, capable of regulating temperature spikes in fuel rods. However, its very energy inefficient."
 	heat_amount = -3
-	heat_mod = 0.6
+	heat_amp_mod = 0.6
 	power_amount = -15 KW
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
 
+/obj/item/nuclear_rod/coolant/plasma_injector
+	name = "plasma injector"
+	desc = "A specialized coolant rod filled with gaseous plasma. By feeding taking advantage of plasma's unique heat absorband properties, injecting it in small amounts around fuel rods neutralizes excess heat. However, the tank runs out quickly this way."
+	heat_amp_mod = 0.3
+	power_amp_mod = 1.2
+	adjacent_requirements = list(/obj/item/nuclear_rod/coolant)
+	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
 
+/obj/item/nuclear_rod/coolant/nitrogen_circulator
+	name = "nitrogen_circulator"
+	desc = "A specialized coolant rod filled with nitrogen gas. While not as powerful as similar alternatives, this rod is exceptionally stable and will last longer."
+	heat_amount = -6
+	power_amp_mod = 0.9
+	heat_amp_mod = 0.7
+	power_amount = -5 KW
+	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
 
+/obj/item/nuclear_rod/coolant/molten_salts
+	name = "molten salts circulator"
+	desc = "A specialized coolant rod that circulates molten salts through the core of the reactor. Despite forcing the reactor to run exceptionally hot, this rod provides top-notch cooling potential above its resting temperature."
+	power_amount = -20 KW
+	heat_amount = -60
+	heat_amp_mod = 0.8
+	max_durability = 8000
+	minimum_temp_modifier = 750
+	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/coolant/nitrogen_circulator,
+		/obj/item/nuclear_rod/moderator,
+		/obj/item/nuclear_rod/fuel,
+		/obj/item/nuclear_rod/fuel,
+		)
+
+/obj/item/nuclear_rod/coolant/steam_hammerjet
+	name = "steam hammerjet"
+	desc = "A specialized coolant rod that injects distilled steam throughout the reactor's critical components. Although it makes the reactor run warm, its very good at suppressing heat buildup"
+	power_amount = -10 KW
+	heat_amount = -40
+	heat_amp_mod = 0.4
+	max_durability = 6000
+	minimum_temp_modifier = 450
+	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/coolant/light_water,
+		/obj/item/nuclear_rod/coolant/light_water,
+		)
+
+/obj/item/nuclear_rod/coolant/bluespace_displacer
+	name = "bluespace heat displacer"
+	desc = "An advanced coolant rod capable of pulling heat directly out of neighboring rods and sending it... somewhere"
+	power_amount = -40 KW
+	heat_amount = -100
+	heat_amp_mod = 0.8
+	power_amp_mod = 1.3
+	max_durability = INFINITY
+	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_BLUESPACE = 1000)
+	adjacent_requirements = list(/obj/item/nuclear_rod/moderator/bluespace_agitator)
+
+/obj/item/nuclear_rod/coolant/iridium_conductor
+	name = "iridium conductor coolant rod"
+	desc = "A dazzlingly beautiful rod with exceptionally powerful thermal conductivity. A highly sought after piece of equipment for its simplicity and potency."
+	heat_amp_mod = 0.1
+	max_durability = 10000
+	materials = list(MAT_METAL = 5000, MAT_PLASMA = 3000, MAT_IRIDIUM = 2000)
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/moderator/aluminium_reflector,
+		/obj/item/nuclear_rod/fuel/uranium_235,
+		)
+
+/obj/item/nuclear_rod/coolant/condensed_spacematter
+	name = "condensed spacematter coolant rod"
+	desc = "While its unknown quite what the rod is filled with, theres no questioning its efficiency in the amount of heat its capable of suppressing. However, it violently dissentigrates in contact with anything that isnt its housing."
+	heat_amp_mod = 0.2
+	max_durability = 2500
+	materials = list(MAT_METAL = 6000, MAT_PLASMA = 4000, MAT_TITANIUM = 2000)
+	adjacent_requirements = list(
+		/obj/item/nuclear_rod/fuel/enriched_plutonium,
+		/obj/item/nuclear_rod/fuel/thorium_salts,
+		)

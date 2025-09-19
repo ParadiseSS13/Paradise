@@ -40249,7 +40249,6 @@
 /area/station/command/office/ce)
 "cSI" = (
 /obj/machinery/atmospherics/fission_reactor/roundstart,
-/obj/structure/cable/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -47343,24 +47342,6 @@
 "dOs" = (
 /turf/simulated/wall,
 /area/station/medical/coldroom)
-"dPd" = (
-/obj/item/nuclear_rod/moderator/heavy_water,
-/obj/item/nuclear_rod/moderator/heavy_water,
-/obj/item/nuclear_rod/moderator/heavy_water,
-/obj/item/nuclear_rod/moderator/heavy_water,
-/obj/item/nuclear_rod/moderator/heavy_water,
-/obj/item/nuclear_rod/moderator/heavy_water,
-/obj/item/nuclear_rod/moderator/heavy_water,
-/obj/item/nuclear_rod/moderator/heavy_water,
-/obj/item/nuclear_rod/moderator/heavy_water,
-/obj/item/nuclear_rod/moderator/heavy_water,
-/obj/item/nuclear_rod/moderator/heavy_water,
-/obj/item/nuclear_rod/moderator/heavy_water,
-/obj/item/nuclear_rod/moderator/heavy_water,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "dPe" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
@@ -49422,6 +49403,15 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/wood,
 /area/station/public/dorms)
+"eOr" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/reactor_power,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "eOI" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/decal/cleanable/dirt,
@@ -52523,34 +52513,6 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/aft)
-"gpC" = (
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/obj/item/nuclear_rod/fuel/uranium_238,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "gpD" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -52861,14 +52823,6 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
-"gwP" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "gwQ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -57042,9 +56996,6 @@
 	},
 /area/station/public/dorms)
 "iGY" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/nuclear_centrifuge,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -67606,9 +67557,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/machinery/temp_rod_fab,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74306,30 +74255,6 @@
 	icon_state = "purple"
 	},
 /area/station/science/hallway)
-"rle" = (
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/obj/item/nuclear_rod/fuel/weak_thorium,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "rlj" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -77103,7 +77028,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "sKE" = (
-/obj/machinery/atmospherics/reactor_chamber/uranium,
+/obj/machinery/atmospherics/reactor_chamber,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -77487,9 +77412,6 @@
 /turf/simulated/wall,
 /area/station/medical/coldroom)
 "sVT" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/nuclear_rod_fabricator,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -79752,9 +79674,6 @@
 	dir = 1
 	},
 /obj/machinery/computer/fission_monitor,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80805,24 +80724,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/aft)
-"uGl" = (
-/obj/item/nuclear_rod/coolant/light_water,
-/obj/item/nuclear_rod/coolant/light_water,
-/obj/item/nuclear_rod/coolant/light_water,
-/obj/item/nuclear_rod/coolant/light_water,
-/obj/item/nuclear_rod/coolant/light_water,
-/obj/item/nuclear_rod/coolant/light_water,
-/obj/item/nuclear_rod/coolant/light_water,
-/obj/item/nuclear_rod/coolant/light_water,
-/obj/item/nuclear_rod/coolant/light_water,
-/obj/item/nuclear_rod/coolant/light_water,
-/obj/item/nuclear_rod/coolant/light_water,
-/obj/item/nuclear_rod/coolant/light_water,
-/obj/item/nuclear_rod/coolant/light_water,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "uGA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -83207,12 +83108,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
-"vWF" = (
-/obj/machinery/atmospherics/reactor_chamber/heavy_water,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "vXo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -86207,17 +86102,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"xya" = (
-/obj/machinery/atmospherics/binary/valve/digital/open{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "xyl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -115717,15 +115601,15 @@ cYQ
 cYQ
 cSU
 nTG
-cUl
-ePY
-koL
 ePY
 ePY
 koL
 ePY
 ePY
-cUl
+koL
+ePY
+ePY
+ePY
 ePY
 ePY
 ePY
@@ -116232,7 +116116,7 @@ ePY
 cYQ
 ePY
 ePY
-uGl
+ePY
 jar
 sKE
 sKE
@@ -116248,7 +116132,7 @@ ePY
 ePY
 ePY
 ePY
-ePY
+fYe
 cSU
 aaa
 afX
@@ -116488,16 +116372,16 @@ cPX
 ePY
 cYQ
 ePY
-gpC
-rle
+ePY
+cUl
 koL
-vWF
-vWF
+sKE
+sKE
 qLY
-vWF
-vWF
+sKE
+sKE
 ePY
-ePY
+cUl
 ePY
 ePY
 ePY
@@ -116746,7 +116630,7 @@ lsx
 ePY
 ePY
 ePY
-dPd
+ePY
 koL
 sKE
 sKE
@@ -117002,11 +116886,11 @@ ntt
 fEP
 cSU
 ubm
-gwP
-gwP
-xya
-gwP
-gwP
+ePY
+ePY
+wkI
+ePY
+ePY
 cSI
 ePY
 ePY
@@ -117258,7 +117142,7 @@ hON
 vFA
 aig
 lnU
-rkg
+ePY
 ePY
 ePY
 kIc
@@ -117515,15 +117399,15 @@ cSU
 tQJ
 wpH
 cYQ
-rkg
+ePY
 ePY
 ePY
 koL
-vWF
-vWF
+sKE
+sKE
 heQ
-vWF
-vWF
+sKE
+sKE
 ePY
 ePY
 ePY
@@ -117774,7 +117658,7 @@ wpH
 cYQ
 iGY
 ePY
-ePY
+cUl
 koL
 sKE
 sKE
@@ -117782,6 +117666,7 @@ wgs
 sKE
 sKE
 ePY
+cUl
 ePY
 ePY
 ePY
@@ -117789,8 +117674,7 @@ ePY
 ePY
 ePY
 ePY
-ePY
-ePY
+fYe
 cSU
 aaa
 afX
@@ -118287,7 +118171,7 @@ cYQ
 cYQ
 cSU
 oaa
-cUl
+ePY
 ePY
 wgs
 ePY
@@ -118295,7 +118179,7 @@ ePY
 gMe
 ePY
 ePY
-cUl
+ePY
 ePY
 ePY
 ePY
@@ -118543,7 +118427,7 @@ uVt
 uVt
 uVt
 cYQ
-rkg
+eOr
 ePY
 ePY
 tcD

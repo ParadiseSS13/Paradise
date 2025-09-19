@@ -278,6 +278,66 @@
 		ui = new(user, src, "Autolathe", name)
 		ui.open()
 
+// MARK: Temp rod fab
+/obj/machinery/temp_rod_fab
+	name = "DEBUG Nuclear Fuel Rod Fabricator"
+	desc = "A highly specialized fabricator for crafting nuclear rods."
+	icon = 'icons/obj/machines/research.dmi'
+	icon_state = "protolathe"
+	idle_power_consumption = 50
+	density = TRUE
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/machinery/temp_rod_fab/attack_hand(mob/user)
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/carbon = user
+	var/list/choices = list("Fuel", "Moderator", "Coolant")
+	var/selected = tgui_input_list(carbon, "Select a nuclear rod type:", "Nuclear Rods", choices)
+
+	if(!selected)
+		return
+	if(!Adjacent(carbon))
+		return
+
+	var/list/rod_list = list()
+	switch(selected)
+		if("Fuel")
+			for(var/obj/item/nuclear_rod/fuel/rod in subtypesof(/obj/item/nuclear_rod/fuel))
+				rod_list += rod
+		if("Moderator")
+			for(var/obj/item/nuclear_rod/moderator/rod in subtypesof(/obj/item/nuclear_rod/moderator))
+				rod_list += rod
+		if("Coolant")
+			for(var/obj/item/nuclear_rod/coolant/rod in subtypesof(/obj/item/nuclear_rod/coolant))
+				rod_list += rod
+
+	selected = tgui_input_list(carbon, "Select a nuclear rod:", "Nuclear Rods", rod_list)
+
+	if(!selected)
+		return
+	if(!Adjacent(carbon))
+		return
+
+	var/obj/item/nuclear_rod/new_rod = selected
+	carbon.put_in_hands(new_rod)
+
+/obj/machinery/power/reactor_power
+	name = "DEBUG Nucear Power Output"
+	desc = "A place for the reactor to spit out its output"
+	icon_state = "teg"
+	density = TRUE
+	resistance_flags = INDESTRUCTIBLE
+	var/power_gen = 0
+	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
+
+/obj/machinery/power/reactor_power/Initialize(mapload)
+	. = ..()
+	linked_reactor = GLOB.main_fission_reactor
+
+/obj/machinery/power/reactor_power/process()
+	produce_direct_power(linked_reactor.final_power)
+
 // MARK: Circuits
 
 /obj/item/circuitboard/nuclear_centrifuge

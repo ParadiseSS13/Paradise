@@ -60,6 +60,7 @@
 #warn Idea todo: Grenades that force start rods
 #warn Idea todo: make rods radioactive when outside of houseing or shielding pools
 #warn Idea todo: Make meltdown countdown cause LOTS of smoke and chamber lifts/ejections
+#warn Idea todo: Make different gasses do... something
 #warn event idea: Pufts of contaminating rad smoke
 
 /// MARK: Fission Reactor
@@ -785,14 +786,14 @@
 	venting = TRUE
 
 /obj/machinery/atmospherics/fission_reactor/proc/update_minimum_temp()
-	minimum_temp_modifier = 0
+	minimum_operating_temp = 0
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 		if(chamber.chamber_state != CHAMBER_DOWN)
 			return
 		if(!chamber.held_rod.minimum_temp_modifier)
 			continue
-		else if(chamber.held_rod.minimum_temp_modifier > minimum_temp_modifier)
-			minimum_temp_modifier = chamber.held_rod.minimum_temp_modifier
+		else if(chamber.held_rod.minimum_temp_modifier > minimum_operating_temp)
+			minimum_operating_temp = chamber.held_rod.minimum_temp_modifier
 
 /// MARK: Rod Chamber
 
