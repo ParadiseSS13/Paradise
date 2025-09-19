@@ -51,8 +51,8 @@
 					/obj/item/reagent_containers/drinks/bottle/holywater,
 					/obj/item/storage/bible/booze,
 					/obj/item/storage/bible/booze,
-					/obj/item/clothing/suit/hooded/chaplain_hoodie,
-					/obj/item/clothing/suit/hooded/chaplain_hoodie,
+					/obj/item/clothing/suit/hooded/dark_robes,
+					/obj/item/clothing/suit/hooded/dark_robes,
 					/obj/item/clothing/under/misc/burial,
 					/obj/item/clothing/under/misc/burial)
 	cost = 250
@@ -522,7 +522,8 @@
 					/obj/item/vending_refill/chefdrobe,
 					/obj/item/vending_refill/hydrodrobe,
 					/obj/item/vending_refill/janidrobe,
-					/obj/item/vending_refill/lawdrobe)
+					/obj/item/vending_refill/lawdrobe,
+					/obj/item/vending_refill/chapdrobe)
 	containername = "service clothing vendor crate"
 
 /datum/supply_packs/misc/vending/clothingvendor/cargo

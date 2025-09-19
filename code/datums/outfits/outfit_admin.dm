@@ -372,7 +372,7 @@
 	name = "Tunnel Clown"
 
 	uniform = /obj/item/clothing/under/rank/civilian/clown
-	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
+	suit = /obj/item/clothing/suit/hooded/dark_robes
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/color/black
@@ -1194,7 +1194,7 @@
 	name = "Dark Lord"
 
 	uniform = /obj/item/clothing/under/color/black
-	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
+	suit = /obj/item/clothing/suit/hooded/dark_robes
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
@@ -1211,7 +1211,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/clothing/suit/hooded/chaplain_hoodie/C = H.wear_suit
+	var/obj/item/clothing/suit/hooded/dark_robes/C = H.wear_suit
 	if(istype(C))
 		C.name = "dark lord robes"
 		C.hood.name = "dark lord hood"
@@ -1242,7 +1242,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/clothing/suit/hooded/chaplain_hoodie/C = new(H.loc)
+	var/obj/item/clothing/suit/hooded/dark_robes/C = new(H.loc)
 	if(istype(C))
 		C.name = "ancient robes"
 		C.hood.name = "ancient hood"
@@ -1284,7 +1284,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/clothing/suit/hooded/chaplain_hoodie/C = new(H.loc)
+	var/obj/item/clothing/suit/hooded/dark_robes/C = new(H.loc)
 	if(istype(C))
 		C.name = "ancient robes"
 		C.hood.name = "ancient hood"
@@ -1376,9 +1376,9 @@
 	name = "Dark Priest"
 
 	uniform = /obj/item/clothing/under/color/black
-	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
+	suit = /obj/item/clothing/suit/hooded/dark_robes
 	back = /obj/item/storage/backpack
-	head = /obj/item/clothing/head/hooded/chaplain_hood
+	head = /obj/item/clothing/head/hooded/dark_hood
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/syndicate

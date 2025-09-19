@@ -49511,6 +49511,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/economy/vending/chapdrobe,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/chapel/office)
 "dQV" = (
