@@ -95,6 +95,34 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+// Librarian
+/obj/item/clothing/suit/librarian/argyle
+	name = "argyle sweater vest"
+	desc = "A not-so-warm sweater vest for old-fashioned librarians. A tag sticks out, 'DOES NOT PROVIDE INSULATION.'"
+	icon_state = "argyle"
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO
+
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
+
+// Librarian
+/obj/item/clothing/suit/librarian
+	name = "librarian's tailcoat"
+	desc = "A dull red tailcoat, a common choice between historians and vampires."
+	icon_state = "tailcoat_red"
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
+
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
+
 //Detective
 /obj/item/clothing/suit/storage/det_suit
 	name = "coat"
