@@ -691,7 +691,6 @@
 	icon_state = "pyro"
 	inhand_icon_state = null
 	worn_icon_state = null
-	item_color = "pyro" // I will kill washing machines one day
 	can_be_cut = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
 	dyeable = FALSE

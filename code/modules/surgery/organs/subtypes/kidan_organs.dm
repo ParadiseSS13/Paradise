@@ -89,7 +89,7 @@
 
 	if(!get_location_accessible(owner, "head"))
 		occlusion++
-	if(owner.w_uniform && copytext(owner.w_uniform.item_color,-2) != "_d") //jumpsuit not rolled down
+	if(owner.w_uniform && !owner.w_uniform.rolled_down) // jumpsuit not rolled down
 		occlusion++
 	if(owner.wear_suit)
 		occlusion++
