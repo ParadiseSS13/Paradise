@@ -830,6 +830,7 @@
 	flags_cover = HEADCOVERSEYES
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
