@@ -161,10 +161,9 @@
 	item_color = "janitor_overalls"
 
 /obj/item/clothing/under/rank/civilian/librarian
-	name = "sensible suit"
-	desc = "It's very... sensible."
+	name = "librarian's uniform"
+	desc = "A collared shirt with dapper pinstripe pants guaranteed to make you stand out at any Halloween party."
 	icon_state = "red_suit"
-	inhand_icon_state = "r_suit"
 	item_color = "red_suit"
 
 /obj/item/clothing/under/rank/civilian/mime/nodrop

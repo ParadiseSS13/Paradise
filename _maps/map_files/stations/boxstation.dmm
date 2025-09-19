@@ -783,6 +783,10 @@
 "aeC" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/drinks/mug/hos,
+/obj/machinery/phone{
+	pixel_y = 14;
+	pixel_x = 6
+	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
 "aeD" = (
@@ -7582,7 +7586,6 @@
 /obj/structure/sign/electricshock{
 	pixel_x = 32
 	},
-/obj/item/seeds/chili,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -7719,6 +7722,10 @@
 /obj/structure/table/reinforced,
 /obj/item/stamp/magistrate,
 /obj/item/paper_bin/nanotrasen,
+/obj/machinery/phone{
+	pixel_x = 17;
+	pixel_y = 9
+	},
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "aCl" = (
@@ -8930,7 +8937,6 @@
 /turf/simulated/floor/carpet/grimey,
 /area/station/maintenance/fpmaint2)
 "aGa" = (
-/obj/machinery/smartfridge/drying_rack,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
@@ -8939,6 +8945,7 @@
 	dir = 10;
 	network = list("Prison","SS13")
 	},
+/obj/machinery/economy/vending/hydroseeds/perma,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "aGb" = (
@@ -16443,15 +16450,6 @@
 	icon_state = "hydrofloor"
 	},
 /area/station/service/hydroponics)
-"bfE" = (
-/mob/living/simple_animal/hostile/retaliate/goat/chef,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/station/service/kitchen)
 "bfH" = (
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
@@ -19675,8 +19673,15 @@
 /area/station/command/bridge)
 "bpr" = (
 /obj/structure/table/reinforced,
-/obj/item/flash,
-/obj/item/flash,
+/obj/item/flash{
+	pixel_y = -11
+	},
+/obj/machinery/phone{
+	pixel_y = 3
+	},
+/obj/item/flash{
+	pixel_y = -11
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "bpt" = (
@@ -23318,6 +23323,7 @@
 "bDJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light,
+/obj/machinery/salvage_redemption,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -28013,6 +28019,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/machinery/phone,
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
 "bXh" = (
@@ -28969,14 +28976,27 @@
 /area/station/command/office/cmo)
 "caR" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/drinks/coffee,
+/obj/item/reagent_containers/drinks/coffee{
+	pixel_y = 15;
+	pixel_x = 11
+	},
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/item/cartridge/chemistry,
-/obj/item/cartridge/medical,
-/obj/item/cartridge/medical,
+/obj/item/cartridge/chemistry{
+	pixel_x = -14
+	},
+/obj/item/cartridge/medical{
+	pixel_x = -16
+	},
+/obj/machinery/phone{
+	pixel_y = 1;
+	pixel_x = 2
+	},
+/obj/item/cartridge/medical{
+	pixel_x = -18
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -29951,9 +29971,16 @@
 	},
 /area/station/science/server/coldroom)
 "ceN" = (
-/obj/item/paper/monitorkey,
-/obj/item/megaphone,
+/obj/item/megaphone{
+	pixel_y = -16;
+	pixel_x = 4
+	},
 /obj/structure/table/glass,
+/obj/item/paper_bin/nanotrasen{
+	pixel_x = -5
+	},
+/obj/item/paper/monitorkey,
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -30747,8 +30774,6 @@
 /area/station/command/office/rd)
 "chO" = (
 /obj/structure/table/glass,
-/obj/item/pen/multi,
-/obj/item/paper_bin/nanotrasen,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -30757,7 +30782,13 @@
 	c_tag = "Research Director's Office";
 	network = list("Research","SS13")
 	},
-/obj/item/reagent_containers/drinks/mug/rd,
+/obj/item/reagent_containers/drinks/mug/rd{
+	pixel_y = -12;
+	pixel_x = 7
+	},
+/obj/machinery/phone{
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkpurple"
@@ -31285,14 +31316,6 @@
 "ckr" = (
 /turf/simulated/wall,
 /area/station/medical/medbay3)
-"ckt" = (
-/obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office";
-	pixel_y = 4
-	},
-/turf/simulated/floor/carpet/royalblack,
-/area/station/command/office/ntrep)
 "ckv" = (
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
@@ -32310,18 +32333,13 @@
 	icon_state = "brown"
 	},
 /area/station/supply/expedition)
-"coo" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/table/wood,
-/obj/item/storage/fancy/cigars{
-	pixel_y = 8
-	},
-/turf/simulated/floor/carpet/royalblack,
-/area/station/command/office/ntrep)
 "cop" = (
 /obj/machinery/alarm/directional/east,
 /obj/structure/table/wood,
-/obj/item/paper_bin/nanotrasen,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "NT Representative's Office";
+	pixel_y = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "cot" = (
@@ -32645,6 +32663,14 @@
 	pixel_x = 6;
 	pixel_y = 3;
 	req_access = list(57)
+	},
+/obj/machinery/phone{
+	pixel_y = 14;
+	pixel_x = 6
+	},
+/obj/item/megaphone{
+	pixel_y = -3;
+	pixel_x = -3
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/command/office/hop)
@@ -38315,17 +38341,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
-"cLE" = (
-/obj/structure/table/wood,
-/obj/item/paper/ntrep,
-/obj/item/stamp/rep,
-/obj/item/folder,
-/obj/item/ashtray/glass{
-	pixel_x = 16;
-	pixel_y = 2
-	},
-/turf/simulated/floor/carpet/royalblack,
-/area/station/command/office/ntrep)
 "cLF" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -38847,7 +38862,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 10
 	},
-/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "cNF" = (
@@ -45494,7 +45509,7 @@
 /area/station/service/hydroponics)
 "dnE" = (
 /obj/machinery/hydroponics/soil,
-/mob/living/simple_animal/chicken/clucky,
+/mob/living/basic/chicken/clucky,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "dnF" = (
@@ -46515,6 +46530,10 @@
 /obj/item/folder/yellow,
 /obj/item/stamp/ce,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/phone{
+	pixel_x = -6;
+	pixel_y = 16
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
 "dsU" = (
@@ -50638,18 +50657,6 @@
 /obj/structure/closet/secure_closet/research_reagents,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
-"fjM" = (
-/obj/machinery/hydroponics/constructable{
-	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
-	name = "Prison hydroponics tray";
-	using_irrigation = 1
-	},
-/obj/item/seeds/onion,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/security/permabrig)
 "fjO" = (
 /obj/structure/sign/directions/medical{
 	dir = 4;
@@ -51060,7 +51067,6 @@
 /obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
-/obj/item/seeds/amanita,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "ftA" = (
@@ -53893,7 +53899,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 9
 	},
-/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "gNX" = (
@@ -58382,15 +58388,6 @@
 /obj/structure/bed/psych,
 /turf/simulated/floor/carpet,
 /area/station/medical/psych)
-"iZI" = (
-/obj/machinery/hydroponics/constructable{
-	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
-	name = "Prison hydroponics tray";
-	using_irrigation = 1
-	},
-/obj/item/seeds/corn,
-/turf/simulated/floor/grass,
-/area/station/security/permabrig)
 "iZO" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -58784,6 +58781,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/cmo)
+"jkq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/table/wood,
+/obj/machinery/phone{
+	pixel_y = 2
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/station/command/office/ntrep)
 "jkw" = (
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass,
@@ -63312,6 +63317,15 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/public/toilet/unisex)
+"lqv" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/turret_protected/ai)
 "lqw" = (
 /obj/machinery/alarm/directional/south,
 /obj/structure/disposalpipe/segment{
@@ -63465,13 +63479,6 @@
 	},
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
-"ltD" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 9
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "ltR" = (
 /obj/structure/plasticflaps{
 	opacity = 1
@@ -63776,6 +63783,13 @@
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle/no_creep,
 /area/station/command/bridge)
+"lBU" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/cigars{
+	pixel_y = 8
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/station/command/office/ntrep)
 "lCL" = (
 /obj/structure/sink/directional/west,
 /obj/structure/mirror{
@@ -64648,7 +64662,6 @@
 /obj/structure/table,
 /obj/item/storage/fancy/rollingpapers,
 /obj/item/storage/fancy/matches,
-/obj/item/seeds/tobacco,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -65013,15 +65026,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
-"mfS" = (
-/obj/machinery/hydroponics/constructable{
-	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
-	name = "Prison hydroponics tray";
-	using_irrigation = 1
-	},
-/obj/item/seeds/orange,
-/turf/simulated/floor/grass,
-/area/station/security/permabrig)
 "mgx" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical,
@@ -65502,7 +65506,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/banana,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "msF" = (
@@ -66799,6 +66802,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"mZw" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/smartfridge/drying_rack,
+/turf/simulated/floor/plasteel,
+/area/station/security/permabrig)
 "mZI" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -67539,6 +67549,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/structure/closet/secure_closet/librarian,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -68465,7 +68476,6 @@
 	specialfunctions = 4;
 	pixel_y = 34
 	},
-/obj/item/phone,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "nVf" = (
@@ -72547,9 +72557,6 @@
 	pixel_x = 6;
 	pixel_y = 4
 	},
-/obj/item/megaphone{
-	pixel_y = -11
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -75594,6 +75601,24 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
+"rfT" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/paper/ntrep{
+	pixel_y = 3;
+	pixel_x = 3
+	},
+/obj/item/folder{
+	pixel_y = 0;
+	pixel_x = -15
+	},
+/obj/item/ashtray/glass{
+	pixel_x = 13;
+	pixel_y = 2
+	},
+/obj/item/stamp/rep,
+/turf/simulated/floor/carpet/royalblack,
+/area/station/command/office/ntrep)
 "rgb" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -76666,19 +76691,35 @@
 /area/station/hallway/secondary/entry/lounge)
 "rGE" = (
 /obj/structure/table/wood,
-/obj/item/folder/blue,
+/obj/item/folder/blue{
+	pixel_x = -15
+	},
 /obj/item/stamp/captain{
-	pixel_x = -10
+	pixel_x = -15
 	},
 /obj/machinery/door_control{
 	id = "captainofficedoor";
 	name = "Office Door";
 	normaldoorcontrol = 1;
-	pixel_y = -3;
-	req_access = list(20)
+	pixel_y = -2;
+	req_access = list(20);
+	pixel_x = 7
+	},
+/obj/machinery/phone{
+	pixel_y = 9;
+	pixel_x = 8
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/station/command/office/captain)
+"rGM" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/mob/living/basic/goat/chef,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/service/kitchen)
 "rHg" = (
 /obj/structure/table,
 /obj/item/ashtray/bronze{
@@ -82181,13 +82222,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/control)
-"uud" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 10
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "uuh" = (
 /obj/machinery/disposal,
 /obj/machinery/light,
@@ -85463,6 +85497,13 @@
 	icon_state = "caution"
 	},
 /area/station/public/dorms)
+"wfZ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 9
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "wgt" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/glass,
@@ -85634,7 +85675,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/wheat/rice,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -86399,16 +86439,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/security/permabrig)
-"wEQ" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/table/reinforced,
-/obj/item/phone,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/turret_protected/ai)
 "wFm" = (
 /obj/machinery/door/airlock/highsecurity,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -88680,7 +88710,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/carrot,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -88898,6 +88927,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
+"xPT" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 10
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "xQB" = (
 /obj/effect/spawner/window/reinforced/tinted,
 /obj/structure/disposalpipe/segment{
@@ -109138,8 +109174,8 @@ lKq
 rAe
 rAe
 lKq
-mfS
-fjM
+msC
+xKv
 ftm
 abN
 abN
@@ -111193,10 +111229,10 @@ lKq
 lKq
 lKq
 twu
-avf
+mZw
 aAr
 aBK
-iZI
+msC
 xKv
 msC
 abN
@@ -117423,7 +117459,7 @@ wuu
 rvo
 ciB
 bAb
-ckt
+lBU
 coU
 cgW
 cvf
@@ -117680,7 +117716,7 @@ cqI
 fMD
 clL
 cmM
-coo
+jkq
 xty
 cgW
 cqs
@@ -117937,7 +117973,7 @@ cdN
 kHO
 ckv
 cqJ
-cLE
+rfT
 cnu
 cgW
 cqs
@@ -125935,7 +125971,7 @@ aab
 cQp
 aab
 cZh
-uud
+cNE
 dba
 djE
 dcS
@@ -125947,7 +125983,7 @@ djE
 djE
 djE
 djE
-ltD
+gNQ
 aab
 aab
 aab
@@ -127239,7 +127275,7 @@ igi
 igi
 igi
 igi
-gNQ
+wfZ
 fPY
 wyD
 wyD
@@ -127267,7 +127303,7 @@ dqO
 dqv
 dqv
 drg
-wEQ
+lqv
 drA
 rUQ
 dry
@@ -127468,7 +127504,7 @@ cep
 cjq
 cep
 cxO
-cNE
+xPT
 igi
 igi
 igi
@@ -127486,7 +127522,7 @@ igi
 igi
 igi
 igi
-gNQ
+wfZ
 dgS
 eQU
 eQU
@@ -127667,7 +127703,7 @@ bjz
 bbI
 xjn
 bdL
-bfE
+rGM
 biY
 boQ
 xek
