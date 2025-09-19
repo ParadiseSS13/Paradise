@@ -261,6 +261,7 @@
 					/obj/item/seeds/orange = 3,
 					/obj/item/seeds/pineapple = 3,
 					/obj/item/seeds/plum = 3,
+					/obj/item/seeds/plump = 3,
 					/obj/item/seeds/potato = 3,
 					/obj/item/seeds/pumpkin = 3,
 					/obj/item/seeds/wheat/rice = 3,
@@ -273,7 +274,6 @@
 	contraband = list(/obj/item/seeds/cannabis = 3,
 					/obj/item/seeds/fungus = 3,
 					/obj/item/seeds/liberty = 3,
-					/obj/item/seeds/plump = 3,
 					/obj/item/seeds/reishi = 3,
 					/obj/item/seeds/starthistle = 3,)
 
