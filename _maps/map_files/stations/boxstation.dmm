@@ -61450,6 +61450,14 @@
 	icon_state = "darkbluefull"
 	},
 /area/station/medical/surgery/observation)
+"kKx" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "kKA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -80361,6 +80369,12 @@
 /obj/structure/disaster_counter/toxins,
 /turf/simulated/wall/r_wall,
 /area/station/science/toxins/launch)
+"ujp" = (
+/obj/structure/cable/yellow,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "ujR" = (
 /obj/structure/chair/sofa/corp{
 	dir = 1
@@ -115864,8 +115878,8 @@ omG
 omG
 qLK
 rJr
-ePY
-ePY
+kKx
+ujp
 ePY
 wkI
 ePY
