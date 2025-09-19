@@ -6,7 +6,6 @@
 	desc = "An advanced device capable of seperating and collecting fissile materials from enriched fuel rods."
 	icon = 'icons/obj/fission/reactor_parts.dmi'
 	icon_state = "centrifuge"
-	power_state = IDLE_POWER_USE
 	idle_power_consumption = 200
 	active_power_consumption = 3000
 	anchored = TRUE
