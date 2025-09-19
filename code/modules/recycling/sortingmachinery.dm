@@ -236,7 +236,7 @@
 	// Checking these again since it's after a delay
 	var/wrap_do_after = wrap_time
 	if(user.mind && HAS_TRAIT(user.mind, TRAIT_PACK_RAT))
-		wrap_do_after *= 0.375
+		wrap_do_after *= PACK_RAT_WRAP_SPEEDUP
 	if(!do_after_once(user, wrap_do_after, target = C) || C.opened || !use(3))
 		return
 
