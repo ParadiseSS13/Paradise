@@ -12424,6 +12424,9 @@
 /obj/machinery/power/apc/critical/directional/north{
 	shock_proof = 1
 	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -47550,6 +47553,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
+"dTn" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "dTu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -68567,8 +68578,10 @@
 /area/station/science/xenobiology)
 "orS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74575,6 +74588,9 @@
 	dir = 1
 	},
 /obj/machinery/computer/fission_monitor,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -116555,7 +116571,7 @@ cYQ
 cPX
 ePY
 cYQ
-ePY
+dTn
 ePY
 ePY
 jar
@@ -116812,7 +116828,7 @@ cSU
 cPX
 ePY
 cYQ
-ePY
+dTn
 ePY
 cUl
 koL
@@ -117069,7 +117085,7 @@ daG
 lsx
 lsx
 ePY
-ePY
+dTn
 ePY
 ePY
 koL

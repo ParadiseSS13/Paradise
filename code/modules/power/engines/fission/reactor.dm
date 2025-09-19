@@ -211,7 +211,7 @@
 				chamber.form_link(src)
 
 
-/obj/machinery/atmospherics/fission_reactor/proc/clear_reactor_network(var/restart = FALSE)
+/obj/machinery/atmospherics/fission_reactor/proc/clear_reactor_network(restart = FALSE)
 	for(var/obj/machinery/atmospherics/reactor_chamber/linked in connected_chambers)
 		linked.linked_reactor = null
 		connected_chambers -= linked
@@ -963,7 +963,7 @@
 	if(linked_reactor.admin_intervention)
 		to_chat(user, "<span class='warning'>An unusual force prevents you from moving the chamber!</span>")
 		return
-	if((stat & NOPOWER))
+	if(stat & NOPOWER)
 		to_chat(user, "<span class='warning'>The chamber's locks wont disengage without power!</span>")
 		return
 	if(user.loc == loc)
@@ -1187,7 +1187,7 @@
 
 
 /// Forms the two-way link between the reactor and the chamber, then spreads it
-/obj/machinery/atmospherics/reactor_chamber/proc/form_link(var/obj/machinery/atmospherics/fission_reactor/reactor)
+/obj/machinery/atmospherics/reactor_chamber/proc/form_link(obj/machinery/atmospherics/fission_reactor/reactor)
 	if(linked_reactor || skip_link) // A check to prevent duplicates or unwanted chambers
 		return
 	linked_reactor = reactor
@@ -1195,7 +1195,7 @@
 	spread_link(reactor)
 
 /// Will spread the linked reactor to other nearby chambers
-/obj/machinery/atmospherics/reactor_chamber/proc/spread_link(var/obj/machinery/atmospherics/fission_reactor/reactor)
+/obj/machinery/atmospherics/reactor_chamber/proc/spread_link(obj/machinery/atmospherics/fission_reactor/reactor)
 	var/turf/nearby_turf
 	for(var/direction in GLOB.cardinal)
 		nearby_turf = get_step(src, direction)
