@@ -484,6 +484,9 @@
 /area/shuttle/escape)
 "bG" = (
 /obj/machinery/mech_bay_recharge_port,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bH" = (
