@@ -56,6 +56,22 @@
 	icon_state = "leather"
 	item_color = "leather"
 
+/obj/item/clothing/shoes/leather/jump
+	name = "boots of jumping"
+	desc = "Boots with the sole purpose of jumping."
+
+/obj/item/clothing/shoes/leather/jump/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot != ITEM_SLOT_SHOES || !ishuman(user))
+		return
+	ADD_TRAIT(user, TRAIT_BOOTS_OF_JUMPING, "boots_of_jumping[UID()]")
+
+/obj/item/clothing/shoes/leather/jump/dropped(mob/user, silent)
+	. = ..()
+	if(!ishuman(user) || !HAS_TRAIT(user, TRAIT_BOOTS_OF_JUMPING))
+		return
+	REMOVE_TRAIT(user, TRAIT_BOOTS_OF_JUMPING, "boots_of_jumping[UID()]")
+
 /obj/item/clothing/shoes/rainbow
 	name = "rainbow shoes"
 	desc = "Very gay shoes."
