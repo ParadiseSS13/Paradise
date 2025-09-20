@@ -502,8 +502,6 @@
 		armor_value_to_add = PERCENTAGE_TO_ARMOR_VALUE(armor)
 		armor_value = armor_value_to_add >= INFINITY ? 100 : ARMOR_VALUE_TO_PERCENTAGE(armor_value + armor_value_to_add)
 
-	to_chat(world, "[armor_value]")
-
 	switch(damagetype)
 		if(BRUTE)
 			damage = ARMOR_EQUATION(damage, armor_value) * brute_mod * H.physiology.brute_mod

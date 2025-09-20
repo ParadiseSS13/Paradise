@@ -160,7 +160,7 @@ emp_act
 
 		affecting.droplimb(FALSE, damtype)
 
-/// This proc calculates armor value for humans.
+/// This proc calculates armor percentage for humans.
 /// If null is passed for def_zone, then this will return something appropriate for all zones (e.g. area effect damage)
 /mob/living/carbon/human/getarmor(def_zone, armor_type)
 	// If a specific bodypart is targetted, check if it exists, how that bodypart is protected and return the value
@@ -199,7 +199,6 @@ emp_act
 	if(armor_value_to_add >= INFINITY)
 		return 100
 	armor_value += armor_value_to_add
-	to_chat(world, "[ARMOR_VALUE_TO_PERCENTAGE(armor_value)]")
 
 	return ARMOR_VALUE_TO_PERCENTAGE(armor_value)
 
