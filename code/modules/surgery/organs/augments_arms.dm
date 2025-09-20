@@ -939,7 +939,7 @@
 	name = "'Naginata' mantis blade"
 	icon_state = "syndie_mantis"
 	force = 15
-	armor_penetration_percentage = 30
+	armor_penetration_flat = 30
 
 /obj/item/melee/mantis_blade/syndicate/Initialize(mapload)
 	. = ..()

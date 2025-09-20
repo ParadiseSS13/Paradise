@@ -13,7 +13,7 @@
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
-	armor_penetration_percentage = 75
+	armor_penetration_flat = 75
 	sharp = TRUE
 	origin_tech = null
 	attack_verb = list("lunged at", "stabbed")
@@ -110,7 +110,7 @@
 	flags = CONDUCT
 	force = 5
 	throwforce = 5
-	armor_penetration_flat = 30
+	armor_penetration_flat = 40
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
 	origin_tech = "combat=6;syndicate=5"
@@ -278,8 +278,7 @@
 	force_on = 40
 	throw_speed = 1
 	throw_range = 5
-	armor_penetration_percentage = 50
-	armor_penetration_flat = 10
+	armor_penetration_flat = 35
 
 /obj/item/chainsaw/syndie/Initialize(mapload)
 	. = ..()
