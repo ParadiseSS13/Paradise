@@ -366,6 +366,22 @@
 /obj/item/restraints/handcuffs/pinkcuffs,
 /turf/simulated/floor/plating,
 /area/station/security/main)
+"acW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/sortjunction{
+	dir = 4;
+	sort_type_txt = "20"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "acX" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -15336,9 +15352,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "bbU" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 2
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -15346,6 +15359,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -15361,6 +15377,10 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/sortjunction{
+	dir = 4;
+	sort_type_txt = "21"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -16534,10 +16554,6 @@
 /obj/effect/landmark/start/clown,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
-"bfB" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "bfC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -16572,6 +16588,9 @@
 	pixel_y = 28
 	},
 /obj/machinery/hydroponics/soil,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "bfK" = (
@@ -17323,6 +17342,9 @@
 	dir = 8
 	},
 /obj/machinery/economy/vending/hydrodrobe,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -17346,6 +17368,10 @@
 "bib" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
+	},
+/obj/effect/turf_decal/delivery,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -19637,10 +19663,10 @@
 /turf/simulated/floor/carpet,
 /area/station/public/mrchangs)
 "boV" = (
-/obj/structure/closet/crate/freezer,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/structure/closet/crate/freezer,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -44574,10 +44600,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/secure_storage)
 "djt" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery,
+/obj/machinery/economy/vending/hydroseeds/chef,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -44587,6 +44610,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "djw" = (
@@ -44595,13 +44621,16 @@
 	},
 /obj/machinery/hydroponics/soil,
 /obj/structure/disposalpipe/segment/corner{
-	dir = 2
+	dir = 4
 	},
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "djx" = (
 /obj/machinery/hydroponics/soil,
 /obj/machinery/firealarm/directional/north,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "djC" = (
@@ -45745,11 +45774,6 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/ai)
-"dnD" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/machinery/hydroponics/soil,
-/turf/simulated/floor/grass,
-/area/station/service/hydroponics)
 "dnE" = (
 /obj/machinery/hydroponics/soil,
 /mob/living/basic/chicken/clucky,
@@ -50080,6 +50104,13 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/grass,
 /area/station/hallway/primary/aft/south)
+"ePQ" = (
+/obj/machinery/hydroponics/soil,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/station/service/hydroponics)
 "ePR" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -51580,15 +51611,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "fzc" = (
-/obj/structure/disposalpipe/sortjunction{
-	dir = 4;
-	sort_type_txt = "21"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "fzd" = (
@@ -54639,6 +54667,13 @@
 /obj/machinery/requests_console/directional/north,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
+"gXK" = (
+/obj/effect/turf_decal/delivery/partial{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "gYq" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plating,
@@ -65795,9 +65830,6 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "mvU" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -65806,6 +65838,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
@@ -75401,14 +75436,13 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 4;
-	sort_type_txt = "20"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -79940,12 +79974,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/meeting_room)
-"ttT" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "tue" = (
 /obj/effect/spawner/random/maintenance,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -85088,6 +85116,10 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/control)
+"vYc" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/turf/simulated/floor/grass,
+/area/station/service/hydroponics)
 "vYh" = (
 /obj/item/radio/intercom{
 	name = "east bump";
@@ -128146,8 +128178,8 @@ aKm
 aVU
 aIc
 raC
-bfB
-jhq
+aGY
+beb
 djt
 bjd
 boV
@@ -128664,8 +128696,8 @@ aGY
 beb
 dju
 bLn
-bjv
-dnD
+vYc
+bfH
 bmy
 boo
 btM
@@ -129176,7 +129208,7 @@ aLA
 bbI
 aGY
 beb
-bfH
+ePQ
 bLU
 bjx
 bfH
@@ -129688,7 +129720,7 @@ dzb
 rhh
 uhi
 bbU
-beJ
+aGY
 beb
 bhY
 peu
@@ -129944,9 +129976,9 @@ nNB
 afN
 epW
 aLA
-bbY
-bkN
-beb
+acW
+gXK
+jhq
 bib
 bjN
 beb
@@ -130459,7 +130491,7 @@ aLc
 aHb
 aQL
 mvU
-ttT
+aGY
 beb
 bif
 bjW

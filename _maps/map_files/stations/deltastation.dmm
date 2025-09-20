@@ -57143,9 +57143,6 @@
 /area/station/service/chapel)
 "gAc" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/seeds/wheat/rice,
-/obj/item/seeds/tomato,
-/obj/item/seeds/wheat,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
@@ -82891,6 +82888,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/economy/vending/hydroseeds/chef,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},

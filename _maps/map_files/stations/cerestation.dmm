@@ -5399,16 +5399,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/command/meeting_room)
-"aSm" = (
-/obj/structure/table/wood,
-/obj/item/stack/cable_coil/random{
-	pixel_x = 2;
-	pixel_y = 3
-	},
-/obj/item/stack/cable_coil/random,
-/obj/item/eftpos,
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "aSo" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/ears/earmuffs,
@@ -54429,7 +54419,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/hydroponics/soil,
+/obj/machinery/economy/vending/hydroseeds/chef,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "jVa" = (
@@ -61352,6 +61342,16 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/break_room/secondary)
+"lsh" = (
+/obj/structure/table/wood,
+/obj/item/stack/cable_coil/random{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/obj/item/stack/cable_coil/random,
+/obj/item/eftpos,
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "lsp" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "scibreak"
@@ -142508,7 +142508,7 @@ fnN
 xqx
 rvk
 muv
-lYO
+wFD
 riS
 mcu
 uQB
@@ -143004,7 +143004,7 @@ oOg
 unz
 wmR
 wDV
-aSm
+lsh
 aZZ
 wmR
 ehV
