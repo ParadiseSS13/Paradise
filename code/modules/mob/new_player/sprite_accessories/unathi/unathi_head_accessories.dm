@@ -52,3 +52,8 @@
 /datum/sprite_accessory/head_accessory/unathi/spikes
 	name = "Spikes"
 	icon_state = "spikes_horns"
+
+/datum/sprite_accessory/head_accessory/unathi/spines
+	over_hair = null
+	name = "Aquatic Spines"
+	icon_state = "aqua_spines"

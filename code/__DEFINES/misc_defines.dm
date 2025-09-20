@@ -220,8 +220,8 @@
 #define SPECIAL_BELT_LAYER		24
 #define NECK_LAYER				23
 #define SUIT_STORE_LAYER		22
-#define BACK_LAYER				21
-#define HEAD_ACCESSORY_LAYER	20
+#define HEAD_ACCESSORY_LAYER	21
+#define BACK_LAYER				20
 #define FHAIR_LAYER				19
 #define GLASSES_LAYER			18
 #define HAIR_LAYER				17	//TODO: make part of head layer?
