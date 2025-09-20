@@ -123,13 +123,14 @@ export const ReactorMonitor = (props) => {
                     {toFixed(NGCR_ambientpressure) + ' kPa'}
                   </ProgressBar>
                 </LabeledList.Item>
-                <LabeledList.Item label="Control Rod Position">
+                <LabeledList.Item label="Control Rod Limiter">
                   <ProgressBar
                     value={NGCR_operatingpower}
                     minValue={0}
                     maxValue={100}
                     ranges={{
-                      good: [70, Infinity],
+                      teal: [100, Infinity],
+                      good: [70, 99],
                       average: [30, 70],
                       bad: [-Infinity, 30],
                     }}
@@ -138,7 +139,7 @@ export const ReactorMonitor = (props) => {
                   </ProgressBar>
                 </LabeledList.Item>
               </LabeledList>
-              <Section title="Desired Fission Rate" textAlign="center">
+              <Section title="Desired Control Rod Limit" textAlign="center">
                 <Knob
                   size={5}
                   value={NGCR_throttle}

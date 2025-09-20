@@ -37,9 +37,9 @@
 	. = ..()
 	if(length(adjacent_requirements))
 		var/list/templist = list()
-		for(var/obj/item/nuclear_rod/requirement in adjacent_requirements)
+		for(var/obj/item/nuclear_rod/requirement as anything in adjacent_requirements)
 			templist += requirement::name
-		var/requirement_list = english_list(adjacent_requirements, and_text = ", ")
+		var/requirement_list = english_list(templist, and_text = ", ")
 		. += "This rod has the following neighbor requirements: [requirement_list]"
 	else
 		. += "This rod has no neighbor requirements."
@@ -55,7 +55,7 @@
 	rad_type = ALPHA_RAD
 
 	/// the amount of cycles needed to complete enrichment. 30 = ~1 minute
-	var/enrichment_cycles = 15
+	var/enrichment_cycles = 25
 	/// the total power amp mod needed to enrich
 	var/power_enrich_threshold = 0
 	/// How far we have progressed from to power enrichment

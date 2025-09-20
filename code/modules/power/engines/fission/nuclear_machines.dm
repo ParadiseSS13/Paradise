@@ -304,13 +304,13 @@
 	var/list/rod_list = list()
 	switch(selected)
 		if("Fuel")
-			for(var/obj/item/nuclear_rod/fuel/rod in subtypesof(/obj/item/nuclear_rod/fuel))
+			for(var/obj/item/nuclear_rod/fuel/rod as anything in subtypesof(/obj/item/nuclear_rod/fuel))
 				rod_list += rod
 		if("Moderator")
-			for(var/obj/item/nuclear_rod/moderator/rod in subtypesof(/obj/item/nuclear_rod/moderator))
+			for(var/obj/item/nuclear_rod/moderator/rod as anything in subtypesof(/obj/item/nuclear_rod/moderator))
 				rod_list += rod
 		if("Coolant")
-			for(var/obj/item/nuclear_rod/coolant/rod in subtypesof(/obj/item/nuclear_rod/coolant))
+			for(var/obj/item/nuclear_rod/coolant/rod as anything in subtypesof(/obj/item/nuclear_rod/coolant))
 				rod_list += rod
 
 	selected = tgui_input_list(carbon, "Select a nuclear rod:", "Nuclear Rods", rod_list)
@@ -320,7 +320,7 @@
 	if(!Adjacent(carbon))
 		return
 
-	var/obj/item/nuclear_rod/new_rod = selected
+	var/obj/item/nuclear_rod/new_rod = new selected
 	carbon.put_in_hands(new_rod)
 
 /obj/machinery/power/reactor_power
@@ -337,7 +337,8 @@
 	linked_reactor = GLOB.main_fission_reactor
 
 /obj/machinery/power/reactor_power/process()
-	produce_direct_power(linked_reactor.final_power)
+	if(linked_reactor.can_create_power)
+		produce_direct_power(linked_reactor.final_power)
 
 // MARK: Circuits
 

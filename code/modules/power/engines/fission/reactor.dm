@@ -36,7 +36,9 @@
 
 #define HEAT_DAMAGE_RATE 500 // The rate at which damage increases due to heat
 #define MOL_MINIMUM 100 // The amount of mols of gas needed before it begins to take damage while operational
-#define DAMAGE_MINIMUM 0.002 // The minimum amount of damage done when taking damage
+#define PRESSURE_MAXIMUM 20000 // The highest safe pressure allowed by the reactor
+#define PRESSURE_DAMAGE 0.5 // the minimum damage caused by overpresurization
+#define DAMAGE_MINIMUM 0.002 // The minimum amount of damage done when taking any damage
 #define DAMAGE_MAXIMUM 3 // The highest amount of damage done when taking damage
 #define MOL_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from no gas
 #define HEAT_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from high heat
@@ -54,11 +56,11 @@
 // #warn Idea todo: Add a button on the monitor to activate venting
 // #warn Idea todo: make ripleys interact safely with rod chambers
 
+#warn add reactor repair
 #warn reverse the control rod up/down position
 #warn fix the final countdown not pulling some chambers down
 #warn fix neighbor adjacency getting removed
-#warn vital todo: cap negative power gen
-#warn vital todo: make pressure affect shit
+
 #warn Idea todo: Allow grilling on an active reactor
 #warn Idea todo: Make some lavaland loot into special rods/upgrades
 #warn Idea todo: Bananium rods?
@@ -525,8 +527,7 @@
 	final_heat *= ((operating_power / 100) * (reactivity_multiplier * 2) * HEAT_MODIFIER) // proportionally affects heat more
 	final_power *= ((operating_power / 100) * reactivity_multiplier)
 
-	if(!can_create_power)
-		return
+	final_power = max(final_power, 0) // no negative numbers
 
 	var/heat_capacity = air_contents.heat_capacity()
 	if(heat_capacity)
@@ -536,7 +537,6 @@
 			air_contents.set_temperature(max(temp + (final_heat / heat_capacity), temp + 2))
 		else
 			air_contents.set_temperature(temp + rand(5, 20)) // lets limit a severe overheat but not stop it
-
 
 	temp = air_contents.temperature()
 	if(temp > heat_damage_threshold * 0.9)
@@ -551,7 +551,7 @@
 		new_damage += DAMAGE_MAXIMUM * MOL_DAMAGE_MULTIPLIER
 	else
 		if(total_mols <= MOL_MINIMUM)
-			new_damage += max((1 - (total_mols / MOL_MINIMUM) * MOL_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
+			new_damage += max((1 - (MOL_MINIMUM / total_mols) * MOL_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
 		if(check_overheating())
 			// breaking the equasion up a little for readability. Should look like this: Y = (-AB ^ -X) + A
 			var/rate_of_decay = 1.125 // closer to 1 = slower to reach DAMAGE_MAXIMUM. Do not set at or below 1 it will break
@@ -559,7 +559,11 @@
 			var/damage_calculation = (-DAMAGE_MAXIMUM * (rate_of_decay ** damage_increments)) + DAMAGE_MAXIMUM
 			new_damage += max(damage_calculation * HEAT_DAMAGE_MULTIPLIER, DAMAGE_MINIMUM) // god math sucks. This gives decaying increments of damage for heat generation as it gets closer to DAMAGE_MAXIMUM.
 
-			if(prob(new_damage * EVENT_MODIFIER))
+			var/pressure = air_contents.return_pressure()
+			if(pressure > PRESSURE_MAXIMUM)
+				new_damage = max(new_damage, PRESSURE_DAMAGE + (rand(1,30) / 100))
+
+			if(prob(new_damage * EVENT_MODIFIER)) // rod ejection events
 				var/list/coolers = list()
 				for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 					if(istype(chamber.held_rod, /obj/item/nuclear_rod/coolant) && chamber.chamber_state == CHAMBER_DOWN)
@@ -568,7 +572,7 @@
 					var/obj/machinery/atmospherics/reactor_chamber/failure = coolers[rand(1, length(coolers))]
 					if(!failure.welded) // you got lucky punk
 						failure.eject_rod()
-			if(prob(new_damage * EVENT_MODIFIER))
+			if(prob(new_damage * EVENT_MODIFIER)) // weld event
 				var/list/valid_chambers = list()
 				for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 					if(chamber.chamber_state == CHAMBER_DOWN)
@@ -775,6 +779,9 @@
 	var/mols = air_contents.total_moles()
 	if(!mols)
 		return TRUE
+	var/pressure = air_contents.return_pressure()
+	if(pressure > PRESSURE_MAXIMUM)
+		return TRUE
 	if(temp >= heat_damage_threshold)
 		return TRUE
 	return FALSE
@@ -920,7 +927,7 @@
 	if(!held_rod)
 		return
 	if(chamber_state == CHAMBER_OPEN)
-		var/mutable_appearance/rod_overlay = mutable_appearance(layer = ABOVE_MOB_LAYER + 0.01)
+		var/mutable_appearance/rod_overlay = mutable_appearance(layer = ABOVE_ALL_MOB_LAYER + 0.01)
 		rod_overlay.icon = held_rod.icon
 		rod_overlay.icon_state = held_rod.icon_state
 		rod_overlay.pixel_y = 14
@@ -1127,7 +1134,7 @@
 	if(playsound)
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 
-	update_icon(UPDATE_OVERLAYS)
+	update_icon()
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
 		if(!chamber.held_rod)
 			return
@@ -1149,7 +1156,7 @@
 		chamber_state = CHAMBER_DOWN
 		icon_state = "chamber_down"
 		if(!held_rod)
-			update_icon(UPDATE_OVERLAYS)
+			update_icon()
 			return
 		if(check_status())
 			requirements_met = TRUE
@@ -1157,7 +1164,7 @@
 			requirements_met = FALSE
 		check_minimum_modifier()
 		calculate_stats()
-	update_icon(UPDATE_OVERLAYS)
+	update_icon()
 	if(playsound)
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 
@@ -1212,14 +1219,15 @@
 	var/turf/nearby_turf
 	for(var/direction in GLOB.cardinal)
 		nearby_turf = get_step(src, direction)
-		for(var/obj/machinery/atmospherics/fission_reactor/reactor in nearby_turf.contents)
-			form_link(reactor)
-			continue
 		for(var/obj/machinery/atmospherics/reactor_chamber/chamber in nearby_turf.contents)
 			if(chamber.linked_reactor)
 				linked_reactor = chamber.linked_reactor
 				spread_link(linked_reactor)
-				continue
+				return
+		for(var/obj/machinery/atmospherics/fission_reactor/reactor in nearby_turf.contents)
+			form_link(reactor)
+			return
+
 
 
 /// validates that all rod requirements are being met
@@ -1227,7 +1235,8 @@
 	if(!held_rod)
 		return FALSE
 
-	var/list/temp_requirements = held_rod.adjacent_requirements // a temporary modable holder
+	var/list/temp_requirements = list()
+	temp_requirements += held_rod.adjacent_requirements // a temporary modable holder
 	if(!temp_requirements)
 		return TRUE
 
@@ -1251,13 +1260,16 @@
 		return
 	if(chamber_state != CHAMBER_DOWN) /// we should only process reactor info when down
 		return
+	if(linked_reactor && linked_reactor.safety_override && !linked_reactor.control_lockout) // we only remove control lockout when the others are ready
+		if(chamber_state == CHAMBER_OVERLOAD_IDLE && istype(held_rod, /obj/item/nuclear_rod/fuel))
+			set_active_overload() // for latejoiners
 	if(!requirements_met && !operational)
 		if(check_status())
 			requirements_met = TRUE
 			update_icon(UPDATE_OVERLAYS)
 			return
 	if(requirements_met && !operational)
-		if(prob(30))
+		if(prob(20))
 			operational = TRUE
 			for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
 				if(chamber.held_rod)
@@ -1265,13 +1277,12 @@
 			update_icon(UPDATE_OVERLAYS)
 			return
 	if(!requirements_met && operational) /// if it loses requirements, it wont immediately turn off
-		if(istype(held_rod.type, /obj/item/nuclear_rod/fuel))
-			if(prob(1)) // Lower rate of fuel rod failures once they're already on. Good luck.
+		if(istype(held_rod.type, /obj/item/nuclear_rod/coolant))
+			if(prob(10)) // higher rates of coolant rod failures once they're already on. Good luck.
 				operational = FALSE
-				enriching = TRUE
 				update_icon(UPDATE_OVERLAYS)
-		else if(prob(10))
-			enriching = TRUE
+		else if(prob(1))
+			enriching = FALSE
 			operational = FALSE
 			update_icon(UPDATE_OVERLAYS)
 		return
@@ -1673,8 +1684,8 @@
 	if(active.control_lockout)
 		data["NGCR_throttle"] = 0
 	else
-		data["NGCR_throttle"] = active.desired_power
-	data["NGCR_operatingpower"] = active.operating_power
+		data["NGCR_throttle"] = 100 - active.desired_power
+	data["NGCR_operatingpower"] = 100 - active.operating_power
 	var/list/gasdata = list()
 	var/TM = air.total_moles()
 	if(TM)
@@ -1703,7 +1714,8 @@
 		return
 
 	if(action == "set_throttle")
-		active.desired_power = text2num(params["NGCR_throttle"])
+		var/temp_number = text2num(params["NGCR_throttle"])
+		active.desired_power = 100 - temp_number
 
 	if(action == "toggle_vent")
 		if(active.vent_lockout)
