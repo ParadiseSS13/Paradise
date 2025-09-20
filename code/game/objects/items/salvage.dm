@@ -9,6 +9,8 @@
 	hitsound = 'sound/items/handling/salvagepickup.ogg'
 	pickup_sound = 'sound/items/handling/salvagepickup.ogg'
 	drop_sound = 'sound/items/handling/salvagedrop.ogg'
+	/// How much is the salvage worth?
+	var/value = 100
 
 /obj/item/salvage/examine(mob/user)
 	. = ..()

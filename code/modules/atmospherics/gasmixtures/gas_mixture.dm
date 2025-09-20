@@ -58,43 +58,78 @@ What are the archived variables for?
 	return private_oxygen
 
 /datum/gas_mixture/proc/set_oxygen(value)
-	private_oxygen = value
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_oxygen = clamped
 
 /datum/gas_mixture/proc/carbon_dioxide()
 	return private_carbon_dioxide
 
 /datum/gas_mixture/proc/set_carbon_dioxide(value)
-	private_carbon_dioxide = value
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_carbon_dioxide = clamped
 
 /datum/gas_mixture/proc/nitrogen()
 	return private_nitrogen
 
 /datum/gas_mixture/proc/set_nitrogen(value)
-	private_nitrogen = value
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_nitrogen = clamped
 
 /datum/gas_mixture/proc/toxins()
 	return private_toxins
 
 /datum/gas_mixture/proc/set_toxins(value)
-	private_toxins = value
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_toxins = clamped
 
 /datum/gas_mixture/proc/sleeping_agent()
 	return private_sleeping_agent
 
 /datum/gas_mixture/proc/set_sleeping_agent(value)
-	private_sleeping_agent = value
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_sleeping_agent = clamped
 
 /datum/gas_mixture/proc/agent_b()
 	return private_agent_b
 
 /datum/gas_mixture/proc/set_agent_b(value)
-	private_agent_b = value
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_agent_b = clamped
 
 /datum/gas_mixture/proc/temperature()
 	return private_temperature
 
 /datum/gas_mixture/proc/set_temperature(value)
-	private_temperature = value
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_temperature = clamped
 
 /datum/gas_mixture/proc/hotspot_temperature()
 	return private_hotspot_temperature
@@ -662,7 +697,7 @@ What are the archived variables for?
 	private_hotspot_volume = milla[MILLA_INDEX_HOTSPOT_VOLUME]
 	private_fuel_burnt = milla[MILLA_INDEX_FUEL_BURNT]
 
-/proc/share_many_airs(list/mixtures)
+/proc/share_many_airs(list/mixtures, atom/root)
 	var/total_volume = 0
 	var/total_oxygen = 0
 	var/total_nitrogen = 0
@@ -691,8 +726,11 @@ What are the archived variables for?
 		total_sleeping_agent += G.private_sleeping_agent
 		total_agent_b += G.private_agent_b
 
-	if(total_volume <= 0)
+	if(total_volume == 0)
 		return
+
+	if(total_volume < 0 || isnan(total_volume) || !isnum(total_volume) || total_oxygen < 0 || isnan(total_oxygen) || !isnum(total_oxygen) || total_nitrogen < 0 || isnan(total_nitrogen) || !isnum(total_nitrogen) || total_toxins < 0 || isnan(total_toxins) || !isnum(total_toxins) || total_carbon_dioxide < 0 || isnan(total_carbon_dioxide) || !isnum(total_carbon_dioxide) || total_sleeping_agent < 0 || isnan(total_sleeping_agent) || !isnum(total_sleeping_agent) || total_agent_b < 0 || isnan(total_agent_b) || !isnum(total_agent_b))
+		CRASH("A pipenet with [length(mixtures)] connected airs is corrupt and cannot flow safely. Pipenet root is [root] at ([root.x], [root.y], [root.z]).")
 
 	// If we don't have a significant temperature difference, check for a significant gas amount difference.
 	if(!must_share)
@@ -736,6 +774,9 @@ What are the archived variables for?
 	temperature = TCMB
 	if(total_heat_capacity > 0)
 		temperature = total_thermal_energy/total_heat_capacity
+
+	if(temperature <= 0 || isnan(temperature) || !isnum(temperature))
+		CRASH("A pipenet with [length(mixtures)] connected airs is corrupt and cannot flow safely. Pipenet root is [root] at ([root.x], [root.y], [root.z]).")
 
 	// Update individual gas_mixtures by volume ratio.
 	for(var/datum/gas_mixture/G in mixtures)
