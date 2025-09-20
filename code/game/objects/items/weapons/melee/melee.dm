@@ -240,7 +240,7 @@
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		var/obj/item/organ/external/targetlimb = H.get_organ(ran_zone(user.zone_selected))
-		H.apply_damage(burn_damage, BURN, targetlimb, H.run_armor_check(targetlimb, MELEE))
+		H.apply_damage(burn_damage, BURN, targetlimb, H.run_armor_check(targetlimb, MELEE, armor_penetration_percentage = armor_penetration_percentage))
 	else
 		L.apply_damage(burn_damage, BURN)
 	deduct_charge(burn_hitcost)
