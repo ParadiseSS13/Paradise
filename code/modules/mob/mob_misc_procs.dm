@@ -856,3 +856,9 @@
 		// No, I don't like it either.
 		remove_from_all_data_huds()
 		add_to_all_human_data_huds()
+
+
+/// Called after the atom is 'tamed' for type-specific operations, Usually called by the tameable component but also other things.
+/mob/proc/tamed(mob/living/tamer, obj/item/food)
+	return
+
