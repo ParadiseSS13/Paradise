@@ -42,3 +42,5 @@ TILES_DECAL_HELPER(jobs/bar, 'icons/turf/decals/floormarkings/jobs/bar_decals.dm
 TILES_DECAL_HELPER(dark, 'icons/turf/decals/floormarkings/departmental/dark_decals.dmi')
 TILES_DECAL_HELPER(neutral, 'icons/turf/decals/floormarkings/departmental/neutral_decals.dmi')
 TILES_DECAL_HELPER(white, 'icons/turf/decals/floormarkings/departmental/white_decals.dmi')
+
+#undef TILES_DECAL_HELPER

@@ -13,7 +13,6 @@
 	if(!istype(T)) //you know this will happen somehow
 		CRASH("Turf decal initialized in an object/nullspace")
 
-	var/description = length(desc) ? desc : null
 	T.AddElement(/datum/element/decal, icon, icon_state, _dir || dir, layer, alpha, color, FALSE, decal_description)
 
 /obj/effect/turf_decal/trimline
