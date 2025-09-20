@@ -355,7 +355,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(O, "<span class='warning'>You can't respawn before the game starts!</span>")
 		return
 
-	if(GAMEMODE_IS_WIZARD || GAMEMODE_IS_NUCLEAR)
+	if(GAMEMODE_IS_WIZARD || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_RAGIN_MAGES)
 		to_chat(O, "<span class='warning'>You can't respawn for this gamemode.</span>")
 		return
 
