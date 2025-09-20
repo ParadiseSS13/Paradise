@@ -11,7 +11,7 @@
 	active_power_consumption = 200
 	pass_flags = PASSTABLE
 
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/clothing/suit/armor/reactive, /obj/item/wormhole_jaunter/wormhole_weaver, /obj/item/clothing/neck/link_scryer)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/clothing/suit/armor/reactive, /obj/item/wormhole_jaunter/wormhole_weaver, /obj/item/clothing/neck/link_scryer, /obj/item/melee/secsword)
 	var/recharge_coeff = 1
 
 	var/obj/item/charging = null // The item that is being charged

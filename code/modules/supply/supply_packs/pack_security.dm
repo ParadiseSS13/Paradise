@@ -221,6 +221,14 @@
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy shotgun crate"
 
+/datum/supply_packs/security/armory/securiblades
+	name = "Securiblade Crate"
+	contains = list(/obj/item/storage/belt/sheath/secsword,
+		/obj/item/storage/belt/sheath/secsword)
+	cost = 600
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "securiblade crate"
+
 /datum/supply_packs/security/armory/stingers
 	name = "Stinger Grenade Crate"
 	contains = list(/obj/item/storage/box/stingers,
