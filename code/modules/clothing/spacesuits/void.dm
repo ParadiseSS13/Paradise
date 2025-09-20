@@ -76,7 +76,7 @@
 	icon_state = "void-syndi"
 	desc = "A hastily-modified void helmet reinforced with metal plates and kevlar scraps. It's covered in a strange coating that seems to repel acidic substances."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
+	armor = /obj/item/clothing/suit/space/void/syndi::armor
 
 /obj/item/clothing/suit/space/void/syndi
 	name = "blood-red antique void suit"
@@ -84,7 +84,7 @@
 	desc = "A hastily-modified void suit reinforced with metal plates and kevlar scraps. It's covered in a strange coating that seems to repel acidic substances."
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
-	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, RAD = 30, FIRE = 80, ACID = 85)
 
 //random spawner
 

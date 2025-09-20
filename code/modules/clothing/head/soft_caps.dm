@@ -107,7 +107,7 @@
 	desc = "It's a baseball hat in the brown and blue markings of the expedition team."
 	icon_state = "expeditionsoft"
 	item_color = "expedition"
-	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 0, RAD = 0, FIRE = 15, ACID = 50)
 
 /obj/item/clothing/head/soft/smith
 	name = "smith's cap"
@@ -152,7 +152,7 @@
 	desc = "It's baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	item_color = "sec"
-	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 
 /obj/item/clothing/head/soft/sec/corp
@@ -169,7 +169,7 @@
 	dog_fashion = null
 
 /obj/item/clothing/head/soft/solgov/marines
-	armor = list(MELEE = 10, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
+	armor = list(MELEE = 20, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 50, ACID = 60)
 	icon_state = "solgovsoft_flipped"
 	strip_delay = 60
 	flipped = TRUE
@@ -177,7 +177,7 @@
 /obj/item/clothing/head/soft/solgov/marines/elite
 	name = "\improper MARSOC cap"
 	desc = "A cap worn by marines of the Trans-Solar Federation's Marine Special Operations Command. You aren't quite sure how they made this bulletproof, but you are glad it is!"
-	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 35, BULLET = 60, LASER = 10, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = 80, ACID = 80)
 	icon_state = "solgovelitesoft_flipped"
 	item_color = "solgovelite"
 	resistance_flags = FIRE_PROOF
@@ -193,7 +193,7 @@
 /obj/item/clothing/head/soft/solgov/marines/command/elite
 	name = "\improper MARSOC Lieutenant's cap"
 	desc = "A cap worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. You aren't quite sure how they made this bulletproof, but you are glad it is! The insignia signifies the wearer bears the rank of a Lieutenant."
-	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 35, BULLET = 60, LASER = 10, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = 80, ACID = 80)
 	icon_state = "solgovcelitesoft_flipped"
 	item_color = "solgovcelite"
 	resistance_flags = FIRE_PROOF

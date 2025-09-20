@@ -180,17 +180,28 @@ emp_act
 
 	return armor / mob_bodyparts
 
-/// This is an internal proc, returns the armor value for a particular bodypart [/obj/item/organ/external].
+/// This is an internal proc, returns the percentage armor value for a particular bodypart [/obj/item/organ/external].
 /// Use `getarmor()` instead
 /mob/living/carbon/human/proc/__getarmor_bodypart(obj/item/organ/external/def_zone, armor_type)
 	// Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	var/list/obj/item/worn_items = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck)
+	var/armor_value
+	var/armor_value_to_add
 
 	for(var/obj/item/thing in worn_items)
 		if(thing?.body_parts_covered & def_zone.body_part)
-			. += thing.armor.getRating(armor_type)
+			armor_value_to_add = PERCENTAGE_TO_ARMOR_VALUE(thing.armor.getRating(armor_type))
+			if(armor_value_to_add >= INFINITY)
+				return 100
+			armor_value += armor_value_to_add
 
-	. += physiology.armor.getRating(armor_type)
+	armor_value_to_add = PERCENTAGE_TO_ARMOR_VALUE(physiology.armor.getRating(armor_type))
+	if(armor_value_to_add >= INFINITY)
+		return 100
+	armor_value += armor_value_to_add
+	to_chat(world, "[ARMOR_VALUE_TO_PERCENTAGE(armor_value)]")
+
+	return ARMOR_VALUE_TO_PERCENTAGE(armor_value)
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
 /mob/living/carbon/human/proc/get_siemens_coefficient_organ(obj/item/organ/external/def_zone)

@@ -113,7 +113,7 @@
 	icon_state = "chemistry"
 	item_color = "chemistry"
 	permeability_coefficient = 0.3
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 95)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 65)
 
 /obj/item/clothing/under/rank/medical/chemist/skirt
 	name = "chemist's jumpskirt"
@@ -127,7 +127,7 @@
 	icon_state = "paramedic"
 	item_color = "paramedic"
 	permeability_coefficient = 0.3
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 5, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/paramedic/skirt
 	name = "paramedic's jumpskirt"

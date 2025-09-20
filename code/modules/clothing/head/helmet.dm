@@ -5,7 +5,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	flags = HEADBANGPROTECT
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 50, ACID = 50)
 	flags_inv = HIDEEARS|HIDEEYES
 	cold_protection = HEAD
 	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
@@ -80,14 +80,14 @@
 	name = "bulletproof helmet"
 	desc = "A durable combat helmet reinforced with strike plates and cushioning to protect against high-velocity kinetic impacts and the concussive force of explosions. Does little to stop energy weapons or melee hits."
 	icon_state = "bulletproof"
-	armor = list(MELEE = 10, BULLET = 50, LASER = 5, ENERGY = 5, BOMB = 45, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 50, LASER = 10, ENERGY = 10, BOMB = 40, RAD = 0, FIRE = 50, ACID = 50)
 	dog_fashion = null
 
 /obj/item/clothing/head/helmet/riot
 	name = "riot helmet"
 	desc = "A large, bulky helmet reinforced with impact plates and shock-absorbing gel to protect against melee attacks. The helmet is treated with a fire and acid-resistant surface coating, and the attached plexiglass visor should prevent things from jumping on your face."
 	icon_state = "riot"
-	armor = list(MELEE = 50, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 0, RAD = 0, FIRE = 80, ACID = 80)
 	flags_inv = HIDEEARS
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
@@ -126,7 +126,7 @@
 	desc = "A menacing black combat helmet used by police assault units. Provides moderate protection against all threats."
 	icon_state = "swat"
 	inhand_icon_state = "swat_hel"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, RAD = 10, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 50, RAD = 20, FIRE = 50, ACID = 50)
 	flags = BLOCKHAIR
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
@@ -142,7 +142,7 @@
 	name = "\improper Thunderdome helmet"
 	desc = "<i>'Let the battle commence!'</i>"
 	icon_state = "thunderdome"
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = 450, ACID = 450)
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, RAD = 100, FIRE = 90, ACID = 90)
 	flags = null
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -154,7 +154,7 @@
 	name = "legionnaire helmet"
 	desc = "A lovingly-crafted helmet based off examples used by Roman legionnaires. Provides light protection against melee and laser impacts. It's also completely fireproof!"
 	flags = null
-	armor = list(MELEE = 15, BULLET = 0, LASER = 15, ENERGY = 5, BOMB = 5, RAD = 0, FIRE = INFINITY, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 0, LASER = 25, ENERGY = 10, BOMB = 10, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	icon_state = "roman"
 	strip_delay = 100
@@ -192,7 +192,7 @@
 	desc = "They have chosen their own end."
 	icon_state = "redtaghelm"
 	flags = null
-	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 0, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 10, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 0, FIRE = 0, ACID = 50)
 	// Offer about the same protection as a hardhat.
 	dog_fashion = null
 
@@ -201,7 +201,7 @@
 	desc = "They'll need more men."
 	icon_state = "bluetaghelm"
 	flags = null
-	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 0, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 10, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 0, FIRE = 0, ACID = 50)
 	// Offer about the same protection as a hardhat.
 	dog_fashion = null
 
@@ -226,13 +226,13 @@
 	name = "crusader helmet"
 	desc = "A cheap metal helmet that looks straight out of a poorly-funded documentary about the crusades. Might stop a crude melee weapon. The asbestos-lined padding <b>does</b> provide great protection from fire and acid, however..."
 	icon_state = "knight_templar"
-	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, RAD = 0, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 20, BULLET = 7, LASER = 2, ENERGY = 2, BOMB = 2, RAD = 0, FIRE = 80, ACID = 80)
 
 /obj/item/clothing/head/helmet/skull
 	name = "skull helmet"
 	desc = "An intimidating tribal helmet, it looks sick as hell."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 50, ACID = 50)
 	icon_state = "skull"
 	strip_delay = 100
 	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/head.dmi')
@@ -241,7 +241,7 @@
 	name = "durathread helmet"
 	desc = "A helmet made from durathread and leather."
 	icon_state = "durathread"
-	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 35, ACID = 50)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 30, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 40, ACID = 50)
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/helmet.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
@@ -328,7 +328,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	flash_protect = FLASH_PROTECTION_WELDER
-	armor = list(MELEE = 40, BULLET = 45, LASER = 45, ENERGY = 40, BOMB = 100, RAD = 25, FIRE = INFINITY, ACID = 100)
+	armor = list(MELEE = 45, BULLET = 45, LASER = 45, ENERGY = 45, BOMB = 65, RAD = 35, FIRE = 100, ACID = 65)
 	strip_delay = 130
 
 /obj/item/clothing/head/helmet/federation/marine/export
@@ -347,7 +347,7 @@
 	see_in_dark = 0
 	lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	flash_protect = FLASH_PROTECTION_NONE
-	armor = list(MELEE = 30, BULLET = 35, LASER = 35, ENERGY = 30, BOMB = 50, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 50, RAD = 0, FIRE = 65, ACID = 50)
 
 /obj/item/clothing/head/helmet/federation/marine/officer
 	name = "\improper Federation marine officer's combat helmet"
@@ -363,4 +363,3 @@
 		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
 	)
 	vision_flags = SEE_MOBS
-	armor = list(MELEE = 40, BULLET = 45, LASER = 45, ENERGY = 40, BOMB = 100, RAD = 25, FIRE = INFINITY, ACID = 100)

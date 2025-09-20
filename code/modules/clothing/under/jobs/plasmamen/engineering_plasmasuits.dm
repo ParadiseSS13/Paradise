@@ -3,7 +3,7 @@
 	desc = "An airtight suit designed to be used by plasmamen employed as engineers, the usual purple stripes being replaced by engineering's orange. It protects the user from fire and acid damage."
 	icon_state = "engineer_envirosuit"
 	item_color = "engineer_envirosuit"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 15, FIRE = 95, ACID = 95)
 
 /obj/item/clothing/under/plasmaman/engineering/ce
 	name = "chief engineer's plasma envirosuit"

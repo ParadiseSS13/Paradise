@@ -14,7 +14,7 @@
 	desc = "It's a yellow dress shirt and black slacks given to those engineers insane enough to achieve the rank of \"Chief engineer\". It has minor radiation shielding."
 	icon_state = "ce"
 	item_color = "ce"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 5, FIRE = 200, ACID = 35)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 80, ACID = 40)
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineering/chief_engineer/skirt
@@ -79,7 +79,7 @@
 	desc = "It's an orange high visibility jumpsuit worn by engineers. It has minor radiation shielding."
 	icon_state = "engineer"
 	item_color = "engineer"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 5, FIRE = 75, ACID = 10)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 60, ACID = 15)
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineering/engineer/sensor

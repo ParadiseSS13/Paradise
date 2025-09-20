@@ -55,10 +55,10 @@
 		return
 
 	var/resist = human.getarmor(armor_type = RAD)
-	if(resist == INFINITY)
+	if(resist >= 100)
 		return
 
-	if(prob(max(0, 100 - ARMOUR_VALUE_TO_PERCENTAGE(resist))))
+	if(prob(max(0, 100 - resist)))
 		human.base_rad_act(human, RAD_STORM_RAD_AMOUNT, BETA_RAD)
 		if(HAS_TRAIT(human, TRAIT_GENELESS))
 			return

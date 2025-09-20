@@ -200,7 +200,7 @@
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	strip_delay = 8 SECONDS
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 50)
 
 /obj/item/clothing/gloves/color/black/krav_maga/combat/examine_more(mob/user)
 	..()

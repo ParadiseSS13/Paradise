@@ -19,7 +19,7 @@
 	var/affect_silicon = FALSE
 	/// The amount of stamina damage the baton does per swing
 	var/stamina_damage = 30
-	/// How much melee armour is ignored by the stamina damage
+	/// How much melee armor is ignored by the stamina damage
 	var/stamina_armor_pen = 0
 	/// The stun time (in seconds) for non-silicons
 	var/knockdown_duration = 6 SECONDS
@@ -123,13 +123,8 @@
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/on_non_silicon_stun(mob/living/target, mob/living/user)
-	var/armour = target.run_armor_check(BODY_ZONE_CHEST, armor_penetration_percentage = stamina_armor_pen) // returns their chest melee armour
-	var/percentage_reduction = 0
-	if(ishuman(target))
-		percentage_reduction = (100 - ARMOUR_VALUE_TO_PERCENTAGE(armour)) / 100
-	else
-		percentage_reduction = (100 - armour) / 100 // converts the % into a decimal
-	target.apply_damage(stamina_damage * percentage_reduction, STAMINA)
+	var/armor = target.run_armor_check(BODY_ZONE_CHEST, armor_penetration_flat = stamina_armor_pen) // returns their chest melee armor
+	target.apply_damage(stamina_damage, STAMINA, blocked = armor)
 
 /obj/item/melee/classic_baton/proc/baton_delay(mob/living/target, user_UID)
 	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)

@@ -239,7 +239,7 @@
 /obj/item/projectile/bullet/dart/on_hit(atom/target, blocked = 0, hit_zone)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		if(blocked != INFINITY)
+		if(blocked < 100)
 			if(M.can_inject(null, FALSE, hit_zone, penetrate_thick)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
 
@@ -247,7 +247,7 @@
 				reagents.trans_to(M, reagents.total_volume)
 				return TRUE
 			else
-				blocked = INFINITY
+				blocked = 100
 				target.visible_message("<span class='danger'>[src] was deflected!</span>", \
 									"<span class='userdanger'>You were protected against [src]!</span>")
 	..(target, blocked, hit_zone)
