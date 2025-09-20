@@ -19,7 +19,7 @@
 	/// Forbid players from rejoining if they use AntagHUD?
 	var/restrict_antag_hud_rejoin = TRUE
 	/// Enable respawns by default?
-	var/respawn_enabled = FALSE
+	var/respawn_enabled = TRUE
 	/// Enable CID randomiser buster?
 	var/enabled_cid_randomiser_buster = FALSE
 	/// Forbid admins from posessing and flying the singulo round
@@ -82,6 +82,8 @@
 	var/bomb_cap = 20
 	/// Time for a brain to keep its spark of life (deciseconds)
 	var/revival_brain_life = 10 MINUTES
+	/// Time to wait before you can respawn as a new character.
+	var/respawn_delay = 10 MINUTES
 	/// Enable random AI lawsets from the default=TRUE pool
 	var/random_ai_lawset = TRUE
 	/// Enable weather events initialized by SSweather. New weather events can still
@@ -134,6 +136,7 @@
 	CONFIG_LOAD_NUM(monkey_cube_cap, data["monkey_cube_cap"])
 	CONFIG_LOAD_NUM(bomb_cap, data["bomb_cap"])
 	CONFIG_LOAD_NUM(revival_brain_life, data["revival_brain_life"])
+	CONFIG_LOAD_NUM(respawn_delay, data["respawn_delay"])
 
 	// Strings
 	CONFIG_LOAD_STR(server_name, data["server_name"])
