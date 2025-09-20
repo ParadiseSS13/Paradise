@@ -385,7 +385,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(tgui_alert(O, "Are you sure you want to respawn?\n(If you do this, you won't be able to be cloned!)", "Respawn?", list("Yes", "No")) != "Yes")
 		return
 
-	log_and_message_admins("[key_name(O)][O.mind.current?.mind.special_role ? " (<font color='red'>[O.mind.current.mind.special_role]</font>)" : ""] has chosen to respawn as a new character.")
+	log_and_message_admins("[key_name(O)][O.mind?.current? (O.mind.current.mind.special_role? " (<font color='red'>[O.mind.current.mind.special_role]</font>)" : "") : ""] has chosen to respawn as a new character.")
 
 	var/list/warning = list()
 	warning.Add("<span class='big'>You have chosen to respawn as a new character!</span>")
