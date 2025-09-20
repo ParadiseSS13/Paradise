@@ -8950,14 +8950,6 @@
 /obj/structure/flora/rock/pile/largejungle,
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
-"Ef" = (
-/obj/structure/table/reinforced,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/machinery/recharger,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/escape)
 "Eh" = (
 /obj/item/stack/rods/ten,
 /obj/item/wirecutters,
@@ -9065,7 +9057,6 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ghost_bar)
 "EF" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/cell_charger{
 	pixel_y = 11
 	},
@@ -10372,7 +10363,6 @@
 /area/centcom/specops)
 "IR" = (
 /obj/structure/table/reinforced,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "IS" = (
@@ -10603,11 +10593,6 @@
 	icon_state = "cafeteria"
 	},
 /area/tdome/tdomeobserve)
-"JC" = (
-/obj/structure/closet/walllocker/emerglocker/directional/south,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel,
-/area/shuttle/escape)
 "JD" = (
 /obj/machinery/computer/shuttle/ferry,
 /turf/simulated/floor/plasteel{
@@ -12918,14 +12903,6 @@
 /obj/machinery/door/airlock/titanium/glass{
 	id_tag = "s_docking_airlock"
 	},
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 16;
-	height = 21;
-	id = "emergency_away";
-	name = "emergency centcom";
-	width = 41
-	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "QI" = (
@@ -14010,11 +13987,6 @@
 /obj/item/lighter,
 /turf/simulated/floor/wood,
 /area/centcom/control)
-"Uo" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel,
-/area/shuttle/escape)
 "Up" = (
 /obj/item/caution/proximity_sign,
 /obj/item/caution/proximity_sign,
@@ -50917,7 +50889,7 @@ LJ
 ND
 LN
 od
-Uo
+iH
 SF
 ff
 ff
@@ -50931,7 +50903,7 @@ ff
 ff
 ff
 VO
-JC
+zI
 od
 Iv
 Zp
@@ -51935,7 +51907,7 @@ aN
 aN
 rK
 od
-Ef
+LP
 Fn
 Gs
 Hl
@@ -53487,7 +53459,7 @@ LU
 LU
 od
 od
-Uo
+zI
 Wc
 LR
 LR
@@ -53501,7 +53473,7 @@ LR
 LR
 xk
 VP
-JC
+zI
 od
 Iv
 Zp
@@ -54767,10 +54739,10 @@ aN
 aN
 aN
 od
-Uo
+zI
 Mc
 NM
-JC
+zI
 od
 Rf
 ST

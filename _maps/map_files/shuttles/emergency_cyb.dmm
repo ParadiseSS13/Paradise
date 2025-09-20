@@ -9,14 +9,6 @@
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
-"ae" = (
-/obj/structure/table/reinforced,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/machinery/recharger,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/escape)
 "af" = (
 /obj/machinery/light{
 	dir = 4
@@ -64,7 +56,6 @@
 	},
 /area/shuttle/escape)
 "al" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/cell_charger{
 	pixel_y = 11
 	},
@@ -213,7 +204,6 @@
 /area/shuttle/escape)
 "aG" = (
 /obj/structure/table/reinforced,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aH" = (
@@ -281,11 +271,6 @@
 /area/shuttle/escape)
 "aU" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/plasteel,
-/area/shuttle/escape)
-"aV" = (
-/obj/structure/closet/walllocker/emerglocker/directional/south,
-/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "aW" = (
@@ -563,11 +548,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/escape)
-"bP" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bQ" = (
@@ -935,7 +915,7 @@ aW
 az
 aH
 ab
-bP
+ap
 bJ
 cr
 cr
@@ -949,7 +929,7 @@ cr
 cr
 cr
 cA
-aV
+aA
 ab
 bu
 bw
@@ -1053,7 +1033,7 @@ cH
 (6,1,1) = {"
 ab
 ab
-ae
+aY
 am
 ar
 ay
@@ -1255,7 +1235,7 @@ be
 be
 ab
 ab
-bP
+aA
 bK
 ba
 ba
@@ -1269,7 +1249,7 @@ ba
 ba
 bQ
 ck
-aV
+aA
 ab
 bu
 bw
@@ -1410,10 +1390,10 @@ aa
 aa
 aa
 ab
-bP
+aA
 bh
 bm
-aV
+aA
 ab
 bI
 bO
