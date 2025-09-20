@@ -59,8 +59,6 @@
 /obj/item/clothing/shoes/leather/jump
 	name = "boots of jumping"
 	desc = "Boots with the sole purpose of jumping."
-	icon_state = "leather"
-	item_color = "leather"
 
 /obj/item/clothing/shoes/leather/jump/equipped(mob/user, slot, initial)
 	. = ..()
