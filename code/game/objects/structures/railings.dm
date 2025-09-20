@@ -43,9 +43,9 @@
 /obj/structure/railing/cap/reversed
 	icon_state = "railing_cap_reversed"
 
-/obj/structure/railing/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	..()
-	add_fingerprint(user)
+/obj/structure/railing/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	. = ..()
+	add_fingerprint(user) // No clue why this is happening here
 
 /obj/structure/railing/attack_animal(mob/living/simple_animal/M)
 	. = ..()

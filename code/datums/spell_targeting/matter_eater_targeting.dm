@@ -14,8 +14,8 @@
 		/mob/living/simple_animal/slime,
 		/mob/living/carbon/alien/larva,
 		/mob/living/simple_animal/slime,
-		/mob/living/simple_animal/chick,
-		/mob/living/simple_animal/chicken,
+		/mob/living/basic/chick,
+		/mob/living/basic/chicken,
 		/mob/living/basic/lizard,
 		/mob/living/basic/cow,
 		/mob/living/simple_animal/spiderbot

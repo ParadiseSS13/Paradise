@@ -48,8 +48,16 @@
 		"eyes" =     /obj/item/organ/internal/eyes/unathi //3 darksight.
 		)
 
-	allowed_consumed_mobs = list(/mob/living/basic/mouse, /mob/living/basic/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
-								/mob/living/simple_animal/crab, /mob/living/basic/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/hostile/poison/bees)
+	allowed_consumed_mobs = list(
+		/mob/living/basic/mouse,
+		/mob/living/basic/lizard,
+		/mob/living/basic/chick,
+		/mob/living/basic/chicken,
+		/mob/living/simple_animal/crab,
+		/mob/living/basic/butterfly,
+		/mob/living/simple_animal/parrot,
+		/mob/living/simple_animal/hostile/poison/bees,
+	)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
