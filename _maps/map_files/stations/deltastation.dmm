@@ -10922,6 +10922,15 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
+"aSj" = (
+/obj/machinery/flasher{
+	id = "Execution";
+	pixel_y = -27
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/execution)
 "aSp" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -13740,7 +13749,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
 "bdz" = (
-/mob/living/simple_animal/chicken/clucky,
+/mob/living/basic/chicken/clucky,
 /turf/simulated/floor/grass,
 /area/station/service/kitchen)
 "bdA" = (
@@ -46450,7 +46459,7 @@
 /area/station/science/research)
 "dxA" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/mob/living/simple_animal/chick{
+/mob/living/basic/chick{
 	name = "Sins"
 	},
 /turf/simulated/floor/grass,
@@ -52379,7 +52388,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/apple,
 /turf/simulated/floor/plasteel{
 	icon_state = "green";
 	dir = 1
@@ -55686,7 +55694,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/chili,
 /turf/simulated/floor/plasteel{
 	icon_state = "green";
 	dir = 4
@@ -58768,7 +58775,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/orange,
 /turf/simulated/floor/plasteel{
 	icon_state = "green";
 	dir = 4
@@ -61815,7 +61821,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/corn,
 /turf/simulated/floor/plasteel{
 	icon_state = "green";
 	dir = 1
@@ -68787,18 +68792,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"lLv" = (
-/obj/machinery/hydroponics/constructable{
-	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
-	name = "Prison hydroponics tray";
-	using_irrigation = 1
-	},
-/obj/item/seeds/amanita,
-/turf/simulated/floor/plasteel{
-	icon_state = "green";
-	dir = 1
-	},
-/area/station/security/permabrig)
 "lLN" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -75430,6 +75423,7 @@
 "oFa" = (
 /obj/structure/toilet/directional/east,
 /obj/machinery/newscaster/directional/north,
+/obj/item/seeds/ambrosia,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -75522,15 +75516,6 @@
 	icon_state = "tranquillite"
 	},
 /area/station/service/kitchen)
-"oHl" = (
-/obj/machinery/flasher{
-	id = "Execution";
-	pixel_y = -27
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/execution)
 "oHv" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -77524,8 +77509,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/carrot,
-/obj/structure/sign/poster/random/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -86509,7 +86492,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/retaliate/goat/chef,
+/mob/living/basic/goat/chef,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -88526,7 +88509,6 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/ambrosia,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"
@@ -89627,18 +89609,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
-"utT" = (
-/obj/machinery/hydroponics/constructable{
-	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
-	name = "Prison hydroponics tray";
-	using_irrigation = 1
-	},
-/obj/item/seeds/tobacco,
-/turf/simulated/floor/plasteel{
-	icon_state = "green";
-	dir = 4
-	},
-/area/station/security/permabrig)
 "uuh" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -91660,6 +91630,12 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"vmO" = (
+/obj/machinery/economy/vending/hydroseeds/perma,
+/turf/simulated/floor/plasteel{
+	icon_state = "green"
+	},
+/area/station/security/permabrig)
 "vmP" = (
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
@@ -93291,7 +93267,7 @@
 	name = "Prison hydroponics tray";
 	using_irrigation = 1
 	},
-/obj/item/seeds/wheat/rice,
+/obj/structure/sign/poster/random/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "green"
@@ -155990,7 +155966,7 @@ mcN
 eWc
 vWW
 mgM
-hHz
+vmO
 lqC
 jgK
 pfD
@@ -156264,7 +156240,7 @@ eud
 jbp
 uNJ
 vzV
-oHl
+aSj
 aMv
 aaa
 aaa
@@ -156498,7 +156474,7 @@ aWP
 aaa
 aaa
 trJ
-lLv
+iGe
 aVw
 eWc
 oeS
@@ -157014,7 +156990,7 @@ abj
 ygH
 ygH
 gRn
-utT
+fPa
 hmz
 fPa
 tKH
