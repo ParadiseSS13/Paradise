@@ -82,6 +82,8 @@ RESTRICT_TYPE(/datum/ai_controller)
 	var/datum/proximity_monitor/ai_interesting_dist/proxmon
 
 /datum/ai_controller/New(atom/new_pawn)
+	proxmon = new(src)
+
 	change_ai_movement_type(ai_movement)
 	init_subtrees()
 
@@ -90,8 +92,6 @@ RESTRICT_TYPE(/datum/ai_controller)
 
 	if(!isnull(new_pawn)) // unit tests need the ai_controller to exist in isolation due to list schenanigans i hate it here
 		possess_pawn(new_pawn)
-
-	proxmon = new(src)
 
 /datum/ai_controller/Destroy(force)
 	set_ai_status(AI_STATUS_OFF)
