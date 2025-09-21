@@ -165,6 +165,29 @@
 
 	return ..()
 
+/datum/reagent/nicotine/dense
+	name = "Densed Nicotine"
+	id = "dnicotine"
+	description = "Deals minor lung damage. If overdosed it will also deal toxin and oxygen damage."
+	color = "#305e47"
+	overdose_threshold = 15
+	minor_addiction = FALSE
+	taste_description = "harsh"
+
+/datum/reagent/nicotine/dense/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/death_smoke_message = pick("You feel grimy.", "You feel less lively.", "You feel more bleak.", "You feel you're dying inside.", "You feel you're one step closer to grave.")
+	if(prob(10))
+		to_chat(M, "<span class='warning'>[death_smoke_message]</span>")
+
+	var/obj/item/organ/internal/lungs/A = M.get_int_organ(/obj/item/organ/internal/lungs)
+	if(ishuman(M))
+		if(prob(5))
+			A.receive_damage(1)
+			M.emote("cough")
+
+	return ..() | update_flags
+
 // basic antistun chem, removes stuns and stamina, mild downsides
 /datum/reagent/crank
 	name = "Crank"

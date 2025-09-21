@@ -764,12 +764,9 @@
 	cloth_golem = null
 	qdel(src)
 
-/obj/structure/cloth_pile/attackby__legacy__attackchain(obj/item/P, mob/living/carbon/human/user, params)
-	. = ..()
-
-	if(resistance_flags & ON_FIRE)
-		return
-
-	if(P.get_heat())
+/obj/structure/cloth_pile/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!(resistance_flags & ON_FIRE) && used.get_heat())
 		visible_message("<span class='danger'>[src] bursts into flames!</span>")
 		fire_act()
+		return ITEM_INTERACT_COMPLETE
+

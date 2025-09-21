@@ -5,9 +5,8 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "camera_bug"
 	w_class	= WEIGHT_CLASS_TINY
-	item_state = "camera_bug"
-	throw_speed	= 4
-	throw_range	= 20
+	throw_speed = 4
+	throw_range = 20
 	origin_tech = "syndicate=1;engineering=3"
 	/// Integrated camera console to serve UI data
 	var/obj/machinery/computer/security/camera_bug/integrated_console

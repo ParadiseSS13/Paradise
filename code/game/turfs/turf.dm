@@ -550,7 +550,7 @@
 			var/obj/item/stack/cable_coil/C = used
 			for(var/obj/structure/cable/LC in src)
 				if(LC.d1 == 0 || LC.d2 == 0)
-					LC.attackby__legacy__attackchain(C, user)
+					LC.item_interaction(user, C)
 					return ITEM_INTERACT_COMPLETE
 			C.place_turf(src, user)
 			return ITEM_INTERACT_COMPLETE
@@ -559,7 +559,7 @@
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2 == 0)
-						LC.attackby__legacy__attackchain(R, user)
+						LC.item_interaction(user, R)
 						return ITEM_INTERACT_COMPLETE
 				R.loaded.place_turf(src, user)
 				R.is_empty(user)

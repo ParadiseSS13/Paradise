@@ -24,7 +24,7 @@
 		if(tank_volume && (damage_flag == BULLET || damage_flag == LASER))
 			boom(FALSE, TRUE)
 
-/obj/structure/reagent_dispensers/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/reagent_dispensers/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(I.is_refillable())
 		return FALSE //so we can refill them via their afterattack.
 	return ..()
@@ -176,11 +176,11 @@
 			lastrigger = null
 			overlays.Cut()
 
-/obj/structure/reagent_dispensers/fueltank/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/reagent_dispensers/fueltank/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/assembly_holder) && accepts_rig)
 		if(rig)
 			to_chat(user, "<span class='warning'>There is another device in the way.</span>")
-			return ..()
+			return ITEM_INTERACT_COMPLETE
 		user.visible_message("[user] begins rigging [I] to [src].", "You begin rigging [I] to [src]")
 		if(do_after(user, 20, target = src))
 			user.visible_message("<span class='notice'>[user] rigs [I] to [src].</span>", "<span class='notice'>You rig [I] to [src].</span>")
@@ -199,6 +199,7 @@
 				test.Shift(NORTH, 1)
 				test.Shift(EAST, 6)
 				overlays += test
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 
@@ -299,8 +300,7 @@
 	/// If TRUE, prevents the player from inserting the disk again while it is currently exploding.
 	var/exploding = FALSE
 
-/obj/structure/reagent_dispensers/beerkeg/nuke/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	. = ..()
+/obj/structure/reagent_dispensers/beerkeg/nuke/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(exploding)
 		return
 	if(!istype(O, /obj/item/disk/nuclear))
@@ -311,6 +311,7 @@
 	playsound(src, 'sound/machines/alarm.ogg', 100, FALSE, 0)
 	exploding = TRUE
 	addtimer(CALLBACK(src, PROC_REF(explode)), 13 SECONDS)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/structure/reagent_dispensers/beerkeg/nuke/proc/explode()
 	var/datum/reagents/R = new(100)

@@ -17,7 +17,7 @@
 	name = "\improper LG-5 laser carbine"
 	desc = "A compact and lightweight laser carbine manufactured by Shellguard Munitions Co. Considered the most widely used laserarm in the Orion sector, it only fires lethal rounds and requires a recharger to reload."
 	icon_state = "laser"
-	item_state = "laser"
+	inhand_icon_state = "laser"
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
@@ -73,10 +73,10 @@
 //////////////////////////////
 /obj/item/gun/energy/laser/retro
 	name ="\improper L-1 'retro' laser gun"
-	icon_state = "retro"
-	item_state = "retro"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. \
-	Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
+		Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
+	icon_state = "retro"
+	inhand_icon_state = "retro"
 	ammo_x_offset = 3
 
 /obj/item/gun/energy/laser/retro/examine_more(mob/user)
@@ -96,10 +96,10 @@
 //////////////////////////////
 /obj/item/gun/energy/laser/captain
 	name = "antique laser gun"
-	icon_state = "caplaser"
-	item_state = null
 	desc = "This is an antique laser gun. All craftsmanship is of the highest quality. It is decorated with bovine leather and chrome. \
-	The object menaces with spikes of energy. On the item is an image of Space Station 13. The station is exploding."
+		The object menaces with spikes of energy. On the item is an image of Space Station 13. The station is exploding."
+	icon_state = "caplaser"
+	inhand_icon_state = null
 	force = 10
 	origin_tech = null
 	ammo_x_offset = 3
@@ -134,9 +134,9 @@
 //////////////////////////////
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
-	icon_state = "lasercannon"
-	item_state = "laser"
 	desc = "A heavy-duty laser rifle fitted with a retractable prism that scatters its beam into multiple smaller shots. The fire selector has two settings: 'scatter', and 'kill'."
+	icon_state = "lasercannon"
+	modifystate = TRUE
 	origin_tech = "combat=5;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
 	shaded_charge = FALSE
@@ -161,7 +161,8 @@
 	name = "accelerator laser cannon"
 	desc = "An advanced laser cannon that does more damage the farther away the target is. At close range, damage is less than an LG-5 laser carbine shot."
 	icon_state = "lasercannon"
-	item_state = null
+	worn_icon_state = null
+	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	slot_flags = ITEM_SLOT_BACK
@@ -211,7 +212,8 @@
 	name = "\improper LWAP laser sniper"
 	desc = "A highly advanced laser sniper that does more damage the farther away the target is, but fires slowly. Comes with a super advanced scope, which can highlight threats through walls, and pierce one object, after being deployed for a while."
 	icon_state = "esniper"
-	item_state = null
+	worn_icon_state = null
+	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 12
 	slot_flags = ITEM_SLOT_BACK
@@ -304,7 +306,7 @@
 	name = "\improper X-ray laser gun"
 	desc = "A high-power laser gun capable of expelling concentrated X-ray beams. These beams can penetrate any number of solid objects, but will decrease in power the longer they have to travel."
 	icon_state = "xray"
-	item_state = null
+	inhand_icon_state = null
 	shaded_charge = TRUE
 	origin_tech = "combat=6;materials=4;magnets=4;syndicate=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
@@ -328,7 +330,7 @@
 	name = "immolator laser gun"
 	desc = "A laser rifle that shoots incendiary bolts, struck targets will be set on fire. Each shot consumes more energy than a regular laser rifle, draining the power cell more quickly."
 	icon_state = "immolator"
-	item_state = null
+	inhand_icon_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator)
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	shaded_charge = TRUE
@@ -350,7 +352,6 @@
 	name = "multi-lens immolator cannon"
 	desc = "The bigger brother of the Immolator Laser Gun, featuring toggleable firemodes. The fire selector has two settings: 'scatter', and 'precise'."
 	icon_state = "multilensimmolator"
-	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/strong, /obj/item/ammo_casing/energy/immolator/scatter)
 	origin_tech = "combat=5;magnets=5;powerstorage=4"
 
@@ -384,7 +385,7 @@
 	name = "portable laser emitter"
 	desc = "An emitter removed from its base, and attached to a laser cannon frame."
 	icon_state = "emittercannon"
-	item_state = "laser"
+	inhand_icon_state = "laser"
 	w_class = WEIGHT_CLASS_BULKY
 	shaded_charge = TRUE
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
@@ -435,10 +436,8 @@
 
 /obj/item/gun/energy/laser/tag/blue
 	icon_state = "bluetag"
-	item_state = "bluetag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/bluetag)
 
 /obj/item/gun/energy/laser/tag/red
 	icon_state = "redtag"
-	item_state = "redtag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/redtag)

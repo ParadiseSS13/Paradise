@@ -52,17 +52,18 @@
 		. += "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>"
 	. += "<span class='notice'>[src] is [anchored ? "":"not "]secured to the floor.</span>"
 
-/obj/structure/cult/functional/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/cult/functional/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && IS_CULTIST(user))
 		if(user.holy_check())
-			return
+			return ITEM_INTERACT_COMPLETE
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
 			icon_state = GET_CULT_DATA(get_icon("[initial(icon_state)]_off"), "[initial(icon_state)]_off")
 		else
 			icon_state = GET_CULT_DATA(get_icon(initial(icon_state)), initial(icon_state))
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/structure/cult/functional/attack_hand(mob/living/user)
@@ -180,22 +181,22 @@
 	. = ..()
 	icon_state = GET_CULT_DATA(forge_icon_state, "forge")
 
-/obj/structure/cult/functional/forge/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/cult/functional/forge/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(!iscarbon(G.affecting))
-			return FALSE
+			return ITEM_INTERACT_COMPLETE
 		if(G.affecting == LAVA_PROOF)
 			to_chat(user, "<span class='warning'>[G.affecting] is immune to lava!</span>")
-			return FALSE
+			return ITEM_INTERACT_COMPLETE
 		if(G.affecting.stat == DEAD)
 			to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")
-			return FALSE
+			return ITEM_INTERACT_COMPLETE
 		var/mob/living/carbon/human/C = G.affecting
 		var/obj/item/organ/external/head/head = C.get_organ("head")
 		if(!head)
 			to_chat(user, "<span class='warning'>[C] has no head!</span>")
-			return FALSE
+			return ITEM_INTERACT_COMPLETE
 
 		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]'s lava!</span>",
 						"<span class='userdanger'>[user] dunks your face into [src]'s lava!</span>")
@@ -205,7 +206,8 @@
 		C.UpdateDamageIcon()
 		add_attack_logs(user, C, "Lava-dunked into [src]")
 		user.changeNext_move(CLICK_CD_MELEE)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(

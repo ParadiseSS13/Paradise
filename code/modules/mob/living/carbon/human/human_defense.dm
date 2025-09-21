@@ -90,7 +90,7 @@ emp_act
 	if(user.a_intent != INTENT_HELP)
 		return
 	if(!I.tool_use_check(user, 1))
-		return
+		return TRUE
 	var/obj/item/organ/external/S = bodyparts_by_name[user.zone_selected]
 	if(!S)
 		if(ismachineperson(src))
@@ -160,39 +160,37 @@ emp_act
 
 		affecting.droplimb(FALSE, damtype)
 
-/mob/living/carbon/human/getarmor(def_zone, type)
-	var/armorval = 0
-	var/organnum = 0
-
+/// This proc calculates armor value for humans.
+/// If null is passed for def_zone, then this will return something appropriate for all zones (e.g. area effect damage)
+/mob/living/carbon/human/getarmor(def_zone, armor_type)
+	// If a specific bodypart is targetted, check if it exists, how that bodypart is protected and return the value
 	if(def_zone)
 		if(is_external_organ(def_zone))
-			return getarmor_organ(def_zone, type)
-		var/obj/item/organ/external/affecting = get_organ(def_zone)
+			return __getarmor_bodypart(def_zone, armor_type)
+		var/affecting = get_organ(def_zone)
 		if(affecting)
-			return getarmor_organ(affecting, type)
-		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
+			return __getarmor_bodypart(affecting, armor_type)
 
-	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
-	for(var/obj/item/organ/external/organ in bodyparts)
-		armorval += getarmor_organ(organ, type)
-		organnum++
+	// If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
+	var/armor
+	var/mob_bodyparts
+	for(var/obj/item/organ/external/part as anything in bodyparts)
+		armor += __getarmor_bodypart(part, armor_type)
+		mob_bodyparts++
 
-	return (armorval/max(organnum, 1))
+	return armor / mob_bodyparts
 
+/// This is an internal proc, returns the armor value for a particular bodypart [/obj/item/organ/external].
+/// Use `getarmor()` instead
+/mob/living/carbon/human/proc/__getarmor_bodypart(obj/item/organ/external/def_zone, armor_type)
+	// Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
+	var/list/obj/item/worn_items = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck)
 
-//this proc returns the armour value for a particular external organ.
-/mob/living/carbon/human/proc/getarmor_organ(obj/item/organ/external/def_zone, type)
-	if(!type || !def_zone)	return 0
-	var/protection = 0
-	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
-	for(var/bp in body_parts)
-		if(!bp)	continue
-		if(bp && isclothing(bp))
-			var/obj/item/clothing/C = bp
-			if(C.body_parts_covered & def_zone.body_part)
-				protection += C.armor.getRating(type)
-	protection += physiology.armor.getRating(type)
-	return protection
+	for(var/obj/item/thing in worn_items)
+		if(thing?.body_parts_covered & def_zone.body_part)
+			. += thing.armor.getRating(armor_type)
+
+	. += physiology.armor.getRating(armor_type)
 
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
 /mob/living/carbon/human/proc/get_siemens_coefficient_organ(obj/item/organ/external/def_zone)
@@ -207,17 +205,6 @@ emp_act
 			siemens_coefficient *= C.siemens_coefficient
 
 	return siemens_coefficient
-
-/mob/living/carbon/human/proc/check_head_coverage()
-
-	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform)
-	for(var/bp in body_parts)
-		if(!bp)  continue
-		if(bp && isclothing(bp))
-			var/obj/item/clothing/C = bp
-			if(C.body_parts_covered & HEAD)
-				return 1
-	return 0
 
 /mob/living/carbon/human/proc/check_reflect(def_zone) //Reflection checks for anything in your l_hand, r_hand, or wear_suit based on the reflection chance var of the object
 	if(wear_suit && isitem(wear_suit))
@@ -485,7 +472,14 @@ emp_act
 	if(!I.force)
 		return //item force is zero
 
-	var/armor = run_armor_check(affecting, MELEE, "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armor_penetration_flat = I.armor_penetration_flat, armor_penetration_percentage = I.armor_penetration_percentage)
+	var/armor = run_armor_check(
+		def_zone = affecting,
+		armor_type = MELEE,
+		absorb_text = "Your armor has protected your [hit_area].",
+		soften_text = "Your armor has softened hit to your [hit_area].",
+		armor_penetration_flat = I.armor_penetration_flat,
+		armor_penetration_percentage = I.armor_penetration_percentage,
+	)
 	if(armor == INFINITY)
 		return
 
@@ -667,8 +661,7 @@ emp_act
 		if(stat != DEAD)
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_selected))
-			var/armor_block = run_armor_check(affecting, MELEE)
-			apply_damage(damage, BRUTE, affecting, armor_block)
+			apply_damage(damage, BRUTE, affecting, run_armor_check(affecting, MELEE))
 			updatehealth("larva attack")
 
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M)

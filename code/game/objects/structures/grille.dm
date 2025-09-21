@@ -115,20 +115,21 @@
 	if(pass_info.is_movable)
 		. = . || pass_info.pass_flags & PASSGRILLE
 
-/obj/structure/grille/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/grille/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	if(istype(I, /obj/item/stack/rods) && broken)
 		repair(user, I)
+		return ITEM_INTERACT_COMPLETE
 
 //window placing begin
 	else if(is_glass_sheet(I))
 		build_window(I, user)
-		return
+		return ITEM_INTERACT_COMPLETE
 //window placing end
 
-	else if(istype(I, /obj/item/shard) || !shock(user, 70))
-		return ..()
+	else if((!istype(I, /obj/item/shard)) && shock(user, 70))
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/grille/proc/repair(mob/user, obj/item/stack/rods/R)
 	if(R.get_amount() >= 1)
