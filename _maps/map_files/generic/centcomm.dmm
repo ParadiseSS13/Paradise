@@ -1984,6 +1984,16 @@
 /obj/item/deck/unum,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"hh" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/havana_cigar{
+	pixel_x = 3;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "vault"
+	},
+/area/tdome/tdomeadmin)
 "hi" = (
 /obj/machinery/light/spot{
 	dir = 8
@@ -2554,6 +2564,29 @@
 	icon_state = "cafeteria"
 	},
 /area/tdome/tdomeobserve)
+"iK" = (
+/obj/structure/table/wood,
+/obj/machinery/door_control/no_emag{
+	id = "specopsoffice";
+	name = "Privacy Shutters";
+	pixel_x = 6;
+	pixel_y = 10;
+	req_access = list(114)
+	},
+/obj/machinery/door_control/no_emag{
+	pixel_x = -6;
+	pixel_y = -17;
+	name = "Engineering Storage";
+	id = "SpecopsEngineering";
+	req_access = list(114)
+	},
+/obj/item/folder/red,
+/obj/machinery/phone/centcomm{
+	pixel_x = 7;
+	pixel_y = -14
+	},
+/turf/simulated/floor/carpet,
+/area/centcom/specops)
 "iL" = (
 /obj/machinery/door_control/no_emag{
 	id = "sst_armory";
@@ -7169,6 +7202,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"yh" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/cigars/cohiba{
+	pixel_y = 8
+	},
+/turf/simulated/floor/transparent/glass,
+/area/centcom/specops)
 "yj" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/gun/projectile/automatic/pistol,
@@ -8557,30 +8597,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
-"Dn" = (
-/obj/structure/table/wood,
-/obj/machinery/door_control/no_emag{
-	id = "specopsoffice";
-	name = "Privacy Shutters";
-	pixel_x = 6;
-	pixel_y = 10;
-	req_access = list(114)
-	},
-/obj/machinery/door_control/no_emag{
-	pixel_x = -6;
-	pixel_y = -17;
-	name = "Engineering Storage";
-	id = "SpecopsEngineering";
-	req_access = list(114)
-	},
-/obj/item/folder/red,
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -5;
-	pixel_y = 3
-	},
-/turf/simulated/floor/carpet,
-/area/centcom/specops)
 "Do" = (
 /turf/simulated/floor/engine,
 /area/admin)
@@ -10908,11 +10924,6 @@
 /area/shuttle/escape)
 "KI" = (
 /obj/structure/table,
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "KJ" = (
@@ -11421,16 +11432,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
-"Mp" = (
-/obj/structure/table/wood,
-/obj/item/storage/fancy/havana_cigar{
-	pixel_x = 3;
-	pixel_y = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault"
-	},
-/area/tdome/tdomeadmin)
 "Mq" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/machinery/computer/security/telescreen,
@@ -12801,6 +12802,21 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
+"Qw" = (
+/obj/structure/table/wood,
+/obj/machinery/newscaster/directional/north,
+/obj/item/storage/fancy/cigars/cohiba{
+	pixel_y = 8
+	},
+/obj/item/lighter/zippo/nt_rep{
+	pixel_x = -16;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "Qx" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -14562,13 +14578,6 @@
 /obj/machinery/teleport/station/upgraded,
 /turf/simulated/floor/plasteel,
 /area/admin)
-"Wy" = (
-/obj/structure/table/wood,
-/obj/item/storage/fancy/cigars/cohiba{
-	pixel_y = 8
-	},
-/turf/simulated/floor/transparent/glass,
-/area/centcom/specops)
 "Wz" = (
 /obj/machinery/teleport/hub/upgraded{
 	admin_usage = 1
@@ -15478,21 +15487,6 @@
 "Zc" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
-	},
-/area/centcom/specops)
-"Zd" = (
-/obj/structure/table/wood,
-/obj/machinery/newscaster/directional/north,
-/obj/item/storage/fancy/cigars/cohiba{
-	pixel_y = 8
-	},
-/obj/item/lighter/zippo/nt_rep{
-	pixel_x = -16;
-	pixel_y = 3
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -34192,7 +34186,7 @@ TR
 WQ
 TR
 Zr
-Zd
+Qw
 Ra
 Ra
 Ra
@@ -34716,7 +34710,7 @@ kL
 VI
 Ra
 Wp
-Wy
+yh
 Yx
 Yx
 Zr
@@ -35486,7 +35480,7 @@ zg
 Xz
 RW
 Jv
-Dn
+iK
 MQ
 ZQ
 Kh
@@ -39874,7 +39868,7 @@ SV
 wt
 sj
 sj
-Mp
+hh
 Jh
 aN
 aN
