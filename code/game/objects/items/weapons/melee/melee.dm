@@ -104,6 +104,8 @@
 	var/obj/item/stock_parts/cell/high/cell
 	/// The sword's current mode. Defaults to off.
 	var/state = SECSWORD_OFF
+	/// Stun cooldown
+	COOLDOWN_DECLARE(stun_cooldown)
 
 /obj/item/melee/secsword/Initialize(mapload)
 	. = ..()
@@ -215,6 +217,7 @@
 			armor_penetration_percentage = 0
 			to_chat(user, "<span class='notice'>[src]'s edge is now turned off.</span>")
 	update_icon()
+	playsound(src, "sparks", 60, TRUE, -1)
 	return FINISH_ATTACK
 
 /obj/item/melee/secsword/attack(mob/living/M, mob/living/user, params)
@@ -227,14 +230,38 @@
 		to_chat(user, "<span class='warning'>The sword feels off-balance in your hand due to your specific martial training!</span>")
 		return  FINISH_ATTACK | MELEE_COOLDOWN_PREATTACK
 
+	// Off
 	if(!isliving(M) || state == SECSWORD_OFF)
+		if(user.a_intent == INTENT_HELP)
+			if(!COOLDOWN_FINISHED(src, stun_cooldown))
+				return
+			if(issilicon(M)) // Can't slap borgs and AIs
+				user.do_attack_animation(M)
+				M.visible_message(
+					"<span class='warning'>[user] has slapped [M] harmlessly with [src].</span>",
+					"<span class='danger'>[user] has slapped you harmlessly with [src].</span>"
+				)
+				return
+			slap(M, user) // Just a little slap. No harm
+			return
 		return ..()
 
-	if(state == SECSWORD_STUN) // Stamina
-		if(issilicon(M)) // Can't stun borgs and AIs
+	// Stun mode
+	if(state == SECSWORD_STUN)
+		if(issilicon(M) && user.a_intent != INTENT_HELP) // Can't stun borgs and AIs
 			return ..()
-		sword_stun(M, user)
-		return ..()
+		else if(issilicon(M))
+			user.do_attack_animation(M)
+			M.visible_message(
+				"<span class='warning'>[user] has slapped [M] harmlessly with [src].</span>",
+				"<span class='danger'>[user] has slapped you harmlessly with [src].</span>"
+			)
+			return
+		if(sword_stun(M, user))
+			user.do_attack_animation(M)
+		if(user.a_intent != INTENT_HELP) // Hurt people only if not help
+			return ..()
+		return
 	// Burn
 	var/mob/living/L = M
 	if(ishuman(L))
@@ -246,32 +273,40 @@
 	deduct_charge(burn_hitcost)
 	return ..()
 
-// Returning false results in no attack animation, returning true results in an animation.
+/obj/item/melee/secsword/proc/slap(mob/living/carbon/human/target, mob/living/user)
+	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+	playsound(loc, 'sound/effects/woodhit.ogg', 50, TRUE, -1)
+	target.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
+	target.apply_damage(10, STAMINA)
+	add_attack_logs(user, target, "Slapped by [src]", ATKLOG_ALL)
+	COOLDOWN_START(src, stun_cooldown, cooldown) // Shares cooldown with stun to avoid comboing slap into stun
+
 /obj/item/melee/secsword/proc/sword_stun(mob/living/L, mob/user, skip_cooldown = FALSE)
-	if(cooldown > world.time && !skip_cooldown)
+	if(!COOLDOWN_FINISHED(src, stun_cooldown) && !skip_cooldown)
 		return FALSE
 
 	var/user_UID = user.UID()
 	if(HAS_TRAIT_FROM(L, TRAIT_WAS_BATONNED, user_UID)) // Doesn't work in conjunction with stun batons.
 		return FALSE
 
-	cooldown = world.time + initial(cooldown) // Tracks the world.time when hitting will be next available.
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) // No message; check_shields() handles that
 			playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
-			return FALSE
+			return TRUE
 		// Weaker than a stun baton, less bad effects applied
-		H.Jitter(5 SECONDS)
+		H.Jitter(6 SECONDS)
+		H.AdjustConfused(4 SECONDS, 0, 4 SECONDS)
+		H.SetStuttering(6 SECONDS)
 		var/obj/item/organ/external/targetlimb = H.get_organ(ran_zone(user.zone_selected))
 		H.apply_damage(stam_damage, STAMINA, targetlimb, H.run_armor_check(targetlimb, MELEE))
-		H.SetStuttering(5 SECONDS)
 		deduct_charge(stam_hitcost)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // So a person cannot hit the same person with a sword AND a baton, or two swords
 	addtimer(CALLBACK(src, PROC_REF(stun_delay), L, user_UID), 2 SECONDS)
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
+	COOLDOWN_START(src, stun_cooldown, cooldown)
 	return TRUE
 
 // Proc called to remove trait that prevents repeated stamina damage. Called on a 2 Second timer when hit in stun mode
