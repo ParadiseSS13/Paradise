@@ -47,8 +47,7 @@
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/unathi //3 darksight.
 		)
-
-	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/basic/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
+	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/basic/lizard, /mob/living/basic/chick, /mob/living/basic/chicken,
 								/mob/living/basic/crab, /mob/living/basic/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/hostile/poison/bees)
 
 	suicide_messages = list(

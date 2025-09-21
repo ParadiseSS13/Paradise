@@ -2,7 +2,7 @@
 	name = "lockbox"
 	desc = "A locked box."
 	icon_state = "lockbox+l"
-	item_state = "syringe_kit"
+	inhand_icon_state = "syringe_kit"
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 4

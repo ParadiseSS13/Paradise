@@ -57,7 +57,7 @@
 /datum/gear/glasses/goggles_job/medhudgoggles
 	display_name = "Health HUD goggles"
 	path = /obj/item/clothing/glasses/hud/health/goggles
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Geneticist", "Virologist", "Psychiatrist", "Paramedic")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Virologist", "Psychiatrist", "Paramedic")
 
 /datum/gear/glasses/goggles_job/diaghudgoggles
 	display_name = "Diagnostic HUD goggles"

@@ -35,7 +35,8 @@
 
 	qdel(src)
 
-/obj/structure/big_delivery/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/big_delivery/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	if(istype(W, /obj/item/dest_tagger))
 		var/obj/item/dest_tagger/O = W
 
@@ -148,6 +149,7 @@
 	amount = 25
 	max_amount = 25
 	resistance_flags = FLAMMABLE
+	var/wrap_time = 2 SECONDS
 	var/static/list/no_wrap = list(/obj/item/small_delivery, /obj/structure/big_delivery, /obj/item/evidencebag, /obj/structure/closet/body_bag)
 
 /obj/item/stack/package_wrap/pre_attack(atom/atom_target, mob/living/user, params)
@@ -232,12 +234,12 @@
 		to_chat(user, "<span class='warning'>You need more paper.</span>")
 		return
 	// Checking these again since it's after a delay
+	var/wrap_do_after = wrap_time
 	if(user.mind && HAS_TRAIT(user.mind, TRAIT_PACK_RAT))
-		if(!do_after_once(user, 0.75 SECONDS, target = C) || C.opened || !use(3))
-			return
-	else
-		if(!do_after_once(user, 2 SECONDS, target = C) || C.opened || !use(3))
-			return
+		wrap_do_after *= PACK_RAT_WRAP_SPEEDUP
+	if(!do_after_once(user, wrap_do_after, target = C) || C.opened || !use(3))
+		return
+
 	var/obj/structure/big_delivery/P = new(get_turf(C))
 	P.wrapped = C
 	C.loc = P
@@ -248,9 +250,9 @@
 	desc = "Used to set the destination of properly wrapped packages."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "dest_tagger"
-
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
-	item_state = "electronic"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	///Value of the tag

@@ -56,12 +56,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
 	smoketime = reagents.total_volume * 2.5
-	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+	update_appearance(UPDATE_NAME|UPDATE_ICON)
 
 /obj/item/clothing/mask/cigarette/update_icon_state()
 	. = ..()
 	icon_state = "[initial(icon_state)][lit ? "_on" : ""]"
-	item_state = "[initial(icon_state)][lit ? "_on" : ""]"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_wear_mask()
@@ -262,7 +261,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(C.wear_mask == src) // Don't update if it's just in their hand
 			C.wear_mask_update(src)
 	set_light(2, 0.25, "#E38F46")
-	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+	update_appearance(UPDATE_NAME|UPDATE_ICON)
 	START_PROCESSING(SSobj, src)
 	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 	return TRUE
@@ -418,9 +417,20 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/rollie/Initialize(mapload)
 	. = ..()
 	scatter_atom()
+
 /obj/item/clothing/mask/cigarette/rollie/custom
 	desc = "A roll of dried plant matter wrapped in thin paper."
 	list_reagents = list()
+
+/obj/item/clothing/mask/cigarette/carcinoma
+	name = "\improper Carcinoma Angel cigarette"
+	desc = "A truly evil looking cigarette. The smell of tobacco is so overpowering that you can practically feel the cancer forming inside you already."
+	icon_state = "death_cig"
+	butt_type = /obj/item/cigbutt/death
+
+/obj/item/clothing/mask/cigarette/carcinoma/New()
+	list_reagents = list("nicotine" = 40, "dnicotine" = 10, pick("carpotoxin", "toxin", "atrazine") = 1)
+	..()
 
 /obj/item/cigbutt
 	name = "cigarette butt"
@@ -434,6 +444,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "suspicious cigarette butt"
 	desc = "A manky old cigarette butt with an evil look about it."
 	icon_state = "syndie_cig_butt"
+
+/obj/item/cigbutt/death
+	name = "dark cigarette butt"
+	desc = "A manky old cigarette butt, it did its part in the job of killing someone's lungs."
+	icon_state = "death_cig_butt"
 
 /obj/item/cigbutt/Initialize(mapload)
 	. = ..()
@@ -477,20 +492,66 @@ LIGHTERS ARE IN LIGHTERS.DM
 		to_chat(user, "<span class='warning'>You need to dry this first!</span>")
 		return ITEM_INTERACT_COMPLETE
 
-	user.unequip(plant, TRUE)
 	user.unequip(src, TRUE)
 	var/obj/item/clothing/mask/cigarette/rollie/custom/custom_rollie = new (get_turf(user))
-	custom_rollie.reagents.maximum_volume = plant.reagents.total_volume
-	plant.reagents.trans_to(custom_rollie, plant.reagents.total_volume)
-	custom_rollie.smoketime = custom_rollie.reagents.total_volume * 2.5
-
-	user.put_in_active_hand(custom_rollie)
-	to_chat(user, "<span class='notice'>You roll the [plant.name] into a rolling paper.</span>")
-	custom_rollie.desc = "Dried [plant.name] rolled up in a thin piece of paper."
-
-	qdel(plant)
+	// Don't stuff the entire tin into a single cig, you barbarian!
+	if(istype(used, /obj/item/food/grown/tobacco/pre_dried))
+		custom_rollie.desc = "Dried tobacco rolled up in a thin piece of paper."
+		if(plant.reagents.total_volume > custom_rollie.chem_volume)
+			to_chat(user, "<span class='notice'>You pour some of [plant] into a rolling paper.</span>")
+			plant.reagents.trans_to(custom_rollie, 40)
+			plant.update_appearance(UPDATE_ICON)
+		else
+			to_chat(user, "<span class='notice'>You empty [plant] into a rolling paper.</span>")
+			plant.reagents.trans_to(custom_rollie, plant.reagents.total_volume)
+			user.unequip(plant, TRUE)
+			qdel(plant)
+			user.put_in_active_hand(new /obj/item/trash/tobacco_tin)
+	else
+		user.unequip(plant, TRUE)
+		custom_rollie.reagents.maximum_volume = plant.reagents.total_volume
+		plant.reagents.trans_to(custom_rollie, plant.reagents.total_volume)
+		to_chat(user, "<span class='notice'>You roll the [plant.name] into a rolling paper.</span>")
+		custom_rollie.desc = "Dried [plant.name] rolled up in a thin piece of paper."
+		qdel(plant)
+	custom_rollie.smoketime = custom_rollie.reagents.total_volume * REAGENT_TIME_RATIO
+	user.put_in_hands(custom_rollie)
 	qdel(src)
 	return ITEM_INTERACT_COMPLETE
+
+/obj/item/food/grown/tobacco/pre_dried
+	name = "\improper King's Own tobacco"
+	desc = "A tin of loose-leaf tobacco for filling pipes and hand-rolled cigarettes."
+	icon = 'icons/obj/cigarettes.dmi'
+	icon_state = "pipe_tobacco"
+	seed = null
+	trash = /obj/item/trash/tobacco_tin
+	dry = TRUE
+	tastes = list("tobacco" = 1, "herbs" = 2, "spices" = 2)
+	volume = 240
+	list_reagents = list("nicotine" = 240) // One of these has to fill an entire pipe. This is also the same nicotine found in a pack of 6 normal cigarettes.
+
+/obj/item/food/grown/tobacco/pre_dried/examine_more(mob/user)
+	. = ..()
+	. += "A unique verity of hardy, arid tobacco grown on the Vulpkanin world of Strend in the Kelunian system. \
+	The strain was developed from varieties imported from Kelune by the first colonists, and is now considered a luxury brand."
+	. += ""
+	. += "Sun-dried, finely shredded, and infused with herbs and spices; it has a pleasant but difficult to pin down flavor.\
+	Whilst intended for use in pipes or hand-rolled cigarettes, some have been known to use it as dip or snuff."
+
+/obj/item/food/grown/tobacco/pre_dried/On_Consume(mob/M, mob/user)
+	update_icon(UPDATE_ICON_STATE)
+	..()
+
+/obj/item/food/grown/tobacco/pre_dried/update_icon_state()
+	. = ..()
+	if(reagents.total_volume < 240)
+		icon_state = "pipe_tobacco_open"
+
+/obj/item/trash/tobacco_tin
+	name = "empty tobacco tin"
+	icon = 'icons/obj/cigarettes.dmi'
+	icon_state = "pipe_tobacco_empty"
 
 //////////////////////////////
 // MARK: CIGARS
@@ -507,7 +568,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/cigar/examine_more(mob/user)
 	. = ..()
-	. += "	Don't let the advertising fool you, this thing is a bargain basement, bottom-of-the-barrel product and the smoking experience it offers is little better than an oversized Robust cigarette."
+	. += "Don't let the advertising fool you, this thing is a bargain basement, bottom-of-the-barrel product and the smoking experience it offers is little better than an oversized Robust cigarette."
 	. += ""
 	. += "It still makes you look like a mafia boss, however."
 
@@ -525,7 +586,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/cigar/havana
 	name = "\improper Premium Havanian Cigar"
-	desc = "A luxury cigar only fit for the best of the best."
+	desc = "A luxury cigar imported straight from Sol. Only fit for the best of the best. You feel badass merely glimpsing it..."
 	icon_state = "gold_cigar"
 	smoketime = 450
 	chem_volume = 200
@@ -541,6 +602,27 @@ LIGHTERS ARE IN LIGHTERS.DM
 	. += ""
 	. += "Due to a mixture of limited manufacturing capacity, high quality, brand prestige, and export taxes, \
 	these cigars are too expensive for all but the most wealthy to smoke with any degree of regularity."
+
+/obj/item/clothing/mask/cigarette/cigar/havana/equipped(mob/user, slot, initial)
+	. = ..()
+	if(lit && slot == ITEM_SLOT_MASK)
+		grant_badass(user)
+
+/obj/item/clothing/mask/cigarette/cigar/havana/light(mob/living/user)
+	..()
+	if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
+		grant_badass(user)
+
+/obj/item/clothing/mask/cigarette/cigar/havana/proc/grant_badass(mob/user)
+	if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
+		ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
+		to_chat(user, "<span class='notice'>You feel more badass while smoking [src].</span>")
+
+/obj/item/clothing/mask/cigarette/cigar/havana/dropped(mob/user, silent)
+	. = ..()
+	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
+		REMOVE_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
+		to_chat(user, "<span class='notice'>You feel less badass.</span>")
 
 /obj/item/cigbutt/cigarbutt
 	name = "cigar butt"
@@ -585,7 +667,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		to_chat(user, "<span class='notice'>You enable the holo-cigar.</span>")
 		START_PROCESSING(SSobj, src)
 
-	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+	update_appearance(UPDATE_NAME|UPDATE_ICON)
 
 /obj/item/clothing/mask/holo_cigar/Destroy()
 	. = ..()
@@ -666,17 +748,30 @@ LIGHTERS ARE IN LIGHTERS.DM
 		to_chat(user, "<span class='warning'>[src] is full!</span>")
 		return ITEM_INTERACT_COMPLETE
 
-	filler.reagents.trans_to(src, chem_volume)
-	to_chat(user, "<span class='notice'>You stuff the [filler.name] into the pipe.</span>")
+	if(istype(used, /obj/item/food/grown/tobacco/pre_dried))
+		to_chat(user, "<span class='notice'>You empty [filler] into the pipe.</span>")
+		if((chem_volume - reagents.total_volume) >= filler.reagents.total_volume)
+			filler.reagents.trans_to(src, chem_volume)
+			user.unequip(filler, TRUE)
+			qdel(filler)
+			user.put_in_active_hand(new /obj/item/trash/tobacco_tin)
+		else
+			to_chat(user, "<span class='notice'>You pour some of [filler] into the pipe.</span>")
+			filler.reagents.trans_to(src, clamp(filler.reagents.total_volume, 0, (chem_volume - reagents.total_volume)))
+			filler.update_icon(UPDATE_ICON_STATE)
+	else
+		to_chat(user, "<span class='notice'>You stuff the [filler.name] into the pipe.</span>")
+		filler.reagents.trans_to(src, chem_volume)
+		qdel(filler)
+
 	smoketime = max(reagents.total_volume * REAGENT_TIME_RATIO, smoketime)
-	qdel(filler)
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/clothing/mask/cigarette/pipe/light()
 	if(!lit)
 		lit = TRUE
 		damtype = "fire"
-		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+		update_appearance(UPDATE_NAME|UPDATE_ICON)
 		START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/process()
@@ -688,7 +783,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			var/mob/living/M = loc
 			to_chat(M, "<span class='notice'>Your [name] goes out, and you empty the ash.</span>")
 			lit = FALSE
-		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+		update_appearance(UPDATE_NAME|UPDATE_ICON)
 		STOP_PROCESSING(SSobj, src)
 		return
 
@@ -701,7 +796,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	)
 	lit = FALSE
 	first_puff = TRUE
-	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+	update_appearance(UPDATE_NAME|UPDATE_ICON)
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/clothing/mask/cigarette/pipe/die()
