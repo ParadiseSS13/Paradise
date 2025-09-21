@@ -61,7 +61,7 @@
 /obj/effect/turf_decal/tile/neutral : /obj/effect/turf_decal/tiles/neutral/corner{@OLD;icon_state=@SKIP}
 /obj/effect/turf_decal/tile/purple : /obj/effect/turf_decal/tiles/department/science/corner{@OLD;icon_state=@SKIP}
 /obj/effect/turf_decal/tile/red : /obj/effect/turf_decal/tiles/department/security/corner{@OLD;icon_state=@SKIP}
-/obj/effect/turf_decal/tile/yellow : /obj/effect/turf_decal/tiles/department/engineering/corner{@OLD;icon_state=@SKIP}
+/obj/effect/turf_decal/tile/yellow : /obj/effect/turf_decal/tiles/department/chemistry/corner{@OLD;icon_state=@SKIP}
 
 # generally sorted by decal name
 # @subtypes added where mapping included e.g. airless variants, but not always
@@ -117,7 +117,7 @@
 /turf/simulated/floor/plasteel{icon_state="darkredcheck"} : /obj/effect/turf_decal/tiles/department/security/checker{icon_state=@SKIP},/turf/simulated/floor/plasteel/dark{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel{icon_state="darkredcorners"} : /obj/effect/turf_decal/tiles/department/security/corner{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/dark{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel{icon_state="darkredfull"} : /obj/effect/turf_decal/tiles/department/security{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/dark{@OLD;icon_state=@SKIP;dir=@SKIP}
-/turf/simulated/floor/plasteel{icon_state="darkredyellowfull"} : /obj/effect/turf_decal/tiles/department/engineering{@OLD;icon_state=@SKIP},/obj/effect/turf_decal/tiles/department/security/checker{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/dark{@OLD;icon_state=@SKIP;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="darkredyellowfull"} : /obj/effect/turf_decal/tiles/department/chemistry{@OLD;icon_state=@SKIP},/obj/effect/turf_decal/tiles/department/security/checker{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/dark{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel{icon_state="darkyellow"} : /obj/effect/turf_decal/tiles/department/engineering/side{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/dark{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel{icon_state="darkyellowcorners"} : /obj/effect/turf_decal/tiles/department/engineering/corner{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/dark{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel{icon_state="darkyellowfull"} : /obj/effect/turf_decal/tiles/department/engineering{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/dark{@OLD;icon_state=@SKIP;dir=@SKIP}
@@ -137,8 +137,8 @@
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="neutral"} : /obj/effect/turf_decal/tiles/neutral/side{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/@SUBTYPES{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="neutralcorner"} : /obj/effect/turf_decal/tiles/neutral/corner{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/@SUBTYPES{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="neutralfull"} : /obj/effect/turf_decal/tiles/neutral{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/@SUBTYPES{@OLD;icon_state=@SKIP;dir=@SKIP}
-/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="orange"} : /obj/effect/turf_decal/tiles/department/engineering/side{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/@SUBTYPES{@OLD;icon_state=@SKIP;dir=@SKIP}
-/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="orangefull"} : /obj/effect/turf_decal/tiles/department/engineering{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/@SUBTYPES{@OLD;icon_state=@SKIP;dir=@SKIP}
+/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="orange"} : /obj/effect/turf_decal/tiles/department/chemistry/side{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/@SUBTYPES{@OLD;icon_state=@SKIP;dir=@SKIP}
+/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="orangefull"} : /obj/effect/turf_decal/tiles/department/chemistry{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/@SUBTYPES{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="plaque"} : /obj/effect/turf_decal/plaque{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/@SUBTYPES{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="purple"} : /obj/effect/turf_decal/tiles/department/science/side{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/@SUBTYPES{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="purplecorner"} : /obj/effect/turf_decal/tiles/department/science/corner{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/@SUBTYPES{@OLD;icon_state=@SKIP;dir=@SKIP}
@@ -148,7 +148,7 @@
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="red"} : /obj/effect/turf_decal/tiles/department/security/side{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/@SUBTYPES{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="redcorner"} : /obj/effect/turf_decal/tiles/department/security/corner{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/@SUBTYPES{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="redfull"} : /obj/effect/turf_decal/tiles/department/security{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/@SUBTYPES{@OLD;icon_state=@SKIP;dir=@SKIP}
-/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="redyellowfull"} : /obj/effect/turf_decal/tiles/department/engineering{@OLD;icon_state=@SKIP},/obj/effect/turf_decal/tiles/department/security/checker{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/@SUBTYPES{@OLD;icon_state=@SKIP;dir=@SKIP}
+/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="redyellowfull"} : /obj/effect/turf_decal/tiles/department/chemistry{@OLD;icon_state=@SKIP},/obj/effect/turf_decal/tiles/department/security/checker{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/@SUBTYPES{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="stairs-l"} : /turf/simulated/floor/plasteel/fakestairs/left/@SUBTYPES{@OLD;icon_state=@SKIP;icon=@SKIP}
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="stairs-m"} : /turf/simulated/floor/plasteel/fakestairs/center/@SUBTYPES{@OLD;icon_state=@SKIP;icon=@SKIP}
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="stairs-r"} : /turf/simulated/floor/plasteel/fakestairs/right/@SUBTYPES{@OLD;icon_state=@SKIP;icon=@SKIP}
@@ -178,9 +178,9 @@
 /turf/simulated/floor/plasteel{icon_state="whitered"} : /obj/effect/turf_decal/tiles/department/security/side{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/white{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel{icon_state="whiteredcorner"} : /obj/effect/turf_decal/tiles/department/security/corner{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/white{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel{icon_state="whiteredfull"} : /obj/effect/turf_decal/tiles/department/security{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/white{@OLD;icon_state=@SKIP;dir=@SKIP}
-/turf/simulated/floor/plasteel{icon_state="whiteyellow"} : /obj/effect/turf_decal/tiles/department/engineering/side{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/white{@OLD;icon_state=@SKIP;dir=@SKIP}
-/turf/simulated/floor/plasteel{icon_state="whiteyellowcorner"} : /obj/effect/turf_decal/tiles/department/engineering/corner{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/white{@OLD;icon_state=@SKIP;dir=@SKIP}
-/turf/simulated/floor/plasteel{icon_state="whiteyellowfull"} : /obj/effect/turf_decal/tiles/department/engineering{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/white{@OLD;icon_state=@SKIP;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="whiteyellow"} : /obj/effect/turf_decal/tiles/department/chemistry/side{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/white{@OLD;icon_state=@SKIP;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="whiteyellowcorner"} : /obj/effect/turf_decal/tiles/department/chemistry/corner{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/white{@OLD;icon_state=@SKIP;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="whiteyellowfull"} : /obj/effect/turf_decal/tiles/department/chemistry{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel/white{@OLD;icon_state=@SKIP;dir=@SKIP}
 
 /turf/simulated/floor/plasteel{icon_state="yellow"} : /obj/effect/turf_decal/tiles/department/engineering/side{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel{@OLD;icon_state=@SKIP;dir=@SKIP}
 /turf/simulated/floor/plasteel{icon_state="yellowcorner"} : /obj/effect/turf_decal/tiles/department/engineering/corner{@OLD;icon_state=@SKIP}, /turf/simulated/floor/plasteel{@OLD;icon_state=@SKIP;dir=@SKIP}
