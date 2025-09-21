@@ -175,6 +175,10 @@
 /obj/structure/ai_core,
 /turf/simulated/floor/plasteel,
 /area/game_test)
+"Pr" = (
+/obj/structure/closet/crate/sci,
+/turf/simulated/floor/plasteel,
+/area/game_test)
 "QL" = (
 /obj/structure/disposalconstruct,
 /turf/simulated/floor/plating,
@@ -399,7 +403,7 @@ le
 rT
 yd
 rT
-rT
+Pr
 rT
 rT
 Od
