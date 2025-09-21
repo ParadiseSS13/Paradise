@@ -32,11 +32,10 @@
 /obj/machinery/anomaly_refinery/examine(mob/user)
 	. = ..()
 	if(inserted_core)
-		. += "There is an unrefined core in [src]."
+		. += "There is [inserted_core] in [src]."
+		. += "[inserted_core]'s causality point corresponds to an explosive of size [inserted_core.target_explosion_size]."
 	if(refined_core)
 		. += "There is a [refined_core] in [src]."
-	if(emagged)
-		. += "<span class='warning'>[src] sparks dangerously.</span>"
 
 /obj/machinery/anomaly_refinery/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/raw_anomaly_core))
