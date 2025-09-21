@@ -238,6 +238,8 @@ RESTRICT_TYPE(/datum/ai_controller)
 	if(should_idle())
 		return AI_STATUS_IDLE
 
+	return AI_STATUS_ON
+
 /// Called when the AI controller pawn changes z levels.
 /// We check if there's any clients on the new one and wake up the AI if there is.
 /datum/ai_controller/proc/on_changed_z_level(atom/source, turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
