@@ -603,7 +603,7 @@
 "aiM" = (
 /obj/structure/table,
 /obj/item/hand_labeler,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -7569,7 +7569,7 @@
 /obj/item/clothing/suit/chef/classic,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -8486,7 +8486,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -9004,7 +9004,7 @@
 /obj/effect/decal/cleanable/confetti,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -9242,7 +9242,7 @@
 "bSo" = (
 /obj/effect/decal/cleanable/vomit/green,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -9417,7 +9417,7 @@
 /area/station/maintenance/aft2)
 "bUc" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -9642,7 +9642,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner,
+/obj/effect/turf_decal/tiles/department/chemistry/corner,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "bVO" = (
@@ -10747,7 +10747,7 @@
 /area/station/maintenance/aft2)
 "cic" = (
 /obj/structure/closet/firecloset,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -11117,7 +11117,7 @@
 /obj/item/food/monkeycube{
 	pixel_x = -12
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "cmJ" = (
@@ -12990,7 +12990,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -13226,7 +13226,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -14056,7 +14056,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -14104,7 +14104,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -14283,7 +14283,7 @@
 /area/station/science/xenobiology)
 "cVg" = (
 /obj/effect/decal/cleanable/confetti,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -14509,7 +14509,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -14937,7 +14937,7 @@
 	pixel_y = 25
 	},
 /obj/item/hand_labeler,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -14957,7 +14957,7 @@
 "ddq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
@@ -15827,7 +15827,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -16201,7 +16201,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "dqp" = (
@@ -16404,7 +16404,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -16444,7 +16444,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
 "dsL" = (
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -18020,7 +18020,7 @@
 /obj/structure/rack,
 /obj/item/latexballon,
 /obj/item/poster/random_contraband,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -18304,7 +18304,7 @@
 	id_tag = "smithdesk"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -18729,7 +18729,7 @@
 /obj/item/food/meat,
 /obj/item/reagent_containers/condiment/enzyme,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -18801,7 +18801,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -18896,7 +18896,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -19702,7 +19702,7 @@
 "ecM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/shard,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -19736,7 +19736,7 @@
 /area/station/command/office/hos)
 "ecU" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -20097,7 +20097,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/west)
 "ehy" = (
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
@@ -20831,7 +20831,7 @@
 	pixel_y = 20
 	},
 /obj/effect/spawner/random/maintenance,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -20925,7 +20925,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -20979,7 +20979,7 @@
 /obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/gibs,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -21817,7 +21817,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -22067,7 +22067,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -22691,7 +22691,7 @@
 	c_tag = "Dorms Storefront 2";
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -22786,7 +22786,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -24188,7 +24188,7 @@
 /obj/effect/spawner/random/blood/often,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -24959,7 +24959,7 @@
 "ffc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -24990,7 +24990,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -25127,7 +25127,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -25204,7 +25204,7 @@
 "fgU" = (
 /obj/effect/decal/cleanable/vomit,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -25375,7 +25375,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/dorms/fore)
 "fjf" = (
-/obj/effect/turf_decal/tiles/department/engineering/corner,
+/obj/effect/turf_decal/tiles/department/chemistry/corner,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "fjg" = (
@@ -26194,7 +26194,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -26428,7 +26428,7 @@
 "fsb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -27417,7 +27417,7 @@
 /area/station/service/theatre)
 "fCS" = (
 /obj/machinery/hologram/holopad,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -27524,7 +27524,7 @@
 /obj/item/storage/secure/safe{
 	pixel_y = 25
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -27547,7 +27547,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -27639,7 +27639,7 @@
 "fFW" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
 /obj/effect/spawner/random/trash,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -28545,7 +28545,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -29576,7 +29576,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -30327,7 +30327,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -30901,7 +30901,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -31678,7 +31678,7 @@
 	c_tag = "Dorms Storefront 1";
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -32029,7 +32029,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -32716,7 +32716,7 @@
 /obj/machinery/camera{
 	c_tag = "Medbay Chemistry"
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/chemistry/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -32879,7 +32879,7 @@
 /obj/effect/decal/cleanable/blood/tracks/mapped{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -33089,7 +33089,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -33449,7 +33449,7 @@
 /area/station/hallway/primary/fore)
 "gQi" = (
 /obj/effect/spawner/random/blood/maybe,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -33642,7 +33642,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -34614,7 +34614,7 @@
 "hcT" = (
 /obj/structure/closet,
 /obj/item/storage/fancy/crayons,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -34716,7 +34716,7 @@
 	pixel_y = 3
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -34785,7 +34785,7 @@
 "hey" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -34939,7 +34939,7 @@
 "hgS" = (
 /obj/effect/decal/cleanable/confetti,
 /obj/machinery/space_heater,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -34998,7 +34998,7 @@
 /area/station/engineering/control)
 "hhe" = (
 /obj/effect/spawner/random/barrier/grille_often,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -37057,7 +37057,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -38046,7 +38046,7 @@
 	name = "west bump";
 	pixel_x = -27
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -38227,7 +38227,7 @@
 	},
 /obj/structure/rack,
 /obj/machinery/requests_console/directional/west,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/chemistry/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -39306,7 +39306,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -39810,7 +39810,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -40230,7 +40230,7 @@
 "ike" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/blood/maybe,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -40339,7 +40339,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -41627,7 +41627,7 @@
 /obj/effect/spawner/random/blood/maybe,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -42674,7 +42674,7 @@
 "iJJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/trash,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -43331,7 +43331,7 @@
 "iQi" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
@@ -43774,7 +43774,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -44068,7 +44068,7 @@
 /obj/item/trash/spentcasing/shotgun,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/gibs/body,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -45273,7 +45273,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -45658,7 +45658,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -46266,7 +46266,7 @@
 /obj/effect/spawner/random/blood/maybe,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/trash/spentcasing/shotgun,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -46549,7 +46549,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -47524,7 +47524,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -48886,7 +48886,7 @@
 /area/station/maintenance/asmaint)
 "jWh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
@@ -49668,7 +49668,7 @@
 /obj/structure/table,
 /obj/item/stack/tape_roll,
 /obj/machinery/newscaster/directional/west,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -50096,7 +50096,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -50190,7 +50190,7 @@
 	pixel_x = 32;
 	step_size = 0
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -52383,7 +52383,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -52739,7 +52739,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -53798,7 +53798,7 @@
 /obj/effect/spawner/random/blood/maybe,
 /obj/item/restraints/handcuffs/cable/zipties,
 /obj/item/kitchen/knife,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -54082,7 +54082,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
@@ -54875,7 +54875,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -55590,7 +55590,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -57612,7 +57612,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "lPL" = (
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -59806,7 +59806,7 @@
 "moy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/oil/maybe,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -61808,7 +61808,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -61966,7 +61966,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "mNF" = (
@@ -62387,7 +62387,7 @@
 "mRW" = (
 /obj/effect/spawner/random/blood/often,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -64094,7 +64094,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -64168,7 +64168,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "njp" = (
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/chemistry/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
@@ -64972,7 +64972,7 @@
 	req_access = list(33)
 	},
 /obj/machinery/firealarm/directional/west,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/chemistry/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -66909,7 +66909,7 @@
 "nLr" = (
 /obj/effect/spawner/random/oil/maybe,
 /obj/effect/spawner/random/trash,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -66986,7 +66986,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -70625,7 +70625,7 @@
 "ovj" = (
 /obj/structure/kitchenspike,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -70738,7 +70738,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -71501,7 +71501,7 @@
 /obj/item/wrench,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -71726,7 +71726,7 @@
 	icon_state = "medium"
 	},
 /obj/structure/flora/straw_bail,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -71912,7 +71912,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner,
+/obj/effect/turf_decal/tiles/department/chemistry/corner,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "oKk" = (
@@ -72309,7 +72309,7 @@
 /area/station/public/dorms)
 "oNg" = (
 /obj/effect/spawner/random/oil/maybe,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -72805,7 +72805,7 @@
 /area/station/legal/lawoffice)
 "oSi" = (
 /obj/machinery/economy/vending/chemdrobe,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/chemistry/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -72955,7 +72955,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -73449,7 +73449,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -73880,7 +73880,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -74967,7 +74967,7 @@
 "pmS" = (
 /obj/effect/decal/cleanable/confetti,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -75816,7 +75816,7 @@
 /area/station/aisat/atmos)
 "pwK" = (
 /obj/effect/spawner/random/blood/often,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -75883,7 +75883,7 @@
 	dir = 10
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -76514,7 +76514,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -77287,7 +77287,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -77701,7 +77701,7 @@
 	pixel_y = 5
 	},
 /obj/item/stack/sheet/mineral/plasma,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/chemistry/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -79643,7 +79643,7 @@
 /area/station/maintenance/security/aft_port)
 "qnD" = (
 /obj/structure/sink/directional/north,
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/white,
@@ -79659,7 +79659,7 @@
 /area/station/public/park)
 "qnL" = (
 /obj/structure/table,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -80144,7 +80144,7 @@
 	},
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -80918,7 +80918,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -82749,7 +82749,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -83285,7 +83285,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -85826,7 +85826,7 @@
 "rBE" = (
 /obj/effect/decal/cleanable/confetti,
 /obj/effect/spawner/random/oil/maybe,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -85837,7 +85837,7 @@
 	},
 /obj/machinery/newscaster/directional/east,
 /obj/effect/landmark/spawner/nukedisc_respawn,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -85848,7 +85848,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -85887,7 +85887,7 @@
 	id_tag = "smithdesk"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -86167,7 +86167,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "rFC" = (
@@ -87246,7 +87246,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -88055,7 +88055,7 @@
 	},
 /obj/structure/table,
 /obj/item/paper/crumpled,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -89516,7 +89516,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -91232,7 +91232,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -93846,7 +93846,7 @@
 	id_tag = "dormshop2"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -94426,7 +94426,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/east)
 "tlN" = (
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/chemistry/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -95099,7 +95099,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -95495,7 +95495,7 @@
 /area/station/security/warden)
 "twa" = (
 /obj/structure/closet/crate,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -95618,7 +95618,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -96286,7 +96286,7 @@
 /area/station/engineering/atmos)
 "tFx" = (
 /obj/effect/decal/cleanable/generic,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -97392,7 +97392,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -98551,7 +98551,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -98825,7 +98825,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -99397,7 +99397,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -100210,7 +100210,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
 /obj/effect/landmark/spawner/xeno,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -100496,7 +100496,7 @@
 	},
 /obj/item/food/meatbun,
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -102441,7 +102441,7 @@
 	dir = 1
 	},
 /obj/item/food/meatsteak,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -103097,7 +103097,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -103628,7 +103628,7 @@
 /area/station/hallway/secondary/exit)
 "vfZ" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -103641,7 +103641,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -104094,7 +104094,7 @@
 "vlo" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -105147,7 +105147,7 @@
 /area/station/service/hydroponics)
 "vwl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -105767,7 +105767,7 @@
 "vDd" = (
 /obj/effect/spawner/random/blood/maybe,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -105984,7 +105984,7 @@
 /obj/structure/closet/crate,
 /obj/item/storage/fancy/rollingpapers,
 /obj/item/lighter/random,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -106886,7 +106886,7 @@
 "vND" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/maintenance,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -107884,7 +107884,7 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -109031,7 +109031,7 @@
 /area/station/maintenance/asmaint)
 "wkt" = (
 /obj/machinery/alarm/directional/west,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/chemistry/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -109199,7 +109199,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner,
+/obj/effect/turf_decal/tiles/department/chemistry/corner,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "wmA" = (
@@ -110170,7 +110170,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -110722,7 +110722,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/storage)
 "wFj" = (
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/chemistry/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -110753,7 +110753,7 @@
 "wFK" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/hologram/holopad,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "wFM" = (
@@ -111849,7 +111849,7 @@
 /area/station/maintenance/fpmaint)
 "wRE" = (
 /obj/effect/spawner/random/trash,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -112730,7 +112730,7 @@
 "xcS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table_frame,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint2)
@@ -114887,7 +114887,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -115467,7 +115467,7 @@
 "xDS" = (
 /obj/structure/kitchenspike,
 /obj/item/food/meat,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/dorms/port)
@@ -115548,7 +115548,7 @@
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -116070,7 +116070,7 @@
 /obj/machinery/ai_status_display{
 	pixel_x = -32
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)
@@ -117557,7 +117557,7 @@
 	pixel_x = 20
 	},
 /obj/structure/flora/straw_bail,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
@@ -118523,7 +118523,7 @@
 	id_tag = "dormshop2"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/station/public/shops)

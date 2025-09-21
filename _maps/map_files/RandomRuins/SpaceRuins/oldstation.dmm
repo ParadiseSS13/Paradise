@@ -149,7 +149,7 @@
 "aB" = (
 /obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "aC" = (
@@ -361,7 +361,7 @@
 "bk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/office/dark,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "bl" = (
@@ -6126,7 +6126,7 @@
 	pixel_y = 7;
 	pixel_x = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "ML" = (
@@ -6626,7 +6626,7 @@
 /area/ruin/ancientstation)
 "SM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/comm)
 "SR" = (

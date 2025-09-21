@@ -5226,11 +5226,11 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/derelict/hallway/primary)
 "nV" = (
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "nW" = (
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -5317,13 +5317,13 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/derelict/hallway/primary)
 "ok" = (
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "ol" = (
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -5434,7 +5434,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "oB" = (
 /obj/item/beach_ball/holoball,
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -5525,7 +5525,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "oR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/effect/turf_decal/tiles/department/chemistry/side,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "oS" = (
@@ -5595,14 +5595,14 @@
 /area/ruin/space/derelict/crew_quarters)
 "pb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "pc" = (
 /obj/structure/sign/poster/contraband/random/directional/east,
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -5632,11 +5632,11 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/effect/turf_decal/tiles/department/chemistry/side,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "pi" = (
-/obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/effect/turf_decal/tiles/department/chemistry/side,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "pk" = (

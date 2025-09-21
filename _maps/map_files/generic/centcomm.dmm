@@ -11693,7 +11693,7 @@
 /area/wizard_station)
 "Op" = (
 /obj/effect/landmark/spawner/tdomeobserve,
-/obj/effect/turf_decal/tiles/department/engineering,
+/obj/effect/turf_decal/tiles/department/chemistry,
 /obj/effect/turf_decal/tiles/department/security/checker,
 /turf/simulated/floor/plasteel,
 /area/tdome/tdomeobserve)

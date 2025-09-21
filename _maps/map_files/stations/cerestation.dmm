@@ -2063,7 +2063,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/white,
@@ -6373,7 +6373,7 @@
 	name = "south bump";
 	pixel_y = -30
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/effect/turf_decal/tiles/department/chemistry/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "bcV" = (
@@ -9232,7 +9232,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/chemistry/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
@@ -13943,7 +13943,7 @@
 	name = "Robotics Mech Bay";
 	network = list("SS13","RD")
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/white,
@@ -14001,7 +14001,7 @@
 	pixel_y = 25
 	},
 /obj/machinery/newscaster/directional/west,
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
@@ -21408,7 +21408,7 @@
 	dir = 10;
 	network = list("SS13","CMO")
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/effect/turf_decal/tiles/department/chemistry/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "dlG" = (
@@ -23215,7 +23215,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
 "dBL" = (
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -26650,7 +26650,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment/corner,
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -29117,7 +29117,7 @@
 /area/station/supply/warehouse)
 "eTg" = (
 /obj/machinery/recharge_station,
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -40206,7 +40206,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -44843,7 +44843,7 @@
 	pixel_x = -28;
 	name = "custom placement"
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
@@ -44895,7 +44895,7 @@
 /obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/item/reagent_scanner/adv,
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/white,
@@ -49685,7 +49685,7 @@
 /obj/structure/sign/chemistry{
 	pixel_y = -32
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/effect/turf_decal/tiles/department/chemistry/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "jxd" = (
@@ -53410,7 +53410,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/white,
@@ -55271,7 +55271,7 @@
 /area/station/maintenance/solar_maintenance/fore_starboard)
 "kHb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -58448,7 +58448,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -59895,7 +59895,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-4"
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -64653,7 +64653,7 @@
 /area/station/maintenance/apmaint)
 "mKj" = (
 /obj/machinery/hologram/holopad,
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
@@ -65003,7 +65003,7 @@
 	pixel_x = -3
 	},
 /obj/machinery/light,
-/obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/effect/turf_decal/tiles/department/chemistry/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "mOe" = (
@@ -68605,7 +68605,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-4"
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
@@ -68986,7 +68986,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/effect/turf_decal/tiles/department/chemistry/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "nKC" = (
@@ -70899,7 +70899,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/effect/turf_decal/tiles/department/chemistry/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "oiY" = (
@@ -75483,7 +75483,7 @@
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -77225,7 +77225,7 @@
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "pDB" = (
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/chemistry/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -83071,7 +83071,7 @@
 /area/station/supply/sorting)
 "qVC" = (
 /obj/machinery/firealarm/directional/south,
-/obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/effect/turf_decal/tiles/department/chemistry/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/chemistry)
 "qVH" = (
@@ -85418,7 +85418,7 @@
 	pixel_x = 24;
 	name = "east bump"
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/white,
@@ -87557,7 +87557,7 @@
 /turf/simulated/mineral/ancient,
 /area/station/maintenance/fsmaint)
 "rWq" = (
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -87621,7 +87621,7 @@
 	pixel_y = 22;
 	req_access = list(33)
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/white,
@@ -88761,7 +88761,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "sjT" = (
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
@@ -91217,7 +91217,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
@@ -91838,7 +91838,7 @@
 /turf/simulated/floor/wood/nitrogen,
 /area/station/maintenance/abandonedbar)
 "sRx" = (
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/chemistry/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -107430,7 +107430,7 @@
 /area/station/service/chapel/office)
 "wnO" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
@@ -109408,7 +109408,7 @@
 	dir = 1;
 	network = list("SS13","CMO")
 	},
-/obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/effect/turf_decal/tiles/department/chemistry/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "wIa" = (
@@ -111051,7 +111051,7 @@
 /area/station/maintenance/service/fore_starboard)
 "wZF" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
@@ -111396,7 +111396,7 @@
 	},
 /area/station/maintenance/command/fore)
 "xdk" = (
-/obj/effect/turf_decal/tiles/department/engineering/side,
+/obj/effect/turf_decal/tiles/department/chemistry/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
 "xdr" = (
@@ -114914,7 +114914,7 @@
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/serveng)
 "xUh" = (
-/obj/effect/turf_decal/tiles/department/engineering/side{
+/obj/effect/turf_decal/tiles/department/chemistry/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/white,
