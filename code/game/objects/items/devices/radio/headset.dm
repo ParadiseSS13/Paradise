@@ -367,6 +367,19 @@
 	requires_tcomms = FALSE
 	instant = TRUE
 
+/obj/item/radio/headset/starline
+	name = "starline remote headset"
+	desc = "A headset that connects remotely to the starline hard line. Dont think about it too hard."
+	icon_state = "com_headset_alt"
+	worn_icon_state = "com_headset_alt"
+	requires_tcomms = FALSE
+	instant = TRUE
+	freqlock = TRUE
+
+/obj/item/radio/headset/starline/Initialize(mapload)
+	. = ..()
+	set_frequency(STARLINE_FREQ)
+
 /// No need to care about icons, it should be hidden inside the AI anyway.
 /obj/item/radio/headset/heads/ai_integrated
 	name = "\improper AI subspace transceiver"
