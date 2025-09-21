@@ -210,6 +210,10 @@
 		var/obj/item/clothing/neck/link_scryer/LS = I
 		return LS.cell
 
+	if(istype(I, /obj/item/melee/secsword))
+		var/obj/item/melee/secsword/secsword = I
+		return secsword.cell
+
 	return null
 
 /obj/machinery/recharger/proc/check_cell_needs_recharging(obj/item/stock_parts/cell/C)
