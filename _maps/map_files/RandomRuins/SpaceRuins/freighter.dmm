@@ -154,7 +154,7 @@
 /obj/item/reagent_containers/glass/bottle/oculine{
 	pixel_x = -9
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -323,7 +323,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/powered)
 "zV" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -566,7 +566,7 @@
 	dir = 4;
 	pixel_y = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -713,7 +713,7 @@
 /obj/machinery/sleeper{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,

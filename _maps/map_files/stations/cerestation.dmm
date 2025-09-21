@@ -475,7 +475,7 @@
 /obj/machinery/keycard_auth{
 	pixel_y = 28
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1227,7 +1227,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "aiM" = (
@@ -2777,7 +2777,7 @@
 	},
 /obj/item/folder/blue,
 /obj/structure/table/wood/fancy/blue,
-/obj/effect/turf_decal/tiles/department/medical,
+/obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
 "auR" = (
@@ -3218,7 +3218,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random/directional/east,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -4173,7 +4173,7 @@
 	dir = 8
 	},
 /obj/structure/filingcabinet/filingcabinet,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -4593,7 +4593,7 @@
 /obj/structure/closet/fireaxecabinet{
 	pixel_x = -32
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -4640,7 +4640,7 @@
 /obj/item/paper_bin/nanotrasen,
 /obj/machinery/light,
 /obj/item/pen/blue,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "aNf" = (
@@ -4685,7 +4685,7 @@
 "aNy" = (
 /obj/structure/closet/crate/freezer/iv_storage,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage/secondary)
 "aND" = (
@@ -5134,7 +5134,7 @@
 "aSf" = (
 /obj/machinery/light,
 /obj/item/kirbyplants/large/plant4,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "aSm" = (
@@ -5212,7 +5212,7 @@
 /obj/machinery/camera{
 	c_tag = "Bridge East"
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -5327,7 +5327,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "aTH" = (
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "aTI" = (
@@ -5443,7 +5443,7 @@
 /obj/structure/chair/comfy{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -5492,7 +5492,7 @@
 /obj/structure/chair/comfy{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -5642,7 +5642,7 @@
 /obj/item/clothing/head/crown/fancy,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood/fancy/blue,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -6425,7 +6425,7 @@
 	},
 /obj/structure/table/glass/reinforced,
 /obj/machinery/requests_console/directional/west,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -7533,7 +7533,7 @@
 /obj/machinery/computer/card/minor/cmo{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -8209,7 +8209,7 @@
 /area/station/aisat/atmos)
 "brs" = (
 /obj/item/kirbyplants/large/plant4,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -9264,7 +9264,7 @@
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/north,
-/obj/effect/turf_decal/tiles/department/medical,
+/obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
 "byj" = (
@@ -9927,7 +9927,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -10074,7 +10074,7 @@
 	id = "cmo";
 	pixel_y = -24
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/cmo)
 "bEr" = (
@@ -11303,7 +11303,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/station/hallway/secondary/garden)
 "bMK" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -12009,7 +12009,7 @@
 /turf/simulated/floor/carpet/green,
 /area/station/service/library)
 "bRp" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -12153,7 +12153,7 @@
 /area/station/hallway/secondary/entry/south)
 "bSg" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -12216,7 +12216,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/hallway)
 "bSw" = (
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay3)
 "bSB" = (
@@ -13384,7 +13384,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -13394,7 +13394,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -13827,7 +13827,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "cdf" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -14712,14 +14712,14 @@
 /area/station/science/hallway)
 "ckI" = (
 /obj/structure/closet/walllocker/emerglocker/directional/west,
-/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/command/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "ckJ" = (
 /obj/machinery/computer/crew{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical,
+/obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "ckM" = (
@@ -14799,7 +14799,7 @@
 /obj/item/beacon,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "clr" = (
@@ -15146,7 +15146,7 @@
 	pixel_x = 8;
 	pixel_y = 10
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -15705,7 +15705,7 @@
 "crN" = (
 /obj/item/flag/command,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -15801,7 +15801,7 @@
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -16850,7 +16850,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -17029,7 +17029,7 @@
 /obj/structure/chair/comfy{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "cCP" = (
@@ -17066,7 +17066,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/blueshield,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "cDh" = (
@@ -17559,7 +17559,7 @@
 /area/station/maintenance/starboard)
 "cGP" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "cGW" = (
@@ -18159,7 +18159,7 @@
 	pixel_x = 6;
 	pixel_y = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/cmo)
 "cME" = (
@@ -18745,7 +18745,7 @@
 	pixel_y = -4
 	},
 /obj/structure/table/glass,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -18925,7 +18925,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -18935,7 +18935,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -19272,7 +19272,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -19282,7 +19282,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -19294,7 +19294,7 @@
 /obj/structure/chair/comfy{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -19460,7 +19460,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/station/maintenance/turbine)
 "cVq" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -21114,7 +21114,7 @@
 /area/station/hallway/secondary/entry/north)
 "djc" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -21131,7 +21131,7 @@
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/south,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -21170,7 +21170,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -21496,7 +21496,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -21530,7 +21530,7 @@
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -22024,7 +22024,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -22086,7 +22086,7 @@
 	color = "#505050";
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay3)
 "drV" = (
@@ -22616,7 +22616,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical,
+/obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
 "dxG" = (
@@ -23143,7 +23143,7 @@
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/cargocom)
 "dBj" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -23161,7 +23161,7 @@
 /area/station/medical/medbay)
 "dBo" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
 "dBt" = (
@@ -23420,7 +23420,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -23516,7 +23516,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -23962,7 +23962,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -24092,7 +24092,7 @@
 /area/station/maintenance/service/aft_port)
 "dNu" = (
 /obj/machinery/firealarm/directional/west,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -24182,7 +24182,7 @@
 	pixel_x = -15;
 	pixel_y = 7
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -24688,7 +24688,7 @@
 	dir = 4
 	},
 /obj/item/kirbyplants/large,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -24937,7 +24937,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay3)
 "dVO" = (
@@ -25170,7 +25170,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay3)
 "dZe" = (
@@ -27144,7 +27144,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/security/fore_starboard)
 "eyA" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -27494,7 +27494,7 @@
 /area/station/science/toxins/launch)
 "eBO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/starboard)
 "eBQ" = (
@@ -28387,7 +28387,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -28505,7 +28505,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -28598,7 +28598,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -28668,7 +28668,7 @@
 /obj/item/caution,
 /obj/item/mop,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -28915,7 +28915,7 @@
 /area/station/hallway/primary/fore/north)
 "ePW" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -29787,7 +29787,7 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/machinery/alarm/directional/north,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -31727,7 +31727,7 @@
 "fze" = (
 /obj/machinery/photocopier,
 /obj/machinery/firealarm/directional/east,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -32227,7 +32227,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/maintenance/apmaint)
 "fFO" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -32768,7 +32768,7 @@
 	color = "#505050";
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/command/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay3)
 "fLH" = (
@@ -33129,7 +33129,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/sign/poster/official/random/directional/west,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "fPR" = (
@@ -34544,7 +34544,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -35498,7 +35498,7 @@
 	pixel_y = 4;
 	pixel_x = -9
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -38131,7 +38131,7 @@
 	color = "#505050";
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay3)
 "hbh" = (
@@ -38476,7 +38476,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -38865,7 +38865,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/atmosia_independence/directional/north,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -39441,7 +39441,7 @@
 "hpB" = (
 /obj/structure/transit_tube,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -39630,7 +39630,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -42879,7 +42879,7 @@
 	c_tag = "Bridge West";
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical,
+/obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "iah" = (
@@ -43097,7 +43097,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -43749,7 +43749,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "ikm" = (
@@ -44546,7 +44546,7 @@
 /obj/item/hemostat{
 	pixel_x = 6
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -45167,7 +45167,7 @@
 "iBi" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/starboard)
 "iBC" = (
@@ -47861,7 +47861,7 @@
 	},
 /obj/structure/transit_tube_pod,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -48772,7 +48772,7 @@
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Conference Room"
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -49706,7 +49706,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/random/maintenance,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -50082,7 +50082,7 @@
 	dir = 10;
 	network = list("SS13","CMO")
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage/secondary)
 "jBJ" = (
@@ -50329,7 +50329,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -51120,7 +51120,7 @@
 	},
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/trash/spentcasing/bullet/lasershot,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -52501,7 +52501,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -53300,7 +53300,7 @@
 /area/station/security/detective)
 "kmw" = (
 /obj/machinery/alarm/directional/north,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -53667,7 +53667,7 @@
 "kqc" = (
 /obj/effect/spawner/random/maintenance,
 /obj/structure/table,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -54418,7 +54418,7 @@
 "kxG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/disposal/northeast)
 "kxI" = (
@@ -54850,7 +54850,7 @@
 /obj/effect/spawner/random/maintenance,
 /obj/machinery/alarm/directional/north,
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -54860,7 +54860,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -55921,7 +55921,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -57332,7 +57332,7 @@
 "lfX" = (
 /obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -57444,7 +57444,7 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore/north)
 "lhh" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -57979,7 +57979,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -58611,7 +58611,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor/heavy,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -59707,7 +59707,7 @@
 /area/station/public/arcade)
 "lDq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -60631,7 +60631,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/command/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/disposal/northeast)
 "lNi" = (
@@ -62184,7 +62184,7 @@
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
-/obj/effect/turf_decal/tiles/department/medical,
+/obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage/secondary)
 "meg" = (
@@ -62511,7 +62511,7 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -62805,7 +62805,7 @@
 /obj/item/trash/spentcasing/shotgun/beanbag,
 /obj/item/trash/spentcasing/shotgun/beanbag,
 /obj/item/trash/spentcasing/shotgun/rubbershot,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -62948,7 +62948,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -63009,7 +63009,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -63397,7 +63397,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -64596,7 +64596,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/command/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay3)
 "mJJ" = (
@@ -66486,7 +66486,7 @@
 /area/station/supply/office)
 "ngA" = (
 /obj/structure/chair/office,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "ngD" = (
@@ -67460,7 +67460,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -67717,7 +67717,7 @@
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/radiation,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -68339,7 +68339,7 @@
 	},
 /obj/structure/closet/l3closet,
 /obj/item/clothing/mask/gas,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -68827,7 +68827,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -69227,7 +69227,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -69245,7 +69245,7 @@
 /obj/machinery/computer/guestpass{
 	pixel_y = 30
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -69651,7 +69651,7 @@
 	color = "#505050";
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -69820,7 +69820,7 @@
 	c_tag = "Medbay Hall 3";
 	network = list("SS13","CMO")
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -70142,7 +70142,7 @@
 "nZB" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -70207,7 +70207,7 @@
 /area/station/maintenance/turbine)
 "oaf" = (
 /obj/machinery/light,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/cmo)
 "oag" = (
@@ -71830,7 +71830,7 @@
 	pixel_y = -2
 	},
 /obj/structure/rack,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -73375,7 +73375,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "oKm" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -73437,7 +73437,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/cmo)
 "oKU" = (
@@ -74324,7 +74324,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -76813,7 +76813,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "pyt" = (
-/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/command/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage/secondary)
 "pyw" = (
@@ -77550,7 +77550,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/exit)
 "pHE" = (
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "pHG" = (
@@ -77749,7 +77749,7 @@
 "pKu" = (
 /obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -78991,7 +78991,7 @@
 /area/station/security/armory/secure)
 "pXK" = (
 /obj/structure/sign/poster/official/random/directional/east,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "pXO" = (
@@ -79107,7 +79107,7 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -79260,7 +79260,7 @@
 	dir = 4;
 	network = list("SS13","CMO")
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -79294,7 +79294,7 @@
 	pixel_y = 28
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -79360,7 +79360,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -80153,7 +80153,7 @@
 	pixel_y = -23;
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -80315,7 +80315,7 @@
 /obj/effect/decal/cleanable/generic,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/trash/spentcasing/bullet/lasershot,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -80409,7 +80409,7 @@
 /obj/structure/sign/directions/evac{
 	pixel_y = -23
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -80709,7 +80709,7 @@
 "qua" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/radiation,
-/obj/effect/turf_decal/tiles/department/medical,
+/obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage/secondary)
 "qub" = (
@@ -80760,7 +80760,7 @@
 /obj/item/clothing/mask/breath/vox,
 /obj/structure/shelf/medbay,
 /obj/machinery/light,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage/secondary)
 "qut" = (
@@ -81730,7 +81730,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -82052,7 +82052,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/l3closet,
 /obj/item/clothing/mask/gas,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -82830,7 +82830,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -84344,7 +84344,7 @@
 	pixel_x = -24;
 	name = "west bump"
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -84570,7 +84570,7 @@
 	pixel_y = 28
 	},
 /obj/structure/table/wood/fancy/blue,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -84677,7 +84677,7 @@
 "rpK" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/suit_storage_unit/cmo/secure,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -85940,7 +85940,7 @@
 /area/station/hallway/primary/central/north)
 "rFU" = (
 /obj/item/kirbyplants/large,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -86203,7 +86203,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server)
 "rIh" = (
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/cmo)
 "rIn" = (
@@ -86341,7 +86341,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay3)
 "rJP" = (
@@ -87331,7 +87331,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/turf_decal/tiles/department/medical,
+/obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage/secondary)
 "rTW" = (
@@ -87372,7 +87372,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -88013,7 +88013,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -88050,7 +88050,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/sandbags,
 /obj/machinery/door/firedoor/heavy,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -88379,7 +88379,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -88599,7 +88599,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -88821,7 +88821,7 @@
 	pixel_x = -28
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -88996,7 +88996,7 @@
 	c_tag = "Bridge Conference Room West";
 	dir = 6
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -89695,7 +89695,7 @@
 /area/station/maintenance/service/fore_port)
 "stZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -89873,7 +89873,7 @@
 /obj/machinery/computer/crew{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -90281,7 +90281,7 @@
 /obj/item/trash/spentcasing/bullet,
 /obj/item/trash/spentcasing/bullet,
 /obj/item/trash/spentcasing/bullet,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -90515,7 +90515,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -90912,7 +90912,7 @@
 /obj/item/trash/spentcasing/bullet,
 /obj/item/trash/spentcasing/bullet,
 /obj/item/trash/spentcasing/bullet,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -92049,7 +92049,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay2)
 "sTY" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -92214,7 +92214,7 @@
 "sVv" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/suit_storage_unit/cmo/sec_storage/secure,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -92952,7 +92952,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "teg" = (
-/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/command/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay3)
 "tek" = (
@@ -93831,7 +93831,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -94481,7 +94481,7 @@
 "tvQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm/directional/west,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -96151,7 +96151,7 @@
 	name = "north bump";
 	pixel_y = 30
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -97651,7 +97651,7 @@
 /obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/cleanliness/directional/west,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -98101,7 +98101,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
 "uml" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -99662,7 +99662,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -100859,7 +100859,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -101552,7 +101552,7 @@
 /area/station/hallway/primary/central/west)
 "uZK" = (
 /obj/machinery/economy/vending/medical,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/medbay3)
 "uZN" = (
@@ -101734,7 +101734,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/photocopier,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -102466,7 +102466,7 @@
 	},
 /obj/machinery/power/apc/directional/east,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -102708,7 +102708,7 @@
 	pixel_y = 5
 	},
 /obj/structure/table/glass,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/storage/secondary)
 "vmK" = (
@@ -102855,7 +102855,7 @@
 /turf/simulated/floor/engine,
 /area/station/hallway/spacebridge/engmed)
 "vow" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -103315,7 +103315,7 @@
 	pixel_x = -30
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
 "vtv" = (
@@ -103637,7 +103637,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor/heavy,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -104367,7 +104367,7 @@
 	dir = 8
 	},
 /obj/machinery/disposal,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -106461,7 +106461,7 @@
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/effect/spawner/random/cobweb/right/rare,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -106588,7 +106588,7 @@
 	pixel_x = 9;
 	pixel_y = 5
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -107228,7 +107228,7 @@
 	name = "Emergency Blast Door"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -108261,7 +108261,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -109124,7 +109124,7 @@
 /area/station/maintenance/security/fore_starboard)
 "wEV" = (
 /obj/machinery/firealarm/directional/east,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/meeting_room)
 "wEY" = (
@@ -109435,7 +109435,7 @@
 	icon_state = "1-2"
 	},
 /obj/item/flag/nt,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -110742,7 +110742,7 @@
 	name = "north bump";
 	pixel_y = 30
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -110774,7 +110774,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -111330,7 +111330,7 @@
 	pixel_y = 5
 	},
 /obj/item/storage/backpack/duffel/medical,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -112634,7 +112634,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/table/wood/fancy/blue,
-/obj/effect/turf_decal/tiles/department/medical,
+/obj/effect/turf_decal/tiles/department/command,
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
 "xut" = (
@@ -112750,7 +112750,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-8"
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/command/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/cmo)
 "xwn" = (
@@ -113381,7 +113381,7 @@
 "xDe" = (
 /obj/structure/barricade/sandbags,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -113996,7 +113996,7 @@
 /obj/effect/spawner/random/maintenance,
 /obj/structure/shelf/medbay,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -114163,7 +114163,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "xLP" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -114193,7 +114193,7 @@
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -115492,7 +115492,7 @@
 /obj/item/kirbyplants/large/dead,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/sign/poster/contraband/random/directional/west,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,

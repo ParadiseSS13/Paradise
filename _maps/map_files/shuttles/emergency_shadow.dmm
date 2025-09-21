@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "af" = (
 /obj/structure/bed/dogbed,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -53,7 +53,7 @@
 "bH" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/restraints/handcuffs,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -101,7 +101,7 @@
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
 "dw" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -178,7 +178,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -204,7 +204,7 @@
 /area/shuttle/escape)
 "ix" = (
 /obj/structure/closet/emcloset,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -238,14 +238,14 @@
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/storage/surgical_tray,
 /obj/item/stack/nanopaste,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "ll" = (
 /obj/machinery/computer/security,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -262,7 +262,7 @@
 "lw" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/storage/fancy/donut_box,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -285,7 +285,7 @@
 /area/shuttle/escape)
 "mw" = (
 /obj/machinery/sleeper,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -315,7 +315,7 @@
 /obj/machinery/computer/crew{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -357,7 +357,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "qk" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -368,7 +368,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -383,14 +383,14 @@
 /obj/machinery/computer/emergency_shuttle{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "rS" = (
 /obj/structure/chair/comfy/shuttle,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -405,7 +405,7 @@
 /obj/machinery/computer/secure_data{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -428,7 +428,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -476,7 +476,7 @@
 "vx" = (
 /obj/item/defibrillator/loaded,
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -552,7 +552,7 @@
 /obj/machinery/computer/atmos_alert{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "zj" = (
@@ -602,7 +602,7 @@
 /area/shuttle/escape)
 "Bm" = (
 /obj/machinery/sleeper,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -617,7 +617,7 @@
 /obj/machinery/recharger,
 /obj/item/gun/energy/gun/mini,
 /obj/machinery/firealarm/directional/west,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -695,7 +695,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/command/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Fu" = (
@@ -704,14 +704,14 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Fz" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "FT" = (
 /obj/structure/closet/crate/freezer/iv_storage,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "FW" = (
@@ -739,7 +739,7 @@
 	name = "south bump";
 	pixel_y = -30
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "GB" = (
@@ -748,7 +748,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -767,7 +767,7 @@
 /obj/machinery/computer/station_alert{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -839,7 +839,7 @@
 	name = "north bump";
 	pixel_y = 30
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -899,7 +899,7 @@
 "LJ" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/megaphone,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -983,7 +983,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1012,7 +1012,7 @@
 /area/shuttle/escape)
 "RS" = (
 /obj/structure/chair/comfy/shuttle,
-/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/command/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "RV" = (
@@ -1028,7 +1028,7 @@
 	},
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/reagent_containers/glass/bottle/reagent/hydrocodone,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1046,7 +1046,7 @@
 /obj/item/healthanalyzer,
 /obj/machinery/light,
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Tl" = (
@@ -1057,7 +1057,7 @@
 /obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = -5
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1066,7 +1066,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1091,7 +1091,7 @@
 /obj/item/storage/firstaid/toxin,
 /obj/item/storage/firstaid/fire,
 /obj/item/storage/firstaid/brute,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1100,7 +1100,7 @@
 /obj/machinery/computer/communications{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1168,7 +1168,7 @@
 /area/shuttle/escape)
 "Yc" = (
 /obj/machinery/light,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Yq" = (
@@ -1181,7 +1181,7 @@
 /area/shuttle/escape)
 "YD" = (
 /obj/machinery/economy/vending/medical,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1198,7 +1198,7 @@
 "Zc" = (
 /obj/item/surgical_drapes,
 /obj/machinery/optable,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,

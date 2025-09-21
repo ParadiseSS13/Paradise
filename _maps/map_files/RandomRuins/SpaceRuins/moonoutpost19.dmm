@@ -784,7 +784,7 @@
 /obj/structure/railing,
 /obj/machinery/optable,
 /obj/effect/turf_decal/box/white,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -980,7 +980,7 @@
 /obj/item/razor{
 	pixel_y = 5
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/moonbase19)
 "df" = (
@@ -2243,7 +2243,7 @@
 /area/ruin/space/moonbase19)
 "ho" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical{
+/obj/effect/turf_decal/tiles/department/command{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -3970,7 +3970,7 @@
 /area/ruin/space/moonbase19)
 "ng" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -4901,7 +4901,7 @@
 /obj/machinery/computer/operating{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -4944,7 +4944,7 @@
 /area/ruin/space/moonbase19)
 "rl" = (
 /obj/structure/sink/directional/west,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -5452,7 +5452,7 @@
 /obj/item/retractor,
 /obj/item/stack/cable_coil,
 /obj/structure/table/glass,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -5908,7 +5908,7 @@
 /area/ruin/space/moonbase19)
 "wc" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -8029,7 +8029,7 @@
 "Gh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -8461,7 +8461,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Io" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -8700,7 +8700,7 @@
 "JA" = (
 /obj/structure/table/glass,
 /obj/item/storage/backpack/duffel/medical,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/moonbase19)
 "JB" = (
@@ -9028,7 +9028,7 @@
 	stat = 2;
 	inhand_icon_state = "facehugger_inactive"
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/command/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/moonbase19)
 "Lb" = (
@@ -9892,7 +9892,7 @@
 	dir = 1
 	},
 /obj/item/mmi,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/moonbase19)
 "Pd" = (
@@ -10271,7 +10271,7 @@
 /obj/structure/railing/cap{
 	dir = 10
 	},
-/obj/effect/turf_decal/tiles/department/medical{
+/obj/effect/turf_decal/tiles/department/command{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -11301,7 +11301,7 @@
 /obj/effect/decal/cleanable/blood/xeno{
 	color = "green"
 	},
-/obj/effect/turf_decal/tiles/department/medical{
+/obj/effect/turf_decal/tiles/department/command{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,

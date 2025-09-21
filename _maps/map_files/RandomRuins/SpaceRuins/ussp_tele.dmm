@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "bh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -21,7 +21,7 @@
 "dJ" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -32,14 +32,14 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flag/ussp,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "fX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "gr" = (
@@ -47,7 +47,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/paper/ussp_tele,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -83,7 +83,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -98,7 +98,7 @@
 	icon_state = "0-8"
 	},
 /obj/item/flag/ussp,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -109,7 +109,7 @@
 	},
 /obj/structure/sign/poster/contraband/communist_state/directional/north,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -158,7 +158,7 @@
 	},
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -186,7 +186,7 @@
 /obj/structure/railing/cap/normal{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -199,7 +199,7 @@
 	desc = "A dead potted plant. Must have died from lack of EVA equipment."
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -207,7 +207,7 @@
 "vr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -236,7 +236,7 @@
 	dir = 1
 	},
 /obj/item/beacon,
-/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/command/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/teleporter)
 "vT" = (
@@ -250,7 +250,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/railing/corner,
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -282,7 +282,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -372,7 +372,7 @@
 /obj/item/clothing/under/new_soviet,
 /obj/item/storage/toolbox/electrical,
 /obj/item/clothing/head/sovietsidecap,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,

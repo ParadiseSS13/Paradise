@@ -105,21 +105,21 @@
 /area/ruin/space/derelict/bridge)
 "at" = (
 /obj/structure/closet/crate/can,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "au" = (
 /obj/machinery/computer/atmos_alert,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "av" = (
 /obj/machinery/computer/monitor/secret,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -130,7 +130,7 @@
 	id = "rusbridge";
 	name = "Bridge Shutters"
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -143,7 +143,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -154,7 +154,7 @@
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
 	name = "decrepit computer"
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -170,7 +170,7 @@
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
 	name = "decrepit computer"
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -178,14 +178,14 @@
 "aA" = (
 /obj/structure/table/reinforced,
 /obj/item/ashtray/bronze,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aB" = (
 /obj/machinery/computer/crew,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -196,7 +196,7 @@
 	name = "decrepit computer"
 	},
 /obj/item/shard,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -204,7 +204,7 @@
 "aD" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -246,7 +246,7 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -263,7 +263,7 @@
 	desc = "An old Soviet phone. The dial tone is still humming.";
 	name = "spin-dial phone"
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -286,7 +286,7 @@
 "aO" = (
 /obj/structure/table/reinforced,
 /obj/item/fan,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -310,7 +310,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -319,14 +319,14 @@
 /obj/machinery/economy/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Soviet cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "aT" = (
 /obj/machinery/economy/vending/sovietsoda,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -337,7 +337,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -384,7 +384,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/derelict/bridge)
 "bc" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -394,23 +394,23 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "be" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bf" = (
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bg" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bh" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -424,7 +424,7 @@
 	name = "shaky note"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -444,7 +444,7 @@
 	pixel_y = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -456,7 +456,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -583,7 +583,7 @@
 	},
 /obj/item/cigbutt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -650,7 +650,7 @@
 /obj/structure/closet/crate/freezer{
 	layer = 2.9
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -659,21 +659,21 @@
 /obj/structure/table/wood,
 /obj/item/taperecorder,
 /obj/item/tape/random,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bP" = (
 /obj/structure/table/wood,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -711,7 +711,7 @@
 /area/ruin/space/derelict/bridge)
 "bW" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -719,48 +719,48 @@
 "bX" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/cups,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bY" = (
 /obj/structure/table/reinforced,
 /obj/item/ashtray/bronze,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "bZ" = (
 /obj/item/kirbyplants/large,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "ca" = (
 /obj/structure/coatrack,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cb" = (
 /obj/structure/table/reinforced,
 /obj/item/folder,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cc" = (
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cd" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "ce" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -768,7 +768,7 @@
 "cf" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -776,7 +776,7 @@
 "cg" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/plastic,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -785,7 +785,7 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -887,14 +887,14 @@
 "cw" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cy" = (
@@ -973,7 +973,7 @@
 /obj/effect/spawner/random/maintenance,
 /obj/item/trash/can,
 /obj/item/trash/semki,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -981,7 +981,7 @@
 "cH" = (
 /obj/structure/sign/poster/contraband/random/directional/east,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1074,7 +1074,7 @@
 "cU" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/drinkingglasses,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1083,13 +1083,13 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/drinks/bottle/vodka,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/bridge)
 "cW" = (
 /obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1546,7 +1546,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1564,7 +1564,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants/large,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1820,7 +1820,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "eR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1830,13 +1830,13 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "eT" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1989,7 +1989,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2008,7 +2008,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2204,7 +2204,7 @@
 /area/ruin/space/derelict/hallway/primary)
 "fM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2213,7 +2213,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "fO" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2343,7 +2343,7 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2351,7 +2351,7 @@
 "gg" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/plastic,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/hallway/primary)
 "gh" = (
@@ -2359,7 +2359,7 @@
 	dir = 8
 	},
 /obj/structure/sign/poster/contraband/random/directional/east,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,

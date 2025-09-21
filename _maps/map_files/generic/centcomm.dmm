@@ -8684,7 +8684,7 @@
 /area/centcom/suppy)
 "Et" = (
 /obj/machinery/computer/robotics,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -8711,7 +8711,7 @@
 /area/centcom/specops)
 "Ew" = (
 /obj/machinery/computer/crew,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -8722,14 +8722,14 @@
 /area/centcom/suppy)
 "Ez" = (
 /obj/machinery/computer/emergency_shuttle,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "EA" = (
 /obj/machinery/computer/communications,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -9904,7 +9904,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "ID" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -11400,7 +11400,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "Nr" = (
@@ -12408,7 +12408,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Qx" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -12442,7 +12442,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
 "QD" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -13413,7 +13413,7 @@
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_thunderdomecourt)
 "TY" = (
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "TZ" = (
@@ -14747,7 +14747,7 @@
 /area/centcom/control)
 "YD" = (
 /obj/structure/closet/crate/can,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "YE" = (
@@ -14766,7 +14766,7 @@
 "YH" = (
 /obj/item/storage/firstaid/regular,
 /obj/structure/table,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "YI" = (

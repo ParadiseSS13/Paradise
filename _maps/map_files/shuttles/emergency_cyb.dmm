@@ -24,28 +24,28 @@
 /area/shuttle/escape)
 "ag" = (
 /obj/machinery/computer/robotics,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "ah" = (
 /obj/machinery/computer/crew,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "ai" = (
 /obj/machinery/computer/emergency_shuttle,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "aj" = (
 /obj/machinery/computer/communications,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,

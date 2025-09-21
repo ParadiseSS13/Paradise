@@ -5,7 +5,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "cM" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -38,7 +38,7 @@
 	pixel_x = -7;
 	pixel_y = 10
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -46,14 +46,14 @@
 "dN" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/minerals,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "eI" = (
 /obj/machinery/economy/atm/directional/east,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -62,14 +62,14 @@
 /obj/structure/closet,
 /obj/item/stack/tile/disco_light/thirty,
 /obj/effect/spawner/random/traders/service,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "fe" = (
 /obj/item/flag/solgov,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -80,7 +80,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -106,7 +106,7 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -115,7 +115,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -132,7 +132,7 @@
 /area/shuttle/trade/sol)
 "iW" = (
 /obj/effect/spawner/random/traders/large_item,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -156,7 +156,7 @@
 	pixel_x = 28
 	},
 /obj/machinery/light/spot,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -182,7 +182,7 @@
 	req_access = list(160);
 	pixel_y = -24
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "pd" = (
@@ -192,7 +192,7 @@
 /area/shuttle/trade/sol)
 "uk" = (
 /obj/machinery/economy/atm/directional/west,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -203,13 +203,13 @@
 /area/shuttle/trade/sol)
 "xK" = (
 /obj/structure/chair/comfy/shuttle,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "zp" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/engineering,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -234,7 +234,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical{
+/obj/effect/turf_decal/tiles/department/command{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -245,7 +245,7 @@
 	pixel_y = 8
 	},
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "FZ" = (
@@ -255,7 +255,7 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -270,7 +270,7 @@
 /area/shuttle/trade/sol)
 "GM" = (
 /obj/effect/spawner/random/traders/vehicle,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -290,7 +290,7 @@
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical{
+/obj/effect/turf_decal/tiles/department/command{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -313,7 +313,7 @@
 	pixel_x = -28
 	},
 /obj/machinery/light/spot,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -339,7 +339,7 @@
 	req_access = list(160);
 	pixel_y = -24
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "Lg" = (
@@ -350,13 +350,13 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/trade/sol)
 "LH" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "Mn" = (
-/obj/effect/turf_decal/tiles/department/medical{
+/obj/effect/turf_decal/tiles/department/command{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -371,7 +371,7 @@
 	name = "south bump";
 	pixel_y = -30
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "Of" = (
@@ -379,7 +379,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "OE" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -390,7 +390,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -400,7 +400,7 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -433,7 +433,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/medical{
+/obj/effect/turf_decal/tiles/department/command{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -441,14 +441,14 @@
 "QN" = (
 /obj/structure/closet,
 /obj/effect/spawner/random/traders/civilian,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "Rp" = (
 /obj/machinery/computer/shuttle/trade/sol,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -457,13 +457,13 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "SA" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -472,13 +472,13 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "Wy" = (
-/obj/effect/turf_decal/tiles/department/medical/corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -502,7 +502,7 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical{
+/obj/effect/turf_decal/tiles/department/command{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -520,13 +520,13 @@
 /obj/structure/sign/poster/official/core/directional/north,
 /obj/structure/table/reinforced,
 /obj/item/toy/plushie/slimeplushie,
-/obj/effect/turf_decal/tiles/department/medical{
+/obj/effect/turf_decal/tiles/department/command{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/trade/sol)
 "Zx" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -536,7 +536,7 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,

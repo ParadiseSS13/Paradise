@@ -213,7 +213,7 @@
 	pixel_y = 5
 	},
 /obj/structure/shelf,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "aK" = (
@@ -239,7 +239,7 @@
 	pixel_y = 1
 	},
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -273,7 +273,7 @@
 "aR" = (
 /obj/item/radio/intercom/pirate,
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "aS" = (
@@ -284,7 +284,7 @@
 /turf/template_noop,
 /area/ruin/space/djstation)
 "aU" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -301,7 +301,7 @@
 	dir = 8
 	},
 /obj/structure/chair/stool,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -334,7 +334,7 @@
 	},
 /obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -356,7 +356,7 @@
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -380,13 +380,13 @@
 	},
 /area/ruin/space/djstation/solars)
 "be" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bf" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -407,7 +407,7 @@
 /obj/machinery/status_display/supply_display{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -420,7 +420,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -474,7 +474,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -502,7 +502,7 @@
 	pixel_x = -32;
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -521,7 +521,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/djstation)
 "bv" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -557,7 +557,7 @@
 /turf/simulated/floor/carpet/grimey,
 /area/ruin/space/djstation)
 "bz" = (
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -569,7 +569,7 @@
 "bB" = (
 /obj/item/radio/intercom/pirate,
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -624,7 +624,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/department/medical/side,
+/obj/effect/turf_decal/tiles/department/command/side,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bL" = (
@@ -756,7 +756,7 @@
 "gx" = (
 /obj/item/radio/intercom/pirate,
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -785,7 +785,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/newscaster/directional/north,
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -885,7 +885,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -947,7 +947,7 @@
 /obj/item/newspaper{
 	desc = "An issue of The Griffon. Was Nanotrasen supplying this station at some point?"
 	},
-/obj/effect/turf_decal/tiles/department/medical/side{
+/obj/effect/turf_decal/tiles/department/command/side{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel/dark,
