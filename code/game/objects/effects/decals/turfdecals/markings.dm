@@ -223,10 +223,8 @@
 /obj/effect/turf_decal/raven/nine
 	icon_state = "RAVEN9"
 
-/obj/effect/turf_decal/blue_corner
-	icon_state = "darkbluecorners"
-
 /obj/effect/turf_decal/yellow_siding
 	icon_state = "yellowsiding"
+
 /obj/effect/turf_decal/yellow_siding/corner
 	icon_state = "yellowcornersiding"

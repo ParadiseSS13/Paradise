@@ -32,6 +32,7 @@
 		icon_state = "tile_half"					\
 	}
 
+TILES_DECAL_HELPER(department/command, 'icons/turf/decals/floormarkings/departmental/command_decals.dmi')
 TILES_DECAL_HELPER(department/security, 'icons/turf/decals/floormarkings/departmental/security_decals.dmi')
 TILES_DECAL_HELPER(department/medical, 'icons/turf/decals/floormarkings/departmental/medical_decals.dmi')
 TILES_DECAL_HELPER(department/virology, 'icons/turf/decals/floormarkings/departmental/virology_decals.dmi')
