@@ -130,7 +130,7 @@
 	origin_tech = "biotech=2"
 	merge_type = /obj/item/stack/medical/bruise_pack
 	max_amount = 12
-	heal_brute = 10
+	heal_brute = 5
 	stop_bleeding = 1800
 	dynamic_icon_state = TRUE
 
@@ -209,7 +209,7 @@
 	icon_state = "ointment"
 	origin_tech = "biotech=2"
 	healverb = "salve"
-	heal_burn = 10
+	heal_burn = 5
 	dynamic_icon_state = TRUE
 	merge_type = /obj/item/stack/medical/ointment
 
