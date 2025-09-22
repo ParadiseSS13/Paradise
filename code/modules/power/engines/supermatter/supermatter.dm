@@ -586,21 +586,21 @@
 
 	gas_coefficient = 1 + (crush_ratio ** 2 * (crush_ratio <= 1) + (crush_ratio > 1) * 2 * crush_ratio / (crush_ratio + 1)) * (plasmacomp * PLASMA_CRUNCH + o2comp * O2_CRUNCH + co2comp * CO2_CRUNCH + n2comp * N2_CRUNCH + n2ocomp * N2O_CRUNCH)
 
-	radiation_pulse(src, 6 * power * (gas_coefficient + max(0, ((power_transmission_bonus / 10)))), GAMMA_RAD)
+	radiation_pulse(src, 6 * power * (gas_coefficient + max(0, power_transmission_bonus / 10), GAMMA_RAD))
 
 	// Power decay depends on the portion of CO2 of the gas mix. If spaced it simply decays slowly
 	if(power_changes)
 		if(removed && combined_gas)
-			power = max((power - min(((power / 500) ** 3) * powerloss_inhibitor, power * 0.83 * powerloss_inhibitor) + power_additive), 0)
+			power = max(power - min((power / 500) ** 3 * powerloss_inhibitor, power * 0.83 * powerloss_inhibitor) + power_additive, 0)
 		else
-			power = power - min(((power / 3000) ** 3) * powerloss_inhibitor, power * 0.5)
+			power = power - min((power / 3000) ** 3 * powerloss_inhibitor, power * 0.5)
 
 	//Power * 0.55 * a value between 1 and 0.8
 	var/device_energy = power * REACTION_POWER_MODIFIER
 
 	if(has_been_powered)
 		// Calculate temperature change in terms of thermal energy, scaled by the average specific heat of the gas.
-		var/produced_joules = max(0, (((device_energy * dynamic_heat_modifier) ** 1.18) * THERMAL_RELEASE_MODIFIER) * heat_multiplier)
+		var/produced_joules = max(0, (device_energy * dynamic_heat_modifier) ** 1.18 * THERMAL_RELEASE_MODIFIER * heat_multiplier)
 		temperature = (heat_capacity * temperature + produced_joules) / heat_capacity
 
 		// Exchange heat with the air, combust once if possible then exchange heat again.
@@ -617,11 +617,11 @@
 			removed.set_temperature(temperature)
 
 		// Calculate how much gas to release
-		var/gas_generation_modifier = max(device_energy * POWER_GAS_MODIFIER + ((temperature - T0C) * THERMAL_GAS_MODIFIER * dynamic_heat_modifier), 0) ** 0.63
+		var/gas_generation_modifier = max(device_energy * POWER_GAS_MODIFIER + (temperature - T0C) * THERMAL_GAS_MODIFIER * dynamic_heat_modifier, 0) ** 0.63
 		// Varies based on power, gas content, and heat to a lesser extent
-		removed.set_toxins(removed.toxins() + max((gas_multiplier * gas_generation_modifier / PLASMA_RELEASE_MODIFIER) + 5, 0))
+		removed.set_toxins(removed.toxins() + max(gas_multiplier * gas_generation_modifier / PLASMA_RELEASE_MODIFIER + 5, 0))
 		// Varies based on power, gas content, and heat
-		removed.set_oxygen(removed.oxygen() + max((gas_multiplier * gas_generation_modifier / OXYGEN_RELEASE_MODIFIER) + 10, 0))
+		removed.set_oxygen(removed.oxygen() + max(gas_multiplier * gas_generation_modifier / OXYGEN_RELEASE_MODIFIER + 10, 0))
 
 	if(produces_gas)
 		env.merge(removed)
