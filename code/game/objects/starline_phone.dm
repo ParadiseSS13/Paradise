@@ -113,14 +113,15 @@
 		playsound(src, 'sound/machines/starline_ring.ogg', 50, 0, 2, ignore_walls = TRUE)
 		icon_state = "ringing"
 		sleep(ring_duration)
-		icon_state = "base"
+		if(phone_state != ACTIVE_CALL)
+			icon_state = "base"
 		sleep(ring_rest_duration)
 
 /obj/machinery/phone/proc/start_call()
 	phone_state = ACTIVE_CALL
 	handheld.listening = TRUE
 	connected_line.handheld.listening = TRUE
-	connected_line.connected_line.audible_message("<span class='information'>The receiver clicks as the other picks up.</span>", hearing_distance = 1)
+	connected_line.audible_message("<span class='information'>The receiver clicks as the other line picks up.</span>", hearing_distance = 1)
 
 /obj/machinery/phone/proc/end_call()
 	handheld.listening = FALSE
