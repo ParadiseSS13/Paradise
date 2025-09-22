@@ -113,8 +113,8 @@
 		playsound(src, 'sound/machines/starline_ring.ogg', 50, 0, 2, ignore_walls = TRUE)
 		icon_state = "ringing"
 		sleep(ring_duration)
-		if(phone_state != ACTIVE_CALL)
-			icon_state = "base"
+		if(phone_state == RINGING) // in case its answered mid ring
+			icon_state = "answered"
 		sleep(ring_rest_duration)
 
 /obj/machinery/phone/proc/start_call()
