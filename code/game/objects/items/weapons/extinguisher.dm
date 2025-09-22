@@ -2,8 +2,8 @@
 	name = "fire extinguisher"
 	desc = "A traditional red fire extinguisher."
 	icon_state = "fire_extinguisher0"
-	item_state = "fire_extinguisher"
 	base_icon_state = "fire_extinguisher"
+	inhand_icon_state = "fire_extinguisher"
 	hitsound = 'sound/weapons/smash.ogg'
 	flags = CONDUCT
 	throwforce = 10
@@ -24,8 +24,6 @@
 	var/safety_active = TRUE
 	/// When `FALSE`, turfs picked from a spray are random. When `TRUE`, it always has at least one water effect per row.
 	var/precision = FALSE
-	/// Sets the `cooling_temperature` of the water reagent datum inside of the extinguisher when it is refilled.
-	var/cooling_power = 2
 	/// If FALSE, extinguishers wont appear prefilled by default
 	var/prefilled = TRUE
 	COOLDOWN_DECLARE(last_use)
@@ -37,8 +35,8 @@
 	name = "atmospheric fire extinguisher"
 	desc = "An extinguisher coated in yellow paint that is pre-filled with firefighting foam."
 	icon_state = "atmoFE0"
-	item_state = "atmoFE"
 	base_icon_state = "atmoFE"
+	inhand_icon_state = "atmoFE"
 	materials = list(MAT_TITANIUM = 200)
 	dog_fashion = null
 	reagent_id = "firefighting_foam"
@@ -51,8 +49,8 @@
 	name = "pocket fire extinguisher"
 	desc = "A light and compact fibreglass-framed model fire extinguisher."
 	icon_state = "miniFE0"
-	item_state = "miniFE"
 	base_icon_state = "miniFE"
+	inhand_icon_state = "miniFE"
 	hitsound = null	// It is much lighter, after all.
 	flags = null // Non-conductive, not made of metal.
 	throwforce = 2
@@ -69,7 +67,6 @@
 	name = "integrated fire extinguisher"
 	desc = "A miniature fire extinguisher designed to store firefighting foam."
 	icon_state = "cyborgFE0"
-	item_state = "cyborgFE"
 	base_icon_state = "cyborgFE"
 	reagent_id = "firefighting_foam"
 
@@ -132,8 +129,6 @@
 
 	to_chat(user, "<span class='notice'>[src] has been refilled with [transferred] units.</span>")
 	playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, -6)
-	for(var/datum/reagent/water/R in reagents.reagent_list)
-		R.cooling_temperature = cooling_power
 	return TRUE
 
 /obj/item/extinguisher/proc/extinguisher_spray(atom/A, mob/living/user)

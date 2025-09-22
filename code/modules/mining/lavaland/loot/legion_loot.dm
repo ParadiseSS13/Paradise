@@ -1,11 +1,10 @@
 /obj/item/storm_staff
 	name = "staff of storms"
 	desc = "An ancient staff retrieved from the remains of Legion. The wind stirs as you move it."
+	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "staffofstorms"
 	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
-	item_state = "staffofstorms"
-	icon = 'icons/obj/guns/magic.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25

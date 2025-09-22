@@ -92,7 +92,8 @@
 		return
 	default_unfasten_wrench(user, I, 10)
 
-/obj/structure/clockwork/wall_gear/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/clockwork/wall_gear/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	if(istype(I, /obj/item/stack/tile/brass))
 		var/obj/item/stack/tile/brass/W = I
 		if(W.get_amount() < 1)
@@ -122,7 +123,7 @@
 				qdel(src)
 			else
 				to_chat(user, "<span class='warning'>You need more brass to make a [anchored ? "false ":""]wall!</span>")
-		return 1
+		return
 	return ..()
 
 /obj/structure/clockwork/wall_gear/deconstruct(disassembled = TRUE)
@@ -292,6 +293,6 @@
 	force_unwielded = 12
 	force_wielded = 22
 	throwforce = 25
-	armour_penetration_percentage = 15
+	armor_penetration_percentage = 15
 	embed_chance = 0	// would suck to lose this after one throw
 	var/bonus_burn = 5	// currently does nothing

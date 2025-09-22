@@ -27,20 +27,20 @@
 	close_sound_volume = 15
 	var/item_path = /obj/item/bodybag
 
-/obj/structure/closet/body_bag/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/closet/body_bag/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(is_pen(I))
 		var/t = rename_interactive(user, I)
 		if(isnull(t))
-			return
+			return ITEM_INTERACT_COMPLETE
 		cut_overlays()
 		if(t)
 			add_overlay("bodybag_label")
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(istype(I, /obj/item/wirecutters))
 		to_chat(user, "<span class='notice'>You cut the tag off the bodybag.</span>")
 		name = initial(name)
 		cut_overlays()
-		return
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)

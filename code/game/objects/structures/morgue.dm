@@ -37,7 +37,6 @@
 	anchored = TRUE
 	var/open_sound = 'sound/items/deconstruct.ogg'
 	var/status
-	new_attack_chain = TRUE
 
 /obj/structure/morgue/Initialize(mapload)
 	. = ..()
@@ -338,7 +337,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	var/repairstate = CREMATOR_OPERATIONAL // Repairstate 0 is DESTROYED, 1 has the igniter applied but needs welding (IN_REPAIR), 2 is OPERATIONAL
 	var/locked = FALSE
 	var/open_sound = 'sound/items/deconstruct.ogg'
-	new_attack_chain = TRUE
 
 /obj/structure/crematorium/Initialize(mapload)
 	. = ..()
@@ -616,18 +614,15 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		if(C.id == id && !C.cremating)
 			C.cremate(user)
 
-
 /mob/proc/update_morgue()
 	if(stat == DEAD)
-		var/obj/structure/morgue/morgue
-		var/mob/living/C = src
-		var/mob/dead/observer/G = src
-		if(istype(G) && G.can_reenter_corpse && G.mind) //We're a ghost, let's find our corpse
-			C = G.mind.current
-		if(istype(C)) //We found our corpse, is it inside a morgue?
-			morgue = get(C.loc, /obj/structure/morgue)
-			if(morgue)
-				morgue.update_icon(UPDATE_OVERLAYS)
+		var/mob/living/corpse = src
+		var/mob/dead/observer/ghost = src
+		if(istype(ghost) && ghost.ghost_flags & GHOST_CAN_REENTER && ghost.mind) //We're a ghost, let's find our corpse
+			corpse = ghost.mind.current
+		if(istype(corpse)) //We found our corpse, is it inside a morgue?
+			var/obj/structure/morgue/morgue = get(corpse.loc, /obj/structure/morgue)
+			morgue?.update_icon(UPDATE_OVERLAYS)
 
 #undef EXTENDED_TRAY
 #undef EMPTY_MORGUE

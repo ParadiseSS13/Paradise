@@ -8,7 +8,6 @@
 	face_while_pulling = FALSE
 	layer = SHOWER_CLOSED_LAYER
 	opacity = TRUE
-	new_attack_chain = TRUE
 	var/assembled = TRUE
 	var/overlay_color = "#ffffff"
 	var/overlay_alpha = 255
@@ -135,7 +134,7 @@
 /obj/structure/curtain/update_overlays()
 	. = ..()
 	if(!assembled)
-		opacity = FALSE
+		set_opacity(FALSE)
 		return
 
 	if(opacity)

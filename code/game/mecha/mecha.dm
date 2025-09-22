@@ -6,14 +6,13 @@
 	icon = 'icons/mecha/mecha.dmi'
 
 	density = TRUE //Dense. To raise the heat.
-	opacity = TRUE ///opaque. Menacing.
 	anchored = TRUE //no pulling around.
 	resistance_flags = FIRE_PROOF
 	layer = MOB_LAYER //icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
 	max_integrity = 300 //max_integrity is base health
-	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 100, acid = 75)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 75)
 	bubble_icon = "machine"
 	cares_about_temperature = TRUE
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)

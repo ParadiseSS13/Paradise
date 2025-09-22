@@ -71,7 +71,7 @@ GLOBAL_LIST_EMPTY(safes)
 	for(var/i in 1 to number_of_tumblers)
 		tumblers.Add(rand(0, 99))
 	if(mapload)
-		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+		END_OF_TICK(CALLBACK(src, PROC_REF(take_contents)))
 
 /obj/structure/safe/proc/take_contents()
 	// Put as many items on our turf inside as possible
@@ -187,30 +187,33 @@ GLOBAL_LIST_EMPTY(safes)
 	else
 		ui_interact(user)
 
-/obj/structure/safe/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/safe/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(open)
 		if(I.flags && ABSTRACT)
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(broken && istype(I, /obj/item/safe_internals) && do_after(user, 2 SECONDS, target = src))
 			to_chat(user, "<span class='notice'>You replace the broken mechanism.</span>")
 			qdel(I)
 			broken = FALSE
 			locked = FALSE
 			update_icon()
+			return ITEM_INTERACT_COMPLETE
 		else if(I.w_class + space <= maxspace)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the safe!</span>")
-				return
+				return ITEM_INTERACT_COMPLETE
 			space += I.w_class
 			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 			SStgui.update_uis(src)
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>[I] won't fit in [src].</span>")
+			return ITEM_INTERACT_COMPLETE
 	else
 		if(istype(I, /obj/item/clothing/neck/stethoscope))
 			attack_hand(user)
-			return
+			return ITEM_INTERACT_COMPLETE
 		else if(istype(I, /obj/item/thermal_drill))
 			if(drill)
 				to_chat(user, "<span class='warning'>There is already a drill attached!</span>")
@@ -222,9 +225,10 @@ GLOBAL_LIST_EMPTY(safes)
 				drill = I
 				time_to_drill = DRILL_TIME * drill.time_multiplier
 				update_icon()
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>You can't put [I] into the safe while it is closed!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 
 /obj/structure/safe/ui_state(mob/user)
 	return GLOB.physical_state

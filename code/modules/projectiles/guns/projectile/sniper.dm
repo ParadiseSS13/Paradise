@@ -2,7 +2,8 @@
 	name = "\improper SR-31C sniper rifle"
 	desc = "A powerful anti-materiel rifle produced by Aussec Armory, chambered in devastating .50 BMG."
 	icon_state = "sniper"
-	item_state = "sniper"
+	worn_icon_state = "sniper"
+	inhand_icon_state = "sniper"
 	recoil = 2
 	weapon_weight = WEAPON_HEAVY
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
@@ -68,7 +69,7 @@
 /obj/item/projectile/bullet/sniper
 	damage = 70
 	weaken = 10 SECONDS
-	armour_penetration_flat = 70
+	armor_penetration_flat = 70
 	forced_accuracy = TRUE
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSGIRDER
 	speed = 0.5
@@ -116,7 +117,7 @@
 	harmful = FALSE
 
 /obj/item/projectile/bullet/sniper/soporific
-	armour_penetration_flat = 0
+	armor_penetration_flat = 0
 	nodamage = 1
 	weaken = 0
 
@@ -143,7 +144,7 @@
 	projectile_type = /obj/item/projectile/bullet/sniper/haemorrhage
 
 /obj/item/projectile/bullet/sniper/haemorrhage
-	armour_penetration_flat = 25
+	armor_penetration_flat = 25
 	damage = 45
 	weaken = 6 SECONDS
 

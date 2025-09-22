@@ -10,7 +10,6 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost"
 	anchored = TRUE
-	new_attack_chain = TRUE
 	var/writing = ""
 
 /obj/structure/signpost/Initialize(mapload)
@@ -148,6 +147,7 @@
 		if(selected_outfit)
 			new_human.equipOutfit(selected_outfit)
 
+// used by admins
 /obj/structure/ghost_beacon
 	name = "ethereal beacon"
 	desc = "A structure that draws ethereal attention when active. Use an empty hand to activate."
@@ -160,7 +160,6 @@
 	var/last_ghost_alert
 	var/alert_title = "Ethereal Beacon Active!"
 	var/atom/attack_atom
-
 
 /obj/structure/ghost_beacon/Initialize(mapload)
 	. = ..()
