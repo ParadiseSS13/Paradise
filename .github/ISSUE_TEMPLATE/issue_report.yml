@@ -5,8 +5,8 @@ body:
     attributes:
       value: >
         Thank you for taking the time to complete this issue report.<br>
-        Please ensure the title is clear and descriptive to help others<br>
-        locate and understand the report more easily.
+        Please ensure the title is clear and descriptive to help others
+        locate and understand the report more easily.<br>
 
         If you believe this is an exploit, please [report it on the forums instead](https://www.paradisestation.org/forum/179-exploit-reports/).<br>
 
