@@ -1,31 +1,16 @@
-#For more details
-# https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms
-# https://docs.gitea.com/1.19/usage/issue-pull-request-templates
-#Be sure to check the docs
-#
-#Format
-#- type: | markdown | textarea | input | checkboxes |
-#  id:   | just an id, no actual relevance |
-#  attributes:
-#    label:       | Box title |
-#    description: | Box small text - Description |
-#
 name: "Issue Report"
-#title: "[Bug]: " | if you want to have a have it automatically say [Bug] when they start the form
 description: "File an issue report to make us aware of a bug or issue."
-#labels: [Bug] | Auto labels the post, as we do not use this, commenting out, purely as reference
-
 body:
   - type: markdown
     attributes:
-    value: >
-      Thank you for taking the time to complete this issue report
-      Please ensure the title is clear and descriptive to help others
-      locate and understand the report more easily.
+      value: >
+        Thank you for taking the time to complete this issue report.
+        Please ensure the title is clear and descriptive to help others
+        locate and understand the report more easily.
 
-      If you believe this is an exploit, please [report it on the forums instead](https://www.paradisestation.org/forum/179-exploit-reports/).
+        If you believe this is an exploit, please [report it on the forums instead](https://www.paradisestation.org/forum/179-exploit-reports/).
 
-      What is an exploit? [Check out our documentation here for more information](https://devdocs.paradisestation.org/contributing/exploits/)!
+        What is an exploit? [Check out our documentation here for more information](https://devdocs.paradisestation.org/contributing/exploits/)!
 
   - type: input
     id: version
