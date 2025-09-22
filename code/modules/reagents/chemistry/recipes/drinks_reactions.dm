@@ -1061,3 +1061,11 @@
 	required_reagents = list("space_drugs" = 1, "sodawater" = 1, "grapejuice" = 1)
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/melonade
+	name = "Melonade"
+	id = "melonade"
+	result = "melonade"
+	required_reagents = list("watermelonjuice" = 2, "lemonade" = 2, "ice" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

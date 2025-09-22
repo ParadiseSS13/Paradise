@@ -64,7 +64,7 @@
 		var/mob/living/carbon/M = G.assailant
 		user.visible_message("<span class='warning'>[user] spits acid at [M]'s face and slips out of their grab!</span>")
 		M.Stun(2 SECONDS) //Drops the grab
-		M.apply_damage(5, BURN, "head", M.run_armor_check("head", "melee"))
+		M.apply_damage(5, BURN, BODY_ZONE_HEAD, M.run_armor_check(BODY_ZONE_HEAD, MELEE))
 		user.SetStunned(0) //This only triggers if they are grabbed, to have them break out of the grab, without the large stun time. If you use biodegrade as an antistun without being grabbed, it will not work
 		user.SetWeakened(0)
 		playsound(user.loc, 'sound/weapons/sear.ogg', 50, TRUE)
@@ -124,7 +124,6 @@
 	desc = "A fistfull of death."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "alien_acid"
-	item_state = null
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	throw_range = 0

@@ -12,9 +12,9 @@
 /obj/item/storage/belt/judobelt
 	name = "\improper Corporate Judo Belt"
 	desc = "Teaches the wearer NT Corporate Judo."
-	icon_state = "judobelt"
-	item_state = "judo"
+	icon_state = "judo"
 	w_class = WEIGHT_CLASS_BULKY
+	layer_over_suit = TRUE
 	storage_slots = 3
 	max_combined_w_class = 7
 	var/datum/martial_art/judo/style

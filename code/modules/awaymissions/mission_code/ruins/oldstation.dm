@@ -50,7 +50,8 @@
 //////////////////////////////
 /obj/item/storage/firstaid/ancient
 	name = "first-aid kit"
-	icon_state = "firstaid"
+	icon_state = "firstaid_regular"
+	inhand_icon_state = "firstaid_regular"
 	desc = "A first aid kit with the ability to heal common types of injuries."
 
 /obj/item/storage/firstaid/ancient/populate_contents()
@@ -167,7 +168,6 @@
 	name = "prototype RIG hardsuit helmet"
 	desc = "Early prototype RIG hardsuit helmet, designed to quickly shift over a user's head. Design constraints of the helmet mean it has no inbuilt cameras, thus it restricts the users visability."
 	icon_state = "hardsuit0-ancient"
-	item_state = "anc_helm"
 	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	item_color = "ancient"
 	resistance_flags = FIRE_PROOF
@@ -178,7 +178,6 @@
 	name = "prototype RIG hardsuit"
 	desc = "Prototype powered RIG hardsuit. Provides excellent protection from the elements of space while being comfortable to move around in, thanks to the powered locomotives. Remains very bulky however."
 	icon_state = "hardsuit-ancient"
-	item_state = "anc_hardsuit"
 	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
 	slowdown = 3
 	resistance_flags = FIRE_PROOF
