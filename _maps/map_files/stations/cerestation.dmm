@@ -29487,7 +29487,7 @@
 /obj/structure/bed/dogbed{
 	name = "Brain's bed"
 	},
-/mob/living/simple_animal/mouse/white/brain,
+/mob/living/basic/mouse/white/brain,
 /obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -90544,7 +90544,7 @@
 "rRO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/mouse/brown/tom,
+/mob/living/basic/mouse/brown/tom,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"

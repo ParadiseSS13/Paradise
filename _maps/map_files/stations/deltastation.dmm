@@ -81451,7 +81451,7 @@
 /area/station/security/prisonershuttle)
 "rbC" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/mouse/white/brain,
+/mob/living/basic/mouse/white/brain,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -86795,7 +86795,7 @@
 	c_tag = "Vault";
 	dir = 4
 	},
-/mob/living/simple_animal/mouse/brown/tom,
+/mob/living/basic/mouse/brown/tom,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/vault)
 "tdA" = (

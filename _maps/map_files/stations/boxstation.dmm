@@ -14423,7 +14423,7 @@
 	},
 /area/station/security/checkpoint/secondary)
 "aZi" = (
-/mob/living/simple_animal/mouse/brown/tom,
+/mob/living/basic/mouse/brown/tom,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"
@@ -21783,7 +21783,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse/gray,
+/mob/living/basic/mouse/gray,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "bwx" = (
