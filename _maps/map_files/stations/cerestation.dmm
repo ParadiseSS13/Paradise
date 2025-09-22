@@ -68629,6 +68629,9 @@
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/fsmaint)
 "nhl" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -68636,11 +68639,28 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/structure/cable/orange{
+	icon_state = "1-8"
+	},
 /obj/machinery/phone{
 	pixel_y = 2
 	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/table/wood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/item/paper/ntrep,
 /obj/structure/cable{
 	icon_state = "1-8"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
@@ -96125,6 +96145,7 @@
 "sZY" = (
 /obj/structure/table/reinforced,
 /obj/item/ashtray/bronze{
+	pixel_y = 0;
 	pixel_x = 7
 	},
 /obj/item/reagent_containers/drinks/mug/qm{
@@ -109148,17 +109169,34 @@
 	},
 /area/station/public/locker)
 "vKl" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/item/paper_bin/nanotrasen,
+/obj/structure/cable/orange{
+	icon_state = "1-2"
+	},
 /obj/item/paper/ntrep{
 	pixel_x = 2;
 	pixel_y = 2
 	},
 /obj/item/pen/multi/fountain,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/table/wood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/paper_bin/nanotrasen,
+/obj/item/pen/multi/fountain,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/ntrep)
