@@ -4,6 +4,9 @@
 	icon = 'icons/obj/fission/rods.dmi'
 	icon_state = "irradiated"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE
+	w_class = WEIGHT_CLASS_HUGE
+	force = 15
+	throwforce = 10
 	/// The path of the object required to fabricate this rod. leave null for nothing
 	var/required_object
 	/// How much durability is left before the rod is useless

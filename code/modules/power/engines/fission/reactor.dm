@@ -19,7 +19,7 @@
 #define AVERAGE_HEAT_THRESHOLD 30 // The threshold the average heat-per-rod must exceed to generate coefficient.
 #define TOTAL_HEAT_THRESHOLD 600 // the temp (in K) needed to begin generating coefficient.
 #define HEAT_CONVERSION_RATIO 400 // How much heat over the threshold = an extra coefficient point.
-#define TEMP_GENERATION_CAP 40000 // The temperature the reactor can get to before limiting heat gen
+#define REACTIVITY_COEFFICIENT_CAP 40 // The highest that reactivity coefficient can be
 
 // If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
 #define NGCR_MELTDOWN_PERCENT 5
@@ -56,11 +56,18 @@
 // #warn Idea todo: Add a button on the monitor to activate venting
 // #warn Idea todo: make ripleys interact safely with rod chambers
 
+#warn make heat coefficient less linear
 #warn add reactor repair
-#warn reverse the control rod up/down position
 #warn fix the final countdown not pulling some chambers down
 #warn fix neighbor adjacency getting removed
+#warn look into gas nodes not connecting
+#warn gas nodes cant be deconned
+#warn make coefficient less linear
+#warn building new chambers isnt updating neighbors
+#warn new chambers dont safety override correctly
+#warn make coolant/moderator amplifier values be affected by durability
 
+#warn Idea todo: poly voicelines
 #warn Idea todo: Allow grilling on an active reactor
 #warn Idea todo: Make some lavaland loot into special rods/upgrades
 #warn Idea todo: Bananium rods?
@@ -207,8 +214,8 @@
 /obj/machinery/atmospherics/fission_reactor/update_overlays()
 	. = ..()
 	if(!(stat & BROKEN))
-		var/rod_state = round((operating_power + 25) / 25)
-		rod_state = min(rod_state, 5)
+		var/rod_state = round((100 - operating_power + 24) / 25)
+		rod_state = clamp(rod_state, 1, 5)
 		. += "rods_[control_rods_remaining]_[rod_state]"
 
 /// Links all valid chambers to the reactor itself.
@@ -263,26 +270,42 @@
 	. = ..()
 	if(!(stat & BROKEN))
 		return
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/creature = user
 	if(istype(used, /obj/item/shovel) && repair_step == REACTOR_NEEDS_DIGGING)
 		playsound(src, used.usesound, 50, 1)
-		if(do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE))
+		if(do_after_once(creature, 3 SECONDS, TRUE, src, allow_moving = FALSE))
 			playsound(src, used.usesound, 50, 1)
 			new /obj/item/slag(loc)
 			if(prob(30))
 				repair_step++
-				to_chat(user, "<span class='information'>There seems to be more slag clogging the ruined reactor core.</span>")
+				to_chat(creature, "<span class='information'>There seems to be more slag clogging the ruined reactor core.</span>")
 			else
-				to_chat(user, "<span class='information'>No more melted slag remains in the chamber</span>")
+				to_chat(creature, "<span class='information'>No more melted slag remains in the chamber</span>")
 		return ITEM_INTERACT_COMPLETE
-	if(istype(used, /obj/item/stack/sheet/mineral/plastitanium) && repair_step == REACTOR_NEEDS_PLASTITANIUM)
+	if(istype(used, /obj/item/stack/sheet/mineral/plastitanium))
 		var/obj/item/stack/sheet/plastitanium = used
 		if(plastitanium.amount >= 10)
-			if(do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE))
-				to_chat(user, "<span class='information'>You reform the control rod housing and slot the structure into place.</span>")
-				repair_step++
-				icon = "reactor_maintenance"
+			if(repair_step == REACTOR_NEEDS_PLASTITANIUM)
+				if(do_after_once(creature, 3 SECONDS, TRUE, src, allow_moving = FALSE))
+					plastitanium.amount -= 10
+					to_chat(creature, "<span class='information'>You reform the control rod housing and slot the structure into place.</span>")
+					repair_step++
+					icon = "reactor_maintenance"
+			else
+				if(!offline)
+					return
+				var/obj/item/item = creature.get_inactive_hand()
+				if(!istype(item, /obj/item/weldingtool))
+					return
+				if(!item.use_tool(src, creature, 0, amount = 1, volume = item.tool_volume))
+					return
+				if(do_after_once(creature, 4 SECONDS, TRUE, src, allow_moving = FALSE))
+					plastitanium.amount -= 10
+					damage = max(damage - (MELTDOWN_POINT * 0.1), 0)
 		else
-			to_chat(user, "<span class='warning'>You need at least ten sheets of plastitanium to reform the reactor core structure!</span>")
+			to_chat(creature, "<span class='warning'>You need at least ten sheets of plastitanium to reform the reactor core structure!</span>")
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/stack/sheet/plasteel) && repair_step == REACTOR_NEEDS_PLASTEEL)
 		var/obj/item/stack/sheet/plasteel = used
@@ -473,7 +496,7 @@
 		else
 			air_contents.set_temperature(CRITICAL_TEMPERATURE)
 		if(reactivity_multiplier < 20)
-			reactivity_multiplier += (rand(10, 25) / 100)
+			reactivity_multiplier += (rand(15, 40) / 100)
 		else
 			reactivity_multiplier = 20
 
@@ -516,16 +539,21 @@
 	var/total_mols = air_contents.total_moles()
 	if(!temp || !total_mols)
 		temp = 0
-	if(average_heatgen > AVERAGE_HEAT_THRESHOLD)
+	if(average_heatgen > AVERAGE_HEAT_THRESHOLD) // the base reactivity from average heat gen
 		reactivity_multiplier = 1 + ((average_heatgen - AVERAGE_HEAT_THRESHOLD) / AVERAGE_HEAT_THRESHOLD)
 	else
 		reactivity_multiplier = 1
 	if(temp > TOTAL_HEAT_THRESHOLD)
-		reactivity_multiplier += (temp - TOTAL_HEAT_THRESHOLD) / HEAT_CONVERSION_RATIO
-	reactivity_multiplier = min(reactivity_multiplier, 20)
+		// Math equasion for here: y = a + b * ln(x)
+		var/offset = 1 // The offset for the math calc. Gives a flat number boost. A component
+		var/curve_intensity = 3.5 // Affects the rate of decay. higher = reactivity builds easier. B component
+		var/heat_component = (temp - TOTAL_HEAT_THRESHOLD) / HEAT_CONVERSION_RATIO // X component
+		reactivity_multiplier += (offset + curve_intensity * log(heat_component))
 
-	final_heat *= ((operating_power / 100) * (reactivity_multiplier * 2) * HEAT_MODIFIER) // proportionally affects heat more
-	final_power *= ((operating_power / 100) * reactivity_multiplier)
+	reactivity_multiplier = clamp(reactivity_multiplier, 1, REACTIVITY_COEFFICIENT_CAP)
+
+	final_heat *= ((operating_percent()) * (reactivity_multiplier * 2) * HEAT_MODIFIER) // proportionally affects heat more
+	final_power *= (operating_percent() * reactivity_multiplier)
 
 	final_power = max(final_power, 0) // no negative numbers
 
@@ -533,10 +561,8 @@
 	if(heat_capacity)
 		if(temp < minimum_operating_temp)
 			air_contents.set_temperature(temp + 50) // RAPIDLY reach our minimum temperature
-		if(temp < TEMP_GENERATION_CAP)
-			air_contents.set_temperature(max(temp + (final_heat / heat_capacity), temp + 2))
 		else
-			air_contents.set_temperature(temp + rand(5, 20)) // lets limit a severe overheat but not stop it
+			air_contents.set_temperature(max(temp + (final_heat / heat_capacity), temp + 2))
 
 	temp = air_contents.temperature()
 	if(temp > heat_damage_threshold * 0.9)
@@ -561,7 +587,9 @@
 
 			var/pressure = air_contents.return_pressure()
 			if(pressure > PRESSURE_MAXIMUM)
-				new_damage = max(new_damage, PRESSURE_DAMAGE + (rand(1,30) / 100))
+				new_damage += PRESSURE_DAMAGE
+
+			new_damage = clamp(new_damage, DAMAGE_MINIMUM, DAMAGE_MAXIMUM)
 
 			if(prob(new_damage * EVENT_MODIFIER)) // rod ejection events
 				var/list/coolers = list()
@@ -595,7 +623,7 @@
 		try_alarm(new_damage)
 
 	if(new_damage)
-		damage += new_damage
+		damage = min(damage + new_damage, MELTDOWN_POINT)
 		send_message = TRUE
 		new_damage = 0
 
@@ -797,6 +825,7 @@
 	smoke.set_up(3, FALSE, loc)
 	smoke.start()
 	venting = TRUE
+	vent_lockout = TRUE
 
 /obj/machinery/atmospherics/fission_reactor/proc/update_minimum_temp()
 	minimum_operating_temp = 0
@@ -872,10 +901,14 @@
 // needs to be late so it does not initialize before the reactor or the other neighbors are ready
 /obj/machinery/atmospherics/reactor_chamber/LateInitialize()
 	. = ..()
-	get_neighbors()
+	if(find_link())
+		get_neighbors()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/reactor_chamber/proc/get_neighbors()
 	if(length(neighbors)) // for when we need to rerun this
+		for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
+			chamber.neighbors -= src
 		neighbors.Cut()
 	var/turf/nearby_turf
 	for(var/direction in GLOB.cardinal)
@@ -883,15 +916,14 @@
 		for(var/obj/machinery/atmospherics/reactor_chamber/chamber in nearby_turf)
 			if(chamber.linked_reactor != linked_reactor)
 				continue
+			if(chamber in neighbors)
+				continue
 			neighbors += chamber
 			continue
 
 // we only want it searching for a link when it is constructed, otherwise the reactor starts the link process.
 /obj/machinery/atmospherics/reactor_chamber/on_construction()
 	. = ..()
-	find_link()
-	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
-		chamber.get_neighbors()
 
 /obj/machinery/atmospherics/reactor_chamber/on_deconstruction()
 	if(linked_reactor)
@@ -921,6 +953,8 @@
 		else
 			chamber.requirements_met = FALSE
 
+/obj/machinery/atmospherics/reactor_chamber/update_icon_state()
+	return
 
 /obj/machinery/atmospherics/reactor_chamber/update_overlays()
 	. = ..()
@@ -971,7 +1005,7 @@
 /obj/machinery/atmospherics/reactor_chamber/attack_hand(mob/user)
 	if(!user)
 		return
-	if(linked_reactor.admin_intervention)
+	if(linked_reactor && linked_reactor.admin_intervention)
 		to_chat(user, "<span class='warning'>An unusual force prevents you from moving the chamber!</span>")
 		return
 	if(stat & NOPOWER)
@@ -1054,6 +1088,7 @@
 					held_rod = used
 					playsound(loc, 'sound/machines/podclose.ogg', 50, 1)
 					update_icon(UPDATE_OVERLAYS)
+					return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/reactor_chamber/screwdriver_act(mob/living/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = 0))
@@ -1202,7 +1237,8 @@
 	if(linked_reactor || skip_link) // A check to prevent duplicates or unwanted chambers
 		return
 	linked_reactor = reactor
-	reactor.connected_chambers += src
+	if(!(src in linked_reactor.connected_chambers))
+		reactor.connected_chambers += src
 	spread_link(reactor)
 
 /// Will spread the linked reactor to other nearby chambers
@@ -1221,14 +1257,16 @@
 		nearby_turf = get_step(src, direction)
 		for(var/obj/machinery/atmospherics/reactor_chamber/chamber in nearby_turf.contents)
 			if(chamber.linked_reactor)
-				linked_reactor = chamber.linked_reactor
-				spread_link(linked_reactor)
-				return
+				form_link(chamber.linked_reactor)
+				return TRUE
 		for(var/obj/machinery/atmospherics/fission_reactor/reactor in nearby_turf.contents)
 			form_link(reactor)
-			return
-
-
+			return TRUE
+		for(var/obj/structure/filler/filler in nearby_turf.contents)
+			if(filler.parent && istype(filler.parent, /obj/machinery/atmospherics/fission_reactor))
+				form_link(filler.parent)
+				return TRUE
+	return FALSE
 
 /// validates that all rod requirements are being met
 /obj/machinery/atmospherics/reactor_chamber/proc/check_status()
@@ -1256,6 +1294,11 @@
 	return FALSE
 
 /obj/machinery/atmospherics/reactor_chamber/process()
+	if(!linked_reactor)
+		if(find_link())
+			get_neighbors()
+		else
+			return
 	if(linked_reactor && linked_reactor.admin_intervention)
 		return
 	if(chamber_state != CHAMBER_DOWN) /// we should only process reactor info when down
@@ -1289,6 +1332,8 @@
 
 /obj/machinery/atmospherics/reactor_chamber/process_atmos()
 	if(!held_rod) // no rod no heat
+		return
+	if(!linked_reactor)
 		return
 	if(linked_reactor.offline)
 		return
@@ -1518,7 +1563,7 @@
 	//Calculate necessary moles to transfer using PV = nRT
 	if((network2.total_moles() > 0) && (network2.temperature() > 0))
 		var/pressure_delta = min(target_pressure - output_starting_pressure, (input_starting_pressure - output_starting_pressure) / 2)
-
+		pressure_delta = max(pressure_delta, 5) // always work at least a little bit
 		var/transfer_moles = pressure_delta * network1.volume / (network2.temperature() * R_IDEAL_GAS_EQUATION)
 
 		//Actually transfer the gas
@@ -1578,6 +1623,8 @@
 		/obj/item/stack/cable_coil = 2,
 		/obj/item/stack/sheet/metal = 2,
 	)
+
+// MARK: Slag
 
 /obj/item/slag
 	name = "corium slag"
@@ -1748,6 +1795,7 @@
 #undef TOTAL_HEAT_THRESHOLD
 #undef HEAT_CONVERSION_RATIO
 #undef TEMP_GENERATION_CAP
+#undef REACTIVITY_COEFFICIENT_CAP
 
 #undef NGCR_MELTDOWN_PERCENT
 #undef NGCR_EMERGENCY_PERCENT
