@@ -143,30 +143,6 @@
 	name = "\improper Incinerator"
 	icon_state = "incin"
 
-/area/station/maintenance/electrical/fore
-	name = "Fore Electrical Maintenance"
-
-/area/station/maintenance/electrical/aft
-	name = "Aft Electrical Maintenance"
-
-/area/station/maintenance/electrical/port
-	name = "Port Electrical Maintenance"
-
-/area/station/maintenance/electrical/starboard
-	name = "Starboard Electrical Maintenance"
-
-/area/station/maintenance/electrical/fore_port
-	name = "Fore Port Electrical Maintenance"
-
-/area/station/maintenance/electrical/aft_port
-	name = "Aft Port Electrical Maintenance"
-
-/area/station/maintenance/electrical/fore_starboard
-	name = "Fore Starboard Electrical Maintenance"
-
-/area/station/maintenance/electrical/aft_starboard
-	name = "Aft Starboard Electrical Maintenance"
-
 /area/station/maintenance/abandonedbar
 	name = "\improper Maintenance Bar"
 	icon_state = "oldbar"
