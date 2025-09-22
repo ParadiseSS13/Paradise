@@ -1,27 +1,14 @@
-#For more details
-# https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms
-# https://docs.gitea.com/1.19/usage/issue-pull-request-templates
-#Be sure to check the docs
-#
-#Format
-#- type: | markdown | textarea | input | checkboxes |
-#  id:   | just an id, no actual relevance |
-#  attributes:
-#    label:       | Box title |
-#    description: | Box small text - Description |
-#
 name: "Issue Report"
 description: "File an issue report to make us aware of a bug or issue."
-
 body:
   - type: markdown
     attributes:
       value: >
-        Thank you for taking the time to complete this issue report.
+        Thank you for taking the time to complete this issue report.<br>
         Please ensure the title is clear and descriptive to help others
-        locate and understand the report more easily.
+        locate and understand the report more easily.<br>
 
-        If you believe this is an exploit, please [report it on the forums instead](https://www.paradisestation.org/forum/179-exploit-reports/).
+        If you believe this is an exploit, please [report it on the forums instead](https://www.paradisestation.org/forum/179-exploit-reports/).<br>
 
         What is an exploit? [Check out our documentation here for more information](https://devdocs.paradisestation.org/contributing/exploits/)!
 
