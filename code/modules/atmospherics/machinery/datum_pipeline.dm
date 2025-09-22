@@ -188,8 +188,8 @@
 				self_temperature_delta = transfer_heat / total_heat_capacity
 				sharer_temperature_delta = -transfer_heat / sharer_heat_capacity
 
-				if(!IS_IN_BOUNDS(heat, -1e10, 1e10))
-					CRASH("Sharing [partial_heat_capacity] @ [pipeline.air.temperature()]K with environment [sharer_heat_capacity] @ [environment.temperature()]K produced out-of-bounds heat transfer [heat]!")
+				if(!IS_IN_BOUNDS(transfer_heat, -1e10, 1e10))
+					CRASH("Sharing [partial_heat_capacity] @ [pipeline.air.temperature()]K with environment [sharer_heat_capacity] @ [environment.temperature()]K produced out-of-bounds heat transfer [transfer_heat]!")
 			else
 				return 1
 
