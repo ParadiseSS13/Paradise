@@ -24,51 +24,68 @@
 		new/datum/lore_console_entry(
 			"Reminder to Joe",
 			{"Hey Joe, since you keep forgetting here's the list of lockdown areas and the locations of control buttons. Thank me later.
-			<br><br><b>(Lobby)</b><br><br>- Research Division lockdown<br>- Medical Ward lockdown
-			<br><br><b>(Cargo Bay)</b><br><br>- Exterior hangar gate<br>- Cargo bay gates
-			<br><br><b>(Senior Researcher's Office)</b><br><br>- Specimen Containment Zone lockdown<br>
-			<br>Note: keep in mind, in case of power outages these buttons won't be functional. In this case you'll find a few generators in engineering wing, set them up properly then report to technicians ASAP."},))
+### Lobby
+- Research Division lockdown
+- Medical Ward lockdown
 
+### Cargo Bay
+- Exterior hangar gate
+- Cargo bay gates
+
+### Senior Researcher's Office
+- Specimen Containment Zone lockdown
+
+Note: keep in mind, in case of power outages these buttons won't be functional.
+In this case you'll find a few generators in engineering wing, set them up properly then report to technicians ASAP."}))
 
 /obj/machinery/computer/loreconsole/moonoutpost19/rdnote
 	entries = list(
 		new/datum/lore_console_entry(
-			"Personal Log",
-			{"<br><br><b>Entry #1</b><br>
-			We're wasting our time and resources here with these unnecessary things. We have means to make an ACTUAL difference.
-			I have expressed these feelings with the Operations Officer, so tomorrow we'll be expecting a shipment of three alien specimen eggs.
-			They expect us to do something 'useful' with them, i don't expect we're going to do much with the resources on hand though.
-			Whatever, i've made it this far already, i'm climbing this ladder even further, then we can start making a real difference.
-			<br><br><b>Entry #2</b><br>
-			I had a weird dream recently about something small catching me off-guard, from under my desk where they've hidden.
-			And now something in my mind whispers to me about 'tax norms', how it is implemented and various terms i have never heard before.
-			A note to self: don't push yourself too hard over small handicaps. It obviously makes you go insane, in a scary way too... And ask your therapist for extra session regarding to this matter."}))
+			"Entry #1",
+			{"We're wasting our time and resources here with these unnecessary things. We have means to make an ACTUAL difference.
+
+I have expressed these feelings with the Operations Officer, so tomorrow we'll be expecting a shipment of three alien specimen eggs.
+They expect us to do something 'useful' with them, i don't expect we're going to do much with the resources on hand though.
+
+Whatever, i've made it this far already, i'm climbing this ladder even further, then we can start making a real difference."}),
+		new/datum/lore_console_entry(
+			"Entry #2",
+			{"I had a weird dream recently about something small catching me off-guard, from under my desk where they've hidden.
+And now something in my mind whispers to me about 'tax norms', how it is implemented and various terms i have never heard before.
+
+A note to self: don't push yourself too hard over small handicaps. It obviously makes you go insane, in a scary way too... And ask your therapist for extra session regarding to this matter."}))
 
 /obj/machinery/computer/loreconsole/moonoutpost19/log1
 	entries = list(
 		new/datum/lore_console_entry(
-			"Chamber #1 Log",
-			{"<hr><b>Data Log #82<br><br>
-			Subject: Yes<br><br>
-			Details:</b><br><br>
-			I fricking hate our so called 'Senior Researcher' Mr. Wood.
-			Someone has to show him how we handle the pricks whose nose in the air in this line of business.<br><br>
-			Therefore i have developed a gas cannon. What this device does is simply compressing air and releasing it in a specific direction -in this case it would be the airlock of this very chamber- at a funny velocity.
-			He checks the containment chambers daily, all i have to do is keep this beauty locked and loaded until he opens the airlock.
-			After all the only difference between messing around and science is writing it down. I bet you won't be so senior about this."}))
+			"Data Log #82",
+			{"**Subject:** Yes
+**Details:**
+I fricking hate our so called 'Senior Researcher' Mr. Wood.
+Someone has to show him how we handle the pricks whose nose in the air in this line of business.
+
+Therefore I have developed a gas cannon. What this device does is simply compressing air and releasing it in a specific direction---in this case it would be the airlock
+of this very chamber---at a funny velocity.
+
+He checks the containment chambers daily, all i have to do is keep this beauty locked and loaded until he opens the airlock.
+After all the only difference between messing around and science is writing it down.
+
+I bet you won't be so senior about this."}))
 
 /obj/machinery/computer/loreconsole/moonoutpost19/log2
 	entries = list(
 		new/datum/lore_console_entry(
-			"Chamber #2 Log",
-			{"<hr><b>Data Log #74<br><br>
-			Subject: Bizarre Bread<br><br>
-			Details:</b><br><br>
-			So, a few weeks ago our custodian, Bob noticed loaf of breads appearing around the outpost.
-			At first we didn't believe him of course, there is no reasonable way to put this situation in this colorful existence...
-			Until i get the honor to actually witnessing it. Someone or something was teleporting bread directly to this location.<br><br>
-			Despite my best efforts to isolate the outpost from this specific bluespace frequency the results have met with failure.
-			This was silly and i couldn't be arsed so i told Bob to do his damn job.
-			A few days later something extraordinary happened, the object has shown the sign of a sort of decay process which resembles a mutation.
-			An object was experiencing mutation as if it was a living organism!<br><br>
-			Investigations are still in progress, we'll be keeping all specimens secured in this chamber."}))
+			"Data Log #74",
+			{"**Subject:** Bizarre Bread
+**Details:**
+So, a few weeks ago our custodian, Bob noticed loaf of breads appearing around the outpost.
+
+At first we didn't believe him of course, there is no reasonable way to put this situation in this colorful existence...
+until I got the honor to actually witnessing it. Someone or something was teleporting bread directly to this location.
+
+Despite my best efforts to isolate the outpost from this specific bluespace frequency the results have met with failure.
+This was silly and i couldn't be arsed so i told Bob to do his damn job.
+
+A few days later something extraordinary happened, the object has shown the sign of a sort of decay process which resembles a mutation. An object was experiencing mutation as if it was a living organism!
+
+Investigations are still in progress, we'll be keeping all specimens secured in this chamber."}))
