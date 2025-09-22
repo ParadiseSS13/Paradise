@@ -510,8 +510,9 @@ By design, d1 is the smallest direction and d2 is the highest
 			if(IS_DIR_DIAGONAL(d2))
 				merge_diagonal_networks(d2)
 
-/obj/structure/cable/extra_insulated/attackby__legacy__attackchain(obj/item/I, mob/living/user)
-	if(I.GetID())
+/obj/structure/cable/extra_insulated/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
+	if(W.GetID())
 		toggle_connection(user)
 	return ..()
 
