@@ -5375,16 +5375,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/command/meeting_room)
-"aSm" = (
-/obj/structure/table/wood,
-/obj/item/stack/cable_coil/random{
-	pixel_x = 2;
-	pixel_y = 3
-	},
-/obj/item/stack/cable_coil/random,
-/obj/item/eftpos,
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "aSo" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/ears/earmuffs,
@@ -10273,21 +10263,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"bCr" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Aft Asteroid Maintenance"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random/dirt/frequent,
-/obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/airlock/access/any/science/tox,
-/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
-/turf/simulated/floor/plasteel/white,
-/area/station/science/misc_lab)
 "bCs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/extra_insulated{
@@ -28408,7 +28383,7 @@
 	name = "Aft Asteroid Maintenance"
 	},
 /turf/simulated/floor/plasteel/white,
-/area/station/science/xenobiology)
+/area/station/maintenance/apmaint)
 "eFq" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/spawner/random/dirt/often,
@@ -45971,6 +45946,21 @@
 "isI" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/service/fore_port)
+"isZ" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Aft Asteroid Maintenance"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/access/any/science/tox,
+/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
+/turf/simulated/floor/plasteel/white,
+/area/station/maintenance/apmaint)
 "itf" = (
 /turf/simulated/mineral/ancient,
 /area/station/maintenance/starboard)
@@ -60549,6 +60539,16 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/break_room/secondary)
+"lsh" = (
+/obj/structure/table/wood,
+/obj/item/stack/cable_coil/random{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/obj/item/stack/cable_coil/random,
+/obj/item/eftpos,
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "lsp" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "scibreak"
@@ -63794,20 +63794,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/apmaint)
-"lZs" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Aft Asteroid Maintenance"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random/dirt/frequent,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
-/obj/effect/mapping_helpers/airlock/access/any/science/tox,
-/turf/simulated/floor/plasteel/white,
-/area/station/science/test_chamber)
 "lZt" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/cigpack_robust{
@@ -97930,6 +97916,20 @@
 	icon_state = "yellow"
 	},
 /area/station/maintenance/disposal/east)
+"tuu" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Aft Asteroid Maintenance"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
+/obj/effect/mapping_helpers/airlock/access/any/science/tox,
+/turf/simulated/floor/plasteel/white,
+/area/station/maintenance/apmaint)
 "tuC" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 8
@@ -142447,7 +142447,7 @@ oOg
 unz
 wmR
 wDV
-aSm
+lsh
 aZZ
 wmR
 ehV
@@ -142526,10 +142526,10 @@ asL
 czb
 cza
 oUJ
-bCr
+isZ
 eJf
 wpX
-lZs
+tuu
 aFn
 dZA
 oqN
