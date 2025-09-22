@@ -357,8 +357,8 @@ Difficulty: Very Hard
 		loot += pick_n_take(choices)
 
 /obj/item/projectile/colossus
-	name ="death bolt"
-	icon_state= "chronobolt"
+	name = "death bolt"
+	icon_state = "chronobolt"
 	damage = 25
 	armor_penetration_percentage = 100
 	speed = 2

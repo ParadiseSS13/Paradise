@@ -120,6 +120,7 @@
 	icon_state = "monk_hood"
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
 //Chaplain
 /obj/item/clothing/head/turban_orange
@@ -127,7 +128,7 @@
 	desc = "One of the essential five K's for any Sikh."
 	icon_state = "turban_orange"
 	flags = BLOCKHAIR
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/head.dmi'
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
@@ -145,7 +146,7 @@
 	desc = "A choice color for Islamic leaders."
 	icon_state = "turban_green"
 	flags = BLOCKHAIR
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/head.dmi'
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
@@ -163,7 +164,7 @@
 	desc = "Headwear for a Shinto priest."
 	icon_state = "eboshi"
 	flags = BLOCKHAIR
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/head.dmi'
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
@@ -180,7 +181,7 @@
 	name = "kippah"
 	desc = "A small, round head covering."
 	icon_state = "kippah"
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/head.dmi'
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
@@ -196,7 +197,7 @@
 	name = "shtreimel"
 	desc = "Festive head covering for Jewish men."
 	icon_state = "shtreimel"
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/head.dmi'
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
@@ -213,7 +214,7 @@
 	desc = "A cloth worn around the head for modesty and dignity."
 	icon_state = "hijab"
 	flags = BLOCKHAIR
-	icon_monitor = 'icons/mob/clothing/species/machine/monitor/head.dmi'
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',

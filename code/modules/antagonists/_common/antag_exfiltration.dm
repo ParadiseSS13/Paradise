@@ -225,7 +225,7 @@
 	icon_state = "flayer_telepad_base"
 	setup_type = /obj/effect/temp_visual/exfiltration/mindflayer
 
-/obj/item/wormhole_jaunter/extraction/changeling/show_activation_message(mob/user)
+/obj/item/wormhole_jaunter/extraction/mindflayer/show_activation_message(mob/user)
 	user.visible_message("<span class='notice'>[user] sets a strange telepad on the floor. It begins to unfold.</span>",
 					"<span class='notice'>You push a button on [src], and watch as it begins to unfold.</span>")
 
