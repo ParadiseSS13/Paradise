@@ -9,7 +9,7 @@
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
 	icon_state = "bhole3"
 	light_range = 3
-	layer = ABOVE_MOB_LAYER
+	layer = HITSCAN_LAYER // Above ABOVE_MOB_LAYER because otherwise potted plants can completely obscure gravity anomalies and make them impossible to scan.
 	var/movechance = ANOMALY_MOVECHANCE
 	var/obj/item/assembly/signaler/anomaly/aSignal = /obj/item/assembly/signaler/anomaly
 	var/area/impact_area
