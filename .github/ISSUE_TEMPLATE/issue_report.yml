@@ -25,6 +25,7 @@ body:
 
       If you believe this is an exploit, please [report it on the forums instead](https://www.paradisestation.org/forum/179-exploit-reports/).
 
+      What is an exploit? [Check out our documentation here!](https://devdocs.paradisestation.org/contributing/exploits/)
 
   - type: input
     id: version
