@@ -1,6 +1,9 @@
 
 //Command
 
+/area/station/command
+	airlock_wires = /datum/wires/airlock/command
+
 /area/station/command/bridge
 	name = "\improper Bridge"
 	icon_state = "bridge"
