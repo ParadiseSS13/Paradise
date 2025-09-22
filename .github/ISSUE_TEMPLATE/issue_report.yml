@@ -4,11 +4,11 @@ body:
   - type: markdown
     attributes:
       value: >
-        Thank you for taking the time to complete this issue report.
-        Please ensure the title is clear and descriptive to help others
+        Thank you for taking the time to complete this issue report.<br>
+        Please ensure the title is clear and descriptive to help others<br>
         locate and understand the report more easily.
 
-        If you believe this is an exploit, please [report it on the forums instead](https://www.paradisestation.org/forum/179-exploit-reports/).
+        If you believe this is an exploit, please [report it on the forums instead](https://www.paradisestation.org/forum/179-exploit-reports/).<br>
 
         What is an exploit? [Check out our documentation here for more information](https://devdocs.paradisestation.org/contributing/exploits/)!
 
