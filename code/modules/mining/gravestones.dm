@@ -6,7 +6,6 @@
 	icon_state = "grave_basalt_open"
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER
-	new_attack_chain = TRUE
 	/// What does the grave contain?
 	var/atom/buried
 	/// What does the headstone say?
