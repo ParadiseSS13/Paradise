@@ -46,9 +46,9 @@
 		// Retaliate mobs
 		/mob/living/basic/clown = 5,
 		/mob/living/basic/clown/goblin = 5,
-		/mob/living/simple_animal/hostile/retaliate/goat = 5,
+		/mob/living/basic/goat = 5,
 		// Friendly
-		/mob/living/simple_animal/mouse = 5,
+		/mob/living/basic/mouse = 5,
 		/mob/living/simple_animal/diona = 5,
 		/mob/living/simple_animal/crab = 5,
 		/mob/living/simple_animal/pet/dog/corgi = 5,
