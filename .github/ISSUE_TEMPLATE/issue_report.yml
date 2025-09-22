@@ -19,7 +19,7 @@ body:
   - type: markdown
     attributes:
     value: >
-      Thank you for taking the time to complete this issue report.
+      Thank you for taking the time to complete this issue report
       Please ensure the title is clear and descriptive to help others
       locate and understand the report more easily.
 
