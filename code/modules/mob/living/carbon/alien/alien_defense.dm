@@ -74,6 +74,24 @@ This code could certainly use with a touch of TLC, but it functions alright. Bit
 			if(STAMINA)
 				adjustStaminaLoss(damage)
 
+/mob/living/carbon/alien/attack_basic_mob(mob/living/basic/M, list/modifiers)
+	. = ..()
+	if(.)
+		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
+		switch(M.melee_damage_type)
+			if(BRUTE)
+				adjustBruteLoss(damage)
+			if(BURN)
+				adjustFireLoss(damage)
+			if(TOX)
+				adjustToxLoss(damage)
+			if(OXY)
+				adjustOxyLoss(damage)
+			if(CLONE)
+				adjustCloneLoss(damage)
+			if(STAMINA)
+				adjustStaminaLoss(damage)
+
 /mob/living/carbon/alien/acid_act(acidpwr, acid_volume)
 	return FALSE //aliens are immune to acid.
 
