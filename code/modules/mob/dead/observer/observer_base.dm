@@ -360,7 +360,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	var/death_time = world.time - O.timeofdeath
-	if(!HAS_TRAIT(O, TRAIT_RESPAWNABLE) && !check_rights(R_ADMIN))
+	if(!HAS_TRAIT(O, TRAIT_RESPAWNABLE) && !check_rights(R_ADMIN, FALSE))
 		to_chat(O, "<span class='warning'>You don't have respawnability!</span>")
 		return
 
@@ -374,7 +374,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		plural_check = "[death_time_minutes] minutes and"
 	var/death_time_seconds = round((death_time - death_time_minutes * 600) / 10, 1)
 
-	if(death_time_minutes < GLOB.configuration.general.respawn_delay / 600 && !check_rights(R_ADMIN))
+	if(death_time_minutes < GLOB.configuration.general.respawn_delay / 600 && !check_rights(R_ADMIN, FALSE))
 		to_chat(O, "<span class='notice'>You have been dead for [plural_check] [death_time_seconds] second\s.</span>")
 		to_chat(O, "<span class='warning'>You must wait [GLOB.configuration.general.respawn_delay / 600] minute\s before you can respawn.</span>")
 		return
