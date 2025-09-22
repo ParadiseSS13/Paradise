@@ -521,6 +521,16 @@
 	build_path = /obj/item/circuitboard/ore_redemption
 	category = list ("Misc. Machinery")
 
+/datum/design/salvage_redemption
+	name = "Machine Design (Salvage Redemption)"
+	desc = "The circuit board for a Salvage Redemption Machine."
+	id = "salvage_redemption"
+	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/salvage_redemption
+	category = list ("Misc. Machinery")
+
 /datum/design/smart_hopper
 	name = "Machine Design (Smart Hopper)"
 	desc = "The circuit board for a Smart Hopper."
@@ -729,3 +739,24 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/organ_analyzer
 	category = list("Research Machinery")
+
+// Forensic Machines (DNA analyzer, microscope)
+/datum/design/dnaforensics
+	name = "Machine Design (DNA analyzer)"
+	desc = "DNA analyzer for forensic DNA analysis of objects."
+	id = "dnaforensics"
+	req_tech = list("programming" = 2, "combat" = 2, "magnets" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/dnaforensics
+	category = list("Misc. Machinery")
+
+/datum/design/microscope
+	name = "Machine Design (Forensic Microscope)"
+	desc = "Microscope capable of magnifying images 3000 times"
+	id = "microscope"
+	req_tech = list("programming" = 2, "combat" = 2, "magnets" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/microscope
+	category = list("Misc. Machinery")

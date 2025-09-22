@@ -309,7 +309,7 @@
 	desc = "An integrated projector mounted onto a user's arm, that is able to be used as a powerful flash."
 	contents = newlist(/obj/item/flash/armimplant)
 	origin_tech = "materials=4;combat=3;biotech=4;magnets=4;powerstorage=3"
-	actions_types = list(/datum/action/item_action/organ_action/toggle/medibeam)
+	actions_types = list(/datum/action/item_action/organ_action/toggle/flash)
 
 /obj/item/organ/internal/cyberimp/arm/flash/New()
 	..()
@@ -510,6 +510,26 @@
 	contents = newlist(/obj/item/mop/advanced)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/advanced_mop)
 
+/obj/item/organ/internal/cyberimp/arm/cargo
+	name = "integrated cargo implant"
+	desc = "Everything you need to run the cargo bay, except a Forklift."
+	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4"
+	icon_state = "toolkit_cargo"
+	contents = newlist(
+		/obj/item/stamp/granted,
+		/obj/item/stamp/denied,
+		/obj/item/hand_labeler,
+		/obj/item/dest_tagger,
+		/obj/item/clipboard,
+		/obj/item/pen/multi,
+		/obj/item/mail_scanner
+	)
+	actions_types = list(/datum/action/item_action/organ_action/toggle/stamp)
+
+/datum/action/item_action/organ_action/toggle/stamp
+	button_icon = 'icons/obj/bureaucracy.dmi'
+	button_icon_state = "stamp-ok"
+
 // Razorwire implant, long reach whip made of extremely thin wire, ouch!
 
 /obj/item/melee/razorwire
@@ -518,14 +538,13 @@
 		Impossibly thin and flawlessly sharp, it should slice through organic materials with no trouble; \
 		even from a few steps away. However, results against anything more durable will heavily vary."
 	icon = 'icons/obj/weapons/energy_melee.dmi'
+	icon_state = "razorwire"
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
-	icon_state = "razorwire"
-	item_state = "razorwire"
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
 	force = 18
-	armour_penetration_percentage = -100 //This means that armor twice as effective against it
+	armor_penetration_percentage = -100 //This means that armor twice as effective against it
 	reach = 2
 	hitsound = 'sound/weapons/whip.ogg'
 	attack_verb = list("slashes", "whips", "lashes", "lacerates")
@@ -536,7 +555,6 @@
 	. = ..()
 	var/random_colour = pick("razorwire", "razorwire_teal", "razorwire_yellow", "razorwire_purple", "razorwire_green")
 	icon_state = random_colour
-	item_state = random_colour
 	update_icon()
 	razorwire_skin_options["Reliable Red"] = "razorwire"
 	razorwire_skin_options["Troubling Teal"] = "razorwire_teal"
@@ -577,7 +595,6 @@
 
 	if(choice && reskin_radial_check(M))
 		icon_state = razorwire_skin_options[choice]
-		item_state = razorwire_skin_options[choice]
 		update_icon()
 		M.update_inv_r_hand()
 		M.update_inv_l_hand()
@@ -614,12 +631,11 @@
 /obj/item/gun/projectile/revolver/doublebarrel/shell_launcher
 	name = "shell launch system"
 	desc = "A mounted cannon seated comfortably in a forearm compartment. This humanitarian device is capable of firing essentially any shotgun shell."
-	icon_state = "shell_cannon_weapon"
+	icon_state = "shell_cannon"
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
-	item_state = "shell_cannon"
 	weapon_weight = WEAPON_LIGHT
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/shell_cannon
 	unique_reskin = FALSE
@@ -745,7 +761,6 @@
 	name = "vortex feedback arm"
 	desc = "A modification to a users arm, allowing them to use a vortex core energy feedback, to parry, reflect, and even empower projectile attacks. Rumors that it runs on the user's blood are unconfirmed."
 	icon_state = "v1_arm"
-	item_state = "v1_arm"
 	icon = 'icons/obj/items.dmi'
 	sprite_sheets_inhand = list("Drask" = 'icons/mob/clothing/species/drask/held.dmi', "Vox" = 'icons/mob/clothing/species/vox/held.dmi')
 	force = 20 //bonk, not sharp
@@ -923,9 +938,8 @@
 /obj/item/melee/mantis_blade/syndicate
 	name = "'Naginata' mantis blade"
 	icon_state = "syndie_mantis"
-	item_state = "syndie_mantis"
 	force = 15
-	armour_penetration_percentage = 30
+	armor_penetration_percentage = 30
 
 /obj/item/melee/mantis_blade/syndicate/Initialize(mapload)
 	. = ..()
@@ -934,7 +948,6 @@
 /obj/item/melee/mantis_blade/nt
 	name = "'Scylla' mantis blade"
 	icon_state = "mantis"
-	item_state = "mantis"
 	force = 12
 
 /obj/item/melee/mantis_blade/nt/Initialize(mapload)
@@ -963,4 +976,3 @@
 
 /obj/item/organ/internal/cyberimp/arm/nt_mantis/l
 	parent_organ = "l_arm"
-

@@ -1,0 +1,610 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aG" = (
+/obj/structure/machine_frame,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"bw" = (
+/obj/structure/extinguisher_cabinet,
+/turf/simulated/wall/r_wall,
+/area/game_test)
+"cf" = (
+/obj/structure/fermenting_barrel,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"cH" = (
+/obj/structure/grille,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"dG" = (
+/obj/structure/holosign/barrier/atmos,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"eN" = (
+/obj/structure/mineral_door/iron,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"eY" = (
+/obj/structure/mirror/magic{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"fA" = (
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"jj" = (
+/obj/structure/rack,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"kg" = (
+/obj/structure/windoor_assembly,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"kT" = (
+/obj/structure/girder/cult,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"le" = (
+/obj/structure/noticeboard,
+/turf/simulated/wall/r_wall,
+/area/game_test)
+"lH" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"ms" = (
+/obj/structure/beebox,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"nj" = (
+/obj/structure/particle_accelerator/fuel_chamber,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"nK" = (
+/obj/structure/cult/functional/forge,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"pS" = (
+/obj/structure/target_stake,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"qt" = (
+/obj/structure/constructshell,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"rT" = (
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"sE" = (
+/obj/structure/chair,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"sR" = (
+/obj/structure/displaycase,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"tn" = (
+/obj/structure/flora/ash,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"tQ" = (
+/obj/structure/guillotine,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"ve" = (
+/obj/structure/computerframe,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"wb" = (
+/obj/structure/table_frame,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"wn" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"wr" = (
+/obj/structure/inflatable,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"yd" = (
+/obj/structure/bed/roller,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"yn" = (
+/obj/structure/big_delivery,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"zK" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"AG" = (
+/obj/structure/door_assembly,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"AI" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"BX" = (
+/obj/effect/landmark{
+	icon = 'icons/effects/spawner_icons.dmi';
+	icon_state = "spooky";
+	name = "Observer-Start"
+	},
+/obj/effect/landmark/spawner/late/crew,
+/obj/effect/landmark/game_test/bottom_left_corner,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Cd" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/game_test)
+"DQ" = (
+/obj/structure/morgue,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"FH" = (
+/obj/structure/snowman/built,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"FZ" = (
+/obj/structure/largecrate,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"GO" = (
+/obj/structure/reflector,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"JP" = (
+/obj/structure/statue/gold/hop,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"NN" = (
+/obj/structure/kitchenspike_frame,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Od" = (
+/turf/simulated/wall/r_wall,
+/area/game_test)
+"OE" = (
+/obj/structure/ai_core,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Pr" = (
+/obj/structure/closet/crate/sci,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"QL" = (
+/obj/structure/disposalconstruct,
+/turf/simulated/floor/plating,
+/area/game_test)
+"RH" = (
+/obj/structure/filingcabinet,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"RN" = (
+/obj/structure/firelock_frame,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Sw" = (
+/obj/effect/landmark/game_test/top_right_corner,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Uu" = (
+/obj/structure/ore_box,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"UT" = (
+/obj/structure/shelf,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"VM" = (
+/obj/structure/loom,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Wr" = (
+/obj/structure/lattice,
+/turf/space,
+/area/game_test)
+"Xt" = (
+/obj/structure/girder,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"Ye" = (
+/obj/structure/kitchenspike,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"YV" = (
+/obj/structure/clockwork/wall_gear,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+"ZY" = (
+/obj/structure/safe,
+/turf/simulated/floor/plasteel,
+/area/game_test)
+
+(1,1,1) = {"
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+"}
+(2,1,1) = {"
+Od
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+Od
+"}
+(3,1,1) = {"
+Od
+rT
+nK
+rT
+aG
+rT
+cH
+rT
+wb
+rT
+VM
+rT
+JP
+rT
+rT
+BX
+rT
+Od
+"}
+(4,1,1) = {"
+Od
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+Od
+"}
+(5,1,1) = {"
+Od
+rT
+OE
+rT
+FZ
+rT
+Xt
+rT
+AI
+rT
+Od
+eY
+UT
+rT
+rT
+rT
+rT
+Od
+"}
+(6,1,1) = {"
+Od
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+Od
+"}
+(7,1,1) = {"
+Od
+rT
+qt
+rT
+sR
+rT
+Xt
+rT
+wr
+rT
+DQ
+rT
+FH
+rT
+rT
+rT
+rT
+Od
+"}
+(8,1,1) = {"
+Od
+rT
+rT
+rT
+rT
+rT
+rT
+dG
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+Od
+"}
+(9,1,1) = {"
+Od
+rT
+ve
+rT
+AG
+rT
+dG
+Wr
+dG
+rT
+le
+rT
+yd
+rT
+Pr
+rT
+rT
+Od
+"}
+(10,1,1) = {"
+Od
+rT
+rT
+rT
+rT
+rT
+rT
+dG
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+Od
+"}
+(11,1,1) = {"
+Od
+rT
+lH
+rT
+bw
+rT
+tQ
+rT
+Ye
+rT
+GO
+rT
+sE
+rT
+zK
+rT
+rT
+Od
+"}
+(12,1,1) = {"
+Od
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+Od
+"}
+(13,1,1) = {"
+Od
+rT
+RN
+rT
+kT
+rT
+NN
+rT
+eN
+rT
+ZY
+rT
+jj
+rT
+Cd
+rT
+rT
+Od
+"}
+(14,1,1) = {"
+Od
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+Od
+"}
+(15,1,1) = {"
+Od
+rT
+pS
+rT
+kg
+rT
+wn
+rT
+ms
+rT
+cf
+rT
+tn
+rT
+fA
+rT
+rT
+Od
+"}
+(16,1,1) = {"
+Od
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+Od
+"}
+(17,1,1) = {"
+Od
+rT
+Sw
+rT
+RH
+rT
+Uu
+rT
+yn
+rT
+YV
+rT
+nj
+rT
+QL
+rT
+rT
+Od
+"}
+(18,1,1) = {"
+Od
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+rT
+Od
+"}
+(19,1,1) = {"
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+Od
+"}

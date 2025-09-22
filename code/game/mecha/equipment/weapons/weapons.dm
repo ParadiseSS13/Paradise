@@ -455,6 +455,30 @@
 	projectile_energy_cost = 100
 	harmful = FALSE
 
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/dropwall
+	name = "\improper DWDL-04 Dropwall Launcher"
+	desc = "A large, semi-automatic launcher designed by Shellguard Munitions to fire dropwall shield generators."
+	icon_state = "mecha_grenadelnchr"
+	origin_tech = "combat=4;engineering=4"
+	projectile = /obj/item/grenade/barrier/dropwall
+	missile_speed = 1.5
+	projectile_energy_cost = 750
+	projectiles = 4
+	size = 1
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/dropwall/action(target, params)
+	if(!action_checks(target))
+		return
+	set_ready_state(0)
+	var/obj/item/grenade/barrier/dropwall/DW = new projectile(chassis.loc)
+	playsound(chassis, fire_sound, 50, 1)
+	DW.mode = angle2dir_cardinal(get_angle(get_turf(src), get_turf(target)))
+	DW.throw_at(target, missile_range, missile_speed)
+	DW.active = TRUE
+	projectiles--
+	log_message("Fired from [name], targeting [target].")
+	do_after_cooldown()
+
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/can_attach(obj/mecha/combat/honker/M as obj)
 	if(..())
 		if(istype(M))
@@ -532,11 +556,10 @@
 	do_after_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
-	equip_cooldown = 1 SECONDS
 	name = "\improper 217-D Heavy Plasma Cutter"
 	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demolishing solid obstacles."
 	icon_state = "mecha_plasmacutter"
-	item_state = "plasmacutter"
+	inhand_icon_state = "plasmacutter"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	energy_drain = 30
@@ -544,6 +567,7 @@
 	projectile = /obj/item/projectile/plasma/adv/mech
 	fire_sound = 'sound/weapons/laser.ogg'
 	harmful = TRUE
+	equip_cooldown = 1 SECONDS
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/working))

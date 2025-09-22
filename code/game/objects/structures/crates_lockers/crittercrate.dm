@@ -51,9 +51,9 @@
 
 	/mob/living/simple_animal/pet/dog/corgi,
 	/mob/living/simple_animal/pet/dog/corgi/lisa,
-	/mob/living/simple_animal/hostile/retaliate/goat,
-	/mob/living/simple_animal/turkey,
-	/mob/living/simple_animal/chick,
+	/mob/living/basic/goat,
+	/mob/living/basic/turkey,
+	/mob/living/basic/chick,
 	/mob/living/simple_animal/pet/cat,
 	/mob/living/simple_animal/pet/dog/pug,
 	/mob/living/simple_animal/pet/dog/fox,
@@ -77,15 +77,15 @@
 
 /obj/structure/closet/critter/goat
 	name = "goat crate"
-	content_mob = /mob/living/simple_animal/hostile/retaliate/goat
+	content_mob = /mob/living/basic/goat
 
 /obj/structure/closet/critter/turkey
 	name = "turkey crate"
-	content_mob = /mob/living/simple_animal/turkey
+	content_mob = /mob/living/basic/turkey
 
 /obj/structure/closet/critter/chick
 	name = "chicken crate"
-	content_mob = /mob/living/simple_animal/chick
+	content_mob = /mob/living/basic/chick
 
 /obj/structure/closet/critter/chick/populate_contents()
 	amount = rand(1, 3)
@@ -112,7 +112,7 @@
 
 /obj/structure/closet/critter/nian_caterpillar
 	name = "nian caterpillar crate"
-	content_mob = /mob/living/simple_animal/nian_caterpillar
+	content_mob = /mob/living/basic/nian_caterpillar
 
 /obj/structure/closet/critter/deer
 	name = "deer crate"

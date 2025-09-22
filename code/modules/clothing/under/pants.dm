@@ -1,17 +1,15 @@
 /obj/item/clothing/under/pants
 	icon = 'icons/obj/clothing/under/pants.dmi'
+	worn_icon = 'icons/mob/clothing/under/pants.dmi'
 	gender = PLURAL
 	body_parts_covered = LOWER_TORSO|LEGS
 	displays_id = FALSE
-
 	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/under/pants.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/pants.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/pants.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/under/pants.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/under/pants.dmi'
-		)
-
+	)
 
 /obj/item/clothing/under/pants/equipped(mob/user, slot)
 	if(ishuman(user) && slot == ITEM_SLOT_JUMPSUIT)

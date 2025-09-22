@@ -5,7 +5,7 @@
 	desc = "A basic, handheld welding tool. Useful for welding bits together, and cutting them apart."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "welder"
-	item_state = "welder"
+	inhand_icon_state = "welder"
 	belt_icon = "welder"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
@@ -38,11 +38,14 @@
 	var/low_fuel_changes_icon = TRUE
 	/// How often does the tool flash the user's eyes?
 	var/progress_flash_divisor = 1 SECONDS
+	/// If FALSE, welding tools wont appear prefilled by default
+	var/prefilled = TRUE
 
 /obj/item/weldingtool/Initialize(mapload)
 	. = ..()
 	create_reagents(maximum_fuel)
-	reagents.add_reagent("fuel", maximum_fuel)
+	if(prefilled)
+		reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
 	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
@@ -231,10 +234,7 @@
 			icon_state = initial(icon_state)
 		else
 			icon_state = "[initial(icon_state)][ratio]"
-	if(tool_enabled)
-		item_state = "[initial(item_state)]1"
-	else
-		item_state = "[initial(item_state)]"
+	inhand_icon_state = "[initial(inhand_icon_state)][tool_enabled || ""]"
 
 /obj/item/weldingtool/update_overlays()
 	. = ..()
@@ -248,6 +248,9 @@
 /obj/item/weldingtool/get_heat()
 	return tool_enabled * 2500
 
+/obj/item/weldingtool/empty
+	prefilled = FALSE
+
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"
 	desc = "A heavier welding tool with an expanded fuel reservoir. Otherwise identical to a normal welder."
@@ -256,6 +259,9 @@
 	maximum_fuel = 40
 	materials = list(MAT_METAL = 400, MAT_GLASS = 300)
 	origin_tech = "engineering=2;plasmatech=2"
+
+/obj/item/weldingtool/largetank/empty
+	prefilled = FALSE
 
 /obj/item/weldingtool/largetank/cyborg
 	name = "integrated welding tool"
@@ -266,7 +272,7 @@
 	name = "research welding tool"
 	desc = "A scratched-up welding tool that's been the subject of numerous aftermarket enhancements. It has a larger fuel tank, and a more focused torch than a standard welder. A label on the side reads, \"Property of Theseus\"."
 	icon_state = "welder_research"
-	item_state = "welder_research"
+	inhand_icon_state = "welder_research"
 	belt_icon = "welder_research"
 	maximum_fuel = 40
 	toolspeed = 0.75
@@ -299,21 +305,27 @@
 	materials = list(MAT_METAL = 200, MAT_GLASS = 50)
 	low_fuel_changes_icon = FALSE
 
+/obj/item/weldingtool/mini/empty
+	prefilled = FALSE
+
 /obj/item/weldingtool/hugetank
 	name = "upgraded welding tool"
 	desc = "A large industrial welding tool with an even further upgraded fuel reservoir."
 	icon_state = "upindwelder"
-	item_state = "upindwelder"
+	inhand_icon_state = "upindwelder"
 	belt_icon = "welder_upg"
 	maximum_fuel = 80
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "engineering=3;plasmatech=2"
 
+/obj/item/weldingtool/hugetank/empty
+	prefilled = FALSE
+
 /obj/item/weldingtool/experimental
 	name = "experimental welding tool"
 	desc = "A prototype welding tool which uses an experimental fuel breeder to create a near-infinite reserve of fuel. The unusual fuel mixture also means that the flame is less intense on the eyes."
 	icon_state = "exwelder"
-	item_state = "exwelder"
+	inhand_icon_state = "exwelder"
 	belt_icon = "welder_exp"
 	maximum_fuel = 40
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
@@ -327,7 +339,7 @@
 	name = "brass welding tool"
 	desc = "A brass welder that seems to constantly refuel itself. It is faintly warm to the touch."
 	icon_state = "brasswelder"
-	item_state = "brasswelder"
+	inhand_icon_state = "brasswelder"
 	belt_icon = "welder_brass"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 

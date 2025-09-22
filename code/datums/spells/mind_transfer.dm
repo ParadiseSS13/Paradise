@@ -64,7 +64,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 			for(var/V in victim.mind.special_verbs)
 				remove_verb(victim, V)
 
-		var/mob/dead/observer/ghost = victim.ghostize(0)
+		var/mob/dead/observer/ghost = victim.ghostize()
 		caster.mind.transfer_to(victim)
 
 		if(length(victim.mind.special_verbs))//To add all the special verbs for the original caster.
@@ -73,7 +73,6 @@ Also, you never added distance checking after target is selected. I've went ahea
 
 		ghost.mind.transfer_to(caster)
 		if(ghost.key)
-			GLOB.non_respawnable_keys -= ghost.ckey
 			caster.key = ghost.key	//have to transfer the key since the mind was not active
 		qdel(ghost)
 

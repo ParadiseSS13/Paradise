@@ -1746,18 +1746,29 @@
 			to_chat(usr, "<span class='warning'>This will only work on /mob/dead/observer</span>")
 			return
 
-		var/posttransformoutfit = usr.client.robust_dress_shop()
+		var/list/potential_minds = list()
+		for(var/datum/mind/mind in G.client.persistent.minds)
+			if(ckey(mind.key) == G.ckey && isnull(mind.current) && mind.destroyed_body_json)
+				potential_minds += mind
+		var/outfit = usr.client.robust_dress_shop(potential_minds)
 
-		if(!posttransformoutfit)
+		if(!outfit)
 			return
 
-		var/mob/living/carbon/human/H = G.incarnate_ghost()
+		var/mob/M
+		if(istype(outfit, /datum/mind))
+			M = G.incarnate_ghost(outfit)
 
-		if(posttransformoutfit && istype(H))
-			H.equipOutfit(posttransformoutfit)
+			log_admin("[key_name(M)] was rebuilt from a mind backup by [key_name(owner)]")
+			message_admins("[key_name_admin(M)] was rebuilt from a mind backup by [key_name_admin(owner)]")
+		else
+			M = G.incarnate_ghost()
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				H.equipOutfit(outfit)
 
-		log_admin("[key_name(G)] was incarnated by [key_name(owner)]")
-		message_admins("[key_name_admin(G)] was incarnated by [key_name_admin(owner)]")
+			log_admin("[key_name(M)] was incarnated by [key_name(owner)]")
+			message_admins("[key_name_admin(M)] was incarnated by [key_name_admin(owner)]")
 
 	else if(href_list["togmutate"])
 		if(!check_rights(R_SPAWN))	return
@@ -1810,7 +1821,7 @@
 			return
 
 		var/mob/dead/observer/ghost = C.mob
-		ghost.ManualFollow(target)
+		ghost.manual_follow(target)
 
 	else if(href_list["check_antagonist"])
 		check_antagonists()
@@ -3242,16 +3253,22 @@
 						continue
 					W.icon = 'icons/obj/guns/projectile.dmi'
 					W.icon_state = "revolver"
-					W.item_state = "gun"
+					W.worn_icon_state = "gun"
+					W.inhand_icon_state = "gun"
+					W.lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+					W.righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 				message_admins("[key_name_admin(usr)] made every item look like a gun")
 			if("schoolgirl") // nyaa~ How much are you paying attention in reviews?
 				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				for(var/obj/item/clothing/under/W in world)
-					W.icon_state = "schoolgirl"
-					W.item_state = "w_suit"
-					W.item_color = "schoolgirl"
+					W.icon_state = /obj/item/clothing/under/dress/schoolgirl::icon_state
+					W.worn_icon = /obj/item/clothing/under/dress/schoolgirl::worn_icon
+					W.sprite_sheets = /obj/item/clothing/under/dress/schoolgirl::sprite_sheets
+					W.worn_icon_state = /obj/item/clothing/under/dress/schoolgirl::worn_icon_state
+					W.inhand_icon_state = /obj/item/clothing/under/dress/schoolgirl::inhand_icon_state
+					W.item_color = /obj/item/clothing/under/dress/schoolgirl::item_color
 				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
 				SEND_SOUND(world, sound('sound/AI/animes.ogg'))
 			if("eagles")//SCRAW

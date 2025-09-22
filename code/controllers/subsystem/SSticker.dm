@@ -27,12 +27,6 @@ SUBSYSTEM_DEF(ticker)
 	var/login_music
 	/// List of all minds in the game. Used for objective tracking
 	var/list/datum/mind/minds = list()
-	/// icon_state the chaplain has chosen for his bible
-	var/Bible_icon_state
-	/// item_state the chaplain has chosen for his bible
-	var/Bible_item_state
-	/// Name of the bible
-	var/Bible_name
 	/// Name of the bible deity
 	var/Bible_deity_name
 	/// Cult static info, used for things like sprites. Someone should refactor the sprites out of it someday and just use SEPERATE ICONS DEPNDING ON THE TYPE OF CULT... like a sane person
@@ -691,10 +685,10 @@ SUBSYSTEM_DEF(ticker)
 	// Besides, what's another loop over the /entire player list/
 	var/kudos_message
 	for(var/mob/M in GLOB.player_list)
-		var/kudos = M.mind?.kudos_received_from
+		var/kudos = M.client?.persistent.kudos_received_from
 		if(length(kudos))
 			kudos_message = pick(length(kudos) > 5 ? special_encouragement_messages : base_encouragement_messages)
-			to_chat(M, "<span class='green big'>You received <b>[length(M.mind.kudos_received_from)]</b> kudos from other players this round! [kudos_message]</span>")
+			to_chat(M, "<span class='green big'>You received <b>[length(kudos)]</b> kudos from other players this round! [kudos_message]</span>")
 
 	// Seal the blackbox, stop collecting info
 	SSblackbox.Seal()
