@@ -360,7 +360,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	armor_penetration_percentage = 50
+	armor_penetration_flat = 50
 	var/active = FALSE
 
 /obj/item/holo/esword/Initialize(mapload)

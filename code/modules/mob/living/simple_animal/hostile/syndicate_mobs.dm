@@ -70,7 +70,7 @@
 	damage_coeff = list(BRUTE = 0.9, BURN = 0.9, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) // Imitates our armor
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	armor_penetration_percentage = 50
+	armor_penetration_flat = /obj/item/melee/energy/sword::armor_penetration_flat
 	loot = list(
 		/obj/effect/decal/cleanable/blood/innards,
 		/obj/effect/decal/cleanable/blood,

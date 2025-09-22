@@ -41,7 +41,7 @@ Difficulty: Hard
 	friendly = "stares down"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("gurgles")
-	armor_penetration_percentage = 50
+	armor_penetration_flat = 40
 	melee_damage_lower = 40
 	melee_damage_upper = 40
 	speed = 5
@@ -650,7 +650,7 @@ Difficulty: Hard
 	desc = "Oh they are PISSED. And quite injured too..."
 	health = 750
 	maxHealth = 750
-	armor_penetration_percentage = 75
+	armor_penetration_flat = 50
 	second_life = TRUE
 	enraged = TRUE
 	rapid_melee = 12

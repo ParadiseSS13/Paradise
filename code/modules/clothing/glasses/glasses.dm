@@ -150,7 +150,7 @@
 	prescription_upgradable = TRUE
 	scan_reagents = TRUE // You can see reagents while wearing science goggles
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 200, ACID = INFINITY)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 100)
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 

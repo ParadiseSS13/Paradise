@@ -17,6 +17,7 @@
 	inhand_icon_state = "bl_suit"
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 
 /obj/item/clothing/under/rank/centcom/deathsquad
 	name = "\improper Deathsquad jumpsuit"
@@ -31,42 +32,38 @@
 	desc = "An armoured uniform designed for emergency response teams. This one belongs to a chaplain."
 	icon_state = "ert_chaplain"
 	item_color = "ert_chaplain"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 
 /obj/item/clothing/under/rank/centcom/ert/commander
 	name = "response team commander uniform"
 	desc = "An armoured uniform designed for emergency response teams. This one belongs to the command officer."
 	icon_state = "ert_commander"
 	item_color = "ert_commander"
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 30, ACID = 30)
 
 /obj/item/clothing/under/rank/centcom/ert/engineer
 	name = "response team engineer uniform"
 	desc = "An armoured uniform designed for emergency response teams. This one belongs to an engineer."
 	icon_state = "ert_engineer"
 	item_color = "ert_engineer"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 
 /obj/item/clothing/under/rank/centcom/ert/janitor
 	name = "response team janitor uniform"
 	desc = "An armoured uniform designed for emergency response teams. This one belongs to a janitor."
 	icon_state = "ert_janitor"
 	item_color = "ert_janitor"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 
 /obj/item/clothing/under/rank/centcom/ert/medical
 	name = "response team medic uniform"
 	desc = "An armoured uniform designed for emergency response teams. This one belongs to a medic."
 	icon_state = "ert_medic"
 	item_color = "ert_medic"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 
 /obj/item/clothing/under/rank/centcom/ert/security
 	name = "response team security uniform"
 	desc = "An armoured uniform designed for emergency response teams. This one belongs to a security officer."
 	icon_state = "ert_security"
 	item_color = "ert_security"
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 30, ACID = 30)
 
 /obj/item/clothing/under/rank/centcom/commander
 	name = "\improper CentComm commander's jumpsuit"
@@ -81,7 +78,7 @@
 	icon_state = "navy_gold"
 	inhand_icon_state = null
 	item_color = "navy_gold"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 30, ACID = 30)
 	displays_id = FALSE
 
 /obj/item/clothing/under/rank/centcom/captain
@@ -90,7 +87,7 @@
 	icon_state = "navy_gold"
 	inhand_icon_state = null
 	item_color = "navy_gold"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 30, ACID = 30)
 	displays_id = FALSE
 
 /obj/item/clothing/under/rank/centcom/captain/solgov

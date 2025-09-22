@@ -207,8 +207,7 @@
 	hitsound = "swing_hit"
 	embed_chance = 75
 	embedded_impact_pain_multiplier = 10
-	armor_penetration_percentage = 50
-	armor_penetration_flat = 10
+	armor_penetration_flat = 35
 	origin_tech = "combat=3;magnets=4;syndicate=4"
 	sharp = TRUE
 	var/hacked = FALSE
@@ -345,7 +344,6 @@
 	throwforce_on = 10 // No PvP shenanigans, this is main weapon in PvE explorer gameplay and can be obtained very easy
 	embed_chance = 45
 	embedded_impact_pain_multiplier = 4
-	armor_penetration_percentage = 0
 	armor_penetration_flat = 0
 	icon_state = "cutlass0"
 	icon_state_on = "cutlass1"

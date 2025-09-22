@@ -10,7 +10,7 @@
 	inhand_icon_state = "plasmaman_helmet"
 	strip_delay = 80
 	tint = FLASH_PROTECTION_WELDER
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 75)
 	resistance_flags = FIRE_PROOF
 	var/brightness_on = 4 //luminosity when the light is on
 	var/on = FALSE
@@ -93,18 +93,18 @@
 	name = "security plasma envirosuit helmet"
 	desc = "A plasmaman containment helmet designed for security officers, protecting them from being flashed and burning alive, alongside other undesirables."
 	icon_state = "security_envirohelm"
-	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 100, ACID = 75)
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/warden
 	name = "warden's plasma envirosuit helmet"
 	desc = "A plasmaman containment helmet designed for the warden, a pair of white stripes being added to differentiate them from other members of security."
 	icon_state = "warden_envirohelm"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 100, ACID = 75)
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/hos
 	desc = "A plasmaman containment helmet designed for the head of security."
 	icon_state = "hos_envirohelm"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 100, ACID = 75)
 
 /obj/item/clothing/head/helmet/space/plasmaman/medical
 	name = "medical plasma envirosuit helmet"
@@ -150,7 +150,7 @@
 	name = "engineering plasma envirosuit helmet"
 	desc = "A space-worthy helmet specially designed for engineer plasmamen, the usual purple stripes being replaced by engineering's orange."
 	icon_state = "engineer_envirohelm"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = INFINITY, ACID = 75)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 100, ACID = 75)
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce
 	name = "chief engineer's plasma envirosuit helmet"
@@ -177,7 +177,7 @@
 	name = "expedition plasma envirosuit helmet"
 	desc = "A brown and blue helmet given to plasmaman explorers operating in Space.."
 	icon_state = "expedition_envirohelm"
-	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 100, ACID = 75)
 
 /obj/item/clothing/head/helmet/space/plasmaman/smith
 	name = "smithing plasma envirosuit helmet"
@@ -248,7 +248,7 @@
 	desc = "A magical plasmaman containment helmet designed to spread chaos in safety and comfort."
 	icon_state = "wizard_envirohelm"
 	gas_transfer_coefficient = 0.01
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, RAD = 20, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
 
@@ -329,7 +329,7 @@
 	name = "central command envirosuit helmet"
 	desc = "A plasmaman containment helmet designed for central command officials."
 	icon_state = "centcom_envirohelm"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 100, ACID = 75)
 
 /obj/item/clothing/head/helmet/space/plasmaman/centcom/soo
 	desc = "A plasmaman containment helmet designed for central command officials. This one has been modified for use by special operations officers."
@@ -341,4 +341,4 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	HUDType = MEDHUD
 	see_in_dark = 8
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, RAD = 100, FIRE = 100, ACID = 100)

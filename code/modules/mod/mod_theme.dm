@@ -115,7 +115,7 @@
 	armor_type_2 = new armor_type_1
 
 /obj/item/mod/armor/mod_theme
-	armor = list(MELEE = 15, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 25, FIRE = 33, ACID = 33)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 0, RAD = 35, FIRE = 40, ACID = 40)
 
 /datum/mod_theme/engineering
 	name = "'Spark' engineering"
@@ -162,8 +162,9 @@
 		),
 	)
 
+/// Bomb armor bumped up a bit, as the modsuit describes it with blast-dampening
 /obj/item/mod/armor/mod_theme_engineering
-	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 30, RAD = 150, FIRE = INFINITY, ACID = 150) //Bomb armor bumped up a bit, as the modsuit describes it with blast-dampening
+	armor = list(MELEE = 30, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 40, RAD = 75, FIRE = 100, ACID = 75)
 
 /datum/mod_theme/atmospheric
 	name = "'Canary' atmospheric"
@@ -217,7 +218,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_atmospheric
-	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 30, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 25, RAD = 25, FIRE = 100, ACID = 75)
 
 /datum/mod_theme/advanced
 	name = "'Daedalus' advanced"
@@ -278,7 +279,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_advanced
-	armor = list(MELEE = 35, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 40, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 100, FIRE = 100, ACID = 75)
 
 /datum/mod_theme/mining
 	name = "'Pioneer' mining"
@@ -366,7 +367,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_mining
-	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 50, RAD = 50, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 50, RAD = 50, FIRE = 50, ACID = 50)
 
 /datum/mod_theme/loader
 	name = "'Heracles' loader"
@@ -411,7 +412,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_loader
-	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 25, ACID = 25)
+	armor = list(MELEE = 30, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 35, ACID = 35)
 
 /datum/mod_theme/medical
 	name = "'Apollo' medical"
@@ -494,7 +495,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_medical
-	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 75, ACID = 150)
+	armor = list(MELEE = 15, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 60, ACID = 75)
 
 /datum/mod_theme/rescue
 	name = "'Valkyrie' rescue"
@@ -555,8 +556,9 @@
 		),
 	)
 
+/// Extra melee / bullet armor for if they get caught in a fight. Of course, no laser armor.
 /obj/item/mod/armor/mod_theme_rescue
-	armor = list(MELEE = 20, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 250, FIRE = 150, ACID = 150) //Extra melee / bullet armor for if they get caught in a fight. Of course, no laser armor.
+	armor = list(MELEE = 30, BULLET = 30, LASER = 10, ENERGY = 10, BOMB = 15, RAD = 85, FIRE = 75, ACID = 75)
 
 /datum/mod_theme/research
 	name = "'Minerva' research"
@@ -611,8 +613,9 @@
 		),
 	)
 
+/// Slow balistic / explosive testing armor. Not laser testing however!
 /obj/item/mod/armor/mod_theme_research
-	armor = list(MELEE = 30, BULLET = 30, LASER = 5, ENERGY = 5, BOMB = INFINITY, RAD = 75, FIRE = 75, ACID = 150) //Slow balistic / explosive testing armor. Not laser testing however!
+	armor = list(MELEE = 40, BULLET = 40, LASER = 10, ENERGY = 10, BOMB = 100, RAD = 60, FIRE = 60, ACID = 75)
 
 /datum/mod_theme/security
 	name = "'Takabara' security"
@@ -668,7 +671,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_security
-	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 25, RAD = 0, FIRE = 150, ACID = 150)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 35, RAD = 0, FIRE = 75, ACID = 75)
 
 /datum/mod_theme/safeguard
 	name = "'Safeguard' bulwark"
@@ -723,7 +726,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_safeguard
-	armor = list(MELEE = 30, BULLET = 25, LASER = 25, ENERGY = 15, BOMB = 40, RAD = 25, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 40, BULLET = 35, LASER = 35, ENERGY = 25, BOMB = 45, RAD = 35, FIRE = 100, ACID = 75)
 
 /datum/mod_theme/magnate
 	name = "'Magnate' command"
@@ -777,8 +780,9 @@
 		),
 	)
 
+/// On one hand this is quite strong, on the other hand energy hole / antagonists need to steal, and thus by extention use this.
 /obj/item/mod/armor/mod_theme_magnate
-	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 15, RAD = 50, FIRE = INFINITY, ACID = 450) //On one hand this is quite strong, on the other hand energy hole / antagonists need to steal, and thus by extention use this.
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 25, BOMB = 25, RAD = 50, FIRE = 100, ACID = 90)
 
 /datum/mod_theme/praetorian
 	name = "'Praetorian' escort"
@@ -789,7 +793,7 @@
 		from its Shellguard roots, retaining its middling armor ratings and restrictive hardware. Even so, Nanotrasen is more than happy with the design, and has proceeded \
 		with a full rollout of the suit to Blueshields across their corporate empire."
 	default_skin = "praetorian"
-	armor_type_1 = /obj/item/mod/armor/praetorian
+	armor_type_1 = /obj/item/mod/armor/mod_theme_security // Equivalent armor to Security MODsuits
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -833,9 +837,6 @@
 			),
 		),
 	)
-
-/obj/item/mod/armor/praetorian
-	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 25, RAD = 0, FIRE = 150, ACID = 150) //Equivalent armor to Security MODsuits
 
 /datum/mod_theme/cosmohonk
 	name = "'Cosmohonk' entertainer"
@@ -885,7 +886,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_cosmohonk
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, RAD = 0, FIRE = 75, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 0, FIRE = 60, ACID = 50)
 
 /datum/mod_theme/syndicate
 	name = "'Raider' blood-red syndicate"
@@ -970,11 +971,12 @@
 	)
 
 /obj/item/mod/armor/mod_theme_syndicate
-	armor = list(MELEE = 15, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 35, RAD = INFINITY, FIRE = 50, ACID = 450)
-	//melee = 40 with booster
-	//bullet = 50
-	//laser = 20 with booster
-	//energy = //20 with booster, energy has always been an armor hole.
+	armor = list(MELEE = 25, BULLET = 30, LASER = 10, ENERGY = 10, BOMB = 40, RAD = 100, FIRE = 50, ACID = 90)
+	// melee = 25 // 50 with booster
+	// bullet = 30 // 60
+	// laser = 10 // 25
+	// energy = 10 // 25 energy has always been an armor hole.
+
 /datum/mod_theme/elite
 	name = "'Jaeger' elite syndicate"
 	desc = "A terrifying, jet-black suit of advanced power armor, used by the Syndicate's elite forces. Completely fireproof, and offers phenomenal protection in all areas."
@@ -1033,11 +1035,11 @@
 	)
 
 /obj/item/mod/armor/mod_theme_elite
-	armor = list(MELEE = 50, BULLET = 45, LASER = 35, ENERGY = 10, BOMB = 60, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
-	//melee = 50 // 75 with booster
-	//bullet = 45 // 75 same as
-	//laser = 35 //50 same as
-	//energy = 15 // 25
+	armor = list(MELEE = 50, BULLET = 45, LASER = 40, ENERGY = 15, BOMB = 55, RAD = 100, FIRE = 100, ACID = 100)
+	// melee = 50 // 75 with booster
+	// bullet = 45 // 75
+	// laser = 40 // 55
+	// energy = 15 // 30
 
 /datum/mod_theme/prototype
 	name = "'Ogre' prototype"
@@ -1092,7 +1094,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_prototype
-	armor = list(MELEE = 20, BULLET = 5, LASER = 10, ENERGY = 10, BOMB = 50, RAD = 50, FIRE = 150, ACID = 150)
+	armor = list(MELEE = 30, BULLET = 10, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 50, FIRE = 75, ACID = 75)
 
 /datum/mod_theme/responsory
 	name = "\improper 'Ward' responsory"
@@ -1175,7 +1177,7 @@
 
 /// This has no slowdown active, and no variation between levels. I am ASSUMING this will be gamma only.
 /obj/item/mod/armor/mod_theme_responsory
-	armor = list(MELEE = 40, BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 25, RAD = INFINITY, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 45, BULLET = 35, LASER = 35, ENERGY = 30, BOMB = 35, RAD = 100, FIRE = 80, ACID = 80)
 
 /datum/mod_theme/apocryphal
 	name = "'Charon' absolver"
@@ -1234,7 +1236,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_apocryphal
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, RAD = 100, FIRE = 100, ACID = 100)
 
 /datum/mod_theme/corporate
 	name = "corporate"
@@ -1289,7 +1291,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_corporate
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, RAD = 100, FIRE = 100, ACID = 100)
 
 /datum/mod_theme/debug
 	name = "debug"
@@ -1337,8 +1339,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_debug
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
-
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, RAD = 100, FIRE = 100, ACID = 100)
 
 /datum/mod_theme/administrative
 	name = "administrative"
@@ -1383,4 +1384,4 @@
 
 /// considering this should not be used, it's getting just DS armor, not infinity in everything.
 /obj/item/mod/armor/mod_theme_administrative
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, RAD = 100, FIRE = 100, ACID = 100)

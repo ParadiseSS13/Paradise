@@ -60,7 +60,7 @@ Difficulty: Hard
 	friendly = "stares down"
 	speak_emote = list("BUZZES")
 	universal_speak = TRUE
-	armor_penetration_percentage = 50
+	armor_penetration_flat = 40
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 	melee_damage_type = BURN //Legs do the stomping, this is just a shock
@@ -210,20 +210,19 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/enrage()
 	. = ..()
-	armor_penetration_percentage = 66
-	TL.armor_penetration_percentage = 66
-	TR.armor_penetration_percentage = 66
-	BL.armor_penetration_percentage = 66
-	BR.armor_penetration_percentage = 66
-
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/unrage()
-	. = ..()
 	armor_penetration_percentage = 50
 	TL.armor_penetration_percentage = 50
 	TR.armor_penetration_percentage = 50
 	BL.armor_penetration_percentage = 50
 	BR.armor_penetration_percentage = 50
 
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/unrage()
+	. = ..()
+	armor_penetration_percentage = initial(armor_penetration_flat)
+	TL.armor_penetration_percentage = initial(TL.armor_penetration_flat)
+	TR.armor_penetration_percentage = initial(TR.armor_penetration_flat)
+	BL.armor_penetration_percentage = initial(BL.armor_penetration_flat)
+	BR.armor_penetration_percentage = initial(BR.armor_penetration_flat)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/OpenFire()
 	if(charging)
@@ -664,7 +663,7 @@ Difficulty: Hard
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	projectiletype = /obj/item/projectile/bullet/ancient_robot_bullet
 	attacktext = "stomps on"
-	armor_penetration_percentage = 50
+	armor_penetration_flat = 40
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	obj_damage = 400

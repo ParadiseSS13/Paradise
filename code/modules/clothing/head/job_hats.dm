@@ -20,7 +20,7 @@
 	name = "captain's hat"
 	desc = "It's good being the king."
 	icon_state = "captain_hat"
-	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
 	sprite_sheets = list(
@@ -43,7 +43,7 @@
 	name = "head of personnel's cap"
 	icon_state = "hopcap"
 	desc = "The symbol of true bureaucratic micromanagement."
-	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 50, ACID = 50)
 	dog_fashion = /datum/dog_fashion/head/hop
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
@@ -111,7 +111,7 @@
 	desc = "Someone who wears this will look very smart."
 	icon_state = "detective"
 	allowed = list(/obj/item/food/candy/candy_corn, /obj/item/pen)
-	armor = list(MELEE = 15, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 20, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 5, LASER = 25, ENERGY = 10, BOMB = 0, RAD = 0, FIRE = 30, ACID = 50)
 	dog_fashion = /datum/dog_fashion/head/detective
 
 	sprite_sheets = list(
@@ -124,7 +124,7 @@
 	name = "head of security's cap"
 	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hos_cap"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 50, ACID = 60)
 	strip_delay = 80
 	dog_fashion = /datum/dog_fashion/head/hos
 
@@ -132,7 +132,7 @@
 	name = "warden's police hat"
 	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
 	icon_state = "policehat"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 20, ACID = 75)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 30, ACID = 60)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
 	sprite_sheets = list(
@@ -144,7 +144,7 @@
 	name = "officer's cap"
 	desc = "A red cap with an old-fashioned badge on the front for establishing that you are, in fact, the law."
 	icon_state = "sechat"
-	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
@@ -152,7 +152,7 @@
 	name = "security campaign hat"
 	desc = "A wide-brimmed hat inspired by drill instructors, or when paired with red Security clothing, the Canadian Mounties of Terra."
 	icon_state = "drillsgthat"
-	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 

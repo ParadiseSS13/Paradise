@@ -6,7 +6,7 @@
 	var/brightness_on = 4 //luminosity when on
 	var/on = FALSE
 	item_color = "yellow" //Determines used sprites: hardhat[on]_[color] and hardhat[on]_[color]2 (lying down sprite)
-	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 100, ACID = 50)
 	flags_inv = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
@@ -108,7 +108,7 @@
 	icon_state = "hardhat0_durathread"
 	item_color = "durathread"
 	desc = "A hard hat made from durathread, leather, and light fixture components."
-	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 35, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 10, LASER = 30, ENERGY = 10, BOMB = 15, RAD = 0, FIRE = 40, ACID = 50)
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',

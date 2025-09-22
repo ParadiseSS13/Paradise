@@ -3,7 +3,7 @@
 	desc = "A white helmet with an opaque blue visor."
 	icon_state = "chronohelmet"
 	slowdown = 1
-	armor = list(MELEE = 75, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 30, RAD = 90, FIRE = INFINITY, ACID = INFINITY)
+	armor = /obj/item/clothing/suit/space/chronos::armor
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/suit/space/chronos/suit = null
 
@@ -21,7 +21,7 @@
 	desc = "An advanced spacesuit equipped with teleportation and anti-compression technology."
 	icon_state = "chronosuit"
 	actions_types = list(/datum/action/item_action/toggle)
-	armor = list(MELEE = 75, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 30, RAD = 90, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 60, BULLET = 60, LASER = 60, ENERGY = 60, BOMB = 30, RAD = 90, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 	var/obj/item/clothing/head/helmet/space/chronos/helmet = null

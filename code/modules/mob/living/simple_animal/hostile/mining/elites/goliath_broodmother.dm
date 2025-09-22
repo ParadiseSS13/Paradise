@@ -29,7 +29,7 @@
 	health = 1000
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	armor_penetration_percentage = 50
+	armor_penetration_flat = 30
 	attacktext = "beats down on"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"
@@ -178,7 +178,7 @@
 	health = 50
 	melee_damage_lower = 12.5
 	melee_damage_upper = 12.5
-	armor_penetration_percentage = 50
+	armor_penetration_flat = 30
 	attacktext = "bashes against"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "does nothing to the rocky hide of the"

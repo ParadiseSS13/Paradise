@@ -7,7 +7,7 @@
 	inhand_icon_state = "bl_suit"
 	item_color = "syndicate"
 	has_sensor = FALSE
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 35)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 40)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/syndicate.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/syndicate.dmi',
@@ -25,14 +25,14 @@
 	desc = "Attire for someone who finds it hard to survive in the safest place known to man - urban environment."
 	icon_state = "greyman"
 	item_color = "greyman"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 5, FIRE = 40, ACID = 35)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 10, FIRE = 45, ACID = 40)
 
 /obj/item/clothing/under/syndicate/tacticool
 	name = "tacticool turtleneck"
 	desc = "Just looking at it makes you want to buy an SKS, go into the woods, and -operate-."
 	icon_state = "tactifool"
 	item_color = "tactifool"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 35)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 40)
 
 /obj/item/clothing/under/syndicate/sniper
 	name = "tactical suit"

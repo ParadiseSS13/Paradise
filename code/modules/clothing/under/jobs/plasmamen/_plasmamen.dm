@@ -4,7 +4,7 @@
 	icon = 'icons/obj/clothing/species/plasmaman/uniform.dmi'
 	icon_state = "plasmaman"
 	inhand_icon_state = "plasmaman_suit"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 95, ACID = 95)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	strip_delay = 80
 	species_restricted = list("Plasmaman")

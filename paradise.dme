@@ -37,7 +37,7 @@
 #include "code\__DEFINES\announce_defines.dm"
 #include "code\__DEFINES\antag_defines.dm"
 #include "code\__DEFINES\apc_defines.dm"
-#include "code\__DEFINES\armour.dm"
+#include "code\__DEFINES\armor_defines.dm"
 #include "code\__DEFINES\asset_defines.dm"
 #include "code\__DEFINES\atmospherics_defines.dm"
 #include "code\__DEFINES\atom_states.dm"

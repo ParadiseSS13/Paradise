@@ -3,8 +3,8 @@
  *
  * * def_zone - What part is getting hit, if not set will check armor of entire body
  * * armor_type - What type of armor is used. MELEE, BULLET, MAGIC etc.
- * * absorb_text - Text displayed when your armor makes you immune (armor is INFINITY)
- * * soften_text - Text displayed when 0 < armor < INFINITY. So armor protected us from some damage
+ * * absorb_text - Text displayed when your armor makes you immune (armor is 100)
+ * * soften_text - Text displayed when 0 < armor < 100. So armor protected us from some damage
  * * penetrated_text - Text displayed when armor penetration decreases non 0 armor to 0. So it's completely penetrated
  * * armor_penetration_percentage - % of armor value that is penetrated. Does nothing if armor <= 0. Happens before flat AP
  * * armor_penetration_flat - armor value that is penetrated. Does nothing if armor <= 0. Occurs after percentage AP
@@ -20,7 +20,7 @@
 )
 	. = getarmor(def_zone, armor_type)
 
-	if(. == INFINITY)
+	if(. >= 100)
 		to_chat(src, "<span class='userdanger'>[absorb_text]</span>")
 		return
 	if(. <= 0)

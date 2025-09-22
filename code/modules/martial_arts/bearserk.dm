@@ -40,7 +40,7 @@
 
 /obj/item/clothing/head/bearpelt/bearserk
 	strip_delay = 80
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, RAD = 0, FIRE = INFINITY, ACID = 75)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 30, RAD = 0, FIRE = 100, ACID = 60)
 	resistance_flags = FIRE_PROOF
 	body_parts_covered = UPPER_TORSO|HEAD|ARMS
 	var/datum/martial_art/bearserk/style

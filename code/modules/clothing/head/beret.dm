@@ -33,14 +33,14 @@
 	desc = "A beret made from durathread, its resilient fibres provide some protection to the wearer."
 	icon_state = "beret_durathread"
 	item_color = null
-	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 5, RAD = 0, FIRE = 20, ACID = 5)
+	armor = list(MELEE = 15, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 30, ACID = 5)
 
 //Central Command
 /obj/item/clothing/head/beret/centcom/officer
 	name = "officer beret"
 	desc = "A black beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
 	icon_state = "beret_centcom_officer"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 10, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/centcom/officer/navy
@@ -58,7 +58,7 @@
 	name = "captain's beret"
 	desc = "For Captains that are more inclined towards style."
 	icon_state = "beret_captain"
-	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
 	sprite_sheets = list(
@@ -77,7 +77,7 @@
 	name = "head of security's beret"
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
 	icon_state = "beret_hos_black"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 50, ACID = 60)
 	strip_delay = 80
 	dog_fashion = /datum/dog_fashion/head/hos
 
@@ -85,7 +85,7 @@
 	name = "security beret"
 	desc = "A beret with the security insignia emblazoned on it. For officers that are more inclined towards style than safety."
 	icon_state = "beret_officer"
-	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/beret/sec
 
@@ -97,7 +97,7 @@
 	name = "warden's beret"
 	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
 	icon_state = "beret_warden"
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 20, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 30, ACID = 50)
 
 //Engineering
 /obj/item/clothing/head/beret/ce
@@ -162,7 +162,7 @@
 	name = "head of personnel's beret"
 	desc = "For doing paperwork with style."
 	icon_state = "beret_hop"
-	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 50, ACID = 50)
 	dog_fashion = /datum/dog_fashion/head/hop
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
@@ -266,7 +266,7 @@
 	desc = "A brown beret with a blue Nanotrasen insignia emblazoned on it. Not much good for space protection, but stylish all the same."
 	icon_state = "beret_expedition"
 	item_color = "beret_expedition"
-	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 0, RAD = 0, FIRE = 15, ACID = 50)
 	strip_delay = 6 SECONDS
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi',
@@ -316,13 +316,13 @@
 	icon_state = "beret_solgovc"
 	item_color = "solgovc"
 	dog_fashion = null
-	armor = list(MELEE = 10, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 75)
+	armor = list(MELEE = 20, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, RAD = 0, FIRE = 50, ACID = 60)
 	strip_delay = 80
 
 /obj/item/clothing/head/beret/solgov/elite
 	name = "\improper MARSOC Lieutenant's beret"
 	desc = "A beret worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. The insignia signifies the wearer bears the rank of a Lieutenant."
-	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
+	armor = list(MELEE = 35, BULLET = 60, LASER = 10, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = 80, ACID = 80)
 	icon_state = "beret_solgovcelite"
 	item_color = "solgovcelite"
 	resistance_flags = FIRE_PROOF

@@ -69,7 +69,7 @@
 /obj/item/projectile/bullet/sniper
 	damage = 70
 	weaken = 10 SECONDS
-	armor_penetration_flat = 70
+	armor_penetration_flat = 50
 	forced_accuracy = TRUE
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSGIRDER
 	speed = 0.5

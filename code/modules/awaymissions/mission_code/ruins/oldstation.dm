@@ -168,7 +168,7 @@
 	name = "prototype RIG hardsuit helmet"
 	desc = "Early prototype RIG hardsuit helmet, designed to quickly shift over a user's head. Design constraints of the helmet mean it has no inbuilt cameras, thus it restricts the users visability."
 	icon_state = "hardsuit0-ancient"
-	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
+	armor = /obj/item/clothing/suit/space/hardsuit/ancient::armor
 	item_color = "ancient"
 	resistance_flags = FIRE_PROOF
 	flags_2 = RAD_PROTECT_CONTENTS_2
@@ -178,7 +178,7 @@
 	name = "prototype RIG hardsuit"
 	desc = "Prototype powered RIG hardsuit. Provides excellent protection from the elements of space while being comfortable to move around in, thanks to the powered locomotives. Remains very bulky however."
 	icon_state = "hardsuit-ancient"
-	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = INFINITY, FIRE = INFINITY, ACID = 75)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 50, RAD = 100, FIRE = 100, ACID = 75)
 	slowdown = 3
 	resistance_flags = FIRE_PROOF
 	flags_2 = RAD_PROTECT_CONTENTS_2

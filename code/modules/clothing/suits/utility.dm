@@ -20,7 +20,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/extinguisher)
 	slowdown = 1
-	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 100, ACID = 50)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -61,7 +61,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "bombsuit"
 	flags = BLOCKHAIR | THICKMATERIAL
-	armor = list(MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 5, BOMB = INFINITY, RAD = 0, FIRE = 200, ACID = 50)
+	armor = /obj/item/clothing/suit/bomb_suit::armor
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	cold_protection = HEAD
@@ -86,7 +86,7 @@
 	flags = THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 2
-	armor = list(MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 5, BOMB = INFINITY, RAD = 0, FIRE = 200, ACID = 50)
+	armor = list(MELEE = 20, BULLET = 0, LASER = 20, ENERGY = 10, BOMB = 100, RAD = 0, FIRE = 80, ACID = 50)
 	flags_inv = HIDEJUMPSUIT|HIDETAIL
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
@@ -116,7 +116,7 @@
 	desc = "A hood with radiation protective properties. Label: Made with lead, do not eat insulation"
 	flags = BLOCKHAIR|THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = INFINITY, FIRE = 20, ACID = 20)
+	armor = /obj/item/clothing/suit/radiation::armor
 	strip_delay = 60
 	put_on_delay = 60
 	resistance_flags = NONE
@@ -147,7 +147,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen, /obj/item/geiger_counter)
 	slowdown = 0.75
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = INFINITY, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 100, FIRE = 30, ACID = 30)
 	flags_inv = HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 60
 	put_on_delay = 60
