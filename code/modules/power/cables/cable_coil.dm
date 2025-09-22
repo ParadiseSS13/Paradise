@@ -447,7 +447,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 	toggle_connection(user)
 	update_icon()
 
-/obj/item/stack/cable_coil/cyborg/update_icon_state()
+/obj/item/stack/cable_coil/extra_insulated/cyborg/update_icon_state()
 	return // icon_state should always be a full cable
 
 #undef HEALPERCABLE
