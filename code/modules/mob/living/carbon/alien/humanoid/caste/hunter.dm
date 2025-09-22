@@ -15,7 +15,7 @@
 	name = "alien hunter ([rand(1, 1000)])"
 	real_name = name
 
-/mob/living/carbon/alien/larva/event_cost()
+/mob/living/carbon/alien/humanoid/hunter/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z))
 		return list(ASSIGNMENT_SECURITY = 0.8, ASSIGNMENT_CREW = 4, ASSIGNMENT_MEDICAL = 0.4)

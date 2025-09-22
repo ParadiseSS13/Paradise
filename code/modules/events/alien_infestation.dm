@@ -28,9 +28,9 @@ GLOBAL_LIST_INIT(xeno_things, list("xenos" = list(), "eggs" = list()))
 			kill()
 	. = ..()
 
-/datum/event/alien_infestation/process()
-	. = ..()
-
+/// Xeno costs are calculated independently from the event itself
+/datum/event/alien_infestation/event_resource_cost()
+	return list()
 
 /datum/event/alien_infestation/start()
 	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts

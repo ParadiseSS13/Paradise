@@ -24,7 +24,7 @@
 		return kill()
 	return ..()
 
-/// Blob costs are calculated are calculated independently from the event itself
+/// Blob costs are calculated independently from the event itself
 /datum/event/blob/event_resource_cost()
 	return list()
 
