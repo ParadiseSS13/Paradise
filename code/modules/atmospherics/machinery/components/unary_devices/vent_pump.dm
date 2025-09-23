@@ -128,12 +128,16 @@
 	if(!on)
 		return FALSE
 
-	if(welded)
+	if(welded || frozen)
 		if(air_contents.return_pressure() >= weld_burst_pressure && prob(5))	//the weld is on but the cover is welded shut, can it withstand the internal pressure?
-			visible_message("<span class='danger'>The welded cover of [src] bursts open!</span>")
+			if(frozen)
+				visible_message("<span class='danger'>The frozen cover of [src] bursts open!</span>")
+			else if(welded)
+				visible_message("<span class='danger'>The welded cover of [src] bursts open!</span>")
 			for(var/mob/living/M in range(1))
 				unsafe_pressure_release(M, air_contents.return_pressure())	//let's send everyone flying
 			welded = FALSE
+			frozen = FALSE
 			update_icon()
 		return FALSE
 
@@ -184,10 +188,11 @@
 	return !welded
 
 /obj/machinery/atmospherics/unary/vent_pump/attack_alien(mob/user)
-	if(!welded || !(do_after(user, 20, target = src)))
+	if((!welded && !frozen) || !(do_after(user, 20, target = src)))
 		return
 	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", "<span class='notice'>You manage to clear away the stuff blocking the vent.</span>", "<span class='italics'>You hear loud scraping noises.</span>")
 	welded = FALSE
+	frozen = FALSE
 	update_icon()
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
 	pipe_image.plane = ABOVE_HUD_PLANE
@@ -195,14 +200,17 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/paper))
-		if(!welded)
+		if(!welded && !frozen)
 			if(open)
 				user.drop_item(used)
 				used.forceMove(src)
 			if(!open)
 				to_chat(user, "You can't shove that down there when it is closed")
 		else
-			to_chat(user, "The vent is welded.")
+			if(welded)
+				to_chat(user, "The vent is welded.")
+			if(frozen)
+				to_chat(user, "The vent is frozen.")
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
@@ -216,7 +224,7 @@
 	to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
 
 /obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/living/user, obj/item/I)
-	if(welded)
+	if(welded || frozen)
 		return
 	to_chat(user, "<span class='notice'>You start screwing the vent [open ? "shut" : "open"].</span>")
 	if(do_after(user, 20 * I.toolspeed, target = src))
@@ -247,7 +255,7 @@
 
 
 /obj/machinery/atmospherics/unary/vent_pump/attack_hand()
-	if(!welded)
+	if(!welded && !frozen)
 		if(open)
 			for(var/obj/item/W in src)
 				if(istype(W, /obj/item/pipe))
