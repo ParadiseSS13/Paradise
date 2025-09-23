@@ -22,6 +22,11 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	if(!powernet)
 		connect_to_network()
+	// If we connected to a regional powernet, register for power change signals so
+	// we get notified when the powernet's state changes and can shut off.
+	if(powernet)
+		RegisterSignal(powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(power_change), override = TRUE)
+
 	RefreshParts()
 
 /obj/machinery/power/electrolyzer/wrench_act(mob/user, obj/item/I)
@@ -66,6 +71,12 @@
 	pixel_x = 0
 	pixel_y = 0
 
+
+/obj/machinery/power/electrolyzer/Destroy()
+	if(powernet)
+		UnregisterSignal(powernet, COMSIG_POWERNET_POWER_CHANGE)
+	return ..()
+
 /obj/machinery/power/electrolyzer/process()
 	if(on)
 		var/datum/milla_safe/electrolyzer_process/milla = new()
@@ -81,15 +92,18 @@
 	if(panel_open)
 		to_chat(user, "<span class='warning'>Close the panel first!</span>")
 		return
-
+	var/area/A = get_area(src)
+	if(!istype(A) || !A.powernet.has_power(PW_CHANNEL_EQUIPMENT))
+		to_chat(user, "<span class='warning'>[src] must be powered!</span>")
+		return
 	. = ..()
 	if(on)
 		on = FALSE
-		to_chat(user, "<span class='notice'>The electrolyzer switches off.</span>")
+		to_chat(user, "<span class='notice'>[src] switches off.</span>")
 		icon_state = "electrolyzer_off"
 	else
 		on = TRUE
-		to_chat(user, "<span class='notice'>The electrolyzer begins to hum quietly.</span>")
+		to_chat(user, "<span class='notice'>[src] begins to hum quietly.</span>")
 		icon_state = "electrolyzer_on"
 	add_fingerprint(usr)
 
@@ -111,15 +125,10 @@
 	var/turf/T = get_turf(electrolyzer)
 	var/datum/gas_mixture/env = get_turf_air(T)
 	var/datum/gas_mixture/removed = electrolyzer.process_atmos_safely(T, env)
-
 	if(electrolyzer.on && electrolyzer.has_water_vapor(removed))
-		// Convert as much water vapor as we can into hydrogen, depending on how much power we have available
-		var/power_needed_per_mole = HYDROGEN_BURN_ENERGY / WATT_TICK_TO_JOULE
-		var/water_vapor_to_remove = min(removed.water_vapor(), electrolyzer.get_surplus() / power_needed_per_mole)
+		var/water_vapor_to_remove = removed.water_vapor()
 		var/hydrogen_produced = water_vapor_to_remove
 		var/oxygen_produced = water_vapor_to_remove / 2
 		removed.set_water_vapor(0)
-		env.set_hydrogen(hydrogen_produced)
-		env.set_oxygen(oxygen_produced)
-		electrolyzer.consume_direct_power(power_needed_per_mole)
-
+		env.set_hydrogen(env.hydrogen() + hydrogen_produced)
+		env.set_oxygen(env.oxygen() + oxygen_produced)
