@@ -73,7 +73,7 @@
 #define PLASMA_OXYGEN_FULLBURN				10
 
 // Hydrogen defines
-#define HYDROGEN_BURN_ENERGY 				10000000
+#define HYDROGEN_BURN_ENERGY 				6000000
 #define HYDROGEN_MIN_IGNITE_TEMP            500
 
 // Water Vapor defines
