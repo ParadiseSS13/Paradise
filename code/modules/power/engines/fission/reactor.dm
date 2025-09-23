@@ -56,6 +56,7 @@
 // #warn Idea todo: Add a button on the monitor to activate venting
 // #warn Idea todo: make ripleys interact safely with rod chambers
 // #warn Idea todo: Bananium rods?
+// #warn Idea todo: poly voicelines
 
 // Monitor these, but should be done
 // #warn make heat coefficient less linear
@@ -67,17 +68,15 @@
 // #warn make damaged reactor produce more events
 // #warn building new chambers isnt updating neighbors
 // #warn new chambers dont safety override correctly
+// #warn Idea todo: syndicate meltdown rods
 
 // NEEDS TESTING
 // #warn make heat coefficient gain less linear
+// #warn make coolant/moderator amplifier values be affected by durability
 
-
-#warn make coolant/moderator amplifier values be affected by durability
-
-#warn Idea todo: poly voicelines
 #warn Idea todo: Allow grilling on an active reactor
 #warn Idea todo: Make some lavaland loot into special rods/upgrades
-#warn Idea todo: syndicate meltdown rods
+
 
 #warn Idea todo: Grenades that force start rods
 #warn Idea todo: make rods radioactive when outside of houseing or shielding pools
@@ -513,9 +512,14 @@
 	final_power = 0
 	final_heat = 0
 
-	// lower operating power = more durability
-	var/durability_loss = round(100 / ((95 / (1 + NUM_E ** (0.08 * (-operating_power + 60)))) + 10), 0.01)
+	// lower operating power = more durability. Agorithm: 1 / (1 + 2.5^(-0.077 * (x - 65)))
+	var/algorithm_decay = 0.077 // higher = steeper decline
+	var/durability_loss = 1
+	if(operating_power <= 90) // full loss at 90% and above
+		durability_loss = round(1 / (1 + 2.5 ** (-algorithm_decay * (operating_power - 65))), 0.01)
 	var/operating_rate = operating_percent()
+	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
+		chamber.calculate_stats()
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 		var/power_total
 		var/heat_total
@@ -1185,7 +1189,6 @@
 			chamber.requirements_met = TRUE
 		else
 			chamber.requirements_met = FALSE
-		chamber.calculate_stats()
 
 /obj/machinery/atmospherics/reactor_chamber/proc/lower(playsound = TRUE)
 	density = FALSE
@@ -1206,7 +1209,6 @@
 		else
 			requirements_met = FALSE
 		check_minimum_modifier()
-		calculate_stats()
 	update_icon()
 	if(playsound)
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
@@ -1305,12 +1307,17 @@
 	if(!linked_reactor)
 		if(find_link())
 			get_neighbors()
+			return
 		else
 			return
-	if(linked_reactor && linked_reactor.admin_intervention)
+	if(linked_reactor.admin_intervention)
+		return
+	if(!held_rod)
 		return
 	if(chamber_state != CHAMBER_DOWN) /// we should only process reactor info when down
 		return
+	if(!linked_reactor.offline)
+		held_rod.calc_stat_decrease() // only need to re-calc durability loss when the chamber is down and reactor is online
 	if(linked_reactor && linked_reactor.safety_override && !linked_reactor.control_lockout) // we only remove control lockout when the others are ready
 		if(chamber_state == CHAMBER_OVERLOAD_IDLE && istype(held_rod, /obj/item/nuclear_rod/fuel))
 			set_active_overload() // for latejoiners
@@ -1323,8 +1330,7 @@
 		if(prob(20))
 			operational = TRUE
 			for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
-				if(chamber.held_rod)
-					chamber.calculate_stats()
+
 			update_icon(UPDATE_OVERLAYS)
 			return
 	if(!requirements_met && operational) /// if it loses requirements, it wont immediately turn off
@@ -1387,9 +1393,9 @@
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
 		if(!chamber.held_rod || chamber.chamber_state == CHAMBER_OPEN)
 			continue
-		heat_total *= held_rod.heat_amp_mod  // we generate heat even when its not operational
+		heat_total *= held_rod.current_power_mod  // we generate heat even when its not operational
 		if(operational && chamber.chamber_state != CHAMBER_DOWN)
-			power_total *= held_rod.power_amp_mod
+			power_total *= held_rod.current_heat_mod
 
 /obj/machinery/atmospherics/reactor_chamber/proc/eject_rod()
 	raise(FALSE)
@@ -1812,7 +1818,6 @@
 #undef AVERAGE_HEAT_THRESHOLD
 #undef TOTAL_HEAT_THRESHOLD
 #undef HEAT_CONVERSION_RATIO
-#undef TEMP_GENERATION_CAP
 #undef REACTIVITY_COEFFICIENT_CAP
 
 #undef NGCR_MELTDOWN_PERCENT

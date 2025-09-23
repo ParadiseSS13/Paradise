@@ -19,10 +19,14 @@
 	var/heat_amount = 0
 	/// How does this rod affect its neighbors heating
 	var/heat_amp_mod = 1
+	/// Holds the current heat mod after durability loss
+	var/current_heat_mod
 	/// How much power does this rod add by default in watts
 	var/power_amount = 0
 	/// How does this rod affect its neighbors power production
 	var/power_amp_mod = 1
+	/// Holds the current power mod after durability loss
+	var/current_power_mod
 	/// What type of radiation is emitted by this rod
 	var/list/rad_type
 	/// What items need to be adjacent to this rod for it to function properly
@@ -31,6 +35,7 @@
 	var/craftable = TRUE
 	/// Modifies the reactor's minimum operating temperature.
 	var/minimum_temp_modifier = 0
+
 
 /obj/item/nuclear_rod/Initialize(mapload)
 	. = ..()
@@ -51,6 +56,12 @@
 	var/temp_mod
 	temp_mod = clamp(1.5 * (durability / max_durability) - 0.25, 0.25, 1)
 	return temp_mod
+
+/obj/item/nuclear_rod/proc/calc_stat_decrease()
+	// Formula: y = (x * A) + (1 - A)
+	var/durability = get_durability_mod()
+	current_power_mod = (power_amp_mod * durability) + (1 - durability)
+	current_heat_mod = (heat_amp_mod * durability) + (1 - durability)
 
 /obj/item/nuclear_rod/fuel
 	name = "any fuel rod"
@@ -227,6 +238,16 @@
 	heat_amount = rand(10, 200)
 	return ..()
 
+/obj/item/nuclear_rod/fuel/meltdown
+	name = "uranium 238 fuel rod"
+	desc = "A standard fuel rod for most NGCR reactors. Has just barely enough Uranium 235 to be useful."
+	heat_amount = 2000
+	power_amount = 0
+	max_durability = INFINITY
+	minimum_temp_modifier = 4000 // BIG hot
+	rad_type = BETA_RAD
+	craftable = FALSE
+
 /// MARK: Moderator Rods
 
 /obj/item/nuclear_rod/moderator
@@ -336,7 +357,7 @@
 /obj/item/nuclear_rod/coolant/co2_regulator
 	name = "carbon dioxide regulator"
 	desc = "A specialized coolant rod filled with carbon dioxide gas, capable of regulating temperature spikes in fuel rods. However, its very energy inefficient."
-	heat_amount = -3
+	heat_amount = -4
 	heat_amp_mod = 0.6
 	power_amount = -15 KW
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
@@ -353,7 +374,7 @@
 /obj/item/nuclear_rod/coolant/nitrogen_circulator
 	name = "nitrogen circulator"
 	desc = "A specialized coolant rod filled with nitrogen gas. While not as powerful as similar alternatives, this rod is exceptionally stable and will last longer."
-	heat_amount = -6
+	heat_amount = -10
 	power_amp_mod = 0.9
 	heat_amp_mod = 0.7
 	power_amount = -5 KW

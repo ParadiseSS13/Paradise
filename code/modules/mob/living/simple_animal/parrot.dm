@@ -733,9 +733,18 @@
 		"TOXINS!",
 		"ONI SOMA!",
 		"GOLDEN BLAST",
-		"Is there supposed to be this much plasma in the chamber??",,
+		"Is there supposed to be this much plasma in the chamber??",
 		"Why are there so many borgs?",
-		"Why're your eyes glowing red?"
+		"Why're your eyes glowing red?",
+		"Opening the reactor vent is how it gets gas, right?",
+		"Lets fill the reactor with supermatter rods!",
+		"Think we could weaponize ejected coolant rods?",
+		"WHO KEEPS LEAVING THE FUEL RODS OUT",
+		"Why do we need coolant rods if we use gas?",
+		"Wait, why isnt the reactor integrity going up?",
+		"When did engineering get a pool?",
+		"Does anyone else taste copper?",
+		"10 sievers isnt too much radiation is it?"
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
