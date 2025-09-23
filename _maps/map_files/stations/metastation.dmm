@@ -9231,8 +9231,7 @@
 /obj/item/clipboard,
 /obj/item/paper/tcommskey,
 /obj/item/reagent_containers/patch/silver_sulf{
-	pixel_x = -4;
-	pixel_y = 0
+	pixel_x = -4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
@@ -20644,15 +20643,12 @@
 	pixel_y = 11
 	},
 /obj/item/clipboard{
-	pixel_x = 7;
-	pixel_y = 0
+	pixel_x = 7
 	},
 /obj/item/folder{
-	pixel_y = 0;
 	pixel_x = 4
 	},
 /obj/item/pen/multi/fountain{
-	pixel_y = 0;
 	pixel_x = 5
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -31256,26 +31252,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_north)
 "dfj" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
@@ -43160,18 +43142,8 @@
 	},
 /area/station/science/break_room)
 "hlu" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/mob/living/simple_animal/chicken/clucky,
 /obj/machinery/hydroponics/soil,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /mob/living/basic/chicken/clucky,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
 "hlD" = (
@@ -43843,36 +43815,16 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
 "hyb" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 9
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
 	},
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/maintenance,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 9
-	},
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-8"
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
