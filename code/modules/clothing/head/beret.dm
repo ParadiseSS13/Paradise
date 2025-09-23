@@ -324,6 +324,7 @@
 	desc = "A beret worn by junior officers of the Trans-Solar Federation's Marine Special Operations Command. The insignia signifies the wearer bears the rank of a Lieutenant."
 	armor = list(MELEE = 25, BULLET = 75, LASER = 5, ENERGY = 5, BOMB = 15, RAD = 50, FIRE = 200, ACID = 200)
 	icon_state = "beret_solgovcelite"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/beret.dmi'
 	item_color = "solgovcelite"
 	resistance_flags = FIRE_PROOF
 

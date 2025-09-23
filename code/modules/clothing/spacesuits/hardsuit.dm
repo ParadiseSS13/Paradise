@@ -382,6 +382,7 @@
 	name = "eagle helmet"
 	desc = "An advanced, space-proof helmet. It appears to be modeled after an old-world eagle."
 	icon_state = "griffinhat"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = null
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom/update_icon_state()
