@@ -5173,7 +5173,7 @@
 	name = "Animal Storage";
 	req_access = list(150)
 	},
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	faction = list("neutral","syndicate")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{

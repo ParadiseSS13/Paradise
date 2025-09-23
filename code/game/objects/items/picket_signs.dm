@@ -2,7 +2,6 @@
 	name = "blank picket sign"
 	desc = "It's blank."
 	icon_state = "picket"
-	item_state = "picket"
 	force = 5
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("bashed","smacked")
@@ -66,7 +65,6 @@
 	icon_state = "floor_sign"
 	/// What does the sign say?
 	var/label = ""
-	new_attack_chain = TRUE
 
 /obj/structure/custom_sign/New(turf/loc, new_label)
 	. = ..()

@@ -29,7 +29,7 @@
 	desc = "It's a card with a magnetic strip attached to some circuitry. It looks too busted to be used for anything but salvage."
 	name = "broken cryptographic sequencer"
 	icon_state = "emag"
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"
 	prefered_slot_flags = ITEM_SLOT_BOTH_POCKETS
 
@@ -37,7 +37,7 @@
 	desc = "It's a card with a magnetic strip attached to some circuitry."
 	name = "cryptographic sequencer"
 	icon_state = "emag"
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
@@ -71,7 +71,7 @@
 	desc = "It's a card coated in a slurry of electromagnetic bananium."
 	name = "jestographic sequencer"
 	icon_state = "cmag"
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
@@ -93,7 +93,7 @@
 	name = "identification card"
 	desc = "A card used to provide ID and determine access across the station."
 	icon_state = "id"
-	item_state = "card-id"
+	inhand_icon_state = "card-id"
 	/// For redeeming at mining equipment lockers
 	var/mining_points = 0
 	/// Total mining points for the Shift.
@@ -158,6 +158,9 @@
 	var/datum/browser/popup = new(user, "idcard", name, 600, 400)
 	popup.set_content(dat)
 	popup.open()
+
+/obj/item/card/id/proc/regenerate_name()
+	name = "[registered_name]'s ID Card ([assignment])"
 
 /obj/item/card/id/activate_self(mob/user)
 	if(..())
@@ -285,7 +288,7 @@
 			name = decal.decal_name
 		desc = decal.decal_desc
 		icon_state = decal.decal_icon_state
-		item_state = decal.decal_item_state
+		inhand_icon_state = decal.decal_inhand_icon_state
 		qdel(decal)
 		qdel(used)
 		return ITEM_INTERACT_COMPLETE
@@ -361,6 +364,18 @@
 	RebuildHTML()
 	..()
 
+/obj/item/card/id/proc/to_tgui()
+	. = list()
+	.["name"] = name
+	.["rank"] = rank
+	.["registered_name"] = registered_name
+	.["assignment"] = assignment
+	.["current_skin"] = icon_state
+	.["current_skin_name"] = get_skin_desc(icon_state)
+	.["lastlog"] = lastlog
+	.["access"] = access
+	.["associated_account_number"] = associated_account_number
+
 /obj/item/card/id/proc/flash_card(mob/user)
 	user.visible_message("[user] shows you: [bicon(src)] [name]. The assignment on the card: [assignment]",\
 		"You flash your ID card: [bicon(src)] [name]. The assignment on the card: [assignment]")
@@ -371,18 +386,18 @@
 /obj/item/card/id/silver
 	desc = "A silver card which shows honour and dedication."
 	icon_state = "silver"
-	item_state = "silver_id"
+	inhand_icon_state = "silver_id"
 
 /obj/item/card/id/gold
 	desc = "A golden card which shows power and might."
 	icon_state = "gold"
-	item_state = "gold_id"
+	inhand_icon_state = "gold_id"
 
 /obj/item/card/id/captains_spare
 	name = "captain's spare ID"
 	desc = "The spare ID of the captain. Keep this secured."
 	icon_state = "gold"
-	item_state = "gold_id"
+	inhand_icon_state = "gold_id"
 	registered_name = "Captain"
 	assignment = "Captain"
 
@@ -393,7 +408,7 @@
 /obj/item/card/id/admin
 	name = "admin ID card"
 	icon_state = "admin"
-	item_state = "gold_id"
+	inhand_icon_state = "gold_id"
 	registered_name = "Admin"
 	assignment = "Testing Shit"
 	untrackable = TRUE
@@ -418,7 +433,6 @@
 	name = "prisoner ID card"
 	desc = "You are a number, you are not a free man."
 	icon_state = "prisoner"
-	item_state = "orange-id"
 	assignment = "Prisoner"
 	registered_name = "Scum"
 	access = list(ACCESS_LIBRARY)
@@ -536,7 +550,7 @@
 	name = "Geneticist ID"
 	registered_name = "Geneticist"
 	icon_state = "geneticist"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GENETICS, ACCESS_RESEARCH)
 
 /obj/item/card/id/research
 	name = "Research ID"
@@ -870,6 +884,26 @@
 	desc = "An evil-looking ID issued to members of the Syndicate."
 	icon_state = "syndie"
 
+/obj/item/card/id/vv_get_dropdown()
+	. = ..()
+
+	VV_DROPDOWN_OPTION(VV_HK_MODIFY_ID_CARD, "Modify ID Card")
+
+/obj/item/card/id/vv_do_topic(list/href_list)
+	. = ..()
+
+	if(!.)
+		return
+
+	if(href_list[VV_HK_MODIFY_ID_CARD])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/turf/T = get_turf(src)
+		message_admins("[key_name_admin(usr)] is modifying the ID card [src] [ADMIN_COORDJMP(T)]")
+		var/datum/ui_module/id_card_modifier/ui = new(target = src)
+		ui.ui_interact(usr)
+
 // Decals
 /obj/item/id_decal
 	name = "identification card decal"
@@ -879,7 +913,7 @@
 	var/decal_name = "identification card"
 	var/decal_desc = "A card used to provide ID and determine access across the station."
 	var/decal_icon_state = "id"
-	var/decal_item_state = "card-id"
+	var/decal_inhand_icon_state = "card-id"
 	var/override_name = 0
 
 /obj/item/id_decal/gold
@@ -888,7 +922,7 @@
 	desc = "Make your ID look like the Captain's or a self-centered HOP's. Applies to any ID."
 	decal_desc = "A golden card which shows power and might."
 	decal_icon_state = "gold"
-	decal_item_state = "gold_id"
+	decal_inhand_icon_state = "gold_id"
 
 /obj/item/id_decal/silver
 	name = "silver ID card decal"
@@ -896,7 +930,7 @@
 	desc = "Make your ID look like HOP's because they wouldn't change it officially. Applies to any ID."
 	decal_desc = "A silver card which shows honour and dedication."
 	decal_icon_state = "silver"
-	decal_item_state = "silver_id"
+	decal_inhand_icon_state = "silver_id"
 
 /obj/item/id_decal/prisoner
 	name = "prisoner ID card decal"
@@ -904,7 +938,6 @@
 	desc = "All the cool kids have an ID that's this color. Applies to any ID."
 	decal_desc = "You are a number, you are not a free man."
 	decal_icon_state = "prisoner"
-	decal_item_state = "orange-id"
 
 /obj/item/id_decal/centcom
 	name = "centcom ID card decal"

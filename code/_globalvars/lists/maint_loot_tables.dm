@@ -159,6 +159,7 @@ GLOBAL_LIST_INIT(maintenance_loot_tier_2, list(
 		/obj/item/storage/backpack/satchel_flat,
 		/obj/item/storage/belt/military/traitor,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
+		/obj/item/storage/fancy/cigarettes/cigpack_carcinoma,
 		/obj/item/storage/pill_bottle/fakedeath,
 		/obj/item/storage/secure/briefcase/syndie,
 		/obj/item/storage/toolbox/syndicate,

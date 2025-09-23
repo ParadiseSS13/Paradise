@@ -13,10 +13,9 @@
 	name = "film cartridge"
 	desc = "A camera film cartridge. Insert it into a camera to reload it."
 	icon_state = "film"
-	item_state = "electropack"
+	inhand_icon_state = "electropack"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
-
 
 /********
 * photo *
@@ -24,7 +23,7 @@
 /obj/item/photo
 	name = "photo"
 	icon_state = "photo"
-	item_state = "paper"
+	inhand_icon_state = "paper"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
@@ -129,7 +128,7 @@
 	desc = "A slim book with little plastic coverings to keep photos from deteriorating, it reminds you of the good ol' days."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "album"
-	item_state = "syringe_kit"
+	inhand_icon_state = "syringe_kit"
 	can_hold = list(/obj/item/photo)
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_SMALL
@@ -168,7 +167,8 @@
 	name = "camera"
 	desc = "A polaroid camera."
 	icon_state = "camera"
-	item_state = "camera"
+	worn_icon_state = "camera"
+	inhand_icon_state = "camera"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_NECK
 	new_attack_chain = TRUE
@@ -284,15 +284,13 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	res.Blend("#000", ICON_OVERLAY)
 
 	var/atoms[] = list()
-	for(var/turf/the_turf in turfs)
+	var/list/datum/lighting_object/lighting_objects = list()
+	for(var/turf/the_turf as anything in turfs)
 		// Add ourselves to the list of stuff to draw
 		atoms.Add(the_turf)
+		lighting_objects += the_turf.lighting_object
 		// As well as anything that isn't invisible.
-		for(var/atom/A in the_turf)
-			if(istype(A, /atom/movable/lighting_object)) //Add lighting to make image look nice
-				atoms.Add(A)
-				continue
-
+		for(var/atom/A as anything in the_turf)
 			// AI can't see unconcealed runes or cult portals
 			if(A.invisibility == INVISIBILITY_RUNES && see_cult)
 				atoms.Add(A)
@@ -324,11 +322,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	// Sort the atoms into their layers
 	var/list/sorted = sort_atoms(atoms)
 	var/center_offset = (size-1)/2 * 32 + 1
-	for(var/i; i <= length(sorted); i++)
+	for(var/i in 1 to length(sorted))
 		var/atom/A = sorted[i]
-		if(istype(A, /atom/movable/lighting_object))
-			continue //Lighting objects render last, need to be above all atoms and turfs displayed
-
 		if(A)
 			var/icon/img = getFlatIcon(A)//build_composite_icon(A)
 			if(istype(A, /obj/item/areaeditor/blueprints/ce))
@@ -363,10 +358,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		res.Blend(getFlatIcon(the_turf.loc), blendMode2iconMode(the_turf.blend_mode),xoff,yoff)
 
 	// Render lighting objects to make picture look nice.
-	for(var/atom/movable/lighting_object/light in sorted)
-		var/xoff = (light.x - center.x) * 32 + center_offset
-		var/yoff = (light.y - center.y) * 32 + center_offset
-		res.Blend(getFlatIcon(light), blendMode2iconMode(BLEND_MULTIPLY),  light.pixel_x + xoff, light.pixel_y + yoff)
+	for(var/datum/lighting_object/light as anything in lighting_objects)
+		var/xoff = (light.affected_turf.x - center.x) * 32 + center_offset
+		var/yoff = (light.affected_turf.y - center.y) * 32 + center_offset
+		res.Blend(getFlatIcon(light.current_underlay), blendMode2iconMode(BLEND_MULTIPLY),  xoff, yoff)
 
 	return res
 
@@ -650,6 +645,16 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			TV.feeds_on--
 		TV.update_icon(UPDATE_OVERLAYS)
 	COOLDOWN_START(src, video_cooldown, CAMERA_STATE_COOLDOWN)
+
+/obj/item/videocam/dropped(mob/user, silent)
+	. = ..()
+	if(on)
+		on = FALSE
+		icon_state = icon_off
+		camera.c_tag = null
+		camera.turn_off(null, 0)
+		QDEL_NULL(camera)
+		visible_message("<span class='notice'>The video camera turns off.</span>")
 
 /obj/item/videocam/attack_self__legacy__attackchain(mob/user)
 	if(!COOLDOWN_FINISHED(src, video_cooldown))

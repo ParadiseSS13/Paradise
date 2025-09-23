@@ -1118,7 +1118,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
 			return FALSE
 	var/obj/vent_found = pick(found_vents)
-	var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
+	var/mob/living/basic/mouse/host = new(vent_found.loc)
 	host.ckey = src.ckey
 	to_chat(host, "<span class='notice'>You are now a mouse, a small and fragile creature capable of scurrying through vents and under doors. Be careful who you reveal yourself to, for that will decide whether you receive cheese or death.</span>")
 	host.forceMove(vent_found)
@@ -1625,3 +1625,24 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		. = STATUS_UPDATE_HEALTH
 	if(updating_health)
 		updatehealth()
+
+/mob/proc/add_mousepointer(priority = INFINITY, new_icon)
+	mousepointers["[priority]"] = new_icon
+	update_mousepointer()
+
+/mob/proc/remove_mousepointer(priority)
+	mousepointers -= "[priority]"
+	update_mousepointer()
+
+/mob/proc/update_mousepointer()
+	if(!client)
+		return
+	var/lowest_prio = INFINITY
+	for(var/prio in mousepointers)
+		prio = text2num(prio)
+		if(prio < lowest_prio)
+			lowest_prio = prio
+	if(lowest_prio == INFINITY)
+		client.mouse_pointer_icon = null
+		return
+	client.mouse_pointer_icon = mousepointers["[lowest_prio]"]

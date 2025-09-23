@@ -178,25 +178,24 @@
 	name = "Nanite Mass"
 	desc = "Will attempt to convert any cyborg you touch into a loyal member of the hive after a 7 second delay."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
+	icon_state = "disintegrate"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	icon_state = "disintegrate"
-	item_state = "disintegrate"
 	color = COLOR_BLACK
 	flags = ABSTRACT | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	new_attack_chain = TRUE
 	var/conversion_time = 7 SECONDS
 
-/obj/item/melee/swarm_hand/pre_attack(atom/A, mob/living/user, params)
+/obj/item/melee/swarm_hand/pre_attack(atom/target, mob/living/user, params)
 	if(..())
 		return FINISH_ATTACK
 
-	if(!isrobot(A))
+	if(!isrobot(target))
 		to_chat(user, "<span class='warning'>[src] will have no effect against this target!</span>")
 		return FINISH_ATTACK
 
-	var/mob/living/silicon/robot/borg = A
+	var/mob/living/silicon/robot/borg = target
 	borg.visible_message(
 		"<span class='danger'>[user] puts [user.p_their()] hands on [borg] and begins transferring energy!</span>",
 		"<span class='userdanger'>[user] puts [user.p_their()] hands on you and begins transferring energy!</span>")
@@ -221,3 +220,19 @@
 
 	borg.make_mindflayer_robot(user)
 	return TRUE
+
+/datum/spell/flayer/self/extraction
+	name = "Nanite Portal Generator"
+	desc = "Allows us to use our nanites to create an extraction portal."
+	action_icon = 'icons/obj/lighting.dmi'
+	action_icon_state = "flayer_telepad_base"
+	power_type = FLAYER_PURCHASABLE_POWER
+	base_cooldown = 2 SECONDS
+	var/used = FALSE
+
+/datum/spell/flayer/self/extraction/cast(list/targets, mob/user)
+	if(used)
+		to_chat(user, "<span class='warning'>You have already attempted to create a portal generator!</span>")
+		return
+	flayer.prepare_exfiltration(user, /obj/item/wormhole_jaunter/extraction/mindflayer)
+	used = TRUE

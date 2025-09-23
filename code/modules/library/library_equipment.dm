@@ -9,6 +9,7 @@
 
 /obj/structure/bookcase
 	name = "bookcase"
+	desc = "A set of shelves for storing books."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bookshelf"
 	anchored = TRUE
@@ -20,11 +21,17 @@
 	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/bible, /obj/item/tome) //Things allowed in the bookcase
 	var/material_type = /obj/item/stack/sheet/wood
 
+/obj/structure/bookcase/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] is [anchored ? "bolted to the floor" : "unsecured"].</span>"
+	. += "<span class='notice'>It can be [anchored ? "<b>unanchored</b>" : "<b>anchored</b>"] with a wrench.</span>"
+	. += "<span class='notice'>It can be <b>deconstructed</b> with a screwdriver.</span>"
+
 /obj/structure/bookcase/Initialize(mapload)
 	. = ..()
 	if(mapload)
 		// same reasoning as closets
-		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+		END_OF_TICK(CALLBACK(src, PROC_REF(take_contents)))
 
 /obj/structure/bookcase/proc/take_contents()
 	for(var/obj/item/I in get_turf(src))
@@ -32,13 +39,13 @@
 			I.forceMove(src)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/bookcase/attackby__legacy__attackchain(obj/item/O, mob/user)
+/obj/structure/bookcase/item_interaction(mob/living/user, obj/item/O, list/modifiers)
 	if(is_type_in_list(O, allowed_books))
 		if(!user.drop_item())
-			return
+			return ITEM_INTERACT_COMPLETE
 		O.forceMove(src)
 		update_icon(UPDATE_OVERLAYS)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 	if(istype(O, /obj/item/storage/bag/books))
 		var/obj/item/storage/bag/books/B = O
 		for(var/obj/item/T in B.contents)
@@ -46,10 +53,10 @@
 				B.remove_from_storage(T, src)
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
 		update_icon(UPDATE_OVERLAYS)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 	if(is_pen(O))
 		rename_interactive(user, O)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 
@@ -151,7 +158,7 @@
 
 /obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(load_books)), 0)
+	END_OF_TICK(CALLBACK(src, PROC_REF(load_books)))
 	icon_state = "bookshelf" // to keep random_bookshelf icon for mappers
 
 /obj/structure/bookcase/random/proc/load_books()

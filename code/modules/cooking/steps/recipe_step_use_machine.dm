@@ -118,10 +118,6 @@
 /datum/cooking/recipe_step/use_machine/oven/get_pda_formatted_desc()
 	return "Bake in an oven for [DisplayTimeText(time)] at [lowertext(temperature)] temperature."
 
-/datum/cooking/recipe_step/use_machine/oven/extra_machine_step(obj/machinery/cooking/machine)
-	var/obj/machinery/cooking/oven/oven = machine
-	oven.opened = FALSE
-
 /datum/cooking/recipe_step/use_machine/stovetop
 	machine_type = /obj/machinery/cooking/stovetop
 	cooker_surface_name = COOKER_SURFACE_STOVE

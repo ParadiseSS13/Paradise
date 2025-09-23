@@ -123,6 +123,15 @@
 	category = list("initial","Tools")
 	maxstack = 30
 
+/datum/design/cable_coil_heavy_duty
+	name = "Heavy Duty Cable Coil"
+	id = "cable_coil_heavy_duty"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 30, MAT_GLASS = 30)
+	build_path = /obj/item/stack/cable_coil/extra_insulated
+	category = list("initial","Tools")
+	maxstack = 30
+
 /datum/design/toolbox
 	name = "Toolbox"
 	id = "tool_box"
@@ -676,7 +685,7 @@
 	name = "Goggles"
 	id = "goggles"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 250)
 	build_path = /obj/item/clothing/glasses/goggles
 	category = list("initial", "Miscellaneous")
 
