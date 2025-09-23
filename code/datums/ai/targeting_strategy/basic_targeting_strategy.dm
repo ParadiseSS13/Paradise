@@ -95,3 +95,34 @@
 
 /datum/targeting_strategy/basic/always_check_factions
 	check_factions_exactly = TRUE
+
+/// Subtype which searches for mobs of a size relative to ours
+/datum/targeting_strategy/basic/of_size
+	/// If true, we will return mobs which are smaller than us. If false, larger.
+	var/find_smaller = TRUE
+	/// If true, we will return mobs which are the same size as us.
+	var/inclusive = TRUE
+
+/datum/targeting_strategy/basic/of_size/can_attack(mob/living/owner, atom/target, vision_range)
+	if(!isliving(target))
+		return FALSE
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/living/mob_target = target
+	if(inclusive && owner.mob_size == mob_target.mob_size)
+		return TRUE
+	if(owner.mob_size > mob_target.mob_size)
+		return find_smaller
+	return !find_smaller
+
+// This is just using the default values but the subtype makes it clearer
+/datum/targeting_strategy/basic/of_size/ours_or_smaller
+
+/datum/targeting_strategy/basic/of_size/larger
+	find_smaller = FALSE
+	inclusive = FALSE
+
+/datum/targeting_strategy/basic/of_size/smaller
+	inclusive = FALSE
