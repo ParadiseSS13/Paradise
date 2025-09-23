@@ -179,13 +179,13 @@
 		return
 
 	for(var/obj/machinery/atmospherics/unary/vent_pump/V in T)
-		if(!isnull(V.welded) && !V.welded) //must be an unwelded vent pump.
-			V.welded = TRUE
+		if(!isnull(V.frozen) && !V.frozen) //must be an unfrozen vent pump.
+			V.frozen = TRUE
 			V.update_icon()
 			V.visible_message("<span class='danger'>[V] was frozen shut!</span>")
 	for(var/obj/machinery/atmospherics/unary/vent_scrubber/U in T)
-		if(!isnull(U.welded) && !U.welded) //must be an unwelded vent scrubber.
-			U.welded = TRUE
+		if(!isnull(U.frozen) && !U.frozen) //must be an unfrozen vent scrubber.
+			U.frozen = TRUE
 			U.update_icon()
 			U.visible_message("<span class='danger'>[U] was frozen shut!</span>")
 	for(var/mob/living/L in T)

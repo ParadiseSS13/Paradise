@@ -29,6 +29,8 @@
 
 	/// Is this vent welded shut
 	var/welded = FALSE
+	/// Is this vent frozen shut
+	var/frozen = FALSE
 	/// How much pressure does there have to be in the pipe to burst the vent open?
 	var/weld_burst_pressure = 50 * ONE_ATMOSPHERE
 
@@ -37,6 +39,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This pumps the contents of the attached pipenet out into the atmosphere. Can be controlled from an Air Alarm.</span>"
+	if(frozen)
+		. += "It seems frozen shut."
 	if(welded)
 		. += "It seems welded shut."
 
@@ -78,6 +82,8 @@
 	if(!istype(T))
 		return
 
+	if(frozen)
+		vent_icon += "frozen"
 	if(welded)
 		vent_icon += "weld"
 	else if(!has_power())
@@ -225,7 +231,11 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		if(!welded)
+		if(frozen)
+			frozen = FALSE
+			user.visible_message("<span class='notice'>[user] thaws out [src] with [I]!</span>"),\
+				"<span class='notice'>You thaw out [src]!</span>"
+		else if(!welded)
 			welded = TRUE
 			user.visible_message("<span class='notice'>[user] welds [src] shut!</span>",\
 				"<span class='notice'>You weld [src] shut!</span>")
