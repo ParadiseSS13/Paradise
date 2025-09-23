@@ -232,9 +232,7 @@
 			visible_message("<span class='danger'>Something shorts out inside [src]!</span>")
 			wires.cut_random()
 
-
-
-
+/// MARK: UI Section
 /mob/living/simple_animal/bot/mulebot/show_controls(mob/user)
 	if(!open)
 		ui_interact(user)
@@ -333,7 +331,7 @@
 		if("refresh")
 			update_static_data(ui.user)
 
-//MARK: 
+//MARK:
 // TODO: remove this -PDA Check
 /mob/living/simple_animal/bot/mulebot/get_controls(mob/user)
 	var/ai = issilicon(user)
