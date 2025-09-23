@@ -146,5 +146,5 @@
 
 /datum/security_level/delta/overload
 	number_level = SEC_LEVEL_DELTA_SPECIAL
-	elevating_to_announcement_title = "Attention! Delta-N security level reached!"
+	elevating_to_announcement_title = "Attention! Delta-AZ5 security level reached!"
 	elevating_to_announcement_text = "Central Command has disabled all nuclear fission reactor failsafes. Crew are instructed to ensure detonation of the station fission reactor at all costs."

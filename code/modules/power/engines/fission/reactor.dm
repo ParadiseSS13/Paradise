@@ -55,22 +55,28 @@
 // #warn Idea todo: Make coolant rods eject violently at high temperatures
 // #warn Idea todo: Add a button on the monitor to activate venting
 // #warn Idea todo: make ripleys interact safely with rod chambers
+// #warn Idea todo: Bananium rods?
 
-#warn make heat coefficient less linear
-#warn add reactor repair
-#warn fix the final countdown not pulling some chambers down
-#warn fix neighbor adjacency getting removed
-#warn look into gas nodes not connecting
-#warn gas nodes cant be deconned
-#warn make coefficient less linear
-#warn building new chambers isnt updating neighbors
-#warn new chambers dont safety override correctly
+// Monitor these, but should be done
+// #warn make heat coefficient less linear
+// #warn add reactor repair
+// #warn fix the final countdown not pulling some chambers down
+// #warn fix neighbor adjacency getting removed
+// #warn look into gas nodes not connecting
+// #warn gas nodes cant be deconned
+// #warn make damaged reactor produce more events
+// #warn building new chambers isnt updating neighbors
+// #warn new chambers dont safety override correctly
+
+// NEEDS TESTING
+// #warn make heat coefficient gain less linear
+
+
 #warn make coolant/moderator amplifier values be affected by durability
 
 #warn Idea todo: poly voicelines
 #warn Idea todo: Allow grilling on an active reactor
 #warn Idea todo: Make some lavaland loot into special rods/upgrades
-#warn Idea todo: Bananium rods?
 #warn Idea todo: syndicate meltdown rods
 
 #warn Idea todo: Grenades that force start rods
@@ -133,7 +139,7 @@
 	var/emergency_alert = "REACTOR CORE MELTDOWN IMMINENT."
 	/// Time in 1/10th of seconds since the last sent warning
 	var/lastwarning = 0
-	/// a boolean value for if we need to send a
+	/// a boolean value for if we need to send out an alert. (usually during meltdowns)
 	var/send_message = FALSE
 	/// Our internal radio
 	var/obj/item/radio/radio
@@ -268,8 +274,6 @@
 
 /obj/machinery/atmospherics/fission_reactor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	. = ..()
-	if(!(stat & BROKEN))
-		return
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/creature = user
@@ -286,35 +290,38 @@
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/stack/sheet/mineral/plastitanium))
 		var/obj/item/stack/sheet/plastitanium = used
-		if(plastitanium.amount >= 10)
+		if(plastitanium.amount >= 5)
 			if(repair_step == REACTOR_NEEDS_PLASTITANIUM)
 				if(do_after_once(creature, 3 SECONDS, TRUE, src, allow_moving = FALSE))
-					plastitanium.amount -= 10
+					plastitanium.use(5)
 					to_chat(creature, "<span class='information'>You reform the control rod housing and slot the structure into place.</span>")
 					repair_step++
 					icon = "reactor_maintenance"
 			else
 				if(!offline)
-					return
+					to_chat(creature, "<span class='warning'>The reactor must be off to repair it!</span>")
+					return ITEM_INTERACT_COMPLETE
 				var/obj/item/item = creature.get_inactive_hand()
 				if(!istype(item, /obj/item/weldingtool))
-					return
+					to_chat(creature, "<span class='warning'>A functional welder is required to adhere the plastitanium.</span>")
+					return ITEM_INTERACT_COMPLETE
 				if(!item.use_tool(src, creature, 0, amount = 1, volume = item.tool_volume))
-					return
+					return ITEM_INTERACT_COMPLETE
 				if(do_after_once(creature, 4 SECONDS, TRUE, src, allow_moving = FALSE))
-					plastitanium.amount -= 10
+					plastitanium.use(5)
 					damage = max(damage - (MELTDOWN_POINT * 0.1), 0)
 		else
-			to_chat(creature, "<span class='warning'>You need at least ten sheets of plastitanium to reform the reactor core structure!</span>")
+			to_chat(creature, "<span class='warning'>You need at least five sheets of plastitanium to reform the reactor core structure!</span>")
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/stack/sheet/plasteel) && repair_step == REACTOR_NEEDS_PLASTEEL)
 		var/obj/item/stack/sheet/plasteel = used
 		if(plasteel.amount >= 5)
 			if(do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE))
 				repair_step++
+				plasteel.use(5)
 				to_chat(user, "<span class='information'>You attach a layer of radiation shielding around the reactor core.</span>")
 		else
-			to_chat(user, "<span class='warning'>You need at least five sheets of plastitanium to reform the reactor core structure!</span>")
+			to_chat(user, "<span class='warning'>You need at least five sheets of plasteel to reform the reactor core structure!</span>")
 		return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/fission_reactor/crowbar_act(mob/living/user, obj/item/I)
@@ -590,8 +597,9 @@
 				new_damage += PRESSURE_DAMAGE
 
 			new_damage = clamp(new_damage, DAMAGE_MINIMUM, DAMAGE_MAXIMUM)
-
-			if(prob(new_damage * EVENT_MODIFIER)) // rod ejection events
+			var/damage_multiplier = clamp(1 + ((50 - get_integrity()) / 25), 1, 3) // gives a higher event chance below 50% integrity, up to 3x
+			damage_multiplier *= EVENT_MODIFIER
+			if(prob(new_damage * damage_multiplier)) // rod ejection events
 				var/list/coolers = list()
 				for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 					if(istype(chamber.held_rod, /obj/item/nuclear_rod/coolant) && chamber.chamber_state == CHAMBER_DOWN)
@@ -600,7 +608,7 @@
 					var/obj/machinery/atmospherics/reactor_chamber/failure = coolers[rand(1, length(coolers))]
 					if(!failure.welded) // you got lucky punk
 						failure.eject_rod()
-			if(prob(new_damage * EVENT_MODIFIER)) // weld event
+			if(prob(new_damage * damage_multiplier)) // weld event
 				var/list/valid_chambers = list()
 				for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 					if(chamber.chamber_state == CHAMBER_DOWN)
@@ -613,10 +621,10 @@
 							break
 						else
 							valid_chambers -= failure // just keep cycling through.
-			if(prob(new_damage * EVENT_MODIFIER * 3) && control_rods_remaining > 0) // more probable
+			if(prob(new_damage * damage_multiplier * 3) && control_rods_remaining > 0) // more probable
 				control_rod_failure()
 
-			if(prob(new_damage * EVENT_MODIFIER * 0.5)) // rarer
+			if(prob(new_damage * damage_multiplier * 0.5)) // rarer
 				begin_venting()
 
 	if(damage > WARNING_POINT && (REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY && send_message && !final_countdown)
@@ -1337,7 +1345,7 @@
 		return
 	if(linked_reactor.offline)
 		return
-	if(chamber_state != CHAMBER_OPEN || chamber_state != CHAMBER_UP)
+	if(chamber_state != CHAMBER_OPEN && chamber_state != CHAMBER_UP)
 		return
 	if(linked_reactor.admin_intervention)
 		return
@@ -1555,15 +1563,11 @@
 	// this is basically passive gate code
 	var/output_starting_pressure = network1.return_pressure()
 	var/input_starting_pressure = network2.return_pressure()
-	if(output_starting_pressure >= min(target_pressure, input_starting_pressure - 10))
-		//No need to pump gas if target is already reached or input pressure is too low
-		//Need at least 10 KPa difference to overcome friction in the mechanism
-		return 1
 
 	//Calculate necessary moles to transfer using PV = nRT
 	if((network2.total_moles() > 0) && (network2.temperature() > 0))
 		var/pressure_delta = min(target_pressure - output_starting_pressure, (input_starting_pressure - output_starting_pressure) / 2)
-		pressure_delta = max(pressure_delta, 5) // always work at least a little bit
+		pressure_delta = max(pressure_delta, 3) // always work at least a little bit
 		var/transfer_moles = pressure_delta * network1.volume / (network2.temperature() * R_IDEAL_GAS_EQUATION)
 
 		//Actually transfer the gas
@@ -1574,27 +1578,41 @@
 
 	return 1
 
+/obj/machinery/atmospherics/unary/reactor_gas_node/screwdriver_act(mob/living/user, obj/item/I)
+	default_deconstruction_screwdriver()
+
+/obj/machinery/atmospherics/unary/reactor_gas_node/crowbar_act(mob/living/user, obj/item/I)
+	to_chat(user, "<span class='information'>You begin to pry out the internal piping...</span>")
+	if(I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+		default_deconstruction_crowbar()
+
+/obj/machinery/atmospherics/unary/reactor_gas_node/multitool_act(mob/living/user, obj/item/I)
+	to_chat(user, "<span class='information'>You begin to reverse the gas flow direction...</span>")
+	if(do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE, must_be_held = TRUE))
+		intake_vent = !intake_vent
+
 /obj/machinery/atmospherics/unary/reactor_gas_node/wrench_act(mob/user, obj/item/I)
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 	var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", choices)
 	if(!selected)
-		return
+		return ITEM_INTERACT_COMPLETE
 	if(!Adjacent(user))
 		to_chat(user, "<span class='warning'>You moved away before construction was finished</span>")
-	if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume))
-		return
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+		return ITEM_INTERACT_COMPLETE
 	if(!Adjacent(user))
 		to_chat(user, "<span class='warning'>You moved away before construction was finished</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 	dir = choices[selected]
+	initialize_directions = dir
 	for(var/obj/machinery/atmospherics/target in get_step(src, dir))
 		if(target.initialize_directions & get_dir(target,src))
 			node = target
 			break
-	initialize_atmos_network()
 	form_link()
+	initialize_atmos_network()
 	update_icon()
-	return
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/proc/form_link()
 	linked_reactor = null
