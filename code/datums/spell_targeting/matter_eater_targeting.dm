@@ -9,7 +9,7 @@
 		/mob/living/simple_animal/hostile,
 		/mob/living/simple_animal/parrot,
 		/mob/living/basic/crab,
-		/mob/living/simple_animal/mouse,
+		/mob/living/basic/mouse,
 		/mob/living/carbon/human,
 		/mob/living/simple_animal/slime,
 		/mob/living/carbon/alien/larva,
