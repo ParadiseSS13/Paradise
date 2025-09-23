@@ -75,7 +75,7 @@
 			L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
-				H.apply_effect(10 SECONDS, KNOCKDOWN, H.run_armor_check(null, MELEE))
+				H.apply_effect(10 SECONDS, KNOCKDOWN, H.run_armor_check(armor_type = MELEE))
 				H.apply_damage(40, STAMINA)
 			else
 				L.Weaken(5 SECONDS)
