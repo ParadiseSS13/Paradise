@@ -1,5 +1,6 @@
+import { Box, Button, Icon, Section, Stack, Tabs } from 'tgui-core/components';
+
 import { useBackend, useLocalState } from '../backend';
-import { Button, ButtonCheckbox, Box, Section, Tabs, Stack, Icon, IconStack } from '../components';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 
