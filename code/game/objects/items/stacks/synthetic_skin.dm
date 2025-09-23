@@ -4,7 +4,7 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "skin_1"
 	w_class = WEIGHT_CLASS_SMALL
-	singular_name = "globs of gobbly go" // qwertodo: once skin is sprited, find a proper singular name
+	singular_name = "skin plate"
 	max_amount = 10
 	merge_type = /obj/item/stack/synthetic_skin
 	var/skin_level = 1
@@ -31,11 +31,14 @@
 	desc = "A sealed patch of synthetic skin. An improvement over the basic version, more water resistant and less prone to peeling off."
 	icon_state = "skin_2"
 	merge_type = /obj/item/stack/synthetic_skin/level_2
+	singular_name = "skin patch"
 	skin_level = 2
 
+
 /obj/item/stack/synthetic_skin/level_3
-	name = "level-3 synthetic skin"
+	name = "level-3 synthetic skin foam"
 	desc = "A nanite foam injector meeting the requirements of level-3 synthetic skin. The best one can buy, best used to hide major cybernetic alterations, for beauty or for infiltration."
 	icon_state = "skin_3"
 	merge_type = /obj/item/stack/synthetic_skin/level_3
+	singular_name = "nanite foam"
 	skin_level = 3

@@ -241,7 +241,7 @@
 	if(our_parent.augmented_skin_cover_level && !always_show_augment)
 		return FALSE
 
-	return TRUE //qwertodo: This is where limb flags for cover come in.
+	return TRUE
 
 // An extra render used in certain situations.
 /obj/item/organ/internal/proc/extra_render()
@@ -253,7 +253,7 @@
 	if(our_parent.augmented_skin_cover_level && !always_show_augment)
 		return FALSE
 
-	return TRUE //qwertodo: This is where limb flags for cover come in.
+	return TRUE
 
 /obj/item/organ/internal/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))

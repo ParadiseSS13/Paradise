@@ -175,8 +175,8 @@
 	category = list("Medical")
 
 /datum/design/skin_1
-	name = "level-1 synthetic skin"
-	desc = "qwertodo: Fill this out once skin design is finalized."
+	name = "level-1 synthetic skin plate"
+	desc = "A sheet of level-1 synthetic skin plating. Used as a cheap covering for cybernetic organs, is able to match the colour of the limb but not the texture."
 	id = "skin_1"
 	req_tech = list("biotech" = 1, "materials" = 1)
 	build_type = PROTOLATHE | MECHFAB
@@ -186,8 +186,8 @@
 	category = list("Medical")
 
 /datum/design/skin_2
-	name = "level-2 synthetic skin"
-	desc = "qwertodo: Fill this out once skin design is finalized."
+	name = "level-2 synthetic skin patch"
+	desc = "A sealed patch of synthetic skin. An improvement over the basic version, more water resistant and less prone to peeling off."
 	id = "skin_2"
 	req_tech = list("biotech" = 5, "materials" = 5)
 	build_type = PROTOLATHE | MECHFAB
@@ -197,8 +197,8 @@
 	category = list("Medical")
 
 /datum/design/skin_3
-	name = "level-3 synthetic skin"
-	desc = "qwertodo: Fill this out once skin design is finalized."
+	name = "level-3 synthetic skin foam"
+	desc = "A nanite foam injector meeting the requirements of level-3 synthetic skin. The best one can buy, best used to hide major cybernetic alterations, for beauty or for infiltration."
 	id = "skin_3"
 	req_tech = list("biotech" = 7, "materials" = 7)
 	build_type = PROTOLATHE | MECHFAB
