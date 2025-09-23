@@ -125,10 +125,11 @@
 	var/turf/T = get_turf(electrolyzer)
 	var/datum/gas_mixture/env = get_turf_air(T)
 	var/datum/gas_mixture/removed = electrolyzer.process_atmos_safely(T, env)
+	var/available_energy = WATT_TICK_TO_JOULE * electrolyzer.get_surplus()
 	if(electrolyzer.on && electrolyzer.has_water_vapor(removed))
-		var/water_vapor_to_remove = removed.water_vapor()
+		var/water_vapor_to_remove = min(removed.water_vapor(), available_energy / (HYDROGEN_BURN_ENERGY / 2))
 		var/hydrogen_produced = water_vapor_to_remove
 		var/oxygen_produced = water_vapor_to_remove / 2
-		removed.set_water_vapor(0)
+		removed.set_water_vapor(removed.water_vapor() - water_vapor_to_remove)
 		env.set_hydrogen(env.hydrogen() + hydrogen_produced)
 		env.set_oxygen(env.oxygen() + oxygen_produced)
