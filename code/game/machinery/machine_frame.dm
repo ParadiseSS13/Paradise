@@ -1044,6 +1044,17 @@ to destroy them and players will be able to make replacements.
 	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil = 2)
 // End telecomms circuit boards
 
+/obj/item/circuitboard/salvage_redemption
+	board_name = "Salvage Redemption"
+	icon_state = "supply"
+	build_path = /obj/machinery/salvage_redemption
+	board_type = "machine"
+	origin_tech = "programming=1;engineering=2"
+	req_components = list(
+							/obj/item/stack/sheet/glass = 1,
+							/obj/item/stock_parts/scanning_module = 3,
+							/obj/item/stock_parts/manipulator = 1)
+
 /obj/item/circuitboard/smart_hopper
 	board_name = "Ore Redemption"
 	icon_state = "supply"

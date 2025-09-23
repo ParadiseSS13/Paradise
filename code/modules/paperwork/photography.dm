@@ -646,6 +646,16 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		TV.update_icon(UPDATE_OVERLAYS)
 	COOLDOWN_START(src, video_cooldown, CAMERA_STATE_COOLDOWN)
 
+/obj/item/videocam/dropped(mob/user, silent)
+	. = ..()
+	if(on)
+		on = FALSE
+		icon_state = icon_off
+		camera.c_tag = null
+		camera.turn_off(null, 0)
+		QDEL_NULL(camera)
+		visible_message("<span class='notice'>The video camera turns off.</span>")
+
 /obj/item/videocam/attack_self__legacy__attackchain(mob/user)
 	if(!COOLDOWN_FINISHED(src, video_cooldown))
 		to_chat(user, "<span class='warning'>[src] is overheating, give it some time.</span>")
