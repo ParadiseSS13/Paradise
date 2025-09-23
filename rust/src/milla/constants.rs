@@ -47,8 +47,6 @@ pub(crate) const SLEEPING_GAS_BREAKDOWN_TEMP: f32 = 1400.0;
 //How much water vapor is produced per plasma burnt.
 pub(crate) const WATER_VAPOR_PER_PLASMA_BURNT: f32 = 4.0;
 
-
-
 /// Index for oxygen in gas list.
 pub(crate) const GAS_OXYGEN: usize = 0;
 
@@ -131,7 +129,7 @@ pub(crate) const SPECIFIC_HEATS: [f32; GAS_COUNT] = [
     SPECIFIC_HEAT_TOXINS,
     SPECIFIC_HEAT_SLEEPING_AGENT,
     SPECIFIC_HEAT_AGENT_B,
-	SPECIFIC_HEAT_HYDROGEN,
+    SPECIFIC_HEAT_HYDROGEN,
     SPECIFIC_HEAT_WATER_VAPOR,
 ];
 
@@ -175,7 +173,7 @@ pub(crate) const WATER_VAPOR_BREAKDOWN_ENERGY: f32 = 200.0;
 pub(crate) const PLASMA_BURN_ENERGY: f32 = 3_000_000.0;
 
 /// How much thermal energy is produced, in joules per mole of hydrogen
-pub(crate) const HYDROGEN_BURN_ENERGY: f32 = 2_430_000.0;
+pub(crate) const HYDROGEN_BURN_ENERGY: f32 = 243_000_000.0;
 
 /// We allow small deviations in tests as our spring chain solution is not exact.
 #[cfg(test)]
