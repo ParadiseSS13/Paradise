@@ -70,46 +70,51 @@
 	if(length(SSevents.debug_resources))
 		active_with_role = SSevents.debug_resources.Copy()
 
-	for(var/mob/M in GLOB.player_list)
-		if(!M.mind?.assigned_role || M.stat == DEAD || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
+	for(var/mob/player in GLOB.player_list)
+		if(!player.mind?.assigned_role || player.stat == DEAD || !player.client || player.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
 			continue
 
-		if(M.mind.assigned_role in (GLOB.exp_jobsmap[EXP_TYPE_CREW]["titles"]))
-			active_with_role[ASSIGNMENT_CREW]++
+		var/capacity = player.get_event_capacity()
 
-		if(active_with_role[M.mind.assigned_role])
-			active_with_role[M.mind.assigned_role]++
+		if(!capacity)
+			continue
+
+		if(player.mind.assigned_role in (GLOB.exp_jobsmap[EXP_TYPE_CREW]["titles"]))
+			active_with_role[ASSIGNMENT_CREW] += capacity
+
+		if(active_with_role[player.mind.assigned_role])
+			active_with_role[player.mind.assigned_role]+= capacity
 		else
-			active_with_role[M.mind.assigned_role] = 1
+			active_with_role[player.mind.assigned_role] = capacity
 
-		if(isrobot(M))
-			var/mob/living/silicon/robot/R = M
+		if(isrobot(player))
+			var/mob/living/silicon/robot/R = player
 			if(R.module && (R.module.name == "engineering robot module"))
-				active_with_role[ASSIGNMENT_ENGINEERING]++
+				active_with_role[ASSIGNMENT_ENGINEERING]+= capacity
 
 			if(R.module && (R.module.name == "medical robot module"))
-				active_with_role[ASSIGNMENT_MEDICAL]++
+				active_with_role[ASSIGNMENT_MEDICAL]+= capacity
 
 			if(R.module && (R.module.name == "security robot module"))
-				active_with_role[ASSIGNMENT_SECURITY]++
+				active_with_role[ASSIGNMENT_SECURITY]+= capacity
 
-		if(M.mind.assigned_role in GLOB.engineering_positions)
-			active_with_role[ASSIGNMENT_ENGINEERING]++
+		if(player.mind.assigned_role in GLOB.engineering_positions)
+			active_with_role[ASSIGNMENT_ENGINEERING]+= capacity
 
-		if(M.mind.assigned_role in GLOB.medical_positions)
-			active_with_role[ASSIGNMENT_MEDICAL]++
+		if(player.mind.assigned_role in GLOB.medical_positions)
+			active_with_role[ASSIGNMENT_MEDICAL]+= capacity
 
-		if(M.mind.assigned_role in GLOB.active_security_positions)
-			active_with_role[ASSIGNMENT_SECURITY]++
+		if(player.mind.assigned_role in GLOB.active_security_positions)
+			active_with_role[ASSIGNMENT_SECURITY]+= capacity
 
-		if(M.mind.assigned_role in GLOB.science_positions)
-			active_with_role[ASSIGNMENT_SCIENCE]++
+		if(player.mind.assigned_role in GLOB.science_positions)
+			active_with_role[ASSIGNMENT_SCIENCE]+= capacity
 
-		if(M.mind.assigned_role in GLOB.supply_positions)
-			active_with_role[ASSIGNMENT_CARGO]++
+		if(player.mind.assigned_role in GLOB.supply_positions)
+			active_with_role[ASSIGNMENT_CARGO]+= capacity
 
-		if(M.mind.assigned_role in GLOB.command_positions)
-			active_with_role[ASSIGNMENT_COMMAND]++
+		if(player.mind.assigned_role in GLOB.command_positions)
+			active_with_role[ASSIGNMENT_COMMAND]+= capacity
 
 	return active_with_role
 
