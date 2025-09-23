@@ -18,7 +18,7 @@ const NoCell = (props, context) => {
   const { act, data } = useBackend(context);
   const { cell } = data;
   return (
-    <Window width={500} height={500}>
+    <Window width={500} height={300}>
       <Stack justify="center" align="center" fill vertical>
         <Icon.Stack>
           <Icon size="5" name="slash" />
@@ -47,7 +47,7 @@ const MuleMain = (props, context) => {
   };
 
   return (
-    <Window width={500} height={500}>
+    <Window width={500} height={300}>
       <Window.Content>
         <Tabs>
           <Tabs.Tab key="BotStatus" icon="signal" selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
