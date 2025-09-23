@@ -366,8 +366,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				"filter_n2" = scrubber.scrub_N2,
 				"filter_co2" = scrubber.scrub_CO2,
 				"filter_toxins" = scrubber.scrub_Toxins,
-				"filter_n2o" = scrubber.scrub_N2O))
-
+				"filter_n2o" = scrubber.scrub_N2O,
+				"filter_h2o" = scrubber.scrub_H2O,
+				"filter_h2" = scrubber.scrub_H2))
 
 /obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/living/user, obj/item/I)
 	if(!ismultitool(I)) // Should never happen
@@ -493,7 +494,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					"filter_n2" = scrubber.scrub_N2,
 					"filter_co2" = scrubber.scrub_CO2,
 					"filter_toxins" = scrubber.scrub_Toxins,
-					"filter_n2o" = scrubber.scrub_N2O))
+					"filter_n2o" = scrubber.scrub_N2O,
+					"filter_h2o" = scrubber.scrub_H2O,
+					"filter_h2" = scrubber.scrub_H2))
 				refresh_outlets()
 				to_chat(user, "<span class='notice'>Successfully added an outlet scrubber</span>")
 				return
@@ -581,6 +584,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			outlet_scrubber_data[uid]["filter_co2"] = scrubber.scrub_CO2
 			outlet_scrubber_data[uid]["filter_toxins"] = scrubber.scrub_Toxins
 			outlet_scrubber_data[uid]["filter_n2o"] = scrubber.scrub_N2O
+			outlet_scrubber_data[uid]["filter_h2o"] = scrubber.scrub_H2O
+			outlet_scrubber_data[uid]["filter_h2"] = scrubber.scrub_H2
 
 /obj/machinery/computer/general_air_control/large_tank_control/refresh_all()
 	..()
