@@ -73,7 +73,7 @@
 #define PLASMA_OXYGEN_FULLBURN				10
 
 // Hydrogen defines
-#define HYDROGEN_BURN_ENERGY 				286000
+#define HYDROGEN_BURN_ENERGY 				25000000
 #define HYDROGEN_MIN_IGNITE_TEMP            500
 
 // Water Vapor defines
@@ -87,7 +87,7 @@
 #define MAX_TOXIC_GAS_DAMAGE				10
 #define MOLES_PLASMA_VISIBLE				0.5		//Moles in a standard cell after which plasma is visible
 /// Moles in a standard cell after which water vapor is visible
-#define MOLES_WATER_VAPOR_VISIBLE			0.5		
+#define MOLES_WATER_VAPOR_VISIBLE			0.5
 
 // Pressure limits.
 #define HAZARD_HIGH_PRESSURE				550		//This determins at what pressure the ultra-high pressure red icon is displayed. (This one is set as a constant)
