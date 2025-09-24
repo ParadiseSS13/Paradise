@@ -69,20 +69,21 @@
 // #warn building new chambers isnt updating neighbors
 // #warn new chambers dont safety override correctly
 // #warn Idea todo: syndicate meltdown rods
+// #warn Idea todo: Grenades that force start rods
+// #warn Idea todo: make rods radioactive when outside of houseing or shielding pools
 
 // NEEDS TESTING
 // #warn make heat coefficient gain less linear
 // #warn make coolant/moderator amplifier values be affected by durability
+// #warn make meltdown countdown cause LOTS of smoke and chamber lifts/ejections
 
+/* linter
 #warn Idea todo: Allow grilling on an active reactor
 #warn Idea todo: Make some lavaland loot into special rods/upgrades
 
-
-#warn Idea todo: Grenades that force start rods
-#warn Idea todo: make rods radioactive when outside of houseing or shielding pools
-#warn Idea todo: Make meltdown countdown cause LOTS of smoke and chamber lifts/ejections
 #warn Idea todo: Make different gasses do... something
 #warn event idea: Pufts of contaminating rad smoke
+*/
 
 /// MARK: Fission Reactor
 
@@ -118,7 +119,7 @@
 	var/desired_power = 0
 	/// What percentage are the reactor control rods running at? Minimum raised for each broken control rod
 	var/operating_power = 0
-	/// The amount of damage we have currently
+	/// The amount of damage we have currently. Use adjust_damage() to change it
 	var/damage = 0
 	/// Is this the primary station engine that spawns in round? Basically
 	var/primary_engine = FALSE
@@ -155,7 +156,7 @@
 	/// Is the vent allowed to be closed without manual intervention?
 	var/vent_lockout = FALSE
 	/// How often do we want to process the vent?
-	var/ticks_per_run = 5
+	var/ticks_per_run = 20
 	/// How long has it been since we processed the vent?
 	var/tick_counter = 0
 	/// What is the lowest temperature the reactor wants to be at?
@@ -200,15 +201,18 @@
 /obj/machinery/atmospherics/fission_reactor/ex_act(severity)
 	if(severity == EXPLODE_DEVASTATE) // Very sturdy.
 		set_broken()
+	else if(severity == EXPLODE_HEAVY)
+		adjust_damage(rand(100,300))
+	else
+		adjust_damage(rand(30, 150))
 
 /obj/machinery/atmospherics/fission_reactor/blob_act(obj/structure/blob/B)
-	if(prob(20))
-		set_broken()
+	adjust_damage(rand(20, 60))
 
 /obj/machinery/atmospherics/fission_reactor/zap_act(power, zap_flags)
 	. = ..()
 	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
-		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
+		qdel(src) //like the singulo, tesla deletes it. stops it from exploding over and over
 
 // This shouldnt happen normally
 /obj/machinery/atmospherics/fission_reactor/Destroy()
@@ -281,7 +285,7 @@
 		if(do_after_once(creature, 3 SECONDS, TRUE, src, allow_moving = FALSE))
 			playsound(src, used.usesound, 50, 1)
 			new /obj/item/slag(loc)
-			if(prob(30))
+			if(prob(20))
 				repair_step++
 				to_chat(creature, "<span class='information'>There seems to be more slag clogging the ruined reactor core.</span>")
 			else
@@ -308,7 +312,7 @@
 					return ITEM_INTERACT_COMPLETE
 				if(do_after_once(creature, 4 SECONDS, TRUE, src, allow_moving = FALSE))
 					plastitanium.use(5)
-					damage = max(damage - (MELTDOWN_POINT * 0.1), 0)
+					adjust_damage((-MELTDOWN_POINT * 0.1))
 		else
 			to_chat(creature, "<span class='warning'>You need at least five sheets of plastitanium to reform the reactor core structure!</span>")
 		return ITEM_INTERACT_COMPLETE
@@ -453,8 +457,8 @@
 		return
 
 	if(!offline && !starting_up)
-		var/light_power = clamp((final_power / (100 KW)), 2, 15)
-		set_light(light_power, 4, REACTOR_LIGHT_COLOR)
+		var/light_range = clamp((final_power / (50 KW)), 2, 30)
+		set_light(light_range, max(reactivity_multiplier, 3), REACTOR_LIGHT_COLOR)
 	else
 		remove_light()
 
@@ -563,8 +567,8 @@
 
 	reactivity_multiplier = clamp(reactivity_multiplier, 1, REACTIVITY_COEFFICIENT_CAP)
 
-	final_heat *= ((operating_percent()) * (reactivity_multiplier * 2) * HEAT_MODIFIER) // proportionally affects heat more
-	final_power *= (operating_percent() * reactivity_multiplier)
+	final_heat *= (operating_rate * (reactivity_multiplier * 2) * HEAT_MODIFIER) // proportionally affects heat more
+	final_power *= (operating_rate * reactivity_multiplier)
 
 	final_power = max(final_power, 0) // no negative numbers
 
@@ -591,7 +595,7 @@
 			new_damage += max((1 - (MOL_MINIMUM / total_mols) * MOL_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
 		if(check_overheating())
 			// breaking the equasion up a little for readability. Should look like this: Y = (-AB ^ -X) + A
-			var/rate_of_decay = 1.125 // closer to 1 = slower to reach DAMAGE_MAXIMUM. Do not set at or below 1 it will break
+			var/rate_of_decay = 1.13 // closer to 1 = slower to reach DAMAGE_MAXIMUM. Do not set at or below 1 it will break
 			var/damage_increments = -((temp - heat_damage_threshold) / HEAT_DAMAGE_RATE)
 			var/damage_calculation = (-DAMAGE_MAXIMUM * (rate_of_decay ** damage_increments)) + DAMAGE_MAXIMUM
 			new_damage += max(damage_calculation * HEAT_DAMAGE_MULTIPLIER, DAMAGE_MINIMUM) // god math sucks. This gives decaying increments of damage for heat generation as it gets closer to DAMAGE_MAXIMUM.
@@ -603,6 +607,8 @@
 			new_damage = clamp(new_damage, DAMAGE_MINIMUM, DAMAGE_MAXIMUM)
 			var/damage_multiplier = clamp(1 + ((50 - get_integrity()) / 25), 1, 3) // gives a higher event chance below 50% integrity, up to 3x
 			damage_multiplier *= EVENT_MODIFIER
+			if(final_countdown)
+				damage_multiplier = 10
 			if(prob(new_damage * damage_multiplier)) // rod ejection events
 				var/list/coolers = list()
 				for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
@@ -625,17 +631,17 @@
 							break
 						else
 							valid_chambers -= failure // just keep cycling through.
-			if(prob(new_damage * damage_multiplier * 3) && control_rods_remaining > 0) // more probable
+			if(prob(new_damage * damage_multiplier * 3) && control_rods_remaining > 0) // Control rod failure. more probable
 				control_rod_failure()
 
-			if(prob(new_damage * damage_multiplier * 0.5)) // rarer
+			if(prob(new_damage * damage_multiplier * 0.5)) // Vent control failure. rarer
 				begin_venting()
 
 	if(damage > WARNING_POINT && (REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY && send_message && !final_countdown)
 		try_alarm(new_damage)
 
 	if(new_damage)
-		damage = min(damage + new_damage, MELTDOWN_POINT)
+		adjust_damage(new_damage)
 		send_message = TRUE
 		new_damage = 0
 
@@ -682,16 +688,19 @@
 	offline = TRUE
 	can_create_power = FALSE
 	icon_state = "reactor_off"
+	final_heat = 0
+	final_power = 0
+	reactivity_multiplier = 1
 	remove_light()
 	if(send_message)
 		radio.autosay("<b>Reactor SCRAM completed successfully. Integrity: [get_integrity()]%</b>", name, "Engineering")
 		send_message = FALSE
-	#warn add a sound here
+	// #warn add a sound here
 
 /obj/machinery/atmospherics/fission_reactor/proc/boot_up()
 	offline = FALSE
 	icon_state = "reactor_starting"
-	#warn add a sound here
+	// #warn add a sound here
 
 /obj/machinery/atmospherics/fission_reactor/proc/become_operational()
 	starting_up = FALSE
@@ -702,11 +711,11 @@
 	else
 		icon_state = "reactor_on"
 	set_light(2, 5, REACTOR_LIGHT_COLOR)
-	#warn add a sound here
+	// #warn add a sound here
 
 /// returns a value from 0 to 1 based off current operating power
 /obj/machinery/atmospherics/fission_reactor/proc/operating_percent()
-	var/operating_rate = 1 - operating_power / 100
+	var/operating_rate = operating_power / 100
 	return operating_rate
 
 // Pretty much ripped from the SM
@@ -723,7 +732,7 @@
 	for(var/i in NGCR_COUNTDOWN_TIME to 0 step -10)
 		if(admin_intervention) // Stop exploding if you're frozen by an admin, damn you
 			final_countdown = FALSE
-			damage = MELTDOWN_POINT - 1 // One point below exploding, so it will re-start the countdown once unfrozen
+			adjust_damage(MELTDOWN_POINT - 1, TRUE) // One point below exploding, so it will re-start the countdown once unfrozen
 			return
 		if(offline) // Engineers managed to fully turn off the reactor in time
 			radio.autosay("<span class='big'>[safe_alert]</span>", name, null)
@@ -834,6 +843,9 @@
 
 /obj/machinery/atmospherics/fission_reactor/proc/begin_venting()
 	var/datum/effect_system/smoke_spread/bad/smoke = new()
+	var/rad_type = pick(ALPHA_RAD, BETA_RAD, GAMMA_RAD)
+	for(var/turf/T in view(4, loc))
+		T.contaminate_atom(src, 100, rad_type)
 	smoke.set_up(3, FALSE, loc)
 	smoke.start()
 	venting = TRUE
@@ -848,6 +860,15 @@
 			continue
 		else if(chamber.held_rod.minimum_temp_modifier > minimum_operating_temp)
 			minimum_operating_temp = chamber.held_rod.minimum_temp_modifier
+
+/obj/machinery/atmospherics/fission_reactor/proc/adjust_damage(new_damage, set_by_number = FALSE)
+	if(set_by_number)
+		damage = clamp(new_damage, 0, MELTDOWN_POINT)
+	else
+		damage += new_damage
+		damage = clamp(damage, 0, MELTDOWN_POINT)
+	if(damage >= MELTDOWN_POINT && offline)
+		set_broken(FALSE)
 
 /// MARK: Rod Chamber
 
@@ -1150,23 +1171,48 @@
 		return ITEM_INTERACT_COMPLETE
 	var/operating_rate = linked_reactor.operating_percent()
 	var/durability_mod = held_rod.get_durability_mod()
-	var/message
-	message += "[held_rod] is currently contained within this chamber."
+	var/list/message = list()
+	message += "<span class='notice'>[held_rod] is currently contained within this chamber.</span>"
+
+	message += ""
 
 	if(held_rod.durability == 0)
-		message += "<br>The rod has been fully depleted and rendered inert."
+		message += "<span class='notice'>The rod has been fully depleted and rendered inert.</span>"
+		to_chat(user, message)
+		return ITEM_INTERACT_COMPLETE
 	else
-		message += "<br>The rod's integrity is at [held_rod.durability / held_rod.max_durability]%."
+		message += "<span class='notice'>Rod integrity is at [(held_rod.durability / held_rod.max_durability) * 100]%.</span>"
+
+	message += ""
 
 	if(power_total && operational)
-		message += "<br>The chamber is currently producing [power_total * operating_rate * durability_mod] watts of energy."
+		message += "<span class='notice'>The chamber is currently producing [power_total * operating_rate * durability_mod] watts of energy.</span>"
+		message += "<span class='notice'>The chamber has a power modifer of [held_rod.current_power_mod].</span>"
 	else
-		message += "<br>The chamber is producing no power."
+		message += "<span class='notice'>The chamber is producing no power.</span>"
+	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
+		var/obj/item/nuclear_rod/fuel/rod = held_rod
+		if(rod.power_enrich_progress >= rod.enrichment_cycles)
+			message += "<span class='notice'>[src] has been power enriched</span>"
+		else
+			message += "<span class='notice'>[src] has not yet finished a power enrichment process.</span>"
+
+	message += ""
 
 	if(heat_total)
-		message += "<br>The chamber is currently producing [heat_total * HEAT_MODIFIER * operating_rate * durability_mod] joules of heat."
+		message += "<span class='notice'>The chamber is currently producing [heat_total * HEAT_MODIFIER * operating_rate * durability_mod] joules of heat.</span>"
+		message += "<span class='notice'>The chamber has a power modifer of [held_rod.current_heat_mod].</span>"
 	else
-		message += "<br>The chamber is producing no heat."
+		message += "<span class='notice'>The chamber is producing no heat.</span>"
+	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
+		var/obj/item/nuclear_rod/fuel/rod = held_rod
+		if(rod.heat_enrich_progress >= rod.enrichment_cycles)
+			message += "<span class='notice'>[src] has been heat enriched</span>"
+		else
+			message += "<span class='notice'>[src] has not yet finished a heat enrichment process.</span>"
+
+	to_chat(user, chat_box_examine(message.Join("<br>")))
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/reactor_chamber/proc/raise(playsound = TRUE)
 	chamber_state = CHAMBER_UP
@@ -1180,6 +1226,11 @@
 	check_minimum_modifier()
 	if(playsound)
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
+		if(linked_reactor.offline)
+			held_rod.start_rads()
+		else
+			held_rod.start_rads(linked_reactor.reactivity_multiplier)
 
 	update_icon()
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
@@ -1204,6 +1255,8 @@
 		if(!held_rod)
 			update_icon()
 			return
+		else
+			held_rod.stop_rads()
 		if(check_status())
 			requirements_met = TRUE
 		else
@@ -1403,6 +1456,9 @@
 	var/datum/effect_system/smoke_spread/bad/smoke = new()
 	smoke.set_up(5, FALSE, loc)
 	smoke.start()
+	var/rad_type = pick(ALPHA_RAD, BETA_RAD, GAMMA_RAD)
+	for(var/turf/T in view(2, loc))
+		T.contaminate_atom(src, 300, rad_type)
 	var/distance_traveled = rand(6, 20)
 	var/angle = rand(0, 360)
 	var/turf/end = get_turf_in_angle(angle, loc, distance_traveled)
@@ -1573,7 +1629,8 @@
 	//Calculate necessary moles to transfer using PV = nRT
 	if((network2.total_moles() > 0) && (network2.temperature() > 0))
 		var/pressure_delta = min(target_pressure - output_starting_pressure, (input_starting_pressure - output_starting_pressure) / 2)
-		pressure_delta = max(pressure_delta, 3) // always work at least a little bit
+		if(intake_vent)
+			pressure_delta = max(pressure_delta, 3) // always work at least a little bit when inputting gas
 		var/transfer_moles = pressure_delta * network1.volume / (network2.temperature() * R_IDEAL_GAS_EQUATION)
 
 		//Actually transfer the gas
@@ -1647,156 +1704,6 @@
 		/obj/item/stack/cable_coil = 2,
 		/obj/item/stack/sheet/metal = 2,
 	)
-
-// MARK: Slag
-
-/obj/item/slag
-	name = "corium slag"
-	desc = "A large clump of active nuclear fuel fused with structural reactor metals."
-	icon = 'icons/effects/effects.dmi'
-	icon_state = "big_molten"
-	move_resist = MOVE_FORCE_STRONG // Massive chunk of metal slag, shouldnt be moving it without carrying.
-	w_class = WEIGHT_CLASS_HUGE
-	force = 15
-	throwforce = 10
-
-/obj/item/slag/Initialize(mapload)
-	. = ..()
-	scatter_atom()
-
-/// MARK: Monitor
-
-/obj/machinery/computer/fission_monitor
-	name = "NGCR monitoring console"
-	desc = "Used to monitor the Nanotrasen Gas Cooled Fission Reactor."
-	icon_keyboard = "power_key"
-	icon_screen = "smmon_0"
-	circuit = /obj/item/circuitboard/fission_monitor
-	light_color = LIGHT_COLOR_YELLOW
-	/// Last status of the active reactor for caching purposes
-	var/last_status
-	/// Reference to the active reactor
-	var/obj/machinery/atmospherics/fission_reactor/active
-
-/obj/machinery/computer/fission_monitor/Initialize(mapload)
-	. = ..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/machinery/computer/fission_monitor/LateInitialize()
-	. = ..()
-	active = GLOB.main_fission_reactor
-
-/obj/machinery/computer/fission_monitor/Destroy()
-	active = null
-	return ..()
-
-/obj/machinery/computer/fission_monitor/attack_ai(mob/user)
-	attack_hand(user)
-
-/obj/machinery/computer/fission_monitor/attack_hand(mob/user)
-	add_fingerprint(user)
-	if(stat & (BROKEN|NOPOWER))
-		return
-	ui_interact(user)
-
-/obj/machinery/computer/fission_monitor/ui_state(mob/user)
-	return GLOB.default_state
-
-/obj/machinery/computer/fission_monitor/process()
-	if(stat & (NOPOWER|BROKEN))
-		return FALSE
-
-	if(active)
-		var/new_status = active.get_status()
-		if(last_status != new_status)
-			last_status = new_status
-			if(last_status == SUPERMATTER_ERROR)
-				last_status = SUPERMATTER_INACTIVE
-			icon_screen = "smmon_[last_status]"
-			update_icon()
-
-	return TRUE
-
-/obj/machinery/computer/fission_monitor/multitool_act(mob/living/user, obj/item/I)
-	if(!I.multitool_check_buffer(user))
-		return
-	var/obj/item/multitool/multitool = I
-	if(istype(multitool.buffer, /obj/machinery/atmospherics/fission_reactor))
-		active = multitool.buffer
-		to_chat(user, "<span class='notice'>You load the buffer's linking data to [src].</span>")
-
-/obj/machinery/computer/fission_monitor/ui_interact(mob/user, datum/tgui/ui = null)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "ReactorMonitor", name)
-		ui.open()
-
-	return TRUE
-
-/obj/machinery/computer/fission_monitor/ui_data(mob/user)
-	var/list/data = list()
-	// If we somehow dont have an engine anymore, handle it here.
-	if(!active)
-		active = null
-		return
-	if(active.stat & BROKEN)
-		active = null
-		return
-
-	var/datum/gas_mixture/air = active.air_contents
-	var/power_kilowatts = round((active.final_power / 1000), 1)
-
-	data["venting"] = active.venting
-	data["NGCR_integrity"] = active.get_integrity()
-	data["NGCR_power"] = power_kilowatts
-	data["NGCR_ambienttemp"] = air.temperature()
-	data["NGCR_ambientpressure"] = air.return_pressure()
-	data["NGCR_coefficient"] = active.reactivity_multiplier
-	if(active.control_lockout)
-		data["NGCR_throttle"] = 0
-	else
-		data["NGCR_throttle"] = 100 - active.desired_power
-	data["NGCR_operatingpower"] = 100 - active.operating_power
-	var/list/gasdata = list()
-	var/TM = air.total_moles()
-	if(TM)
-		gasdata.Add(list(list("name"= "Oxygen", "amount" = air.oxygen(), "portion" = round(100 * air.oxygen() / TM, 0.01))))
-		gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = air.carbon_dioxide(), "portion" = round(100 * air.carbon_dioxide() / TM, 0.01))))
-		gasdata.Add(list(list("name"= "Nitrogen", "amount" = air.nitrogen(), "portion" = round(100 * air.nitrogen() / TM, 0.01))))
-		gasdata.Add(list(list("name"= "Plasma", "amount" = air.toxins(), "portion" = round(100 * air.toxins() / TM, 0.01))))
-		gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = air.sleeping_agent(), "portion" = round(100 * air.sleeping_agent() / TM, 0.01))))
-		gasdata.Add(list(list("name"= "Agent B", "amount" = air.agent_b(), "portion" = round(100 * air.agent_b() / TM, 0.01))))
-	else
-		gasdata.Add(list(list("name"= "Oxygen", "amount" = 0, "portion" = 0)))
-		gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = 0,"portion" = 0)))
-		gasdata.Add(list(list("name"= "Nitrogen", "amount" = 0,"portion" = 0)))
-		gasdata.Add(list(list("name"= "Plasma", "amount" = 0,"portion" = 0)))
-		gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = 0,"portion" = 0)))
-		gasdata.Add(list(list("name"= "Agent B", "amount" = 0,"portion" = 0)))
-	data["gases"] = gasdata
-
-	return data
-
-/obj/machinery/computer/fission_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	if(..())
-		return
-
-	if(stat & (BROKEN|NOPOWER))
-		return
-
-	if(action == "set_throttle")
-		var/temp_number = text2num(params["NGCR_throttle"])
-		active.desired_power = 100 - temp_number
-
-	if(action == "toggle_vent")
-		if(active.vent_lockout)
-			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
-			visible_message("<span class='warning'>ERROR: Vent servos unresponsive. Manual closure required.</span>")
-		else
-			active.venting = !active.venting
-
-/obj/machinery/computer/fission_monitor/attack_ai(mob/user)
-	attack_hand(user)
 
 #undef REACTOR_NEEDS_DIGGING
 #undef REACTOR_NEEDS_CROWBAR

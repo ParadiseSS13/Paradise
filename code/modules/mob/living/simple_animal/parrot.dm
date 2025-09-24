@@ -742,9 +742,18 @@
 		"WHO KEEPS LEAVING THE FUEL RODS OUT",
 		"Why do we need coolant rods if we use gas?",
 		"Wait, why isnt the reactor integrity going up?",
-		"When did engineering get a pool?",
+		"When did engineering get a pool!?",
 		"Does anyone else taste copper?",
-		"10 sievers isnt too much radiation is it?"
+		"10 sievers isnt a harmful range of radiation is it?",
+		"HELP! THE CHEF IS GRILLING ME ON THE NGCR!",
+		"Replace the spent fuel rods you lazy bums!",
+		"There is a xenomorph nesting on the reactor!",
+		"Why is there a ripley pulling out the coolant rods ?",
+		"Atmospheric Technicians are the NGCR's favorite moderatorss",
+		"Who let the clown touch the control rods?",
+		"Which of you chucklefucks brought a fuel rod to medbay?",
+		"A coolant rod just flew into the captain!",
+		"The reactor is going supercritical!"
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN

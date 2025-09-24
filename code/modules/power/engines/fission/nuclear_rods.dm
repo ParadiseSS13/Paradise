@@ -27,14 +27,20 @@
 	var/power_amp_mod = 1
 	/// Holds the current power mod after durability loss
 	var/current_power_mod
-	/// What type of radiation is emitted by this rod
-	var/list/rad_type
+	/// How much Alpha Rad is emitted by this rod
+	var/alpha_rad = 0
+	/// How much Beta Rad is emitted by this rod
+	var/beta_rad = 0
+	/// How much Gamma Rad is emitted by this rod
+	var/gamma_rad = 0
 	/// What items need to be adjacent to this rod for it to function properly
 	var/list/adjacent_requirements = list()
 	/// Is this design visible on the rod fabricator
 	var/craftable = TRUE
 	/// Modifies the reactor's minimum operating temperature.
 	var/minimum_temp_modifier = 0
+	/// holds our component to modify
+	var/datum/component/inherent_radioactivity/rad_component
 
 
 /obj/item/nuclear_rod/Initialize(mapload)
@@ -63,10 +69,44 @@
 	current_power_mod = (power_amp_mod * durability) + (1 - durability)
 	current_heat_mod = (heat_amp_mod * durability) + (1 - durability)
 
+/obj/item/nuclear_rod/proc/start_rads(power_modifier = 1)
+	var/new_alpha_rad = alpha_rad * power_modifier
+	var/new_beta_rad = beta_rad * power_modifier
+	var/new_gamma_rad = gamma_rad * power_modifier
+	rad_component = AddComponent(/datum/component/inherent_radioactivity, new_alpha_rad, new_beta_rad, new_gamma_rad, 1)
+	START_PROCESSING(SSradiation, rad_component)
+
+/obj/item/nuclear_rod/proc/stop_rads()
+	if(!rad_component)
+		return
+	rad_component.RemoveComponent()
+	QDEL_NULL(rad_component)
+
+/obj/item/nuclear_rod/proc/change_rad_intensity(power_modifier = 1)
+	rad_component.radioactivity_alpha = alpha_rad * power_modifier
+	rad_component.radioactivity_beta = beta_rad * power_modifier
+	rad_component.radioactivity_gamma = gamma_rad * power_modifier
+
+/obj/item/nuclear_rod/proc/check_rad_shield()
+	var/turf/T = get_turf(src)
+	if(istype(T, /turf/simulated/floor/plasteel/reactor_pool))
+		if(!rad_component)
+			return
+		else
+			stop_rads()
+	else if(istype(loc, /obj/machinery/atmospherics/reactor_chamber))
+		stop_rads()
+	else if(!rad_component)
+		start_rads()
+
+/obj/item/nuclear_rod/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	check_rad_shield()
+
 /obj/item/nuclear_rod/fuel
 	name = "any fuel rod"
 	desc = "This is a base item and should not be found. Alert a developer!"
-	rad_type = ALPHA_RAD
+	alpha_rad = 50
 
 	/// the amount of cycles needed to complete enrichment. 30 = ~1 minute
 	var/enrichment_cycles = 25
@@ -82,6 +122,10 @@
 	var/heat_enrich_progress = 0
 	/// What heat enrichment results in
 	var/heat_enrich_result
+
+/obj/item/nuclear_rod/fuel/Initialize(mapload)
+	. = ..()
+	check_rad_shield()
 
 /obj/item/nuclear_rod/fuel/proc/enrich(power_mod, heat_mod)
 	var/successful_enrichment = FALSE
@@ -104,7 +148,8 @@
 	power_amount = 20 KW
 	heat_amp_mod = 1.8
 	power_amp_mod = 1.1
-	rad_type = BETA_RAD
+	alpha_rad = 200
+	beta_rad = 100
 	heat_enrich_threshold = 10 // all uranium rods surrounding: 1.8 x 1.8 x 1.8 x 1.8
 	power_enrich_threshold = 6.5 // all graphite rods surrounding: 1.6 x 1.6 x 1.6 x 1.6
 	heat_enrich_result = /obj/item/nuclear_rod/fuel/weak_thorium
@@ -120,7 +165,8 @@
 	heat_amp_mod = 1.6
 	power_amp_mod = 1.1
 	durability = 5000
-	rad_type = BETA_RAD
+	beta_rad = 100
+	gamma_rad = 100
 	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator,
@@ -129,12 +175,13 @@
 
 /obj/item/nuclear_rod/fuel/weak_plutonium
 	name = "weak plutonium fuel rod"
+	desc = "A specialized fuel rod bred from uranium 238. This rod produces twice as much power as standard urnaium 238 fuel, but has higher operating requirements."
 	heat_amount = 10
 	power_amount = 40 KW
 	heat_amp_mod = 1.6
 	power_amp_mod = 1.1
 	max_durability = 3500
-	rad_type = GAMMA_RAD
+	gamma_rad = 100
 	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel,
@@ -150,7 +197,8 @@
 	heat_amp_mod = 2.2
 	power_amp_mod = 1.3
 	max_durability = 5000
-	rad_type = BETA_RAD
+	alpha_rad = 150
+	beta_rad = 100
 	heat_enrich_threshold = 16
 	power_enrich_threshold = 10
 	heat_enrich_result = /obj/item/nuclear_rod/fuel/thorium_salts
@@ -170,7 +218,7 @@
 	heat_amp_mod = 2.2
 	power_amp_mod = 1.3
 	max_durability = 30000
-	rad_type = BETA_RAD
+	beta_rad = 250
 	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator,
@@ -186,7 +234,7 @@
 	heat_amp_mod = 4
 	power_amp_mod = 1.6
 	max_durability = 5000
-	rad_type = BETA_RAD
+	beta_rad = 250
 	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator/plasma_agitator,
@@ -201,7 +249,7 @@
 	heat_amp_mod = 8
 	power_amp_mod = 0.1
 	durability = INFINITY
-	rad_type = BETA_RAD
+	gamma_rad = 300
 	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/coolant/steam_hammerjet,
@@ -217,7 +265,7 @@
 	heat_amp_mod = 6
 	power_amp_mod = 1.6
 	max_durability = 4000
-	rad_type = BETA_RAD
+	gamma_rad = 300
 	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel,
@@ -227,7 +275,7 @@
 /obj/item/nuclear_rod/fuel/bananium
 	name = "bananium fuel rod"
 	desc = "The funniest of all fuel rods. Who knows what you might get out of it!"
-	rad_type = GAMMA_RAD
+	gamma_rad = 300
 	craftable = FALSE
 
 /obj/item/nuclear_rod/fuel/bananium/Initialize(mapload)
@@ -239,13 +287,15 @@
 	return ..()
 
 /obj/item/nuclear_rod/fuel/meltdown
-	name = "uranium 238 fuel rod"
-	desc = "A standard fuel rod for most NGCR reactors. Has just barely enough Uranium 235 to be useful."
+	name = "meltdown rod"
+	desc = "A syndicate crafted rod capable of generating massive amounts of heat, and leading to an eventual meltdown."
 	heat_amount = 2000
 	power_amount = 0
 	max_durability = INFINITY
 	minimum_temp_modifier = 4000 // BIG hot
-	rad_type = BETA_RAD
+	alpha_rad = 250
+	beta_rad = 250
+	gamma_rad = 250
 	craftable = FALSE
 
 /// MARK: Moderator Rods

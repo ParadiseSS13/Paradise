@@ -305,13 +305,13 @@
 	switch(selected)
 		if("Fuel")
 			for(var/obj/item/nuclear_rod/fuel/rod as anything in subtypesof(/obj/item/nuclear_rod/fuel))
-				rod_list += rod
+				rod_list[rod::name] = rod
 		if("Moderator")
 			for(var/obj/item/nuclear_rod/moderator/rod as anything in subtypesof(/obj/item/nuclear_rod/moderator))
-				rod_list += rod
+				rod_list[rod::name] = rod
 		if("Coolant")
 			for(var/obj/item/nuclear_rod/coolant/rod as anything in subtypesof(/obj/item/nuclear_rod/coolant))
-				rod_list += rod
+				rod_list[rod::name] = rod
 
 	selected = tgui_input_list(carbon, "Select a nuclear rod:", "Nuclear Rods", rod_list)
 
@@ -319,9 +319,11 @@
 		return
 	if(!Adjacent(carbon))
 		return
-
-	var/obj/item/nuclear_rod/new_rod = new selected
+	var/obj/item/nuclear_rod/new_rod = rod_list[selected]
+	new_rod = new new_rod
 	carbon.put_in_hands(new_rod)
+
+// MARK: Reactor Power Output
 
 /obj/machinery/power/reactor_power
 	name = "DEBUG Nucear Power Output"
@@ -339,6 +341,140 @@
 /obj/machinery/power/reactor_power/process()
 	if(linked_reactor.can_create_power)
 		produce_direct_power(linked_reactor.final_power)
+
+/// MARK: Monitor
+
+/obj/machinery/computer/fission_monitor
+	name = "NGCR monitoring console"
+	desc = "Used to monitor the Nanotrasen Gas Cooled Fission Reactor."
+	icon_keyboard = "power_key"
+	icon_screen = "smmon_0"
+	circuit = /obj/item/circuitboard/fission_monitor
+	light_color = LIGHT_COLOR_YELLOW
+	/// Last status of the active reactor for caching purposes
+	var/last_status
+	/// Reference to the active reactor
+	var/obj/machinery/atmospherics/fission_reactor/active
+
+/obj/machinery/computer/fission_monitor/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/fission_monitor/LateInitialize()
+	. = ..()
+	active = GLOB.main_fission_reactor
+
+/obj/machinery/computer/fission_monitor/Destroy()
+	active = null
+	return ..()
+
+/obj/machinery/computer/fission_monitor/attack_ai(mob/user)
+	attack_hand(user)
+
+/obj/machinery/computer/fission_monitor/attack_hand(mob/user)
+	add_fingerprint(user)
+	if(stat & (BROKEN|NOPOWER))
+		return
+	ui_interact(user)
+
+/obj/machinery/computer/fission_monitor/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/fission_monitor/process()
+	if(stat & (NOPOWER|BROKEN))
+		return FALSE
+
+	if(active)
+		var/new_status = active.get_status()
+		if(last_status != new_status)
+			last_status = new_status
+			if(last_status == SUPERMATTER_ERROR)
+				last_status = SUPERMATTER_INACTIVE
+			icon_screen = "smmon_[last_status]"
+			update_icon()
+
+	return TRUE
+
+/obj/machinery/computer/fission_monitor/multitool_act(mob/living/user, obj/item/I)
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/multitool = I
+	if(istype(multitool.buffer, /obj/machinery/atmospherics/fission_reactor))
+		active = multitool.buffer
+		to_chat(user, "<span class='notice'>You load the buffer's linking data to [src].</span>")
+
+/obj/machinery/computer/fission_monitor/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "ReactorMonitor", name)
+		ui.open()
+
+	return TRUE
+
+/obj/machinery/computer/fission_monitor/ui_data(mob/user)
+	var/list/data = list()
+	// If we somehow dont have an engine anymore, handle it here.
+	if(!active)
+		active = null
+		return
+	if(active.stat & BROKEN)
+		active = null
+		return
+
+	var/datum/gas_mixture/air = active.air_contents
+	var/power_kilowatts = round((active.final_power / 1000), 1)
+
+	data["venting"] = active.venting
+	data["NGCR_integrity"] = active.get_integrity()
+	data["NGCR_power"] = power_kilowatts
+	data["NGCR_ambienttemp"] = air.temperature()
+	data["NGCR_ambientpressure"] = air.return_pressure()
+	data["NGCR_coefficient"] = active.reactivity_multiplier
+	if(active.control_lockout)
+		data["NGCR_throttle"] = 0
+	else
+		data["NGCR_throttle"] = 100 - active.desired_power
+	data["NGCR_operatingpower"] = 100 - active.operating_power
+	var/list/gasdata = list()
+	var/TM = air.total_moles()
+	if(TM)
+		gasdata.Add(list(list("name"= "Oxygen", "amount" = air.oxygen(), "portion" = round(100 * air.oxygen() / TM, 0.01))))
+		gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = air.carbon_dioxide(), "portion" = round(100 * air.carbon_dioxide() / TM, 0.01))))
+		gasdata.Add(list(list("name"= "Nitrogen", "amount" = air.nitrogen(), "portion" = round(100 * air.nitrogen() / TM, 0.01))))
+		gasdata.Add(list(list("name"= "Plasma", "amount" = air.toxins(), "portion" = round(100 * air.toxins() / TM, 0.01))))
+		gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = air.sleeping_agent(), "portion" = round(100 * air.sleeping_agent() / TM, 0.01))))
+		gasdata.Add(list(list("name"= "Agent B", "amount" = air.agent_b(), "portion" = round(100 * air.agent_b() / TM, 0.01))))
+	else
+		gasdata.Add(list(list("name"= "Oxygen", "amount" = 0, "portion" = 0)))
+		gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = 0,"portion" = 0)))
+		gasdata.Add(list(list("name"= "Nitrogen", "amount" = 0,"portion" = 0)))
+		gasdata.Add(list(list("name"= "Plasma", "amount" = 0,"portion" = 0)))
+		gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = 0,"portion" = 0)))
+		gasdata.Add(list(list("name"= "Agent B", "amount" = 0,"portion" = 0)))
+	data["gases"] = gasdata
+
+	return data
+
+/obj/machinery/computer/fission_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	if(stat & (BROKEN|NOPOWER))
+		return
+
+	if(action == "set_throttle")
+		var/temp_number = text2num(params["NGCR_throttle"])
+		active.desired_power = 100 - temp_number
+
+	if(action == "toggle_vent")
+		if(active.vent_lockout)
+			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+			visible_message("<span class='warning'>ERROR: Vent servos unresponsive. Manual closure required.</span>")
+		else
+			active.venting = !active.venting
+
+/obj/machinery/computer/fission_monitor/attack_ai(mob/user)
+	attack_hand(user)
 
 // MARK: Circuits
 
@@ -362,3 +498,154 @@
 		)
 
 #undef DEFAULT_TIME
+
+// MARK: Slag
+
+/obj/item/slag
+	name = "corium slag"
+	desc = "A large clump of active nuclear fuel fused with structural reactor metals."
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "big_molten"
+	move_resist = MOVE_FORCE_STRONG // Massive chunk of metal slag, shouldnt be moving it without carrying.
+	w_class = WEIGHT_CLASS_HUGE
+	force = 15
+	throwforce = 10
+
+/obj/item/slag/Initialize(mapload)
+	. = ..()
+	scatter_atom()
+	var/datum/component/inherent_radioactivity/rad_component = AddComponent(/datum/component/inherent_radioactivity, 200, 200, 200, 2)
+	START_PROCESSING(SSradiation, rad_component)
+
+// MARK: Starter Grenade
+
+/obj/item/grenade/nuclear_starter
+	name = "Neutronic Agitator"
+	desc = "A throwable device capable of inducing an artificial startup in rod chambers. Wont do anything for chambers not positioned correctly or without any rods inserted."
+
+/obj/item/grenade/nuclear_starter/prime()
+	playsound(src.loc, 'sound/weapons/bsg_explode.ogg', 50, TRUE, -3)
+	var/obj/effect/warp_effect/supermatter/warp = new(loc)
+	addtimer(CALLBACK(src, PROC_REF(delete_pulse), warp), 0.5 SECONDS)
+	warp.pixel_x += 16
+	warp.pixel_y += 16
+	warp.transform = matrix().Scale(0.01,0.01)
+	animate(warp, time = 0.5 SECONDS, transform = matrix().Scale(1,1))
+	var/list/chamber_list = list()
+	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in range(3, loc))
+		chamber_list += chamber
+	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in chamber_list)
+		if(chamber.chamber_state == CHAMBER_DOWN && chamber.held_rod)
+			chamber.operational = TRUE
+			chamber.update_icon(UPDATE_OVERLAYS)
+	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in chamber_list)
+		if(chamber.check_status())
+			chamber.requirements_met = TRUE
+		else
+			chamber.requirements_met = FALSE
+		chamber.update_icon(UPDATE_OVERLAYS)
+	icon = "null" // make it look like it detonated.
+
+/obj/item/grenade/nuclear_starter/proc/delete_pulse(warp)
+	qdel(warp)
+	qdel(src)
+
+// MARK: Rad Proof Pool
+
+/turf/simulated/floor/plasteel/reactor_pool
+	name = "holding pool"
+	icon = 'icons/obj/fission/pool.dmi'
+	icon_state = "pool_round"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
+	var/obj/machinery/poolcontroller/linkedcontroller = null
+
+/turf/simulated/floor/plasteel/reactor_pool/Initialize(mapload)
+	. = ..()
+	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "seadeep", layer = ABOVE_MOB_LAYER)
+	overlay_image.plane = GAME_PLANE
+	overlay_image.alpha = 75
+	overlays += overlay_image
+
+/turf/simulated/floor/plasteel/reactor_pool/crowbar_act(mob/user, obj/item/I)
+	return
+
+/turf/simulated/floor/plasteel/reactor_pool/Entered(atom/movable/AM, atom/OldLoc)
+	. = ..()
+	if(!linkedcontroller)
+		return
+	if(ismob(AM))
+		linkedcontroller.mobinpool += AM
+
+/turf/simulated/floor/plasteel/reactor_pool/Exited(atom/movable/AM, direction)
+	. = ..()
+	if(!linkedcontroller)
+		return
+	if(ismob(AM))
+		linkedcontroller.mobinpool -= AM
+
+
+/turf/simulated/floor/plasteel/reactor_pool/wall
+	icon_state = "pool_wall_round"
+
+/turf/simulated/floor/plasteel/reactor_pool/wall/ladder
+	icon_state = "ladder_wall_round"
+
+/turf/simulated/floor/plasteel/reactor_pool/wall/filter
+	icon_state = "filter_wall_round"
+
+/turf/simulated/floor/plasteel/reactor_pool/square
+	icon_state = "pool_sharp_square"
+
+/obj/structure/railing/pool_lining
+	name = "pool lining"
+	icon = 'icons/obj/fission/pool.dmi'
+	icon_state = "poolborder"
+	flags = ON_BORDER | NODECONSTRUCT | INDESTRUCTIBLE
+	max_integrity = 200
+
+/obj/structure/railing/pool_lining/ex_act(severity)
+	if(severity == EXPLODE_HEAVY || severity == EXPLODE_DEVASTATE)
+		qdel(src)
+
+/obj/structure/railing/corner/pool_corner
+	name = "pool lining"
+	icon = 'icons/obj/fission/pool.dmi'
+	icon_state = "bordercorner"
+
+/obj/structure/railing/corner/pool_corner/inner
+	icon_state = "innercorner"
+
+/obj/machinery/poolcontroller/invisible/nuclear
+	srange = 6
+	deep_water = TRUE
+
+/obj/machinery/poolcontroller/invisible/nuclear/Initialize(mapload)
+	var/contents_loop = linked_area
+	if(!linked_area)
+		contents_loop = range(srange, src)
+
+	for(var/turf/T in contents_loop)
+		if(istype(T, /turf/simulated/floor/plasteel/reactor_pool))
+			var/turf/simulated/floor/plasteel/reactor_pool/W = T
+			W.linkedcontroller = src
+			linkedturfs += T
+	return ..()
+
+/obj/machinery/poolcontroller/invisible/nuclear/Destroy()
+	for(var/turf/simulated/floor/plasteel/reactor_pool/W in linkedturfs)
+		if(W.linkedcontroller == src)
+			W.linkedcontroller = null
+	return ..()
+
+/obj/machinery/poolcontroller/invisible/nuclear/processMob()
+	for(var/M in mobinpool)
+		if(!istype(get_turf(M), /turf/simulated/floor/plasteel/reactor_pool))
+			mobinpool -= M
+			continue
+		if(ishuman(M))
+			handleDrowning(M)
+
