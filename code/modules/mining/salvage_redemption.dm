@@ -86,7 +86,7 @@
 
 	if(istype(used, /obj/item/storage/bag/expedition))
 		var/obj/item/storage/bag/expedition/bag = used
-		if(!bag.contents)
+		if(!length(bag.contents))
 			to_chat(user, "<span class='warning'>You have no salvage to redeem.</span>");
 			return ITEM_INTERACT_COMPLETE
 		for(var/obj/item/salvage/loot in bag.contents)
