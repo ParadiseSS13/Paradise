@@ -74345,7 +74345,6 @@
 /area/station/security/permabrig)
 "qYl" = (
 /obj/mecha/working/ripley,
-/turf/space,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
