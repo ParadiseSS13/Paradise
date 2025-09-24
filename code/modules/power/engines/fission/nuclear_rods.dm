@@ -290,7 +290,6 @@
 	name = "meltdown rod"
 	desc = "A syndicate crafted rod capable of generating massive amounts of heat, and leading to an eventual meltdown."
 	heat_amount = 2000
-	power_amount = 0
 	max_durability = INFINITY
 	minimum_temp_modifier = 4000 // BIG hot
 	alpha_rad = 250
