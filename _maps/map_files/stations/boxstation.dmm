@@ -64863,12 +64863,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/medical/reception)
-"mpQ" = (
-/obj/machinery/atmospherics/reactor_chamber/heavy_water,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "mqP" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
@@ -77696,7 +77690,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "sKE" = (
-/obj/machinery/atmospherics/reactor_chamber/uranium,
+/obj/machinery/atmospherics/reactor_chamber,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -117215,11 +117209,11 @@ ePY
 ePY
 koL
 ePY
-mpQ
-mpQ
+sKE
+sKE
 qLY
-mpQ
-mpQ
+sKE
+sKE
 ePY
 ePY
 ePY
@@ -118243,11 +118237,11 @@ dTn
 ePY
 koL
 ePY
-mpQ
-mpQ
+sKE
+sKE
 heQ
-mpQ
-mpQ
+sKE
+sKE
 ePY
 ePY
 ePY
