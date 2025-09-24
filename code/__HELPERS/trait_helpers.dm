@@ -407,6 +407,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Allows faster butchering times
 #define TRAIT_BUTCHER "butcher"
 
+/// How much faster pack rats are in wrapping packages as a percentage
+#define PACK_RAT_WRAP_SPEEDUP 0.375
+
 // sec traits
 
 /// Gives the user a new tab for being able to open up space law/sop book pages
