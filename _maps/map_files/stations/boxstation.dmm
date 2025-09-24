@@ -7811,6 +7811,21 @@
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/station/security/prison/cell_block/a)
+"aCr" = (
+/obj/machinery/power/treadmill{
+	dir = 8
+	},
+/obj/machinery/treadmill_monitor{
+	id = "Cell 4";
+	pixel_y = -32
+	},
+/obj/structure/cable,
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/station/security/prison/cell_block/a)
 "aCs" = (
 /obj/structure/bed,
 /obj/machinery/flasher{
@@ -38661,7 +38676,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 10
 	},
-/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "cNF" = (
@@ -53700,7 +53715,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 9
 	},
-/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "gNX" = (
@@ -59119,36 +59134,6 @@
 	icon_state = "barber"
 	},
 /area/station/service/barber)
-"jvb" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = -32
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmos Blast Door"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/storage)
 "jvs" = (
 /obj/machinery/computer/monitor{
 	name = "Bridge Power Monitoring Computer"
@@ -59854,14 +59839,6 @@
 	icon_state = "cmo"
 	},
 /area/station/security/permabrig)
-"jOi" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/station/service/kitchen)
 "jOj" = (
 /obj/structure/table/wood,
 /obj/item/vending_refill/boozeomat,
@@ -62013,20 +61990,6 @@
 	icon_state = "blue"
 	},
 /area/station/maintenance/aft)
-"kKG" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/science/hallway)
 "kKJ" = (
 /obj/structure/chair{
 	dir = 8
@@ -63467,13 +63430,6 @@
 	},
 /turf/simulated/floor/engine/airless,
 /area/station/science/toxins/test)
-"ltD" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 9
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "ltR" = (
 /obj/structure/plasticflaps{
 	opacity = 1
@@ -70856,6 +70812,20 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/xenobiology)
+"oSB" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint2)
 "oSE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -72461,7 +72431,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/cargo_bay,
 /turf/simulated/floor/plating,
-/area/station/supply/warehouse)
+/area/station/maintenance/port)
 "pIR" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -82430,13 +82400,6 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/control)
-"uud" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 10
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "uuh" = (
 /obj/machinery/disposal,
 /obj/machinery/light,
@@ -83846,21 +83809,6 @@
 /obj/structure/chair,
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint)
-"vhj" = (
-/obj/machinery/power/treadmill{
-	dir = 8
-	},
-/obj/machinery/treadmill_monitor{
-	id = "Cell 4";
-	pixel_y = -32
-	},
-/obj/structure/cable,
-/obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
-	},
-/area/station/security/prison/cell_block/a)
 "vhH" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -85827,6 +85775,13 @@
 	icon_state = "caution"
 	},
 /area/station/public/dorms)
+"wfZ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 9
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "wgt" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/glass,
@@ -85968,6 +85923,36 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
+"wka" = (
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = -32
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "atmos";
+	name = "Atmos Blast Door"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/storage)
 "wkg" = (
 /obj/machinery/hydroponics/constructable{
 	desc = "These are connected with an irrigation tube. You see a little pipe connecting the trays.";
@@ -89273,6 +89258,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
+"xPT" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 10
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "xQB" = (
 /obj/effect/spawner/window/reinforced/tinted,
 /obj/structure/disposalpipe/segment{
@@ -89858,6 +89850,14 @@
 	icon_state = "whiteyellowfull"
 	},
 /area/station/medical/chemistry)
+"yag" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/service/kitchen)
 "yah" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -120839,7 +120839,7 @@ axG
 uCq
 dof
 azx
-vhj
+aCr
 aHE
 aEn
 aFB
@@ -122736,7 +122736,7 @@ cZS
 cZS
 dcq
 dcq
-jvb
+wka
 dcq
 dcq
 dcq
@@ -126327,7 +126327,7 @@ aab
 cQp
 aab
 cZh
-uud
+cNE
 dba
 djE
 dcS
@@ -126339,7 +126339,7 @@ djE
 djE
 djE
 djE
-ltD
+gNQ
 aab
 aab
 aab
@@ -127631,7 +127631,7 @@ igi
 igi
 igi
 igi
-gNQ
+wfZ
 fPY
 wyD
 wyD
@@ -127860,7 +127860,7 @@ cep
 cjq
 cep
 cxO
-cNE
+xPT
 igi
 igi
 igi
@@ -127878,7 +127878,7 @@ igi
 igi
 igi
 igi
-gNQ
+wfZ
 dgS
 eQU
 eQU
@@ -128583,7 +128583,7 @@ btJ
 iRs
 bsS
 bof
-jOi
+yag
 cEU
 bzf
 bAk
@@ -128840,7 +128840,7 @@ btN
 buu
 bsV
 buJ
-jOi
+yag
 hrA
 bzf
 bAk
@@ -129097,7 +129097,7 @@ btM
 brm
 bsU
 bof
-jOi
+yag
 vwp
 bzf
 bAk
@@ -129354,7 +129354,7 @@ btP
 buv
 bof
 bof
-jOi
+yag
 tRp
 bzf
 nuq
@@ -129864,7 +129864,7 @@ bjy
 bkY
 bdT
 bos
-jOi
+yag
 bof
 bsX
 buK
@@ -137628,7 +137628,7 @@ ctu
 cpR
 cpR
 cpR
-kKG
+oSB
 qZN
 qZN
 cBR

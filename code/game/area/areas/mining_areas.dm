@@ -2,6 +2,7 @@
 
 /area/mine
 	icon_state = "mining"
+	airlock_wires = ZLVL_BASED_WIRES
 
 /area/mine/unexplored
 	name = "Mine"
@@ -46,6 +47,7 @@
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	request_console_name = "Mining Outpost"
 	request_console_flags = RC_SUPPLY
+	airlock_wires = /datum/wires/airlock/cargo
 
 /area/mine/outpost/airlock
 	name = "Mining Station Airlock"
@@ -104,6 +106,7 @@
 /area/mine/outpost/maintenance
 	name = "Mining Station Maintenance"
 	icon_state = "maintcentral"
+	airlock_wires = /datum/wires/airlock/maint
 
 /area/mine/outpost/maintenance/south
 	name = "Mining Station South Maintenance"
@@ -135,6 +138,7 @@
 /area/mine/laborcamp
 	name = "Labor Camp"
 	icon_state = "brig"
+	airlock_wires = /datum/wires/airlock/security
 
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
@@ -147,6 +151,7 @@
 /area/lavaland
 	icon_state = "mining"
 	sound_environment = SOUND_AREA_LAVALAND
+	airlock_wires = ZLVL_BASED_WIRES
 
 /area/lavaland/surface
 	name = "Lavaland"

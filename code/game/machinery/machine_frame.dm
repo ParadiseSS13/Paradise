@@ -1035,7 +1035,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/salvage_redemption
 	board_name = "Salvage Redemption"
 	icon_state = "supply"
-	build_path = /obj/item/circuitboard/salvage_redemption
+	build_path = /obj/machinery/salvage_redemption
 	board_type = "machine"
 	origin_tech = "programming=1;engineering=2"
 	req_components = list(
