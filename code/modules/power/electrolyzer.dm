@@ -22,8 +22,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	if(!powernet)
 		connect_to_network()
-	// If we connected to a regional powernet, register for power change signals so
-	// we get notified when the powernet's state changes and can shut off.
+
 	if(powernet)
 		RegisterSignal(powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(power_change), override = TRUE)
 
@@ -125,9 +124,9 @@
 	var/turf/T = get_turf(electrolyzer)
 	var/datum/gas_mixture/env = get_turf_air(T)
 	var/datum/gas_mixture/removed = electrolyzer.process_atmos_safely(T, env)
-	var/available_energy = WATT_TICK_TO_JOULE * electrolyzer.get_surplus()
+
 	if(electrolyzer.on && electrolyzer.has_water_vapor(removed))
-		var/water_vapor_to_remove = min(removed.water_vapor(), available_energy / (HYDROGEN_BURN_ENERGY / 2))
+		var/water_vapor_to_remove = min(removed.water_vapor(), (HYDROGEN_BURN_ENERGY / 2))
 		var/hydrogen_produced = water_vapor_to_remove
 		var/oxygen_produced = water_vapor_to_remove / 2
 		removed.set_water_vapor(removed.water_vapor() - water_vapor_to_remove)
