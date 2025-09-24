@@ -7,6 +7,8 @@
 		list("name" = "\[O2\]", "icon" = "blue"),
 		list("name" = "\[Toxin (Bio)\]", "icon" = "orange"),
 		list("name" = "\[CO2\]", "icon" = "black"),
+		list("name" = "\[H2O\]", "icon" = "light_grey"),
+		list("name" = "\[H2\]", "icon" = "white"),
 		list("name" = "\[Air\]", "icon" = "grey"),
 		list("name" = "\[CAUTION\]", "icon" = "yellow"),
 		list("name" = "\[SPECIAL\]", "icon" = "whiters")
