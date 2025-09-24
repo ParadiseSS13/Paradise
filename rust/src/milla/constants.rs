@@ -157,6 +157,9 @@ pub(crate) const PLASMA_BURN_HOTSPOT_RATIO_BOOST: f32 = 10.0;
 /// How much oxygen do we use per plasma?
 pub(crate) const PLASMA_BURN_OXYGEN_PER_PLASMA: f32 = 0.4;
 
+/// How much of the hydrogen are we willing to burn each tick?
+pub(crate) const HYDROGEN_BURN_MAX_RATIO: f32 = 0.07;
+
 /// How much oxygen do we consume for every hydrogen?
 pub(crate) const HYDROGEN_BURN_OXYGEN_PER_HYDROGEN: f32 = 0.5;
 
