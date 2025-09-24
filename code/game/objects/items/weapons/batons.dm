@@ -123,7 +123,7 @@
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/on_non_silicon_stun(mob/living/target, mob/living/user)
-	var/armour = target.run_armor_check("chest", armor_penetration_percentage = stamina_armor_pen) // returns their chest melee armour
+	var/armour = target.run_armor_check(BODY_ZONE_CHEST, armor_penetration_percentage = stamina_armor_pen) // returns their chest melee armour
 	var/percentage_reduction = 0
 	if(ishuman(target))
 		percentage_reduction = (100 - ARMOUR_VALUE_TO_PERCENTAGE(armour)) / 100

@@ -1,3 +1,5 @@
+/area/station/legal
+	airlock_wires = /datum/wires/airlock/security
 
 /area/station/legal/courtroom
 	name = "\improper Courtroom"

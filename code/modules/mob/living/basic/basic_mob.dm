@@ -376,7 +376,7 @@ RESTRICT_TYPE(/mob/living/basic)
 		visible_message("<span class='warning'>[src] looks unharmed.</span>")
 		return FALSE
 	else
-		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
+		apply_damage(damage, damagetype, null, getarmor(armor_type = armorcheck))
 		return TRUE
 
 
