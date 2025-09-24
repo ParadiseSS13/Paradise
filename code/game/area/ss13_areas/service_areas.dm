@@ -1,3 +1,6 @@
+/area/station/service
+	airlock_wires = /datum/wires/airlock/service
+
 /area/station/service/cafeteria
 	name = "\improper Cafe"
 	icon_state = "cafeteria"

@@ -93,6 +93,9 @@
 	/// Turrets use this list to see if individual power/lethal settings are allowed. Contains the /obj/machinery/turretid for this area
 	var/list/turret_controls = list()
 
+	/// Wire assignment for airlocks in this area
+	var/airlock_wires = /datum/wires/airlock
+
 	/// The flags applied to request consoles spawned in this area.
 	/// See [RC_ASSIST], [RC_SUPPLY], [RC_INFO].
 	var/request_console_flags = 0

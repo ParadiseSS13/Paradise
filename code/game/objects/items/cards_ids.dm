@@ -159,6 +159,9 @@
 	popup.set_content(dat)
 	popup.open()
 
+/obj/item/card/id/proc/regenerate_name()
+	name = "[registered_name]'s ID Card ([assignment])"
+
 /obj/item/card/id/activate_self(mob/user)
 	if(..())
 		return
@@ -368,7 +371,10 @@
 	.["registered_name"] = registered_name
 	.["assignment"] = assignment
 	.["current_skin"] = icon_state
+	.["current_skin_name"] = get_skin_desc(icon_state)
 	.["lastlog"] = lastlog
+	.["access"] = access
+	.["associated_account_number"] = associated_account_number
 
 /obj/item/card/id/proc/flash_card(mob/user)
 	user.visible_message("[user] shows you: [bicon(src)] [name]. The assignment on the card: [assignment]",\
@@ -877,6 +883,26 @@
 	name = "\improper Syndicate ID card"
 	desc = "An evil-looking ID issued to members of the Syndicate."
 	icon_state = "syndie"
+
+/obj/item/card/id/vv_get_dropdown()
+	. = ..()
+
+	VV_DROPDOWN_OPTION(VV_HK_MODIFY_ID_CARD, "Modify ID Card")
+
+/obj/item/card/id/vv_do_topic(list/href_list)
+	. = ..()
+
+	if(!.)
+		return
+
+	if(href_list[VV_HK_MODIFY_ID_CARD])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/turf/T = get_turf(src)
+		message_admins("[key_name_admin(usr)] is modifying the ID card [src] [ADMIN_COORDJMP(T)]")
+		var/datum/ui_module/id_card_modifier/ui = new(target = src)
+		ui.ui_interact(usr)
 
 // Decals
 /obj/item/id_decal
