@@ -33,7 +33,7 @@ pub(crate) const TOXINS_MIN_VISIBILITY_MOLES: f32 = 0.5;
 pub(crate) const SLEEPING_GAS_VISIBILITY_MOLES: f32 = 1.0;
 
 /// How many moles of water vapor are need for it to be visible.
-pub(crate) const WATER_VAPOR_VISIBILITY_MOLES: f32 = 5.0;
+pub(crate) const WATER_VAPOR_VISIBILITY_MOLES: f32 = 500.0;
 
 /// How much stuff needs to react before we think hotspots and BYOND care.
 pub(crate) const REACTION_SIGNIFICANCE_MOLES: f32 = 0.1;

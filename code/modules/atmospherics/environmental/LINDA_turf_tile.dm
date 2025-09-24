@@ -87,12 +87,8 @@
 		air = get_readonly_air()
 	if(air.toxins() > MOLES_PLASMA_VISIBLE)
 		return "plasma"
-
 	if(air.sleeping_agent() > 1)
 		return "sleeping_agent"
-
-	if(air.water_vapor() > MOLES_WATER_VAPOR_VISIBLE)
-		return "water_vapor"
 	return null
 
 /turf/proc/high_pressure_movements(flow_x, flow_y)
