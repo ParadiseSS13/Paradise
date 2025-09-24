@@ -1649,11 +1649,6 @@
 	if(I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		default_deconstruction_crowbar()
 
-/obj/machinery/atmospherics/unary/reactor_gas_node/multitool_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='information'>You begin to reverse the gas flow direction...</span>")
-	if(do_after_once(user, 3 SECONDS, TRUE, src, allow_moving = FALSE, must_be_held = TRUE))
-		intake_vent = !intake_vent
-
 /obj/machinery/atmospherics/unary/reactor_gas_node/wrench_act(mob/user, obj/item/I)
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
 	var/selected = tgui_input_list(user, "Select a direction for the connector.", "Connector Direction", choices)
@@ -1687,6 +1682,7 @@
 			linked_reactor = filler.parent
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/multitool_act(mob/living/user, obj/item/I)
+	to_chat(user, "<span class='information'>You begin to reverse the gas flow direction...</span>")
 	if(do_after_once(user, 1 SECONDS, TRUE, src, allow_moving = FALSE))
 		intake_vent = !intake_vent
 		if(intake_vent)
@@ -1741,6 +1737,8 @@
 
 #undef HEAT_DAMAGE_RATE
 #undef MOL_MINIMUM
+#undef PRESSURE_MAXIMUM
+#undef PRESSURE_DAMAGE
 #undef DAMAGE_MINIMUM
 #undef DAMAGE_MAXIMUM
 #undef MOL_DAMAGE_MULTIPLIER

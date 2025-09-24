@@ -261,7 +261,7 @@
 
 /obj/machinery/nuclear_rod_fabricator/proc/get_rod_info(rod_type)
 	return rod_type
-#warn finish this when burza gets to the UI screen
+// #warn finish this when burza gets to the UI screen
 
 /obj/machinery/nuclear_rod_fabricator/interact(mob/user)
 	. = ..()
@@ -472,9 +472,6 @@
 			visible_message("<span class='warning'>ERROR: Vent servos unresponsive. Manual closure required.</span>")
 		else
 			active.venting = !active.venting
-
-/obj/machinery/computer/fission_monitor/attack_ai(mob/user)
-	attack_hand(user)
 
 // MARK: Circuits
 

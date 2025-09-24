@@ -12440,9 +12440,7 @@
 	pixel_y = 4;
 	pixel_x = 3
 	},
-/obj/item/rpd/bluespace{
-	pixel_y = 0
-	},
+/obj/item/rpd/bluespace,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14509,13 +14507,6 @@
 	icon_state = "red"
 	},
 /area/station/security/checkpoint/secondary)
-"aZi" = (
-/mob/living/simple_animal/mouse/brown/tom,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "vault"
-	},
-/area/station/command/vault)
 "aZj" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -16572,7 +16563,6 @@
 	},
 /area/station/service/hydroponics)
 "bfE" = (
-/mob/living/simple_animal/hostile/retaliate/goat/chef,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -21909,7 +21899,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse/gray,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "bwx" = (
@@ -45360,11 +45349,6 @@
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
 /area/station/service/hydroponics)
-"dnE" = (
-/obj/machinery/hydroponics/soil,
-/mob/living/simple_animal/chicken/clucky,
-/turf/simulated/floor/grass,
-/area/station/service/hydroponics)
 "dnF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -51959,7 +51943,6 @@
 	pixel_y = 3
 	},
 /obj/item/nuclear_rod/coolant/light_water{
-	pixel_y = 0;
 	pixel_x = -6
 	},
 /turf/simulated/floor/plasteel/reactor_pool/wall,
@@ -66942,7 +66925,6 @@
 	pixel_y = 3
 	},
 /obj/item/nuclear_rod/moderator/graphite{
-	pixel_y = 0;
 	pixel_x = -6
 	},
 /turf/simulated/floor/plasteel/reactor_pool,
@@ -67346,7 +67328,6 @@
 	pixel_y = 3
 	},
 /obj/item/nuclear_rod/fuel/uranium_238{
-	pixel_y = 0;
 	pixel_x = -6
 	},
 /turf/simulated/floor/plasteel/reactor_pool/wall,
@@ -84966,7 +84947,6 @@
 	pixel_y = 3
 	},
 /obj/item/nuclear_rod/moderator/heavy_water{
-	pixel_y = 0;
 	pixel_x = -6
 	},
 /turf/simulated/floor/plasteel/reactor_pool,
@@ -109443,7 +109423,7 @@ aUE
 aTK
 aWs
 aWs
-aZi
+aWs
 bbq
 xxt
 kFu
@@ -127696,7 +127676,7 @@ beb
 djx
 bLU
 bjv
-dnE
+bfH
 bmy
 tLA
 btP
