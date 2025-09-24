@@ -44,6 +44,7 @@ GLOBAL_LIST_EMPTY(tendrils)
 	return ..()
 
 /obj/structure/spawner/lavaland/attacked_by(obj/item/attacker, mob/living/user)
+	. = ..()
 	SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, user)
 
 /obj/structure/spawner/lavaland/bullet_act(obj/item/projectile/P)
