@@ -442,7 +442,7 @@ What are the archived variables for?
 	private_water_vapor -= delta_water_vapor
 	sharer.private_water_vapor += delta_water_vapor
 
-	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_sleeping_agent + delta_agent_b)
+	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_sleeping_agent + delta_agent_b + delta_hydrogen + delta_water_vapor)
 
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
 		var/new_self_heat_capacity = old_self_heat_capacity + heat_capacity_sharer_to_self - heat_capacity_self_to_sharer
@@ -509,6 +509,16 @@ What are the archived variables for?
 			heat_transferred -= agent_b_heat_capacity * model.temperature
 			heat_capacity_transferred -= agent_b_heat_capacity
 
+		if(delta_hydrogen)
+			var/hydrogen_heat_capacity = SPECIFIC_HEAT_HYDROGEN * delta_hydrogen
+			heat_transferred -= hydrogen_heat_capacity * model.temperature
+			heat_capacity_transferred -= hydrogen_heat_capacity
+
+		if(delta_water_vapor)
+			var/water_vapor_heat_capacity = SPECIFIC_HEAT_WATER_VAPOR * delta_water_vapor
+			heat_transferred -= water_vapor_heat_capacity * model.temperature
+			heat_capacity_transferred -= water_vapor_heat_capacity
+
 		old_self_heat_capacity = heat_capacity()
 
 	private_oxygen -= delta_oxygen
@@ -520,7 +530,7 @@ What are the archived variables for?
 	private_hydrogen -= delta_hydrogen
 	private_water_vapor -= delta_water_vapor
 
-	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_sleeping_agent + delta_agent_b)
+	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_sleeping_agent + delta_agent_b + delta_hydrogen + delta_water_vapor)
 
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
 		var/new_self_heat_capacity = old_self_heat_capacity - heat_capacity_transferred
@@ -624,6 +634,12 @@ What are the archived variables for?
 		return FALSE
 	if((abs(private_agent_b - sample.private_agent_b) > MINIMUM_AIR_TO_SUSPEND) && \
 		((private_agent_b < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_agent_b) || (private_agent_b > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_agent_b)))
+		return FALSE
+	if((abs(private_hydrogen - sample.private_hydrogen) > MINIMUM_AIR_TO_SUSPEND) && \
+		((private_hydrogen < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_hydrogen) || (private_hydrogen > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_hydrogen)))
+		return FALSE
+	if((abs(private_water_vapor - sample.private_water_vapor) > MINIMUM_AIR_TO_SUSPEND) && \
+		((private_water_vapor < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_water_vapor) || (private_water_vapor > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.private_water_vapor)))
 		return FALSE
 
 	if(total_moles() > MINIMUM_AIR_TO_SUSPEND)
@@ -830,7 +846,7 @@ What are the archived variables for?
 	if(total_volume == 0)
 		return
 
-	if(total_volume < 0 || isnan(total_volume) || !isnum(total_volume) || total_oxygen < 0 || isnan(total_oxygen) || !isnum(total_oxygen) || total_nitrogen < 0 || isnan(total_nitrogen) || !isnum(total_nitrogen) || total_toxins < 0 || isnan(total_toxins) || !isnum(total_toxins) || total_carbon_dioxide < 0 || isnan(total_carbon_dioxide) || !isnum(total_carbon_dioxide) || total_sleeping_agent < 0 || isnan(total_sleeping_agent) || !isnum(total_sleeping_agent) || total_agent_b < 0 || isnan(total_agent_b) || !isnum(total_agent_b))
+	if(total_volume < 0 || isnan(total_volume) || !isnum(total_volume) || total_oxygen < 0 || isnan(total_oxygen) || !isnum(total_oxygen) || total_nitrogen < 0 || isnan(total_nitrogen) || !isnum(total_nitrogen) || total_toxins < 0 || isnan(total_toxins) || !isnum(total_toxins) || total_carbon_dioxide < 0 || isnan(total_carbon_dioxide) || !isnum(total_carbon_dioxide) || total_sleeping_agent < 0 || isnan(total_sleeping_agent) || !isnum(total_sleeping_agent) || total_agent_b < 0 || isnan(total_agent_b) || !isnum(total_agent_b) || total_hydrogen < 0 || isnan(total_hydrogen) || !isnum(total_hydrogen) || total_water_vapor < 0 || isnan(total_water_vapor) || !isnum(total_water_vapor))
 		CRASH("A pipenet with [length(mixtures)] connected airs is corrupt and cannot flow safely. Pipenet root is [root] at ([root.x], [root.y], [root.z]).")
 
 	// If we don't have a significant temperature difference, check for a significant gas amount difference.
@@ -1036,6 +1052,12 @@ What are the archived variables for?
 	CRASH("Attempted to modify a readonly gas_mixture.")
 
 /datum/gas_mixture/readonly/set_agent_b(value)
+	CRASH("Attempted to modify a readonly gas_mixture.")
+
+/datum/gas_mixture/readonly/set_hydrogen(value)
+	CRASH("Attempted to modify a readonly gas_mixture.")
+
+/datum/gas_mixture/readonly/set_water_vapor(value)
 	CRASH("Attempted to modify a readonly gas_mixture.")
 
 /datum/gas_mixture/readonly/set_temperature(value)

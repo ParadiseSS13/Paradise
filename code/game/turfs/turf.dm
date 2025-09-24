@@ -446,6 +446,8 @@
 		merged.set_toxins(merged.toxins() / turf_count)
 		merged.set_sleeping_agent(merged.sleeping_agent() / turf_count)
 		merged.set_agent_b(merged.agent_b() / turf_count)
+		merged.set_hydrogen(merged.hydrogen() / turf_count)
+		merged.set_water_vapor(merged.water_vapor() / turf_count)
 	get_turf_air(self).copy_from(merged)
 
 /turf/proc/ReplaceWithLattice()
