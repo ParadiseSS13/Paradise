@@ -544,7 +544,7 @@
 	icon = "null" // make it look like it detonated.
 
 /obj/item/grenade/nuclear_starter/proc/delete_pulse(warp)
-	qdel(warp)
+	QDEL_NULL(warp)
 	qdel(src)
 
 // MARK: Rad Proof Pool

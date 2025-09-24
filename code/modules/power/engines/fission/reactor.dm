@@ -15,11 +15,12 @@
 
 #define EVENT_MODIFIER 0.1 // multiplies the commonality of dangerous events.
 
-#define HEAT_MODIFIER 200 // a flat multiplier. Higher = more heat production.
+#define HEAT_MODIFIER 300 // a flat multiplier. Higher = more heat production.
+#define HEAT_CAP 50000 // the highest temp before we artificially cap it
 #define AVERAGE_HEAT_THRESHOLD 30 // The threshold the average heat-per-rod must exceed to generate coefficient.
 #define TOTAL_HEAT_THRESHOLD 600 // the temp (in K) needed to begin generating coefficient.
 #define HEAT_CONVERSION_RATIO 400 // How much heat over the threshold = an extra coefficient point.
-#define REACTIVITY_COEFFICIENT_CAP 40 // The highest that reactivity coefficient can be
+#define REACTIVITY_COEFFICIENT_CAP 20 // The highest that reactivity coefficient can be
 
 // If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
 #define NGCR_MELTDOWN_PERCENT 5
@@ -39,51 +40,28 @@
 #define PRESSURE_MAXIMUM 20000 // The highest safe pressure allowed by the reactor
 #define PRESSURE_DAMAGE 0.5 // the minimum damage caused by overpresurization
 #define DAMAGE_MINIMUM 0.002 // The minimum amount of damage done when taking any damage
-#define DAMAGE_MAXIMUM 3 // The highest amount of damage done when taking damage
+#define DAMAGE_MAXIMUM 8 // The highest amount of damage done when taking damage
 #define MOL_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from no gas
 #define HEAT_DAMAGE_MULTIPLIER 1 // an adjuster for damage balance from high heat
 #define EXPLOSION_MODIFIER 4 // Adjusts the size of the engine explosion
 
 #define CHAMBER_HEAT_DAMAGE 6 // How much damage reactor chambers do when on.
 
-// Done
-// #warn Idea todo: Make chambers weldable
-// #warn Idea todo: Make chambers self-weld at high temps
-// #warn Idea todo: Control rods break slowly at high temps
-// #warn Idea todo: Reactor leaks heat at high temperatures
-// #warn Idea todo: ripley grippers can pick up rods
-// #warn Idea todo: Make coolant rods eject violently at high temperatures
-// #warn Idea todo: Add a button on the monitor to activate venting
-// #warn Idea todo: make ripleys interact safely with rod chambers
-// #warn Idea todo: Bananium rods?
-// #warn Idea todo: poly voicelines
 
-// Monitor these, but should be done
-// #warn make heat coefficient less linear
-// #warn add reactor repair
-// #warn fix the final countdown not pulling some chambers down
-// #warn fix neighbor adjacency getting removed
-// #warn look into gas nodes not connecting
-// #warn gas nodes cant be deconned
-// #warn make damaged reactor produce more events
-// #warn building new chambers isnt updating neighbors
-// #warn new chambers dont safety override correctly
-// #warn Idea todo: syndicate meltdown rods
-// #warn Idea todo: Grenades that force start rods
-// #warn Idea todo: make rods radioactive when outside of houseing or shielding pools
+// fix the neighbor finding
+// look into stat modifiers apply to themself
+// fix gas node deconstruction
+// fix chamber welding
+// fix remote ripley interactions with chambers
+// adjust damage, its too slow (previously 3)
+// implement heat cap, its too silly (800,000,000K)
 
-// NEEDS TESTING
-// #warn make heat coefficient gain less linear
-// #warn make coolant/moderator amplifier values be affected by durability
-// #warn make meltdown countdown cause LOTS of smoke and chamber lifts/ejections
+// todo: Allow grilling on an active reactor
+// todo: Make some lavaland loot into special rods/upgrades
 
-/* linter
-#warn Idea todo: Allow grilling on an active reactor
-#warn Idea todo: Make some lavaland loot into special rods/upgrades
+// todo: Make different gasses do... something
+// event idea: Pufts of contaminating rad smoke
 
-#warn Idea todo: Make different gasses do... something
-#warn event idea: Pufts of contaminating rad smoke
-*/
 
 /// MARK: Fission Reactor
 
@@ -575,7 +553,7 @@
 	var/heat_capacity = air_contents.heat_capacity()
 	if(heat_capacity)
 		if(temp < minimum_operating_temp)
-			air_contents.set_temperature(temp + 50) // RAPIDLY reach our minimum temperature
+			air_contents.set_temperature(temp + 100) // RAPIDLY reach our minimum temperature
 		else
 			air_contents.set_temperature(max(temp + (final_heat / heat_capacity), temp + 2))
 
@@ -1187,10 +1165,10 @@
 
 	if(power_total && operational)
 		message += "<span class='notice'>The chamber is currently producing [power_total * operating_rate * durability_mod] watts of energy.</span>"
-		message += "<span class='notice'>The chamber has a power modifer of [held_rod.current_power_mod].</span>"
+		message += "<span class='notice'>The chamber has a power modifier of [held_rod.current_power_mod].</span>"
 	else
 		message += "<span class='notice'>The chamber is producing no power.</span>"
-	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
+	if(istype(held_rod, /obj/item/nuclear_rod/fuel) && held_rod.power_enrich_result)
 		var/obj/item/nuclear_rod/fuel/rod = held_rod
 		if(rod.power_enrich_progress >= rod.enrichment_cycles)
 			message += "<span class='notice'>[src] has been power enriched</span>"
@@ -1201,12 +1179,12 @@
 
 	if(heat_total)
 		message += "<span class='notice'>The chamber is currently producing [heat_total * HEAT_MODIFIER * operating_rate * durability_mod] joules of heat.</span>"
-		message += "<span class='notice'>The chamber has a power modifer of [held_rod.current_heat_mod].</span>"
+		message += "<span class='notice'>The chamber has a heat modifier of [held_rod.current_heat_mod].</span>"
 	else
 		message += "<span class='notice'>The chamber is producing no heat.</span>"
 	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
 		var/obj/item/nuclear_rod/fuel/rod = held_rod
-		if(rod.heat_enrich_progress >= rod.enrichment_cycles)
+		if(rod.heat_enrich_progress >= rod.enrichment_cycles && held_rod.heat_enrich_result)
 			message += "<span class='notice'>[src] has been heat enriched</span>"
 		else
 			message += "<span class='notice'>[src] has not yet finished a heat enrichment process.</span>"
@@ -1718,6 +1696,7 @@
 #undef EVENT_MODIFIER
 
 #undef HEAT_MODIFIER
+#undef HEAT_CAP
 #undef AVERAGE_HEAT_THRESHOLD
 #undef TOTAL_HEAT_THRESHOLD
 #undef HEAT_CONVERSION_RATIO

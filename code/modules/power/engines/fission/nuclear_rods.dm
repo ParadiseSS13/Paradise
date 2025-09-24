@@ -64,10 +64,10 @@
 	return temp_mod
 
 /obj/item/nuclear_rod/proc/calc_stat_decrease()
-	// Formula: y = (x * A) + (1 - A)
-	var/durability = get_durability_mod()
-	current_power_mod = (power_amp_mod * durability) + (1 - durability)
-	current_heat_mod = (heat_amp_mod * durability) + (1 - durability)
+	// Formula: y =stat (x * A) + (1 - A)
+	var/durability_stat = get_durability_mod()
+	current_power_mod = (power_amp_mod * durability_stat) + (1 - durability_stat)
+	current_heat_mod = (heat_amp_mod * durability_stat) + (1 - durability_stat)
 
 /obj/item/nuclear_rod/proc/start_rads(power_modifier = 1)
 	var/new_alpha_rad = alpha_rad * power_modifier
@@ -248,7 +248,7 @@
 	power_amount = 800 KW
 	heat_amp_mod = 8
 	power_amp_mod = 0.1
-	durability = INFINITY
+	max_durability = INFINITY
 	gamma_rad = 300
 	craftable = FALSE
 	adjacent_requirements = list(
