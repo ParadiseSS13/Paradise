@@ -415,6 +415,17 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/command/fore)
+"acM" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/port/north)
 "acO" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
@@ -10263,21 +10274,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"bCr" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Aft Asteroid Maintenance"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random/dirt/frequent,
-/obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/airlock/access/any/science/tox,
-/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
-/turf/simulated/floor/plasteel/white,
-/area/station/science/misc_lab)
 "bCs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/extra_insulated{
@@ -28394,7 +28390,7 @@
 	name = "Aft Asteroid Maintenance"
 	},
 /turf/simulated/floor/plasteel/white,
-/area/station/science/xenobiology)
+/area/station/maintenance/apmaint)
 "eFq" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/spawner/random/dirt/often,
@@ -45957,6 +45953,21 @@
 "isI" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/service/fore_port)
+"isZ" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Aft Asteroid Maintenance"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/access/any/science/tox,
+/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
+/turf/simulated/floor/plasteel/white,
+/area/station/maintenance/apmaint)
 "itf" = (
 /turf/simulated/mineral/ancient,
 /area/station/maintenance/starboard)
@@ -63790,20 +63801,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/apmaint)
-"lZs" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Aft Asteroid Maintenance"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random/dirt/frequent,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
-/obj/effect/mapping_helpers/airlock/access/any/science/tox,
-/turf/simulated/floor/plasteel/white,
-/area/station/science/test_chamber)
 "lZt" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/cigpack_robust{
@@ -69164,17 +69161,6 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
-"nnD" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/port/north)
 "nnF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -97926,6 +97912,20 @@
 	icon_state = "yellow"
 	},
 /area/station/maintenance/disposal/east)
+"tuu" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Aft Asteroid Maintenance"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/spawner/random/dirt/frequent,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/science/xenobio,
+/obj/effect/mapping_helpers/airlock/access/any/science/tox,
+/turf/simulated/floor/plasteel/white,
+/area/station/maintenance/apmaint)
 "tuC" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 8
@@ -140119,7 +140119,7 @@ uqI
 sJy
 gIh
 dUE
-nnD
+acM
 nxu
 jag
 fkS
@@ -142522,10 +142522,10 @@ asL
 czb
 cza
 oUJ
-bCr
+isZ
 eJf
 wpX
-lZs
+tuu
 aFn
 dZA
 oqN
