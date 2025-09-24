@@ -1,3 +1,12 @@
+/// Chance for mob to avoid being affected by rad storm
+#define RAD_STORM_AVOID_CHANCE 40
+/// Chance to additionally apply good or bad mutation
+#define RAD_STORM_ADDITIONAL_MUT_CHANCE 50
+/// Chance to apply bad mutation. When failed will apply good mutation instead
+#define RAD_STORM_BAD_MUT_CHANCE 90
+/// Amount of radiation mob receives when affected
+#define RAD_STORM_RAD_AMOUNT 400
+
 //Radiation storms occur when the station passes through an irradiated area, and irradiate anyone not standing in protected areas (maintenance, emergency storage, etc.)
 /datum/weather/rad_storm
 	name = "radiation storm"
@@ -41,30 +50,26 @@
 	if(!SSmapping.maint_all_access)
 		SSmapping.make_maint_all_access()
 
-/datum/weather/rad_storm/weather_act(mob/living/L)
-	if(!prob(60))
+/datum/weather/rad_storm/weather_act(mob/living/carbon/human/human)
+	if(!istype(human) || HAS_TRAIT(human, TRAIT_RADIMMUNE) || prob(RAD_STORM_AVOID_CHANCE))
 		return
 
-	if(!ishuman(L))
-		return
-
-	var/mob/living/carbon/human/H = L
-	var/resist = H.getarmor(null, RAD)
-	if(HAS_TRAIT(H, TRAIT_RADIMMUNE) || resist == INFINITY)
+	var/resist = human.getarmor(armor_type = RAD)
+	if(resist == INFINITY)
 		return
 
 	if(prob(max(0, 100 - ARMOUR_VALUE_TO_PERCENTAGE(resist))))
-		L.base_rad_act(L ,400 , BETA_RAD)
-		if(HAS_TRAIT(H, TRAIT_GENELESS))
+		human.base_rad_act(human, RAD_STORM_RAD_AMOUNT, BETA_RAD)
+		if(HAS_TRAIT(human, TRAIT_GENELESS))
 			return
-		randmuti(H) // Applies bad mutation
-		if(prob(50))
-			if(prob(90))
-				randmutb(H)
+		randmuti(human) // Applies appearance mutation
+		if(prob(RAD_STORM_ADDITIONAL_MUT_CHANCE))
+			if(prob(RAD_STORM_BAD_MUT_CHANCE))
+				randmutb(human) // Applies bad mutation
 			else
-				randmutg(H)
+				randmutg(human) // Applies good mutation
 
-		domutcheck(H, MUTCHK_FORCED)
+		domutcheck(human, MUTCHK_FORCED)
 
 /datum/weather/rad_storm/end()
 	if(..())
@@ -82,3 +87,8 @@
 		post_status(STATUS_DISPLAY_ALERT, "radiation")
 	else
 		post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
+
+#undef RAD_STORM_AVOID_CHANCE
+#undef RAD_STORM_ADDITIONAL_MUT_CHANCE
+#undef RAD_STORM_BAD_MUT_CHANCE
+#undef RAD_STORM_RAD_AMOUNT

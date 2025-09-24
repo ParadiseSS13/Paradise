@@ -213,9 +213,10 @@
 		deconstruct(FALSE)
 		attacker.visible_message("<span class='danger'>[attacker] smashes through [src]!</span>", "<span class='warning'>You smash through [src].</span>", "<span class='warning'>You hear glass breaking.</span>")
 
-/obj/structure/window/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
+/obj/structure/window/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	if(!can_be_reached(user))
-		return 1 //skip the afterattack
+		return
 
 	add_fingerprint(user)
 	if(istype(I, /obj/item/stack/rods) && user.a_intent == INTENT_HELP)
