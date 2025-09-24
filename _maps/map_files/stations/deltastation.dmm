@@ -11203,7 +11203,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/belt,
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -17181,7 +17181,11 @@
 /area/station/hallway/primary/central/north)
 "bqy" = (
 /obj/structure/window/reinforced{
-	dir = 4
+	dir = 4;
+	pixel_x = 2
+	},
+/obj/structure/chair{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
@@ -45908,7 +45912,7 @@
 "dvV" = (
 /obj/structure/window/reinforced{
 	dir = 8;
-	pixel_x = -4
+	pixel_x = -2
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -51627,7 +51631,7 @@
 "erg" = (
 /obj/structure/window/reinforced{
 	dir = 8;
-	pixel_x = -4
+	pixel_x = -2
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -57435,15 +57439,6 @@
 	icon_state = "darkredfull"
 	},
 /area/station/security/permabrig)
-"gJC" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/medical/medbay)
 "gJT" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal{
@@ -84074,7 +84069,7 @@
 "sbz" = (
 /obj/structure/window/reinforced{
 	dir = 8;
-	pixel_x = -4
+	pixel_x = -2
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -85866,7 +85861,8 @@
 /area/station/medical/virology)
 "sMp" = (
 /obj/structure/window/reinforced{
-	dir = 4
+	dir = 4;
+	pixel_x = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -142097,7 +142093,7 @@ rMG
 wyn
 cMq
 cMq
-gJC
+bqy
 sMp
 bqy
 hbt
@@ -146647,7 +146643,7 @@ mKm
 jsk
 aIk
 mKm
-aaZ
+aaa
 aaa
 eNt
 llR
@@ -146672,7 +146668,7 @@ eNt
 eNt
 aaa
 abj
-aaZ
+aaa
 abj
 aaa
 abj
