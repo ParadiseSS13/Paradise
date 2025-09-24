@@ -64,6 +64,19 @@
 	name = "Mining Asteroid 3"
 	description = "They dug too greedily, and too deeply..."
 
+/datum/map_template/ruin/space/asteroidmine_pirates
+	id = "asteroidmine_pirates"
+	suffix = "asteroidmine_pirates.dmm"
+	name = "Pirate Mining Outpost"
+	description = "A small gang of pirates plunders valuables from a space rock."
+
+/datum/map_template/ruin/space/asteroidmine_drakehounds
+	id = "asteroidmine_drakehounds"
+	suffix = "asteroidmine_drakehounds.dmm"
+	name = "Raided Corporate Mining Outpost"
+	description = "A small-time mining company set up a mining outpost between two large mineral-rich asteroids. \
+		The riches only served to attract a gang of drakehound raiders to steal the loot for themselves."
+
 /datum/map_template/ruin/space/deep_storage
 	id = "deep-storage"
 	suffix = "deepstorage.dmm"

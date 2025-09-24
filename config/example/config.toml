@@ -674,6 +674,8 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/way_home.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/wizardcrash.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/wreckedcargoship.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_pirates.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_drakehounds.dmm",
 
   ### The following ruins are based from past pre-spawned Zlevel content ###
   "_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
