@@ -53889,9 +53889,6 @@
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/secondary/exit)
-"lai" = (
-/turf/simulated/wall,
-/area/space)
 "lak" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/light{
@@ -156171,7 +156168,7 @@ aaa
 aaa
 aaa
 aaa
-lai
+aaa
 aaa
 aaa
 aaa
