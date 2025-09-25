@@ -79,6 +79,20 @@
 	ranged_burst_interval = 0.5 SECONDS
 	ranged_cooldown = 1.75 SECONDS
 
+/mob/living/basic/vox_miner/foreman/retaliate_callback(mob/living/attacker)
+	if(!istype(attacker))
+		return
+	if(attacker.ai_controller) // Don't chain retaliates.
+		var/list/shitlist = attacker.ai_controller.blackboard[BB_BASIC_MOB_RETALIATE_LIST]
+		if(src in shitlist)
+			return
+	for(var/mob/living/basic/vox_miner/harbinger in oview(src, 28)) // They call for help over a long range - take out the support first.
+		if(harbinger == attacker) // Do not commit suicide attacking yourself
+			continue
+		if(harbinger.faction_check_mob(attacker, FALSE)) // Don't attack your friends.
+			continue
+		harbinger.ai_controller.insert_blackboard_key_lazylist(BB_BASIC_MOB_RETALIATE_LIST, attacker)
+
 /datum/ai_controller/basic_controller/simple/vox_miner
 	blackboard = list(
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
