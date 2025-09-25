@@ -113,7 +113,7 @@
 	name = "Internal PDA"
 	icon_state = "pda"
 
-/atom/movable/screen/ai/Click()
+/atom/movable/screen/ai/pda/Click()
 	if(..())
 		return
 	var/mob/living/silicon/ai/AI = usr
