@@ -78,6 +78,16 @@
 	ranged_burst_count = 2
 	ranged_burst_interval = 0.5 SECONDS
 	ranged_cooldown = 1.75 SECONDS
+	loot = list(
+			/obj/item/salvage/loot/pirate,
+			/obj/item/salvage/loot/pirate,
+			/obj/item/salvage/ruin/carp,
+			/obj/item/salvage/ruin/carp,
+			/obj/item/salvage/ruin/pirate,
+			/obj/effect/mob_spawn/human/corpse/vox_miner,
+			/obj/effect/decal/cleanable/blood/innards/vox,
+			/obj/effect/decal/cleanable/blood/vox,
+			/obj/effect/gibspawner/vox)
 
 /mob/living/basic/vox_miner/foreman/retaliate_callback(mob/living/attacker)
 	if(!istype(attacker))

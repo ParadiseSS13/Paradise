@@ -1,64 +1,68 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/simulated/mineral/random/high_chance/space,
-/area/space)
+/area/ruin)
+"c" = (
+/turf/simulated/mineral/ancient,
+/area/ruin)
 "d" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
-/area/space)
+/area/ruin/powered)
 "e" = (
 /obj/structure/closet/crate/miningcar{
 	name = "mining car"
 	},
 /obj/effect/spawner/random/uncommon_ore,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin)
 "f" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/space)
+/area/ruin/powered)
 "g" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/engine,
-/area/space)
+/area/ruin/powered)
 "h" = (
 /mob/living/basic/vox_miner/foreman,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin)
 "j" = (
 /obj/machinery/door/airlock/titanium,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/ruin/powered)
 "k" = (
 /turf/simulated/mineral/random/low_chance/space,
-/area/space)
+/area/ruin)
 "m" = (
 /obj/structure/closet/crate/miningcar{
 	name = "mining car"
 	},
 /obj/effect/spawner/random/rare_ore,
+/obj/effect/spawner/random/rare_ore,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin)
 "n" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/ruin/powered)
 "o" = (
 /obj/structure/closet/crate/miningcar{
 	name = "mining car"
 	},
 /obj/effect/spawner/random/common_ore,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin)
 "r" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/ruin/powered)
 "s" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
@@ -74,68 +78,68 @@
 /obj/effect/spawner/random/bluespace_tap/food_uncommon,
 /obj/effect/spawner/random/engineering/toolbox,
 /turf/simulated/floor/engine,
-/area/space)
+/area/ruin/powered)
 "t" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/ruin/powered)
 "u" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/ruin/powered)
 "v" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/ruin/powered)
 "w" = (
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin)
 "x" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/space)
+/area/ruin/powered)
 "z" = (
 /obj/effect/decal/cleanable/blood/vox,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin)
 "A" = (
 /turf/simulated/wall/mineral/titanium,
-/area/space)
+/area/ruin/powered)
 "C" = (
 /obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin)
 "F" = (
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin)
 "G" = (
 /turf/simulated/mineral/random/space,
-/area/space)
+/area/ruin)
 "H" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
-/area/space)
+/area/ruin/powered)
 "I" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/engine,
-/area/space)
+/area/ruin/powered)
 "J" = (
 /obj/structure/shuttle/engine/router,
 /obj/structure/window/plasmareinforced,
 /turf/simulated/floor/engine,
-/area/space)
+/area/ruin/powered)
 "K" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/mob_spawn/human/corpse/vox_miner,
 /turf/simulated/floor/engine,
-/area/space)
+/area/ruin/powered)
 "M" = (
 /turf/space,
 /area/space)
@@ -144,57 +148,57 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/ruin/powered)
 "O" = (
 /mob/living/basic/vox_miner,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin)
 "P" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/ruin/powered)
 "R" = (
 /obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/ruin/powered)
 "S" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
 /obj/structure/window/plasmareinforced,
 /turf/simulated/floor/engine,
-/area/space)
+/area/ruin/powered)
 "T" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin)
 "U" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/space)
+/area/ruin/powered)
 "V" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/spawner/random/cobweb/right,
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/ruin/powered)
 "W" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/ruin/powered)
 "X" = (
 /obj/machinery/economy/vending/wallmed/directional/west,
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/engine,
-/area/space)
+/area/ruin/powered)
 "Y" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/engine,
-/area/space)
+/area/ruin/powered)
 "Z" = (
 /obj/structure/flora/ash/rock/style_random,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/space)
+/area/ruin)
 
 (1,1,1) = {"
 M
@@ -527,7 +531,7 @@ G
 G
 F
 F
-O
+F
 F
 F
 F
@@ -698,7 +702,7 @@ F
 G
 G
 G
-G
+c
 k
 k
 G
@@ -731,7 +735,7 @@ F
 G
 C
 G
-G
+c
 k
 k
 G
@@ -763,7 +767,7 @@ F
 F
 F
 F
-G
+c
 k
 k
 G
@@ -788,15 +792,15 @@ F
 F
 F
 G
+c
 G
-G
 F
 F
 F
 F
 F
 G
-k
+c
 k
 k
 G
@@ -821,7 +825,7 @@ F
 F
 F
 G
-G
+c
 G
 F
 F
@@ -829,7 +833,7 @@ F
 F
 G
 k
-k
+c
 k
 G
 M
@@ -853,7 +857,7 @@ F
 F
 F
 k
-k
+c
 G
 F
 F
@@ -861,7 +865,7 @@ F
 O
 F
 k
-k
+c
 k
 k
 G
@@ -885,7 +889,7 @@ F
 F
 F
 F
-k
+c
 T
 F
 F
@@ -894,7 +898,7 @@ Z
 F
 G
 k
-k
+c
 k
 G
 M
@@ -917,16 +921,16 @@ F
 F
 Z
 F
-k
+c
 F
 F
 O
 F
 F
-O
+F
 G
 k
-k
+c
 k
 G
 M
@@ -949,7 +953,7 @@ F
 F
 F
 F
-k
+c
 F
 F
 F
@@ -958,7 +962,7 @@ F
 F
 G
 k
-k
+c
 k
 G
 M
@@ -981,7 +985,7 @@ F
 F
 F
 F
-k
+c
 G
 F
 Z
@@ -990,7 +994,7 @@ F
 e
 G
 k
-k
+c
 k
 G
 M
@@ -1013,7 +1017,7 @@ F
 F
 F
 k
-G
+c
 G
 F
 F
@@ -1022,7 +1026,7 @@ F
 F
 G
 k
-k
+c
 k
 G
 M
@@ -1045,8 +1049,8 @@ F
 F
 F
 G
-G
-C
+c
+F
 F
 F
 F
@@ -1054,7 +1058,7 @@ F
 F
 G
 k
-k
+c
 k
 G
 M
@@ -1076,8 +1080,8 @@ F
 F
 F
 G
-G
-G
+c
+c
 F
 z
 F
@@ -1086,7 +1090,7 @@ F
 F
 G
 k
-k
+c
 k
 G
 M
@@ -1107,7 +1111,7 @@ A
 F
 Z
 k
-G
+c
 G
 G
 F
@@ -1116,9 +1120,9 @@ F
 F
 F
 G
-G
-k
-k
+c
+c
+c
 G
 G
 M
@@ -1138,7 +1142,7 @@ A
 F
 k
 k
-k
+c
 a
 G
 G
@@ -1148,7 +1152,7 @@ G
 G
 G
 G
-G
+c
 k
 k
 G
@@ -1167,9 +1171,9 @@ M
 M
 G
 G
-k
-k
-a
+c
+c
+c
 a
 a
 G
@@ -1180,7 +1184,7 @@ G
 G
 G
 G
-G
+c
 k
 G
 G
@@ -1198,8 +1202,8 @@ M
 M
 G
 G
-G
-G
+c
+c
 F
 F
 F
@@ -1211,7 +1215,7 @@ F
 G
 G
 G
-a
+c
 a
 a
 G
@@ -1229,8 +1233,8 @@ M
 M
 G
 G
-G
-F
+c
+C
 F
 F
 F
@@ -1243,7 +1247,7 @@ G
 G
 G
 a
-a
+c
 a
 k
 G
@@ -1260,7 +1264,7 @@ M
 M
 G
 G
-G
+c
 w
 F
 O
@@ -1275,7 +1279,7 @@ a
 a
 a
 a
-a
+c
 k
 k
 G
@@ -1291,7 +1295,7 @@ M
 M
 M
 G
-G
+c
 m
 h
 F
@@ -1306,7 +1310,7 @@ a
 a
 a
 a
-a
+c
 k
 G
 G
@@ -1323,7 +1327,7 @@ M
 M
 M
 G
-G
+c
 G
 T
 F
@@ -1337,7 +1341,7 @@ G
 a
 a
 a
-k
+c
 k
 G
 G
@@ -1356,8 +1360,8 @@ M
 M
 M
 G
-G
-G
+c
+c
 F
 F
 F
@@ -1366,9 +1370,9 @@ a
 a
 a
 a
-k
-k
-k
+c
+c
+c
 k
 G
 G
@@ -1390,15 +1394,15 @@ M
 M
 M
 G
-G
-G
-G
-G
+c
+c
+c
+c
 a
 a
 a
 a
-k
+c
 k
 G
 G
@@ -1426,10 +1430,10 @@ M
 G
 G
 G
-G
-G
-G
-G
+c
+c
+c
+c
 G
 G
 M
