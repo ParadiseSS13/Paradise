@@ -15,8 +15,8 @@
 
 #define EVENT_MODIFIER 0.1 // multiplies the commonality of dangerous events.
 
-#define HEAT_MODIFIER 400 // a flat multiplier. Higher = more heat production.
-#define HEAT_CAP 50000 // the highest temp before we artificially cap it
+#define HEAT_MODIFIER 500 // a flat multiplier. Higher = more heat production.
+#define HEAT_CAP 40000 // the highest temp before we artificially cap it
 #define AVERAGE_HEAT_THRESHOLD 30 // The threshold the average heat-per-rod must exceed to generate coefficient.
 #define TOTAL_HEAT_THRESHOLD 600 // the temp (in K) needed to begin generating coefficient.
 #define HEAT_CONVERSION_RATIO 400 // How much heat over the threshold = an extra coefficient point.
@@ -50,17 +50,19 @@
 
 // ========= MONITOR =========
 // fix the neighbor finding
-
-
-// ========= TO DO ==========
-// look into stat modifiers apply to themself
-// fix gas node deconstruction
 // fix chamber welding
-// fix remote ripley interactions with chambers
 // adjust damage, its too slow (previously 3)
 // implement heat cap, its too silly (800,000,000K)
+
+// ========= TO DO ==========
+
+// STAT MODIFIERS DONT CORRECTLY CALCULATE
+
+// fix gas node deconstruction
+// fix remote ripley interactions with chambers
 // implement ways to increase the maximum overheat cap
 
+// make reactor emit radiation waves while on
 // todo: Allow grilling on an active reactor
 // todo: Make some lavaland loot into special rods/upgrades
 
@@ -286,6 +288,9 @@
 				if(!offline)
 					to_chat(creature, "<span class='warning'>The reactor must be off to repair it!</span>")
 					return ITEM_INTERACT_COMPLETE
+				if(damage == 0)
+					to_chat(creature, "<span class='warning'>The reactor has nothing left to repair!</span>")
+					return ITEM_INTERACT_COMPLETE
 				var/obj/item/item = creature.get_inactive_hand()
 				if(!istype(item, /obj/item/weldingtool))
 					to_chat(creature, "<span class='warning'>A functional welder is required to adhere the plastitanium.</span>")
@@ -505,7 +510,7 @@
 		durability_loss = round(1 / (1 + 2.5 ** (-algorithm_decay * (operating_power - 65))), 0.01)
 	var/operating_rate = operating_percent()
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
-		chamber.calculate_stats()
+		chamber.calculate_stats(operating_rate)
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 		var/power_total
 		var/heat_total
@@ -518,7 +523,7 @@
 			power_total = chamber.power_total * durability_mod // some things have negative power, so we put this before fuel rod checks
 			if(istype(chamber.held_rod, /obj/item/nuclear_rod/fuel))
 				var/obj/item/nuclear_rod/fuel/fuel_rod = chamber.held_rod
-				if(fuel_rod.enrich(power_total * operating_rate, heat_total * operating_rate))
+				if(fuel_rod.enrich(chamber.power_mod_total * operating_rate, chamber.power_mod_total * operating_rate))
 					if(!chamber.enriching) // so we arnt constantly updating our overlay
 						chamber.enriching = TRUE
 						update_icon(UPDATE_OVERLAYS)
@@ -549,15 +554,17 @@
 
 	reactivity_multiplier = clamp(reactivity_multiplier, 1, REACTIVITY_COEFFICIENT_CAP)
 
-	final_heat *= (operating_rate * (reactivity_multiplier * 2) * HEAT_MODIFIER) // proportionally affects heat more
-	final_power *= (operating_rate * reactivity_multiplier)
+	final_heat *= (reactivity_multiplier * 2) * HEAT_MODIFIER // proportionally affects heat more
+	final_power *= reactivity_multiplier
 
 	final_power = max(final_power, 0) // no negative numbers
 
 	var/heat_capacity = air_contents.heat_capacity()
 	if(heat_capacity)
 		if(temp < minimum_operating_temp)
-			air_contents.set_temperature(temp + 100) // RAPIDLY reach our minimum temperature
+			air_contents.set_temperature(max(temp + (final_heat / heat_capacity), temp + 200)) // RAPIDLY reach our minimum temperature or our normal heat gen. Whichever is higher
+		else if( temp > HEAT_CAP)
+			air_contents.set_temperature(temp + rand(3, 20)) // cap it but slowly gain until we get it down
 		else
 			air_contents.set_temperature(max(temp + (final_heat / heat_capacity), temp + 2))
 
@@ -664,6 +671,8 @@
 
 	if(air_contents.temperature() > (heat_damage_threshold * 0.8))
 		return SUPERMATTER_NOTIFY
+
+	return SUPERMATTER_NORMAL
 
 /obj/machinery/atmospherics/fission_reactor/proc/shut_off()
 	starting_up = TRUE
@@ -837,7 +846,7 @@
 	minimum_operating_temp = 0
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 		if(chamber.chamber_state != CHAMBER_DOWN)
-			return
+			continue
 		if(!chamber.held_rod.minimum_temp_modifier)
 			continue
 		else if(chamber.held_rod.minimum_temp_modifier > minimum_operating_temp)
@@ -933,7 +942,6 @@
 
 /obj/machinery/atmospherics/reactor_chamber/Destroy()
 	QDEL_NULL(held_rod)
-	check_minimum_modifier()
 	if(linked_reactor)
 		desync()
 	return ..()
@@ -1139,16 +1147,16 @@
 	message += ""
 
 	if(power_total && operational)
-		message += "<span class='notice'>The chamber is currently producing [(power_total * operating_rate * durability_mod) / 100] KiloWatts of energy.</span>"
+		message += "<span class='notice'>The chamber is currently producing [(power_total * operating_rate * durability_mod) / 1000] KiloWatts of energy.</span>"
 		message += "<span class='notice'>The chamber has a power modifier of [power_mod_total].</span>"
 	else
 		message += "<span class='notice'>The chamber is producing no power.</span>"
 	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
 		var/obj/item/nuclear_rod/fuel/rod = held_rod
 		if(rod.power_enrich_progress >= rod.enrichment_cycles && rod.power_enrich_result)
-			message += "<span class='notice'>[src] has been power enriched</span>"
+			message += "<span class='notice'>[held_rod] has been power enriched</span>"
 		else
-			message += "<span class='notice'>[src] has not yet finished a power enrichment process.</span>"
+			message += "<span class='notice'>[held_rod] has not yet finished a power enrichment process.</span>"
 
 	message += ""
 
@@ -1160,9 +1168,9 @@
 	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
 		var/obj/item/nuclear_rod/fuel/rod = held_rod
 		if(rod.heat_enrich_progress >= rod.enrichment_cycles && rod.heat_enrich_result)
-			message += "<span class='notice'>[src] has been heat enriched</span>"
+			message += "<span class='notice'>[held_rod] has been heat enriched</span>"
 		else
-			message += "<span class='notice'>[src] has not yet finished a heat enrichment process.</span>"
+			message += "<span class='notice'>[held_rod] has not yet finished a heat enrichment process.</span>"
 
 	to_chat(user, chat_box_examine(message.Join("<br>")))
 	return ITEM_INTERACT_COMPLETE
@@ -1197,6 +1205,8 @@
 /obj/machinery/atmospherics/reactor_chamber/proc/lower(playsound = TRUE)
 	density = FALSE
 	layer = BELOW_OBJ_LAYER
+	if(playsound)
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 	if(linked_reactor.safety_override)
 		chamber_state = CHAMBER_OVERLOAD_IDLE
 		icon_state = "chamber_overload"
@@ -1216,8 +1226,6 @@
 			requirements_met = FALSE
 		check_minimum_modifier()
 	update_icon()
-	if(playsound)
-		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 
 /obj/machinery/atmospherics/reactor_chamber/proc/close(playsound = TRUE)
 	chamber_state = CHAMBER_UP
@@ -1410,18 +1418,21 @@
 	environment.set_temperature(temp + heat_change)
 
 /// Calculate how much heat and energy we should be making
-/obj/machinery/atmospherics/reactor_chamber/proc/calculate_stats()
-	power_total = held_rod.power_amount
-	heat_total = held_rod.heat_amount
+/obj/machinery/atmospherics/reactor_chamber/proc/calculate_stats(operating_rate = 0)
+	power_total = (held_rod.power_amount * operating_rate)
+	heat_total = (held_rod.heat_amount * operating_rate)
 
 	power_mod_total = 1
 	heat_mod_total = 1
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
 		if(!chamber.held_rod || chamber.chamber_state == CHAMBER_OPEN)
 			continue
-		heat_mod_total *= chamber.held_rod.current_power_mod  // we generate heat even when its not operational
-		if(operational && chamber.chamber_state != CHAMBER_DOWN)
-			power_mod_total *= chamber.held_rod.current_heat_mod
+		if(held_rod.heat_amount > 0) // no negatives amplified here.
+			heat_mod_total *= chamber.held_rod.current_heat_mod // we generate heat even when its not operational
+		if(operational && chamber.chamber_state == CHAMBER_DOWN)
+			if(held_rod.power_amount > 0) // no negatives amplified here.
+				power_mod_total *= chamber.held_rod.current_power_mod
+
 	power_total *= power_mod_total
 	heat_total *= heat_mod_total
 
