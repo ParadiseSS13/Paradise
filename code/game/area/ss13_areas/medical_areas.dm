@@ -4,6 +4,7 @@
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	min_ambience_cooldown = 90 SECONDS
 	max_ambience_cooldown = 180 SECONDS
+	airlock_wires = /datum/wires/airlock/medbay
 
 /area/station/medical/medbay
 	name = "\improper Medbay"
