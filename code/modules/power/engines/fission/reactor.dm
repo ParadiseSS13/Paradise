@@ -15,7 +15,7 @@
 
 #define EVENT_MODIFIER 0.1 // multiplies the commonality of dangerous events.
 
-#define HEAT_MODIFIER 300 // a flat multiplier. Higher = more heat production.
+#define HEAT_MODIFIER 400 // a flat multiplier. Higher = more heat production.
 #define HEAT_CAP 50000 // the highest temp before we artificially cap it
 #define AVERAGE_HEAT_THRESHOLD 30 // The threshold the average heat-per-rod must exceed to generate coefficient.
 #define TOTAL_HEAT_THRESHOLD 600 // the temp (in K) needed to begin generating coefficient.
@@ -48,13 +48,18 @@
 #define CHAMBER_HEAT_DAMAGE 6 // How much damage reactor chambers do when on.
 
 
+// ========= MONITOR =========
 // fix the neighbor finding
+
+
+// ========= TO DO ==========
 // look into stat modifiers apply to themself
 // fix gas node deconstruction
 // fix chamber welding
 // fix remote ripley interactions with chambers
 // adjust damage, its too slow (previously 3)
 // implement heat cap, its too silly (800,000,000K)
+// implement ways to increase the maximum overheat cap
 
 // todo: Allow grilling on an active reactor
 // todo: Make some lavaland loot into special rods/upgrades
@@ -173,7 +178,6 @@
 	radio.config(list("Engineering" = 0))
 	if(primary_engine)
 		GLOB.main_fission_reactor = src
-	build_reactor_network()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/fission_reactor/ex_act(severity)
@@ -210,7 +214,7 @@
 	for(var/turf/T in RECT_TURFS(1, 2, src))
 		for(var/obj/machinery/atmospherics/reactor_chamber/chamber in T)
 			if(!chamber.linked_reactor && !chamber.skip_link)
-				chamber.form_link(src)
+				chamber.find_link(src)
 
 
 /obj/machinery/atmospherics/fission_reactor/proc/clear_reactor_network(restart = FALSE)
@@ -883,6 +887,10 @@
 	var/enriching = FALSE
 	/// Has the chamber been welded shut. Uh oh!
 	var/welded = FALSE
+	/// Holds the current accumulated power mod value from its neighbors
+	var/power_mod_total = 1
+	/// Holds the current accumulated power mod value from its neighbors
+	var/heat_mod_total = 1
 
 /obj/machinery/atmospherics/reactor_chamber/Initialize(mapload)
 	. = ..()
@@ -912,34 +920,13 @@
 // needs to be late so it does not initialize before the reactor or the other neighbors are ready
 /obj/machinery/atmospherics/reactor_chamber/LateInitialize()
 	. = ..()
-	if(find_link())
-		get_neighbors()
+	find_link()
 	update_icon(UPDATE_OVERLAYS)
-
-/obj/machinery/atmospherics/reactor_chamber/proc/get_neighbors()
-	if(length(neighbors)) // for when we need to rerun this
-		for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
-			chamber.neighbors -= src
-		neighbors.Cut()
-	var/turf/nearby_turf
-	for(var/direction in GLOB.cardinal)
-		nearby_turf = get_step(src, direction)
-		for(var/obj/machinery/atmospherics/reactor_chamber/chamber in nearby_turf)
-			if(chamber.linked_reactor != linked_reactor)
-				continue
-			if(chamber in neighbors)
-				continue
-			neighbors += chamber
-			continue
-
-// we only want it searching for a link when it is constructed, otherwise the reactor starts the link process.
-/obj/machinery/atmospherics/reactor_chamber/on_construction()
-	. = ..()
 
 /obj/machinery/atmospherics/reactor_chamber/on_deconstruction()
 	if(linked_reactor)
 		desync()
-	if(held_rod)
+	if(held_rod) // we shouldnt be able to decon with this in, but just in case
 		held_rod.forceMove(loc)
 		held_rod = null
 	return ..()
@@ -950,19 +937,6 @@
 	if(linked_reactor)
 		desync()
 	return ..()
-
-///  Removes the chamber from neighbor from its neighborss, and forces them to run status checks
-/obj/machinery/atmospherics/reactor_chamber/proc/desync()
-	if(linked_reactor)
-		linked_reactor.clear_reactor_network(restart = TRUE)
-	if(!length(neighbors))
-		return
-	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
-		chamber.neighbors -= src
-		if(chamber.check_status())
-			chamber.requirements_met = TRUE
-		else
-			chamber.requirements_met = FALSE
 
 /obj/machinery/atmospherics/reactor_chamber/update_icon_state()
 	return
@@ -1036,7 +1010,7 @@
 				to_chat(user, "<span class='warning'>[src] is welded shut. It wont budge!</span>")
 				return
 			var/delay = 1 SECONDS
-			if(!linked_reactor.offline)
+			if(linked_reactor && !linked_reactor.offline)
 				delay = 8 SECONDS
 				if(!is_mecha_occupant(user)) // mech users are unaffected
 					burn_handler(user)
@@ -1129,6 +1103,7 @@
 		else
 			weld_shut()
 		update_icon(UPDATE_OVERLAYS)
+		return ITEM_INTERACT_COMPLETE
 	else
 		if(obj_integrity < max_integrity)
 			to_chat(user, "<span class='warning'>You begin repairing the [src]</span>")
@@ -1137,7 +1112,7 @@
 			obj_integrity = max_integrity // lets make sure we can keep these healthy if need be
 		else
 			to_chat(user, "<span class='warning'>the [src] is not in need of repair</span>")
-			return ITEM_INTERACT_COMPLETE
+		return ITEM_INTERACT_COMPLETE
 
 
 /obj/machinery/atmospherics/reactor_chamber/multitool_act(mob/living/user, obj/item/I)
@@ -1164,13 +1139,13 @@
 	message += ""
 
 	if(power_total && operational)
-		message += "<span class='notice'>The chamber is currently producing [power_total * operating_rate * durability_mod] watts of energy.</span>"
-		message += "<span class='notice'>The chamber has a power modifier of [held_rod.current_power_mod].</span>"
+		message += "<span class='notice'>The chamber is currently producing [(power_total * operating_rate * durability_mod) / 100] KiloWatts of energy.</span>"
+		message += "<span class='notice'>The chamber has a power modifier of [power_mod_total].</span>"
 	else
 		message += "<span class='notice'>The chamber is producing no power.</span>"
-	if(istype(held_rod, /obj/item/nuclear_rod/fuel) && held_rod.power_enrich_result)
+	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
 		var/obj/item/nuclear_rod/fuel/rod = held_rod
-		if(rod.power_enrich_progress >= rod.enrichment_cycles)
+		if(rod.power_enrich_progress >= rod.enrichment_cycles && rod.power_enrich_result)
 			message += "<span class='notice'>[src] has been power enriched</span>"
 		else
 			message += "<span class='notice'>[src] has not yet finished a power enrichment process.</span>"
@@ -1179,12 +1154,12 @@
 
 	if(heat_total)
 		message += "<span class='notice'>The chamber is currently producing [heat_total * HEAT_MODIFIER * operating_rate * durability_mod] joules of heat.</span>"
-		message += "<span class='notice'>The chamber has a heat modifier of [held_rod.current_heat_mod].</span>"
+		message += "<span class='notice'>The chamber has a heat modifier of [heat_mod_total].</span>"
 	else
 		message += "<span class='notice'>The chamber is producing no heat.</span>"
 	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
 		var/obj/item/nuclear_rod/fuel/rod = held_rod
-		if(rod.heat_enrich_progress >= rod.enrichment_cycles && held_rod.heat_enrich_result)
+		if(rod.heat_enrich_progress >= rod.enrichment_cycles && rod.heat_enrich_result)
 			message += "<span class='notice'>[src] has been heat enriched</span>"
 		else
 			message += "<span class='notice'>[src] has not yet finished a heat enrichment process.</span>"
@@ -1272,40 +1247,58 @@
 	icon_state = "chamber_down"
 	update_icon(UPDATE_OVERLAYS)
 
+/// Gets the neighbors of the current chamber, and adds itself to its neighbors. can prompt a cascade of linking
+/obj/machinery/atmospherics/reactor_chamber/proc/get_neighbors()
+	var/turf/nearby_turf
+	for(var/direction in GLOB.cardinal)
+		nearby_turf = get_step(src, direction)
+		for(var/obj/machinery/atmospherics/reactor_chamber/chamber in nearby_turf)
+			if(chamber.linked_reactor && chamber.linked_reactor != linked_reactor) // if for some god forsaken reason we have two
+				continue
+			if((chamber in neighbors) || (src in chamber.neighbors))
+				continue
+			neighbors += chamber
+			chamber.neighbors += src
+			if(!chamber.linked_reactor)
+				chamber.linked_reactor = linked_reactor
+				linked_reactor.connected_chambers += chamber
+				chamber.get_neighbors()
 
-/// Forms the two-way link between the reactor and the chamber, then spreads it
+///  Removes the chamber from neighbor from its neighbors, and forces them to run status checks
+/obj/machinery/atmospherics/reactor_chamber/proc/desync()
+	if(length(neighbors)) // for when we need to rerun this
+		for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
+			chamber.neighbors -= src
+		neighbors.Cut()
+	if(linked_reactor)
+		linked_reactor.connected_chambers -= src
+
+/// Forms the two-way link between the reactor and the chamber, then searches for valid neighbors.
 /obj/machinery/atmospherics/reactor_chamber/proc/form_link(obj/machinery/atmospherics/fission_reactor/reactor)
-	if(linked_reactor || skip_link) // A check to prevent duplicates or unwanted chambers
+	if(linked_reactor || skip_link) // prevent duplicate linking or unwanted chambers
 		return
 	linked_reactor = reactor
 	if(!(src in linked_reactor.connected_chambers))
-		reactor.connected_chambers += src
-	spread_link(reactor)
-
-/// Will spread the linked reactor to other nearby chambers
-/obj/machinery/atmospherics/reactor_chamber/proc/spread_link(obj/machinery/atmospherics/fission_reactor/reactor)
-	var/turf/nearby_turf
-	for(var/direction in GLOB.cardinal)
-		nearby_turf = get_step(src, direction)
-		for(var/obj/machinery/atmospherics/reactor_chamber/chamber in nearby_turf.contents)
-			if(!chamber.linked_reactor)
-				chamber.form_link(reactor)
+		linked_reactor.connected_chambers += src
+	get_neighbors()
 
 /// Searches for a valid reactor or linked chamber nearby
 /obj/machinery/atmospherics/reactor_chamber/proc/find_link()
+	if(linked_reactor) // we already have a linked reactor
+		return
 	var/turf/nearby_turf
 	for(var/direction in GLOB.cardinal)
 		nearby_turf = get_step(src, direction)
-		for(var/obj/machinery/atmospherics/reactor_chamber/chamber in nearby_turf.contents)
-			if(chamber.linked_reactor)
-				form_link(chamber.linked_reactor)
-				return TRUE
 		for(var/obj/machinery/atmospherics/fission_reactor/reactor in nearby_turf.contents)
 			form_link(reactor)
 			return TRUE
 		for(var/obj/structure/filler/filler in nearby_turf.contents)
 			if(filler.parent && istype(filler.parent, /obj/machinery/atmospherics/fission_reactor))
 				form_link(filler.parent)
+				return TRUE
+		for(var/obj/machinery/atmospherics/reactor_chamber/chamber in nearby_turf.contents)
+			if(chamber.linked_reactor)
+				form_link(chamber.linked_reactor)
 				return TRUE
 	return FALSE
 
@@ -1421,12 +1414,16 @@
 	power_total = held_rod.power_amount
 	heat_total = held_rod.heat_amount
 
+	power_mod_total = 1
+	heat_mod_total = 1
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in neighbors)
 		if(!chamber.held_rod || chamber.chamber_state == CHAMBER_OPEN)
 			continue
-		heat_total *= held_rod.current_power_mod  // we generate heat even when its not operational
+		heat_mod_total *= chamber.held_rod.current_power_mod  // we generate heat even when its not operational
 		if(operational && chamber.chamber_state != CHAMBER_DOWN)
-			power_total *= held_rod.current_heat_mod
+			power_mod_total *= chamber.held_rod.current_heat_mod
+	power_total *= power_mod_total
+	heat_total *= heat_mod_total
 
 /obj/machinery/atmospherics/reactor_chamber/proc/eject_rod()
 	raise(FALSE)
@@ -1537,6 +1534,7 @@
 	origin_tech = "engineering=2"
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/sheet/metal = 2,
 		/obj/item/stack/sheet/mineral/plastitanium = 2,
 	)

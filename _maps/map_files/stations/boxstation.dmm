@@ -12431,16 +12431,13 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/table/reinforced,
-/obj/item/rpd/bluespace{
-	pixel_y = 7;
-	pixel_x = 6
-	},
-/obj/item/rpd/bluespace{
-	pixel_y = 4;
-	pixel_x = 3
-	},
-/obj/item/rpd/bluespace,
+/obj/structure/shelf/engineering,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -46593,6 +46590,12 @@
 /obj/effect/turf_decal/stripes,
 /turf/simulated/floor/plasteel,
 /area/station/medical/sleeper)
+"duO" = (
+/obj/machinery/atmospherics/reactor_chamber/heavy_water,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "dvc" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -74338,7 +74341,13 @@
 	},
 /area/station/security/permabrig)
 "qYl" = (
-/obj/mecha/working/ripley,
+/obj/structure/shelf/engineering,
+/obj/item/storage/box/stockparts/basic,
+/obj/item/storage/box/stockparts/basic,
+/obj/item/storage/box/stockparts/basic,
+/obj/item/storage/box/stockparts/basic,
+/obj/item/storage/box/stockparts/basic,
+/obj/item/storage/box/stockparts/basic,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -77690,7 +77699,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "sKE" = (
-/obj/machinery/atmospherics/reactor_chamber,
+/obj/machinery/atmospherics/reactor_chamber/uranium,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -78138,6 +78147,15 @@
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/command/office/hop)
+"sXG" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/mecha/working/ripley,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "sXR" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -78823,12 +78841,6 @@
 /area/station/medical/surgery/primary)
 "tsW" = (
 /obj/structure/shelf/engineering,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -86410,6 +86422,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"xlN" = (
+/obj/structure/shelf/engineering,
+/obj/item/storage/part_replacer/bluespace,
+/obj/item/storage/part_replacer/bluespace,
+/obj/item/storage/part_replacer/bluespace,
+/obj/item/rpd/bluespace,
+/obj/item/rpd/bluespace,
+/obj/item/rpd/bluespace,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "xlR" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -116177,7 +116201,7 @@ qLK
 rJr
 kKx
 ujp
-pzj
+xlN
 wkI
 ePY
 ePY
@@ -117209,11 +117233,11 @@ ePY
 ePY
 koL
 ePY
-sKE
-sKE
+duO
+duO
 qLY
-sKE
-sKE
+duO
+duO
 ePY
 ePY
 ePY
@@ -118237,11 +118261,11 @@ dTn
 ePY
 koL
 ePY
-sKE
-sKE
+duO
+duO
 heQ
-sKE
-sKE
+duO
+duO
 ePY
 ePY
 ePY
@@ -119519,8 +119543,8 @@ cYQ
 vmQ
 kfW
 urs
-ePY
-rWB
+pzj
+sXG
 ePY
 hQh
 tWb
