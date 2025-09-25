@@ -46590,12 +46590,6 @@
 /obj/effect/turf_decal/stripes,
 /turf/simulated/floor/plasteel,
 /area/station/medical/sleeper)
-"duO" = (
-/obj/machinery/atmospherics/reactor_chamber/heavy_water,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "dvc" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -66334,6 +66328,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools/auxiliary)
+"nfu" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/mecha/working/ripley,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "nfE" = (
 /obj/machinery/shower/directional/west,
 /turf/simulated/floor/noslip,
@@ -70170,6 +70173,18 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"oYj" = (
+/obj/structure/shelf/engineering,
+/obj/item/storage/part_replacer/bluespace,
+/obj/item/storage/part_replacer/bluespace,
+/obj/item/storage/part_replacer/bluespace,
+/obj/item/rpd/bluespace,
+/obj/item/rpd/bluespace,
+/obj/item/rpd/bluespace,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "oYC" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -77699,7 +77714,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "sKE" = (
-/obj/machinery/atmospherics/reactor_chamber/uranium,
+/obj/machinery/atmospherics/reactor_chamber/heavy_water,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -78147,15 +78162,6 @@
 	},
 /turf/simulated/floor/carpet/grimey,
 /area/station/command/office/hop)
-"sXG" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/mecha/working/ripley,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "sXR" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -78840,7 +78846,7 @@
 	},
 /area/station/medical/surgery/primary)
 "tsW" = (
-/obj/structure/shelf/engineering,
+/obj/machinery/atmospherics/reactor_chamber/uranium,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -86422,18 +86428,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"xlN" = (
-/obj/structure/shelf/engineering,
-/obj/item/storage/part_replacer/bluespace,
-/obj/item/storage/part_replacer/bluespace,
-/obj/item/storage/part_replacer/bluespace,
-/obj/item/rpd/bluespace,
-/obj/item/rpd/bluespace,
-/obj/item/rpd/bluespace,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "xlR" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -116201,7 +116195,7 @@ qLK
 rJr
 kKx
 ujp
-xlN
+oYj
 wkI
 ePY
 ePY
@@ -116458,7 +116452,7 @@ cYQ
 cSU
 dNX
 fQx
-tsW
+ePY
 koL
 ePY
 ePY
@@ -116976,11 +116970,11 @@ ePY
 ePY
 jar
 ePY
-sKE
-sKE
+tsW
+tsW
 wgs
-sKE
-sKE
+tsW
+tsW
 ePY
 ePY
 ePY
@@ -117233,11 +117227,11 @@ ePY
 ePY
 koL
 ePY
-duO
-duO
+sKE
+sKE
 qLY
-duO
-duO
+sKE
+sKE
 ePY
 ePY
 ePY
@@ -117490,11 +117484,11 @@ ePY
 ePY
 koL
 ePY
-sKE
-sKE
+tsW
+tsW
 ePY
-sKE
-sKE
+tsW
+tsW
 ePY
 ePY
 ePY
@@ -118004,11 +117998,11 @@ cef
 ePY
 koL
 ePY
-sKE
-sKE
+tsW
+tsW
 ePY
-sKE
-sKE
+tsW
+tsW
 ePY
 ePY
 ePY
@@ -118261,11 +118255,11 @@ dTn
 ePY
 koL
 ePY
-duO
-duO
+sKE
+sKE
 heQ
-duO
-duO
+sKE
+sKE
 ePY
 ePY
 ePY
@@ -118518,11 +118512,11 @@ dTn
 ePY
 koL
 ePY
-sKE
-sKE
+tsW
+tsW
 wgs
-sKE
-sKE
+tsW
+tsW
 ePY
 ePY
 ePY
@@ -119544,7 +119538,7 @@ vmQ
 kfW
 urs
 pzj
-sXG
+nfu
 ePY
 hQh
 tWb
