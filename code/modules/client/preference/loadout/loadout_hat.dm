@@ -345,3 +345,7 @@
 /datum/gear/hat/chaplain/kippah
 	display_name = "Kippah"
 	path = /obj/item/clothing/head/kippah
+
+/datum/gear/hat/wizard
+	display_name = "Wizard hat"
+	path = /obj/item/clothing/head/wizard/fake
