@@ -200,19 +200,19 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	severity = EVENT_LEVEL_MAJOR
 	available_events = list(
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/nothing, 275),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/carp_migration, 10, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/carp_migration, 13, TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR,	/datum/event/prison_break/station,	10),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/apc_overload,	11),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/meteor_wave, 9, TRUE, _first_run_time = 40 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/abductor, 12, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/traders, 13, is_one_shot = TRUE, _first_run_time = 35 MINUTES),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter, 13, is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 13, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter, 8, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 8, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 9, TRUE, _first_run_time = 40 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/demon_incursion, 10, TRUE, _first_run_time = 35 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/disease_outbreak, 6, TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/revenant, 10),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_morph, 17, is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/revenant, 9),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_morph, 16, is_one_shot = TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR,	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR,	/datum/event/spawn_pulsedemon,	20,	is_one_shot = TRUE)
 	)
