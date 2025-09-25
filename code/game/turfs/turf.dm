@@ -750,7 +750,8 @@
 	var/datum/gas_mixture/air
 	var/fuel_burnt = 0
 	if(isnull(active_hotspot))
-		SSblackbox.record_feedback("tally", "hotspot_creation_zlevel", 1, "[z]")
+		var/area/A = get_area(src)
+		SSblackbox.record_feedback("tally", "hotspot_creation_area", 1, istype(A) ? "[A.type]" : "UNKNOWN")
 		active_hotspot = new(src)
 		active_hotspot.update_interval = max(1, floor(length(SSair.hotspots) / 1000))
 		active_hotspot.update_tick = rand(0, active_hotspot.update_interval - 1)
