@@ -146,7 +146,7 @@
 		return .
 
 	for(var/atom/movable/hearable as anything in hearables_from_grid)
-		if (get_dist(center_turf, hearable) <= range)
+		if(get_dist(center_turf, hearable) <= range)
 			. += hearable
 
 	return .
