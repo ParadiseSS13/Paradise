@@ -781,7 +781,7 @@ GLOBAL_LIST_INIT(special_role_times, list(
 		var numpad = (95 < e.keyCode && e.keyCode < 112) ? 1 : 0;
 		var escPressed = e.keyCode == 27 ? 1 : 0;
 		var number = 0;
-		if(e.keyCode >= 48 && e.keyCode <= 57 ) {
+		if(e.keyCode >= 48 && e.keyCode <= 57) {
 			number = e.keyCode - 48;
 			var url = 'byond://?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(old)];clear_key='+escPressed+';key='+number+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
 		}else {
