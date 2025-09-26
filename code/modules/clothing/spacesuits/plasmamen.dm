@@ -55,8 +55,6 @@
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
 	if(!up)
 		icon_state = base_icon_state
-	//else
-	//	icon_state = "[base_icon_state][on ? "-light":""]"
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
 	. = ..()
