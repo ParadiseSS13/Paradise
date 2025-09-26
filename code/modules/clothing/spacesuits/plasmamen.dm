@@ -275,9 +275,9 @@
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/examine(mob/user)
 	. = ..()
 	if(!reskinned)
-		. += "<span class='notice'>You can <b>Alt-Click</b> to reskin it when held.</span>"
+		. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> to reskin it when held.</span>"
 
-/obj/item/clothing/head/helmet/space/plasmaman/tacticool/AltClick(mob/user)
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool/CtrlShiftClick(mob/user)
 	..()
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
