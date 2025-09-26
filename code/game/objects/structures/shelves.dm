@@ -118,6 +118,12 @@ GLOBAL_LIST_INIT(shelf_colors, list("basic", "sci", "sup", "serv", "med", "sec",
 	shelf_style = "clockwork"
 	build_stack_type = /obj/item/stack/tile/brass
 
+/obj/structure/shelf/wood
+	name = "wooden shelf"
+	icon_state = "shelf_wood"
+	shelf_style = "wood"
+	build_stack_type = /obj/item/stack/sheet/wood
+
 /obj/structure/gunrack
 	name = "gun rack"
 	desc = "A rack for stowing firearms."
