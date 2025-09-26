@@ -1372,7 +1372,7 @@
 				/datum/reagent/medicine/sterilizine = 10)
 	category = CAT_MISC
 
-/datum/crafting_recipe/regenerative_mesh
+/datum/crafting_recipe/advanced_regenerative_mesh
 	name = "Advanced regenerative mesh"
 	result = list(/obj/item/stack/medical/suture/regen_mesh/advanced)
 	reqs = list(/obj/item/biomesh = 1,
