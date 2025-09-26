@@ -54,7 +54,7 @@
 		/obj/item/pen = 55
 	)
 
-	time = 2.5 SECONDS
+	time = 1.25 SECONDS
 	repeatable = TRUE
 
 	preop_sound = 'sound/surgery/retractor2.ogg'
@@ -116,12 +116,8 @@
 	var/outer_msg = "[user] succeeds in fixing some of [target]'s [damage_name_pretty]"
 	var/self_msg = "You successfully manage to patch up some of [target]'s [damage_name_pretty]"
 
-	if(target.stat == DEAD) //dead patients get way less additional heal from the damage they have.
-		brute_healed += round((target.getBruteLoss() * (brute_damage_healmod * 0.2)), 0.1)
-		burn_healed += round((target.getFireLoss() * (burn_damage_healmod * 0.2)), 0.1)
-	else
-		brute_healed += round((target.getBruteLoss() * brute_damage_healmod), 0.1)
-		burn_healed += round((target.getFireLoss() * burn_damage_healmod), 0.1)
+	brute_healed += round((sqrt(target.getBruteLoss()) * brute_damage_healmod), 0.1)
+	burn_healed += round((sqrt(target.getFireLoss()) * burn_damage_healmod), 0.1)
 
 	if(!get_location_accessible(target, target_zone))
 		brute_healed *= 0.55
@@ -154,8 +150,8 @@
 	var/burn_dealt = burn_damage_healed * 0.8
 	var/brute_dealt = brute_damage_healed * 0.8
 
-	brute_dealt += round((target.getBruteLoss() * (brute_damage_healmod * 0.5)), 0.1)
-	burn_dealt += round((target.getFireLoss() * (burn_damage_healmod * 0.5)), 0.1)
+	brute_dealt += round((sqrt(target.getBruteLoss()) * (brute_damage_healmod * 0.5)), 0.1)
+	burn_dealt += round((sqrt(target.getFireLoss()) * (burn_damage_healmod * 0.5)), 0.1)
 
 	target.take_overall_damage(brute_dealt, burn_dealt)
 
@@ -179,8 +175,8 @@
 
 /datum/surgery_step/heal/brute
 	name = "tend wounds"
-	brute_damage_healed = 5
-	brute_damage_healmod = 0.07
+	brute_damage_healed = 7
+	brute_damage_healmod = 0.35
 
 /datum/surgery_step/heal/brute/get_progress(mob/user, mob/living/carbon/target, brute_healed, burn_healed)
 	if(!brute_healed)
@@ -213,8 +209,8 @@
 /datum/surgery_step/heal/burn
 	name = "treat burns"
 	damage_name_pretty = "burns"
-	burn_damage_healed = 5
-	burn_damage_healmod = 0.07
+	burn_damage_healed = 7
+	burn_damage_healmod = 0.35
 
 /********************BURN STEPS********************/
 /datum/surgery_step/heal/burn/get_progress(mob/living/user, mob/living/carbon/target, brute_healed, burn_healed)

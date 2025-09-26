@@ -9,11 +9,11 @@
 	density = TRUE
 	pressure_resistance = 5 * ONE_ATMOSPHERE
 
-/obj/structure/ore_box/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/ore_box/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/stack/ore))
-		if(!user.drop_item())
-			return
-		W.forceMove(src)
+		if(user.drop_item())
+			W.forceMove(src)
+		return ITEM_INTERACT_COMPLETE
 	else if(isstorage(W))
 		var/obj/item/storage/S = W
 		S.hide_from(user)
@@ -21,6 +21,7 @@
 			for(var/obj/item/stack/ore/O in S.contents)
 				S.remove_from_storage(O, src) //This will move the item to this item's contents
 			to_chat(user, "<span class='notice'>You empty the satchel into the box.</span>")
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 
