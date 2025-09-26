@@ -1258,16 +1258,6 @@
 "Kg" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/drakehound_mine/ship)
-"Kw" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/power/solar{
-	name = "Starboard Solar Array"
-	},
-/turf/space,
-/area/ruin/space/unpowered/no_grav)
 "Kx" = (
 /turf/simulated/wall/mineral/titanium/survival/pod,
 /area/ruin/drakehound_mine/ship)
@@ -3781,7 +3771,7 @@ Hc
 BV
 BV
 Pq
-Kw
+BV
 BV
 BV
 sW
