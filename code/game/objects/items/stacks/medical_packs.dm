@@ -608,7 +608,6 @@
 	desc = "A lattice of easily-dissolved plastics used to hold gels in place over open wounds."
 	icon = 'icons/obj/medical.dmi'
 	icon_state = "biomesh"
-	force = 0
 	hitsound = null
 	w_class = WEIGHT_CLASS_TINY
 
