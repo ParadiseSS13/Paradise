@@ -774,22 +774,22 @@ GLOBAL_LIST_INIT(special_role_times, list(
 	<script>
 	var deedDone = false;
 	document.onkeyup = function(e) {
-        if(deedDone){ return; }
-        var alt = e.altKey ? 1 : 0;
-        var ctrl = e.ctrlKey ? 1 : 0;
-        var shift = e.shiftKey ? 1 : 0;
-        var numpad = (95 < e.keyCode && e.keyCode < 112) ? 1 : 0;
-        var escPressed = e.keyCode == 27 ? 1 : 0;
-        var number = 0;
-        if (e.keyCode >= 48 && e.keyCode <= 57 ) {
-            number = e.keyCode - 48;
-            var url = 'byond://?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(old)];clear_key='+escPressed+';key='+number+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
-        } else {
-            var url = 'byond://?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(old)];clear_key='+escPressed+';key='+encodeURIComponent(e.key)+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
-        }
-        window.location=url;
-        deedDone = true;
-    }
+		if(deedDone){ return; }
+		var alt = e.altKey ? 1 : 0;
+		var ctrl = e.ctrlKey ? 1 : 0;
+		var shift = e.shiftKey ? 1 : 0;
+		var numpad = (95 < e.keyCode && e.keyCode < 112) ? 1 : 0;
+		var escPressed = e.keyCode == 27 ? 1 : 0;
+		var number = 0;
+		if(e.keyCode >= 48 && e.keyCode <= 57 ) {
+			number = e.keyCode - 48;
+			var url = 'byond://?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(old)];clear_key='+escPressed+';key='+number+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
+		}else {
+			var url = 'byond://?_src_=prefs;preference=keybindings;set=[KB.UID()];old=[url_encode(old)];clear_key='+escPressed+';key='+encodeURIComponent(e.key)+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
+		}
+		window.location=url;
+		deedDone = true;
+	}
 	document.getElementById('focus').focus();
 	</script>
 	"}
