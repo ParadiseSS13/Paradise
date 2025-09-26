@@ -453,5 +453,5 @@
 	contains = list(/obj/machinery/bottler)
 	cost = 150
 	containertype = /obj/structure/largecrate
-	containername = "Bottler Unit Crate
+	containername = "Bottler Unit Crate"
 	
