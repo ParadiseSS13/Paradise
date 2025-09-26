@@ -291,6 +291,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/machinery/economy/vending/wallmed/directional/south,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/skullakin_mine/arrivals)
 "gr" = (
@@ -1049,8 +1050,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
 "yP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/spawner/window/plasma/grilled,
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating{
 	desc = "<br>There is some old writing on this floor. You are barely able to read out a few lines from a tangled scribble.<br><br>In a chamber a great mirror lies, cut away it solemn cries. Travel bold as thou might, piercing vastness as a kite.<br><br>HONK!<br>";
 	name = "Old Note #6"
@@ -1077,10 +1078,10 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin)
 "zm" = (
-/obj/machinery/computer/loreconsole,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/computer/loreconsole/skullakin_mine/security_checkpoint,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/skullakin_mine/arrivals)
 "zq" = (
@@ -1322,10 +1323,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
-"FD" = (
-/mob/living/simple_animal/hostile/retaliate/carp/koi/honk,
-/turf/space,
-/area/space)
 "FO" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plasteel,
@@ -1466,6 +1463,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/economy/vending/wallmed/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mission_control)
 "Jj" = (
@@ -1828,10 +1826,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/temple)
-"SK" = (
-/mob/living/simple_animal/hostile/retaliate/carp/koi,
-/turf/space,
-/area/space)
 "Ta" = (
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/temple)
@@ -3530,7 +3524,7 @@ aU
 aU
 aU
 CN
-SK
+CN
 CN
 th
 cV
@@ -3621,7 +3615,7 @@ zy
 rf
 CN
 CN
-FD
+CN
 CN
 CN
 CN
@@ -3761,7 +3755,7 @@ qa
 uA
 pd
 CN
-SK
+CN
 CN
 aU
 aU
@@ -4137,7 +4131,7 @@ jN
 Ov
 pd
 CN
-SK
+CN
 rf
 rf
 cN
@@ -4274,7 +4268,7 @@ TO
 UK
 yP
 vI
-SK
+CN
 CN
 CN
 CN
@@ -4371,7 +4365,7 @@ rf
 rf
 rf
 CN
-SK
+CN
 CN
 CN
 CN
