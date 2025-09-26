@@ -449,7 +449,7 @@
 	containername = "beekeeper suits"
 
 /datum/supply_packs/organic/bottler
-	name = "Bottler Unit"
+	name = "Bottler Unit Crate"
 	contains = list(/obj/machinery/bottler)
 	cost = 150
 	containertype = /obj/structure/largecrate
