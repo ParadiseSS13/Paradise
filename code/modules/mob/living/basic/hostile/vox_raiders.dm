@@ -47,7 +47,7 @@
 	set_default_language(GLOB.all_languages["Vox-pidgin"])
 	AddComponent(/datum/component/aggro_emote, aggro_sound = 'sound/voice/shriek1.ogg', emote_chance = 100)
 	if(prob(50))
-		loot.Add(/obj/item/salvage/loot/pirate)
+		loot.Add(/obj/item/salvage/loot/vox)
 	if(prob(25))
 		loot.Add(/obj/item/gun/energy/plasmacutter)
 
@@ -79,10 +79,9 @@
 	ranged_burst_interval = 0.5 SECONDS
 	ranged_cooldown = 2.5 SECONDS
 	loot = list(
+			/obj/item/salvage/loot/vox,
+			/obj/item/salvage/loot/vox,
 			/obj/item/salvage/loot/pirate,
-			/obj/item/salvage/loot/pirate,
-			/obj/item/salvage/ruin/carp,
-			/obj/item/salvage/ruin/carp,
 			/obj/item/salvage/ruin/pirate,
 			/obj/effect/mob_spawn/human/corpse/vox_miner,
 			/obj/effect/decal/cleanable/blood/innards/vox,
@@ -109,6 +108,7 @@
 		BB_TARGET_MINIMUM_STAT = UNCONSCIOUS,
 		BB_RANGED_SKIRMISH_MIN_DISTANCE = 2,
 		BB_RANGED_SKIRMISH_MAX_DISTANCE = 4,
+		BB_AGGRO_RANGE = 4,
 	)
 	ai_movement = /datum/ai_movement/jps
 	planning_subtrees = list(
@@ -127,6 +127,7 @@
 		BB_TARGET_MINIMUM_STAT = UNCONSCIOUS,
 		BB_RANGED_SKIRMISH_MIN_DISTANCE = 3,
 		BB_RANGED_SKIRMISH_MAX_DISTANCE = 6,
+		BB_AGGRO_RANGE = 5,
 	)
 	ai_movement = /datum/ai_movement/jps
 	planning_subtrees = list(
