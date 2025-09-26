@@ -38,7 +38,7 @@
 	is_ranged = TRUE
 	projectile_type = /obj/item/projectile/plasma/adv
 	projectile_sound = 'sound/weapons/laser.ogg'
-	ranged_cooldown = 1.25 SECONDS
+	ranged_cooldown = 1.75 SECONDS
 
 /mob/living/basic/vox_miner/Initialize(mapload)
 	. = ..()
@@ -77,7 +77,7 @@
 	projectile_sound = 'sound/weapons/bladeslice.ogg'
 	ranged_burst_count = 2
 	ranged_burst_interval = 0.5 SECONDS
-	ranged_cooldown = 1.75 SECONDS
+	ranged_cooldown = 2.5 SECONDS
 	loot = list(
 			/obj/item/salvage/loot/pirate,
 			/obj/item/salvage/loot/pirate,
@@ -110,6 +110,7 @@
 		BB_RANGED_SKIRMISH_MIN_DISTANCE = 2,
 		BB_RANGED_SKIRMISH_MAX_DISTANCE = 4,
 	)
+	ai_movement = /datum/ai_movement/jps
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/vox_miner,
 		/datum/ai_planning_subtree/target_retaliate,
@@ -127,6 +128,7 @@
 		BB_RANGED_SKIRMISH_MIN_DISTANCE = 3,
 		BB_RANGED_SKIRMISH_MAX_DISTANCE = 6,
 	)
+	ai_movement = /datum/ai_movement/jps
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/vox_miner,
 		/datum/ai_planning_subtree/target_retaliate,

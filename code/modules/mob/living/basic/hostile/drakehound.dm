@@ -135,6 +135,7 @@
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
 		BB_TARGET_MINIMUM_STAT = UNCONSCIOUS,
 	)
+	ai_movement = /datum/ai_movement/jps
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/drakehound,
 		/datum/ai_planning_subtree/target_retaliate,
@@ -150,6 +151,7 @@
 		BB_RANGED_SKIRMISH_MIN_DISTANCE = 2,
 		BB_RANGED_SKIRMISH_MAX_DISTANCE = 4
 	)
+	ai_movement = /datum/ai_movement/jps
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/drakehound,
 		/datum/ai_planning_subtree/target_retaliate,
@@ -165,6 +167,7 @@
 		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
 		BB_TARGET_MINIMUM_STAT = UNCONSCIOUS,
 	)
+	ai_movement = /datum/ai_movement/jps
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/drakehound,
 		/datum/ai_planning_subtree/target_retaliate,
