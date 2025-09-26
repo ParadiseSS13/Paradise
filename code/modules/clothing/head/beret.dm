@@ -5,6 +5,7 @@
 	icon = 'icons/obj/clothing/head/beret.dmi'
 	icon_state = "beret"
 	worn_icon = 'icons/mob/clothing/head/beret.dmi'
+	monitor_offset_y = 1
 	dog_fashion = /datum/dog_fashion/head/beret
 	sprite_sheets = list(
 		"Kidan" = 'icons/mob/clothing/species/kidan/head/beret.dmi',
