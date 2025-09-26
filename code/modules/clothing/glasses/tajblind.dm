@@ -13,6 +13,7 @@
 	correct_wires = TRUE
 	var/list/modes = list(MODE_OFF = MODE_NATURAL, MODE_NATURAL = MODE_CORRECTION, MODE_CORRECTION = MODE_OFF)
 	var/selected_mode = MODE_CORRECTION
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/eyes.dmi'
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
