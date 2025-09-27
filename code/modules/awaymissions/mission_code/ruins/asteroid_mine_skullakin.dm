@@ -35,8 +35,8 @@
 	name = "Security Checkpoint Console"
 	entries = list(
 		new/datum/lore_console_entry(
-            "Recent Arrivals",
-            {"## INCOMING PERSONNEL
+			"Recent Arrivals",
+			{"## INCOMING PERSONNEL
 
 **Alkkus-Vittari** - Crucible Excavation-Acolyte, Temporary Stay.
 **Viltaskk-Akka** - Crucible Excavation-Acolyte, Temporary Stay.
@@ -63,9 +63,9 @@ Tikka chose to forgive Alkkus. I can't stand him, Alkkus has been nothing but tr
 /obj/machinery/computer/loreconsole/skullakin_mine/monitoring_station
 	name = "Sensor Monitoring Station"
 	entries = list(
-        new/datum/lore_console_entry(
-            "Scanning Station",
-            {"## LOGGED OBJECTS
+		new/datum/lore_console_entry(
+			"Scanning Station",
+			{"## LOGGED OBJECTS
 
 **Demonic Vessel** - A haphazardly repaired space vessel passed by, nearby naval vessels were notified but the abominations didn't seem to notice us.
 
@@ -82,7 +82,7 @@ but Lord Makkath told us to keep quiet.
 **Unknown Debris** - Plasteel debris was seen floating off, we aren't sure where it came from, but it seemed logical to put here."}),
 		new/datum/lore_console_entry(
 			"Operator's Notes",
-            {"This feels strange. We're in Nanotrasen space, but we haven't seen a single corporate vessel in weeks. It's lonely, it doesn't feel right being so far away \
+			{"This feels strange. We're in Nanotrasen space, but we haven't seen a single corporate vessel in weeks. It's lonely, it doesn't feel right being so far away \
 from the Accoriums. The Lord has been doing well to keep morale up though, he's not the best at preaching, but I can tell everyone appreciates the gesture. \
 Though, I spent time talking with Tikka - poor kid doesn't feel like she belongs. They wouldn't stop crying when I tended to her bruises the other day, Skkula forbid we all get along."}))
 
@@ -112,8 +112,8 @@ I think things are finally looking up."}))
 	name = "Mission Control"
 	entries = list(
 		new/datum/lore_console_entry(
-            "Mission Control",
-            {"## RECENT CONVERSATIONS
+			"Mission Control",
+			{"## RECENT CONVERSATIONS
 
 **Grand-Foreman**: Status report, immediately.
 
@@ -141,8 +141,8 @@ I think things are finally looking up."}))
 	name = "Tikka's Computer"
 	entries = list(
 		new/datum/lore_console_entry(
-            "Log 1",
-            {"I'm so scared, my vision is blurry and I won't stop shaking. Lord Makkath let me start up the drill, and it was working for a moment, \
+			"Log 1",
+			{"I'm so scared, my vision is blurry and I won't stop shaking. Lord Makkath let me start up the drill, and it was working for a moment, \
 but it fell through the ground and these things came crawling out. I couldn't move, I woke up something angry and impure, Viltaskk \
 grabbed me and ran. We all tried to slow them down by spinning traps, but there were just too many. Sir Viltaskk threw me in here \
 and told me he'd come back, that felt like hours ago.
@@ -154,13 +154,13 @@ them. I don't know where Altus went, maybe he's still alive?
 Hopefully Makkath called for help, I know he'll get us out of this."}),
 
 		new/datum/lore_console_entry(
-            "Log 2",
-            {"I thought about walking outside and accepting fate today, everything is dead quiet, but I still hear growling and stomping. I can't \
+			"Log 2",
+			{"I thought about walking outside and accepting fate today, everything is dead quiet, but I still hear growling and stomping. I can't \
 stop crying. Hakk-eh, why me? Did I do something wrong? I'm starving and have nothing to eat, but I'm too scared to leave. I want Altus, \
 I want Viltaskk, I wasn't made for this. Please, anybody, demons or constructs, I don't want to die here."}),
 
 		new/datum/lore_console_entry(
-            "Log 3",
-            {"Everythingg is fadingc. It's getbting hardd to bbreathe. I haardly havve the strength ttyo cry anymotrre. Skkula, pleaase help p, I'm sccared. \
+			"Log 3",
+			{"Everythingg is fadingc. It's getbting hardd to bbreathe. I haardly havve the strength ttyo cry anymotrre. Skkula, pleaase help p, I'm sccared. \
 I just want tto gop hoome, pplease. Is thhis a cruuel jjoke, oor wass this ffate? Please gguide me, I ddon't want to makke this jjourney alone. \
 Aare they waiting for me, did they rreach you? Skkula? It's so ccold. Helpp."}))
