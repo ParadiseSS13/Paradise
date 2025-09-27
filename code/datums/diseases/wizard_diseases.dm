@@ -156,7 +156,7 @@
 /datum/disease/wand_rot/proc/sneeze_fireballs()
 	var/fuck_you_dir = pick(GLOB.alldirs)
 	var/turf/target_tile = get_edge_target_turf(affected_mob, fuck_you_dir)
-	var/obj/item/projectile/magic/fireball/FB = new /obj/item/projectile/magic/fireball(affected_mob.loc)
+	var/obj/projectile/magic/fireball/FB = new /obj/projectile/magic/fireball(affected_mob.loc)
 	FB.current = get_turf(affected_mob)
 	FB.original = target_tile
 	FB.firer = affected_mob

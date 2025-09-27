@@ -180,7 +180,7 @@ field_generator energy level display
 	else
 		..()
 
-/obj/machinery/field/generator/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/field/generator/bullet_act(obj/projectile/Proj)
 	if(Proj.flag != BULLET && !Proj.nodamage)
 		energy = min(energy + Proj.damage, FIELD_GENERATOR_MAX_ENERGY)
 		check_energy_level()

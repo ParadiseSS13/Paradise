@@ -44,5 +44,5 @@
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/fireball
 
 /obj/item/ammo_casing/magic/arcane_barrage/fireball
-	projectile_type = /obj/item/projectile/magic/fireball
+	projectile_type = /obj/projectile/magic/fireball
 	muzzle_flash_effect = null

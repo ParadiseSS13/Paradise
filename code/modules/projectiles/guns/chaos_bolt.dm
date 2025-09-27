@@ -5,7 +5,7 @@
 #define CHAOS_STAFF_GIFT_CHANCE 15
 #define CHAOS_STAFF_GREAT_GIFT_CHANCE 5
 
-/obj/item/projectile/magic/chaos
+/obj/projectile/magic/chaos
 	name = "chaos bolt"
 	icon_state = "ice_1"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/chaos
@@ -16,7 +16,7 @@
 	/// Name of random effect to be applied on target mob.
 	var/chaos_effect
 
-/obj/item/projectile/magic/chaos/on_hit(atom/target, blocked = 0)
+/obj/projectile/magic/chaos/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(!.)
 		return
@@ -31,7 +31,7 @@
 			return
 		chaos_chaos(L)
 
-/obj/item/projectile/magic/chaos/Initialize(mapload)
+/obj/projectile/magic/chaos/Initialize(mapload)
 	. = ..()
 	icon_state = pick("bluespace", "pulse1", "magicm", "declone", "fireball", "blood_bolt", "arcane_barrage", "laser", "u_laser")
 
@@ -45,7 +45,7 @@
   * Arguments:
   * * target - mob/living that will have effect applied on them
   */
-/obj/item/projectile/magic/chaos/proc/chaos_chaos(mob/living/target)
+/obj/projectile/magic/chaos/proc/chaos_chaos(mob/living/target)
 	var/category = pick(prob(CHAOS_STAFF_LETHAL_CHANCE);"lethal", prob(CHAOS_STAFF_NEGATIVE_CHANCE);"negative", prob(CHAOS_STAFF_MISC_CHANCE);"misc",\
 		prob(CHAOS_STAFF_GIFT_CHANCE);"gift", prob(CHAOS_STAFF_GREAT_GIFT_CHANCE);"great gift")
 	switch(category)
@@ -96,7 +96,7 @@
 /**
   * Picks and apply a lethal effect on mob/living/target. Some are more instantaneous than others.
   */
-/obj/item/projectile/magic/chaos/proc/apply_lethal_effect(mob/living/target)
+/obj/projectile/magic/chaos/proc/apply_lethal_effect(mob/living/target)
 	if(!ishuman(target))
 		target.visible_message("<span class='chaosverybad'>[target] suddenly dies!</span>", "<span class='chaosverybad'>Game over!</span>")
 		target.death(FALSE)
@@ -176,7 +176,7 @@
 /**
   * Picks and apply a negative effect on mob/living/target. Usually causes damage and/or incapacitating effect.
   */
-/obj/item/projectile/magic/chaos/proc/apply_negative_effect(mob/living/target)
+/obj/projectile/magic/chaos/proc/apply_negative_effect(mob/living/target)
 	if(!ishuman(target))
 		if(prob(50))
 			target.apply_damage(CHAOS_STAFF_DAMAGE, BRUTE)
@@ -263,7 +263,7 @@
 /**
   * Picks and apply a random miscellaneous effect on mob/living/target. Can be negative or mildly positive.
   */
-/obj/item/projectile/magic/chaos/proc/apply_misc_effect(mob/living/target)
+/obj/projectile/magic/chaos/proc/apply_misc_effect(mob/living/target)
 	if(!ishuman(target))
 		chaos_effect = pick("recolor", "bark", "confetti", "smoke", "wand of nothing", "bike horn")
 	else
@@ -314,7 +314,7 @@
 /**
   * Picks a random gift to be given to mob/living/target. Should be mildly useful and/or funny.
   */
-/obj/item/projectile/magic/chaos/proc/apply_gift_effect(mob/living/target)
+/obj/projectile/magic/chaos/proc/apply_gift_effect(mob/living/target)
 	chaos_effect = pick("toy sword", "toy revolver", "cheese", "food", "medkit", "tarot pack", \
 		"insulated gloves", "wand of doors", "golden bike horn", "ban hammer", "banana")
 	switch(chaos_effect)
@@ -354,7 +354,7 @@
 /**
   * Picks a random gift to be given to mob/living/target. Should be valuable and/or threatening to the wizard.
   */
-/obj/item/projectile/magic/chaos/proc/apply_great_gift_effect(mob/living/target)
+/obj/projectile/magic/chaos/proc/apply_great_gift_effect(mob/living/target)
 	chaos_effect = pick("esword", "emag", "chaos wand", "revolver", "aeg", "tarot deck", \
 		"bluespace banana", "banana grenade", "disco ball", "syndicate minibomb", "crystal ball")
 	switch(chaos_effect)

@@ -41,7 +41,7 @@
 
 	set_ready_state(0)
 	for(var/i=1 to get_shot_amount())
-		var/obj/item/projectile/A = new projectile(curloc)
+		var/obj/projectile/A = new projectile(curloc)
 		A.firer = chassis.occupant
 		A.firer_source_atom = src
 		A.original = target
@@ -75,7 +75,7 @@
 	icon_state = "mecha_firedart"
 	origin_tech = "magnets=3;combat=3;engineering=3"
 	energy_drain = 30
-	projectile = /obj/item/projectile/beam
+	projectile = /obj/projectile/beam
 	fire_sound = 'sound/weapons/laser.ogg'
 	harmful = TRUE
 
@@ -85,7 +85,7 @@
 	desc = "A weapon for combat exosuits. Shoots basic disablers."
 	icon_state = "mecha_disabler"
 	energy_drain = 30
-	projectile = /obj/item/projectile/beam/disabler
+	projectile = /obj/projectile/beam/disabler
 	fire_sound = 'sound/weapons/taser2.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
@@ -94,7 +94,7 @@
 	icon_state = "mecha_solaris"
 	origin_tech = "magnets=4;combat=4;engineering=3"
 	energy_drain = 60
-	projectile = /obj/item/projectile/beam/laser/heavylaser
+	projectile = /obj/projectile/beam/laser/heavylaser
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_disabler
@@ -104,7 +104,7 @@
 	icon_state = "mecha_disabler_shotgun"
 	origin_tech = "materials=4;combat=5;"
 	energy_drain = 30 // This is per shot + 1x cost, so 300 per shot
-	projectile = /obj/item/projectile/beam/disabler/pellet
+	projectile = /obj/projectile/beam/disabler/pellet
 	projectiles_per_shot = 9
 	variance = 40
 	fire_sound = 'sound/weapons/taser2.ogg'
@@ -116,7 +116,7 @@
 	icon_state = "mecha_laser_shotgun"
 	origin_tech = "materials=4;combat=5;"
 	energy_drain = 35 // This is per shot + 1x cost, so 560 per shot
-	projectile = /obj/item/projectile/beam/scatter/eshotgun
+	projectile = /obj/projectile/beam/scatter/eshotgun
 	projectiles_per_shot = 15
 	variance = 40
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
@@ -128,7 +128,7 @@
 	icon_state = "mecha_ion"
 	origin_tech = "materials=4;combat=5;magnets=4"
 	energy_drain = 215 // This is per shot + 1x cost, so ~1500 per shotgun shot
-	projectile = /obj/item/projectile/ion/weak
+	projectile = /obj/projectile/ion/weak
 	projectiles_per_shot = 6
 	variance = 40
 	fire_sound = 'sound/weapons/ionrifle.ogg'
@@ -145,7 +145,7 @@
 	icon_state = "mecha_teslacannon"
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 500
-	projectile = /obj/item/projectile/energy/tesla_bolt
+	projectile = /obj/projectile/energy/tesla_bolt
 	fire_sound = 'sound/magic/lightningbolt.ogg'
 	harmful = TRUE
 
@@ -156,7 +156,7 @@
 	icon_state = "mecha_xray"
 	origin_tech = "materials=3;combat=5;magnets=2;syndicate=2"
 	energy_drain = 80
-	projectile = /obj/item/projectile/beam/xray
+	projectile = /obj/projectile/beam/xray
 	fire_sound = 'sound/weapons/laser3.ogg'
 	harmful = TRUE
 
@@ -172,7 +172,7 @@
 	icon_state = "mecha_immolator"
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 80
-	projectile = /obj/item/projectile/beam/immolator
+	projectile = /obj/projectile/beam/immolator
 	fire_sound = 'sound/weapons/laser3.ogg'
 	harmful = TRUE
 
@@ -182,18 +182,18 @@
 	icon_state = "mecha_pulse"
 	energy_drain = 120
 	origin_tech = "materials=3;combat=6;powerstorage=4"
-	projectile = /obj/item/projectile/beam/pulse/hitscan/heavy
+	projectile = /obj/projectile/beam/pulse/hitscan/heavy
 	fire_sound = 'sound/weapons/marauder.ogg'
 	harmful = TRUE
 
 
-/obj/item/projectile/beam/pulse/hitscan/heavy
+/obj/projectile/beam/pulse/hitscan/heavy
 	name = "heavy pulse laser"
 	icon_state = "pulse1_bl"
 	var/life = 20
 
 
-/obj/item/projectile/beam/pulse/hitscan/heavy/Bump(atom/A)
+/obj/projectile/beam/pulse/hitscan/heavy/Bump(atom/A)
 	A.bullet_act(src, def_zone)
 	life -= 10
 	if(ismob(A))
@@ -212,7 +212,7 @@
 	icon_state = "mecha_taser"
 	origin_tech = "combat=3"
 	energy_drain = 20
-	projectile = /obj/item/projectile/energy/electrode
+	projectile = /obj/projectile/energy/electrode
 	fire_sound = 'sound/weapons/taser.ogg'
 	size = 1
 
@@ -303,7 +303,7 @@
 	name = "\improper FNX-66 Carbine"
 	icon_state = "mecha_carbine"
 	origin_tech = "materials=4;combat=4"
-	projectile = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
+	projectile = /obj/projectile/bullet/incendiary/shell/dragonsbreath
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	projectiles = 24
 	projectile_energy_cost = 15
@@ -314,7 +314,7 @@
 	name = "\improper S.H.H. \"Quietus\" Carbine"
 	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
 	icon_state = "mecha_mime"
-	projectile = /obj/item/projectile/bullet/mime/nonlethal
+	projectile = /obj/projectile/bullet/mime/nonlethal
 	projectiles = 20
 	projectile_energy_cost = 50
 
@@ -328,7 +328,7 @@
 	name = "\improper LBX AC 10 \"Scattershot\""
 	icon_state = "mecha_scatter"
 	origin_tech = "combat=4"
-	projectile = /obj/item/projectile/bullet/midbullet2
+	projectile = /obj/projectile/bullet/midbullet2
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	projectiles = 40
 	projectile_energy_cost = 25
@@ -340,14 +340,14 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/syndie //Version used for Dark Gygax
 	name = "\improper LBX AC 20-r \"Scattershot .45\""
 	origin_tech = "combat=4;syndicate=2" //Crew is not going to get it normally anyways
-	projectile = /obj/item/projectile/bullet/midbullet
+	projectile = /obj/projectile/bullet/midbullet
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	equip_cooldown = 1 SECONDS
 	name = "\improper Ultra AC 2"
 	icon_state = "mecha_uac2"
 	origin_tech = "combat=4"
-	projectile = /obj/item/projectile/bullet/weakbullet3
+	projectile = /obj/projectile/bullet/weakbullet3
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	projectiles = 300
 	projectile_energy_cost = 20
@@ -365,7 +365,7 @@
 	name = "\improper SRM-8 Light Missile Rack"
 	icon_state = "mecha_missilerack_six"
 	origin_tech = "combat=5;materials=4;engineering=4"
-	projectile = /obj/item/projectile/missile/light
+	projectile = /obj/projectile/missile/light
 	fire_sound = 'sound/effects/bang.ogg'
 	projectiles = 6
 	projectile_energy_cost = 1000
@@ -376,7 +376,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
 	name = "\improper SRX-13 Heavy Missile Launcher"
 	icon_state = "mecha_missilerack"
-	projectile = /obj/item/projectile/missile
+	projectile = /obj/projectile/missile
 	projectiles = 9
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
@@ -564,7 +564,7 @@
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	energy_drain = 30
 	origin_tech = "materials=3;plasmatech=4;engineering=3"
-	projectile = /obj/item/projectile/plasma/adv/mech
+	projectile = /obj/projectile/plasma/adv/mech
 	fire_sound = 'sound/weapons/laser.ogg'
 	harmful = TRUE
 	equip_cooldown = 1 SECONDS
@@ -579,7 +579,7 @@
 	name = "\improper \"Little boy\" Mining Grenade Launcher"
 	icon_state = "mining_launcher"
 	origin_tech = "combat=5;materials=4;engineering=4"
-	projectile = /obj/item/projectile/bullet/reusable/mining_bomb/mecha
+	projectile = /obj/projectile/bullet/reusable/mining_bomb/mecha
 	fire_sound = 'sound/effects/bang.ogg'
 	energy_drain = 150 // cost a lot, but powerful miner tool
 	equip_cooldown = 2 SECONDS
