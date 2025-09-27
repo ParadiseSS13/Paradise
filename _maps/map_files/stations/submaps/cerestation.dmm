@@ -24,10 +24,10 @@
 	},
 /area/station/hallway/spacebridge/scidock)
 "cM" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/white,
 /area/station/hallway/spacebridge/scidock)
 "dz" = (
 /obj/item/clothing/glasses/science,
@@ -40,15 +40,11 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/station/hallway/spacebridge/scidock)
 "dL" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/station/maintenance/maintcentral)
 "dO" = (
 /obj/machinery/chem_master,
@@ -69,9 +65,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "ho" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/station/hallway/spacebridge/scidock)
 "hA" = (
 /obj/machinery/door/airlock/glass,
@@ -125,10 +119,10 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/white,
 /area/station/hallway/spacebridge/scidock)
 "ny" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped,
@@ -136,9 +130,8 @@
 /area/station/hallway/spacebridge/scidock)
 "nC" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/white,
 /area/station/hallway/spacebridge/scidock)
 "ok" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -172,9 +165,7 @@
 /area/station/hallway/spacebridge/scidock)
 "vx" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/station/hallway/spacebridge/scidock)
 "vC" = (
 /obj/item/reagent_containers/glass/beaker/large{
@@ -186,17 +177,17 @@
 /area/station/hallway/spacebridge/scidock)
 "vM" = (
 /obj/item/kirbyplants/large,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/white,
 /area/station/hallway/spacebridge/scidock)
 "vW" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurplecorner"
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/white,
 /area/station/hallway/spacebridge/scidock)
 "wy" = (
 /turf/simulated/wall,
@@ -214,9 +205,7 @@
 /area/station/hallway/spacebridge/scidock)
 "yu" = (
 /obj/effect/spawner/random/maintenance,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/station/hallway/spacebridge/scidock)
 "zC" = (
 /obj/machinery/door/airlock/glass,
@@ -241,10 +230,10 @@
 /area/station/hallway/spacebridge/scidock)
 "DD" = (
 /obj/structure/chair/comfy/corp,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/white,
 /area/station/hallway/spacebridge/scidock)
 "DV" = (
 /obj/effect/decal/cleanable/dirt,
@@ -285,9 +274,8 @@
 "EZ" = (
 /obj/effect/spawner/random/food_trash,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/white,
 /area/station/hallway/spacebridge/scidock)
 "Fb" = (
 /obj/effect/decal/cleanable/dirt,
@@ -295,9 +283,8 @@
 /area/station/hallway/spacebridge/scidock)
 "Fg" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/white,
 /area/station/maintenance/maintcentral)
 "Id" = (
 /turf/simulated/floor/plating{
@@ -320,9 +307,7 @@
 "Ms" = (
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/station/hallway/spacebridge/scidock)
 "Pe" = (
 /obj/structure/table/reinforced,
@@ -334,10 +319,10 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/white,
 /area/station/hallway/spacebridge/scidock)
 "QJ" = (
 /obj/item/reagent_containers/dropper{
@@ -367,10 +352,10 @@
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/spawner/random/food_trash,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurplecorner"
+/obj/effect/turf_decal/tiles/department/science/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/white,
 /area/station/hallway/spacebridge/scidock)
 "Ss" = (
 /obj/machinery/chem_master,

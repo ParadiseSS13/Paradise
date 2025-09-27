@@ -1,9 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "am" = (
 /obj/structure/closet/freegolem,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
-	},
+/obj/effect/turf_decal/tiles/department/science,
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/freegolem)
 "bq" = (
 /turf/simulated/wall/mineral/titanium,
@@ -25,9 +24,8 @@
 	pixel_x = -2;
 	pixel_y = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitecorner"
-	},
+/obj/effect/turf_decal/tiles/white/corner,
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "bQ" = (
 /obj/machinery/door/airlock/external,
@@ -38,10 +36,10 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "cg" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -56,9 +54,8 @@
 "cQ" = (
 /obj/structure/closet/freegolem,
 /obj/effect/turf_decal/box/white/corners,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
-	},
+/obj/effect/turf_decal/tiles/department/science,
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/freegolem)
 "df" = (
 /obj/machinery/computer/shuttle/golem_ship/recall,
@@ -82,26 +79,26 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/freegolem)
 "fC" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "fQ" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/freegolem)
 "hg" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "hu" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "hL" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
@@ -111,16 +108,15 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "iW" = (
 /obj/machinery/economy/vending/snack/free,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/obj/effect/turf_decal/tiles/white/side,
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "jr" = (
 /obj/effect/mob_spawn/human/alive/golem/adamantine{
@@ -129,18 +125,17 @@
 /obj/effect/turf_decal/box/white/corners{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
-	},
+/obj/effect/turf_decal/tiles/department/science,
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/freegolem)
 "jD" = (
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "jY" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -157,9 +152,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/freegolem)
 "oD" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/freegolem)
 "pa" = (
 /obj/machinery/light/small{
@@ -190,16 +183,15 @@
 	pixel_y = 4;
 	pixel_x = 3
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "rr" = (
 /obj/machinery/economy/vending/hydronutrients,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitecorner"
-	},
+/obj/effect/turf_decal/tiles/white/corner,
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "rY" = (
 /obj/structure/table,
@@ -210,47 +202,44 @@
 	pixel_x = 5;
 	pixel_y = 2
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "tz" = (
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/freegolem)
 "uD" = (
 /obj/structure/ore_box,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitecorner"
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "uR" = (
 /obj/structure/sign/poster/official/random/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/obj/effect/turf_decal/tiles/white/side,
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "uT" = (
 /obj/machinery/economy/vending/hydroseeds,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "vd" = (
 /obj/effect/turf_decal/delivery/blue/hollow,
 /obj/structure/reagent_dispensers/watertank,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "vM" = (
 /obj/structure/table,
@@ -259,10 +248,10 @@
 	pixel_y = 6;
 	pixel_x = -2
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "wp" = (
 /obj/structure/shuttle/engine/heater{
@@ -274,10 +263,10 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/freegolem)
 "wN" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "xj" = (
 /obj/machinery/light/small,
@@ -287,36 +276,35 @@
 /turf/simulated/floor/catwalk,
 /area/shuttle/freegolem)
 "xQ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "whitecorner"
-	},
+/obj/effect/turf_decal/tiles/white/corner,
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "yn" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 27
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitecorner"
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "zn" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "zW" = (
 /obj/structure/table,
 /obj/effect/spawner/random/plushies,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "Aw" = (
 /obj/structure/chair/comfy/purp{
@@ -325,25 +313,24 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/freegolem)
 "AT" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "BU" = (
 /obj/effect/mob_spawn/human/alive/golem/adamantine{
 	pixel_y = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
-	},
+/obj/effect/turf_decal/tiles/department/science,
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/freegolem)
 "DJ" = (
 /obj/machinery/mineral/ore_redemption/golem,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "Ea" = (
 /obj/structure/statue/gold/rd{
@@ -356,10 +343,10 @@
 /area/shuttle/freegolem)
 "EB" = (
 /obj/machinery/autolathe,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "EE" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -367,34 +354,33 @@
 /area/template_noop)
 "FQ" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "HE" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/obj/effect/turf_decal/tiles/white/side,
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "Jg" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "JF" = (
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "Mh" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "MD" = (
 /obj/machinery/door/airlock/external,
@@ -409,23 +395,22 @@
 "OC" = (
 /obj/structure/ore_box,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitecorner"
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "OL" = (
 /obj/machinery/economy/vending/coffee/free,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitehall"
-	},
+/obj/effect/turf_decal/tiles/white/side,
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "QD" = (
 /obj/machinery/mineral/equipment_vendor/golem,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "Rr" = (
 /obj/effect/mob_spawn/human/alive/golem/adamantine{
@@ -434,19 +419,18 @@
 /obj/effect/turf_decal/box/white/corners{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
-	},
+/obj/effect/turf_decal/tiles/department/science,
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/freegolem)
 "Sv" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
 	pixel_y = 30
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitecorner"
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "Sz" = (
 /obj/effect/turf_decal/stripes/line,
@@ -455,18 +439,18 @@
 "SQ" = (
 /obj/structure/ore_box,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "UB" = (
 /obj/effect/turf_decal/delivery/green/hollow,
 /obj/structure/reagent_dispensers/watertank/high,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitecorner"
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "WF" = (
 /obj/effect/spawner/window/shuttle,
@@ -477,31 +461,30 @@
 /obj/effect/turf_decal/box/white/corners{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
-	},
+/obj/effect/turf_decal/tiles/department/science,
+/turf/simulated/floor/plasteel/white,
 /area/shuttle/freegolem)
 "Ya" = (
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
+/obj/effect/turf_decal/tiles/white/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "YN" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitecorner"
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 "YZ" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitecorner"
+/obj/effect/turf_decal/tiles/white/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/freegolem)
 
 (1,1,1) = {"

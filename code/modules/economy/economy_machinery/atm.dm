@@ -33,7 +33,11 @@
 	. = ..()
 	update_icon()
 	if(mapload)
-		new /obj/effect/turf_decal/delivery/green/hollow(loc)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/economy/atm/LateInitialize()
+	. = ..()
+	new /obj/effect/turf_decal/delivery/green/hollow(loc)
 
 /obj/machinery/economy/atm/update_icon_state()
 	. = ..()

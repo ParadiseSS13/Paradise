@@ -9,9 +9,8 @@
 	name = "Cockpit Blast Door";
 	id_tag = "ravenbridgeblast"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
-	},
+/obj/effect/turf_decal/tiles/department/command,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "av" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -29,9 +28,8 @@
 /area/shuttle/escape)
 "bA" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "bO" = (
 /obj/structure/shuttle/engine/propulsion/burst/right{
@@ -46,33 +44,30 @@
 "bV" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/obj/effect/turf_decal/blue_corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "cn" = (
 /obj/structure/table/reinforced,
 /obj/item/rcd/preloaded,
 /obj/item/rcd_ammo,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "cF" = (
 /obj/structure/closet/crate/freezer/iv_storage,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluecorners"
-	},
+/obj/effect/turf_decal/tiles/department/command/corner,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "dq" = (
 /obj/machinery/door/airlock/highsecurity,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
-	},
+/obj/effect/turf_decal/tiles/department/command,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "dP" = (
 /obj/structure/shuttle/engine/propulsion/burst/right,
@@ -82,10 +77,10 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "ek" = (
 /obj/machinery/door/airlock/engineering{
@@ -127,9 +122,8 @@
 "fH" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular/doctor,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluecorners"
-	},
+/obj/effect/turf_decal/tiles/department/command/corner,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "fL" = (
 /obj/structure/chair/comfy/shuttle{
@@ -145,9 +139,8 @@
 	check_records = 0;
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "gs" = (
 /obj/structure/sign/lifestar,
@@ -156,10 +149,10 @@
 "gN" = (
 /obj/machinery/economy/vending/wallmed/directional/north,
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "gS" = (
 /obj/structure/fans/tiny/invisible,
@@ -173,9 +166,8 @@
 	},
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "gX" = (
 /obj/structure/closet/crate/freezer/iv_storage,
@@ -194,10 +186,10 @@
 	name = "south bump";
 	pixel_y = -30
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow";
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "hv" = (
 /obj/machinery/door/airlock/external{
@@ -226,10 +218,10 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "jn" = (
 /obj/structure/bed,
@@ -241,16 +233,14 @@
 /area/shuttle/escape)
 "jp" = (
 /obj/structure/chair/office/dark,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "jr" = (
 /obj/machinery/economy/vending/wallmed/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "jK" = (
 /obj/machinery/porta_turret/ai_turret,
@@ -267,16 +257,15 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "kr" = (
 /obj/structure/chair/office/dark,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
-	},
+/obj/effect/turf_decal/tiles/department/command,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "ku" = (
 /obj/structure/chair/comfy/shuttle{
@@ -293,10 +282,10 @@
 /area/shuttle/escape)
 "kZ" = (
 /obj/machinery/computer/crew,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "lj" = (
 /obj/structure/shuttle/engine/propulsion/burst{
@@ -305,10 +294,10 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "lH" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "mS" = (
 /obj/structure/bed/roller,
@@ -317,19 +306,19 @@
 /area/shuttle/escape)
 "mV" = (
 /mob/living/simple_animal/bot/medbot,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "nP" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "nX" = (
 /obj/structure/chair/comfy/shuttle,
@@ -337,31 +326,30 @@
 /area/shuttle/escape)
 "ob" = (
 /obj/structure/chair/office/dark,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "of" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "ok" = (
 /obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowcorners"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/corner,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "pV" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow";
+/obj/effect/turf_decal/tiles/department/engineering/side{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "qb" = (
 /obj/structure/shuttle/engine/heater,
@@ -389,10 +377,10 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "rg" = (
 /obj/structure/rack,
@@ -418,10 +406,10 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "sx" = (
 /obj/machinery/shieldgen/raven,
@@ -454,10 +442,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "uc" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "ul" = (
 /turf/simulated/floor/catwalk,
@@ -549,20 +537,20 @@
 	name = "west bump";
 	pixel_x = -27
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "xj" = (
 /obj/machinery/economy/vending/wallmed/directional/west,
-/obj/effect/turf_decal/blue_corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "xv" = (
 /obj/structure/table/reinforced,
@@ -578,24 +566,24 @@
 /area/shuttle/escape)
 "xI" = (
 /obj/machinery/optable,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "yg" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "yA" = (
 /obj/item/defibrillator/loaded,
 /obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "yD" = (
 /obj/docking_port/mobile/emergency{
@@ -624,10 +612,10 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "AK" = (
 /obj/effect/turf_decal/delivery/blue/partial{
@@ -670,33 +658,32 @@
 "Bx" = (
 /obj/structure/table/reinforced,
 /obj/item/radio,
-/obj/effect/turf_decal/blue_corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Cl" = (
-/obj/effect/turf_decal/blue_corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/box/white,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "CL" = (
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
-	},
+/obj/effect/turf_decal/tiles/department/command,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "DD" = (
 /obj/machinery/light{
@@ -713,10 +700,10 @@
 /obj/structure/closet/fireaxecabinet{
 	pixel_y = -32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Ek" = (
 /obj/structure/chair/comfy/shuttle{
@@ -732,10 +719,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "FP" = (
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
@@ -769,17 +756,16 @@
 	pixel_y = 30
 	},
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluecorners"
-	},
+/obj/effect/turf_decal/tiles/department/command/corner,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "HL" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/donkpockets,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Id" = (
 /obj/structure/chair/comfy/shuttle,
@@ -791,19 +777,19 @@
 "If" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
-/obj/effect/turf_decal/blue_corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Iu" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "IF" = (
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -814,10 +800,10 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "IN" = (
 /obj/structure/shuttle/engine/heater,
@@ -831,16 +817,16 @@
 /obj/machinery/computer/operating{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Jd" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Je" = (
 /obj/structure/window/reinforced{
@@ -850,19 +836,19 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "Kg" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Ko" = (
 /obj/machinery/computer/security{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Ky" = (
 /obj/machinery/light/small,
@@ -885,20 +871,13 @@
 	dir = 1
 	},
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/shuttle/escape)
-"KT" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "KY" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
-	},
+/obj/effect/turf_decal/tiles/department/command,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Mb" = (
 /obj/machinery/shieldgen/raven,
@@ -916,10 +895,10 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Nt" = (
 /obj/structure/table/reinforced,
@@ -928,10 +907,10 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Nu" = (
 /obj/machinery/light{
@@ -949,10 +928,10 @@
 "NK" = (
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "NW" = (
 /obj/machinery/light/small{
@@ -966,18 +945,17 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
-	},
+/obj/effect/turf_decal/tiles/department/command,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "OD" = (
 /obj/machinery/computer/secure_data{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "PK" = (
 /obj/machinery/power/port_gen/pacman/upgraded{
@@ -1005,10 +983,10 @@
 /turf/simulated/floor/mineral/silver,
 /area/shuttle/escape)
 "Qs" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkyellowfull"
+/obj/effect/turf_decal/tiles/department/engineering{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "QM" = (
 /obj/machinery/light{
@@ -1033,10 +1011,10 @@
 /obj/item/storage/surgical_tray,
 /obj/item/stack/nanopaste,
 /obj/item/reagent_containers/glass/bottle/reagent/hydrocodone,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Rh" = (
 /obj/machinery/light{
@@ -1044,9 +1022,8 @@
 	},
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "SQ" = (
 /obj/structure/rack,
@@ -1064,18 +1041,17 @@
 /obj/machinery/sleeper{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
+/obj/effect/turf_decal/tiles/department/command/side,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "UY" = (
-/obj/effect/turf_decal/blue_corner{
+/obj/effect/turf_decal/tiles/department/command/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluecorners"
+/obj/effect/turf_decal/tiles/department/command/corner{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Vf" = (
 /obj/effect/spawner/window/plastitanium,
@@ -1090,10 +1066,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Wk" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Wo" = (
 /obj/machinery/light/small{
@@ -1115,9 +1091,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "WU" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
-	},
+/obj/effect/turf_decal/tiles/department/command,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Xz" = (
 /obj/structure/chair/comfy/shuttle{
@@ -1134,21 +1109,20 @@
 /area/shuttle/escape)
 "XO" = (
 /obj/structure/closet/secure_closet/engineering_welding,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Yi" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowcorners";
+/obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "YC" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/tiles/department/command/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "Zg" = (
 /obj/structure/shuttle/engine/heater,
@@ -1567,7 +1541,7 @@ av
 VM
 av
 KQ
-KT
+VM
 Wk
 WU
 kr
