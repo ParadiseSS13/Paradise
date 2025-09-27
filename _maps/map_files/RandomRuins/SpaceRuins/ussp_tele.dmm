@@ -15,6 +15,7 @@
 /area/ruin/space/derelict/teleporter)
 "dj" = (
 /obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "ds" = (

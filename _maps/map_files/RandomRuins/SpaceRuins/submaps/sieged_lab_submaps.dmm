@@ -299,6 +299,12 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/template_noop)
+"if" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating,
+/area/template_noop)
 "ig" = (
 /obj/item/flashlight/flare/used,
 /turf/simulated/floor/plating/asteroid,
@@ -314,7 +320,14 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/alarm/directional/east,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
+/area/template_noop)
+"ir" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/template_noop)
 "iv" = (
 /obj/machinery/economy/vending/wallmed/directional/north,
@@ -842,6 +855,7 @@
 /area/template_noop)
 "so" = (
 /obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "green"
@@ -957,6 +971,7 @@
 /area/template_noop)
 "uu" = (
 /obj/structure/closet/cabinet,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/wood,
 /area/template_noop)
 "uw" = (
@@ -1287,6 +1302,10 @@
 /area/template_noop)
 "BF" = (
 /obj/effect/decal/cleanable/generic,
+/turf/template_noop,
+/area/template_noop)
+"BJ" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/template_noop,
 /area/template_noop)
 "BM" = (
@@ -1720,6 +1739,11 @@
 /obj/effect/spawner/random/barrier/temporary,
 /turf/simulated/floor/plating,
 /area/template_noop)
+"Kw" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating,
+/area/template_noop)
 "Kz" = (
 /obj/effect/spawner/random/storage,
 /obj/effect/spawner/random/engineering/materials,
@@ -2016,6 +2040,11 @@
 "RP" = (
 /obj/effect/spawner/random/dirt/frequent,
 /turf/template_noop,
+/area/template_noop)
+"Sl" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/wood,
 /area/template_noop)
 "Sm" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -2806,7 +2835,7 @@ yb
 nK
 nK
 VI
-nK
+BJ
 nK
 nK
 ts
@@ -3234,7 +3263,7 @@ nK
 nK
 nK
 zz
-lm
+Kw
 WK
 fO
 SJ
@@ -3564,7 +3593,7 @@ nK
 nb
 VX
 ty
-ty
+if
 Zm
 gj
 ZI
@@ -4169,7 +4198,7 @@ nK
 (29,1,1) = {"
 nK
 nK
-pG
+Sl
 pG
 mt
 nK
@@ -5239,7 +5268,7 @@ nK
 nK
 Ba
 Af
-Af
+ir
 nK
 nK
 nK
