@@ -122,6 +122,8 @@
 /obj/item/kitchen/knife/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/surgery_initiator/robo)
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
 /obj/item/kitchen/knife/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>", \
