@@ -213,6 +213,7 @@
 
 /mob/living/basic/mouse/blobinfected/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/event_tracker, EVENT_BLOB)
 	apply_status_effect(STATUS_EFFECT_BLOB_BURST, 120 SECONDS, CALLBACK(src, PROC_REF(burst), FALSE))
 
 /mob/living/basic/mouse/blobinfected/Life()
@@ -252,6 +253,7 @@
 	if(core)
 		core.admin_spawned = admin_spawned
 
+	SEND_SIGNAL(src, COMSIG_BLOB_MOUSE_BURST, core)
 	SSticker.record_biohazard_start(BIOHAZARD_BLOB)
 
 /mob/living/basic/mouse/blobinfected/get_scooped(mob/living/carbon/grabber)
