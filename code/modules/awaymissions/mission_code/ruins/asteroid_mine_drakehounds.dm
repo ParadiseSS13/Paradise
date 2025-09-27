@@ -24,7 +24,6 @@
 
 /area/ruin/drakehound_mine/ship
 	name = "Drakehound Asteroid Mine Ship"
-	icon_state = "away"
 	requires_power = FALSE
 
 /area/ruin/drakehound_mine/solars

@@ -101,13 +101,11 @@
 	health = 250
 	speed = 0.5 // Bigger and badder, slightly slower
 	ai_controller = /datum/ai_controller/basic_controller/simple/drakehound_skirmish
-	is_ranged = TRUE
 	ranged_cooldown = 2 SECONDS
 	ranged_burst_count = 3
 	ranged_burst_interval = 0.5 SECONDS
 	casing_type = /obj/item/ammo_casing/shotgun/buckshot
 	attack_sound = 'sound/weapons/swordhitheavy.ogg'
-	projectile_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 
 /mob/living/basic/drakehound_breacher/ranged/captain/rack_shotgun()
 	var/datum/component/ranged_attacks/comp = GetComponent(/datum/component/ranged_attacks)
