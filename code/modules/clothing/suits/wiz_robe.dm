@@ -34,6 +34,7 @@
 	name = "magical beret"
 	desc = "A magical red beret."
 	icon_state = "wizhatmime"
+	monitor_offset_y = 1
 	dog_fashion = null
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
