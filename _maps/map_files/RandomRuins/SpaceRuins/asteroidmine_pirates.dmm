@@ -6,9 +6,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
-"c" = (
-/turf/simulated/mineral/random/space,
-/area/ruin/space/powered)
 "e" = (
 /obj/machinery/door/airlock/external/glass,
 /turf/simulated/floor/plasteel,
@@ -16,7 +13,7 @@
 "f" = (
 /obj/structure/marker_beacon,
 /turf/space,
-/area/space)
+/area/ruin/space/unpowered)
 "g" = (
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /obj/effect/spawner/random/uncommon_ore,
@@ -24,7 +21,7 @@
 	name = "mining car"
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/powered)
+/area/ruin/space/unpowered)
 "h" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
@@ -52,7 +49,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/powered)
+/area/ruin/space/unpowered)
 "m" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -97,7 +94,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/powered)
+/area/ruin/space/unpowered)
 "u" = (
 /obj/effect/turf_decal/border/department/supply/corner{
 	dir = 1
@@ -129,7 +126,7 @@
 	name = "mining car"
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/powered)
+/area/ruin/space/unpowered)
 "z" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
@@ -152,7 +149,7 @@
 "D" = (
 /obj/effect/spawner/random/space_pirate,
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/powered)
+/area/ruin/space/unpowered)
 "E" = (
 /obj/machinery/door/airlock/maintenance/external,
 /turf/simulated/floor/plating,
@@ -170,9 +167,6 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
-"J" = (
-/turf/simulated/mineral/random/low_chance/space,
-/area/ruin/space/powered)
 "K" = (
 /obj/effect/turf_decal/caution/red{
 	dir = 8
@@ -182,18 +176,18 @@
 /area/ruin/space/powered)
 "L" = (
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/powered)
+/area/ruin/space/unpowered)
 "M" = (
 /turf/simulated/wall,
 /area/ruin/space/powered)
 "N" = (
 /obj/machinery/floodlight/anchored,
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/powered)
+/area/ruin/space/unpowered)
 "O" = (
 /obj/item/pickaxe,
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/powered)
+/area/ruin/space/unpowered)
 "P" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -602,10 +596,10 @@ a
 a
 W
 W
-c
+p
 L
-J
-J
+n
+n
 L
 L
 L
@@ -626,7 +620,7 @@ W
 n
 L
 D
-c
+p
 L
 D
 L

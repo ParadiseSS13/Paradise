@@ -1388,20 +1388,6 @@
 "Pm" = (
 /turf/simulated/mineral/random/space,
 /area/ruin/drakehound_mine/bar)
-"Pq" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/space,
-/area/ruin/drakehound_mine/solars)
 "Pw" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -3783,7 +3769,7 @@ qb
 Hc
 BV
 BV
-Pq
+sW
 BV
 BV
 BV
