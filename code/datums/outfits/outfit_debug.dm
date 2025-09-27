@@ -93,17 +93,18 @@
 
 /obj/item/clothing/glasses/hud/debug
 	name = "AVD-CNED glasses"
-	desc = "Diagnostic, Hydroponic, Medical, Security, and Skills HUD. Built-in advanced reagent scanner. Alt-click to toggle X-ray vision."
+	desc = "Diagnostic, Hydroponic, Medical, and Security HUD. Built-in advanced reagent scanner. Protects the wearer from supermatter hallucinations and welding flashes."
 	icon_state = "nvgmeson"
 	hud_debug = TRUE
 	flash_protect = FLASH_PROTECTION_WELDER
 	scan_reagents_advanced = TRUE
-
 	prescription_upgradable = FALSE
-
 	hud_types = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED, DATA_HUD_HYDROPONIC)
-
 	var/xray = FALSE
+
+/obj/item/clothing/glasses/hud/debug/examine(mob/user)
+	. = ..()
+	. += "<span class = 'notice'><b>Alt-Click</b> to toggle X-ray vision.</span>"
 
 /obj/item/clothing/glasses/hud/debug/equipped(mob/user)
 	..()
@@ -114,7 +115,7 @@
 	handle_traits(user)
 
 /obj/item/clothing/glasses/hud/debug/AltClick(mob/living/user)
-	to_chat(user, "<span class='notice'>You [xray ? "de" : ""]activate the x-ray setting on [src]</span>")
+	to_chat(user, "<span class='notice'>You [xray ? "de" : ""]activate the x-ray setting on [src].</span>")
 	xray = !xray
 	handle_traits(user)
 	user.update_sight()
