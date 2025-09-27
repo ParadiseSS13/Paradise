@@ -138,6 +138,7 @@
 	pixel_y = 24
 	},
 /obj/effect/spawner/random/loot/bluespace_tap/food_mixed,
+/obj/effect/spawner/random/kitchen_equipment,
 /turf/simulated/floor/vault,
 /area/ruin/space/rocky_motel)
 "lk" = (

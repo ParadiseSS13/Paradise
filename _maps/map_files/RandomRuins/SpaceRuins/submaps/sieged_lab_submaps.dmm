@@ -836,6 +836,11 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"sh" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/kitchen_equipment,
+/turf/simulated/floor/wood,
+/area/template_noop)
 "sn" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
 /turf/template_noop,
@@ -4170,7 +4175,7 @@ nK
 nK
 nK
 pG
-pG
+sh
 mt
 nK
 nK

@@ -34,7 +34,7 @@
 		var/obj/machinery/cooking/machine = used_item
 		step_data["rating"] = machine.quality_mod
 
-	step_data["signal"] = COMSIG_COOK_MACHINE_STEP_COMPLETE
+	step_data["signal"] = COMSIG_MACHINE_STEP_COMPLETE
 
 	return step_data
 

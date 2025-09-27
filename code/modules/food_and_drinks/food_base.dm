@@ -345,30 +345,38 @@
 		to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
 		return ITEM_INTERACT_COMPLETE
 
+	convert_to_slices(used, inaccurate)
+	if(!inaccurate)
+		user?.visible_message(
+			"<span class='notice'>[user] slices [src] with [used].</span>",
+			"<span class='notice'>You slice [src] with [used].</span>"
+		)
+	else
+		user?.visible_message(
+			"<span class='notice'>[user] crudely slices [src] with [used], destroying some in the process!</span>",
+			"<span class='notice'>You crudely slice [src] with [used], destroying some in the process!</span>"
+		)
+
+	qdel(src)
+	return ITEM_INTERACT_COMPLETE
+
+/obj/item/food/sliceable/proc/convert_to_slices(inaccurate)
+	. = list()
+
 	var/initial_volume = 0 // the total some of reagents this food had initially
 	for(var/ingredient in list_reagents)
 		initial_volume += list_reagents[ingredient]
 	// we want to account for how much has been eaten already, reduce slices by how is left vs. how much food we started with
 	slices_num = clamp(slices_num * (reagents.total_volume / initial_volume), 1, slices_num)
 	var/slices_lost
-	if(!inaccurate)
-		user.visible_message(
-			"<span class='notice'>[user] slices [src] with [used].</span>",
-			"<span class='notice'>You slice [src] with [used].</span>"
-		)
-	else
-		user.visible_message(
-			"<span class='notice'>[user] crudely slices [src] with [used], destroying some in the process!</span>",
-			"<span class='notice'>You crudely slice [src] with [used], destroying some in the process!</span>"
-		)
+	if(inaccurate)
 		slices_lost = rand(1, min(1, round(slices_num / 2)))
 	var/reagents_per_slice = reagents.total_volume/slices_num
 	for(var/i in 1 to (slices_num - slices_lost))
 		var/obj/slice = new slice_path (loc, TRUE)
 		reagents.trans_to(slice,reagents_per_slice)
 		slice.scatter_atom()
-	qdel(src)
-	return ITEM_INTERACT_COMPLETE
+		. += slice
 
 /obj/item/food/badrecipe
 	name = "burned mess"

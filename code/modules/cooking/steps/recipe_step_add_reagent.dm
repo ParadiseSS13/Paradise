@@ -96,24 +96,30 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_reagent)
 	var/datum/reagent/reagent = GLOB.chemical_reagents_list[reagent_id]
 	return "Add [amount] unit[amount > 1 ? "s" : ""] of [reagent.name]."
 
-/datum/cooking/recipe_step/add_reagent/attempt_autochef_perform(datum/autochef_task/follow_recipe/task)
-	for(var/obj/machinery/smartfridge/storage in task.autochef.linked_storages)
+/datum/cooking/recipe_step/add_reagent/attempt_autochef_perform(datum/autochef_task/follow_recipe/origin_task)
+	for(var/obj/machinery/smartfridge/storage in origin_task.autochef.linked_storages)
 		for(var/obj/item/reagent_containers/container in storage)
-			if(check_conditions_met(container, task.container.tracker))
+			if(check_conditions_met(container, origin_task.container.tracker))
 				var/old_amount_per_transfer = container.amount_per_transfer_from_this
 				container.amount_per_transfer_from_this = amount
-				var/result = task.container.process_item(null, container)
+				var/result = origin_task.container.process_item(null, container)
 				container.amount_per_transfer_from_this = old_amount_per_transfer
 
 				switch(result)
 					if(PCWJ_CONTAINER_FULL, PCWJ_NO_STEPS, PCWJ_NO_RECIPES)
 						return AUTOCHEF_ACT_FAILED
 					if(PCWJ_SUCCESS, PCWJ_PARTIAL_SUCCESS, PCWJ_COMPLETE)
-						task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
+						origin_task.autochef.Beam(storage, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 						return AUTOCHEF_ACT_STEP_COMPLETE
 
+	if(origin_task.autochef.upgrade_level > 2)
+		var/datum/autochef_task/task = origin_task.autochef.handle_missing_reagent_from_step(src)
+		if(istype(task))
+			task.autochef.add_task(task, origin_task)
+			return AUTOCHEF_ACT_ADDED_TASK
+
 	var/datum/reagent/reagent = GLOB.chemical_reagents_list[reagent_id]
-	task.autochef.atom_say("Missing [reagent.name].")
+	origin_task.autochef.atom_say("Missing [reagent.name].")
 	return AUTOCHEF_ACT_MISSING_REAGENT
 
 /datum/cooking/recipe_step/add_reagent/attempt_autochef_prepare(obj/machinery/autochef/autochef)
@@ -122,6 +128,4 @@ RESTRICT_TYPE(/datum/cooking/recipe_step/add_reagent)
 			if(container.reagents.has_reagent(reagent_id, amount))
 				return AUTOCHEF_ACT_VALID
 
-	var/datum/reagent/reagent = GLOB.chemical_reagents_list[reagent_id]
-	autochef.atom_say("Cannot find [reagent.name].")
 	return AUTOCHEF_ACT_MISSING_REAGENT

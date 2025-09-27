@@ -176,6 +176,13 @@
 	icon_state = "yellowsiding"
 	},
 /area/ruin/space/powered)
+"oB" = (
+/obj/structure/table,
+/obj/effect/spawner/random/kitchen_equipment,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/powered)
 "rK" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /turf/simulated/floor/plasteel{
@@ -1056,7 +1063,7 @@ MX
 zV
 iP
 xJ
-xJ
+oB
 Br
 La
 oy

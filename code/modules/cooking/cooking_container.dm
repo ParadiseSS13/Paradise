@@ -204,7 +204,7 @@
 	QDEL_NULL(tracker)
 	clear_cooking_data()
 	if(claimed)
-		SEND_SIGNAL(src, COMSIG_COOK_MACHINE_STEP_INTERRUPTED, null)
+		SEND_SIGNAL(src, COMSIG_MACHINE_STEP_INTERRUPTED, null)
 
 /obj/item/reagent_containers/cooking/wash(mob/user, atom/source)
 	if(reagents.total_volume >= volume)

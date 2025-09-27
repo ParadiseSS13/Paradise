@@ -5246,8 +5246,8 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kitchen/rollingpin,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/kitchen_equipment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitered"
@@ -5369,6 +5369,7 @@
 	dir = 8
 	},
 /obj/item/kitchen/knife/butcher,
+/obj/item/kitchen/rollingpin,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitered"
