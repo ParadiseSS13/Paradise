@@ -5524,7 +5524,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "FU" = (
-/obj/machinery/atmospherics/portable/pump,
+/obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellow"

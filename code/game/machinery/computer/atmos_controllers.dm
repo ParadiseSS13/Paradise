@@ -7,6 +7,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define SENSOR_N2			(1<<4)
 #define SENSOR_CO2			(1<<5)
 #define SENSOR_N2O			(1<<6)
+#define SENSOR_H2O			(1<<7)
+#define SENSOR_H2			(1<<8)
 
 /obj/machinery/atmospherics/air_sensor
 	icon_state = "gsensor1"
@@ -62,6 +64,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		"Nitrogen: [ONOFF_TOGGLE(SENSOR_N2)]" = SENSOR_N2,
 		"Carbon Dioxide: [ONOFF_TOGGLE(SENSOR_CO2)]" = SENSOR_CO2,
 		"Nitrous Oxide: [ONOFF_TOGGLE(SENSOR_N2O)]" = SENSOR_N2O,
+		"Water Vapor: [ONOFF_TOGGLE(SENSOR_H2O)]" = SENSOR_H2O,
+		"Hydrogen: [ONOFF_TOGGLE(SENSOR_H2)]" = SENSOR_H2,
 		"-SAVE TO BUFFER-" = "multitool"
 	)
 
@@ -86,6 +90,10 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				output ^= SENSOR_CO2
 			if(SENSOR_N2O)
 				output ^= SENSOR_N2O
+			if(SENSOR_H2O)
+				output ^= SENSOR_H2O
+			if(SENSOR_H2)
+				output ^= SENSOR_H2
 			if("multitool")
 				if(!ismultitool(I)) // Should never happen
 					return
@@ -257,6 +265,14 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					sensor_data["n2o"] = round(100 * air_sample.sleeping_agent() / total_moles, 0.1)
 				else
 					sensor_data -= "n2o"
+				if(AS.output & SENSOR_H2O)
+					sensor_data["water_vapor"] = round(100 * air_sample.water_vapor() / total_moles, 0.1)
+				else
+					sensor_data -= "water_vapor"
+				if(AS.output & SENSOR_H2)
+					sensor_data["hydrogen"] = round(100 * air_sample.hydrogen() / total_moles, 0.1)
+				else
+					sensor_data -= "hydrogen"
 
 		else if(istype(AM, /obj/machinery/atmospherics/meter))
 			var/list/meter_data = sensor_name_data_map[sensor_name]
@@ -350,8 +366,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 				"filter_n2" = scrubber.scrub_N2,
 				"filter_co2" = scrubber.scrub_CO2,
 				"filter_toxins" = scrubber.scrub_Toxins,
-				"filter_n2o" = scrubber.scrub_N2O))
-
+				"filter_n2o" = scrubber.scrub_N2O,
+				"filter_h2o" = scrubber.scrub_H2O,
+				"filter_h2" = scrubber.scrub_H2))
 
 /obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/living/user, obj/item/I)
 	if(!ismultitool(I)) // Should never happen
@@ -477,7 +494,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					"filter_n2" = scrubber.scrub_N2,
 					"filter_co2" = scrubber.scrub_CO2,
 					"filter_toxins" = scrubber.scrub_Toxins,
-					"filter_n2o" = scrubber.scrub_N2O))
+					"filter_n2o" = scrubber.scrub_N2O,
+					"filter_h2o" = scrubber.scrub_H2O,
+					"filter_h2" = scrubber.scrub_H2))
 				refresh_outlets()
 				to_chat(user, "<span class='notice'>Successfully added an outlet scrubber</span>")
 				return
@@ -565,6 +584,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			outlet_scrubber_data[uid]["filter_co2"] = scrubber.scrub_CO2
 			outlet_scrubber_data[uid]["filter_toxins"] = scrubber.scrub_Toxins
 			outlet_scrubber_data[uid]["filter_n2o"] = scrubber.scrub_N2O
+			outlet_scrubber_data[uid]["filter_h2o"] = scrubber.scrub_H2O
+			outlet_scrubber_data[uid]["filter_h2"] = scrubber.scrub_H2
 
 /obj/machinery/computer/general_air_control/large_tank_control/refresh_all()
 	..()
@@ -650,6 +671,10 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					scrubber.scrub_N2 = !scrubber.scrub_N2
 				if("o2_scrub")
 					scrubber.scrub_O2 = !scrubber.scrub_O2
+				if("h2o_scrub")
+					scrubber.scrub_H2O = !scrubber.scrub_H2O
+				if("h2_scrub")
+					scrubber.scrub_H2 = !scrubber.scrub_H2
 				if("widenet")
 					scrubber.widenet = !scrubber.widenet
 				if("scrubbing")
@@ -704,3 +729,5 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #undef SENSOR_N2
 #undef SENSOR_CO2
 #undef SENSOR_N2O
+#undef SENSOR_H2O
+#undef SENSOR_H2

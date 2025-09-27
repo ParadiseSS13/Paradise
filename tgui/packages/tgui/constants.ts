@@ -43,6 +43,7 @@ export const CSS_COLORS = [
   'pink',
   'brown',
   'grey',
+  'darkslateblue',
   'good',
   'average',
   'bad',
@@ -231,7 +232,7 @@ const GASES = [
     'id': 'hydrogen',
     'name': 'Hydrogen',
     'label': 'H₂',
-    'color': 'white',
+    'color': '#997379',
   },
   {
     'id': 'ab',

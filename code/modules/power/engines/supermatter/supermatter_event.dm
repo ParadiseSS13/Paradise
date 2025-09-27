@@ -111,6 +111,14 @@
 /datum/engi_event/supermatter_event/charlie_tier/heat_penalty_threshold/on_start()
 	supermatter.heat_penalty_threshold -= 173
 
+/datum/engi_event/supermatter_event/charlie_tier/hydrogen
+	name = "C-4"
+
+/datum/engi_event/supermatter_event/charlie_tier/hydrogen/on_start()
+	var/datum/gas_mixture/air = new()
+	air.set_hydrogen(2000)
+	supermatter_turf.blind_release_air(air)
+
 //Class B events
 /datum/engi_event/supermatter_event/bravo_tier
 	threat_level = SM_EVENT_THREAT_B
@@ -205,6 +213,9 @@
 
 /datum/engi_event/supermatter_event/sierra_tier/laminate/start_sierra_event()
 	..()
+	var/datum/gas_mixture/air = new()
+	air.set_water_vapor(20000)
+	supermatter_turf.blind_release_air(air)
 	supermatter.heat_multiplier = 25
 	supermatter.gas_multiplier = 25
 	empulse(supermatter, 3, 6, TRUE, "S-laminite event")
