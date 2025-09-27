@@ -2,7 +2,7 @@
 	animate_movement = SLIDE_STEPS
 	/// Used by R&D to determine what research bonuses it grants.
 	var/origin_tech = null
-	/// `list()` that allows any contained species to wear the item.
+	/// A list of otherwise restricted /datum/species type paths that are permitted to wear this item.
 	var/list/species_exception = null
 	/// Can this object cut?
 	var/sharp = FALSE
@@ -24,9 +24,9 @@
 	var/integrity_failure = 0
 	/// Damage under this value will be completely ignored.
 	var/damage_deflection = 0
-	/// Flags that make this object harder to destroy, e.g. ACID_PROOF, FIRE_PROOF, INDESTRUCTIBLE.
+	/// Flags that make this object harder to destroy, e.g. [ACID_PROOF], [FIRE_PROOF], [INDESTRUCTIBLE].
 	var/resistance_flags = NONE
-	/// `update_fire_overlay()` will check if a different icon state should be used.
+	/// If provided, a custom overlay representing being the object being on fire.
 	var/custom_fire_overlay
 	/// How much acid is on this object?
 	var/acid_level = 0 
