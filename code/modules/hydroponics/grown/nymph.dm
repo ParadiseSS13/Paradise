@@ -23,7 +23,7 @@
 	if(..())
 		return ITEM_INTERACT_COMPLETE
 
-	new /mob/living/simple_animal/diona(get_turf(user))
+	new /mob/living/basic/diona_nymph(get_turf(user))
 	to_chat(user, "<span class='notice'>You crack open [src], letting the nymph out.</span>")
 	user.drop_item()
 	qdel(src)

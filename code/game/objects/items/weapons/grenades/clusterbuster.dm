@@ -213,7 +213,7 @@
 /obj/item/grenade/clusterbuster/crab
 	name = "\improper Crab Grenade"
 	desc = "Reserved for those pesky request."
-	payload = /mob/living/simple_animal/crab
+	payload = /mob/living/basic/crab
 
 /obj/item/grenade/clusterbuster/plasma
 	name = "\improper Plasma Cluster Grenade"
