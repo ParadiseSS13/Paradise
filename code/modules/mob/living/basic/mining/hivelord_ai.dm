@@ -41,7 +41,7 @@
 		BB_TARGET_MINIMUM_STAT = UNCONSCIOUS,
 		BB_AGGRO_RANGE = 10,
 	)
-	ai_movement = /datum/ai_movement/basic_avoidance
+	ai_movement = /datum/ai_movement/jps // Not gonna get stuck on walls now, are ya?
 	idle_behavior = /datum/idle_behavior/idle_random_walk
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/simple_find_target,

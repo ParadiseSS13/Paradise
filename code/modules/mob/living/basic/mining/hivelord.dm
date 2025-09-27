@@ -54,12 +54,12 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	friendly_verb_continuous = "buzzes near"
 	friendly_verb_simple = "buzz near"
-	speed = -1 // Faster than a person
+	speed = 0 // Same speed as a person so you can flee
 	maxHealth = 1
 	health = 1
 	harm_intent_damage = 5
-	melee_damage_lower = 10
-	melee_damage_upper = 10
+	melee_damage_lower = 6
+	melee_damage_upper = 8
 	attack_verb_continuous = "slashes"
 	attack_verb_simple = "slash"
 	speak_emote = list("telepathically cries")
@@ -211,8 +211,6 @@
 	icon_dead = "legion_head"
 	maxHealth = 5
 	health = 5
-	melee_damage_lower = 12
-	melee_damage_upper = 12
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bites"
 	speak_emote = list("echoes")
