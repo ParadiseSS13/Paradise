@@ -153,6 +153,22 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 
+/obj/effect/mob_spawn/human/corpse/vox_miner
+	name = "Vox Miner"
+	mob_name = "Vox Miner"
+	mob_species = /datum/species/vox
+	outfit = /datum/outfit/vox_miner
+
+/datum/outfit/vox_miner
+	name = "Vox Miner"
+	uniform = /obj/item/clothing/under/vox/vox_casual
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/workboots
+	mask = /obj/item/clothing/mask/breath/vox/respirator
+	l_pocket = /obj/item/tank/internals/emergency_oxygen/double/vox
+	back = /obj/item/storage/backpack/explorer
+	box = /obj/item/storage/box/survival_vox
+
 /obj/effect/mob_spawn/human/corpse/soviet
 	name = "Soviet"
 	mob_name = "Soviet"

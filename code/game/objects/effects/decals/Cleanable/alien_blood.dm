@@ -47,3 +47,24 @@
 /obj/effect/decal/cleanable/blood/slime/streak
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
 	amount = 2
+
+/obj/effect/decal/cleanable/blood/vox
+	name = "vox blood"
+	desc = "It's a blue streak of nitrogen-rich vox blood."
+	basecolor = "#2299FC"
+	bloodiness = MAX_SHOE_BLOODINESS
+
+/obj/effect/decal/cleanable/blood/innards/vox
+	basecolor = "#2299FC"
+
+/obj/effect/decal/cleanable/blood/gibs/vox
+	basecolor = "#2299FC"
+	fleshcolor = "#808D11"
+
+/obj/effect/decal/cleanable/blood/gibs/core/vox
+	basecolor = "#2299FC"
+	fleshcolor = "#808D11"
+
+/obj/effect/decal/cleanable/blood/gibs/down/vox
+	basecolor = "#2299FC"
+	fleshcolor = "#808D11"
