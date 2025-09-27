@@ -73,3 +73,10 @@ GLOBAL_DATUM_INIT(firealarm_soundloop, /datum/looping_sound/firealarm, new(list(
 	volume = 20
 	falloff_distance = 2
 	falloff_exponent = 5
+
+/datum/looping_sound/centrifuge
+	start_sound = 'sound/machines/fission/centrifuge_start.ogg'
+	start_length = 1.05 SECONDS
+	mid_sounds = list('sound/machines/fission/centrifuge_mid.ogg' = 1)
+	mid_length = 1.05 SECONDS
+	volume = 35
