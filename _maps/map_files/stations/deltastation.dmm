@@ -54759,6 +54759,7 @@
 /turf/space,
 /area/space/nearstation)
 "fCT" = (
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
