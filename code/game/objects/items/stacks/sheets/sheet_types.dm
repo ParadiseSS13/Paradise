@@ -562,6 +562,7 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	icon_state = "sheet-runed"
 	singular_name = "runed metal sheet"
 	sheettype = "runed"
+	table_type = /obj/structure/table/reinforced/cult
 	merge_type = /obj/item/stack/sheet/runed_metal
 
 /obj/item/stack/sheet/runed_metal/examine_more(mob/user)
