@@ -153,7 +153,7 @@
 		/obj/item/melee/energy/sword/saber/red, // 40TC
 		/obj/item/bio_chip_implanter/shock, // 50TC
 		/obj/item/dnainjector/telemut/darkbundle, // 0TC
-		/obj/item/clothing/suit/hooded/chaplain_hoodie, // 0TC
+		/obj/item/clothing/suit/hooded/chaplain_cassock, // 0TC
 		/obj/item/clothing/glasses/meson/engine/atmos, // 0TC
 		/obj/item/clothing/mask/chameleon/voice_change, // 10TC
 		/obj/item/card/id/syndicate, // 10TC
@@ -432,7 +432,7 @@
 
 /obj/item/storage/box/syndie_kit/missionary_set/populate_contents()
 	new /obj/item/nullrod/missionary_staff(src)
-	new /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe(src)
+	new /obj/item/clothing/suit/hooded/chaplain_cassock/missionary_robe(src)
 	var/obj/item/storage/bible/B = new /obj/item/storage/bible(src)
 	if(prob(25))	//an omen of success to come?
 		B.deity_name = "Success"

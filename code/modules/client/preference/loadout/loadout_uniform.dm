@@ -397,6 +397,36 @@
 	path = /obj/item/clothing/under/rank/civilian/hop/turtleneck
 	allowed_roles = list("Head of Personnel")
 
+/datum/gear/uniform/suit/job/chaplain/
+	display_name = "Chaplain, black"
+	path = /obj/item/clothing/under/rank/civilian/chaplain
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/suit/job/chaplain/white
+	display_name = "Chaplain, white"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/white
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/suit/job/chaplain/bw
+	display_name = "Chaplain, black and white"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/bw
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/suit/job/chaplain/orange
+	display_name = "Chaplain, kasaya"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/orange
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/suit/job/chaplain/green
+	display_name = "Chaplain, modest"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/green
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/suit/job/chaplain/thobe
+	display_name = "Chaplain, thobe"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/thobe
+	allowed_roles = list("Chaplain")
+
 //Command and dignitary
 /datum/gear/uniform/skirt/captain
 	display_name = "Skirt, captain"

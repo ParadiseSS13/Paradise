@@ -415,17 +415,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/command/fore)
-"acM" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/primary/port/north)
 "acO" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
@@ -46851,6 +46840,10 @@
 /area/station/command/vault)
 "iCp" = (
 /obj/machinery/newscaster/directional/north,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "iCq" = (
@@ -69161,6 +69154,17 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
+"nnD" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/port/north)
 "nnF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -76882,6 +76886,10 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/patients_rooms_secondary)
+"oVB" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/carpet/black,
+/area/station/service/chapel/office)
 "oVC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
@@ -81531,11 +81539,7 @@
 	},
 /area/station/maintenance/disposal/east)
 "pVV" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/item/kirbyplants/large,
+/obj/machinery/economy/vending/chapdrobe,
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "pWf" = (
@@ -131407,7 +131411,7 @@ mgN
 wnL
 oUr
 oUr
-oUr
+oVB
 cfF
 grG
 orD
@@ -140119,7 +140123,7 @@ uqI
 sJy
 gIh
 dUE
-acM
+nnD
 nxu
 jag
 fkS

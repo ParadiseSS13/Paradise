@@ -365,7 +365,7 @@
 
 /obj/item/nullrod/hammmer
 	name = "relic war hammer"
-	desc = "This war hammer cost the chaplain fourty thousand space dollars."
+	desc = "This war hammer cost the chaplain fourty thousand credits."
 	icon_state = "hammeron"
 	worn_icon_state = null
 	inhand_icon_state = null
@@ -664,7 +664,7 @@
 	reskinned = TRUE
 	reskin_selectable = FALSE
 	var/team_color = "red"
-	var/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/robes = null		//the robes linked with this staff
+	var/obj/item/clothing/suit/hooded/chaplain_cassock/missionary_robe/robes = null		//the robes linked with this staff
 	var/faith = 99	//a conversion requires 100 faith to attempt. faith recharges over time while you are wearing missionary robes that have been linked to the staff.
 
 /obj/item/nullrod/missionary_staff/examine(mob/living/user)
@@ -692,8 +692,8 @@
 	if(!ishuman(user))		//prevents the horror (runtimes) of missionary xenos and other non-human mobs that might be able to activate the item
 		return FALSE
 	var/mob/living/carbon/human/missionary = user
-	if(missionary.wear_suit && istype(missionary.wear_suit, /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe))
-		var/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/robe_to_link = missionary.wear_suit
+	if(missionary.wear_suit && istype(missionary.wear_suit, /obj/item/clothing/suit/hooded/chaplain_cassock/missionary_robe))
+		var/obj/item/clothing/suit/hooded/chaplain_cassock/missionary_robe/robe_to_link = missionary.wear_suit
 		if(robe_to_link.linked_staff)
 			to_chat(missionary, "<span class='warning'>These robes are already linked with a staff and cannot support another. Connection refused.</span>")
 			return FALSE

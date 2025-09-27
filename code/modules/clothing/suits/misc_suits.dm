@@ -1193,7 +1193,7 @@
 		STOP_PROCESSING(SSobj, src)
 
 //Syndicate Chaplain Robe (WOLOLO!)
-/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe
+/obj/item/clothing/suit/hooded/chaplain_cassock/missionary_robe
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 10, FIRE = 20, ACID = 20)
 	var/obj/item/nullrod/missionary_staff/linked_staff = null
 
@@ -1202,21 +1202,21 @@
 	if(isAntag(user))
 		. += "<span class='warning'>This robe is made of totally reinforced fibers, granting it 100% not superficial protection. More importantly the robes also wirelessly generate power for the neurotransmitter in the linked missionary staff while being worn.</span>"
 
-/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/Destroy()
+/obj/item/clothing/suit/hooded/chaplain_cassock/missionary_robe/Destroy()
 	if(linked_staff)	//delink on destruction
 		linked_staff.robes = null
 		linked_staff = null
 	STOP_PROCESSING(SSobj, src)	//probably is cleared in a parent call already, but just in case we're gonna do it here
 	return ..()
 
-/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/equipped(mob/living/carbon/human/H, slot)
+/obj/item/clothing/suit/hooded/chaplain_cassock/missionary_robe/equipped(mob/living/carbon/human/H, slot)
 	if(!istype(H) || slot != ITEM_SLOT_OUTER_SUIT)
 		STOP_PROCESSING(SSobj, src)
 		return
 	else
 		START_PROCESSING(SSobj, src)
 
-/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/process()
+/obj/item/clothing/suit/hooded/chaplain_cassock/missionary_robe/process()
 	if(!linked_staff)	//if we don't have a linked staff, the rest of this is useless
 		return
 
@@ -1362,3 +1362,12 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 	)
+
+/obj/item/clothing/suit/hooded/dark_robes
+	name = "dark robes"
+	desc = "Dark robes for dark times."
+	icon_state = "dark_robes"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	hoodtype = /obj/item/clothing/head/hooded/dark_hood
+	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
