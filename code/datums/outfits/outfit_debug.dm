@@ -93,51 +93,58 @@
 
 /obj/item/clothing/glasses/hud/debug
 	name = "AVD-CNED glasses"
-	desc = "Diagnostic, Hydroponic, Medical, Security, and Skills HUD. Built-in advanced reagent scanner. Alt-click to toggle X-ray vision."
+	desc = "Diagnostic, Hydroponic, Medical, and Security HUD. Built-in advanced reagent scanner. Protects the wearer from supermatter hallucinations and welding flashes."
 	icon_state = "nvgmeson"
 	hud_debug = TRUE
 	flash_protect = FLASH_PROTECTION_WELDER
 	scan_reagents_advanced = TRUE
-
 	prescription_upgradable = FALSE
-
 	hud_types = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED, DATA_HUD_HYDROPONIC)
-
 	var/xray = FALSE
 
-/obj/item/clothing/glasses/hud/debug/equipped(mob/living/carbon/human/user, slot)
-	..()
-	if(xray)
-		add_xray(user)
+/obj/item/clothing/glasses/hud/debug/examine(mob/user)
+	. = ..()
+	. += "<span class = 'notice'><b>Alt-Click</b> to toggle X-ray vision.</span>"
 
-/obj/item/clothing/glasses/hud/debug/dropped(mob/living/carbon/human/user)
+/obj/item/clothing/glasses/hud/debug/equipped(mob/user)
 	..()
-	if(xray)
-		remove_xray(user)
+	handle_traits(user)
 
-/obj/item/clothing/glasses/hud/debug/AltClick(mob/user)
+/obj/item/clothing/glasses/hud/debug/dropped(mob/user)
+	..()
+	handle_traits(user)
+
+/obj/item/clothing/glasses/hud/debug/AltClick(mob/living/user)
+	to_chat(user, "<span class='notice'>You [xray ? "de" : ""]activate the x-ray setting on [src].</span>")
+	xray = !xray
+	handle_traits(user)
+	user.update_sight()
+
+/obj/item/clothing/glasses/hud/debug/proc/handle_traits(mob/user)
 	if(!ishuman(user))
 		return
+
 	var/mob/living/carbon/human/human_user = user
 	if(human_user.glasses != src)
+		see_in_dark = initial(see_in_dark)
+		lighting_alpha = initial(lighting_alpha)
+		REMOVE_TRAIT(user, TRAIT_XRAY_VISION, "debug_glasses[UID()]")
+		REMOVE_TRAIT(user, SM_HALLUCINATION_IMMUNE, "debug_glasses[UID()]")
+		user.update_sight()
 		return
+
+	if(!HAS_TRAIT_FROM(user, SM_HALLUCINATION_IMMUNE, "debug_glasses[UID()]"))
+		ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, "debug_glasses[UID()]")
 	if(xray)
-		remove_xray(human_user)
+		see_in_dark = 8
+		lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+		if(!HAS_TRAIT_FROM(user, TRAIT_XRAY_VISION, "debug_glasses[UID()]"))
+			ADD_TRAIT(user, TRAIT_XRAY_VISION, "debug_glasses[UID()]")
 	else
-		add_xray(human_user)
-	xray = !xray
-	to_chat(user, "<span class='notice'>You [!xray ? "de" : ""]activate the x-ray setting on [src]</span>")
-	human_user.update_sight()
-
-/obj/item/clothing/glasses/hud/debug/proc/remove_xray(mob/user)
-	see_in_dark = initial(see_in_dark)
-	lighting_alpha = initial(lighting_alpha)
-	REMOVE_TRAIT(user, TRAIT_XRAY_VISION, "debug_glasses[UID()]")
-
-/obj/item/clothing/glasses/hud/debug/proc/add_xray(mob/user)
-	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
-	ADD_TRAIT(user, TRAIT_XRAY_VISION, "debug_glasses[UID()]")
+		see_in_dark = initial(see_in_dark)
+		lighting_alpha = initial(lighting_alpha)
+		REMOVE_TRAIT(user, TRAIT_XRAY_VISION, "debug_glasses[UID()]")
+	user.update_sight()
 
 /obj/item/debug/human_spawner
 	name = "human spawner"
