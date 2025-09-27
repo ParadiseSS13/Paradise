@@ -22,3 +22,6 @@
 	CORNER_BLOCK_OFFSET(corner, 1, height, width, 0))
 
 #define IS_OPAQUE_TURF(turf) (turf.directional_opacity == ALL_CARDINALS)
+
+/// Returns all turfs in a zlevel
+#define Z_TURFS(ZLEVEL) block(1, 1, ZLEVEL, world.maxx, world.maxy, ZLEVEL)
