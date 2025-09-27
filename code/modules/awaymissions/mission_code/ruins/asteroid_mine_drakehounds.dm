@@ -27,6 +27,15 @@
 	icon_state = "away"
 	requires_power = FALSE
 
+/area/ruin/drakehound_mine/solars
+	name = "Drakehound Asteroid Mine Solars"
+	icon_state = "general_solars"
+	requires_power = FALSE
+	valid_territory = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
+	ambientsounds = ENGINEERING_SOUNDS
+	sound_environment = SOUND_AREA_SPACE
+
 // MARK: LORE CONSOLES
 
 /obj/machinery/computer/loreconsole/drakehound_mine

@@ -1,6 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
 "aq" = (
@@ -9,7 +10,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/themed_mess/bloody,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/temple)
 "ax" = (
@@ -22,7 +23,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/themed_mess/bloody,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mission_control)
 "az" = (
@@ -36,6 +37,11 @@
 	dir = 4
 	},
 /obj/machinery/light,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_box/magazine/laser{
+	max_ammo = 0;
+	name = "Old Spent Magazine"
+	},
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/ruin/skullakin_mine/cafeteria)
 "aO" = (
@@ -53,12 +59,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
+"aQ" = (
+/obj/effect/spawner/random/blood/often,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin)
 "aU" = (
 /turf/simulated/mineral/random/low_chance/space,
 /area/ruin)
+"bd" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plasma,
+/area/ruin/skullakin_mine/mining)
 "bg" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/random/dice,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/skullakin_mine/cafeteria)
 "bi" = (
@@ -83,6 +98,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mining)
 "cp" = (
@@ -93,6 +109,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
 "cy" = (
@@ -108,8 +125,12 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/temple)
+"cz" = (
+/turf/simulated/mineral/random/space,
+/area/ruin/skullakin_mine/cafeteria)
 "cD" = (
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mission_control)
@@ -125,6 +146,7 @@
 /area/ruin)
 "cV" = (
 /obj/effect/spawner/random/cobweb/left/frequent,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
 "cZ" = (
@@ -137,7 +159,8 @@
 /area/ruin/skullakin_mine/mining)
 "dc" = (
 /obj/structure/spider/stickyweb,
-/obj/effect/spawner/themed_mess/bloody,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mining)
 "dd" = (
@@ -149,12 +172,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mission_control)
-"dg" = (
-/obj/effect/spawner/themed_mess/bloody,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin)
 "dm" = (
 /obj/structure/spawner/mining/hivelord/space,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -178,10 +198,15 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/unpowered/no_grav)
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/simulated/floor/plating{
+	desc = "<br>There is some old writing on this floor. You are barely able to read out a few lines from a tangled scribble.<br><br>In a chamber a great mirror lies, cut away it solemn cries. Travel bold as thou might, piercing vastness as a kite.<br><br>HONK!<br>";
+	name = "Old Note #6"
+	},
+/area/ruin/skullakin_mine/temple)
 "dG" = (
-/obj/effect/spawner/themed_mess/bloody,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mining)
 "dT" = (
@@ -213,20 +238,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mission_control)
 "eT" = (
-/obj/machinery/door/poddoor/multi_tile/impassable{
-	id = "skullakin_mine_depths_lockdown"
-	},
 /obj/machinery/door/airlock/multi_tile,
+/obj/machinery/door/poddoor/multi_tile/impassable{
+	id_tag = "skullakin_mine_depths_lockdown"
+	},
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mining)
 "eV" = (
-/obj/machinery/door/poddoor/multi_tile/impassable{
-	dir = 4;
-	id = "skullakin_mine_intermediate_lockdown"
-	},
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 4
 	},
@@ -239,6 +262,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/multi_tile/impassable{
+	dir = 4;
+	id_tag = "skullakin_mine_intermediate_lockdown"
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/overseer)
 "eX" = (
@@ -247,6 +275,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
+"eZ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/ruin/skullakin_mine/mission_control)
 "ff" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -260,10 +292,12 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
 "fx" = (
 /obj/effect/gibspawner/generic,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mission_control)
 "fH" = (
@@ -287,6 +321,11 @@
 "fU" = (
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/ruin/skullakin_mine/mission_control)
+"gc" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/skullakin_mine/mining)
 "gi" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -295,10 +334,6 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/skullakin_mine/arrivals)
 "gr" = (
-/obj/machinery/door/poddoor/multi_tile/impassable{
-	dir = 4;
-	id = "skullakin_mine_intermediate_lockdown"
-	},
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 4
 	},
@@ -310,6 +345,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door/poddoor/multi_tile/impassable{
+	dir = 4;
+	id_tag = "skullakin_mine_intermediate_lockdown"
 	},
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/cafeteria)
@@ -327,7 +366,7 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/skullakin_mine/solars)
 "gx" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -338,6 +377,11 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/temple)
+"gy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/skullakin_mine/cafeteria)
 "gS" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -351,6 +395,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
 "hc" = (
@@ -378,6 +423,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/cafeteria)
+"hi" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/skullakin_mine/cafeteria)
 "hj" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel/dark,
@@ -392,17 +444,28 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
+"ho" = (
+/obj/structure/ore_box,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/mining)
 "hA" = (
 /obj/structure/spawner/mining/goliath/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin)
+"hF" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/ruin/skullakin_mine/cafeteria)
 "iI" = (
 /obj/effect/gibspawner/generic,
 /obj/structure/chair{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/cafeteria)
 "iK" = (
@@ -412,6 +475,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
 "iN" = (
@@ -429,6 +493,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/overseer)
+"jo" = (
+/turf/simulated/mineral/random/space,
+/area/ruin/skullakin_mine/arrivals)
 "jy" = (
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel,
@@ -446,11 +513,17 @@
 "jN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
 "kc" = (
 /mob/living/simple_animal/hostile/asteroid/goliath/space,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/skullakin_mine/mining)
+"kx" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mining)
 "kE" = (
 /obj/effect/spawner/random/cobweb/right/frequent,
@@ -462,6 +535,7 @@
 /obj/item/storage/bag/ore,
 /obj/item/storage/bag/ore,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mining)
 "kP" = (
@@ -482,10 +556,13 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/skullakin_mine/solars)
 "ld" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
@@ -502,15 +579,16 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/themed_mess/bloody,
 /obj/machinery/light,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mining)
 "lB" = (
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/skullakin_mine/solars)
 "lC" = (
-/obj/effect/spawner/themed_mess/bloody,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mining)
 "lX" = (
@@ -524,6 +602,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mining)
 "mb" = (
@@ -536,6 +615,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/spawner/random/blood/often,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mining)
 "mc" = (
@@ -545,17 +626,42 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
+"mh" = (
+/obj/item/ammo_box/magazine/laser{
+	max_ammo = 0;
+	name = "Old Spent Magazine"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/skullakin_mine/cafeteria)
 "mm" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/skullakin_mine/temple)
+"mt" = (
+/turf/simulated/mineral/random/space,
+/area/ruin/skullakin_mine/temple)
+"mx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/mission_control)
+"mG" = (
+/obj/effect/spawner/random/food_trash,
+/obj/structure/spider/stickyweb,
+/obj/effect/spawner/random/plushies,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/mission_control)
 "mK" = (
 /obj/structure/closet/cabinet,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/item/reagent_containers/pill/methamphetamine,
+/obj/item/reagent_containers/pill/methamphetamine,
+/obj/item/reagent_containers/pill/methamphetamine,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/overseer)
 "mQ" = (
@@ -563,10 +669,11 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/overseer)
 "mT" = (
-/turf/simulated/wall/indestructible/riveted,
+/turf/simulated/wall/indestructible/rock,
 /area/ruin/skullakin_mine/overseer)
 "mZ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden,
@@ -577,6 +684,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/cafeteria)
 "nn" = (
@@ -584,6 +692,10 @@
 /area/ruin/skullakin_mine/mission_control)
 "nw" = (
 /turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/cafeteria)
+"nD" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/cafeteria)
 "nL" = (
 /obj/machinery/power/apc/off_station/empty_charge/directional/south,
@@ -599,7 +711,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
 "nZ" = (
-/obj/effect/spawner/themed_mess/bloody,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -622,10 +733,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
-"ou" = (
-/obj/effect/spawner/themed_mess/bloody,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/skullakin_mine/cafeteria)
 "oT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -639,6 +746,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/spawner/random/blood/often,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/skullakin_mine/temple)
 "pd" = (
@@ -648,11 +757,11 @@
 	name = "Old Note #6"
 	},
 /area/ruin/skullakin_mine/cafeteria)
+"ph" = (
+/obj/effect/decal/cleanable/glass/plasma,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/arrivals)
 "pB" = (
-/obj/machinery/door/poddoor/multi_tile/impassable{
-	dir = 4;
-	id = "skullakin_mine_depths_lockdown"
-	},
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 4
 	},
@@ -665,6 +774,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/multi_tile/impassable{
+	dir = 4;
+	id_tag = "skullakin_mine_depths_lockdown"
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/cafeteria)
 "pI" = (
@@ -678,6 +792,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mining)
 "pR" = (
@@ -687,6 +803,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/temple)
 "pZ" = (
@@ -701,6 +818,7 @@
 	dir = 4
 	},
 /obj/machinery/light,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/ruin/skullakin_mine/mission_control)
 "qa" = (
@@ -722,7 +840,9 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
 "qm" = (
-/obj/machinery/door/poddoor/impassable,
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "skullakin_mine_intermediate_lockdown"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -756,8 +876,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/temple)
+"qV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/ammo_box/magazine/laser{
+	max_ammo = 0;
+	name = "Old Spent Magazine"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/skullakin_mine/mining)
 "qX" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/random/snacks,
@@ -767,10 +897,15 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mission_control)
 "rf" = (
 /turf/simulated/mineral/random/space,
+/area/ruin)
+"rq" = (
+/obj/effect/spawner/themed_mess/robotic,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin)
 "ru" = (
 /obj/structure/gunrack,
@@ -783,10 +918,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mission_control)
 "rH" = (
-/obj/machinery/door/poddoor/multi_tile/impassable{
-	dir = 4;
-	id = "skullakin_mine_depths_lockdown"
-	},
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 4
 	},
@@ -799,16 +930,29 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/multi_tile/impassable{
+	dir = 4;
+	id_tag = "skullakin_mine_depths_lockdown"
+	},
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mission_control)
 "rV" = (
 /obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mining)
+"sk" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/ruin/skullakin_mine/temple)
 "sq" = (
-/obj/machinery/computer/loreconsole,
+/obj/machinery/computer/loreconsole/skullakin_mine/overseer_console,
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/skullakin_mine/overseer)
+"su" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/cafeteria)
 "sJ" = (
 /obj/effect/spawner/random/cobweb/left/frequent,
 /obj/structure/cable{
@@ -833,6 +977,7 @@
 /area/ruin/skullakin_mine/temple)
 "sW" = (
 /obj/effect/spawner/random/cobweb/right/frequent,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/overseer)
 "th" = (
@@ -875,6 +1020,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mission_control)
 "tD" = (
@@ -885,6 +1031,13 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/mineral/silver/fancy,
 /area/ruin/skullakin_mine/temple)
+"ur" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/overseer)
 "uv" = (
 /obj/effect/gibspawner/generic,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -895,6 +1048,19 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mining)
+"uy" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/cafeteria)
 "uA" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -907,10 +1073,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
+"uM" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/arrivals)
 "uW" = (
 /obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mining)
+"va" = (
+/obj/machinery/computer/nonfunctional{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/mission_control)
 "vf" = (
 /turf/simulated/floor/mineral/silver/fancy,
 /area/ruin/skullakin_mine/temple)
@@ -928,6 +1105,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/skullakin_mine/temple)
+"vH" = (
+/obj/machinery/computer/loreconsole/skullakin_mine/mission_control{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/mission_control)
 "vI" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
@@ -938,12 +1121,14 @@
 	},
 /area/ruin/skullakin_mine/cafeteria)
 "vR" = (
-/obj/machinery/computer/loreconsole,
+/obj/machinery/computer/loreconsole/skullakin_mine/hidden_survivor{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mission_control)
 "vW" = (
 /obj/machinery/door/poddoor/multi_tile/impassable{
-	id = "skullakin_mine_intermediate_lockdown"
+	id_tag = "skullakin_mine_intermediate_lockdown"
 	},
 /obj/machinery/door/airlock/multi_tile/glass,
 /obj/structure/cable{
@@ -976,6 +1161,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/skullakin_mine/arrivals)
+"wH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/skullakin_mine/mission_control)
 "xq" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/cable{
@@ -987,26 +1177,32 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/themed_mess/bloody,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/ruin/skullakin_mine/mission_control)
 "xr" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating{
-	desc = "<br>There is some old writing on this floor. You are barely able to read out a few lines from a tangled scribble.<br><br>In a chamber a great mirror lies, cut away it solemn cries. Travel bold as thou might, piercing vastness as a kite.<br><br>HONK!<br>";
-	name = "Old Note #6"
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
+/turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/temple)
 "xC" = (
 /obj/effect/gibspawner/generic,
 /obj/item/stack/sheet/animalhide/goliath_hide,
 /obj/item/stack/sheet/animalhide/goliath_hide,
 /obj/item/stack/sheet/animalhide/goliath_hide,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/overseer)
+"xG" = (
+/obj/effect/gibspawner/generic,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/temple)
 "xN" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1019,6 +1215,8 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mission_control)
 "yd" = (
@@ -1046,7 +1244,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/effect/spawner/themed_mess/bloody,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
 "yP" = (
@@ -1084,10 +1281,12 @@
 /obj/machinery/computer/loreconsole/skullakin_mine/security_checkpoint,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/skullakin_mine/arrivals)
-"zq" = (
-/obj/effect/spawner/themed_mess/bloody,
-/turf/simulated/floor/plasteel,
-/area/ruin/skullakin_mine/arrivals)
+"zp" = (
+/obj/effect/spawner/random/blood/often,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/skullakin_mine/mining)
 "zv" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/cable{
@@ -1099,6 +1298,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mission_control)
 "zw" = (
@@ -1111,16 +1311,24 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
 "zy" = (
-/turf/simulated/wall/indestructible/riveted,
+/turf/simulated/wall/indestructible/rock,
 /area/ruin/skullakin_mine/mission_control)
 "zz" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/candle/eternal/lit,
 /turf/simulated/floor/mineral/gold/fancy,
 /area/ruin/skullakin_mine/temple)
+"zH" = (
+/obj/item/ammo_box/magazine/laser{
+	max_ammo = 0;
+	name = "Old Spent Magazine"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin)
 "zI" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1131,14 +1339,26 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mission_control)
 "zT" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
+"zW" = (
+/obj/machinery/power/solar_control{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/engine,
+/area/ruin/skullakin_mine/temple)
 "Ab" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/simulated/floor/plasteel,
@@ -1146,6 +1366,10 @@
 "Ak" = (
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/item/ammo_box/magazine/laser{
+	max_ammo = 0;
+	name = "Old Spent Magazine"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/overseer)
@@ -1158,6 +1382,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mission_control)
+"AD" = (
+/obj/effect/spawner/themed_mess/robotic,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/skullakin_mine/mining)
+"AN" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/spawner/random/blood/often,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/arrivals)
 "AP" = (
 /turf/simulated/wall,
 /area/ruin/skullakin_mine/cafeteria)
@@ -1182,6 +1420,11 @@
 /obj/structure/table/glass,
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/skullakin_mine/cafeteria)
+"Bx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/engine,
+/area/ruin/skullakin_mine/cafeteria)
 "BF" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/cable{
@@ -1193,7 +1436,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/themed_mess/bloody,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/ruin/skullakin_mine/cafeteria)
 "BG" = (
@@ -1206,14 +1449,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
 "BQ" = (
 /obj/effect/gibspawner/generic,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/cafeteria)
 "Cc" = (
 /obj/structure/spider/stickyweb,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/ruin/skullakin_mine/mission_control)
 "Ce" = (
@@ -1229,15 +1476,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mission_control)
 "Cn" = (
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mission_control)
 "Cr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/skullakin_mine/temple)
 "CN" = (
@@ -1248,6 +1498,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
 "Dq" = (
@@ -1267,6 +1518,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mission_control)
 "DK" = (
@@ -1274,6 +1526,7 @@
 	dir = 4
 	},
 /mob/living/simple_animal/hostile/asteroid/goliath/space,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/skullakin_mine/cafeteria)
 "Ej" = (
@@ -1284,7 +1537,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/skullakin_mine/solars)
 "El" = (
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel/dark,
@@ -1301,10 +1554,13 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mining)
 "EP" = (
 /obj/item/food/monstermeat/goliath,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/overseer)
 "Fg" = (
@@ -1313,7 +1569,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/themed_mess/bloody,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/ruin/skullakin_mine/cafeteria)
 "Ft" = (
@@ -1323,8 +1579,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
+"FM" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/mining)
 "FO" = (
 /obj/structure/closet/firecloset/full,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
 "Gd" = (
@@ -1360,6 +1622,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
 "GT" = (
@@ -1373,14 +1636,28 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mission_control)
+"Hk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/temple)
 "Ho" = (
-/turf/simulated/wall/indestructible/riveted,
+/turf/simulated/wall/indestructible/rock,
 /area/ruin/skullakin_mine/mining)
+"HC" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/cafeteria)
 "HE" = (
 /mob/living/simple_animal/hostile/asteroid/goliath/space,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/skullakin_mine/temple)
+"HG" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/skullakin_mine/cafeteria)
 "HH" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/skullakin_mine/cafeteria)
 "HN" = (
@@ -1425,6 +1702,7 @@
 	dir = 4
 	},
 /obj/machinery/light,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
 "It" = (
@@ -1436,11 +1714,39 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mission_control)
-"IJ" = (
+"Ix" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/ruin/skullakin_mine/mining)
+"IC" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/engine,
+/area/ruin/skullakin_mine/cafeteria)
+"ID" = (
 /obj/structure/spider/stickyweb,
-/obj/effect/spawner/themed_mess/bloody,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/ruin/skullakin_mine/cafeteria)
 "IN" = (
@@ -1452,13 +1758,21 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/ruin/skullakin_mine/cafeteria)
+"IU" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/mission_control)
 "IW" = (
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/overseer)
 "Ja" = (
 /obj/effect/gibspawner/generic,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mining)
+"Jg" = (
+/turf/simulated/wall/indestructible/rock,
+/area/ruin/skullakin_mine/arrivals)
 "Ji" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1478,7 +1792,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/skullakin_mine/solars)
 "JB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -1490,6 +1804,7 @@
 	dir = 4
 	},
 /mob/living/simple_animal/hostile/asteroid/goliath/space,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/skullakin_mine/cafeteria)
 "JF" = (
@@ -1514,9 +1829,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mining)
 "Kh" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/skullakin_mine/temple)
+"Kw" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/skullakin_mine/temple)
 "KD" = (
@@ -1524,8 +1845,12 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
 "KG" = (
-/turf/simulated/mineral/ancient/outer,
+/turf/simulated/wall/indestructible/rock,
 /area/ruin)
+"KT" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/mission_control)
 "Lh" = (
 /obj/effect/spawner/random/cobweb/left/frequent,
 /obj/structure/cable{
@@ -1537,8 +1862,16 @@
 /obj/machinery/atmospherics/unary/tank/air,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
+"Ln" = (
+/obj/item/ammo_box/magazine/laser{
+	max_ammo = 0;
+	name = "Old Spent Magazine"
+	},
+/turf/simulated/floor/engine,
+/area/ruin/skullakin_mine/cafeteria)
 "Lq" = (
 /obj/effect/gibspawner/generic,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mining)
 "Ls" = (
@@ -1554,8 +1887,16 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mission_control)
+"Lv" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/skullakin_mine/cafeteria)
 "LK" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -1566,6 +1907,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/temple)
 "MK" = (
@@ -1581,6 +1923,13 @@
 /obj/machinery/economy/vending/minedrobe,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mining)
+"Nj" = (
+/obj/effect/decal/cleanable/glass/plasma,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/shard/plasma,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/arrivals)
 "Ns" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1601,7 +1950,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/themed_mess/bloody,
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/skullakin_mine/cafeteria)
 "NU" = (
@@ -1642,6 +1990,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mining)
 "Ov" = (
@@ -1655,10 +2004,10 @@
 /area/ruin/skullakin_mine/cafeteria)
 "OH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
 "OR" = (
-/obj/machinery/computer/loreconsole,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -1667,6 +2016,10 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/light,
+/obj/machinery/computer/loreconsole/skullakin_mine/monitoring_station{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/temple)
 "Pg" = (
@@ -1690,6 +2043,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
 "Pq" = (
@@ -1707,7 +2061,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/skullakin_mine/solars)
 "PD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1725,6 +2079,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/temple)
 "Qk" = (
@@ -1735,6 +2090,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mission_control)
+"Qu" = (
+/obj/structure/lattice,
+/turf/space,
+/area/ruin/skullakin_mine/solars)
 "QV" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -1745,6 +2104,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/overseer)
 "Rl" = (
@@ -1755,20 +2115,26 @@
 /obj/effect/spawner/random/smithed_item/lens,
 /obj/effect/spawner/random/smithed_item/lens,
 /obj/effect/spawner/random/smithed_item/lens,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mining)
 "Rn" = (
-/obj/machinery/door/poddoor/multi_tile/impassable{
-	id = "skullakin_mine_intermediate_lockdown"
-	},
 /obj/machinery/door/airlock/multi_tile/glass,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/poddoor/multi_tile/impassable{
+	id_tag = "skullakin_mine_intermediate_lockdown"
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/cafeteria)
+"Rs" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/skullakin_mine/temple)
 "RJ" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/random/book,
@@ -1776,6 +2142,7 @@
 /area/ruin/skullakin_mine/arrivals)
 "RL" = (
 /obj/structure/table/glass/reinforced/plasma,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/skullakin_mine/overseer)
 "RS" = (
@@ -1791,6 +2158,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/cafeteria)
 "Sn" = (
@@ -1804,6 +2172,7 @@
 "Sx" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/random/snacks,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/cafeteria)
 "SC" = (
@@ -1813,10 +2182,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/temple)
 "SF" = (
-/obj/effect/spawner/themed_mess/bloody,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/ruin/skullakin_mine/mission_control)
 "SJ" = (
@@ -1826,6 +2196,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/temple)
+"SS" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/spawner/random/blood/often,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/area/ruin/skullakin_mine/cafeteria)
 "Ta" = (
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/temple)
@@ -1838,6 +2214,10 @@
 "Tu" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/overseer)
+"Tx" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/skullakin_mine/mining)
 "TC" = (
 /obj/structure/table/glass/reinforced/plasma,
 /obj/effect/spawner/random/sieged_lab/research_paper,
@@ -1847,6 +2227,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/ruin/skullakin_mine/cafeteria)
 "TM" = (
@@ -1857,6 +2238,18 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/ruin/skullakin_mine/cafeteria)
+"TR" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plasma,
+/area/ruin/skullakin_mine/mission_control)
+"TS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_box/magazine/laser{
+	max_ammo = 0;
+	name = "Old Spent Magazine"
+	},
+/turf/simulated/floor/mineral/plasma,
+/area/ruin/skullakin_mine/mission_control)
 "TT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1870,19 +2263,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/temple)
-"TZ" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/space,
-/area/ruin/space/unpowered/no_grav)
 "Ue" = (
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/ruin/skullakin_mine/cafeteria)
@@ -1895,6 +2278,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/cafeteria)
 "Ut" = (
@@ -1906,6 +2290,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/temple)
 "UB" = (
@@ -1924,6 +2309,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/transparent/glass/reinforced/plasma,
 /area/ruin/skullakin_mine/cafeteria)
 "Vk" = (
@@ -1943,6 +2329,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/overseer)
+"VC" = (
+/obj/structure/table/glass,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plasma,
+/area/ruin/skullakin_mine/cafeteria)
 "VF" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1965,6 +2356,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
 "VY" = (
@@ -1998,6 +2390,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_box/magazine/laser{
+	max_ammo = 0;
+	name = "Old Spent Magazine"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/arrivals)
 "Wd" = (
@@ -2012,7 +2409,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/skullakin_mine/solars)
 "Wk" = (
 /obj/machinery/door_control/no_emag/no_cyborg{
 	name = "Depths Lockdown";
@@ -2021,13 +2418,16 @@
 	},
 /obj/effect/decal/remains/human,
 /obj/effect/gibspawner/generic,
-/obj/effect/spawner/themed_mess/bloody,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/overseer)
 "Wn" = (
 /obj/machinery/light,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/skullakin_mine/arrivals)
+"Ww" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/skullakin_mine/overseer)
 "WK" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/cable{
@@ -2053,6 +2453,7 @@
 /area/ruin/skullakin_mine/mining)
 "WR" = (
 /obj/machinery/economy/vending/snack,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
 "WV" = (
@@ -2061,14 +2462,43 @@
 /area/ruin/skullakin_mine/mining)
 "WX" = (
 /obj/machinery/computer/loreconsole,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mining)
+"Xi" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/ruin/skullakin_mine/cafeteria)
 "Xo" = (
 /obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/overseer)
+"Xs" = (
+/obj/effect/decal/cleanable/glass/plasma,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/shard/plasma,
+/turf/simulated/floor/plating{
+	desc = "<br>There is some old writing on this floor. You are barely able to read out a few lines from a tangled scribble.<br><br>In a chamber a great mirror lies, cut away it solemn cries. Travel bold as thou might, piercing vastness as a kite.<br><br>HONK!<br>";
+	name = "Old Note #6"
+	},
+/area/ruin/skullakin_mine/arrivals)
+"Xv" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/skullakin_mine/cafeteria)
 "XA" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel,
@@ -2093,7 +2523,7 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/skullakin_mine/solars)
 "XS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -2110,6 +2540,7 @@
 "Yd" = (
 /obj/effect/gibspawner/generic,
 /obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mission_control)
 "Ye" = (
@@ -2117,14 +2548,14 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/skullakin_mine/solars)
 "Yh" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/skullakin_mine/solars)
 "Yn" = (
 /obj/structure/lattice,
 /turf/space,
@@ -2142,6 +2573,11 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/cafeteria)
+"YW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/engine,
+/area/ruin/skullakin_mine/mining)
 "YX" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -2160,6 +2596,8 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/skullakin_mine/temple)
 "Zk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/skullakin_mine/mission_control)
 "Zt" = (
@@ -2168,9 +2606,19 @@
 	},
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/skullakin_mine/mining)
+"Zx" = (
+/obj/structure/table/glass,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/skullakin_mine/cafeteria)
 "Zz" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/temple)
+"ZB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/engine,
+/area/ruin/skullakin_mine/mission_control)
 "ZE" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2181,12 +2629,19 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mining)
 "ZN" = (
 /obj/structure/grille,
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/skullakin_mine/solars)
+"ZX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/skullakin_mine/temple)
 
 (1,1,1) = {"
 CN
@@ -2493,9 +2948,9 @@ jH
 zf
 zf
 zf
-dg
-dg
-dg
+zf
+zf
+zf
 jH
 zf
 cN
@@ -2526,10 +2981,10 @@ Ho
 WV
 WP
 dy
-dy
+lC
 kF
-dy
-dy
+lC
+lC
 Rl
 ru
 Ho
@@ -2538,11 +2993,11 @@ cN
 zf
 zf
 zf
-dg
 zf
 zf
 zf
-dg
+zf
+zf
 zf
 zf
 cN
@@ -2575,9 +3030,9 @@ vk
 Lq
 Og
 Og
-Od
+Tx
 kc
-vk
+bd
 dy
 Ho
 cN
@@ -2589,7 +3044,7 @@ zf
 zf
 zf
 zf
-dg
+zf
 zf
 zf
 rf
@@ -2617,17 +3072,17 @@ rf
 aU
 rf
 Ho
-XA
+FM
 Od
 Lq
 Yb
 tD
-Og
-Od
+gc
+AD
 dG
 lC
 eT
-zf
+zH
 zf
 zf
 zf
@@ -2664,19 +3119,19 @@ rf
 aU
 rf
 Ho
-XA
+FM
 Og
 Lq
 uv
 Zt
-Od
 dG
-Od
+zp
+qV
 XA
 bq
 zf
 zf
-zf
+aQ
 zf
 zf
 zf
@@ -2712,20 +3167,20 @@ aU
 rf
 Ho
 WX
-vk
-Od
+bd
+Tx
 Kd
-Od
-Od
-Og
-vk
+dG
+Tx
+gc
+bd
 cZ
 Ho
 zf
 zf
 zf
 zf
-dg
+zf
 zf
 zf
 zf
@@ -2759,21 +3214,21 @@ aU
 rf
 Ho
 Nc
-dy
-dy
+lC
+lC
 ck
 EF
 gt
 yT
 lY
-yT
+ho
 Ho
 rf
 YX
 zf
+rq
 zf
-dg
-dg
+zf
 zf
 zf
 zf
@@ -2807,7 +3262,7 @@ aU
 Ho
 Ho
 Ho
-bq
+kx
 Oo
 Ho
 Ho
@@ -2819,11 +3274,11 @@ rf
 rf
 zf
 zf
+aQ
 zf
-dg
-dg
 zf
-dg
+zf
+zf
 zf
 rf
 KG
@@ -2854,7 +3309,7 @@ aU
 aU
 aU
 Ho
-bq
+YW
 mb
 Ho
 cN
@@ -2865,9 +3320,9 @@ cN
 rf
 rf
 zf
+rq
 zf
-zf
-zf
+rq
 zf
 zf
 zf
@@ -2901,7 +3356,7 @@ aU
 aU
 aU
 Ho
-bq
+YW
 pI
 Ho
 rf
@@ -2912,7 +3367,7 @@ cN
 rf
 zf
 zf
-zf
+aQ
 zf
 zf
 zf
@@ -2961,7 +3416,7 @@ zf
 zf
 hA
 zf
-dg
+zf
 zf
 jH
 cN
@@ -3007,8 +3462,8 @@ rf
 zf
 zf
 zf
-dg
-dg
+zf
+zf
 zf
 zf
 cN
@@ -3043,7 +3498,7 @@ rf
 aU
 Ho
 rV
-ZE
+Ix
 Ho
 rf
 cN
@@ -3089,7 +3544,7 @@ CN
 rf
 rf
 zy
-cD
+eZ
 tC
 zy
 zy
@@ -3141,7 +3596,7 @@ Ce
 Vo
 It
 Ls
-vR
+vH
 Al
 UB
 zy
@@ -3184,13 +3639,13 @@ CN
 rf
 zy
 Ji
-Zk
-Cn
+TS
+wH
 hj
 zI
 xS
 Zk
-yp
+KT
 zy
 cN
 cN
@@ -3231,13 +3686,13 @@ CN
 rf
 zy
 Ph
-Cn
+wH
 fx
 hj
 zv
 NF
 Cn
-yp
+IU
 zy
 zy
 zy
@@ -3278,25 +3733,25 @@ CN
 rf
 zy
 yp
-Zk
+TR
 Yd
 Qq
 eS
-Cn
+wH
 Zk
-yp
+mx
 Dq
-yp
+mG
 Tc
 zy
 cN
 cN
-Sb
-Sb
-Sb
-Sb
-Sb
-Sb
+Jg
+Jg
+Jg
+Jg
+Jg
+Jg
 Sb
 th
 th
@@ -3326,10 +3781,10 @@ rf
 zy
 rA
 de
-yp
-yp
+IU
+IU
 Dx
-GX
+va
 GX
 GX
 nn
@@ -3338,7 +3793,7 @@ vR
 zy
 cN
 cN
-Sb
+Jg
 fH
 RJ
 MK
@@ -3374,7 +3829,7 @@ zy
 zy
 zy
 zy
-cD
+eZ
 rH
 zy
 zy
@@ -3385,7 +3840,7 @@ zy
 zy
 KG
 KG
-Sb
+Jg
 Za
 kP
 Sn
@@ -3393,7 +3848,7 @@ kP
 sR
 Sb
 eX
-Za
+uM
 XB
 CN
 CN
@@ -3421,7 +3876,7 @@ CN
 rf
 rf
 zy
-cD
+ZB
 Wa
 zy
 aU
@@ -3432,15 +3887,15 @@ aU
 aU
 rf
 rf
-Sb
-Za
+Jg
+ph
 Id
 mc
 on
 Ol
 Sb
 Za
-Za
+uM
 XB
 CN
 CN
@@ -3481,13 +3936,13 @@ CN
 CN
 Sb
 Sb
-th
+Xs
 Ia
 th
 Sb
 Sb
-zq
 Za
+uM
 Sb
 CN
 CN
@@ -3528,13 +3983,13 @@ CN
 CN
 th
 cV
-Za
+Nj
 Wc
 zT
 cs
-Za
-Za
-Za
+uM
+uM
+uM
 Sb
 CN
 CN
@@ -3574,7 +4029,7 @@ CN
 CN
 CN
 th
-Za
+uM
 yL
 iK
 PD
@@ -3621,7 +4076,7 @@ CN
 CN
 CN
 th
-Za
+uM
 nL
 Sb
 HW
@@ -3666,9 +4121,9 @@ CN
 CN
 CN
 CN
+jo
 Sb
-Sb
-eX
+AN
 qe
 hd
 Yr
@@ -3697,13 +4152,13 @@ CN
 CN
 AP
 yV
-nw
-nw
+HC
+HC
 nw
 jJ
 nw
 nw
-nw
+su
 zw
 aP
 pd
@@ -3713,9 +4168,9 @@ CN
 CN
 aU
 aU
-Sb
+jo
 KD
-Za
+uM
 qe
 HW
 zm
@@ -3743,15 +4198,15 @@ CN
 CN
 CN
 pd
-nw
+HC
+Lv
 qa
-qa
-qa
-Vk
-Vk
-qa
-qa
-qa
+Lv
+HG
+HG
+Lv
+Lv
+Lv
 uA
 pd
 CN
@@ -3760,7 +4215,7 @@ CN
 aU
 aU
 aU
-Sb
+jo
 jy
 Za
 VR
@@ -3790,11 +4245,11 @@ CN
 CN
 CN
 pd
-nw
+HC
 Ut
 Bu
 Sx
-ou
+nD
 Vk
 dd
 qX
@@ -3806,14 +4261,14 @@ aU
 aU
 aU
 aU
-HN
-HN
-HN
+mt
+mt
+mt
 Ta
 dz
-HN
-HN
-Sb
+mt
+mt
+jo
 Sb
 CN
 CN
@@ -3837,11 +4292,11 @@ CN
 CN
 CN
 pd
-nw
+HC
 fP
-fP
-fP
-ou
+hi
+hi
+Vk
 BQ
 Sc
 iI
@@ -3849,29 +4304,29 @@ fP
 uA
 AP
 AP
-AP
-AP
-AP
-AP
-HN
+cz
+cz
+cz
+cz
+mt
 sJ
 dT
 aq
 cy
 WK
-HN
+mt
 rf
 rf
 ZN
 ZN
 ZN
-Yn
+Qu
 ZN
 ZN
 ZN
 ZN
-Yn
-Yn
+Qu
+Qu
 ZN
 ZN
 ZN
@@ -3886,16 +4341,16 @@ CN
 AP
 Dd
 Vk
-Vk
+HG
 Vk
 HH
 JD
-Vk
-Vk
-Vk
+nD
+HG
+HG
 ff
 Rn
-hf
+Xi
 Fg
 IN
 xN
@@ -3903,10 +4358,10 @@ hf
 vW
 LK
 Cr
-Kh
-Kh
+ZX
+Kw
 VF
-HN
+mt
 rf
 rf
 lB
@@ -3917,7 +4372,7 @@ lB
 lB
 lB
 lB
-Yn
+Qu
 lB
 lB
 lB
@@ -3932,43 +4387,43 @@ CN
 CN
 AP
 WR
-Vk
-Vk
-Vk
+nD
+HG
+gy
 DK
 NM
-ou
-Vk
-Vk
-uA
+nD
+mh
+gy
+uy
 Wd
 tq
-TO
+ID
 TE
-TO
-Wd
-Ta
-Zz
+SS
+hF
+sk
+Hk
 oZ
 Qk
-Kh
+Kw
 qK
-HN
+mt
 rf
 aU
 rf
-Yn
-Yn
-Yn
-Yn
+Qu
+Qu
+Qu
+Qu
 Py
 gv
 Ej
-Yn
+Qu
 Py
 gv
 Ej
-Yn
+Qu
 ZN
 CN
 CN
@@ -3978,35 +4433,35 @@ CN
 CN
 CN
 pd
-nw
-qa
-qa
-qa
+HC
+Lv
+Lv
+Lv
 Ui
 nl
+Lv
 qa
-qa
-qa
+Lv
 Ie
 AP
 AP
-AP
-AP
-AP
-AP
-HN
+cz
+cz
+cz
+cz
+mt
 nZ
 vx
 HE
 Kh
 OR
-HN
+mt
 cN
 cN
 rf
 lB
 lB
-Yn
+Qu
 lB
 Py
 XI
@@ -4027,43 +4482,43 @@ CN
 pd
 nw
 Sx
-Bu
+VC
 El
 wb
-Vk
-El
+nD
+Zx
 bg
 Sx
-uA
+uy
 pd
 CN
 rf
 rf
 rf
 rf
-HN
+mt
 Zz
 Kh
 Qk
-Kh
+Rs
 qK
-HN
+mt
 cN
 aU
 rf
 lB
 lB
-Yn
+Qu
 lB
 Py
 XI
 Ej
-Yn
+Qu
 Py
 XI
 Ej
-Yn
-Yn
+Qu
+Qu
 CN
 CN
 CN
@@ -4074,13 +4529,13 @@ CN
 pd
 nw
 fP
-fP
+hi
 Sc
 wb
 JF
 tp
 Gm
-Gm
+Xv
 BG
 pd
 CN
@@ -4088,29 +4543,29 @@ CN
 rf
 cN
 cN
-HN
+mt
 TM
 sS
 Kh
-Kh
+ZX
 VF
-HN
-HN
-HN
-HN
-rf
+mt
+mt
+mt
+mt
+mt
 lB
-Yn
-lB
-Py
-XI
-Ej
+Qu
 lB
 Py
 XI
 Ej
 lB
-Yn
+Py
+XI
+Ej
+lB
+Qu
 ZN
 ZN
 CN
@@ -4135,42 +4590,42 @@ CN
 rf
 rf
 cN
-HN
+mt
 kE
-TM
+xG
 SC
 pR
 TT
 PQ
 Uw
+sk
 Pq
 HN
-rf
 lB
-Yn
+Qu
 lB
 Py
 XI
 Ej
-Yn
+Qu
 Py
 XI
 Ej
-Yn
-Yn
-Yn
+Qu
+Qu
+Qu
 lB
 ZN
 "}
 (43,1,1) = {"
 CN
 CN
-AP
-AP
-AP
+cz
+cz
+cz
 Ft
 AP
-Wd
+hF
 gr
 AP
 pd
@@ -4197,7 +4652,7 @@ Yh
 Yh
 Yh
 Yh
-TZ
+kY
 Yh
 Yh
 Yh
@@ -4213,11 +4668,11 @@ ZN
 CN
 CN
 rf
-AP
+cz
 Ka
 hc
-AP
-Wd
+cz
+Bx
 Ns
 AP
 CN
@@ -4238,21 +4693,21 @@ Qk
 HN
 SJ
 Pg
-HN
-aU
+zW
+mt
 rf
-Yn
-Yn
+Qu
+Qu
 Py
 Jj
 Ej
-Yn
+Qu
 Py
 Jj
 Ej
-Yn
-Yn
-Yn
+Qu
+Qu
+Qu
 lB
 ZN
 "}
@@ -4260,10 +4715,10 @@ ZN
 CN
 aU
 rf
-AP
+cz
 Yw
 XS
-AP
+cz
 TO
 UK
 yP
@@ -4283,10 +4738,10 @@ Bh
 fI
 vf
 HN
-HN
-HN
-HN
-aU
+mt
+mt
+mt
+mt
 rf
 lB
 lB
@@ -4298,7 +4753,7 @@ Py
 Jj
 Ej
 lB
-Yn
+Qu
 ZN
 ZN
 CN
@@ -4307,13 +4762,13 @@ CN
 CN
 aU
 aU
-AP
+cz
 Lk
 mZ
-AP
-IJ
+cz
+TO
 az
-AP
+cz
 rf
 CN
 CN
@@ -4335,17 +4790,17 @@ rf
 cN
 aU
 rf
-Yn
-Yn
+Qu
+Qu
 Py
 Jj
 Ej
-Yn
+Qu
 Py
 Jj
 Ej
-Yn
-Yn
+Qu
+Qu
 CN
 CN
 CN
@@ -4354,13 +4809,13 @@ CN
 CN
 rf
 aU
-AP
+cz
 Lk
 Ab
-AP
+cz
 Ue
 BF
-AP
+cz
 rf
 rf
 rf
@@ -4382,7 +4837,7 @@ cN
 cN
 cN
 rf
-Yn
+Qu
 lB
 Py
 Jj
@@ -4401,13 +4856,13 @@ CN
 CN
 rf
 rf
-AP
+cz
 bW
 ld
-AP
-Wd
-Ns
-AP
+cz
+Ln
+IC
+cz
 rf
 rf
 rf
@@ -4429,16 +4884,16 @@ cN
 rf
 cN
 rf
-Yn
+Qu
 lB
 Py
 Wi
 Ej
-Yn
+Qu
 Py
 Wi
 Ej
-Yn
+Qu
 ZN
 CN
 CN
@@ -4448,7 +4903,7 @@ CN
 CN
 rf
 rf
-AP
+cz
 mT
 mT
 mT
@@ -4476,17 +4931,17 @@ cN
 cN
 cN
 rf
-Yn
+Qu
 lB
 lB
 lB
 lB
-Yn
+Qu
 lB
 lB
 lB
 lB
-Yn
+Qu
 CN
 CN
 CN
@@ -4498,10 +4953,10 @@ aU
 rf
 mT
 Lh
-Ak
+ur
 Ak
 QV
-Tu
+Ww
 Tu
 mT
 aU
@@ -4523,12 +4978,12 @@ cN
 aU
 aU
 rf
-Yn
+Qu
 ZN
 ZN
 ZN
 ZN
-Yn
+Qu
 ZN
 ZN
 ZN

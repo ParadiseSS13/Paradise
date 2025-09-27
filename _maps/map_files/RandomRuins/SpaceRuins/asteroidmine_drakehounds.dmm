@@ -195,6 +195,9 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/drakehound_mine/hallway_south)
 "fY" = (
@@ -203,6 +206,15 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/drakehound_mine/bar)
+"ga" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/solar_control{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/drakehound_mine/hallway_south)
 "gk" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -328,7 +340,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/drakehound_mine/solars)
 "iK" = (
 /obj/effect/spawner/random/food_trash,
 /obj/machinery/light{
@@ -459,7 +471,7 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/drakehound_mine/solars)
 "mh" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
@@ -608,7 +620,7 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/drakehound_mine/solars)
 "pA" = (
 /obj/structure/closet/crate/miningcar{
 	name = "mining car"
@@ -636,12 +648,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/computer/monitor{
-	name = "Grid Power Monitoring Computer"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel,
 /area/ruin/drakehound_mine/hallway_south)
 "qv" = (
@@ -744,10 +751,13 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/drakehound_mine/solars)
 "th" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -888,7 +898,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/drakehound_mine/solars)
 "yk" = (
 /obj/structure/chair/stool/bar{
 	dir = 4
@@ -980,14 +990,14 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/drakehound_mine/solars)
 "BV" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/drakehound_mine/solars)
 "Cq" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -1054,7 +1064,7 @@
 "DA" = (
 /obj/structure/grille,
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/drakehound_mine/solars)
 "DK" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -1109,7 +1119,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/drakehound_mine/solars)
 "EZ" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
@@ -1299,10 +1309,6 @@
 /obj/machinery/door/airlock/maintenance/external,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/drakehound_mine/hallway_north)
-"ML" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/ruin/drakehound_mine/hallway_south)
 "MX" = (
 /obj/machinery/economy/vending/wallmed/directional/west,
 /turf/simulated/floor/plasteel,
@@ -1353,7 +1359,7 @@
 /obj/structure/lattice,
 /obj/structure/grille,
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/drakehound_mine/solars)
 "Ot" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -1389,10 +1395,13 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/drakehound_mine/solars)
 "Pw" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -1447,7 +1456,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/drakehound_mine/solars)
 "QG" = (
 /turf/space,
 /area/ruin/drakehound_mine/ship)
@@ -1634,6 +1643,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/drakehound_mine/hallway_south)
+"Xe" = (
+/obj/structure/lattice,
+/turf/space,
+/area/ruin/drakehound_mine/solars)
 "Xf" = (
 /turf/simulated/mineral/random/low_chance/space,
 /area/ruin/space/unpowered)
@@ -1644,7 +1657,7 @@
 /area/ruin/drakehound_mine/ship)
 "Xq" = (
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/drakehound_mine/solars)
 "Xs" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -1714,7 +1727,7 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
 /turf/space,
-/area/ruin/space/unpowered/no_grav)
+/area/ruin/drakehound_mine/solars)
 "Zz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -3265,7 +3278,7 @@ aj
 aj
 aj
 rI
-ML
+FB
 FQ
 fX
 DZ
@@ -3327,9 +3340,9 @@ Ss
 Ss
 Ss
 Ss
-ML
 FB
 FB
+ga
 FB
 uU
 Tf
@@ -3390,21 +3403,21 @@ Ss
 Ss
 Ss
 aj
-Ss
-Ss
-bX
+FB
+FB
+FB
 av
 bM
 TZ
 ye
 Xq
-aj
+Xe
 Xq
 Xq
 Xq
-aj
+Xe
 Xq
-aj
+Xe
 DA
 Ss
 Ss
@@ -3454,19 +3467,19 @@ Ss
 aj
 Ss
 Ss
-bX
+ZC
 od
 vN
 bX
-aj
+Xe
 iB
 lO
 QB
-aj
+Xe
 iB
 lO
 QB
-aj
+Xe
 DA
 Ss
 Ss
@@ -3514,8 +3527,8 @@ Ss
 Ss
 Ss
 ZC
-bX
-bX
+ZC
+ZC
 hk
 JK
 hK
@@ -3586,12 +3599,12 @@ Xq
 iB
 pw
 QB
-aj
+Xe
 iB
 pw
 QB
-aj
-aj
+Xe
+Xe
 Ss
 Ss
 Ss
@@ -3653,7 +3666,7 @@ iB
 pw
 QB
 Xq
-aj
+Xe
 DA
 DA
 DA
@@ -3710,13 +3723,13 @@ Xq
 iB
 pw
 QB
-aj
+Xe
 iB
 pw
 QB
-aj
-aj
-aj
+Xe
+Xe
+Xe
 Xq
 DA
 "}
@@ -3830,17 +3843,17 @@ bX
 nD
 jI
 bX
-aj
+Xe
 iB
 Bn
 QB
-aj
+Xe
 iB
 Bn
 QB
-aj
-aj
-aj
+Xe
+Xe
+Xe
 Xq
 DA
 "}
@@ -3901,7 +3914,7 @@ iB
 Bn
 QB
 Xq
-aj
+Xe
 DA
 DA
 DA
@@ -3954,16 +3967,16 @@ ZC
 bX
 bX
 ZC
-aj
+Xe
 iB
 Bn
 QB
-aj
+Xe
 iB
 Bn
 QB
-aj
-aj
+Xe
+Xe
 Ss
 Ss
 Ss
@@ -4082,11 +4095,11 @@ Xq
 iB
 EP
 QB
-aj
+Xe
 iB
 EP
 QB
-aj
+Xe
 DA
 Ss
 Ss
@@ -4140,15 +4153,15 @@ Ss
 Ss
 Ss
 DA
-aj
+Xe
 Xq
-aj
-aj
+Xe
+Xe
 Xq
 Xq
-aj
+Xe
 Xq
-aj
+Xe
 DA
 Ss
 Ss
