@@ -305,13 +305,13 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/computer/monitor,
 /obj/machinery/door_control{
 	pixel_y = 25;
 	id = "DS_Rad";
 	name = "Generator Storage"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/monitor/secret,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "browncorner"

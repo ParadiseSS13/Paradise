@@ -1732,9 +1732,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/computer/monitor{
-	name = "Telecoms Power Monitoring";
-	dir = 1
+/obj/machinery/computer/monitor/secret{
+	dir = 1;
+	name = "Telecoms Power Monitoring"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
