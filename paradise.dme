@@ -447,7 +447,6 @@
 #include "code\datums\station_state.dm"
 #include "code\datums\tgs_event_handler.dm"
 #include "code\datums\verb_callbacks.dm"
-#include "code\datums\vision_override.dm"
 #include "code\datums\vv_core_topics.dm"
 #include "code\datums\actions\action.dm"
 #include "code\datums\actions\cooldown_action.dm"
