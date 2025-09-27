@@ -147,7 +147,8 @@
 	return FALSE
 
 /obj/effect/mob_spawn/proc/create(ckey, flavour = TRUE, name, mob/user = usr)
-	log_game("[ckey] became [mob_name]")
+	if(ckey) // we don't care about corpse spawners etc
+		log_game("[ckey] became [mob_name]")
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
 	if(mob_name)
 		M.rename_character(M.real_name, mob_name)
@@ -457,7 +458,7 @@
 
 /datum/outfit/abductorcorpse
 	name = "Abductor Corpse"
-	uniform = /obj/item/clothing/under/color/grey
+	uniform = /obj/item/clothing/under/abductor
 	shoes = /obj/item/clothing/shoes/combat
 
 /obj/effect/mob_spawn/human/corpse/ashwalker
