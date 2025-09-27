@@ -935,6 +935,7 @@
 /// Epic_Charger: Linda Clark
 /obj/item/clothing/head/hooded/hood/fluff/linda
 	icon_state = "greenhood"
+	icon_monitor = null
 
 /// Hylocereus: Sam Aria
 /obj/item/clothing/suit/hooded/hoodie/fluff/hylo
@@ -960,6 +961,7 @@
 /obj/item/clothing/head/hooded/hood/fluff/skeleton
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "skeleton_hood"
+	icon_monitor = null
 
 /// RazekPraxis: SHODAN
 /obj/item/clothing/suit/armor/shodanscoat
@@ -1029,6 +1031,7 @@
 	desc = "A hood with some horns <i>glued</i> to them, or something like that. Custom fit for a Unathi's head shape."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xydonus_bomberhood"
+	icon_monitor = null
 
 /// Pineapple Salad: Dan Jello
 /obj/item/clothing/suit/fluff/pineapple
