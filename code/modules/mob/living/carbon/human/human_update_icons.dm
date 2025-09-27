@@ -816,7 +816,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/obj/item/clothing/head/helmet/space/plasmaman/P = head
 			if(!P.up)
 				standing.overlays += P.visor_icon
-			else if(P.on)
+			else if(P.on && P.light_icon)
 				standing.overlays += P.light_icon
 
 		if(istype(head, /obj/item/clothing/head))
