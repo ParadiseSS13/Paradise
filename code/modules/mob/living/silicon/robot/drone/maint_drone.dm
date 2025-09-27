@@ -127,6 +127,11 @@
 	// force it to not actually change most things
 	return ..(newname, newname)
 
+// Drones don't have a PDA.
+/mob/living/silicon/robot/drone/open_pda()
+	to_chat(src, "<span class='warning'>This unit does not have PDA functionality!</span>")
+	return
+
 /mob/living/silicon/robot/drone/get_default_name()
 	return "maintenance drone ([rand(100, 999)])"
 
