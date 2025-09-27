@@ -354,7 +354,7 @@
 	icon = 'icons/obj/weapons/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon_state = "sword0"
+	icon_state = "sword"
 	hitsound = "swing_hit"
 	force = 3.0
 	throw_speed = 1
@@ -362,40 +362,39 @@
 	w_class = WEIGHT_CLASS_SMALL
 	armor_penetration_percentage = 50
 	var/active = FALSE
+	/// Color of this e-sword. You can see supported colors in icon file
+	var/sword_color
 
 /obj/item/holo/esword/Initialize(mapload)
 	. = ..()
+	if(!sword_color)
+		sword_color = pick("red", "blue", "green", "purple")
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
-/obj/item/holo/esword/green/New()
-	..()
-	item_color = "green"
+/obj/item/holo/esword/update_icon_state()
+	icon_state = "[initial(icon_state)][active ? sword_color : ""]"
 
-/obj/item/holo/esword/red/New()
-	..()
-	item_color = "red"
+/obj/item/holo/esword/green
+	sword_color = "green"
+
+/obj/item/holo/esword/red
+	sword_color = "red"
 
 /obj/item/holo/esword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		return ..()
 	return 0
 
-/obj/item/holo/esword/New()
-	..()
-	item_color = pick("red","blue","green","purple")
-
 /obj/item/holo/esword/attack_self__legacy__attackchain(mob/living/user as mob)
 	active = !active
 	if(active)
 		force = 30
-		icon_state = "sword[item_color]"
 		hitsound = "sound/weapons/blade1.ogg"
 		w_class = WEIGHT_CLASS_BULKY
 		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 	else
 		force = 3
-		icon_state = "sword0"
 		hitsound = "swing_hit"
 		w_class = WEIGHT_CLASS_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
@@ -405,7 +404,7 @@
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
 	add_fingerprint(user)
-	return
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/readybutton
 	name = "Ready Declaration Device"

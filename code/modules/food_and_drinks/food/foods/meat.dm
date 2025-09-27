@@ -528,40 +528,31 @@
 
 	to_chat(usr, "<span class ='notice'>You color \the [src] [clr]</span>")
 	icon_state = "egg-[clr]"
-	item_color = clr
 	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/egg/blue
 	icon_state = "egg-blue"
-	item_color = "blue"
 
 /obj/item/food/egg/green
 	icon_state = "egg-green"
-	item_color = "green"
 
 /obj/item/food/egg/mime
 	icon_state = "egg-mime"
-	item_color = "mime"
 
 /obj/item/food/egg/orange
 	icon_state = "egg-orange"
-	item_color = "orange"
 
 /obj/item/food/egg/purple
 	icon_state = "egg-purple"
-	item_color = "purple"
 
 /obj/item/food/egg/rainbow
 	icon_state = "egg-rainbow"
-	item_color = "rainbow"
 
 /obj/item/food/egg/red
 	icon_state = "egg-red"
-	item_color = "red"
 
 /obj/item/food/egg/yellow
 	icon_state = "egg-yellow"
-	item_color = "yellow"
 
 /obj/item/food/egg/gland
 	desc = "An egg! It looks weird..."

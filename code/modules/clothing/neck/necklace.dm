@@ -1,25 +1,21 @@
 /obj/item/clothing/neck/necklace
 	desc = "A simple necklace."
 	icon_state = "necklace"
-	item_color = "necklace"
 
 /obj/item/clothing/neck/necklace/long
 	name = "large necklace"
 	desc = "A large necklace."
 	icon_state = "necklacelong"
-	item_color = "necklacelong"
 
 /obj/item/clothing/neck/necklace/dope
 	name = "gold necklace"
 	desc = "Damn, it feels good to be a gangster."
 	icon_state = "bling"
-	item_color = "bling"
 
 /obj/item/clothing/neck/necklace/locket
 	name = "gold locket"
 	desc = "A gold locket that seems to have space for a photo within."
 	icon_state = "locketgold"
-	item_color = "locketgold"
 	var/base_icon
 	var/open
 	/// Item inside locket.
@@ -69,4 +65,3 @@
 	name = "silver locket"
 	desc = "A silver locket that seems to have space for a photo within."
 	icon_state = "locketsilver"
-	item_color = "locketsilver"

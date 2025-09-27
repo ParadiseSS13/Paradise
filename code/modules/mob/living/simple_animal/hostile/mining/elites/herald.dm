@@ -263,7 +263,6 @@
 	desc = "A cloak which lts you travel through a perfect reflection of the world."
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "herald_cloak"
-	item_color = "herald_cloak"
 	actions_types = list(/datum/action/item_action/herald)
 
 /obj/item/clothing/neck/cloak/herald_cloak/item_action_slot_check(slot)
