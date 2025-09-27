@@ -190,15 +190,7 @@
 	penetrate_everything = TRUE // Autoinjectors bypass everything.
 	container_type = DRAWABLE
 
-/obj/item/reagent_containers/hypospray/autoinjector/mob_act(mob/target, mob/living/user)
-	if(!reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
-		return TRUE
-	. = ..()
-	update_icon(UPDATE_ICON_STATE)
-
-/obj/item/reagent_containers/hypospray/autoinjector/activate_self(mob/user)
-	. = ..()
+/obj/item/reagent_containers/hypospray/autoinjector/on_reagent_change()
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/reagent_containers/hypospray/autoinjector/update_icon_state()
@@ -209,7 +201,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/examine()
 	. = ..()
-	if(reagents && length(reagents.reagent_list))
+	if(length(reagents?.reagent_list))
 		. += "<span class='notice'>It is currently loaded.</span>"
 	else
 		. += "<span class='notice'>It is spent.</span>"
@@ -277,7 +269,7 @@
 	icon_state = "zombiepen"
 	amount_per_transfer_from_this = 15
 	volume = 15
-	container_type = null //No sucking out the reagent
+	container_type = NONE // No sucking out the reagent
 	list_reagents = list("zombiecure1" = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/apply(mob/living/M, mob/user)
