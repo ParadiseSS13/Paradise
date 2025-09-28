@@ -38,6 +38,15 @@
 	batched_item_types = typecacheof(batched_item_types)
 	RefreshParts()
 
+/obj/machinery/smithing/kinetic_assembler/Destroy()
+	if(primary)
+		primary.forceMove(src.loc)
+	if(secondary)
+		secondary.forceMove(src.loc)
+	if(trim)
+		trim.forceMove(src.loc)
+	. = ..()
+
 /obj/machinery/smithing/kinetic_assembler/examine(mob/user)
 	. = ..()
 	if(primary || secondary || trim)
@@ -190,6 +199,10 @@
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return FINISH_ATTACK
+	if(finished_product)
+		to_chat(user, "<span class='warning'>[src] has a nearly-complete product!</span>")
+		return FINISH_ATTACK
+
 	if(!primary)
 		to_chat(user, "<span class='warning'>[src] lacks a primary component!</span>")
 		return FINISH_ATTACK

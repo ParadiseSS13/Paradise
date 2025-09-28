@@ -154,16 +154,16 @@
 /turf/simulated/floor/grass,
 /area/start)
 "r" = (
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
-/obj/item/storage/belt,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/grass,
 /area/start)
 "s" = (

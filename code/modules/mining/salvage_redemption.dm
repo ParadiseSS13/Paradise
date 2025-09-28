@@ -22,7 +22,7 @@
 	. = ..()
 	// Stock parts
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/smart_hopper(null)
+	component_parts += new /obj/item/circuitboard/salvage_redemption(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -86,7 +86,7 @@
 
 	if(istype(used, /obj/item/storage/bag/expedition))
 		var/obj/item/storage/bag/expedition/bag = used
-		if(!bag.contents)
+		if(!length(bag.contents))
 			to_chat(user, "<span class='warning'>You have no salvage to redeem.</span>");
 			return ITEM_INTERACT_COMPLETE
 		for(var/obj/item/salvage/loot in bag.contents)
@@ -136,6 +136,7 @@
 	addtimer(CALLBACK(src, PROC_REF(print_slip), total_value, user), 2.5 SECONDS)
 
 /obj/machinery/salvage_redemption/proc/print_slip(total_value, mob/user)
+	animating = FALSE
 	// Print the credit slip
 	playsound(src, 'sound/machines/banknote_counter.ogg', 30, FALSE)
 	var/obj/item/credit_redemption_slip/slip = new /obj/item/credit_redemption_slip(src, total_value)
