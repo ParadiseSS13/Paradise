@@ -27,7 +27,7 @@ Bonus
 		"synthflesh" = list("multiplier" = 0, "timer" = 0),
 		"lazarus_reagent" = list("multiplier" = 0, "timer" = 0))
 	phys_treatments = list(
-		"body_temp" = list("multiplier" = 0.6, "timer" = 0, "max_timer" = VIRUS_MAX_PHYS_TREATMENT_TIMER * 4),
+		"body_temp" = list("multiplier" = 0.6, "timer" = 0, "max_timer" = VIRUS_MAX_PHYS_TREATMENT_TIMER * 6),
 		)
 
 /datum/symptom/flesh_eating/symptom_act(datum/disease/advance/A, unmitigated)

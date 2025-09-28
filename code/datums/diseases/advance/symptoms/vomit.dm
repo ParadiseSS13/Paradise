@@ -58,10 +58,11 @@ Bonus
 /datum/symptom/vomit/proc/Vomit(mob/living/carbon/M, progress)
 	M.vomit(20 * (progress / 100))
 
-/datum/symptom/vomit/proc/on_mob_sleep()
+/datum/symptom/vomit/proc/on_mob_sleep(mob/source, comfort)
 	SIGNAL_HANDLER // COMSIG_MOB_SLEEP_TICK
-	increase_phys_treatment_timer("sleep", 2)
-	increase_phys_treatment_timer("sleep_linger")
+	if(comfort)
+		increase_phys_treatment_timer("sleep", 2)
+		increase_phys_treatment_timer("sleep_linger", 10 * comfort)
 
 /*
 //////////////////////////////////////
