@@ -93,4 +93,4 @@ GLOBAL_LIST_INIT(list_symptoms, subtypesof(/datum/symptom))
 /datum/symptom/proc/increase_phys_treatment_timer(treatment, time = VIRUS_PHYS_TREATMENT_TIMER_MOD)
 	if(!phys_treatments[treatment])
 		return
-	phys_treatments[treatment]["timer"] = min(phys_treatments[treatment]["timer"] + time, VIRUS_MAX_PHYS_TREATMENT_TIMER)
+	phys_treatments[treatment]["timer"] = min(phys_treatments[treatment]["timer"] + time, phys_treatments[treatment]["max_timer"])

@@ -29,13 +29,9 @@ Bonus
 		"menthol" = list("multiplier" = 0, "timer" = 0),
 		"water" = list("multiplier" = 0.82, "timer" = 0))
 
-/datum/symptom/fire/Start(datum/disease/advance/A)
-	if(!A.affected_mob)
-		return
-
 /datum/symptom/fire/symptom_act(datum/disease/advance/A, unmitigated)
 	var/mob/living/M = A.affected_mob
-	if(evaporate_wetness(A, unmitigated * A.progress))
+	if(evaporate_wetness(A, unmitigated * A.progress / 100))
 		return
 	switch(A.progress)
 		if(30 to 59)
