@@ -537,11 +537,6 @@
 				debris -= AM
 	qdel(src)
 
-/obj/structure/table/glass/narsie_act()
-	color = NARSIE_WINDOW_COLOUR
-	for(var/obj/item/shard/S in debris)
-		S.color = NARSIE_WINDOW_COLOUR
-
 /obj/structure/table/glass/plasma
 	name = "plasma glass table"
 	desc = "A table made from the blood, sweat, and tears of miners."
@@ -790,7 +785,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_BRASS_TABLES)
 
 /obj/structure/table/reinforced/cult
-	name = "runed table"
+	name = "runed metal table"
 	desc = "A cold slab of metal engraved with indecipherable symbols. Studying them causes your head to pound."
 	icon = 'icons/obj/smooth_structures/tables/cult_table.dmi'
 	icon_state = "cult_table-0"
@@ -805,6 +800,15 @@
 
 /obj/structure/table/reinforced/cult/narsie_act()
 	return
+
+// Special variant created by pylons when converting stuff. Drops no materials so they can't be used as a runed metal farm.
+/obj/structure/table/reinforced/cult/no_metal
+	name = "runed stone table"
+	desc = "A cold slab of stone engraved with indecipherable symbols. Studying them causes your head to pound."
+
+/obj/structure/table/reinforced/cult/no_metal/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
+	visible_message("<span class = 'warning'>[src] suddenly crumbles to dust!<span/>")
+	qdel(src)
 
 // MARK: Wheeled table
 /obj/structure/table/tray
