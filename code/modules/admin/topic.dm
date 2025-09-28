@@ -3630,7 +3630,7 @@
 		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
 		usr.client.cmd_admin_alert_message(about_to_be_banned)
 
-	else if (href_list["clientmodcheck"])
+	else if(href_list["clientmodcheck"])
 		if(!check_rights(R_ADMIN))
 			return
 
@@ -3642,7 +3642,7 @@
 		var/byond_is_member = FALSE
 
 		var/list/client_byond_data = C.retrieve_byondacc_data()
-		if (!length(client_byond_data))
+		if(!length(client_byond_data))
 			alert(src, "BYOND is down so we cant check this - oops")
 			return
 
