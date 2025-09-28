@@ -322,6 +322,7 @@
 	if(cell.charge < amount) // If after the deduction the sword doesn't have enough charge for a hit it turns off.
 		state = SECSWORD_OFF
 		armor_penetration_percentage = 0
+		playsound(src, "sparks", 60, TRUE, -1)
 	update_icon()
 
 #undef SECSWORD_OFF
