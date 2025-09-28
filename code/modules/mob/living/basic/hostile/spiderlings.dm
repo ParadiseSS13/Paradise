@@ -37,7 +37,8 @@
 	AddElement(/datum/element/ai_retaliate)
 	ADD_TRAIT(src, TRAIT_EDIBLE_BUG, "edible_bug")
 
-/mob/living/basic/spiderling/process()
+/mob/living/basic/spiderling/Life(seconds, times_fired)
+	. = ..()
 	if(isturf(loc))
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
@@ -110,7 +111,8 @@
 	GLOB.ts_spiderling_list -= src
 	return ..()
 
-/mob/living/basic/spiderling/terror_spiderling/process()
+/mob/living/basic/spiderling/terror_spiderling/Life(seconds, times_fired)
+	. = ..()
 	var/turf/T = get_turf(src)
 	amount_grown += rand(0,2)
 	if(amount_grown >= 100)
