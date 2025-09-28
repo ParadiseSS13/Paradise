@@ -8,7 +8,6 @@
 	density = TRUE
 	face_while_pulling = FALSE
 	container_type = OPENCONTAINER
-	new_attack_chain = TRUE
 	//copypaste sorry
 	var/maximum_volume = 150
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
