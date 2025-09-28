@@ -21,6 +21,11 @@
 	/// Used to toggle features of specialised veils
 	var/electronics = TRUE
 
+
+/obj/item/clothing/glasses/hud/tajblind/examine()
+	. = ..()
+	. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> [src] to toggle its electronics if present.</span>"
+
 /obj/item/clothing/glasses/hud/tajblind/activate_self(mob/user)
 	if(..())
 		return
@@ -59,8 +64,29 @@
 			These current designs are adapted from recreations of the ancient veils, created by the Alchemists Guild. Technologically advanced and created to help Tajara adapt to life in the larger galactic community, they have systems built-in that allow them to have holographic huds, as well as corrective technology to help Tajaran overcome their genetic tritanopia colour blindness. <br>\
 			Availability on the wider market is highly restricted as a result of their cultural importance, as well as the patent held by the Alchemists Guild, and the lenses are very hard to reverse engineer. Popular theories suggest this as a result of the unique materials available on Adhomai, or the inability to recreate the light conditions of the Tajara homeworld."
 
-/obj/item/clothing/glasses/hud/tajblind/wirecutter_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>You try to toggle electronics in your [src] but there are none!</span>")
+/obj/item/clothing/glasses/hud/tajblind/CtrlShiftClick(mob/user, modifiers)
+	if(!initial(hud_types))
+		to_chat(user, "<span class='notice'>You try to toggle electronics in [src] but there are none.</span>")
+		return
+	if(electronics)
+		electronics = FALSE
+		to_chat(user, "<span class='notice'>You toggle electronics in [src] off.</span>")
+		if(user.get_item_by_slot(ITEM_SLOT_EYES) != src)
+			hud_types = null
+			return
+		for(var/new_hud in hud_types)
+			var/datum/atom_hud/H = GLOB.huds[new_hud]
+			H.remove_hud_from(user)
+		hud_types = null
+		return
+	electronics = TRUE
+	to_chat(user, "<span class='notice'>You toggle electronics in [src] on.</span>")
+	hud_types = list(initial(hud_types))
+	if(user.get_item_by_slot(ITEM_SLOT_EYES) != src)
+		return
+	for(var/new_hud in hud_types)
+		var/datum/atom_hud/H = GLOB.huds[new_hud]
+		H.add_hud_to(user)
 
 /obj/item/clothing/glasses/hud/tajblind/meson
 	name = "\improper Tajaran engineering meson veil"
@@ -70,15 +96,19 @@
 	. = ..()
 	desc += "<br><span class='notice'>It has an optical meson scanner integrated into it.</span>"
 
-/obj/item/clothing/glasses/hud/tajblind/meson/wirecutter_act(mob/living/user, obj/item/I)
+/obj/item/clothing/glasses/hud/tajblind/meson/CtrlShiftClick(mob/user, modifiers)
 	if(electronics)
 		electronics = FALSE
-		to_chat(user, "<span class='notice'>You snip a wire in your [src] and disable the built-in optical meson scanner.</span>")
-		user.update_sight()
+		if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
+			REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+			user.update_sight()
+		to_chat(user, "<span class='notice'>You toggle electronics in [src] off.</span>")
 		return
 	electronics = TRUE
-	to_chat(user, "<span class='notice'>You reconnect a wire in your [src] and turn the built-in optical meson scanner back on.</span>")
-	user.update_sight()
+	if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
+		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+		user.update_sight()
+	to_chat(user, "<span class='notice'>You toggle electronics in [src] on.</span>")
 
 /obj/item/clothing/glasses/hud/tajblind/meson/equipped(mob/user, slot, initial)
 	. = ..()
@@ -104,20 +134,18 @@
 	. = ..()
 	desc += "<br><span class='notice'>It has science goggles integrated into it.</span>"
 
-/obj/item/clothing/glasses/hud/tajblind/sci/wirecutter_act(mob/living/user, obj/item/I)
+/obj/item/clothing/glasses/hud/tajblind/sci/CtrlShiftClick(mob/user, modifiers)
 	if(electronics)
 		electronics = FALSE
 		scan_reagents = FALSE
-		actions_types -= /datum/action/item_action/toggle_research_scanner
-		to_chat(user, "<span class='notice'>You snip a wire in your [src] and disable the built-in science goggles.</span>")
+		to_chat(user, "<span class='notice'>You toggle electronics in [src] off.</span>")
 		return
 	electronics = TRUE
 	scan_reagents = TRUE
-	actions_types -= /datum/action/item_action/toggle_research_scanner
-	to_chat(user, "<span class='notice'>You reconnect a wire in your [src] and turn the built-in science goggles back on.</span>")
+	to_chat(user, "<span class='notice'>You toggle electronics in [src] on.</span>")
 
 /obj/item/clothing/glasses/hud/tajblind/sci/item_action_slot_check(slot)
-	if(slot == ITEM_SLOT_EYES && electronics)
+	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
 /obj/item/clothing/glasses/hud/tajblind/med
@@ -129,18 +157,6 @@
 	. = ..()
 	desc += "<br><span class='notice'>It has a health HUD integrated into it.</span>"
 
-/obj/item/clothing/glasses/hud/tajblind/med/wirecutter_act(mob/living/user, obj/item/I)
-	if(electronics)
-		electronics = FALSE
-		hud_types = null
-		to_chat(user, "<span class='notice'>You snip a wire in your [src] and disable the built-in health HUD scanner.</span>")
-		user.update_sight()
-		return
-	electronics = TRUE
-	hud_types = DATA_HUD_MEDICAL_ADVANCED
-	to_chat(user, "<span class='notice'>You reconnect a wire in your [src] and turn the built-in health HUD back on.</span>")
-	user.update_sight()
-
 /obj/item/clothing/glasses/hud/tajblind/sec
 	name = "\improper Tajaran security veil"
 	icon_state = "tajblind_sec"
@@ -149,18 +165,6 @@
 /obj/item/clothing/glasses/hud/tajblind/sec/Initialize(mapload)
 	. = ..()
 	desc += "<br><span class='notice'>It has a security HUD integrated into it.</span>"
-
-/obj/item/clothing/glasses/hud/tajblind/sec/wirecutter_act(mob/living/user, obj/item/I)
-	if(electronics)
-		electronics = FALSE
-		hud_types = null
-		to_chat(user, "<span class='notice'>You snip a wire in your [src] and disable the built-in security HUD.</span>")
-		user.update_sight()
-		return
-	electronics = TRUE
-	hud_types = DATA_HUD_SECURITY_ADVANCED
-	to_chat(user, "<span class='notice'>You reconnect a wire in your [src] and turn the built-in security HUD back on.</span>")
-	user.update_sight()
 
 /obj/item/clothing/glasses/hud/tajblind/shaded
 	name = "shaded Tajaran veil"
@@ -179,15 +183,19 @@
 	. = ..()
 	desc += "<br><span class='notice'>It has an optical meson scanner integrated into it.</span>"
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/meson/wirecutter_act(mob/living/user, obj/item/I)
+/obj/item/clothing/glasses/hud/tajblind/shaded/meson/CtrlShiftClick(mob/user, modifiers)
 	if(electronics)
 		electronics = FALSE
-		to_chat(user, "<span class='notice'>You snip a wire in your [src] and disable the built-in optical meson scanner.</span>")
-		user.update_sight()
+		if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
+			REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+			user.update_sight()
+		to_chat(user, "<span class='notice'>You toggle electronics in [src] off.</span>")
 		return
 	electronics = TRUE
-	to_chat(user, "<span class='notice'>You reconnect a wire in your [src] and turn the built-in optical meson scanner back on.</span>")
-	user.update_sight()
+	if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
+		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+		user.update_sight()
+	to_chat(user, "<span class='notice'>You toggle electronics in [src] on.</span>")
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/meson/equipped(mob/user, slot, initial)
 	. = ..()
@@ -213,20 +221,18 @@
 	. = ..()
 	desc += "<br><span class='notice'>It has science goggles integrated into it.</span>"
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/sci/wirecutter_act(mob/living/user, obj/item/I)
+/obj/item/clothing/glasses/hud/tajblind/shaded/sci/CtrlShiftClick(mob/user, modifiers)
 	if(electronics)
 		electronics = FALSE
 		scan_reagents = FALSE
-		actions_types -= /datum/action/item_action/toggle_research_scanner
-		to_chat(user, "<span class='notice'>You snip a wire in your [src] and disable the built-in science goggles.</span>")
+		to_chat(user, "<span class='notice'>You toggle electronics in [src] off.</span>")
 		return
 	electronics = TRUE
 	scan_reagents = TRUE
-	actions_types += /datum/action/item_action/toggle_research_scanner
-	to_chat(user, "<span class='notice'>You reconnect a wire in your [src] and turn the built-in science goggles back on.</span>")
+	to_chat(user, "<span class='notice'>You toggle electronics in [src] on.</span>")
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/sci/item_action_slot_check(slot)
-	if(slot == ITEM_SLOT_EYES && electronics)
+	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
 /obj/item/clothing/glasses/hud/tajblind/shaded/med
@@ -238,18 +244,6 @@
 	. = ..()
 	desc += "<br><span class='notice'>It has a health HUD integrated into it.</span>"
 
-/obj/item/clothing/glasses/hud/tajblind/shaded/med/wirecutter_act(mob/living/user, obj/item/I)
-	if(electronics)
-		electronics = FALSE
-		hud_types = null
-		to_chat(user, "<span class='notice'>You snip a wire in your [src] and disable the built-in health HUD scanner.</span>")
-		user.update_sight()
-		return
-	electronics = TRUE
-	hud_types = DATA_HUD_MEDICAL_ADVANCED
-	to_chat(user, "<span class='notice'>You reconnect a wire in your [src] and turn the built-in health HUD back on.</span>")
-	user.update_sight()
-
 /obj/item/clothing/glasses/hud/tajblind/shaded/sec
 	name = "shaded Tajaran security veil"
 	icon_state = "tajblind_sec"
@@ -259,18 +253,6 @@
 /obj/item/clothing/glasses/hud/tajblind/shaded/sec/Initialize(mapload)
 	. = ..()
 	desc += "<br><span class='notice'>It has a security HUD integrated into it.</span>"
-
-/obj/item/clothing/glasses/hud/tajblind/shaded/sec/wirecutter_act(mob/living/user, obj/item/I)
-	if(electronics)
-		electronics = FALSE
-		hud_types = null
-		to_chat(user, "<span class='notice'>You snip a wire in your [src] and disable the built-in security HUD.</span>")
-		user.update_sight()
-		return
-	electronics = TRUE
-	hud_types = DATA_HUD_SECURITY_ADVANCED
-	to_chat(user, "<span class='notice'>You reconnect a wire in your [src] and turn the built-in security HUD back on.</span>")
-	user.update_sight()
 
 #undef MODE_OFF
 #undef MODE_NATURAL
