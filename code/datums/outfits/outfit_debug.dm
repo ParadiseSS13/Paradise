@@ -106,35 +106,34 @@
 	. = ..()
 	. += "<span class = 'notice'><b>Alt-Click</b> to toggle X-ray vision.</span>"
 
-/obj/item/clothing/glasses/hud/debug/equipped(mob/user)
+/obj/item/clothing/glasses/hud/debug/equipped(mob/user, slot)
 	..()
-	handle_traits(user)
+	if(slot == ITEM_SLOT_EYES)
+		handle_traits(user, TRUE)
+	else
+		handle_traits(user)
 
 /obj/item/clothing/glasses/hud/debug/dropped(mob/user)
 	..()
 	handle_traits(user)
 
-/obj/item/clothing/glasses/hud/debug/AltClick(mob/living/user)
+/obj/item/clothing/glasses/hud/debug/AltClick(mob/living/carbon/human/user)
 	to_chat(user, "<span class='notice'>You [xray ? "de" : ""]activate the x-ray setting on [src].</span>")
 	xray = !xray
-	handle_traits(user)
+	if(istype(user) && user.glasses == src)
+		handle_traits(user, TRUE)
 
-/obj/item/clothing/glasses/hud/debug/proc/handle_traits(mob/user)
+/obj/item/clothing/glasses/hud/debug/proc/handle_traits(mob/user, worn = FALSE)
 	if(!ishuman(user))
 		return
 
-	var/mob/living/carbon/human/human_user = user
-	if(human_user.glasses != src)
-		see_in_dark = initial(see_in_dark)
-		lighting_alpha = initial(lighting_alpha)
-		REMOVE_TRAIT(user, TRAIT_XRAY_VISION, "debug_glasses[UID()]")
+	if(worn)
+		if(!HAS_TRAIT_FROM(user, SM_HALLUCINATION_IMMUNE, "debug_glasses[UID()]"))
+			ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, "debug_glasses[UID()]")
+	else
 		REMOVE_TRAIT(user, SM_HALLUCINATION_IMMUNE, "debug_glasses[UID()]")
-		user.update_sight()
-		return
 
-	if(!HAS_TRAIT_FROM(user, SM_HALLUCINATION_IMMUNE, "debug_glasses[UID()]"))
-		ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, "debug_glasses[UID()]")
-	if(xray)
+	if(xray && worn)
 		see_in_dark = 8
 		lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 		if(!HAS_TRAIT_FROM(user, TRAIT_XRAY_VISION, "debug_glasses[UID()]"))
