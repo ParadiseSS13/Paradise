@@ -279,7 +279,7 @@
 /// Fired by a goliath tentacle which is returning to the earth
 #define COMSIG_GOLIATH_TENTACLE_RETRACTING 	"goliath_tentacle_retracting"
 
-///Called from /mob/living/carbon/help_shake_act, before any hugs have occurred. (mob/living/helper)
+/// Called from /mob/living/carbon/help_shake_act, before any hugs have occurred. (mob/living/helper)
 #define COMSIG_CARBON_PRE_MISC_HELP "carbon_pre_misc_help"
 	/// Stops the rest of help act (hugging, etc) from occurring
 	#define COMPONENT_BLOCK_MISC_HELP (1<<0)

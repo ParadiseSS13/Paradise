@@ -11,7 +11,7 @@
 	speed = 3
 	maxHealth = 300
 	health = 300
-	harm_intent_damage = 1 //Only the manliest of men can kill a Goliath with only their fists.
+	harm_intent_damage = 1 // Only the manliest of men can kill a Goliath with only their fists.
 	obj_damage = 100
 	melee_damage_lower = 25
 	melee_damage_upper = 25
@@ -21,6 +21,7 @@
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
+	crusher_loot = /obj/item/crusher_trophy/goliath_tentacle
 	ai_controller = /datum/ai_controller/basic_controller/goliath
 	faction = list("mining")
 	butcher_results = list(
@@ -28,7 +29,6 @@
 		/obj/item/stack/sheet/animalhide/goliath_hide = 1,
 		/obj/item/stack/sheet/bone = 2,
 	)
-	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 
 	/// Icon state to use when tentacles are available
 	var/tentacle_warning_state = "goliath2"
@@ -106,6 +106,7 @@
 		/obj/item/food/monstermeat/goliath = 2,
 		/obj/item/stack/sheet/bone = 2,
 	)
+	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 	crusher_loot = /obj/item/crusher_trophy/goliath_tentacle/ancient
 	crusher_drop_mod = 100 //These things are rare (1/100 per spawner). You shouldn't have to hope for another stroke of luck to get it's trophy after finding it
 	/// Don't re-check nearby turfs for this long

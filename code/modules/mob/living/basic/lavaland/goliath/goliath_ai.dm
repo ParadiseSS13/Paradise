@@ -12,10 +12,10 @@
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/target_retaliate/check_faction,
 		/datum/ai_planning_subtree/simple_find_target,
-		/datum/ai_planning_subtree/find_food,
 		/datum/ai_planning_subtree/targeted_mob_ability/goliath_tentacles,
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/goliath,
+		/datum/ai_planning_subtree/find_food,
 		/datum/ai_planning_subtree/goliath_find_diggable_turf,
 		/datum/ai_planning_subtree/goliath_dig,
 	)
