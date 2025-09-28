@@ -134,6 +134,19 @@
 	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 5
 
+/obj/structure/bed/dirty
+	name = "dirty mattress"
+	desc = "An old, filthy mattress covered in strange and unidentifiable stains. It looks quite uncomfortable."
+	icon_state = "dirty_mattress"
+	comfort = 0.5
+	buildstackamount = 5
+
+/obj/structure/bed/dirty/double
+	name = "large dirty mattress"
+	desc = "An old, filthy king-sized mattress covered in strange and unidentifiable stains. It looks quite uncomfortable."
+	icon_state = "dirty_mattress_large"
+	buildstackamount = 10
+
 /*
  * Roller beds
  */
@@ -151,7 +164,7 @@
 	var/icon_down = "down"
 	var/folded = /obj/item/roller
 
-/obj/structure/bed/roller/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/bed/roller/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/roller_holder))
 		if(has_buckled_mobs())
 			if(length(buckled_mobs) > 1)
@@ -163,6 +176,8 @@
 			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 			new folded(get_turf(src))
 			qdel(src)
+
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 

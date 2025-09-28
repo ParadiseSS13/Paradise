@@ -11,8 +11,10 @@ export type IdCard = {
   registered_name: string;
   assignment: string;
   current_skin: string;
+  current_skin_name: string;
   lastlog: string;
-  account_number?: number;
+  associated_account_number: number;
+  access: number[];
 };
 
 export type JobNames = {

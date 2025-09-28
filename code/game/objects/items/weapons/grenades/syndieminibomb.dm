@@ -31,7 +31,8 @@
 	desc = "It's a normal black ink pen."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
-	item_state = "pen"
+	worn_icon_state = "pen"
+	inhand_icon_state = "pen"
 	explosion_cause = "Syndicate minibomb (disguised as a black pen)"
 
 /obj/item/grenade/syndieminibomb/pen/attack_self__legacy__attackchain(mob/user)

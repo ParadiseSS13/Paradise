@@ -1317,8 +1317,7 @@
 "eM" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/gloves/boxing/hologlove{
-	icon_state = "boxinggreen";
-	item_state = "boxinggreen"
+	icon_state = "boxinggreen"
 	},
 /turf/simulated/floor/holofloor{
 	dir = 6;
@@ -1985,6 +1984,16 @@
 /obj/item/deck/unum,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
+"hh" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/havana_cigar{
+	pixel_x = 3;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "vault"
+	},
+/area/tdome/tdomeadmin)
 "hi" = (
 /obj/machinery/light/spot{
 	dir = 8
@@ -2555,6 +2564,29 @@
 	icon_state = "cafeteria"
 	},
 /area/tdome/tdomeobserve)
+"iK" = (
+/obj/structure/table/wood,
+/obj/machinery/door_control/no_emag{
+	id = "specopsoffice";
+	name = "Privacy Shutters";
+	pixel_x = 6;
+	pixel_y = 10;
+	req_access = list(114)
+	},
+/obj/machinery/door_control/no_emag{
+	pixel_x = -6;
+	pixel_y = -17;
+	name = "Engineering Storage";
+	id = "SpecopsEngineering";
+	req_access = list(114)
+	},
+/obj/item/folder/red,
+/obj/machinery/phone/centcomm{
+	pixel_x = 7;
+	pixel_y = -14
+	},
+/turf/simulated/floor/carpet,
+/area/centcom/specops)
 "iL" = (
 /obj/machinery/door_control/no_emag{
 	id = "sst_armory";
@@ -3234,15 +3266,16 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
-"kY" = (
-/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+"kX" = (
+/obj/item/flash{
+	pixel_x = -43;
 	pixel_y = 6
 	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_y = 3
-	},
-/obj/item/clothing/mask/cigarette/cigar/havana,
+/turf/simulated/floor/plasteel/dark,
+/area/centcom/specops)
+"kY" = (
 /obj/structure/table/wood,
+/obj/item/storage/fancy/cigars,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4121,13 +4154,14 @@
 /area/shuttle/supply)
 "nF" = (
 /obj/structure/table/wood,
-/obj/item/folder/red,
-/obj/item/lighter,
+/obj/machinery/recharger,
 /turf/simulated/floor/wood,
 /area/centcom/specops)
 "nG" = (
 /obj/structure/table/wood/poker,
-/obj/item/clothing/mask/cigarette/cigar/havana,
+/obj/item/storage/fancy/cigars/cohiba{
+	pixel_y = 8
+	},
 /turf/simulated/floor/transparent/glass,
 /area/tdome/tdomeobserve)
 "nH" = (
@@ -4189,7 +4223,6 @@
 	},
 /area/centcom/evac)
 "nQ" = (
-/obj/item/storage/fancy/cigarettes/dromedaryco,
 /obj/item/lighter/zippo{
 	pixel_x = 5
 	},
@@ -4526,9 +4559,14 @@
 /area/backrooms)
 "pe" = (
 /obj/structure/table/wood,
-/obj/item/folder/red,
-/obj/item/restraints/handcuffs,
-/obj/item/flash,
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = -7;
+	pixel_y = 6
+	},
+/obj/item/storage/fancy/matches{
+	pixel_y = 5;
+	pixel_x = 7
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -5393,7 +5431,6 @@
 /area/ghost_bar)
 "rT" = (
 /obj/structure/table/wood/poker,
-/obj/item/clothing/mask/cigarette/cigar/havana,
 /obj/item/reagent_containers/drinks/bottle/cognac,
 /turf/simulated/floor/transparent/glass,
 /area/tdome/tdomeobserve)
@@ -5439,18 +5476,6 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
-"sh" = (
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "trader_privacy";
-	name = "Privacy Shutters";
-	opacity = 0
-	},
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/trade/sol)
 "si" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7177,6 +7202,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"yh" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/cigars/cohiba{
+	pixel_y = 8
+	},
+/turf/simulated/floor/transparent/glass,
+/area/centcom/specops)
 "yj" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/gun/projectile/automatic/pistol,
@@ -7399,8 +7431,7 @@
 "zi" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/gloves/boxing/hologlove{
-	icon_state = "boxinggreen";
-	item_state = "boxinggreen"
+	icon_state = "boxinggreen"
 	},
 /turf/simulated/floor/holofloor{
 	dir = 10;
@@ -8566,24 +8597,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
-"Dn" = (
-/obj/structure/table/wood,
-/obj/machinery/door_control/no_emag{
-	id = "specopsoffice";
-	name = "Privacy Shutters";
-	pixel_x = 6;
-	pixel_y = 10;
-	req_access = list(114)
-	},
-/obj/machinery/door_control/no_emag{
-	pixel_x = -6;
-	pixel_y = -17;
-	name = "Engineering Storage";
-	id = "SpecopsEngineering";
-	req_access = list(114)
-	},
-/turf/simulated/floor/carpet,
-/area/centcom/specops)
 "Do" = (
 /turf/simulated/floor/engine,
 /area/admin)
@@ -10627,12 +10640,15 @@
 	},
 /area/ghost_bar)
 "JQ" = (
-/obj/item/lighter{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/lighter,
 /obj/structure/table/wood,
+/obj/item/storage/fancy/matches{
+	pixel_y = 5;
+	pixel_x = 7
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = -7;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -10908,11 +10924,6 @@
 /area/shuttle/escape)
 "KI" = (
 /obj/structure/table,
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /turf/simulated/floor/wood,
 /area/centcom/evac)
 "KJ" = (
@@ -11355,9 +11366,12 @@
 /area/shuttle/administration)
 "Mg" = (
 /obj/structure/table/wood,
-/obj/item/folder/red,
-/obj/item/lighter,
 /obj/machinery/newscaster/directional/south,
+/obj/item/phone{
+	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
+	pixel_x = -3;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -11418,26 +11432,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
-"Mp" = (
-/obj/structure/table/wood,
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = 6
-	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
-	pixel_x = 2
-	},
-/obj/item/clothing/mask/cigarette/cigar{
-	pixel_x = 4.5
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault"
-	},
-/area/tdome/tdomeadmin)
 "Mq" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/machinery/computer/security/telescreen,
@@ -12500,7 +12494,7 @@
 /area/space/centcomm)
 "PB" = (
 /obj/structure/table/wood,
-/obj/machinery/recharger,
+/obj/item/storage/fancy/havana_cigar,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "PC" = (
@@ -12620,15 +12614,17 @@
 /area/centcom/evac)
 "PS" = (
 /obj/structure/table/reinforced,
-/obj/item/folder/red{
-	pixel_x = -2;
-	pixel_y = -2
+/obj/item/stamp/denied{
+	pixel_x = 10;
+	pixel_y = 10
 	},
-/obj/item/folder/blue{
-	pixel_x = 2;
-	pixel_y = 2
+/obj/item/stamp{
+	pixel_x = 1;
+	pixel_y = 10
 	},
-/obj/item/lighter,
+/obj/item/ashtray/bronze{
+	pixel_y = -10
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "PT" = (
@@ -12806,6 +12802,21 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
+"Qw" = (
+/obj/structure/table/wood,
+/obj/machinery/newscaster/directional/north,
+/obj/item/storage/fancy/cigars/cohiba{
+	pixel_y = 8
+	},
+/obj/item/lighter/zippo/nt_rep{
+	pixel_x = -16;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "vault"
+	},
+/area/centcom/specops)
 "Qx" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -12835,8 +12846,9 @@
 /area/holodeck/source_boxingcourt)
 "QC" = (
 /obj/structure/table/wood,
-/obj/item/clipboard,
-/obj/item/radio/headset/centcom,
+/obj/item/storage/fancy/cigars/cohiba{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -12978,9 +12990,14 @@
 /area/ghost_bar)
 "QX" = (
 /obj/structure/table/wood,
-/obj/item/folder/red,
-/obj/item/restraints/handcuffs,
-/obj/item/flash,
+/obj/item/storage/fancy/matches{
+	pixel_y = 5;
+	pixel_x = 7
+	},
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = -7;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "QY" = (
@@ -13139,6 +13156,9 @@
 /area/centcom/specops)
 "Rz" = (
 /obj/structure/table,
+/obj/item/storage/fancy/cigars{
+	pixel_y = 8
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "RA" = (
@@ -13654,8 +13674,10 @@
 "Tq" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
-/obj/item/lighter,
 /obj/machinery/newscaster/directional/south,
+/obj/item/folder/blue{
+	pixel_x = -5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "vault"
@@ -13760,10 +13782,6 @@
 	},
 /area/centcom/evac)
 "TN" = (
-/obj/item/storage/fancy/matches{
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /obj/structure/table/wood,
 /obj/machinery/barsign{
 	pixel_y = -32
@@ -14173,8 +14191,8 @@
 "Vi" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
-/obj/item/storage/box/handcuffs,
 /obj/item/flashlight/seclite,
+/obj/item/storage/box/handcuffs,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Vj" = (
@@ -14501,6 +14519,9 @@
 "Wp" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
+/obj/item/ashtray/glass{
+	pixel_y = -11
+	},
 /turf/simulated/floor/transparent/glass,
 /area/centcom/specops)
 "Wq" = (
@@ -14557,24 +14578,6 @@
 /obj/machinery/teleport/station/upgraded,
 /turf/simulated/floor/plasteel,
 /area/admin)
-"Wy" = (
-/obj/structure/table/wood,
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = 6
-	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
-	pixel_x = 2
-	},
-/obj/item/clothing/mask/cigarette/cigar{
-	pixel_x = 4.5
-	},
-/turf/simulated/floor/transparent/glass,
-/area/centcom/specops)
 "Wz" = (
 /obj/machinery/teleport/hub/upgraded{
 	admin_usage = 1
@@ -15046,13 +15049,12 @@
 /area/shuttle/escape)
 "XI" = (
 /obj/item/clipboard,
-/obj/item/folder/red,
-/obj/item/stamp/denied{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/stamp,
 /obj/structure/table/reinforced,
+/obj/item/phone{
+	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
+	pixel_x = 8;
+	pixel_y = 12
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "XJ" = (
@@ -15485,28 +15487,6 @@
 "Zc" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "vault"
-	},
-/area/centcom/specops)
-"Zd" = (
-/obj/structure/table/wood,
-/obj/item/phone{
-	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/mask/cigarette/cigar/cohiba{
-	pixel_x = 6
-	},
-/obj/item/clothing/mask/cigarette/cigar/havana{
-	pixel_x = 2
-	},
-/obj/item/clothing/mask/cigarette/cigar{
-	pixel_x = 4.5
-	},
-/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -34206,7 +34186,7 @@ TR
 WQ
 TR
 Zr
-Zd
+Qw
 Ra
 Ra
 Ra
@@ -34471,7 +34451,7 @@ Tx
 Ra
 Cf
 Zr
-Ra
+kX
 Wf
 Ep
 Yx
@@ -34730,7 +34710,7 @@ kL
 VI
 Ra
 Wp
-Wy
+yh
 Yx
 Yx
 Zr
@@ -35500,7 +35480,7 @@ zg
 Xz
 RW
 Jv
-Dn
+iK
 MQ
 ZQ
 Kh
@@ -39888,7 +39868,7 @@ SV
 wt
 sj
 sj
-Mp
+hh
 Jh
 aN
 aN

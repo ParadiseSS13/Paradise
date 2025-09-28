@@ -3,11 +3,11 @@
 
 //this is only used for underbarrel grenade launchers at the moment, but admins can still spawn it if they feel like being assholes
 /obj/item/gun/projectile/revolver/grenadelauncher
-	desc = "A break-action grenade launcher."
 	name = "grenade launcher"
+	desc = "A break-action grenade launcher."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "dbshotgun_sawn"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
@@ -23,7 +23,7 @@
 	desc = "A revolving 6-shot grenade launcher."
 	name = "multi grenade launcher"
 	icon_state = "bulldog"
-	item_state = "bulldog"
+	inhand_icon_state = "bulldog"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi
 
 /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg
@@ -48,7 +48,6 @@
 	fire_delay = 0
 	actions_types = list()
 
-
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()
 
@@ -59,7 +58,8 @@
 	name = "kinetic speargun"
 	desc = "A weapon favored by carp hunters. Fires specialized spears using kinetic energy."
 	icon_state = "speargun"
-	item_state = "speargun"
+	worn_icon_state = "speargun"
+	inhand_icon_state = "speargun"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	origin_tech = "combat=4;engineering=4"

@@ -3,7 +3,6 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "std_mod"
 	w_class = 100
-	item_state = "electronic"
 	flags = CONDUCT
 	var/module_armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -473,6 +472,7 @@
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/tile/catwalk/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
+		/obj/item/stack/cable_coil/extra_insulated/cyborg,
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg,
 		/obj/item/inflatable/cyborg,
@@ -791,6 +791,7 @@
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/tile/catwalk/cyborg,
 		/obj/item/stack/cable_coil/cyborg,
+		/obj/item/stack/cable_coil/extra_insulated/cyborg,
 		/obj/item/stack/sheet/glass/cyborg/drone,
 		/obj/item/stack/sheet/rglass/cyborg/drone,
 		/obj/item/stack/sheet/wood/cyborg,

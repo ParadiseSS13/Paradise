@@ -263,6 +263,10 @@
 	display_name = "Witch robes"
 	path = /obj/item/clothing/suit/wizrobe/marisa/fake
 
+/datum/gear/suit/wizard
+	display_name = "Wizard robes"
+	path = /obj/item/clothing/suit/wizrobe/fake
+
 //Tracksuits
 
 /datum/gear/suit/tracksuit

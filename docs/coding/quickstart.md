@@ -413,13 +413,13 @@ definition values. We will take the mailman outfit as a template.
 	name = "mailman's jumpsuit"
 	desc = "<i>'Special delivery!'</i>"
 	icon_state = "mailman"
-	item_state = "b_suit"
+	inhand_icon_state = "b_suit"
 	item_color = "mailman"
 ```
 
 As seen here a jumpsuit has multiple values you can define. The `name` is pretty
 straight forward. `desc` is the description of the item. `icon_state` is the
-name the sprite has in the DMI file. `item_state` is the name of the sprite of
+name the sprite has in the DMI file. `inhand_icon_state` is the name of the sprite of
 the suit while held in your hands has in the DMI file. `item_color` is the name
 of the sprite in the `icons/mob/uniform.dmi` file. This value will indicate what
 sprite will be used when a person wears this jumpsuit. (I know `item_color` is a
