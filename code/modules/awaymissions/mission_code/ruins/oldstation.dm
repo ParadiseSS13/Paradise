@@ -50,7 +50,8 @@
 //////////////////////////////
 /obj/item/storage/firstaid/ancient
 	name = "first-aid kit"
-	icon_state = "firstaid"
+	icon_state = "firstaid_regular"
+	inhand_icon_state = "firstaid_regular"
 	desc = "A first aid kit with the ability to heal common types of injuries."
 
 /obj/item/storage/firstaid/ancient/populate_contents()

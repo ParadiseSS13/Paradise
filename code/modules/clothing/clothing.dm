@@ -8,6 +8,7 @@
 	permeability_coefficient = 0.8
 	/// Only these species can wear this kit.
 	var/list/species_restricted
+	var/icon_monitor = null //If set to a sprite path, replaces the sprite for monitor heads
 	/// Can the wearer see reagents inside transparent containers while it's equipped?
 	var/scan_reagents = FALSE
 	/// Can the wearer see reagents inside any container and identify blood types while it's equipped?
@@ -39,8 +40,7 @@
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
 		return
-	/// Done as such to not break chameleon gear since you can't rely on initial states
-	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
+	icon_state = "[initial(icon_state)][up ? "_up" : ""]"
 	return TRUE
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
@@ -377,9 +377,6 @@
 	/// if this hat can be a hat of a hat. Hat^2
 	var/can_be_hat = TRUE
 
-/obj/item/clothing/head/update_icon_state()
-	if(..())
-		worn_icon_state = "[replacetext("[worn_icon_state]", "_up", "")][up ? "_up" : ""]"
 
 /obj/item/clothing/head/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))

@@ -82,7 +82,7 @@
 	icon_state = "lisacrate"
 
 /obj/structure/largecrate/goat/break_open()
-	new /mob/living/simple_animal/hostile/retaliate/goat(loc)
+	new /mob/living/basic/goat(loc)
 
 /obj/structure/largecrate/chick
 	name = "chicken crate"
@@ -91,7 +91,7 @@
 /obj/structure/largecrate/chick/break_open()
 	var/num = rand(4, 6)
 	for(var/i in 1 to num)
-		new /mob/living/simple_animal/chick(loc)
+		new /mob/living/basic/chick(loc)
 
 /obj/structure/largecrate/cat
 	name = "cat crate"
