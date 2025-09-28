@@ -118,7 +118,6 @@
 	to_chat(user, "<span class='notice'>You [xray ? "de" : ""]activate the x-ray setting on [src].</span>")
 	xray = !xray
 	handle_traits(user)
-	user.update_sight()
 
 /obj/item/clothing/glasses/hud/debug/proc/handle_traits(mob/user)
 	if(!ishuman(user))
