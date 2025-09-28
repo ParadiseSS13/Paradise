@@ -66,7 +66,7 @@
 	desc = "Used for playing the most violent and degrading of childhood games."
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "dodgeball"
-	item_state = "dodgeball"
+	inhand_icon_state = "dodgeball"
 	dribbleable = TRUE
 
 /obj/item/beach_ball/dodgeball_team/throw_impact(atom/hit_atom)
