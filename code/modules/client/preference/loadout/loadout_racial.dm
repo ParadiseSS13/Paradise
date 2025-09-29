@@ -37,13 +37,13 @@
 	display_name = "Tajaran Mining Meson Veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a meson HUD."
 	path = /obj/item/clothing/glasses/hud/tajblind/meson/cargo
-	allowed_roles = list("Shaft Miner", "Quartermaster")
+	allowed_roles = list("Shaft Miner", "Explorer", "Quartermaster")
 
 /datum/gear/racial/taj/engineering
 	display_name = "Tajaran Engineering Meson Veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran. It is rare and offensive to see it on other races. Comes equipped with a meson HUD."
 	path = /obj/item/clothing/glasses/hud/tajblind/meson
-	allowed_roles = list("Chief Engineer", "Station Engineer")
+	allowed_roles = list("Chief Engineer", "Life Support Specialist", "Station Engineer")
 
 /datum/gear/racial/taj/science
 	display_name = "Tajaran Science Veil"
