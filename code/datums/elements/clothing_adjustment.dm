@@ -1,3 +1,6 @@
+/// An element for making visual modifications to items when worn externally by
+/// a carbon mob. This could range to anything from changing its pixel offsets
+/// to its color or size.
 /datum/element/clothing_adjustment
 	element_flags = ELEMENT_BESPOKE
 	argument_hash_start_idx = 2
@@ -11,11 +14,11 @@
 	RegisterSignal(target, COMSIG_ITEM_DROPPED, PROC_REF(on_item_dropped))
 
 /datum/element/clothing_adjustment/proc/on_item_equipped(datum/source, mob/target)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_ITEM_DROPPED
 	return
 
 /datum/element/clothing_adjustment/proc/on_item_dropped(datum/source, mob/target)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_ITEM_DROPPED
 	return
 
 /datum/element/clothing_adjustment/Detach(datum/target)
@@ -48,7 +51,7 @@
 
 	var/obj/item/organ/external/head/head = source.get_organ(BODY_ZONE_HEAD)
 
-	if(!head)
+	if(!istype(head))
 		return
 
 	var/datum/robolimb/robohead = GLOB.all_robolimbs[head.model]
