@@ -17,7 +17,7 @@
 			bins += temp_disposal
 
 /datum/event/disposals_clog/start()
-	var/list/possible_trash = typecacheof(/obj/item/trash)
+	var/list/possible_trash = typecacheof(/obj/item/trash) - /obj/item/trash/spentcasing
 	var/obj/machinery/disposal/bin
 	if(!length(bins))
 		return // No bins to fire the event from
