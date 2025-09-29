@@ -3630,6 +3630,38 @@
 		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
 		usr.client.cmd_admin_alert_message(about_to_be_banned)
 
+	else if(href_list["clientmodcheck"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/client/C = locateUID(href_list["clientmodcheck"])
+		if(!isclient(C))
+			return
+
+		var/client_is_member = C.IsByondMember()
+		var/byond_is_member = FALSE
+
+		var/list/client_byond_data = C.retrieve_byondacc_data()
+		if(!length(client_byond_data))
+			alert(src, "BYOND is down so we cant check this - oops")
+			return
+
+		if("general" in client_byond_data)
+			var/list/general = client_byond_data["general"]
+			if("is_member" in general)
+				byond_is_member = (general["is_member"] == "1") // We want to check if the value is EXACTLY "1" - do not TRUE this or shorten the expression
+
+		if(!client_is_member && !byond_is_member)
+			alert(usr, "Client [C.ckey] is unlikely to be using a modified client\nNot member on client or BYOND servers")
+		else if(client_is_member && byond_is_member)
+			alert(usr, "Client [C.ckey] is unlikely to be using a modified client\nBYOND member on client and BYOND servers")
+		else if(!client_is_member && byond_is_member)
+			alert(usr, "Client [C.ckey] is unlikely to be using a modified client\nBYOND member on server but not BYOND servers - possibly hidden donor status")
+		else if(client_is_member && !byond_is_member)
+			alert(usr, "Client [C.ckey] MAY BE USING A MODIFIED CLIENT\nBYOND member on client but not BYOND servers\nNote that their membership may have just expired")
+		else
+			alert(usr, "Client [C.ckey] had a membership that didnt make sense (C: [client_is_member] | B: [byond_is_member])\nInform AA please")
+
 	else if(href_list["spawnjsondatum"])
 		// Get the name and JSON to spawn
 		var/datum/db_query/dbq = SSdbcore.NewQuery("SELECT slotname, slotjson FROM json_datum_saves WHERE ckey=:ckey AND id=:id", list(

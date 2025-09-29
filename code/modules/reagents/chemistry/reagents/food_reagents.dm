@@ -973,7 +973,7 @@
 /datum/reagent/consumable/tinlux
 	name = "Tinea Luxor"
 	id = "tinlux"
-	description = "A stimulating ichor which causes luminescent fungi to grow on the skin. "
+	description = "A stimulating ichor which causes luminescent fungi to grow on the skin."
 	color = "#b5a213"
 	var/light_activated = FALSE
 	taste_description = "tingling mushroom"

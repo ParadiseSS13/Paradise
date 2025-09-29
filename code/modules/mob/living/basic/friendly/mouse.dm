@@ -41,7 +41,7 @@
 /mob/living/basic/mouse/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/wears_collar)
-	AddComponent(/datum/component/squeak, list(squeak_sound = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) // as quiet as a mouse or whatever
+	AddComponent(/datum/component/squeak, list(src.squeak_sound = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) // as quiet as a mouse or whatever
 	AddComponent(/datum/component/swarming, 16, 16) // max_x, max_y
 	if(!mouse_color)
 		mouse_color = pick("brown", "gray", "white")
