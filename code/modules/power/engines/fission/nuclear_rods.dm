@@ -217,7 +217,7 @@
 	power_amount = 35 KW
 	heat_amp_mod = 2.2
 	power_amp_mod = 1.3
-	max_durability = 30000
+	max_durability = 15000
 	beta_rad = 250
 	craftable = FALSE
 	adjacent_requirements = list(

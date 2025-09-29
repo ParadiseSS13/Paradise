@@ -749,11 +749,12 @@
 		"Replace the spent fuel rods you lazy bums!",
 		"There is a xenomorph nesting on the reactor!",
 		"Why is there a ripley pulling out the coolant rods ?",
-		"Atmospheric Technicians are the NGCR's favorite moderatorss",
+		"Atmospheric Technicians are the NGCR's favorite moderators",
 		"Who let the clown touch the control rods?",
 		"Which of you chucklefucks brought a fuel rod to medbay?",
 		"A coolant rod just flew into the captain!",
-		"The reactor is going supercritical!"
+		"The reactor is going supercritical!",
+		"Danger! Reactor core chamber meltdown in progress! Integrity: 79.47%"
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN

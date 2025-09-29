@@ -287,6 +287,7 @@
 	icon_state = "protolathe"
 	idle_power_consumption = 50
 	density = TRUE
+	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/temp_rod_fab/attack_hand(mob/user)

@@ -13,14 +13,14 @@
 
 #define MIN_CHAMBERS_TO_OVERLOAD 20 // The amount of conencted chambers required before the overload is valid
 
-#define EVENT_MODIFIER 0.1 // multiplies the commonality of dangerous events.
+#define EVENT_MODIFIER 0.3 // multiplies the commonality of dangerous events.
 
 #define HEAT_MODIFIER 500 // a flat multiplier. Higher = more heat production.
 #define HEAT_CAP 40000 // the highest temp before we artificially cap it
-#define AVERAGE_HEAT_THRESHOLD 30 // The threshold the average heat-per-rod must exceed to generate coefficient.
+#define AVERAGE_HEAT_THRESHOLD 50 // The threshold the average heat-per-rod must exceed to generate coefficient.
 #define TOTAL_HEAT_THRESHOLD 600 // the temp (in K) needed to begin generating coefficient.
 #define HEAT_CONVERSION_RATIO 400 // How much heat over the threshold = an extra coefficient point.
-#define REACTIVITY_COEFFICIENT_CAP 20 // The highest that reactivity coefficient can be
+#define REACTIVITY_COEFFICIENT_CAP 30 // The highest that reactivity coefficient can be
 
 // If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
 #define NGCR_MELTDOWN_PERCENT 5
@@ -53,19 +53,17 @@
 // fix chamber welding
 // adjust damage, its too slow (previously 3)
 // implement heat cap, its too silly (800,000,000K)
+// make reactor emit radiation waves while on
 
 // ========= TO DO ==========
 
-// STAT MODIFIERS DONT CORRECTLY CALCULATE
-
-// fix gas node deconstruction
 // fix remote ripley interactions with chambers
 // implement ways to increase the maximum overheat cap
 
-// make reactor emit radiation waves while on
+
 // todo: Allow grilling on an active reactor
 // todo: Make some lavaland loot into special rods/upgrades
-
+// todo: Make reactor generate gas. when H2 is in, add that.
 // todo: Make different gasses do... something
 // event idea: Pufts of contaminating rad smoke
 
@@ -509,8 +507,18 @@
 	if(operating_power <= 90) // full loss at 90% and above
 		durability_loss = round(1 / (1 + 2.5 ** (-algorithm_decay * (operating_power - 65))), 0.01)
 	var/operating_rate = operating_percent()
+
+	var/active_chambers
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
-		chamber.calculate_stats(operating_rate)
+		if(chamber.held_rod)
+			if(chamber.chamber_state == CHAMBER_DOWN)
+				chamber.calculate_stats(operating_rate)
+				active_chambers++
+				continue
+			if(chamber.chamber_state == CHAMBER_UP)
+				active_chambers++
+				continue
+
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 		var/power_total
 		var/heat_total
@@ -526,17 +534,17 @@
 				if(fuel_rod.enrich(chamber.power_mod_total * operating_rate, chamber.power_mod_total * operating_rate))
 					if(!chamber.enriching) // so we arnt constantly updating our overlay
 						chamber.enriching = TRUE
-						update_icon(UPDATE_OVERLAYS)
+						chamber.update_icon(UPDATE_OVERLAYS)
 				else if(chamber.enriching)
 					chamber.enriching = FALSE
-					update_icon(UPDATE_OVERLAYS)
+					chamber.update_icon(UPDATE_OVERLAYS)
 
 		heat_total = chamber.heat_total * durability_mod
 		final_heat += heat_total
 		final_power += power_total
 		chamber.held_rod.durability -= durability_loss
 
-	average_heatgen = final_heat / length(connected_chambers)
+	average_heatgen = final_heat / active_chambers
 	var/temp = air_contents.temperature()
 	var/total_mols = air_contents.total_moles()
 	if(!temp || !total_mols)
@@ -558,6 +566,10 @@
 	final_power *= reactivity_multiplier
 
 	final_power = max(final_power, 0) // no negative numbers
+
+	var/rad_type = pick(GAMMA_RAD, ALPHA_RAD, BETA_RAD)
+
+	radiation_pulse(src, 10 * reactivity_multiplier, rad_type)
 
 	var/heat_capacity = air_contents.heat_capacity()
 	if(heat_capacity)
@@ -598,7 +610,7 @@
 			damage_multiplier *= EVENT_MODIFIER
 			if(final_countdown)
 				damage_multiplier = 10
-			if(prob(new_damage * damage_multiplier)) // rod ejection events
+			if(prob(new_damage * damage_multiplier * 0.3)) // rod ejection events. Rarer
 				var/list/coolers = list()
 				for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 					if(istype(chamber.held_rod, /obj/item/nuclear_rod/coolant) && chamber.chamber_state == CHAMBER_DOWN)
@@ -607,7 +619,7 @@
 					var/obj/machinery/atmospherics/reactor_chamber/failure = coolers[rand(1, length(coolers))]
 					if(!failure.welded) // you got lucky punk
 						failure.eject_rod()
-			if(prob(new_damage * damage_multiplier)) // weld event
+			if(prob(new_damage * damage_multiplier * 3)) // weld event
 				var/list/valid_chambers = list()
 				for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 					if(chamber.chamber_state == CHAMBER_DOWN)
@@ -620,10 +632,10 @@
 							break
 						else
 							valid_chambers -= failure // just keep cycling through.
-			if(prob(new_damage * damage_multiplier * 3) && control_rods_remaining > 0) // Control rod failure. more probable
+			if(prob(new_damage * damage_multiplier * 2) && control_rods_remaining > 0) // Control rod failure. more probable
 				control_rod_failure()
 
-			if(prob(new_damage * damage_multiplier * 0.5)) // Vent control failure. rarer
+			if(prob(new_damage * damage_multiplier * 0.05)) // Vent control failure. much rarer
 				begin_venting()
 
 	if(damage > WARNING_POINT && (REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY && send_message && !final_countdown)
@@ -671,6 +683,9 @@
 
 	if(air_contents.temperature() > (heat_damage_threshold * 0.8))
 		return SUPERMATTER_NOTIFY
+
+	if(offline)
+		return SUPERMATTER_INACTIVE
 
 	return SUPERMATTER_NORMAL
 
@@ -932,6 +947,11 @@
 	find_link()
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/atmospherics/reactor_chamber/examine(mob/user)
+	. = ..()
+	. += to_chat(creature, "<span class='information'>[src] can be sealed/unsealed from its base with a lit welder while in the down position.</span>")
+
+
 /obj/machinery/atmospherics/reactor_chamber/on_deconstruction()
 	if(linked_reactor)
 		desync()
@@ -1056,7 +1076,7 @@
 /obj/machinery/atmospherics/reactor_chamber/AltClick(mob/user, modifiers)
 	if(!Adjacent(user))
 		return
-	if(linked_reactor.admin_intervention)
+	if(linked_reactor && linked_reactor.admin_intervention)
 		to_chat(user, "<span class='warning'>An unusual force prevents you from manipulating the chamber!</span>")
 		return
 	if(chamber_state == CHAMBER_UP)
@@ -1207,7 +1227,7 @@
 	layer = BELOW_OBJ_LAYER
 	if(playsound)
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-	if(linked_reactor.safety_override)
+	if(linked_reactor && linked_reactor.safety_override)
 		chamber_state = CHAMBER_OVERLOAD_IDLE
 		icon_state = "chamber_overload"
 		if(linked_reactor.check_overload_ready())
@@ -1280,6 +1300,8 @@
 		neighbors.Cut()
 	if(linked_reactor)
 		linked_reactor.connected_chambers -= src
+		linked_reactor.clear_reactor_network(restart = TRUE)
+
 
 /// Forms the two-way link between the reactor and the chamber, then searches for valid neighbors.
 /obj/machinery/atmospherics/reactor_chamber/proc/form_link(obj/machinery/atmospherics/fission_reactor/reactor)
@@ -1494,6 +1516,8 @@
 		L.adjustFireLoss(burn_damage)
 
 /obj/machinery/atmospherics/reactor_chamber/proc/check_minimum_modifier()
+	if(!linked_reactor)
+		return
 	if(!held_rod)
 		return
 	if(!held_rod.minimum_temp_modifier)
@@ -1629,12 +1653,12 @@
 	return 1
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/screwdriver_act(mob/living/user, obj/item/I)
-	default_deconstruction_screwdriver()
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/crowbar_act(mob/living/user, obj/item/I)
 	to_chat(user, "<span class='information'>You begin to pry out the internal piping...</span>")
 	if(I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
-		default_deconstruction_crowbar()
+		default_deconstruction_crowbar(user, I)
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/wrench_act(mob/user, obj/item/I)
 	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
