@@ -811,7 +811,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/worn_icon = (head_clothes && robohead && robohead.is_monitor ? head_clothes.icon_monitor : FALSE) || listgetindex(head.sprite_sheets, dna.species.sprite_sheet_name) || head.worn_icon || 'icons/mob/clothing/head.dmi'
 		var/worn_icon_state = head.worn_icon_state || head.icon_state
 		var/mutable_appearance/standing = mutable_appearance(worn_icon, worn_icon_state, layer = -HEAD_LAYER, alpha = head.alpha, color = head.color)
-		standing.pixel_y = head_clothes && robohead && robohead.is_monitor ? head_clothes.monitor_offset_y : 0
 
 		if(istype(head, /obj/item/clothing/head/helmet/space/plasmaman))
 			var/obj/item/clothing/head/helmet/space/plasmaman/P = head
