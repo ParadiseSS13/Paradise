@@ -4,7 +4,6 @@
 	singular_name = "telecrystal"
 	icon = 'icons/obj/stacks/minerals.dmi'
 	icon_state = "telecrystal"
-	item_state = "telecrystal"
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 100
 	flags = NOBLUDGEON

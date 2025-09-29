@@ -315,7 +315,7 @@
 	if(prompted || !ismob(target))
 		return FALSE
 	var/mob/M = target
-	if(!isanimal(M) || M.ckey) //much like sentience, these will not work on something that is already player controlled
+	if(!isanimal_or_basicmob(M) || M.ckey) // much like sentience, these will not work on something that is already player controlled
 		to_chat(user, "<span class='warning'>[M] already has a higher consciousness!</span>")
 		return FALSE
 	if(M.stat)
