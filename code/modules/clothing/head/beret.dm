@@ -12,6 +12,10 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi'
 		)
 
+/obj/item/clothing/head/beret/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 5, 5)
+
 /obj/item/clothing/head/beret/blue
 	icon_state = "beret_blue"
 
