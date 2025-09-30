@@ -210,7 +210,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_slaughter/shadow, 8, is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/immovable_rod, 9, TRUE, _first_run_time = 40 MINUTES),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/demon_incursion, 10, TRUE, _first_run_time = 35 MINUTES),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/disease_outbreak, 6, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/disease_outbreak, 8, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/revenant, 9),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, /datum/event/spawn_morph, 16, is_one_shot = TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR,	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
