@@ -8,4 +8,6 @@
 	name = "Debug rod core"
 	icon_state = "rod_core"
 	desc = "Debug smithed component part of a laser lens. If you see this, notify the development team."
+	materials = list(MAT_TITANIUM = 4000)
+	finished_product = /obj/item/smithed_item/lens/accelerator
 	part_type = PART_SECONDARY
