@@ -90,6 +90,10 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
+/obj/item/gps{
+	gpstag = "ALN0";
+	tracking = 1
+	},
 /turf/simulated/floor/plating/abductor,
 /area/ruin/powered/alien_cache_site)
 "Bl" = (
