@@ -1,15 +1,14 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/space,
-/area/space)
+/obj/machinery/door/airlock/cult/glass/friendly,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
 "ab" = (
 /turf/simulated/wall/cult,
 /area/shuttle/escape)
 "ac" = (
-/obj/effect/spawner/window/reinforced{
-	color = "red"
-	},
-/turf/simulated/floor/plating,
+/obj/effect/decal/remains/robot,
+/turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ad" = (
 /obj/machinery/computer/emergency_shuttle,
@@ -30,30 +29,23 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ah" = (
-/obj/machinery/computer/station_alert,
+/mob/living/simple_animal/hostile/construct/wraith,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aj" = (
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ak" = (
-/obj/machinery/computer/crew,
-/obj/machinery/status_display{
-	pixel_y = 30
-	},
+/obj/structure/cult/pylon,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "al" = (
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/floor/engine/cult,
-/area/shuttle/escape)
+/turf/template_noop,
+/area/template_noop)
 "am" = (
-/obj/structure/closet/walllocker/emerglocker/directional/east,
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	name = "Human remains"
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
@@ -70,45 +62,25 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ap" = (
-/obj/machinery/light/spot,
+/obj/item/radio/intercom{
+	pixel_y = 28
+	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ar" = (
-/obj/machinery/door/airlock/cult/friendly,
-/turf/simulated/floor/engine/cult,
+/obj/machinery/status_display,
+/turf/simulated/wall/cult,
 /area/shuttle/escape)
 "as" = (
-/obj/effect/decal/remains/human{
-	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	name = "Human remains"
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
+/obj/machinery/computer/crew,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "at" = (
-/obj/machinery/status_display{
-	pixel_y = 30
-	},
-/obj/machinery/light/spot{
-	dir = 1
-	},
-/obj/effect/decal/remains/human{
-	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	name = "Human remains"
-	},
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/cult/forge,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "au" = (
-/obj/effect/decal/remains/human{
-	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	name = "Human remains"
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "av" = (
@@ -116,52 +88,25 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aw" = (
-/obj/machinery/status_display{
-	pixel_y = 30
-	},
-/obj/machinery/light/spot{
-	dir = 1
-	},
+/obj/machinery/computer/card,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ax" = (
 /obj/structure/closet/walllocker/emerglocker/directional/west,
-/obj/effect/decal/remains/human{
-	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	name = "Human remains"
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ay" = (
-/obj/machinery/door/airlock/cult/friendly,
-/turf/simulated/floor/plating,
+/obj/machinery/status_display{
+	pixel_y = 30
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "az" = (
 /obj/structure/cult/altar,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aA" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/engine/cult,
-/area/shuttle/escape)
-"aB" = (
-/obj/effect/decal/remains/human{
-	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
-	name = "Human remains"
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/item/radio/intercom{
-	dir = 4;
-	pixel_y = -28
-	},
-/turf/simulated/floor/engine/cult,
-/area/shuttle/escape)
-"aE" = (
 /obj/docking_port/mobile/emergency{
 	dwidth = 11;
 	height = 13;
@@ -169,42 +114,46 @@
 	timid = 1;
 	width = 24
 	},
-/obj/machinery/door/airlock/cult/friendly,
+/obj/machinery/door/airlock/cult/glass/friendly,
 /turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"aB" = (
+/obj/machinery/computer/med_data,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"aE" = (
+/obj/effect/spawner/window/reinforced/grilled{
+	color = "red"
+	},
+/turf/simulated/floor/plating,
 /area/shuttle/escape)
 "aF" = (
-/obj/effect/rune,
-/turf/simulated/floor/engine/cult,
-/area/shuttle/escape)
-"aG" = (
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = -28
-	},
-/obj/machinery/light/spot{
-	dir = 8
-	},
-/obj/item/flag/cult,
-/turf/simulated/floor/engine/cult,
-/area/shuttle/escape)
-"aH" = (
-/obj/item/candle/eternal,
-/turf/simulated/floor/engine/cult,
-/area/shuttle/escape)
-"aI" = (
-/obj/effect/decal/cleanable/blood/writing,
-/turf/simulated/floor/engine/cult,
-/area/shuttle/escape)
-"aJ" = (
-/obj/structure/closet/walllocker/emerglocker/directional/east,
-/obj/machinery/light/spot{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
+"aG" = (
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/structure/table/wood,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"aH" = (
+/obj/machinery/door/airlock/cult/glass/friendly,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"aI" = (
+/obj/item/candle/eternal,
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"aJ" = (
+/obj/machinery/computer/secure_data,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
 "aK" = (
-/obj/effect/rune,
-/mob/living/simple_animal/hostile/construct/wraith,
+/obj/effect/decal/remains/xeno,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aL" = (
@@ -212,8 +161,9 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aM" = (
-/obj/effect/decal/cleanable/blood/innards,
-/obj/effect/decal/cleanable/blood/gibs/body,
+/obj/machinery/status_display{
+	pixel_y = 30
+	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aN" = (
@@ -225,24 +175,22 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aP" = (
-/obj/item/storage/firstaid/fire,
-/obj/item/extinguisher,
-/obj/item/crowbar,
-/obj/machinery/light/spot{
+/obj/machinery/computer/atmos_alert{
 	dir = 8
 	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aQ" = (
-/obj/effect/decal/cleanable/blood/writing,
-/obj/effect/decal/cleanable/blood/writing,
+/obj/machinery/computer/station_alert{
+	dir = 8
+	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aS" = (
-/obj/machinery/status_display{
-	pixel_y = -30
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
-/obj/machinery/light/spot,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aV" = (
@@ -282,9 +230,7 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "bb" = (
-/obj/machinery/light/spot{
-	dir = 4
-	},
+/obj/structure/table/wood,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "bc" = (
@@ -334,79 +280,135 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
+"dG" = (
+/obj/effect/rune/empower,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"eK" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"zN" = (
+/obj/machinery/computer/aifixer{
+	dir = 4
+	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"Ac" = (
+/obj/item/melee/cultblade/dagger,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"QF" = (
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"XC" = (
+/obj/effect/decal/cleanable/blood/innards,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/obj/effect/rune/narsie{
+	used = 1
+	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
 
 (1,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
+al
+al
+al
+al
+al
+al
+al
+al
 ab
 ab
 ab
-ar
+ab
+aa
+ab
+aA
 ab
 aE
-ab
-ac
-ac
-ac
-ab
-ar
-ab
-ar
-ac
-ab
+aE
+aE
 ab
 aa
+ab
+aa
+ab
+ab
+ab
+aE
+aE
+ab
+ab
+al
 "}
 (2,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
+al
+al
+al
+al
+al
+al
+al
 ab
-as
+ab
+aS
+eK
+aF
+aj
+ab
+aj
 ax
 aj
-ab
-aj
-aG
+ak
 aj
 aj
 aj
-aP
+aj
 aj
 ab
 aj
+aj
+ak
 aj
 aj
 ab
 ab
 "}
 (3,1,1) = {"
-aa
-aa
-aa
-aa
+al
+al
 ab
 ab
 ab
-at
+ab
+al
+ab
+ay
 aj
-aB
+am
+aj
+aj
+aE
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+aj
 ab
 aj
 aj
-aj
-aj
-aj
-aj
-aj
-ab
 aj
 aj
 aj
@@ -414,25 +416,32 @@ bh
 bj
 "}
 (4,1,1) = {"
-aa
-aa
+al
 ab
-ac
-ab
-an
-ab
-au
-aj
-au
-ab
-aA
-aj
-aj
-aF
-aj
-aj
-aj
 ar
+an
+zN
+ab
+al
+ab
+au
+am
+aj
+am
+af
+aE
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+aa
+aj
+aj
 aj
 aj
 be
@@ -440,50 +449,64 @@ bh
 bj
 "}
 (5,1,1) = {"
-aa
 ab
 ab
-ah
-al
+aG
+ao
 ao
 ab
-ac
-ay
-ac
 ab
+ab
+au
 aj
-aF
-aH
-aI
-aH
-aF
+aj
+aj
+ak
+ab
+ap
+aj
+am
+aj
+aj
+aj
+aj
+aj
 aj
 ab
 aW
-bb
+aj
+aj
+aj
 bf
 bh
 bj
 "}
 (6,1,1) = {"
-ab
-ab
-ae
+aE
+aJ
 af
 aj
 aj
+ak
 ab
-av
+ab
+ab
+aE
+aa
+aE
+ab
+ab
+aM
 aj
 aj
 aj
+am
 aj
-aH
-aL
-aI
-aN
-aH
-aS
+aK
+aj
+aj
+ab
+ab
 ab
 ab
 ab
@@ -492,50 +515,196 @@ ab
 ab
 "}
 (7,1,1) = {"
-ac
-ad
+aE
+ae
 af
 aj
 aj
 aj
-ar
-aj
-aj
-aj
-aj
-aK
-aI
-aI
-aM
-aI
-aQ
-aF
-ab
-aa
-aa
-aa
-aa
-aa
-"}
-(8,1,1) = {"
-ab
-ab
-ag
-af
-aj
-ap
 ab
 av
 aj
 aj
 aj
 aj
-aH
+ab
+av
+aj
+aj
+aL
+aI
+aj
+aI
+aN
+aj
+aj
+aF
+aF
+aj
+at
+at
+ak
+ab
+al
+"}
+(8,1,1) = {"
+aE
+aw
+af
+aj
+aj
+aj
+ab
+aj
+aj
+aj
+aj
+aj
+ab
+aj
+aj
+aj
+aI
+aj
+aj
+aj
+aI
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+az
+ab
+al
+"}
+(9,1,1) = {"
+aE
+ad
+af
+aj
+aj
+aj
+aa
+aj
+aj
+aj
+aj
+aj
+aa
+aj
+aj
+ah
+aj
+aj
+XC
+aj
+aj
+am
+aj
+aj
+Ac
+dG
+aj
+aj
+az
+ab
+al
+"}
+(10,1,1) = {"
+aE
+ag
+af
+aj
+aj
+aj
+ab
+aj
+aj
+aj
+aj
+aj
+ab
+aj
+aj
+az
+aI
+aj
+aj
+aj
+aI
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+az
+ab
+al
+"}
+(11,1,1) = {"
+aE
+as
+af
+aj
+am
+aj
+ab
+av
+aj
+aj
+aj
+aj
+ab
+av
+aj
+aj
 aO
 aI
+aj
+aI
 aV
-aH
-aS
+aj
+aj
+ao
+ao
+aj
+at
+at
+ak
+ab
+al
+"}
+(12,1,1) = {"
+aE
+aB
+af
+aj
+aj
+ak
+ab
+ab
+ab
+aE
+aa
+aE
+ab
+ab
+aM
+aj
+aj
+aj
+am
+aj
+aj
+aj
+aj
+ab
+ab
 ab
 ab
 ab
@@ -543,68 +712,87 @@ ab
 ab
 ab
 "}
-(9,1,1) = {"
-aa
+(13,1,1) = {"
 ab
 ab
+aG
+aF
+aF
+ab
+ab
+ab
+bb
+aj
+aj
+aj
 ak
-am
-aj
 ab
 aj
-aj
-aj
-aj
-aj
-aF
-aH
-aI
-aH
-aF
 aj
 ac
+aj
+aj
+aj
+aj
+aj
+aj
+aE
 aX
+aj
+aj
 bc
 bg
 bi
 bj
 "}
-(10,1,1) = {"
-aa
-aa
+(14,1,1) = {"
+al
 ab
-ac
-ab
-ao
-ab
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aF
-aj
-aj
-aj
 ar
+aP
+aQ
+ab
+al
+ab
+au
+aj
+aj
+aj
+af
+aE
+aj
+aj
+aj
+aj
+aj
+am
+aj
+aj
+aj
+aa
 aY
+aj
+aj
 bc
 bc
 bi
 bj
 "}
-(11,1,1) = {"
-aa
-aa
-aa
-aa
+(15,1,1) = {"
+al
+al
 ab
 ab
 ab
-aw
-az
+ab
+al
+ab
+au
+aj
+aj
+aj
+af
+aE
 aj
 aj
 aj
@@ -614,27 +802,34 @@ aj
 aj
 aj
 aj
-ac
+aE
 aY
+aj
+aj
 bd
 bd
 bi
 bj
 "}
-(12,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
+(16,1,1) = {"
+al
+al
+al
+al
+al
+al
+al
+ab
 ab
 aj
 aj
 aj
+bb
+ab
 aj
+QF
 aj
-aJ
+ak
 aj
 aj
 aj
@@ -642,34 +837,43 @@ aj
 aj
 ab
 aZ
+aj
+ak
 aZ
 aZ
 ab
 ab
 "}
-(13,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
+(17,1,1) = {"
+al
+al
+al
+al
+al
+al
+al
+al
+ab
+aH
+ab
+aH
 ab
 ab
-ac
-ac
-ac
-ac
+aE
 ab
-ac
-ac
-ac
-ac
+aE
+aE
+aE
 ab
+aE
 ab
+aE
 ab
 ab
 ab
+aE
+aE
 ab
-aa
+ab
+al
 "}
