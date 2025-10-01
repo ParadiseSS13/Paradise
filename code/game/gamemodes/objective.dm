@@ -183,7 +183,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/proc/is_special_dead(mob/target_current, check_silicon = TRUE)
 	if(check_silicon && issilicon(target_current))
 		return TRUE
-	return isbrain(target_current) || istype(target_current, /mob/living/simple_animal/spiderbot)
+	return isbrain(target_current) || istype(target_current, /mob/living/basic/spiderbot)
 
 // Setup and return the objective target jobs list based on target department
 /datum/objective/proc/setup_target_jobs()
