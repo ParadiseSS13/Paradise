@@ -212,15 +212,16 @@
 /obj/machinery/smithing/kinetic_assembler/operate(loops, mob/living/user)
 	..()
 	finished_product = new primary.finished_product(src)
-	var/quality_list = list(primary.quality, secondary.quality, trim.quality)
-	var/datum/smith_quality/lowest = quality_list[1]
-	for(var/datum/smith_quality/quality in quality_list)
-		if(quality.stat_mult < lowest.stat_mult)
-			lowest = quality
-	finished_product.quality = lowest
-	finished_product.material = trim.material
-	finished_product.set_stats()
-	finished_product.update_appearance(UPDATE_NAME)
+	if(istype(finished_product, /obj/item/smithed_item))
+		var/quality_list = list(primary.quality, secondary.quality, trim.quality)
+		var/datum/smith_quality/lowest = quality_list[1]
+		for(var/datum/smith_quality/quality in quality_list)
+			if(quality.stat_mult < lowest.stat_mult)
+				lowest = quality
+		finished_product.quality = lowest
+		finished_product.material = trim.material
+		finished_product.set_stats()
+		finished_product.update_appearance(UPDATE_NAME)
 	qdel(primary)
 	qdel(secondary)
 	qdel(trim)
@@ -241,10 +242,11 @@
 	if(is_type_in_typecache(finished_product, batched_item_types))
 		for(var/iterator in 1 to batch_extras)
 			var/obj/item/smithed_item/extra_product = new finished_product.type(src.loc)
-			extra_product.quality = finished_product.quality
-			extra_product.material = finished_product.material
-			extra_product.set_stats()
-			extra_product.update_appearance(UPDATE_NAME)
+			if(istype(extra_product, /obj/item/smithed_item))
+				extra_product.quality = finished_product.quality
+				extra_product.material = finished_product.material
+				extra_product.set_stats()
+				extra_product.update_appearance(UPDATE_NAME)
 			extra_product.scatter_atom()
 	finished_product = null
 

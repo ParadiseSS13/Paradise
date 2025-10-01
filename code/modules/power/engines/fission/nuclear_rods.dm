@@ -125,7 +125,8 @@
 
 /obj/item/nuclear_rod/fuel/Initialize(mapload)
 	. = ..()
-	check_rad_shield()
+	if(!(istype(loc, /obj/structure/closet/crate/engineering)))
+		check_rad_shield()
 
 /obj/item/nuclear_rod/fuel/proc/enrich(power_mod, heat_mod)
 	var/successful_enrichment = FALSE
@@ -334,14 +335,14 @@
 	heat_amount = 20
 	heat_amp_mod = 5
 	power_amp_mod = 3
-	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_PLASMA = 1000)
+	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/moderator,
 		)
 
-/obj/item/nuclear_rod/moderator/aluminium_reflector
+/obj/item/nuclear_rod/moderator/aluminum_reflector
 	name = "liquid aluminum plate reflector"
 	desc = "A specialized moderator rod for amplifying the power output of nearby fuel rods. However, the temperature of the liquid aluminum will force the reactor to run hot."
 	max_durability = 6000
@@ -349,7 +350,7 @@
 	heat_amp_mod = 5
 	power_amp_mod = 3
 	minimum_temp_modifier = 400
-	materials = list(MAT_METAL = 4000, MAT_TITANIUM = 2000, MAT_PLASMA = 2000)
+	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/coolant/nitrogen_circulator,
 		/obj/item/nuclear_rod/moderator,
@@ -384,7 +385,7 @@
 	max_durability = 8000
 	heat_amp_mod = 8
 	power_amp_mod = 3.9
-	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_PLATINUM = 1000)
+	craftable = FALSE
 	adjacent_requirements = list(/obj/item/nuclear_rod/fuel/americium)
 
 /// MARK: Coolant Rods
@@ -429,8 +430,8 @@
 	power_amount = -5 KW
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
 
-/obj/item/nuclear_rod/coolant/molten_salts
-	name = "molten salts circulator"
+/obj/item/nuclear_rod/coolant/molten_salt
+	name = "molten salt circulator"
 	desc = "A specialized coolant rod that circulates molten salts through the core of the reactor. Despite forcing the reactor to run exceptionally hot, this rod provides top-notch cooling potential above its resting temperature."
 	power_amount = -20 KW
 	heat_amount = -60
@@ -453,7 +454,7 @@
 	heat_amp_mod = 0.4
 	max_durability = 6000
 	minimum_temp_modifier = 450
-	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
+	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/coolant/light_water,
 		/obj/item/nuclear_rod/coolant/light_water,
@@ -475,9 +476,9 @@
 	desc = "A dazzlingly beautiful rod with exceptionally powerful thermal conductivity. A highly sought after piece of equipment for its simplicity and potency."
 	heat_amp_mod = 0.1
 	max_durability = 10000
-	materials = list(MAT_METAL = 5000, MAT_PLASMA = 3000, MAT_IRIDIUM = 2000)
+	craftable = FALSE
 	adjacent_requirements = list(
-		/obj/item/nuclear_rod/moderator/aluminium_reflector,
+		/obj/item/nuclear_rod/moderator/aluminum_reflector,
 		/obj/item/nuclear_rod/fuel/uranium_235,
 		)
 

@@ -60,7 +60,8 @@
 
 /obj/machinery/cooking/grill/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It contains [round(stored_wood, 0.01)]/[wood_maximum] units of charcoal.</span>"
+	if(wood_maximum != INFINITY)
+		. += "<span class='notice'>It contains [round(stored_wood, 0.01)]/[wood_maximum] units of charcoal.</span>"
 	. += "<span class='notice'><b>Ctrl-Click</b> on a surface to set its timer, temperature, and toggle it on or off.</span>"
 
 /obj/machinery/cooking/grill/process()
@@ -207,3 +208,15 @@
 		surface.container = new /obj/item/reagent_containers/cooking/grill_grate(src)
 	stored_wood = 30
 	update_appearance()
+
+/obj/machinery/cooking/loaded/grill/reactor
+	alpha = 0
+	wood_maximum = INFINITY
+
+/obj/machinery/cooking/loaded/grill/reactor/Initialize(mapload)
+	. = ..()
+	stored_wood = INFINITY
+	var/datum/cooking_surface/surface = surfaces[1]
+	surface.container.pixel_z -= 16
+	surface = surfaces[2]
+	surface.container.pixel_z += 16

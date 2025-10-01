@@ -155,6 +155,11 @@
 	var/list/category_moderator = list()
 	/// The list for carrying coolant rods
 	var/list/category_coolant = list()
+	/// Is the rod fabricator currently upgraded from science
+	var/upgraded = FALSE
+
+/obj/machinery/nuclear_rod_fabricator/upgraded
+	upgraded = TRUE
 
 /obj/machinery/nuclear_rod_fabricator/Initialize(mapload)
 	. = ..()
@@ -236,7 +241,13 @@
 		return ..()
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't load [src] while it's opened.</span>")
+		to_chat(user, "<span class='warning'>You can't load [src] while the maintenance panel is opened.</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/rod_fabricator_upgrade))
+		upgraded = TRUE
+		user.drop_item(used)
+		qdel(used)
 		return ITEM_INTERACT_COMPLETE
 
 	return ..()
@@ -327,10 +338,13 @@
 // MARK: Reactor Power Output
 
 /obj/machinery/power/reactor_power
-	name = "DEBUG Nucear Power Output"
-	desc = "A place for the reactor to spit out its output"
-	icon_state = "teg"
-	density = TRUE
+	name = "reactor output terminal"
+	desc = "A bundle of heavy watt power cables for managing power output from the reactor."
+	icon = 'icons/obj/power.dmi'
+	icon_state = "term"
+	plane = FLOOR_PLANE
+	layer = WIRE_TERMINAL_LAYER //a bit above wires
+	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
 	var/power_gen = 0
 	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
@@ -340,7 +354,7 @@
 	linked_reactor = GLOB.main_fission_reactor
 
 /obj/machinery/power/reactor_power/process()
-	if(linked_reactor.can_create_power)
+	if(linked_reactor && linked_reactor.can_create_power)
 		produce_direct_power(linked_reactor.final_power)
 
 /// MARK: Monitor
@@ -495,6 +509,18 @@
 		/obj/item/stock_parts/matter_bin = 2,
 		)
 
+/obj/item/circuitboard/machine/reactor_chamber
+	board_name = "Reactor Chamber"
+	icon_state = "engineering"
+	build_path = /obj/machinery/atmospherics/reactor_chamber
+	origin_tech = "engineering=2"
+	req_components = list(
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/sheet/metal = 2,
+		/obj/item/stack/sheet/mineral/plastitanium = 2,
+	)
+
 #undef DEFAULT_TIME
 
 // MARK: Slag
@@ -567,9 +593,16 @@
 	overlay_image.plane = GAME_PLANE
 	overlay_image.alpha = 75
 	overlays += overlay_image
+	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(InitializedOn))
 
 /turf/simulated/floor/plasteel/reactor_pool/crowbar_act(mob/user, obj/item/I)
 	return
+
+/turf/simulated/floor/plasteel/reactor_pool/proc/InitializedOn(atom/A)
+	if(!linkedcontroller)
+		return
+	if(istype(A, /obj/effect/decal/cleanable)) // Better a typecheck than looping through thousands of turfs everyday
+		linkedcontroller.decalinpool += A
 
 /turf/simulated/floor/plasteel/reactor_pool/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()
@@ -640,10 +673,28 @@
 	return ..()
 
 /obj/machinery/poolcontroller/invisible/nuclear/processMob()
-	for(var/M in mobinpool)
+	for(var/mob/M in mobinpool)
 		if(!istype(get_turf(M), /turf/simulated/floor/plasteel/reactor_pool))
 			mobinpool -= M
 			continue
+
+		M.clean_blood(radiation_clean = TRUE)
+
+		if(isliving(M))
+			var/mob/living/L = M
+			L.ExtinguishMob()
+			L.adjust_fire_stacks(-20) //Douse ourselves with water to avoid fire more easily
+
 		if(ishuman(M))
 			handleDrowning(M)
 
+/// MARK: Fab  upgrade
+
+/obj/item/rod_fabricator_upgrade
+	name = "Nuclear Fabricator Upgrade"
+	desc = "A design disk containing a dizzying amount of designs and improvements for nuclear rod fabrication."
+	icon = 'icons/obj/module.dmi'
+	icon_state = "datadisk5"
+	drop_sound = 'sound/items/handling/disk_drop.ogg'
+	pickup_sound = 'sound/items/handling/disk_pickup.ogg'
+	new_attack_chain = TRUE

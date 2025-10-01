@@ -94,6 +94,8 @@
 	var/reactivity_multiplier = 1
 	/// The current air contents of this device
 	var/datum/gas_mixture/air_contents
+	/// Holds the grill for the reactor.
+	var/obj/machinery/cooking/grill/reactor/grill
 	/// How many functional control rods does the reactor have?
 	var/control_rods_remaining = 5
 	/// what repair step is the reactor on?
@@ -311,6 +313,15 @@
 		else
 			to_chat(user, "<span class='warning'>You need at least five sheets of plasteel to reform the reactor core structure!</span>")
 		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/reagent_containers/cooking/grill_grate))
+		var/obj/item/item = creature.get_inactive_hand()
+		if(istype(used, /obj/item/reagent_containers/cooking/grill_grate))
+			qdel(used)
+			qdel(item)
+			grill = new()
+		else
+			to_chat(user, "<span class='warning'>You need a second grate to grill properly!</span>")
+			return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/fission_reactor/crowbar_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_CROWBAR)
@@ -569,6 +580,10 @@
 
 	var/rad_type = pick(GAMMA_RAD, ALPHA_RAD, BETA_RAD)
 
+	var/datum/gas_mixture/temp_gas
+	temp_gas.set_toxins(clamp(clamp(final_power / 20 MW, 0.01,  10) * reactivity_multiplier, 0.01, 50)) // turn this into hydrogen later. Yes, hydrogen. we dont have helium
+	temp_gas.set_temperature(air_contents.temperature())
+	air_contents.merge(temp_gas)
 	radiation_pulse(src, 10 * reactivity_multiplier, rad_type)
 
 	var/heat_capacity = air_contents.heat_capacity()
@@ -883,6 +898,7 @@
 	desc = "A chamber used to house nuclear rods of various types to facilitate a fission reaction."
 	icon = 'icons/obj/fission/reactor_chamber.dmi'
 	icon_state = "chamber_down"
+	layer = BELOW_OBJ_LAYER
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
 	max_integrity = 400
 	armor = list(melee = 80, bullet = 30, laser = 30, energy = 10, bomb = 40, rad = INFINITY, fire = INFINITY, acid = INFINITY) // fairly robust
@@ -949,8 +965,7 @@
 
 /obj/machinery/atmospherics/reactor_chamber/examine(mob/user)
 	. = ..()
-	. += to_chat(creature, "<span class='information'>[src] can be sealed/unsealed from its base with a lit welder while in the down position.</span>")
-
+	. += to_chat(user, "<span class='information'>[src] can be sealed/unsealed from its base with a lit welder while in the down position.</span>")
 
 /obj/machinery/atmospherics/reactor_chamber/on_deconstruction()
 	if(linked_reactor)
@@ -1561,18 +1576,6 @@
 /obj/effect/immovablerod/nuclear_rod/Destroy()
 	held_rod.forceMove(end)
 	return ..()
-
-/obj/item/circuitboard/machine/reactor_chamber
-	board_name = "Reactor Chamber"
-	icon_state = "engineering"
-	build_path = /obj/machinery/atmospherics/reactor_chamber
-	origin_tech = "engineering=2"
-	req_components = list(
-		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stack/sheet/metal = 2,
-		/obj/item/stack/sheet/mineral/plastitanium = 2,
-	)
 
 /// MARK: Gas Node
 
