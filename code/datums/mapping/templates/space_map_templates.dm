@@ -400,3 +400,11 @@
 	description = "Nanotrasen uses relays like these to further extend telecommunications around an area of space, as well as long range beacons for easier deployment in the future. \
 		Unfortunately, the anomalous activity around Epsilon Eridani, along with orbital debris and space-faring hostiles, has rendered many of these relay stations inoperable, leaving their communications and teleportation systems offline."
 	never_spawn_on_the_same_level = list("bluespace_relay_beacon")
+
+/datum/map_template/ruin/space/alien_cache_site
+	id = "alien_cache_site"
+	suffix = "alien_cache_site.dmm"
+	name = "Alien Cache Site"
+	description = "A site containing a cache of alien design, who knows what valuable technology is hiding inside?"
+	never_spawn_on_the_same_level = list("alien_cache_site")
+	allow_duplicates = FALSE
