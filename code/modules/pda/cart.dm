@@ -235,7 +235,7 @@
 
 /obj/item/cartridge/captain
 	name = "Value-PAK Cartridge"
-	desc = "A data cartridge for portable microcomputers. Has everything except a signaler system."
+	desc = "A data cartridge for portable microcomputers. Has every single app included, now that's real value!"
 	icon_state = "cart-c"
 	programs = list(
 		new /datum/data/pda/app/power,
@@ -265,22 +265,28 @@
 		new /datum/data/pda/app/status_display
 	)
 
-/obj/item/cartridge/centcom
-	name = "Value-PAK Cartridge"
-	desc = "Now with 200% more value!"
-	icon_state = "cart-c"
+/obj/item/cartridge/ai
+	name = "All-Seeing Cartridge"
+	desc = "A data cartridge made for the internal PDA of an AI."
 	programs = list(
 		new /datum/data/pda/app/power,
-		new /datum/data/pda/utility/scanmode/rad_scanner,
-		new /datum/data/pda/utility/scanmode/gas,
 		new /datum/data/pda/app/crew_records/medical,
-		new /datum/data/pda/utility/scanmode/medical,
-		new /datum/data/pda/utility/scanmode/reagent,
 		new /datum/data/pda/app/crew_records/security,
 		new /datum/data/pda/app/secbot_control,
 		new /datum/data/pda/app/janitor,
 		new /datum/data/pda/app/supply,
-		new /datum/data/pda/app/status_display
+	)
+
+/obj/item/cartridge/robot
+	name = "BORG-0 Cartridge"
+	desc = "A data cartidge made for the internal PDAs of synthetics."
+	programs = list(
+		new /datum/data/pda/utility/robot_headlamp,
+		new /datum/data/pda/utility/robot_self_diagnosis,
+		new /datum/data/pda/app/power,
+		new /datum/data/pda/app/crew_records/medical,
+		new /datum/data/pda/app/crew_records/security,
+		new /datum/data/pda/app/janitor,
 	)
 
 /obj/item/cartridge/syndicate

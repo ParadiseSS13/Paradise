@@ -371,6 +371,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/clothing/gloves/fingerless/rapid/headpat
 	cost = 150
 
+/datum/prize_item/bootsofjumping
+	name = "Boots of Jumping"
+	desc = "Boots that were made for jumping. And that's just what they'll do."
+	typepath = /obj/item/clothing/shoes/leather/jump
+	cost = 150
+
 /datum/prize_item/tommygun
 	name = "Tommy Gun"
 	desc = "A replica tommy gun that fires foam darts."

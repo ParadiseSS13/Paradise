@@ -276,7 +276,6 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -431,7 +430,6 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/airlock/access/all/centcomm/traders,
 /obj/docking_port/mobile/trader{
 	height = 16;
 	width = 14;

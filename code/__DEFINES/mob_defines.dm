@@ -248,10 +248,10 @@
 
 #define isdog(A)			(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)			(istype((A), /mob/living/simple_animal/pet/dog/corgi))
-#define ismouse(A)			(istype((A), /mob/living/simple_animal/mouse))
+#define ismouse(A)			(istype((A), /mob/living/basic/mouse))
 #define isbot(A)			(istype((A), /mob/living/simple_animal/bot))
 #define isguardian(A)		(istype((A), /mob/living/simple_animal/hostile/guardian))
-#define isnymph(A)      	(istype((A), /mob/living/simple_animal/diona))
+#define isnymph(A)      	(istype((A), /mob/living/basic/diona_nymph))
 #define iscaterpillar(A)	(istype((A), /mob/living/basic/nian_caterpillar))
 #define ishostile(A) 		(istype((A), /mob/living/simple_animal/hostile))
 #define isretaliate(A) 		(istype((A), /mob/living/simple_animal/hostile/retaliate))

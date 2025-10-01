@@ -94,7 +94,7 @@
 		return FALSE
 	target.visible_message("<span class='danger'>[user] hammers [target]'s head with [src]!</span>", \
 					"<span class='userdanger'>[user] hammers your head with [src]! Did somebody get the license plate on that car?</span>")
-	var/armor = target.run_armor_check(def_zone = BODY_ZONE_HEAD, attack_flag = MELEE, armor_penetration_percentage = 50)
+	var/armor = target.run_armor_check(def_zone = BODY_ZONE_HEAD, armor_type = MELEE, armor_penetration_percentage = 50)
 	target.apply_damage(40, BRUTE, BODY_ZONE_HEAD, armor)
 	target.Weaken(4 SECONDS)
 	target.emote("scream")
