@@ -141,9 +141,9 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	request.prepare(RUSTLIBS_HTTP_METHOD_POST, url, json_encode(payload), headers)
 	request.begin_async()
 	var/start_time = world.time
-	while(!request.is_complete())
-		if(world.time > start_time + 5 SECONDS)
-			CRASH("bug report HTML request hit timeout limit of 5 seconds");
+	UNTIL(request.is_complete() || (world.time > start_time + 5 SECONDS))
+	if(!request.is_complete() && world.time > start_time + 5 SECONDS)
+		CRASH("bug report HTML request hit timeout limit of 5 seconds");
 
 	var/datum/http_response/response = request.into_response()
 	if(response.errored || response.status_code != STATUS_SUCCESS)
