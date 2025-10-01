@@ -102,3 +102,18 @@
 //////////////////////////////
 //////END VG HAIRSTYLES///////
 //////////////////////////////
+
+/datum/sprite_accessory/facial_hair/muttonmus
+	name = "Muttonmus"
+	icon_state = "muttons"
+
+/datum/sprite_accessory/facial_hair/elvislong
+	name = "Long Sideburns"
+	icon_state = "elvislong"
+	species_allowed = list("Human", "Slime People",)
+
+/datum/sprite_accessory/facial_hair/elvislongunathi
+	name = "Long Unathi Sideburns"
+	icon_state = "elvislongunathi"
+	species_allowed = list("Unathi")
+

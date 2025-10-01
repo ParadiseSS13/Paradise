@@ -678,6 +678,7 @@ active_space_ruins = [
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_drakehounds.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_vox.dmm",
   "_maps/map_files/RandomRuins/SpaceRuins/asteroidmine_skullakin.dmm",
+  "_maps/map_files/RandomRuins/SpaceRuins/alien_cache_site.dmm",
 
   ### The following ruins are based from past pre-spawned Zlevel content ###
   "_maps/map_files/RandomRuins/SpaceRuins/abandonedtele.dmm",
