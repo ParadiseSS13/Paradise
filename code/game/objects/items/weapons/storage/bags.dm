@@ -265,6 +265,11 @@
 	icon_state = "portaseeder"
 	origin_tech = "biotech=3;engineering=2"
 
+/obj/item/storage/bag/plants/portaseeder/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
+
 /obj/item/storage/bag/plants/portaseeder/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
@@ -275,8 +280,14 @@
 		to_chat(user, "<span class='warning'>[src] has no seeds inside!</span>")
 		return
 	var/had_anything = FALSE
+	var/seed_amount = 1
+	// Multiply seeds by productivity
+	seed_amount = clamp(seed_amount * bit_productivity_mod, 1, 4)
+	// Reduce with low efficiency
+	if(bit_efficiency_mod < 1)
+		seed_amount = max(1, seed_amount * bit_efficiency_mod)
 	for(var/obj/item/O in contents)
-		had_anything |= seedify(O, 1)
+		had_anything |= seedify(O, seed_amount)
 	hide_from_all()
 	if(had_anything)
 		to_chat(user, "<span class='notice'>[src] whirrs a bit as it converts the plants inside to seeds.</span>")
