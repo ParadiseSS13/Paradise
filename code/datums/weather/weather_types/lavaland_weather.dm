@@ -153,12 +153,10 @@
 		new_river.generate(nodes = 4, ignore_bridges = TRUE, warning = TRUE)
 	if(world.time >= next_rubble)
 		next_rubble = world.time + rand(3 DECISECONDS, 2 SECONDS)
-		var/hits = 0
-		var/target
-		for(var/turf/T in get_area_turfs(/area/lavaland/surface/outdoors))
-			if(istype(get_area(T), /area/lavaland/surface/outdoors/outpost/no_boulder))
+		for(var/area/lavaland/surface/outdoors/N in GLOB.all_areas)
+			if(istype(N, /area/lavaland/surface/outdoors/outpost/no_boulder))
 				continue // No hitting the no boulder area
-			if(istype(T, /turf/simulated/floor)) // dont waste our time hitting walls
+			for(var/turf/simulated/floor/T in N) // dont waste our time hitting walls
 				valid_targets += T
 		if(isnull(valid_targets)) // prevents a runtime when coding without lavaland enabled. Or theres somehow ZERO turfs.
 			return
