@@ -29,9 +29,6 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 /datum/tgui_bug_report_form/proc/external_link_prompt(client/user)
 	tgui_alert(user, "Unable to create a bug report at this time, please create the issue directly through our GitHub repository instead")
 	var/url = "https://github.com/ParadiseSS13/Paradise"
-	if(!url)
-		to_chat(user, "<span class = 'warning'>The configuration is not properly set, unable to open external link</span>")
-		return
 
 	if(tgui_alert(user, "This will open the GitHub in your browser. Are you sure?", "Confirm", list("Yes", "No")) == "Yes")
 		user << link(url)
@@ -122,7 +119,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	var/org = "ParadiseSS13"
 	var/token = GLOB.configuration.system.github_api_token
 
-	if(token == null || !org || !repo_name)
+	if(token == null)
 		tgui_alert(user, "The configuration is not set for the external API.", "Issue not reported!")
 		external_link_prompt(user)
 		qdel(src)
@@ -154,12 +151,12 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		external_link_prompt(user)
 	else
 		message_admins("[user.ckey] has approved a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
-		to_chat(initial_user, "<span class = 'warning'>An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!</span>")
+		to_chat(initial_user, "<span class='warning'>An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!</span>")
 	qdel(src)// approved and submitted, we no longer need the datum.
 
 // proc that creates a ticket for an admin to approve or deny a bug report request
 /datum/tgui_bug_report_form/proc/bug_report_request()
-	to_chat(initial_user, "<span class = 'warning'>Your bug report has been submitted, thank you!</span>")
+	to_chat(initial_user, "<span class='warning'>Your bug report has been submitted, thank you!</span>")
 	GLOB.bug_reports += src
 
 	var/general_message = "[initial_key] has created a bug report which is now pending approval. The report can be viewed using \"View Bug Reports\" in the debug tab. </span>"
@@ -173,7 +170,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	switch(action)
 		if("confirm")
 			if(selected_confirm) // prevent someone from spamming the approve button
-				to_chat(user, "<span class = 'warning'>you have already confirmed the submission, please wait a moment for the API to process your submission.")
+				to_chat(user, "<span class='warning'>You have already approved this submission, please wait a moment for the API to process your submission.</span>")
 				return
 			bug_report_data = sanitize_payload(params)
 			selected_confirm = TRUE
