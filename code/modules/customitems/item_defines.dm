@@ -1567,6 +1567,7 @@
 /// LightFire53: Ikelos
 /obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff
 	icon_state = "ikelos_envirohelm" // New item needed because `initial(icon_state)` is used.
+	light_icon = "ikelos_envirohelm-light"
 	icon = 'icons/obj/custom_items.dmi'
 
 /// Xerdies: Squiddle Toodle

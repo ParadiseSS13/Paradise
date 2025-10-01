@@ -51385,7 +51385,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/mob/living/simple_animal/crab/coffee,
+/mob/living/basic/crab/coffee,
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
 	},

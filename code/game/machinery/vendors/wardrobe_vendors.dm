@@ -661,7 +661,7 @@
 				/obj/item/clothing/shoes/workboots/mining = 3,
 				/obj/item/clothing/mask/gas/explorer = 3,
 				/obj/item/storage/backpack/explorer = 2,
-				/obj/item/storage/backpack/satchel/explorer = 2,
+				/obj/item/storage/backpack/satchel_explorer = 2,
 				/obj/item/clothing/head/helmet/space/plasmaman/mining = 3,
 				/obj/item/clothing/under/plasmaman/mining = 3)
 
@@ -679,7 +679,7 @@
 				/obj/item/clothing/accessory/armband/cargo = 20,
 				/obj/item/clothing/shoes/workboots/mining = 20,
 				/obj/item/storage/backpack/explorer = 50,
-				/obj/item/storage/backpack/satchel/explorer = 50,
+				/obj/item/storage/backpack/satchel_explorer = 50,
 				/obj/item/clothing/head/helmet/space/plasmaman/mining = 60,
 				/obj/item/clothing/under/plasmaman/mining = 60)
 
@@ -710,7 +710,7 @@
 				/obj/item/clothing/shoes/jackboots = 3,
 				/obj/item/clothing/mask/gas/explorer = 3,
 				/obj/item/storage/backpack/explorer = 2,
-				/obj/item/storage/backpack/satchel/explorer = 2,
+				/obj/item/storage/backpack/satchel_explorer = 2,
 				/obj/item/clothing/head/helmet/space/plasmaman/expedition = 3,
 				/obj/item/clothing/under/plasmaman/expedition = 3)
 
@@ -727,7 +727,7 @@
 				/obj/item/clothing/accessory/armband/cargo = 20,
 				/obj/item/clothing/shoes/jackboots = 20,
 				/obj/item/storage/backpack/explorer = 50,
-				/obj/item/storage/backpack/satchel/explorer = 50,
+				/obj/item/storage/backpack/satchel_explorer = 50,
 				/obj/item/clothing/head/helmet/space/plasmaman/expedition = 60,
 				/obj/item/clothing/under/plasmaman/expedition = 60)
 

@@ -38544,7 +38544,7 @@
 	},
 /area/station/security/permabrig)
 "gUJ" = (
-/mob/living/simple_animal/crab{
+/mob/living/basic/crab{
 	desc = "The local trainer hired to keep the crew in shape by aggressively snipping at them.";
 	name = "Crabohydrates"
 	},
@@ -98554,7 +98554,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/item/storage/backpack/satchel/explorer,
+/obj/item/storage/backpack/satchel_explorer,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/starboard)
 "tDb" = (

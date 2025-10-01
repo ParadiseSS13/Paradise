@@ -186,6 +186,8 @@
 
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
+		if(attached_bits.len > 0)
+			..()
 		open(user)
 		add_fingerprint(user)
 	else if(isobserver(user))
@@ -631,6 +633,8 @@
 	var/turf/T = get_turf(src)
 	hide_from(user)
 	for(var/obj/item/I in contents)
+		if(I & attached_bits)
+			continue
 		remove_from_storage(I, T)
 		I.scatter_atom()
 		CHECK_TICK
