@@ -160,6 +160,8 @@
 				valid_targets += T
 		if(isnull(valid_targets)) // prevents a runtime when coding without lavaland enabled. Or theres somehow ZERO turfs.
 			return
+		var/hits = 0
+		var/target
 		while(hits <= 150 && length(valid_targets)) //sling a bunch of rocks around the map
 			target = pick(valid_targets)
 			new /obj/effect/temp_visual/rock_target(target)
