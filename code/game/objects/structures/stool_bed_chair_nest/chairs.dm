@@ -717,4 +717,4 @@
 /obj/structure/chair/comfy/cult/no_metal
 	name = "runed stone chair"
 	desc = "A cold stone throne engraved with indecipherable symbols. Studying them causes your head to pound."
-	buildstackamount = 0
+	buildstacktype = null
