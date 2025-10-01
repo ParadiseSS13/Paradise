@@ -283,3 +283,6 @@
 #define COMSIG_CARBON_PRE_MISC_HELP "carbon_pre_misc_help"
 	/// Stops the rest of help act (hugging, etc) from occurring
 	#define COMPONENT_BLOCK_MISC_HELP (1<<0)
+
+/// From base of /client/Move(): (direction, old_dir)
+#define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
