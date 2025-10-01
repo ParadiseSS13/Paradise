@@ -212,6 +212,8 @@
 /obj/machinery/cooking/loaded/grill/reactor
 	alpha = 0
 	wood_maximum = INFINITY
+	/// The reactor that the grill is attached to
+	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
 
 /obj/machinery/cooking/loaded/grill/reactor/Initialize(mapload)
 	. = ..()
