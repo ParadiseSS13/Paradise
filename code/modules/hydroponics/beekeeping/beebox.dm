@@ -19,7 +19,7 @@
 		return FALSE
 	return TRUE
 
-/mob/living/simple_animal/diona/bee_friendly()
+/mob/living/basic/diona_nymph/bee_friendly()
 	return TRUE
 
 /mob/living/carbon/human/bee_friendly()
