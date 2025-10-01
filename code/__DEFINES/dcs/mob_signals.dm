@@ -136,6 +136,8 @@
 	#define COMPONENT_NO_ATTACH (1<<0)
 ///from base of mob/living/health_update()
 #define COMSIG_LIVING_HEALTH_UPDATE "living_health_update"
+/// Sent during exfiltration to handle guardians
+#define COMSIG_SUMMONER_EXTRACTED "summoner_extracted"
 ///sent from borg recharge stations: (amount, repairs)
 #define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"
 ///sent when a mob enters a borg charger
