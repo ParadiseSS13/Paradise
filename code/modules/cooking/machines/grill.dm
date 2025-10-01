@@ -209,13 +209,13 @@
 	stored_wood = 30
 	update_appearance()
 
-/obj/machinery/cooking/loaded/grill/reactor
+/obj/machinery/cooking/grill/loaded/reactor
 	alpha = 0
 	wood_maximum = INFINITY
 	/// The reactor that the grill is attached to
 	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
 
-/obj/machinery/cooking/loaded/grill/reactor/Initialize(mapload)
+/obj/machinery/cooking/grill/loaded/reactor/Initialize(mapload)
 	. = ..()
 	stored_wood = INFINITY
 	var/datum/cooking_surface/surface = surfaces[1]
