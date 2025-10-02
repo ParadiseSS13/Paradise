@@ -81,7 +81,6 @@
 	sharp = TRUE
 	attack_verb = list("slashed", "sliced", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	needs_permit = TRUE
 
 /obj/item/melee/bone_sword/Initialize(mapload)
 	. = ..()
