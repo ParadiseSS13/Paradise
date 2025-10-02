@@ -882,7 +882,7 @@
 	for(var/atom/AM in loc)
 		if(!ishuman(AM))
 			continue
-		if(has_buckled_mobs() && AM in buckled_mobs) // Can't run over someone buckled to the top.
+		if(has_buckled_mobs() && (AM in buckled_mobs)) // Can't run over someone buckled to the top.
 			continue
 		RunOver(AM)
 
