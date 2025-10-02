@@ -340,11 +340,9 @@
 /obj/machinery/power/reactor_power
 	name = "reactor output terminal"
 	desc = "A bundle of heavy watt power cables for managing power output from the reactor."
-	icon = 'icons/obj/power.dmi'
 	icon_state = "term"
 	plane = FLOOR_PLANE
 	layer = WIRE_TERMINAL_LAYER //a bit above wires
-	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
 	var/power_gen = 0
 	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
