@@ -352,7 +352,7 @@
 				status = "battered"
 			if(40 to INFINITY)
 				status = "mangled"
-		if(brutedamage > 0 && (burndamage > 0 || LB.status & ORGAN_BURNT))
+		if(brutedamage > 0.1 && (burndamage > 0.1 || LB.status & ORGAN_BURNT))
 			status += " and "
 
 		if(LB.status & ORGAN_BURNT)
@@ -771,6 +771,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
 	newtonian_move(get_dir(target, src))
 	thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
+	thrown_thing.scatter_atom()
 
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)

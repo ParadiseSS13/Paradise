@@ -269,7 +269,7 @@
 				D.last_eaten = world.time
 				D.taste(reagents)
 		else if(ismouse(M))
-			var/mob/living/simple_animal/mouse/N = M
+			var/mob/living/basic/mouse/N = M
 			to_chat(N, "<span class='notice'>You nibble away at [src].</span>")
 			if(prob(50))
 				N.visible_message("[N] nibbles away at [src].", "")
@@ -348,6 +348,9 @@
 	var/initial_volume = 0 // the total some of reagents this food had initially
 	for(var/ingredient in list_reagents)
 		initial_volume += list_reagents[ingredient]
+
+	// Total slices after factoring in productivity value of the knife
+	slices_num = clamp(slices_num * used.bit_productivity_mod, 1, round(slices_num * 2.5))
 	// we want to account for how much has been eaten already, reduce slices by how is left vs. how much food we started with
 	slices_num = clamp(slices_num * (reagents.total_volume / initial_volume), 1, slices_num)
 	var/slices_lost
@@ -362,6 +365,9 @@
 			"<span class='notice'>You crudely slice [src] with [used], destroying some in the process!</span>"
 		)
 		slices_lost = rand(1, min(1, round(slices_num / 2)))
+	// Low efficiency means more loss.
+	if(used.bit_efficiency_mod < 1)
+		slices_lost = slices_num * (1 - used.bit_efficiency_mod)
 	var/reagents_per_slice = reagents.total_volume/slices_num
 	for(var/i in 1 to (slices_num - slices_lost))
 		var/obj/slice = new slice_path (loc, TRUE)

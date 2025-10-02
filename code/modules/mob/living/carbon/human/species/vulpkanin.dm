@@ -37,9 +37,16 @@
 		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin /*Most Vulpkanin see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
 															unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
 		)
-
-	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/basic/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
-								/mob/living/simple_animal/crab, /mob/living/basic/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/hostile/poison/bees)
+	allowed_consumed_mobs = list(
+		/mob/living/basic/mouse,
+		/mob/living/basic/lizard,
+		/mob/living/basic/chick,
+		/mob/living/basic/chicken,
+		/mob/living/basic/crab,
+		/mob/living/basic/butterfly,
+		/mob/living/simple_animal/parrot,
+		/mob/living/simple_animal/hostile/poison/bees,
+	)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",

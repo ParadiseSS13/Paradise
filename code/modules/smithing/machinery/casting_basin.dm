@@ -94,6 +94,16 @@
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/smithing/casting_basin/Destroy()
+	if(cast)
+		cast.forceMove(src.loc)
+	if(produced_item)
+		produced_item.forceMove(src.loc)
+	if(linked_crucible)
+		linked_crucible.linked_machines -= src
+		linked_crucible = null
+	. = ..()
+
 /obj/machinery/smithing/casting_basin/multitool_act(mob/living/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -274,9 +284,3 @@
 		// Clean up temps
 		qdel(temp_product)
 		return FINISH_ATTACK
-
-/obj/machinery/smithing/casting_basin/Destroy()
-	if(linked_crucible)
-		linked_crucible.linked_machines -= src
-		linked_crucible = null
-	return ..()

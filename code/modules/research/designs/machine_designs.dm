@@ -12,6 +12,16 @@
 	build_path = /obj/item/circuitboard/thermomachine
 	category = list ("Engineering Machinery")
 
+/datum/design/laser_terminal
+	name = "Machine Board (Laser Terminal)"
+	desc = "The circuit board for a PTL terminal."
+	id = "laser_terminal"
+	req_tech = list("powerstorage" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/laser_terminal
+	category = list ("Engineering Machinery")
+
 /datum/design/space_heater
 	name = "Machine Board (Space Heater)"
 	desc = "The circuit board for a space heater"
@@ -519,6 +529,16 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/ore_redemption
+	category = list ("Misc. Machinery")
+
+/datum/design/salvage_redemption
+	name = "Machine Design (Salvage Redemption)"
+	desc = "The circuit board for a Salvage Redemption Machine."
+	id = "salvage_redemption"
+	req_tech = list("programming" = 2, "engineering" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/salvage_redemption
 	category = list ("Misc. Machinery")
 
 /datum/design/smart_hopper

@@ -225,7 +225,7 @@
 	icon_state = "flayer_telepad_base"
 	setup_type = /obj/effect/temp_visual/exfiltration/mindflayer
 
-/obj/item/wormhole_jaunter/extraction/changeling/show_activation_message(mob/user)
+/obj/item/wormhole_jaunter/extraction/mindflayer/show_activation_message(mob/user)
 	user.visible_message("<span class='notice'>[user] sets a strange telepad on the floor. It begins to unfold.</span>",
 					"<span class='notice'>You push a button on [src], and watch as it begins to unfold.</span>")
 
@@ -591,11 +591,17 @@
 	for(var/datum/martial_art/MA in extractor.mind.known_martial_arts)
 		MA.remove(extractor)
 
+	// Kill guardians
+	SEND_SIGNAL(extractor, COMSIG_SUMMONER_EXTRACTED)
+
 	// Equip outfits and remove spells
 	var/datum/mind/extractor_mind = extractor.mind
 	for(var/datum/antagonist/antag in extractor_mind.antag_datums)
 		antag.exfiltrate(extractor, radio)
-
+	if(isvox(extractor))
+		extractor.dna.species.after_equip_job(null, extractor) // Nitrogen tanks
+	if(isplasmaman(extractor))
+		extractor.dna.species.after_equip_job(null, extractor) // Plasma tanks
 	// Apply traits
 	ADD_TRAIT(extractor, TRAIT_PACIFISM, GHOST_ROLE)
 	ADD_TRAIT(extractor, TRAIT_RESPAWNABLE, GHOST_ROLE)
