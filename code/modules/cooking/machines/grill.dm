@@ -219,6 +219,8 @@
 	. = ..()
 	stored_wood = INFINITY
 	var/datum/cooking_surface/surface = surfaces[1]
-	surface.container.pixel_z -= 16
+	surface.container.pixel_x = -16
+	surface.container.pixel_y = 0
 	surface = surfaces[2]
-	surface.container.pixel_z += 16
+	surface.container.pixel_x = 16
+	surface.container.pixel_y = 0

@@ -95,7 +95,7 @@
 	/// The current air contents of this device
 	var/datum/gas_mixture/air_contents
 	/// Holds the grill for the reactor.
-	var/obj/machinery/cooking/grill/reactor/grill
+	var/obj/machinery/cooking/grill/loaded/reactor/grill
 	/// How many functional control rods does the reactor have?
 	var/control_rods_remaining = 5
 	/// what repair step is the reactor on?
@@ -155,8 +155,10 @@
 	if(!(stat & BROKEN))
 		return
 	. += "A burning hole remains where the NGCR Reactor housed its core. Its inoperable in this state. The acrid smell permeates through even the thickest of suits."
-	. += ""
-
+	if(venting)
+		. += "<span class='notice'>A crowbar can be used to close the malfunctioning vent.</span>"
+	if(grill)
+		. += "<span class='notice'>Wirecutters can be used to remove the grill</span>"
 
 /obj/machinery/atmospherics/fission_reactor/examine_more(mob/user)
 	. = ..()
@@ -314,18 +316,32 @@
 			to_chat(user, "<span class='warning'>You need at least five sheets of plasteel to reform the reactor core structure!</span>")
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/reagent_containers/cooking/grill_grate))
-		var/obj/item/item = creature.get_inactive_hand()
-		if(istype(used, /obj/item/reagent_containers/cooking/grill_grate))
-			qdel(used)
-			qdel(item)
-			grill = new()
+		if(!grill)
+			var/obj/item/item = creature.get_inactive_hand()
+			if(istype(used, /obj/item/reagent_containers/cooking/grill_grate))
+				qdel(used)
+				qdel(item)
+				grill = new(loc)
+				return ITEM_INTERACT_COMPLETE
+			else
+				to_chat(user, "<span class='warning'>You need a second grate to grill properly!</span>")
+				return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "<span class='warning'>You need a second grate to grill properly!</span>")
+			to_chat(user, "<span class='warning'>There is already grill grates adhered to the surface of the reactor!</span>")
 			return ITEM_INTERACT_COMPLETE
+
+/obj/machinery/atmospherics/fission_reactor/wirecutter_act(mob/living/user, obj/item/I)
+	if(grill)
+		to_chat(user, "<span class='warning'>You begin cutting the adhered grates from the reactor body...</span>")
+		if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+			grill.Destroy()
+			new /obj/item/reagent_containers/cooking/grill_grate(loc)
+			new /obj/item/reagent_containers/cooking/grill_grate(loc)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/fission_reactor/crowbar_act(mob/living/user, obj/item/I)
 	if(repair_step == REACTOR_NEEDS_CROWBAR)
-		if(I.use_tool(src, user, 1 SECONDS, volume = 50))
+		if(I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume))
 			playsound(src, I.usesound, 50, 1)
 			repair_step++
 			to_chat(user, "<span class='information'>You remove any remaining damaged structure from the housing.</span>")
