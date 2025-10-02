@@ -826,6 +826,22 @@
 				/obj/item/stack/sheet/sinew = 2)
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/bonesword
+	name = "Bone Sword"
+	result = list(/obj/item/melee/bone_sword)
+	time = 45
+	reqs = list(/obj/item/stack/sheet/bone = 4,
+				/obj/item/stack/sheet/sinew = 1)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/bonesword_sheathe
+	name = "Bone Sword Sheathe"
+	result = list(/obj/item/storage/belt/sheath/bone_sword)
+	time = 45
+	reqs = list(/obj/item/stack/sheet/sinew = 2,
+				/obj/item/stack/sheet/animalhide/goliath_hide = 1)
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/boneaxe
 	name = "Bone Axe"
 	result = list(/obj/item/fireaxe/boneaxe)
