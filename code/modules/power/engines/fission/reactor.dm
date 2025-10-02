@@ -606,7 +606,7 @@
 	if(heat_capacity)
 		if(temp < minimum_operating_temp)
 			air_contents.set_temperature(max(temp + (final_heat / heat_capacity), temp + 200)) // RAPIDLY reach our minimum temperature or our normal heat gen. Whichever is higher
-		else if( temp > HEAT_CAP)
+		else if(temp > HEAT_CAP)
 			air_contents.set_temperature(temp + rand(3, 20)) // cap it but slowly gain until we get it down
 		else
 			air_contents.set_temperature(max(temp + (final_heat / heat_capacity), temp + 2))
