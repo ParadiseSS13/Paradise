@@ -802,7 +802,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(head)
 		update_hud_head(head)
-		var/worn_icon = listgetindex(head.sprite_sheets, dna.species.sprite_sheet_name) || head.worn_icon || 'icons/mob/clothing/head.dmi'
+		var/obj/item/organ/external/head/head_organ = get_organ("head")
+		var/datum/robolimb/robohead = head_organ.is_robotic() ? GLOB.all_robolimbs[head_organ.model] : null
+		var/obj/item/clothing/head/head_clothes
+		if(istype(head, /obj/item/clothing/head))
+			head_clothes = head
+
+		var/worn_icon = (head_clothes && robohead && robohead.is_monitor ? head_clothes.icon_monitor : FALSE) || listgetindex(head.sprite_sheets, dna.species.sprite_sheet_name) || head.worn_icon || 'icons/mob/clothing/head.dmi'
 		var/worn_icon_state = head.worn_icon_state || head.icon_state
 		var/mutable_appearance/standing = mutable_appearance(worn_icon, worn_icon_state, layer = -HEAD_LAYER, alpha = head.alpha, color = head.color)
 
@@ -810,11 +816,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/obj/item/clothing/head/helmet/space/plasmaman/P = head
 			if(!P.up)
 				standing.overlays += P.visor_icon
+			else if(P.on && P.light_icon)
+				standing.overlays += P.light_icon
 
 		if(istype(head, /obj/item/clothing/head))
 			var/obj/item/clothing/head/w_hat = head
 			for(var/obj/item/clothing/head/hat in w_hat.attached_hats)
-				var/hat_worn_icon = listgetindex(hat.sprite_sheets, dna.species.sprite_sheet_name) || hat.worn_icon || 'icons/mob/clothing/head.dmi'
+				var/hat_worn_icon = (robohead && robohead.is_monitor ? hat.icon_monitor : FALSE) ||listgetindex(hat.sprite_sheets, dna.species.sprite_sheet_name) || hat.worn_icon || 'icons/mob/clothing/head.dmi'
 				var/hat_worn_icon_state = hat.worn_icon_state || hat.icon_state
 				standing.overlays += image(icon = hat_worn_icon, icon_state = hat_worn_icon_state)
 
