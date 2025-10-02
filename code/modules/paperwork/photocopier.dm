@@ -98,6 +98,7 @@
 			img.pixel_x = copy.offset_x[j]
 			img.pixel_y = copy.offset_y[j]
 			c.stamp_overlays += img
+	c.update_icon()
 	c.updateinfolinks()
 	return c
 

@@ -55,9 +55,8 @@
 
 /obj/item/paper/Initialize(mapload)
 	. = ..()
-	spawn(2)
-		update_icon()
-		updateinfolinks()
+	update_icon()
+	updateinfolinks()
 
 /obj/item/paper/update_icon_state()
 	if(info)
