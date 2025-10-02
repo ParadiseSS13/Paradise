@@ -13,7 +13,7 @@
 
 #define MIN_CHAMBERS_TO_OVERLOAD 20 // The amount of conencted chambers required before the overload is valid
 
-#define EVENT_MODIFIER 0.3 // multiplies the commonality of dangerous events.
+#define EVENT_MODIFIER 0.4 // multiplies the commonality of dangerous events.
 
 #define HEAT_MODIFIER 500 // a flat multiplier. Higher = more heat production.
 #define HEAT_CAP 40000 // the highest temp before we artificially cap it
@@ -54,16 +54,16 @@
 // adjust damage, its too slow (previously 3)
 // implement heat cap, its too silly (800,000,000K)
 // make reactor emit radiation waves while on
+// todo: Make reactor generate gas. when H2 is in, add that.
 
 // ========= TO DO ==========
 
 // fix remote ripley interactions with chambers
 // implement ways to increase the maximum overheat cap
-
+// make reactor give off lots of rads when broken
 
 // todo: Allow grilling on an active reactor
 // todo: Make some lavaland loot into special rods/upgrades
-// todo: Make reactor generate gas. when H2 is in, add that.
 // todo: Make different gasses do... something
 // event idea: Pufts of contaminating rad smoke
 
@@ -570,8 +570,10 @@
 		final_heat += heat_total
 		final_power += power_total
 		chamber.held_rod.durability -= durability_loss
-
-	average_heatgen = final_heat / active_chambers
+	if(final_heat)
+		average_heatgen = final_heat / active_chambers
+	else
+		average_heatgen = 0.01
 	var/temp = air_contents.temperature()
 	var/total_mols = air_contents.total_moles()
 	if(!temp || !total_mols)
@@ -596,7 +598,7 @@
 
 	var/rad_type = pick(GAMMA_RAD, ALPHA_RAD, BETA_RAD)
 
-	var/datum/gas_mixture/temp_gas
+	var/datum/gas_mixture/temp_gas = new()
 	temp_gas.set_toxins(clamp(clamp(final_power / 20 MW, 0.01,  10) * reactivity_multiplier, 0.01, 50)) // turn this into hydrogen later. Yes, hydrogen. we dont have helium
 	temp_gas.set_temperature(air_contents.temperature())
 	air_contents.merge(temp_gas)
@@ -656,8 +658,8 @@
 					if(chamber.chamber_state == CHAMBER_DOWN)
 						valid_chambers += chamber
 				if(length(valid_chambers))
-					var/obj/machinery/atmospherics/reactor_chamber/failure = valid_chambers[rand(1, length(valid_chambers))]
 					while(length(valid_chambers))
+						var/obj/machinery/atmospherics/reactor_chamber/failure = valid_chambers[rand(1, length(valid_chambers))]
 						if(!failure.welded)
 							failure.weld_shut()
 							break
@@ -873,12 +875,16 @@
 	return FALSE
 
 /obj/machinery/atmospherics/fission_reactor/proc/control_rod_failure()
+	if(control_rods_remaining <= 0)
+		return
 	playsound(src, 'sound/effects/meteorimpact.ogg', 80, FALSE)
 	control_rods_remaining--
 	radio.autosay("<b>ALERT: Control rod failure! [control_rods_remaining] functional control rods remaining.</b>", name, "Engineering")
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/fission_reactor/proc/begin_venting()
+	if(venting)
+		return
 	var/datum/effect_system/smoke_spread/bad/smoke = new()
 	var/rad_type = pick(ALPHA_RAD, BETA_RAD, GAMMA_RAD)
 	for(var/turf/T in view(4, loc))
@@ -891,6 +897,8 @@
 /obj/machinery/atmospherics/fission_reactor/proc/update_minimum_temp()
 	minimum_operating_temp = 0
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
+		if(!held_rod)
+			continue
 		if(chamber.chamber_state != CHAMBER_DOWN)
 			continue
 		if(!chamber.held_rod.minimum_temp_modifier)
@@ -981,7 +989,9 @@
 
 /obj/machinery/atmospherics/reactor_chamber/examine(mob/user)
 	. = ..()
-	. += to_chat(user, "<span class='information'>[src] can be sealed/unsealed from its base with a lit welder while in the down position.</span>")
+	. += to_chat(user, "<span class='notice'>[src] can be sealed/unsealed from its base with a lit welder while in the down position.</span>")
+	. += "<span class='notice'>Alt+click to open and close the shielding while the chamber is raised.</span>"
+	. += "<span class='notice'>Click on the chamber while it is closed to raise and lower it.</span>"
 
 /obj/machinery/atmospherics/reactor_chamber/on_deconstruction()
 	if(linked_reactor)
@@ -1629,6 +1639,11 @@
 /obj/machinery/atmospherics/unary/reactor_gas_node/LateInitialize()
 	. = ..()
 	form_link()
+
+/obj/machinery/atmospherics/unary/reactor_gas_node/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>A wrench can be used to alter the direction of the node.</span>"
+	. += "<span class='notice'>Gas nodes will only link with reactors when facing a reactor from the side opposite of the inlet pipe.</span>"
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/process_atmos()
 	if(stat & (NOPOWER|BROKEN))

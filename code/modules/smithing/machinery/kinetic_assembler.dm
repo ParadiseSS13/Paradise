@@ -255,7 +255,7 @@
 	// Modify based on productivity
 	var/total_extras = clamp(round(1 * i.bit_productivity_mod / 2), 0, 2)
 	if(is_type_in_typecache(finished_product, batched_item_types))
-		for(var/iterator in 1 to batch_extras)
+		for(var/iterator in 1 to total_extras)
 			var/obj/item/smithed_item/extra_product = new finished_product.type(src.loc)
 			if(istype(extra_product, /obj/item/smithed_item))
 				extra_product.quality = finished_product.quality
