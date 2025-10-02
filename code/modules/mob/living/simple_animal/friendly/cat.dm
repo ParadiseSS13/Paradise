@@ -22,7 +22,7 @@
 	response_harm   = "kicks"
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/turns_since_scan = 0
-	var/mob/living/simple_animal/mouse/movement_target
+	var/mob/living/basic/mouse/movement_target
 	var/eats_mice = 1
 	var/collar_icon_state = "cat"
 	footstep_type = FOOTSTEP_MOB_CLAW
@@ -138,7 +138,7 @@
 
 	//MICE!
 	if(eats_mice && isturf(loc) && !incapacitated())
-		for(var/mob/living/simple_animal/mouse/M in view(1, src))
+		for(var/mob/living/basic/mouse/M in view(1, src))
 			if(!M.stat && Adjacent(M))
 				custom_emote(EMOTE_VISIBLE, "splats \the [M]!")
 				M.death()
@@ -168,7 +168,7 @@
 		movement_target = null
 		stop_automated_movement = FALSE
 		walk(src, 0)
-		for(var/mob/living/simple_animal/mouse/snack in oview(src,3))
+		for(var/mob/living/basic/mouse/snack in oview(src,3))
 			if(isturf(snack.loc) && !snack.stat)
 				movement_target = snack
 				break

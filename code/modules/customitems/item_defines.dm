@@ -183,6 +183,7 @@
 	desc = "Wolf's non-functional thermal eyepatch."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "wolf_eyepatch"
+	icon_monitor = null
 
 /// Adrkiller59: Adam Cooper
 /obj/item/clothing/glasses/meson/fluff/book_berner_1
@@ -190,12 +191,14 @@
 	desc = "One of the older meson scanner models retrofitted to perform like its modern counterparts."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "book_berner_1"
+	icon_monitor = null
 
 /// Rapidvalj: Kakicharakiti
 /obj/item/clothing/glasses/sunglasses_fake/fluff/kaki
 	name = "broken thermonocle"
 	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
 	icon_state = "thermonocle"
+	icon_monitor = null
 
 /// Rapidvalj: Hakikarahiti
 /obj/item/fluff/rapid_wheelchair_kit
@@ -616,6 +619,7 @@
 	desc = "Tacticool ballistic glasses, for making all operators look badass."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "eyepro"
+	icon_monitor = null
 
 /// LP Spartan: Kaskreyarawkta
 /obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud
@@ -927,6 +931,7 @@
 /// Epic_Charger: Linda Clark
 /obj/item/clothing/head/hooded/hood/fluff/linda
 	icon_state = "greenhood"
+	icon_monitor = null
 
 /// Hylocereus: Sam Aria
 /obj/item/clothing/suit/hooded/hoodie/fluff/hylo
@@ -952,6 +957,7 @@
 /obj/item/clothing/head/hooded/hood/fluff/skeleton
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "skeleton_hood"
+	icon_monitor = null
 
 /// RazekPraxis: SHODAN
 /obj/item/clothing/suit/armor/shodanscoat
@@ -1021,6 +1027,7 @@
 	desc = "A hood with some horns <i>glued</i> to them, or something like that. Custom fit for a Unathi's head shape."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xydonus_bomberhood"
+	icon_monitor = null
 
 /// Pineapple Salad: Dan Jello
 /obj/item/clothing/suit/fluff/pineapple
@@ -1560,6 +1567,7 @@
 /// LightFire53: Ikelos
 /obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff
 	icon_state = "ikelos_envirohelm" // New item needed because `initial(icon_state)` is used.
+	light_icon = "ikelos_envirohelm-light"
 	icon = 'icons/obj/custom_items.dmi'
 
 /// Xerdies: Squiddle Toodle

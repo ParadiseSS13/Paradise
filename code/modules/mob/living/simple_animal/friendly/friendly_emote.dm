@@ -7,7 +7,7 @@
 	message = "chirps!"
 	sound = "sound/creatures/nymphchirp.ogg"
 	emote_type = EMOTE_AUDIBLE
-	mob_type_allowed_typecache = list(/mob/living/simple_animal/diona)
+	mob_type_allowed_typecache = list(/mob/living/basic/diona_nymph)
 
 // Dog emotes
 
@@ -50,7 +50,7 @@
 // Mouse
 
 /datum/emote/living/simple_animal/mouse
-	mob_type_allowed_typecache = list(/mob/living/simple_animal/mouse)
+	mob_type_allowed_typecache = list(/mob/living/basic/mouse)
 
 /datum/emote/living/simple_animal/mouse/squeak
 	key = "squeak"
@@ -60,7 +60,7 @@
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/simple_animal/mouse/squeak/get_sound(mob/living/user)
-	var/mob/living/simple_animal/mouse/M = user
+	var/mob/living/basic/mouse/M = user
 	return M.squeak_sound
 
 // cat

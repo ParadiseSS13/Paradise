@@ -144,6 +144,10 @@ RESTRICT_TYPE(/mob/living/basic)
 	var/melee_attack_cooldown_min = 2 SECONDS
 	/// Upper bound for melee attack cooldown
 	var/melee_attack_cooldown_max = 2 SECONDS
+	/// Can this mob ignite?
+	var/can_be_on_fire = FALSE
+	/// How much fire damage does a mob take?
+	var/fire_damage = 2
 
 	/// Loot this mob drops on death.
 	var/list/loot = list()
@@ -207,6 +211,14 @@ RESTRICT_TYPE(/mob/living/basic)
 /mob/living/basic/proc/apply_temperature_requirements()
 	AddElement(/datum/element/body_temperature, minimum_survivable_temperature, maximum_survivable_temperature, unsuitable_cold_damage, unsuitable_heat_damage)
 
+/mob/living/basic/handle_fire()
+	if(!can_be_on_fire)
+		return FALSE
+	. = ..()
+	if(!.)
+		return
+	adjustFireLoss(fire_damage) // Slowly start dying from being on fire
+
 /mob/living/basic/vv_edit_var(vname, vval)
 	switch(vname)
 		if("atmos_requirements", "unsuitable_atmos_damage")
@@ -253,6 +265,21 @@ RESTRICT_TYPE(/mob/living/basic)
 	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		return attack_threshold_check(damage, M.melee_damage_type)
+
+/mob/living/basic/attack_alien(mob/living/carbon/alien/humanoid/M)
+	if(..()) // if harm or disarm intent.
+		if(M.a_intent == INTENT_DISARM)
+			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
+			visible_message("<span class='danger'>[M] [response_disarm_continuous] [name]!</span>", "<span class='userdanger'>[M] [response_disarm_continuous] you!</span>")
+			add_attack_logs(M, src, "Alien disarmed")
+		else
+			var/damage = rand(15, 30)
+			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
+					"<span class='userdanger'>[M] has slashed at [src]!</span>")
+			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
+			add_attack_logs(M, src, "Alien attacked")
+			attack_threshold_check(damage)
+		return TRUE
 
 /mob/living/basic/handle_environment(datum/gas_mixture/readonly_environment)
 	SEND_SIGNAL(src, COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT, readonly_environment)
@@ -361,7 +388,7 @@ RESTRICT_TYPE(/mob/living/basic)
 		visible_message("<span class='warning'>[src] looks unharmed.</span>")
 		return FALSE
 	else
-		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
+		apply_damage(damage, damagetype, null, getarmor(armor_type = armorcheck))
 		return TRUE
 
 
