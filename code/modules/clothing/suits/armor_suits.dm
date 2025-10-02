@@ -841,6 +841,12 @@
 	hoodtype = /obj/item/clothing/head/hooded/bone_light
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
 
 /obj/item/clothing/head/hooded/bone_light
 	name = "light bone helmet"
@@ -852,6 +858,12 @@
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 	heat_protection = HEAD
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
