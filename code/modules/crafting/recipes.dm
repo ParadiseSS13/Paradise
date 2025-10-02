@@ -733,6 +733,14 @@
 	reqs = list(/obj/item/stack/sheet/bone = 6)
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/light_bone_armor
+	name = "Light Bone Armor"
+	result = list(/obj/item/clothing/suit/hooded/bone_light)
+	reqs = list(/obj/item/stack/sheet/bone = 2,
+				/obj/item/stack/sheet/sinew = 2,
+				/obj/item/stack/sheet/animalhide/goliath_hide = 1)
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/bonetalisman
 	name = "Bone Talisman"
 	result = list(/obj/item/clothing/accessory/talisman)
