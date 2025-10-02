@@ -354,7 +354,7 @@
 				status = "battered"
 			if(40 to INFINITY)
 				status = "mangled"
-		if(brutedamage > 0 && (burndamage > 0 || LB.status & ORGAN_BURNT))
+		if(brutedamage > 0.1 && (burndamage > 0.1 || LB.status & ORGAN_BURNT))
 			status += " and "
 
 		if(LB.status & ORGAN_BURNT)
