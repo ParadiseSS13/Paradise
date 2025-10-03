@@ -128,6 +128,9 @@
 /mob/living/silicon/proc/get_radio()
 	return
 
+/mob/living/silicon/proc/open_pda()
+	return
+
 /mob/living/silicon/proc/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	return
 

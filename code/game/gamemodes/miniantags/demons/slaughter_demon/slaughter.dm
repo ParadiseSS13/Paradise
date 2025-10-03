@@ -64,8 +64,12 @@
 /obj/effect/decal/cleanable/blood/innards
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "innards"
+	base_icon = 'icons/obj/surgery.dmi'
+	icon_state = "innards"
+	random_icon_states = list("innards")
 	name = "pile of viscera"
 	desc = "A repulsive pile of guts and gore."
+	weightless_icon = 'icons/obj/surgery.dmi'
 
 /mob/living/simple_animal/demon/slaughter/Destroy()
 	// Only execute the below if we successfully died

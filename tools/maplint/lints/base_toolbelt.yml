@@ -1,0 +1,3 @@
+help: 'The base belt type is not mappable. For standard tool belts, use /obj/item/storage/belt/utility.'
+=/obj/item/storage/belt:
+  banned: true

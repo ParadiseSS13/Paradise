@@ -231,6 +231,9 @@
 	playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 	destination.ex_act(rand(1,2))
+	if(istype(destination, /turf/simulated/mineral) && !istype(destination, /turf/simulated/mineral/ancient))
+		var/turf/simulated/mineral/rock = destination
+		rock.gets_drilled(null, 1)
 	to_chat(user, "<span class='biggerdanger'>You teleport into the wall, the teleporter tries to save you, but--</span>")
 	user.gib()
 
