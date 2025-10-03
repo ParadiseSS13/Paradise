@@ -48,9 +48,9 @@
 		/mob/living/basic/clown/goblin = 5,
 		/mob/living/basic/goat = 5,
 		// Friendly
+		/mob/living/basic/diona_nymph = 5,
+		/mob/living/basic/crab = 5,
 		/mob/living/basic/mouse = 5,
-		/mob/living/simple_animal/diona = 5,
-		/mob/living/simple_animal/crab = 5,
 		/mob/living/simple_animal/pet/dog/corgi = 5,
 		/mob/living/simple_animal/hostile/retaliate/carp/koi = 5
 	)
