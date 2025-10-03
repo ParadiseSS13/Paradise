@@ -1335,7 +1335,7 @@
 	id = "glass_shards"
 	description = "Glass, crushed into a coarse powder made up of razor-sharp shards."
 	color = "#87c6dac8"
-	taste_description = "<span class-'userdanger'>Broken glass!</span>"
+	taste_description = "<span class='userdanger'>Broken glass!</span>"
 
 /datum/reagent/glass_shards/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

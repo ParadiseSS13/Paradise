@@ -480,7 +480,7 @@
 
 /obj/item/food/glass_sandwich/plasma/plastitanium
 	name = "plastitanium glass sandwich"
-	desc = "Evil-looking plastitanium glass shards, crushed up and sandwiched between two slices of plain bread. "
+	desc = "Evil-looking plastitanium glass shards, crushed up and sandwiched between two slices of plain bread. Evilly crunchy!"
 	icon_state = "plastitanium_glass_sandwich"
 
 /obj/item/food/supermatter_sandwich
