@@ -1344,15 +1344,15 @@
 	name = "Emergency suture"
 	result = list(/obj/item/stack/medical/suture/emergency)
 	reqs = list(/obj/item/suture_needle = 1,
-				/obj/item/stack/sheet/cloth = 1) //normal clothing thread
+				/obj/item/stack/sheet/cloth = 1) // normal clothing thread
 	category = CAT_MISC
 
 /datum/crafting_recipe/suture
 	name = "Suture"
 	result = list(/obj/item/stack/medical/suture)
 	reqs = list(/obj/item/suture_needle = 1,
-				/datum/reagent/molten_plastic = 10, //1 sheet of plastic
-				/datum/reagent/medicine/sterilizine = 5) //Molten plastic is probably already sterile
+				/datum/reagent/molten_plastic = 10, // 1 sheet of plastic
+				/datum/reagent/medicine/sterilizine = 5) // Molten plastic is probably already sterile
 	category = CAT_MISC
 
 /datum/crafting_recipe/medicated_suture

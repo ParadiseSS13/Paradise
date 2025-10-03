@@ -378,7 +378,7 @@
 	var/healverb_past = "sutured"
 	var/self_delay = 3 SECONDS
 	var/mob/current_target
-	// The type of the item we create when depleted
+	/// The type of the item we create when depleted
 	var/depleted_type = /obj/item/suture_needle
 
 /obj/item/stack/medical/suture/apply(mob/living/carbon/human/target, mob/user)
