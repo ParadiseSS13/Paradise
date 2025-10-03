@@ -115,6 +115,8 @@ SUBSYSTEM_DEF(events)
 		html += "<table [table_options]>"
 		html += "<tr [head_options]><td [row_options2]>Name </td><td>Weight </td><td>MinWeight </td><td>MaxWeight </td><td>OneShot </td><td>Enabled </td><td><span class='alert'>CurrWeight </span></td><td>Remove</td></tr>"
 		for(var/datum/event_meta/EM in selected_event_container.available_events)
+			if(!EM.skeleton)
+				continue
 			html += "<tr>"
 			html += "<td>[EM.skeleton.name]</td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];set_weight=\ref[EM]'>[EM.weight]</A></td>"
@@ -193,15 +195,14 @@ SUBSYSTEM_DEF(events)
 		html += "<table [table_options]>"
 		html += "<tr [head_options]><td [row_options1]>Severity</td><td [row_options2]>Name</td><td [row_options1]>Ends At</td><td [row_options1]>Ends In</td><td [row_options3]>Stop</td></tr>"
 		for(var/datum/event/E in active_events)
-			if(!E.event_meta)
+			if(!E)
 				continue
-			var/datum/event_meta/EM = E.event_meta
 			var/ends_at = E.startedAt + (E.lastProcessAt() * 20)	// A best estimate, based on how often the manager processes
 			var/ends_in = max(0, round((ends_at - world.time) / 600, 0.1))
 			var/no_end = E.noAutoEnd
 			html += "<tr>"
-			html += "<td>[GLOB.severity_to_string[EM.skeleton.severity]]</td>"
-			html += "<td>[EM.skeleton.name] [ADMIN_VV(E, "VV")]</td>"
+			html += "<td>[GLOB.severity_to_string[E.severity]]</td>"
+			html += "<td>[E.name] [ADMIN_VV(E, "VV")]</td>"
 			html += "<td>[no_end ? "N/A" : station_time_timestamp("hh:mm:ss", ends_at)]</td>"
 			html += "<td>[no_end ? "N/A" : ends_in]</td>"
 			html += "<td><A align='right' href='byond://?src=[UID()];stop=\ref[E]'>Stop</A></td>"

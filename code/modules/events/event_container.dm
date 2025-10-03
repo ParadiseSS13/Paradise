@@ -73,6 +73,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 				possible_events[EM] *= (length(available_events) / initial_event_count)
 
 	for(var/datum/event_meta/event_meta in last_event_time)
+		if(!event_meta.skeleton)
+			continue
 		if(event_meta.skeleton.has_cooldown() && possible_events[event_meta])
 			var/time_passed = world.time - GLOB.event_last_fired[event_meta]
 			var/cooldown = GLOB.configuration.event.expected_round_length / 2
