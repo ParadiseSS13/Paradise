@@ -315,20 +315,6 @@
 	preposition = "On"
 	materials = list(MAT_WOOD = 5)
 
-// For very carefully making the most powerful sandwich in the universe.
-/obj/item/reagent_containers/cooking/board/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/retractor/supermatter))
-		var/obj/item/retractor/supermatter/tongs = used
-		if(tongs.sliver)
-			tongs.sliver.melee_attack_chain(user, src)
-			if(tongs.sliver.loc != tongs)
-				tongs.sliver = null
-				// TODO: refactor the tongs so they actually check if(sliver) in `update_icon()` instead of manually setting the icons everywhere.
-				tongs.icon_state = "supermatter_tongs"
-				used.update_appearance(UPDATE_ICON)
-			return ITEM_INTERACT_COMPLETE
-	..()
-
 /obj/item/reagent_containers/cooking/sushimat
 	name = "Sushi Mat"
 	desc = "A wooden mat used for efficient sushi crafting."
