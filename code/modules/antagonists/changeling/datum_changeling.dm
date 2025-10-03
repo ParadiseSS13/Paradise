@@ -191,7 +191,10 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 	remove_changeling_powers(FALSE)
 	var/datum/action/changeling/power = new /datum/action/changeling/transform
 	power.Grant(extractor)
-	extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/changeling)
+	if(isplasmaman(extractor))
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/changeling/plasmaman)
+	else
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/changeling)
 	radio.autosay("<b>--ZZZT!- Welcome home, [extractor.real_name]. -ZZT!-</b>", "Changeling Hive", "Security")
 	SSblackbox.record_feedback("tally", "successful_extraction", 1, "Changeling")
 

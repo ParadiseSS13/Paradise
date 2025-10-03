@@ -136,6 +136,8 @@
 	#define COMPONENT_NO_ATTACH (1<<0)
 ///from base of mob/living/health_update()
 #define COMSIG_LIVING_HEALTH_UPDATE "living_health_update"
+/// Sent during exfiltration to handle guardians
+#define COMSIG_SUMMONER_EXTRACTED "summoner_extracted"
 ///sent from borg recharge stations: (amount, repairs)
 #define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"
 ///sent when a mob enters a borg charger
@@ -273,3 +275,6 @@
 
 /// From base of /datum/action/cooldown/proc/set_statpanel_format(): (list/stat_panel_data)
 #define COMSIG_ACTION_SET_STATPANEL "ability_set_statpanel"
+
+/// From base of /client/Move(): (direction, old_dir)
+#define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"

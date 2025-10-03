@@ -79088,7 +79088,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/warden)
 "pUT" = (
-/mob/living/simple_animal/crab/coffee,
+/mob/living/basic/crab/coffee,
 /turf/simulated/floor/carpet/red,
 /area/station/public/fitness)
 "pUV" = (

@@ -6540,7 +6540,7 @@
 "bev" = (
 /obj/effect/spawner/airlock/e_to_w/long,
 /turf/simulated/wall,
-/area/space/nearstation)
+/area/station/maintenance/security/aft_port)
 "bex" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/extra_insulated{
@@ -23793,6 +23793,21 @@
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
+"dTN" = (
+/obj/structure/table/reinforced,
+/obj/item/ashtray/bronze{
+	pixel_x = 7
+	},
+/obj/item/reagent_containers/drinks/mug/qm{
+	pixel_x = -8;
+	pixel_y = 10
+	},
+/obj/machinery/phone{
+	pixel_y = 12;
+	pixel_x = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/supply/qm)
 "dTW" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 5
@@ -32588,7 +32603,7 @@
 /area/station/security/permabrig)
 "fRW" = (
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/station/maintenance/security/aft_port)
 "fRZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -36758,7 +36773,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/permabrig)
 "gUJ" = (
-/mob/living/simple_animal/crab{
+/mob/living/basic/crab{
 	desc = "The local trainer hired to keep the crew in shape by aggressively snipping at them.";
 	name = "Crabohydrates"
 	},
@@ -91830,22 +91845,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"sZY" = (
-/obj/structure/table/reinforced,
-/obj/item/ashtray/bronze{
-	pixel_y = 0;
-	pixel_x = 7
-	},
-/obj/item/reagent_containers/drinks/mug/qm{
-	pixel_x = -8;
-	pixel_y = 10
-	},
-/obj/machinery/phone{
-	pixel_y = 12;
-	pixel_x = 9
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/supply/qm)
 "tab" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -170706,7 +170705,7 @@ iIK
 psV
 qwj
 wQk
-sZY
+dTN
 rcT
 aZt
 aGC

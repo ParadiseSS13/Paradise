@@ -45,9 +45,6 @@ BURNDOWN_LIST = {
         "/mob/living/simple_animal/bot/secbot/griefsky/toy",
         "/mob/living/simple_animal/bot/secbot/ofitser",
         "/mob/living/simple_animal/bot/secbot/pingsky",
-        "/mob/living/simple_animal/crab",
-        "/mob/living/simple_animal/crab/coffee",
-        "/mob/living/simple_animal/crab/evil",
         "/mob/living/simple_animal/demon",
         "/mob/living/simple_animal/demon/pulse_demon",
         "/mob/living/simple_animal/demon/pulse_demon/wizard",
@@ -56,7 +53,6 @@ BURNDOWN_LIST = {
         "/mob/living/simple_animal/demon/slaughter/cult",
         "/mob/living/simple_animal/demon/slaughter/laughter",
         "/mob/living/simple_animal/demon/slaughter/lesser",
-        "/mob/living/simple_animal/diona",
         "/mob/living/simple_animal/drone",
         "/mob/living/simple_animal/hostile",
         "/mob/living/simple_animal/hostile/ancient_robot_leg",
@@ -76,9 +72,6 @@ BURNDOWN_LIST = {
         "/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient",
         "/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril",
         "/mob/living/simple_animal/hostile/asteroid/goliath/space",
-        "/mob/living/simple_animal/hostile/blob",
-        "/mob/living/simple_animal/hostile/blob/blobbernaut",
-        "/mob/living/simple_animal/hostile/blob/blobspore",
         "/mob/living/simple_animal/hostile/clockwork_construct",
         "/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder",
         "/mob/living/simple_animal/hostile/clockwork_construct/clockwork_marauder/hostile",
@@ -224,7 +217,6 @@ BURNDOWN_LIST = {
         "/mob/living/simple_animal/slime/pet",
         "/mob/living/simple_animal/slime/random",
         "/mob/living/simple_animal/slime/unit_test_dummy",
-        "/mob/living/simple_animal/spiderbot",
     }
 }
 
