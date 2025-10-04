@@ -1,7 +1,7 @@
 /turf/simulated/wall/r_wall
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to separate rooms."
-	icon = 'icons/turf/walls/reinforced_wall.dmi'
+	icon = 'icons/turf/walls/32x40reinforced_wall.dmi'
 	icon_state = "reinforced_wall-0"
 	base_icon_state = "reinforced_wall"
 	explosion_block = 2
@@ -221,7 +221,7 @@
 
 /turf/simulated/wall/r_wall/update_icon_state()
 	if(d_state)
-		icon_state = "r_wall-[d_state]"
+		icon_state = "r_wall_[d_state]"
 		smoothing_flags = NONE
 	else
 		smoothing_flags = SMOOTH_BITMASK

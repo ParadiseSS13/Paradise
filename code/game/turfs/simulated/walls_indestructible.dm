@@ -98,7 +98,7 @@
 	addtimer(CALLBACK(src, PROC_REF(collapse)), 10 SECONDS)
 
 /turf/simulated/wall/indestructible/sandstone
-	icon = 'icons/turf/walls/sandstone_wall.dmi'
+	icon = 'icons/turf/walls/32x40sandstone_wall.dmi'
 	icon_state = "sandstone_wall-0"
 	base_icon_state = "sandstone_wall"
 
@@ -126,13 +126,13 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	return ..()
 
 /turf/simulated/wall/indestructible/uranium
-	icon = 'icons/turf/walls/uranium_wall.dmi'
+	icon = 'icons/turf/walls/32x40uranium_wall.dmi'
 	icon_state = "uranium_wall-0"
 	base_icon_state = "uranium_wall"
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
 
 /turf/simulated/wall/indestructible/wood
-	icon = 'icons/turf/walls/wood_wall.dmi'
+	icon = 'icons/turf/walls/32x40wood_wall.dmi'
 	icon_state = "wood_wall-0"
 	base_icon_state = "wood_wall"
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WOOD_WALLS)
@@ -166,7 +166,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 
 /turf/simulated/wall/indestructible/fakeglass
 	name = "window"
-	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40reinforced_window.dmi'
 	icon_state = "fake_window"
 	base_icon_state = "reinforced_window"
 	opacity = FALSE
@@ -247,7 +247,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	canSmoothWith = null
 
 /turf/simulated/wall/indestructible/riveted
-	icon = 'icons/turf/walls/reinforced_wall.dmi'
+	icon = 'icons/turf/walls/32x40reinforced_wall.dmi'
 	icon_state = "reinforced_wall-0"
 	base_icon_state = "reinforced_wall"
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)

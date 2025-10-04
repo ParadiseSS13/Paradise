@@ -654,7 +654,6 @@
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
-	rad_insulation_gamma = RAD_GAMMA_WINDOW
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_conversion_amount = 2
 
@@ -710,8 +709,8 @@
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
 
 /obj/structure/window/full/basic
-	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it. Has very light protection from radiation"
-	icon = 'icons/obj/smooth_structures/windows/window.dmi'
+	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
+	icon = 'icons/obj/smooth_structures/windows/32x40window.dmi'
 	icon_state = "window-0"
 	base_icon_state = "window"
 	max_integrity = 50
@@ -719,8 +718,8 @@
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
-	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through. When hit with Gamma particles it will become charged and start emitting Beta particles"
-	icon = 'icons/obj/smooth_structures/windows/plasma_window.dmi'
+	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through."
+	icon = 'icons/obj/smooth_structures/windows/32x40plasma_window.dmi'
 	icon_state = "plasma_window-0"
 	base_icon_state = "plasma_window"
 	glass_decal = /obj/effect/decal/cleanable/glass/plasma
@@ -730,7 +729,7 @@
 	max_integrity = 300
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
-	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
+	rad_insulation = RAD_NO_INSULATION
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
@@ -739,8 +738,8 @@
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
-	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof. When hit with Gamma particles it will become charged and start emitting Beta particles"
-	icon = 'icons/obj/smooth_structures/windows/rplasma_window.dmi'
+	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
+	icon = 'icons/obj/smooth_structures/windows/32x40rplasma_window.dmi'
 	icon_state = "rplasma_window-0"
 	base_icon_state = "rplasma_window"
 	glass_decal = /obj/effect/decal/cleanable/glass/plasma
@@ -763,8 +762,8 @@
 
 /obj/structure/window/full/reinforced
 	name = "reinforced window"
-	desc = "It looks rather strong. Might take a few good hits to shatter it. Offers superior protection from radiation"
-	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
+	desc = "It looks rather strong. Might take a few good hits to shatter it."
+	icon = 'icons/obj/smooth_structures/windows/32x40reinforced_window.dmi'
 	icon_state = "reinforced_window-0"
 	base_icon_state = "reinforced_window"
 	max_integrity = 100
