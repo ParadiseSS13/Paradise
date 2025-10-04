@@ -18,10 +18,10 @@
 /obj/machinery/anomaly_refinery/Initialize(mapload)
 	. = ..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/anomaly_refinery(null)
-	component_parts += new /obj/item/stock_parts/scanning_module(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null, 2)
+	component_parts += new /obj/item/circuitboard/anomaly_refinery(src)
+	component_parts += new /obj/item/stock_parts/scanning_module(src)
+	component_parts += new /obj/item/stack/sheet/glass(src)
+	component_parts += new /obj/item/stack/cable_coil(src, 2)
 	RefreshParts()
 	// Try to link to tachyon-doppler array on initialize. Link to the first doppler it can find.
 	for(var/obj/machinery/doppler_array/doppler in view(3, src))
@@ -38,18 +38,18 @@
 		. += "There is a [refined_core] in [src]."
 
 /obj/machinery/anomaly_refinery/item_interaction(mob/living/user, obj/item/used, list/modifiers)
-	if(istype(used, /obj/item/raw_anomaly_core))
-		if(refined_core)
-			to_chat(user, "<span class='warning'>There is already a core in [src]!</span>")
-			return ITEM_INTERACT_COMPLETE
-		if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
-			to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
-			return ITEM_INTERACT_COMPLETE
-		inserted_core = used
-		to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
-		atom_say("Analyzing... [inserted_core]'s causality point corresponds to an explosive of size [inserted_core.target_explosion_size].")
+	if(!istype(used, /obj/item/raw_anomaly_core))
+		return ..()
+	if(refined_core)
+		to_chat(user, "<span class='warning'>There is already a core in [src]!</span>")
 		return ITEM_INTERACT_COMPLETE
-	return ..()
+	if(used.flags & NODROP || !user.drop_item() || !used.forceMove(src))
+		to_chat(user, "<span class='warning'>[used] is stuck to your hand!</span>")
+		return ITEM_INTERACT_COMPLETE
+	inserted_core = used
+	to_chat(user, "<span class='notice'>You insert [used] into [src].</span>")
+	atom_say("Analyzing... [inserted_core]'s causality point corresponds to an explosive of size [inserted_core.target_explosion_size].")
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/anomaly_refinery/attack_hand(mob/user)
 	if(..())
@@ -103,7 +103,12 @@
 		var/released_anomaly = pick(types)
 		new released_anomaly(get_turf(src))
 		return
-	var/list/types = list(/obj/item/assembly/signaler/anomaly/pyro, /obj/item/assembly/signaler/anomaly/cryo, /obj/item/assembly/signaler/anomaly/grav, /obj/item/assembly/signaler/anomaly/flux, /obj/item/assembly/signaler/anomaly/bluespace, /obj/item/assembly/signaler/anomaly/vortex)
+	var/list/types = list(/obj/item/assembly/signaler/anomaly/pyro,
+		/obj/item/assembly/signaler/anomaly/cryo,
+		/obj/item/assembly/signaler/anomaly/grav,
+		/obj/item/assembly/signaler/anomaly/flux,
+		/obj/item/assembly/signaler/anomaly/bluespace,
+		/obj/item/assembly/signaler/anomaly/vortex)
 	var/A = pick(types)
 	refined_core = new A(src)
 	atom_say("Temporal displacement detected. Criticality status: SUCCESS.")
