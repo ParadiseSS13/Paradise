@@ -729,7 +729,8 @@
 	max_integrity = 300
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
-	rad_insulation = RAD_NO_INSULATION
+	rad_insulation_beta = RAD_NO_INSULATION
+	rad_insulation_gamma = RAD_GAMMA_WINDOW
 	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation_beta = RAD_NO_INSULATION
