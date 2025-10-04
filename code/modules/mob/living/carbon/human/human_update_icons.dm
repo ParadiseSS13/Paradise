@@ -105,9 +105,9 @@ Please contact me on #coderbus IRC. ~Carn x
 
 /mob/living/carbon/human/proc/apply_overlay(cache_index)
 	. = overlays_standing[cache_index]
+	SEND_SIGNAL(src, COMSIG_CARBON_APPLY_OVERLAY, cache_index, .)
 	if(.)
 		add_overlay(.)
-	SEND_SIGNAL(src, COMSIG_CARBON_APPLY_OVERLAY, cache_index, .)
 
 /mob/living/carbon/human/proc/remove_overlay(cache_index)
 	var/I = overlays_standing[cache_index]
@@ -816,6 +816,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			var/obj/item/clothing/head/helmet/space/plasmaman/P = head
 			if(!P.up)
 				standing.overlays += P.visor_icon
+			else if(P.on && P.light_icon)
+				standing.overlays += P.light_icon
 
 		if(istype(head, /obj/item/clothing/head))
 			var/obj/item/clothing/head/w_hat = head

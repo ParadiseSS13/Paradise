@@ -66,7 +66,7 @@
 	return FALSE
 
 /datum/ai_behavior/attack_obstructions/proc/can_smash_object(mob/living/basic/basic_mob, obj/object)
-	if(!object.density && !can_attack_dense_objects)
+	if(!object.density || !can_attack_dense_objects)
 		return FALSE
 	if(object.IsObscured())
 		return FALSE

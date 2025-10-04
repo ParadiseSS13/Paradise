@@ -61,7 +61,7 @@ export const CardComputerJobTransfer = (props: JobTransferProps) => {
     all_centcom_skins,
   } = props;
 
-  const depts = [
+  const depts = jobs && [
     { name: 'Special', jobs: jobs.top },
     { name: 'Engineering', color: dept_colors.engineering, jobs: jobs.engineering },
     { name: 'Medical', color: dept_colors.medical, jobs: jobs.medical },

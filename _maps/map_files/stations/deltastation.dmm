@@ -11212,7 +11212,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/belt,
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -51400,7 +51400,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/mob/living/simple_animal/crab/coffee,
+/mob/living/basic/crab/coffee,
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
 	},

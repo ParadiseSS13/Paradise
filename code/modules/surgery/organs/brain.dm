@@ -208,6 +208,7 @@
 	desc = "A tightly furled roll of paper, covered with indecipherable runes."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"
+	requires_golem_person = TRUE
 
 /obj/item/organ/internal/brain/cluwne
 
