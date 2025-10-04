@@ -1304,6 +1304,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
+"ei" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/moonbase19)
 "ek" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/effect/decal/cleanable/dirt,
@@ -1645,19 +1652,6 @@
 "fw" = (
 /obj/structure/flora/ash/rock/style_random,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/moonbase19)
-"fx" = (
-/obj/structure/filingcabinet/chestdrawer,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/turf_decal/delivery/hollow,
-/obj/item/paper/fluff/ruins/moonoutpost19/log1,
-/obj/effect/turf_decal/tiles/dark/checker{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)
 "fy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2216,15 +2210,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/moonbase19)
-"hl" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/computer/nonfunctional,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/moonbase19)
 "hm" = (
 /obj/structure/closet/cabinet,
 /obj/item/clothing/under/suit/navy,
@@ -2486,14 +2471,6 @@
 /obj/structure/bed,
 /obj/item/bedsheet,
 /turf/simulated/floor/carpet,
-/area/ruin/space/moonbase19)
-"hX" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/reinforced/normal{
-	dir = 4
-	},
-/obj/item/paper/fluff/ruins/moonoutpost19/lobby,
-/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/moonbase19)
 "hY" = (
 /obj/effect/decal/cleanable/blood/oil{
@@ -3536,6 +3513,26 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
+/area/ruin/space/moonbase19)
+"ls" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/item/paper/fluff/ruins/moonoutpost19/boreraccountant,
+/obj/effect/turf_decal/tiles/dark/checker{
+	dir = 5
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/computer/loreconsole/moonoutpost19/rdnote{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)
 "lv" = (
 /obj/structure/largecrate,
@@ -4933,6 +4930,34 @@
 /obj/structure/table,
 /obj/item/pen/multi/syndicate,
 /turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/moonbase19)
+"rj" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/filingcabinet/chestdrawer,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/item/paper/fluff/ruins/moonoutpost19/log1,
+/obj/effect/turf_decal/tiles/dark/checker{
+	dir = 5
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/computer/loreconsole/moonoutpost19/log1,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)
 "rk" = (
 /obj/effect/decal/cleanable/dirt,
@@ -7185,14 +7210,6 @@
 /obj/effect/turf_decal/tiles/white/side,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
-"Cm" = (
-/obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/paper/fluff/ruins/moonoutpost19/boreraccountant,
-/obj/effect/turf_decal/tiles/dark/checker{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel/white,
-/area/ruin/space/moonbase19)
 "Cr" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -7517,6 +7534,15 @@
 /obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
+"DI" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/computer/loreconsole/moonoutpost19/lobby,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/moonbase19)
 "DJ" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -7627,7 +7653,6 @@
 "Eo" = (
 /obj/structure/filingcabinet,
 /obj/structure/sign/poster/official/fruit_bowl/directional/north,
-/obj/item/paper/fluff/ruins/moonoutpost19/rdnote,
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/moonbase19)
 "Ep" = (
@@ -8675,6 +8700,34 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
+"Jw" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/filingcabinet/chestdrawer,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/item/paper/fluff/ruins/moonoutpost19/log2,
+/obj/effect/turf_decal/tiles/dark/checker{
+	dir = 5
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/computer/loreconsole/moonoutpost19/log2{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/moonbase19)
 "Jx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -9152,18 +9205,6 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/moonbase19)
-"LK" = (
-/obj/structure/filingcabinet/chestdrawer,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery/hollow,
-/obj/item/paper/fluff/ruins/moonoutpost19/log2,
-/obj/effect/turf_decal/tiles/dark/checker{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)
 "LL" = (
 /obj/structure/table/reinforced,
@@ -14485,7 +14526,7 @@ db
 ag
 On
 TD
-Cm
+ls
 dL
 Pr
 hs
@@ -14998,7 +15039,7 @@ aK
 kh
 ak
 xO
-hl
+DI
 ia
 sq
 jp
@@ -15061,7 +15102,7 @@ gd
 my
 zG
 hF
-hX
+ei
 bp
 iI
 xi
@@ -15092,13 +15133,13 @@ tX
 Gg
 jb
 ag
-fx
+rj
 Bd
 kr
 ag
 yR
 Bd
-LK
+Jw
 ag
 fm
 cL
