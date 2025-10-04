@@ -3515,22 +3515,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/moonbase19)
 "ls" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/paper/fluff/ruins/moonoutpost19/boreraccountant,
 /obj/effect/turf_decal/tiles/dark/checker{
 	dir = 5
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/machinery/computer/loreconsole/moonoutpost19/rdnote{
 	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)
@@ -4932,21 +4921,13 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/moonbase19)
 "rj" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/paper/fluff/ruins/moonoutpost19/log1,
 /obj/effect/turf_decal/tiles/dark/checker{
 	dir = 5
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -4954,9 +4935,6 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/computer/loreconsole/moonoutpost19/log1,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)
 "rk" = (
@@ -8701,20 +8679,12 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Jw" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/paper/fluff/ruins/moonoutpost19/log2,
 /obj/effect/turf_decal/tiles/dark/checker{
 	dir = 5
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -8722,9 +8692,6 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/computer/loreconsole/moonoutpost19/log2{
 	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)
