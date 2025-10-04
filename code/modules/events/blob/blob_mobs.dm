@@ -27,7 +27,7 @@
 	GLOB.blob_minions |= src
 	AddComponent(/datum/component/event_tracker, EVENT_BLOB)
 
-/mob/living/simple_animal/hostile/blob/event_cost()
+/mob/living/basic/blob/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)
 		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 3, ASSIGNMENT_MEDICAL = 0.5)
@@ -215,7 +215,7 @@
 	if(name == "blobbernaut")
 		name = "blobbernaut ([rand(1, 1000)])"
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/event_cost()
+/mob/living/basic/blob/blobbernaut/event_cost()
 	. = list()
 	if(is_station_level((get_turf(src)).z) && stat != DEAD)
 		return list(ASSIGNMENT_SECURITY = 0.5, ASSIGNMENT_CREW = 3, ASSIGNMENT_MEDICAL = 0.5)
