@@ -867,11 +867,11 @@
 		return
 
 	var/original_volume = volume
-	var/sheets = floor(original_volume / 10)
+	var/sheets = floor(original_volume / 5)
 	new /obj/item/stack/sheet/plastic(get_turf(holder.my_atom), sheets)
 
 	holder.del_reagent(id)
-	holder.add_reagent("plastic_dust", original_volume - sheets * 10, reagtemp = T0C + 119)
+	holder.add_reagent("plastic_dust", original_volume - sheets * 5, reagtemp = T0C + 119)
 	holder.my_atom.visible_message("<span class='notice'>The molten plastic solidifies.</span>")
 
 /datum/reagent/plastic_dust
