@@ -20,7 +20,7 @@
 	if(HAS_TRAIT(target, TRAIT_BADDNA) || HAS_TRAIT(target, TRAIT_HUSK) || HAS_TRAIT(target, TRAIT_SKELETONIZED))
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return FALSE
-	if(!istype(target) || !target.mind || issmall(target) || HAS_TRAIT(target, TRAIT_GENELESS))
+	if(!istype(target) || !target.mind || issmall(target) || HAS_TRAIT(target, TRAIT_GENELESS) || isgolem(target))
 		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
 		return FALSE
 	if(IS_CHANGELING(target))
