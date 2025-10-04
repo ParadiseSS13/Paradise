@@ -1045,13 +1045,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			if(!isnull(hat.lighting_alpha))
 				H.lighting_alpha = min(hat.lighting_alpha, H.lighting_alpha)
 
-	if(H.vision_type)
-		H.sight |= H.vision_type.sight_flags
-		H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark)
-
-		if(!isnull(H.vision_type.lighting_alpha))
-			H.lighting_alpha = min(H.vision_type.lighting_alpha, H.lighting_alpha)
-
 	if(HAS_TRAIT(H, TRAIT_MESON_VISION))
 		H.sight |= SEE_TURFS
 		H.lighting_alpha = min(H.lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
