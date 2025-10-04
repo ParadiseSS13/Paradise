@@ -82,11 +82,11 @@
 			messages.Add("<span class='notice'>Blood type: [A.blood_DNA[blood]]\nDNA: [blood]</span>")
 	to_chat(user, chat_box_regular(messages.Join("<br>")))
 
-/datum/data/pda/utility/scanmode/halogen
-	base_name = "Halogen Counter"
+/datum/data/pda/utility/scanmode/rad_scanner
+	base_name = "Radiation Scanner"
 	icon = "exclamation-circle"
 
-/datum/data/pda/utility/scanmode/halogen/scan_mob(mob/living/C as mob, mob/living/user as mob)
+/datum/data/pda/utility/scanmode/rad_scanner/scan_mob(mob/living/C as mob, mob/living/user as mob)
 	var/list/messages = list()
 	C.visible_message("<span class='warning'>[user] has analyzed [C]'s radiation levels!</span>")
 
