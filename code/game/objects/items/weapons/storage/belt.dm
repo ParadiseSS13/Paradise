@@ -811,9 +811,9 @@
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/sheath/bone_sword
-	name = "bone sword sheathe"
+	name = "bone sword sheath"
 	desc = "Can hold bone swords."
-	base_icon_state = "bonesword_sheathe"
+	base_icon_state = "bonesword_sheath"
 	can_hold = list(/obj/item/melee/bone_sword)
 
 /obj/item/storage/belt/sheath/bone_sword/Initialize(mapload)

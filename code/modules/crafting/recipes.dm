@@ -842,8 +842,8 @@
 				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 
-/datum/crafting_recipe/bonesword_sheathe
-	name = "Bone Sword Sheathe"
+/datum/crafting_recipe/bonesword_sheath
+	name = "Bone Sword Sheath"
 	result = list(/obj/item/storage/belt/sheath/bone_sword)
 	time = 45
 	reqs = list(/obj/item/stack/sheet/sinew = 2,
