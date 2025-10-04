@@ -7,7 +7,7 @@
 	painter_category = DECAL_PAINTER_CATEGORY_TILES
 
 /obj/effect/turf_decal/tiles/Initialize(mapload, _dir)
-	layer = TURF_DECAL_LAYER
+	layer = TURF_PLATING_DECAL_LAYER
 	plane = GAME_PLANE
 	. = ..()
 
