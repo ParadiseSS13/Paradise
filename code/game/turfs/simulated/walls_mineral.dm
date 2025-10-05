@@ -210,17 +210,13 @@
 	explosion_block = 3
 	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
+	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 
 /turf/simulated/wall/mineral/titanium/copyTurf(turf/T)
 	. = ..()
 	T.transform = transform
-
-/turf/simulated/wall/mineral/titanium/nodiagonal
-	icon_state = "map-shuttle_nd"
-	smoothing_flags = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/titanium/nosmooth
 	smoothing_flags = NONE
@@ -235,7 +231,7 @@
 /turf/simulated/wall/mineral/titanium/survival
 	name = "pod wall"
 	desc = "An easily-compressable wall used for temporary shelter."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
+	icon = 'icons/turf/walls/32x40survival_pod_walls.dmi'
 	icon_state = "survival_pod_walls-0"
 	base_icon_state = "survival_pod_walls"
 	smoothing_groups = list(SMOOTH_GROUP_PLASTITANIUM_WALLS)

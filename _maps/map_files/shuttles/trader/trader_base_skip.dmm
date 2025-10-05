@@ -268,9 +268,6 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/trade/sol)
-"Cg" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/shuttle/trade/sol)
 "CH" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1
@@ -479,12 +476,12 @@ zQ
 zQ
 zQ
 aE
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
+aE
+aE
+aE
+aE
+aE
+aE
 aE
 zQ
 PY
@@ -536,8 +533,8 @@ ZI
 (4,1,1) = {"
 zQ
 aE
-Cg
-Cg
+aE
+aE
 ze
 bX
 bX

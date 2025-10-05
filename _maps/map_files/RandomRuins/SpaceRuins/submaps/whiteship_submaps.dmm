@@ -23,9 +23,6 @@
 	icon_state = "dark"
 	},
 /area/template_noop)
-"bl" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/template_noop)
 "cl" = (
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plating/airless,
@@ -1499,7 +1496,7 @@ qr
 ja
 zY
 AX
-bl
+fM
 qr
 qr
 qr
@@ -1877,7 +1874,7 @@ qr
 Py
 zY
 ha
-bl
+fM
 qr
 qr
 qr
@@ -1926,7 +1923,7 @@ Gh
 Ow
 EA
 IL
-bl
+fM
 qr
 qr
 qr

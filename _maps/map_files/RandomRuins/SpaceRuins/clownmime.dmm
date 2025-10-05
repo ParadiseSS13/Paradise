@@ -231,7 +231,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/clown_mime_ruin)
 "nX" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/space/clown_mime_ruin)
 "ok" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -836,7 +836,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/clown_mime_ruin)
 "Xq" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/space/powered)
 "Xu" = (
 /obj/effect/mob_spawn/human/corpse/mime,

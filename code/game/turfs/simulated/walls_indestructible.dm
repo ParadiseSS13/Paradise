@@ -258,11 +258,11 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	icon_state = "plastinum_wall-0"
 	base_icon_state = "plastinum_wall"
 	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
+	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 
-/turf/simulated/wall/indestructible/titanium/nodiagonal
+/turf/simulated/wall/indestructible/titanium
 	icon_state = "map-shuttle_nd"
 	smoothing_flags = SMOOTH_BITMASK
 

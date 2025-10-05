@@ -365,7 +365,7 @@
 /turf/simulated/wall/indestructible/syndicate,
 /area/shuttle/escape)
 "MA" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/escape)
 "Uo" = (
 /obj/structure/chair/comfy/shuttle{

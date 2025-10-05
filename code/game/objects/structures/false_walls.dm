@@ -378,6 +378,17 @@
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_TITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 
+obj/structure/falsewall/survival
+	name = "pod wall"
+	desc = "An easily-compressable wall used for temporary shelter."
+	icon = 'icons/turf/walls/32x40survival_pod_walls.dmi'
+	icon_state = "survival_pod_walls-0"
+	base_icon_state = "survival_pod_walls"
+	mineral = /obj/item/stack/sheet/mineral/titanium
+	walltype = /turf/simulated/wall/mineral/titanium
+	smoothing_groups = list(SMOOTH_GROUP_PLASTITANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+
 /obj/structure/falsewall/plastitanium
 	desc = "An evil wall of plasma and titanium."
 	icon = 'icons/turf/walls/32x40plastitanium_wall.dmi'
