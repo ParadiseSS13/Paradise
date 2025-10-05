@@ -110,7 +110,10 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 				if(slave.master == extractor.mind)
 					possible_thrall.remove_antag_datum(/datum/antagonist/mindslave/thrall)
 
-	extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/vampire)
+	if(isplasmaman(extractor))
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/vampire/plasmaman)
+	else
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/vampire)
 	radio.autosay("<b>--ZZZT!- Wonderfully done, [extractor.real_name]. Welcome to -^%&!-ZZT!-</b>", "Ancient Vampire", "Security")
 	SSblackbox.record_feedback("tally", "successful_extraction", 1, "Vampire")
 

@@ -1105,7 +1105,7 @@
 /datum/reagent/medicine/mutadone
 	name = "Mutadone"
 	id = "mutadone"
-	description = "Mutadone is an experimental bromide that can cure genetic abnomalities."
+	description = "Mutadone is an experimental bromide that can cure genetic abnormalities."
 	color = "#5096C8"
 	taste_description = "cleanliness"
 	goal_difficulty = REAGENT_GOAL_NORMAL
