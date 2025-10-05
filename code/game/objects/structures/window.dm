@@ -727,6 +727,7 @@
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	heat_resistance = 32000
 	max_integrity = 300
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation_beta = RAD_NO_INSULATION
@@ -883,8 +884,8 @@
 	icon_state = "clockwork_window-0"
 	base_icon_state = "clockwork_window"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WINDOW_FULLTILE_BRASS, SMOOTH_GROUP_BRASS_WALL)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS, SMOOTH_GROUP_BRASS_WALL)
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WINDOW_FULLTILE_BRASS, SMOOTH_GROUP_BRASS_WALL, SMOOTH_GROUP_WOOD_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS, SMOOTH_GROUP_BRASS_WALL, SMOOTH_GROUP_WOOD_WALLS)
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
 	dir = FULLTILE_WINDOW_DIR
