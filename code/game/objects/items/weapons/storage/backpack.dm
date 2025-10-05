@@ -240,7 +240,7 @@
 	worn_icon_state = "satchel"
 	inhand_icon_state = "satchel"
 
-/obj/item/storage/backpack/satchel/lizard
+/obj/item/storage/backpack/satchel_lizard
 	name = "lizard skin handbag"
 	desc = "A handbag made out of what appears to be supple green Unathi skin. A face can be vaguely seen on the front."
 	icon_state = "satchel-lizard"
@@ -250,7 +250,7 @@
 	desc = "A deluxe NT Satchel, made of the highest quality leather."
 	icon_state = "satchel-norm"
 
-/obj/item/storage/backpack/satchel/clown
+/obj/item/storage/backpack/satchel_clown
 	name = "Tickles Von Squeakerton"
 	desc = "A satchel with extra pockets for all your banana storing needs!"
 	icon_state = "satchel-clown"
@@ -267,7 +267,7 @@
 	icon_state = "satchel-atmos"
 	resistance_flags = FIRE_PROOF
 
-/obj/item/storage/backpack/satchel/explorer
+/obj/item/storage/backpack/satchel_explorer
 	name = "explorer satchel"
 	desc = "A robust satchel for stashing your loot."
 	icon_state = "satchel-explorer"

@@ -53,11 +53,10 @@
 
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 
-/obj/item/paper/New()
-	..()
-	spawn(2)
-		update_icon()
-		updateinfolinks()
+/obj/item/paper/Initialize(mapload)
+	. = ..()
+	update_icon()
+	updateinfolinks()
 
 /obj/item/paper/update_icon_state()
 	if(info)
@@ -416,7 +415,7 @@
 				to_chat(user, "<span class='notice'>Take off the carbon copy first.</span>")
 				add_fingerprint(user)
 				return
-		var/obj/item/paper_bundle/B = new(src.loc, default_papers = FALSE)
+		var/obj/item/paper_bundle/B = new(src.loc, FALSE)
 		if(name != "paper")
 			B.name = name
 		else if(P.name != "paper" && P.name != "photo")
@@ -612,8 +611,8 @@
 	paper_width = 400
 	paper_height = 150
 
-/obj/item/paper/fortune/New()
-	..()
+/obj/item/paper/fortune/Initialize(mapload)
+	. = ..()
 	var/fortunemessage = pick(GLOB.fortune_cookie_messages)
 	info = "<p style='text-align:center;font-family:[deffont];font-size:120%;font-weight:bold;'>[fortunemessage]</p>"
 	info += "<p style='text-align:center;'><strong>Lucky numbers</strong>: [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)]</p>"
@@ -941,10 +940,9 @@
 			evilpaper_selfdestruct()
 
 
-/obj/item/paper/evilfax/New()
-	..()
+/obj/item/paper/evilfax/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
-
 
 /obj/item/paper/evilfax/Destroy()
 	STOP_PROCESSING(SSobj, src)

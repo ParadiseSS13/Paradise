@@ -50,7 +50,6 @@
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null)
 	RefreshParts()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter
