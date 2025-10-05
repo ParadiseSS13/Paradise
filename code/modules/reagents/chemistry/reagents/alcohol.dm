@@ -1530,15 +1530,47 @@
 	taste_description = "bilk, cream, and cold tears"
 	goal_difficulty = REAGENT_GOAL_EASY
 
+/datum/reagent/consumable/ethanol/lager
+	name = "Lager"
+	id = "lager"
+	description = "A pale beer commonly drank by football hooligans"
+	color = "#664300"
+	alcohol_perc = 0.4
+	drink_icon = "lagerglass"
+	drink_name = "Starlink Lager"
+	drink_desc = "A pale beer that's the cause of many a soccer-related fight."
+	taste_description = "an own goal"
+
+/datum/reagent/consumable/ethanol/stout
+	name = "Stout"
+	id = "stout"
+	description = "A pitch black beer, high in iron content"
+	color = "#000000"
+	alcohol_perc = 0.4
+	drink_icon = "stoutglass"
+	drink_name = "Stout"
+	drink_desc = "A pitch black beer from Ireland, high in iron content."
+	taste_description = "the luck of the Irish"
+
+/datum/reagent/consumable/ethanol/stout/on_mob_life(mob/living/M) // Replenishes blood, seeing as there's iron in it
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!(NO_BLOOD in H.dna.species.species_traits) && (H.blood_volume < BLOOD_VOLUME_NORMAL))
+			H.blood_volume += 0.4
+	return ..()
+
+// MARK: Species drinks
 /datum/reagent/consumable/ethanol/sontse
 	name = "Sontse"
 	id = "sontse"
-	description = "You see sun bobbing inside of this drink. How this is even possible?"
+	description = "The Sun, in a glass! The radiant energies of this drink will empower any Nian that consumes it."
 	color = "#DDB520" // rgb: 221, 181, 32
+	overdose_threshold = 20
+	allowed_overdose_process = TRUE
 	alcohol_perc = 0.4
 	drink_icon = "sontse"
 	drink_name = "Sontse"
-	drink_desc = "The Sun, The Sun, The Sun, The Sun, The Sun, THE SUN!"
+	drink_desc = "The Sun, in a glass! The radiant energies of this drink will empower any Nian that consumes it."
 	taste_description = "warmth and brightness"
 	var/light_activated = FALSE
 	goal_difficulty = REAGENT_GOAL_HARD
@@ -1546,36 +1578,72 @@
 /datum/reagent/consumable/ethanol/sontse/on_mob_life(mob/living/M)
 	if(current_cycle != 5 || !ismoth(M))
 		return ..()
-	to_chat(M, "<span class='warning'>The Sun was within you all this time!</span>")
+
+	if(prob(10))
+		M.reagents.add_reagent("oculine", 1.2)
 	if(!light_activated)
-		M.set_light(2)
+		M.visible_message(
+			"<span class='notice'>[M] suddenly starts radiating a brillant light!</span>",
+			"<span class='notice'>The Sun was within you all this time!</span>"
+		)
+		M.set_light(2, 4)
 		light_activated = TRUE
 	return ..()
 
 /datum/reagent/consumable/ethanol/sontse/on_mob_delete(mob/living/M)
+	if(ismoth(M))
+		M.set_light(0, null)
+		M.visible_message(
+			"<span class='warning'>The radiant light of [M] fades away.</span>",
+			"<span class='warning'>The Sun within you subsides.</span>"
+		)
+	return ..()
+
+/datum/reagent/consumable/ethanol/sontse/overdose_process(mob/living/M, severity)
 	if(!ismoth(M))
-		return ..()
-	to_chat(M, "<span class='warning'>The Sun within you subsides.</span>")
-	M.set_light(0)
-	..()
+		return
+
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(30))
+		M.add_reagent("flash", 10)
+		update_flags |= M.adjustFireLoss(5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		M.bodytemperature += rand(15,30)
+		M.visible_message(
+			"<span class = 'danger'>The radiant aura of [M] suddenly flares into a blinding flash!</span>",
+			"<span class = 'userdanger'>THE SUN BURNS YOU!</span>",
+			"<span class = 'warning'>You briefly feel a wave of warmth wash over you.</span>"
+		)
+	return list(0, update_flags)
 
 /datum/reagent/consumable/ethanol/ahdomai_eclipse
 	name = "Ahdomai's Eclipse"
 	id = "ahdomaieclipse"
-	description = "Blizzard in a glass. Tajaran signature drink!"
+	description = "You see a fierce blizzard endlessly blowing inside this drink."
 	color = "#DAE0E6" // rgb: 218, 224, 230
 	alcohol_perc = 0.1
 	drink_icon = "ahdomaieclipse"
 	drink_name = "Ahdomai's Eclipse"
-	drink_desc = "Blizzard in a glass. Tajaran signature drink!"
+	drink_desc = "A blizzard in a glass, however that works. Even the most distant of Tajaran will feel a strong connection to their homeworld through this drink."
 	taste_description = "ice"
 	var/min_achievable_temp = 250
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/ahdomai_eclipse/on_mob_life(mob/living/M)
-	. = ..()
-	if(istajaran(M) && M.bodytemperature > min_achievable_temp)
-		M.bodytemperature = max(min_achievable_temp, M.bodytemperature - (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	if(current_cycle != 5 || !istajaran(M))
+		return ..()
+
+	var/update_flags = STATUS_UPDATE_NONE
+	if(M.bodytemperature > min_achievable_temp)
+		M.bodytemperature = max(min_achievable_temp, M.bodytemperature - (80 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	ADD_TRAIT(M, TRAIT_COLDRESIST, id)
+	update_flags |= M.adjustFireLoss(-2, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/consumable/ethanol/ahdomai_eclipse/on_mob_delete(mob/living/M)
+	if(istajaran(M))
+		REMOVE_TRAIT(M, TRAIT_COLDRESIST, id)
+		to_chat(M, "<span class='warning'>The raging blizzard within you subsides.</span>")
+	return ..()
 
 /datum/reagent/consumable/ethanol/beach_feast
 	name = "Feast by the Beach"
@@ -1588,12 +1656,20 @@
 	drink_desc = "A classic Unathi drink. You can spot sand sediment at the bottom of the glass. The drink is hot as hell and more."
 	taste_description = "sand"
 	goal_difficulty = REAGENT_GOAL_NORMAL
+	var/modifier_activated = FALSE
 
 /datum/reagent/consumable/ethanol/beach_feast/on_mob_life(mob/living/M)
-	if(!isunathi(M))
+	if(current_cycle != 5 || !isunathi(M))
 		return ..()
+
 	if(M.bodytemperature < 360)
-		M.bodytemperature = min(360, M.bodytemperature + (50 * TEMPERATURE_DAMAGE_COEFFICIENT))
+		M.bodytemperature = min(360, M.bodytemperature + (80 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	ADD_TRAIT(M, TRAIT_RESISTHEAT, id)
+	return ..()
+
+/datum/reagent/consumable/ethanol/beach_feast/on_mob_delete(mob/living/M)
+	if(isunathi(M))
+		REMOVE_TRAIT(M, TRAIT_RESISTHEAT, id)
 	return ..()
 
 /datum/reagent/consumable/ethanol/jungle_vox
@@ -1756,6 +1832,11 @@
 	taste_description = "citrus"
 	goal_difficulty = REAGENT_GOAL_EASY
 
+/datum/reagent/consumable/ethanol/howler/reaction_mob(mob/living/M, method = REAGENT_INGEST, volume)
+	if(!isvulpkanin(M))
+		return ..()
+	M.emote("howl")
+
 /datum/reagent/consumable/ethanol/howler/on_mob_life(mob/living/M)
 	if(!isvulpkanin(M))
 		return ..()
@@ -1787,33 +1868,4 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	mutated = TRUE
 
-	return ..()
-
-/datum/reagent/consumable/ethanol/lager
-	name = "Lager"
-	id = "lager"
-	description = "A pale beer commonly drank by football hooligans"
-	color = "#664300"
-	alcohol_perc = 0.4
-	drink_icon = "lagerglass"
-	drink_name = "Starlink Lager"
-	drink_desc = "A pale beer that's the cause of many a soccer-related fight."
-	taste_description = "an own goal"
-
-/datum/reagent/consumable/ethanol/stout
-	name = "Stout"
-	id = "stout"
-	description = "A pitch black beer, high in iron content"
-	color = "#000000"
-	alcohol_perc = 0.4
-	drink_icon = "stoutglass"
-	drink_name = "Stout"
-	drink_desc = "A pitch black beer from Ireland, high in iron content."
-	taste_description = "the luck of the Irish"
-
-/datum/reagent/consumable/ethanol/stout/on_mob_life(mob/living/M) // Replenishes blood, seeing as there's iron in it
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.dna.species.species_traits) && (H.blood_volume < BLOOD_VOLUME_NORMAL))
-			H.blood_volume += 0.4
 	return ..()
