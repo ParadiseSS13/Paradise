@@ -206,11 +206,10 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/clockwork_window_edges.dmi'
 
 /turf/simulated/wall/indestructible/fakeglass/plastitanium
-	name = "window"
+	name = "plastitanium window"
 	icon = 'icons/obj/smooth_structures/windows/32x40plastitanium_window.dmi'
 	icon_state = "plastitanium_window-0"
 	base_icon_state = "plastitanium_window"
-	opacity = FALSE
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/plastitanium_window_edges.dmi'
