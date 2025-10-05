@@ -1601,11 +1601,11 @@
 
 /datum/reagent/consumable/ethanol/sontse/overdose_process(mob/living/M, severity)
 	if(!ismoth(M))
-		return
+		return ..()
 
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(30))
-		M.add_reagent("flash", 10)
+		M.reagents.add_reagent("flash", 10)
 		update_flags |= M.adjustFireLoss(5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		M.bodytemperature += rand(15,30)
 		M.visible_message(
@@ -1635,13 +1635,18 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(M.bodytemperature > min_achievable_temp)
 		M.bodytemperature = max(min_achievable_temp, M.bodytemperature - (80 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	ADD_TRAIT(M, TRAIT_COLDRESIST, id)
-	update_flags |= M.adjustFireLoss(-2, FALSE)
+	ADD_TRAIT(M, TRAIT_RESISTCOLD, id)
+	if(M.fireloss)
+		// Don't spam the chat too much.
+		if(prob(36))
+			to_chat(M, "<span class='notice'>The icy energies within you soothe your burns.</span>")
+		var/mob/living/carbon/human/H = M
+		update_flags |= H.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/ahdomai_eclipse/on_mob_delete(mob/living/M)
 	if(istajaran(M))
-		REMOVE_TRAIT(M, TRAIT_COLDRESIST, id)
+		REMOVE_TRAIT(M, TRAIT_RESISTCOLD, id)
 		to_chat(M, "<span class='warning'>The raging blizzard within you subsides.</span>")
 	return ..()
 
@@ -1675,21 +1680,34 @@
 /datum/reagent/consumable/ethanol/jungle_vox
 	name = "Jungle Vox"
 	id = "junglevox"
-	description = "Classy drink in a glass vox head with a bit of liquid nitrogen added on."
+	description = "Classy drink in a glass vox head with a bit of liquid nitrogen added on. Perfect for purging dust from a Vox's system."
 	color = "#1ED1CE" // rgb: 30, 209, 206
 	alcohol_perc = 0.2
 	drink_icon = "junglevox"
 	drink_name = "Jungle Vox"
-	drink_desc = "Classy drink in a glass vox head with a bit of liquid nitrogen added on."
+	drink_desc = "Classy drink in a glass vox head with a bit of liquid nitrogen added on. Perfect for purging dust from a Vox's system."
 	taste_description = "bubbles"
 	goal_difficulty = REAGENT_GOAL_NORMAL
+	var/liquid_breathing = FALSE
 
 /datum/reagent/consumable/ethanol/jungle_vox/on_mob_life(mob/living/M)
 	if(current_cycle <= 5 || !isvox(M))
 		return ..()
-	if(M.health > 0)
-		M.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
-		M.AdjustLoseBreath(-2 SECONDS)
+
+	var/mob/living/carbon/human/H = M
+	update_flags |=	H.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE) // Dust.
+	update_flags |= H.adjustOxyLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= H.AdjustLoseBreath(-2 SECONDS * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	ADD_TRAIT(M, TRAIT_NOBREATH, id)
+	if(!liquid_breathing)
+		to_chat(M, "<span class='notice'>As the dust is filtered out of your lungs, it becomes much easier to breathe.</span>")
+		liquid_breathing = TRUE
+	return ..() | update_flags
+
+/datum/reagent/consumable/ethanol/jungle_vox/on_mob_delete(mob/living/M)
+	if(isvox(M))
+		to_chat(M, "<span class='warning'>Your lungs begin to feel dusty again...</span>")
+		REMOVE_TRAIT(M, TRAIT_NOBREATH, id)
 	return ..()
 
 /datum/reagent/consumable/ethanol/slime_mold
@@ -1707,10 +1725,13 @@
 /datum/reagent/consumable/ethanol/slime_mold/on_mob_life(mob/living/M)
 	if(!isslimeperson(M))
 		return ..()
+
 	var/mob/living/carbon/human/H = M
 	if(!(NO_BLOOD in H.dna.species.species_traits))
 		if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-			H.blood_volume += REAGENTS_METABOLISM / 2 // half of the reagent is converted into blood, netting us just a little bit
+			if(prob(36))
+				to_chat(M, "<span class='notice'>You feel a surge of invigoration flow through your veins!</span>")
+			H.blood_volume += REAGENTS_METABOLISM
 	return ..()
 
 /datum/reagent/consumable/ethanol/die_seife
@@ -1718,6 +1739,8 @@
 	id = "dieseife"
 	description = "There is a piece of soap at the bottom of the glass and it is slowly melting."
 	color = "#9D9E89" // rgb: 157, 158, 137
+	overdose_threshold = 20
+	allowed_overdose_process = TRUE
 	alcohol_perc = 0.2
 	drink_icon = "dieseife"
 	drink_name = "Die Seife"
@@ -1726,29 +1749,47 @@
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/consumable/ethanol/die_seife/on_mob_life(mob/living/M)
-	if(current_cycle % 10 != 0 || !isdrask(M))
+	if(current_cycle <= 5 || !isdrask(M))
 		return ..()
 
 	if(prob(50))
-		to_chat(M, "<span class='warning'>Your skin emits a soapy liquid from its pores cleaning you in the process.</span>")
+		M.visible_message(
+			"<span class='notice'>A soapy liqid flows out of [M]'s pores, cleaning [M.p_them()].</span>"
+			"<span class='notice'>Your skin emits a soapy liquid from its pores, cleaning you in the process.</span>"
+			"<span class='warning'>A sickening oozing sound fills the air.</span>"
+		)
 		M.clean_blood()
 	return ..()
+
+/datum/reagent/consumable/ethanol/die_seife/overdose_process(mob/living/M, severity)
+	if(!isdrask(M))
+		return ..()
+
+	if(prob(30))
+		M.visible_message(
+			"<span class='warning'>A huge surge of soapy liqid gushes out of [M]'s pores and pools on the floor!</span>"
+			"<span class='notice'>Your skin emits a surge of soapy liquid from its pores, cleaning you and the surrounding floor in the process.</span>"
+			"<span class='warning'>A vile gushing sound fills the air followed by the splattering of a thick liquid on the floor!</span>"
+		)
+	return list(0)
 
 /datum/reagent/consumable/ethanol/acid_dreams
 	name = "Acid Dreams"
 	id = "aciddreams"
-	description = "This one looks just weird and reeks of acid."
+	description = "Cooked up in a single night by a bored Grey chemist killing time while waiting for a long synthesis to complete, this drink has become the stuff of legands across Mauna-b."
 	color = "#B7FF6A" // rgb: 183, 255, 106
 	alcohol_perc = 0.7
 	drink_icon = "aciddreams"
 	drink_name = "Acid Dreams"
-	drink_desc = "This one looks just weird and reeks of acid."
+	drink_desc = "Cooked up in a single night by a bored Grey chemist killing time while waiting for a long synthesis to complete, this drink has become the stuff of legands across Mauna-b."
 	taste_description = "acid"
 	goal_difficulty = REAGENT_GOAL_NORMAL
+	var/third_eye_open = FALSE
 
 /datum/reagent/consumable/ethanol/acid_dreams/on_mob_life(mob/living/M)
-	if(current_cycle % 10 != 0 || !isgrey(M))
+	if(current_cycle <= 5 || !isgrey(M))
 		return ..()
+
 	if(prob(50))
 		var/list/mob/living/targets = list()
 		for(var/mob/living/L in orange(14, M))
@@ -1758,6 +1799,20 @@
 		if(length(targets))
 			var/mob/living/target = pick(targets)
 			to_chat(target, "<span class='warning'>You feel that [M.name] is somewhere near.</span>")
+	M.Druggy(4 SECONDS)
+	if(!third_eye_open)
+		to_chat(M, "<span class='notice'>Your mind expands and your eyes see the world for what it really is.</span>")
+		see_in_dark += 2
+		lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+		third_eye_open = TRUE
+	return ..()
+
+/datum/reagent/consumable/ethanol/acid_dreams/on_mob_delete(mob/living/M)
+	if(isgrey(M))
+		to_chat(M, "<span class='warning'>Your mind shrinks down to its usual size and the world hides its secrets from you!</span>")
+		see_in_dark = initial(see_in_dark)
+		lighting_alpha = initial(lighting_alpha)
+		M.Druggy(0 SECONDS)
 	return ..()
 
 /datum/reagent/consumable/ethanol/islay_whiskey
@@ -1780,10 +1835,10 @@
 	var/turf/T = get_turf(H)
 	var/light_amount = min(1, T.get_lumcount()) - 0.5
 
-	if(light_amount > 0.2 && !H.suiciding && H.health > 0)
-		H.adjustBruteLoss(-0.25)
-		H.adjustToxLoss(-0.25)
-		H.adjustOxyLoss(-0.25)
+	if(light_amount > 0.2 && !H.suiciding)
+		H.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
+		H.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
+		H.adjustOxyLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
 	return ..()
 
 /datum/reagent/consumable/ethanol/ultramatter
@@ -1833,18 +1888,16 @@
 	goal_difficulty = REAGENT_GOAL_EASY
 
 /datum/reagent/consumable/ethanol/howler/reaction_mob(mob/living/M, method = REAGENT_INGEST, volume)
-	if(!isvulpkanin(M))
-		return ..()
-	M.emote("howl")
+	if(isvulpkanin(M))
+		M.emote("howl")
+	return ..()
 
 /datum/reagent/consumable/ethanol/howler/on_mob_life(mob/living/M)
 	if(!isvulpkanin(M))
 		return ..()
 
 	var/mob/living/carbon/human/H = M
-	if(H.health > 0)
-		H.adjustToxLoss(-0.5)
-
+	H.adjustToxLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
 	return ..()
 
 /datum/reagent/consumable/ethanol/diona_smash
