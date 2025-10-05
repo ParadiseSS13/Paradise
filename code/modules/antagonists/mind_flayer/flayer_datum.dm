@@ -64,7 +64,10 @@
 /datum/antagonist/mindflayer/exfiltrate(mob/living/carbon/human/extractor, obj/item/radio/radio)
 	remove_all_abilities()
 	remove_all_passives()
-	extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/mindflayer)
+	if(isplasmaman(extractor)) // Normally, only IPCs can be flayers. This is in case they somehow end up mindswapped to a plasmaman.
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/mindflayer/plasmaman)
+	else
+		extractor.equipOutfit(/datum/outfit/admin/ghostbar_antag/mindflayer)
 	radio.autosay("<b>--ZZZT!- Excellent job, [extractor.real_name]. Proceed to -^%&!-ZZT!-</b>", "Master Flayer", "Security")
 	SSblackbox.record_feedback("tally", "successful_extraction", 1, "Mindflayer")
 

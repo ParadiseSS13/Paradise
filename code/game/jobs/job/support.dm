@@ -129,6 +129,7 @@
 	shoes = /obj/item/clothing/shoes/workboots/smithing
 	id = /obj/item/card/id/smith
 	pda = /obj/item/pda/cargo
+	box = /obj/item/storage/box/survival_mining
 
 /datum/outfit/job/smith/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -174,7 +175,7 @@
 	)
 
 	backpack = /obj/item/storage/backpack/explorer
-	satchel = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel_explorer
 	box = /obj/item/storage/box/survival_mining
 
 /datum/outfit/job/mining/on_mind_initialize(mob/living/carbon/human/H)
@@ -251,7 +252,7 @@
 	id = /obj/item/card/id/explorer
 	pda = /obj/item/pda/explorer
 	backpack = /obj/item/storage/backpack/explorer
-	satchel = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel_explorer
 	box = /obj/item/storage/box/survival_mining
 
 /datum/outfit/job/explorer/on_mind_initialize(mob/living/carbon/human/H)
@@ -425,7 +426,7 @@
 	bio_chips = list(/obj/item/bio_chip/sad_trombone)
 
 	backpack = /obj/item/storage/backpack/clown
-	satchel = /obj/item/storage/backpack/satchel/clown
+	satchel = /obj/item/storage/backpack/satchel_clown
 	dufflebag = /obj/item/storage/backpack/duffel/clown
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
