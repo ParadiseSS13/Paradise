@@ -67,7 +67,7 @@
 	icon_state = "boss_wall-0"
 	base_icon_state = "boss_wall"
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BOSS_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_BOSS_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_BOSS_WALLS)
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
 
 /turf/simulated/wall/indestructible/boss/see_through
@@ -129,14 +129,14 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	icon = 'icons/turf/walls/32x40uranium_wall.dmi'
 	icon_state = "uranium_wall-0"
 	base_icon_state = "uranium_wall"
-	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_URANIUM_WALLS)
 
 /turf/simulated/wall/indestructible/wood
 	icon = 'icons/turf/walls/32x40wood_wall.dmi'
 	icon_state = "wood_wall-0"
 	base_icon_state = "wood_wall"
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WOOD_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WOOD_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WOOD_WALLS)
 
 /turf/simulated/wall/indestructible/alien
 	name = "alien wall"
@@ -145,14 +145,14 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	icon_state = "abductor_wall-0"
 	base_icon_state = "abductor_wall"
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_ABDUCTOR_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_ABDUCTOR_WALLS)
 
 /turf/simulated/wall/indestructible/abductor
 	icon = 'icons/turf/walls/32x40abductor_wall.dmi'
 	icon_state = "abductor_wall-0"
 	base_icon_state = "abductor_wall"
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_ABDUCTOR_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_ABDUCTOR_WALLS)
 
 /turf/simulated/wall/indestructible/fakedoor
 	name = "CentCom Access"
@@ -169,7 +169,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	base_icon_state = "reinforced_window"
 	opacity = FALSE
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS) //they are not walls but this lets walls smooth with them
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
 	/// Used to define what file the edging sprite is contained within
 	var/edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
 	/// Tracks the edging appearence sprite
@@ -202,7 +202,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	icon_state = "clockwork_window-0"
 	base_icon_state = "clockwork_window"
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS, SMOOTH_GROUP_BRASS_WALL, SMOOTH_GROUP_WOOD_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS, SMOOTH_GROUP_BRASS_WALL, SMOOTH_GROUP_WOOD_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE_BRASS, SMOOTH_GROUP_BRASS_WALL, SMOOTH_GROUP_WOOD_WALLS)
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/clockwork_window_edges.dmi'
 
 /turf/simulated/wall/indestructible/fakeglass/plastitanium
@@ -211,7 +211,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	icon_state = "plastitanium_window-0"
 	base_icon_state = "plastitanium_window"
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_PLASTITANIUM_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/plastitanium_window_edges.dmi'
 
 /turf/simulated/wall/indestructible/fakeglass/plastitanium/Initialize(mapload)
@@ -222,7 +222,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 
 /turf/simulated/wall/indestructible/fakeglass/plastitanium/limited_smooth
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
 
 /turf/simulated/wall/indestructible/rock
 	name = "dense rock"
@@ -232,7 +232,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	base_icon_state = "smoothrocks"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_MINERAL_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_MINERAL_WALLS)
 	color = COLOR_ROCK
 
 /turf/simulated/wall/indestructible/rock/snow
@@ -249,7 +249,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	icon_state = "reinforced_wall-0"
 	base_icon_state = "reinforced_wall"
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
 
 /turf/simulated/wall/indestructible/titanium
 	icon = 'icons/turf/walls/32x40plastinum_wall.dmi'
@@ -257,7 +257,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	base_icon_state = "plastinum_wall"
 	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
 	smoothing_groups = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
-	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 
 /turf/simulated/wall/indestructible/titanium/nosmooth
 	icon_state = "plastinum_wall"
@@ -281,7 +281,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	icon_state = "plastitanium_wall-0"
 	base_icon_state = "plastitanium_wall"
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_SHUTTLE_PARTS)
 
 /turf/simulated/wall/mineral/plastitanium/no_smooth
 	icon = 'icons/turf/shuttle.dmi'
@@ -295,4 +295,4 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	base_icon_state = "backrooms_wall"
 	explosion_block = 4
 	smoothing_groups = list(SMOOTH_GROUP_BACKROOMS_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_BACKROOMS_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_BACKROOMS_WALLS, SMOOTH_GROUP_SHUTTLE_PARTS)
