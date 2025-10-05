@@ -35,6 +35,7 @@ RESTRICT_TYPE(/datum/cooking/recipe_step)
 /// Special function to check if the step has been satisfied. Sometimes just
 /// following the step is enough, but not always.
 /datum/cooking/recipe_step/proc/is_complete(obj/added_item, datum/cooking/recipe_tracker/tracker, list/step_data)
+	SHOULD_BE_PURE(TRUE)
 	return TRUE
 
 /// Return a human readable description of the recipe step as an instruction to the reader.
