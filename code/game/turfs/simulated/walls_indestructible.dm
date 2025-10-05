@@ -63,7 +63,7 @@
 /turf/simulated/wall/indestructible/boss
 	name = "necropolis wall"
 	desc = "A thick, seemingly indestructible stone wall."
-	icon = 'icons/turf/walls/boss_wall.dmi'
+	icon = 'icons/turf/walls/32x40boss_wall.dmi'
 	icon_state = "boss_wall-0"
 	base_icon_state = "boss_wall"
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BOSS_WALLS)
@@ -229,7 +229,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 /turf/simulated/wall/indestructible/rock
 	name = "dense rock"
 	desc = "An extremely densely-packed rock, most mining tools or explosives would never get through this."
-	icon = 'icons/turf/walls/smoothrocks.dmi'
+	icon = 'icons/turf/walls/32x40smoothrocks.dmi'
 	icon_state = "smoothrocks-0"
 	base_icon_state = "smoothrocks"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
@@ -286,16 +286,12 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	smoothing_flags = NONE
 
 /turf/simulated/wall/indestructible/syndicate
-	icon = 'icons/turf/walls/plastitanium_wall.dmi'
+	icon = 'icons/turf/walls/32x40plastitanium_wall.dmi'
 	icon_state = "plastitanium_wall-0"
 	base_icon_state = "plastitanium_wall"
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
+	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
-
-/turf/simulated/wall/indestructible/syndicate/no_diagonal
-	icon_state = "map-shuttle_nd"
-	smoothing_flags = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/plastitanium/no_smooth
 	icon = 'icons/turf/shuttle.dmi'
@@ -304,7 +300,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 
 /turf/simulated/wall/indestructible/backrooms
 	desc = "A strange wall that looks like cheap wallpaper and drywall."
-	icon = 'icons/turf/walls/backrooms_wall.dmi'
+	icon = 'icons/turf/walls/32x40backrooms_wall.dmi'
 	icon_state = "backrooms_wall-0"
 	base_icon_state = "backrooms_wall"
 	explosion_block = 4

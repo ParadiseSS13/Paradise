@@ -380,7 +380,7 @@
 
 /obj/structure/falsewall/plastitanium
 	desc = "An evil wall of plasma and titanium."
-	icon = 'icons/turf/walls/plastitanium_wall.dmi'
+	icon = 'icons/turf/walls/32x40plastitanium_wall.dmi'
 	icon_state = "plastitanium_wall-0"
 	base_icon_state = "plastitanium_wall"
 	mineral = /obj/item/stack/sheet/mineral/plastitanium
@@ -390,7 +390,7 @@
 
 /obj/structure/falsewall/backrooms
 	desc = "A strange wall that looks like cheap wallpaper and drywall."
-	icon = 'icons/turf/walls/backrooms_wall.dmi'
+	icon = 'icons/turf/walls/32x40backrooms_wall.dmi'
 	icon_state = "backrooms_wall-0"
 	base_icon_state = "backrooms_wall"
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BACKROOMS_WALLS)
@@ -419,7 +419,7 @@
 /obj/structure/falsewall/rock_ancient
 	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
-	icon = 'icons/turf/walls/smoothrocks.dmi'
+	icon = 'icons/turf/walls/32x40smoothrocks.dmi'
 	icon_state = "smoothrocks-0"
 	base_icon_state = "smoothrocks"
 	color = COLOR_ANCIENT_ROCK

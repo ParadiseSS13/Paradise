@@ -95,7 +95,7 @@
 /turf/simulated/wall/boss
 	name = "ancient wall"
 	desc = "A thick metal wall, it look very old."
-	icon = 'icons/turf/walls/boss_wall.dmi'
+	icon = 'icons/turf/walls/32x40boss_wall.dmi'
 	icon_state = "boss_wall-0"
 	base_icon_state = "boss_wall"
 	baseturf = /turf/simulated/floor/lava/mapping_lava

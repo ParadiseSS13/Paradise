@@ -251,22 +251,18 @@
 /turf/simulated/wall/mineral/plastitanium
 	name = "wall"
 	desc = "An evil wall of plasma and titanium."
-	icon = 'icons/turf/walls/plastitanium_wall.dmi'
+	icon = 'icons/turf/walls/32x40plastitanium_wall.dmi'
 	icon_state = "plastitanium_wall-0"
 	base_icon_state = "plastitanium_wall"
 	explosion_block = 4
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
+	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 
 /turf/simulated/wall/mineral/plastitanium/copyTurf(turf/T)
 	. = ..()
 	T.transform = transform
-
-/turf/simulated/wall/mineral/plastitanium/nodiagonal
-	icon_state = "map-shuttle_nd"
-	smoothing_flags = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/plastitanium/nosmooth
 	icon = 'icons/turf/shuttle.dmi'

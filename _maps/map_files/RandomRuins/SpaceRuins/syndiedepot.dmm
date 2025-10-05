@@ -98,7 +98,7 @@
 	},
 /area/syndicate_depot/outer)
 "at" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "au" = (
 /obj/machinery/light{
@@ -345,7 +345,7 @@
 	},
 /area/syndicate_depot/core)
 "bf" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/outer)
 "bh" = (
 /obj/machinery/light{
@@ -639,14 +639,14 @@
 	dir = 6;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "bY" = (
 /obj/effect/landmark{
 	dir = 4;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "bZ" = (
 /obj/effect/spawner/random/syndicate/wallvault,
@@ -664,14 +664,14 @@
 	dir = 4;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "cc" = (
 /obj/effect/landmark{
 	dir = 10;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "cd" = (
 /obj/effect/spawner/random/syndicate/mob,
@@ -691,7 +691,7 @@
 	name = "mysterious button";
 	power_state = 0
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/outer)
 "cg" = (
 /obj/structure/falsewall,
@@ -715,7 +715,7 @@
 /obj/effect/landmark{
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "ck" = (
 /obj/machinery/turretid/syndicate{
@@ -870,7 +870,7 @@
 /obj/effect/landmark{
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "cD" = (
 /obj/machinery/atmospherics/unary/passive_vent/high_volume{
@@ -943,21 +943,21 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "cP" = (
 /obj/effect/landmark{
 	dir = 5;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "cR" = (
 /obj/effect/landmark{
 	dir = 9;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/syndicate_depot/core)
 "cS" = (
 /mob/living/silicon/decoy/syndicate/depot,

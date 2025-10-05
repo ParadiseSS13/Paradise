@@ -554,7 +554,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "qr" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "rr" = (
 /obj/machinery/computer/crew{

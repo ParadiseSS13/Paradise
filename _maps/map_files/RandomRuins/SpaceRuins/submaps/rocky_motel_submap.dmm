@@ -155,7 +155,7 @@
 /area/template_noop)
 "pp" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/space_ruin/rocky_motel,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/template_noop)
 "pJ" = (
 /obj/structure/closet/cabinet,
@@ -259,9 +259,6 @@
 /obj/structure/girder,
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating,
-/area/template_noop)
-"zj" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/template_noop)
 "An" = (
 /obj/structure/girder,
@@ -1099,7 +1096,7 @@ DF
 DF
 DF
 DF
-zj
+fZ
 fZ
 fZ
 fZ
@@ -1115,7 +1112,7 @@ DF
 DF
 DF
 DF
-zj
+fZ
 fZ
 fZ
 fZ
@@ -1149,7 +1146,7 @@ DF
 "}
 (37,1,1) = {"
 DF
-zj
+fZ
 fZ
 fZ
 fZ
@@ -1282,9 +1279,9 @@ DF
 "}
 (44,1,1) = {"
 DF
-zj
 fZ
-zj
+fZ
+fZ
 DF
 VT
 fZ
@@ -1296,7 +1293,7 @@ fZ
 fZ
 fZ
 fZ
-zj
+fZ
 gK
 "}
 (45,1,1) = {"
@@ -1322,9 +1319,9 @@ DF
 DF
 DF
 DF
-zj
+fZ
 DF
-zj
+fZ
 DF
 iy
 kT

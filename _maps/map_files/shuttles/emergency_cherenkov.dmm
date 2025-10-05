@@ -47,7 +47,7 @@
 /area/shuttle/escape)
 "bf" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "bw" = (
 /obj/structure/chair/comfy/shuttle{
@@ -369,9 +369,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating/airless,
-/area/shuttle/escape)
-"lB" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/escape)
 "lH" = (
 /obj/structure/chair/comfy/shuttle,
@@ -951,7 +948,7 @@
 /area/shuttle/escape)
 "DA" = (
 /obj/structure/sign/radiation,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "DF" = (
 /obj/structure/reflector/single{
@@ -1654,16 +1651,16 @@ cw
 cw
 cw
 Wf
-lB
-lB
+Wf
+Wf
 Fz
-lB
+Wf
 Dd
-lB
+Wf
 aI
 aI
 aI
-lB
+Wf
 Ji
 DA
 Ji
@@ -1692,15 +1689,15 @@ cw
 cw
 cw
 Wf
-lB
+Wf
 aI
 aI
 aI
-lB
+Wf
 Ks
 hJ
 fR
-lB
+Wf
 qF
 XM
 Kb
@@ -1711,7 +1708,7 @@ NO
 YP
 NO
 nf
-lB
+Wf
 cw
 cw
 cw
@@ -1734,7 +1731,7 @@ cw
 cw
 cw
 cw
-lB
+Wf
 Wy
 Ks
 Ks
@@ -1777,7 +1774,7 @@ cw
 cw
 cw
 cw
-lB
+Wf
 Wy
 FE
 FE
@@ -1789,7 +1786,7 @@ FE
 aI
 Kb
 fi
-lB
+Wf
 Qk
 Kb
 aI
@@ -1820,7 +1817,7 @@ cw
 cw
 cw
 Wf
-lB
+Wf
 dl
 FE
 FE
@@ -1835,7 +1832,7 @@ fi
 Td
 jU
 Kb
-lB
+Wf
 Mu
 Ir
 Mu
@@ -1862,8 +1859,8 @@ cw
 Wf
 aI
 aI
-lB
-lB
+Wf
+Wf
 PV
 ce
 FE
@@ -1872,16 +1869,16 @@ ce
 Gx
 ce
 Ya
-lB
+Wf
 IE
 fi
 Td
 aw
 qZ
-lB
-lB
-lB
-lB
+Wf
+Wf
+Wf
+Wf
 DA
 Wf
 cw
@@ -1901,13 +1898,13 @@ cw
 "}
 (7,1,1) = {"
 Wf
-lB
-lB
+Wf
+Wf
 dj
 cJ
 ab
-lB
-lB
+Wf
+Wf
 aI
 TR
 aI
@@ -1915,14 +1912,14 @@ aI
 bf
 aI
 aI
-lB
+Wf
 Bz
 fi
-lB
+Wf
 Xd
 Kb
 Kp
-lB
+Wf
 Wf
 cw
 ib
@@ -2159,13 +2156,13 @@ cw
 "}
 (13,1,1) = {"
 Wf
-lB
-lB
+Wf
+Wf
 Cw
 eH
 Fy
-lB
-lB
+Wf
+Wf
 ov
 LO
 ov
@@ -2173,14 +2170,14 @@ aI
 bf
 aI
 aI
-lB
+Wf
 Bz
 fi
-lB
+Wf
 Xd
 Kb
 Kp
-lB
+Wf
 Wf
 cw
 bM
@@ -2206,8 +2203,8 @@ cw
 Wf
 aI
 aI
-lB
-lB
+Wf
+Wf
 Jh
 rG
 rG
@@ -2216,16 +2213,16 @@ oU
 iO
 Hi
 sw
-lB
+Wf
 IE
 fi
 Td
 cN
 qZ
-lB
-lB
-lB
-lB
+Wf
+Wf
+Wf
+Wf
 DA
 Wf
 cw
@@ -2250,7 +2247,7 @@ cw
 cw
 cw
 Wf
-lB
+Wf
 ju
 rG
 rG
@@ -2265,7 +2262,7 @@ fi
 Td
 ej
 Kb
-lB
+Wf
 Mu
 GB
 Mu
@@ -2293,7 +2290,7 @@ cw
 cw
 cw
 cw
-lB
+Wf
 KY
 rG
 rG
@@ -2305,7 +2302,7 @@ rG
 Xs
 Kb
 fi
-lB
+Wf
 Qk
 Kb
 aI
@@ -2336,7 +2333,7 @@ cw
 cw
 cw
 cw
-lB
+Wf
 Jh
 rG
 zx
@@ -2380,15 +2377,15 @@ cw
 cw
 cw
 Wf
-lB
+Wf
 aI
 aI
 aI
-lB
+Wf
 wY
 CP
 Hi
-lB
+Wf
 Kb
 JK
 Kb
@@ -2399,7 +2396,7 @@ jQ
 fS
 jQ
 ZZ
-lB
+Wf
 cw
 cw
 cw
@@ -2428,16 +2425,16 @@ cw
 cw
 cw
 Wf
-lB
-lB
+Wf
+Wf
 aI
-lB
+Wf
 aI
-lB
+Wf
 aI
 aI
 aI
-lB
+Wf
 ag
 DA
 ag

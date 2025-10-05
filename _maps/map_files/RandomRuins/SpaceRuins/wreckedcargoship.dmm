@@ -388,9 +388,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/wreck_cargoship)
-"ny" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/space/wreck_cargoship)
 "nB" = (
 /obj/effect/turf_decal/delivery/white/partial{
 	dir = 1
@@ -506,7 +503,7 @@
 	name = "interior warehouse shutters";
 	id = "cargoshipblastdoor2"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/wreck_cargoship)
 "ru" = (
 /obj/effect/spawner/window/plastitanium,
@@ -1405,11 +1402,11 @@ ea
 ea
 ea
 gE
-ny
+gE
 NR
 NR
 Yk
-ny
+gE
 gE
 ea
 ea
@@ -1698,7 +1695,7 @@ gE
 NR
 NR
 gE
-ny
+gE
 ah
 jN
 Wx
@@ -1807,7 +1804,7 @@ Uq
 Mx
 zm
 kf
-ny
+gE
 gE
 gE
 gE
@@ -1891,7 +1888,7 @@ Aa
 tn
 kO
 PB
-ny
+gE
 gE
 Mc
 gE
@@ -1907,7 +1904,7 @@ ea
 ea
 DY
 gE
-ny
+gE
 pD
 sL
 sL
@@ -1915,7 +1912,7 @@ ca
 AP
 KJ
 nG
-ny
+gE
 gE
 ea
 ea
@@ -1991,7 +1988,7 @@ ea
 ea
 ea
 gE
-ny
+gE
 ES
 Zc
 eC
@@ -1999,7 +1996,7 @@ eV
 JK
 VF
 TS
-ny
+gE
 gE
 ea
 ea
