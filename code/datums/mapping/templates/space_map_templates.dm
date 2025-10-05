@@ -400,3 +400,16 @@
 	description = "Nanotrasen uses relays like these to further extend telecommunications around an area of space, as well as long range beacons for easier deployment in the future. \
 		Unfortunately, the anomalous activity around Epsilon Eridani, along with orbital debris and space-faring hostiles, has rendered many of these relay stations inoperable, leaving their communications and teleportation systems offline."
 	never_spawn_on_the_same_level = list("bluespace_relay_beacon")
+
+/datum/map_template/ruin/space/telecoms_shuttle
+	id = "telecoms_shuttle"
+	suffix = "telecoms_shuttle.dmm"
+	name = "Nanotrasen Telecommunications Shuttle"
+	description = "A small shuttle containing resources for a telecoms relay and some medical supplies."
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/space/engineering_vessel
+	id = "engineering_vessel"
+	suffix = "engineering_vessel.dmm"
+	name = "Nanotrasen Engineering Vessel"
+	description = "A small vessel able to have a telecoms relay built inside of it, as well as some miscellaneous cargo."
