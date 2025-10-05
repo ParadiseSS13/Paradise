@@ -1719,7 +1719,7 @@
 /turf/simulated/wall/indestructible/rock/snow,
 /area/syndicate_mothership)
 "gh" = (
-/turf/simulated/wall/indestructible/opsglass,
+/turf/simulated/wall/indestructible/fakeglass/plastitanium,
 /area/centcom)
 "gi" = (
 /obj/item/storage/firstaid/fire,
@@ -1848,7 +1848,7 @@
 	layer = 1;
 	name = "Blocker"
 	},
-/turf/simulated/wall/indestructible/opsglass,
+/turf/simulated/wall/indestructible/fakeglass/plastitanium,
 /area/centcom)
 "gG" = (
 /obj/effect/decal/remains/human,
@@ -2502,7 +2502,7 @@
 	id_tag = "commandcenter";
 	name = "Privacy Shutters"
 	},
-/turf/simulated/wall/indestructible/opsglass,
+/turf/simulated/wall/indestructible/fakeglass/plastitanium,
 /area/syndicate_mothership)
 "iy" = (
 /obj/machinery/door/airlock/hatch/syndicate/command,
@@ -2728,7 +2728,7 @@
 	id_tag = "commandcenter";
 	name = "Privacy Shutters"
 	},
-/turf/simulated/wall/indestructible/opsglass,
+/turf/simulated/wall/indestructible/fakeglass/plastitanium,
 /area/syndicate_mothership)
 "jh" = (
 /obj/structure/chair/office/dark{
@@ -2741,7 +2741,7 @@
 	id_tag = "commandcenter";
 	name = "Privacy Shutters"
 	},
-/turf/simulated/wall/indestructible/opsglass,
+/turf/simulated/wall/indestructible/fakeglass/plastitanium,
 /area/syndicate_mothership)
 "jk" = (
 /obj/effect/landmark/spawner/syndicate_infiltrator,
@@ -3306,7 +3306,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "lg" = (
-/turf/simulated/wall/indestructible/opsglass,
+/turf/simulated/wall/indestructible/fakeglass/plastitanium,
 /area/syndicate_mothership/jail)
 "lh" = (
 /obj/machinery/door/poddoor/multi_tile/impassable{
@@ -3452,7 +3452,7 @@
 /turf/simulated/floor/plating,
 /area/centcom)
 "lH" = (
-/turf/simulated/wall/indestructible/opsglass,
+/turf/simulated/wall/indestructible/fakeglass/plastitanium,
 /area/admin)
 "lI" = (
 /obj/structure/rack,
@@ -8206,7 +8206,7 @@
 	},
 /area/syndicate_mothership)
 "BZ" = (
-/turf/simulated/wall/indestructible/opsglass,
+/turf/simulated/wall/indestructible/fakeglass/plastitanium,
 /area/syndicate_mothership)
 "Ca" = (
 /obj/machinery/computer/security/telescreen/entertainment{
@@ -11860,7 +11860,7 @@
 	},
 /area/shuttle/escape)
 "NJ" = (
-/turf/simulated/wall/indestructible/opsglass,
+/turf/simulated/wall/indestructible/fakeglass/plastitanium,
 /area/ghost_bar)
 "NK" = (
 /obj/machinery/computer/shuttle/admin{
@@ -14084,7 +14084,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "UO" = (
-/turf/simulated/wall/indestructible/opsglass/limited_smooth,
+/turf/simulated/wall/indestructible/fakeglass/plastitanium/limited_smooth,
 /area/syndicate_mothership)
 "UQ" = (
 /obj/structure/table,
@@ -14499,7 +14499,7 @@
 /area/centcom/evac)
 "Wm" = (
 /obj/structure/sign/drop,
-/turf/simulated/wall/indestructible/opsglass,
+/turf/simulated/wall/indestructible/fakeglass/plastitanium,
 /area/syndicate_mothership)
 "Wp" = (
 /obj/structure/table/wood,

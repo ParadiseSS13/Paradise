@@ -6313,7 +6313,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Kh" = (
-/turf/simulated/wall/indestructible/opsglass,
+/turf/simulated/wall/indestructible/fakeglass/plastitanium,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "Km" = (
 /obj/machinery/autolathe/syndicate,

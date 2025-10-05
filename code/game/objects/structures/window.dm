@@ -793,7 +793,7 @@
 /obj/structure/window/full/shuttle
 	name = "shuttle window"
 	desc = "A reinforced, air-locked pod window."
-	icon = 'icons/obj/smooth_structures/windows/shuttle_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40shuttle_window.dmi'
 	icon_state = "shuttle_window-0"
 	base_icon_state = "shuttle_window"
 	max_integrity = 200
@@ -801,6 +801,7 @@
 	heat_resistance = 1600
 	explosion_block = 3
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, RAD = 100, FIRE = 80, ACID = 100)
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/shuttle_window_edges.dmi'
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
 	glass_type = /obj/item/stack/sheet/titaniumglass
@@ -817,13 +818,14 @@
 /obj/structure/window/full/plastitanium
 	name = "plastitanium window"
 	desc = "An evil looking window of plasma and titanium. When hit with Gamma particles it will become charged and start emitting Beta particles"
-	icon = 'icons/obj/smooth_structures/windows/plastitanium_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40plastitanium_window.dmi'
 	icon_state = "plastitanium_window-0"
 	base_icon_state = "plastitanium_window"
 	max_integrity = 1200
 	reinf = TRUE
 	heat_resistance = 32000
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, RAD = 100, FIRE = 99, ACID = 100)
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/plastitanium_window_edges.dmi'
 	explosion_block = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_PLASTITANIUM_WALLS)

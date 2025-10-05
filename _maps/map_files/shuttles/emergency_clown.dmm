@@ -359,7 +359,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "tH" = (
-/turf/simulated/wall/indestructible/opsglass,
+/turf/simulated/wall/indestructible/fakeglass/plastitanium,
 /area/shuttle/escape)
 "Dr" = (
 /turf/simulated/wall/indestructible/syndicate,

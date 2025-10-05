@@ -205,22 +205,23 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS)
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/clockwork_window_edges.dmi'
 
-/turf/simulated/wall/indestructible/opsglass
+/turf/simulated/wall/indestructible/fakeglass/plastitanium
 	name = "window"
-	icon = 'icons/obj/smooth_structures/windows/plastitanium_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40plastitanium_window.dmi'
 	icon_state = "plastitanium_window-0"
 	base_icon_state = "plastitanium_window"
 	opacity = FALSE
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM, SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS)
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/plastitanium_window_edges.dmi'
 
-/turf/simulated/wall/indestructible/opsglass/Initialize(mapload)
+/turf/simulated/wall/indestructible/fakeglass/plastitanium/Initialize(mapload)
 	. = ..()
 	icon_state = null
 	underlays += mutable_appearance('icons/obj/structures.dmi', "grille")
 	underlays += mutable_appearance('icons/turf/floors.dmi', "plating")
 
-/turf/simulated/wall/indestructible/opsglass/limited_smooth
+/turf/simulated/wall/indestructible/fakeglass/plastitanium/limited_smooth
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
 
