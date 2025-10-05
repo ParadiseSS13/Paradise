@@ -202,7 +202,7 @@
 /turf/simulated/wall/mineral/titanium
 	name = "wall"
 	desc = "A light-weight titanium wall used in shuttles."
-	icon = 'icons/turf/walls/plastinum_wall.dmi'
+	icon = 'icons/turf/walls/32x40plastinum_wall.dmi'
 	icon_state = "plastinum_wall-0"
 	base_icon_state = "plastinum_wall"
 	explosion_block = 3

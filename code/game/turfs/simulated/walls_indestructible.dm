@@ -252,7 +252,7 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
 
 /turf/simulated/wall/indestructible/titanium
-	icon = 'icons/turf/walls/plastinum_wall.dmi'
+	icon = 'icons/turf/walls/32x40plastinum_wall.dmi'
 	icon_state = "plastinum_wall-0"
 	base_icon_state = "plastinum_wall"
 	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
