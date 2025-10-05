@@ -144,7 +144,6 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	icon = 'icons/turf/walls/32x40abductor_wall.dmi'
 	icon_state = "abductor_wall-0"
 	base_icon_state = "abductor_wall"
-	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_ABDUCTOR_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_WALLS)
 
@@ -152,7 +151,6 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	icon = 'icons/turf/walls/32x40abductor_wall.dmi'
 	icon_state = "abductor_wall-0"
 	base_icon_state = "abductor_wall"
-	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_ABDUCTOR_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_WALLS)
 
@@ -258,13 +256,11 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	icon_state = "plastinum_wall-0"
 	base_icon_state = "plastinum_wall"
 	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
-	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 
 /turf/simulated/wall/indestructible/titanium
 	icon_state = "map-shuttle_nd"
-	smoothing_flags = SMOOTH_BITMASK
 
 /turf/simulated/wall/indestructible/titanium/nosmooth
 	icon_state = "plastinum_wall"
@@ -278,8 +274,6 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	desc = "Like regular titanium, but able to deflect capitalist aggressors!"
 
 /turf/simulated/wall/indestructible/titanium/soviet/nodiagonal
-	icon_state = "map-shuttle_nd"
-	smoothing_flags = SMOOTH_BITMASK
 
 /turf/simulated/wall/indestructible/titanium/soviet/nosmooth
 	icon_state = "plastinum_wall"
@@ -289,7 +283,6 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	icon = 'icons/turf/walls/32x40plastitanium_wall.dmi'
 	icon_state = "plastitanium_wall-0"
 	base_icon_state = "plastitanium_wall"
-	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 

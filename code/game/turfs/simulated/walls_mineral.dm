@@ -140,7 +140,6 @@
 	icon_state = "abductor_wall-0"
 	base_icon_state = "abductor_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/abductor
-	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_ABDUCTOR_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_WALLS)
 
@@ -194,7 +193,6 @@
 	base_icon_state = "abductor_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/abductor
 	explosion_block = 3
-	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_ABDUCTOR_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ABDUCTOR_WALLS)
 
@@ -210,7 +208,6 @@
 	explosion_block = 3
 	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
-	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 
@@ -238,7 +235,6 @@
 	canSmoothWith = list(SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 
 /turf/simulated/wall/mineral/titanium/survival/nodiagonal
-	smoothing_flags = SMOOTH_BITMASK
 
 /turf/simulated/wall/mineral/titanium/survival/pod
 
@@ -252,7 +248,6 @@
 	base_icon_state = "plastitanium_wall"
 	explosion_block = 4
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
-	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_PLASTITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 
