@@ -147,6 +147,7 @@
 	speed_mod = -1
 	failure_rate = -20
 	durability = 300
+	productivity_mod = 4
 	quality = /datum/smith_quality/masterwork
 	material = /datum/smith_material/platinum
 

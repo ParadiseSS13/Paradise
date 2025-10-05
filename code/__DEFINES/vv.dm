@@ -52,6 +52,10 @@
 #define VV_HK_MAKESPEEDY "makespeedy"
 #define VV_HK_MAKENORMALSPEED "makenormalspeed"
 #define VV_HK_MODIFYARMOR "modifyarmor"
+#define VV_HK_MODIFY_ACCESS "modify_access"
+
+// /obj/item/card/id
+#define VV_HK_MODIFY_ID_CARD "modify_id_card"
 
 // /mob
 #define VV_HK_MOB_PLAYER_PANEL "mob_player_panel"

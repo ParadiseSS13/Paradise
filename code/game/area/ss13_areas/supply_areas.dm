@@ -3,6 +3,7 @@
 	name = "\improper Quartermasters"
 	icon_state = "quart"
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	airlock_wires = /datum/wires/airlock/cargo
 
 /area/station/supply/lobby
 	name = "\improper Cargo Lobby"
@@ -38,12 +39,14 @@
 	name = "Smith's Office"
 	icon_state = "smith"
 
+// this should really be command/office/cmo
 /area/station/supply/qm
 	name = "\improper Quartermaster's Office"
 	icon_state = "qm"
 	request_console_flags = RC_ASSIST | RC_INFO
 	request_console_name = "Quartermaster's Desk"
 	request_console_announces = TRUE
+	airlock_wires = /datum/wires/airlock/command
 
 /area/station/supply/miningdock
 	name = "\improper Mining Dock"

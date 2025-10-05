@@ -264,6 +264,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
 #define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
 #define TRAIT_WIRE_BLIND "wire_blind" // This doesn't block someone from seeing wires or recalling their position, but randomizes name / function to the user
+#define TRAIT_BOOTS_OF_JUMPING "boots_of_jumping" // Mob can do the jump emote without losing stamina
 
 /// Whether or not the user is in a MODlink call, prevents making more calls
 #define TRAIT_IN_CALL "in_call"
@@ -406,6 +407,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SMITH "tait_smith"
 /// Allows faster butchering times
 #define TRAIT_BUTCHER "butcher"
+
+/// How much faster pack rats are in wrapping packages as a percentage
+#define PACK_RAT_WRAP_SPEEDUP 0.375
 
 // sec traits
 

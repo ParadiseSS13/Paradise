@@ -293,6 +293,28 @@
 
 	return null
 
+/**
+ * Picks an element based on its weight. Weight can be any real number
+ * L - The input list
+ *
+ * example: list("a" = 0.33, "b" = 0.67) will have a 67% chance to pick "b"
+ */
+/proc/pickweight_fraction(list/L)
+	var/total = 0
+	var/item
+	for(item in L)
+		if(L[item] < 0)
+			continue
+		total += L[item]
+
+	total = rand() * total
+	for(item in L)
+		total -=L [item]
+		if(total <= 0)
+			return item
+
+	return null
+
 //Pick a random element from the list and remove it from the list.
 /proc/pick_n_take(list/listfrom)
 	if(length(listfrom) > 0)

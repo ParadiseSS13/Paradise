@@ -41,6 +41,10 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 		)
 
+/obj/item/clothing/head/wizard/mime/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/wizard/fake
 	desc = "It has WIZZARD written across it in sequins. Comes with a cool beard."
 	icon_state = "wizard-fake"

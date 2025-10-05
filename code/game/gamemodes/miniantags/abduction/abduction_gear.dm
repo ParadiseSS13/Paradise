@@ -58,6 +58,18 @@ CONTENTS:
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 
+/obj/item/clothing/under/abductor
+	name = "alien uniform"
+	desc = "A highly breathable, alien uniform designed for optimal abduction and dissection."
+	icon_state = "abductor"
+	inhand_icon_state = "bl_suit"
+	item_color = "abductor"
+	has_sensor = FALSE
+
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/misc.dmi'
+	)
+
 /obj/item/clothing/suit/armor/abductor/vest
 	name = "agent vest"
 	desc = "A vest outfitted with advanced stealth technology. It has two modes - combat and stealth."
