@@ -41,7 +41,7 @@
 /turf/simulated/wall/clockwork
 	name = "clockwork wall"
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within."
-	icon = 'icons/turf/walls/clockwork_wall.dmi'
+	icon = 'icons/turf/walls/32x40clockwork_wall.dmi'
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
 	explosion_block = 2
@@ -55,12 +55,10 @@
 
 /turf/simulated/wall/clockwork/Initialize(mapload)
 	. = ..()
-	new /obj/effect/temp_visual/ratvar/wall(src)
 	new /obj/effect/temp_visual/ratvar/beam(src)
 
 /turf/simulated/wall/clockwork/bullet_act(obj/item/projectile/Proj)
 	. = ..()
-	new /obj/effect/temp_visual/ratvar/wall(get_turf(src))
 	new /obj/effect/temp_visual/ratvar/beam(get_turf(src))
 
 /turf/simulated/wall/clockwork/narsie_act()

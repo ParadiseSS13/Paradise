@@ -198,12 +198,12 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	return list(edge_overlay)
 
 /turf/simulated/wall/indestructible/fakeglass/brass
-	icon = 'icons/obj/smooth_structures/windows/clockwork_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40clockwork_window.dmi'
 	icon_state = "clockwork_window-0"
 	base_icon_state = "clockwork_window"
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS)
-	edge_overlay_file = null
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/clockwork_window_edges.dmi'
 
 /turf/simulated/wall/indestructible/opsglass
 	name = "window"
