@@ -259,9 +259,6 @@ GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
 	smoothing_groups = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
 
-/turf/simulated/wall/indestructible/titanium
-	icon_state = "map-shuttle_nd"
-
 /turf/simulated/wall/indestructible/titanium/nosmooth
 	icon_state = "plastinum_wall"
 	smoothing_flags = NONE
