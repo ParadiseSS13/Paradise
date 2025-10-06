@@ -13820,7 +13820,7 @@
 	},
 /area/station/medical/reception)
 "aWJ" = (
-/mob/living/simple_animal/crab/coffee,
+/mob/living/basic/crab/coffee,
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
 	},
@@ -21899,13 +21899,6 @@
 "bwv" = (
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
-"bww" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
 "bwx" = (
 /obj/structure/sign/poster/official/random/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -40492,6 +40485,14 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/atmos)
+"cTm" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "cTn" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -48825,13 +48826,6 @@
 /obj/structure/closet,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"euR" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 9
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "euX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research/glass,
@@ -51061,15 +51055,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/hallway)
-"fxE" = (
-/obj/machinery/access_button{
-	autolink_id = "engsm_btn_ext";
-	name = "Supermatter Access Button";
-	pixel_y = -24;
-	req_access = list(10)
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/hardsuitstorage)
 "fxN" = (
 /obj/structure/table,
 /obj/item/reagent_containers/drinks/drinkingglass,
@@ -53564,6 +53549,14 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry/north)
+"gKF" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "gKN" = (
 /obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
@@ -60810,6 +60803,15 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
+"kpx" = (
+/obj/machinery/access_button{
+	autolink_id = "engsm_btn_ext";
+	name = "Supermatter Access Button";
+	pixel_y = -24;
+	req_access = list(10)
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/hardsuitstorage)
 "kpR" = (
 /obj/structure/rack,
 /obj/item/wrench,
@@ -65836,6 +65838,13 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
+"mMV" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 10
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "mNf" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -66001,9 +66010,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "mSb" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -67903,14 +67909,6 @@
 	icon_state = "whitegreen"
 	},
 /area/station/public/sleep)
-"nXo" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "nXr" = (
 /obj/machinery/status_display{
 	layer = 4;
@@ -69481,6 +69479,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/smith_office)
+"oFL" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/port)
 "oGf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/economy/vending/sovietsoda,
@@ -81328,13 +81336,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/surgery/secondary)
-"uxh" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 10
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "uxB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil,
@@ -83579,6 +83580,13 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
+"vJx" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 9
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/space/nearstation)
 "vJN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -83783,14 +83791,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"vNu" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/engineering/control)
 "vOq" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/alarm/directional/east,
@@ -108342,7 +108342,7 @@ blM
 fmd
 blQ
 bET
-mSb
+oFL
 bnK
 xWJ
 bxb
@@ -110135,7 +110135,7 @@ brz
 bsD
 bui
 blR
-bww
+mSb
 bnK
 pIE
 cCh
@@ -117905,9 +117905,9 @@ cId
 nYC
 uku
 kSu
-fxE
+kpx
 cSU
-nXo
+gKF
 ktD
 cSU
 rkX
@@ -119456,7 +119456,7 @@ ePY
 fQx
 urs
 ePY
-vNu
+cTm
 ePY
 ePY
 uLe
@@ -124842,7 +124842,7 @@ aab
 cQp
 aab
 cZh
-uxh
+mMV
 dba
 djE
 dcS
@@ -124854,7 +124854,7 @@ djE
 djE
 djE
 djE
-euR
+vJx
 aab
 aab
 aab
