@@ -1658,6 +1658,7 @@
 	drink_desc = "A classic Unathi drink. You can spot sand sediment at the bottom of the glass. The drink is hot as hell and more."
 	taste_description = "sand"
 	goal_difficulty = REAGENT_GOAL_NORMAL
+	var/max_achievable_temp = 360
 	var/burn_modifier = 0.1 // 10 %.
 
 /datum/reagent/consumable/ethanol/beach_feast/on_mob_add(mob/living/M)
@@ -1671,8 +1672,8 @@
 	if(current_cycle <= 5 || !isunathi(M))
 		return ..()
 
-	if(M.bodytemperature < 360)
-		M.bodytemperature = min(360, M.bodytemperature + (80 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	if(M.bodytemperature < max_achievable_temp)
+		M.bodytemperature = min(max_achievable_temp, M.bodytemperature + (80 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	return ..()
 
 /datum/reagent/consumable/ethanol/beach_feast/on_mob_delete(mob/living/M)
