@@ -727,11 +727,11 @@
 /datum/reagent/consumable/drink/fyrsskar_tears
 	name = "Tears of Fyrsskar"
 	id = "fyrsskartears"
-	description = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld."
+	description = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld to purge impurities."
 	color = "#C300AE" // rgb: 195, 0, 174
 	drink_icon = "fyrsskartears"
 	drink_name = "Tears of Fyrsskar"
-	drink_desc = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld."
+	drink_desc = "Plasmonic based drink that was consumed by ancient inhabitants of Skrellian homeworld to purge impurities."
 	taste_description = "plasma"
 	var/alcohol_perc = 0.05
 	var/dizzy_adj = 6 SECONDS
@@ -743,6 +743,10 @@
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_life(mob/living/M)
 	if(!isskrell(M))
 		return ..()
+
+	for(var/datum/reagent/R in M.reagents.reagent_list)
+		if(R != src)
+			M.reagents.remove_reagent(R.id, 5)
 	// imitate alcohol effects using current cycle
 	M.AdjustDrunk(alcohol_perc STATUS_EFFECT_CONSTANT)
 	M.AdjustDizzy(dizzy_adj, bound_upper = 1.5 MINUTES)
