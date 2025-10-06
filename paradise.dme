@@ -1373,6 +1373,7 @@
 #include "code\game\objects\items\stacks\seaweed.dm"
 #include "code\game\objects\items\stacks\stack.dm"
 #include "code\game\objects\items\stacks\stack_recipe.dm"
+#include "code\game\objects\items\stacks\synthetic_skin.dm"
 #include "code\game\objects\items\stacks\telecrystal.dm"
 #include "code\game\objects\items\stacks\sheets\glass.dm"
 #include "code\game\objects\items\stacks\sheets\leather.dm"

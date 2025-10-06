@@ -1356,6 +1356,20 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	overlays_standing[INTORGAN_LAYER] = standing
 	apply_overlay(INTORGAN_LAYER)
+	update_hand_int_organs()
+
+/mob/living/carbon/human/proc/update_hand_int_organs()
+	remove_overlay(HAND_INTORGAN_LAYER)
+
+	var/list/standing = list()
+	for(var/organ in internal_organs)
+		var/obj/item/organ/internal/I = organ
+		var/extra_render = I.extra_render()
+		if(extra_render)
+			standing += extra_render
+
+	overlays_standing[HAND_INTORGAN_LAYER] = standing
+	apply_overlay(HAND_INTORGAN_LAYER)
 
 /mob/living/carbon/human/handle_transform_change()
 	..()
