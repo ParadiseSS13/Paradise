@@ -10,6 +10,8 @@
 	var/explosion_target
 	var/datum/tech/toxins/toxins_tech
 	var/max_toxins_tech = 7
+	/// List of linked machines
+	var/list/linked_machines = list()
 
 /datum/explosion_log
 	var/logged_time
@@ -48,6 +50,16 @@
 	if(!default_unfasten_wrench(user, I, 0))
 		return
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/doppler_array/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/multi = I
+	multi.set_multitool_buffer(user, src)
+	to_chat(user, "<span class='notice'>You save [src]'s linking data to the buffer.</span>")
 
 /obj/machinery/doppler_array/attack_hand(mob/user)
 	if(..())
@@ -148,6 +160,8 @@
 		messages += "Toxins technology level upgraded to [toxins_tech.level]. Swipe a technology disk to save data."
 	for(var/message in messages)
 		atom_say(message)
+	for(var/obj/machinery/anomaly_refinery/anom_refiner in linked_machines)
+		anom_refiner.refine_core(orig_light_range)
 
 /obj/machinery/doppler_array/update_icon_state()
 	if(stat & BROKEN)

@@ -3,7 +3,6 @@
 	desc = "It looks like it was tailored for a monkey."
 	icon_state = "punpun"
 	worn_icon = 'icons/mob/clothing/under/misc.dmi'
-	item_color = "punpun"
 	species_restricted = list("Monkey")
 	species_exception = list(/datum/species/monkey)
 
