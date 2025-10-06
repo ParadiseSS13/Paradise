@@ -196,7 +196,6 @@
 	name = "berserker helmet"
 	desc = "Peering into the eyes of the helmet is enough to seal damnation."
 	icon_state = "hardsuit0-berserker"
-	item_color = "berserker"
 	light_color = BERSERK_COLOUR
 	light_power = 4
 	actions_types = list(/datum/action/item_action/berserk_mode)

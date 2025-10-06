@@ -41,6 +41,10 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 		)
 
+/obj/item/clothing/head/wizard/mime/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
+
 /obj/item/clothing/head/wizard/fake
 	desc = "It has WIZZARD written across it in sequins. Comes with a cool beard."
 	icon_state = "wizard-fake"
@@ -199,7 +203,7 @@
 	name = "battlemage helmet"
 	desc = "A suitably impressive helmet."
 	icon_state = "hardsuit0-wiz"
-	item_color = "wiz"
+	base_icon_state = "wiz"
 	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = INFINITY, ACID = INFINITY)
 	actions_types = list() //No inbuilt light
 	resistance_flags = FIRE_PROOF | ACID_PROOF

@@ -4716,6 +4716,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
+/obj/item/raw_anomaly_core,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -6869,7 +6870,7 @@
 "bev" = (
 /obj/effect/spawner/airlock/e_to_w/long,
 /turf/simulated/wall,
-/area/space/nearstation)
+/area/station/maintenance/security/aft_port)
 "bex" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/extra_insulated{
@@ -34199,7 +34200,7 @@
 /area/station/security/permabrig)
 "fRW" = (
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/station/maintenance/security/aft_port)
 "fRZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -96111,7 +96112,6 @@
 "sZY" = (
 /obj/structure/table/reinforced,
 /obj/item/ashtray/bronze{
-	pixel_y = 0;
 	pixel_x = 7
 	},
 /obj/item/reagent_containers/drinks/mug/qm{
@@ -117737,6 +117737,7 @@
 /area/station/engineering/atmos)
 "xyC" = (
 /obj/machinery/firealarm/directional/east,
+/obj/machinery/anomaly_refinery,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
