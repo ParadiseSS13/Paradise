@@ -1960,7 +1960,7 @@
 /datum/reagent/consumable/ethanol/ultramatter/on_mob_delete(mob/living/M)
 	if(isplasmaman(M))
 		REMOVE_TRAIT(M, TRAIT_RESISTHEAT, id)
-		M.ExtinguishMob()
-		to_chat(M, "<span class='warning'>The fires surrounding you are quenched!</span>")
+	M.ExtinguishMob()
+	to_chat(M, "<span class='warning'>The fires surrounding you are quenched!</span>")
 	return ..()
 	
