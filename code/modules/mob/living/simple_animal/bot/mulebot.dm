@@ -738,16 +738,13 @@
 					"<span class='userdanger'>[src] drives over you!</span>")
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 
-	var/damage = rand(5,15)
-	H.apply_damage(2*damage, BRUTE, "head", run_armor_check("head", MELEE))
-	H.apply_damage(2*damage, BRUTE, "chest", run_armor_check("chest", MELEE))
-	H.apply_damage(0.5*damage, BRUTE, "l_leg", run_armor_check("l_leg", MELEE))
-	H.apply_damage(0.5*damage, BRUTE, "r_leg", run_armor_check("r_leg", MELEE))
-	H.apply_damage(0.5*damage, BRUTE, "l_arm", run_armor_check("l_arm", MELEE))
-	H.apply_damage(0.5*damage, BRUTE, "r_arm", run_armor_check("r_arm", MELEE))
-
-
-
+	var/damage = rand(5, 15)
+	H.apply_damage(2 * damage, BRUTE, BODY_ZONE_HEAD, run_armor_check(BODY_ZONE_HEAD, MELEE))
+	H.apply_damage(2 * damage, BRUTE, BODY_ZONE_CHEST, run_armor_check(BODY_ZONE_CHEST, MELEE))
+	H.apply_damage(0.5 * damage, BRUTE, BODY_ZONE_L_LEG, run_armor_check(BODY_ZONE_L_LEG, MELEE))
+	H.apply_damage(0.5 * damage, BRUTE, BODY_ZONE_R_LEG, run_armor_check(BODY_ZONE_R_LEG, MELEE))
+	H.apply_damage(0.5 * damage, BRUTE, BODY_ZONE_L_ARM, run_armor_check(BODY_ZONE_L_ARM, MELEE))
+	H.apply_damage(0.5 * damage, BRUTE, BODY_ZONE_R_ARM, run_armor_check(BODY_ZONE_R_ARM, MELEE))
 
 	if(NO_BLOOD in H.dna.species.species_traits)//Does the run over mob have blood?
 		return//If it doesn't it shouldn't bleed (Though a check should be made eventually for things with liquid in them, like slime people.)
@@ -884,6 +881,8 @@
 		return
 	for(var/atom/AM in loc)
 		if(!ishuman(AM))
+			continue
+		if(has_buckled_mobs() && (AM in buckled_mobs)) // Can't run over someone buckled to the top.
 			continue
 		RunOver(AM)
 

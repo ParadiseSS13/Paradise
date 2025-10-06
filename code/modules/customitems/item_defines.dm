@@ -25,6 +25,10 @@
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 
+/obj/item/clothing/under/pants/fluff
+	icon = 'icons/obj/custom_items.dmi'
+	worn_icon = 'icons/mob/clothing/under/donator.dmi'
+
 /// Generic tattoo gun, make subtypes for different folks
 /obj/item/fluff/tattoo_gun
 	name = "disposable tattoo pen"
@@ -183,6 +187,7 @@
 	desc = "Wolf's non-functional thermal eyepatch."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "wolf_eyepatch"
+	icon_monitor = null
 
 /// Adrkiller59: Adam Cooper
 /obj/item/clothing/glasses/meson/fluff/book_berner_1
@@ -190,12 +195,14 @@
 	desc = "One of the older meson scanner models retrofitted to perform like its modern counterparts."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "book_berner_1"
+	icon_monitor = null
 
 /// Rapidvalj: Kakicharakiti
 /obj/item/clothing/glasses/sunglasses_fake/fluff/kaki
 	name = "broken thermonocle"
 	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
 	icon_state = "thermonocle"
+	icon_monitor = null
 
 /// Rapidvalj: Hakikarahiti
 /obj/item/fluff/rapid_wheelchair_kit
@@ -616,6 +623,7 @@
 	desc = "Tacticool ballistic glasses, for making all operators look badass."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "eyepro"
+	icon_monitor = null
 
 /// LP Spartan: Kaskreyarawkta
 /obj/item/clothing/glasses/hud/security/sunglasses/fluff/voxxyhud
@@ -927,6 +935,7 @@
 /// Epic_Charger: Linda Clark
 /obj/item/clothing/head/hooded/hood/fluff/linda
 	icon_state = "greenhood"
+	icon_monitor = null
 
 /// Hylocereus: Sam Aria
 /obj/item/clothing/suit/hooded/hoodie/fluff/hylo
@@ -952,6 +961,7 @@
 /obj/item/clothing/head/hooded/hood/fluff/skeleton
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "skeleton_hood"
+	icon_monitor = null
 
 /// RazekPraxis: SHODAN
 /obj/item/clothing/suit/armor/shodanscoat
@@ -1021,6 +1031,7 @@
 	desc = "A hood with some horns <i>glued</i> to them, or something like that. Custom fit for a Unathi's head shape."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xydonus_bomberhood"
+	icon_monitor = null
 
 /// Pineapple Salad: Dan Jello
 /obj/item/clothing/suit/fluff/pineapple
@@ -1088,10 +1099,9 @@
 	name = "Rissa's hand-me-downs"
 	desc = "An old, hand-me-down baggy sweater and sweatpants combo. A label on the neck reads 'RISSA' in scruffy handwriting."
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "counterfeitguise" // doesn't exist
+	icon_state = "counterfeitguise"
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	item_color = "counterfeitguise"
 
 /// Benjaminfallout: Pretzel Brassheart
 /obj/item/clothing/under/fluff/benjaminfallout
@@ -1099,7 +1109,6 @@
 	name = "Pretzel's dress"
 	desc = "A nice looking dress."
 	icon_state = "fallout_dress"
-	item_color = "fallout_dress"
 
 /// Norstead : Natalya Sokolova
 /obj/item/clothing/under/fluff/soviet_casual_uniform
@@ -1107,7 +1116,6 @@
 	name = "Soviet Casual Uniform"
 	desc = "Female U.S.S.P. casual wear. Dlya Rodiny!"
 	icon_state = "soviet_casual_uniform"
-	item_color = "soviet_casual_uniform"
 
 /// Kharshai: Athena Castile
 /obj/item/clothing/under/fluff/kharshai
@@ -1115,7 +1123,6 @@
 	desc = "A white and gold formal uniform, accompanied by a small pin with the numbers '004' etched upon it."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "castile_dress"
-	item_color = "castile_dress"
 
 /// Xantholne: Meex Zwichsnicrur
 /obj/item/clothing/under/fluff/xantholne
@@ -1125,7 +1132,6 @@
 	icon_state = "xantholne"
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	item_color = "xantholne"
 
 /// FlattestGuitar9: Eli Randolph
 /obj/item/clothing/under/fluff/elishirt
@@ -1134,7 +1140,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "elishirt"
 	inhand_icon_state = "ba_suit"
-	item_color = "elishirt"
 	displays_id = FALSE
 
 /// Jayfeather: Jay Wingler
@@ -1144,7 +1149,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "jaywingler"
 	inhand_icon_state = "bl_suit"
-	item_color = "jaywingler"
 	displays_id = FALSE
 
 /// Xilia: Isaca Sirius
@@ -1159,7 +1163,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "jane_sid_suit"
 	inhand_icon_state = "gy_suit"
-	item_color = "jane_sid_suit"
 	has_sensor = 2
 	sensor_mode = SENSOR_COORDS
 
@@ -1170,14 +1173,13 @@
 	if(usr.stat || usr.restrained())
 		return 0
 
-	if(src.icon_state == "jane_sid_suit_down")
-		src.item_color = "jane_sid_suit"
+	if(icon_state == "jane_sid_suit_down")
+		icon_state = "jane_sid_suit"
 		to_chat(usr, "You zip up \the [src].")
 	else
-		src.item_color = "jane_sid_suit_down"
+		icon_state = "jane_sid_suit_down"
 		to_chat(usr, "You unzip and roll down \the [src].")
 
-	src.icon_state = "[item_color]"
 	usr.update_inv_w_uniform()
 
 /// MrBarrelrolll: Maximus Greenwood
@@ -1186,8 +1188,8 @@
 	desc = "A set of chainmail adorned with a hide mantle. \"Greenwood\" is engraved into the right breast."
 	icon = 'icons/obj/clothing/under/costumes.dmi'
 	icon_state = "roman"
+	worn_icon_state = "maximus_armor"
 	inhand_icon_state = "armor"
-	item_color = "maximus_armor"
 	displays_id = FALSE
 	strip_delay = 100
 
@@ -1200,7 +1202,6 @@
 	inhand_icon_state = "aegisuniform"
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	item_color = "aegisuniform"
 	displays_id = FALSE
 
 /// vforcebomber: E.L.O.
@@ -1208,8 +1209,7 @@
 	name = "E.L.O's Turtleneck"
 	desc = "This TurtleNeck belongs to the IPC E.L.O. And has her name sown into the upper left breast, a very wooly jumper."
 	icon = 'icons/obj/custom_items.dmi' // for the floor sprite
-	icon_state = "eloturtleneckfloor"
-	item_color = "eloturtleneck"
+	icon_state = "eloturtleneck"
 	displays_id = FALSE
 
 //////////// Masks ////////////
@@ -1249,14 +1249,12 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fox_suit"
 	inhand_icon_state = "g_suit"
-	item_color = "fox_suit"
 	displays_id = FALSE //still appears on examine; this is pure fluff.
 
 /obj/item/clothing/suit/storage/fox/miljacket_desert
 	name = "rugged military jacket"
 	desc = "A rugged brown military jacket with a stylized 'A' embroidered on the back. It seems very old, yet is in near mint condition. Has a tag on the inside collar signed 'Fox McCloud'."
 	icon_state = "fox_coat"
-	item_color = "fox_coat"
 
 /obj/item/toy/plushie/fluff/fox
 	name = "orange fox plushie"
@@ -1293,7 +1291,6 @@
 	desc = "It's what an evil genius would design if he switched brains with the Amazing Arachno-Man. Actually, he'd probably add weird tentacles that come out the back, too."
 	icon = 'icons/obj/clothing/under/donator.dmi'
 	icon_state = "superior_suit"
-	item_color = "superior_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES
 
@@ -1377,10 +1374,7 @@
 /obj/item/clothing/under/pants/fluff/combat
 	name = "combat pants"
 	desc = "Medium style tactical pants, for the fashion aware combat units out there."
-	icon = 'icons/mob/clothing/under/donator.dmi'
-	icon_state = "combat_pants_s"
-	worn_icon = 'icons/mob/clothing/under/donator.dmi'
-	item_color = "combat_pants"
+	icon_state = "combat_pants"
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/donator.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/donator.dmi',
@@ -1481,7 +1475,6 @@
 	desc = "A locket with a orange gem set on the front, the picture inside seems to be of a Tajaran."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fethasnecklace"
-	item_color = "fethasnecklace"
 	slot_flags = ITEM_SLOT_MASK | ITEM_SLOT_ACCESSORY
 
 /// HugoLuman: Dan Martinez
@@ -1492,7 +1485,6 @@
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 	icon_state = "sheetcosmos"
-	item_color = "sheetcosmos"
 
 /// Lightfire: Hyperion
 /obj/item/clothing/head/fluff/lfbowler
@@ -1507,7 +1499,6 @@
 	desc = "A blue and black victorian suit with silver buttons, very fancy!"
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "victorianlightfire"
-	item_color = "victorianlightfire"
 	displays_id = FALSE
 
 /// LightFire53: Ikelos
@@ -1548,7 +1539,6 @@
 		to_chat(H, "<span class='notice'>You modify the appearance of [P].</span>")
 		playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		P.icon_state = "ikelos_envirosuit"
-		P.item_color = "ikelos_envirosuit"
 		P.icon = 'icons/obj/custom_items.dmi'
 
 		if(P == H.w_uniform)
@@ -1560,6 +1550,7 @@
 /// LightFire53: Ikelos
 /obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff
 	icon_state = "ikelos_envirohelm" // New item needed because `initial(icon_state)` is used.
+	light_icon = "ikelos_envirohelm-light"
 	icon = 'icons/obj/custom_items.dmi'
 
 /// Xerdies: Squiddle Toodle
@@ -1579,7 +1570,6 @@
 	desc = "This medal is cut into the shape of a Victoria Cross, and is awarded to those who have proven themselves to Nanotrasen with a long and successful career."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "elo-medal"
-	item_color = "elo-medal"
 
 /// Furasian: Fillmoore Grayson
 /obj/item/clothing/suit/fluff/vetcoat
@@ -1605,7 +1595,6 @@
 	desc = "A medal from the bygone Asteroid Wars. Its Ruby shines with a strange intensity."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "panzermedal"
-	item_color = "panzermedal"
 
 /// Sagrotter: Xann Zxiax
 /obj/item/clothing/accessory/medal/fluff/xann_zxiax
@@ -1613,7 +1602,6 @@
 	desc = "Green Garnet on fancy blue cord, when you look at the Garnet, you feel strangely appeased."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "Xann_necklace"
-	item_color = "Xann_necklace"
 
 /// Rb303: Isthel Eisenwald
 /obj/item/clothing/accessory/rbscarf
@@ -1621,7 +1609,6 @@
 	desc = "An old, striped purple scarf. It appears to be hand-knitted and has the name 'Isthel' written on it in bad handwriting."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "rbscarf"
-	item_color = "rbscarf"
 
 /// Pineapple Salad: Dan Jello
 /obj/item/clothing/head/fluff/pinesalad_horns
@@ -1645,7 +1632,6 @@
 	icon_state = "kiaoutfit"
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	item_color = "kiaoutfit"
 	displays_id = FALSE
 	species_restricted = list("Vox")
 
@@ -1657,7 +1643,6 @@
 	icon_state = "kiahat"
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	item_color = "kiahat"
 
 /// FullOfSkittles: Kiachi
 /obj/item/clothing/mask/gas/fluff/kiamask
@@ -1668,7 +1653,6 @@
 	inhand_icon_state = null
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	item_color = "kiamask"
 	species_restricted = list("Vox")
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
 
@@ -1699,7 +1683,6 @@
 	icon_state = "kikeridress"
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	item_color = "kikeridress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	species_restricted = list("Vox")
 
@@ -1712,7 +1695,6 @@
 	inhand_icon_state = null
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	item_color = "kikerimask"
 	species_restricted = list("Vox")
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
 
@@ -1725,7 +1707,6 @@
 	inhand_icon_state = null
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	item_color = "yahiyamask"
 	species_restricted = list("Vox")
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
 
@@ -1739,13 +1720,11 @@
 	name = "rebel outfit"
 	desc = "Made in Seattle, 2216."
 	icon_state = "colin_earle"
-	item_color = "colin_earle"
 
 // Paratoberfest/contributor rewards
 /obj/item/clothing/accessory/pin/reward // Default pin, DO NOT USE - Use the subtypes below
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "pin_coding"
-	item_color = "pin_coding"
 
 /obj/item/clothing/accessory/pin/reward/coding
 	name = "Coding Contribution Pin"
@@ -1755,13 +1734,11 @@
 	name = "Mapping Contribution Pin"
 	desc = "A commemorative pin to reward contributions of mapping."
 	icon_state = "pin_mapping"
-	item_color = "pin_mapping"
 
 /obj/item/clothing/accessory/pin/reward/spriting
 	name = "Spriting Contribution Pin"
 	desc = "A commemorative pin to reward contributions of spriting."
 	icon_state = "pin_spriting"
-	item_color = "pin_spriting"
 
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT

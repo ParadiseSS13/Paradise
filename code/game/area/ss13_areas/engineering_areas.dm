@@ -40,6 +40,7 @@
 /area/station/engineering
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
+	airlock_wires = /datum/wires/airlock/engineering
 
 /area/station/engineering/smes
 	name = "\improper Engineering SMES"

@@ -2,7 +2,6 @@
 	name = "freedom bio-chip"
 	desc = "Use this to escape from those evil Red Shirts."
 	icon_state = "freedom"
-	item_color = "r"
 	origin_tech = "combat=5;magnets=3;biotech=4;syndicate=2"
 	uses = 4
 	implant_data = /datum/implant_fluff/freedom
@@ -19,8 +18,8 @@
 			var/mob/living/carbon/M = G.assailant
 			C_imp_in.visible_message("<span class='warning'>[C_imp_in] suddenly shocks [M] from their wrists and slips out of their grab!</span>")
 			M.Stun(2 SECONDS) //Drops the grab
-			M.apply_damage(2, BURN, "r_hand", M.run_armor_check("r_hand", "energy"))
-			M.apply_damage(2, BURN, "l_hand", M.run_armor_check("l_hand", "energy"))
+			M.apply_damage(2, BURN, BODY_ZONE_PRECISE_R_HAND, M.run_armor_check(BODY_ZONE_PRECISE_R_HAND, ENERGY))
+			M.apply_damage(2, BURN, BODY_ZONE_PRECISE_L_HAND, M.run_armor_check(BODY_ZONE_PRECISE_L_HAND, ENERGY))
 			C_imp_in.SetStunned(0) //This only triggers if they are grabbed, to have them break out of the grab, without the large stun time.
 			C_imp_in.SetWeakened(0)
 			playsound(C_imp_in.loc, "sound/weapons/egloves.ogg", 75, 1)

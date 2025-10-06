@@ -419,37 +419,31 @@
 /obj/item/clothing/mask/bandana/red
 	name = "red bandana"
 	icon_state = "bandred"
-	item_color = "red"
 	desc = "It's a red bandana."
 
 /obj/item/clothing/mask/bandana/blue
 	name = "blue bandana"
 	icon_state = "bandblue"
-	item_color = "blue"
 	desc = "It's a blue bandana."
 
 /obj/item/clothing/mask/bandana/gold
 	name = "gold bandana"
 	icon_state = "bandgold"
-	item_color = "yellow"
 	desc = "It's a gold bandana."
 
 /obj/item/clothing/mask/bandana/green
 	name = "green bandana"
 	icon_state = "bandgreen"
-	item_color = "green"
 	desc = "It's a green bandana."
 
 /obj/item/clothing/mask/bandana/orange
 	name = "orange bandana"
 	icon_state = "bandorange"
-	item_color = "orange"
 	desc = "It's an orange bandana."
 
 /obj/item/clothing/mask/bandana/purple
 	name = "purple bandana"
 	icon_state = "bandpurple"
-	item_color = "purple"
 	desc = "It's a purple bandana."
 
 /obj/item/clothing/mask/bandana/botany
@@ -464,7 +458,6 @@
 /obj/item/clothing/mask/bandana/black
 	name = "black bandana"
 	icon_state = "bandblack"
-	item_color = "black"
 	desc = "It's a black bandana."
 
 /obj/item/clothing/mask/bandana/durathread
@@ -483,6 +476,12 @@
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags =	BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	flags_cover = MASKCOVERSMOUTH
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/mask.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi'
+		)
 
 /obj/item/clothing/mask/cursedclown
 	name = "cursed clown mask"
@@ -496,6 +495,12 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = NODROP | AIRTIGHT | DROPDEL
 	flags_cover = MASKCOVERSMOUTH
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/mask.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi'
+		)
 
 /obj/item/clothing/mask/cursedclown/equipped(mob/user, slot)
 	..()

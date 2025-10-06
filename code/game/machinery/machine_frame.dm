@@ -90,6 +90,10 @@
 			icon_state = "box_0"
 
 /obj/structure/machine_frame/item_interaction(mob/living/user, obj/item/P, list/modifiers)
+	// Allow the borg gripper to pass the attack to the item it's holding.
+	if(istype(P, /obj/item/gripper))
+		return ..()
+
 	switch(state)
 		if(MACHINE_FRAME_EMPTY)
 			if(istype(P, /obj/item/stack/cable_coil))
@@ -1014,6 +1018,18 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/cell = 1,
 							/obj/item/stock_parts/manipulator = 1)
 
+/obj/item/circuitboard/anomaly_refinery
+	board_name = "Anomaly Refinery"
+	icon_state = "science"
+	build_path = /obj/machinery/anomaly_refinery
+	board_type = "machine"
+	origin_tech = "programming=4;engineering=4;"
+	req_components = list(
+							/obj/item/stock_parts/scanning_module = 1,
+							/obj/item/stack/sheet/glass = 1,
+							/obj/item/stack/cable_coil = 2
+						)
+
 // Telecomms circuit boards:
 /obj/item/circuitboard/tcomms/relay
 	board_name = "Telecommunications Relay"
@@ -1031,6 +1047,17 @@ to destroy them and players will be able to make replacements.
 	origin_tech = "programming=2;engineering=2"
 	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil = 2)
 // End telecomms circuit boards
+
+/obj/item/circuitboard/salvage_redemption
+	board_name = "Salvage Redemption"
+	icon_state = "supply"
+	build_path = /obj/machinery/salvage_redemption
+	board_type = "machine"
+	origin_tech = "programming=1;engineering=2"
+	req_components = list(
+							/obj/item/stack/sheet/glass = 1,
+							/obj/item/stock_parts/scanning_module = 3,
+							/obj/item/stock_parts/manipulator = 1)
 
 /obj/item/circuitboard/smart_hopper
 	board_name = "Ore Redemption"
