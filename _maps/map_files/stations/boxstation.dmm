@@ -17015,6 +17015,7 @@
 	dir = 1
 	},
 /obj/structure/table,
+/obj/item/storage/box/disks_plantgene,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -75693,7 +75694,6 @@
 	pixel_x = 3
 	},
 /obj/item/folder{
-	pixel_y = 0;
 	pixel_x = -15
 	},
 /obj/item/ashtray/glass{
