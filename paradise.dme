@@ -2885,6 +2885,7 @@
 #include "code\modules\power\cables\cable.dm"
 #include "code\modules\power\cables\cable_coil.dm"
 #include "code\modules\power\cables\terminal.dm"
+#include "code\modules\power\engines\fission\datum_nuclear_rods.dm"
 #include "code\modules\power\engines\fission\nuclear_misc.dm"
 #include "code\modules\power\engines\fission\nuclear_rods.dm"
 #include "code\modules\power\engines\fission\reactor.dm"

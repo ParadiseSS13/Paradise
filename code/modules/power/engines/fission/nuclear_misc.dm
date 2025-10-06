@@ -173,6 +173,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 
 	RefreshParts()
+	create_designs()
 
 /obj/machinery/nuclear_rod_fabricator/RefreshParts()
 	var/temp_coeff = 12
@@ -260,26 +261,52 @@
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/nuclear_rod_fabricator/proc/create_designs()
-	for(var/obj/item/nuclear_rod/rod in subtypesof(/obj/item/nuclear_rod))
-		if(!rod.craftable)
-			continue
-		if(istype(rod, /obj/item/nuclear_rod/fuel))
-			category_fuel += rod
-		if(istype(rod, /obj/item/nuclear_rod/moderator))
-			category_moderator += rod
-		if(istype(rod, /obj/item/nuclear_rod/coolant))
-			category_coolant += rod
+	category_fuel = list()
+	category_moderator = list()
+	category_coolant = list()
 
-/obj/machinery/nuclear_rod_fabricator/proc/get_rod_info(rod_type)
-	return rod_type
-// #warn finish this when burza gets to the UI screen
+	for(var/rod_path in subtypesof(/obj/item/nuclear_rod))
+		if(rod_path == /obj/item/nuclear_rod || rod_path == /obj/item/nuclear_rod/fuel || rod_path == /obj/item/nuclear_rod/moderator || rod_path == /obj/item/nuclear_rod/coolant)
+			continue
+
+		var/datum/nuclear_rod_design/D = new /datum/nuclear_rod_design()
+		D.build_metadata_list(rod_path)
+
+		if(!D.metadata["craftable"])
+			continue
+
+		if(ispath(rod_path, /obj/item/nuclear_rod/fuel))
+			category_fuel += D
+		else if(ispath(rod_path, /obj/item/nuclear_rod/moderator))
+			category_moderator += D
+		else if(ispath(rod_path, /obj/item/nuclear_rod/coolant))
+			category_coolant += D
+
+/obj/machinery/nuclear_rod_fabricator/ui_data(mob/user)
+	var/list/data = list()
+
+	data["fuel_rods"] = list()
+	for(var/datum/nuclear_rod_design/D in category_fuel)
+		data["fuel_rods"] += list(D.metadata)
+
+	data["moderator_rods"] = list()
+	for(var/datum/nuclear_rod_design/D in category_moderator)
+		data["moderator_rods"] += list(D.metadata)
+
+	data["coolant_rods"] = list()
+	for(var/datum/nuclear_rod_design/D in category_coolant)
+		data["coolant_rods"] += list(D.metadata)
+
+	return data
+
+/obj/machinery/nuclear_rod_fabricator/attack_hand(mob/user)
+	ui_interact(user)
 
 /obj/machinery/nuclear_rod_fabricator/interact(mob/user)
 	. = ..()
 	if(panel_open)
 		to_chat(user, "<span class='warning'>You can't access [src] while it's opened.</span>")
 		return
-	ui_interact(user)
 
 /obj/machinery/nuclear_rod_fabricator/ui_state(mob/user)
 	return GLOB.default_state
@@ -287,7 +314,7 @@
 /obj/machinery/nuclear_rod_fabricator/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Autolathe", name)
+		ui = new(user, src, "NuclearRodFabricator", name)
 		ui.open()
 
 // MARK: Temp rod fab

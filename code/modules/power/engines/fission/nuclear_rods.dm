@@ -35,8 +35,6 @@
 	var/gamma_rad = 0
 	/// What items need to be adjacent to this rod for it to function properly
 	var/list/adjacent_requirements = list()
-	/// Is this design visible on the rod fabricator
-	var/craftable = TRUE
 	/// Modifies the reactor's minimum operating temperature.
 	var/minimum_temp_modifier = 0
 	/// holds our component to modify
@@ -122,6 +120,7 @@
 	var/heat_enrich_progress = 0
 	/// What heat enrichment results in
 	var/heat_enrich_result
+	var/craftable = FALSE
 
 /obj/item/nuclear_rod/fuel/Initialize(mapload)
 	. = ..()
@@ -157,6 +156,7 @@
 	power_enrich_result = /obj/item/nuclear_rod/fuel/weak_plutonium
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
 	materials = list(MAT_METAL = 2000, MAT_URANIUM = 1000)
+	craftable = TRUE
 
 /obj/item/nuclear_rod/fuel/weak_thorium
 	name = "weak thorium fuel rod"
@@ -168,7 +168,6 @@
 	durability = 5000
 	beta_rad = 100
 	gamma_rad = 100
-	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/coolant,
@@ -183,7 +182,6 @@
 	power_amp_mod = 1.1
 	max_durability = 3500
 	gamma_rad = 100
-	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/moderator,
@@ -210,6 +208,7 @@
 		/obj/item/nuclear_rod/moderator,
 		)
 	materials = list(MAT_METAL = 4000, MAT_URANIUM = 4000)
+	craftable = TRUE
 
 /obj/item/nuclear_rod/fuel/thorium_salts
 	name = "thorium salts fuel rod"
@@ -220,7 +219,6 @@
 	power_amp_mod = 1.3
 	max_durability = 15000
 	beta_rad = 250
-	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator,
 		/obj/item/nuclear_rod/fuel/uranium_235,
@@ -236,7 +234,6 @@
 	power_amp_mod = 1.6
 	max_durability = 5000
 	beta_rad = 250
-	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator/plasma_agitator,
 		/obj/item/nuclear_rod/fuel/thorium_salts,
@@ -251,7 +248,6 @@
 	power_amp_mod = 0.1
 	max_durability = INFINITY
 	gamma_rad = 300
-	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/coolant/steam_hammerjet,
 		/obj/item/nuclear_rod/fuel,
@@ -267,7 +263,6 @@
 	power_amp_mod = 1.6
 	max_durability = 4000
 	gamma_rad = 300
-	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
@@ -277,7 +272,6 @@
 	name = "bananium fuel rod"
 	desc = "The funniest of all fuel rods. Who knows what you might get out of it!"
 	gamma_rad = 300
-	craftable = FALSE
 
 /obj/item/nuclear_rod/fuel/bananium/Initialize(mapload)
 	max_durability = rand(1000, 10000)
@@ -304,6 +298,7 @@
 	name = "any moderator rod"
 	desc = "This is a base item and should not be found. Alert a developer!"
 	icon_state = "normal"
+	var/craftable = FALSE
 
 /obj/item/nuclear_rod/moderator/heavy_water
 	name = "heavy water moderator"
@@ -311,6 +306,7 @@
 	heat_amp_mod = 1.1
 	power_amp_mod = 1.4
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
+	craftable = TRUE
 
 /obj/item/nuclear_rod/moderator/graphite
 	name = "graphite moderator"
@@ -319,6 +315,7 @@
 	power_amp_mod = 1.6
 	materials = list(MAT_METAL = 4000, MAT_PLASMA = 2000)
 	adjacent_requirements = list(/obj/item/nuclear_rod/coolant)
+	craftable = TRUE
 
 /obj/item/nuclear_rod/moderator/titanium
 	name = "titanium moderator"
@@ -327,6 +324,7 @@
 	heat_amp_mod = 1.1
 	power_amp_mod = 1.3
 	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 2000)
+	craftable = TRUE
 
 /obj/item/nuclear_rod/moderator/plasma_agitator
 	name = "plasma agitator"
@@ -335,7 +333,6 @@
 	heat_amount = 20
 	heat_amp_mod = 5
 	power_amp_mod = 3
-	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
@@ -350,7 +347,6 @@
 	heat_amp_mod = 5
 	power_amp_mod = 3
 	minimum_temp_modifier = 400
-	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/coolant/nitrogen_circulator,
 		/obj/item/nuclear_rod/moderator,
@@ -364,6 +360,7 @@
 	heat_amp_mod = 12
 	power_amp_mod = 5
 	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_BLUESPACE = 1000)
+	craftable = TRUE
 
 /obj/item/nuclear_rod/moderator/diamond_plate
 	name = "diamond reflector plates"
@@ -378,6 +375,7 @@
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
 		)
+	craftable = TRUE
 
 /obj/item/nuclear_rod/moderator/platinum_plating
 	name = "platinum reflector plating"
@@ -385,7 +383,6 @@
 	max_durability = 8000
 	heat_amp_mod = 8
 	power_amp_mod = 3.9
-	craftable = FALSE
 	adjacent_requirements = list(/obj/item/nuclear_rod/fuel/americium)
 
 /// MARK: Coolant Rods
@@ -394,6 +391,7 @@
 	name = "any coolant rod"
 	desc = "This is a base item and should not be found. Alert a developer!"
 	icon_state = "bananium"
+	var/craftable = FALSE
 
 
 /obj/item/nuclear_rod/coolant/light_water
@@ -403,6 +401,7 @@
 	power_amount = -10 KW
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
+	craftable = TRUE
 
 /obj/item/nuclear_rod/coolant/co2_regulator
 	name = "carbon dioxide regulator"
@@ -412,6 +411,7 @@
 	power_amount = -15 KW
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
+	craftable = TRUE
 
 /obj/item/nuclear_rod/coolant/plasma_injector
 	name = "plasma injector"
@@ -420,6 +420,7 @@
 	power_amp_mod = 1.2
 	adjacent_requirements = list(/obj/item/nuclear_rod/coolant)
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
+	craftable = TRUE
 
 /obj/item/nuclear_rod/coolant/nitrogen_circulator
 	name = "nitrogen circulator"
@@ -429,6 +430,7 @@
 	heat_amp_mod = 0.7
 	power_amount = -5 KW
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
+	craftable = TRUE
 
 /obj/item/nuclear_rod/coolant/molten_salt
 	name = "molten salt circulator"
@@ -445,6 +447,7 @@
 		/obj/item/nuclear_rod/fuel,
 		/obj/item/nuclear_rod/fuel,
 		)
+	craftable = TRUE
 
 /obj/item/nuclear_rod/coolant/steam_hammerjet
 	name = "steam hammerjet"
@@ -454,7 +457,6 @@
 	heat_amp_mod = 0.4
 	max_durability = 6000
 	minimum_temp_modifier = 450
-	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/coolant/light_water,
 		/obj/item/nuclear_rod/coolant/light_water,
@@ -470,13 +472,13 @@
 	max_durability = INFINITY
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_BLUESPACE = 1000)
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator/bluespace_agitator)
+	craftable = TRUE
 
 /obj/item/nuclear_rod/coolant/iridium_conductor
 	name = "iridium conductor coolant rod"
 	desc = "A dazzlingly beautiful rod with exceptionally powerful thermal conductivity. A highly sought after piece of equipment for its simplicity and potency."
 	heat_amp_mod = 0.1
 	max_durability = 10000
-	craftable = FALSE
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator/aluminum_reflector,
 		/obj/item/nuclear_rod/fuel/uranium_235,
@@ -492,3 +494,4 @@
 		/obj/item/nuclear_rod/fuel/enriched_plutonium,
 		/obj/item/nuclear_rod/fuel/thorium_salts,
 		)
+	craftable = TRUE
