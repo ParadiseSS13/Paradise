@@ -72496,9 +72496,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/structure/table/reinforced,
+/obj/machinery/anomaly_refinery,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkpurple"
@@ -72613,6 +72611,7 @@
 "rAG" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
+/obj/item/raw_anomaly_core,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},

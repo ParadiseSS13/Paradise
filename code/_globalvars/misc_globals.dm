@@ -62,9 +62,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 GLOBAL_DATUM(main_fission_reactor, /obj/machinery/atmospherics/fission_reactor)
 
 ///Global list for descriptors
-GLOBAL_LIST_INIT(character_physiques, list("rail thin", "thin", "average", "well-built", "muscular", "overweight"))
+GLOBAL_LIST_INIT(character_physiques, list("emaciated", "rail thin", "thin", "gaunt", "lanky", "scrawny", "average", "lean", "toned", "well-built", "muscular", "chiseled", "shredded", "chubby", "overweight"))
 
-GLOBAL_LIST_INIT(character_heights, list("very short", "short", "average height", "tall", "very tall"))
+GLOBAL_LIST_INIT(character_heights, list("miniscule", "very short", "short", "average height", "tall", "very tall", "humongous"))
 
 #define GLOBAL_SPARK_LIMIT 500
 /// Counter for the current amount of sparks

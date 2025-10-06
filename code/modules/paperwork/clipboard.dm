@@ -16,8 +16,8 @@ GLOBAL_VAR(station_report) // Variable to save the station report
 	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
 
-/obj/item/clipboard/New()
-	..()
+/obj/item/clipboard/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/item/clipboard/AltClick(mob/user)
