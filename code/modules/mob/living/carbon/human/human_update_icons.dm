@@ -586,7 +586,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		if(!wear_suit || !(wear_suit.flags_inv & HIDEJUMPSUIT))
 			var/worn_icon = listgetindex(w_uniform.sprite_sheets, dna.species.sprite_sheet_name) || w_uniform.worn_icon || 'icons/mob/clothing/under/misc.dmi'
-			var/worn_icon_state = w_uniform.item_color || w_uniform.worn_icon_state || w_uniform.icon_state
+			var/worn_icon_state = w_uniform.worn_icon_state || w_uniform.icon_state
 			var/mutable_appearance/standing = mutable_appearance(worn_icon, "[worn_icon_state]_s", layer = -UNIFORM_LAYER, alpha = w_uniform.alpha, color = w_uniform.color)
 
 			if(w_uniform.blood_DNA)
@@ -597,7 +597,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(length(w_uniform.accessories))	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE. // oh my god kys whoever made this if statement jfc :gun:
 				for(var/obj/item/clothing/accessory/A in w_uniform.accessories)
 					var/tie_icon = A.worn_icon || listgetindex(A.sprite_sheets, dna.species.sprite_sheet_name) || 'icons/mob/accessories.dmi'
-					var/tie_color = A.item_color || A.icon_state
+					var/tie_color = A.worn_icon_state || A.icon_state
 					standing.overlays += image(tie_icon, tie_color)
 			overlays_standing[UNIFORM_LAYER] = standing
 
