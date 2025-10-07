@@ -441,6 +441,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	name = "Canister \[Air\]"
 	icon_state = "grey" //See Initialize()
 	can_label = FALSE
+
 /obj/machinery/atmospherics/portable/canister/custom_mix
 	name = "Canister \[Custom\]"
 	icon_state = "whiters" //See Initialize()
@@ -455,7 +456,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	name = "Canister \[H2O\]"
 	icon_state = "light_grey" // See Initialize()
 	can_label = FALSE
-
 
 /obj/machinery/atmospherics/portable/canister/toxins/Initialize(mapload)
 	. = ..()

@@ -1510,3 +1510,38 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	attack_info.last_attacker_ckey = attacker.ckey
 	if(istype(weapon))
 		attack_info.last_attacker_weapon = "[weapon] ([weapon.type])"
+
+// MARK: PTL PROCS
+
+// Called when the target is selected
+/atom/proc/on_ptl_target(obj/machinery/power/transmission_laser/ptl)
+	if(ptl.firing)
+		on_ptl_fire()
+	return
+
+// Called for each process of the PTL
+/atom/proc/on_ptl_tick(obj/machinery/power/transmission_laser/ptl, output_level)
+	return
+
+// Called when no longer targeted by the ptl
+/atom/proc/on_ptl_untarget(obj/machinery/power/transmission_laser/ptl)
+	return
+
+// Called when the PTL starts firing on the target
+/atom/proc/on_ptl_fire(obj/machinery/power/transmission_laser/ptl)
+	return
+
+// Called when the PTL stops firing on the target
+/atom/proc/on_ptl_stop(obj/machinery/power/transmission_laser/ptl)
+	return
+
+// Used in the PTL ui
+/atom/proc/ptl_data()
+	return name
+
+// Called if an atom untargets itself
+/atom/proc/untarget_self(obj/machinery/power/transmission_laser/ptl)
+	on_ptl_untarget(ptl)
+	if(ptl)
+		ptl.target = null
+	return

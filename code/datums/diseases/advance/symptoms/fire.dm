@@ -31,6 +31,8 @@ Bonus
 
 /datum/symptom/fire/symptom_act(datum/disease/advance/A, unmitigated)
 	var/mob/living/M = A.affected_mob
+	if(evaporate_wetness(A, unmitigated * A.progress / 100))
+		return
 	switch(A.progress)
 		if(30 to 59)
 			to_chat(M, "<span class='warning'>[pick("You feel hot.", "You hear a crackling noise.", "You smell smoke.")]</span>")
@@ -57,3 +59,14 @@ Bonus
 
 	M.adjust_fire_stacks(get_stacks)
 	return 1
+
+/datum/symptom/fire/proc/evaporate_wetness(datum/disease/advance/A, heat_mod)
+	. = TRUE
+	var/mob/living/carbon/target = A.affected_mob
+	if(target.wetlevel < 3 * heat_mod)
+		. = FALSE
+	target.wetlevel = max(round(target.wetlevel - 3 * heat_mod), 0)
+	if(target.wetlevel)
+		to_chat(target, "<span class='userdanger'>Some water steams off your body</span>")
+	else
+		to_chat(target, "<span class='userdanger'>All of the water steams off your body!</span>")

@@ -8,6 +8,7 @@
 	worn_icon = 'icons/mob/clothing/species/plasmaman/helmet.dmi'
 	worn_icon_state = null
 	inhand_icon_state = "plasmaman_helmet"
+	icon_monitor = null
 	strip_delay = 80
 	tint = FLASH_PROTECTION_WELDER
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = 150)
@@ -17,6 +18,7 @@
 	var/smile = FALSE
 	var/smile_color = "#FF0000"
 	var/visor_icon = "envisor"
+	var/light_icon = "enlight"
 	var/smile_state = "envirohelm_smile"
 
 	dyeable = TRUE
@@ -54,13 +56,13 @@
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
 	if(!up)
 		icon_state = base_icon_state
-	else
-		icon_state = "[base_icon_state][on ? "-light":""]"
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
 	. = ..()
 	if(!up)
 		. += visor_icon
+	else if(on)
+		. += light_icon
 
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self__legacy__attackchain(mob/user)
 	toggle_light(user)
@@ -205,6 +207,7 @@
 	icon_state = "prototype_envirohelm"
 	actions_types = list(/datum/action/item_action/toggle_welding_screen/plasmaman)
 	visor_icon = "prototype_envisor"
+	light_icon = "prototype_enlight"
 
 /obj/item/clothing/head/helmet/space/plasmaman/botany
 	name = "botany plasma envirosuit helmet"
@@ -221,12 +224,14 @@
 	desc = "The makeup is painted on, it's a miracle it doesn't chip. It's not very colourful."
 	icon_state = "mime_envirohelm"
 	visor_icon = "mime_envisor"
+	light_icon = "mime_envirohelm-light"
 
 /obj/item/clothing/head/helmet/space/plasmaman/clown
 	name = "clown envirosuit helmet"
 	desc = "The makeup is painted on, it's a miracle it doesn't chip. <i>'HONK!'</i>"
 	icon_state = "clown_envirohelm"
 	visor_icon = "clown_envisor"
+	light_icon = "clown_envirohelm-light"
 
 /obj/item/clothing/head/helmet/space/plasmaman/hop
 	name = "head of personnel's envirosuit helmet"
@@ -247,6 +252,7 @@
 	name = "wizard plasma envirosuit helmet"
 	desc = "A magical plasmaman containment helmet designed to spread chaos in safety and comfort."
 	icon_state = "wizard_envirohelm"
+	light_icon = "wizard_enlight"
 	gas_transfer_coefficient = 0.01
 	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -261,12 +267,14 @@
 	name = "coke envirosuit helmet"
 	desc = "A plasmaman envirohelm designed by Space Cola Co for the plasmamen."
 	icon_state = "coke_envirohelm"
+	light_icon = "coke_enlight"
 
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool
 	name = "diver envirosuit helmet"
 	desc = "A plasmaman helm resembling old diver helms."
 	icon_state = "diver_envirohelm"
 	base_icon_state = "diver_envirohelm"
+	light_icon = "diver_enlight"
 	/// Different icons and names for the helm to use when reskinning
 	var/list/static/plasmaman_helm_options = list("Diver" = "diver_envirohelm", "Knight" = "knight_envirohelm", "Skull" = "skull_envirohelm")
 	/// Checks if the helm has been reskinned already
@@ -275,9 +283,9 @@
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/examine(mob/user)
 	. = ..()
 	if(!reskinned)
-		. += "<span class='notice'>You can <b>Alt-Click</b> to reskin it when held.</span>"
+		. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> to reskin it when held.</span>"
 
-/obj/item/clothing/head/helmet/space/plasmaman/tacticool/AltClick(mob/user)
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool/CtrlShiftClick(mob/user)
 	..()
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
@@ -298,16 +306,19 @@
 			name = initial(name)
 			desc = initial(desc)
 			base_icon_state = initial(base_icon_state)
+			light_icon = initial(light_icon)
 		if("Knight")
 			name = "knight envirosuit helmet"
 			desc = "A plasmaman envirohelm designed in the shape of a knight helm."
 			base_icon_state = "knight_envirohelm"
 			visor_icon = "knight_envisor"
+			light_icon = "knight_enlight"
 		if("Skull")
 			name = "skull envirosuit helmet"
 			desc = "A plasmaman envirohelm designed in the shape of a skull."
 			base_icon_state = "skull_envirohelm"
 			visor_icon = "skull_envisor"
+			light_icon = "skull_enlight"
 	update_icon()
 	M.update_inv_head()
 	reskinned = TRUE
