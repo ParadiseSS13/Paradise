@@ -46,6 +46,8 @@
 		base.add_barrel(src)
 	return TRUE
 
+// MARK: Barrel filler
+
 /obj/machinery/fluid_pipe/barrel_filler
 	name = "barrel filler"
 	desc = "Connect a barrel and fill it with a fluid of your choice."
@@ -53,7 +55,6 @@
 	icon_state = "filler"
 	capacity = 0
 	connect_dirs = list(NORTH, EAST, WEST) // south looks ugly
-	only_one_connect = TRUE
 	/// The connected barrel
 	var/obj/structure/barrel/barrel
 	/// Selected fluid. Is a typepath
