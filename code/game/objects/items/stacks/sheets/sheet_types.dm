@@ -265,6 +265,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("wooden airlock assembly", /obj/structure/door_assembly/door_assembly_wood, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("torch sconce", /obj/structure/lightable/torch, 5, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("wooden storage shelf", /obj/structure/shelf/wood, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		)),
 	new /datum/stack_recipe_list("pews", list(
 		new /datum/stack_recipe("pew (middle)", /obj/structure/chair/sofa/pew, 5, one_per_turf = TRUE, on_floor = TRUE),
