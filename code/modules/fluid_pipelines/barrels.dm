@@ -86,7 +86,7 @@
 	if(!barrel || !selected_fluid)
 		return
 	var/datum/fluid/liquid = is_path_in_list(selected_fluid, fluid_datum.fluids, TRUE)
-	if(!liquid)
+	if(!liquid) // DGTODO check if this is necessary
 		return
 	fluid_datum.move_fluid(selected_fluid, barrel.tank, move_amount)
 

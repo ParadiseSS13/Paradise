@@ -167,20 +167,12 @@
 			return return_type ? type : TRUE
 	return FALSE
 
-/proc/is_path_in_list(datum/D, list/L, return_type = FALSE)
-	if(!L || !length(L) || !D)
-		return FALSE
-	for(var/type in L)
-		if(ispath(D, type))
-			return return_type ? type : TRUE
-	return FALSE
-
-/proc/is_path_in_list(P, list/L)
+/proc/is_path_in_list(P, list/L, return_type = FALSE)
 	if(!L || !length(L) || !P)
 		return FALSE
 	for(var/type in L)
 		if(ispath(P, type))
-			return TRUE
+			return return_type ? type : TRUE
 	return FALSE
 
 //Checks for specific types in specifically structured (Assoc "type" = TRUE) lists ('typecaches')
