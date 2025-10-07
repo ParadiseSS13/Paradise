@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 /obj/machinery/alarm
 	name = "air alarm"
 	desc = "A wall-mounted device used to control atmospheric equipment. It looks a little cheaply made..."
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/obj/wallbumps/alarm.dmi'
 	icon_state = "alarm0"
 	anchored = TRUE
 	idle_power_consumption = 4

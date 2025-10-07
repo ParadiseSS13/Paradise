@@ -650,7 +650,7 @@
 	return 100000 + (hijacked_apcs * 25000)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/finish_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
-	var/image/apc_image = image('icons/obj/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
+	var/image/apc_image = image('icons/obj/wallbumps/apc.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
 	apc_image.plane = ABOVE_LIGHTING_PLANE
 	LAZYADD(apc_images[get_turf(A)], apc_image)
 	client.images += apc_image
@@ -755,7 +755,7 @@
 		if(T.z != apc_turf.z)
 			continue
 		// parent of image is the APC, not the turf because of how clicking on images works
-		var/image/apc_image = image('icons/obj/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
+		var/image/apc_image = image('icons/obj/wallbumps/apc.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
 		apc_image.plane = ABOVE_LIGHTING_PLANE
 		LAZYADD(apc_images[apc_turf], apc_image)
 		client.images += apc_image
