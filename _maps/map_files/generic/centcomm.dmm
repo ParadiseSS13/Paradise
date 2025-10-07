@@ -5439,9 +5439,6 @@
 /obj/machinery/computer/shuttle/syndicate/drop_pod,
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/assault_pod)
-"rK" = (
-/turf/simulated/wall/mineral/titanium,
-/area/space/centcomm)
 "rL" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -10399,10 +10396,6 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
-"IZ" = (
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating,
-/area/space/centcomm)
 "Jb" = (
 /obj/effect/mapping_helpers/airlock/access/all/centcomm/specops,
 /obj/machinery/door/airlock/external{
@@ -51905,7 +51898,7 @@ aN
 aN
 aN
 aN
-rK
+od
 od
 LP
 Fn
@@ -52162,7 +52155,7 @@ aN
 aN
 aN
 aN
-IZ
+vy
 kx
 Em
 PL
@@ -52419,7 +52412,7 @@ aN
 aN
 aN
 aN
-IZ
+vy
 pa
 Em
 PL
@@ -52676,7 +52669,7 @@ aN
 aN
 aN
 aN
-IZ
+vy
 yD
 Em
 PL
@@ -52933,7 +52926,7 @@ aN
 aN
 aN
 aN
-IZ
+vy
 qW
 Em
 PL
@@ -53190,7 +53183,7 @@ aN
 aN
 aN
 aN
-IZ
+vy
 Ab
 Em
 PL
@@ -53447,7 +53440,7 @@ aN
 aN
 aN
 aN
-IZ
+vy
 fh
 Em
 PL
@@ -53704,7 +53697,7 @@ aN
 aN
 aN
 aN
-rK
+od
 od
 EF
 FB
