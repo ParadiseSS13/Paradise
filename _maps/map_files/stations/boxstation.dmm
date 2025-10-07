@@ -32511,8 +32511,7 @@
 /turf/simulated/wall,
 /area/station/science/break_room)
 "cpS" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
+/obj/machinery/economy/vending/medidrobe,
 /turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "cpU" = (
@@ -33819,6 +33818,9 @@
 "cuv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -35246,14 +35248,6 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/medical/surgery/observation)
-"czZ" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "blue"
-	},
-/area/station/medical/storage)
 "cAa" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -47348,7 +47342,8 @@
 /area/space/nearstation)
 "dOo" = (
 /obj/structure/sign/poster/official/random/directional/north,
-/obj/machinery/economy/vending/medidrobe,
+/obj/structure/closet/secure_closet/medical3,
+/obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "dOs" = (
@@ -50871,6 +50866,8 @@
 /turf/simulated/wall,
 /area/station/maintenance/abandonedservers)
 "ftM" = (
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -62190,12 +62187,12 @@
 	},
 /area/station/hallway/secondary/entry/south)
 "kPY" = (
-/obj/structure/closet/secure_closet/medical3,
 /obj/structure/mirror{
 	pixel_y = 28
 	},
-/obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/camera/autoname,
+/obj/structure/closet/secure_closet/medical3,
+/obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/medical/storage)
 "kQb" = (
@@ -71920,10 +71917,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fpmaint2)
 "pxG" = (
-/obj/structure/closet/secure_closet/medical3,
 /obj/structure/mirror{
 	pixel_y = 28
 	},
+/obj/structure/closet/secure_closet/medical3,
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/medical/storage)
@@ -82833,11 +82830,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
-"uFn" = (
-/obj/structure/closet/secure_closet/medical3,
-/obj/effect/turf_decal/delivery/white/hollow,
-/turf/simulated/floor/plasteel,
-/area/station/medical/storage)
 "uFr" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 8;
@@ -88283,6 +88275,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
+"xtf" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel,
+/area/station/medical/storage)
 "xty" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -128099,7 +128095,7 @@ lFH
 cnF
 coZ
 cpA
-eoX
+xtf
 cry
 cuq
 cus
@@ -128356,7 +128352,7 @@ lKS
 cnI
 cpc
 cpA
-uFn
+eoX
 oGg
 qEC
 qHO
@@ -129385,7 +129381,7 @@ cmr
 cph
 bNK
 cpS
-czZ
+oGg
 cAt
 cGL
 bLK
