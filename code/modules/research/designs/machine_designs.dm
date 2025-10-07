@@ -15,7 +15,7 @@
 /datum/design/laser_terminal
 	name = "Machine Board (Laser Terminal)"
 	desc = "The circuit board for a PTL terminal."
-	id = "thermomachine"
+	id = "laser_terminal"
 	req_tech = list("powerstorage" = 4, "plasmatech" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)

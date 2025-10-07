@@ -31,11 +31,11 @@
 
 /obj/item/cartridge/engineering
 	name = "Power-ON Cartridge"
-	desc = "A data cartridge for portable microcomputers. Has a power monitor and a halogen counter."
+	desc = "A data cartridge for portable microcomputers. Has a power monitor and a radiation scanner."
 	icon_state = "cart-e"
 	programs = list(
 		new /datum/data/pda/app/power,
-		new /datum/data/pda/utility/scanmode/halogen
+		new /datum/data/pda/utility/scanmode/rad_scanner
 	)
 
 /obj/item/cartridge/atmos
@@ -198,11 +198,11 @@
 
 /obj/item/cartridge/ce
 	name = "Power-On DELUXE"
-	desc = "A data cartridge for portable microcomputers. Has a power monitor, gas scanner, halogen counter and status display controller."
+	desc = "A data cartridge for portable microcomputers. Has a power monitor, gas scanner, radiation scanner and status display controller."
 	icon_state = "cart-ce"
 	programs = list(
 		new /datum/data/pda/app/power,
-		new /datum/data/pda/utility/scanmode/halogen,
+		new /datum/data/pda/utility/scanmode/rad_scanner,
 		new /datum/data/pda/utility/scanmode/gas,
 		new /datum/data/pda/app/status_display
 	)
@@ -239,7 +239,7 @@
 	icon_state = "cart-c"
 	programs = list(
 		new /datum/data/pda/app/power,
-		new /datum/data/pda/utility/scanmode/halogen,
+		new /datum/data/pda/utility/scanmode/rad_scanner,
 		new /datum/data/pda/utility/scanmode/gas,
 		new /datum/data/pda/app/crew_records/medical,
 		new /datum/data/pda/utility/scanmode/medical,
