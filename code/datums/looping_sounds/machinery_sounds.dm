@@ -75,24 +75,24 @@ GLOBAL_DATUM_INIT(firealarm_soundloop, /datum/looping_sound/firealarm, new(list(
 	falloff_exponent = 5
 
 /////////// NGCR ////////////
+
 /datum/looping_sound/reactor
 	mid_sounds = list('sound/machines/fission/reactor_loop.ogg' = 1)
 	mid_length = 30
-	volume = 40
+	volume = 70
 	extra_range = 5
-	falloff_exponent = 5
-	falloff_distance = 5
+	falloff_exponent = 1
+	falloff_distance = 1
 	channel = CHANNEL_ENGINE
 
 /datum/looping_sound/reactor_startup
 	start_sound = 'sound/machines/fission/reactor_startup_beginning.ogg'
-	start_length = 15.05 SECONDS
+	start_length = 15 SECONDS
 	mid_sounds = list('sound/machines/fission/reactor_startup_mid.ogg' = 1)
-	mid_length = 16.8 SECONDS
-	extra_range = 5
-	falloff_exponent = 5
-	falloff_distance = 5
-	volume = 30
+	mid_length = 11.8 SECONDS
+	falloff_exponent = 3
+	falloff_distance = 3
+	volume = 35
 	channel = CHANNEL_ENGINE
 
 /datum/looping_sound/centrifuge

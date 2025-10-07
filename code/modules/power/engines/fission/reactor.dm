@@ -741,7 +741,7 @@
 	final_power = 0
 	reactivity_multiplier = 1
 	remove_light()
-	playsound(src, 'sound/machines/fission/reactor_shutoff.ogg', 50, 0, 4, ignore_walls = TRUE)
+	playsound(src, 'sound/machines/fission/reactor_shutoff.ogg', 50, 0, 4, ignore_walls = TRUE, channel = CHANNEL_ENGINE)
 	soundloop.stop()
 	if(send_message)
 		radio.autosay("<b>Reactor SCRAM completed successfully. Integrity: [get_integrity()]%</b>", name, "Engineering")
