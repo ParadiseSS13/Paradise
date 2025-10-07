@@ -295,12 +295,9 @@
 	return 1
 
 /obj/docking_port/mobile/emergency/Destroy(force)
-	if(force)
-		// This'll make the shuttle subsystem use the backup shuttle.
-		if(SSshuttle.emergency == src)
-			// If we're the selected emergency shuttle
-			SSshuttle.emergencyDeregister()
-
+	if(force && SSshuttle.emergency == src)
+		// If we're the selected emergency shuttle
+		WARNING("The emergency mobile docking port has been forcibly destroyed. An emergency shuttle may need to be loaded in.")
 
 	return ..()
 
@@ -629,19 +626,6 @@
 	var/list/turfs = get_area_turfs(target_area)
 	var/turf/T = pick(turfs)
 	src.loc = T
-
-/obj/docking_port/mobile/emergency/backup
-	name = "backup shuttle"
-	id = "backup"
-	dwidth = 2
-	width = 8
-	height = 8
-
-/obj/docking_port/mobile/emergency/backup/register()
-	var/current_emergency = SSshuttle.emergency
-	..()
-	SSshuttle.emergency = current_emergency
-	SSshuttle.backup_shuttle = src
 
 #undef NOT_BEGUN
 #undef STAGE_1

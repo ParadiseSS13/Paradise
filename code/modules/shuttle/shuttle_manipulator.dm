@@ -187,12 +187,7 @@
 		if("load")
 			shuttle_and_preview_cooldown = world.time + PREVIEW_OR_SHUTTLE_SPAWN_COOLDOWN
 			var/datum/map_template/shuttle/S = GLOB.shuttle_templates[params["shuttle_id"]]
-			if(existing_shuttle == SSshuttle.backup_shuttle)
-				// TODO make the load button disabled
-				WARNING("The shuttle that the selected shuttle will replace \
-					is the backup shuttle. Backup shuttle is required to be \
-					intact for round sanity.")
-			else if(S)
+			if(S)
 				// If successful, returns the mobile docking port
 				var/obj/docking_port/mobile/mdp = action_load(S)
 				if(mdp)
