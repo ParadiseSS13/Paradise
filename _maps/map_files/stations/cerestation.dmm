@@ -4716,6 +4716,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
+/obj/item/raw_anomaly_core,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -27287,13 +27288,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "euZ" = (
-/obj/item/dest_tagger,
-/obj/item/stack/package_wrap,
-/obj/item/book/manual/hydroponics_pod_people,
-/obj/item/book/manual/hydroponics_pod_people,
-/obj/item/book/manual/wiki/hydroponics,
-/obj/item/book/manual/wiki/botanist,
 /obj/structure/table,
+/obj/item/storage/box/disks_plantgene,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
@@ -67289,6 +67285,13 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "mRI" = (
+/obj/item/dest_tagger,
+/obj/item/stack/package_wrap,
+/obj/item/book/manual/hydroponics_pod_people,
+/obj/item/book/manual/hydroponics_pod_people,
+/obj/item/book/manual/wiki/hydroponics,
+/obj/item/book/manual/wiki/botanist,
+/obj/structure/table,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -117740,6 +117743,7 @@
 /area/station/engineering/atmos)
 "xyC" = (
 /obj/machinery/firealarm/directional/east,
+/obj/machinery/anomaly_refinery,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
