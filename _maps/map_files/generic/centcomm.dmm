@@ -12896,6 +12896,14 @@
 /obj/machinery/door/airlock/titanium/glass{
 	id_tag = "s_docking_airlock"
 	},
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 16;
+	height = 21;
+	id = "emergency_away";
+	name = "emergency centcom";
+	width = 41
+	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "QI" = (
