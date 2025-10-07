@@ -42,7 +42,7 @@
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/update_overlays()
 	. = ..()
-	var/current_amount = tank.get_fluid_volumes()
+	var/current_amount = tank?.get_fluid_volumes()
 	switch(current_amount)
 		if(1 to 2500)
 			. += "1_[round(current_amount / 500, 500)]"

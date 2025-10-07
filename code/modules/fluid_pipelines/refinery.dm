@@ -118,9 +118,6 @@
 	for(var/id in selected_recipe.output)
 		fluid_datum.add_fluid(GLOB.fluid_id_to_path[id], selected_recipe.output[id])
 
-/obj/machinery/fluid_pipe/plasma_refinery/special_connect_check(obj/machinery/fluid_pipe/pipe)
-	return (pipe == intake)
-
 /obj/machinery/fluid_pipe/plasma_refinery/east
 	icon_state = "refinery_4"
 	dir = EAST

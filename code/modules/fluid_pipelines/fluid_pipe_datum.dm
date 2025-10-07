@@ -31,11 +31,7 @@
 		machinery += pipe
 
 /datum/fluid_pipe/process()
-	for(var/obj/machinery/machine as anything in machinery)
-		machine.process()
-
 	for(var/obj/machinery/fluid_pipe/pipe as anything in connected_pipes)
-		pipe.process()
 		pipe.update_icon()
 
 /// Adds a pipe to the datum

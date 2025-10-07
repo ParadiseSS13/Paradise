@@ -10,7 +10,6 @@
 	desc = "Pumps fluids from one pipe to another."
 	icon = 'icons/obj/pipes/fluid_pipes.dmi'
 	icon_state = "pump_4"
-	anchored = FALSE
 	just_a_pipe = FALSE
 	capacity = 0 // Safety
 	/// How much fluid do we move each tick? The amount moved is the double of the variable.
@@ -18,18 +17,15 @@
 	/// The incoming pipeline
 	var/obj/machinery/fluid_pipe/abstract/pump/incoming
 
+// Start abstract pump
+
 /obj/machinery/fluid_pipe/abstract/pump
 
 /obj/machinery/fluid_pipe/abstract/pump/Initialize(mapload, _parent, direction)
-	message_admins(direction)
 	connect_dirs = list(REVERSE_DIR(direction))
 	return ..()
 
-/obj/machinery/fluid_pipe/abstract/pump/special_connect_check(obj/machinery/fluid_pipe/pipe)
-	return (pipe == parent) // DGTODO Move this to abstract pipes?
-
-/obj/machinery/fluid_pipe/pump/special_connect_check(obj/machinery/fluid_pipe/pipe)
-	return (pipe == incoming)
+// End abstract pump
 
 /obj/machinery/fluid_pipe/pump/Initialize(mapload)
 	connect_dirs = list(dir)
@@ -42,20 +38,22 @@
 
 /obj/machinery/fluid_pipe/pump/blind_connect()
 	clear_pipenet_refs() // You have to clear these every time you attempt connecting, otherwise it might keep pumping even though it's not connected
-	for(var/direction in list(dir, REVERSE_DIR(dir)))
-		var/obj/machinery/fluid_pipe/pipe = locate(/obj/machinery/fluid_pipe) in get_step(src, direction) // Yes, a pump is also a valid place to transfer from
-		if(pipe)
-			connect_pipes(pipe)
+	var/obj/machinery/fluid_pipe/pipe = locate(/obj/machinery/fluid_pipe) in get_step(src, dir) // Yes, a pump is also a valid place to transfer from
+	if(pipe)
+		connect_pipes(pipe)
 
 /obj/machinery/fluid_pipe/pump/connect_pipes(obj/machinery/fluid_pipe/pipe_to_connect_to)
-	if(isnull(pipe_to_connect_to.fluid_datum))
+	if(isnull(pipe_to_connect_to.fluid_datum) && isnull(fluid_datum))
 		pipe_to_connect_to.fluid_datum = new(pipe_to_connect_to)
 	if(get_dir(src, pipe_to_connect_to) == dir)
 		fluid_datum = pipe_to_connect_to.fluid_datum
 		fluid_datum.add_pipe(src)
-	else
-		incoming.fluid_datum = pipe_to_connect_to.fluid_datum
-		incoming.fluid_datum.add_pipe(src)
+
+/obj/machinery/fluid_pipe/abstract/pump/special_connect_check(obj/machinery/fluid_pipe/pipe)
+	return (pipe.fluid_datum == parent.fluid_datum) ^ parent.fluid_datum  // DGTODO Move this to abstract pipes?
+
+/obj/machinery/fluid_pipe/pump/special_connect_check(obj/machinery/fluid_pipe/pipe)
+	return (pipe.fluid_datum == incoming.fluid_datum) ^ incoming.fluid_datum
 
 /obj/machinery/fluid_pipe/pump/wrench_act(mob/living/user, obj/item/I)
 	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
