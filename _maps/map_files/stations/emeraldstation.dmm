@@ -72532,10 +72532,10 @@
 /turf/space,
 /area/space)
 "oFZ" = (
-/obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/machinery/anomaly_refinery,
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/launch)
 "oGg" = (
@@ -80424,6 +80424,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "qjc" = (
+/obj/machinery/recharge_station,
 /obj/effect/turf_decal/tiles/department/medical/side{
 	dir = 8
 	},
@@ -93314,6 +93315,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/item/raw_anomaly_core,
 /obj/effect/turf_decal/tiles/department/science/side{
 	dir = 9
 	},
@@ -101144,6 +101146,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine)
+"upC" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/station/science/toxins/launch)
 "upI" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -173232,7 +173238,7 @@ bJV
 dKU
 tyE
 dtw
-qPL
+upC
 xrQ
 dxp
 lwp

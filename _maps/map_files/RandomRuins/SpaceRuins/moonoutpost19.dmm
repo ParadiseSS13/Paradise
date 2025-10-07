@@ -3515,11 +3515,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/moonbase19)
 "ls" = (
-/obj/effect/turf_decal/tiles/dark/checker{
-	dir = 5
-	},
 /obj/machinery/computer/loreconsole/moonoutpost19/rdnote{
 	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/checker{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)
@@ -4926,15 +4926,10 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/computer/loreconsole/moonoutpost19/log1,
 /obj/effect/turf_decal/tiles/dark/checker{
 	dir = 5
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/computer/loreconsole/moonoutpost19/log1,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)
 "rk" = (
@@ -8683,15 +8678,11 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/turf_decal/tiles/dark/checker{
-	dir = 5
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/computer/loreconsole/moonoutpost19/log2{
 	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/checker{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)

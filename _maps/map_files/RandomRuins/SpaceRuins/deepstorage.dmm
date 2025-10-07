@@ -290,13 +290,13 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/computer/monitor,
 /obj/machinery/door_control{
 	pixel_y = 25;
 	id = "DS_Rad";
 	name = "Generator Storage"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/monitor/secret,
 /obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
