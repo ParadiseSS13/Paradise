@@ -136,6 +136,8 @@
 	#define COMPONENT_NO_ATTACH (1<<0)
 ///from base of mob/living/health_update()
 #define COMSIG_LIVING_HEALTH_UPDATE "living_health_update"
+/// Sent during exfiltration to handle guardians
+#define COMSIG_SUMMONER_EXTRACTED "summoner_extracted"
 ///sent from borg recharge stations: (amount, repairs)
 #define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"
 ///sent when a mob enters a borg charger
@@ -205,6 +207,9 @@
 #define COMSIG_MOB_PRE_EAT "mob_pre_eat"
 	///cancel eating attempt
 	#define COMSIG_MOB_CANCEL_EAT (1<<0)
+
+/// From /datum/status_effect/incapacitating/sleeping/tick()
+#define COMSIG_MOB_SLEEP_TICK "mob_sleep_tick"
 
 /// From /datum/element/basic_eating/finish_eating()
 #define COMSIG_MOB_ATE "mob_ate"

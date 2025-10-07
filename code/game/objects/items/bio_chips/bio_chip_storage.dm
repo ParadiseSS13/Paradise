@@ -13,7 +13,6 @@
 	desc = "Stores up to two big items in a bluespace pocket."
 	icon_state = "storage"
 	origin_tech = "materials=2;magnets=4;bluespace=5;syndicate=4"
-	item_color = "r"
 	implant_data = /datum/implant_fluff/storage
 	implant_state = "implant-syndicate"
 
