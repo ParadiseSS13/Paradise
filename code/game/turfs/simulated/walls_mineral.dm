@@ -231,8 +231,8 @@
 	icon = 'icons/turf/walls/32x40survival_pod_walls.dmi'
 	icon_state = "survival_pod_walls-0"
 	base_icon_state = "survival_pod_walls"
-	smoothing_groups = list(SMOOTH_GROUP_PLASTITANIUM_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_SHUTTLE_PARTS)
+	smoothing_groups = list(SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 
 /turf/simulated/wall/mineral/titanium/survival/nodiagonal
 

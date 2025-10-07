@@ -90,9 +90,10 @@
 //Window
 /obj/structure/window/full/shuttle/survival_pod
 	name = "pod window"
-	icon = 'icons/obj/smooth_structures/windows/pod_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40pod_window.dmi'
 	icon_state = "pod_window-0"
 	base_icon_state = "pod_window"
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/pod_window_edges.dmi'
 	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 	canSmoothWith = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 
