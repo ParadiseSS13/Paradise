@@ -358,7 +358,10 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 /datum/antagonist/vampire/give_objectives()
 	add_antag_objective(/datum/objective/blood)
 	add_antag_objective(/datum/objective/assassinate)
-	add_antag_objective(/datum/objective/steal)
+	if(prob(50))
+		add_antag_objective(/datum/objective/specialization)
+	else
+		add_antag_objective(/datum/objective/steal)
 
 	if(prob(20)) // 20% chance of getting survive. 80% chance of getting escape.
 		add_antag_objective(/datum/objective/survive)
