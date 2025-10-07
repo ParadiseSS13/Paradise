@@ -1018,6 +1018,18 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/cell = 1,
 							/obj/item/stock_parts/manipulator = 1)
 
+/obj/item/circuitboard/anomaly_refinery
+	board_name = "Anomaly Refinery"
+	icon_state = "science"
+	build_path = /obj/machinery/anomaly_refinery
+	board_type = "machine"
+	origin_tech = "programming=4;engineering=4;"
+	req_components = list(
+							/obj/item/stock_parts/scanning_module = 1,
+							/obj/item/stack/sheet/glass = 1,
+							/obj/item/stack/cable_coil = 2
+						)
+
 // Telecomms circuit boards:
 /obj/item/circuitboard/tcomms/relay
 	board_name = "Telecommunications Relay"
