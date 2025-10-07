@@ -313,30 +313,30 @@
 				plasteel.use(5)
 				to_chat(user, "<span class='information'>You attach a layer of radiation shielding around the reactor core.</span>")
 		else
-			to_chat(user, "<span class='warning'>You need at least five sheets of plasteel to reform the reactor core structure!</span>")
+			to_chat(user, "<span class='warning'>You need at least five sheets of plasteel to reform the reactor core structure.</span>")
 		return ITEM_INTERACT_COMPLETE
 	if(istype(used, /obj/item/reagent_containers/cooking/grill_grate))
 		if(!grill)
 			var/obj/item/item = creature.get_inactive_hand()
-			if(istype(used, /obj/item/reagent_containers/cooking/grill_grate))
+			if(istype(item, /obj/item/reagent_containers/cooking/grill_grate))
 				qdel(used)
 				qdel(item)
 				grill = new(loc)
 				return ITEM_INTERACT_COMPLETE
 			else
-				to_chat(user, "<span class='warning'>You need a second grate to grill properly!</span>")
+				to_chat(user, "<span class='warning'>You need a second grate to set up a proper grill.</span>")
 				return ITEM_INTERACT_COMPLETE
 		else
-			to_chat(user, "<span class='warning'>There is already grill grates adhered to the surface of the reactor!</span>")
+			to_chat(user, "<span class='warning'>There are already grill grates adhered to the surface of the reactor.</span>")
 			return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/fission_reactor/wirecutter_act(mob/living/user, obj/item/I)
 	if(grill)
 		to_chat(user, "<span class='warning'>You begin cutting the adhered grates from the reactor body...</span>")
 		if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
-			grill.Destroy()
 			new /obj/item/reagent_containers/cooking/grill_grate(loc)
 			new /obj/item/reagent_containers/cooking/grill_grate(loc)
+			QDEL_NULL(grill)
 		return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/atmospherics/fission_reactor/crowbar_act(mob/living/user, obj/item/I)
@@ -626,7 +626,7 @@
 		new_damage += DAMAGE_MAXIMUM * MOL_DAMAGE_MULTIPLIER
 	else
 		if(total_mols <= MOL_MINIMUM)
-			new_damage += max((1 - (MOL_MINIMUM / total_mols) * MOL_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
+			new_damage += max(((1 - (total_mols / MOL_MINIMUM)) * DAMAGE_MAXIMUM * MOL_DAMAGE_MULTIPLIER), DAMAGE_MINIMUM)
 		if(check_overheating())
 			// breaking the equasion up a little for readability. Should look like this: Y = (-AB ^ -X) + A
 			var/rate_of_decay = 1.13 // closer to 1 = slower to reach DAMAGE_MAXIMUM. Do not set at or below 1 it will break
@@ -734,6 +734,13 @@
 	if(send_message)
 		radio.autosay("<b>Reactor SCRAM completed successfully. Integrity: [get_integrity()]%</b>", name, "Engineering")
 		send_message = FALSE
+	if(grill)
+		for(var/datum/cooking_surface/surface in grill.surfaces)
+			if(surface.on)
+				surface.turn_off()
+				var/obj/item/reagent_containers/cooking/container = surface.container
+				if(istype(container) && container.tracker)
+					SEND_SIGNAL(container, COMSIG_COOK_MACHINE_STEP_INTERRUPTED, surface)
 	// #warn add a sound here
 
 /obj/machinery/atmospherics/fission_reactor/proc/boot_up()
@@ -750,6 +757,10 @@
 	else
 		icon_state = "reactor_on"
 	set_light(2, 5, REACTOR_LIGHT_COLOR)
+	if(grill)
+		for(var/datum/cooking_surface/surface in grill.surfaces)
+			if(!surface.on)
+				surface.turn_on()
 	// #warn add a sound here
 
 /// returns a value from 0 to 1 based off current operating power
@@ -897,7 +908,7 @@
 /obj/machinery/atmospherics/fission_reactor/proc/update_minimum_temp()
 	minimum_operating_temp = 0
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
-		if(!held_rod)
+		if(!chamber.held_rod)
 			continue
 		if(chamber.chamber_state != CHAMBER_DOWN)
 			continue
