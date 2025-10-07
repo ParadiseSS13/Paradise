@@ -786,7 +786,7 @@
 /obj/structure/window/full/reinforced/tinted
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
-	icon = 'icons/obj/smooth_structures/windows/tinted_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/32x40tinted_window.dmi'
 	icon_state = "tinted_window-0"
 	base_icon_state = "tinted_window"
 	opacity = TRUE
