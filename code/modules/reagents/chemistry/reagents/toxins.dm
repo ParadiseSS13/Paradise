@@ -1092,7 +1092,7 @@
 			if(!C.wear_mask) // If not wearing a mask
 				C.adjustToxLoss(lethality)
 		if(isnymph(M)) //nymphs take EVEN MORE damage
-			var/mob/living/simple_animal/diona/D = M
+			var/mob/living/basic/diona_nymph/D = M
 			D.adjustHealth(100)
 	..()
 
@@ -1329,3 +1329,27 @@
 
 /datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=REAGENT_TOUCH, reac_volume)
 	L.ForceContractDisease(new /datum/disease/transformation/morph())
+
+/datum/reagent/glass_shards
+	name = "Glass shards"
+	id = "glass_shards"
+	description = "Glass, crushed into a coarse powder made up of razor-sharp shards."
+	color = "#87c6dac8"
+	taste_description = "<span class='userdanger'>Broken glass!</span>"
+
+/datum/reagent/glass_shards/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustBruteLoss(2, FALSE)
+	if(iscarbon(M) && prob(5)) // OH GOD IT'S CUTTING UP INSIDE ME AAAAAAAGHHHH!
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/affected = H.get_organ(BODY_ZONE_CHEST)
+		if(affected.status & !ORGAN_INT_BLEEDING)
+			affected.cause_internal_bleeding()
+
+	return ..() | update_flags
+
+/datum/reagent/glass_shards/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	if(iscarbon(M))
+		to_chat(M, "<span class='userdanger'>OH GOD IT HURTS!</span>")
+		M.emote("scream")
+		M.adjustBruteLoss(4)
