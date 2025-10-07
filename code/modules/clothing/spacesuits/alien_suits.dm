@@ -3,6 +3,7 @@
 	name = "skrellian helmet"
 	desc = "Smoothly contoured and polished to a shine. Still looks like a fishbowl."
 	species_restricted = list("Skrell","Human")
+	icon_monitor = null
 
 /obj/item/clothing/head/helmet/space/skrell/white
 	icon_state = "skrell_helmet_white"
@@ -26,6 +27,7 @@
 	icon = 'icons/obj/clothing/species/unathi/hats.dmi'
 	icon_state = null
 	species_restricted = list("Unathi")
+	icon_monitor = null
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi'
 		)
@@ -66,6 +68,7 @@
 	armor = list(MELEE = 35, BULLET = 35, LASER = 20, ENERGY = 10, BOMB = 20, RAD = 20, FIRE = 200, ACID = 285)
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	icon_state = null
+	icon_monitor = null
 	species_restricted = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi')
