@@ -60,28 +60,29 @@
 	. = ..()
 	. += "There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots."
 
-/obj/machinery/computer/telescience/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/ore/bluespace_crystal))
-		var/obj/item/stack/ore/bluespace_crystal/B = W
+/obj/machinery/computer/telescience/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/ore/bluespace_crystal))
+		var/obj/item/stack/ore/bluespace_crystal/B = used
 		if(crystals >= MAX_CRYSTALS)
 			to_chat(user, "<span class='warning'>There are not enough crystal slots.</span>")
-			return
-
+			return ITEM_INTERACT_COMPLETE
 		crystals += 1
 		user.visible_message("<span class='notice'>[user] inserts a [B.singular_name] into [src]'s crystal slot.</span>")
 		B.use(1)
 		SStgui.update_uis(src)
-
-	else if(istype(W, /obj/item/gps))
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/gps))
+		// TODO: Provide some kind of message if there's already an inserted GPS.
+		// For now, just do nothing.
 		if(!inserted_gps)
-			inserted_gps = W
-			user.unEquip(W)
-			W.forceMove(src)
-			user.visible_message("<span class='notice'>[user] inserts [W] into [src]'s GPS device slot.</span>")
+			inserted_gps = used
+			user.transfer_item_to(used, src)
+			user.visible_message("<span class='notice'>[user] inserts [used] into [src]'s GPS device slot.</span>")
 			SStgui.update_uis(src)
 
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 
 /obj/machinery/computer/telescience/multitool_act(mob/living/user, obj/item/I)

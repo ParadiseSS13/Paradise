@@ -4,14 +4,14 @@
 	desc = "This virus infects humanoids and drives them insane with a hunger for flesh, along with possessing regenerative abilities."
 	max_stages = 7
 	spread_text = "Blood and Saliva"
-	spread_flags = BLOOD
+	spread_flags = SPREAD_BLOOD
 	cure_text = "Anti-plague viral solutions"
 	cures = list()
 	agent = ""
 	viable_mobtypes = list(/mob/living/carbon/human)
-	severity = BIOHAZARD
+	severity = VIRUS_BIOHAZARD
 	allow_dead = TRUE
-	disease_flags = CAN_CARRY
+	disease_flags = VIRUS_CAN_CARRY
 	virus_heal_resistant = TRUE
 	stage_prob = 100 // It isn't actually 100%, but is instead based on a timer
 	cure_chance = 80
@@ -19,6 +19,15 @@
 	var/cure_stage = 0
 	/// Cooldown until the virus can advance to the next stage
 	COOLDOWN_DECLARE(stage_timer)
+	/// What disease are we passing along to datum/antagonist/zombie
+	var/plague_disease
+	/// Activate the immediate zombie rot loop
+	var/instant_zombie
+
+/datum/disease/zombie/New(chosen_plague, plague_zomb)
+	if(plague_zomb)
+		plague_disease = chosen_plague
+		instant_zombie = TRUE
 
 /datum/disease/zombie/stage_act()
 	if(stage == 8)
@@ -29,6 +38,8 @@
 		for(var/obj/item/organ/limb as anything in H.bodyparts)
 			if(!(limb.status & ORGAN_DEAD) && !limb.is_robotic())
 				limb.necrotize(TRUE, TRUE)
+			if(!HAS_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN))
+				ADD_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN, ZOMBIE_TRAIT)
 
 	if(!..())
 		return FALSE
@@ -105,11 +116,15 @@
 	for(var/obj/item/organ/limb as anything in H.bodyparts)
 		if(!(limb.status & ORGAN_DEAD) && !limb.vital && !limb.is_robotic())
 			limb.necrotize()
+		if(!HAS_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN))
+			ADD_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN, ZOMBIE_TRAIT)
 			return FALSE
 
 	for(var/obj/item/organ/limb as anything in H.bodyparts)
 		if(!(limb.status & ORGAN_DEAD) && !limb.is_robotic())
 			limb.necrotize(FALSE, TRUE)
+		if(!HAS_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN))
+			ADD_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN, ZOMBIE_TRAIT)
 			return FALSE
 
 	if(!HAS_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS))
@@ -120,7 +135,14 @@
 		affected_mob.update_hands_hud()
 		H.update_body()
 	if(affected_mob.mind && !affected_mob.mind.has_antag_datum(/datum/antagonist/zombie))
-		affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
+		if(HAS_TRAIT(affected_mob, TRAIT_PLAGUE_ZOMBIE))
+			var/datum/antagonist/zombie/plague = new /datum/antagonist/zombie(plague_disease)
+			plague.silent = TRUE //to prevent the second box from appearing
+			plague.wiki_page_name = null
+			affected_mob.mind.add_antag_datum(plague)
+		else
+			affected_mob.mind.add_antag_datum(/datum/antagonist/zombie)
+
 	return TRUE
 
 
@@ -148,7 +170,21 @@
 /datum/disease/zombie/cure()
 	affected_mob.mind?.remove_antag_datum(/datum/antagonist/zombie)
 	REMOVE_TRAIT(affected_mob, TRAIT_I_WANT_BRAINS, ZOMBIE_TRAIT)
+	var/mob/living/carbon/human/H = affected_mob
+	for(var/obj/item/organ/limb as anything in H.bodyparts)
+		if(HAS_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN))
+			REMOVE_TRAIT(limb, TRAIT_I_WANT_BRAINS_ORGAN, ZOMBIE_TRAIT)
 	affected_mob.DeleteComponent(/datum/component/zombie_regen)
 	affected_mob.med_hud_set_health()
 	affected_mob.med_hud_set_status()
 	return ..()
+
+/datum/disease/zombie/wizard
+		spread_flags = SPREAD_NON_CONTAGIOUS
+		bypasses_immunity = TRUE
+		spread_text = "Non Contagious"
+		cure_text = "Anti-magic"
+
+// this should not be curable. Prevents things like rez wands from un-zombifying your zombs.
+/datum/disease/zombie/wizard/cure()
+	return

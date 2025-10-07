@@ -39,7 +39,7 @@
 /datum/gear/glasses/sechud
 	display_name = "Classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent","Magistrate")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Internal Affairs Agent","Magistrate")
 
 /datum/gear/glasses/goggles
 	display_name = "Goggles"
@@ -52,12 +52,12 @@
 /datum/gear/glasses/goggles_job/sechudgoggles
 	display_name = "Security HUD goggles"
 	path = /obj/item/clothing/glasses/hud/security/goggles
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent", "Magistrate")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Detective", "Internal Affairs Agent", "Magistrate")
 
 /datum/gear/glasses/goggles_job/medhudgoggles
 	display_name = "Health HUD goggles"
 	path = /obj/item/clothing/glasses/hud/health/goggles
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Geneticist", "Virologist", "Psychiatrist", "Paramedic")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Virologist", "Psychiatrist", "Paramedic")
 
 /datum/gear/glasses/goggles_job/diaghudgoggles
 	display_name = "Diagnostic HUD goggles"

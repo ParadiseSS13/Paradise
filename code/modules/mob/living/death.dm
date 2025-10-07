@@ -5,7 +5,8 @@
 		return FALSE
 	// hide and freeze for the GC
 	notransform = TRUE
-	icon = null
+	if(gib_nullifies_icon)
+		icon = null
 	invisibility = 101
 
 	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)

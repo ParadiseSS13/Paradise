@@ -44,7 +44,6 @@
 	key = "collapse"
 	key_third_person = "collapses"
 	message = "collapses!"
-	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/collapse/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -56,11 +55,6 @@
 	key = "dance"
 	key_third_person = "dances"
 	message = "dances around happily."
-
-/datum/emote/living/jump
-	key = "jump"
-	key_third_person = "jumps"
-	message = "jumps!"
 
 /datum/emote/living/deathgasp
 	key = "deathgasp"
@@ -186,8 +180,6 @@
 	message = "points."
 	message_param = "points at %t."
 	hands_use_check = TRUE
-	target_behavior = EMOTE_TARGET_BHVR_USE_PARAMS_ANYWAY
-	emote_target_type = EMOTE_TARGET_ANY
 
 /datum/emote/living/point/act_on_target(mob/user, target)
 	if(!target)
@@ -202,7 +194,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!H.has_left_hand() && !H.has_right_hand())
-			if(H.get_num_legs() != 0)
+			if(H.get_num_legs() != 0 && !HAS_TRAIT(H, TRAIT_PARAPLEGIC))
 				message_param = "tries to point at %t with a leg."
 			else
 				// nugget
@@ -302,7 +294,6 @@
 /datum/emote/living/nightmare
 	key = "nightmare"
 	message = "writhes in their sleep."
-	emote_type = EMOTE_VISIBLE
 	stat_allowed = UNCONSCIOUS
 	max_stat_allowed = UNCONSCIOUS
 	unintentional_stat_allowed = UNCONSCIOUS

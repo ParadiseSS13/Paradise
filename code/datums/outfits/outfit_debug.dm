@@ -24,7 +24,6 @@
 	pda = /obj/item/pda/centcom
 
 	internals_slot = ITEM_SLOT_SUIT_STORE
-	toggle_helmet = TRUE
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/surgery/debug,
@@ -56,7 +55,6 @@
 	desc = "Lets you listen to <b>everything</b>. Use in hand to toggle voice changing. Alt-click to change your fake name."
 	icon_state = "com_cypherkey"
 	channels = list("Response Team" = 1, "Special Ops" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Supply" = 1, "Service" = 1, "Procedure" = 1) // just in case
-	syndie = TRUE
 	change_voice = FALSE
 
 /obj/item/encryptionkey/syndicate/all_channels/Initialize(mapload)
@@ -98,14 +96,13 @@
 	name = "AVD-CNED glasses"
 	desc = "Diagnostic, Hydroponic, Medical, Security, and Skills HUD. Built-in advanced reagent scanner. Alt-click to toggle X-ray vision."
 	icon_state = "nvgmeson"
-	flags_cover = GLASSESCOVERSEYES
+	hud_debug = TRUE
 	flash_protect = FLASH_PROTECTION_WELDER
 	scan_reagents_advanced = TRUE
 
 	prescription_upgradable = FALSE
 
 	hud_types = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED, DATA_HUD_HYDROPONIC)
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE, EXAMINE_HUD_SKILLS)
 
 	var/xray = FALSE
 
@@ -148,8 +145,6 @@
 	desc = "Spawn a human by aiming at a turf and clicking. Use in hand to change type."
 	icon = 'icons/obj/guns/magic.dmi'
 	icon_state = "nothingwand"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	var/datum/species/selected_species
 	var/activate_mind = FALSE
@@ -255,6 +250,7 @@
 	volume = 50000
 	spray_maxrange = 10
 	spray_currentrange = 10
+	spray_minrange = 5
 	list_reagents = list("cleaner" = 50000)
 	delay = 0.1 SECONDS // it costs 1000 reagents to fire this cleaner... for 12 seconds.
 
@@ -264,7 +260,6 @@
 //
 
 /obj/item/storage/box/debug
-	w_class = WEIGHT_CLASS_NORMAL
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 1000
 	storage_slots = 99
@@ -272,6 +267,12 @@
 
 /obj/item/storage/box/debug/debugtools
 	name = "debug tools"
+
+/obj/item/paper/debug_research
+	name = "debug reseach notes"
+	desc = "Your brain is melting just from looking at this endless knowledge."
+	info = "<b>Information written here is beyond your understanding</b>"
+	origin_tech = "materials=10;engineering=10;plasmatech=10;powerstorage=10;bluespace=10;biotech=10;combat=10;magnets=10;programming=10;toxins=10;syndicate=10;abductor=10"
 
 /obj/item/storage/box/debug/debugtools/populate_contents()
 	new /obj/item/card/emag(src)
@@ -285,6 +286,7 @@
 	new /obj/item/storage/box/debug/misc_debug(src)
 	new /obj/item/storage/box/centcomofficer(src)
 	new /obj/item/radio/uplink/admin(src)
+	new /obj/item/paper/debug_research(src)
 
 /obj/item/storage/box/debug/material
 	name = "box of materials"
@@ -301,6 +303,11 @@
 	new /obj/item/stack/sheet/plasmarglass/fifty(src)
 	new /obj/item/stack/sheet/titaniumglass/fifty(src)
 	new /obj/item/stack/sheet/plastitaniumglass/fifty(src)
+	new /obj/item/stack/sheet/wood/fifty(src)
+	new /obj/item/stack/sheet/bamboo/fifty(src)
+	new /obj/item/stack/sheet/cloth/fifty(src)
+	new /obj/item/stack/sheet/durathread/fifty(src)
+	new /obj/item/stack/sheet/cardboard/fifty(src)
 	new /obj/item/stack/sheet/mineral/sandstone/fifty(src)
 	new /obj/item/stack/sheet/mineral/diamond/fifty(src)
 	new /obj/item/stack/sheet/mineral/uranium/fifty(src)
@@ -325,7 +332,6 @@
 	new /obj/item/clothing/gloves/fingerless/rapid/admin(src)
 	new /obj/item/clothing/under/misc/acj(src)
 	new /obj/item/clothing/suit/advanced_protective_suit(src)
-	new /obj/item/multitool/ai_detect/admin(src) // for giggles and shits
 	new /obj/item/adminfu_scroll(src)
 	new /obj/item/teleporter/admin(src)
 	new /obj/item/storage/belt/bluespace/admin(src) // god i love storage nesting

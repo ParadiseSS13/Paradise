@@ -67,6 +67,9 @@
 	categories = list(
 		"Cyborg",
 		"Cyborg Repair",
+		"Cyborg Upgrades",
+		"IPC",
+		"IPC Upgrades",
 		"MODsuit Construction",
 		"MODsuit Modules",
 		"Ripley",
@@ -79,7 +82,6 @@
 		"Reticence",
 		"Phazon",
 		"Exosuit Equipment",
-		"Cyborg Upgrade Modules",
 		"Medical",
 		"Misc"
 	)
@@ -310,13 +312,12 @@
 		return FALSE
 	return TRUE
 
-// Interaction code
-/obj/machinery/mecha_part_fabricator/attackby__legacy__attackchain(obj/item/W, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "fab-o", "fab-idle", W))
-		return
+/obj/machinery/mecha_part_fabricator/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_deconstruction_screwdriver(user, "fab-o", "fab-idle", used))
+		return ITEM_INTERACT_COMPLETE
 
-	if(default_deconstruction_crowbar(user, W))
-		return TRUE
+	if(default_deconstruction_crowbar(user, used))
+		return ITEM_INTERACT_COMPLETE
 
 	return ..()
 

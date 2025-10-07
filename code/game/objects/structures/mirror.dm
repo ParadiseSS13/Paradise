@@ -4,11 +4,13 @@
 	desc = "Mirror mirror on the wall, who's the most robust of them all?"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mirror"
-	density = FALSE
 	anchored = TRUE
 	max_integrity = 200
 	integrity_failure = 100
 	var/list/ui_users = list()
+	var/broken_icon_state = "mirror_broke"
+
+/obj/structure/mirror/organ
 
 /obj/structure/mirror/Initialize(mapload, newdir = SOUTH, building = FALSE)
 	. = ..()
@@ -44,13 +46,17 @@
 
 /obj/structure/mirror/obj_break(damage_flag, mapload)
 	if(!broken && !(flags & NODECONSTRUCT))
-		icon_state = "mirror_broke"
+		icon_state = broken_icon_state
 		if(!mapload)
 			playsound(src, "shatter", 70, TRUE)
 		if(desc == initial(desc))
 			desc = "Oh no, seven years of bad luck!"
 		broken = TRUE
 		GLOB.mirrors -= src
+
+/obj/structure/mirror/organ/obj_break(damage_flag, mapload)
+	playsound(src, "shatter", 70, TRUE)
+	qdel(src)
 
 /obj/structure/mirror/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -95,9 +101,14 @@
 /obj/structure/mirror/magic
 	name = "magic mirror"
 	icon_state = "magic_mirror"
+	broken_icon_state = "magic_mirror_broke"
 	var/options = list("Name", "Body", "Voice")
 	var/organ_warn = FALSE
 	var/actually_magical = TRUE
+
+/obj/structure/mirror/magic/Initialize(mapload, newdir, building)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATTACK_BY, TYPE_PROC_REF(/datum, signal_cancel_attack_by))
 
 /obj/structure/mirror/magic/attack_hand(mob/user)
 	if(!ishuman(user) || broken)
@@ -127,7 +138,7 @@
 				to_chat(user, "<span class='boldwarning'>Using the mirror will destroy any non biochip implants in you!</span>")
 			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask")
 			if(actually_magical)
-				race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask", "Vox", "Plasmaman", "Kidan")
+				race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask", "Vox", "Plasmaman", "Kidan", "Slime People")
 
 			var/datum/ui_module/appearance_changer/AC = ui_users[user]
 			if(!AC)
@@ -136,7 +147,8 @@
 				AC.flags = APPEARANCE_ALL
 				AC.whitelist = race_list
 				ui_users[user] = AC
-			AC.ui_interact(user)
+			if(user.Adjacent(src))
+				AC.ui_interact(user)
 
 		if("Voice")
 			var/voice_choice = tgui_input_list(user, "Perhaps...", "Voice effects", list("Comic Sans", "Wingdings", "Swedish", "Chav", "Mute"))
@@ -165,9 +177,6 @@
 
 /obj/structure/mirror/magic/ui_close(mob/user)
 	curse(user)
-
-/obj/structure/mirror/magic/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	return
 
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return

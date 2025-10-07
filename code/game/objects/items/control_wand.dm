@@ -4,20 +4,21 @@
 #define WAND_SPEED "Change Closing Speed"
 
 /obj/item/door_remote
-	icon_state = "gangtool-white"
-	item_state = "electronic"
-	icon = 'icons/obj/device.dmi'
 	name = "control wand"
 	desc = "Remotely controls airlocks."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "gangtool-white"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 	flags = NOBLUDGEON
 	var/mode = WAND_OPEN
 	var/region_access = list()
 	var/additional_access = list()
 	var/obj/item/card/id/ID
+	new_attack_chain = TRUE
 
-/obj/item/door_remote/New()
-	..()
+/obj/item/door_remote/Initialize(mapload)
+	. = ..()
 	ID = new /obj/item/card/id
 	for(var/region in region_access)
 		ID.access += get_region_accesses(region)
@@ -28,7 +29,10 @@
 	QDEL_NULL(ID)
 	return ..()
 
-/obj/item/door_remote/attack_self__legacy__attackchain(mob/user)
+/obj/item/door_remote/activate_self(mob/user)
+	if(..())
+		return
+
 	var/list/options = list(WAND_OPEN = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_open"),
 									WAND_BOLT = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_bolt"),
 									WAND_EMERGENCY = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_ea"),
@@ -49,19 +53,25 @@
 	. = ..()
 	. += "<span class='notice'>It's current mode is: [mode]</span>"
 
-/obj/item/door_remote/afterattack__legacy__attackchain(obj/target, mob/user)
+/obj/item/door_remote/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(istype(target, /obj/machinery/door/airlock))
 		access_airlock(target, user)
+		return ITEM_INTERACT_COMPLETE
 	if(istype(target, /obj/machinery/door/window))
 		access_windoor(target, user)
+		return ITEM_INTERACT_COMPLETE
+
+/obj/item/door_remote/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(istype(target, /obj/machinery/door/airlock))
+		access_airlock(target, user)
+		return ITEM_INTERACT_COMPLETE
+	if(istype(target, /obj/machinery/door/window))
+		access_windoor(target, user)
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/door_remote/proc/access_airlock(obj/machinery/door/airlock/D, mob/user)
 	if(HAS_TRAIT(D, TRAIT_CMAGGED))
 		to_chat(user, "<span class='danger'>The door doesn't respond to [src]!</span>")
-		return
-
-	if(D.is_special)
-		to_chat(user, "<span class='danger'>[src] cannot access this kind of door!</span>")
 		return
 
 	if(!(D.arePowerSystemsOn()))
@@ -134,7 +144,7 @@
 
 /obj/item/door_remote/captain
 	name = "command door remote"
-	icon_state = "gangtool-yellow"
+	icon_state = "gangtool-blue"
 	region_access = list(REGION_COMMAND)
 
 /obj/item/door_remote/chief_engineer
@@ -154,17 +164,16 @@
 
 /obj/item/door_remote/quartermaster
 	name = "supply door remote"
-	icon_state = "gangtool-green"
+	icon_state = "gangtool-brown"
 	region_access = list(REGION_SUPPLY)
 
 /obj/item/door_remote/chief_medical_officer
 	name = "medical door remote"
-	icon_state = "gangtool-blue"
 	region_access = list(REGION_MEDBAY)
 
 /obj/item/door_remote/civillian
 	name = "civilian door remote"
-	icon_state = "gangtool-white"
+	icon_state = "gangtool-green"
 	region_access = list(REGION_GENERAL)
 	additional_access = list(ACCESS_HOP)
 
@@ -178,16 +187,24 @@
 	name = "access tuner"
 	desc = "A device used for illegally interfacing with doors."
 	icon_state = "hacktool"
-	item_state = "hacktool"
+	inhand_icon_state = "hacktool"
 	var/hack_speed = 1.5 SECONDS
 	var/busy = FALSE
 	/// How far can we use this. Leave `null` for infinite range
 	var/range
 
-/obj/item/door_remote/omni/access_tuner/afterattack__legacy__attackchain(obj/machinery/door/D, mob/user)
-	if(!istype(D, /obj/machinery/door/airlock) && !istype(D, /obj/machinery/door/window))
+/obj/item/door_remote/omni/access_tuner/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(hack(target, user))	// if the hack is successful, calls the parent proc and does the door stuff
+		return ..()
+
+/obj/item/door_remote/omni/access_tuner/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(hack(target, user))
+		return ..()
+
+/obj/item/door_remote/omni/access_tuner/proc/hack(atom/target, mob/user)
+	if(!istype(target, /obj/machinery/door/airlock) && !istype(target, /obj/machinery/door/window))
 		return
-	if(!isnull(range) && get_dist(src, D) > range)
+	if(!isnull(range) && get_dist(src, target) > range)
 		return
 
 	if(busy)
@@ -195,9 +212,11 @@
 		return
 	icon_state = "hacktool-g"
 	busy = TRUE
-	to_chat(user, "<span class='notice'>[src] is attempting to interface with [D]...</span>")
-	if(do_after(user, hack_speed, target = D))
-		. = ..()
+	to_chat(user, "<span class='notice'>[src] is attempting to interface with [target]...</span>")
+	if(do_after(user, hack_speed, target = target, hidden = TRUE))
+		busy = FALSE
+		icon_state = "hacktool"
+		return TRUE
 	busy = FALSE
 	icon_state = "hacktool"
 
@@ -213,7 +232,7 @@
 	name = "janitor's keyring"
 	desc = "An absolutely unwieldy set of keys attached to a metal ring. The keys on the ring allow you to access most Departmental entries and the Service Department!"
 	icon_state = "keyring"
-	item_state = "keyring"
+	inhand_icon_state = null
 	/// Are you already using the keyring?
 	var/busy = FALSE
 	/// This prevents spamming the key-shake.
@@ -224,50 +243,58 @@
 	var/last_airlock_uid
 	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
 
+/obj/item/door_remote/janikeyring/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ACTIVATE_SELF, TYPE_PROC_REF(/datum, signal_cancel_activate_self))
+
 /obj/item/door_remote/janikeyring/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This keyring has access to Medbay, Science, Engineering, Cargo, the Bar and the Kitchen!</span>"
 
-/obj/item/door_remote/janikeyring/attack_self__legacy__attackchain(mob/user)
-	if(cooldown > world.time)
+/obj/item/door_remote/janikeyring/activate_self(mob/user)
+	if(..() || cooldown > world.time)
 		return
+
 	to_chat(user, "<span class='warning'>You shake [src]!</span>")
 	playsound(src, 'sound/items/keyring_shake.ogg', 50)
 	cooldown = world.time + JANGLE_COOLDOWN
 
-/obj/item/door_remote/janikeyring/afterattack__legacy__attackchain(obj/machinery/door/D, mob/user, proximity)
-	if(!proximity)
-		return
-	if(!istype(D, /obj/machinery/door/airlock) && !istype(D, /obj/machinery/door/window))
+/obj/item/door_remote/janikeyring/interact_with_atom(obj/machinery/door/target, mob/living/user, list/modifiers)
+	if(unlock(target, user))
+		return ..()
+
+/obj/item/door_remote/janikeyring/ranged_interact_with_atom(atom/target, mob/living/user, list/modifiers) // THOSE AINT MAGICAL REMOTE KEYS
+	return NONE
+
+
+/obj/item/door_remote/janikeyring/proc/unlock(obj/machinery/door/target, mob/living/user)
+	if(!istype(target, /obj/machinery/door/airlock) && !istype(target, /obj/machinery/door/window))
 		return
 	if(busy)
-		to_chat(user, "<span class='warning'>You are already using [src] on the [D]'s access panel!</span>")
+		to_chat(user, "<span class='warning'>You are already using [src] on the [target]'s access panel!</span>")
 		return
 	busy = TRUE
 	var/mob/living/carbon/human/H = user
-	if(H.mind.assigned_role == "Janitor" && last_airlock_uid == D.UID())
-		to_chat(user, "<span class='notice'>You recognize [D] and look for the key you used...</span>")
+	if(H.mind.assigned_role == "Janitor" && last_airlock_uid == target.UID())
+		to_chat(user, "<span class='notice'>You recognize [target] and look for the key you used...</span>")
 		hack_speed = 5 SECONDS
 	else
-		to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open [D]...</span>")
+		to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open [target]...</span>")
 		if(H.mind.assigned_role != "Janitor")
 			hack_speed = rand(30, 60) SECONDS
 		else
 			hack_speed = rand(5, 20) SECONDS
 	playsound(src, 'sound/items/keyring_unlock.ogg', 50)
-	if(do_after(user, hack_speed, target = D, progress = 0))
-		if(D.check_access(ID))
-			last_airlock_uid = D.UID()
-		. = ..()
+	if(do_after(user, hack_speed, target = target, progress = 0))
+		if(target.check_access(ID))
+			last_airlock_uid = target.UID()
+		busy =  FALSE
+		return TRUE
 	busy = FALSE
 
 /obj/item/door_remote/janikeyring/access_airlock(obj/machinery/door/airlock/D, mob/user)
 	if(HAS_TRAIT(D, TRAIT_CMAGGED))
 		to_chat(user, "<span class='danger'>[src] won't fit in the [D] airlock's access panel, there's slime everywhere!</span>")
-		return
-
-	if(D.is_special)
-		to_chat(user, "<span class='danger'>[src] cannot fit in the [D] airlock's access panel!</span>")
 		return
 
 	if(!D.arePowerSystemsOn())

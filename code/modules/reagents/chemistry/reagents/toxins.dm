@@ -159,7 +159,6 @@
 	id = "radium"
 	description = "Radium is an alkaline earth metal. It is extremely radioactive."
 	process_flags = ORGANIC | SYNTHETIC
-	reagent_state = SOLID
 	color = "#C7C7C7" // rgb: 199,199,199
 	penetrates_skin = TRUE
 	taste_description = "the colour blue and regret"
@@ -241,7 +240,6 @@
 	name = "Uranium"
 	id = "uranium"
 	description = "A silvery-white metallic chemical element in the actinide series, weakly radioactive."
-	reagent_state = SOLID
 	color = "#B8B8C0" // rgb: 184, 184, 192
 	taste_mult = 0
 	taste_description = "the inside of a reactor"
@@ -340,7 +338,6 @@
 	description = "Fluorosulfuric acid is a an extremely corrosive super-acid."
 	color = "#5050FF"
 	acidpwr = 42
-	goal_department = "Science"
 	goal_difficulty = REAGENT_GOAL_NORMAL
 
 /datum/reagent/acid/facid/on_mob_life(mob/living/M)
@@ -362,11 +359,11 @@
 			H.adjustFireLoss(clamp((volume - 5) * 3, 8, 75))
 			return
 
-		var/has_melted_something = FALSE
-		if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
+		var/protected = TRUE
+		if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF) && !(H.head?.resistance_flags & ACID_PROOF))
 			to_chat(H, "<span class='danger'>Your [H.wear_mask.name] melts away!</span>")
 			qdel(H.wear_mask)
-			has_melted_something = TRUE
+			protected = FALSE
 
 		if(H.head && !(H.head.resistance_flags & ACID_PROOF))
 			if(istype(H.head, /obj/item/clothing/head/mod) && ismodcontrol(H.back))
@@ -378,9 +375,9 @@
 			else
 				to_chat(H, "<span class='danger'>Your [H.head.name] melts away!</span>")
 				qdel(H.head)
-			has_melted_something = TRUE
+			protected = FALSE
 
-		if(has_melted_something)
+		if(protected)
 			return
 
 	if(volume >= 5)
@@ -916,7 +913,6 @@
 	name = "Lipolicide"
 	id = "lipolicide"
 	description = "A compound found in many seedy dollar stores in the form of a weight-loss tonic."
-	reagent_state = SOLID
 	color = "#D1DED1"
 	metabolization_rate = 0.2
 	taste_description = "battery acid"
@@ -1096,7 +1092,7 @@
 			if(!C.wear_mask) // If not wearing a mask
 				C.adjustToxLoss(lethality)
 		if(isnymph(M)) //nymphs take EVEN MORE damage
-			var/mob/living/simple_animal/diona/D = M
+			var/mob/living/basic/diona_nymph/D = M
 			D.adjustHealth(100)
 	..()
 
@@ -1104,7 +1100,6 @@
 	name = "Atrazine"
 	id = "atrazine"
 	description = "A herbicidal compound used for destroying unwanted plants."
-	reagent_state = LIQUID
 	color = "#773E73" //RGB: 47 24 45
 	lethality = 2 //Atrazine, however, is definitely toxic
 	goal_department = "Science"
@@ -1254,7 +1249,6 @@
 	name = "Ants"
 	id = "ants"
 	description = "A sample of a lost breed of Space Ants (formicidae bastardium tyrannus), they are well-known for ravaging the living shit out of pretty much anything."
-	reagent_state = SOLID
 	color = "#993333"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "<span class='warning'>ANTS OH GOD</span>"
@@ -1335,3 +1329,27 @@
 
 /datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=REAGENT_TOUCH, reac_volume)
 	L.ForceContractDisease(new /datum/disease/transformation/morph())
+
+/datum/reagent/glass_shards
+	name = "Glass shards"
+	id = "glass_shards"
+	description = "Glass, crushed into a coarse powder made up of razor-sharp shards."
+	color = "#87c6dac8"
+	taste_description = "<span class='userdanger'>Broken glass!</span>"
+
+/datum/reagent/glass_shards/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustBruteLoss(2, FALSE)
+	if(iscarbon(M) && prob(5)) // OH GOD IT'S CUTTING UP INSIDE ME AAAAAAAGHHHH!
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/affected = H.get_organ(BODY_ZONE_CHEST)
+		if(affected.status & !ORGAN_INT_BLEEDING)
+			affected.cause_internal_bleeding()
+
+	return ..() | update_flags
+
+/datum/reagent/glass_shards/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	if(iscarbon(M))
+		to_chat(M, "<span class='userdanger'>OH GOD IT HURTS!</span>")
+		M.emote("scream")
+		M.adjustBruteLoss(4)

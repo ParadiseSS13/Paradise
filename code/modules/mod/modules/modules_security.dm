@@ -31,7 +31,7 @@
 			return
 		holstered = holding
 		mod.wearer.visible_message("<span class='notice'>[mod.wearer] holsters [holstered].</span>", "<span class='notice'>You holster [holstered].</span>")
-		mod.wearer.unEquip(mod.wearer.get_active_hand())
+		mod.wearer.unequip(mod.wearer.get_active_hand())
 		holstered.forceMove(src)
 	else if(mod.wearer.put_in_active_hand(holstered))
 		mod.wearer.visible_message("<span class='warning'>[mod.wearer] draws [msg], ready to shoot!</span>", \
@@ -133,7 +133,6 @@
 /obj/effect/temp_visual/sonar_ping
 	duration = 3 SECONDS
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	anchored = TRUE
 	randomdir = FALSE
 	/// The image shown to modsuit users
 	var/image/modsuit_image
@@ -255,16 +254,13 @@
 /obj/item/grenade/cryogrenade_mod
 	name = "cryogenic grenade"
 	desc = "A very cold grenade."
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "gluon"
-	item_state = "grenade"
 	var/freeze_range = 4
 	var/stamina_damage = 60
 	var/body_adjustment = -230
 	var/reagent_volume = 15
 	/// Mob that threw the grenade.
 	var/mob/living/thrower
-
 
 /obj/item/grenade/cryogrenade_mod/Destroy()
 	thrower = null

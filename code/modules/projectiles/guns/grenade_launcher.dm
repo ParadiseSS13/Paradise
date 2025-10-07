@@ -1,13 +1,11 @@
 /obj/item/gun/grenadelauncher
 	name = "grenade launcher"
 	desc = "a terrible, terrible thing. it's really awful!"
-	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "riotgun"
-	item_state = "riotgun"
+	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 2
 	throw_range = 10
-	force = 5
 	var/list/grenades = list()
 	var/max_grenades = 3
 
@@ -21,9 +19,9 @@
 /obj/item/gun/grenadelauncher/attackby__legacy__attackchain(obj/item/I as obj, mob/user as mob, params)
 	if((istype(I, /obj/item/grenade)))
 		if(length(grenades) < max_grenades)
-			if(!user.unEquip(I))
+			if(!user.unequip(I))
 				return
-			I.loc = src
+			I.forceMove(src)
 			grenades += I
 			to_chat(user, "<span class='notice'>You put the grenade in [src].</span>")
 			to_chat(user, "<span class='notice'>[length(grenades)] / [max_grenades] grenades.</span>")

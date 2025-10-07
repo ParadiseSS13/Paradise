@@ -2,7 +2,6 @@
 	name = "shoulder holster"
 	desc = "A handgun holster."
 	icon_state = "holster"
-	item_color = "holster"
 	slot = ACCESSORY_SLOT_UTILITY
 	var/list/holster_allow = list(/obj/item/gun)
 	var/obj/item/gun/holstered = null
@@ -50,8 +49,8 @@
 		return
 
 	holstered = W
-	user.unEquip(holstered)
-	holstered.loc = src
+	user.unequip(holstered)
+	holstered.forceMove(src)
 	holstered.add_fingerprint(user)
 	user.visible_message("<span class='notice'>[user] holsters [holstered].</span>", "<span class='notice'>You holster [holstered].</span>")
 
@@ -110,14 +109,10 @@
 		unholster(user)
 
 /obj/item/clothing/accessory/holster/armpit
-	name = "shoulder holster"
 	desc = "A worn-out handgun holster. Perfect for concealed carry"
-	icon_state = "holster"
-	item_color = "holster"
 	holster_allow = list(/obj/item/gun/projectile, /obj/item/gun/energy/detective)
 
 /obj/item/clothing/accessory/holster/waist
-	name = "shoulder holster"
 	desc = "A handgun holster. Made of expensive leather."
-	icon_state = "holster"
-	item_color = "holster_low"
+	worn_icon_state = "holster_low"
+	attached_icon_state = "holster_low"

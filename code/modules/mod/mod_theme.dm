@@ -51,6 +51,8 @@
 	var/list/inbuilt_modules = list()
 	/// Allowed items in the chestplate's suit storage.
 	var/list/allowed_suit_storage = list()
+	/// List of modifiers that we apply after applying new skin
+	var/list/skin_modifiers = list()
 	/// List of skins with their appropriate clothing flags.
 	var/list/skins = list(
 		"standard" = list(
@@ -128,7 +130,6 @@
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	slowdown_inactive = 1.5
-	slowdown_active = 0.75
 	allowed_suit_storage = list(
 		/obj/item/rcd,
 		/obj/item/fireaxe,
@@ -179,7 +180,6 @@
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
 	siemens_coefficient = 0
 	slowdown_inactive = 1.5
-	slowdown_active = 0.75
 	allowed_suit_storage = list(
 		/obj/item/rcd,
 		/obj/item/fireaxe/,
@@ -309,6 +309,9 @@
 		/obj/item/gun/energy/kinetic_accelerator,
 	)
 	inbuilt_modules = list(/obj/item/mod/module/ash_accretion, /obj/item/mod/module/sphere_transform)
+	skin_modifiers = list(
+		"asteroid" = MAKE_SPACEPROOF
+	)
 	skins = list(
 		"mining" = list(
 			HELMET_FLAGS = list(
@@ -553,7 +556,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_rescue
-	armor = list(MELEE = 20, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 50, FIRE = 150, ACID = 150) //Extra melee / bullet armor for if they get caught in a fight. Of course, no laser armor.
+	armor = list(MELEE = 20, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 10, RAD = 250, FIRE = 150, ACID = 150) //Extra melee / bullet armor for if they get caught in a fight. Of course, no laser armor.
 
 /datum/mod_theme/research
 	name = "'Minerva' research"

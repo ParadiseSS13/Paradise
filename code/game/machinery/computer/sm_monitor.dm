@@ -52,6 +52,7 @@
 		data["active"] = TRUE
 		data["SM_integrity"] = active.get_integrity()
 		data["SM_power"] = active.power
+		data["SM_pre_reduction_power"] = active.pre_reduction_power
 		data["SM_ambienttemp"] = air.temperature()
 		data["SM_ambientpressure"] = air.return_pressure()
 		data["SM_moles"] = air.total_moles()
@@ -105,7 +106,7 @@
 		return
 	for(var/obj/machinery/atmospherics/supermatter_crystal/S in SSair.atmos_machinery)
 		// Delaminating, not within coverage, not on a tile.
-		if(!(is_station_level(S.z) || is_mining_level(S.z) || atoms_share_level(S, T) || !issimulatedturf(S.loc)))
+		if(!atoms_share_level(S, T) || !issimulatedturf(S.loc))
 			continue
 		supermatters.Add(S)
 

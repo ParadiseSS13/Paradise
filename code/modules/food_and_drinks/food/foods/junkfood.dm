@@ -111,15 +111,19 @@
 	list_reagents = list("nutriment" = 2, "sugar" = 10)
 	tastes = list("sweetness" = 3, "liquorice" = 2)
 
-/obj/item/food/twimsts/attack_self__legacy__attackchain(mob/user)
+/obj/item/food/twimsts/activate_self(mob/user)
+	if(..())
+		return ITEM_INTERACT_COMPLETE
+
 	var/obj/item/restraints/handcuffs/twimsts/L = new /obj/item/restraints/handcuffs/twimsts
 	L.create_reagents(100)
 	reagents.copy_to(L, reagents.total_volume)
-	user.unEquip(src)
+	user.unequip(src)
 	var/obj/item/trash_item = generate_trash(user)
-	user.unEquip(trash_item)
+	user.drop_item_to_ground(trash_item)
 	user.put_in_hands(L)
 	qdel(src)
+	return ITEM_INTERACT_COMPLETE
 
 /obj/item/food/deluxe_chocolate_bar
 	name = "Deluxe Chocolate-bar"

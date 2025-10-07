@@ -63,9 +63,10 @@
 	active2 = null
 	return ..()
 
-/obj/machinery/computer/med_data/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(ui_login_attackby(O, user))
-		return
+/obj/machinery/computer/med_data/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(ui_login_attackby(used, user))
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/computer/med_data/attack_hand(mob/user)
@@ -105,6 +106,7 @@
 							"ref" = "\ref[R]",
 							"name" = R.fields["name"],
 							"id" = R.fields["id"],
+							"dna" = R.fields["b_dna"],
 							"rank" = R.fields["rank"],
 							"p_stat" = R.fields["p_stat"],
 							"m_stat" = R.fields["m_stat"])

@@ -2,7 +2,7 @@
 	name = "Last Resort"
 	desc = "We sacrifice our current body in a moment of need, placing us in control of a vessel that can plant our likeness in a new host. Costs 20 chemicals."
 	helptext = "We will be placed in control of a small, fragile creature. We may attack a corpse like this to plant an egg which will slowly mature into a new form for us."
-	button_overlay_icon_state = "last_resort"
+	button_icon_state = "last_resort"
 	chemical_cost = 20
 	dna_cost = 2
 	req_human = TRUE
@@ -40,7 +40,7 @@
 	for(var/obj/item/organ/internal/I in organs)
 		I.remove(user, TRUE)
 
-	explosion(get_turf(user), 0, 0, 2, 0, silent = TRUE)
+	explosion(get_turf(user), 0, 0, 2, 0, silent = TRUE, cause = "Headslug explosion")
 	for(var/mob/living/carbon/human/H in range(2, user))
 		to_chat(H, "<span class='userdanger'>You are blinded by a shower of blood!</span>")
 		H.KnockDown(4 SECONDS)

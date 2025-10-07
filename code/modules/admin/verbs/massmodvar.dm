@@ -228,7 +228,7 @@
 			CHECK_TICK
 
 	else if(ispath(T, /obj/machinery))
-		for(var/obj/machinery/thing in GLOB.machines)
+		for(var/obj/machinery/thing in SSmachines.get_by_type(/obj/machinery))
 			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK

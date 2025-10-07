@@ -1,50 +1,42 @@
-/obj/vehicle/space/speedbike
+/obj/tgvehicle/speedbike
 	name = "Speedbike"
+	desc = "A futuristic and incredibly fast hovering bike with a small thruster on the back."
 	icon = 'icons/obj/bike.dmi'
 	icon_state = "speedbike_blue"
-	layer = MOB_LAYER - 0.1
-	vehicle_move_delay = 0
-	var/overlay_state = "cover_blue"
-	var/mutable_appearance/overlay
+	layer = LYING_MOB_LAYER
+	var/cover_iconstate = "cover_blue"
 
-/obj/vehicle/space/speedbike/Initialize(mapload)
+/obj/tgvehicle/speedbike/Initialize(mapload)
 	. = ..()
-	overlay = mutable_appearance(icon, overlay_state, ABOVE_MOB_LAYER)
-	add_overlay(overlay)
+	add_overlay(image(icon, cover_iconstate, ABOVE_MOB_LAYER))
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/speedbike)
 
-/obj/vehicle/space/speedbike/Move(newloc,move_dir)
+/obj/tgvehicle/speedbike/Move(newloc,move_dir)
 	if(has_buckled_mobs())
 		new /obj/effect/temp_visual/dir_setting/speedbike_trail(loc)
 	. = ..()
 
-/obj/vehicle/space/speedbike/handle_vehicle_layer()
-	switch(dir)
-		if(NORTH,SOUTH)
-			pixel_x = -16
-			pixel_y = -16
-		if(EAST,WEST)
-			pixel_x = -18
-			pixel_y = 0
-
-/obj/vehicle/space/speedbike/handle_vehicle_offsets()
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			buckled_mob.setDir(dir)
-			switch(dir)
-				if(NORTH)
-					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = -8
-				if(SOUTH)
-					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = 4
-				if(EAST)
-					buckled_mob.pixel_x = -10
-					buckled_mob.pixel_y = 5
-				if(WEST)
-					buckled_mob.pixel_x = 10
-					buckled_mob.pixel_y = 5
-
-/obj/vehicle/space/speedbike/red
+/obj/tgvehicle/speedbike/red
 	icon_state = "speedbike_red"
-	overlay_state = "cover_red"
+	cover_iconstate = "cover_red"
+
+/datum/component/riding/vehicle/speedbike
+	vehicle_move_delay = 1
+	override_allow_spacemove = TRUE
+	ride_check_flags = RIDER_NEEDS_LEGS | UNBUCKLE_DISABLED_RIDER
+
+/datum/component/riding/vehicle/speedbike/handle_specials()
+	. = ..()
+	set_vehicle_dir_layer(SOUTH, OBJ_LAYER)
+	set_vehicle_dir_layer(NORTH, ABOVE_MOB_LAYER)
+	set_vehicle_dir_layer(EAST, OBJ_LAYER)
+	set_vehicle_dir_layer(WEST, OBJ_LAYER)
+
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, -8), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(-10, 5), TEXT_WEST = list(10, 5)))
+	set_vehicle_dir_offsets(NORTH, -16, -16)
+	set_vehicle_dir_offsets(SOUTH, -16, -16)
+	set_vehicle_dir_offsets(EAST, -18, 0)
+	set_vehicle_dir_offsets(WEST, -18, 0)
+
+/datum/component/riding/vehicle/speedbike/on_rider_try_pull(mob/living/rider_pulling, atom/movable/target, force)
+	return

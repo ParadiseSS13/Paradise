@@ -50,7 +50,7 @@
 	stop_following()
 	return ..()
 
-/obj/structure/transit_tube_pod/Process_Spacemove()
+/obj/structure/transit_tube_pod/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(moving) //No drifting while moving in the tubes
 		return TRUE
 	else return ..()
@@ -280,8 +280,6 @@
 /obj/structure/transit_tube_pod/dispensed
 	name = "temporary transit tube pod"
 	desc = "Gets you from here to there, and no further."
-	icon_state = "pod"
-	occupied_icon_state = "pod_occupied"
 
 
 /obj/structure/transit_tube_pod/dispensed/outside_tube()

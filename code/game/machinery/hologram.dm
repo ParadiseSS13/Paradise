@@ -67,7 +67,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	layer = HOLOPAD_LAYER //Preventing mice and drones from sneaking under them.
 	plane = FLOOR_PLANE
 	max_integrity = 300
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, rad = 0, fire = 50, acid = 0)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, RAD = 0, FIRE = 50, ACID = 0)
 
 	/// List of living mobs currently using the holopad
 	var/list/masters = list()
@@ -92,6 +92,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	var/ringing = FALSE
 	/// Whether or not the user is currently selecting where to send their call.
 	var/dialling_input = FALSE
+	var/mob/camera/eye/hologram/eye
 
 /obj/machinery/hologram/holopad/Initialize(mapload)
 	. = ..()
@@ -176,6 +177,9 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(outgoing_call)
 		return
 
+	if(user.a_intent != INTENT_HELP)
+		return
+
 	user.set_machine(src)
 	interact(user)
 
@@ -187,7 +191,7 @@ GLOBAL_LIST_EMPTY(holopads)
 /obj/machinery/hologram/holopad/AltClick(mob/living/carbon/human/user)
 	if(..())
 		return
-	if(isAI(user))
+	if(is_ai(user))
 		hangup_all_calls()
 		return
 
@@ -237,7 +241,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	popup.open()
 
 /obj/machinery/hologram/holopad/Topic(href, href_list)
-	if(..() || isAI(usr))
+	if(..() || is_ai(usr))
 		return
 	add_fingerprint(usr)
 	if(stat & NOPOWER)
@@ -302,24 +306,25 @@ GLOBAL_LIST_EMPTY(holopads)
 
 	updateDialog()
 
-//do not allow AIs to answer calls or people will use it to meta the AI satellite
+// do not allow AIs to answer calls or people will use it to meta the AI satellite
 /obj/machinery/hologram/holopad/attack_ai(mob/living/silicon/ai_or_robot)
-	var/mob/living/silicon/ai/ai = ai_or_robot
-	var/mob/living/silicon/robot/robot = ai_or_robot
-	if(!istype(ai) && !istype(robot))
-		return
 	if(outgoing_call)
 		return
-	if(istype(robot))
-		interact(robot)
-	/*There are pretty much only three ways to interact here.
-	I don't need to check for client since they're clicking on an object.
-	This may change in the future but for now will suffice.*/
-	else if(ai.eyeobj.loc != loc)//Set client eye on the object if it's not already.
-		ai.eyeobj.setLoc(get_turf(src))
-	else if(!LAZYLEN(masters) || !masters[ai])//If there is no hologram, possibly make one.
-		activate_holo(ai, 1)
-	else//If there is a hologram, remove it.
+
+	if(isrobot(ai_or_robot))
+		interact(ai_or_robot)
+		return
+	if(!is_ai(ai_or_robot))
+		return
+	if(is_mecha_occupant(ai_or_robot)) // AIs must exit mechs before activating holopads.
+		return
+
+	var/mob/living/silicon/ai/ai = ai_or_robot
+	if(ai.eyeobj.loc != loc) // Set client eye on the object if it's not already.
+		ai.eyeobj.set_loc(get_turf(src))
+	else if(!LAZYLEN(masters) || !masters[ai]) // If there is no hologram, possibly make one.
+		activate_holo(ai, TRUE)
+	else // If there is a hologram, remove it.
 		clear_holo(ai)
 
 /obj/machinery/hologram/holopad/process()
@@ -355,13 +360,15 @@ GLOBAL_LIST_EMPTY(holopads)
 
 //Try to transfer hologram to another pad that can project on T
 /obj/machinery/hologram/holopad/proc/transfer_to_nearby_pad(turf/T, mob/holo_owner)
-	if(!isAI(holo_owner))
+	if(!is_ai(holo_owner))
 		return
 	for(var/pad in GLOB.holopads)
 		var/obj/machinery/hologram/holopad/another = pad
 		if(another == src)
 			continue
-		if(another.validate_location(T))
+		if(T.loc != get_area(another))
+			continue
+		if(another.validate_location(T, holo_owner))
 			var/obj/effect/overlay/holo_pad_hologram/h = masters[holo_owner]
 			unset_holo(holo_owner)
 			another.set_holo(holo_owner, h)
@@ -372,16 +379,17 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(QDELETED(user) || user.incapacitated() || !user.client)
 		return FALSE
 
-	if(isAI(user))
+	if(is_ai(user))
 		var/mob/living/silicon/ai/AI = user
 		if(!AI.current)
 			return FALSE
 	return TRUE
 
 //Can we display holos there
-//Area check instead of line of sight check because this is a called a lot if AI wants to move around.
-/obj/machinery/hologram/holopad/proc/validate_location(turf/T,check_los = FALSE)
-	if(T.z == z && get_dist(T, src) <= holo_range && T.loc == get_area(src))
+/obj/machinery/hologram/holopad/proc/validate_location(turf/T, mob/living/user)
+	if(!is_ai(user) && T.loc != get_area(src)) //For AI, the area check is done on trying to find another holopad instead
+		return FALSE
+	if(T.z == z && (get_dist(T, src) <= holo_range))
 		return TRUE
 	return FALSE
 
@@ -390,7 +398,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(masters[user])
 		var/obj/effect/overlay/holo_pad_hologram/holo = masters[user]
 		var/transfered = FALSE
-		if(!validate_location(new_turf))
+		if(!validate_location(new_turf, user))
 			if(!transfer_to_nearby_pad(new_turf,user))
 				clear_holo(user)
 				return FALSE
@@ -415,7 +423,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			return
 
 		var/obj/effect/overlay/holo_pad_hologram/hologram = new(loc)//Spawn a blank effect at the location.
-		if(isAI(user))
+		if(is_ai(user))
 			hologram.icon = AI.holo_icon
 		else	//make it like real life
 			if(isrobot(user))
@@ -435,6 +443,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		hologram.set_light(2)	//hologram lighting
 		move_hologram()
 
+		eye = new /mob/camera/eye/hologram(src, user.name, src, user)
 		set_holo(user, hologram)
 
 		if(!masters[user])//If there is not already a hologram.
@@ -480,28 +489,45 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		return
 	else if(ringing)
 		icon_state = "holopad_ringing"
-	else if(total_users)
-		icon_state = "holopad1"
-	else
+	else if(total_users) {
 		icon_state = "holopad0"
-
+		var/icon/overlay_icon = new('icons/obj/stationobjs.dmi', "holopad1_lightmask")
+		var/mob/living/silicon/ai/AI
+		for(var/mob/living/user in masters)
+			if(is_ai(user))
+				AI = user
+				break
+		if(AI)
+			overlay_icon.ColorTone(AI.hologram_color)
+		overlays += overlay_icon
+	} else {
+		icon_state = "holopad0"
+		overlays.Cut()
+	}
 
 /obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, obj/effect/overlay/holo_pad_hologram/h)
+	eye = user.remote_control
+	eye.holopad = src
 	masters[user] = h
 	holorays[user] = new /obj/effect/overlay/holoray(loc)
 	var/mob/living/silicon/ai/AI = user
 	if(istype(AI))
 		AI.current = src
+		var/obj/effect/overlay/holoray = holorays[user]
+		holoray.icon = getHologramIcon(icon('icons/effects/96x96.dmi', "holoray"), FALSE, AI.hologram_color, 1)
 	SetLightsAndPower()
 	update_holoray(user, get_turf(loc))
 	return TRUE
 
 /obj/machinery/hologram/holopad/proc/clear_holo(mob/living/user)
 	qdel(masters[user]) // Get rid of user's hologram
+	if(!QDELETED(eye))
+		QDEL_NULL(eye)
 	unset_holo(user)
 	return TRUE
 
 /obj/machinery/hologram/holopad/proc/unset_holo(mob/living/user)
+	eye = null
 	var/mob/living/silicon/ai/AI = user
 	if(istype(AI) && AI.current == src)
 		AI.current = null
@@ -538,6 +564,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/effect/overlay/holo_pad_hologram
 	var/mob/living/Impersonation
 	var/datum/holocall/HC
+	flags_2 = HOLOGRAM_2
 
 /obj/effect/overlay/holo_pad_hologram/Destroy()
 	Impersonation = null
@@ -545,7 +572,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		HC.Disconnect(HC.calling_holopad)
 	return ..()
 
-/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = 0)
+/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1
 
 /obj/effect/overlay/holo_pad_hologram/examine(mob/user)
@@ -560,9 +587,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "holoray"
 	layer = FLY_LAYER
-	density = FALSE
-	anchored = TRUE
-	mouse_opacity = MOUSE_OPACITY_ICON
 	pixel_x = -32
 	pixel_y = -32
 	alpha = 100

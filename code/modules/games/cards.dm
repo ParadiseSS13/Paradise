@@ -21,8 +21,6 @@
 
 	throw_speed = 3
 	throw_range = 10
-	throwforce = 0
-	force = 0
 
 	var/list/cards = list()
 	/// How often the deck can be shuffled.
@@ -303,8 +301,7 @@
 // deck datum actions
 /datum/action/item_action/draw_card
 	name = "Draw - Draw one card"
-	button_overlay_icon_state = "draw"
-	use_itemicon = FALSE
+	button_icon_state = "draw"
 
 /datum/action/item_action/draw_card/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
@@ -314,8 +311,7 @@
 
 /datum/action/item_action/deal_card
 	name = "Deal - deal one card to a person next to you"
-	button_overlay_icon_state = "deal_card"
-	use_itemicon = FALSE
+	button_icon_state = "deal_card"
 
 /datum/action/item_action/deal_card/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
@@ -325,8 +321,7 @@
 
 /datum/action/item_action/deal_card_multi
 	name = "Deal multiple card - Deal multiple card to a person next to you"
-	button_overlay_icon_state = "deal_card_multi"
-	use_itemicon = FALSE
+	button_icon_state = "deal_card_multi"
 
 /datum/action/item_action/deal_card_multi/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
@@ -336,8 +331,7 @@
 
 /datum/action/item_action/shuffle
 	name = "Shuffle - shuffle the deck"
-	button_overlay_icon_state = "shuffle"
-	use_itemicon = FALSE
+	button_icon_state = "shuffle"
 
 /datum/action/item_action/shuffle/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
@@ -486,7 +480,7 @@
 
 	if(is_screen_atom(over))
 		if(!remove_item_from_storage(get_turf(M)))
-			M.unEquip(src)
+			M.drop_item_to_ground(src)
 		switch(over.name)
 			if("r_hand")
 				if(M.put_in_r_hand(src))
@@ -527,7 +521,7 @@
 
 	H.cards += cards
 	cards.Cut()
-	user.unEquip(src, force = 1)
+	user.unequip(src, force = TRUE)
 	qdel(src)
 
 	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
@@ -892,10 +886,9 @@
 
 /datum/action/item_action/remove_card
 	name = "Remove a card - Remove a single card from the hand."
-	button_overlay_icon_state = "remove_card"
-	use_itemicon = FALSE
+	button_icon_state = "remove_card"
 
-/datum/action/item_action/remove_card/IsAvailable()
+/datum/action/item_action/remove_card/IsAvailable(show_message = TRUE)
 	var/obj/item/cardhand/C = target
 	if(length(C.cards) <= 1)
 		return FALSE
@@ -911,8 +904,7 @@
 
 /datum/action/item_action/discard
 	name = "Discard - Place one or more cards from your hand in front of you."
-	button_overlay_icon_state = "discard"
-	use_itemicon = FALSE
+	button_icon_state = "discard"
 
 /datum/action/item_action/discard/Trigger(left_click)
 	if(istype(target, /obj/item/cardhand))
@@ -1031,7 +1023,7 @@
 				"<span class='notice'>You play \the [selected].</span>",
 				"<span class='notice'>You hear a card being played.</span>"
 			)
-		user.unEquip(new_hand)
+		user.drop_item_to_ground(new_hand)
 		var/atom/drop_location = get_step(user, user.dir)
 		var/obj/item/cardhand/hand_on_the_table = locate(/obj/item/cardhand) in drop_location
 		if(istype(hand_on_the_table) && parent_deck_id == hand_on_the_table.parent_deck_id)
@@ -1046,9 +1038,7 @@
 	if(!length(cards))
 		return
 	if(length(cards) <= 2)
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtons()
+		update_action_buttons()
 	..()
 
 /obj/item/cardhand/update_name()

@@ -7,10 +7,8 @@ GLOBAL_LIST_EMPTY(gas_meters)
 	icon_state = "meterX"
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PUMP_OFFSET
 	layer_offset = GAS_PUMP_OFFSET
-	anchored = TRUE
 	max_integrity = 150
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 40, ACID = 0)
-	power_channel = PW_CHANNEL_ENVIRONMENT
 	power_state = IDLE_POWER_USE
 	idle_power_consumption = 2
 	active_power_consumption = 5
@@ -61,7 +59,7 @@ GLOBAL_LIST_EMPTY(gas_meters)
 /obj/machinery/atmospherics/meter/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Measures the volume and temperature of the pipe under the meter.</span>"
-	if(get_dist(user, src) > 3 && !(isAI(user) || istype(user, /mob/dead)))
+	if(get_dist(user, src) > 3 && !(is_ai(user) || istype(user, /mob/dead)))
 		. += "<span class='boldnotice'>You are too far away to read it.</span>"
 
 	else if(stat & (NOPOWER|BROKEN))
@@ -77,7 +75,7 @@ GLOBAL_LIST_EMPTY(gas_meters)
 		. += "The connect error light is blinking."
 
 /obj/machinery/atmospherics/meter/Click()
-	if(isAI(usr)) // ghosts can call ..() for examine
+	if(is_ai(usr)) // ghosts can call ..() for examine
 		usr.examinate(src)
 		return TRUE
 

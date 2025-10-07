@@ -11,7 +11,6 @@
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "cameracase"
 	w_class = WEIGHT_CLASS_SMALL
-	anchored = FALSE
 	materials = list(MAT_METAL=400, MAT_GLASS=250)
 	//	Motion, EMP-Proof
 	var/list/obj/item/possible_upgrades = list(/obj/item/assembly/prox_sensor, /obj/item/stack/sheet/mineral/plasma)
@@ -49,7 +48,7 @@
 
 	// Upgrades!
 	else if(is_type_in_list(I, possible_upgrades) && !is_type_in_list(I, upgrades)) // Is a possible upgrade and isn't in the camera already.
-		if(!user.unEquip(I))
+		if(!user.drop_item_to_ground(I))
 			to_chat(user, "<span class='warning'>[I] is stuck!</span>")
 			return
 		to_chat(user, "<span class='notice'>You attach [I] into the assembly inner circuits.</span>")

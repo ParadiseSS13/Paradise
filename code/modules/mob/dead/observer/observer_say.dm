@@ -17,7 +17,7 @@
 	if(!speaker || !ismob(speaker))
 		return speaker_name
 	var/mob/speaker_mob = speaker
-	if(isAI(speaker_mob))
+	if(is_ai(speaker_mob))
 		//AI's can't pretend to be other mobs.
 		return speaker_name
 	if(!check_name_against || check_name_against == speaker_mob.real_name)

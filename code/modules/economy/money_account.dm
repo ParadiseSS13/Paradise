@@ -28,7 +28,7 @@
 	///Type of account this is
 	var/account_type = ACCOUNT_TYPE_PERSONAL
 	///the amount this account receives every payday
-	var/payday_amount = CREW_BASE_PAY_LOW
+	var/payday_amount = CREW_PAY_ASSISTANT
 
 	///The nanobank programs associated with this account, used for notifying crew members through PDA, this is a lazy list
 	var/list/associated_nanobank_programs
@@ -40,14 +40,14 @@
 	///pay deductions for the next pay period for this account, this is a lazy list
 	var/list/pay_check_deductions
 
-/datum/money_account/New(_account_name, starting_balance = 0, _security_level = ACCOUNT_SECURITY_ID, _account_type = ACCOUNT_TYPE_PERSONAL, _payday_amount = CREW_BASE_PAY_LOW)
+/datum/money_account/New(_account_name, starting_balance = 0, _security_level = ACCOUNT_SECURITY_ID, _account_type = ACCOUNT_TYPE_PERSONAL, _payday_amount = CREW_PAY_ASSISTANT)
 	account_name = _account_name
 	credit_balance = starting_balance
 	payday_amount = _payday_amount
 	security_level = _security_level
 	account_number = SSeconomy.generate_account_number()
 	account_type = _account_type
-	account_pin = rand(10000, 99999)
+	account_pin = rand(BANK_PIN_MIN, BANK_PIN_MAX) // defines are currently housed in misc_defines.dm
 	//update SSeconomy stats
 	SSeconomy.total_space_credits += starting_balance
 

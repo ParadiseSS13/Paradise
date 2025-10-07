@@ -57,7 +57,7 @@
 /area/ruin/space/moonbase19)
 "aj" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -93,9 +93,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "ap" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/noslip,
@@ -198,9 +196,7 @@
 	},
 /area/ruin/space/moonbase19)
 "aD" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
@@ -357,7 +353,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -375,9 +371,10 @@
 	},
 /area/ruin/space/moonbase19)
 "aY" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/office{
 	dir = 1
 	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -463,13 +460,6 @@
 	icon_state = "darkfull";
 	dir = 8
 	},
-/area/ruin/space/moonbase19)
-"bl" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "bm" = (
 /obj/structure/closet,
@@ -574,7 +564,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -740,12 +730,6 @@
 	icon_state = "whitehall";
 	dir = 4
 	},
-/area/ruin/space/moonbase19)
-"ch" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "ci" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -982,19 +966,6 @@
 	icon_state = "black"
 	},
 /area/ruin/space/moonbase19)
-"cY" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/catwalk,
-/area/ruin/space/moonbase19)
 "da" = (
 /obj/structure/chair{
 	dir = 8
@@ -1173,9 +1144,7 @@
 	},
 /area/ruin/space/moonbase19)
 "dD" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "dE" = (
@@ -1440,7 +1409,7 @@
 	},
 /area/ruin/space/moonbase19)
 "ey" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -1454,9 +1423,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/tracks/mapped,
-/obj/structure/sign/poster/official/dig{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/dig/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "eA" = (
@@ -1491,7 +1458,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/moonbase19)
 "eK" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "West Lobby";
@@ -1504,9 +1471,6 @@
 	},
 /area/ruin/space/moonbase19)
 "eL" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -32
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -1526,10 +1490,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1544,6 +1505,21 @@
 	dir = 8;
 	icon_state = "black"
 	},
+/area/ruin/space/moonbase19)
+"eT" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/closet/crate,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/closet/crate,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "eU" = (
 /turf/simulated/floor/plasteel{
@@ -1583,9 +1559,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/safety_eye_protection{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/safety_eye_protection/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -1610,6 +1584,9 @@
 	dir = 8
 	},
 /obj/structure/closet/crate,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "ff" = (
@@ -1689,13 +1666,12 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/moonbase19)
 "fx" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/paper/fluff/ruins/moonoutpost19/log1,
+/obj/machinery/computer/loreconsole/moonoutpost19/log1,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -1725,7 +1701,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/moonbase19)
 "fC" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 10
@@ -1837,9 +1813,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/east,
 /turf/simulated/floor/plasteel/stairs{
 	dir = 1
 	},
@@ -1884,7 +1858,7 @@
 /area/ruin/space/moonbase19)
 "gh" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "gi" = (
@@ -1978,7 +1952,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "gv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -2001,7 +1975,7 @@
 	},
 /area/ruin/space/moonbase19)
 "gy" = (
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread{
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/drinks/coffee{
@@ -2042,8 +2016,8 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/moonbase19)
@@ -2087,9 +2061,7 @@
 	},
 /area/ruin/space/moonbase19)
 "gM" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -2108,7 +2080,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "gP" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -2147,6 +2119,9 @@
 /obj/structure/rack,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/spawner/random/maintenance,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -2164,7 +2139,7 @@
 /area/ruin/space/moonbase19)
 "hc" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -2210,7 +2185,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
@@ -2237,9 +2212,9 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/computer/nonfunctional,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/computer/loreconsole/moonoutpost19/lobby,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -2298,7 +2273,7 @@
 	},
 /area/ruin/space/moonbase19)
 "hs" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -2524,7 +2499,6 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 4
 	},
-/obj/item/paper/fluff/ruins/moonoutpost19/lobby,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -2553,19 +2527,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/moonbase19)
-"ic" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
-/obj/structure/closet/crate,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/catwalk,
-/area/ruin/space/moonbase19)
 "id" = (
 /obj/structure/largecrate,
 /turf/simulated/floor/plasteel,
@@ -2580,6 +2541,10 @@
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
 /obj/machinery/iv_drip,
+/obj/machinery/camera{
+	c_tag = "Medical Ward";
+	network = list("MO19")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
@@ -2606,8 +2571,9 @@
 /area/ruin/space/moonbase19)
 "ij" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
-	id_tag = "awaycargogate"
+/obj/machinery/door/poddoor/multi_tile/impassable/quad{
+	id_tag = "awaycargogate";
+	dir = 4
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
@@ -2615,7 +2581,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
@@ -2640,7 +2606,7 @@
 	},
 /area/ruin/space/moonbase19)
 "io" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/directions/engineering{
 	pixel_x = -32;
 	dir = 8
@@ -2771,7 +2737,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -2972,7 +2938,7 @@
 	},
 /area/ruin/space/moonbase19)
 "jj" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -3022,7 +2988,7 @@
 /area/ruin/space/moonbase19)
 "jp" = (
 /obj/structure/railing,
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "dark"
@@ -3035,7 +3001,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "jr" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "jt" = (
@@ -3094,7 +3060,7 @@
 /area/ruin/space/moonbase19)
 "jC" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "jD" = (
@@ -3130,7 +3096,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -3298,7 +3264,7 @@
 	},
 /area/ruin/space/moonbase19)
 "kg" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -3431,7 +3397,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "kB" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing{
 	dir = 10
 	},
@@ -3458,7 +3424,7 @@
 	},
 /area/ruin/space/moonbase19)
 "kG" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner"
@@ -3481,7 +3447,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/moonbase19)
 "kN" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -3549,7 +3515,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "lc" = (
@@ -3644,7 +3610,7 @@
 	},
 /area/ruin/space/moonbase19)
 "lD" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -3681,7 +3647,7 @@
 	},
 /area/ruin/space/moonbase19)
 "lI" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
@@ -3869,7 +3835,7 @@
 	},
 /area/ruin/space/moonbase19)
 "mv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"
@@ -3911,11 +3877,6 @@
 /obj/machinery/economy/vending/cigarette,
 /obj/machinery/light/small{
 	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "North Cafeteria";
-	dir = 4;
-	network = list("MO19")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4020,7 +3981,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "mW" = (
@@ -4048,11 +4009,6 @@
 	},
 /obj/machinery/light/small{
 	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Medical Ward";
-	dir = 4;
-	network = list("MO19")
 	},
 /obj/effect/decal/cleanable/blood/tracks/mapped,
 /turf/simulated/floor/plasteel/stairs,
@@ -4184,6 +4140,21 @@
 	dir = 8
 	},
 /area/ruin/space/moonbase19)
+"nD" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/catwalk,
+/area/ruin/space/moonbase19)
 "nE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4226,6 +4197,9 @@
 "nK" = (
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
@@ -4275,7 +4249,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "nZ" = (
@@ -4305,9 +4279,7 @@
 	},
 /area/ruin/space/moonbase19)
 "oh" = (
-/obj/structure/sign/poster/contraband/lusty_xenomorph{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/lusty_xenomorph/directional/north,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/table,
 /obj/item/salvage/ruin/nanotrasen,
@@ -4335,7 +4307,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "on" = (
@@ -4353,7 +4325,7 @@
 	},
 /area/ruin/space/moonbase19)
 "op" = (
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -4502,7 +4474,7 @@
 	},
 /area/ruin/space/moonbase19)
 "oU" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -4799,7 +4771,7 @@
 /area/ruin/space/moonbase19)
 "qc" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -4880,7 +4852,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "qu" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "escape"
@@ -4976,8 +4948,18 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
+"qO" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "black"
+	},
+/area/ruin/space/moonbase19)
 "qQ" = (
-/obj/machinery/kitchen_machine/grill,
+/obj/structure/table,
+/obj/machinery/cooking/grill,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -4992,7 +4974,7 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
-/obj/item/paper/researchnotes,
+/obj/effect/spawner/random/pool/spaceloot/moonoutpost19/vault1,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5056,11 +5038,7 @@
 	},
 /area/ruin/space/moonbase19)
 "rl" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = -2
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 4
@@ -5110,8 +5088,8 @@
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -5187,7 +5165,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/moonbase19)
 "rH" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "escape"
@@ -5256,8 +5234,8 @@
 /obj/structure/alien/weeds/node,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
@@ -5413,7 +5391,7 @@
 	},
 /area/ruin/space/moonbase19)
 "sp" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -5498,7 +5476,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "td" = (
@@ -5639,7 +5617,7 @@
 	},
 /area/ruin/space/moonbase19)
 "tE" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
@@ -5703,8 +5681,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
@@ -5720,7 +5698,7 @@
 /area/ruin/space/moonbase19)
 "uf" = (
 /obj/structure/window/reinforced,
-/mob/living/simple_animal/hostile/alien/drone,
+/mob/living/basic/alien/drone,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -5740,8 +5718,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -5921,9 +5899,8 @@
 /area/ruin/space/moonbase19)
 "vh" = (
 /obj/structure/rack,
-/obj/item/mecha_parts/core,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/stock_parts/cell/infinite/abductor,
+/obj/effect/spawner/random/pool/spaceloot/moonoutpost19/vault3,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5980,7 +5957,7 @@
 	},
 /area/ruin/space/moonbase19)
 "vB" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -6109,9 +6086,7 @@
 /area/ruin/space/moonbase19)
 "we" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/structure/sign/poster/contraband/donut_corp{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/contraband/donut_corp/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -6155,7 +6130,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "wp" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 5
@@ -6176,7 +6151,7 @@
 	},
 /area/ruin/space/moonbase19)
 "wv" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -6233,6 +6208,7 @@
 	},
 /obj/structure/rack,
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "wR" = (
@@ -6518,6 +6494,13 @@
 	dir = 8
 	},
 /area/ruin/space/moonbase19)
+"yg" = (
+/obj/machinery/camera{
+	c_tag = "Dorms";
+	network = list("MO19")
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
 "yi" = (
 /obj/structure/rack,
 /obj/item/pickaxe,
@@ -6703,12 +6686,12 @@
 	},
 /area/ruin/space/moonbase19)
 "yR" = (
-/obj/item/food/xenomeatbreadslice,
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread,
+/obj/item/food/sliced/xeno_meat_bread{
 	pixel_y = 7;
 	pixel_x = 6
 	},
-/obj/item/food/xenomeatbreadslice{
+/obj/item/food/sliced/xeno_meat_bread{
 	pixel_y = 9;
 	pixel_x = -5
 	},
@@ -6762,9 +6745,7 @@
 	dir = 1;
 	network = list("MO19")
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -6858,7 +6839,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 10
@@ -6871,7 +6852,7 @@
 	},
 /area/ruin/space/moonbase19)
 "zK" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/biohazard{
 	pixel_y = 32
 	},
@@ -6892,16 +6873,14 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/ruin/space/moonbase19)
 "zM" = (
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/cooking/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -6982,7 +6961,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Aj" = (
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Ak" = (
@@ -7451,8 +7430,9 @@
 	},
 /area/ruin/space/moonbase19)
 "Cm" = (
-/obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/paper/fluff/ruins/moonoutpost19/boreraccountant,
+/obj/machinery/computer/loreconsole/moonoutpost19/rdnote{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -7748,7 +7728,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Dy" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/sign/biohazard{
 	pixel_y = 32
 	},
@@ -7758,6 +7738,15 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
+	},
+/area/ruin/space/moonbase19)
+"Dz" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull";
+	dir = 8
 	},
 /area/ruin/space/moonbase19)
 "DA" = (
@@ -7813,9 +7802,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "DO" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/machinery/camera{
 	dir = 8;
 	network = list("MO19");
@@ -7885,13 +7871,13 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 8
@@ -7903,14 +7889,11 @@
 /area/ruin/space/moonbase19)
 "Eo" = (
 /obj/structure/filingcabinet,
-/obj/structure/sign/poster/official/fruit_bowl{
-	pixel_y = 32
-	},
-/obj/item/paper/fluff/ruins/moonoutpost19/rdnote,
+/obj/structure/sign/poster/official/fruit_bowl/directional/north,
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/moonbase19)
 "Ep" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "escape";
@@ -7924,7 +7907,6 @@
 /obj/structure/rack,
 /obj/item/gun/projectile/revolver/doublebarrel,
 /obj/machinery/light/small,
-/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -7941,7 +7923,7 @@
 	pixel_x = -1;
 	pixel_y = -5
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -7976,9 +7958,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Ey" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/noslip,
 /area/ruin/space/moonbase19)
@@ -8103,7 +8083,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Fe" = (
@@ -8124,7 +8104,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Fk" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 4
@@ -8137,8 +8117,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/assembly/signaler/anomaly/random,
-/obj/item/storage/lockbox/experimental_weapon,
+/obj/effect/spawner/random/pool/spaceloot/moonoutpost19/vault2,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8154,10 +8133,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/moonbase19)
 "Fp" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -8173,14 +8149,14 @@
 /obj/effect/decal/cleanable/greenglow,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Ft" = (
 /obj/effect/turf_decal/stripes/corner,
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -8240,7 +8216,7 @@
 	},
 /area/ruin/space/moonbase19)
 "FO" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing{
 	dir = 1
 	},
@@ -8268,7 +8244,7 @@
 	},
 /area/ruin/space/moonbase19)
 "FV" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -8316,7 +8292,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "Ge" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Gg" = (
@@ -8344,7 +8320,7 @@
 /obj/structure/railing/cap{
 	dir = 9
 	},
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -8441,6 +8417,10 @@
 	icon_state = "caution";
 	dir = 8
 	},
+/area/ruin/space/moonbase19)
+"GI" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "GJ" = (
 /obj/structure/railing{
@@ -8623,7 +8603,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "HA" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 10
@@ -8748,9 +8728,7 @@
 	dir = 1
 	},
 /obj/structure/chair/sofa/bench/right,
-/obj/structure/sign/poster/official/help_others{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/help_others/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 1
@@ -9079,9 +9057,7 @@
 /area/ruin/space/moonbase19)
 "JR" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "JS" = (
@@ -9108,9 +9084,6 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -9135,9 +9108,7 @@
 	pixel_y = -3
 	},
 /obj/effect/decal/cleanable/blood/tracks/mapped,
-/obj/structure/sign/poster/official/ion_rifle{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/ion_rifle/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Kb" = (
@@ -9160,15 +9131,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitecorner"
-	},
-/area/ruin/space/moonbase19)
-"Ki" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
 	},
 /area/ruin/space/moonbase19)
 "Km" = (
@@ -9230,7 +9192,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Kz" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "escape";
 	dir = 4
@@ -9302,9 +9264,6 @@
 	},
 /area/ruin/space/moonbase19)
 "KP" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/chair{
 	dir = 4;
@@ -9365,8 +9324,8 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
@@ -9392,8 +9351,8 @@
 	},
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_impregnated";
-	item_state = "facehugger_impregnated";
-	stat = 2
+	stat = 2;
+	inhand_icon_state = "facehugger_inactive"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
@@ -9474,7 +9433,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 4
@@ -9502,12 +9461,13 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "LK" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/paper/fluff/ruins/moonoutpost19/log2,
+/obj/machinery/computer/loreconsole/moonoutpost19/log2{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -9662,7 +9622,6 @@
 /area/ruin/space/moonbase19)
 "MF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster/directional/south,
 /obj/machinery/camera{
 	c_tag = "Hangar";
 	dir = 1;
@@ -9757,7 +9716,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "MY" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
@@ -9812,6 +9771,7 @@
 	name = "shutters control"
 	},
 /obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 5
@@ -9851,9 +9811,7 @@
 /obj/structure/chair/sofa/bench{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -10020,7 +9978,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Od" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
@@ -10097,13 +10055,11 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/ruin/space/moonbase19)
 "Oo" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/official/nanotrasen_logo/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 1
@@ -10399,7 +10355,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "PQ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"
@@ -10494,7 +10450,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "Qk" = (
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "Ql" = (
@@ -10843,7 +10799,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "RH" = (
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooking/oven,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor";
 	temperature = 273.15
@@ -10972,7 +10928,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Sp" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "Sq" = (
@@ -11024,6 +10980,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -11161,7 +11118,7 @@
 /area/ruin/space/moonbase19)
 "Tr" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
@@ -11199,6 +11156,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "escape"
+	},
+/area/ruin/space/moonbase19)
+"Ty" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "North Cafeteria";
+	network = list("MO19")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "escape"
@@ -11327,9 +11295,7 @@
 /area/ruin/space/moonbase19)
 "Ub" = (
 /obj/structure/filingcabinet,
-/obj/structure/sign/poster/contraband/fun_police{
-	pixel_y = 32
-	},
+/obj/structure/sign/poster/contraband/fun_police/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 1
@@ -11462,7 +11428,7 @@
 	},
 /area/ruin/space/moonbase19)
 "UD" = (
-/mob/living/simple_animal/hostile/alien/drone,
+/mob/living/basic/alien/drone,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "UF" = (
@@ -11650,7 +11616,7 @@
 	},
 /area/ruin/space/moonbase19)
 "VG" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 9
@@ -11729,7 +11695,7 @@
 /area/ruin/space/moonbase19)
 "VT" = (
 /obj/structure/bed,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/spawner/random/loot_crate,
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
 "VU" = (
@@ -11756,9 +11722,7 @@
 	},
 /area/ruin/space/moonbase19)
 "VX" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/light/small{
@@ -11803,7 +11767,7 @@
 	},
 /area/ruin/space/moonbase19)
 "Wn" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -11898,7 +11862,7 @@
 	},
 /area/ruin/space/moonbase19)
 "WJ" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /obj/structure/railing{
 	dir = 9
 	},
@@ -12023,11 +11987,6 @@
 /obj/structure/railing/cap,
 /obj/machinery/light/small{
 	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Dorms";
-	dir = 4;
-	network = list("MO19")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -12154,7 +12113,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 1
@@ -12231,7 +12190,7 @@
 	},
 /area/ruin/space/moonbase19)
 "XY" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
 	},
@@ -12269,7 +12228,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -12295,10 +12253,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -12317,11 +12272,9 @@
 	},
 /area/ruin/space/moonbase19)
 "Yu" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/vomit/green,
-/mob/living/simple_animal/hostile/alien,
+/mob/living/basic/alien,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -12388,16 +12341,14 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
 "YL" = (
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/spiders{
-	pixel_x = 32
-	},
+/obj/structure/sign/poster/official/spiders/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -12453,9 +12404,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/here_for_your_safety{
-	pixel_x = -32
-	},
+/obj/structure/sign/poster/official/here_for_your_safety/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -12474,7 +12423,7 @@
 /area/ruin/space/moonbase19)
 "Zf" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/alien/queen/large{
+/mob/living/basic/alien/queen/large{
 	melee_damage_upper = 35;
 	melee_damage_lower = 30
 	},
@@ -12577,7 +12526,7 @@
 "Zw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/hostile/alien/sentinel,
+/mob/living/basic/alien/sentinel,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -12624,7 +12573,7 @@
 /area/ruin/space/moonbase19)
 "ZK" = (
 /obj/machinery/light/small,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
 "ZL" = (
@@ -13215,7 +13164,7 @@ ru
 ag
 ag
 af
-Ll
+Ty
 ak
 NC
 cL
@@ -13265,7 +13214,7 @@ af
 af
 ag
 ag
-aA
+yg
 KG
 Ol
 ak
@@ -14306,7 +14255,7 @@ MT
 UO
 GD
 Fc
-mJ
+Dz
 oH
 qt
 sv
@@ -16473,7 +16422,7 @@ bv
 fl
 vY
 hS
-lp
+qO
 eL
 nt
 fC
@@ -16535,7 +16484,7 @@ dM
 hN
 aE
 rJ
-bl
+Df
 uX
 aO
 ag
@@ -16645,7 +16594,7 @@ ad
 ad
 ad
 ag
-ic
+eT
 is
 hO
 dh
@@ -16657,7 +16606,7 @@ aA
 aB
 bi
 cX
-ch
+gS
 cv
 uM
 ag
@@ -16767,7 +16716,7 @@ Ib
 hI
 ad
 ag
-cY
+nD
 it
 hu
 dj
@@ -17050,8 +16999,8 @@ tX
 AP
 If
 Wd
-Ki
-fq
+ib
+GI
 DO
 Wd
 If

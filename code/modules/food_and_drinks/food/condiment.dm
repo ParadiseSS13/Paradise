@@ -12,7 +12,6 @@
 	icon_state = "emptycondiment"
 	container_type = OPENCONTAINER
 	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50)
-	visible_transfer_rate = TRUE
 	volume = 50
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
@@ -39,54 +38,45 @@
 	"rice" = list("rice", "rice sack", "A big bag of rice. Good for cooking!"))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
-/obj/item/reagent_containers/condiment/attack_self__legacy__attackchain(mob/user)
-	return
-
-/obj/item/reagent_containers/condiment/attack__legacy__attackchain(mob/M, mob/user, def_zone)
-
+/obj/item/reagent_containers/condiment/mob_act(mob/target, mob/living/user)
+	. = TRUE
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
-		return FALSE
-
-	if(!iscarbon(M)) // Non-carbons can't process reagents
-		to_chat(user, "<span class='warning'>You cannot find a way to feed [M].</span>")
+		return
+	if(!iscarbon(target)) // Non-carbons can't process reagents
+		to_chat(user, "<span class='warning'>You cannot find a way to feed [target].</span>")
 		return
 
-	if(M == user)
+	if(target == user)
 		to_chat(user, "<span class='notice'>You swallow some of the contents of [src].</span>")
 	else
-		user.visible_message("<span class='warning'>[user] attempts to feed [M] from [src].</span>")
-		if(!do_mob(user, M))
+		user.visible_message("<span class='warning'>[user] attempts to feed [target] from [src].</span>")
+		if(!do_mob(user, target))
 			return
 		if(!reagents || !reagents.total_volume)
 			return // The condiment might be empty after the delay.
-		user.visible_message("<span class='warning'>[user] feeds [M] from [src].</span>")
-		add_attack_logs(user, M, "Fed [src] containing [reagents.log_list()]", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
-
+		user.visible_message("<span class='warning'>[user] feeds [target] from [src].</span>")
+		add_attack_logs(user, target, "Fed [src] containing [reagents.log_list()]", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 	var/fraction = min(10/reagents.total_volume, 1)
-	reagents.reaction(M, REAGENT_INGEST, fraction)
-	reagents.trans_to(M, 10)
-	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
-	return 1
+	reagents.reaction(target, REAGENT_INGEST, fraction)
+	reagents.trans_to(target, 10)
+	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 
-/obj/item/reagent_containers/condiment/afterattack__legacy__attackchain(obj/target, mob/user , proximity)
-	if(!proximity)
-		return
+/obj/item/reagent_containers/condiment/normal_act(atom/target, mob/living/user) // Proc is true if any of the if checks go through. Preserves tapping behaviour on certain machinery.
 	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
-
+		. = TRUE
 		if(!target.reagents.total_volume)
 			to_chat(user, "<span class='warning'>[target] is empty!</span>")
 			return
-
 		if(reagents.total_volume >= reagents.maximum_volume)
 			to_chat(user, "<span class='warning'>[src] is full!</span>")
 			return
-
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
 
 	//Something like a glass or a food item. Player probably wants to transfer TO it.
 	else if(target.is_refillable() || istype(target, /obj/item/food))
+		. = TRUE
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>[src] is empty!</span>")
 			return
@@ -133,7 +123,7 @@
 	name = "sugar sack"
 	desc = "Tasty spacey sugar!"
 	icon_state = "sugar"
-	item_state = "sugar"
+	inhand_icon_state = "carton"
 	list_reagents = list("sugar" = 50)
 	possible_states = list()
 
@@ -174,7 +164,7 @@
 	name = "space milk"
 	desc = "It's milk. White and nutritious goodness!"
 	icon_state = "milk"
-	item_state = "carton"
+	inhand_icon_state = "contvapour"
 	list_reagents = list("milk" = 50)
 	possible_states = list()
 
@@ -182,7 +172,7 @@
 	name = "flour sack"
 	desc = "A big bag of flour. Good for baking!"
 	icon_state = "flour"
-	item_state = "flour"
+	inhand_icon_state = "contvapour"
 	list_reagents = list("flour" = 30)
 	possible_states = list()
 
@@ -197,7 +187,7 @@
 	name = "soy milk"
 	desc = "It's soy milk. White and nutritious goodness!"
 	icon_state = "soymilk"
-	item_state = "carton"
+	inhand_icon_state = "contvapour"
 	list_reagents = list("soymilk" = 50)
 	possible_states = list()
 
@@ -205,7 +195,7 @@
 	name = "rice sack"
 	desc = "A big bag of rice. Good for cooking!"
 	icon_state = "rice"
-	item_state = "flour"
+	inhand_icon_state = "carton"
 	list_reagents = list("rice" = 30)
 	possible_states = list()
 
@@ -319,26 +309,25 @@
 	"sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!"),
 	"vinegar" =list("condi_mixed", "vinegar", "Perfect for chips, if you're feeling Space British."))
 
-/obj/item/reagent_containers/condiment/pack/attack__legacy__attackchain(mob/M, mob/user, def_zone) //Can't feed these to people directly.
-	return
-
-/obj/item/reagent_containers/condiment/pack/afterattack__legacy__attackchain(obj/target, mob/user , proximity)
-	if(!proximity) return
-
+/obj/item/reagent_containers/condiment/pack/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	//You can tear the bag open above food to put the condiments on it, obviously.
 	if(istype(target, /obj/item/food))
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>You tear open [src], but there's nothing in it.</span>")
 			qdel(src)
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
 			to_chat(user, "<span class='warning'>You tear open [src], but [target] is stacked so high that it just drips off!</span>") //Not sure if food can ever be full, but better safe than sorry.
 			qdel(src)
-			return
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='notice'>You tear open [src] above [target] and the condiments drip onto it.</span>")
 			reagents.trans_to(target, amount_per_transfer_from_this)
 			qdel(src)
+			return ITEM_INTERACT_COMPLETE
+
+	if(isliving(target)) // Ignore mobs. Don't tap mobs.
+		return ITEM_INTERACT_COMPLETE
 
 /obj/item/reagent_containers/condiment/pack/on_reagent_change()
 	if(length(reagents.reagent_list) > 0)

@@ -7,7 +7,7 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 400
 	deflect_chance = 20
-	armor = list(melee = 40, bullet = 35, laser = 15, energy = 10, bomb = 20, rad = 50, fire = 100, acid = 75)
+	armor = list(MELEE = 40, BULLET = 35, LASER = 15, ENERGY = 10, BOMB = 20, RAD = 50, FIRE = 100, ACID = 75)
 	max_temperature = 30000
 	infra_luminosity = 8
 	force = 40
@@ -42,14 +42,7 @@
 	name = "Old Durand"
 	icon_state = "old_durand"
 	initial_icon = "old_durand"
-	step_in = 4
-	dir_in = 1 //Facing North.
-	max_integrity = 400
-	deflect_chance = 20
-	armor = list(melee = 50, bullet = 35, laser = 15, energy = 15, bomb = 20, rad = 50, fire = 100, acid = 100)
-	max_temperature = 30000
-	infra_luminosity = 8
-	force = 40
+	armor = list(MELEE = 50, BULLET = 35, LASER = 15, ENERGY = 15, BOMB = 20, RAD = 50, FIRE = 100, ACID = 100)
 	wreckage = /obj/structure/mecha_wreckage/durand/old
 
 /obj/mecha/combat/durand/old/examine_more(mob/user)

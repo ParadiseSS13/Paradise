@@ -28,7 +28,7 @@
 
 	else if(iscarbon(speaker)) // Nonhuman carbon mob
 		jobname = "No ID"
-	else if(isAI(speaker))
+	else if(is_ai(speaker))
 		jobname = "AI"
 	else if(isrobot(speaker))
 		jobname = "Cyborg"

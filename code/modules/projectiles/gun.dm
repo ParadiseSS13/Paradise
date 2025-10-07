@@ -3,11 +3,13 @@
 	desc = "It's a gun. It's pretty terrible, though."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "revolver_bright"
-	item_state = "gun"
+	worn_icon_state = "gun"
+	inhand_icon_state = "gun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -67,10 +69,6 @@
 	var/current_skin = null
 	/// List of reskin options.
 	var/list/options = list()
-
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
-
 	/// Whether or not the gun has a flashlight.
 	var/obj/item/flashlight/gun_light = null
 	/// Whether or not a flashlight can be attached to the gun.
@@ -161,7 +159,7 @@
 					"<span class='danger'>You fire [src]!</span>",
 					"<span class='danger'>You hear \a [fire_sound_text]!</span>"
 				)
-	if(chambered.muzzle_flash_effect)
+	if(chambered?.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
 		effect.alpha = min(255, muzzle_strength * 255)
 		if(chambered.muzzle_flash_color)
@@ -314,6 +312,8 @@
 					shoot_live_shot(user, target, TRUE, message)
 				else
 					shoot_live_shot(user, target, FALSE, message)
+				chambered.leave_residue(user)
+
 		else
 			shoot_with_empty_chamber(user)
 			return
@@ -333,7 +333,7 @@
 /obj/item/gun/attack__legacy__attackchain(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging
 		if(bayonet)
-			M.attackby__legacy__attackchain(bayonet, user)
+			M.attack_by(bayonet, user)
 		else
 			return ..()
 
@@ -349,14 +349,13 @@
 		var/obj/item/flashlight/seclite/S = I
 		if(can_flashlight)
 			if(!gun_light)
-				if(!user.unEquip(I))
+				if(!user.transfer_item_to(I, src))
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 				playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 				if(S.on)
 					set_light(0)
 				gun_light = S
-				I.loc = src
 				update_icon()
 				update_gun_light(user)
 				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
@@ -429,9 +428,7 @@
 	else
 		set_light(0)
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/gun/proc/clear_bayonet()
 	if(!bayonet)

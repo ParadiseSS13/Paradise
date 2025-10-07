@@ -195,7 +195,7 @@
 /// 80TC + modules + laser gun
 /obj/item/storage/box/syndie_kit/bundle/metroid
 	name = "Modsuit Bundle"
-	desc = "Don the equipment of an intergalactic bounty hunter and blast your way through the station!"
+	desc = "Don the equipment of an interstellar bounty hunter and blast your way through the station!"
 	items = list(
 		/obj/item/mod/control/pre_equipped/traitor_elite, // 45TC
 		/obj/item/mod/module/visor/thermal, // 15TC
@@ -437,8 +437,7 @@
 	if(prob(25))	//an omen of success to come?
 		B.deity_name = "Success"
 		B.icon_state = "greentext"
-		B.item_state = "greentext"
-
+		B.inhand_icon_state = "greentext"
 
 /obj/item/storage/box/syndie_kit/cutouts
 	name = "Fortified Artistic Box"
@@ -472,6 +471,7 @@
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/pda/chameleon(src)
 	new /obj/item/clothing/mask/chameleon(src)
+	new /obj/item/clothing/neck/chameleon(src)
 
 /obj/item/storage/box/syndie_kit/chameleon/nuke
 	name = "operative's chameleon kit"
@@ -488,6 +488,7 @@
 	new /obj/item/pda/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/clothing/mask/chameleon/voice_change(src)
+	new /obj/item/clothing/neck/chameleon(src)
 
 /obj/item/storage/box/syndie_kit/dart_gun
 	name = "dart gun kit"
@@ -499,7 +500,6 @@
 	new /obj/item/reagent_containers/syringe/pancuronium(src)
 
 /obj/item/storage/box/syndie_kit/nuke
-	name = "box"  //Bit of stealth, since you spawn with it
 	desc = "It's just an ordinary box."
 	icon_state = "box"
 
@@ -509,7 +509,6 @@
 	new /obj/item/paper/guides/antag/nuke_instructions(src)
 
 /obj/item/storage/box/syndie_kit/supermatter
-	name = "box"
 	desc = "It's just an ordinary box."
 	icon_state = "box"
 
@@ -528,7 +527,7 @@
 
 /obj/item/storage/box/syndie_kit/stechkin
 	name = "\improper FK-69 Stechkin kit"
-	desc = "A box marked with Zvezhan characters. It appears to contain a 10mm pistol and two magazines."
+	desc = "A box marked with Cygni Standard characters. It appears to contain a 10mm pistol and two magazines."
 
 /obj/item/storage/box/syndie_kit/stechkin/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol(src)
@@ -577,3 +576,12 @@
 /obj/item/storage/box/syndie_kit/forgers_kit/populate_contents()
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pen/chameleon(src)
+
+/obj/item/storage/box/syndie_kit/syndie_mantis
+	name = "\improper Mantis Blades kit"
+	desc = "A sleek box marked with a Cybersun logo. The label says it contains a pair of CX-12 'Naginata' mantis blades and accompanying autosurgeons."
+
+/obj/item/storage/box/syndie_kit/syndie_mantis/populate_contents()
+	new /obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis(src)
+	new /obj/item/autosurgeon/organ/syndicate/oneuse/syndie_mantis/l(src)
+

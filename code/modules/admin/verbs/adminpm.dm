@@ -139,6 +139,10 @@
 	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
 
+	// Limit msg length
+	if(!check_rights(R_ADMIN, FALSE))
+		msg = copytext_char(msg, 1, 2048)
+
 	// Let high-rank admins use advanced pencode.
 	if(check_rights(R_SERVER|R_DEBUG, 0))
 		msg = admin_pencode_to_html(msg)
@@ -154,15 +158,15 @@
 
 	var/receive_message = ""
 
-	pm_tracker.add_message(C, src, msg, mob)
-	C.pm_tracker.add_message(src, src, msg, C.mob)
+	persistent.pm_tracker.add_message(C, src, msg, mob)
+	C.persistent.pm_tracker.add_message(src, src, msg, C.mob)
 
 	if(holder && !C.holder)
 		receive_message = "<span class='[receive_span]' size='3'>-- Click the [receive_pm_type]'s name to reply --</span>\n"
-		if(C.adminhelped)
+		to_chat(C, receive_message)
+		if(message_type == MESSAGE_TYPE_ADMINPM)
+			// Try to get their attention if they're alt-tabbed.
 			window_flash(C)
-			to_chat(C, receive_message)
-			C.adminhelped = 0
 
 		//AdminPM popup for ApocStation and anybody else who wants to use it. Set it with POPUP_ADMIN_PM in config.txt ~Carn
 		if(GLOB.configuration.general.popup_admin_pm)
@@ -177,9 +181,9 @@
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
 
-	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
+	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='byond://?src=[persistent.pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
 	var/ticket_link
-	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
+	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[persistent.pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
 	var/observe_link = check_rights(R_MENTOR, FALSE, mob) ? "([ADMIN_OBS(C, "OBS")])" : ""
 	if(ticket_id != -1)
 		if(message_type == MESSAGE_TYPE_MENTORPM)
@@ -188,7 +192,7 @@
 			ticket_link = "(<a href='byond://?_src_=holder;openticket=[ticket_id]'>TICKET</a>)"
 
 	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
-	var/receive_window_link = "(<a href='byond://?src=[C.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
+	var/receive_window_link = "(<a href='byond://?src=[C.persistent.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
 	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, C.mob))
 		receive_window_link = ticket_link
 	else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, C.mob))
@@ -200,7 +204,7 @@
 		receive_message = chat_box_ahelp(receive_message)
 	to_chat(C, receive_message)
 	if(C != src)
-		var/send_window_link = "(<a href='byond://?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
+		var/send_window_link = "(<a href='byond://?src=[persistent.pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
 		if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, 0, mob))
 			send_window_link = ticket_link
 		else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, 0, mob))
@@ -281,18 +285,18 @@
 /client/verb/open_pms_ui()
 	set name = "My PMs"
 	set category = "OOC"
-	pm_tracker.show_ui(usr)
+	persistent.pm_tracker.show_ui(usr)
 
 /client/proc/set_typing(client/target, value)
 	if(!target)
 		return
-	var/datum/pm_convo/convo = target.pm_tracker.pms[key]
+	var/datum/pm_convo/convo = target.persistent.pm_tracker.pms[key]
 	if(!convo)
 		convo = new /datum/pm_convo(src)
-		target.pm_tracker.pms[key] = convo
+		target.persistent.pm_tracker.pms[key] = convo
 	convo.typing = value
-	if(target.pm_tracker.open && target.pm_tracker.current_title == key)
-		target.pm_tracker.show_ui(target.mob)
+	if(target.persistent.pm_tracker.open && target.persistent.pm_tracker.current_title == key)
+		target.persistent.pm_tracker.show_ui(target.mob)
 
 /datum/pm_tracker
 	var/ckey
@@ -445,10 +449,10 @@
 	if(href_list["ping"])
 		var/client/C = pms[href_list["ping"]].client
 		if(C)
-			C.pm_tracker.current_title = usr.key
-			C.pm_tracker.forced = TRUE // We forced it open
+			C.persistent.pm_tracker.current_title = usr.key
+			C.persistent.pm_tracker.forced = TRUE // We forced it open
 			window_flash(C)
-			C.pm_tracker.show_ui(C.mob)
+			C.persistent.pm_tracker.show_ui(C.mob)
 			to_chat(usr, "<span class='notice'>Forced open [C]'s messages window.</span>")
 		return
 

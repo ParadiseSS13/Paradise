@@ -331,7 +331,7 @@
 		error_message(user, "Incorrect Credentials")
 
 /datum/data/pda/app/nanobank/proc/input_account_pin(mob/user)
-	var/attempt_pin = tgui_input_number(user, "Enter pin code", "NanoBank Account Auth", max_value = 99999)
+	var/attempt_pin = tgui_input_number(user, "Enter pin code", "NanoBank Account Auth", max_value = BANK_PIN_MAX, min_value = BANK_PIN_MIN)
 	if(!user_account || isnull(attempt_pin))
 		return
 	return attempt_pin
@@ -415,7 +415,7 @@
 					playsound(pda, 'sound/machines/ping.ogg', 50, FALSE)
 				order.requires_head_approval = FALSE
 				SSeconomy.process_supply_order(order, TRUE)
-				pda.investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [SSeconomy.cargo_account.credit_balance].", "cargo")
+				pda.investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [SSeconomy.cargo_account.credit_balance].", INVESTIGATE_CARGO)
 				SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, pack.name)
 			else
 				pda.atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
@@ -449,7 +449,7 @@
 		if(!can_deny)
 			return
 		SSeconomy.request_list -= order
-		pda.investigate_log("| [key_name(user)] has denied an order for [order.object.name] through the Nanobank app.", "cargo")
+		pda.investigate_log("| [key_name(user)] has denied an order for [order.object.name] through the Nanobank app.", INVESTIGATE_CARGO)
 
 /datum/data/pda/app/nanobank/proc/pay_with_account(user, amount, purpose, transactor, datum/money_account/target)
 	if(user_account.suspended)
@@ -467,7 +467,7 @@
 	var/attempt_pin = pin
 	if(customer_account.security_level != ACCOUNT_SECURITY_ID && !attempt_pin)
 		//if pin is not given, we'll prompt them here
-		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction")
+		attempt_pin = tgui_input_number(user, "Enter pin code", "Vendor transaction", max_value = BANK_PIN_MAX, min_value = BANK_PIN_MIN)
 		if(!attempt_pin)
 			return FALSE
 	var/is_admin = is_admin(user)

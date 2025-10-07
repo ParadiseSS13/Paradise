@@ -2,10 +2,8 @@
 	name = "syringe gun"
 	desc = "A spring loaded rifle designed to fit syringes, used to incapacitate unruly patients from a distance. Not compatible with DNA-Injectors."
 	icon_state = "syringegun"
-	item_state = "syringegun"
-	w_class = WEIGHT_CLASS_NORMAL
+	inhand_icon_state = "syringegun"
 	origin_tech = "combat=2;biotech=3"
-	throw_speed = 3
 	throw_range = 7
 	force = 4
 	materials = list(MAT_METAL=2000)
@@ -73,13 +71,13 @@
 			return
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
 		if(in_clip < max_syringes)
-			if(!user.unEquip(A))
+			if(user.transfer_item_to(A, src))
+				to_chat(user, "<span class='notice'>You load [A] into [src]!</span>")
+				syringes.Add(A)
+				process_chamber() // Chamber the syringe if none is already
+				return TRUE
+			else
 				return
-			to_chat(user, "<span class='notice'>You load [A] into [src]!</span>")
-			syringes.Add(A)
-			A.loc = src
-			process_chamber() // Chamber the syringe if none is already
-			return TRUE
 		else
 			to_chat(user, "<span class='notice'>[src] cannot hold more syringes.</span>")
 	else if(istype(A, /obj/item/dnainjector))
@@ -97,7 +95,8 @@
 	name = "dart pistol"
 	desc = "A small spring-loaded sidearm that functions identically to a syringe gun. Not compatible with DNA-Injectors."
 	icon_state = "syringe_pistol"
-	item_state = "gun" //Smaller inhand
+	worn_icon_state = null
+	inhand_icon_state = "gun" // Smaller inhand
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=2;syndicate=2;biotech=3"
 	force = 2 //Also very weak because it's smaller
@@ -170,7 +169,7 @@
 		return FALSE
 
 	if(user)
-		if(!user.unEquip(new_syringe))
+		if(!user.drop_item_to_ground(new_syringe))
 			return
 		to_chat(user, "<span class='notice'>You load \the [new_syringe] into [src].</span>")
 		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
@@ -405,7 +404,7 @@
 	name = "blowgun"
 	desc = "Fire syringes at a short distance."
 	icon_state = "blowgun"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // you fire it with your mouth
 
 /obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)

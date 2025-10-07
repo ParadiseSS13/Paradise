@@ -33,6 +33,7 @@
 	return
 
 /turf/simulated/floor/lava/Entered(atom/movable/AM)
+	..()
 	if(burn_stuff(AM))
 		START_PROCESSING(SSprocessing, src)
 
@@ -66,6 +67,12 @@
 		return TRUE
 	return FALSE
 
+/turf/simulated/floor/lava/CanPathfindPass(to_dir, datum/can_pass_info/pass_info)
+	if(!pass_info.is_living)
+		return TRUE
+
+	return pass_info.is_flying || pass_info.is_megafauna || (locate(/obj/structure/bridge_walkway) in src)
+
 /turf/simulated/floor/lava/proc/burn_stuff(AM)
 	. = FALSE
 
@@ -75,7 +82,10 @@
 	var/thing_to_check = src
 	if(AM)
 		thing_to_check = list(AM)
-	for(var/thing in thing_to_check)
+	for(var/atom/thing in thing_to_check)
+		if(HAS_TRAIT(thing, TRAIT_FLYING))
+			continue	//YOU'RE FLYING OVER IT
+
 		if(isobj(thing))
 			var/obj/O = thing
 			if(!O.simulated)
@@ -96,8 +106,6 @@
 		else if(isliving(thing))
 			. = TRUE
 			var/mob/living/L = thing
-			if(HAS_TRAIT(L, TRAIT_FLYING))
-				continue	//YOU'RE FLYING OVER IT
 			var/buckle_check = L.buckling
 			if(!buckle_check)
 				buckle_check = L.buckled
@@ -118,34 +126,38 @@
 				L.adjust_fire_stacks(20)
 				L.IgniteMob()
 
-
-/turf/simulated/floor/lava/attackby__legacy__attackchain(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
-	if(istype(C, /obj/item/stack/rods/lava))
-		var/obj/item/stack/rods/lava/R = C
+/// Lava isn't a good foundation to build on.
+/turf/simulated/floor/lava/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/stack/rods/lava))
+		var/obj/item/stack/rods/lava/R = used
 		var/obj/structure/lattice/lava/H = locate(/obj/structure/lattice/lava, src)
 		if(H)
 			to_chat(user, "<span class='warning'>There is already a lattice here!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(R.use(1))
 			to_chat(user, "<span class='warning'>You construct a lattice.</span>")
 			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
 			new /obj/structure/lattice/lava(locate(x, y, z))
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>You need one rod to build a heatproof lattice.</span>")
-		return
-	if(istype(C, /obj/item/stack/tile/plasteel))
+			return ITEM_INTERACT_COMPLETE
+
+	if(istype(used, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice/lava, src)
 		if(!L)
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
-			return
-		var/obj/item/stack/tile/plasteel/S = C
+			return ITEM_INTERACT_COMPLETE
+		var/obj/item/stack/tile/plasteel/S = used
 		if(S.use(1))
 			qdel(L)
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 			to_chat(user, "<span class='notice'>You build a floor.</span>")
 			ChangeTurf(/turf/simulated/floor/plating, keep_icon = FALSE)
+			return ITEM_INTERACT_COMPLETE
 		else
 			to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
+			return ITEM_INTERACT_COMPLETE
 
 /turf/simulated/floor/lava/screwdriver_act()
 	return
@@ -158,6 +170,12 @@
 
 /turf/simulated/floor/lava/burn_tile()
 	return
+
+/turf/simulated/floor/lava/can_cross_safely(atom/movable/crossing)
+	if(isliving(crossing))
+		var/mob/living/crosser = crossing
+		return (locate(/obj/structure/bridge_walkway) in src) || HAS_TRAIT(crossing, TRAIT_FLYING) || ("lava" in crosser.weather_immunities)
+	return locate(/obj/structure/bridge_walkway) in src || HAS_TRAIT(crossing, TRAIT_FLYING)
 
 /turf/simulated/floor/lava/lava_land_surface
 	oxygen = LAVALAND_OXYGEN
@@ -176,20 +194,21 @@
 	baseturf = /turf/simulated/floor/lava/lava_land_surface/plasma
 
 	light_range = 3
-	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Some <b>liquid plasma<b> could probably be scooped up with a <b>container</b>.</span>"
 
-/turf/simulated/floor/lava/lava_land_surface/plasma/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(!I.is_open_container())
+/turf/simulated/floor/lava/lava_land_surface/plasma/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(!used.is_open_container())
 		return ..()
-	if(!I.reagents.add_reagent("plasma", 10))
-		to_chat(user, "<span class='warning'>[I] is full.</span>")
-		return
-	to_chat(user, "<span class='notice'>You scoop out some plasma from the [src] using [I].</span>")
+	if(!used.reagents.add_reagent("plasma", 10))
+		to_chat(user, "<span class='warning'>[used] is full.</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	to_chat(user, "<span class='notice'>You scoop out some plasma from the [src] using [used].</span>")
+	return ITEM_INTERACT_COMPLETE
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/burn_stuff(AM)
 	. = FALSE
@@ -199,7 +218,10 @@
 	var/thing_to_check = src
 	if(AM)
 		thing_to_check = list(AM)
-	for(var/thing in thing_to_check)
+	for(var/atom/thing in thing_to_check)
+		if(HAS_TRAIT(thing, TRAIT_FLYING))
+			continue	//YOU'RE FLYING OVER IT
+
 		if(isobj(thing))
 			var/obj/O = thing
 			if(!O.simulated)
@@ -278,7 +300,6 @@
 	base_icon_state = "liquidplasma"
 	baseturf = /turf/simulated/floor/lava/plasma
 	light_range = 3
-	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
 
 // special turf for the asteroid core on EmeraldStation

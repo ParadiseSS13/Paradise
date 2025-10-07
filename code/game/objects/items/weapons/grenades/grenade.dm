@@ -1,10 +1,11 @@
 /obj/item/grenade
 	name = "grenade"
 	desc = "A hand held grenade with an adjustable timer."
-	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "grenade"
-	item_state = "grenade"
+	worn_icon_state = "grenade"
+	inhand_icon_state = "grenade"
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 20
 	flags = CONDUCT
@@ -83,7 +84,7 @@
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.unEquip(src)
+		M.drop_item_to_ground(src)
 
 /obj/item/grenade/screwdriver_act(mob/living/user, obj/item/I)
 	if(!modifiable_timer)
@@ -107,12 +108,11 @@
 
 /obj/item/grenade/attack_hand()
 	///We need to clear the walk_to on grabbing a moving grenade to have it not leap straight out of your hand
-	walk(src, null, null)
+	GLOB.move_manager.stop_looping(src)
 	..()
 
 /obj/item/grenade/Destroy()
-	///We need to clear the walk_to on destroy to allow a grenade which uses walk_to or related to properly GC
-	walk_to(src, 0)
+	GLOB.move_manager.stop_looping(src)
 	return ..()
 
 /obj/item/grenade/cmag_act(mob/user)

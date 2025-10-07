@@ -19,7 +19,7 @@
 		return FALSE
 	return TRUE
 
-/mob/living/simple_animal/diona/bee_friendly()
+/mob/living/basic/diona_nymph/bee_friendly()
 	return TRUE
 
 /mob/living/carbon/human/bee_friendly()
@@ -146,11 +146,12 @@
 		. += "<span class='warning'>there's no room for more honeycomb!</span>"
 
 
-/obj/structure/beebox/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/beebox/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	if(istype(I, /obj/item/honey_frame))
 		var/obj/item/honey_frame/HF = I
 		if(length(honey_frames) < BEEBOX_MAX_FRAMES)
-			if(!user.unEquip(HF))
+			if(!user.unequip(HF))
 				return
 			visible_message("<span class='notice'>[user] adds a frame to the apiary.</span>")
 			HF.forceMove(src)
@@ -165,11 +166,12 @@
 			return
 
 		var/obj/item/queen_bee/qb = I
-		if(!user.unEquip(qb))
+		if(!user.transfer_item_to(qb, src))
 			return
 		qb.queen.forceMove(src)
 		bees += qb.queen
 		queen_bee = qb.queen
+		queen_bee.beehome = src
 		qb.queen = null
 
 		if(queen_bee)
@@ -205,6 +207,17 @@
 /obj/structure/beebox/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	default_unfasten_wrench(user, I, time = 20)
+
+/obj/structure/beebox/attack_animal(mob/living/simple_animal/M)
+	if(!istype(M, /mob/living/simple_animal/hostile/poison/bees))
+		return ..()
+
+	M.forceMove(src)
+	bees += M
+
+/obj/structure/beebox/relaymove(mob/user)
+	user.forceMove(get_turf(src))
+	bees -= user
 
 /obj/structure/beebox/attack_hand(mob/user)
 	if(ishuman(user))

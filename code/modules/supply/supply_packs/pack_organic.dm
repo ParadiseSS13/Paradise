@@ -15,8 +15,6 @@
 					/obj/item/reagent_containers/condiment/peppermill,
 					/obj/item/kitchen/rollingpin,
 					/obj/item/storage/fancy/egg_box,
-					/obj/item/mixing_bowl,
-					/obj/item/mixing_bowl,
 					/obj/item/reagent_containers/condiment/enzyme,
 					/obj/item/reagent_containers/condiment/sugar,
 					/obj/item/food/meat/monkey,
@@ -33,9 +31,26 @@
 					/obj/item/pizzabox/mushroom,
 					/obj/item/pizzabox/pepperoni,
 					/obj/item/pizzabox/vegetable,
-					/obj/item/pizzabox/hawaiian)
+					/obj/item/pizzabox/hawaiian,
+					/obj/item/kitchen/knife/pizza_cutter)
 	cost = 500
 	containername = "Pizza crate"
+
+/datum/supply_packs/organic/fancyparty
+	name = "Executive Party Crate"
+	contains = list(/obj/item/food/sliceable/cheesewheel/edam,
+					/obj/item/food/sliceable/cheesewheel/blue,
+					/obj/item/food/sliceable/cheesewheel/camembert,
+					/obj/item/food/sliceable/cheesewheel/camembert,
+					/obj/item/food/sliceable/cheesewheel/smoked,
+					/obj/item/reagent_containers/drinks/bottle/wine,
+					/obj/item/food/caviar,
+					/obj/item/food/caviar,
+					/obj/item/reagent_containers/drinks/drinkingglass,
+					/obj/item/reagent_containers/drinks/drinkingglass)
+	cost = 1000
+	containername = "Executive Party crate"
+	containertype = /obj/structure/closet/crate/freezer/deluxe
 
 /// its a bit hacky...
 /datum/supply_packs/misc/randomised/ingredients
@@ -75,6 +90,47 @@
 					/obj/item/reagent_containers/condiment/vinegar)
 	cost = 300
 	containername = "condiment crate"
+
+/datum/supply_packs/organic/seafood
+	name = "Seafood Crate"
+	contains = list(
+		/obj/item/fish/salmon,
+		/obj/item/fish/salmon,
+		/obj/item/fish/salmon,
+		/obj/item/fish/catfish,
+		/obj/item/fish/catfish,
+		/obj/item/fish/catfish,
+		/obj/item/food/shrimp,
+		/obj/item/food/shrimp,
+		/obj/item/food/shrimp,
+		/obj/item/food/shrimp
+	)
+	cost = 300
+	containername = "seafood crate"
+
+/datum/supply_packs/organic/donuts
+	name = "Donuts Crate"
+	contains = list(
+		/obj/item/storage/fancy/donut_box,
+		/obj/item/storage/fancy/donut_box,
+		/obj/item/storage/fancy/donut_box,
+		/obj/item/storage/fancy/donut_box,
+		/obj/item/storage/fancy/donut_box
+	)
+	cost = 450
+	containername = "donuts crate"
+
+/datum/supply_packs/organic/donkpocket
+	name = "Donk-Pockets Crate"
+	contains = list(
+		/obj/item/storage/box/donkpockets,
+		/obj/item/storage/box/donkpockets,
+		/obj/item/storage/box/donkpockets,
+		/obj/item/storage/box/donkpockets,
+		/obj/item/storage/box/donkpockets
+	)
+	cost = 400
+	containername = "donk-pockets crate"
 
 /datum/supply_packs/organic/monkey
 	name = "Monkey Crate"
@@ -323,7 +379,8 @@
 
 /datum/supply_packs/organic/hydroponics/seeds
 	name = "Seeds Crate"
-	contains = list(/obj/item/seeds/chili,
+	contains = list(/obj/item/seeds/tower,
+					/obj/item/seeds/chili,
 					/obj/item/seeds/cotton,
 					/obj/item/seeds/berry,
 					/obj/item/seeds/corn,
@@ -334,6 +391,8 @@
 					/obj/item/seeds/wheat/rice,
 					/obj/item/seeds/carrot,
 					/obj/item/seeds/sunflower,
+					/obj/item/seeds/lettuce,
+					/obj/item/seeds/onion,
 					/obj/item/seeds/chanter,
 					/obj/item/seeds/potato,
 					/obj/item/seeds/sugarcane)
@@ -365,7 +424,6 @@
 					/obj/item/seeds/eggplant/eggy,
 					/obj/item/seeds/random,
 					/obj/item/seeds/random)
-	cost = 200
 	containername = "exotic seeds crate"
 
 /datum/supply_packs/organic/hydroponics/beekeeping_fullkit

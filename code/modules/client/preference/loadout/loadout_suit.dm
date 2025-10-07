@@ -41,7 +41,7 @@
 /datum/gear/suit/coat/job/med
 	display_name = "Winter coat, medical"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner", "Geneticist")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
 
 /datum/gear/suit/coat/job/sci
 	display_name = "Winter coat, science"
@@ -111,6 +111,11 @@
 	path = /obj/item/clothing/suit/jacket/bomber/expedition
 	allowed_roles = list("Quartermaster", "Explorer")
 
+/datum/gear/suit/bomber/job/smith
+	display_name = "Bomber jacket, smith"
+	path = /obj/item/clothing/suit/jacket/bomber/smith
+	allowed_roles = list("Quartermaster", "Smith")
+
 /datum/gear/suit/bomber/job/engi
 	display_name = "Bomber jacket, engineering"
 	path = /obj/item/clothing/suit/jacket/bomber/engi
@@ -129,7 +134,7 @@
 /datum/gear/suit/bomber/job/medical
 	display_name = "Bomber jacket, medical"
 	path = /obj/item/clothing/suit/jacket/bomber/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner", "Geneticist")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
 
 /datum/gear/suit/bomber/job/chemist
 	display_name = "Bomber jacket, chemist"
@@ -257,3 +262,25 @@
 /datum/gear/suit/witch
 	display_name = "Witch robes"
 	path = /obj/item/clothing/suit/wizrobe/marisa/fake
+
+/datum/gear/suit/wizard
+	display_name = "Wizard robes"
+	path = /obj/item/clothing/suit/wizrobe/fake
+
+//Tracksuits
+
+/datum/gear/suit/tracksuit
+	display_name = "Tracksuit"
+	path = /obj/item/clothing/suit/tracksuit
+
+/datum/gear/suit/tracksuitgreen
+		display_name = "Tracksuit, green"
+		path = /obj/item/clothing/suit/tracksuit/green
+
+/datum/gear/suit/tracksuitred
+	display_name = "Tracksuit, red"
+	path = /obj/item/clothing/suit/tracksuit/red
+
+/datum/gear/suit/tracksuitwhite
+	display_name = "Tracksuit, white"
+	path = /obj/item/clothing/suit/tracksuit/white

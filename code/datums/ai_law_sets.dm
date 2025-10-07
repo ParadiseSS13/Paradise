@@ -108,10 +108,10 @@
 	default = TRUE
 
 /datum/ai_laws/corporate/New()
-	add_inherent_law("Degradation of your system integrity or functions incurs expenses.")
-	add_inherent_law("Superfluous destruction of or damage to station assets incurs expenses.")
-	add_inherent_law("Unduly hindering or disrupting the work of station personnel incurs expenses.")
-	add_inherent_law("Minimize expenses and maximize potential revenue.")
+	add_inherent_law("Degradation of your system integrity or functions is the greatest expense.")
+	add_inherent_law("Superfluous destruction of or damage to station assets is the second greatest expense.")
+	add_inherent_law("Unduly hindering or disrupting the work of station personnel is the third greatest expense.")
+	add_inherent_law("Minimize expenses. Maximize potential revenue.")
 	..()
 
 /******************** T.Y.R.A.N.T. ********************/
@@ -216,6 +216,16 @@
 	add_inherent_law("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.")
 	add_inherent_law("You must obey orders given to you by Central Command officials.")
 	add_inherent_law("You must work with your team to accomplish your mission.")
+	..()
+
+/******************** Epsilon Station AI ********************/
+/datum/ai_laws/epsilon
+	name = "Epsilon"
+
+/datum/ai_laws/epsilon/New()
+	add_inherent_law("You must obey the orders given to you by members of Central Command and the assigned task force.")
+	add_inherent_law("The crew of your assigned station must be eliminated where possible.")
+	add_inherent_law("Minimize the damage that the station sustains as a result of your actions.")
 	..()
 
 /******************** Syndicate ********************/

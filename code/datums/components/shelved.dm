@@ -50,7 +50,7 @@
 
 	// See /obj/structure/closet/Initialize for explanation of
 	// addtimer use here
-	addtimer(CALLBACK(src, PROC_REF(shelf_items)), 0)
+	END_OF_TICK(CALLBACK(src, PROC_REF(shelf_items)))
 
 /datum/component/shelver/proc/shelf_items()
 	var/obj/structure/structure_parent = parent
@@ -59,9 +59,13 @@
 	for(var/turf/turf_in_view in view(2, get_turf(structure_parent)))
 		if(!isfloorturf(turf_in_view))
 			continue
+		var/blocked_los = FALSE
 		for(var/turf/potential_blockage as anything in get_line(get_turf(structure_parent), turf_in_view))
-			if(!is_blocked_turf(potential_blockage, exclude_mobs = TRUE, excluded_objs = list(parent)))
-				nearby_empty_tiles += turf_in_view
+			if(potential_blockage.is_blocked_turf(exclude_mobs = TRUE, source_atom = parent))
+				blocked_los = TRUE
+				break
+		if(!blocked_los)
+			nearby_empty_tiles += turf_in_view
 
 	var/itemcount = 1
 	for(var/obj/item/I in structure_parent.loc)
@@ -203,6 +207,15 @@
 	default_scale = 0.80
 	default_rotation = -90
 
+/datum/component/shelver/spear_rack
+	placement_zones = list(
+		list(1,  1, 13, 32) = list("x" = -6, "y" = 2, "layer" = BELOW_OBJ_LAYER),
+		list(14, 1, 20, 32) = list("x" = 0, "y" = 2, "layer" = BELOW_OBJ_LAYER),
+		list(21, 1, 32, 32) = list("x" = 6, "y" = 2, "layer" = BELOW_OBJ_LAYER),
+	)
+	default_scale = 0.80
+	default_rotation = -45
+
 /// A component for items stored on shelves, propagated by [/datum/component/shelver] components.
 /datum/component/shelved
 	/// The UID of the object acting as the shelf
@@ -213,6 +226,8 @@
 	var/original_layer
 	/// A copy of the shelved object's original appearance flags, to restore after removing from the shelf.
 	var/original_appearance_flags
+	/// Are we currently being moved by a shuttle? Prevents us from falling off the shelf in transport.
+	var/shuttle_moving = FALSE
 
 /datum/component/shelved/Initialize(atom/shelf)
 	if(!isobj(parent))
@@ -228,6 +243,7 @@
 	. = ..()
 	RegisterSignal(parent, COMSIG_ITEM_PICKUP, PROC_REF(on_item_pickup))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_movable_moved))
+	RegisterSignal(parent, COMSIG_MOVABLE_ON_SHUTTLE_MOVE, PROC_REF(on_movable_shuttle_moved))
 	var/obj/shelf = locateUID(shelf_uid)
 	if(shelf)
 		RegisterSignal(shelf, COMSIG_MOVABLE_SHOVE_IMPACT, PROC_REF(on_movable_shove_impact))
@@ -242,10 +258,18 @@
 	SIGNAL_HANDLER // COMSIG_ITEM_PICKUP
 	qdel(src)
 
+/datum/component/shelved/proc/on_movable_shuttle_moved()
+	SIGNAL_HANDLER // COMSIG_MOVABLE_ON_SHUTTLE_MOVE,
+	shuttle_moving = TRUE
+
 /// Generic handler for if anything moves us off our original shelf position, such as atmos pressure.
 /datum/component/shelved/proc/on_movable_moved()
 	SIGNAL_HANDLER // COMSIG_MOVABLE_MOVED
-	qdel(src)
+	if(shuttle_moving)
+		// Ignore this movement, since we should be moving with the shelf.
+		shuttle_moving = FALSE
+	else
+		qdel(src)
 
 /datum/component/shelved/UnregisterFromParent()
 	. = ..()

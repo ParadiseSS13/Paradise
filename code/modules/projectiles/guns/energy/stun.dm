@@ -13,7 +13,7 @@
 	name = "\improper X-260 taser"
 	desc = "A less-lethal pistol that fires electrodes to incapacitate targets."
 	icon_state = "taser"
-	item_state = null	//so the human update icon uses the icon_state instead.
+	inhand_icon_state = null
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode)
 	ammo_x_offset = 3
@@ -39,7 +39,6 @@
 	icon_state = "advtaser"
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler)
 	origin_tech = "combat=4"
-	ammo_x_offset = 2
 	flight_x_offset = 15
 	shaded_charge = FALSE
 	can_holster = TRUE
@@ -70,10 +69,9 @@
 	name = "disabler"
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse."
 	icon_state = "disabler"
-	item_state = null
+	inhand_icon_state = null
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
-	ammo_x_offset = 2
 	can_flashlight = TRUE
 	flight_x_offset = 15
 	flight_y_offset = 10
@@ -106,6 +104,21 @@
 
 	return ..()
 
+/obj/item/gun/energy/disabler/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is putting the barrel of [src] in [user.p_their()] mouth. It looks like [user.p_theyre()] trying to shirk [user.p_their()] responsibilities!</span>")
+	sleep(25)
+	if(user.is_holding(src))
+		if(can_shoot())
+			playsound(loc, fire_sound, 50, TRUE, -1)
+			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+			cell.use(shot.e_cost)
+			update_icon()
+		else
+			playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
+	else
+		user.visible_message("<span class='suicide'>[user] fumbles [src]! [user.p_they(TRUE)] can't even get this right!</span>")
+	return SHAME
+
 //////////////////////////////
 // MARK: DISABLER SMG
 //////////////////////////////
@@ -118,7 +131,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/smg)
 	shaded_charge = TRUE
 	can_holster = FALSE
-	fire_delay = 0
 
 /obj/item/gun/energy/disabler/smg/examine_more(mob/user)
 	..()
@@ -130,7 +142,7 @@
 
 /obj/item/gun/energy/disabler/smg/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/automatic_fire, 0.15 SECONDS, allow_akimbo = FALSE)
+	AddComponent(/datum/component/automatic_fire, 0.20 SECONDS, allow_akimbo = FALSE)
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"
@@ -149,7 +161,7 @@
 	name = "u-ION Silencer"
 	desc = "Nanotrasen's take on silenced weapons. A quiet lethal disabler, designed to make the death look like a natural cause."
 	icon_state = "tesla"
-	item_state = "tesla"
+	inhand_icon_state = "tesla"
 	origin_tech = "combat=6;syndicate=2"
 	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/silencer_ammo)
@@ -175,13 +187,10 @@
 /obj/item/gun/energy/arc_revolver
 	name = "arc revolver"
 	desc = "A high-tech revolver that fires internal, 3D printed shock cartridges in a revolving cylinder. \
-	The cartridges can be recharged using conventional rechargers. These shots charge whatever they hit, causing arcs of electricity to form between them."
+		The cartridges can be recharged using conventional rechargers. These shots charge whatever they hit, causing arcs of electricity to form between them."
 	icon_state = "stunrevolver"
-	item_state = "gun"
 	origin_tech = "combat=4;materials=4;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/arc_revolver)
-	can_flashlight = FALSE
-	shaded_charge = FALSE
 	can_holster = TRUE
 
 /obj/item/gun/energy/arc_revolver/examine_more(mob/user)

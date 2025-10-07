@@ -4,7 +4,7 @@
 	desc = "It has some sort of a tube at the end of its tail."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "facehugger"
-	item_state = "facehugger"
+	inhand_icon_state = "facehugger"
 	w_class = WEIGHT_CLASS_TINY //note: can be picked up by aliens unlike most other items of w_class below 4
 	throw_range = 5
 	tint = 3
@@ -13,6 +13,7 @@
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	layer = MOB_LAYER
 	max_integrity = 100
+	cares_about_temperature = TRUE
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
 	var/sterile = FALSE
@@ -46,7 +47,7 @@
 
 /obj/item/clothing/mask/facehugger/attack__legacy__attackchain(mob/living/M, mob/user)
 	..()
-	user.unEquip(src)
+	user.drop_item_to_ground(src)
 	Attach(M)
 
 /obj/item/clothing/mask/facehugger/examine(mob/user)
@@ -60,7 +61,7 @@
 		if(sterile)
 			. += "<span class='boldannounceic'>It looks like the proboscis has been removed.</span>"
 
-/obj/item/clothing/mask/facehugger/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/item/clothing/mask/facehugger/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		Die()
@@ -129,7 +130,7 @@
 			var/obj/item/clothing/W = target.wear_mask
 			if(W.flags & NODROP)
 				return FALSE
-			target.unEquip(W)
+			target.drop_item_to_ground(W)
 
 			target.visible_message("<span class='danger'>[src] tears [W] off of [target]'s face!</span>", \
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
@@ -138,7 +139,7 @@
 		target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK, FALSE, TRUE)
 		if(!sterile)
 			M.KnockDown(impregnation_time + 2 SECONDS)
-			flags |= NODROP //You can't take it off until it dies... or figures out you're an IPC.
+			set_nodrop(TRUE, loc) //You can't take it off until it dies... or figures out you're an IPC.
 
 	GoIdle() //so it doesn't jump the people that tear it off
 	var/obj/structure/bed/nest/our_nest = M.buckled
@@ -148,7 +149,7 @@
 	return TRUE
 
 /obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target)
-	flags &= ~NODROP
+	set_nodrop(FALSE, loc)
 
 	if(!target || target.stat == DEAD || loc != target) //was taken off or something
 		return
@@ -200,7 +201,7 @@
 		return
 
 	icon_state = "[initial(icon_state)]_dead"
-	item_state = "facehugger_inactive"
+	inhand_icon_state = "facehugger_inactive"
 	stat = DEAD
 	QDEL_NULL(proximity_monitor)
 

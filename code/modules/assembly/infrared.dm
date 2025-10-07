@@ -211,7 +211,6 @@
 	var/left = null
 	var/life_cycles = 0
 	var/life_cap = 20
-	anchored = TRUE
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE
 
 /obj/effect/beam/i_beam/Initialize(mapload)
@@ -234,7 +233,7 @@
 /obj/effect/beam/i_beam/update_icon_state()
 	transform = turn(matrix(), dir2angle(dir))
 
-/obj/effect/beam/i_beam/Process_Spacemove(movement_dir)
+/obj/effect/beam/i_beam/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /obj/effect/beam/i_beam/process()

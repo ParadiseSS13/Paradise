@@ -1,7 +1,6 @@
 /obj/machinery/computer/robotics
 	name = "robotics control console"
 	desc = "Used to remotely lockdown or detonate linked Cyborgs."
-	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "tech_key"
 	icon_screen = "robot"
 	req_access = list(ACCESS_RD)
@@ -66,7 +65,7 @@
 		return FALSE
 	if(!console_shows(R))
 		return FALSE
-	if(isAI(user))
+	if(is_ai(user))
 		if(R.connected_ai != user)
 			if(telluserwhy)
 				to_chat(user, "<span class='warning'>AIs can only control cyborgs which are linked to them.</span>")
@@ -107,7 +106,7 @@
 		return FALSE
 	if(user.can_admin_interact())
 		return TRUE
-	if(!isAI(user))
+	if(!is_ai(user))
 		return FALSE
 	return (user.mind.special_role && user.mind.is_original_mob(user))
 

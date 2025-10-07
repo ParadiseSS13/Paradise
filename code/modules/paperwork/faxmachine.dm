@@ -8,7 +8,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"
 	desc = "Because just talking to your coworkers is too efficient."
-	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
 	var/receive_anim = "faxsend"
@@ -21,8 +20,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/long_range_enabled = FALSE
 	req_one_access = list(ACCESS_INTERNAL_AFFAIRS, ACCESS_HEADS, ACCESS_ARMORY)
 
-	idle_power_consumption = 30
-	active_power_consumption = 200
 
 	/// ID card inserted into the machine, used to log in with
 	var/obj/item/card/id/scan = null
@@ -90,15 +87,17 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/photocopier/faxmachine/attackby__legacy__attackchain(obj/item/item, mob/user, params)
-	if(istype(item,/obj/item/card/id) && !scan)
-		scan(item)
-	else if(istype(item, /obj/item/paper) || istype(item, /obj/item/photo) || istype(item, /obj/item/paper_bundle))
-		..()
+/obj/machinery/photocopier/faxmachine/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/card/id) && !scan)
+		scan(used)
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/paper) || istype(used, /obj/item/photo) || istype(used, /obj/item/paper_bundle))
+		. = ..()
 		SStgui.update_uis(src)
-	else if(istype(item, /obj/item/folder))
+		return ITEM_INTERACT_COMPLETE
+	else if(istype(used, /obj/item/folder))
 		to_chat(user, "<span class='warning'>The [src] can't accept folders!</span>")
-		return //early return so the parent proc doesn't suck up and items that a photocopier would take
+		return ITEM_INTERACT_COMPLETE //early return so the parent proc doesn't suck up and items that a photocopier would take
 	else
 		return ..()
 

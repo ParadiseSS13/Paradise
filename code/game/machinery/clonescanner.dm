@@ -53,7 +53,8 @@
 	RefreshParts()
 
 /obj/machinery/clonescanner/RefreshParts()
-	for(var/obj/item/stock_parts/SP in component_parts)
+	scanning_tier = 0
+	for(var/obj/item/stock_parts/scanning_module/SP in component_parts)
 		scanning_tier += SP.rating
 
 /obj/machinery/clonescanner/Destroy()

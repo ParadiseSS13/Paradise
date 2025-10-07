@@ -68,6 +68,8 @@
 	#define COMPONENT_TWOHANDED_BLOCK_WIELD (1<<0)
 ///from base of datum/component/two_handed/proc/unwield(mob/living/carbon/user): (/mob/user)
 #define COMSIG_TWOHANDED_UNWIELD "twohanded_unwield"
+///from base of /datum/component/forces_doors_open/proc/force_open_door(obj/item): (datum/source, mob/user, atom/target)
+#define COMSIG_TWOHANDED_WIELDED_TRY_WIELD_INTERACT "twohanded_wielded_try_wield_interact"
 
 
 // /datum/action
@@ -83,7 +85,8 @@
 #define COMSIG_ACTION_REMOVED "action_removed"
 /// From /datum/action/Remove(): (datum/action)
 #define COMSIG_MOB_REMOVED_ACTION "mob_action_removed"
-
+/// From /datum/action/apply_button_overlay()
+#define COMSIG_ACTION_OVERLAY_APPLY "action_overlay_applied"
 
 // /datum/objective
 
@@ -122,3 +125,15 @@
 /// Sent when bodies transfer between shades/shards and constructs
 /// from base of /datum/component/construct_held_body/proc/transfer_held_body()
 #define COMSIG_SHADE_TO_CONSTRUCT_TRANSFER "shade_to_construct_transfer"
+
+
+/// /datum/component/label
+/// Called when a handlabeler is used on an item when off
+#define COMSIG_LABEL_REMOVE "label_remove"
+
+// /datum/ruleset
+
+/// from base of /datum/ruleset/proc/can_apply()
+#define COMSIG_RULESET_FAILED_SPECIES "failed_species"
+
+#define COMSIGN_TICKET_COUNT_UPDATE "ticket_count_updated"

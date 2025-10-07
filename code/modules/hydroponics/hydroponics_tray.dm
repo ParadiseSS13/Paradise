@@ -5,6 +5,8 @@
 	density = TRUE
 	anchored = TRUE
 	pixel_y = 8
+	rad_insulation_beta = RAD_MOB_INSULATION
+	rad_insulation_gamma = RAD_MOB_INSULATION
 	/// The amount of water in the tray (max 100)
 	var/waterlevel = 100
 	/// The maximum amount of water in the tray
@@ -91,8 +93,6 @@
 	create_reagents(300) // This should get cleared every time it is filled, barring admemery
 
 /obj/machinery/hydroponics/constructable
-	name = "hydroponics tray"
-	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray3"
 
 /obj/machinery/hydroponics/constructable/Initialize(mapload)
@@ -123,9 +123,10 @@
 	QDEL_NULL(myseed)
 	return ..()
 
-/obj/machinery/hydroponics/constructable/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I))
-		return
+/obj/machinery/hydroponics/constructable/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", used))
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/hydroponics/constructable/crowbar_act(mob/user, obj/item/I)
@@ -493,8 +494,6 @@
 	plant_hud_set_health()
 	plant_hud_set_status()
 
-
-
 /obj/machinery/hydroponics/proc/mutatepest(mob/user)
 	if(pestlevel > 5)
 		message_admins("[ADMIN_LOOKUPFLW(user)] caused spiderling pests to spawn in a hydro tray")
@@ -502,7 +501,7 @@
 		visible_message("<span class='warning'>The pests seem to behave oddly...</span>")
 		for(var/i in 1 to 3)
 			var/obj/structure/spider/spiderling/S = new(get_turf(src))
-			S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter
+			S.grow_as = /mob/living/basic/giant_spider/hunter
 	else
 		to_chat(user, "<span class='warning'>The pests seem to behave oddly, but quickly settle down...</span>")
 
@@ -770,25 +769,25 @@
 	to_chat(user, message.Join(""))
 	doping_chem = new_chem
 
-/obj/machinery/hydroponics/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	//Called when mob user "attacks" it with object O
-	if(istype(O, /obj/item/reagent_containers))  // Syringe stuff (and other reagent containers now too)
-		var/obj/item/reagent_containers/reagent_source = O
+/obj/machinery/hydroponics/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	//Called when mob user "attacks" it with object `used`
+	if(istype(used, /obj/item/reagent_containers))  // Syringe stuff (and other reagent containers now too)
+		var/obj/item/reagent_containers/reagent_source = used
 		var/target = myseed ? myseed.plantname : src
 
 		if(istype(reagent_source, /obj/item/reagent_containers/syringe))
 			var/obj/item/reagent_containers/syringe/syr = reagent_source
 			if(syr.mode != SYRINGE_INJECT)
 				to_chat(user, "<span class='warning'>You can't get any extract out of this plant.</span>")		//That. Gives me an idea...
-				return TRUE
+				return ITEM_INTERACT_COMPLETE
 
 		if(!reagent_source.reagents.total_volume)
 			to_chat(user, "<span class='notice'>[reagent_source] is empty.</span>")
-			return TRUE
+			return ITEM_INTERACT_COMPLETE
 
 		if(reagent_source.has_lid && !reagent_source.is_drainable()) //if theres a LID then cannot transfer reagents.
-			to_chat(user, "<span class='warning'>You need to open [O] first!</span>")
-			return TRUE
+			to_chat(user, "<span class='warning'>You need to open [used] first!</span>")
+			return ITEM_INTERACT_COMPLETE
 
 		var/visi_msg = ""
 		var/transfer_amount = reagent_source.amount_per_transfer_from_this
@@ -814,65 +813,71 @@
 			playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 
 		add_compost(reagent_source, user, transfer_amount, visi_msg, irrigate)
-		return TRUE
+		return ITEM_INTERACT_COMPLETE
 
-	else if(isfood(O) || istype(O, /obj/item/grown))
+	else if(isfood(used) || istype(used, /obj/item/grown))
 		var/target = myseed ? myseed.plantname : src
-		var/transfer = O.reagents.total_volume
-		var/message = "[user] composts [O], spreading it through [target]"
-		add_compost(O, user, transfer, message)
-		return TRUE
+		var/transfer = used.reagents.total_volume
+		var/message = "[user] composts [used], spreading it through [target]"
+		add_compost(used, user, transfer, message)
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(O, /obj/item/unsorted_seeds))
-		to_chat(user, "<span class='warning'>You need to sort [O] first!</span>")
-		return ..()
+	else if(istype(used, /obj/item/unsorted_seeds))
+		to_chat(user, "<span class='warning'>You need to sort [used] first!</span>")
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
+	else if(istype(used, /obj/item/seeds) && !istype(used, /obj/item/seeds/sample))
 		if(!myseed)
-			if(istype(O, /obj/item/seeds/kudzu))
+			if(istype(used, /obj/item/seeds/kudzu))
 				investigate_log("had Kudzu planted in it by [key_name(user)] at ([x],[y],[z])","kudzu")
-			user.unEquip(O)
-			to_chat(user, "<span class='notice'>You plant [O].</span>")
+			user.unequip(used)
+			to_chat(user, "<span class='notice'>You plant [used].</span>")
 			dead = FALSE
-			myseed = O
+			myseed = used
 			age = 1
 			plant_health = myseed.endurance
 			plant_hud_set_health()
 			plant_hud_set_status()
 			lastcycle = world.time
-			O.forceMove(src)
+			used.forceMove(src)
 			update_state()
 		else
 			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")
 
-	else if(istype(O, /obj/item/plant_analyzer))
-		send_plant_details(user)
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(O, /obj/item/cultivator))
+	else if(istype(used, /obj/item/plant_analyzer))
+		send_plant_details(user)
+		return ITEM_INTERACT_COMPLETE
+
+	else if(istype(used, /obj/item/cultivator))
 		if(weedlevel > 0)
 			user.visible_message("[user] uproots the weeds.", "<span class='notice'>You remove the weeds from [src].</span>")
 			adjustWeeds(-10)
 			update_state()
 		else
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
+		return ITEM_INTERACT_COMPLETE
 
-	else if(istype(O, /obj/item/storage/bag/plants))
+	else if(istype(used, /obj/item/storage/bag/plants))
 		if(!harvest)
 			attack_hand(user)
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		myseed.harvest(user, O)
+		myseed.harvest(user, used)
 
-	else if(istype(O, /obj/item/shovel/spade))
+		return ITEM_INTERACT_COMPLETE
+
+	else if(istype(used, /obj/item/shovel/spade))
 		if(!myseed && !weedlevel)
 			to_chat(user, "<span class='warning'>[src] doesn't have any plants or weeds!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>", "<span class='notice'>You start digging out [src]'s plants...</span>")
-		playsound(src, O.usesound, 50, 1)
-		if(!do_after(user, 25 * O.toolspeed, target = src) || (!myseed && !weedlevel))
-			return
+		playsound(src, used.usesound, 50, 1)
+		if(!do_after(user, 25 * used.toolspeed, target = src) || (!myseed && !weedlevel))
+			return ITEM_INTERACT_COMPLETE
 		user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")
-		playsound(src, O.usesound, 50, 1)
+		playsound(src, used.usesound, 50, 1)
 		if(myseed) //Could be that they're just using it as a de-weeder
 			age = 0
 			plant_health = 0
@@ -886,8 +891,10 @@
 			plant_hud_set_status()
 		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds
 		update_state()
-	else if(is_pen(O) && myseed)
+		return ITEM_INTERACT_COMPLETE
+	else if(is_pen(used) && myseed)
 		myseed.variant_prompt(user, src)
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
 
@@ -927,6 +934,10 @@
 		update_state()
 		plant_hud_set_status()
 		plant_hud_set_health()
+	else if(user.mind && HAS_TRAIT(user.mind, TRAIT_GREEN_THUMB) && weedlevel > 0)
+		user.visible_message("[user] uproots the weeds.", "<span class='notice'>You pluck the weeds from [src] with your hands.</span>")
+		adjustWeeds(-10)
+		update_state()
 	else
 		examine(user)
 
@@ -978,7 +989,7 @@
 	plant_hud_set_weed()
 
 /obj/machinery/hydroponics/proc/spawnplant() // why would you put Lazarus Reagent in a hydro tray you monster I bet you also feed them blood
-	var/list/livingplants = list(/mob/living/simple_animal/hostile/tree, /mob/living/simple_animal/hostile/killertomato)
+	var/list/livingplants = list(/mob/living/basic/tree, /mob/living/basic/killertomato)
 	var/chosen = pick(livingplants)
 	var/mob/living/simple_animal/hostile/C = new chosen(get_turf(src))
 	C.faction = list("plants")
@@ -1014,7 +1025,6 @@
 /// Not actually hydroponics at all! Honk!
 /obj/machinery/hydroponics/soil
 	name = "soil"
-	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "soil"
 	density = FALSE
 	power_state = NO_POWER_USE
@@ -1028,12 +1038,13 @@
 /obj/machinery/hydroponics/soil/update_icon_lights()
 	return // Has no lights
 
-/obj/machinery/hydroponics/soil/attackby__legacy__attackchain(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/shovel) && !istype(O, /obj/item/shovel/spade)) //Doesn't include spades because of uprooting plants
+/obj/machinery/hydroponics/soil/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/shovel) && !istype(used, /obj/item/shovel/spade)) //Doesn't include spades because of uprooting plants
 		to_chat(user, "<span class='notice'>You clear up [src]!</span>")
 		qdel(src)
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/hydroponics/proc/add_compost(obj/item/reagent_source, mob/user, transfer_amount, visi_msg, irrigate = FALSE)
 	var/list/trays = list(src)//makes the list just this in cases of syringes and compost etc
@@ -1102,5 +1113,28 @@
 /obj/machinery/hydroponics/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
 		return
-	if(user.plant_analyzer)
+	if(user.ghost_flags & GHOST_PLANT_ANALYZER)
 		send_plant_details(user)
+
+/obj/machinery/hydroponics/rad_act(atom/source, amount, emission_type)
+	if(!myseed)
+		return
+	// adjust radiation value according to type
+	switch(emission_type)
+		if(GAMMA_RAD)
+			amount /= ((1 - rad_insulation_gamma) / 2)
+		if(BETA_RAD)
+			amount /= (1 - rad_insulation_beta)
+		if(ALPHA_RAD)
+			amount /= 2
+
+	var/top_range = 100 * amount / (amount + 50)
+	var/roll = rand(0, top_range)
+
+	// Do the rad stuff
+	if(prob(roll / 20))
+		adjustHealth(-roll / 20)
+	if(prob(roll / 7))
+		myseed.mutate(roll / 2, get_mutation_focus())
+	if(top_range > 30 && prob(roll / 10))
+		mut_beamed = TRUE

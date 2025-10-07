@@ -18,7 +18,7 @@
 	var/obj/item/nullrod/scythe/talking/user_sword = user.loc
 	if(ishuman(user_sword.loc))
 		var/mob/living/carbon/holder = user_sword.loc
-		holder.unEquip(user_sword)
+		holder.drop_item_to_ground(user_sword)
 	else if(isstorage(user_sword.loc))
 		if(prob(50))
 			to_chat(user, "<span class='warning'>You fail to break out of [user_sword.loc]!</span>")

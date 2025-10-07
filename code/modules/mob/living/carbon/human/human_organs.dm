@@ -47,7 +47,7 @@
 
 	for(var/limb_tag in list("l_leg","r_leg","l_foot","r_foot"))
 		var/obj/item/organ/external/E = bodyparts_by_name[limb_tag]
-		if(!E || (E.status & ORGAN_DEAD) || E.is_malfunctioning() || !E.properly_attached)
+		if(!E || (E.status & ORGAN_DEAD) || E.is_malfunctioning() || !E.properly_attached || HAS_TRAIT(src, TRAIT_PARAPLEGIC))
 			if(E?.status & ORGAN_DEAD && HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 				continue
 			if(E && !E.properly_attached && life_tick % 24 == 0)
@@ -92,12 +92,12 @@
 			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
 				if(!l_hand)
 					continue
-				if(!unEquip(l_hand))
+				if(!drop_item_to_ground(l_hand))
 					continue
 			else
 				if(!r_hand)
 					continue
-				if(!unEquip(r_hand))
+				if(!drop_item_to_ground(r_hand))
 					continue
 
 			if(!E.properly_attached)
@@ -116,12 +116,12 @@
 			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
 				if(!l_hand)
 					continue
-				if(!unEquip(l_hand))
+				if(!drop_item_to_ground(l_hand))
 					continue
 			else
 				if(!r_hand)
 					continue
-				if(!unEquip(r_hand))
+				if(!drop_item_to_ground(r_hand))
 					continue
 
 			custom_emote(EMOTE_VISIBLE, "drops what [p_they()] [p_were()] holding, [p_their()] [E.name] malfunctioning!")

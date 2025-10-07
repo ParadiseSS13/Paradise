@@ -5,10 +5,12 @@
 	icon_state = "railing"
 	density = TRUE
 	anchored = TRUE
+	flags_2 = RAD_NO_CONTAMINATE_2
 	pass_flags_self = LETPASSTHROW | PASSTAKE
 	climbable = TRUE
 	layer = ABOVE_MOB_LAYER
 	flags = ON_BORDER
+	max_integrity = 50
 	var/currently_climbed = FALSE
 	var/mover_dir = null
 
@@ -41,9 +43,9 @@
 /obj/structure/railing/cap/reversed
 	icon_state = "railing_cap_reversed"
 
-/obj/structure/railing/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
-	..()
-	add_fingerprint(user)
+/obj/structure/railing/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	. = ..()
+	add_fingerprint(user) // No clue why this is happening here
 
 /obj/structure/railing/attack_animal(mob/living/simple_animal/M)
 	. = ..()

@@ -39,7 +39,8 @@
 		..()
 		return
 	var/inject_target = pick("chest","head")
-	L.attack_animal(src)
+	if(!L.attack_animal(src))
+		return
 	L.KnockDown(10 SECONDS)
 	L.apply_damage(30, STAMINA)
 	if(L.can_inject(null, FALSE, inject_target, FALSE) || (HAS_TRAIT(L, TRAIT_HANDS_BLOCKED) && HAS_TRAIT(L, TRAIT_IMMOBILIZED)))
@@ -48,7 +49,7 @@
 			new /obj/item/organ/internal/body_egg/terror_eggs(L)
 			if(!ckey)
 				LoseTarget()
-				walk_away(src,L,2,1)
+				GLOB.move_manager.move_away(src,L,2,1)
 
 /proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))

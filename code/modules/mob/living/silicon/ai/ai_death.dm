@@ -10,7 +10,7 @@
 	else
 		icon_state = "ai_dead"
 	if(eyeobj)
-		eyeobj.setLoc(get_turf(src))
+		eyeobj.set_loc(get_turf(src))
 
 	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
@@ -32,7 +32,7 @@
 
 	if(explosive)
 		spawn(10) // REEEEEEEE
-			explosion(src.loc, 3, 6, 12, 15)
+			explosion(src.loc, 3, 6, 12, 15, cause = "Adminbus explosive AI")
 
 	for(var/obj/machinery/ai_status_display/O as anything in GLOB.ai_displays) //change status
 		O.mode = AI_DISPLAY_MODE_BSOD

@@ -281,7 +281,7 @@
 	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), ITEM_SLOT_ID)
 	synd_mob.equip_to_slot_or_del(new back(synd_mob), ITEM_SLOT_BACK)
 	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), ITEM_SLOT_BELT)
-	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), ITEM_SLOT_IN_BACKPACK)
+	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndie(synd_mob.back), ITEM_SLOT_IN_BACKPACK)
 	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), ITEM_SLOT_PDA)
 	var/obj/item/radio/uplink/nuclear/U = new /obj/item/radio/uplink/nuclear(synd_mob)
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
@@ -501,7 +501,7 @@
 
 	for(var/mob in GLOB.mob_living_list)
 		var/mob/living/C = mob
-		if(ishuman(C) || isAI(C) || isrobot(C))
+		if(ishuman(C) || is_ai(C) || isrobot(C))
 			if(C.stat == DEAD)
 				continue
 			if(!C.client)

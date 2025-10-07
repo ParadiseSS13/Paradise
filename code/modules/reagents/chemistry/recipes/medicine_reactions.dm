@@ -285,7 +285,7 @@
 	name = "Degreaser"
 	id = "degreaser"
 	result = "degreaser"
-	required_reagents = list("oil" = 1, "sterilizine" = 1)
+	required_reagents = list("oil" = 1, "spaceacillin" = 1)
 	result_amount = 2
 
 /datum/chemical_reaction/liquid_solder

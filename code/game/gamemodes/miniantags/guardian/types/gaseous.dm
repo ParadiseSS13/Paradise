@@ -51,7 +51,7 @@
 	if(!picked_gas)
 		return
 	to_chat(src, "<span class='bolddanger'>You are now expelling [picked_gas].</span>")
-	investigate_log("set their gas type to [picked_gas].", "atmos")
+	investigate_log("set their gas type to [picked_gas].", INVESTIGATE_ATMOS)
 	moles_of_gas = possible_gases[picked_gas]
 	switch(picked_gas)
 		if("Oxygen")

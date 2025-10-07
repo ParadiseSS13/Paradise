@@ -7,7 +7,6 @@
 	name = "\improper SmartFridge"
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "smartfridge"
-	layer = 2.9
 	density = TRUE
 	anchored = TRUE
 	idle_power_consumption = 5
@@ -177,27 +176,30 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/smartfridge/attackby__legacy__attackchain(obj/item/O, mob/user)
-	if(istype(O, /obj/item/storage/part_replacer))
+/obj/machinery/smartfridge/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
 		. = ..()
 		SStgui.update_uis(src)
 		return
 
-	if(stat & (BROKEN|NOPOWER))
-		to_chat(user, "<span class='notice'>[src] is unpowered and useless.</span>")
+	if(istype(used, /obj/item/autochef_remote))
 		return
 
-	if(load(O, user))
+	if(stat & (BROKEN|NOPOWER))
+		to_chat(user, "<span class='notice'>[src] is unpowered and useless.</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	if(load(used, user))
 		user.visible_message(
-			"<span class='notice'>[user] has added [O] to [src].</span>",
-			"<span class='notice'>You add [O] to [src].</span>"
+			"<span class='notice'>[user] has added [used] to [src].</span>",
+			"<span class='notice'>You add [used] to [src].</span>"
 		)
 		SStgui.update_uis(src)
 		update_icon(UPDATE_OVERLAYS)
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
-		var/obj/item/storage/P = O
+	if(istype(used, /obj/item/storage/bag) || istype(used, /obj/item/storage/box))
+		var/obj/item/storage/P = used
 		var/items_loaded = 0
 		for(var/obj/G in P.contents)
 			if(load(G, user))
@@ -212,11 +214,13 @@
 		var/failed = length(P.contents)
 		if(failed)
 			to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
-	if(!istype(O, /obj/item/card/emag))
-		to_chat(user, "<span class='notice'>\The [src] smartly refuses [O].</span>")
-		return TRUE
+	if(!istype(used, /obj/item/card/emag))
+		to_chat(user, "<span class='notice'>\The [src] smartly refuses [used].</span>")
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/smartfridge/attack_ai(mob/user)
 	if(!silicon_controllable)
@@ -358,12 +362,14 @@
 			else if(ismob(I.loc))
 				var/mob/M = I.loc
 				if(M.get_active_hand() == I)
-					if(!M.drop_item())
+					if(M.transfer_item_to(I, src))
+						// TODO: Use COMSIG_ATOM_ENTERED/EXITED to update item quantities
+						// instead of having to fiddle with the values everywhere
+						item_quants[I.name] += 1
+						return TRUE
+					else
 						to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
 						return FALSE
-				else
-					M.unEquip(I)
-				I.forceMove(src)
 			else
 				I.forceMove(src)
 
@@ -541,7 +547,6 @@
 /obj/machinery/smartfridge/seeds
 	name = "\improper Seed Storage"
 	desc = "When you need seeds fast!"
-	icon = 'icons/obj/vending.dmi'
 	icon_state = "seeds"
 	board_type = /obj/machinery/smartfridge/seeds
 
@@ -602,7 +607,6 @@
 	desc = "A storage unit for circuits."
 	icon_state = "circuits"
 	icon_lightmask = "circuits"
-	visible_contents = TRUE
 	board_type = /obj/machinery/smartfridge/secure/circuits
 
 /obj/machinery/smartfridge/secure/circuits/Initialize(mapload)
@@ -675,7 +679,6 @@
 /obj/machinery/smartfridge/medbay
 	name = "\improper Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
-	icon_state = "smartfridge" //To fix the icon in the map editor.
 	board_type = /obj/machinery/smartfridge/medbay
 
 /obj/machinery/smartfridge/medbay/Initialize(mapload)
@@ -715,7 +718,6 @@
 /obj/machinery/smartfridge/secure/medbay
 	name = "\improper Secure Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
-	icon_state = "smartfridge" //To fix the icon in the map editor.
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY)
 	board_type = /obj/machinery/smartfridge/secure/medbay
 
@@ -739,7 +741,6 @@
 /obj/machinery/smartfridge/secure/chemistry
 	name = "\improper Smart Chemical Storage"
 	desc = "A refrigerated storage unit for medicine and chemical storage."
-	icon_state = "smartfridge" //To fix the icon in the map editor.
 	board_type = /obj/machinery/smartfridge/secure/chemistry
 	req_access = list(ACCESS_CHEMISTRY)
 
@@ -787,7 +788,6 @@
 	icon_state = "disktoaster"
 	icon_lightmask = "disktoaster"
 	pass_flags = PASSTABLE
-	visible_contents = TRUE
 	board_type = /obj/machinery/smartfridge/disks
 
 /obj/machinery/smartfridge/disks/Initialize(mapload)
@@ -857,11 +857,14 @@
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/Initialize(mapload)
 	starting_items = list(
 		/obj/item/reagent_containers/syringe/antiviral = 4,
+		/obj/item/reagent_containers/glass/bottle/tracking_agar = 1,
+		/obj/item/reagent_containers/glass/bottle/stable_agar = 1,
 		/obj/item/reagent_containers/glass/bottle/cold = 1,
 		/obj/item/reagent_containers/glass/bottle/flu_virion = 1,
 		/obj/item/reagent_containers/glass/bottle/mutagen = 1,
 		/obj/item/reagent_containers/glass/bottle/plasma = 1,
 		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1,
+		/obj/item/reagent_containers/glass/bottle/sterilizine,
 		/obj/item/storage/lockbox/vials = 2
 	)
 	. = ..()
@@ -877,6 +880,8 @@
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate/Initialize(mapload)
 	starting_items = list(
 		/obj/item/reagent_containers/syringe/antiviral = 4,
+		/obj/item/reagent_containers/glass/bottle/tracking_agar = 1,
+		/obj/item/reagent_containers/glass/bottle/stable_agar = 1,
 		/obj/item/reagent_containers/glass/bottle/cold = 1,
 		/obj/item/reagent_containers/glass/bottle/flu_virion = 1,
 		/obj/item/reagent_containers/glass/bottle/mutagen = 1,

@@ -40,7 +40,6 @@
 	force = 15
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL // Two nettle/deathnettle fit in a pneumatic cannon. They fit in plant bags.
 	throw_speed = 1
 	throw_range = 3
 	origin_tech = "combat=3"
@@ -76,7 +75,7 @@
 		force -= rand(1, (force / 3) + 1) // When you whack someone with it, leaves fall off
 	else
 		to_chat(usr, "All the leaves have fallen off the nettle from violent whacking.")
-		usr.unEquip(src)
+		usr.unequip(src)
 		qdel(src)
 
 /obj/item/grown/nettle/basic

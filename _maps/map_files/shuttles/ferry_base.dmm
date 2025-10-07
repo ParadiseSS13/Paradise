@@ -52,15 +52,8 @@
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 2;
-	height = 12;
-	id = "ferry";
-	name = "ferry shuttle";
-	roundstart_move = "ferry_away";
-	timid = 1;
-	width = 5
+/obj/docking_port/mobile/ferry{
+	timid = 1
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/transport)

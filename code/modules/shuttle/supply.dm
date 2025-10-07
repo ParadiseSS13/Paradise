@@ -12,10 +12,10 @@
 	id = "supply"
 	callTime = 2 MINUTES
 	dir = 8
-	travelDir = 90
 	width = 12
 	dwidth = 5
 	height = 7
+	port_direction = EAST
 
 	// The list of things that can't be sent to CC.
 	var/list/blacklist = list(
@@ -41,7 +41,9 @@
 			/obj/machinery/the_singularitygen,
 			/obj/effect/hierophant,
 			/obj/item/warp_cube),
-		"undelivered mail" = list(/obj/item/envelope))
+		"undelivered mail" = list(/obj/item/envelope),
+		"live ordnance" = list(/obj/machinery/syndicatebomb)
+		)
 
 	// The current manifest of what's on the shuttle.
 	var/datum/economy/cargo_shuttle_manifest/manifest = new
@@ -108,8 +110,8 @@
 		for(var/atom/A in T.contents)
 			if(!A.simulated)
 				continue
-			if(istype(A, /obj/machinery/light))
-				continue //hacky but whatever, shuttles need three spots each for this shit
+			if(istype(A, /obj/machinery/light) || istype(A, /obj/machinery/conveyor))
+				continue // Objects we're fine with spawning crates on.
 			contcount++
 
 		if(contcount)
@@ -139,16 +141,30 @@
 			break
 
 		var/obj/structure/closet/crate/secure/personal/PC = new(T)
-		if(SG.requester_name)
-			PC.name = "goal crate ([SG.requester_name] in [SG.department])"
-			PC.desc = "This personal crate has been configured by CC for [SG.requester_name]'s use in completing the secondary goal [SG.name]."
-			PC.registered_name = SG.requester_name
-		else
-			PC.name = "goal crate (Unknown in [SG.department])"
+		PC.name = "goal crate"
+		PC.registered_name = SG.requester_name
+		PC.AddComponent(/datum/component/label/goal, SG.requester_name, SG.department, TRUE)
 		PC.locked = FALSE
 		PC.update_icon()
 
 		SG.should_send_crate = FALSE
+	if(SSshuttle.shuttle_loan_UID)
+		var/datum/event/shuttle_loan/shuttle_loan = locateUID(SSshuttle.shuttle_loan_UID)
+		if(!shuttle_loan.dispatched)
+			return
+		// let the situation spawn its items
+		var/list/spawn_list = list()
+		shuttle_loan.situation.spawn_items(spawn_list, emptyTurfs)
+		var/false_positive = 0
+		while(spawn_list.len && emptyTurfs.len)
+			var/turf/spawn_turf = pick_n_take(emptyTurfs)
+			if(spawn_turf.contents.len && false_positive < 5)
+				false_positive++
+				continue
+			var/spawn_type = pick_n_take(spawn_list)
+			new spawn_type(spawn_turf)
+		// Clear the event so it doesn't cause a problem again
+		SSshuttle.shuttle_loan_UID = null
 
 /obj/docking_port/mobile/supply/proc/scan_cargo()
 	manifest = new
@@ -336,7 +352,7 @@
 			if(department_messages[department][message_piece] > 1)
 				count = " (x[department_messages[department][message_piece]])"
 			rc_message += "[message_piece][count]"
-		send_requests_console_message(rc_message, "Central Command", department, "Stamped with the Central Command rubber stamp.", "Verified by the Central Command receiving department.", RQ_NORMALPRIORITY)
+		send_requests_console_message(rc_message, "Procurement Office", department, "Stamped with the Central Command rubber stamp.", "Verified by the Central Command receiving department.", RQ_NORMALPRIORITY)
 
 	SSeconomy.centcom_message += "[msg]<hr>"
 	manifest = new
@@ -851,6 +867,12 @@
 		manifest.line_items += item
 		SSblackbox.record_feedback("nested tally", "cargo salvage sold", count, list(salvage_name, "count"))
 		SSblackbox.record_feedback("nested tally", "cargo salvage sold", item.credits, list(salvage_name, "credits"))
+
+/datum/economy/simple_seller/shelved_items
+
+/datum/economy/simple_seller/shelved_items/check_sell(obj/docking_port/mobile/supply/S, atom/movable/AM)
+	if(AM.GetComponent(/datum/component/shelved))
+		return COMSIG_CARGO_IS_SECURED
 
 /datum/economy/cargo_shuttle_manifest
 	var/list/items_to_sell = list()

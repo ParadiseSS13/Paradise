@@ -96,10 +96,8 @@
 
 /area/shuttle/administration/centcom
 	name = "\improper Nanotrasen Vessel Centcom"
-	icon_state = "shuttlered"
 
 /area/shuttle/administration/station
-	name = "\improper Nanotrasen Vessel"
 	icon_state = "shuttlered2"
 
 // === Trying to remove these areas:
@@ -111,6 +109,7 @@
 /area/shuttle/abandoned
 	name = "Abandoned Ship"
 	icon_state = "shuttle"
+	parallax_move_direction = WEST
 
 /area/shuttle/syndicate
 	name = "Syndicate Nuclear Team Shuttle"
@@ -129,3 +128,11 @@
 	name = "Free Golem Ship"
 	icon_state = "purple"
 	xenobiology_compatible = TRUE
+	parallax_move_direction = WEST
+
+/// Currently disabled as our shuttle system does not support TG-shuttle areas yet
+// /area/shuttle/transit
+// 	name = "Hyperspace"
+// 	desc = "Weeeeee"
+// 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+// 	there_can_be_many = TRUE

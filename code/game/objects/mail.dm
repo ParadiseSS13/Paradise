@@ -1,12 +1,10 @@
 /obj/item/envelope
 	name = "broken letter"
 	desc = "We just got a letter, we just got a letter, we just got a letter -- I wonder who it's from?"
-	force = 0
-	throwforce = 0
-	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "mail_misc"
-	item_state = "paper"
+	inhand_icon_state = "paper"
+	w_class = WEIGHT_CLASS_SMALL
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 
@@ -33,7 +31,7 @@
 	if(do_after(user, 1 SECONDS, target = user) && !QDELETED(src))
 		to_chat(user, "<span class='notice'>You begin to open the envelope.</span>")
 		playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
-		user.unEquip(src)
+		user.unequip(src)
 		for(var/obj/item/I in contents)
 			user.put_in_hands(I)
 		qdel(src)
@@ -230,12 +228,9 @@
 
 /obj/item/mail_scanner
 	name = "mail scanner"
-	desc = "Sponsored by Messaging and Intergalactic Letters, this device allows you to log mail deliveries in exchange for financial compensation."
-	force = 0
-	throwforce = 0
+	desc = "A portable mail scanner, this device allows you to log mail deliveries in exchange for financial compensation."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "mail_scanner"
-	item_state = "mail_scanner"
 	lefthand_file = 'icons/mob/inhands/items/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items/devices_righthand.dmi'
 	flags = CONDUCT
@@ -295,5 +290,5 @@
 		saved = null
 		to_chat(user, "<span class='notice'>Successful delivery acknowledged! [MAIL_DELIVERY_BONUS] credits added to Supply account!</span>")
 		playsound(loc, 'sound/mail/mailapproved.ogg', 50, TRUE)
-		GLOB.station_money_database.credit_account(SSeconomy.cargo_account, MAIL_DELIVERY_BONUS, "Mail Delivery Compensation", "Messaging and Intergalactic Letters", supress_log = FALSE)
+		GLOB.station_money_database.credit_account(SSeconomy.cargo_account, MAIL_DELIVERY_BONUS, "Mail Delivery Compensation", "Nanotrasen Mail and Interstellar Logistics", supress_log = FALSE)
 		SSblackbox.record_feedback("amount", "successful_mail_delivery", 1)

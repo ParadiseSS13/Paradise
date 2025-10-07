@@ -83,6 +83,7 @@ CREATE TABLE `characters` (
   `runechat_color` VARCHAR(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#FFFFFF',
   `cyborg_brain_type` ENUM('MMI', 'Robobrain', 'Positronic') NOT NULL DEFAULT 'MMI',
   `pda_ringtone` VARCHAR(16) NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
+  `quirks` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -170,11 +171,29 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `admin_rank` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Administrator',
-  `level` int(2) NOT NULL DEFAULT '0',
-  `flags` int(16) NOT NULL DEFAULT '0',
+  `display_rank` varchar(32) COLLATE utf8mb4_unicode_ci,
+  `permissions_rank` int(11) COMMENT 'Foreign key for admin_ranks.id',
+  `extra_permissions` int(16) NOT NULL DEFAULT '0',
+  `removed_permissions` int(16) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `admin_ranks`
+--
+
+DROP TABLE IF EXISTS `admin_ranks`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `admin_ranks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `default_permissions` int(16) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -272,7 +291,6 @@ CREATE TABLE `player` (
   `lastseen` datetime NOT NULL,
   `ip` varchar(18) COLLATE utf8mb4_unicode_ci NOT NULL,
   `computerid` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lastadminrank` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Player',
   `ooccolor` varchar(7) COLLATE utf8mb4_unicode_ci DEFAULT '#b82e00',
   `UI_style` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT 'Midnight',
   `UI_style_color` varchar(7) COLLATE utf8mb4_unicode_ci DEFAULT '#ffffff',
@@ -288,7 +306,7 @@ CREATE TABLE `player` (
   `volume_mixer` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lastchangelog` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `exp` LONGTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `clientfps` smallint(4) DEFAULT '63',
+  `clientfps` smallint(4) DEFAULT '100',
   `atklog` smallint(4) DEFAULT '0',
   `fuid` bigint(20) DEFAULT NULL,
   `fupdate` smallint(4) DEFAULT '0',
@@ -412,9 +430,11 @@ CREATE TABLE `notes` (
   `automated` TINYINT(3) UNSIGNED NULL DEFAULT '0',
   `deleted` TINYINT(4) NOT NULL DEFAULT '0',
   `deletedby` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+  `public` TINYINT(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`),
-  KEY `deleted` (`deleted`)
+  KEY `deleted` (`deleted`),
+  KEY `public` (`public`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -539,11 +559,11 @@ CREATE TABLE `changelog` (
 --
 DROP TABLE IF EXISTS `ip2group`;
 CREATE TABLE `ip2group` (
-  `ip` varchar (18) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
-  `groupstr` varchar (32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`ip`),
-  KEY `groupstr` (`groupstr`)
+	`ip` INT(10) UNSIGNED NOT NULL,
+	`date` TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+	`groupstr` INT(10) UNSIGNED NOT NULL,
+	PRIMARY KEY (`ip`) USING BTREE,
+	INDEX `groupstr` (`groupstr`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

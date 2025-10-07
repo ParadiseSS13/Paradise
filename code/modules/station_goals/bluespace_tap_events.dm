@@ -68,6 +68,7 @@
 	var/datum/reagents/R = new /datum/reagents(50)
 	R.my_atom = tap
 	R.add_reagent(pick(gunk), 50)
+	tap.update_icon()
 
 	var/datum/effect_system/smoke_spread/chem/smoke = new
 	smoke.set_up(R, tap, TRUE)
@@ -83,7 +84,7 @@
 	tap.radio.autosay("Bluespace harvester has released a spike of radiation!", tap, "Engineering")
 
 /datum/engi_event/bluespace_tap_event/radiation/on_start()
-	radiation_pulse(tap, 3000, 7)
+	radiation_pulse(tap, 12000, BETA_RAD)
 
 // electrical arc
 /datum/engi_event/bluespace_tap_event/electric_arc

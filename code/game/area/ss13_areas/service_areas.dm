@@ -1,3 +1,6 @@
+/area/station/service
+	airlock_wires = /datum/wires/airlock/service
+
 /area/station/service/cafeteria
 	name = "\improper Cafe"
 	icon_state = "cafeteria"
@@ -43,7 +46,6 @@
 /area/station/service/chapel/office
 	name = "\improper Chapel Office"
 	icon_state = "chapeloffice"
-	request_console_flags = RC_SUPPLY
 	request_console_name = "Chapel"
 
 /area/station/service/clown

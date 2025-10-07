@@ -29,9 +29,7 @@
 	icon_state = "voice_changer_[active ? "on" : "off"]"
 	to_chat(user, "<span class='notice'>You toggle [src] [active ? "on" : "off"].</span>")
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 
 /obj/item/voice_changer/proc/set_voice(mob/user)
 	var/chosen_voice = tgui_input_text(user, "What voice would you like to mimic? Leave this empty to use the voice on your ID card.", "Set Voice Changer")

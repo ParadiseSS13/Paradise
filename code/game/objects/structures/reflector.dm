@@ -3,10 +3,8 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_0"
 	desc = "A frame to create a reflector.\n<span class='notice'>Use <b>5</b> sheets of <b>glass</b> to create a 1 way reflector.\nUse <b>10</b> sheets of <b>reinforced glass</b> to create a 2 way reflector.\nUse <b>1 diamond</b> to create a reflector cube.</span>"
-	anchored = FALSE
 	density = TRUE
 	max_integrity = 50
-	layer = 3
 	var/finished = FALSE
 	var/obj/item/stack/sheet/build_stack_type
 	var/build_stack_amount
@@ -41,8 +39,8 @@
 	new_dir = 0
 	return -1
 
-
-/obj/structure/reflector/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/reflector/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	//Finishing the frame
 	if(istype(W,/obj/item/stack/sheet))
 		if(finished)

@@ -13,7 +13,6 @@
 	density = FALSE
 	max_integrity = 300
 	resistance_flags = FIRE_PROOF
-	heat_proof = FALSE
 	glass = TRUE
 	explosion_block = 1
 	safe = FALSE
@@ -24,6 +23,7 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, RAD = 100, FIRE = 95, ACID = 70)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	cares_about_temperature = TRUE
 	/// How long does opening by hand take, in deciseconds.
 	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
@@ -122,13 +122,14 @@
 		user.visible_message(
 			"<span class='notice'>[user] opens [src].</span>",
 			"<span class='notice'>You open [src].</span>")
-		open(auto_close = FALSE)
+		open()
 
-/obj/machinery/door/firedoor/attackby__legacy__attackchain(obj/item/C, mob/user, params)
+/obj/machinery/door/firedoor/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	add_fingerprint(user)
 
 	if(operating)
-		return
+		return ITEM_INTERACT_COMPLETE
+
 	return ..()
 
 /obj/machinery/door/firedoor/try_to_activate_door(mob/user)
@@ -185,6 +186,12 @@
 		WELDER_WELD_SUCCESS_MESSAGE
 	welded = !welded
 	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/door/firedoor/emag_act(mob/user)
+	if(!density)
+		return
+	autoclose = FALSE
+	return ..()
 
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
 	if(welded || operating)
@@ -244,15 +251,13 @@
 	adjust_light()
 	update_icon()
 
-/obj/machinery/door/firedoor/open(auto_close = TRUE)
+/obj/machinery/door/firedoor/open()
 	if(welded)
 		return
 	. = ..()
-	latetoggle(auto_close)
+	latetoggle()
 	if(active_alarm)
 		layer = closingLayer // Active firedoors take precedence and remain visible over closed airlocks.
-	if(auto_close)
-		autoclose = TRUE
 
 /obj/machinery/door/firedoor/close()
 	. = ..()
@@ -262,20 +267,20 @@
 	if(active_alarm)
 		. = ..()
 
-/obj/machinery/door/firedoor/proc/latetoggle(auto_close = TRUE)
+/obj/machinery/door/firedoor/proc/latetoggle()
 	if(operating || !hasPower() || !nextstate)
 		return
 	if(nextstate == FD_OPEN)
-		INVOKE_ASYNC(src, PROC_REF(open), auto_close)
+		INVOKE_ASYNC(src, PROC_REF(open))
 	if(nextstate == FD_CLOSED)
 		INVOKE_ASYNC(src, PROC_REF(close))
 	nextstate = null
 
-/obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE, auto_close = TRUE)
+/obj/machinery/door/firedoor/proc/forcetoggle(magic = FALSE)
 	if(!magic && (operating || !hasPower()))
 		return
 	if(density)
-		open(auto_close)
+		open()
 	else
 		close()
 
@@ -345,7 +350,7 @@
 		return FALSE
 	return ..()
 
-/obj/machinery/door/firedoor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/door/firedoor/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
@@ -367,7 +372,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 100, MAT_GLASS = 100)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/structure/firelock_frame
@@ -375,8 +379,8 @@
 	desc = "A partially completed firelock."
 	icon = 'icons/obj/doors/doorfire.dmi'
 	icon_state = "frame1"
-	anchored = FALSE
 	density = TRUE
+	cares_about_temperature = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
 	var/heat_resistance = 1000
@@ -398,57 +402,57 @@
 /obj/structure/firelock_frame/update_icon_state()
 	icon_state = "frame[constructionStep]"
 
-/obj/structure/firelock_frame/attackby__legacy__attackchain(obj/item/C, mob/user)
+/obj/structure/firelock_frame/item_interaction(mob/living/user, obj/item/C, list/modifiers)
 	switch(constructionStep)
 		if(CONSTRUCTION_PANEL_OPEN)
 			if(istype(C, /obj/item/stack/sheet/plasteel))
 				var/obj/item/stack/sheet/plasteel/P = C
 				if(reinforced)
 					to_chat(user, "<span class='warning'>[src] is already reinforced.</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 				if(P.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need more plasteel to reinforce [src].</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 				user.visible_message("<span class='notice'>[user] begins reinforcing [src]...</span>", \
 									"<span class='notice'>You begin reinforcing [src]...</span>")
 				playsound(get_turf(src), C.usesound, 50, 1)
 				if(do_after(user, 60 * C.toolspeed, target = src))
 					if(constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || P.get_amount() < 2 || !P)
-						return
+						return ITEM_INTERACT_COMPLETE
 					user.visible_message("<span class='notice'>[user] reinforces [src].</span>", \
 										"<span class='notice'>You reinforce [src].</span>")
 					playsound(get_turf(src), C.usesound, 50, 1)
 					P.use(2)
 					reinforced = 1
-				return
+				return ITEM_INTERACT_COMPLETE
 		if(CONSTRUCTION_GUTTED)
 			if(iscoil(C))
 				var/obj/item/stack/cable_coil/B = C
 				if(B.get_amount() < 5)
 					to_chat(user, "<span class='warning'>You need more wires to add wiring to [src].</span>")
-					return
+					return ITEM_INTERACT_COMPLETE
 				user.visible_message("<span class='notice'>[user] begins wiring [src]...</span>", \
 									"<span class='notice'>You begin adding wires to [src]...</span>")
 				playsound(get_turf(src), B.usesound, 50, 1)
 				if(do_after(user, 60 * B.toolspeed, target = src))
 					if(constructionStep != CONSTRUCTION_GUTTED || B.get_amount() < 5 || !B)
-						return
+						return ITEM_INTERACT_COMPLETE
 					user.visible_message("<span class='notice'>[user] adds wires to [src].</span>", \
 										"<span class='notice'>You wire [src].</span>")
 					playsound(get_turf(src), B.usesound, 50, 1)
 					B.use(5)
 					constructionStep = CONSTRUCTION_WIRES_EXPOSED
 					update_icon()
-				return
+				return ITEM_INTERACT_COMPLETE
 		if(CONSTRUCTION_NOCIRCUIT)
 			if(istype(C, /obj/item/firelock_electronics))
 				user.visible_message("<span class='notice'>[user] starts adding [C] to [src]...</span>", \
 									"<span class='notice'>You begin adding a circuit board to [src]...</span>")
 				playsound(get_turf(src), C.usesound, 50, 1)
 				if(!do_after(user, 40 * C.toolspeed, target = src))
-					return
+					return ITEM_INTERACT_COMPLETE
 				if(constructionStep != CONSTRUCTION_NOCIRCUIT)
-					return
+					return ITEM_INTERACT_COMPLETE
 				user.drop_item()
 				qdel(C)
 				user.visible_message("<span class='notice'>[user] adds a circuit to [src].</span>", \
@@ -456,7 +460,7 @@
 				playsound(get_turf(src), C.usesound, 50, 1)
 				constructionStep = CONSTRUCTION_GUTTED
 				update_icon()
-				return
+				return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/firelock_frame/crowbar_act(mob/user, obj/item/I)
@@ -541,7 +545,7 @@
 		new /obj/machinery/door/firedoor(get_turf(src))
 	qdel(src)
 
-/obj/structure/firelock_frame/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/firelock_frame/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)

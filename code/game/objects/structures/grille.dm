@@ -1,7 +1,6 @@
 /obj/structure/grille
-	desc = "A flimsy framework of metal rods."
+	desc = "A robust framework of metal rods. Commonly used for reinforcing high-security windows, and for building protective screens to intercept meteors and space debris."
 	name = "grille"
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "grille"
 	density = TRUE
 	anchored = TRUE
@@ -11,8 +10,9 @@
 	layer = BELOW_OBJ_LAYER
 	level = 3
 	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 0, ACID = 0)
-	max_integrity = 50
-	integrity_failure = 20
+	integrity_failure = 100
+	cares_about_temperature = TRUE
+	rad_insulation_beta = RAD_BETA_BLOCKER
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	var/rods_broken = 1
@@ -64,6 +64,19 @@
 
 	take_damage(rand(5,10), BRUTE, MELEE, 1)
 
+/obj/structure/grille/handle_basic_attack(mob/living/basic/attacker, modifiers)
+	. = ..()
+	if(!. || QDELETED(src) || shock(attacker, 70))
+		return
+
+	if(attacker.environment_smash >= ENVIRONMENT_SMASH_STRUCTURES)
+		playsound(src, 'sound/effects/grillehit.ogg', 80, TRUE)
+		obj_break()
+		attacker.visible_message("<span class='danger'>[attacker] smashes through [src]!</span>", "<span class='notice'>You smash through [src].</span>")
+		return
+
+	take_damage(rand(5, 10), BRUTE, MELEE, 1)
+
 /obj/structure/grille/hulk_damage()
 	return 60
 
@@ -102,20 +115,21 @@
 	if(pass_info.is_movable)
 		. = . || pass_info.pass_flags & PASSGRILLE
 
-/obj/structure/grille/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/grille/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	if(istype(I, /obj/item/stack/rods) && broken)
 		repair(user, I)
+		return ITEM_INTERACT_COMPLETE
 
 //window placing begin
 	else if(is_glass_sheet(I))
 		build_window(I, user)
-		return
+		return ITEM_INTERACT_COMPLETE
 //window placing end
 
-	else if(istype(I, /obj/item/shard) || !shock(user, 70))
-		return ..()
+	else if((!istype(I, /obj/item/shard)) && shock(user, 70))
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/grille/proc/repair(mob/user, obj/item/stack/rods/R)
 	if(R.get_amount() >= 1)
@@ -228,7 +242,7 @@
 			return FALSE
 	return FALSE
 
-/obj/structure/grille/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/grille/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(!broken)
 		if(exposed_temperature > T0C + 1500)

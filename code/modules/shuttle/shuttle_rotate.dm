@@ -97,3 +97,12 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 /obj/machinery/gravity_generator/shuttleRotate(rotation, params)
 	params = NONE
 	return ..()
+
+// Updates airlocks' icon
+/obj/machinery/door/shuttleRotate(rotation, params)
+	..()
+	update_bounds()
+
+/obj/structure/door_assembly/multi_tile/shuttleRotate(rotation, params)
+	..()
+	update_bounds()

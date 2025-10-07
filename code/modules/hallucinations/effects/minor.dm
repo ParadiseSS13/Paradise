@@ -48,7 +48,6 @@
   * Visually bolts a random number of airlocks around the target.
   */
 /obj/effect/hallucination/bolts
-	duration = 15 SECONDS
 	/// The maximum amount of airlocks to fake bolt.
 	var/bolt_amount = 2
 	/// The duration of fake bolt in deciseconds.
@@ -196,3 +195,21 @@
 	target?.health_hud_override = HEALTH_HUD_OVERRIDE_NONE
 	target?.update_health_hud()
 	return ..()
+
+/**
+ * # Hallucination - Examine Hallucination
+ *
+ * A generic hallucination that causes the target to see unique examine descriptions
+ */
+/obj/effect/hallucination/examine_hallucination
+	var/trait_applied = TRAIT_EXAMINE_HALLUCINATING
+	duration = list(40 SECONDS, 60 SECONDS)
+
+/obj/effect/hallucination/examine_hallucination/Initialize(mapload, mob/living/carbon/hallucination_target)
+	. = ..()
+	ADD_TRAIT(hallucination_target, trait_applied, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/effect/hallucination/examine_hallucination/Destroy()
+	REMOVE_TRAIT(target, trait_applied, UNIQUE_TRAIT_SOURCE(src))
+	return ..()
+

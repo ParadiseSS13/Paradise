@@ -3,7 +3,6 @@
 	desc = "This briefcase has easy-release clasps and smells vaguely of honey and blood..."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "briefcase"
-	item_state = "briefcase"
 	flags = CONDUCT
 	hitsound = "swing_hit"
 	force = 10
@@ -28,7 +27,6 @@
 			. += "<span class='danger'>The bees are gone... Colony collapse disorder?</span>"
 	if(isAntag(user))
 		. += "<span class='warning'>A briefcase filled with deadly bees, you should inject this with a syringe of your own blood before opening it. Exotic blood cannot be used.</span>"
-
 
 /obj/item/bee_briefcase/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))

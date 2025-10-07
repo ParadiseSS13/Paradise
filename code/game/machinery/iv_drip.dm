@@ -6,7 +6,6 @@
 	desc = "Simply attach a bloodbag and puncture the patient with a needle, they'll have more blood in no time."
 	icon = 'icons/goonstation/objects/iv.dmi'
 	icon_state = "stand"
-	anchored = FALSE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/obj/item/reagent_containers/iv_bag/bag = null
 
@@ -40,7 +39,9 @@
 			. += filling
 
 /obj/machinery/iv_drip/MouseDrop(mob/living/target)
-	var/mob/user = usr
+	drag_drop_onto(target, usr)
+
+/obj/machinery/iv_drip/proc/drag_drop_onto(mob/living/target, mob/user)
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(!ishuman(user))
@@ -50,35 +51,39 @@
 		if(!bag)
 			to_chat(user, "<span class='warning'>There's no IV bag connected to [src]!</span>")
 			return
-		bag.afterattack__legacy__attackchain(target, usr, TRUE)
+		bag.mob_act(target, user)
 		START_PROCESSING(SSmachines, src)
 
 /obj/machinery/iv_drip/attack_hand(mob/user)
 	if(bag)
 		user.put_in_hands(bag)
 		bag.update_icon(UPDATE_OVERLAYS)
+		bag.update_iv_type()
 		bag = null
 		update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/iv_drip/attackby__legacy__attackchain(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/iv_bag))
+/obj/machinery/iv_drip/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/reagent_containers/iv_bag))
 		if(bag)
 			to_chat(user, "<span class='warning'>[src] already has an IV bag!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		if(!user.drop_item())
-			return
+			return ITEM_INTERACT_COMPLETE
 
-		I.forceMove(src)
-		bag = I
-		to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
+		used.forceMove(src)
+		bag = used
+		bag.update_iv_type()
+		to_chat(user, "<span class='notice'>You attach [used] to [src].</span>")
 		update_icon(UPDATE_OVERLAYS)
 		START_PROCESSING(SSmachines, src)
-	else if(bag && istype(I, /obj/item/reagent_containers))
-		bag.attackby__legacy__attackchain(I)
-		I.afterattack__legacy__attackchain(bag, usr, TRUE)
+		return ITEM_INTERACT_COMPLETE
+	else if(bag && istype(used, /obj/item/reagent_containers))
+		var/obj/item/reagent_containers/container = used
+		container.normal_act(bag, user)
 		update_icon(UPDATE_OVERLAYS)
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/machinery/iv_drip/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -91,10 +96,11 @@
 		. += bag.examine(user)
 
 /obj/machinery/iv_drip/Move(NewLoc, direct)
+	var/oldloc = loc
 	. = ..()
-	if(!.) // ..() will return 0 if we didn't actually move anywhere.
+	if(oldloc == loc) // ..() will return 0 if we didn't actually move anywhere, except for some diagonal cases.
 		return
-	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, TRUE, ignore_walls = FALSE)
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 75, TRUE, ignore_walls = FALSE)
 
 #undef IV_TAKING
 #undef IV_INJECTING

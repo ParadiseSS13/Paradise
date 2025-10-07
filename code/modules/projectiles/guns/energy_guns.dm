@@ -1,14 +1,14 @@
 /obj/item/gun/energy
-	icon_state = "energy"
 	name = "generic energy gun"
 	desc = "If you can see this, make a bug report on GitHub, something went wrong!"
 	icon = 'icons/obj/guns/energy.dmi'
+	icon_state = "energy"
 	fire_sound_text = "laser blast"
 
 	/// What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell
 	/// The specific type of power cell this gun has.
-	var/cell_type = /obj/item/stock_parts/cell
+	var/cell_type = /obj/item/stock_parts/cell/energy_gun
 	var/modifystate = 0
 	/// What projectiles can this gun shoot?
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
@@ -34,12 +34,19 @@
 	var/overlay_set
 	/// Used when updating icon and overlays to determine the energy pips
 	var/ratio
+	/// Can it use a lens
+	var/can_be_lensed = TRUE
+	/// Current lens
+	var/obj/item/smithed_item/lens/current_lens
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
 	if(cell)
 		. += "<span class='notice'>It is [round(cell.percent())]% charged.</span>"
 	. += "<span class='notice'>Energy weapons can fire through windows and other see-through surfaces. [can_charge ? "Can be recharged with a recharger" : "Cannot be recharged in a recharger."]</span>"
+	if(current_lens)
+		. += "<span class='notice'>Has a lens currently attached.</span>"
+		. += "<span class='notice'>Lenses can be removed with Alt-Click.</span>"
 
 /obj/item/gun/energy/emp_act(severity)
 	cell.use(round(cell.charge / severity))
@@ -66,6 +73,40 @@
 	if(selfcharge)
 		START_PROCESSING(SSobj, src)
 	update_icon()
+	RegisterSignal(src, COMSIG_LENS_ATTACH, PROC_REF(attach_lens))
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(detach_lens))
+
+/obj/item/gun/energy/attackby__legacy__attackchain(obj/item/I, mob/living/user, params)
+	..()
+	if(istype(I, /obj/item/smithed_item/lens))
+		SEND_SIGNAL(src, COMSIG_LENS_ATTACH, I, user)
+
+/obj/item/gun/energy/proc/attach_lens(atom/source, obj/item/smithed_item/lens/new_lens, mob/user)
+	SIGNAL_HANDLER // COMSIG_LENS_ATTACH
+	if(!Adjacent(user))
+		return
+	if(!can_be_lensed)
+		return
+	if(!istype(new_lens))
+		return
+	if(current_lens)
+		to_chat(user, "<span class='notice'>Your [src] already has a lens.</span>")
+		return
+	if(new_lens.flags & NODROP || !user.transfer_item_to(new_lens, src))
+		to_chat(user, "<span class='warning'>[new_lens] is stuck to your hand!</span>")
+		return
+	current_lens = new_lens
+	new_lens.on_attached(src)
+
+/obj/item/gun/energy/proc/detach_lens(atom/source, mob/user)
+	SIGNAL_HANDLER // COMSIG_CLICK_ALT
+	if(!Adjacent(user))
+		return
+	if(!current_lens)
+		to_chat(user, "<span class='notice'>Your [src] has no lens to remove.</span>")
+		return
+	user.put_in_hands(current_lens)
+	current_lens.on_detached()
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
@@ -132,7 +173,15 @@
 /obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
 	if(!chambered && can_shoot())
 		process_chamber()
-	return ..()
+	..()
+	if(current_lens)
+		user.changeNext_move(CLICK_CD_RANGE / current_lens.fire_rate_mult)
+	return
+
+/obj/item/gun/energy/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
+	..()
+	if(current_lens)
+		current_lens.damage_lens()
 
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
 	select++
@@ -166,19 +215,22 @@
 	ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
 	var/inhand_ratio = CEILING((cell.charge / cell.maxcharge) * inhand_charge_sections, 1)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/new_inhand_icon_state = initial(inhand_icon_state) ? null : icon_state
+	var/new_worn_icon_state = initial(worn_icon_state) ? null : icon_state
 	new_icon_state = "[icon_state]_charge"
-	var/new_item_state = null
-	if(!initial(item_state))
-		new_item_state = icon_state
 	if(modifystate)
 		new_icon_state += "_[shot.select_name]"
-		if(new_item_state)
-			new_item_state += "[shot.select_name]"
-	if(new_item_state)
-		new_item_state += "[inhand_ratio]"
-		item_state = new_item_state
-	if(current_skin)
-		icon_state = current_skin
+		if(new_inhand_icon_state)
+			new_inhand_icon_state += "[shot.select_name]"
+		if(new_worn_icon_state)
+			new_worn_icon_state += "[shot.select_name]"
+	if(new_inhand_icon_state)
+		new_inhand_icon_state += "[inhand_ratio]"
+		inhand_icon_state = new_inhand_icon_state
+	if(new_worn_icon_state)
+		new_worn_icon_state += "[inhand_ratio]"
+		worn_icon_state = new_worn_icon_state
+	icon_state = current_skin || initial(icon_state)
 
 /obj/item/gun/energy/update_overlays()
 	. = ..()

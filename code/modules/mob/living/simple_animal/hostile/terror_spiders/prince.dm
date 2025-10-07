@@ -52,7 +52,9 @@
 		RegisterSignal(src, COMSIG_MOB_LOGIN, TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/terror_spider/prince, give_spell))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/proc/give_spell()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER //COMSIG_MOB_LOGIN
+	if(isnull(mind))
+		mind_initialize()
 	var/datum/spell/spell = new /datum/spell/princely_charge()
 	mind.AddSpell(spell)
 	UnregisterSignal(src, COMSIG_MOB_LOGIN)

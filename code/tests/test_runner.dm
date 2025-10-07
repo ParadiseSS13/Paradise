@@ -22,8 +22,50 @@
 	// Running the tests is part of the ticker's start function, because I cant think of any better place to put it
 	SSticker.force_start = TRUE
 
+/datum/test_runner/proc/RunAll()
+	#ifdef MAP_TESTS
+	// Run map tests first in case unit tests futz with map state
+	RunMap()
+	#endif
+	#if defined(GAME_TESTS) || defined(MAP_TESTS)
+	Run()
+	#endif
+	SSticker.reboot_helper("Unit Test Reboot", "tests ended", 0)
+
+/datum/test_runner/proc/Run()
+	log_world("Test runner: game tests.")
+	CHECK_TICK
+
+	for(var/I in subtypesof(/datum/game_test) - /datum/game_test/room_test)
+		var/datum/game_test/test = new I
+		test_logs[I] = list()
+
+		current_test = test
+		var/duration = REALTIMEOFDAY
+
+		test.Run()
+
+		durations[I] = REALTIMEOFDAY - duration
+		current_test = null
+
+		if(!test.succeeded)
+			failed_any_test = TRUE
+			for(var/fail_reason in test.fail_reasons)
+				if(islist(fail_reason))
+					var/text = fail_reason[1]
+					var/file = fail_reason[2]
+					var/line = fail_reason[3]
+
+					test_logs[I] += "[file]:[line]: [text]"
+				else
+					test_logs[I] += fail_reason
+
+		qdel(test)
+
+		CHECK_TICK
 
 /datum/test_runner/proc/RunMap(z_level = 2)
+	log_world("Test runner: map tests.")
 	CHECK_TICK
 
 	var/list/tests = list()
@@ -52,44 +94,11 @@
 
 	QDEL_LIST_CONTENTS(tests)
 
-
-/datum/test_runner/proc/Run()
-	CHECK_TICK
-
-	for(var/I in subtypesof(/datum/game_test))
-		var/datum/game_test/test = new I
-		test_logs[I] = list()
-
-		current_test = test
-		var/duration = REALTIMEOFDAY
-
-		test.Run()
-
-		durations[I] = REALTIMEOFDAY - duration
-		current_test = null
-
-		if(!test.succeeded)
-			failed_any_test = TRUE
-			for(var/fail_reason in test.fail_reasons)
-				if(islist(fail_reason))
-					var/text = fail_reason[1]
-					var/file = fail_reason[2]
-					var/line = fail_reason[3]
-
-					test_logs[I] += "[file]:[line]: [text]"
-				else
-					test_logs[I] += fail_reason
-
-		qdel(test)
-
-		CHECK_TICK
-
-	SSticker.reboot_helper("Unit Test Reboot", "tests ended", 0)
-
-
 /datum/test_runner/proc/Finalize(emit_failures = FALSE)
-	var/time = world.timeofday
 	set waitfor = FALSE
+
+	log_world("Test runner: finalizing.")
+	var/time = world.timeofday
 
 	#ifdef LOCAL_GAME_TESTS
 	emit_failures = TRUE

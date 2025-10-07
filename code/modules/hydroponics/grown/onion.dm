@@ -23,7 +23,7 @@
 	icon_state = "onion"
 	filling_color = "#C0C9A0"
 	bitesize_mod = 2
-	slice_path = /obj/item/food/onion_slice
+	slice_path = /obj/item/food/sliced/onion_slice
 	tastes = list("onion" = 1, "pungentness" = 1)
 	slices_num = 2
 	wine_power = 0.3
@@ -46,12 +46,12 @@
 	desc = "Purple despite the name."
 	icon_state = "onion_red"
 	filling_color = "#C29ACF"
-	slice_path = /obj/item/food/onion_slice/red
+	slice_path = /obj/item/food/sliced/onion_slice/red
 	tastes = list("red onion" = 1, "pungentness" = 3)
 	wine_power = 0.6
 	wine_flavor = "powerful pungentness"
 
-/obj/item/food/onion_slice
+/obj/item/food/sliced/onion_slice
 	name = "onion slices"
 	desc = "Rings, not for wearing."
 	icon_state = "onionslice"
@@ -61,7 +61,7 @@
 	gender = PLURAL
 	cooked_type = /obj/item/food/onionrings
 
-/obj/item/food/onion_slice/red
+/obj/item/food/sliced/onion_slice/red
 	name = "red onion slices"
 	desc = "They shine like exceptionally low quality amethyst."
 	icon_state = "onionslice_red"

@@ -36,7 +36,8 @@
 	desc = "A device to automatically replace lights. Refill with broken or working light bulbs, or sheets of glass."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "lightreplacer0"
-	item_state = "electronic"
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	belt_icon = "light_replacer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
@@ -77,7 +78,7 @@
 		return
 
 	if(istype(I, /obj/item/shard))
-		if(!user.unEquip(I))
+		if(!user.drop_item_to_ground(I))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 
@@ -88,7 +89,7 @@
 
 	if(istype(I, /obj/item/light))
 		var/obj/item/light/L = I
-		if(!user.unEquip(L))
+		if(!user.drop_item_to_ground(L))
 			to_chat(user, "<span class='warning'>[L] is stuck to your hand!</span>")
 			return
 

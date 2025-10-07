@@ -69,13 +69,13 @@
 		if("Botanist")
 			O = new /datum/outfit/plasmaman/botany
 
-		if("Bartender", "Internal Affairs Agent", "Magistrate", "Nanotrasen Representative", "Nanotrasen Navy Officer")
+		if("Bartender", "Internal Affairs Agent", "Magistrate", "Nanotrasen Representative")
 			O = new /datum/outfit/plasmaman/bar
 
 		if("Chef")
 			O = new /datum/outfit/plasmaman/chef
 
-		if("Security Officer", "Special Operations Officer")
+		if("Security Officer")
 			O = new /datum/outfit/plasmaman/security
 
 		if("Detective")
@@ -95,6 +95,9 @@
 
 		if("Shaft Miner")
 			O = new /datum/outfit/plasmaman/mining
+
+		if("Smith")
+			O = new /datum/outfit/plasmaman/smith
 
 		if("Medical Doctor", "Paramedic", "Coroner")
 			O = new /datum/outfit/plasmaman/medical
@@ -150,10 +153,14 @@
 		if("Nanotrasen Career Trainer")
 			O = new /datum/outfit/plasmaman/trainer
 
+		if("Nanotrasen Navy Officer")
+			O = new /datum/outfit/plasmaman/navyofficer
+
+		if("Special Operations Officer", "Trans-Solar Federation General")
+			O = new /datum/outfit/plasmaman/soo
+
 	H.equipOutfit(O, visualsOnly)
-	H.internal = H.r_hand
 	H.update_action_buttons_icon()
-	return FALSE
 
 /datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
 	var/atmos_sealed = !HAS_TRAIT(H, TRAIT_NOFIRE) && (isclothing(H.wear_suit) && H.wear_suit.flags & STOPSPRESSUREDMAGE) && (isclothing(H.head) && H.head.flags & STOPSPRESSUREDMAGE)
@@ -192,7 +199,7 @@
 
 /datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
-		H.unEquip(H.wear_mask)
+		H.drop_item_to_ground(H.wear_mask)
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath(H), ITEM_SLOT_MASK)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.active_character.speciesprefs : null
@@ -202,7 +209,7 @@
 	else
 		internal_tank = new /obj/item/tank/internals/plasmaman/belt/full(H)
 	if(!H.equip_to_appropriate_slot(internal_tank) && !H.put_in_any_hand_if_possible(internal_tank))
-		H.unEquip(H.l_hand)
+		H.drop_item_to_ground(H.l_hand)
 		H.equip_or_collect(internal_tank, ITEM_SLOT_LEFT_HAND)
 		to_chat(H, "<span class='boldannounceooc'>Could not find an empty slot for internals! Please report this as a bug.</span>")
 		stack_trace("Failed to equip plasmaman with a tank, with the job [J.type]")

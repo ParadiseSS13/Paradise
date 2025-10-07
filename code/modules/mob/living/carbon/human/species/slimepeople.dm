@@ -6,6 +6,7 @@
 #define SLIMEPERSON_MINHUNGER 250
 #define SLIMEPERSON_REGROWTHDELAY 450 // 45 seconds
 
+
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"
@@ -58,6 +59,7 @@
 		"is turning a dull, brown color and melting into a puddle!")
 
 	var/reagent_skin_coloring = FALSE
+	var/static_bodyflags = HAS_SKIN_COLOR | NO_EYES
 
 	plushie_type = /obj/item/toy/plushie/slimeplushie
 
@@ -79,6 +81,7 @@
 		if(istype(i, /datum/action/innate/regrow))
 			i.Remove(H)
 	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
+
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/H)
 	var/new_color = BlendRGB(H.skin_colour, "#acacac", 0.5) // Blends this to make it work better
@@ -102,8 +105,6 @@
 			blend(H)
 	..()
 
-
-
 /datum/species/slime/can_hear(mob/living/carbon/human/H) // fucking snowflakes
 	. = FALSE
 	if(!HAS_TRAIT(H, TRAIT_DEAF))
@@ -112,8 +113,8 @@
 /datum/action/innate/slimecolor
 	name = "Toggle Recolor"
 	check_flags = AB_CHECK_CONSCIOUS
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "greenglow"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "greenglow"
 
 /datum/action/innate/slimecolor/Activate()
 	var/mob/living/carbon/human/H = owner
@@ -128,8 +129,8 @@
 /datum/action/innate/regrow
 	name = "Regrow limbs"
 	check_flags = AB_CHECK_CONSCIOUS
-	button_overlay_icon = 'icons/effects/effects.dmi'
-	button_overlay_icon_state = "greenglow"
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "greenglow"
 
 /datum/action/innate/regrow/Activate()
 	var/mob/living/carbon/human/H = owner

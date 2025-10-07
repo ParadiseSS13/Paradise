@@ -17,6 +17,10 @@
 	linked_emote = /datum/emote/spin
 	name = "Spin"
 
+/datum/keybinding/emote/jump
+	linked_emote = /datum/emote/jump
+	name = "Jump"
+
 /datum/keybinding/emote/blush
 	linked_emote = /datum/emote/living/blush
 	name = "Blush"
@@ -40,10 +44,6 @@
 /datum/keybinding/emote/dance
 	linked_emote = /datum/emote/living/dance
 	name = "Dance"
-
-/datum/keybinding/emote/jump
-	linked_emote = /datum/emote/living/jump
-	name = "Jump"
 
 /datum/keybinding/emote/deathgasp
 	linked_emote = /datum/emote/living/deathgasp
@@ -477,6 +477,10 @@
 	linked_emote = /datum/emote/living/carbon/human/quill
 	name = "Quill"
 
+/datum/keybinding/emote/carbon/human/caw
+	linked_emote = /datum/emote/living/carbon/human/caw
+	name = "Caw"
+
 /datum/keybinding/emote/carbon/human/warble
 	linked_emote = /datum/emote/living/carbon/human/warble
 	name = "Warble"
@@ -505,9 +509,17 @@
 	linked_emote = /datum/emote/living/carbon/human/hiss
 	name = "Hiss (Unathi)"
 
+/datum/keybinding/emote/carbon/human/thump
+	linked_emote = /datum/emote/living/carbon/human/thump
+	name = "Tail Thump"
+
 /datum/keybinding/emote/carbon/human/creak
 	linked_emote = /datum/emote/living/carbon/human/creak
 	name = "Creak"
+
+/datum/keybinding/emote/carbon/human/diona_chirp
+	linked_emote = /datum/emote/living/carbon/human/diona_chirp
+	name = "Chirp (Diona)"
 
 /datum/keybinding/emote/carbon/human/squish
 	linked_emote = /datum/emote/living/carbon/human/slime/squish
@@ -614,7 +626,7 @@
 	category = KB_CATEGORY_EMOTE_ANIMAL
 
 /datum/keybinding/emote/simple_animal/can_use(client/C, mob/M)
-	return isanimal(M) && ..()
+	return isanimal_or_basicmob(M) && ..()
 
 /datum/keybinding/emote/simple_animal/diona_chirp
 	linked_emote = /datum/emote/living/simple_animal/diona_chirp
@@ -624,7 +636,7 @@
 	return isnymph(M) && ..()
 
 /datum/keybinding/emote/simple_animal/gorilla_ooga
-	linked_emote = /datum/emote/living/simple_animal/gorilla/ooga
+	linked_emote = /datum/emote/living/basic_mob/gorilla/ooga
 	name = "Ooga (Gorilla)"
 
 /datum/keybinding/emote/simple_animal/gorilla_ooga/can_use(client/C, mob/M)
@@ -670,6 +682,10 @@
 
 /datum/keybinding/emote/simple_animal/pet/cat/can_use(client/C, mob/M)
 	return iscat(M) && ..()
+
+/datum/keybinding/emote/simple_animal/lizard/whicker
+	linked_emote = /datum/emote/lizard/whicker
+	name = "Whicker (Lizard)"
 
 /datum/keybinding/custom
 	category = KB_CATEGORY_EMOTE_CUSTOM

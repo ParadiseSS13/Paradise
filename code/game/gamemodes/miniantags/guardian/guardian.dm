@@ -12,6 +12,8 @@
 	icon_living = "magicOrange"
 	icon_dead = "magicOrange"
 	speed = 0
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	see_in_dark = 2
 	mob_biotypes = NONE
 	a_intent = INTENT_HARM
 	can_change_intents = FALSE
@@ -24,7 +26,6 @@
 	maxHealth = INFINITY //The spirit itself is invincible
 	health = INFINITY
 	environment_smash = 0
-	obj_damage = 40
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
@@ -54,6 +55,7 @@
 	summoner = host
 	host.grant_guardian_actions(src)
 	RegisterSignal(summoner, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(update_health_hud))
+	RegisterSignal(summoner, COMSIG_SUMMONER_EXTRACTED, PROC_REF(handle_extraction))
 
 /mob/living/simple_animal/hostile/guardian/can_buckle()
 	return FALSE
@@ -135,6 +137,7 @@
 		return FALSE
 	to_chat(summoner, "<span class='danger'>Your [name] died somehow!</span>")
 	UnregisterSignal(summoner, COMSIG_LIVING_HEALTH_UPDATE)
+	summoner.remove_guardian_actions()
 	summoner.death()
 
 
@@ -180,13 +183,22 @@
 
 /mob/living/simple_animal/hostile/guardian/gib()
 	if(summoner)
+		summoner.remove_guardian_actions()
 		to_chat(summoner, "<span class='danger'>Your [src] was blown up!</span>")
 		summoner.Weaken(20 SECONDS)// your fermillier has died! ROLL FOR CON LOSS!
+	UnregisterSignal(summoner, COMSIG_LIVING_HEALTH_UPDATE)
 	ghostize()
 	qdel(src)
 
-/mob/living/simple_animal/hostile/guardian/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/hostile/guardian/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE	//Works better in zero G, and not useless in space
+
+/mob/living/simple_animal/hostile/guardian/proc/handle_extraction()
+	if(summoner)
+		summoner.remove_guardian_actions()
+		UnregisterSignal(summoner, COMSIG_LIVING_HEALTH_UPDATE)
+	ghostize()
+	qdel(src)
 
 //Manifest, Recall, Communicate
 
@@ -393,7 +405,6 @@
 	to_chat(user, "[G.magic_fluff_string].")
 
 /obj/item/guardiancreator/choose
-	random = FALSE
 
 /obj/item/guardiancreator/tech
 	name = "holoparasite injector"
@@ -437,7 +448,6 @@
 	return !used
 
 /obj/item/guardiancreator/tech/choose
-	random = FALSE
 
 /obj/item/guardiancreator/biological
 	name = "scarab egg cluster"
@@ -474,12 +484,10 @@
 	G.speak_emote = list("chitters")
 
 /obj/item/guardiancreator/biological/choose
-	random = FALSE
 
 
 /obj/item/paper/guardian
 	name = "Holoparasite Guide"
-	icon_state = "paper"
 	info = {"<b>A list of Holoparasite Types</b><br>
 
  <br>

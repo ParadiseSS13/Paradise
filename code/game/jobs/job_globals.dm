@@ -40,7 +40,6 @@ GLOBAL_LIST_INIT(engineering_positions, list(
 GLOBAL_LIST_INIT(medical_positions, list(
 	"Chief Medical Officer",
 	"Medical Doctor",
-	"Geneticist",
 	"Psychiatrist",
 	"Chemist",
 	"Virologist",
@@ -52,7 +51,8 @@ GLOBAL_LIST_INIT(medical_positions, list(
 GLOBAL_LIST_INIT(science_positions, list(
 	"Research Director",
 	"Scientist",
-	"Geneticist",	//Part of both medical and science
+	"Geneticist",
+	"Xenobiologist",
 	"Roboticist",
 ))
 
@@ -72,6 +72,7 @@ GLOBAL_LIST_INIT(service_positions, list(
 GLOBAL_LIST_INIT(supply_positions, list(
 	"Quartermaster",
 	"Cargo Technician",
+	"Smith",
 	"Shaft Miner",
 	"Explorer"
 ))

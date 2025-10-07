@@ -1,14 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aa" = (
-/turf/simulated/mineral/volcanic/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "ag" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/sink{
-	pixel_y = 24
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "al" = (
@@ -48,16 +43,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/sink{
-	pixel_y = -4;
-	dir = 1
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "dX" = (
-/obj/structure/sink{
-	pixel_y = 24
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "ed" = (
@@ -159,10 +149,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/powered/seedvault)
 "nt" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "oy" = (
@@ -414,11 +401,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Uh" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "Vu" = (
@@ -444,10 +427,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "XC" = (
-/obj/structure/sink{
-	pixel_y = -4;
-	dir = 1
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "XF" = (
@@ -473,6 +453,14 @@
 /obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
+"ZO" = (
+/obj/structure/closet/firecloset/full,
+/obj/item/clothing/suit/fire/firefighter,
+/obj/item/clothing/head/hardhat/red,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/powered/seedvault)
 "ZQ" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/disks_plantgene,
@@ -489,84 +477,84 @@ QX
 QX
 QX
 yZ
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+BC
+BC
+BC
+BC
+BC
+BC
+BC
+BC
 QX
-aa
+BC
 QX
-aa
-aa
-aa
-aa
-aa
-aa
+BC
+BC
+BC
+BC
+BC
+BC
 QX
 QX
 QX
 "}
 (2,1,1) = {"
 QX
-aa
+BC
 yZ
 yZ
 yZ
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+BC
+BC
+BC
+BC
+BC
+BC
+BC
+BC
+BC
+BC
+BC
+BC
+BC
 QX
-aa
-aa
-aa
-aa
-aa
+BC
+BC
+BC
+BC
+BC
 "}
 (3,1,1) = {"
 QX
-aa
-aa
+BC
+BC
 yZ
 yZ
-aa
-yZ
-yZ
-yZ
-aa
+BC
 yZ
 yZ
 yZ
+BC
 yZ
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+yZ
+yZ
+yZ
+BC
+BC
+BC
+BC
+BC
+BC
+BC
+BC
+BC
 QX
 "}
 (4,1,1) = {"
-aa
-aa
-aa
-aa
+BC
+BC
+BC
+BC
 yZ
 BC
 yZ
@@ -582,16 +570,16 @@ yZ
 yZ
 yZ
 yZ
-aa
+BC
 yZ
-aa
-aa
-aa
+BC
+BC
+BC
 "}
 (5,1,1) = {"
-aa
+BC
 QX
-aa
+BC
 yZ
 yZ
 yZ
@@ -611,13 +599,13 @@ yZ
 yZ
 yZ
 yZ
-aa
-aa
+BC
+BC
 "}
 (6,1,1) = {"
-aa
-aa
-aa
+BC
+BC
+BC
 yZ
 yZ
 no
@@ -636,14 +624,14 @@ no
 no
 yZ
 yZ
-aa
-aa
-aa
+BC
+BC
+BC
 "}
 (7,1,1) = {"
-aa
-aa
-aa
+BC
+BC
+BC
 yZ
 no
 no
@@ -662,13 +650,13 @@ no
 no
 no
 yZ
-aa
-aa
-aa
+BC
+BC
+BC
 "}
 (8,1,1) = {"
-aa
-aa
+BC
+BC
 yZ
 yZ
 no
@@ -688,13 +676,13 @@ vt
 AG
 no
 yZ
-aa
-aa
-aa
+BC
+BC
+BC
 "}
 (9,1,1) = {"
-aa
-aa
+BC
+BC
 yZ
 yZ
 no
@@ -715,13 +703,13 @@ AG
 no
 yZ
 yZ
-aa
+BC
 QX
 "}
 (10,1,1) = {"
 QX
-aa
-aa
+BC
+BC
 yZ
 no
 Pg
@@ -746,8 +734,8 @@ yZ
 "}
 (11,1,1) = {"
 QX
-aa
-aa
+BC
+BC
 yZ
 no
 Pg
@@ -768,12 +756,12 @@ no
 yZ
 yZ
 yZ
-aa
+BC
 "}
 (12,1,1) = {"
 QX
-aa
-aa
+BC
+BC
 yZ
 no
 no
@@ -793,12 +781,12 @@ no
 no
 yZ
 yZ
-aa
-aa
+BC
+BC
 "}
 (13,1,1) = {"
-aa
-aa
+BC
+BC
 yZ
 yZ
 Nj
@@ -818,14 +806,14 @@ no
 no
 Nj
 yZ
-aa
-aa
-aa
+BC
+BC
+BC
 "}
 (14,1,1) = {"
-aa
-aa
-aa
+BC
+BC
+BC
 yZ
 yZ
 no
@@ -844,15 +832,15 @@ Nj
 no
 yZ
 yZ
-aa
-aa
-aa
+BC
+BC
+BC
 "}
 (15,1,1) = {"
-aa
-aa
-aa
-aa
+BC
+BC
+BC
+BC
 yZ
 al
 yc
@@ -871,12 +859,12 @@ ja
 yZ
 yZ
 yZ
-aa
-aa
+BC
+BC
 "}
 (16,1,1) = {"
-aa
-aa
+BC
+BC
 yZ
 yZ
 yZ
@@ -896,14 +884,14 @@ no
 no
 yZ
 yZ
-aa
-aa
+BC
+BC
 QX
 "}
 (17,1,1) = {"
 QX
-aa
-aa
+BC
+BC
 yZ
 no
 no
@@ -923,12 +911,12 @@ no
 no
 yZ
 yZ
-aa
-aa
+BC
+BC
 "}
 (18,1,1) = {"
-aa
-aa
+BC
+BC
 yZ
 yZ
 no
@@ -950,11 +938,11 @@ no
 yZ
 yZ
 yZ
-aa
+BC
 "}
 (19,1,1) = {"
-aa
-aa
+BC
+BC
 yZ
 yZ
 no
@@ -975,11 +963,11 @@ iV
 no
 yZ
 yZ
-aa
-aa
+BC
+BC
 "}
 (20,1,1) = {"
-aa
+BC
 yZ
 yZ
 yZ
@@ -1001,8 +989,8 @@ ga
 no
 yZ
 yZ
-aa
-aa
+BC
+BC
 "}
 (21,1,1) = {"
 yZ
@@ -1028,12 +1016,12 @@ no
 yZ
 yZ
 yZ
-aa
+BC
 "}
 (22,1,1) = {"
 QX
 yZ
-aa
+BC
 yZ
 no
 MB
@@ -1053,12 +1041,12 @@ uO
 no
 yZ
 yZ
-aa
-aa
+BC
+BC
 "}
 (23,1,1) = {"
-aa
-aa
+BC
+BC
 yZ
 yZ
 no
@@ -1080,11 +1068,11 @@ no
 yZ
 yZ
 yZ
-aa
+BC
 "}
 (24,1,1) = {"
 QX
-aa
+BC
 yZ
 yZ
 no
@@ -1105,12 +1093,12 @@ no
 no
 yZ
 yZ
-aa
+BC
 QX
 "}
 (25,1,1) = {"
-aa
-aa
+BC
+BC
 yZ
 yZ
 Nj
@@ -1131,13 +1119,13 @@ no
 Nj
 yZ
 yZ
-aa
-aa
+BC
+BC
 "}
 (26,1,1) = {"
-aa
-aa
-aa
+BC
+BC
+BC
 yZ
 yZ
 no
@@ -1158,19 +1146,19 @@ yZ
 yZ
 yZ
 yZ
-aa
+BC
 "}
 (27,1,1) = {"
-aa
-aa
-aa
-aa
+BC
+BC
+BC
+BC
 yZ
-al
-yc
+yZ
+yZ
 xe
-eI
-OL
+Wu
+vt
 vt
 vt
 vt
@@ -1182,22 +1170,22 @@ yc
 ja
 yZ
 yZ
-aa
-aa
-aa
+BC
+BC
+BC
 "}
 (28,1,1) = {"
-aa
+BC
 QX
-aa
+BC
 yZ
 yZ
 yZ
 yZ
 no
 no
-Lg
-nt
+ZO
+ZO
 vt
 DQ
 nt
@@ -1208,14 +1196,14 @@ yZ
 yZ
 yZ
 yZ
-aa
-aa
+BC
+BC
 QX
 "}
 (29,1,1) = {"
-aa
-aa
-aa
+BC
+BC
+BC
 BC
 BC
 yZ
@@ -1234,14 +1222,14 @@ yZ
 yZ
 BC
 yZ
-aa
-aa
-aa
+BC
+BC
+BC
 "}
 (30,1,1) = {"
 QX
 QX
-aa
+BC
 BC
 BC
 yZ
@@ -1260,14 +1248,14 @@ yZ
 yZ
 yZ
 BC
-aa
-aa
-aa
+BC
+BC
+BC
 "}
 (31,1,1) = {"
 QX
-aa
-aa
+BC
+BC
 BC
 BC
 yZ
@@ -1286,12 +1274,12 @@ BC
 BC
 yZ
 BC
-aa
+BC
 QX
-aa
+BC
 "}
 (32,1,1) = {"
-aa
+BC
 QX
 QX
 BC
@@ -1312,13 +1300,13 @@ yZ
 BC
 BC
 QX
-aa
-aa
+BC
+BC
 QX
 "}
 (33,1,1) = {"
 QX
-aa
+BC
 BC
 BC
 BC
@@ -1338,9 +1326,9 @@ BC
 BC
 BC
 BC
-aa
-aa
-aa
+BC
+BC
+BC
 "}
 (34,1,1) = {"
 QX

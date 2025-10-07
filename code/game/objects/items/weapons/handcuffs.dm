@@ -12,7 +12,7 @@
 			user.visible_message("<span class='warning'>[user] attempts to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You attempt to [break_cuffs ? "break" : "remove"] [src]...</span>")
 		to_chat(user, "<span class='notice'>(This will take around [DisplayTimeText(effective_breakout_time)] and you need to stand still.)</span>")
 
-	if(!do_after(user, effective_breakout_time, FALSE, user))
+	if(!do_after(user, effective_breakout_time, FALSE, user, hidden = TRUE))
 		user.remove_status_effect(STATUS_EFFECT_REMOVE_CUFFS)
 		to_chat(user, "<span class='warning'>You fail to [break_cuffs ? "break" : "remove"] [src]!</span>")
 		return
@@ -26,11 +26,13 @@
 /obj/item/restraints/proc/finish_resist_restraints(mob/living/carbon/user, break_cuffs, silent)
 	if(!silent)
 		user.visible_message("<span class='danger'>[user] manages to [break_cuffs ? "break" : "remove"] [src]!</span>", "<span class='notice'>You successfully [break_cuffs ? "break" : "remove"] [src].</span>")
-	user.unEquip(src)
+	user.unequip(src)
 
 	if(break_cuffs)
 		qdel(src)
 		return TRUE
+	else
+		forceMove(user.drop_location())
 
 //////////////////////////////
 // MARK: HANDCUFFS
@@ -45,7 +47,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=500)
 	origin_tech = "engineering=3;combat=3"
@@ -141,7 +142,6 @@
 	desc = "A pair of restraints fashioned from long strands of flesh."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sinewcuff"
-	item_state = "sinewcuff"
 	belt_icon = null
 	breakouttime = 30 SECONDS
 	cuffsound = 'sound/weapons/cablecuff.ogg'
@@ -153,7 +153,6 @@
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."
 	icon_state = "cablecuff"
-	item_state = "cablecuff"
 	cuffed_state = "cablecuff"
 	belt_icon = "cablecuff"
 	origin_tech = "engineering=2"
@@ -209,7 +208,6 @@
 /obj/item/restraints/handcuffs/cable/zipties
 	name = "zipties"
 	desc = "Plastic, disposable zipties that can be used to restrain temporarily but are destroyed after use."
-	icon_state = "cablecuff"
 	breakouttime = 45 SECONDS
 	materials = list()
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
@@ -235,7 +233,6 @@
 	name = "twimsts cuffs"
 	desc = "Liquorice twist candy made into cable cuffs, tasty but it can't actually hold anyone."
 	icon_state = "cablecuff"
-	item_state = "cablecuff"
 	cuffed_state = "cablecuff"
 	belt_icon = "cablecuff"
 	color = "#E31818"
@@ -273,7 +270,7 @@
 		if(!R.use(1))
 			to_chat(user, "<span class='warning'>[R.amount > 1 ? "These rods" : "This rod"] somehow can't be used for crafting!</span>")
 			return
-		if(!user.unEquip(src))
+		if(!user.unequip(src))
 			return
 		var/obj/item/wirerod/W = new /obj/item/wirerod(get_turf(src))
 		if(!remove_item_from_storage(user))
@@ -290,7 +287,7 @@
 
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
 		if(do_after(user, 3.5 SECONDS * M.toolspeed, target = src))
-			if(!M.use(6) || !user.unEquip(src))
+			if(!M.use(6) || !user.unequip(src))
 				return
 			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola(get_turf(src))
 			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")

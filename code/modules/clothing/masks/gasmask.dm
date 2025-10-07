@@ -2,11 +2,11 @@
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply. Used by mischievous assistants and syndicate agents alike."
 	icon_state = "gas_alt"
+	inhand_icon_state = "gas_alt"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_NORMAL
-	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	resistance_flags = NONE
@@ -26,19 +26,17 @@
 	name = "welding mask"
 	desc = "A gas mask with built in welding goggles and face shield. Looks like a skull, clearly designed by a nerd."
 	icon_state = "weldingmask"
-	item_state = "weldingmask"
-	materials = list(MAT_METAL=4000, MAT_GLASS=2000)
+	inhand_icon_state = null
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = FLASH_PROTECTION_WELDER
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = 60)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
-	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = MASKCOVERSEYES
 	can_toggle = TRUE
 	visor_flags_inv = HIDEEYES
 	resistance_flags = FIRE_PROOF
-
 	sprite_sheets = list(
 		"Kidan" = 'icons/mob/clothing/species/kidan/mask.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -56,7 +54,6 @@
 	desc = "A military-grade gas mask that can be connected to an air supply."
 	icon_state = "gas_mining"
 	actions_types = list(/datum/action/item_action/adjust)
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 35)
 	resistance_flags = FIRE_PROOF
 	can_toggle = TRUE
@@ -94,27 +91,19 @@
 	flags &= ~AIRTIGHT
 	w_class = WEIGHT_CLASS_SMALL
 
-
 //Bane gas mask
-/obj/item/clothing/mask/banemask
+/obj/item/clothing/mask/gas/banemask
 	name = "bane mask"
 	desc = "Only when the station is in flames, do you have my permission to robust."
 	icon_state = "bane_mask"
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
-	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
-	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
-	w_class = WEIGHT_CLASS_NORMAL
-	item_state = "bane_mask"
-	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
-
+	inhand_icon_state = "sechailer"
 
 //Plague Dr suit can be found in clothing/suits/bio.dm
 /obj/item/clothing/mask/gas/plaguedoctor
 	name = "plague doctor mask"
 	desc = "A modernised version of the classic design, this mask will not only filter out toxins but it can also be connected to an air supply."
 	icon_state = "plaguedoctor"
-	item_state = "gas_mask"
+	inhand_icon_state = "gas_mask"
 
 /obj/item/clothing/mask/gas/swat
 	name = "\improper SWAT mask"
@@ -131,7 +120,7 @@
 	name = "clown wig and mask"
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask. Its form can be changed by using it in your hand."
 	icon_state = "clown"
-	item_state = "clown_hat"
+	inhand_icon_state = "clown_hat"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
@@ -162,25 +151,27 @@
 	name = "sexy-clown wig and mask"
 	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers. Its form can be changed by using it in your hand."
 	icon_state = "sexyclown"
-	item_state = "sexyclown"
 
 /obj/item/clothing/mask/gas/clown_hat/joker
 	name = "deranged clown wig and mask"
 	desc = "A fiendish clown mask that inspires a deranged mirth. Its form can be changed by using it in your hand."
 	icon_state = "joker"
-	item_state = "joker"
 
 /obj/item/clothing/mask/gas/clown_hat/rainbow
 	name = "rainbow clown wig and mask"
 	desc = "A colorful clown mask for the clown that loves to dazzle and impress. Its form can be changed by using it in your hand."
 	icon_state = "rainbow"
-	item_state = "rainbow"
+
+/obj/item/clothing/mask/gas/clown_hat/pennywise
+	name = "\improper Pennywise mask"
+	desc = "It's the eater of worlds, and of children."
+	icon_state = "pennywise_mask"
 
 /obj/item/clothing/mask/gas/clownwiz
 	name = "wizard clown wig and mask"
 	desc = "Some pranksters are truly magical."
 	icon_state = "wizzclown"
-	item_state = "wizzclown"
+	inhand_icon_state = "clown_hat"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	flags_inv = HIDEEARS | HIDEEYES
 	magical = TRUE
@@ -192,7 +183,7 @@
 	name = "mime mask"
 	desc = "The traditional mime's mask. It has an eerie facial posture."
 	icon_state = "mime"
-	item_state = "mime"
+	inhand_icon_state = null
 	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/mime/wizard
@@ -208,14 +199,14 @@
 	name = "monkey mask"
 	desc = "A mask used when acting as a monkey."
 	icon_state = "monkeymask"
-	item_state = "monkeymask"
+	inhand_icon_state = null
 	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/sexymime
 	name = "sexy mime mask"
 	desc = "A traditional female mime's mask."
 	icon_state = "sexymime"
-	item_state = "sexymime"
+	inhand_icon_state = null
 	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/cyborg
@@ -257,7 +248,8 @@
 	name = "security gas mask"
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
 	icon_state = "sechailer"
-	item_state = "sechailer"
+	inhand_icon_state = "sechailer"
+	flags_inv = HIDEEYES|HIDEFACE
 	var/phrase = 1
 	var/aggressiveness = 1
 	var/safety = 1
@@ -284,41 +276,31 @@
 								"super"			= "Face the wrath of the golden bolt.",
 								"dredd"			= "I am, the LAW!"
 								)
-/obj/item/clothing/mask/gas/sechailer/hos
-	name = "head of security's SWAT mask"
-	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
-	icon_state = "hosmask"
-	can_toggle = FALSE
-	aggressiveness = 3
-	phrase = 12
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
-
-/obj/item/clothing/mask/gas/sechailer/warden
-	name = "warden's SWAT mask"
-	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a blue stripe."
-	icon_state = "wardenmask"
-	can_toggle = FALSE
-	aggressiveness = 3
-	phrase = 12
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
-
 
 /obj/item/clothing/mask/gas/sechailer/swat
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
 	icon_state = "officermask"
+	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	aggressiveness = 3
 	phrase = 12
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
-/obj/item/clothing/mask/gas/sechailer/blue
+/obj/item/clothing/mask/gas/sechailer/swat/hos
+	name = "head of security's SWAT mask"
+	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
+	icon_state = "hosmask"
+
+/obj/item/clothing/mask/gas/sechailer/swat/warden
+	name = "warden's SWAT mask"
+	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a blue stripe."
+	icon_state = "wardenmask"
+
+/obj/item/clothing/mask/gas/sechailer/swat/blue
 	name = "blue SWAT mask"
 	desc = "A neon blue swat mask, used for demoralizing Greytide in the wild."
 	icon_state = "blue_sechailer"
-	item_state = "blue_sechailer"
-	aggressiveness = 3
-	phrase = 12
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/cyborg
 	name = "security hailer"

@@ -7,6 +7,7 @@
 			handle_feeding()
 		if(stat == CONSCIOUS) // Slimes in stasis don't lose nutrition, don't change mood and don't respond to speech
 			handle_nutrition()
+			handle_organs()
 			if(QDELETED(src)) // Stop if the slime split during handle_nutrition()
 				return
 			reagents.remove_all(0.5 * REAGENTS_METABOLISM * length(reagents.reagent_list)) //Slimes are such snowflakes
@@ -155,6 +156,7 @@
 	if(prob(30) && stat == CONSCIOUS)
 		adjustBruteLoss(-1)
 
+// This is where slime feeding is handled.
 /mob/living/simple_animal/slime/proc/handle_feeding()
 	if(!ismob(buckled))
 		return
@@ -174,6 +176,7 @@
 		Feedstop()
 		return
 
+	// This is where damage dealt by slime feeding is handled.
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		C.adjustCloneLoss(rand(2, 4))
@@ -203,8 +206,13 @@
 		Feedstop(0, 0)
 		return
 
-	add_nutrition(rand(7, 15))
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!H.dna.species.tox_mod && !H.dna.species.clone_mod)
+			Feedstop(0, 0)
+			return
 
+	add_nutrition(rand(7, 15))
 	//Heal yourself.
 	adjustBruteLoss(-3)
 
@@ -262,7 +270,7 @@
 			if(prob(60))
 				rabid = FALSE
 
-		if(prob(10))
+		if(prob(10) && !trained)
 			Discipline--
 
 	if(!client && !stop_automated_movement)
@@ -354,6 +362,8 @@
 		newmood = ":3"
 	else if(Target)
 		newmood = "mischievous"
+	else if(trained)
+		newmood = ":33"
 
 	if(!newmood)
 		if(Discipline && prob(25))
@@ -436,6 +446,10 @@
 				phrases += "What happened?"
 			if(!slimes_near)
 				phrases += "Lonely..."
+			if(trained && prob(3))
+				phrases += "Treat? Have treat?"
+				phrases += "Can have treat?"
+				phrases += "Treat?..."
 			if(stat == CONSCIOUS)
 				say (pick(phrases))
 
@@ -469,3 +483,24 @@
 	if(hunger == 2 || rabid || attacked)
 		return TRUE
 	return TRUE
+
+// Handles xeno organ processing, and turns the unidentified organs into the true organ type.
+/mob/living/simple_animal/slime/proc/handle_organs()
+	if(!holding_organ)
+		return
+	if(istype(loc, /obj/machinery/computer/camera_advanced/xenobio))
+		return // no processing while in the computer
+	if(!trained) // if we somehow untrain mid process
+		say("BLECK!!", pick(speak_emote))
+		eject_organ()
+	if(organ_progress < 50)
+		organ_progress += 1
+		return
+	organ_progress = 1
+	say("All done!", pick(speak_emote))
+	var/obj/item/organ/internal/finished_organ = new holding_organ.true_organ_type(src.loc)
+	finished_organ.organ_quality = holding_organ.unknown_quality
+	finished_organ.icon_state = holding_organ.icon_state
+	finished_organ.name = "[quality_to_string(finished_organ.organ_quality, FALSE)] [finished_organ.name]"
+	underlays.Cut()
+	QDEL_NULL(holding_organ)

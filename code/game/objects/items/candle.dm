@@ -7,8 +7,8 @@
 	desc = "In Greek myth, Prometheus stole fire from the Gods and gave it to humankind. The jewelry he kept for himself."
 	icon = 'icons/obj/candle.dmi'
 	icon_state = "candle1"
-	item_state = "candle1"
 	w_class = WEIGHT_CLASS_TINY
+	light_color = "#E09D37"
 	var/wax = 200
 	/// Index for the icon state
 	var/wax_index = TALL_CANDLE
@@ -16,7 +16,6 @@
 	var/infinite = FALSE
 	var/start_lit = FALSE
 	var/flickering = FALSE
-	light_color = "#E09D37"
 
 /obj/item/candle/New()
 	..()
@@ -100,7 +99,7 @@
 		new/obj/item/trash/candle(src.loc)
 		if(ismob(src.loc))
 			var/mob/M = src.loc
-			M.unEquip(src, 1) //src is being deleted anyway
+			M.drop_item_to_ground(src, force = TRUE) //src is being deleted anyway
 		qdel(src)
 	if(isturf(loc)) //start a fire if possible
 		var/turf/T = loc
@@ -118,9 +117,15 @@
 		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
 		unlight()
 
+/obj/item/candle/lit
+	start_lit = TRUE
+
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."
 	infinite = TRUE
+
+/obj/item/candle/eternal/lit
+	start_lit = TRUE
 
 /obj/item/candle/get_spooked()
 	if(lit)

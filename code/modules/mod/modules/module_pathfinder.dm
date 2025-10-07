@@ -51,7 +51,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_user = user
-	if(human_user.get_item_by_slot(ITEM_SLOT_BACK) && !human_user.unEquip(human_user.get_item_by_slot(ITEM_SLOT_BACK)))
+	if(human_user.get_item_by_slot(ITEM_SLOT_BACK) && !human_user.drop_item_to_ground(human_user.get_item_by_slot(ITEM_SLOT_BACK)))
 		return
 	if(!human_user.equip_to_slot_if_possible(mod, ITEM_SLOT_BACK, disable_warning = TRUE))
 		return
@@ -211,12 +211,11 @@
 /datum/action/item_action/mod_recall
 	name = "Recall MOD"
 	desc = "Recall a MODsuit anyplace, anytime."
-	use_itemicon = FALSE
 	check_flags = AB_CHECK_CONSCIOUS
-	button_overlay_icon = 'icons/mob/actions/actions_mod.dmi'
-	button_overlay_icon_state = "recall"
-	button_background_icon = 'icons/mob/actions/actions_mod.dmi'
-	button_background_icon_state = "bg_mod"
+	button_icon = 'icons/mob/actions/actions_mod.dmi'
+	button_icon_state = "recall"
+	background_icon = 'icons/mob/actions/actions_mod.dmi'
+	background_icon_state = "bg_mod"
 	/// The cooldown for the recall.
 	COOLDOWN_DECLARE(recall_cooldown)
 

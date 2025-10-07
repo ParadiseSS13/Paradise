@@ -83,28 +83,28 @@
 	var/atom/movable/screen/using
 
 	using = new /atom/movable/screen/ghost/orbit()
-	using.screen_loc = ui_ghost_orbit
+	using.screen_loc = UI_GHOST_ORBIT
 	static_inventory += using
 
 	using = new /atom/movable/screen/ghost/reenter_corpse()
-	using.screen_loc = ui_ghost_reenter_corpse
+	using.screen_loc = UI_GHOST_REENTER_CORPSE
 	static_inventory += using
 
 	using = new /atom/movable/screen/ghost/teleport()
-	using.screen_loc = ui_ghost_teleport
+	using.screen_loc = UI_GHOST_TELEPORT
 	static_inventory += using
 	static_inventory += using
 
 	using = new /atom/movable/screen/ghost/respawn_list()
-	using.screen_loc = ui_ghost_respawn_list
+	using.screen_loc = UI_GHOST_RESPAWN_LIST
 	static_inventory += using
 
 	using = new /atom/movable/screen/ghost/respawn_mob()
-	using.screen_loc = ui_ghost_respawn_mob
+	using.screen_loc = UI_GHOST_RESPAWN_MOB
 	toggleable_inventory += using
 
 	using = new /atom/movable/screen/ghost/respawn_pai()
-	using.screen_loc = ui_ghost_respawn_pai
+	using.screen_loc = UI_GHOST_RESPAWN_PAI
 	toggleable_inventory += using
 
 	for(var/atom/movable/screen/S in (static_inventory + toggleable_inventory))
@@ -117,12 +117,7 @@
 		plane_masters_update()
 		return FALSE
 
-	. = ..()
-	if(!.)
-		return
-	var/mob/screenmob = viewmob || mymob
-	screenmob.client.screen += static_inventory
-
+	return ..()
 
 // We should only see observed mob alerts.
 /datum/hud/ghost/reorganize_alerts(mob/viewmob)

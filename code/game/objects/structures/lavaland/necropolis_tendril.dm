@@ -9,10 +9,9 @@
 	faction = list("mining")
 	max_mobs = 3
 	max_integrity = 250
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril)
+	mob_types = list(/mob/living/basic/mining/basilisk/watcher/tendril)
 
 	move_resist = INFINITY // just killing it tears a massive hole in the ground, let's not move it
-	anchored = TRUE
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 
 	var/obj/effect/light_emitter/tendril/emitted_light
@@ -21,7 +20,7 @@
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril)
 
 /obj/structure/spawner/lavaland/legion
-	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril)
+	mob_types = list(/mob/living/basic/mining/hivelord/legion/tendril)
 
 GLOBAL_LIST_EMPTY(tendrils)
 
@@ -36,13 +35,15 @@ GLOBAL_LIST_EMPTY(tendrils)
 		if(ismineralturf(F))
 			var/turf/simulated/mineral/M = F
 			M.ChangeTurf(M.turf_type, FALSE, FALSE, TRUE)
+		var/turf/no_lava = F
+		no_lava.flags |= NO_LAVA_GEN
 
 /obj/structure/spawner/lavaland/deconstruct(disassembled)
 	new /obj/effect/collapse(loc)
 	new /obj/structure/closet/crate/necropolis/tendril(loc)
 	return ..()
 
-/obj/structure/spawner/lavaland/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
+/obj/structure/spawner/lavaland/attacked_by(obj/item/attacker, mob/living/user)
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_SPAWNER_SET_TARGET, user)
 
@@ -67,7 +68,6 @@ GLOBAL_LIST_EMPTY(tendrils)
 	layer = TABLE_LAYER
 	icon = 'icons/mob/nest.dmi'
 	icon_state = "tendril"
-	anchored = TRUE
 	density = TRUE
 	var/obj/effect/light_emitter/tendril/emitted_light
 

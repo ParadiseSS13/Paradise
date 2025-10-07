@@ -6,36 +6,44 @@
 /// Global list of all PDAs in the world
 GLOBAL_LIST_EMPTY(PDAs)
 
-
 /obj/item/pda
 	name = "\improper PDA"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT | ITEM_SLOT_PDA
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	origin_tech = "programming=2"
-
-	//Main variables
+	/// Is this a silicon's internal PDA?
+	var/silicon_pda = FALSE
+	/// Name on the registered owner's ID card.
 	var/owner = null
-	var/default_cartridge = 0 // Access level defined by cartridge
-	var/obj/item/cartridge/cartridge = null //current cartridge
+	/// Typepath of the ROM cartridge that spawns with this PDA, if any. Gives extra functionality to the PDA.
+	var/default_cartridge = 0
+	/// The ROM cartridge currently inside this PDA.
+	var/obj/item/cartridge/cartridge = null
+	/// The program currently loaded in the PDA (e.g. crew manifest, messanger, main menu).
 	var/datum/data/pda/app/current_app = null
-	var/datum/data/pda/app/lastapp = null
-
-	//Secondary variables
+	/// Stated by some programs, not visible on examination.
 	var/model_name = "Thinktronic 5230 Personal Data Assistant"
+	/// Some PDA programs turn the PDA into scanning tool (e.g. gas scaner, medical analyzer).
 	var/datum/data/pda/utility/scanmode/scanmode = null
-
-	var/lock_code = "" // Lockcode to unlock uplink
-	var/silent = FALSE //To beep or not to beep, that is the question
-	var/honkamt = 0 //How many honks left when infected with honk.exe
-	var/mimeamt = 0 //How many silence left when infected with mime.exe
-	var/detonate = TRUE // Can the PDA be blown up?
-	var/ttone = "beep" //The ringtone!
+	/// Code to unlock the Syndicate uplink.
+	var/lock_code = ""
+	/// Is the PDA muted?
+	var/silent = FALSE
+	/// How many sounds will be replaced with HONKs (when infected with honk.exe)?
+	var/honkamt = 0
+	/// How many sounds will be muted (when infected with mime.exe)?
+	var/mimeamt = 0
+	/// Can this PDA be blown up?
+	var/detonate = TRUE
+	/// This PDA's ringtone.
+	var/ttone = "beep"
+	/// Core programs that come with this PDA.
 	var/list/programs = list(
 		new/datum/data/pda/app/main_menu,
 		new/datum/data/pda/app/notekeeper,
@@ -51,16 +59,19 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/list/shortcut_cat_order = list()
 	var/list/notifying_programs = list()
 
-	var/obj/item/card/id/id = null //Making it possible to slot an ID card into the PDA so it can function as both.
+	/// ID card currently slotted into the PDA.
+	var/obj/item/card/id/id = null
+	/// Job on the current ID card.
 	var/ownjob = null //related to above
+	/// Rank of the current ID card.
 	var/ownrank = null // this one is rank, never alt title
-
-	var/obj/item/paicard/pai = null	// A slot for a personal AI device
-	// The slot where you can store a pen
+	/// PDA slot for a pAI.
+	var/obj/item/paicard/pai = null
+	/// PDA slot for a pen.
 	var/obj/item/held_pen
-	var/retro_mode = 0
-	/// What pen is loaded in the PDA
+	/// Type of pen this PDA spawns with.
 	var/obj/item/pen/default_pen = /obj/item/pen
+	var/retro_mode = 0
 
 /*
  *	The Actual PDA
@@ -75,6 +86,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
 	add_pen(new default_pen(src))
+	update_icon(UPDATE_OVERLAYS)
 	start_program(find_program(/datum/data/pda/app/main_menu))
 	silent = initial(silent)
 
@@ -141,14 +153,40 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/update_overlays()
 	. = ..()
+	var/datum/data/pda/utility/flashlight/flash = find_program(/datum/data/pda/utility/flashlight)
+	if(flash?.fon)
+		switch(icon_state)
+			if("pda-library")
+				. += image('icons/obj/pda.dmi', "pda-light-library")
+			if("pda-syndi")
+				. += image('icons/obj/pda.dmi', "pda-light-syndi")
+			else
+				. += image('icons/obj/pda.dmi', "pda-light")
+
 	if(id)
-		. += image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
+		switch(icon_state)
+			if("pda-library")
+				. += image('icons/obj/pda.dmi', "pda-id-library")
+			if("pda-syndi")
+				. += image('icons/obj/pda.dmi', "pda-id-syndi")
+			else
+				. += image('icons/obj/pda.dmi', "pda-id")
+
+	if(held_pen)
+		if(icon_state != "pda-syndi")
+			if(icon_state == "pda-library")
+				. += image('icons/obj/pda.dmi', "pda-pen-library")
+			else
+				. += image('icons/obj/pda.dmi', "pda-pen")
 
 	if(length(notifying_programs))
-		if(icon_state == "pda-library")
-			. += image('icons/obj/pda.dmi', "pda-r-library")
-		else
-			. += image('icons/obj/pda.dmi', "pda-r")
+		switch(icon_state)
+			if("pda-library")
+				. += image('icons/obj/pda.dmi', "pda-dm-library")
+			if("pda-syndi")
+				. += image('icons/obj/pda.dmi', "pda-dm-syndi")
+			else
+				. += image('icons/obj/pda.dmi', "pda-dm")
 
 /obj/item/pda/proc/close(mob/user)
 	SStgui.close_uis(src)
@@ -214,6 +252,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 			user.put_in_hands(held_pen)
 			clear_pen()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			to_chat(user, "<span class='warning'>This PDA does not have a pen in it.</span>")
 	else
@@ -304,10 +343,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 	P.forceMove(src)
 	held_pen = P
 	RegisterSignal(held_pen, COMSIG_PARENT_QDELETING, PROC_REF(clear_pen))
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pda/proc/clear_pen()
 	UnregisterSignal(held_pen, COMSIG_PARENT_QDELETING)
 	held_pen = null
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pda/attack__legacy__attackchain(mob/living/C as mob, mob/living/user as mob)
 	if(iscarbon(C) && scanmode)
@@ -329,7 +370,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(T)
 		T.hotspot_expose(700,125)
 
-		explosion(T, -1, -1, 2, 3)
+		explosion(T, -1, -1, 2, 3, cause = "Exploding PDA")
 	qdel(src)
 	return
 

@@ -5,7 +5,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = null
 	density = TRUE
-	anchored = FALSE
+	appearance_flags = LONG_GLIDE
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	max_integrity = 300
@@ -66,9 +66,12 @@
 /obj/vehicle/proc/install_vtec(obj/item/borg/upgrade/vtec/vtec, mob/user)
 	if(installed_vtec)
 		return FALSE
+	if(vehicle_move_delay <= 1)
+		to_chat(user, "<span class='warning'>[src] is too fast for [vtec] to have any effect.</span>")
+		return FALSE
 
 	installed_vtec = TRUE
-	vehicle_move_delay -= 1
+	vehicle_move_delay = max(1, vehicle_move_delay - 1)
 	qdel(vtec)
 	to_chat(user, "<span class='notice'>You upgrade [src] with [vtec].</span>")
 	return TRUE
@@ -186,11 +189,13 @@
 		var/turf/next = get_step(src, direction)
 		if(!Process_Spacemove(direction) || !isturf(loc))
 			return
-		Move(get_step(src, direction), direction, delay)
+		Move(get_step(src, direction), direction)
 
 		if((direction & (direction - 1)) && (loc == next))		//moved diagonally
+			set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(vehicle_move_delay + GLOB.configuration.movement.human_delay, 1) * 0.5)
 			last_move_diagonal = TRUE
 		else
+			set_glide_size(MOVEMENT_ADJUSTED_GLIDE_SIZE(vehicle_move_delay + GLOB.configuration.movement.human_delay, 1))
 			last_move_diagonal = FALSE
 
 		if(has_buckled_mobs())
@@ -229,7 +234,7 @@
 	return		//write specifics for different vehicles
 
 
-/obj/vehicle/Process_Spacemove(direction)
+/obj/vehicle/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(has_gravity(src))
 		return TRUE
 
@@ -245,7 +250,7 @@
 	pressure_resistance = INFINITY
 	spaceworthy = TRUE
 
-/obj/vehicle/space/Process_Spacemove(direction)
+/obj/vehicle/space/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return TRUE
 
 /obj/vehicle/zap_act(power, zap_flags)

@@ -67,7 +67,7 @@
 	if(!H)
 		return
 	target = H
-	mode = BOT_HUNT
+	set_mode(BOT_HUNT)
 
 /mob/living/simple_animal/bot/ed209/syndicate/emag_act(mob/user)
 	to_chat(user, "<span class='warning'>[src] has no card reader slot!</span>")
@@ -89,16 +89,16 @@
 	saved_turf = current_turf
 	switch(mode)
 		if(BOT_IDLE)
-			walk_to(src,0)
+			GLOB.move_manager.stop_looping(src)
 			set_path(null)
 			if(find_new_target())
 				return
 			if(!mode && auto_patrol)
-				mode = BOT_START_PATROL
+				set_mode(BOT_START_PATROL)
 
 		if(BOT_HUNT)
 			if(frustration >= 8)
-				walk_to(src,0)
+				GLOB.move_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 				return
@@ -140,7 +140,7 @@
 			continue
 		target = M
 		oldtarget_name = M.name
-		mode = BOT_HUNT
+		set_mode(BOT_HUNT)
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 		return TRUE
 	return FALSE
@@ -165,7 +165,7 @@
 	if(!QDELETED(src))
 		if(depotarea)
 			depotarea.list_remove(src, depotarea.guard_list)
-		walk_to(src,0)
+		GLOB.move_manager.stop_looping(src)
 		visible_message("<span class='userdanger'>[src] blows apart!</span>")
 		do_sparks(3, 1, src)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
@@ -195,7 +195,7 @@
 /mob/living/simple_animal/bot/ed209/syndicate/speak()
 	return
 
-/mob/living/simple_animal/bot/ed209/syndicate/Process_Spacemove(movement_dir = 0)
+/mob/living/simple_animal/bot/ed209/syndicate/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	return 1
 
 /mob/living/simple_animal/bot/ed209/syndicate/start_patrol()

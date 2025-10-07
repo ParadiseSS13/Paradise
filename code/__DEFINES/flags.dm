@@ -1,6 +1,9 @@
 #define ALL ~0 //For convenience.
 #define NONE 0
 
+/// All the cardinal direction bitflags.
+#define ALL_CARDINALS (NORTH | SOUTH | EAST | WEST)
+
 //FLAGS BITMASK
 #define STOPSPRESSUREDMAGE		(1<<0)		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & ITEM_SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
 #define NODROP					(1<<1)		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
@@ -14,6 +17,7 @@
 #define NODECONSTRUCT			(1<<9)
 #define EARBANGPROTECT			(1<<10)
 #define HEADBANGPROTECT			(1<<11)
+#define SKIP_TRANSFORM_REEQUIP	(1<<15)		// This flag makes items be skipped when a user transforms species.
 
 #define BLOCK_GAS_SMOKE_EFFECT	(1<<12)	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
 #define THICKMATERIAL 			(1<<12)	//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with BLOCK_GAS_SMOKE_EFFECT)
@@ -144,11 +148,17 @@
 #define PASSTAKE    	(1<<9)
 #define PASSBARRICADE	(1<<10)
 
-//turf-only flags
+//turf-only flags, under the flags variable
 #define BLESSED_TILE	(1<<0)
 #define NO_LAVA_GEN	    (1<<1) //Blocks lava rivers being generated on the turf
 #define NO_RUINS     	(1<<2)
 #define LAVA_BRIDGE		(1<<3)	//! This turf has already been reserved for a lavaland bridge placement.
+
+// turf flags, under the turf_flags variable
+/// If a turf is an unused reservation turf awaiting assignment
+#define UNUSED_RESERVATION_TURF (1<<4)
+/// If a turf is a reserved turf
+#define RESERVATION_TURF (1<<5)
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1

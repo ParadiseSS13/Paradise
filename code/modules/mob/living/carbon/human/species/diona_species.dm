@@ -17,6 +17,7 @@
 	As a gestalt entity, each nymph possesses an individual personality, yet they communicate collectively. \
 	Consequently, Diona often speak in a unique blend of first and third person, using 'We' and 'I' to reflect their unified yet multifaceted nature."
 
+	eyes = "blank_eyes"
 	species_traits = list(NO_HAIR)
 	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_PLANT
@@ -76,7 +77,7 @@
 	. = ..()
 	H.clear_alert("nolight")
 
-	for(var/mob/living/simple_animal/diona/N in H.contents) // Let nymphs wiggle out
+	for(var/mob/living/basic/diona_nymph/N in H.contents) // Let nymphs wiggle out
 		N.split()
 
 /datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
@@ -136,3 +137,6 @@
 	species_traits = list(NO_HAIR, NOT_SELECTABLE)
 	pod = TRUE
 	inherent_factions = list("plants", "vines")
+
+/datum/species/diona/do_compressor_grind(mob/living/carbon/human/H)
+	new /obj/item/food/salad(H.loc)

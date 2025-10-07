@@ -111,6 +111,7 @@
 
 #define COLOR_BLOOD_BASE "#A10808"
 #define COLOR_BLOOD_MACHINE "#1F181F"
+#define COLOR_BLOOD_XENO "#05EE05"
 
 // Pipe colours
 #define	PIPE_COLOR_GREY		"#ffffff"	//yes white is grey

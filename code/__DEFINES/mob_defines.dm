@@ -16,6 +16,11 @@
 #define ORGAN_DATUM_LUNGS	"lungs"
 #define ORGAN_DATUM_BATTERY "battery"
 
+// Organ quality datums.
+#define ORGAN_DAMAGED 1
+#define ORGAN_NORMAL 2
+#define ORGAN_PRISTINE 3
+
 // For limb resistance flags
 #define CANNOT_BREAK		(1 << 0)
 #define CANNOT_DISMEMBER 	(1 << 1)
@@ -41,7 +46,7 @@
 #define MOB_SPIRIT		(1 << 9)
 #define MOB_PLANT		(1 << 10)
 
-#define AGE_MIN 17			//youngest a character can be
+#define AGE_MIN 20			//youngest a character can be
 #define AGE_MAX 500			//oldest a character can be
 
 /// Mob is standing up, usually associated with lying_angle value of 0.
@@ -241,25 +246,24 @@
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
-#define isanimal(A)			(istype((A), /mob/living/simple_animal))
 #define isdog(A)			(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)			(istype((A), /mob/living/simple_animal/pet/dog/corgi))
-#define ismouse(A)			(istype((A), /mob/living/simple_animal/mouse))
+#define ismouse(A)			(istype((A), /mob/living/basic/mouse))
 #define isbot(A)			(istype((A), /mob/living/simple_animal/bot))
 #define isguardian(A)		(istype((A), /mob/living/simple_animal/hostile/guardian))
-#define isnymph(A)      	(istype((A), /mob/living/simple_animal/diona))
-#define iscaterpillar(A)	(istype((A), /mob/living/simple_animal/nian_caterpillar))
+#define isnymph(A)      	(istype((A), /mob/living/basic/diona_nymph))
+#define iscaterpillar(A)	(istype((A), /mob/living/basic/nian_caterpillar))
 #define ishostile(A) 		(istype((A), /mob/living/simple_animal/hostile))
 #define isretaliate(A) 		(istype((A), /mob/living/simple_animal/hostile/retaliate))
 #define isterrorspider(A) 	(istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
 #define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
 #define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
 #define iscat(A) 			(istype((A), /mob/living/simple_animal/pet/cat))
-#define isgorilla(A) 		(istype((A), /mob/living/simple_animal/hostile/gorilla))
+#define isgorilla(A) 		(istype((A), /mob/living/basic/gorilla))
 #define ismorph(A)			(istype((A), /mob/living/simple_animal/hostile/morph))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
-#define isAI(A)			(istype((A), /mob/living/silicon/ai))
+#define is_ai(A)			(istype((A), /mob/living/silicon/ai))
 #define isrobot(A)		(istype((A), /mob/living/silicon/robot))
 #define isdrone(A)		(istype((A), /mob/living/silicon/robot/drone))
 #define ispAI(A)		(istype((A), /mob/living/silicon/pai))
@@ -273,11 +277,8 @@
 #define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
 
 #define iscameramob(A)	(istype((A), /mob/camera))
-#define isAIEye(A)		(istype((A), /mob/camera/ai_eye))
+#define is_ai_eye(A)		(istype((A), /mob/camera/eye/ai))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
-
-#define isSpirit(A)		(istype((A), /mob/spirit))
-#define ismask(A)		(istype((A), /mob/spirit/mask))
 
 #define isobserver(A)	(istype((A), /mob/dead/observer))
 
@@ -295,6 +296,7 @@
 
 // Locations
 #define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))
+#define is_mecha_occupant(A)  (istype(A.loc, /obj/mecha))
 
 // Hearing protection
 #define HEARING_PROTECTION_NONE	0
@@ -383,3 +385,34 @@
 #define BRAIN_DAMAGE_RATIO_MODERATE 6 / 12
 #define BRAIN_DAMAGE_RATIO_SEVERE 	8 / 12
 #define BRAIN_DAMAGE_RATIO_CRITICAL 10 / 12
+
+#define GRAB_PIXEL_SHIFT_PASSIVE 6
+#define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
+#define GRAB_PIXEL_SHIFT_NECK 16
+
+/// Default minimum body temperature mobs can exist in before taking damage
+#define NPC_DEFAULT_MIN_TEMP 250
+/// Default maximum body temperature mobs can exist in before taking damage
+#define NPC_DEFAULT_MAX_TEMP 350
+
+#define MP_SPELL_PRIORITY 		1
+#define MP_THROW_MODE_PRIORITY 	2
+#define MP_GIVE_MODE_PRIORITY 	3
+#define MP_AUTO_GUN_PRIORITY 	4
+#define MP_CLOWN_CAR_PRIORITY 	5
+#define MP_MECHA_PRIORITY 		6
+
+#define GHOST_START_AS_OBSERVER 	(1 << 0) // Ghost started playing as an observer.
+#define GHOST_CAN_REENTER 			(1 << 1) // Ghost can reenter its corpse
+#define GHOST_RESPAWNABLE			(1 << 2) // Ghost can respawn. Note that checking respawnability is better via GLOB.non_respawnable_keys and TRAIT_RESPAWNABLE
+#define GHOST_VISION				(1 << 3) // Ghost can see invisible things (like other ghosts)
+#define GHOST_HEALTH_SCAN			(1 << 4) // Ghost uses health scanner on click
+#define GHOST_SEE_RADS				(1 << 5) // Ghost can see radiation
+#define GHOST_GAS_SCAN				(1 << 6) // Ghost uses gas analyzer on click
+#define GHOST_PLANT_ANALYZER		(1 << 7) // Ghost uses plant analyzer on click
+
+#define GHOST_FLAGS_DEFAULT (GHOST_CAN_REENTER | GHOST_RESPAWNABLE | GHOST_VISION)
+#define GHOST_FLAGS_START_AS_OBSERVER (GHOST_FLAGS_DEFAULT | GHOST_START_AS_OBSERVER)
+#define GHOST_FLAGS_NO_REENTER (GHOST_FLAGS_DEFAULT & ~GHOST_CAN_REENTER)
+#define GHOST_FLAGS_NO_RESPAWNABLE (GHOST_FLAGS_DEFAULT & ~GHOST_RESPAWNABLE)
+#define GHOST_FLAGS_OBSERVE_ONLY (GHOST_FLAGS_DEFAULT & ~(GHOST_CAN_REENTER | GHOST_RESPAWNABLE))

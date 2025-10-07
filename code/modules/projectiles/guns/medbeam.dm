@@ -3,15 +3,15 @@
 	desc = "Delivers volatile medical nanites in a focused beam. Don't cross the beams!"
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
-	item_state = "chronogun"
-	w_class = WEIGHT_CLASS_NORMAL
-
+	worn_icon_state = null
+	inhand_icon_state = null
 	var/mob/living/current_target
 	var/last_check = 0
 	var/check_delay = 10 //Check los as often as possible, max resolution is SSobj tick though
 	var/max_range = 8
 	var/active = FALSE
 	var/beam_UID = null
+	var/mounted = FALSE
 
 	weapon_weight = WEAPON_MEDIUM
 
@@ -43,7 +43,8 @@
 	current_target = null
 
 /obj/item/gun/medbeam/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
-	add_fingerprint(user)
+	if(isliving(user) && isrobot(user))
+		add_fingerprint(user)
 
 	if(current_target)
 		LoseTarget()
@@ -52,15 +53,14 @@
 
 	current_target = target
 	active = TRUE
-	var/datum/beam/current_beam = new(user,current_target,time=6000,beam_icon_state="medbeam",btype=/obj/effect/ebeam/medical)
+	var/datum/beam/current_beam = user.Beam(current_target, "medbeam", time = 10 MINUTES, beam_type = /obj/effect/ebeam/medical)
 	beam_UID = current_beam.UID()
-	INVOKE_ASYNC(current_beam, TYPE_PROC_REF(/datum/beam, Start))
 
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
 /obj/item/gun/medbeam/process()
 	var/source = loc
-	if(!ishuman(source) && !isrobot(source))
+	if(!mounted && !ishuman(source) && !isrobot(source))
 		LoseTarget()
 		return
 
@@ -75,20 +75,27 @@
 
 	if(get_dist(source,current_target)>max_range || !los_check(source,current_target))
 		LoseTarget()
-		to_chat(source, "<span class='warning'>You lose control of the beam!</span>")
+		if(ishuman(source) && isrobot(source))
+			to_chat(source, "<span class='warning'>You lose control of the beam!</span>")
 		return
 
 	if(current_target)
 		on_beam_tick(source, current_target)
 
-/obj/item/gun/medbeam/proc/los_check(mob/user,mob/target)
+/obj/item/gun/medbeam/proc/los_check(atom/movable/user, mob/target)
 	var/turf/user_turf = user.loc
 	var/datum/beam/current_beam = locateUID(beam_UID)
-	if(!istype(user_turf))
+	if(QDELETED(current_beam))
+		return FALSE
+	if(mounted)
+		user_turf = get_turf(user)
+	else if(!istype(user_turf))
 		return FALSE
 	var/obj/dummy = new(user_turf)
 	dummy.pass_flags |= PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE //Grille/Glass so it can be used through common windows
 	for(var/turf/turf in get_line(user_turf,target))
+		if(mounted && turf == user_turf)
+			continue //Mechs are dense and thus fail the check
 		if(turf.density)
 			qdel(dummy)
 			return FALSE
@@ -97,9 +104,9 @@
 				qdel(dummy)
 				return FALSE
 		for(var/obj/effect/ebeam/medical/B in turf)// Don't cross the str-beams!
-			if(B.owner != current_beam)
+			if(B.owner && B.owner != current_beam && !QDELETED(B)) // only blow up if it has a CONFIRMED different owner than us. Don't want it blowing up on creation/deletion of beams.
 				turf.visible_message("<span class='userdanger'>The medbeams cross and EXPLODE!</span>")
-				explosion(B.loc,0,3,5,8)
+				explosion(B.loc,0,3,5,8, cause = "Crossed beams")
 				qdel(dummy)
 				return FALSE
 	qdel(dummy)
@@ -111,7 +118,7 @@
 		H.adjustBruteLoss(-4, robotic = TRUE)
 		H.adjustFireLoss(-4, robotic = TRUE)
 		for(var/obj/item/organ/external/E in H.bodyparts)
-			if(prob(10))
+			if(!mounted && prob(10))
 				E.mend_fracture()
 				E.fix_internal_bleeding()
 				E.fix_burn_wound()
@@ -137,7 +144,6 @@
 
 /obj/item/gun/medbeam/damaged
 	name = "damaged beamgun"
-	desc = "Delivers volatile medical nanites in a focused beam. Don't cross the beams!"
 	///How hot the beamgun is, if it hits max heat it will break
 	var/current_heat = 0
 	///How much heat the beamgun needs to break
@@ -360,3 +366,11 @@
 	name = "beamgun cell"
 	desc = "A cell that fell out of a beamgun. It cannot be reused until fully charged. Only this brand of battery is compatible with medical beamguns."
 	starting_charge = 0
+
+//////////////////////////////Mech Version///////////////////////////////
+/obj/item/gun/medbeam/mech
+	mounted = TRUE
+
+/obj/item/gun/medbeam/mech/Initialize(mapload)
+	. = ..()
+	STOP_PROCESSING(SSobj, src) //Mech mediguns do not process until installed, and are controlled by the holder obj

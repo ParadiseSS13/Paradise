@@ -8,7 +8,7 @@
 		to_chat(src, "You're already dead!")
 		return
 
-	if(!SSticker)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		to_chat(src, "You can't commit suicide before the game starts!")
 		return
 
@@ -52,7 +52,7 @@
 /mob/living/simple_animal/do_suicide()
 	setOxyLoss((health * 1.5), TRUE)
 
-/mob/living/simple_animal/mouse/do_suicide()
+/mob/living/basic/mouse/do_suicide()
 	visible_message("<span class='danger'>[src] is playing dead permanently! It looks like [p_theyre()] trying to commit suicide!</span>")
 	adjustOxyLoss(max(100 - getBruteLoss(100), 0))
 

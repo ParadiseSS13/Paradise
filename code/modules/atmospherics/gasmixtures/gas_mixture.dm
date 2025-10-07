@@ -58,43 +58,78 @@ What are the archived variables for?
 	return private_oxygen
 
 /datum/gas_mixture/proc/set_oxygen(value)
-	private_oxygen = value
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_oxygen = clamped
 
 /datum/gas_mixture/proc/carbon_dioxide()
 	return private_carbon_dioxide
 
 /datum/gas_mixture/proc/set_carbon_dioxide(value)
-	private_carbon_dioxide = value
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_carbon_dioxide = clamped
 
 /datum/gas_mixture/proc/nitrogen()
 	return private_nitrogen
 
 /datum/gas_mixture/proc/set_nitrogen(value)
-	private_nitrogen = value
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_nitrogen = clamped
 
 /datum/gas_mixture/proc/toxins()
 	return private_toxins
 
 /datum/gas_mixture/proc/set_toxins(value)
-	private_toxins = value
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_toxins = clamped
 
 /datum/gas_mixture/proc/sleeping_agent()
 	return private_sleeping_agent
 
 /datum/gas_mixture/proc/set_sleeping_agent(value)
-	private_sleeping_agent = value
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_sleeping_agent = clamped
 
 /datum/gas_mixture/proc/agent_b()
 	return private_agent_b
 
 /datum/gas_mixture/proc/set_agent_b(value)
-	private_agent_b = value
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_agent_b = clamped
 
 /datum/gas_mixture/proc/temperature()
 	return private_temperature
 
 /datum/gas_mixture/proc/set_temperature(value)
-	private_temperature = value
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_temperature = clamped
 
 /datum/gas_mixture/proc/hotspot_temperature()
 	return private_hotspot_temperature
@@ -114,12 +149,10 @@ What are the archived variables for?
 
 	/// Calculate moles
 /datum/gas_mixture/proc/total_moles()
-	var/moles = private_oxygen + private_carbon_dioxide + private_nitrogen + private_toxins + private_sleeping_agent + private_agent_b
-	return moles
+	return private_oxygen + private_carbon_dioxide + private_nitrogen + private_toxins + private_sleeping_agent + private_agent_b
 
 /datum/gas_mixture/proc/total_trace_moles()
-	var/moles = private_agent_b
-	return moles
+	return private_agent_b
 
 	/// Calculate pressure in kilopascals
 /datum/gas_mixture/proc/return_pressure()
@@ -562,16 +595,20 @@ What are the archived variables for?
 /datum/gas_mixture/proc/react(atom/dump_location)
 	var/reacting = FALSE //set to TRUE if a notable reaction occured (used by pipe_network)
 
-	if((private_agent_b > MINIMUM_MOLE_COUNT) && private_temperature > 900)
+	if((private_agent_b > MINIMUM_MOLE_COUNT) && private_temperature > AGENT_B_CONVERSION_MIN_TEMP)
 		if(private_toxins > MINIMUM_HEAT_CAPACITY && private_carbon_dioxide > MINIMUM_HEAT_CAPACITY)
 			var/reaction_rate = min(private_carbon_dioxide * 0.75, private_toxins * 0.25, private_agent_b * 0.05)
+			var/old_heat_capacity = heat_capacity()
+			var/energy_released = reaction_rate * AGENT_B_CONVERSION_ENERGY_RELEASED
 
 			private_carbon_dioxide -= reaction_rate
 			private_oxygen += reaction_rate
 
 			private_agent_b -= reaction_rate * 0.05
 
-			private_temperature += (reaction_rate * 20000) / heat_capacity()
+			var/new_heat_capacity = heat_capacity()
+			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+				private_temperature = (private_temperature * old_heat_capacity + energy_released) / new_heat_capacity
 
 			reacting = TRUE
 
@@ -660,25 +697,27 @@ What are the archived variables for?
 	private_hotspot_volume = milla[MILLA_INDEX_HOTSPOT_VOLUME]
 	private_fuel_burnt = milla[MILLA_INDEX_FUEL_BURNT]
 
-/proc/share_many_airs(list/mixtures)
+/proc/share_many_airs(list/mixtures, atom/root)
 	var/total_volume = 0
-	var/total_thermal_energy = 0
-	var/total_heat_capacity = 0
 	var/total_oxygen = 0
 	var/total_nitrogen = 0
 	var/total_toxins = 0
 	var/total_carbon_dioxide = 0
 	var/total_sleeping_agent = 0
 	var/total_agent_b = 0
+	var/must_share = FALSE
 
-	for(var/datum/gas_mixture/G as anything in mixtures)
-		if(!istype(G))
-			stack_trace("share_many_airs had [G] in mixtures ([json_encode(mixtures)])")
+	// Collect all the cheap data and check if there's a significant temperature difference.
+	var/temperature = null
+	for(var/datum/gas_mixture/G in mixtures)
+		if(QDELETED(G))
 			continue
 		total_volume += G.volume
-		var/heat_capacity = G.heat_capacity()
-		total_heat_capacity += heat_capacity
-		total_thermal_energy += G.private_temperature * heat_capacity
+
+		if(isnull(temperature))
+			temperature = G.private_temperature
+		else if(abs(temperature - G.private_temperature) >= 1)
+			must_share = TRUE
 
 		total_oxygen += G.private_oxygen
 		total_nitrogen += G.private_nitrogen
@@ -687,26 +726,71 @@ What are the archived variables for?
 		total_sleeping_agent += G.private_sleeping_agent
 		total_agent_b += G.private_agent_b
 
-	if(total_volume > 0)
-		//Calculate temperature
-		var/temperature = 0
+	if(total_volume == 0)
+		return
 
-		if(total_heat_capacity > 0)
-			temperature = total_thermal_energy/total_heat_capacity
+	if(total_volume < 0 || isnan(total_volume) || !isnum(total_volume) || total_oxygen < 0 || isnan(total_oxygen) || !isnum(total_oxygen) || total_nitrogen < 0 || isnan(total_nitrogen) || !isnum(total_nitrogen) || total_toxins < 0 || isnan(total_toxins) || !isnum(total_toxins) || total_carbon_dioxide < 0 || isnan(total_carbon_dioxide) || !isnum(total_carbon_dioxide) || total_sleeping_agent < 0 || isnan(total_sleeping_agent) || !isnum(total_sleeping_agent) || total_agent_b < 0 || isnan(total_agent_b) || !isnum(total_agent_b))
+		CRASH("A pipenet with [length(mixtures)] connected airs is corrupt and cannot flow safely. Pipenet root is [root] at ([root.x], [root.y], [root.z]).")
 
-		//Update individual gas_mixtures by volume ratio
-		for(var/datum/gas_mixture/G as anything in mixtures)
-			if(!istype(G))
+	// If we don't have a significant temperature difference, check for a significant gas amount difference.
+	if(!must_share)
+		for(var/datum/gas_mixture/G in mixtures)
+			if(QDELETED(G))
 				continue
-			G.private_oxygen = total_oxygen * G.volume / total_volume
-			G.private_nitrogen = total_nitrogen * G.volume / total_volume
-			G.private_toxins = total_toxins * G.volume / total_volume
-			G.private_carbon_dioxide = total_carbon_dioxide * G.volume / total_volume
-			G.private_sleeping_agent = total_sleeping_agent * G.volume / total_volume
-			G.private_agent_b = total_agent_b * G.volume / total_volume
+			if(abs(G.private_oxygen - total_oxygen * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
+			if(abs(G.private_nitrogen - total_nitrogen * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
+			if(abs(G.private_toxins - total_toxins * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
+			if(abs(G.private_carbon_dioxide - total_carbon_dioxide * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
+			if(abs(G.private_sleeping_agent - total_sleeping_agent * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
+			if(abs(G.private_agent_b - total_agent_b * G.volume / total_volume) > 0.1)
+				must_share = TRUE
+				break
 
-			G.private_temperature = temperature
-			G.set_dirty()
+	if(!must_share)
+		// Nothing significant, don't do any more work.
+		return
+
+	// Collect the more expensive data.
+	var/total_thermal_energy = 0
+	var/total_heat_capacity = 0
+	for(var/datum/gas_mixture/G in mixtures)
+		if(QDELETED(G))
+			continue
+		var/heat_capacity = G.heat_capacity()
+		total_heat_capacity += heat_capacity
+		total_thermal_energy += G.private_temperature * heat_capacity
+
+	// Calculate shared temperature.
+	temperature = TCMB
+	if(total_heat_capacity > 0)
+		temperature = total_thermal_energy/total_heat_capacity
+
+	if(temperature <= 0 || isnan(temperature) || !isnum(temperature))
+		CRASH("A pipenet with [length(mixtures)] connected airs is corrupt and cannot flow safely. Pipenet root is [root] at ([root.x], [root.y], [root.z]).")
+
+	// Update individual gas_mixtures by volume ratio.
+	for(var/datum/gas_mixture/G in mixtures)
+		if(QDELETED(G))
+			continue
+		G.private_oxygen = total_oxygen * G.volume / total_volume
+		G.private_nitrogen = total_nitrogen * G.volume / total_volume
+		G.private_toxins = total_toxins * G.volume / total_volume
+		G.private_carbon_dioxide = total_carbon_dioxide * G.volume / total_volume
+		G.private_sleeping_agent = total_sleeping_agent * G.volume / total_volume
+		G.private_agent_b = total_agent_b * G.volume / total_volume
+
+		G.private_temperature = temperature
+		// In theory, we should G.set_dirty() here, but that's only useful for bound mixtures, and these can't be.
 
 /datum/gas_mixture/proc/hotspot_expose(temperature, volume)
 	return
@@ -722,6 +806,7 @@ What are the archived variables for?
 #undef QUANTIZE
 
 /datum/gas_mixture/bound_to_turf
+	synchronized = FALSE
 	var/dirty = FALSE
 	var/lastread = 0
 	var/turf/bound_turf = null

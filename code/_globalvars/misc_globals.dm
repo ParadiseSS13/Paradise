@@ -45,15 +45,24 @@ GLOBAL_VAR_INIT(gametime_offset, 432000) // 12:00 in seconds
 
 GLOBAL_DATUM_INIT(data_core, /datum/datacore, new) // Station datacore, manifest, etc
 
+//Defines for MODlink frequencies
+#define MODLINK_FREQ_NANOTRASEN "NT"
+#define MODLINK_FREQ_SYNDICATE "SYND"
+#define MODLINK_FREQ_THETA "THET"
+#define MODLINK_FREQ_CENTCOM "CC"
+
 /// Global list of all /datum/mod_theme
 GLOBAL_LIST_INIT(mod_themes, setup_mod_themes())
+
+/// Global list of all ids associated to a /datum/mod_link instance
+GLOBAL_LIST_EMPTY(mod_link_ids)
 
 GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_crystal)
 
 ///Global list for descriptors
-GLOBAL_LIST_INIT(character_physiques, list("rail thin", "thin", "average", "well-built", "muscular", "overweight"))
+GLOBAL_LIST_INIT(character_physiques, list("emaciated", "rail thin", "thin", "gaunt", "lanky", "scrawny", "average", "lean", "toned", "well-built", "muscular", "chiseled", "shredded", "chubby", "overweight"))
 
-GLOBAL_LIST_INIT(character_heights, list("very short", "short", "average height", "tall", "very tall"))
+GLOBAL_LIST_INIT(character_heights, list("miniscule", "very short", "short", "average height", "tall", "very tall", "humongous"))
 
 #define GLOBAL_SPARK_LIMIT 500
 /// Counter for the current amount of sparks
@@ -62,3 +71,14 @@ GLOBAL_VAR_INIT(sparks_active, 0)
 #define GLOBAL_SMOKE_LIMIT 200
 ///Counter for the current amount of smoke
 GLOBAL_VAR_INIT(smokes_active, 0)
+
+/// what xeno organs have been scanned today?
+GLOBAL_LIST_EMPTY(scanned_organs)
+
+/// A list of types of objects we want to record in admin logs when
+/// a player starts pulling them.
+GLOBAL_LIST_INIT(log_pulltypes, list(
+	/mob/living,
+	/obj/structure/reagent_dispensers,
+	/obj/machinery/atmospherics/portable/canister,
+))

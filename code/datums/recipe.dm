@@ -40,7 +40,7 @@
 	var/time = 100 // 1/10 part of second
 	/// Whether or not an upgraded kitchen machine will create more products using the same amount of ingredients
 	var/duplicate = TRUE
-	var/byproduct		// example: = /obj/item/kitchen/mould		// byproduct to return, such as a mould or trash
+	var/byproduct		// example: = /obj/item/reagent_containers/cooking/mould		// byproduct to return, such as a mould or trash
 
 /datum/recipe/proc/check_reagents(datum/reagents/avail_reagents)
 	. = INGREDIENT_CHECK_EXACT

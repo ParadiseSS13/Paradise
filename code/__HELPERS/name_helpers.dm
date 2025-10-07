@@ -89,7 +89,7 @@ GLOBAL_VAR(syndicate_name)
 
 		// Full
 		if(prob(60))
-			name += pick("Syndicate", "Consortium", "Collective", "Corporation", "Group", "Holdings", "Biotech", "Industries", "Systems", "Products", "Chemicals", "Enterprises", "Family", "Creations", "International", "Intergalactic", "Interplanetary", "Foundation", "Positronics", "Hive")
+			name += pick("Syndicate", "Consortium", "Collective", "Corporation", "Group", "Holdings", "Biotech", "Industries", "Systems", "Products", "Chemicals", "Enterprises", "Family", "Creations", "International", "Interstellar", "Interplanetary", "Foundation", "Positronics", "Hive")
 		// Broken
 		else
 			name += pick("Syndi", "Corp", "Bio", "System", "Prod", "Chem", "Inter", "Hive")
@@ -176,3 +176,30 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 	newKey += pick("diamond", "beer", "mushroom", "assistant", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai")
 	newKey += pick("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	return newKey
+
+/proc/quality_to_string(quality, use_normal = FALSE)
+	if(!quality)
+		return
+	switch(quality)
+		if(ORGAN_DAMAGED)
+			return "Damaged"
+		if(ORGAN_NORMAL)
+			if(use_normal)
+				return "Normal"
+			else
+				return ""
+		if(ORGAN_PRISTINE)
+			return "Pristine"
+
+///Find the first name of a mob from a passed string with regex
+/proc/first_name(given_name)
+	var/static/regex/firstname = new("^\[^\\s-\]+") //First word before whitespace or "-"
+	firstname.Find(given_name)
+	return firstname.match
+
+/// Find the last name of a mob from a passed string with regex
+/proc/last_name(given_name)
+	var/static/regex/lasttname = new("\[^\\s-\]+$") //Last word after whitespace or "-"
+	lasttname.Find(given_name)
+	return lasttname.match
+

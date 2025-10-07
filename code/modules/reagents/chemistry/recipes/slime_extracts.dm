@@ -150,27 +150,26 @@
 
 	var/list/blocked = list(
 		/obj/item/food,
-		/obj/item/food/breadslice,
+		/obj/item/food/sliced/bread,
 		/obj/item/food/sliceable,
 		/obj/item/food/sliceable/pizza,
-		/obj/item/food/margheritapizzaslice,
-		/obj/item/food/meatpizzaslice,
-		/obj/item/food/mushroompizzaslice,
-		/obj/item/food/vegetablepizzaslice,
-		/obj/item/food/cheesepizzaslice,
-		/obj/item/food/garlicpizzaslice,
-		/obj/item/food/donkpocketpizzaslice,
-		/obj/item/food/dankpizzaslice,
-		/obj/item/food/macpizzaslice,
-		/obj/item/food/firecrackerpizzaslice,
-		/obj/item/food/pestopizzaslice,
-		/obj/item/food/pepperonipizzaslice,
+		/obj/item/food/sliced/margherita_pizza,
+		/obj/item/food/sliced/meat_pizza,
+		/obj/item/food/sliced/mushroom_pizza,
+		/obj/item/food/sliced/vegetable_pizza,
+		/obj/item/food/sliced/cheese_pizza,
+		/obj/item/food/sliced/garlic_pizza,
+		/obj/item/food/sliced/donk_pocket_pizza,
+		/obj/item/food/sliced/dank_pizza,
+		/obj/item/food/sliced/mac_pizza,
+		/obj/item/food/sliced/fire_cracker_pizza,
+		/obj/item/food/sliced/pesto_pizza,
+		/obj/item/food/sliced/pepperoni_pizza,
 		/obj/item/food/meat,
 		/obj/item/food/meat/slab,
 		/obj/item/food/grown,
 		/obj/item/food/grown/shell,
 		/obj/item/food/grown/mushroom,
-		/obj/item/food/deepfryholder,
 		/obj/item/food/chinese,
 		/obj/item/food/human,
 		/obj/item/food/monstermeat,
@@ -513,6 +512,28 @@
 /datum/chemical_reaction/slimemutate2/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 
+/datum/chemical_reaction/viral_gene_extraction
+	name = "Virus Gene Extraction"
+	id = "virus_gene_extraction"
+	result = "virus_genes"
+	required_reagents = list("blood" = 1)
+	result_amount = 1
+	required_other = TRUE
+	required_container = /obj/item/slime_extract/black
+
+/datum/chemical_reaction/viral_gene_extraction/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/reagent_containers/glass/bottle/result_bottle = new(get_turf(holder.my_atom))
+	holder.trans_to(result_bottle, holder.total_volume)
+	var/datum/reagent/virus_genes/result_genes = locate() in result_bottle.reagents.reagent_list
+	var/list/strains = list("slime" = list())
+	if(result_genes.data && result_genes.data["viruses"])
+		for(var/datum/disease/advance/advanced_virus in result_genes.data["viruses"])
+			strains["slime"] += list(advanced_virus.strain)
+			result_bottle.name = "[advanced_virus.strain] Strain Viral Genetic Matter"
+			break
+	result_genes.data = strains
+
 //Oil
 /datum/chemical_reaction/slime_explosion
 	name = "Slime Explosion"
@@ -536,7 +557,7 @@
 	var/turf/extract_turf = get_turf(extract)
 	message_admins("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
 	log_game("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
-	explosion(extract_turf, 1, 3, 6)
+	explosion(extract_turf, 1, 3, 6, cause = "Oil Slime explosion")
 
 /datum/chemical_reaction/oil_slick
 	name = "Oil Potion"

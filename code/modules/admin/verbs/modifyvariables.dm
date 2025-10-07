@@ -87,6 +87,9 @@ GLOBAL_PROTECT(VVmaint_only)
 				VV_NEW_DATUM,
 				VV_NEW_TYPE,
 				VV_NEW_LIST,
+				VV_VISIBLE_ATOM,
+				VV_INSIDE_VISIBLE_ATOM,
+				VV_VISIBLE_TURF,
 				VV_NULL,
 				VV_RESTORE_DEFAULT
 				)
@@ -210,6 +213,45 @@ GLOBAL_PROTECT(VVmaint_only)
 				return
 			.["value"] = things[value]
 
+
+		if(VV_VISIBLE_ATOM)
+			var/atom/clicked = prompt_for_atom_click("Click an atom.")
+			if(!clicked)
+				.["class"] = null
+				return
+			.["value"] = clicked
+		if(VV_INSIDE_VISIBLE_ATOM)
+			var/atom/clicked = prompt_for_atom_click("Click an atom to search inside.")
+			if(!clicked)
+				.["class"] = null
+				return
+
+			// Collect everything inside the atom.
+			var/list/ancestors = list(clicked)
+			var/list/descendants = list()
+			while(length(ancestors) > 0 && length(descendants) < 100)
+				var/atom/ancestor = ancestors[length(ancestors)]
+				ancestors.len--
+				for(var/atom/child in ancestor)
+					ancestors += child
+					descendants += child
+
+			// Prompt for which to pick.
+			var/descendant = input("Pick an atom:", "Inside a Visible Atom", src) in descendants
+			if(!descendant)
+				.["class"] = null
+				return
+			.["value"] = descendant
+		if(VV_VISIBLE_TURF)
+			var/atom/clicked = prompt_for_atom_click("Pick a turf (or any atom on it).")
+			if(!clicked)
+				.["class"] = null
+				return
+			var/turf/where = get_turf(clicked)
+			if(!where)
+				.["class"] = null
+				return
+			.["value"] = where
 
 
 		if(VV_CLIENT)
@@ -369,7 +411,7 @@ GLOBAL_PROTECT(VVmaint_only)
 			L[var_value] = mod_list_add_ass(O) //hehe
 	if(O)
 		if(!O.vv_edit_var(objectvar, L))
-			to_chat(src, "Your edit was rejected by the object.")
+			to_chat(src, "<span class='warning'>Your edit was rejected by the object.</span>")
 			return
 	log_world("### ListVarEdit by [src]: [(O ? O.type : "/list")] [objectvar]: ADDED=[var_value]")
 	log_admin("[key_name(src)] modified [original_name]'s [objectvar]: ADDED=[var_value]")
@@ -412,7 +454,7 @@ GLOBAL_PROTECT(VVmaint_only)
 			L = L.Copy()
 			listclearnulls(L)
 			if(!O.vv_edit_var(objectvar, L))
-				to_chat(src, "Your edit was rejected by the object.")
+				to_chat(src, "<span class='warning'>Your edit was rejected by the object.</span>")
 				return
 			log_world("### ListVarEdit by [src]: [O.type] [objectvar]: CLEAR NULLS")
 			log_admin("[key_name(src)] modified [original_name]'s [objectvar]: CLEAR NULLS")
@@ -422,7 +464,7 @@ GLOBAL_PROTECT(VVmaint_only)
 		if(variable == "(CLEAR DUPES)")
 			L = uniqueList(L)
 			if(!O.vv_edit_var(objectvar, L))
-				to_chat(src, "Your edit was rejected by the object.")
+				to_chat(src, "<span class='warning'>Your edit was rejected by the object.</span>")
 				return
 			log_world("### ListVarEdit by [src]: [O.type] [objectvar]: CLEAR DUPES")
 			log_admin("[key_name(src)] modified [original_name]'s [objectvar]: CLEAR DUPES")
@@ -432,7 +474,7 @@ GLOBAL_PROTECT(VVmaint_only)
 		if(variable == "(SHUFFLE)")
 			L = shuffle(L)
 			if(!O.vv_edit_var(objectvar, L))
-				to_chat(src, "Your edit was rejected by the object.")
+				to_chat(src, "<span class='warning'>Your edit was rejected by the object.</span>")
 				return
 			log_world("### ListVarEdit by [src]: [O.type] [objectvar]: SHUFFLE")
 			log_admin("[key_name(src)] modified [original_name]'s [objectvar]: SHUFFLE")
@@ -509,7 +551,7 @@ GLOBAL_PROTECT(VVmaint_only)
 			L.Cut(index, index+1)
 			if(O)
 				if(!O.vv_edit_var(objectvar, L))
-					to_chat(src, "Your edit was rejected by the object.")
+					to_chat(src, "<span class='warning'>Your edit was rejected by the object.</span>")
 					return
 			log_world("### ListVarEdit by [src]: [O.type] [objectvar]: REMOVED=[html_encode("[original_var]")]")
 			log_admin("[key_name(src)] modified [original_name]'s [objectvar]: REMOVED=[original_var]")
@@ -528,7 +570,7 @@ GLOBAL_PROTECT(VVmaint_only)
 		L[index] = new_var
 	if(O)
 		if(!O.vv_edit_var(objectvar, L))
-			to_chat(src, "Your edit was rejected by the object.")
+			to_chat(src, "<span class='warning'>Your edit was rejected by the object.</span>")
 			return
 	log_world("### ListVarEdit by [src]: [(O ? O.type : "/list")] [objectvar]: [original_var]=[new_var]")
 	log_admin("[key_name(src)] modified [original_name]'s [objectvar]: [original_var]=[new_var]")
@@ -556,6 +598,24 @@ GLOBAL_PROTECT(VVmaint_only)
 			return FALSE
 
 	return TRUE
+
+/datum/click_intercept/pick_atom
+	var/picked = null
+
+/datum/click_intercept/pick_atom/InterceptClickOn(user, params, atom/object)
+	picked = object
+
+/client/proc/prompt_for_atom_click(prompt = "Click something!")
+	to_chat(src, "<span class='notice big'>[prompt]</span>")
+	var/datum/click_intercept/pick_atom/picker = new(src)
+	while(isnull(picker.picked))
+		if(isnull(src) || click_intercept != picker)
+			return null
+		sleep(1)
+
+	picker.quit()
+	return picker.picked
+
 
 /client/proc/modify_variables(atom/O, param_var_name = null, autodetect_class = 0)
 	if(!check_rights(R_VAREDIT))
@@ -648,7 +708,7 @@ GLOBAL_PROTECT(VVmaint_only)
 				var_new = replacetext(var_new,"\[[V]]","[O.vars[V]]")
 
 	if(!O.vv_edit_var(variable, var_new))
-		to_chat(src, "Your edit was rejected by the object.")
+		to_chat(src, "<span class='warning'>Your edit was rejected by the object.</span>")
 		return
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_VAR_EDIT, args)
 	log_world("### VarEdit by [src]: [O.type] [variable]=[html_encode("[var_new]")] (Type: [class])")

@@ -3,12 +3,13 @@
 	desc = "A hand-held emergency light."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight"
-	item_state = "flashlight"
+	inhand_icon_state = "flashlight"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	actions_types = list(/datum/action/item_action/toggle_light)
+	light_color = "#ffffd0"
 	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
 	var/togglesound = 'sound/weapons/empty.ogg'
@@ -37,9 +38,7 @@
 	on = !on
 	playsound(user, togglesound, 100, 1)
 	update_brightness()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtons()
+	update_action_buttons()
 	return TRUE
 
 /obj/item/flashlight/attack__legacy__attackchain(mob/living/M as mob, mob/living/user as mob)
@@ -91,10 +90,10 @@
 	name = "penlight"
 	desc = "A pen, and a light. Used by medical staff."
 	icon_state = "penlight"
-	item_state = ""
+	worn_icon_state = "pen"
+	inhand_icon_state = "pen"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BOTH_EARS
-	flags = CONDUCT
 	brightness_on = 2
 	var/colour = "blue" // Ink color
 
@@ -102,7 +101,7 @@
 	name = "seclite"
 	desc = "A robust flashlight used by security."
 	icon_state = "seclite"
-	item_state = "seclite"
+	inhand_icon_state = "seclite"
 	force = 9 // Not as good as a stun baton.
 	brightness_on = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
@@ -111,8 +110,6 @@
 	name = "low-power flashlight"
 	desc = "A miniature lamp, that might be used by small robots."
 	icon_state = "penlight"
-	item_state = ""
-	flags = CONDUCT
 	brightness_on = 2
 	w_class = WEIGHT_CLASS_TINY
 
@@ -121,12 +118,12 @@
 	name = "desk lamp"
 	desc = "A desk lamp with an adjustable mount."
 	icon_state = "lamp"
-	item_state = "lamp"
+	inhand_icon_state = "lamp"
 	brightness_on = 5
 	w_class = WEIGHT_CLASS_BULKY
-	flags = CONDUCT
 	materials = list()
 	on = TRUE
+	light_color = "#fff4bb"
 
 /obj/item/flashlight/lamp/examine(mob/user)
 	. = ..()
@@ -136,7 +133,8 @@
 /obj/item/flashlight/lamp/green
 	desc = "A classic green-shaded desk lamp."
 	icon_state = "lampgreen"
-	item_state = "lampgreen"
+	inhand_icon_state = "lampgreen"
+	light_color = "#AAFFAA"
 
 /obj/item/flashlight/lamp/green/off
 	on = FALSE
@@ -152,7 +150,8 @@
 	name = "banana lamp"
 	desc = "Only a clown would think to make a ghetto banana-shaped lamp. Even has a goofy pullstring."
 	icon_state = "bananalamp"
-	item_state = "bananalamp"
+	inhand_icon_state = "lampgreen"
+	light_color = "#f7ff57"
 
 // FLARES
 
@@ -162,7 +161,7 @@
 	brightness_on = 8
 	light_color = "#ff0000"
 	icon_state = "flare"
-	item_state = "flare"
+	inhand_icon_state = "flare"
 	togglesound = 'sound/goonstation/misc/matchstick_light.ogg'
 	var/fuel = 0
 	var/on_damage = 7
@@ -175,11 +174,7 @@
 	..()
 
 /obj/item/flashlight/flare/update_icon_state()
-	if(on)
-		item_state = "[initial(item_state)]-on"
-	else
-		item_state = "[initial(item_state)]"
-
+	inhand_icon_state = "[initial(inhand_icon_state)][on ? "-on" : ""]"
 	if(!fuel)
 		icon_state = "[initial(icon_state)]-empty"
 		return
@@ -261,7 +256,7 @@
 	brightness_on = 4
 	color = LIGHT_COLOR_GREEN
 	icon_state = "glowstick"
-	item_state = "glowstick"
+	inhand_icon_state = null
 	togglesound = 'sound/effects/bone_break_1.ogg'
 	produce_heat = FALSE
 	fuel_lower = 1600
@@ -310,17 +305,6 @@
 	fuel_lower = 30
 	fuel_upp = 90
 
-/obj/item/flashlight/flare/glowstick/random
-	name = "random colored glowstick"
-	icon_state = "random_glowstick"
-	color = null
-
-/obj/item/flashlight/flare/glowstick/random/Initialize(mapload)
-	. = ..()
-	var/T = pick(typesof(/obj/item/flashlight/flare/glowstick) - /obj/item/flashlight/flare/glowstick/random - /obj/item/flashlight/flare/glowstick/emergency)
-	new T(loc)
-	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
-
 /obj/item/flashlight/flare/extinguish_light(force = FALSE)
 	if(force)
 		fuel = 0
@@ -331,12 +315,10 @@
 /obj/item/flashlight/flare/torch
 	name = "torch"
 	desc = "A torch fashioned from some leaves and a log."
+	icon_state = "torch"
+	inhand_icon_state = "torch"
 	w_class = WEIGHT_CLASS_BULKY
 	brightness_on = 7
-	icon_state = "torch"
-	item_state = "torch"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	light_color = LIGHT_COLOR_ORANGE
 	on_damage = 10
 
@@ -344,9 +326,8 @@
 	gender = PLURAL
 	name = "glowing slime extract"
 	desc = "A glowing ball of what appears to be amber."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "slime-on"
-	item_state = "slime"
+	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_TINY
 	brightness_on = 6
 	light_color = "#FFBF00"
@@ -376,7 +357,6 @@
 	var/emp_max_charges = 4
 	var/emp_cur_charges = 4
 	var/charge_tick = 0
-
 
 /obj/item/flashlight/emp/New()
 	..()
@@ -421,7 +401,6 @@
 	icon_state = null
 	light_color = null
 	brightness_on = 0
-	light_range = 0
 	light_power = 10
 	alpha = 0
 	layer = 0
@@ -434,6 +413,5 @@
 	name = "eyelight"
 	desc = "This shouldn't exist outside of someone's head, how are you seeing this?"
 	light_range = 15
-	light_power = 1
 	flags = CONDUCT | DROPDEL
 	actions_types = list()

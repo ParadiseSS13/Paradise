@@ -12,7 +12,6 @@
 	desc = "Go tell a coder if you see this."
 	helptext = "Yell at coderbus"
 	chemical_cost = 1000
-	power_type = CHANGELING_UNOBTAINABLE_POWER
 	var/silent = FALSE
 	var/weapon_type
 	var/weapon_name_simple
@@ -27,7 +26,7 @@
 
 /datum/action/changeling/weapon/sting_action(mob/user)
 	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
-	if(!user.drop_item())
+	if(user.get_active_hand() && !user.drop_item())
 		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return FALSE
 	var/obj/item/W = new weapon_type(user, silent, src)
@@ -65,7 +64,6 @@
 	desc = "Go tell a coder if you see this."
 	helptext = "Yell at coderbus"
 	chemical_cost = 1000
-	power_type = CHANGELING_UNOBTAINABLE_POWER
 	var/helmet_type = /obj/item
 	var/suit_type = /obj/item
 	var/suit_name_simple = "    "
@@ -97,15 +95,14 @@
 	..(H, target)
 
 /datum/action/changeling/suit/sting_action(mob/living/carbon/human/user)
-	if(!user.unEquip(user.wear_suit))
-		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
-		return FALSE
-	if(!user.unEquip(user.head))
-		to_chat(user, "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!")
-		return FALSE
-
-	user.unEquip(user.head)
-	user.unEquip(user.wear_suit)
+	if(user.wear_suit)
+		if(!user.drop_item_to_ground(user.wear_suit))
+			to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
+			return FALSE
+	if(user.head)
+		if(!user.drop_item_to_ground(user.head))
+			to_chat(user, "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!")
+			return FALSE
 
 	user.equip_to_slot_if_possible(new suit_type(user), ITEM_SLOT_OUTER_SUIT, TRUE, TRUE)
 	user.equip_to_slot_if_possible(new helmet_type(user), ITEM_SLOT_HEAD, TRUE, TRUE)
@@ -122,7 +119,7 @@
 	name = "Arm Blade"
 	desc = "We reform one of our arms into a deadly blade. Costs 15 chemicals."
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
-	button_overlay_icon_state = "armblade"
+	button_icon_state = "armblade"
 	chemical_cost = 15
 	dna_cost = 4
 	req_human = TRUE
@@ -137,12 +134,10 @@
 	desc = "A grotesque blade made of bone and flesh that cleaves through people like a hot knife through butter."
 	hitsound = 'sound/weapons/armblade.ogg'
 	icon_state = "arm_blade"
-	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 	force = 25
-	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
 	var/datum/action/changeling/weapon/parent_action
@@ -150,7 +145,7 @@
 /obj/item/melee/arm_blade/Initialize(mapload, silent, new_parent_action)
 	. = ..()
 	parent_action = new_parent_action
-	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
+	AddComponent(/datum/component/forces_doors_open, time_to_open = 10 SECONDS)
 
 /obj/item/melee/arm_blade/Destroy()
 	if(parent_action)
@@ -187,7 +182,7 @@
 	Grab will immobilize the target and wrap a tentacle around them. \
 	Harm will drag the target closer and hit them with the object in our other hand. \
 	Cannot be used while in our lesser form."
-	button_overlay_icon_state = "tentacle"
+	button_icon_state = "tentacle"
 	chemical_cost = 10
 	dna_cost = 4
 	req_human = TRUE
@@ -200,12 +195,10 @@
 /obj/item/gun/magic/tentacle
 	name = "tentacle"
 	desc = "A fleshy tentacle that can stretch out and grab things or people."
+	icon_state = "tentacle"
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
-	icon_state = "tentacle"
-	item_state = "tentacle"
 	flags = ABSTRACT | NODROP | NOBLUDGEON | DROPDEL
-	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = /obj/item/ammo_casing/magic/tentacle
 	fire_sound = 'sound/effects/splat.ogg'
 	force = 0
@@ -214,6 +207,20 @@
 	throw_range = 0
 	throw_speed = 0
 	var/datum/action/changeling/weapon/parent_action
+	/// Used for deleting gun after hitting something
+	var/hit_something = FALSE
+	/// True if we're shooting our shot -- used to track shooting to prevent deleting mid shot
+	var/shooting_right_now = FALSE
+
+/obj/item/gun/magic/tentacle/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	shooting_right_now = TRUE
+	. = ..()
+	shooting_right_now = FALSE
+	check_should_delete()
+
+/obj/item/gun/magic/tentacle/proc/check_should_delete()
+	if(!shooting_right_now && hit_something)
+		qdel(src)
 
 /obj/item/gun/magic/tentacle/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque tentacle.</span>"
@@ -265,9 +272,7 @@
 /obj/item/projectile/tentacle
 	name = "tentacle"
 	icon_state = "tentacle_end"
-	pass_flags = PASSTABLE
 	damage = 0
-	damage_type = BRUTE
 	range = 8
 	hitsound = 'sound/weapons/thudswoosh.ogg'
 	reflectability = REFLECTABILITY_NEVER //Let us not reflect this ever. It's not quite a bullet, and a cling should never wrap its tentacle around itself, it controls its body well
@@ -279,7 +284,7 @@
 
 /obj/item/projectile/tentacle/fire(setAngle)
 	if(firer)
-		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY)
 	..()
 
 /mob/proc/tentacle_stab(mob/living/carbon/C)
@@ -295,7 +300,8 @@
 
 /obj/item/projectile/tentacle/on_hit(atom/target, blocked = 0)
 	var/mob/living/carbon/human/H = firer
-	qdel(source.gun)
+	source.gun.hit_something = TRUE
+	source.gun.check_should_delete()
 	if(blocked >= 100)
 		return FALSE
 	if(isitem(target))
@@ -354,8 +360,8 @@
 			add_attack_logs(H, C, "imobilised with a changeling tentacle")
 			if(!iscarbon(H))
 				return TRUE
-			var/obj/item/restraints/legcuffs/beartrap/changeling/B = new(H.loc)
-			B.Crossed(C)
+			var/obj/item/restraints/legcuffs/beartrap/changeling/B = new(get_turf(L))
+			B.on_atom_entered(C, L)
 			return TRUE
 
 		if(INTENT_HARM)
@@ -397,8 +403,8 @@
 /datum/action/changeling/weapon/shield
 	name = "Organic Shield"
 	desc = "We reform one of our arms into a hard shield. Costs 20 chemicals."
-	helptext = "Organic tissue cannot resist damage forever, with the shield breaking after it is hit 6 times. Automatically parries. Cannot be used while in lesser form."
-	button_overlay_icon_state = "organic_shield"
+	helptext = "Organic tissue cannot resist damage forever, with the shield breaking after it is hit 6 times. Can be used to parry attacks and projectiles. Cannot be used while in lesser form."
+	button_icon_state = "organic_shield"
 	chemical_cost = 20
 	dna_cost = 2
 	req_human = TRUE
@@ -419,30 +425,12 @@
 	flags = NODROP | DROPDEL
 	icon_state = "ling_shield"
 
-	var/remaining_uses = 6
-
 /obj/item/shield/changeling/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
-
-/obj/item/shield/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	SEND_SIGNAL(owner, COMSIG_HUMAN_PARRY)
-	. = ..()
-	if(!.)
-		return
-	if(remaining_uses < 1)
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
-			playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
-			H.unEquip(src, 1)
-		qdel(src)
-		return FALSE
-	else
-		remaining_uses--
 
 /***************************************\
 |*********SPACE SUIT + HELMET***********|
@@ -451,7 +439,7 @@
 	name = "Organic Space Suit"
 	desc = "We grow an organic suit to protect ourselves from space exposure. Costs 20 chemicals."
 	helptext = "We must constantly repair our form to make it space proof, reducing chemical production while we are protected. Cannot be used in lesser form."
-	button_overlay_icon_state = "organic_suit"
+	button_icon_state = "organic_suit"
 	chemical_cost = 20
 	dna_cost = 4
 	req_human = TRUE
@@ -498,7 +486,7 @@
 	name = "Chitinous Armor"
 	desc = "We turn our skin into tough chitin to protect us from damage. Costs 25 chemicals."
 	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor is strong against brute force, but does not provide much protection from lasers. Cannot be used in lesser form."
-	button_overlay_icon_state = "chitinous_armor"
+	button_icon_state = "chitinous_armor"
 	chemical_cost = 25
 	dna_cost = 4
 	req_human = TRUE
@@ -545,7 +533,7 @@
 
 	// snowflake checks my beloved
 	// this will become tooltype checks I swear
-	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/chainsaw) && !istype(I, /obj/item/butcher_chainsaw))
+	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/chainsaw))
 		return
 
 	user.visible_message(
@@ -576,9 +564,9 @@
 	// you've torn it up, get rid of it.
 	new /obj/effect/decal/cleanable/shreds(owner.loc)
 	// just unequip them since they qdel on drop
-	owner.unEquip(src, TRUE, TRUE)
+	owner.drop_item_to_ground(src, force = TRUE, silent = TRUE)
 	if(istype(owner.head, /obj/item/clothing/head/helmet/changeling))
-		owner.unEquip(owner.head, TRUE, TRUE)
+		owner.drop_item_to_ground(owner.head, force = TRUE, silent = TRUE)
 
 	return TRUE
 
@@ -596,7 +584,7 @@
 	name = "Bone Shard"
 	desc = "We evolve the ability to break off shards of our bone and shape them into throwing weapons which embed into our foes. Costs 15 chemicals."
 	helptext = "The shards of bone will dull upon hitting a target, rendering them unusable as weapons."
-	button_overlay_icon_state = "boneshard"
+	button_icon_state = "boneshard"
 	chemical_cost = 15
 	dna_cost = 3
 	req_human = TRUE

@@ -1,11 +1,10 @@
 /datum/spell/charge_up/bounce/magnet
 	name = "Magnetic Pull"
-	desc = "Pulls metalic objects from enemies hands with the power of MAGNETS."
+	desc = "Pulls metallic objects from enemies hands with the power of MAGNETS."
 	action_icon_state = "magnet"
 	base_cooldown	= 30 SECONDS
 	clothes_req = FALSE
 	invocation = "UN'LTD P'WAH!"
-	invocation_type = "none"
 	cooldown_min = 3 SECONDS
 	charge_sound = new /sound('sound/magic/lightning_chargeup.ogg', channel = 7)
 	max_charge_time = 10 SECONDS
@@ -48,7 +47,7 @@
 		try_throw_object(user, target, I)
 
 /datum/spell/charge_up/bounce/magnet/proc/try_throw_object(mob/user, mob/thrower, obj/item/to_throw)
-	if(!(to_throw.flags & CONDUCT) || !thrower.unEquip(to_throw, silent = TRUE))
+	if(!(to_throw.flags & CONDUCT) || !thrower.drop_item_to_ground(to_throw, silent = TRUE))
 		return FALSE
 	thrower.visible_message("<span class='warning'>[to_throw] gets thrown out of [thrower] [thrower.p_their()] hands!</span>",
 		"<span class='danger'>[to_throw] suddenly gets thrown out of your hands!</span>")

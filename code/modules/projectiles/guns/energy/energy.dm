@@ -6,6 +6,7 @@
 * 5. PDW-9 PISTOL
 * 6. HYBRID TURRET GUN
 * 7. ADVANCED ENERGY GUN
+* 8. ENERGY SHOTGUN
 */
 //////////////////////////////
 // MARK: ENERGY GUN
@@ -13,8 +14,7 @@
 /obj/item/gun/energy/gun
 	name = "\improper EG-7 energy gun"
 	desc = "A hybrid fire energy gun manufactured by Shellguard Munitions Co. It has a mounting point for a flashlight. The fire selector has two settings: 'disable', and 'kill'."
-	icon_state = "energy"
-	item_state = null	//so the human update icon uses the icon_state instead.
+	inhand_icon_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	origin_tech = "combat=4;magnets=3"
 	modifystate = 2
@@ -57,7 +57,6 @@
 	desc = "A pistol-sized energy gun with a built-in flashlight. The power cell is smaller too. Issued for self-defence purposes. The fire selector has two settings: 'disable', and 'kill'."
 	icon_state = "mini"
 	w_class = WEIGHT_CLASS_SMALL
-	ammo_x_offset = 2
 	charge_sections = 3
 	inhand_charge_sections = 3
 	can_flashlight = FALSE // Can't attach or detach the flashlight, and override it's icon update
@@ -92,7 +91,7 @@
 /obj/item/gun/energy/gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
 	desc = "This is an expensive, modern recreation of an antique laser gun. The fire selector has three settings: 'disable', 'ion', 'kill'. Unfortunately, it has lost the ability to recharge over time."
-	cell_type = /obj/item/stock_parts/cell/hos_gun
+	cell_type = /obj/item/stock_parts/cell/energy_gun/hos_gun
 	icon_state = "hoslaser"
 	origin_tech = null
 	force = 10
@@ -127,15 +126,12 @@
 /obj/item/gun/energy/gun/blueshield
 	name = "\improper EG-14 advanced energy revolver"
 	desc = "An advanced, pistol sized energy gun. It looks stylish, and the design makes it slightly better at bludgeoning. The fire selector has two settings: 'disable', and 'kill'."
-	cell_type = /obj/item/stock_parts/cell/hos_gun
 	icon_state = "bsgun"
-	item_state = null
+	cell_type = /obj/item/stock_parts/cell/energy_gun/hos_gun
 	force = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
-	shaded_charge = TRUE
 	can_holster = TRUE
-	execution_speed = 5 SECONDS
 
 /obj/item/gun/energy/gun/blueshield/examine_more(mob/user)
 	..()
@@ -155,7 +151,7 @@
 	name = "\improper PDW-9 energy pistol"
 	desc = "A military-grade energy pistol favored by mercenaries and militia forces. The fire selector has two settings: 'disable', and 'kill'."
 	icon_state = "pdw9pistol"
-	item_state = "gun"
+	inhand_icon_state = "gun"
 
 /obj/item/gun/energy/gun/blueshield/pdw9/examine_more(mob/user)
 	..()
@@ -172,14 +168,13 @@
 	name = "\improper AG(H)-22 hybrid turret gun"
 	desc = "A heavy hybrid energy cannon made for mounted emplacements. The fire selector has two settings: 'stun', and 'kill'."
 	icon_state = "turretlaser"
-	item_state = "turretlaser"
+	inhand_icon_state = "turretlaser"
 	slot_flags = null
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 	weapon_weight = WEAPON_HEAVY
 	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
-	ammo_x_offset = 2
 	shaded_charge = FALSE
 	execution_speed = 8 SECONDS
 
@@ -205,7 +200,6 @@
 	name = "advanced energy gun"
 	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell."
 	icon_state = "nucgun"
-	item_state = null
 	origin_tech = "combat=4;magnets=4;powerstorage=4"
 	var/fail_tick = 0
 	charge_delay = 5
@@ -230,3 +224,57 @@
 	. += ""
 	. += "Nonetheless, Nanotrasen Marketing is very pleased with the current product, and hopes that it can soon be sold on the galactic market to customers that wish to employ energy weapons \
 	free from the logistical constraints of recharging stations."
+
+//////////////////////////////
+// MARK: ENERGY SHOTGUN
+//////////////////////////////
+/obj/item/gun/energy/gun/shotgun
+	name = "ES-9 Energy Scatterbeam"
+	desc = "A hybrid fire energy shotgun manufactured by Shellguard Munitions Co. The pump changes the modes between 'disable' and 'kill'."
+	icon_state = "eshotgun"
+	origin_tech = "combat=5;magnets=5"
+	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
+	slot_flags = ITEM_SLOT_BACK
+	var/fail_tick = 0
+	ammo_x_offset = 1
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/eshotgun, /obj/item/ammo_casing/energy/laser/eshotgun)
+	var/pump_time = 1 SECONDS
+	COOLDOWN_DECLARE(pump_cooldown)
+
+/obj/item/gun/energy/gun/shotgun/select_fire(mob/living/user)
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, pump_cooldown))
+		return
+	playsound(user, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
+	COOLDOWN_START(src, pump_cooldown, pump_time)
+
+/obj/item/gun/energy/gun/shotgun/examine_more(mob/user)
+	..()
+	. = list()
+	. += "The ES-9 is a larger and heavier version of Shellguard Munitions' EG-7 Energy Gun. Featuring a heavier power core and a set of prisms for splitting the primary beam into multiple shots, this energy weapon emulates the common shotgun."
+	. += ""
+	. += "This scatter-beam technology allows for more energy output per trigger pull, however the increased heat on the focusing lens has resulted in a decreased fire rate compared to the standard fare. \
+	It is a Nanotrasen officer's best friend, allowing them to stop crime one trigger pull at a time."
+
+/obj/item/gun/energy/gun/shotgun/cyborg
+	name = "Energy Scatterbeam"
+	desc = "An energy emitter that fires spread-fire laser shells."
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/eshotgun/cyborg)
+
+/obj/item/gun/energy/gun/shotgun/newshot()
+	..()
+	robocharge()
+
+/obj/item/gun/energy/emitter/gun/shotgun/emp_act()
+	return
+
+// MARK: FAKE ENERGY GUN
+/obj/item/gun/energy/gun/fake
+	name = "replica EG-7 energy gun"
+	desc = "It's a laser tag gun redesigned with a few pieces of cheap plastic to look like an EG-7 energy gun, so you won't harm anyone. This one isn't even sanctioned for laser tag, sad."
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/fake)
+	can_flashlight = FALSE
+	selfcharge = TRUE
+	can_charge = FALSE
+	throwforce = 0

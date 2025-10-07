@@ -65,6 +65,7 @@
 #define TINT_CONTROL_GROUP_NONE 0
 
 /// Material defines, for determining how much of a given material an item contains
+#define MAT_WOOD			"wood"
 #define MAT_METAL			"metal"
 #define MAT_GLASS			"glass"
 #define MAT_SILVER			"silver"
@@ -78,6 +79,10 @@
 #define MAT_TITANIUM		"titanium"
 #define MAT_BIOMASS			"biomass"
 #define MAT_PLASTIC			"plastic"
+#define MAT_BRASS			"brass"
+#define MAT_PALLADIUM		"palladium"
+#define MAT_PLATINUM		"platinum"
+#define MAT_IRIDIUM			"iridium"
 
 /// The amount of materials you get from a sheet of mineral like iron/diamond/glass etc
 #define MINERAL_MATERIAL_AMOUNT 2000

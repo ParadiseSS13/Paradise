@@ -9,8 +9,6 @@ GLOBAL_LIST_EMPTY(blob_minions)
 	icon = 'icons/mob/blob.dmi'
 	light_range = 3
 	desc = "Some blob creature thingy."
-	density = FALSE
-	opacity = FALSE
 	anchored = TRUE
 	max_integrity = 30
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 80, ACID = 70)
@@ -33,6 +31,10 @@ GLOBAL_LIST_EMPTY(blob_minions)
 	if(atmosblock)
 		recalculate_atmos_connectivity()
 	ConsumeTile()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/blob/Destroy()
 	if(atmosblock)
@@ -200,13 +202,6 @@ GLOBAL_LIST_EMPTY(blob_minions)
 			incoming_overmind.blob_core.chemical_attack(adjacent)
 			color = incoming_overmind.blob_reagent_datum.color
 			return
-
-/obj/structure/blob/Initialize(mapload)
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/blob/proc/on_atom_entered(datum/source, atom/movable/entered)
 	entered.blob_act(src)

@@ -3,9 +3,7 @@
 ****************************************************/
 /obj/item/organ/external
 	name = "external"
-	min_broken_damage = 30
 	max_damage = 0
-	dir = SOUTH
 	organ_tag = "limb"
 
 	blocks_emissive = FALSE
@@ -60,10 +58,13 @@
 	var/amputation_point // Descriptive string used in amputation.
 	var/can_grasp
 	var/can_stand
+	var/malfdamage
 
 	var/splinted_count = 0 //Time when this organ was last splinted
 	///If this organ's max HP is reduced by the IPC magnetic joints implant
 	var/fragile = FALSE
+	///The level of false skin used to cover robotic organs on the limb. Updated when too damaged, when installed, or when an organ with it is installed.
+	var/augmented_skin_cover_level = 0
 
 /obj/item/organ/external/necrotize(update_sprite=TRUE, ignore_vital_death = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
@@ -171,18 +172,11 @@
 		return ..()
 	var/mob/living/carbon/human/C = M
 	if(is_robotic() && HAS_TRAIT(C, TRAIT_IPC_JOINTS_MAG) && isnull(C.bodyparts_by_name[limb_name]))
-		user.unEquip(src)
+		user.drop_item_to_ground(src)
 		replaced(C)
 		C.update_body()
 		C.updatehealth()
 		C.UpdateDamageIcon()
-		if(limb_name == BODY_ZONE_HEAD)
-			var/obj/item/organ/external/head/H = C.get_organ(BODY_ZONE_HEAD)
-			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
-			if(robohead.is_monitor) //Ensures that if an IPC gets a head that's got a human hair wig attached to their body, the hair won't wipe.
-				H.h_style = "Bald"
-				H.f_style = "Shaved"
-				C.m_styles["head"] = "None"
 		user.visible_message(
 			"<span class='notice'>[user] has attached [C]'s [src] to the [amputation_point].</span>",
 			"<span class='notice'>You have attached [C]'s [src] to the [amputation_point].</span>")
@@ -249,6 +243,8 @@
 	check_for_internal_bleeding(brute)
 	// See if we need to inflict severe burns
 	check_for_burn_wound(burn)
+	// See what happens to the skin covers.
+	check_skin_covers(brute, burn)
 	// Threshold needed to have a chance of hurting internal bits with something sharp
 #define LIMB_SHARP_THRESH_INT_DMG 5
 	// Threshold needed to have a chance of hurting internal bits
@@ -394,7 +390,7 @@ This function completely restores a damaged organ to perfect condition.
 	surgeryize()
 	if(is_robotic())	//Robotic organs stay robotic.
 		status = ORGAN_ROBOT
-	else if(HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS))
+	else if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS_ORGAN))
 		status = ORGAN_DEAD
 	else
 		status = 0
@@ -402,7 +398,7 @@ This function completely restores a damaged organ to perfect condition.
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
-	if(!HAS_TRAIT(owner, TRAIT_I_WANT_BRAINS)) // zombies's wounds don't close. Because thats cool.
+	if(!HAS_TRAIT(src, TRAIT_I_WANT_BRAINS_ORGAN)) // zombies's wounds don't close. Because thats cool.
 		open = ORGAN_CLOSED //Closing all wounds.
 
 	// handle internal organs
@@ -545,6 +541,15 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(burn_dam >= min_broken_damage && prob(damage * max(owner.bodytemperature / BODYTEMP_HEAT_DAMAGE_LIMIT, 1)))
 		cause_burn_wound(update_health)
+
+/obj/item/organ/external/proc/check_skin_covers(brute, burn)
+	if(!augmented_skin_cover_level || augmented_skin_cover_level == 4) // No need to run it if they don't have it, or if it is unbreakable.
+		return
+	if(((brute_dam >= min_broken_damage && brute) || (burn_dam >= min_broken_damage && burn)) && augmented_skin_cover_level == 1) // We want this at 50% for arms / feet which have low max hp, 35% for head / chest
+		break_augmented_skin()
+		return
+	if((brute_dam >= max_damage * (augmented_skin_cover_level / 3) && brute) || (burn_dam >= max_damage * (augmented_skin_cover_level / 3) && burn)) // 66% for level 2, 100% for level 3
+		break_augmented_skin()
 
 // new damage icon system
 // returns just the brute/burn damage code
@@ -749,12 +754,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 		holder.visible_message(\
 			"\The [holder.handcuffed.name] falls off of [holder.name].",\
 			"\The [holder.handcuffed.name] falls off you.")
-		holder.unEquip(holder.handcuffed)
+		holder.drop_item_to_ground(holder.handcuffed)
 	if(holder.legcuffed && (body_part in list(FOOT_LEFT, FOOT_RIGHT, LEG_LEFT, LEG_RIGHT)))
 		holder.visible_message(\
 			"\The [holder.legcuffed.name] falls off of [holder.name].",\
 			"\The [holder.legcuffed.name] falls off you.")
-		holder.unEquip(holder.legcuffed)
+		holder.drop_item_to_ground(holder.legcuffed)
 
 /obj/item/organ/external/proc/fracture(silent = FALSE)
 	if(is_robotic())
@@ -822,15 +827,40 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(update_health)
 		owner.updatehealth("burn wound fixed")
 
+/obj/item/organ/external/proc/break_augmented_skin(intentional = FALSE)
+	augmented_skin_cover_level = 0
+	if(!owner)
+		return
+	playsound(owner.loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
+	if(!intentional)
+		owner.visible_message("<span class='warning'>Synthetic skin shatters and flakes off [owner]'s [name]!</span>",
+		"<span class='userdanger'>Your synthetic skin fails on your [name]!</span>")
+	else
+		owner.visible_message("<span class='warning'>[owner] tears their synthetic skin off their [name], exposing the cybernetics beneath!</span>",
+		"<span class='danger'>You peel your synthetic skin off your cybernetics on your [name].</span>")
+	if(ishuman(owner))
+		var/mob/living/carbon/human/refreshing = owner
+		refreshing.update_int_organs()
+
+/obj/item/organ/external/proc/apply_augmented_skin(applied_level)
+	if(applied_level + is_robotic() <= augmented_skin_cover_level) // Don't do anything if the application matches or is below the current level.
+		return FALSE
+	augmented_skin_cover_level = (applied_level + is_robotic()) // Robotic limbs get an extra level of protection.
+	if(!owner || !ishuman(owner))
+		return TRUE
+	var/mob/living/carbon/human/refreshing = owner
+	refreshing.update_int_organs()
+	return TRUE
+
 /obj/item/organ/external/robotize(company, make_tough = FALSE, convert_all = TRUE)
 	..()
 	//robot limbs take reduced damage
 	if(!make_tough)
-		brute_mod = 0.66
-		burn_mod = 0.66
 		dismember_at_max_damage = TRUE
 	else
 		tough = TRUE
+	if(augmented_skin_cover_level)
+		apply_augmented_skin(augmented_skin_cover_level) // Raises it a level
 	// Robot parts also lack bones
 	// This is so surgery isn't kaput, let's see how this does
 	encased = null
@@ -885,7 +915,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	return !(status & (ORGAN_MUTATED|ORGAN_DEAD))
 
 /obj/item/organ/external/proc/is_malfunctioning()
-	return (is_robotic() && (brute_dam + burn_dam) >= 10 && prob(brute_dam + burn_dam) && !tough)
+	return (is_robotic() && (brute_dam + burn_dam) >= malfdamage && prob(brute_dam + burn_dam) && !tough)
 
 /obj/item/organ/external/remove(mob/living/user, ignore_children)
 
@@ -933,7 +963,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='danger'>\The [victim]'s [name] explodes violently!</span>",\
 			"<span class='userdanger'>Your [name] explodes!</span>",\
 			"<span class='danger'>You hear an explosion!</span>")
-		explosion(get_turf(victim), -1, -1, 2, 3)
+		explosion(get_turf(victim), -1, -1, 2, 3, cause = "Sabotaged robotic limb")
 		do_sparks(5, 0, victim)
 		qdel(src)
 

@@ -1,3 +1,5 @@
+GLOBAL_VAR(station_report) // Variable to save the station report
+
 #define PAPERWORK	1
 #define PHOTO		2
 
@@ -6,7 +8,7 @@
 	desc = "It looks like you're writing a letter. Want some help?"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "clipboard"
-	item_state = "clipboard"
+	inhand_icon_state = "clipboard"
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	var/obj/item/pen/containedpen
@@ -14,8 +16,8 @@
 	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
 
-/obj/item/clipboard/New()
-	..()
+/obj/item/clipboard/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/item/clipboard/AltClick(mob/user)
@@ -52,8 +54,7 @@
 		if(!is_pen(P))
 			return
 		to_chat(user, "<span class='notice'>You slide [P] into [src].</span>")
-		user.unEquip(P)
-		P.forceMove(src)
+		user.transfer_item_to(P, src)
 		containedpen = P
 	else
 		if(!containedpen)
@@ -96,7 +97,7 @@
 
 /obj/item/clipboard/attackby__legacy__attackchain(obj/item/W, mob/user)
 	if(isPaperwork(W)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
-		user.unEquip(W)
+		user.unequip(W)
 		W.forceMove(src)
 		to_chat(user, "<span class='notice'>You clip [W] onto [src].</span>")
 		playsound(loc, "pageturn", 50, 1)
@@ -157,6 +158,18 @@
 		toppaper = P
 	update_icon()
 	showClipboard(usr)
+
+/obj/item/clipboard/station_report
+	name = "station report clipboard"
+	desc = "An important clipboard used to make reports on the station status, deliverable to Nanotrasen at the end of the shift. The top paper is the one formally inspected."
+	icon_state = "clipboard_premium"
+
+/obj/item/clipboard/station_report/Initialize(mapload)
+	. = ..()
+	GLOB.station_report = src
+	var/start_paper = new /obj/item/paper(src)
+	toppaper = start_paper
+	update_icon()
 
 #undef PAPERWORK
 #undef PHOTO

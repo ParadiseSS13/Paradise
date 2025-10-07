@@ -1,13 +1,12 @@
 /obj/item/robot_parts
 	name = "robot parts"
 	icon = 'icons/obj/robot_parts.dmi'
-	item_state = "buildpipe"
+	inhand_icon_state = "buildpipe"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	var/list/part = null
 	var/sabotaged = FALSE //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
-	dir = SOUTH
 
 /obj/item/robot_parts/New(newloc, model)
 	..(newloc)
@@ -151,7 +150,7 @@
 		to_chat(user, "You armed the robot frame")
 		M.use(1)
 		if(user.get_inactive_hand()==src)
-			user.unEquip(src)
+			user.unequip(src)
 			user.put_in_inactive_hand(B)
 		qdel(src)
 	if(istype(W, /obj/item/robot_parts/l_leg))
@@ -410,7 +409,7 @@
 			to_chat(user, "<span class='notice'>You insert the flash into the eye socket!</span>")
 	else if(istype(W, /obj/item/stock_parts/manipulator))
 		to_chat(user, "<span class='notice'>You install some manipulators and modify the head, creating a functional spider-bot!</span>")
-		new /mob/living/simple_animal/spiderbot(get_turf(loc))
+		new /mob/living/basic/spiderbot(get_turf(loc))
 		user.drop_item()
 		qdel(W)
 		qdel(src)

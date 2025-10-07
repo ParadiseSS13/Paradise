@@ -70,20 +70,21 @@
 
 /datum/click_intercept/give/New(client/C)
 	..()
-	holder.mouse_pointer_icon = 'icons/mouse_icons/give_item.dmi'
+	holder.mob.add_mousepointer(MP_GIVE_MODE_PRIORITY, 'icons/mouse_icons/give_item.dmi')
 	to_chat(holder, "<span class='notice'>You can now left click on someone to give them your held item.</span>")
 	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
 	RegisterSignal(holder.mob, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), COMSIG_CARBON_SWAP_HANDS), PROC_REF(signal_qdel))
 
 
 /datum/click_intercept/give/Destroy(force = FALSE, ...)
-	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
+	holder.mob.remove_mousepointer(MP_GIVE_MODE_PRIORITY)
 	if(!item_offered)
 		to_chat(holder.mob, "<span class='notice'>You're no longer trying to give someone your held item.</span>")
 	return ..()
 
 
 /datum/click_intercept/give/InterceptClickOn(mob/user, params, atom/object)
+	. = TRUE
 	if(user == object || !ishuman(object))
 		return
 	var/mob/living/carbon/human/receiver = object
@@ -170,7 +171,7 @@
 		to_chat(receiver, "<span class='warning'>[I] stays stuck to [giver]'s hand when you try to take it!</span>")
 		return
 	UnregisterSignal(I, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)) // We don't want these triggering `cancel_give` at this point, since the give is successful.
-	giver.unEquip(I)
+	giver.drop_item_to_ground(I)
 	receiver.put_in_hands(I)
 	I.add_fingerprint(receiver)
 	I.on_give(giver, receiver)

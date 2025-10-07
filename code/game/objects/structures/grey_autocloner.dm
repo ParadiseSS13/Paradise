@@ -24,12 +24,14 @@
 	clonemind = null
 	return ..()
 
-/obj/machinery/grey_autocloner/attackby__legacy__attackchain(obj/item/bio_chip_implanter/implant, mob/user, params)
+/obj/machinery/grey_autocloner/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	var/obj/item/bio_chip_implanter/implant = used
 	if(!istype(implant) || !(istype(implant.imp, /obj/item/bio_chip/grey_autocloner)))
 		return ..()
 	var/obj/item/bio_chip/grey_autocloner/autoclone = implant.imp
 	autoclone.linked = src
 	atom_say("Link confirmed!")
+	return ITEM_INTERACT_COMPLETE
 
 /obj/machinery/grey_autocloner/proc/growclone(datum/dna2_record/R)
 	if(attempting || stat & (NOPOWER|BROKEN))
@@ -122,7 +124,7 @@
 /obj/machinery/grey_autocloner/proc/messy_explode()
 	if(occupant)
 		occupant.forceMove(get_turf(src))
-	explosion(get_turf(src), 1, 2, 4, flame_range = 2)
+	explosion(get_turf(src), 1, 2, 4, flame_range = 2, cause = "Grey Autocloner Self-destruct")
 	qdel(src)
 
 /obj/machinery/grey_autocloner/deconstruct(disassembled)
