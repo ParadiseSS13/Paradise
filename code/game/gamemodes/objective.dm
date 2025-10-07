@@ -891,7 +891,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/specialization
 	name = "Vampire subclass objective"
-	explanation_text = "Accumulate at least 150 units of blood and pick a specialization to recieve further instructions."
+	explanation_text = "Accumulate at least 150 units of blood and pick a specialization to receive further instructions."
 	needs_target = FALSE
 	var/datum/vampire_subclass/subclass
 
