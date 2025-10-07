@@ -8,7 +8,8 @@
 	permeability_coefficient = 0.8
 	/// Only these species can wear this kit.
 	var/list/species_restricted
-	var/icon_monitor = null //If set to a sprite path, replaces the sprite for monitor heads
+	/// If set to a sprite path, replaces the sprite for monitor heads
+	var/icon_monitor = null
 	/// Can the wearer see reagents inside transparent containers while it's equipped?
 	var/scan_reagents = FALSE
 	/// Can the wearer see reagents inside any container and identify blood types while it's equipped?
@@ -40,8 +41,7 @@
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
 		return
-	/// Done as such to not break chameleon gear since you can't rely on initial states
-	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
+	icon_state = "[initial(icon_state)][up ? "_up" : ""]"
 	return TRUE
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
@@ -378,9 +378,6 @@
 	/// if this hat can be a hat of a hat. Hat^2
 	var/can_be_hat = TRUE
 
-/obj/item/clothing/head/update_icon_state()
-	if(..())
-		worn_icon_state = "[replacetext("[worn_icon_state]", "_up", "")][up ? "_up" : ""]"
 
 /obj/item/clothing/head/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -1016,7 +1013,6 @@
 	var/list/accessories = list()
 	var/displays_id = TRUE
 	var/rolled_down = FALSE
-	var/basecolor
 
 /obj/item/clothing/under/rank
 	inhand_icon_state = "bl_suit"
@@ -1144,36 +1140,38 @@
 			. += "<span class='notice'><b>Alt-Shift-Click</b> to remove an accessory.</span>"
 	. += "<span class='notice'><b>Ctrl-Shift-Click</b> to roll down this jumpsuit.</span>"
 
+/// Suffix for jumpsuits used in .dmi files when rolled down
+#define JUMPSUIT_ROLLED_DOWN_SUFFIX "_d"
+
+/obj/item/clothing/under/proc/roll_undersuit(mob/living/carbon/human/user)
+	if(copytext(icon_state, -length(JUMPSUIT_ROLLED_DOWN_SUFFIX)) != JUMPSUIT_ROLLED_DOWN_SUFFIX)
+		base_icon_state = icon_state
+
+	var/current_worn_icon = LAZYACCESS(sprite_sheets, user.dna.species.sprite_sheet_name) || worn_icon || 'icons/mob/clothing/under/misc.dmi'
+	if(!icon_exists(current_worn_icon, "[base_icon_state][JUMPSUIT_ROLLED_DOWN_SUFFIX]_s"))
+		to_chat(user, "<span class='notice'>You cannot roll down this uniform!</span>")
+		return
+
+	rolled_down = !rolled_down
+	if(rolled_down)
+		body_parts_covered &= ~(UPPER_TORSO | LOWER_TORSO | ARMS)
+	else
+		body_parts_covered = initial(body_parts_covered)
+	worn_icon_state = "[base_icon_state][rolled_down ? "[JUMPSUIT_ROLLED_DOWN_SUFFIX]" : ""]"
+	user.update_inv_w_uniform()
+
+#undef JUMPSUIT_ROLLED_DOWN_SUFFIX
 
 /obj/item/clothing/under/CtrlShiftClick(mob/living/carbon/human/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
 		to_chat(user, "<span class='notice'>You cannot roll down the uniform!</span>")
 		return
 
-	if(copytext(item_color,-2) != "_d")
-		basecolor = item_color
-
 	if(user.get_item_by_slot(ITEM_SLOT_JUMPSUIT) != src)
 		to_chat(user, "<span class='notice'>You must wear the uniform to adjust it!</span>")
+		return
 
-	else
-		if((basecolor + "_d_s") in icon_states(user.w_uniform.sprite_sheets[user.dna.species.sprite_sheet_name]))
-			if(user.w_uniform.sprite_sheets[user.dna.species.sprite_sheet_name] && icon_exists(user.w_uniform.sprite_sheets[user.dna.species.sprite_sheet_name], "[basecolor]_d_s"))
-				item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-				user.update_inv_w_uniform()
-
-		else
-			if(icon_exists(user.w_uniform.worn_icon, "[basecolor]_d_s") || icon_exists('icons/mob/clothing/under/misc.dmi', "[basecolor]_d_s"))
-				item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-				user.update_inv_w_uniform()
-			else
-				to_chat(user, "<span class='notice'>You cannot roll down this uniform!</span>")
-	if(item_color == "[basecolor]")
-		body_parts_covered = initial(body_parts_covered)
-	else
-		body_parts_covered &= ~UPPER_TORSO
-		body_parts_covered &= ~LOWER_TORSO
-		body_parts_covered &= ~ARMS
+	roll_undersuit(user)
 
 /obj/item/clothing/under/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))

@@ -236,10 +236,6 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	. = ..()
 	recipes = GLOB.plasteel_recipes
 
-/obj/item/stack/sheet/wood/cyborg
-	energy_type = /datum/robot_storage/energy/wood
-	is_cyborg = TRUE
-
 //////////////////////////////
 // MARK: WOOD
 //////////////////////////////
@@ -305,6 +301,13 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 /obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge)
 	. = ..()
 	recipes = GLOB.wood_recipes
+
+/obj/item/stack/sheet/wood/fifty
+	amount = 50
+
+/obj/item/stack/sheet/wood/cyborg
+	energy_type = /datum/robot_storage/energy/wood
+	is_cyborg = TRUE
 
 //////////////////////////////
 // MARK: BAMBOO
@@ -412,6 +415,9 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 /obj/item/stack/sheet/cloth/ten
 	amount = 10
 
+/obj/item/stack/sheet/cloth/fifty
+	amount = 50
+
 //////////////////////////////
 // MARK: DURATHREAD
 //////////////////////////////
@@ -440,6 +446,9 @@ GLOBAL_LIST_INIT(durathread_recipes, list (
 /obj/item/stack/sheet/durathread/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.durathread_recipes
 	return ..()
+
+/obj/item/stack/sheet/durathread/fifty
+	amount = 50
 
 /obj/item/stack/sheet/cotton
 	name = "raw cotton bundle"
@@ -521,6 +530,9 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 /obj/item/stack/sheet/cardboard/Initialize(mapload, new_amount, merge)
 	. = ..()
 	recipes = GLOB.cardboard_recipes
+
+/obj/item/stack/sheet/cardboard/fifty
+	amount = 50
 
 //////////////////////////////
 // MARK: SOIL

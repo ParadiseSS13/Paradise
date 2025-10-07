@@ -74714,10 +74714,10 @@
 /turf/space,
 /area/space)
 "oFZ" = (
-/obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/machinery/anomaly_refinery,
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/launch)
 "oGg" = (
@@ -81452,7 +81452,7 @@
 	},
 /area/station/security/warden)
 "pUT" = (
-/mob/living/simple_animal/crab/coffee,
+/mob/living/basic/crab/coffee,
 /turf/simulated/floor/carpet/red,
 /area/station/public/fitness)
 "pUV" = (
@@ -96090,6 +96090,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/item/raw_anomaly_core,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -123448,6 +123449,10 @@
 	icon_state = "dark"
 	},
 /area/station/aisat/service)
+"yhM" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/station/science/toxins/launch)
 "yhR" = (
 /obj/machinery/door/window/classic/normal{
 	dir = 8;
@@ -176759,7 +176764,7 @@ bJV
 dKU
 tyE
 dtw
-qPL
+yhM
 xrQ
 dxp
 lwp
