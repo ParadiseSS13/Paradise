@@ -55,6 +55,7 @@
 // implement heat cap, its too silly (800,000,000K)
 // make reactor emit radiation waves while on
 // todo: Make reactor generate gas. when H2 is in, add that.
+// todo: Allow grilling on an active reactor
 
 // ========= TO DO ==========
 
@@ -62,8 +63,6 @@
 // implement ways to increase the maximum overheat cap
 // make reactor give off lots of rads when broken
 
-// todo: Allow grilling on an active reactor
-// todo: Make some lavaland loot into special rods/upgrades
 // todo: Make different gasses do... something
 // event idea: Pufts of contaminating rad smoke
 
@@ -92,10 +91,6 @@
 	var/control_rod_percentage = 0
 	/// A modifier for general reactivity, based off of heat production. Cant go below 1
 	var/reactivity_multiplier = 1
-	/// The current air contents of this device
-	var/datum/gas_mixture/air_contents
-	/// Holds the grill for the reactor.
-	var/obj/machinery/cooking/grill/loaded/reactor/grill
 	/// How many functional control rods does the reactor have?
 	var/control_rods_remaining = 5
 	/// what repair step is the reactor on?
@@ -126,8 +121,6 @@
 	var/lastwarning = 0
 	/// a boolean value for if we need to send out an alert. (usually during meltdowns)
 	var/send_message = FALSE
-	/// Our internal radio
-	var/obj/item/radio/radio
 	/// Are we giving the final countdown to meltdown
 	var/final_countdown = FALSE
 	/// Are admins freezing the reactor for whatever reason
@@ -146,6 +139,16 @@
 	var/tick_counter = 0
 	/// What is the lowest temperature the reactor wants to be at?
 	var/minimum_operating_temp = 0
+	/// Our running soundloop
+	var/datum/looping_sound/reactor/soundloop
+	/// Our startup soundloop
+	var/datum/looping_sound/reactor_startup/startloop
+	/// The current air contents of this device
+	var/datum/gas_mixture/air_contents
+	/// Holds the grill for the reactor.
+	var/obj/machinery/cooking/grill/loaded/reactor/grill
+	/// Our internal radio
+	var/obj/item/radio/radio
 
 /obj/machinery/atmospherics/fission_reactor/roundstart
 	primary_engine = TRUE
@@ -182,6 +185,8 @@
 	radio.config(list("Engineering" = 0))
 	if(primary_engine)
 		GLOB.main_fission_reactor = src
+	soundloop = new(list(src), FALSE)
+	startloop = new(list(src), FALSE)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/fission_reactor/ex_act(severity)
@@ -204,6 +209,11 @@
 /obj/machinery/atmospherics/fission_reactor/Destroy()
 	investigate_log("was destroyed!", INVESTIGATE_REACTOR)
 	clear_reactor_network()
+	QDEL_NULL(soundloop)
+	QDEL_NULL(startloop)
+	QDEL_NULL(air_contents)
+	QDEL_NULL(grill)
+	QDEL_NULL(radio)
 	return ..()
 
 /obj/machinery/atmospherics/fission_reactor/update_overlays()
@@ -731,6 +741,8 @@
 	final_power = 0
 	reactivity_multiplier = 1
 	remove_light()
+	playsound(src, 'sound/machines/fission/reactor_shutoff.ogg', 50, 0, 4, ignore_walls = TRUE)
+	soundloop.stop()
 	if(send_message)
 		radio.autosay("<b>Reactor SCRAM completed successfully. Integrity: [get_integrity()]%</b>", name, "Engineering")
 		send_message = FALSE
@@ -741,17 +753,19 @@
 				var/obj/item/reagent_containers/cooking/container = surface.container
 				if(istype(container) && container.tracker)
 					SEND_SIGNAL(container, COMSIG_COOK_MACHINE_STEP_INTERRUPTED, surface)
-	// #warn add a sound here
 
 /obj/machinery/atmospherics/fission_reactor/proc/boot_up()
 	offline = FALSE
 	icon_state = "reactor_starting"
-	// #warn add a sound here
+	startloop.start()
 
 /obj/machinery/atmospherics/fission_reactor/proc/become_operational()
 	starting_up = FALSE
 	offline = FALSE
 	can_create_power = TRUE
+	playsound(src, 'sound/machines/fission/reactor_startup.ogg', 50, 0, 4, ignore_walls = TRUE)
+	startloop.stop()
+	soundloop.start()
 	if(safety_override)
 		icon_state = "reactor_overheat"
 	else
@@ -761,7 +775,6 @@
 		for(var/datum/cooking_surface/surface in grill.surfaces)
 			if(!surface.on)
 				surface.turn_on()
-	// #warn add a sound here
 
 /// returns a value from 0 to 1 based off current operating power
 /obj/machinery/atmospherics/fission_reactor/proc/operating_percent()
