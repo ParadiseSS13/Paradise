@@ -8,6 +8,7 @@
 	worn_icon = 'icons/mob/clothing/species/plasmaman/helmet.dmi'
 	worn_icon_state = null
 	inhand_icon_state = "plasmaman_helmet"
+	icon_monitor = null
 	strip_delay = 80
 	tint = FLASH_PROTECTION_WELDER
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = INFINITY, ACID = 150)
@@ -282,9 +283,9 @@
 /obj/item/clothing/head/helmet/space/plasmaman/tacticool/examine(mob/user)
 	. = ..()
 	if(!reskinned)
-		. += "<span class='notice'>You can <b>Alt-Click</b> to reskin it when held.</span>"
+		. += "<span class='notice'>You can <b>Ctrl-Shift-Click</b> to reskin it when held.</span>"
 
-/obj/item/clothing/head/helmet/space/plasmaman/tacticool/AltClick(mob/user)
+/obj/item/clothing/head/helmet/space/plasmaman/tacticool/CtrlShiftClick(mob/user)
 	..()
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
