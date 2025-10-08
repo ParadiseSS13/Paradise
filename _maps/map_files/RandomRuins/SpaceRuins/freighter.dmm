@@ -18,7 +18,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
+/obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -51,7 +51,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
+/obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -88,7 +88,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
+/obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -166,11 +166,8 @@
 /area/ruin/space/powered)
 "nD" = (
 /obj/structure/bookcase/random,
-/obj/effect/turf_decal/tiles/department/cargo/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
-	dir = 8
+/obj/effect/turf_decal/tiles/department/engineering/checker{
+	dir = 2
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
@@ -261,13 +258,10 @@
 /obj/item/id_decal/gold,
 /obj/item/stack/spacecash/c200,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/obj/effect/turf_decal/tiles/dark/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "wu" = (
@@ -281,11 +275,8 @@
 	dir = 1
 	},
 /obj/item/flag/species/nian,
-/obj/effect/turf_decal/tiles/department/cargo/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
-	dir = 8
+/obj/effect/turf_decal/tiles/department/engineering/checker{
+	dir = 2
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
@@ -370,7 +361,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
+/obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -400,11 +391,8 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
-	dir = 4
+/obj/effect/turf_decal/tiles/department/engineering/checker{
+	dir = 2
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
@@ -442,7 +430,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/cargo/corner{
+/obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -636,7 +624,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
+/obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -654,13 +642,10 @@
 "QM" = (
 /obj/structure/railing,
 /obj/item/flag/ussp,
-/obj/effect/turf_decal/tiles/dark/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/cargo/corner{
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "Sp" = (
