@@ -150,6 +150,7 @@
 
 	var/list/blocked = list(
 		/obj/item/food,
+		/obj/item/food/burger, // abstract burger
 		/obj/item/food/sliced/bread,
 		/obj/item/food/sliceable,
 		/obj/item/food/sliceable/pizza,
