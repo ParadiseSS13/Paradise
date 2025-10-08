@@ -84,7 +84,7 @@
 /obj/machinery/fluid_pipe/pump/process()
 	if(fluid_datum.total_capacity <= 0 || incoming.fluid_datum?.total_capacity <= 0)
 		return
-	incoming.move_any_fluid(fluid_datum, 50)
+	incoming.fluid_datum.move_any_fluid(fluid_datum, 50)
 
 /obj/machinery/fluid_pipe/pump/north
 	dir = NORTH

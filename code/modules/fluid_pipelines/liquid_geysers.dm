@@ -21,6 +21,8 @@
 	icon = 'icons/obj/pipes/disposal.dmi'
 	icon_state = "pipe-j2"
 	just_a_pipe = FALSE
+	layer = ABOVE_ALL_MOB_LAYER
+	density = TRUE
 	/// Reference to the geyser underneath the extractor
 	var/obj/structure/geyser/extracting_geyser
 
