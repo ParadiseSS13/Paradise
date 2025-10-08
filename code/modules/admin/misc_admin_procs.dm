@@ -771,8 +771,11 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	else
 		var/atom/A = new chosen(usr.loc)
 		A.admin_spawned = TRUE
-
-	log_admin("[key_name(usr)] spawned [chosen] at ([usr.x],[usr.y],[usr.z])")
+		if(QDELING(A))
+			log_admin("[key_name(usr)] tried to spawn [chosen] at ([usr.x],[usr.y],[usr.z]), but it qdeleted during Initialize.")
+			to_chat(usr, "<font color='red'>Error: the atom qdeleted during Initialiize.")
+		else
+			log_admin("[key_name(usr)] spawned [chosen] at ([usr.x],[usr.y],[usr.z])")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/show_traitor_panel(mob/M in GLOB.mob_list)
