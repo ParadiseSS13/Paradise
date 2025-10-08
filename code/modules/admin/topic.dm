@@ -3268,7 +3268,6 @@
 					W.sprite_sheets = /obj/item/clothing/under/dress/schoolgirl::sprite_sheets
 					W.worn_icon_state = /obj/item/clothing/under/dress/schoolgirl::worn_icon_state
 					W.inhand_icon_state = /obj/item/clothing/under/dress/schoolgirl::inhand_icon_state
-					W.item_color = /obj/item/clothing/under/dress/schoolgirl::item_color
 				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
 				SEND_SOUND(world, sound('sound/AI/animes.ogg'))
 			if("eagles")//SCRAW

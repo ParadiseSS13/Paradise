@@ -19254,6 +19254,23 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
+"dTH" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/recharge_station,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/recharge_station,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/medical/storage)
 "dTJ" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
@@ -24794,6 +24811,41 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/aisat/atmos)
+"eZX" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/obj/structure/sign/nosmoking_1{
+	pixel_y = 30
+	},
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/obj/item/raw_anomaly_core,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/obj/structure/sign/nosmoking_1{
+	pixel_y = 30
+	},
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/obj/item/raw_anomaly_core,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/science/toxins/mixing)
 "eZZ" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/bronze,
@@ -80423,13 +80475,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"qjc" = (
-/obj/machinery/recharge_station,
-/obj/effect/turf_decal/tiles/department/medical/side{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/medical/storage)
 "qjt" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -93305,22 +93350,6 @@
 /obj/effect/turf_decal/tiles/department/science/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
-"sMa" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/structure/sign/nosmoking_1{
-	pixel_y = 30
-	},
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/item/raw_anomaly_core,
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/science/toxins/mixing)
 "sMc" = (
 /obj/structure/reagent_dispensers/beerkeg/nuke{
 	name = "Nanotrasen-brand nuclear fizz-sion explosive"
@@ -168052,7 +168081,7 @@ xNg
 jwg
 lVc
 oGW
-qjc
+dTH
 kSh
 oWm
 ivo
@@ -172459,7 +172488,7 @@ uet
 nyf
 dkq
 adm
-sMa
+eZX
 saV
 nWb
 bIs

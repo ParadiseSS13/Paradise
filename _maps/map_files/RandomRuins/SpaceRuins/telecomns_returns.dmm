@@ -1648,20 +1648,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/computer)
-"De" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/computer/monitor/secret{
-	dir = 1;
-	name = "Telecoms Power Monitoring"
-	},
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/telecomms/tele)
 "Dr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1788,6 +1774,39 @@
 	dir = 4
 	},
 /obj/structure/barricade/sandbags,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/telecomms/tele)
+"Fy" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/computer/monitor/secret{
+	dir = 1;
+	name = "Telecoms Power Monitoring"
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/computer/monitor/secret{
+	dir = 1;
+	name = "Telecoms Power Monitoring"
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "FA" = (
@@ -6257,7 +6276,7 @@ yD
 uM
 eA
 HR
-De
+Fy
 PQ
 ik
 YC
