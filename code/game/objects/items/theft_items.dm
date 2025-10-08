@@ -84,8 +84,7 @@
 			if(!cracked)
 				crack_open()
 		if(EXPLODE_HEAVY)
-			if(!dented)
-				dented = TRUE
+			dented = TRUE
 
 /obj/item/nuke_core_container/Destroy()
 	QDEL_NULL(core)
