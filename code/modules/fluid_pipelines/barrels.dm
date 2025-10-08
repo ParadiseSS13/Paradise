@@ -71,6 +71,7 @@
 
 /obj/machinery/fluid_pipe/barrel_filler/update_overlays()
 	..()
+	. = list()
 	for(var/obj/machinery/fluid_pipe/pipe as anything in get_adjacent_pipes())
 		. += "[get_dir(src, pipe)]"
 		// Somehow doesnt' want to render more than one connection
