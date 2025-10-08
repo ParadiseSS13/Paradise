@@ -54,8 +54,9 @@
 // adjust damage, its too slow (previously 3)
 // implement heat cap, its too silly (800,000,000K)
 // make reactor emit radiation waves while on
-// todo: Make reactor generate gas. when H2 is in, add that.
-// todo: Allow grilling on an active reactor
+// Make reactor generate gas. when H2 is in, add that.
+// Allow grilling on an active reactor
+// Monitor the sounds and adjust as needed
 
 // ========= TO DO ==========
 
@@ -64,8 +65,6 @@
 // make reactor give off lots of rads when broken
 
 // todo: Make different gasses do... something
-// event idea: Pufts of contaminating rad smoke
-
 
 /// MARK: Fission Reactor
 
@@ -556,6 +555,7 @@
 				active_chambers++
 				continue
 
+	// gather all our data from the chambers, and enrich if we need to
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
 		var/power_total
 		var/heat_total
@@ -580,10 +580,13 @@
 		final_heat += heat_total
 		final_power += power_total
 		chamber.held_rod.durability -= durability_loss
+
 	if(final_heat)
 		average_heatgen = final_heat / active_chambers
 	else
 		average_heatgen = 0.01
+
+	// Time to decide reactivity coefficient.
 	var/temp = air_contents.temperature()
 	var/total_mols = air_contents.total_moles()
 	if(!temp || !total_mols)
@@ -594,9 +597,9 @@
 		reactivity_multiplier = 1
 	if(temp > TOTAL_HEAT_THRESHOLD)
 		// Math equasion for here: y = a + b * ln(x)
-		var/offset = 1 // The offset for the math calc. Gives a flat number boost. A component
-		var/curve_intensity = 3.5 // Affects the rate of decay. higher = reactivity builds easier. B component
-		var/heat_component = (temp - TOTAL_HEAT_THRESHOLD) / HEAT_CONVERSION_RATIO // X component
+		var/offset = 1 // The offset for the math calc. Gives a flat number boost. (A) component
+		var/curve_intensity = 3.5 // Negatively affects the rate of decay. higher = reactivity builds easier. (B) component
+		var/heat_component = (temp - TOTAL_HEAT_THRESHOLD) / HEAT_CONVERSION_RATIO // (X) Component
 		reactivity_multiplier += (offset + curve_intensity * log(heat_component))
 
 	reactivity_multiplier = clamp(reactivity_multiplier, 1, REACTIVITY_COEFFICIENT_CAP)
@@ -608,12 +611,19 @@
 
 	var/rad_type = pick(GAMMA_RAD, ALPHA_RAD, BETA_RAD)
 
+	//Generating  the amount of Plasma created
 	var/datum/gas_mixture/temp_gas = new()
-	temp_gas.set_toxins(clamp(clamp(final_power / 20 MW, 0.01,  10) * reactivity_multiplier, 0.01, 50)) // turn this into hydrogen later. Yes, hydrogen. we dont have helium
+	// Math equasion for here: y = a + b * ln(x)
+	var/gas_offset = 1.5 // The offset for the math calc. Gives a flat number boost. (A) component
+	var/gas_curve_intensity = 4 // Affects the rate of decay. higher = reactivity builds easier. (B) component
+	var/power_component = (final_power / 1 MW) // (X) Component
+	var/toxins_amount =  clamp(gas_offset + gas_curve_intensity * log(power_component), 0, 30)
+	temp_gas.set_toxins(clamp(toxins_amount * reactivity_multiplier, 0.1, 100)) // turn this into hydrogen later. Yes, hydrogen. we dont have helium
 	temp_gas.set_temperature(air_contents.temperature())
 	air_contents.merge(temp_gas)
 	radiation_pulse(src, 10 * reactivity_multiplier, rad_type)
 
+	// Begin heating the air based off heat produced
 	var/heat_capacity = air_contents.heat_capacity()
 	if(heat_capacity)
 		if(temp < minimum_operating_temp)
@@ -631,6 +641,7 @@
 	else
 		icon_state = "reactor_on"
 
+	// Damage the reactor if conditions are not met, and handle events
 	var/new_damage = 0
 	if(!total_mols)
 		new_damage += DAMAGE_MAXIMUM * MOL_DAMAGE_MULTIPLIER
