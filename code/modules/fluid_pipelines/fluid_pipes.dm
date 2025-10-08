@@ -49,6 +49,10 @@
 
 	icon_state = temp_state
 
+/obj/machinery/fluid_pipe/examine(mob/user)
+	. = ..()
+	. += "[src] is currently [anchored ? "" : "un"]anchored"
+
 // This is currently as clean as I could make it
 /obj/machinery/fluid_pipe/proc/connect_pipes(obj/machinery/fluid_pipe/pipe_to_connect_to)
 	if(QDELETED(pipe_to_connect_to))
@@ -151,8 +155,8 @@
 	if(!anchored)
 		blind_connect()
 	else
-		// DGTODO: add item pipe here and make a new one
-		qdel(src)
+		// DGTODO: add item pipe here and make a new one // Maybe just keep an unwrenched version?
+		anchored = FALSE
 
 /obj/machinery/fluid_pipe/update_overlays()
 	. = ..()
