@@ -494,8 +494,8 @@
 			if("cat")				M.change_mob_type( /mob/living/simple_animal/pet/cat , null, null, delmob, 1)
 			if("runtime")			M.change_mob_type( /mob/living/simple_animal/pet/cat/runtime , null, null, delmob, 1)
 			if("corgi")				M.change_mob_type( /mob/living/simple_animal/pet/dog/corgi , null, null, delmob, 1)
-			if("crab")				M.change_mob_type( /mob/living/simple_animal/crab , null, null, delmob, 1)
-			if("coffee")			M.change_mob_type( /mob/living/simple_animal/crab/coffee , null, null, delmob, 1)
+			if("crab")				M.change_mob_type( /mob/living/basic/crab , null, null, delmob, 1)
+			if("coffee")			M.change_mob_type( /mob/living/basic/crab/coffee , null, null, delmob, 1)
 			if("parrot")			M.change_mob_type( /mob/living/simple_animal/parrot , null, null, delmob, 1)
 			if("polyparrot")		M.change_mob_type( /mob/living/simple_animal/parrot/poly , null, null, delmob, 1)
 			if("constructarmoured")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/armoured , null, null, delmob, 1)
@@ -3268,7 +3268,6 @@
 					W.sprite_sheets = /obj/item/clothing/under/dress/schoolgirl::sprite_sheets
 					W.worn_icon_state = /obj/item/clothing/under/dress/schoolgirl::worn_icon_state
 					W.inhand_icon_state = /obj/item/clothing/under/dress/schoolgirl::inhand_icon_state
-					W.item_color = /obj/item/clothing/under/dress/schoolgirl::item_color
 				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
 				SEND_SOUND(world, sound('sound/AI/animes.ogg'))
 			if("eagles")//SCRAW

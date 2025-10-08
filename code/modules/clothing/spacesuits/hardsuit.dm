@@ -2,15 +2,15 @@
 /obj/item/clothing/head/helmet/space/hardsuit
 	name = "hardsuit helmet"
 	icon_state = null
+	base_icon_state = "engineering"
 	max_integrity = 300
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, RAD = 150, FIRE = 50, ACID = 150)
-	var/basestate = "hardsuit"
 	allowed = list(/obj/item/flashlight)
+	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_geiger_counter)
+	var/basestate = "hardsuit"
 	var/brightness_on = 4 //luminosity when on
 	var/on = FALSE
 	var/obj/item/clothing/suit/space/hardsuit/suit
-	item_color = "engineering" //Determines used sprites: hardsuit[on]-[color] and hardsuit[on]-[color]2 (lying down sprite)
-	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_geiger_counter)
 
 	var/scanning = TRUE
 	var/current_tick_amount = 0
@@ -46,7 +46,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_light(mob/user)
 	on = !on
-	icon_state = "[basestate][on]-[item_color]"
+	icon_state = "[basestate][on]-[base_icon_state]"
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -237,7 +237,7 @@
 	desc = "A dual-mode advanced helmet designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
 	alt_desc = "A dual-mode advanced helmet designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit1-syndi"
-	item_color = "syndi"
+	base_icon_state = "syndi"
 	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 25, RAD = 50, FIRE = 50, ACID = 450)
 	on = TRUE
 	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
@@ -246,7 +246,7 @@
 	visor_flags = STOPSPRESSUREDMAGE
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon_state()
-	icon_state = "hardsuit[on]-[item_color]"
+	icon_state = "hardsuit[on]-[base_icon_state]"
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/Initialize(mapload)
 	. = ..()
@@ -316,7 +316,7 @@
 	alt_desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit1-syndi"
 	inhand_icon_state = "syndie_hardsuit"
-	item_color = "syndi"
+	base_icon_state = "syndi"
 	origin_tech = "engineering=6;syndicate=4"
 	w_class = WEIGHT_CLASS_NORMAL
 	var/on = TRUE
@@ -327,14 +327,14 @@
 	jetpack = /obj/item/tank/jetpack/suit
 
 /obj/item/clothing/suit/space/hardsuit/syndi/update_icon_state()
-	icon_state = "hardsuit[on]-[item_color]"
+	icon_state = "hardsuit[on]-[base_icon_state]"
 
 //Elite Syndie suit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
 	name = "elite syndicate hardsuit helmet"
 	desc = "An elite version of the syndicate helmet, with improved armour and fire shielding. It is in travel mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit0-syndielite"
-	item_color = "syndielite"
+	base_icon_state = "syndielite"
 	armor = list(MELEE = 75, BULLET = 75, LASER = 50, ENERGY = 15, BOMB = 60, RAD = 115, FIRE = INFINITY, ACID = INFINITY)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -343,7 +343,7 @@
 	name = "elite syndicate hardsuit"
 	desc = "An elite version of the syndicate hardsuit, with improved armour and fire shielding. It is in travel mode."
 	icon_state = "hardsuit0-syndielite"
-	item_color = "syndielite"
+	base_icon_state = "syndielite"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
 	armor = list(MELEE = 75, BULLET = 75, LASER = 50, ENERGY = 15, BOMB = 60, RAD = 115, FIRE = INFINITY, ACID = INFINITY)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -354,13 +354,13 @@
 	armor = list(MELEE = 115, BULLET = 115, LASER = 50, ENERGY = 35, BOMB = 200, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY) //Almost as good as DS gear, but unlike DS can switch to combat for mobility
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	icon_state = "hardsuit0-sst"
-	item_color = "sst"
+	base_icon_state = "sst"
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst
 	armor = list(MELEE = 115, BULLET = 115, LASER = 50, ENERGY = 40, BOMB = 200, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	icon_state = "hardsuit0-sst"
-	item_color = "sst"
+	base_icon_state = "sst"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst/Initialize(mapload)
@@ -382,6 +382,7 @@
 	name = "eagle helmet"
 	desc = "An advanced, space-proof helmet. It appears to be modeled after an old-world eagle."
 	icon_state = "griffinhat"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = null
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom/update_icon_state()
@@ -392,7 +393,7 @@
 	name = "\improper Soviet hardsuit helmet"
 	desc = "A military hardsuit helmet bearing the red star of the U.S.S.P."
 	icon_state = "hardsuit0-soviet"
-	item_color = "soviet"
+	base_icon_state = "soviet"
 	armor = list(MELEE = 35, BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 10, RAD = 50, FIRE = 75, ACID = 75)
 
 /obj/item/clothing/suit/space/hardsuit/soviet
@@ -410,7 +411,7 @@
 	name = "\improper Soviet command hardsuit helmet"
 	desc = "A military hardsuit helmet with a red command stripe."
 	icon_state = "hardsuit0-soviet-commander"
-	item_color = "soviet-commander"
+	base_icon_state = "soviet-commander"
 
 /obj/item/clothing/suit/space/hardsuit/soviet/commander
 	name = "\improper Soviet command hardsuit"
@@ -423,7 +424,7 @@
 	name = "singuloth knight's helmet"
 	desc = "This is an adamantium helmet from the chapter of the Singuloth Knights. It shines with a holy aura."
 	icon_state = "hardsuit0-singuloth"
-	item_color = "singuloth"
+	base_icon_state = "singuloth"
 	armor = list(MELEE = 35, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 15, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = null

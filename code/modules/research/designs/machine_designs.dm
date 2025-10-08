@@ -12,6 +12,16 @@
 	build_path = /obj/item/circuitboard/thermomachine
 	category = list ("Engineering Machinery")
 
+/datum/design/laser_terminal
+	name = "Machine Board (Laser Terminal)"
+	desc = "The circuit board for a PTL terminal."
+	id = "laser_terminal"
+	req_tech = list("powerstorage" = 4, "plasmatech" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/laser_terminal
+	category = list ("Engineering Machinery")
+
 /datum/design/space_heater
 	name = "Machine Board (Space Heater)"
 	desc = "The circuit board for a space heater"
@@ -299,6 +309,16 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/cyborgrecharger
+	category = list("Research Machinery")
+
+/datum/design/anomaly_refinery
+	name = "Machine Board (Anomaly Refinery)"
+	desc = "The circuit board for an Anomaly Refinery."
+	id = "anomalyrefinery"
+	req_tech = list("powerstorage" = 5, "engineering" = 5, "toxins" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/anomaly_refinery
 	category = list("Research Machinery")
 
 /datum/design/scientific_analyzer

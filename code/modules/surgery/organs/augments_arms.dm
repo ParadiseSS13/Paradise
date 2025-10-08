@@ -14,6 +14,7 @@
 	var/obj/item/holder = null
 	// You can use this var for item path, it would be converted into an item on New()
 
+
 /obj/item/organ/internal/cyberimp/arm/New()
 	..()
 	if(ispath(holder))
@@ -65,6 +66,34 @@
 		// give the owner an idea about why his implant is glitching
 		Retract()
 	..()
+
+/obj/item/organ/internal/cyberimp/arm/proc/get_overlay_state(image_layer)
+	return "[augment_icon][parent_organ == BODY_ZONE_L_ARM ? "_left" : "_right"]"
+
+/obj/item/organ/internal/cyberimp/arm/render()
+	. = ..()
+	if(!.)
+		return
+
+	var/mutable_appearance/arm_overlay = mutable_appearance(
+		icon = augment_state,
+		icon_state = get_overlay_state(),
+		layer = -INTORGAN_LAYER,
+	)
+	return arm_overlay
+
+/obj/item/organ/internal/cyberimp/arm/extra_render()
+	. = ..()
+	if(!.)
+		return
+	var/mutable_appearance/hand_overlay = mutable_appearance(
+		icon = augment_state,
+		icon_state = "[get_overlay_state()]_hand",
+		layer = -HAND_INTORGAN_LAYER,
+	)
+	return hand_overlay
+
+
 
 /obj/item/organ/internal/cyberimp/arm/proc/retract_to_linked_implant()
 	SIGNAL_HANDLER
@@ -231,6 +260,8 @@
 	contents = newlist(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/largetank/cyborg,
 		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/utility_belt)
+	augment_icon = "toolkit_engi"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/toolset/l
 	parent_organ = "l_arm"
@@ -253,6 +284,8 @@
 	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=3"
 	contents = newlist(/obj/item/screwdriver/abductor, /obj/item/wirecutters/abductor, /obj/item/crowbar/abductor, /obj/item/wrench/abductor, /obj/item/weldingtool/abductor, /obj/item/multitool/abductor)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/abductor_belt)
+	augment_icon = "toolkit_engi"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/toolset_abductor/l
 	parent_organ = "l_arm"
@@ -268,6 +301,8 @@
 	origin_tech = "materials=5;engineering=5;biotech=5;powerstorage=4;abductor=2"
 	contents = newlist(/obj/item/mop/advanced/abductor, /obj/item/soap/syndie/abductor, /obj/item/lightreplacer/bluespace/abductor, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter/abductor, /obj/item/reagent_containers/spray/cleaner/safety/abductor)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/abductor_belt)
+	augment_icon = "toolkit_jani"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/janitorial_abductor/l
 	parent_organ = "l_arm"
@@ -279,6 +314,8 @@
 	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=2"
 	contents = newlist(/obj/item/retractor/alien, /obj/item/hemostat/alien, /obj/item/bonesetter/alien, /obj/item/scalpel/laser/alien, /obj/item/circular_saw/alien, /obj/item/bonegel/alien, /obj/item/fix_o_vein/alien, /obj/item/surgicaldrill/alien)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/abductor_belt)
+	augment_icon = "toolkit_med"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/surgical_abductor/l
 	parent_organ = "l_arm"
@@ -297,8 +334,11 @@
 	name = "integrated medical beamgun"
 	desc = "A cybernetic implant that allows the user to project a healing beam from their hand."
 	contents = newlist(/obj/item/gun/medbeam)
+	icon_state = "toolkit_surgical"
 	origin_tech = "materials=5;combat=2;biotech=5;powerstorage=4;syndicate=1"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/medibeam)
+	augment_icon = "toolkit_med"
+	do_extra_render = TRUE
 
 /datum/action/item_action/organ_action/toggle/flash
 	button_icon = 'icons/obj/device.dmi'
@@ -310,6 +350,8 @@
 	contents = newlist(/obj/item/flash/armimplant)
 	origin_tech = "materials=4;combat=3;biotech=4;magnets=4;powerstorage=3"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/flash)
+	augment_icon = "toolkit"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/flash/New()
 	..()
@@ -322,6 +364,8 @@
 	desc = "An illegal combat implant that allows the user to administer disabling shocks from their arm."
 	contents = newlist(/obj/item/borg/stun)
 	origin_tech = "materials=3;combat=5;biotech=4;powerstorage=4;syndicate=3"
+	augment_icon = "toolkit"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/combat
 	name = "combat cybernetics implant"
@@ -355,6 +399,8 @@
 	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/fix_o_vein/augment, /obj/item/surgicaldrill/augment)
 	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/dufflebag_med)
+	augment_icon = "toolkit_med"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/surgery/l
 	parent_organ = "l_arm"
@@ -371,6 +417,8 @@
 	contents = newlist(/obj/item/mop/advanced, /obj/item/soap, /obj/item/lightreplacer, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
 	origin_tech = "materials=3;engineering=4;biotech=3"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/janibelt)
+	augment_icon = "toolkit_jani"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/janitorial/l
 	parent_organ = "l_arm"
@@ -401,6 +449,8 @@
 	contents = newlist(/obj/item/plant_analyzer, /obj/item/cultivator, /obj/item/hatchet, /obj/item/shovel/spade, /obj/item/reagent_containers/spray/weedspray, /obj/item/reagent_containers/spray/pestspray)
 	origin_tech = "materials=3;engineering=4;biotech=3"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/botanybelt)
+	augment_icon = "toolkit_hydro"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/botanical/l
 	parent_organ = "l_arm"
@@ -498,6 +548,8 @@
 
 	contents = newlist(/obj/item/melee/classic_baton)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/telebaton)
+	augment_icon = "toolkit"
+	do_extra_render = TRUE
 
 /datum/action/item_action/organ_action/toggle/advanced_mop
 	button_icon = 'icons/obj/janitor.dmi'
@@ -506,9 +558,12 @@
 /obj/item/organ/internal/cyberimp/arm/advmop
 	name = "advanced mop implant"
 	desc = "Advanced mop implant. Does what it says on the tin" // A better description
+	icon_state = "toolkit_janitor"
 
 	contents = newlist(/obj/item/mop/advanced)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/advanced_mop)
+	augment_icon = "toolkit_jani"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/cargo
 	name = "integrated cargo implant"
@@ -620,6 +675,8 @@
 	actions_types = list(/datum/action/item_action/organ_action/toggle/razorwire)
 	origin_tech = "combat=5;biotech=5;syndicate=2"
 	stealth_level = 1 // Hidden from health analyzers
+	augment_icon = "razor" // Note: By default the autosurgeons apply the highest level of cover plating.
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/razorwire/examine_more(mob/user)
 	. = ..()
@@ -674,6 +731,8 @@
 	contents = newlist(/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher)
 	icon_state = "shell_cannon"
 	actions_types = list(/datum/action/item_action/organ_action/toggle/shell_cannon)
+	augment_icon = "razor"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/shell_launcher/emp_act(severity)
 	if(!owner)
@@ -737,6 +796,8 @@
 
 	contents = newlist(/obj/item/shield/v1_arm)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/v1_arm)
+	augment_icon = "v1_arm"
+	do_extra_render = TRUE
 	var/disabled = FALSE
 
 /obj/item/organ/internal/cyberimp/arm/v1_arm/emp_act(severity)
@@ -756,6 +817,15 @@
 		to_chat(owner, "<span class='warning'>Your arm fails to retract!</span>")
 		return FALSE
 	..()
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm/render()
+	if(isvox(owner))
+		augment_icon = "v1_arm_vox"
+	else if(isdrask(owner))
+		augment_icon = "v1_arm_drask"
+	else
+		augment_icon = "v1_arm"
+	return ..()
 
 /obj/item/shield/v1_arm
 	name = "vortex feedback arm"
@@ -865,6 +935,7 @@
 	slot = "l_arm_device"
 
 	actions_types = list()
+	augment_icon = "strongarm"
 	var/datum/martial_art/muscle_implant/muscle_implant
 
 /obj/item/organ/internal/cyberimp/arm/muscle/Initialize(mapload)
@@ -962,6 +1033,8 @@
 	contents = newlist(/obj/item/melee/mantis_blade/syndicate)
 	icon_state = "syndie_mantis"
 	icon = 'icons/obj/weapons/melee.dmi'
+	augment_icon = "razor"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/syndie_mantis/l
 	parent_organ = "l_arm"
@@ -973,6 +1046,8 @@
 	contents = newlist(/obj/item/melee/mantis_blade/nt)
 	icon_state = "mantis"
 	icon = 'icons/obj/weapons/melee.dmi'
+	augment_icon = "razor"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/nt_mantis/l
 	parent_organ = "l_arm"
