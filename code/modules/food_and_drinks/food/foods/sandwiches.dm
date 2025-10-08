@@ -7,7 +7,7 @@
 
 /obj/item/food/burger
 	name = "burger"
-	desc = "If you got this, something broke! Contact a coder if this somehow spawns."
+	desc = ABSTRACT_BASE_TYPE
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "burger"
 
