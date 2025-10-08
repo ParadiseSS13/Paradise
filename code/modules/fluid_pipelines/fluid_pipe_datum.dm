@@ -226,7 +226,7 @@
 		return
 
 	// DGTODO convert this into a wrapper
-	// DGTODO make this not remove liquids if the fluid datum is too full
-	amount = min(amount, liquid.fluid_amount)
+	// DGTODO make this not remove liquids if the fluid datum is too full // Done
+	amount = clamp(amount, liquid.fluid_amount, min(50, (to_move_to.total_capacity - to_move_to.get_fluid_volumes())))
 	liquid.fluid_amount -= amount
 	to_move_to.add_fluid(liquid.type, amount)
