@@ -230,3 +230,7 @@
 	amount = clamp(amount, liquid.fluid_amount, min(50, (to_move_to.total_capacity - to_move_to.get_fluid_volumes())))
 	liquid.fluid_amount -= amount
 	to_move_to.add_fluid(liquid.type, amount)
+
+/// Simple wrapper to quickly remove all fluids from the datum
+/datum/fluid_pipe/proc/clear_fluids()
+	QDEL_LIST_CONTENTS(fluids)

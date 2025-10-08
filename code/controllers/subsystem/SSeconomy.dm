@@ -60,6 +60,10 @@ SUBSYSTEM_DEF(economy)
 	var/credits_per_salvage = 100
 	/// credits gained per working mech sold
 	var/credits_per_mech = 100
+	/// credits gained per unit of refined plasma
+	var/credits_per_ref_plasma = 1
+	/// credits gained per unit of turbofuel
+	var/credits_per_turbofuel = 2
 	/// credits gained for each secondary goal completed
 	/// These get split in 3, one part for Cargo, one for the department,
 	/// and one part for the person who requested the goal.
