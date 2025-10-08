@@ -44068,6 +44068,12 @@
 /area/station/hallway/secondary/exit)
 "dCe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "dCw" = (
@@ -45837,6 +45843,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"emE" = (
+/obj/effect/turf_decal/tiles/department/medical/checker,
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "emL" = (
 /obj/structure/closet/masks,
 /obj/effect/turf_decal/tiles/department/engineering/checker{
@@ -59770,6 +59783,16 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
+"kUk" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "kUo" = (
 /obj/structure/chair/sofa/bench/right{
 	dir = 8
@@ -70216,6 +70239,10 @@
 /area/station/maintenance/apmaint2)
 "pYW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "pZe" = (
@@ -74385,6 +74412,14 @@
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plating,
 /area/station/aisat/atmos)
+"rSc" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "rSd" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -75189,6 +75224,15 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat/atmos)
+"skS" = (
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/security/checker{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "skT" = (
 /obj/item/rollingpaper,
 /obj/effect/decal/cleanable/dirt,
@@ -77793,6 +77837,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"tEP" = (
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "tFe" = (
 /obj/machinery/requests_console/directional/south,
 /obj/machinery/camera/autoname{
@@ -78585,6 +78638,24 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
+"tVp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "tVK" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -85854,6 +85925,15 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/break_room)
+"xDA" = (
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "xDL" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -86629,6 +86709,12 @@
 /obj/structure/table/glass,
 /obj/item/clothing/mask/cigarette/cigar,
 /obj/machinery/light/floor,
+/obj/effect/turf_decal/tiles/department/medical/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "xVe" = (
@@ -86824,6 +86910,13 @@
 /obj/effect/turf_decal/tiles/department/science/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
+"xXS" = (
+/obj/effect/turf_decal/tiles/department/medical/corner,
+/obj/effect/turf_decal/tiles/department/security/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "xYp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -115397,8 +115490,8 @@ gLv
 gLv
 lBt
 wsz
-bqS
-bqS
+emE
+xXS
 jxq
 jIZ
 bMs
@@ -115656,7 +115749,7 @@ ktU
 xqK
 kHc
 niB
-jxq
+tVp
 plm
 bMs
 bYU
@@ -115909,9 +116002,9 @@ suM
 lya
 lya
 kRI
-bqS
-bqS
-bup
+skS
+tEP
+kUk
 dCe
 ocy
 gmQ
@@ -116166,7 +116259,7 @@ lya
 lya
 pAJ
 bHz
-bqS
+xDA
 uta
 aIa
 qvg
@@ -116680,7 +116773,7 @@ lya
 bHD
 lya
 fdC
-bqS
+xDA
 sGZ
 lsL
 tCq
@@ -116937,9 +117030,9 @@ hcv
 mGH
 lya
 xLS
-bqS
-bqS
-rOm
+emE
+xXS
+rSc
 pYW
 gsO
 xjV
@@ -117198,7 +117291,7 @@ ecY
 gLv
 kHc
 niB
-jxq
+tVp
 kAV
 bQo
 pUU
@@ -117453,8 +117546,8 @@ xqK
 lcj
 xqK
 rkp
-bqS
-bqS
+skS
+tEP
 jxq
 bvU
 bQo
