@@ -1963,4 +1963,3 @@
 	M.ExtinguishMob()
 	to_chat(M, "<span class='warning'>The fires surrounding you are quenched!</span>")
 	return ..()
-	
