@@ -489,6 +489,8 @@
 				L += get_contents(D.wrapped)
 		for(var/obj/item/folder/F in contents)
 			L += F.contents //Folders can't store any storage items.
+		for(var/obj/item/organ/internal/headpocket/pocket in contents)
+    		L += get_contents(pocket) //Checks for items in headpockets
 
 		return L
 
