@@ -101,7 +101,7 @@
 	to_chat(src, msg.Join("<br>"))
 
 /client/verb/adminwho()
-	set category = "Admin"
+	set category = VERB_CATEGORY_ADMIN
 	set name = "Adminwho"
 
 	var/list/adminmsg = list()

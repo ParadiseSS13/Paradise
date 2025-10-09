@@ -35,13 +35,8 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 /obj/effect/debugging/marker/Move()
 	return 0
 
-/client/proc/camera_view()
-	set category = "Mapping"
-	set name = "Camera Range Display"
-
-	if(!check_rights(R_DEBUG))
-		return
-
+ADMIN_VERB_VISIBILITY(debug_camera_view, VERB_VISIBILITY_FLAG_MOREDEBUG)
+ADMIN_VERB(debug_camera_view, R_DEBUG, "Camera Range Display", "Camera Range Display", VERB_CATEGORY_MAPPING)
 	if(GLOB.camera_range_display_status)
 		GLOB.camera_range_display_status = 0
 	else
@@ -59,13 +54,8 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Camera Range Display") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/sec_camera_report()
-	set category = "Mapping"
-	set name = "Camera Report"
-
-	if(!check_rights(R_DEBUG))
-		return
-
+ADMIN_VERB_VISIBILITY(debug_camera_report, VERB_VISIBILITY_FLAG_MOREDEBUG)
+ADMIN_VERB(debug_camera_report, R_DEBUG, "Camera Report", "Camera Report", VERB_CATEGORY_MAPPING)
 	var/list/obj/machinery/camera/CL = list()
 
 	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
@@ -95,16 +85,11 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 					output += "<li><font color='red'>Camera not connected to wall at \[[C1.x], [C1.y], [C1.z]\] ([C1.loc.loc]) Network: [C1.network]</color></li>"
 
 	output += "</ul>"
-	usr << browse(output,"window=airreport;size=1000x500")
+	user << browse(output,"window=airreport;size=1000x500")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Camera Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/intercom_view()
-	set category = "Mapping"
-	set name = "Intercom Range Display"
-
-	if(!check_rights(R_DEBUG))
-		return
-
+ADMIN_VERB_VISIBILITY(debug_view_intercoms, VERB_VISIBILITY_FLAG_MOREDEBUG)
+ADMIN_VERB(debug_view_intercoms, R_DEBUG, "Intercom Range Display", "Intercom Range Display", VERB_CATEGORY_MAPPING)
 	if(GLOB.intercom_range_display_status)
 		GLOB.intercom_range_display_status = 0
 	else
@@ -121,13 +106,8 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 					qdel(F)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Intercom Range Display") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/count_objects_on_z_level()
-	set category = "Mapping"
-	set name = "Count Objects On Level"
-
-	if(!check_rights(R_DEBUG))
-		return
-
+ADMIN_VERB_VISIBILITY(debug_object_count_zlevel, VERB_VISIBILITY_FLAG_MOREDEBUG)
+ADMIN_VERB(debug_object_count_zlevel, R_DEBUG, "Count Objects On Level", "Count Objects On Level", VERB_CATEGORY_MAPPING)
 	var/level = clean_input("Which z-level?","Level?")
 	if(!level) return
 	var/num_level = text2num(level)
@@ -159,13 +139,8 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	to_chat(world, "There are [count] objects of type [type_path] on z-level [num_level].")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Count Objects (On Level)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/count_objects_all()
-	set category = "Mapping"
-	set name = "Count Objects All"
-
-	if(!check_rights(R_DEBUG))
-		return
-
+ADMIN_VERB_VISIBILITY(debug_object_count_world, VERB_VISIBILITY_FLAG_MOREDEBUG)
+ADMIN_VERB(debug_object_count_world, R_DEBUG, "Count Objects All", "Count Objects All", VERB_CATEGORY_MAPPING)
 	var/type_text = clean_input("Which type path?","")
 	if(!type_text) return
 	var/type_path = text2path(type_text)
@@ -180,13 +155,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	to_chat(world, "There are [count] objects of type [type_path] in the game world.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Count Objects (Global)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/set_next_map()
-	set category = "Server"
-	set name = "Set Next Map"
-
-	if(!check_rights(R_SERVER))
-		return
-
+ADMIN_VERB(set_next_map, R_SERVER, "Set Next Map", "Set Next Map", VERB_CATEGORY_SERVER)
 	var/list/map_datums = list()
 	for(var/x in subtypesof(/datum/map))
 		var/datum/map/M = x
@@ -204,4 +173,4 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	message_admins("[key_name_admin(usr)] has set the next map to [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])")
 	log_admin("[key_name(usr)] has set the next map to [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])")
 	if(announce_to_players == "Yes")
-		to_chat(world, "<span class='boldannounceooc'>[key] has chosen the following map for next round: <font color='cyan'>[SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</font></span>")
+		to_chat(world, "<span class='boldannounceooc'>[user.key] has chosen the following map for next round: <font color='cyan'>[SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</font></span>")

@@ -1,14 +1,9 @@
-/client/proc/debug_bloom()
-	set name = "Bloom Edit"
-	set category = "Debug"
-
-	if(!check_rights(R_DEBUG))
-		return
+ADMIN_VERB(debug_bloom, R_DEBUG, "Bloom Edit", "Open bloom editor panel.", VERB_CATEGORY_DEBUG)
 	var/datum/bloom_edit/editor = new()
-	editor.ui_interact(usr)
+	editor.ui_interact(user)
 
-	message_admins("[key_name(src)] opened Bloom Edit panel.")
-	log_admin("[key_name(src)] opened Bloom Edit panel.")
+	message_admins("[key_name(user)] opened Bloom Edit panel.")
+	log_admin("[key_name(user)] opened Bloom Edit panel.")
 
 /datum/bloom_edit
 

@@ -267,10 +267,7 @@
 		GLOB.empty_playable_ai_cores -= src
 	return ..()
 
-/client/proc/empty_ai_core_toggle_latejoin()
-	set name = "Toggle AI Core Latejoin"
-	set category = "Admin"
-
+ADMIN_VERB(empty_ai_core_toggle_latejoin, R_ADMIN, "Toggle AI Core Latejoin", "Toggle AI Core Latejoin", VERB_CATEGORY_ADMIN)
 	var/list/cores = list()
 	for(var/obj/structure/ai_core/deactivated/D in world)
 		cores["[D] ([D.loc.loc])"] = D
@@ -290,7 +287,6 @@
 	else
 		GLOB.empty_playable_ai_cores += D
 		to_chat(src, "\The [id] is now <font color=\"#008000\">available</font> for latejoining AIs.")
-
 
 /*
 This is a good place for AI-related object verbs so I'm sticking it here.

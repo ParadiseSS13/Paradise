@@ -50,10 +50,11 @@
 #define INIT_ORDER_PROFILER	101
 #define INIT_ORDER_QUEUE 100 // Load this quickly so people cant queue skip
 #define INIT_ORDER_TITLE 99 // Load this quickly so people dont see a blank lobby screen
-#define INIT_ORDER_GARBAGE 25
-#define INIT_ORDER_DBCORE 24
-#define INIT_ORDER_REDIS 23 // Make sure we dont miss any events
-#define INIT_ORDER_BLACKBOX 22
+#define INIT_ORDER_GARBAGE 26
+#define INIT_ORDER_DBCORE 25
+#define INIT_ORDER_REDIS 24 // Make sure we dont miss any events
+#define INIT_ORDER_BLACKBOX 23
+#define INIT_ORDER_ADMIN_VERBS 22
 #define INIT_ORDER_CLEANUP 21
 #define INIT_ORDER_INPUT 20
 #define INIT_ORDER_SOUNDS 19

@@ -28,19 +28,19 @@
 			client.looc(entry)
 			return TRUE
 		if(ADMIN_CHANNEL)
-			client.cmd_admin_say(entry)
+			SSadmin_verbs.invoke_verb(client, /datum/admin_verb/admin_say, entry)
 			return TRUE
 		if(MENTOR_CHANNEL)
-			client.cmd_mentor_say(entry)
+			SSadmin_verbs.invoke_verb(client, /datum/admin_verb/mentor_say, entry)
 			return TRUE
 		if(DSAY_CHANNEL)
-			client.dsay(entry)
+			SSadmin_verbs.invoke_verb(client, /datum/admin_verb/dsay, entry)
 			return TRUE
 		if(DEV_CHANNEL)
-			client.cmd_dev_say(entry)
+			SSadmin_verbs.invoke_verb(client, /datum/admin_verb/dev_say, entry)
 			return TRUE
 		if(STAFF_CHANNEL)
-			client.cmd_staff_say(entry)
+			SSadmin_verbs.invoke_verb(client, /datum/admin_verb/staff_say, entry)
 			return TRUE
 	return FALSE
 

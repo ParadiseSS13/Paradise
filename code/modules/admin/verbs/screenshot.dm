@@ -1,13 +1,13 @@
-/client/proc/cmd_mass_screenshot()
-	set category = "Debug"
-	set name = "Mass Screenshot"
+ADMIN_VERB(mass_screenshot, R_DEBUG, "Mass Screenshot", "Take a sliced screenshot of a z-level.", VERB_CATEGORY_DEBUG)
 	set waitfor = FALSE
 
-	if(!check_rights(R_DEBUG) || !mob)
+	if(!user.mob)
 		return
 
+	var/mob/mob = user.mob
+
 	var/confirmation = tgui_alert(
-		usr,
+		user,
 		"Are you sure you want to mass screenshot this z-level? \
 		Ensure you have emptied your BYOND screenshots folder.",
 		"Mass Screenshot",
@@ -15,7 +15,7 @@
 	)
 	if(confirmation != "Yes")
 		return
-	
+
 	var/sleep_duration = tgui_input_number(
 		usr,
 		"Enter a delay in deciseconds between screenshots to allow the client to render changes.",
@@ -26,25 +26,25 @@
 		return
 
 	if(!isobserver(mob))
-		admin_ghost()
+		SSadmin_verbs.invoke_verb(user, /datum/admin_verb/admin_ghost)
 
 	message_admins("[key_name(usr)] started a mass screenshot operation")
 
 	// Prepare for screenshot
-	var/old_client_view = view
-	var/old_status_bar_visible = winget(src, "menu.statusbar", "is-checked") == "false" ? "true" : "false"
+	var/old_client_view = user.view
+	var/old_status_bar_visible = winget(user, "menu.statusbar", "is-checked") == "false" ? "true" : "false"
 	var/old_hud_version = mob.hud_used ? mob.hud_used.hud_version : HUD_STYLE_NOHUD
 	var/old_mob_alpha = mob.alpha
 	var/old_mob_movement = mob.animate_movement
 
-	view = 15
-	winset(src, "paramapwindow.status_bar", "is-visible=false")
+	user.view = 15
+	winset(user, "paramapwindow.status_bar", "is-visible=false")
 	mob.hud_used?.show_hud(HUD_STYLE_NOHUD)
 	mob.hud_used?.remove_parallax()
 	mob.alpha = 0
 	mob.animate_movement = NO_STEPS
 
-	var/half_chunk_size = view + 1
+	var/half_chunk_size = user.view + 1
 	var/chunk_size = half_chunk_size * 2 - 1
 	var/cur_x = half_chunk_size
 	var/cur_y = half_chunk_size
@@ -60,7 +60,7 @@
 			while(cur_x < width)
 				mob.forceMove(locate(cur_x, cur_y, cur_z))
 				sleep(sleep_duration)
-				winset(src, null, "command='.screenshot auto'")
+				winset(user, null, "command='.screenshot auto'")
 				if(cur_x == width_inside)
 					break
 				cur_x += chunk_size
@@ -72,10 +72,10 @@
 			cur_y = min(cur_y, height_inside)
 	catch(var/exception/e)
 		exception = e
-	
+
 	// Bring UI back
-	view = old_client_view
-	winset(src, "paramapwindow.status_bar", "is-visible=" + old_status_bar_visible)
+	user.view = old_client_view
+	winset(user, "paramapwindow.status_bar", "is-visible=" + old_status_bar_visible)
 	mob.alpha = old_mob_alpha
 	mob.hud_used?.show_hud(old_hud_version)
 	mob.hud_used?.update_parallax_pref()
@@ -84,4 +84,4 @@
 	if(exception)
 		throw exception
 
-	to_chat(usr, "Provide these values when asked for the MapTileImageTool: [width] [height] [half_chunk_size] [world.icon_size]")
+	to_chat(user, "Provide these values when asked for the MapTileImageTool: [width] [height] [half_chunk_size] [world.icon_size]")

@@ -1,35 +1,22 @@
 // Admin verb to debug the DMAPI
-
-/client/proc/dmapi_debug()
-	set name = "Debug DMAPI"
-	set category = "Debug"
-
-	if(!check_rights(R_DEBUG))
-		return
-
+ADMIN_VERB(debug_dmapi, R_DEBUG, "Debug DMAPI", "Dump DMAPI information.", VERB_CATEGORY_DEBUG)
 	if(!world.TgsAvailable())
-		to_chat(src, "DMAPI not connected")
+		to_chat(user, "DMAPI not connected")
 		return
 
-	to_chat(src, "TGS Info")
-	to_chat(src, "Revision: [world.TgsRevision()]")
-	to_chat(src, "Version: [world.TgsVersion()]")
-	to_chat(src, "API Version: [world.TgsApiVersion()]")
-	to_chat(src, "Instance Name: [world.TgsInstanceName()]")
-	to_chat(src, "Testmerges:")
+	to_chat(user, "TGS Info")
+	to_chat(user, "Revision: [world.TgsRevision()]")
+	to_chat(user, "Version: [world.TgsVersion()]")
+	to_chat(user, "API Version: [world.TgsApiVersion()]")
+	to_chat(user, "Instance Name: [world.TgsInstanceName()]")
+	to_chat(user, "Testmerges:")
 	for(var/datum/tgs_revision_information/test_merge/TM as anything in world.TgsTestMerges())
-		to_chat(src, "#[TM.number] | [TM.author] - [TM.title]")
+		to_chat(user, "#[TM.number] | [TM.author] - [TM.title]")
 
-	to_chat(src, "Channel info:")
+	to_chat(user, "Channel info:")
 	for(var/datum/tgs_chat_channel/CC as anything in world.TgsChatChannelInfo())
-		to_chat(src, "I:[CC.id] | FN:[CC.friendly_name] | AC:[CC.is_admin_channel] | PC:[CC.is_private_channel] | CT:[CC.custom_tag]")
-	to_chat(src, "Security level: [world.TgsSecurityLevel()]")
+		to_chat(user, "I:[CC.id] | FN:[CC.friendly_name] | AC:[CC.is_admin_channel] | PC:[CC.is_private_channel] | CT:[CC.custom_tag]")
+	to_chat(user, "Security level: [world.TgsSecurityLevel()]")
 
-/client/proc/dmapi_log()
-	set name = "DMAPI Log"
-	set category = "Debug"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	usr << browse(GLOB.tgs_log.Join("<br>"), "window=dmapi_log")
+ADMIN_VERB(dmapi_log, R_DEBUG, "DMAPI Log", "Open the DMAPI log.", VERB_CATEGORY_DEBUG)
+	user << browse(GLOB.tgs_log.Join("<br>"), "window=dmapi_log")

@@ -1,23 +1,19 @@
-/client/proc/dsay(msg as text)
-	set category = "Admin"
-	set name = "Dsay" //Gave this shit a shorter name so you only have to time out "dsay" rather than "dead say" to use it --NeoFite
-	set hidden = 1
-
+ADMIN_VERB(dsay, R_ADMIN|R_MOD, "Dsay", "Deadsay", VERB_CATEGORY_HIDDEN, msg as text)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
-	if(!src.mob)
+	if(!user.mob)
 		return
 
-	if(check_mute(ckey, MUTE_DEADCHAT))
+	if(check_mute(user.ckey, MUTE_DEADCHAT))
 		to_chat(src, "<span class='warning'>You cannot send DSAY messages (muted).</span>")
 		return
 
-	if(!(prefs.toggles & PREFTOGGLE_CHAT_DEAD))
+	if(!(user.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
 		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
 		return
 
-	if(handle_spam_prevention(msg,MUTE_DEADCHAT))
+	if(user.handle_spam_prevention(msg, MUTE_DEADCHAT))
 		return
 
 	var/stafftype = null
@@ -40,15 +36,8 @@
 	if(!msg)
 		return
 
-	var/prefix = "[stafftype] ([src.key])"
-	if(holder.fakekey)
+	var/prefix = "[stafftype] ([user.key])"
+	if(user.holder.fakekey)
 		prefix = "Administrator"
 	say_dead_direct("<span class='name'>[prefix]</span> says, <span class='message'>\"[msg]\"</span>")
-
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/get_dead_say()
-	if(!check_rights(R_ADMIN))
-		return
-	var/msg = input(src, null, "dsay \"text\"") as text | null
-	dsay(msg)
