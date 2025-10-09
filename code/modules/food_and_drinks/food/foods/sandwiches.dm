@@ -7,7 +7,7 @@
 
 /obj/item/food/burger
 	name = "burger"
-	desc = ABSTRACT_BASE_TYPE
+	desc = ABSTRACT_TYPE_DESC
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "burger"
 

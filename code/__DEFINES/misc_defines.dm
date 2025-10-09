@@ -786,4 +786,4 @@ do { \
 #define DECAL_PAINTER_CATEGORY_SQUARE "Square Borders"
 #define DECAL_PAINTER_CATEGORY_ALPHANUM "Alphanumeric"
 
-#define ABSTRACT_BASE_TYPE "If you see this, something broke. Please contact a coder or write a bug report on the Github."
+#define ABSTRACT_TYPE_DESC "If you see this, something broke. Please contact a coder or write a bug report on the Github."
