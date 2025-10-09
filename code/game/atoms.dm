@@ -185,7 +185,7 @@
 	initialized = TRUE
 
 	if(desc == ABSTRACT_BASE_TYPE || desc == ABSTRACT) //ABSTRACT is the wrong define, but it is above the correct one in auto complete and people mess up.
-		throw EXCEPTION("Tried to Initialize an abstract base type.")
+		stack_trace("[type] was initialized, but is marked as an abstract base type")
 
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
