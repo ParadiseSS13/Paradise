@@ -401,10 +401,6 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(!is_secure_level(src.z))
-		to_chat(user, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
-		return
-
 	ui_interact(user)
 
 /obj/machinery/computer/communications/ui_state(mob/user)
