@@ -17,11 +17,9 @@
 		end_turf = get_step(end_turf, dir)
 	var/list/turflist = get_line(get_step(src, dir), end_turf)
 	for(var/turf/turf as anything in turflist)
-		new /obj/item/bikehorn/rubberducky(turf)
 		for(var/obj/machinery/fluid_pipe/underground_pipe/underground in turf)
 			underground.connect_pipes(src)
 			return
-	message_admins("Failed to find underground")
 
 /obj/machinery/fluid_pipe/underground_pipe/attack_hand(mob/user)
 	if(..())

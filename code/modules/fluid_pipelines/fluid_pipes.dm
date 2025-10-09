@@ -41,14 +41,6 @@
 /obj/machinery/fluid_pipe/process()
 	return PROCESS_KILL
 
-/// Basic icon state handling for pipes, will automatically connect to adjacent pipes, no hassle needed
-/obj/machinery/fluid_pipe/update_icon_state()
-	var/temp_state = "pipe"
-	for(var/obj/machinery/fluid_pipe/pipe as anything in get_adjacent_pipes())
-		temp_state += "_[get_dir(src, pipe)]"
-
-	icon_state = temp_state
-
 /obj/machinery/fluid_pipe/examine(mob/user)
 	. = ..()
 	. += "[src] is currently [anchored ? "" : "un"]anchored"
@@ -162,6 +154,14 @@
 /obj/machinery/fluid_pipe/update_overlays()
 	. = ..()
 	. += fluid_datum?.return_percentile_full()
+
+/// Basic icon state handling for pipes, will automatically connect to adjacent pipes, no hassle needed
+/obj/machinery/fluid_pipe/update_icon_state()
+	var/temp_state = "pipe"
+	for(var/obj/machinery/fluid_pipe/pipe as anything in get_adjacent_pipes())
+		temp_state += "_[get_dir(src, pipe)]"
+
+	icon_state = temp_state
 
 /// Clears out the pipenet datum references. Override if your machinery holds more references
 /obj/machinery/fluid_pipe/proc/clear_pipenet_refs()
