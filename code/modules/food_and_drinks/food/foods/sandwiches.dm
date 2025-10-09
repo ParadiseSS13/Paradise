@@ -387,7 +387,7 @@
 	goal_difficulty = FOOD_GOAL_NORMAL
 
 /obj/item/food/jellysandwich/cherry
-	name = "slime sandwich"
+	name = "cherry sandwich"
 	list_reagents = list("nutriment" = 2, "cherryjelly" = 5, "vitamin" = 2)
 	goal_difficulty = FOOD_GOAL_NORMAL
 
