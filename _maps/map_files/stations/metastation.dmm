@@ -24140,11 +24140,11 @@
 	},
 /area/station/medical/exam_room)
 "cuf" = (
-/obj/machinery/economy/vending/chemdrobe,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/effect/spawner/random/cobweb/right/rare,
+/obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteyellow"
@@ -78728,6 +78728,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
+/obj/machinery/economy/vending/chemdrobe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteyellow"
@@ -87526,7 +87527,6 @@
 	name = "east bump";
 	pixel_x = 27
 	},
-/obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteyellow"
