@@ -141,9 +141,10 @@
 	neighbours = length(get_adjacent_pipes())
 
 /obj/machinery/fluid_pipe/attack_hand(mob/user)
-	. = ..()
-	if(anchored)
+	if(..())
 		return
+	if(anchored)
+		return TRUE
 	dir = turn(dir, -90)
 
 /obj/machinery/fluid_pipe/wrench_act(mob/living/user, obj/item/I)

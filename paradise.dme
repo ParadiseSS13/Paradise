@@ -2164,6 +2164,7 @@
 #include "code\modules\fluid_pipelines\liquid_geysers.dm"
 #include "code\modules\fluid_pipelines\refinery.dm"
 #include "code\modules\fluid_pipelines\shuttle_fuel_tank.dm"
+#include "code\modules\fluid_pipelines\underground_pipe.dm"
 #include "code\modules\food_and_drinks\food_base.dm"
 #include "code\modules\food_and_drinks\drinks\drinks_base.dm"
 #include "code\modules\food_and_drinks\drinks\bottler\bottler.dm"

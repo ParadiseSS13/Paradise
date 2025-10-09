@@ -2244,6 +2244,12 @@
 	},
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
+"hI" = (
+/obj/structure/geyser/plasma,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/adminconstruction)
 "hJ" = (
 /obj/machinery/abductor/pad{
 	team = 3
@@ -4372,6 +4378,12 @@
 /obj/item/reagent_containers/glass/bottle/adminordrazine,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
+"og" = (
+/obj/machinery/fluid_pipe/underground_pipe/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/adminconstruction)
 "oh" = (
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass/jungle,
@@ -10351,6 +10363,12 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_thunderdomecourt)
+"IL" = (
+/obj/machinery/fluid_pipe/underground_pipe,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/adminconstruction)
 "IM" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/brflowers,
@@ -59129,9 +59147,9 @@ De
 De
 De
 De
-De
-De
-De
+SM
+SM
+SM
 De
 De
 De
@@ -59386,7 +59404,7 @@ De
 De
 De
 De
-De
+SM
 De
 De
 De
@@ -59643,7 +59661,7 @@ De
 De
 De
 De
-De
+SM
 De
 De
 De
@@ -59900,7 +59918,7 @@ De
 De
 De
 De
-De
+IL
 De
 De
 De
@@ -60417,7 +60435,7 @@ De
 De
 De
 De
-De
+wO
 De
 De
 De
@@ -60928,10 +60946,10 @@ De
 De
 De
 De
+og
 De
 De
-De
-De
+og
 De
 SM
 SM
@@ -61185,7 +61203,7 @@ De
 De
 De
 De
-De
+SM
 SM
 SM
 SM
@@ -62217,7 +62235,7 @@ De
 Vw
 De
 De
-De
+hI
 SM
 De
 De
