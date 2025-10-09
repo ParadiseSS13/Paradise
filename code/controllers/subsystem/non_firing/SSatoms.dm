@@ -68,12 +68,7 @@ SUBSYSTEM_DEF(atoms)
 
 	var/start_tick = world.time
 
-	var/result
-	try
-		result = A.Initialize(arglist(arguments))
-	catch(var/exception/ourexception)
-		qdel(A)
-		throw ourexception
+	var/result = A.Initialize(arglist(arguments))
 
 	if(start_tick != world.time)
 		BadInitializeCalls[the_type] |= BAD_INIT_SLEPT
