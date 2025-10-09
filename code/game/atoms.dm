@@ -184,7 +184,7 @@
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
 
-	if(desc == ABSTRACT_BASE_TYPE || desc == ABSTRACT) //ABSTRACT is the wrong define, but it is above the correct one in auto complete and people mess up.
+	if(desc == ABSTRACT_BASE_TYPE)
 		stack_trace("[type] was initialized, but is marked as an abstract base type")
 
 	if(color)
