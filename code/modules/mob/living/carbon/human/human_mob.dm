@@ -1394,6 +1394,8 @@
 		return
 	if(bloody_hands <= 1)
 		remove_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
+		to_chat(src, "<span class='warning'>Your hands aren't bloody enough!</span>")
+		return
 
 	if(gloves)
 		to_chat(src, "<span class='warning'>[gloves] are preventing you from writing anything down!</span>")
