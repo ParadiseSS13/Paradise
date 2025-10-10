@@ -84,13 +84,6 @@
 		message_admins("[key_name_admin(usr)] has changed the security level to epsilon.")
 
 /obj/machinery/computer/communications/ui_act(action, params, datum/tgui/ui)
-	if(..())
-		return
-	if(!is_secure_level(z))
-		to_chat(ui.user, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
-		return
-
-	. = TRUE
 
 	if(action == "auth")
 		if(!ishuman(ui.user))
