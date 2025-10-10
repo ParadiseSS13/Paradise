@@ -1,0 +1,2781 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aL" = (
+/obj/machinery/door/airlock,
+/turf/simulated/floor/plasteel)
+"aU" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/space)
+"ba" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/machinery/light,
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/space)
+"bw" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/space)
+"bN" = (
+/obj/machinery/economy/vending/coffee/free,
+/turf/simulated/floor/plasteel)
+"bP" = (
+/turf/simulated/floor/plasteel)
+"bY" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/space)
+"cb" = (
+/turf/simulated/wall/r_wall,
+/area/space)
+"dB" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel)
+"dH" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
+"en" = (
+/turf/open/floor/plating)
+"eZ" = (
+/obj/machinery/economy/vending/chinese,
+/turf/simulated/floor/plasteel)
+"gf" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/lava/mapping_lava)
+"gU" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/item/stack/cable_coil,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/space)
+"hZ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/catwalk,
+/area/space)
+"ic" = (
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/random/trash,
+/turf/open/floor/plating)
+"iy" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/railing,
+/turf/simulated/floor/lava/mapping_lava)
+"iM" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel)
+"iT" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk,
+/area/template_noop)
+"kS" = (
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
+"lx" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/space)
+"lD" = (
+/obj/structure/railing/corner,
+/obj/effect/turf_decal/stripes/corner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/space)
+"lG" = (
+/obj/machinery/door/airlock/maintenance,
+/turf/simulated/floor/plasteel)
+"lO" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/space)
+"mc" = (
+/obj/machinery/light{
+	dir = 1;
+	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"me" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/structure/railing/corner,
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/lava/mapping_lava)
+"mr" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/camera{
+	c_tag = "Mining Outpost - Shuttle";
+	dir = 5;
+	network = list("Mining Outpost")
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/space)
+"mw" = (
+/obj/effect/turf_decal/siding{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	})
+"nr" = (
+/turf/simulated/floor/vault)
+"nZ" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	})
+"oD" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+"oM" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	})
+"pB" = (
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/space)
+"pH" = (
+/obj/machinery/computer/shuttle/mining,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/space)
+"qc" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/structure/sign/poster/official/random/directional/south,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/space)
+"qt" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/space)
+"rp" = (
+/obj/machinery/door/airlock,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	})
+"rH" = (
+/obj/machinery/disposal,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	})
+"rR" = (
+/obj/machinery/disposal,
+/turf/simulated/floor/plasteel)
+"sQ" = (
+/obj/structure/fence/door{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+"tl" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/space)
+"tL" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/simulated/floor/plasteel)
+"tY" = (
+/turf/simulated/floor/plasteel,
+/area/space)
+"ur" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurple"
+	},
+/area/space)
+"uu" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/space)
+"uM" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/catwalk,
+/area/space)
+"va" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled)
+"vG" = (
+/obj/structure/table,
+/obj/item/storage/box/cups,
+/turf/simulated/floor/plasteel)
+"vU" = (
+/obj/effect/baseturf_helper/lava_land,
+/turf/simulated/floor/mineral/titanium,
+/area/space)
+"wd" = (
+/obj/machinery/light{
+	dir = 8;
+	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"wg" = (
+/obj/machinery/light{
+	dir = 8;
+	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+"wu" = (
+/turf/simulated/wall/mineral/titanium,
+/turf/simulated/floor/plating,
+/area/space)
+"wR" = (
+/obj/structure/fence/door/opened{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+"xJ" = (
+/obj/structure/railing,
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/space)
+"xX" = (
+/obj/structure/table,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel)
+"yB" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/railing,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+"yO" = (
+/turf/simulated/wall/r_wall)
+"zm" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/space)
+"zo" = (
+/obj/machinery/door/airlock/engineering,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk,
+/area/space)
+"AB" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/space)
+"DD" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
+"DT" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+"Ep" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/space)
+"Gq" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk)
+"GN" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/structure/railing/corner,
+/turf/simulated/floor/lava/mapping_lava)
+"GS" = (
+/obj/machinery/door/airlock/maintenance/external,
+/turf/simulated/floor/plasteel)
+"Ha" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating/lavaland_air,
+/area/space)
+"Hx" = (
+/obj/effect/spawner/random/storage,
+/obj/effect/spawner/random/stock_parts,
+/turf/simulated/floor/plasteel)
+"HC" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
+"HZ" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/space)
+"IK" = (
+/obj/structure/chair/office{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel)
+"IL" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/space)
+"Kf" = (
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	})
+"KE" = (
+/turf/template_noop,
+/area/template_noop)
+"KK" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"LI" = (
+/turf/simulated/floor/catwalk)
+"Mi" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/item/stack/rods,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/lava/mapping_lava)
+"Mr" = (
+/obj/machinery/light{
+	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"NJ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/space)
+"OA" = (
+/obj/structure/fence/corner,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+"OX" = (
+/obj/structure/railing/corner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/space)
+"OY" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/structure/railing{
+	dir = 6
+	},
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/simulated/floor/lava/mapping_lava)
+"Pu" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/open/floor/plating)
+"Pz" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk,
+/area/space)
+"PC" = (
+/obj/structure/closet,
+/turf/simulated/floor/plasteel)
+"QT" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/item/stack/rods,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/lava/mapping_lava)
+"Rk" = (
+/obj/item/chair,
+/turf/simulated/floor/plasteel)
+"RW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/catwalk,
+/area/space)
+"Si" = (
+/turf/simulated/mineral/random/volcanic,
+/area/template_noop)
+"Sj" = (
+/obj/machinery/door/airlock/engineering,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/wall/r_wall,
+/area/space)
+"SF" = (
+/turf/simulated/floor/mineral/titanium,
+/area/space)
+"Tq" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/catwalk,
+/area/space)
+"TN" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
+"Ui" = (
+/obj/structure/fence{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+"Un" = (
+/turf/simulated/wall/mineral/titanium,
+/area/space)
+"UH" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/space)
+"UR" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/space)
+"VI" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/catwalk,
+/area/space)
+"Wr" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/space)
+"Wu" = (
+/obj/structure/fence/cut/large,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+"Wx" = (
+/obj/structure/fence,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+"XF" = (
+/obj/effect/turf_decal/siding,
+/obj/structure/railing,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	})
+"Ye" = (
+/obj/structure/fence/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+"Yq" = (
+/obj/machinery/light{
+	dir = 4;
+	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"YJ" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/item/stack/cable_coil,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/railing,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/space)
+"Zt" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	})
+"Zz" = (
+/obj/structure/toilet{
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	})
+"ZJ" = (
+/turf/simulated/wall)
+"ZR" = (
+/obj/effect/turf_decal/siding{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	})
+"ZY" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/item/stack/rods,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/railing,
+/turf/simulated/floor/lava/mapping_lava)
+
+(1,1,1) = {"
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+"}
+(2,1,1) = {"
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+"}
+(3,1,1) = {"
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KE
+KE
+KE
+KE
+KE
+"}
+(4,1,1) = {"
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KE
+KE
+"}
+(5,1,1) = {"
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KE
+"}
+(6,1,1) = {"
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+KE
+"}
+(7,1,1) = {"
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KK
+KK
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KK
+Yq
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+kS
+kS
+KE
+"}
+(8,1,1) = {"
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KK
+Yq
+KK
+Si
+Si
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+kS
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+mc
+KK
+KK
+Si
+KK
+KK
+kS
+KE
+"}
+(9,1,1) = {"
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+yO
+yO
+yO
+yO
+yO
+Si
+Si
+Si
+Si
+Si
+KK
+Yq
+KK
+KK
+kS
+yO
+Zz
+ZJ
+bP
+tL
+vG
+yO
+KK
+KK
+Si
+Si
+Si
+KK
+kS
+KE
+"}
+(10,1,1) = {"
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+yO
+XF
+bP
+bP
+yO
+Si
+Si
+Si
+Si
+yO
+yO
+yO
+yO
+KK
+KK
+yO
+rp
+ZJ
+bP
+bP
+bP
+yO
+Si
+KK
+KK
+Si
+Si
+KK
+kS
+kS
+"}
+(11,1,1) = {"
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+yO
+yO
+yO
+XF
+bP
+bP
+yO
+yO
+yO
+yO
+yO
+yO
+Hx
+Hx
+yO
+KK
+KK
+yO
+Zt
+ZJ
+bP
+bP
+bP
+yO
+Si
+Si
+KK
+KK
+KK
+KK
+kS
+kS
+"}
+(12,1,1) = {"
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+yO
+oM
+oM
+XF
+bP
+tY
+ur
+Kf
+nZ
+Kf
+rH
+ZJ
+bP
+bP
+yO
+KK
+KK
+yO
+Zt
+rp
+bP
+bP
+bP
+yO
+yO
+yO
+yO
+KK
+KK
+KK
+KK
+kS
+"}
+(13,1,1) = {"
+KE
+kS
+kS
+kS
+kS
+kS
+Mr
+yO
+ZR
+HZ
+OX
+qt
+qt
+AB
+qt
+qt
+qt
+lx
+ZJ
+ZJ
+aL
+yO
+mc
+KK
+yO
+yO
+yO
+ZJ
+bP
+ZJ
+ZJ
+bN
+eZ
+yO
+yO
+KK
+KK
+KK
+kS
+"}
+(14,1,1) = {"
+kS
+kS
+kS
+kS
+kS
+KK
+KK
+yO
+nr
+lD
+uu
+Un
+Wr
+pB
+Wr
+zm
+Ha
+bY
+bP
+bP
+bP
+yO
+KK
+KK
+wd
+KK
+va
+bP
+bP
+bP
+bP
+bP
+bP
+bP
+yO
+KK
+KK
+KK
+kS
+"}
+(15,1,1) = {"
+kS
+kS
+kS
+kS
+kS
+KK
+KK
+yO
+nr
+xJ
+Un
+Un
+UR
+mr
+NJ
+qc
+Un
+bY
+bP
+bP
+bP
+yO
+KK
+KK
+KK
+KK
+Pu
+bP
+bP
+IK
+IK
+IK
+bP
+bP
+yO
+KK
+KK
+KK
+kS
+"}
+(16,1,1) = {"
+kS
+kS
+kS
+kS
+KK
+KK
+KK
+yO
+nr
+xJ
+Wr
+pH
+tl
+vU
+NJ
+ba
+Un
+bY
+bP
+HC
+DD
+Sj
+iT
+iT
+iT
+iT
+zo
+DD
+bP
+xX
+iM
+xX
+bP
+bP
+yO
+KK
+KK
+KK
+kS
+"}
+(17,1,1) = {"
+kS
+kS
+kS
+kS
+KK
+KK
+Mr
+yO
+mw
+xJ
+Un
+Un
+lO
+SF
+NJ
+UH
+Un
+bY
+ZJ
+dH
+bP
+yO
+KK
+KK
+KK
+kS
+cb
+bP
+bP
+dB
+Rk
+dB
+bP
+bP
+yO
+KK
+KK
+KK
+kS
+"}
+(18,1,1) = {"
+kS
+kS
+kS
+kS
+KK
+KK
+KK
+yO
+oM
+Ep
+aU
+Un
+Wr
+wu
+Wr
+zm
+Ha
+bY
+ZJ
+dH
+bP
+yO
+KK
+KK
+KK
+kS
+cb
+cb
+bP
+bP
+bP
+bP
+bP
+rR
+yO
+mc
+KK
+kS
+kS
+"}
+(19,1,1) = {"
+KE
+kS
+kS
+kS
+KK
+KK
+KK
+yO
+yO
+HZ
+Ep
+bw
+bw
+bw
+bw
+bw
+bw
+IL
+yO
+dH
+bP
+yO
+KK
+KK
+KK
+kS
+kS
+yO
+Gq
+yO
+yO
+yO
+yO
+yO
+yO
+KK
+KK
+kS
+kS
+"}
+(20,1,1) = {"
+KE
+kS
+kS
+kS
+kS
+KK
+KK
+KK
+KK
+yO
+XF
+bP
+bP
+yO
+en
+en
+VI
+Pz
+Tq
+TN
+tY
+yO
+mc
+KK
+kS
+kS
+kS
+yO
+LI
+en
+yO
+wd
+KK
+KK
+KK
+KK
+KK
+kS
+kS
+"}
+(21,1,1) = {"
+KE
+kS
+kS
+kS
+kS
+kS
+KK
+KK
+KK
+yO
+yO
+yO
+yO
+yO
+yO
+en
+hZ
+en
+yO
+bP
+bP
+yO
+KK
+KK
+kS
+kS
+kS
+yO
+LI
+en
+yO
+KK
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+"}
+(22,1,1) = {"
+KE
+KE
+kS
+kS
+kS
+kS
+KK
+KK
+KK
+KK
+wd
+KK
+KK
+kS
+yO
+yO
+Gq
+yO
+yO
+yO
+yO
+yO
+KK
+kS
+kS
+kS
+kS
+yO
+Gq
+yO
+yO
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+"}
+(23,1,1) = {"
+KE
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+iy
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+iy
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+"}
+(24,1,1) = {"
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+iy
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+iy
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+"}
+(25,1,1) = {"
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KK
+kS
+Mi
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+iy
+kS
+kS
+KK
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+"}
+(26,1,1) = {"
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KK
+kS
+kS
+kS
+kS
+kS
+GN
+gf
+gf
+gf
+gf
+gU
+gf
+gf
+QT
+gf
+gf
+me
+OY
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+"}
+(27,1,1) = {"
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+YJ
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+iy
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+"}
+(28,1,1) = {"
+kS
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KK
+kS
+kS
+kS
+kS
+iy
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+iy
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+"}
+(29,1,1) = {"
+kS
+kS
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KK
+KK
+KK
+KK
+KK
+kS
+iy
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+ZY
+kS
+KK
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+"}
+(30,1,1) = {"
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KK
+KK
+KK
+KK
+KK
+Yq
+KK
+KK
+KK
+DT
+KK
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+kS
+iy
+kS
+KK
+KK
+kS
+kS
+kS
+kS
+kS
+KK
+kS
+kS
+"}
+(31,1,1) = {"
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KK
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+Gq
+yO
+KK
+KK
+Yq
+KK
+KK
+KK
+Yq
+KK
+KK
+yB
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+"}
+(32,1,1) = {"
+kS
+kS
+kS
+kS
+kS
+kS
+KK
+KK
+yO
+bP
+bP
+bP
+bP
+bP
+ZJ
+en
+RW
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+Gq
+yO
+yO
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+kS
+kS
+"}
+(33,1,1) = {"
+kS
+kS
+kS
+kS
+kS
+kS
+KK
+Mr
+yO
+bP
+bP
+bP
+bP
+bP
+ZJ
+en
+RW
+ZJ
+bP
+bP
+bP
+bP
+bP
+ZJ
+bP
+bP
+ZJ
+LI
+en
+yO
+mc
+KK
+KK
+kS
+kS
+kS
+kS
+kS
+kS
+"}
+(34,1,1) = {"
+kS
+kS
+kS
+KE
+kS
+KK
+KK
+KK
+yO
+bP
+bP
+PC
+ZJ
+ZJ
+ZJ
+ZJ
+uM
+ZJ
+bP
+bP
+bP
+bP
+bP
+bP
+bP
+bP
+ZJ
+LI
+en
+yO
+KK
+KK
+KK
+kS
+kS
+KK
+kS
+kS
+kS
+"}
+(35,1,1) = {"
+kS
+kS
+kS
+KE
+KK
+KK
+KK
+KK
+yO
+bP
+bP
+PC
+ZJ
+bP
+bP
+bP
+dH
+bP
+bP
+bP
+bP
+bP
+bP
+ZJ
+bP
+bP
+ZJ
+Gq
+ZJ
+yO
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+kS
+KE
+"}
+(36,1,1) = {"
+kS
+kS
+KE
+KE
+KK
+KK
+KK
+KK
+yO
+bP
+bP
+PC
+ZJ
+bP
+bP
+bP
+bP
+bP
+bP
+bP
+ZJ
+lG
+ZJ
+ZJ
+bP
+bP
+bP
+bP
+bP
+yO
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+kS
+KE
+"}
+(37,1,1) = {"
+KE
+KE
+KE
+KE
+KK
+KK
+KK
+KK
+yO
+bP
+ZJ
+ZJ
+ZJ
+ZJ
+bP
+ZJ
+ZJ
+bP
+bP
+bP
+ZJ
+en
+ic
+ZJ
+bP
+bP
+bP
+bP
+bP
+yO
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+KE
+"}
+(38,1,1) = {"
+KE
+KE
+KE
+KE
+KE
+KK
+KK
+KK
+yO
+bP
+bP
+bP
+bP
+bP
+bP
+bP
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+bP
+bP
+bP
+bP
+bP
+yO
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+kS
+"}
+(39,1,1) = {"
+KE
+KE
+KE
+KE
+KK
+KK
+KK
+Mr
+yO
+bP
+bP
+bP
+bP
+bP
+bP
+bP
+yO
+KK
+KK
+wd
+KK
+KK
+KK
+yO
+bP
+bP
+bP
+bP
+bP
+yO
+mc
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+"}
+(40,1,1) = {"
+KE
+KE
+KE
+KK
+KK
+KK
+KK
+KK
+yO
+bP
+bP
+bP
+bP
+bP
+bP
+bP
+yO
+KK
+KK
+KK
+KK
+KK
+kS
+yO
+yO
+yO
+yO
+GS
+yO
+yO
+KK
+KK
+KK
+KK
+KK
+KK
+kS
+KK
+kS
+"}
+(41,1,1) = {"
+KE
+KE
+KE
+KK
+KK
+KK
+KK
+KK
+yO
+yO
+yO
+yO
+GS
+yO
+yO
+yO
+yO
+KK
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+KK
+KK
+KK
+KK
+wd
+KK
+KK
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+"}
+(42,1,1) = {"
+KE
+KE
+KE
+KE
+KK
+KK
+KK
+KK
+Wu
+wg
+oD
+oD
+oD
+oD
+oD
+wg
+Wx
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+"}
+(43,1,1) = {"
+KE
+KE
+KE
+KE
+KE
+KK
+KK
+KK
+Wx
+oD
+oD
+oD
+oD
+oD
+oD
+oD
+Wx
+KK
+KK
+kS
+kS
+kS
+kS
+kS
+kS
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+"}
+(44,1,1) = {"
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+Ye
+Ui
+Ui
+wR
+sQ
+wR
+Ui
+Ui
+OA
+KK
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KE
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+kS
+"}
+(45,1,1) = {"
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+kS
+"}
+(46,1,1) = {"
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KK
+KK
+KK
+KK
+KK
+KK
+KK
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+KK
+kS
+KE
+"}
+(47,1,1) = {"
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+KE
+"}
+(48,1,1) = {"
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+kS
+kS
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+KE
+"}
+(49,1,1) = {"
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+KE
+"}
+(50,1,1) = {"
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+KE
+kS
+kS
+kS
+kS
+KE
+"}
