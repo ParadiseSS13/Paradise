@@ -52,9 +52,11 @@
  */
 /datum/anomalous_particulate_tracker/proc/add_tracked_mind(datum/mind/obj_mind)
 	tracked_objectiveholders |= obj_mind
+	message_admins("attempting further")
 
 	// If our holder is on station, generate some new influences
 	if(ishuman(obj_mind.current) && is_teleport_allowed(obj_mind.current.z))
+		message_admins("generating")
 		generate_new_influences()
 
 /**
@@ -195,6 +197,8 @@
 	new /obj/effect/visible_anomalous_particulate(drop_location())
 
 	processor.collect()
+	if(processor.clouds_processed >= 3)
+		to_chat(user, "<span class='notice'>[processor] has it's 3 canisters filled. Be sure to process the information!</span>")
 
 	GLOB.anomaly_smash_track.num_drained++
 	qdel(src)
@@ -211,9 +215,58 @@
 	new_attack_chain = TRUE
 	/// How many clouds have been processed?
 	var/clouds_processed = 0
+	/// Have we used it in hand to fully process the particulate and eject the canisters?
+	var/fully_processed_particulate = FALSE
+	/// Are we possibly processing particularly powerful packets?
+	var/presently_processing_particular_particultate = FALSE
+	/// The soundloop we use.
+	var/datum/looping_sound/kitchen/microwave/me_cro_wah_vey
+
+/obj/item/ppp_processor/Initialize(mapload)
+	. = ..()
+	me_cro_wah_vey = new /datum/looping_sound/kitchen/microwave(list(src), FALSE)
+
+/obj/item/ppp_processor/Destroy()
+	QDEL_NULL(me_cro_wah_vey)
+	return ..()
 
 /obj/item/ppp_processor/proc/collect()
 	clouds_processed++
+
+/obj/item/ppp_processor/activate_self(mob/user)
+	if(..())
+		return
+	if(fully_processed_particulate)
+		to_chat(user, "<span class='notice'>[src] has already processed and ejected the samples. Just make sure to escape with it!</span>")
+		return
+	if(clouds_processed < 3)
+		to_chat(user, "<span class='warning'>[src] has only [clouds_processed] out of 3 samples. You still need to collect more!</span>")
+		return
+	if(presently_processing_particular_particultate)
+		to_chat(user, "<span class='warning'>[src] is presently processing particularly powerful packets of your particular particulate. Wait for it to finish before proceeding.</span>")
+		return
+
+	to_chat(user, "<span class='notice'>[src] is now processing the samples. Please hold as processing finishes, and be aware it may eject collection canisters.</span>")
+	if(me_cro_wah_vey)
+		me_cro_wah_vey.start()
+	addtimer(CALLBACK(src, PROC_REF(perfectly_processed), user), 15 SECONDS)
+	presently_processing_particular_particultate = TRUE
+
+/obj/item/ppp_processor/proc/perfectly_processed(mob/user)
+	if(!QDELETED(user))
+		to_chat(user, "<span class='notice'>[src] has perfectly processed the samples. You may now use the canisters however you wish. Ensure the processor gets back to us.</span>")
+	me_cro_wah_vey.stop()
+	presently_processing_particular_particultate = FALSE
+	clouds_processed = -1
+	fully_processed_particulate = TRUE
+	var/list/potential_grenade_rewards = list()
+	potential_grenade_rewards += subtypesof(/obj/item/grenade/anomalous_canister)
+	potential_grenade_rewards += /obj/item/grenade/anomalous_canister
+	for(var/i in 1 to 3)
+		message_admins("[potential_grenade_rewards]")
+		var/obj/item/new_toy = pick_n_take(potential_grenade_rewards)
+		message_admins("[new_toy]")
+		new new_toy(get_turf(src))
 
 /obj/item/clothing/glasses/hud/anomalous
 	name = "anomalous particulate scanner HUD"
@@ -288,7 +341,7 @@
 	. = ..()
 	. += "<span class='notice'>The predicted result is for the cloud to condense into \an [anomaly_type::name]!</span>"
 
-/obj/item/paper/anomalous_particulate
+/obj/item/paper/guides/antag/anomalous_particulate
 	name = "Particulate gathering instructions"
 	info = {"<b>Instructions on your new PPPProcessor and HUD</b><br>
 	<br>
@@ -300,18 +353,12 @@
 	<br>
 	<b>Warning:</b> Charged particulate is dangerous. Wear the goggles and leave the area. Try not to get caught in doing so.<br>
 	<br>
-	After collecting 3 diffrent unique samples (We will not accept a sample another agent has collected), deploy the scanner by using it in hand in a secluded area.<br>
+	After collecting 3 diffrent unique samples (We will not accept a sample another agent has collected), use the scanner in hand to begin processing the particulate.<br>
 	<br>
-	After a minute of transfering the information, your objective will be complete, and 3 collection cansiters should eject.<br>
+	After a short processing period, processing will be complete and you can bring the processor back to us. Additionally, 3 collection cansiters should eject.<br>
 	<br>
 	Feel free to use the canisters however you wish, they should be effective weapons, though do write down the results for us.
 	<br><hr>
 	<font size =\"1\"><i>We are not liable for any health conditions you may recive from scanning particulate or using the canisters.</i></font>
 "}
-/obj/item/storage/box/syndie_kit/anomalous_particulate
-	name = "anomalous particulate processing kit"
 
-/obj/item/storage/box/syndie_kit/anomalous_particulate/populate_contents()
-	new /obj/item/ppp_processor(src)
-	new /obj/item/clothing/glasses/hud/anomalous(src)
-	new /obj/item/paper/anomalous_particulate(src)

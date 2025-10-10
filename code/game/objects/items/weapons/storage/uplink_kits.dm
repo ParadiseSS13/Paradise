@@ -518,6 +518,16 @@
 	new /obj/item/nuke_core_container/supermatter(src)
 	new /obj/item/paper/guides/antag/supermatter_sliver(src)
 
+/obj/item/storage/box/syndie_kit/anomalous_particulate
+
+	desc = "It's just an ordinary box."
+	icon_state = "box"
+
+/obj/item/storage/box/syndie_kit/anomalous_particulate/populate_contents()
+	new /obj/item/ppp_processor(src)
+	new /obj/item/clothing/glasses/hud/anomalous(src)
+	new /obj/item/paper/guides/antag/anomalous_particulate(src)
+
 /obj/item/storage/box/syndie_kit/revolver
 	name = "\improper .357 revolver kit"
 
