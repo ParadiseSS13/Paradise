@@ -99,7 +99,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/dyeing_key
 	/// If this item is put into a washing machine to be dyed, can objects of this type be dyed into a different color/icon?
 	var/dyeable = FALSE
-	var/item_color
 	/// What bodyflags does this item cover? See setup.dm for appropriate bit flags
 	var/body_parts_covered = 0
 	/// For leaking gas from turf to mask and vice-versa.

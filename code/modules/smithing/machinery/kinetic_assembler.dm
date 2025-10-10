@@ -23,7 +23,7 @@
 		/obj/item/smithed_item/tool_bit
 	)
 	/// Amount of extra items made in batches
-	var/batch_extras = 2
+	var/batch_extras = 1
 
 /obj/machinery/smithing/kinetic_assembler/Initialize(mapload)
 	. = ..()
@@ -251,14 +251,18 @@
 	playsound(src, 'sound/magic/fellowship_armory.ogg', 50, TRUE)
 	finished_product.forceMove(src.loc)
 	SSblackbox.record_feedback("tally", "smith_assembler_production", 1, "[finished_product.type]")
+	// Modify based on productivity
+	var/total_extras = clamp(round(1 * i.bit_productivity_mod / 2), 0, 2)
 	if(is_type_in_typecache(finished_product, batched_item_types))
-		for(var/iterator in 1 to batch_extras)
-			var/obj/item/smithed_item/extra_product = new finished_product.type(src.loc)
-			extra_product.quality = finished_product.quality
-			extra_product.material = finished_product.material
-			extra_product.set_stats()
-			extra_product.update_appearance(UPDATE_NAME)
-			extra_product.scatter_atom()
+		total_extras += clamp(round(batch_extras * i.bit_productivity_mod / 2), 1, 4)
+	for(var/iterator in 1 to total_extras)
+		var/obj/item/smithed_item/extra_product = new finished_product.type(src.loc)
+		extra_product.quality = finished_product.quality
+		extra_product.material = finished_product.material
+		extra_product.set_stats()
+		extra_product.update_appearance(UPDATE_NAME)
+		extra_product.scatter_atom()
+
 	finished_product = null
 
 // MARK: Scientific Assembler
