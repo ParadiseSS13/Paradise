@@ -66,7 +66,6 @@
 
 /obj/item/clothing/glasses/hud/tajblind/CtrlShiftClick(mob/user, modifiers)
 	if(!initial(hud_types))
-		to_chat(user, "<span class='notice'>You try to toggle electronics in [src] but there are none.</span>")
 		return
 	if(electronics)
 		electronics = FALSE
