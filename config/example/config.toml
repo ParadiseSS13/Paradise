@@ -762,6 +762,8 @@ shutdown_on_reboot = false
 #api_host = "http://127.0.0.1:8080"
 # Access key for the internal API.
 #api_key = "your_secret_here"
+# Github API token for in game bug reporting
+#github_api_token = "your_secret_here"
 # List of IP addresses to be ignored by the world/Topic rate limiting. Useful if you have other services
 topic_ip_ratelimit_bypass = ["127.0.0.1"]
 # Turn this to true if you are running a production server
