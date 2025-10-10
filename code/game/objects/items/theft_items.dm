@@ -7,7 +7,7 @@
 /obj/item/nuke_core
 	name = "plutonium core"
 	desc = "Extremely radioactive. Wear goggles."
-	icon = 'icons/obj/nuke_tools.dmi'
+	icon = 'icons/obj/theft_tools.dmi'
 	icon_state = "plutonium_core"
 	inhand_icon_state = "plutoniumcore"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -47,7 +47,7 @@
 /obj/item/nuke_core_container
 	name = "nuke core container"
 	desc = "A lead-lined secure container produced by the Syndicate for the express purpose of extracting the valuable radioactive cores of nuclear weapons."
-	icon = 'icons/obj/nuke_tools.dmi'
+	icon = 'icons/obj/theft_tools.dmi'
 	icon_state = "core_container_empty"
 	inhand_icon_state = "syringe_kit"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Don't want people trying to break it open with acid, then destroying the core.
@@ -334,7 +334,7 @@
 /obj/item/scalpel/supermatter
 	name = "supermatter scalpel"
 	desc = "A scalpel with a fragile tip of condensed hyper-noblium gas, searingly cold to the touch, that can safely shave a sliver off a supermatter crystal."
-	icon = 'icons/obj/nuke_tools.dmi'
+	icon = 'icons/obj/theft_tools.dmi'
 	icon_state = "supermatter_scalpel"
 	toolspeed = 0.5
 	damtype = BURN
@@ -348,7 +348,7 @@
 /obj/item/retractor/supermatter
 	name = "supermatter extraction tongs"
 	desc = "A pair of tongs made from condensed hyper-noblium gas, searingly cold to the touch, that can safely grip a supermatter sliver."
-	icon = 'icons/obj/nuke_tools.dmi'
+	icon = 'icons/obj/theft_tools.dmi'
 	icon_state = "supermatter_tongs"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'

@@ -161,6 +161,14 @@
 	protected_jobs = list("Quartermaster")
 	location_override = "the Quartermaster's Cargo Office"
 
+/datum/theft_objective/anomalous_particulate
+	name = "the plutonium core from the station's nuclear device"
+	typepath = /obj/item/nuke_core/plutonium
+	location_override = "the Vault. You can use the box and instructions provided to remove the core, with some extra tools"
+	special_equipment = /obj/item/storage/box/syndie_kit/nuke
+	protected_jobs = list("Quartermaster")
+	job_possession = FALSE
+
 /datum/theft_objective/number
 	var/min=0
 	var/max=0
