@@ -681,6 +681,7 @@
 		dreamer.adjustFireLoss(-1 * comfort)
 	if(prob(10) && dreamer.health && dreamer.health_hud_override != HEALTH_HUD_OVERRIDE_CRIT)
 		dreamer.emote("snore")
+	SEND_SIGNAL(owner, COMSIG_MOB_SLEEP_TICK, comfort)
 
 
 //SLOWED - slows down the victim for a duration and a given slowdown value.
