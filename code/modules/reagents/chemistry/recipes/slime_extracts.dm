@@ -150,6 +150,7 @@
 
 	var/list/blocked = list(
 		/obj/item/food,
+		/obj/item/food/burger, // abstract burger
 		/obj/item/food/sliced/bread,
 		/obj/item/food/sliceable,
 		/obj/item/food/sliceable/pizza,
@@ -174,7 +175,8 @@
 		/obj/item/food/human,
 		/obj/item/food/monstermeat,
 		/obj/item/food/meatsteak/stimulating,
-		/obj/item/food/egg/watcher
+		/obj/item/food/egg/watcher,
+		/obj/item/food/supermatter_sandwich,
 		)
 	blocked |= typesof(/obj/item/food/customizable)
 

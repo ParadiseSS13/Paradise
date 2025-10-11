@@ -70,9 +70,14 @@
 	icon_state = "beret_soo"
 	inhand_icon_state = null
 	worn_icon = 'icons/mob/clothing/head/beret.dmi'
+	icon_monitor = null
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
 	flags_inv = null
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head/beret.dmi')
+
+/obj/item/clothing/head/helmet/space/deathsquad/beret/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/clothing_adjustment/monitor_headgear, 0, 1)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
 	name = "\improper TSF staff officer's beret"
@@ -138,6 +143,7 @@
 	flags_cover = HEADCOVERSEYES
 	strip_delay = 40
 	put_on_delay = 20
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 
 /obj/item/clothing/suit/space/pirate
 	name = "pirate coat"
