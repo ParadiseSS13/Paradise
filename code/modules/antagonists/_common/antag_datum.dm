@@ -435,6 +435,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 #define MAROON_OBJECTIVE "MAROON"
 #define ASS_ONCE_OBJECTIVE "ASS_ONCE"
 #define ASS_OBJECTIVE "ASS"
+#define ASS_PET "ASS_PET"
 
 /**
  * Create and assign a single randomized human traitor objective.
@@ -446,7 +447,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/forge_single_human_objective()
 	var/datum/objective/objective_to_add
 	var/list/static/the_objective_list = list(KILL_OBJECTIVE = 50, THEFT_OBJECTIVE = 50)
-	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 50, MAROON_OBJECTIVE = 285, ASS_ONCE_OBJECTIVE = 199, ASS_OBJECTIVE = 466)
+	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 50, MAROON_OBJECTIVE = 285, ASS_ONCE_OBJECTIVE = 199, ASS_PET = 199, ASS_OBJECTIVE = 466)
 
 	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
 	if(organization && length(organization.objectives) && prob(organization.focus))
@@ -471,6 +472,9 @@ GLOBAL_LIST_EMPTY(antagonists)
 					if(ASS_ONCE_OBJECTIVE)
 						objective_to_add = /datum/objective/assassinateonce
 
+					if(ASS_PET)
+						objective_to_add = /datum/objective/kill_pet
+
 					if(ASS_OBJECTIVE)
 						objective_to_add = /datum/objective/assassinate
 			if(THEFT_OBJECTIVE)
@@ -488,6 +492,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 #undef MAROON_OBJECTIVE
 #undef ASS_ONCE_OBJECTIVE
 #undef ASS_OBJECTIVE
+#undef ASS_PET
 
 
 //Individual roundend report
