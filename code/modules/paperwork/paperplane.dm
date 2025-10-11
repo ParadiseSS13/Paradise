@@ -13,8 +13,8 @@
 	var/obj/item/paper/internal_paper
 	scatter_distance = 8
 
-/obj/item/paperplane/New(loc, obj/item/paper/new_paper)
-	..()
+/obj/item/paperplane/Initialize(mapload, obj/item/paper/new_paper)
+	. = ..()
 	scatter_atom()
 	if(new_paper)
 		internal_paper = new_paper
