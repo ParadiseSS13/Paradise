@@ -138,7 +138,7 @@
 	name = "carved pumpkin"
 	desc = "A jack o' lantern! Believed to ward off evil spirits."
 	icon_state = "hardhat0_pumpkin"//Could stand to be renamed
-	item_color = "pumpkin"
+	hat_color = "pumpkin"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
@@ -151,14 +151,14 @@
 	name = "carved blumpkin"
 	desc = "A very blue jack o' lantern! Believed to ward off vengeful chemists."
 	icon_state = "hardhat0_blumpkin"
-	item_color = "blumpkin"
+	hat_color = "blumpkin"
 	light_color = "#76ff8e"
 
 /obj/item/clothing/head/hardhat/reindeer
 	name = "novelty reindeer hat"
 	desc = "Some fake antlers and a very fake red nose."
 	icon_state = "hardhat0_reindeer"
-	item_color = "reindeer"
+	hat_color = "reindeer"
 	armor = null
 	brightness_on = 1 //luminosity when on
 	dog_fashion = /datum/dog_fashion/head/reindeer
