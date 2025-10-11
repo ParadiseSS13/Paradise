@@ -592,6 +592,7 @@
 	name = "miniture anomalous particulate canister"
 	desc = "This small sphere contains a small cloud of particulate. Likely won't form an anomally, but should still have a noticable impact"
 	icon_state = "anomalous_canister_mini"
+	w_class = 1
 
 /obj/item/grenade/anomalous_canister/mini/prime()
 	update_mob()

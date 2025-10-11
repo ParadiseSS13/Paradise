@@ -279,9 +279,9 @@
 
 	if(heat_capacity)
 		if(removed.temperature() < 60 + T0C)
-			removed.set_temperature(min(removed.temperature() + 40000 / heat_capacity, 1000))
+			removed.set_temperature(min(removed.temperature() + 80000 / heat_capacity, 1000))
 		else
-			removed.set_temperature(max(removed.temperature() - 40000 / heat_capacity, TCMB))
+			removed.set_temperature(max(removed.temperature() - 80000 / heat_capacity, TCMB))
 	env.merge(removed)
 
 /obj/effect/visible_anomalous_particulate/add_fingerprint(mob/living/M, ignoregloves)
