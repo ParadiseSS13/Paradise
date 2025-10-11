@@ -207,4 +207,5 @@ if ($Args.Length -eq 0) {
 
 ## Run rspack with custom flags
 task-install
+task-setup
 task-rspack @Args
