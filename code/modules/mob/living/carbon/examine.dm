@@ -367,7 +367,7 @@
 		if(H in secbasic.hudusers)
 			have_hudtypes += EXAMINE_HUD_SKILLS
 		if(H in anomalous.hudusers)
-			have_hudtype += ANOMALOUS_HUD
+			have_hudtypes += ANOMALOUS_HUD
 
 		var/user_accesses = M.get_access()
 		var/secwrite = has_access(null, list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS), user_accesses) // same as obj/machinery/computer/secure_data/req_one_access
