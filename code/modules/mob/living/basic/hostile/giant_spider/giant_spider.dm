@@ -218,5 +218,6 @@
 
 /mob/living/basic/giant_spider/araneus/Initialize(mapload)
 	. = ..()
+	GLOB.station_pets += src
 	AddElement(/datum/element/ai_retaliate)
 	AddElement(/datum/element/pet_bonus, "chitters!")

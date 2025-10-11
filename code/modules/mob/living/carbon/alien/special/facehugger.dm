@@ -228,3 +228,7 @@
 	desc = "The worst she might do is attempt to... couple with your head." //hope we don't get sued over a harmless reference, rite?
 	sterile = 1
 	gender = FEMALE
+
+/obj/item/clothing/mask/facehugger/lamarr/Initialize(mapload)
+	. = ..()
+	GLOB.station_pets += src

@@ -296,6 +296,14 @@
 	for(var/obj/item/item as anything in items)
 		new item(src)
 
+/obj/item/storage/box/syndie_kit/pet_assassination_kit
+	desc = "It's just an ordinary box."
+	icon_state = "box"
+
+/obj/item/storage/box/syndie_kit/pet_assassination_kit/populate_contents()
+	new /obj/item/grenade/plastic/c4(src)
+	new /obj/item/grenade/plastic/c4(src)
+
 /obj/item/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
 	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
