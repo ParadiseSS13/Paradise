@@ -2083,6 +2083,7 @@
 #include "code\modules\error_handler\error_viewer.dm"
 #include "code\modules\events\abductor_event.dm"
 #include "code\modules\events\alien_infestation.dm"
+#include "code\modules\events\anomalous_particulate_event.dm"
 #include "code\modules\events\anomaly_bluespace.dm"
 #include "code\modules\events\anomaly_cryo.dm"
 #include "code\modules\events\anomaly_event.dm"

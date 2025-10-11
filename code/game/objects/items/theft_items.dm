@@ -416,6 +416,10 @@
 	and process anomalous particulate."
 	icon = 'icons/obj/theft_tools.dmi'
 	icon_state = "PPP_Processor_0"
+	worn_icon_state = "gun"
+	inhand_icon_state = "gun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	force = 10
 	throwforce = 10
 	attack_verb = list("processed", "perforated", "pounded", "pasted", "proded", "punished", "plowed into", "pommed", "penetrated", "probed")
@@ -507,7 +511,7 @@
 
 /obj/item/clothing/glasses/hud/anomalous
 	name = "anomalous particulate scanner HUD"
-	desc = "A heads-up display that scans for anomalous particulate. Has a built in cham function, to help it blend in."
+	desc = "A heads-up display that scans for anomalous particulate. Has a built in chameleon function, to help it blend in."
 	icon_state = "sunhudmed"
 	inhand_icon_state = "sunglasses"
 	hud_types = DATA_HUD_ANOMALOUS
@@ -534,7 +538,8 @@
 // The parent anomalous grenade type. Spawns a random anomaly.
 /obj/item/grenade/anomalous_canister
 	name = "anomalous particulate canister"
-	desc = "This canister contains a cloud of charged anomalous particulate. It can be armed to create a temporary anomaly" //qwertodo: improve
+	desc = "This canister contains a cloud of charged anomalous particulate. It can be armed to create a temporary anomaly. \
+	Be careful, with a glass exterior, it may shatter early when thrown."
 	icon_state = "anomalous_canister"
 	inhand_icon_state = "emp"
 	origin_tech = "magnets=6;combat=6;syndicate=2"
@@ -544,30 +549,53 @@
 	var/anomaly_lifetime = 45 SECONDS
 	/// How many anomalies the grenade will spawn
 	var/number_of_anomalies = 1
+	/// Have we primed? It contains a cloud of particulate matter. Breaking it is going to let the anomaly out.
+	var/has_primed = FALSE
+	/// Chance to be a varient that the glass will shatter when thrown earlier than expected. The smaller canisters are more metal spheres, and will not.
+	var/shatter_chance = 20
 
 /obj/item/grenade/anomalous_canister/Initialize(mapload)
 	. = ..()
 	anomaly_type = pick(subtypesof(/obj/effect/anomaly))
+	if(prob(shatter_chance))
+		AddElement(/datum/element/shatters_when_thrown, /obj/effect/decal/cleanable/glass, 1, "shatter")
+
+/obj/item/grenade/anomalous_canister/Destroy()
+	prime()
+	return ..()
 
 /obj/item/grenade/anomalous_canister/prime()
+	if(has_primed)
+		return
+	has_primed = TRUE
+	var/turf/our_turf = get_turf(src)
+	our_turf.visible_message("<span class='danger'>[src] shatters open, the [(number_of_anomalies - 1) ? "clouds" : "cloud"] of particulate rapidly forming into something more!</span>")
+	playsound(src, "shatter", 70, TRUE)
 	update_mob()
 	for(var/i in 1 to number_of_anomalies)
-		var/obj/effect/anomaly/A = new anomaly_type(get_turf(src), anomaly_lifetime, FALSE)
+		var/obj/effect/anomaly/A = new anomaly_type(our_turf, anomaly_lifetime, FALSE)
 		A.anomalous_canister_setup()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/item/grenade/anomalous_canister/dual_core
 	name = "dual clouded anomalous particulate canister"
-	desc = "Two smaller clouds of particulate are in this canister."
 	icon_state = "anomalous_canister_dual"
 	number_of_anomalies = 2
 	anomaly_lifetime = 30 SECONDS
 
+/obj/item/grenade/anomalous_canister/dual_core/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Two smaller clouds of particulate are swirling around in this canister. It will likely form into two anomalies.</span>"
+
 /obj/item/grenade/anomalous_canister/condensed
 	name = "condesed anomalous particulate canister"
-	desc = "A large cloud of resiliant particulate is in this canister."
 	icon_state = "anomalous_canister_condensed"
 	anomaly_lifetime = 90 SECONDS
+
+/obj/item/grenade/anomalous_canister/condensed/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>A large cloud of resiliant particulate is floating in this canister. It will last longer than other anomalies.</span>"
 
 /obj/item/grenade/anomalous_canister/stabilized
 	name = "stabilized anomalous particulate canister"
@@ -576,7 +604,7 @@
 
 /obj/item/grenade/anomalous_canister/stabilized/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The predicted result is for the cloud to condense into \an [anomaly_type::name]!</span>"
+	. += "<span class='notice'>The predicted result is for the cloud to condense into is displayed as \an [anomaly_type::name]!</span>"
 
 /obj/effect/abstract/dummy_mini_spawner
 
@@ -593,21 +621,27 @@
 	desc = "This small sphere contains a small cloud of particulate. Likely won't form an anomally, but should still have a noticable impact"
 	icon_state = "anomalous_canister_mini"
 	w_class = 1
+	shatter_chance = 0
 
 /obj/item/grenade/anomalous_canister/mini/prime()
+	if(has_primed)
+		return
+	has_primed = TRUE
 	update_mob()
-	playsound(src, 'sound/magic/lightningbolt.ogg', 100, TRUE)
+	var/turf/our_turf = get_turf(src)
+	our_turf.visible_message("<span class='danger'>[src] activates and...</span>")
+	playsound(src, "shatter", 70, TRUE)
 	switch(anomaly_type)
 		if(/obj/effect/anomaly/bluespace) //Teleport and slow combat for 15
 			if(!is_teleport_allowed(z))
 				visible_message("<span class='warning'>[src]'s fragments begin rapidly vibrating and blink out of existence.</span>")
 				qdel(src)
 				return
-			for(var/mob/living/L in range(7, src))
+			for(var/mob/living/L in range(7, our_turf))
 				do_teleport(L, get_turf(L), 7, sound_in = 'sound/effects/phasein.ogg')
 				L.apply_status_effect(STATUS_EFFECT_BLUESPACESLOWDOWN)
 		if(/obj/effect/anomaly/flux) // shock
-			for(var/mob/living/L in view(7, src))
+			for(var/mob/living/L in view(7, our_turf))
 				L.Beam(get_turf(src), icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
 				L.electrocute_act(20, "electrical blast", flags = SHOCK_NOGLOVES)
 				L.KnockDown(6 SECONDS)
@@ -615,7 +649,7 @@
 			var/list/thrownatoms = list()
 			var/atom/throwtarget
 			var/distfromcaster
-			for(var/turf/T in range(7, src)) //Done this way so things don't get thrown all around hilariously.
+			for(var/turf/T in range(7, our_turf)) //Done this way so things don't get thrown all around hilariously.
 				for(var/atom/movable/AM in T)
 					thrownatoms += AM
 
@@ -645,13 +679,12 @@
 			air.set_temperature(1000)
 			air.set_toxins(20)
 			air.set_oxygen(20)
-			var/turf/T = get_turf(src)
-			T.blind_release_air(air)
-			for(var/mob/living/L in view(7, src))
+			our_turf.blind_release_air(air)
+			for(var/mob/living/L in view(7, our_turf))
 				L.adjust_fire_stacks(6)
 				L.IgniteMob()
 		if(/obj/effect/anomaly/cryo) // weaker anomaly grenade
-			for(var/turf/simulated/floor/T in view(4, get_turf(src)))
+			for(var/turf/simulated/floor/T in view(4, our_turf))
 				T.MakeSlippery(TURF_WET_ICE)
 				for(var/mob/living/carbon/C in T)
 					C.adjust_bodytemperature(-230)
@@ -660,9 +693,10 @@
 			var/datum/effect_system/smoke_spread/smoke
 			smoke = new /datum/effect_system/smoke_spread/bad()
 			smoke.set_up(20, FALSE, src)
-			playsound(get_turf(src), 'sound/effects/smoke.ogg', 50, TRUE, -3)
+			playsound(our_turf, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/item/paper/guides/antag/anomalous_particulate
 	name = "Particulate gathering instructions"

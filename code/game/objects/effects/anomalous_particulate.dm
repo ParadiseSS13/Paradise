@@ -73,7 +73,6 @@
 	name = "cloud of anomalous particulate"
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "pierced_illusion" // qwertodo Temporary, will need it's own proper sprite in the event heretic does happen one day.
-	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	alpha = 0
 	invisibility = INVISIBILITY_LEVEL_TWO
@@ -256,9 +255,9 @@
 		// Vortex just has darkness, no process needed
 		if(CRYO) // A cool blue glow. AKA a radioactive one.
 			if(prob(25))
-				radiation_pulse(src, 600, ALPHA_RAD)
-				radiation_pulse(src, 600, BETA_RAD)
-				radiation_pulse(src, 600, GAMMA_RAD)
+				radiation_pulse(src, 1200, ALPHA_RAD)
+				radiation_pulse(src, 1200, BETA_RAD)
+				radiation_pulse(src, 1200, GAMMA_RAD)
 
 /datum/milla_safe/visible_anomalous_particulate
 
@@ -298,7 +297,6 @@
 	name = "cloud of anomalous particulate"
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "reality_smash"
-	anchored = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = INVISIBILITY_LEVEL_TWO
 	hud_possible = list(ANOMALOUS_HUD)
