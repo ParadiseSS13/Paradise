@@ -437,7 +437,7 @@
 	QDEL_NULL(me_cro_wah_vey)
 	return ..()
 
-/obj/effect/visible_anomalous_particulate/examine(mob/user)
+/obj/item/ppp_processor/examine(mob/user)
 	. = ..()
 	if(fully_processed_particulate)
 		. += "<span class='notice'>[src] has processed the data you now possess. All you need to do is present it after this shift.</span>"
