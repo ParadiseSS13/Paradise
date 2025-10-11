@@ -84,6 +84,7 @@
 	name = "collectable pirate hat"
 	desc = "You'd make a great Dread Syndie Roberts!"
 	icon_state = "pirate"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	dog_fashion = /datum/dog_fashion/head/pirate
 
 /obj/item/clothing/head/collectable/kitty
@@ -125,10 +126,12 @@
 	name = "collectable Thunderdome helmet"
 	desc = "Go Red! I mean Green! I mean Red! No Green!"
 	icon_state = "thunderdome"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 
 /obj/item/clothing/head/collectable/swat
 	name = "collectable SWAT helmet"
 	desc = "Now you can be in the Deathsquad too!"
 	icon_state = "swat"
 	inhand_icon_state = "swat_hel"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/helmet.dmi')

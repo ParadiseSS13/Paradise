@@ -121,6 +121,14 @@
 	containername = "machine prototype crate"
 	access = ACCESS_RESEARCH
 
+/datum/supply_packs/science/raw_anomaly_core
+	name = "Raw Anomaly Core Crate"
+	contains = list(/obj/item/raw_anomaly_core)
+	cost = 2000
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "raw anomaly core crate"
+	access = ACCESS_RESEARCH
+
 /datum/supply_packs/science/oil
 	name = "Oil Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/oil,
