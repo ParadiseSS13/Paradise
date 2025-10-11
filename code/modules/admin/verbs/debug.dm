@@ -931,6 +931,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES|R_ADMIN))
 		return
 	if(!length(GLOB.bug_reports))
+		to_chat(usr, "<span class='warning'>There are no bug reports to view</span>")
 		return
 	var/list/bug_report_selection = list()
 	for(var/datum/tgui_bug_report_form/report in GLOB.bug_reports)

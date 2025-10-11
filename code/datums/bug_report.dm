@@ -63,13 +63,13 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 // whether or not an admin/dev can access the record at a given time.
 /datum/tgui_bug_report_form/proc/assign_approver(mob/user)
 	if(!initial_key)
-		to_chat(user, "<span class = 'warning'>Unable to identify the author of the bug report.</span>")
+		to_chat(user, "<span class='warning'>Unable to identify the author of the bug report.</span>")
 		return FALSE
 	if(approving_user)
 		if(user.client == approving_user)
-			to_chat(user, "<span class = 'warning'>This bug report review is already opened and accessed by you.</span>")
+			to_chat(user, "<span class='warning'>This bug report review is already opened and accessed by you.</span>")
 		else
-			to_chat(user, "<span class = 'warning'>Another staff member is currently accessing this report, please wait for them to finish before making any changes.</span>")
+			to_chat(user, "<span class='warning'>Another staff member is currently accessing this report, please wait for them to finish before making any changes.</span>")
 		return FALSE
 	if(!check_rights(R_VIEWRUNTIMES|R_ADMIN|R_DEBUG, user = user))
 		message_admins("[user.ckey] has attempted to review [initial_key]'s bug report titled [bug_report_data["title"]] without proper authorization at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
@@ -151,12 +151,12 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		external_link_prompt(user)
 	else
 		message_admins("[user.ckey] has approved a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
-		to_chat(initial_user, "<span class='warning'>An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!</span>")
+		to_chat(initial_user, "<span class='notice'>An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!</span>")
 	qdel(src)// approved and submitted, we no longer need the datum.
 
 // proc that creates a ticket for an admin to approve or deny a bug report request
 /datum/tgui_bug_report_form/proc/bug_report_request()
-	to_chat(initial_user, "<span class='warning'>Your bug report has been submitted, thank you!</span>")
+	to_chat(initial_user, "<span class='notice'>Your bug report has been submitted, thank you!</span>")
 	GLOB.bug_reports += src
 
 	var/general_message = "[initial_key] has created a bug report which is now pending approval. The report can be viewed using \"View Bug Reports\" in the debug tab. </span>"
