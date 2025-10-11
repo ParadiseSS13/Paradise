@@ -31,8 +31,8 @@
 
 /obj/structure/chair/narsie_act()
 	if(prob(20))
-		var/obj/structure/chair/wood/W = new /obj/structure/chair/comfy/cult(get_turf(src))
-		W.setDir(dir)
+		var/obj/structure/chair/comfy/cult/C = new /obj/structure/chair/comfy/cult(get_turf(src))
+		C.setDir(dir)
 		qdel(src)
 
 /obj/structure/chair/item_interaction(mob/living/user, obj/item/W, list/modifiers)
