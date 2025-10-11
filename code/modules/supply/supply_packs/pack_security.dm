@@ -93,20 +93,15 @@
 	containername = "disabler crate"
 
 /datum/supply_packs/security/forensics
-	name = "Forensics Crate"
-	contains = list(/obj/item/detective_scanner,
-					/obj/item/storage/box/evidence,
-					/obj/item/camera,
-					/obj/item/taperecorder,
-					/obj/item/toy/crayon/white,
-					/obj/item/clothing/head/det_hat)
-	cost = 100
-	containername = "forensics crate"
+	name = "Forensics Resupply Crate"
+	contains = list(/obj/item/storage/briefcase/crimekit,
+					/obj/item/storage/briefcase/crimekit)
+	cost = 250
+	containername = "forensics resupply crate"
 
 ///// Armory stuff
 
 /datum/supply_packs/security/armory
-	name = "HEADER"
 	containertype = /obj/structure/closet/crate/secure/weapon
 	access = ACCESS_ARMORY
 	announce_beacons = list("Security" = list("Warden", "Head of Security's Desk"))

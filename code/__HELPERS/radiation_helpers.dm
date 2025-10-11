@@ -9,7 +9,6 @@
 		/mob/dead,
 		/obj/effect,
 		/obj/docking_port,
-		/atom/movable/lighting_object,
 		/obj/item/projectile,
 		/atom/movable/emissive_blocker,
 	))
@@ -31,8 +30,9 @@
 				insulation = thing.rad_insulation_beta
 			if(GAMMA_RAD)
 				insulation = thing.rad_insulation_gamma
-		/// 1 means no rad insulation, which means perfectly permeable, so no interaction with it directly, but the contents might be relevant.
-		if(insulation < 1)
+		// 1 means no rad insulation, which means perfectly permeable, so no interaction with it directly, but the contents might be relevant.
+		// HAS_TRAIT is used manually here since the macros for HAS_TRAIT as well as the traits aren't being recognized here
+		if(insulation < 1 || (thing.status_traits ? (thing.status_traits["absorb_rads"] ? TRUE : FALSE) : FALSE))
 			if(istype(thing, /obj/structure/window))
 				window_priority += thing
 			else if(istype(thing, /obj/machinery/power/rad_collector))
@@ -54,7 +54,6 @@
 		/mob/dead,
 		/obj/effect,
 		/obj/docking_port,
-		/atom/movable/lighting_object,
 		/obj/item/projectile,
 		/atom/movable/emissive_blocker,
 	))
@@ -110,7 +109,6 @@
 		/mob/dead,
 		/obj/effect,
 		/obj/docking_port,
-		/atom/movable/lighting_object,
 		/obj/item/projectile,
 		/atom/movable/emissive_blocker,
 	))

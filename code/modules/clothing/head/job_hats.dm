@@ -1,28 +1,28 @@
 
-//Bartender
+// Chef
 /obj/item/clothing/head/chefhat
 	name = "chef's hat"
 	desc = "The commander in chef's head wear."
 	icon_state = "chef"
-	item_state = "chefhat"
+	inhand_icon_state = "chefhat"
 	strip_delay = 10
 	put_on_delay = 10
 	dog_fashion = /datum/dog_fashion/head/chef
-
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+	)
 
 //Captain
 /obj/item/clothing/head/caphat
 	name = "captain's hat"
 	desc = "It's good being the king."
 	icon_state = "captain_hat"
-	item_state = "captain_hat"
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
-
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
@@ -83,6 +83,7 @@
 	icon_state = "chaplain_hood"
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
 //Chaplain
 /obj/item/clothing/head/hooded/nun_hood
@@ -91,6 +92,7 @@
 	icon_state = "nun_hood"
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
 //Chaplain
 /obj/item/clothing/head/hooded/monk_hood
@@ -99,12 +101,12 @@
 	icon_state = "monk_hood"
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
 /obj/item/clothing/head/witchhunter_hat
 	name = "witchhunter hat"
 	desc = "This hat saw much use back in the day."
 	icon_state = "witchhunterhat"
-	item_state = "witchhunterhat"
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/det_hat
@@ -145,23 +147,17 @@
 	name = "officer's cap"
 	desc = "A red cap with an old-fashioned badge on the front for establishing that you are, in fact, the law."
 	icon_state = "sechat"
-	item_state = "sechat"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 60
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 /obj/item/clothing/head/drillsgt
 	name = "security campaign hat"
 	desc = "A wide-brimmed hat inspired by drill instructors, or when paired with red Security clothing, the Canadian Mounties of Terra."
 	icon_state = "drillsgthat"
-	item_state = "drillsgthat"
 	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 60
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')
 
 //Research
 /obj/item/clothing/head/rd
@@ -198,6 +194,7 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
+	permeability_coefficient = 0.01
 
 /obj/item/clothing/head/surgery/purple
 	name = "purple surgical cap"
@@ -206,9 +203,7 @@
 	dog_fashion = /datum/dog_fashion/head/surgery
 
 /obj/item/clothing/head/surgery/blue
-	name = "blue surgical cap"
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is baby blue."
-	icon_state = "surgcap_blue"
 	dog_fashion = /datum/dog_fashion/head/surgery
 
 /obj/item/clothing/head/surgery/green
@@ -228,8 +223,4 @@
 	name = "campaign hat"
 	desc = "A wide-brimmed campaign hat with a drill sergeant feel, worn by Career Trainers to project knowledge and guide new employees with classic style."
 	icon_state = "trainercampaign"
-	item_state = "trainercampaign"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-	)
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/head.dmi')

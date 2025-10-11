@@ -3,8 +3,6 @@
 	desc = "A large unknown smithing machine. If you see this, there's a problem and you should notify the development team."
 	icon = 'icons/obj/machines/large_smithing_machines.dmi'
 	icon_state = "power_hammer"
-	max_integrity = 200
-	pixel_x = 0	// 2x2
 	pixel_y = -32
 	bound_height = 64
 	bound_width = 64
@@ -41,6 +39,11 @@
 	if(stat & NOPOWER && operating)
 		operating = FALSE
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/smithing/Destroy()
+	if(working_component)
+		working_component.forceMove(src.loc)
+	. = ..()
 
 /obj/machinery/smithing/item_interaction(mob/living/user, obj/item/used, list/modifiers)
 	if(istype(used, /obj/item/grab))

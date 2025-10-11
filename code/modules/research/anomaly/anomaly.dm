@@ -3,7 +3,7 @@
 	name = "anomaly core"
 	desc = "The neutralized core of an anomaly. It'd probably be valuable for research."
 	icon_state = "anomaly_core"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	resistance_flags = FIRE_PROOF
 	receiving = TRUE
 	var/anomaly_type = /obj/effect/anomaly
@@ -48,7 +48,6 @@
 /obj/item/assembly/signaler/anomaly/bluespace
 	name = "bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	icon_state = "anomaly_core"
 	anomaly_type = /obj/effect/anomaly/bluespace
 	origin_tech = "bluespace=7"
 
@@ -69,12 +68,22 @@
 	new A(loc)
 	qdel(src)
 
+/obj/item/raw_anomaly_core
+	name = "unrefined anomaly core"
+	desc = "The raw core of an unknown anomaly. It glimmers with potential."
+	icon_state = "unrefined_anomaly_core"
+	w_class = WEIGHT_CLASS_SMALL
+	var/target_explosion_size = 4
+
+/obj/item/raw_anomaly_core/Initialize(mapload)
+	. = ..()
+	target_explosion_size = rand(4, 20)
+
 /obj/item/reactive_armour_shell
 	name = "reactive armour shell"
 	desc = "An experimental suit of armour, awaiting installation of an anomaly core."
 	icon_state = "reactiveoff"
 	icon = 'icons/obj/clothing/suits.dmi'
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/reactive_armour_shell/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	var/static/list/anomaly_armour_types = list(

@@ -15,7 +15,6 @@
 	pickup_sound =  'sound/items/handling/wrench_pickup.ogg'
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
-	toolspeed = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WRENCH
 
@@ -66,7 +65,7 @@
 	name = "hand drill"
 	desc = "A powerful, hand-held drill fitted with a long-lasting battery. It has a bolt driver head attached."
 	icon_state = "drill_bolt"
-	item_state = "drill"
+	inhand_icon_state = "drill"
 	belt_icon = "hand_drill"
 	usesound = 'sound/items/impactwrench.ogg' // Sourced from freesfx.co.uk
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)

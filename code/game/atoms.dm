@@ -190,10 +190,6 @@
 	if(light_power && light_range)
 		update_light()
 
-	if(opacity && isturf(loc))
-		var/turf/T = loc
-		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guranteed to be on afterwards anyways.
-
 	if(loc)
 		SEND_SIGNAL(loc, COMSIG_ATOM_INITIALIZED_ON, src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
@@ -1130,11 +1126,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
-/atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE)
+/atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE, type_override)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	if(!isspaceturf(src))
 		var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
 		var/vomit_reagent = green ? "green_vomit" : "vomit"
+		if(type_override)
+			type = type_override
 		for(var/obj/effect/decal/cleanable/vomit/V in get_turf(src))
 			if(V.type == type)
 				V.reagents.add_reagent(vomit_reagent, 5)
@@ -1512,3 +1510,38 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	attack_info.last_attacker_ckey = attacker.ckey
 	if(istype(weapon))
 		attack_info.last_attacker_weapon = "[weapon] ([weapon.type])"
+
+// MARK: PTL PROCS
+
+// Called when the target is selected
+/atom/proc/on_ptl_target(obj/machinery/power/transmission_laser/ptl)
+	if(ptl.firing)
+		on_ptl_fire()
+	return
+
+// Called for each process of the PTL
+/atom/proc/on_ptl_tick(obj/machinery/power/transmission_laser/ptl, output_level)
+	return
+
+// Called when no longer targeted by the ptl
+/atom/proc/on_ptl_untarget(obj/machinery/power/transmission_laser/ptl)
+	return
+
+// Called when the PTL starts firing on the target
+/atom/proc/on_ptl_fire(obj/machinery/power/transmission_laser/ptl)
+	return
+
+// Called when the PTL stops firing on the target
+/atom/proc/on_ptl_stop(obj/machinery/power/transmission_laser/ptl)
+	return
+
+// Used in the PTL ui
+/atom/proc/ptl_data()
+	return name
+
+// Called if an atom untargets itself
+/atom/proc/untarget_self(obj/machinery/power/transmission_laser/ptl)
+	on_ptl_untarget(ptl)
+	if(ptl)
+		ptl.target = null
+	return

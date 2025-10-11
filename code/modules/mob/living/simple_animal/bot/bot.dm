@@ -174,6 +174,7 @@
 	diag_hud_set_botmode()
 
 	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, TRAIT_GENERIC)
+	RemoveElement(/datum/element/strippable)
 
 /mob/living/simple_animal/bot/Destroy()
 	if(paicard)
@@ -198,7 +199,6 @@
 
 /obj/item/radio/headset/bot
 	requires_tcomms = FALSE
-	canhear_range = 0
 
 /obj/item/radio/headset/bot/recalculateChannels()
 	var/mob/living/simple_animal/bot/B = loc
@@ -1076,7 +1076,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		else if(paicard.pai)
 			paicard.pai.key = key
 		else
-			ghostize(0) // The pAI card that just got ejected was dead.
+			ghostize(GHOST_FLAGS_OBSERVE_ONLY) // The pAI card that just got ejected was dead.
 		key = null
 		paicard.forceMove(loc)
 		if(user)

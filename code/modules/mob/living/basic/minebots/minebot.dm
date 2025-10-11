@@ -1,12 +1,10 @@
 /mob/living/basic/mining_drone
 	name = "nanotrasen minebot"
 	desc = "The instructions printed on the side read: This is a small robot used to support miners, can be set to search and collect loose ore, or to help fend off wildlife. A mining scanner can instruct it to drop loose ore. Field repairs can be done with a welder."
-	gender = NEUTER
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "mining_drone"
 	icon_living = "mining_drone"
 	status_flags = CANSTUN|CANWEAKEN|CANPUSH
-	mouse_opacity = MOUSE_OPACITY_ICON
 	basic_mob_flags = DEL_ON_DEATH
 	sentience_type = SENTIENCE_MINEBOT
 	faction = list("neutral", "goldgrub") // goldgrubs are invulnerable to PKA fire
@@ -23,7 +21,6 @@
 	speak_emote = list("states")
 	healable = FALSE
 	ai_controller = /datum/ai_controller/basic_controller/minebot
-	hud_type = /datum/hud/simple_animal
 	var/light_on = FALSE
 	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_gun
 	var/obj/item/radio/radio
@@ -174,10 +171,10 @@
 /obj/item/mining_drone_cube
 	name = "mining drone cube"
 	desc = "Compressed mining drone, ready for deployment. Just press the button to activate!"
-	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "minedronecube"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/mining_drone_cube/attack_self__legacy__attackchain(mob/user)
 	user.visible_message("<span class='warning'>\The [src] suddenly expands into a fully functional mining drone!</span>", \

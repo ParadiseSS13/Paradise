@@ -5,7 +5,6 @@
 	base_cooldown = 600
 	clothes_req = FALSE
 	invocation = "GIN'YU CAPAN"
-	invocation_type = "none"  // shh
 	selection_activated_message = "<span class='notice'>You prepare to transfer your mind. Click on a target to cast the spell.</span>"
 	selection_deactivated_message = "<span class='notice'>You decide that your current form is good enough.</span>"
 	cooldown_min = 200 //100 deciseconds reduction per rank
@@ -65,7 +64,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 			for(var/V in victim.mind.special_verbs)
 				remove_verb(victim, V)
 
-		var/mob/dead/observer/ghost = victim.ghostize(0)
+		var/mob/dead/observer/ghost = victim.ghostize()
 		caster.mind.transfer_to(victim)
 
 		if(length(victim.mind.special_verbs))//To add all the special verbs for the original caster.
@@ -74,7 +73,6 @@ Also, you never added distance checking after target is selected. I've went ahea
 
 		ghost.mind.transfer_to(caster)
 		if(ghost.key)
-			GLOB.non_respawnable_keys -= ghost.ckey
 			caster.key = ghost.key	//have to transfer the key since the mind was not active
 		qdel(ghost)
 

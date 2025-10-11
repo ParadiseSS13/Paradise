@@ -644,17 +644,13 @@ Returns 1 if the chain up to the area contains the given typepath
 		current = get_step_towards(current, target_turf)
 		while(current != target_turf)
 			if(steps > length)
-				return 0
-			if(current.opacity)
-				return 0
-			for(var/thing in current)
-				var/atom/A = thing
-				if(A.opacity)
-					return 0
+				return FALSE
+			if(IS_OPAQUE_TURF(current))
+				return FALSE
 			current = get_step_towards(current, target_turf)
 			steps++
 
-	return 1
+	return TRUE
 
 //Returns: all the areas in the world
 /proc/return_areas()
@@ -849,7 +845,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	if(perfectcopy)
 		if(O && original)
-			var/static/list/forbidden_vars = list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "power_supply", "contents", "reagents", "stat", "x", "y", "z", "group", "comp_lookup", "datum_components")
+			var/static/list/forbidden_vars = list("type", "loc", "locs", "vars", "parent", "parent_type", "pixloc", "verbs", "ckey", "key", "power_supply", "contents", "reagents", "stat", "x", "y", "z", "group", "comp_lookup", "datum_components")
 
 			for(var/V in original.vars - forbidden_vars)
 				if(islist(original.vars[V]))
@@ -1947,3 +1943,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return_list[path] = 0
 		return_list[path] += 1
 	return return_list
+
+// Wrappers for BYOND default procs which can't directly be called by call().
+/proc/_step(ref, dir)
+	step(ref, dir)

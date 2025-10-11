@@ -2,7 +2,7 @@
 	name = "Biodegrade"
 	desc = "Dissolves restraints or other objects preventing free movement if we are restrained. Prepares hand to vomit acid on other objects, doesn't work on living targets. Costs 30 chemicals."
 	helptext = "This is obvious to nearby people, and can destroy standard restraints and closets, and break you out of grabs."
-	button_overlay_icon_state = "biodegrade"
+	button_icon_state = "biodegrade"
 	chemical_cost = 30 //High cost to prevent spam
 	dna_cost = 4
 	req_human = TRUE
@@ -64,7 +64,7 @@
 		var/mob/living/carbon/M = G.assailant
 		user.visible_message("<span class='warning'>[user] spits acid at [M]'s face and slips out of their grab!</span>")
 		M.Stun(2 SECONDS) //Drops the grab
-		M.apply_damage(5, BURN, "head", M.run_armor_check("head", "melee"))
+		M.apply_damage(5, BURN, BODY_ZONE_HEAD, M.run_armor_check(BODY_ZONE_HEAD, MELEE))
 		user.SetStunned(0) //This only triggers if they are grabbed, to have them break out of the grab, without the large stun time. If you use biodegrade as an antistun without being grabbed, it will not work
 		user.SetWeakened(0)
 		playsound(user.loc, 'sound/weapons/sear.ogg', 50, TRUE)
@@ -124,11 +124,8 @@
 	desc = "A fistfull of death."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "alien_acid"
-	item_state = null
 	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	force = 0
-	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
 	var/datum/action/changeling/biodegrade/parent_action

@@ -41,7 +41,7 @@
 /datum/gear/suit/coat/job/med
 	display_name = "Winter coat, medical"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner", "Geneticist")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
 
 /datum/gear/suit/coat/job/sci
 	display_name = "Winter coat, science"
@@ -134,7 +134,7 @@
 /datum/gear/suit/bomber/job/medical
 	display_name = "Bomber jacket, medical"
 	path = /obj/item/clothing/suit/jacket/bomber/med
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner", "Geneticist")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
 
 /datum/gear/suit/bomber/job/chemist
 	display_name = "Bomber jacket, chemist"
@@ -262,6 +262,10 @@
 /datum/gear/suit/witch
 	display_name = "Witch robes"
 	path = /obj/item/clothing/suit/wizrobe/marisa/fake
+
+/datum/gear/suit/wizard
+	display_name = "Wizard robes"
+	path = /obj/item/clothing/suit/wizrobe/fake
 
 //Tracksuits
 

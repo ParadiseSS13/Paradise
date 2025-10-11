@@ -1,9 +1,10 @@
-import { Loader } from './common/Loader';
-import { InputButtons } from './common/InputButtons';
-import { Button, Section, Stack, Table } from '../components';
-import { useBackend, useLocalState } from '../backend';
+import { DragEvent, useState } from 'react';
+import { Button, Section, Stack, Table } from 'tgui-core/components';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { TableRow } from '../components/Table';
+import { InputButtons } from './common/InputButtons';
+import { Loader } from './common/Loader';
 
 type ListInputData = {
   items: string[];
@@ -12,10 +13,10 @@ type ListInputData = {
   title: string;
 };
 
-export const RankedListInputModal = (props, context) => {
-  const { act, data } = useBackend<ListInputData>(context);
+export const RankedListInputModal = (props) => {
+  const { act, data } = useBackend<ListInputData>();
   const { items = [], message = '', timeout, title } = data;
-  const [edittedItems, setEdittedItems] = useLocalState<string[]>(context, 'edittedItems', items);
+  const [editedItems, setEditedItems] = useState<string[]>(items);
 
   // Dynamically changes the window height based on the message.
   const windowHeight = 330 + Math.ceil(message.length / 3);
@@ -27,10 +28,10 @@ export const RankedListInputModal = (props, context) => {
         <Section className="ListInput__Section" fill title={message}>
           <Stack fill vertical>
             <Stack.Item grow>
-              <ListDisplay filteredItems={edittedItems} setEdittedItems={setEdittedItems} />
+              <ListDisplay filteredItems={editedItems} setEditedItems={setEditedItems} />
             </Stack.Item>
             <Stack.Item mt={0.5}>
-              <InputButtons input={edittedItems} />
+              <InputButtons input={editedItems} />
             </Stack.Item>
           </Stack>
         </Section>
@@ -43,9 +44,9 @@ export const RankedListInputModal = (props, context) => {
  * Displays the list of selectable items.
  * If a search query is provided, filters the items.
  */
-const ListDisplay = (props, context) => {
-  const { filteredItems, setEdittedItems } = props;
-  const [draggedItemIndex, setDraggedItemIndex] = useLocalState<number | null>(context, 'draggedItemIndex', null);
+const ListDisplay = (props) => {
+  const { filteredItems, setEditedItems } = props;
+  const [draggedItemIndex, setDraggedItemIndex] = useState<number | null>(null);
 
   // Handle the drag start event
   const handleDragStart = (index: number) => {
@@ -53,12 +54,12 @@ const ListDisplay = (props, context) => {
   };
 
   // Handle the drag over event
-  const handleDragOver = (event: DragEvent) => {
+  const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault(); // Required to allow dropping
   };
 
   // Handle the drop event for items
-  const handleDrop = (index: number | null = null) => {
+  const handleDrop = (event: DragEvent<HTMLDivElement>, index: number | null = null) => {
     if (draggedItemIndex === null) return;
 
     const updatedItems = [...filteredItems];
@@ -71,29 +72,29 @@ const ListDisplay = (props, context) => {
       updatedItems.splice(index, 0, draggedItem); // Insert dragged item at new position
     }
 
-    setEdittedItems(updatedItems);
+    setEditedItems(updatedItems);
     setDraggedItemIndex(null); // Reset the dragged item index
+    event.stopPropagation();
   };
 
   return (
     <Section
       fill
       scrollable
-      tabIndex={0}
-      onDrop={() => handleDrop(null)} // Handle drop on Section
+      onDrop={(e) => handleDrop(e)} // Handle drop on Section
       onDragOver={handleDragOver} // Allow dropping on Section
     >
       <Table>
         {filteredItems.map((item, index) => (
-          <TableRow
+          <Table.Row
             key={index}
-            draggable
-            onDragStart={() => handleDragStart(index)}
-            onDragOver={handleDragOver}
-            onDrop={() => handleDrop(index)}
             style={{
               padding: '8px',
             }}
+            draggable
+            onDragStart={() => handleDragStart(index)}
+            onDragOver={handleDragOver}
+            onDrop={(e) => handleDrop(e, index)}
           >
             <Button
               fluid
@@ -108,7 +109,7 @@ const ListDisplay = (props, context) => {
             >
               {item.replace(/^\w/, (c) => c.toUpperCase())}
             </Button>
-          </TableRow>
+          </Table.Row>
         ))}
       </Table>
     </Section>

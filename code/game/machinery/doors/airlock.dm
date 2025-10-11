@@ -51,7 +51,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	desc = "An airlock door keeping you safe from the vacuum of space. Only works if closed."
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "closed"
-	anchored = TRUE
 	max_integrity = 300
 	integrity_failure = 70
 	damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
@@ -147,7 +146,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	*		one wire for controlling door speed.  When active, dor closes at normal rate.  When cut, door does not close manually.  When pulsed, door attempts to close every tick.
 	*/
 	// You can find code for the airlock wires in the wire datum folder.
-	wires = new(src)
+	wires = get_wires()
 
 	if(closeOtherId != null)
 		addtimer(CALLBACK(src, PROC_REF(update_other_id)), 5)
@@ -166,6 +165,21 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 	diag_hud_set_electrified()
+
+/**
+ * Generates the airlock's wire layout based on the current area the airlock resides in.
+ *
+ * Returns a new /datum/wires/ with the appropriate wire layout based on the airlock_wires
+ * of the area the airlock is in.
+ */
+/obj/machinery/door/airlock/proc/get_wires()
+	var/area/source_area = get_area(src)
+	if(!source_area || !z)
+		return new /datum/wires/airlock(src)
+	if(source_area.airlock_wires == ZLVL_BASED_WIRES)
+		var/snowflake_path = /datum/wires/airlock/ruin
+		return new snowflake_path(src)
+	return source_area?.airlock_wires ? new source_area.airlock_wires(src) : new /datum/wires/airlock(src)
 
 /obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
@@ -796,6 +810,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(isElectrified())
 		shock(user, 100)
 
+/obj/machinery/door/airlock/attack_basic_mob(mob/user, list/modifiers)
+	. = ..()
+	if(isElectrified())
+		shock(user, 100)
+
 /obj/machinery/door/airlock/attack_hand(mob/user)
 	if(shock_user(user, 100))
 		return
@@ -1267,7 +1286,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	recalculate_atmos_connectivity()
 	update_icon(AIRLOCK_OPENING, 1)
 	sleep(1)
-	set_opacity(0)
+	set_opacity(FALSE)
 	if(width > 1)
 		set_fillers_opacity(0)
 	update_freelook_sight()
@@ -1321,7 +1340,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!safe)
 		crush()
 	if((visible && !glass) || polarized_on)
-		set_opacity(1)
+		set_opacity(TRUE)
 		if(width > 1)
 			set_fillers_opacity(1)
 	update_freelook_sight()

@@ -3,7 +3,6 @@
 	var/datum/pipeline/parent
 	var/volume = 0
 	force = 20
-	power_state = NO_POWER_USE
 	can_unwrench = TRUE
 	damage_deflection = 12
 	can_be_undertile = TRUE
@@ -11,7 +10,6 @@
 	//Buckling
 	can_buckle = TRUE
 	buckle_requires_restraints = TRUE
-	buckle_lying = -1
 
 	flags_2 = NO_MALF_EFFECT_2
 

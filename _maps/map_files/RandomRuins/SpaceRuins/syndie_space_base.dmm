@@ -4728,7 +4728,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "Br" = (
-/obj/machinery/computer/pandemic,
+/obj/machinery/pandemic,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5173,7 +5173,7 @@
 	name = "Animal Storage";
 	req_access = list(150)
 	},
-/mob/living/simple_animal/chicken{
+/mob/living/basic/chicken{
 	faction = list("neutral","syndicate")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{

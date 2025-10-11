@@ -11,7 +11,7 @@
 			jumptoturf(T)
 		href_list["datumrefresh"] = target.UID()
 	if(href_list["varnameedit"] && href_list["datumedit"])
-		if(!check_rights(R_VAREDIT))	return
+		if(!check_rights(R_ADMIN | R_VAREDIT))	return
 
 		var/D = locateUID(href_list["datumedit"])
 		if(!istype(D,/datum) && !isclient(D))
@@ -20,7 +20,8 @@
 
 		modify_variables(D, href_list["varnameedit"], 1)
 	if(href_list["varnamechange"] && href_list["datumchange"])
-		if(!check_rights(R_VAREDIT))	return
+		if(!check_rights(R_ADMIN | R_VAREDIT))
+			return
 
 		var/D = locateUID(href_list["datumchange"])
 		if(!istype(D,/datum) && !isclient(D))
@@ -29,7 +30,8 @@
 
 		modify_variables(D, href_list["varnamechange"], 0)
 	if(href_list["varnamemass"] && href_list["datummass"])
-		if(!check_rights(R_VAREDIT))	return
+		if(!check_rights(R_ADMIN | R_VAREDIT))
+			return
 
 		var/atom/A = locateUID(href_list["datummass"])
 		if(!istype(A))
@@ -41,8 +43,8 @@
 		if(!check_rights(R_DEBUG, 0))
 			return
 
-		admin_delete(src)
-		href_list["datumrefresh"] = UID()
+		admin_delete(target)
+		return
 	if(href_list[VV_HK_MARK_OBJECT])
 		if(!check_rights(0))	return
 
@@ -50,7 +52,7 @@
 			to_chat(usr, "<span class='notice'>This can only be done to instances of type /datum.</span>")
 			return
 
-		src.holder.marked_datum = target
+		holder.marked_datum = target
 		href_list["datumrefresh"] = target.UID()
 	if(href_list[VV_HK_PROC_CALL])
 		if(!check_rights(R_PROCCALL))
@@ -75,7 +77,7 @@
 		if(!usr || result == "---Components---" || result == "---Elements---")
 			return
 
-		if(QDELETED(src))
+		if(QDELETED(target))
 			to_chat(usr, "<span class='notice'>That thing doesn't exist anymore!</span>", confidential = TRUE)
 			return
 
@@ -110,7 +112,7 @@
 			return
 		if(!usr || path == "---Components---" || path == "---Elements---")
 			return
-		if(QDELETED(src))
+		if(QDELETED(target))
 			to_chat(usr, "<span class='notice'>That thing doesn't exist anymore!</span>")
 			return
 		var/list/targets_to_remove_from = list(target)

@@ -9,7 +9,8 @@
 	hitsound = 'sound/items/handling/salvagepickup.ogg'
 	pickup_sound = 'sound/items/handling/salvagepickup.ogg'
 	drop_sound = 'sound/items/handling/salvagedrop.ogg'
-	w_class = WEIGHT_CLASS_NORMAL
+	/// How much is the salvage worth?
+	var/value = 100
 
 /obj/item/salvage/examine(mob/user)
 	. = ..()
@@ -87,7 +88,7 @@
 
 /obj/item/salvage/loot/soviet
 	name = "\improper Cygni manifesto"
-	desc = "A small book, written in Zvezhan, detailing the manifesto of Malfoy Ames, father of The Cygni Rebellion. Banned in Federation space, it may fetch a decent price on the black market."
+	desc = "A small book, written in Cygni Standard, detailing the manifesto of Malfoy Ames, father of The Cygni Rebellion. Banned in Federation space, it may fetch a decent price on the black market."
 	icon_state = "ussp_manual"
 	hitsound = 'sound/items/handling/paper_pickup.ogg'
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'

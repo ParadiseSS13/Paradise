@@ -7,7 +7,6 @@
 	desc = "An intense atmospheric storm lifts ash off of the planet's surface and billows it down across the area, dealing intense fire damage to the unprotected."
 
 	telegraph_message = "<span class='boldwarning'>An eerie moan rises on the wind. Sheets of burning ash blacken the horizon. Seek shelter.</span>"
-	telegraph_duration = 300
 	telegraph_overlay = "light_ash"
 
 	weather_message = "<span class='userdanger'><i>Smoldering clouds of scorching ash billow down around you! Get inside!</i></span>"
@@ -16,7 +15,6 @@
 	weather_overlay = "ash_storm"
 
 	end_message = "<span class='boldannounceic'>The shrieking wind whips away the last of the ash and falls to its usual murmur. It should be safe to go outside now.</span>"
-	end_duration = 300
 	end_overlay = "light_ash"
 
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
@@ -114,7 +112,6 @@
 	end_sound = null
 
 	aesthetic = TRUE
-	probability = 25
 
 /// MARK: Volcano
 /datum/weather/volcano
@@ -131,7 +128,6 @@
 	weather_sound = 'sound/weather/volcano/lavaland_volcano_eruption.ogg'
 
 	// No end message. Radar will give you the safety message on this one, or your instincts
-	end_duration = 300
 	end_message = ""
 
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
@@ -157,15 +153,15 @@
 		new_river.generate(nodes = 4, ignore_bridges = TRUE, warning = TRUE)
 	if(world.time >= next_rubble)
 		next_rubble = world.time + rand(3 DECISECONDS, 2 SECONDS)
-		var/hits = 0
-		var/target
-		for(var/turf/T in get_area_turfs(/area/lavaland/surface/outdoors))
-			if(istype(get_area(T), /area/lavaland/surface/outdoors/outpost/no_boulder))
+		for(var/area/lavaland/surface/outdoors/N in GLOB.all_areas)
+			if(istype(N, /area/lavaland/surface/outdoors/outpost/no_boulder))
 				continue // No hitting the no boulder area
-			if(istype(T, /turf/simulated/floor)) // dont waste our time hitting walls
+			for(var/turf/simulated/floor/T in N) // dont waste our time hitting walls
 				valid_targets += T
 		if(isnull(valid_targets)) // prevents a runtime when coding without lavaland enabled. Or theres somehow ZERO turfs.
 			return
+		var/hits = 0
+		var/target
 		while(hits <= 150 && length(valid_targets)) //sling a bunch of rocks around the map
 			target = pick(valid_targets)
 			new /obj/effect/temp_visual/rock_target(target)
@@ -192,7 +188,6 @@
 	desc = "Get out of the way!"
 	layer = FLY_LAYER
 	randomdir = FALSE
-	duration = ROCKFALL_DELAY
 	pixel_z = 270
 
 /obj/effect/temp_visual/rockfall/Initialize(mapload)
@@ -206,7 +201,6 @@
 	icon_state = "sniper_zoom"
 	layer = BELOW_MOB_LAYER
 	light_range = 2
-	duration = ROCKFALL_DELAY
 
 /obj/effect/temp_visual/rock_target/ex_act()
 	return
@@ -263,7 +257,6 @@
 	weather_overlay = "acid_rain"
 
 	end_message = "<span class='boldannounceic'>The pitter of acidic dropples slows to silence. It should be safe to go outside now.</span>"
-	end_duration = 300
 	end_overlay = "light_ash"
 
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
@@ -381,7 +374,6 @@
 	weather_overlay = "wind"
 
 	end_message = "<span class='boldannounceic'>The wind calms into its normal rhythms, dust settling back to the ashen surface. It should be safe to go outside now.</span>"
-	end_duration = 300
 	end_overlay = "light_ash"
 
 	area_types = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/gulag_rock)
@@ -455,7 +447,7 @@
 		update_areas()
 	if(!istype(target)) // lets not push around lavaland mobs
 		return
-	if(!is_mecha_occupant(target)) // mecha's occupants are unaffected
+	if(isturf(target.loc)) // only affected if outside and not dead.
 		target.air_push(wind_dir, MOVE_FORCE_NORMAL * 2)
 
 #undef ROCKFALL_DELAY

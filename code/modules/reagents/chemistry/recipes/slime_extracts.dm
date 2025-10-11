@@ -150,6 +150,7 @@
 
 	var/list/blocked = list(
 		/obj/item/food,
+		/obj/item/food/burger, // abstract burger
 		/obj/item/food/sliced/bread,
 		/obj/item/food/sliceable,
 		/obj/item/food/sliceable/pizza,
@@ -174,7 +175,8 @@
 		/obj/item/food/human,
 		/obj/item/food/monstermeat,
 		/obj/item/food/meatsteak/stimulating,
-		/obj/item/food/egg/watcher
+		/obj/item/food/egg/watcher,
+		/obj/item/food/supermatter_sandwich,
 		)
 	blocked |= typesof(/obj/item/food/customizable)
 
@@ -511,6 +513,28 @@
 
 /datum/chemical_reaction/slimemutate2/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+
+/datum/chemical_reaction/viral_gene_extraction
+	name = "Virus Gene Extraction"
+	id = "virus_gene_extraction"
+	result = "virus_genes"
+	required_reagents = list("blood" = 1)
+	result_amount = 1
+	required_other = TRUE
+	required_container = /obj/item/slime_extract/black
+
+/datum/chemical_reaction/viral_gene_extraction/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/reagent_containers/glass/bottle/result_bottle = new(get_turf(holder.my_atom))
+	holder.trans_to(result_bottle, holder.total_volume)
+	var/datum/reagent/virus_genes/result_genes = locate() in result_bottle.reagents.reagent_list
+	var/list/strains = list("slime" = list())
+	if(result_genes.data && result_genes.data["viruses"])
+		for(var/datum/disease/advance/advanced_virus in result_genes.data["viruses"])
+			strains["slime"] += list(advanced_virus.strain)
+			result_bottle.name = "[advanced_virus.strain] Strain Viral Genetic Matter"
+			break
+	result_genes.data = strains
 
 //Oil
 /datum/chemical_reaction/slime_explosion

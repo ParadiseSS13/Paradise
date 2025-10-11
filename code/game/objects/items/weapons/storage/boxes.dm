@@ -24,7 +24,7 @@
 	desc = "It's just an ordinary box."
 	icon = 'icons/obj/boxes.dmi'
 	icon_state = "box"
-	item_state = "syringe_kit"
+	inhand_icon_state = "syringe_kit"
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/cardboardbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/cardboardbox_pickup.ogg'
@@ -396,7 +396,6 @@
 	name = "monkey cube box"
 	desc = "Drymate brand monkey cubes. Just add water!"
 	icon_state = "monkey_box"
-	storage_slots = 7
 	can_hold = list(/obj/item/food/monkeycube)
 	var/monkey_cube_type = /obj/item/food/monkeycube
 
@@ -1068,8 +1067,6 @@
 	desc = "A sack neatly crafted out of paper."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "paperbag_None"
-	item_state = "paperbag_None"
-	resistance_flags = FLAMMABLE
 	foldable = null
 	var/design = NODESIGN
 
@@ -1088,11 +1085,7 @@
 			desc = "A paper sack with a crude smile etched onto the side."
 
 /obj/item/storage/box/papersack/update_icon_state()
-	item_state = "paperbag_[design]"
-	if(!length(contents))
-		icon_state = "[item_state]"
-	else
-		icon_state = "[item_state]_closed"
+	icon_state = "paperbag_[design][length(contents) ? "_closed" : ""]"
 
 /obj/item/storage/box/papersack/attackby__legacy__attackchain(obj/item/W, mob/user, params)
 	if(is_pen(W))
@@ -1115,12 +1108,12 @@
 		return
 	else if(W.sharp)
 		if(!length(contents))
-			if(item_state == "paperbag_None")
+			if(icon_state == "paperbag_None")
 				to_chat(user, "<span class='notice'>You cut eyeholes into [src].</span>")
 				new /obj/item/clothing/head/papersack(user.loc)
 				qdel(src)
 				return
-			else if(item_state == "paperbag_SmileyFace")
+			else if(icon_state == "paperbag_SmileyFace")
 				to_chat(user, "<span class='notice'>You cut eyeholes into [src] and modify the design.</span>")
 				new /obj/item/clothing/head/papersack/smiley(user.loc)
 				qdel(src)
@@ -1173,7 +1166,7 @@
 
 /obj/item/storage/box/responseteam/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/kitchen/knife/combat(src)
@@ -1301,7 +1294,6 @@
 /obj/item/storage/box/wizard/hardsuit
 	name = "battlemage armour bundle"
 	desc = "This box contains a bundle of Battlemage Armour."
-	icon_state = "wizard_box"
 
 /obj/item/storage/box/wizard/hardsuit/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/wizard(src)

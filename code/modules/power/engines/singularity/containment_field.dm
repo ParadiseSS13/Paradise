@@ -4,7 +4,6 @@
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "Contain_F"
 	anchored = TRUE
-	density = FALSE
 	move_resist = INFINITY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_2 = RAD_NO_CONTAMINATE_2
@@ -20,12 +19,14 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	GLOB.tesla_containment += src
 
 /obj/machinery/field/containment/Destroy()
 	if(FG1)// These checks are mostly in case a field is spawned in by accident.
 		FG1.fields -= src
 	if(FG2)
 		FG2.fields -= src
+	GLOB.tesla_containment -= src
 	return ..()
 
 /obj/machinery/field/containment/attack_hand(mob/user)

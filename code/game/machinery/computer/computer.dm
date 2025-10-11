@@ -6,7 +6,6 @@
 	anchored = TRUE
 	idle_power_consumption = 300
 	active_power_consumption = 300
-	max_integrity = 200
 	integrity_failure = 100
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 40, ACID = 20)
 	var/obj/item/circuitboard/circuit = null //if circuit==null, computer can't disassembly
@@ -18,6 +17,8 @@
 	var/flickering = FALSE
 	/// Are we forcing the icon to be represented in a no-power state?
 	var/force_no_power_icon_state = FALSE
+	/// Cached list of colors associated with overlays
+	var/list/cached_emissive_color = list()
 
 /obj/machinery/computer/Initialize(mapload)
 	. = ..()
@@ -87,12 +88,13 @@
 		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask")
 
 	if(!(stat & BROKEN))
-		// Get the average color of the computer screen so it can be used as a tinted glow
-		// Shamelessly stolen from /tg/'s /datum/component/customizable_reagent_holder.
-		var/icon/emissive_avg_screen_color = new(icon, overlay_state)
-		emissive_avg_screen_color.Scale(1, 1)
-		var/screen_emissive_color = copytext(emissive_avg_screen_color.GetPixel(1, 1), 1, 8) // remove opacity
-		set_light(light_range_on, light_power_on, screen_emissive_color)
+		if(!cached_emissive_color[overlay_state])
+			// Get the average color of the computer screen so it can be used as a tinted glow
+			// Shamelessly stolen from /tg/'s /datum/component/customizable_reagent_holder.
+			var/icon/emissive_avg_screen_color = new(icon, overlay_state)
+			emissive_avg_screen_color.Scale(1, 1)
+			cached_emissive_color[overlay_state] = copytext(emissive_avg_screen_color.GetPixel(1, 1), 1, 8) // remove opacity
+		set_light(light_range_on, light_power_on, cached_emissive_color[overlay_state])
 
 /obj/machinery/computer/power_change()
 	. = ..() //we don't check parent return due to this also being contigent on the BROKEN stat flag

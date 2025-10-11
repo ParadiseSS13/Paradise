@@ -135,15 +135,19 @@ RESTRICT_TYPE(/mob/living/basic)
 	/// What can this mob break?
 	var/environment_smash = ENVIRONMENT_SMASH_NONE
 	/// Flat armour reduction, occurs after percentage armour penetration.
-	var/armour_penetration_flat = 0
+	var/armor_penetration_flat = 0
 	/// Percentage armour reduction, happens before flat armour reduction.
-	var/armour_penetration_percentage = 0
+	var/armor_penetration_percentage = 0
 	/// Damage type of a simple mob's melee attack, should it do damage.
 	var/melee_damage_type = BRUTE
 	/// Lower bound for melee attack cooldown
 	var/melee_attack_cooldown_min = 2 SECONDS
 	/// Upper bound for melee attack cooldown
 	var/melee_attack_cooldown_max = 2 SECONDS
+	/// Can this mob ignite?
+	var/can_be_on_fire = FALSE
+	/// How much fire damage does a mob take?
+	var/fire_damage = 2
 
 	/// Loot this mob drops on death.
 	var/list/loot = list()
@@ -153,6 +157,21 @@ RESTRICT_TYPE(/mob/living/basic)
 
 	/// Footsteps
 	var/step_type
+
+	/// Does this type do range attacks?
+	var/is_ranged = FALSE
+	/// How many shots in a burst?
+	var/ranged_burst_count = 1
+	/// How fast do we fire between shots in a burst?
+	var/ranged_burst_interval = 0.2 SECONDS
+	/// Time between bursts
+	var/ranged_cooldown = 2 SECONDS
+	/// What casing type is the projectile?
+	var/casing_type
+	/// What projectile do we shoot?
+	var/projectile_type
+	/// What sound does it make when firing?
+	var/projectile_sound
 
 /mob/living/basic/Initialize(mapload)
 	. = ..()
@@ -164,6 +183,11 @@ RESTRICT_TYPE(/mob/living/basic)
 	apply_temperature_requirements()
 	if(step_type)
 		AddComponent(/datum/component/footstep, step_type)
+	if(can_hide)
+		var/datum/action/innate/hide/hide = new()
+		hide.Grant(src)
+	if(is_ranged)
+		AddComponent(/datum/component/ranged_attacks, casing_type = casing_type, projectile_type = projectile_type, projectile_sound = projectile_sound, burst_shots = ranged_burst_count, burst_intervals = ranged_burst_interval, cooldown_time = ranged_cooldown)
 
 /mob/living/basic/Destroy()
 	if(nest)
@@ -186,6 +210,14 @@ RESTRICT_TYPE(/mob/living/basic)
 
 /mob/living/basic/proc/apply_temperature_requirements()
 	AddElement(/datum/element/body_temperature, minimum_survivable_temperature, maximum_survivable_temperature, unsuitable_cold_damage, unsuitable_heat_damage)
+
+/mob/living/basic/handle_fire()
+	if(!can_be_on_fire)
+		return FALSE
+	. = ..()
+	if(!.)
+		return
+	adjustFireLoss(fire_damage) // Slowly start dying from being on fire
 
 /mob/living/basic/vv_edit_var(vname, vval)
 	switch(vname)
@@ -221,7 +253,7 @@ RESTRICT_TYPE(/mob/living/basic)
 
 /mob/living/basic/proc/early_melee_attack(atom/target, list/modifiers, ignore_cooldown = FALSE)
 	face_atom(target)
-	if(!ignore_cooldown)
+	if(!ignore_cooldown && !client)
 		var/melee_attack_cooldown = rand(melee_attack_cooldown_min, melee_attack_cooldown_max)
 		changeNext_move(melee_attack_cooldown)
 	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target, Adjacent(target), modifiers) & COMPONENT_HOSTILE_NO_ATTACK)
@@ -233,6 +265,21 @@ RESTRICT_TYPE(/mob/living/basic)
 	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		return attack_threshold_check(damage, M.melee_damage_type)
+
+/mob/living/basic/attack_alien(mob/living/carbon/alien/humanoid/M)
+	if(..()) // if harm or disarm intent.
+		if(M.a_intent == INTENT_DISARM)
+			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
+			visible_message("<span class='danger'>[M] [response_disarm_continuous] [name]!</span>", "<span class='userdanger'>[M] [response_disarm_continuous] you!</span>")
+			add_attack_logs(M, src, "Alien disarmed")
+		else
+			var/damage = rand(15, 30)
+			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
+					"<span class='userdanger'>[M] has slashed at [src]!</span>")
+			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
+			add_attack_logs(M, src, "Alien attacked")
+			attack_threshold_check(damage)
+		return TRUE
 
 /mob/living/basic/handle_environment(datum/gas_mixture/readonly_environment)
 	SEND_SIGNAL(src, COMSIG_SIMPLEANIMAL_HANDLE_ENVIRONMENT, readonly_environment)
@@ -254,10 +301,21 @@ RESTRICT_TYPE(/mob/living/basic)
 				create_debug_log("woke up, trigger reason: [reason]")
 	med_hud_set_status()
 
+/mob/living/basic/revive()
+	..()
+	density = initial(density)
+	health = maxHealth
+	icon = initial(icon)
+	icon_state = icon_living
+	density = initial(density)
+	if(TRAIT_FLYING in initial_traits)
+		ADD_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
+
 /mob/living/basic/death(gibbed)
 	. = ..()
 	if(!.)
 		return FALSE
+	REMOVE_TRAIT(src, TRAIT_FLYING, INNATE_TRAIT)
 	if(nest)
 		nest.spawned_mobs -= src
 		nest = null
@@ -272,6 +330,8 @@ RESTRICT_TYPE(/mob/living/basic)
 	if(HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))
 		SSmobs.xenobiology_mobs--
 	if(basic_mob_flags & DEL_ON_DEATH)
+		// Moves them to their turf to prevent rendering problems
+		forceMove(get_turf(src))
 		// From simplemob implementation; prevent infinite loops if the mob
 		// Destroy() is overridden in such a manner as to cause a call to
 		// death() again. One hopes this isn't still necessary but whatevs
@@ -328,7 +388,7 @@ RESTRICT_TYPE(/mob/living/basic)
 		visible_message("<span class='warning'>[src] looks unharmed.</span>")
 		return FALSE
 	else
-		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
+		apply_damage(damage, damagetype, null, getarmor(armor_type = armorcheck))
 		return TRUE
 
 

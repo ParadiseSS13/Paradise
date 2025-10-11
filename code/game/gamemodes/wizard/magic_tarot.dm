@@ -79,8 +79,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 10
-	throwforce = 0
-	force = 0
 	resistance_flags = FLAMMABLE
 	/// If a person can choose what the card produces. No cost if they can choose.
 	var/let_people_choose = FALSE
@@ -136,8 +134,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 10
-	throwforce = 0
-	force = 0
 	resistance_flags = FLAMMABLE
 	/// The deck that created us. Notifies it we have been deleted on use.
 	var/obj/item/tarot_generator/creator_deck
@@ -270,10 +266,6 @@
 
 /obj/effect/temp_visual/card_preview/tarot
 	name = "a tarot card"
-	icon = 'icons/obj/playing_cards.dmi'
-	icon_state = "tarot_the_unknown"
-	pixel_y = 20
-	duration = 1.5 SECONDS
 
 /obj/effect/temp_visual/card_preview/tarot/flourish()
 	var/new_filter = isnull(get_filter("ray"))
@@ -541,7 +533,7 @@
 	H.apply_status_effect(STATUS_EFFECT_PANACEA)
 	for(var/thing in H.viruses)
 		var/datum/disease/D = thing
-		if(D.severity == NONTHREAT)
+		if(D.severity == VIRUS_NONTHREAT)
 			continue
 		D.cure()
 

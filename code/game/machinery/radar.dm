@@ -13,7 +13,6 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	power_state = NO_POWER_USE // going to be used outside
 	interact_offline = TRUE
-	idle_power_consumption = 0
 	pixel_x = -32
 	armor = list(MELEE = 80, BULLET = 10, LASER = 30, ENERGY = 30, BOMB = 50, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -113,8 +112,8 @@
 	if(dont_announce)
 		return
 
-	var/datum/weather/next_weather = SSweather.next_weather_by_zlevel["3"]
-	var/next_hit = SSweather.next_hit_by_zlevel["3"]
+	var/datum/weather/next_weather = SSweather.next_weather_by_zlevel["[z]"]
+	var/next_hit = SSweather.next_hit_by_zlevel["[z]"]
 	var/next_difference = next_hit - world.time
 	var/difference_rounded = DisplayTimeText(max(1, next_difference))
 
@@ -122,16 +121,16 @@
 		return
 	if(accuracy_coeff >= 4) //perfect accuracy
 		if(next_difference <= (3 MINUTES))
-			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name] </b>", name, "Supply")
+			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name].</b>", name, "Supply")
 			dont_announce = TRUE
 			correct_prediction = TRUE
 	else if(prob(accuracy_coeff) && next_difference <= 3 MINUTES && next_difference >= 30 SECONDS)
 		if(next_weather == "emberfall" && !prob(10 * accuracy_coeff)) // fake callout
-			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: ash storm </b>", name, "Supply")
+			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: ash storm.</b>", name, "Supply")
 			dont_announce = TRUE
 			correct_prediction = FALSE
 		else
-			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name] </b>", name, "Supply")
+			radio.autosay("<b>Weather patterns successfully analyzed. Predicted weather event in [difference_rounded]: [next_weather.name].</b>", name, "Supply")
 			dont_announce = TRUE
 			correct_prediction = TRUE
 
@@ -237,7 +236,6 @@
 	board_name = "Doppler Radar"
 	icon_state = "supply"
 	build_path = /obj/machinery/radar
-	board_type = "machine"
 	origin_tech = "engineering=2"
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
@@ -246,7 +244,6 @@
 	)
 
 /obj/item/circuitboard/machine/radar/broken
-	board_name = "Doppler Radar"
 	desc = "Bits of char, plastic, and ash cling to the boards surface. How it was working before was nothing short of a miracle. It's probably not going to work again."
 	icon_state = "command_broken"
 

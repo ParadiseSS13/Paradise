@@ -33,6 +33,9 @@
 		to_chat(C, "<span class='noticealien'>You cannot dissolve this object.</span>")
 	handle_delete(user)
 
+/obj/item/melee/touch_attack/alien/corrosive_acid/customised_abstract_text(mob/living/carbon/owner)
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is dripping with vile corrosive goo!</span>"
+
 /datum/spell/touch/alien_spell/burning_touch
 	name = "Blazing touch"
 	desc = "Boil acid within your hand to burn through anything you touch with it, dealing a lot of damage to aliens and destroying resin structures instantly."
@@ -66,7 +69,7 @@
 		C.visible_message("<span class='alertalien'>[C] touches [target] and a fireball erupts on contact!</span>")
 		C.add_plasma(-100)
 	else
-		var/static/list/resin_objects = list(/obj/structure/alien/resin, /obj/structure/alien/egg, /obj/structure/bed/nest, /obj/structure/bed/revival_nest)
+		var/static/list/resin_objects = list(/obj/structure/alien/resin, /obj/structure/alien/egg, /obj/structure/bed/nest)
 		for(var/resin_type in resin_objects)
 			if(!istype(target, resin_type))
 				continue
@@ -74,3 +77,7 @@
 			C.add_plasma(-100)
 			qdel(target)
 	handle_delete(user)
+
+/obj/item/melee/touch_attack/alien/burning_touch/customised_abstract_text(mob/living/carbon/owner)
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] has a shimmering mirage around it!</span>"
+

@@ -35,6 +35,7 @@
 	outfit = /datum/outfit/job/qm
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Supply), basic job duties, and act professionally (roleplay)."
 	exp_map = list(EXP_TYPE_SUPPLY = 1200)
+	standard_paycheck = CREW_PAY_HIGH
 
 /datum/outfit/job/qm
 	name = "Quartermaster"
@@ -78,13 +79,13 @@
 	)
 	alt_titles = list("Mail Carrier", "Courier")
 	outfit = /datum/outfit/job/cargo_tech
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/cargo_tech
 	name = "Cargo Technician"
 	jobtype = /datum/job/cargo_tech
 
 	uniform = /obj/item/clothing/under/rank/cargo/tech
-	shoes = /obj/item/clothing/shoes/black
 	l_pocket = /obj/item/mail_scanner
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
@@ -116,6 +117,7 @@
 	)
 	alt_titles = list("Metalworker", "Tinkerer")
 	outfit = /datum/outfit/job/smith
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/smith
 	name = "Smith"
@@ -127,6 +129,7 @@
 	shoes = /obj/item/clothing/shoes/workboots/smithing
 	id = /obj/item/card/id/smith
 	pda = /obj/item/pda/cargo
+	box = /obj/item/storage/box/survival_mining
 
 /datum/outfit/job/smith/on_mind_initialize(mob/living/carbon/human/H)
 	. = ..()
@@ -150,6 +153,7 @@
 	)
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/mining
 	name = "Shaft Miner"
@@ -171,7 +175,7 @@
 	)
 
 	backpack = /obj/item/storage/backpack/explorer
-	satchel = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel_explorer
 	box = /obj/item/storage/box/survival_mining
 
 /datum/outfit/job/mining/on_mind_initialize(mob/living/carbon/human/H)
@@ -179,7 +183,6 @@
 	ADD_TRAIT(H.mind, TRAIT_BUTCHER, JOB_TRAIT)
 
 /datum/outfit/job/mining/equipped
-	name = "Shaft Miner"
 
 	suit = /obj/item/clothing/suit/hooded/explorer
 	mask = /obj/item/clothing/mask/gas/explorer
@@ -207,6 +210,9 @@
 	name = "Shaft Miner (Equipment + MODsuit)"
 	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	mask = /obj/item/clothing/mask/breath
+	suit = null
+	backpack = null
+	allow_backbag_choice = FALSE
 
 /datum/job/explorer
 	title = "Explorer"
@@ -232,6 +238,7 @@
 	)
 	alt_titles = list("Salvage Technician", "Scavenger")
 	outfit = /datum/outfit/job/explorer
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/explorer
 	name = "Explorer"
@@ -245,7 +252,7 @@
 	id = /obj/item/card/id/explorer
 	pda = /obj/item/pda/explorer
 	backpack = /obj/item/storage/backpack/explorer
-	satchel = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel_explorer
 	box = /obj/item/storage/box/survival_mining
 
 /datum/outfit/job/explorer/on_mind_initialize(mob/living/carbon/human/H)
@@ -265,6 +272,7 @@
 	selection_color = "#dddddd"
 	access = list(ACCESS_BAR, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/bartender
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/bartender
 	name = "Bartender"
@@ -273,7 +281,6 @@
 	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	id = /obj/item/card/id/bartender
@@ -313,6 +320,7 @@
 	)
 	alt_titles = list("Cook","Culinary Artist","Butcher")
 	outfit = /datum/outfit/job/chef
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/chef
 	name = "Chef"
@@ -321,7 +329,6 @@
 	uniform = /obj/item/clothing/under/rank/civilian/chef
 	suit = /obj/item/clothing/suit/chef
 	belt = /obj/item/storage/belt/chef
-	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/chefhat
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/chef
@@ -353,6 +360,7 @@
 	)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
 	outfit = /datum/outfit/job/hydro
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/hydro
 	name = "Botanist"
@@ -362,7 +370,6 @@
 	suit = /obj/item/clothing/suit/apron
 	belt = /obj/item/storage/belt/botany/full
 	gloves = /obj/item/clothing/gloves/botanic_leather
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/storage/bag/plants/portaseeder
 	pda = /obj/item/pda/botanist
@@ -393,6 +400,7 @@
 		ACCESS_THEATRE
 	)
 	outfit = /datum/outfit/job/clown
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/clown
 	name = "Clown"
@@ -418,7 +426,7 @@
 	bio_chips = list(/obj/item/bio_chip/sad_trombone)
 
 	backpack = /obj/item/storage/backpack/clown
-	satchel = /obj/item/storage/backpack/satchel/clown
+	satchel = /obj/item/storage/backpack/satchel_clown
 	dufflebag = /obj/item/storage/backpack/duffel/clown
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -452,15 +460,15 @@
 //action given to antag clowns
 /datum/action/innate/toggle_clumsy
 	name = "Toggle Clown Clumsy"
-	button_overlay_icon_state = "clown"
+	button_icon_state = "clown"
 
 /datum/action/innate/toggle_clumsy/Activate()
 	var/mob/living/carbon/human/H = owner
 	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
 	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = TRUE
-	button_background_icon_state = "bg_spell"
-	UpdateButtons()
+	background_icon_state = "bg_spell"
+	build_all_button_icons()
 	to_chat(H, "<span class='notice'>You start acting clumsy to throw suspicions off. Focus again before using weapons.</span>")
 
 /datum/action/innate/toggle_clumsy/Deactivate()
@@ -468,8 +476,8 @@
 	H.dna.SetSEState(GLOB.clumsyblock, FALSE)
 	singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 	active = FALSE
-	button_background_icon_state = "bg_default"
-	UpdateButtons()
+	background_icon_state = "bg_default"
+	build_all_button_icons()
 	to_chat(H, "<span class='notice'>You focus and can now use weapons regularly.</span>")
 
 /datum/job/mime
@@ -488,6 +496,7 @@
 		ACCESS_THEATRE
 	)
 	outfit = /datum/outfit/job/mime
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/mime
 	name = "Mime"
@@ -497,7 +506,6 @@
 	suit = /obj/item/clothing/suit/suspenders
 	back = /obj/item/storage/backpack/mime
 	gloves = /obj/item/clothing/gloves/color/white
-	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/beret
 	mask = /obj/item/clothing/mask/gas/mime
 	l_ear = /obj/item/radio/headset/headset_service
@@ -547,13 +555,13 @@
 	)
 	alt_titles = list("Custodial Technician")
 	outfit = /datum/outfit/job/janitor
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/janitor
 	name = "Janitor"
 	jobtype = /datum/job/janitor
 
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
-	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/janitor
 	pda = /obj/item/pda/janitor
@@ -586,23 +594,17 @@
 	)
 	alt_titles = list("Journalist")
 	outfit = /datum/outfit/job/librarian
+	standard_paycheck = CREW_PAY_LOW
 
 /datum/outfit/job/librarian
 	name = "Librarian"
 	jobtype = /datum/job/librarian
 
 	uniform = /obj/item/clothing/under/rank/civilian/librarian
-	shoes = /obj/item/clothing/shoes/black
+	suit = /obj/item/clothing/suit/librarian
 	l_ear = /obj/item/radio/headset/headset_service
-	l_pocket = /obj/item/laser_pointer
-	r_pocket = /obj/item/barcodescanner
-	l_hand = /obj/item/storage/bag/books
 	id = /obj/item/card/id/librarian
 	pda = /obj/item/pda/librarian
-	backpack_contents = list(
-		/obj/item/videocam/advanced = 1,
-		/obj/item/clothing/suit/armor/vest/press = 1
-)
 
 /datum/outfit/job/librarian/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

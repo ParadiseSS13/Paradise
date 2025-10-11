@@ -4,7 +4,6 @@
 	name = "fragmentation grenade"
 	desc = "A grenade with a specially designed casing that will launch lethal fragments in all directions upon detonation. Fire in the hole!"
 	icon_state = "frag"
-	item_state = "grenade"
 	origin_tech = "materials=3;magnets=4"
 	/// How much shrapnel the grenade will launch.
 	var/shrapnel_contained = 20
@@ -21,13 +20,11 @@
 	name = "stingball grenade"
 	desc = "A specialized less-lethal hand grenade used for police action. Launches hard rubber balls in all directions upon detonation."
 	icon_state = "stinger"
-	item_state = "grenade"
-	det_time = 5 SECONDS
 	modifiable_timer = FALSE
 	shrapnel_contained = 50
 	embedded_type = /obj/item/projectile/bullet/pellet/rubber/stinger
 
-/obj/item/grenade/frag/prime()
+/obj/item/grenade/frag/stinger/prime()
 	update_mob()
 	explosion(loc, 0, 0, 0, 0, DEFAULT_SHRAPNEL_RANGE + 2, cause = name, breach = FALSE)
 	create_shrapnel(loc, shrapnel_contained, shrapnel_type = embedded_type)
@@ -53,11 +50,11 @@
 	if(!ishuman(target))
 		return
 
-	var/mob/living/carbon/human/H = target
-	if(!prob(embed_prob - ARMOUR_VALUE_TO_PERCENTAGE(H.getarmor(null, BOMB))))
-		to_chat(H, "<span class='warning'>Shrapnel bounces off your armor!</span>")
+	var/mob/living/carbon/human/human = target
+	if(!prob(embed_prob - ARMOUR_VALUE_TO_PERCENTAGE(human.getarmor(armor_type = BOMB))))
+		to_chat(human, "<span class='warning'>Shrapnel bounces off your armor!</span>")
 		return
-	H.try_embed_object(new_possible_embed)
+	human.try_embed_object(new_possible_embed)
 
 /obj/item/projectile/bullet/shrapnel/on_range()
 	var/obj/item/we_missed = new embedded_type(get_turf(src)) // we missed, lets toss the shrapnel

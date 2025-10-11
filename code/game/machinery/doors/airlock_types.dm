@@ -321,7 +321,6 @@
 /obj/machinery/door/airlock/centcom
 	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi'
-	opacity = TRUE
 	explosion_block = 2
 	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
 	normal_integrity = 1000
@@ -574,7 +573,7 @@
 /obj/machinery/door/airlock/cult/cult_conceal()
 	icon = stealth_icon
 	overlays_file = stealth_overlays
-	opacity = stealth_opacity
+	set_opacity(stealth_opacity)
 	glass = stealth_glass
 	airlock_material = stealth_airlock_material
 	name = "airlock"
@@ -585,7 +584,7 @@
 /obj/machinery/door/airlock/cult/cult_reveal()
 	icon = GET_CULT_DATA(airlock_runed_icon_file, initial(icon))
 	overlays_file = GET_CULT_DATA(airlock_runed_overlays_file, initial(overlays_file))
-	opacity = initial(opacity)
+	set_opacity(initial(opacity))
 	glass = initial(glass)
 	airlock_material = initial(airlock_material)
 	name = initial(name)
@@ -644,7 +643,7 @@
 	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
 	normal_integrity = 150
 	damage_deflection = 5
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = null
 
 //////////////////////////////////
 /*

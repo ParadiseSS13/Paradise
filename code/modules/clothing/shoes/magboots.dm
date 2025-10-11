@@ -2,13 +2,13 @@
 	name = "magboots"
 	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
 	icon_state = "magboots0"
+	inhand_icon_state = "magboots"
 	origin_tech = "materials=3;magnets=4;engineering=4"
 	dyeable = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 7 SECONDS
 	put_on_delay = 7 SECONDS
 	resistance_flags = FIRE_PROOF
-	no_slip = FALSE
 	var/magboot_state = "magboots"
 	var/magpulse = FALSE
 	var/slowdown_active = 2
@@ -127,12 +127,11 @@
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! There's a red light on the side."
 	icon_state = "clownmag0"
 	magboot_state = "clownmag"
-	item_state = "clown_shoes"
+	inhand_icon_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
 	slowdown_active = SHOES_SLOWDOWN+1
 	slowdown_passive = SHOES_SLOWDOWN+1
 	magpulse_name = "honk-powered traction system"
-	item_color = "clown"
 	origin_tech = "magnets=4;syndicate=2"
 	var/enabled_waddle = TRUE
 

@@ -296,18 +296,13 @@
 	if(HAS_TRAIT(occupant, TRAIT_GENELESS))
 		return TRUE
 
-	var/radiation_protection = occupant.run_armor_check(null, RAD)
-	if(radiation_protection > NEGATE_MUTATION_THRESHOLD)
-		return TRUE
-	return FALSE
+	return occupant.run_armor_check(armor_type = RAD) > NEGATE_MUTATION_THRESHOLD
 
 /obj/machinery/computer/scan_consolenew
 	name = "\improper DNA Modifier access console"
 	desc = "Allows you to scan and modify DNA."
-	icon = 'icons/obj/computer.dmi'
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
-	density = TRUE
 	circuit = /obj/item/circuitboard/scan_consolenew
 	var/selected_ui_block = 1.0
 	var/selected_ui_subblock = 1.0
@@ -323,7 +318,6 @@
 	var/obj/machinery/dna_scannernew/connected = null
 	var/obj/item/disk/data/disk = null
 	var/selected_menu_key = PAGE_UI
-	anchored = TRUE
 	idle_power_consumption = 10
 	active_power_consumption = 400
 

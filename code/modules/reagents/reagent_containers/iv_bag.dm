@@ -54,6 +54,8 @@
 
 /obj/item/reagent_containers/iv_bag/proc/begin_processing(mob/target)
 	injection_target = target
+	if(target.viruses)
+		AddComponent(/datum/component/viral_contamination, target.viruses)
 	RegisterSignal(injection_target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	START_PROCESSING(SSobj, src)
 	update_iv_type()

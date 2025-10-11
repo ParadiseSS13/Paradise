@@ -98,6 +98,7 @@
 			img.pixel_x = copy.offset_x[j]
 			img.pixel_y = copy.offset_y[j]
 			c.stamp_overlays += img
+	c.update_icon()
 	c.updateinfolinks()
 	return c
 
@@ -159,7 +160,7 @@
 		temp_img = icon('icons/obj/butts.dmi', "drone")
 	else if(isnymph(copymob))
 		temp_img = icon('icons/obj/butts.dmi', "nymph")
-	else if(isalien(copymob) || istype(copymob,/mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
+	else if(isalien(copymob) || istype(copymob,/mob/living/basic/alien)) //Xenos have their own asses, thanks to Pybro.
 		temp_img = icon('icons/obj/butts.dmi', "xeno")
 	else
 		return
@@ -188,7 +189,7 @@
   * * use_toner - If true, this operation uses toner, this is not done in copy() because partial bundles would be impossible otherwise
   */
 /obj/machinery/photocopier/proc/bundlecopy(obj/item/paper_bundle/bundle, scanning = FALSE, use_toner = FALSE)
-	var/obj/item/paper_bundle/P = new /obj/item/paper_bundle (src, default_papers = FALSE)
+	var/obj/item/paper_bundle/P = new(src, FALSE)
 	P.forceMove(src) //Bundle is initially inside copier to give copier time to build the bundle before the player can pick it up
 	for(var/obj/item/W in bundle)
 		if(istype(W, /obj/item/paper))

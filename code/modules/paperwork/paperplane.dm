@@ -4,9 +4,7 @@
 	desc = "Paper, folded in the shape of a plane."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paperplane"
-	throw_range = 7
 	throw_speed = 1
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
@@ -15,8 +13,8 @@
 	var/obj/item/paper/internal_paper
 	scatter_distance = 8
 
-/obj/item/paperplane/New(loc, obj/item/paper/new_paper)
-	..()
+/obj/item/paperplane/Initialize(mapload, obj/item/paper/new_paper)
+	. = ..()
 	scatter_atom()
 	if(new_paper)
 		internal_paper = new_paper

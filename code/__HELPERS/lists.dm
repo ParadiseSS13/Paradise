@@ -115,6 +115,27 @@
 
 		return "[output][and_text][input[index]]"
 
+// Returns a map in plain english as a string
+/proc/english_map(list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "" )
+	var/total = length(input)
+	if(!total)
+		return "[nothing_text]"
+	else if(total == 1)
+		return "[input[1]]"
+	else if(total == 2)
+		return "[input[1]][and_text][input[2]]"
+	else
+		var/output = ""
+		var/index = 1
+		while(index < total)
+			if(index == total - 1)
+				comma_text = final_comma_text
+
+			output += "[input[index]] : [input[input[index]]][comma_text]"
+			index++
+
+		return "[output][and_text][input[index]] : [input[input[index]]]"
+
 //Returns list element or null. Should prevent "index out of bounds" error.
 /proc/listgetindex(list/list, index)
 	if(istype(list) && length(list))
@@ -265,6 +286,28 @@
 		total += L[item]
 
 	total = rand(1, total)
+	for(item in L)
+		total -=L [item]
+		if(total <= 0)
+			return item
+
+	return null
+
+/**
+ * Picks an element based on its weight. Weight can be any real number
+ * L - The input list
+ *
+ * example: list("a" = 0.33, "b" = 0.67) will have a 67% chance to pick "b"
+ */
+/proc/pickweight_fraction(list/L)
+	var/total = 0
+	var/item
+	for(item in L)
+		if(L[item] < 0)
+			continue
+		total += L[item]
+
+	total = rand() * total
 	for(item in L)
 		total -=L [item]
 		if(total <= 0)

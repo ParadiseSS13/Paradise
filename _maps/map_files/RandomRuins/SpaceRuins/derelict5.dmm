@@ -24,6 +24,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
+"dm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
 "dz" = (
 /obj/structure/closet/crate,
 /obj/item/storage/bag/ore,
@@ -31,7 +37,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "et" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "ez" = (
@@ -180,7 +186,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "yq" = (
-/mob/living/simple_animal/hostile/carp,
+/mob/living/basic/carp,
 /turf/template_noop,
 /area/template_noop)
 "yY" = (
@@ -296,7 +302,7 @@
 /turf/template_noop,
 /area/template_noop)
 "VL" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
@@ -1644,7 +1650,7 @@ sd
 xQ
 Zv
 rc
-vE
+dm
 Se
 Qx
 Dt
