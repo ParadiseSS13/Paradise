@@ -715,6 +715,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		)),
 	new /datum/stack_recipe("pill bottle", /obj/item/storage/pill_bottle),
 	new /datum/stack_recipe("IV bag", /obj/item/reagent_containers/iv_bag, 2),
+	new /datum/stack_recipe("biomesh", /obj/item/biomesh, 1),
 	new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 1, time = 1 SECONDS),
