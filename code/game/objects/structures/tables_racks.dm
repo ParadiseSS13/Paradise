@@ -8,10 +8,7 @@
  *		Rack Parts
  */
 
-/*
- * Tables
- */
-
+// MARK: Table
 /obj/structure/table
 	name = "table"
 	desc = "A square piece of metal standing on four metal legs. It can not move."
@@ -105,7 +102,7 @@
 	flipped = TRUE
 
 /obj/structure/table/narsie_act()
-	new /obj/structure/table/wood(loc)
+	new /obj/structure/table/reinforced/cult(loc)
 	qdel(src)
 
 /obj/structure/table/start_climb(mob/living/user)
@@ -441,10 +438,7 @@
 		remove_atom_colour(FIXED_COLOUR_PRIORITY)
 		REMOVE_TRAIT(src, TRAIT_OIL_SLICKED, "potion")
 
-/*
- * Glass Tables
- */
-
+// MARK: Glass tables
 /obj/structure/table/glass
 	name = "glass table"
 	desc = "Looks fragile. You should totally flip it. It is begging for it."
@@ -543,11 +537,6 @@
 				debris -= AM
 	qdel(src)
 
-/obj/structure/table/glass/narsie_act()
-	color = NARSIE_WINDOW_COLOUR
-	for(var/obj/item/shard/S in debris)
-		S.color = NARSIE_WINDOW_COLOUR
-
 /obj/structure/table/glass/plasma
 	name = "plasma glass table"
 	desc = "A table made from the blood, sweat, and tears of miners."
@@ -640,9 +629,7 @@
 	buildstack = /obj/item/stack/sheet/plastitaniumglass
 	max_integrity = 200
 
-/*
- * Wooden tables
- */
+// MARK: Wooden tables
 /obj/structure/table/wood
 	name = "wooden table"
 	desc = "Do not apply fire to this. Rumour says it burns easily."
@@ -658,10 +645,6 @@
 	canSmoothWith = list(SMOOTH_GROUP_WOOD_TABLES)
 	resistance_flags = FLAMMABLE
 
-/obj/structure/table/wood/narsie_act(total_override = TRUE)
-	if(!total_override)
-		..()
-
 /// No specialties, Just a mapping object.
 /obj/structure/table/wood/poker
 	name = "gambling table"
@@ -672,13 +655,7 @@
 	flipped_table_icon_base = "poker"
 	buildstack = /obj/item/stack/tile/carpet
 
-/obj/structure/table/wood/poker/narsie_act()
-	..(FALSE)
-
-/*
- * Fancy Tables
- */
-
+// MARK: Fancy tables
 /obj/structure/table/wood/fancy
 	name = "fancy table"
 	desc = "A standard metal table frame covered with an amazingly fancy, patterned cloth."
@@ -756,9 +733,7 @@
 	buildstack = /obj/item/stack/tile/carpet/royalblue
 	icon = 'icons/obj/smooth_structures/tables/fancy/fancy_table_royalblue.dmi'
 
-/*
- * Reinforced tables
- */
+// MARK: Reinforced tables
 /obj/structure/table/reinforced
 	name = "reinforced table"
 	desc = "A reinforced version of the four legged table."
@@ -809,13 +784,33 @@
 	smoothing_groups = list(SMOOTH_GROUP_BRASS_TABLES) //Don't smooth with SMOOTH_GROUP_TABLES
 	canSmoothWith = list(SMOOTH_GROUP_BRASS_TABLES)
 
-/obj/structure/table/reinforced/brass/narsie_act()
-	take_damage(rand(15, 45), BRUTE)
-	if(src) //do we still exist?
-		var/previouscolor = color
-		color = "#960000"
-		animate(src, color = previouscolor, time = 8)
+/obj/structure/table/reinforced/cult
+	name = "runed metal table"
+	desc = "A cold slab of metal engraved with indecipherable symbols. Studying them causes your head to pound."
+	icon = 'icons/obj/smooth_structures/tables/cult_table.dmi'
+	icon_state = "cult_table-0"
+	base_icon_state = "cult_table"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	frame = /obj/structure/table_frame/cult
+	framestack = /obj/item/stack/sheet/runed_metal
+	buildstack = /obj/item/stack/sheet/runed_metal
+	framestackamount = 1
+	smoothing_groups = list(SMOOTH_GROUP_BRASS_TABLES)
+	canSmoothWith = list(SMOOTH_GROUP_BRASS_TABLES)
 
+/obj/structure/table/reinforced/cult/narsie_act()
+	return
+
+// Special variant created by pylons when converting stuff. Drops no materials so they can't be used as a runed metal farm.
+/obj/structure/table/reinforced/cult/no_metal
+	name = "runed stone table"
+	desc = "A cold slab of stone engraved with indecipherable symbols. Studying them causes your head to pound."
+
+/obj/structure/table/reinforced/cult/no_metal/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
+	visible_message("<span class = 'warning'>[src] suddenly crumbles to dust!<span/>")
+	qdel(src)
+
+// MARK: Wheeled table
 /obj/structure/table/tray
 	name = "surgical instrument table"
 	desc = "A small metal tray with wheels."
@@ -889,14 +884,12 @@
 	to_chat(user, "<span class='notice'>It is held together by some <b>screws</b> and <b>bolts</b>.</span>")
 
 /obj/structure/table/tray/flip()
-	return 0
+	return FALSE
 
 /obj/structure/table/tray/narsie_act()
-	return 0
+	return FALSE
 
-/*
- * Racks
- */
+// MARK: Racks
 /obj/structure/rack
 	name = "rack"
 	desc = "Different from the Middle Ages version."

@@ -10905,15 +10905,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
-"aSj" = (
-/obj/machinery/flasher{
-	id = "Execution";
-	pixel_y = -27
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/execution)
 "aSp" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -54607,6 +54598,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"fAd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/execution)
 "fAB" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "1-2"
@@ -54757,6 +54756,7 @@
 /turf/space,
 /area/space/nearstation)
 "fCT" = (
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -75815,6 +75815,15 @@
 	icon_state = "tranquillite"
 	},
 /area/station/service/kitchen)
+"oHl" = (
+/obj/machinery/flasher{
+	id = "Execution";
+	pixel_y = -27
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/execution)
 "oHv" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -79883,14 +79892,6 @@
 	icon_state = "caution"
 	},
 /area/station/public/fitness)
-"quz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/execution)
 "quL" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/light,
@@ -156936,7 +156937,7 @@ eud
 jbp
 uNJ
 vzV
-aSj
+oHl
 aMv
 aaa
 aaa
@@ -157192,7 +157193,7 @@ vyc
 hof
 tvQ
 bdf
-quz
+fAd
 oRB
 aMv
 aaa
