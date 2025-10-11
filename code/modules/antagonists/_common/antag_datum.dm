@@ -427,38 +427,68 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
 		add_antag_objective(/datum/objective/escape)
 
+#define KILL_OBJECTIVE "KILL"
+#define THEFT_OBJECTIVE "STEAL"
+
+#define DESTROY_OBJECTIVE "DESTROY"
+#define DEBRAIN_OBJECTIVE "DEBRAIN"
+#define MAROON_OBJECTIVE "MAROON"
+#define ASS_ONCE_OBJECTIVE "ASS_ONCE"
+#define ASS_OBJECTIVE "ASS"
 
 /**
  * Create and assign a single randomized human traitor objective.
+ * Step one: Seperate your objectives into objectives that lead to people dying, and objectives that do not.
+ * Objectives that lead to people dying should take up HALF of the pick weight, and non lethal should be the OTHER half.
+ * After that, add it to the switch list.
+ * The kill objective pool weight has been done by putting the old code through a million or so runs to figure out averages, to keep it consistant.
  */
 /datum/antagonist/proc/forge_single_human_objective()
 	var/datum/objective/objective_to_add
+	var/list/static/the_objective_list = list(KILL_OBJECTIVE = 50, THEFT_OBJECTIVE = 50)
+	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 50, MAROON_OBJECTIVE = 285, ASS_ONCE_OBJECTIVE = 199, ASS_OBJECTIVE = 466)
 
 	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
 	if(organization && length(organization.objectives) && prob(organization.focus))
 		objective_to_add = pick(organization.objectives)
 	else
-		if(prob(50))
-			if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
-				objective_to_add = /datum/objective/destroy
+		var/objective_to_decide_further = pickweight(the_objective_list)
+		switch(objective_to_decide_further)
+			if(KILL_OBJECTIVE)
+				if(length(active_ais()))
+					the_nonstatic_kill_list += list(DESTROY_OBJECTIVE = round((100 / length(GLOB.player_list)) * 10))
+				var/the_kill_objective = pickweight(the_nonstatic_kill_list)
+				switch(the_kill_objective)
+					if(DESTROY_OBJECTIVE)
+						objective_to_add = /datum/objective/destroy
 
-			else if(prob(5))
-				objective_to_add = /datum/objective/debrain
+					if(DEBRAIN_OBJECTIVE)
+						objective_to_add = /datum/objective/debrain
 
-			else if(prob(30))
-				objective_to_add = /datum/objective/maroon
+					if(MAROON_OBJECTIVE)
+						objective_to_add = /datum/objective/maroon
 
-			else if(prob(30))
-				objective_to_add = /datum/objective/assassinateonce
+					if(ASS_ONCE_OBJECTIVE)
+						objective_to_add = /datum/objective/assassinateonce
 
-			else
-				objective_to_add = /datum/objective/assassinate
-		else
-			objective_to_add = /datum/objective/steal
+					if(ASS_OBJECTIVE)
+						objective_to_add = /datum/objective/assassinate
+			if(THEFT_OBJECTIVE)
+				objective_to_add = /datum/objective/steal
 
 	if(delayed_objectives)
 		objective_to_add = new /datum/objective/delayed(objective_to_add)
 	add_antag_objective(objective_to_add)
+
+#undef KILL_OBJECTIVE
+#undef THEFT_OBJECTIVE
+
+#undef DESTROY_OBJECTIVE
+#undef DEBRAIN_OBJECTIVE
+#undef MAROON_OBJECTIVE
+#undef ASS_ONCE_OBJECTIVE
+#undef ASS_OBJECTIVE
+
 
 //Individual roundend report
 /datum/antagonist/proc/roundend_report()
