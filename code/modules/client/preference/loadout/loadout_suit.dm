@@ -34,8 +34,13 @@
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/suit/coat/job/captain
-	display_name = "Winter coat, captain"
+	display_name = "Winter coat, captain, blue"
 	path = /obj/item/clothing/suit/hooded/wintercoat/captain
+	allowed_roles = list("Captain")
+
+/datum/gear/suit/coat/job/captain/white
+	display_name = "Winter coat, captain, white"
+	path = /obj/item/clothing/suit/hooded/wintercoat/captain/white
 	allowed_roles = list("Captain")
 
 /datum/gear/suit/coat/job/hop
