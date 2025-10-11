@@ -20,6 +20,16 @@
 	var/is_xeno_organ = FALSE
 	/// Does this organ give a warning upon being inserted?
 	var/warning = FALSE
+	/// Does this organ show outside the mob, and what is the icon state?
+	var/augment_state = null
+	/// Does this organ actually have a sprite for it being on the arm? And what is the path of it.
+	var/augment_icon = null
+	/// Does this organ have a extra render mechanic?
+	var/do_extra_render = FALSE
+	/// Does this organ ignore skin covers?
+	var/always_show_augment = FALSE
+	/// Does this organ have augmented skin to apply to the user on install? If so, apply it to the user and remove it.
+	var/self_augmented_skin_level = 0
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()
@@ -49,6 +59,8 @@
 	. = ..()
 	if(is_xeno_organ)
 		. += "<span class='info'>It looks like it would replace \the [slot]."
+	if(self_augmented_skin_level)
+		. += "<span class='info'>It seems to have level-[self_augmented_skin_level] synthetic skin applied."
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
@@ -80,6 +92,9 @@
 			stack_trace("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]")
 		else
 			parent.internal_organs |= src
+		if(self_augmented_skin_level)
+			parent.apply_augmented_skin(self_augmented_skin_level)
+			self_augmented_skin_level = 0
 	loc = null
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -218,7 +233,27 @@
 
 // Rendering!
 /obj/item/organ/internal/proc/render()
-	return
+	if(!augment_state || !augment_icon || !owner)
+		return FALSE
+	var/obj/item/organ/external/our_parent = owner.get_organ(parent_organ)
+	if(!our_parent) // I don't know how you pulled that off, let us be safe.
+		return FALSE
+	if(our_parent.augmented_skin_cover_level && !always_show_augment)
+		return FALSE
+
+	return TRUE
+
+// An extra render used in certain situations.
+/obj/item/organ/internal/proc/extra_render()
+	if(!augment_state || !augment_icon || !owner || !do_extra_render)
+		return FALSE
+	var/obj/item/organ/external/our_parent = owner.get_organ(parent_organ)
+	if(!our_parent) // I don't know how you pulled that off, let us be safe.
+		return FALSE
+	if(our_parent.augmented_skin_cover_level && !always_show_augment)
+		return FALSE
+
+	return TRUE
 
 /obj/item/organ/internal/attack__legacy__attackchain(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
@@ -234,6 +269,16 @@
 			qdel(src)
 	else
 		..()
+
+/obj/item/organ/internal/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+	if(is_robotic() && istype(I, /obj/item/stack/synthetic_skin))
+		var/obj/item/stack/synthetic_skin/skin = I
+		skin.use(1)
+		self_augmented_skin_level = skin.skin_level
+		to_chat(user, "<span class='notice'>You apply [skin] to [src].</span>")
+		return
+	return ..()
+
 
 /****************************************************
 				INTERNAL ORGANS DEFINES

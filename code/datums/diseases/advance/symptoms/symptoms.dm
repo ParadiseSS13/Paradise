@@ -17,6 +17,8 @@ GLOBAL_LIST_INIT(list_symptoms, subtypesof(/datum/symptom))
 	var/id = ""
 	/// Asoc list of treatment reagents to multiplier and timer. Multiplier multiplies the frequency and strength of the symptom
 	var/list/chem_treatments = list()
+	/// Asoc list of physical treatments to multiplier and timer. Multiplier multiplies the frequency and strength of the symptom
+	var/list/phys_treatments = list()
 	/// Amount of treatment reagents the symptom will consume
 	var/purge_amount = 0.4
 	/// How likely the symptom is to activate each process cycle
@@ -75,10 +77,20 @@ GLOBAL_LIST_INIT(list_symptoms, subtypesof(/datum/symptom))
 			chem_treatments[treatment]["timer"]--
 		if(treatment in mob_reagents)
 			// Consume as much as we need but no more than we have
-			var/consumption_mod = min(mob_reagents[treatment] / purge_amount, (VIRUS_MAX_TREATMENT_TIMER - chem_treatments[treatment]["timer"]) / VIRUS_TREATMENT_TIMER_MOD, 1)
+			var/consumption_mod = min(mob_reagents[treatment] / purge_amount, (VIRUS_MAX_CHEM_TREATMENT_TIMER - chem_treatments[treatment]["timer"]) / VIRUS_CHEM_TREATMENT_TIMER_MOD, 1)
 			A.affected_mob.reagents.remove_reagent(treatment, purge_amount * consumption_mod)
 			// Add to timer according to the amount consumed
-			chem_treatments[treatment]["timer"] += VIRUS_TREATMENT_TIMER_MOD * consumption_mod
+			chem_treatments[treatment]["timer"] += VIRUS_CHEM_TREATMENT_TIMER_MOD * consumption_mod
 
+/// Default behaviour for physical treatments. Mitigate the symptoms while effects remain
 /datum/symptom/proc/check_phys_treatment(datum/disease/advance/A)
-	return 1
+	. = 1
+	for(var/treatment in phys_treatments)
+		if(phys_treatments[treatment]["timer"] >= 1)
+			. *= phys_treatments[treatment]["multiplier"]
+			phys_treatments[treatment]["timer"]--
+
+/datum/symptom/proc/increase_phys_treatment_timer(treatment, time = VIRUS_PHYS_TREATMENT_TIMER_MOD)
+	if(!phys_treatments[treatment])
+		return
+	phys_treatments[treatment]["timer"] = min(phys_treatments[treatment]["timer"] + time, phys_treatments[treatment]["max_timer"])
