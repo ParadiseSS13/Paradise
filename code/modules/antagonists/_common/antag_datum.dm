@@ -436,15 +436,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 #define ASS_ONCE_OBJECTIVE "ASS_ONCE"
 #define ASS_OBJECTIVE "ASS"
 
-#define KILL_OBJECTIVE "KILL"
-#define THEFT_OBJECTIVE "STEAL"
-
-#define DESTROY_OBJECTIVE "DESTROY"
-#define DEBRAIN_OBJECTIVE "DEBRAIN"
-#define MAROON_OBJECTIVE "MAROON"
-#define ASS_ONCE_OBJECTIVE "ASS_ONCE"
-#define ASS_OBJECTIVE "ASS"
-
 /**
  * Create and assign a single randomized human traitor objective.
  * Step one: Seperate your objectives into objectives that lead to people dying, and objectives that do not.
