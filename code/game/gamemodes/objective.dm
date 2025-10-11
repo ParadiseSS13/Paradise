@@ -441,6 +441,30 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 						return TRUE
 	return FALSE
 
+/datum/objective/nuke
+	name = "Detonate the Station"
+	explanation_text = "You are tasked with detonating the station's nuclear warhead or otherwise ensuring that the station ceases to exist. \
+	You will need to secure the station's Nuclear Authentication Disk in order to arm the warhead. \ "
+	martyr_compatible = TRUE
+	needs_target = FALSE
+
+/datum/objective/nuke/New(text, datum/team/team_to_join, datum/mind/_owner)
+	. = ..()
+	var/code
+	for(var/obj/machinery/nuclearbomb/bombue in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
+		if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
+			code = bombue.r_code
+			break
+	if(code)
+		explanation_text += "We have intercepted the nuclear codes for the warhead. The code is [code]. Good luck."
+
+/datum/objective/nuke/check_completion()
+	if(SSticker.mode.station_was_nuked)
+		return TRUE
+
+/datum/objective/nuke/is_valid_exfiltration()
+	return FALSE
+
 /datum/objective/block
 	name = "Silicon hijack"
 	explanation_text = "Hijack the shuttle by alt-clicking on the shuttle console. Do not let the crew wipe you off of it! \
