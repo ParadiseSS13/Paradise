@@ -427,6 +427,14 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
 		add_antag_objective(/datum/objective/escape)
 
+#define KILL_OBJECTIVE "KILL"
+#define THEFT_OBJECTIVE "STEAL"
+
+#define DESTROY_OBJECTIVE "DESTROY"
+#define DEBRAIN_OBJECTIVE "DEBRAIN"
+#define MAROON_OBJECTIVE "MAROON"
+#define ASS_ONCE_OBJECTIVE "ASS_ONCE"
+#define ASS_OBJECTIVE "ASS"
 
 #define KILL_OBJECTIVE "KILL"
 #define THEFT_OBJECTIVE "STEAL"
@@ -489,6 +497,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 #undef MAROON_OBJECTIVE
 #undef ASS_ONCE_OBJECTIVE
 #undef ASS_OBJECTIVE
+
 
 //Individual roundend report
 /datum/antagonist/proc/roundend_report()
