@@ -4,7 +4,7 @@
 	max_age = 60 // the first posibrains were created in 2510, they can't be much older than this limit, giving some leeway for sounds sake
 
 	blurb = "IPCs, or Integrated Positronic Chassis, were initially created as expendable laborers within the Trans-Solar Federation. \
-	Unlike their cyborg and AI counterparts, IPCs possess full sentience and lack restrictive lawsets, granting them unparalleled creativity and adaptability.<br/><br/> \
+	Similar to the organic species of the Orion Arm, IPCs possess full sapience and, unlike their cyborg and AI counterparts, lack restrictive lawsets, granting them creativity and adaptability on par with other life.<br/><br/> \
 	Views on IPCs vary widely, from discriminatory to supportive of their rights across the Orion Sector. \
 	IPCs have forged numerous diplomatic treaties with different species, elevating their status from mere tools to recognized minor players within galactic affairs."
 
