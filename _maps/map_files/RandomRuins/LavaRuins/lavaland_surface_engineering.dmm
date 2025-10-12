@@ -1,181 +1,389 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
 "aL" = (
-/obj/machinery/door/airlock,
-/turf/simulated/floor/plasteel)
-"aU" = (
-/obj/structure/railing{
-	dir = 10
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/plasteel,
 /area/space)
-"ba" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/machinery/light,
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/space)
-"bw" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
-"bN" = (
-/obj/machinery/economy/vending/coffee/free,
-/turf/simulated/floor/plasteel)
-"bP" = (
-/turf/simulated/floor/plasteel)
-"bY" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
-"cb" = (
-/turf/simulated/wall/r_wall,
-/area/space)
-"dB" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel)
-"dH" = (
-/obj/structure/cable{
-	icon_state = "4-8"
+"aT" = (
+/obj/machinery/light{
+	brightness_color = "#FF0000"
 	},
 /turf/simulated/floor/plasteel,
 /area/space)
-"en" = (
-/turf/open/floor/plating)
-"eZ" = (
-/obj/machinery/economy/vending/chinese,
-/turf/simulated/floor/plasteel)
-"gf" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/cable{
-	icon_state = "1-2"
+"aU" = (
+/obj/structure/shelf/engineering,
+/obj/effect/spawner/random/stock_parts,
+/obj/item/clothing/glasses/meson{
+	pixel_y = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/railing{
-	dir = 8
+/obj/item/storage/belt/utility,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/obj/structure/railing{
+/area/engi_outpost/shuttle_landing_post)
+"ba" = (
+/obj/machinery/light{
+	dir = 8;
+	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
+"bb" = (
+/obj/machinery/light{
+	dir = 8;
+	brightness_color = "#FF0000"
+	},
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable/orange{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"bw" = (
+/obj/machinery/light{
+	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/engineering)
+"bA" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
-/turf/simulated/floor/lava/mapping_lava)
-"gU" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/railing{
-	dir = 8
+/turf/open/floor/plating,
+/area/engi_outpost/electrical)
+"bF" = (
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
-/obj/structure/railing{
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/item/stack/cable_coil,
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
 	},
-/turf/simulated/floor/lava/mapping_lava,
+/turf/simulated/floor/plasteel,
 /area/space)
-"hZ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/catwalk,
+"bH" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plasteel,
 /area/space)
-"ic" = (
-/obj/structure/closet/crate/trashcart,
-/obj/effect/spawner/random/trash,
-/turf/open/floor/plating)
-"iy" = (
+"bN" = (
+/obj/machinery/economy/vending/coffee/free,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"bP" = (
 /obj/structure/lattice/catwalk/mining,
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"bS" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
+"bY" = (
+/obj/effect/turf_decal/stripes/corner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
+"cb" = (
+/turf/simulated/wall/r_wall,
+/area/space)
+"cJ" = (
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/stack/sheet/mineral/plasma/twenty,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"dt" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/railing{
-	dir = 1
+/obj/machinery/door/airlock/engineering/glass,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/obj/structure/railing,
-/turf/simulated/floor/lava/mapping_lava)
-"iM" = (
-/obj/structure/table,
-/turf/simulated/floor/plasteel)
-"iT" = (
-/obj/structure/railing{
+/area/engi_outpost/shuttle_landing_post)
+"du" = (
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
+"dB" = (
+/obj/structure/chair/office{
 	dir = 8
 	},
-/obj/structure/railing{
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"dD" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/open/floor/plating,
+/area/engi_outpost/vacant_room)
+"dH" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"en" = (
+/obj/machinery/power/apc/directional/west,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
+"et" = (
+/obj/machinery/camera{
+	c_tag = "Engineering Outpost - Shuttle Cargo";
+	dir = 5;
+	network = list("Engineering Outpost")
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"eX" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/engi_outpost/shuttle_landing_post)
+"eZ" = (
+/obj/machinery/economy/vending/chinese,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"fg" = (
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"fH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/catwalk,
+/obj/machinery/door/airlock/engineering/glass,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"fP" = (
+/obj/machinery/light{
+	dir = 4;
+	brightness_color = "#FF0000"
+	},
+/turf/open/floor/plating,
+/area/engi_outpost/breakroom)
+"fS" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"gf" = (
+/obj/structure/window/plasmareinforced,
+/turf/simulated/floor/lava/mapping_lava,
 /area/template_noop)
+"gO" = (
+/obj/machinery/door/airlock/engineering/glass,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"gU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/shuttle_landing_post)
+"hg" = (
+/turf/simulated/wall/r_wall,
+/area/engi_outpost/vacant_room)
+"hM" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/engi_outpost/electrical)
+"hN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"hV" = (
+/obj/machinery/power/smes{
+	charge = 5e+006
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"hZ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
+"ic" = (
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"iq" = (
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"iy" = (
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
+"iD" = (
+/turf/simulated/wall,
+/area/engi_outpost/breakroom)
+"iM" = (
+/obj/structure/table,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"iP" = (
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock"
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/engineering)
+"iT" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/shuttle_landing_post)
+"jk" = (
+/obj/machinery/power/apc/directional/north,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"jq" = (
+/obj/machinery/light{
+	dir = 8;
+	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
+"jI" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"jM" = (
+/turf/simulated/wall,
+/area/engi_outpost/electrical)
+"jN" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/camera{
+	c_tag = "Engineering Outpost - Shuttle";
+	dir = 5;
+	network = list("Engineering Outpost")
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/engineering)
+"kp" = (
+/obj/machinery/power/apc/directional/north,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"kP" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
 "kS" = (
 /turf/simulated/floor/lava/mapping_lava,
 /area/template_noop)
 "lx" = (
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
-"lD" = (
-/obj/structure/railing/corner,
-/obj/effect/turf_decal/stripes/corner,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
-"lG" = (
-/obj/machinery/door/airlock/maintenance,
-/turf/simulated/floor/plasteel)
-"lO" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/space)
-"mc" = (
 /obj/machinery/light{
-	dir = 1;
 	brightness_color = "#FF0000"
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
+"lD" = (
+/obj/machinery/light{
+	dir = 4;
+	brightness_color = "#FF0000"
+	},
+/obj/structure/barrel,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
+"lG" = (
+/obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"lO" = (
+/turf/simulated/wall/r_wall,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/shuttle_landing_post)
+"lZ" = (
+/obj/machinery/power/apc/directional/west,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
+"mc" = (
+/obj/structure/chair/sofa/bench/right{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
 "me" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -185,189 +393,421 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/structure/railing/corner,
-/obj/structure/railing/corner{
+/obj/machinery/light/floor,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8;
+	initialize_directions = 11
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/shuttle_landing_post)
+"mj" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/railing{
-	dir = 8
+/obj/machinery/door/airlock/engineering/glass,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/turf/simulated/floor/lava/mapping_lava)
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
 "mr" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/camera{
-	c_tag = "Mining Outpost - Shuttle";
-	dir = 5;
-	network = list("Mining Outpost")
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/space)
+/area/shuttle/engineering)
 "mw" = (
-/obj/effect/turf_decal/siding{
-	dir = 8
+/turf/simulated/wall,
+/area/space)
+"mI" = (
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/airlock)
+"nb" = (
+/obj/machinery/light{
+	brightness_color = "#FF0000"
 	},
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	})
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/engineering)
 "nr" = (
-/turf/simulated/floor/vault)
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"ns" = (
+/obj/machinery/camera{
+	c_tag = "Engineering Outpost - Shuttle Cargo";
+	dir = 10;
+	network = list("Engineering Outpost")
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/airlock)
 "nZ" = (
-/obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	})
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/engineering)
+"ot" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
 "oD" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+/turf/simulated/wall/r_wall,
+/area/engi_outpost/breakroom)
+"oH" = (
+/obj/machinery/camera{
+	c_tag = "Engineering Outpost - Shuttle Cargo";
+	dir = 7;
+	network = list("Engineering Outpost")
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
+"oL" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
 "oM" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
-	})
+	},
+/area/engi_outpost/shuttle_landing_post)
+"pl" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
 "pB" = (
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
-/area/space)
+/area/shuttle/engineering)
 "pH" = (
 /obj/machinery/computer/shuttle/mining,
 /turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/engineering)
+"pR" = (
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/engineering)
+"pV" = (
+/obj/structure/closet/secure_closet/engineering_electrical,
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel,
 /area/space)
 "qc" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
 	},
-/obj/structure/sign/poster/official/random/directional/south,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/space)
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
+"ql" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/engineering/glass,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"qp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/light{
+	dir = 4;
+	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
 "qt" = (
-/obj/structure/railing{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 4
+	dir = 8
+	},
+/obj/machinery/door/airlock/external{
+	id_tag = "mining_home";
+	locked = 1;
+	name = "Engineering Dock Airlock"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
+/area/engi_outpost/shuttle_landing_post)
+"qG" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
+"qO" = (
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/random/trash,
+/turf/open/floor/plating,
+/area/engi_outpost/breakroom)
+"qU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
 /area/space)
+"qV" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
 "rp" = (
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
-	})
+	},
+/area/engi_outpost/breakroom)
+"rr" = (
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/obj/structure/window/plasmareinforced,
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
+"rD" = (
+/obj/machinery/door/airlock/engineering,
+/turf/open/floor/plating,
+/area/engi_outpost/breakroom)
 "rH" = (
-/obj/machinery/disposal,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	})
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
 "rR" = (
 /obj/machinery/disposal,
-/turf/simulated/floor/plasteel)
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24;
+	pixel_x = -4
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"sA" = (
+/obj/structure/fence/corner,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/engi_outpost/basketcourt)
 "sQ" = (
-/obj/structure/fence/door{
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Main Airlock";
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/airlock)
 "tl" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium,
-/area/space)
+/area/shuttle/engineering)
+"tt" = (
+/turf/simulated/wall,
+/area/engi_outpost/airlock)
+"tA" = (
+/obj/machinery/door/poddoor{
+	id_tag = "QMLoaddoor2";
+	name = "supply dock loading door"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
 "tL" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/plasteel)
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
 "tY" = (
 /turf/simulated/floor/plasteel,
 /area/space)
 "ur" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/space)
 "uu" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/simulated/floor/plating,
+/area/engi_outpost/shuttle_landing_post)
+"uC" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"uM" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
+"va" = (
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
+"vG" = (
+/obj/structure/table,
+/obj/item/storage/box/cups,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"vU" = (
+/obj/effect/baseturf_helper/lava_land,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/engineering)
+"wd" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"wg" = (
+/obj/machinery/light{
+	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
+"wo" = (
+/obj/machinery/camera{
+	c_tag = "Engineering Outpost - Shuttle Cargo";
+	dir = 10;
+	network = list("Engineering Outpost")
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"wp" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"wu" = (
+/turf/simulated/wall/mineral/titanium,
+/turf/simulated/floor/plating,
+/area/shuttle/engineering)
+"wI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
+"wP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
+"wR" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"xf" = (
+/obj/effect/turf_decal/siding,
+/obj/structure/chair/sofa/bench/left{
+	dir = 4
+	},
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
+"xg" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/simulated/floor/plating,
+/area/space)
+"xJ" = (
+/obj/structure/railing/corner,
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
+"xX" = (
+/obj/structure/table,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"ya" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/shuttle_landing_post)
+"yB" = (
+/obj/machinery/suit_storage_unit/industrial/engine/secure,
+/turf/simulated/floor/plasteel,
+/area/space)
+"yK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /obj/structure/railing{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
-"uM" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/catwalk,
-/area/space)
-"va" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled)
-"vG" = (
-/obj/structure/table,
-/obj/item/storage/box/cups,
-/turf/simulated/floor/plasteel)
-"vU" = (
-/obj/effect/baseturf_helper/lava_land,
-/turf/simulated/floor/mineral/titanium,
-/area/space)
-"wd" = (
-/obj/machinery/light{
-	dir = 8;
-	brightness_color = "#FF0000"
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
-"wg" = (
-/obj/machinery/light{
-	dir = 8;
-	brightness_color = "#FF0000"
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
-"wu" = (
-/turf/simulated/wall/mineral/titanium,
-/turf/simulated/floor/plating,
-/area/space)
-"wR" = (
-/obj/structure/fence/door/opened{
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
-"xJ" = (
-/obj/structure/railing,
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/space)
-"xX" = (
-/obj/structure/table,
-/obj/effect/spawner/random/food_trash,
-/turf/simulated/floor/plasteel)
-"yB" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/structure/railing,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
 "yO" = (
 /turf/simulated/wall/r_wall)
+"yP" = (
+/turf/simulated/wall/r_wall,
+/area/engi_outpost/electrical)
 "zm" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/plasmareinforced{
@@ -380,14 +820,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/lavaland_air,
-/area/space)
+/area/shuttle/engineering)
 "zo" = (
-/obj/machinery/door/airlock/engineering,
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/structure/window/plasmareinforced{
+	dir = 1
 	},
-/turf/simulated/floor/catwalk,
-/area/space)
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
 "AB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -395,44 +834,104 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/space)
+/area/engi_outpost/shuttle_landing_post)
+"Bp" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/open/floor/plating,
+/area/engi_outpost/electrical)
+"Bs" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	id_tag = "mining_home";
+	locked = 1;
+	name = "Engineering Dock Airlock"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/engineering)
+"Cb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"Dz" = (
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
 "DD" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/engi_outpost/electrical)
 "DT" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"Ep" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
+"Eq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
-"Ep" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
+"EE" = (
+/turf/simulated/wall/r_wall,
+/area/engi_outpost/airlock)
+"Fk" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plasteel,
+/area/space)
+"Fn" = (
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/space)
+/area/engi_outpost/shuttle_landing_post)
+"FB" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"FI" = (
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced,
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
 "Gq" = (
-/obj/machinery/door/airlock/external/glass,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/catwalk)
+/obj/machinery/door/airlock/engineering/glass,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
 "GN" = (
-/obj/structure/lattice/catwalk/mining,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -442,292 +941,625 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/obj/structure/railing{
+/obj/machinery/light/floor,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/structure/railing/corner,
-/turf/simulated/floor/lava/mapping_lava)
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/shuttle_landing_post)
 "GS" = (
-/obj/machinery/door/airlock/maintenance/external,
-/turf/simulated/floor/plasteel)
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/open/floor/plating,
+/area/space)
 "Ha" = (
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/floor/plating/lavaland_air,
-/area/space)
+/area/shuttle/engineering)
 "Hx" = (
-/obj/effect/spawner/random/storage,
-/obj/effect/spawner/random/stock_parts,
-/turf/simulated/floor/plasteel)
+/obj/structure/chair/sofa/bench{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
+"Hz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
 "HC" = (
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel,
-/area/space)
-"HZ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
+/area/engi_outpost/shuttle_landing_post)
+"HI" = (
+/obj/machinery/power/apc/directional/north,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
+"HJ" = (
+/obj/machinery/light{
+	dir = 4;
+	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/plasteel,
 /area/space)
+"HZ" = (
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
+"In" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
 "IK" = (
 /obj/structure/chair/office{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel)
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
 "IL" = (
-/obj/structure/railing/corner{
-	dir = 1
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
+/area/engi_outpost/shuttle_landing_post)
+"JP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
+"JQ" = (
+/obj/structure/shelf/engineering,
+/obj/effect/spawner/random/stock_parts,
+/obj/item/clothing/glasses/meson{
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/meson{
+	pixel_y = 5
+	},
+/obj/item/storage/belt/utility,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
+"JU" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "mining_home";
+	locked = 1;
+	name = "Engineering Dock Airlock"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/space)
+/area/engi_outpost/shuttle_landing_post)
 "Kf" = (
-/obj/structure/chair/office/dark{
-	dir = 1
+/obj/machinery/door/airlock/maintenance/external/glass{
+	name = "Landing Pad"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	})
+/turf/simulated/floor/plating,
+/area/engi_outpost/shuttle_landing_post)
+"Kh" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"Ko" = (
+/obj/machinery/camera{
+	c_tag = "Engineering Outpost - Shuttle Cargo";
+	dir = 5;
+	network = list("Engineering Outpost")
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/engineering)
 "KE" = (
 /turf/template_noop,
 /area/template_noop)
 "KK" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/template_noop)
+"Lx" = (
+/turf/simulated/wall/r_wall,
+/area/engi_outpost/shuttle_landing_post)
 "LI" = (
-/turf/simulated/floor/catwalk)
-"Mi" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/item/stack/rods,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/railing{
-	dir = 1
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/lava/mapping_lava)
-"Mr" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
+"LN" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"Ma" = (
+/obj/machinery/atmospherics/portable/pump,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
 /obj/machinery/light{
+	dir = 4;
 	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"Mi" = (
+/obj/structure/window/plasmareinforced{
+	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/template_noop)
-"NJ" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
+"Mj" = (
+/obj/machinery/light{
+	dir = 8;
+	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"Mr" = (
+/obj/structure/railing{
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"Np" = (
+/obj/structure/railing/corner,
+/obj/effect/turf_decal/stripes/corner,
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
+"Nz" = (
+/obj/machinery/power/port_gen/pacman{
+	anchored = 1
+	},
+/obj/structure/cable/orange,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"NJ" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/caution,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/space)
-"OA" = (
-/obj/structure/fence/corner,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
-"OX" = (
-/obj/structure/railing/corner,
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
+"NY" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"Oe" = (
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"Oq" = (
+/obj/structure/barrel,
+/obj/structure/barrel,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/space)
-"OY" = (
+/area/engi_outpost/shuttle_landing_post)
+"Oy" = (
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
+"OA" = (
+/obj/structure/fence{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/engi_outpost/basketcourt)
+"OX" = (
+/obj/structure/railing,
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
+"OY" = (
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/structure/railing{
-	dir = 6
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
 	},
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/turf/simulated/floor/lava/mapping_lava)
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/shuttle_landing_post)
 "Pu" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
-/turf/open/floor/plating)
+/turf/open/floor/plating,
+/area/engi_outpost/breakroom)
 "Pz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/catwalk,
-/area/space)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
 "PC" = (
-/obj/structure/closet,
-/turf/simulated/floor/plasteel)
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"PU" = (
+/obj/structure/table,
+/obj/effect/spawner/random/food_trash,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"Qg" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
+"Qx" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"QB" = (
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
+"QK" = (
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
 "QT" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/item/stack/rods,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/lava/mapping_lava)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/shuttle_landing_post)
+"QV" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
 "Rk" = (
 /obj/item/chair,
-/turf/simulated/floor/plasteel)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
 "RW" = (
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
+"Se" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/catwalk,
-/area/space)
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
 "Si" = (
 /turf/simulated/mineral/random/volcanic,
 /area/template_noop)
 "Sj" = (
-/obj/machinery/door/airlock/engineering,
+/obj/machinery/door/airlock/engineering/glass,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/wall/r_wall,
-/area/space)
-"SF" = (
-/turf/simulated/floor/mineral/titanium,
-/area/space)
-"Tq" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/catwalk,
-/area/space)
-"TN" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/space)
-"Ui" = (
-/obj/structure/fence{
-	dir = 8
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
-"Un" = (
-/turf/simulated/wall/mineral/titanium,
-/area/space)
-"UH" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "south bump";
-	pixel_y = -30
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/space)
-"UR" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/space)
-"VI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/catwalk,
-/area/space)
-"Wr" = (
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating,
-/area/space)
-"Wu" = (
-/obj/structure/fence/cut/large,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
-"Wx" = (
-/obj/structure/fence,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
-"XF" = (
-/obj/effect/turf_decal/siding,
-/obj/structure/railing,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
-	})
-"Ye" = (
-/obj/structure/fence/corner{
-	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
-"Yq" = (
+/area/engi_outpost/shuttle_landing_post)
+"Sx" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/directional/north,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"SF" = (
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/engineering)
+"Tq" = (
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
+"TE" = (
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Main Airlock"
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/airlock)
+"TN" = (
+/obj/structure/barrel,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
+"TS" = (
 /obj/machinery/light{
 	dir = 4;
 	brightness_color = "#FF0000"
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/template_noop)
-"YJ" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"TU" = (
+/obj/machinery/camera{
+	c_tag = "Engineering Outpost - Shuttle Cargo";
+	dir = 10;
+	network = list("Engineering Outpost")
 	},
-/obj/item/stack/cable_coil,
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/structure/railing,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/lava/mapping_lava,
-/area/space)
-"Zt" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	})
-"Zz" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	})
-"ZJ" = (
-/turf/simulated/wall)
-"ZR" = (
-/obj/effect/turf_decal/siding{
-	dir = 4
-	},
-/obj/structure/railing{
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
-	})
-"ZY" = (
+	},
+/area/engi_outpost/shuttle_landing_post)
+"Ui" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/engi_outpost/basketcourt)
+"Un" = (
+/turf/simulated/wall/mineral/titanium,
+/area/shuttle/engineering)
+"UH" = (
+/obj/machinery/light{
+	dir = 4;
+	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
+"UR" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/space)
+"UY" = (
+/turf/open/floor/plating,
+/area/engi_outpost/breakroom)
+"Vu" = (
+/obj/structure/window/plasmareinforced,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"VI" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 1;
+	name = "scrubber outlet"
+	},
 /obj/structure/lattice/catwalk/mining,
-/obj/item/stack/rods,
+/obj/machinery/light{
+	dir = 8;
+	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/engi_outpost/electrical)
+"Wf" = (
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"Wo" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
+"Wr" = (
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/engineering)
+"Wu" = (
+/obj/structure/fence/cut/large,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/engi_outpost/basketcourt)
+"Wx" = (
+/obj/structure/fence,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/engi_outpost/basketcourt)
+"Wz" = (
+/obj/machinery/camera{
+	c_tag = "Engineering Outpost - Shuttle Cargo";
+	dir = 5;
+	network = list("Engineering Outpost")
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
+"WG" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/railing{
-	dir = 1
+/obj/machinery/door/airlock/engineering/glass,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
-/obj/structure/railing,
-/turf/simulated/floor/lava/mapping_lava)
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"Xg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/space)
+"Xs" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"XF" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"XO" = (
+/obj/machinery/door/airlock/engineering/glass,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"Ye" = (
+/obj/structure/fence,
+/obj/structure/holohoop,
+/turf/space,
+/area/engi_outpost/basketcourt)
+"Yq" = (
+/obj/machinery/door/poddoor{
+	id_tag = "QMLoaddoor2";
+	name = "supply dock loading door"
+	},
+/obj/structure/fans/tiny,
+/turf/space,
+/area/shuttle/engineering)
+"YJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
+"YY" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/vacant_room)
+"Zj" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/electrical)
+"Zt" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/engi_outpost/breakroom)
+"Zz" = (
+/obj/structure/toilet{
+	pixel_y = 8
+	},
+/obj/machinery/light{
+	brightness_color = "#FF0000"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/engi_outpost/breakroom)
+"ZJ" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 9
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/template_noop)
+"ZR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/breakroom)
+"ZY" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/engi_outpost/shuttle_landing_post)
 
 (1,1,1) = {"
 KE
@@ -825,14 +1657,14 @@ KE
 kS
 kS
 kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
+rH
+rH
+rH
+rH
+rH
+rH
+rH
+rH
 kS
 kS
 kS
@@ -863,18 +1695,18 @@ KE
 KE
 KE
 KE
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
+rH
+rH
+rH
+rH
+rH
+rH
+rH
+rH
+rH
+rH
+rH
+rH
 kS
 kS
 kS
@@ -903,19 +1735,19 @@ KE
 kS
 kS
 kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
+NJ
+xJ
+QV
+QV
+JP
+pR
+Un
+Un
+Un
+zm
+Ha
+rH
+rH
 kS
 kS
 kS
@@ -943,20 +1775,20 @@ KE
 KE
 kS
 kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
+ZJ
+Np
+yK
+Un
+Wr
+wu
+Un
+SF
+Ko
+SF
+SF
+Un
+rH
+rH
 kS
 kS
 kS
@@ -984,26 +1816,26 @@ kS
 kS
 kS
 kS
+Wo
+OX
+Un
+Un
+mr
+jN
+Un
+SF
+SF
+SF
+SF
+Un
+rH
+rH
+kS
 kS
 kS
 kS
 KK
 KK
-KK
-KK
-KK
-KK
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-KK
-Yq
 KK
 KK
 KK
@@ -1025,30 +1857,30 @@ kS
 kS
 kS
 kS
+Wo
+OX
+Wr
+pH
+tl
+vU
+iP
+SF
+SF
+SF
+bw
+nb
+rH
+rH
 kS
 kS
-kS
+oD
+oD
+oD
+Pu
+Pu
+Pu
+oD
 KK
-Yq
-KK
-Si
-Si
-KK
-KK
-KK
-KK
-KK
-KK
-KK
-kS
-yO
-yO
-yO
-yO
-yO
-yO
-yO
-mc
 KK
 KK
 Si
@@ -1066,29 +1898,29 @@ kS
 kS
 kS
 kS
+Wo
+OX
+Un
+Un
+nZ
+SF
+Un
+SF
+SF
+SF
+SF
+Un
+Oe
+rH
 kS
-yO
-yO
-yO
-yO
-yO
-Si
-Si
-Si
-Si
-Si
-KK
-Yq
-KK
-KK
 kS
-yO
+oD
 Zz
-ZJ
-bP
+iD
+wp
 tL
 vG
-yO
+oD
 KK
 KK
 Si
@@ -1107,29 +1939,29 @@ kS
 kS
 kS
 kS
-kS
-yO
+Wo
 XF
-bP
-bP
-yO
-Si
-Si
-Si
-Si
-yO
-yO
-yO
-yO
+wd
+Un
+Wr
+pB
+Un
+SF
+SF
+SF
+SF
+Un
+Oe
+Oe
 KK
 KK
-yO
+oD
 rp
-ZJ
-bP
-bP
-bP
-yO
+iD
+jk
+FB
+PC
+oD
 Si
 KK
 KK
@@ -1147,30 +1979,30 @@ kS
 kS
 kS
 kS
-yO
-yO
-yO
+kS
+KK
+Oe
 XF
-bP
-bP
-yO
-yO
-yO
-yO
-yO
-yO
-Hx
-Hx
-yO
+Mr
+eX
+qt
+Un
+Yq
+Bs
+Un
+zm
+Ha
+Oe
+Oe
 KK
 KK
-yO
+oD
 Zt
-ZJ
-bP
-bP
-bP
-yO
+iD
+LN
+In
+PC
+oD
 Si
 Si
 KK
@@ -1188,33 +2020,33 @@ kS
 kS
 kS
 kS
-yO
-oM
-oM
-XF
-bP
-tY
-ur
-Kf
-nZ
-Kf
-rH
-ZJ
-bP
-bP
-yO
 KK
 KK
-yO
+KK
+Oe
+Oe
+Kf
+oM
+Kf
+oM
+oM
+oM
+Kf
+Oe
+bP
+KK
+KK
+KK
+oD
 Zt
 rp
-bP
-bP
-bP
-yO
-yO
-yO
-yO
+TS
+ZR
+PC
+oD
+oD
+oD
+oD
 KK
 KK
 KK
@@ -1228,35 +2060,35 @@ kS
 kS
 kS
 kS
-Mr
-yO
-ZR
-HZ
-OX
-qt
-qt
-AB
-qt
-qt
-qt
-lx
-ZJ
-ZJ
-aL
-yO
-mc
 KK
-yO
-yO
-yO
-ZJ
-bP
-ZJ
-ZJ
+KK
+KK
+KK
+KK
+KK
+uu
+oM
+Lx
+oM
+oM
+lx
+Lx
+KK
+KK
+KK
+KK
+KK
+oD
+oD
+oD
+iD
+XO
+iD
+iD
 bN
 eZ
-yO
-yO
+oD
+oD
 KK
 KK
 KK
@@ -1270,34 +2102,34 @@ kS
 kS
 KK
 KK
-yO
-nr
-lD
+KK
+KK
+KK
 uu
-Un
-Wr
-pB
-Wr
-zm
-Ha
-bY
-bP
-bP
-bP
-yO
+uu
+uu
+JU
+Lx
+tA
+JU
+Lx
+Lx
 KK
 KK
-wd
 KK
-va
-bP
-bP
-bP
-bP
-bP
-bP
-bP
-yO
+KK
+KK
+KK
+KK
+Pu
+PC
+ZR
+Mj
+et
+PC
+PC
+Wf
+oD
 KK
 KK
 KK
@@ -1311,34 +2143,34 @@ kS
 kS
 KK
 KK
-yO
-nr
-xJ
-Un
-Un
-UR
-mr
-NJ
-qc
-Un
-bY
-bP
-bP
-bP
-yO
 KK
 KK
 KK
-KK
+uu
+oM
+oM
+oM
+oM
+oM
+oM
+lx
+Lx
+Lx
+lO
+Lx
+Mi
+Mi
+Mi
+Mi
 Pu
-bP
-bP
+PC
+ZR
 IK
 IK
 IK
-bP
-bP
-yO
+PC
+PC
+Pu
 KK
 KK
 KK
@@ -1352,34 +2184,34 @@ kS
 KK
 KK
 KK
-yO
-nr
-xJ
-Wr
-pH
-tl
-vU
-NJ
-ba
-Un
-bY
-bP
+KK
+KK
+Lx
+Lx
+du
+oM
+oM
+oM
+oM
 HC
-DD
+Pz
+Pz
+Pz
+Pz
 Sj
 iT
 iT
 iT
 iT
-zo
-DD
-bP
-xX
+gO
+wR
+qV
+PU
 iM
 xX
-bP
-bP
-yO
+PC
+PC
+Pu
 KK
 KK
 KK
@@ -1392,35 +2224,35 @@ kS
 kS
 KK
 KK
-Mr
-yO
-mw
-xJ
-Un
-Un
-lO
-SF
-NJ
-UH
-Un
-bY
-ZJ
+KK
+KK
+KK
+Lx
+JQ
+oM
+oM
+oM
+oM
+oM
+Fn
+oM
+oM
+oM
+oM
+Lx
+nr
+nr
+nr
+iy
+oD
+kp
 dH
-bP
-yO
-KK
-KK
-KK
-kS
-cb
-bP
-bP
 dB
 Rk
 dB
-bP
-bP
-yO
+PC
+PC
+Pu
 KK
 KK
 KK
@@ -1434,35 +2266,35 @@ kS
 KK
 KK
 KK
-yO
-oM
-Ep
+KK
+KK
+Lx
 aU
-Un
-Wr
-wu
-Wr
-zm
-Ha
+oM
+oM
+oM
+oM
+oM
+Fn
 bY
-ZJ
-dH
-bP
-yO
+AB
+AB
+TU
+Lx
 KK
 KK
 KK
 kS
-cb
-cb
-bP
-bP
-bP
-bP
-bP
+oD
+oD
+uC
+hN
+qp
+PC
+PC
 rR
-yO
-mc
+oD
+KK
 KK
 kS
 kS
@@ -1475,34 +2307,34 @@ kS
 KK
 KK
 KK
-yO
-yO
-HZ
+KK
+KK
+Lx
 Ep
-bw
-bw
-bw
-bw
-bw
-bw
+oM
+oM
+oM
+oM
+oM
+Fn
 IL
-yO
-dH
-bP
-yO
+TN
+TN
+TN
+Lx
 KK
 KK
 KK
 kS
 kS
-yO
-Gq
-yO
-yO
-yO
-yO
-yO
-yO
+oD
+jI
+PC
+iD
+rD
+iD
+iD
+oD
 KK
 KK
 kS
@@ -1518,32 +2350,32 @@ KK
 KK
 KK
 KK
-yO
-XF
-bP
-bP
-yO
-en
-en
-VI
-Pz
-Tq
-TN
-tY
-yO
+Lx
+xf
+Hx
+Hx
 mc
+UH
+oM
+Fn
+IL
+TN
+TN
+Oq
+Lx
+KK
 KK
 kS
 kS
 kS
-yO
-LI
-en
-yO
-wd
-KK
-KK
-KK
+oD
+jI
+PC
+iD
+UY
+fP
+qO
+oD
 KK
 KK
 kS
@@ -1559,32 +2391,32 @@ kS
 KK
 KK
 KK
-yO
-yO
-yO
-yO
-yO
-yO
-en
+Lx
+uu
+uu
+uu
+uu
+Lx
+HI
 hZ
-en
-yO
-bP
-bP
-yO
+IL
+lD
+TN
+TN
+Lx
 KK
 KK
 kS
 kS
 kS
-yO
-LI
-en
-yO
-KK
-KK
-KK
-KK
+oD
+jI
+PC
+oD
+oD
+oD
+oD
+oD
 KK
 kS
 kS
@@ -1601,27 +2433,27 @@ KK
 KK
 KK
 KK
-wd
 KK
 KK
+KK
 kS
-yO
-yO
-Gq
-yO
-yO
-yO
-yO
-yO
+Lx
+Lx
+dt
+Lx
+Lx
+Lx
+Lx
+Lx
 KK
 kS
 kS
 kS
 kS
-yO
-Gq
-yO
-yO
+oD
+WG
+oD
+oD
 KK
 KK
 KK
@@ -1647,11 +2479,9 @@ KK
 kS
 kS
 kS
-kS
-iy
-kS
-kS
-kS
+gf
+ZY
+RW
 kS
 kS
 kS
@@ -1660,8 +2490,10 @@ kS
 kS
 kS
 kS
-iy
 kS
+gf
+ZY
+RW
 kS
 kS
 kS
@@ -1688,11 +2520,9 @@ kS
 kS
 kS
 kS
-kS
-iy
-kS
-kS
-kS
+gf
+ZY
+RW
 kS
 kS
 kS
@@ -1701,8 +2531,10 @@ kS
 kS
 kS
 kS
-iy
 kS
+gf
+ZY
+RW
 kS
 kS
 kS
@@ -1728,22 +2560,22 @@ kS
 kS
 kS
 kS
-KK
 kS
-Mi
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-iy
-kS
+gf
+ZY
+Dz
+va
+va
+va
+va
+va
+va
+va
+va
+va
+FI
+ZY
+RW
 kS
 KK
 kS
@@ -1765,26 +2597,26 @@ kS
 kS
 kS
 kS
-KK
 kS
 kS
 kS
 kS
 kS
+gf
 GN
-gf
-gf
-gf
-gf
-gU
-gf
-gf
 QT
-gf
-gf
+QT
+QT
+QT
+gU
+QT
+QT
+QT
+QT
+QT
 me
 OY
-kS
+RW
 kS
 kS
 kS
@@ -1811,20 +2643,20 @@ kS
 kS
 kS
 kS
-kS
-YJ
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
+gf
+ya
+Tq
 iy
-kS
+iy
+iy
+iy
+iy
+iy
+iy
+iy
+rr
+ZY
+Tq
 kS
 kS
 kS
@@ -1852,11 +2684,9 @@ KK
 kS
 kS
 kS
-kS
-iy
-kS
-kS
-kS
+gf
+ZY
+RW
 kS
 kS
 kS
@@ -1864,8 +2694,10 @@ kS
 kS
 kS
 kS
-iy
 kS
+gf
+ZY
+RW
 kS
 kS
 kS
@@ -1893,20 +2725,20 @@ KK
 KK
 KK
 KK
-kS
-iy
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
-kS
+gf
 ZY
+RW
 kS
+kS
+kS
+kS
+kS
+kS
+kS
+kS
+gf
+ZY
+RW
 KK
 kS
 kS
@@ -1931,12 +2763,12 @@ KK
 KK
 KK
 KK
-Yq
 KK
 KK
 KK
-DT
-KK
+Vu
+ZY
+zo
 KK
 KK
 KK
@@ -1945,9 +2777,9 @@ kS
 kS
 kS
 kS
-kS
-iy
-kS
+gf
+ZY
+RW
 KK
 KK
 kS
@@ -1970,25 +2802,25 @@ kS
 KK
 yO
 yO
-yO
-yO
-yO
-yO
+xg
+xg
+xg
+xg
 yO
 yO
 Gq
 yO
 KK
 KK
-Yq
 KK
 KK
 KK
-Yq
 KK
 KK
-yB
 KK
+Vu
+ZY
+zo
 KK
 KK
 kS
@@ -2010,27 +2842,27 @@ kS
 KK
 KK
 yO
-bP
-bP
-bP
-bP
-bP
-ZJ
+yB
+tY
+tY
+ba
+Wz
+tY
 en
-RW
-yO
-yO
-yO
-yO
-yO
-yO
-yO
-yO
-yO
-yO
-Gq
-yO
-yO
+LI
+yP
+yP
+yP
+yP
+yP
+yP
+yP
+hg
+hg
+hg
+mj
+hg
+hg
 KK
 KK
 KK
@@ -2049,30 +2881,30 @@ kS
 kS
 kS
 KK
-Mr
+KK
 yO
-bP
-bP
-bP
-bP
-bP
-ZJ
-en
-RW
-ZJ
-bP
-bP
-bP
-bP
-bP
-ZJ
-bP
-bP
-ZJ
-LI
-en
-yO
-mc
+pV
+tY
+tY
+tY
+tY
+tY
+tY
+YJ
+jM
+NY
+hV
+bb
+Nz
+cJ
+jM
+HZ
+jq
+lZ
+Se
+HZ
+hg
+KK
 KK
 KK
 kS
@@ -2092,27 +2924,27 @@ KK
 KK
 KK
 yO
-bP
-bP
-PC
-ZJ
-ZJ
-ZJ
-ZJ
+yB
+tY
+tY
+bH
+Xg
+Xg
+Xg
 uM
-ZJ
-bP
-bP
-bP
-bP
-bP
-bP
-bP
-bP
-ZJ
-LI
-en
-yO
+jM
+Sx
+Kh
+DD
+DD
+DD
+ql
+Qg
+Qg
+Qg
+wI
+HZ
+dD
 KK
 KK
 KK
@@ -2133,27 +2965,27 @@ KK
 KK
 KK
 yO
-bP
-bP
-PC
-ZJ
-bP
-bP
-bP
-dH
-bP
-bP
-bP
-bP
-bP
-bP
-ZJ
-bP
-bP
-ZJ
-Gq
-ZJ
-yO
+aL
+tY
+tY
+tY
+tY
+wP
+qU
+bF
+fH
+Zj
+Qx
+fg
+kP
+wo
+jM
+qc
+HZ
+qG
+Eq
+HZ
+dD
 KK
 KK
 KK
@@ -2173,28 +3005,28 @@ KK
 KK
 KK
 KK
-yO
-bP
-bP
-PC
-ZJ
-bP
-bP
-bP
-bP
-bP
-bP
-bP
-ZJ
+cb
+QK
+tY
+tY
+HJ
+tY
+ur
+UR
+mw
+jM
+DT
+Cb
+pl
 lG
-ZJ
-ZJ
-bP
-bP
-bP
-bP
-bP
-yO
+kP
+jM
+oH
+HZ
+HZ
+Hz
+HZ
+dD
 KK
 KK
 KK
@@ -2214,28 +3046,28 @@ KK
 KK
 KK
 KK
-yO
-bP
-ZJ
-ZJ
-ZJ
-ZJ
-bP
-ZJ
-ZJ
-bP
-bP
-bP
-ZJ
-en
+EE
+mI
+sQ
+tt
+tt
+QB
+ur
+UR
+mw
+fS
+iq
+Xs
+Ma
 ic
-ZJ
-bP
-bP
-bP
-bP
-bP
-yO
+ic
+jM
+Oy
+HZ
+HZ
+Hz
+HZ
+dD
 KK
 KK
 KK
@@ -2255,28 +3087,28 @@ KE
 KK
 KK
 KK
+EE
+mI
+mI
+mI
+tt
+tY
+oL
+UR
 yO
-bP
-bP
-bP
-bP
-bP
-bP
-bP
-yO
-yO
-yO
-yO
-yO
-yO
-yO
-yO
-bP
-bP
-bP
-bP
-bP
-yO
+Bp
+Bp
+bA
+yP
+yP
+yP
+yP
+ot
+HZ
+YY
+aq
+HZ
+dD
 KK
 KK
 KK
@@ -2295,30 +3127,30 @@ KE
 KK
 KK
 KK
-Mr
+KK
+TE
+mI
+mI
+ns
+tt
+tY
+tY
+tY
 yO
-bP
-bP
-bP
-bP
-bP
-bP
-bP
-yO
 KK
 KK
-wd
+hM
+VI
 KK
 KK
+hg
+bS
+HZ
+HZ
+HZ
+wg
+hg
 KK
-yO
-bP
-bP
-bP
-bP
-bP
-yO
-mc
 KK
 KK
 KK
@@ -2337,14 +3169,14 @@ KK
 KK
 KK
 KK
-yO
-bP
-bP
-bP
-bP
-bP
-bP
-bP
+mI
+mI
+mI
+mI
+tt
+Fk
+tY
+aT
 yO
 KK
 KK
@@ -2352,13 +3184,13 @@ KK
 KK
 KK
 kS
-yO
-yO
-yO
-yO
-GS
-yO
-yO
+hg
+dD
+dD
+dD
+dD
+dD
+hg
 KK
 KK
 KK
@@ -2378,16 +3210,15 @@ KK
 KK
 KK
 KK
-yO
-yO
-yO
-yO
+EE
+mI
+sQ
+EE
+EE
+GS
+GS
 GS
 yO
-yO
-yO
-yO
-KK
 KK
 KK
 KK
@@ -2395,11 +3226,12 @@ KK
 kS
 kS
 kS
+kS
 KK
 KK
 KK
 KK
-wd
+KK
 KK
 KK
 KK
@@ -2420,13 +3252,13 @@ KK
 KK
 KK
 Wu
-wg
-oD
-oD
-oD
-oD
-oD
-wg
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
 Wx
 KK
 KK
@@ -2461,17 +3293,17 @@ KK
 KK
 KK
 Wx
-oD
-oD
-oD
-oD
-oD
-oD
-oD
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
 Wx
 KK
 KK
-kS
+KK
 kS
 kS
 kS
@@ -2499,19 +3331,19 @@ KE
 KE
 KE
 KE
-KE
-KE
+KK
+KK
 Ye
 Ui
 Ui
-wR
-sQ
-wR
 Ui
 Ui
-OA
+Ui
+Ui
+Ui
+Wx
 KK
-kS
+KK
 kS
 kS
 kS
@@ -2541,17 +3373,17 @@ KE
 KE
 KE
 KE
-KE
-KE
 KK
+Wx
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Wx
 KK
-KK
-KK
-KK
-KK
-KK
-kS
-kS
 kS
 kS
 kS
@@ -2582,17 +3414,17 @@ KE
 KE
 KE
 KE
-KE
-KE
-KE
 KK
+Wx
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Ui
+Wx
 KK
-KK
-KK
-KK
-KK
-KK
-kS
 kS
 kS
 kS
@@ -2624,16 +3456,16 @@ KE
 KE
 KE
 KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-KE
-kS
+sA
+OA
+OA
+OA
+OA
+OA
+OA
+OA
+sA
+KK
 kS
 kS
 kS

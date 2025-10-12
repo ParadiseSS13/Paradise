@@ -852,6 +852,7 @@
 #include "code\game\area\misc_areas.dm"
 #include "code\game\area\shuttle_areas.dm"
 #include "code\game\area\areas\depot-areas.dm"
+#include "code\game\area\areas\engineering_outpost_areas.dm"
 #include "code\game\area\areas\mining_areas.dm"
 #include "code\game\area\areas\ruins\alien_cache_site_areas.dm"
 #include "code\game\area\areas\ruins\blackmarketpackers.dm"
