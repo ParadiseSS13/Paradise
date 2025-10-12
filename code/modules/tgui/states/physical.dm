@@ -19,7 +19,7 @@ GLOBAL_DATUM_INIT(physical_state, /datum/ui_state/physical, new)
 /mob/proc/physical_can_use_topic(src_object)
 	return UI_CLOSE
 
-/mob/living/simple_animal/demon/pulse_demon/physical_can_use_topic(src_object)
+/mob/living/basic/demon/pulse_demon/physical_can_use_topic(src_object)
 	return UI_UPDATE
 
 /mob/living/physical_can_use_topic(src_object)

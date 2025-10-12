@@ -184,7 +184,7 @@
 	var/veil_msg = "<span class='warning'>You sense a dark presence lurking \
 		just beyond the veil...</span>"
 	var/objective_verb = "Kill"
-	var/mob/living/demon_type = /mob/living/simple_animal/demon/slaughter
+	var/mob/living/demon_type = /mob/living/basic/demon/slaughter
 
 /obj/item/antag_spawner/slaughter_demon/attack_self__legacy__attackchain(mob/user)
 	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a demon from the Den..
@@ -213,9 +213,9 @@
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
-	var/mob/living/simple_animal/demon/D = new demon_type(holder)
-	if(istype(D, /mob/living/simple_animal/demon/slaughter))
-		var/mob/living/simple_animal/demon/slaughter/S = D
+	var/mob/living/basic/demon/D = new demon_type(holder)
+	if(istype(D, /mob/living/basic/demon/slaughter))
+		var/mob/living/basic/demon/slaughter/S = D
 		S.vialspawned = TRUE
 
 	D.key = C.key
@@ -246,7 +246,7 @@
 	veil_msg = "<span class='warning'>You sense an adorable presence \
 		lurking just beyond the veil...</span>"
 	objective_verb = "Hug and tickle"
-	demon_type = /mob/living/simple_animal/demon/slaughter/laughter
+	demon_type = /mob/living/basic/demon/slaughter/laughter
 
 /obj/item/antag_spawner/slaughter_demon/shadow
 	name = "vial of shadow"
@@ -256,7 +256,7 @@
 	icon_state = "vialshadows"
 	veil_msg = "<span class='warning'>You sense a dark presence \
 		lurking in the shadows...</span>"
-	demon_type = /mob/living/simple_animal/demon/shadow
+	demon_type = /mob/living/basic/demon/shadow
 
 ///////////MORPH
 
@@ -397,7 +397,7 @@
 	var/shatter_msg = "<span class='notice'>You shatter the bulb, no turning back now!</span>"
 	var/veil_msg = "<span class='warning'>The creature sparks energetically and zips away...</span>"
 	var/objective_verb = "Electrocute"
-	var/mob/living/demon_type = /mob/living/simple_animal/demon/pulse_demon/wizard
+	var/mob/living/demon_type = /mob/living/basic/demon/pulse_demon/wizard
 
 /obj/item/antag_spawner/pulse_demon/attack_self__legacy__attackchain(mob/user)
 	if(level_blocks_magic(user.z))
@@ -436,7 +436,7 @@
 	var/datum/mind/player_mind = new /datum/mind(C.key)
 	player_mind.active = TRUE
 
-	var/mob/living/simple_animal/demon/pulse_demon/wizard/demon = new(T)
+	var/mob/living/basic/demon/pulse_demon/wizard/demon = new(T)
 	player_mind.transfer_to(demon)
 	player_mind.assigned_role = SPECIAL_ROLE_DEMON
 	player_mind.special_role = SPECIAL_ROLE_DEMON
