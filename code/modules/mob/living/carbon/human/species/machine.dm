@@ -5,7 +5,7 @@
 
 	blurb = "IPCs, or Integrated Positronic Chassis, were initially created as expendable laborers within the Trans-Solar Federation. \
 	Similar to the organic species of the Orion Arm, IPCs possess full sapience, as well as creativity and adaptability on par with other life. Unlike traditional cyborgs and AI units, IPCs are given full rights by Nanotrasen and do not possess lawsets.<br/><br/> \
-	Views on IPCs vary widely between groups across the sector, ranging from openly discriminatory to supportive of their rights. \
+	Views on IPCs vary widely between groups across the sector, ranging from openly discriminatory, to supportive of their rights. \
 	In recent years, IPCs have formed diplomatic relations with various governments in the sector, elevating their status from tools and assistants to minor players in interstellar affairs."
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
