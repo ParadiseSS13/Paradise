@@ -286,6 +286,12 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/template_noop)
+"if" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/decal/cleanable/blood/tracks/mapped,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating,
+/area/template_noop)
 "ig" = (
 /obj/item/flashlight/flare/used,
 /turf/simulated/floor/plating/asteroid,
@@ -299,6 +305,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/alarm/directional/east,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "iv" = (
@@ -588,6 +595,10 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/template_noop)
+"nq" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
 "nA" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway,
 /obj/effect/spawner/random/dirt/frequent,
@@ -800,13 +811,6 @@
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
 /turf/template_noop,
 /area/template_noop)
-"so" = (
-/obj/effect/spawner/random/dirt/maybe,
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel,
-/area/template_noop)
 "sp" = (
 /obj/effect/decal/cleanable/ash,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -917,6 +921,7 @@
 /area/template_noop)
 "uu" = (
 /obj/structure/closet/cabinet,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/wood,
 /area/template_noop)
 "uw" = (
@@ -1237,6 +1242,10 @@
 /area/template_noop)
 "BF" = (
 /obj/effect/decal/cleanable/generic,
+/turf/template_noop,
+/area/template_noop)
+"BJ" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/template_noop,
 /area/template_noop)
 "BM" = (
@@ -1662,6 +1671,11 @@
 /obj/effect/spawner/random/barrier/temporary,
 /turf/simulated/floor/plating,
 /area/template_noop)
+"Kw" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating,
+/area/template_noop)
 "Kz" = (
 /obj/effect/spawner/random/storage,
 /obj/effect/spawner/random/engineering/materials,
@@ -1938,6 +1952,11 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/template_noop,
 /area/template_noop)
+"Sl" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/wood,
+/area/template_noop)
 "Sm" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/trash/spentcasing/bullet,
@@ -2086,6 +2105,24 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
+/area/template_noop)
+"Wz" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 6
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "WK" = (
 /mob/living/simple_animal/hostile/syndicate/ranged,
@@ -2718,7 +2755,7 @@ yb
 nK
 nK
 VI
-nK
+BJ
 nK
 nK
 ts
@@ -3146,7 +3183,7 @@ nK
 nK
 nK
 zz
-lm
+Kw
 WK
 fO
 SJ
@@ -3476,7 +3513,7 @@ nK
 nb
 VX
 ty
-ty
+if
 Zm
 gj
 ZI
@@ -4081,7 +4118,7 @@ nK
 (29,1,1) = {"
 nK
 nK
-pG
+Sl
 pG
 mt
 nK
@@ -5151,7 +5188,7 @@ nK
 nK
 Ba
 Af
-Af
+nq
 nK
 nK
 nK
@@ -5277,7 +5314,7 @@ bo
 nK
 qX
 WW
-so
+Wz
 nK
 bo
 nK

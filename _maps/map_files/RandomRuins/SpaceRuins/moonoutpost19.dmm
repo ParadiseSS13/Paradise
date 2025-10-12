@@ -2489,6 +2489,26 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/moonbase19)
+"ih" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/turf_decal/tiles/dark/side{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
 "ii" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -2651,14 +2671,6 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/white,
-/area/ruin/space/moonbase19)
-"iB" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/effect/turf_decal/tiles/dark/side{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "iC" = (
 /obj/effect/decal/cleanable/dirt,
@@ -7100,6 +7112,32 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
+"BU" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/machinery/light/small,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/machinery/light/small,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
 "BY" = (
 /obj/structure/railing{
 	dir = 8
@@ -7703,11 +7741,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/yellow_siding,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/moonbase19)
-"ET" = (
-/obj/effect/decal/cleanable/cobweb,
-/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "EV" = (
@@ -10166,19 +10199,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
-"QD" = (
-/obj/machinery/light/small,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/effect/turf_decal/tiles/dark/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/dark/corner,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/moonbase19)
 "QE" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel/dark,
@@ -10375,6 +10395,12 @@
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
+/area/ruin/space/moonbase19)
+"Ry" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "RA" = (
 /obj/structure/flora/rock,
@@ -12601,7 +12627,7 @@ ag
 ag
 tX
 ag
-ET
+Ry
 mB
 zv
 aA
@@ -14327,7 +14353,7 @@ Sb
 Sb
 fM
 fM
-QD
+BU
 ag
 iv
 tx
@@ -14606,7 +14632,7 @@ Pr
 kN
 ag
 af
-iB
+ih
 ak
 Es
 ag

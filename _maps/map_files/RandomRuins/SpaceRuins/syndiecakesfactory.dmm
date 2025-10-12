@@ -207,6 +207,12 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
+"ip" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/engine,
+/area/ruin/space/syndicakefactory)
 "iq" = (
 /obj/item/flag/syndi{
 	anchored = 1
@@ -236,6 +242,24 @@
 "jx" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/grass,
+/area/ruin/space/syndicakefactory)
+"jy" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/item/food/meat/corgi{
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "ke" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -1050,13 +1074,6 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
-"VI" = (
-/obj/item/food/meat/corgi{
-	pixel_y = 6
-	},
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ruin/space/syndicakefactory)
 "VS" = (
 /obj/structure/table_frame,
 /obj/item/stack/sheet/plastitaniumglass,
@@ -1423,7 +1440,7 @@ EJ
 EJ
 GV
 bn
-VI
+jy
 Do
 fq
 Do
@@ -1876,7 +1893,7 @@ Ga
 TG
 iL
 sh
-Ii
+ip
 xO
 yU
 wV
