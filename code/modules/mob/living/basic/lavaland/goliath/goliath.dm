@@ -8,7 +8,7 @@
 	icon_dead = "goliath_dead"
 	icon_gib = "syndicate_gib"
 	speak_emote = list("bellows")
-	speed = 3
+	speed = 5
 	maxHealth = 300
 	health = 300
 	harm_intent_damage = 1 // Only the manliest of men can kill a Goliath with only their fists.
