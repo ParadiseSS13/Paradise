@@ -92,7 +92,7 @@
 		QDEL_NULL(captured)
 	return ..()
 
-/obj/item/mobcapsule/attack(mob/living/target, mob/living/user, params)
+/obj/item/mobcapsule/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(isanimal(target)) // We need to check both individually as mob/living does not have a sentience type parameter.
 		var/mob/living/simple_animal/S = target
 		if(S.sentience_type == capture_type)
@@ -134,6 +134,7 @@
 		captured = null
 
 /obj/item/mobcapsule/activate_self(mob/user)
+	..()
 	colorindex += 1
 	if(colorindex >= 6)
 		colorindex = 0
