@@ -733,6 +733,14 @@
 	reqs = list(/obj/item/stack/sheet/bone = 6)
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/light_bone_armor
+	name = "Light Bone Armor"
+	result = list(/obj/item/clothing/suit/hooded/bone_light)
+	reqs = list(/obj/item/stack/sheet/bone = 2,
+				/obj/item/stack/sheet/sinew = 2,
+				/obj/item/stack/sheet/animalhide/goliath_hide = 1)
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/bonetalisman
 	name = "Bone Talisman"
 	result = list(/obj/item/clothing/accessory/talisman)
@@ -824,6 +832,22 @@
 	time = 40
 	reqs = list(/obj/item/stack/sheet/bone = 5,
 				/obj/item/stack/sheet/sinew = 2)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/bonesword
+	name = "Bone Sword"
+	result = list(/obj/item/melee/bone_sword)
+	time = 45
+	reqs = list(/obj/item/stack/sheet/bone = 4,
+				/obj/item/stack/sheet/sinew = 1)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/bonesword_sheath
+	name = "Bone Sword Sheath"
+	result = list(/obj/item/storage/belt/sheath/bone_sword)
+	time = 45
+	reqs = list(/obj/item/stack/sheet/sinew = 2,
+				/obj/item/stack/sheet/animalhide/goliath_hide = 1)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/boneaxe

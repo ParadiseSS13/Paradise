@@ -832,6 +832,39 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hood.dmi'
 
+/obj/item/clothing/suit/hooded/bone_light
+	name = "light bone armor"
+	desc = "A lightweight set of bone armor, crafted crudely from animal products."
+	icon_state = "light_bone_armor"
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/spear)
+	armor = list(MELEE = 15, BULLET = 10, LASER = 10, ENERGY = 5, BOMB = 10, RAD = 0, FIRE = 50, ACID = 50)
+	hoodtype = /obj/item/clothing/head/hooded/bone_light
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
+
+/obj/item/clothing/head/hooded/bone_light
+	name = "light bone helmet"
+	desc = "A crude helmet crafted from the bones of animals."
+	icon_state = "light_bone_helmet"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	armor = list(MELEE = 15, BULLET = 10, LASER = 10, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
+	heat_protection = HEAD
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
+
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
 	desc = "A tribal armor plate, crafted from animal bone."
