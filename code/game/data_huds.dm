@@ -518,7 +518,10 @@
 ~~~~~~~~~~~~~~~*/
 /obj/effect/anomalous_particulate/proc/do_hud_stuff()
 	var/image/holder = hud_list[ANOMALOUS_HUD]
-	holder.icon_state = "reality_smash"
+	holder.icon_state = "hud_anom"
+	holder.alpha = 130
+	holder.plane = ABOVE_LIGHTING_PLANE
+	holder.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 
 /*~~~~~~~~~~~~~~
 	Malf AI HUD

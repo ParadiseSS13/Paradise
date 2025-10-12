@@ -406,8 +406,7 @@
 
 /obj/effect/anomalous_particulate
 	name = "cloud of anomalous particulate"
-	icon = 'icons/effects/eldritch.dmi'
-	icon_state = "reality_smash"
+	icon_state = "hud_anom"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = INVISIBILITY_LEVEL_TWO
 	hud_possible = list(ANOMALOUS_HUD)

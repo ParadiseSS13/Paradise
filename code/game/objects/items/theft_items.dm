@@ -703,7 +703,8 @@
 	<br>
 	First off, equip your glasses. You will need them to find the particulate. We heavily advise against losing them.<br>
 	<br>
-	This will allow you to identify the uncharged anomalous particulate aboard the station. It can be anywhere, stalk out rooms and or use cameras to find it.<br>
+	This will allow you to identify the uncharged anomalous particulate aboard the station. It can be anywhere, stalk out rooms and or use cameras to find it.\
+	It will look like <b>purple sparkles, with a yellow and red square targeting highlight.</b><br>
 	<br>
 	Afterwords, approach the particulate with the PPPProcessor, and use it on the particulate. It will charge and capture a sample of it.<br>
 	<br>
