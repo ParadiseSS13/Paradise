@@ -81,12 +81,6 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 // returns the body payload
 /datum/tgui_bug_report_form/proc/create_form()
 	var/desc = {"
-## Client BYOND Version
-[usr.client.byond_version].[usr.client.byond_build]
-
-## Round ID
-[GLOB.round_id ? GLOB.round_id : "N/A"]
-
 ## What did you expect to happen?
 [bug_report_data["expected_behavior"]]
 
@@ -107,6 +101,10 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 ## Additional details
 - Author: [initial_key]
 - Approved By: [approving_user]
+- Round ID: [GLOB.round_id ? GLOB.round_id : "N/A"]
+- Client BYOND Version: [usr.client.byond_version].[usr.client.byond_build]
+- Server BYOND Version: [world.byond_version].[world.byond_build]
+- Server commit: [GLOB.configuration.url.github_url]/commit/[GLOB.revision_info.commit_hash]'>[GLOB.revision_info.commit_hash]
 - Note: [bug_report_data["approver_note"] ? bug_report_data["approver_note"] : "None"]
 	"}
 
