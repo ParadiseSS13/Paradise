@@ -13,7 +13,6 @@
 	name = "pulse demon"
 	real_name = "pulse demon"
 	desc = "A strange electrical apparition that lives in wires."
-	gender = NEUTER
 
 	damage_coeff = list(BRUTE = 0.25, BURN = 0.5, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) // Pulse demons take reduced damage from most sources. Use ions
 
