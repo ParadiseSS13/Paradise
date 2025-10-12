@@ -133,7 +133,7 @@
 		captured.forceMove(get_turf(src))
 		captured = null
 
-/obj/item/mobcapsule/attack_self__legacy__attackchain(mob/user)
+/obj/item/mobcapsule/activate_self(mob/user)
 	colorindex += 1
 	if(colorindex >= 6)
 		colorindex = 0
