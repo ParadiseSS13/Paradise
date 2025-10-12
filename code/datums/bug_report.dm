@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	var/list/bug_report_data = null
 
 	/// client of the bug report author, needed to create the ticket
-	var/client/initial_user = null
+	var/initial_user_uid = null
 	// ckey of the author
 	var/initial_key = null // just incase they leave after creating the bug report
 
@@ -19,12 +19,28 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	/// value to determine if the bug report is submitted and awaiting admin/dev approval, used for state purposes in tgui.
 	var/awaiting_approval = FALSE
 
-	// for garbage collection purposes.
+	/// for garbage collection purposes.
 	var/selected_confirm = FALSE
 
+	/// byond version of the user, so we still have the byond version if the user logs out
+	var/user_byond_version
+
+	/// Current Server commit
+	var/local_commit
+
+	/// Current test merges formatted for the bug report
+	var/test_merges
+
 /datum/tgui_bug_report_form/New(mob/user)
-	initial_user = user.client
+	local_commit = GLOB.revision_info.commit_hash
+	initial_user_uid = user.client.UID()
 	initial_key = user.client.key
+	user_byond_version = "[user.client.byond_version].[user.client.byond_build]"
+	if(length(GLOB.revision_info.origin_commit))
+		local_commit = GLOB.revision_info.origin_commit
+	for(var/datum/tgs_revision_information/test_merge/tm in GLOB.revision_info.testmerges)
+		test_merges += "#[tm.number] at [tm.head_commit]\n"
+
 
 /datum/tgui_bug_report_form/proc/external_link_prompt(client/user)
 	tgui_alert(user, "Unable to create a bug report at this time, please create the issue directly through our GitHub repository instead")
@@ -44,6 +60,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 /datum/tgui_bug_report_form/ui_close(mob/user)
 	. = ..()
+	var/client/initial_user = locateUID(initial_user_uid)
 	if(!approving_user && user.client == initial_user && !selected_confirm) // user closes the ui without selecting confirm or approve.
 		qdel(src)
 		return
@@ -102,9 +119,10 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 - Author: [initial_key]
 - Approved By: [approving_user]
 - Round ID: [GLOB.round_id ? GLOB.round_id : "N/A"]
-- Client BYOND Version: [usr.client.byond_version].[usr.client.byond_build]
+- Client BYOND Version: [user_byond_version]
 - Server BYOND Version: [world.byond_version].[world.byond_build]
-- Server commit: [GLOB.configuration.url.github_url]/commit/[GLOB.revision_info.commit_hash]'>[GLOB.revision_info.commit_hash]
+- Server commit: [local_commit]
+- Active Test Merges: [test_merges ? test_merges : "None"]
 - Note: [bug_report_data["approver_note"] ? bug_report_data["approver_note"] : "None"]
 	"}
 
@@ -148,13 +166,16 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		message_admins("<span class='adminnotice'>The GitHub API has failed to create the bug report titled [bug_report_data["title"]] approved by [approving_user], status code:[response.status_code]. Please paste this error code into the development channel on discord.</span>")
 		external_link_prompt(user)
 	else
+		var/client/initial_user = locateUID(initial_user_uid)
 		message_admins("[user.ckey] has approved a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
 		to_chat(initial_user, "<span class='notice'>An admin has successfully submitted your report and it should now be visible on GitHub. Thanks again!</span>")
 	qdel(src)// approved and submitted, we no longer need the datum.
 
 // proc that creates a ticket for an admin to approve or deny a bug report request
 /datum/tgui_bug_report_form/proc/bug_report_request()
-	to_chat(initial_user, "<span class='notice'>Your bug report has been submitted, thank you!</span>")
+	var/client/initial_user = locateUID(initial_user_uid)
+	if(initial_user)
+		to_chat(initial_user, "<span class='notice'>Your bug report has been submitted, thank you!</span>")
 	GLOB.bug_reports += src
 
 	var/general_message = "[initial_key] has created a bug report which is now pending approval. The report can be viewed using \"View Bug Reports\" in the debug tab. </span>"
@@ -194,6 +215,8 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 /datum/tgui_bug_report_form/proc/reject(client/user)
 	message_admins("[user.ckey] has rejected a bug report from [initial_key] titled [bug_report_data["title"]] at [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")].")
-	to_chat(initial_user, "<span class = 'warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
+	var/client/initial_user = locateUID(initial_user_uid)
+	if(initial_user)
+		to_chat(initial_user_uid, "<span class = 'warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
 
 #undef STATUS_SUCCESS
