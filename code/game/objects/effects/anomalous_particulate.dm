@@ -71,8 +71,7 @@
 
 /obj/effect/visible_anomalous_particulate
 	name = "cloud of anomalous particulate"
-	icon = 'icons/effects/eldritch.dmi'
-	icon_state = "pierced_illusion" // qwertodo Temporary, will need it's own proper sprite in the event heretic does happen one day.
+	icon_state = "cloud_test"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	alpha = 0
 	invisibility = INVISIBILITY_LEVEL_TWO
@@ -83,23 +82,135 @@
 	/// The effect passively
 	var/process_effect
 
+/*
+ * What does this do?
+ * First, we choose a sprite for the texture, and rotate it.
+ * Next, a shape. Also potentially rotated.
+ * Finally, a transparent overlay to apply over the first texture.
+ * After that we queue up the fade in and effects
+ */
 /obj/effect/visible_anomalous_particulate/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(show_presence)), 15 SECONDS)
+	var/icon/our_icon
+	switch(rand(1, 10)) // texture
+		if(1 to 3)
+			our_icon = icon('icons/effects/effects.dmi', "cloud_test")
+		if(4 to 6)
+			our_icon = icon('icons/effects/effects.dmi', "cryoanomaly")
+		if(7 to 8)
+			our_icon = icon('icons/effects/effects.dmi', "anom")
+		if(9)
+			our_icon = icon('icons/effects/effects.dmi', "void_conduit")
+		if(10)
+			our_icon = icon('icons/effects/effects.dmi', "static_base")
+
+	var/icon/alpha_mask
+	switch(rand(1, 8)) // shape
+		if(1 to 6)
+			alpha_mask = new('icons/effects/effects.dmi', "void_conduit")
+		if(7)
+			alpha_mask = new('icons/effects/effects.dmi', "cryoanomaly")
+		if(8)
+			alpha_mask = new('icons/effects/effects.dmi', "anom")
+	switch(rand(1,8))
+		if(1)
+			alpha_mask.Turn(0)
+		if(2)
+			alpha_mask.Turn(90)
+		if(3)
+			alpha_mask.Turn(180)
+		if(4)
+			alpha_mask.Turn(270)
+		if(5 to 8)
+			alpha_mask.Turn(rand(1, 359))
+
+	switch(rand(1,8))
+		if(1)
+			our_icon.Turn(0)
+		if(2)
+			our_icon.Turn(90)
+		if(3)
+			our_icon.Turn(180)
+		if(4)
+			our_icon.Turn(270)
+		if(5 to 8)
+			our_icon.Turn(rand(1, 359))
+
+	our_icon.AddAlphaMask(alpha_mask) //Finally, let's mix in a distortion effect.
+	icon = our_icon
+	switch(rand(1,9))
+		if(1)
+			color = list(0.2,0.45,0,0, 0,1,0,0, 0,0,0.2,0, 0,0,0,1, 0,0,0,0) // green
+		if(2)
+			color = list(1,0,0,0, 0,0.4,0,0, 0,0,1,0, 0,0,0,1, 0,0,0,0) // purple per video 1
+		if(3)
+			color = list(0.4,0,0,0, 0,1.1,0,0, 0,0,1.65,0, -0.3,0.15,0,1, 0,0,0,0) // light blue
+		if(4)
+			color = list(0.5,1,0.9,0, 0,1,0,0, 0,0,0.5,0, 0,0,0,1, 0,0,0,0) // green blue
+		if(5)
+			color = list(0.8,0,0,0.35,0.2,0, 0.5,0,0.65,0.1,0,0) // red
+		if(6)
+			color = list(1.3,0,0,0, 0,1.65,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0) // green blue
+		if(7)
+			color = list(-1,0,0,0, 0,-1,0,0, 0,0,-1,0, (rand(1,100) / 100),(rand(1,100) / 100),(rand(1,100) / 100),1, 0,0,0,0) // random inverted
+		if(8)
+			color = list(-1,0,0,0, 0,-1,0,0, 0,0,-1,0, 0.8,0.85,0.95,1, 0,0,0,0) // cool inverted
+		if(9)
+			color = list((rand(1,100) / 100),0,0,0, 0,(rand(1,100) / 100),0,0, 0,0,(rand(1,100) / 100),0, 0,0,0,1, 0,0,0,0) // random normal
+
+	var/mutable_appearance/theme_icon
+	var/MA_alpha = pick(30, 40, 20, 25, 35, 10, 60)
+	switch(rand(1, 5)) // final overlay effect
+		if(1 to 3)
+			theme_icon = mutable_appearance('icons/effects/effects.dmi', "static_base", FLOAT_LAYER - 1, alpha = MA_alpha,  appearance_flags = appearance_flags | RESET_TRANSFORM)
+		if(4)
+			theme_icon = mutable_appearance('icons/effects/effects.dmi', "emp_disable", FLOAT_LAYER - 1, alpha = MA_alpha,  appearance_flags = appearance_flags | RESET_TRANSFORM)
+		if(5)
+			theme_icon = mutable_appearance('icons/effects/effects.dmi', "anom", FLOAT_LAYER - 1, alpha = MA_alpha,  appearance_flags = appearance_flags | RESET_TRANSFORM)
+	theme_icon.blend_mode = BLEND_INSET_OVERLAY
+	var/matrix/M_three = matrix()
+	switch(rand(1,8))
+		if(1)
+			M_three.Turn(0)
+		if(2)
+			M_three.Turn(90)
+		if(3)
+			M_three.Turn(180)
+		if(4)
+			M_three.Turn(270)
+		if(5 to 8)
+			M_three.Turn(rand(1, 359))
+
+	theme_icon.transform = M_three
+	overlays += theme_icon
+	// Applies some random effects to the final image
+	switch(rand(1,5))
+		if(1)
+			add_filter("distort_1", 3, motion_blur_filter(1, 1))
+		if(2)
+			add_filter("distort_2", 1, gauss_blur_filter(size = 0.5))
+		if(3)
+			add_filter("distort_3", 2, angular_blur_filter(size = 5))
+		if(4)
+			apply_wibbly_filters(src)
+		if(5) // No visual effect
+			alpha = 1
+	alpha = 1 // Resets the alpha for the show_presence fade in
+	alpha = 0
+
 
 /obj/effect/visible_anomalous_particulate/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/effect/visible_anomalous_particulate/add_filter(name, priority, list/params)
-	return
 
 /*
  * Makes the influence fade in after 15 seconds.
  */
 /obj/effect/visible_anomalous_particulate/proc/show_presence()
 	invisibility = 0
-	animate(src, alpha = 255, time = 15 SECONDS)
+	animate(src, alpha = 180, time = 15 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(fade_presence)), 15 SECONDS)
 	configure_effects()
 
@@ -234,7 +345,7 @@
 	switch(process_effect)
 		if(BLUESPACE) // Condense a crystal now and then
 			if(prob(2))
-				visible_message( "<span class='notice'>[src] A drop of blue particulate condenses into a shining crystal!</span>")
+				visible_message( "<span class='notice'>A drop of blue particulate from [src] condenses into a shining crystal.</span>")
 				new /obj/item/stack/ore/bluespace_crystal/refined(get_turf(src))
 		if(GRAV) // Nice gravity. Invert it.
 			if(prob(1))

@@ -515,7 +515,6 @@
 	icon_state = "sunhudmed"
 	inhand_icon_state = "sunglasses"
 	hud_types = DATA_HUD_ANOMALOUS
-	flash_protect = FLASH_PROTECTION_FLASH // The revealed stuff often can cause eye flashes, safety first
 
 	var/datum/action/item_action/chameleon_change/chameleon_action
 
