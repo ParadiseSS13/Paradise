@@ -445,7 +445,9 @@
 
 	Master.UpdateTickRate()
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_516))
-	INVOKE_ASYNC(src, TYPE_PROC-REF(/client, nag_new_rules))
+
+	//TODO: Comment out after awhile, save for future use.
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_new_rules))
 
 	// Tell clients about active testmerges
 	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
@@ -1342,9 +1344,9 @@
 
 	src << link("https://secure.byond.com/download/")
 
-// Comment out after awhile, keep in case of future needs.
+// TODO: Comment out after awhile, keep in case of future needs.
 /client/proc/nag_new_rules()
-	var/choice = tgui_alert(src, "IMPORTANT: We have updated and reworked our rules! If you haven't, please review them before joining the round. Thank you.", list("Okay", "View Rules")
+	var/choice = tgui_alert(src, "IMPORTANT: We have updated and reworked our rules! If you haven't, please review them before joining the round. Thank you.", "New Rule Alert", list("Okay", "View Rules"))
 	if(choice == "Okay")
 		return
 
