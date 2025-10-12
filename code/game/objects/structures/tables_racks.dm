@@ -359,7 +359,7 @@
 		return 0 SECONDS // sure
 	if(!isanimal_or_basicmob(flipper))
 		return 0 SECONDS
-	if(istype(flipper, /mob/living/simple_animal/revenant))
+	if(istype(flipper, /mob/living/basic/revenant))
 		return 0 SECONDS  // funny ghost table
 	switch(flipper.mob_size)
 		if(MOB_SIZE_TINY)
