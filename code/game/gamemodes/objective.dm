@@ -443,8 +443,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/nuke
 	name = "Detonate the Station"
-	explanation_text = "You are tasked with detonating the station's nuclear warhead or otherwise ensuring that the station ceases to exist. \
-	You will need to secure the station's Nuclear Authentication Disk in order to arm the warhead. \ "
+	explanation_text = "Detonate the station's nuclear device. You will need to secure the station's Nuclear Authentication Disk in order to arm the warhead. \
+	The Nuclear Authentication Disk can be found in the Captain's Office, or carried by the Captain."
 	martyr_compatible = TRUE
 	needs_target = FALSE
 
@@ -456,7 +456,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			code = bombue.r_code
 			break
 	if(code)
-		explanation_text += "We have intercepted the nuclear codes for the warhead. The code is [code]. Good luck."
+		explanation_text += " We have intercepted the nuclear codes for the warhead. The code is [code]. Good luck."
 
 /datum/objective/nuke/check_completion()
 	if(SSticker.mode.station_was_nuked)
