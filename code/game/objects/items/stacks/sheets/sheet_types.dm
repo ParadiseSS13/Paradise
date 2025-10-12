@@ -236,10 +236,6 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	. = ..()
 	recipes = GLOB.plasteel_recipes
 
-/obj/item/stack/sheet/wood/cyborg
-	energy_type = /datum/robot_storage/energy/wood
-	is_cyborg = TRUE
-
 //////////////////////////////
 // MARK: WOOD
 //////////////////////////////
@@ -269,6 +265,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("wooden airlock assembly", /obj/structure/door_assembly/door_assembly_wood, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("torch sconce", /obj/structure/lightable/torch, 5, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("wooden storage shelf", /obj/structure/shelf/wood, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		)),
 	new /datum/stack_recipe_list("pews", list(
 		new /datum/stack_recipe("pew (middle)", /obj/structure/chair/sofa/pew, 5, one_per_turf = TRUE, on_floor = TRUE),
@@ -305,6 +302,13 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 /obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge)
 	. = ..()
 	recipes = GLOB.wood_recipes
+
+/obj/item/stack/sheet/wood/fifty
+	amount = 50
+
+/obj/item/stack/sheet/wood/cyborg
+	energy_type = /datum/robot_storage/energy/wood
+	is_cyborg = TRUE
 
 //////////////////////////////
 // MARK: BAMBOO
@@ -412,6 +416,9 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 /obj/item/stack/sheet/cloth/ten
 	amount = 10
 
+/obj/item/stack/sheet/cloth/fifty
+	amount = 50
+
 //////////////////////////////
 // MARK: DURATHREAD
 //////////////////////////////
@@ -440,6 +447,9 @@ GLOBAL_LIST_INIT(durathread_recipes, list (
 /obj/item/stack/sheet/durathread/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.durathread_recipes
 	return ..()
+
+/obj/item/stack/sheet/durathread/fifty
+	amount = 50
 
 /obj/item/stack/sheet/cotton
 	name = "raw cotton bundle"
@@ -522,6 +532,9 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	. = ..()
 	recipes = GLOB.cardboard_recipes
 
+/obj/item/stack/sheet/cardboard/fifty
+	amount = 50
+
 //////////////////////////////
 // MARK: SOIL
 //////////////////////////////
@@ -553,6 +566,7 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("archives (crafts zealot's blindfolds, shuttle curse orbs, veil shifters, reality sunderers, and blank tarot cards)", /obj/structure/cult/functional/archives, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("altar (crafts eldritch whetstones, construct shells, and flasks of unholy water)", /obj/structure/cult/functional/altar, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
+	new /datum/stack_recipe/cult("runed table frame", /obj/structure/table_frame/cult, 1, time = 0.5 SECONDS, one_per_turf = TRUE, cult_structure = TRUE),
 	))
 
 /obj/item/stack/sheet/runed_metal
@@ -561,6 +575,7 @@ GLOBAL_LIST_INIT(cult_recipes, list (
 	icon_state = "sheet-runed"
 	singular_name = "runed metal sheet"
 	sheettype = "runed"
+	table_type = /obj/structure/table/reinforced/cult
 	merge_type = /obj/item/stack/sheet/runed_metal
 
 /obj/item/stack/sheet/runed_metal/examine_more(mob/user)
@@ -700,6 +715,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		)),
 	new /datum/stack_recipe("pill bottle", /obj/item/storage/pill_bottle),
 	new /datum/stack_recipe("IV bag", /obj/item/reagent_containers/iv_bag, 2),
+	new /datum/stack_recipe("biomesh", /obj/item/biomesh, 1),
 	new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 1, time = 1 SECONDS),

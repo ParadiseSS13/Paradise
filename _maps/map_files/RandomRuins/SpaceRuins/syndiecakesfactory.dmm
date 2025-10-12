@@ -239,6 +239,12 @@
 	icon_state = "cafeteria"
 	},
 /area/ruin/space/syndicakefactory)
+"ip" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/engine,
+/area/ruin/space/syndicakefactory)
 "iq" = (
 /obj/item/flag/syndi{
 	anchored = 1
@@ -1195,9 +1201,8 @@
 	},
 /area/ruin/space/syndicakefactory)
 "VI" = (
-/obj/item/food/meat/corgi{
-	pixel_y = 6
-	},
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2035,7 +2040,7 @@ Ga
 TG
 iL
 sh
-Ii
+ip
 xO
 yU
 wV
