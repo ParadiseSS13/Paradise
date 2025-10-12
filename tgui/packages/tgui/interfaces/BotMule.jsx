@@ -18,7 +18,7 @@ const NoCell = (props, context) => {
   const { act, data } = useBackend(context);
   const { cell } = data;
   return (
-    <Window width={500} height={300}>
+    <Window width={500} height={400}>
       <Stack justify="center" align="center" fill vertical>
         <Icon.Stack>
           <Icon size="5" name="slash" />
@@ -34,7 +34,7 @@ const NoCell = (props, context) => {
 
 const MuleMain = (props, context) => {
   const { act, data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const [tabIndex, setTabIndex] = useLocalState(context, 0);
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -42,12 +42,12 @@ const MuleMain = (props, context) => {
       case 1:
         return <MuleLoad />;
       default:
-        return 'Whoops!! This is a bug. Please report to Paradise Github';
+        return 'Something went wrong. Report it on Paradise Github';
     }
   };
 
   return (
-    <Window width={500} height={300}>
+    <Window width={500} height={400}>
       <Window.Content>
         <Tabs>
           <Tabs.Tab key="BotStatus" icon="signal" selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
