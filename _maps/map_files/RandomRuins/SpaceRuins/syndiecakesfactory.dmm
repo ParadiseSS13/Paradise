@@ -244,21 +244,9 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/syndicakefactory)
 "jy" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
-/obj/item/food/meat/corgi{
-	pixel_y = 6
-	},
-/obj/effect/turf_decal/tiles/dark/checker,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "ke" = (

@@ -35,7 +35,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -95,7 +95,7 @@
 /area/template_noop)
 "eC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -107,7 +107,7 @@
 /area/ruin/space/wreck_cargoship)
 "eV" = (
 /obj/structure/railing,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -399,7 +399,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -456,8 +456,11 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 2
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
@@ -484,7 +487,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -538,7 +541,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -674,7 +677,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -762,10 +765,13 @@
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/kirbyplants/large,
-/obj/effect/turf_decal/tiles/dark/checker,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
+/obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "ET" = (
@@ -887,7 +893,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -914,10 +920,13 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/tiles/dark/checker,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
+/obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "LF" = (
@@ -1187,8 +1196,11 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 2
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
@@ -1335,7 +1347,7 @@
 	},
 /area/ruin/space/wreck_cargoship)
 "Zc" = (
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,

@@ -9550,6 +9550,12 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
+"Hf" = (
+/turf/simulated/floor/holofloor{
+	icon_state = "sand";
+	name = "Soft sand"
+	},
+/area/holodeck/source_beach)
 "Hg" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/evac)
@@ -9965,7 +9971,9 @@
 /obj/structure/holowindow{
 	dir = 1
 	},
-/turf/simulated/floor/holofloor,
+/turf/simulated/floor/holofloor{
+	icon_state = "asteroid7"
+	},
 /area/holodeck/source_knightarena)
 "IF" = (
 /obj/structure/flora/ausbushes/ppflowers,
@@ -13369,7 +13377,9 @@
 /area/centcom/specops)
 "TQ" = (
 /obj/structure/holowindow,
-/turf/simulated/floor/holofloor,
+/turf/simulated/floor/holofloor{
+	icon_state = "asteroid7"
+	},
 /area/holodeck/source_knightarena)
 "TR" = (
 /obj/machinery/door/airlock/centcom{
@@ -13972,7 +13982,9 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/wizard_station)
 "VZ" = (
-/turf/simulated/floor/holofloor,
+/turf/simulated/floor/holofloor{
+	icon_state = "asteroid7"
+	},
 /area/holodeck/source_knightarena)
 "Wa" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -76106,7 +76118,7 @@ ev
 ev
 ev
 ev
-ev
+Hf
 Zv
 Yp
 cc
@@ -76363,7 +76375,7 @@ ev
 QV
 ev
 ev
-ev
+Hf
 Zv
 Yp
 cc
@@ -76620,7 +76632,7 @@ ev
 ev
 ev
 ev
-ev
+Hf
 Zv
 Yp
 cc
@@ -76877,7 +76889,7 @@ ev
 ev
 gr
 ev
-ev
+Hf
 Zv
 Yp
 cc
@@ -77134,7 +77146,7 @@ ev
 ev
 ev
 ev
-ev
+Hf
 Zv
 Yp
 cc

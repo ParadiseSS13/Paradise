@@ -974,7 +974,7 @@
 	dir = 4
 	},
 /obj/item/kirbyplants/large,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -6887,7 +6887,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -9116,7 +9116,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -9726,10 +9726,13 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tiles/dark/checker,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
+/obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "bVa" = (
@@ -11957,7 +11960,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -12968,7 +12971,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -13400,7 +13403,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -13768,7 +13771,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -17062,7 +17065,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -18894,7 +18897,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -22212,7 +22215,7 @@
 /obj/machinery/computer/station_alert{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -22754,7 +22757,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -23677,7 +23680,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -30168,8 +30171,11 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 2
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
@@ -31667,7 +31673,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -32115,7 +32121,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -36995,7 +37001,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -37504,7 +37510,7 @@
 /area/station/maintenance/aft)
 "hAi" = (
 /obj/structure/punching_bag,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -38897,7 +38903,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -41954,7 +41960,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -42290,10 +42296,13 @@
 /area/station/science/robotics)
 "izW" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/effect/turf_decal/tiles/dark/checker,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
+/obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "izY" = (
@@ -43873,7 +43882,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -44901,7 +44910,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -45068,7 +45077,7 @@
 /area/station/security/lobby)
 "jbh" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -45939,7 +45948,7 @@
 /obj/structure/table,
 /obj/item/deck/cards,
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -47835,7 +47844,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -51362,7 +51371,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -54699,7 +54708,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -57235,7 +57244,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -57286,7 +57295,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -59202,7 +59211,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -59705,7 +59714,7 @@
 /obj/item/toy/pet_rock,
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -60496,7 +60505,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -60699,7 +60708,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -61157,7 +61166,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -63808,7 +63817,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -64555,8 +64564,11 @@
 "neL" = (
 /obj/item/kirbyplants/large,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 2
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
@@ -68256,7 +68268,7 @@
 	pixel_y = -24
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -70936,7 +70948,7 @@
 /area/station/hallway/secondary/exit)
 "oor" = (
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -71910,7 +71922,7 @@
 /obj/machinery/computer/arcade{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -72045,7 +72057,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -73075,7 +73087,7 @@
 	},
 /obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -73335,7 +73347,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -73455,7 +73467,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -75823,8 +75835,11 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 2
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
@@ -76688,7 +76703,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -78361,7 +78376,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -78381,7 +78396,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -79259,7 +79274,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -80039,7 +80054,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -84617,7 +84632,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -85907,7 +85922,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -86657,7 +86672,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -87472,7 +87487,7 @@
 /area/station/medical/morgue)
 "rGA" = (
 /obj/effect/landmark/start/assistant,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -87681,7 +87696,7 @@
 /obj/structure/table,
 /obj/item/stack/tape_roll,
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -88732,7 +88747,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -89720,7 +89735,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "saf" = (
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -90650,7 +90665,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -90924,7 +90939,7 @@
 	c_tag = "Engineering Foyer East";
 	dir = 8
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -94964,7 +94979,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -95620,7 +95635,7 @@
 	pixel_x = 32;
 	id = "Fit1"
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -96549,7 +96564,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -96839,7 +96854,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -100030,7 +100045,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -101012,10 +101027,13 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/obj/effect/turf_decal/tiles/dark/checker,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
+/obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
 /area/station/public/fitness)
 "uot" = (
@@ -103577,7 +103595,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -103695,8 +103713,11 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 2
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
@@ -106272,7 +106293,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -106290,8 +106311,11 @@
 "vrC" = (
 /obj/structure/table,
 /obj/machinery/firealarm/directional/south,
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 2
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
@@ -108367,7 +108391,7 @@
 	dir = 8
 	},
 /obj/machinery/economy/vending/snack,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -108735,7 +108759,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -109249,7 +109273,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -112784,7 +112808,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -113664,7 +113688,7 @@
 /area/station/maintenance/asmaint)
 "wTk" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -114776,7 +114800,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -115583,8 +115607,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/assembly_line)
 "xoo" = (
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 2
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
@@ -116337,7 +116364,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -116894,7 +116921,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -120323,7 +120350,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,

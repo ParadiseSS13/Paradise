@@ -24,10 +24,13 @@
 "af" = (
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/dark/checker,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
+/obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "ah" = (
@@ -105,7 +108,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -271,7 +274,7 @@
 "aT" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife/combat/survival,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -313,7 +316,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -352,8 +355,11 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 2
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
@@ -383,7 +389,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -456,14 +462,14 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "by" = (
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -526,7 +532,7 @@
 "bI" = (
 /obj/structure/rack,
 /obj/item/pickaxe,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -2689,7 +2695,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -2853,8 +2859,11 @@
 /area/ruin/space/deepstorage)
 "tO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tiles/department/engineering/checker{
-	dir = 2
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tiles/department/cargo/corner{
+	dir = 8
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel/airless,
@@ -3391,7 +3400,7 @@
 /obj/structure/table/reinforced,
 /obj/item/tank/internals/oxygen,
 /obj/item/tank/internals/oxygen,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /obj/effect/turf_decal/tiles/dark/corner,
@@ -3420,7 +3429,7 @@
 "yL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tiles/dark/corner,
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -3533,7 +3542,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -5634,7 +5643,7 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
+/obj/effect/turf_decal/tiles/department/cargo/corner{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/airless,
