@@ -447,7 +447,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/forge_single_human_objective()
 	var/datum/objective/objective_to_add
 	var/list/static/the_objective_list = list(KILL_OBJECTIVE = 50, THEFT_OBJECTIVE = 50)
-	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 50, MAROON_OBJECTIVE = 285, ASS_ONCE_OBJECTIVE = 199, ASS_PET = 199, ASS_OBJECTIVE = 466)
+	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 42, MAROON_OBJECTIVE = 238, ASS_ONCE_OBJECTIVE = 166, ASS_PET = 166, ASS_OBJECTIVE = 388)
 
 	// If our org has an objectives list, give one to us if we pass a roll on the org's focus
 	if(organization && length(organization.objectives) && prob(organization.focus))
