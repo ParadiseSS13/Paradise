@@ -71,7 +71,7 @@
 
 /obj/effect/visible_anomalous_particulate
 	name = "cloud of anomalous particulate"
-	icon_state = "cloud_test"
+	icon_state = "particulate_cloud"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	alpha = 0
 	invisibility = INVISIBILITY_LEVEL_TWO
@@ -95,7 +95,7 @@
 	var/icon/our_icon
 	switch(rand(1, 10)) // texture
 		if(1 to 3)
-			our_icon = icon('icons/effects/effects.dmi', "cloud_test")
+			our_icon = icon('icons/effects/effects.dmi', "particulate_cloud")
 		if(4 to 6)
 			our_icon = icon('icons/effects/effects.dmi', "cryoanomaly")
 		if(7 to 8)
