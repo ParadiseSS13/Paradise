@@ -41,7 +41,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minimum_survivable_temperature = 0
 	gold_core_spawnable = FRIENDLY_SPAWN
-	environment_smash  = ENVIRONMENT_SMASH_NONE
 	basic_mob_flags = DEL_ON_DEATH
 	initial_traits = list(TRAIT_FLYING)
 	ai_controller = /datum/ai_controller/basic_controller/bee
