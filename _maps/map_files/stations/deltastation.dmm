@@ -49169,21 +49169,6 @@
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/chapel/office)
-"dQU" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/grimy,
-/area/station/service/chapel/office)
 "dQV" = (
 /obj/machinery/newscaster/directional/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -90054,6 +90039,22 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandoned_garden)
+"uqj" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/economy/vending/chapdrobe,
+/turf/simulated/floor/plasteel/grimy,
+/area/station/service/chapel/office)
 "uqt" = (
 /obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel{
@@ -133656,7 +133657,7 @@ kny
 dJx
 dPE
 dIx
-dQU
+uqj
 dRu
 dRM
 dSe
