@@ -357,12 +357,43 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/protect
 	name = "Protect"
 	martyr_compatible = TRUE
+	delayed_objective_text = "Your objective is to protect another crewmember. You will receive further information in a few minutes."
+	completed = TRUE
 
 /datum/objective/protect/update_explanation_text()
 	if(target?.current)
-		explanation_text = "Protect [target.current.real_name], the [target.assigned_role]."
+		explanation_text = "We have received intelligence that [target.current.real_name], the [target.assigned_role], is in mortal danger. Ensure that they remain alive for the duration of the shift."
 	else
 		explanation_text = "Free Objective"
+
+/datum/objective/protect/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	// Heads of staff are already protected by the Blueshield.
+	if((possible_target in SSticker.mode.get_all_heads()))
+		return TARGET_INVALID_HEAD
+	// Antags don't need protection.
+	if(possible_target.special_role)
+		return TARGET_INVALID_ANTAG
+
+/datum/objective/protect/find_target(list/target_blacklist)
+	. = ..()
+	if(target) // Already have a target, don't need to find one.
+		return target
+	// Try to make the target someone who is the target of an assassinate or teach a lesson objective.
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
+			continue
+		for(var/datum/objective/O in possible_target.get_objectives())
+			if(istype(O, /datum/objective/assassinate) || istype(O, /datum/objective/assassinateonce))
+				possible_targets += O.target
+				break
+	if(length(possible_targets) > 0)
+		target = pick(possible_targets)
+		update_explanation_text()
+		return target
+	// If we couldn't find anyone with an assassinate objective, wait until one is assigned.
+	// On a lonely shift this might never happen.
 
 /datum/objective/protect/check_completion()
 	if(!target) //If it's a free objective.
