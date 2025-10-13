@@ -376,6 +376,10 @@
 
 /obj/machinery/power/reactor_power/Initialize(mapload)
 	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/power/reactor_power/LateInitialize()
+	. = ..()
 	linked_reactor = GLOB.main_fission_reactor
 
 /obj/machinery/power/reactor_power/process()

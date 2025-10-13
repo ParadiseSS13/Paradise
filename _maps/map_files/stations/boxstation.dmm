@@ -74942,7 +74942,6 @@
 	pixel_x = 3
 	},
 /obj/item/folder{
-	pixel_y = 0;
 	pixel_x = -15
 	},
 /obj/item/ashtray/glass{
@@ -115859,10 +115858,10 @@ dcl
 ehs
 ifY
 djb
-djb
-djb
-djb
-djb
+dib
+djc
+dib
+djc
 dib
 aLe
 aLe
@@ -116115,14 +116114,14 @@ rgM
 cRo
 jGR
 rgM
-djb
-dib
-djc
-dib
-djc
+ggY
+aLe
+aLe
+aLe
+aLe
+ocx
+aab
 fOC
-aLe
-aLe
 djc
 aab
 aab

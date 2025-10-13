@@ -212,6 +212,8 @@
 /obj/machinery/cooking/grill/loaded/reactor
 	icon_state = "blank"
 	wood_maximum = INFINITY
+	active_power_consumption = 0
+	idle_power_consumption = 0
 	/// The reactor that the grill is attached to
 	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
 
@@ -264,3 +266,6 @@
 		return
 
 	add_to_visible(surface.container, surface_idx)
+
+/obj/machinery/cooking/grill/loaded/reactor/update_overlays()
+	return

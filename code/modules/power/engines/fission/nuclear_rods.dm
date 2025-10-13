@@ -37,6 +37,8 @@
 	var/list/adjacent_requirements = list()
 	/// Modifies the reactor's minimum operating temperature.
 	var/minimum_temp_modifier = 0
+	/// Modified the reactor's overheat threshold
+	var/reactor_overheat_modifier = 0
 	/// holds our component to modify
 	var/datum/component/inherent_radioactivity/rad_component
 
@@ -287,6 +289,7 @@
 	heat_amount = 2000
 	max_durability = INFINITY
 	minimum_temp_modifier = 4000 // BIG hot
+	reactor_overheat_modifier = -400
 	alpha_rad = 250
 	beta_rad = 250
 	gamma_rad = 250
@@ -347,6 +350,7 @@
 	heat_amp_mod = 5
 	power_amp_mod = 3
 	minimum_temp_modifier = 400
+	reactor_overheat_modifier = 100
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/coolant/nitrogen_circulator,
 		/obj/item/nuclear_rod/moderator,
@@ -368,6 +372,7 @@
 	max_durability = 6000
 	heat_amp_mod = 6
 	power_amp_mod = 3.3
+	reactor_overheat_modifier = 100
 	materials = list(MAT_METAL = 2000, MAT_TITANIUM = 1000, MAT_DIAMOND = 1000)
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/fuel,
@@ -383,6 +388,7 @@
 	max_durability = 8000
 	heat_amp_mod = 8
 	power_amp_mod = 3.9
+	reactor_overheat_modifier = 300
 	adjacent_requirements = list(/obj/item/nuclear_rod/fuel/americium)
 
 /// MARK: Coolant Rods
@@ -399,6 +405,7 @@
 	desc = "A basic coolant rod that circulates distilled water through critical reactor components."
 	heat_amount = -10
 	power_amount = -10 KW
+	reactor_overheat_modifier = 25
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator)
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 	craftable = TRUE
@@ -428,6 +435,7 @@
 	heat_amount = -10
 	power_amp_mod = 0.9
 	heat_amp_mod = 0.7
+	reactor_overheat_modifier = 50
 	power_amount = -5 KW
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
 	craftable = TRUE
@@ -440,6 +448,7 @@
 	heat_amp_mod = 0.8
 	max_durability = 8000
 	minimum_temp_modifier = 750
+	reactor_overheat_modifier = 100
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_GLASS = 1000)
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/coolant/nitrogen_circulator,
@@ -457,6 +466,7 @@
 	heat_amp_mod = 0.4
 	max_durability = 6000
 	minimum_temp_modifier = 450
+	reactor_overheat_modifier = 100
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/coolant/light_water,
 		/obj/item/nuclear_rod/coolant/light_water,
@@ -470,6 +480,7 @@
 	heat_amp_mod = 0.8
 	power_amp_mod = 1.3
 	max_durability = INFINITY
+	reactor_overheat_modifier = 200
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 2000, MAT_BLUESPACE = 1000)
 	adjacent_requirements = list(/obj/item/nuclear_rod/moderator/bluespace_agitator)
 	craftable = TRUE
@@ -479,6 +490,7 @@
 	desc = "A dazzlingly beautiful rod with exceptionally powerful thermal conductivity. A highly sought after piece of equipment for its simplicity and potency."
 	heat_amp_mod = 0.1
 	max_durability = 10000
+	reactor_overheat_modifier = 300
 	adjacent_requirements = list(
 		/obj/item/nuclear_rod/moderator/aluminum_reflector,
 		/obj/item/nuclear_rod/fuel/uranium_235,

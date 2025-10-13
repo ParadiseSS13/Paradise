@@ -15,7 +15,7 @@
 
 #define EVENT_MODIFIER 0.4 // multiplies the commonality of dangerous events.
 
-#define HEAT_MODIFIER 500 // a flat multiplier. Higher = more heat production.
+#define HEAT_MODIFIER 400 // a flat multiplier. Higher = more heat production.
 #define HEAT_CAP 40000 // the highest temp before we artificially cap it
 #define AVERAGE_HEAT_THRESHOLD 50 // The threshold the average heat-per-rod must exceed to generate coefficient.
 #define TOTAL_HEAT_THRESHOLD 600 // the temp (in K) needed to begin generating coefficient.
@@ -36,7 +36,7 @@
 #define WARNING_DELAY 60 // time in deciseconds between warnings
 
 #define HEAT_DAMAGE_RATE 500 // The rate at which damage increases due to heat
-#define MOL_MINIMUM 100 // The amount of mols of gas needed before it begins to take damage while operational
+#define MOL_MINIMUM 30 // The amount of mols of gas needed before it begins to take damage while operational
 #define PRESSURE_MAXIMUM 20000 // The highest safe pressure allowed by the reactor
 #define PRESSURE_DAMAGE 0.5 // the minimum damage caused by overpresurization
 #define DAMAGE_MINIMUM 0.002 // The minimum amount of damage done when taking any damage
@@ -47,6 +47,17 @@
 
 #define CHAMBER_HEAT_DAMAGE 6 // How much damage reactor chambers do when on.
 
+#define MOLE_BONUS_THRESHOLD 800 // The minimum number of moles needed to begin accruing multiplier.
+#define MOLE_BONUS_COMPONENT 250 // how many moles are required for one "unit" of modifier increase. Used in the math calculation.
+#define N2_OVERHEAT_BONUS 600 // The overheat threshold bonus that N2 coolant provides
+#define N2_EVENT_MODIFIER 20 // The negative event chance from N2.
+#define N2O_OVERHEAT_BONUS 300 // The overheat threshold bonus that N2O coolant provides
+#define N2O_EVENT_MODIFIER 20 // The negative event chance from N2O.
+#define CO2_EVENT_MODIFIER 60 // The negative event chance from CO2.
+#define O2_EVENT_MODIFIER -50 // The POSITIVE event chance from N2.
+#define O2_REACTIVITY_BONUS 0.8 // the highest amount of reactivity that O2 coolant provides
+#define PLASMA_REACTIVITY_BONUS 0.2 // the highest amount of reactivity that plasma coolant provides
+#define PLASMA_OVERHEAT_BONUS 200 // // The overheat threshold bonus that plasma coolant provides
 
 // ========= MONITOR =========
 // fix the neighbor finding
@@ -57,14 +68,13 @@
 // Make reactor generate gas. when H2 is in, add that.
 // Allow grilling on an active reactor
 // Monitor the sounds and adjust as needed
+// Gasses now affect event chance, overheat thresholds, and reactivity.
 
 // ========= TO DO ==========
 
-// fix remote ripley interactions with chambers
-// implement ways to increase the maximum overheat cap
-// make reactor give off lots of rads when broken
-
-// todo: Make different gasses do... something
+// look into terminal not linking roundstart
+// sprites
+// burza's tgui
 
 /// MARK: Fission Reactor
 
@@ -138,6 +148,12 @@
 	var/tick_counter = 0
 	/// What is the lowest temperature the reactor wants to be at?
 	var/minimum_operating_temp = 0
+	/// Holds the bonus to overheat threshold from gasses
+	var/gas_overheat_bonus = 0
+	/// Holds the bonus to reactivity from gasses
+	var/gas_reactivity_bonus = 0
+	/// Affects the current negative event chances
+	var/gas_event_modifier = 1
 	/// Our running soundloop
 	var/datum/looping_sound/reactor/soundloop
 	/// Our startup soundloop
@@ -154,9 +170,9 @@
 
 /obj/machinery/atmospherics/fission_reactor/examine(mob/user)
 	. = ..()
-	if(!(stat & BROKEN))
+	if((stat & BROKEN))
+		. += "A burning hole remains where the NGCR Reactor housed its core. Its inoperable in this state. The acrid smell permeates through even the thickest of suits."
 		return
-	. += "A burning hole remains where the NGCR Reactor housed its core. Its inoperable in this state. The acrid smell permeates through even the thickest of suits."
 	if(venting)
 		. += "<span class='notice'>A crowbar can be used to close the malfunctioning vent.</span>"
 	if(grill)
@@ -177,6 +193,9 @@
 	))
 	air_contents = new
 	air_contents.volume = 1000 // kpa
+	air_contents.set_oxygen(MOLES_O2STANDARD * 0.6)
+	air_contents.set_nitrogen(MOLES_N2STANDARD * 0.6)
+	air_contents.set_temperature(T20C)
 	GLOB.poi_list |= src
 	radio = new(src)
 	radio.listening = FALSE
@@ -229,7 +248,6 @@
 			if(!chamber.linked_reactor && !chamber.skip_link)
 				chamber.find_link(src)
 
-
 /obj/machinery/atmospherics/fission_reactor/proc/clear_reactor_network(restart = FALSE)
 	for(var/obj/machinery/atmospherics/reactor_chamber/linked in connected_chambers)
 		linked.linked_reactor = null
@@ -257,6 +275,7 @@
 	else
 		icon_state = "broken"
 
+/// Begin the meltdown process
 /obj/machinery/atmospherics/fission_reactor/proc/meltdown()
 	update_appearance(UPDATE_OVERLAYS)
 	icon_state = "meltdown"
@@ -371,9 +390,10 @@
 			new /obj/item/stack/sheet/metal(user.loc, 2)
 		return ITEM_INTERACT_COMPLETE
 	if(!(stat & BROKEN) && control_rods_remaining < TOTAL_CONTROL_RODS)
-		if(I.use_tool(src, user, (8 SECONDS * I.toolspeed), volume = I.tool_volume))
-			control_rods_remaining++
-			update_icon(UPDATE_OVERLAYS)
+		if(I.use_tool(src, user, (0 SECONDS * I.toolspeed), volume = I.tool_volume))
+			if(!do_after_once(user, 8 SECONDS, allow_moving = FALSE))
+				control_rods_remaining++
+				update_icon(UPDATE_OVERLAYS)
 			return ITEM_INTERACT_COMPLETE
 
 
@@ -472,6 +492,8 @@
 
 /obj/machinery/atmospherics/fission_reactor/process()
 	if(stat & BROKEN)
+		var/rad_type = pick(GAMMA_RAD, ALPHA_RAD, BETA_RAD)
+		radiation_pulse(src, 100, rad_type)
 		return
 
 	if(admin_intervention)
@@ -534,9 +556,12 @@
 		damage += max(0.5, rand(1, DAMAGE_MAXIMUM * 20) / 20) // this wont actually blow us up early
 		return
 
-	final_power = 0
+	final_power = 0 // full resets to be recalculated
 	final_heat = 0
 
+	calculate_gas_effects()
+
+	// Calculate the durability loss for all rods in use
 	// lower operating power = more durability. Agorithm: 1 / (1 + 2.5^(-0.077 * (x - 65)))
 	var/algorithm_decay = 0.077 // higher = steeper decline
 	var/durability_loss = 1
@@ -592,9 +617,9 @@
 	if(!temp || !total_mols)
 		temp = 0
 	if(average_heatgen > AVERAGE_HEAT_THRESHOLD) // the base reactivity from average heat gen
-		reactivity_multiplier = 1 + ((average_heatgen - AVERAGE_HEAT_THRESHOLD) / AVERAGE_HEAT_THRESHOLD)
+		reactivity_multiplier = 1 + gas_reactivity_bonus + ((average_heatgen - AVERAGE_HEAT_THRESHOLD) / AVERAGE_HEAT_THRESHOLD)
 	else
-		reactivity_multiplier = 1
+		reactivity_multiplier = 1 + gas_reactivity_bonus
 	if(temp > TOTAL_HEAT_THRESHOLD)
 		// Math equasion for here: y = a + b * ln(x)
 		var/offset = 1 // The offset for the math calc. Gives a flat number boost. (A) component
@@ -604,7 +629,8 @@
 
 	reactivity_multiplier = clamp(reactivity_multiplier, 1, REACTIVITY_COEFFICIENT_CAP)
 
-	final_heat *= (reactivity_multiplier * 2) * HEAT_MODIFIER // proportionally affects heat more
+
+	final_heat *= (reactivity_multiplier * 1.5) * HEAT_MODIFIER // proportionally affects heat more
 	final_power *= reactivity_multiplier
 
 	final_power = max(final_power, 0) // no negative numbers
@@ -616,11 +642,12 @@
 	// Math equasion for here: y = a + b * ln(x)
 	var/gas_offset = 1.5 // The offset for the math calc. Gives a flat number boost. (A) component
 	var/gas_curve_intensity = 4 // Affects the rate of decay. higher = reactivity builds easier. (B) component
-	var/power_component = (final_power / 1 MW) // (X) Component
+	var/power_component = max((final_power / 1 MW), 0.01) // (X) Component
 	var/toxins_amount =  clamp(gas_offset + gas_curve_intensity * log(power_component), 0, 30)
 	temp_gas.set_toxins(clamp(toxins_amount * reactivity_multiplier, 0.1, 100)) // turn this into hydrogen later. Yes, hydrogen. we dont have helium
 	temp_gas.set_temperature(air_contents.temperature())
 	air_contents.merge(temp_gas)
+
 	radiation_pulse(src, 10 * reactivity_multiplier, rad_type)
 
 	// Begin heating the air based off heat produced
@@ -661,7 +688,7 @@
 
 			new_damage = clamp(new_damage, DAMAGE_MINIMUM, DAMAGE_MAXIMUM)
 			var/damage_multiplier = clamp(1 + ((50 - get_integrity()) / 25), 1, 3) // gives a higher event chance below 50% integrity, up to 3x
-			damage_multiplier *= EVENT_MODIFIER
+			damage_multiplier *= EVENT_MODIFIER * gas_event_modifier
 			if(final_countdown)
 				damage_multiplier = 10
 			if(prob(new_damage * damage_multiplier * 0.3)) // rod ejection events. Rarer
@@ -743,6 +770,7 @@
 
 	return SUPERMATTER_NORMAL
 
+/// Turn the reactor off and stop processing.
 /obj/machinery/atmospherics/fission_reactor/proc/shut_off()
 	starting_up = TRUE
 	offline = TRUE
@@ -752,8 +780,9 @@
 	final_power = 0
 	reactivity_multiplier = 1
 	remove_light()
-	playsound(src, 'sound/machines/fission/reactor_shutoff.ogg', 50, 0, 4, ignore_walls = TRUE, channel = CHANNEL_ENGINE)
+	playsound(src, 'sound/machines/fission/reactor_shutoff.ogg', 80, 0, 4, ignore_walls = TRUE, channel = CHANNEL_ENGINE)
 	soundloop.stop()
+	startloop.stop()
 	if(send_message)
 		radio.autosay("<b>Reactor SCRAM completed successfully. Integrity: [get_integrity()]%</b>", name, "Engineering")
 		send_message = FALSE
@@ -765,16 +794,18 @@
 				if(istype(container) && container.tracker)
 					SEND_SIGNAL(container, COMSIG_COOK_MACHINE_STEP_INTERRUPTED, surface)
 
+/// Begin the startup sequence, but dont turn online yet.
 /obj/machinery/atmospherics/fission_reactor/proc/boot_up()
 	offline = FALSE
 	icon_state = "reactor_starting"
 	startloop.start()
 
+/// Make the reactor become fully operational.
 /obj/machinery/atmospherics/fission_reactor/proc/become_operational()
 	starting_up = FALSE
 	offline = FALSE
 	can_create_power = TRUE
-	playsound(src, 'sound/machines/fission/reactor_startup.ogg', 50, 0, 4, ignore_walls = TRUE)
+	playsound(src, 'sound/machines/fission/reactor_startup.ogg', 80, 0, 4, ignore_walls = TRUE)
 	startloop.stop()
 	soundloop.start()
 	if(safety_override)
@@ -897,6 +928,7 @@
 	final_power = 0
 	icon_state = "reactor_off"
 
+/// Check to see if the reactor is overheating or taking damage from lack of pressure.
 /obj/machinery/atmospherics/fission_reactor/proc/check_overheating()
 	var/temp = air_contents.temperature()
 	var/mols = air_contents.total_moles()
@@ -909,6 +941,7 @@
 		return TRUE
 	return FALSE
 
+/// Negative Event. Lose a control rod from the reactor.
 /obj/machinery/atmospherics/fission_reactor/proc/control_rod_failure()
 	if(control_rods_remaining <= 0)
 		return
@@ -917,6 +950,7 @@
 	radio.autosay("<b>ALERT: Control rod failure! [control_rods_remaining] functional control rods remaining.</b>", name, "Engineering")
 	update_icon(UPDATE_OVERLAYS)
 
+/// Negative Event. Ensure the emergency vent opens and gets stuck.
 /obj/machinery/atmospherics/fission_reactor/proc/begin_venting()
 	if(venting)
 		return
@@ -929,6 +963,7 @@
 	venting = TRUE
 	vent_lockout = TRUE
 
+/// Update the minimum running temperature of the reactor.
 /obj/machinery/atmospherics/fission_reactor/proc/update_minimum_temp()
 	minimum_operating_temp = 0
 	for(var/obj/machinery/atmospherics/reactor_chamber/chamber in connected_chambers)
@@ -941,6 +976,13 @@
 		else if(chamber.held_rod.minimum_temp_modifier > minimum_operating_temp)
 			minimum_operating_temp = chamber.held_rod.minimum_temp_modifier
 
+/// Update our new overheat threshold.
+/obj/machinery/atmospherics/fission_reactor/proc/update_overheat_threshold(heat_change = 0)
+	if(!heat_change)
+		return
+	heat_damage_threshold += heat_change
+
+/// Adjust how much damage the reactor has, and set broken if we exceed the meltdown point.
 /obj/machinery/atmospherics/fission_reactor/proc/adjust_damage(new_damage, set_by_number = FALSE)
 	if(set_by_number)
 		damage = clamp(new_damage, 0, MELTDOWN_POINT)
@@ -949,6 +991,50 @@
 		damage = clamp(damage, 0, MELTDOWN_POINT)
 	if(damage >= MELTDOWN_POINT && offline)
 		set_broken(FALSE)
+
+/// Calculate all of the bonuses and detriments of using specific gasses.
+/obj/machinery/atmospherics/fission_reactor/proc/calculate_gas_effects()
+	gas_reactivity_bonus = 0
+	var/temp_bonus_holder = 0 // heat bounus container
+	var/temp_event_holder = 0 // event chance modifier in percentages. 0 to 100
+	var/combined_gas = air_contents.total_moles()
+
+	// Math equasion for here: y = a + b * ln(x)
+	var/offset = 1 // The offset for the math calc. Gives a flat number boost. (A) component
+	var/curve_intensity = 0.7 // Negatively affects the rate of decay. higher = reactivity builds easier. (B) component
+	var/gas_component = max((combined_gas - MOLE_BONUS_THRESHOLD) / MOLE_BONUS_COMPONENT, 0.01)
+	var/mole_multiplier = max((offset + curve_intensity * log(gas_component)), 0)
+
+	// raw composition of each gas in the chamber, ranges from 0 to 1
+	var/n2comp = max(air_contents.nitrogen() / combined_gas, 0)
+	var/plasmacomp = max(air_contents.toxins() / combined_gas, 0)
+	var/o2comp = max(air_contents.oxygen() / combined_gas, 0)
+	var/co2comp = max(air_contents.carbon_dioxide() / combined_gas, 0)
+	var/n2ocomp = max(air_contents.sleeping_agent() / combined_gas, 0)
+
+	// dont put a mole multiplier on the event chances o
+	if(n2comp)
+		temp_bonus_holder += n2comp * N2_OVERHEAT_BONUS * mole_multiplier
+		temp_event_holder += n2comp * N2_EVENT_MODIFIER
+	if(n2ocomp)
+		temp_bonus_holder += n2ocomp * N2O_OVERHEAT_BONUS * mole_multiplier
+		temp_event_holder += n2ocomp * N2O_EVENT_MODIFIER
+	if(co2comp)
+		temp_event_holder += co2comp * CO2_EVENT_MODIFIER * mole_multiplier
+	if(o2comp)
+		gas_reactivity_bonus += o2comp * O2_REACTIVITY_BONUS * mole_multiplier
+		temp_event_holder += o2comp * O2_EVENT_MODIFIER // this one actually should make events more likely
+	if(plasmacomp)
+		gas_reactivity_bonus += plasmacomp * PLASMA_REACTIVITY_BONUS * mole_multiplier
+		temp_bonus_holder += plasmacomp * PLASMA_OVERHEAT_BONUS * mole_multiplier
+
+	temp_event_holder /= 100 // bring between 0 and 1
+	gas_event_modifier = 1 - temp_event_holder
+
+	// replace the old bonus witht he new one
+	update_overheat_threshold(-gas_overheat_bonus)
+	update_overheat_threshold(temp_bonus_holder)
+	gas_overheat_bonus = temp_bonus_holder
 
 /// MARK: Rod Chamber
 
@@ -1032,11 +1118,15 @@
 	if(linked_reactor)
 		desync()
 	if(held_rod) // we shouldnt be able to decon with this in, but just in case
+		if(held_rod.reactor_overheat_modifier)
+			linked_reactor.update_overheat_threshold(-held_rod.reactor_overheat_modifier)
 		held_rod.forceMove(loc)
 		held_rod = null
 	return ..()
 
 /obj/machinery/atmospherics/reactor_chamber/Destroy()
+	if(held_rod && held_rod.reactor_overheat_modifier)
+		linked_reactor.update_overheat_threshold(-held_rod.reactor_overheat_modifier)
 	QDEL_NULL(held_rod)
 	if(linked_reactor)
 		desync()
@@ -1047,6 +1137,8 @@
 
 /obj/machinery/atmospherics/reactor_chamber/update_overlays()
 	. = ..()
+	if(welded)
+		. += "welded"
 	if(!held_rod)
 		return
 	if(chamber_state == CHAMBER_OPEN)
@@ -1072,8 +1164,6 @@
 				state_overlay.icon_state = "orange"
 			else
 				state_overlay.icon_state = "red"
-		if(welded)
-			. += "welded"
 
 	if(chamber_state == CHAMBER_OVERLOAD_IDLE)
 		if(held_rod && istype(held_rod, /obj/item/nuclear_rod/fuel))
@@ -1104,7 +1194,8 @@
 		to_chat(user, "<span class='warning'>You can't raise the rod chamber while standing on it!</span>")
 		return
 
-	add_fingerprint(user)
+	if(!is_mecha_occupant(user))
+		add_fingerprint(user)
 
 	switch(chamber_state)
 		if(CHAMBER_DOWN, CHAMBER_OVERLOAD_IDLE)
@@ -1119,6 +1210,8 @@
 				if(!is_mecha_occupant(user)) // mech users are unaffected
 					burn_handler(user)
 			if(do_after_once(user, delay, target = src, allow_moving = FALSE))
+				if(!Adjacent(user)) // for mecha users
+					return
 				raise()
 				return
 
@@ -1226,6 +1319,9 @@
 	if(!held_rod)
 		to_chat(user, "<span class='warning'>There is no nuclear rod inside this housing chamber.</span>")
 		return ITEM_INTERACT_COMPLETE
+	if(!linked_reactor)
+		to_chat(user, "<span class='warning'>This chamber is not connected to a reactor.</span>")
+		return ITEM_INTERACT_COMPLETE
 	var/operating_rate = linked_reactor.operating_percent()
 	var/durability_mod = held_rod.get_durability_mod()
 	var/list/message = list()
@@ -1281,6 +1377,8 @@
 	layer = ABOVE_MOB_LAYER
 	power_total = 0
 	check_minimum_modifier()
+	if(held_rod && held_rod.reactor_overheat_modifier)
+		linked_reactor.update_overheat_threshold(-held_rod.reactor_overheat_modifier)
 	if(playsound)
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 	if(istype(held_rod, /obj/item/nuclear_rod/fuel))
@@ -1316,6 +1414,8 @@
 			return
 		else
 			held_rod.stop_rads()
+			if(held_rod.reactor_overheat_modifier)
+				linked_reactor.update_overheat_threshold(held_rod.reactor_overheat_modifier)
 		if(check_status())
 			requirements_met = TRUE
 		else
@@ -1827,3 +1927,15 @@
 #undef EXPLOSION_MODIFIER
 
 #undef CHAMBER_HEAT_DAMAGE
+
+#undef MOLE_BONUS_THRESHOLD
+#undef MOLE_BONUS_COMPONENT
+#undef N2_OVERHEAT_BONUS
+#undef N2_EVENT_MODIFIER
+#undef N2O_OVERHEAT_BONUS
+#undef N2O_EVENT_MODIFIER
+#undef CO2_EVENT_MODIFIER
+#undef O2_EVENT_MODIFIER
+#undef O2_REACTIVITY_BONUS
+#undef PLASMA_REACTIVITY_BONUS
+#undef PLASMA_OVERHEAT_BONUS

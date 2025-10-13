@@ -79,7 +79,7 @@ GLOBAL_DATUM_INIT(firealarm_soundloop, /datum/looping_sound/firealarm, new(list(
 /datum/looping_sound/reactor
 	mid_sounds = list('sound/machines/fission/reactor_loop.ogg' = 1)
 	mid_length = 30
-	volume = 80
+	volume = 30
 	extra_range = 5
 	falloff_exponent = 1
 	falloff_distance = 1
