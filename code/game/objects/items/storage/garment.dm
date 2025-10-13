@@ -299,20 +299,11 @@
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the chaplain."
 
 /obj/item/storage/bag/garment/chaplain/populate_contents()
-	new /obj/item/clothing/under/rank/civilian/chaplain(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/suit/hooded/abaya(src)
-	new /obj/item/clothing/suit/hooded/nun(src)
-	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
-	new /obj/item/clothing/suit/hooded/monk(src)
-	new /obj/item/clothing/suit/witchhunter(src)
-	new /obj/item/clothing/head/witchhunter_hat(src)
-	new /obj/item/clothing/suit/holidaypriest(src)
+	new /obj/item/clothing/suit/hooded/dark_robes(src)
 	new /obj/item/clothing/head/helmet/riot/knight/templar(src)
 	new /obj/item/clothing/suit/armor/riot/knight/templar(src)
-	new /obj/item/clothing/suit/storage/labcoat(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/chaplain(src)
-	new /obj/item/clothing/under/plasmaman/chaplain(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/chaplain/green(src)
+	new /obj/item/clothing/under/plasmaman/chaplain/green(src)
 
 /obj/item/storage/bag/garment/librarian
 	name = "librarian's garment bag"
