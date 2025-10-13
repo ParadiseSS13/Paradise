@@ -114719,6 +114719,7 @@
 	c_tag = "Chapel Chaplain's Office";
 	dir = 9
 	},
+/obj/machinery/economy/vending/chapdrobe,
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel/office)
 "wsQ" = (
