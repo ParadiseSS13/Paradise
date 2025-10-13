@@ -243,12 +243,6 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/grass,
 /area/ruin/space/syndicakefactory)
-"jy" = (
-/obj/structure/table/glass/reinforced/plastitanium,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/obj/effect/turf_decal/tiles/dark/checker,
-/turf/simulated/floor/plasteel/white,
-/area/ruin/space/syndicakefactory)
 "ke" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/food/syndicake{
@@ -1062,6 +1056,12 @@
 /obj/effect/turf_decal/tiles/dark/checker,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
+"VI" = (
+/obj/structure/table/glass/reinforced/plastitanium,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
+/area/ruin/space/syndicakefactory)
 "VS" = (
 /obj/structure/table_frame,
 /obj/item/stack/sheet/plastitaniumglass,
@@ -1428,7 +1428,7 @@ EJ
 EJ
 GV
 bn
-jy
+VI
 Do
 fq
 Do

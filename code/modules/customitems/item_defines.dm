@@ -1347,7 +1347,7 @@
 	update_action_buttons()
 
 /// chronx100: Hughe O'Splash
-/obj/item/clothing/suit/chaplain_hoodie/fluff/chronx
+/obj/item/clothing/suit/dark_robes/fluff/chronx
 	name = "Cthulhu's Robes"
 	desc = "Robes worn by  the worshipers of Cthulhu. You see a name inscribed in blood on the inside: Hughe O'Splash"
 	icon = 'icons/obj/custom_items.dmi'

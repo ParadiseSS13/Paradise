@@ -4509,6 +4509,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
+"aLW" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper_bin,
+/obj/item/raw_anomaly_core,
+/turf/simulated/floor/plasteel/white,
+/area/station/science/toxins/mixing)
 "aMc" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger,
@@ -17244,15 +17253,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/supply/lobby)
-"cJL" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/raw_anomaly_core,
-/turf/simulated/floor/plasteel/white,
-/area/station/science/toxins/mixing)
 "cJR" = (
 /obj/item/reagent_containers/glass/rag,
 /obj/structure/table,
@@ -23794,21 +23794,6 @@
 /obj/effect/turf_decal/tiles/neutral,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore/north)
-"dTN" = (
-/obj/structure/table/reinforced,
-/obj/item/ashtray/bronze{
-	pixel_x = 7
-	},
-/obj/item/reagent_containers/drinks/mug/qm{
-	pixel_x = -8;
-	pixel_y = 10
-	},
-/obj/machinery/phone{
-	pixel_y = 12;
-	pixel_x = 9
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/supply/qm)
 "dTW" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 5
@@ -25983,6 +25968,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
+"euZ" = (
+/obj/structure/table,
+/obj/item/storage/box/disks_plantgene,
+/obj/effect/turf_decal/tiles/department/virology,
+/turf/simulated/floor/plasteel/dark,
+/area/station/service/hydroponics)
 "evb" = (
 /obj/structure/sign/electricshock{
 	pixel_x = -32
@@ -44713,6 +44704,10 @@
 /area/station/command/vault)
 "iCp" = (
 /obj/machinery/newscaster/directional/north,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "iCq" = (
@@ -64280,6 +64275,20 @@
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
+"mRI" = (
+/obj/item/dest_tagger,
+/obj/item/stack/package_wrap,
+/obj/item/book/manual/hydroponics_pod_people,
+/obj/item/book/manual/hydroponics_pod_people,
+/obj/item/book/manual/wiki/hydroponics,
+/obj/item/book/manual/wiki/botanist,
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/department/virology,
+/turf/simulated/floor/plasteel/dark,
+/area/station/service/hydroponics)
 "mRK" = (
 /obj/machinery/light,
 /obj/structure/disposalpipe/segment{
@@ -64799,12 +64808,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/service/fore_starboard)
-"mXG" = (
-/obj/structure/table,
-/obj/item/storage/box/disks_plantgene,
-/obj/effect/turf_decal/tiles/department/virology,
-/turf/simulated/floor/plasteel/dark,
-/area/station/service/hydroponics)
 "mXI" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -73517,6 +73520,10 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/patients_rooms_secondary)
+"oVB" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/carpet/black,
+/area/station/service/chapel/office)
 "oVC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
@@ -77945,11 +77952,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/disposal/east)
 "pVV" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/item/kirbyplants/large,
+/obj/machinery/economy/vending/chapdrobe,
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "pWf" = (
@@ -78520,20 +78523,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"qes" = (
-/obj/item/dest_tagger,
-/obj/item/stack/package_wrap,
-/obj/item/book/manual/hydroponics_pod_people,
-/obj/item/book/manual/hydroponics_pod_people,
-/obj/item/book/manual/wiki/hydroponics,
-/obj/item/book/manual/wiki/botanist,
-/obj/structure/table,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/department/virology,
-/turf/simulated/floor/plasteel/dark,
-/area/station/service/hydroponics)
 "qet" = (
 /obj/structure/plasticflaps{
 	name = "Officer Pipsqueak's Home"
@@ -80997,14 +80986,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/lobby)
-"qGS" = (
-/obj/machinery/firealarm/directional/east,
-/obj/machinery/anomaly_refinery,
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/science/toxins/launch)
 "qGX" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
@@ -91856,6 +91837,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"sZY" = (
+/obj/structure/table/reinforced,
+/obj/item/ashtray/bronze{
+	pixel_x = 7
+	},
+/obj/item/reagent_containers/drinks/mug/qm{
+	pixel_x = -8;
+	pixel_y = 10
+	},
+/obj/machinery/phone{
+	pixel_y = 12;
+	pixel_x = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/supply/qm)
 "tab" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -112527,6 +112523,14 @@
 /obj/structure/railing,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
+"xyC" = (
+/obj/machinery/firealarm/directional/east,
+/obj/machinery/anomaly_refinery,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/science/toxins/launch)
 "xyM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -126045,7 +126049,7 @@ mgN
 wnL
 oUr
 oUr
-oUr
+oVB
 cfF
 grG
 orD
@@ -126349,7 +126353,7 @@ lzH
 lzH
 lzH
 eLS
-qGS
+xyC
 rgy
 vLe
 eSI
@@ -128411,7 +128415,7 @@ ujd
 xYd
 mpM
 fUZ
-cJL
+aLW
 fqC
 uCu
 ccW
@@ -134797,7 +134801,7 @@ biB
 uvD
 vFa
 oJY
-qes
+mRI
 tzy
 amc
 aZF
@@ -135557,7 +135561,7 @@ pxi
 mrt
 unT
 baF
-mXG
+euZ
 ppq
 unj
 hqe
@@ -170709,7 +170713,7 @@ iIK
 psV
 qwj
 wQk
-dTN
+sZY
 rcT
 aZt
 aGC

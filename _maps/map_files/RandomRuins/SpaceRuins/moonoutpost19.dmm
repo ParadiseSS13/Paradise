@@ -1304,13 +1304,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
-"ei" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/reinforced/normal{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/moonbase19)
 "ek" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/effect/decal/cleanable/dirt,
@@ -1652,6 +1645,18 @@
 "fw" = (
 /obj/structure/flora/ash/rock/style_random,
 /turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/moonbase19)
+"fx" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/computer/loreconsole/moonoutpost19/log1,
+/obj/effect/turf_decal/tiles/dark/checker{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)
 "fy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2210,6 +2215,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/moonbase19)
+"hl" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/computer/loreconsole/moonoutpost19/lobby,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/moonbase19)
 "hm" = (
 /obj/structure/closet/cabinet,
 /obj/item/clothing/under/suit/navy,
@@ -2472,6 +2486,13 @@
 /obj/item/bedsheet,
 /turf/simulated/floor/carpet,
 /area/ruin/space/moonbase19)
+"hX" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/moonbase19)
 "hY" = (
 /obj/effect/decal/cleanable/blood/oil{
 	color = "black"
@@ -2518,15 +2539,6 @@
 	},
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
-/area/ruin/space/moonbase19)
-"ih" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/obj/effect/turf_decal/tiles/dark/side{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "ii" = (
 /obj/machinery/light/small{
@@ -2690,6 +2702,15 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/white,
+/area/ruin/space/moonbase19)
+"iB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/turf_decal/tiles/dark/side{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "iC" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3514,15 +3535,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/ruin/space/moonbase19)
-"ls" = (
-/obj/machinery/computer/loreconsole/moonoutpost19/rdnote{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/dark/checker{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)
 "lv" = (
 /obj/structure/largecrate,
@@ -4920,18 +4932,6 @@
 /obj/structure/table,
 /obj/item/pen/multi/syndicate,
 /turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/space/moonbase19)
-"rj" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/computer/loreconsole/moonoutpost19/log1,
-/obj/effect/turf_decal/tiles/dark/checker{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)
 "rk" = (
 /obj/effect/decal/cleanable/dirt,
@@ -7152,20 +7152,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
-"BU" = (
-/obj/machinery/light/small,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/obj/effect/turf_decal/tiles/dark/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/department/engineering/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tiles/dark/corner,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/moonbase19)
 "BY" = (
 /obj/structure/railing{
 	dir = 8
@@ -7197,6 +7183,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/turf_decal/tiles/white/side,
 /turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
+"Cm" = (
+/obj/machinery/computer/loreconsole/moonoutpost19/rdnote{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/checker{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)
 "Cr" = (
 /obj/structure/cable{
@@ -7522,15 +7517,6 @@
 /obj/effect/turf_decal/tiles/dark/corner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
-"DI" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/computer/loreconsole/moonoutpost19/lobby,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/moonbase19)
 "DJ" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -7772,6 +7758,12 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/yellow_siding,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
+"ET" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "EV" = (
@@ -8683,19 +8675,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
-"Jw" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/computer/loreconsole/moonoutpost19/log2{
-	dir = 1
-	},
-/obj/effect/turf_decal/tiles/dark/checker{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel/white,
-/area/ruin/space/moonbase19)
 "Jx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -9173,6 +9152,19 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
+"LK" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/computer/loreconsole/moonoutpost19/log2{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/dark/checker{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/moonbase19)
 "LL" = (
 /obj/structure/table/reinforced,
@@ -10239,6 +10231,20 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/moonbase19)
+"QD" = (
+/obj/machinery/light/small,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/turf_decal/tiles/dark/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tiles/department/engineering/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tiles/dark/corner,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/moonbase19)
 "QE" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel/dark,
@@ -10435,12 +10441,6 @@
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
-/area/ruin/space/moonbase19)
-"Ry" = (
-/obj/effect/decal/cleanable/cobweb,
-/obj/structure/table,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel,
 /area/ruin/space/moonbase19)
 "RA" = (
 /obj/structure/flora/rock,
@@ -12670,7 +12670,7 @@ ag
 ag
 tX
 ag
-Ry
+ET
 mB
 zv
 aA
@@ -14396,7 +14396,7 @@ Sb
 Sb
 fM
 fM
-BU
+QD
 ag
 iv
 tx
@@ -14487,7 +14487,7 @@ db
 ag
 On
 TD
-ls
+Cm
 dL
 Pr
 hs
@@ -14675,7 +14675,7 @@ Pr
 kN
 ag
 af
-ih
+iB
 ak
 Es
 ag
@@ -15000,7 +15000,7 @@ aK
 kh
 ak
 xO
-DI
+hl
 ia
 sq
 jp
@@ -15063,7 +15063,7 @@ gd
 my
 zG
 hF
-ei
+hX
 bp
 iI
 xi
@@ -15094,13 +15094,13 @@ tX
 Gg
 jb
 ag
-rj
+fx
 Bd
 kr
 ag
 yR
 Bd
-Jw
+LK
 ag
 fm
 cL

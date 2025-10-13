@@ -308,6 +308,10 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating,
 /area/template_noop)
+"ir" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plasteel/dark,
+/area/template_noop)
 "iv" = (
 /obj/machinery/economy/vending/wallmed/directional/north,
 /turf/space,
@@ -595,10 +599,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/template_noop)
-"nq" = (
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel/dark,
-/area/template_noop)
 "nA" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway,
 /obj/effect/spawner/random/dirt/frequent,
@@ -810,6 +810,14 @@
 "sn" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
 /turf/template_noop,
+/area/template_noop)
+"so" = (
+/obj/effect/spawner/random/dirt/maybe,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "sp" = (
 /obj/effect/decal/cleanable/ash,
@@ -2105,14 +2113,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/white,
-/area/template_noop)
-"Wz" = (
-/obj/effect/spawner/random/dirt/maybe,
-/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/obj/effect/turf_decal/tiles/department/virology/side{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel,
 /area/template_noop)
 "WK" = (
 /mob/living/simple_animal/hostile/syndicate/ranged,
@@ -5178,7 +5178,7 @@ nK
 nK
 Ba
 Af
-nq
+ir
 nK
 nK
 nK
@@ -5304,7 +5304,7 @@ bo
 nK
 qX
 WW
-Wz
+so
 nK
 bo
 nK

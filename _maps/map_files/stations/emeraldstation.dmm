@@ -19254,13 +19254,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
-"dTH" = (
-/obj/machinery/recharge_station,
-/obj/effect/turf_decal/tiles/department/medical/side{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/medical/storage)
 "dTJ" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
@@ -24801,22 +24794,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/aisat/atmos)
-"eZX" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/structure/sign/nosmoking_1{
-	pixel_y = 30
-	},
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/item/raw_anomaly_core,
-/obj/effect/turf_decal/tiles/department/science/side{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/science/toxins/mixing)
 "eZZ" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/bronze,
@@ -80446,6 +80423,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"qjc" = (
+/obj/machinery/recharge_station,
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/medical/storage)
 "qjt" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -93321,6 +93305,22 @@
 /obj/effect/turf_decal/tiles/department/science/side,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
+"sMa" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/obj/structure/sign/nosmoking_1{
+	pixel_y = 30
+	},
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
+/obj/item/raw_anomaly_core,
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/science/toxins/mixing)
 "sMc" = (
 /obj/structure/reagent_dispensers/beerkeg/nuke{
 	name = "Nanotrasen-brand nuclear fizz-sion explosive"
@@ -101146,10 +101146,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine)
-"upC" = (
-/obj/machinery/firealarm/directional/north,
-/turf/simulated/floor/plasteel,
-/area/station/science/toxins/launch)
 "upI" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -111454,6 +111450,7 @@
 	c_tag = "Chapel Chaplain's Office";
 	dir = 9
 	},
+/obj/machinery/economy/vending/chapdrobe,
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel/office)
 "wsQ" = (
@@ -119939,6 +119936,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat/service)
+"yhM" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plasteel,
+/area/station/science/toxins/launch)
 "yhR" = (
 /obj/machinery/door/window/classic/normal{
 	dir = 8;
@@ -168052,7 +168053,7 @@ xNg
 jwg
 lVc
 oGW
-dTH
+qjc
 kSh
 oWm
 ivo
@@ -172459,7 +172460,7 @@ uet
 nyf
 dkq
 adm
-eZX
+sMa
 saV
 nWb
 bIs
@@ -173238,7 +173239,7 @@ bJV
 dKU
 tyE
 dtw
-upC
+yhM
 xrQ
 dxp
 lwp
