@@ -217,20 +217,20 @@
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="redblue";dir=10} : /obj/effect/turf_decal/tiles/department/security/corner{dir=1}, /obj/effect/turf_decal/tiles/department/medical/corner{dir=8}, /obj/effect/turf_decal/tiles/department/security/corner, /turf/simulated/floor/plasteel/@SUBTYPES
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="redblue";dir=@UNSET} : /obj/effect/turf_decal/tiles/department/security/corner, /obj/effect/turf_decal/tiles/department/medical/corner{dir=8}, /turf/simulated/floor/plasteel/@SUBTYPES
 
-/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=1} : /obj/effect/turf_decal/tiles/dark/corner{dir=1}, /obj/effect/turf_decal/tiles/department/cargo/corner{dir=4}, /turf/simulated/floor/plasteel/@SUBTYPES
-/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=2} : /obj/effect/turf_decal/tiles/dark/corner, /obj/effect/turf_decal/tiles/department/cargo/corner{dir=8}, /turf/simulated/floor/plasteel/@SUBTYPES
-/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=4} : /obj/effect/turf_decal/tiles/department/cargo/corner{dir=4}, /obj/effect/turf_decal/tiles/dark/corner, /turf/simulated/floor/plasteel/@SUBTYPES
-/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=5} : /obj/effect/turf_decal/tiles/dark/corner{dir=1}, /obj/effect/turf_decal/tiles/department/cargo/corner{dir=4}, /obj/effect/turf_decal/tiles/dark/corner, /turf/simulated/floor/plasteel/@SUBTYPES
-/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=6} : /obj/effect/turf_decal/tiles/department/cargo/corner{dir=4}, /obj/effect/turf_decal/tiles/department/cargo/corner{dir=8}, /obj/effect/turf_decal/tiles/dark/corner, /turf/simulated/floor/plasteel/@SUBTYPES
-/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=8} : /obj/effect/turf_decal/tiles/dark/corner{dir=1}, /obj/effect/turf_decal/tiles/department/cargo/corner{dir=8}, /turf/simulated/floor/plasteel/@SUBTYPES
-/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=9} : /obj/effect/turf_decal/tiles/dark/corner{dir=1}, /obj/effect/turf_decal/tiles/department/cargo/corner{dir=8}, /obj/effect/turf_decal/tiles/department/cargo/corner{dir=4}, /turf/simulated/floor/plasteel/@SUBTYPES
-/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=10} : /obj/effect/turf_decal/tiles/dark/corner{dir=1}, /obj/effect/turf_decal/tiles/department/cargo/corner{dir=8}, /obj/effect/turf_decal/tiles/dark/corner, /turf/simulated/floor/plasteel/@SUBTYPES
-/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=@UNSET} : /obj/effect/turf_decal/tiles/dark/corner, /obj/effect/turf_decal/tiles/department/cargo/corner{dir=8}, /turf/simulated/floor/plasteel/@SUBTYPES
+/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=1} : /obj/effect/turf_decal/tiles/dark/corner{dir=1}, /obj/effect/turf_decal/tiles/department/engineering/corner{dir=4}, /turf/simulated/floor/plasteel/@SUBTYPES
+/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=2} : /obj/effect/turf_decal/tiles/dark/corner, /obj/effect/turf_decal/tiles/department/engineering/corner{dir=8}, /turf/simulated/floor/plasteel/@SUBTYPES
+/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=4} : /obj/effect/turf_decal/tiles/department/engineering/corner{dir=4}, /obj/effect/turf_decal/tiles/dark/corner, /turf/simulated/floor/plasteel/@SUBTYPES
+/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=5} : /obj/effect/turf_decal/tiles/dark/corner{dir=1}, /obj/effect/turf_decal/tiles/department/engineering/corner{dir=4}, /obj/effect/turf_decal/tiles/dark/corner, /turf/simulated/floor/plasteel/@SUBTYPES
+/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=6} : /obj/effect/turf_decal/tiles/department/engineering/corner{dir=4}, /obj/effect/turf_decal/tiles/department/engineering/corner{dir=8}, /obj/effect/turf_decal/tiles/dark/corner, /turf/simulated/floor/plasteel/@SUBTYPES
+/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=8} : /obj/effect/turf_decal/tiles/dark/corner{dir=1}, /obj/effect/turf_decal/tiles/department/engineering/corner{dir=8}, /turf/simulated/floor/plasteel/@SUBTYPES
+/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=9} : /obj/effect/turf_decal/tiles/dark/corner{dir=1}, /obj/effect/turf_decal/tiles/department/engineering/corner{dir=8}, /obj/effect/turf_decal/tiles/department/engineering/corner{dir=4}, /turf/simulated/floor/plasteel/@SUBTYPES
+/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=10} : /obj/effect/turf_decal/tiles/dark/corner{dir=1}, /obj/effect/turf_decal/tiles/department/engineering/corner{dir=8}, /obj/effect/turf_decal/tiles/dark/corner, /turf/simulated/floor/plasteel/@SUBTYPES
+/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="caution";dir=@UNSET} : /obj/effect/turf_decal/tiles/dark/corner, /obj/effect/turf_decal/tiles/department/engineering/corner{dir=8}, /turf/simulated/floor/plasteel/@SUBTYPES
 
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="cautioncorner";dir=1} : /obj/effect/turf_decal/tiles/dark/corner{dir=1}, /turf/simulated/floor/plasteel/@SUBTYPES
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="cautioncorner";dir=2} : /obj/effect/turf_decal/tiles/dark/corner{dir=2}, /turf/simulated/floor/plasteel/@SUBTYPES
-/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="cautioncorner";dir=4} : /obj/effect/turf_decal/tiles/department/cargo/corner{dir=4}, /turf/simulated/floor/plasteel/@SUBTYPES
-/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="cautioncorner";dir=8} : /obj/effect/turf_decal/tiles/department/cargo/corner{dir=8}, /turf/simulated/floor/plasteel/@SUBTYPES
+/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="cautioncorner";dir=4} : /obj/effect/turf_decal/tiles/department/engineering/corner{dir=4}, /turf/simulated/floor/plasteel/@SUBTYPES
+/turf/simulated/floor/plasteel/@SUBTYPES{icon_state="cautioncorner";dir=8} : /obj/effect/turf_decal/tiles/department/engineering/corner{dir=8}, /turf/simulated/floor/plasteel/@SUBTYPES
 /turf/simulated/floor/plasteel/@SUBTYPES{icon_state="cautioncorner"} : /obj/effect/turf_decal/tiles/dark/corner, /turf/simulated/floor/plasteel/@SUBTYPES
 
 /obj/effect/turf_decal/blue_corner : /obj/effect/turf_decal/tiles/department/command/corner{@OLD;icon=@SKIP;icon_state=@SKIP;}
