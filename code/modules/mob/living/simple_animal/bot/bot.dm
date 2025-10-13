@@ -1193,11 +1193,12 @@ Pass a positive integer as an argument to override a bot's default speed.
 	data["noaccess"] = topic_denied(user) // Does the current user have access? admins, silicons etc can still access bots with locked controls
 	data["maintpanel"] = open
 	data["on"] = on
-	data["autopatrol"] = auto_patrol
 	data["painame"] = paicard ? paicard.pai.name : null
 	data["canhack"] = canhack(user)
 	data["emagged"] = emagged
 	data["remote_disabled"] = remote_disabled
+	if(bot_type != MULE_BOT)
+		data["autopatrol"] = auto_patrol
 	return data
 
 // AI bot access verb TGUI
