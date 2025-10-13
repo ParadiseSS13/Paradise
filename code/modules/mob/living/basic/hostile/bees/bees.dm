@@ -277,3 +277,9 @@
 /mob/living/basic/bee/syndi/pollinate() // No Pollination
 	return
 
+#undef BEE_TRAY_RECENT_VISIT
+#undef BEE_DEFAULT_COLOUR
+#undef BEE_POLLINATE_YIELD_CHANCE
+#undef BEE_POLLINATE_PEST_CHANCE
+#undef BEE_POLLINATE_POTENCY_CHANCE
+#undef BEE_FOODGROUPS
