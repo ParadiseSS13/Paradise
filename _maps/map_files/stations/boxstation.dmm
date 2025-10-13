@@ -19032,7 +19032,7 @@
 	},
 /area/station/command/bridge)
 "boa" = (
-/obj/machinery/computer/shuttle/mining,
+/obj/machinery/computer/shuttle/engineering,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "blue"
@@ -87378,6 +87378,17 @@
 	icon_state = "hydrofloor"
 	},
 /area/station/maintenance/asmaint)
+"wVd" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 5;
+	height = 7;
+	id = "engineering_home";
+	name = "engineering shuttle bay";
+	width = 11
+	},
+/turf/space,
+/area/space)
 "wVi" = (
 /obj/structure/chair{
 	dir = 1
@@ -119425,7 +119436,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+wVd
 aaa
 aaa
 aaa

@@ -42,3 +42,13 @@
 	icon_state = "miningcar"
 	icon_opened = "miningcar_open"
 	icon_closed = "miningcar"
+
+/**********************Engineering Outpost Shuttle Computer**************************/
+// Look I have no idea where to put this so close to the mining shuttle it goes
+
+/obj/machinery/computer/shuttle/engineering
+	name = "Engineering Shuttle Console"
+	desc = "Used to call and send the engineering shuttle."
+	circuit = /obj/item/circuitboard/engineering_shuttle
+	shuttleId = "engineering"
+	possible_destinations = "engineering_home;engineering_away"

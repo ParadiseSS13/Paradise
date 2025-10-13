@@ -497,6 +497,11 @@
 	build_path = /obj/machinery/computer/turbine_computer
 	origin_tech = "programming=4;engineering=4;powerstorage=4"
 
+/obj/item/circuitboard/engineering_shuttle
+	board_name = "Engineering Shuttle"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/shuttle/engineering
+
 /obj/item/circuitboard/supplycomp/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
 	var/catastasis // Why is it called this
