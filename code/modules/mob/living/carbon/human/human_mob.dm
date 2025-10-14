@@ -235,6 +235,9 @@
 	if(!body_accessory)
 		change_body_accessory("Plain Wings")
 
+/mob/living/carbon/human/skulk/Initialize(mapload)
+	. = ..(mapload, /datum/species/skulk)
+
 /mob/living/carbon/human/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data

@@ -656,6 +656,12 @@
 	message = "flutters their wings."
 	species_type_whitelist_typecache = list(/datum/species/moth)
 
+/datum/emote/living/carbon/human/chitter
+	key = "chitter"
+	key_third_person = "chitters"
+	message = "chitters."
+	species_type_whitelist_typecache = list(/datum/species/skulk)
+
 /datum/emote/living/carbon/human/quill
 	key = "quill"
 	key_third_person = "quills"
