@@ -31,3 +31,5 @@
 		"is tearing open their arm with their fangs!",
 		"is twisting their own neck!",
 		"is holding their breath!")
+
+	flesh_color = "#242424"
