@@ -84,6 +84,7 @@
 
 
 /obj/item/reagent_containers/spray/proc/spray(atom/A)
+	var/spray_divisor = round(get_dist_euclidian(get_turf(A), get_turf(src)))
 	var/obj/effect/decal/chempuff/chem_puff = new /obj/effect/decal/chempuff(get_turf(src))
 	chem_puff.create_reagents(amount_per_transfer_from_this)
 	reagents.trans_to(chem_puff, amount_per_transfer_from_this, 1/spray_currentrange)
