@@ -465,7 +465,7 @@
 		to_chat(user, "<span class='warning'>[src] is presently processing particularly powerful packets of your particular particulate. Wait for it to finish before proceeding.</span>")
 		return
 
-	to_chat(user, "<span class='notice'>[src] is now processing the particulate. Please hold as processing finishes, and be aware it may eject collection canisters.</span>")
+	to_chat(user, "<span class='notice'>[src] is presently processing the particulate. Please hold as processing finishes, and be aware it may eject collection canisters.</span>")
 	if(me_cro_wah_vey)
 		me_cro_wah_vey.start()
 	addtimer(CALLBACK(src, PROC_REF(perfectly_processed), user), 15 SECONDS)
@@ -491,7 +491,7 @@
 
 /obj/item/ppp_processor/proc/perfectly_processed(mob/user)
 	if(!QDELETED(user))
-		to_chat(user, "<span class='notice'>[src] has perfectly processed the samples. You may now use the canisters however you wish. Ensure the processor gets back to us.</span>")
+		to_chat(user, "<span class='notice'>[src] has perfectly processed the particulate. You may now use the canisters however you wish. Ensure the processor gets back to us.</span>")
 	me_cro_wah_vey.stop()
 	presently_processing_particular_particultate = FALSE
 	clouds_processed = -1
