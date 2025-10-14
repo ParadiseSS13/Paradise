@@ -456,7 +456,7 @@
 	if(..())
 		return
 	if(fully_processed_particulate)
-		to_chat(user, "<span class='notice'>[src] has already processed and ejected the samples. Just make sure to escape with it!</span>")
+		to_chat(user, "<span class='notice'>[src] has already processed and ejected the particulate canisters. Just make sure to escape with the processor!</span>")
 		return
 	if(clouds_processed < 3)
 		to_chat(user, "<span class='warning'>[src] has only [clouds_processed] out of 3 samples. You still need to collect more!</span>")
@@ -465,7 +465,7 @@
 		to_chat(user, "<span class='warning'>[src] is presently processing particularly powerful packets of your particular particulate. Wait for it to finish before proceeding.</span>")
 		return
 
-	to_chat(user, "<span class='notice'>[src] is now processing the samples. Please hold as processing finishes, and be aware it may eject collection canisters.</span>")
+	to_chat(user, "<span class='notice'>[src] is now processing the particulate. Please hold as processing finishes, and be aware it may eject collection canisters.</span>")
 	if(me_cro_wah_vey)
 		me_cro_wah_vey.start()
 	addtimer(CALLBACK(src, PROC_REF(perfectly_processed), user), 15 SECONDS)
