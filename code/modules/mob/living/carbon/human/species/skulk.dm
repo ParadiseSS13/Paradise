@@ -32,4 +32,4 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
-	flesh_color = "#242424"
+	flesh_color = "#a540a0"

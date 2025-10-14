@@ -419,7 +419,7 @@
 	exclaim_verbs = list("thunders")
 	whisper_verb = "warps"
 	colour = "skulk"
-	key = "}"
+	key = "8"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("┤ᖋ|:ᖋᔮᒣ╎ᔮ","ᖋリᒣ|:॥.","ᒣ⍑ᒷ ▭","⍊ᒷ∷","ᒷ⎓","╎リ┤ ▭ ⍑╎ᒲ")
 
