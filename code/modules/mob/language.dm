@@ -420,7 +420,7 @@
 	whisper_verb = "warps"
 	key = "}"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("┤ᖋ|:ᖋᔮᒣ╎ᔮ","ᖋリᒣ|:॥.","ᒣ⍑ᒷ ▭","⍊ᒷ∷","ᒷ⎓","╎リ┤ ▭ ⍑╎ᒲ ")
+	syllables = list("┤ᖋ|:ᖋᔮᒣ╎ᔮ","ᖋリᒣ|:॥.","ᒣ⍑ᒷ ▭","⍊ᒷ∷","ᒷ⎓","╎リ┤ ▭ ⍑╎ᒲ")
 
 /datum/language/skulk/get_random_name()
 	var/new_name = "[pick("Akki","Akku","Avvi","Bakku","Bakki","Bakk","Kkath","Makkith","Vullo","Mortis","Vaal","Kkari","Thrakk","Skkiv","Llav","Vykke","Hakki","Askki","Tavv")]"

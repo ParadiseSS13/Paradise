@@ -2615,6 +2615,7 @@
 #include "code\modules\mob\living\carbon\human\species\shadow.dm"
 #include "code\modules\mob\living\carbon\human\species\skeleton_species.dm"
 #include "code\modules\mob\living\carbon\human\species\skrell.dm"
+#include "code\modules\mob\living\carbon\human\species\skulk.dm"
 #include "code\modules\mob\living\carbon\human\species\slimepeople.dm"
 #include "code\modules\mob\living\carbon\human\species\tajaran.dm"
 #include "code\modules\mob\living\carbon\human\species\unathi.dm"
