@@ -84,7 +84,7 @@
 		if(iscarbon(target))
 			var/mob/living/carbon/C = target
 			if((!C.IsWeakened()))
-				target.apply_damage(30, STAMINA)
+				L.apply_damage(30, STAMINA)
 				C.Confused(6 SECONDS)
 				C.Jitter(6 SECONDS)
 				return ..()
@@ -96,7 +96,7 @@
 				disintegrate_mob(target)
 				return FALSE
 			// It's stunned, cuffed, but already nabbed? Make it go away.
-			dissapear_mob(target)
+			disappear_mob(target)
 			return FALSE
 		if(issilicon(target))
 			var/mob/living/silicon/S = target
@@ -109,7 +109,7 @@
 	return ..()
 
 /mob/living/basic/swarmer/proc/disintegrate_wall(turf/simulated/wall/target)
-	if(is_type(target, /turf/simulated/wall/indestructible))
+	if(istype(target, /turf/simulated/wall/indestructible))
 		return
 
 	new /obj/effect/temp_visual/swarmer/disintegration(target.loc)
@@ -134,7 +134,7 @@
 	resources += 10
 	qdel(target)
 
-/mob/living/basic/swarmer/proc/disintegrate_mob(mob/target)
+/mob/living/basic/swarmer/proc/disintegrate_mob(mob/living/target)
 	new /obj/effect/temp_visual/swarmer/integrate(target.loc)
 	if(!do_after_once(src, 5 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating the mob."))
 		return
@@ -170,10 +170,10 @@
 	for(var/turf/T in range(1, target))
 		var/area/A = get_area(T)
 		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
-			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
+			to_chat(src, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			return TRUE
-		else if(istype(A, /area/engine/supermatter))
-			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
+		else if(istype(A, /area/station/engineering/engine/supermatter))
+			to_chat(src, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
 			return TRUE
 	return FALSE
 
