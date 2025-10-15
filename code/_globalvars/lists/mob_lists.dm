@@ -37,6 +37,8 @@ GLOBAL_LIST_EMPTY(hear_radio_list)			//Mobs that hear the radio even if there's 
 
 GLOBAL_LIST_EMPTY(emote_list)
 
+GLOBAL_LIST_EMPTY(swarmer_list) 			// List of mobs disintegrated by swarmers - don't disintegrate them again.
+
 // Dear God
 GLOBAL_LIST_INIT(migo_sounds, list(
 	'sound/items/bubblewrap.ogg', 'sound/items/change_jaws.ogg', 'sound/items/crowbar.ogg', 'sound/items/drink.ogg',
