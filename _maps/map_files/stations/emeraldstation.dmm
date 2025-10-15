@@ -3042,21 +3042,15 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "aGt" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
+/obj/machinery/computer/shuttle/engineering{
+	dir = 4
 	},
-/obj/item/pen,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/storage/fancy/donut_box{
-	pixel_y = -14
-	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "blue"
+	dir = 6;
+	icon_state = "yellow"
 	},
 /area/station/command/bridge)
 "aGu" = (
@@ -5846,9 +5840,14 @@
 /obj/machinery/phone{
 	pixel_y = 2
 	},
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "blue"
+	icon_state = "bluecorner"
 	},
 /area/station/command/bridge)
 "bja" = (
@@ -8762,19 +8761,14 @@
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
 "bJc" = (
-/obj/machinery/computer/monitor{
-	name = "Bridge Power Monitoring Computer"
-	},
+/obj/machinery/computer/secure_data,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 30;
 	layer = 3.5
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "yellow"
+	icon_state = "red"
 	},
 /area/station/command/bridge)
 "bJl" = (
@@ -10716,8 +10710,9 @@
 	},
 /area/station/engineering/ai_transit_tube)
 "cbD" = (
-/obj/item/storage/secure/briefcase,
-/obj/structure/rack,
+/obj/machinery/computer/security/engi_outpost{
+	dir = 8
+	},
 /obj/machinery/requests_console/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -12990,11 +12985,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/machinery/firealarm/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "black"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "czZ" = (
 /obj/structure/cable{
@@ -39449,15 +39440,18 @@
 	},
 /area/station/security/storage)
 "hHh" = (
-/obj/machinery/computer/security,
+/obj/machinery/computer/station_alert,
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "red"
+	icon_state = "yellow"
 	},
 /area/station/command/bridge)
 "hHm" = (
@@ -45980,6 +45974,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
+"iWU" = (
+/obj/docking_port/stationary{
+	dwidth = 5;
+	height = 7;
+	id = "engineering_home";
+	name = "engineering shuttle bay";
+	width = 11
+	},
+/turf/space,
+/area/space)
 "iXh" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -59938,18 +59942,23 @@
 /turf/simulated/wall,
 /area/station/service/clown)
 "lMG" = (
-/obj/machinery/computer/secure_data,
-/obj/machinery/camera{
-	c_tag = "Bridge West";
-	dir = 6
+/obj/machinery/computer/monitor{
+	name = "Bridge Power Monitoring Computer"
 	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 30;
 	layer = 3.5
 	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/camera{
+	c_tag = "Bridge West";
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "red"
+	icon_state = "yellow"
 	},
 /area/station/command/bridge)
 "lMN" = (
@@ -62086,22 +62095,19 @@
 	},
 /area/station/service/hydroponics)
 "mld" = (
-/obj/machinery/computer/station_alert,
+/obj/machinery/computer/security,
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /obj/machinery/status_display{
 	pixel_y = 32;
 	layer = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "yellow"
+	icon_state = "red"
 	},
 /area/station/command/bridge)
 "mlg" = (
@@ -66195,6 +66201,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
+"nbr" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/space,
+/area/station/engineering/transmission_laser)
 "nbs" = (
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
@@ -73676,6 +73686,9 @@
 	pixel_y = 4
 	},
 /obj/item/storage/box/ids,
+/obj/item/storage/fancy/donut_box{
+	pixel_y = -14
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -75241,6 +75254,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "black"
@@ -75542,6 +75556,12 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
+"oNP" = (
+/obj/structure/marker_beacon/dock_marker{
+	name = "beacon"
+	},
+/turf/space,
+/area/space)
 "oOg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
@@ -81469,7 +81489,7 @@
 	layer = 2.9
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
+	dir = 4;
 	icon_state = "black"
 	},
 /area/station/engineering/transmission_laser)
@@ -109451,6 +109471,12 @@
 /obj/machinery/computer/arcade,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
+"vrR" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "vrS" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -110489,6 +110515,7 @@
 /area/station/legal/magistrate)
 "vCK" = (
 /obj/structure/table/reinforced,
+/obj/item/storage/secure/briefcase,
 /obj/item/book/manual/wiki/sop_engineering,
 /obj/item/megaphone,
 /turf/simulated/floor/plasteel{
@@ -122204,7 +122231,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "black"
+	icon_state = "blackcorner"
 	},
 /area/station/engineering/transmission_laser)
 "xUT" = (
@@ -122820,6 +122847,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/fore_starboard)
+"ybu" = (
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "ybx" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -133494,15 +133524,15 @@ jnP
 jnP
 jnP
 hpc
-hpc
-hpc
-hpc
-hpc
-hpc
-hpc
 jnP
 jnP
-jnP
+oNP
+oNP
+oNP
+oNP
+oNP
+oNP
+oNP
 jnP
 jnP
 jnP
@@ -133751,16 +133781,16 @@ jnP
 jnP
 hpc
 hpc
-wPA
-wPA
-wPA
-wPA
-wPA
-hpc
-hpc
-hpc
+jnP
+oNP
 jnP
 jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+oNP
 jnP
 jnP
 jnP
@@ -134006,18 +134036,18 @@ jnP
 jnP
 jnP
 hpc
-hpc
-wPA
-wPA
-wPA
 wPA
 hpc
-hpc
-hpc
-hpc
-hpc
-hpc
-hpc
+jnP
+oNP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+jnP
+oNP
 jnP
 jnP
 jnP
@@ -134264,17 +134294,17 @@ jnP
 hpc
 wPA
 wPA
-wPA
-wPA
-hpc
-hpc
 hpc
 jnP
+oNP
 jnP
 jnP
 jnP
 jnP
 jnP
+jnP
+jnP
+oNP
 jnP
 mJM
 mJM
@@ -134521,10 +134551,9 @@ hpc
 wPA
 wPA
 wPA
-wPA
-hpc
 hpc
 jnP
+oNP
 jnP
 jnP
 jnP
@@ -134532,6 +134561,7 @@ jnP
 jnP
 jnP
 jnP
+oNP
 jnP
 mJM
 mkQ
@@ -134779,16 +134809,16 @@ wPA
 wPA
 wPA
 hpc
-hpc
+jnP
+oNP
 jnP
 jnP
 jnP
 jnP
-wPA
-wPA
-mLQ
 jnP
 jnP
+jnP
+oNP
 jnP
 mJM
 oFg
@@ -135037,15 +135067,15 @@ wPA
 wPA
 hpc
 jnP
+oNP
 jnP
 jnP
 jnP
-mLQ
-wPA
-aNi
 jnP
 jnP
 jnP
+iWU
+oNP
 jnP
 mJM
 oLt
@@ -135294,6 +135324,7 @@ wPA
 hpc
 hpc
 jnP
+oNP
 jnP
 jnP
 jnP
@@ -135301,9 +135332,8 @@ jnP
 jnP
 jnP
 jnP
-jnP
-jnP
-mLQ
+oNP
+nbr
 mJM
 xUL
 wio
@@ -135551,6 +135581,7 @@ hpc
 hpc
 jnP
 jnP
+oNP
 jnP
 jnP
 jnP
@@ -135559,9 +135590,8 @@ jnP
 jnP
 jnP
 jnP
-jnP
-wPA
-mJM
+vrR
+ybu
 czV
 jMc
 eHd
@@ -135808,16 +135838,16 @@ hpc
 jnP
 jnP
 jnP
-wPA
-wPA
+oNP
 jnP
 jnP
 jnP
 jnP
-wPA
 jnP
 jnP
 jnP
+oNP
+nbr
 mJM
 pVa
 gMe
@@ -136064,16 +136094,16 @@ hpc
 hpc
 jnP
 jnP
-wPA
-wPA
-wPA
-wPA
-wPA
+jnP
+oNP
 jnP
 jnP
 jnP
 jnP
 jnP
+jnP
+jnP
+oNP
 jnP
 mJM
 mJM
@@ -136323,13 +136353,13 @@ jnP
 jnP
 jnP
 jnP
-mLQ
-mLQ
-wPA
+oNP
 jnP
 jnP
 jnP
 jnP
+jnP
+oNP
 jnP
 jnP
 fcb
@@ -136581,11 +136611,11 @@ jnP
 jnP
 jnP
 jnP
-jnP
-jnP
-jnP
-jnP
-jnP
+oNP
+oNP
+oNP
+oNP
+oNP
 jnP
 jnP
 jnP
@@ -153769,7 +153799,7 @@ jnP
 jnP
 aZS
 eAn
-eHF
+imd
 jQM
 iZT
 jzI
@@ -154539,7 +154569,7 @@ jnP
 jnP
 aZS
 eAn
-imd
+eHF
 iZT
 iZT
 iZT

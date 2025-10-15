@@ -1270,6 +1270,12 @@
 /obj/item/stack/sheet/mineral/plasma,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
+"aiv" = (
+/obj/structure/marker_beacon/dock_marker{
+	name = "beacon"
+	},
+/turf/space,
+/area/space)
 "aiB" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -5455,8 +5461,8 @@
 	c_tag = "Bridge East"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+	dir = 4;
+	icon_state = "darkyellow"
 	},
 /area/station/command/bridge)
 "aSJ" = (
@@ -13759,9 +13765,6 @@
 	},
 /area/station/service/chapel)
 "bYU" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -23260,6 +23263,17 @@
 	icon_state = "dark"
 	},
 /area/station/medical/virology)
+"dzZ" = (
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 5;
+	height = 7;
+	id = "engineering_home";
+	name = "engineering shuttle bay";
+	width = 11
+	},
+/turf/space,
+/area/space)
 "dAb" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Aft-Starboard Asteroid Maintenance"
@@ -41239,6 +41253,13 @@
 /obj/effect/spawner/random/dirt/frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"hxc" = (
+/obj/machinery/door/airlock/engineering/glass,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/ai_monitored/storage/eva)
 "hxj" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -45515,9 +45536,21 @@
 /area/station/security/lobby)
 "ioh" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
-	pixel_x = 8;
-	pixel_y = -7
+/obj/item/stamp/ce{
+	pixel_x = 1;
+	pixel_y = 1
+	},
+/obj/item/paper_bin/nanotrasen{
+	pixel_y = 2;
+	pixel_x = -11
+	},
+/obj/item/pen{
+	pixel_x = -11;
+	pixel_y = 5
+	},
+/obj/item/book/manual/wiki/faxes{
+	pixel_x = 12;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
@@ -53727,6 +53760,15 @@
 	icon_state = "white"
 	},
 /area/station/medical/storage)
+"jVR" = (
+/obj/structure/chair/office{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/station/command/bridge)
 "jVU" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
@@ -56843,6 +56885,10 @@
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/electrical/fore_starboard)
+"kFw" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/ai_monitored/storage/eva)
 "kFx" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
@@ -86838,6 +86884,10 @@
 /obj/item/ashtray/bronze{
 	pixel_y = -10
 	},
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_x = 8;
+	pixel_y = -7
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -93815,10 +93865,6 @@
 /area/station/engineering/atmos/distribution)
 "sCs" = (
 /obj/structure/table/reinforced,
-/obj/item/stamp/ce{
-	pixel_x = 1;
-	pixel_y = 1
-	},
 /obj/machinery/button/windowtint{
 	id = "CE";
 	pixel_x = -8;
@@ -93829,17 +93875,9 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/item/paper_bin/nanotrasen{
-	pixel_y = 2;
-	pixel_x = -11
-	},
-/obj/item/pen{
-	pixel_x = -11;
-	pixel_y = 5
-	},
-/obj/item/book/manual/wiki/faxes{
-	pixel_x = 12;
-	pixel_y = 3
+/obj/machinery/photocopier/faxmachine{
+	department = "Chief Engineer's Office";
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
@@ -97867,16 +97905,14 @@
 /turf/simulated/floor/grass/jungle/no_creep,
 /area/station/hallway/primary/port/south)
 "tug" = (
-/obj/structure/table/reinforced,
-/obj/machinery/photocopier/faxmachine{
-	department = "Chief Engineer's Office";
-	pixel_y = 4
-	},
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/machinery/keycard_auth{
 	pixel_y = 28
+	},
+/obj/machinery/computer/security/engi_outpost{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -109889,6 +109925,14 @@
 /obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/public/toilet/unisex)
+"vSA" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/ai_monitored/storage/eva)
 "vSG" = (
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
@@ -115410,6 +115454,14 @@
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/equipmentstorage)
+"wYg" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/ai_monitored/storage/eva)
 "wYi" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -119864,9 +119916,11 @@
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
 "xVF" = (
-/obj/item/kirbyplants/large,
+/obj/machinery/computer/shuttle/engineering{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkyellowcorners"
+	icon_state = "darkyellowfull"
 	},
 /area/station/command/bridge)
 "xVI" = (
@@ -156252,7 +156306,7 @@ rNK
 aVS
 aSE
 swn
-swn
+jVR
 bYU
 swn
 nyj
@@ -161949,7 +162003,7 @@ rNK
 xbO
 baS
 baS
-vOn
+wYg
 ePK
 ePK
 vOn
@@ -162203,10 +162257,10 @@ rNK
 rNK
 rNK
 rNK
+rNK
 xbO
-aXR
 baS
-baS
+hxc
 baS
 baS
 baS
@@ -162460,14 +162514,14 @@ rNK
 rNK
 rNK
 rNK
+rNK
+rNK
+kFw
+bYQ
+kFw
 xbO
 xbO
-aXR
-aXR
-aXR
-aXR
-aXR
-aXR
+xbO
 xbO
 xbO
 aYg
@@ -162718,11 +162772,11 @@ rNK
 rNK
 rNK
 rNK
-xbO
-xbO
-xbO
-xbO
-xbO
+rNK
+kFw
+vSA
+kFw
+rNK
 xbO
 xbO
 xbO
@@ -162970,16 +163024,16 @@ rNK
 rNK
 rNK
 rNK
+aiv
+aiv
+aiv
+aiv
+aiv
+aiv
+aiv
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-xbO
-xbO
+aiv
+aiv
 rNK
 rNK
 rNK
@@ -163226,18 +163280,18 @@ rNK
 rNK
 rNK
 rNK
+aiv
 rNK
 rNK
 rNK
 rNK
 rNK
+dzZ
 rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
+aiv
 rNK
 rNK
 rNK
@@ -163483,6 +163537,7 @@ rNK
 rNK
 rNK
 rNK
+aiv
 rNK
 rNK
 rNK
@@ -163494,8 +163549,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
+aiv
 rNK
 rNK
 lzH
@@ -163740,6 +163794,7 @@ rNK
 rNK
 rNK
 rNK
+aiv
 rNK
 rNK
 rNK
@@ -163751,8 +163806,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
+aiv
 rNK
 rNK
 lzH
@@ -163997,6 +164051,7 @@ rNK
 rNK
 rNK
 rNK
+aiv
 rNK
 rNK
 rNK
@@ -164008,8 +164063,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
+aiv
 rNK
 rNK
 lzH
@@ -164254,6 +164308,7 @@ rNK
 rNK
 rNK
 rNK
+aiv
 rNK
 rNK
 rNK
@@ -164265,8 +164320,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
+aiv
 rNK
 rNK
 lzH
@@ -164511,6 +164565,7 @@ rNK
 rNK
 rNK
 rNK
+aiv
 rNK
 rNK
 rNK
@@ -164522,8 +164577,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
+aiv
 rNK
 fMl
 aZN
@@ -164768,6 +164822,7 @@ rNK
 rNK
 rNK
 rNK
+aiv
 rNK
 rNK
 rNK
@@ -164778,8 +164833,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
+aiv
 rNK
 fHs
 fHs
@@ -165026,16 +165080,16 @@ rNK
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+aiv
+aiv
+aiv
+aiv
+aiv
+aiv
+aiv
+aiv
+aiv
+aiv
 rNK
 rNK
 fHs

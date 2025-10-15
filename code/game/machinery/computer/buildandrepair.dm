@@ -139,6 +139,11 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/security/engineering
 
+/obj/item/circuitboard/camera/mining
+	board_name = "Engineering Outpost Camera Monitor"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/security/engi_outpost
+
 /obj/item/circuitboard/xenobiology
 	board_name = "Xenobiology Console"
 	icon_state = "science"

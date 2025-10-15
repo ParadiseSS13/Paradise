@@ -330,6 +330,15 @@
 	network = list()
 	circuit = /obj/item/circuitboard/camera/engineering
 
+/obj/machinery/computer/security/engi_outpost
+	name = "engineering outpost camera monitor"
+	desc = "Used to access the various cameras on the engineering outpost."
+	icon_keyboard = "tech_key"
+	icon_screen = "engie_cams"
+	light_color = "#FAC54B"
+	network = list("Engineering Outpost")
+	circuit = /obj/item/circuitboard/camera/engi_outpost
+
 /obj/machinery/computer/security/engineering/Initialize(mapload)
 	. = ..()
 	network = list()
