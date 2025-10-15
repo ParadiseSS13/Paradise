@@ -1219,4 +1219,3 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /// Prototype for additional behaviour when a specific species is ground by a compressor.
 /datum/species/proc/do_compressor_grind(mob/living/carbon/human)
-	return

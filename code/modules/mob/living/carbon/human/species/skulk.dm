@@ -18,7 +18,7 @@
 	heat_level_2 = 380
 	heat_level_3 = 440
 
-	brain_mod = 0.5
+	brain_mod = 0.8
 
 	species_traits = list()
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
@@ -33,3 +33,4 @@
 		"is holding their breath!")
 
 	flesh_color = "#d3d3d3"
+
