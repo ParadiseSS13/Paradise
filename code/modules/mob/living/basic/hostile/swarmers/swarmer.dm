@@ -36,7 +36,6 @@
 	is_ranged = TRUE
 	projectile_type = /obj/item/projectile/beam/disabler
 	projectile_sound = 'sound/weapons/taser2.ogg'
-	ranged_cooldown = 2 SECONDS
 	ai_controller = /datum/ai_controller/basic_controller/swarmer
 
 	/// Resources the swarmer gains from consuming things
@@ -180,7 +179,6 @@
 /obj/structure/swarmer // Default swarmer effect object visual feedback
 	name = "swarmer ui"
 	desc = null
-	gender = NEUTER
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "ui_light"
 	layer = MOB_LAYER
@@ -212,7 +210,6 @@
 	desc = "A quickly assembled trap that electrifies living beings and overwhelms machine sensors. Will not retain its form if damaged enough."
 	icon_state = "trap"
 	max_integrity = 10
-	density = FALSE
 
 /obj/structure/swarmer/trap/Crossed(atom/movable/AM, oldloc)
 	if(isliving(AM))
