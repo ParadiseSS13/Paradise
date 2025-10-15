@@ -28,13 +28,14 @@
 
 	H.job = rt_mob_job
 
-//////////////////// COMMANDER ///////////////////
+// MARK: Commander
 
 /datum/outfit/job/response_team/commander
 	name = "RT Commander"
 	rt_assignment = "Emergency Response Team Leader"
 	rt_job = "Emergency Response Team Leader"
 	rt_mob_job = "ERT Commander"
+	base_role = ERT_ROLE_COMMAND
 	uniform = /obj/item/clothing/under/rank/centcom/ert/commander
 	back = /obj/item/storage/backpack/ert/commander
 	l_ear = /obj/item/radio/headset/ert/alt/commander
@@ -61,7 +62,7 @@
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/storage/box/mindshield = 1,
 		/obj/item/flashlight = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 /datum/outfit/job/response_team/commander/red
@@ -78,7 +79,7 @@
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/storage/box/mindshield = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 	cybernetic_implants = list(
@@ -107,7 +108,7 @@
 		/obj/item/door_remote/omni = 1,
 		/obj/item/ammo_box/magazine/enforcer/lethal = 2,
 		/obj/item/gun/energy/gun/blueshield/pdw9 = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 	cybernetic_implants = list(
@@ -122,13 +123,14 @@
 		/obj/item/bio_chip/death_alarm
 	)
 
-//////////////////// SECURITY ///////////////////
+// MARK: Security
 
 /datum/outfit/job/response_team/security
 	name = "RT Security"
 	rt_assignment = "Emergency Response Team Officer"
 	rt_job = "Emergency Response Team Officer"
 	rt_mob_job = "ERT Security"
+	base_role = ERT_ROLE_SECURITY
 	uniform = /obj/item/clothing/under/rank/centcom/ert/security
 	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/storage/belt/security/response_team
@@ -149,7 +151,7 @@
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/storage/box/teargas = 1,
 		/obj/item/flashlight/seclite = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 /datum/outfit/job/response_team/security/red
@@ -166,7 +168,7 @@
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/grenade/flashbang = 2,
 		/obj/item/ammo_box/magazine/laser/ert = 2,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 	cybernetic_implants = list(
@@ -197,7 +199,7 @@
 		/obj/item/whetstone = 1,
 		/obj/item/storage/box/breaching = 1,
 		/obj/item/gun/energy/gun/nuclear = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 	cybernetic_implants = list(
@@ -213,13 +215,14 @@
 		/obj/item/bio_chip/death_alarm
 	)
 
-//////////////////// ENGINEER ///////////////////
+// MARK: Engineer
 
 /datum/outfit/job/response_team/engineer
 	name = "RT Engineer"
 	rt_assignment = "Emergency Response Team Engineer"
 	rt_job = "Emergency Response Team Engineer"
 	rt_mob_job = "ERT Engineering"
+	base_role = ERT_ROLE_ENGINEERING
 	back = /obj/item/storage/backpack/ert/engineer
 	uniform = /obj/item/clothing/under/rank/centcom/ert/engineer
 	pda = /obj/item/pda/heads/ert/engineering
@@ -243,7 +246,7 @@
 		/obj/item/flashlight = 1,
 		/obj/item/rpd = 1,
 		/obj/item/storage/bag/construction = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 	cybernetic_implants = list(
@@ -267,7 +270,7 @@
 		/obj/item/gun/energy/gun = 1,
 		/obj/item/rpd/bluespace = 1,
 		/obj/item/storage/bag/construction = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 	cybernetic_implants = list(
@@ -297,7 +300,7 @@
 		/obj/item/gun/energy/gun/blueshield/pdw9 = 1,
 		/obj/item/rpd/bluespace = 1,
 		/obj/item/storage/bag/construction = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 	cybernetic_implants = list(
@@ -313,13 +316,14 @@
 		/obj/item/bio_chip/death_alarm
 	)
 
-//////////////////// MEDIC ///////////////////
+// MARK: Medical
 
 /datum/outfit/job/response_team/medic
 	name = "RT Medic"
 	rt_assignment = "Emergency Response Team Medic"
 	rt_job = "Emergency Response Team Medic"
 	rt_mob_job = "ERT Medical"
+	base_role = ERT_ROLE_MEDICAL
 	uniform = /obj/item/clothing/under/rank/centcom/ert/medical
 	back = /obj/item/storage/backpack/ert/medical
 	pda = /obj/item/pda/heads/ert/medical
@@ -345,7 +349,7 @@
 		/obj/item/flashlight = 1,
 		/obj/item/handheld_defibrillator = 1,
 		/obj/item/soap/nanotrasen = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 /datum/outfit/job/response_team/medic/red
@@ -368,7 +372,7 @@
 		/obj/item/storage/pill_bottle/ert_red = 1,
 		/obj/item/storage/pill_bottle/patch_pack/ert = 1,
 		/obj/item/soap/nanotrasen = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 	cybernetic_implants = list(
@@ -401,7 +405,7 @@
 		/obj/item/storage/pill_bottle/ert_gamma = 1,
 		/obj/item/storage/pill_bottle/patch_pack/ert/gamma = 1,
 		/obj/item/gun/energy/gun/blueshield/pdw9 = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 	cybernetic_implants = list(
@@ -417,13 +421,14 @@
 		/obj/item/bio_chip/death_alarm
 	)
 
-//////////////////// PARANORMAL ///////////////////
+// MARK: Paranormal
 
 /datum/outfit/job/response_team/paranormal
 	name = "RT Paranormal"
 	rt_assignment = "Emergency Response Team Inquisitor"
 	rt_job = "Emergency Response Team Inquisitor"
 	rt_mob_job = "ERT Paranormal"
+	base_role = ERT_ROLE_PARANORMAL
 	uniform = /obj/item/clothing/under/rank/centcom/ert/chaplain
 	back = /obj/item/storage/backpack/ert/security
 	shoes = /obj/item/clothing/shoes/combat
@@ -437,7 +442,7 @@
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/flashlight/seclite = 1,
 		/obj/item/storage/bible = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 /datum/outfit/job/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -464,7 +469,7 @@
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/flashlight/seclite = 1,
 		/obj/item/storage/bible = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 	cybernetic_implants = list(
@@ -491,7 +496,7 @@
 		/obj/item/gun/energy/gun/nuclear = 1,
 		/obj/item/storage/bible = 1,
 		/obj/item/grenade/frag/holy = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 	cybernetic_implants = list(
@@ -505,13 +510,14 @@
 		/obj/item/bio_chip/death_alarm
 	)
 
-//////////////////// JANITORIAL ///////////////////
+// MARK: Janitor
 
 /datum/outfit/job/response_team/janitorial
 	name = "RT Janitor"
 	rt_assignment = "Emergency Response Team Janitor"
 	rt_job = "Emergency Response Team Janitor"
 	rt_mob_job = "ERT Janitor"
+	base_role = ERT_ROLE_JANITOR
 	uniform = /obj/item/clothing/under/rank/centcom/ert/janitor
 	back = /obj/item/storage/backpack/ert/janitor
 	belt = /obj/item/storage/belt/janitor/full
@@ -525,7 +531,7 @@
 		/obj/item/push_broom = 1,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/melee/flyswatter = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 /datum/outfit/job/response_team/janitorial/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -578,7 +584,7 @@
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/push_broom = 1,
 		/obj/item/gun/energy/gun/nuclear = 1,
-		/obj/item/food/rations/liquidfood
+		/obj/item/food/rations/liquidfood = 1,
 	)
 
 	cybernetic_implants = list(
