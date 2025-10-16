@@ -62,14 +62,10 @@
 /obj/machinery/sleeper{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/onehalf/dorms_med)
 "am" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/onehalf/dorms_med)
 "an" = (
 /obj/structure/table,
@@ -78,9 +74,7 @@
 	pixel_y = 5
 	},
 /obj/item/storage/firstaid/fire,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/onehalf/dorms_med)
 "ao" = (
 /obj/structure/bed,
@@ -159,9 +153,7 @@
 /area/ruin/space/onehalf/hallway)
 "aA" = (
 /obj/structure/bed/roller,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/onehalf/dorms_med)
 "aB" = (
 /obj/machinery/light{
@@ -173,9 +165,7 @@
 	pixel_y = 6
 	},
 /obj/item/storage/firstaid/regular,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/onehalf/dorms_med)
 "aC" = (
 /obj/machinery/light{
@@ -217,17 +207,13 @@
 /area/ruin/space/onehalf/hallway)
 "aJ" = (
 /obj/machinery/iv_drip,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/onehalf/dorms_med)
 "aK" = (
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/onehalf/dorms_med)
 "aL" = (
 /obj/structure/disposalpipe/segment{
@@ -347,9 +333,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/onehalf/dorms_med)
 "aW" = (
 /obj/machinery/door/airlock,
@@ -1138,9 +1122,7 @@
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
 /obj/machinery/power/apc/off_station/directional/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/onehalf/dorms_med)
 "kV" = (
 /obj/item/stack/rods,

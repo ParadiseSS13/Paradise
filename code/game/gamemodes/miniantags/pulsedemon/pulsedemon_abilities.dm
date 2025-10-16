@@ -396,7 +396,7 @@
 	level_max = 0
 	base_cooldown = 0
 	var/static/list/upgrade_icons = list(
-		PD_UPGRADE_HIJACK_SPEED = image(icon = 'icons/obj/power.dmi', icon_state = "apcemag"),
+		PD_UPGRADE_HIJACK_SPEED = image(icon = 'icons/obj/wallbumps/apc.dmi', icon_state = "apcemag"),
 		PD_UPGRADE_DRAIN_SPEED  = image(icon = 'icons/obj/power.dmi', icon_state = "ccharger"),
 		PD_UPGRADE_MAX_HEALTH   = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "bluespace_matter_bin"),
 		PD_UPGRADE_HEALTH_REGEN = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "femto_mani"),

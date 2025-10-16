@@ -4,16 +4,13 @@
 /obj/structure/table/flipped{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "an" = (
 /obj/structure/ore_box,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "ax" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
@@ -30,17 +27,15 @@
 /area/template_noop)
 "aS" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "aY" = (
 /obj/effect/spawner/random/storage,
 /obj/effect/spawner/random/engineering,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "bf" = (
 /obj/item/trash/spentcasing/bullet,
@@ -63,18 +58,17 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/reagent_containers/iv_bag/blood/o_minus,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "by" = (
 /obj/structure/table,
 /obj/machinery/alarm/directional/south,
 /obj/item/stock_parts/cell,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "bz" = (
 /obj/effect/spawner/random/blood/often,
@@ -92,9 +86,7 @@
 /area/template_noop)
 "bD" = (
 /obj/machinery/r_n_d/circuit_imprinter,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "bL" = (
 /obj/structure/barricade/sandbags,
@@ -120,10 +112,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "dy" = (
 /obj/structure/table,
@@ -132,9 +124,9 @@
 	pixel_x = -2
 	},
 /obj/effect/spawner/random/dirt/maybe,
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
 	},
 /area/template_noop)
 "dA" = (
@@ -143,10 +135,10 @@
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "dG" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "dL" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
@@ -157,9 +149,7 @@
 "dN" = (
 /obj/item/shard,
 /obj/effect/spawner/random/trash,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "ea" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -177,22 +167,19 @@
 /area/template_noop)
 "eH" = (
 /obj/effect/spawner/random/maintenance,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "eL" = (
 /obj/effect/spawner/random/dirt/often,
 /obj/machinery/alarm/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "fk" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "fl" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -278,10 +265,10 @@
 /obj/machinery/door/airlock/research,
 /obj/structure/barricade/wooden,
 /obj/effect/mapping_helpers/airlock/access/all/science/research,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "hH" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -312,9 +299,7 @@
 "ih" = (
 /obj/structure/machine_frame,
 /obj/item/circuitboard/ore_redemption,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "in" = (
 /obj/effect/decal/cleanable/glass,
@@ -325,9 +310,7 @@
 /area/template_noop)
 "ir" = (
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "iv" = (
 /obj/machinery/economy/vending/wallmed/directional/north,
@@ -337,23 +320,21 @@
 /obj/structure/table_frame,
 /obj/item/shard,
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "jc" = (
 /obj/machinery/computer/mech_bay_power_console,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "js" = (
 /obj/effect/spawner/random/trash,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "jz" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped{
@@ -390,19 +371,17 @@
 /area/template_noop)
 "ka" = (
 /obj/item/shard,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "kh" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/medium_room,
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/engineering,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "kp" = (
 /obj/structure/table/glass,
@@ -414,10 +393,10 @@
 	pixel_x = -2;
 	pixel_y = 20
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "kr" = (
 /obj/effect/mob_spawn/human/corpse/random_species/scientist,
@@ -428,17 +407,17 @@
 /obj/structure/table,
 /obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/alarm/directional/east,
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
 	},
 /area/template_noop)
 "kB" = (
 /obj/machinery/alarm/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "kK" = (
 /obj/effect/decal/cleanable/ash,
@@ -450,9 +429,9 @@
 	pixel_y = 32
 	},
 /obj/machinery/cooking/oven,
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
 	},
 /area/template_noop)
 "kX" = (
@@ -465,10 +444,10 @@
 /area/template_noop)
 "le" = (
 /obj/machinery/alarm/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "li" = (
 /obj/structure/mecha_wreckage/ripley/firefighter,
@@ -478,9 +457,7 @@
 "lj" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/portable/pump,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "lk" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -518,10 +495,10 @@
 /area/template_noop)
 "lN" = (
 /obj/machinery/firealarm/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "lU" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -532,9 +509,7 @@
 /obj/effect/turf_decal/arrows{
 	pixel_y = 12
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "lX" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -565,10 +540,10 @@
 	status = 2
 	},
 /obj/machinery/firealarm/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "mt" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -589,9 +564,7 @@
 /area/template_noop)
 "mT" = (
 /obj/effect/spawner/random/oil/maybe,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "mV" = (
 /obj/effect/spawner/random/storage,
@@ -608,9 +581,8 @@
 /area/template_noop)
 "mZ" = (
 /obj/effect/spawner/random/dirt/often,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "nb" = (
 /obj/effect/spawner/random/trash,
@@ -618,18 +590,14 @@
 /area/template_noop)
 "nk" = (
 /obj/item/trash/spentcasing/bullet,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "np" = (
 /obj/effect/turf_decal/delivery/partial,
 /obj/effect/turf_decal/caution{
 	pixel_y = -2
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "nA" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway,
@@ -638,9 +606,7 @@
 /area/template_noop)
 "nB" = (
 /obj/machinery/suit_storage_unit,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "nD" = (
 /obj/structure/shelf,
@@ -652,10 +618,10 @@
 /turf/template_noop,
 /area/template_noop)
 "nL" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "nR" = (
 /obj/structure/table,
@@ -667,17 +633,16 @@
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
+/obj/effect/turf_decal/tiles/department/medical/side,
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "nW" = (
 /obj/effect/spawner/random/storage,
 /obj/effect/spawner/random/engineering/toolbox,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "oa" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -698,9 +663,7 @@
 /area/template_noop)
 "om" = (
 /obj/machinery/optable,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "ow" = (
 /obj/structure/table/wood,
@@ -737,9 +700,8 @@
 /area/template_noop)
 "pg" = (
 /obj/effect/spawner/random/dirt/maybe,
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "pi" = (
 /turf/simulated/floor/plasteel,
@@ -747,9 +709,7 @@
 "pE" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/atmospherics/unary/thermomachine/freezer,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "pF" = (
 /obj/machinery/hydroponics/constructable,
@@ -762,10 +722,10 @@
 /area/template_noop)
 "pK" = (
 /obj/item/storage/firstaid/adv/empty,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "pM" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -782,9 +742,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "qR" = (
 /obj/item/roller{
@@ -792,16 +750,16 @@
 	},
 /obj/structure/table,
 /obj/machinery/firealarm/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "qX" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "qZ" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
@@ -828,10 +786,10 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "rw" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "rN" = (
 /obj/effect/mob_spawn/human/corpse/random_species/scientist,
@@ -856,18 +814,18 @@
 "so" = (
 /obj/effect/spawner/random/dirt/maybe,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "sp" = (
 /obj/effect/decal/cleanable/ash,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "su" = (
 /obj/effect/spawner/random/dirt/often,
@@ -876,10 +834,10 @@
 /area/template_noop)
 "sw" = (
 /obj/machinery/sleeper,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "sC" = (
 /obj/machinery/door/airlock/bloody,
@@ -893,19 +851,19 @@
 "sI" = (
 /obj/machinery/iv_drip,
 /obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "td" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "te" = (
 /obj/effect/mob_spawn/human/corpse/random_species/engineer,
@@ -927,10 +885,10 @@
 /obj/effect/spawner/random/maintenance,
 /obj/effect/spawner/random/maintenance,
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "tq" = (
 /obj/structure/barricade/sandbags,
@@ -959,10 +917,10 @@
 "tW" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/spawner/random/cobweb/left/frequent,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "ue" = (
 /obj/effect/mob_spawn/human/corpse/random_species/scientist,
@@ -975,9 +933,8 @@
 /turf/simulated/floor/wood,
 /area/template_noop)
 "uw" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/obj/effect/turf_decal/tiles/department/cargo/side,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "uF" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
@@ -989,10 +946,10 @@
 /area/template_noop)
 "vA" = (
 /obj/structure/table/glass,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "vB" = (
 /obj/machinery/light/floor{
@@ -1004,17 +961,17 @@
 /turf/template_noop,
 /area/template_noop)
 "vD" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "vL" = (
 /obj/machinery/firealarm/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "vU" = (
 /obj/structure/chair/stool/bar{
@@ -1026,10 +983,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "ws" = (
 /obj/effect/spawner/random/blood/often,
@@ -1054,10 +1011,10 @@
 /obj/machinery/door/airlock/medical,
 /obj/structure/barricade/wooden,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "wT" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -1115,9 +1072,7 @@
 "xV" = (
 /obj/structure/machine_frame,
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "yb" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -1141,10 +1096,10 @@
 /area/template_noop)
 "yo" = (
 /obj/effect/spawner/random/blood/often,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "yv" = (
 /obj/effect/spawner/random/trash,
@@ -1193,10 +1148,10 @@
 /area/template_noop)
 "zv" = (
 /obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "zz" = (
 /obj/structure/table/flipped{
@@ -1223,10 +1178,10 @@
 /turf/template_noop,
 /area/template_noop)
 "zT" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "zV" = (
 /obj/effect/mob_spawn/human/corpse/random_species/engineer,
@@ -1238,26 +1193,21 @@
 "zY" = (
 /obj/structure/rack,
 /obj/item/stock_parts/cell,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "zZ" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Af" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "AS" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "AU" = (
 /obj/effect/spawner/random/trash,
@@ -1274,9 +1224,7 @@
 /obj/machinery/mineral/processing_unit_console{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "Bo" = (
 /obj/effect/decal/cleanable/generic,
@@ -1309,17 +1257,17 @@
 /turf/template_noop,
 /area/template_noop)
 "BM" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "BS" = (
 /obj/structure/machine_frame,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "BT" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
@@ -1343,10 +1291,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Cw" = (
 /obj/item/chair,
@@ -1360,10 +1308,10 @@
 /obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "CO" = (
 /obj/item/stack/tile/plasteel{
@@ -1396,10 +1344,10 @@
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "DO" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "DU" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/horiz_hallway,
@@ -1415,16 +1363,15 @@
 "Ea" = (
 /obj/structure/table,
 /obj/effect/spawner/random/maintenance,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Ec" = (
 /obj/structure/machine_frame,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Eh" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -1433,18 +1380,16 @@
 "Ei" = (
 /obj/structure/rack,
 /obj/effect/spawner/random/engineering/materials,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "Er" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Ev" = (
 /obj/item/trash/spentcasing/bullet,
@@ -1475,10 +1420,10 @@
 	pixel_y = 4;
 	pixel_x = 2
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Fj" = (
 /mob/living/simple_animal/hostile/syndicate/ranged,
@@ -1486,10 +1431,10 @@
 /area/template_noop)
 "Fm" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Fo" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -1502,10 +1447,10 @@
 	pixel_y = 9
 	},
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Fw" = (
 /obj/item/storage/box/large{
@@ -1522,10 +1467,10 @@
 "FD" = (
 /obj/structure/closet/secure_closet/medical1,
 /obj/effect/spawner/random/cobweb/left/frequent,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "FG" = (
 /obj/effect/decal/cleanable/blood/tracks/mapped{
@@ -1544,16 +1489,16 @@
 	pixel_y = 9
 	},
 /obj/effect/spawner/random/dirt/maybe,
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
 	},
 /area/template_noop)
 "FZ" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Ga" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -1565,9 +1510,8 @@
 /obj/machinery/door/airlock/medical,
 /obj/structure/barricade/wooden,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Gi" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -1576,10 +1520,10 @@
 /area/template_noop)
 "Gl" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Gm" = (
 /obj/machinery/light/small,
@@ -1588,20 +1532,20 @@
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "Gq" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Gs" = (
 /obj/item/shard,
 /obj/machinery/light_construct{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Gw" = (
 /obj/effect/decal/cleanable/molten_object/large,
@@ -1617,9 +1561,7 @@
 /area/template_noop)
 "GI" = (
 /mob/living/simple_animal/hostile/syndicate,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "GS" = (
 /obj/effect/spawner/random/blood/often,
@@ -1656,10 +1598,10 @@
 /area/template_noop)
 "HF" = (
 /obj/effect/spawner/random/trash,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "HS" = (
 /obj/effect/fire/mapping,
@@ -1674,10 +1616,10 @@
 /obj/structure/table,
 /obj/item/clothing/glasses/welding,
 /obj/effect/spawner/random/engineering/tools,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Iy" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
@@ -1697,10 +1639,10 @@
 /area/template_noop)
 "IP" = (
 /obj/effect/spawner/random/trash,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Jh" = (
 /obj/item/seeds/apple{
@@ -1712,22 +1654,20 @@
 "Jt" = (
 /obj/machinery/door/airlock/research,
 /obj/effect/mapping_helpers/airlock/access/all/science/research,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
+/obj/effect/turf_decal/tiles/neutral/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Ju" = (
 /obj/effect/spawner/random/blood/often,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "JG" = (
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Ki" = (
 /obj/effect/spawner/random/blood/maybe,
@@ -1747,15 +1687,13 @@
 "Kz" = (
 /obj/effect/spawner/random/storage,
 /obj/effect/spawner/random/engineering/materials,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "KG" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "KM" = (
 /obj/effect/spawner/random/trash,
@@ -1779,24 +1717,21 @@
 /area/template_noop)
 "LR" = (
 /obj/machinery/computer/nonfunctional,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "LV" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/random/dirt/maybe,
 /obj/effect/spawner/random/snacks,
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
 	},
 /area/template_noop)
 "Mc" = (
 /obj/effect/decal/cleanable/molten_object/large,
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
+/obj/effect/turf_decal/tiles/department/cargo/side,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Me" = (
 /obj/machinery/hydroponics/constructable,
@@ -1826,32 +1761,25 @@
 /obj/effect/mob_spawn/human/corpse/random_species/security_officer,
 /turf/template_noop,
 /area/template_noop)
-"Nb" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
-/area/template_noop)
 "Nc" = (
 /obj/effect/mob_spawn/human/corpse/random_species/assistant,
 /obj/effect/spawner/random/blood/often,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Nf" = (
 /obj/machinery/computer/nonfunctional,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Nn" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/spawner/random/cobweb/right/frequent,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "No" = (
 /obj/item/stock_parts/cell,
@@ -1872,16 +1800,15 @@
 /area/template_noop)
 "NI" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "NZ" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Of" = (
 /obj/effect/spawner/random/barrier/grille_maybe,
@@ -1892,9 +1819,7 @@
 	pixel_y = 6;
 	pixel_x = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "Oj" = (
 /turf/simulated/floor/plating/asteroid,
@@ -1923,9 +1848,7 @@
 "OA" = (
 /obj/machinery/suit_storage_unit,
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/wide_room,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "OG" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway,
@@ -1933,9 +1856,7 @@
 /area/template_noop)
 "OI" = (
 /obj/item/stack/ore/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "OM" = (
 /obj/effect/mob_spawn/human/corpse/random_species/scientist,
@@ -1949,9 +1870,8 @@
 "Pb" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
-/turf/simulated/floor/plasteel{
-	icon_state = "yellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Pv" = (
 /obj/effect/spawner/random/trash,
@@ -1971,10 +1891,10 @@
 "Qa" = (
 /obj/structure/sink/directional/north,
 /obj/item/reagent_containers/glass/bucket,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Qi" = (
 /obj/effect/spawner/random/oil/often,
@@ -1997,10 +1917,10 @@
 /turf/simulated/floor/wood,
 /area/template_noop)
 "QG" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "QJ" = (
 /obj/effect/spawner/themed_mess/dirty,
@@ -2021,9 +1941,8 @@
 /area/template_noop)
 "RA" = (
 /obj/structure/showcase/horrific_experiment,
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
+/obj/effect/turf_decal/tiles/department/medical/side,
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "RC" = (
 /obj/machinery/door/firedoor/closed,
@@ -2077,15 +1996,12 @@
 	},
 /obj/effect/spawner/random/engineering/materials,
 /obj/effect/spawner/random/engineering/materials,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
+/obj/effect/turf_decal/tiles/department/science/side,
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "To" = (
 /obj/effect/spawner/themed_mess/engineering,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/template_noop)
 "Tr" = (
 /obj/effect/spawner/random/dirt/maybe,
@@ -2096,10 +2012,10 @@
 /area/template_noop)
 "TC" = (
 /obj/structure/filingcabinet/medical,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "yellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "TG" = (
 /obj/structure/table/flipped,
@@ -2131,10 +2047,10 @@
 /area/space)
 "Uh" = (
 /obj/machinery/alarm/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Uq" = (
 /mob/living/simple_animal/hostile/syndicate,
@@ -2148,33 +2064,33 @@
 "UM" = (
 /obj/structure/table,
 /obj/effect/spawner/random/engineering/toolbox,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "UZ" = (
 /obj/effect/spawner/random/dirt/maybe,
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
 	},
 /area/template_noop)
 "Vi" = (
 /obj/effect/spawner/random/dirt/often,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Vl" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 8
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "VI" = (
 /obj/effect/spawner/random/blood/maybe,
@@ -2193,10 +2109,10 @@
 /area/template_noop)
 "Wh" = (
 /obj/structure/machine_frame,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "WK" = (
 /mob/living/simple_animal/hostile/syndicate/ranged,
@@ -2204,17 +2120,17 @@
 /area/template_noop)
 "WS" = (
 /obj/machinery/mech_bay_recharge_port,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitepurple"
+/obj/effect/turf_decal/tiles/department/science/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "WW" = (
 /obj/effect/spawner/random/dirt/maybe,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
+/obj/effect/turf_decal/tiles/department/virology/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "Xm" = (
 /obj/structure/reagent_dispensers/water_cooler,
@@ -2223,34 +2139,32 @@
 "Xq" = (
 /obj/structure/table,
 /obj/item/stack/medical/bruise_pack,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Xu" = (
 /obj/effect/spawner/random/dirt/maybe,
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
 	},
 /area/template_noop)
 "Xz" = (
 /obj/effect/spawner/random/dirt/maybe,
 /obj/effect/spawner/random/food_trash,
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white{
+	icon_regular_floor = "yellowsiding"
 	},
 /area/template_noop)
 "XV" = (
 /obj/machinery/washing_machine{
 	pixel_y = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "XW" = (
 /obj/structure/bed,
@@ -2276,23 +2190,20 @@
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/engineering,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
+/obj/effect/turf_decal/tiles/neutral/side,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "YN" = (
 /obj/effect/spawner/themed_mess/robotic,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "YP" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/obj/effect/turf_decal/tiles/department/medical/side{
+	dir = 4
 	},
+/turf/simulated/floor/plasteel/white,
 /area/template_noop)
 "Zf" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/ruin/sieged_lab/vert_hallway,
@@ -2330,9 +2241,8 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/random/blood/maybe,
 /obj/effect/spawner/random/trash,
-/turf/simulated/floor/plasteel{
-	icon_state = "green"
-	},
+/obj/effect/turf_decal/tiles/department/virology/side,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "ZN" = (
 /obj/effect/spawner/random/bureaucracy,
@@ -2341,10 +2251,10 @@
 /area/template_noop)
 "ZV" = (
 /obj/effect/spawner/random/dirt/maybe,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
+/obj/effect/turf_decal/tiles/department/cargo/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -4924,9 +4834,9 @@ nK
 (40,1,1) = {"
 nK
 nK
-Nb
-Nb
-Nb
+pi
+pi
+pi
 nK
 nK
 nK
@@ -5387,7 +5297,7 @@ nK
 bo
 nK
 dA
-Nb
+pi
 XV
 nK
 bo

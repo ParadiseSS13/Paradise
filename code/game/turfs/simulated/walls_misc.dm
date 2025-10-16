@@ -1,11 +1,11 @@
 /turf/simulated/wall/cult
 	name = "runed metal wall"
 	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound."
-	icon = 'icons/turf/walls/cult_wall.dmi'
+	icon = 'icons/turf/walls/32x40cult_wall.dmi'
 	icon_state = "cult_wall-0"
 	base_icon_state = "cult_wall"
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_CULT_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
@@ -41,7 +41,7 @@
 /turf/simulated/wall/clockwork
 	name = "clockwork wall"
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within."
-	icon = 'icons/turf/walls/clockwork_wall.dmi'
+	icon = 'icons/turf/walls/32x40clockwork_wall.dmi'
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
 	explosion_block = 2
@@ -51,16 +51,14 @@
 	girder_type = /obj/structure/clockwork/wall_gear
 	var/heated
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BRASS_WALL)
-	canSmoothWith = list(SMOOTH_GROUP_BRASS_WALL)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_BRASS_WALL)
 
 /turf/simulated/wall/clockwork/Initialize(mapload)
 	. = ..()
-	new /obj/effect/temp_visual/ratvar/wall(src)
 	new /obj/effect/temp_visual/ratvar/beam(src)
 
 /turf/simulated/wall/clockwork/bullet_act(obj/item/projectile/Proj)
 	. = ..()
-	new /obj/effect/temp_visual/ratvar/wall(get_turf(src))
 	new /obj/effect/temp_visual/ratvar/beam(get_turf(src))
 
 /turf/simulated/wall/clockwork/narsie_act()
@@ -95,7 +93,7 @@
 /turf/simulated/wall/boss
 	name = "ancient wall"
 	desc = "A thick metal wall, it look very old."
-	icon = 'icons/turf/walls/boss_wall.dmi'
+	icon = 'icons/turf/walls/32x40boss_wall.dmi'
 	icon_state = "boss_wall-0"
 	base_icon_state = "boss_wall"
 	baseturf = /turf/simulated/floor/lava/mapping_lava
@@ -105,7 +103,7 @@
 	heat_resistance = 20000
 	can_dismantle_with_welder = FALSE
 	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BOSS_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_BOSS_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_BOSS_WALLS)
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
