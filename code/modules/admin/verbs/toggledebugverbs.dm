@@ -1,32 +1,9 @@
-GLOBAL_LIST_INIT(admin_verbs_show_debug_verbs, list(
-	/client/proc/camera_view,
-	/client/proc/sec_camera_report,
-	/client/proc/intercom_view,
-	/client/proc/Cell, //More air things
-	/client/proc/atmosscan, //check plumbing
-	/client/proc/powerdebug, //check power
-	/client/proc/count_objects_on_z_level,
-	/client/proc/count_objects_all,
-	/client/proc/cmd_assume_direct_control,
-	/client/proc/startSinglo,
-	/client/proc/cmd_admin_grantfullaccess,
-	/client/proc/cmd_admin_areatest,
-	/client/proc/cmd_admin_rejuvenate,
-	/datum/admins/proc/show_traitor_panel,
-	/client/proc/forceEvent,
-	/client/proc/admin_redo_space_transitions,
-	/client/proc/make_turf_space_map,
-	/client/proc/cmd_clean_radiation,
-))
-
 // Would be nice to make this a permanent admin pref so we don't need to click it each time
-/client/proc/enable_debug_verbs()
-	set category = "Debug"
-	set name = "Debug verbs"
+ADMIN_VERB(enable_debug_verbs, R_DEBUG, "Debug verbs", "Enable all debug verbs.", VERB_CATEGORY_DEBUG)
+	SSadmin_verbs.update_visibility_flag(user, VERB_VISIBILITY_FLAG_MOREDEBUG, TRUE)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-	if(!check_rights(R_DEBUG))
-		return
-
-	add_verb(src, GLOB.admin_verbs_show_debug_verbs)
-
+ADMIN_VERB_VISIBILITY(disable_debug_verbs, VERB_VISIBILITY_FLAG_MOREDEBUG)
+ADMIN_VERB(disable_debug_verbs, R_DEBUG, "Debug verbs", "Disable all debug verbs.", VERB_CATEGORY_DEBUG)
+	SSadmin_verbs.update_visibility_flag(user, VERB_VISIBILITY_FLAG_MOREDEBUG, FALSE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

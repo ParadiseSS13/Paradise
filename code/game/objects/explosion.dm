@@ -212,12 +212,9 @@
 	for(var/turf/tile in spiral_range_turfs(range, epicenter))
 		tile.ex_act(EXPLODE_HEAVY)
 
-/client/proc/check_bomb_impacts()
-	set name = "Check Bomb Impact"
-	set category = "Debug"
-
+ADMIN_VERB(check_bomb_impact, R_DEBUG, "Check Bomb Impact", "Test bomb impact ranges.", VERB_CATEGORY_DEBUG)
 	var/newmode = alert("Use reactionary explosions?","Check Bomb Impact", "Yes", "No")
-	var/turf/epicenter = get_turf(mob)
+	var/turf/epicenter = get_turf(user.mob)
 	if(!epicenter)
 		return
 
