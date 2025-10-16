@@ -7,10 +7,10 @@
 	icon_dead = "swarmer_unactivated"
 	bubble_icon = "swarmer"
 	mob_biotypes = MOB_ROBOTIC
-	health = 70
-	maxHealth = 70
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	health = 50
+	maxHealth = 50
+	melee_damage_lower = 6
+	melee_damage_upper = 10
 	melee_damage_type = BURN
 	melee_attack_cooldown_min = 1.5 SECONDS
 	melee_attack_cooldown_max = 2.5 SECONDS
@@ -50,7 +50,7 @@
 	updatename()
 
 /mob/living/basic/swarmer/proc/updatename()
-	real_name = "Swarmer [rand(100,999)]-[pick("kappa","sigma","beta","omicron","iota","epsilon","omega","gamma","delta","tau","alpha")]"
+	real_name = "Swarmer [rand(100,999)]-[pick("kappa", "sigma", "beta", "omicron", "iota", "epsilon", "omega", "gamma", "delta", "tau", "alpha")]"
 	name = real_name
 
 /mob/living/basic/swarmer/get_status_tab_items()
@@ -163,18 +163,27 @@
 	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
 	do_teleport(target, F, 0)
 
-
 /mob/living/basic/swarmer/proc/spacecheck(atom/target)
-	var/isonshuttle = istype(loc, /area/shuttle)
 	for(var/turf/T in range(1, target))
 		var/area/A = get_area(T)
-		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
+		if(isspaceturf(T) || istype(A, /area/shuttle) || istype(A, /area/space))
 			to_chat(src, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			return TRUE
 		else if(istype(A, /area/station/engineering/engine/supermatter))
 			to_chat(src, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
 			return TRUE
 	return FALSE
+
+/mob/living/basic/swarmer/lesser
+	name = "lesser swarmer"
+	desc = "Robotic constructs of unknown design, swarmers seek only to consume materials and replicate themselves indefinitely. This one is more fragile."
+	health = 35
+	maxHealth = 35
+	ai_controller = /datum/ai_controller/basic_controller/swarmer/lesser
+
+/mob/living/basic/swarmer/lesser/updatename()
+	real_name = "Lesser Swarmer [rand(100,999)]-[pick("kappa", "sigma", "beta", "omicron", "iota", "epsilon", "omega", "gamma", "delta", "tau", "alpha")]"
+	name = real_name
 
 /obj/structure/swarmer // Default swarmer effect object visual feedback
 	name = "swarmer ui"
@@ -211,15 +220,24 @@
 	icon_state = "trap"
 	max_integrity = 10
 
-/obj/structure/swarmer/trap/Crossed(atom/movable/AM, oldloc)
-	if(isliving(AM))
-		var/mob/living/L = AM
-		if(!istype(L, /mob/living/basic/swarmer))
-			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
-			L.electrocute_act(100, src, 1, flags = SHOCK_NOGLOVES | SHOCK_ILLUSION)
-			L.Weaken(10 SECONDS)
-			qdel(src)
-	..()
+/obj/structure/swarmer/trap/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/swarmer/trap/proc/on_atom_entered(datum/source, atom/movable/entered)
+	SIGNAL_HANDLER // COMSIG_ATOM_ENTERED
+	if(!isliving(entered))
+		return
+	var/mob/living/L = entered
+	if(istype(L, /mob/living/basic/swarmer))
+		return
+	playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
+	L.electrocute_act(100, src, 1, flags = SHOCK_NOGLOVES | SHOCK_ILLUSION)
+	L.Weaken(10 SECONDS)
+	qdel(src)
 
 /obj/structure/swarmer/blockade
 	name = "swarmer blockade"
