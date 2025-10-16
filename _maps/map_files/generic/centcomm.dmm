@@ -1177,12 +1177,6 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_basketball)
-"em" = (
-/turf/simulated/floor/holofloor{
-	icon_state = "sand";
-	name = "Soft sand"
-	},
-/area/holodeck/source_beach)
 "en" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/candle/eternal/wizard{
@@ -10269,9 +10263,7 @@
 /obj/structure/holowindow{
 	dir = 1
 	},
-/turf/simulated/floor/holofloor{
-	icon_state = "asteroid7"
-	},
+/turf/simulated/floor/holofloor,
 /area/holodeck/source_knightarena)
 "IF" = (
 /obj/structure/flora/ausbushes/ppflowers,
@@ -13813,9 +13805,7 @@
 /area/centcom/specops)
 "TQ" = (
 /obj/structure/holowindow,
-/turf/simulated/floor/holofloor{
-	icon_state = "asteroid7"
-	},
+/turf/simulated/floor/holofloor,
 /area/holodeck/source_knightarena)
 "TR" = (
 /obj/machinery/door/airlock/centcom{
@@ -14458,9 +14448,7 @@
 	},
 /area/centcom/specops)
 "VZ" = (
-/turf/simulated/floor/holofloor{
-	icon_state = "asteroid7"
-	},
+/turf/simulated/floor/holofloor,
 /area/holodeck/source_knightarena)
 "Wa" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -76711,7 +76699,7 @@ ev
 ev
 ev
 ev
-em
+ev
 Zv
 Yp
 cc
@@ -76968,7 +76956,7 @@ ev
 QV
 ev
 ev
-em
+ev
 Zv
 Yp
 cc
@@ -77225,7 +77213,7 @@ ev
 ev
 ev
 ev
-em
+ev
 Zv
 Yp
 cc
@@ -77482,7 +77470,7 @@ ev
 ev
 gr
 ev
-em
+ev
 Zv
 Yp
 cc
@@ -77739,7 +77727,7 @@ ev
 ev
 ev
 ev
-em
+ev
 Zv
 Yp
 cc
