@@ -5,7 +5,7 @@
 	language = "Skkula-Runespeak"
 
 	blurb = "The Skkulakin are a species of psionically-attuned furred arthropods hailing from the Western Orion Spur. \
-	Originating from the world Votum-Accorium, an artic world ruled by the brutal theocratic government known as the Silver Collective.<br/><br/> \
+	Originating from the planet Votum-Accorium, an artic world ruled by the brutal theocratic government known as the Silver Collective.<br/><br/> \
 	Despite owning a large amount of territory in the western arm of the sector, the lack of plasma of which their empire relies on is being stretched thin. \
 	This has forced the once-proud species to branch out and desperate seek out a solution to their critical shortage."
 	unarmed_type = /datum/unarmed_attack/claws
@@ -33,4 +33,3 @@
 		"is holding their breath!")
 
 	flesh_color = "#d3d3d3"
-

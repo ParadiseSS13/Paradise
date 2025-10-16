@@ -526,6 +526,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 //Updates brute_damn and burn_damn from wound damages. Updates BLEEDING status.
 /obj/item/organ/external/proc/check_fracture(damage_inflicted)
 	if(GLOB.configuration.general.breakable_bones && brute_dam > min_broken_damage && !is_robotic())
+		if(dna && dna.species && istype(dna.species, /datum/species/skulk)) //checks to see if character is a skkulakin and causes increased bone damage
+			damage_inflicted *= 1.2
 		if(prob(damage_inflicted))
 			fracture()
 
