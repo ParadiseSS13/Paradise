@@ -1,3 +1,6 @@
+/// Global associated list, index is the name of the recipe, key is the typepath
+GLOBAL_LIST_EMPTY(refinery_recipes)
+
 /obj/machinery/fluid_pipe/plasma_refinery
 	name = "Plasma Refinery"
 	desc = "Turns crude plasma into refined plasma. Can accept a combination of chemicals to improve purity."
@@ -46,10 +49,17 @@
 
 /obj/machinery/fluid_pipe/plasma_refinery/examine(mob/user)
 	. = ..()
-	if(selected_recipe)
-		. += "[src] currently has [selected_recipe.type] selected."
-	else
+	if(!selected_recipe)
 		. += "No recipe is currently selected."
+		return
+
+	. += "Current recipe: [selected_recipe.name]."
+	. += "Required fluids:"
+	if(!length(GLOB.fluid_id_to_path))
+		SSfluid.setup_globals()
+	for(var/fluid as anything in selected_recipe.input)
+		var/datum/fluid/path = GLOB.fluid_id_to_path[fluid]
+		. += "[initial(path.fluid_name)], [selected_recipe.input[fluid]]"
 
 /obj/machinery/fluid_pipe/plasma_refinery/update_icon_state()
 	return
@@ -82,10 +92,38 @@
 
 	intake = new(get_step(src, REVERSE_DIR(dir)), src, dir)
 
+/obj/machinery/fluid_pipe/plasma_refinery/wrench_act(mob/living/user, obj/item/I)
+	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
+	if(!do_after(user, 3 SECONDS * I.toolspeed, TRUE, src))
+		to_chat(user, "You stop.") // DGTODO: add span classes + message
+		return
+
+	if(!anchored)
+		anchored = TRUE
+		make_intakes()
+		blind_connect()
+	else
+		// DGTODO: add item pipe here and make a new one // Maybe just keep an unwrenched version?
+		anchored = FALSE
+		DeleteComponent(/datum/component/multitile)
+		qdel(intake)
+
 /obj/machinery/fluid_pipe/plasma_refinery/attack_hand(mob/user)
-	var/recipe = tgui_input_list(user, "What recipe do you want to select?", "Refinery", subtypesof(/datum/refinery_recipe))
+	if(!anchored)
+		if(dir == EAST)
+			dir = WEST
+		else
+			dir = EAST
+		return
+
+	if(!length(GLOB.refinery_recipes))
+		for(var/datum/refinery_recipe/recipe as anything in subtypesof(/datum/refinery_recipe))
+			GLOB.refinery_recipes[initial(recipe.name)] = recipe
+
+	var/datum/refinery_recipe/recipe = tgui_input_list(user, "What recipe do you want to select?", "Refinery", GLOB.refinery_recipes)
 	if(!recipe)
 		return TRUE
+	recipe = GLOB.refinery_recipes[recipe]
 	selected_recipe = new recipe
 
 /obj/machinery/fluid_pipe/plasma_refinery/process()

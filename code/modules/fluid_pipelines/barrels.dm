@@ -80,6 +80,8 @@
 		. += "active"
 
 /obj/machinery/fluid_pipe/barrel_filler/attack_hand(mob/user)
+	if(!length(GLOB.fluid_name_to_path))
+		SSfluid.setup_globals()
 	var/datum/fluid/liquid = tgui_input_list(user, "What liquid do you want to pump in the barrel?", "Barrel filler", GLOB.fluid_name_to_path)
 	if(!liquid)
 		return FALSE

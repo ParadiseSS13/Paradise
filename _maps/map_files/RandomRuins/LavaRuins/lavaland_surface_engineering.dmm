@@ -1,4 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"am" = (
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/obj/effect/map_effect/dynamic_airlock,
+/turf/simulated/floor/catwalk,
+/area/engi_outpost/airlock)
 "aq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -83,6 +91,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -132,6 +141,15 @@
 	icon_state = "dark"
 	},
 /area/engi_outpost/electrical)
+"dd" = (
+/obj/machinery/door/airlock/external/glass{
+	heat_proof = 1
+	},
+/obj/effect/map_effect/dynamic_airlock/door/interior,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/airlock)
 "dn" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -237,6 +255,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -254,6 +273,21 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/engineering)
+"gg" = (
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/engi_outpost/airlock)
+"gm" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/airlock)
 "gO" = (
 /obj/machinery/door/airlock/engineering/glass,
 /obj/structure/cable{
@@ -335,13 +369,20 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "iq" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/engi_outpost/electrical)
 "ir" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	name = "Main Airlock";
+/obj/machinery/door/airlock/external/glass{
+	heat_proof = 1
+	},
+/obj/effect/map_effect/dynamic_airlock/door/interior,
+/obj/machinery/access_button/offset/south,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -491,7 +532,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/machinery/light/floor,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
 	initialize_directions = 11
@@ -527,6 +567,9 @@
 /area/engi_outpost/breakroom)
 "mI" = (
 /obj/effect/baseturf_helper/lava_land,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -682,6 +725,7 @@
 /area/engi_outpost/breakroom)
 "qU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -700,6 +744,15 @@
 	icon_state = "dark"
 	},
 /area/engi_outpost/breakroom)
+"rb" = (
+/obj/machinery/airlock_controller/air_cycler/directional/north,
+/obj/effect/map_effect/dynamic_airlock,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/engi_outpost/airlock)
 "rp" = (
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plasteel{
@@ -775,14 +828,12 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "sQ" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	name = "Main Airlock";
-	dir = 4
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/obj/machinery/door/airlock/survival_pod{
+	heat_proof = 1
 	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/machinery/access_button/offset/south,
+/turf/simulated/floor/catwalk,
 /area/engi_outpost/airlock)
 "tl" = (
 /obj/structure/chair/comfy/shuttle{
@@ -792,6 +843,13 @@
 /area/shuttle/engineering)
 "tt" = (
 /turf/simulated/wall,
+/area/engi_outpost/airlock)
+"tw" = (
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 9
+	},
+/turf/simulated/floor/catwalk,
 /area/engi_outpost/airlock)
 "tK" = (
 /obj/structure/lattice/catwalk/mining,
@@ -881,6 +939,14 @@
 	icon_state = "dark"
 	},
 /area/engi_outpost/shuttle_landing_post)
+"vB" = (
+/obj/structure/closet/walllocker/emerglocker/directional/south,
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/engi_outpost/airlock)
 "vG" = (
 /obj/structure/table,
 /obj/item/storage/box/cups,
@@ -889,15 +955,26 @@
 	},
 /area/engi_outpost/breakroom)
 "vL" = (
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/obj/machinery/door/airlock/survival_pod{
+	heat_proof = 1
 	},
+/obj/machinery/access_button/offset/east,
+/turf/simulated/floor/catwalk,
 /area/engi_outpost/airlock)
 "vU" = (
 /obj/effect/baseturf_helper/lava_land,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/engineering)
+"vZ" = (
+/obj/effect/baseturf_helper/lava_land,
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/engi_outpost/airlock)
 "wg" = (
 /obj/structure/railing{
 	dir = 4
@@ -936,6 +1013,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -951,6 +1029,14 @@
 	icon_state = "dark"
 	},
 /area/engi_outpost/breakroom)
+"xu" = (
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 4
+	},
+/turf/simulated/floor/catwalk,
+/area/engi_outpost/airlock)
 "xI" = (
 /obj/structure/railing{
 	dir = 6
@@ -1108,6 +1194,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1148,6 +1237,14 @@
 /area/engi_outpost/vacant_room)
 "EE" = (
 /turf/simulated/wall/r_wall,
+/area/engi_outpost/airlock)
+"EI" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/engi_outpost/airlock)
 "Fk" = (
 /obj/structure/closet/firecloset,
@@ -1201,7 +1298,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/obj/machinery/light/floor,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
@@ -1285,6 +1381,18 @@
 	icon_state = "dark"
 	},
 /area/engi_outpost/shuttle_landing_post)
+"IN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/airlock)
+"Jz" = (
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/airlock)
 "JI" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -1373,6 +1481,7 @@
 /area/engi_outpost/shuttle_landing_post)
 "Mr" = (
 /obj/machinery/firealarm/directional/north,
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1461,6 +1570,9 @@
 	dir = 9
 	},
 /obj/structure/window/plasmareinforced,
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
 /turf/simulated/floor/transparent/glass/plasma,
 /area/engi_outpost/bridges)
 "OZ" = (
@@ -1510,6 +1622,15 @@
 	icon_state = "dark"
 	},
 /area/engi_outpost/vacant_room)
+"PZ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/item/beacon,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
 "Qg" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1582,9 +1703,14 @@
 	network = list("Engineering Outpost")
 	},
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/atmospherics/pipe/manifold/visible,
+/turf/simulated/floor/catwalk,
+/area/engi_outpost/airlock)
+"RP" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/machinery/light,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/engi_outpost/airlock)
 "RW" = (
 /obj/structure/lattice/catwalk/mining,
@@ -1662,13 +1788,11 @@
 	},
 /area/engi_outpost/breakroom)
 "TE" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	name = "Main Airlock"
+/obj/effect/map_effect/dynamic_airlock/door/exterior,
+/obj/machinery/door/airlock/survival_pod{
+	heat_proof = 1
 	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/catwalk,
 /area/engi_outpost/airlock)
 "TF" = (
 /obj/docking_port/stationary{
@@ -1790,6 +1914,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/atmospherics/portable/canister/toxins,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1870,10 +1998,20 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/engi_outpost/electrical)
+"Zp" = (
+/obj/effect/map_effect/dynamic_airlock,
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging{
+	dir = 10
+	},
+/turf/simulated/floor/catwalk,
+/area/engi_outpost/airlock)
 "Zt" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -2614,7 +2752,7 @@ oM
 oM
 oM
 oM
-Fn
+PZ
 oM
 oM
 oM
@@ -3346,10 +3484,10 @@ Ui
 id
 EE
 nr
-UH
-UH
+EI
+Jz
 mI
-UH
+IN
 wP
 qU
 bF
@@ -3387,7 +3525,7 @@ Ui
 id
 EE
 qt
-UH
+gm
 UH
 UH
 UH
@@ -3427,7 +3565,7 @@ Ui
 Ui
 id
 EE
-UH
+dd
 ir
 tt
 tt
@@ -3466,11 +3604,11 @@ KE
 KE
 Ui
 Ui
-Oe
+RP
 EE
-UH
-UH
-UH
+rb
+gg
+vB
 tt
 UH
 oL
@@ -3509,8 +3647,8 @@ Ui
 Ui
 Oe
 TE
-UH
-mI
+xu
+vZ
 Rp
 tt
 UH
@@ -3550,9 +3688,9 @@ Ui
 Ui
 Ui
 vL
-UH
-UH
-UH
+Zp
+tw
+am
 tt
 Fk
 UH
@@ -3591,7 +3729,7 @@ Ui
 Ui
 Ui
 EE
-vL
+TE
 sQ
 EE
 EE

@@ -24,12 +24,6 @@
 	fuel_value = 1 // Doesn't actually make the shuttle faster than default
 
 /datum/fluid/fuel
-	fluid_id = "fuel"
-	// This is intended as a basetype
-	fuel_value = 3
-	barrel_state = "fuel"
-
-/datum/fluid/fuel/basic
 	fluid_name = "basic fuel"
 	fluid_id = "b_fuel"
 	fuel_value = 2
@@ -59,7 +53,7 @@
 // MURICA DETECTED
 // Basic oil, is unrefined
 /datum/fluid/oil
-	fluid_name = "unr_oil"
+	fluid_name = "unrefined oil"
 	fluid_id = "oil"
 	barrel_state = "oil"
 

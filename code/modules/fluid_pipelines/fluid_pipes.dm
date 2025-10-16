@@ -141,7 +141,7 @@
 
 /obj/machinery/fluid_pipe/wrench_act(mob/living/user, obj/item/I)
 	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
-	if(!do_after(user, 3 SECONDS, TRUE, src))
+	if(!do_after(user, 3 SECONDS * I.toolspeed, TRUE, src))
 		to_chat(user, "You stop.") // DGTODO: add span classes + message
 		return
 
@@ -158,6 +158,10 @@
 
 /// Basic icon state handling for pipes, will automatically connect to adjacent pipes, no hassle needed
 /obj/machinery/fluid_pipe/update_icon_state()
+	if(!anchored)
+		icon_state = initial(icon_state)
+		return
+
 	var/temp_state = "pipe"
 	for(var/obj/machinery/fluid_pipe/pipe as anything in get_adjacent_pipes())
 		temp_state += "_[get_dir(src, pipe)]"
