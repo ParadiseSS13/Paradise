@@ -10,22 +10,18 @@
 	var/spaceable = FALSE
 
 /datum/ai_behavior/find_hunt_target/walls/valid_dinner(mob/living/source, atom/dinner, radius)
-	var/list/targets = can_see(source, dinner, radius)
-	var/list/filtered = list()
-	for(var/atom/target in targets)
-		if(!iswallturf(target) && !istype(target, /obj/structure))
-			continue
-		if(istype(target, /turf/simulated/wall/indestructible))
-			continue
-		if(spaceable)
-			filtered += target
-			continue
-		var/passed = TRUE
-		for(var/turf/T in range(1, target))
-			var/area/A = get_area(T)
-			if(isspaceturf(T) || istype(A, /area/shuttle) || istype(A, /area/space) || istype(A, /area/station/engineering/engine/supermatter))
-				passed = FALSE
-				break
-		if(passed)
-			filtered += target
-	return filtered
+	if(!iswallturf(dinner) && !istype(dinner, /obj/structure))
+		return FALSE
+	if(is_type_in_list(dinner, GLOB.swarmer_blacklist))
+		return FALSE
+	if(spaceable)
+		return TRUE
+	for(var/turf/T in range(1, dinner))
+		var/area/A = get_area(T)
+		if(isspaceturf(T) || istype(A, /area/shuttle) || istype(A, /area/space) || istype(A, /area/station/engineering/engine/supermatter))
+			return FALSE
+	return TRUE
+
+/datum/ai_behavior/find_hunt_target/walls/spaceable
+	/// Do we allow it to find spaceable walls and windows?
+	spaceable = TRUE

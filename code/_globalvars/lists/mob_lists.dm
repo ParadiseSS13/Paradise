@@ -38,6 +38,35 @@ GLOBAL_LIST_EMPTY(hear_radio_list)			//Mobs that hear the radio even if there's 
 GLOBAL_LIST_EMPTY(emote_list)
 
 GLOBAL_LIST_EMPTY(swarmer_list) 			// List of mobs disintegrated by swarmers - don't disintegrate them again.
+/// Blacklist of types that swarmers should not touch
+GLOBAL_LIST_INIT(swarmer_blacklist, list(
+	/obj/item/gun,
+	/turf/simulated/floor,
+	/obj/structure/swarmer,
+	/obj/structure/flora,
+	/turf/simulated/wall/indestructible,
+	/obj/machinery/atmospherics,
+	/obj/structure/particle_accelerator,
+	/obj/machinery/field/generator,
+	/obj/machinery/chem_dispenser,
+	/obj/machinery/nuclearbomb,
+	/obj/structure/reagent_dispensers/fueltank,
+	/obj/structure/cable,
+	/obj/structure/fans/tiny,
+	/obj/structure/holosign/barrier/atmos,
+	/obj/machinery/tcomms,
+	/obj/machinery/message_server,
+	/obj/machinery/blackbox_recorder,
+	/obj/machinery/power,
+	/obj/machinery/cryopod,
+	/obj/machinery/computer/cryopod,
+	/obj/machinery/porta_turret,
+	/obj/machinery/clonepod,
+	/obj/structure/shuttle/engine,
+	/obj/machinery/hydroponics/soil,
+	/obj/machinery/field/containment,
+	/obj/machinery/gravity_generator,
+))
 
 // Dear God
 GLOBAL_LIST_INIT(migo_sounds, list(

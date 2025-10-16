@@ -1,3 +1,6 @@
+// =====================
+// MARK: Swarmer
+// =====================
 /mob/living/basic/swarmer
 	name = "swarmer"
 	desc = "Robotic constructs of unknown design, swarmers seek only to consume materials and replicate themselves indefinitely."
@@ -66,6 +69,10 @@
 
 /mob/living/basic/swarmer/melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	face_atom(target)
+	if(is_type_in_list(target, GLOB.swarmer_blacklist))
+		to_chat(src, "<span class='warning'>Our sensors have designated this object important to station functionality or to our mission. Aborting.</span>")
+		ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
+		return FALSE
 	if(iswallturf(target))
 		disintegrate_wall(target)
 		return FALSE
@@ -77,6 +84,10 @@
 		return FALSE
 	if(isliving(target))
 		var/mob/living/L = target
+		if(istype(L, /mob/living/basic/swarmer))
+			to_chat(src, "<span class='warning'>We do not wish to harm one of our own. Aborting.</span>")
+			ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
+			return FALSE
 		if(L.stat == DEAD)
 			disintegrate_mob(target)
 			return FALSE
@@ -95,6 +106,7 @@
 				disintegrate_mob(target)
 				return FALSE
 			// It's stunned, cuffed, but already nabbed? Make it go away.
+			to_chat(src, "<span class='warning'>Our sensors have already scanned this entity. Relocating.</span>")
 			disappear_mob(target)
 			return FALSE
 		if(issilicon(target))
@@ -112,7 +124,8 @@
 		return
 
 	new /obj/effect/temp_visual/swarmer/disintegration(target.loc)
-	if(!do_after_once(src, 1 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating the wall."))
+	to_chat(src, "<span class='notice'>Beginning disintegration of [target].")
+	if(!do_after_once(src, 1 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating [target]."))
 		return
 	resources += 8
 	target.Destroy()
@@ -123,7 +136,8 @@
 			return
 
 	new /obj/effect/temp_visual/swarmer/dismantle(target.loc)
-	if(!do_after_once(src, 2.5 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating the machine."))
+	to_chat(src, "<span class='notice'>Beginning disintegration of [target].")
+	if(!do_after_once(src, 2.5 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating [target]."))
 		return
 	resources += 10
 	target.Destroy()
@@ -135,9 +149,13 @@
 
 /mob/living/basic/swarmer/proc/disintegrate_mob(mob/living/target)
 	new /obj/effect/temp_visual/swarmer/integrate(target.loc)
-	if(!do_after_once(src, 5 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating the mob."))
+	to_chat(src, "<span class='notice'>Beginning integration of [target].")
+	if(!do_after_once(src, 5 SECONDS, target = target, attempt_cancel_message = "You stop integrating [target]."))
 		return
 	resources += 50
+	if(isanimal_or_basicmob(target))
+		target.gib()
+		return
 	target.apply_damage(150, BRUTE)
 	target.apply_damage(150, BURN)
 	GLOB.swarmer_list += target
@@ -148,7 +166,6 @@
 		return
 
 	to_chat(src, "<span class='info'>Attempting to remove this being from our presence.</span>")
-
 	if(!do_mob(src, target, 3 SECONDS))
 		return
 
@@ -174,6 +191,10 @@
 			return TRUE
 	return FALSE
 
+// =====================
+// MARK: Lesser Swarmer
+// =====================
+
 /mob/living/basic/swarmer/lesser
 	name = "lesser swarmer"
 	desc = "Robotic constructs of unknown design, swarmers seek only to consume materials and replicate themselves indefinitely. This one is more fragile."
@@ -184,6 +205,10 @@
 /mob/living/basic/swarmer/lesser/updatename()
 	real_name = "Lesser Swarmer [rand(100,999)]-[pick("kappa", "sigma", "beta", "omicron", "iota", "epsilon", "omega", "gamma", "delta", "tau", "alpha")]"
 	name = real_name
+
+// =====================
+// MARK: Swarmer Structures
+// =====================
 
 /obj/structure/swarmer // Default swarmer effect object visual feedback
 	name = "swarmer ui"

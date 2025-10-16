@@ -10,23 +10,19 @@
 	var/spaceable = FALSE
 
 /datum/ai_behavior/find_hunt_target/machines/valid_dinner(mob/living/source, obj/machinery/dinner, radius)
-	var/list/targets = can_see(source, dinner, radius)
+	if(!ismachinery(dinner))
+		return FALSE
+	if(is_type_in_list(dinner, GLOB.swarmer_blacklist))
+		return FALSE
 	if(spaceable)
-		return targets
-	var/list/filtered = list()
-	for(var/atom/target in targets)
-		if(!istype(target, /obj/machinery/door))
-			filtered += target
-			continue
-		var/passed = TRUE
-		for(var/turf/T in range(1, target))
-			var/area/A = get_area(T)
-			if(isspaceturf(T) || istype(A, /area/shuttle) || istype(A, /area/space) || istype(A, /area/station/engineering/engine/supermatter))
-				passed = FALSE
-				break
-		if(passed)
-			filtered += target
-	return filtered
+		return TRUE
+	if(!istype(dinner, /obj/machinery/door))
+		return TRUE
+	for(var/turf/T in range(1, dinner))
+		var/area/A = get_area(T)
+		if(isspaceturf(T) || istype(A, /area/shuttle) || istype(A, /area/space) || istype(A, /area/station/engineering/engine/supermatter))
+			return FALSE
+	return TRUE
 
 /datum/ai_behavior/find_hunt_target/machines/spaceable
 	spaceable = TRUE
