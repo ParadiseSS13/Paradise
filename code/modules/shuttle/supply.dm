@@ -54,6 +54,9 @@
 	// The item preventing this shuttle from going to CC.
 	var/blocking_item = "ERR_UNKNOWN"
 
+	/// Our external fuel tank
+	var/datum/fluid_pipe/fuel_tank
+
 /obj/docking_port/mobile/supply/Initialize(mapload)
 	. = ..()
 	for(var/T in subtypesof(/datum/economy/simple_seller))
@@ -76,6 +79,39 @@
 	if(mode != SHUTTLE_IDLE)
 		return 2
 	return ..()
+
+// Literally exactly the same EXCEPT for the `SHUTTLE_IGNITING` part
+/obj/docking_port/mobile/supply/check()
+	check_effects()
+
+	if(mode == SHUTTLE_IGNITING)
+		check_transit_zone()
+
+	var/timeLeft = timeLeft(1)
+
+	if(timeLeft <= 0)
+		switch(mode)
+			if(SHUTTLE_CALL)
+				if(dock(destination))
+					setTimer(20)	//can't dock for some reason, try again in 2 seconds
+					return
+			if(SHUTTLE_RECALL)
+				if(dock(previous))
+					setTimer(20)	//can't dock for some reason, try again in 2 seconds
+					return
+			if(SHUTTLE_IGNITING)
+				if(!check_transit_zone())
+					setTimer(20)
+					return
+				mode = SHUTTLE_CALL
+				if(!fuel_tank?.remove_fluid())
+
+				setTimer(callTime)
+				enterTransit()
+				return
+		mode = SHUTTLE_IDLE
+		timer = 0
+		destination = null
 
 /obj/docking_port/mobile/supply/dock(obj/docking_port/stationary/port)
 	. = ..()

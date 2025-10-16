@@ -3,8 +3,8 @@
 #define STATE_OUTPUT	2
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank
-	name = "Shuttle Plasma Tank"
-	desc = "Used to fuel the cargo shuttle."
+	name = "shuttle fuel tank"
+	desc = "Used to fuel the cargo shuttle. Can only contain one type of fuel, and has an internal storage of 5000 units."
 	icon = 'icons/obj/pipes/shuttleintake_east.dmi'
 	icon_state = "intake"
 	dir = EAST
@@ -17,8 +17,8 @@
 	var/datum/fluid_pipe/tank
 	/// What fuel do we have in the tank?
 	var/datum/fluid/current_fuel
-	/// Units moved per 0.5 seconds. Base is 50/s
-	var/amount_moved = 25
+	/// Units moved per 0.5 seconds. Base is 100/s
+	var/amount_moved = 50
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/west
 	icon = 'icons/obj/pipes/shuttleintake_west.dmi'
@@ -27,15 +27,15 @@
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/Initialize(mapload)
 	tank = new(src, 5000)
+	SSshuttle.supply.fuel_tank = tank
+	tank.add_fluid(/datum/fluid/fuel/turbo, 2000)
 	return ..()
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/examine(mob/user)
 	. = ..()
-	/*
-	. += "<span class='notice'>It is [full_percent]% full.</span>"
-	if(purity >= 34)
-		. += "<span class='warning'>It looks volatile.</span>"
-*/
+	. += "<span class='notice'>It is [(tank.get_fluid_volumes() / tank.total_capacity) * 100]% full.</span>"
+	if(current_fuel)
+		. += "The current fuel is [initial(current_fuel.fluid_name)]."
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/update_icon_state()
 	return
@@ -65,12 +65,10 @@
 			return
 		fluid_datum.move_fluid(current_fuel, tank, amount_moved)
 	if(state == STATE_OUTPUT)
+		var/amount = clamp(amount_moved, fluid_datum.get_empty_space())
 		tank.move_any_fluid(fluid_datum)
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/attack_hand(mob/user)
-	if(..())
-		return TRUE
-
 	var/decision = tgui_alert(user, "Do you want to add fluids or retrieve them?", "Shuttle fuel tank", list("Add", "Retrieval", "Idle"))
 	switch(decision)
 		if("Add")
@@ -79,6 +77,16 @@
 			state = STATE_OUTPUT
 		if("Idle")
 			state = STATE_IDLE
+
+/obj/machinery/fluid_pipe/shuttle_fuel_tank/proc/check_fuels()
+	if(tank.get_fluid_volumes() < 500)
+		return // Need at least 500 units of fuel
+
+/obj/machinery/fluid_pipe/shuttle_fuel_tank/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armor_penetration_flat, armor_penetration_percentage)
+	return // This shit is indestructable
+
+/obj/machinery/fluid_pipe/shuttle_fuel_tank/wrench_act(mob/living/user, obj/item/I)
+	return // No picking it up aswell
 
 /*
 /obj/structure/shuttle_plasma_tank/attackby(obj/item/I, mob/living/user, params)
@@ -105,3 +113,6 @@
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/proc/on_shuttle_launch()
 
 
+#undef STATE_IDLE
+#undef STATE_INTAKE
+#undef STATE_OUTPUT

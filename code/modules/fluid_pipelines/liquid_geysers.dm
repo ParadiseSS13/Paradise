@@ -62,7 +62,8 @@
 	if(QDELETED(extracting_geyser))
 		return
 
-	fluid_datum.add_fluid(extracting_geyser.liquid_to_output, 50)
+	var/amount = min(50, fluid_datum.get_empty_space())
+	fluid_datum.add_fluid(extracting_geyser.liquid_to_output, amount)
 
 /obj/machinery/fluid_pipe/geyser_extractor/attack_hand(mob/user)
 	if(..())

@@ -55,8 +55,7 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 
 	. += "Current recipe: [selected_recipe.name]."
 	. += "Required fluids:"
-	if(!length(GLOB.fluid_id_to_path))
-		SSfluid.setup_globals()
+
 	for(var/fluid as anything in selected_recipe.input)
 		var/datum/fluid/path = GLOB.fluid_id_to_path[fluid]
 		. += "[initial(path.fluid_name)], [selected_recipe.input[fluid]]"
@@ -66,16 +65,13 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 
 /obj/machinery/fluid_pipe/plasma_refinery/update_overlays()
 	. = ..()
-	if(dir == EAST) // DGTODO clean this up
-		for(var/obj/pipe as anything in get_adjacent_pipes())
-			. += "connector_r_[get_dir(src, pipe)]"
-		for(var/obj/pipe as anything in intake.get_adjacent_pipes())
-			. += "connector_l_[get_dir(intake, pipe)]"
-	else
-		for(var/obj/pipe as anything in get_adjacent_pipes())
-			. += "connector_l_[get_dir(src, pipe)]"
-		for(var/obj/pipe as anything in intake.get_adjacent_pipes())
-			. += "connector_r_[get_dir(intake, pipe)]"
+	if(!anchored)
+		return
+
+	for(var/obj/pipe as anything in get_adjacent_pipes())
+		. += "connector_[dir == EAST ? "r" : "l"]_[get_dir(src, pipe)]"
+	for(var/obj/pipe as anything in intake.get_adjacent_pipes())
+		. += "connector_[dir == EAST ? "l" : "r"]_[get_dir(intake, pipe)]"
 
 /obj/machinery/fluid_pipe/plasma_refinery/proc/make_intakes()
 	switch(dir)
@@ -96,7 +92,7 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 	to_chat(user, "You start [anchored ? "un" : ""]wrenching [src].")
 	if(!do_after(user, 3 SECONDS * I.toolspeed, TRUE, src))
 		to_chat(user, "You stop.") // DGTODO: add span classes + message
-		return
+		return TRUE
 
 	if(!anchored)
 		anchored = TRUE
@@ -107,13 +103,22 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 		anchored = FALSE
 		DeleteComponent(/datum/component/multitile)
 		qdel(intake)
+		cut_overlays()
+	return TRUE
 
 /obj/machinery/fluid_pipe/plasma_refinery/attack_hand(mob/user)
 	if(!anchored)
+		// I dug myself into this hole and I'll like it
 		if(dir == EAST)
 			dir = WEST
+			icon_state = "refinery_8"
+			pixel_x = 0
+			connect_dirs = list(WEST, SOUTH)
 		else
 			dir = EAST
+			icon_state = "refinery_4"
+			pixel_x = -32
+			connect_dirs = list(EAST, SOUTH)
 		return
 
 	if(!length(GLOB.refinery_recipes))
@@ -150,9 +155,8 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 	for(var/datum/fluid/liquid as anything in inputs_satisfied)
 		liquid.fluid_amount -= selected_recipe.input[liquid.fluid_id]
 
-	// 516 TODO
-	for(var/id in selected_recipe.output)
-		fluid_datum.add_fluid(GLOB.fluid_id_to_path[id], selected_recipe.output[id])
+	for(var/id, amount in selected_recipe.output)
+		fluid_datum.add_fluid(GLOB.fluid_id_to_path[id], amount)
 
 /obj/machinery/fluid_pipe/plasma_refinery/east
 	icon_state = "refinery_4"

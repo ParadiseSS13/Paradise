@@ -3709,9 +3709,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "mh" = (
-/obj/machinery/fluid_pipe/shuttle_fuel_tank{
-	dir = 8
-	},
+/obj/machinery/fluid_pipe/plasma_refinery/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -12614,12 +12612,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
-"PK" = (
-/obj/machinery/fluid_pipe/shuttle_fuel_tank/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/adminconstruction)
 "PL" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -62500,8 +62492,8 @@ Hk
 De
 De
 De
-Hk
-De
+mh
+SM
 De
 De
 De
@@ -62755,7 +62747,7 @@ De
 De
 SM
 De
-PK
+De
 De
 De
 De
@@ -63267,7 +63259,7 @@ XF
 SM
 XF
 De
-mh
+De
 De
 De
 De

@@ -1,7 +1,7 @@
 PROCESSING_SUBSYSTEM_DEF(fluid)
 	name = "Fluids"
 	priority = FIRE_PRIORITY_OBJ
-	flags = SS_NO_INIT
+	flags = NONE // Please don't shoot me I have no idea what flags will fit
 	wait = 0.5 SECONDS
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Fluid machinery will no longer run. No immediate action required." // Fluids are not something crucial to the round
@@ -11,7 +11,7 @@ PROCESSING_SUBSYSTEM_DEF(fluid)
 GLOBAL_LIST_EMPTY(fluid_id_to_path)
 GLOBAL_LIST_EMPTY(fluid_name_to_path)
 
-/datum/controller/subsystem/processing/fluid/proc/setup_globals()
+/datum/controller/subsystem/processing/fluid/Initialize()
 	for(var/datum/fluid/liquid as anything in subtypesof(/datum/fluid))
 		GLOB.fluid_id_to_path[liquid.fluid_id] = liquid.type
 		GLOB.fluid_name_to_path[liquid.fluid_name] = liquid.type

@@ -1,3 +1,7 @@
+#define STATE_IDLE		0
+#define STATE_INTAKE	1
+#define STATE_OUTPUT	2
+
 /obj/structure/barrel
 	name = "barrel"
 	desc = "A simple barrel. Caution: may explode when materials inside are volatile."
@@ -80,20 +84,28 @@
 		. += "active"
 
 /obj/machinery/fluid_pipe/barrel_filler/attack_hand(mob/user)
-	if(!length(GLOB.fluid_name_to_path))
-		SSfluid.setup_globals()
 	var/datum/fluid/liquid = tgui_input_list(user, "What liquid do you want to pump in the barrel?", "Barrel filler", GLOB.fluid_name_to_path)
 	if(!liquid)
 		return FALSE
 	selected_fluid = GLOB.fluid_name_to_path[liquid]
+	var/state
 
 /obj/machinery/fluid_pipe/barrel_filler/process()
-	if(!barrel || !selected_fluid)
+	if(!barrel || state == STATE_IDLE)
 		return
-	var/datum/fluid/liquid = is_path_in_list(selected_fluid, fluid_datum.fluids, TRUE)
-	if(!liquid) // DGTODO check if this is necessary
-		return
-	fluid_datum.move_fluid(selected_fluid, barrel.tank, move_amount)
+	if(state == STATE_INTAKE)
+		if(!selected_fluid)
+			return
+		var/datum/fluid/liquid = is_path_in_list(selected_fluid, fluid_datum.fluids, TRUE)
+		if(!liquid)
+			return
+		fluid_datum.move_fluid(selected_fluid, barrel.tank, move_amount)
+	else if(state == STATE_OUTPUT)
+		if(!fluid_datum)
+			return
+		var/amount = min(move_amount, fluid_datum.get_empty_space())
+		barrel.tank.move_any_fluid(fluid_datum, amount)
+
 
 /obj/machinery/fluid_pipe/barrel_filler/proc/add_barrel(obj/structure/barrel/_barrel)
 	barrel = _barrel
@@ -102,3 +114,7 @@
 /obj/machinery/fluid_pipe/barrel_filler/proc/remove_barrel()
 	barrel = null
 	UnregisterSignal(barrel, COMSIG_PARENT_QDELETING)
+
+#undef STATE_IDLE
+#undef STATE_INTAKE
+#undef STATE_OUTPUT

@@ -9,14 +9,13 @@
 	var/total_capacity = 0
 	/// List with all fluids currently in the pipe
 	var/list/fluids = list()
-	// DGTODO MAKE INTERT DATUMS MEANT FOR STORING FLUIDS // Bro we had this before and it sucked
 
 /*
  * pipe: a pipe that has this fluid_pipe datum attached to it
  * machine: any fluid pipe machinery that aren't normal pipes
  * A /machinery/fluid_pipeline should **never** be in both lists
  */
-// TODO UNFUCK WITH SSFLUID
+// DGTODO UNFUCK WITH SSFLUID
 /datum/fluid_pipe/New(obj/machinery/fluid_pipe/pipe, new_capacity)
 	. = ..()
 	START_PROCESSING(SSfluid, src)
@@ -153,6 +152,9 @@
 			continue
 		. += liquid.fluid_amount
 
+/datum/fluid_pipe/proc/get_empty_space()
+	return total_capacity - get_fluid_volumes()
+
 /datum/fluid_pipe/proc/merge_containers(datum/fluid_pipe/pipenet)
 	if(!pipenet)
 		return
@@ -171,20 +173,29 @@
 	fluids += pipenet.fluids
 	return
 
+/// Adds a fluid to this datum. Will overfill so clamp the amount before calling this proc.
 /datum/fluid_pipe/proc/add_fluid(type, amount)
 	if(!ispath(type))
 		stack_trace("add_fluid was called with a non-typepath fluid")
 		return
 
 	var/datum/fluid/potential = is_path_in_list(type, fluids, TRUE)
-	var/total_fluids = get_fluid_volumes()
-	if(total_fluids + amount > total_capacity)
-		amount = clamp(amount, 0, total_capacity - total_fluids)
-
 	if(!potential)
 		fluids += new type(amount)
 	else
 		potential.fluid_amount += amount
+
+/// Removes a specific amount from a specific fluid. Returns FALSE if not enough of the fluid can be removed
+/datum/fluid_pipe/proc/remove_spec_fluid(type, amount)
+	if(!ispath(type) || amount <- 0)
+		return FALSE
+	var/datum/fluid/potential = is_path_in_list(type, fluids, TRUE)
+	if(!potential || potential.fluid_amount < amount)
+		return FALSE
+	potential.fluid_amount -= amount
+	if(potential.fluid_amount == 0)
+		qdel(potential)
+	return TRUE
 
 /// Moves liquids from `src` to `to_move_to`. Accepts both IDs and a typepath, though a path is slightly faster
 /datum/fluid_pipe/proc/move_fluid(type_or_id, datum/fluid_pipe/to_move_to, amount)
@@ -225,9 +236,7 @@
 	if(!liquid)
 		return
 
-	// DGTODO convert this into a wrapper
-	// DGTODO make this not remove liquids if the fluid datum is too full // Done
-	amount = clamp(amount, liquid.fluid_amount, min(50, (to_move_to.total_capacity - to_move_to.get_fluid_volumes())))
+	amount = clamp(amount, liquid.fluid_amount, to_move_to.get_empty_space())
 	liquid.fluid_amount -= amount
 	to_move_to.add_fluid(liquid.type, amount)
 
