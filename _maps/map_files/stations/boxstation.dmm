@@ -15349,16 +15349,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bcB" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 5
-	},
-/obj/item/storage/fancy/crayons,
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
+/obj/machinery/economy/vending/chapdrobe,
 /turf/simulated/floor/carpet/grimey,
 /area/station/service/chapel/office)
 "bcC" = (
@@ -38675,7 +38666,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 10
 	},
-/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "cNF" = (
@@ -53724,7 +53715,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 9
 	},
-/obj/structure/lattice,
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "gNX" = (
@@ -66337,13 +66328,6 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
-"mMV" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 10
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "mNd" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -84843,13 +84827,6 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
-"vJx" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 9
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "vJN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -85682,6 +85659,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
+"wdw" = (
+/obj/structure/table/wood,
+/obj/item/storage/fancy/crayons,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = -24;
+	dir = 1
+	},
+/turf/simulated/floor/carpet/grimey,
+/area/station/service/chapel/office)
 "wdE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -85781,6 +85772,13 @@
 	icon_state = "caution"
 	},
 /area/station/public/dorms)
+"wfZ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 9
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "wgt" = (
 /obj/structure/table/wood,
 /obj/item/ashtray/glass,
@@ -89261,6 +89259,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedservers)
+"xPT" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 10
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "xQB" = (
 /obj/effect/spawner/window/reinforced/tinted,
 /obj/structure/disposalpipe/segment{
@@ -126323,7 +126328,7 @@ aab
 cQp
 aab
 cZh
-mMV
+cNE
 dba
 djE
 dcS
@@ -126335,7 +126340,7 @@ djE
 djE
 djE
 djE
-vJx
+gNQ
 aab
 aab
 aab
@@ -127627,7 +127632,7 @@ igi
 igi
 igi
 igi
-gNQ
+wfZ
 fPY
 wyD
 wyD
@@ -127856,7 +127861,7 @@ cep
 cjq
 cep
 cxO
-cNE
+xPT
 igi
 igi
 igi
@@ -127874,7 +127879,7 @@ igi
 igi
 igi
 igi
-gNQ
+wfZ
 dgS
 eQU
 eQU
@@ -138078,7 +138083,7 @@ baz
 bcB
 bcz
 bcz
-bcz
+wdw
 baz
 bjA
 bpM

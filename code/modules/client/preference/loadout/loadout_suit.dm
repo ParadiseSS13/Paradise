@@ -16,6 +16,9 @@
 	slot = ITEM_SLOT_OUTER_SUIT
 	sort_category = "External Wear"
 
+/datum/gear/suit/job
+	main_typepath = /datum/gear/suit/job
+
 //WINTER COATS
 /datum/gear/suit/coat
 	main_typepath = /datum/gear/suit/coat
@@ -34,14 +37,39 @@
 	allowed_roles = list("Head of Security", "Warden", "Detective", "Security Officer")
 
 /datum/gear/suit/coat/job/captain
-	display_name = "Winter coat, captain"
+	display_name = "Winter coat, captain, blue"
 	path = /obj/item/clothing/suit/hooded/wintercoat/captain
 	allowed_roles = list("Captain")
+
+/datum/gear/suit/coat/job/captain/white
+	display_name = "Winter coat, captain, white"
+	path = /obj/item/clothing/suit/hooded/wintercoat/captain/white
+	allowed_roles = list("Captain")
+
+/datum/gear/suit/coat/job/hop
+	display_name = "Winter coat, head of personnel"
+	path = /obj/item/clothing/suit/hooded/wintercoat/hop
+	allowed_roles = list("Head of Personnel")
 
 /datum/gear/suit/coat/job/med
 	display_name = "Winter coat, medical"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Chemist", "Psychiatrist", "Paramedic", "Virologist", "Coroner")
+
+/datum/gear/suit/coat/job/med/paramed
+	display_name = "Winter coat, paramedic"
+	path = /obj/item/clothing/suit/hooded/wintercoat/medical/paramedic
+	allowed_roles = list("Chief Medical Officer", "Paramedic")
+
+/datum/gear/suit/coat/job/med/coroner
+	display_name = "Winter coat, coroner"
+	path = /obj/item/clothing/suit/hooded/wintercoat/medical/coroner
+	allowed_roles = list("Chief Medical Officer", "Coroner")
+
+/datum/gear/suit/coat/job/chemist
+	display_name = "Winter coat, chemist"
+	path = /obj/item/clothing/suit/hooded/wintercoat/chemistry
+	allowed_roles = list("Chief Medical Officer", "Chemist")
 
 /datum/gear/suit/coat/job/sci
 	display_name = "Winter coat, science"
@@ -63,6 +91,11 @@
 	path = /obj/item/clothing/suit/hooded/wintercoat/hydro
 	allowed_roles = list("Botanist")
 
+/datum/gear/suit/coat/job/chef
+	display_name = "Winter coat, chef"
+	path = /obj/item/clothing/suit/hooded/wintercoat/chef
+	allowed_roles = list("Chef")
+
 /datum/gear/suit/coat/job/cargo
 	display_name = "Winter coat, cargo"
 	path = /obj/item/clothing/suit/hooded/wintercoat/cargo
@@ -72,6 +105,11 @@
 	display_name = "Winter coat, mining"
 	path = /obj/item/clothing/suit/hooded/wintercoat/miner
 	allowed_roles = list("Quartermaster", "Shaft Miner")
+
+/datum/gear/suit/coat/job/explorer
+	display_name = "Winter coat, expedition"
+	path = /obj/item/clothing/suit/hooded/wintercoat/explorer
+	allowed_roles = list("Quartermaster", "Explorer")
 
 //LABCOATS
 /datum/gear/suit/labcoat_emt
@@ -284,3 +322,47 @@
 /datum/gear/suit/tracksuitwhite
 	display_name = "Tracksuit, white"
 	path = /obj/item/clothing/suit/tracksuit/white
+
+// Chaplain
+/datum/gear/suit/job/chaplain
+	main_typepath = /datum/gear/suit/job/chaplain
+
+/datum/gear/suit/job/chaplain/dark_robes
+	display_name = "Dark robes"
+	path = /obj/item/clothing/suit/hooded/dark_robes
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/cassock
+	display_name = "Chaplain, cassock"
+	path = /obj/item/clothing/suit/hooded/chaplain_cassock
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/nun
+	display_name = "Chaplain, habit"
+	path = /obj/item/clothing/suit/hooded/nun
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/monk
+	display_name = "Chaplain, monk robes"
+	path = /obj/item/clothing/suit/hooded/monk
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/bana
+	display_name = "Chaplain, bana"
+	path = /obj/item/clothing/suit/bana
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/joue
+	display_name = "Chaplain, joue"
+	path = /obj/item/clothing/suit/joue
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/miko
+	display_name = "Chaplain, miko clothing"
+	path = /obj/item/clothing/suit/miko
+	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/job/chaplain/hasidic_coat
+	display_name = "Chaplain, hasidic coat"
+	path = /obj/item/clothing/suit/hasidic_coat
+	allowed_roles = list("Chaplain")
