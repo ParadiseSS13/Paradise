@@ -44,6 +44,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 	/// What is the text we show when our objective is delayed?
 	var/delayed_objective_text = "This is a bug! Report it on the github and ask an admin what type of objective"
+	/// If the objective needs another person with a paired objective
+	var/needs_pair = FALSE
 
 /datum/objective/New(text, datum/team/team_to_join, datum/mind/_owner)
 	SHOULD_CALL_PARENT(TRUE)
@@ -597,7 +599,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal/found_target()
 	return steal_target
-
+///MARK: Steal
 /datum/objective/steal/is_valid_exfiltration()
 	if(istype(steal_target, /datum/theft_objective/nukedisc) || istype(steal_target, /datum/theft_objective/plutonium_core))
 		return FALSE
@@ -981,3 +983,27 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			if(!our_objective.check_completion())
 				return FALSE
 	return TRUE
+
+/datum/objective/steal/exchange
+	name = "Document Exchange"
+	steal_target = /datum/theft_objective/unique
+	var/mob/living/carbon/human/exchanger
+
+/datum/objective/steal/exchange/proc/establish_pair(/datum/objective/steal/exchange)
+	SIGNAL_HANDLER //COMSIG_OBJECTIVE_EXCHANGE_PAIRING
+
+/datum/objective/steal/exchange/establish_signals()
+	RegisterSignal(src, COMSIG_OBJECTIVE_EXCHANGE_PAIRING, PROC_REF)
+
+
+/datum/objective/steal/exchange/find_target(list/target_blacklist)
+
+
+/datum/objective/steal/exchange/update_explanation_text()
+	explanation_text = "Steal [steal_target.name]. One was last seen in [get_location()]. "
+	if(length(steal_target.protected_jobs) && steal_target.job_possession)
+		explanation_text += "It may also be in the possession of the [english_list(steal_target.protected_jobs, and_text = " or ")]. "
+	explanation_text += steal_target.extra_information
+
+/datum/objective/steal/exchange/betray
+	name = "Document Retrieval"

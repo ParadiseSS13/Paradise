@@ -97,6 +97,8 @@
 	#define OBJECTIVE_VALID_TARGET		(1<<0)
 	#define OBJECTIVE_INVALID_TARGET	(1<<1)
 
+///from datum/objective/steal/exchange/find_pair
+#define COMSIG_OBJECTIVE_EXCHANGE_PAIRING "doc_exchange_pairing"
 
 /// /datum/component/defib
 
