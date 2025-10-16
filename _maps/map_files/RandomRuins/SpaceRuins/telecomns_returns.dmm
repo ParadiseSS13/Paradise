@@ -65,33 +65,19 @@
 /area/ruin/space/telecomms/tele)
 "bJ" = (
 /obj/effect/abstract/loot_trap,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 400;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "bO" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 1
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 400;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "bP" = (
 /obj/machinery/ai_slipper,
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/effect/spawner/random/pool/spaceloot/dvorak_core_table,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -118,9 +104,7 @@
 /obj/machinery/floodlight{
 	anchored = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -153,9 +137,7 @@
 /obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -230,9 +212,7 @@
 /area/ruin/space/telecomms/foyer)
 "eE" = (
 /obj/machinery/mecha_part_fabricator,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -264,13 +244,7 @@
 /area/space/no_teleport)
 "fc" = (
 /obj/structure/machine_frame,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 400;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "fq" = (
 /obj/machinery/light_switch{
@@ -347,9 +321,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/shieldwallgen/telecomms,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -407,13 +379,7 @@
 /turf/simulated/wall/r_wall,
 /area/space/nearstation/no_teleport)
 "il" = (
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 400;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "iy" = (
 /obj/machinery/firealarm/directional/east,
@@ -643,19 +609,14 @@
 	id = "dvorak";
 	id_tag = "dvorak"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "nh" = (
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
 /obj/machinery/shieldwallgen/telecomms,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -678,13 +639,7 @@
 /obj/machinery/computer/security{
 	dir = 4
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 400;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "nL" = (
 /obj/structure/window/reinforced{
@@ -798,13 +753,7 @@
 /area/space/nearstation/no_teleport)
 "pa" = (
 /obj/machinery/computer/borgupload,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 400;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "ph" = (
 /obj/structure/cable{
@@ -1133,13 +1082,7 @@
 /area/ruin/space/telecomms/computer)
 "um" = (
 /obj/structure/dispenser,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 400;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "ux" = (
 /turf/simulated/wall/indestructible/riveted,
@@ -1371,10 +1314,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms)
 "yo" = (
 /obj/structure/lattice,
@@ -1403,9 +1343,7 @@
 	},
 /obj/machinery/recharge_station/upgraded,
 /mob/living/basic/hivebot/strong/malfborg,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -1421,10 +1359,7 @@
 	name = "Telecoms East Wing"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/foyer)
 "yG" = (
 /obj/effect/spawner/random/fungus/maybe,
@@ -1520,9 +1455,7 @@
 /obj/machinery/computer/nonfunctional{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -1650,13 +1583,7 @@
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 8
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 400;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "CC" = (
 /obj/machinery/light{
@@ -1680,9 +1607,7 @@
 /area/space/nearstation/no_teleport)
 "CG" = (
 /obj/machinery/power/grounding_rod,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -1691,9 +1616,7 @@
 /area/ruin/space/telecomms/chamber)
 "CI" = (
 /obj/effect/spawner/random/pool/spaceloot/dvorak_displaycase,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -1736,9 +1659,8 @@
 	dir = 1;
 	name = "Telecoms Power Monitoring"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bot"
-	},
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/telecomms/tele)
 "Dr" = (
 /obj/structure/cable{
@@ -1887,13 +1809,7 @@
 /obj/machinery/computer/nonfunctional{
 	dir = 4
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 400;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "Ga" = (
 /obj/structure/cable{
@@ -1931,9 +1847,7 @@
 /area/ruin/space/telecomms/foyer)
 "Gz" = (
 /obj/machinery/blackbox_recorder,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -2083,10 +1997,7 @@
 	name = "Telecoms West Wing"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/foyer)
 "IU" = (
 /obj/structure/cable{
@@ -2104,13 +2015,7 @@
 /obj/machinery/computer/sm_monitor{
 	dir = 1
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 400;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "Jz" = (
 /obj/structure/closet/malf_suits,
@@ -2198,9 +2103,7 @@
 "Lh" = (
 /obj/machinery/tcomms/relay/dvorak,
 /obj/effect/abstract/loot_trap,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -2279,10 +2182,7 @@
 	dir = 1
 	},
 /obj/effect/abstract/bot_trap,
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "ML" = (
 /obj/structure/window/reinforced{
@@ -2380,13 +2280,7 @@
 	},
 /obj/effect/turf_decal/box/white,
 /obj/structure/telecomms_doomsday_device,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 400;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "Pl" = (
 /turf/simulated/floor/plasteel,
@@ -2481,9 +2375,7 @@
 	},
 /obj/machinery/recharge_station/upgraded,
 /mob/living/basic/hivebot/strong/malfborg,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -2529,13 +2421,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 400;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "Rw" = (
 /obj/structure/window/reinforced,
@@ -2586,9 +2472,7 @@
 /area/ruin/space/telecomms/tele)
 "Sr" = (
 /obj/machinery/telepad,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -2636,9 +2520,7 @@
 /obj/machinery/computer/telescience{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -2660,9 +2542,7 @@
 /area/space/nearstation/no_teleport)
 "TT" = (
 /obj/machinery/doppler_array,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault";
+/turf/simulated/floor/plasteel/dark{
 	name = "Mainframe floor";
 	nitrogen = 400;
 	oxygen = 0;
@@ -2840,13 +2720,7 @@
 /area/space/nearstation/no_teleport)
 "XB" = (
 /obj/structure/environmental_storytelling_holopad/core_room,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 400;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "XJ" = (
 /obj/effect/spawner/random/fungus/maybe,
@@ -2960,10 +2834,7 @@
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Core Access"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/telecomms/chamber)
 "Zl" = (
 /obj/machinery/atmospherics/unary/portables_connector{
