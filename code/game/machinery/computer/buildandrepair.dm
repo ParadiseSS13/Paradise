@@ -139,7 +139,7 @@
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/security/engineering
 
-/obj/item/circuitboard/camera/mining
+/obj/item/circuitboard/camera/engi_outpost
 	board_name = "Engineering Outpost Camera Monitor"
 	icon_state = "engineering"
 	build_path = /obj/machinery/computer/security/engi_outpost

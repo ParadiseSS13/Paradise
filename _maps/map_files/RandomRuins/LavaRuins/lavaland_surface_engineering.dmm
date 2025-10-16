@@ -52,7 +52,7 @@
 /area/engi_outpost/electrical)
 "bu" = (
 /obj/machinery/camera{
-	c_tag = "Engineering Outpost - Shuttle Cargo";
+	c_tag = "Engineering Outpost - Gear room";
 	dir = 5;
 	network = list("Engineering Outpost")
 	},
@@ -101,7 +101,7 @@
 /area/engi_outpost/breakroom)
 "bP" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "bS" = (
@@ -116,6 +116,12 @@
 	icon_state = "dark"
 	},
 /area/engi_outpost/vacant_room)
+"cj" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/engineering)
 "cJ" = (
 /obj/structure/rack{
 	dir = 8;
@@ -127,9 +133,12 @@
 	},
 /area/engi_outpost/electrical)
 "dn" = (
-/obj/effect/spawner/window/shuttle,
-/turf/space,
-/area/shuttle/engineering)
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 5
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/explored)
 "dt" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -138,6 +147,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/engineering/glass,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -181,6 +191,9 @@
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/railing/corner,
+/obj/structure/railing/corner{
+	dir = 1
+	},
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/explored)
 "eZ" = (
@@ -223,10 +236,11 @@
 /obj/machinery/door/airlock/engineering/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engi_outpost/electrical)
+/area/engi_outpost/airlock)
 "fP" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -234,11 +248,9 @@
 /turf/open/floor/plating,
 /area/engi_outpost/breakroom)
 "gf" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external{
-	id_tag = "mining_home";
-	locked = 1;
-	name = "Engineering Dock Airlock"
+/obj/machinery/door/poddoor{
+	id_tag = "CargoHold";
+	name = "cargo hold"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/engineering)
@@ -247,6 +259,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -414,13 +427,8 @@
 /area/engi_outpost/electrical)
 "kS" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/railing{
-	dir = 9
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/obj/structure/railing,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/explored)
 "kX" = (
 /obj/structure/lattice/catwalk/mining,
@@ -466,8 +474,8 @@
 /area/engi_outpost/vacant_room)
 "mc" = (
 /obj/machinery/door/poddoor{
-	id_tag = "QMLoaddoor2";
-	name = "supply dock loading door"
+	id_tag = "EngiLoaddoors";
+	name = "cargo hold loading door"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -504,11 +512,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/engi_outpost/vacant_room)
 "mr" = (
 /obj/machinery/camera{
-	c_tag = "Engineering Outpost - Shuttle Cargo";
+	c_tag = "Engineering Outpost - Break room";
 	dir = 5;
 	network = list("Engineering Outpost")
 	},
@@ -602,7 +611,17 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
+/area/shuttle/engineering)
+"pS" = (
+/obj/machinery/door_control{
+	id = "CargoHold";
+	layer = 4;
+	name = "Cargo hold";
+	pixel_y = 24
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/shuttle/engineering)
 "pV" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
@@ -622,6 +641,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/engineering/glass,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -694,6 +714,7 @@
 /area/lavaland/surface/outdoors/explored)
 "rD" = (
 /obj/machinery/door/airlock/engineering,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/open/floor/plating,
 /area/engi_outpost/breakroom)
 "rR" = (
@@ -728,7 +749,7 @@
 /area/lavaland/surface/outdoors/explored)
 "su" = (
 /obj/machinery/camera{
-	c_tag = "Engineering Outpost - Shuttle Cargo";
+	c_tag = "Engineering Outpost - Electrical";
 	dir = 10;
 	network = list("Engineering Outpost")
 	},
@@ -744,6 +765,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -929,12 +951,19 @@
 	icon_state = "dark"
 	},
 /area/engi_outpost/breakroom)
-"xJ" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "mining_home";
-	locked = 1;
-	name = "Engineering Dock Airlock"
+"xI" = (
+/obj/structure/railing{
+	dir = 6
 	},
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/explored)
+"xJ" = (
+/obj/machinery/door/airlock/external/glass{
+	name = "Shuttle Airlock";
+	id_tag = "mining_away"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -977,10 +1006,7 @@
 	},
 /area/engi_outpost/airlock)
 "yO" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/light{
+/obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -1004,9 +1030,17 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/engineering)
 "zo" = (
-/obj/machinery/power/apc/directional/east,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/explored)
+/obj/machinery/light,
+/obj/machinery/door_control{
+	id = "EngiLoaddoors";
+	layer = 4;
+	name = "Loading Doors";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
 "zL" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/turf_decal/stripes/line{
@@ -1038,14 +1072,15 @@
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/open/floor/plating,
 /area/engi_outpost/electrical)
+"Bq" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing/corner,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/explored)
 "BW" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/engi_outpost/shuttle_landing_post)
+/obj/machinery/light/small,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/engineering)
 "Cb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -1054,6 +1089,13 @@
 	icon_state = "dark"
 	},
 /area/engi_outpost/electrical)
+"Ds" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/explored)
 "DD" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1071,11 +1113,12 @@
 	},
 /area/engi_outpost/electrical)
 "DY" = (
-/obj/machinery/light/small{
-	dir = 8
+/obj/structure/railing{
+	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/engineering)
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/explored)
 "Eg" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/extinguisher_cabinet{
@@ -1121,12 +1164,12 @@
 	},
 /area/engi_outpost/shuttle_landing_post)
 "FI" = (
-/obj/machinery/door/poddoor{
-	id_tag = "QMLoaddoor2";
-	name = "supply dock loading door"
+/obj/structure/railing{
+	dir = 5
 	},
-/turf/simulated/floor/plating,
-/area/shuttle/engineering)
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/explored)
 "Ga" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -1145,6 +1188,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/engi_outpost/airlock)
 "GN" = (
@@ -1324,6 +1368,7 @@
 	name = "Landing Pad"
 	},
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/engi_outpost/shuttle_landing_post)
 "Mr" = (
@@ -1333,12 +1378,11 @@
 	},
 /area/engi_outpost/electrical)
 "MX" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/railing/corner{
-	dir = 1
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/explored)
+/area/engi_outpost/shuttle_landing_post)
 "Nz" = (
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
@@ -1350,6 +1394,9 @@
 /area/engi_outpost/electrical)
 "NJ" = (
 /obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 10
+	},
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/explored)
 "NY" = (
@@ -1422,6 +1469,7 @@
 	dir = 5;
 	network = list("Engineering Outpost")
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/engineering)
 "Pu" = (
@@ -1429,9 +1477,13 @@
 /turf/open/floor/plating,
 /area/engi_outpost/breakroom)
 "Py" = (
-/obj/structure/lattice/catwalk/mining,
-/turf/space,
-/area/lavaland/surface/outdoors/explored)
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plating,
+/area/shuttle/engineering)
 "Pz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1447,7 +1499,7 @@
 /area/engi_outpost/breakroom)
 "PT" = (
 /obj/machinery/camera{
-	c_tag = "Engineering Outpost - Shuttle Cargo";
+	c_tag = "Engineering Outpost - Vacant room";
 	dir = 7;
 	network = list("Engineering Outpost")
 	},
@@ -1493,7 +1545,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/catwalk,
-/area/lavaland/surface/outdoors/explored)
+/area/engi_outpost/bridges)
 "QT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1525,7 +1577,7 @@
 /area/engi_outpost/shuttle_landing_post)
 "Rp" = (
 /obj/machinery/camera{
-	c_tag = "Engineering Outpost - Shuttle Cargo";
+	c_tag = "Engineering Outpost - Airlock";
 	dir = 10;
 	network = list("Engineering Outpost")
 	},
@@ -1569,6 +1621,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1595,11 +1648,13 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/engineering)
 "Tq" = (
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/engineering)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/breakroom)
 "Tr" = (
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
@@ -1616,11 +1671,6 @@
 	},
 /area/engi_outpost/airlock)
 "TF" = (
-/obj/machinery/door/poddoor{
-	id_tag = "QMLoaddoor2";
-	name = "supply dock loading door"
-	},
-/obj/docking_port/mobile/engineering,
 /obj/docking_port/stationary{
 	dir = 8;
 	dwidth = 5;
@@ -1629,7 +1679,8 @@
 	name = "engineering outpost";
 	width = 11
 	},
-/turf/simulated/floor/plating,
+/obj/docking_port/mobile/engineering,
+/turf/simulated/wall/mineral/titanium,
 /area/shuttle/engineering)
 "TN" = (
 /obj/structure/barrel,
@@ -1683,11 +1734,11 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/engi_outpost/electrical)
 "Wb" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "mining_home";
-	locked = 1;
-	name = "Engineering Dock Airlock"
+/obj/machinery/door/airlock/external/glass{
+	name = "Shuttle Airlock";
+	id_tag = "mining_away"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/space,
 /area/engi_outpost/shuttle_landing_post)
 "Wr" = (
@@ -1713,11 +1764,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/engi_outpost/breakroom)
 "WZ" = (
 /obj/machinery/camera{
-	c_tag = "Engineering Outpost - Shuttle Cargo";
+	c_tag = "Engineering Outpost - Arrivals";
 	dir = 10;
 	network = list("Engineering Outpost")
 	},
@@ -1746,12 +1798,16 @@
 /obj/machinery/door/airlock/maintenance/external/glass{
 	name = "Landing Pad"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plating,
 /area/engi_outpost/shuttle_landing_post)
 "XV" = (
-/obj/machinery/light,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/engineering)
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/explored)
 "Ye" = (
 /obj/structure/fence,
 /obj/structure/holohoop,
@@ -1794,6 +1850,9 @@
 	},
 /obj/structure/railing/corner{
 	dir = 4
+	},
+/obj/structure/railing/corner{
+	dir = 8
 	},
 /turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/explored)
@@ -1934,17 +1993,17 @@ KE
 KE
 gP
 gP
-NJ
-NJ
-NJ
-NJ
-NJ
-NJ
-NJ
-NJ
-NJ
-NJ
-NJ
+sm
+Ga
+Ga
+Ga
+Ga
+Ga
+Ga
+Ga
+Ga
+Ga
+Ga
 NJ
 gP
 gP
@@ -1974,7 +2033,7 @@ KE
 KE
 gP
 gP
-NJ
+sm
 eJ
 Hx
 wg
@@ -2014,7 +2073,7 @@ KE
 KE
 gP
 gP
-NJ
+sm
 eJ
 wG
 Un
@@ -2028,7 +2087,7 @@ Un
 zm
 Ha
 iy
-NJ
+kS
 gP
 gP
 gP
@@ -2055,7 +2114,7 @@ KE
 gP
 gP
 gP
-NJ
+Vu
 La
 Un
 Un
@@ -2063,13 +2122,13 @@ SF
 OZ
 Un
 SF
-SF
+cj
 Oy
 SF
 SF
 Un
 iy
-NJ
+kS
 gP
 gP
 gP
@@ -2096,10 +2155,10 @@ gP
 gP
 gP
 gP
-NJ
+Vu
 uf
-dn
-DY
+Wr
+SF
 SF
 tl
 Un
@@ -2110,7 +2169,7 @@ SF
 SF
 Un
 iy
-NJ
+kS
 gP
 gP
 Ui
@@ -2137,7 +2196,7 @@ gP
 gP
 gP
 gP
-NJ
+Vu
 uf
 Wr
 Ox
@@ -2148,10 +2207,10 @@ SF
 SF
 SF
 SF
-XV
+SF
 Un
 iy
-NJ
+kS
 gP
 gP
 gP
@@ -2178,21 +2237,21 @@ gP
 gP
 gP
 gP
-Py
+Vu
 uf
-dn
-Tq
+Wr
+SF
 SF
 tl
 Un
-SF
+pS
 SF
 SF
 SF
 SF
 Un
 iy
-NJ
+kS
 gP
 oD
 oD
@@ -2219,12 +2278,12 @@ gP
 gP
 gP
 gP
-Py
+Vu
 qD
 Un
 Un
 SF
-SF
+BW
 Un
 SF
 SF
@@ -2233,7 +2292,7 @@ SF
 SF
 Un
 tK
-NJ
+kS
 gP
 oD
 Zz
@@ -2260,7 +2319,7 @@ gP
 gP
 gP
 gP
-Py
+id
 nE
 RW
 Un
@@ -2268,13 +2327,13 @@ Wr
 pB
 Un
 TF
-FI
 gf
-Un
+gf
+Py
 zm
 Ha
 tK
-Oe
+bP
 Ui
 oD
 rp
@@ -2301,21 +2360,21 @@ gP
 gP
 gP
 gP
-Ui
+DY
 Oe
 fw
 uu
 uu
 Wb
 uu
+uu
 mc
 mc
 xJ
 uu
-kS
 zL
 KK
-Oe
+bP
 Ui
 oD
 Zt
@@ -2342,21 +2401,21 @@ gP
 gP
 gP
 Ui
-Ui
-Ui
+FI
+Ds
 Oe
 ZP
 oM
 ZM
 uu
-oM
-oM
-oM
-uu
+yO
+ZM
+ZM
+ZM
 MX
-bP
 Oe
-Ui
+Bq
+xI
 Ui
 oD
 aL
@@ -2384,19 +2443,19 @@ gP
 Ui
 Ui
 Ui
-Ui
-Oe
+dn
+Ds
 Mj
 oM
 oM
 XF
-BW
+oM
+oM
 oM
 oM
 Mj
-Oe
-Oe
-Ui
+Bq
+XV
 Ui
 Ui
 oD
@@ -2434,9 +2493,9 @@ Lx
 oM
 oM
 oM
+zo
 Lx
-Ui
-Ui
+bP
 Ui
 Ui
 Ui
@@ -2475,7 +2534,7 @@ iT
 oM
 oM
 oM
-Lx
+oM
 Lx
 Lx
 Lx
@@ -2518,7 +2577,7 @@ HC
 Pz
 Pz
 Pz
-yO
+Pz
 Sj
 Pz
 Pz
@@ -2732,7 +2791,7 @@ gP
 gP
 oD
 jI
-PC
+Tq
 oD
 oD
 oD
@@ -3089,7 +3148,7 @@ rr
 rr
 QP
 Oj
-zo
+Ui
 Ui
 Ui
 Ui
@@ -3130,7 +3189,7 @@ OX
 EE
 EE
 Gq
-yP
+EE
 Ui
 Ui
 Ui
@@ -3171,7 +3230,7 @@ bu
 tY
 en
 LI
-yP
+EE
 yP
 yP
 yP
@@ -3212,7 +3271,7 @@ UH
 UH
 UH
 YJ
-jM
+tt
 NY
 hV
 bb
@@ -3253,7 +3312,7 @@ Xg
 Xg
 Xg
 uM
-jM
+tt
 Sx
 Kh
 DD
@@ -3335,7 +3394,7 @@ UH
 ur
 qc
 tt
-jM
+tt
 DT
 Cb
 pl

@@ -18,8 +18,9 @@
 /obj/machinery/fluid_pipe/geyser_extractor
 	name = "geyser pump"
 	desc = "Extracts liquids from geysers. Consumes part of the fluid produced to keep itself running."
-	icon = 'icons/obj/pipes/disposal.dmi'
-	icon_state = "pipe-j2"
+	icon = 'icons/obj/pipes/32x64fluid_machinery.dmi'
+	icon_state = "pumpjack"
+	dir = EAST
 	just_a_pipe = FALSE
 	layer = ABOVE_ALL_MOB_LAYER
 	density = TRUE
@@ -41,9 +42,18 @@
 	START_PROCESSING(SSfluid, src)
 
 /obj/machinery/fluid_pipe/geyser_extractor/blind_connect()
+	for(var/obj/structure/geyser/fluid_hole in get_turf(src))
+		extracting_geyser = fluid_hole
+		break
+	if(QDELETED(extracting_geyser))
+		return
 	for(var/obj/machinery/fluid_pipe/pipe in get_step(src, dir))
 		connect_pipes(pipe)
 		return
+
+/obj/machinery/fluid_pipe/geyser_extractor/special_connect_check(obj/machinery/fluid_pipe/pipe)
+	if(QDELETED(extracting_geyser))
+		return TRUE
 
 /obj/machinery/fluid_pipe/geyser_extractor/process()
 	if(!fluid_datum) // This only happens if we aren't connected to a pipe
@@ -53,3 +63,11 @@
 		return
 
 	fluid_datum.add_fluid(extracting_geyser.liquid_to_output, 50)
+
+/obj/machinery/fluid_pipe/geyser_extractor/attack_hand(mob/user)
+	if(..())
+		return
+	if(dir == EAST)
+		dir = WEST
+	else
+		dir = EAST

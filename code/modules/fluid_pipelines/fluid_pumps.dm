@@ -82,7 +82,7 @@
 	fluid_datum = null
 
 /obj/machinery/fluid_pipe/pump/process()
-	if(fluid_datum.total_capacity <= 0)
+	if(fluid_datum?.total_capacity <= 0 || !incoming.fluid_datum)
 		return
 	incoming.fluid_datum.move_any_fluid(fluid_datum, 50) // DGTODO this doesn't work?
 

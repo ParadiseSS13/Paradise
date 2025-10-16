@@ -59445,6 +59445,10 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/station/medical/storage)
+"jCs" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "jCt" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -110682,7 +110686,7 @@ aaa
 aaa
 aaa
 aaa
-wVd
+aaa
 aaa
 aaa
 aaa
@@ -110939,7 +110943,7 @@ eov
 eov
 aaa
 eov
-eov
+wVd
 eov
 eov
 eov
@@ -111451,7 +111455,7 @@ aaa
 aaa
 aaa
 dmr
-scI
+jCs
 dmr
 aaa
 aaa

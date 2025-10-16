@@ -66201,10 +66201,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
-"nbr" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/space,
-/area/station/engineering/transmission_laser)
 "nbs" = (
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
@@ -135074,8 +135070,8 @@ jnP
 jnP
 jnP
 jnP
+jnP
 iWU
-oNP
 jnP
 mJM
 oLt
@@ -135333,7 +135329,7 @@ jnP
 jnP
 jnP
 oNP
-nbr
+rYz
 mJM
 xUL
 wio
@@ -135847,7 +135843,7 @@ jnP
 jnP
 jnP
 oNP
-nbr
+rYz
 mJM
 pVa
 gMe

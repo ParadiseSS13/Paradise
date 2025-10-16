@@ -83,8 +83,6 @@
 	intake = new(get_step(src, REVERSE_DIR(dir)), src, dir)
 
 /obj/machinery/fluid_pipe/plasma_refinery/attack_hand(mob/user)
-	if(..())
-		return TRUE
 	var/recipe = tgui_input_list(user, "What recipe do you want to select?", "Refinery", subtypesof(/datum/refinery_recipe))
 	if(!recipe)
 		return TRUE
@@ -130,6 +128,7 @@
 // MARK: refinery recipes
 
 /datum/refinery_recipe
+	var/name = "Undefined"
 	/// The fluids we require and the amounts of each. Example: list("unr_pl" = 50)
 	var/list/input = list()
 	/// Output fluids. Example: list("ref_pl" =  50)
@@ -143,27 +142,33 @@
 
 // Simplest refinery recipe, very inefficient
 /datum/refinery_recipe/refined_plasma
+	name = "Refined plasma"
 	input = list("unr_pl" = 20)
 	output = list("ref_pl" = 5)
 
 /datum/refinery_recipe/refined_plasma/catalyze
+	name = "Refined plasma (with catalyzer)"
 	input = list("unr_pl" = 40, "brine" = 10)
 	output = list("ref_pl" = 30, "brine" = 10)
 
 // Basic fuel, easy to make and faster but creates waste
 /datum/refinery_recipe/basic_fuel
+	name = "Basic fuel"
 	input = list("ref_pl" = 20)
 	output = list("b_fuel" = 10, "waste" = 5)
 
 /datum/refinery_recipe/turbofuel
+	name = "Turbofuel"
 	input = list("ref_pl" = 40, "b_fuel" = 10, "ref_oil" = 10)
 	output = list("tur_fuel" = 20)
 
 /datum/refinery_recipe/refined_oil
+	name = "Oil refining"
 	input = list("water" = 30, "unr_oil" = 20)
 	output = list("water" = 15, "ref_oil" = 10, "visc_oil" = 10)
 
 /datum/refinery_recipe/plastic
+	name = "Plastic"
 	input = list("visc_oil" = 20, "waste" = 30)
 	output = list("water" = 10)
 	solid_output = /obj/item/stack/sheet/plastic

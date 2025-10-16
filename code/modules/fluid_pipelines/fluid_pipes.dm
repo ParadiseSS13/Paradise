@@ -146,6 +146,7 @@
 		return
 
 	if(!anchored)
+		anchored = TRUE
 		blind_connect()
 	else
 		// DGTODO: add item pipe here and make a new one // Maybe just keep an unwrenched version?
