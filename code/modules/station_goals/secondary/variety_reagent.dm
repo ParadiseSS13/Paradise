@@ -117,9 +117,9 @@
 		return
 	var/single_reagent
 	var/reagents_tally = 0
-	for (single_reagent in reagents_sent)
+	for(single_reagent in reagents_sent)
 		reagents_tally += (reagents_sent[single_reagent] >= amount_per ? 1 : 0)
-	if (reagents_tally < needed)
+	if(reagents_tally < needed)
 		return
 
 	three_way_reward(manifest, department, department_account, reward, "Secondary goal complete: [needed] different [generic_name_plural].")
