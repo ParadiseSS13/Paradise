@@ -231,6 +231,9 @@
 /// Causes a random safe teleport every 2 seconds for a limited time
 #define STATUS_EFFECT_TELEPORT_ROULETTE /datum/status_effect/teleport_roulette
 
+/// Use by hivelords to determine if they can attack yet.
+#define STATUS_EFFECT_HIVELORD_TRACKING /datum/status_effect/hivelord_tracking
+
 /// Status effects for different actions
 #define STATUS_EFFECT_REMOVE_CUFFS /datum/status_effect/action_status_effect/remove_handcuffs
 #define STATUS_EFFECT_REMOVE_MUZZLE /datum/status_effect/action_status_effect/remove_muzzle

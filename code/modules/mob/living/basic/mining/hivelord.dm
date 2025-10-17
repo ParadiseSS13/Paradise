@@ -211,13 +211,39 @@
 	icon_dead = "legion_head"
 	maxHealth = 5
 	health = 5
+	melee_damage_lower = 12
+	melee_damage_upper = 12
+	speed = -1
 	attack_verb_continuous = "bites"
 	attack_verb_simple = "bites"
 	speak_emote = list("echoes")
 	throw_blocked_message = "is shrugged off by"
 	var/can_infest_dead = FALSE
 
-/mob/living/basic/mining/hivelordbrood/legion/melee_attack(mob/living/carbon/human/target, list/modifiers, ignore_cooldown)
+/mob/living/basic/mining/hivelordbrood/legion/early_melee_attack(atom/target, list/modifiers, ignore_cooldown)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(!isliving(target))
+		return TRUE
+	var/mob/living/living_target = target
+	var/can_continue = FALSE
+	var/datum/status_effect/hivelord_tracking/tracker = living_target.has_status_effect(STATUS_EFFECT_HIVELORD_TRACKING)
+	if(tracker)
+		tracker.refresh()
+		if((src.UID() in tracker.list_of_uids) || length(tracker.list_of_uids) >= 3)
+			can_continue = TRUE
+	if(!tracker)
+		tracker = living_target.apply_status_effect(STATUS_EFFECT_HIVELORD_TRACKING)
+	//message_admins("[src.UID()], [length(tracker.list_of_uids)]")
+	if(!can_continue)
+		tracker.list_of_uids += src.UID()
+		return FALSE
+	else
+		return TRUE
+
+
+/mob/living/basic/mining/hivelordbrood/legion/melee_attack(mob/target, list/modifiers, ignore_cooldown)
 	. = ..()
 	if(!ishuman(target))
 		return
