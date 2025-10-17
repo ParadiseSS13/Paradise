@@ -1165,9 +1165,6 @@
 	},
 /turf/simulated/floor/engine/airless,
 /area/shuttle/escape)
-"XA" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/escape)
 "XW" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -1298,7 +1295,7 @@ Cw
 (4,1,1) = {"
 Cw
 vU
-XA
+vU
 MT
 vw
 vw
@@ -1306,7 +1303,7 @@ LA
 vw
 vw
 fb
-XA
+vU
 vU
 Cw
 "}
@@ -1342,7 +1339,7 @@ Cw
 "}
 (7,1,1) = {"
 vU
-XA
+vU
 Hh
 bh
 gs
@@ -1352,7 +1349,7 @@ WW
 cX
 wF
 aK
-XA
+vU
 vU
 "}
 (8,1,1) = {"
@@ -1449,13 +1446,13 @@ US
 vU
 GK
 Rk
-XA
+vU
 US
 US
 US
 US
 US
-XA
+vU
 AS
 lD
 vU
@@ -1539,13 +1536,13 @@ US
 US
 Qj
 Rk
-XA
+vU
 US
 US
 NO
 US
 US
-XA
+vU
 AS
 lD
 vU
@@ -1599,13 +1596,13 @@ US
 US
 OX
 Rk
-XA
+vU
 US
 US
 ee
 US
 US
-XA
+vU
 AS
 lD
 vU
@@ -1689,13 +1686,13 @@ US
 vU
 GK
 Rk
-XA
+vU
 US
 US
 US
 US
 US
-XA
+vU
 AS
 lD
 vU
@@ -1778,7 +1775,7 @@ Cw
 (36,1,1) = {"
 Cw
 vU
-XA
+vU
 TW
 kU
 kU
@@ -1786,7 +1783,7 @@ Nd
 kU
 kU
 Yc
-XA
+vU
 vU
 Cw
 "}

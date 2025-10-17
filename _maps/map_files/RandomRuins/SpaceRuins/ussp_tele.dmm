@@ -18,9 +18,6 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
-"ds" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/ruin/space/derelict/teleporter)
 "dJ" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
@@ -98,7 +95,7 @@
 /area/ruin/space/derelict/teleporter)
 "iS" = (
 /obj/effect/spawner/airlock/w_to_e,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/space/derelict/teleporter)
 "kg" = (
 /obj/machinery/power/apc/worn_out/directional/north,
@@ -353,7 +350,7 @@
 /area/ruin/space/derelict/teleporter)
 "Io" = (
 /obj/structure/sign/vacuum,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/space/derelict/teleporter)
 "NU" = (
 /obj/effect/turf_decal/stripes/line{
@@ -496,11 +493,11 @@ qQ
 qQ
 qQ
 PS
-ds
+PS
 We
 iQ
 gr
-ds
+PS
 PS
 qQ
 "}
@@ -515,13 +512,13 @@ FQ
 Wu
 Zl
 PS
-ds
+PS
 eR
 vX
 mq
 sY
 vr
-ds
+PS
 qQ
 "}
 (5,1,1) = {"
@@ -535,7 +532,7 @@ HL
 ZN
 mY
 ic
-ds
+PS
 bh
 wd
 bk
@@ -575,7 +572,7 @@ ZM
 Av
 ZN
 pZ
-ds
+PS
 kX
 wd
 Vc
@@ -595,13 +592,13 @@ vx
 FQ
 Wu
 PS
-ds
+PS
 kg
 Aj
 NU
 vG
 dJ
-ds
+PS
 qQ
 "}
 (9,1,1) = {"
@@ -616,11 +613,11 @@ qQ
 qQ
 qQ
 PS
-ds
+PS
 oK
 DX
 uD
-ds
+PS
 PS
 qQ
 "}
@@ -677,9 +674,9 @@ qQ
 qQ
 qQ
 qQ
-ds
+PS
 tF
-ds
+PS
 qQ
 qQ
 qQ

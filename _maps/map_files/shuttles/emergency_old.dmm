@@ -315,7 +315,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "nt" = (
-/turf/simulated/wall/indestructible/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/escape)
 "rj" = (
 /obj/machinery/economy/vending/wallmed/directional/east,
@@ -332,9 +332,6 @@
 /area/shuttle/escape)
 "DZ" = (
 /turf/simulated/floor/mineral/titanium/yellow,
-/area/shuttle/escape)
-"Jw" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -356,7 +353,7 @@ ac
 ac
 ab
 aW
-Jw
+ab
 aW
 ac
 ab

@@ -9,7 +9,7 @@ FIRE ALARM
 /obj/machinery/firealarm
 	name = "fire alarm"
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/obj/wallbumps/firealarm.dmi'
 	icon_state = "firealarm_on"
 	/// Whether or not the fire alarm will sound the alarm if its temperature rises above 200C
 	var/detecting = TRUE

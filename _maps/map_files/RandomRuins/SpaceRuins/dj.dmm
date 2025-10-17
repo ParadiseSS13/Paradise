@@ -15,7 +15,7 @@
 /area/space/nearstation)
 "af" = (
 /obj/effect/spawner/airlock,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/space/djstation)
 "ag" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -203,7 +203,7 @@
 /area/ruin/space/djstation)
 "aH" = (
 /obj/effect/spawner/airlock/s_to_n,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/space/djstation)
 "aJ" = (
 /obj/item/clothing/head/ushanka,
@@ -279,7 +279,7 @@
 	},
 /area/ruin/space/djstation)
 "aS" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/space/djstation)
 "aT" = (
 /obj/structure/lattice/catwalk,

@@ -103,9 +103,6 @@
 	icon_state = "whitehall"
 	},
 /area/shuttle/freegolem)
-"hL" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/shuttle/freegolem)
 "iq" = (
 /obj/effect/turf_decal/loading_area,
 /obj/machinery/light{
@@ -556,10 +553,10 @@ bq
 WF
 WF
 bq
-hL
+bq
 rr
 uT
-hL
+bq
 WF
 WF
 WF
@@ -607,7 +604,7 @@ oD
 oD
 tz
 jD
-hL
+bq
 bq
 bq
 EE
@@ -687,13 +684,13 @@ HE
 oD
 oD
 FQ
-hL
+bq
 bq
 bq
 Ob
 bq
 bq
-hL
+bq
 yn
 hg
 YZ
@@ -715,13 +712,13 @@ JF
 AT
 qT
 EB
-hL
 bq
 bq
-hL
 bq
 bq
-hL
+bq
+bq
+bq
 EE
 "}
 (11,1,1) = {"
@@ -784,10 +781,10 @@ oD
 oD
 oD
 FQ
-hL
 bq
 bq
-hL
+bq
+bq
 EE
 "}
 (14,1,1) = {"
@@ -814,9 +811,9 @@ EE
 "}
 (15,1,1) = {"
 EE
-hL
 bq
-hL
+bq
+bq
 HE
 oD
 oD
@@ -865,10 +862,10 @@ Rr
 BU
 BU
 jr
-hL
+bq
 bQ
 bQ
-hL
+bq
 HE
 oD
 oD
@@ -906,7 +903,7 @@ EE
 EE
 bq
 bq
-hL
+bq
 wp
 wp
 bq
@@ -915,7 +912,7 @@ xj
 bq
 wp
 wp
-hL
+bq
 bq
 bq
 EE
@@ -931,10 +928,10 @@ EE
 bq
 cg
 cg
-hL
+bq
 nX
 MD
-hL
+bq
 cg
 cg
 bq
