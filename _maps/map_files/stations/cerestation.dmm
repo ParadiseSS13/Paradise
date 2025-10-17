@@ -55035,6 +55035,7 @@
 /area/station/security/detective)
 "kmw" = (
 /obj/machinery/alarm/directional/north,
+/mob/living/basic/kangaroo/darwin,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -56325,7 +56326,7 @@
 	},
 /area/station/maintenance/asmaint)
 "kzP" = (
-/mob/living/basic/gorilla/cargo_domestic,
+/mob/living/basic/gorilla/cargo_domestic/forklift,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -116125,9 +116126,6 @@
 	},
 /area/station/security/brig)
 "xfB" = (
-/mob/living/basic/kangaroo{
-	name = "Darwin"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{

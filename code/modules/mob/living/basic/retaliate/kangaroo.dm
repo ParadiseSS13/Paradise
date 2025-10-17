@@ -67,3 +67,10 @@
 	melee_damage_lower = initial(melee_damage_lower)
 	melee_damage_upper = initial(melee_damage_upper)
 
+/mob/living/basic/kangaroo/darwin
+	name = "Darwin"
+	real_name = "Darwin"
+
+/mob/living/basic/kangaroo/darwin/Initialize(mapload)
+	. = ..()
+	GLOB.station_pets += src
