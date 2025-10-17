@@ -301,6 +301,10 @@
 /obj/item/reagent_containers/hypospray/autoinjector/survival,
 /obj/item/t_scanner/adv_mining_scanner,
 /obj/item/pickaxe/drill,
+/obj/item/gps/ruin{
+	gpstag = "NT Medical Ship";
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkyellow"
