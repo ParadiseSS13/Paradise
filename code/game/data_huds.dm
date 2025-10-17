@@ -71,6 +71,11 @@
 	..()
 	SSair.add_pressure_hud(user)
 
+
+/datum/atom_hud/data/anomalous
+	hud_icons = list(ANOMALOUS_HUD)
+	ignore_invisibility_check = TRUE
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*
@@ -504,6 +509,16 @@
 /obj/effect/decal/cleanable/proc/jani_hud_set_sign()
 	var/image/holder = hud_list[JANI_HUD]
 	holder.icon_state = "hudjani"
+	holder.alpha = 130
+	holder.plane = ABOVE_LIGHTING_PLANE
+	holder.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+
+/*~~~~~~~~~~~~~~
+	ANOMALOUS HUD
+~~~~~~~~~~~~~~~*/
+/obj/effect/anomalous_particulate/proc/do_hud_stuff()
+	var/image/holder = hud_list[ANOMALOUS_HUD]
+	holder.icon_state = "hud_anom"
 	holder.alpha = 130
 	holder.plane = ABOVE_LIGHTING_PLANE
 	holder.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM

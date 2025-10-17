@@ -468,7 +468,7 @@ Difficulty: Hard
 				var/obj/effect/anomaly/bluespace/A = new(spot, time_to_use, FALSE)
 				A.mass_teleporting = FALSE
 			if(GRAV)
-				var/obj/effect/anomaly/grav/A = new(spot, time_to_use, FALSE, FALSE)
+				var/obj/effect/anomaly/grav/A = new(spot, time_to_use, FALSE)
 				A.knockdown = TRUE
 			if(PYRO)
 				var/obj/effect/anomaly/pyro/A = new(spot, time_to_use, FALSE)
