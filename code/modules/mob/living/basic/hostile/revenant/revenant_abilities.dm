@@ -1,5 +1,5 @@
 ///Harvest
-/mob/living/simple_animal/revenant/ClickOn(atom/A, params) //Copypaste from ghost code - revenants can't interact with the world directly.
+/mob/living/basic/revenant/ClickOn(atom/A, params) //Copypaste from ghost code - revenants can't interact with the world directly.
 
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
@@ -39,7 +39,7 @@
 			return
 		Harvest(A)
 
-/mob/living/simple_animal/revenant/proc/Harvest(mob/living/carbon/human/target)
+/mob/living/basic/revenant/proc/Harvest(mob/living/carbon/human/target)
 	if(!castcheck(0))
 		return
 	if(draining)
@@ -141,7 +141,7 @@
 	T.allowed_type = /mob/living
 	return T
 
-/datum/spell/revenant_transmit/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+/datum/spell/revenant_transmit/cast(list/targets, mob/living/basic/revenant/user = usr)
 	for(var/mob/living/M in targets)
 		spawn(0)
 			var/msg = tgui_input_text(user, "What do you wish to tell [M]?", "Transmit")
@@ -180,10 +180,10 @@
 /datum/spell/aoe/revenant/revert_cast(mob/user)
 	. = ..()
 	to_chat(user, "<span class='revennotice'>Your ability wavers and fails!</span>")
-	var/mob/living/simple_animal/revenant/R = user
+	var/mob/living/basic/revenant/R = user
 	R?.essence += cast_amount //refund the spell and reset
 
-/datum/spell/aoe/revenant/can_cast(mob/living/simple_animal/revenant/user = usr, charge_check = TRUE, show_message = FALSE)
+/datum/spell/aoe/revenant/can_cast(mob/living/basic/revenant/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.inhibited)
 		return FALSE
 	if(cooldown_handler.is_on_cooldown())
@@ -195,7 +195,7 @@
 		return FALSE
 	return TRUE
 
-/datum/spell/aoe/revenant/proc/attempt_cast(mob/living/simple_animal/revenant/user = usr)
+/datum/spell/aoe/revenant/proc/attempt_cast(mob/living/basic/revenant/user = usr)
 	if(locked)
 		if(!user.castcheck(-unlock_amount))
 			cooldown_handler.revert_cast()
@@ -233,12 +233,12 @@
 	targeting.allowed_type = /obj/machinery/light
 	return targeting
 
-/datum/spell/aoe/revenant/overload/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+/datum/spell/aoe/revenant/overload/cast(list/targets, mob/living/basic/revenant/user = usr)
 	if(attempt_cast(user))
 		for(var/obj/machinery/light/L as anything in targets)
 			INVOKE_ASYNC(src, PROC_REF(shock_lights), L, user)
 
-/datum/spell/aoe/revenant/overload/proc/shock_lights(obj/machinery/light/L, mob/living/simple_animal/revenant/user)
+/datum/spell/aoe/revenant/overload/proc/shock_lights(obj/machinery/light/L, mob/living/basic/revenant/user)
 	if(!L.on)
 		return
 	L.visible_message("<span class='warning'><b>\The [L] suddenly flares brightly and begins to spark!</b></span>")
@@ -274,7 +274,7 @@
 	targeting.range = aoe_range
 	return targeting
 
-/datum/spell/aoe/revenant/defile/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+/datum/spell/aoe/revenant/defile/cast(list/targets, mob/living/basic/revenant/user = usr)
 	if(!attempt_cast(user))
 		return
 	for(var/turf/T in targets)
@@ -313,12 +313,12 @@
 	return targeting
 
 //A note to future coders: do not replace this with an EMP because it will wreck malf AIs and gang dominators and everyone will hate you.
-/datum/spell/aoe/revenant/malfunction/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+/datum/spell/aoe/revenant/malfunction/cast(list/targets, mob/living/basic/revenant/user = usr)
 	if(attempt_cast(user))
 		for(var/turf/T in targets)
 			INVOKE_ASYNC(src, PROC_REF(effect), user, T)
 
-/datum/spell/aoe/revenant/malfunction/proc/effect(mob/living/simple_animal/revenant/user, turf/T)
+/datum/spell/aoe/revenant/malfunction/proc/effect(mob/living/basic/revenant/user, turf/T)
 	T.rev_malfunction(TRUE)
 	for(var/atom/A in T.contents)
 		A.rev_malfunction(TRUE)
@@ -346,7 +346,7 @@
 	targeting.allowed_type = /obj/item
 	return targeting
 
-/datum/spell/aoe/revenant/haunt_object/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+/datum/spell/aoe/revenant/haunt_object/cast(list/targets, mob/living/basic/revenant/user = usr)
 	if(!attempt_cast(user))
 		return
 
@@ -382,7 +382,7 @@
 	addtimer(CALLBACK(src, PROC_REF(stop_timers)), 65 SECONDS, TIMER_UNIQUE)
 
 /// Handles making an object haunted and setting it up to attack
-/datum/spell/aoe/revenant/haunt_object/proc/make_spooky(obj/item/item_to_possess, mob/living/simple_animal/revenant/user)
+/datum/spell/aoe/revenant/haunt_object/proc/make_spooky(obj/item/item_to_possess, mob/living/basic/revenant/user)
 	new /obj/effect/temp_visual/revenant(get_turf(item_to_possess)) // Thematic spooky visuals
 	var/mob/living/basic/possessed_object/revenant/possessed_object = new(item_to_possess) // Begin haunting object
 	addtimer(CALLBACK(possessed_object, TYPE_PROC_REF(/mob/living/basic/possessed_object, death)), 70 SECONDS, TIMER_UNIQUE) // De-haunt the object
@@ -411,7 +411,7 @@
 	targeting.allowed_type = /mob/living/carbon
 	return targeting
 
-/datum/spell/aoe/revenant/hallucinations/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+/datum/spell/aoe/revenant/hallucinations/cast(list/targets, mob/living/basic/revenant/user = usr)
 	if(!attempt_cast(user))
 		return
 

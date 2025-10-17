@@ -568,7 +568,7 @@
 	var/should_show_runechat = (subject && raw_message && !subject.orbiting_uid)
 
 	for(var/mob/M in GLOB.player_list)
-		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M) || istype(M, /mob/living/simple_animal/revenant)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
+		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M) || istype(M, /mob/living/basic/revenant)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)

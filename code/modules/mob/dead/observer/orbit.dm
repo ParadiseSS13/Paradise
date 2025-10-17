@@ -145,7 +145,7 @@ GLOBAL_DATUM_INIT(orbit_menu, /datum/orbit_menu, new)
 					var/list/antag_serialized = serialized.Copy()
 					antag_serialized["antag"] = "Terror Spider"
 					antagonists += list(antag_serialized)
-				else if(istype(M, /mob/living/simple_animal/revenant))
+				else if(istype(M, /mob/living/basic/revenant))
 					var/list/antag_serialized = serialized.Copy()
 					antag_serialized["antag"] = "Revenant"
 					antagonists += list(antag_serialized)

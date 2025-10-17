@@ -95,7 +95,7 @@
 	if(!isliving(entered))
 		return
 	var/mob/living/victim = entered
-	if(istype(victim, /mob/living/simple_animal/revenant))
+	if(istype(victim, /mob/living/basic/revenant))
 		return
 	victim.apply_status_effect(STATUS_EFFECT_RUST_CORRUPTION)
 
