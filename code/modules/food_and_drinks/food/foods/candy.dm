@@ -37,7 +37,7 @@
 
 /obj/item/food/candy/nougat
 	name = "nougat"
-	desc = "A soft, chewy candy commonly found in candybars."
+	desc = "A soft, chewy candy commonly found in candy bars."
 	icon_state = "nougat"
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
@@ -164,7 +164,7 @@
 
 /obj/item/food/candy/candybar
 	name = "candy"
-	desc = "A chocolate candybar, wrapped in a bit of foil."
+	desc = "A chocolate candy bar, wrapped in a bit of foil."
 	trash = /obj/item/trash/candy
 	filling_color = "#7D5F46"
 	bitesize = 3
@@ -481,7 +481,7 @@
 
 /obj/item/food/candy/jellybean/coffee
 	name = "coffee jelly bean"
-	desc = "A candy bean, guaranteed to not give you gas. It's Coffee flavored!"
+	desc = "A candy bean, guaranteed to not give you gas. It's coffee flavored!"
 	icon_state = "jbean_choc"
 	filling_color = "#482000"
 	list_reagents = list("sugar" = 10, "coffee" = 2)
