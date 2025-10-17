@@ -209,7 +209,7 @@
 	desc = "Allows us to propel pieces of shrapnel from our arm."
 	upgrade_info = "Upgrading it allows us to reload the cannon faster. At the third level, we gain an extra magazine slot."
 	action_icon = 'icons/obj/guns/projectile.dmi'
-	action_icon_state = "shell_cannon_weapon"
+	action_icon_state = "shell_cannon"
 	category = FLAYER_CATEGORY_DESTROYER
 	power_type = FLAYER_PURCHASABLE_POWER
 	base_cost = 50
@@ -230,7 +230,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel/flayer
 	name = "integrated shrapnel cannon"
 	desc = "Allows us to propel shrapnel at high velocities. Cannot be loaded with conventional shotgun shells."
-	icon_state = "shell_cannon_weapon"
+	icon_state = "shell_cannon"
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	flags = NODROP | ABSTRACT

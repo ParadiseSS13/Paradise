@@ -186,6 +186,8 @@
 
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE))
+		if(attached_bits.len > 0)
+			return ..()
 		open(user)
 		add_fingerprint(user)
 	else if(isobserver(user))
@@ -226,7 +228,8 @@
 		user.s_active.hide_from(user) // If there's already an interface open, close it.
 	user.client.screen |= boxes
 	user.client.screen |= closer
-	user.client.screen |= contents
+	var/list/contents_to_show = contents - attached_bits
+	user.client.screen |= contents_to_show
 	user.s_active = src
 	LAZYDISTINCTADD(mobs_viewing, user)
 
@@ -239,7 +242,8 @@
 		return
 	user.client.screen -= boxes
 	user.client.screen -= closer
-	user.client.screen -= contents
+	var/list/contents_to_show = contents - attached_bits
+	user.client.screen -= contents_to_show
 	if(user.s_active == src)
 		user.s_active = null
 
@@ -631,6 +635,8 @@
 	var/turf/T = get_turf(src)
 	hide_from(user)
 	for(var/obj/item/I in contents)
+		if(I in attached_bits)
+			continue
 		remove_from_storage(I, T)
 		I.scatter_atom()
 		CHECK_TICK
