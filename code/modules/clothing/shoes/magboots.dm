@@ -132,7 +132,6 @@
 	slowdown_active = SHOES_SLOWDOWN+1
 	slowdown_passive = SHOES_SLOWDOWN+1
 	magpulse_name = "honk-powered traction system"
-	item_color = "clown"
 	origin_tech = "magnets=4;syndicate=2"
 	var/enabled_waddle = TRUE
 

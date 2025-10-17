@@ -221,7 +221,7 @@
 		return FALSE
 
 	jump_animation(user)
-	if(isliving(user))
+	if(isliving(user) && !HAS_TRAIT(user, TRAIT_BOOTS_OF_JUMPING))
 		var/mob/living/L = user
 		L.adjustStaminaLoss(30)
 
