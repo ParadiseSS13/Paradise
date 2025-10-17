@@ -1138,3 +1138,10 @@
 		myseed.mutate(roll / 2, get_mutation_focus())
 	if(top_range > 30 && prob(roll / 10))
 		mut_beamed = TRUE
+
+/obj/machinery/hydroponics/proc/can_bee_pollinate()
+	if(isnull(myseed))
+		return FALSE
+	if(dead || recent_bee_visit)
+		return FALSE
+	return TRUE

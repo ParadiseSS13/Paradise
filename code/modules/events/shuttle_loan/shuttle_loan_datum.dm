@@ -80,7 +80,7 @@
 
 	for(var/i in 1 to 8)
 		// A large influx of bees, directly into the cargo workplace
-		spawn_list.Add(/mob/living/simple_animal/hostile/poison/bees)
+		spawn_list.Add(/mob/living/basic/bee)
 
 	for(var/i in 1 to 5)
 		var/decal = pick(/obj/effect/decal/cleanable/blood, /obj/effect/decal/cleanable/insectguts)

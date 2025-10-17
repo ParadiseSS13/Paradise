@@ -61,6 +61,8 @@
 /// Continue processing while in stasis
 #define AI_FLAG_CAN_ACT_IN_STASIS (1<<3)
 
+#define PASSIVE_AI_FLAGS (AI_FLAG_PAUSE_DURING_DO_AFTER | AI_FLAG_STOP_MOVING_WHEN_PULLED)
+
 // Base Subtree defines
 
 /// This subtree should cancel any further planning, (Including from other subtrees)
