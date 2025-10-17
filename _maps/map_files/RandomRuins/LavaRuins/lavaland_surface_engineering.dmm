@@ -166,6 +166,9 @@
 	},
 /obj/machinery/door/airlock/engineering/glass,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -348,6 +351,12 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -541,6 +550,12 @@
 	},
 /turf/simulated/floor/transparent/glass/plasma,
 /area/engi_outpost/bridges)
+"mg" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
 "mj" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -553,7 +568,9 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/engi_outpost/vacant_room)
 "mr" = (
 /obj/machinery/camera{
@@ -1256,6 +1273,12 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1286,7 +1309,9 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/engi_outpost/airlock)
 "GN" = (
 /obj/structure/cable{
@@ -1335,6 +1360,9 @@
 "HC" = (
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1627,6 +1655,12 @@
 	icon_state = "4-8"
 	},
 /obj/item/beacon,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1858,12 +1892,10 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/engi_outpost/electrical)
 "Wb" = (
-/obj/machinery/door/airlock/external/glass{
-	name = "Shuttle Airlock";
-	id_tag = "mining_away"
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/space,
 /area/engi_outpost/shuttle_landing_post)
 "Wr" = (
 /obj/effect/spawner/window/shuttle,
@@ -1889,7 +1921,9 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/engi_outpost/breakroom)
 "WZ" = (
 /obj/machinery/camera{
@@ -2503,7 +2537,7 @@ Oe
 fw
 uu
 uu
-Wb
+xJ
 uu
 uu
 mc
@@ -2710,7 +2744,7 @@ Aj
 oM
 oM
 oM
-oM
+Wb
 HC
 Pz
 Pz
@@ -2751,7 +2785,7 @@ oM
 oM
 oM
 oM
-oM
+mg
 PZ
 oM
 oM
@@ -3686,7 +3720,7 @@ Ui
 Ui
 Ui
 Ui
-Ui
+Oe
 vL
 Zp
 tw

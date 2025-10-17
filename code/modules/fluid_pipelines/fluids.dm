@@ -31,7 +31,7 @@
 /datum/fluid/fuel/turbo
 	fluid_name = "turbofuel"
 	fluid_id = "tur_fuel"
-	fuel_value = 5
+	fuel_value = 4
 
 // General waste fluid
 /datum/fluid/waste

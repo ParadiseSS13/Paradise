@@ -157,6 +157,8 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 
 	for(var/id, amount in selected_recipe.output)
 		fluid_datum.add_fluid(GLOB.fluid_id_to_path[id], amount)
+	if(selected_recipe.solid_output)
+		new selected_recipe.solid_output(get_turf(src))
 
 /obj/machinery/fluid_pipe/plasma_refinery/east
 	icon_state = "refinery_4"

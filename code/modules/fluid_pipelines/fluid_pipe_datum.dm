@@ -186,7 +186,7 @@
 		potential.fluid_amount += amount
 
 /// Removes a specific amount from a specific fluid. Returns FALSE if not enough of the fluid can be removed
-/datum/fluid_pipe/proc/remove_spec_fluid(type, amount)
+/datum/fluid_pipe/proc/remove_fluid(type, amount)
 	if(!ispath(type) || amount <- 0)
 		return FALSE
 	var/datum/fluid/potential = is_path_in_list(type, fluids, TRUE)

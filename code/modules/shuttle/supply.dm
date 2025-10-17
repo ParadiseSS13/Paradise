@@ -55,7 +55,7 @@
 	var/blocking_item = "ERR_UNKNOWN"
 
 	/// Our external fuel tank
-	var/datum/fluid_pipe/fuel_tank
+	var/obj/machinery/fluid_pipe/shuttle_fuel_tank/fuel_tank
 
 /obj/docking_port/mobile/supply/Initialize(mapload)
 	. = ..()
@@ -104,9 +104,14 @@
 					setTimer(20)
 					return
 				mode = SHUTTLE_CALL
-				if(!fuel_tank?.remove_fluid())
+
+				if(!fuel_tank?.tank.remove_fluid(fuel_tank.current_fuel, 250))
+					callTime = initial(callTime)
+				else
+					callTime /= initial(fuel_tank.current_fuel.fuel_value)
 
 				setTimer(callTime)
+				callTime = initial(callTime)
 				enterTransit()
 				return
 		mode = SHUTTLE_IDLE

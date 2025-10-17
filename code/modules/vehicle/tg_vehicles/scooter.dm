@@ -159,7 +159,7 @@
 		if(P.invisibility == 0 && (loc.layer == PLATING_LAYER || P.layer >= GAS_PIPE_VISIBLE_LAYER))
 			piping_hot = TRUE
 			break
-	if(!(locate(/obj/structure/table) in loc.contents) && !(locate(/obj/structure/railing) in loc.contents) && !piping_hot)
+	if(!(locate(/obj/structure/table) in loc.contents) && !(locate(/obj/structure/railing) in loc.contents) && !(locate(/obj/machinery/fluid_pipe) in loc.contents) && !piping_hot)
 		grinding = FALSE
 		icon_state = "[initial(icon_state)]"
 		return

@@ -8,6 +8,7 @@
 	icon = 'icons/obj/pipes/shuttleintake_east.dmi'
 	icon_state = "intake"
 	dir = EAST
+	layer = ABOVE_WINDOW_LAYER
 	just_a_pipe = FALSE
 	capacity = 500
 	connect_dirs = list(WEST)
@@ -16,7 +17,7 @@
 	/// Ref to the internal storage tank
 	var/datum/fluid_pipe/tank
 	/// What fuel do we have in the tank?
-	var/datum/fluid/current_fuel
+	var/datum/fluid/current_fuel = /datum/fluid/fuel/turbo // DGTODO temp
 	/// Units moved per 0.5 seconds. Base is 100/s
 	var/amount_moved = 50
 
@@ -27,7 +28,7 @@
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/Initialize(mapload)
 	tank = new(src, 5000)
-	SSshuttle.supply.fuel_tank = tank
+	SSshuttle.supply.fuel_tank = src
 	tank.add_fluid(/datum/fluid/fuel/turbo, 2000)
 	return ..()
 
@@ -65,8 +66,8 @@
 			return
 		fluid_datum.move_fluid(current_fuel, tank, amount_moved)
 	if(state == STATE_OUTPUT)
-		var/amount = clamp(amount_moved, fluid_datum.get_empty_space())
-		tank.move_any_fluid(fluid_datum)
+		var/amount = min(amount_moved, fluid_datum.get_empty_space())
+		tank.move_any_fluid(fluid_datum, amount)
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/attack_hand(mob/user)
 	var/decision = tgui_alert(user, "Do you want to add fluids or retrieve them?", "Shuttle fuel tank", list("Add", "Retrieval", "Idle"))
@@ -81,6 +82,7 @@
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/proc/check_fuels()
 	if(tank.get_fluid_volumes() < 500)
 		return // Need at least 500 units of fuel
+
 
 /obj/machinery/fluid_pipe/shuttle_fuel_tank/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armor_penetration_flat, armor_penetration_percentage)
 	return // This shit is indestructable

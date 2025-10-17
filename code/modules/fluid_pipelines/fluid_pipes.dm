@@ -10,6 +10,7 @@
 	power_state = NO_POWER_USE
 	flags_2 = NO_MALF_EFFECT_2
 	anchored = TRUE
+	density = TRUE
 	/// The pipe datum connected to this pipe
 	var/datum/fluid_pipe/fluid_datum
 	/// Is this fluid machinery or just a pipe
@@ -184,11 +185,12 @@
 /obj/machinery/fluid_pipe/proc/special_connect_check(obj/machinery/fluid_pipe/pipe)
 	return FALSE
 
+// DGTODO remove this
 /obj/item/pipe_creator
 	name = "pipe creator"
 	desc = "Makes pipes. Debug item."
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
-	icon_state = "signaller"
+	icon_state = "signaler"
 	new_attack_chain = TRUE
 	/// Selected pipe item
 	var/pipe_path

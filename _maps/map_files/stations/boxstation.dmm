@@ -78107,6 +78107,11 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"son" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/machinery/fluid_pipe/shuttle_fuel_tank/west,
+/turf/simulated/floor/plating,
+/area/station/supply/storage)
 "sou" = (
 /obj/machinery/light,
 /obj/structure/closet/secure_closet/miner,
@@ -108580,7 +108585,7 @@ bGX
 bDQ
 bxb
 hMm
-hMm
+son
 hMm
 bRI
 cuD

@@ -1,6 +1,6 @@
-#define STATE_IDLE		0
-#define STATE_INTAKE	1
-#define STATE_OUTPUT	2
+#define STATE_IDLE		"Idle"
+#define STATE_INTAKE	"Intake"
+#define STATE_OUTPUT	"Output"
 
 /obj/structure/barrel
 	name = "barrel"
@@ -65,6 +65,8 @@
 	var/selected_fluid
 	/// How much do we move per 0.5 seconds?
 	var/move_amount = 50
+	/// What are we currently doing
+	var/state = STATE_IDLE
 
 /obj/machinery/fluid_pipe/barrel_filler/Destroy()
 	. = ..()
@@ -88,7 +90,10 @@
 	if(!liquid)
 		return FALSE
 	selected_fluid = GLOB.fluid_name_to_path[liquid]
-	var/state
+	var/response = tgui_input_list(user, "What state should the filler be in?", "Barrel filler", list(STATE_IDLE, STATE_INTAKE, STATE_OUTPUT))
+	if(!response)
+		return
+	state = response
 
 /obj/machinery/fluid_pipe/barrel_filler/process()
 	if(!barrel || state == STATE_IDLE)
