@@ -144,9 +144,11 @@ Difficulty: Medium
 		else
 			var/mob/living/basic/mining/hivelord/legion/A
 			if(enraged)
-				A = new /mob/living/basic/mining/hivelord/legion/advanced/tendril(loc)
+				A = new /mob/living/basic/mining/hivelord/legion/advanced(loc)
+				ADD_TRAIT(A, TRAIT_FROM_TENDRIL, INNATE_TRAIT)
 			else
-				A = new /mob/living/basic/mining/hivelord/legion/tendril(loc)
+				A = new /mob/living/basic/mining/hivelord/legion(loc)
+				ADD_TRAIT(A, TRAIT_FROM_TENDRIL, INNATE_TRAIT)
 			A.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
 			A.ai_controller.set_blackboard_key(BB_FRIENDS_LIST, friends)
 			A.faction = faction
