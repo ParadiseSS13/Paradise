@@ -23,12 +23,13 @@
 
 	blood_color = "#515573"
 	flesh_color = "#137E8F"
-	skinned_type = /obj/item/stack/sheet/metal
 
 	blacklisted = TRUE // To prevent golem subtypes from overwhelming the odds when random species changes, only the Random Golem type can be chosen
 	dangerous_existence = TRUE
 
 	vision_organ = null
+	skinned_type = /obj/item/stack/sheet/metal
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/golem,
 		"adamantine_resonator" = /obj/item/organ/internal/adamantine_resonator

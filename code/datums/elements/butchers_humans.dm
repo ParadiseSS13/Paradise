@@ -29,7 +29,7 @@
 	var/obj/item/item = source
 
 	if(human.stat == DEAD && user.a_intent == INTENT_HARM)
-		var/obj/item/food/meat/human/newmeat = new /obj/item/food/meat/human(get_turf(human))
+		var/obj/item/food/meat/human/newmeat = new human.dna.species.meat_type(get_turf(human))
 		newmeat.name = human.real_name + newmeat.name
 		newmeat.reagents.add_reagent("nutriment", (human.nutrition / 15) / 3)
 		human.reagents.trans_to(newmeat, round((human.reagents.total_volume) / 3, 1))

@@ -12,7 +12,6 @@
 	language = "Trinary"
 	remains_type = /obj/effect/decal/remains/robot
 	inherent_factions = list("slime")
-	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
 	tox_mod = 0
@@ -44,6 +43,8 @@
 
 	hunger_icon = 'icons/mob/screen_hunger_machine.dmi'
 
+	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
+	meat_type = /obj/item/food/meat/human/robot
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,

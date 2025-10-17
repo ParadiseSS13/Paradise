@@ -5,6 +5,7 @@
 	language = "Sol Common"
 	species_traits = list(LIPS)
 	skinned_type = /obj/item/stack/sheet/animalhide/human
+	meat_type = /obj/item/food/meat/human
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI

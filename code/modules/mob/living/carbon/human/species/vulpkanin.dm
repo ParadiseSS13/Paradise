@@ -5,7 +5,6 @@
 	language = "Canilunzt"
 	primitive_form = /datum/species/monkey/vulpkanin
 	tail = "vulptail"
-	skinned_type = /obj/item/stack/sheet/fur
 	unarmed_type = /datum/unarmed_attack/claws
 
 	blurb = "Vulpkanin are bipedal canid-like beings from the Vazzend binary system, having been forced from their homeworld by a cataclysmic event and scattered throughout the Orion Sector. \
@@ -27,6 +26,8 @@
 
 	scream_verb = "yelps"
 
+	meat_type = /obj/item/food/meat/human
+	skinned_type = /obj/item/stack/sheet/fur
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/vulpkanin,
 		"lungs" =    /obj/item/organ/internal/lungs/vulpkanin,

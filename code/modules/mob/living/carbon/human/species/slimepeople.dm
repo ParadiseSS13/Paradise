@@ -49,6 +49,7 @@
 	//Has default darksight of 2.
 
 	vision_organ = null
+	meat_type = /obj/item/food/meat/human
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime
 		)
