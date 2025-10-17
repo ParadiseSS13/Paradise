@@ -1425,6 +1425,7 @@
 	name = "strange witch hat"
 	desc = "A shapeshifting witch hat. A strange aura comes from it..."
 	icon = 'icons/obj/custom_items.dmi'
+	icon_monitor = null
 	icon_state = "classic_witch"
 
 /obj/item/clothing/head/wizard/fake/fluff/dreamy/attack_self__legacy__attackchain(mob/user)
