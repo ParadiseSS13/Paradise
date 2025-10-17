@@ -411,10 +411,13 @@ fn byondvalue_to_mysql(val: ByondValue) -> mysql::Value {
                         mysql::Value::Float(num)
                     }
                 }
-                ValueType::String => {
-                    let bstr = val.get_string().unwrap();
-                    mysql::Value::Bytes(bstr.into())
-                }
+                ValueType::String => mysql::Value::Bytes(
+                    val.get_cstring()
+                        .unwrap() // this is definitely unsafe but OH WELL
+                        .to_string_lossy()
+                        .as_bytes()
+                        .into(),
+                ),
                 _ => {
                     // Default to null if we cry about it
                     mysql::Value::NULL
