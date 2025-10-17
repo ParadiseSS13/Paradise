@@ -254,7 +254,7 @@
 #define MILLA_INDEX_FUEL_BURNT				20
 
 /// The number of values per tile.
-#define MILLA_TILE_SIZE						MILLA_INDEX_FUEL_BURNT
+#define MILLA_TILE_SIZE						MILLA_INDEX_FUEL_BURNT + 2
 
 // These are only for InterestingTiles.
 #define MILLA_INDEX_TURF					21
