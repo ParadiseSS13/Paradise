@@ -112,7 +112,7 @@
 	supermatter.heat_penalty_threshold -= 173
 
 /datum/engi_event/supermatter_event/charlie_tier/hydrogen
-	name = "C-4"
+	name = "C-5"
 
 /datum/engi_event/supermatter_event/charlie_tier/hydrogen/on_start()
 	var/datum/gas_mixture/air = new()

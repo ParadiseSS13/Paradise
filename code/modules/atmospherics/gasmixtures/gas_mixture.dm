@@ -11,8 +11,8 @@ What are the archived variables for?
 #define SPECIFIC_HEAT_HYDROGEN  30
 #define SPECIFIC_HEAT_WATER_VAPOR      33
 
-#define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, hydrogen, water_vapor, innate_heat_capacity) \
-	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B + hydrogen * SPECIFIC_HEAT_HYDROGEN + water_vapor * SPECIFIC_HEAT_WATER_VAPOR + innate_heat_capacity)
+#define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, innate_heat_capacity, hydrogen, water_vapor) \
+	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B + innate_heat_capacity + hydrogen * SPECIFIC_HEAT_HYDROGEN + water_vapor * SPECIFIC_HEAT_WATER_VAPOR)
 
 #define MINIMUM_HEAT_CAPACITY	0.0003
 #define MINIMUM_MOLE_COUNT		0.01
@@ -126,18 +126,6 @@ What are the archived variables for?
 		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
 	private_agent_b = clamped
 
-/datum/gas_mixture/proc/hydrogen()
-	return private_hydrogen
-
-/datum/gas_mixture/proc/set_hydrogen(value)
-	private_hydrogen = value
-
-/datum/gas_mixture/proc/water_vapor()
-	return private_water_vapor
-
-/datum/gas_mixture/proc/set_water_vapor(value)
-	private_water_vapor = value
-
 /datum/gas_mixture/proc/temperature()
 	return private_temperature
 
@@ -148,6 +136,28 @@ What are the archived variables for?
 	if(value != clamped)
 		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
 	private_temperature = clamped
+
+/datum/gas_mixture/proc/hydrogen()
+	return private_hydrogen
+
+/datum/gas_mixture/proc/set_hydrogen(value)
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_hydrogen = clamped
+
+/datum/gas_mixture/proc/water_vapor()
+	return private_water_vapor
+
+/datum/gas_mixture/proc/set_water_vapor(value)
+	if(isnan(value) || !isnum(value))
+		CRASH("Bad value: [value]")
+	var/clamped = clamp(value, 0, 1e10)
+	if(value != clamped)
+		stack_trace("Out-of-bounds value [value] clamped to [clamped].")
+	private_water_vapor = clamped
 
 /datum/gas_mixture/proc/hotspot_temperature()
 	return private_hotspot_temperature
@@ -160,10 +170,10 @@ What are the archived variables for?
 
 	///joules per kelvin
 /datum/gas_mixture/proc/heat_capacity()
-	return HEAT_CAPACITY_CALCULATION(private_oxygen, private_carbon_dioxide, private_nitrogen, private_toxins, private_sleeping_agent, private_agent_b, private_hydrogen, private_water_vapor, innate_heat_capacity)
+	return HEAT_CAPACITY_CALCULATION(private_oxygen, private_carbon_dioxide, private_nitrogen, private_toxins, private_sleeping_agent, private_agent_b, innate_heat_capacity, private_hydrogen, private_water_vapor)
 
 /datum/gas_mixture/proc/heat_capacity_archived()
-	return HEAT_CAPACITY_CALCULATION(private_oxygen_archived, private_carbon_dioxide_archived, private_nitrogen_archived, private_toxins_archived, private_sleeping_agent_archived, private_agent_b_archived, private_hydrogen_archived, private_water_vapor_archived, innate_heat_capacity)
+	return HEAT_CAPACITY_CALCULATION(private_oxygen_archived, private_carbon_dioxide_archived, private_nitrogen_archived, private_toxins_archived, private_sleeping_agent_archived, private_water_vapor_archived, innate_heat_capacity, private_agent_b_archived, private_hydrogen_archived)
 
 	/// Calculate moles
 /datum/gas_mixture/proc/total_moles()
@@ -344,7 +354,7 @@ What are the archived variables for?
 		return 0
 	/// Don't make calculations if there is no difference.
 	if(private_oxygen_archived == sharer.private_oxygen_archived && private_carbon_dioxide_archived == sharer.private_carbon_dioxide_archived && private_nitrogen_archived == sharer.private_nitrogen_archived &&\
-	private_toxins_archived == sharer.private_toxins_archived && private_sleeping_agent_archived == sharer.private_sleeping_agent_archived && private_agent_b_archived == sharer.private_agent_b_archived && private_hydrogen_archived == sharer.private_hydrogen_archived && private_water_vapor_archived == sharer.private_water_vapor_archived && private_temperature_archived == sharer.private_temperature_archived)
+	private_toxins_archived == sharer.private_toxins_archived && private_sleeping_agent_archived == sharer.private_sleeping_agent_archived && private_agent_b_archived == sharer.private_agent_b_archived && private_temperature_archived == sharer.private_temperature_archived && private_hydrogen_archived == sharer.private_hydrogen_archived && private_water_vapor_archived == sharer.private_water_vapor_archived)
 		return 0
 	var/delta_oxygen = QUANTIZE(private_oxygen_archived - sharer.private_oxygen_archived) / (atmos_adjacent_turfs + 1)
 	var/delta_carbon_dioxide = QUANTIZE(private_carbon_dioxide_archived - sharer.private_carbon_dioxide_archived) / (atmos_adjacent_turfs + 1)
@@ -802,13 +812,14 @@ What are the archived variables for?
 	private_toxins = milla[MILLA_INDEX_TOXINS]
 	private_sleeping_agent = milla[MILLA_INDEX_SLEEPING_AGENT]
 	private_agent_b = milla[MILLA_INDEX_AGENT_B]
-	private_hydrogen = milla[MILLA_INDEX_HYDROGEN]
-	private_water_vapor = milla[MILLA_INDEX_WATER_VAPOR]
 	innate_heat_capacity = milla[MILLA_INDEX_INNATE_HEAT_CAPACITY]
 	private_temperature = milla[MILLA_INDEX_TEMPERATURE]
 	private_hotspot_temperature = milla[MILLA_INDEX_HOTSPOT_TEMPERATURE]
 	private_hotspot_volume = milla[MILLA_INDEX_HOTSPOT_VOLUME]
 	private_fuel_burnt = milla[MILLA_INDEX_FUEL_BURNT]
+	private_hydrogen = milla[MILLA_INDEX_HYDROGEN]
+	private_water_vapor = milla[MILLA_INDEX_WATER_VAPOR]
+
 
 /proc/share_many_airs(list/mixtures, atom/root)
 	var/total_volume = 0
@@ -953,12 +964,12 @@ What are the archived variables for?
 		readonly.private_toxins = private_toxins
 		readonly.private_sleeping_agent = private_sleeping_agent
 		readonly.private_agent_b = private_agent_b
-		readonly.private_hydrogen = private_hydrogen
-		readonly.private_water_vapor = private_water_vapor
 		readonly.private_temperature = private_temperature
 		readonly.private_hotspot_temperature = private_hotspot_temperature
 		readonly.private_hotspot_volume = private_hotspot_volume
 		readonly.private_fuel_burnt = private_fuel_burnt
+		readonly.private_hydrogen = private_hydrogen
+		readonly.private_water_vapor = private_water_vapor
 
 	if(istype(bound_turf, /turf/simulated))
 		var/turf/simulated/S = bound_turf
@@ -989,16 +1000,16 @@ What are the archived variables for?
 	private_agent_b = value
 	set_dirty()
 
+/datum/gas_mixture/bound_to_turf/set_temperature(value)
+	private_temperature = value
+	set_dirty()
+
 /datum/gas_mixture/bound_to_turf/set_hydrogen(value)
 	private_hydrogen = value
 	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/set_water_vapor(value)
 	private_water_vapor = value
-	set_dirty()
-
-/datum/gas_mixture/bound_to_turf/set_temperature(value)
-	private_temperature = value
 	set_dirty()
 
 /datum/gas_mixture/bound_to_turf/hotspot_expose(temperature, volume)
@@ -1008,7 +1019,7 @@ What are the archived variables for?
 		private_hotspot_volume = max(private_hotspot_volume, (volume / CELL_VOLUME))
 
 /datum/gas_mixture/bound_to_turf/proc/private_unsafe_write()
-	set_tile_atmos(bound_turf, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, hydrogen = private_hydrogen, water_vapor = private_water_vapor, temperature = private_temperature)
+	set_tile_atmos(bound_turf, oxygen = private_oxygen, carbon_dioxide = private_carbon_dioxide, nitrogen = private_nitrogen, toxins = private_toxins, sleeping_agent = private_sleeping_agent, agent_b = private_agent_b, temperature = private_temperature, hydrogen = private_hydrogen, water_vapor = private_water_vapor)
 
 /datum/gas_mixture/bound_to_turf/proc/get_readonly()
 	if(isnull(readonly))
