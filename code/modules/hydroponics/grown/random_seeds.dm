@@ -12,9 +12,9 @@
 	icon_harvest = "xpod-harvest"
 	growthstages = 4
 
-/obj/item/seeds/random/Initialize(mapload)
-	. = ..()
+/obj/item/seeds/random/New()
 	randomize_stats()
+	..()
 	if(prob(60))
 		add_random_reagents()
 	if(prob(50))
@@ -24,7 +24,7 @@
 /obj/item/seeds/random/labelled
 	name = "pack of exotic strange seeds"
 
-/obj/item/seeds/random/labelled/Initialize(mapload)
+/obj/item/seeds/random/labelled/New()
 	. = ..()
 	add_random_traits(1, 2)
 	add_random_plant_type(100)
@@ -42,3 +42,4 @@
 	wine_power = rand(0.1,1.5)
 	if(prob(1))
 		wine_power = 2.0
+
