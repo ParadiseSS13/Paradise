@@ -77,7 +77,9 @@
 	update_icon(UPDATE_ICON_STATE)
 	update_action_buttons()
 
-/obj/item/clothing/glasses/meson/engine/attack_self__legacy__attackchain(mob/user)
+/obj/item/clothing/glasses/meson/engine/activate_self(mob/user)
+	if(..())
+		return
 	toggle_mode(user, TRUE)
 
 /obj/item/clothing/glasses/meson/engine/process()
