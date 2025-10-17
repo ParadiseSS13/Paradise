@@ -13,6 +13,8 @@
 		air.set_sleeping_agent(sleeping_agent)
 		air.set_agent_b(agent_b)
 		air.set_temperature(temperature)
+		air.set_hydrogen(hydrogen)
+		air.set_water_vapor(water_vapor)
 	else
 		air.set_oxygen(0)
 		air.set_carbon_dioxide(0)
@@ -21,6 +23,8 @@
 		air.set_sleeping_agent(0)
 		air.set_agent_b(0)
 		air.set_temperature(0)
+		air.set_hydrogen(0)
+		air.set_water_vapor(0)
 	return air
 
 /turf/simulated/Destroy()
@@ -72,6 +76,8 @@
 			return GLOB.plmaster
 		if("sleeping_agent")
 			return GLOB.slmaster
+		if("water_vapor")
+			return GLOB.wvmaster
 	return null
 
 /turf/simulated/proc/tile_graphic(datum/gas_mixture/air)
@@ -81,7 +87,6 @@
 		air = get_readonly_air()
 	if(air.toxins() > MOLES_PLASMA_VISIBLE)
 		return "plasma"
-
 	if(air.sleeping_agent() > 1)
 		return "sleeping_agent"
 	return null
@@ -178,7 +183,7 @@
 /turf/proc/Initialize_Atmos(milla_tick)
 	// This is one of two places expected to call this otherwise-unsafe method.
 	var/list/connectivity = private_unsafe_recalculate_atmos_connectivity()
-	var/list/air = list(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
+	var/list/air = list(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, hydrogen, water_vapor)
 	milla_data = connectivity[1] + list(atmos_mode, SSmapping.environments[atmos_environment]) +  air + connectivity[2]
 
 /turf/simulated/Initialize_Atmos(milla_tick)

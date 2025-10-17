@@ -408,7 +408,7 @@ SUBSYSTEM_DEF(air)
 	var/list/currentrun = src.currentrun
 	while(length(currentrun))
 		// Pop a tile off the list.
-		var/offset = length(currentrun) - MILLA_INTERESTING_TILE_SIZE
+		var/offset = length(currentrun) + 2 - MILLA_INTERESTING_TILE_SIZE // 2 for 2 new gases!
 		var/turf/T = currentrun[offset + MILLA_INDEX_TURF]
 		if(!istype(T))
 			currentrun.len -= MILLA_INTERESTING_TILE_SIZE
@@ -462,8 +462,8 @@ SUBSYSTEM_DEF(air)
 						item.temperature_expose(temperature, CELL_VOLUME)
 
 		if(reasons & MILLA_INTERESTING_REASON_WIND)
-			var/x_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_X]
-			var/y_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_Y]
+			var/x_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_X - 2]
+			var/y_flow = currentrun[offset + MILLA_INDEX_AIRFLOW_Y - 2]
 
 			var/turf/simulated/S = T
 			if(istype(S))
@@ -805,6 +805,11 @@ SUBSYSTEM_DEF(air)
 	// Disable fire, too.
 	for(var/turf/simulated/S in SSair.hotspots)
 		QDEL_NULL(S.active_hotspot)
+
+/// condenses water on a tile at the specified coordinates
+/proc/condense_water(water_phase, x, y, z)
+	var/turf/simulated/floor/tile =  locate(x, y, z)
+	tile.MakeSlippery(water_phase)
 
 /// Create a subclass of this and implement `on_run` to manipulate tile air safely.
 /datum/milla_safe

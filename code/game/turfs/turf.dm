@@ -24,6 +24,8 @@
 	var/toxins = 0
 	var/sleeping_agent = 0
 	var/agent_b = 0
+	var/hydrogen = 0
+	var/water_vapor = 0
 
 	//Properties for airtight tiles (/wall)
 	var/thermal_conductivity = 0.05
@@ -444,6 +446,8 @@
 		merged.set_toxins(merged.toxins() / turf_count)
 		merged.set_sleeping_agent(merged.sleeping_agent() / turf_count)
 		merged.set_agent_b(merged.agent_b() / turf_count)
+		merged.set_hydrogen(merged.hydrogen() / turf_count)
+		merged.set_water_vapor(merged.water_vapor() / turf_count)
 	get_turf_air(self).copy_from(merged)
 
 /turf/proc/ReplaceWithLattice()
@@ -746,6 +750,8 @@
 	var/datum/gas_mixture/air
 	var/fuel_burnt = 0
 	if(isnull(active_hotspot))
+		var/area/A = get_area(src)
+		SSblackbox.record_feedback("tally", "hotspot_creation_area", 1, istype(A) ? "[A.type]" : "UNKNOWN")
 		active_hotspot = new(src)
 		active_hotspot.update_interval = max(1, floor(length(SSair.hotspots) / 1000))
 		active_hotspot.update_tick = rand(0, active_hotspot.update_interval - 1)
@@ -774,6 +780,8 @@
 			return TRUE
 
 	active_hotspot.death_timer = SSair.milla_tick + 4
+	SSblackbox.record_feedback("tally", "hotspot_zlevel", 1, "[src.z]")
+
 
 	if(active_hotspot.update_tick == 0)
 		active_hotspot.update_visuals(active_hotspot.fuel_burnt)

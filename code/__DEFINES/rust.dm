@@ -71,8 +71,8 @@
 	ASSERT(istype(high_corner))
 	return RUSTLIB_CALL(milla_load_turfs, "milla_data", low_corner, high_corner)
 
-/proc/set_tile_atmos(turf/T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume)
-	return RUSTLIB_CALL(milla_set_tile, T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume)
+/proc/set_tile_atmos(turf/T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume, hydrogen, water_vapor)
+	return RUSTLIB_CALL(milla_set_tile, T, airtight_north, airtight_east, airtight_south, airtight_west, atmos_mode, environment_id, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, innate_heat_capacity, hotspot_temperature, hotspot_volume, hydrogen, water_vapor)
 
 /proc/get_tile_atmos(turf/T, list/L)
 	return RUSTLIB_CALL(milla_get_tile, T, L)
@@ -119,8 +119,8 @@
 /proc/get_random_interesting_tile()
 	return RUSTLIB_CALL(milla_get_random_interesting_tile)
 
-/proc/create_environment(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
-	return RUSTLIB_CALL(milla_create_environment, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature)
+/proc/create_environment(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, hydrogen, water_vapor)
+	return RUSTLIB_CALL(milla_create_environment, oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, temperature, hydrogen, water_vapor)
 
 /proc/set_zlevel_freeze(z, bool_frozen)
 	return RUSTLIB_CALL(milla_set_zlevel_frozen, z, bool_frozen)
@@ -199,7 +199,7 @@
 
 // MARK: Toast
 /// (Windows only) Triggers a desktop notification with the specified title and body
-/proc/rustlibs_create_toast(title, body) 
+/proc/rustlibs_create_toast(title, body)
 	return RUSTLIB_CALL(create_toast, title, body)
 
 
@@ -254,13 +254,17 @@
 #define MILLA_INDEX_FUEL_BURNT				20
 
 /// The number of values per tile.
-#define MILLA_TILE_SIZE						MILLA_INDEX_FUEL_BURNT
+#define MILLA_TILE_SIZE						MILLA_INDEX_FUEL_BURNT + 2
 
 // These are only for InterestingTiles.
 #define MILLA_INDEX_TURF					21
 #define MILLA_INDEX_INTERESTING_REASONS		22
 #define MILLA_INDEX_AIRFLOW_X				23
 #define MILLA_INDEX_AIRFLOW_Y				24
+
+// NEW GASES MUST GO HERE
+#define MILLA_INDEX_HYDROGEN				25
+#define MILLA_INDEX_WATER_VAPOR				26
 
 /// The number of values per interesting tile.
 #define MILLA_INTERESTING_TILE_SIZE			MILLA_INDEX_AIRFLOW_Y

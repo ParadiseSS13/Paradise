@@ -176,7 +176,9 @@ mod tests {
                     .toxins(0.0)
                     .sleeping_agent(0.0)
                     .agent_b(0.0)
-                    .thermal_energy(100.0),
+                    .thermal_energy(100.0)
+                    .hydrogen(0.0)
+                    .water_vapor(0.0),
                 '0' => TileChecker::new() //
                     .oxygen(0.0)
                     .carbon_dioxide(0.0)
@@ -184,7 +186,9 @@ mod tests {
                     .toxins(0.0)
                     .sleeping_agent(0.0)
                     .agent_b(0.0)
-                    .thermal_energy(0.0),
+                    .thermal_energy(0.0)
+                    .hydrogen(0.0)
+                    .water_vapor(0.0),
                 '#' => TileChecker::new(),
                 ' ' => TileChecker::new(),
                 _ => {
@@ -282,6 +286,14 @@ mod tests {
             self.0.gases.set_agent_b(value);
             self
         }
+        fn hydrogen(mut self, value: f32) -> Self {
+            self.0.gases.set_hydrogen(value);
+            self
+        }
+        fn water_vapor(mut self, value: f32) -> Self {
+            self.0.gases.set_water_vapor(value);
+            self
+        }
         fn thermal_energy(mut self, value: f32) -> Self {
             self.0.thermal_energy = value;
             self
@@ -308,6 +320,8 @@ mod tests {
         agent_b_: Option<f32>,
         thermal_energy_: Option<f32>,
         temperature_: Option<f32>,
+        hydrogen_: Option<f32>,
+        water_vapor_: Option<f32>,
     }
 
     impl TileChecker {
@@ -321,6 +335,8 @@ mod tests {
                 agent_b_: None,
                 thermal_energy_: None,
                 temperature_: None,
+                hydrogen_: None,
+                water_vapor_: None,
             }
         }
         fn check(self, tile: &Tile, x: i32, y: i32) {
@@ -369,6 +385,26 @@ mod tests {
                     (tile.gases.sleeping_agent() - value).abs() < TEST_TOLERANCE,
                     "{} != {} @ ({}, {})",
                     tile.gases.sleeping_agent(),
+                    value,
+                    x,
+                    y
+                );
+            }
+            if let Some(value) = self.hydrogen_ {
+                assert!(
+                    (tile.gases.hydrogen() - value).abs() < TEST_TOLERANCE,
+                    "{} != {} @ ({}, {})",
+                    tile.gases.hydrogen(),
+                    value,
+                    x,
+                    y
+                );
+            }
+            if let Some(value) = self.water_vapor_ {
+                assert!(
+                    (tile.gases.water_vapor() - value).abs() < TEST_TOLERANCE,
+                    "{} != {} @ ({}, {})",
+                    tile.gases.water_vapor(),
                     value,
                     x,
                     y
@@ -423,6 +459,14 @@ mod tests {
         }
         fn sleeping_agent(mut self, value: f32) -> Self {
             self.sleeping_agent_ = Some(value);
+            self
+        }
+        fn hydrogen(mut self, value: f32) -> Self {
+            self.hydrogen_ = Some(value);
+            self
+        }
+        fn water_vapor(mut self, value: f32) -> Self {
+            self.water_vapor_ = Some(value);
             self
         }
         fn agent_b(mut self, value: f32) -> Self {

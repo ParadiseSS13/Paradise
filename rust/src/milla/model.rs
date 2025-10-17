@@ -68,6 +68,23 @@ impl GasSet {
         self.values[GAS_AGENT_B] = value;
         self.dirty.store(true, Relaxed);
     }
+    pub(crate) fn hydrogen(&self) -> f32 {
+        self.values[GAS_HYDROGEN]
+    }
+
+    pub(crate) fn set_hydrogen(&mut self, value: f32) {
+        self.values[GAS_HYDROGEN] = value;
+        self.dirty.store(true, Relaxed);
+    }
+
+    pub(crate) fn water_vapor(&self) -> f32 {
+        self.values[GAS_WATER_VAPOR]
+    }
+
+    pub(crate) fn set_water_vapor(&mut self, value: f32) {
+        self.values[GAS_WATER_VAPOR] = value;
+        self.dirty.store(true, Relaxed);
+    }
     pub(crate) fn set_dirty(&mut self) {
         self.dirty.store(true, Relaxed);
     }
@@ -346,6 +363,8 @@ impl From<&Tile> for Vec<ByondValue> {
             ByondValue::from(value.wind[AXIS_X]),
             ByondValue::from(value.wind[AXIS_Y]),
             ByondValue::from(value.fuel_burnt),
+            ByondValue::from(value.gases.hydrogen()),
+            ByondValue::from(value.gases.water_vapor()),
         ]
     }
 }
@@ -413,7 +432,7 @@ impl ZLevel {
         ZLevel {
             tiles: unbuilt.into_boxed_slice().try_into().unwrap(),
             active_pressure_chunks: HashSet::new(),
-			frozen: false,
+            frozen: false,
         }
     }
 
@@ -457,7 +476,7 @@ impl ZLevel {
             self.tiles[i].copy_from(&other.tiles[i]);
         }
         self.active_pressure_chunks = other.active_pressure_chunks.clone();
-		self.frozen = other.frozen;
+        self.frozen = other.frozen;
     }
 }
 
