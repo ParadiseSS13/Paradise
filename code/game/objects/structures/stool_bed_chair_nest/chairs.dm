@@ -31,8 +31,8 @@
 
 /obj/structure/chair/narsie_act()
 	if(prob(20))
-		var/obj/structure/chair/wood/W = new/obj/structure/chair/wood(get_turf(src))
-		W.setDir(dir)
+		var/obj/structure/chair/comfy/cult/C = new /obj/structure/chair/comfy/cult(get_turf(src))
+		C.setDir(dir)
 		qdel(src)
 
 /obj/structure/chair/item_interaction(mob/living/user, obj/item/W, list/modifiers)
@@ -152,9 +152,6 @@
 	buildstackamount = 3
 	buildstacktype = /obj/item/stack/sheet/wood
 	item_chair = /obj/item/chair/wood
-
-/obj/structure/chair/wood/narsie_act()
-	return
 
 /obj/structure/chair/wood/wings
 	icon_state = "wooden_chair_wings"
@@ -662,9 +659,6 @@
 	materials = null
 	break_chance = 50
 
-/obj/item/chair/wood/narsie_act()
-	return
-
 /obj/item/chair/wood/wings
 	icon_state = "wooden_chair_wings_toppled"
 	origin_type = /obj/structure/chair/wood/wings
@@ -708,3 +702,19 @@
 		user.visible_message("<span class='notice'>[user] stops [src]'s uncontrollable spinning.</span>", \
 		"<span class='notice'>You grab [src] and stop its wild spinning.</span>")
 		STOP_PROCESSING(SSfastprocess, src)
+
+/obj/structure/chair/comfy/cult
+	name = "runed metal chair"
+	desc = "A cold metal throne engraved with indecipherable symbols. Studying them causes your head to pound."
+	icon_state = "cult_chair"
+	max_integrity = 150
+	buildstacktype = /obj/item/stack/sheet/runed_metal
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+/obj/structure/chair/comfy/cult/narsie_act()
+	return
+
+/obj/structure/chair/comfy/cult/no_metal
+	name = "runed stone chair"
+	desc = "A cold stone throne engraved with indecipherable symbols. Studying them causes your head to pound."
+	buildstacktype = null
