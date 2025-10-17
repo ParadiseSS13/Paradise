@@ -280,7 +280,11 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	if(!is_station_level(z) && last_corrupt <= world.time) //Pylons only convert tiles on offstation bases to help hide onstation cults from meson users
 		var/list/validturfs = list()
 		var/list/cultturfs = list()
+		var/list/tableturfs = list()
 		for(var/T in circleviewturfs(src, 5))
+			for(var/obj/structure/table/table in T)
+				if(!istype(table, /obj/structure/table/reinforced/cult))
+					tableturfs |= T
 			if(istype(T, /turf/simulated/floor/engine/cult))
 				cultturfs |= T
 				continue
@@ -291,6 +295,11 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 		last_corrupt = world.time + corrupt_delay
 
+		var/turf/tableturf = safepick(tableturfs)
+		if(tableturf)
+			for(var/obj/structure/table/table in tableturf)
+				qdel(table)
+				new /obj/structure/table/reinforced/cult/no_metal(tableturf)
 		var/turf/T = safepick(validturfs)
 		if(T)
 			if(isfloorturf(T))
