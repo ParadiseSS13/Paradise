@@ -184,6 +184,9 @@
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
 
+	if(desc == ABSTRACT_TYPE_DESC)
+		stack_trace("[type] was initialized, but is marked as an abstract base type")
+
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
