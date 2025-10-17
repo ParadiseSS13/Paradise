@@ -27,4 +27,9 @@ GLOBAL_VAR_INIT(spores_active, 0)
 	if(overmind)
 		overmind.add_mob_to_overmind(BS)
 
+/obj/structure/blob/factory/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z))
+		return list(ASSIGNMENT_SECURITY = 0.33, ASSIGNMENT_CREW = 1)
+
 #undef MAX_GLOBAL_SPORES

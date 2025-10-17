@@ -63,6 +63,12 @@
 	AddSpell(new /datum/spell/morph_spell/open_vent)
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
+	AddComponent(/datum/component/event_tracker, EVENT_MORPH)
+
+/mob/living/simple_animal/hostile/morph/event_cost()
+	. = list()
+	if(is_station_level((get_turf(src)).z) && stat != DEAD)
+		return list(ASSIGNMENT_SECURITY = 1)
 
 /mob/living/simple_animal/hostile/morph/Destroy()
 	QDEL_NULL(mimic_spell)
@@ -227,8 +233,8 @@
 		return ITEM_INTERACT_COMPLETE
 	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
 	visible_message(
-		"<span class='warning'>[src] begins to pry open the morph's massive jaws!</span>", 
-		"<span class='danger'>You begin to pry open the morph's massive jaws!</span>", 
+		"<span class='warning'>[src] begins to pry open the morph's massive jaws!</span>",
+		"<span class='danger'>You begin to pry open the morph's massive jaws!</span>",
 		"<span class='warning'>You hear wet, meaty tearing nearby!</span>"
 	)
 	if(do_after_once(user, 8 SECONDS, target = src))
