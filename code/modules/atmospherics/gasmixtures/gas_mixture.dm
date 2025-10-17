@@ -828,9 +828,9 @@ What are the archived variables for?
 	var/total_carbon_dioxide = 0
 	var/total_sleeping_agent = 0
 	var/total_agent_b = 0
-	var/must_share = FALSE
 	var/total_hydrogen = 0
 	var/total_water_vapor = 0
+	var/must_share = FALSE
 
 	// Collect all the cheap data and check if there's a significant temperature difference.
 	var/temperature = null
