@@ -446,6 +446,9 @@
 	Master.UpdateTickRate()
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_516))
 
+	//TODO: Comment out after awhile, save for future use.
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_new_rules))
+
 	// Tell clients about active testmerges
 	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
 		to_chat(src, GLOB.revision_info.get_testmerge_chatmessage(TRUE))
@@ -1340,6 +1343,14 @@
 		return
 
 	src << link("https://secure.byond.com/download/")
+
+// TODO: Comment out after awhile, keep in case of future needs.
+/client/proc/nag_new_rules()
+	var/choice = tgui_alert(src, "IMPORTANT: We have updated and reworked our rules! If you haven't, please review them before joining the round. Thank you.", "New Rule Alert", list("Okay", "View Rules"))
+	if(choice == "Okay")
+		return
+
+	src << link("https://paradisestation.org/rules/")
 
 /datum/persistent_client/New(ckey)
 	// Create a PM tracker bound to this ckey.
