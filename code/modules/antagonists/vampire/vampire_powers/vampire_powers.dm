@@ -206,6 +206,31 @@
 	C.charge_duration = 2 SECONDS
 	return C
 
+/datum/spell/vampire/lair
+	name = "Lair"
+	desc = "Pick a coffin for yourself, the centrepiece of your new lair."
+	gain_desc = "You can now start a lair."
+	action_icon = 'icons/obj/items.dmi'
+	action_icon_state = "blood-chalice"
+	var/used = FALSE
+
+/datum/spell/vampire/lair/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.range = 1
+	T.click_radius = 1
+	T.allowed_type = /obj/structure/closet/coffin
+	return T
+
+/datum/spell/vampire/lair/cast(list/targets, mob/user)
+	if(used)
+		to_chat(user, "<span class='warning'>You have already built a lair!</span>")
+		return
+	for(var/obj/structure/closet/coffin/C as anything in targets)
+		var/obj/structure/closet/coffin/vampire/new_lair = new /obj/structure/closet/coffin/vampire(user)
+		new_lair.forceMove(get_turf(C))
+		qdel(C)
+	used = TRUE
+
 /// No deviation at all. Flashed from the front or front-left/front-right. Alternatively, flashed in direct view.
 #define DEVIATION_NONE 3
 /// Partial deviation. Flashed from the side. Alternatively, flashed out the corner of your eyes.

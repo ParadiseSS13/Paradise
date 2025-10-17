@@ -918,6 +918,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 #undef SWARM_GOAL_LOWER_BOUND
 #undef SWARM_GOAL_UPPER_BOUND
 
+/datum/objective/lair
+	name = "Build a lair"
+	explanation_text = "Build a lair by placing a coffin in the middle of an unoccupied 3x3 area and resting inside."
+	needs_target = FALSE
+
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
 

@@ -25,6 +25,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 									/datum/vampire_passive/vision = 100,
 									/datum/spell/vampire/self/specialize = 150,
 									/datum/spell/vampire/self/exfiltrate = 150,
+									/datum/spell/vampire/lair = 150,
 									/datum/vampire_passive/regen = 200,
 									/datum/vampire_passive/vision/advanced = 500)
 
@@ -359,6 +360,7 @@ RESTRICT_TYPE(/datum/antagonist/vampire)
 	add_antag_objective(/datum/objective/blood)
 	add_antag_objective(/datum/objective/assassinate)
 	add_antag_objective(/datum/objective/steal)
+	add_antag_objective(/datum/objective/lair)
 
 	if(prob(20)) // 20% chance of getting survive. 80% chance of getting escape.
 		add_antag_objective(/datum/objective/survive)
