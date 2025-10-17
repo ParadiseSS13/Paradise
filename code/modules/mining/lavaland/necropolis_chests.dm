@@ -465,7 +465,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/katana/Retract()
 	var/obj/item/cursed_katana/katana = holder
-	if(!katana || katana.shattered)
+	if(!katana)
 		return FALSE
 	if(!katana.drew_blood)
 		to_chat(owner, "<span class='userdanger'>[katana] lashes out at you in hunger!</span>")
@@ -476,12 +476,6 @@
 	katana.clean_blood()
 	return ..()
 
-/obj/item/organ/internal/cyberimp/arm/katana/Extend()
-	for(var/obj/item/cursed_katana/katana in contents)
-		if(katana.shattered)
-			to_chat(owner, "<span class='warning'>Your cursed katana has not reformed yet!</span>")
-			return FALSE
-	return ..()
 
 /obj/item/organ/internal/cyberimp/arm/katana/proc/user_death(mob/user)
 	SIGNAL_HANDLER
@@ -499,7 +493,6 @@
 /obj/item/organ/internal/cyberimp/arm/katana/remove(mob/living/carbon/M, special)
 	UnregisterSignal(M, COMSIG_MOB_DEATH)
 	. = ..()
-
 
 #define HARM_SLASH "Harm"
 #define DISARM_SLASH "Disarm"
@@ -528,7 +521,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	var/shattered = FALSE
 	var/drew_blood = FALSE
 	var/timerid
 	var/list/input_list = list()
