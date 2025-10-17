@@ -496,7 +496,7 @@
 				for(var/obj/structure/spider/eggcluster/terror_eggcluster/E in GLOB.ts_egg_list)
 					if(is_station_level(E.z))
 						count_eggs += E.spiderling_number
-				for(var/obj/structure/spider/spiderling/terror_spiderling/L in GLOB.ts_spiderling_list)
+				for(var/mob/living/basic/spiderling/terror_spiderling/L in GLOB.ts_spiderling_list)
 					if(!L.stillborn && is_station_level(L.z))
 						count_spiderlings += 1
 				count_infected = length(GLOB.ts_infected_list)

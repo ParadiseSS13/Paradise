@@ -97,10 +97,9 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/proc/PickupSpiderlings()
 	// Mothers can pick up spiderlings, carrying them on their back and stopping them from wandering into trouble.
 	var/pickup_count = 0
-	for(var/obj/structure/spider/spiderling/terror_spiderling/S in orange(2, src))
+	for(var/mob/living/basic/spiderling/terror_spiderling/S in orange(2, src))
 		var/turf/T = get_turf(S)
 		new /obj/effect/temp_visual/heal(T)
-		S.movement_disabled = TRUE
 		S.forceMove(src)
 		pickup_count++
 	if(pickup_count)
@@ -111,10 +110,8 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/proc/DropSpiderlings()
 	// Called when a mother dies.
 	var/turf/T = get_turf(src)
-	for(var/obj/structure/spider/spiderling/terror_spiderling/S in src)
-		S.movement_disabled = FALSE
+	for(var/mob/living/basic/spiderling/terror_spiderling/S in src)
 		S.forceMove(T)
-		S.immediate_ventcrawl = TRUE
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/proc/IncubateEggs()
 	// Mothers can spend regen points to make existing eggs mature faster.
@@ -136,6 +133,6 @@
 	desc = "This web is coated in pheromones which prevent spiderlings from passing it."
 
 /obj/structure/spider/terrorweb/mother/CanPass(atom/movable/mover, border_dir)
-	if(istype(mover, /obj/structure/spider/spiderling/terror_spiderling))
+	if(istype(mover, /mob/living/basic/spiderling/terror_spiderling))
 		return FALSE
 	return ..()
