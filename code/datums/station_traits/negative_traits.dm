@@ -43,7 +43,7 @@
 
 /datum/station_trait/slow_shuttle/on_round_start()
 	. = ..()
-	SSshuttle.supply.callTime *= 1.5 // 3 minutes, for those wondering.
+	SSshuttle.supply.base_speed = 1.5 // 3 minutes, for those wondering.
 
 /datum/station_trait/messy_station
 	name = "Messy Station"

@@ -57,6 +57,9 @@
 	/// Our external fuel tank
 	var/obj/machinery/fluid_pipe/shuttle_fuel_tank/fuel_tank
 
+	/// What is our base speed? Only influenced by station traits
+	var/base_speed = 1
+
 /obj/docking_port/mobile/supply/Initialize(mapload)
 	. = ..()
 	for(var/T in subtypesof(/datum/economy/simple_seller))
@@ -106,12 +109,13 @@
 				mode = SHUTTLE_CALL
 
 				if(!fuel_tank?.tank.remove_fluid(fuel_tank.current_fuel, 250))
-					callTime = initial(callTime)
+					callTime = initial(callTime) * base_speed
 				else
 					callTime /= initial(fuel_tank.current_fuel.fuel_value)
+					callTime *= base_speed
 
 				setTimer(callTime)
-				callTime = initial(callTime)
+				callTime = initial(callTime) * base_speed
 				enterTransit()
 				return
 		mode = SHUTTLE_IDLE
