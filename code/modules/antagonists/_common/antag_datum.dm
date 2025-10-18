@@ -439,6 +439,9 @@ GLOBAL_LIST_EMPTY(antagonists)
 		objective_to_add = pick(organization.objectives)
 	else
 		if(prob(50))
+			objective_to_add = /datum/objective/protect
+
+		else if(prob(50))
 			if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
 				objective_to_add = /datum/objective/destroy
 
