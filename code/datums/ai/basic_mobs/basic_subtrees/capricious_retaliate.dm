@@ -14,6 +14,7 @@
 	action_cooldown = 1 SECONDS
 
 /datum/ai_behavior/capricious_retaliate/perform(seconds_per_tick, datum/ai_controller/controller, targeting_strategy_key, ignore_faction)
+	. = ..()
 	var/atom/pawn = controller.pawn
 	if(controller.blackboard_key_exists(BB_BASIC_MOB_RETALIATE_LIST))
 		var/deaggro_chance = controller.blackboard[BB_RANDOM_DEAGGRO_CHANCE] || 10

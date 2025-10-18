@@ -25,6 +25,7 @@
 /datum/ai_behavior/use_mob_ability
 
 /datum/ai_behavior/use_mob_ability/perform(seconds_per_tick, datum/ai_controller/controller, ability_key)
+	. = ..()
 	var/datum/action/using_action = controller.blackboard[ability_key]
 	if(QDELETED(using_action))
 		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
