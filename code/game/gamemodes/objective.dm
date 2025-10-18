@@ -922,7 +922,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/download
 	name = "Download Files"
-	/obj/machinery/computer/target_console = null
+	var/obj/machinery/computer/target_console = null
 	var/target_console_room = null
 
 /datum/objective/download/New()
@@ -930,8 +930,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	find_target_console()
 	update_explanation_text()
 
-/datum/objective/download/find_target_console()
-    var/list/result = list()
+/datum/objective/download/proc/find_target_console()
+    var/list/possible_computers = list()
+    var/list/computer_areas = list()
 
     var/list/restricted_area_computer_types = list(
         // ID management computers
@@ -957,31 +958,36 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
     // Get all computers of the specified types
     for(var/computer_type in restricted_area_computer_types)
-        var/list/computers_of_type = SSmachinery.get_by_type(computer_type, subtypes = FALSE)
+        var/list/computers_of_type = SSmachines.get_by_type(computer_type, subtypes = FALSE)
         for(var/obj/machinery/computer/comp in computers_of_type)
             var/area/comp_area = get_area(comp)
-            var/list/computer_info = list(
-                "computer" = comp,
-                "area_name" = comp_area ? comp_area.name : "(Unknown Location - Please create an issue on GitHub!)"
-            )
+            possible_computers += comp
+            computer_areas[comp] = comp_area ? comp_area.name : "(Unknown Location - Please create an issue on GitHub!)"
 
-            results.Add(computer_info)
-
-    chosen_result = pick(results)
-    target_console = chosen_result["computer"]
-    target_console_room = chosen_result["area_name"]
+    if(length(possible_computers))
+        target_console = pick(possible_computers)
+        target_console_room = computer_areas[target_console]
+    else
+        // Fallback if no computers found
+        target_console = null
+        target_console_room = "(Unknown Location - Please create an issue on GitHub!)"
 
 /datum/objective/download/update_explanation_text()
-	explanation_text = "Use your charging implant to download your objective from the [target_console] in the [target_console_room]."
+	explanation_text = "Use your charging implant to download your next objective from the [target_console] in the [target_console_room]."
 
-/datum/objective/download/complete_objective()
+/datum/objective/download/proc/complete_objective()
 	for(var/datum/mind/M in get_owners())
-		M.remove_objective(src)
-		// roll a new one
-		M.forge_single_human_objective()
+		holder.remove_objective(src)
+		// roll a new one - find the traitor antagonist datum and call the proc on it
+		var/datum/antagonist/traitor/traitor_datum = M.has_antag_datum(/datum/antagonist/traitor)
+		if(traitor_datum)
+			traitor_datum.forge_single_human_objective()
 		SEND_SOUND(M.current, sound('sound/ambience/alarm4.ogg'))
 		var/list/messages = M.prepare_announce_objectives(FALSE)
 		to_chat(M.current, chat_box_red(messages.Join("<br>")))
+
+/datum/objective/download/check_completion()
+	return TRUE
 
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
