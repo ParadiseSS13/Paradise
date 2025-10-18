@@ -59,7 +59,7 @@
 
 /datum/antagonist/mindflayer/give_objectives()
 	add_antag_objective(/datum/objective/swarms)
-	if(prob(25)) // 25% chance to have an objective locked behind Download
+	if(ismachineperson(owner.current) && prob(25)) // 25% chance to have an objective locked behind Download, only for IPCs
 		add_antag_objective(/datum/objective/download)
 		forge_basic_objectives(FALSE, GLOB.configuration.gamemode.traitor_objectives_amount - 1)
 	else

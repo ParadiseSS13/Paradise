@@ -443,7 +443,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  * After that, add it to the switch list.
  * The kill objective pool weight has been done by putting the old code through a million or so runs to figure out averages, to keep it consistant.
  */
-/datum/antagonist/proc/forge_single_human_objective()
+/datum/antagonist/proc/roll_single_human_objective()
 	var/datum/objective/objective_to_add
 	var/list/static/the_objective_list = list(KILL_OBJECTIVE = 50, THEFT_OBJECTIVE = 50)
 	var/list/the_nonstatic_kill_list = list(DEBRAIN_OBJECTIVE = 50, MAROON_OBJECTIVE = 285, ASS_ONCE_OBJECTIVE = 199, ASS_OBJECTIVE = 466)
@@ -478,7 +478,11 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 	if(delayed_objectives)
 		objective_to_add = new /datum/objective/delayed(objective_to_add)
-	add_antag_objective(objective_to_add)
+
+	return objective_to_add
+
+/datum/antagonist/proc/forge_single_human_objective()
+	add_antag_objective(roll_single_human_objective())
 
 #undef KILL_OBJECTIVE
 #undef THEFT_OBJECTIVE
