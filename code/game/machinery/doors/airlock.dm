@@ -810,6 +810,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(isElectrified())
 		shock(user, 100)
 
+/obj/machinery/door/airlock/attack_basic_mob(mob/user, list/modifiers)
+	. = ..()
+	if(isElectrified())
+		shock(user, 100)
+
 /obj/machinery/door/airlock/attack_hand(mob/user)
 	if(shock_user(user, 100))
 		return

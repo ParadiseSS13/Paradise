@@ -4716,6 +4716,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
+/obj/item/raw_anomaly_core,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -6869,7 +6870,7 @@
 "bev" = (
 /obj/effect/spawner/airlock/e_to_w/long,
 /turf/simulated/wall,
-/area/space/nearstation)
+/area/station/maintenance/security/aft_port)
 "bex" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/extra_insulated{
@@ -27287,13 +27288,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "euZ" = (
-/obj/item/dest_tagger,
-/obj/item/stack/package_wrap,
-/obj/item/book/manual/hydroponics_pod_people,
-/obj/item/book/manual/hydroponics_pod_people,
-/obj/item/book/manual/wiki/hydroponics,
-/obj/item/book/manual/wiki/botanist,
 /obj/structure/table,
+/obj/item/storage/box/disks_plantgene,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
 	},
@@ -34199,7 +34195,7 @@
 /area/station/security/permabrig)
 "fRW" = (
 /turf/simulated/floor/plating/airless,
-/area/space/nearstation)
+/area/station/maintenance/security/aft_port)
 "fRZ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -38555,7 +38551,7 @@
 	},
 /area/station/security/permabrig)
 "gUJ" = (
-/mob/living/simple_animal/crab{
+/mob/living/basic/crab{
 	desc = "The local trainer hired to keep the crew in shape by aggressively snipping at them.";
 	name = "Crabohydrates"
 	},
@@ -46851,6 +46847,10 @@
 /area/station/command/vault)
 "iCp" = (
 /obj/machinery/newscaster/directional/north,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
+	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "iCq" = (
@@ -67285,6 +67285,13 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "mRI" = (
+/obj/item/dest_tagger,
+/obj/item/stack/package_wrap,
+/obj/item/book/manual/hydroponics_pod_people,
+/obj/item/book/manual/hydroponics_pod_people,
+/obj/item/book/manual/wiki/hydroponics,
+/obj/item/book/manual/wiki/botanist,
+/obj/structure/table,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -76882,6 +76889,10 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/patients_rooms_secondary)
+"oVB" = (
+/obj/item/kirbyplants/large,
+/turf/simulated/floor/carpet/black,
+/area/station/service/chapel/office)
 "oVC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
@@ -81531,11 +81542,7 @@
 	},
 /area/station/maintenance/disposal/east)
 "pVV" = (
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
-/obj/item/kirbyplants/large,
+/obj/machinery/economy/vending/chapdrobe,
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel/office)
 "pWf" = (
@@ -96111,7 +96118,6 @@
 "sZY" = (
 /obj/structure/table/reinforced,
 /obj/item/ashtray/bronze{
-	pixel_y = 0;
 	pixel_x = 7
 	},
 /obj/item/reagent_containers/drinks/mug/qm{
@@ -98550,7 +98556,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/item/storage/backpack/satchel/explorer,
+/obj/item/storage/backpack/satchel_explorer,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/starboard)
 "tDb" = (
@@ -117737,6 +117743,7 @@
 /area/station/engineering/atmos)
 "xyC" = (
 /obj/machinery/firealarm/directional/east,
+/obj/machinery/anomaly_refinery,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -131407,7 +131414,7 @@ mgN
 wnL
 oUr
 oUr
-oUr
+oVB
 cfF
 grG
 orD

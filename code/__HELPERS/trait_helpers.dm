@@ -232,6 +232,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FORCED_STANDING "forced_standing" // The mob cannot be floored, or lie down
 #define TRAIT_IPC_JOINTS_MAG "ipc_joints_mag" // IPC has weaker limbs but can re-attach them with ease
 #define TRAIT_IPC_JOINTS_SEALED "ipc_joints_sealed" // The IPC's limbs will not pop off bar sharp damage (aka like a human), but will take slightly more stamina damage
+#define TRAIT_IPC_CAN_EAT "ipc_can_eat" // IPC can eat food
 #define TRAIT_HAS_GPS "has_gps" // used for /Stat
 #define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
 #define TRAIT_MAGPULSE "magpulse" // Used for anything that is magboot related
@@ -264,6 +265,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CRYO_DESPAWNING "cryo_despawning" // dont adminbus this please
 #define TRAIT_EXAMINE_HALLUCINATING "examine_hallucinating"
 #define TRAIT_WIRE_BLIND "wire_blind" // This doesn't block someone from seeing wires or recalling their position, but randomizes name / function to the user
+#define TRAIT_BOOTS_OF_JUMPING "boots_of_jumping" // Mob can do the jump emote without losing stamina
 
 /// Whether or not the user is in a MODlink call, prevents making more calls
 #define TRAIT_IN_CALL "in_call"

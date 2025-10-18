@@ -194,8 +194,10 @@
 	desc = "A wonder of modern medicine. This tool functions as any other sort of surgery tool, and finishes in only a fraction of the time. Hey, how'd you get your hands on this, anyway?"
 	toolspeed = 0.01
 
-/obj/item/scalpel/laser/manager/debug/attack_self__legacy__attackchain(mob/user)
-	. = ..()
+/obj/item/scalpel/laser/manager/debug/activate_self(mob/user)
+	if(..())
+		return
+
 	toolspeed = toolspeed == 0.5 ? 0.01 : 0.5
 	to_chat(user, "[src] is now set to toolspeed [toolspeed]")
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
@@ -302,6 +304,11 @@
 	new /obj/item/stack/sheet/plasmarglass/fifty(src)
 	new /obj/item/stack/sheet/titaniumglass/fifty(src)
 	new /obj/item/stack/sheet/plastitaniumglass/fifty(src)
+	new /obj/item/stack/sheet/wood/fifty(src)
+	new /obj/item/stack/sheet/bamboo/fifty(src)
+	new /obj/item/stack/sheet/cloth/fifty(src)
+	new /obj/item/stack/sheet/durathread/fifty(src)
+	new /obj/item/stack/sheet/cardboard/fifty(src)
 	new /obj/item/stack/sheet/mineral/sandstone/fifty(src)
 	new /obj/item/stack/sheet/mineral/diamond/fifty(src)
 	new /obj/item/stack/sheet/mineral/uranium/fifty(src)

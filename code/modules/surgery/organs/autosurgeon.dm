@@ -110,6 +110,11 @@
 	name = "suspicious implant autosurgeon"
 	icon_state = "syndicate_autoimplanter"
 
+/obj/item/autosurgeon/organ/syndicate/attack_self__legacy__attackchain(mob/user)
+	if(storedorgan && uses && storedorgan.is_robotic()) // Helps keep the syndicate ones hidden. One can peel them off if they want them to be visable.
+		storedorgan.self_augmented_skin_level = 3
+	return ..()
+
 /obj/item/autosurgeon/organ/syndicate/oneuse
 	uses = 1
 

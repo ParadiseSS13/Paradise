@@ -58,8 +58,8 @@
 		"weed rate" = TRUE,
 		"weed chance" = TRUE)
 
-/obj/item/seeds/New(loc, nogenes = 0)
-	..()
+/obj/item/seeds/Initialize(mapload, nogenes = FALSE)
+	. = ..()
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(-6, 6)
 
@@ -618,8 +618,8 @@
 
 	var/datum/unsorted_seed/seed_data
 
-/obj/item/unsorted_seeds/New(obj/item/seeds/template, mutation_level, list/mutation_focus, seed_data_in = null)
-	..()
+/obj/item/unsorted_seeds/Initialize(mapload, obj/item/seeds/template, mutation_level, list/mutation_focus, seed_data_in = null)
+	. = ..()
 	template = template.Copy()
 	scatter_atom()
 	if(seed_data_in)
