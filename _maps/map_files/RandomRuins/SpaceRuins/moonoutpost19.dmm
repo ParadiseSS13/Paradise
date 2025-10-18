@@ -2716,6 +2716,7 @@
 "iB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
 	dir = 1
@@ -8029,6 +8030,7 @@
 "ET" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "escape"
@@ -10553,6 +10555,7 @@
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"

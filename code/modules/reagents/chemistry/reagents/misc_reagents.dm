@@ -856,5 +856,34 @@
 	if(method == REAGENT_TOUCH)
 		M.dust()
 
+/datum/reagent/molten_plastic
+	name = "Molten Plastic"
+	id = "molten_plastic"
+	description = "A slurry of molten plastics, ready to be processed further into useful materials."
+	color = "#c3c3c3"
 
+/datum/reagent/molten_plastic/reaction_temperature(exposed_temperature, exposed_volume)
+	if(exposed_temperature > T0C)
+		return
 
+	var/original_volume = volume
+	var/sheets = floor(original_volume / 5)
+	new /obj/item/stack/sheet/plastic(get_turf(holder.my_atom), sheets)
+
+	holder.del_reagent(id)
+	holder.add_reagent("plastic_dust", original_volume - sheets * 5, reagtemp = T0C + 119)
+	holder.my_atom.visible_message("<span class='notice'>The molten plastic solidifies.</span>")
+
+/datum/reagent/plastic_dust
+	name = "Plastic Dust"
+	id = "plastic_dust"
+	description = "A fine dust produced by grinding plastics."
+	color = "#c3c3c3"
+
+/datum/reagent/plastic_dust/reaction_temperature(exposed_temperature, exposed_volume)
+	if(exposed_temperature < T0C + 120)
+		return
+
+	var/original_volume = volume
+	holder.del_reagent(id)
+	holder.add_reagent("molten_plastic", original_volume, reagtemp = T0C + 120)
