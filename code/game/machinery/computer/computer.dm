@@ -220,7 +220,7 @@
 
 		// Not a flayer, or wrong download console.
 		to_chat(user, "<span class='boldnotice'>You insert your power cable into the data port on the console, hoping to find something interesting.</span>")
-		if (do_after(user, 18 SECONDS, target = src))
+		if(do_after(user, 18 SECONDS, target = src))
 			show_random_download_message(user)
 			return TRUE
 		else
