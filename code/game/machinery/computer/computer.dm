@@ -226,8 +226,6 @@
 		else
 			to_chat(user, "<span class='warning'>Your power cable is ejected, interrupting the transfer.</span>")
 			return TRUE
-	else
-		return TRUE
 
 /obj/machinery/computer/proc/show_random_download_message(mob/user)
 	var/list/download_messages = list(
