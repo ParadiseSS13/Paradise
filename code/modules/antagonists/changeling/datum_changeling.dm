@@ -157,6 +157,8 @@ RESTRICT_TYPE(/datum/antagonist/changeling)
 
 	if(prob(60))
 		add_antag_objective(/datum/objective/steal)
+	else if(prob(10))
+		add_antag_objective(/datum/objective/protect)
 	else
 		add_antag_objective(/datum/objective/debrain)
 
