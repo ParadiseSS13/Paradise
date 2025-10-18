@@ -602,10 +602,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
   completed = TRUE
 
 /datum/objective/incriminate/update_explanation_text()
-  if(target)
-    explanation_text = "Deceive the station. Incriminate [target] for a major level crime, ensure that you are not revealed as the perpetrator."
-  else
-    explanation_text = "Free Objective"
+	if(target?.current)
+		explanation_text = "Deceive the station. Incriminate [target.current.real_name], the [target.assigned_role] for a major level crime and ensure that you are not revealed as the perpetrator."
+	else
+		explanation_text = "Free Objective"
 
 /datum/objective/steal/found_target()
 	return steal_target
