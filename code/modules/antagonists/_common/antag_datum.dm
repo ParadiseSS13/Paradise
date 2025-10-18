@@ -407,14 +407,14 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Create and assign a full set of randomized, basic human traitor objectives.
  * can_hijack - If you want the 5% chance for the antagonist to be able to roll hijack, only true for traitors
  */
-/datum/antagonist/proc/forge_basic_objectives(can_hijack = FALSE)
+/datum/antagonist/proc/forge_basic_objectives(can_hijack = FALSE, number_of_objectives = GLOB.configuration.gamemode.traitor_objectives_amount)
 	// Hijack objective.
 	if(can_hijack && prob(5) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
 		add_antag_objective(/datum/objective/hijack)
 		return // Hijack should be their only objective (normally), so return.
 
 	// Will give normal steal/kill/etc. type objectives.
-	for(var/i in 1 to GLOB.configuration.gamemode.traitor_objectives_amount)
+	for(var/i in 1 to number_of_objectives)
 		forge_single_human_objective()
 
 	var/can_succeed_if_dead = TRUE

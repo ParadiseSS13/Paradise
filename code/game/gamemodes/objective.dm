@@ -889,6 +889,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		else
 			return FALSE
 
+// Flayers
+
 #define SWARM_GOAL_LOWER_BOUND	130
 #define SWARM_GOAL_UPPER_BOUND	400
 
@@ -917,6 +919,69 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 #undef SWARM_GOAL_LOWER_BOUND
 #undef SWARM_GOAL_UPPER_BOUND
+
+/datum/objective/download
+	name = "Download Files"
+	/obj/machinery/computer/target_console = null
+	var/target_console_room = null
+
+/datum/objective/download/New()
+	. = ..()
+	find_target_console()
+	update_explanation_text()
+
+/datum/objective/download/find_target_console()
+    var/list/result = list()
+
+    var/list/restricted_area_computer_types = list(
+        // ID management computers
+        /obj/machinery/computer/card,                    // Main HOP ID computer
+        /obj/machinery/computer/card/minor/hos,          // Security ID computer
+        /obj/machinery/computer/card/minor/cmo,          // Medical ID computer
+        /obj/machinery/computer/card/minor/qm,           // Supply ID computer
+        /obj/machinery/computer/card/minor/rd,           // Science ID computer
+        /obj/machinery/computer/card/minor/ce,           // Engineering ID computer
+
+        // Security
+        /obj/machinery/computer/prisoner,                // Prisoner management
+        /obj/machinery/computer/brigcells,               // Brig cell management
+
+        // Command
+        /obj/machinery/computer/communications,          // Command comms console
+        /obj/machinery/computer/teleporter,              // Teleporter control
+
+        // Science
+        /obj/machinery/computer/aifixer,                 // AI diagnostics
+		/obj/machinery/computer/message_monitor,         // Message monitor
+    )
+
+    // Get all computers of the specified types
+    for(var/computer_type in restricted_area_computer_types)
+        var/list/computers_of_type = SSmachinery.get_by_type(computer_type, subtypes = FALSE)
+        for(var/obj/machinery/computer/comp in computers_of_type)
+            var/area/comp_area = get_area(comp)
+            var/list/computer_info = list(
+                "computer" = comp,
+                "area_name" = comp_area ? comp_area.name : "(Unknown Location - Please create an issue on GitHub!)"
+            )
+
+            results.Add(computer_info)
+
+    chosen_result = pick(results)
+    target_console = chosen_result["computer"]
+    target_console_room = chosen_result["area_name"]
+
+/datum/objective/download/update_explanation_text()
+	explanation_text = "Use your charging implant to download your objective from the [target_console] in the [target_console_room]."
+
+/datum/objective/download/complete_objective()
+	for(var/datum/mind/M in get_owners())
+		M.remove_objective(src)
+		// roll a new one
+		M.forge_single_human_objective()
+		SEND_SOUND(M.current, sound('sound/ambience/alarm4.ogg'))
+		var/list/messages = M.prepare_announce_objectives(FALSE)
+		to_chat(M.current, chat_box_red(messages.Join("<br>")))
 
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
