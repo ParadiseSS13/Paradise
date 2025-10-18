@@ -262,7 +262,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "flayer_downloading"
 	duration = 180
-	layer = OBJ_LAYER + 0.1
+	layer = OBJ_LAYER - 0.1
 	randomdir = FALSE
 	var/obj/machinery/computer/target_computer
 
