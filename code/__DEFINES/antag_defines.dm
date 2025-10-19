@@ -113,3 +113,6 @@ GLOBAL_LIST(contractors)
 #define BIOHAZARD_POP_INTERVAL 5 MINUTES
 /// The string version of the interval for use in blackbox key names.
 #define BIOHAZARD_POP_INTERVAL_STR "5min"
+
+#define EXCHANGE_TEAM_RED "red"
+#define EXCHANGE_TEAM_BLUE "blue"

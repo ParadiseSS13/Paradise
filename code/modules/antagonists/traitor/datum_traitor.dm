@@ -328,3 +328,12 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/list/messages = owner.prepare_announce_objectives()
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
+
+/datum/antagonist/proc/assign_exchange_role(faction)
+//	if(!owner.current) COMMENTED OUT FOR DEBUGGING DEBUG DEBUG DEBUG DEBUG UNCOMMENT THIS LATER DOOFUS
+//		return
+	switch(faction)
+		if(EXCHANGE_TEAM_RED)
+			add_antag_objective(/datum/objective/steal/exchange/red)
+		if(EXCHANGE_TEAM_BLUE)
+			add_antag_objective(/datum/objective/steal/exchange/blue)

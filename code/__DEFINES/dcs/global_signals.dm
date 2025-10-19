@@ -27,3 +27,6 @@
 
 /// Used when a shelter capsule deploys
 #define COMSIG_GLOB_SHELTER_PLACED "!shelter_placed"
+
+///Used when an exchange objective is trying to find a pair
+#define COMSIG_OBJECTIVE_EXCHANGE_PAIRING "doc_exchange_pairing"

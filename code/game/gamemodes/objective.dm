@@ -986,24 +986,59 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal/exchange
 	name = "Document Exchange"
-	steal_target = /datum/theft_objective/unique
-	var/mob/living/carbon/human/exchanger
+	var/betrayal = FALSE
+	var/mob/living/opponent
+	var/team_color
 
-/datum/objective/steal/exchange/proc/establish_pair(/datum/objective/steal/exchange)
-	SIGNAL_HANDLER //COMSIG_OBJECTIVE_EXCHANGE_PAIRING
+/datum/objective/steal/exchange/red
+	steal_target = /datum/theft_objective/unique/docs_blue
+	team_color = EXCHANGE_TEAM_RED
 
-/datum/objective/steal/exchange/establish_signals()
-	RegisterSignal(src, COMSIG_OBJECTIVE_EXCHANGE_PAIRING, PROC_REF)
-
+/datum/objective/steal/exchange/blue
+	steal_target = /datum/theft_objective/unique/docs_red
+	team_color = EXCHANGE_TEAM_BLUE
 
 /datum/objective/steal/exchange/find_target(list/target_blacklist)
+	establish_signals()
+	give_kit(steal_target.special_equipment)
+	if(prob(20)) //With two 20% chances there's a 36% chance any given exchange will have a betrayal. Corporate espionage is a ruthless game
+		betrayal = TRUE
+	SEND_GLOBAL_SIGNAL(COMSIG_OBJECTIVE_EXCHANGE_PAIRING, team_color, owner.current)
 
+/datum/objective/steal/exchange/proc/pair_up(other_team_color, mob/living/the_opp)
+	SIGNAL_HANDLER //COMSIG_OBJECTIVE_EXCHANGE_PAIRING
+	if(opponent) //If they've already paired
+		return
+	if(other_team_color == team_color)
+		return
+	opponent = the_opp
+	update_explanation_text()
+
+/datum/objective/steal/exchange/check_completion()
+	if(!..())
+		return FALSE
+	if(!betrayal)
+		return TRUE
+	for(var/datum/mind/M in get_owners())
+		if(!M.current)
+			continue
+		for(var/obj/I in M.current.GetAllContents())
+			if(istype(I, steal_target.special_equipment))
+				return TRUE
+	return FALSE
+
+/datum/objective/steal/exchange/Destroy()
+	opponent = null
+	UnregisterSignal(SSdcs, COMSIG_OBJECTIVE_EXCHANGE_PAIRING)
+	..()
 
 /datum/objective/steal/exchange/update_explanation_text()
-	explanation_text = "Steal [steal_target.name]. One was last seen in [get_location()]. "
-	if(length(steal_target.protected_jobs) && steal_target.job_possession)
-		explanation_text += "It may also be in the possession of the [english_list(steal_target.protected_jobs, and_text = " or ")]. "
-	explanation_text += steal_target.extra_information
+	if(!opponent)
+		explanation_text = "The person you were supposed to trade with didn't show up."
+	if(!betrayal)
+		explanation_text = "Exchange [steal_target.special_equipment.name] for [steal_target.name]. Arrange a meeting with [opponent] and make the trade."
+		return
+	explanation_text = "[opponent] thinks you're going to exchange [steal_target.special_equipment.name] for [steal_target.name]. Steal their documents, and keep your own."
 
-/datum/objective/steal/exchange/betray
-	name = "Document Retrieval"
+/datum/objective/steal/exchange/establish_signals()
+	RegisterSignal(SSdcs, COMSIG_OBJECTIVE_EXCHANGE_PAIRING, PROC_REF(pair_up))
