@@ -347,7 +347,7 @@ SUBSYSTEM_DEF(blackbox)
 			"key" = L.key,
 			"job" = L.mind.assigned_role,
 			"special" = L.mind.special_role || "",
-			"pod" = podname,
+			"pod" = strip_byond_macros(podname),
 			"laname" = laname,
 			"lakey" = lakey,
 			"gender" = L.gender,
