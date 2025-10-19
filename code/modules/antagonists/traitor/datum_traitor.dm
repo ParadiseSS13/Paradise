@@ -331,13 +331,3 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	var/list/messages = owner.prepare_announce_objectives()
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
-
-/datum/antagonist/traitor/proc/start_exchange()
-	if(in_exchange)
-		return
-	var/list/possible_opponents = SSticker.mode.traitors + SSticker.mode.vampires + SSticker.mode.changelings + SSticker.mode.mindflayers
-	possible_opponents -= owner
-	var/datum/mind/opponent = pick(possible_opponents)
-	var/datum/antagonist/other_antag = opponent.has_antag_datum(/datum/antagonist)
-	if(other_antag)
-		assign_exchange_objective(other_antag)
