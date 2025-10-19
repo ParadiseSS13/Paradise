@@ -72,14 +72,14 @@
 	. = ..()
 
 /mob/living/basic/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!isdrone(user))
-		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
-		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
-		C.stored_comms["metal"] += 2
-		C.stored_comms["glass"] += 1
-		qdel(src)
-		return TRUE
-	return ..()
+	if(isdrone(user))
+		return ..()
+	user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
+	"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
+	C.stored_comms["metal"] += 2
+	C.stored_comms["glass"] += 1
+	qdel(src)
+	return TRUE
 
 /obj/effect/decal/cleanable/spiderling_remains
 	name = "spiderling remains"
