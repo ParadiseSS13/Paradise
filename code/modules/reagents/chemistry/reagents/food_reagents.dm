@@ -236,7 +236,7 @@
 /datum/reagent/consumable/frostoil
 	name = "Frost Oil"
 	id = "frostoil"
-	description = "A special oil that noticeably chills the body. Extracted from Icepeppers."
+	description = "A special oil that noticeably chills the body. Extracted from chilly peppers."
 	reagent_state = LIQUID
 	color = "#8BA6E9" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
