@@ -221,6 +221,27 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		to_chat(initial_user_uid, "<span class = 'warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
 
 /proc/record_bug_reports()
+	for(var/datum/tgui_bug_report_form/bug_report in GLOB.bug_reports)
+		var/datum/db_query/bug_query = SSdbcore.NewQuery({"
+			INSERT INTO bug_reports (author_ckey, title, expected_behavior, description, consequences, steps, logs, round_id, server_byond_build, client_byond_build, server_commit, test_merges)
+			VALUES (:author_ckey, :title, :expected_behavior, :description, :consequences, :steps, :logs, :round_id, :server_byond_build, :client_byond_build, :server_commit, :test_merges"},
+			list(
+				"author_ckey" = bug_report.initial_key,
+				"title" = bug_report.bug_report_data["title"],
+				"expected_behavior" = bug_report.bug_report_data["expected_behavior"],
+				"description" = bug_report.bug_report_data["description"],
+				"consequences" = bug_report.bug_report_data["consequences"],
+				"steps" = bug_report.bug_report_data["step"],
+				"logs" = bug_report.bug_report_data["logs"],
+				"round_id" = bug_report.bug_report_data["round_id"],
+				"server_byond_build" = bug_report.bug_report_data["server_byond_build"],
+				"client_byond_build" = bug_report.bug_report_data["client_byond_build"],
+				"server_commit"  = bug_report.bug_report_data["server_commit"],
+				"test_merges" = bug_report.bug_report_data["test_merges"],
+			)
+		)
+		bug_query.warn_execute()
+		qdel(bug_query)
 	return
 
 #undef STATUS_SUCCESS
