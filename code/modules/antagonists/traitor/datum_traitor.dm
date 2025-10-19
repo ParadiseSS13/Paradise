@@ -339,6 +339,5 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	possible_opponents -= owner
 	var/datum/mind/opponent = pick(possible_opponents)
 	var/datum/antagonist/other_antag = opponent.has_antag_datum(/datum/antagonist)
-	log_debug("Found [opponent]")
 	if(other_antag)
 		assign_exchange_objective(other_antag)

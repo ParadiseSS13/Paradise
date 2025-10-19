@@ -524,8 +524,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 //Only traitors can initiate the exchange objective, but any antag can be the exchangee
 /datum/antagonist/proc/assign_exchange_objective(datum/antagonist/other_team)
-//	if(!owner.current) COMMENTED OUT FOR DEBUGGING DEBUG DEBUG DEBUG DEBUG UNCOMMENT THIS LATER DOOFUS
-//		return
+	if(!owner.current)
+		return
 	if(other_team == src)
 		return
 	in_exchange = TRUE
