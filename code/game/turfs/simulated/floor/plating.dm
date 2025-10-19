@@ -235,6 +235,12 @@
 	icon_state = "cult"
 	icon_regular_floor = "cult"
 
+/turf/simulated/floor/engine/cult/update_icon_state()
+	if(!broken && !burnt)
+		icon_state = icon_regular_floor
+	if(icon_regular_floor != icon_states(icon))
+		icon_state = "cult"
+
 /turf/simulated/floor/engine/cult/Initialize(mapload)
 	. = ..()
 	icon_state = GET_CULT_DATA(cult_floor_icon_state, initial(icon_state))
