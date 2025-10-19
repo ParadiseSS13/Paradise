@@ -310,6 +310,9 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	if(prob(ORG_PROB_PARANOIA)) // Low chance of fake 'You are targeted' notification
 		queue_backstab()
 
+	if(prob(EXCHANGE_PROBABILITY))
+		start_exchange()
+
 	var/list/messages = owner.prepare_announce_objectives()
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 	delayed_objectives = FALSE
@@ -329,11 +332,13 @@ RESTRICT_TYPE(/datum/antagonist/traitor)
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 	SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
 
-/datum/antagonist/proc/assign_exchange_role(faction)
-//	if(!owner.current) COMMENTED OUT FOR DEBUGGING DEBUG DEBUG DEBUG DEBUG UNCOMMENT THIS LATER DOOFUS
-//		return
-	switch(faction)
-		if(EXCHANGE_TEAM_RED)
-			add_antag_objective(/datum/objective/steal/exchange/red)
-		if(EXCHANGE_TEAM_BLUE)
-			add_antag_objective(/datum/objective/steal/exchange/blue)
+/datum/antagonist/traitor/proc/start_exchange()
+	if(in_exchange)
+		return
+	var/list/possible_opponents = SSticker.mode.traitors + SSticker.mode.vampires + SSticker.mode.changelings + SSticker.mode.mindflayers
+	possible_opponents -= owner
+	var/datum/mind/opponent = pick(possible_opponents)
+	var/datum/antagonist/other_antag = opponent.has_antag_datum(/datum/antagonist)
+	log_debug("Found [opponent]")
+	if(other_antag)
+		assign_exchange_objective(other_antag)

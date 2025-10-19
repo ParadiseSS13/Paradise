@@ -999,20 +999,20 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	team_color = EXCHANGE_TEAM_BLUE
 
 /datum/objective/steal/exchange/find_target(list/target_blacklist)
-	establish_signals()
 	give_kit(steal_target.special_equipment)
 	if(prob(20)) //With two 20% chances there's a 36% chance any given exchange will have a betrayal. Corporate espionage is a ruthless game
 		betrayal = TRUE
-	SEND_GLOBAL_SIGNAL(COMSIG_OBJECTIVE_EXCHANGE_PAIRING, team_color, owner.current)
 
-/datum/objective/steal/exchange/proc/pair_up(other_team_color, mob/living/the_opp)
-	SIGNAL_HANDLER //COMSIG_OBJECTIVE_EXCHANGE_PAIRING
-	if(opponent) //If they've already paired
+/datum/objective/steal/exchange/proc/pair_up(datum/objective/steal/exchange/pair, recursive = FALSE)
+	if(pair == src)
 		return
-	if(other_team_color == team_color)
-		return
-	opponent = the_opp
+	opponent = pair.owner.current
+	find_target()
 	update_explanation_text()
+	var/list/messages = owner.prepare_announce_objectives(FALSE)
+	to_chat(owner.current, chat_box_red(messages.Join("<br>"))) //Sending the message to the mind made testing really annoying so we send it to the mob
+	if(recursive) //Automatically have the other objective pair as well, but make sure it doesn't infinite loop
+		pair.pair_up(src)
 
 /datum/objective/steal/exchange/check_completion()
 	if(!..())
@@ -1029,16 +1029,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal/exchange/Destroy()
 	opponent = null
-	UnregisterSignal(SSdcs, COMSIG_OBJECTIVE_EXCHANGE_PAIRING)
 	..()
 
 /datum/objective/steal/exchange/update_explanation_text()
 	if(!opponent)
 		explanation_text = "The person you were supposed to trade with didn't show up."
 	if(!betrayal)
-		explanation_text = "Exchange [steal_target.special_equipment.name] for [steal_target.name]. Arrange a meeting with [opponent] and make the trade."
+		explanation_text = "Exchange your secret documents for [steal_target.name]. Arrange a meeting with [opponent] and make the trade."
 		return
-	explanation_text = "[opponent] thinks you're going to exchange [steal_target.special_equipment.name] for [steal_target.name]. Steal their documents, and keep your own."
+	explanation_text = "[opponent] thinks you're going to exchange your secret documents for [steal_target.name]. Steal their documents, and keep your own."
 
-/datum/objective/steal/exchange/establish_signals()
-	RegisterSignal(SSdcs, COMSIG_OBJECTIVE_EXCHANGE_PAIRING, PROC_REF(pair_up))

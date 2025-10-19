@@ -63,6 +63,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/delayed_objectives = FALSE
 	/// The title of the players "boss", used for exfil strings
 	var/boss_title = "Operations"
+	/// If the antagonist has been chosen for either side on an exchange objective
+	var/in_exchange = FALSE
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -519,5 +521,27 @@ GLOBAL_LIST_EMPTY(antagonists)
 		return
 	var/obj/item/wormhole_jaunter/extraction/extractor = new extraction_type()
 	L.put_in_active_hand(extractor)
+
+//Only traitors can initiate the exchange objective, but any antag can be the exchangee
+/datum/antagonist/proc/assign_exchange_objective(datum/antagonist/other_team)
+//	if(!owner.current) COMMENTED OUT FOR DEBUGGING DEBUG DEBUG DEBUG DEBUG UNCOMMENT THIS LATER DOOFUS
+//		return
+	if(other_team == src)
+		return
+	in_exchange = TRUE
+	other_team.in_exchange = TRUE
+	var/list/teams_list = list(EXCHANGE_TEAM_RED, EXCHANGE_TEAM_BLUE)
+	var/our_team = pick_n_take(teams_list)
+	var/datum/objective/steal/exchange/red/red_team = new()
+	var/datum/objective/steal/exchange/blue/blue_team = new()
+	switch(our_team)
+		if(EXCHANGE_TEAM_RED)
+			add_antag_objective(red_team)
+			other_team.add_antag_objective(blue_team)
+		if(EXCHANGE_TEAM_BLUE)
+			add_antag_objective(blue_team)
+			other_team.add_antag_objective(red_team)
+	red_team.pair_up(blue_team, TRUE)
+
 
 #undef SUCCESSFUL_DETACH

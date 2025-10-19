@@ -114,5 +114,7 @@ GLOBAL_LIST(contractors)
 /// The string version of the interval for use in blackbox key names.
 #define BIOHAZARD_POP_INTERVAL_STR "5min"
 
+// Chance that any one traitor gets an extra exchange objective, will automatically pair with another tot
+#define EXCHANGE_PROBABILITY 5
 #define EXCHANGE_TEAM_RED "red"
 #define EXCHANGE_TEAM_BLUE "blue"
