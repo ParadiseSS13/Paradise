@@ -97,12 +97,12 @@
 		var/mob/living/simple_animal/S = target
 		if(S.sentience_type == capture_type)
 			capture(target, user)
-			return TRUE
+			return ITEM_INTERACT_COMPLETE
 	if(isbasicmob(target))
 		var/mob/living/basic/B = target
 		if(B.sentience_type == capture_type)
 			capture(target, user)
-			return TRUE
+			return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/item/mobcapsule/proc/capture(mob/living/animal, mob/living/user)
