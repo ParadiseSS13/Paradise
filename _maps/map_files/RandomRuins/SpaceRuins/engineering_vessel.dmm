@@ -35,18 +35,18 @@
 /area/ruin/space/unpowered)
 "f" = (
 /obj/effect/spawner/random/loot_crate,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "g" = (
 /obj/structure/shelf,
 /obj/effect/spawner/random/food_or_drink/dinner,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "k" = (
 /obj/structure/cable{
@@ -55,9 +55,8 @@
 /obj/machinery/computer/monitor{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "l" = (
 /obj/structure/bed/dogbed,
@@ -93,10 +92,10 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "r" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "s" = (
 /obj/machinery/light/small{
@@ -106,22 +105,22 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "t" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowcorners";
+/obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "u" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowcorners";
+/obj/effect/turf_decal/tiles/department/engineering/corner{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "v" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "x" = (
 /obj/structure/closet/emcloset,
@@ -173,9 +172,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "J" = (
 /obj/effect/spawner/airlock/e_to_w,
@@ -195,10 +193,10 @@
 /obj/item/stock_parts/manipulator,
 /obj/item/paper/tcommskey,
 /obj/item/stack/cable_coil/ten,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 6
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "N" = (
 /obj/machinery/power/port_gen/pacman,
@@ -206,10 +204,10 @@
 	icon_state = "0-4"
 	},
 /obj/item/stack/sheet/mineral/plasma/ten,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 10
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "O" = (
 /obj/structure/shelf,
@@ -218,10 +216,10 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/common,
 /obj/effect/spawner/random/seed_vault,
 /obj/effect/spawner/random/seed_vault,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 5
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "P" = (
 /turf/template_noop,
@@ -250,10 +248,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 1
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "U" = (
 /obj/machinery/light/small{
@@ -276,9 +274,8 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
+/obj/effect/turf_decal/tiles/department/engineering/side,
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 "X" = (
 /obj/structure/cable{
@@ -300,10 +297,10 @@
 /obj/structure/shelf,
 /obj/effect/spawner/random/bluespace_tap/clothes_rare,
 /obj/effect/spawner/random/loot/outfit/fancy,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkyellow"
+/obj/effect/turf_decal/tiles/department/engineering/side{
+	dir = 9
 	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/unpowered)
 
 (1,1,1) = {"
