@@ -44,7 +44,7 @@
 	var/datum/spell/spell = target
 
 	if(owner)
-		return spell.can_cast(owner, show_message)
+		return spell.can_cast(owner, TRUE, show_message)
 	return FALSE
 
 /datum/action/spell_action/apply_unavailable_effect(atom/movable/screen/movable/action_button/button)

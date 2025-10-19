@@ -9,7 +9,6 @@
 	strip_delay = 80
 	species_restricted = list("Plasmaman")
 	sprite_sheets = list("Plasmaman" = 'icons/mob/clothing/species/plasmaman/uniform.dmi')
-	item_color = "plasmaman"
 	dyeable = TRUE
 	dyeing_key = DYE_REGISTRY_PLASMAMEN
 	permeability_coefficient = 0.6

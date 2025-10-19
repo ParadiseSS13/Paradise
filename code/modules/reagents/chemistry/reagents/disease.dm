@@ -33,7 +33,7 @@
 
 /datum/reagent/xenomicrobes/on_mob_life(mob/living/carbon/M)
 	if(volume > 1.5)
-		M.ContractDisease(new /datum/disease/transformation/xeno(0))
+		M.ForceContractDisease(new /datum/disease/transformation/xeno(0))
 	return ..()
 
 /datum/reagent/fungalspores

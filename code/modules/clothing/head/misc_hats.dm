@@ -74,6 +74,7 @@
 	desc = "A plastic replica of a syndicate agent's space helmet, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
@@ -400,6 +401,7 @@
 	icon_state = "griffinhat"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/hat.dmi'
 	sprite_sheets = list("Grey" = 'icons/mob/clothing/species/grey/head.dmi')
 	actions_types = list(/datum/action/item_action/caw)
 
@@ -420,6 +422,7 @@
 	name = "bloated human head"
 	desc = "A horribly bloated and mismatched human head."
 	icon_state = "lingspacehelmet"
+	icon_monitor = 'icons/mob/clothing/species/machine/monitor/helmet.dmi'
 
 /obj/item/clothing/head/papersack
 	name = "paper sack hat"
@@ -513,6 +516,7 @@
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi'
 		)
+
 /obj/item/clothing/head/cool_bandana
 	name = "badass bandana"
 	desc = "You know what time it is."
@@ -524,3 +528,11 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
 	)
+
+/obj/item/clothing/head/hooded/dark_hood
+	name = "dark hood"
+	desc = "A dark hood for dark times."
+	icon_state = "dark_hood"
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
+

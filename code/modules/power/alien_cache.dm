@@ -127,7 +127,6 @@
 		if(total_energy >= LEVEL_REQUIREMENT(level_reached + 1))
 			level_reached++
 			var/list/rewards = pick_rewards(3)
-			to_chat(world, "Level: [level_reached]\nRewards: [english_list(rewards)]")
 			spawn_loot(rewards)
 			if(level_reached >= max_level)
 				spawn_loot(open_rewards)
