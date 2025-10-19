@@ -233,6 +233,7 @@
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"
 	icon_state = "cult"
+	icon_regular_floor = "cult"
 
 /turf/simulated/floor/engine/cult/Initialize(mapload)
 	. = ..()
