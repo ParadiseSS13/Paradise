@@ -221,6 +221,14 @@
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy shotgun crate"
 
+/datum/supply_packs/security/armory/securiblades
+	name = "Securiblade Crate"
+	contains = list(/obj/item/storage/belt/sheath/secsword,
+		/obj/item/storage/belt/sheath/secsword)
+	cost = 600
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "securiblade crate"
+
 /datum/supply_packs/security/armory/stingers
 	name = "Stinger Grenade Crate"
 	contains = list(/obj/item/storage/box/stingers,
@@ -270,7 +278,7 @@
 	containername = "auto rifle ammo crate"
 
 /datum/supply_packs/security/armory/laserrifle
-	name = "IK-30 Security Laser Rifle Crate"
+	name = "IK-M1 Laser Rifle Crate"
 	contains = list(/obj/item/gun/projectile/automatic/laserrifle,
 					/obj/item/gun/projectile/automatic/laserrifle)
 	cost = 500
@@ -278,7 +286,7 @@
 	containername = "laser rifle crate"
 
 /datum/supply_packs/security/armory/laserammo
-	name = "IK-30 Security Laser Rifle Ammo Crate"
+	name = "IK-M1 Laser Rifle Ammo Crate"
 	contains = list(/obj/item/ammo_box/magazine/laser,
 					/obj/item/ammo_box/magazine/laser,
 					/obj/item/ammo_box/magazine/laser,
