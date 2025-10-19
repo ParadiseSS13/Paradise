@@ -185,7 +185,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 				START_PROCESSING(SSobj, E)
 
 /obj/item/food/egg/process()
-	if(isturf(loc) && fertile)
+	if(isturf(loc) && fertile && GLOB.chicken_count <= GLOB.configuration.general.chicken_hatched_cap)
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
 			visible_message("[src] hatches with a quiet cracking sound.")
