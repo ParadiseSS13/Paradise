@@ -27,8 +27,9 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	initial_user_uid = user.client.UID()
 	initial_key = user.client.key
 
-	bug_report_data["server_byond_version"] = full_server_byond_build()
-	bug_report_data["user_byond_version"] = full_client_byond_build(user.client)
+/datum/tgui_bug_report_form/proc/add_metadata(mob/user)
+	bug_report_data["server_byond_version"] = "[user.client.byond_version].[user.client.byond_build]"
+	bug_report_data["user_byond_version"] = "[world.byond_version].[world.byond_build]"
 
 	bug_report_data["local_commit"] = "No Commit Data"
 	if(GLOB.revision_info.commit_hash)
@@ -191,6 +192,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 				to_chat(user, "<span class='warning'>You have already approved this submission, please wait a moment for the API to process your submission.</span>")
 				return
 			bug_report_data = sanitize_payload(params)
+			add_metadata(user)
 			selected_confirm = TRUE
 			// bug report request is now waiting for admin approval
 			if(!awaiting_approval)
@@ -217,5 +219,8 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	var/client/initial_user = locateUID(initial_user_uid)
 	if(initial_user)
 		to_chat(initial_user_uid, "<span class = 'warning'>A staff member has rejected your bug report, this can happen for several reasons. They will most likely get back to you shortly regarding your issue.</span>")
+
+/proc/record_bug_reports()
+	return
 
 #undef STATUS_SUCCESS

@@ -673,15 +673,18 @@ CREATE TABLE `json_datum_saves` (
 DROP TABLE IF EXISTS `bug_reports`;
 CREATE TABLE `bug_reports` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `author_ckey` varchar(32) utf8mb4_unicode_ci NOT NULL,
-  `title` MEDIUMTEXT utf8mb4_unicode_ci NOT NULL,
-  `expected_behavior` MEDIUMTEXT utf8mb4_unicode_ci NOT NULL,
-  `description` MEDIUMTEXT utf8mb4_unicode_ci NOT NULL,
-  `consequences` MEDIUMTEXT utf8mb4_unicode_ci NOT NULL,
-  `steps` MEDIUMTEXT utf8mb4_unicode_ci NOT NULL,
-  `logs` MEDIUMTEXT utf8mb4_unicode_ci,
-  `server_byond_build` DOUBLE,
-  `client_byond_build` DOUBLE,
+  `author_ckey` varchar(32) NOT NULL,
+  `title` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
+  `expected_behavior` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
+  `description` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
+  `consequences` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
+  `steps` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
+  `logs` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
+  `round_id` int(11),
+  `server_byond_build` varchar(32),
+  `client_byond_build` varchar(32),
+  `server_commit` varchar(32) NOT NULL,
+  `test_merges` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
+  PRIMARY KEY (`id`) USING BTREE
 
-  PRIMARY KEY (`id`),
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) COLLATE = 'utf8mb4_general_ci' ENGINE = INNODB;
