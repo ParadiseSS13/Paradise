@@ -26,7 +26,7 @@
 	var/grow_as = null
 	var/travelling_in_vent = FALSE
 	var/player_spiders = FALSE
-	var/selecting_player = 0
+	var/selecting_player = FALSE
 
 /mob/living/basic/spiderling/Initialize(mapload)
 	. = ..()
@@ -38,33 +38,38 @@
 
 /mob/living/basic/spiderling/Life(seconds, times_fired)
 	. = ..()
-	if(isturf(loc))
-		amount_grown += rand(0,2)
-		if(amount_grown >= 100)
-			if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS && HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))
-				qdel(src)
-				return
-			if(!grow_as)
-				grow_as = pick(typesof(/mob/living/basic/giant_spider) - list(/mob/living/basic/giant_spider/hunter/infestation_spider, /mob/living/basic/giant_spider/araneus))
-			var/mob/living/basic/giant_spider/S = new grow_as(loc)
-			S.faction = faction.Copy()
-			S.master_commander = master_commander
-			if(HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))
-				ADD_TRAIT(S, TRAIT_XENOBIO_SPAWNED, "xenobio")
-				SSmobs.xenobiology_mobs++
-			if(player_spiders && !selecting_player)
-				selecting_player = 1
-				spawn()
-					var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_SENTIENT, TRUE, source = S)
-
-					if(length(candidates) && !QDELETED(S))
-						var/mob/C = pick(candidates)
-						if(C)
-							S.key = C.key
-							dust_if_respawnable(C)
-							if(S.master_commander)
-								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
-			qdel(src)
+	if(!isturf(loc))
+		return
+	amount_grown += rand(0,2)
+	if(amount_grown < 100)
+		return
+	if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS && HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))
+		qdel(src)
+		return
+	if(!grow_as)
+		grow_as = pick(typesof(/mob/living/basic/giant_spider) - list(/mob/living/basic/giant_spider/hunter/infestation_spider, /mob/living/basic/giant_spider/araneus))
+	var/mob/living/basic/giant_spider/S = new grow_as(loc)
+	S.faction = faction.Copy()
+	S.master_commander = master_commander
+	if(HAS_TRAIT(src, TRAIT_XENOBIO_SPAWNED))
+		ADD_TRAIT(S, TRAIT_XENOBIO_SPAWNED, "xenobio")
+		SSmobs.xenobiology_mobs++
+	if(!player_spiders)
+		return
+	if(selecting_player)
+		return
+	selecting_player = TRUE
+	spawn()
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_SENTIENT, TRUE, source = S)
+		if(!length(candidates) || QDELETED(S))
+			return
+		var/mob/C = pick(candidates)
+		if(C)
+			S.key = C.key
+			dust_if_respawnable(C)
+			if(S.master_commander)
+				to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
+	qdel(src)
 
 /mob/living/basic/spiderling/death(gibbed)
 	if(!istype(loc, /obj/machinery/atmospherics))
