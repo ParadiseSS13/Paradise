@@ -3320,9 +3320,6 @@
 /area/station/hallway/secondary/entry/lounge)
 "arQ" = (
 /obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -96786,11 +96783,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "yeb" = (
-/obj/machinery/power/smes/engineering,
 /obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/machinery/power/smes/engineering,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical/aft_starboard)
 "yee" = (
