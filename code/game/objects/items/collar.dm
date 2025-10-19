@@ -2,7 +2,6 @@
 	name = "pet collar"
 	desc = "The latest fashion accessory for your favorite pets!"
 	icon_state = "petcollar"
-	item_color = "petcollar"
 	var/tagname = null
 	var/original_name
 	var/original_real_name

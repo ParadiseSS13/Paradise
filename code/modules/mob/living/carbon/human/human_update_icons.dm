@@ -105,9 +105,9 @@ Please contact me on #coderbus IRC. ~Carn x
 
 /mob/living/carbon/human/proc/apply_overlay(cache_index)
 	. = overlays_standing[cache_index]
+	SEND_SIGNAL(src, COMSIG_CARBON_APPLY_OVERLAY, cache_index, .)
 	if(.)
 		add_overlay(.)
-	SEND_SIGNAL(src, COMSIG_CARBON_APPLY_OVERLAY, cache_index, .)
 
 /mob/living/carbon/human/proc/remove_overlay(cache_index)
 	var/I = overlays_standing[cache_index]
@@ -586,7 +586,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		if(!wear_suit || !(wear_suit.flags_inv & HIDEJUMPSUIT))
 			var/worn_icon = listgetindex(w_uniform.sprite_sheets, dna.species.sprite_sheet_name) || w_uniform.worn_icon || 'icons/mob/clothing/under/misc.dmi'
-			var/worn_icon_state = w_uniform.item_color || w_uniform.worn_icon_state || w_uniform.icon_state
+			var/worn_icon_state = w_uniform.worn_icon_state || w_uniform.icon_state
 			var/mutable_appearance/standing = mutable_appearance(worn_icon, "[worn_icon_state]_s", layer = -UNIFORM_LAYER, alpha = w_uniform.alpha, color = w_uniform.color)
 
 			if(w_uniform.blood_DNA)
@@ -597,7 +597,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(length(w_uniform.accessories))	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE. // oh my god kys whoever made this if statement jfc :gun:
 				for(var/obj/item/clothing/accessory/A in w_uniform.accessories)
 					var/tie_icon = A.worn_icon || listgetindex(A.sprite_sheets, dna.species.sprite_sheet_name) || 'icons/mob/accessories.dmi'
-					var/tie_color = A.item_color || A.icon_state
+					var/tie_color = A.worn_icon_state || A.icon_state
 					standing.overlays += image(tie_icon, tie_color)
 			overlays_standing[UNIFORM_LAYER] = standing
 
@@ -822,7 +822,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(istype(head, /obj/item/clothing/head))
 			var/obj/item/clothing/head/w_hat = head
 			for(var/obj/item/clothing/head/hat in w_hat.attached_hats)
-				var/hat_worn_icon = (robohead && robohead.is_monitor ? hat.icon_monitor : FALSE) ||listgetindex(hat.sprite_sheets, dna.species.sprite_sheet_name) || hat.worn_icon || 'icons/mob/clothing/head.dmi'
+				var/hat_worn_icon = (robohead && robohead.is_monitor ? hat.icon_monitor : FALSE) || listgetindex(hat.sprite_sheets, dna.species.sprite_sheet_name) || hat.worn_icon || 'icons/mob/clothing/head.dmi'
 				var/hat_worn_icon_state = hat.worn_icon_state || hat.icon_state
 				standing.overlays += image(icon = hat_worn_icon, icon_state = hat_worn_icon_state)
 
@@ -1356,6 +1356,20 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	overlays_standing[INTORGAN_LAYER] = standing
 	apply_overlay(INTORGAN_LAYER)
+	update_hand_int_organs()
+
+/mob/living/carbon/human/proc/update_hand_int_organs()
+	remove_overlay(HAND_INTORGAN_LAYER)
+
+	var/list/standing = list()
+	for(var/organ in internal_organs)
+		var/obj/item/organ/internal/I = organ
+		var/extra_render = I.extra_render()
+		if(extra_render)
+			standing += extra_render
+
+	overlays_standing[HAND_INTORGAN_LAYER] = standing
+	apply_overlay(HAND_INTORGAN_LAYER)
 
 /mob/living/carbon/human/handle_transform_change()
 	..()
