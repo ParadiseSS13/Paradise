@@ -666,3 +666,14 @@ CREATE TABLE `json_datum_saves` (
 	UNIQUE INDEX `ckey_unique` (`ckey`, `slotname`) USING BTREE,
 	INDEX `ckey` (`ckey`) USING BTREE
 ) COLLATE = 'utf8mb4_general_ci' ENGINE = InnoDB;
+
+--
+-- Table structure for table 'bug_reports'
+--
+DROP TABLE IF EXISTS `bug_reports`;
+CREATE TABLE `bug_reports` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `author_ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `body` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4;
