@@ -256,7 +256,7 @@
 
 /obj/item/reagent_containers/condiment/frostoil
 	name = "cold sauce"
-	desc = "A special oil that noticeably chills the body. Extracted from Icepeppers."
+	desc = "A special oil that noticeably chills the body. Extracted from chilly peppers."
 	icon_state = "coldsauce"
 	list_reagents = list("frostoil" = 50)
 	possible_states = list()
