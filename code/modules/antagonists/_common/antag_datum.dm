@@ -522,7 +522,16 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/obj/item/wormhole_jaunter/extraction/extractor = new extraction_type()
 	L.put_in_active_hand(extractor)
 
-//Only traitors can initiate the exchange objective, but any antag can be the exchangee
+/datum/antagonist/proc/start_exchange()
+	if(in_exchange)
+		return
+	var/list/possible_opponents = SSticker.mode.traitors + SSticker.mode.vampires + SSticker.mode.changelings + SSticker.mode.mindflayers
+	possible_opponents -= owner
+	var/datum/mind/opponent = pick(possible_opponents)
+	var/datum/antagonist/other_antag = opponent.has_antag_datum(/datum/antagonist)
+	if(other_antag)
+		assign_exchange_objective(other_antag)
+
 /datum/antagonist/proc/assign_exchange_objective(datum/antagonist/other_team)
 	if(!owner.current)
 		return
@@ -542,15 +551,5 @@ GLOBAL_LIST_EMPTY(antagonists)
 			add_antag_objective(blue_team)
 			other_team.add_antag_objective(red_team)
 	red_team.pair_up(blue_team, TRUE)
-
-/datum/antagonist/proc/start_exchange()
-	if(in_exchange)
-		return
-	var/list/possible_opponents = SSticker.mode.traitors + SSticker.mode.vampires + SSticker.mode.changelings + SSticker.mode.mindflayers
-	possible_opponents -= owner
-	var/datum/mind/opponent = pick(possible_opponents)
-	var/datum/antagonist/other_antag = opponent.has_antag_datum(/datum/antagonist)
-	if(other_antag)
-		assign_exchange_objective(other_antag)
 
 #undef SUCCESSFUL_DETACH
