@@ -32,7 +32,6 @@
 	. = ..()
 	pixel_x = rand(6,-6)
 	pixel_y = rand(6,-6)
-	START_PROCESSING(SSobj, src)
 	AddComponent(/datum/component/swarming)
 	AddElement(/datum/element/ai_retaliate)
 	ADD_TRAIT(src, TRAIT_EDIBLE_BUG, "edible_bug")
