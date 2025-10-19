@@ -107,9 +107,22 @@
 	casing_type = /obj/item/ammo_casing/shotgun/buckshot
 	attack_sound = 'sound/weapons/swordhitheavy.ogg'
 
+/mob/living/basic/drakehound_breacher/ranged/captain/Initialize(mapload)
+	. = ..()
+	loot = list(
+			/obj/effect/mob_spawn/human/corpse/drakehound,
+			/obj/item/salvage/loot/pirate,
+			/obj/item/salvage/loot/pirate,
+			/obj/item/salvage/loot/pirate,
+			/obj/item/gun/projectile/shotgun/automatic/dual_tube,
+			/obj/effect/decal/cleanable/blood/innards,
+			/obj/effect/decal/cleanable/blood,
+			/obj/effect/gibspawner/generic,
+			/obj/effect/gibspawner/generic)
+
 /mob/living/basic/drakehound_breacher/ranged/captain/rack_shotgun()
 	var/datum/component/ranged_attacks/comp = GetComponent(/datum/component/ranged_attacks)
-	comp.casing_type = pick(/obj/item/ammo_casing/shotgun/buckshot, /obj/item/ammo_casing/shotgun, /obj/item/ammo_casing/shotgun/lasershot)
+	comp.casing_type = pick(/obj/item/ammo_casing/shotgun/buckshot, /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath, /obj/item/ammo_casing/shotgun/lasershot)
 
 /mob/living/basic/drakehound_breacher/ranged/captain/melee_attack(atom/target, list/modifiers, ignore_cooldown)
 	if(!ishuman(target))

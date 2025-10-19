@@ -874,6 +874,10 @@
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/drakehound_mine/ship)
+"wQ" = (
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/space/unpowered)
 "wX" = (
 /obj/effect/mob_spawn/human/corpse/random_species/miner,
 /obj/effect/spawner/random/food_trash,
@@ -1299,6 +1303,7 @@
 /area/ruin/space/unpowered)
 "LY" = (
 /obj/structure/closet/firecloset/full,
+/obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
 /turf/simulated/floor/plasteel,
 /area/ruin/drakehound_mine/hallway_north)
 "Mn" = (
@@ -2059,7 +2064,7 @@ fV
 Ro
 Ro
 Ro
-Ro
+wQ
 fV
 fV
 oK

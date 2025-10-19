@@ -34,6 +34,7 @@
 "j" = (
 /obj/machinery/door/airlock/titanium,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
 "k" = (
@@ -159,6 +160,7 @@
 /area/ruin/powered)
 "R" = (
 /obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
 "S" = (
@@ -915,7 +917,7 @@ F
 F
 F
 F
-F
+Z
 F
 F
 F
@@ -947,7 +949,7 @@ j
 A
 H
 A
-Z
+A
 F
 F
 F
@@ -1139,7 +1141,7 @@ R
 A
 H
 A
-F
+A
 k
 k
 c

@@ -81,6 +81,7 @@
 /turf/simulated/floor/mineral/diamond,
 /area/ruin/skullakin_mine/temple)
 "bq" = (
+/obj/structure/fans/tiny,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mining)
 "bW" = (
@@ -247,6 +248,7 @@
 /obj/machinery/door/poddoor/multi_tile/impassable{
 	id_tag = "skullakin_mine_depths_lockdown"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/mining)
 "eV" = (
@@ -1943,7 +1945,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/skullakin_mine/cafeteria)
 "NF" = (
-/obj/structure/spawner/mining/goliath/space,
+/mob/living/simple_animal/hostile/asteroid/goliath/space,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mission_control)
 "NM" = (
@@ -2461,8 +2463,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mining)
 "WX" = (
-/obj/machinery/computer/loreconsole,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/nonfunctional,
 /turf/simulated/floor/plasteel,
 /area/ruin/skullakin_mine/mining)
 "Xi" = (
@@ -2541,6 +2543,7 @@
 /obj/effect/gibspawner/generic,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/asteroid/goliath/space,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/skullakin_mine/mission_control)
 "Ye" = (
