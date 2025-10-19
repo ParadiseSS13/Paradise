@@ -10,7 +10,8 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 	/// client of the bug report author, needed to create the ticket
 	var/initial_user_uid = null
-	// ckey of the author
+
+	/// ckey of the author
 	var/initial_key = null // just incase they leave after creating the bug report
 
 	/// client of the admin/dev who is accessing the report, we don't want multiple people unknowingly making changes at the same time.
@@ -22,24 +23,18 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	/// for garbage collection purposes.
 	var/selected_confirm = FALSE
 
-	/// byond version of the user, so we still have the byond version if the user logs out
-	var/user_byond_version
-
-	/// Current Server commit
-	var/local_commit
-
-	/// Current test merges formatted for the bug report
-	var/test_merges
-
 /datum/tgui_bug_report_form/New(mob/user)
-	local_commit = GLOB.revision_info.commit_hash
+	bug_report_data["local_commit"] = GLOB.revision_info.commit_hash
 	initial_user_uid = user.client.UID()
 	initial_key = user.client.key
-	user_byond_version = "[user.client.byond_version].[user.client.byond_build]"
+	bug_report_data["user_byond_version"] = full_client_byond_build(user.client)
 	if(length(GLOB.revision_info.origin_commit))
-		local_commit = GLOB.revision_info.origin_commit
+		bug_report_data["local_commit"] = GLOB.revision_info.origin_commit
 	for(var/datum/tgs_revision_information/test_merge/tm in GLOB.revision_info.testmerges)
-		test_merges += "#[tm.number] at [tm.head_commit]\n"
+		bug_report_data["test_merges"] += "#[tm.number] at [tm.head_commit]\n"
+
+	bug_report_data["server_byond_version"] = full_server_byond_build()
+	bug_report_data["round_id"] = GLOB.round_id
 
 
 /datum/tgui_bug_report_form/proc/external_link_prompt(client/user)
@@ -118,11 +113,11 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 ## Additional details
 - Author: [initial_key]
 - Approved By: [approving_user]
-- Round ID: [GLOB.round_id ? GLOB.round_id : "N/A"]
-- Client BYOND Version: [user_byond_version]
-- Server BYOND Version: [world.byond_version].[world.byond_build]
-- Server commit: [local_commit]
-- Active Test Merges: [test_merges ? test_merges : "None"]
+- Round ID: [bug_report_data["round_id"] ? bug_report_data["round_id"] : "N/A"]
+- Client BYOND Version: [bug_report_data["user_byond_version"]]
+- Server BYOND Version: [bug_report_data["server_byond_version"]]
+- Server commit: [bug_report_data["local_commit"]]
+- Active Test Merges: [bug_report_data["test_merges"] ? bug_report_data["test_merges"] : "None"]
 - Note: [bug_report_data["approver_note"] ? bug_report_data["approver_note"] : "None"]
 	"}
 

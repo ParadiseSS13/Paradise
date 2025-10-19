@@ -673,7 +673,15 @@ CREATE TABLE `json_datum_saves` (
 DROP TABLE IF EXISTS `bug_reports`;
 CREATE TABLE `bug_reports` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `author_ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `body` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `author_ckey` varchar(32) utf8mb4_unicode_ci NOT NULL,
+  `title` MEDIUMTEXT utf8mb4_unicode_ci NOT NULL,
+  `expected_behavior` MEDIUMTEXT utf8mb4_unicode_ci NOT NULL,
+  `description` MEDIUMTEXT utf8mb4_unicode_ci NOT NULL,
+  `consequences` MEDIUMTEXT utf8mb4_unicode_ci NOT NULL,
+  `steps` MEDIUMTEXT utf8mb4_unicode_ci NOT NULL,
+  `logs` MEDIUMTEXT utf8mb4_unicode_ci,
+  `server_byond_build` DOUBLE,
+  `client_byond_build` DOUBLE,
+
   PRIMARY KEY (`id`),
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
