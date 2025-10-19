@@ -85138,7 +85138,6 @@
 /area/station/maintenance/fore)
 "tqY" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "trJ" = (
