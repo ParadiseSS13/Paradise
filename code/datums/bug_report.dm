@@ -223,21 +223,13 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 /proc/record_bug_reports()
 	for(var/datum/tgui_bug_report_form/bug_report in GLOB.bug_reports)
 		var/datum/db_query/bug_query = SSdbcore.NewQuery({"
-			INSERT INTO bug_reports (author_ckey, title, expected_behavior, description, consequences, steps, logs, round_id, server_byond_build, client_byond_build, server_commit, test_merges)
-			VALUES (:author_ckey, :title, :expected_behavior, :description, :consequences, :steps, :logs, :round_id, :server_byond_build, :client_byond_build, :server_commit, :test_merges)"},
+			INSERT INTO bug_reports (author_ckey, title, round_id, contents_json)
+			VALUES (:author_ckey, :title, :round_id, :contents_json)"},
 			list(
 				"author_ckey" = bug_report.initial_key,
 				"title" = bug_report.bug_report_data["title"],
-				"expected_behavior" = bug_report.bug_report_data["expected_behavior"],
-				"description" = bug_report.bug_report_data["description"],
-				"consequences" = bug_report.bug_report_data["consequences"],
-				"steps" = bug_report.bug_report_data["step"],
-				"logs" = bug_report.bug_report_data["logs"],
 				"round_id" = bug_report.bug_report_data["round_id"],
-				"server_byond_build" = bug_report.bug_report_data["server_byond_build"],
-				"client_byond_build" = bug_report.bug_report_data["client_byond_build"],
-				"server_commit"  = bug_report.bug_report_data["local_commit"],
-				"test_merges" = bug_report.bug_report_data["test_merges"],
+				"contents_json" = json_encode(bug_report.bug_report_data),
 			)
 		)
 		bug_query.warn_execute()
