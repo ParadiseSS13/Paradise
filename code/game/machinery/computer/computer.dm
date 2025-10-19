@@ -191,7 +191,7 @@
 		return FALSE
 	return ..()
 
-/obj/machinery/computer/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/machinery/computer/attack_by(obj/item/I, mob/user, params)
 	// Check if someone is trying to Download using a power cable
 	if(istype(I, /obj/item/apc_powercord) && ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -226,6 +226,8 @@
 		else
 			to_chat(user, "<span class='warning'>Your power cable is ejected, interrupting the transfer.</span>")
 			return TRUE
+
+	return ..()
 
 /obj/machinery/computer/proc/show_random_download_message(mob/user)
 	var/list/download_messages = list(
