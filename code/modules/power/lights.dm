@@ -998,6 +998,7 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_atom_entered)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	update()
 
 /obj/item/light/proc/on_atom_entered(datum/source, atom/movable/entered)
 	var/mob/living/living_entered = entered
@@ -1063,12 +1064,6 @@
 		if(LIGHT_BROKEN)
 			icon_state = "[base_state]-broken"
 			desc = "A broken [name]."
-
-
-/obj/item/light/New()
-	..()
-	update()
-
 
 // attack bulb/tube with object
 // if a syringe, can inject plasma to make it explode. Light replacers eat them.

@@ -67,6 +67,7 @@
 	new /obj/item/clothing/neck/cloak/hop_mantle(src)
 	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/clothing/suit/hopcoat(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/hop(src)
 	new /obj/item/clothing/under/rank/civilian/hop(src)
 	new /obj/item/clothing/under/rank/civilian/hop/skirt(src)
 	new /obj/item/clothing/under/rank/civilian/hop/dress(src)
@@ -298,20 +299,11 @@
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the chaplain."
 
 /obj/item/storage/bag/garment/chaplain/populate_contents()
-	new /obj/item/clothing/under/rank/civilian/chaplain(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/suit/hooded/abaya(src)
-	new /obj/item/clothing/suit/hooded/nun(src)
-	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
-	new /obj/item/clothing/suit/hooded/monk(src)
-	new /obj/item/clothing/suit/witchhunter(src)
-	new /obj/item/clothing/head/witchhunter_hat(src)
-	new /obj/item/clothing/suit/holidaypriest(src)
+	new /obj/item/clothing/suit/hooded/dark_robes(src)
 	new /obj/item/clothing/head/helmet/riot/knight/templar(src)
 	new /obj/item/clothing/suit/armor/riot/knight/templar(src)
-	new /obj/item/clothing/suit/storage/labcoat(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/chaplain(src)
-	new /obj/item/clothing/under/plasmaman/chaplain(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/chaplain/green(src)
+	new /obj/item/clothing/under/plasmaman/chaplain/green(src)
 
 /obj/item/storage/bag/garment/librarian
 	name = "librarian's garment bag"
@@ -354,6 +346,7 @@
 	new /obj/item/clothing/head/beret/paramedic(src)
 	new /obj/item/clothing/suit/storage/labcoat/emt(src)
 	new /obj/item/clothing/suit/storage/hazardvest/paramedic(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/medical/paramedic(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
@@ -406,6 +399,7 @@
 	new /obj/item/clothing/mask/balaclava(src)
 	new /obj/item/clothing/suit/storage/iaa/blackjacket(src)
 	new /obj/item/clothing/suit/blacktrenchcoat(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/syndicate(src)
 	new /obj/item/clothing/head/beret/syndicate(src)
 	new /obj/item/clothing/glasses/syndie(src)
 	new /obj/item/clothing/neck/cloak/syndicate(src)

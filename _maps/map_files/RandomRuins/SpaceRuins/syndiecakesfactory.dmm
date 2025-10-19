@@ -1,9 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ar" = (
 /obj/structure/table_frame,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "au" = (
 /obj/structure/grille,
@@ -20,9 +18,7 @@
 	pixel_y = 7
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "bl" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -32,30 +28,23 @@
 /obj/item/storage/box/papersack{
 	pixel_x = 3
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "bn" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "bq" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "bv" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "bG" = (
 /obj/effect/spawner/window/reinforced,
@@ -63,9 +52,7 @@
 /area/ruin/space/syndicakefactory)
 "bO" = (
 /obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "bY" = (
 /obj/item/stack/ore/glass/basalt,
@@ -73,9 +60,7 @@
 /area/template_noop)
 "co" = (
 /obj/structure/chair/comfy/black,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "cr" = (
 /obj/machinery/conveyor/east{
@@ -127,9 +112,8 @@
 /obj/item/food/meat/corgi{
 	pixel_y = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "fs" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -146,22 +130,17 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "fE" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/food/syndicake,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "fJ" = (
 /obj/effect/decal/cleanable/vomit,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "ga" = (
 /obj/structure/table/reinforced,
@@ -179,22 +158,18 @@
 /area/ruin/space/syndicakefactory)
 "gu" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "gx" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/reagent_containers/syringe,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "gy" = (
 /obj/item/clothing/mask/gas/monkeymask,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "hc" = (
 /obj/machinery/porta_turret/syndicate/assault_pod,
@@ -211,17 +186,13 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/syndicakefactory)
 "hq" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "hC" = (
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "hF" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -229,15 +200,12 @@
 /area/ruin/space/syndicakefactory)
 "hH" = (
 /obj/structure/railing/corner,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "hM" = (
 /obj/structure/door_assembly/door_assembly_hatch,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "ip" = (
 /obj/structure/table/reinforced,
@@ -252,9 +220,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "iL" = (
 /obj/structure/noticeboard{
@@ -266,16 +232,12 @@
 "je" = (
 /obj/structure/table_frame,
 /obj/item/stack/sheet/plastitaniumglass,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "jn" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/paper/fluff/ruins/syndiecakesfactory/teleporter,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "jx" = (
 /obj/effect/decal/cleanable/blood,
@@ -288,9 +250,7 @@
 	pixel_y = 7
 	},
 /obj/item/food/syndicake,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "ky" = (
 /obj/structure/window/reinforced{
@@ -300,9 +260,7 @@
 /area/ruin/space/syndicakefactory)
 "kD" = (
 /obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "ls" = (
 /obj/structure/dispenser/oxygen,
@@ -324,9 +282,8 @@
 "mP" = (
 /obj/effect/decal/cleanable/vomit/green,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "nl" = (
 /obj/structure/rack,
@@ -345,9 +302,8 @@
 /area/template_noop)
 "oB" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "oH" = (
 /obj/effect/mapping_helpers/turfs/rust/maybe,
@@ -358,9 +314,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "oV" = (
 /obj/structure/flora/ausbushes/brflowers,
@@ -387,15 +341,11 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "qk" = (
 /obj/item/trash/syndi_cakes,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "qX" = (
 /obj/machinery/conveyor/east{
@@ -417,9 +367,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "rJ" = (
 /obj/effect/decal/cleanable/cobweb2,
@@ -429,17 +377,14 @@
 	icon_state = "bulb-broken";
 	status = 2
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "rP" = (
 /obj/machinery/door/poddoor{
 	id_tag = "cakearea"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "sh" = (
 /turf/simulated/floor/engine,
@@ -452,18 +397,14 @@
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Packaging Room"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "sN" = (
 /obj/machinery/conveyor/east,
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "tf" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -475,9 +416,7 @@
 /obj/item/food/syndicake{
 	pixel_x = 15
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "tp" = (
 /obj/structure/table/reinforced,
@@ -502,9 +441,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "up" = (
 /obj/machinery/tcomms/relay/ruskie{
@@ -521,18 +458,16 @@
 /obj/item/stack/sheet/animalhide/corgi{
 	pixel_y = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "uP" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "uU" = (
 /obj/structure/rack,
@@ -547,16 +482,14 @@
 "vE" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "vO" = (
 /obj/effect/decal/cleanable/flour,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "vR" = (
 /obj/machinery/door/airlock/hatch/syndicate{
@@ -571,9 +504,8 @@
 	pixel_y = 4;
 	pixel_x = -16
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "wf" = (
 /obj/structure/sign/securearea{
@@ -587,9 +519,8 @@
 /area/ruin/space/syndicakefactory)
 "wC" = (
 /obj/effect/decal/cleanable/insectguts,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "wE" = (
 /obj/machinery/door/window/classic/normal{
@@ -608,9 +539,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "wW" = (
 /obj/machinery/suit_storage_unit/mining,
@@ -621,9 +550,7 @@
 /turf/simulated/floor/engine/airless,
 /area/ruin/space/syndicakefactory)
 "xO" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "xW" = (
 /obj/structure/rack,
@@ -632,16 +559,13 @@
 /area/ruin/space/syndicakefactory)
 "yU" = (
 /obj/effect/decal/cleanable/blood/drip,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "yV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "zc" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -652,9 +576,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "zo" = (
 /obj/structure/rack,
@@ -687,9 +609,7 @@
 /obj/item/food/syndicake{
 	pixel_y = -10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "BG" = (
 /obj/effect/decal/cleanable/blood,
@@ -713,9 +633,8 @@
 /area/ruin/space/syndicakefactory)
 "Cm" = (
 /obj/effect/decal/cleanable/vomit/green,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "Cp" = (
 /obj/item/shard,
@@ -736,9 +655,7 @@
 /obj/item/stack/package_wrap{
 	pixel_y = 7
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "CX" = (
 /obj/item/trash/tray,
@@ -747,25 +664,20 @@
 "Do" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/food/meat/corgi,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "DJ" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "DP" = (
 /obj/machinery/door/poddoor{
 	id_tag = "securearea"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "DY" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -777,44 +689,36 @@
 	pixel_y = 5;
 	pixel_x = -5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "EB" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "EH" = (
 /obj/effect/mob_spawn/human/corpse/syndicate,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "EJ" = (
 /turf/simulated/wall,
 /area/ruin/space/syndicakefactory)
 "Fj" = (
 /obj/item/trash/syndi_cakes,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "FK" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "FX" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "Ga" = (
 /obj/structure/table/reinforced,
@@ -847,9 +751,8 @@
 	icon_state = "bulb-broken";
 	status = 2
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "Ha" = (
 /obj/structure/girder,
@@ -885,9 +788,8 @@
 	pixel_y = 6
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "IB" = (
 /obj/item/stack/sheet/animalhide/corgi,
@@ -896,9 +798,7 @@
 "ID" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "IE" = (
 /obj/item/flag/syndi{
@@ -907,45 +807,34 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "Jt" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "JQ" = (
 /obj/machinery/teleport/hub,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "Kr" = (
 /obj/effect/decal/cleanable/flour,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "KS" = (
 /obj/machinery/door/poddoor{
 	id_tag = "producearea"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "KY" = (
 /obj/machinery/door/poddoor{
 	id_tag = "securearea"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "Lr" = (
 /obj/machinery/door/window/classic/normal{
@@ -961,9 +850,7 @@
 /obj/item/food/syndicake{
 	pixel_x = 15
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "LN" = (
 /turf/simulated/floor/engine/airless,
@@ -972,9 +859,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "LW" = (
 /obj/structure/closet/crate/trashcart,
@@ -997,15 +882,12 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "MK" = (
 /mob/living/basic/alien/sentinel/corgi,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "MV" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -1015,9 +897,7 @@
 /obj/item/storage/box/papersack{
 	pixel_x = 3
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "MY" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -1027,15 +907,12 @@
 /obj/item/food/syndicake{
 	pixel_x = 15
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "Nq" = (
 /obj/effect/decal/cleanable/blood/drip,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "Nx" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -1043,9 +920,7 @@
 /obj/item/stack/package_wrap{
 	pixel_y = 7
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "NQ" = (
 /obj/structure/lattice,
@@ -1068,9 +943,7 @@
 	pixel_y = 8
 	},
 /obj/item/food/sliced/birthday_cake,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "OF" = (
 /obj/machinery/door/window{
@@ -1079,9 +952,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "OK" = (
 /turf/simulated/mineral,
@@ -1094,9 +965,7 @@
 /area/ruin/space/syndicakefactory)
 "PH" = (
 /obj/structure/railing,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "PS" = (
 /obj/structure/rack,
@@ -1108,9 +977,8 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "QF" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -1125,21 +993,15 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "QI" = (
 /obj/item/toy/plushie/greyplushie,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "RG" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "RO" = (
 /obj/structure/grille,
@@ -1155,9 +1017,7 @@
 /area/ruin/space/syndicakefactory)
 "Sz" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "SS" = (
 /obj/item/food/meat/corgi,
@@ -1169,9 +1029,7 @@
 "TM" = (
 /obj/machinery/recycler/deathtrap,
 /obj/machinery/conveyor/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "UR" = (
 /obj/machinery/light/small{
@@ -1186,9 +1044,8 @@
 	icon_state = "bulb-broken";
 	status = 2
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "Vt" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -1196,16 +1053,14 @@
 /obj/item/reagent_containers/condiment/peppermill{
 	pixel_y = 12
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "VI" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/effect/spawner/random/pool/spaceloot/syndicate/mixed,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "VS" = (
 /obj/structure/table_frame,
@@ -1213,21 +1068,15 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "Wh" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/syndicakefactory)
 "Wr" = (
 /mob/living/simple_animal/pet/dog/corgi/exoticcorgi,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "WX" = (
 /obj/item/trash/waffles,
@@ -1239,9 +1088,8 @@
 	pixel_y = 10;
 	pixel_x = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "Yy" = (
 /obj/structure/table/reinforced,
@@ -1263,9 +1111,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "YR" = (
 /mob/living/basic/alien/sentinel/corgi,
@@ -1273,26 +1119,21 @@
 /area/ruin/space/syndicakefactory)
 "Zs" = (
 /obj/item/reagent_containers/condiment/flour,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/obj/effect/turf_decal/tiles/dark/checker,
+/turf/simulated/floor/plasteel/white,
 /area/ruin/space/syndicakefactory)
 "Zw" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/food/syndicake{
 	pixel_y = 7
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 "ZT" = (
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicakefactory)
 
 (1,1,1) = {"
