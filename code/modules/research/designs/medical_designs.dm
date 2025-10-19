@@ -52,6 +52,15 @@
 	build_path = /obj/item/healthupgrade
 	category = list("Medical")
 
+/datum/design/automender
+	name = "Auto-mender"
+	id = "automender"
+	req_tech = list("biotech" = 7, "magnets" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_TITANIUM = 3000, MAT_GLASS = 1000)
+	build_path = /obj/item/reagent_containers/applicator
+	category = list("Medical")
+
 /datum/design/handheld_defib
 	name = "Handheld Defibrillator"
 	desc = "A smaller defibrillator only capable of treating cardiac arrest."
@@ -163,6 +172,39 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 7000, MAT_GLASS = 7000)
 	build_path = /obj/item/stack/nanopaste
+	category = list("Medical")
+
+/datum/design/skin_1
+	name = "level-1 synthetic skin plate"
+	desc = "A sheet of level-1 synthetic skin plating. Used as a cheap covering for cybernetic organs, is able to match the colour of the limb but not the texture."
+	id = "skin_1"
+	req_tech = list("biotech" = 1, "materials" = 1)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 20
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
+	build_path = /obj/item/stack/synthetic_skin
+	category = list("Medical")
+
+/datum/design/skin_2
+	name = "level-2 synthetic skin patch"
+	desc = "A sealed patch of synthetic skin. An improvement over the basic version, more water resistant and less prone to peeling off."
+	id = "skin_2"
+	req_tech = list("biotech" = 5, "materials" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 40
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_TITANIUM = 250)
+	build_path = /obj/item/stack/synthetic_skin/level_2
+	category = list("Medical")
+
+/datum/design/skin_3
+	name = "level-3 synthetic skin foam"
+	desc = "A nanite foam injector meeting the requirements of level-3 synthetic skin. The best one can buy, best used to hide major cybernetic alterations, for beauty or for infiltration."
+	id = "skin_3"
+	req_tech = list("biotech" = 7, "materials" = 7)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 2000, MAT_TITANIUM = 500, MAT_BLUESPACE = 250)
+	build_path = /obj/item/stack/synthetic_skin/level_3
 	category = list("Medical")
 
 /datum/design/reagent_scanner
@@ -295,6 +337,37 @@
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
 
+/datum/design/dissector
+	name = "Dissection Manager"
+	desc = "An advanced handheld device that assists with the preparation and removal of non-standard alien organs."
+	id = "dissection_manager"
+	req_tech = list("biotech" = 3, "materials" = 3,  "programming" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500)
+	build_path = /obj/item/dissector
+	category = list("Medical")
+
+/datum/design/improved_dissector
+	name = "Improved Dissection Manager"
+	desc = "An advanced handheld device that assists with the preparation and removal of non-standard alien organs. This one has had several improvements applied to it."
+	id = "dissection_manager_upgraded"
+	req_tech = list("biotech" = 7, "materials" = 6,  "engineering" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 2000, MAT_SILVER = 1500, MAT_GOLD = 2000)
+	build_path = /obj/item/dissector/upgraded
+	category = list("Medical")
+
+// allows for perfect dissections, should be very hard to obtain.
+/datum/design/alien_dissector
+	name = "Alien Dissection Manager"
+	desc = "A tool of alien origin, capable of near impossible levels of precision during dissections."
+	id = "dissection_manager_alien"
+	req_tech = list("biotech" = 7, "materials" = 7, "abductor" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 4500, MAT_DIAMOND = 3000, MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
+	build_path = /obj/item/dissector/alien
+	category = list("Medical")
+
 /////////////////////////////////////////
 //////////Cybernetic Implants////////////
 /////////////////////////////////////////
@@ -341,6 +414,17 @@
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
 	construction_time = 200
 	build_path = /obj/item/organ/internal/cyberimp/arm/toolset
+	category = list("Medical")
+
+/datum/design/cyberimp_cargo
+	name = "Cargo Arm Implant"
+	desc = "A set of everything a cargo technician needs to have to do their job, besides a forklift. Designed to be installed on subject's arm."
+	id = "ci-cargo"
+	req_tech = list("materials" = 3, "engineering" = 4, "biotech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
+	construction_time = 200
+	build_path = /obj/item/organ/internal/cyberimp/arm/cargo
 	category = list("Medical")
 
 /datum/design/cyberimp_janitorial

@@ -14,7 +14,6 @@
 	desc = "This is used to lie in, sleep in or strap on."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "bed"
-	dir = SOUTH
 	can_buckle = TRUE
 	anchored = TRUE
 	buckle_lying = TRUE
@@ -135,6 +134,19 @@
 	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 5
 
+/obj/structure/bed/dirty
+	name = "dirty mattress"
+	desc = "An old, filthy mattress covered in strange and unidentifiable stains. It looks quite uncomfortable."
+	icon_state = "dirty_mattress"
+	comfort = 0.5
+	buildstackamount = 5
+
+/obj/structure/bed/dirty/double
+	name = "large dirty mattress"
+	desc = "An old, filthy king-sized mattress covered in strange and unidentifiable stains. It looks quite uncomfortable."
+	icon_state = "dirty_mattress_large"
+	buildstackamount = 10
+
 /*
  * Roller beds
  */
@@ -152,7 +164,7 @@
 	var/icon_down = "down"
 	var/folded = /obj/item/roller
 
-/obj/structure/bed/roller/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/bed/roller/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/roller_holder))
 		if(has_buckled_mobs())
 			if(length(buckled_mobs) > 1)
@@ -164,8 +176,16 @@
 			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 			new folded(get_turf(src))
 			qdel(src)
+
+		return ITEM_INTERACT_COMPLETE
 	else
 		return ..()
+
+/obj/structure/bed/roller/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 75, TRUE, ignore_walls = FALSE)
 
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	density = TRUE
@@ -190,6 +210,7 @@
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
 	w_class = WEIGHT_CLASS_BULKY
+	materials = list(MAT_METAL = 5000)
 	new_attack_chain = TRUE
 	var/extended = /obj/structure/bed/roller
 
@@ -217,6 +238,7 @@
 	desc = "A retracted hardlight stretcher that can be carried around."
 	icon_state = "holo_retracted"
 	w_class = WEIGHT_CLASS_SMALL
+	materials = list(MAT_METAL = 1000)
 	origin_tech = "magnets=3;biotech=4;powerstorage=3"
 	extended = /obj/structure/bed/roller/holo
 
@@ -248,7 +270,7 @@
 /obj/item/roller_holder/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	if(!istype(target, /obj/item/roller))
 		return ..()
-	
+
 	if(istype(target, /obj/item/roller/holo) && !carry_holo)
 		return ITEM_INTERACT_COMPLETE
 

@@ -3,11 +3,13 @@
 	desc = "It's a gun. It's pretty terrible, though."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "revolver_bright"
-	item_state = "gun"
+	worn_icon_state = "gun"
+	inhand_icon_state = "gun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -67,10 +69,6 @@
 	var/current_skin = null
 	/// List of reskin options.
 	var/list/options = list()
-
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
-
 	/// Whether or not the gun has a flashlight.
 	var/obj/item/flashlight/gun_light = null
 	/// Whether or not a flashlight can be attached to the gun.
@@ -161,7 +159,7 @@
 					"<span class='danger'>You fire [src]!</span>",
 					"<span class='danger'>You hear \a [fire_sound_text]!</span>"
 				)
-	if(chambered.muzzle_flash_effect)
+	if(chambered?.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
 		effect.alpha = min(255, muzzle_strength * 255)
 		if(chambered.muzzle_flash_color)
@@ -314,6 +312,8 @@
 					shoot_live_shot(user, target, TRUE, message)
 				else
 					shoot_live_shot(user, target, FALSE, message)
+				chambered.leave_residue(user)
+
 		else
 			shoot_with_empty_chamber(user)
 			return

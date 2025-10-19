@@ -15,7 +15,6 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/effect/clockwork
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 // An "overlay" used by clockwork walls and floors to appear normal to mesons.
 /obj/effect/clockwork/overlay
@@ -93,7 +92,8 @@
 		return
 	default_unfasten_wrench(user, I, 10)
 
-/obj/structure/clockwork/wall_gear/attackby__legacy__attackchain(obj/item/I, mob/user, params)
+/obj/structure/clockwork/wall_gear/item_interaction(mob/living/user, obj/item/I, list/modifiers)
+	. = ITEM_INTERACT_COMPLETE
 	if(istype(I, /obj/item/stack/tile/brass))
 		var/obj/item/stack/tile/brass/W = I
 		if(W.get_amount() < 1)
@@ -123,7 +123,7 @@
 				qdel(src)
 			else
 				to_chat(user, "<span class='warning'>You need more brass to make a [anchored ? "false ":""]wall!</span>")
-		return 1
+		return
 	return ..()
 
 /obj/structure/clockwork/wall_gear/deconstruct(disassembled = TRUE)
@@ -168,7 +168,6 @@
 	randomsinglesprite = TRUE
 	icon_state = "shard_large"
 	base_icon_state = "shard_large"
-	scatter_distance = 9
 
 /obj/item/clockwork/alloy_shards/medium
 	w_class = WEIGHT_CLASS_TINY
@@ -224,7 +223,6 @@
 	name = "blind eye"
 	desc = "A heavy brass eye, its red iris fallen dark."
 	icon_state = "blind_eye"
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clockwork/component/belligerent_eye/lens_gem
 	name = "lens gem"
@@ -244,7 +242,6 @@
 	name = "onyx prism"
 	desc = "An onyx prism with a small aperture. It's very heavy."
 	icon_state = "onyx_prism"
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clockwork/component/geis_capacitor
 	name = "geis capacitor"
@@ -255,7 +252,6 @@
 	name = "fallen armor"
 	desc = "Lifeless chunks of armor. They're designed in a strange way and won't fit on you."
 	icon_state = "fallen_armor"
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clockwork/component/geis_capacitor/antennae
 	name = "mania motor antennae"
@@ -271,13 +267,11 @@
 	name = "smashed anima fragment"
 	desc = "Shattered chunks of metal. Damaged beyond repair and completely unusable."
 	icon_state = "smashed_anime_fragment"
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clockwork/component/replicant_alloy/replication_plate
 	name = "replication plate"
 	desc = "A flat, heavy disc of metal with a triangular formation on its surface."
 	icon_state = "replication_plate"
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clockwork/component/hierophant_ansible
 	name = "hierophant ansible"
@@ -288,7 +282,6 @@
 	name = "obelisk prism"
 	desc = "A prism that occasionally glows brightly. It seems not-quite there."
 	icon_state = "obelisk_prism"
-	w_class = WEIGHT_CLASS_NORMAL
 
 //Ratvarian spear
 /obj/item/spear/ratvarian_spear
@@ -300,6 +293,6 @@
 	force_unwielded = 12
 	force_wielded = 22
 	throwforce = 25
-	armour_penetration_percentage = 15
+	armor_penetration_percentage = 15
 	embed_chance = 0	// would suck to lose this after one throw
 	var/bonus_burn = 5	// currently does nothing

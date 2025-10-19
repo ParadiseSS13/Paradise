@@ -89,7 +89,7 @@
 
 	if(!get_location_accessible(owner, "head"))
 		occlusion++
-	if(owner.w_uniform && copytext(owner.w_uniform.item_color,-2) != "_d") //jumpsuit not rolled down
+	if(owner.w_uniform && !owner.w_uniform.rolled_down) // jumpsuit not rolled down
 		occlusion++
 	if(owner.wear_suit)
 		occlusion++
@@ -118,9 +118,7 @@
 
 /obj/item/organ/internal/brain/kidan
 	icon = 'icons/obj/species_organs/kidan.dmi'
-	icon_state = "brain2"
 	mmi_icon = 'icons/obj/species_organs/kidan.dmi'
-	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/kidan
 	name = "kidan lungs"

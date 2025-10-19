@@ -13,16 +13,11 @@
 	icon_state = "multitool"
 	belt_icon = "multitool"
 	flags = CONDUCT
-	force = 0
-	w_class = WEIGHT_CLASS_NORMAL
-	throwforce = 0
-	throw_range = 7
 	throw_speed = 3
 	drop_sound = 'sound/items/handling/multitool_drop.ogg'
 	pickup_sound =  'sound/items/handling/multitool_pickup.ogg'
 	materials = list(MAT_METAL = 300, MAT_GLASS = 140)
 	origin_tech = "magnets=1;engineering=2"
-	toolspeed = 1
 	tool_behaviour = TOOL_MULTITOOL
 	hitsound = 'sound/weapons/tap.ogg'
 	new_attack_chain = TRUE
@@ -74,13 +69,14 @@
 
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 /obj/item/multitool/ai_detect
+	origin_tech = "magnets=1;engineering=2;syndicate=1"
+	w_class = WEIGHT_CLASS_SMALL
+	inhand_icon_state = "multitool"
 	var/track_cooldown = 0
 	var/track_delay = 10 //How often it checks for proximity
 	var/detect_state = PROXIMITY_NONE
 	var/rangealert = 8	//Glows red when inside
 	var/rangewarning = 20 //Glows yellow when inside
-	origin_tech = "magnets=1;engineering=2;syndicate=1"
-	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/multitool/ai_detect/Initialize(mapload)
 	. = ..()
@@ -129,7 +125,6 @@
 	name = "suspicious multitool"
 	desc = "A slick black & red multitool used for testing and interfacing with electrical equipment in style."
 	icon_state = "multitool_syndi"
-	item_state = "multitool_syndi"
 	belt_icon = "multitool_syndi"
 	toolspeed = 0.95 // dangerously fast... not like multitools use speed anyways
 	w_class = WEIGHT_CLASS_SMALL
@@ -139,7 +134,6 @@
 	name = "command multitool"
 	desc = "A majestic blue multiool used for testing and interfacing with electrical equipment with class."
 	icon_state = "multitool_command"
-	item_state = "multitool_command"
 	belt_icon = "multitool_command"
 	toolspeed = 0.95 //command those wires / that fireaxe cabinet!
 	var/list/victims = list()
@@ -170,7 +164,6 @@
 	return OBLITERATION
 
 /obj/item/multitool/cyborg
-	name = "multitool"
 	desc = "An integrated multitool used for electrical maintenance, typically found in construction and engineering robots."
 	toolspeed = 0.5
 

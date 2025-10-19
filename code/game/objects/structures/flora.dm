@@ -26,7 +26,6 @@
 
 /obj/structure/flora/tree/pine/xmas
 	name = "xmas tree"
-	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "pine_c"
 
 /obj/structure/flora/tree/dead
@@ -47,7 +46,6 @@
 	icon_state = pick("palm1","palm2")
 
 /obj/structure/flora/tree/jungle
-	name = "tree"
 	icon_state = "tree"
 	desc = "It's seriously hampering your view of the jungle."
 	icon = 'icons/obj/flora/jungletrees.dmi'
@@ -258,11 +256,9 @@
 	desc = "Some greenery, how nice."
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "random-medium"
-	anchored = FALSE
 	layer = ABOVE_MOB_LAYER
 	force = 10
 	throwforce = 13
-	throw_speed = 2
 	throw_range = 4
 	/// Variable to track plant overlay on mob for later removal
 	var/mutable_appearance/mob_overlay
@@ -379,8 +375,6 @@
 
 //Medium Plants
 /obj/item/kirbyplants/medium
-	name = "potted plant"
-	icon_state = "random-medium"
 	desc = "An understated houseplant. In enclosed starships and space stations, a bit of greenery is good for morale."
 	w_class = WEIGHT_CLASS_BULKY
 	hideable = TRUE
@@ -411,7 +405,6 @@
 /obj/item/kirbyplants/small
 	name = "small potted plant"
 	icon_state = "random-small"
-	w_class = WEIGHT_CLASS_NORMAL
 	desc = "A small potted houseplant, for setting on tables and shelves."
 
 /obj/item/kirbyplants/small/Initialize(mapload)
@@ -440,7 +433,7 @@
 	. = ..()
 	if(icon_state == "random-alien")
 		icon_state = "alien-[rand(1,8)]"
-	
+
 /obj/item/kirbyplants/large/alien/alien1
 	icon_state = "alien-1"
 /obj/item/kirbyplants/large/alien/alien3
@@ -491,7 +484,6 @@
 	name = "corn stalk"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "cornstalk1"
-	anchored = FALSE
 	layer = 5
 
 /obj/structure/flora/corn_stalk/alt_1
@@ -527,7 +519,7 @@
 /obj/structure/bush/Initialize(mapload)
 	. = ..()
 	if(prob(20))
-		opacity = TRUE
+		set_opacity(TRUE)
 
 /*
 /obj/structure/bush/Bumped(M as mob)
@@ -539,7 +531,7 @@
 		A.loc = get_turf(src)
 */
 
-/obj/structure/bush/attackby__legacy__attackchain(obj/I as obj, mob/user as mob, params)
+/obj/structure/bush/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	//hatchets can clear away undergrowth
 	if(istype(I, /obj/item/hatchet) && !stump)
 		if(indestructable)
@@ -562,8 +554,7 @@
 						pixel_y = rand(-6,6)
 					else
 						qdel(src)
-	else
-		return ..()
+		return ITEM_INTERACT_COMPLETE
 
 //Jungle grass
 
@@ -586,7 +577,6 @@
 	icon_state = "rock"
 	desc = "A pile of rocks."
 	icon = 'icons/obj/flora/jungleflora.dmi'
-	density = FALSE
 
 /obj/structure/flora/rock/jungle/Initialize(mapload)
 	. = ..()
@@ -620,11 +610,9 @@
 	AddComponent(/datum/component/largetransparency, 0, 0, 0, 0)
 
 /obj/structure/flora/rock/pile/largejungle
-	name = "rocks"
 	icon_state = "rocks1"
 	base_icon_state = "rocks"
 	icon = 'icons/obj/flora/largejungleflora.dmi'
-	density = FALSE
 	pixel_x = -16
 	pixel_y = -16
 

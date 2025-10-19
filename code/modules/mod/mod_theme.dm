@@ -130,7 +130,6 @@
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	slowdown_inactive = 1.5
-	slowdown_active = 0.75
 	allowed_suit_storage = list(
 		/obj/item/rcd,
 		/obj/item/fireaxe,
@@ -181,7 +180,6 @@
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
 	siemens_coefficient = 0
 	slowdown_inactive = 1.5
-	slowdown_active = 0.75
 	allowed_suit_storage = list(
 		/obj/item/rcd,
 		/obj/item/fireaxe/,

@@ -3,7 +3,6 @@
 	desc = "A device that can remove organs from a target, and store them inside. Stored organs can be implanted into the user. Synthesizes chemicals to keep the organ fresh."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "organ_extractor"
-	item_state = ""
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "biotech=6;materials=5;syndicate=2"
 	var/obj/item/organ/internal/storedorgan
@@ -143,6 +142,7 @@
 		if(istype(storedorgan, /obj/item/organ/internal/heart) && ((/obj/item/organ/internal/cyberimp/brain/sensory_enhancer in C.internal_organs) || C.reagents.addiction_threshold_accumulated[/datum/reagent/mephedrone]))
 			storedorgan.damage = 40 // Damage the heart so you can't endlessly OD for cheap easily.
 			to_chat(user, "<span class='warning'>CAUTION: Crystalized mephedrone has bounced off the drill into [storedorgan], causing internal damage!</span>")
+	SSblackbox.record_feedback("tally", "o_implant_extract", 1, "[storedorgan.type]")
 	storedorgan.insert(C)
 	playsound(get_turf(C), 'sound/weapons/circsawhit.ogg', 50, TRUE)
 	storedorgan = null
@@ -173,7 +173,7 @@
 /// Advanced abductor version. Is a lot faster with implanting into others
 /obj/item/organ_extractor/abductor
 	name = "alien organ extractor"
-	origin_tech = "biotech=6;materials=5;alien=4"
+	origin_tech = "biotech=6;materials=5;abductor=4"
 	icon_state = "abductor_extractor"
 	insert_time = 3 SECONDS
 	self_insert_time = 1 SECONDS

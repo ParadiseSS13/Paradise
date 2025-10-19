@@ -4,14 +4,11 @@
 	desc = "You sit in this. Either by will or force."
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "chair"
-	layer = OBJ_LAYER
 	can_buckle = TRUE
 	buckle_lying = FALSE // you sit in a chair, not lay
 	anchored = TRUE
-	resistance_flags = NONE
 	max_integrity = 250
 	integrity_failure = 25
-	buckle_offset = 0
 	face_while_pulling = FALSE
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
@@ -38,12 +35,12 @@
 		W.setDir(dir)
 		qdel(src)
 
-/obj/structure/chair/attackby__legacy__attackchain(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/chair/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(istype(W, /obj/item/assembly/shock_kit))
 		var/obj/item/assembly/shock_kit/SK = W
 		if(!SK.status)
 			to_chat(user, "<span class='notice'>[SK] is not ready to be attached!</span>")
-			return
+			return ITEM_INTERACT_COMPLETE
 		user.drop_item()
 		var/obj/structure/chair/e_chair/E = new /obj/structure/chair/e_chair(get_turf(src), SK)
 		playsound(src.loc, W.usesound, 50, 1)
@@ -51,8 +48,7 @@
 		SK.loc = E
 		SK.master = E
 		qdel(src)
-		return
-	return ..()
+		return ITEM_INTERACT_COMPLETE
 
 /obj/structure/chair/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -143,7 +139,6 @@
 
 // Chair types
 /obj/structure/chair/light
-	name = "chair"
 	icon_state = "chair_greyscale"
 	resistance_flags = FLAMMABLE
 	item_chair = /obj/item/chair/light
@@ -298,12 +293,17 @@
 	else
 		cut_overlay(armrest)
 
+/obj/structure/chair/office/Move(NewLoc, direct)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 75, TRUE, ignore_walls = FALSE)
+
 /obj/structure/chair/office/dark
 	icon_state = "officechair_dark"
 
 /obj/structure/chair/barber
 	icon_state = "barber_chair"
-	buildstackamount = 1
 	item_chair = null
 
 // Sofas
@@ -312,9 +312,7 @@
 	name = "sofa"
 	icon_state = "sofamiddle"
 	color = rgb(141,70,0) //this sprite and benches support coloring currently
-	anchored = TRUE
 	item_chair = null
-	buildstackamount = 1
 	var/image/armrest = null
 	var/colorable = TRUE
 
@@ -323,8 +321,7 @@
 	armrest.layer = ABOVE_MOB_LAYER
 	return ..()
 
-/obj/structure/chair/sofa/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
-	. = ..()
+/obj/structure/chair/sofa/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(!colorable)
 		return
 	if(istype(I, /obj/item/toy/crayon))
@@ -333,11 +330,17 @@
 		var/list/hsl = rgb2hsl(hex2num(copytext(new_color, 2, 4)), hex2num(copytext(new_color, 4, 6)), hex2num(copytext(new_color, 6, 8)))
 		hsl[3] = max(hsl[3], 0.4)
 		var/list/rgb = hsl2rgb(arglist(hsl))
-		color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
-	if(color)
-		cut_overlay(armrest)
-		armrest = GetArmrest()
-		update_armrest()
+		set_color("#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]")
+		return ITEM_INTERACT_COMPLETE
+
+/obj/structure/chair/sofa/proc/set_color(new_color)
+	if(color == new_color)
+		return
+
+	color = new_color
+	cut_overlay(armrest)
+	armrest = GetArmrest()
+	update_armrest()
 
 /obj/structure/chair/sofa/proc/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
@@ -371,7 +374,6 @@
 	possible_dirs = 8
 
 /obj/structure/chair/sofa/corp
-	name = "sofa"
 	desc = "Soft and cushy."
 	icon_state = "corp_sofamiddle"
 	color = null
@@ -407,7 +409,6 @@
 	desc = "An ornate pew fashioned from brass. It is even less comfortable than a regular pew, but it does radiate a pleasent warmth."
 	icon_state = "clockwork_pew_middle"
 	buildstacktype = /obj/item/stack/tile/brass
-	buildstackamount = 5
 
 /obj/structure/chair/sofa/pew/clockwork/left
 	icon_state = "clockwork_pew_left"
@@ -417,7 +418,6 @@
 
 /obj/structure/chair/sofa/bench
 	name = "bench"
-	desc = "You sit in this. Either by will or force."
 	icon_state = "bench_middle_mapping"
 	base_icon_state = "bench_middle"
 	///icon for the cover seat
@@ -441,13 +441,17 @@
 /obj/structure/chair/sofa/bench/handle_layer()
 	return
 
-/obj/structure/chair/sofa/bench/attacked_by__legacy__attackchain(obj/item/I, mob/living/user)
-	. = ..()
+/obj/structure/chair/sofa/bench/item_interaction(mob/living/user, obj/item/I, list/modifiers)
 	if(istype(I, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = I
-		cover_color = C.colour
-	if(cover_color)
-		GetCover()
+		set_cover_color(C.colour)
+		return ITEM_INTERACT_COMPLETE
+
+/obj/structure/chair/sofa/bench/proc/set_cover_color(new_color)
+	if(cover_color == new_color)
+		return
+
+	GetCover()
 
 /obj/structure/chair/sofa/bench/left
 	icon_state = "bench_left_mapping"
@@ -512,7 +516,7 @@
 	desc = "Bar brawl essential."
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "chair_toppled"
-	item_state = "chair"
+	inhand_icon_state = "chair"
 	lefthand_file = 'icons/mob/inhands/chairs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/chairs_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
@@ -522,6 +526,7 @@
 	hitsound = 'sound/items/trayhit1.ogg'
 	hit_reaction_chance = 50
 	materials = list(MAT_METAL = 2000)
+	new_attack_chain = TRUE
 	/// Likelihood of smashing the chair.
 	var/break_chance = 5
 	/// Used for when placing a chair back down.
@@ -550,12 +555,10 @@
 
 /obj/item/chair/stool
 	name = "stool"
-	icon = 'icons/obj/chairs.dmi'
 	icon_state = "stool_toppled"
-	item_state = "stool"
+	inhand_icon_state = "stool"
 	force = 8
 	throwforce = 8
-	w_class = WEIGHT_CLASS_HUGE
 	origin_type = /obj/structure/chair/stool
 	break_chance = 0 //It's too sturdy.
 	force_unwielded = 8
@@ -564,21 +567,21 @@
 /obj/item/chair/stool/bar
 	name = "bar stool"
 	icon_state = "bar_toppled"
-	item_state = "stool_bar"
+	inhand_icon_state = "stool_bar"
 	origin_type = /obj/structure/chair/stool/bar
 
 /obj/item/chair/stool/bamboo
 	name = "bamboo stool"
 	desc = "Not the most comfortable, but vegan!"
 	icon_state = "bamboo_stool_toppled"
-	item_state = "stool_bamboo"
+	inhand_icon_state = "stool_bamboo"
 	origin_type = /obj/structure/chair/stool/bamboo
 
 /obj/item/chair/stool/wood
 	name = "wood stool"
 	desc = "The barfighter's choice of stool."
 	icon_state = "wooden_stool_toppled"
-	item_state = "stool_wood"
+	inhand_icon_state = "stool_wood"
 	origin_type = /obj/structure/chair/stool/wood
 
 /obj/item/chair/AltClick(mob/user)
@@ -616,31 +619,33 @@
 		return 1
 	return 0
 
-/obj/item/chair/afterattack__legacy__attackchain(atom/target, mob/living/carbon/user, proximity)
-	..()
-	if(!proximity)
+// We use after_attack here so it still does damage, unlike the stool's chance to break before the attack. Don't ask me why stools do separate stuff. I blame oldcoders.
+/obj/item/chair/after_attack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!proximity_flag || !prob(break_chance))
 		return
-	if(prob(break_chance))
-		user.visible_message("<span class='danger'>[user] smashes \the [src] to pieces against \the [target]</span>")
-		if(iscarbon(target))
-			var/mob/living/carbon/C = target
-			if(C.health < C.maxHealth*0.5)
-				C.Weaken(12 SECONDS)
-				C.Stuttering(12 SECONDS)
-				playsound(src.loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
-		smash(user)
+	user.visible_message("<span class='danger'>[user] smashes \the [src] to pieces against \the [target]</span>")
+	if(iscarbon(target))
+		var/mob/living/carbon/C = target
+		if(C.health < C.maxHealth*0.5)
+			C.Weaken(12 SECONDS)
+			C.Stuttering(12 SECONDS)
+			playsound(src.loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+	smash(user)
 
-/obj/item/chair/stool/attack__legacy__attackchain(mob/M as mob, mob/user as mob)
-	if(prob(5) && isliving(M))
-		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
+/obj/item/chair/stool/pre_attack(atom/target, mob/living/user, params)
+	if(..())
+		return FINISH_ATTACK
+
+	if(prob(5) && isliving(target))
+		user.visible_message("<span class='danger'>[user] breaks [src] over [target]'s back!.</span>")
 		user.unequip(src)
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal
 		m.loc = get_turf(src)
 		qdel(src)
-		var/mob/living/T = M
+		var/mob/living/T = target
 		T.Weaken(10 SECONDS)
-		return
-	..()
+		return FINISH_ATTACK
 
 /obj/item/chair/examine(mob/user)
 	. = ..()
@@ -649,7 +654,7 @@
 /obj/item/chair/wood
 	name = "wooden chair"
 	icon_state = "wooden_chair_toppled"
-	item_state = "woodenchair"
+	inhand_icon_state = "woodenchair"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	hitsound = 'sound/weapons/genhit1.ogg'
@@ -677,7 +682,6 @@
 	icon_state = "brass_chair"
 	max_integrity = 150
 	buildstacktype = /obj/item/stack/tile/brass
-	buildstackamount = 1
 	item_chair = null
 	var/turns = 0
 

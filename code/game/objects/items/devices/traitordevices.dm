@@ -3,7 +3,7 @@
 	desc = "Fog of war that fits your pocket. Flicking the switch and extending the antenna will scramble nearby radio comms, making outgoing messages hard to understand."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
-	item_state = "jammer"
+	inhand_icon_state = "jammer"
 	w_class = WEIGHT_CLASS_TINY
 	actions_types = list(/datum/action/item_action/toggle_radio_jammer)
 	new_attack_chain = TRUE
@@ -37,12 +37,12 @@
 	desc = "A strange syndicate version of a cult veil shifter. Warranty voided if exposed to EMP."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-tele-4"
+	inhand_icon_state = "electronic"
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 4
 	throw_range = 10
 	flags = CONDUCT
-	item_state = "electronic"
 	origin_tech = "magnets=3;combat=3;syndicate=3"
 	new_attack_chain = TRUE
 	var/list/icons_charges = list(
@@ -231,6 +231,9 @@
 	playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 	destination.ex_act(rand(1,2))
+	if(istype(destination, /turf/simulated/mineral) && !istype(destination, /turf/simulated/mineral/ancient))
+		var/turf/simulated/mineral/rock = destination
+		rock.gets_drilled(null, 1)
 	to_chat(user, "<span class='biggerdanger'>You teleport into the wall, the teleporter tries to save you, but--</span>")
 	user.gib()
 
@@ -242,7 +245,6 @@
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"
-	icon_state = "paper"
 	info = {"<b>Instructions on your new prototype syndicate teleporter</b><br>
 	<br>
 	This teleporter will teleport the user 4-8 meters in the direction they are facing. Unlike the cult veil shifter, you can not drag people with you.<br>
@@ -343,12 +345,12 @@
 	desc = "A dangerous syndicate device focused on crowd control and escapes. Causes brain damage, confusion, and other nasty effects to those surrounding the user."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "batterer"
+	inhand_icon_state = "electronic"
 	throwforce = 5
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 10
 	flags = CONDUCT
-	item_state = "electronic"
 	origin_tech = "magnets=3;combat=3;syndicate=3"
 	new_attack_chain = TRUE
 
@@ -495,12 +497,12 @@
 	desc = "The Syndicate seem to have modified this T-ray scanner for a more nefarious purpose, allowing it to detect all loyal Nanotrasen crew."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-scanner"
+	inhand_icon_state = "electronic"
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 4
 	throw_range = 10
 	flags = CONDUCT
-	item_state = "electronic"
 	new_attack_chain = TRUE
 	/// Split points for range_messages.
 	var/list/ranges = list(5, 15, 30)

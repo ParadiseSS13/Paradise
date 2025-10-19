@@ -85,6 +85,8 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		if(M.client.holder.fakekey && M.client.holder.big_brother)
 			our_key = M.client.holder.fakekey
 
+	var/mob_uid = M.UID()
+
 	var/body = "<html><meta charset='UTF-8'><head><title>Options for [our_key]</title></head>"
 	body += "<body>Options panel for <b>[M]</b>"
 	if(M.client)
@@ -95,30 +97,31 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 			body += "\[Player\] "
 		else
 			body += "\[[M.client.holder ? M.client.holder.rank : "Player"]\] "
-		body += "\[<A href='byond://?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
+		body += "\[<A href='byond://?_src_=holder;getplaytimewindow=[mob_uid]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
 		body += "<br>BYOND account registration date: [M.client.byondacc_date || "ERROR"] [M.client.byondacc_age <= GLOB.configuration.general.byond_account_age_threshold ? "<b>" : ""]([M.client.byondacc_age] days old)[M.client.byondacc_age <= GLOB.configuration.general.byond_account_age_threshold ? "</b>" : ""]"
 		body += "<br>BYOND client version: [M.client.byond_version].[M.client.byond_build]"
 		body += "<br>Global Ban DB Lookup: [GLOB.configuration.url.centcom_ban_db_url ? "<a href='byond://?_src_=holder;open_ccbdb=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
+		body += "<br><a href='byond://?_src_=holder;clientmodcheck=[M.client.UID()]'>Check for client modification</a>"
 
 		body += "<br>"
 
 	if(isnewplayer(M))
 		body += " <B>Hasn't Entered Game</B> "
 	else
-		body += " \[<A href='byond://?_src_=holder;revive=[M.UID()]'>Heal</A>\] "
+		body += " \[<A href='byond://?_src_=holder;revive=[mob_uid]'>Heal</A>\] "
 
 
 	body += "<br><br>\[ "
-	body += "<a href='byond://?_src_=holder;open_logging_view=[M.UID()];'>LOGS</a> - "
-	body += "<a href='byond://?_src_=vars;Vars=[M.UID()]'>VV</a> - "
+	body += "<a href='byond://?_src_=holder;open_logging_view=[mob_uid];'>LOGS</a> - "
+	body += "<a href='byond://?_src_=vars;Vars=[mob_uid]'>VV</a> - "
 	body += "[ADMIN_TP(M,"TP")] - "
 	if(M.client)
 		body += "<a href='byond://?src=[usr.UID()];priv_msg=[M.client.ckey]'>PM</a> - "
 		body += "[ADMIN_SM(M,"SM")] - "
 	if(ishuman(M) && M.mind)
-		body += "<a href='byond://?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a> - "
+		body += "<a href='byond://?_src_=holder;HeadsetMessage=[mob_uid]'>HM</a> - "
 	body += "[admin_jump_link(M)] - "
-	body += "<a href='byond://?_src_=holder;adminalert=[M.UID()]'>SEND ALERT</a>\]</b><br>"
+	body += "<a href='byond://?_src_=holder;adminalert=[mob_uid]'>SEND ALERT</a>\]</b><br>"
 	body += "<b>Mob type:</b> [M.type]<br>"
 	if(M.client)
 		if(length(M.client.related_accounts_cid))
@@ -129,9 +132,9 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(M.ckey)
 		body += "<b>Enabled AntagHUD</b>: [M.has_ahudded() ? "<b><font color='red'>TRUE</font></b>" : "false"]<br>"
 		body += "<b>Roundstart observer</b>: [M.is_roundstart_observer() ? "<b>true</b>" : "false"]<br>"
-		body += "<A href='byond://?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
-		body += "<A href='byond://?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
-		body += "<A href='byond://?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
+		body += "<A href='byond://?_src_=holder;boot2=[mob_uid]'>Kick</A> | "
+		body += "<A href='byond://?_src_=holder;newban=[mob_uid];dbbanaddckey=[M.ckey]'>Ban</A> | "
+		body += "<A href='byond://?_src_=holder;jobban2=[mob_uid];dbbanaddckey=[M.ckey]'>Jobban</A> | "
 		body += "<A href='byond://?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
 		if(GLOB.configuration.url.forum_playerinfo_url)
 			body += "<A href='byond://?_src_=holder;webtools=[M.ckey]'>WebInfo</A> | "
@@ -142,18 +145,18 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		else
 			body += "<A href='byond://?_src_=holder;watchadd=[M.ckey]'>Add to Watchlist</A> "
 
-		body += "| <A href='byond://?_src_=holder;sendtoprison=[M.UID()]'>Prison</A> | "
-		body += "\ <A href='byond://?_src_=holder;sendbacktolobby=[M.UID()]'>Send back to Lobby</A> | "
-		body += "\ <A href='byond://?_src_=holder;eraseflavortext=[M.UID()]'>Erase Flavor Text</A> | "
-		body += "\ <A href='byond://?_src_=holder;userandomname=[M.UID()]'>Use Random Name</A> | "
+		body += "| <A href='byond://?_src_=holder;sendtoprison=[mob_uid]'>Prison</A> | "
+		body += "\ <A href='byond://?_src_=holder;sendbacktolobby=[mob_uid]'>Send back to Lobby</A> | "
+		body += "\ <A href='byond://?_src_=holder;eraseflavortext=[mob_uid]'>Erase Flavor Text</A> | "
+		body += "\ <A href='byond://?_src_=holder;userandomname=[mob_uid]'>Use Random Name</A> | "
 		body += {"<br><b>Mute: </b>
-			\[<A href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><font color='[check_mute(M.client.ckey, MUTE_IC) ? "red" : "#6685f5"]'>IC</font></a> |
-			<A href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><font color='[check_mute(M.client.ckey, MUTE_OOC) ? "red" : "#6685f5"]'>OOC</font></a> |
-			<A href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><font color='[check_mute(M.client.ckey, MUTE_PRAY) ? "red" : "#6685f5"]'>PRAY</font></a> |
-			<A href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><font color='[check_mute(M.client.ckey, MUTE_ADMINHELP) ? "red" : "#6685f5"]'>ADMINHELP</font></a> |
-			<A href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[check_mute(M.client.ckey, MUTE_DEADCHAT) ?" red" : "#6685f5"]'>DEADCHAT</font></a> |
-			<A href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_EMOTE]'><font color='[check_mute(M.client.ckey, MUTE_EMOTE) ?" red" : "#6685f5"]'>EMOTE</font></a>]
-			(<A href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><font color='[check_mute(M.client.ckey, MUTE_ALL) ? "red" : "#6685f5"]'>toggle all</font></a>)
+			\[<A href='byond://?_src_=holder;mute=[mob_uid];mute_type=[MUTE_IC]'><font color='[check_mute(M.client.ckey, MUTE_IC) ? "red" : "#6685f5"]'>IC</font></a> |
+			<A href='byond://?_src_=holder;mute=[mob_uid];mute_type=[MUTE_OOC]'><font color='[check_mute(M.client.ckey, MUTE_OOC) ? "red" : "#6685f5"]'>OOC</font></a> |
+			<A href='byond://?_src_=holder;mute=[mob_uid];mute_type=[MUTE_PRAY]'><font color='[check_mute(M.client.ckey, MUTE_PRAY) ? "red" : "#6685f5"]'>PRAY</font></a> |
+			<A href='byond://?_src_=holder;mute=[mob_uid];mute_type=[MUTE_ADMINHELP]'><font color='[check_mute(M.client.ckey, MUTE_ADMINHELP) ? "red" : "#6685f5"]'>ADMINHELP</font></a> |
+			<A href='byond://?_src_=holder;mute=[mob_uid];mute_type=[MUTE_DEADCHAT]'><font color='[check_mute(M.client.ckey, MUTE_DEADCHAT) ?" red" : "#6685f5"]'>DEADCHAT</font></a> |
+			<A href='byond://?_src_=holder;mute=[mob_uid];mute_type=[MUTE_EMOTE]'><font color='[check_mute(M.client.ckey, MUTE_EMOTE) ?" red" : "#6685f5"]'>EMOTE</font></a>]
+			(<A href='byond://?_src_=holder;mute=[mob_uid];mute_type=[MUTE_ALL]'><font color='[check_mute(M.client.ckey, MUTE_ALL) ? "red" : "#6685f5"]'>toggle all</font></a>)
 		"}
 
 	var/jumptoeye = ""
@@ -162,23 +165,23 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
 			jumptoeye = " <b>(<A href='byond://?_src_=holder;jumpto=[A.eyeobj.UID()]'>Eye</A>)</b>"
 	body += {"<br><br>
-		<A href='byond://?_src_=holder;jumpto=[M.UID()]'><b>Jump to</b></A>[jumptoeye] |
-		<A href='byond://?_src_=holder;getmob=[M.UID()]'>Get</A> |
-		<A href='byond://?_src_=holder;sendmob=[M.UID()]'>Send To</A>
+		<A href='byond://?_src_=holder;jumpto=[mob_uid]'><b>Jump to</b></A>[jumptoeye] |
+		<A href='byond://?_src_=holder;getmob=[mob_uid]'>Get</A> |
+		<A href='byond://?_src_=holder;sendmob=[mob_uid]'>Send To</A>
 		<br><br>
 		[check_rights(R_ADMIN,0) ? "[ADMIN_TP(M,"Traitor panel")] | " : "" ]
-		<A href='byond://?_src_=holder;narrateto=[M.UID()]'>Narrate to</A> |
+		<A href='byond://?_src_=holder;narrateto=[mob_uid]'>Narrate to</A> |
 		[ADMIN_SM(M,"Subtle message")]
 	"}
 
 	if(check_rights(R_EVENT, 0))
-		body += {" | <A href='byond://?_src_=holder;Bless=[M.UID()]'>Bless</A> | <A href='byond://?_src_=holder;Smite=[M.UID()]'>Smite</A>"}
+		body += {" | <A href='byond://?_src_=holder;Bless=[mob_uid]'>Bless</A> | <A href='byond://?_src_=holder;Smite=[mob_uid]'>Smite</A>"}
 
 	if(isLivingSSD(M))
 		if(istype(M.loc, /obj/machinery/cryopod))
-			body += {" | <A href='byond://?_src_=holder;cryossd=[M.UID()]'>De-Spawn</A> "}
+			body += {" | <A href='byond://?_src_=holder;cryossd=[mob_uid]'>De-Spawn</A> "}
 		else
-			body += {" | <A href='byond://?_src_=holder;cryossd=[M.UID()]'>Cryo</A> "}
+			body += {" | <A href='byond://?_src_=holder;cryossd=[mob_uid]'>Cryo</A> "}
 
 	if(M.client)
 		if(!isnewplayer(M))
@@ -190,38 +193,38 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 			if(issmall(M))
 				body += "<B>Monkeyized</B> | "
 			else
-				body += "<A href='byond://?_src_=holder;monkeyone=[M.UID()]'>Monkeyize</A> | "
+				body += "<A href='byond://?_src_=holder;monkeyone=[mob_uid]'>Monkeyize</A> | "
 
 			//Corgi
 			if(iscorgi(M))
 				body += "<B>Corgized</B> | "
 			else
-				body += "<A href='byond://?_src_=holder;corgione=[M.UID()]'>Corgize</A> | "
+				body += "<A href='byond://?_src_=holder;corgione=[mob_uid]'>Corgize</A> | "
 
 			//AI / Cyborg
 			if(is_ai(M))
 				body += "<B>Is an AI</B> "
 			else if(ishuman(M))
-				body += {"<A href='byond://?_src_=holder;makeai=[M.UID()]'>Make AI</A> |
-					<A href='byond://?_src_=holder;makerobot=[M.UID()]'>Make Robot</A> |
-					<A href='byond://?_src_=holder;makealien=[M.UID()]'>Make Alien</A> |
-					<A href='byond://?_src_=holder;makeslime=[M.UID()]'>Make Slime</A> |
-					<A href='byond://?_src_=holder;makesuper=[M.UID()]'>Make Superhero</A> |
+				body += {"<A href='byond://?_src_=holder;makeai=[mob_uid]'>Make AI</A> |
+					<A href='byond://?_src_=holder;makerobot=[mob_uid]'>Make Robot</A> |
+					<A href='byond://?_src_=holder;makealien=[mob_uid]'>Make Alien</A> |
+					<A href='byond://?_src_=holder;makeslime=[mob_uid]'>Make Slime</A> |
+					<A href='byond://?_src_=holder;makesuper=[mob_uid]'>Make Superhero</A> |
 				"}
 
 			//Simple Animals
 			if(isanimal_or_basicmob(M))
-				body += "<A href='byond://?_src_=holder;makeanimal=[M.UID()]'>Re-Animalize</A> | "
+				body += "<A href='byond://?_src_=holder;makeanimal=[mob_uid]'>Re-Animalize</A> | "
 			else
-				body += "<A href='byond://?_src_=holder;makeanimal=[M.UID()]'>Animalize</A> | "
+				body += "<A href='byond://?_src_=holder;makeanimal=[mob_uid]'>Animalize</A> | "
 
 			if(isobserver(M))
-				body += "<A href='byond://?_src_=holder;incarn_ghost=[M.UID()]'>Re-incarnate</a> | "
+				body += "<A href='byond://?_src_=holder;incarn_ghost=[mob_uid]'>Re-incarnate</a> | "
 
 			if(ispAI(M))
 				body += "<B>Is a pAI</B> "
 			else
-				body += "<A href='byond://?_src_=holder;makePAI=[M.UID()]'>Make pAI</A> | "
+				body += "<A href='byond://?_src_=holder;makePAI=[mob_uid]'>Make pAI</A> | "
 
 			// DNA2 - Admin Hax
 			if(M.dna && iscarbon(M))
@@ -236,7 +239,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 					if(bname)
 						var/bstate=M.dna.GetSEState(block)
 						var/bcolor="[(bstate)?"#006600":"#ff0000"]"
-						body += "<A href='byond://?_src_=holder;togmutate=[M.UID()];block=[block]' style='color:[bcolor];'>[bname]</A><sub>[block]</sub>"
+						body += "<A href='byond://?_src_=holder;togmutate=[mob_uid];block=[block]' style='color:[bcolor];'>[bname]</A><sub>[block]</sub>"
 					else
 						body += "[block]"
 					body+="</td>"
@@ -244,42 +247,42 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 
 			body += {"<br><br>
 				<b>Rudimentary transformation:</b><font size=2><br>These transformations only create a new mob type and copy stuff over. They do not take into account MMIs and similar mob-specific things. The buttons in 'Transformations' are preferred, when possible.</font><br>
-				<A href='byond://?_src_=holder;simplemake=observer;mob=[M.UID()]'>Observer</A> |
-				\[ Alien: <A href='byond://?_src_=holder;simplemake=drone;mob=[M.UID()]'>Drone</A>,
-				<A href='byond://?_src_=holder;simplemake=hunter;mob=[M.UID()]'>Hunter</A>,
-				<A href='byond://?_src_=holder;simplemake=queen;mob=[M.UID()]'>Queen</A>,
-				<A href='byond://?_src_=holder;simplemake=sentinel;mob=[M.UID()]'>Sentinel</A>,
-				<A href='byond://?_src_=holder;simplemake=larva;mob=[M.UID()]'>Larva</A> \]
-				<A href='byond://?_src_=holder;simplemake=human;mob=[M.UID()]'>Human</A>
-				\[ slime: <A href='byond://?_src_=holder;simplemake=slime;mob=[M.UID()]'>Baby</A>,
-				<A href='byond://?_src_=holder;simplemake=adultslime;mob=[M.UID()]'>Adult</A> \]
-				<A href='byond://?_src_=holder;simplemake=monkey;mob=[M.UID()]'>Monkey</A> |
-				<A href='byond://?_src_=holder;simplemake=robot;mob=[M.UID()]'>Cyborg</A> |
-				<A href='byond://?_src_=holder;simplemake=cat;mob=[M.UID()]'>Cat</A> |
-				<A href='byond://?_src_=holder;simplemake=runtime;mob=[M.UID()]'>Runtime</A> |
-				<A href='byond://?_src_=holder;simplemake=corgi;mob=[M.UID()]'>Corgi</A> |
-				<A href='byond://?_src_=holder;simplemake=ian;mob=[M.UID()]'>Ian</A> |
-				<A href='byond://?_src_=holder;simplemake=crab;mob=[M.UID()]'>Crab</A> |
-				<A href='byond://?_src_=holder;simplemake=coffee;mob=[M.UID()]'>Coffee</A> |
-				\[ Construct: <A href='byond://?_src_=holder;simplemake=constructarmoured;mob=[M.UID()]'>Armoured</A> ,
-				<A href='byond://?_src_=holder;simplemake=constructbuilder;mob=[M.UID()]'>Builder</A> ,
-				<A href='byond://?_src_=holder;simplemake=constructwraith;mob=[M.UID()]'>Wraith</A> \]
-				<A href='byond://?_src_=holder;simplemake=shade;mob=[M.UID()]'>Shade</A>
+				<A href='byond://?_src_=holder;simplemake=observer;mob=[mob_uid]'>Observer</A> |
+				\[ Alien: <A href='byond://?_src_=holder;simplemake=drone;mob=[mob_uid]'>Drone</A>,
+				<A href='byond://?_src_=holder;simplemake=hunter;mob=[mob_uid]'>Hunter</A>,
+				<A href='byond://?_src_=holder;simplemake=queen;mob=[mob_uid]'>Queen</A>,
+				<A href='byond://?_src_=holder;simplemake=sentinel;mob=[mob_uid]'>Sentinel</A>,
+				<A href='byond://?_src_=holder;simplemake=larva;mob=[mob_uid]'>Larva</A> \]
+				<A href='byond://?_src_=holder;simplemake=human;mob=[mob_uid]'>Human</A>
+				\[ slime: <A href='byond://?_src_=holder;simplemake=slime;mob=[mob_uid]'>Baby</A>,
+				<A href='byond://?_src_=holder;simplemake=adultslime;mob=[mob_uid]'>Adult</A> \]
+				<A href='byond://?_src_=holder;simplemake=monkey;mob=[mob_uid]'>Monkey</A> |
+				<A href='byond://?_src_=holder;simplemake=robot;mob=[mob_uid]'>Cyborg</A> |
+				<A href='byond://?_src_=holder;simplemake=cat;mob=[mob_uid]'>Cat</A> |
+				<A href='byond://?_src_=holder;simplemake=runtime;mob=[mob_uid]'>Runtime</A> |
+				<A href='byond://?_src_=holder;simplemake=corgi;mob=[mob_uid]'>Corgi</A> |
+				<A href='byond://?_src_=holder;simplemake=ian;mob=[mob_uid]'>Ian</A> |
+				<A href='byond://?_src_=holder;simplemake=crab;mob=[mob_uid]'>Crab</A> |
+				<A href='byond://?_src_=holder;simplemake=coffee;mob=[mob_uid]'>Coffee</A> |
+				\[ Construct: <A href='byond://?_src_=holder;simplemake=constructarmoured;mob=[mob_uid]'>Armoured</A> ,
+				<A href='byond://?_src_=holder;simplemake=constructbuilder;mob=[mob_uid]'>Builder</A> ,
+				<A href='byond://?_src_=holder;simplemake=constructwraith;mob=[mob_uid]'>Wraith</A> \]
+				<A href='byond://?_src_=holder;simplemake=shade;mob=[mob_uid]'>Shade</A>
 			"}
 
 	if(M.client)
 		body += {"<br><br>
 			<b>Other actions:</b>
 			<br>
-			<A href='byond://?_src_=holder;forcespeech=[M.UID()]'>Forcesay</A> |
-			<A href='byond://?_src_=holder;aroomwarp=[M.UID()]'>Admin Room</A> |
-			<A href='byond://?_src_=holder;tdome1=[M.UID()]'>Thunderdome 1</A> |
-			<A href='byond://?_src_=holder;tdome2=[M.UID()]'>Thunderdome 2</A> |
-			<A href='byond://?_src_=holder;tdomeadmin=[M.UID()]'>Thunderdome Admin</A> |
-			<A href='byond://?_src_=holder;tdomeobserve=[M.UID()]'>Thunderdome Observer</A> |
-			<A href='byond://?_src_=holder;contractor_stop=[M.UID()]'>Stop Syndicate Jail Timer</A> |
-			<A href='byond://?_src_=holder;contractor_start=[M.UID()]'>Start Syndicate Jail Timer</A> |
-			<A href='byond://?_src_=holder;contractor_release=[M.UID()]'>Release now from Syndicate Jail</A> |
+			<A href='byond://?_src_=holder;forcespeech=[mob_uid]'>Forcesay</A> |
+			<A href='byond://?_src_=holder;aroomwarp=[mob_uid]'>Admin Room</A> |
+			<A href='byond://?_src_=holder;tdome1=[mob_uid]'>Thunderdome 1</A> |
+			<A href='byond://?_src_=holder;tdome2=[mob_uid]'>Thunderdome 2</A> |
+			<A href='byond://?_src_=holder;tdomeadmin=[mob_uid]'>Thunderdome Admin</A> |
+			<A href='byond://?_src_=holder;tdomeobserve=[mob_uid]'>Thunderdome Observer</A> |
+			<A href='byond://?_src_=holder;contractor_stop=[mob_uid]'>Stop Syndicate Jail Timer</A> |
+			<A href='byond://?_src_=holder;contractor_start=[mob_uid]'>Start Syndicate Jail Timer</A> |
+			<A href='byond://?_src_=holder;contractor_release=[mob_uid]'>Release now from Syndicate Jail</A> |
 		"}
 
 	body += {"<br>
@@ -434,7 +437,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 		for(var/client/clients_to_alert in GLOB.clients)
 			window_flash(clients_to_alert)
 			if(clients_to_alert.prefs?.sound & SOUND_ADMINHELP)
-				SEND_SOUND(clients_to_alert, sound('sound/effects/adminhelp.ogg'))
+				SEND_SOUND(clients_to_alert, sound('sound/misc/server_alert.ogg'))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleooc()
@@ -549,6 +552,10 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!check_rights(R_SERVER))
 		return
 
+	if(!usr.client.is_connecting_from_localhost())
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+			return
+
 	GLOB.enter_allowed = !GLOB.enter_allowed
 	if(!GLOB.enter_allowed)
 		to_chat(world, "<B>New players may no longer enter the game.</B>")
@@ -559,7 +566,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	world.update_status()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Entering") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/admins/proc/toggleAI()
+/datum/admins/proc/toggle_ai()
 	set category = "Event"
 	set desc="People can't be AI"
 	set name="Toggle AI"
@@ -586,6 +593,10 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!check_rights(R_SERVER))
 		return
 
+	if(!usr.client.is_connecting_from_localhost())
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+			return
+
 	GLOB.configuration.general.respawn_enabled = !(GLOB.configuration.general.respawn_enabled)
 	if(GLOB.configuration.general.respawn_enabled)
 		to_chat(world, "<B>You may now respawn.</B>")
@@ -607,6 +618,10 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(SSticker.current_state < GAME_STATE_STARTUP)
 		alert("Slow down a moment, let the ticker start first!")
 		return
+
+	if(!usr.client.is_connecting_from_localhost())
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+			return
 
 	if(SSblackbox)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -786,6 +801,10 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!check_rights(R_SERVER))
 		return
 
+	if(!usr.client.is_connecting_from_localhost())
+		if(tgui_alert(usr, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
+			return
+
 	GLOB.configuration.general.guest_ban = !(GLOB.configuration.general.guest_ban)
 	if(GLOB.configuration.general.guest_ban)
 		to_chat(world, "<B>Guests may no longer enter the game.</B>")
@@ -824,7 +843,7 @@ GLOBAL_VAR_INIT(disable_explosions, FALSE)
 	if(!ai_number)
 		messages += "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
 
-	to_chat(usr, chat_box_examine(messages.Join("\n")))
+	to_chat(usr, chat_box_examine(messages.Join("<br>")))
 
 	log_admin("[key_name(usr)] checked the AI laws")
 	message_admins("[key_name_admin(usr)] checked the AI laws")
@@ -933,7 +952,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		if(!frommob || !toitem) //make sure the mobs don't go away while we waited for a response
 			return TRUE
 
-		var/mob/living/simple_animal/possessed_object/tomob = new(toitem)
+		var/mob/living/basic/possessed_object/tomob = new(toitem)
 
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
@@ -959,7 +978,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 			return TRUE
 
 		if(tomob.client) //no need to ghostize if there is no client
-			tomob.ghostize(0)
+			tomob.ghostize(GHOST_FLAGS_OBSERVE_ONLY)
 
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
@@ -1004,7 +1023,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 /proc/staff_countup(rank_mask = R_BAN)
 	var/list/result = list(0, 0, 0)
 	for(var/client/X in GLOB.admins)
-		if(rank_mask && !check_rights_for(X, rank_mask))
+		if(rank_mask && !check_rights_client(rank_mask, FALSE, X))
 			result[2]++
 			continue
 		if(X.holder.fakekey)
@@ -1018,11 +1037,11 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 /**
  * Allows admins to safely pick from SSticker.minds for objectives
- * - caller, mob to ask for results
+ * - caller_mob, mob to ask for results
  * - blacklist, optional list of targets that are not available
  * - default_target, the target to show in the list as default
  */
-/proc/get_admin_objective_targets(mob/caller, list/blacklist, mob/default_target)
+/proc/get_admin_objective_targets(mob/caller_mob, list/blacklist, mob/default_target)
 	if(!islist(blacklist))
 		blacklist = list(blacklist)
 
@@ -1032,12 +1051,12 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 			possible_targets += possible_target.current // Allows for admins to pick off station roles
 
 	if(!length(possible_targets))
-		to_chat(caller, "<span class='warning'>No possible target found.</span>")
+		to_chat(caller_mob, "<span class='warning'>No possible target found.</span>")
 		return
 
 	possible_targets = sortAtom(possible_targets)
 
-	var/mob/new_target = input(caller, "Select target:", "Objective target", default_target) as null|anything in possible_targets
+	var/mob/new_target = input(caller_mob, "Select target:", "Objective target", default_target) as null|anything in possible_targets
 	if(!QDELETED(new_target))
 		return new_target.mind
 

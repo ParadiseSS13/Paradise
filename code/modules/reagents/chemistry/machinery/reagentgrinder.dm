@@ -3,7 +3,6 @@
 	desc = "A chef's 9th most powerful weapon, right after the grill. Used for grinding items into reagents."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
-	layer = 2.9
 	anchored = TRUE
 	idle_power_consumption = 5
 	active_power_consumption = 100
@@ -30,6 +29,7 @@
 		/obj/item/stack/sheet/mineral/silver = list("silver" = 20),
 		/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
 		/obj/item/stack/sheet/saltpetre_crystal = list("saltpetre" = 8),
+		/obj/item/stack/sheet/plastic = list("plastic_dust" = 5),
 
 		// Blender Stuff
 		/obj/item/food/grown/tomato = list("ketchup" = 0),

@@ -4,7 +4,6 @@
 	icon = 'icons/obj/machines/smithing_machines.dmi'
 	icon_state = "casting_open"
 	max_integrity = 100
-	pixel_x = 0	// 1x1
 	pixel_y = 0
 	bound_height = 32
 	bound_width = 32
@@ -94,6 +93,16 @@
 /obj/machinery/smithing/casting_basin/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/smithing/casting_basin/Destroy()
+	if(cast)
+		cast.forceMove(src.loc)
+	if(produced_item)
+		produced_item.forceMove(src.loc)
+	if(linked_crucible)
+		linked_crucible.linked_machines -= src
+		linked_crucible = null
+	. = ..()
 
 /obj/machinery/smithing/casting_basin/multitool_act(mob/living/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -275,9 +284,3 @@
 		// Clean up temps
 		qdel(temp_product)
 		return FINISH_ATTACK
-
-/obj/machinery/smithing/casting_basin/Destroy()
-	if(linked_crucible)
-		linked_crucible.linked_machines -= src
-		linked_crucible = null
-	return ..()

@@ -10,7 +10,6 @@
 	UpdateAppearance()
 	GLOB.human_list += src
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
-	AddElement(/datum/element/strippable, GLOB.strippable_human_items)
 	RegisterSignal(src, COMSIG_BODY_TRANSFER_TO, PROC_REF(mind_checks))
 
 /**
@@ -74,10 +73,73 @@
 	GLOB.human_list -= src
 	UnregisterSignal(src, COMSIG_BODY_TRANSFER_TO)
 
+/datum/hit_feedback
+	var/timeof
+	var/damage
+	var/damage_type
+	var/projectile_type
+	var/target_zone
+
+/datum/hit_feedback/New(timeof, damage, damage_type, projectile_type, target_zone)
+	src.timeof = timeof
+	src.damage = damage
+	src.damage_type = damage_type
+	src.projectile_type = projectile_type
+	src.target_zone = target_zone
+
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
 	status_flags = GODMODE|CANPUSH
+	var/list/hits = list()
+	var/first_hit = 0
+	var/last_hit = 0
+	var/timer_id = TIMER_ID_NULL
 
+/mob/living/carbon/human/dummy/bullet_act(obj/item/projectile/P, def_zone)
+	if(!first_hit)
+		first_hit = world.time
+		visible_message("Started tracking hit at time [first_hit]!")
+	last_hit = world.time
+	var/datum/hit_feedback/packet = new(last_hit, P.damage, P.damage_type, P.type, def_zone)
+	hits.Add(packet)
+	timer_id = addtimer(CALLBACK(src, PROC_REF(check_done)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
+	visible_message("Hit [length(hits)]: [P.damage] dmg from [P.type] at time [last_hit]")
+	return ..()
+
+/mob/living/carbon/human/dummy/proc/check_done()
+	if(!first_hit)
+		return
+	var/delta_now = world.time - last_hit
+	// Tracking window is still open
+	if(delta_now < 3 SECONDS)
+		return
+	// Stop counting, print, and reset
+	if(timer_id != TIMER_ID_NULL)
+		deltimer(timer_id)
+		timer_id = TIMER_ID_NULL
+	print_summary()
+	first_hit = 0
+	last_hit = 0
+	hits.Cut()
+
+/mob/living/carbon/human/dummy/proc/print_summary()
+	if(!length(hits) || !first_hit || !last_hit)
+		CRASH("Tried to print a summary with no hits/first_hit/last_hit: [hits], [first_hit], [last_hit]")
+	var/N = length(hits)
+	var/delta = 1
+	if(length(hits) > 1)
+		delta = (last_hit - first_hit)/10 // deciseconds -> seconds
+	var/hits_per_sec = N/delta
+	var/total_damage = 0
+	for(var/hit in hits)
+		var/datum/hit_feedback/h = hit
+		total_damage += h.damage
+	var/damage_per_sec = total_damage/delta
+	log_debug("############# Starting hit report #############")
+	log_debug("Counted [N] hits in [delta] sec, start/stop time = [first_hit] - [last_hit] dsec")
+	log_debug("Fire rate = [hits_per_sec] hits/sec")
+	log_debug("Total damage = [total_damage], DPS = [damage_per_sec]")
+	log_debug("############### End hit report ################")
 /mob/living/carbon/human/skrell/Initialize(mapload)
 	. = ..(mapload, /datum/species/skrell)
 
@@ -92,10 +154,6 @@
 
 /mob/living/carbon/human/vox/Initialize(mapload)
 	. = ..(mapload, /datum/species/vox)
-
-/mob/living/carbon/human/vox/compressor_grind(turf/location)
-	new /obj/item/food/fried_vox(loc)
-	return ..()
 
 /mob/living/carbon/human/skeleton/Initialize(mapload)
 	. = ..(mapload, /datum/species/skeleton)
@@ -124,10 +182,6 @@
 /mob/living/carbon/human/diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona)
 
-/mob/living/carbon/human/diona/compressor_grind()
-	new /obj/item/food/salad(loc)
-	return ..()
-
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona/pod)
 
@@ -136,10 +190,6 @@
 
 /mob/living/carbon/human/machine/created
 	name = "Integrated Robotic Chassis"
-
-/mob/living/carbon/human/machine/compressor_grind()
-	new /obj/item/stack/sheet/mineral/titanium(loc)
-	return ..()
 
 /mob/living/carbon/human/machine/created/Initialize(mapload)
 	. = ..()
@@ -162,10 +212,6 @@
 
 /mob/living/carbon/human/drask/Initialize(mapload)
 	. = ..(mapload, /datum/species/drask)
-
-/mob/living/carbon/human/drask/compressor_grind(turf/location)
-	new /obj/item/soap(loc)
-	return ..()
 
 /mob/living/carbon/human/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
@@ -224,12 +270,12 @@
 			status_tab_data[++status_tab_data.len] = list("Usable Blood:", "[V.bloodusable]")
 
 /mob/living/carbon/human/ex_act(severity)
-	if(status_flags & GODMODE)
+	if((status_flags & GODMODE) || HAS_TRAIT(src, TRAIT_EXPLOSION_PROOF))
 		return FALSE
 
 	var/brute_loss = 0
 	var/burn_loss = 0
-	var/bomb_armor = ARMOUR_VALUE_TO_PERCENTAGE(getarmor(null, BOMB))
+	var/bomb_armor = ARMOUR_VALUE_TO_PERCENTAGE(getarmor(armor_type = BOMB))
 	var/list/valid_limbs = list("l_arm", "l_leg", "r_arm", "r_leg")
 	var/limbs_amount = 1
 	var/limb_loss_chance = 50
@@ -1079,8 +1125,7 @@
 	if(include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
 		dna.species.on_species_gain(src)
 	real_name = new_dna.real_name
-	if(dna.flavor_text)
-		flavor_text = dna.flavor_text
+	flavor_text = dna.flavor_text
 	domutcheck(src, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 	dna.UpdateSE()
 	dna.UpdateUI()
@@ -1180,8 +1225,8 @@
 	else
 		skin_colour = "#000000"
 
-	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
-		s_tone = 0
+	if(!(dna.species.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE)))
+		s_tone = 1
 
 	var/list/thing_to_check = list(ITEM_SLOT_MASK, ITEM_SLOT_HEAD, ITEM_SLOT_SHOES, ITEM_SLOT_GLOVES, ITEM_SLOT_LEFT_EAR, ITEM_SLOT_RIGHT_EAR, ITEM_SLOT_EYES, ITEM_SLOT_LEFT_HAND, ITEM_SLOT_RIGHT_HAND, ITEM_SLOT_NECK)
 	var/list/kept_items[0]
@@ -1189,6 +1234,8 @@
 	for(var/thing in thing_to_check)
 		var/obj/item/I = get_item_by_slot(thing)
 		if(I)
+			if(I.flags & SKIP_TRANSFORM_REEQUIP)
+				continue
 			kept_items[I] = thing
 			item_flags[I] = I.flags
 			I.flags = 0 // Temporary set the flags to 0
@@ -1349,6 +1396,8 @@
 		return
 	if(bloody_hands <= 1)
 		remove_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
+		to_chat(src, "<span class='warning'>Your hands aren't bloody enough!</span>")
+		return
 
 	if(gloves)
 		to_chat(src, "<span class='warning'>[gloves] are preventing you from writing anything down!</span>")
@@ -1735,25 +1784,27 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			return TRUE
 
 /mob/living/carbon/human/can_eat(flags = 255)
-	return dna.species && (dna.species.dietflags & flags)
+	return dna.species && ((dna.species.dietflags & flags) || HAS_TRAIT(src, TRAIT_IPC_CAN_EAT))
 
 /mob/living/carbon/human/selfFeed(obj/item/food/toEat, fullness)
 	if(!check_has_mouth())
-		to_chat(src, "Where do you intend to put \the [toEat]? You don't have a mouth!")
-		return FALSE
+		if(!ismachineperson(src) || (ismachineperson(src) && !HAS_TRAIT(src, TRAIT_IPC_CAN_EAT)))
+			to_chat(src, "<span class='notice'>Where do you intend to put [toEat]? You don't have a mouth!</span>")
+			return FALSE
 	return ..()
 
 /mob/living/carbon/human/forceFed(obj/item/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
-		if(!((istype(toEat, /obj/item/reagent_containers/drinks) && (ismachineperson(src)))))
-			to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
-			return FALSE
+		if(!ismachineperson(src) || !HAS_TRAIT(src, TRAIT_IPC_CAN_EAT))
+			if(!((istype(toEat, /obj/item/reagent_containers/drinks) && (ismachineperson(src)))))
+				to_chat(user, "<span class='notice'>Where do you intend to put [toEat]? \The [src] doesn't have a mouth!</span>")
+				return FALSE
 	return ..()
 
 /mob/living/carbon/human/selfDrink(obj/item/reagent_containers/drinks/toDrink)
 	if(!check_has_mouth())
 		if(!ismachineperson(src))
-			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
+			to_chat(src, "<span class='notice'>Where do you intend to put \the [src]? You don't have a mouth!</span>")
 			return FALSE
 		else
 			to_chat(src, "<span class='notice'>You pour a bit of liquid from [toDrink] into your connection port.</span>")
@@ -1986,6 +2037,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/update_runechat_msg_location()
 	if(ismecha(loc))
 		runechat_msg_location = loc.UID()
+	else if(istgvehicle(loc))
+		runechat_msg_location = loc.UID()
 	else
 		return ..()
 
@@ -2176,3 +2229,62 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return FALSE
 
 	return TRUE
+
+/mob/living/carbon/human/AltClick(mob/user, modifiers)
+	. = ..()
+	if(user.stat || user.restrained() || (!in_range(src, user)))
+		return
+
+	if(user.mind && !HAS_TRAIT(user.mind, TRAIT_MED_EXAMINE))
+		return
+
+	user.visible_message("[user] begins to thoroughly examine [src].")
+	if(do_after_once(user, 12 SECONDS, target = src, allow_moving = FALSE, attempt_cancel_message = "You couldn't get a good look at [src]!"))
+		var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
+		var/list/analysis = list()
+		for(var/obj/item/organ/external/E in src.bodyparts)
+			missing -= E.limb_name
+			if(E.status & ORGAN_DEAD)
+				analysis += "<span class='info'>You conclude [src]'s [E.name] is dead.</span>"
+			if(E.status & ORGAN_INT_BLEEDING)
+				analysis += "<span class='info'>You conclude [src]'s [E.name] has internal bleeding.</span>"
+			if(E.status & ORGAN_BURNT)
+				analysis += "<span class='info'>You conclude [src]'s [E.name] has been critically burned.</span>"
+			if(E.status & ORGAN_BROKEN)
+				if(!E.broken_description)
+					analysis += "<span class='info'>You conclude [src]'s [E.name] is broken.</span>"
+				else
+					analysis += "<span class='info'>You conclude [src]'s [E.name] has a [E.broken_description].</span>"
+		if(!length(analysis))
+			analysis += "<span class='info'>[src] appears to be in perfect health.</span>"
+		to_chat(user, chat_box_healthscan(analysis.Join("<br>")))
+
+/mob/living/carbon/human/pointed(atom/A as mob|obj|turf in view())
+	set name = "Point To"
+	set category = null
+	if(next_move >= world.time)
+		return
+
+	if(istype(A, /obj/effect/temp_visual/point) || istype(A, /atom/movable/emissive_blocker))
+		return FALSE
+	if(mind && HAS_MIND_TRAIT(src, TRAIT_COFFEE_SNOB))
+		var/found_coffee = FALSE
+		for(var/reagent in reagents.reagent_list)
+			if(istype(reagent, /datum/reagent/consumable/drink/coffee))
+				found_coffee = TRUE
+		if(found_coffee)
+			changeNext_move(CLICK_CD_POINT / 3)
+		else
+			changeNext_move(CLICK_CD_POINT)
+	else
+		changeNext_move(CLICK_CD_POINT)
+
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_pointed), A))
+
+/// Default behavior when getting ground up in a compressor
+/mob/living/carbon/human/compressor_grind()
+	dna.species.do_compressor_grind(src)
+	. = ..()
+
+/mob/living/carbon/human/get_strippable_items(datum/source, list/items)
+	items |= GLOB.strippable_human_items

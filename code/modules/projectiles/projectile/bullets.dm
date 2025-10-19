@@ -1,9 +1,6 @@
 /obj/item/projectile/bullet
 	name = "bullet"
-	icon_state = "bullet"
 	damage = 60
-	damage_type = BRUTE
-	flag = "bullet"
 	hitsound_wall = "ricochet"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 
@@ -69,26 +66,26 @@
 
 /obj/item/projectile/bullet/armourpiercing
 	damage = 17
-	armour_penetration_flat = 10
+	armor_penetration_flat = 10
 
 /obj/item/projectile/bullet/armourpiercing/wt550
 	damage = 15
-	armour_penetration_percentage = 50
-	armour_penetration_flat = 25
+	armor_penetration_percentage = 50
+	armor_penetration_flat = 25
 
 /obj/item/projectile/bullet/pellet
 	name = "pellet"
 	damage = 12.5
 	tile_dropoff = 0.75
 	tile_dropoff_s = 1.25
-	armour_penetration_flat = -20
+	armor_penetration_flat = -20
 
 /obj/item/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
 	damage = 3
 	stamina = 12.5
 	icon_state = "bullet-r"
-	armour_penetration_flat = -10
+	armor_penetration_flat = -10
 
 /obj/item/projectile/bullet/pellet/rubber/on_hit(atom/target, blocked = 0)
 	. = ..()
@@ -98,6 +95,10 @@
 	// initial range - range gives approximate tile distance from user
 	if(initial(range) - range <= 5 && H.getStaminaLoss() >= 60)
 		H.KnockDown(8 SECONDS)
+
+/obj/item/projectile/bullet/pellet/rubber/stinger
+	name = "stingball"
+	damage = 1
 
 /obj/item/projectile/bullet/pellet/assassination
 	damage = 12
@@ -124,18 +125,17 @@
 
 /obj/item/projectile/bullet/midbullet3/hp
 	damage = 40
-	armour_penetration_flat = -40
+	armor_penetration_flat = -40
 
 /obj/item/projectile/bullet/midbullet3/ap
 	damage = 27
-	armour_penetration_flat = 40
+	armor_penetration_flat = 40
 
 /obj/item/projectile/bullet/midbullet3/fire
 	immolate = 1
 
 /obj/item/projectile/bullet/midbullet3/overgrown
 	icon = 'icons/obj/ammo.dmi'
-	item_state = "peashooter_bullet"
 	icon_state = "peashooter_bullet"
 	damage = 25
 

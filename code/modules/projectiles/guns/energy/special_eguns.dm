@@ -18,6 +18,7 @@
 * 17. DETECTIVE ENERGY REVOLVER
 * 18. VOX SPIKETHROWER
 * 19. VORTEX SHOTGUN
+* 20. Model 2495
 */
 //////////////////////////////
 // MARK: ION RIFLE
@@ -26,12 +27,11 @@
 	name = "ion rifle"
 	desc = "A man portable anti-armor weapon designed to disable mechanical threats."
 	icon_state = "ionrifle"
-	item_state = null	//so the human update icon uses the icon_state instead.
+	worn_icon_state = null
+	inhand_icon_state = null
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 	origin_tech = "combat=4;magnets=4"
 	w_class = WEIGHT_CLASS_HUGE
-	can_holster = FALSE
-	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
@@ -127,7 +127,6 @@
 	name = "floral somatoray"
 	desc = "A tool that discharges controlled radiation which induces mutation in plant cells."
 	icon_state = "flora"
-	item_state = "gun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	ammo_type = list(/obj/item/ammo_casing/energy/flora/yield, /obj/item/ammo_casing/energy/flora/mut)
 	origin_tech = "materials=2;biotech=4"
@@ -136,11 +135,11 @@
 	selfcharge = TRUE
 	can_holster = TRUE
 
-/obj/item/gun/energy/floragun/pre_attack(atom/A, mob/living/user, params)
-	if(istype(A, /obj/machinery/hydroponics))
+/obj/item/gun/energy/floragun/pre_attack(atom/target, mob/living/user, params)
+	if(istype(target, /obj/machinery/hydroponics))
 		// Calling afterattack from pre_attack looks stupid, but afterattack with proximity FALSE is what makes the gun fire, and we're returning FALSE to cancel the melee attack.
-		afterattack__legacy__attackchain(A, user, FALSE, params)
-		return FALSE
+		afterattack__legacy__attackchain(target, user, FALSE, params)
+		return CONTINUE_ATTACK
 	return ..()
 
 //////////////////////////////
@@ -151,7 +150,7 @@
 	desc = "For the love of god, make sure you're aiming this the right way!"
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "riotgun"
-	item_state = "c20r"
+	inhand_icon_state = "c20r"
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
@@ -164,7 +163,8 @@
 	desc = "The pen is mightier than the sword."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
-	item_state = "pen"
+	worn_icon_state = "pen"
+	inhand_icon_state = "pen"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
@@ -176,7 +176,7 @@
 	name = "\improper Mind Flayer"
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
 	icon_state = "flayer"
-	item_state = null
+	inhand_icon_state = null
 	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 
@@ -187,13 +187,12 @@
 	name = "mini energy crossbow"
 	desc = "A weapon favored by syndicate stealth specialists. Knocks down and injects toxins."
 	icon_state = "crossbow"
-	item_state = "crossbow"
+	inhand_icon_state = "crossbow"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=4;syndicate=5"
 	suppressed = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt)
-	weapon_weight = WEAPON_LIGHT
 	unique_rename = FALSE
 	overheat_time = 20
 	holds_charge = TRUE
@@ -221,7 +220,6 @@
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/cyborg
 	desc = "One and done!"
-	icon_state = "crossbowlarge"
 	origin_tech = null
 	materials = list()
 
@@ -239,16 +237,13 @@
 	name = "plasma cutter"
 	desc = "A mining tool capable of expelling concentrated plasma bursts. Its effectiveness drops dramatically outside of low-pressure environments. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
 	icon_state = "plasmacutter"
-	item_state = "plasmacutter"
-	modifystate = -1
+	inhand_icon_state = "plasmacutter"
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
 	needs_permit = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	fire_sound = 'sound/weapons/laser.ogg'
 	usesound = 'sound/items/welder.ogg'
-	toolspeed = 1
 	container_type = OPENCONTAINER
-	flags = CONDUCT
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
 	sharp = TRUE
@@ -301,7 +296,7 @@
 	name = "advanced plasma cutter"
 	desc = "An improved version of the venerable Plasma Cutter, evolved by Nanotrasen. It's just straight up better!"
 	icon_state = "adv_plasmacutter"
-	item_state = "plasmacutteradv"
+	inhand_icon_state = "adv_plasmacutter"
 	modifystate = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
@@ -324,19 +319,17 @@
 /obj/item/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
-	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
-	item_state = "wormhole_projector1"
 	icon_state = "wormhole_projector1"
+	inhand_icon_state = null
 	origin_tech = "combat=4;bluespace=6;plasmatech=4;engineering=4"
 	charge_delay = 5
 	selfcharge = TRUE
+	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
 	var/obj/effect/portal/blue
 	var/obj/effect/portal/orange
 
-
 /obj/item/gun/energy/wormhole_projector/update_icon_state()
 	icon_state = "wormhole_projector[select]"
-	item_state = icon_state
 
 /obj/item/gun/energy/wormhole_projector/process_chamber()
 	..()
@@ -385,7 +378,7 @@
 	desc = "A machine gun that fires 3D-printed flachettes slowly synthesized using your internal energy cell."
 	icon_state = "l6closed0"
 	icon = 'icons/obj/guns/projectile.dmi'
-	cell_type = /obj/item/stock_parts/cell/secborg
+	cell_type = /obj/item/stock_parts/cell/energy_gun/lmg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
 
@@ -400,9 +393,9 @@
 //////////////////////////////
 /obj/item/gun/energy/laser/instakill
 	name = "instakill rifle"
-	icon_state = "instagib"
-	item_state = "instagib"
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit."
+	icon_state = "instagib"
+	inhand_icon_state = "instagib"
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
 	origin_tech = "combat=7;magnets=6"
@@ -428,13 +421,13 @@
 /obj/item/gun/energy/laser/instakill/red
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a red design."
 	icon_state = "instagibred"
-	item_state = "instagibred"
+	inhand_icon_state = "instagibred"
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill/red)
 
 /obj/item/gun/energy/laser/instakill/blue
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a blue design."
 	icon_state = "instagibblue"
-	item_state = "instagibblue"
+	inhand_icon_state = "instagibblue"
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill/blue)
 
 //////////////////////////////
@@ -472,9 +465,8 @@
 	name = "plasma pistol"
 	desc = "A specialized firearm designed to fire superheated bolts of plasma. Can be overloaded for a high damage, shield-breaking shot."
 	icon_state = "toxgun"
-	item_state = "toxgun"
+	inhand_icon_state = "toxgun"
 	sprite_sheets_inhand = list("Vox" = 'icons/mob/clothing/species/vox/held.dmi', "Drask" = 'icons/mob/clothing/species/drask/held.dmi') //This apperently exists, and I have the sprites so sure.
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/weak_plasma, /obj/item/ammo_casing/energy/charged_plasma)
 	shaded_charge = TRUE
@@ -626,14 +618,14 @@
 	name = "\improper B.S.G"
 	desc = "The Blue Space Gun. Uses a flux anomaly core and a bluespace crystal to produce destructive bluespace energy blasts, inspired by Nanotrasen's BSA division."
 	icon_state = "bsg"
-	item_state = "bsg"
+	worn_icon_state = "bsg"
+	inhand_icon_state = "bsg"
 	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
 	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
-	can_holster = FALSE
 	slot_flags = ITEM_SLOT_BACK
-	cell_type = /obj/item/stock_parts/cell/bsg
+	cell_type = /obj/item/stock_parts/cell/energy_gun/bsg
 	shaded_charge = TRUE
 	can_fit_in_turrets = FALSE //Crystal would shatter, or someone would try to put an empty gun in the frame.
 	var/obj/item/assembly/signaler/anomaly/flux/core = null
@@ -762,7 +754,8 @@
 	desc = "A gun that changes the body temperature of its targets, somehow. Use it in-hand to adjust the projectile temperature."	// I give up on trying to come up with an explaination of how this abomonation works. - CRUNCH
 	icon = 'icons/obj/guns/gun_temperature.dmi'
 	icon_state = "tempgun_4"
-	item_state = "tempgun_4"
+	worn_icon_state = null
+	inhand_icon_state = null
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	fire_sound = 'sound/weapons/pulse3.ogg'
@@ -855,24 +848,23 @@
 /obj/item/gun/energy/temperature/update_icon_state()
 	switch(temperature)
 		if(501 to INFINITY)
-			item_state = "tempgun_8"
+			icon_state = "tempgun_8"
 		if(400 to 500)
-			item_state = "tempgun_7"
+			icon_state = "tempgun_7"
 		if(360 to 400)
-			item_state = "tempgun_6"
+			icon_state = "tempgun_6"
 		if(335 to 360)
-			item_state = "tempgun_5"
+			icon_state = "tempgun_5"
 		if(295 to 335)
-			item_state = "tempgun_4"
+			icon_state = "tempgun_4"
 		if(260 to 295)
-			item_state = "tempgun_3"
+			icon_state = "tempgun_3"
 		if(200 to 260)
-			item_state = "tempgun_2"
+			icon_state = "tempgun_2"
 		if(120 to 260)
-			item_state = "tempgun_1"
+			icon_state = "tempgun_1"
 		if(-INFINITY to 120)
-			item_state = "tempgun_0"
-	icon_state = item_state
+			icon_state = "tempgun_0"
 
 	if(iscarbon(loc))
 		var/mob/living/carbon/M = loc
@@ -921,7 +913,6 @@
 	name = "\improper DL-88 energy revolver"
 	desc = "A 'modern' take on the classic .38 revolver, designed and manufactured by Warp-Tac Industries. The fire selector has two settings: 'tracker', and 'disable'."
 	icon_state = "handgun"
-	item_state = null
 	modifystate = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/detective, /obj/item/ammo_casing/energy/detective/tracker_warrant)
 	/// If true, this gun is tracking something and cannot track another mob
@@ -1080,10 +1071,8 @@
 	desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "spikethrower"
-	item_state = "toxgun"
-	w_class = WEIGHT_CLASS_NORMAL
+	inhand_icon_state = "toxgun"
 	fire_sound_text = "a strange noise"
-	can_suppress = 0
 	selfcharge = TRUE
 	charge_delay = 10
 	restricted_species = list(/datum/species/vox)
@@ -1097,7 +1086,6 @@
 	desc = "A broadhead spike made out of a weird silvery metal."
 	projectile_type = /obj/item/projectile/bullet/spike
 	muzzle_flash_effect = null
-	e_cost = 100
 	select_name = "spike"
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 
@@ -1106,7 +1094,7 @@
 	desc = "It's about a foot of weird silvery metal with a wicked point."
 	damage = 25
 	knockdown = 2
-	armour_penetration_flat = 30
+	armor_penetration_flat = 30
 	icon_state = "magspear"
 
 /obj/item/projectile/bullet/spike/on_hit(atom/target, blocked = 0)
@@ -1136,7 +1124,6 @@
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast
 	variance = 70
 	pellets = 8
-	e_cost = 100
 	delay = 1.2 SECONDS //and delay has to be stored here on energy guns
 	select_name = "vortex blast"
 	fire_sound = 'sound/weapons/wave.ogg'
@@ -1196,7 +1183,7 @@
 	name = "\improper SPRK-12"
 	desc = "A small, pistol-sized laser gun designed to regain charges from EMPs. Energy efficient, though its beams are weaker. Good at dual wielding, however."
 	icon_state = "dueling_pistol"
-	item_state = "dueling_pistol"
+	inhand_icon_state = "dueling_pistol"
 	w_class = WEIGHT_CLASS_SMALL
 	can_holster = TRUE
 	execution_speed = 4 SECONDS
@@ -1213,3 +1200,76 @@
 	COOLDOWN_START(src, emp_cooldown, 1 MINUTES)
 	atom_say("Energy coils recharged!")
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+
+//////////////////////////////
+// MARK: MODEL 2495
+//////////////////////////////
+
+/obj/item/gun/energy/laser/lever_action
+	name = "model 2495"
+	desc = "A rifle styled after an ancient Earth design. Concealed beneath the wooden furniture and forged metal is a modern laser gun. Features a hand-powered charger that can be used anywhere."
+	icon_state = "lever_action"
+	inhand_icon_state = null // matches icon_state
+	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
+	origin_tech = "combat=5;magnets=4"
+	slot_flags = ITEM_SLOT_BACK
+	can_charge = FALSE
+	cell_type = /obj/item/stock_parts/cell/energy_gun/lever_action
+	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/lever_action)
+	shaded_charge = FALSE
+	var/cycle_time = 1 SECONDS
+	COOLDOWN_DECLARE(cycle_cooldown)
+
+/obj/item/gun/energy/laser/lever_action/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This weapon is rechargable by cycling the action, or by twirling the firearm with some skill.</span>"
+
+/obj/item/gun/energy/laser/lever_action/examine_more(mob/user)
+	..()
+	. = list()
+	. += "The Model 2495 is Warp Tac's response to demand for a laserarm with the endurance required to be used far away from any support infrastructure for extended periods of time. \
+	The forged metal and wooden body of the rifle is exceptionally ruggedized to resist rough handling, harsh climates, and whatever other general abuse may be thrown at it. \
+	The internal components are beefier and larger than strictly required to lend further durability. Whilst it is quite heavy for a laserarm, it's only somewhat heavier than \
+	average compared to a traditional ballistic rifle of similar size."
+	. += ""
+	. += "The main selling point of the rifle is the built-in recharging mechanism, operated by cycling a lever located around the trigger guard. \
+	One full cycle provides enough energy for a single shot. Skillful users can twirl the rifle to operate the lever, although the operator's manual strongly cautions against doing so."
+	. += ""
+	. += "This weapon has long been one of Warp Tac's most popular products thanks to a large market among colonists, frontiersmen, and the occasional pirate outfit."
+
+/obj/item/gun/energy/laser/lever_action/emp_act()
+	return
+
+/obj/item/gun/energy/laser/lever_action/attack_self__legacy__attackchain(mob/living/user as mob)
+	if(!HAS_TRAIT(user, TRAIT_BADASS) && user.get_inactive_hand())
+		to_chat(user, "<span class='warning'>You need both hands to cycle the action!")
+		return
+	cycle_action(user)
+	if(HAS_TRAIT(user, TRAIT_BADASS) && istype(user.get_inactive_hand(), /obj/item/gun/energy/laser/lever_action))
+		var/obj/item/gun/energy/laser/lever_action/offhand = user.get_inactive_hand()
+		offhand.cycle_action()
+
+/obj/item/gun/energy/laser/lever_action/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	if(!COOLDOWN_FINISHED(src, cycle_cooldown))
+		return
+	return ..()
+
+/obj/item/gun/energy/laser/lever_action/proc/cycle_action(mob/living/user)
+	if(!COOLDOWN_FINISHED(src, cycle_cooldown))
+		return
+	if(cell.charge == cell.maxcharge)
+		return
+	cell.give(cell.maxcharge)
+	playsound(user, 'sound/weapons/gun_interactions/lever_action.ogg', 60, TRUE)
+	update_icon()
+	var/total_cycle_time = cycle_time
+	if(current_lens)
+		total_cycle_time /= current_lens.fire_rate_mult
+	COOLDOWN_START(src, cycle_cooldown, total_cycle_time)
+
+/obj/item/gun/energy/laser/lever_action/update_icon_state()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	if(cell.charge < shot.e_cost)
+		icon_state = "lever_action_e"
+	else
+		icon_state = initial(icon_state)

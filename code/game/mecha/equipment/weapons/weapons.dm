@@ -87,7 +87,6 @@
 	energy_drain = 30
 	projectile = /obj/item/projectile/beam/disabler
 	fire_sound = 'sound/weapons/taser2.ogg'
-	harmful = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	equip_cooldown = 1 SECONDS
@@ -96,6 +95,30 @@
 	origin_tech = "magnets=4;combat=4;engineering=3"
 	energy_drain = 60
 	projectile = /obj/item/projectile/beam/laser/heavylaser
+	fire_sound = 'sound/weapons/lasercannonfire.ogg'
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_disabler
+	equip_cooldown = 2 SECONDS
+	name = "MESG-01 Disabler Scattercannon"
+	desc = "A large-bore energy shotgun, configured to fire a large blast of disabling pellets."
+	icon_state = "mecha_disabler_shotgun"
+	origin_tech = "materials=4;combat=5;"
+	energy_drain = 30 // This is per shot + 1x cost, so 300 per shot
+	projectile = /obj/item/projectile/beam/disabler/pellet
+	projectiles_per_shot = 9
+	variance = 40
+	fire_sound = 'sound/weapons/taser2.ogg'
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/shotgun_laser
+	equip_cooldown = 2 SECONDS
+	name = "MESG-02 Laser Scattercannon"
+	desc = "A large-bore energy shotgun, configured to fire a large blast of lethal laser pellets."
+	icon_state = "mecha_laser_shotgun"
+	origin_tech = "materials=4;combat=5;"
+	energy_drain = 35 // This is per shot + 1x cost, so 560 per shot
+	projectile = /obj/item/projectile/beam/scatter/eshotgun
+	projectiles_per_shot = 15
+	variance = 40
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
@@ -233,10 +256,7 @@
 			if(isobj(H.shoes) && !(H.shoes.flags & NODROP))
 				var/thingy = H.shoes
 				H.drop_item_to_ground(thingy)
-				GLOB.move_manager.move_away(thingy, chassis, 15, 2)
-				spawn(20)
-					if(thingy)
-						GLOB.move_manager.stop_looping(thingy)
+				GLOB.move_manager.move_away(thingy, chassis, 15, 2, timeout=20)
 	for(var/obj/mecha/combat/reticence/R in oview(6, chassis))
 		R.occupant_message("\The [R] has protected you from [chassis]'s HONK at the cost of some power.")
 		R.use_power(R.get_charge() / 4)
@@ -360,13 +380,10 @@
 	projectiles = 9
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
-	equip_cooldown = 6 SECONDS
 	name = "\improper SGL-6 Flashbang Launcher"
 	icon_state = "mecha_grenadelnchr"
 	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/grenade/flashbang
-	fire_sound = 'sound/effects/bang.ogg'
-	projectiles = 6
 	missile_speed = 1.5
 	projectile_energy_cost = 800
 	var/det_time = 20
@@ -384,7 +401,8 @@
 		F.prime()
 	do_after_cooldown()
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang//Because I am a heartless bastard -Sieve
+//Because I am a heartless bastard -Sieve
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang
 	equip_cooldown = 9 SECONDS
 	name = "\improper SOB-3 Clusterbang Launcher"
 	desc = "A weapon for combat exosuits. Launches primed clusterbangs. You monster."
@@ -392,7 +410,6 @@
 	projectiles = 3
 	projectile = /obj/item/grenade/clusterbuster
 	projectile_energy_cost = 1600 //getting off cheap seeing as this is 3 times the flashbangs held in the grenade launcher.
-	size=1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/get_equip_info()//Limited version of the clusterbang launcher that can't reload
 	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;[chassis.selected==src?"<b>":"<a href='byond://?src=[chassis.UID()];select_equip=\ref[src]'>"][name][chassis.selected==src?"</b>":"</a>"]\[[projectiles]\]"
@@ -406,11 +423,7 @@
 	icon_state = "mecha_grenadelnchr"
 	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/grenade/chem_grenade/cleaner
-	fire_sound = 'sound/effects/bang.ogg'
-	equip_cooldown = 6 SECONDS
-	projectiles = 6
 	missile_speed = 1.5
-	projectile_energy_cost = 1000
 	size = 1
 	/// Time until grenade detonates
 	var/det_time = 2 SECONDS
@@ -441,6 +454,30 @@
 	missile_speed = 1.5
 	projectile_energy_cost = 100
 	harmful = FALSE
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/dropwall
+	name = "\improper DWDL-04 Dropwall Launcher"
+	desc = "A large, semi-automatic launcher designed by Shellguard Munitions to fire dropwall shield generators."
+	icon_state = "mecha_grenadelnchr"
+	origin_tech = "combat=4;engineering=4"
+	projectile = /obj/item/grenade/barrier/dropwall
+	missile_speed = 1.5
+	projectile_energy_cost = 750
+	projectiles = 4
+	size = 1
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/dropwall/action(target, params)
+	if(!action_checks(target))
+		return
+	set_ready_state(0)
+	var/obj/item/grenade/barrier/dropwall/DW = new projectile(chassis.loc)
+	playsound(chassis, fire_sound, 50, 1)
+	DW.mode = angle2dir_cardinal(get_angle(get_turf(src), get_turf(target)))
+	DW.throw_at(target, missile_range, missile_speed)
+	DW.active = TRUE
+	projectiles--
+	log_message("Fired from [name], targeting [target].")
+	do_after_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/can_attach(obj/mecha/combat/honker/M as obj)
 	if(..())
@@ -498,7 +535,6 @@
 	fire_sound = 'sound/weapons/whip.ogg'
 	projectiles = 10
 	missile_speed = 1
-	missile_range = 30
 	projectile_energy_cost = 50
 	harmful = FALSE
 
@@ -520,11 +556,10 @@
 	do_after_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
-	equip_cooldown = 1 SECONDS
 	name = "\improper 217-D Heavy Plasma Cutter"
 	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demolishing solid obstacles."
 	icon_state = "mecha_plasmacutter"
-	item_state = "plasmacutter"
+	inhand_icon_state = "plasmacutter"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	energy_drain = 30
@@ -532,6 +567,7 @@
 	projectile = /obj/item/projectile/plasma/adv/mech
 	fire_sound = 'sound/weapons/laser.ogg'
 	harmful = TRUE
+	equip_cooldown = 1 SECONDS
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/working))

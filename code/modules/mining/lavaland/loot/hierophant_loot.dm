@@ -3,9 +3,8 @@
 /obj/item/hierophant_club
 	name = "hierophant club"
 	desc = "The strange technology of this large club allows various nigh-magical feats. It used to beat you, but now you can set the beat."
-	icon_state = "hierophant_club_ready_beacon"
-	item_state = "hierophant_club_ready_beacon"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "hierophant_club_ready_beacon"
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64
@@ -115,7 +114,6 @@
 
 /obj/item/hierophant_club/update_icon_state()
 	icon_state = "hierophant_club[timer <= world.time ? "_ready":""][(beacon && !QDELETED(beacon)) ? "":"_beacon"]"
-	item_state = icon_state
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_inv_l_hand()
@@ -224,6 +222,8 @@
 			var/obj/effect/temp_visual/hierophant/blast/B = new /obj/effect/temp_visual/hierophant/blast(t, user, TRUE) //but absolutely will hurt enemies
 			B.damage = 30
 		for(var/mob/living/L in range(1, source))
+			if(ismegafauna(L) && L.stat == DEAD)
+				continue
 			INVOKE_ASYNC(src, PROC_REF(teleport_mob), source, L, T, user) //regardless, take all mobs near us along
 		sleep(6) //at this point the blasts detonate
 		if(beacon)

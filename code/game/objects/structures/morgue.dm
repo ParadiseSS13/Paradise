@@ -136,6 +136,12 @@
 				return
 
 /obj/structure/morgue/attack_hand(mob/user as mob)
+	toggle_tray()
+	add_fingerprint()
+	update_state()
+	return
+
+/obj/structure/morgue/proc/toggle_tray()
 	if(connected)
 		for(var/atom/movable/A in connected.loc)
 			if(!A.anchored)
@@ -147,10 +153,6 @@
 		playsound(loc, open_sound, 50, 1)
 		get_revivable(FALSE)
 		connect()
-
-	add_fingerprint(user)
-	update_state()
-	return
 
 /obj/structure/morgue/attack_ai(mob/user)
 	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
@@ -172,17 +174,12 @@
 		return ..()
 	attack_hand(user)
 
-/obj/structure/morgue/attackby__legacy__attackchain(P as obj, mob/user as mob, params)
-	if(is_pen(P))
-		var/t = rename_interactive(user, P)
-
-		if(isnull(t))
-			return
-
+/obj/structure/morgue/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
+		rename_interactive(user, used)
 		update_icon(UPDATE_OVERLAYS)
 		add_fingerprint(user)
-		return
-
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/morgue/wirecutter_act(mob/user)
@@ -419,19 +416,20 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	GLOB.crematoriums += src
 	return TRUE
 
-/obj/structure/crematorium/attackby__legacy__attackchain(obj/item/P, mob/user, params)
-	if(is_pen(P))
-		rename_interactive(user, P)
+/obj/structure/crematorium/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(is_pen(used))
+		rename_interactive(user, used)
 		add_fingerprint(user)
-		return
-	if(istype(P, /obj/item/assembly/igniter))
+		return ITEM_INTERACT_COMPLETE
+	if(istype(used, /obj/item/assembly/igniter))
 		if(repairstate == CREMATOR_DESTROYED)
 			user.visible_message("<span class='notice'>[user] replaces [src]'s igniter.</span>", "<span class='notice'>You replace [src]'s damaged igniter. Now it just needs its paneling welded.</span>")
 			repairstate = CREMATOR_IN_REPAIR
 			desc = "A broken human incinerator. No longer works well on barbeque nights. It requires its paneling to be welded to function."
-			qdel(P)
+			qdel(used)
 		else
 			to_chat(user, "<span class='notice'>[src] does not need its igniter replaced.</span>")
+		return ITEM_INTERACT_COMPLETE
 	return ..()
 
 /obj/structure/crematorium/relaymove(mob/user as mob)
@@ -592,8 +590,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	icon = 'icons/obj/power.dmi'
 	icon_state = "crema_switch"
 	resistance_flags = INDESTRUCTIBLE // could use a more elegant solution like being able to be rebuilt, broken and repaired, or by directly attaching the switch to the crematorium
-	power_channel = PW_CHANNEL_EQUIPMENT
-	power_state = IDLE_POWER_USE
 	idle_power_consumption = 100
 	active_power_consumption = 5000
 	anchored = TRUE
@@ -618,18 +614,15 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		if(C.id == id && !C.cremating)
 			C.cremate(user)
 
-
 /mob/proc/update_morgue()
 	if(stat == DEAD)
-		var/obj/structure/morgue/morgue
-		var/mob/living/C = src
-		var/mob/dead/observer/G = src
-		if(istype(G) && G.can_reenter_corpse && G.mind) //We're a ghost, let's find our corpse
-			C = G.mind.current
-		if(istype(C)) //We found our corpse, is it inside a morgue?
-			morgue = get(C.loc, /obj/structure/morgue)
-			if(morgue)
-				morgue.update_icon(UPDATE_OVERLAYS)
+		var/mob/living/corpse = src
+		var/mob/dead/observer/ghost = src
+		if(istype(ghost) && ghost.ghost_flags & GHOST_CAN_REENTER && ghost.mind) //We're a ghost, let's find our corpse
+			corpse = ghost.mind.current
+		if(istype(corpse)) //We found our corpse, is it inside a morgue?
+			var/obj/structure/morgue/morgue = get(corpse.loc, /obj/structure/morgue)
+			morgue?.update_icon(UPDATE_OVERLAYS)
 
 #undef EXTENDED_TRAY
 #undef EMPTY_MORGUE

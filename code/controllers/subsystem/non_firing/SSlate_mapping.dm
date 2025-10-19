@@ -18,6 +18,13 @@ SUBSYSTEM_DEF(late_mapping)
 		if(console.find_destinations_in_late_mapping)
 			console.connect()
 
+	// Use whether we have any interior door UIDs as a proxy
+	// to determine if we haven't been linked yet
+	var/list/controllers = SSmachines.get_by_type(/obj/machinery/airlock_controller)
+	for(var/obj/machinery/airlock_controller/controller as anything in controllers)
+		if(!length(controller.interior_doors))
+			controller.link_all_items()
+
 	if(length(maze_generators))
 		var/watch = start_watch()
 		log_startup_progress("Generating mazes...")
@@ -60,8 +67,8 @@ SUBSYSTEM_DEF(late_mapping)
 
 	for(var/i in 1 to mice_number)
 		if(prob(1))
-			new /mob/living/simple_animal/mouse/white/linter(pick_n_take(maintenance_turfs))
+			new /mob/living/basic/mouse/white/linter(pick_n_take(maintenance_turfs))
 		else
-			new /mob/living/simple_animal/mouse(pick_n_take(maintenance_turfs))
+			new /mob/living/basic/mouse(pick_n_take(maintenance_turfs))
 
 	log_debug("Spawned [mice_number] mice over in [stop_watch(watch)]s")

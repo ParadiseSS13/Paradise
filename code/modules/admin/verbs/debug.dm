@@ -621,12 +621,14 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_admin("[key_name(usr)] changed the equipment of [key_name(M)] to [dresscode].")
 	message_admins("<span class='notice'>[key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode].</span>", 1)
 
-/client/proc/robust_dress_shop()
+/client/proc/robust_dress_shop(list/potential_minds)
 	var/list/special_outfits = list(
 		"Naked",
 		"As Job...",
 		"Custom..."
 	)
+	if(length(potential_minds))
+		special_outfits += "Recover destroyed body..."
 
 	var/list/outfits = list()
 	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job) - list(/datum/outfit/varedit, /datum/outfit/admin)
@@ -665,6 +667,9 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		dresscode = custom_names[selected_name]
 		if(isnull(dresscode))
 			return
+
+	if(dresscode == "Recover destroyed body...")
+		dresscode = input("Select body to rebuild", "Robust quick dress shop") as null|anything in potential_minds
 
 	return dresscode
 
@@ -888,7 +893,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	set name = "Allow Browser Inspect"
 	set desc = "Allow browser debugging via inspect"
 
-	if(!check_rights(R_MAINTAINER) || !isclient(src))
+	if(!check_rights(R_DEBUG) || !isclient(src))
 		return
 
 	if(byond_version < 516)
@@ -918,3 +923,22 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		CHECK_TICK
 
 	log_and_message_admins_no_usr("The world has been decontaminated of [counter] radiation components.")
+
+/client/proc/view_bug_reports()
+	set name = "View Bug Reports"
+	set desc = "Select a bug report to view"
+	set category = "Debug"
+	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES|R_ADMIN))
+		return
+	if(!length(GLOB.bug_reports))
+		to_chat(usr, "<span class='warning'>There are no bug reports to view</span>")
+		return
+	var/list/bug_report_selection = list()
+	for(var/datum/tgui_bug_report_form/report in GLOB.bug_reports)
+		bug_report_selection["[report.initial_key] - [report.bug_report_data["title"]]"] = report
+	var/datum/tgui_bug_report_form/form = bug_report_selection[tgui_input_list(usr, "Select a report to view:", "Bug Reports", bug_report_selection)]
+	if(!form.assign_approver(usr))
+		return
+	form.ui_interact(usr)
+	return
+

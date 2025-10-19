@@ -1,6 +1,6 @@
 /datum/outfit/abductor
 	name = "Abductor Basic"
-	uniform = /obj/item/clothing/under/color/grey //they're greys gettit
+	uniform = /obj/item/clothing/under/abductor
 	shoes = /obj/item/clothing/shoes/combat
 	back = /obj/item/storage/backpack
 	l_ear = /obj/item/radio/headset/abductor
@@ -23,7 +23,7 @@
 		var/obj/item/clothing/suit/armor/abductor/vest/V = locate() in H
 		if(V)
 			console.vest = V
-			V.flags |= NODROP
+			V.set_nodrop(TRUE, H)
 
 		var/obj/item/abductor/gizmo/G = locate() in H.get_item_by_slot(ITEM_SLOT_BACK)
 		if(G)
@@ -50,6 +50,8 @@
 
 /datum/outfit/abductor/scientist
 	name = "Abductor Scientist"
+	suit = /obj/item/clothing/suit/storage/labcoat/abductor
+
 	backpack_contents = list(
 		/obj/item/abductor/gizmo = 1
 		)

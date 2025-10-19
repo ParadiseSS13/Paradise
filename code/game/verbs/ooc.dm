@@ -1,4 +1,5 @@
 #define DEFAULT_PLAYER_OOC_COLOUR "#075FE5" // Can't initial() a global so we store the default in a macro instead
+#define BUG_REPORT_CD (5 MINUTES)
 GLOBAL_VAR_INIT(normal_ooc_colour, DEFAULT_PLAYER_OOC_COLOUR)
 
 GLOBAL_VAR_INIT(member_ooc_colour, "#035417")
@@ -53,21 +54,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	log_ooc(msg, src)
 	mob.create_log(OOC_LOG, msg)
 
-	var/display_colour = GLOB.normal_ooc_colour
-	if(holder && !holder.fakekey)
-		display_colour = GLOB.mentor_ooc_colour
-		if(check_rights(R_MOD,0) && !check_rights(R_ADMIN,0))
-			display_colour = GLOB.moderator_ooc_colour
-		else if(check_rights(R_ADMIN,0))
-			if(GLOB.configuration.admin.allow_admin_ooc_colour)
-				display_colour = src.prefs.ooccolor
-			else
-				display_colour = GLOB.admin_ooc_colour
-
-	if(prefs.unlock_content)
-		if(display_colour == GLOB.normal_ooc_colour)
-			if(prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)
-				display_colour = GLOB.member_ooc_colour
+	var/display_colour = get_ooc_color()
 
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.toggles & PREFTOGGLE_CHAT_OOC)
@@ -94,6 +81,19 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 				msg = emoji_parse(msg)
 
 			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
+
+/client/proc/get_ooc_color()
+	if(!holder || holder.fakekey)
+		if(prefs.unlock_content && (prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC))
+			return GLOB.member_ooc_colour
+		return GLOB.normal_ooc_colour
+	if(!check_rights(R_ADMIN, FALSE))
+		if(check_rights(R_MOD, FALSE))
+			return GLOB.moderator_ooc_colour
+		return GLOB.mentor_ooc_colour
+	if(!GLOB.configuration.admin.allow_admin_ooc_colour)
+		return GLOB.admin_ooc_colour
+	return prefs.ooccolor
 
 /proc/toggle_ooc()
 	GLOB.ooc_enabled = (!GLOB.ooc_enabled)
@@ -331,4 +331,25 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	popup.set_content(output.Join(""))
 	popup.open()
 
+/client/verb/submitbug()
+	set name = "Report a Bug"
+	set desc = "Submit a bug report."
+	set category = "OOC"
+	set hidden = TRUE
+	if(!usr?.client)
+		return
+
+	if(GLOB.bug_report_time[usr.ckey] && world.time < (GLOB.bug_report_time[usr.client] + BUG_REPORT_CD))
+		var/cd_total_time = GLOB.bug_report_time[usr.ckey] + BUG_REPORT_CD - world.time
+		var/cd_minutes = round(cd_total_time / (1 MINUTES))
+		var/cd_seconds = round((cd_total_time - cd_minutes MINUTES) / (1 SECONDS))
+		tgui_alert(usr, "You must wait another [cd_minutes]:[cd_seconds < 10 ? "0" : ""][cd_seconds] minute[cd_minutes < 2 ? "" : "s"] before submitting another bug report", "Bug Report Rate Limit")
+		return
+
+	var/datum/tgui_bug_report_form/report = new(usr)
+
+	report.ui_interact(usr)
+	return
+
 #undef DEFAULT_PLAYER_OOC_COLOUR
+#undef BUG_REPORT_CD

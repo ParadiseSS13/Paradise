@@ -74,7 +74,7 @@
 	name = selected_module.module_name
 	desc = selected_module.module_desc
 	icon_state = selected_module.module_state
-	item_state = selected_module.module_state
+	inhand_icon_state = selected_module.module_state
 	if(user)
 		user.update_inv_l_hand()
 		user.update_inv_r_hand()
@@ -92,6 +92,7 @@
 	if(!proximity)
 		return
 	if(selected_module.paint_atom(target, user))
+		target.add_hiddenprint(user)
 		playsound(src, usesound, 30, TRUE)
 
 /**

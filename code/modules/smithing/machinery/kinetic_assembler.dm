@@ -4,7 +4,6 @@
 	icon = 'icons/obj/machines/smithing_machines.dmi'
 	icon_state = "assembler"
 	max_integrity = 100
-	pixel_x = 0	// 1x1
 	pixel_y = 0
 	bound_height = 32
 	bound_width = 32
@@ -24,7 +23,7 @@
 		/obj/item/smithed_item/tool_bit
 	)
 	/// Amount of extra items made in batches
-	var/batch_extras = 2
+	var/batch_extras = 1
 
 /obj/machinery/smithing/kinetic_assembler/Initialize(mapload)
 	. = ..()
@@ -38,6 +37,15 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	batched_item_types = typecacheof(batched_item_types)
 	RefreshParts()
+
+/obj/machinery/smithing/kinetic_assembler/Destroy()
+	if(primary)
+		primary.forceMove(src.loc)
+	if(secondary)
+		secondary.forceMove(src.loc)
+	if(trim)
+		trim.forceMove(src.loc)
+	. = ..()
 
 /obj/machinery/smithing/kinetic_assembler/examine(mob/user)
 	. = ..()
@@ -63,6 +71,8 @@
 	. = ..()
 	if(panel_open)
 		icon_state = "assembler_wires"
+	else
+		icon_state = "assembler"
 
 /obj/machinery/smithing/kinetic_assembler/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	. = ..()
@@ -86,6 +96,9 @@
 		return
 	switch(removed)
 		if("Primary")
+			if(!primary)
+				to_chat(user, "<span class='warning'>There is no primary component to remove.</span>")
+				return
 			to_chat(user, "<span class='notice'>You remove [primary] from the primary component slot of [src].</span>")
 			if(primary.burn_check(user))
 				primary.burn_user(user)
@@ -96,6 +109,9 @@
 			primary = null
 			return
 		if("Secondary")
+			if(!secondary)
+				to_chat(user, "<span class='warning'>There is no secondary component to remove.</span>")
+				return
 			to_chat(user, "<span class='notice'>You remove [secondary] from the secondary component slot of [src].</span>")
 			if(secondary.burn_check(user))
 				secondary.burn_user(user)
@@ -106,6 +122,9 @@
 			secondary = null
 			return
 		if("Trim")
+			if(!trim)
+				to_chat(user, "<span class='warning'>There is no trim component to remove.</span>")
+				return
 			to_chat(user, "<span class='notice'>You remove [trim] from the trim component slot of [src].</span>")
 			if(trim.burn_check(user))
 				trim.burn_user(user)
@@ -117,6 +136,9 @@
 			return
 
 /obj/machinery/smithing/kinetic_assembler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
+		return ..()
+
 	if(operating)
 		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
 		return ITEM_INTERACT_COMPLETE
@@ -177,6 +199,10 @@
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return FINISH_ATTACK
+	if(finished_product)
+		to_chat(user, "<span class='warning'>[src] has a nearly-complete product!</span>")
+		return FINISH_ATTACK
+
 	if(!primary)
 		to_chat(user, "<span class='warning'>[src] lacks a primary component!</span>")
 		return FINISH_ATTACK
@@ -225,14 +251,18 @@
 	playsound(src, 'sound/magic/fellowship_armory.ogg', 50, TRUE)
 	finished_product.forceMove(src.loc)
 	SSblackbox.record_feedback("tally", "smith_assembler_production", 1, "[finished_product.type]")
+	// Modify based on productivity
+	var/total_extras = clamp(round(1 * i.bit_productivity_mod / 2), 0, 2)
 	if(is_type_in_typecache(finished_product, batched_item_types))
-		for(var/iterator in 1 to batch_extras)
-			var/obj/item/smithed_item/extra_product = new finished_product.type(src.loc)
-			extra_product.quality = finished_product.quality
-			extra_product.material = finished_product.material
-			extra_product.set_stats()
-			extra_product.update_appearance(UPDATE_NAME)
-			extra_product.scatter_atom()
+		total_extras += clamp(round(batch_extras * i.bit_productivity_mod / 2), 1, 4)
+	for(var/iterator in 1 to total_extras)
+		var/obj/item/smithed_item/extra_product = new finished_product.type(src.loc)
+		extra_product.quality = finished_product.quality
+		extra_product.material = finished_product.material
+		extra_product.set_stats()
+		extra_product.update_appearance(UPDATE_NAME)
+		extra_product.scatter_atom()
+
 	finished_product = null
 
 // MARK: Scientific Assembler
@@ -243,7 +273,6 @@
 	icon = 'icons/obj/machines/smithing_machines.dmi'
 	icon_state = "assembler"
 	max_integrity = 100
-	pixel_x = 0	// 1x1
 	pixel_y = 0
 	bound_height = 32
 	bound_width = 32
@@ -291,8 +320,10 @@
 	. = ..()
 	if(panel_open)
 		icon_state = "assembler_wires"
+	else
+		icon_state = "assembler"
 
-/obj/machinery/smithing/kinetic_assembler/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+/obj/machinery/smithing/scientific_assembler/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 
@@ -303,6 +334,9 @@
 		icon_state = "assembler_wires"
 
 /obj/machinery/smithing/scientific_assembler/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+	if(istype(used, /obj/item/storage/part_replacer))
+		return ..()
+
 	if(operating)
 		to_chat(user, "<span class='warning'>[src] is still operating!</span>")
 		return ITEM_INTERACT_COMPLETE

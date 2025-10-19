@@ -10,8 +10,6 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost"
 	anchored = TRUE
-	density = FALSE
-	new_attack_chain = TRUE
 	var/writing = ""
 
 /obj/structure/signpost/Initialize(mapload)
@@ -84,7 +82,6 @@
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "teleconsole"
 	anchored = TRUE
-	density = FALSE
 
 /obj/structure/ninjatele/attack_hand(mob/user as mob)
 	if(user.mind.special_role=="Ninja")
@@ -150,6 +147,7 @@
 		if(selected_outfit)
 			new_human.equipOutfit(selected_outfit)
 
+// used by admins
 /obj/structure/ghost_beacon
 	name = "ethereal beacon"
 	desc = "A structure that draws ethereal attention when active. Use an empty hand to activate."
@@ -162,7 +160,6 @@
 	var/last_ghost_alert
 	var/alert_title = "Ethereal Beacon Active!"
 	var/atom/attack_atom
-
 
 /obj/structure/ghost_beacon/Initialize(mapload)
 	. = ..()

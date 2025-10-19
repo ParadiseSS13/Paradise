@@ -1,5 +1,4 @@
 /mob/living/silicon
-	gender = NEUTER
 	voice_name = "synthesized voice"
 	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = TRUE
@@ -129,10 +128,13 @@
 /mob/living/silicon/proc/get_radio()
 	return
 
-/mob/living/silicon/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+/mob/living/silicon/proc/open_pda()
 	return
 
-/mob/living/silicon/proc/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+/mob/living/silicon/proc/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
+	return
+
+/mob/living/silicon/proc/alarm_cancelled(source, class, area/A, obj/origin, cleared)
 	return
 
 /mob/living/silicon/proc/queueAlarm(message, type, incoming = TRUE)
@@ -281,7 +283,7 @@
 
 /mob/living/silicon/bullet_act(obj/item/projectile/Proj)
 	if(!Proj.nodamage)
-		var/damage = run_armor(Proj.damage, Proj.damage_type, Proj.flag, 0, Proj.armour_penetration_flat, Proj.armour_penetration_percentage)
+		var/damage = run_armor(Proj.damage, Proj.damage_type, Proj.flag, 0, Proj.armor_penetration_flat, Proj.armor_penetration_percentage)
 		switch(Proj.damage_type)
 			if(BRUTE)
 				adjustBruteLoss(damage)
@@ -306,19 +308,19 @@
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			bonus_damage = H.physiology.melee_bonus
-		var/damage = run_armor(I.force + bonus_damage, I.damtype, MELEE, 0, I.armour_penetration_flat, I.armour_penetration_percentage)
+		var/damage = run_armor(I.force + bonus_damage, I.damtype, MELEE, 0, I.armor_penetration_flat, I.armor_penetration_percentage)
 		apply_damage(damage, I.damtype, def_zone)
 
 ///returns the damage value of the attack after processing the silicons's various armor protections
-/mob/living/silicon/proc/run_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
+/mob/living/silicon/proc/run_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armor_penetration_flat = 0, armor_penetration_percentage = 0)
 	if(damage_type != BRUTE && damage_type != BURN)
 		return 0
-	var/armor_protection = 0
+	var/armor_protection
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
-	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
-		armor_protection = clamp((armor_protection * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat, min(armor_protection, 0), 100)
-	return round(damage_amount * (100 - armor_protection) * 0.01, DAMAGE_PRECISION)
+	if(armor_protection > 0)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
+		armor_protection = clamp(armor_protection * (100 - armor_penetration_percentage) / 100 - armor_penetration_flat, 0, 100)
+	return round(damage_amount * (100 - armor_protection) / 100, DAMAGE_PRECISION)
 
 /mob/living/silicon/apply_effect(effect = 0, effecttype = STUN, blocked = 0)
 	return FALSE //The only effect that can hit them atm is flashes and they still directly edit so this works for now
@@ -497,8 +499,8 @@
 		return
 	var/image/head_icon
 
-	if(silicon_hat.icon_override)
-		hat_icon_file = silicon_hat.icon_override
+	if(silicon_hat.worn_icon)
+		hat_icon_file = silicon_hat.worn_icon
 	if(!hat_icon_state)
 		hat_icon_state = silicon_hat.icon_state
 	if(isnull(hat_alpha))
@@ -600,6 +602,7 @@
 
 /mob/living/silicon/proc/null_hat()
 	silicon_hat = null
+	hat_icon_file = initial(hat_icon_file)
 	hat_icon_state = null
 	hat_alpha = null
 	hat_color = null

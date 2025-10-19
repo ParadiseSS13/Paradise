@@ -6,16 +6,38 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	icon = 'icons/obj/items.dmi'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
-
-	// Set in the Initialise depending on the item size. Unless it's overriden by a specific item
+	max_integrity = 200
+	can_be_hit = FALSE
+	suicidal_hands = TRUE
+	/// Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	move_resist = null
-	/// used in item_attack.dm to make an item not show an attack message to viewers
-	var/discrete = FALSE
-	/// The icon state used to display the item in your inventory. If null then the icon_state value itself will be used
-	var/item_state = null
-	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
+	/**
+	 * Species-specific sprites, concept stolen from Paradise//vg/.
+	 *
+	 * ex:
+	 *
+	 *	sprite_sheets = list("Tajaran" = 'icons/cat/are/bad')
+	 *
+	 * If index term exists, this sprite sheet will be used.
+	 *
+	 * This should never have a "Human" inside - use `worn_icon` instead.
+	*/
+	var/list/sprite_sheets
+	/// Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
+	var/list/sprite_sheets_inhand
+
+	/// Icon file for mob worn overlays. Can be ignored if sprite_sheets/sprite_sheets_inhand is set
+	var/icon/worn_icon
+	/// Icon state for mob worn overlays, if null the `icon_state` value will be used
+	var/worn_icon_state
+
+	/// Icon state for mob inhand overlays, if null the `icon_state` value will be used
+	var/inhand_icon_state
+	/// Icon file for left hand inhand overlays
+	var/icon/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	/// Icon file for right inhand overlays
+	var/icon/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	/// Dimension X of the lefthand_file and righthand_file var
 	/// eg: 32x32 sprite, 64x64 sprite, etc.
 	var/inhand_x_dimension = 32
@@ -23,11 +45,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// eg: 32x32 sprite, 64x64 sprite, etc.
 	var/inhand_y_dimension = 32
 
-	max_integrity = 200
-
-	can_be_hit = FALSE
-	suicidal_hands = TRUE
-
+	/// used in item_attack.dm to make an item not show an attack message to viewers
+	var/discrete = FALSE
 	/// Sound played when you hit something with the item
 	var/hitsound
 	/// Played when the item is used, for example tools
@@ -70,10 +89,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/list/actions = list()
 	/// List of paths of action datums to give to the item on New().
 	var/list/actions_types = list()
-	/// List of icons-sheets for a given action to override the icon.
-	var/list/action_icon = list()
-	/// List of icon states for a given action to override the icon_state.
-	var/list/action_icon_state = list()
 
 	/// What materials the item yields when broken down. Some methods will not recover everything (autolathes only recover metal and glass, for example).
 	var/list/materials = list()
@@ -84,7 +99,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/dyeing_key
 	/// If this item is put into a washing machine to be dyed, can objects of this type be dyed into a different color/icon?
 	var/dyeable = FALSE
-	var/item_color
 	/// What bodyflags does this item cover? See setup.dm for appropriate bit flags
 	var/body_parts_covered = 0
 	/// For leaking gas from turf to mask and vice-versa.
@@ -96,9 +110,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// How much clothing is slowing you down. Negative values speeds you up.
 	var/slowdown = 0
 	/// Flat armour reduction, occurs after percentage armour penetration.
-	var/armour_penetration_flat = 0
+	var/armor_penetration_flat = 0
 	/// Percentage armour reduction, happens before flat armour reduction.
-	var/armour_penetration_percentage = 0
+	var/armor_penetration_percentage = 0
 	/// For what suits can store. IE. secuirty vest holding stunbatons, disablers, cuffs.
 	var/list/allowed = list()
 	/// All items can have an uplink hidden inside, just remember to add the triggers.
@@ -151,21 +165,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// If this item is a tool, the speed multiplier. Smaller numbers are faster.
 	var/toolspeed = 1
 
-	/* Species-specific sprites, concept stolen from Paradise//vg/.
-	ex:
-	sprite_sheets = list(
-		"Tajaran" = 'icons/cat/are/bad'
-		)
-	If index term exists and icon_override is not set, this sprite sheet will be used.
-	*/
-	var/list/sprite_sheets
-	/// Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
-	var/list/sprite_sheets_inhand
-	/// Used to override hardcoded clothing dmis in human clothing proc.
-	var/icon_override
-	/// Used to override hardcoded clothing inventory object dmis in human clothing proc.
-	var/sprite_sheets_obj
-
 	//Tooltip vars
 
 	/// Is this item equipped into an inventory slot or hand of a mob?
@@ -215,7 +214,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/Initialize(mapload)
 	. = ..()
 	for(var/path in actions_types)
-		new path(src, action_icon[path], action_icon_state[path])
+		new path(src)
 	if(isstorage(loc)) //marks all items in storage as being such
 		in_storage = TRUE
 
@@ -669,7 +668,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	user.do_attack_animation(M)
 
-	if(H.check_shields(src, force, "the [name]", MELEE_ATTACK, armour_penetration_flat, armour_penetration_percentage))
+	if(H.check_shields(src, force, "the [name]", MELEE_ATTACK))
 		return FALSE
 
 	if(M != user)
@@ -1028,9 +1027,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/proc/should_stack_with(obj/item/other)
 	return type == other.type && name == other.name
 
-/obj/item/proc/update_action_buttons(status_only = FALSE, force = FALSE)
+/obj/item/proc/update_action_buttons(update_flags = ALL, force = FALSE)
 	for(var/datum/action/current_action as anything in actions)
-		current_action.UpdateButtons(status_only, force)
+		current_action.build_all_button_icons(update_flags, force)
 
 /**
   * Handles the bulk of cigarette lighting interactions. You must call `light()` to actually light the cigarette.
@@ -1067,4 +1066,19 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /// Changes the speech verb when wearing this item if a value is returned
 /obj/item/proc/change_speech_verb()
+	return
+
+/obj/item/proc/set_nodrop(set_value, user)
+	switch(set_value)
+		if(TRUE)
+			flags |= NODROP
+		if(FALSE)
+			flags &= ~NODROP
+		if(NODROP_TOGGLE)
+			flags ^= NODROP
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		C.update_hands_hud()
+
+/obj/item/proc/on_hands_swap(mob/user, in_active_hand)
 	return

@@ -320,6 +320,9 @@
 	if(busy)
 		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return
+	if(shocked && !(stat & NOPOWER))
+		if(shock(user, 50))
+			return
 	if(panel_open)
 		default_deconstruction_crowbar(user, I)
 
@@ -330,7 +333,7 @@
 	if(busy)
 		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return
-	default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I)
+	default_deconstruction_screwdriver(user, "[initial(icon_state)]_t", initial(icon_state), I)
 
 /obj/machinery/autolathe/wirecutter_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -523,6 +526,7 @@
 
 /obj/machinery/autolathe/syndicate
 	name = "syndicate autolathe"
+
 	board_type = /obj/item/circuitboard/autolathe/syndi
 
 /obj/machinery/autolathe/syndicate/Initialize(mapload)

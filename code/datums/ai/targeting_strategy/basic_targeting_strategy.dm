@@ -9,6 +9,8 @@
 	var/ignore_sight = FALSE
 	/// Blackboard key containing the minimum stat of a living mob to target
 	var/minimum_stat_key = BB_TARGET_MINIMUM_STAT
+	/// Blackboard key for the maximum aggro range of the mob
+	var/aggro_range_key = BB_AGGRO_RANGE
 	/// If this blackboard key is TRUE, makes us only target wounded mobs
 	var/target_wounded_key
 
@@ -34,6 +36,10 @@
 			return FALSE
 
 	if(vision_range && get_dist(living_mob, the_target) > vision_range)
+		return FALSE
+
+	var/aggro_range = our_controller.blackboard[aggro_range_key]
+	if(aggro_range && get_dist(living_mob, the_target) > aggro_range)
 		return FALSE
 
 	if(!ignore_sight && !can_see(living_mob, the_target, vision_range)) //Target has moved behind cover and we have lost line of sight to it
@@ -73,6 +79,12 @@
 			return FALSE
 		return TRUE
 
+	if(istype(the_target, /obj/machinery/power/emitter)) // Targetting emitters
+		var/obj/machinery/power/emitter/E = the_target
+		if(!E.active) // Don't attack if the emitter isn't active
+			return FALSE
+		return TRUE
+
 	return FALSE
 
 /// Returns true if the mob and target share factions
@@ -80,3 +92,37 @@
 	if(controller.blackboard[BB_ALWAYS_IGNORE_FACTION] || controller.blackboard[BB_TEMPORARILY_IGNORE_FACTION])
 		return FALSE
 	return living_mob.faction_check_mob(the_target, exact_match = check_factions_exactly)
+
+/datum/targeting_strategy/basic/always_check_factions
+	check_factions_exactly = TRUE
+
+/// Subtype which searches for mobs of a size relative to ours
+/datum/targeting_strategy/basic/of_size
+	/// If true, we will return mobs which are smaller than us. If false, larger.
+	var/find_smaller = TRUE
+	/// If true, we will return mobs which are the same size as us.
+	var/inclusive = TRUE
+
+/datum/targeting_strategy/basic/of_size/can_attack(mob/living/owner, atom/target, vision_range)
+	if(!isliving(target))
+		return FALSE
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/living/mob_target = target
+	if(inclusive && owner.mob_size == mob_target.mob_size)
+		return TRUE
+	if(owner.mob_size > mob_target.mob_size)
+		return find_smaller
+	return !find_smaller
+
+// This is just using the default values but the subtype makes it clearer
+/datum/targeting_strategy/basic/of_size/ours_or_smaller
+
+/datum/targeting_strategy/basic/of_size/larger
+	find_smaller = FALSE
+	inclusive = FALSE
+
+/datum/targeting_strategy/basic/of_size/smaller
+	inclusive = FALSE

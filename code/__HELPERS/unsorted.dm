@@ -61,6 +61,18 @@
 	else if(dx < 0)
 		. += 360
 
+/// Angle between two arbitrary points and horizontal line same as [/proc/get_angle]
+/proc/get_angle_raw(start_x, start_y, start_pixel_x, start_pixel_y, end_x, end_y, end_pixel_x, end_pixel_y)
+	var/dy = (32 * end_y + end_pixel_y) - (32 * start_y + start_pixel_y)
+	var/dx = (32 * end_x + end_pixel_x) - (32 * start_x + start_pixel_x)
+	if(!dy)
+		return (dx >= 0) ? 90 : 270
+	. = arctan(dx/dy)
+	if(dy < 0)
+		. += 180
+	else if(dx < 0)
+		. += 360
+
 // Returns location. Returns null if no location was found.
 /proc/get_teleport_loc(turf/location, mob/target, distance = 1, density = TRUE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
 	/*
@@ -386,8 +398,11 @@
 	for(var/mob/living/simple_animal/slime/M in sortmob)
 		moblist.Add(M)
 	for(var/mob/living/simple_animal/M in sortmob)
-		moblist.Add(M)
+		if(!istype(M, /mob/living/simple_animal/slime))
+			moblist.Add(M)
 	for(var/mob/living/basic/M in sortmob)
+		moblist.Add(M)
+	for(var/mob/camera/blob/M in sortmob)
 		moblist.Add(M)
 	return moblist
 
@@ -629,17 +644,13 @@ Returns 1 if the chain up to the area contains the given typepath
 		current = get_step_towards(current, target_turf)
 		while(current != target_turf)
 			if(steps > length)
-				return 0
-			if(current.opacity)
-				return 0
-			for(var/thing in current)
-				var/atom/A = thing
-				if(A.opacity)
-					return 0
+				return FALSE
+			if(IS_OPAQUE_TURF(current))
+				return FALSE
 			current = get_step_towards(current, target_turf)
 			steps++
 
-	return 1
+	return TRUE
 
 //Returns: all the areas in the world
 /proc/return_areas()
@@ -834,7 +845,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	if(perfectcopy)
 		if(O && original)
-			var/static/list/forbidden_vars = list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "power_supply", "contents", "reagents", "stat", "x", "y", "z", "group", "comp_lookup", "datum_components")
+			var/static/list/forbidden_vars = list("type", "loc", "locs", "vars", "parent", "parent_type", "pixloc", "verbs", "ckey", "key", "power_supply", "contents", "reagents", "stat", "x", "y", "z", "group", "comp_lookup", "datum_components")
 
 			for(var/V in original.vars - forbidden_vars)
 				if(islist(original.vars[V]))
@@ -945,6 +956,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							"luminosity",
 							"parent_type",
 							"parent",
+							"pixloc",
 							"signal_procs",
 							"type",
 							"vars",
@@ -1040,15 +1052,16 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/pixel_y_offset = AM.pixel_y + M.get_y_shift()
 
 	//Irregular objects
-	if(AM.bound_height != world.icon_size || AM.bound_width != world.icon_size)
-		var/icon/AMicon = icon(AM.icon, AM.icon_state)
-		pixel_x_offset += ((AMicon.Width()/world.icon_size)-1)*(world.icon_size*0.5)
-		pixel_y_offset += ((AMicon.Height()/world.icon_size)-1)*(world.icon_size*0.5)
-		qdel(AMicon)
+	var/icon/AM_icon = icon(AM.icon, AM.icon_state)
+	var/AM_icon_height = AM_icon.Height()
+	var/AM_icon_width = AM_icon.Width()
+	if(AM_icon_height != world.icon_size || AM_icon_width != world.icon_size)
+		pixel_x_offset += ((AM_icon_height / world.icon_size) - 1) * (world.icon_size * 0.5)
+		pixel_y_offset += ((AM_icon_width / world.icon_size) - 1) * (world.icon_size * 0.5)
 
 	//DY and DX
-	var/rough_x = round(round(pixel_x_offset,world.icon_size)/world.icon_size)
-	var/rough_y = round(round(pixel_y_offset,world.icon_size)/world.icon_size)
+	var/rough_x = round(round(pixel_x_offset, world.icon_size) / world.icon_size)
+	var/rough_y = round(round(pixel_y_offset, world.icon_size) / world.icon_size)
 
 	//Find coordinates
 	var/turf/T = get_turf(AM) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
@@ -1878,7 +1891,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Surgery Sounds"
 
 /**
-  * HTTP Get (Powered by RUSTG)
+  * HTTP Get (Powered by rustlibs)
   *
   * This proc should be used as a replacement for [/world/proc/Export] due to an underlying issue with it.
   * See: https://www.byond.com/forum/post/2772166
@@ -1891,7 +1904,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
   */
 /proc/HTTPGet(url)
 	var/datum/http_request/req = new
-	req.prepare(RUSTG_HTTP_METHOD_GET, url)
+	req.prepare(RUSTLIBS_HTTP_METHOD_GET, url)
 	req.begin_async()
 
 	// Check if we are complete
@@ -1930,3 +1943,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return_list[path] = 0
 		return_list[path] += 1
 	return return_list
+
+// Wrappers for BYOND default procs which can't directly be called by call().
+/proc/_step(ref, dir)
+	step(ref, dir)

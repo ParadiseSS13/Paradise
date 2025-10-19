@@ -19,7 +19,6 @@ To draw a rune, use a ritual dagger.
 	desc = "An odd collection of symbols drawn in what seems to be blood."
 	/// Description that cultists see
 	var/cultist_desc = "a basic rune with no function." //This is shown to cultists who examine the rune in order to determine its true purpose.
-	anchored = TRUE
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "1"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -260,9 +259,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_desc = "offers non-cultists on top of it to the Dark One, either converting or sacrificing them. Sacrifices with a soul will result in a captured soulshard. This can be done with brains as well."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "offering"
-	req_cultists = 1
 	allow_excess_invokers = TRUE
-	rune_in_use = FALSE
 
 /obj/effect/rune/convert/invoke(list/invokers)
 	if(rune_in_use)
@@ -665,7 +662,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			var/mob/dead/observer/C = pick(candidates)
 			to_chat(mob_to_revive, "<span class='biggerdanger'>Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form.</span>")
 			message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(mob_to_revive)]) to replace an AFK player.")
-			mob_to_revive.ghostize(FALSE)
+			mob_to_revive.ghostize(GHOST_FLAGS_NO_REENTER)
 			mob_to_revive.key = C.key
 			dust_if_respawnable(C)
 		else
@@ -815,7 +812,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	invoke_damage = 15
 	construct_invoke = FALSE
 	var/tick_damage = 10 // 30 burn damage total + damage taken by being on fire/overheating
-	rune_in_use = FALSE
 
 /obj/effect/rune/blood_boil/invoke(list/invokers)
 	if(rune_in_use)
@@ -1011,7 +1007,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	ADD_TRAIT(user, SCRYING, CULT_TRAIT)
 	user.visible_message("<span class='warning'>[user] freezes statue-still, glowing an unearthly red.</span>",
 					"<span class='cult'>You see what lies beyond. All is revealed. In this form you find that your voice booms above all others.</span>")
-	ghost = user.ghostize(TRUE, RUNE_COLOR_DARKRED, "Dark Spirit of [user.name]")
+	ghost = user.ghostize(ghost_name = "Dark Spirit of [user.name]", ghost_color = RUNE_COLOR_DARKRED)
 	var/datum/action/innate/cult/comm/spirit/CM = new
 	var/datum/action/innate/cult/check_progress/V = new
 	//var/datum/action/innate/cult/ghostmark/GM = new

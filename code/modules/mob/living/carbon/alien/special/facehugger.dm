@@ -4,7 +4,7 @@
 	desc = "It has some sort of a tube at the end of its tail."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "facehugger"
-	item_state = "facehugger"
+	inhand_icon_state = "facehugger"
 	w_class = WEIGHT_CLASS_TINY //note: can be picked up by aliens unlike most other items of w_class below 4
 	throw_range = 5
 	tint = 3
@@ -139,7 +139,7 @@
 		target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK, FALSE, TRUE)
 		if(!sterile)
 			M.KnockDown(impregnation_time + 2 SECONDS)
-			flags |= NODROP //You can't take it off until it dies... or figures out you're an IPC.
+			set_nodrop(TRUE, loc) //You can't take it off until it dies... or figures out you're an IPC.
 
 	GoIdle() //so it doesn't jump the people that tear it off
 	var/obj/structure/bed/nest/our_nest = M.buckled
@@ -149,7 +149,7 @@
 	return TRUE
 
 /obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target)
-	flags &= ~NODROP
+	set_nodrop(FALSE, loc)
 
 	if(!target || target.stat == DEAD || loc != target) //was taken off or something
 		return
@@ -201,7 +201,7 @@
 		return
 
 	icon_state = "[initial(icon_state)]_dead"
-	item_state = "facehugger_inactive"
+	inhand_icon_state = "facehugger_inactive"
 	stat = DEAD
 	QDEL_NULL(proximity_monitor)
 

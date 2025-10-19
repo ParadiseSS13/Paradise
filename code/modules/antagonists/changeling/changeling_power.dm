@@ -3,7 +3,7 @@
 /datum/action/changeling
 	name = "Prototype Sting"
 	desc = "" // Fluff
-	button_background_icon_state = "bg_changeling"
+	background_icon_state = "bg_changeling"
 	/// A reference to the changeling's changeling antag datum.
 	var/datum/antagonist/changeling/cling
 	/// Datum path used to determine the location and name of the power in changeling evolution menu UI
@@ -49,6 +49,7 @@
 	try_to_sting(owner)
 
 /datum/action/changeling/proc/try_to_sting(mob/user, mob/target)
+	. = TRUE // Value doesn't appear to matter here, but it matters for the middle-click override in AltClickOn inside click.dm
 	user.changeNext_click(5)
 	if(!can_sting(user, target))
 		return

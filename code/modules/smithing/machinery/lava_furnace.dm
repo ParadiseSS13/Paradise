@@ -1,7 +1,6 @@
 /obj/machinery/smithing/lava_furnace
 	name = "lava furnace"
 	desc = "A furnace that uses the innate heat of lavaland to reheat metal that has not been fully reshaped."
-	icon = 'icons/obj/machines/large_smithing_machines.dmi'
 	icon_state = "furnace_off"
 	operation_sound = 'sound/surgery/cautery1.ogg'
 	/// How much the device heats the component
@@ -78,7 +77,7 @@
 		return FALSE
 	target.visible_message("<span class='danger'>[user] pushes [target]'s head into [src]!</span>", \
 					"<span class='userdanger'>[user] pushes your head into [src]! The heat is agonizing!</span>")
-	var/armor = target.run_armor_check(def_zone = BODY_ZONE_HEAD, attack_flag = MELEE, armour_penetration_percentage = 50)
+	var/armor = target.run_armor_check(def_zone = BODY_ZONE_HEAD, armor_type = MELEE, armor_penetration_percentage = 50)
 	target.apply_damage(40, BURN, BODY_ZONE_HEAD, armor)
 	target.adjust_fire_stacks(5)
 	target.IgniteMob()

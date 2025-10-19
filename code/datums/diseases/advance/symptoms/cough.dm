@@ -6,7 +6,7 @@ Coughing
 	Noticable.
 	Little Resistance.
 	Doesn't increase stage speed much.
-	Transmittable.
+	transmissibility.
 	Low Level.
 
 BONUS
@@ -18,23 +18,24 @@ BONUS
 /datum/symptom/cough
 
 	name = "Cough"
-	stealth = -1
-	resistance = 3
+	stealth = 2
 	stage_speed = 1
-	transmittable = 2
+	transmissibility = 2
 	level = 1
 	severity = 1
+	chem_treatments = list(
+		"salbutamol" = list("multiplier" = 0, "timer" = 0),
+		"perfluorodecalin" = list("multiplier" = 0, "timer" = 0))
 
-/datum/symptom/cough/Activate(datum/disease/advance/A)
-	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
-		var/mob/living/M = A.affected_mob
-		switch(A.stage)
-			if(1, 2, 3)
-				to_chat(M, "<span notice='warning'>[pick("You swallow excess mucus.", "You lightly cough.")]</span>")
-			else
-				M.emote("cough")
-				var/obj/item/I = M.get_active_hand()
-				if(I && I.w_class == 1)
-					M.drop_item()
+/datum/symptom/cough/symptom_act(datum/disease/advance/A, unmitigated)
+	var/mob/living/M = A.affected_mob
+	if(prob(A.progress + 20))
+		M.emote("cough")
+		var/obj/item/I = M.get_active_hand()
+		if(prob(A.progress * unmitigated) && I && I.w_class == 1)
+			M.drop_item()
+		// smaller spread than sneeze
+		A.spread(3 * unmitigated)
+	else
+		to_chat(M, "<span notice='warning'>[pick("You swallow excess mucus.", "You lightly cough.")]</span>")
 	return

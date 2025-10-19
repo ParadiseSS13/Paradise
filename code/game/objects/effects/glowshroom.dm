@@ -4,8 +4,6 @@
 	name = "glowshroom"
 	desc = "Mycena Bregprox, a species of mushroom that glows in the dark."
 	anchored = TRUE
-	opacity = FALSE
-	density = FALSE
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "glowshroomf"
 	base_icon_state = "glowshroom" //replaced in New
@@ -40,8 +38,8 @@
 	QDEL_NULL(myseed)
 	return ..()
 
-/obj/structure/glowshroom/New(loc, obj/item/seeds/newseed, mutate_stats)
-	..()
+/obj/structure/glowshroom/Initialize(mapload, loc, obj/item/seeds/newseed, mutate_stats)
+	. = ..()
 	if(newseed)
 		myseed = newseed.Copy()
 		myseed.forceMove(src)

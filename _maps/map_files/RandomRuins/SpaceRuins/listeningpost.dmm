@@ -463,7 +463,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
 "Ie" = (
-/obj/structure/spawner/mining/basilisk,
+/obj/structure/spawner/mining/basilisk/space,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
 "Il" = (

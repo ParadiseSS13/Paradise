@@ -29,31 +29,30 @@
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
-	close_sound_volume = 50
 
 /obj/structure/closet/secure_closet/personal/cabinet/populate_contents()
 	new /obj/item/storage/backpack/satchel/withwallet( src )
 	new /obj/item/radio/headset( src )
 
-/obj/structure/closet/secure_closet/personal/attackby__legacy__attackchain(obj/item/W, mob/user, params)
+/obj/structure/closet/secure_closet/personal/item_interaction(mob/living/user, obj/item/W, list/modifiers)
 	if(opened || !istype(W, /obj/item/card/id))
 		return ..()
 
 	if(broken)
 		to_chat(user, "<span class='warning'>The locker appears to be broken.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(user.loc == src)
 		to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(istype(W, /obj/item/card/id/guest))
 		to_chat(user, "<span class='warning'>Invalid identification card.</span>")
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	var/obj/item/card/id/I = W
 	if(!I || !I.registered_name)
-		return
+		return ITEM_INTERACT_COMPLETE
 
 	if(allowed(user) || !registered_name || (istype(I) && (registered_name == I.registered_name)))
 		//they can open all lockers, or nobody owns this, or they own this locker
@@ -69,3 +68,5 @@
 
 	else
 		to_chat(user, "<span class='warning'>Access denied.</span>")
+
+	return ITEM_INTERACT_COMPLETE

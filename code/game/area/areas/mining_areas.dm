@@ -2,19 +2,17 @@
 
 /area/mine
 	icon_state = "mining"
-	has_gravity = TRUE
+	airlock_wires = ZLVL_BASED_WIRES
 
 /area/mine/unexplored
 	name = "Mine"
 	icon_state = "unexplored"
 	always_unpowered = TRUE
-	requires_power = TRUE
 	poweralm = FALSE
 	apc_starts_off = TRUE
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
 	sound_environment = SOUND_AREA_ASTEROID
-	flags = NONE
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
 
@@ -46,10 +44,10 @@
 
 /area/mine/outpost
 	name = "Mining Station"
-	icon_state = "mining"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	request_console_name = "Mining Outpost"
 	request_console_flags = RC_SUPPLY
+	airlock_wires = /datum/wires/airlock/cargo
 
 /area/mine/outpost/airlock
 	name = "Mining Station Airlock"
@@ -62,6 +60,10 @@
 /// subtype of /surface so storms hit there
 /area/lavaland/surface/outdoors/outpost/catwalk
 	name = "Mining Station Catwalk"
+	icon_state = "mining"
+
+/area/lavaland/surface/outdoors/outpost/no_boulder
+	name = "Mining Station"
 	icon_state = "mining"
 
 /area/mine/outpost/comms
@@ -104,6 +106,7 @@
 /area/mine/outpost/maintenance
 	name = "Mining Station Maintenance"
 	icon_state = "maintcentral"
+	airlock_wires = /datum/wires/airlock/maint
 
 /area/mine/outpost/maintenance/south
 	name = "Mining Station South Maintenance"
@@ -135,6 +138,7 @@
 /area/mine/laborcamp
 	name = "Labor Camp"
 	icon_state = "brig"
+	airlock_wires = /datum/wires/airlock/security
 
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
@@ -146,8 +150,8 @@
 
 /area/lavaland
 	icon_state = "mining"
-	has_gravity = TRUE
 	sound_environment = SOUND_AREA_LAVALAND
+	airlock_wires = ZLVL_BASED_WIRES
 
 /area/lavaland/surface
 	name = "Lavaland"
@@ -155,7 +159,6 @@
 	always_unpowered = TRUE
 	poweralm = FALSE
 	apc_starts_off = TRUE
-	requires_power = TRUE
 	ambientsounds = MINING_SOUNDS
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS

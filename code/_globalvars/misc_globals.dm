@@ -60,9 +60,9 @@ GLOBAL_LIST_EMPTY(mod_link_ids)
 GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_crystal)
 
 ///Global list for descriptors
-GLOBAL_LIST_INIT(character_physiques, list("rail thin", "thin", "average", "well-built", "muscular", "overweight"))
+GLOBAL_LIST_INIT(character_physiques, list("emaciated", "rail thin", "thin", "gaunt", "lanky", "scrawny", "average", "lean", "toned", "well-built", "muscular", "chiseled", "shredded", "chubby", "overweight"))
 
-GLOBAL_LIST_INIT(character_heights, list("very short", "short", "average height", "tall", "very tall"))
+GLOBAL_LIST_INIT(character_heights, list("miniscule", "very short", "short", "average height", "tall", "very tall", "humongous"))
 
 #define GLOBAL_SPARK_LIMIT 500
 /// Counter for the current amount of sparks
@@ -71,6 +71,9 @@ GLOBAL_VAR_INIT(sparks_active, 0)
 #define GLOBAL_SMOKE_LIMIT 200
 ///Counter for the current amount of smoke
 GLOBAL_VAR_INIT(smokes_active, 0)
+
+/// what xeno organs have been scanned today?
+GLOBAL_LIST_EMPTY(scanned_organs)
 
 /// A list of types of objects we want to record in admin logs when
 /// a player starts pulling them.

@@ -27,6 +27,9 @@
 	var/dirt_count = 0
 	var/list/init_list = list()
 
+	/// This is a list of ruins on the space_level. Used to prevent certain ruins from spawning on the same level as other ruins.
+	var/list/our_ruin_list = list()
+
 /datum/space_level/New(z, level_name, transition_type = SELFLOOPING, traits = list(BLOCK_TELEPORT), transition_tag_)
 	name = level_name
 	zpos = z
@@ -186,6 +189,10 @@ GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))
 	SSmachines.setup_template_powernets(cables)
 	cables.Cut()
 
+/datum/space_level/proc/has_all_traits(list/traits)
+	// Cool, horrible set inclusion
+	return length(flags & traits) == length(traits)
+
 /datum/space_level/lavaland/set_transition_borders()
 	// really no reason why these need to be so large,
 	// especially since ruin placement is already constrained
@@ -193,3 +200,34 @@ GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))
 	transition_border_east = (world.maxx - 4)
 	transition_border_south = 3
 	transition_border_west = 3
+
+// space levels have no UI of their own so borrowing this proc for serialization
+// for other UIs
+/datum/space_level/ui_data(mob/user)
+	. = list(
+		"name" = name,
+		"zpos" = zpos,
+		"linkage" = linkage,
+		"transition_tag" = transition_tag,
+		"traits" = flags,
+	)
+
+	.["neighbors"] = list()
+	for(var/direction in list(Z_LEVEL_SOUTH, Z_LEVEL_NORTH, Z_LEVEL_EAST, Z_LEVEL_WEST))
+		var/datum/space_level/neighbor = get_connection(direction)
+		if(neighbor)
+			var/dirname = dir2text(text2num(direction))
+			.["neighbors"][dirname] = neighbor.zpos
+
+	.["ruins"] = list()
+	for(var/obj/effect/landmark/ruin/ruin_landmark in GLOB.ruin_landmarks)
+		if(ruin_landmark.z == zpos)
+			.["ruins"] += list(list(
+				"name" = ruin_landmark.ruin_template.name,
+				"mappath" = ruin_landmark.ruin_template.mappath,
+				"coords" = list(
+					"x" = ruin_landmark.x,
+					"y" = ruin_landmark.y,
+					"z" = ruin_landmark.z,
+				),
+			))

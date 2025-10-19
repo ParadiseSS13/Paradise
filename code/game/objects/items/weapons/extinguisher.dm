@@ -1,16 +1,12 @@
 /obj/item/extinguisher
 	name = "fire extinguisher"
 	desc = "A traditional red fire extinguisher."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "fire_extinguisher0"
-	item_state = "fire_extinguisher"
 	base_icon_state = "fire_extinguisher"
+	inhand_icon_state = "fire_extinguisher"
 	hitsound = 'sound/weapons/smash.ogg'
 	flags = CONDUCT
 	throwforce = 10
-	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 2
-	throw_range = 7
 	force = 10
 	container_type = AMOUNT_VISIBLE
 	materials = list(MAT_METAL = 200)
@@ -28,27 +24,33 @@
 	var/safety_active = TRUE
 	/// When `FALSE`, turfs picked from a spray are random. When `TRUE`, it always has at least one water effect per row.
 	var/precision = FALSE
-	/// Sets the `cooling_temperature` of the water reagent datum inside of the extinguisher when it is refilled.
-	var/cooling_power = 2
+	/// If FALSE, extinguishers wont appear prefilled by default
+	var/prefilled = TRUE
 	COOLDOWN_DECLARE(last_use)
+
+/obj/item/extinguisher/empty
+	prefilled = FALSE
 
 /obj/item/extinguisher/atmospherics
 	name = "atmospheric fire extinguisher"
 	desc = "An extinguisher coated in yellow paint that is pre-filled with firefighting foam."
 	icon_state = "atmoFE0"
-	item_state = "atmoFE"
 	base_icon_state = "atmoFE"
+	inhand_icon_state = "atmoFE"
 	materials = list(MAT_TITANIUM = 200)
 	dog_fashion = null
 	reagent_id = "firefighting_foam"
 	reagent_capacity = 65
 
+/obj/item/extinguisher/atmospherics/empty
+	prefilled = FALSE
+
 /obj/item/extinguisher/mini
 	name = "pocket fire extinguisher"
 	desc = "A light and compact fibreglass-framed model fire extinguisher."
 	icon_state = "miniFE0"
-	item_state = "miniFE"
 	base_icon_state = "miniFE"
+	inhand_icon_state = "miniFE"
 	hitsound = null	// It is much lighter, after all.
 	flags = null // Non-conductive, not made of metal.
 	throwforce = 2
@@ -58,6 +60,16 @@
 	reagent_capacity = 30
 	dog_fashion = null
 
+/obj/item/extinguisher/mini/empty
+	prefilled = FALSE
+
+/obj/item/extinguisher/mini/cyborg
+	name = "integrated fire extinguisher"
+	desc = "A miniature fire extinguisher designed to store firefighting foam."
+	icon_state = "cyborgFE0"
+	base_icon_state = "cyborgFE"
+	reagent_id = "firefighting_foam"
+
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
 	if(has_safety)
@@ -65,6 +77,9 @@
 
 /obj/item/extinguisher/Initialize(mapload)
 	. = ..()
+	if(!prefilled)
+		create_reagents(reagent_capacity)
+		reagents.add_reagent(reagent_id, 0)
 	if(!reagents)
 		create_reagents(reagent_capacity)
 		reagents.add_reagent(reagent_id, reagent_capacity)
@@ -85,6 +100,9 @@
 
 /obj/item/extinguisher/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
+	if(isstorage(target) || istype(target, /atom/movable/screen))
+		return
+
 	if(attempt_refill(target, user))
 		return ITEM_INTERACT_COMPLETE
 
@@ -111,8 +129,6 @@
 
 	to_chat(user, "<span class='notice'>[src] has been refilled with [transferred] units.</span>")
 	playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, -6)
-	for(var/datum/reagent/water/R in reagents.reagent_list)
-		R.cooling_temperature = cooling_power
 	return TRUE
 
 /obj/item/extinguisher/proc/extinguisher_spray(atom/A, mob/living/user)
@@ -143,7 +159,8 @@
 		INVOKE_ASYNC(src, PROC_REF(buckled_speed_move), user.buckled, direction)
 	else
 		user.newtonian_move(turn(direction, 180))
-
+	if(user.mind && HAS_TRAIT(user.mind, TRAIT_FIRE_FIGHTER))
+		precision = TRUE
 	var/turf/T = get_turf(A)
 	var/turf/T1 = get_step(T, turn(direction, 90))
 	var/turf/T2 = get_step(T, turn(direction, -90))
@@ -163,7 +180,7 @@
 		INVOKE_ASYNC(water, TYPE_PROC_REF(/obj/effect/particle_effect/water, extinguish_move), new_target)
 
 /obj/item/extinguisher/cyborg_recharge(coeff, emagged)
-	reagents.check_and_add("water", reagent_capacity, 5 * coeff)
+	reagents.check_and_add(reagent_id, reagent_capacity, 5 * coeff)
 
 /obj/item/extinguisher/proc/buckled_speed_move(obj/structure/chair/buckled_to, direction) // Buckled_to may not be a chair here, but we're assuming so because it makes it easier to typecheck
 	var/movementdirection = turn(direction, 180)

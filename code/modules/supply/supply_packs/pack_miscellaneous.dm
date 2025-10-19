@@ -1,6 +1,5 @@
 /datum/supply_packs/misc
 	name = "HEADER"
-	group = SUPPLY_MISC
 
 /datum/supply_packs/misc/mule
 	name = "MULEbot Crate"
@@ -52,8 +51,8 @@
 					/obj/item/reagent_containers/drinks/bottle/holywater,
 					/obj/item/storage/bible/booze,
 					/obj/item/storage/bible/booze,
-					/obj/item/clothing/suit/hooded/chaplain_hoodie,
-					/obj/item/clothing/suit/hooded/chaplain_hoodie,
+					/obj/item/clothing/suit/hooded/dark_robes,
+					/obj/item/clothing/suit/hooded/dark_robes,
 					/obj/item/clothing/under/misc/burial,
 					/obj/item/clothing/under/misc/burial)
 	cost = 250
@@ -117,6 +116,7 @@
 					/obj/item/clipboard,
 					/obj/item/clipboard)
 	cost = 100
+	containertype = /obj/structure/closet/crate/nanotrasen
 	containername = "bureaucracy crate"
 
 /datum/supply_packs/misc/artscrafts
@@ -154,6 +154,7 @@
 					/obj/item/poster/random_official,
 					/obj/item/poster/random_official)
 	cost = 50
+	containertype = /obj/structure/closet/crate/nanotrasen
 	containername = "corporate posters crate"
 
 ///////////// Janitor Supplies
@@ -521,14 +522,15 @@
 					/obj/item/vending_refill/chefdrobe,
 					/obj/item/vending_refill/hydrodrobe,
 					/obj/item/vending_refill/janidrobe,
-					/obj/item/vending_refill/lawdrobe)
+					/obj/item/vending_refill/lawdrobe,
+					/obj/item/vending_refill/chapdrobe)
 	containername = "service clothing vendor crate"
 
 /datum/supply_packs/misc/vending/clothingvendor/cargo
 	name = "Cargo Clothing Vendors Crate"
-	cost = 50
 	contains = list(/obj/item/vending_refill/cargodrobe,
-					/obj/item/vending_refill/exploredrobe)
+					/obj/item/vending_refill/exploredrobe,
+					/obj/item/vending_refill/minedrobe)
 	containername = "cargo clothing vendor crate"
 
 /datum/supply_packs/misc/hoverboard
@@ -544,7 +546,7 @@
 	cost = 10
 	special = TRUE
 	containername = "empty station goal crate"
-	containertype = /obj/structure/closet/crate/engineering
+	containertype = /obj/structure/closet/crate/nanotrasen
 
 /datum/supply_packs/misc/station_goal/bsa
 	name = "Bluespace Artillery Parts"
@@ -833,7 +835,7 @@
 		/obj/item/flag/command
 	)
 	cost = 250
-	containertype = /obj/structure/closet/crate/secure
+	containertype = /obj/structure/closet/crate/secure/nanotrasen
 	containername = "command flag crate"
 	access = ACCESS_HEADS
 
@@ -845,3 +847,12 @@
 	cost = 250
 	containername = "assistant flag crate"
 	contraband = TRUE
+
+/datum/supply_packs/misc/premium_havana_cigar
+	name = "premium Havana cigar crate"
+	contains = list(
+		/obj/item/storage/fancy/havana_cigar
+	)
+	cost = 5000 // This is a very luxurious product. And it's only made on Earth. And it's subject to TSF export taxes.
+	containername = "premium Havana cigar crate"
+	containertype = /obj/structure/largecrate

@@ -190,10 +190,6 @@
 	if(light_power && light_range)
 		update_light()
 
-	if(opacity && isturf(loc))
-		var/turf/T = loc
-		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guranteed to be on afterwards anyways.
-
 	if(loc)
 		SEND_SIGNAL(loc, COMSIG_ATOM_INITIALIZED_ON, src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
@@ -499,12 +495,14 @@
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE_MORE, user, .)
 
 /**
- * Updates the appearence of the icon
+ * Updates the appearence of the atom, including text.
  *
  * Mostly delegates to update_name, update_desc, and update_icon
  *
  * Arguments:
  * - updates: A set of bitflags dictating what should be updated. Defaults to [ALL]
+ *
+ * Supported bitflags: UPDATE_NAME, UPDATE_DESC, UPDATE_ICON
  */
 /atom/proc/update_appearance(updates=ALL)
 	SHOULD_NOT_SLEEP(TRUE)
@@ -531,7 +529,16 @@
 	PROTECTED_PROC(TRUE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_DESC, updates)
 
-/// Updates the icon of the atom
+/**
+ * Updates the icon and overlays of the atom
+ *
+ * Mostly delegates to update_icon_state and update_overlays
+ *
+ * Arguments:
+ * - updates: A set of bitflags dictating what should be updated. Defaults to [ALL]
+ *
+ * Supported bitflags: UPDATE_ICON_STATE, UPDATE_OVERLAYS
+ */
 /atom/proc/update_icon(updates=ALL)
 	SIGNAL_HANDLER
 	SHOULD_CALL_PARENT(TRUE)
@@ -558,12 +565,22 @@
 
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates)
 
-/// Updates the icon state of the atom
+/**
+ * Updates the icon state of the atom
+ *
+ * Excluding the base proc, or child overrides that do not intend to change the icon_state, this proc needs a minimum of two possible icon_states, otherwise it effectively becomes permanent and a redundant proc.
+ */
 /atom/proc/update_icon_state()
 	PROTECTED_PROC(TRUE)
 	return
 
-/// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
+/**
+ * Updates the managed overlays of the atom
+ *
+ * Old overlays from this proc are removed when called, and does not affect overlays from outside it. e.g. add_overlay() called independently in a different proc.
+ *
+ * It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon state names...
+ */
 /atom/proc/update_overlays()
 	PROTECTED_PROC(TRUE)
 	. = list()
@@ -1109,11 +1126,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
-/atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE)
+/atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE, type_override)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	if(!isspaceturf(src))
 		var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
 		var/vomit_reagent = green ? "green_vomit" : "vomit"
+		if(type_override)
+			type = type_override
 		for(var/obj/effect/decal/cleanable/vomit/V in get_turf(src))
 			if(V.type == type)
 				V.reagents.add_reagent(vomit_reagent, 5)
@@ -1236,25 +1255,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/proc/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	return
-
-/atom/vv_edit_var(var_name, var_value)
-	. = ..()
-	switch(var_name)
-		if("light_power", "light_range", "light_color")
-			update_light()
-		if("color")
-			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
-
-/atom/vv_get_dropdown()
-	. = ..()
-	.["Manipulate Colour Matrix"] = "byond://?_src_=vars;manipcolours=[UID()]"
-	var/turf/curturf = get_turf(src)
-	if(curturf)
-		.["Jump to turf"] = "byond://?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
-	.["Add reagent"] = "byond://?_src_=vars;addreagent=[UID()]"
-	.["Edit reagents"] = "byond://?_src_=vars;editreagents=[UID()]"
-	.["Trigger explosion"] = "byond://?_src_=vars;explode=[UID()]"
-	.["Trigger EM pulse"] = "byond://?_src_=vars;emp=[UID()]"
 
 /atom/proc/AllowDrop()
 	return FALSE
@@ -1510,3 +1510,38 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	attack_info.last_attacker_ckey = attacker.ckey
 	if(istype(weapon))
 		attack_info.last_attacker_weapon = "[weapon] ([weapon.type])"
+
+// MARK: PTL PROCS
+
+// Called when the target is selected
+/atom/proc/on_ptl_target(obj/machinery/power/transmission_laser/ptl)
+	if(ptl.firing)
+		on_ptl_fire()
+	return
+
+// Called for each process of the PTL
+/atom/proc/on_ptl_tick(obj/machinery/power/transmission_laser/ptl, output_level)
+	return
+
+// Called when no longer targeted by the ptl
+/atom/proc/on_ptl_untarget(obj/machinery/power/transmission_laser/ptl)
+	return
+
+// Called when the PTL starts firing on the target
+/atom/proc/on_ptl_fire(obj/machinery/power/transmission_laser/ptl)
+	return
+
+// Called when the PTL stops firing on the target
+/atom/proc/on_ptl_stop(obj/machinery/power/transmission_laser/ptl)
+	return
+
+// Used in the PTL ui
+/atom/proc/ptl_data()
+	return name
+
+// Called if an atom untargets itself
+/atom/proc/untarget_self(obj/machinery/power/transmission_laser/ptl)
+	on_ptl_untarget(ptl)
+	if(ptl)
+		ptl.target = null
+	return

@@ -12,7 +12,6 @@
 	name = "bee"
 	desc = "Buzzy buzzy bee, stingy sti- Ouch!"
 	icon_state = ""
-	icon_living = ""
 	icon = 'icons/mob/bees.dmi'
 	gender = FEMALE
 	speak_emote = list("buzzes")
@@ -279,12 +278,10 @@
 /obj/item/queen_bee
 	name = "queen bee"
 	desc = "She's the queen of bees, BZZ BZZ!"
-	icon_state = "queen_item"
-	item_state = ""
 	icon = 'icons/mob/bees.dmi'
+	icon_state = "queen_item"
 	gender = FEMALE
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
-
 
 /obj/item/queen_bee/attackby__legacy__attackchain(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/reagent_containers/syringe))
@@ -321,6 +318,11 @@
 
 /obj/item/queen_bee/Destroy()
 	QDEL_NULL(queen)
+	return ..()
+
+/mob/living/simple_animal/hostile/poison/bees/queen/consider_wakeup()
+	if(beehome && loc == beehome) // The queen is home and doesn't have to do anything.
+		return
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/bees/consider_wakeup()

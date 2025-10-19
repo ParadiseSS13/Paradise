@@ -58,8 +58,8 @@
 		"weed rate" = TRUE,
 		"weed chance" = TRUE)
 
-/obj/item/seeds/New(loc, nogenes = 0)
-	..()
+/obj/item/seeds/Initialize(mapload, nogenes = FALSE)
+	. = ..()
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(-6, 6)
 
@@ -526,7 +526,7 @@
 /obj/item/seeds/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
 		return
-	if(user.plant_analyzer)
+	if(user.ghost_flags & GHOST_PLANT_ANALYZER)
 		to_chat(user, get_analyzer_text())
 
 /obj/item/seeds/openTip()
@@ -618,8 +618,8 @@
 
 	var/datum/unsorted_seed/seed_data
 
-/obj/item/unsorted_seeds/New(obj/item/seeds/template, mutation_level, list/mutation_focus, seed_data_in = null)
-	..()
+/obj/item/unsorted_seeds/Initialize(mapload, obj/item/seeds/template, mutation_level, list/mutation_focus, seed_data_in = null)
+	. = ..()
 	template = template.Copy()
 	scatter_atom()
 	if(seed_data_in)
@@ -670,7 +670,7 @@
 /obj/item/unsorted_seeds/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
 		return
-	if(user.plant_analyzer)
+	if(user.ghost_flags & GHOST_PLANT_ANALYZER)
 		to_chat(user, get_analyzer_text())
 
 /obj/item/unsorted_seeds/openTip()

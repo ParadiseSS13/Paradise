@@ -2,12 +2,11 @@
 	name = "proto-kinetic accelerator"
 	desc = "A self-recharging, ranged mining tool that does increased damage in low pressure environments. It can be upgraded using specialised mod kits."
 	icon_state = "kineticgun"
-	item_state = "kineticgun"
+	inhand_icon_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
 	cell_type = /obj/item/stock_parts/cell/emproof
 	needs_permit = FALSE
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
-	weapon_weight = WEAPON_LIGHT
 	can_flashlight = TRUE
 	can_be_lensed = FALSE
 	flight_x_offset = 15
@@ -26,6 +25,9 @@
 	var/recharge_timerid
 
 	var/empty_state = "kineticgun_empty"
+
+/obj/item/gun/energy/kinetic_accelerator/update_icon_state()
+	icon_state = current_skin || initial(icon_state)
 
 /obj/item/gun/energy/kinetic_accelerator/examine(mob/user)
 	. = ..()
@@ -84,7 +86,6 @@
 	name = "kinetic accelerator cannon"
 	desc = "A cyborg-modified kinetic accelerator that operates in pressurized environments, but cannot be upgraded and fires slowly."
 	icon_state = "kineticgun_h"
-	item_state = "kineticgun_h"
 	max_mod_capacity = 0
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic/malf)
 	overheat_time = 2 SECONDS
@@ -177,7 +178,6 @@
 	name = "experimental kinetic accelerator"
 	desc = "A modified version of the proto-kinetic accelerator, with twice the modkit space of the standard version."
 	icon_state = "kineticgun_h"
-	item_state = "kineticgun_h"
 	origin_tech = "combat=5;powerstorage=3;engineering=5"
 	max_mod_capacity = 200
 
@@ -204,7 +204,6 @@
 	name = "kinetic force"
 	icon_state = null
 	damage = 40
-	damage_type = BRUTE
 	flag = BOMB
 	range = 3
 
@@ -268,19 +267,16 @@
 	var/obj/effect/temp_visual/kinetic_blast/K = new /obj/effect/temp_visual/kinetic_blast(target_turf)
 	K.color = color
 
-
 /obj/item/gun/energy/kinetic_accelerator/pistol
 	name = "proto-kinetic pistol"
 	desc = "A lightweight mining tool, sacrificing upgrade capacity for convenience."
 	icon_state = "kineticpistol"
-	item_state = "gun"
 	w_class = WEIGHT_CLASS_SMALL
 	max_mod_capacity = 65
 	can_bayonet = FALSE
-	can_flashlight = FALSE
+	flight_y_offset = 10
 	can_holster = TRUE
 	empty_state = "kineticpistol_empty"
-
 
 //Modkits
 /obj/item/borg/upgrade/modkit
@@ -325,13 +321,13 @@
 /obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = TRUE
 	if(istype(loc, /obj/item/gun/energy/kinetic_accelerator)) //Could be in another KA too.
-		message_admins("User attempted to install a modkit into a kinetic accelerator while it is installed in an accelerator. Could be a double click, or an exploit attempt.")
+		message_admins("[key_name_admin(user)] attempted to install a modkit into a kinetic accelerator while it is installed in an accelerator. Could be a double click, or an exploit attempt.")
 		return FALSE
 	if(minebot_upgrade)
-		if(minebot_exclusive && !istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
+		if(minebot_exclusive && !istype(KA.loc, /mob/living/basic/mining_drone))
 			to_chat(user, "<span class='notice'>The modkit you're trying to install is only rated for minebot use.</span>")
 			return FALSE
-	else if(istype(KA.loc, /mob/living/simple_animal/hostile/mining_drone))
+	else if(istype(KA.loc, /mob/living/basic/mining_drone))
 		to_chat(user, "<span class='notice'>The modkit you're trying to install is not rated for minebot use.</span>")
 		return FALSE
 	if(denied_type)
@@ -385,7 +381,6 @@
 /obj/item/borg/upgrade/modkit/range
 	name = "range increase"
 	desc = "Increases the range of a kinetic accelerator when installed."
-	modifier = 1
 	cost = 24 //so you can fit four plus a tracer cosmetic
 
 /obj/item/borg/upgrade/modkit/range/modify_projectile(obj/item/projectile/kinetic/K)
@@ -464,7 +459,7 @@
 				M.gets_drilled(K.firer)
 	if(modifier)
 		for(var/mob/living/L in range(1, target_turf) - K.firer - target)
-			var/armor = L.run_armor_check(K.def_zone, K.flag, null, null, K.armour_penetration_flat, K.armour_penetration_percentage)
+			var/armor = L.run_armor_check(K.def_zone, K.flag, armor_penetration_flat = K.armor_penetration_flat, armor_penetration_percentage = K.armor_penetration_percentage)
 			L.apply_damage(K.damage * modifier, K.damage_type, K.def_zone, armor)
 			to_chat(L, "<span class='userdanger'>You're struck by a [K.name]!</span>")
 
@@ -531,7 +526,6 @@
 	name = "resonator blast"
 	desc = "Causes kinetic accelerator shots to leave and detonate resonator blasts."
 	denied_type = /obj/item/borg/upgrade/modkit/resonator_blasts
-	cost = 30
 	modifier = 0.25 //A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
 
 /obj/item/borg/upgrade/modkit/resonator_blasts/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
@@ -548,7 +542,6 @@
 	desc = "Killing or assisting in killing a creature permanently increases your damage against that type of creature."
 	denied_type = /obj/item/borg/upgrade/modkit/bounty
 	modifier = 1.25
-	cost = 30
 	var/maximum_bounty = 25
 	var/list/bounties_reaped = list()
 
@@ -570,7 +563,7 @@
 			var/kill_modifier = 1
 			if(K.pressure_decrease_active)
 				kill_modifier *= K.pressure_decrease
-			var/armor = L.run_armor_check(K.def_zone, K.flag, null, null, K.armour_penetration_flat,  K.armour_penetration_percentage)
+			var/armor = L.run_armor_check(K.def_zone, K.flag, armor_penetration_flat = K.armor_penetration_flat, armor_penetration_percentage = K.armor_penetration_percentage)
 			L.apply_damage(bounties_reaped[L.type]*kill_modifier, K.damage_type, K.def_zone, armor)
 
 /obj/item/borg/upgrade/modkit/bounty/proc/get_kill(mob/living/L)
@@ -611,7 +604,6 @@
 	KA.trigger_guard = TRIGGER_GUARD_NORMAL
 	..()
 
-
 //Cosmetic
 
 /obj/item/borg/upgrade/modkit/chassis_mod
@@ -620,21 +612,24 @@
 	cost = 0
 	denied_type = /obj/item/borg/upgrade/modkit/chassis_mod
 	var/chassis_icon = "kineticgun_u"
-	var/chassis_item = "kineticgun_u"
 	var/chassis_name = "super-kinetic accelerator"
+	var/pistol_chassis_icon = "kineticpistol_u"
+	var/pistol_chassis_name = "super-kinetic pistol"
 
 /obj/item/borg/upgrade/modkit/chassis_mod/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = ..()
 	if(.)
-		KA.current_skin = chassis_icon
-		KA.name = chassis_name
-		KA.item_state = chassis_item
+		if(istype(KA, /obj/item/gun/energy/kinetic_accelerator/pistol))
+			KA.current_skin = pistol_chassis_icon
+			KA.name = pistol_chassis_name
+		else
+			KA.current_skin = chassis_icon
+			KA.name = chassis_name
 		KA.update_icon()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
 	KA.current_skin = initial(KA.current_skin)
 	KA.name = initial(KA.name)
-	KA.item_state = initial(KA.item_state)
 	KA.update_icon()
 	..()
 
@@ -642,8 +637,9 @@
 	name = "hyper chassis"
 	desc = "Makes your KA orange. All the fun of having explosive blasts without actually having explosive blasts."
 	chassis_icon = "kineticgun_h"
-	chassis_item = "kineticgun_h"
 	chassis_name = "hyper-kinetic accelerator"
+	pistol_chassis_icon = "kineticpistol_h"
+	pistol_chassis_name = "hyper-kinetic pistol"
 
 /obj/item/borg/upgrade/modkit/tracer
 	name = "white tracer bolts"

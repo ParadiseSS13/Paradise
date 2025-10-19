@@ -6,6 +6,7 @@
 	var/implant_overlay
 	var/crit_fail = FALSE //Used by certain implants to disable them.
 	tough = TRUE // Immune to damage
+	augment_state ='icons/mob/human_races/robotic.dmi'
 
 /obj/item/organ/internal/cyberimp/New(mob/M = null)
 	. = ..()
@@ -62,14 +63,14 @@
 			if(owner.l_hand.flags & NODROP)
 				l_hand_ignore = TRUE
 			else
-				owner.l_hand.flags |= NODROP
+				owner.l_hand.set_nodrop(TRUE, owner)
 				l_hand_ignore = FALSE
 
 		if(r_hand_obj)
 			if(owner.r_hand.flags & NODROP)
 				r_hand_ignore = TRUE
 			else
-				owner.r_hand.flags |= NODROP
+				owner.r_hand.set_nodrop(TRUE, owner)
 				r_hand_ignore = FALSE
 
 		if(!l_hand_obj && !r_hand_obj)
@@ -116,9 +117,9 @@
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
 	active = FALSE
 	if(!l_hand_ignore && l_hand_obj)
-		l_hand_obj.flags &= ~NODROP
+		l_hand_obj.set_nodrop(FALSE, owner)
 	if(!r_hand_ignore && r_hand_obj)
-		r_hand_obj.flags &= ~NODROP
+		r_hand_obj.set_nodrop(FALSE, owner)
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/remove(mob/living/carbon/M, special = 0)
 	if(active)
@@ -225,10 +226,8 @@
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible
-	name = "Hardened Neural Jumpstarter implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces. This one is compatible with the CNS Rebooter implant."
 	slot = "brain_antisleep"
-	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/clown_voice
 	name = "Comical implant"
@@ -303,6 +302,13 @@
 	REMOVE_TRAIT(M, TRAIT_SHOW_WIRE_INFO, "show_wire_info[UID()]")
 	return ..()
 
+/obj/item/organ/internal/cyberimp/brain/wire_interface/emp_act(severity)
+	if(!owner || emp_proof)
+		return
+	var/time_of_emp = world.time // This lets us be emp'd multiple times, applying the trait multiple times, extending the cooldown
+	ADD_TRAIT(owner, TRAIT_WIRE_BLIND, "emp'd_at_[time_of_emp]")
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(callback_remove_trait), owner, TRAIT_WIRE_BLIND, "emp'd_at_[time_of_emp]"), (2 MINUTES / severity))
+
 /obj/item/organ/internal/cyberimp/brain/wire_interface/hardened
 	name = "Hardened Wire interface implant"
 	desc = "This wire interface implant is actually wireless, to avoid issues with electromagnetic pulses."
@@ -325,6 +331,8 @@
 	emp_proof = TRUE
 	actions_types = list(/datum/action/item_action/organ_action/toggle/sensory_enhancer)
 	origin_tech = "combat=6;biotech=6;syndicate=4"
+	augment_icon = "sandy"
+	always_show_augment = TRUE // A bit too big and bright to hide with synthetic skin.
 	///The icon state used for the on mob sprite. Default is sandy. Drask and vox have their own unique sprites
 	var/custom_mob_sprite = "sandy"
 	COOLDOWN_DECLARE(sensory_enhancer_cooldown)
@@ -358,13 +366,16 @@
 	REMOVE_TRAIT(M, TRAIT_MEPHEDRONE_ADAPTED, "[UID()]")
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/render()
+	. = ..()
+	if(!.)
+		return
 	if(isvox(owner))
 		custom_mob_sprite = "vox_sandy"
 	else if(isdrask(owner))
 		custom_mob_sprite = "drask_sandy"
 	else
 		custom_mob_sprite = "sandy"
-	var/mutable_appearance/our_MA = mutable_appearance('icons/mob/human_races/robotic.dmi', icon_state, layer = -INTORGAN_LAYER)
+	var/mutable_appearance/our_MA = mutable_appearance(augment_state, custom_mob_sprite, layer = -INTORGAN_LAYER)
 	return our_MA
 
 /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/emp_act(severity)
@@ -382,9 +393,8 @@
 /datum/action/item_action/organ_action/toggle/sensory_enhancer
 	name = "Activate Qani-Laaca System"
 	desc = "Activates your Qani-Laaca computer and grants you its powers. LMB: Short, safer activation. ALT/MIDDLE: Longer, more powerful, more dangerous activation."
-	button_overlay_icon = 'icons/obj/surgery.dmi'
-	button_overlay_icon_state = "sandy"
-	check_flags = AB_CHECK_CONSCIOUS
+	button_icon = 'icons/obj/surgery.dmi'
+	button_icon_state = "sandy"
 	/// Keeps track of how much mephedrone we inject into people on activation
 	var/injection_amount = 10
 
@@ -452,7 +462,6 @@
 	implant_overlay = null
 	implant_color = null
 	slot = "brain_antistun"
-	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=4;combat=6;biotech=6;powerstorage=2;syndicate=3"
 	stealth_level = 4 //Only surgery or a body scanner with the highest tier of stock parts can detect this.
 
@@ -502,10 +511,8 @@
 /datum/spell/hackerman_deck
 	name = "Activate Ranged Hacking"
 	desc = "Click on any machine to hack them. Has a short range of only three tiles."
-	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
 	antimagic_flags = NONE
 	selection_activated_message = "You warm up your Binyat deck, there's an idle buzzing at the back of your mind as it awaits a target."
 	selection_deactivated_message = "Your hacking deck makes an almost disappointed sounding buzz at the back of your mind as it powers down."
@@ -580,6 +587,14 @@
 	slot = "breathing_tube"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=2;biotech=3"
+	augment_icon = "breathing_tube"
+
+/obj/item/organ/internal/cyberimp/mouth/breathing_tube/render()
+	. = ..()
+	if(!.)
+		return
+	var/mutable_appearance/our_MA = mutable_appearance(augment_state, augment_icon, layer = -INTORGAN_LAYER)
+	return our_MA
 
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube/emp_act(severity)
 	if(emp_proof)
@@ -594,7 +609,6 @@
 	desc = "implants for the organs in your torso."
 	icon_state = "chest_implant"
 	implant_overlay = "chest_implant_overlay"
-	parent_organ = "chest"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment
 	name = "Nutriment pump implant"
@@ -607,6 +621,7 @@
 	var/disabled_by_emp = FALSE
 	slot = "stomach"
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
+	augment_icon = "nutripump"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/examine(mob/user)
 	. = ..()
@@ -646,6 +661,14 @@
 	synthesizing = FALSE
 	addtimer(CALLBACK(src, PROC_REF(emp_cool)), 60 SECONDS)
 
+/obj/item/organ/internal/cyberimp/chest/nutriment/render()
+	. = ..()
+	if(!.)
+		return
+	var/mutable_appearance/our_MA = mutable_appearance(augment_state, augment_icon, layer = -INTORGAN_LAYER)
+	return our_MA
+
+
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
 	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are hungry."
@@ -653,6 +676,7 @@
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
+	augment_icon = "nutripump_adv"
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	name = "hardened nutriment pump implant"
@@ -669,6 +693,7 @@
 	implant_overlay = null
 	origin_tech = "materials=5;programming=5;biotech=6"
 	slot = "heartdrive"
+	augment_icon = "reviver"
 	/// How long the implant will go on cooldown for once the user has exited crit, in seconds.
 	var/revive_cost = 0 SECONDS
 	/// Are we in the progress of healing the user?
@@ -691,6 +716,13 @@
 /obj/item/organ/internal/cyberimp/chest/reviver/hardened/Initialize(mapload)
 	. = ..()
 	desc += " The implant has been hardened. It is invulnerable to EMPs."
+
+/obj/item/organ/internal/cyberimp/chest/reviver/render()
+	. = ..()
+	if(!.)
+		return
+	var/mutable_appearance/our_MA = mutable_appearance(augment_state, augment_icon, layer = -INTORGAN_LAYER)
+	return our_MA
 
 /obj/item/organ/internal/cyberimp/chest/reviver/dead_process()
 	try_heal() // Allows implant to work even on dead people
@@ -759,8 +791,6 @@
 		return
 	var/mob/dead/observer/ghost = owner.get_ghost()
 	if(ghost)
-		if(!ghost.can_reenter_corpse)
-			return
 		to_chat(ghost, "<span class='ghostalert'>You are being revived by [src]!</span>")
 		window_flash(ghost.client)
 		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
@@ -990,6 +1020,22 @@
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/flayer_pacification/remove(mob/living/carbon/M, special)
 	REMOVE_TRAIT(M, TRAIT_MINDFLAYER_NULLIFIED, UNIQUE_TRAIT_SOURCE(src))
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/ipc_food
+	name = "Culinary Processing Implant"
+	desc = "This implant emulates the functions of a gastrointestinal system, allowing IPCs to eat and experience taste."
+	implant_color = "#d8780a"
+	origin_tech = "materials=2;powerstorage=2;biotech=2"
+	slot = "gastrointestinal"
+	requires_machine_person = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/ipc_food/insert(mob/living/carbon/M, special = FALSE)
+	..()
+	ADD_TRAIT(M, TRAIT_IPC_CAN_EAT, "ipc_food[UID()]")
+
+/obj/item/organ/internal/cyberimp/chest/ipc_food/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_IPC_CAN_EAT, "ipc_food[UID()]")
 	return ..()
 
 //BOX O' IMPLANTS

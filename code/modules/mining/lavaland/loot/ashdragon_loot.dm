@@ -5,7 +5,6 @@
 	desc = "A rusted and dulled blade. It doesn't look like it'd do much damage."
 	icon = 'icons/obj/weapons/magical_weapons.dmi'
 	icon_state = "spectral"
-	item_state = "spectral"
 	flags = CONDUCT
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_BULKY
@@ -69,7 +68,7 @@
 	if(href_list["follow"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
-			ghost.ManualFollow(src)
+			ghost.manual_follow(src)
 
 /obj/item/melee/ghost_sword/proc/add_ghost(atom/movable/orbited, atom/orbiter)
 	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_BEGIN
@@ -212,8 +211,6 @@
 	agent = "dragon's blood"
 	desc = "What do dragons have to do with Space Station 13?"
 	stage_prob = 20
-	severity = BIOHAZARD
-	visibility_flags = 0
 	stage1	= list("Your bones ache.")
 	stage2	= list("Your skin feels scaley.")
 	stage3	= list("<span class='danger'>You have an overwhelming urge to terrorize some peasants.</span>", "<span class='danger'>Your teeth feel sharper.</span>")
@@ -230,7 +227,6 @@
 	icon_state = "lavastaff"
 	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
-	item_state = "lavastaff"
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25

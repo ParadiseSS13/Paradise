@@ -19,12 +19,9 @@
 /obj/machinery/computer/library
 	name = "Library Computer"
 	desc = "Used by dusty librarians for their dusty books."
-	icon = 'icons/obj/computer.dmi'
 	icon_state = "oldcomp"
 	icon_screen = "library"
 	icon_keyboard = null
-	density = TRUE
-	anchored = TRUE
 
 	//We define a required access only to lock library specific actions like ordering/managing books to librarian access+
 	req_one_access = list(ACCESS_LIBRARY)
@@ -52,7 +49,7 @@
 
 /obj/machinery/computer/library/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(populate_booklist)), 0)
+	END_OF_TICK(CALLBACK(src, PROC_REF(populate_booklist)))
 
 /obj/machinery/computer/library/attack_ai(mob/user)
 	return attack_hand(user)

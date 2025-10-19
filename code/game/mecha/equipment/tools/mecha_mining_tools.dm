@@ -110,7 +110,7 @@
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			var/obj/item/organ/external/target_part = H.get_organ(ran_zone("chest"))
-			H.apply_damage(10, BRUTE, "chest", H.run_armor_check(target_part, MELEE))
+			H.apply_damage(10, BRUTE, BODY_ZONE_CHEST, H.run_armor_check(target_part, MELEE))
 
 			//blood splatters
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(H.drop_location(), splatter_dir, H.dna.species.blood_color)
@@ -131,7 +131,6 @@
 	equip_cooldown = 10
 	drill_delay = 4
 	drill_level = DRILL_HARDENED
-	force = 15
 
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner

@@ -67,7 +67,7 @@
 	if(!pass_info.is_living)
 		return TRUE
 
-	return pass_info.is_flying || pass_info.is_megafauna
+	return pass_info.is_flying || pass_info.is_megafauna || (locate(/obj/structure/bridge_walkway) in src)
 
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
@@ -180,6 +180,9 @@
 			L.adjustBruteLoss(30)
 	falling_atoms -= AM
 
+/turf/simulated/floor/chasm/can_cross_safely(atom/movable/crossing)
+	return (locate(/obj/structure/bridge_walkway) in src) || HAS_TRAIT(crossing, TRAIT_FLYING)
+
 /turf/simulated/floor/chasm/straight_down
 	var/obj/effect/abstract/chasm_storage/storage
 
@@ -275,7 +278,6 @@
 /obj/effect/abstract/chasm_storage
 	name = "chasm depths"
 	desc = "The bottom of a hole. You shouldn't be able to interact with this."
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/effect/abstract/chasm_storage/Entered(atom/movable/arrived)

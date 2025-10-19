@@ -5,7 +5,7 @@
 	fire_sound_text = "thwock"
 
 	var/obj/item/to_launch
-	var/list/valid_projectile_type
+	var/obj/item/valid_projectile_type
 	var/max_capacity = 1
 	var/list/loaded_projectiles = list()
 

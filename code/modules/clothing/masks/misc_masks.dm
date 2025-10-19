@@ -2,9 +2,8 @@
 	name = "muzzle"
 	desc = "To stop that awful noise."
 	icon_state = "muzzle"
-	item_state = "muzzle"
+	inhand_icon_state = "muzzle"
 	flags_cover = MASKCOVERSMOUTH
-	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
 	put_on_delay = 2 SECONDS
 	/// How long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
@@ -12,7 +11,6 @@
 	var/mute = MUZZLE_MUTE_ALL
 	var/security_lock = FALSE // Requires brig access to remove 0 - Remove as normal
 	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
-
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi'
 		)
@@ -32,7 +30,7 @@
 	if(security_lock)
 		security_lock = FALSE
 		locked = FALSE
-		flags &= ~NODROP
+		set_nodrop(FALSE, loc)
 		desc += " This one appears to be broken."
 		return TRUE
 	else
@@ -46,7 +44,7 @@
 	else if(ACCESS_BRIG in user.get_access())
 		to_chat(user, "<span class='warning'>The muzzle unlocks with a click.</span>")
 		locked = FALSE
-		flags &= ~NODROP
+		set_nodrop(FALSE, loc)
 		return TRUE
 
 	to_chat(user, "<span class='warning'>You must be wearing a security ID card or have one in your inactive hand to remove the muzzle.</span>")
@@ -55,7 +53,7 @@
 /obj/item/clothing/mask/muzzle/proc/do_lock(mob/living/carbon/human/user)
 	if(security_lock)
 		locked = TRUE
-		flags |= NODROP
+		set_nodrop(TRUE, loc)
 		return TRUE
 	return FALSE
 
@@ -63,7 +61,7 @@
 	name = "tape gag"
 	desc = "MHPMHHH!"
 	icon_state = "tapegag"
-	item_state = null
+	inhand_icon_state = null
 	w_class = WEIGHT_CLASS_TINY
 	resist_time = 30 SECONDS
 	mute = MUZZLE_MUTE_MUFFLE
@@ -90,11 +88,8 @@
 	name = "safety muzzle"
 	desc = "A muzzle designed to prevent biting."
 	icon_state = "muzzle_secure"
-	item_state = "muzzle_secure"
-	resist_time = 0 SECONDS
 	mute = MUZZLE_MUTE_NONE
 	security_lock = TRUE
-	locked = FALSE
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 	sprite_sheets = list(
@@ -179,15 +174,13 @@
 	name = "sterile mask"
 	desc = "A sterile mask designed to help prevent the spread of diseases."
 	icon_state = "sterile"
-	item_state = "sterile"
+	inhand_icon_state = "m_mask"
 	w_class = WEIGHT_CLASS_TINY
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	actions_types = list(/datum/action/item_action/adjust)
 	can_toggle = TRUE
-
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -195,8 +188,11 @@
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi'
-		)
+	)
 
+/obj/item/clothing/mask/surgical/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_ANTI_VIRAL, "inherent")
 
 /obj/item/clothing/mask/surgical/attack_self__legacy__attackchain(mob/user)
 	adjustmask(user)
@@ -232,20 +228,15 @@
 	name = "pig mask"
 	desc = "A rubber pig mask."
 	icon_state = "pig"
-	item_state = "pig"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
-	w_class = WEIGHT_CLASS_SMALL
-
 
 /obj/item/clothing/mask/horsehead
 	name = "horse head mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a horse."
 	icon_state = "horsehead"
-	item_state = "horsehead"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
-	w_class = WEIGHT_CLASS_SMALL
 	var/voicechange = FALSE
 	var/temporaryname = " the Horse"
 	var/originalname = ""
@@ -292,66 +283,48 @@
 	name = "rat mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a rat."
 	icon_state = "rat"
-	item_state = "rat"
 
 /obj/item/clothing/mask/face/fox
 	name = "fox mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a fox."
 	icon_state = "fox"
-	item_state = "fox"
 
 /obj/item/clothing/mask/face/bee
 	name = "bee mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a bee."
 	icon_state = "bee"
-	item_state = "bee"
 	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
 
 /obj/item/clothing/mask/face/bear
 	name = "bear mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a bear."
 	icon_state = "bear"
-	item_state = "bear"
 
 /obj/item/clothing/mask/face/bat
 	name = "bat mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a bat."
 	icon_state = "bat"
-	item_state = "bat"
 
 /obj/item/clothing/mask/face/raven
 	name = "raven mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a raven."
 	icon_state = "raven"
-	item_state = "raven"
 
 /obj/item/clothing/mask/face/jackal
 	name = "jackal mask"
 	desc = "A mask made of soft vinyl and latex, representing the head of a jackal."
 	icon_state = "jackal"
-	item_state = "jackal"
 
 /obj/item/clothing/mask/face/tribal
 	name = "tribal mask"
 	desc = "A mask carved out of wood, detailed carefully by hand."
 	icon_state = "bumba"
-	item_state = "bumba"
 
 /obj/item/clothing/mask/fawkes
 	name = "Guy Fawkes mask"
 	desc = "A mask designed to help you remember a specific date."
 	icon_state = "fawkes"
-	item_state = "fawkes"
 	flags_inv = HIDEFACE
-	w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/clothing/mask/gas/clown_hat/pennywise
-	name = "\improper Pennywise mask"
-	desc = "It's the eater of worlds, and of children."
-	icon_state = "pennywise_mask"
-	item_state = "pennywise_mask"
-
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 
 // Bandanas
 /obj/item/clothing/mask/bandana
@@ -360,7 +333,6 @@
 	flags_inv = HIDEFACE
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = ITEM_SLOT_MASK
 	adjusted_flags = ITEM_SLOT_HEAD
 	icon_state = "bandbotany"
 	dyeable = TRUE
@@ -447,43 +419,36 @@
 /obj/item/clothing/mask/bandana/red
 	name = "red bandana"
 	icon_state = "bandred"
-	item_color = "red"
 	desc = "It's a red bandana."
 
 /obj/item/clothing/mask/bandana/blue
 	name = "blue bandana"
 	icon_state = "bandblue"
-	item_color = "blue"
 	desc = "It's a blue bandana."
 
 /obj/item/clothing/mask/bandana/gold
 	name = "gold bandana"
 	icon_state = "bandgold"
-	item_color = "yellow"
 	desc = "It's a gold bandana."
 
 /obj/item/clothing/mask/bandana/green
 	name = "green bandana"
 	icon_state = "bandgreen"
-	item_color = "green"
 	desc = "It's a green bandana."
 
 /obj/item/clothing/mask/bandana/orange
 	name = "orange bandana"
 	icon_state = "bandorange"
-	item_color = "orange"
 	desc = "It's an orange bandana."
 
 /obj/item/clothing/mask/bandana/purple
 	name = "purple bandana"
 	icon_state = "bandpurple"
-	item_color = "purple"
 	desc = "It's a purple bandana."
 
 /obj/item/clothing/mask/bandana/botany
 	name = "botany bandana"
 	desc = "It's a green bandana with some fine nanotech lining."
-	icon_state = "bandbotany"
 
 /obj/item/clothing/mask/bandana/skull
 	name = "skull bandana"
@@ -493,7 +458,6 @@
 /obj/item/clothing/mask/bandana/black
 	name = "black bandana"
 	icon_state = "bandblack"
-	item_color = "black"
 	desc = "It's a black bandana."
 
 /obj/item/clothing/mask/bandana/durathread
@@ -506,25 +470,37 @@
 	desc = "This is a very, very odd looking mask."
 	icon = 'icons/goonstation/objects/clothing/mask.dmi'
 	icon_state = "cursedclown"
-	item_state = "cclown_hat"
-	icon_override = 'icons/goonstation/mob/clothing/mask.dmi'
+	worn_icon = 'icons/goonstation/mob/clothing/mask.dmi'
+	inhand_icon_state = "cclown_hat"
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags =	BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	flags_cover = MASKCOVERSMOUTH
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/mask.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi'
+		)
 
 /obj/item/clothing/mask/cursedclown
 	name = "cursed clown mask"
 	desc = "This is a very, very odd looking mask."
 	icon = 'icons/goonstation/objects/clothing/mask.dmi'
 	icon_state = "cursedclown"
-	item_state = "cclown_hat"
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	icon_override = 'icons/goonstation/mob/clothing/mask.dmi'
+	worn_icon = 'icons/goonstation/mob/clothing/mask.dmi'
+	inhand_icon_state = "cclown_hat"
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = NODROP | AIRTIGHT | DROPDEL
 	flags_cover = MASKCOVERSMOUTH
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/mask.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi'
+		)
 
 /obj/item/clothing/mask/cursedclown/equipped(mob/user, slot)
 	..()

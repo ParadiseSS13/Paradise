@@ -7,8 +7,8 @@
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	force = 6
+	throwforce = 5
 	throw_speed = 3
-	throw_range = 7
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 370)
 	origin_tech = "materials=1;engineering=1"
@@ -18,7 +18,6 @@
 	drop_sound = 'sound/items/handling/wirecutter_drop.ogg'
 	pickup_sound =  'sound/items/handling/wirecutter_pickup.ogg'
 	sharp = TRUE
-	toolspeed = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WIRECUTTER
 	var/random_color = TRUE
@@ -69,7 +68,7 @@
 	desc = "A pair of tacticool wirecutters fitted with contoured grips and a picatinny rail. The blades are also sharper than normal."
 	icon_state = "cutters_sec"
 	belt_icon = "wirecutters_sec"
-	item_state = "cutters_red" //shh
+	inhand_icon_state = "cutters_red" //shh
 	attack_verb = list("reformed", "robusted", "102'd") //102: battery in space law
 	force = 9 //same as seclites
 	toolspeed = 0.75
@@ -106,7 +105,6 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/wirecutters/cyborg
-	name = "wirecutters"
 	desc = "A pair of integrated wirecutters used by construction and engineering robots."
 	toolspeed = 0.5
 
@@ -120,7 +118,7 @@
 	name = "jaws of life"
 	desc = "A compact and powerful industrial tool with a modular head. This one has a set of large cutting blades attached."
 	icon_state = "jaws_cutter"
-	item_state = "jawsoflife"
+	inhand_icon_state = "jawsoflife"
 	belt_icon = "jaws"
 	origin_tech = "materials=2;engineering=2"
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)

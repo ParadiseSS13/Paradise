@@ -7,11 +7,11 @@
 
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS
-	button_overlay_icon = 'icons/mob/actions/actions_slime.dmi'
-	button_background_icon_state = "bg_alien"
+	button_icon = 'icons/mob/actions/actions_slime.dmi'
+	background_icon_state = "bg_alien"
 	var/needs_growth = NO_GROWTH_NEEDED
 
-/datum/action/innate/slime/IsAvailable()
+/datum/action/innate/slime/IsAvailable(show_message = TRUE)
 	if(..())
 		var/mob/living/simple_animal/slime/S = owner
 		if(needs_growth == GROWTH_NEEDED)
@@ -42,7 +42,7 @@
 
 /datum/action/innate/slime/feed
 	name = "Feed"
-	button_overlay_icon_state = "slimeeat"
+	button_icon_state = "slimeeat"
 
 
 /datum/action/innate/slime/feed/Activate()
@@ -144,7 +144,7 @@
 
 /datum/action/innate/slime/evolve
 	name = "Evolve"
-	button_overlay_icon_state = "slimegrow"
+	button_icon_state = "slimegrow"
 	needs_growth = GROWTH_NEEDED
 
 /datum/action/innate/slime/evolve/Activate()
@@ -167,7 +167,8 @@
 
 			if(istype(loc, /obj/machinery/computer/camera_advanced/xenobio))
 				return //no you cannot split while you're in the matrix (this prevents GC issues and slimes disappearing)
-
+			if(holding_organ)
+				eject_organ()
 			var/list/babies = list()
 			var/new_nutrition = round(nutrition * 0.9)
 			var/new_powerlevel = round(powerlevel / 4)
@@ -204,7 +205,7 @@
 
 /datum/action/innate/slime/reproduce
 	name = "Reproduce"
-	button_overlay_icon_state = "slimesplit"
+	button_icon_state = "slimesplit"
 	needs_growth = GROWTH_NEEDED
 
 /datum/action/innate/slime/reproduce/Activate()

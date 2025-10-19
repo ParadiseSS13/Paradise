@@ -101,7 +101,6 @@
 	icon_state = "default"
 	name = "Alert"
 	desc = "Something seems to have gone wrong with this alert, so report this bug please."
-	mouse_opacity = MOUSE_OPACITY_ICON
 	/// How long before this alert automatically clears itself (in deciseconds). If zero, remains until cleared.
 	var/timeout = 0
 	/// Some alerts may have different icon states based on severity, this adjusts that.
@@ -451,7 +450,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	if(!..())
 		return
 	if(isnymph(usr))
-		var/mob/living/simple_animal/diona/D = usr
+		var/mob/living/basic/diona_nymph/D = usr
 		return D.resist()
 
 /atom/movable/screen/alert/gestalt
@@ -463,14 +462,14 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		return
 
 	var/list/nymphs = list()
-	for(var/mob/living/simple_animal/diona/D in usr.contents)
+	for(var/mob/living/basic/diona_nymph/D in usr.contents)
 		nymphs += D
 
 	if(length(nymphs) == 1)
-		var/mob/living/simple_animal/diona/D = nymphs[1]
+		var/mob/living/basic/diona_nymph/D = nymphs[1]
 		D.split(TRUE)
 	else
-		var/mob/living/simple_animal/diona/D = tgui_input_list(usr, "Select a nymph to drop:", "Nymph Dropping", nymphs)
+		var/mob/living/basic/diona_nymph/D = tgui_input_list(usr, "Select a nymph to drop:", "Nymph Dropping", nymphs)
 		if(D in usr.contents)
 			D.split(TRUE)
 
@@ -657,7 +656,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!istype(hugger_mask) || !(locate(/obj/item/organ/internal/body_egg/alien_embryo) in infected_user.internal_organs) || hugger_mask.sterile)
 		infected_user.clear_alert("ghost_nest")
 		return
-	infected_user.ghostize(TRUE)
+	infected_user.ghostize()
 
 /atom/movable/screen/alert/notify_action
 	name = "Body created"
@@ -725,16 +724,16 @@ so as to remain in compliance with the most up-to-date laws."
 				var/turf/T = get_turf(target)
 				if(T && isturf(T))
 					if(!istype(G))
-						var/mob/dead/observer/actual_ghost = G.ghostize(TRUE)
+						var/mob/dead/observer/actual_ghost = G.ghostize()
 						actual_ghost.forceMove(T)
 						return
 					G.forceMove(T)
 			if(NOTIFY_FOLLOW)
 				if(!istype(G))
-					var/mob/dead/observer/actual_ghost = G.ghostize(TRUE)
-					actual_ghost.ManualFollow(target)
+					var/mob/dead/observer/actual_ghost = G.ghostize()
+					actual_ghost.manual_follow(target)
 					return
-				G.ManualFollow(target)
+				G.manual_follow(target)
 
 /atom/movable/screen/alert/notify_action/Topic(href, href_list)
 	if(!href_list["signup"])
@@ -820,6 +819,11 @@ so as to remain in compliance with the most up-to-date laws."
 	name = "Legcuffed"
 	desc = "You're legcuffed, which slows you down considerably. Click the alert to free yourself."
 
+/atom/movable/screen/alert/restrained/cryocell
+	name = "Cryogenics"
+	desc = "You're inside a freezing cold medical cell. Click the alert to free yourself."
+	icon_state = "asleep"
+
 /atom/movable/screen/alert/restrained/Click()
 	if(!isliving(usr) || !..())
 		return
@@ -858,15 +862,15 @@ so as to remain in compliance with the most up-to-date laws."
 			alert.icon = icon_pref
 		switch(i)
 			if(1)
-				. = ui_alert1
+				. = UI_ALERT1
 			if(2)
-				. = ui_alert2
+				. = UI_ALERT2
 			if(3)
-				. = ui_alert3
+				. = UI_ALERT3
 			if(4)
-				. = ui_alert4
+				. = UI_ALERT4
 			if(5)
-				. = ui_alert5 // Right now there's 5 slots
+				. = UI_ALERT5 // Right now there's 5 slots
 			else
 				. = ""
 		alert.screen_loc = .

@@ -35,7 +35,8 @@
 	var/list/addiction_threshold_accumulated = list()
 	var/flags
 
-/datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum)
+/datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum, atom/_my_atom = null)
+	my_atom = _my_atom
 	maximum_volume = maximum
 	if(temperature_minimum)
 		temperature_min = temperature_minimum
@@ -63,9 +64,10 @@
 			var/datum/chemical_reaction/D = new path()
 			var/list/reaction_ids = list()
 
-			if(D && length(D.required_reagents))
-				for(var/reaction in D.required_reagents)
-					reaction_ids += reaction
+			if(D && (length(D.required_reagents) || length(D.required_catalysts)))
+				var/list/all_requirements = D.required_reagents + D.required_catalysts
+				for(var/reagent_id in all_requirements)
+					reaction_ids += reagent_id
 
 			// Create filters based on each reagent id in the required reagents list
 			for(var/id in reaction_ids)
@@ -73,6 +75,9 @@
 					GLOB.chemical_reactions_list[id] = list()
 				GLOB.chemical_reactions_list[id] += D
 				break // Don't bother adding ourselves to other reagent ids, it is redundant.
+	if(my_atom)
+		RegisterSignal(my_atom, COMSIG_ATOM_RAD_ACT, PROC_REF(radiation_react))
+		ADD_TRAIT(my_atom, TRAIT_ABSORB_RADS, "reagents_holder_[UID()]")
 
 /**
  * Removes reagents from the holder until the passed amount is matched.
@@ -171,11 +176,16 @@
 		if(!O.reagents)
 			return
 		R = O.reagents
+		if(isliving(my_atom))
+			var/atom/thing = target
+			SEND_SIGNAL(thing, COMSIG_MOB_REAGENT_EXCHANGE, my_atom)
 	else if(isliving(target))
 		var/mob/living/M = target
 		if(!M.reagents)
 			return
 		R = M.reagents
+		if(isobj(my_atom))
+			SEND_SIGNAL(my_atom, COMSIG_MOB_REAGENT_EXCHANGE, target)
 	else if(istype(target, /datum/reagents))
 		R = target
 	else
@@ -186,7 +196,6 @@
 	var/trans_data = null
 	for(var/A in reagent_list)
 		var/datum/reagent/current_reagent = A
-
 		var/current_reagent_transfer = current_reagent.volume * part
 		if(preserve_data)
 			trans_data = copy_data(current_reagent)
@@ -199,6 +208,8 @@
 	if(!no_react)
 		R.handle_reactions()
 		handle_reactions()
+		R.temperature_react()
+		temperature_react()
 	return amount
 
 /datum/reagents/proc/copy_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, safety = FALSE)
@@ -215,12 +226,15 @@
 		var/current_reagent_transfer = current_reagent.volume * part
 		if(preserve_data)
 			trans_data = copy_data(current_reagent)
+
 		R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data)
 
 	update_total()
 	R.update_total()
 	R.handle_reactions()
 	handle_reactions()
+	R.temperature_react()
+	temperature_react()
 	return amount
 
 /datum/reagents/proc/set_reagent_temp(new_temp = T0C, react = TRUE)
@@ -230,9 +244,16 @@
 		handle_reactions()
 
 /datum/reagents/proc/temperature_react() //Calls the temperature reaction procs without changing the temp.
+	if(chem_temp > VIRUS_DISINFECTION_TEMP && isobj(my_atom))
+		SEND_SIGNAL(my_atom, COMSIG_ATOM_DISINFECTED)
 	for(var/A in reagent_list)
 		var/datum/reagent/current_reagent = A
 		current_reagent.reaction_temperature(chem_temp, 100)
+
+/datum/reagents/proc/radiation_react(atom/source, amount, emission_type)
+	SIGNAL_HANDLER // COMSIG_ATOM_RAD_ACT
+	for(var/datum/reagent/current_reagent in reagent_list)
+		current_reagent.reaction_radiation(amount, emission_type)
 
 /datum/reagents/proc/temperature_reagents(exposed_temperature, divisor = 35, change_cap = 15) //This is what you use to change the temp of a reagent holder.
 	//Do not manually change the reagent unless you know what youre doing.
@@ -275,6 +296,8 @@
 	if(get_reagent_amount(reagent) < amount)
 		amount = get_reagent_amount(reagent)
 	amount = min(amount, R.maximum_volume - R.total_volume)
+	if(isliving(my_atom))
+		SEND_SIGNAL(target,COMSIG_MOB_REAGENT_EXCHANGE , my_atom)
 	var/trans_data = null
 	for(var/A in reagent_list)
 		var/datum/reagent/current_reagent = A
@@ -288,6 +311,7 @@
 	update_total()
 	R.update_total()
 	R.handle_reactions()
+	R.temperature_react()
 	return amount
 
 
@@ -492,7 +516,7 @@
 					var/preserved_data = null
 					for(var/B in C.required_reagents)
 						if(!preserved_data)
-							preserved_data = get_data(B)
+							preserved_data = copy_data_by_id(B)
 						remove_reagent(B, (multiplier * C.required_reagents[B]), safety = TRUE)
 
 					var/created_volume = C.result_amount*multiplier
@@ -690,6 +714,9 @@
 	if(total_volume + amount > maximum_volume) amount = (maximum_volume - total_volume) //Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
 	if(amount <= 0)
 		return FALSE
+	// Contaminate the container with viruses if the reagent has any. We do this here rather than a reaction because it only depends on the data, and not necessarily the reagent.
+	if(data && length(data["viruses"]) && isobj(my_atom))
+		my_atom.AddComponent(/datum/component/viral_contamination, data["viruses"])
 	chem_temp = clamp((chem_temp * total_volume + reagtemp * amount) / (total_volume + amount), temperature_min, temperature_max) //equalize with new chems
 
 	var/list/cached_reagents = reagent_list
@@ -888,6 +915,11 @@
 		if(R.id == reagent_id)
 			R.data = new_data
 
+/datum/reagents/proc/copy_data_by_id(reagent_id)
+	for(var/datum/reagent/candidate in reagent_list)
+		if(candidate.id == reagent_id)
+			return(copy_data(candidate))
+
 /datum/reagents/proc/copy_data(datum/reagent/current_reagent)
 	if(!current_reagent || !current_reagent.data)
 		return null
@@ -966,8 +998,7 @@
 // Convenience proc to create a reagents holder for an atom
 // Max vol is maximum volume of holder
 /atom/proc/create_reagents(max_vol, temperature_minimum, temperature_maximum)
-	reagents = new /datum/reagents(max_vol, temperature_minimum, temperature_maximum)
-	reagents.my_atom = src
+	reagents = new /datum/reagents(max_vol, temperature_minimum, temperature_maximum, src)
 
 /proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents
 	var/static/list/random_reagents
@@ -1012,8 +1043,11 @@
 	reagent_list = null
 	QDEL_LIST_CONTENTS(addiction_list)
 	addiction_list = null
-	if(my_atom && my_atom.reagents == src)
-		my_atom.reagents = null
+	if(my_atom)
+		UnregisterSignal(my_atom, COMSIG_ATOM_RAD_ACT)
+		REMOVE_TRAIT(my_atom, TRAIT_ABSORB_RADS, "reagents_holder_[UID()]")
+		if(my_atom.reagents == src)
+			my_atom.reagents = null
 	my_atom = null
 
 #undef ADDICTION_TIME

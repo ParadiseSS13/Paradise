@@ -1,11 +1,11 @@
 /datum/disease/critical
 	form = "Medical Emergency"
 	max_stages = 3
-	spread_flags = SPECIAL
+	spread_flags = SPREAD_SPECIAL
 	viable_mobtypes = list(/mob/living/carbon/human)
-	severity = MINOR
-	disease_flags = CURABLE
-	visibility_flags = HIDDEN_PANDEMIC
+	severity = VIRUS_MINOR
+	disease_flags = VIRUS_CURABLE
+	visibility_flags = VIRUS_HIDDEN_PANDEMIC
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE
 
@@ -87,11 +87,8 @@
 	cures = list("atropine", "epinephrine", "heparin", "syndicate_nanites", "stimulative_agent")
 	cure_chance = 10
 	stage_prob = 5
-	severity = HARMFUL
-	disease_flags = CURABLE
+	severity = VIRUS_HARMFUL
 	required_organs = list(ORGAN_DATUM_HEART)
-	bypasses_immunity = TRUE
-	virus_heal_resistant = TRUE
 
 /datum/disease/critical/heart_failure/stage_act()
 	if(..())

@@ -10,6 +10,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=1;biotech=1"
 	tool_behaviour = TOOL_RETRACTOR
+	new_attack_chain = TRUE
 
 /obj/item/retractor/Initialize(mapload)
 	. = ..()
@@ -35,6 +36,7 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "pinched")
 	tool_behaviour = TOOL_HEMOSTAT
+	new_attack_chain = TRUE
 
 /obj/item/hemostat/Initialize(mapload)
 	. = ..()
@@ -60,15 +62,19 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("burnt")
 	tool_behaviour = TOOL_CAUTERY
+	new_attack_chain = TRUE
 
 /obj/item/cautery/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
-/obj/item/cautery/attack__legacy__attackchain(mob/living/target, mob/living/user)
-	if(!cigarette_lighter_act(user, target))
-		return ..()
+/obj/item/cautery/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(cigarette_lighter_act(user, target))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/cautery/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -88,10 +94,6 @@
 	cig.light(user, target)
 	return TRUE
 
-/obj/item/cautery/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
-
 /obj/item/cautery/augment
 	desc = "A heated element that cauterizes wounds."
 	toolspeed = 0.5
@@ -108,10 +110,10 @@
 	flags = CONDUCT
 	force = 15.0
 	sharp = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
 	tool_behaviour = TOOL_DRILL
+	new_attack_chain = TRUE
 
 /obj/item/surgicaldrill/Initialize(mapload)
 	. = ..()
@@ -136,7 +138,6 @@
 	desc = "A sterilized stainless steel cutting implement for making precise surgical incisions."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "scalpel"
-	item_state = "scalpel"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	flags = CONDUCT
@@ -151,6 +152,7 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	tool_behaviour = TOOL_SCALPEL
+	new_attack_chain = TRUE
 
 /obj/item/scalpel/Initialize(mapload)
 	. = ..()
@@ -159,13 +161,11 @@
 	RegisterSignal(src, COMSIG_BIT_ATTACH, PROC_REF(add_bit))
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(remove_bit))
 
-
 /obj/item/scalpel/suicide_act(mob/user)
 	to_chat(viewers(user), pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
 						"<span class='suicide'>[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>",
 						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>"))
 	return BRUTELOSS
-
 
 /obj/item/scalpel/augment
 	desc = "Ultra-sharp blade attached directly to your bone for extra-accuracy."
@@ -181,10 +181,13 @@
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
 
-/obj/item/scalpel/laser/attack__legacy__attackchain(mob/living/carbon/target, mob/living/user)
-	if(!cigarette_lighter_act(user, target))
-		return ..()
+/obj/item/scalpel/laser/interact_with_atom(atom/target, mob/living/user, list/modifiers)
+	if(cigarette_lighter_act(user, target))
+		return ITEM_INTERACT_COMPLETE
+
+	return ..()
 
 /obj/item/scalpel/laser/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
 	var/obj/item/clothing/mask/cigarette/cig = ..()
@@ -206,19 +209,15 @@
 
 /// lasers also count as catuarys
 /obj/item/scalpel/laser/laser1
-	name = "laser scalpel"
 	desc = "A basic low-power laser emitter for creating and cauterizing precise surgical incisions."
-	icon_state = "scalpel_laser1_on"
 	toolspeed = 0.8
 
 /obj/item/scalpel/laser/laser2
-	name = "laser scalpel"
 	desc = "An improved laser emitter for rapidly creating and cauterizing precise surgical incisions."
 	icon_state = "scalpel_laser2_on"
 	toolspeed = 0.6
 
 /obj/item/scalpel/laser/laser3
-	name = "laser scalpel"
 	desc = "An advanced laser emitter for creating and cauterizing precise surgical incisions with extreme speed."
 	icon_state = "scalpel_laser3_on"
 	toolspeed = 0.4
@@ -247,7 +246,6 @@
 	flags = CONDUCT
 	force = 15.0
 	sharp = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 9.0
 	throw_speed = 3
 	throw_range = 5
@@ -255,6 +253,7 @@
 	origin_tech = "biotech=1;combat=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	tool_behaviour = TOOL_SAW
+	new_attack_chain = TRUE
 
 /obj/item/circular_saw/Initialize(mapload)
 	. = ..()
@@ -276,11 +275,11 @@
 	icon_state = "bone-gel"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	force = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
 	tool_behaviour = TOOL_BONEGEL
+	new_attack_chain = TRUE
 
 /obj/item/bonegel/Initialize(mapload)
 	. = ..()
@@ -298,11 +297,11 @@
 	icon_state = "fixovein"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	force = 0
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
 	w_class = WEIGHT_CLASS_SMALL
 	tool_behaviour = TOOL_FIXOVEIN
+	new_attack_chain = TRUE
 
 /obj/item/fix_o_vein/Initialize(mapload)
 	. = ..()
@@ -328,6 +327,7 @@
 	attack_verb = list("attacked", "hit", "bludgeoned")
 	origin_tech = "materials=1;biotech=1"
 	tool_behaviour = TOOL_BONESET
+	new_attack_chain = TRUE
 
 /obj/item/bonesetter/Initialize(mapload)
 	. = ..()
@@ -348,6 +348,7 @@
 	attack_verb = list("slapped")
 	/// How effective this is at preventing infections during surgeries.
 	var/surgery_effectiveness = 0.9
+	new_attack_chain = TRUE
 
 /obj/item/surgical_drapes/Initialize(mapload)
 	. = ..()

@@ -56,11 +56,11 @@ Difficulty: Hard
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
 	icon_state = "ancient_robot"
 	icon_living = "ancient_robot"
+	icon_dead = "ancient_robot_dead"
 	friendly = "stares down"
 	speak_emote = list("BUZZES")
 	universal_speak = TRUE
-	universal_understand = TRUE
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 	melee_damage_type = BURN //Legs do the stomping, this is just a shock
@@ -69,7 +69,6 @@ Difficulty: Hard
 	ranged = TRUE
 	pixel_x = -16
 	pixel_y = -16
-	del_on_death = TRUE
 	loot = list(/obj/item/pinpointer/tendril)
 	crusher_loot = list(/obj/item/crusher_trophy/adaptive_intelligence_core)
 	internal_gps = /obj/item/gps/internal/ancient
@@ -78,6 +77,9 @@ Difficulty: Hard
 	deathmessage = "explodes into a shower of alloys"
 	footstep_type = FOOTSTEP_MOB_HEAVY //make stomp like bubble
 	attack_action_types = list()
+	contains_xeno_organ = TRUE
+	ignore_generic_organs = TRUE
+	surgery_container = /datum/xenobiology_surgery_container/vetus
 	difficulty_ore_modifier = 4 //Vetus' whole deal was that it dropped ore before all megas did, so it gets a ton
 
 	var/charging = FALSE
@@ -155,10 +157,19 @@ Difficulty: Hard
 	icon_state = null
 	gpstag = "Malfunctioning Signal"
 	desc = "ERROR_NULL_ENTRY"
-	invisibility = 100
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/death(gibbed, allowed = FALSE)
+	icon = 'icons/mob/lavaland/corpses.dmi'
 	if(allowed)
+		overlays.Cut()
+		underlays.Cut()
+		QDEL_NULL(TR)
+		QDEL_NULL(TL)
+		QDEL_NULL(BR)
+		QDEL_NULL(BL)
+		QDEL_NULL(beam)
+		body_shield_enabled = FALSE
+		update_appearance(UPDATE_OVERLAYS)
 		return ..()
 	else if(exploding) //but it refused
 		return
@@ -169,9 +180,10 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Life(seconds, times_fired)
 	..()
-	if(!exploding)
+	if(!exploding && stat != DEAD)
 		return
-	playsound(src, 'sound/items/timer.ogg', 70, 0)
+	else if(stat != DEAD)
+		playsound(src, 'sound/items/timer.ogg', 70, 0)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/drop_loot()
 	var/core_type = null
@@ -192,26 +204,25 @@ Difficulty: Hard
 
 	if(enraged)
 		for(var/mob/living/M in urange(40, src)) //Bigger range, ran once per shift, as people run away from vetus as it blows up.
-			if(!M.client)
-				return
-			loot += /obj/item/disk/fauna_research/vetus
-	..()
+			if(M.client)
+				loot += /obj/item/disk/fauna_research/vetus
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/enrage()
 	. = ..()
-	armour_penetration_percentage = 66
-	TL.armour_penetration_percentage = 66
-	TR.armour_penetration_percentage = 66
-	BL.armour_penetration_percentage = 66
-	BR.armour_penetration_percentage = 66
+	armor_penetration_percentage = 66
+	TL.armor_penetration_percentage = 66
+	TR.armor_penetration_percentage = 66
+	BL.armor_penetration_percentage = 66
+	BR.armor_penetration_percentage = 66
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/unrage()
 	. = ..()
-	armour_penetration_percentage = 50
-	TL.armour_penetration_percentage = 50
-	TR.armour_penetration_percentage = 50
-	BL.armour_penetration_percentage = 50
-	BR.armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
+	TL.armor_penetration_percentage = 50
+	TR.armor_penetration_percentage = 50
+	BL.armor_penetration_percentage = 50
+	BR.armor_penetration_percentage = 50
 
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/OpenFire()
@@ -252,7 +263,7 @@ Difficulty: Hard
 	. = ..()
 	var/newcolor = rgb(241, 137, 172)
 	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
-	addtimer(CALLBACK(src, PROC_REF(beam_it_up)), 0)
+	END_OF_TICK(CALLBACK(src, PROC_REF(beam_it_up)))
 
 /obj/effect/vetus_laser/ex_act(severity)
 	return
@@ -327,7 +338,7 @@ Difficulty: Hard
 				L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
 				forceMove(get_turf(L))
 				var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-				L.apply_damage(25, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration_flat, armour_penetration_percentage))
+				L.apply_damage(25, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, armor_penetration_flat = armor_penetration_flat, armor_penetration_percentage = armor_penetration_percentage))
 				playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 				shake_camera(L, 4, 3)
 				shake_camera(src, 2, 3)
@@ -601,6 +612,8 @@ Difficulty: Hard
 	return
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Moved(atom/OldLoc, Dir, Forced = FALSE)
+	if(stat == DEAD || exploding == TRUE) // a check so it doesnt try to move after death
+		return
 	if(Dir)
 		leg_walking_controler(Dir)
 		if(charging)
@@ -651,7 +664,7 @@ Difficulty: Hard
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	projectiletype = /obj/item/projectile/bullet/ancient_robot_bullet
 	attacktext = "stomps on"
-	armour_penetration_percentage = 50
+	armor_penetration_percentage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	obj_damage = 400
@@ -754,7 +767,7 @@ Difficulty: Hard
 			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
 			forceMove(get_turf(L))
 			var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-			L.apply_damage(12.5, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration_flat, armour_penetration_percentage))
+			L.apply_damage(12.5, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armor_penetration_flat, armor_penetration_percentage))
 			playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 			shake_camera(L, 4, 3)
 			shake_camera(src, 2, 3)
@@ -788,6 +801,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	playsound(src, 'sound/effects/meteorimpact.ogg', 60, TRUE, 2, TRUE) //turned way down from bubblegum levels due to 4 legs
+	return ..()
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/mob_negates_gravity()
 	return TRUE
@@ -797,12 +811,10 @@ Difficulty: Hard
 
 /obj/item/projectile/bullet/ancient_robot_bullet
 	damage = 8
-	damage_type = BRUTE
 
 /obj/item/projectile/bullet/rock
 	name= "thrown rock"
 	damage = 25
-	damage_type = BRUTE
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small1"
 

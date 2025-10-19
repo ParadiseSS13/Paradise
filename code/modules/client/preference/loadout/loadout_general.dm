@@ -190,6 +190,10 @@
 	path = /obj/item/paicard
 	cost = 2
 
+/datum/gear/wizard_staff
+	display_name = "Wizard's staff"
+	path = /obj/item/staff
+
 //////////////////////
 //		Mugs		//
 //////////////////////
@@ -214,7 +218,6 @@
 
 /datum/gear/mug/department
 	main_typepath = /datum/gear/mug/department
-	sort_category = "Mugs"
 	subtype_selection_cost = FALSE
 
 /datum/gear/mug/department/eng

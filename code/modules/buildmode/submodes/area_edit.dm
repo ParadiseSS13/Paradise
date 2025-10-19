@@ -34,6 +34,7 @@
 		if(!area_name || !length(area_name))
 			return
 		stored_area = new area_type
+		stored_area.admin_spawned = TRUE
 		stored_area.powernet.equipment_powered = FALSE
 		stored_area.powernet.lighting_powered = FALSE
 		stored_area.powernet.environment_powered = FALSE

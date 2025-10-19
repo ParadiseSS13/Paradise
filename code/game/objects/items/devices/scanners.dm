@@ -17,12 +17,13 @@ SLIME SCANNER
 	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
-	var/on = FALSE
+	worn_icon_state = "electronic"
+	inhand_icon_state = "electronic"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	item_state = "electronic"
 	materials = list(MAT_METAL = 300)
 	origin_tech = "magnets=1;engineering=1"
+	var/on = FALSE
 
 /obj/item/t_scanner/Destroy()
 	if(on)
@@ -71,7 +72,7 @@ SLIME SCANNER
 		flick_overlay(t_ray_images, list(viewer.client), flick_time)
 
 ////////////////////////////////////////
-// MARK:	Health analyser
+// MARK:	Health analyzer
 ////////////////////////////////////////
 #define SIMPLE_HEALTH_SCAN 0
 #define DETAILED_HEALTH_SCAN 1
@@ -139,14 +140,13 @@ SLIME SCANNER
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
-	item_state = "healthanalyzer"
+	worn_icon_state = "healthanalyzer"
+	inhand_icon_state = "healthanalyzer"
 	belt_icon = "health_analyzer"
 	flags = CONDUCT | NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 3
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=200)
 	origin_tech = "magnets=1;biotech=1"
 	/// Can be SIMPLE_HEALTH_SCAN (damage is only shown as a single % value), or DETAILED_HEALTH_SCAN (shows the % value and also damage for every specific limb).
@@ -277,11 +277,19 @@ SLIME SCANNER
 
 	for(var/thing in H.viruses)
 		var/datum/disease/D = thing
-		if(D.visibility_flags & HIDDEN_SCANNER)
+		// If the disease is incubating, or if it's stealthy and hasn't been put into a pandemic yet the scanner won't see it
+		if(D.incubation || (D.visibility_flags & VIRUS_HIDDEN_SCANNER && !(D.GetDiseaseID() in GLOB.detected_advanced_diseases["[user.z]"])))
 			continue
 		// Snowflaking heart problems, because they are special (and common).
 		if(istype(D, /datum/disease/critical))
-			msgs += "<span class='notice'><font color='red'><b>Warning: Subject is undergoing [D.name].</b>\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
+			msgs += "<span class='notice'><font color='red'><b>Warning: Subject is undergoing [D.name].</b>\nStage: [D.stage]/[D.max_stages].\nCure: [D.cure_text]</font></span>"
+			continue
+		if(istype(D, /datum/disease/advance))
+			var/datum/disease/advance/A = D
+			if(!(A.id in GLOB.known_advanced_diseases[num2text(user.z)]))
+				msgs += "<span class='notice'><font color='red'><b>Warning: Unknown viral strain detected</b>\nStrain:[A.strain]\nStage: [A.stage]</span>"
+			else
+				msgs += "<span class='notice'><font color='red'><b>Warning: [A.form] detected</b>\nName: [A.name].\nStrain:[A.strain]\nType: [A.spread_text].\nStage: [A.stage]/[A.max_stages].\nPossible Cures: [A.cure_text]\nNeeded Cures: [A.cures_required]</font></span>"
 			continue
 		msgs += "<span class='notice'><font color='red'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</font></span>"
 
@@ -397,6 +405,8 @@ SLIME SCANNER
 	if(H.radiation > RAD_MOB_SAFE)
 		msgs += "<span class='danger'>Subject is irradiated.</span>"
 
+	msgs += "<span class='notice'>Biological Age: [H.age]</span>"
+
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
 /obj/item/healthanalyzer/attackby__legacy__attackchain(obj/item/I, mob/user, params)
@@ -446,10 +456,9 @@ SLIME SCANNER
 	desc = "A hand-held scanner able to diagnose robotic injuries and the condition of machinery."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "robotanalyzer"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 3
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 5
 	throw_range = 10
@@ -594,13 +603,11 @@ SLIME SCANNER
 	desc = "A hand-held environmental scanner which reports current gas levels."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "atmos"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL = 210, MAT_GLASS = 140)
 	origin_tech = "magnets=1;engineering=1"
 	var/cooldown = FALSE
@@ -707,22 +714,22 @@ SLIME SCANNER
  * Used in chat-based gas scans.
  */
 /proc/atmos_scan(mob/user, atom/target, silent = FALSE, print = TRUE, milla_turf_details = FALSE, detailed = FALSE)
-	var/datum/gas_mixture/gasmix
 	var/list/airs
 	var/list/milla = null
 	if(milla_turf_details && istype(target, /turf))
+		// This is one of the few times when it's OK to call MILLA directly, as we need more information than we normally keep, aren't trying to modify it, and don't need it to be synchronized with anything.
 		milla = new/list(MILLA_TILE_SIZE)
 		get_tile_atmos(target, milla)
-		gasmix = new()
-		gasmix.copy_from_milla(milla)
-		airs += gasmix
+
+		var/datum/gas_mixture/air = new()
+		air.copy_from_milla(milla)
+		airs = list(air)
 	else
-		gasmix = target.return_analyzable_air()
-		if(!istype(gasmix, /list))
-			gasmix = list(gasmix)
-		airs += gasmix
-		if(!gasmix)
+		airs = target.return_analyzable_air()
+		if(!airs)
 			return FALSE
+		if(!islist(airs))
+			airs = list(airs)
 
 	var/list/message = list()
 	if(!silent && isliving(user))
@@ -833,7 +840,7 @@ SLIME SCANNER
 		message += "<span class='notice'>Wind: ([round(milla[MILLA_INDEX_WIND_X], 0.001)], [round(milla[MILLA_INDEX_WIND_Y], 0.001)])</span>"
 		message += "<span class='notice'>Fuel burnt last tick: [milla[MILLA_INDEX_FUEL_BURNT]] moles</span>"
 
-	to_chat(user, chat_box_examine(message.Join("\n")))
+	to_chat(user, chat_box_examine(message.Join("<br>")))
 	return TRUE
 
 ////////////////////////////////////////
@@ -844,11 +851,10 @@ SLIME SCANNER
 	desc = "A hand-held reagent scanner which identifies chemical agents and blood types."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "spectrometer"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=300, MAT_GLASS=200)
@@ -923,14 +929,12 @@ SLIME SCANNER
 	name = "slime scanner"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "adv_spectrometer_s"
-	item_state = "analyzer"
+	inhand_icon_state = "analyzer"
 	origin_tech = "biotech=2"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
 /obj/item/slime_scanner/attack__legacy__attackchain(mob/living/M, mob/living/user)
@@ -981,15 +985,15 @@ SLIME SCANNER
 	desc = "A handheld scanner capable of deep-scanning an entire body."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "bodyanalyzer_0"
-	item_state = "healthanalyser"
+	worn_icon_state = "healthanalyzer"
+	inhand_icon_state = "healthanalyzer"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 3
 	throw_speed = 5
 	throw_range = 10
 	origin_tech = "magnets=6;biotech=6"
 	var/obj/item/stock_parts/cell/cell
-	var/cell_type = /obj/item/stock_parts/cell/upgraded
+	var/cell_type = /obj/item/stock_parts/cell/high
 	var/ready = TRUE // Ready to scan
 	var/printing = FALSE
 	var/time_to_use = 0 // How much time remaining before next scan is available.
@@ -1001,14 +1005,13 @@ SLIME SCANNER
 	return cell
 
 /obj/item/bodyanalyzer/advanced
-	cell_type = /obj/item/stock_parts/cell/upgraded/plus
+	cell_type = /obj/item/stock_parts/cell/super // twice the charge!
 
 /obj/item/bodyanalyzer/borg
 	name = "cyborg body analyzer"
 	desc = "Scan an entire body to prepare for field surgery. Consumes power for each scan."
 
 /obj/item/bodyanalyzer/borg/syndicate
-	scan_time = 5 SECONDS
 	scan_cd = 20 SECONDS
 
 /obj/item/bodyanalyzer/New()
