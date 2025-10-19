@@ -251,7 +251,7 @@ RESTRICT_TYPE(/datum/ai_controller)
 /datum/ai_controller/proc/on_client_enter(datum/source, list/target_list)
 	SIGNAL_HANDLER // COMSIG_CLIENT_ENTER
 
-	if (!(locate(/mob/living) in target_list))
+	if(!(locate(/mob/living) in target_list))
 		return
 
 	if(ai_status == AI_STATUS_IDLE)
