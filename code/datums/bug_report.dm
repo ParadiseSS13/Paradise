@@ -28,8 +28,8 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	initial_key = user.client.key
 
 /datum/tgui_bug_report_form/proc/add_metadata(mob/user)
-	bug_report_data["server_byond_version"] = "[user.client.byond_version].[user.client.byond_build]"
-	bug_report_data["user_byond_version"] = "[world.byond_version].[world.byond_build]"
+	bug_report_data["server_byond_version"] = "[world.byond_version].[world.byond_build]"
+	bug_report_data["user_byond_version"] = "[user.client.byond_version].[user.client.byond_build]"
 
 	bug_report_data["local_commit"] = "No Commit Data"
 	if(GLOB.revision_info.commit_hash)
@@ -242,6 +242,8 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 		)
 		bug_query.warn_execute()
 		qdel(bug_query)
+		GLOB.bug_reports -= bug_report
+		qdel(bug_report)
 	return
 
 #undef STATUS_SUCCESS
