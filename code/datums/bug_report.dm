@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 
 /datum/tgui_bug_report_form
 	/// contains all the body text for the bug report.
-	var/list/bug_report_data = null
+	var/list/bug_report_data = list()
 
 	/// client of the bug report author, needed to create the ticket
 	var/initial_user_uid = null
@@ -24,16 +24,20 @@ GLOBAL_LIST_EMPTY(bug_report_time)
 	var/selected_confirm = FALSE
 
 /datum/tgui_bug_report_form/New(mob/user)
-	bug_report_data["local_commit"] = GLOB.revision_info.commit_hash
 	initial_user_uid = user.client.UID()
 	initial_key = user.client.key
-	bug_report_data["user_byond_version"] = full_client_byond_build(user.client)
-	if(length(GLOB.revision_info.origin_commit))
-		bug_report_data["local_commit"] = GLOB.revision_info.origin_commit
-	for(var/datum/tgs_revision_information/test_merge/tm in GLOB.revision_info.testmerges)
-		bug_report_data["test_merges"] += "#[tm.number] at [tm.head_commit]\n"
 
 	bug_report_data["server_byond_version"] = full_server_byond_build()
+	bug_report_data["user_byond_version"] = full_client_byond_build(user.client)
+
+	bug_report_data["local_commit"] = "No Commit Data"
+	if(GLOB.revision_info.commit_hash)
+		bug_report_data["local_commit"] = GLOB.revision_info.commit_hash
+	if(GLOB.revision_info?.origin_commit && length(GLOB.revision_info.origin_commit))
+		bug_report_data["local_commit"] = GLOB.revision_info.origin_commit
+
+	for(var/datum/tgs_revision_information/test_merge/tm in GLOB.revision_info.testmerges)
+		bug_report_data["test_merges"] += "#[tm.number] at [tm.head_commit]\n"
 	bug_report_data["round_id"] = GLOB.round_id
 
 
