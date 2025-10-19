@@ -122,7 +122,7 @@
 	/// Time until next portal
 	var/expansion_delay
 	/// How fast does the portal spawn mobs after the initial spawns?
-	var/spawn_rate = 30 SECONDS
+	var/spawn_rate = 45 SECONDS
 	/// How many initial mobs does it spawn?
 	var/initial_spawns_min = 1
 	var/initial_spawns_max = 4
