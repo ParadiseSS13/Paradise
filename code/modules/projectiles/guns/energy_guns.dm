@@ -38,6 +38,8 @@
 	var/can_be_lensed = TRUE
 	/// Current lens
 	var/obj/item/smithed_item/lens/current_lens
+	/// The max damage multiplier a lens can apply to a energy gun. Use sparingly, primarly for stamina based weapons.
+	var/lens_damage_cap = 999
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
