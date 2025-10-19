@@ -240,10 +240,6 @@
 /obj/item/clothing/glasses/regular/hipster,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/bmp_ship/delta)
-"aY" = (
-/obj/machinery/door/airlock/titanium,
-/turf/simulated,
-/area/ruin/unpowered/bmp_ship/delta)
 "bb" = (
 /obj/structure/closet/crate/freezer,
 /turf/simulated/floor/plating,
@@ -1850,7 +1846,7 @@
 /area/ruin/unpowered/bmp_ship/fore)
 "gK" = (
 /obj/machinery/door/airlock/titanium,
-/turf/simulated,
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/bmp_ship/fore)
 "gL" = (
 /turf/simulated/floor/plating/airless,
@@ -4295,7 +4291,7 @@ aa
 ad
 ad
 ad
-aY
+ai
 ad
 ad
 ad
