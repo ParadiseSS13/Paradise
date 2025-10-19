@@ -55538,18 +55538,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/engine,
 /area/station/engineering/controlroom)
-"gBr" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/white,
-/area/station/medical/virology)
 "gBx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -61413,10 +61401,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitegreen"
-	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "jjD" = (
@@ -63084,7 +63068,7 @@
 /area/station/hallway/secondary/exit)
 "jWI" = (
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "viro_bedroom_1"
+	id = "virology_bedroom_1"
 	},
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
@@ -69113,9 +69097,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitegreen"
-	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "mJY" = (
@@ -73995,7 +73976,7 @@
 /area/station/engineering/control)
 "oKO" = (
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "viro_bedroom_2"
+	id = "virology_bedroom_2"
 	},
 /turf/simulated/floor/plating,
 /area/station/medical/virology)
@@ -74375,7 +74356,6 @@
 /obj/machinery/computer/med_data/laptop{
 	dir = 4
 	},
-/obj/structure/table/glass,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
 "oSN" = (
@@ -145386,7 +145366,7 @@ cmw
 suJ
 rZl
 kGo
-gBr
+dPU
 eEY
 dGw
 dGw
@@ -145900,7 +145880,7 @@ nUf
 sds
 rZl
 qBj
-gBr
+dPU
 xlX
 dGw
 vDR
