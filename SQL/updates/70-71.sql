@@ -12,7 +12,7 @@ CREATE TABLE `bug_reports` (
   `round_id` int(11),
   `server_byond_build` varchar(32),
   `client_byond_build` varchar(32),
-  `server_commit` varchar(32) NOT NULL,
+  `server_commit` MEDIUMTEXT NOT NULL,
   `test_merges` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`) USING BTREE
 
