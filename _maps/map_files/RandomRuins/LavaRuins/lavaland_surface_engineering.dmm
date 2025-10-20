@@ -11,9 +11,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "aL" = (
 /obj/machinery/light/small{
@@ -32,17 +30,13 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "ba" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "bb" = (
 /obj/machinery/power/terminal{
@@ -54,9 +48,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "bu" = (
 /obj/machinery/camera{
@@ -64,22 +56,18 @@
 	dir = 5;
 	network = list("Engineering Outpost")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "bw" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "bA" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/simulated/floor/plating,
 /area/engi_outpost/electrical)
 "bF" = (
 /obj/structure/cable{
@@ -92,21 +80,15 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "bH" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "bN" = (
 /obj/machinery/economy/vending/coffee/free,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "bP" = (
 /obj/structure/lattice/catwalk/mining,
@@ -115,15 +97,11 @@
 /area/lavaland/surface/outdoors/explored)
 "bS" = (
 /obj/structure/closet/firecloset,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "cb" = (
 /obj/effect/baseturf_helper/lava_land,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "cj" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -138,18 +116,14 @@
 	layer = 2.9
 	},
 /obj/item/stack/sheet/mineral/plasma/twenty,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "dd" = (
 /obj/machinery/door/airlock/external/glass{
 	heat_proof = 1
 	},
 /obj/effect/map_effect/dynamic_airlock/door/interior,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "dn" = (
 /obj/structure/lattice/catwalk/mining,
@@ -170,21 +144,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "dB" = (
 /obj/structure/chair/office{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "dD" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
-/turf/open/floor/plating,
+/turf/simulated/floor/plating,
 /area/engi_outpost/vacant_room)
 "dH" = (
 /obj/structure/cable{
@@ -196,18 +166,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "en" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "eJ" = (
 /obj/structure/lattice/catwalk/mining,
@@ -218,18 +184,14 @@
 /area/lavaland/surface/outdoors/explored)
 "eZ" = (
 /obj/machinery/economy/vending/chinese,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "fg" = (
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1
 	},
 /obj/effect/baseturf_helper/lava_land,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "fj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -238,9 +200,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "fw" = (
 /obj/structure/lattice/catwalk/mining,
@@ -261,15 +221,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "fP" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/simulated/floor/plating,
 /area/engi_outpost/breakroom)
 "gf" = (
 /obj/structure/lattice/catwalk/mining,
@@ -292,9 +250,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "gO" = (
 /obj/machinery/door/airlock/engineering/glass,
@@ -302,9 +258,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "gP" = (
 /turf/simulated/floor/lava/mapping_lava,
@@ -335,9 +289,7 @@
 /area/engi_outpost/electrical)
 "hN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "hV" = (
 /obj/machinery/power/smes{
@@ -346,9 +298,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "hZ" = (
 /obj/structure/cable{
@@ -364,17 +314,13 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "ic" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "id" = (
 /obj/structure/lattice/catwalk/mining,
@@ -387,9 +333,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "ir" = (
 /obj/machinery/door/airlock/external/glass{
@@ -400,9 +344,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "iy" = (
 /obj/structure/cable{
@@ -415,9 +357,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "iD" = (
 /turf/simulated/wall,
@@ -428,23 +368,17 @@
 	dir = 4
 	},
 /obj/effect/baseturf_helper/lava_land,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "iT" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "jk" = (
 /obj/machinery/power/apc/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "jI" = (
 /obj/structure/cable{
@@ -456,15 +390,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "jL" = (
 /obj/machinery/firealarm/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "jM" = (
 /turf/simulated/wall,
@@ -474,17 +404,13 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "kP" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "kS" = (
 /obj/structure/lattice/catwalk/mining,
@@ -508,18 +434,14 @@
 "lG" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,
 /obj/machinery/atmospherics/meter,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "lZ" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "mc" = (
 /obj/effect/turf_decal/stripes/line{
@@ -530,9 +452,7 @@
 	dir = 10;
 	network = list("Engineering Outpost")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "me" = (
 /obj/structure/cable{
@@ -555,9 +475,7 @@
 /area/engi_outpost/bridges)
 "mg" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "mj" = (
 /obj/structure/cable{
@@ -571,9 +489,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "mr" = (
 /obj/machinery/camera{
@@ -581,33 +497,25 @@
 	dir = 5;
 	network = list("Engineering Outpost")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "mI" = (
 /obj/effect/baseturf_helper/lava_land,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "nr" = (
 /obj/structure/dispenser/oxygen,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "ns" = (
 /obj/machinery/light_switch{
 	pixel_y = 24;
 	name = "north bump"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "nE" = (
 /obj/structure/lattice/catwalk/mining,
@@ -625,9 +533,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "nZ" = (
 /obj/structure/cable{
@@ -652,22 +558,16 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "oM" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "pl" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "pB" = (
 /obj/machinery/door/airlock/titanium{
@@ -696,15 +596,11 @@
 "pV" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
 /obj/machinery/firealarm/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "qc" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "ql" = (
 /obj/structure/cable{
@@ -712,26 +608,20 @@
 	},
 /obj/machinery/door/airlock/engineering/glass,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "qp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "qt" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
 	pixel_y = 30
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "qD" = (
 /obj/structure/lattice/catwalk/mining,
@@ -741,21 +631,17 @@
 /area/lavaland/surface/outdoors/explored)
 "qG" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "qO" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/spawner/random/trash,
-/turf/open/floor/plating,
+/turf/simulated/floor/plating,
 /area/engi_outpost/breakroom)
 "qU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "qV" = (
 /obj/structure/cable{
@@ -767,9 +653,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "rb" = (
 /obj/machinery/airlock_controller/air_cycler/directional/north,
@@ -795,7 +679,7 @@
 "rD" = (
 /obj/machinery/door/airlock/engineering,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/open/floor/plating,
+/turf/simulated/floor/plating,
 /area/engi_outpost/breakroom)
 "rR" = (
 /obj/machinery/disposal,
@@ -805,9 +689,7 @@
 	pixel_y = -24;
 	pixel_x = -4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "sd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -816,9 +698,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "sm" = (
 /obj/structure/lattice/catwalk/mining,
@@ -833,9 +713,7 @@
 	dir = 10;
 	network = list("Engineering Outpost")
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "sy" = (
 /obj/machinery/door/airlock/engineering/glass,
@@ -846,9 +724,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "sA" = (
 /obj/structure/fence/corner,
@@ -882,31 +758,23 @@
 /obj/machinery/computer/shuttle/engineering{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "tL" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "tY" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "tZ" = (
 /obj/structure/chair/sofa/bench/right{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "uf" = (
 /obj/structure/railing,
@@ -918,9 +786,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "uu" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
@@ -940,9 +806,7 @@
 	name = "north bump";
 	pixel_y = 30
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "uM" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -952,17 +816,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "va" = (
 /obj/structure/chair/sofa/bench{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "vB" = (
 /obj/structure/closet/walllocker/emerglocker/directional/south,
@@ -975,9 +835,7 @@
 "vG" = (
 /obj/structure/table,
 /obj/item/storage/box/cups,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "vL" = (
 /obj/effect/map_effect/dynamic_airlock/door/exterior,
@@ -1027,18 +885,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "wP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "wR" = (
 /obj/structure/cable{
@@ -1047,9 +901,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "xu" = (
 /obj/effect/map_effect/dynamic_airlock,
@@ -1065,16 +917,12 @@
 	id_tag = "mining_away"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "xX" = (
 /obj/structure/table,
 /obj/effect/spawner/random/food_trash,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "ya" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1096,23 +944,17 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "yB" = (
 /obj/machinery/suit_storage_unit/industrial/engine/secure,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "yO" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "yP" = (
 /turf/simulated/wall/r_wall,
@@ -1138,9 +980,7 @@
 	name = "Loading Doors";
 	pixel_y = -24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "zL" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -1160,21 +1000,17 @@
 	name = "north bump";
 	pixel_y = 30
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "AB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "Bp" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
-/turf/open/floor/plating,
+/turf/simulated/floor/plating,
 /area/engi_outpost/electrical)
 "Bq" = (
 /obj/structure/lattice/catwalk/mining,
@@ -1191,9 +1027,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "Ds" = (
 /obj/structure/lattice/catwalk/mining,
@@ -1206,9 +1040,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "DT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1217,9 +1049,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "DY" = (
 /obj/structure/railing{
@@ -1234,15 +1064,11 @@
 	name = "north bump";
 	pixel_y = 30
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "Ep" = (
 /obj/machinery/firealarm/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "Eq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1251,9 +1077,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "EE" = (
 /turf/simulated/wall/r_wall,
@@ -1262,15 +1086,11 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "Fk" = (
 /obj/structure/closet/firecloset,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "Fn" = (
 /obj/structure/cable{
@@ -1282,9 +1102,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "FI" = (
 /obj/structure/railing{
@@ -1312,9 +1130,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "GN" = (
 /obj/structure/cable{
@@ -1334,10 +1150,6 @@
 	},
 /turf/simulated/floor/transparent/glass/plasma,
 /area/engi_outpost/bridges)
-"GS" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
-/turf/open/floor/plating,
-/area/engi_outpost/airlock)
 "Ha" = (
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/floor/plating/lavaland_air,
@@ -1353,9 +1165,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "HC" = (
 /obj/structure/cable{
@@ -1364,18 +1174,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "HI" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "HW" = (
 /obj/structure/shelf/engineering,
@@ -1386,22 +1192,16 @@
 	pixel_y = 5
 	},
 /obj/item/storage/belt/utility,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "HZ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "IK" = (
 /obj/structure/chair/office{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "IL" = (
 /obj/structure/table,
@@ -1410,33 +1210,23 @@
 	pixel_y = -30;
 	pixel_x = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "IN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "Jz" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "JI" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "Kf" = (
 /obj/machinery/firealarm/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "Kh" = (
 /obj/structure/cable{
@@ -1448,9 +1238,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "KE" = (
 /turf/template_noop,
@@ -1466,9 +1254,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/corner,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "La" = (
 /obj/structure/lattice/catwalk/mining,
@@ -1494,23 +1280,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "Ma" = (
 /obj/machinery/atmospherics/portable/pump,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
-"Mi" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
-/turf/open/floor/plating,
-/area/engi_outpost/shuttle_landing_post)
 "Mj" = (
 /obj/machinery/door/airlock/maintenance/external/glass{
 	name = "Landing Pad"
@@ -1522,24 +1300,18 @@
 "Mr" = (
 /obj/machinery/firealarm/directional/north,
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "MX" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "Nz" = (
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
 	},
 /obj/structure/cable/orange,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "NJ" = (
 /obj/structure/lattice/catwalk/mining,
@@ -1550,9 +1322,7 @@
 /area/lavaland/surface/outdoors/explored)
 "NY" = (
 /obj/structure/closet/firecloset,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "Oe" = (
 /obj/structure/lattice/catwalk/mining,
@@ -1635,7 +1405,7 @@
 /area/lavaland/surface/outdoors/explored)
 "Pu" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
-/turf/open/floor/plating,
+/turf/simulated/floor/plating,
 /area/engi_outpost/breakroom)
 "Py" = (
 /obj/structure/lattice/catwalk/mining,
@@ -1645,14 +1415,10 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "PC" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "PT" = (
 /obj/machinery/camera{
@@ -1663,9 +1429,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "PZ" = (
 /obj/structure/cable{
@@ -1678,35 +1442,27 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "Qg" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "Qx" = (
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "QC" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
 	pixel_y = 30
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "QP" = (
 /obj/machinery/power/apc/directional/east,
@@ -1737,15 +1493,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "Ro" = (
 /obj/effect/baseturf_helper/lava_land,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "Rp" = (
 /obj/machinery/camera{
@@ -1786,9 +1538,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "Si" = (
 /turf/simulated/mineral/random/volcanic,
@@ -1799,27 +1549,21 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "Sx" = (
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "Sy" = (
 /obj/machinery/light_switch{
 	pixel_y = 24;
 	name = "north bump"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "SF" = (
 /turf/simulated/floor/mineral/titanium,
@@ -1828,15 +1572,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "Tr" = (
 /obj/machinery/firealarm/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "TE" = (
 /obj/effect/map_effect/dynamic_airlock/door/exterior,
@@ -1857,9 +1597,7 @@
 /area/lavaland/surface/outdoors/explored)
 "TN" = (
 /obj/structure/barrel,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "Ui" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -1868,9 +1606,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/engineering)
 "UH" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "UR" = (
 /obj/effect/turf_decal/siding,
@@ -1881,12 +1617,10 @@
 	pixel_y = 24;
 	name = "north bump"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "UY" = (
-/turf/open/floor/plating,
+/turf/simulated/floor/plating,
 /area/engi_outpost/breakroom)
 "Vu" = (
 /obj/structure/lattice/catwalk/mining,
@@ -1908,9 +1642,7 @@
 /area/engi_outpost/electrical)
 "Wb" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "Wr" = (
 /obj/effect/spawner/window/shuttle,
@@ -1936,22 +1668,16 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/breakroom)
 "WZ" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/telepad_cargo,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "Xg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "Xs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1961,9 +1687,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "XF" = (
 /obj/machinery/door/airlock/maintenance/external/glass{
@@ -1982,9 +1706,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "YJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1996,16 +1718,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/airlock)
 "YS" = (
 /obj/structure/barrel,
 /obj/structure/barrel,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "YU" = (
 /obj/structure/lattice/catwalk/mining,
@@ -2018,9 +1736,7 @@
 /area/lavaland/surface/outdoors/explored)
 "YY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/vacant_room)
 "Zj" = (
 /obj/structure/cable{
@@ -2033,9 +1749,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/electrical)
 "Zp" = (
 /obj/effect/map_effect/dynamic_airlock,
@@ -2068,9 +1782,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/engi_outpost/shuttle_landing_post)
 "ZP" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
@@ -2708,10 +2420,10 @@ oM
 Lx
 Lx
 Lx
-Mi
-Mi
-Mi
-Mi
+uu
+uu
+uu
+uu
 Pu
 PC
 sd
@@ -2790,10 +2502,10 @@ oM
 oM
 IL
 Lx
-Mi
-Mi
-Mi
-Mi
+uu
+uu
+uu
+uu
 oD
 kp
 dH
@@ -3765,9 +3477,9 @@ TE
 sQ
 EE
 EE
-GS
-GS
-GS
+OX
+OX
+OX
 EE
 Ui
 Ui

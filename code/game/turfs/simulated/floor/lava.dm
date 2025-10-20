@@ -20,7 +20,7 @@
 	heavyfootstep = FOOTSTEP_LAVA
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_FLOOR_LAVA)
-	canSmoothWith = list(SMOOTH_GROUP_FLOOR_LAVA)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_LAVA, SMOOTH_GROUP_GLASS_FLOOR)
 	intact = FALSE
 	floor_tile = null
 	real_layer = PLATING_LAYER
