@@ -1209,7 +1209,7 @@
 
 	wing = dna.species.wing
 
-	spine = dna.species.spine
+	spines = dna.species.spines
 
 	maxHealth = dna.species.total_health
 

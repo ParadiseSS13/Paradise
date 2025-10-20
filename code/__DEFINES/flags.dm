@@ -120,7 +120,7 @@
 #define HAS_BACK_SPINES		(1<<17)
 
 //Pre-baked combinations of the above body flags
-#define HAS_BODY_ACCESSORY 	(HAS_TAIL | HAS_WING)
+#define HAS_BODY_ACCESSORY 	(HAS_TAIL | HAS_WING | HAS_BACK_SPINES)
 #define HAS_MARKINGS		(HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS)
 
 //Species Diet Flags

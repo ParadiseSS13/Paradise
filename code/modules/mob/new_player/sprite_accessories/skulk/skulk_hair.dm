@@ -1,6 +1,6 @@
 /datum/sprite_accessory/hair/skulk
 	icon = 'icons/mob/sprite_accessories/skulk/skulk_hair.dmi'
-	species_allowed = list("Skulk")
+	species_allowed = list("Skkulakin")
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/skulk/artificer

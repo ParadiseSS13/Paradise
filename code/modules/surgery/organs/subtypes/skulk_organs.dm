@@ -12,7 +12,7 @@
 	name = "skkulakin heart"
 	icon = 'icons/obj/species_organs/skulk.dmi'
 
-/obj/item/organ/internal/brain/skkulakin
+/obj/item/organ/internal/brain/skulk
 	icon = 'icons/obj/species_organs/skulk.dmi'
 	desc = "It quietly hums with psionic resonance."
 	mmi_icon = 'icons/obj/species_organs/skulk.dmi'

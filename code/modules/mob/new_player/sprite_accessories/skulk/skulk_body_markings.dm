@@ -1,6 +1,6 @@
 /datum/sprite_accessory/body_markings/tattoo/skulk
 	icon = 'icons/mob/sprite_accessories/skulk/skulk_body_markings.dmi'
-	species_allowed = list("Skulk")
+	species_allowed = list("Skkulakin")
 
 /datum/sprite_accessory/body_markings/tattoo/skulk/danger_skulk
 	name = "Danger"
