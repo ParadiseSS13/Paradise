@@ -77,17 +77,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"aaX" = (
-/obj/docking_port/stationary{
-	dwidth = 5;
-	height = 7;
-	id = "engineering_home";
-	name = "engineering shuttle bay";
-	width = 11;
-	dir = 2
-	},
-/turf/space,
-/area/space)
 "abb" = (
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/wood,
@@ -44721,6 +44710,14 @@
 /obj/structure/marker_beacon/dock_marker{
 	name = "beacon"
 	},
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 5;
+	height = 7;
+	id = "engineering_home";
+	name = "engineering shuttle bay";
+	width = 11
+	},
 /turf/space,
 /area/space)
 "hQB" = (
@@ -47508,13 +47505,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos/distribution)
-"iLR" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/marker_beacon/dock_marker{
-	name = "beacon"
-	},
-/turf/space,
-/area/space/nearstation)
 "iLV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/turf_decal/stripes/line{
@@ -136645,13 +136635,13 @@ shb
 vDE
 nlt
 enp
+ajo
 aaa
 aaa
-hQA
-hQA
-hQA
-hQA
-iLR
+aaa
+aaa
+aaa
+ajo
 szY
 uwn
 fBW
@@ -136903,13 +136893,13 @@ ttY
 gvZ
 enp
 aaa
-hQA
 aaa
 aaa
 aaa
 aaa
 aaa
-iLR
+aaa
+aef
 aCg
 wlL
 gGi
@@ -137159,7 +137149,6 @@ hMI
 vDE
 mhE
 enp
-hQA
 aaa
 aaa
 aaa
@@ -137167,7 +137156,8 @@ aaa
 aaa
 aaa
 aaa
-nYI
+aaa
+aCg
 aCg
 aHi
 pfH
@@ -137424,7 +137414,7 @@ aaa
 aaa
 aaa
 aaa
-nYI
+aCg
 gAz
 nRh
 mEy
@@ -137681,7 +137671,7 @@ aaa
 aaa
 aaa
 aaa
-nYI
+aCg
 nRh
 nRh
 raV
@@ -137938,7 +137928,7 @@ aaa
 aaa
 aaa
 aaa
-nYI
+aCg
 nRh
 dmO
 aLx
@@ -138187,15 +138177,15 @@ vVE
 tnc
 xQV
 enp
-hQA
-aaX
 aaa
 aaa
 aaa
 aaa
 aaa
 aaa
-nYI
+aaa
+aaa
+aCg
 sUi
 eqf
 hdL
@@ -138444,7 +138434,6 @@ mhE
 mhE
 eoO
 enp
-hQA
 aaa
 aaa
 aaa
@@ -138452,8 +138441,9 @@ aaa
 aaa
 aaa
 aaa
-nYI
-nYI
+aaa
+aCg
+aCg
 aCg
 aCg
 aCg
@@ -138700,16 +138690,16 @@ enp
 qcr
 fkH
 enp
-aaa
-hQA
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-hQA
+abq
+ajo
+abq
+abq
+abq
+abq
+abq
+ajo
+abq
+abq
 abq
 aaa
 aaa
@@ -138958,7 +138948,7 @@ aId
 mhE
 enp
 aaa
-hQA
+aaa
 aaa
 aaa
 aaa
@@ -139215,7 +139205,7 @@ qcr
 qcr
 enp
 aaa
-hQA
+aaa
 aaa
 aaa
 aaa
@@ -139472,7 +139462,7 @@ aef
 aef
 aaa
 aaa
-hQA
+aaa
 aaa
 aaa
 aaa
@@ -139730,13 +139720,13 @@ abq
 aaa
 aaa
 aaa
-hQA
-hQA
-hQA
-hQA
-hQA
-hQA
-hQA
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa

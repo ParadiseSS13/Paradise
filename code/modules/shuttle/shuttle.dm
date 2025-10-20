@@ -854,12 +854,12 @@
 
 /obj/docking_port/mobile/engineering
 	dir = WEST
-	dwidth = 5
-	height = 7
+	dwidth = 3
+	height = 5
 	id = "engineering"
 	name = "engineering shuttle"
 	rebuildable = TRUE
-	width = 11
+	width = 7
 	uses_lockdown = TRUE
 	port_direction = EAST
 

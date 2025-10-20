@@ -19415,14 +19415,14 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkbrown"
+	icon_state = "darkyellow"
 	},
 /area/station/command/bridge)
 "bAE" = (
-/obj/machinery/computer/aifixer,
+/obj/machinery/computer/shuttle/labor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkpurple"
+	icon_state = "darkyellow"
 	},
 /area/station/command/bridge)
 "bAI" = (
@@ -19852,10 +19852,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/bridge)
-"bCn" = (
-/obj/item/kirbyplants/large,
 /obj/machinery/door_control{
 	id = "bridge blast west";
 	name = "West Bridge Blast Door Control";
@@ -19863,6 +19859,9 @@
 	pixel_y = 24;
 	req_access = list(19)
 	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/command/bridge)
+"bCn" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -20042,7 +20041,6 @@
 	pixel_y = 24;
 	req_access = list(19)
 	},
-/obj/item/kirbyplants/large,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "bCB" = (
@@ -63349,11 +63347,12 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/sleeper)
 "jmc" = (
-/obj/structure/marker_beacon/dock_marker{
-	name = "beacon"
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
 	},
-/turf/space,
-/area/space/nearstation)
+/area/station/maintenance/port)
 "jme" = (
 /obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
@@ -68260,10 +68259,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
 "lsN" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/glass,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel,
+/obj/effect/spawner/window/reinforced/grilled,
 /area/station/maintenance/port)
 "lth" = (
 /obj/structure/table/reinforced,
@@ -68733,16 +68729,13 @@
 	},
 /area/station/medical/surgery/primary)
 "lDV" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 5;
-	height = 7;
-	id = "engineering_home";
-	name = "engineering shuttle bay";
-	width = 11
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
 	},
-/turf/space,
-/area/space)
+/area/station/maintenance/port)
 "lEa" = (
 /obj/machinery/smartfridge/secure/medbay,
 /turf/simulated/floor/plasteel/white,
@@ -69664,11 +69657,12 @@
 	},
 /area/station/maintenance/fore)
 "mbO" = (
-/obj/structure/marker_beacon/dock_marker{
-	name = "beacon"
+/obj/machinery/computer/aifixer,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbrown"
 	},
-/turf/space,
-/area/space)
+/area/station/command/bridge)
 "mbY" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -76851,10 +76845,15 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "pcc" = (
-/obj/machinery/door/airlock/engineering/glass,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plating,
-/area/station/maintenance/port)
+/obj/docking_port/stationary{
+	dwidth = 5;
+	height = 7;
+	id = "engineering_home";
+	name = "engineering shuttle bay";
+	width = 11
+	},
+/turf/space,
+/area/space)
 "pcf" = (
 /obj/structure/flora/ausbushes/stalkybush,
 /turf/simulated/floor/grass/no_creep,
@@ -92170,8 +92169,10 @@
 	},
 /area/station/service/janitor)
 "vjZ" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plating,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellow"
+	},
 /area/station/maintenance/port)
 "vkn" = (
 /obj/item/kirbyplants/large,
@@ -95126,9 +95127,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "wuE" = (
-/obj/machinery/economy/vending/snack,
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/bridge)
+/obj/machinery/computer/shuttle/engineering,
+/turf/simulated/floor/plating,
+/area/station/maintenance/port)
 "wuF" = (
 /obj/machinery/camera{
 	c_tag = "Atmospherics Portable Air Ports";
@@ -115155,11 +115156,11 @@ aaa
 aaa
 aaa
 aaa
+aaq
 aaa
 aaa
 aaa
-aaa
-aaa
+aaq
 aaa
 aaa
 aaa
@@ -115412,11 +115413,11 @@ aaa
 aaa
 aaa
 aaa
+abj
 aaa
 aaa
 aaa
-aaa
-aaa
+abj
 aaa
 aaa
 aaa
@@ -115669,11 +115670,11 @@ aaa
 aaa
 aaa
 aaa
+abj
 aaa
 aaa
 aaa
-aaa
-aaa
+abj
 aaa
 aaa
 aaa
@@ -115926,11 +115927,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+abj
+cRD
+cUP
+cRD
+abj
 aaa
 aaa
 aaa
@@ -116183,11 +116184,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+abj
+cRD
+euv
+cRD
+abj
 aaa
 aaa
 aaa
@@ -116440,11 +116441,11 @@ aaa
 aaa
 aaa
 aaa
-aaq
-aaa
-aaa
-aaa
-aaq
+dmq
+cRD
+pZy
+cRD
+dmq
 aaa
 aaa
 aaa
@@ -116690,18 +116691,18 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+mQO
 abj
-aaa
-aaa
-aaa
 abj
+abj
+abj
+abj
+mQO
+dmq
+gCW
+fza
+gCW
+dmq
 aaa
 aaa
 aaa
@@ -116947,18 +116948,18 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 abj
 aaa
 aaa
 aaa
-abj
+aaa
+aaa
+aaa
+dmq
+oOQ
+oOQ
+ufc
+dmq
 aaa
 aaa
 aaa
@@ -117204,18 +117205,18 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 abj
-cRD
-cUP
-cRD
-abj
+aaa
+aaa
+aaa
+aaa
+aaa
+hkk
+lsN
+jGn
+ueB
+hkk
+dmq
 aaa
 aaa
 aaa
@@ -117461,18 +117462,18 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
 abj
-cRD
-euv
-cRD
-abj
+aaa
+aaa
+aaa
+aaa
+aaa
+hkk
+wPH
+pVK
+mjt
+eoc
+cHA
 aaa
 aaa
 aaa
@@ -117718,17 +117719,17 @@ aaa
 aaa
 aaa
 aaa
+abj
 aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-dmq
-cRD
-pZy
-cRD
+pcc
+lDV
+jmc
+czF
+drn
+vjZ
 dmq
 reg
 reg
@@ -117742,16 +117743,16 @@ abj
 acF
 aaa
 aaa
-mbO
-mbO
-mbO
-mbO
-mbO
-mbO
-mbO
-mbO
-mbO
-mbO
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -117975,17 +117976,17 @@ aaa
 aaa
 aaa
 aaa
+abj
 aaa
 aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-dmq
-gCW
-fza
-gCW
+hkk
+wuE
+czF
+czF
+drn
 dmq
 reg
 mjz
@@ -117998,7 +117999,6 @@ reg
 abj
 acF
 aaa
-mbO
 aaa
 aaa
 aaa
@@ -118009,7 +118009,8 @@ aaa
 aaa
 aaa
 aaa
-mbO
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -118232,17 +118233,17 @@ aaa
 aaa
 aaa
 aaa
+abj
 aaa
 aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-dmq
-oOQ
-oOQ
-ufc
+hkk
+drn
+czF
+czF
+drn
 dmq
 xOD
 dzl
@@ -118254,7 +118255,6 @@ mtc
 reg
 abj
 acF
-mbO
 aaa
 aaa
 aaa
@@ -118266,7 +118266,8 @@ aaa
 aaa
 aaa
 aaa
-mbO
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -118489,17 +118490,17 @@ aaa
 aaa
 aaa
 aaa
+abj
 aaa
 aaa
 aaa
 aaa
 aaa
-aaa
-dmq
-dmq
-jGn
-ueB
 hkk
+drn
+czF
+czF
+drn
 dmq
 jUu
 ctX
@@ -118511,7 +118512,6 @@ paO
 reg
 acF
 acF
-jmc
 aaa
 aaa
 aaa
@@ -118523,7 +118523,8 @@ aaa
 aaa
 aaa
 aaa
-mbO
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -118746,18 +118747,18 @@ abj
 abj
 acF
 abj
-abj
+mQO
 abj
 acF
 abj
 abj
-aaa
+mQO
+hkk
+drn
+drn
+czF
+czF
 dmq
-wPH
-pVK
-mjt
-eoc
-cHA
 iNM
 ctX
 hLx
@@ -118768,7 +118769,6 @@ jpO
 reg
 acF
 acF
-jmc
 aaa
 aaa
 aaa
@@ -118780,7 +118780,8 @@ aaa
 aaa
 aaa
 aaa
-mbO
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -119009,11 +119010,11 @@ bXU
 cie
 cie
 cie
-bXU
+dmq
 cXX
 czF
-drn
-vjZ
+czF
+czF
 xEL
 gIF
 uBY
@@ -119025,7 +119026,6 @@ cGr
 oyF
 hsg
 uad
-jmc
 aaa
 aaa
 aaa
@@ -119037,7 +119037,8 @@ aaa
 aaa
 aaa
 aaa
-mbO
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -119282,7 +119283,6 @@ dmq
 dmq
 cNr
 cHA
-jmc
 aaa
 aaa
 aaa
@@ -119294,7 +119294,8 @@ aaa
 aaa
 aaa
 aaa
-mbO
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -119539,8 +119540,6 @@ bBw
 cHA
 eXt
 cHA
-xLV
-mbO
 aaa
 aaa
 aaa
@@ -119551,7 +119550,9 @@ aaa
 aaa
 aaa
 aaa
-mbO
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -119796,18 +119797,18 @@ qCy
 cHA
 drn
 cHA
-xLV
 aaa
-mbO
-mbO
 aaa
-mbO
-lDV
-mbO
-mbO
-mbO
-mbO
-mbO
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -120053,12 +120054,12 @@ dDq
 iDE
 tfe
 hkk
-hkk
-hkk
-hkk
-hkk
-lsN
-hkk
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -120309,13 +120310,13 @@ kzx
 cnx
 wUh
 dhG
-pcc
-drn
-drn
-drn
-drn
-drn
 hkk
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -120566,13 +120567,13 @@ jOV
 cNh
 dhG
 vZd
-cHA
-cHA
 hkk
-hkk
-cHA
-cHA
-cHA
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -136708,7 +136709,7 @@ aaa
 abj
 aaa
 bwf
-wuE
+aos
 bCm
 bDY
 bFz
@@ -136965,7 +136966,7 @@ aaa
 abj
 aaa
 bwf
-aos
+mbO
 bCn
 bDZ
 bCL

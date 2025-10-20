@@ -3709,7 +3709,9 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "mh" = (
-/obj/machinery/fluid_pipe/plasma_refinery/west,
+/obj/machinery/fluid_pipe/plasma_refinery/west{
+	pixel_x = 0
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -62235,7 +62237,7 @@ De
 SM
 De
 De
-De
+mh
 SM
 De
 De
@@ -62492,7 +62494,7 @@ Hk
 De
 De
 De
-mh
+De
 SM
 De
 De

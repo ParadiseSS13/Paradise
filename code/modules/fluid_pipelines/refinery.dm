@@ -164,10 +164,13 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 	icon_state = "refinery_4"
 	dir = EAST
 	pixel_x = -32
+	connect_dirs = list(EAST, SOUTH)
 
 /obj/machinery/fluid_pipe/plasma_refinery/west
 	icon_state = "refinery_8"
 	dir = WEST
+	pixel_x = 0
+	connect_dirs = list(WEST, SOUTH)
 
 // MARK: refinery recipes
 
@@ -193,7 +196,7 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 /datum/refinery_recipe/refined_plasma/catalyze
 	name = "Refined plasma (with catalyzer)"
 	input = list("unr_pl" = 40, "brine" = 10)
-	output = list("ref_pl" = 30, "brine" = 10)
+	output = list("ref_pl" = 30)
 
 // Basic fuel, easy to make and faster but creates waste
 /datum/refinery_recipe/basic_fuel
@@ -213,6 +216,6 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 
 /datum/refinery_recipe/plastic
 	name = "Plastic"
-	input = list("visc_oil" = 20, "waste" = 30)
+	input = list("visc_oil" = 20, "waste" = 30, "water" = 20)
 	output = list("water" = 10)
 	solid_output = /obj/item/stack/sheet/plastic

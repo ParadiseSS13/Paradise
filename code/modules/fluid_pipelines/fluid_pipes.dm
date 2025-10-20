@@ -32,7 +32,8 @@
 
 /obj/machinery/fluid_pipe/LateInitialize()
 	. = ..()
-	blind_connect()
+	if(!fluid_datum) // DGTODO check if this isn't fucking things up
+		blind_connect()
 	START_PROCESSING(SSfluid, src)
 
 /obj/machinery/fluid_pipe/Destroy()

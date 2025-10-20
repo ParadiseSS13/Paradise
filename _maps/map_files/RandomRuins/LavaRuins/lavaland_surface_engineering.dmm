@@ -126,10 +126,14 @@
 	},
 /area/engi_outpost/vacant_room)
 "cj" = (
-/obj/machinery/light{
-	dir = 8
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/lava/mapping_lava,
 /area/shuttle/engineering)
 "cJ" = (
 /obj/structure/rack{
@@ -208,15 +212,6 @@
 	icon_state = "dark"
 	},
 /area/engi_outpost/airlock)
-"eJ" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/effect/turf_decal/stripes/corner,
-/obj/structure/railing/corner,
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors/explored)
 "eZ" = (
 /obj/machinery/economy/vending/chinese,
 /turf/simulated/floor/plasteel{
@@ -248,6 +243,9 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "fH" = (
@@ -270,11 +268,14 @@
 /turf/open/floor/plating,
 /area/engi_outpost/breakroom)
 "gf" = (
-/obj/machinery/door/poddoor{
-	id_tag = "CargoHold";
-	name = "cargo hold"
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 1
 	},
-/turf/simulated/floor/plating,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/lava/mapping_lava,
 /area/shuttle/engineering)
 "gg" = (
 /obj/effect/map_effect/dynamic_airlock,
@@ -358,6 +359,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -400,14 +402,13 @@
 /area/engi_outpost/airlock)
 "iy" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/effect/turf_decal/stripes/line{
+/obj/structure/railing/corner{
 	dir = 1
 	},
-/obj/structure/railing{
-	dir = 1
-	},
+/obj/structure/railing/corner,
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors/explored)
+/area/shuttle/engineering)
 "iD" = (
 /turf/simulated/wall,
 /area/engi_outpost/breakroom)
@@ -476,29 +477,46 @@
 	},
 /area/engi_outpost/electrical)
 "kS" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/railing,
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors/explored)
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
 "kX" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/structure/railing{
-	dir = 4
+	dir = 6
 	},
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors/explored)
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/shuttle/engineering)
 "lx" = (
-/obj/machinery/door/airlock/titanium{
-	id_tag = "s_docking_airlock"
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/engineering)
 "lD" = (
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/wall/mineral/titanium,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/simulated/floor/lava/mapping_lava,
 /area/shuttle/engineering)
 "lG" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,
@@ -508,11 +526,12 @@
 	},
 /area/engi_outpost/electrical)
 "lO" = (
-/obj/effect/turf_decal/stripes/corner,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 1
 	},
-/area/engi_outpost/shuttle_landing_post)
+/turf/simulated/floor/catwalk,
+/area/lavaland/surface/outdoors/explored)
 "lZ" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
@@ -523,9 +542,11 @@
 	},
 /area/engi_outpost/vacant_room)
 "mc" = (
-/obj/machinery/door/poddoor{
-	id_tag = "EngiLoaddoors";
-	name = "cargo hold loading door"
+/obj/structure/table,
+/obj/item/rcs,
+/obj/machinery/recharger/wallcharger{
+	pixel_y = -30;
+	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -671,17 +692,24 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/structure/fans/tiny,
+/obj/docking_port/mobile/engineering,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "engineering_away";
+	name = "engineering outpost";
+	width = 7
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/engineering)
 "pS" = (
-/obj/machinery/door_control{
-	id = "CargoHold";
-	layer = 4;
-	name = "Cargo hold";
-	pixel_y = 24
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium,
+/obj/machinery/light,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/engineering)
 "pV" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
@@ -868,16 +896,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/engi_outpost/airlock)
-"tK" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/railing{
-	dir = 1
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/explored)
 "tL" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
@@ -993,21 +1011,21 @@
 /turf/simulated/floor/catwalk,
 /area/engi_outpost/airlock)
 "wg" = (
-/obj/structure/railing{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors/explored)
+/obj/machinery/camera{
+	c_tag = "Engineering Outpost - Arrivals";
+	dir = 10;
+	network = list("Engineering Outpost")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
 "wG" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /obj/structure/railing{
-	dir = 6
+	dir = 9
 	},
 /obj/structure/lattice/catwalk/mining,
 /turf/simulated/floor/lava/mapping_lava,
@@ -1055,12 +1073,12 @@
 /turf/simulated/floor/catwalk,
 /area/engi_outpost/airlock)
 "xI" = (
-/obj/structure/railing{
-	dir = 6
-	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/explored)
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/simulated/floor/lava/mapping_lava,
+/area/shuttle/engineering)
 "xJ" = (
 /obj/machinery/door/airlock/external/glass{
 	name = "Shuttle Airlock";
@@ -1145,15 +1163,18 @@
 	},
 /area/engi_outpost/shuttle_landing_post)
 "zL" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/effect/turf_decal/delivery/hollow,
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
 	},
-/obj/structure/railing{
-	dir = 8
+/obj/machinery/camera{
+	c_tag = "Engineering Outpost - Shuttle";
+	dir = 5;
+	network = list("Engineering Outpost")
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/explored)
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/engineering)
 "Aj" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
@@ -1177,12 +1198,10 @@
 /area/engi_outpost/electrical)
 "Bq" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/structure/railing/corner,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/explored)
-"BW" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/mineral/titanium,
+/obj/structure/railing{
+	dir = 10
+	},
+/turf/simulated/floor/lava/mapping_lava,
 /area/shuttle/engineering)
 "Cb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1340,15 +1359,15 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/engineering)
 "Hx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/railing{
-	dir = 4
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30
 	},
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors/explored)
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/engineering)
 "Hz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1404,11 +1423,12 @@
 	},
 /area/engi_outpost/breakroom)
 "IL" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/light/small{
+	dir = 8
 	},
-/area/engi_outpost/shuttle_landing_post)
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/engineering)
 "IN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
@@ -1452,20 +1472,15 @@
 /area/template_noop)
 "KK" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/simulated/floor/catwalk,
 /area/lavaland/surface/outdoors/explored)
 "La" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/railing,
-/turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors/explored)
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/structure/sign/poster/official/random/directional/south,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/engineering)
 "Lx" = (
 /turf/simulated/wall/r_wall,
 /area/engi_outpost/shuttle_landing_post)
@@ -1531,11 +1546,9 @@
 /area/engi_outpost/electrical)
 "NJ" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/structure/railing{
-	dir = 10
-	},
+/obj/structure/railing,
 /turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors/explored)
+/area/shuttle/engineering)
 "NY" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
@@ -1566,16 +1579,24 @@
 /turf/simulated/floor/transparent/glass/plasma,
 /area/engi_outpost/bridges)
 "Ox" = (
-/obj/machinery/computer/shuttle/engineering,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/engineering)
 "Oy" = (
-/obj/machinery/camera{
-	c_tag = "Engineering Outpost - Shuttle Cargo";
-	dir = 5;
-	network = list("Engineering Outpost")
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing/corner{
+	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium,
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/lava/mapping_lava,
 /area/shuttle/engineering)
 "OA" = (
 /obj/structure/fence{
@@ -1604,25 +1625,27 @@
 /turf/simulated/floor/transparent/glass/plasma,
 /area/engi_outpost/bridges)
 "OZ" = (
-/obj/machinery/camera{
-	c_tag = "Engineering Outpost - Shuttle";
-	dir = 5;
-	network = list("Engineering Outpost")
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
-/obj/machinery/light/small,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/engineering)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engi_outpost/shuttle_landing_post)
 "Pu" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/open/floor/plating,
 /area/engi_outpost/breakroom)
 "Py" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/titanium{
-	id_tag = "s_docking_airlock"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plating,
+/obj/structure/lattice/catwalk/mining,
+/turf/simulated/floor/lava/mapping_lava,
 /area/shuttle/engineering)
 "Pz" = (
 /obj/structure/cable{
@@ -1744,14 +1767,14 @@
 "RP" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/machinery/light,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/simulated/floor/catwalk,
 /area/engi_outpost/airlock)
 "RW" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/effect/turf_decal/stripes/line{
+/obj/structure/railing{
 	dir = 10
 	},
-/obj/structure/railing{
+/obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -1829,16 +1852,8 @@
 /turf/simulated/floor/catwalk,
 /area/engi_outpost/airlock)
 "TF" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 5;
-	height = 7;
-	id = "engineering_away";
-	name = "engineering outpost";
-	width = 11
-	},
-/obj/docking_port/mobile/engineering,
-/turf/simulated/wall/mineral/titanium,
+/obj/machinery/computer/shuttle/engineering,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/engineering)
 "TN" = (
 /obj/structure/barrel,
@@ -1926,14 +1941,8 @@
 	},
 /area/engi_outpost/breakroom)
 "WZ" = (
-/obj/machinery/camera{
-	c_tag = "Engineering Outpost - Arrivals";
-	dir = 10;
-	network = list("Engineering Outpost")
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/effect/turf_decal/box,
+/obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1965,10 +1974,11 @@
 /area/engi_outpost/shuttle_landing_post)
 "XV" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/structure/railing{
-	dir = 6
+/obj/structure/railing/corner{
+	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/obj/structure/railing/corner,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/explored)
 "Ye" = (
 /obj/structure/fence,
@@ -2006,18 +2016,8 @@
 	},
 /area/engi_outpost/shuttle_landing_post)
 "YU" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/obj/structure/railing/corner{
-	dir = 8
-	},
 /turf/simulated/floor/lava/mapping_lava,
-/area/lavaland/surface/outdoors/explored)
+/area/shuttle/engineering)
 "YY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -2165,18 +2165,18 @@ KE
 KE
 gP
 gP
-sm
-Ga
-Ga
-Ga
-Ga
-Ga
-Ga
-Ga
-Ga
-Ga
-Ga
-NJ
+gP
+gP
+gP
+gP
+gP
+gP
+gP
+gP
+gP
+gP
+gP
+gP
 gP
 gP
 gP
@@ -2205,20 +2205,20 @@ KE
 KE
 gP
 gP
-sm
-eJ
-Hx
-wg
-wg
-kX
-kX
-kX
-kX
-kX
-kX
-kX
-YU
-NJ
+gP
+gP
+gP
+gP
+gP
+gP
+gP
+gP
+gP
+gP
+gP
+gP
+gP
+gP
 gP
 gP
 gP
@@ -2245,21 +2245,21 @@ KE
 KE
 gP
 gP
-sm
-eJ
+gP
+gP
 wG
-Un
-Wr
-Un
 lD
-Un
-Un
-Un
-Un
-zm
-Ha
-iy
-kS
+lD
+lD
+lD
+lD
+lD
+Bq
+YU
+YU
+YU
+gP
+gP
 gP
 gP
 gP
@@ -2286,21 +2286,21 @@ KE
 gP
 gP
 gP
-Vu
-La
-Un
-Un
-SF
-OZ
-Un
-SF
+gP
+sm
+iy
+cj
+cj
+cj
+cj
+cj
 cj
 Oy
-SF
-SF
-Un
-iy
-kS
+Bq
+YU
+YU
+gP
+gP
 gP
 gP
 gP
@@ -2327,21 +2327,21 @@ gP
 gP
 gP
 gP
-Vu
-uf
+sm
+XV
+kX
+Un
 Wr
-SF
-SF
-tl
 Un
-SF
-SF
-SF
-SF
-SF
-Un
-iy
-kS
+Wr
+zm
+Ha
+gf
+NJ
+YU
+YU
+gP
+gP
 gP
 gP
 Ui
@@ -2370,19 +2370,19 @@ gP
 gP
 Vu
 uf
-Wr
-Ox
-tl
-vU
-lx
-SF
-SF
-SF
-SF
-SF
 Un
-iy
-kS
+Un
+IL
+zL
+lx
+La
+Un
+gf
+NJ
+YU
+YU
+gP
+gP
 gP
 gP
 gP
@@ -2412,18 +2412,18 @@ gP
 Vu
 uf
 Wr
-SF
-SF
+TF
 tl
-Un
+vU
+lx
 pS
-SF
-SF
-SF
-SF
 Un
-iy
-kS
+gf
+xI
+Bq
+YU
+gP
+gP
 gP
 oD
 oD
@@ -2454,17 +2454,17 @@ Vu
 qD
 Un
 Un
+Ox
 SF
-BW
+lx
+Hx
 Un
-SF
-SF
-SF
-SF
-SF
-Un
-tK
-kS
+gf
+Py
+xI
+Bq
+gP
+gP
 gP
 oD
 Zz
@@ -2497,15 +2497,15 @@ RW
 Un
 Wr
 pB
-Un
-TF
-gf
-gf
-Py
+Wr
 zm
 Ha
-tK
-bP
+gf
+Py
+Py
+NJ
+Ui
+Ui
 Ui
 oD
 rp
@@ -2540,13 +2540,13 @@ uu
 xJ
 uu
 uu
-mc
-mc
-xJ
+MX
+MX
+MX
 uu
-zL
-KK
 bP
+Ui
+Ui
 Ui
 oD
 Zt
@@ -2585,9 +2585,9 @@ ZM
 ZM
 ZM
 MX
-Oe
-Bq
-xI
+bP
+Ui
+Ui
 Ui
 oD
 aL
@@ -2626,8 +2626,8 @@ oM
 oM
 oM
 Mj
-Bq
-XV
+bP
+Ui
 Ui
 Ui
 oD
@@ -2790,7 +2790,7 @@ PZ
 oM
 oM
 oM
-oM
+mc
 Lx
 Mi
 Mi
@@ -2828,9 +2828,9 @@ oM
 Ro
 oM
 Fn
-lO
-AB
-AB
+oM
+oM
+oM
 WZ
 Lx
 Ui
@@ -2868,11 +2868,11 @@ oM
 oM
 oM
 oM
-Fn
-IL
-TN
-TN
-TN
+kS
+AB
+AB
+AB
+wg
 Lx
 Ui
 Ui
@@ -2909,8 +2909,8 @@ va
 tZ
 oM
 oM
-Fn
-IL
+OZ
+TN
 TN
 TN
 YS
@@ -2951,7 +2951,7 @@ uu
 Lx
 HI
 hZ
-IL
+TN
 Yq
 TN
 TN
@@ -3433,7 +3433,7 @@ gP
 gP
 gP
 Ui
-id
+lO
 EE
 pV
 UH
@@ -3474,7 +3474,7 @@ KE
 gP
 Ui
 Ui
-id
+lO
 EE
 yB
 UH
@@ -3515,7 +3515,7 @@ KE
 Ui
 Ui
 Ui
-id
+lO
 EE
 nr
 EI
@@ -3556,7 +3556,7 @@ KE
 Ui
 Ui
 Ui
-id
+lO
 EE
 qt
 gm
@@ -3597,7 +3597,7 @@ KE
 Ui
 Ui
 Ui
-id
+lO
 EE
 dd
 ir
@@ -3679,7 +3679,7 @@ KE
 Ui
 Ui
 Ui
-Oe
+KK
 TE
 xu
 vZ
@@ -3720,7 +3720,7 @@ Ui
 Ui
 Ui
 Ui
-Oe
+KK
 vL
 Zp
 tw

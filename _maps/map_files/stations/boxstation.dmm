@@ -48573,11 +48573,11 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "eov" = (
-/obj/structure/marker_beacon/dock_marker{
-	name = "beacon"
+/obj/machinery/computer/shuttle/engineering{
+	dir = 4
 	},
-/turf/space,
-/area/space)
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "eoT" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -108888,16 +108888,16 @@ aaa
 aaa
 aaa
 aaa
-eov
-eov
-eov
-eov
-eov
-eov
-eov
-eov
-eov
-eov
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -109144,7 +109144,6 @@ aaa
 aaa
 aaa
 aaa
-eov
 aaa
 aaa
 aaa
@@ -109155,7 +109154,8 @@ aaa
 aaa
 aaa
 aaa
-eov
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -109400,7 +109400,6 @@ cyO
 aaa
 aaa
 aaa
-eov
 aaa
 aaa
 aaa
@@ -109412,7 +109411,8 @@ aaa
 aaa
 aaa
 aaa
-eov
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -109654,14 +109654,10 @@ rEZ
 cLi
 aaa
 cPI
-aaa
-aaa
-aaa
-eov
-aaa
-aaa
-aaa
-aaa
+aab
+aab
+aab
+qeu
 aaa
 aaa
 aaa
@@ -109669,7 +109665,11 @@ aaa
 aaa
 aaa
 aaa
-eov
+qeu
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -109914,7 +109914,6 @@ cPG
 aaa
 aaa
 aaa
-eov
 aaa
 aaa
 aaa
@@ -109926,7 +109925,8 @@ aaa
 aaa
 aaa
 aaa
-eov
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -110171,7 +110171,6 @@ cPG
 aaa
 aaa
 aaa
-eov
 aaa
 aaa
 aaa
@@ -110183,7 +110182,8 @@ aaa
 aaa
 aaa
 aaa
-eov
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -110428,7 +110428,6 @@ cPG
 aaa
 aaa
 aaa
-eov
 aaa
 aaa
 aaa
@@ -110440,7 +110439,8 @@ aaa
 aaa
 aaa
 aaa
-eov
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -110686,7 +110686,6 @@ aaa
 aaa
 aaa
 aaa
-eov
 aaa
 aaa
 aaa
@@ -110697,7 +110696,8 @@ aaa
 aaa
 aaa
 aaa
-eov
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -110944,16 +110944,16 @@ aaa
 aaa
 aaa
 aaa
-eov
-eov
 aaa
-eov
+aaa
 wVd
-eov
-eov
-eov
-eov
-eov
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -111197,17 +111197,17 @@ aab
 swl
 jCt
 swl
+aab
+aab
+qeu
 aaa
-aaa
-aaa
-aaa
-aaa
+dmr
 dmr
 kvW
 dmr
-aaa
-aaa
-aaa
+aab
+aab
+qeu
 aaa
 aaa
 aaa
@@ -111458,8 +111458,8 @@ swl
 aaa
 aaa
 aaa
-aaa
 dmr
+eov
 jCs
 dmr
 aaa
@@ -111715,8 +111715,8 @@ sdw
 aaa
 aaa
 aaa
-aaa
 dmr
+scI
 scI
 dmr
 aaa

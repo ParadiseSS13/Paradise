@@ -38,6 +38,12 @@
 		. += liquid.fluid_id
 		return
 
+/obj/structure/barrel/item_interaction(mob/living/user, obj/item/W, list/modifiers)
+	if(istype(W, /obj/item/rcs))
+		var/obj/item/rcs/E = W
+		E.try_send_container(user, src)
+		return ITEM_INTERACT_COMPLETE
+
 /obj/structure/barrel/wrench_act(mob/living/user, obj/item/I)
 	var/obj/machinery/fluid_pipe/barrel_filler/base = locate() in get_turf(src)
 	if(!base)

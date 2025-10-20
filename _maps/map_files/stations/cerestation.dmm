@@ -1271,11 +1271,22 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "aiv" = (
-/obj/structure/marker_beacon/dock_marker{
-	name = "beacon"
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
 	},
-/turf/space,
-/area/space)
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/central/north)
 "aiB" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -3163,20 +3174,20 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/captain)
 "axI" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
 	},
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -18463,10 +18474,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/security/fore_starboard)
 "cNr" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
-/area/station/hallway/primary/central/north)
+/area/station/hallway/primary/central/east)
 "cNt" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/latex,
@@ -23264,16 +23278,9 @@
 	},
 /area/station/medical/virology)
 "dzZ" = (
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 5;
-	height = 7;
-	id = "engineering_home";
-	name = "engineering shuttle bay";
-	width = 11
-	},
-/turf/space,
-/area/space)
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/central/east)
 "dAb" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Aft-Starboard Asteroid Maintenance"
@@ -41254,12 +41261,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "hxc" = (
-/obj/machinery/door/airlock/engineering/glass,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/machinery/computer/shuttle/engineering{
+	dir = 4
 	},
-/area/station/ai_monitored/storage/eva)
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellowcorner"
+	},
+/area/station/hallway/primary/central/east)
 "hxj" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -45114,16 +45123,16 @@
 	},
 /area/station/supply/sorting)
 "ijW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellowcorner"
+	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central/east)
 "ijY" = (
@@ -56886,9 +56895,16 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/electrical/fore_starboard)
 "kFw" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/ai_monitored/storage/eva)
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 5;
+	height = 7;
+	id = "engineering_home";
+	name = "engineering shuttle bay";
+	width = 11
+	},
+/turf/space,
+/area/space)
 "kFx" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
@@ -87277,9 +87293,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "rin" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -109926,13 +109939,13 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/station/public/toilet/unisex)
 "vSA" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/glass,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/area/station/ai_monitored/storage/eva)
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/primary/central/east)
 "vSG" = (
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
@@ -112571,14 +112584,11 @@
 	},
 /area/station/public/quantum/cargo)
 "wvf" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellowcorner"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/east)
+/area/station/hallway/primary/central/north)
 "wvi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -113744,20 +113754,13 @@
 	},
 /area/station/security/main)
 "wHh" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellowcorner"
+	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central/east)
 "wHs" = (
@@ -114273,14 +114276,11 @@
 	},
 /area/station/security/brig)
 "wMg" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellowcorner"
+	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central/east)
 "wMl" = (
@@ -119469,15 +119469,10 @@
 	},
 /area/station/science/hallway)
 "xRk" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowcorner"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/east)
 "xRp" = (
 /obj/machinery/porta_turret/ai_turret,
@@ -157387,7 +157382,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+lzH
 rNK
 rNK
 rNK
@@ -157640,15 +157635,15 @@ mdr
 vDt
 gcU
 pCZ
+lzH
+cEr
+rNK
+rNK
+cEr
 rNK
 rNK
 rNK
-rNK
-rNK
-rNK
-rNK
-rNK
-rNK
+cEr
 lzH
 lzH
 qJG
@@ -157906,7 +157901,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+lzH
 piQ
 piQ
 piQ
@@ -158162,7 +158157,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+aUj
 qdQ
 piQ
 yhj
@@ -158418,7 +158413,7 @@ rNK
 rNK
 rNK
 rNK
-aUj
+rNK
 qdQ
 qdQ
 nTa
@@ -158926,13 +158921,13 @@ bgf
 vDt
 gcU
 pCZ
-pCZ
 rNK
 rNK
 rNK
+kFw
 rNK
-qdQ
-qdQ
+rNK
+rNK
 qdQ
 nTa
 sBU
@@ -159185,11 +159180,11 @@ gcU
 gcU
 pCZ
 pCZ
+dzZ
+wMg
+dzZ
 qdQ
 qdQ
-qdQ
-qdQ
-nTa
 nTa
 sBU
 sBU
@@ -159442,9 +159437,9 @@ buQ
 gcU
 gcU
 gcU
-qdQ
-qdQ
-nTa
+muS
+muS
+hxc
 nTa
 nTa
 sBU
@@ -159697,11 +159692,11 @@ gcj
 pfd
 hQG
 axI
-buQ
+wvf
 gcU
-nTa
-nTa
-nTa
+muS
+muS
+sBU
 sBU
 sBU
 sBU
@@ -159953,13 +159948,13 @@ iSD
 iSD
 wWB
 bgf
-eLK
-hQG
+aiv
 wSq
 ghq
-wHh
 ijW
-wMg
+wHh
+gZr
+qEK
 gZr
 qEK
 qEK
@@ -160211,9 +160206,9 @@ wjX
 iSD
 iSD
 eLK
-bgf
 wNj
 gAg
+vSA
 rin
 fCz
 cJF
@@ -160468,9 +160463,9 @@ eNZ
 cBY
 iSD
 eLK
-cNr
 cIk
 cTN
+cNr
 xRk
 jLX
 rOc
@@ -160728,7 +160723,7 @@ kWU
 uNv
 baS
 baS
-wvf
+xRk
 ptr
 dwz
 dwz
@@ -162260,7 +162255,7 @@ rNK
 rNK
 xbO
 baS
-hxc
+baS
 baS
 baS
 baS
@@ -162516,9 +162511,9 @@ rNK
 rNK
 rNK
 rNK
-kFw
-bYQ
-kFw
+xbO
+xbO
+xbO
 xbO
 xbO
 xbO
@@ -162773,9 +162768,9 @@ rNK
 rNK
 rNK
 rNK
-kFw
-vSA
-kFw
+rNK
+rNK
+rNK
 rNK
 xbO
 xbO
@@ -163024,16 +163019,16 @@ rNK
 rNK
 rNK
 rNK
-aiv
-aiv
-aiv
-aiv
-aiv
-dzZ
-aiv
 rNK
-aiv
-aiv
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
 rNK
 rNK
 rNK
@@ -163280,7 +163275,6 @@ rNK
 rNK
 rNK
 rNK
-aiv
 rNK
 rNK
 rNK
@@ -163291,7 +163285,8 @@ rNK
 rNK
 rNK
 rNK
-aiv
+rNK
+rNK
 rNK
 rNK
 rNK
@@ -163537,7 +163532,6 @@ rNK
 rNK
 rNK
 rNK
-aiv
 rNK
 rNK
 rNK
@@ -163549,7 +163543,8 @@ rNK
 rNK
 rNK
 rNK
-aiv
+rNK
+rNK
 rNK
 rNK
 lzH
@@ -163794,7 +163789,6 @@ rNK
 rNK
 rNK
 rNK
-aiv
 rNK
 rNK
 rNK
@@ -163806,7 +163800,8 @@ rNK
 rNK
 rNK
 rNK
-aiv
+rNK
+rNK
 rNK
 rNK
 lzH
@@ -164051,7 +164046,6 @@ rNK
 rNK
 rNK
 rNK
-aiv
 rNK
 rNK
 rNK
@@ -164063,7 +164057,8 @@ rNK
 rNK
 rNK
 rNK
-aiv
+rNK
+rNK
 rNK
 rNK
 lzH
@@ -164308,7 +164303,6 @@ rNK
 rNK
 rNK
 rNK
-aiv
 rNK
 rNK
 rNK
@@ -164320,7 +164314,8 @@ rNK
 rNK
 rNK
 rNK
-aiv
+rNK
+rNK
 rNK
 rNK
 lzH
@@ -164565,7 +164560,6 @@ rNK
 rNK
 rNK
 rNK
-aiv
 rNK
 rNK
 rNK
@@ -164577,7 +164571,8 @@ rNK
 rNK
 rNK
 rNK
-aiv
+rNK
+rNK
 rNK
 fMl
 aZN
@@ -164822,7 +164817,6 @@ rNK
 rNK
 rNK
 rNK
-aiv
 rNK
 rNK
 rNK
@@ -164833,7 +164827,8 @@ rNK
 rNK
 rNK
 rNK
-aiv
+rNK
+rNK
 rNK
 fHs
 fHs
@@ -165080,16 +165075,16 @@ rNK
 rNK
 rNK
 rNK
-aiv
-aiv
-aiv
-aiv
-aiv
-aiv
-aiv
-aiv
-aiv
-aiv
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
+rNK
 rNK
 rNK
 fHs
