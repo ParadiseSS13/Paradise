@@ -50422,10 +50422,6 @@
 /obj/effect/turf_decal/tiles/dark/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blackcorner"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
 "kgd" = (
@@ -63542,10 +63538,6 @@
 	},
 /obj/effect/turf_decal/tiles/dark/side{
 	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "black"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/transmission_laser)
