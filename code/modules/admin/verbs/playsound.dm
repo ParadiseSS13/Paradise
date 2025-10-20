@@ -1,6 +1,6 @@
 GLOBAL_LIST_EMPTY(sounds_cache)
 
-ADMIN_VERB(stop_global_admin_sounds, R_SOUNDS, "Stop Global Admin Sounds", "Stop all playing admin sounds", VERB_CATEGORY_EVENT)
+USER_VERB(stop_global_admin_sounds, R_SOUNDS, "Stop Global Admin Sounds", "Stop all playing admin sounds", VERB_CATEGORY_EVENT)
 	var/sound/awful_sound = sound(null, repeat = 0, wait = 0, channel = CHANNEL_ADMIN)
 
 	log_admin("[key_name(user)] stopped admin sounds.")
@@ -10,7 +10,7 @@ ADMIN_VERB(stop_global_admin_sounds, R_SOUNDS, "Stop Global Admin Sounds", "Stop
 		var/client/C = M.client
 		C?.tgui_panel?.stop_music()
 
-ADMIN_VERB(play_sound, R_SOUNDS, "Legacy Play Global Sound", "Send a sound to players", VERB_CATEGORY_EVENT, S as sound)
+USER_VERB(play_sound, R_SOUNDS, "Legacy Play Global Sound", "Send a sound to players", VERB_CATEGORY_EVENT, S as sound)
 	if(alert(user, "WARNING: Legacy Play Global Sound does not support CDN asset sending. Sounds will have to be sent directly to players, which may freeze the game for long durations. Are you SURE?", "Really use Legacy Play Global Sound?", "Yes", "No") == "No")
 		return
 
@@ -43,20 +43,20 @@ ADMIN_VERB(play_sound, R_SOUNDS, "Legacy Play Global Sound", "Send a sound to pl
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-ADMIN_VERB(play_local_sound, R_SOUNDS, "Play Local Sound", "Send a sound to players", VERB_CATEGORY_EVENT, S as sound)
+USER_VERB(play_local_sound, R_SOUNDS, "Play Local Sound", "Send a sound to players", VERB_CATEGORY_EVENT, S as sound)
 	log_admin("[key_name(user)] played a local sound [S]")
 	message_admins("[key_name_admin(user)] played a local sound [S]", 1)
 	playsound(get_turf(user.mob), S, 50, FALSE, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Local Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-ADMIN_VERB(play_server_sound, R_SOUNDS, "Play Server Sound", "Send a sound to players", VERB_CATEGORY_EVENT)
+USER_VERB(play_server_sound, R_SOUNDS, "Play Server Sound", "Send a sound to players", VERB_CATEGORY_EVENT)
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
 	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
 	if(!melody)	return
 
-	SSadmin_verbs.invoke_verb(user, /datum/admin_verb/play_local_sound, melody)
+	SSuser_verbs.invoke_verb(user, /datum/user_verb/play_local_sound, melody)
 
 /client/proc/play_intercomm_sound()
 	set category = "Event"

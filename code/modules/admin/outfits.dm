@@ -1,6 +1,6 @@
 GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 
-ADMIN_VERB(outfit_manager, R_EVENT, "Outfit Manager", "Opens the outfit manager.", VERB_CATEGORY_EVENT)
+USER_VERB(outfit_manager, R_EVENT, "Outfit Manager", "Opens the outfit manager.", VERB_CATEGORY_EVENT)
 	user.holder.outfit_manager(user.mob)
 
 /datum/admins/proc/outfit_manager(mob/admin)

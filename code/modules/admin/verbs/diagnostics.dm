@@ -106,7 +106,7 @@
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Radio Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-ADMIN_VERB(reload_admins, R_SERVER, "Reload Admins", "Perform a forced refresh of admin data.", VERB_CATEGORY_SERVER)
+USER_VERB(reload_admins, R_SERVER, "Reload Admins", "Perform a forced refresh of admin data.", VERB_CATEGORY_SERVER)
 	if(!user.is_connecting_from_localhost())
 		if(tgui_alert(user, "Are you sure about this?", "Confirm", list("Yes", "No")) != "Yes")
 			return
@@ -117,7 +117,7 @@ ADMIN_VERB(reload_admins, R_SERVER, "Reload Admins", "Perform a forced refresh o
 	load_admins(run_async=TRUE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reload Admins") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-ADMIN_VERB(vv_by_ref, R_MAINTAINER, "VV by Ref", "Give this a ref string, and you will see its corresponding VV panel if it exists", VERB_CATEGORY_DEBUG)
+USER_VERB(vv_by_ref, R_MAINTAINER, "VV by Ref", "Give this a ref string, and you will see its corresponding VV panel if it exists", VERB_CATEGORY_DEBUG)
 	var/refstring = clean_input(user, "Which reference?","Ref")
 	if(!refstring)
 		return
@@ -127,4 +127,4 @@ ADMIN_VERB(vv_by_ref, R_MAINTAINER, "VV by Ref", "Give this a ref string, and yo
 		to_chat(user, "<span class='warning'>That ref string does not correspond to any datum.</span>")
 		return
 
-	SSadmin_verbs.invoke_verb(user, /datum/admin_verb/debug_variables, D)
+	SSuser_verbs.invoke_verb(user, /datum/user_verb/debug_variables, D)

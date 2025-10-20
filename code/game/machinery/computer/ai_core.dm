@@ -267,7 +267,7 @@
 		GLOB.empty_playable_ai_cores -= src
 	return ..()
 
-ADMIN_VERB(empty_ai_core_toggle_latejoin, R_ADMIN, "Toggle AI Core Latejoin", "Toggle AI Core Latejoin", VERB_CATEGORY_ADMIN)
+USER_VERB(empty_ai_core_toggle_latejoin, R_ADMIN, "Toggle AI Core Latejoin", "Toggle AI Core Latejoin", VERB_CATEGORY_ADMIN)
 	var/list/cores = list()
 	for(var/obj/structure/ai_core/deactivated/D in world)
 		cores["[D] ([D.loc.loc])"] = D

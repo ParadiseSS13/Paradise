@@ -15,7 +15,7 @@
 
 */
 
-ADMIN_VERB(execute_sdql2_query, R_PROCCALL, "SDQL2 Query", "Run an SDQL query", VERB_CATEGORY_DEBUG)
+USER_VERB(execute_sdql2_query, R_PROCCALL, "SDQL2 Query", "Run an SDQL query", VERB_CATEGORY_DEBUG)
 	if(!check_rights_client(R_PROCCALL, FALSE, user))  //Shouldn't happen... but just to be safe.
 		message_admins("<span class='danger'>ERROR: Non-admin [key_name_admin(user)] attempted to execute a SDQL query!</span>")
 		log_admin("Non-admin [key_name(user)] attempted to execute a SDQL query!")

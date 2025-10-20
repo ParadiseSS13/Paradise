@@ -2,7 +2,7 @@
 #define LIBRARY_MENU_CKEY     2
 #define LIBRARY_MENU_REPORTS  3
 
-ADMIN_VERB(library_manager, R_ADMIN, "Manage Library", "Manage Flagged Books and Perform Maintenance on the Library System", VERB_CATEGORY_ADMIN)
+USER_VERB(library_manager, R_ADMIN, "Manage Library", "Manage Flagged Books and Perform Maintenance on the Library System", VERB_CATEGORY_ADMIN)
 	var/datum/ui_module/library_manager/L = new()
 	L.ui_interact(user.mob)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Library") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

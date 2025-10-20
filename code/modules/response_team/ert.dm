@@ -11,7 +11,7 @@ GLOBAL_VAR_INIT(send_emergency_team, FALSE)
 GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 GLOBAL_LIST_EMPTY(ert_request_messages)
 
-ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", \
+USER_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", \
 		"Send an CentComm response team to the station.", \
 		VERB_CATEGORY_EVENT)
 	if(SSticker.current_state < GAME_STATE_PLAYING)

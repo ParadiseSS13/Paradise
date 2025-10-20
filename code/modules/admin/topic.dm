@@ -918,7 +918,7 @@
 	else if(href_list["open_logging_view"])
 		var/mob/M = locateUID(href_list["open_logging_view"])
 		if(ismob(M))
-			SSadmin_verbs.invoke_verb(usr, /datum/admin_verb/logging_view, list(M), TRUE)
+			SSuser_verbs.invoke_verb(usr, /datum/user_verb/logging_view, list(M), TRUE)
 
 	//Player Notes
 	else if(href_list["addnote"])
@@ -1404,13 +1404,13 @@
 		M.client.prefs.active_character.save(M.client)
 
 	else if(href_list["asays"])
-		SSadmin_verbs.invoke_verb(usr, /datum/admin_verb/view_asays)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/view_asays)
 	else if(href_list["msays"])
-		SSadmin_verbs.invoke_verb(usr, /datum/admin_verb/view_msays)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/view_msays)
 	else if(href_list["devsays"])
-		SSadmin_verbs.invoke_verb(usr, /datum/admin_verb/view_devsays)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/view_devsays)
 	else if(href_list["staffsays"])
-		SSadmin_verbs.invoke_verb(usr, /datum/admin_verb/view_staffsays)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/view_staffsays)
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
@@ -1764,7 +1764,7 @@
 		var/block=text2num(href_list["block"])
 		//testing("togmutate([href_list["block"]] -> [block])")
 		usr.client.cmd_admin_toggle_block(H,block)
-		SSadmin_verbs.invoke_verb(usr, /datum/admin_verb/show_player_panel, H)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/show_player_panel, H)
 		//H.regenerate_icons()
 
 	else if(href_list["adminobserve"])
@@ -1776,7 +1776,7 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		SSadmin_verbs.invoke_verb(C, /datum/admin_verb/admin_observe_target, M)
+		SSuser_verbs.invoke_verb(C, /datum/user_verb/admin_observe_target, M)
 
 	else if(href_list["adminplayeropts"])
 		var/mob/M = locateUID(href_list["adminplayeropts"])
@@ -1785,7 +1785,7 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
-		SSadmin_verbs.invoke_verb(usr, /datum/admin_verb/show_player_panel, M)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/show_player_panel, M)
 
 	else if(href_list["adminplayerobservefollow"])
 		if(isnewplayer(usr))
@@ -1797,7 +1797,7 @@
 			if(!check_rights(R_ADMIN|R_MOD, show_msg=FALSE)) // Need to be mod or admin to aghost
 				to_chat(usr, "<span class='warning'>You must be an observer to follow someone!</span>")
 				return
-			SSadmin_verbs.invoke_verb(C, /datum/admin_verb/admin_ghost)
+			SSuser_verbs.invoke_verb(C, /datum/user_verb/admin_ghost)
 
 		var/mob/target = locateUID(href_list["adminplayerobservefollow"])
 		if(!ismob(target))
@@ -1870,7 +1870,7 @@
 			if("remove_member")
 				team.admin_remove_member(usr, member)
 			if("view_member")
-				SSadmin_verbs.invoke_verb(usr, /datum/admin_verb/show_player_panel, member.current)
+				SSuser_verbs.invoke_verb(usr, /datum/user_verb/show_player_panel, member.current)
 			if("add_objective")
 				team.admin_add_objective(usr)
 			if("announce_objectives")
@@ -1920,7 +1920,7 @@
 		if(!isobserver(usr))
 			if(!check_rights(R_ADMIN)) // Need to be admin to aghost
 				return
-			SSadmin_verbs.invoke_verb(C, /datum/admin_verb/admin_ghost)
+			SSuser_verbs.invoke_verb(C, /datum/user_verb/admin_ghost)
 
 		var/x = text2num(href_list["X"])
 		var/y = text2num(href_list["Y"])
@@ -2533,7 +2533,7 @@
 			to_chat(owner, "<span class='notice'>You sent [reason] to [H] via a secure channel.</span>")
 			to_chat(H, "<span class='specialnotice bold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [reason].</span>")
 		else
-			SSadmin_verbs.invoke_verb(owner, /datum/admin_verb/dispatch_ert)
+			SSuser_verbs.invoke_verb(owner, /datum/user_verb/dispatch_ert)
 
 
 	else if(href_list["AdminFaxView"])
@@ -2767,7 +2767,7 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		SSadmin_verbs.invoke_verb(usr, /datum/admin_verb/teleport_mob, M)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/teleport_mob, M)
 
 	else if(href_list["sendmob"])
 		if(!check_rights(R_ADMIN))	return
@@ -2776,21 +2776,21 @@
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		SSadmin_verbs.invoke_verb(usr, /datum/admin_verb/send_mob, M)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/send_mob, M)
 
 	else if(href_list["narrateto"])
 		var/mob/M = locateUID(href_list["narrateto"])
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		SSadmin_verbs.invoke_verb(usr, /datum/admin_verb/direct_narrate, M)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/direct_narrate, M)
 
 	else if(href_list["subtlemessage"])
 		var/mob/M = locateUID(href_list["subtlemessage"])
 		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		SSadmin_verbs.invoke_verb(usr, /datum/admin_verb/subtle_message, M)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/subtle_message, M)
 
 	else if(href_list["traitor"])
 		if(SSticker.current_state < GAME_STATE_PLAYING)
@@ -2802,7 +2802,7 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
-		SSadmin_verbs.invoke_verb(usr, /datum/admin_verb/show_traitor_panel, M)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/show_traitor_panel, M)
 
 	else if(href_list["create_object"])
 		if(!check_rights(R_SPAWN))	return
@@ -3468,7 +3468,7 @@
 		switch(href_list["secretsmenu"])
 			if("tab")
 				current_tab = text2num(href_list["tab"])
-				SSadmin_verbs.invoke_verb(usr, /datum/admin_verb/secrets_panel)
+				SSuser_verbs.invoke_verb(usr, /datum/user_verb/secrets_panel)
 				return 1
 
 	else if(href_list["viewruntime"])
@@ -3603,7 +3603,7 @@
 			return
 
 		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
-		SSadmin_verbs.invoke_verb(usr, /datum/admin_verb/send_alert_message, about_to_be_banned)
+		SSuser_verbs.invoke_verb(usr, /datum/user_verb/send_alert_message, about_to_be_banned)
 
 	else if(href_list["clientmodcheck"])
 		if(!check_rights(R_ADMIN))
@@ -3700,7 +3700,7 @@
 			return
 
 		qdel(dbq2)
-		SSadmin_verbs.invoke_verb(owner, /datum/admin_verb/spawn_json)
+		SSuser_verbs.invoke_verb(owner, /datum/user_verb/spawn_json)
 		to_chat(usr, "Slot <code>[slot_name]</code> deleted.")
 
 

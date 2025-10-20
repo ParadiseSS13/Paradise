@@ -1,4 +1,4 @@
-ADMIN_VERB(map_template_place, R_DEBUG, "Map template - Place", "Map template - Place", VERB_CATEGORY_DEBUG)
+USER_VERB(map_template_place, R_DEBUG, "Map template - Place", "Map template - Place", VERB_CATEGORY_DEBUG)
 	var/datum/map_template/template
 
 	var/map = input(user, "Choose a Map Template to place at your CURRENT LOCATION","Place Map Template") as null|anything in GLOB.map_templates
@@ -27,7 +27,7 @@ ADMIN_VERB(map_template_place, R_DEBUG, "Map template - Place", "Map template - 
 			to_chat(user, "Failed to place map")
 	user.images -= preview
 
-ADMIN_VERB(map_template_upload, R_DEBUG, "Map Template - Upload", "Map Template - Upload", VERB_CATEGORY_DEBUG)
+USER_VERB(map_template_upload, R_DEBUG, "Map Template - Upload", "Map Template - Upload", VERB_CATEGORY_DEBUG)
 	var/map = input(user, "Choose a Map Template to upload to template storage","Upload Map Template") as null|file
 	if(!map)
 		return
@@ -45,7 +45,7 @@ ADMIN_VERB(map_template_upload, R_DEBUG, "Map Template - Upload", "Map Template 
 	else
 		to_chat(user, "Map template '[map]' failed to load properly")
 
-ADMIN_VERB(map_template_load_lazy, R_DEBUG, "Map template - Lazy Load", "Map template - Lazy Load", VERB_CATEGORY_DEBUG)
+USER_VERB(map_template_load_lazy, R_DEBUG, "Map template - Lazy Load", "Map template - Lazy Load", VERB_CATEGORY_DEBUG)
 	var/map = input(user, "Choose a Map Template to place on the lazy load map level.","Place Map Template") as null|anything in GLOB.map_templates
 	if(!map)
 		return

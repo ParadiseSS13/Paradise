@@ -12,7 +12,7 @@ GLOBAL_PROTECT(investigate_log_wrapper)
 
 	GLOB.investigate_log_wrapper[subject] += "<small>[time_stamp()] [UID()] [ADMIN_COORDJMP(src)] </small> || [src] [message]"
 
-ADMIN_VERB(investigate_show, R_ADMIN, "Investigate Round Objects", "View Investigation panel.", VERB_CATEGORY_ADMIN, subject in GLOB.investigate_log_wrapper)
+USER_VERB(investigate_show, R_ADMIN, "Investigate Round Objects", "View Investigation panel.", VERB_CATEGORY_ADMIN, subject in GLOB.investigate_log_wrapper)
 	// Should never happen
 	if(!(subject in GLOB.investigate_log_wrapper))
 		return

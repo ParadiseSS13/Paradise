@@ -1,5 +1,5 @@
 // Admin verb to debug the DMAPI
-ADMIN_VERB(debug_dmapi, R_DEBUG, "Debug DMAPI", "Dump DMAPI information.", VERB_CATEGORY_DEBUG)
+USER_VERB(debug_dmapi, R_DEBUG, "Debug DMAPI", "Dump DMAPI information.", VERB_CATEGORY_DEBUG)
 	if(!world.TgsAvailable())
 		to_chat(user, "DMAPI not connected")
 		return
@@ -18,5 +18,5 @@ ADMIN_VERB(debug_dmapi, R_DEBUG, "Debug DMAPI", "Dump DMAPI information.", VERB_
 		to_chat(user, "I:[CC.id] | FN:[CC.friendly_name] | AC:[CC.is_admin_channel] | PC:[CC.is_private_channel] | CT:[CC.custom_tag]")
 	to_chat(user, "Security level: [world.TgsSecurityLevel()]")
 
-ADMIN_VERB(dmapi_log, R_DEBUG, "DMAPI Log", "Open the DMAPI log.", VERB_CATEGORY_DEBUG)
+USER_VERB(dmapi_log, R_DEBUG, "DMAPI Log", "Open the DMAPI log.", VERB_CATEGORY_DEBUG)
 	user << browse(GLOB.tgs_log.Join("<br>"), "window=dmapi_log")

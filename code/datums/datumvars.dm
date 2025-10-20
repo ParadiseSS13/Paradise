@@ -137,7 +137,7 @@
 		var/datum/ui_module/colour_matrix_tester/CMT = new(target=src)
 		CMT.ui_interact(usr)
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "\[Admin\] View Variables", datum/thing in world)
+MAKE_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "\[Admin\] View Variables", datum/thing in world)
 	user.debug_variables(thing)
 
 /client/proc/debug_variables(datum/D in world)
@@ -721,7 +721,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "\[Admin\]
 		debug_variables(locate(href_list["listrefresh"]))
 		return TRUE
 
-ADMIN_VERB(debug_global_variables, R_ADMIN|R_VIEWRUNTIMES, "Debug Global Variables", "Debug Global Variables", VERB_CATEGORY_DEBUG, var_search as text)
+USER_VERB(debug_global_variables, R_ADMIN|R_VIEWRUNTIMES, "Debug Global Variables", "Debug Global Variables", VERB_CATEGORY_DEBUG, var_search as text)
 	var_search = trim(var_search)
 	if(!var_search)
 		return

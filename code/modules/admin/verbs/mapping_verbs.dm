@@ -35,8 +35,8 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 /obj/effect/debugging/marker/Move()
 	return 0
 
-ADMIN_VERB_VISIBILITY(debug_camera_view, VERB_VISIBILITY_FLAG_MOREDEBUG)
-ADMIN_VERB(debug_camera_view, R_DEBUG, "Camera Range Display", "Camera Range Display", VERB_CATEGORY_MAPPING)
+USER_VERB_VISIBILITY(debug_camera_view, VERB_VISIBILITY_FLAG_MOREDEBUG)
+USER_VERB(debug_camera_view, R_DEBUG, "Camera Range Display", "Camera Range Display", VERB_CATEGORY_MAPPING)
 	if(GLOB.camera_range_display_status)
 		GLOB.camera_range_display_status = 0
 	else
@@ -54,8 +54,8 @@ ADMIN_VERB(debug_camera_view, R_DEBUG, "Camera Range Display", "Camera Range Dis
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Camera Range Display") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-ADMIN_VERB_VISIBILITY(debug_camera_report, VERB_VISIBILITY_FLAG_MOREDEBUG)
-ADMIN_VERB(debug_camera_report, R_DEBUG, "Camera Report", "Camera Report", VERB_CATEGORY_MAPPING)
+USER_VERB_VISIBILITY(debug_camera_report, VERB_VISIBILITY_FLAG_MOREDEBUG)
+USER_VERB(debug_camera_report, R_DEBUG, "Camera Report", "Camera Report", VERB_CATEGORY_MAPPING)
 	var/list/obj/machinery/camera/CL = list()
 
 	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
@@ -88,8 +88,8 @@ ADMIN_VERB(debug_camera_report, R_DEBUG, "Camera Report", "Camera Report", VERB_
 	user << browse(output,"window=airreport;size=1000x500")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Camera Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-ADMIN_VERB_VISIBILITY(debug_view_intercoms, VERB_VISIBILITY_FLAG_MOREDEBUG)
-ADMIN_VERB(debug_view_intercoms, R_DEBUG, "Intercom Range Display", "Intercom Range Display", VERB_CATEGORY_MAPPING)
+USER_VERB_VISIBILITY(debug_view_intercoms, VERB_VISIBILITY_FLAG_MOREDEBUG)
+USER_VERB(debug_view_intercoms, R_DEBUG, "Intercom Range Display", "Intercom Range Display", VERB_CATEGORY_MAPPING)
 	if(GLOB.intercom_range_display_status)
 		GLOB.intercom_range_display_status = 0
 	else
@@ -106,8 +106,8 @@ ADMIN_VERB(debug_view_intercoms, R_DEBUG, "Intercom Range Display", "Intercom Ra
 					qdel(F)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Intercom Range Display") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-ADMIN_VERB_VISIBILITY(debug_object_count_zlevel, VERB_VISIBILITY_FLAG_MOREDEBUG)
-ADMIN_VERB(debug_object_count_zlevel, R_DEBUG, "Count Objects On Level", "Count Objects On Level", VERB_CATEGORY_MAPPING)
+USER_VERB_VISIBILITY(debug_object_count_zlevel, VERB_VISIBILITY_FLAG_MOREDEBUG)
+USER_VERB(debug_object_count_zlevel, R_DEBUG, "Count Objects On Level", "Count Objects On Level", VERB_CATEGORY_MAPPING)
 	var/level = clean_input("Which z-level?","Level?")
 	if(!level) return
 	var/num_level = text2num(level)
@@ -139,8 +139,8 @@ ADMIN_VERB(debug_object_count_zlevel, R_DEBUG, "Count Objects On Level", "Count 
 	to_chat(world, "There are [count] objects of type [type_path] on z-level [num_level].")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Count Objects (On Level)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-ADMIN_VERB_VISIBILITY(debug_object_count_world, VERB_VISIBILITY_FLAG_MOREDEBUG)
-ADMIN_VERB(debug_object_count_world, R_DEBUG, "Count Objects All", "Count Objects All", VERB_CATEGORY_MAPPING)
+USER_VERB_VISIBILITY(debug_object_count_world, VERB_VISIBILITY_FLAG_MOREDEBUG)
+USER_VERB(debug_object_count_world, R_DEBUG, "Count Objects All", "Count Objects All", VERB_CATEGORY_MAPPING)
 	var/type_text = clean_input("Which type path?","")
 	if(!type_text) return
 	var/type_path = text2path(type_text)
@@ -155,7 +155,7 @@ ADMIN_VERB(debug_object_count_world, R_DEBUG, "Count Objects All", "Count Object
 	to_chat(world, "There are [count] objects of type [type_path] in the game world.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Count Objects (Global)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-ADMIN_VERB(set_next_map, R_SERVER, "Set Next Map", "Set Next Map", VERB_CATEGORY_SERVER)
+USER_VERB(set_next_map, R_SERVER, "Set Next Map", "Set Next Map", VERB_CATEGORY_SERVER)
 	var/list/map_datums = list()
 	for(var/x in subtypesof(/datum/map))
 		var/datum/map/M = x

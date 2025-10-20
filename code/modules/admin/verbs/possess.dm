@@ -1,4 +1,4 @@
-ADMIN_VERB_ONLY_CONTEXT_MENU(possess_object, R_POSSESS, "\[Admin\] Possess Obj", obj/O as obj in world)
+MAKE_CONTEXT_MENU(possess_object, R_POSSESS, "\[Admin\] Possess Obj", obj/O as obj in world)
 	if(istype(O,/obj/singularity))
 		if(GLOB.configuration.general.forbid_singulo_possession) // I love how this needs to exist
 			to_chat(user, "It is forbidden to possess singularities.")
@@ -29,7 +29,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(possess_object, R_POSSESS, "\[Admin\] Possess Obj",
 	client_mob.control_object = O
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Possess Object") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(release_object, R_POSSESS, "\[Admin\] Release Obj", obj/O as obj in world)
+MAKE_CONTEXT_MENU(release_object, R_POSSESS, "\[Admin\] Release Obj", obj/O as obj in world)
 	var/mob/client_mob = user.mob
 	if(client_mob.control_object && client_mob.name_archive) //if you have a name archived and if you are actually relassing an object
 		client_mob.real_name = client_mob.name_archive

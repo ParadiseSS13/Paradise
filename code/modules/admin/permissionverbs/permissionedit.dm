@@ -1,4 +1,4 @@
-ADMIN_VERB(edit_admin_permissions, R_PERMISSIONS, "Permissions Panel", "Edit admin permissions", VERB_CATEGORY_ADMIN)
+USER_VERB(edit_admin_permissions, R_PERMISSIONS, "Permissions Panel", "Edit admin permissions", VERB_CATEGORY_ADMIN)
 	user.holder.edit_admin_permissions()
 
 /datum/admins/proc/edit_admin_permissions()

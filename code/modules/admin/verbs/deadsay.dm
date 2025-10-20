@@ -1,4 +1,4 @@
-ADMIN_VERB(dsay, R_ADMIN|R_MOD, "Dsay", "Deadsay", VERB_CATEGORY_HIDDEN, msg as text)
+USER_VERB(dsay, R_ADMIN|R_MOD, "Dsay", "Deadsay", VERB_CATEGORY_HIDDEN, msg as text)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 

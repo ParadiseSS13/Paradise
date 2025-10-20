@@ -1,4 +1,4 @@
-ADMIN_VERB(ping_all_admins, R_ADMIN, "Ping all admins", "Ping all admins", VERB_CATEGORY_ADMIN)
+USER_VERB(ping_all_admins, R_ADMIN, "Ping all admins", "Ping all admins", VERB_CATEGORY_ADMIN)
 	var/msg = input(user, "What message do you want the ping to show?", "Ping all admins") as text|null
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 

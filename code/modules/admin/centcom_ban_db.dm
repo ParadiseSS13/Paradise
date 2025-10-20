@@ -106,6 +106,6 @@
 	popup.open(FALSE)
 
 /// Just a simple verb so admins can do manual lookups
-ADMIN_VERB(ccbdb_lookup_ckey, R_ADMIN, "Global Ban DB Lookup", "Lookup global bans by ckey.", VERB_CATEGORY_ADMIN)
+USER_VERB(ccbdb_lookup_ckey, R_ADMIN, "Global Ban DB Lookup", "Lookup global bans by ckey.", VERB_CATEGORY_ADMIN)
 	var/input_ckey = input(user, "Please enter a ckey to lookup", "Global Ban DB Lookup")
 	user.holder.create_ccbdb_lookup(input_ckey)

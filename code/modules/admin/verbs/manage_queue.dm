@@ -1,4 +1,4 @@
-ADMIN_VERB(manage_queue, R_SERVER, "Manage Queue Server", "Manage the queue server and its settings", VERB_CATEGORY_SERVER)
+USER_VERB(manage_queue, R_SERVER, "Manage Queue Server", "Manage the queue server and its settings", VERB_CATEGORY_SERVER)
 	var/list/choices = list("Show Status", "Toggle Queue Server", "Set Threshold", "Toggle Setting Persistence")
 	var/choice = input(user, "Please, select an option", "Queue Server Manipulation") as null|anything in choices
 
@@ -30,7 +30,7 @@ ADMIN_VERB(manage_queue, R_SERVER, "Manage Queue Server", "Manage the queue serv
 			log_admin("[key_name(user)] has [SSqueue.persist_queue ? "enabled" : "disabled"] the server queue settings persistence.")
 			GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**\[Queue Server]** `[user.ckey]` has now **[SSqueue.persist_queue ? "enabled" : "disabled"]** server queue settings persistence.")
 
-ADMIN_VERB(add_queue_server_bypass, R_SERVER, "Add Queue Server Bypass", "Allow a ckey to bypass the server queue", VERB_CATEGORY_SERVER)
+USER_VERB(add_queue_server_bypass, R_SERVER, "Add Queue Server Bypass", "Allow a ckey to bypass the server queue", VERB_CATEGORY_SERVER)
 	var/bypass_ckey = tgui_input_text(user, "Please, enter a ckey. Enter nothing to cancel", "Queue Server Bypass")
 
 	if(!bypass_ckey)

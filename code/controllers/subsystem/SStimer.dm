@@ -590,7 +590,7 @@ GLOBAL_LIST_EMPTY(timers_by_proc)
   *
   * In-round ability to view what has created a timer, and how many times a timer for that path has been created
   */
-ADMIN_VERB(timer_log, R_DEBUG|R_VIEWRUNTIMES, "View Timer Log", "Shows the log of what types created timers this round", VERB_CATEGORY_DEBUG)
+USER_VERB(timer_log, R_DEBUG|R_VIEWRUNTIMES, "View Timer Log", "Shows the log of what types created timers this round", VERB_CATEGORY_DEBUG)
 	var/list/sorted = sortTim(GLOB.timers_by_proc, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
 	var/list/text = list("<h1>Timer Log</h1>", "<ul>")
 	for(var/key in sorted)
@@ -599,7 +599,7 @@ ADMIN_VERB(timer_log, R_DEBUG|R_VIEWRUNTIMES, "View Timer Log", "Shows the log o
 	text += "</ul>"
 	user << browse(text.Join(), "window=timerlog")
 
-ADMIN_VERB(debug_timers, R_DEBUG|R_VIEWRUNTIMES, "Debug Timers", "Shows currently active timers, grouped by callback", VERB_CATEGORY_DEBUG)
+USER_VERB(debug_timers, R_DEBUG|R_VIEWRUNTIMES, "Debug Timers", "Shows currently active timers, grouped by callback", VERB_CATEGORY_DEBUG)
 	var/list/timers = list()
 	for(var/id in SStimer.timer_id_dict)
 		var/datum/timedevent/T = SStimer.timer_id_dict[id]

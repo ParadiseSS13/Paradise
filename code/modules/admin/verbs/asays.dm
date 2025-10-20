@@ -15,16 +15,16 @@ GLOBAL_LIST_EMPTY(staffsays)
 	src.message = message
 	src.time = time
 
-ADMIN_VERB(view_msays, R_ADMIN|R_MENTOR, "Msays", "View current round Msays.", VERB_CATEGORY_ADMIN)
+USER_VERB(view_msays, R_ADMIN|R_MENTOR, "Msays", "View current round Msays.", VERB_CATEGORY_ADMIN)
 	user.display_says(GLOB.msays, "msay")
 
-ADMIN_VERB(view_devsays, R_ADMIN|R_DEV_TEAM, "Devsays", "View current round Devsays.", VERB_CATEGORY_ADMIN)
+USER_VERB(view_devsays, R_ADMIN|R_DEV_TEAM, "Devsays", "View current round Devsays.", VERB_CATEGORY_ADMIN)
 	user.display_says(GLOB.devsays, "devsay")
 
-ADMIN_VERB(view_asays, R_ADMIN, "Asays", "View current round Asays.", VERB_CATEGORY_ADMIN)
+USER_VERB(view_asays, R_ADMIN, "Asays", "View current round Asays.", VERB_CATEGORY_ADMIN)
 	user.display_says(GLOB.asays, "asay")
 
-ADMIN_VERB(view_staffsays, R_ADMIN|R_DEV_TEAM, "Staffsays", "View current round Staffsays.", VERB_CATEGORY_ADMIN)
+USER_VERB(view_staffsays, R_ADMIN|R_DEV_TEAM, "Staffsays", "View current round Staffsays.", VERB_CATEGORY_ADMIN)
 	user.display_says(GLOB.staffsays, "staffsay")
 
 /client/proc/display_says(list/say_list, title)

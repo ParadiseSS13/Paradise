@@ -320,7 +320,7 @@
 //	to_chat(world, "Easter calculates to be on [begin_day] of [begin_month] ([days_early] early) to [end_day] of [end_month] ([days_extra] extra) for 20[yy]")
 	return ..()
 
-ADMIN_VERB(set_holiday, R_SERVER, "Set Holiday", \
+USER_VERB(set_holiday, R_SERVER, "Set Holiday", \
 		"Force-set the Holiday variable to make the game think it's a certain day.", \
 		VERB_CATEGORY_EVENT, \
 		T as text|null)

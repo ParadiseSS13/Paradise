@@ -491,7 +491,7 @@ SUBSYSTEM_DEF(dbcore)
 	item = null
 
 // Verb that lets admins force reconnect the DB
-ADMIN_VERB(reestablish_db_connection, R_ADMIN, "Reestablish DB Connection", "Force a reconnection to the database.", VERB_CATEGORY_DEBUG)
+USER_VERB(reestablish_db_connection, R_ADMIN, "Reestablish DB Connection", "Force a reconnection to the database.", VERB_CATEGORY_DEBUG)
 	if(!GLOB.configuration.database.enabled)
 		to_chat(user, "<span class='warning'>The Database is not enabled in the server configuration!</span>")
 		return

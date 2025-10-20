@@ -8,7 +8,7 @@
 
 GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(admin_freeze, R_ADMIN, "\[Admin\] Freeze", atom/movable/M)
+MAKE_CONTEXT_MENU(admin_freeze, R_ADMIN, "\[Admin\] Freeze", atom/movable/M)
 	M.admin_Freeze(user)
 
 /// Created here as a base proc. Override as needed for any type of object or mob you want able to be frozen.

@@ -15,13 +15,13 @@
  * This is the only macro you should use to define admin verbs.
  * It will define the verb and the verb holder for you.
  * Using it is very simple:
- *  ADMIN_VERB(verb_path, R_PERM, "Name", "Description", "Admin.Category", args...)
+ *  USER_VERB(verb_path, R_PERM, "Name", "Description", "Admin.Category", args...)
  * This sets up all of the above and also acts as syntatic sugar as a verb delcaration for the verb itself.
  * Note that the verb args have an injected `client/user` argument that is the user that called the verb.
  * Do not use usr in your verb; technically you can but I'll kill you.
  */
-#define _ADMIN_VERB(verb_path_name, verb_permissions, verb_name, verb_desc, verb_category, show_in_context_menu, verb_args...) \
-/datum/admin_verb/##verb_path_name \
+#define _USER_VERB(verb_path_name, verb_permissions, verb_name, verb_desc, verb_category, show_in_context_menu, verb_args...) \
+/datum/user_verb/##verb_path_name \
 { \
 	name = ##verb_name; \
 	description = ##verb_desc; \
@@ -36,34 +36,34 @@
 	set hidden = FALSE; /* this is explicitly needed as the proc begins with an underscore */ \
 	set popup_menu = ##show_in_context_menu; \
 	set category = ##verb_category; \
-	var/list/_verb_args = list(usr, /datum/admin_verb/##verb_path_name); \
+	var/list/_verb_args = list(usr, /datum/user_verb/##verb_path_name); \
 	_verb_args += args; \
-	SSadmin_verbs.invoke_verb(arglist(_verb_args)); \
+	SSuser_verbs.invoke_verb(arglist(_verb_args)); \
 }; \
-/datum/admin_verb/##verb_path_name/__avd_do_verb(client/user, ##verb_args)
+/datum/user_verb/##verb_path_name/__avd_do_verb(client/user, ##verb_args)
 
-#define ADMIN_VERB(verb_path_name, verb_permissions, verb_name, verb_desc, verb_category, verb_args...) \
-_ADMIN_VERB(verb_path_name, verb_permissions, verb_name, verb_desc, verb_category, FALSE, ##verb_args)
+#define USER_VERB(verb_path_name, verb_permissions, verb_name, verb_desc, verb_category, verb_args...) \
+_USER_VERB(verb_path_name, verb_permissions, verb_name, verb_desc, verb_category, FALSE, ##verb_args)
 
-#define ADMIN_VERB_ONLY_CONTEXT_MENU(verb_path_name, verb_permissions, verb_name, verb_args...) \
-_ADMIN_VERB(verb_path_name, verb_permissions, verb_name, VERB_NO_DESCRIPTION, VERB_CATEGORY_HIDDEN, TRUE, ##verb_args)
+#define MAKE_CONTEXT_MENU(verb_path_name, verb_permissions, verb_name, verb_args...) \
+_USER_VERB(verb_path_name, verb_permissions, verb_name, VERB_NO_DESCRIPTION, VERB_CATEGORY_HIDDEN, TRUE, ##verb_args)
 
-#define ADMIN_VERB_AND_CONTEXT_MENU(verb_path_name, verb_permissions, verb_name, verb_desc, verb_category, verb_args...) \
-_ADMIN_VERB(verb_path_name, verb_permissions, verb_name, verb_desc, verb_category, TRUE, ##verb_args)
+#define USER_VERB_AND_CONTEXT_MENU(verb_path_name, verb_permissions, verb_name, verb_desc, verb_category, verb_args...) \
+_USER_VERB(verb_path_name, verb_permissions, verb_name, verb_desc, verb_category, TRUE, ##verb_args)
 
 /// Used to define a special check to determine if the admin verb should exist at all. Useful for verbs such as play sound which require configuration.
-#define ADMIN_VERB_CUSTOM_EXIST_CHECK(verb_path_name) \
-/datum/admin_verb/##verb_path_name/__avd_check_should_exist()
+#define USER_VERB_CUSTOM_EXIST_CHECK(verb_path_name) \
+/datum/user_verb/##verb_path_name/__avd_check_should_exist()
 
 /// Used to define the visibility flag of the verb. If the admin does not have this flag enabled they will not see the verb.
-#define ADMIN_VERB_VISIBILITY(verb_path_name, verb_visibility) /datum/admin_verb/##verb_path_name/visibility_flag = ##verb_visibility
+#define USER_VERB_VISIBILITY(verb_path_name, verb_visibility) /datum/user_verb/##verb_path_name/visibility_flag = ##verb_visibility
 
 // These are put here to prevent the "procedure override precedes definition" error.
-/datum/admin_verb/proc/__avd_get_verb_path()
+/datum/user_verb/proc/__avd_get_verb_path()
 	CRASH("__avd_get_verb_path not defined. use the macro")
-/datum/admin_verb/proc/__avd_do_verb(...)
+/datum/user_verb/proc/__avd_do_verb(...)
 	CRASH("__avd_do_verb not defined. use the macro")
-/datum/admin_verb/proc/__avd_check_should_exist()
+/datum/user_verb/proc/__avd_check_should_exist()
 	return TRUE
 
 /// Used for verbs you do not want to show up in the master verb panel.

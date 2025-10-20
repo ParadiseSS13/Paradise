@@ -143,7 +143,7 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		GLOB.error_cache.logError(e, desclines, e_src = e_src)
 #endif
 
-ADMIN_VERB(throw_runtime, R_MAINTAINER, "Throw Runtime", "Throws a runtime, what did you expect?", VERB_CATEGORY_DEBUG)
+USER_VERB(throw_runtime, R_MAINTAINER, "Throw Runtime", "Throws a runtime, what did you expect?", VERB_CATEGORY_DEBUG)
 	user.throw_runtime_inner(1337, 0)
 
 /client/proc/throw_runtime_inner(x, y)

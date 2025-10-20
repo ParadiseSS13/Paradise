@@ -1,4 +1,4 @@
-ADMIN_VERB(change_custom_event, R_EVENT, "Change Custom Event", "Set a custom event.", VERB_CATEGORY_EVENT)
+USER_VERB(change_custom_event, R_EVENT, "Change Custom Event", "Set a custom event.", VERB_CATEGORY_EVENT)
 	var/input = input(user, "Enter the description of the custom event. Be descriptive. To cancel the event, make this blank or hit cancel.", "Custom Event", GLOB.custom_event_msg) as message|null
 	if(!input || input == "")
 		GLOB.custom_event_msg = null

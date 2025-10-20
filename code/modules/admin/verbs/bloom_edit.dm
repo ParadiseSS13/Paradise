@@ -1,4 +1,4 @@
-ADMIN_VERB(debug_bloom, R_DEBUG, "Bloom Edit", "Open bloom editor panel.", VERB_CATEGORY_DEBUG)
+USER_VERB(debug_bloom, R_DEBUG, "Bloom Edit", "Open bloom editor panel.", VERB_CATEGORY_DEBUG)
 	var/datum/bloom_edit/editor = new()
 	editor.ui_interact(user)
 

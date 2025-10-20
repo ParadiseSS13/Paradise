@@ -1,4 +1,4 @@
-ADMIN_VERB(aooc, R_ADMIN, "AOOC", "Antagonist OOC", VERB_CATEGORY_OOC, msg as text)
+USER_VERB(aooc, R_ADMIN, "AOOC", "Antagonist OOC", VERB_CATEGORY_OOC, msg as text)
 	msg = sanitize(msg)
 	if(!msg)	return
 

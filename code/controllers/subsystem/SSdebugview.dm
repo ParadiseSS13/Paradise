@@ -70,7 +70,7 @@ SUBSYSTEM_DEF(debugview)
 	maptext_width = viewsizes[1] * world.icon_size
 
 // Make a verb for dumping full SS stats
-ADMIN_VERB(ss_breakdown, R_DEBUG|R_VIEWRUNTIMES, "SS Info Breakdown", "Dump stats of all subsystems", VERB_CATEGORY_DEBUG)
+USER_VERB(ss_breakdown, R_DEBUG|R_VIEWRUNTIMES, "SS Info Breakdown", "Dump stats of all subsystems", VERB_CATEGORY_DEBUG)
 	var/datum/browser/popup = new(user, "ss_breakdown", "Subsystem Breakdown", 1100, 850)
 
 	var/list/html = list()

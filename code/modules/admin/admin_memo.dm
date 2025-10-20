@@ -1,4 +1,4 @@
-ADMIN_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", VERB_CATEGORY_SERVER)
+USER_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", VERB_CATEGORY_SERVER)
 	if(!SSdbcore.IsConnected())
 		to_chat(user, "<span class='danger'>Failed to establish database connection.</span>")
 		return

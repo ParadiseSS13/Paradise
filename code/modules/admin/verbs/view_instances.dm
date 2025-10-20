@@ -1,4 +1,4 @@
-ADMIN_VERB(view_server_instances, R_ADMIN, "View Server Instances", "View the running server instances", VERB_CATEGORY_SERVER)
+USER_VERB(view_server_instances, R_ADMIN, "View Server Instances", "View the running server instances", VERB_CATEGORY_SERVER)
 	to_chat(user, "<b>Server instances info</b>")
 	var/datum/db_query/dbq1 = SSdbcore.NewQuery({"
 		SELECT server_id, key_name, key_value FROM instance_data_cache WHERE server_id IN

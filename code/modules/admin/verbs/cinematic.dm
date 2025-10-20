@@ -1,4 +1,4 @@
-ADMIN_VERB(show_cinematic, R_MAINTAINER, "Cinematic", "Shows a cinematic.", VERB_CATEGORY_HIDDEN, cinematic as anything in list("explosion", null))
+USER_VERB(show_cinematic, R_MAINTAINER, "Cinematic", "Shows a cinematic.", VERB_CATEGORY_HIDDEN, cinematic as anything in list("explosion", null))
 	if(SSticker.current_state < GAME_STATE_PREGAME)
 		return
 

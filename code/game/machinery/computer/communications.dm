@@ -308,10 +308,10 @@
 			setMenuState(ui.user, COMM_SCREEN_ANNOUNCER)
 
 		if("make_other_announcement")
-			SSadmin_verbs.invoke_verb(ui.user, /datum/admin_verb/create_centcom_report)
+			SSuser_verbs.invoke_verb(ui.user, /datum/user_verb/create_centcom_report)
 
 		if("dispatch_ert")
-			SSadmin_verbs.invoke_verb(ui.user, /datum/admin_verb/dispatch_ert)
+			SSuser_verbs.invoke_verb(ui.user, /datum/user_verb/dispatch_ert)
 
 		if("send_nuke_codes")
 			if(!ADMIN_CHECK(ui.user))
@@ -331,13 +331,13 @@
 			SEND_SOUND(ui.user, sound(cc_announcement_sounds[params["sound"]]))
 
 		if("toggle_ert_allowed")
-			SSadmin_verbs.invoke_verb(ui.user, /datum/admin_verb/toggle_ert_calling)
+			SSuser_verbs.invoke_verb(ui.user, /datum/user_verb/toggle_ert_calling)
 
 		if("view_econ")
-			SSadmin_verbs.invoke_verb(ui.user, /datum/admin_verb/economy_panel)
+			SSuser_verbs.invoke_verb(ui.user, /datum/user_verb/economy_panel)
 
 		if("view_fax")
-			SSadmin_verbs.invoke_verb(ui.user, /datum/admin_verb/fax_panel)
+			SSuser_verbs.invoke_verb(ui.user, /datum/user_verb/fax_panel)
 
 		if("make_cc_announcement")
 			if(!ADMIN_CHECK(ui.user))

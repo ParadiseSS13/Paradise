@@ -122,7 +122,7 @@
 // HERE BE DEBUG DRAGONS //
 ///////////////////////////
 
-ADMIN_VERB(test_nature_map_generator, R_MAINTAINER, "Test Nature Map Generator", "Test nature map generator", VERB_CATEGORY_DEBUG)
+USER_VERB(test_nature_map_generator, R_MAINTAINER, "Test Nature Map Generator", "Test nature map generator", VERB_CATEGORY_DEBUG)
 	var/datum/map_generator/nature/N = new()
 	var/startInput = clean_input(user, "Start turf of Map, (X;Y;Z)", "Map Gen Settings", "1;1;1")
 	var/endInput = clean_input(user, "End turf of Map (X;Y;Z)", "Map Gen Settings", "[world.maxx];[world.maxy];[user.mob ? user.mob.z : 1]")

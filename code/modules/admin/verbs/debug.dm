@@ -1,4 +1,4 @@
-ADMIN_VERB(advanced_proccall, R_PROCCALL, "Advanced ProcCall", "Advanced ProcCall", VERB_CATEGORY_DEBUG)
+USER_VERB(advanced_proccall, R_PROCCALL, "Advanced ProcCall", "Advanced ProcCall", VERB_CATEGORY_DEBUG)
 	spawn(0)
 		var/target = null
 		var/targetselected = 0
@@ -144,7 +144,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	return usr && usr.client && GLOB.AdminProcCaller == usr.client.ckey
 #endif
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(call_proc_datum, R_PROCCALL, "\[Admin\] Atom ProcCall", datum/A as null|area|mob|obj|turf)
+MAKE_CONTEXT_MENU(call_proc_datum, R_PROCCALL, "\[Admin\] Atom ProcCall", datum/A as null|area|mob|obj|turf)
 	if(istype(A, /datum/logging) || istype(A, /datum/log_record))
 		message_admins("<span class='userdanger'>[key_name_admin(src)] attempted to proc call on a logging object. Inform the host <u>at once</u>.</span>")
 		log_admin("[key_name(src)] attempted to proc call on a logging object. Inform the host at once.")
@@ -196,8 +196,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(call_proc_datum, R_PROCCALL, "\[Admin\] Atom ProcCa
 		lst += value["value"]
 	return lst
 
-ADMIN_VERB_VISIBILITY(air_status, VERB_VISIBILITY_FLAG_MOREDEBUG)
-ADMIN_VERB(air_status, R_DEBUG, "Air Status in Location", "Print out the local air contents.", VERB_CATEGORY_DEBUG)
+USER_VERB_VISIBILITY(air_status, VERB_VISIBILITY_FLAG_MOREDEBUG)
+USER_VERB(air_status, R_DEBUG, "Air Status in Location", "Print out the local air contents.", VERB_CATEGORY_DEBUG)
 	if(!user.mob)
 		return
 	var/turf/T = user.mob.loc
@@ -354,7 +354,7 @@ ADMIN_VERB(air_status, R_DEBUG, "Air Status in Location", "Print out the local a
 	else
 		alert("Invalid mob")
 
-ADMIN_VERB(delete_singulo, R_DEBUG, "Del Singulo / Tesla", "Delete all singularities and tesla balls.", VERB_CATEGORY_DEBUG)
+USER_VERB(delete_singulo, R_DEBUG, "Del Singulo / Tesla", "Delete all singularities and tesla balls.", VERB_CATEGORY_DEBUG)
 	//This gets a confirmation check because it's way easier to accidentally hit this and delete things than it is with qdel-all
 	var/confirm = alert(user, "This will delete ALL Singularities and Tesla orbs except for any that are on away mission z-levels or the centcomm z-level. Are you sure you want to delete them?", "Confirm Panic Button", "Yes", "No")
 	if(confirm != "Yes")
@@ -369,14 +369,14 @@ ADMIN_VERB(delete_singulo, R_DEBUG, "Del Singulo / Tesla", "Delete all singulari
 	message_admins("[key_name_admin(user)] has deleted all Singularities and Tesla orbs.", 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Del Singulo/Tesla") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-ADMIN_VERB(make_powernets, R_DEBUG, "Make Powernets", "Remake all powernets.", VERB_CATEGORY_DEBUG)
+USER_VERB(make_powernets, R_DEBUG, "Make Powernets", "Remake all powernets.", VERB_CATEGORY_DEBUG)
 	SSmachines.makepowernets()
 	log_admin("[key_name(src)] has remade the powernet. makepowernets() called.")
 	message_admins("[key_name_admin(src)] has remade the powernets. makepowernets() called.", 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Powernets") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-ADMIN_VERB_VISIBILITY(grant_full_access, VERB_VISIBILITY_FLAG_MOREDEBUG)
-ADMIN_VERB(grant_full_access, R_EVENT, "Grant Full Access", "Gives mob all-access.", VERB_CATEGORY_ADMIN, mob/M in GLOB.mob_list)
+USER_VERB_VISIBILITY(grant_full_access, VERB_VISIBILITY_FLAG_MOREDEBUG)
+USER_VERB(grant_full_access, R_EVENT, "Grant Full Access", "Gives mob all-access.", VERB_CATEGORY_ADMIN, mob/M in GLOB.mob_list)
 	if(SSticker.current_state < GAME_STATE_PLAYING)
 		alert("Wait until the game starts")
 		return
@@ -404,8 +404,8 @@ ADMIN_VERB(grant_full_access, R_EVENT, "Grant Full Access", "Gives mob all-acces
 	log_admin("[key_name(user)] has granted [M.key] full access.")
 	message_admins("<span class='notice'>[key_name_admin(user)] has granted [M.key] full access.</span>", 1)
 
-ADMIN_VERB_VISIBILITY(assume_direct_control, VERB_VISIBILITY_FLAG_MOREDEBUG)
-ADMIN_VERB(assume_direct_control, R_ADMIN|R_DEBUG, "Assume direct control", "Direct intervention", VERB_CATEGORY_ADMIN, mob/M in GLOB.mob_list)
+USER_VERB_VISIBILITY(assume_direct_control, VERB_VISIBILITY_FLAG_MOREDEBUG)
+USER_VERB(assume_direct_control, R_ADMIN|R_DEBUG, "Assume direct control", "Direct intervention", VERB_CATEGORY_ADMIN, mob/M in GLOB.mob_list)
 	if(M.ckey)
 		if(alert(user, "This mob is being controlled by [M.ckey]. Are you sure you wish to assume control of it? [M.ckey] will be made a ghost.", null,"Yes","No") != "Yes")
 			return
@@ -420,8 +420,8 @@ ADMIN_VERB(assume_direct_control, R_ADMIN|R_DEBUG, "Assume direct control", "Dir
 		qdel(adminmob)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Assume Direct Control") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-ADMIN_VERB_VISIBILITY(mapping_area_test, VERB_VISIBILITY_FLAG_MOREDEBUG)
-ADMIN_VERB(mapping_area_test, R_DEBUG, "Test areas", "Run mapping area test", VERB_CATEGORY_MAPPING)
+USER_VERB_VISIBILITY(mapping_area_test, VERB_VISIBILITY_FLAG_MOREDEBUG)
+USER_VERB(mapping_area_test, R_DEBUG, "Test areas", "Run mapping area test", VERB_CATEGORY_MAPPING)
 	var/list/areas_all = list()
 	var/list/areas_with_APC = list()
 	var/list/areas_with_air_alarm = list()
@@ -531,7 +531,7 @@ ADMIN_VERB(mapping_area_test, R_DEBUG, "Test areas", "Run mapping area test", VE
 	for(var/areatype in areas_without_camera)
 		to_chat(world, "* [areatype]")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(select_equipment, R_EVENT, "\[Admin\] Select equipment", mob/living/carbon/human/M in GLOB.human_list)
+MAKE_CONTEXT_MENU(select_equipment, R_EVENT, "\[Admin\] Select equipment", mob/living/carbon/human/M in GLOB.human_list)
 	if(!ishuman(M) && !isobserver(M))
 		alert("Invalid mob")
 		return
@@ -614,8 +614,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(select_equipment, R_EVENT, "\[Admin\] Select equipm
 
 	return dresscode
 
-ADMIN_VERB_VISIBILITY(start_singulo, VERB_VISIBILITY_FLAG_MOREDEBUG)
-ADMIN_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity and all machines to get power flowing through the station", VERB_CATEGORY_DEBUG)
+USER_VERB_VISIBILITY(start_singulo, VERB_VISIBILITY_FLAG_MOREDEBUG)
+USER_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity and all machines to get power flowing through the station", VERB_CATEGORY_DEBUG)
 	if(alert(user, "Are you sure? This will start up the engine. Should only be used during debug!", null,"Yes","No") != "Yes")
 		return
 
@@ -656,7 +656,7 @@ ADMIN_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity
 		if(SMES.anchored)
 			SMES.input_attempt = 1
 
-ADMIN_VERB(debug_mob_lists, R_DEBUG, "Debug Mob Lists", "For when you just gotta know", VERB_CATEGORY_DEBUG)
+USER_VERB(debug_mob_lists, R_DEBUG, "Debug Mob Lists", "For when you just gotta know", VERB_CATEGORY_DEBUG)
 	switch(input("Which list?") in list("Players", "Admins", "Mobs", "Living Mobs", "Alive Mobs", "Dead Mobs", "Silicons", "Clients", "Respawnable Mobs"))
 		if("Players")
 			to_chat(user, jointext(GLOB.player_list, ","))
@@ -681,7 +681,7 @@ ADMIN_VERB(debug_mob_lists, R_DEBUG, "Debug Mob Lists", "For when you just gotta
 					respawnable_mobs += potential_respawnable
 			to_chat(user, jointext(respawnable_mobs, ", "))
 
-ADMIN_VERB(display_del_log, R_DEBUG|R_VIEWRUNTIMES, "Display del() Log", "Display del's log of everything that's passed through it.", VERB_CATEGORY_DEBUG)
+USER_VERB(display_del_log, R_DEBUG|R_VIEWRUNTIMES, "Display del() Log", "Display del's log of everything that's passed through it.", VERB_CATEGORY_DEBUG)
 	var/list/dellog = list("<B>List of things that have gone through qdel this round</B><BR><BR><ol>")
 	sortTim(SSgarbage.items, GLOBAL_PROC_REF(cmp_qdel_item_time), TRUE)
 	for(var/path in SSgarbage.items)
@@ -707,7 +707,7 @@ ADMIN_VERB(display_del_log, R_DEBUG|R_VIEWRUNTIMES, "Display del() Log", "Displa
 
 	user << browse(dellog.Join(), "window=dellog")
 
-ADMIN_VERB(display_del_log_simple, R_DEBUG|R_VIEWRUNTIMES, "Display Simple del() Log", \
+USER_VERB(display_del_log_simple, R_DEBUG|R_VIEWRUNTIMES, "Display Simple del() Log", \
 		"Display a compacted del's log.", VERB_CATEGORY_DEBUG)
 	var/dat = "<B>List of things that failed to GC this round</B><BR><BR>"
 	for(var/path in SSgarbage.items)
@@ -729,7 +729,7 @@ ADMIN_VERB(display_del_log_simple, R_DEBUG|R_VIEWRUNTIMES, "Display Simple del()
 
 	user << browse(dat, "window=simpledellog")
 
-ADMIN_VERB(show_gc_queues, R_DEBUG|R_VIEWRUNTIMES, "View GC Queue", \
+USER_VERB(show_gc_queues, R_DEBUG|R_VIEWRUNTIMES, "View GC Queue", \
 		"Shows the list of whats currently in a GC queue", VERB_CATEGORY_DEBUG)
 	// Get the amount of queues
 	var/queue_count = length(SSgarbage.queues)
@@ -787,10 +787,10 @@ ADMIN_VERB(show_gc_queues, R_DEBUG|R_VIEWRUNTIMES, "View GC Queue", \
 	else
 		alert("Invalid mob")
 
-ADMIN_VERB(view_runtimes, R_DEBUG|R_VIEWRUNTIMES, "View Runtimes", "Open the Runtime Viewer", VERB_CATEGORY_DEBUG)
+USER_VERB(view_runtimes, R_DEBUG|R_VIEWRUNTIMES, "View Runtimes", "Open the Runtime Viewer", VERB_CATEGORY_DEBUG)
 	GLOB.error_cache.showTo(user)
 
-ADMIN_VERB(allow_browser_inspect, R_DEBUG, "Allow Browser Inspect", "Allow browser debugging via inspect", VERB_CATEGORY_DEBUG)
+USER_VERB(allow_browser_inspect, R_DEBUG, "Allow Browser Inspect", "Allow browser debugging via inspect", VERB_CATEGORY_DEBUG)
 	if(user.byond_version < 516)
 		to_chat(user, "<span class='warning'>You can only use this on 516!</span>")
 		return
@@ -798,8 +798,8 @@ ADMIN_VERB(allow_browser_inspect, R_DEBUG, "Allow Browser Inspect", "Allow brows
 	to_chat(user, "<span class='notice'>You can now right click to use inspect on browsers.</span>")
 	winset(user, "", "browser-options=byondstorage,find,devtools")
 
-ADMIN_VERB_VISIBILITY(debug_clean_radiation, VERB_VISIBILITY_FLAG_MOREDEBUG)
-ADMIN_VERB(debug_clean_radiation, R_DEBUG, "Remove All Radiation", "Remove all radiation in the world.", VERB_CATEGORY_DEBUG)
+USER_VERB_VISIBILITY(debug_clean_radiation, VERB_VISIBILITY_FLAG_MOREDEBUG)
+USER_VERB(debug_clean_radiation, R_DEBUG, "Remove All Radiation", "Remove all radiation in the world.", VERB_CATEGORY_DEBUG)
 	if(alert(user, "Are you sure you want to remove all radiation in the world? This may lag the server. Alternatively, use the radiation cleaning buildmode.", "Lag warning", "Yes, I'm sure", "No, I want to live") != "Yes, I'm sure")
 		return
 

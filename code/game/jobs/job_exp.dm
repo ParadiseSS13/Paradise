@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 
 // Admin Verbs
 /// Allows admins to determine who the newer players are.
-ADMIN_VERB(check_player_exp, R_ADMIN|R_MOD|R_MENTOR, "Check Player Playtime", "Return a playtime report.", VERB_CATEGORY_ADMIN)
+USER_VERB(check_player_exp, R_ADMIN|R_MOD|R_MENTOR, "Check Player Playtime", "Return a playtime report.", VERB_CATEGORY_ADMIN)
 	var/list/msg = list()
 	msg  += "<html><meta charset='utf-8'><head><title>Playtime Report</title></head><body>"
 	var/datum/job/theirjob

@@ -7,7 +7,7 @@
 	else
 		to_chat(usr, "There is no active vote")
 
-ADMIN_VERB(start_vote, R_ADMIN, "Start Vote", "Start a vote on the server", VERB_CATEGORY_ADMIN)
+USER_VERB(start_vote, R_ADMIN, "Start Vote", "Start a vote on the server", VERB_CATEGORY_ADMIN)
 	if(SSvote.active_vote)
 		to_chat(user, "A vote is already in progress")
 		return

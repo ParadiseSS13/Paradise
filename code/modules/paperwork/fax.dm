@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 /datum/fax/admin/New()
 	return
 
-ADMIN_VERB(fax_panel, R_ADMIN, "Fax Panel", "Lets admins check all faxes sent during the round.", VERB_CATEGORY_EVENT)
+USER_VERB(fax_panel, R_ADMIN, "Fax Panel", "Lets admins check all faxes sent during the round.", VERB_CATEGORY_EVENT)
 	if(user.holder)
 		user.holder.fax_panel(usr)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Fax Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

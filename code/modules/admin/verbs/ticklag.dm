@@ -1,4 +1,4 @@
-ADMIN_VERB(set_ticklag, R_MAINTAINER, "Set Ticklag", \
+USER_VERB(set_ticklag, R_MAINTAINER, "Set Ticklag", \
 		"Sets a new tick lag. Recommend you don't mess with this too much! Stable, time-tested ticklag value is 0.9", \
 		VERB_CATEGORY_DEBUG)
 	var/newtick = input(user, "Sets a new tick lag. Please don't mess with this too much! The stable, time-tested ticklag value is 0.9","Lag of Tick", world.tick_lag) as num|null

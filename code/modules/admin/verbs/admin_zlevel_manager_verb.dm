@@ -1,4 +1,4 @@
-ADMIN_VERB(open_zlevel_manager, R_ADMIN, "Z-Level Manager", "Opens the Z-Level Manager.", VERB_CATEGORY_ADMIN)
+USER_VERB(open_zlevel_manager, R_ADMIN, "Z-Level Manager", "Opens the Z-Level Manager.", VERB_CATEGORY_ADMIN)
 	if(!SSmapping || !SSmapping.initialized)
 		to_chat(user, "<span class='notice'>SSmapping has not initialized yet, Z-Level Manager is not available yet.</span>")
 		return

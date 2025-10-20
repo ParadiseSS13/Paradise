@@ -1,4 +1,4 @@
-ADMIN_VERB(mass_screenshot, R_DEBUG, "Mass Screenshot", "Take a sliced screenshot of a z-level.", VERB_CATEGORY_DEBUG)
+USER_VERB(mass_screenshot, R_DEBUG, "Mass Screenshot", "Take a sliced screenshot of a z-level.", VERB_CATEGORY_DEBUG)
 	set waitfor = FALSE
 
 	if(!user.mob)
@@ -26,7 +26,7 @@ ADMIN_VERB(mass_screenshot, R_DEBUG, "Mass Screenshot", "Take a sliced screensho
 		return
 
 	if(!isobserver(mob))
-		SSadmin_verbs.invoke_verb(user, /datum/admin_verb/admin_ghost)
+		SSuser_verbs.invoke_verb(user, /datum/user_verb/admin_ghost)
 
 	message_admins("[key_name(usr)] started a mass screenshot operation")
 
