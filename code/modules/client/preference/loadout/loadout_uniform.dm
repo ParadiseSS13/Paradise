@@ -240,6 +240,17 @@
 	subtype_selection_cost = FALSE
 
 //Engineering
+/datum/gear/uniform/eng/eng_alt
+	display_name = "Uniform, engineering corporate"
+	path = /obj/item/clothing/under/rank/engineering/engineer/corporate
+	allowed_roles = list("Chief Engineer", "Station Engineer")
+
+/datum/gear/uniform/eng/atmos_alt
+	display_name = "Uniform, atmos corporate"
+	path = /obj/item/clothing/under/rank/engineering/atmospheric_technician/corporate
+	allowed_roles = list("Chief Engineer", "Life Support Specialist")
+
+
 /datum/gear/uniform/skirt/job/atmos
 	display_name = "Skirt, atmos"
 	path = /obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt
@@ -495,6 +506,16 @@
 	display_name = "Overalls, expedition"
 	path = /obj/item/clothing/under/rank/cargo/expedition/overalls
 	allowed_roles = list("Quartermaster", "Explorer")
+
+/datum/gear/uniform/overalls/job/atmos
+	display_name = "Overalls, atmos"
+	path = /obj/item/clothing/under/rank/engineering/atmospheric_technician/overalls
+	allowed_roles = list("Chief Engineer", "Life Support Specialist")
+
+/datum/gear/uniform/overalls/job/eng
+	display_name = "Overalls, engineer"
+	path = /obj/item/clothing/under/rank/engineering/engineer/overalls
+	allowed_roles = list("Chief Engineer", "Station Engineer")
 
 /datum/gear/uniform/sec
 	main_typepath = /datum/gear/uniform/sec

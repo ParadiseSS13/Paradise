@@ -487,6 +487,8 @@
 	vend_reply = "Thank you for using the EngiDrobe!"
 	products = list(/obj/item/clothing/under/rank/engineering/engineer = 6,
 					/obj/item/clothing/under/rank/engineering/engineer/skirt = 3,
+					/obj/item/clothing/under/rank/engineering/engineer/overalls = 3,
+					/obj/item/clothing/under/rank/engineering/engineer/corporate = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,
 					/obj/item/clothing/suit/jacket/bomber/engi = 3,
 					/obj/item/clothing/suit/storage/hazardvest/staff = 3,
@@ -510,6 +512,8 @@
 
 	prices = list(/obj/item/clothing/under/rank/engineering/engineer = 50,
 				/obj/item/clothing/under/rank/engineering/engineer/skirt = 50,
+				/obj/item/clothing/under/rank/engineering/engineer/overalls = 50,
+				/obj/item/clothing/under/rank/engineering/engineer/corporate = 50,
 				/obj/item/clothing/suit/hooded/wintercoat/engineering = 75,
 				/obj/item/clothing/suit/jacket/bomber/engi = 75,
 				/obj/item/clothing/suit/storage/hazardvest/staff = 50,
@@ -544,6 +548,8 @@
 	vend_reply = "Thank you for using the AtmosDrobe!"
 	products = list(/obj/item/clothing/under/rank/engineering/atmospheric_technician  = 6,
 					/obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt = 3,
+					/obj/item/clothing/under/rank/engineering/atmospheric_technician/overalls = 3,
+					/obj/item/clothing/under/rank/engineering/atmospheric_technician/corporate = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
 					/obj/item/clothing/suit/jacket/bomber/atmos = 3,
 					/obj/item/clothing/suit/storage/hazardvest/staff = 3,
@@ -567,6 +573,8 @@
 
 	prices = list(/obj/item/clothing/under/rank/engineering/atmospheric_technician = 50,
 				/obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt = 50,
+				/obj/item/clothing/under/rank/engineering/atmospheric_technician/overalls = 50,
+				/obj/item/clothing/under/rank/engineering/atmospheric_technician/corporate = 50,
 				/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 75,
 				/obj/item/clothing/suit/jacket/bomber/atmos = 75,
 				/obj/item/clothing/suit/storage/hazardvest/staff = 50,
