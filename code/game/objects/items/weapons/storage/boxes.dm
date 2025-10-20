@@ -1388,6 +1388,33 @@
 	new /obj/item/clothing/under/plasmaman/tacticool(src)
 	new /obj/item/clothing/head/helmet/space/plasmaman/tacticool(src)
 
+/obj/item/storage/box/chapbw_envirosuit
+	name = "chaplain suit box, black and white"
+	desc = "A box with a special envirosuit for pious plasmamen."
+	icon_state = "plasma_box"
+
+/obj/item/storage/box/chapbw_envirosuit/populate_contents()
+	new /obj/item/clothing/under/plasmaman/chaplain(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/chaplain(src)
+
+/obj/item/storage/box/chapwg_envirosuit
+	name = "chaplain suit box, white and green"
+	desc = "A box with a special envirosuit for pious plasmamen."
+	icon_state = "plasma_box"
+
+/obj/item/storage/box/chapwg_envirosuit/populate_contents()
+	new /obj/item/clothing/under/plasmaman/chaplain/green(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/chaplain/green(src)
+
+/obj/item/storage/box/chapco_envirosuit
+	name = "chaplain suit box, blue and orange"
+	desc = "A box with a special envirosuit for pious plasmamen."
+	icon_state = "plasma_box"
+
+/obj/item/storage/box/chapco_envirosuit/populate_contents()
+	new /obj/item/clothing/under/plasmaman/chaplain/blue(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/chaplain/orange(src)
+
 /obj/item/storage/box/autochef
 	name = "autochef starter kit"
 	desc = "Contains everything you need to build and use an autochef."
