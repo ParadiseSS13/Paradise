@@ -44934,17 +44934,11 @@
 /turf/simulated/floor/wood,
 /area/station/supply/qm)
 "izv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/structure/cable/extra_insulated{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/catwalk,
-/area/station/maintenance/fsmaint2)
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "izK" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -45170,15 +45164,6 @@
 "iBR" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/storage)
-"iBZ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/caution/stand_clear{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/transmission_laser)
 "iCa" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -48114,6 +48099,18 @@
 /obj/item/storage/box/disks_plantgene,
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
+"jHX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/cable/extra_insulated{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/catwalk,
+/area/station/maintenance/fsmaint2)
 "jIf" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet,
@@ -53519,6 +53516,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos/control)
+"lsn" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "lsz" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -59955,6 +59961,9 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
+"nMm" = (
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "nMo" = (
 /obj/machinery/suit_storage_unit/qm/secure,
 /turf/simulated/floor/carpet/royalblack,
@@ -78030,8 +78039,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "uxg" = (
-/turf/simulated/floor/plasteel,
-/area/station/engineering/transmission_laser)
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/space,
+/area/station/engineering/solar/fore_starboard)
 "uxi" = (
 /obj/structure/table,
 /obj/item/wrench,
@@ -86407,11 +86420,12 @@
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "xwi" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/transmission_laser)
+/turf/space,
+/area/station/engineering/solar/fore_starboard)
 "xwJ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -132381,7 +132395,7 @@ aaa
 aaa
 aaa
 abq
-aaa
+uxg
 eiz
 mVu
 arC
@@ -132638,7 +132652,7 @@ abf
 aup
 abf
 abq
-abq
+xwi
 dPW
 dPW
 dPW
@@ -132650,7 +132664,7 @@ mhE
 mhE
 mhE
 mhE
-izv
+jHX
 cQr
 sln
 enp
@@ -132895,7 +132909,7 @@ aaa
 abq
 aaa
 abq
-aaa
+xwi
 abq
 abq
 ogY
@@ -133152,10 +133166,10 @@ aee
 uaD
 diL
 diL
-diL
-diL
-diL
 pvB
+abq
+abq
+aaa
 aaa
 aaa
 cFE
@@ -135468,10 +135482,10 @@ ire
 aaa
 aaa
 vum
-uxg
+nMm
 tIp
-uxg
-uxg
+nMm
+nMm
 gky
 xPV
 bhi
@@ -135727,8 +135741,8 @@ aaa
 vum
 wkz
 fAA
-uxg
-uxg
+nMm
+nMm
 yfA
 woM
 bBT
@@ -135985,7 +135999,7 @@ vum
 hQm
 bHT
 dEx
-uxg
+nMm
 eqT
 eTS
 wyk
@@ -136240,11 +136254,11 @@ aaa
 aaa
 vum
 vum
-iBZ
-xwi
-xwi
-xwi
-iBZ
+lsn
+izv
+izv
+izv
+lsn
 yli
 jum
 mrH

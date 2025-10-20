@@ -8,9 +8,9 @@
 /obj/machinery/fluid_pipe/pump
 	name = "fluid pump"
 	desc = "Pumps fluids from one pipe to another."
-	icon = 'icons/obj/pipes/fluid_pipes.dmi'
 	icon_state = "pump_4"
 	just_a_pipe = FALSE
+	dir = EAST
 	capacity = 0 // Safety
 	/// How much fluid do we move each tick? The amount moved is the double of the variable.
 	var/pump_speed = 50 // Enough to fully fill one pipe per tick
@@ -91,9 +91,6 @@
 
 /obj/machinery/fluid_pipe/pump/south
 	dir = SOUTH
-
-/obj/machinery/fluid_pipe/pump/east
-	dir = EAST
 
 /obj/machinery/fluid_pipe/pump/west
 	dir = WEST

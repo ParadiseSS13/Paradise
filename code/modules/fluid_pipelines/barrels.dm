@@ -8,7 +8,6 @@
 	icon = 'icons/obj/pipes/barrel.dmi'
 	icon_state = "base"
 	density = TRUE
-	anchored = FALSE
 	/// Max amount of fluids
 	var/max_amount = 250
 	/// Internal fluid tank datum

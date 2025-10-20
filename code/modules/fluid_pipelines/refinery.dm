@@ -10,8 +10,6 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 	layer = MOB_LAYER + 0.5
 	pixel_x = -32
 	just_a_pipe = FALSE
-	density = TRUE
-	new_attack_chain = TRUE
 	just_a_pipe = FALSE
 	/// Intake of fluids
 	var/obj/machinery/fluid_pipe/abstract/refinery_intake/intake
@@ -159,12 +157,6 @@ GLOBAL_LIST_EMPTY(refinery_recipes)
 		fluid_datum.add_fluid(GLOB.fluid_id_to_path[id], amount)
 	if(selected_recipe.solid_output)
 		new selected_recipe.solid_output(get_turf(src))
-
-/obj/machinery/fluid_pipe/plasma_refinery/east
-	icon_state = "refinery_4"
-	dir = EAST
-	pixel_x = -32
-	connect_dirs = list(EAST, SOUTH)
 
 /obj/machinery/fluid_pipe/plasma_refinery/west
 	icon_state = "refinery_8"
