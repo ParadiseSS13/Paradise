@@ -45164,6 +45164,15 @@
 "iBR" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/storage)
+"iBZ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "iCa" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -48100,17 +48109,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/hydroponics)
 "jHX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/structure/cable/extra_insulated{
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/catwalk,
-/area/station/maintenance/fsmaint2)
+/turf/space,
+/area/station/engineering/solar/fore_starboard)
 "jIf" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet,
@@ -48464,14 +48468,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine_foyer)
 "jMF" = (
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: <<<"
-	},
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/machinery/computer/shuttle/engineering,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -48481,29 +48481,14 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: ---"
-	},
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
-	},
-/obj/machinery/computer/sm_monitor,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tiles/department/command/side{
 	dir = 1
 	},
-/obj/merge_conflict_marker{
-	name = "Merge Conflict Marker: >>>"
-	},
+/obj/machinery/computer/shuttle/engineering,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
 "jMW" = (
@@ -53517,14 +53502,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos/control)
 "lsn" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
-/obj/effect/turf_decal/caution/stand_clear{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/transmission_laser)
+/turf/space,
+/area/station/engineering/solar/fore_starboard)
 "lsz" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -59961,9 +59944,6 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
-"nMm" = (
-/turf/simulated/floor/plasteel,
-/area/station/engineering/transmission_laser)
 "nMo" = (
 /obj/machinery/suit_storage_unit/qm/secure,
 /turf/simulated/floor/carpet/royalblack,
@@ -78039,12 +78019,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/surgery/observation)
 "uxg" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/space,
-/area/station/engineering/solar/fore_starboard)
+/turf/simulated/floor/plasteel,
+/area/station/engineering/transmission_laser)
 "uxi" = (
 /obj/structure/table,
 /obj/item/wrench,
@@ -86420,12 +86396,17 @@
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
 "xwi" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/cable/extra_insulated{
 	icon_state = "4-8"
 	},
-/turf/space,
-/area/station/engineering/solar/fore_starboard)
+/turf/simulated/floor/catwalk,
+/area/station/maintenance/fsmaint2)
 "xwJ" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -132395,7 +132376,7 @@ aaa
 aaa
 aaa
 abq
-uxg
+lsn
 eiz
 mVu
 arC
@@ -132652,7 +132633,7 @@ abf
 aup
 abf
 abq
-xwi
+jHX
 dPW
 dPW
 dPW
@@ -132664,7 +132645,7 @@ mhE
 mhE
 mhE
 mhE
-jHX
+xwi
 cQr
 sln
 enp
@@ -132909,7 +132890,7 @@ aaa
 abq
 aaa
 abq
-xwi
+jHX
 abq
 abq
 ogY
@@ -135482,10 +135463,10 @@ ire
 aaa
 aaa
 vum
-nMm
+uxg
 tIp
-nMm
-nMm
+uxg
+uxg
 gky
 xPV
 bhi
@@ -135741,8 +135722,8 @@ aaa
 vum
 wkz
 fAA
-nMm
-nMm
+uxg
+uxg
 yfA
 woM
 bBT
@@ -135999,7 +135980,7 @@ vum
 hQm
 bHT
 dEx
-nMm
+uxg
 eqT
 eTS
 wyk
@@ -136254,11 +136235,11 @@ aaa
 aaa
 vum
 vum
-lsn
+iBZ
 izv
 izv
 izv
-lsn
+iBZ
 yli
 jum
 mrH
