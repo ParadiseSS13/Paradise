@@ -1,14 +1,18 @@
+#define SILK_NUTRITION_AMOUNT 90
+
 /datum/species/skulk
 
 	name = "Skkulakin"
 	name_plural = "Skkulakin"
+	max_age = 70
+	icobase = 'icons/mob/human_races/skulk/r_skulkbrown.dmi'
 	language = "Skkula-Runespeak"
+	unarmed_type = /datum/unarmed_attack/claws
 
 	blurb = "The Skkulakin are a species of psionically-attuned furred arthropods hailing from the Western Orion Spur. \
 	Originating from the planet Votum-Accorium, an artic world ruled by the brutal theocratic government known as the Silver Collective.<br/><br/> \
 	Despite owning a large amount of territory in the western arm of the sector, the lack of plasma of which their empire relies on is being stretched thin. \
 	This has forced the once-proud species to branch out and desperate seek out a solution to their critical shortage."
-	unarmed_type = /datum/unarmed_attack/claws
 
 	cold_level_1 = 240
 	cold_level_2 = 180
@@ -22,8 +26,58 @@
 
 	species_traits = list()
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_BUG
-	dietflags = DIET_HERB
+	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
+	bodyflags = HAS_BODY_MARKINGS | HAS_BACK_SPINES
+	dietflags = DIET_OMNI
+	flesh_color = "#e3e2dd"
+
 	reagent_tag = PROCESS_ORG
+
+	icon_skin_tones = list(
+		1 = "Blackgate",
+		2 = "Talwyrm",
+		3 = "Valcore",
+		4 = "Ossya",
+		5 = "Highfield",
+		6 = "Votum-Accorium"
+	)
+
+	/datum/species/skulk/on_species_gain(mob/living/carbon/human/H)
+	..()
+	updatespeciescolor(H)
+	H.update_icons()
+
+	/datum/species/skulk/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the Skulk race.
+	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
+		var/new_icobase = 'icons/mob/human_races/skulk/r_skulkbrown.dmi' //Default Talwyrm Skkulakin.
+		switch(H.s_tone)
+			if(6) //Blackgate Skkulakin.
+				new_icobase = 'icons/mob/human_races/skulk/r_skulkblack.dmi'
+				H.spines = list("hunter1", "cosmic1", "illusive1", "venom1", "hunger1")
+			if(5) //Ossya Skkulakin.
+				new_icobase = 'icons/mob/human_races/skulk/r_skulkblue.dmi'
+				H.spines = list("hunter4", "cosmic4", "illusive4", "venom4", "hunger4")
+			if(4) //Highfield Skkulakin.
+				new_icobase = 'icons/mob/human_races/skulk/r_skulkgreen.dmi'
+				H.spines = list("hunter5", "cosmic5", "illusive5", "venom5", "hunger5")
+			if(3) //Valcore Skkulakin.
+				new_icobase = 'icons/mob/human_races/skulk/r_skulkred.dmi'
+				H.spines = list("hunter3", "cosmic3", "illusive3", "venom3", "hunger3")
+			if(2) //Votum-Accorium Skkulakin.
+				new_icobase = 'icons/mob/human_races/skulk/r_skulkwhite.dmi'
+				H.spines = list("hunter6", "cosmic6", "illusive6", "venom6", "hunger6")
+			else
+				H.spines = list("hunter2", "cosmic2", "illusive2", "venom2", "hunger2")
+		H.change_icobase(new_icobase, owner_sensitive)
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart/skulk,
+		"lungs" =    /obj/item/organ/internal/lungs/skulk,
+		"liver" =    /obj/item/organ/internal/liver/skulk,
+		"kidneys" =  /obj/item/organ/internal/kidneys/skulk,
+		"brain" =    /obj/item/organ/internal/brain/skulk,
+		"eyes" =     /obj/item/organ/internal/eyes/skulk
+	)
 
 	suicide_messages = list(
 		"is attempting to blow up their mind with their mind!",
@@ -32,4 +86,29 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
-	flesh_color = "#d3d3d3"
+/datum/species/skulk/on_species_gain(mob/living/carbon/human/H)
+	..()
+	var/datum/action/innate/spin_silk/spin_silk = new()
+	spin_silk.Grant(H)
+
+/datum/action/innate/spin_silk
+	name = "Spin Silk"
+	desc = "placeholder"
+	button_icon = 'icons/obj/cigarettes.dmi'
+	button_icon_state = "match_unathi"
+	var/cooldown = 0
+	var/cooldown_duration = 10 SECONDS
+	check_flags = AB_CHECK_HANDS_BLOCKED
+/datum/action/innate/spin_silk/Activate()
+	var/mob/living/carbon/human/user = owner
+	if(world.time <= cooldown)
+		to_chat(user, "<span_class='warning'>placeholder. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
+		return
+	var/mob/living/carbon/human/skulk/H = owner
+	if(H.nutrition < SILK_NUTRITION_AMOUNT)
+		to_chat(H, "<span class='warning'>Fuck you</span>")
+		return
+	H.visible_message("<span class='notice'>[H] placeholder...</span>", "<span class='notice'>Placeholder... (This will take [5] seconds, and you must hold still.)</span>")
+	if(!do_after(H, 5 SECONDS, FALSE, H))
+		return
+	H.adjust_nutrition(-SILK_NUTRITION_AMOUNT)

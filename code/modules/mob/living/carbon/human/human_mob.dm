@@ -1209,6 +1209,8 @@
 
 	wing = dna.species.wing
 
+	spine = dna.species.spine
+
 	maxHealth = dna.species.total_health
 
 	if(dna.species.language)

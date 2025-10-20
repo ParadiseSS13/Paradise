@@ -117,6 +117,7 @@
 #define BALD				(1<<14)
 #define ALL_RPARTS			(1<<15)
 #define SHAVED				(1<<16)
+#define HAS_BACK_SPINES		(1<<17)
 
 //Pre-baked combinations of the above body flags
 #define HAS_BODY_ACCESSORY 	(HAS_TAIL | HAS_WING)

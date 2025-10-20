@@ -13,6 +13,7 @@
  * Bones
  * Plastic
  * Saltpetre Crystal
+ * Silk
  */
 
 //////////////////////////////
@@ -780,3 +781,21 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	icon_state = "sheet-saltpetre"
 	singular_name = "saltpetre crystal"
 	origin_tech = "materials=1;biotech=1"
+
+//////////////////////////////
+// MARK: Silk
+//////////////////////////////
+
+/obj/item/stack/sheet/silk
+	name = "silk spool"
+	desc = "placeholder"
+	icon_state = "sheet-cloth"
+	singular_name = "silk"
+	throwforce = 0
+	origin_tech = "materials=1;biotech=1"
+	materials = list(MAT_SILK = MINERAL_MATERIAL_AMOUNT)
+	merge_type = /obj/item/stack/sheet/silk
+
+GLOBAL_LIST_INIT(silk_recipes, list(
+	new /datum/stack_recipe("cloth", /obj/item/stack/sheet/cloth, 3)))
+
