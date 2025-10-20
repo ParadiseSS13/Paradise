@@ -40,6 +40,9 @@
 	projectile_type = /obj/item/projectile/beam/disabler
 	projectile_sound = 'sound/weapons/taser2.ogg'
 	ai_controller = /datum/ai_controller/basic_controller/swarmer
+	see_in_dark = 6
+	light_range = 2
+	light_color = LIGHT_COLOR_CYAN
 
 	/// Resources the swarmer gains from consuming things
 	var/resources = 0
@@ -79,6 +82,9 @@
 	if(ismachinery(target))
 		disintegrate_machine(target)
 		return FALSE
+	if(istype(target, /obj/structure))
+		disintegrate_machine(target)
+		return FALSE
 	if(isitem(target))
 		integrate(target)
 		return FALSE
@@ -99,15 +105,11 @@
 				C.Jitter(6 SECONDS)
 				return ..()
 			else if(C.canBeHandcuffed() && !C.handcuffed)
-				var/obj/item/restraints/handcuffs/energy/Z = new /obj/item/restraints/handcuffs/energy(src)
-				Z.apply_cuffs(target, src)
+				var/obj/item/restraints/handcuffs/cable/cyan/cuffs = new /obj/item/restraints/handcuffs/cable/cyan(src)
+				cuffs.apply_cuffs(target, src)
 				return FALSE
-			else if(!(C in GLOB.swarmer_list))
-				disintegrate_mob(target)
-				return FALSE
-			// It's stunned, cuffed, but already nabbed? Make it go away.
-			to_chat(src, "<span class='warning'>Our sensors have already scanned this entity. Relocating.</span>")
-			disappear_mob(target)
+			// Make it go away.
+			disintegrate_mob(target)
 			return FALSE
 		if(issilicon(target))
 			var/mob/living/silicon/S = target
@@ -125,10 +127,10 @@
 
 	new /obj/effect/temp_visual/swarmer/disintegration(target.loc)
 	to_chat(src, "<span class='notice'>Beginning disintegration of [target].")
-	if(!do_after_once(src, 1 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating [target]."))
+	if(!do_after_once(src, 1 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating [target].", interaction_key = "disintegrate"))
 		return
 	resources += 8
-	target.Destroy()
+	target.ChangeTurf(/turf/simulated/floor/plating)
 
 /mob/living/basic/swarmer/proc/disintegrate_machine(obj/machinery/target)
 	if(isairlock(target))
@@ -137,20 +139,20 @@
 
 	new /obj/effect/temp_visual/swarmer/dismantle(target.loc)
 	to_chat(src, "<span class='notice'>Beginning disintegration of [target].")
-	if(!do_after_once(src, 2.5 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating [target]."))
+	if(!do_after_once(src, 2.5 SECONDS, target = target, attempt_cancel_message = "You stop disintegrating [target].", interaction_key = "disintegrate"))
 		return
 	resources += 10
 	target.Destroy()
 
 /mob/living/basic/swarmer/proc/integrate(obj/item/target)
-	new /obj/effect/temp_visual/swarmer/integrate(target.loc)
+	new /obj/effect/temp_visual/swarmer/disintegration(target.loc)
 	resources += 10
 	qdel(target)
 
 /mob/living/basic/swarmer/proc/disintegrate_mob(mob/living/target)
-	new /obj/effect/temp_visual/swarmer/integrate(target.loc)
+	new /obj/effect/temp_visual/swarmer/disintegration(target.loc)
 	to_chat(src, "<span class='notice'>Beginning integration of [target].")
-	if(!do_after_once(src, 5 SECONDS, target = target, attempt_cancel_message = "You stop integrating [target]."))
+	if(!do_after_once(src, 1 SECONDS, target = target, attempt_cancel_message = "You stop integrating [target].", interaction_key = "disintegrate"))
 		return
 	resources += 50
 	if(isanimal_or_basicmob(target))
@@ -158,24 +160,19 @@
 		return
 	target.apply_damage(150, BRUTE)
 	target.apply_damage(150, BURN)
-	GLOB.swarmer_list += target
+	ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
+	disappear_mob(target)
 
 /mob/living/basic/swarmer/proc/disappear_mob(mob/target)
 	if(!is_station_level(z))
 		to_chat(src, "<span class='warning'>Our bluespace transceiver cannot locate a viable bluespace link, our teleportation abilities are useless in this area.</span>")
 		return
 
-	to_chat(src, "<span class='info'>Attempting to remove this being from our presence.</span>")
-	if(!do_mob(src, target, 3 SECONDS))
-		return
-
-	var/turf/simulated/floor/F
-	F = find_safe_turf(zlevels = z)
+	var/turf/simulated/floor/F = find_safe_turf(zlevels = z)
 
 	if(!F)
 		return
-	// If we're getting rid of a human, slap some energy cuffs on
-	// them to keep them away from us a little longer
+
 	do_sparks(4, 0, target)
 	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
 	do_teleport(target, F, 0)
