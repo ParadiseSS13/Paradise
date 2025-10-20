@@ -77,6 +77,12 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"aaX" = (
+/obj/machinery/computer/shuttle/engineering{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint2)
 "abb" = (
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/wood,
@@ -137148,8 +137154,8 @@ edZ
 hMI
 vDE
 mhE
-enp
-aaa
+ilG
+ilG
 aaa
 aaa
 aaa
@@ -137405,7 +137411,7 @@ cFE
 hMI
 vDE
 mhE
-enp
+aaX
 ilG
 aaa
 aaa
